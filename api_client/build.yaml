@@ -1,0 +1,41 @@
+targets:
+  $default:
+    builders:
+      ferry_generator2|graphql_builder:
+        options:
+          # On remet le schéma sous forme de Map
+          schema:
+            file: api_client|lib/src/graphql/schema.graphql
+
+          # Utilisation de scalar_overrides pour mapper Date -> DateTime
+          scalars:
+            Date:
+              type: String
+            DateTime:
+              type: String
+
+          outputs:
+            ast: true
+            data: true
+            vars: true
+            req: true
+            schema: true
+
+          data_classes:
+            reuse_fragments: true
+            when_extensions:
+              when: true
+              maybe_when: true
+            utils:
+              copy_with: true
+              equals: true
+              hash_code: true
+              to_string: true
+
+          vars:
+            tristate_optionals: true
+
+          enums:
+            fallback:
+              global: true
+              name: gUnknownEnumValue

@@ -1,0 +1,25 @@
+fragment TripFields on TripNode {
+    id
+    title # Attention : votre schéma utilise 'title' et non 'name'
+    date
+    description
+    imageUrls
+}
+
+fragment SegmentFields on SegmentNode {
+    id
+    type
+    intermediatePoints {
+        lat
+        lng
+    }
+}
+
+fragment WaypointFields on WaypointNode {
+    id
+    lat
+    lng
+    type
+    description
+    imageUrls
+}

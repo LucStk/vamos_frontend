@@ -1,0 +1,158 @@
+schema {
+  query: CartoQuery
+  mutation: CartoMutation
+}
+
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+type CartoMutation {
+  createTrip(input: CreateTripInput!): CreateTripPayload
+  updateTrip(input: UpdateTripInput!): UpdateTripPayload
+  deleteTrip(input: DeleteTripInput!): DeleteTripPayload
+}
+
+type CartoQuery {
+  trip(id: ID!): TripNode
+  trips: [TripNode!]!
+}
+
+input CreateTripInput {
+  trip: TripInput!
+  clientMutationId: String
+}
+
+type CreateTripPayload {
+  trip: TripNode!
+  clientMutationId: String
+}
+
+"""
+The `Date` scalar type represents a Date
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar Date
+
+input DeleteTripInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteTripPayload {
+  deletedId: ID!
+  clientMutationId: String
+}
+
+"""
+Allows use of a JSON String for input / output from the GraphQL schema.
+
+Use of this type is *not recommended* as you lose the benefits of having a defined, static
+schema (one of the key benefits of GraphQL).
+"""
+scalar JSONString
+
+input LatLngInput {
+  lat: Float!
+  lng: Float!
+}
+
+type LatLngType {
+  lat: Float!
+  lng: Float!
+}
+
+"""An object with an ID"""
+interface Node {
+  """The ID of the object"""
+  id: ID!
+}
+
+input SegmentInput {
+  type: SegmentTypeEnum!
+  intermediatePoints: [LatLngInput!]!
+}
+
+type SegmentNode implements Node {
+  """The ID of the object"""
+  id: ID!
+  type: SegmentTypeEnum!
+  intermediatePoints: [LatLngType!]!
+}
+
+enum SegmentTypeEnum {
+  bike
+  car
+  boat
+  walk
+  train
+}
+
+input TripInput {
+  title: String!
+  description: String!
+  date: Date
+  imageUrls: [String!]
+  waypoints: [WaypointInput!]
+  segments: [SegmentInput!]
+}
+
+type TripNode implements Node {
+  """The ID of the object"""
+  id: ID!
+  title: String!
+  description: String!
+  date: Date
+  imageUrls: JSONString!
+  waypoints: [WaypointNode!]!
+  segments: [SegmentNode!]!
+}
+
+input UpdateTripInput {
+  id: ID!
+  trip: TripInput!
+  clientMutationId: String
+}
+
+type UpdateTripPayload {
+  trip: TripNode!
+  clientMutationId: String
+}
+
+input WaypointInput {
+  lat: Float!
+  lng: Float!
+  type: WaypointTypeEnum!
+  description: String!
+  imageUrls: [String!]
+}
+
+type WaypointNode implements Node {
+  """The ID of the object"""
+  id: ID!
+  lat: Float!
+  lng: Float!
+  type: WaypointTypeEnum!
+  description: String!
+  imageUrls: [String!]!
+}
+
+enum WaypointTypeEnum {
+  start
+  end
+  waypoint
+  water
+  food
+  repair
+  shelter
+  camping
+  viewpoint
+  historic
+  beach
+  boat
+  warning
+}
+
