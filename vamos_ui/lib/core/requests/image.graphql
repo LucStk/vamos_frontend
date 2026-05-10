@@ -1,0 +1,9 @@
+mutation UploadImage($image: Upload!, $title: String!) {
+  uploadImage(image: $image, title: $title) {
+    image {
+      title
+      image
+      createdAt
+    }
+  }
+}

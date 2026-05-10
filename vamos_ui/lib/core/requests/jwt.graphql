@@ -1,0 +1,21 @@
+
+mutation RefreshToken($refreshtoken: String!) {
+  refreshToken(input: {refreshToken: $refreshtoken}) {
+    payload
+    refreshExpiresIn
+    token
+    refreshToken
+  }
+}
+
+mutation RevokeToken($refreshtoken: String!) {
+  revokeToken(input: {refreshToken: $refreshtoken}) {
+    revoked
+  }
+}
+
+mutation VerifyToken($token: String!) {
+  verifyToken(input: {token: $token}) {
+    payload
+  }
+}
