@@ -24,20 +24,6 @@ void main() async {
       },
     );
   });
-  test('Trip query', () async {
-    const String id =
-        "VHJpcE5vZGU6MmY3NWY0YjUtNjcwNi00NWQyLThlZmItZDk5MmVhMGJiN2Q0";
-    final result = await getIt<TripRepository>().getTrip(id);
-    result.fold(
-      (failure) {
-        print(failure);
-        throw failure;
-      },
-      (trip) {
-        print("ça fonctionne !");
-      },
-    );
-  });
   test('Trip création', () async {
     final trip = Trip(
       title: "Trip venant de la création",
