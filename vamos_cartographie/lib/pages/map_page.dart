@@ -1,13 +1,15 @@
 import 'package:api_client/api_client.dart';
 import 'package:dartz/dartz.dart' hide State, Value, Function;
+import 'package:flutter_map/flutter_map.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 
 import 'package:latlong2/latlong.dart';
 import '../map/customPolyEditor.dart';
 import '../map/map_view.dart';
 import '../models.dart';
-import '../widgets/map_fab_column.dart';
-import '../widgets/map_title_banner.dart';
+import '../widgets/map_controls.dart';
+import '../widgets/map_edit_toolbar.dart';
+import '../widgets/map_top_bar.dart';
 import '../widgets/segment_bottom_sheet.dart';
 import '../widgets/trip_info_sheet.dart';
 import '../widgets/waypoint_bottom_sheet.dart';
@@ -39,6 +41,9 @@ class _MapPageState extends State<MapPage> {
 
   AppMode _mode = AppMode.observer;
   bool _addingPoint = false; // actif uniquement en mode éditeur
+
+  final MapController _mapController = MapController();
+  bool _isDirty = false; // true dès qu'une modification non sauvegardée existe
 
   @override
   void initState() {
@@ -74,27 +79,22 @@ class _MapPageState extends State<MapPage> {
       // ghost points repositionnés. Sûr car utilisé uniquement pour les
       // drags qui ne changent PAS la taille de la liste (waypoints, real
       // intermediate points). Les ghost drags utilisent _repaint() seul.
-      callbackRefresh: (_) => setState(() {}),
+      callbackRefresh: (_) => setState(() {
+        _isDirty = true;
+      }),
       onWaypointLongPress: _showWaypointOptions,
       // Ces deux callbacks déclenchent un setState car ils modifient
       // la structure des markers (insertion / suppression).
-      onSegmentMidpointInserted: (_) => setState(() {}),
-      onIntermediatePointDeleted: (_, __) => setState(() {}),
+      onSegmentMidpointInserted: (_) => setState(() {
+        _isDirty = true;
+      }),
+      onIntermediatePointDeleted: (_, __) => setState(() {
+        _isDirty = true;
+      }),
     );
   }
 
-  // ── Mode ────────────────────────────────────────────────────────────────
-
-  void _toggleMode() {
-    setState(() {
-      if (_mode == AppMode.editor) {
-        _mode = AppMode.observer;
-        _addingPoint = false;
-      } else {
-        _mode = AppMode.editor;
-      }
-    });
-  }
+  // ── Mode ────────────────────────────────────────────────────────────────────────
 
   bool get _isEditing => _mode == AppMode.editor;
 
@@ -188,6 +188,7 @@ class _MapPageState extends State<MapPage> {
           isError: false,
         );
         _trip.id = id;
+        _isDirty = false;
       },
     );
   }
@@ -230,6 +231,35 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  Future<void> _handleBack() async {
+    if (_isDirty) {
+      final choice = await showDialog<String>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Modifications non enregistrées'),
+          content: const Text('Voulez-vous sauvegarder avant de quitter ?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop('discard'),
+              child: const Text('Ignorer'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop('cancel'),
+              child: const Text('Annuler'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(ctx).pop('save'),
+              child: const Text('Sauvegarder'),
+            ),
+          ],
+        ),
+      );
+      if (choice == 'cancel' || choice == null) return;
+      if (choice == 'save') await _saveRoute();
+    }
+    if (mounted) Navigator.of(context).maybePop();
+  }
+
   Future<void> _loadRoute() async {
     if (_trip.id == null) {
       _showCustomSnackBar(message: 'Aucun voyage à recharger.', isError: true);
@@ -266,36 +296,48 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // ── Carte ──
+          // ── Carte plein écran ──
           MapView(
             trip: _trip,
             editor: _editor,
             editable: _isEditing,
+            mapController: _mapController,
             onTap: (_isEditing && _addingPoint)
-                ? (latLng) => setState(() => _trip.addWaypoint(latLng))
+                ? (latLng) => setState(() {
+                    _trip.addWaypoint(latLng);
+                    _isDirty = true;
+                  })
                 : null,
             onSegmentTypeMarkerTap: _isEditing ? _showSegmentOptions : null,
             onWaypointTap: !_isEditing ? _showWaypointInfo : null,
           ),
 
-          // ── Bandeau titre ──
-          MapTitleBanner(
+          // ── Barre supérieure ──
+          MapTopBar(
             title: title,
             isEditing: _isEditing,
-            onTap: _showTripInfo,
+            isDirty: _isDirty,
+            onBack: _handleBack,
+            onTitleTap: _showTripInfo,
+            onModeChanged: (value) => setState(() {
+              _mode = value ? AppMode.editor : AppMode.observer;
+              if (!value) _addingPoint = false;
+            }),
           ),
-        ],
-      ),
 
-      // ── FAB ──
-      floatingActionButton: MapFabColumn(
-        isEditing: _isEditing,
-        isAddingPoint: _addingPoint,
-        onToggleMode: _toggleMode,
-        onToggleAddPoint: () => setState(() => _addingPoint = !_addingPoint),
-        onSave: _saveRoute,
-        onReload: _loadRoute,
-        onBack: () => Navigator.of(context).maybePop(),
+          // ── Boutons de contrôle carte (zoom, nord) ──
+          MapControls(mapController: _mapController),
+
+          // ── Barre d'édition (visible uniquement en mode édition) ──
+          if (_isEditing)
+            MapEditToolbar(
+              isAddingPoint: _addingPoint,
+              onToggleAddPoint: () =>
+                  setState(() => _addingPoint = !_addingPoint),
+              onSave: _saveRoute,
+              onReload: _loadRoute,
+            ),
+        ],
       ),
     );
   }

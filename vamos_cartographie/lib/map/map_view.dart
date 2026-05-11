@@ -15,6 +15,7 @@ class MapView extends StatelessWidget {
   final void Function(int)? onSegmentTypeMarkerTap;
   final void Function(int)? onWaypointTap;
   final bool editable;
+  final MapController? mapController;
 
   const MapView({
     Key? key,
@@ -24,11 +25,13 @@ class MapView extends StatelessWidget {
     this.onSegmentTypeMarkerTap,
     this.onWaypointTap,
     this.editable = true,
+    this.mapController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
+      mapController: mapController,
       options: MapOptions(
         initialCenter: LatLng(46.8, 2.2),
         initialZoom: 7,
