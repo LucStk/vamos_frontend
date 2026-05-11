@@ -68,8 +68,12 @@ class _MapPageState extends State<MapPage> {
   CustomPolyEditor _buildEditor() {
     return CustomPolyEditor(
       trip: _trip,
-      callbackRefresh: (_) => setState(() {}),
+      // Le repaint pendant le drag est géré par le repaintNotifier de l'éditeur
+      // via ValueListenableBuilder dans MapView — pas besoin de setState ici.
+      callbackRefresh: (_) {},
       onWaypointLongPress: _showWaypointOptions,
+      // Ces deux callbacks déclenchent un setState car ils modifient
+      // la structure des markers (insertion / suppression).
       onSegmentMidpointInserted: (_) => setState(() {}),
       onIntermediatePointDeleted: (_, __) => setState(() {}),
     );

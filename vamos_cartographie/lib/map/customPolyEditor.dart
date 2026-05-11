@@ -6,7 +6,15 @@ import 'segment_intermediatePoints.dart';
 
 class CustomPolyEditor {
   final Trip trip;
+
+  /// Incrémenté à chaque mouvement de drag — les listeners (MapView)
+  /// se redessinent sans reconstruire les DragMarkers.
+  final ValueNotifier<int> repaintNotifier = ValueNotifier(0);
+
+  /// Appelé uniquement quand la liste des markers doit être reconstruite
+  /// (insertion ou suppression d'un point). Déclenche un setState dans MapPage.
   final void Function(LatLng? point) callbackRefresh;
+
   final void Function(int index) onWaypointLongPress;
   final void Function(int segmentIndex) onSegmentMidpointInserted;
   final void Function(int segmentIndex, int pointIndex)
@@ -24,6 +32,9 @@ class CustomPolyEditor {
     required this.onIntermediatePointDeleted,
   });
 
+  /// Notifie un repaint léger sans reconstruire les DragMarkers.
+  void _repaint() => repaintNotifier.value++;
+
   List<DragMarker> edit() {
     final markers = <DragMarker>[];
 
@@ -40,9 +51,12 @@ class CustomPolyEditor {
           onDragStart: (_, __) => _draggingWaypointIndex = index,
           onDragUpdate: (_, latLng) {
             trip.waypoints[index].latLng = latLng;
-            callbackRefresh(latLng);
+            _repaint();
           },
-          onDragEnd: (_, __) => _draggingWaypointIndex = null,
+          onDragEnd: (_, __) {
+            _draggingWaypointIndex = null;
+            callbackRefresh(null);
+          },
           onTap: (_) => onWaypointLongPress(index),
         ),
       );
@@ -67,11 +81,12 @@ class CustomPolyEditor {
             },
             onDragUpdateCallback: (_, latLng) {
               trip.segments[segIndex].intermediatePoints[pIndex] = latLng;
-              callbackRefresh(latLng);
+              _repaint();
             },
             onDragEndCallback: (_, __) {
               _draggingIntermediateSegment = null;
               _draggingIntermediateIndex = null;
+              callbackRefresh(null);
             },
             onTapCallback: (_) {
               trip.segments[segIndex].intermediatePoints.removeAt(pIndex);
@@ -81,7 +96,7 @@ class CustomPolyEditor {
         );
       }
 
-      // Fantôme au milieu du segment (pour insérer un nouveau point)
+      // Fantôme au milieu de chaque sous-segment (pour insérer un nouveau point)
       final points = trip.segmentPoints(s);
       if (points.length >= 2) {
         for (var pp = 0; pp < points.length - 1; pp++) {
@@ -91,7 +106,7 @@ class CustomPolyEditor {
             from.latitude + (to.latitude - from.latitude) / 2,
             from.longitude + (to.longitude - from.longitude) / 2,
           );
-          final insertAt = pp; // position dans intermediatePoints
+          final insertAt = pp;
 
           markers.add(
             IntermediatePoints(
@@ -106,7 +121,8 @@ class CustomPolyEditor {
                 );
                 _draggingIntermediateSegment = segIndex;
                 _draggingIntermediateIndex = insertAt;
-                onSegmentMidpointInserted(segIndex);
+                // Repaint léger : on ne reconstruit PAS les DragMarkers
+                _repaint();
               },
               onDragUpdateCallback: (_, latLng) {
                 if (_draggingIntermediateSegment != null &&
@@ -115,12 +131,15 @@ class CustomPolyEditor {
                           .segments[_draggingIntermediateSegment!]
                           .intermediatePoints[_draggingIntermediateIndex!] =
                       latLng;
-                  callbackRefresh(latLng);
+                  _repaint();
                 }
               },
               onDragEndCallback: (_, __) {
+                // Reconstruction complète des markers seulement à la fin du drag
+                final seg = _draggingIntermediateSegment;
                 _draggingIntermediateSegment = null;
                 _draggingIntermediateIndex = null;
+                if (seg != null) onSegmentMidpointInserted(seg);
               },
             ),
           );

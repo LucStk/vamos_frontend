@@ -40,28 +40,39 @@ class MapView extends StatelessWidget {
           userAgentPackageName: 'com.example.vamos_cartographie',
         ),
 
-        // Un PolylineLayer par segment pour les styles différents
-        ...SegmentLayersBuilder.buildLayers(trip),
+        // Le ValueListenableBuilder écoute le repaintNotifier du CustomPolyEditor.
+        // Il se redessine à chaque mouvement de drag SANS reconstruire les DragMarkers
+        // qui sont gérés en interne par flutter_map_dragmarker.
+        ValueListenableBuilder<int>(
+          valueListenable: editor.repaintNotifier,
+          builder: (_, __, ___) => Stack(
+            children: [
+              // Segments (lignes)
+              ...SegmentLayersBuilder.buildLayers(trip),
 
-        // Markers éditables (uniquement en mode édition)
-        if (editable) DragMarkers(markers: editor.edit()),
+              // Markers éditables (uniquement en mode édition)
+              if (editable) DragMarkers(markers: editor.edit()),
 
-        // Markers statiques des waypoints (toujours visibles)
-        // En mode édition ils sont en dessous des DragMarkers,
-        // en mode observateur ils sont tappables pour voir les infos.
-        if (!editable && onWaypointTap != null)
-          MarkerLayer(
-            markers: WaypointMarkersBuilder.buildMarkers(trip, onWaypointTap!),
+              // Markers statiques des waypoints (mode observateur)
+              if (!editable && onWaypointTap != null)
+                MarkerLayer(
+                  markers: WaypointMarkersBuilder.buildMarkers(
+                    trip,
+                    onWaypointTap!,
+                  ),
+                ),
+
+              // Marqueurs pour changer le type de segment
+              MarkerLayer(
+                markers: onSegmentTypeMarkerTap != null
+                    ? SegmentTypeMarkersBuilder.buildMarkers(
+                        trip,
+                        onSegmentTypeMarkerTap!,
+                      )
+                    : [],
+              ),
+            ],
           ),
-
-        // Marqueurs pour changer le type de segment
-        MarkerLayer(
-          markers: onSegmentTypeMarkerTap != null
-              ? SegmentTypeMarkersBuilder.buildMarkers(
-                  trip,
-                  onSegmentTypeMarkerTap!,
-                )
-              : [],
         ),
       ],
     );
