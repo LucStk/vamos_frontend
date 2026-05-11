@@ -1,11 +1,13 @@
 import 'package:api_client/api_client.dart';
 import 'package:dartz/dartz.dart' hide State, Value, Function;
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:latlong2/latlong.dart';
 import '../map/customPolyEditor.dart';
 import '../map/map_view.dart';
 import '../models.dart';
+import '../widgets/map_fab_column.dart';
+import '../widgets/map_title_banner.dart';
 import '../widgets/segment_bottom_sheet.dart';
 import '../widgets/trip_info_sheet.dart';
 import '../widgets/waypoint_bottom_sheet.dart';
@@ -240,7 +242,6 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final title = _trip.title.trim();
 
     // Écran de chargement pendant la récupération du trip
@@ -252,7 +253,10 @@ class _MapPageState extends State<MapPage> {
             children: [
               const CircularProgressIndicator(),
               const SizedBox(height: 16),
-              Text('Chargement du voyage…', style: theme.textTheme.bodyLarge),
+              Text(
+                'Chargement du voyage…',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ],
           ),
         ),
@@ -275,173 +279,23 @@ class _MapPageState extends State<MapPage> {
           ),
 
           // ── Bandeau titre ──
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: SafeArea(
-              child: GestureDetector(
-                onTap: _showTripInfo,
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.92),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.12),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.route,
-                        size: 20,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          title.isEmpty ? 'Nouveau voyage' : title,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: title.isEmpty
-                                ? Colors.grey.shade400
-                                : theme.colorScheme.onSurface,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      // Badge de mode
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: _isEditing
-                              ? theme.colorScheme.primary.withOpacity(0.12)
-                              : Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(99),
-                          border: Border.all(
-                            color: _isEditing
-                                ? theme.colorScheme.primary.withOpacity(0.4)
-                                : Colors.grey.shade300,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              _isEditing ? Icons.edit : Icons.visibility,
-                              size: 12,
-                              color: _isEditing
-                                  ? theme.colorScheme.primary
-                                  : Colors.grey.shade500,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              _isEditing ? 'Édition' : 'Lecture',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: _isEditing
-                                    ? theme.colorScheme.primary
-                                    : Colors.grey.shade500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+          MapTitleBanner(
+            title: title,
+            isEditing: _isEditing,
+            onTap: _showTripInfo,
           ),
         ],
       ),
 
       // ── FAB ──
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Bouton retour vers l'explorateur
-          FloatingActionButton(
-            heroTag: 'explorer',
-            tooltip: 'Retour aux voyages',
-            backgroundColor: theme.colorScheme.surfaceContainerHighest,
-            foregroundColor: theme.colorScheme.onSurfaceVariant,
-            onPressed: () => Navigator.of(context).maybePop(),
-            child: const Icon(Icons.list),
-          ),
-          const SizedBox(height: 12),
-
-          // Bouton mode observateur / éditeur
-          FloatingActionButton(
-            heroTag: 'mode',
-            tooltip: _isEditing
-                ? 'Passer en mode lecture'
-                : 'Passer en mode édition',
-            backgroundColor: _isEditing
-                ? theme.colorScheme.primary
-                : theme.colorScheme.surfaceContainerHighest,
-            foregroundColor: _isEditing
-                ? theme.colorScheme.onPrimary
-                : theme.colorScheme.onSurfaceVariant,
-            onPressed: _toggleMode,
-            child: Icon(_isEditing ? Icons.edit : Icons.visibility),
-          ),
-
-          // Boutons visibles uniquement en mode éditeur
-          if (_isEditing) ...[
-            const SizedBox(height: 12),
-
-            // Bouton ajout de point (toggle)
-            FloatingActionButton(
-              heroTag: 'add',
-              tooltip: _addingPoint
-                  ? 'Arrêter l\'ajout de points'
-                  : 'Ajouter des points',
-              backgroundColor: _addingPoint
-                  ? theme.colorScheme.tertiary
-                  : theme.colorScheme.secondaryContainer,
-              foregroundColor: _addingPoint
-                  ? theme.colorScheme.onTertiary
-                  : theme.colorScheme.onSecondaryContainer,
-              onPressed: () => setState(() => _addingPoint = !_addingPoint),
-              child: Icon(
-                _addingPoint ? Icons.location_off : Icons.add_location_alt,
-              ),
-            ),
-            const SizedBox(height: 12),
-
-            // Sauvegarde
-            FloatingActionButton(
-              heroTag: 'save',
-              tooltip: 'Sauvegarder',
-              onPressed: _saveRoute,
-              child: const Icon(Icons.save),
-            ),
-            const SizedBox(height: 12),
-
-            // Chargement
-            FloatingActionButton(
-              heroTag: 'load',
-              tooltip: 'Recharger depuis le serveur',
-              onPressed: _loadRoute,
-              child: const Icon(Icons.folder_open),
-            ),
-          ],
-        ],
+      floatingActionButton: MapFabColumn(
+        isEditing: _isEditing,
+        isAddingPoint: _addingPoint,
+        onToggleMode: _toggleMode,
+        onToggleAddPoint: () => setState(() => _addingPoint = !_addingPoint),
+        onSave: _saveRoute,
+        onReload: _loadRoute,
+        onBack: () => Navigator.of(context).maybePop(),
       ),
     );
   }
