@@ -68,9 +68,11 @@ class _MapPageState extends State<MapPage> {
   CustomPolyEditor _buildEditor() {
     return CustomPolyEditor(
       trip: _trip,
-      // Le repaint pendant le drag est géré par le repaintNotifier de l'éditeur
-      // via ValueListenableBuilder dans MapView — pas besoin de setState ici.
-      callbackRefresh: (_) {},
+      // Déclenche un setState complet → rebuild de DragMarkers avec
+      // ghost points repositionnés. Sûr car utilisé uniquement pour les
+      // drags qui ne changent PAS la taille de la liste (waypoints, real
+      // intermediate points). Les ghost drags utilisent _repaint() seul.
+      callbackRefresh: (_) => setState(() {}),
       onWaypointLongPress: _showWaypointOptions,
       // Ces deux callbacks déclenchent un setState car ils modifient
       // la structure des markers (insertion / suppression).

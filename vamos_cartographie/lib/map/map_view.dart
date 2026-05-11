@@ -40,39 +40,90 @@ class MapView extends StatelessWidget {
           userAgentPackageName: 'com.example.vamos_cartographie',
         ),
 
-        // Le ValueListenableBuilder écoute le repaintNotifier du CustomPolyEditor.
-        // Il se redessine à chaque mouvement de drag SANS reconstruire les DragMarkers
-        // qui sont gérés en interne par flutter_map_dragmarker.
-        ValueListenableBuilder<int>(
-          valueListenable: editor.repaintNotifier,
-          builder: (_, __, ___) => Stack(
-            children: [
-              // Segments (lignes)
-              ...SegmentLayersBuilder.buildLayers(trip),
+        // ── Couche "vivante" ────────────────────────────────────────────────
+        // Se redessine à chaque repaintNotifier++ (pendant le drag) pour
+        // mettre à jour les polylines. DragMarkers n'est PAS ici.
+        _LiveSegmentLayer(
+          trip: trip,
+          repaintNotifier: editor.repaintNotifier,
+          editable: editable,
+          onSegmentTypeMarkerTap: onSegmentTypeMarkerTap,
+          onWaypointTap: onWaypointTap,
+        ),
 
-              // Markers éditables (uniquement en mode édition)
-              if (editable) DragMarkers(markers: editor.edit()),
+        // ── DragMarkers ─────────────────────────────────────────────────────
+        // FRÈRE (pas enfant) de _LiveSegmentLayer.
+        // Ne rebuild QUE quand MapView lui-même rebuild, c'est-à-dire
+        // uniquement sur setState de MapPage — jamais pendant un drag actif.
+        // Cela préserve les états internes des DragMarkerWidget (position du
+        // drag en cours, _isDragging, etc.) et évite la reconciliation par
+        // position qui causait le bug.
+        if (editable) DragMarkers(markers: editor.edit()),
 
-              // Markers statiques des waypoints (mode observateur)
-              if (!editable && onWaypointTap != null)
-                MarkerLayer(
-                  markers: WaypointMarkersBuilder.buildMarkers(
-                    trip,
-                    onWaypointTap!,
-                  ),
-                ),
-
-              // Marqueurs pour changer le type de segment
-              MarkerLayer(
-                markers: onSegmentTypeMarkerTap != null
-                    ? SegmentTypeMarkersBuilder.buildMarkers(
-                        trip,
-                        onSegmentTypeMarkerTap!,
-                      )
-                    : [],
-              ),
-            ],
+        // Marqueurs statiques tappables (mode observateur)
+        if (!editable && onWaypointTap != null)
+          MarkerLayer(
+            markers: WaypointMarkersBuilder.buildMarkers(trip, onWaypointTap!),
           ),
+      ],
+    );
+  }
+}
+
+// ── _LiveSegmentLayer ─────────────────────────────────────────────────────────
+// Widget interne qui s'abonne au repaintNotifier du CustomPolyEditor.
+// Il ne contient QUE les polylines et les marqueurs de type de segment —
+// pas les DragMarkers.
+
+class _LiveSegmentLayer extends StatefulWidget {
+  final Trip trip;
+  final ValueNotifier<int> repaintNotifier;
+  final bool editable;
+  final void Function(int)? onSegmentTypeMarkerTap;
+  final void Function(int)? onWaypointTap;
+
+  const _LiveSegmentLayer({
+    required this.trip,
+    required this.repaintNotifier,
+    required this.editable,
+    this.onSegmentTypeMarkerTap,
+    this.onWaypointTap,
+  });
+
+  @override
+  State<_LiveSegmentLayer> createState() => _LiveSegmentLayerState();
+}
+
+class _LiveSegmentLayerState extends State<_LiveSegmentLayer> {
+  @override
+  void initState() {
+    super.initState();
+    widget.repaintNotifier.addListener(_rebuild);
+  }
+
+  void _rebuild() => setState(() {});
+
+  @override
+  void dispose() {
+    widget.repaintNotifier.removeListener(_rebuild);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // Lignes des segments (se mettent à jour pendant le drag)
+        ...SegmentLayersBuilder.buildLayers(widget.trip),
+
+        // Marqueurs de type de segment
+        MarkerLayer(
+          markers: widget.onSegmentTypeMarkerTap != null
+              ? SegmentTypeMarkersBuilder.buildMarkers(
+                  widget.trip,
+                  widget.onSegmentTypeMarkerTap!,
+                )
+              : [],
         ),
       ],
     );

@@ -51,12 +51,10 @@ class CustomPolyEditor {
           onDragStart: (_, __) => _draggingWaypointIndex = index,
           onDragUpdate: (_, latLng) {
             trip.waypoints[index].latLng = latLng;
-            _repaint();
+            // La liste ne change pas de taille → rebuild complet OK
+            callbackRefresh(latLng);
           },
-          onDragEnd: (_, __) {
-            _draggingWaypointIndex = null;
-            callbackRefresh(null);
-          },
+          onDragEnd: (_, __) => _draggingWaypointIndex = null,
           onTap: (_) => onWaypointLongPress(index),
         ),
       );
@@ -81,12 +79,13 @@ class CustomPolyEditor {
             },
             onDragUpdateCallback: (_, latLng) {
               trip.segments[segIndex].intermediatePoints[pIndex] = latLng;
-              _repaint();
+              // La liste ne change pas de taille → rebuild complet OK
+              // Les ghost points se repositionnent correctement
+              callbackRefresh(latLng);
             },
             onDragEndCallback: (_, __) {
               _draggingIntermediateSegment = null;
               _draggingIntermediateIndex = null;
-              callbackRefresh(null);
             },
             onTapCallback: (_) {
               trip.segments[segIndex].intermediatePoints.removeAt(pIndex);
