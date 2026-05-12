@@ -8,7 +8,7 @@ const TripFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'TripFields'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'TripNode'),
+    name: _i1.NameNode(value: 'TripType'),
     isNonNull: false,
   )),
   directives: [],
@@ -61,7 +61,7 @@ const SegmentFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'SegmentFields'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'SegmentNode'),
+    name: _i1.NameNode(value: 'SegmentType'),
     isNonNull: false,
   )),
   directives: [],
@@ -122,7 +122,7 @@ const WaypointFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'WaypointFields'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'WaypointNode'),
+    name: _i1.NameNode(value: 'WaypointType'),
     isNonNull: false,
   )),
   directives: [],

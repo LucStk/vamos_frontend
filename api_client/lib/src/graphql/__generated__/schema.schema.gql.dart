@@ -6,132 +6,6 @@ import 'package:api_client/src/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 
-class GCreateTripInput {
-  const GCreateTripInput({
-    required this.trip,
-    this.clientMutationId = const Value.absent(),
-  });
-
-  factory GCreateTripInput.fromJson(Map<String, dynamic> json) {
-    return GCreateTripInput(
-      trip: GTripInput.fromJson((json['trip'] as Map<String, dynamic>)),
-      clientMutationId: json.containsKey('clientMutationId')
-          ? Value.present(json['clientMutationId'] == null
-              ? null
-              : (json['clientMutationId'] as String))
-          : Value.absent(),
-    );
-  }
-
-  final GTripInput trip;
-
-  final Value<String> clientMutationId;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$tripValue = this.trip;
-    _$result['trip'] = _$tripValue.toJson();
-    final _$clientMutationIdValue = this.clientMutationId;
-    if (_$clientMutationIdValue.isPresent) {
-      final _$clientMutationIdRequired = _$clientMutationIdValue.requireValue;
-      _$result['clientMutationId'] = _$clientMutationIdRequired == null
-          ? null
-          : _$clientMutationIdRequired;
-    }
-    return _$result;
-  }
-
-  GCreateTripInput copyWith({
-    GTripInput? trip,
-    Value<String>? clientMutationId,
-  }) {
-    return GCreateTripInput(
-      trip: trip ?? this.trip,
-      clientMutationId: clientMutationId ?? this.clientMutationId,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GCreateTripInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GCreateTripInput(trip: $trip, clientMutationId: $clientMutationId)';
-  }
-}
-
-class GDeleteTripInput {
-  const GDeleteTripInput({
-    required this.id,
-    this.clientMutationId = const Value.absent(),
-  });
-
-  factory GDeleteTripInput.fromJson(Map<String, dynamic> json) {
-    return GDeleteTripInput(
-      id: (json['id'] as String),
-      clientMutationId: json.containsKey('clientMutationId')
-          ? Value.present(json['clientMutationId'] == null
-              ? null
-              : (json['clientMutationId'] as String))
-          : Value.absent(),
-    );
-  }
-
-  final String id;
-
-  final Value<String> clientMutationId;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$idValue = this.id;
-    _$result['id'] = _$idValue;
-    final _$clientMutationIdValue = this.clientMutationId;
-    if (_$clientMutationIdValue.isPresent) {
-      final _$clientMutationIdRequired = _$clientMutationIdValue.requireValue;
-      _$result['clientMutationId'] = _$clientMutationIdRequired == null
-          ? null
-          : _$clientMutationIdRequired;
-    }
-    return _$result;
-  }
-
-  GDeleteTripInput copyWith({
-    String? id,
-    Value<String>? clientMutationId,
-  }) {
-    return GDeleteTripInput(
-      id: id ?? this.id,
-      clientMutationId: clientMutationId ?? this.clientMutationId,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GDeleteTripInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GDeleteTripInput(id: $id, clientMutationId: $clientMutationId)';
-  }
-}
-
 class GLatLngInput {
   const GLatLngInput({
     required this.lat,
@@ -412,83 +286,12 @@ class GTripInput {
   }
 }
 
-class GUpdateTripInput {
-  const GUpdateTripInput({
-    required this.id,
-    required this.trip,
-    this.clientMutationId = const Value.absent(),
-  });
-
-  factory GUpdateTripInput.fromJson(Map<String, dynamic> json) {
-    return GUpdateTripInput(
-      id: (json['id'] as String),
-      trip: GTripInput.fromJson((json['trip'] as Map<String, dynamic>)),
-      clientMutationId: json.containsKey('clientMutationId')
-          ? Value.present(json['clientMutationId'] == null
-              ? null
-              : (json['clientMutationId'] as String))
-          : Value.absent(),
-    );
-  }
-
-  final String id;
-
-  final GTripInput trip;
-
-  final Value<String> clientMutationId;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$idValue = this.id;
-    _$result['id'] = _$idValue;
-    final _$tripValue = this.trip;
-    _$result['trip'] = _$tripValue.toJson();
-    final _$clientMutationIdValue = this.clientMutationId;
-    if (_$clientMutationIdValue.isPresent) {
-      final _$clientMutationIdRequired = _$clientMutationIdValue.requireValue;
-      _$result['clientMutationId'] = _$clientMutationIdRequired == null
-          ? null
-          : _$clientMutationIdRequired;
-    }
-    return _$result;
-  }
-
-  GUpdateTripInput copyWith({
-    String? id,
-    GTripInput? trip,
-    Value<String>? clientMutationId,
-  }) {
-    return GUpdateTripInput(
-      id: id ?? this.id,
-      trip: trip ?? this.trip,
-      clientMutationId: clientMutationId ?? this.clientMutationId,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GUpdateTripInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GUpdateTripInput(id: $id, trip: $trip, clientMutationId: $clientMutationId)';
-  }
-}
-
 class GWaypointInput {
   const GWaypointInput({
     required this.lat,
     required this.lng,
     required this.type,
-    required this.description,
+    this.description = const Value.absent(),
     this.imageUrls = const Value.absent(),
   });
 
@@ -497,7 +300,11 @@ class GWaypointInput {
       lat: (json['lat'] as double),
       lng: (json['lng'] as double),
       type: GWaypointTypeEnum.fromJson((json['type'] as String)),
-      description: (json['description'] as String),
+      description: json.containsKey('description')
+          ? Value.present(json['description'] == null
+              ? null
+              : (json['description'] as String))
+          : Value.absent(),
       imageUrls: json.containsKey('imageUrls')
           ? Value.present(json['imageUrls'] == null
               ? null
@@ -514,7 +321,7 @@ class GWaypointInput {
 
   final GWaypointTypeEnum type;
 
-  final String description;
+  final Value<String> description;
 
   final Value<List<String>> imageUrls;
 
@@ -527,7 +334,11 @@ class GWaypointInput {
     final _$typeValue = this.type;
     _$result['type'] = _$typeValue.toJson();
     final _$descriptionValue = this.description;
-    _$result['description'] = _$descriptionValue;
+    if (_$descriptionValue.isPresent) {
+      final _$descriptionRequired = _$descriptionValue.requireValue;
+      _$result['description'] =
+          _$descriptionRequired == null ? null : _$descriptionRequired;
+    }
     final _$imageUrlsValue = this.imageUrls;
     if (_$imageUrlsValue.isPresent) {
       final _$imageUrlsRequired = _$imageUrlsValue.requireValue;
@@ -542,7 +353,7 @@ class GWaypointInput {
     double? lat,
     double? lng,
     GWaypointTypeEnum? type,
-    String? description,
+    Value<String>? description,
     Value<List<String>>? imageUrls,
   }) {
     return GWaypointInput(
@@ -655,10 +466,4 @@ enum GWaypointTypeEnum {
   }
 }
 
-const Map<String, Set<String>> possibleTypesMap = {
-  'Node': {
-    'SegmentNode',
-    'TripNode',
-    'WaypointNode',
-  }
-};
+const Map<String, Set<String>> possibleTypesMap = {};

@@ -10,7 +10,7 @@ import 'package:api_client/src/graphql/fragments/__generated__/trip.data.gql.dar
 class GGetAllTripsData {
   const GGetAllTripsData({
     required this.trips,
-    this.G__typename = 'CartoQuery',
+    this.G__typename = 'Query',
   });
 
   factory GGetAllTripsData.fromJson(Map<String, dynamic> json) {
@@ -66,7 +66,7 @@ class GGetAllTripsData {
 class GGetTripData {
   const GGetTripData({
     this.trip,
-    this.G__typename = 'CartoQuery',
+    this.G__typename = 'Query',
   });
 
   factory GGetTripData.fromJson(Map<String, dynamic> json) {
@@ -127,7 +127,7 @@ class GGetTripData_trip implements _i1.GTripFields {
     this.date,
     required this.description,
     required this.imageUrls,
-    this.G__typename = 'TripNode',
+    this.G__typename = 'TripType',
     required this.waypoints,
     required this.segments,
   });
@@ -138,7 +138,7 @@ class GGetTripData_trip implements _i1.GTripFields {
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      imageUrls: (json['imageUrls'] as Object),
+      imageUrls: List<String>.from((json['imageUrls'] as List<dynamic>)),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
@@ -159,7 +159,7 @@ class GGetTripData_trip implements _i1.GTripFields {
 
   final String description;
 
-  final Object imageUrls;
+  final List<String> imageUrls;
 
   final String G__typename;
 
@@ -174,7 +174,7 @@ class GGetTripData_trip implements _i1.GTripFields {
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    _$result['imageUrls'] = this.imageUrls;
+    _$result['imageUrls'] = this.imageUrls.map((_$e) => _$e).toList();
     _$result['__typename'] = this.G__typename;
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
@@ -187,7 +187,7 @@ class GGetTripData_trip implements _i1.GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    Object? imageUrls,
+    List<String>? imageUrls,
     String? G__typename,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
@@ -212,7 +212,7 @@ class GGetTripData_trip implements _i1.GTripFields {
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            imageUrls == other.imageUrls &&
+            _gqlUtils.listEquals(imageUrls, other.imageUrls) &&
             G__typename == other.G__typename &&
             _gqlUtils.listEquals(waypoints, other.waypoints) &&
             _gqlUtils.listEquals(segments, other.segments));
@@ -226,7 +226,7 @@ class GGetTripData_trip implements _i1.GTripFields {
         title,
         date,
         description,
-        imageUrls,
+        _gqlUtils.listHash(imageUrls),
         G__typename,
         _gqlUtils.listHash(waypoints),
         _gqlUtils.listHash(segments));

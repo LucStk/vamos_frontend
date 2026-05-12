@@ -32,7 +32,7 @@ void main() {
               lat: 0.1,
               lng: 0.1,
               type: GWaypointTypeEnum.start,
-              description: 'Ceci est le point de départ',
+              description: Value.present('Ceci est le point de départ'),
             ),
           ]),
           segments: Value.present([
@@ -46,8 +46,8 @@ void main() {
     );
     final newTripResponse = await client.request(newTripRequest).first;
     printError(newTripResponse);
-    expect(newTripResponse.data?.createTrip?.trip, isNotNull);
-    final id = newTripResponse.data?.createTrip?.trip.id;
+    expect(newTripResponse.data?.createTrip, isNotNull);
+    final id = newTripResponse.data?.createTrip.id;
     print("ID du voyage créé : $id");
     expect(id, isNotNull);
     // Test pour la modification du voyage
@@ -64,7 +64,7 @@ void main() {
               lat: 0.1,
               lng: 0.1,
               type: GWaypointTypeEnum.start,
-              description: 'Ceci est le point de départ',
+              description: Value.present('Ceci est le point de départ'),
             ),
           ]),
           segments: Value.present([
@@ -78,7 +78,7 @@ void main() {
     );
     final updateTripResponse = await client.request(updateTripRequest).first;
     printError(updateTripResponse);
-    expect(updateTripResponse.data?.updateTrip?.trip, isNotNull);
+    expect(updateTripResponse.data?.updateTrip, isNotNull);
     // Test pour la suppression du voyage
     final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id!));
     final deleteTripResponse = await client.request(deleteTripRequest).first;

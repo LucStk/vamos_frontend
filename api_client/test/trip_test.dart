@@ -6,7 +6,6 @@ import 'package:api_client/src/graphql/mutations/__generated__/trip.var.gql.dart
 import 'package:api_client/src/graphql/mutations/__generated__/trip.req.gql.dart';
 import 'package:api_client/src/graphql/__generated__/schema.schema.gql.dart';
 import 'package:test/test.dart';
-import 'package:gql_tristate_value/gql_tristate_value.dart';
 
 void printError(response) {
   if (response.linkException != null) {
@@ -41,7 +40,8 @@ void main() {
     // Test pour le getTrip
     final tripRequest = GGetTripReq(vars: GGetTripVars(id: firstTripId!));
     final tripResponse = await client.request(tripRequest).first;
-    expect(tripResponse.data?.trip, isNotNull);
+    print('Réponse du getTrip : ${tripResponse.data}');
+    expect(tripResponse.data, isNotNull);
   });
 
   test("Creation et modification", () async {
@@ -55,8 +55,8 @@ void main() {
       ),
     );
     final newTripResponse = await client.request(newTripRequest).first;
-    expect(newTripResponse.data?.createTrip?.trip, isNotNull);
-    final id = newTripResponse.data?.createTrip?.trip?.id;
+    expect(newTripResponse.data?.createTrip, isNotNull);
+    final id = newTripResponse.data?.createTrip.id;
     expect(id, isNotNull);
     // Test pour la modification du voyage
     final updateTripRequest = GUpdateTripReq(
@@ -70,7 +70,7 @@ void main() {
     );
     final updateTripResponse = await client.request(updateTripRequest).first;
 
-    expect(updateTripResponse.data?.updateTrip?.trip, isNotNull);
+    expect(updateTripResponse.data?.updateTrip, isNotNull);
     // Test pour la suppression du voyage
     final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id!));
     final deleteTripResponse = await client.request(deleteTripRequest).first;

@@ -12,7 +12,7 @@ abstract class GTripFields {
   String get title;
   String? get date;
   String get description;
-  Object get imageUrls;
+  List<String> get imageUrls;
   String get G__typename;
 }
 
@@ -23,7 +23,7 @@ class GTripFieldsData implements GTripFields {
     this.date,
     required this.description,
     required this.imageUrls,
-    this.G__typename = 'TripNode',
+    this.G__typename = 'TripType',
   });
 
   factory GTripFieldsData.fromJson(Map<String, dynamic> json) {
@@ -32,7 +32,7 @@ class GTripFieldsData implements GTripFields {
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      imageUrls: (json['imageUrls'] as Object),
+      imageUrls: List<String>.from((json['imageUrls'] as List<dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -45,7 +45,7 @@ class GTripFieldsData implements GTripFields {
 
   final String description;
 
-  final Object imageUrls;
+  final List<String> imageUrls;
 
   final String G__typename;
 
@@ -56,7 +56,7 @@ class GTripFieldsData implements GTripFields {
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    _$result['imageUrls'] = this.imageUrls;
+    _$result['imageUrls'] = this.imageUrls.map((_$e) => _$e).toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -67,7 +67,7 @@ class GTripFieldsData implements GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    Object? imageUrls,
+    List<String>? imageUrls,
     String? G__typename,
   }) {
     return GTripFieldsData(
@@ -88,14 +88,14 @@ class GTripFieldsData implements GTripFields {
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            imageUrls == other.imageUrls &&
+            _gqlUtils.listEquals(imageUrls, other.imageUrls) &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, id, title, date, description, imageUrls, G__typename);
+    return Object.hash(runtimeType, id, title, date, description,
+        _gqlUtils.listHash(imageUrls), G__typename);
   }
 
   @override
@@ -122,7 +122,7 @@ class GSegmentFieldsData implements GSegmentFields {
     required this.id,
     required this.type,
     required this.intermediatePoints,
-    this.G__typename = 'SegmentNode',
+    this.G__typename = 'SegmentType',
   });
 
   factory GSegmentFieldsData.fromJson(Map<String, dynamic> json) {
@@ -273,7 +273,7 @@ class GWaypointFieldsData implements GWaypointFields {
     required this.type,
     required this.description,
     required this.imageUrls,
-    this.G__typename = 'WaypointNode',
+    this.G__typename = 'WaypointType',
   });
 
   factory GWaypointFieldsData.fromJson(Map<String, dynamic> json) {

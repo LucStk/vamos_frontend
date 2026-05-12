@@ -1,37 +1,28 @@
 #import "../fragments/trip.graphql"
 mutation CreateTrip($trip: TripInput!) {
-    createTrip(input: { trip: $trip }) {
-        clientMutationId
-        trip {
-            ...TripFields
-            waypoints {
-                ...WaypointFields
-            }
-            segments {
-                ...SegmentFields
-            }
+    createTrip(trip: $trip) {
+        ...TripFields
+        waypoints {
+            ...WaypointFields
+        }
+        segments {
+            ...SegmentFields
         }
     }
 }
 
 mutation UpdateTrip($id: ID!, $trip: TripInput!) {
-    updateTrip(input: { id: $id, trip: $trip }) {
-        clientMutationId
-        trip {
-            ...TripFields
-            waypoints {
-                ...WaypointFields
-            }
-            segments {
-                ...SegmentFields
-            }
+    updateTrip(id: $id, trip: $trip) {
+        ...TripFields
+        waypoints {
+            ...WaypointFields
+        }
+        segments {
+            ...SegmentFields
         }
     }
 }
 
 mutation DeleteTrip($id: ID!) {
-    deleteTrip(input: { id: $id }) {
-        clientMutationId
-        deletedId
-    }
+    deleteTrip(id: $id)
 }
