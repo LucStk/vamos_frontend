@@ -93,9 +93,9 @@ class Waypoint {
   String? id;
   LatLng latLng;
   GWaypointTypeEnum type;
-  String description;
-  List<String> imagePaths;
-  List<String> imageUrls;
+  String? description;
+  List<String>? imagePaths;
+  List<String>? imageUrls;
 
   Waypoint({
     this.id,
@@ -111,7 +111,9 @@ class Waypoint {
     lat: latLng.latitude,
     lng: latLng.longitude,
     type: type,
-    description: description,
+    description: description != null
+        ? Value.present(description)
+        : Value.absent(),
   );
 
   factory Waypoint.fromGQL(GWaypointFieldsData data) => Waypoint(
@@ -119,6 +121,7 @@ class Waypoint {
     type: data.type,
     id: data.id,
     description: data.description,
+    imageUrls: data.imageUrls,
   );
 }
 

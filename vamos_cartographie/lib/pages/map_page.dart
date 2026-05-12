@@ -1,5 +1,5 @@
 import 'package:api_client/api_client.dart';
-import 'package:dartz/dartz.dart' hide State, Value, Function;
+import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter_map/flutter_map.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 

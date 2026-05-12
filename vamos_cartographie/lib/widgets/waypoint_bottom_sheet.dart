@@ -187,22 +187,26 @@ class _WaypointBottomSheetState extends State<WaypointBottomSheet> {
                       // ── Photos ──
                       const SizedBox(height: 4),
                       ImageCarouselPicker(
-                        imagePaths: wp.imagePaths,
+                        imagePaths: wp.imagePaths ?? [],
                         readOnly: widget.readOnly,
                         onChanged: (paths) {
                           setState(() {
-                            wp.imagePaths
-                              ..clear()
-                              ..addAll(paths);
+                            if (paths.isNotEmpty) {
+                              wp.imagePaths!
+                                ..clear()
+                                ..addAll(paths);
+                            }
                           });
                         },
                       ),
 
                       // ── Description ──
-                      if (wp.description.isNotEmpty || !widget.readOnly) ...[
+                      if ((wp.description != null &&
+                              wp.description!.isNotEmpty) ||
+                          !widget.readOnly) ...[
                         const Divider(),
                         TextAreaWithCounter(
-                          initialValue: wp.description,
+                          initialValue: wp.description ?? '',
                           readOnly: widget.readOnly,
                           onChanged: (value) {
                             wp.description = value;

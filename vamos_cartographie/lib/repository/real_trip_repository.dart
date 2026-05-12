@@ -68,7 +68,7 @@ class RealTripRepository implements TripRepository {
 
       if (response.data?.createTrip == null) return Left(NotFoundFailure());
 
-      return Right(response.data!.createTrip!.trip.id);
+      return Right(response.data!.createTrip.id);
     } catch (e) {
       return Left(ConnectionFailure());
     }
@@ -91,7 +91,7 @@ class RealTripRepository implements TripRepository {
 
       if (response.data?.updateTrip == null) return Left(NotFoundFailure());
 
-      return Right(response.data!.updateTrip!.trip.id);
+      return Right(response.data!.updateTrip.id);
     } catch (e) {
       return Left(ConnectionFailure());
     }
