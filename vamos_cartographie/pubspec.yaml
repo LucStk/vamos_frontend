@@ -51,6 +51,8 @@ dependencies:
   ferry: ^0.16.1+2
   update: ^0.4.0
   gql_tristate_value: ^1.1.0
+  dio: ^5.9.2
+  path: ^1.9.1
 
 dev_dependencies:
   test: ^1.30.0

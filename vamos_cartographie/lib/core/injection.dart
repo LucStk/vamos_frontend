@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/core/config.dart';
 import 'package:vamos_cartographie/repository/mock_trip_repository.dart';
 import 'package:vamos_cartographie/repository/real_trip_repository.dart';
 import 'package:vamos_cartographie/repository/trip_repository.dart';
+import 'package:vamos_cartographie/repository/upload_img_repository.dart';
 
 final getIt = GetIt.instance;
 
@@ -24,6 +25,9 @@ Future<void> configureDependencies({Client? client}) async {
     getIt.registerLazySingleton<Client>(() => ferryClient);
     getIt.registerLazySingleton<TripRepository>(
       () => RealTripRepository(getIt<Client>()),
+    );
+    getIt.registerLazySingleton<UploadImgRepository>(
+      () => UploadImgRepository(getIt<Client>()),
     );
   }
 }
