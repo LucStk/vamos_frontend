@@ -1,34 +1,65 @@
 import 'package:api_client/src/ferry_client.dart';
-// Importe le fichier .req.gql.dart (il contient la classe de requête)
-
 import 'package:api_client/src/graphql/mutations/__generated__/image_upload.var.gql.dart';
 import 'package:api_client/src/graphql/mutations/__generated__/image_upload.req.gql.dart';
-import 'package:api_client/src/graphql/__generated__/schema.schema.gql.dart';
 import 'package:test/test.dart';
-
-void printError(response) {
-  if (response.linkException != null) {
-    print("Erreur Réseau/Lien: ${response.linkException}");
-  }
-
-  // Affiche les erreurs retournées par Django (ex: colonnes manquantes, fautes de frappe)
-  if (response.graphqlErrors != null) {
-    print("Erreurs GraphQL: ${response.graphqlErrors}");
-  }
-}
+import 'package:http/http.dart' as http; // Ajout de l'import http
 
 void main() {
-  test('GenerateImageUploadUrl mutation', () async {
+  test('GenerateImageUploadUrl mutation and actual S3 upload', () async {
     final client = initFerryClient('http://localhost:8000/graphql/');
 
-    // 1. On utilise la classe générée : GMyQuery
-    // 2. On utilise client.request()
-    // 3. On utilise .first pour attendre la première réponse (car request renvoie un Stream)
+    // 1. Demande de l'URL pré-signée via Ferry
     final request = GGenerateImageUploadUrlReq(
       vars: GGenerateImageUploadUrlVars(extension: 'jpg'),
     );
+
     final response = await client.request(request).first;
-    print("génerateImageUploadUrl ${response.data?.generateImageUploadUrl}");
-    expect(response.data?.generateImageUploadUrl, isNotNull);
+
+    // Debugging en cas d'erreur
+    if (response.hasErrors) {
+      print("Erreurs GraphQL: ${response.graphqlErrors}");
+    }
+
+    final uploadConfig = response.data?.generateImageUploadUrl;
+    expect(
+      uploadConfig,
+      isNotNull,
+      reason: "L'URL de config ne doit pas être nulle",
+    );
+
+    final uploadUrl = uploadConfig!.uploadUrl;
+    print("URL reçue: $uploadUrl");
+
+    // 2. Tentative d'upload réel vers Garage
+    print("Tentative d'upload vers Garage...");
+
+    final fakeImageData = [
+      11,
+      22,
+      33,
+      44,
+      55,
+    ]; // Simulation d'un fichier binaire
+
+    final uploadResponse = await http.put(
+      Uri.parse(uploadUrl),
+      body: fakeImageData,
+      headers: {
+        'Content-Type':
+            'image/jpg', // Doit matcher EXACTEMENT ce que Django a signé
+      },
+    );
+
+    // 3. Vérifications
+    print("Statut de l'upload Garage: ${uploadResponse.statusCode}");
+    if (uploadResponse.statusCode != 200) {
+      print("Corps de l'erreur Garage: ${uploadResponse.body}");
+    }
+
+    expect(
+      uploadResponse.statusCode,
+      200,
+      reason: "Garage devrait accepter le fichier avec l'URL pré-signée",
+    );
   });
 }
