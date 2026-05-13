@@ -1,13 +1,112 @@
 import 'package:api_client/api_client.dart';
 import 'package:dartz/dartz.dart';
+import 'package:ferry/ferry.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/models.dart';
 
-/// Contrat commun entre le vrai repository (Ferry) et le mock.
-abstract class TripRepository {
-  Future<Either<Failure, List<GTripFieldsData>>> getAllTrips();
-  Future<Either<Failure, Trip>> getTrip(String id);
-  Future<Either<Failure, String>> createTrip(Trip trip);
-  Future<Either<Failure, String>> updateTrip(Trip trip);
-  Future<Either<Failure, bool>> deleteTrip(String id);
+class TripRepository {
+  final Client _client;
+
+  TripRepository(this._client);
+
+  Future<Either<Failure, List<GTripFieldsData>>> getAllTrips() async {
+    try {
+      final response = await _client
+          .request(GGetAllTripsReq(fetchPolicy: FetchPolicy.NetworkOnly))
+          .first;
+
+      if (response.hasErrors) {
+        return Left(
+          ServerFailure(
+            response.graphqlErrors?.first.message ?? "Erreur inconnue",
+          ),
+        );
+      }
+
+      final trips = response.data?.trips;
+      if (trips == null) return Left(NotFoundFailure());
+
+      return Right(trips.toList());
+    } catch (e) {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  Future<Either<Failure, Trip>> getTrip(String id) async {
+    try {
+      final response = await _client
+          .request(GGetTripReq(vars: GGetTripVars(id: id)))
+          .first;
+
+      if (response.hasErrors) {
+        return Left(ServerFailure(response.graphqlErrors!.first.message));
+      }
+
+      if (response.data?.trip == null) return Left(NotFoundFailure());
+
+      return Right(Trip.fromGQL(response.data!.trip!));
+    } catch (e) {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  Future<Either<Failure, String>> createTrip(Trip trip) async {
+    try {
+      final response = await _client
+          .request(
+            GCreateTripReq(vars: GCreateTripVars(trip: trip.toGQLInput())),
+          )
+          .first;
+
+      if (response.hasErrors) {
+        return Left(ServerFailure(response.graphqlErrors!.first.message));
+      }
+
+      if (response.data?.createTrip == null) return Left(NotFoundFailure());
+
+      return Right(response.data!.createTrip.id);
+    } catch (e) {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  Future<Either<Failure, String>> updateTrip(Trip trip) async {
+    try {
+      final response = await _client
+          .request(
+            GUpdateTripReq(
+              vars: GUpdateTripVars(id: trip.id!, trip: trip.toGQLInput()),
+            ),
+          )
+          .first;
+
+      if (response.hasErrors) {
+        return Left(ServerFailure(response.graphqlErrors!.first.message));
+      }
+
+      if (response.data?.updateTrip == null) return Left(NotFoundFailure());
+
+      return Right(response.data!.updateTrip.id);
+    } catch (e) {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  Future<Either<Failure, bool>> deleteTrip(String id) async {
+    try {
+      final response = await _client
+          .request(GDeleteTripReq(vars: GDeleteTripVars(id: id)))
+          .first;
+
+      if (response.hasErrors) {
+        return Left(ServerFailure(response.graphqlErrors!.first.message));
+      }
+
+      if (response.data?.deleteTrip == null) return Left(NotFoundFailure());
+
+      return Right(true);
+    } catch (e) {
+      return Left(ConnectionFailure());
+    }
+  }
 }
