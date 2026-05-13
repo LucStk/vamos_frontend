@@ -1,5 +1,4 @@
 import 'package:api_client/api_client.dart';
-import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/repository/trip_repository.dart';
 import 'package:vamos_cartographie/core/injection.dart';

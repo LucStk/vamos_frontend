@@ -1,0 +1,6 @@
+mutation GenerateImageUploadUrl($extension: String!) {
+    generateImageUploadUrl(extension: $extension) {
+        fileKey
+        uploadUrl
+    }
+}

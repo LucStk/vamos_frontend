@@ -20,6 +20,12 @@ const specifiedBy = _i1.DirectiveDefinitionNode(
   locations: [_i1.DirectiveLocation.scalar],
   repeatable: false,
 );
+const oneOf = _i1.DirectiveDefinitionNode(
+  name: _i1.NameNode(value: 'oneOf'),
+  args: [],
+  locations: [_i1.DirectiveLocation.inputObject],
+  repeatable: false,
+);
 const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
@@ -141,6 +147,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'ID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'generateImageUploadUrl'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'extension'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UploadConfig'),
         isNonNull: true,
       ),
     ),
@@ -422,6 +447,31 @@ const TripType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const UploadConfig = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UploadConfig'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'uploadUrl'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'fileKey'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const WaypointInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointInput'),
   directives: [],
@@ -600,6 +650,7 @@ const WaypointTypeEnum = _i1.EnumTypeDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   specifiedBy,
+  oneOf,
   Date,
   LatLngInput,
   LatLngType,
@@ -610,6 +661,7 @@ const document = _i1.DocumentNode(definitions: [
   SegmentTypeEnum,
   TripInput,
   TripType,
+  UploadConfig,
   WaypointInput,
   WaypointType,
   WaypointTypeEnum,

@@ -4,6 +4,9 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
+"""Indicates an Input Object is a OneOf Input Object."""
+directive @oneOf on INPUT_OBJECT
+
 """Date (isoformat)"""
 scalar Date
 
@@ -21,6 +24,7 @@ type Mutation {
   createTrip(trip: TripInput!): TripType!
   updateTrip(id: ID!, trip: TripInput!): TripType!
   deleteTrip(id: ID!): ID!
+  generateImageUploadUrl(extension: String!): UploadConfig!
 }
 
 type Query {
@@ -64,6 +68,11 @@ type TripType {
   imageUrls: [String!]!
   waypoints: [WaypointType!]!
   segments: [SegmentType!]!
+}
+
+type UploadConfig {
+  uploadUrl: String!
+  fileKey: String!
 }
 
 input WaypointInput {
