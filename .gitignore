@@ -30,4 +30,3 @@ Thumbs.db
 # ── Logs ─────────────────────────────────────────────────────────────────────
 *.log
 vamos_cartographie/flake.lock
-vamos_cartographie/.envrc
