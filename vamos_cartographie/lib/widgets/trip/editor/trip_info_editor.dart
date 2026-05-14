@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../models.dart';
-import '../../widgets/image_carousel_picker.dart';
-import '_trip_section_label.dart';
+import 'package:vamos_cartographie/models.dart';
+import 'package:vamos_cartographie/widgets/image_carousel_picker.dart';
+import '../_trip_section_label.dart';
 
 /// Vue d'édition des informations d'un voyage.
 /// Travaille sur une copie locale et n'applique les changements

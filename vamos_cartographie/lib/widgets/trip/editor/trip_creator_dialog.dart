@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../core/injection.dart';
-import '../../models.dart';
-import '../../repository/trip_repository.dart';
+import 'package:vamos_cartographie/core/injection.dart';
+import 'package:vamos_cartographie/models.dart';
+import 'package:vamos_cartographie/repository/trip_repository.dart';
 import 'trip_info_editor.dart';
 
 /// Dialog de création d'un nouveau voyage.
