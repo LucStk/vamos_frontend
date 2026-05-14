@@ -77,6 +77,15 @@
 
           # Variables d'environnement injectées par direnv
           shellHook = ''
+            # Force CMake à utiliser le pkg-config de Nix au lieu de /usr/bin
+            export PKG_CONFIG_EXECUTABLE="${pkgs.pkg-config}/bin/pkg-config"
+
+            # Aide CMake à trouver les bibliothèques GTK et autres via pkg-config
+            export PKG_CONFIG_PATH="${pkgs.lib.makeSearchPath "lib/pkgconfig" runtimeLibs}"
+
+            # --- Tes autres exports (Géo, LD_LIBRARY_PATH, etc.) ---
+            export GDAL_LIBRARY_PATH="${pkgs.gdal}/lib/libgdal.so"
+            # ... garde le reste de ton shellHook actuel ...
             # --- Géo ---
             export GDAL_LIBRARY_PATH="${pkgs.gdal}/lib/libgdal.so"
             export GEOS_LIBRARY_PATH="${pkgs.geos}/lib/libgeos_c.so"
