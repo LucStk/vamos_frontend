@@ -150,16 +150,13 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _showTripInfo() {
-    showModalBottomSheet(
+    TripInfoSheet.show(
       context: context,
-      isScrollControlled: true,
-      builder: (_) => SafeArea(
-        child: TripInfoSheet(
-          trip: _trip,
-          onChanged: () => setState(() {}),
-          readOnly: !_isEditing,
-        ),
-      ),
+      trip: _trip,
+      onChanged: () => setState(() {
+        _isDirty = true;
+      }),
+      readOnly: !_isEditing,
     );
   }
 
