@@ -30,3 +30,5 @@ Thumbs.db
 # ── Logs ─────────────────────────────────────────────────────────────────────
 *.log
 vamos_cartographie/flake.lock
+vamos_cartographie/.direnv/
+vamos_cartographie/.direnv/bin/nix-direnv-reload
