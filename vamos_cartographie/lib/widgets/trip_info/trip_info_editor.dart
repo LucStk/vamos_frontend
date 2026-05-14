@@ -11,12 +11,16 @@ class TripInfoEditor extends StatefulWidget {
   final Trip trip;
   final VoidCallback onConfirm;
   final VoidCallback onCancel;
+  final String confirmLabel;
+  final IconData confirmIcon;
 
   const TripInfoEditor({
     super.key,
     required this.trip,
     required this.onConfirm,
     required this.onCancel,
+    this.confirmLabel = 'Confirmer',
+    this.confirmIcon = Icons.check,
   });
 
   @override
@@ -181,8 +185,8 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
             const SizedBox(width: 8),
             FilledButton.icon(
               onPressed: _confirm,
-              icon: const Icon(Icons.check, size: 18),
-              label: const Text('Confirmer'),
+              icon: Icon(widget.confirmIcon, size: 18),
+              label: Text(widget.confirmLabel),
             ),
           ],
         ),

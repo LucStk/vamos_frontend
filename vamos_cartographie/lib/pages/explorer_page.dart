@@ -4,6 +4,9 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/pages/map_page.dart';
 import 'package:vamos_cartographie/repository/trip_repository.dart';
+import 'package:vamos_cartographie/widgets/trip_info/trip_preview_dialog.dart';
+import 'package:vamos_cartographie/widgets/trip_info/trip_creator_dialog.dart';
+import 'package:vamos_cartographie/widgets/trip_info/trip_info_dialog.dart';
 
 class ExplorerPage extends StatefulWidget {
   const ExplorerPage({super.key});
@@ -33,17 +36,34 @@ class _ExplorerPageState extends State<ExplorerPage> {
     });
   }
 
-  Future<void> _openTrip(String tripId) async {
-    await Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: tripId)));
+  void _openTrip(GTripFieldsData tripData) {
+    TripPreviewDialog.show(
+      context: context,
+      tripData: tripData,
+      onEdit: () => TripInfoDialog.showEditorForExistingTrip(
+        context: context,
+        tripId: tripData.id,
+        onSaved: _refresh,
+      ),
+      onExplore: () async {
+        await Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: tripData.id)));
+        _refresh();
+      },
+    );
   }
 
-  Future<void> _createTrip() async {
-    await Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => const MapPage()));
-    _refresh();
+  void _createTrip() {
+    TripCreatorDialog.show(
+      context: context,
+      onCreated: (id) async {
+        await Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: id)));
+        _refresh();
+      },
+    );
   }
 
   Future<void> _deleteTrip(GTripFieldsData trip) async {
@@ -215,7 +235,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
               final trip = trips[index];
               return _TripCard(
                 trip: trip,
-                onTap: () => _openTrip(trip.id),
+                onTap: () => _openTrip(trip),
                 onDelete: () => _deleteTrip(trip),
               );
             },

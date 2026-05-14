@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../core/injection.dart';
 import '../../models.dart';
+import '../../repository/trip_repository.dart';
 import 'trip_info_view.dart';
 import 'trip_info_editor.dart';
 
@@ -17,6 +19,87 @@ class TripInfoDialog {
     } else {
       _showEditor(context: context, trip: trip, onChanged: onChanged);
     }
+  }
+
+  /// Ouvre l'éditeur pour un voyage existant (depuis l'ExplorerPage).
+  /// Charge le Trip complet, puis sauvegarde via updateTrip() à la confirmation.
+  static Future<void> showEditorForExistingTrip({
+    required BuildContext context,
+    required String tripId,
+    required VoidCallback onSaved,
+  }) async {
+    // Charge le Trip complet
+    final result = await getIt<TripRepository>().getTrip(tripId);
+    if (!context.mounted) return;
+
+    result.fold(
+      (failure) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur : ${failure.message}'),
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      },
+      (trip) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (ctx) => Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Modifier le voyage',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(ctx).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Divider(color: Theme.of(ctx).colorScheme.outlineVariant),
+                    const SizedBox(height: 12),
+                    TripInfoEditor(
+                      trip: trip,
+                      onConfirm: () async {
+                        final saveResult = await getIt<TripRepository>()
+                            .updateTrip(trip);
+                        if (!ctx.mounted) return;
+                        saveResult.fold(
+                          (failure) {
+                            ScaffoldMessenger.of(ctx).showSnackBar(
+                              SnackBar(
+                                content: Text('Erreur : ${failure.message}'),
+                                backgroundColor: Colors.redAccent,
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          },
+                          (_) {
+                            Navigator.of(ctx).pop();
+                            onSaved();
+                          },
+                        );
+                      },
+                      onCancel: () => Navigator.of(ctx).pop(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   static void _showView({required BuildContext context, required Trip trip}) {

@@ -16,7 +16,7 @@ void main() async {
   runApp(
     MaterialApp(
       home: Scaffold(
-        backgroundColor: CupertinoColors.systemRed,
+        // backgroundColor: CupertinoColors.systemRed,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(100),
