@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/pages/map_page.dart';
 import 'package:vamos_cartographie/repository/trip_repository.dart';
 import 'package:vamos_cartographie/widgets/trip_info/trip_preview_dialog.dart';
-import 'package:vamos_cartographie/widgets/trip_info/trip_creator_dialog.dart';
+import 'package:vamos_cartographie/widgets/trip_info/editor/trip_creator_dialog.dart';
 import 'package:vamos_cartographie/widgets/trip_info/trip_info_dialog.dart';
 
 class ExplorerPage extends StatefulWidget {
