@@ -45,6 +45,7 @@ class TripPreviewDialog extends StatelessWidget {
       description: tripData.description,
       date: tripData.date != null ? DateTime.tryParse(tripData.date!) : null,
       imagePaths: [],
+      imageUrls: tripData.imageUrls.toList(),
     );
 
     return Dialog(
@@ -70,7 +71,13 @@ class TripPreviewDialog extends StatelessWidget {
               const SizedBox(height: 12),
 
               // ── Contenu ──
-              TripInfoView(trip: trip),
+              TripInfoView(
+                trip: trip,
+                onEdit: () {
+                  Navigator.of(context).pop();
+                  onEdit();
+                },
+              ),
               const SizedBox(height: 20),
 
               // ── Boutons ──
@@ -82,16 +89,6 @@ class TripPreviewDialog extends StatelessWidget {
                     child: const Text('Retour'),
                   ),
                   const Spacer(),
-                  // Modifier
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      onEdit();
-                    },
-                    icon: const Icon(Icons.edit_outlined, size: 16),
-                    label: const Text('Modifier'),
-                  ),
-                  const SizedBox(width: 8),
                   // Explorer
                   FilledButton.icon(
                     onPressed: () {

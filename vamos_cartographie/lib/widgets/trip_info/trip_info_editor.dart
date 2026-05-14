@@ -32,6 +32,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
   late final TextEditingController _descCtrl;
   late DateTime? _date;
   late List<String> _imagePaths;
+  late List<String> _imageUrls;
 
   static const int _maxDesc = 1000;
 
@@ -44,6 +45,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
     _descCtrl = TextEditingController(text: widget.trip.description);
     _date = widget.trip.date;
     _imagePaths = List<String>.from(widget.trip.imagePaths);
+    _imageUrls = List<String>.from(widget.trip.imageUrls);
   }
 
   @override
@@ -69,6 +71,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
     widget.trip.description = _descCtrl.text;
     widget.trip.date = _date;
     widget.trip.imagePaths = _imagePaths;
+    widget.trip.imageUrls = _imageUrls;
     widget.onConfirm();
   }
 
@@ -167,8 +170,10 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
             widthFactor: 0.9,
             child: ImageCarouselPicker(
               imagePaths: _imagePaths,
+              imageUrls: _imageUrls,
               readOnly: false,
-              onChanged: (paths) => setState(() => _imagePaths = paths),
+              onPathsChanged: (paths) => setState(() => _imagePaths = paths),
+              onUrlsChanged: (urls) => setState(() => _imageUrls = urls),
             ),
           ),
         ),

@@ -6,10 +6,12 @@ import '_trip_section_label.dart';
 
 /// Vue lecture seule des informations d'un voyage.
 /// Utilisée dans le dialog d'affichage.
+/// Si [onEdit] est fourni, un bouton « Modifier » est affiché en bas à droite.
 class TripInfoView extends StatelessWidget {
   final Trip trip;
+  final VoidCallback? onEdit;
 
-  const TripInfoView({super.key, required this.trip});
+  const TripInfoView({super.key, required this.trip, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class TripInfoView extends StatelessWidget {
     final hasTitle = trip.title.trim().isNotEmpty;
     final hasDesc = trip.description.trim().isNotEmpty;
     final hasDate = trip.date != null;
+    final hasPhotos = trip.imagePaths.isNotEmpty || trip.imageUrls.isNotEmpty;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +67,7 @@ class TripInfoView extends StatelessWidget {
         ],
 
         // Photos
-        if (trip.imagePaths.isNotEmpty) ...[
+        if (hasPhotos) ...[
           const TripSectionLabel(
             label: 'PHOTOS',
             icon: Icons.photo_library_outlined,
@@ -72,13 +75,28 @@ class TripInfoView extends StatelessWidget {
           const SizedBox(height: 8),
           ImageCarouselPicker(
             imagePaths: trip.imagePaths,
+            imageUrls: trip.imageUrls,
             readOnly: true,
-            onChanged: (_) {},
+            onPathsChanged: (_) {},
+            onUrlsChanged: (_) {},
+          ),
+        ],
+
+        // Bouton Modifier
+        if (onEdit != null) ...[
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: OutlinedButton.icon(
+              onPressed: onEdit,
+              icon: const Icon(Icons.edit_outlined, size: 16),
+              label: const Text('Modifier'),
+            ),
           ),
         ],
 
         // État vide
-        if (!hasDesc && trip.imagePaths.isEmpty)
+        if (!hasDesc && !hasPhotos)
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
