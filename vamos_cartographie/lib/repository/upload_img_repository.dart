@@ -16,8 +16,6 @@ class UploadImgRepository {
     String type, {
     Function(int sent, int total)? onProgress, // Callback de progression
   }) async {
-    // La fonction retourne l'URL d'accés immédiat à l'image et le fileKey pour stockage en DB
-    final fileName = basename(imageFile.path);
     // On remplace 'jpg' par 'image/jpeg' pour les types MIME valides
     final mimeType = type == 'jpg' ? 'jpeg' : type;
     try {
@@ -33,7 +31,6 @@ class UploadImgRepository {
       final String signedUrl = uploadConfig!.uploadUrl; // L'URL vers Garage
       final String fileKey =
           uploadConfig.fileKey; // Le chemin relatif à stocker en DB
-      print("signedUrl: $signedUrl, fileKey: $fileKey");
       // 2. Upload avec suivi de progression
       await _dio.put(
         signedUrl,
@@ -53,7 +50,7 @@ class UploadImgRepository {
       );
 
       return Right(fileKey);
-    } on DioException catch (e) {
+    } on DioException catch (_) {
       return Left(ConnectionFailure());
     } catch (e) {
       return Left(ConnectionFailure());

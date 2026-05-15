@@ -72,7 +72,7 @@ void main() {
 
     expect(updateTripResponse.data?.updateTrip, isNotNull);
     // Test pour la suppression du voyage
-    final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id!));
+    final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id));
     final deleteTripResponse = await client.request(deleteTripRequest).first;
     expect(deleteTripResponse.data?.deleteTrip, isNotNull);
   });

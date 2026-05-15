@@ -1,5 +1,4 @@
 import 'package:api_client/src/ferry_client.dart';
-import 'package:api_client/src/graphql/queries/__generated__/app_config.data.gql.dart';
 import 'package:api_client/src/graphql/queries/__generated__/app_config.req.gql.dart';
 
 import 'package:test/test.dart';
