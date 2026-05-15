@@ -48,8 +48,15 @@ class UploadImgRepository {
           }
         },
       );
-
-      return Right(fileKey);
+      // 3. Confirmer l'upload au Backend
+      final confirmRequest = GConfirmImageUploadReq(
+        vars: GConfirmImageUploadVars(fileKey: fileKey),
+      );
+      var confirmRes = await _client.request(confirmRequest).first;
+      if (confirmRes.hasErrors) {
+        return Left(ServerFailure("Erreur confirmation"));
+      }
+      return Right(confirmRes.data!.confirmImageUpload.urlLink);
     } on DioException catch (e) {
       return Left(ConnectionFailure());
     } catch (e) {
