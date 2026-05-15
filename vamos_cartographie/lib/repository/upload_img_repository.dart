@@ -1,20 +1,25 @@
 import 'package:dartz/dartz.dart';
 import 'package:ferry/ferry.dart';
+import 'package:path/path.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import "package:dio/dio.dart";
 import 'dart:io';
 import "package:api_client/api_client.dart";
+
+typedef UploadConfirmation = ({String urlLink, String fileKey});
 
 class UploadImgRepository {
   final _dio = Dio();
   final Client _client;
   UploadImgRepository(this._client);
 
-  Future<Either<Failure, String>> uploadImage(
+  Future<Either<Failure, UploadConfirmation>> uploadImage(
     File imageFile,
     String type, {
     Function(int sent, int total)? onProgress, // Callback de progression
   }) async {
+    // La fonction retourne l'URL d'accés immédiat à l'image et le fileKey pour stockage en DB
+    final fileName = basename(imageFile.path);
     // On remplace 'jpg' par 'image/jpeg' pour les types MIME valides
     final mimeType = type == 'jpg' ? 'jpeg' : type;
     try {
@@ -56,7 +61,8 @@ class UploadImgRepository {
       if (confirmRes.hasErrors) {
         return Left(ServerFailure("Erreur confirmation"));
       }
-      return Right(confirmRes.data!.confirmImageUpload.urlLink);
+      var urlLink = confirmRes.data!.confirmImageUpload.urlLink;
+      return Right((urlLink: urlLink, fileKey: fileKey));
     } on DioException catch (e) {
       return Left(ConnectionFailure());
     } catch (e) {

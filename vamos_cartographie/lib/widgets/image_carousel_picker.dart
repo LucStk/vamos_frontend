@@ -153,13 +153,18 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
         _uploadProgress.remove(path);
         _uploadErrors[path] = 'Échec upload';
       }),
-      (urlOrKey) {
+      (UploadConfirmation confirmation) {
         setState(() {
           _uploadProgress.remove(path);
           _uploadErrors.remove(path);
-          if (idx != -1) _items[idx] = _CarouselItem.remote(urlOrKey);
+          if (idx != -1) {
+            _items[idx] = _CarouselItem.remote(confirmation.urlLink);
+          }
         });
         widget.onPathsChanged(_localPaths());
+        // ATTENTION : Ici on donne le confirmation.FilePath plutôt
+        // que confirmation.urlLink.
+        // Le backend s'occupe de la conversion.
         widget.onUrlsChanged(_remoteUrls());
       },
     );

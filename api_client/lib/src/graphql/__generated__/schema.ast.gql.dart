@@ -26,6 +26,22 @@ const oneOf = _i1.DirectiveDefinitionNode(
   locations: [_i1.DirectiveLocation.inputObject],
   repeatable: false,
 );
+const AppConfigType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'AppConfigType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'imageBaseUrl'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
 const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
@@ -169,25 +185,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'confirmImageUpload'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'fileKey'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UploadConfirmation'),
-        isNonNull: true,
-      ),
-    ),
   ],
 );
 const Query = _i1.ObjectTypeDefinitionNode(
@@ -223,6 +220,15 @@ const Query = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'TripType'),
           isNonNull: true,
         ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'appConfig'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'AppConfigType'),
         isNonNull: true,
       ),
     ),
@@ -350,7 +356,7 @@ const TripInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'imageUrls'),
+      name: _i1.NameNode(value: 'images'),
       directives: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
@@ -429,7 +435,7 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'imageUrls'),
+      name: _i1.NameNode(value: 'images'),
       directives: [],
       args: [],
       type: _i1.ListTypeNode(
@@ -437,7 +443,19 @@ const TripType = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'String'),
           isNonNull: true,
         ),
-        isNonNull: true,
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 's'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -491,22 +509,6 @@ const UploadConfig = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const UploadConfirmation = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'UploadConfirmation'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'urlLink'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    )
-  ],
-);
 const WaypointInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointInput'),
   directives: [],
@@ -548,7 +550,7 @@ const WaypointInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'imageUrls'),
+      name: _i1.NameNode(value: 'images'),
       directives: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
@@ -603,7 +605,7 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'imageUrls'),
+      name: _i1.NameNode(value: 'images'),
       directives: [],
       args: [],
       type: _i1.ListTypeNode(
@@ -686,6 +688,7 @@ const WaypointTypeEnum = _i1.EnumTypeDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
+  AppConfigType,
   Date,
   LatLngInput,
   LatLngType,
@@ -697,7 +700,6 @@ const document = _i1.DocumentNode(definitions: [
   TripInput,
   TripType,
   UploadConfig,
-  UploadConfirmation,
   WaypointInput,
   WaypointType,
   WaypointTypeEnum,

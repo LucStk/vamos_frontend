@@ -4,8 +4,3 @@ mutation GenerateImageUploadUrl($extension: String!) {
         uploadUrl
     }
 }
-mutation ConfirmImageUpload($fileKey: String!) {
-    confirmImageUpload(fileKey: $fileKey) {
-        urlLink
-    }
-}

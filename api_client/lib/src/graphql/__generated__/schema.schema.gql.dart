@@ -165,7 +165,7 @@ class GTripInput {
     required this.title,
     required this.description,
     this.date = const Value.absent(),
-    this.imageUrls = const Value.absent(),
+    this.images = const Value.absent(),
     this.waypoints = const Value.absent(),
     this.segments = const Value.absent(),
   });
@@ -178,10 +178,10 @@ class GTripInput {
           ? Value.present(
               json['date'] == null ? null : (json['date'] as String))
           : Value.absent(),
-      imageUrls: json.containsKey('imageUrls')
-          ? Value.present(json['imageUrls'] == null
+      images: json.containsKey('images')
+          ? Value.present(json['images'] == null
               ? null
-              : (json['imageUrls'] as List<dynamic>)
+              : (json['images'] as List<dynamic>)
                   .map((_$e) => (_$e as String))
                   .toList())
           : Value.absent(),
@@ -210,7 +210,7 @@ class GTripInput {
 
   final Value<String> date;
 
-  final Value<List<String>> imageUrls;
+  final Value<List<String>> images;
 
   final Value<List<GWaypointInput>> waypoints;
 
@@ -227,12 +227,12 @@ class GTripInput {
       final _$dateRequired = _$dateValue.requireValue;
       _$result['date'] = _$dateRequired == null ? null : _$dateRequired;
     }
-    final _$imageUrlsValue = this.imageUrls;
-    if (_$imageUrlsValue.isPresent) {
-      final _$imageUrlsRequired = _$imageUrlsValue.requireValue;
-      _$result['imageUrls'] = _$imageUrlsRequired == null
+    final _$imagesValue = this.images;
+    if (_$imagesValue.isPresent) {
+      final _$imagesRequired = _$imagesValue.requireValue;
+      _$result['images'] = _$imagesRequired == null
           ? null
-          : _$imageUrlsRequired.map((_$e) => _$e).toList();
+          : _$imagesRequired.map((_$e) => _$e).toList();
     }
     final _$waypointsValue = this.waypoints;
     if (_$waypointsValue.isPresent) {
@@ -255,7 +255,7 @@ class GTripInput {
     String? title,
     String? description,
     Value<String>? date,
-    Value<List<String>>? imageUrls,
+    Value<List<String>>? images,
     Value<List<GWaypointInput>>? waypoints,
     Value<List<GSegmentInput>>? segments,
   }) {
@@ -263,7 +263,7 @@ class GTripInput {
       title: title ?? this.title,
       description: description ?? this.description,
       date: date ?? this.date,
-      imageUrls: imageUrls ?? this.imageUrls,
+      images: images ?? this.images,
       waypoints: waypoints ?? this.waypoints,
       segments: segments ?? this.segments,
     );
@@ -282,7 +282,7 @@ class GTripInput {
 
   @override
   String toString() {
-    return 'GTripInput(title: $title, description: $description, date: $date, imageUrls: $imageUrls, waypoints: $waypoints, segments: $segments)';
+    return 'GTripInput(title: $title, description: $description, date: $date, images: $images, waypoints: $waypoints, segments: $segments)';
   }
 }
 
@@ -292,7 +292,7 @@ class GWaypointInput {
     required this.lng,
     required this.type,
     this.description = const Value.absent(),
-    this.imageUrls = const Value.absent(),
+    this.images = const Value.absent(),
   });
 
   factory GWaypointInput.fromJson(Map<String, dynamic> json) {
@@ -305,10 +305,10 @@ class GWaypointInput {
               ? null
               : (json['description'] as String))
           : Value.absent(),
-      imageUrls: json.containsKey('imageUrls')
-          ? Value.present(json['imageUrls'] == null
+      images: json.containsKey('images')
+          ? Value.present(json['images'] == null
               ? null
-              : (json['imageUrls'] as List<dynamic>)
+              : (json['images'] as List<dynamic>)
                   .map((_$e) => (_$e as String))
                   .toList())
           : Value.absent(),
@@ -323,7 +323,7 @@ class GWaypointInput {
 
   final Value<String> description;
 
-  final Value<List<String>> imageUrls;
+  final Value<List<String>> images;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -339,12 +339,12 @@ class GWaypointInput {
       _$result['description'] =
           _$descriptionRequired == null ? null : _$descriptionRequired;
     }
-    final _$imageUrlsValue = this.imageUrls;
-    if (_$imageUrlsValue.isPresent) {
-      final _$imageUrlsRequired = _$imageUrlsValue.requireValue;
-      _$result['imageUrls'] = _$imageUrlsRequired == null
+    final _$imagesValue = this.images;
+    if (_$imagesValue.isPresent) {
+      final _$imagesRequired = _$imagesValue.requireValue;
+      _$result['images'] = _$imagesRequired == null
           ? null
-          : _$imageUrlsRequired.map((_$e) => _$e).toList();
+          : _$imagesRequired.map((_$e) => _$e).toList();
     }
     return _$result;
   }
@@ -354,14 +354,14 @@ class GWaypointInput {
     double? lng,
     GWaypointTypeEnum? type,
     Value<String>? description,
-    Value<List<String>>? imageUrls,
+    Value<List<String>>? images,
   }) {
     return GWaypointInput(
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
       type: type ?? this.type,
       description: description ?? this.description,
-      imageUrls: imageUrls ?? this.imageUrls,
+      images: images ?? this.images,
     );
   }
 
@@ -379,7 +379,7 @@ class GWaypointInput {
 
   @override
   String toString() {
-    return 'GWaypointInput(lat: $lat, lng: $lng, type: $type, description: $description, imageUrls: $imageUrls)';
+    return 'GWaypointInput(lat: $lat, lng: $lng, type: $type, description: $description, images: $images)';
   }
 }
 

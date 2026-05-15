@@ -187,19 +187,11 @@ class _WaypointBottomSheetState extends State<WaypointBottomSheet> {
                       // ── Photos ──
                       const SizedBox(height: 4),
                       ImageCarouselPicker(
-                        imagePaths: wp.imagePaths ?? [],
-                        imageUrls: wp.imageUrls ?? [],
+                        images: wp.images ?? [],
                         readOnly: widget.readOnly,
-                        onPathsChanged: (paths) {
+                        onChanged: (urls) {
                           setState(() {
-                            wp.imagePaths
-                              ?..clear()
-                              ..addAll(paths);
-                          });
-                        },
-                        onUrlsChanged: (urls) {
-                          setState(() {
-                            wp.imageUrls
+                            wp.images
                               ?..clear()
                               ..addAll(urls);
                           });

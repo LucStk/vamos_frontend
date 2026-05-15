@@ -4,23 +4,18 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:api_client/src/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:api_client/src/graphql/mutations/__generated__/image_upload.ast.gql.dart'
-    as _i6;
-import 'package:api_client/src/graphql/mutations/__generated__/image_upload.data.gql.dart'
+import 'package:api_client/src/graphql/queries/__generated__/app_config.ast.gql.dart'
+    as _i5;
+import 'package:api_client/src/graphql/queries/__generated__/app_config.data.gql.dart'
     as _i2;
-import 'package:api_client/src/graphql/mutations/__generated__/image_upload.var.gql.dart'
-    as _i3;
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
-import 'package:gql/ast.dart' as _i5;
-import 'package:gql_exec/gql_exec.dart' as _i4;
+import 'package:gql/ast.dart' as _i4;
+import 'package:gql_exec/gql_exec.dart' as _i3;
 
-class GGenerateImageUploadUrlReq
-    implements
-        _i1.OperationRequest<_i2.GGenerateImageUploadUrlData,
-            _i3.GGenerateImageUploadUrlVars> {
-  GGenerateImageUploadUrlReq({
-    required this.vars,
-    _i4.Operation? operation,
+class GGetAppConfigReq
+    implements _i1.OperationRequest<_i2.GGetAppConfigData, Null> {
+  GGetAppConfigReq({
+    _i3.Operation? operation,
     this.requestId,
     this.updateResult,
     this.optimisticResponse,
@@ -31,18 +26,18 @@ class GGenerateImageUploadUrlReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i3.GGenerateImageUploadUrlVars vars;
+  final Null vars = null;
 
-  final _i4.Operation operation;
+  final _i3.Operation operation;
 
   final String? requestId;
 
-  final _i2.GGenerateImageUploadUrlData? Function(
-    _i2.GGenerateImageUploadUrlData?,
-    _i2.GGenerateImageUploadUrlData?,
+  final _i2.GGetAppConfigData? Function(
+    _i2.GGetAppConfigData?,
+    _i2.GGetAppConfigData?,
   )? updateResult;
 
-  final _i2.GGenerateImageUploadUrlData? optimisticResponse;
+  final _i2.GGetAppConfigData? optimisticResponse;
 
   final String? updateCacheHandlerKey;
 
@@ -52,35 +47,32 @@ class GGenerateImageUploadUrlReq
 
   final bool executeOnListen;
 
-  final _i4.Context? context;
+  final _i3.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.GenerateImageUploadUrl]);
+  static const _i4.DocumentNode _document =
+      _i4.DocumentNode(definitions: [_i5.GetAppConfig]);
 
-  static const _i4.Operation _operation = _i4.Operation(
+  static const _i3.Operation _operation = _i3.Operation(
     document: _document,
-    operationName: 'GenerateImageUploadUrl',
+    operationName: 'GetAppConfig',
   );
 
-  _i4.Request get execRequest => _i4.Request(
+  _i3.Request get execRequest => _i3.Request(
         operation: operation,
         variables: varsToJson(),
-        context: context ?? const _i4.Context(),
+        context: context ?? const _i3.Context(),
       );
 
-  _i2.GGenerateImageUploadUrlData? parseData(Map<String, dynamic> json) =>
-      _i2.GGenerateImageUploadUrlData.fromJson(json);
+  _i2.GGetAppConfigData? parseData(Map<String, dynamic> json) =>
+      _i2.GGetAppConfigData.fromJson(json);
 
-  Map<String, dynamic> varsToJson() => vars.toJson();
+  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GGenerateImageUploadUrlData data) =>
-      data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GGetAppConfigData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GGenerateImageUploadUrlData,
-          _i3.GGenerateImageUploadUrlVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
-    return GGenerateImageUploadUrlReq(
-      vars: vars,
+  _i1.OperationRequest<_i2.GGetAppConfigData, Null> transformOperation(
+      _i3.Operation Function(_i3.Operation) transform) {
+    return GGetAppConfigReq(
       operation: transform(operation),
       requestId: requestId,
       updateResult: updateResult,
@@ -93,17 +85,16 @@ class GGenerateImageUploadUrlReq
     );
   }
 
-  GGenerateImageUploadUrlReq copyWith({
-    _i3.GGenerateImageUploadUrlVars? vars,
-    _i4.Operation? operation,
+  GGetAppConfigReq copyWith({
+    _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GGenerateImageUploadUrlData? Function(
-      _i2.GGenerateImageUploadUrlData?,
-      _i2.GGenerateImageUploadUrlData?,
+    _i2.GGetAppConfigData? Function(
+      _i2.GGetAppConfigData?,
+      _i2.GGetAppConfigData?,
     )? updateResult,
     bool updateResultIsSet = false,
-    _i2.GGenerateImageUploadUrlData? optimisticResponse,
+    _i2.GGetAppConfigData? optimisticResponse,
     bool optimisticResponseIsSet = false,
     String? updateCacheHandlerKey,
     bool updateCacheHandlerKeyIsSet = false,
@@ -112,11 +103,10 @@ class GGenerateImageUploadUrlReq
     _i1.FetchPolicy? fetchPolicy,
     bool fetchPolicyIsSet = false,
     bool? executeOnListen,
-    _i4.Context? context,
+    _i3.Context? context,
     bool contextIsSet = false,
   }) {
-    return GGenerateImageUploadUrlReq(
-      vars: vars ?? this.vars,
+    return GGetAppConfigReq(
       operation: operation ?? this.operation,
       requestId: requestIdIsSet ? requestId : this.requestId,
       updateResult: updateResultIsSet ? updateResult : this.updateResult,
@@ -138,7 +128,7 @@ class GGenerateImageUploadUrlReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGenerateImageUploadUrlReq &&
+        (other is GGetAppConfigReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             operation == other.operation &&
             requestId == other.requestId &&
@@ -170,6 +160,6 @@ class GGenerateImageUploadUrlReq
 
   @override
   String toString() {
-    return 'GGenerateImageUploadUrlReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+    return 'GGetAppConfigReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
   }
 }

@@ -67,7 +67,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
     required this.title,
     this.date,
     required this.description,
-    required this.imageUrls,
+    this.images,
     this.G__typename = 'TripType',
     required this.waypoints,
     required this.segments,
@@ -79,7 +79,9 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      imageUrls: List<String>.from((json['imageUrls'] as List<dynamic>)),
+      images: json['images'] == null
+          ? null
+          : List<String>.from((json['images'] as List<dynamic>)),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
@@ -100,7 +102,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
 
   final String description;
 
-  final List<String> imageUrls;
+  final List<String>? images;
 
   final String G__typename;
 
@@ -115,7 +117,9 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    _$result['imageUrls'] = this.imageUrls.map((_$e) => _$e).toList();
+    final _$imagesValue = this.images;
+    _$result['images'] =
+        _$imagesValue == null ? null : _$imagesValue.map((_$e) => _$e).toList();
     _$result['__typename'] = this.G__typename;
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
@@ -128,7 +132,8 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<String>? imageUrls,
+    List<String>? images,
+    bool imagesIsSet = false,
     String? G__typename,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
@@ -138,7 +143,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
       title: title ?? this.title,
       date: dateIsSet ? date : this.date,
       description: description ?? this.description,
-      imageUrls: imageUrls ?? this.imageUrls,
+      images: imagesIsSet ? images : this.images,
       G__typename: G__typename ?? this.G__typename,
       waypoints: waypoints ?? this.waypoints,
       segments: segments ?? this.segments,
@@ -153,7 +158,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            _gqlUtils.listEquals(imageUrls, other.imageUrls) &&
+            _gqlUtils.listEquals(images, other.images) &&
             G__typename == other.G__typename &&
             _gqlUtils.listEquals(waypoints, other.waypoints) &&
             _gqlUtils.listEquals(segments, other.segments));
@@ -167,7 +172,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
         title,
         date,
         description,
-        _gqlUtils.listHash(imageUrls),
+        _gqlUtils.listHash(images),
         G__typename,
         _gqlUtils.listHash(waypoints),
         _gqlUtils.listHash(segments));
@@ -175,7 +180,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
 
   @override
   String toString() {
-    return 'GCreateTripData_createTrip(id: $id, title: $title, date: $date, description: $description, imageUrls: $imageUrls, G__typename: $G__typename, waypoints: $waypoints, segments: $segments)';
+    return 'GCreateTripData_createTrip(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename, waypoints: $waypoints, segments: $segments)';
   }
 }
 
@@ -239,7 +244,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
     required this.title,
     this.date,
     required this.description,
-    required this.imageUrls,
+    this.images,
     this.G__typename = 'TripType',
     required this.waypoints,
     required this.segments,
@@ -251,7 +256,9 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      imageUrls: List<String>.from((json['imageUrls'] as List<dynamic>)),
+      images: json['images'] == null
+          ? null
+          : List<String>.from((json['images'] as List<dynamic>)),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
@@ -272,7 +279,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
 
   final String description;
 
-  final List<String> imageUrls;
+  final List<String>? images;
 
   final String G__typename;
 
@@ -287,7 +294,9 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    _$result['imageUrls'] = this.imageUrls.map((_$e) => _$e).toList();
+    final _$imagesValue = this.images;
+    _$result['images'] =
+        _$imagesValue == null ? null : _$imagesValue.map((_$e) => _$e).toList();
     _$result['__typename'] = this.G__typename;
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
@@ -300,7 +309,8 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<String>? imageUrls,
+    List<String>? images,
+    bool imagesIsSet = false,
     String? G__typename,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
@@ -310,7 +320,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
       title: title ?? this.title,
       date: dateIsSet ? date : this.date,
       description: description ?? this.description,
-      imageUrls: imageUrls ?? this.imageUrls,
+      images: imagesIsSet ? images : this.images,
       G__typename: G__typename ?? this.G__typename,
       waypoints: waypoints ?? this.waypoints,
       segments: segments ?? this.segments,
@@ -325,7 +335,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            _gqlUtils.listEquals(imageUrls, other.imageUrls) &&
+            _gqlUtils.listEquals(images, other.images) &&
             G__typename == other.G__typename &&
             _gqlUtils.listEquals(waypoints, other.waypoints) &&
             _gqlUtils.listEquals(segments, other.segments));
@@ -339,7 +349,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
         title,
         date,
         description,
-        _gqlUtils.listHash(imageUrls),
+        _gqlUtils.listHash(images),
         G__typename,
         _gqlUtils.listHash(waypoints),
         _gqlUtils.listHash(segments));
@@ -347,7 +357,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
 
   @override
   String toString() {
-    return 'GUpdateTripData_updateTrip(id: $id, title: $title, date: $date, description: $description, imageUrls: $imageUrls, G__typename: $G__typename, waypoints: $waypoints, segments: $segments)';
+    return 'GUpdateTripData_updateTrip(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename, waypoints: $waypoints, segments: $segments)';
   }
 }
 

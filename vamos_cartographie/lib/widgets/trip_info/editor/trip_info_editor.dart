@@ -44,8 +44,8 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
     _titleCtrl = TextEditingController(text: widget.trip.title);
     _descCtrl = TextEditingController(text: widget.trip.description);
     _date = widget.trip.date;
-    _imagePaths = List<String>.from(widget.trip.imagePaths);
-    _imageUrls = List<String>.from(widget.trip.imageUrls);
+    _imagePaths = List<String>.from(widget.trip.images);
+    _imageUrls = List<String>.from(widget.trip.images);
   }
 
   @override
@@ -70,8 +70,8 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
     widget.trip.title = _titleCtrl.text.trim();
     widget.trip.description = _descCtrl.text;
     widget.trip.date = _date;
-    widget.trip.imagePaths = _imagePaths;
-    widget.trip.imageUrls = _imageUrls;
+    widget.trip.images = _imagePaths;
+    widget.trip.images = _imageUrls;
     widget.onConfirm();
   }
 

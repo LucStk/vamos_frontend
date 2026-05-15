@@ -7,6 +7,10 @@ directive @specifiedBy(
 """Indicates an Input Object is a OneOf Input Object."""
 directive @oneOf on INPUT_OBJECT
 
+type AppConfigType {
+  imageBaseUrl: String!
+}
+
 """Date (isoformat)"""
 scalar Date
 
@@ -25,12 +29,12 @@ type Mutation {
   updateTrip(id: ID!, trip: TripInput!): TripType!
   deleteTrip(id: ID!): ID!
   generateImageUploadUrl(extension: String!): UploadConfig!
-  confirmImageUpload(fileKey: String!): UploadConfirmation!
 }
 
 type Query {
   trip(id: ID!): TripType
   trips: [TripType!]!
+  appConfig: AppConfigType!
 }
 
 input SegmentInput {
@@ -56,7 +60,7 @@ input TripInput {
   title: String!
   description: String!
   date: Date
-  imageUrls: [String!]
+  images: [String!]
   waypoints: [WaypointInput!]
   segments: [SegmentInput!]
 }
@@ -66,7 +70,8 @@ type TripType {
   title: String!
   description: String!
   date: Date
-  imageUrls: [String!]!
+  images: [String!]
+  s: [String!]
   waypoints: [WaypointType!]!
   segments: [SegmentType!]!
 }
@@ -76,16 +81,12 @@ type UploadConfig {
   fileKey: String!
 }
 
-type UploadConfirmation {
-  urlLink: String!
-}
-
 input WaypointInput {
   lat: Float!
   lng: Float!
   type: WaypointTypeEnum!
   description: String
-  imageUrls: [String!]
+  images: [String!]
 }
 
 type WaypointType {
@@ -93,7 +94,7 @@ type WaypointType {
   lat: Float!
   lng: Float!
   description: String!
-  imageUrls: [String!]!
+  images: [String!]!
   type: WaypointTypeEnum!
 }
 

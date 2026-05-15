@@ -15,7 +15,7 @@ class MockTripRepository implements TripRepository {
       description:
           'Un grand tour de Bretagne en passant par Rennes, Brest et le long des côtes bretonnes. Paysages grandioses, crêpes et cidre garantis !',
       date: DateTime(2024, 7, 14),
-      imageUrls: ["https://picsum.photos/seed/v1/600/400"],
+      images: ["https://picsum.photos/seed/v1/600/400"],
       waypoints: [
         Waypoint(
           id: 'wp-001-1',
@@ -174,7 +174,7 @@ class MockTripRepository implements TripRepository {
             title: t.title,
             date: t.date?.toIso8601String().substring(0, 10),
             description: t.description,
-            imageUrls: const <String>[],
+            images: const <String>[],
           ),
         )
         .toList();

@@ -6,7 +6,7 @@ import 'dart:math';
 
 class MockUploadImgRepository implements UploadImgRepository {
   @override
-  Future<Either<Failure, String>> uploadImage(
+  Future<Either<Failure, UploadConfirmation>> uploadImage(
     File imageFile,
     String type, {
     Function(int sent, int total)? onProgress,
@@ -24,7 +24,10 @@ class MockUploadImgRepository implements UploadImgRepository {
     var seed = (Random().nextInt(1000).toString());
 
     // 3. Retourner une fausse adresse d'image
-    // On retourne le "fileKey" comme le ferait ton vrai repo
-    return Right("https://picsum.photos/seed/$seed/600/400");
+    // On retourne le "fileKey" et l'URL d'accès immédiat à l'image
+    var urlLink = "https://picsum.photos/seed/$seed/600/400";
+    var fileKey =
+        urlLink; // Comme le serveur ne va pas stocker l'image, on utilise l'URL comme clé
+    return Right((urlLink: urlLink, fileKey: fileKey));
   }
 }

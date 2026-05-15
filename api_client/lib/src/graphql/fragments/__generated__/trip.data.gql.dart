@@ -12,7 +12,7 @@ abstract class GTripFields {
   String get title;
   String? get date;
   String get description;
-  List<String> get imageUrls;
+  List<String>? get images;
   String get G__typename;
 }
 
@@ -22,7 +22,7 @@ class GTripFieldsData implements GTripFields {
     required this.title,
     this.date,
     required this.description,
-    required this.imageUrls,
+    this.images,
     this.G__typename = 'TripType',
   });
 
@@ -32,7 +32,9 @@ class GTripFieldsData implements GTripFields {
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      imageUrls: List<String>.from((json['imageUrls'] as List<dynamic>)),
+      images: json['images'] == null
+          ? null
+          : List<String>.from((json['images'] as List<dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -45,7 +47,7 @@ class GTripFieldsData implements GTripFields {
 
   final String description;
 
-  final List<String> imageUrls;
+  final List<String>? images;
 
   final String G__typename;
 
@@ -56,7 +58,9 @@ class GTripFieldsData implements GTripFields {
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    _$result['imageUrls'] = this.imageUrls.map((_$e) => _$e).toList();
+    final _$imagesValue = this.images;
+    _$result['images'] =
+        _$imagesValue == null ? null : _$imagesValue.map((_$e) => _$e).toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -67,7 +71,8 @@ class GTripFieldsData implements GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<String>? imageUrls,
+    List<String>? images,
+    bool imagesIsSet = false,
     String? G__typename,
   }) {
     return GTripFieldsData(
@@ -75,7 +80,7 @@ class GTripFieldsData implements GTripFields {
       title: title ?? this.title,
       date: dateIsSet ? date : this.date,
       description: description ?? this.description,
-      imageUrls: imageUrls ?? this.imageUrls,
+      images: imagesIsSet ? images : this.images,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -88,19 +93,19 @@ class GTripFieldsData implements GTripFields {
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            _gqlUtils.listEquals(imageUrls, other.imageUrls) &&
+            _gqlUtils.listEquals(images, other.images) &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
     return Object.hash(runtimeType, id, title, date, description,
-        _gqlUtils.listHash(imageUrls), G__typename);
+        _gqlUtils.listHash(images), G__typename);
   }
 
   @override
   String toString() {
-    return 'GTripFieldsData(id: $id, title: $title, date: $date, description: $description, imageUrls: $imageUrls, G__typename: $G__typename)';
+    return 'GTripFieldsData(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename)';
   }
 }
 
@@ -261,7 +266,7 @@ abstract class GWaypointFields {
   double get lng;
   _i1.GWaypointTypeEnum get type;
   String get description;
-  List<String> get imageUrls;
+  List<String> get images;
   String get G__typename;
 }
 
@@ -272,7 +277,7 @@ class GWaypointFieldsData implements GWaypointFields {
     required this.lng,
     required this.type,
     required this.description,
-    required this.imageUrls,
+    required this.images,
     this.G__typename = 'WaypointType',
   });
 
@@ -283,7 +288,7 @@ class GWaypointFieldsData implements GWaypointFields {
       lng: (json['lng'] as double),
       type: _i1.GWaypointTypeEnum.fromJson((json['type'] as String)),
       description: (json['description'] as String),
-      imageUrls: List<String>.from((json['imageUrls'] as List<dynamic>)),
+      images: List<String>.from((json['images'] as List<dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -298,7 +303,7 @@ class GWaypointFieldsData implements GWaypointFields {
 
   final String description;
 
-  final List<String> imageUrls;
+  final List<String> images;
 
   final String G__typename;
 
@@ -309,7 +314,7 @@ class GWaypointFieldsData implements GWaypointFields {
     _$result['lng'] = this.lng;
     _$result['type'] = this.type.toJson();
     _$result['description'] = this.description;
-    _$result['imageUrls'] = this.imageUrls.map((_$e) => _$e).toList();
+    _$result['images'] = this.images.map((_$e) => _$e).toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -320,7 +325,7 @@ class GWaypointFieldsData implements GWaypointFields {
     double? lng,
     _i1.GWaypointTypeEnum? type,
     String? description,
-    List<String>? imageUrls,
+    List<String>? images,
     String? G__typename,
   }) {
     return GWaypointFieldsData(
@@ -329,7 +334,7 @@ class GWaypointFieldsData implements GWaypointFields {
       lng: lng ?? this.lng,
       type: type ?? this.type,
       description: description ?? this.description,
-      imageUrls: imageUrls ?? this.imageUrls,
+      images: images ?? this.images,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -343,18 +348,18 @@ class GWaypointFieldsData implements GWaypointFields {
             lng == other.lng &&
             type == other.type &&
             description == other.description &&
-            _gqlUtils.listEquals(imageUrls, other.imageUrls) &&
+            _gqlUtils.listEquals(images, other.images) &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
     return Object.hash(runtimeType, id, lat, lng, type, description,
-        _gqlUtils.listHash(imageUrls), G__typename);
+        _gqlUtils.listHash(images), G__typename);
   }
 
   @override
   String toString() {
-    return 'GWaypointFieldsData(id: $id, lat: $lat, lng: $lng, type: $type, description: $description, imageUrls: $imageUrls, G__typename: $G__typename)';
+    return 'GWaypointFieldsData(id: $id, lat: $lat, lng: $lng, type: $type, description: $description, images: $images, G__typename: $G__typename)';
   }
 }

@@ -19,7 +19,7 @@ class TripInfoView extends StatelessWidget {
     final hasTitle = trip.title.trim().isNotEmpty;
     final hasDesc = trip.description.trim().isNotEmpty;
     final hasDate = trip.date != null;
-    final hasPhotos = trip.imagePaths.isNotEmpty || trip.imageUrls.isNotEmpty;
+    final hasPhotos = trip.images.isNotEmpty;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,8 +74,7 @@ class TripInfoView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           ImageCarouselPicker(
-            imagePaths: trip.imagePaths,
-            imageUrls: trip.imageUrls,
+            images: trip.images,
             readOnly: true,
             onPathsChanged: (_) {},
             onUrlsChanged: (_) {},

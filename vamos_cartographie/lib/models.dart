@@ -94,18 +94,15 @@ class Waypoint {
   LatLng latLng;
   GWaypointTypeEnum type;
   String? description;
-  List<String>? imagePaths;
-  List<String>? imageUrls;
+  List<String>? images;
 
   Waypoint({
     this.id,
     required this.latLng,
     this.type = GWaypointTypeEnum.waypoint,
     this.description = '',
-    List<String>? imagePaths,
-    List<String>? imageUrls,
-  }) : imagePaths = imagePaths ?? [],
-       imageUrls = imageUrls ?? [];
+    List<String>? images,
+  }) : images = images ?? [];
 
   GWaypointInput toGQLInput() => GWaypointInput(
     lat: latLng.latitude,
@@ -121,7 +118,7 @@ class Waypoint {
     type: data.type,
     id: data.id,
     description: data.description,
-    imageUrls: data.imageUrls,
+    images: data.images,
   );
 }
 
@@ -167,8 +164,7 @@ class Trip {
   String title;
   String description;
   DateTime? date;
-  List<String> imagePaths;
-  List<String> imageUrls;
+  List<String> images;
   final List<Waypoint> waypoints;
   final List<Segment> segments;
 
@@ -177,12 +173,10 @@ class Trip {
     this.title = '',
     this.description = '',
     this.date,
-    List<String>? imagePaths,
-    List<String>? imageUrls,
+    List<String>? images,
     this.waypoints = const [],
     this.segments = const [],
-  }) : imagePaths = imagePaths ?? [],
-       imageUrls = imageUrls ?? [],
+  }) : images = images ?? [],
        assert(segments.length == waypoints.length - 1 || waypoints.isEmpty);
 
   void addWaypoint(
@@ -245,6 +239,7 @@ class Trip {
     date: date != null
         ? Value.present(date!.toIso8601String().substring(0, 10))
         : const Value.absent(),
+    images: Value.present(images),
     waypoints: Value.present(waypoints.map((w) => w.toGQLInput()).toList()),
     segments: Value.present(segments.map((s) => s.toGQLInput()).toList()),
   );
@@ -254,6 +249,7 @@ class Trip {
     title: data.title,
     description: data.description,
     // Si data.date n'est pas nul, on parse, sinon on met null
+    images: data.images,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     waypoints: data.waypoints.map((w) => Waypoint.fromGQL(w)).toList(),
     segments: data.segments.map((s) => Segment.fromGQL(s)).toList(),
