@@ -25,6 +25,7 @@ type Mutation {
   updateTrip(id: ID!, trip: TripInput!): TripType!
   deleteTrip(id: ID!): ID!
   generateImageUploadUrl(extension: String!): UploadConfig!
+  confirmImageUpload(fileKey: String!): UploadConfirmation!
 }
 
 type Query {
@@ -73,6 +74,10 @@ type TripType {
 type UploadConfig {
   uploadUrl: String!
   fileKey: String!
+}
+
+type UploadConfirmation {
+  urlLink: String!
 }
 
 input WaypointInput {

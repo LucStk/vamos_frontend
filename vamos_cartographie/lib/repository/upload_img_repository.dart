@@ -51,8 +51,6 @@ class UploadImgRepository {
 
       return Right(fileKey);
     } on DioException catch (e) {
-      print("Erreur Dio: ${e.response?.statusCode}");
-      print("Message Garage: ${e.response?.data}");
       return Left(ConnectionFailure());
     } catch (e) {
       return Left(ConnectionFailure());
