@@ -170,7 +170,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'confirmUpload'),
+      name: _i1.NameNode(value: 'confirmImageUpload'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(

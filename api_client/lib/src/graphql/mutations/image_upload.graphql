@@ -6,6 +6,6 @@ mutation GenerateImageUploadUrl($extension: String!) {
 }
 mutation ConfirmImageUpload($fileKey: String!) {
     confirmImageUpload(fileKey: $fileKey) {
-        fileKey
+        urlLink
     }
 }

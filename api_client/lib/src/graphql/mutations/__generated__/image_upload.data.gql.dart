@@ -119,3 +119,111 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
     return 'GGenerateImageUploadUrlData_generateImageUploadUrl(fileKey: $fileKey, uploadUrl: $uploadUrl, G__typename: $G__typename)';
   }
 }
+
+class GConfirmImageUploadData {
+  const GConfirmImageUploadData({
+    required this.confirmImageUpload,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GConfirmImageUploadData.fromJson(Map<String, dynamic> json) {
+    return GConfirmImageUploadData(
+      confirmImageUpload: GConfirmImageUploadData_confirmImageUpload.fromJson(
+          (json['confirmImageUpload'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GConfirmImageUploadData_confirmImageUpload confirmImageUpload;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['confirmImageUpload'] = this.confirmImageUpload.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GConfirmImageUploadData copyWith({
+    GConfirmImageUploadData_confirmImageUpload? confirmImageUpload,
+    String? G__typename,
+  }) {
+    return GConfirmImageUploadData(
+      confirmImageUpload: confirmImageUpload ?? this.confirmImageUpload,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GConfirmImageUploadData &&
+            confirmImageUpload == other.confirmImageUpload &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, confirmImageUpload, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GConfirmImageUploadData(confirmImageUpload: $confirmImageUpload, G__typename: $G__typename)';
+  }
+}
+
+class GConfirmImageUploadData_confirmImageUpload {
+  const GConfirmImageUploadData_confirmImageUpload({
+    required this.urlLink,
+    this.G__typename = 'UploadConfirmation',
+  });
+
+  factory GConfirmImageUploadData_confirmImageUpload.fromJson(
+      Map<String, dynamic> json) {
+    return GConfirmImageUploadData_confirmImageUpload(
+      urlLink: (json['urlLink'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String urlLink;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['urlLink'] = this.urlLink;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GConfirmImageUploadData_confirmImageUpload copyWith({
+    String? urlLink,
+    String? G__typename,
+  }) {
+    return GConfirmImageUploadData_confirmImageUpload(
+      urlLink: urlLink ?? this.urlLink,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GConfirmImageUploadData_confirmImageUpload &&
+            urlLink == other.urlLink &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, urlLink, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GConfirmImageUploadData_confirmImageUpload(urlLink: $urlLink, G__typename: $G__typename)';
+  }
+}
