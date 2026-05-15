@@ -7,6 +7,8 @@ import 'package:vamos_cartographie/repository/trip_repository.dart';
 import 'package:vamos_cartographie/repository/upload_img_repository.dart';
 
 import 'package:vamos_cartographie/repository/mock_upload_img_repository.dart';
+import 'package:vamos_cartographie/repository/app_config_repository.dart';
+import 'package:vamos_cartographie/models.dart';
 
 final getIt = GetIt.instance;
 
@@ -22,6 +24,9 @@ Future<void> configureDependencies({Client? client}) async {
     getIt.registerLazySingleton<UploadImgRepository>(
       () => MockUploadImgRepository(),
     );
+    getIt.registerLazySingleton<AppConfig>(
+      () => AppConfig(imageBaseUrl: "https://picsum.photos/seed/"),
+    );
   } else {
     // Mode production : client fourni par l'appelant, ou client par défaut
     final ferryClient =
@@ -32,6 +37,18 @@ Future<void> configureDependencies({Client? client}) async {
     );
     getIt.registerLazySingleton<UploadImgRepository>(
       () => UploadImgRepository(getIt<Client>()),
+    );
+
+    // On récupère la configuration de l'application
+    var resultAppConfig = await AppConfigRepository(
+      getIt<Client>(),
+    ).getAppConfig();
+    // On donne accès à la configuration de l'application à toute l'application
+    resultAppConfig.fold(
+      (failure) => throw failure,
+      (config) => getIt.registerSingleton<AppConfig>(
+        config,
+      ), // Plus besoin d'instanceName
     );
   }
 }

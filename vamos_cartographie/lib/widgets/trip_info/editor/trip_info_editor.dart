@@ -31,8 +31,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
   late final TextEditingController _titleCtrl;
   late final TextEditingController _descCtrl;
   late DateTime? _date;
-  late List<String> _imagePaths;
-  late List<String> _imageUrls;
+  late List<String> _images;
 
   static const int _maxDesc = 1000;
 
@@ -44,8 +43,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
     _titleCtrl = TextEditingController(text: widget.trip.title);
     _descCtrl = TextEditingController(text: widget.trip.description);
     _date = widget.trip.date;
-    _imagePaths = List<String>.from(widget.trip.images);
-    _imageUrls = List<String>.from(widget.trip.images);
+    _images = List<String>.from(widget.trip.images);
   }
 
   @override
@@ -70,8 +68,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
     widget.trip.title = _titleCtrl.text.trim();
     widget.trip.description = _descCtrl.text;
     widget.trip.date = _date;
-    widget.trip.images = _imagePaths;
-    widget.trip.images = _imageUrls;
+    widget.trip.images = _images;
     widget.onConfirm();
   }
 
@@ -169,11 +166,9 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
           child: FractionallySizedBox(
             widthFactor: 0.9,
             child: ImageCarouselPicker(
-              imagePaths: _imagePaths,
-              imageUrls: _imageUrls,
+              remoteImagesPaths: _images,
               readOnly: false,
-              onPathsChanged: (paths) => setState(() => _imagePaths = paths),
-              onUrlsChanged: (urls) => setState(() => _imageUrls = urls),
+              onChanged: (paths) => setState(() => _images = paths),
             ),
           ),
         ),

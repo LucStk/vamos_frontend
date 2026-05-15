@@ -6,14 +6,12 @@ import "package:dio/dio.dart";
 import 'dart:io';
 import "package:api_client/api_client.dart";
 
-typedef UploadConfirmation = ({String urlLink, String fileKey});
-
 class UploadImgRepository {
   final _dio = Dio();
   final Client _client;
   UploadImgRepository(this._client);
 
-  Future<Either<Failure, UploadConfirmation>> uploadImage(
+  Future<Either<Failure, String>> uploadImage(
     File imageFile,
     String type, {
     Function(int sent, int total)? onProgress, // Callback de progression
@@ -53,16 +51,8 @@ class UploadImgRepository {
           }
         },
       );
-      // 3. Confirmer l'upload au Backend
-      final confirmRequest = GConfirmImageUploadReq(
-        vars: GConfirmImageUploadVars(fileKey: fileKey),
-      );
-      var confirmRes = await _client.request(confirmRequest).first;
-      if (confirmRes.hasErrors) {
-        return Left(ServerFailure("Erreur confirmation"));
-      }
-      var urlLink = confirmRes.data!.confirmImageUpload.urlLink;
-      return Right((urlLink: urlLink, fileKey: fileKey));
+
+      return Right(fileKey);
     } on DioException catch (e) {
       return Left(ConnectionFailure());
     } catch (e) {

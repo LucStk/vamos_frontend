@@ -74,10 +74,9 @@ class TripInfoView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           ImageCarouselPicker(
-            images: trip.images,
+            remoteImagesPaths: trip.images,
             readOnly: true,
-            onPathsChanged: (_) {},
-            onUrlsChanged: (_) {},
+            onChanged: (_) {},
           ),
         ],
 

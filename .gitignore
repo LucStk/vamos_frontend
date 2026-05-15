@@ -34,3 +34,4 @@ vamos_cartographie/.direnv/
 vamos_cartographie/.direnv/bin/nix-direnv-reload
 .direnv/bin/nix-direnv-reload
 flake.lock
+.direnv/

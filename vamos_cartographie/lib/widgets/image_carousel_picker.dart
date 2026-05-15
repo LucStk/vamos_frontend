@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vamos_cartographie/core/injection.dart';
+import 'package:vamos_cartographie/models.dart';
 import 'package:vamos_cartographie/repository/upload_img_repository.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -11,25 +12,46 @@ import 'package:vamos_cartographie/repository/upload_img_repository.dart';
 
 enum _ItemKind { local, remote }
 
+/// Un item du carousel.
+/// - [local]  : path absolu sur le device, image pas encore uploadée.
+/// - [remote] : fileKey stocké en DB (ex: "uploads/uuid.jpg").
+///              L'URL d'affichage est construite à la volée via AppConfig.
 class _CarouselItem {
   final _ItemKind kind;
-  final String value; // chemin local ou URL distante
+
+  /// local  → path absolu du fichier sur le device
+  /// remote → fileKey (relatif, stocké en DB)
+  final String value;
 
   const _CarouselItem.local(this.value) : kind = _ItemKind.local;
   const _CarouselItem.remote(this.value) : kind = _ItemKind.remote;
 
   bool get isLocal => kind == _ItemKind.local;
+
+  /// URL utilisable pour afficher l'image.
+  /// - local  → path direct (File)
+  /// - remote → URL complète construite via AppConfig
+  String get displayUrl => isLocal ? value : getIt<AppConfig>().imageUrl(value);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Widget public
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Carousel de sélection / affichage d'images.
+///
+/// Entrée  : [remoteImagesPaths] — liste de fileKeys (ex: "uploads/uuid.jpg")
+/// Sortie  : [onChanged]        — liste de fileKeys mise à jour
+///
+/// Les paths locaux (avant upload) sont gérés en interne.
+/// La conversion fileKey → URL d'affichage est faite en interne via AppConfig.
 class ImageCarouselPicker extends StatefulWidget {
-  final List<String> imagePaths;
-  final List<String> imageUrls;
-  final void Function(List<String>) onPathsChanged;
-  final void Function(List<String>) onUrlsChanged;
+  /// fileKeys des images déjà uploadées (stockés en DB).
+  final List<String> remoteImagesPaths;
+
+  /// Appelé à chaque changement avec la liste mise à jour de fileKeys.
+  final void Function(List<String> fileKeys) onChanged;
+
   final bool readOnly;
 
   /// Taille des miniatures (largeur = hauteur).
@@ -37,10 +59,8 @@ class ImageCarouselPicker extends StatefulWidget {
 
   const ImageCarouselPicker({
     super.key,
-    required this.imagePaths,
-    required this.imageUrls,
-    required this.onPathsChanged,
-    required this.onUrlsChanged,
+    required this.remoteImagesPaths,
+    required this.onChanged,
     this.readOnly = false,
     this.thumbSize = 80,
   });
@@ -67,32 +87,28 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
   @override
   void initState() {
     super.initState();
-    _items = _buildItems(widget.imagePaths, widget.imageUrls);
+    _items = _buildItems(widget.remoteImagesPaths);
   }
 
   @override
   void didUpdateWidget(covariant ImageCarouselPicker old) {
     super.didUpdateWidget(old);
-    if (old.imagePaths != widget.imagePaths ||
-        old.imageUrls != widget.imageUrls) {
-      setState(() {
-        _items = _buildItems(widget.imagePaths, widget.imageUrls);
-      });
+    if (old.remoteImagesPaths != widget.remoteImagesPaths) {
+      setState(() => _items = _buildItems(widget.remoteImagesPaths));
     }
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
-  List<_CarouselItem> _buildItems(List<String> paths, List<String> urls) => [
-    ...urls.map(_CarouselItem.remote),
-    ...paths.map(_CarouselItem.local),
-  ];
+  List<_CarouselItem> _buildItems(List<String> fileKeys) =>
+      fileKeys.map(_CarouselItem.remote).toList();
 
-  List<String> _localPaths() =>
-      _items.where((i) => i.isLocal).map((i) => i.value).toList();
-
-  List<String> _remoteUrls() =>
+  /// Retourne les fileKeys des images distantes (déjà uploadées).
+  List<String> _remoteFileKeys() =>
       _items.where((i) => !i.isLocal).map((i) => i.value).toList();
+
+  /// Notifie le parent avec la liste courante de fileKeys.
+  void _notify() => widget.onChanged(_remoteFileKeys());
 
   // ── Sélection + upload ────────────────────────────────────────────────────
 
@@ -112,9 +128,10 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
     }
     if (picked.isEmpty) return;
 
+    // Ajoute les items locaux en attente d'upload
     final newItems = picked.map(_CarouselItem.local).toList();
     setState(() => _items.addAll(newItems));
-    widget.onPathsChanged(_localPaths());
+    // Pas de _notify() ici : les items locaux ne sont pas encore des fileKeys
 
     for (final item in newItems) {
       _uploadItem(item);
@@ -122,8 +139,6 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
   }
 
   Future<void> _uploadItem(_CarouselItem item) async {
-    // On utilise le path comme clé stable — l'index peut dériver si
-    // d'autres images sont supprimées pendant l'upload.
     final path = item.value;
     final ext = path.split('.').last.toLowerCase();
 
@@ -145,7 +160,7 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
 
     if (!mounted) return;
 
-    // Retrouver l'index courant de l'item (peut avoir bougé).
+    // L'index peut avoir bougé si d'autres images ont été supprimées pendant l'upload
     final idx = _items.indexWhere((i) => i.isLocal && i.value == path);
 
     result.fold(
@@ -153,32 +168,28 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
         _uploadProgress.remove(path);
         _uploadErrors[path] = 'Échec upload';
       }),
-      (UploadConfirmation confirmation) {
+      (String fileKey) {
         setState(() {
           _uploadProgress.remove(path);
           _uploadErrors.remove(path);
           if (idx != -1) {
-            _items[idx] = _CarouselItem.remote(confirmation.urlLink);
+            // On remplace le item local par le fileKey distant
+            _items[idx] = _CarouselItem.remote(fileKey);
           }
         });
-        widget.onPathsChanged(_localPaths());
-        // ATTENTION : Ici on donne le confirmation.FilePath plutôt
-        // que confirmation.urlLink.
-        // Le backend s'occupe de la conversion.
-        widget.onUrlsChanged(_remoteUrls());
+        _notify();
       },
     );
   }
 
   void _deleteItem(int idx) {
-    final path = _items[idx].value;
+    final val = _items[idx].value;
     setState(() {
-      _uploadProgress.remove(path);
-      _uploadErrors.remove(path);
+      _uploadProgress.remove(val);
+      _uploadErrors.remove(val);
       _items.removeAt(idx);
     });
-    widget.onPathsChanged(_localPaths());
-    widget.onUrlsChanged(_remoteUrls());
+    _notify();
   }
 
   // ── Lightbox ──────────────────────────────────────────────────────────────
@@ -205,7 +216,6 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
       spacing: 8,
       runSpacing: 8,
       children: [
-        // ── Miniatures ──
         for (int i = 0; i < _items.length; i++)
           _Thumbnail(
             key: ValueKey(_items[i].value),
@@ -219,7 +229,6 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
             onRetry: () => _uploadItem(_items[i]),
           ),
 
-        // ── Bouton "+" ──
         if (!widget.readOnly) _AddButton(size: s, onTap: _pickImages),
       ],
     );
@@ -264,7 +273,6 @@ class _Thumbnail extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // ── Image ──
               _buildImage(),
 
               // ── Spinner upload ──
@@ -342,8 +350,9 @@ class _Thumbnail extends StatelessWidget {
         errorBuilder: (_, __, ___) => _errorPlaceholder(),
       );
     }
+    // item.displayUrl construit l'URL complète via AppConfig
     return Image.network(
-      item.value,
+      item.displayUrl,
       fit: BoxFit.cover,
       loadingBuilder: (_, child, prog) {
         if (prog == null) return child;
@@ -463,7 +472,6 @@ class _LightboxState extends State<_Lightbox> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // ── Pages ──
           PageView.builder(
             controller: _ctrl,
             itemCount: widget.items.length,
@@ -471,7 +479,6 @@ class _LightboxState extends State<_Lightbox> {
             itemBuilder: (_, i) => _buildPage(widget.items[i]),
           ),
 
-          // ── Flèche gauche ──
           if (_index > 0)
             Positioned(
               left: 12,
@@ -482,7 +489,6 @@ class _LightboxState extends State<_Lightbox> {
               ),
             ),
 
-          // ── Flèche droite ──
           if (_index < widget.items.length - 1)
             Positioned(
               right: 12,
@@ -493,7 +499,6 @@ class _LightboxState extends State<_Lightbox> {
               ),
             ),
 
-          // ── Compteur ──
           Positioned(
             bottom: 24,
             left: 0,
@@ -516,7 +521,6 @@ class _LightboxState extends State<_Lightbox> {
             ),
           ),
 
-          // ── Croix fermer ──
           Positioned(
             top: MediaQuery.of(context).padding.top + 8,
             right: 12,
@@ -525,7 +529,7 @@ class _LightboxState extends State<_Lightbox> {
               child: Container(
                 width: 38,
                 height: 38,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black54,
                   shape: BoxShape.circle,
                 ),
@@ -542,7 +546,7 @@ class _LightboxState extends State<_Lightbox> {
     final image = item.isLocal
         ? Image.file(File(item.value), fit: BoxFit.contain)
         : Image.network(
-            item.value,
+            item.displayUrl,
             fit: BoxFit.contain,
             loadingBuilder: (_, child, prog) {
               if (prog == null) return child;
@@ -560,7 +564,6 @@ class _LightboxState extends State<_Lightbox> {
           );
 
     return GestureDetector(
-      // Tap en dehors de l'image ferme le lightbox
       onTap: () => Navigator.of(context).pop(),
       child: Center(child: image),
     );
@@ -580,7 +583,7 @@ class _LightboxArrow extends StatelessWidget {
       child: Container(
         width: 42,
         height: 42,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.black54,
           shape: BoxShape.circle,
         ),

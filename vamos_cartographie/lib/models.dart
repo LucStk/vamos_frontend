@@ -259,3 +259,18 @@ class Trip {
     // // Pour les listes, Ferry génère aussi des sous-objets typés
   );
 }
+
+class AppConfig {
+  final String imageBaseUrl;
+
+  AppConfig({required this.imageBaseUrl});
+
+  /// Construit l'URL d'affichage complète à partir d'un fileKey.
+  String imageUrl(String fileKey) {
+    final base = imageBaseUrl.endsWith('/')
+        ? imageBaseUrl.substring(0, imageBaseUrl.length - 1)
+        : imageBaseUrl;
+    final key = fileKey.startsWith('/') ? fileKey.substring(1) : fileKey;
+    return '$base/$key';
+  }
+}

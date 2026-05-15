@@ -187,7 +187,7 @@ class _WaypointBottomSheetState extends State<WaypointBottomSheet> {
                       // ── Photos ──
                       const SizedBox(height: 4),
                       ImageCarouselPicker(
-                        images: wp.images ?? [],
+                        remoteImagesPaths: wp.images ?? [],
                         readOnly: widget.readOnly,
                         onChanged: (urls) {
                           setState(() {
