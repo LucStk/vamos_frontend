@@ -71,7 +71,6 @@ type TripType {
   description: String!
   date: Date
   images: [String!]
-  s: [String!]
   waypoints: [WaypointType!]!
   segments: [SegmentType!]!
 }

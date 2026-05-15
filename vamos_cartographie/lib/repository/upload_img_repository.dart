@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:ferry/ferry.dart';
-import 'package:path/path.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import "package:dio/dio.dart";
 import 'dart:io';
