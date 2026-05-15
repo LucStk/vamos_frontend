@@ -380,7 +380,7 @@ class _MapPageState extends State<MapPage> {
       if (choice == 'cancel' || choice == null) return;
       if (choice == 'save') await _saveTrip();
     }
-    if (mounted) Navigator.of(context).maybePop();
+    if (mounted) Navigator.of(context).pop();
   }
 
   // ── Build ────────────────────────────────────────────────────────────────
@@ -408,8 +408,9 @@ class _MapPageState extends State<MapPage> {
     final title = _trip.title.trim();
 
     return PopScope(
-      // Intercepte le retour système aussi
-      canPop: false,
+      // Bloque le retour système uniquement quand il y a des modifs non sauvegardées
+      // en mode édition, pour afficher le dialog de confirmation.
+      canPop: !(_isDirty && _mode != _MapMode.observer),
       onPopInvokedWithResult: (didPop, _) async {
         if (!didPop) await _handleBack();
       },
