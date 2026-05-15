@@ -111,6 +111,7 @@ class Waypoint {
     description: description != null
         ? Value.present(description)
         : Value.absent(),
+    images: images != null ? Value.present(images) : Value.absent(),
   );
 
   factory Waypoint.fromGQL(GWaypointFieldsData data) => Waypoint(

@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 
 /// Barre supérieure de la MapPage.
-/// Contient : bouton retour, titre cliquable, switch mode édition.
+/// Contient : bouton retour, titre cliquable, point dirty.
 class MapTopBar extends StatelessWidget {
   final String title;
-  final bool isEditing;
   final bool isDirty;
   final VoidCallback onBack;
   final VoidCallback onTitleTap;
-  final ValueChanged<bool> onModeChanged;
 
   const MapTopBar({
     super.key,
     required this.title,
-    required this.isEditing,
     required this.isDirty,
     required this.onBack,
     required this.onTitleTap,
-    required this.onModeChanged,
   });
 
   @override
@@ -93,45 +89,10 @@ class MapTopBar extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // ── Switch Visualisation / Édition ──
-              _ModeSwitch(isEditing: isEditing, onChanged: onModeChanged),
-              const SizedBox(width: 4),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class _ModeSwitch extends StatelessWidget {
-  final bool isEditing;
-  final ValueChanged<bool> onChanged;
-
-  const _ModeSwitch({required this.isEditing, required this.onChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Édition',
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: isEditing
-                ? theme.colorScheme.primary
-                : theme.colorScheme.onSurface.withOpacity(0.45),
-            fontWeight: isEditing ? FontWeight.w700 : FontWeight.normal,
-          ),
-        ),
-        Switch(
-          value: isEditing,
-          onChanged: onChanged,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
-      ],
     );
   }
 }
