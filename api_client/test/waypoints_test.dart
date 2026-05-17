@@ -25,7 +25,7 @@ void main() {
       vars: GCreateTripVars(
         trip: GTripInput(
           title: "test création",
-          description: "ceci est un test de créàtion",
+          description: Value.present("ceci est un test de créàtion"),
           date: Value.present(DateTime.now().toIso8601String().split('T')[0]),
           waypoints: Value.present([
             GWaypointInput(
@@ -54,10 +54,10 @@ void main() {
 
     final updateTripRequest = GUpdateTripReq(
       vars: GUpdateTripVars(
-        id: id!,
-        trip: GTripInput(
-          title: "test modification",
-          description: "ceci est un test de modification",
+        trip: GTripUpdateInput(
+          id: id!,
+          title: Value.present("test modification"),
+          description: Value.present("ceci est un test de modification"),
           date: Value.present(DateTime.now().toIso8601String().split('T')[0]),
           waypoints: Value.present([
             GWaypointInput(

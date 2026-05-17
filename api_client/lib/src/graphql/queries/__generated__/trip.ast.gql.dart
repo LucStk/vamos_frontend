@@ -57,7 +57,7 @@ const GetTrip = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'trip'),
+      name: _i1.NameNode(value: 'node'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
@@ -67,38 +67,62 @@ const GetTrip = _i1.OperationDefinitionNode(
       ],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
-          directives: [],
-        ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'waypoints'),
+          name: _i1.NameNode(value: 'id'),
           alias: null,
           arguments: [],
           directives: [],
+          selectionSet: null,
+        ),
+        _i1.InlineFragmentNode(
+          typeCondition: _i1.TypeConditionNode(
+              on: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'TripType'),
+            isNonNull: false,
+          )),
+          directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'WaypointFields'),
+              name: _i1.NameNode(value: 'TripFields'),
               directives: [],
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
+              name: _i1.NameNode(value: 'waypoints'),
               alias: null,
               arguments: [],
               directives: [],
-              selectionSet: null,
+              selectionSet: _i1.SelectionSetNode(selections: [
+                _i1.FragmentSpreadNode(
+                  name: _i1.NameNode(value: 'WaypointFields'),
+                  directives: [],
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ]),
             ),
-          ]),
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'segments'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'SegmentFields'),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'segments'),
+              alias: null,
+              arguments: [],
               directives: [],
+              selectionSet: _i1.SelectionSetNode(selections: [
+                _i1.FragmentSpreadNode(
+                  name: _i1.NameNode(value: 'SegmentFields'),
+                  directives: [],
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ]),
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),

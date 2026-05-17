@@ -47,39 +47,25 @@ class GCreateTripVars {
 }
 
 class GUpdateTripVars {
-  const GUpdateTripVars({
-    required this.id,
-    required this.trip,
-  });
+  const GUpdateTripVars({required this.trip});
 
   factory GUpdateTripVars.fromJson(Map<String, dynamic> json) {
     return GUpdateTripVars(
-      id: (json['id'] as String),
-      trip: _i1.GTripInput.fromJson((json['trip'] as Map<String, dynamic>)),
-    );
+        trip: _i1.GTripUpdateInput.fromJson(
+            (json['trip'] as Map<String, dynamic>)));
   }
 
-  final String id;
-
-  final _i1.GTripInput trip;
+  final _i1.GTripUpdateInput trip;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$idValue = this.id;
-    _$result['id'] = _$idValue;
     final _$tripValue = this.trip;
     _$result['trip'] = _$tripValue.toJson();
     return _$result;
   }
 
-  GUpdateTripVars copyWith({
-    String? id,
-    _i1.GTripInput? trip,
-  }) {
-    return GUpdateTripVars(
-      id: id ?? this.id,
-      trip: trip ?? this.trip,
-    );
+  GUpdateTripVars copyWith({_i1.GTripUpdateInput? trip}) {
+    return GUpdateTripVars(trip: trip ?? this.trip);
   }
 
   @override
@@ -96,7 +82,7 @@ class GUpdateTripVars {
 
   @override
   String toString() {
-    return 'GUpdateTripVars(id: $id, trip: $trip)';
+    return 'GUpdateTripVars(trip: $trip)';
   }
 }
 

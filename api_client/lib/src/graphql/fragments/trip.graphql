@@ -20,6 +20,7 @@ fragment WaypointFields on WaypointType {
     lat
     lng
     type
+    title
     description
     images
 }

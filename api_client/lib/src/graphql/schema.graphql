@@ -14,6 +14,11 @@ type AppConfigType {
 """Date (isoformat)"""
 scalar Date
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](https://ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf).
+"""
+scalar JSON
+
 input LatLngInput {
   lat: Float!
   lng: Float!
@@ -26,13 +31,22 @@ type LatLngType {
 
 type Mutation {
   createTrip(trip: TripInput!): TripType!
-  updateTrip(id: ID!, trip: TripInput!): TripType!
-  deleteTrip(id: ID!): ID!
+  updateTrip(trip: TripUpdateInput!): TripType!
+  deleteTrip(input: TripDeleteInput!): TripType!
   generateImageUploadUrl(extension: String!): UploadConfig!
 }
 
+"""An object with a Globally Unique ID"""
+interface Node {
+  """The Globally Unique ID of this object"""
+  id: ID!
+}
+
 type Query {
-  trip(id: ID!): TripType
+  node(
+    """The ID of the object."""
+    id: ID!
+  ): Node!
   trips: [TripType!]!
   appConfig: AppConfigType!
 }
@@ -42,7 +56,8 @@ input SegmentInput {
   intermediatePoints: [LatLngInput!]!
 }
 
-type SegmentType {
+type SegmentType implements Node {
+  """The Globally Unique ID of this object"""
   id: ID!
   type: SegmentTypeEnum!
   intermediatePoints: [LatLngType!]!
@@ -56,23 +71,38 @@ enum SegmentTypeEnum {
   train
 }
 
-input TripInput {
-  title: String!
-  description: String!
-  date: Date
-  images: [String!]
-  waypoints: [WaypointInput!]
-  segments: [SegmentInput!]
+input TripDeleteInput {
+  id: ID!
 }
 
-type TripType {
+input TripInput {
+  title: String!
+  description: String
+  date: Date
+  images: JSON
+  waypoints: [WaypointInput!] = null
+  segments: [SegmentInput!] = null
+}
+
+type TripType implements Node {
+  """The Globally Unique ID of this object"""
   id: ID!
   title: String!
   description: String!
   date: Date
-  images: [String!]
+  images: JSON!
   waypoints: [WaypointType!]!
   segments: [SegmentType!]!
+}
+
+input TripUpdateInput {
+  id: ID!
+  title: String
+  description: String
+  date: Date
+  images: JSON
+  waypoints: [WaypointInput!] = null
+  segments: [SegmentInput!] = null
 }
 
 type UploadConfig {
@@ -84,16 +114,19 @@ input WaypointInput {
   lat: Float!
   lng: Float!
   type: WaypointTypeEnum!
+  title: String
   description: String
-  images: [String!]
+  images: JSON
 }
 
-type WaypointType {
+type WaypointType implements Node {
+  """The Globally Unique ID of this object"""
   id: ID!
   lat: Float!
   lng: Float!
+  title: String!
   description: String!
-  images: [String!]!
+  images: JSON!
   type: WaypointTypeEnum!
 }
 

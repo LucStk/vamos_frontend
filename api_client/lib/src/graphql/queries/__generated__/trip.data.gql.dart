@@ -65,38 +65,34 @@ class GGetAllTripsData {
 
 class GGetTripData {
   const GGetTripData({
-    this.trip,
+    required this.node,
     this.G__typename = 'Query',
   });
 
   factory GGetTripData.fromJson(Map<String, dynamic> json) {
     return GGetTripData(
-      trip: json['trip'] == null
-          ? null
-          : GGetTripData_trip.fromJson((json['trip'] as Map<String, dynamic>)),
+      node: GGetTripData_node.fromJson((json['node'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final GGetTripData_trip? trip;
+  final GGetTripData_node node;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$tripValue = this.trip;
-    _$result['trip'] = _$tripValue == null ? null : _$tripValue.toJson();
+    _$result['node'] = this.node.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
   GGetTripData copyWith({
-    GGetTripData_trip? trip,
-    bool tripIsSet = false,
+    GGetTripData_node? node,
     String? G__typename,
   }) {
     return GGetTripData(
-      trip: tripIsSet ? trip : this.trip,
+      node: node ?? this.node,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -105,43 +101,97 @@ class GGetTripData {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is GGetTripData &&
-            trip == other.trip &&
+            node == other.node &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, trip, G__typename);
+    return Object.hash(runtimeType, node, G__typename);
   }
 
   @override
   String toString() {
-    return 'GGetTripData(trip: $trip, G__typename: $G__typename)';
+    return 'GGetTripData(node: $node, G__typename: $G__typename)';
   }
 }
 
-class GGetTripData_trip implements _i1.GTripFields {
-  const GGetTripData_trip({
+sealed class GGetTripData_node {
+  const GGetTripData_node({
     required this.id,
+    required this.G__typename,
+  });
+
+  factory GGetTripData_node.fromJson(Map<String, dynamic> json) {
+    switch (json['__typename'] as String) {
+      case 'TripType':
+        return GGetTripData_node__asTripType.fromJson(json);
+      default:
+        return GGetTripData_node__unknown.fromJson(json);
+    }
+  }
+
+  final String id;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['id'] = this.id;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+}
+
+extension GGetTripData_nodeWhenExtension on GGetTripData_node {
+  _T when<_T>({
+    required _T Function(GGetTripData_node__asTripType) tripType,
+    required _T Function() orElse,
+  }) {
+    switch (G__typename) {
+      case 'TripType':
+        return tripType(this as GGetTripData_node__asTripType);
+      default:
+        return orElse();
+    }
+  }
+
+  _T maybeWhen<_T>({
+    _T Function(GGetTripData_node__asTripType)? tripType,
+    required _T Function() orElse,
+  }) {
+    switch (G__typename) {
+      case 'TripType':
+        return tripType == null
+            ? orElse()
+            : tripType(this as GGetTripData_node__asTripType);
+      default:
+        return orElse();
+    }
+  }
+}
+
+class GGetTripData_node__asTripType extends GGetTripData_node
+    implements _i1.GTripFields {
+  GGetTripData_node__asTripType({
+    required String id,
+    String G__typename = 'TripType',
     required this.title,
     this.date,
     required this.description,
-    this.images,
-    this.G__typename = 'TripType',
+    required this.images,
     required this.waypoints,
     required this.segments,
-  });
+  }) : super(id: id, G__typename: G__typename);
 
-  factory GGetTripData_trip.fromJson(Map<String, dynamic> json) {
-    return GGetTripData_trip(
+  factory GGetTripData_node__asTripType.fromJson(Map<String, dynamic> json) {
+    return GGetTripData_node__asTripType(
       id: (json['id'] as String),
+      G__typename: (json['__typename'] as String),
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      images: json['images'] == null
-          ? null
-          : List<String>.from((json['images'] as List<dynamic>)),
-      G__typename: (json['__typename'] as String),
+      images: (json['images'] as Object),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
               _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
@@ -153,57 +203,48 @@ class GGetTripData_trip implements _i1.GTripFields {
     );
   }
 
-  final String id;
-
   final String title;
 
   final String? date;
 
   final String description;
 
-  final List<String>? images;
-
-  final String G__typename;
+  final Object images;
 
   final List<_i1.GWaypointFieldsData> waypoints;
 
   final List<_i1.GSegmentFieldsData> segments;
 
   Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
+    final _$result = super.toJson();
     _$result['title'] = this.title;
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    final _$imagesValue = this.images;
-    _$result['images'] =
-        _$imagesValue == null ? null : _$imagesValue.map((_$e) => _$e).toList();
-    _$result['__typename'] = this.G__typename;
+    _$result['images'] = this.images;
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
     return _$result;
   }
 
-  GGetTripData_trip copyWith({
+  GGetTripData_node__asTripType copyWith({
     String? id,
+    String? G__typename,
     String? title,
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<String>? images,
-    bool imagesIsSet = false,
-    String? G__typename,
+    Object? images,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
   }) {
-    return GGetTripData_trip(
+    return GGetTripData_node__asTripType(
       id: id ?? this.id,
+      G__typename: G__typename ?? this.G__typename,
       title: title ?? this.title,
       date: dateIsSet ? date : this.date,
       description: description ?? this.description,
-      images: imagesIsSet ? images : this.images,
-      G__typename: G__typename ?? this.G__typename,
+      images: images ?? this.images,
       waypoints: waypoints ?? this.waypoints,
       segments: segments ?? this.segments,
     );
@@ -212,33 +253,72 @@ class GGetTripData_trip implements _i1.GTripFields {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetTripData_trip &&
+        (other is GGetTripData_node__asTripType &&
             id == other.id &&
+            G__typename == other.G__typename &&
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            _gqlUtils.listEquals(images, other.images) &&
-            G__typename == other.G__typename &&
+            images == other.images &&
             _gqlUtils.listEquals(waypoints, other.waypoints) &&
             _gqlUtils.listEquals(segments, other.segments));
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(images),
-        G__typename,
-        _gqlUtils.listHash(waypoints),
-        _gqlUtils.listHash(segments));
+    return Object.hash(runtimeType, id, G__typename, title, date, description,
+        images, _gqlUtils.listHash(waypoints), _gqlUtils.listHash(segments));
   }
 
   @override
   String toString() {
-    return 'GGetTripData_trip(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename, waypoints: $waypoints, segments: $segments)';
+    return 'GGetTripData_node__asTripType(id: $id, G__typename: $G__typename, title: $title, date: $date, description: $description, images: $images, waypoints: $waypoints, segments: $segments)';
+  }
+}
+
+class GGetTripData_node__unknown extends GGetTripData_node {
+  GGetTripData_node__unknown({
+    required String id,
+    required String G__typename,
+  }) : super(id: id, G__typename: G__typename);
+
+  factory GGetTripData_node__unknown.fromJson(Map<String, dynamic> json) {
+    return GGetTripData_node__unknown(
+      id: (json['id'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    return _$result;
+  }
+
+  GGetTripData_node__unknown copyWith({
+    String? id,
+    String? G__typename,
+  }) {
+    return GGetTripData_node__unknown(
+      id: id ?? this.id,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetTripData_node__unknown &&
+            id == other.id &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, id, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetTripData_node__unknown(id: $id, G__typename: $G__typename)';
   }
 }

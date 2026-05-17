@@ -7,6 +7,8 @@ import 'package:api_client/src/graphql/mutations/__generated__/trip.req.gql.dart
 import 'package:api_client/src/graphql/__generated__/schema.schema.gql.dart';
 import 'package:test/test.dart';
 
+import 'package:gql_tristate_value/gql_tristate_value.dart';
+
 void printError(response) {
   if (response.linkException != null) {
     print("Erreur Réseau/Lien: ${response.linkException}");
@@ -50,7 +52,7 @@ void main() {
       vars: GCreateTripVars(
         trip: GTripInput(
           title: "test création",
-          description: "ceci est un test de création",
+          description: Value.present("ceci est un test de création"),
         ),
       ),
     );
@@ -61,10 +63,10 @@ void main() {
     // Test pour la modification du voyage
     final updateTripRequest = GUpdateTripReq(
       vars: GUpdateTripVars(
-        id: id!,
-        trip: GTripInput(
-          title: "test modification",
-          description: "ceci est un test de modification",
+        trip: GTripUpdateInput(
+          id: id!,
+          title: Value.present("test modification"),
+          description: Value.present("ceci est un test de modification"),
         ),
       ),
     );

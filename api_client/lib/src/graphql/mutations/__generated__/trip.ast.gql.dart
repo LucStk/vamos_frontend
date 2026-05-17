@@ -98,23 +98,14 @@ const UpdateTrip = _i1.OperationDefinitionNode(
   name: _i1.NameNode(value: 'UpdateTrip'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-    _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'TripInput'),
+        name: _i1.NameNode(value: 'TripUpdateInput'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
-    ),
+    )
   ],
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -123,13 +114,9 @@ const UpdateTrip = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-        ),
-        _i1.ArgumentNode(
           name: _i1.NameNode(value: 'trip'),
           value: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
-        ),
+        )
       ],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
@@ -214,12 +201,32 @@ const DeleteTrip = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.ObjectValueNode(fields: [
+            _i1.ObjectFieldNode(
+              name: _i1.NameNode(value: 'id'),
+              value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+            )
+          ]),
         )
       ],
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: '__typename'),
