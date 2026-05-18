@@ -48,7 +48,7 @@ type Mutation {
   createTrip(trip: TripInput!): TripType!
   updateTrip(trip: TripUpdateInput!): TripType!
   deleteTrip(input: TripDeleteInput!): TripType!
-  createImage(image: ImageInput!): ImageType!
+  createImage(data: ImageInput!): ImageType!
   generateImageUploadUrl(extension: String!): UploadConfig!
 }
 

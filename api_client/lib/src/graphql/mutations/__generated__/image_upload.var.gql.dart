@@ -2,8 +2,6 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:api_client/src/graphql/__generated__/schema.schema.gql.dart'
-    as _i1;
 import 'package:api_client/src/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
@@ -47,25 +45,23 @@ class GGenerateImageUploadUrlVars {
 }
 
 class GCreateImageVars {
-  const GCreateImageVars({required this.image});
+  const GCreateImageVars({required this.fileKey});
 
   factory GCreateImageVars.fromJson(Map<String, dynamic> json) {
-    return GCreateImageVars(
-        image:
-            _i1.GImageInput.fromJson((json['image'] as Map<String, dynamic>)));
+    return GCreateImageVars(fileKey: (json['fileKey'] as String));
   }
 
-  final _i1.GImageInput image;
+  final String fileKey;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$imageValue = this.image;
-    _$result['image'] = _$imageValue.toJson();
+    final _$fileKeyValue = this.fileKey;
+    _$result['fileKey'] = _$fileKeyValue;
     return _$result;
   }
 
-  GCreateImageVars copyWith({_i1.GImageInput? image}) {
-    return GCreateImageVars(image: image ?? this.image);
+  GCreateImageVars copyWith({String? fileKey}) {
+    return GCreateImageVars(fileKey: fileKey ?? this.fileKey);
   }
 
   @override
@@ -82,6 +78,6 @@ class GCreateImageVars {
 
   @override
   String toString() {
-    return 'GCreateImageVars(image: $image)';
+    return 'GCreateImageVars(fileKey: $fileKey)';
   }
 }

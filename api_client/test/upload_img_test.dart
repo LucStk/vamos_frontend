@@ -63,11 +63,7 @@ void main() {
     );
     // Ajout de l'image dans la base de données Django
     final imageResponse = await client
-        .request(
-          GCreateImageReq(
-            vars: GCreateImageVars(image: GImageInput(fileKey: fileKey)),
-          ),
-        )
+        .request(GCreateImageReq(vars: GCreateImageVars(fileKey: fileKey)))
         .first;
     expect(
       imageResponse.hasErrors,

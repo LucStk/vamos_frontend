@@ -262,7 +262,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'image'),
+          name: _i1.NameNode(value: 'data'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'ImageInput'),

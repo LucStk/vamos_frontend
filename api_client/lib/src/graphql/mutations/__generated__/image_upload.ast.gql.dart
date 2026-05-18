@@ -70,9 +70,9 @@ const CreateImage = _i1.OperationDefinitionNode(
   name: _i1.NameNode(value: 'CreateImage'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'image')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'fileKey')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ImageInput'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -86,8 +86,13 @@ const CreateImage = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'image'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'image')),
+          name: _i1.NameNode(value: 'data'),
+          value: _i1.ObjectValueNode(fields: [
+            _i1.ObjectFieldNode(
+              name: _i1.NameNode(value: 'fileKey'),
+              value: _i1.VariableNode(name: _i1.NameNode(value: 'fileKey')),
+            )
+          ]),
         )
       ],
       directives: [],

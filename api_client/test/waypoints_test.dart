@@ -65,6 +65,7 @@ void main() {
               lng: 0.1,
               type: GWaypointTypeEnum.start,
               description: Value.present('Ceci est le point de départ'),
+              title: Value.present('Point de départ'),
             ),
           ]),
           segments: Value.present([

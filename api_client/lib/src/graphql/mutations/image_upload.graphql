@@ -6,8 +6,8 @@ mutation GenerateImageUploadUrl($extension: String!) {
     }
 }
 
-mutation CreateImage($image: ImageInput!) {
-    createImage(image: $image) {
+mutation CreateImage($fileKey: String!) {
+    createImage(data: { fileKey: $fileKey }) {
         ...ImageFields
     }
 }

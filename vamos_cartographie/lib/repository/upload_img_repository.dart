@@ -47,6 +47,11 @@ class UploadImgRepository {
           }
         },
       );
+      // une fois le téléchargement terminé, on stocke le fileKey dans la base de données
+      final saveImageRequest = GCreateImageReq(
+        vars: GCreateImageVars(fileKey: fileKey),
+      );
+      await _client.request(saveImageRequest).first;
 
       return Right(fileKey);
     } on DioException catch (_) {
