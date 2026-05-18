@@ -14,10 +14,11 @@ type AppConfigType {
 """Date (isoformat)"""
 scalar Date
 
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](https://ecma-international.org/wp-content/uploads/ECMA-404_2nd_edition_december_2017.pdf).
-"""
-scalar JSON
+type ImageType implements Node {
+  """The Globally Unique ID of this object"""
+  id: ID!
+  path: String!
+}
 
 input LatLngInput {
   lat: Float!
@@ -27,6 +28,12 @@ input LatLngInput {
 type LatLngType {
   lat: Float!
   lng: Float!
+}
+
+input ManyToManyInput {
+  add: [ID!]
+  remove: [ID!]
+  set: [ID!]
 }
 
 type Mutation {
@@ -79,7 +86,7 @@ input TripInput {
   title: String!
   description: String
   date: Date
-  images: JSON
+  images: ManyToManyInput
   waypoints: [WaypointInput!] = null
   segments: [SegmentInput!] = null
 }
@@ -90,7 +97,7 @@ type TripType implements Node {
   title: String!
   description: String!
   date: Date
-  images: JSON!
+  images: [ImageType!]!
   waypoints: [WaypointType!]!
   segments: [SegmentType!]!
 }
@@ -100,7 +107,7 @@ input TripUpdateInput {
   title: String
   description: String
   date: Date
-  images: JSON
+  images: ManyToManyInput
   waypoints: [WaypointInput!] = null
   segments: [SegmentInput!] = null
 }
@@ -116,7 +123,7 @@ input WaypointInput {
   type: WaypointTypeEnum!
   title: String
   description: String
-  images: JSON
+  images: ManyToManyInput
 }
 
 type WaypointType implements Node {
@@ -126,7 +133,7 @@ type WaypointType implements Node {
   lng: Float!
   title: String!
   description: String!
-  images: JSON!
+  images: [ImageType!]!
   type: WaypointTypeEnum!
 }
 

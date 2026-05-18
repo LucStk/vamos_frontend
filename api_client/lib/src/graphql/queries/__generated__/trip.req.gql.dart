@@ -56,6 +56,7 @@ class GGetAllTripsReq
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetAllTrips,
     _i6.TripFields,
+    _i6.Images,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -211,6 +212,7 @@ class GGetTripReq
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetTrip,
     _i6.TripFields,
+    _i6.Images,
     _i6.SegmentFields,
     _i6.WaypointFields,
   ]);

@@ -191,7 +191,9 @@ class GGetTripData_node__asTripType extends GGetTripData_node
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      images: (json['images'] as Object),
+      images: (json['images'] as List<dynamic>)
+          .map((_$e) => _i1.GImagesData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
               _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
@@ -209,7 +211,7 @@ class GGetTripData_node__asTripType extends GGetTripData_node
 
   final String description;
 
-  final Object images;
+  final List<_i1.GImagesData> images;
 
   final List<_i1.GWaypointFieldsData> waypoints;
 
@@ -221,7 +223,7 @@ class GGetTripData_node__asTripType extends GGetTripData_node
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    _$result['images'] = this.images;
+    _$result['images'] = this.images.map((_$e) => _$e.toJson()).toList();
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
     return _$result;
@@ -234,7 +236,7 @@ class GGetTripData_node__asTripType extends GGetTripData_node
     String? date,
     bool dateIsSet = false,
     String? description,
-    Object? images,
+    List<_i1.GImagesData>? images,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
   }) {
@@ -259,15 +261,23 @@ class GGetTripData_node__asTripType extends GGetTripData_node
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            images == other.images &&
+            _gqlUtils.listEquals(images, other.images) &&
             _gqlUtils.listEquals(waypoints, other.waypoints) &&
             _gqlUtils.listEquals(segments, other.segments));
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, G__typename, title, date, description,
-        images, _gqlUtils.listHash(waypoints), _gqlUtils.listHash(segments));
+    return Object.hash(
+        runtimeType,
+        id,
+        G__typename,
+        title,
+        date,
+        description,
+        _gqlUtils.listHash(images),
+        _gqlUtils.listHash(waypoints),
+        _gqlUtils.listHash(segments));
   }
 
   @override

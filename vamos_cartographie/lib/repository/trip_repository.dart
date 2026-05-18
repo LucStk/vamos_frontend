@@ -42,9 +42,9 @@ class TripRepository {
         return Left(ServerFailure(response.graphqlErrors!.first.message));
       }
 
-      if (response.data?.trip == null) return Left(NotFoundFailure());
+      if (response.data?.node == null) return Left(NotFoundFailure());
 
-      return Right(Trip.fromGQL(response.data!.trip!));
+      return Right(Trip.fromGQL(response.data!.node));
     } catch (e) {
       return Left(ConnectionFailure());
     }
@@ -75,7 +75,7 @@ class TripRepository {
       final response = await _client
           .request(
             GUpdateTripReq(
-              vars: GUpdateTripVars(id: trip.id!, trip: trip.toGQLInput()),
+              vars: GUpdateTripVars(trip: trip.toGQLUpdateInput()),
             ),
           )
           .first;

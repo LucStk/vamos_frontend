@@ -3,7 +3,14 @@ fragment TripFields on TripType {
     title # Attention : votre schéma utilise 'title' et non 'name'
     date
     description
-    images
+    images {
+        ...Images
+    }
+}
+
+fragment Images on ImageType {
+    id
+    path
 }
 
 fragment SegmentFields on SegmentType {
@@ -22,5 +29,7 @@ fragment WaypointFields on WaypointType {
     type
     title
     description
-    images
+    images {
+        ...Images
+    }
 }

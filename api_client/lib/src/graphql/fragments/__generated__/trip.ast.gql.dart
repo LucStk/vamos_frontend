@@ -46,6 +46,50 @@ const TripFields = _i1.FragmentDefinitionNode(
       alias: null,
       arguments: [],
       directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'Images'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const Images = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'Images'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'ImageType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'path'),
+      alias: null,
+      arguments: [],
+      directives: [],
       selectionSet: null,
     ),
     _i1.FieldNode(
@@ -174,7 +218,19 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'Images'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: '__typename'),
@@ -187,6 +243,7 @@ const WaypointFields = _i1.FragmentDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   TripFields,
+  Images,
   SegmentFields,
   WaypointFields,
 ]);

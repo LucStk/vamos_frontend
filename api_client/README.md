@@ -15,11 +15,15 @@ Paquet qui permet de faire le lien entre l'app et le backend Django via graphql.
 Ferry permet de créer les query et mutation utile pour l'ensemble de l'application.
 
 Avant de lancer la génération, il faut télécharger le schema graphql du backend ->
-```get-graphql-schema http://localhost:8000/graphql/ > lib/src/graphql/schema.graphql```
+```
+get-graphql-schema http://localhost:8000/graphql/ > lib/src/graphql/schema.graphql
+```
 Le client tourne avec ferry generator 2.
 Pour lancer la génération automatique des modèles dart :
 
-```dart run build_runner build --delete-conflicting-outputs```
+```
+dart run build_runner build --delete-conflicting-outputs
+```
 
 Pour lancer les test
 ```
