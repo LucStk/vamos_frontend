@@ -192,7 +192,8 @@ class GGetTripData_node__asTripType extends GGetTripData_node
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => _i1.GImagesData.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) =>
+              _i1.GImageFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
@@ -211,7 +212,7 @@ class GGetTripData_node__asTripType extends GGetTripData_node
 
   final String description;
 
-  final List<_i1.GImagesData> images;
+  final List<_i1.GImageFieldsData> images;
 
   final List<_i1.GWaypointFieldsData> waypoints;
 
@@ -236,7 +237,7 @@ class GGetTripData_node__asTripType extends GGetTripData_node
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<_i1.GImagesData>? images,
+    List<_i1.GImageFieldsData>? images,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
   }) {

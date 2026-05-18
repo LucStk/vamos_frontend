@@ -111,7 +111,6 @@ class Waypoint {
     description: description != null
         ? Value.present(description)
         : Value.absent(),
-    images: images != null ? Value.present(images) : Value.absent(),
   );
 
   factory Waypoint.fromGQL(GWaypointFieldsData data) => Waypoint(
@@ -119,7 +118,7 @@ class Waypoint {
     type: data.type,
     id: data.id,
     description: data.description,
-    images: data.images,
+    images: data.images.map((i) => i.fileKey).toList(),
   );
 }
 
@@ -234,30 +233,35 @@ class Trip {
     );
   }
 
-  GTripInput toGQLInput() => GTripInput(
-    title: title,
-    description: description,
+  GTripUpdateInput toGQLUpdateInput() => GTripUpdateInput(
+    id: id!,
+    title: Value.present(title),
+    description: Value.present(description),
     date: date != null
         ? Value.present(date!.toIso8601String().substring(0, 10))
         : const Value.absent(),
-    images: Value.present(images),
     waypoints: Value.present(waypoints.map((w) => w.toGQLInput()).toList()),
     segments: Value.present(segments.map((s) => s.toGQLInput()).toList()),
   );
 
-  factory Trip.fromGQL(GGetTripData_trip data) => Trip(
+  GTripInput toGQLInput() => GTripInput(
+    title: title,
+    description: Value.present(description),
+    date: date != null
+        ? Value.present(date!.toIso8601String().substring(0, 10))
+        : const Value.absent(),
+    waypoints: Value.present(waypoints.map((w) => w.toGQLInput()).toList()),
+    segments: Value.present(segments.map((s) => s.toGQLInput()).toList()),
+  );
+
+  factory Trip.fromGQL(GGetTripData_node__asTripType data) => Trip(
     id: data.id,
     title: data.title,
     description: data.description,
-    // Si data.date n'est pas nul, on parse, sinon on met null
-    images: data.images,
+    images: data.images.map((i) => i.fileKey).toList(),
     date: data.date != null ? DateTime.parse(data.date!) : null,
     waypoints: data.waypoints.map((w) => Waypoint.fromGQL(w)).toList(),
     segments: data.segments.map((s) => Segment.fromGQL(s)).toList(),
-
-    // TODO : charger les chemins et les images
-    // imageUrls: data.imageUrls?.toList() ?? [],
-    // // Pour les listes, Ferry génère aussi des sous-objets typés
   );
 }
 

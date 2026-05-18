@@ -6,6 +6,44 @@ import 'package:api_client/src/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 
+class GImageInput {
+  const GImageInput({required this.fileKey});
+
+  factory GImageInput.fromJson(Map<String, dynamic> json) {
+    return GImageInput(fileKey: (json['fileKey'] as String));
+  }
+
+  final String fileKey;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$fileKeyValue = this.fileKey;
+    _$result['fileKey'] = _$fileKeyValue;
+    return _$result;
+  }
+
+  GImageInput copyWith({String? fileKey}) {
+    return GImageInput(fileKey: fileKey ?? this.fileKey);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GImageInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GImageInput(fileKey: $fileKey)';
+  }
+}
+
 class GLatLngInput {
   const GLatLngInput({
     required this.lat,

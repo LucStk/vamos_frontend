@@ -1,6 +1,13 @@
+#import "../fragments/trip.graphql"
 mutation GenerateImageUploadUrl($extension: String!) {
     generateImageUploadUrl(extension: $extension) {
         fileKey
         uploadUrl
+    }
+}
+
+mutation CreateImage($image: ImageInput!) {
+    createImage(image: $image) {
+        ...ImageFields
     }
 }

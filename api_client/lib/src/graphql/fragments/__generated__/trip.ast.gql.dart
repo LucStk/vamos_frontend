@@ -48,7 +48,7 @@ const TripFields = _i1.FragmentDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'Images'),
+          name: _i1.NameNode(value: 'ImageFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -69,8 +69,8 @@ const TripFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const Images = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'Images'),
+const ImageFields = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'ImageFields'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'ImageType'),
@@ -86,7 +86,7 @@ const Images = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'path'),
+      name: _i1.NameNode(value: 'fileKey'),
       alias: null,
       arguments: [],
       directives: [],
@@ -220,7 +220,7 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'Images'),
+          name: _i1.NameNode(value: 'ImageFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -243,7 +243,7 @@ const WaypointFields = _i1.FragmentDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   TripFields,
-  Images,
+  ImageFields,
   SegmentFields,
   WaypointFields,
 ]);

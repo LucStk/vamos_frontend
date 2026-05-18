@@ -57,7 +57,7 @@ class GCreateTripReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateTrip,
     _i7.TripFields,
-    _i7.Images,
+    _i7.ImageFields,
     _i7.SegmentFields,
     _i7.WaypointFields,
   ]);
@@ -218,7 +218,7 @@ class GUpdateTripReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.UpdateTrip,
     _i7.TripFields,
-    _i7.Images,
+    _i7.ImageFields,
     _i7.SegmentFields,
     _i7.WaypointFields,
   ]);

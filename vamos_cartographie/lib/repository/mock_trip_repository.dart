@@ -174,7 +174,7 @@ class MockTripRepository implements TripRepository {
             title: t.title,
             date: t.date?.toIso8601String().substring(0, 10),
             description: t.description,
-            images: const <String>[],
+            images: [],
           ),
         )
         .toList();

@@ -46,6 +46,25 @@ const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
 );
+const DateTime = _i1.ScalarTypeDefinitionNode(
+  name: _i1.NameNode(value: 'DateTime'),
+  directives: [],
+);
+const ImageInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ImageInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'fileKey'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
+  ],
+);
 const ImageType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'ImageType'),
   directives: [],
@@ -66,11 +85,20 @@ const ImageType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'path'),
+      name: _i1.NameNode(value: 'fileKey'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createdAt'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
         isNonNull: true,
       ),
     ),
@@ -226,6 +254,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'TripType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createImage'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'image'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'ImageInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageType'),
         isNonNull: true,
       ),
     ),
@@ -874,6 +921,8 @@ const document = _i1.DocumentNode(definitions: [
   oneOf,
   AppConfigType,
   Date,
+  DateTime,
+  ImageInput,
   ImageType,
   LatLngInput,
   LatLngType,

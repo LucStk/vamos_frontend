@@ -1,6 +1,10 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:api_client/src/graphql/fragments/__generated__/trip.data.gql.dart'
+    as _i1;
+
 class GGenerateImageUploadUrlData {
   const GGenerateImageUploadUrlData({
     required this.generateImageUploadUrl,
@@ -117,5 +121,59 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
   @override
   String toString() {
     return 'GGenerateImageUploadUrlData_generateImageUploadUrl(fileKey: $fileKey, uploadUrl: $uploadUrl, G__typename: $G__typename)';
+  }
+}
+
+class GCreateImageData {
+  const GCreateImageData({
+    required this.createImage,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GCreateImageData.fromJson(Map<String, dynamic> json) {
+    return GCreateImageData(
+      createImage: _i1.GImageFieldsData.fromJson(
+          (json['createImage'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GImageFieldsData createImage;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['createImage'] = this.createImage.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GCreateImageData copyWith({
+    _i1.GImageFieldsData? createImage,
+    String? G__typename,
+  }) {
+    return GCreateImageData(
+      createImage: createImage ?? this.createImage,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateImageData &&
+            createImage == other.createImage &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, createImage, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GCreateImageData(createImage: $createImage, G__typename: $G__typename)';
   }
 }

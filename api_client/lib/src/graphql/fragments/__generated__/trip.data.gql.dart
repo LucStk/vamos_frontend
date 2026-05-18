@@ -12,7 +12,7 @@ abstract class GTripFields {
   String get title;
   String? get date;
   String get description;
-  List<GImages> get images;
+  List<GImageFields> get images;
   String get G__typename;
 }
 
@@ -33,7 +33,8 @@ class GTripFieldsData implements GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GImagesData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+              (_$e) => GImageFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -47,7 +48,7 @@ class GTripFieldsData implements GTripFields {
 
   final String description;
 
-  final List<GImagesData> images;
+  final List<GImageFieldsData> images;
 
   final String G__typename;
 
@@ -69,7 +70,7 @@ class GTripFieldsData implements GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<GImagesData>? images,
+    List<GImageFieldsData>? images,
     String? G__typename,
   }) {
     return GTripFieldsData(
@@ -106,49 +107,49 @@ class GTripFieldsData implements GTripFields {
   }
 }
 
-abstract class GImages {
+abstract class GImageFields {
   String get id;
-  String get path;
+  String get fileKey;
   String get G__typename;
 }
 
-class GImagesData implements GImages {
-  const GImagesData({
+class GImageFieldsData implements GImageFields {
+  const GImageFieldsData({
     required this.id,
-    required this.path,
+    required this.fileKey,
     this.G__typename = 'ImageType',
   });
 
-  factory GImagesData.fromJson(Map<String, dynamic> json) {
-    return GImagesData(
+  factory GImageFieldsData.fromJson(Map<String, dynamic> json) {
+    return GImageFieldsData(
       id: (json['id'] as String),
-      path: (json['path'] as String),
+      fileKey: (json['fileKey'] as String),
       G__typename: (json['__typename'] as String),
     );
   }
 
   final String id;
 
-  final String path;
+  final String fileKey;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['id'] = this.id;
-    _$result['path'] = this.path;
+    _$result['fileKey'] = this.fileKey;
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
-  GImagesData copyWith({
+  GImageFieldsData copyWith({
     String? id,
-    String? path,
+    String? fileKey,
     String? G__typename,
   }) {
-    return GImagesData(
+    return GImageFieldsData(
       id: id ?? this.id,
-      path: path ?? this.path,
+      fileKey: fileKey ?? this.fileKey,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -156,20 +157,20 @@ class GImagesData implements GImages {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GImagesData &&
+        (other is GImageFieldsData &&
             id == other.id &&
-            path == other.path &&
+            fileKey == other.fileKey &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, path, G__typename);
+    return Object.hash(runtimeType, id, fileKey, G__typename);
   }
 
   @override
   String toString() {
-    return 'GImagesData(id: $id, path: $path, G__typename: $G__typename)';
+    return 'GImageFieldsData(id: $id, fileKey: $fileKey, G__typename: $G__typename)';
   }
 }
 
@@ -331,7 +332,7 @@ abstract class GWaypointFields {
   _i1.GWaypointTypeEnum get type;
   String get title;
   String get description;
-  List<GImages> get images;
+  List<GImageFields> get images;
   String get G__typename;
 }
 
@@ -356,7 +357,8 @@ class GWaypointFieldsData implements GWaypointFields {
       title: (json['title'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GImagesData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+              (_$e) => GImageFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -374,7 +376,7 @@ class GWaypointFieldsData implements GWaypointFields {
 
   final String description;
 
-  final List<GImagesData> images;
+  final List<GImageFieldsData> images;
 
   final String G__typename;
 
@@ -398,7 +400,7 @@ class GWaypointFieldsData implements GWaypointFields {
     _i1.GWaypointTypeEnum? type,
     String? title,
     String? description,
-    List<GImagesData>? images,
+    List<GImageFieldsData>? images,
     String? G__typename,
   }) {
     return GWaypointFieldsData(

@@ -28,7 +28,7 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.TripFields,
-    _i4.Images,
+    _i4.ImageFields,
   ]);
 
   _i2.GTripFieldsData? parseData(Map<String, dynamic> json) =>
@@ -73,10 +73,11 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
   }
 }
 
-class GImagesReq implements _i1.FragmentRequest<_i2.GImagesData, Null> {
-  GImagesReq({
+class GImageFieldsReq
+    implements _i1.FragmentRequest<_i2.GImageFieldsData, Null> {
+  GImageFieldsReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'Images',
+    this.fragmentName = 'ImageFields',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -89,22 +90,22 @@ class GImagesReq implements _i1.FragmentRequest<_i2.GImagesData, Null> {
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.Images]);
+      _i3.DocumentNode(definitions: [_i4.ImageFields]);
 
-  _i2.GImagesData? parseData(Map<String, dynamic> json) =>
-      _i2.GImagesData.fromJson(json);
+  _i2.GImageFieldsData? parseData(Map<String, dynamic> json) =>
+      _i2.GImageFieldsData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GImagesData data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GImageFieldsData data) => data.toJson();
 
-  GImagesReq copyWith({
+  GImageFieldsReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GImagesReq(
+    return GImageFieldsReq(
       document: document ?? this.document,
       fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
       idFields: idFields ?? this.idFields,
@@ -114,7 +115,7 @@ class GImagesReq implements _i1.FragmentRequest<_i2.GImagesData, Null> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GImagesReq &&
+        (other is GImageFieldsReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -129,7 +130,7 @@ class GImagesReq implements _i1.FragmentRequest<_i2.GImagesData, Null> {
 
   @override
   String toString() {
-    return 'GImagesReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GImageFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
 
@@ -211,7 +212,7 @@ class GWaypointFieldsReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.Images,
+    _i4.ImageFields,
     _i4.WaypointFields,
   ]);
 

@@ -42,9 +42,17 @@ class TripRepository {
         return Left(ServerFailure(response.graphqlErrors!.first.message));
       }
 
-      if (response.data?.node == null) return Left(NotFoundFailure());
+      final node = response.data?.node;
+      if (node == null) return Left(NotFoundFailure());
 
-      return Right(Trip.fromGQL(response.data!.node));
+      // 1. On vérifie si le node est bien du sous-type TripType généré par ton outil GQL
+      if (node is GGetTripData_node__asTripType) {
+        // 2. Le smart-cast de Dart fait qu'ici, 'node' est automatiquement typé en GGetTripData_node__asTripType
+        return Right(Trip.fromGQL(node));
+      }
+
+      // Si le node existe mais n'est pas un TripType (ex: c'est un WaypointType)
+      return Left(NotFoundFailure());
     } catch (e) {
       return Left(ConnectionFailure());
     }

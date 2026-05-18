@@ -4,13 +4,13 @@ fragment TripFields on TripType {
     date
     description
     images {
-        ...Images
+        ...ImageFields
     }
 }
 
-fragment Images on ImageType {
+fragment ImageFields on ImageType {
     id
-    path
+    fileKey
 }
 
 fragment SegmentFields on SegmentType {
@@ -30,6 +30,6 @@ fragment WaypointFields on WaypointType {
     title
     description
     images {
-        ...Images
+        ...ImageFields
     }
 }

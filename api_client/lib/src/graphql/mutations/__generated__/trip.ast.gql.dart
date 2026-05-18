@@ -242,7 +242,7 @@ const document = _i1.DocumentNode(definitions: [
   UpdateTrip,
   DeleteTrip,
   _i2.TripFields,
-  _i2.Images,
+  _i2.ImageFields,
   _i2.SegmentFields,
   _i2.WaypointFields,
 ]);

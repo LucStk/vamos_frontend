@@ -155,7 +155,7 @@ const document = _i1.DocumentNode(definitions: [
   GetAllTrips,
   GetTrip,
   _i2.TripFields,
-  _i2.Images,
+  _i2.ImageFields,
   _i2.SegmentFields,
   _i2.WaypointFields,
 ]);

@@ -1,6 +1,5 @@
 import 'package:api_client/src/ferry_client.dart';
-import 'package:api_client/src/graphql/mutations/__generated__/image_upload.var.gql.dart';
-import 'package:api_client/src/graphql/mutations/__generated__/image_upload.req.gql.dart';
+import 'package:api_client/api_client.dart';
 import 'package:test/test.dart';
 import 'package:http/http.dart' as http; // Ajout de l'import http
 
@@ -28,6 +27,8 @@ void main() {
     );
 
     final uploadUrl = uploadConfig!.uploadUrl;
+    final fileKey = uploadConfig.fileKey;
+
     print("URL reçue: $uploadUrl");
 
     // 2. Tentative d'upload réel vers Garage
@@ -55,11 +56,23 @@ void main() {
     if (uploadResponse.statusCode != 200) {
       print("Corps de l'erreur Garage: ${uploadResponse.body}");
     }
-
     expect(
       uploadResponse.statusCode,
       200,
       reason: "Garage devrait accepter le fichier avec l'URL pré-signée",
+    );
+    // Ajout de l'image dans la base de données Django
+    final imageResponse = await client
+        .request(
+          GCreateImageReq(
+            vars: GCreateImageVars(image: GImageInput(fileKey: fileKey)),
+          ),
+        )
+        .first;
+    expect(
+      imageResponse.hasErrors,
+      isFalse,
+      reason: "Django devrait accepter l'image ajoutée",
     );
   });
 }

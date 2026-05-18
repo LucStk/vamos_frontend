@@ -80,7 +80,8 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => _i1.GImagesData.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) =>
+              _i1.GImageFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
@@ -102,7 +103,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
 
   final String description;
 
-  final List<_i1.GImagesData> images;
+  final List<_i1.GImageFieldsData> images;
 
   final String G__typename;
 
@@ -130,7 +131,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<_i1.GImagesData>? images,
+    List<_i1.GImageFieldsData>? images,
     String? G__typename,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
@@ -254,7 +255,8 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => _i1.GImagesData.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) =>
+              _i1.GImageFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
@@ -276,7 +278,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
 
   final String description;
 
-  final List<_i1.GImagesData> images;
+  final List<_i1.GImageFieldsData> images;
 
   final String G__typename;
 
@@ -304,7 +306,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<_i1.GImagesData>? images,
+    List<_i1.GImageFieldsData>? images,
     String? G__typename,
     List<_i1.GWaypointFieldsData>? waypoints,
     List<_i1.GSegmentFieldsData>? segments,
