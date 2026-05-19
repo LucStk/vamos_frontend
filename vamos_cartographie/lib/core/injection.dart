@@ -32,11 +32,14 @@ Future<void> configureDependencies({Client? client}) async {
     getIt.registerLazySingleton<TripRemoteDatasource>(
       () => TripRemoteDatasource(getIt<Client>()),
     );
-    getIt.registerLazySingleton<ITripRepository>(
-      () => TripRepository(getIt<TripRemoteDatasource>()),
-    );
     getIt.registerLazySingleton<UploadImgRepository>(
       () => UploadImgRepository(getIt<Client>()),
+    );
+    getIt.registerLazySingleton<ITripRepository>(
+      () => TripRepository(
+        getIt<TripRemoteDatasource>(),
+        getIt<UploadImgRepository>(),
+      ),
     );
     getIt.registerLazySingleton<AppConfig>(
       () => const AppConfig(imageBaseUrl: ""),
