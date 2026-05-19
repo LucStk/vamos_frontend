@@ -11,8 +11,8 @@ mutation CreateTrip($trip: TripInput!) {
     }
 }
 
-mutation UpdateTrip($trip: TripUpdateInput!) {
-    updateTrip(trip: $trip) {
+mutation UpdateTrip($trip: TripUpdateInput!, $id: Int!) {
+    updateTrip(trip: $trip, id: $id) {
         ...TripFields
         waypoints {
             ...WaypointFields
@@ -23,7 +23,7 @@ mutation UpdateTrip($trip: TripUpdateInput!) {
     }
 }
 
-mutation DeleteTrip($id: ID!) {
+mutation DeleteTrip($id: Int!) {
     deleteTrip(input: { id: $id }) {
         id
     }

@@ -19,6 +19,3 @@ export 'package:api_client/src/graphql/__generated__/schema.utils.gql.dart';
 export 'package:api_client/src/graphql/mutations/__generated__/image_upload.req.gql.dart';
 export 'package:api_client/src/graphql/mutations/__generated__/image_upload.var.gql.dart';
 export 'package:api_client/src/graphql/mutations/__generated__/image_upload.data.gql.dart';
-
-export 'package:api_client/src/graphql/queries/__generated__/app_config.req.gql.dart';
-export 'package:api_client/src/graphql/queries/__generated__/app_config.data.gql.dart';

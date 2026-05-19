@@ -26,28 +26,8 @@ const oneOf = _i1.DirectiveDefinitionNode(
   locations: [_i1.DirectiveLocation.inputObject],
   repeatable: false,
 );
-const AppConfigType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'AppConfigType'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'imageBaseUrl'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    )
-  ],
-);
 const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
-  directives: [],
-);
-const DateTime = _i1.ScalarTypeDefinitionNode(
-  name: _i1.NameNode(value: 'DateTime'),
   directives: [],
 );
 const ImageInput = _i1.InputObjectTypeDefinitionNode(
@@ -68,22 +48,8 @@ const ImageInput = _i1.InputObjectTypeDefinitionNode(
 const ImageType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'ImageType'),
   directives: [],
-  interfaces: [
-    _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'Node'),
-      isNonNull: false,
-    )
-  ],
+  interfaces: [],
   fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-    ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'fileKey'),
       directives: [],
@@ -94,11 +60,11 @@ const ImageType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createdAt'),
+      name: _i1.NameNode(value: 'url'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DateTime'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
     ),
@@ -153,48 +119,6 @@ const LatLngType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const ManyToManyInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'ManyToManyInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'add'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'ID'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'remove'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'ID'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'set'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'ID'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
 const Mutation = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'Mutation'),
   directives: [],
@@ -220,25 +144,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'updateTrip'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'trip'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'TripUpdateInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'TripType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'deleteTrip'),
       directives: [],
       args: [
@@ -251,6 +156,62 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           ),
           defaultValue: null,
         )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'TripType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'attachImageToTrip'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'fileKey'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'TripImageType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateTrip'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'trip'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'TripUpdateInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'TripType'),
@@ -297,46 +258,11 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const Node = _i1.InterfaceTypeDefinitionNode(
-  name: _i1.NameNode(value: 'Node'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-    )
-  ],
-);
 const Query = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'Query'),
   directives: [],
   interfaces: [],
   fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'node'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'ID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Node'),
-        isNonNull: true,
-      ),
-    ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'trips'),
       directives: [],
@@ -350,11 +276,21 @@ const Query = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'appConfig'),
+      name: _i1.NameNode(value: 'trip'),
       directives: [],
-      args: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'AppConfigType'),
+        name: _i1.NameNode(value: 'TripType'),
         isNonNull: true,
       ),
     ),
@@ -390,22 +326,8 @@ const SegmentInput = _i1.InputObjectTypeDefinitionNode(
 const SegmentType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'SegmentType'),
   directives: [],
-  interfaces: [
-    _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'Node'),
-      isNonNull: false,
-    )
-  ],
+  interfaces: [],
   fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-    ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'type'),
       directives: [],
@@ -463,11 +385,36 @@ const TripDeleteInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'id'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
+        name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
       ),
       defaultValue: null,
     )
+  ],
+);
+const TripImageType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'TripImageType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'image'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'order'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const TripInput = _i1.InputObjectTypeDefinitionNode(
@@ -502,15 +449,6 @@ const TripInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'images'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ManyToManyInput'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'waypoints'),
       directives: [],
       type: _i1.ListTypeNode(
@@ -539,19 +477,14 @@ const TripInput = _i1.InputObjectTypeDefinitionNode(
 const TripType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'TripType'),
   directives: [],
-  interfaces: [
-    _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'Node'),
-      isNonNull: false,
-    )
-  ],
+  interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'id'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
+        name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
       ),
     ),
@@ -588,7 +521,7 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'ImageType'),
+          name: _i1.NameNode(value: 'TripImageType'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -625,15 +558,6 @@ const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ID'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'title'),
       directives: [],
       type: _i1.NamedTypeNode(
@@ -656,15 +580,6 @@ const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Date'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'images'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ManyToManyInput'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -720,6 +635,31 @@ const UploadConfig = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const WaypointImageType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'WaypointImageType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'image'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ImageType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'order'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const WaypointInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointInput'),
   directives: [],
@@ -769,26 +709,12 @@ const WaypointInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'images'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ManyToManyInput'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
   ],
 );
 const WaypointType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointType'),
   directives: [],
-  interfaces: [
-    _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'Node'),
-      isNonNull: false,
-    )
-  ],
+  interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'id'),
@@ -841,7 +767,7 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'ImageType'),
+          name: _i1.NameNode(value: 'WaypointImageType'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -919,25 +845,23 @@ const WaypointTypeEnum = _i1.EnumTypeDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
-  AppConfigType,
   Date,
-  DateTime,
   ImageInput,
   ImageType,
   LatLngInput,
   LatLngType,
-  ManyToManyInput,
   Mutation,
-  Node,
   Query,
   SegmentInput,
   SegmentType,
   SegmentTypeEnum,
   TripDeleteInput,
+  TripImageType,
   TripInput,
   TripType,
   TripUpdateInput,
   UploadConfig,
+  WaypointImageType,
   WaypointInput,
   WaypointType,
   WaypointTypeEnum,

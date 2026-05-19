@@ -54,8 +54,8 @@ void main() {
 
     final updateTripRequest = GUpdateTripReq(
       vars: GUpdateTripVars(
+        id: id!,
         trip: GTripUpdateInput(
-          id: id!,
           title: Value.present("test modification"),
           description: Value.present("ceci est un test de modification"),
           date: Value.present(DateTime.now().toIso8601String().split('T')[0]),

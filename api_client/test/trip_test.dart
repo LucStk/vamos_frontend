@@ -63,15 +63,15 @@ void main() {
     // Test pour la modification du voyage
     final updateTripRequest = GUpdateTripReq(
       vars: GUpdateTripVars(
+        id: id!,
         trip: GTripUpdateInput(
-          id: id!,
           title: Value.present("test modification"),
           description: Value.present("ceci est un test de modification"),
         ),
       ),
     );
     final updateTripResponse = await client.request(updateTripRequest).first;
-
+    print("updateTripResponse: ${updateTripResponse.data?.updateTrip}");
     expect(updateTripResponse.data?.updateTrip, isNotNull);
     // Test pour la suppression du voyage
     final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id));

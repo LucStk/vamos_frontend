@@ -7,25 +7,16 @@ directive @specifiedBy(
 """Indicates an Input Object is a OneOf Input Object."""
 directive @oneOf on INPUT_OBJECT
 
-type AppConfigType {
-  imageBaseUrl: String!
-}
-
 """Date (isoformat)"""
 scalar Date
-
-"""Date with time (isoformat)"""
-scalar DateTime
 
 input ImageInput {
   fileKey: String!
 }
 
-type ImageType implements Node {
-  """The Globally Unique ID of this object"""
-  id: ID!
+type ImageType {
   fileKey: String!
-  createdAt: DateTime!
+  url: String!
 }
 
 input LatLngInput {
@@ -38,33 +29,18 @@ type LatLngType {
   lng: Float!
 }
 
-input ManyToManyInput {
-  add: [ID!]
-  remove: [ID!]
-  set: [ID!]
-}
-
 type Mutation {
   createTrip(trip: TripInput!): TripType!
-  updateTrip(trip: TripUpdateInput!): TripType!
   deleteTrip(input: TripDeleteInput!): TripType!
+  attachImageToTrip(tripId: Int!, fileKey: String!): TripImageType!
+  updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
   createImage(data: ImageInput!): ImageType!
   generateImageUploadUrl(extension: String!): UploadConfig!
 }
 
-"""An object with a Globally Unique ID"""
-interface Node {
-  """The Globally Unique ID of this object"""
-  id: ID!
-}
-
 type Query {
-  node(
-    """The ID of the object."""
-    id: ID!
-  ): Node!
   trips: [TripType!]!
-  appConfig: AppConfigType!
+  trip(id: Int!): TripType!
 }
 
 input SegmentInput {
@@ -72,9 +48,7 @@ input SegmentInput {
   intermediatePoints: [LatLngInput!]!
 }
 
-type SegmentType implements Node {
-  """The Globally Unique ID of this object"""
-  id: ID!
+type SegmentType {
   type: SegmentTypeEnum!
   intermediatePoints: [LatLngType!]!
 }
@@ -88,35 +62,36 @@ enum SegmentTypeEnum {
 }
 
 input TripDeleteInput {
-  id: ID!
+  id: Int!
+}
+
+type TripImageType {
+  image: ImageType!
+  order: Int!
 }
 
 input TripInput {
   title: String!
   description: String
   date: Date
-  images: ManyToManyInput
   waypoints: [WaypointInput!] = null
   segments: [SegmentInput!] = null
 }
 
-type TripType implements Node {
-  """The Globally Unique ID of this object"""
-  id: ID!
+type TripType {
+  id: Int!
   title: String!
   description: String!
   date: Date
-  images: [ImageType!]!
+  images: [TripImageType!]!
   waypoints: [WaypointType!]!
   segments: [SegmentType!]!
 }
 
 input TripUpdateInput {
-  id: ID!
   title: String
   description: String
   date: Date
-  images: ManyToManyInput
   waypoints: [WaypointInput!] = null
   segments: [SegmentInput!] = null
 }
@@ -126,23 +101,26 @@ type UploadConfig {
   fileKey: String!
 }
 
+type WaypointImageType {
+  image: ImageType!
+  order: Int!
+}
+
 input WaypointInput {
   lat: Float!
   lng: Float!
   type: WaypointTypeEnum!
   title: String
   description: String
-  images: ManyToManyInput
 }
 
-type WaypointType implements Node {
-  """The Globally Unique ID of this object"""
+type WaypointType {
   id: ID!
   lat: Float!
   lng: Float!
   title: String!
   description: String!
-  images: [ImageType!]!
+  images: [WaypointImageType!]!
   type: WaypointTypeEnum!
 }
 

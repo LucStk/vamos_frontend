@@ -47,9 +47,24 @@ const TripFields = _i1.FragmentDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'ImageFields'),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'image'),
+          alias: null,
+          arguments: [],
           directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'ImageFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
         ),
         _i1.FieldNode(
           name: _i1.NameNode(value: '__typename'),
@@ -79,7 +94,7 @@ const ImageFields = _i1.FragmentDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'id'),
+      name: _i1.NameNode(value: 'url'),
       alias: null,
       arguments: [],
       directives: [],
@@ -110,13 +125,6 @@ const SegmentFields = _i1.FragmentDefinitionNode(
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'type'),
       alias: null,
@@ -219,9 +227,24 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'ImageFields'),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'image'),
+          alias: null,
+          arguments: [],
           directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'ImageFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
         ),
         _i1.FieldNode(
           name: _i1.NameNode(value: '__typename'),

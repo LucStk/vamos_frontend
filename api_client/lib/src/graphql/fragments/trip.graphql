@@ -1,20 +1,20 @@
 fragment TripFields on TripType {
     id
-    title # Attention : votre schéma utilise 'title' et non 'name'
+    title
     date
     description
     images {
-        ...ImageFields
+        image {
+            ...ImageFields
+        }
     }
 }
-
 fragment ImageFields on ImageType {
-    id
+    url
     fileKey
 }
 
 fragment SegmentFields on SegmentType {
-    id
     type
     intermediatePoints {
         lat
@@ -30,6 +30,8 @@ fragment WaypointFields on WaypointType {
     title
     description
     images {
-        ...ImageFields
+        image {
+            ...ImageFields
+        }
     }
 }

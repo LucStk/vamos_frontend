@@ -5,18 +5,14 @@ query GetAllTrips {
         ...TripFields
     }
 }
-query GetTrip($id: ID!) {
-    #  LA CORRECTION :
-    node(id: $id) {
-        id
-        ... on TripType {
-            ...TripFields
-            waypoints {
-                ...WaypointFields
-            }
-            segments {
-                ...SegmentFields
-            }
+query GetTrip($id: Int!) {
+    trip(id: $id) {
+        ...TripFields
+        waypoints {
+            ...WaypointFields
+        }
+        segments {
+            ...SegmentFields
         }
     }
 }
