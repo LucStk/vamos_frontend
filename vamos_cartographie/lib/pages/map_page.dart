@@ -6,14 +6,14 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:latlong2/latlong.dart';
 import '../map/customPolyEditor.dart';
 import '../map/map_view.dart';
-import '../models.dart';
+import '../domain/models.dart';
 import '../widgets/map_controls.dart';
 import '../widgets/map_edit_toolbar.dart';
 import '../widgets/map_top_bar.dart';
 import '../widgets/segment_bottom_sheet.dart';
 import '../widgets/trip_info_sheet.dart';
 import '../widgets/waypoint_bottom_sheet.dart';
-import "package:vamos_cartographie/repository/trip_repository.dart";
+import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:vamos_cartographie/core/injection.dart';
@@ -283,11 +283,11 @@ class _MapPageState extends State<MapPage> {
   // ── Sauvegarde backend ────────────────────────────────────────────────────
 
   Future<void> _saveTrip() async {
-    final repository = getIt<TripRepository>();
-    final Either<Failure, String> result;
+    final repository = getIt<ITripRepository>();
+    final Either<Failure, Trip> result;
 
     if (_trip.id != null) {
-      result = await repository.updateTrip(_trip);
+      result = await repository.updateTrip(int.parse(_trip.id!), _trip);
     } else {
       result = await repository.createTrip(_trip);
     }
@@ -299,10 +299,10 @@ class _MapPageState extends State<MapPage> {
         message: 'Erreur sauvegarde : ${failure.toString()}',
         isError: true,
       ),
-      (id) {
+      (savedTrip) {
         _showSnackBar(message: 'Voyage sauvegardé !', isError: false);
         setState(() {
-          _trip.id = id;
+          _trip.id = savedTrip.id;
           _isDirty = false;
         });
       },
@@ -326,7 +326,7 @@ class _MapPageState extends State<MapPage> {
   Future<void> _loadTripById(String id) async {
     setState(() => _isLoading = true);
 
-    final result = await getIt<TripRepository>().getTrip(id);
+    final result = await getIt<ITripRepository>().getTrip(int.parse(id));
 
     if (!mounted) return;
 

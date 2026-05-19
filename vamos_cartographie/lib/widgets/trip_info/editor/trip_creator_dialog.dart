@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/core/injection.dart';
-import 'package:vamos_cartographie/models.dart';
-import 'package:vamos_cartographie/repository/trip_repository.dart';
+import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'trip_info_editor.dart';
 
 /// Dialog de création d'un nouveau voyage.
@@ -76,7 +76,7 @@ class TripCreatorDialog extends StatelessWidget {
   }
 
   Future<void> _handleCreate(BuildContext context, Trip trip) async {
-    final result = await getIt<TripRepository>().createTrip(trip);
+    final result = await getIt<ITripRepository>().createTrip(trip);
     if (!context.mounted) return;
     result.fold(
       (failure) {
@@ -88,9 +88,9 @@ class TripCreatorDialog extends StatelessWidget {
           ),
         );
       },
-      (id) {
+      (createdTrip) {
         Navigator.of(context).pop();
-        onCreated(id);
+        onCreated(createdTrip.id ?? '');
       },
     );
   }

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:vamos_cartographie/repository/upload_img_repository.dart';
+import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'dart:math';

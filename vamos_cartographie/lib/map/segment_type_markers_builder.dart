@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import '../models.dart';
+import '../domain/models.dart';
 
 class SegmentTypeMarkersBuilder {
   static List<Marker> buildMarkers(Trip trip, void Function(int) onTap) {

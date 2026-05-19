@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../models.dart';
+import '../../domain/models.dart';
 import '../../widgets/image_carousel_picker.dart';
 import '_trip_section_label.dart';
 

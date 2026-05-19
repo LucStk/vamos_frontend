@@ -2,9 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vamos_cartographie/core/config.dart';
 import 'package:vamos_cartographie/core/injection.dart';
-import 'package:vamos_cartographie/models.dart';
-import 'package:vamos_cartographie/repository/upload_img_repository.dart';
+import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Modèle interne

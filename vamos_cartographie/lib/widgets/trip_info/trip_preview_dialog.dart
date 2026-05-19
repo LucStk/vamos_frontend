@@ -1,8 +1,8 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import '../../core/injection.dart';
-import '../../models.dart';
-import '../../repository/trip_repository.dart';
+import '../../domain/models.dart';
+import '../../data/repositories/i_trip_repository.dart';
 import 'trip_info_dialog.dart';
 import 'trip_info_view.dart';
 
@@ -11,7 +11,7 @@ import 'trip_info_view.dart';
 /// Charge le [Trip] complet (imageUrls, waypoints…) avant d'afficher,
 /// puis propose : Retour · Modifier · Explorer.
 class TripPreviewDialog extends StatefulWidget {
-  final GTripFieldsData tripData;
+  final Trip tripData;
   final VoidCallback onEdit;
   final VoidCallback onExplore;
 
@@ -25,7 +25,7 @@ class TripPreviewDialog extends StatefulWidget {
   /// Affiche le dialog de prévisualisation.
   static void show({
     required BuildContext context,
-    required GTripFieldsData tripData,
+    required Trip tripData,
     required VoidCallback onEdit,
     required VoidCallback onExplore,
   }) {
@@ -54,7 +54,9 @@ class _TripPreviewDialogState extends State<TripPreviewDialog> {
   }
 
   Future<void> _loadTrip() async {
-    final result = await getIt<TripRepository>().getTrip(widget.tripData.id);
+    final result = await getIt<ITripRepository>().getTrip(
+      int.parse(widget.tripData.id!),
+    );
     if (!mounted) return;
     result.fold(
       (failure) => setState(() => _error = failure.message),

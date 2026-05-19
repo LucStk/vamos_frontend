@@ -19,31 +19,31 @@ class MockTripRepository implements ITripRepository {
       waypoints: [
         Waypoint(
           id: 'wp-001-1',
-          latLng: LatLng(48.8566, 2.3522), // Paris
+          latLng: LatLng(48.8566, 2.3522),
           type: GWaypointTypeEnum.start,
           description: 'Départ depuis Paris',
         ),
         Waypoint(
           id: 'wp-001-2',
-          latLng: LatLng(48.1173, -1.6778), // Rennes
+          latLng: LatLng(48.1173, -1.6778),
           type: GWaypointTypeEnum.waypoint,
           description: 'Étape à Rennes — centre historique',
         ),
         Waypoint(
           id: 'wp-001-3',
-          latLng: LatLng(48.3904, -4.4861), // Brest
+          latLng: LatLng(48.3904, -4.4861),
           type: GWaypointTypeEnum.viewpoint,
           description: 'Vue sur la rade de Brest',
         ),
         Waypoint(
           id: 'wp-001-4',
-          latLng: LatLng(47.6587, -2.7600), // Vannes
+          latLng: LatLng(47.6587, -2.7600),
           type: GWaypointTypeEnum.food,
           description: 'Ravitaillement au marché de Vannes',
         ),
         Waypoint(
           id: 'wp-001-5',
-          latLng: LatLng(47.2184, -1.5536), // Nantes
+          latLng: LatLng(47.2184, -1.5536),
           type: GWaypointTypeEnum.end,
           description: 'Arrivée à Nantes',
         ),
@@ -53,9 +53,7 @@ class MockTripRepository implements ITripRepository {
         Segment(
           id: 'seg-001-2',
           type: GSegmentTypeEnum.bike,
-          intermediatePoints: [
-            LatLng(48.2523, -2.9060), // Saint-Brieuc
-          ],
+          intermediatePoints: [LatLng(48.2523, -2.9060)],
         ),
         Segment(id: 'seg-001-3', type: GSegmentTypeEnum.bike),
         Segment(id: 'seg-001-4', type: GSegmentTypeEnum.bike),
@@ -72,31 +70,31 @@ class MockTripRepository implements ITripRepository {
       waypoints: [
         Waypoint(
           id: 'wp-002-1',
-          latLng: LatLng(48.5734, 7.7521), // Strasbourg
+          latLng: LatLng(48.5734, 7.7521),
           type: GWaypointTypeEnum.start,
           description: 'Départ de Strasbourg',
         ),
         Waypoint(
           id: 'wp-002-2',
-          latLng: LatLng(48.2500, 7.3100), // Sélestat
+          latLng: LatLng(48.2500, 7.3100),
           type: GWaypointTypeEnum.historic,
           description: 'Patrimoine médiéval de Sélestat',
         ),
         Waypoint(
           id: 'wp-002-3',
-          latLng: LatLng(48.0791, 7.3580), // Colmar
+          latLng: LatLng(48.0791, 7.3580),
           type: GWaypointTypeEnum.food,
           description: 'Dégustation de vins à Colmar',
         ),
         Waypoint(
           id: 'wp-002-4',
-          latLng: LatLng(47.8683, 7.3174), // Rouffach
+          latLng: LatLng(47.8683, 7.3174),
           type: GWaypointTypeEnum.viewpoint,
           description: 'Point de vue sur les vignes',
         ),
         Waypoint(
           id: 'wp-002-5',
-          latLng: LatLng(47.7508, 7.3359), // Mulhouse
+          latLng: LatLng(47.7508, 7.3359),
           type: GWaypointTypeEnum.end,
           description: 'Arrivée à Mulhouse',
         ),
@@ -106,9 +104,7 @@ class MockTripRepository implements ITripRepository {
         Segment(
           id: 'seg-002-2',
           type: GSegmentTypeEnum.bike,
-          intermediatePoints: [
-            LatLng(48.1638, 7.3350), // Ribeauvillé
-          ],
+          intermediatePoints: [LatLng(48.1638, 7.3350)],
         ),
         Segment(id: 'seg-002-3', type: GSegmentTypeEnum.walk),
         Segment(id: 'seg-002-4', type: GSegmentTypeEnum.bike),
@@ -120,30 +116,30 @@ class MockTripRepository implements ITripRepository {
       id: 'mock-003',
       title: 'Traversée des Pyrénées',
       description:
-          'Un périple épique à vélo à travers les contreforts pyrénéens, de la côte basque jusqu\'aux sommets de Lourdes. Dénivelés garantis !',
+          'Un périple épique à vélo à travers les contreforts pyrénéens, de la côte basque jusqu\'aux sommets de Lourdes.',
       date: DateTime(2024, 8, 20),
       waypoints: [
         Waypoint(
           id: 'wp-003-1',
-          latLng: LatLng(43.4929, -1.4748), // Bayonne
+          latLng: LatLng(43.4929, -1.4748),
           type: GWaypointTypeEnum.start,
           description: 'Départ de Bayonne',
         ),
         Waypoint(
           id: 'wp-003-2',
-          latLng: LatLng(43.2951, -0.3708), // Pau
+          latLng: LatLng(43.2951, -0.3708),
           type: GWaypointTypeEnum.water,
-          description: 'Point d\'eau au gave de Pau',
+          description: "Point d'eau au gave de Pau",
         ),
         Waypoint(
           id: 'wp-003-3',
-          latLng: LatLng(43.1042, -0.0785), // Tarbes
+          latLng: LatLng(43.1042, -0.0785),
           type: GWaypointTypeEnum.camping,
           description: 'Nuit en camping à Tarbes',
         ),
         Waypoint(
           id: 'wp-003-4',
-          latLng: LatLng(43.0958, -0.0461), // Lourdes
+          latLng: LatLng(43.0958, -0.0461),
           type: GWaypointTypeEnum.end,
           description: 'Arrivée à Lourdes',
         ),
@@ -152,9 +148,7 @@ class MockTripRepository implements ITripRepository {
         Segment(
           id: 'seg-003-1',
           type: GSegmentTypeEnum.bike,
-          intermediatePoints: [
-            LatLng(43.4800, -0.7750), // Orthez
-          ],
+          intermediatePoints: [LatLng(43.4800, -0.7750)],
         ),
         Segment(id: 'seg-003-2', type: GSegmentTypeEnum.bike),
         Segment(id: 'seg-003-3', type: GSegmentTypeEnum.bike),
@@ -165,64 +159,62 @@ class MockTripRepository implements ITripRepository {
   static const _delay = Duration(milliseconds: 400);
 
   @override
-  Future<Either<Failure, List<GTripFieldsData>>> getAllTrips() async {
+  Future<Either<Failure, List<Trip>>> getAllTrips() async {
     await Future.delayed(_delay);
-    final result = _trips
-        .map(
-          (t) => GTripFieldsData(
-            id: t.id!,
-            title: t.title,
-            date: t.date?.toIso8601String().substring(0, 10),
-            description: t.description,
-            images: [],
-          ),
-        )
-        .toList();
-    return Right(result);
+    return Right(List.unmodifiable(_trips));
   }
 
   @override
-  Future<Either<Failure, Trip>> getTrip(String id) async {
+  Future<Either<Failure, Trip>> getTrip(int id) async {
     await Future.delayed(_delay);
     try {
-      return Right(_trips.firstWhere((t) => t.id == id));
+      return Right(_trips.firstWhere((t) => t.id == id.toString()));
     } catch (_) {
-      return Left(NotFoundFailure());
+      return Left(const NotFoundFailure());
     }
   }
 
   @override
-  Future<Either<Failure, String>> createTrip(Trip trip) async {
+  Future<Either<Failure, Trip>> createTrip(Trip trip) async {
     await Future.delayed(_delay);
     final id = DateTime.now().millisecondsSinceEpoch.toString();
-    _trips.add(
-      Trip(
-        id: id,
-        title: trip.title,
-        description: trip.description,
-        date: trip.date,
-        waypoints: trip.waypoints,
-        segments: trip.segments,
-      ),
+    final created = Trip(
+      id: id,
+      title: trip.title,
+      description: trip.description,
+      date: trip.date,
+      images: trip.images,
+      waypoints: trip.waypoints,
+      segments: trip.segments,
     );
-    return Right(id);
+    _trips.add(created);
+    return Right(created);
   }
 
   @override
-  Future<Either<Failure, String>> updateTrip(Trip trip) async {
+  Future<Either<Failure, Trip>> updateTrip(int id, Trip trip) async {
     await Future.delayed(_delay);
-    final index = _trips.indexWhere((t) => t.id == trip.id);
-    if (index == -1) return Left(NotFoundFailure());
-    _trips[index] = trip;
-    return Right(trip.id!);
+    final index = _trips.indexWhere((t) => t.id == id.toString());
+    if (index == -1) return Left(const NotFoundFailure());
+    final updated = Trip(
+      id: id.toString(),
+      title: trip.title,
+      description: trip.description,
+      date: trip.date,
+      images: trip.images,
+      waypoints: trip.waypoints,
+      segments: trip.segments,
+    );
+    _trips[index] = updated;
+    return Right(updated);
   }
 
   @override
-  Future<Either<Failure, bool>> deleteTrip(String id) async {
+  Future<Either<Failure, void>> deleteTrip(int id) async {
     await Future.delayed(_delay);
-    final index = _trips.indexWhere((t) => t.id == id);
-    if (index == -1) return Left(NotFoundFailure());
+    final index = _trips.indexWhere((t) => t.id == id.toString());
+    if (index == -1) return Left(const NotFoundFailure());
     _trips.removeAt(index);
-    return Right(true);
+    return const Right(null);
   }
 }

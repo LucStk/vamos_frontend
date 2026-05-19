@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
 
-import '../models.dart';
+import '../domain/models.dart';
 
 class StorageService {
   static const String _fileName = 'bike_trip.json';
@@ -16,7 +17,6 @@ class StorageService {
 
   static Future<Directory> _getStorageDirectory() async {
     if (Platform.isLinux) {
-      // Respecte XDG_DATA_HOME, sinon fallback sur ~/.local/share/<appName>
       final xdg = Platform.environment['XDG_DATA_HOME'];
       final base = (xdg != null && xdg.isNotEmpty)
           ? xdg
@@ -40,7 +40,6 @@ class StorageService {
       );
     }
 
-    // Android / iOS : dossier temporaire accessible en écriture
     return Directory(
       '${Platform.environment['HOME'] ?? '/tmp'}/vamos_cartographie',
     );
@@ -48,9 +47,8 @@ class StorageService {
 
   static Future<void> saveRoute(Trip trip) async {
     final file = await _getFile();
-    final json = const JsonEncoder.withIndent(
-      '  ',
-    ).convert(trip.toGQLInput().toJson());
+    final gqlInput = TripMapper.tripToGQLInput(trip);
+    final json = const JsonEncoder.withIndent('  ').convert(gqlInput.toJson());
     await file.writeAsString(json);
   }
 
@@ -60,7 +58,8 @@ class StorageService {
       if (!await file.exists()) return null;
       final contents = await file.readAsString();
       final json = jsonDecode(contents) as Map<String, dynamic>;
-      return Trip.fromGQL(GGetTripData_trip.fromJson(json));
+      final gqlTrip = GGetTripData_trip.fromJson(json);
+      return TripMapper.tripFromGQLDetail(gqlTrip);
     } catch (_) {
       return null;
     }

@@ -4,7 +4,8 @@ import 'package:api_client/api_client.dart';
 import 'package:vamos_cartographie/core/config.dart';
 import 'package:vamos_cartographie/data/datasources/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/data/repositories/repositories.dart';
-import 'package:vamos_cartographie/models.dart';
+import 'package:vamos_cartographie/mocks/mock_trip_repository.dart';
+import 'package:vamos_cartographie/mocks/mock_upload_img_repository.dart';
 
 final getIt = GetIt.instance;
 
@@ -16,12 +17,12 @@ final getIt = GetIt.instance;
 Future<void> configureDependencies({Client? client}) async {
   if (kUseMock) {
     // Mode mock : pas de réseau, données en mémoire
-    getIt.registerLazySingleton<TripRepository>(() => MockTripRepository());
+    getIt.registerLazySingleton<ITripRepository>(() => MockTripRepository());
     getIt.registerLazySingleton<UploadImgRepository>(
       () => MockUploadImgRepository(),
     );
     getIt.registerLazySingleton<AppConfig>(
-      () => AppConfig(imageBaseUrl: "https://picsum.photos/seed/"),
+      () => const AppConfig(imageBaseUrl: "https://picsum.photos/seed/"),
     );
   } else {
     // Mode production : client fourni par l'appelant, ou client par défaut
@@ -30,6 +31,15 @@ Future<void> configureDependencies({Client? client}) async {
     getIt.registerLazySingleton<Client>(() => ferryClient);
     getIt.registerLazySingleton<TripRemoteDatasource>(
       () => TripRemoteDatasource(getIt<Client>()),
+    );
+    getIt.registerLazySingleton<ITripRepository>(
+      () => TripRepository(getIt<TripRemoteDatasource>()),
+    );
+    getIt.registerLazySingleton<UploadImgRepository>(
+      () => UploadImgRepository(getIt<Client>()),
+    );
+    getIt.registerLazySingleton<AppConfig>(
+      () => const AppConfig(imageBaseUrl: ""),
     );
   }
 }

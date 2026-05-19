@@ -1,7 +1,7 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'image_carousel_picker.dart';
-import '../models.dart';
+import '../domain/models.dart';
 import 'text_area_counter.dart';
 
 // ── WaypointCard ──────────────────────────────────────────────────────────────

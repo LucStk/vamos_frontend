@@ -1,6 +1,6 @@
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:test/test.dart';
-import 'package:vamos_cartographie/repository/upload_img_repository.dart';
+import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/core/injection.dart';
-import 'package:vamos_cartographie/models.dart';
-import 'package:vamos_cartographie/repository/trip_repository.dart';
+import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'trip_info_view.dart';
 import 'editor/trip_info_editor.dart';
 
@@ -76,7 +76,7 @@ class TripInfoDialog {
     required String tripId,
     required VoidCallback onSaved,
   }) async {
-    final result = await getIt<TripRepository>().getTrip(tripId);
+    final result = await getIt<ITripRepository>().getTrip(int.parse(tripId));
     if (!context.mounted) return;
 
     result.fold(
@@ -98,7 +98,8 @@ class TripInfoDialog {
             content: TripInfoEditor(
               trip: trip,
               onConfirm: () async {
-                final saveResult = await getIt<TripRepository>().updateTrip(
+                final saveResult = await getIt<ITripRepository>().updateTrip(
+                  int.parse(trip.id!),
                   trip,
                 );
                 if (!ctx.mounted) return;

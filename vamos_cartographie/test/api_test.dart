@@ -1,106 +1,105 @@
 import 'package:api_client/api_client.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/repository/trip_repository.dart';
+import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
+import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:test/test.dart';
-import 'package:vamos_cartographie/models.dart';
+import 'package:vamos_cartographie/domain/models.dart';
 
 void main() async {
-  // Obligatoire si tu fais du async avant runApp
-  // WidgetsFlutterBinding.ensureInitialized();
-  // On initialise GetIt
   await configureDependencies();
+
   test('test getAllTrips', () async {
-    final result = await getIt<TripRepository>().getAllTrips();
+    final result = await getIt<ITripRepository>().getAllTrips();
     result.fold(
       (failure) {
         print(failure);
         throw failure;
       },
       (trips) {
-        var t = trips.map((t) => t.toJson());
-        print("voici les voyages de la base de données : {$t}");
+        print('voici les voyages : $trips');
       },
     );
   });
-  test('Trip création', () async {
+
+  test('Trip création / lecture / modification / suppression', () async {
     final trip = Trip(
-      title: "Trip venant de la création",
-      description: "ceci est une description",
+      title: 'Trip venant de la création',
+      description: 'ceci est une description',
       date: DateTime.now(),
       waypoints: [
         Waypoint(
           type: GWaypointTypeEnum.start,
-          description: "Première description",
-          latLng: LatLng(1, 1),
+          description: 'Première description',
+          latLng: const LatLng(1, 1),
         ),
         Waypoint(
           type: GWaypointTypeEnum.end,
-          description: "dernière entré",
-          latLng: LatLng(2, 2),
+          description: 'dernière entrée',
+          latLng: const LatLng(2, 2),
         ),
       ],
       segments: [
         Segment(
           type: GSegmentTypeEnum.bike,
-          intermediatePoints: [LatLng(1, 1), LatLng(2, 2)],
+          intermediatePoints: [const LatLng(1, 1), const LatLng(2, 2)],
         ),
       ],
     );
 
-    final result = await getIt<TripRepository>().createTrip(trip);
+    // Création
+    final createResult = await getIt<ITripRepository>().createTrip(trip);
     String? id;
-    result.fold(
+    createResult.fold(
       (failure) {
         print(failure);
         throw failure;
       },
-      (newid) {
-        print("Trip bien créée dans la base de données");
-        id = newid;
+      (createdTrip) {
+        print('Trip bien créé dans la base de données');
+        id = createdTrip.id;
       },
     );
-    // On tente de récupérer le trip dans la base de donner pour créer un nouvelle obj Trip
-    final getTripResult = await getIt<TripRepository>().getTrip(id!);
+
+    // Lecture
+    final getTripResult = await getIt<ITripRepository>().getTrip(
+      int.parse(id!),
+    );
     getTripResult.fold(
       (failure) {
         print(failure);
         throw failure;
       },
-      (trip) {
-        var t = trip.toGQLInput().toJson();
-        print("trip return {$t}");
+      (fetchedTrip) {
+        final json = TripMapper.tripToGQLInput(fetchedTrip).toJson();
+        print('trip retourné : $json');
       },
     );
 
-    // On tente de modifier le trip que l'on vient de créer
-    print("Modification du trip créé {id:$id}");
+    // Modification
+    print('Modification du trip {id: $id}');
     final updatedTrip = Trip(
       id: id,
-      title: "Trip modifié",
-      description: "description modifiée",
+      title: 'Trip modifié',
+      description: 'description modifiée',
     );
-    final updateResult = await getIt<TripRepository>().updateTrip(updatedTrip);
-    updateResult.fold(
-      (failure) {
-        print(failure);
-        throw failure;
-      },
-      (updated) {
-        print("Trip mis à jour avec succès");
-      },
+    final updateResult = await getIt<ITripRepository>().updateTrip(
+      int.parse(id!),
+      updatedTrip,
     );
-    // On tente de supprimer le trip que l'on vient de modifier
-    print("Suppression du trip {id:$id}");
-    final deleteResult = await getIt<TripRepository>().deleteTrip(id!);
-    deleteResult.fold(
-      (failure) {
-        print(failure);
-        throw failure;
-      },
-      (success) {
-        print("Trip supprimé avec succès");
-      },
+    updateResult.fold((failure) {
+      print(failure);
+      throw failure;
+    }, (_) => print('Trip mis à jour avec succès'));
+
+    // Suppression
+    print('Suppression du trip {id: $id}');
+    final deleteResult = await getIt<ITripRepository>().deleteTrip(
+      int.parse(id!),
     );
+    deleteResult.fold((failure) {
+      print(failure);
+      throw failure;
+    }, (_) => print('Trip supprimé avec succès'));
   });
 }

@@ -1,9 +1,9 @@
-import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/pages/map_page.dart';
-import 'package:vamos_cartographie/repository/trip_repository.dart';
+import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
+import 'package:vamos_cartographie/domain/models.dart';
 import 'package:vamos_cartographie/widgets/trip_info/trip_preview_dialog.dart';
 import 'package:vamos_cartographie/widgets/trip_info/editor/trip_creator_dialog.dart';
 import 'package:vamos_cartographie/widgets/trip_info/trip_info_dialog.dart';
@@ -16,7 +16,7 @@ class ExplorerPage extends StatefulWidget {
 }
 
 class _ExplorerPageState extends State<ExplorerPage> {
-  late Future<List<GTripFieldsData>> _tripsFuture;
+  late Future<List<Trip>> _tripsFuture;
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   void _loadTrips() {
-    _tripsFuture = getIt<TripRepository>().getAllTrips().then((result) {
+    _tripsFuture = getIt<ITripRepository>().getAllTrips().then((result) {
       return result.fold((failure) => throw failure, (trips) => trips);
     });
   }
@@ -36,19 +36,19 @@ class _ExplorerPageState extends State<ExplorerPage> {
     });
   }
 
-  void _openTrip(GTripFieldsData tripData) {
+  void _openTrip(Trip trip) {
     TripPreviewDialog.show(
       context: context,
-      tripData: tripData,
+      tripData: trip,
       onEdit: () => TripInfoDialog.showEditorForExistingTrip(
         context: context,
-        tripId: tripData.id,
+        tripId: trip.id!,
         onSaved: _refresh,
       ),
       onExplore: () async {
         await Navigator.of(
           context,
-        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: tripData.id)));
+        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: trip.id)));
         _refresh();
       },
     );
@@ -66,7 +66,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     );
   }
 
-  Future<void> _deleteTrip(GTripFieldsData trip) async {
+  Future<void> _deleteTrip(Trip trip) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -90,7 +90,9 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
     if (confirmed != true) return;
 
-    final result = await getIt<TripRepository>().deleteTrip(trip.id);
+    final result = await getIt<ITripRepository>().deleteTrip(
+      int.parse(trip.id!),
+    );
 
     if (!mounted) return;
 
@@ -143,7 +145,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
           ),
         ],
       ),
-      body: FutureBuilder<List<GTripFieldsData>>(
+      body: FutureBuilder<List<Trip>>(
         future: _tripsFuture,
         builder: (context, snapshot) {
           // ── Chargement ──
@@ -257,7 +259,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class _TripCard extends StatelessWidget {
-  final GTripFieldsData trip;
+  final Trip trip;
   final VoidCallback onTap;
   final VoidCallback onDelete;
 
@@ -271,7 +273,8 @@ class _TripCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final title = trip.title.trim().isEmpty ? 'Sans titre' : trip.title.trim();
-    final hasDate = trip.date != null && trip.date!.isNotEmpty;
+    final hasDate = trip.date != null;
+    final dateStr = trip.date?.toIso8601String().substring(0, 10);
     final hasDescription = trip.description.trim().isNotEmpty;
 
     return Card(
@@ -323,7 +326,7 @@ class _TripCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            trip.date!,
+                            dateStr!,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
