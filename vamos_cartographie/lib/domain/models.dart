@@ -5,6 +5,119 @@ import 'package:latlong2/latlong.dart';
 
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 
+class Waypoint {
+  String? id;
+  LatLng latLng;
+  GWaypointTypeEnum type;
+  String? description;
+  List<String>? images;
+
+  Waypoint({
+    this.id,
+    required this.latLng,
+    this.type = GWaypointTypeEnum.waypoint,
+    this.description = '',
+    List<String>? images,
+  }) : images = images ?? [];
+}
+
+class Segment {
+  String? id;
+  GSegmentTypeEnum type;
+  List<LatLng> intermediatePoints;
+
+  Segment({
+    this.id,
+    this.type = GSegmentTypeEnum.bike,
+    List<LatLng>? intermediatePoints,
+  }) : intermediatePoints = intermediatePoints ?? [];
+
+  List<LatLng> allPoints(LatLng from, LatLng to) => [
+    from,
+    ...intermediatePoints,
+    to,
+  ];
+}
+
+// ---------------------------------------------------------------------------
+// Route
+// ---------------------------------------------------------------------------
+
+class Trip {
+  String? id;
+  String title;
+  String description;
+  DateTime? date;
+  List<String> images;
+  final List<Waypoint> waypoints;
+  final List<Segment> segments;
+
+  Trip({
+    this.id,
+    this.title = '',
+    this.description = '',
+    this.date,
+    List<String>? images,
+    this.waypoints = const [],
+    this.segments = const [],
+  }) : images = images ?? [],
+       assert(segments.length == waypoints.length - 1 || waypoints.isEmpty);
+
+  void addWaypoint(
+    LatLng latLng, {
+    GWaypointTypeEnum type = GWaypointTypeEnum.waypoint,
+  }) {
+    if (waypoints.isEmpty) {
+      waypoints.add(Waypoint(latLng: latLng, type: GWaypointTypeEnum.start));
+    } else {
+      waypoints.add(Waypoint(latLng: latLng, type: type));
+      segments.add(Segment());
+    }
+    _updateEndpoints();
+  }
+
+  void removeWaypoint(int index) {
+    if (waypoints.length <= 2) return;
+    waypoints.removeAt(index);
+    if (index == 0) {
+      segments.removeAt(0);
+    } else if (index >= segments.length) {
+      segments.removeAt(segments.length - 1);
+    } else {
+      final merged = Segment(
+        type: segments[index - 1].type,
+        intermediatePoints: [
+          ...segments[index - 1].intermediatePoints,
+          ...segments[index].intermediatePoints,
+        ],
+      );
+      segments.removeAt(index);
+      segments.removeAt(index - 1);
+      segments.insert(index - 1, merged);
+    }
+    _updateEndpoints();
+  }
+
+  void _updateEndpoints() {
+    if (waypoints.isEmpty) return;
+    if (waypoints.first.type == GWaypointTypeEnum.end ||
+        waypoints.first.type == GWaypointTypeEnum.start) {
+      waypoints.first.type = GWaypointTypeEnum.start;
+    }
+    if (waypoints.last.type == GWaypointTypeEnum.start ||
+        waypoints.last.type == GWaypointTypeEnum.end) {
+      waypoints.last.type = GWaypointTypeEnum.end;
+    }
+  }
+
+  List<LatLng> segmentPoints(int segmentIndex) {
+    return segments[segmentIndex].allPoints(
+      waypoints[segmentIndex].latLng,
+      waypoints[segmentIndex + 1].latLng,
+    );
+  }
+}
+
 // Utilise les extensions définit dans le schema pour obtenir le label et l'icône correspondant à chaque type de point de passage
 extension WaypointTypeExtension on GWaypointTypeEnum {
   String get label => switch (this) {
@@ -87,195 +200,4 @@ extension SegmentTypeExtension on GSegmentTypeEnum {
     GSegmentTypeEnum.train => true,
     _ => false,
   };
-}
-
-class Waypoint {
-  String? id;
-  LatLng latLng;
-  GWaypointTypeEnum type;
-  String? description;
-  List<String>? images;
-
-  Waypoint({
-    this.id,
-    required this.latLng,
-    this.type = GWaypointTypeEnum.waypoint,
-    this.description = '',
-    List<String>? images,
-  }) : images = images ?? [];
-
-  GWaypointInput toGQLInput() => GWaypointInput(
-    lat: latLng.latitude,
-    lng: latLng.longitude,
-    type: type,
-    description: description != null
-        ? Value.present(description)
-        : Value.absent(),
-  );
-
-  factory Waypoint.fromGQL(GWaypointFieldsData data) => Waypoint(
-    latLng: LatLng(data.lat, data.lng),
-    type: data.type,
-    id: data.id,
-    description: data.description,
-    images: data.images.map((i) => i.fileKey).toList(),
-  );
-}
-
-class Segment {
-  String? id;
-  GSegmentTypeEnum type;
-  List<LatLng> intermediatePoints;
-
-  Segment({
-    this.id,
-    this.type = GSegmentTypeEnum.bike,
-    List<LatLng>? intermediatePoints,
-  }) : intermediatePoints = intermediatePoints ?? [];
-
-  List<LatLng> allPoints(LatLng from, LatLng to) => [
-    from,
-    ...intermediatePoints,
-    to,
-  ];
-
-  GSegmentInput toGQLInput() => GSegmentInput(
-    type: type,
-    intermediatePoints: intermediatePoints
-        .map((p) => GLatLngInput(lat: p.latitude, lng: p.longitude))
-        .toList(),
-  );
-
-  factory Segment.fromGQL(GSegmentFieldsData data) => Segment(
-    id: data.id,
-    type: data.type,
-    intermediatePoints: data.intermediatePoints
-        .map((p) => LatLng(p.lat, p.lng))
-        .toList(),
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Route
-// ---------------------------------------------------------------------------
-
-class Trip {
-  String? id;
-  String title;
-  String description;
-  DateTime? date;
-  List<String> images;
-  final List<Waypoint> waypoints;
-  final List<Segment> segments;
-
-  Trip({
-    this.id,
-    this.title = '',
-    this.description = '',
-    this.date,
-    List<String>? images,
-    this.waypoints = const [],
-    this.segments = const [],
-  }) : images = images ?? [],
-       assert(segments.length == waypoints.length - 1 || waypoints.isEmpty);
-
-  void addWaypoint(
-    LatLng latLng, {
-    GWaypointTypeEnum type = GWaypointTypeEnum.waypoint,
-  }) {
-    if (waypoints.isEmpty) {
-      waypoints.add(Waypoint(latLng: latLng, type: GWaypointTypeEnum.start));
-    } else {
-      waypoints.add(Waypoint(latLng: latLng, type: type));
-      segments.add(Segment());
-    }
-    _updateEndpoints();
-  }
-
-  void removeWaypoint(int index) {
-    if (waypoints.length <= 2) return;
-    waypoints.removeAt(index);
-    if (index == 0) {
-      segments.removeAt(0);
-    } else if (index >= segments.length) {
-      segments.removeAt(segments.length - 1);
-    } else {
-      final merged = Segment(
-        type: segments[index - 1].type,
-        intermediatePoints: [
-          ...segments[index - 1].intermediatePoints,
-          ...segments[index].intermediatePoints,
-        ],
-      );
-      segments.removeAt(index);
-      segments.removeAt(index - 1);
-      segments.insert(index - 1, merged);
-    }
-    _updateEndpoints();
-  }
-
-  void _updateEndpoints() {
-    if (waypoints.isEmpty) return;
-    if (waypoints.first.type == GWaypointTypeEnum.end ||
-        waypoints.first.type == GWaypointTypeEnum.start) {
-      waypoints.first.type = GWaypointTypeEnum.start;
-    }
-    if (waypoints.last.type == GWaypointTypeEnum.start ||
-        waypoints.last.type == GWaypointTypeEnum.end) {
-      waypoints.last.type = GWaypointTypeEnum.end;
-    }
-  }
-
-  List<LatLng> segmentPoints(int segmentIndex) {
-    return segments[segmentIndex].allPoints(
-      waypoints[segmentIndex].latLng,
-      waypoints[segmentIndex + 1].latLng,
-    );
-  }
-
-  GTripUpdateInput toGQLUpdateInput() => GTripUpdateInput(
-    id: id!,
-    title: Value.present(title),
-    description: Value.present(description),
-    date: date != null
-        ? Value.present(date!.toIso8601String().substring(0, 10))
-        : const Value.absent(),
-    waypoints: Value.present(waypoints.map((w) => w.toGQLInput()).toList()),
-    segments: Value.present(segments.map((s) => s.toGQLInput()).toList()),
-  );
-
-  GTripInput toGQLInput() => GTripInput(
-    title: title,
-    description: Value.present(description),
-    date: date != null
-        ? Value.present(date!.toIso8601String().substring(0, 10))
-        : const Value.absent(),
-    waypoints: Value.present(waypoints.map((w) => w.toGQLInput()).toList()),
-    segments: Value.present(segments.map((s) => s.toGQLInput()).toList()),
-  );
-
-  factory Trip.fromGQL(GGetTripData_node__asTripType data) => Trip(
-    id: data.id,
-    title: data.title,
-    description: data.description,
-    images: data.images.map((i) => i.fileKey).toList(),
-    date: data.date != null ? DateTime.parse(data.date!) : null,
-    waypoints: data.waypoints.map((w) => Waypoint.fromGQL(w)).toList(),
-    segments: data.segments.map((s) => Segment.fromGQL(s)).toList(),
-  );
-}
-
-class AppConfig {
-  final String imageBaseUrl;
-
-  AppConfig({required this.imageBaseUrl});
-
-  /// Construit l'URL d'affichage complète à partir d'un fileKey.
-  String imageUrl(String fileKey) {
-    final base = imageBaseUrl.endsWith('/')
-        ? imageBaseUrl.substring(0, imageBaseUrl.length - 1)
-        : imageBaseUrl;
-    final key = fileKey.startsWith('/') ? fileKey.substring(1) : fileKey;
-    return '$base/$key';
-  }
 }
