@@ -2,27 +2,19 @@ import 'package:api_client/api_client.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ferry/ferry.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/models.dart';
+import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/data/datasources/trip_remote_datasource.dart';
+import 'i_trip_repository.dart';
 
-class TripRepository {
-  final Client _client;
+class TripRepository implements ITripRepository {
+  final TripRemoteDatasource remote;
 
-  TripRepository(this._client);
+  TripRepository(this.remote);
 
-  Future<Either<Failure, List<GTripFieldsData>>> getAllTrips() async {
+  @override
+  Future<Either<Failure, List<Trip>>> getAllTrips() async {
     try {
-      final response = await _client
-          .request(GGetAllTripsReq(fetchPolicy: FetchPolicy.NetworkOnly))
-          .first;
-
-      if (response.hasErrors) {
-        return Left(
-          ServerFailure(
-            response.graphqlErrors?.first.message ?? "Erreur inconnue",
-          ),
-        );
-      }
-
+      final response = await remote.getAllTrips();
       final trips = response.data?.trips;
       if (trips == null) return Left(NotFoundFailure());
 

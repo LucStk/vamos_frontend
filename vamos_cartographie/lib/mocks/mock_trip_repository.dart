@@ -3,9 +3,9 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/models.dart';
-import 'package:vamos_cartographie/repository/trip_repository.dart';
+import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 
-class MockTripRepository implements TripRepository {
+class MockTripRepository implements ITripRepository {
   // Base de données en mémoire
   final List<Trip> _trips = [
     // --- Voyage 1 : Tour de Bretagne à vélo ---

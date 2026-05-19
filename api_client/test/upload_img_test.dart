@@ -1,4 +1,3 @@
-import 'package:api_client/src/ferry_client.dart';
 import 'package:api_client/api_client.dart';
 import 'package:test/test.dart';
 import 'package:http/http.dart' as http; // Ajout de l'import http

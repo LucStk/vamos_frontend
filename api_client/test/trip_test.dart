@@ -1,10 +1,5 @@
-import 'package:api_client/src/ferry_client.dart';
-// Importe le fichier .req.gql.dart (il contient la classe de requête)
-import 'package:api_client/src/graphql/queries/__generated__/trip.req.gql.dart';
-import 'package:api_client/src/graphql/queries/__generated__/trip.var.gql.dart';
-import 'package:api_client/src/graphql/mutations/__generated__/trip.var.gql.dart';
-import 'package:api_client/src/graphql/mutations/__generated__/trip.req.gql.dart';
-import 'package:api_client/src/graphql/__generated__/schema.schema.gql.dart';
+import 'package:api_client/api_client.dart';
+import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 
 import 'package:gql_tristate_value/gql_tristate_value.dart';
@@ -18,6 +13,35 @@ void printError(response) {
   if (response.graphqlErrors != null) {
     print("Erreurs GraphQL: ${response.graphqlErrors}");
   }
+}
+
+Future<GCreateTripData_createTrip> newTripRequest(Client client) async {
+  final newTripRequest = GCreateTripReq(
+    vars: GCreateTripVars(
+      trip: GTripInput(
+        title: "test création",
+        description: Value.present("ceci est un test de création"),
+      ),
+    ),
+  );
+  final newTripResponse = await client.request(newTripRequest).first;
+  printError(newTripResponse);
+  expect(newTripResponse.data?.createTrip.title, "test création");
+  return newTripResponse.data!.createTrip;
+}
+
+Future<GGetTripData_trip> getTripById(int id, Client client) async {
+  final tripRequest = GGetTripReq(vars: GGetTripVars(id: id));
+  final tripResponse = await client.request(tripRequest).first;
+  expect(tripResponse.data, isNotNull);
+  return tripResponse.data!.trip;
+}
+
+Future<void> deleteTripRequest(int id, Client client) async {
+  final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id));
+  final deleteTripResponse = await client.request(deleteTripRequest).first;
+  printError(deleteTripResponse);
+  expect(deleteTripResponse.data?.deleteTrip, isNotNull);
 }
 
 void main() {
@@ -40,30 +64,20 @@ void main() {
 
     expect(firstTripId, isNotNull);
     // Test pour le getTrip
-    final tripRequest = GGetTripReq(vars: GGetTripVars(id: firstTripId!));
-    final tripResponse = await client.request(tripRequest).first;
-    print('Réponse du getTrip : ${tripResponse.data}');
-    expect(tripResponse.data, isNotNull);
+    final tripResponse = await getTripById(firstTripId!, client);
+    print('Réponse du getTrip : ${tripResponse.id}');
+    expect(tripResponse.id, isNotNull);
   });
 
   test("Creation et modification", () async {
     final client = initFerryClient('http://localhost:8000/graphql/');
-    final newTripRequest = GCreateTripReq(
-      vars: GCreateTripVars(
-        trip: GTripInput(
-          title: "test création",
-          description: Value.present("ceci est un test de création"),
-        ),
-      ),
-    );
-    final newTripResponse = await client.request(newTripRequest).first;
-    expect(newTripResponse.data?.createTrip, isNotNull);
-    final id = newTripResponse.data?.createTrip.id;
+    final newTrip = await newTripRequest(client);
+    final id = newTrip.id;
     expect(id, isNotNull);
     // Test pour la modification du voyage
     final updateTripRequest = GUpdateTripReq(
       vars: GUpdateTripVars(
-        id: id!,
+        id: id,
         trip: GTripUpdateInput(
           title: Value.present("test modification"),
           description: Value.present("ceci est un test de modification"),
@@ -74,8 +88,6 @@ void main() {
     print("updateTripResponse: ${updateTripResponse.data?.updateTrip}");
     expect(updateTripResponse.data?.updateTrip, isNotNull);
     // Test pour la suppression du voyage
-    final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id));
-    final deleteTripResponse = await client.request(deleteTripRequest).first;
-    expect(deleteTripResponse.data?.deleteTrip, isNotNull);
+    await deleteTripRequest(id, client);
   });
 }

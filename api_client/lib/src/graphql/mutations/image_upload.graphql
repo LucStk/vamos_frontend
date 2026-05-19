@@ -11,3 +11,10 @@ mutation CreateImage($fileKey: String!) {
         ...ImageFields
     }
 }
+mutation AttachImageToTrip($tripId: Int!, $fileKey: String!) {
+    attachImageToTrip(tripId: $tripId, fileKey: $fileKey) {
+        image {
+            ...ImageFields
+        }
+    }
+}

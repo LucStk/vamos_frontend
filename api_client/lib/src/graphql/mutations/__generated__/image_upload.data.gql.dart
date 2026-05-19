@@ -177,3 +177,112 @@ class GCreateImageData {
     return 'GCreateImageData(createImage: $createImage, G__typename: $G__typename)';
   }
 }
+
+class GAttachImageToTripData {
+  const GAttachImageToTripData({
+    required this.attachImageToTrip,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GAttachImageToTripData.fromJson(Map<String, dynamic> json) {
+    return GAttachImageToTripData(
+      attachImageToTrip: GAttachImageToTripData_attachImageToTrip.fromJson(
+          (json['attachImageToTrip'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GAttachImageToTripData_attachImageToTrip attachImageToTrip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['attachImageToTrip'] = this.attachImageToTrip.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GAttachImageToTripData copyWith({
+    GAttachImageToTripData_attachImageToTrip? attachImageToTrip,
+    String? G__typename,
+  }) {
+    return GAttachImageToTripData(
+      attachImageToTrip: attachImageToTrip ?? this.attachImageToTrip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachImageToTripData &&
+            attachImageToTrip == other.attachImageToTrip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, attachImageToTrip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GAttachImageToTripData(attachImageToTrip: $attachImageToTrip, G__typename: $G__typename)';
+  }
+}
+
+class GAttachImageToTripData_attachImageToTrip {
+  const GAttachImageToTripData_attachImageToTrip({
+    required this.image,
+    this.G__typename = 'TripImageType',
+  });
+
+  factory GAttachImageToTripData_attachImageToTrip.fromJson(
+      Map<String, dynamic> json) {
+    return GAttachImageToTripData_attachImageToTrip(
+      image: _i1.GImageFieldsData.fromJson(
+          (json['image'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GImageFieldsData image;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['image'] = this.image.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GAttachImageToTripData_attachImageToTrip copyWith({
+    _i1.GImageFieldsData? image,
+    String? G__typename,
+  }) {
+    return GAttachImageToTripData_attachImageToTrip(
+      image: image ?? this.image,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachImageToTripData_attachImageToTrip &&
+            image == other.image &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, image, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GAttachImageToTripData_attachImageToTrip(image: $image, G__typename: $G__typename)';
+  }
+}
