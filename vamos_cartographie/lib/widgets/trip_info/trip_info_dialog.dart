@@ -75,10 +75,10 @@ class TripInfoDialog {
   /// Charge le Trip complet, puis sauvegarde via updateTrip() à la confirmation.
   static Future<void> showEditorForExistingTrip({
     required BuildContext context,
-    required String tripId,
+    required int tripId,
     required VoidCallback onSaved,
   }) async {
-    final result = await getIt<ITripRepository>().getTrip(int.parse(tripId));
+    final result = await getIt<ITripRepository>().getTrip(tripId);
     if (!context.mounted) return;
 
     result.fold(
@@ -101,7 +101,7 @@ class TripInfoDialog {
               trip: trip,
               onConfirm: () async {
                 final saveResult = await getIt<ITripRepository>().updateTrip(
-                  int.parse(trip.id!),
+                  trip.id!,
                   trip,
                 );
                 if (!ctx.mounted) return;

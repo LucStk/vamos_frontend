@@ -4,7 +4,7 @@ import 'package:api_client/api_client.dart';
 import 'package:latlong2/latlong.dart';
 
 class Waypoint {
-  String? id;
+  int? id;
   String? title;
   LatLng latLng;
   GWaypointTypeEnum type;

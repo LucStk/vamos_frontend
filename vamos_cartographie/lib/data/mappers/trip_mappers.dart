@@ -30,7 +30,7 @@ class TripMapper {
   /// Convertit un [GTripFieldsData] (fragment de base, sans waypoints ni
   /// segments) en [Trip] domaine. Utilisé pour la liste de trips.
   static Trip tripFromGQLFields(GTripFieldsData data) => Trip(
-    id: data.id.toString(),
+    id: data.id,
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
@@ -40,7 +40,7 @@ class TripMapper {
   /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
   /// segments) en [Trip] domaine.
   static Trip tripFromGQLDetail(GGetTripData_trip data) => Trip(
-    id: data.id.toString(),
+    id: data.id,
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
@@ -51,7 +51,7 @@ class TripMapper {
 
   /// Convertit le résultat de la mutation createTrip en [Trip] domaine.
   static Trip tripFromGQLCreateResult(GCreateTripData_createTrip data) => Trip(
-    id: data.id.toString(),
+    id: data.id,
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
@@ -62,7 +62,7 @@ class TripMapper {
 
   /// Convertit le résultat de la mutation updateTrip en [Trip] domaine.
   static Trip tripFromGQLUpdateResult(GUpdateTripData_updateTrip data) => Trip(
-    id: data.id.toString(),
+    id: data.id,
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,

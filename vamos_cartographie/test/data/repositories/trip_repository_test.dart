@@ -44,7 +44,7 @@ GGetTripData_trip _gqlDetail(int id) => GGetTripData_trip(
   images: [GGetTripData_trip_images(image: _img())],
   waypoints: [
     GWaypointFieldsData(
-      id: 'wp-$id',
+      id: 1,
       lat: 48.0,
       lng: 2.0,
       type: GWaypointTypeEnum.start,
@@ -77,7 +77,7 @@ GUpdateTripData_updateTrip _gqlUpdate(int id) => GUpdateTripData_updateTrip(
 );
 
 /// Trip domaine minimal pour les appels de mutation.
-Trip _domainTrip({String? id}) => Trip(
+Trip _domainTrip({int? id}) => Trip(
   id: id,
   title: 'Test',
   description: 'Desc',
@@ -130,7 +130,7 @@ void main() {
       expect(result.isRight(), isTrue);
       final trips = (result as Right).value as List<Trip>;
       expect(trips, hasLength(2));
-      expect(trips.first.id, '1');
+      expect(trips.first.id, 1);
       expect(trips.first.title, 'Trip 1');
       expect(trips.first.images, ['media/x.jpg']);
     });
@@ -175,9 +175,9 @@ void main() {
 
         expect(result.isRight(), isTrue);
         final trip = (result as Right).value as Trip;
-        expect(trip.id, '5');
+        expect(trip.id, 5);
         expect(trip.waypoints, hasLength(1));
-        expect(trip.waypoints.first.id, 'wp-5');
+        expect(trip.waypoints.first.id, 1);
       },
     );
 
@@ -210,7 +210,7 @@ void main() {
 
       expect(result.isRight(), isTrue);
       final trip = (result as Right).value as Trip;
-      expect(trip.id, '42');
+      expect(trip.id, 42);
       expect(trip.title, 'Créé 42');
     });
 
@@ -268,11 +268,11 @@ void main() {
         ),
       ).thenAnswer((_) async => _gqlUpdate(7));
 
-      final result = await repository.updateTrip(7, _domainTrip(id: '7'));
+      final result = await repository.updateTrip(7, _domainTrip(id: 7));
 
       expect(result.isRight(), isTrue);
       final trip = (result as Right).value as Trip;
-      expect(trip.id, '7');
+      expect(trip.id, 7);
       expect(trip.title, 'Modifié 7');
     });
 
@@ -304,7 +304,7 @@ void main() {
         ).thenAnswer((_) async => updateResult);
 
         final tripWithImages = Trip(
-          id: '5',
+          id: 5,
           title: 'Trip',
           description: '',
           images: ['media/existing.jpg', 'media/new.jpg'],
@@ -336,7 +336,7 @@ void main() {
         ),
       ).thenThrow(Exception('Erreur mise à jour'));
 
-      final result = await repository.updateTrip(7, _domainTrip(id: '7'));
+      final result = await repository.updateTrip(7, _domainTrip(id: 7));
 
       expect(result.isLeft(), isTrue);
       expect((result as Left).value, isA<ServerFailure>());

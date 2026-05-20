@@ -1,4 +1,3 @@
-import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import '../../core/injection.dart';
 
@@ -56,9 +55,7 @@ class _TripPreviewDialogState extends State<TripPreviewDialog> {
   }
 
   Future<void> _loadTrip() async {
-    final result = await getIt<ITripRepository>().getTrip(
-      int.parse(widget.tripData.id!),
-    );
+    final result = await getIt<ITripRepository>().getTrip(widget.tripData.id!);
     if (!mounted) return;
     result.fold(
       (failure) => setState(() => _error = failure.message),

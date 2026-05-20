@@ -9,7 +9,7 @@ import "waypoint.dart";
 // ---------------------------------------------------------------------------
 
 class Trip {
-  String? id;
+  int? id;
   String title;
   String description;
   DateTime? date;

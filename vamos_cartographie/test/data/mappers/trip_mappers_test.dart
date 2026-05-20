@@ -20,7 +20,7 @@ GWaypointFieldsData_images _waypointImage() =>
 GTripFieldsData_images _tripImage() => GTripFieldsData_images(image: _image());
 
 GWaypointFieldsData _gqlWaypoint({
-  String id = 'wp-1',
+  int id = 0,
   double lat = 48.85,
   double lng = 2.35,
   GWaypointTypeEnum type = GWaypointTypeEnum.waypoint,
@@ -60,10 +60,7 @@ GGetTripData_trip _gqlTripDetail({int id = 1}) => GGetTripData_trip(
   description: 'Une belle aventure',
   images: [GGetTripData_trip_images(image: _image())],
   // 2 waypoints → 1 segment (invariant du modèle Trip)
-  waypoints: [
-    _gqlWaypoint(id: 'wp-1'),
-    _gqlWaypoint(id: 'wp-2'),
-  ],
+  waypoints: [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
   segments: [_gqlSegment()],
 );
 
@@ -75,10 +72,7 @@ GCreateTripData_createTrip _gqlCreateResult({int id = 42}) =>
       description: 'Créé via mutation',
       images: [GCreateTripData_createTrip_images(image: _image())],
       // 2 waypoints → 1 segment
-      waypoints: [
-        _gqlWaypoint(id: 'wp-1'),
-        _gqlWaypoint(id: 'wp-2'),
-      ],
+      waypoints: [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
       segments: [_gqlSegment()],
     );
 
@@ -90,10 +84,7 @@ GUpdateTripData_updateTrip _gqlUpdateResult({int id = 7}) =>
       description: 'Mis à jour',
       images: [GUpdateTripData_updateTrip_images(image: _image())],
       // 2 waypoints → 1 segment
-      waypoints: [
-        _gqlWaypoint(id: 'wp-1'),
-        _gqlWaypoint(id: 'wp-2'),
-      ],
+      waypoints: [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
       segments: [_gqlSegment()],
     );
 
@@ -109,7 +100,7 @@ void main() {
   group('TripMapper.waypointFromGQL', () {
     test('mappe les coordonnées, le type et la description', () {
       final gql = _gqlWaypoint(
-        id: 'wp-42',
+        id: 2,
         lat: 43.0,
         lng: 1.5,
         type: GWaypointTypeEnum.camping,
@@ -117,7 +108,7 @@ void main() {
       );
       final wp = TripMapper.waypointFromGQL(gql);
 
-      expect(wp.id, 'wp-42');
+      expect(wp.id, 2);
       expect(wp.latLng.latitude, 43.0);
       expect(wp.latLng.longitude, 1.5);
       expect(wp.type, GWaypointTypeEnum.camping);
@@ -133,7 +124,7 @@ void main() {
 
     test('liste vide si aucune image', () {
       final gql = GWaypointFieldsData(
-        id: 'wp-0',
+        id: 0,
         lat: 0,
         lng: 0,
         type: GWaypointTypeEnum.waypoint,
@@ -168,7 +159,7 @@ void main() {
     test('convertit les champs de base correctement', () {
       final trip = TripMapper.tripFromGQLFields(_gqlTripFields(id: 5));
 
-      expect(trip.id, '5');
+      expect(trip.id, 5);
       expect(trip.title, 'Tour de test');
       expect(trip.description, 'Une belle aventure');
       expect(trip.date, DateTime(2024, 7, 14));
@@ -193,7 +184,7 @@ void main() {
     test('inclut les waypoints et segments', () {
       final trip = TripMapper.tripFromGQLDetail(_gqlTripDetail(id: 3));
 
-      expect(trip.id, '3');
+      expect(trip.id, 3);
       expect(trip.waypoints, hasLength(2));
       expect(trip.segments, hasLength(1));
     });
@@ -202,7 +193,7 @@ void main() {
       final trip = TripMapper.tripFromGQLDetail(_gqlTripDetail());
       final wp = trip.waypoints.first;
 
-      expect(wp.id, 'wp-1');
+      expect(wp.id, 1);
       expect(wp.latLng, const LatLng(48.85, 2.35));
     });
   });
@@ -211,7 +202,7 @@ void main() {
     test('convertit correctement le résultat de création', () {
       final trip = TripMapper.tripFromGQLCreateResult(_gqlCreateResult(id: 42));
 
-      expect(trip.id, '42');
+      expect(trip.id, 42);
       expect(trip.title, 'Nouveau trip');
       expect(trip.date, isNull);
       expect(trip.waypoints, hasLength(2));
@@ -223,7 +214,7 @@ void main() {
     test('convertit correctement le résultat de mise à jour', () {
       final trip = TripMapper.tripFromGQLUpdateResult(_gqlUpdateResult(id: 7));
 
-      expect(trip.id, '7');
+      expect(trip.id, 7);
       expect(trip.title, 'Trip modifié');
       expect(trip.date, DateTime(2024, 8, 1));
     });
@@ -328,7 +319,7 @@ void main() {
   group('TripMapper.tripToGQLUpdateInput', () {
     test('tous les champs présents, même description vide → null', () {
       final trip = Trip(
-        id: '10',
+        id: 10,
         title: 'Titre mis à jour',
         description: '',
         date: null,

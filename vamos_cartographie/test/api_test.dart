@@ -49,22 +49,20 @@ void main() async {
 
     // Création
     final createResult = await getIt<ITripRepository>().createTrip(trip);
-    String? id;
+    int? id;
     createResult.fold(
       (failure) {
         print(failure);
         throw failure;
       },
       (createdTrip) {
-        print('Trip bien créé dans la base de données');
         id = createdTrip.id;
+        print('Trip bien créé dans la base de données id : $id');
       },
     );
-
+    print("trip id est $id");
     // Lecture
-    final getTripResult = await getIt<ITripRepository>().getTrip(
-      int.parse(id!),
-    );
+    final getTripResult = await getIt<ITripRepository>().getTrip(id!);
     getTripResult.fold(
       (failure) {
         print(failure);
@@ -84,7 +82,7 @@ void main() async {
       description: 'description modifiée',
     );
     final updateResult = await getIt<ITripRepository>().updateTrip(
-      int.parse(id!),
+      id!,
       updatedTrip,
     );
     updateResult.fold((failure) {
@@ -94,9 +92,7 @@ void main() async {
 
     // Suppression
     print('Suppression du trip {id: $id}');
-    final deleteResult = await getIt<ITripRepository>().deleteTrip(
-      int.parse(id!),
-    );
+    final deleteResult = await getIt<ITripRepository>().deleteTrip(id!);
     deleteResult.fold((failure) {
       print(failure);
       throw failure;

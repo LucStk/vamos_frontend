@@ -375,7 +375,7 @@ class GSegmentFieldsData_intermediatePoints
 }
 
 abstract class GWaypointFields {
-  String get id;
+  int get id;
   double get lat;
   double get lng;
   _i1.GWaypointTypeEnum get type;
@@ -404,7 +404,7 @@ class GWaypointFieldsData implements GWaypointFields {
 
   factory GWaypointFieldsData.fromJson(Map<String, dynamic> json) {
     return GWaypointFieldsData(
-      id: (json['id'] as String),
+      id: (json['id'] as int),
       lat: (json['lat'] as double),
       lng: (json['lng'] as double),
       type: _i1.GWaypointTypeEnum.fromJson((json['type'] as String)),
@@ -418,7 +418,7 @@ class GWaypointFieldsData implements GWaypointFields {
     );
   }
 
-  final String id;
+  final int id;
 
   final double lat;
 
@@ -448,7 +448,7 @@ class GWaypointFieldsData implements GWaypointFields {
   }
 
   GWaypointFieldsData copyWith({
-    String? id,
+    int? id,
     double? lat,
     double? lng,
     _i1.GWaypointTypeEnum? type,

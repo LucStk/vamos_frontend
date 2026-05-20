@@ -37,6 +37,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   void _openTrip(Trip trip) {
+    print("test opentrip $trip");
     TripPreviewDialog.show(
       context: context,
       tripData: trip,
@@ -90,9 +91,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
     if (confirmed != true) return;
 
-    final result = await getIt<ITripRepository>().deleteTrip(
-      int.parse(trip.id!),
-    );
+    final result = await getIt<ITripRepository>().deleteTrip(trip.id!);
 
     if (!mounted) return;
 

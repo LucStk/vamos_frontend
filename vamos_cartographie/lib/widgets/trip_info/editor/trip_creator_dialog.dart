@@ -8,7 +8,7 @@ import 'trip_info_editor.dart';
 /// Affiche un TripInfoEditor sur un Trip vide.
 /// À la confirmation : crée le voyage via le repository et retourne l'id.
 class TripCreatorDialog extends StatelessWidget {
-  final void Function(String tripId) onCreated;
+  final void Function(int tripId) onCreated;
   final VoidCallback onCancel;
 
   const TripCreatorDialog({
@@ -20,7 +20,7 @@ class TripCreatorDialog extends StatelessWidget {
   /// Affiche le dialog de création.
   static void show({
     required BuildContext context,
-    required void Function(String tripId) onCreated,
+    required void Function(int tripId) onCreated,
   }) {
     showDialog(
       context: context,
@@ -90,7 +90,7 @@ class TripCreatorDialog extends StatelessWidget {
       },
       (createdTrip) {
         Navigator.of(context).pop();
-        onCreated(createdTrip.id ?? '');
+        onCreated(createdTrip.id ?? 0);
       },
     );
   }

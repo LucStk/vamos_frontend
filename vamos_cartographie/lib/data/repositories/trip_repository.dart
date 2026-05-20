@@ -58,7 +58,7 @@ class TripRepository implements ITripRepository {
       final input = TripMapper.tripToGQLInput(trip);
       final gqlResult = await remote.createTrip(input: input);
       final createdTrip = TripMapper.tripFromGQLCreateResult(gqlResult);
-      final tripId = int.parse(createdTrip.id!);
+      final tripId = createdTrip.id!;
 
       // Après création, aucune image n'est encore attachée côté serveur.
       // On attache toutes les images présentes dans le modèle local.

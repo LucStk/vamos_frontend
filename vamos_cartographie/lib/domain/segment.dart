@@ -4,7 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter/material.dart';
 
 class Segment {
-  String? id;
+  int? id;
   GSegmentTypeEnum type;
   List<LatLng> intermediatePoints;
 

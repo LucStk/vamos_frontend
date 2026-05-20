@@ -36,7 +36,7 @@ enum _MapMode { observer, editRoute, addPoint }
 
 class MapPage extends StatefulWidget {
   /// L'ID du voyage à charger (optionnel).
-  final String? tripId;
+  final int? tripId;
 
   /// Indique si l'utilisateur courant est propriétaire du voyage.
   ///
@@ -288,7 +288,7 @@ class _MapPageState extends State<MapPage> {
     final Either<Failure, Trip> result;
 
     if (_trip.id != null) {
-      result = await repository.updateTrip(int.parse(_trip.id!), _trip);
+      result = await repository.updateTrip(_trip.id!, _trip);
     } else {
       result = await repository.createTrip(_trip);
     }
@@ -324,10 +324,10 @@ class _MapPageState extends State<MapPage> {
 
   // ── Chargement ────────────────────────────────────────────────────────────
 
-  Future<void> _loadTripById(String id) async {
+  Future<void> _loadTripById(int id) async {
     setState(() => _isLoading = true);
 
-    final result = await getIt<ITripRepository>().getTrip(int.parse(id));
+    final result = await getIt<ITripRepository>().getTrip(id);
 
     if (!mounted) return;
 
