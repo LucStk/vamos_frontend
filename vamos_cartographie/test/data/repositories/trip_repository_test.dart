@@ -25,8 +25,10 @@ class FakeGTripUpdateInput extends Fake implements GTripUpdateInput {}
 // Helpers — données GQL minimales
 // ─────────────────────────────────────────────────────────────────────────────
 
-GImageFieldsData _img() =>
-    const GImageFieldsData(url: 'https://cdn/x.jpg', fileKey: 'media/x.jpg');
+GImageFieldsData _img() => const GImageFieldsData(
+  url: 'https://cdn/media/x.jpg',
+  fileKey: 'media/x.jpg',
+);
 
 GTripFieldsData _gqlFields(int id) => GTripFieldsData(
   id: id,
@@ -132,7 +134,9 @@ void main() {
       expect(trips, hasLength(2));
       expect(trips.first.id, 1);
       expect(trips.first.title, 'Trip 1');
-      expect(trips.first.images, ['media/x.jpg']);
+      expect(trips.first.images, [
+        TripImage(fileKey: 'media/x.jpg', url: 'https://cdn/media/x.jpg'),
+      ]);
     });
 
     test('retourne Right([]) pour une liste vide', () async {
@@ -222,7 +226,11 @@ void main() {
       final tripWithImages = Trip(
         title: 'Avec images',
         description: '',
-        images: ['media/a.jpg', 'media/b.jpg'],
+        images: [
+          TripImage(fileKey: 'media/a.jpg', url: ""),
+          TripImage(fileKey: 'media/b.jpg', url: ""),
+        ],
+
         waypoints: [
           Waypoint(latLng: const LatLng(1, 2), type: GWaypointTypeEnum.start),
           Waypoint(latLng: const LatLng(3, 4), type: GWaypointTypeEnum.end),
@@ -307,7 +315,10 @@ void main() {
           id: 5,
           title: 'Trip',
           description: '',
-          images: ['media/existing.jpg', 'media/new.jpg'],
+          images: [
+            TripImage(fileKey: 'media/existing.jpg', url: ""),
+            TripImage(fileKey: 'media/new.jpg', url: ""),
+          ],
         );
         await repository.updateTrip(5, tripWithImages);
 

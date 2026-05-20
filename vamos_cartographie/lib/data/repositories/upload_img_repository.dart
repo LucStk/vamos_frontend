@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ferry/ferry.dart';
 import 'package:vamos_cartographie/core/failure.dart';
+import 'package:vamos_cartographie/domain/trip_image.dart';
 
 class UploadImgRepository {
   final _dio = Dio();
@@ -17,9 +18,9 @@ class UploadImgRepository {
 
   /// Uploade [imageFile] vers le stockage objet et enregistre l'image en DB.
   ///
-  /// Retourne le `fileKey` (chemin relatif) à conserver dans le modèle.
+  /// Retourne un [TripImage] avec `fileKey` et `url` construite par le backend.
   /// [onProgress] est appelé avec (octets envoyés, taille totale).
-  Future<Either<Failure, String>> uploadImage(
+  Future<Either<Failure, TripImage>> uploadImage(
     File imageFile,
     String type, {
     Function(int sent, int total)? onProgress,
@@ -55,13 +56,14 @@ class UploadImgRepository {
       // 3. Créer l'enregistrement image en DB
       final saveReq = GCreateImageReq(vars: GCreateImageVars(fileKey: fileKey));
       final saveRes = await _client.request(saveReq).first;
-      if (saveRes.hasErrors) {
+      if (saveRes.hasErrors || saveRes.data == null) {
         return Left(
           ServerFailure('Erreur lors de l\'enregistrement de l\'image'),
         );
       }
 
-      return Right(fileKey);
+      final imageUrl = saveRes.data!.createImage.url;
+      return Right(TripImage(fileKey: fileKey, url: imageUrl));
     } on DioException catch (e) {
       return Left(ServerFailure('Erreur réseau : ${e.message}'));
     } catch (e) {

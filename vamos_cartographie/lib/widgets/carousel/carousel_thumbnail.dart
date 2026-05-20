@@ -113,9 +113,8 @@ class Thumbnail extends StatelessWidget {
         errorBuilder: (_, __, ___) => _errorPlaceholder(),
       );
     }
-    // item.displayUrl construit l'URL complète via AppConfig
     return Image.network(
-      item.value,
+      item.displayUrl,
       fit: BoxFit.cover,
       loadingBuilder: (_, child, prog) {
         if (prog == null) return child;

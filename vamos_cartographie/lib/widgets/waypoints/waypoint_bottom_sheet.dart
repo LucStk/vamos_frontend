@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
+import 'package:vamos_cartographie/domain/trip_image.dart';
 
 import '../text_area_counter.dart';
 
@@ -75,7 +76,7 @@ class _WaypointCardState extends State<WaypointCard> {
 
   // Copies locales des champs éditables — appliquées seulement à la confirmation.
   late String _pendingDescription;
-  late List<String> _pendingImages;
+  late List<TripImage> _pendingImages;
 
   @override
   void initState() {
@@ -84,7 +85,7 @@ class _WaypointCardState extends State<WaypointCard> {
     final wp = _wp;
     _selectedType = wp.type;
     _pendingDescription = wp.description ?? '';
-    _pendingImages = List<String>.from(wp.images ?? []);
+    _pendingImages = List<TripImage>.from(wp.images ?? []);
   }
 
   Waypoint get _wp => widget.trip.waypoints[widget.waypointIndex];
@@ -140,7 +141,7 @@ class _WaypointCardState extends State<WaypointCard> {
 
                 // Photos
                 ImageCarouselPicker(
-                  remoteImagesPaths: wp.images ?? [],
+                  remoteImages: wp.images ?? [],
                   readOnly: true,
                   onChanged: (_) {},
                 ),
@@ -262,10 +263,11 @@ class _WaypointCardState extends State<WaypointCard> {
                 // ── Photos ──
                 const SizedBox(height: 4),
                 ImageCarouselPicker(
-                  remoteImagesPaths: _pendingImages,
+                  remoteImages: _pendingImages,
                   readOnly: false,
-                  onChanged: (urls) =>
-                      setState(() => _pendingImages = List<String>.from(urls)),
+                  onChanged: (images) => setState(
+                    () => _pendingImages = List<TripImage>.from(images),
+                  ),
                 ),
 
                 // ── Description ──

@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 
 class MockUploadImgRepository implements UploadImgRepository {
   @override
-  Future<Either<Failure, String>> uploadImage(
+  Future<Either<Failure, TripImage>> uploadImage(
     File imageFile,
     String type, {
     Function(int sent, int total)? onProgress,
@@ -18,7 +19,9 @@ class MockUploadImgRepository implements UploadImgRepository {
     }
     final seed = Random().nextInt(1000).toString();
     final fileKey = '$seed/600/400';
-    return Right(fileKey);
+    return Right(
+      TripImage(fileKey: fileKey, url: "https://picsum.photos/seed/$fileKey"),
+    );
   }
 
   @override

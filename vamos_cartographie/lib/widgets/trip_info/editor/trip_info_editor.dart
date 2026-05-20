@@ -31,7 +31,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
   late final TextEditingController _titleCtrl;
   late final TextEditingController _descCtrl;
   late DateTime? _date;
-  late List<String> _images;
+  late List<TripImage> _images;
 
   static const int _maxDesc = 1000;
 
@@ -43,7 +43,7 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
     _titleCtrl = TextEditingController(text: widget.trip.title);
     _descCtrl = TextEditingController(text: widget.trip.description);
     _date = widget.trip.date;
-    _images = List<String>.from(widget.trip.images);
+    _images = List<TripImage>.from(widget.trip.images);
   }
 
   @override
@@ -166,9 +166,9 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
           child: FractionallySizedBox(
             widthFactor: 0.9,
             child: ImageCarouselPicker(
-              remoteImagesPaths: _images,
+              remoteImages: _images,
               readOnly: false,
-              onChanged: (paths) => setState(() => _images = paths),
+              onChanged: (images) => setState(() => _images = images),
             ),
           ),
         ),

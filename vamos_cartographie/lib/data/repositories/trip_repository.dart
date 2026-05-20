@@ -4,6 +4,7 @@ import 'package:vamos_cartographie/data/datasources/trip_remote_datasource.dart'
 import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
+import 'package:vamos_cartographie/domain/trip_image.dart';
 import 'i_trip_repository.dart';
 
 /// Implémentation concrète de [ITripRepository].
@@ -62,13 +63,13 @@ class TripRepository implements ITripRepository {
 
       // Après création, aucune image n'est encore attachée côté serveur.
       // On attache toutes les images présentes dans le modèle local.
-      final attachedFileKeys = await _attachImages(
+      final attachedImages = await _attachImages(
         tripId: tripId,
         desired: trip.images,
         alreadyAttached: const {},
       );
 
-      return Right(_rebuildWithImages(createdTrip, attachedFileKeys));
+      return Right(_rebuildWithImages(createdTrip, attachedImages.toList()));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -85,20 +86,18 @@ class TripRepository implements ITripRepository {
 
       // Les images déjà attachées côté serveur (retournées par la mutation).
       final alreadyAttached = gqlResult.images
-          .map((i) => i.image.fileKey)
+          .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
           .toSet();
 
       // On n'attache que les images nouvelles (présentes localement mais pas
       // encore sur le serveur).
-      final attachedFileKeys = await _attachImages(
+      final attachedImages = await _attachImages(
         tripId: id,
         desired: trip.images,
         alreadyAttached: alreadyAttached,
       );
 
-      // Liste finale = images déjà sur le serveur + nouvelles attachées.
-      final finalImages = {...alreadyAttached, ...attachedFileKeys}.toList();
-      return Right(_rebuildWithImages(updatedTrip, finalImages));
+      return Right(_rebuildWithImages(updatedTrip, attachedImages.toList()));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -127,33 +126,37 @@ class TripRepository implements ITripRepository {
   /// silencieusement (l'image reste dans le modèle local, l'opération peut
   /// être rejouée à la prochaine sauvegarde).
   ///
-  /// Retourne la liste des fileKeys effectivement attachés (+ ceux déjà là).
-  Future<List<String>> _attachImages({
+  /// Retourne l'ensemble des [TripImage] effectivement attachés (+ ceux déjà là).
+  Future<Set<TripImage>> _attachImages({
     required int tripId,
-    required List<String> desired,
-    required Set<String> alreadyAttached,
+    required List<TripImage> desired,
+    required Set<TripImage> alreadyAttached,
   }) async {
-    final attached = <String>{...alreadyAttached};
+    final attached = <TripImage>{...alreadyAttached};
+    final attachedFileKeys = attached.map((i) => i.fileKey).toSet();
 
-    for (final fileKey in desired) {
-      if (attached.contains(fileKey)) continue;
+    for (final image in desired) {
+      if (attachedFileKeys.contains(image.fileKey)) continue;
       final result = await imageRepo.attachImageToTrip(
         tripId: tripId,
-        fileKey: fileKey,
+        fileKey: image.fileKey,
       );
       result.fold(
-        // Erreur ignorée : on conserve le fileKey dans la liste locale afin
+        // Erreur ignorée : on conserve l'image dans la liste locale afin
         // que l'UI reste cohérente et que la tentative puisse être rejouée.
         (_) => null,
-        (_) => attached.add(fileKey),
+        (_) {
+          attached.add(image);
+          attachedFileKeys.add(image.fileKey);
+        },
       );
     }
 
-    return attached.toList();
+    return attached;
   }
 
   /// Reconstruit un [Trip] domaine en remplaçant sa liste d'images.
-  Trip _rebuildWithImages(Trip source, List<String> images) => Trip(
+  Trip _rebuildWithImages(Trip source, List<TripImage> images) => Trip(
     id: source.id,
     title: source.title,
     description: source.description,

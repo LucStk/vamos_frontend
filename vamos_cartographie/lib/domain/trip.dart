@@ -2,6 +2,7 @@
 import 'package:api_client/api_client.dart';
 import 'package:latlong2/latlong.dart';
 import "segment.dart";
+import "trip_image.dart";
 import "waypoint.dart";
 
 // ---------------------------------------------------------------------------
@@ -13,7 +14,7 @@ class Trip {
   String title;
   String description;
   DateTime? date;
-  List<String> images;
+  List<TripImage> images;
   final List<Waypoint> waypoints;
   final List<Segment> segments;
 
@@ -22,7 +23,7 @@ class Trip {
     this.title = '',
     this.description = '',
     this.date,
-    List<String>? images,
+    List<TripImage>? images,
     this.waypoints = const [],
     this.segments = const [],
   }) : images = images ?? [],

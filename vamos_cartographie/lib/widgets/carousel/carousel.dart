@@ -4,22 +4,23 @@ import 'package:file_selector/file_selector.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
+import 'package:vamos_cartographie/domain/trip_image.dart';
 import "carousel_thumbnail.dart";
 import 'carousel_item.dart';
 import "carousel_add_button.dart";
 import "carousel_lightbox.dart";
 
-/// Entrée  : [remoteImagesPaths] — liste de fileKeys (ex: "uploads/uuid.jpg")
-/// Sortie  : [onChanged]        — liste de fileKeys mise à jour
+/// Entrée  : [remoteImages] — liste de [TripImage] (fileKey + url)
+/// Sortie  : [onChanged]    — liste de [TripImage] mise à jour
 ///
 /// Les paths locaux (avant upload) sont gérés en interne.
-/// La conversion fileKey → URL d'affichage est faite en interne via AppConfig.
+/// L'URL d'affichage est fournie directement par le backend via [TripImage.url].
 class ImageCarouselPicker extends StatefulWidget {
-  /// fileKeys des images déjà uploadées (stockés en DB).
-  final List<String> remoteImagesPaths;
+  /// Images déjà uploadées (stockées en DB), avec fileKey et url.
+  final List<TripImage> remoteImages;
 
-  /// Appelé à chaque changement avec la liste mise à jour de fileKeys.
-  final void Function(List<String> fileKeys) onChanged;
+  /// Appelé à chaque changement avec la liste mise à jour de [TripImage].
+  final void Function(List<TripImage> images) onChanged;
 
   final bool readOnly;
 
@@ -28,7 +29,7 @@ class ImageCarouselPicker extends StatefulWidget {
 
   const ImageCarouselPicker({
     super.key,
-    required this.remoteImagesPaths,
+    required this.remoteImages,
     required this.onChanged,
     this.readOnly = false,
     this.thumbSize = 80,
@@ -56,28 +57,30 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
   @override
   void initState() {
     super.initState();
-    _items = _buildItems(widget.remoteImagesPaths);
+    _items = _buildItems(widget.remoteImages);
   }
 
   @override
   void didUpdateWidget(covariant ImageCarouselPicker old) {
     super.didUpdateWidget(old);
-    if (old.remoteImagesPaths != widget.remoteImagesPaths) {
-      setState(() => _items = _buildItems(widget.remoteImagesPaths));
+    if (old.remoteImages != widget.remoteImages) {
+      setState(() => _items = _buildItems(widget.remoteImages));
     }
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
-  List<CarouselItem> _buildItems(List<String> fileKeys) =>
-      fileKeys.map(CarouselItem.remote).toList();
+  List<CarouselItem> _buildItems(List<TripImage> images) =>
+      images.map(CarouselItem.remote).toList();
 
-  /// Retourne les fileKeys des images distantes (déjà uploadées).
-  List<String> _remoteFileKeys() =>
-      _items.where((i) => !i.isLocal).map((i) => i.value).toList();
+  /// Retourne les [TripImage] des images distantes (déjà uploadées).
+  List<TripImage> _remoteImages() => _items
+      .where((i) => !i.isLocal)
+      .map((i) => TripImage(fileKey: i.value, url: i.displayUrl))
+      .toList();
 
-  /// Notifie le parent avec la liste courante de fileKeys.
-  void _notify() => widget.onChanged(_remoteFileKeys());
+  /// Notifie le parent avec la liste courante de [TripImage].
+  void _notify() => widget.onChanged(_remoteImages());
 
   // ── Sélection + upload ────────────────────────────────────────────────────
 
@@ -137,13 +140,13 @@ class _ImageCarouselPickerState extends State<ImageCarouselPicker> {
         _uploadProgress.remove(path);
         _uploadErrors[path] = 'Échec upload';
       }),
-      (String fileKey) {
+      (TripImage image) {
         setState(() {
           _uploadProgress.remove(path);
           _uploadErrors.remove(path);
           if (idx != -1) {
-            // On remplace le item local par le fileKey distant
-            _items[idx] = CarouselItem.remote(fileKey);
+            // On remplace l'item local par l'image distante (fileKey + url)
+            _items[idx] = CarouselItem.remote(image);
           }
         });
         _notify();

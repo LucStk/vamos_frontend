@@ -2,6 +2,7 @@ import 'package:api_client/api_client.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
+import 'package:vamos_cartographie/domain/trip_image.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class TripMapper {
@@ -16,7 +17,9 @@ class TripMapper {
     type: data.type,
     title: data.title,
     description: data.description,
-    images: data.images.map((i) => i.image.fileKey).toList(),
+    images: data.images
+        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .toList(),
   );
 
   /// Convertit un [GSegmentFieldsData] (fragment GQL) en [Segment] domaine.
@@ -34,7 +37,9 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images.map((i) => i.image.fileKey).toList(),
+    images: data.images
+        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .toList(),
   );
 
   /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
@@ -44,7 +49,9 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images.map((i) => i.image.fileKey).toList(),
+    images: data.images
+        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .toList(),
     waypoints: data.waypoints.map(waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
   );
@@ -55,7 +62,9 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images.map((i) => i.image.fileKey).toList(),
+    images: data.images
+        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .toList(),
     waypoints: data.waypoints.map(waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
   );
@@ -66,7 +75,9 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images.map((i) => i.image.fileKey).toList(),
+    images: data.images
+        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .toList(),
     waypoints: data.waypoints.map(waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
   );

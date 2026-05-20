@@ -119,7 +119,9 @@ void main() {
       final gql = _gqlWaypoint();
       final wp = TripMapper.waypointFromGQL(gql);
 
-      expect(wp.images, ['media/img.jpg']);
+      expect(wp.images, [
+        TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+      ]);
     });
 
     test('liste vide si aucune image', () {
@@ -163,7 +165,9 @@ void main() {
       expect(trip.title, 'Tour de test');
       expect(trip.description, 'Une belle aventure');
       expect(trip.date, DateTime(2024, 7, 14));
-      expect(trip.images, ['media/img.jpg']);
+      expect(trip.images, [
+        TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+      ]);
       expect(trip.waypoints, isEmpty);
       expect(trip.segments, isEmpty);
     });

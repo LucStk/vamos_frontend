@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // Importe tes fichiers générés par Ferry en haut
 import 'package:api_client/api_client.dart';
 import 'package:latlong2/latlong.dart';
+import 'trip_image.dart';
 
 class Waypoint {
   int? id;
@@ -9,7 +10,7 @@ class Waypoint {
   LatLng latLng;
   GWaypointTypeEnum type;
   String? description;
-  List<String>? images;
+  List<TripImage>? images;
 
   Waypoint({
     this.id,
@@ -17,7 +18,7 @@ class Waypoint {
     this.title,
     this.type = GWaypointTypeEnum.waypoint,
     this.description = '',
-    List<String>? images,
+    List<TripImage>? images,
   }) : images = images ?? [];
 }
 
