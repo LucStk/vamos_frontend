@@ -1,3 +1,3 @@
-export 'domain/models.dart';
+export 'domain/domain.dart';
 export 'main.dart';
 export "app.dart";

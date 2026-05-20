@@ -2,7 +2,7 @@ import 'package:api_client/api_client.dart';
 import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 
 class MockTripRepository implements ITripRepository {

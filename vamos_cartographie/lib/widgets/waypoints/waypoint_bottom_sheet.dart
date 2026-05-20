@@ -1,8 +1,10 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
-import 'image_carousel_picker.dart';
-import '../domain/models.dart';
-import 'text_area_counter.dart';
+
+import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
+
+import '../text_area_counter.dart';
 
 // ── WaypointCard ──────────────────────────────────────────────────────────────
 

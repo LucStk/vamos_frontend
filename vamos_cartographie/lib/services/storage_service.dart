@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:api_client/api_client.dart';
 import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
 
-import '../domain/models.dart';
+import '../domain/domain.dart';
 
 class StorageService {
   static const String _fileName = 'bike_trip.json';

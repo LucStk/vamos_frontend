@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 
 abstract class ITripRepository {
   /// Récupère tous les trips (informations de base, sans waypoints ni segments).

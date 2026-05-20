@@ -1,7 +1,9 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import '../../core/injection.dart';
-import '../../domain/models.dart';
+
+import 'package:vamos_cartographie/domain/domain.dart';
+
 import '../../data/repositories/i_trip_repository.dart';
 import 'trip_info_dialog.dart';
 import 'trip_info_view.dart';

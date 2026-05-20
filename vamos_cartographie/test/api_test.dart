@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:test/test.dart';
-import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 
 void main() async {
   await configureDependencies();

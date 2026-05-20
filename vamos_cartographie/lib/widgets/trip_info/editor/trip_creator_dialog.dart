@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/core/injection.dart';
-import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'trip_info_editor.dart';
 

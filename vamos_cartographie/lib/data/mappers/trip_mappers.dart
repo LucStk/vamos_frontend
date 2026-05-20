@@ -1,7 +1,7 @@
 import 'package:api_client/api_client.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class TripMapper {
@@ -14,6 +14,7 @@ class TripMapper {
     id: data.id,
     latLng: LatLng(data.lat, data.lng),
     type: data.type,
+    title: data.title,
     description: data.description,
     images: data.images.map((i) => i.image.fileKey).toList(),
   );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
-import '../domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 import 'segment_intermediatePoints.dart';
 
 class CustomPolyEditor {

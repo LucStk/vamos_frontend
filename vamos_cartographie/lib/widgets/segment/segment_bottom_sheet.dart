@@ -1,6 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
-import '../domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 
 /// Affiche les informations d'un segment dans un Dialog centré (Card).
 ///

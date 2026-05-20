@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/data/datasources/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/data/repositories/trip_repository.dart';
 import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
-import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mock du datasource

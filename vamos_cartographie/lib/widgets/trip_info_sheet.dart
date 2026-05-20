@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 import 'trip_info/trip_info_dialog.dart';
 
 export 'trip_info/trip_info_view.dart';

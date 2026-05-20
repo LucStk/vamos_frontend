@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import '../domain/models.dart';
+
+import 'package:vamos_cartographie/domain/domain.dart';
 
 class WaypointMarkersBuilder {
   /// Construit les markers statiques des waypoints (visibles dans les deux modes).

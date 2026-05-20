@@ -6,7 +6,8 @@ import 'customPolyEditor.dart';
 import 'segment_layers_builder.dart';
 import 'segment_type_markers_builder.dart';
 import 'waypoint_markers_builder.dart';
-import '../domain/models.dart';
+
+import 'package:vamos_cartographie/domain/domain.dart';
 
 class MapView extends StatelessWidget {
   final Trip trip;

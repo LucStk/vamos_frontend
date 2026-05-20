@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import '../domain/models.dart';
+
+import 'package:vamos_cartographie/domain/domain.dart';
 
 class SegmentLayersBuilder {
   static List<Widget> buildLayers(Trip trip) {

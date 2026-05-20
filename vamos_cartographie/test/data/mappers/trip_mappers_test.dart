@@ -3,7 +3,7 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
-import 'package:vamos_cartographie/domain/models.dart';
+import 'package:vamos_cartographie/domain/domain.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers — données GQL de test

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../core/injection.dart';
 import 'package:vamos_cartographie/widgets/trip_info_sheet.dart';
-import '../domain/models.dart';
+import '../domain/domain.dart';
 
 void main() async {
   // Obligatoire si tu fais du async avant runApp
