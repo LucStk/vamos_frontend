@@ -17,6 +17,8 @@ class MockTripRemoteDatasource extends Mock implements TripRemoteDatasource {}
 
 class MockUploadImgRepository extends Mock implements UploadImgRepository {}
 
+class FakeGImageFieldsData extends Fake implements GImageFieldsData {}
+
 class FakeGTripInput extends Fake implements GTripInput {}
 
 class FakeGTripUpdateInput extends Fake implements GTripUpdateInput {}
@@ -102,6 +104,7 @@ void main() {
   setUpAll(() {
     registerFallbackValue(FakeGTripInput());
     registerFallbackValue(FakeGTripUpdateInput());
+    registerFallbackValue(FakeGImageFieldsData());
   });
 
   setUp(() {
@@ -114,6 +117,13 @@ void main() {
         fileKey: any(named: 'fileKey'),
       ),
     ).thenAnswer((_) async => const Right(null));
+    // Par défaut, deleteImgTrip réussit silencieusement.
+    when(
+      () => mockDatasource.deleteImgTrip(
+        tripId: any(named: 'tripId'),
+        fileKey: any(named: 'fileKey'),
+      ),
+    ).thenAnswer((_) async {});
     repository = TripRepository(mockDatasource, mockImageRepo);
   });
 
@@ -267,8 +277,30 @@ void main() {
   // updateTrip
   // ---------------------------------------------------------------------------
 
+  // Helper : construit un GUpdateTripData_updateTrip avec une liste d'images.
+  GUpdateTripData_updateTrip _gqlUpdateWithImages(
+    int id,
+    List<({String fileKey, String url})> imgs,
+  ) => GUpdateTripData_updateTrip(
+    id: id,
+    title: 'Modifié $id',
+    date: '2024-08-01',
+    description: 'Mis à jour',
+    images: imgs
+        .map(
+          (e) => GUpdateTripData_updateTrip_images(
+            image: GImageFieldsData(fileKey: e.fileKey, url: e.url),
+          ),
+        )
+        .toList(),
+    waypoints: [],
+    segments: [],
+  );
+
   group('updateTrip', () {
-    test('retourne Right(Trip) après une mise à jour réussie', () async {
+    // ── Cas nominal ────────────────────────────────────────────────────────
+
+    test('retourne Right(Trip) avec les métadonnées du serveur', () async {
       when(
         () => mockDatasource.updateTrip(
           id: any(named: 'id'),
@@ -284,52 +316,48 @@ void main() {
       expect(trip.title, 'Modifié 7');
     });
 
+    // ── Attachement d'images ───────────────────────────────────────────────
+
     test(
-      'n\'attache que les images nouvelles (pas celles déjà sur le serveur)',
+      'attache uniquement les images nouvelles (absentes du serveur)',
       () async {
-        // Le serveur retourne le trip avec 'media/existing.jpg' déjà attaché.
-        final updateResult = GUpdateTripData_updateTrip(
-          id: 5,
-          title: 'Trip',
-          date: null,
-          description: '',
-          images: [
-            GUpdateTripData_updateTrip_images(
-              image: const GImageFieldsData(
-                url: 'https://cdn/existing.jpg',
-                fileKey: 'media/existing.jpg',
-              ),
-            ),
-          ],
-          waypoints: [],
-          segments: [],
-        );
+        // Le serveur retourne le trip avec 'existing.jpg' déjà attaché.
         when(
           () => mockDatasource.updateTrip(
             id: any(named: 'id'),
             input: any(named: 'input'),
           ),
-        ).thenAnswer((_) async => updateResult);
+        ).thenAnswer(
+          (_) async => _gqlUpdateWithImages(5, [
+            (fileKey: 'media/existing.jpg', url: 'https://cdn/existing.jpg'),
+          ]),
+        );
 
-        final tripWithImages = Trip(
+        final trip = Trip(
           id: 5,
           title: 'Trip',
           description: '',
           images: [
-            TripImage(fileKey: 'media/existing.jpg', url: ""),
-            TripImage(fileKey: 'media/new.jpg', url: ""),
+            const TripImage(
+              fileKey: 'media/existing.jpg',
+              url: 'https://cdn/existing.jpg',
+            ),
+            const TripImage(
+              fileKey: 'media/new.jpg',
+              url: 'https://cdn/new.jpg',
+            ),
           ],
         );
-        await repository.updateTrip(5, tripWithImages);
+        await repository.updateTrip(5, trip);
 
-        // 'media/existing.jpg' est déjà attaché → pas de nouvel appel.
+        // 'existing.jpg' est déjà sur le serveur → aucun appel d'attachement.
         verifyNever(
           () => mockImageRepo.attachImageToTrip(
             tripId: 5,
             fileKey: 'media/existing.jpg',
           ),
         );
-        // 'media/new.jpg' est nouveau → doit être attaché.
+        // 'new.jpg' est nouveau → doit être attaché une seule fois.
         verify(
           () => mockImageRepo.attachImageToTrip(
             tripId: 5,
@@ -339,19 +367,202 @@ void main() {
       },
     );
 
-    test('retourne Left(ServerFailure) en cas d\'exception', () async {
+    test(
+      'n\'attache aucune image si toutes sont déjà sur le serveur',
+      () async {
+        when(
+          () => mockDatasource.updateTrip(
+            id: any(named: 'id'),
+            input: any(named: 'input'),
+          ),
+        ).thenAnswer(
+          (_) async => _gqlUpdateWithImages(3, [
+            (fileKey: 'media/a.jpg', url: 'https://cdn/a.jpg'),
+            (fileKey: 'media/b.jpg', url: 'https://cdn/b.jpg'),
+          ]),
+        );
+
+        final trip = Trip(
+          id: 3,
+          title: 'Trip',
+          description: '',
+          images: [
+            const TripImage(fileKey: 'media/a.jpg', url: 'https://cdn/a.jpg'),
+            const TripImage(fileKey: 'media/b.jpg', url: 'https://cdn/b.jpg'),
+          ],
+        );
+        await repository.updateTrip(3, trip);
+
+        verifyNever(
+          () => mockImageRepo.attachImageToTrip(
+            tripId: any(named: 'tripId'),
+            fileKey: any(named: 'fileKey'),
+          ),
+        );
+      },
+    );
+
+    // ── Suppression d'images ───────────────────────────────────────────────
+
+    test(
+      'supprime les images présentes sur le serveur mais retirées localement',
+      () async {
+        // Le serveur retourne 'kept.jpg' et 'removed.jpg'.
+        when(
+          () => mockDatasource.updateTrip(
+            id: any(named: 'id'),
+            input: any(named: 'input'),
+          ),
+        ).thenAnswer(
+          (_) async => _gqlUpdateWithImages(8, [
+            (fileKey: 'media/kept.jpg', url: 'https://cdn/kept.jpg'),
+            (fileKey: 'media/removed.jpg', url: 'https://cdn/removed.jpg'),
+          ]),
+        );
+
+        // L'utilisateur n'a gardé que 'kept.jpg'.
+        final trip = Trip(
+          id: 8,
+          title: 'Trip',
+          description: '',
+          images: [
+            const TripImage(
+              fileKey: 'media/kept.jpg',
+              url: 'https://cdn/kept.jpg',
+            ),
+          ],
+        );
+        await repository.updateTrip(8, trip);
+
+        // 'removed.jpg' doit être supprimé côté serveur.
+        verify(
+          () => mockDatasource.deleteImgTrip(
+            tripId: 8,
+            fileKey: 'media/removed.jpg',
+          ),
+        ).called(1);
+        // 'kept.jpg' ne doit pas être supprimé.
+        verifyNever(
+          () => mockDatasource.deleteImgTrip(
+            tripId: 8,
+            fileKey: 'media/kept.jpg',
+          ),
+        );
+      },
+    );
+
+    test(
+      'supprime toutes les images quand l\'utilisateur retire tout',
+      () async {
+        when(
+          () => mockDatasource.updateTrip(
+            id: any(named: 'id'),
+            input: any(named: 'input'),
+          ),
+        ).thenAnswer(
+          (_) async => _gqlUpdateWithImages(9, [
+            (fileKey: 'media/a.jpg', url: 'https://cdn/a.jpg'),
+            (fileKey: 'media/b.jpg', url: 'https://cdn/b.jpg'),
+          ]),
+        );
+
+        // L'utilisateur a tout retiré.
+        final trip = Trip(id: 9, title: 'Trip', description: '', images: []);
+        await repository.updateTrip(9, trip);
+
+        verify(
+          () => mockDatasource.deleteImgTrip(tripId: 9, fileKey: 'media/a.jpg'),
+        ).called(1);
+        verify(
+          () => mockDatasource.deleteImgTrip(tripId: 9, fileKey: 'media/b.jpg'),
+        ).called(1);
+      },
+    );
+
+    test('ne supprime aucune image quand le serveur n\'en a pas', () async {
       when(
         () => mockDatasource.updateTrip(
           id: any(named: 'id'),
           input: any(named: 'input'),
         ),
-      ).thenThrow(Exception('Erreur mise à jour'));
+      ).thenAnswer((_) async => _gqlUpdateWithImages(2, []));
 
-      final result = await repository.updateTrip(7, _domainTrip(id: 7));
+      final trip = Trip(id: 2, title: 'Trip', description: '', images: []);
+      await repository.updateTrip(2, trip);
 
-      expect(result.isLeft(), isTrue);
-      expect((result as Left).value, isA<ServerFailure>());
+      verifyNever(
+        () => mockDatasource.deleteImgTrip(
+          tripId: any(named: 'tripId'),
+          fileKey: any(named: 'fileKey'),
+        ),
+      );
     });
+
+    // ── Liste finale retournée ─────────────────────────────────────────────
+
+    test(
+      'la liste d\'images retournée contient les images conservées + la nouvelle',
+      () async {
+        // Serveur : 'kept.jpg' + 'removed.jpg'.
+        when(
+          () => mockDatasource.updateTrip(
+            id: any(named: 'id'),
+            input: any(named: 'input'),
+          ),
+        ).thenAnswer(
+          (_) async => _gqlUpdateWithImages(6, [
+            (fileKey: 'media/kept.jpg', url: 'https://cdn/kept.jpg'),
+            (fileKey: 'media/removed.jpg', url: 'https://cdn/removed.jpg'),
+          ]),
+        );
+
+        // Utilisateur : garde 'kept.jpg', retire 'removed.jpg', ajoute 'new.jpg'.
+        final trip = Trip(
+          id: 6,
+          title: 'Trip',
+          description: '',
+          images: [
+            const TripImage(
+              fileKey: 'media/kept.jpg',
+              url: 'https://cdn/kept.jpg',
+            ),
+            const TripImage(
+              fileKey: 'media/new.jpg',
+              url: 'https://cdn/new.jpg',
+            ),
+          ],
+        );
+        final result = await repository.updateTrip(6, trip);
+
+        expect(result.isRight(), isTrue);
+        final returned = (result as Right).value as Trip;
+        final fileKeys = returned.images.map((i) => i.fileKey).toList();
+
+        // 'kept.jpg' et 'new.jpg' doivent être présents.
+        expect(fileKeys, containsAll(['media/kept.jpg', 'media/new.jpg']));
+        // 'removed.jpg' ne doit plus apparaître.
+        expect(fileKeys, isNot(contains('media/removed.jpg')));
+      },
+    );
+
+    // ── Erreur réseau ──────────────────────────────────────────────────────
+
+    test(
+      'retourne Left(ServerFailure) quand le datasource lève une exception',
+      () async {
+        when(
+          () => mockDatasource.updateTrip(
+            id: any(named: 'id'),
+            input: any(named: 'input'),
+          ),
+        ).thenThrow(Exception('Erreur mise à jour'));
+
+        final result = await repository.updateTrip(7, _domainTrip(id: 7));
+
+        expect(result.isLeft(), isTrue);
+        expect((result as Left).value, isA<ServerFailure>());
+      },
+    );
   });
 
   // ---------------------------------------------------------------------------
