@@ -21,9 +21,9 @@ Future<void> configureDependencies({Client? client}) async {
     getIt.registerLazySingleton<UploadImgRepository>(
       () => MockUploadImgRepository(),
     );
-    getIt.registerLazySingleton<AppConfig>(
-      () => const AppConfig(imageBaseUrl: "https://picsum.photos/seed/"),
-    );
+    // getIt.registerLazySingleton<AppConfig>(
+    // () => const AppConfig(imageBaseUrl: "https://picsum.photos/seed/"),
+    // );
   } else {
     // Mode production : client fourni par l'appelant, ou client par défaut
     final ferryClient =
@@ -41,8 +41,8 @@ Future<void> configureDependencies({Client? client}) async {
         getIt<UploadImgRepository>(),
       ),
     );
-    getIt.registerLazySingleton<AppConfig>(
-      () => const AppConfig(imageBaseUrl: ""),
-    );
+    // getIt.registerLazySingleton<AppConfig>(
+    //   () => const AppConfig(imageBaseUrl: ""),
+    // );
   }
 }

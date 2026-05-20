@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 
+// import 'dart:io';
+
 abstract class ITripRepository {
   /// Récupère tous les trips (informations de base, sans waypoints ni segments).
   Future<Either<Failure, List<Trip>>> getAllTrips();
@@ -16,6 +18,11 @@ abstract class ITripRepository {
   /// Met à jour le trip identifié par [id] avec les données de [trip].
   /// Retourne le trip mis à jour.
   Future<Either<Failure, Trip>> updateTrip(int id, Trip trip);
+  // Future<Either<Failure, String>> createImageToTrip(
+  //   int id,
+  //   File file,
+  //   String type,
+  // );
 
   /// Supprime le trip identifié par [id].
   Future<Either<Failure, void>> deleteTrip(int id);

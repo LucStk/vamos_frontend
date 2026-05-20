@@ -130,7 +130,7 @@ class LightBoxState extends State<LightBox> {
     final image = item.isLocal
         ? Image.file(File(item.value), fit: BoxFit.contain)
         : Image.network(
-            item.displayUrl,
+            item.value,
             fit: BoxFit.contain,
             loadingBuilder: (_, child, prog) {
               if (prog == null) return child;

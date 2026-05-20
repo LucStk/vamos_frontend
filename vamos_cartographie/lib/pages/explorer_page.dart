@@ -37,7 +37,6 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   void _openTrip(Trip trip) {
-    print("test opentrip $trip");
     TripPreviewDialog.show(
       context: context,
       tripData: trip,

@@ -17,7 +17,7 @@ class TripRemoteDatasource {
   /// Récupère la liste de tous les trips (champs de base uniquement,
   /// sans waypoints ni segments).
   Future<List<GTripFieldsData>> getAllTrips() async {
-    final req = GGetAllTripsReq();
+    final req = GGetAllTripsReq(fetchPolicy: FetchPolicy.NetworkOnly);
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(

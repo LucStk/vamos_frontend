@@ -115,7 +115,7 @@ class Thumbnail extends StatelessWidget {
     }
     // item.displayUrl construit l'URL complète via AppConfig
     return Image.network(
-      item.displayUrl,
+      item.value,
       fit: BoxFit.cover,
       loadingBuilder: (_, child, prog) {
         if (prog == null) return child;

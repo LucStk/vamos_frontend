@@ -168,7 +168,7 @@ class MockTripRepository implements ITripRepository {
   Future<Either<Failure, Trip>> getTrip(int id) async {
     await Future.delayed(_delay);
     try {
-      return Right(_trips.firstWhere((t) => t.id == id.toString()));
+      return Right(_trips.firstWhere((t) => t.id == id));
     } catch (_) {
       return Left(const NotFoundFailure());
     }
@@ -194,7 +194,7 @@ class MockTripRepository implements ITripRepository {
   @override
   Future<Either<Failure, Trip>> updateTrip(int id, Trip trip) async {
     await Future.delayed(_delay);
-    final index = _trips.indexWhere((t) => t.id == id.toString());
+    final index = _trips.indexWhere((t) => t.id == id);
     if (index == -1) return Left(const NotFoundFailure());
     final updated = Trip(
       id: id,
@@ -212,7 +212,7 @@ class MockTripRepository implements ITripRepository {
   @override
   Future<Either<Failure, void>> deleteTrip(int id) async {
     await Future.delayed(_delay);
-    final index = _trips.indexWhere((t) => t.id == id.toString());
+    final index = _trips.indexWhere((t) => t.id == id);
     if (index == -1) return Left(const NotFoundFailure());
     _trips.removeAt(index);
     return const Right(null);

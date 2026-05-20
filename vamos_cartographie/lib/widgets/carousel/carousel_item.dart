@@ -26,5 +26,5 @@ class CarouselItem {
   /// URL utilisable pour afficher l'image.
   /// - local  → path direct (File)
   /// - remote → URL complète construite via AppConfig
-  String get displayUrl => isLocal ? value : getIt<AppConfig>().imageUrl(value);
+  // String get displayUrl => isLocal ? value : getIt<AppConfig>().imageUrl(value);
 }
