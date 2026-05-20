@@ -34,10 +34,9 @@ type Mutation {
   deleteTrip(input: TripDeleteInput!): TripType!
   attachImageToTrip(tripId: Int!, fileKey: String!): TripImageType!
   updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
+  deleteImageFromTrip(tripId: Int!, fileKey: String!): String!
   createImage(data: ImageInput!): ImageType!
   generateImageUploadUrl(extension: String!): UploadConfig!
-  attachImageToWaypoint(waypointId: Int!, fileKey: String!): ImageType!
-  deleteImageFromTrip(tripId: Int!, fileKey: String!): String!
   deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
 }
 

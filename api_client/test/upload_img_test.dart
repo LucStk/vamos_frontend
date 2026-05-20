@@ -69,5 +69,6 @@ void main() {
       isFalse,
       reason: "Django devrait accepter l'image ajoutée",
     );
+    // Test pour
   });
 }

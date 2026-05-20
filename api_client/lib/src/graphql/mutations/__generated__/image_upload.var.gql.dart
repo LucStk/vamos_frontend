@@ -135,3 +135,111 @@ class GAttachImageToTripVars {
     return 'GAttachImageToTripVars(tripId: $tripId, fileKey: $fileKey)';
   }
 }
+
+class GDeleteImageFromTripVars {
+  const GDeleteImageFromTripVars({
+    required this.tripId,
+    required this.fileKey,
+  });
+
+  factory GDeleteImageFromTripVars.fromJson(Map<String, dynamic> json) {
+    return GDeleteImageFromTripVars(
+      tripId: (json['tripId'] as int),
+      fileKey: (json['fileKey'] as String),
+    );
+  }
+
+  final int tripId;
+
+  final String fileKey;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$fileKeyValue = this.fileKey;
+    _$result['fileKey'] = _$fileKeyValue;
+    return _$result;
+  }
+
+  GDeleteImageFromTripVars copyWith({
+    int? tripId,
+    String? fileKey,
+  }) {
+    return GDeleteImageFromTripVars(
+      tripId: tripId ?? this.tripId,
+      fileKey: fileKey ?? this.fileKey,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteImageFromTripVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteImageFromTripVars(tripId: $tripId, fileKey: $fileKey)';
+  }
+}
+
+class GDeleteImageFromWaypointVars {
+  const GDeleteImageFromWaypointVars({
+    required this.WaypointId,
+    required this.fileKey,
+  });
+
+  factory GDeleteImageFromWaypointVars.fromJson(Map<String, dynamic> json) {
+    return GDeleteImageFromWaypointVars(
+      WaypointId: (json['WaypointId'] as int),
+      fileKey: (json['fileKey'] as String),
+    );
+  }
+
+  final int WaypointId;
+
+  final String fileKey;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$WaypointIdValue = this.WaypointId;
+    _$result['WaypointId'] = _$WaypointIdValue;
+    final _$fileKeyValue = this.fileKey;
+    _$result['fileKey'] = _$fileKeyValue;
+    return _$result;
+  }
+
+  GDeleteImageFromWaypointVars copyWith({
+    int? WaypointId,
+    String? fileKey,
+  }) {
+    return GDeleteImageFromWaypointVars(
+      WaypointId: WaypointId ?? this.WaypointId,
+      fileKey: fileKey ?? this.fileKey,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteImageFromWaypointVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteImageFromWaypointVars(WaypointId: $WaypointId, fileKey: $fileKey)';
+  }
+}

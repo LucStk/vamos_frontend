@@ -286,3 +286,110 @@ class GAttachImageToTripData_attachImageToTrip {
     return 'GAttachImageToTripData_attachImageToTrip(image: $image, G__typename: $G__typename)';
   }
 }
+
+class GDeleteImageFromTripData {
+  const GDeleteImageFromTripData({
+    required this.deleteImageFromTrip,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GDeleteImageFromTripData.fromJson(Map<String, dynamic> json) {
+    return GDeleteImageFromTripData(
+      deleteImageFromTrip: (json['deleteImageFromTrip'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String deleteImageFromTrip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['deleteImageFromTrip'] = this.deleteImageFromTrip;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDeleteImageFromTripData copyWith({
+    String? deleteImageFromTrip,
+    String? G__typename,
+  }) {
+    return GDeleteImageFromTripData(
+      deleteImageFromTrip: deleteImageFromTrip ?? this.deleteImageFromTrip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteImageFromTripData &&
+            deleteImageFromTrip == other.deleteImageFromTrip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, deleteImageFromTrip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteImageFromTripData(deleteImageFromTrip: $deleteImageFromTrip, G__typename: $G__typename)';
+  }
+}
+
+class GDeleteImageFromWaypointData {
+  const GDeleteImageFromWaypointData({
+    required this.deleteImageFromWaypoint,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GDeleteImageFromWaypointData.fromJson(Map<String, dynamic> json) {
+    return GDeleteImageFromWaypointData(
+      deleteImageFromWaypoint: (json['deleteImageFromWaypoint'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String deleteImageFromWaypoint;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['deleteImageFromWaypoint'] = this.deleteImageFromWaypoint;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDeleteImageFromWaypointData copyWith({
+    String? deleteImageFromWaypoint,
+    String? G__typename,
+  }) {
+    return GDeleteImageFromWaypointData(
+      deleteImageFromWaypoint:
+          deleteImageFromWaypoint ?? this.deleteImageFromWaypoint,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteImageFromWaypointData &&
+            deleteImageFromWaypoint == other.deleteImageFromWaypoint &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, deleteImageFromWaypoint, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteImageFromWaypointData(deleteImageFromWaypoint: $deleteImageFromWaypoint, G__typename: $G__typename)';
+  }
+}

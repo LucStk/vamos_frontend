@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:ferry/ferry.dart';
+
 import 'package:api_client/api_client.dart';
 import 'package:test/test.dart';
 import './trip_test.dart';
@@ -27,6 +29,23 @@ Future<void> addTripImage(client, tripId, fileKey) async {
   expect(tripImageResponse.data, isNotNull);
 }
 
+Future<void> deleteTripImage(Client client, int tripId, String fileKey) async {
+  final response = await client
+      .request(
+        GDeleteImageFromTripReq(
+          vars: GDeleteImageFromTripVars(tripId: tripId, fileKey: fileKey),
+        ),
+      )
+      .first; // <-- Crucial : Déclenche le Stream et attend la réponse
+
+  // Optionnel mais recommandé en mode test : s'assurer qu'il n'y a pas d'erreurs GraphQL
+  if (response.hasErrors) {
+    throw Exception(
+      response.graphqlErrors?.first.message ?? 'Erreur lors de la suppression',
+    );
+  }
+}
+
 void main() {
   test('Création d\'une image pour un voyage', () async {
     final client = initFerryClient('http://localhost:8000/graphql/');
@@ -50,7 +69,9 @@ void main() {
     print(tripByIdResponse.images.first.image.fileKey);
     expect(tripByIdResponse, isNotNull);
 
-    // Suppression du trip
+    // Suppression de l'image dans le trip
+    print("test de suppression");
+    await deleteTripImage(client, tripId, fileKey);
     await deleteTripRequest(tripId, client);
   });
 }
