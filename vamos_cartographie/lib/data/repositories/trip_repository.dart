@@ -97,7 +97,20 @@ class TripRepository implements ITripRepository {
         alreadyAttached: alreadyAttached,
       );
 
-      return Right(_rebuildWithImages(updatedTrip, attachedImages.toList()));
+      // On supprime les images présentes sur le serveur mais absentes localement
+      // (supprimées par l'utilisateur).
+      final desiredFileKeys = trip.images.map((i) => i.fileKey).toSet();
+      final toDelete = alreadyAttached
+          .where((i) => !desiredFileKeys.contains(i.fileKey))
+          .toList();
+      await _deleteImages(tripId: id, toRemove: toDelete);
+
+      // La liste finale exclut les images supprimées.
+      final finalImages = attachedImages
+          .where((i) => desiredFileKeys.contains(i.fileKey))
+          .toList();
+
+      return Right(_rebuildWithImages(updatedTrip, finalImages));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -153,6 +166,18 @@ class TripRepository implements ITripRepository {
     }
 
     return attached;
+  }
+
+  /// Supprime sur le serveur toutes les images de [toRemove].
+  /// Les erreurs sont ignorées silencieusement (la suppression pourra être
+  /// retentée à la prochaine sauvegarde).
+  Future<void> _deleteImages({
+    required int tripId,
+    required List<TripImage> toRemove,
+  }) async {
+    for (final image in toRemove) {
+      await remote.deleteImgTrip(tripId: tripId, fileKey: image.fileKey);
+    }
   }
 
   /// Reconstruit un [Trip] domaine en remplaçant sa liste d'images.
