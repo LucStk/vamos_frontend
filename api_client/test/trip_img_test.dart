@@ -5,7 +5,6 @@ import 'package:ferry/ferry.dart';
 import 'package:api_client/api_client.dart';
 import 'package:test/test.dart';
 import './trip_test.dart';
-import 'package:gql_tristate_value/gql_tristate_value.dart';
 
 void printError(response) {
   if (response.linkException != null) {

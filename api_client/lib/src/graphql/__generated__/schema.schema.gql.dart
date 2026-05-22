@@ -473,12 +473,95 @@ class GTripUpdateInput {
   }
 }
 
+enum GWaypointEnum {
+  START,
+  END,
+  WAYPOINT,
+  WATER,
+  FOOD,
+  REPAIR,
+  SHELTER,
+  CAMPING,
+  VIEWPOINT,
+  HISTORIC,
+  BEACH,
+  BOAT,
+  WARNING,
+  gUnknownEnumValue;
+
+  static GWaypointEnum fromJson(String value) {
+    switch (value) {
+      case r'START':
+        return GWaypointEnum.START;
+      case r'END':
+        return GWaypointEnum.END;
+      case r'WAYPOINT':
+        return GWaypointEnum.WAYPOINT;
+      case r'WATER':
+        return GWaypointEnum.WATER;
+      case r'FOOD':
+        return GWaypointEnum.FOOD;
+      case r'REPAIR':
+        return GWaypointEnum.REPAIR;
+      case r'SHELTER':
+        return GWaypointEnum.SHELTER;
+      case r'CAMPING':
+        return GWaypointEnum.CAMPING;
+      case r'VIEWPOINT':
+        return GWaypointEnum.VIEWPOINT;
+      case r'HISTORIC':
+        return GWaypointEnum.HISTORIC;
+      case r'BEACH':
+        return GWaypointEnum.BEACH;
+      case r'BOAT':
+        return GWaypointEnum.BOAT;
+      case r'WARNING':
+        return GWaypointEnum.WARNING;
+      default:
+        return GWaypointEnum.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GWaypointEnum.START:
+        return r'START';
+      case GWaypointEnum.END:
+        return r'END';
+      case GWaypointEnum.WAYPOINT:
+        return r'WAYPOINT';
+      case GWaypointEnum.WATER:
+        return r'WATER';
+      case GWaypointEnum.FOOD:
+        return r'FOOD';
+      case GWaypointEnum.REPAIR:
+        return r'REPAIR';
+      case GWaypointEnum.SHELTER:
+        return r'SHELTER';
+      case GWaypointEnum.CAMPING:
+        return r'CAMPING';
+      case GWaypointEnum.VIEWPOINT:
+        return r'VIEWPOINT';
+      case GWaypointEnum.HISTORIC:
+        return r'HISTORIC';
+      case GWaypointEnum.BEACH:
+        return r'BEACH';
+      case GWaypointEnum.BOAT:
+        return r'BOAT';
+      case GWaypointEnum.WARNING:
+        return r'WARNING';
+      case GWaypointEnum.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 class GWaypointInput {
   const GWaypointInput({
     required this.lat,
     required this.lng,
-    required this.type,
     this.title = const Value.absent(),
+    required this.type,
     this.description = const Value.absent(),
   });
 
@@ -486,11 +569,11 @@ class GWaypointInput {
     return GWaypointInput(
       lat: (json['lat'] as double),
       lng: (json['lng'] as double),
-      type: GWaypointTypeEnum.fromJson((json['type'] as String)),
       title: json.containsKey('title')
           ? Value.present(
               json['title'] == null ? null : (json['title'] as String))
           : Value.absent(),
+      type: GWaypointEnum.fromJson((json['type'] as String)),
       description: json.containsKey('description')
           ? Value.present(json['description'] == null
               ? null
@@ -503,9 +586,9 @@ class GWaypointInput {
 
   final double lng;
 
-  final GWaypointTypeEnum type;
-
   final Value<String> title;
+
+  final GWaypointEnum type;
 
   final Value<String> description;
 
@@ -515,13 +598,13 @@ class GWaypointInput {
     _$result['lat'] = _$latValue;
     final _$lngValue = this.lng;
     _$result['lng'] = _$lngValue;
-    final _$typeValue = this.type;
-    _$result['type'] = _$typeValue.toJson();
     final _$titleValue = this.title;
     if (_$titleValue.isPresent) {
       final _$titleRequired = _$titleValue.requireValue;
       _$result['title'] = _$titleRequired == null ? null : _$titleRequired;
     }
+    final _$typeValue = this.type;
+    _$result['type'] = _$typeValue.toJson();
     final _$descriptionValue = this.description;
     if (_$descriptionValue.isPresent) {
       final _$descriptionRequired = _$descriptionValue.requireValue;
@@ -534,15 +617,15 @@ class GWaypointInput {
   GWaypointInput copyWith({
     double? lat,
     double? lng,
-    GWaypointTypeEnum? type,
     Value<String>? title,
+    GWaypointEnum? type,
     Value<String>? description,
   }) {
     return GWaypointInput(
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
-      type: type ?? this.type,
       title: title ?? this.title,
+      type: type ?? this.type,
       description: description ?? this.description,
     );
   }
@@ -561,90 +644,7 @@ class GWaypointInput {
 
   @override
   String toString() {
-    return 'GWaypointInput(lat: $lat, lng: $lng, type: $type, title: $title, description: $description)';
-  }
-}
-
-enum GWaypointTypeEnum {
-  start,
-  end,
-  waypoint,
-  water,
-  food,
-  repair,
-  shelter,
-  camping,
-  viewpoint,
-  historic,
-  beach,
-  boat,
-  warning,
-  gUnknownEnumValue;
-
-  static GWaypointTypeEnum fromJson(String value) {
-    switch (value) {
-      case r'start':
-        return GWaypointTypeEnum.start;
-      case r'end':
-        return GWaypointTypeEnum.end;
-      case r'waypoint':
-        return GWaypointTypeEnum.waypoint;
-      case r'water':
-        return GWaypointTypeEnum.water;
-      case r'food':
-        return GWaypointTypeEnum.food;
-      case r'repair':
-        return GWaypointTypeEnum.repair;
-      case r'shelter':
-        return GWaypointTypeEnum.shelter;
-      case r'camping':
-        return GWaypointTypeEnum.camping;
-      case r'viewpoint':
-        return GWaypointTypeEnum.viewpoint;
-      case r'historic':
-        return GWaypointTypeEnum.historic;
-      case r'beach':
-        return GWaypointTypeEnum.beach;
-      case r'boat':
-        return GWaypointTypeEnum.boat;
-      case r'warning':
-        return GWaypointTypeEnum.warning;
-      default:
-        return GWaypointTypeEnum.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GWaypointTypeEnum.start:
-        return r'start';
-      case GWaypointTypeEnum.end:
-        return r'end';
-      case GWaypointTypeEnum.waypoint:
-        return r'waypoint';
-      case GWaypointTypeEnum.water:
-        return r'water';
-      case GWaypointTypeEnum.food:
-        return r'food';
-      case GWaypointTypeEnum.repair:
-        return r'repair';
-      case GWaypointTypeEnum.shelter:
-        return r'shelter';
-      case GWaypointTypeEnum.camping:
-        return r'camping';
-      case GWaypointTypeEnum.viewpoint:
-        return r'viewpoint';
-      case GWaypointTypeEnum.historic:
-        return r'historic';
-      case GWaypointTypeEnum.beach:
-        return r'beach';
-      case GWaypointTypeEnum.boat:
-        return r'boat';
-      case GWaypointTypeEnum.warning:
-        return r'warning';
-      case GWaypointTypeEnum.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
+    return 'GWaypointInput(lat: $lat, lng: $lng, title: $title, type: $type, description: $description)';
   }
 }
 

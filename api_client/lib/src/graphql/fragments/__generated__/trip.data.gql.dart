@@ -378,7 +378,7 @@ abstract class GWaypointFields {
   int get id;
   double get lat;
   double get lng;
-  _i1.GWaypointTypeEnum get type;
+  _i1.GWaypointEnum get type;
   String get title;
   String get description;
   List<GWaypointFields_images> get images;
@@ -407,7 +407,7 @@ class GWaypointFieldsData implements GWaypointFields {
       id: (json['id'] as int),
       lat: (json['lat'] as double),
       lng: (json['lng'] as double),
-      type: _i1.GWaypointTypeEnum.fromJson((json['type'] as String)),
+      type: _i1.GWaypointEnum.fromJson((json['type'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
@@ -424,7 +424,7 @@ class GWaypointFieldsData implements GWaypointFields {
 
   final double lng;
 
-  final _i1.GWaypointTypeEnum type;
+  final _i1.GWaypointEnum type;
 
   final String title;
 
@@ -451,7 +451,7 @@ class GWaypointFieldsData implements GWaypointFields {
     int? id,
     double? lat,
     double? lng,
-    _i1.GWaypointTypeEnum? type,
+    _i1.GWaypointEnum? type,
     String? title,
     String? description,
     List<GWaypointFieldsData_images>? images,

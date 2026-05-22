@@ -37,7 +37,9 @@ type Mutation {
   deleteImageFromTrip(tripId: Int!, fileKey: String!): String!
   createImage(data: ImageInput!): ImageType!
   generateImageUploadUrl(extension: String!): UploadConfig!
+  attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
   deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
+  updateWaypoint(id: Int!, waypoint: WaypointInput!): WaypointType!
 }
 
 type Query {
@@ -103,6 +105,22 @@ type UploadConfig {
   fileKey: String!
 }
 
+enum WaypointEnum {
+  START
+  END
+  WAYPOINT
+  WATER
+  FOOD
+  REPAIR
+  SHELTER
+  CAMPING
+  VIEWPOINT
+  HISTORIC
+  BEACH
+  BOAT
+  WARNING
+}
+
 type WaypointImageType {
   image: ImageType!
   order: Int!
@@ -111,8 +129,8 @@ type WaypointImageType {
 input WaypointInput {
   lat: Float!
   lng: Float!
-  type: WaypointTypeEnum!
   title: String
+  type: WaypointEnum!
   description: String
 }
 
@@ -123,22 +141,6 @@ type WaypointType {
   title: String!
   description: String!
   images: [WaypointImageType!]!
-  type: WaypointTypeEnum!
-}
-
-enum WaypointTypeEnum {
-  start
-  end
-  waypoint
-  water
-  food
-  repair
-  shelter
-  camping
-  viewpoint
-  historic
-  beach
-  boat
-  warning
+  type: WaypointEnum!
 }
 

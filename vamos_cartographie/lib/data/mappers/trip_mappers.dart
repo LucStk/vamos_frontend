@@ -88,7 +88,9 @@ class TripMapper {
         ? Value.present(trip.date!.toIso8601String().substring(0, 10))
         : const Value.absent(),
     waypoints: trip.waypoints.isNotEmpty
-        ? Value.present(trip.waypoints.map(waypointToGQLInput).toList())
+        ? Value.present(
+            trip.waypoints.map(WaypointMappers.waypointToGQLInput).toList(),
+          )
         : const Value.absent(),
     segments: trip.segments.isNotEmpty
         ? Value.present(trip.segments.map(segmentToGQLInput).toList())
@@ -105,7 +107,9 @@ class TripMapper {
     date: trip.date != null
         ? Value.present(trip.date!.toIso8601String().substring(0, 10))
         : const Value.absent(),
-    waypoints: Value.present(trip.waypoints.map(waypointToGQLInput).toList()),
+    waypoints: Value.present(
+      trip.waypoints.map(WaypointMappers.waypointToGQLInput).toList(),
+    ),
     segments: Value.present(trip.segments.map(segmentToGQLInput).toList()),
   );
 }

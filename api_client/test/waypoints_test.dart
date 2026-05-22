@@ -31,7 +31,7 @@ void main() {
             GWaypointInput(
               lat: 0.1,
               lng: 0.1,
-              type: GWaypointTypeEnum.start,
+              type: GWaypointEnum.START,
               description: Value.present('Ceci est le point de départ'),
             ),
           ]),
@@ -63,7 +63,7 @@ void main() {
             GWaypointInput(
               lat: 0.1,
               lng: 0.1,
-              type: GWaypointTypeEnum.start,
+              type: GWaypointEnum.START,
               description: Value.present('Ceci est le point de départ'),
               title: Value.present('Point de départ'),
             ),
