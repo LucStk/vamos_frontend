@@ -113,11 +113,11 @@ class _TripPreviewDialogState extends State<TripPreviewDialog> {
     return TripInfoDialogShell(
       content: TripInfoView(trip: _trip!),
       actions: [
-        // Retour
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Retour'),
-        ),
+        // // Retour
+        // TextButton(
+        //   onPressed: () => Navigator.of(context).pop(),
+        //   child: const Text('Retour'),
+        // ),
         // Modifier
         OutlinedButton.icon(
           onPressed: () {

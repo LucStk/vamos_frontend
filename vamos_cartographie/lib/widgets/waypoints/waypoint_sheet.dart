@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/domain/trip_image.dart';
-
+import "waypoint_header.dart";
 import '../text_area_counter.dart';
-
+import 'waypoint_editor.dart';
 // ── WaypointCard ──────────────────────────────────────────────────────────────
 
 /// Affiche les informations d'un waypoint dans un Dialog centré (Card).
@@ -90,18 +90,6 @@ class _WaypointCardState extends State<WaypointCard> {
 
   Waypoint get _wp => widget.trip.waypoints[widget.waypointIndex];
 
-  // ── Confirmation des modifications ───────────────────────────────────────
-
-  void _confirm() {
-    final wp = _wp;
-    wp.description = _pendingDescription;
-    wp.images
-      ?..clear()
-      ..addAll(_pendingImages);
-    widget.onTypeChanged(_selectedType);
-    Navigator.of(context).pop();
-  }
-
   // ── Build ─────────────────────────────────────────────────────────────────
 
   @override
@@ -133,7 +121,7 @@ class _WaypointCardState extends State<WaypointCard> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _WaypointHeader(
+                WaypointHeader(
                   type: _selectedType,
                   index: widget.waypointIndex,
                 ),
@@ -188,170 +176,59 @@ class _WaypointCardState extends State<WaypointCard> {
     );
   }
 
-  // ── Vue édition ───────────────────────────────────────────────────────────
-
+  // À insérer dans _WaypointCardState, juste en dessous de _buildViewer:
   Widget _buildEditor(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // ── Contenu scrollable ──
-        Flexible(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _WaypointHeader(
-                  type: _selectedType,
-                  index: widget.waypointIndex,
-                ),
-                const SizedBox(height: 12),
+    return WaypointEditor(
+      waypointIndex: widget.waypointIndex,
+      selectedType: _selectedType,
+      pendingDescription: _pendingDescription,
+      pendingImages: _pendingImages,
+      onTypeChanged: (type) {
+        setState(() => _selectedType = type);
+      },
+      onDescriptionChanged: (value) {
+        _pendingDescription =
+            value; // Pas de setState nécessaire si TextArea gère son propre texte en local
+      },
+      onImagesChanged: (images) {
+        setState(() => _pendingImages = List<TripImage>.from(images));
+      },
+      onDelete: () {
+        widget.onDelete();
+        Navigator.of(context).pop();
+      },
+      onCancel: () {
+        // Si on était en mode "readOnly" à la base, on retourne au Viewer.
+        // Sinon, on ferme le dialog.
+        if (widget.readOnly) {
+          setState(() {
+            // On réinitialise les modifs en cours avec les vraies valeurs du Waypoint
+            final wp = _wp;
+            _selectedType = wp.type;
+            _pendingDescription = wp.description ?? '';
+            _pendingImages = List<TripImage>.from(wp.images ?? []);
+            _isEditing = false;
+          });
+        } else {
+          Navigator.of(context).pop();
+        }
+      },
+      onConfirm: () {
+        final wp = _wp;
+        wp.description = _pendingDescription;
+        wp.images
+          ?..clear()
+          ..addAll(_pendingImages);
 
-                // ── Sélecteur de type ──
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    alignment: WrapAlignment.center,
-                    children: GWaypointTypeEnum.values.map((type) {
-                      final selected = _selectedType == type;
-                      return GestureDetector(
-                        onTap: () => setState(() => _selectedType = type),
-                        child: Container(
-                          width: 72,
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          decoration: BoxDecoration(
-                            color: selected
-                                ? type.color.withOpacity(0.15)
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: selected
-                                  ? type.color
-                                  : Colors.grey.shade300,
-                              width: selected ? 2 : 1,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Icon(type.icon, color: type.color, size: 24),
-                              const SizedBox(height: 4),
-                              Text(
-                                type.label,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: selected ? type.color : Colors.black87,
-                                  fontWeight: selected
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
+        widget.onTypeChanged(_selectedType);
 
-                const Divider(),
+        // Si tu as un callback global d'édition passé au parent
+        if (widget.onEdit != null) widget.onEdit!();
 
-                // ── Photos ──
-                const SizedBox(height: 4),
-                ImageCarouselPicker(
-                  remoteImages: _pendingImages,
-                  readOnly: false,
-                  onChanged: (images) => setState(
-                    () => _pendingImages = List<TripImage>.from(images),
-                  ),
-                ),
-
-                // ── Description ──
-                const Divider(),
-                TextAreaWithCounter(
-                  initialValue: _pendingDescription,
-                  readOnly: false,
-                  onChanged: (value) => _pendingDescription = value,
-                ),
-
-                // ── Suppression ──
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.delete, color: Colors.red),
-                  title: const Text('Supprimer ce waypoint'),
-                  onTap: () {
-                    widget.onDelete();
-                    Navigator.of(context).pop();
-                  },
-                ),
-                const SizedBox(height: 8),
-              ],
-            ),
-          ),
-        ),
-
-        // ── Boutons ──
-        const Divider(height: 1),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-          child: Row(
-            children: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Annuler'),
-              ),
-              const Spacer(),
-              FilledButton(onPressed: _confirm, child: const Text('Confirmer')),
-            ],
-          ),
-        ),
-      ],
+        Navigator.of(context).pop();
+      },
     );
   }
 }
 
 // ── _WaypointHeader ───────────────────────────────────────────────────────────
-
-/// En-tête commune (icône colorée, label du type, numéro d'étape).
-class _WaypointHeader extends StatelessWidget {
-  final GWaypointTypeEnum type;
-  final int index;
-
-  const _WaypointHeader({required this.type, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(color: type.color, shape: BoxShape.circle),
-          child: Icon(type.icon, color: Colors.white, size: 20),
-        ),
-        const SizedBox(width: 10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              type.label,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: type.color,
-              ),
-            ),
-            Text(
-              'Étape ${index + 1}',
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}

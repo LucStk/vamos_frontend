@@ -4,7 +4,6 @@ import 'package:vamos_cartographie/data/datasources/trip_remote_datasource.dart'
 import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
-import 'package:vamos_cartographie/domain/trip_image.dart';
 import 'i_trip_repository.dart';
 
 /// Implémentation concrète de [ITripRepository].

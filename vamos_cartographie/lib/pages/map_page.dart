@@ -14,7 +14,7 @@ import '../widgets/map/map_edit_toolbar.dart';
 import '../widgets/map/map_top_bar.dart';
 import '../widgets/segment/segment_bottom_sheet.dart';
 import '../widgets/trip_info_sheet.dart';
-import '../widgets/waypoints/waypoint_bottom_sheet.dart';
+import '../widgets/waypoints/waypoint_sheet.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:flutter/material.dart';
 
