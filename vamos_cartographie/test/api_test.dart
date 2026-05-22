@@ -29,12 +29,12 @@ void main() async {
       date: DateTime.now(),
       waypoints: [
         Waypoint(
-          type: GWaypointTypeEnum.start,
+          type: GWaypointEnum.START,
           description: 'Première description',
           latLng: const LatLng(1, 1),
         ),
         Waypoint(
-          type: GWaypointTypeEnum.end,
+          type: GWaypointEnum.END,
           description: 'dernière entrée',
           latLng: const LatLng(2, 2),
         ),

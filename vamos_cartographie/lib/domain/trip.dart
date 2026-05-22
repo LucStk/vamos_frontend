@@ -31,10 +31,10 @@ class Trip {
 
   void addWaypoint(
     LatLng latLng, {
-    GWaypointTypeEnum type = GWaypointTypeEnum.waypoint,
+    GWaypointEnum type = GWaypointEnum.WAYPOINT,
   }) {
     if (waypoints.isEmpty) {
-      waypoints.add(Waypoint(latLng: latLng, type: GWaypointTypeEnum.start));
+      waypoints.add(Waypoint(latLng: latLng, type: GWaypointEnum.START));
     } else {
       waypoints.add(Waypoint(latLng: latLng, type: type));
       segments.add(Segment());
@@ -66,13 +66,13 @@ class Trip {
 
   void _updateEndpoints() {
     if (waypoints.isEmpty) return;
-    if (waypoints.first.type == GWaypointTypeEnum.end ||
-        waypoints.first.type == GWaypointTypeEnum.start) {
-      waypoints.first.type = GWaypointTypeEnum.start;
+    if (waypoints.first.type == GWaypointEnum.END ||
+        waypoints.first.type == GWaypointEnum.START) {
+      waypoints.first.type = GWaypointEnum.START;
     }
-    if (waypoints.last.type == GWaypointTypeEnum.start ||
-        waypoints.last.type == GWaypointTypeEnum.end) {
-      waypoints.last.type = GWaypointTypeEnum.end;
+    if (waypoints.last.type == GWaypointEnum.START ||
+        waypoints.last.type == GWaypointEnum.END) {
+      waypoints.last.type = GWaypointEnum.END;
     }
   }
 

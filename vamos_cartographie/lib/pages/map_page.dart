@@ -99,9 +99,9 @@ class _MapPageState extends State<MapPage> {
       waypoints: [
         Waypoint(
           latLng: LatLng(46.603354, 1.888334),
-          type: GWaypointTypeEnum.start,
+          type: GWaypointEnum.START,
         ),
-        Waypoint(latLng: LatLng(47.0, 2.5), type: GWaypointTypeEnum.end),
+        Waypoint(latLng: LatLng(47.0, 2.5), type: GWaypointEnum.END),
       ],
       segments: [Segment(type: GSegmentTypeEnum.bike)],
     );

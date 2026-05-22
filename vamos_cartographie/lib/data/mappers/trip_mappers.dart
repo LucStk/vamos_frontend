@@ -36,7 +36,7 @@ class TripMapper {
     images: data.images
         .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
-    waypoints: data.waypoints.map(WaypointMappers.waypointFromGQL).toList(),
+    waypoints: data.waypoints.map(WaypointMapper.waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
   );
 
@@ -49,7 +49,7 @@ class TripMapper {
     images: data.images
         .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
-    waypoints: data.waypoints.map(WaypointMappers.waypointFromGQL).toList(),
+    waypoints: data.waypoints.map(WaypointMapper.waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
   );
 
@@ -62,7 +62,7 @@ class TripMapper {
     images: data.images
         .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
-    waypoints: data.waypoints.map(WaypointMappers.waypointFromGQL).toList(),
+    waypoints: data.waypoints.map(WaypointMapper.waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
   );
 
@@ -89,7 +89,7 @@ class TripMapper {
         : const Value.absent(),
     waypoints: trip.waypoints.isNotEmpty
         ? Value.present(
-            trip.waypoints.map(WaypointMappers.waypointToGQLInput).toList(),
+            trip.waypoints.map(WaypointMapper.waypointToGQLInput).toList(),
           )
         : const Value.absent(),
     segments: trip.segments.isNotEmpty
@@ -108,7 +108,7 @@ class TripMapper {
         ? Value.present(trip.date!.toIso8601String().substring(0, 10))
         : const Value.absent(),
     waypoints: Value.present(
-      trip.waypoints.map(WaypointMappers.waypointToGQLInput).toList(),
+      trip.waypoints.map(WaypointMapper.waypointToGQLInput).toList(),
     ),
     segments: Value.present(trip.segments.map(segmentToGQLInput).toList()),
   );

@@ -3,6 +3,7 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
+import 'package:vamos_cartographie/data/mappers/waypoint_mappers.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -23,7 +24,7 @@ GWaypointFieldsData _gqlWaypoint({
   int id = 0,
   double lat = 48.85,
   double lng = 2.35,
-  GWaypointTypeEnum type = GWaypointTypeEnum.waypoint,
+  GWaypointEnum type = GWaypointEnum.WAYPOINT,
   String title = 'Mon waypoint',
   String description = 'Une description',
 }) => GWaypointFieldsData(
@@ -103,21 +104,21 @@ void main() {
         id: 2,
         lat: 43.0,
         lng: 1.5,
-        type: GWaypointTypeEnum.camping,
+        type: GWaypointEnum.CAMPING,
         description: 'Camping sympa',
       );
-      final wp = TripMapper.waypointFromGQL(gql);
+      final wp = WaypointMapper.waypointFromGQL(gql);
 
       expect(wp.id, 2);
       expect(wp.latLng.latitude, 43.0);
       expect(wp.latLng.longitude, 1.5);
-      expect(wp.type, GWaypointTypeEnum.camping);
+      expect(wp.type, GWaypointEnum.CAMPING);
       expect(wp.description, 'Camping sympa');
     });
 
     test('extrait le fileKey de chaque image', () {
       final gql = _gqlWaypoint();
-      final wp = TripMapper.waypointFromGQL(gql);
+      final wp = WaypointMapper.waypointFromGQL(gql);
 
       expect(wp.images, [
         TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
@@ -129,12 +130,12 @@ void main() {
         id: 0,
         lat: 0,
         lng: 0,
-        type: GWaypointTypeEnum.waypoint,
+        type: GWaypointEnum.WAYPOINT,
         title: '',
         description: '',
         images: [],
       );
-      expect(TripMapper.waypointFromGQL(gql).images, isEmpty);
+      expect(WaypointMapper.waypointFromGQL(gql).images, isEmpty);
     });
   });
 
@@ -232,25 +233,25 @@ void main() {
     test('mappe les coordonnées et le type', () {
       final wp = Waypoint(
         latLng: const LatLng(44.0, 3.0),
-        type: GWaypointTypeEnum.water,
+        type: GWaypointEnum.WATER,
         description: 'Source',
       );
-      final input = TripMapper.waypointToGQLInput(wp);
+      final input = WaypointMapper.waypointToGQLInput(wp);
 
       expect(input.lat, 44.0);
       expect(input.lng, 3.0);
-      expect(input.type, GWaypointTypeEnum.water);
+      expect(input.type, GWaypointEnum.WATER);
       expect(input.description, Value.present('Source'));
     });
 
     test('description absente si vide', () {
       final wp = Waypoint(
         latLng: const LatLng(0, 0),
-        type: GWaypointTypeEnum.waypoint,
+        type: GWaypointEnum.WAYPOINT,
         description: '',
       );
       expect(
-        TripMapper.waypointToGQLInput(wp).description,
+        WaypointMapper.waypointToGQLInput(wp).description,
         const Value.absent(),
       );
     });
@@ -258,11 +259,11 @@ void main() {
     test('description absente si null', () {
       final wp = Waypoint(
         latLng: const LatLng(0, 0),
-        type: GWaypointTypeEnum.waypoint,
+        type: GWaypointEnum.WAYPOINT,
         description: null,
       );
       expect(
-        TripMapper.waypointToGQLInput(wp).description,
+        WaypointMapper.waypointToGQLInput(wp).description,
         const Value.absent(),
       );
     });
@@ -290,8 +291,8 @@ void main() {
         description: 'Super trip',
         date: DateTime(2024, 6, 1),
         waypoints: [
-          Waypoint(latLng: const LatLng(1, 2), type: GWaypointTypeEnum.start),
-          Waypoint(latLng: const LatLng(3, 4), type: GWaypointTypeEnum.end),
+          Waypoint(latLng: const LatLng(1, 2), type: GWaypointEnum.START),
+          Waypoint(latLng: const LatLng(3, 4), type: GWaypointEnum.END),
         ],
         segments: [Segment(type: GSegmentTypeEnum.bike)],
       );

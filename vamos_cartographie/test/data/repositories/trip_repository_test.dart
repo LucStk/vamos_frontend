@@ -51,7 +51,7 @@ GGetTripData_trip _gqlDetail(int id) => GGetTripData_trip(
       id: 1,
       lat: 48.0,
       lng: 2.0,
-      type: GWaypointTypeEnum.start,
+      type: GWaypointEnum.START,
       title: 'Départ',
       description: 'Point de départ',
       images: [],
@@ -86,8 +86,8 @@ Trip _domainTrip({int? id}) => Trip(
   title: 'Test',
   description: 'Desc',
   waypoints: [
-    Waypoint(latLng: const LatLng(1, 2), type: GWaypointTypeEnum.start),
-    Waypoint(latLng: const LatLng(3, 4), type: GWaypointTypeEnum.end),
+    Waypoint(latLng: const LatLng(1, 2), type: GWaypointEnum.START),
+    Waypoint(latLng: const LatLng(3, 4), type: GWaypointEnum.END),
   ],
   segments: [Segment(type: GSegmentTypeEnum.bike)],
 );
@@ -242,8 +242,8 @@ void main() {
         ],
 
         waypoints: [
-          Waypoint(latLng: const LatLng(1, 2), type: GWaypointTypeEnum.start),
-          Waypoint(latLng: const LatLng(3, 4), type: GWaypointTypeEnum.end),
+          Waypoint(latLng: const LatLng(1, 2), type: GWaypointEnum.START),
+          Waypoint(latLng: const LatLng(3, 4), type: GWaypointEnum.END),
         ],
         segments: [Segment(type: GSegmentTypeEnum.bike)],
       );

@@ -8,7 +8,7 @@ class Waypoint {
   int? id;
   String? title;
   LatLng latLng;
-  GWaypointTypeEnum type;
+  GWaypointEnum type;
   String? description;
   List<TripImage>? images;
 
@@ -16,60 +16,60 @@ class Waypoint {
     this.id,
     required this.latLng,
     this.title,
-    this.type = GWaypointTypeEnum.waypoint,
+    this.type = GWaypointEnum.WAYPOINT,
     this.description = '',
     List<TripImage>? images,
   }) : images = images ?? [];
 }
 
 // Utilise les extensions définit dans le schema pour obtenir le label et l'icône correspondant à chaque type de point de passage
-extension WaypointTypeExtension on GWaypointTypeEnum {
+extension WaypointTypeExtension on GWaypointEnum {
   String get label => switch (this) {
-    GWaypointTypeEnum.start => 'Départ',
-    GWaypointTypeEnum.end => 'Arrivée',
-    GWaypointTypeEnum.waypoint => 'Point de passage',
-    GWaypointTypeEnum.water => 'Point d\'eau',
-    GWaypointTypeEnum.food => 'Ravitaillement',
-    GWaypointTypeEnum.repair => 'Réparation vélo',
-    GWaypointTypeEnum.shelter => 'Abri',
-    GWaypointTypeEnum.camping => 'Camping',
-    GWaypointTypeEnum.viewpoint => 'Point de vue',
-    GWaypointTypeEnum.historic => 'Patrimoine',
-    GWaypointTypeEnum.beach => 'Plage / Lac',
-    GWaypointTypeEnum.boat => 'Port / Embarcadère',
-    GWaypointTypeEnum.warning => 'Danger',
+    GWaypointEnum.START => 'Départ',
+    GWaypointEnum.END => 'Arrivée',
+    GWaypointEnum.WAYPOINT => 'Point de passage',
+    GWaypointEnum.WATER => 'Point d\'eau',
+    GWaypointEnum.FOOD => 'Ravitaillement',
+    GWaypointEnum.REPAIR => 'Réparation vélo',
+    GWaypointEnum.SHELTER => 'Abri',
+    GWaypointEnum.CAMPING => 'Camping',
+    GWaypointEnum.VIEWPOINT => 'Point de vue',
+    GWaypointEnum.HISTORIC => 'Patrimoine',
+    GWaypointEnum.BEACH => 'Plage / Lac',
+    GWaypointEnum.BOAT => 'Port / Embarcadère',
+    GWaypointEnum.WARNING => 'Danger',
     _ => 'Autre',
   };
   IconData get icon => switch (this) {
-    GWaypointTypeEnum.start => Icons.play_arrow,
-    GWaypointTypeEnum.end => Icons.flag,
-    GWaypointTypeEnum.waypoint => Icons.circle,
-    GWaypointTypeEnum.water => Icons.water_drop,
-    GWaypointTypeEnum.food => Icons.restaurant,
-    GWaypointTypeEnum.repair => Icons.build,
-    GWaypointTypeEnum.shelter => Icons.house,
-    GWaypointTypeEnum.camping => Icons.terrain,
-    GWaypointTypeEnum.viewpoint => Icons.visibility,
-    GWaypointTypeEnum.historic => Icons.account_balance,
-    GWaypointTypeEnum.beach => Icons.beach_access,
-    GWaypointTypeEnum.boat => Icons.directions_boat,
-    GWaypointTypeEnum.warning => Icons.warning,
+    GWaypointEnum.START => Icons.play_arrow,
+    GWaypointEnum.END => Icons.flag,
+    GWaypointEnum.WAYPOINT => Icons.circle,
+    GWaypointEnum.WATER => Icons.water_drop,
+    GWaypointEnum.FOOD => Icons.restaurant,
+    GWaypointEnum.REPAIR => Icons.build,
+    GWaypointEnum.SHELTER => Icons.house,
+    GWaypointEnum.CAMPING => Icons.terrain,
+    GWaypointEnum.VIEWPOINT => Icons.visibility,
+    GWaypointEnum.HISTORIC => Icons.account_balance,
+    GWaypointEnum.BEACH => Icons.beach_access,
+    GWaypointEnum.BOAT => Icons.directions_boat,
+    GWaypointEnum.WARNING => Icons.warning,
     _ => Icons.help_outline,
   };
   Color get color => switch (this) {
-    GWaypointTypeEnum.start => Colors.green,
-    GWaypointTypeEnum.end => Colors.red,
-    GWaypointTypeEnum.waypoint => Colors.blue,
-    GWaypointTypeEnum.water => Colors.lightBlue,
-    GWaypointTypeEnum.food => Colors.orange,
-    GWaypointTypeEnum.repair => Colors.brown,
-    GWaypointTypeEnum.shelter => Colors.purple,
-    GWaypointTypeEnum.camping => Colors.teal,
-    GWaypointTypeEnum.viewpoint => Colors.indigo,
-    GWaypointTypeEnum.historic => Colors.deepOrange,
-    GWaypointTypeEnum.beach => Colors.cyan,
-    GWaypointTypeEnum.boat => Colors.blue,
-    GWaypointTypeEnum.warning => Colors.yellow,
+    GWaypointEnum.START => Colors.green,
+    GWaypointEnum.END => Colors.red,
+    GWaypointEnum.WAYPOINT => Colors.blue,
+    GWaypointEnum.WATER => Colors.lightBlue,
+    GWaypointEnum.FOOD => Colors.orange,
+    GWaypointEnum.REPAIR => Colors.brown,
+    GWaypointEnum.SHELTER => Colors.purple,
+    GWaypointEnum.CAMPING => Colors.teal,
+    GWaypointEnum.VIEWPOINT => Colors.indigo,
+    GWaypointEnum.HISTORIC => Colors.deepOrange,
+    GWaypointEnum.BEACH => Colors.cyan,
+    GWaypointEnum.BOAT => Colors.blue,
+    GWaypointEnum.WARNING => Colors.yellow,
     _ => Colors.grey,
   };
 }
