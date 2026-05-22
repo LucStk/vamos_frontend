@@ -6,70 +6,7 @@ import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'trip_info_view.dart';
 import 'editor/trip_info_editor.dart';
-
-// ── Shell partagée ────────────────────────────────────────────────────────────
-
-/// Enveloppe Dialog commune : titre centré, divider, contenu scrollable,
-/// puis une rangée de boutons en bas.
-///
-/// Utilisée par [TripInfoDialog] et [TripPreviewDialog].
-class TripInfoDialogShell extends StatelessWidget {
-  final Widget content;
-  final List<Widget> actions;
-  final BoxConstraints constraints;
-
-  const TripInfoDialogShell({
-    super.key,
-    required this.content,
-    required this.actions,
-    this.constraints = const BoxConstraints(maxWidth: 480, maxHeight: 600),
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: ConstrainedBox(
-        constraints: constraints,
-        child: Stack(
-          children: [
-            // 1. Le contenu principal qui peut défiler
-            SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(
-                    height: 24,
-                  ), // Un peu plus d'espace en haut pour ne pas chevaucher la croix
-                  // ── Contenu ──
-                  content,
-                  const SizedBox(height: 20),
-
-                  // ── Boutons ──
-                  Row(children: actions),
-                ],
-              ),
-            ),
-
-            // 2. Le bouton de fermeture positionné en haut à droite
-            Positioned(
-              top: 8,
-              right: 8,
-              child: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.of(context).pop(),
-                // Optionnel : ajoute un léger effet visuel au survol si nécessaire
-                splashRadius: 20,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-} // ── TripInfoDialog ────────────────────────────────────────────────────────────
+import "../shared/dialog_shell.dart";
 
 /// Affiche les informations du voyage dans un dialog centré (Card).
 /// [readOnly] détermine si on affiche la vue lecture ou la vue édition.
@@ -111,7 +48,7 @@ class TripInfoDialog {
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (ctx) => TripInfoDialogShell(
+          builder: (ctx) => DialogShell(
             constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
             content: TripInfoEditor(
               trip: trip,
@@ -150,7 +87,7 @@ class TripInfoDialog {
   static void _showView({required BuildContext context, required Trip trip}) {
     showDialog(
       context: context,
-      builder: (ctx) => TripInfoDialogShell(
+      builder: (ctx) => DialogShell(
         content: TripInfoView(trip: trip),
         actions: [
           const Spacer(),
@@ -171,7 +108,7 @@ class TripInfoDialog {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (ctx) => TripInfoDialogShell(
+      builder: (ctx) => DialogShell(
         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
         content: TripInfoEditor(
           trip: trip,

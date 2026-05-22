@@ -4,7 +4,7 @@ import '../../core/injection.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 
 import '../../data/repositories/i_trip_repository.dart';
-import 'trip_info_dialog.dart';
+import '../shared/dialog_shell.dart';
 import 'trip_info_view.dart';
 
 /// Dialog de prévisualisation d'un voyage depuis l'ExplorerPage.
@@ -110,15 +110,9 @@ class _TripPreviewDialogState extends State<TripPreviewDialog> {
     }
 
     // ── Contenu ──
-    return TripInfoDialogShell(
+    return DialogShell(
       content: TripInfoView(trip: _trip!),
       actions: [
-        // // Retour
-        // TextButton(
-        //   onPressed: () => Navigator.of(context).pop(),
-        //   child: const Text('Retour'),
-        // ),
-        // Modifier
         OutlinedButton.icon(
           onPressed: () {
             Navigator.of(context).pop();

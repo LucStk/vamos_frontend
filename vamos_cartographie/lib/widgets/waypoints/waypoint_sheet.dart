@@ -58,21 +58,9 @@ class _WaypointCardState extends State<WaypointCard> {
   // Mode courant (peut basculer lecture → édition sans fermer le dialog).
   late bool _isEditing;
 
-  // Type sélectionné dans l'éditeur (local, appliqué à la confirmation).
-  late GWaypointEnum _selectedType;
-
-  // Copies locales des champs éditables — appliquées seulement à la confirmation.
-  late String _pendingDescription;
-  late List<TripImage> _pendingImages;
-
-  @override
   void initState() {
     super.initState();
     _isEditing = !widget.readOnly;
-    final wp = _wp;
-    _selectedType = wp.type;
-    _pendingDescription = wp.description ?? '';
-    _pendingImages = List<TripImage>.from(wp.images ?? []);
   }
 
   Waypoint get _wp => widget.trip.waypoints[widget.waypointIndex];
@@ -104,7 +92,7 @@ class _WaypointCardState extends State<WaypointCard> {
     return WaypointEditor(
       waypoint: _wp,
       onTypeChanged: (type) {
-        setState(() => _selectedType = type);
+        setState(() => {}); // TODO : change l'icon sur la carte si nécessaire
       },
       onDelete: () {
         widget.onDelete();
