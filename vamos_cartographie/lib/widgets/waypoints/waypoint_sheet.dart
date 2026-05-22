@@ -1,11 +1,8 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 
-import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
-import 'package:vamos_cartographie/domain/trip_image.dart';
-import "waypoint_header.dart";
-import '../text_area_counter.dart';
+import 'waypoint_viewer.dart';
 import 'waypoint_editor.dart';
 // ── WaypointCard ──────────────────────────────────────────────────────────────
 
@@ -21,7 +18,7 @@ import 'waypoint_editor.dart';
 class WaypointCard extends StatefulWidget {
   final int waypointIndex;
   final Trip trip;
-  final void Function(GWaypointTypeEnum) onTypeChanged;
+  final void Function(GWaypointEnum) onTypeChanged;
   final void Function() onDelete;
   final bool readOnly;
   final VoidCallback? onEdit;
@@ -42,7 +39,7 @@ class WaypointCard extends StatefulWidget {
     required BuildContext context,
     required int waypointIndex,
     required Trip trip,
-    required void Function(GWaypointTypeEnum) onTypeChanged,
+    required void Function(GWaypointEnum) onTypeChanged,
     required void Function() onDelete,
     bool readOnly = false,
     VoidCallback? onEdit,
@@ -72,7 +69,7 @@ class _WaypointCardState extends State<WaypointCard> {
   late bool _isEditing;
 
   // Type sélectionné dans l'éditeur (local, appliqué à la confirmation).
-  late GWaypointTypeEnum _selectedType;
+  late GWaypointEnum _selectedType;
 
   // Copies locales des champs éditables — appliquées seulement à la confirmation.
   late String _pendingDescription;
@@ -106,73 +103,9 @@ class _WaypointCardState extends State<WaypointCard> {
   // ── Vue lecture ───────────────────────────────────────────────────────────
 
   Widget _buildViewer(BuildContext context) {
-    final wp = _wp;
-    final hasDescription = wp.description != null && wp.description!.isNotEmpty;
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // ── Contenu scrollable ──
-        Flexible(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                WaypointHeader(
-                  type: _selectedType,
-                  index: widget.waypointIndex,
-                ),
-                const SizedBox(height: 16),
-
-                // Photos
-                ImageCarouselPicker(
-                  remoteImages: wp.images ?? [],
-                  readOnly: true,
-                  onChanged: (_) {},
-                ),
-
-                // Description
-                if (hasDescription) ...[
-                  const SizedBox(height: 12),
-                  TextAreaWithCounter(
-                    initialValue: wp.description!,
-                    readOnly: true,
-                    onChanged: (_) {},
-                  ),
-                ],
-                const SizedBox(height: 16),
-              ],
-            ),
-          ),
-        ),
-
-        // ── Boutons ──
-        const Divider(height: 1),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-          child: Row(
-            children: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Fermer'),
-              ),
-              const Spacer(),
-              if (widget.onEdit != null)
-                OutlinedButton.icon(
-                  onPressed: () {
-                    // Bascule en mode édition dans le même dialog.
-                    setState(() => _isEditing = true);
-                  },
-                  icon: const Icon(Icons.edit_outlined, size: 16),
-                  label: const Text('Modifier'),
-                ),
-            ],
-          ),
-        ),
-      ],
+    return WaypointViewer(waypoint: _wp,
+    onEdit:() => setState(() => _isEditing = true)
+      
     );
   }
 

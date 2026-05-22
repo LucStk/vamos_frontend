@@ -5,10 +5,9 @@ import 'package:vamos_cartographie/domain/domain.dart';
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class WaypointHeader extends StatelessWidget {
-  final GWaypointTypeEnum type;
-  final int index;
+  final GWaypointEnum type;
 
-  const WaypointHeader({required this.type, required this.index});
+  const WaypointHeader({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +31,11 @@ class WaypointHeader extends StatelessWidget {
                 color: type.color,
               ),
             ),
-            Text(
-              'Étape ${index + 1}',
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-            ),
+            // TODO : Afficher le numéro de l'étape
+            // Text(
+            //   'Étape ,
+            //   style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+            // ),
           ],
         ),
       ],
