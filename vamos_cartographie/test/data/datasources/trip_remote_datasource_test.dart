@@ -21,39 +21,40 @@ class FakeUpdateTripReq extends Fake implements GUpdateTripReq {}
 
 class FakeDeleteTripReq extends Fake implements GDeleteTripReq {}
 
+class FakeDeleteImageFromTripReq extends Fake
+    implements GDeleteImageFromTripReq {}
+
 // ─────────────────────────────────────────────────────────────────────────────
-// Helpers
+// Helpers réponse Ferry
 // ─────────────────────────────────────────────────────────────────────────────
 
-/// Réponse success : passe la requête en `operationRequest` pour éviter
+/// Réponse succès : passe la requête en [operationRequest] pour éviter
 /// le cast null → type non-nullable dans [OperationResponse].
 OperationResponse<TData, TVars> _ok<TData, TVars>(
   OperationRequest<TData, TVars> req,
   TData data,
-) {
-  return OperationResponse<TData, TVars>(
-    operationRequest: req,
-    data: data,
-    graphqlErrors: null,
-    linkException: null,
-    dataSource: DataSource.None,
-  );
-}
+) => OperationResponse<TData, TVars>(
+  operationRequest: req,
+  data: data,
+  graphqlErrors: null,
+  linkException: null,
+  dataSource: DataSource.None,
+);
 
 /// Réponse en erreur GraphQL.
 OperationResponse<TData, TVars> _err<TData, TVars>(
   OperationRequest<TData, TVars> req,
-) {
-  return OperationResponse<TData, TVars>(
-    operationRequest: req,
-    data: null,
-    graphqlErrors: [const GraphQLError(message: 'Erreur serveur')],
-    linkException: null,
-    dataSource: DataSource.None,
-  );
-}
+) => OperationResponse<TData, TVars>(
+  operationRequest: req,
+  data: null,
+  graphqlErrors: [const GraphQLError(message: 'Erreur serveur')],
+  linkException: null,
+  dataSource: DataSource.None,
+);
 
-// Données GQL minimales -------------------------------------------------------
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers données GQL
+// ─────────────────────────────────────────────────────────────────────────────
 
 GImageFieldsData _img() =>
     const GImageFieldsData(url: 'https://cdn/x.jpg', fileKey: 'media/x.jpg');
@@ -105,7 +106,6 @@ GDeleteTripData_deleteTrip _deleteResult(int id) =>
 
 void main() {
   late MockFerryClient mockClient;
-  late TripRemoteDatasource datasource;
 
   setUpAll(() {
     registerFallbackValue(FakeGetAllTripsReq());
@@ -113,152 +113,227 @@ void main() {
     registerFallbackValue(FakeCreateTripReq());
     registerFallbackValue(FakeUpdateTripReq());
     registerFallbackValue(FakeDeleteTripReq());
+    registerFallbackValue(FakeDeleteImageFromTripReq());
   });
 
   setUp(() {
     mockClient = MockFerryClient();
-    datasource = TripRemoteDatasource(mockClient);
   });
 
-  // ---------------------------------------------------------------------------
-  // getAllTrips
-  // ---------------------------------------------------------------------------
+  // ===========================================================================
+  // Groupe 1 : TripRemoteDatasource
+  // ===========================================================================
 
-  group('getAllTrips', () {
-    test('retourne la liste quand la requête réussit', () async {
-      final req = GGetAllTripsReq();
-      final gqlData = GGetAllTripsData(trips: [_tripFields(1), _tripFields(2)]);
-      when(
-        () => mockClient.request(any<GGetAllTripsReq>()),
-      ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
+  group('TripRemoteDatasource', () {
+    late TripRemoteDatasource datasource;
 
-      final result = await datasource.getAllTrips();
-
-      expect(result, hasLength(2));
-      expect(result.first.id, 1);
-      expect(result.first.title, 'Trip 1');
+    setUp(() {
+      datasource = TripRemoteDatasource(mockClient);
     });
 
-    test('lève une Exception si la réponse contient des erreurs', () async {
-      final req = GGetAllTripsReq();
-      when(
-        () => mockClient.request(any<GGetAllTripsReq>()),
-      ).thenAnswer((_) => Stream.value(_err(req)));
+    // -------------------------------------------------------------------------
+    // getAllTrips
+    // -------------------------------------------------------------------------
 
-      expect(datasource.getAllTrips(), throwsException);
-    });
-  });
+    group('getAllTrips', () {
+      test('retourne la liste quand la requête réussit', () async {
+        final req = GGetAllTripsReq();
+        final gqlData = GGetAllTripsData(
+          trips: [_tripFields(1), _tripFields(2)],
+        );
+        when(
+          () => mockClient.request(any<GGetAllTripsReq>()),
+        ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
 
-  // ---------------------------------------------------------------------------
-  // getTripById
-  // ---------------------------------------------------------------------------
+        final result = await datasource.getAllTrips();
 
-  group('getTripById', () {
-    test('retourne le trip quand la requête réussit', () async {
-      final req = GGetTripReq(vars: GGetTripVars(id: 5));
-      final gqlData = GGetTripData(trip: _tripDetail(5));
-      when(
-        () => mockClient.request(any<GGetTripReq>()),
-      ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
+        expect(result, hasLength(2));
+        expect(result.first.id, 1);
+        expect(result.first.title, 'Trip 1');
+      });
 
-      final result = await datasource.getTripById(id: 5);
+      test(
+        'lève une Exception si la réponse contient des erreurs GQL',
+        () async {
+          final req = GGetAllTripsReq();
+          when(
+            () => mockClient.request(any<GGetAllTripsReq>()),
+          ).thenAnswer((_) => Stream.value(_err(req)));
 
-      expect(result.id, 5);
-      expect(result.title, 'Trip 5');
-    });
+          expect(datasource.getAllTrips(), throwsException);
+        },
+      );
 
-    test('lève une Exception si la réponse contient des erreurs', () async {
-      final req = GGetTripReq(vars: GGetTripVars(id: 99));
-      when(
-        () => mockClient.request(any<GGetTripReq>()),
-      ).thenAnswer((_) => Stream.value(_err(req)));
+      test('lève une Exception si data est null', () async {
+        final req = GGetAllTripsReq();
+        when(() => mockClient.request(any<GGetAllTripsReq>())).thenAnswer(
+          (_) => Stream.value(
+            OperationResponse<GGetAllTripsData, Null>(
+              operationRequest: req,
+              data: null,
+              graphqlErrors: null,
+              linkException: null,
+              dataSource: DataSource.None,
+            ),
+          ),
+        );
 
-      expect(datasource.getTripById(id: 99), throwsException);
-    });
-  });
-
-  // ---------------------------------------------------------------------------
-  // createTrip
-  // ---------------------------------------------------------------------------
-
-  group('createTrip', () {
-    test('retourne les données du trip créé', () async {
-      final input = GTripInput(title: 'Nouveau');
-      final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
-      final gqlData = GCreateTripData(createTrip: _createResult(10));
-      when(
-        () => mockClient.request(any<GCreateTripReq>()),
-      ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
-
-      final result = await datasource.createTrip(input: input);
-
-      expect(result.id, 10);
-      expect(result.title, 'Créé 10');
+        expect(datasource.getAllTrips(), throwsException);
+      });
     });
 
-    test("lève une Exception en cas d'erreur GraphQL", () async {
-      final input = GTripInput(title: 'Test');
-      final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
-      when(
-        () => mockClient.request(any<GCreateTripReq>()),
-      ).thenAnswer((_) => Stream.value(_err(req)));
+    // -------------------------------------------------------------------------
+    // getTripById
+    // -------------------------------------------------------------------------
 
-      expect(datasource.createTrip(input: input), throwsException);
-    });
-  });
+    group('getTripById', () {
+      test('retourne le trip quand la requête réussit', () async {
+        final req = GGetTripReq(vars: GGetTripVars(id: 5));
+        final gqlData = GGetTripData(trip: _tripDetail(5));
+        when(
+          () => mockClient.request(any<GGetTripReq>()),
+        ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
 
-  // ---------------------------------------------------------------------------
-  // updateTrip
-  // ---------------------------------------------------------------------------
+        final result = await datasource.getTripById(id: 5);
 
-  group('updateTrip', () {
-    test('retourne les données du trip mis à jour', () async {
-      final input = GTripUpdateInput();
-      final req = GUpdateTripReq(vars: GUpdateTripVars(id: 3, trip: input));
-      final gqlData = GUpdateTripData(updateTrip: _updateResult(3));
-      when(
-        () => mockClient.request(any<GUpdateTripReq>()),
-      ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
+        expect(result.id, 5);
+        expect(result.title, 'Trip 5');
+        expect(result.images, hasLength(1));
+      });
 
-      final result = await datasource.updateTrip(id: 3, input: input);
+      test(
+        'lève une Exception si la réponse contient des erreurs GQL',
+        () async {
+          final req = GGetTripReq(vars: GGetTripVars(id: 99));
+          when(
+            () => mockClient.request(any<GGetTripReq>()),
+          ).thenAnswer((_) => Stream.value(_err(req)));
 
-      expect(result.id, 3);
-      expect(result.title, 'Modifié 3');
-    });
-
-    test("lève une Exception en cas d'erreur GraphQL", () async {
-      final input = GTripUpdateInput();
-      final req = GUpdateTripReq(vars: GUpdateTripVars(id: 3, trip: input));
-      when(
-        () => mockClient.request(any<GUpdateTripReq>()),
-      ).thenAnswer((_) => Stream.value(_err(req)));
-
-      expect(datasource.updateTrip(id: 3, input: input), throwsException);
-    });
-  });
-
-  // ---------------------------------------------------------------------------
-  // deleteTrip
-  // ---------------------------------------------------------------------------
-
-  group('deleteTrip', () {
-    test('se termine normalement quand la requête réussit', () async {
-      final req = GDeleteTripReq(vars: GDeleteTripVars(id: 7));
-      final gqlData = GDeleteTripData(deleteTrip: _deleteResult(7));
-      when(
-        () => mockClient.request(any<GDeleteTripReq>()),
-      ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
-
-      await expectLater(datasource.deleteTrip(id: 7), completes);
+          expect(datasource.getTripById(id: 99), throwsException);
+        },
+      );
     });
 
-    test("lève une Exception en cas d'erreur GraphQL", () async {
-      final req = GDeleteTripReq(vars: GDeleteTripVars(id: 7));
-      when(
-        () => mockClient.request(any<GDeleteTripReq>()),
-      ).thenAnswer((_) => Stream.value(_err(req)));
+    // -------------------------------------------------------------------------
+    // createTrip
+    // -------------------------------------------------------------------------
 
-      expect(datasource.deleteTrip(id: 7), throwsException);
+    group('createTrip', () {
+      test('retourne les données du trip créé', () async {
+        final input = GTripInput(title: 'Nouveau');
+        final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
+        final gqlData = GCreateTripData(createTrip: _createResult(10));
+        when(
+          () => mockClient.request(any<GCreateTripReq>()),
+        ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
+
+        final result = await datasource.createTrip(input: input);
+
+        expect(result.id, 10);
+        expect(result.title, 'Créé 10');
+      });
+
+      test("lève une Exception en cas d'erreur GraphQL", () async {
+        final input = GTripInput(title: 'Test');
+        final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
+        when(
+          () => mockClient.request(any<GCreateTripReq>()),
+        ).thenAnswer((_) => Stream.value(_err(req)));
+
+        expect(datasource.createTrip(input: input), throwsException);
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // updateTrip
+    // -------------------------------------------------------------------------
+
+    group('updateTrip', () {
+      test('retourne les données du trip mis à jour', () async {
+        final input = GTripUpdateInput();
+        final req = GUpdateTripReq(vars: GUpdateTripVars(id: 3, trip: input));
+        final gqlData = GUpdateTripData(updateTrip: _updateResult(3));
+        when(
+          () => mockClient.request(any<GUpdateTripReq>()),
+        ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
+
+        final result = await datasource.updateTrip(id: 3, input: input);
+
+        expect(result.id, 3);
+        expect(result.title, 'Modifié 3');
+      });
+
+      test("lève une Exception en cas d'erreur GraphQL", () async {
+        final input = GTripUpdateInput();
+        final req = GUpdateTripReq(vars: GUpdateTripVars(id: 3, trip: input));
+        when(
+          () => mockClient.request(any<GUpdateTripReq>()),
+        ).thenAnswer((_) => Stream.value(_err(req)));
+
+        expect(datasource.updateTrip(id: 3, input: input), throwsException);
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // deleteTrip
+    // -------------------------------------------------------------------------
+
+    group('deleteTrip', () {
+      test('se termine normalement quand la requête réussit', () async {
+        final req = GDeleteTripReq(vars: GDeleteTripVars(id: 7));
+        final gqlData = GDeleteTripData(deleteTrip: _deleteResult(7));
+        when(
+          () => mockClient.request(any<GDeleteTripReq>()),
+        ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
+
+        await expectLater(datasource.deleteTrip(id: 7), completes);
+      });
+
+      test("lève une Exception en cas d'erreur GraphQL", () async {
+        final req = GDeleteTripReq(vars: GDeleteTripVars(id: 7));
+        when(
+          () => mockClient.request(any<GDeleteTripReq>()),
+        ).thenAnswer((_) => Stream.value(_err(req)));
+
+        expect(datasource.deleteTrip(id: 7), throwsException);
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // deleteImgTrip
+    // -------------------------------------------------------------------------
+
+    group('deleteImgTrip', () {
+      test('se termine normalement quand la requête réussit', () async {
+        final req = GDeleteImageFromTripReq(
+          vars: GDeleteImageFromTripVars(tripId: 4, fileKey: 'media/x.jpg'),
+        );
+        final gqlData = const GDeleteImageFromTripData(
+          deleteImageFromTrip: 'ok',
+        );
+        when(
+          () => mockClient.request(any<GDeleteImageFromTripReq>()),
+        ).thenAnswer((_) => Stream.value(_ok(req, gqlData)));
+
+        await expectLater(
+          datasource.deleteImgTrip(tripId: 4, fileKey: 'media/x.jpg'),
+          completes,
+        );
+      });
+
+      test("lève une Exception en cas d'erreur GraphQL", () async {
+        final req = GDeleteImageFromTripReq(
+          vars: GDeleteImageFromTripVars(tripId: 4, fileKey: 'media/x.jpg'),
+        );
+        when(
+          () => mockClient.request(any<GDeleteImageFromTripReq>()),
+        ).thenAnswer((_) => Stream.value(_err(req)));
+
+        expect(
+          datasource.deleteImgTrip(tripId: 4, fileKey: 'media/x.jpg'),
+          throwsException,
+        );
+      });
     });
   });
 }

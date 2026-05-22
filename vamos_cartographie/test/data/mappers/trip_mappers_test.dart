@@ -3,11 +3,10 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
-import 'package:vamos_cartographie/data/mappers/waypoint_mappers.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Helpers — données GQL de test
+// Helpers GQL — évitent la répétition dans les tests
 // ─────────────────────────────────────────────────────────────────────────────
 
 GImageFieldsData _image({
@@ -15,10 +14,8 @@ GImageFieldsData _image({
   String fileKey = 'media/img.jpg',
 }) => GImageFieldsData(url: url, fileKey: fileKey);
 
-GWaypointFieldsData_images _waypointImage() =>
-    GWaypointFieldsData_images(image: _image());
-
-GTripFieldsData_images _tripImage() => GTripFieldsData_images(image: _image());
+GTripFieldsData_images _tripFieldsImage() =>
+    GTripFieldsData_images(image: _image());
 
 GWaypointFieldsData _gqlWaypoint({
   int id = 0,
@@ -34,60 +31,89 @@ GWaypointFieldsData _gqlWaypoint({
   type: type,
   title: title,
   description: description,
-  images: [_waypointImage()],
+  images: [],
 );
 
 GSegmentFieldsData _gqlSegment({
   GSegmentTypeEnum type = GSegmentTypeEnum.bike,
+  List<GSegmentFieldsData_intermediatePoints>? intermediatePoints,
 }) => GSegmentFieldsData(
   type: type,
-  intermediatePoints: [
-    GSegmentFieldsData_intermediatePoints(lat: 48.0, lng: 2.0),
-  ],
+  intermediatePoints:
+      intermediatePoints ??
+      [GSegmentFieldsData_intermediatePoints(lat: 48.0, lng: 2.0)],
 );
 
-GTripFieldsData _gqlTripFields({int id = 1}) => GTripFieldsData(
+GTripFieldsData _gqlTripFields({
+  int id = 1,
+  String title = 'Tour de test',
+  String? date = '2024-07-14',
+  String description = 'Une belle aventure',
+  List<GTripFieldsData_images>? images,
+}) => GTripFieldsData(
   id: id,
-  title: 'Tour de test',
-  date: '2024-07-14',
-  description: 'Une belle aventure',
-  images: [_tripImage()],
+  title: title,
+  date: date,
+  description: description,
+  images: images ?? [_tripFieldsImage()],
 );
 
-GGetTripData_trip _gqlTripDetail({int id = 1}) => GGetTripData_trip(
+GGetTripData_trip _gqlTripDetail({
+  int id = 1,
+  String title = 'Tour de test',
+  String? date = '2024-07-14',
+  String description = 'Une belle aventure',
+  List<GGetTripData_trip_images>? images,
+  List<GWaypointFieldsData>? waypoints,
+  List<GSegmentFieldsData>? segments,
+}) => GGetTripData_trip(
   id: id,
-  title: 'Tour de test',
-  date: '2024-07-14',
-  description: 'Une belle aventure',
-  images: [GGetTripData_trip_images(image: _image())],
+  title: title,
+  date: date,
+  description: description,
+  images: images ?? [GGetTripData_trip_images(image: _image())],
   // 2 waypoints → 1 segment (invariant du modèle Trip)
-  waypoints: [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
-  segments: [_gqlSegment()],
+  waypoints: waypoints ?? [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
+  segments: segments ?? [_gqlSegment()],
 );
 
-GCreateTripData_createTrip _gqlCreateResult({int id = 42}) =>
-    GCreateTripData_createTrip(
-      id: id,
-      title: 'Nouveau trip',
-      date: null,
-      description: 'Créé via mutation',
-      images: [GCreateTripData_createTrip_images(image: _image())],
-      // 2 waypoints → 1 segment
-      waypoints: [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
-      segments: [_gqlSegment()],
-    );
+GCreateTripData_createTrip _gqlCreateResult({
+  int id = 42,
+  String title = 'Nouveau trip',
+  String? date,
+  String description = 'Créé via mutation',
+  List<GCreateTripData_createTrip_images>? images,
+  List<GWaypointFieldsData>? waypoints,
+  List<GSegmentFieldsData>? segments,
+}) => GCreateTripData_createTrip(
+  id: id,
+  title: title,
+  date: date,
+  description: description,
+  images: images ?? [GCreateTripData_createTrip_images(image: _image())],
+  // 2 waypoints → 1 segment (invariant du modèle Trip)
+  waypoints: waypoints ?? [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
+  segments: segments ?? [_gqlSegment()],
+);
 
-GUpdateTripData_updateTrip _gqlUpdateResult({int id = 7}) =>
-    GUpdateTripData_updateTrip(
-      id: id,
-      title: 'Trip modifié',
-      date: '2024-08-01',
-      description: 'Mis à jour',
-      images: [GUpdateTripData_updateTrip_images(image: _image())],
-      // 2 waypoints → 1 segment
-      waypoints: [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
-      segments: [_gqlSegment()],
-    );
+GUpdateTripData_updateTrip _gqlUpdateResult({
+  int id = 7,
+  String title = 'Trip modifié',
+  String? date = '2024-08-01',
+  String description = 'Mis à jour',
+  List<GUpdateTripData_updateTrip_images>? images,
+  List<GWaypointFieldsData>? waypoints,
+  List<GSegmentFieldsData>? segments,
+}) => GUpdateTripData_updateTrip(
+  id: id,
+  title: title,
+  date: date,
+  description: description,
+  images: images ?? [GUpdateTripData_updateTrip_images(image: _image())],
+  // 2 waypoints → 1 segment (invariant du modèle Trip)
+  waypoints: waypoints ?? [_gqlWaypoint(id: 1), _gqlWaypoint(id: 2)],
+  segments: segments ?? [_gqlSegment()],
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Tests
@@ -95,49 +121,8 @@ GUpdateTripData_updateTrip _gqlUpdateResult({int id = 7}) =>
 
 void main() {
   // ---------------------------------------------------------------------------
-  // GQL → Domaine
+  // TripMapper.segmentFromGQL — GQL → Domaine
   // ---------------------------------------------------------------------------
-
-  group('TripMapper.waypointFromGQL', () {
-    test('mappe les coordonnées, le type et la description', () {
-      final gql = _gqlWaypoint(
-        id: 2,
-        lat: 43.0,
-        lng: 1.5,
-        type: GWaypointEnum.CAMPING,
-        description: 'Camping sympa',
-      );
-      final wp = WaypointMapper.waypointFromGQL(gql);
-
-      expect(wp.id, 2);
-      expect(wp.latLng.latitude, 43.0);
-      expect(wp.latLng.longitude, 1.5);
-      expect(wp.type, GWaypointEnum.CAMPING);
-      expect(wp.description, 'Camping sympa');
-    });
-
-    test('extrait le fileKey de chaque image', () {
-      final gql = _gqlWaypoint();
-      final wp = WaypointMapper.waypointFromGQL(gql);
-
-      expect(wp.images, [
-        TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
-      ]);
-    });
-
-    test('liste vide si aucune image', () {
-      final gql = GWaypointFieldsData(
-        id: 0,
-        lat: 0,
-        lng: 0,
-        type: GWaypointEnum.WAYPOINT,
-        title: '',
-        description: '',
-        images: [],
-      );
-      expect(WaypointMapper.waypointFromGQL(gql).images, isEmpty);
-    });
-  });
 
   group('TripMapper.segmentFromGQL', () {
     test('mappe le type et les points intermédiaires', () {
@@ -158,8 +143,12 @@ void main() {
     });
   });
 
+  // ---------------------------------------------------------------------------
+  // TripMapper.tripFromGQLFields — GQL → Domaine (fragment de liste)
+  // ---------------------------------------------------------------------------
+
   group('TripMapper.tripFromGQLFields', () {
-    test('convertit les champs de base correctement', () {
+    test('convertit les champs de base et les images correctement', () {
       final trip = TripMapper.tripFromGQLFields(_gqlTripFields(id: 5));
 
       expect(trip.id, 5);
@@ -167,26 +156,43 @@ void main() {
       expect(trip.description, 'Une belle aventure');
       expect(trip.date, DateTime(2024, 7, 14));
       expect(trip.images, [
-        TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
       ]);
+      // tripFromGQLFields n'inclut pas de waypoints ni segments
       expect(trip.waypoints, isEmpty);
       expect(trip.segments, isEmpty);
     });
 
-    test('date null si absente', () {
-      final gql = GTripFieldsData(
-        id: 1,
-        title: 'Sans date',
-        date: null,
-        description: '',
-        images: [],
-      );
+    test('date null si absente du fragment', () {
+      final gql = _gqlTripFields(date: null, images: []);
       expect(TripMapper.tripFromGQLFields(gql).date, isNull);
+    });
+
+    test('mappe plusieurs images', () {
+      final gql = _gqlTripFields(
+        images: [
+          GTripFieldsData_images(
+            image: _image(url: 'https://cdn/a.jpg', fileKey: 'media/a.jpg'),
+          ),
+          GTripFieldsData_images(
+            image: _image(url: 'https://cdn/b.jpg', fileKey: 'media/b.jpg'),
+          ),
+        ],
+      );
+      final images = TripMapper.tripFromGQLFields(gql).images;
+
+      expect(images, hasLength(2));
+      expect(images[0].fileKey, 'media/a.jpg');
+      expect(images[1].fileKey, 'media/b.jpg');
     });
   });
 
+  // ---------------------------------------------------------------------------
+  // TripMapper.tripFromGQLDetail — GQL → Domaine (query détaillée)
+  // ---------------------------------------------------------------------------
+
   group('TripMapper.tripFromGQLDetail', () {
-    test('inclut les waypoints et segments', () {
+    test('inclut les waypoints et les segments', () {
       final trip = TripMapper.tripFromGQLDetail(_gqlTripDetail(id: 3));
 
       expect(trip.id, 3);
@@ -194,14 +200,42 @@ void main() {
       expect(trip.segments, hasLength(1));
     });
 
-    test('waypoint bien mappé dans le détail', () {
+    test('waypoint bien mappé (coordonnées et type)', () {
       final trip = TripMapper.tripFromGQLDetail(_gqlTripDetail());
       final wp = trip.waypoints.first;
 
       expect(wp.id, 1);
       expect(wp.latLng, const LatLng(48.85, 2.35));
+      expect(wp.type, GWaypointEnum.WAYPOINT);
+    });
+
+    test('segment bien mappé (type et point intermédiaire)', () {
+      final trip = TripMapper.tripFromGQLDetail(_gqlTripDetail());
+      final seg = trip.segments.first;
+
+      expect(seg.type, GSegmentTypeEnum.bike);
+      expect(seg.intermediatePoints, [const LatLng(48.0, 2.0)]);
+    });
+
+    test('images du trip bien mappées', () {
+      final trip = TripMapper.tripFromGQLDetail(_gqlTripDetail());
+
+      expect(trip.images, [
+        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+      ]);
+    });
+
+    test('date null si absente', () {
+      final trip = TripMapper.tripFromGQLDetail(
+        _gqlTripDetail(date: null, waypoints: [], segments: []),
+      );
+      expect(trip.date, isNull);
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // TripMapper.tripFromGQLCreateResult — mutation createTrip
+  // ---------------------------------------------------------------------------
 
   group('TripMapper.tripFromGQLCreateResult', () {
     test('convertit correctement le résultat de création', () {
@@ -209,11 +243,27 @@ void main() {
 
       expect(trip.id, 42);
       expect(trip.title, 'Nouveau trip');
+      expect(trip.description, 'Créé via mutation');
       expect(trip.date, isNull);
+      expect(trip.images, [
+        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+      ]);
       expect(trip.waypoints, hasLength(2));
       expect(trip.segments, hasLength(1));
     });
+
+    test('mappe le premier waypoint du résultat de création', () {
+      final trip = TripMapper.tripFromGQLCreateResult(_gqlCreateResult());
+      final wp = trip.waypoints.first;
+
+      expect(wp.id, 1);
+      expect(wp.latLng, const LatLng(48.85, 2.35));
+    });
   });
+
+  // ---------------------------------------------------------------------------
+  // TripMapper.tripFromGQLUpdateResult — mutation updateTrip
+  // ---------------------------------------------------------------------------
 
   group('TripMapper.tripFromGQLUpdateResult', () {
     test('convertit correctement le résultat de mise à jour', () {
@@ -221,53 +271,26 @@ void main() {
 
       expect(trip.id, 7);
       expect(trip.title, 'Trip modifié');
+      expect(trip.description, 'Mis à jour');
       expect(trip.date, DateTime(2024, 8, 1));
+      expect(trip.images, [
+        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+      ]);
+      expect(trip.waypoints, hasLength(2));
+      expect(trip.segments, hasLength(1));
+    });
+
+    test('date null si absente du résultat de mise à jour', () {
+      final trip = TripMapper.tripFromGQLUpdateResult(
+        _gqlUpdateResult(date: null, waypoints: [], segments: []),
+      );
+      expect(trip.date, isNull);
     });
   });
 
   // ---------------------------------------------------------------------------
-  // Domaine → GQL Input
+  // TripMapper.segmentToGQLInput — Domaine → GQL Input
   // ---------------------------------------------------------------------------
-
-  group('TripMapper.waypointToGQLInput', () {
-    test('mappe les coordonnées et le type', () {
-      final wp = Waypoint(
-        latLng: const LatLng(44.0, 3.0),
-        type: GWaypointEnum.WATER,
-        description: 'Source',
-      );
-      final input = WaypointMapper.waypointToGQLInput(wp);
-
-      expect(input.lat, 44.0);
-      expect(input.lng, 3.0);
-      expect(input.type, GWaypointEnum.WATER);
-      expect(input.description, Value.present('Source'));
-    });
-
-    test('description absente si vide', () {
-      final wp = Waypoint(
-        latLng: const LatLng(0, 0),
-        type: GWaypointEnum.WAYPOINT,
-        description: '',
-      );
-      expect(
-        WaypointMapper.waypointToGQLInput(wp).description,
-        const Value.absent(),
-      );
-    });
-
-    test('description absente si null', () {
-      final wp = Waypoint(
-        latLng: const LatLng(0, 0),
-        type: GWaypointEnum.WAYPOINT,
-        description: null,
-      );
-      expect(
-        WaypointMapper.waypointToGQLInput(wp).description,
-        const Value.absent(),
-      );
-    });
-  });
 
   group('TripMapper.segmentToGQLInput', () {
     test('mappe le type et les points intermédiaires', () {
@@ -282,10 +305,21 @@ void main() {
       expect(input.intermediatePoints.first.lat, 47.0);
       expect(input.intermediatePoints.first.lng, 1.0);
     });
+
+    test('liste vide si aucun point intermédiaire', () {
+      final seg = Segment(type: GSegmentTypeEnum.boat);
+      final input = TripMapper.segmentToGQLInput(seg);
+
+      expect(input.intermediatePoints, isEmpty);
+    });
   });
 
+  // ---------------------------------------------------------------------------
+  // TripMapper.tripToGQLInput — Domaine → GTripInput (mutation create)
+  // ---------------------------------------------------------------------------
+
   group('TripMapper.tripToGQLInput', () {
-    test('mappe les champs principaux', () {
+    test('mappe les champs principaux avec date et waypoints', () {
       final trip = Trip(
         title: 'Mon voyage',
         description: 'Super trip',
@@ -301,11 +335,13 @@ void main() {
       expect(input.title, 'Mon voyage');
       expect(input.description, Value.present('Super trip'));
       expect(input.date, Value.present('2024-06-01'));
+      expect(input.waypoints.isPresent, isTrue);
       expect(input.waypoints.requireValue, hasLength(2));
+      expect(input.segments.isPresent, isTrue);
       expect(input.segments.requireValue, hasLength(1));
     });
 
-    test('description absente si vide', () {
+    test('description absente si chaîne vide', () {
       final trip = Trip(title: 'Test', description: '');
       expect(TripMapper.tripToGQLInput(trip).description, const Value.absent());
     });
@@ -319,27 +355,119 @@ void main() {
       final trip = Trip(title: 'Test');
       expect(TripMapper.tripToGQLInput(trip).waypoints, const Value.absent());
     });
+
+    test('segments absents si liste vide', () {
+      final trip = Trip(title: 'Test');
+      expect(TripMapper.tripToGQLInput(trip).segments, const Value.absent());
+    });
+
+    test('date formatée en YYYY-MM-DD (ISO tronqué)', () {
+      final trip = Trip(title: 'T', date: DateTime(2025, 1, 9));
+      expect(TripMapper.tripToGQLInput(trip).date, Value.present('2025-01-09'));
+    });
   });
 
+  // ---------------------------------------------------------------------------
+  // TripMapper.tripToGQLUpdateInput — Domaine → GTripUpdateInput (mutation update)
+  // ---------------------------------------------------------------------------
+
   group('TripMapper.tripToGQLUpdateInput', () {
-    test('tous les champs présents, même description vide → null', () {
+    test('title toujours présent', () {
       final trip = Trip(
         id: 10,
         title: 'Titre mis à jour',
+        waypoints: [],
+        segments: [],
+      );
+      expect(
+        TripMapper.tripToGQLUpdateInput(trip).title,
+        Value.present('Titre mis à jour'),
+      );
+    });
+
+    test('description vide envoyée comme Value.present(null)', () {
+      final trip = Trip(
+        id: 10,
+        title: 'T',
         description: '',
-        date: null,
         waypoints: [],
         segments: [],
       );
       final input = TripMapper.tripToGQLUpdateInput(trip);
 
-      expect(input.title, Value.present('Titre mis à jour'));
-      // description vide → Value.present(null)
       expect(input.description.isPresent, isTrue);
       expect(input.description.requireValue, isNull);
-      expect(input.date, const Value.absent());
+    });
+
+    test('description non vide envoyée comme Value.present(valeur)', () {
+      final trip = Trip(
+        id: 10,
+        title: 'T',
+        description: 'Super aventure',
+        waypoints: [],
+        segments: [],
+      );
+      expect(
+        TripMapper.tripToGQLUpdateInput(trip).description,
+        Value.present('Super aventure'),
+      );
+    });
+
+    test('date absente si null', () {
+      final trip = Trip(
+        id: 10,
+        title: 'T',
+        date: null,
+        waypoints: [],
+        segments: [],
+      );
+      expect(TripMapper.tripToGQLUpdateInput(trip).date, const Value.absent());
+    });
+
+    test('date présente si non null, formatée en YYYY-MM-DD', () {
+      final trip = Trip(
+        id: 10,
+        title: 'T',
+        date: DateTime(2024, 12, 25),
+        waypoints: [],
+        segments: [],
+      );
+      expect(
+        TripMapper.tripToGQLUpdateInput(trip).date,
+        Value.present('2024-12-25'),
+      );
+    });
+
+    test('waypoints présents même si liste vide', () {
+      final trip = Trip(id: 10, title: 'T', waypoints: [], segments: []);
+      final input = TripMapper.tripToGQLUpdateInput(trip);
+
       expect(input.waypoints.isPresent, isTrue);
       expect(input.waypoints.requireValue, isEmpty);
+    });
+
+    test('waypoints présents avec contenu', () {
+      final trip = Trip(
+        id: 10,
+        title: 'T',
+        waypoints: [
+          Waypoint(latLng: const LatLng(48.0, 2.0), type: GWaypointEnum.START),
+          Waypoint(latLng: const LatLng(43.0, 1.0), type: GWaypointEnum.END),
+        ],
+        segments: [Segment(type: GSegmentTypeEnum.walk)],
+      );
+      final input = TripMapper.tripToGQLUpdateInput(trip);
+
+      expect(input.waypoints.isPresent, isTrue);
+      expect(input.waypoints.requireValue, hasLength(2));
+    });
+
+    test('segments présents même si liste vide', () {
+      final trip = Trip(id: 10, title: 'T', waypoints: [], segments: []);
+      final input = TripMapper.tripToGQLUpdateInput(trip);
+
+      expect(input.segments.isPresent, isTrue);
+      expect(input.segments.requireValue, isEmpty);
     });
   });
 }
