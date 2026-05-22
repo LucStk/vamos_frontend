@@ -15,13 +15,13 @@ class GUpdateWaypointVars {
 
   factory GUpdateWaypointVars.fromJson(Map<String, dynamic> json) {
     return GUpdateWaypointVars(
-      waypoint: _i1.GWaypointInput.fromJson(
+      waypoint: _i1.GWaypointUpdateInput.fromJson(
           (json['waypoint'] as Map<String, dynamic>)),
       id: (json['id'] as int),
     );
   }
 
-  final _i1.GWaypointInput waypoint;
+  final _i1.GWaypointUpdateInput waypoint;
 
   final int id;
 
@@ -35,7 +35,7 @@ class GUpdateWaypointVars {
   }
 
   GUpdateWaypointVars copyWith({
-    _i1.GWaypointInput? waypoint,
+    _i1.GWaypointUpdateInput? waypoint,
     int? id,
   }) {
     return GUpdateWaypointVars(

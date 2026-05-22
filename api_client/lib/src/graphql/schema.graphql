@@ -39,7 +39,7 @@ type Mutation {
   generateImageUploadUrl(extension: String!): UploadConfig!
   attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
   deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
-  updateWaypoint(id: Int!, waypoint: WaypointInput!): WaypointType!
+  updateWaypoint(id: Int!, waypoint: WaypointUpdateInput!): WaypointType!
 }
 
 type Query {
@@ -142,5 +142,13 @@ type WaypointType {
   description: String!
   images: [WaypointImageType!]!
   type: WaypointEnum!
+}
+
+input WaypointUpdateInput {
+  lat: Float
+  lng: Float
+  title: String
+  type: WaypointEnum
+  description: String
 }
 

@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:api_client/src/ferry_client.dart';
 // Importe le fichier .req.gql.dart (il contient la classe de requête)
 import 'package:api_client/src/graphql/mutations/__generated__/trip.var.gql.dart';
@@ -80,6 +81,24 @@ void main() {
     final updateTripResponse = await client.request(updateTripRequest).first;
     printError(updateTripResponse);
     expect(updateTripResponse.data?.updateTrip, isNotNull);
+    // Test pour l'update individuel d'un waypoint
+    int? waypointId = newTripResponse.data?.createTrip.waypoints[0].id;
+    expect(waypointId, isNotNull);
+    final updateWapointReq = GUpdateWaypointReq(
+      vars: GUpdateWaypointVars(
+        id: waypointId!,
+        waypoint: GWaypointUpdateInput(
+          title: Value.present("update title test"),
+          lat: Value.present(0.0),
+          lng: Value.present(1.1),
+          description: Value.present("Nouvelle description"),
+          type: Value.present(GWaypointEnum.BEACH),
+        ),
+      ),
+    );
+
+    final updateWaypointUpdate = await client.request(updateWapointReq).first;
+    expect(updateWaypointUpdate.data?.updateWaypoint, isNotNull);
     // Test pour la suppression du voyage
     final deleteTripRequest = GDeleteTripReq(vars: GDeleteTripVars(id: id));
     final deleteTripResponse = await client.request(deleteTripRequest).first;

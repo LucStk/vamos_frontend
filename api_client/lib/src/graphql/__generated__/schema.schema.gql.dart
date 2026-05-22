@@ -648,4 +648,114 @@ class GWaypointInput {
   }
 }
 
+class GWaypointUpdateInput {
+  const GWaypointUpdateInput({
+    this.lat = const Value.absent(),
+    this.lng = const Value.absent(),
+    this.title = const Value.absent(),
+    this.type = const Value.absent(),
+    this.description = const Value.absent(),
+  });
+
+  factory GWaypointUpdateInput.fromJson(Map<String, dynamic> json) {
+    return GWaypointUpdateInput(
+      lat: json.containsKey('lat')
+          ? Value.present(json['lat'] == null ? null : (json['lat'] as double))
+          : Value.absent(),
+      lng: json.containsKey('lng')
+          ? Value.present(json['lng'] == null ? null : (json['lng'] as double))
+          : Value.absent(),
+      title: json.containsKey('title')
+          ? Value.present(
+              json['title'] == null ? null : (json['title'] as String))
+          : Value.absent(),
+      type: json.containsKey('type')
+          ? Value.present(json['type'] == null
+              ? null
+              : GWaypointEnum.fromJson((json['type'] as String)))
+          : Value.absent(),
+      description: json.containsKey('description')
+          ? Value.present(json['description'] == null
+              ? null
+              : (json['description'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final Value<double> lat;
+
+  final Value<double> lng;
+
+  final Value<String> title;
+
+  final Value<GWaypointEnum> type;
+
+  final Value<String> description;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$latValue = this.lat;
+    if (_$latValue.isPresent) {
+      final _$latRequired = _$latValue.requireValue;
+      _$result['lat'] = _$latRequired == null ? null : _$latRequired;
+    }
+    final _$lngValue = this.lng;
+    if (_$lngValue.isPresent) {
+      final _$lngRequired = _$lngValue.requireValue;
+      _$result['lng'] = _$lngRequired == null ? null : _$lngRequired;
+    }
+    final _$titleValue = this.title;
+    if (_$titleValue.isPresent) {
+      final _$titleRequired = _$titleValue.requireValue;
+      _$result['title'] = _$titleRequired == null ? null : _$titleRequired;
+    }
+    final _$typeValue = this.type;
+    if (_$typeValue.isPresent) {
+      final _$typeRequired = _$typeValue.requireValue;
+      _$result['type'] =
+          _$typeRequired == null ? null : _$typeRequired.toJson();
+    }
+    final _$descriptionValue = this.description;
+    if (_$descriptionValue.isPresent) {
+      final _$descriptionRequired = _$descriptionValue.requireValue;
+      _$result['description'] =
+          _$descriptionRequired == null ? null : _$descriptionRequired;
+    }
+    return _$result;
+  }
+
+  GWaypointUpdateInput copyWith({
+    Value<double>? lat,
+    Value<double>? lng,
+    Value<String>? title,
+    Value<GWaypointEnum>? type,
+    Value<String>? description,
+  }) {
+    return GWaypointUpdateInput(
+      lat: lat ?? this.lat,
+      lng: lng ?? this.lng,
+      title: title ?? this.title,
+      type: type ?? this.type,
+      description: description ?? this.description,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GWaypointUpdateInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GWaypointUpdateInput(lat: $lat, lng: $lng, title: $title, type: $type, description: $description)';
+  }
+}
+
 const Map<String, Set<String>> possibleTypesMap = {};
