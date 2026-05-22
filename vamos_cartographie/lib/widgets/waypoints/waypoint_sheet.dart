@@ -4,17 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 import 'waypoint_viewer.dart';
 import 'waypoint_editor.dart';
-// ── WaypointCard ──────────────────────────────────────────────────────────────
 
-/// Affiche les informations d'un waypoint dans un Dialog centré (Card).
-///
-/// - En mode lecture ([readOnly] = true) : affiche l'en-tête, les photos et
-///   la description, avec les boutons "Fermer" et optionnellement "Modifier".
-/// - En mode édition ([readOnly] = false) : permet de changer le type, les
-///   photos, la description et de supprimer le waypoint.
-///
-/// Le switch lecture → édition s'effectue **dans le même dialog** via un
-/// [StatefulBuilder] interne : aucun fermer/rouvrir.
 class WaypointCard extends StatefulWidget {
   final int waypointIndex;
   final Trip trip;
@@ -103,65 +93,51 @@ class _WaypointCardState extends State<WaypointCard> {
   // ── Vue lecture ───────────────────────────────────────────────────────────
 
   Widget _buildViewer(BuildContext context) {
-    return WaypointViewer(waypoint: _wp,
-    onEdit:() => setState(() => _isEditing = true)
-      
+    return WaypointViewer(
+      waypoint: _wp,
+      onEdit: () => setState(() => _isEditing = true),
     );
   }
 
   // À insérer dans _WaypointCardState, juste en dessous de _buildViewer:
   Widget _buildEditor(BuildContext context) {
     return WaypointEditor(
-      waypointIndex: widget.waypointIndex,
-      selectedType: _selectedType,
-      pendingDescription: _pendingDescription,
-      pendingImages: _pendingImages,
+      waypoint: _wp,
       onTypeChanged: (type) {
         setState(() => _selectedType = type);
-      },
-      onDescriptionChanged: (value) {
-        _pendingDescription =
-            value; // Pas de setState nécessaire si TextArea gère son propre texte en local
-      },
-      onImagesChanged: (images) {
-        setState(() => _pendingImages = List<TripImage>.from(images));
       },
       onDelete: () {
         widget.onDelete();
         Navigator.of(context).pop();
       },
       onCancel: () {
-        // Si on était en mode "readOnly" à la base, on retourne au Viewer.
-        // Sinon, on ferme le dialog.
-        if (widget.readOnly) {
-          setState(() {
-            // On réinitialise les modifs en cours avec les vraies valeurs du Waypoint
-            final wp = _wp;
-            _selectedType = wp.type;
-            _pendingDescription = wp.description ?? '';
-            _pendingImages = List<TripImage>.from(wp.images ?? []);
-            _isEditing = false;
-          });
-        } else {
-          Navigator.of(context).pop();
-        }
+        // if (widget.readOnly) {
+        //   setState(() {
+        //     // On réinitialise les modifs en cours avec les vraies valeurs du Waypoint
+        //     final wp = _wp;
+        //     _selectedType = wp.type;
+        //     _pendingDescription = wp.description ?? '';
+        //     _pendingImages = List<TripImage>.from(wp.images ?? []);
+        //     _isEditing = false;
+        //   });
+        // } else {
+        //   Navigator.of(context).pop();
+        // }
       },
       onConfirm: () {
-        final wp = _wp;
-        wp.description = _pendingDescription;
-        wp.images
-          ?..clear()
-          ..addAll(_pendingImages);
+        // final wp = _wp;
+        // wp.description = _pendingDescription;
+        // wp.images
+        //   ?..clear()
+        //   ..addAll(_pendingImages);
 
-        widget.onTypeChanged(_selectedType);
+        // widget.onTypeChanged(_selectedType);
 
-        // Si tu as un callback global d'édition passé au parent
-        if (widget.onEdit != null) widget.onEdit!();
+        // // Si tu as un callback global d'édition passé au parent
+        // if (widget.onEdit != null) widget.onEdit!();
 
         Navigator.of(context).pop();
       },
     );
   }
 }
-
-// ── _WaypointHeader ───────────────────────────────────────────────────────────

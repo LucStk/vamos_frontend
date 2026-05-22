@@ -9,27 +9,16 @@ import "waypoint_header.dart";
 import '../text_area_counter.dart';
 
 class WaypointEditor extends StatelessWidget {
-  final int waypointIndex;
-  final GWaypointEnum selectedType;
-  final String pendingDescription;
-  final List<TripImage> pendingImages;
-
-  final ValueChanged<GWaypointEnum> onTypeChanged;
-  final ValueChanged<String> onDescriptionChanged;
-  final ValueChanged<List<TripImage>> onImagesChanged;
+  final Waypoint waypoint;
   final VoidCallback onDelete;
   final VoidCallback onConfirm;
   final VoidCallback onCancel;
+  final ValueChanged<GWaypointEnum> onTypeChanged;
 
   const WaypointEditor({
     super.key,
-    required this.waypointIndex,
-    required this.selectedType,
-    required this.pendingDescription,
-    required this.pendingImages,
+    required this.waypoint,
     required this.onTypeChanged,
-    required this.onDescriptionChanged,
-    required this.onImagesChanged,
     required this.onDelete,
     required this.onConfirm,
     required this.onCancel,
@@ -49,12 +38,12 @@ class WaypointEditor extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                WaypointHeader(type: selectedType),
+                WaypointHeader(type: waypoint.type),
                 const SizedBox(height: 12),
 
                 // ── Sélecteur de type ──
                 WaypointTypeSelector(
-                  selectedType: selectedType,
+                  selectedType: waypoint.type,
                   onTypeChanged: onTypeChanged,
                 ),
 
@@ -63,17 +52,17 @@ class WaypointEditor extends StatelessWidget {
                 // ── Photos ──
                 const SizedBox(height: 4),
                 ImageCarouselPicker(
-                  remoteImages: pendingImages,
+                  remoteImages: waypoint.images!,
                   readOnly: false,
-                  onChanged: onImagesChanged,
+                  onChanged: (_) => {},
                 ),
 
                 // ── Description ──
                 const Divider(),
                 TextAreaWithCounter(
-                  initialValue: pendingDescription,
+                  initialValue: waypoint.description!,
                   readOnly: false,
-                  onChanged: onDescriptionChanged,
+                  onChanged: (_) => {},
                 ),
 
                 // ── Suppression ──
