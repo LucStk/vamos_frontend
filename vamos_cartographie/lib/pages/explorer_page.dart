@@ -4,9 +4,8 @@ import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/pages/map_page.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
-import 'package:vamos_cartographie/widgets/trip_info/trip_preview_dialog.dart';
-import 'package:vamos_cartographie/widgets/trip_info/editor/trip_creator_dialog.dart';
-import 'package:vamos_cartographie/widgets/trip_info/trip_info_dialog.dart';
+import 'package:vamos_cartographie/widgets/trip/trip_creator_dialog.dart';
+import 'package:vamos_cartographie/widgets/trip/trip_viewer.dart';
 
 class ExplorerPage extends StatefulWidget {
   const ExplorerPage({super.key});
@@ -37,21 +36,16 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   void _openTrip(Trip trip) {
-    TripPreviewDialog.show(
-      context: context,
-      tripData: trip,
-      onEdit: () => TripInfoDialog.showEditorForExistingTrip(
-        context: context,
-        tripId: trip.id!,
-        onSaved: _refresh,
-      ),
-      onExplore: () async {
-        await Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: trip.id)));
-        _refresh();
-      },
-    );
+    // TripViewer.show(
+    //   context: context,
+    //   tripData: trip,
+    //   onExplore: () async {
+    //     await Navigator.of(
+    //       context,
+    //     ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: trip.id)));
+    //     _refresh();
+    //   },
+    // );
   }
 
   void _createTrip() {

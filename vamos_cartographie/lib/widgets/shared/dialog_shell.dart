@@ -4,17 +4,15 @@ import 'package:flutter/material.dart';
 
 /// Enveloppe Dialog commune : titre centré, divider, contenu scrollable,
 /// puis une rangée de boutons en bas.
-///
-/// Utilisée par [TripInfoDialog] et [TripPreviewDialog].
 class DialogShell extends StatelessWidget {
   final Widget content;
-  final List<Widget> actions;
+  final List<Widget>? buttons;
   final BoxConstraints constraints;
 
   const DialogShell({
     super.key,
     required this.content,
-    required this.actions,
+    this.buttons,
     this.constraints = const BoxConstraints(maxWidth: 480, maxHeight: 600),
   });
 
@@ -39,9 +37,9 @@ class DialogShell extends StatelessWidget {
                   // ── Contenu ──
                   content,
                   const SizedBox(height: 20),
-
                   // ── Boutons ──
-                  Row(children: actions),
+                  if (buttons != null && buttons!.isNotEmpty)
+                    Row(children: buttons!),
                 ],
               ),
             ),
@@ -62,4 +60,4 @@ class DialogShell extends StatelessWidget {
       ),
     );
   }
-} // ── TripInfoDialog ────────────────────────────────────────────────────────────
+}

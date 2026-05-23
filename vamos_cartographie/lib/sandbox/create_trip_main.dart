@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../core/injection.dart';
-import 'package:vamos_cartographie/widgets/trip_info_sheet.dart';
 import '../domain/domain.dart';
+import "../widgets/trip/trip_editor.dart";
 
 void main() async {
   // Obligatoire si tu fais du async avant runApp

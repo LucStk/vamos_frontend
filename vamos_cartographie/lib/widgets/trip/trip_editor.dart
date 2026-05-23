@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
-import '../_trip_section_label.dart';
+import '_trip_section_label.dart';
 
 /// Vue d'édition des informations d'un voyage.
 /// Travaille sur une copie locale et n'applique les changements

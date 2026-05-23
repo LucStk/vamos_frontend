@@ -13,7 +13,6 @@ import '../widgets/map/map_controls.dart';
 import '../widgets/map/map_edit_toolbar.dart';
 import '../widgets/map/map_top_bar.dart';
 import '../widgets/segment/segment_bottom_sheet.dart';
-import '../widgets/trip_info_sheet.dart';
 import '../widgets/waypoints/waypoint_sheet.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:flutter/material.dart';
@@ -273,15 +272,6 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  void _showTripInfo() {
-    TripInfoSheet.show(
-      context: context,
-      trip: _trip,
-      onChanged: () => setState(() => _isDirty = true),
-      readOnly: !widget.isOwner,
-    );
-  }
-
   // ── Sauvegarde backend ────────────────────────────────────────────────────
 
   Future<void> _saveTrip() async {
@@ -445,7 +435,7 @@ class _MapPageState extends State<MapPage> {
               title: title,
               isDirty: _isDirty,
               onBack: _handleBack,
-              onTitleTap: _showTripInfo,
+              onTitleTap: () {},
             ),
 
             // ── Boutons de contrôle carte ─────────────────────────────────
