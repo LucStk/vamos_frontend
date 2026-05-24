@@ -127,12 +127,14 @@ class MockTripRepository implements ITripRepository {
       waypoints: [
         Waypoint(
           id: 30,
+          title: "départ",
           latLng: LatLng(43.4929, -1.4748),
           type: GWaypointEnum.START,
           description: 'Départ de Bayonne',
         ),
         Waypoint(
           id: 31,
+          title: "Super point d'eau",
           latLng: LatLng(43.2951, -0.3708),
           type: GWaypointEnum.WATER,
           description: "Point d'eau au gave de Pau",

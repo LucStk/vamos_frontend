@@ -24,8 +24,19 @@ class WaypointInfo extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // CORRECTION ICI : Pas d'accolades, pas de virgule de fin après le bloc
-                if (waypoint.title != null) Text(waypoint.title!),
+                // ── Titre mis en valeur ──
+                if (waypoint.title != null)
+                  Text(
+                    waypoint.title!,
+                    textAlign: TextAlign
+                        .center, // Aligne le texte au milieu sur l'axe X
+                    style: const TextStyle(
+                      fontSize: 24, // Rend le texte Grand
+                      fontWeight: FontWeight.bold, // Rend le texte en Gras
+                      color:
+                          Colors.black, // Optionnel : une couleur bien visible
+                    ),
+                  ),
 
                 const SizedBox(height: 16),
                 WaypointHeader(type: waypoint.type),
