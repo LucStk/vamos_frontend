@@ -80,13 +80,12 @@ class _WaypointVewerDialogState extends State<WaypointViewerDialog> {
       barrierDismissible: false,
       builder: (ctx) => DialogShell(
         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
-        content: WaypointEditor(
-          waypoint: waypoint,
-          onTypeChanged: _onTypeChanged,
-          onCancel: () {},
-          onConfirm: () {},
-          onDelete: () {},
-        ),
+        content: WaypointEditor(waypoint: waypoint),
+        buttons: [
+          TextButton(onPressed: () {}, child: const Text('Annuler')),
+          const Spacer(),
+          FilledButton(onPressed: () {}, child: const Text('Confirmer')),
+        ],
       ),
     );
   }

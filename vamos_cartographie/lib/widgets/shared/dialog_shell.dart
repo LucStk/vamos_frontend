@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// ── Shell partagée ────────────────────────────────────────────────────────────
-
-/// Enveloppe Dialog commune : titre centré, divider, contenu scrollable,
-/// puis une rangée de boutons en bas.
 class DialogShell extends StatelessWidget {
   final Widget content;
   final List<Widget>? buttons;
@@ -24,34 +20,46 @@ class DialogShell extends StatelessWidget {
         constraints: constraints,
         child: Stack(
           children: [
-            // 1. Le contenu principal qui peut défiler
-            SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(
-                    height: 24,
-                  ), // Un peu plus d'espace en haut pour ne pas chevaucher la croix
-                  // ── Contenu ──
-                  content,
-                  const SizedBox(height: 20),
-                  // ── Boutons ──
-                  if (buttons != null && buttons!.isNotEmpty)
-                    Row(children: buttons!),
+            // ── Structure Principale du Dialog ──
+            Column(
+              mainAxisSize: MainAxisSize.min, // S'adapte au contenu si petit
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(
+                  height: 32,
+                ), // Espace pour ne pas chevaucher la croix
+                // 1. Zone de contenu SCROLLABLE uniquement
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: content,
+                  ),
+                ),
+
+                // 2. Zone de BOUTONS STATIQUES toujours en bas
+                if (buttons != null && buttons!.isNotEmpty) ...[
+                  const Divider(
+                    height: 1,
+                  ), // Optionnel : une fine ligne de séparation
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment
+                          .end, // Aligne les boutons à droite (standard)
+                      children: buttons!,
+                    ),
+                  ),
                 ],
-              ),
+              ],
             ),
 
-            // 2. Le bouton de fermeture positionné en haut à droite
+            // ── Bouton de fermeture en haut à droite ──
             Positioned(
               top: 8,
               right: 8,
               child: IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () => Navigator.of(context).pop(),
-                // Optionnel : ajoute un léger effet visuel au survol si nécessaire
                 splashRadius: 20,
               ),
             ),

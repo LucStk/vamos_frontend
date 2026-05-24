@@ -20,6 +20,23 @@ class Waypoint {
     this.description = '',
     List<TripImage>? images,
   }) : images = images ?? [];
+
+  Waypoint copyWith({
+    int? id,
+    String? title,
+    String? description,
+    GWaypointEnum? type,
+    List<TripImage>? images,
+  }) {
+    return Waypoint(
+      id: id ?? this.id,
+      latLng: latLng, // On garde l'ancienne position du point
+      title: title ?? this.title,
+      description: description ?? this.description,
+      type: type ?? this.type,
+      images: images ?? this.images,
+    );
+  }
 }
 
 // Utilise les extensions définit dans le schema pour obtenir le label et l'icône correspondant à chaque type de point de passage

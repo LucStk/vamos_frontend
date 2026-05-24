@@ -1,27 +1,30 @@
 import "package:flutter/material.dart";
-
 import 'package:vamos_cartographie/domain/domain.dart';
-import 'package:api_client/api_client.dart';
 import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
 import "_waypoint_header.dart";
-import "_waypoint_type_selector.dart";
-import '../text_area_counter.dart';
+import "../shared/types_selector/waypoint_type_selector.dart";
+import '../shared/text_area_counter.dart';
 
-class WaypointEditor extends StatelessWidget {
+class WaypointEditor extends StatefulWidget {
   final Waypoint waypoint;
-  final VoidCallback onDelete;
-  final VoidCallback onConfirm;
-  final VoidCallback onCancel;
-  final ValueChanged<GWaypointEnum> onTypeChanged;
 
-  const WaypointEditor({
-    super.key,
-    required this.waypoint,
-    required this.onTypeChanged,
-    required this.onDelete,
-    required this.onConfirm,
-    required this.onCancel,
-  });
+  const WaypointEditor({super.key, required this.waypoint});
+
+  @override
+  State<WaypointEditor> createState() => _WaypointEditorState();
+}
+
+class _WaypointEditorState extends State<WaypointEditor> {
+  // C'est ici qu'on stocke la copie locale qui va muter
+  late Waypoint _localWaypoint;
+
+  @override
+  void initState() {
+    super.initState();
+    // On initialise notre copie locale avec le waypoint d'origine.
+    // (Note : Si ton modèle Waypoint possède une méthode .copyWith(), c'est le moment idéal pour l'utiliser)
+    _localWaypoint = widget.waypoint;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,50 +40,63 @@ class WaypointEditor extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                WaypointHeader(type: waypoint.type),
-                const SizedBox(height: 12),
-
-                // ── Sélecteur de type ──
-                WaypointTypeSelector(
-                  selectedType: waypoint.type,
-                  onTypeChanged: onTypeChanged,
+                // 1. Modification du Titre
+                TextFormField(
+                  initialValue: _localWaypoint.title ?? '',
+                  decoration: const InputDecoration(
+                    labelText: 'Titre du waypoint',
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (newTitle) {
+                    setState(() {
+                      // On met à jour notre copie locale
+                      _localWaypoint = _localWaypoint.copyWith(title: newTitle);
+                    });
+                  },
                 ),
 
-                const Divider(),
-
-                // ── Photos ──
-                const SizedBox(height: 4),
-                ImageCarouselPicker(
-                  remoteImages: waypoint.images!,
-                  readOnly: false,
-                  onChanged: (_) => {},
-                ),
-
-                // ── Description ──
+                // 4. Modification de la Description
                 const Divider(),
                 TextAreaWithCounter(
-                  initialValue: waypoint.description!,
+                  initialValue: _localWaypoint.description ?? '',
                   readOnly: false,
-                  onChanged: (_) => {},
+                  onChanged: (newDescription) {
+                    setState(() {
+                      _localWaypoint = _localWaypoint.copyWith(
+                        description: newDescription,
+                      );
+                    });
+                  },
+                ),
+                // 3. Modification des Photos
+                const SizedBox(height: 4),
+                ImageCarouselPicker(
+                  remoteImages: _localWaypoint.images ?? [],
+                  readOnly: false,
+                  onChanged: (newImages) {
+                    setState(() {
+                      // Ajuste selon ce que renvoie ton ImageCarouselPicker
+                      _localWaypoint = _localWaypoint.copyWith(
+                        images: newImages,
+                      );
+                    });
+                  },
+                ),
+                const SizedBox(height: 16),
+                WaypointHeader(type: _localWaypoint.type),
+                const SizedBox(height: 12),
+
+                // 2. Modification du Type
+                WaypointTypeSelector(
+                  selectedType: _localWaypoint.type,
+                  onTypeChanged: (newType) {
+                    setState(() {
+                      _localWaypoint = _localWaypoint.copyWith(type: newType);
+                    });
+                  },
                 ),
               ],
             ),
-          ),
-        ),
-
-        // ── Boutons ──
-        const Divider(height: 1),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-          child: Row(
-            children: [
-              TextButton(onPressed: onCancel, child: const Text('Annuler')),
-              const Spacer(),
-              FilledButton(
-                onPressed: onConfirm,
-                child: const Text('Confirmer'),
-              ),
-            ],
           ),
         ),
       ],

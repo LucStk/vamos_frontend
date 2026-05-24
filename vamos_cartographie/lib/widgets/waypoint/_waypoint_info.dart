@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
 import "_waypoint_header.dart";
 
-import '../text_area_counter.dart';
+import '../shared/text_area_counter.dart';
 
 class WaypointInfo extends StatelessWidget {
   final Waypoint waypoint;
