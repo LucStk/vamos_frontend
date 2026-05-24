@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-class DialogShell extends StatelessWidget {
+// On ajoute un type générique <T> qui représente la donnée renvoyée par le Dialog
+class DialogShell<T> extends StatelessWidget {
   final Widget content;
-  final List<Widget>? buttons;
+  // Au lieu de List<Widget>?, on demande une fonction qui génère les boutons
+  // et fournit le BuildContext du Dialog
+  final List<Widget> Function(BuildContext dialogContext)? buttonsBuilder;
   final BoxConstraints constraints;
 
   const DialogShell({
     super.key,
     required this.content,
-    this.buttons,
+    this.buttonsBuilder, // Renommé pour clarté
     this.constraints = const BoxConstraints(maxWidth: 480, maxHeight: 600),
   });
 
@@ -20,40 +23,36 @@ class DialogShell extends StatelessWidget {
         constraints: constraints,
         child: Stack(
           children: [
-            // ── Structure Principale du Dialog ──
             Column(
-              mainAxisSize: MainAxisSize.min, // S'adapte au contenu si petit
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(
-                  height: 32,
-                ), // Espace pour ne pas chevaucher la croix
-                // 1. Zone de contenu SCROLLABLE uniquement
+                const SizedBox(height: 32),
+
                 Expanded(
+                  // Attention : Ton original avait un SingleChildScrollView ICI ET dans le WaypointEditor.
+                  // Laisse-le ici, et enlève-le du WaypointEditor pour éviter les conflits de scroll.
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: content,
                   ),
                 ),
 
-                // 2. Zone de BOUTONS STATIQUES toujours en bas
-                if (buttons != null && buttons!.isNotEmpty) ...[
-                  const Divider(
-                    height: 1,
-                  ), // Optionnel : une fine ligne de séparation
+                // On génère les boutons dynamiquement si le builder est fourni
+                if (buttonsBuilder != null) ...[
+                  const Divider(height: 1),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .end, // Aligne les boutons à droite (standard)
-                      children: buttons!,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      // On passe le 'context' actuel (celui du Dialog) au builder !
+                      children: buttonsBuilder!(context),
                     ),
                   ),
                 ],
               ],
             ),
 
-            // ── Bouton de fermeture en haut à droite ──
             Positioned(
               top: 8,
               right: 8,
