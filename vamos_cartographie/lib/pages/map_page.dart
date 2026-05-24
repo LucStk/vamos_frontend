@@ -7,7 +7,6 @@ import 'package:latlong2/latlong.dart';
 import '../map/customPolyEditor.dart';
 import '../map/map_view.dart';
 import "package:vamos_cartographie/domain/domain.dart";
-import 'package:vamos_cartographie/domain/trip_image.dart';
 
 import '../widgets/map/map_controls.dart';
 import '../widgets/map/map_edit_toolbar.dart';

@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../core/injection.dart';
 import '../domain/domain.dart';
-import "../widgets/trip/trip_editor.dart";
+import "../widgets/trip/_trip_editor.dart";
 
 void main() async {
   // Obligatoire si tu fais du async avant runApp

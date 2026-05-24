@@ -10,8 +10,8 @@ import '../shared/dialog_shell.dart';
 import '../shared/buttons/explore_button.dart';
 import '../shared/buttons/modifier_button.dart';
 
-import 'trip_info_view.dart';
-import 'trip_editor.dart';
+import '_trip_info_view.dart';
+import '_trip_editor.dart';
 
 /// Dialog de prévisualisation d'un voyage depuis l'ExplorerPage.
 ///
@@ -35,10 +35,7 @@ class TripViewer extends StatefulWidget {
   }) {
     showDialog(
       context: context,
-      builder: (ctx) => TripViewer(
-        tripData: tripData,
-        onExplore: onExplore,
-      ),
+      builder: (ctx) => TripViewer(tripData: tripData, onExplore: onExplore),
     );
   }
 
@@ -57,9 +54,7 @@ class _TripPreviewDialogState extends State<TripViewer> {
   }
 
   Future<void> _loadTrip() async {
-    final result = await getIt<ITripRepository>().getTrip(
-      widget.tripData.id!,
-    );
+    final result = await getIt<ITripRepository>().getTrip(widget.tripData.id!);
 
     if (!mounted) return;
 
@@ -78,15 +73,11 @@ class _TripPreviewDialogState extends State<TripViewer> {
       context: context,
       barrierDismissible: false,
       builder: (ctx) => DialogShell(
-        constraints: const BoxConstraints(
-          maxWidth: 480,
-          maxHeight: 680,
-        ),
+        constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
         content: TripInfoEditor(
           trip: trip,
           onConfirm: () async {
-            final saveResult =
-                await getIt<ITripRepository>().updateTrip(
+            final saveResult = await getIt<ITripRepository>().updateTrip(
               trip.id!,
               trip,
             );
@@ -97,9 +88,7 @@ class _TripPreviewDialogState extends State<TripViewer> {
               (failure) {
                 ScaffoldMessenger.of(ctx).showSnackBar(
                   SnackBar(
-                    content: Text(
-                      'Erreur : ${failure.message}',
-                    ),
+                    content: Text('Erreur : ${failure.message}'),
                     backgroundColor: Colors.redAccent,
                     behavior: SnackBarBehavior.floating,
                   ),
@@ -142,16 +131,9 @@ class _TripPreviewDialogState extends State<TripViewer> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.error_outline,
-              size: 48,
-              color: Colors.redAccent,
-            ),
+            const Icon(Icons.error_outline, size: 48, color: Colors.redAccent),
             const SizedBox(height: 12),
-            Text(
-              'Erreur : $_error',
-              textAlign: TextAlign.center,
-            ),
+            Text('Erreur : $_error', textAlign: TextAlign.center),
             const SizedBox(height: 16),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -168,11 +150,7 @@ class _TripPreviewDialogState extends State<TripViewer> {
       buttons: [
         ModifierButton(
           onPressed: () {
-            _showEditor(
-              context: context,
-              trip: _trip!,
-              onChanged: _loadTrip,
-            );
+            _showEditor(context: context, trip: _trip!, onChanged: _loadTrip);
           },
         ),
 
