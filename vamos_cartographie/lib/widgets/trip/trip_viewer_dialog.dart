@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-
 import '../../core/injection.dart';
-
 import 'package:vamos_cartographie/domain/domain.dart';
-
 import '../../data/repositories/i_trip_repository.dart';
-
 import '../shared/dialog_shell.dart';
 import '../shared/buttons/explore_button.dart';
 import '../shared/buttons/modifier_button.dart';
-
 import '_trip_info_view.dart';
 import '_trip_editor.dart';
 
@@ -17,11 +12,11 @@ import '_trip_editor.dart';
 ///
 /// Charge le [Trip] complet (imageUrls, waypoints…) avant d'afficher,
 /// puis propose : Modifier · Explorer.
-class TripViewer extends StatefulWidget {
+class TripViewerDialog extends StatefulWidget {
   final Trip tripData;
   final VoidCallback onExplore;
 
-  const TripViewer({
+  const TripViewerDialog({
     super.key,
     required this.tripData,
     required this.onExplore,
@@ -35,15 +30,16 @@ class TripViewer extends StatefulWidget {
   }) {
     showDialog(
       context: context,
-      builder: (ctx) => TripViewer(tripData: tripData, onExplore: onExplore),
+      builder: (ctx) =>
+          TripViewerDialog(tripData: tripData, onExplore: onExplore),
     );
   }
 
   @override
-  State<TripViewer> createState() => _TripPreviewDialogState();
+  State<TripViewerDialog> createState() => _TripPreviewDialogState();
 }
 
-class _TripPreviewDialogState extends State<TripViewer> {
+class _TripPreviewDialogState extends State<TripViewerDialog> {
   Trip? _trip;
   String? _error;
 

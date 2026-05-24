@@ -3,9 +3,8 @@ import "package:flutter/material.dart";
 import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:api_client/api_client.dart';
 import 'package:vamos_cartographie/widgets/carousel/carousel.dart';
-import 'package:vamos_cartographie/widgets/waypoints/waypoint_type_selector.dart';
-import "waypoint_header.dart";
-
+import "_waypoint_header.dart";
+import "_waypoint_type_selector.dart";
 import '../text_area_counter.dart';
 
 class WaypointEditor extends StatelessWidget {

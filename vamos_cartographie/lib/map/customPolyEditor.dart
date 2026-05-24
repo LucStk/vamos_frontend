@@ -15,7 +15,7 @@ class CustomPolyEditor {
   /// (insertion ou suppression d'un point). Déclenche un setState dans MapPage.
   final void Function(LatLng? point) callbackRefresh;
 
-  final void Function(int index) onWaypointLongPress;
+  // final void Function(int index) onWaypointLongPress;
   final void Function(int segmentIndex) onSegmentMidpointInserted;
   final void Function(int segmentIndex, int pointIndex)
   onIntermediatePointDeleted;
@@ -27,7 +27,7 @@ class CustomPolyEditor {
   CustomPolyEditor({
     required this.trip,
     required this.callbackRefresh,
-    required this.onWaypointLongPress,
+    // required this.onWaypointLongPress,
     required this.onSegmentMidpointInserted,
     required this.onIntermediatePointDeleted,
   });
@@ -55,7 +55,7 @@ class CustomPolyEditor {
             callbackRefresh(latLng);
           },
           onDragEnd: (_, __) => _draggingWaypointIndex = null,
-          onTap: (_) => onWaypointLongPress(index),
+          // onTap: (_) => onWaypointLongPress(index),
         ),
       );
     }

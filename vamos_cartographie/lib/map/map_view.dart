@@ -3,20 +3,25 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'customPolyEditor.dart';
+import 'map_context_menu.dart';
 import 'segment_layers_builder.dart';
 import 'segment_type_markers_builder.dart';
 import 'waypoint_markers_builder.dart';
 
 import 'package:vamos_cartographie/domain/domain.dart';
 
-class MapView extends StatelessWidget {
+class MapView extends StatefulWidget {
   final Trip trip;
   final CustomPolyEditor editor;
   final void Function(LatLng)? onTap;
   final void Function(int)? onSegmentTypeMarkerTap;
-  final void Function(int)? onWaypointTap;
+  final void Function(Waypoint)? onWaypointTap;
   final bool editable;
   final MapController? mapController;
+
+  /// Options affichées dans le menu contextuel (clic sur la carte).
+  /// Si la liste est vide ou null, aucun menu n'apparaît au clic.
+  final List<MapContextMenuOption>? contextMenuOptions;
 
   const MapView({
     Key? key,
@@ -27,16 +32,37 @@ class MapView extends StatelessWidget {
     this.onWaypointTap,
     this.editable = true,
     this.mapController,
+    this.contextMenuOptions,
   }) : super(key: key);
+
+  @override
+  State<MapView> createState() => _MapViewState();
+}
+
+class _MapViewState extends State<MapView> {
+  LatLng? _contextMenuPosition;
+
+  void _handleTap(LatLng latLng) {
+    final hasMenu =
+        widget.contextMenuOptions != null &&
+        widget.contextMenuOptions!.isNotEmpty;
+
+    if (hasMenu) {
+      // Priorité au menu contextuel : on l'ouvre (ou on le déplace)
+      setState(() => _contextMenuPosition = latLng);
+    } else if (widget.onTap != null) {
+      widget.onTap!(latLng);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
-      mapController: mapController,
+      mapController: widget.mapController,
       options: MapOptions(
         initialCenter: LatLng(46.8, 2.2),
         initialZoom: 7,
-        onTap: onTap != null ? (_, latLng) => onTap!(latLng) : null,
+        onTap: (_, latLng) => _handleTap(latLng),
       ),
       children: [
         TileLayer(
@@ -48,11 +74,11 @@ class MapView extends StatelessWidget {
         // Se redessine à chaque repaintNotifier++ (pendant le drag) pour
         // mettre à jour les polylines. DragMarkers n'est PAS ici.
         _LiveSegmentLayer(
-          trip: trip,
-          repaintNotifier: editor.repaintNotifier,
-          editable: editable,
-          onSegmentTypeMarkerTap: onSegmentTypeMarkerTap,
-          onWaypointTap: onWaypointTap,
+          trip: widget.trip,
+          repaintNotifier: widget.editor.repaintNotifier,
+          editable: widget.editable,
+          onSegmentTypeMarkerTap: widget.onSegmentTypeMarkerTap,
+          onWaypointTap: widget.onWaypointTap,
         ),
 
         // ── DragMarkers ─────────────────────────────────────────────────────
@@ -62,12 +88,25 @@ class MapView extends StatelessWidget {
         // Cela préserve les états internes des DragMarkerWidget (position du
         // drag en cours, _isDragging, etc.) et évite la reconciliation par
         // position qui causait le bug.
-        if (editable) DragMarkers(markers: editor.edit()),
+        if (widget.editable) DragMarkers(markers: widget.editor.edit()),
 
         // Marqueurs statiques tappables (mode observateur)
-        if (!editable && onWaypointTap != null)
+        if (!widget.editable && widget.onWaypointTap != null)
           MarkerLayer(
-            markers: WaypointMarkersBuilder.buildMarkers(trip, onWaypointTap!),
+            markers: WaypointMarkersBuilder.buildMarkers(
+              widget.trip,
+              widget.onWaypointTap!,
+            ),
+          ),
+
+        // ── Menu contextuel géo-ancré ────────────────────────────────────
+        if (_contextMenuPosition != null &&
+            widget.contextMenuOptions != null &&
+            widget.contextMenuOptions!.isNotEmpty)
+          MapContextMenu(
+            position: _contextMenuPosition!,
+            options: widget.contextMenuOptions!,
+            onClose: () => setState(() => _contextMenuPosition = null),
           ),
       ],
     );
@@ -84,7 +123,7 @@ class _LiveSegmentLayer extends StatefulWidget {
   final ValueNotifier<int> repaintNotifier;
   final bool editable;
   final void Function(int)? onSegmentTypeMarkerTap;
-  final void Function(int)? onWaypointTap;
+  final void Function(Waypoint)? onWaypointTap;
 
   const _LiveSegmentLayer({
     required this.trip,

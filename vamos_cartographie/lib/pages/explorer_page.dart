@@ -35,7 +35,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   void _openTrip(Trip trip) {
-    TripViewer.show(
+    TripViewerDialog.show(
       context: context,
       tripData: trip,
       onExplore: () async {

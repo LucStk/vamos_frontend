@@ -6,7 +6,10 @@ import 'package:vamos_cartographie/domain/domain.dart';
 class WaypointMarkersBuilder {
   /// Construit les markers statiques des waypoints (visibles dans les deux modes).
   /// [onTap] est appelé avec l'index du waypoint tapé.
-  static List<Marker> buildMarkers(Trip trip, void Function(int index) onTap) {
+  static List<Marker> buildMarkers(
+    Trip trip,
+    void Function(Waypoint waypoint) onTap,
+  ) {
     final markers = <Marker>[];
 
     for (var i = 0; i < trip.waypoints.length; i++) {
@@ -19,7 +22,7 @@ class WaypointMarkersBuilder {
           width: 36,
           height: 36,
           child: GestureDetector(
-            onTap: () => onTap(index),
+            onTap: () => onTap(wp),
             child: _WaypointIcon(waypoint: wp),
           ),
         ),

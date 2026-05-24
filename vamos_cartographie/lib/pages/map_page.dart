@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/core/failure.dart';
 
 import 'package:latlong2/latlong.dart';
 import '../map/customPolyEditor.dart';
+import '../map/map_context_menu.dart';
 import '../map/map_view.dart';
 import "package:vamos_cartographie/domain/domain.dart";
 
@@ -12,7 +13,7 @@ import '../widgets/map/map_controls.dart';
 import '../widgets/map/map_edit_toolbar.dart';
 import '../widgets/map/map_top_bar.dart';
 import '../widgets/segment/segment_bottom_sheet.dart';
-import '../widgets/waypoints/waypoint_sheet.dart';
+import '../widgets/waypoint/waypoint_viewer_dialog.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -110,7 +111,6 @@ class _MapPageState extends State<MapPage> {
     return CustomPolyEditor(
       trip: _trip,
       callbackRefresh: (_) => setState(() => _isDirty = true),
-      onWaypointLongPress: _onWaypointLongPress,
       onSegmentMidpointInserted: (_) => setState(() => _isDirty = true),
       onIntermediatePointDeleted: (_, __) => setState(() => _isDirty = true),
     );
@@ -210,49 +210,16 @@ class _MapPageState extends State<MapPage> {
 
   // ── Gestion du waypoint long-press ───────────────────────────────────────
 
-  void _onWaypointLongPress(int index) {
-    if (!_isEditing) return;
-    _showWaypointEditor(index);
-  }
-
-  // ── Dialogs waypoints / segments ─────────────────────────────────────────
-
-  /// Ouvre la fiche waypoint en mode édition.
-  void _showWaypointEditor(int index) {
-    final wp = _trip.waypoints[index];
-    WaypointCard.show(
-      context: context,
-      waypointIndex: index,
-      trip: _trip,
-      onTypeChanged: (type) => setState(() {
-        wp.type = type;
-        _isDirty = true;
-      }),
-      onDelete: () => setState(() {
-        _trip.removeWaypoint(index);
-        _isDirty = true;
-      }),
-      readOnly: false,
-    );
-  }
-
   /// Ouvre la fiche waypoint en mode lecture (avec bouton "Modifier" si owner).
-  void _showWaypointInfo(int index) {
-    WaypointCard.show(
+  void _showWaypointInfo(Waypoint waypoint) {
+    WaypointViewerDialog.show(
       context: context,
-      waypointIndex: index,
-      trip: _trip,
-      onTypeChanged: (type) => setState(() {
-        _trip.waypoints[index].type = type;
-        _isDirty = true;
-      }),
-      onDelete: () => setState(() {
-        _trip.removeWaypoint(index);
-        _isDirty = true;
-      }),
-      readOnly: true,
-      // Le bouton "Modifier" n'est proposé qu'au propriétaire
-      onEdit: widget.isOwner ? () => _showWaypointEditor(index) : null,
+      waypoint: waypoint,
+      onEdit: () {
+        throw Exception(
+          "Dans map_page -> _showWaypointInfo : pas de onEdit instancié",
+        );
+      },
     );
   }
 
@@ -374,6 +341,38 @@ class _MapPageState extends State<MapPage> {
     if (mounted) Navigator.of(context).pop();
   }
 
+  // ── Menu contextuel ─────────────────────────────────────────────────────
+
+  /// Construit la liste des options du menu contextuel (clic sur la carte).
+  ///
+  /// C'est ici qu'il faut ajouter de nouvelles actions au fil du temps.
+  List<MapContextMenuOption> _buildContextMenuOptions() {
+    return [
+      // ── Ajouter un waypoint à cet endroit ─────────────────────────────
+      if (widget.isOwner)
+        MapContextMenuOption(
+          icon: Icons.add_location_alt,
+          label: 'Créer un point',
+          onTap: (latLng) {
+            setState(() {
+              _trip.addWaypoint(latLng);
+              _isDirty = true;
+            });
+            _saveTrip();
+          },
+        ),
+
+      // ── Déplacer la carte ici (centrer) ───────────────────────────────
+      MapContextMenuOption(
+        icon: Icons.my_location,
+        label: 'Centrer ici',
+        onTap: (latLng) {
+          _mapController.move(latLng, _mapController.camera.zoom);
+        },
+      ),
+    ];
+  }
+
   // ── Build ────────────────────────────────────────────────────────────────
 
   @override
@@ -415,18 +414,20 @@ class _MapPageState extends State<MapPage> {
               editable: _isEditing,
               mapController: _mapController,
               // En mode ajout : tap = ajouter un waypoint
+              // En mode observer : tap = ouvrir le menu contextuel
               onTap: _isAddingPoint
                   ? (latLng) => setState(() {
                       _trip.addWaypoint(latLng);
                       _isDirty = true;
                     })
                   : null,
+              contextMenuOptions: _mode == _MapMode.observer
+                  ? _buildContextMenuOptions()
+                  : null,
               onSegmentTypeMarkerTap: _isEditing ? _showSegmentOptions : null,
               // Tap waypoint : info en lecture, édition si on est en train
               // d'éditer la route
-              onWaypointTap: _isEditing
-                  ? _showWaypointEditor
-                  : _showWaypointInfo,
+              onWaypointTap: _showWaypointInfo,
             ),
 
             // ── Barre supérieure ─────────────────────────────────────────
