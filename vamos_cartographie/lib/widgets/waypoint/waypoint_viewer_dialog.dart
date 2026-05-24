@@ -80,11 +80,7 @@ class _WaypointVewerDialogState extends State<WaypointViewerDialog> {
 
         // Le builder nous donne "ctx" (le BuildContext de la modal)
         buttonsBuilder: (ctx) => [
-          // ── Annuler ─────────────────────────────
-          TextButton(
-            onPressed: () => Navigator.pop(ctx), // Ferme sans data
-            child: const Text('Annuler'),
-          ),
+          CancelButton(onPressed: () => Navigator.pop(ctx)), // Ferme sans data
 
           const Spacer(),
 

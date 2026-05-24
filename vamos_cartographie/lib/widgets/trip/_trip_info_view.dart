@@ -8,7 +8,6 @@ import '_trip_section_label.dart';
 
 /// Vue lecture seule des informations d'un voyage.
 /// Utilisée dans le dialog d'affichage.
-/// Si [onEdit] est fourni, un bouton « Modifier » est affiché en bas à droite.
 class TripInfoView extends StatelessWidget {
   final Trip trip;
   final VoidCallback? onEdit;
@@ -79,19 +78,6 @@ class TripInfoView extends StatelessWidget {
             remoteImages: trip.images,
             readOnly: true,
             onChanged: (_) {},
-          ),
-        ],
-
-        // Bouton Modifier
-        if (onEdit != null) ...[
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerRight,
-            child: OutlinedButton.icon(
-              onPressed: onEdit,
-              icon: const Icon(Icons.edit_outlined, size: 16),
-              label: const Text('Modifier'),
-            ),
           ),
         ],
 

@@ -9,25 +9,14 @@ import '_trip_section_label.dart';
 /// qu'à la confirmation via [onConfirm].
 class TripInfoEditor extends StatefulWidget {
   final Trip trip;
-  final VoidCallback onConfirm;
-  final VoidCallback onCancel;
-  final String confirmLabel;
-  final IconData confirmIcon;
 
-  const TripInfoEditor({
-    super.key,
-    required this.trip,
-    required this.onConfirm,
-    required this.onCancel,
-    this.confirmLabel = 'Confirmer',
-    this.confirmIcon = Icons.check,
-  });
+  const TripInfoEditor({super.key, required this.trip});
 
   @override
-  State<TripInfoEditor> createState() => _TripInfoEditorState();
+  State<TripInfoEditor> createState() => TripInfoEditorState();
 }
 
-class _TripInfoEditorState extends State<TripInfoEditor> {
+class TripInfoEditorState extends State<TripInfoEditor> {
   late final TextEditingController _titleCtrl;
   late final TextEditingController _descCtrl;
   late DateTime? _date;
@@ -62,14 +51,6 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
       locale: const Locale('fr', 'FR'),
     );
     if (picked != null) setState(() => _date = picked);
-  }
-
-  void _confirm() {
-    widget.trip.title = _titleCtrl.text.trim();
-    widget.trip.description = _descCtrl.text;
-    widget.trip.date = _date;
-    widget.trip.images = _images;
-    widget.onConfirm();
   }
 
   @override

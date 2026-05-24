@@ -3,8 +3,7 @@ import '../../core/injection.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 import '../../data/repositories/i_trip_repository.dart';
 import '../shared/dialog_shell.dart';
-import '../shared/buttons/explore_button.dart';
-import '../shared/buttons/modifier_button.dart';
+import '../shared/buttons.dart';
 import '_trip_info_view.dart';
 import '_trip_editor.dart';
 
@@ -60,43 +59,83 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
     );
   }
 
+  Future<void> _upload(BuildContext context, Trip trip) async {
+    final saveResult = await getIt<ITripRepository>().updateTrip(
+      trip.id!,
+      trip,
+    );
+
+    if (!context.mounted) return;
+
+    saveResult.fold(
+      (failure) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur : ${failure.message}'),
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      },
+      (_) {
+        Navigator.of(context).pop();
+      },
+    );
+  }
+
   static void _showEditor({
     required BuildContext context,
     required Trip trip,
-    required VoidCallback onChanged,
-  }) {
-    showDialog(
+  }) async {
+    final editorKey = GlobalKey<TripInfoEditorState>();
+
+    final Trip? result = await showDialog<Trip>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => DialogShell(
         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
-        content: TripInfoEditor(
-          trip: trip,
-          onConfirm: () async {
-            final saveResult = await getIt<ITripRepository>().updateTrip(
-              trip.id!,
-              trip,
-            );
+        content: TripInfoEditor(trip: trip),
+        buttonsBuilder: (ctx) => [
+          CancelButton(onPressed: () => Navigator.pop(ctx)),
+          const Spacer(),
+          ConfirmButton(onPressed: (){
+            final editedTrip = editorKey.currentState?.currentTrip
 
-            if (!ctx.mounted) return;
+          },)
+        ],
+      ),
+    );
+  }
 
-            saveResult.fold(
-              (failure) {
-                ScaffoldMessenger.of(ctx).showSnackBar(
-                  SnackBar(
-                    content: Text('Erreur : ${failure.message}'),
-                    backgroundColor: Colors.redAccent,
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
-              (_) {
-                Navigator.of(ctx).pop();
-                onChanged();
-              },
-            );
-          },
-          onCancel: () => Navigator.of(ctx).pop(),
+  Widget _showError(BuildContext context) {
+    return DialogShell(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.error_outline, size: 48, color: Colors.redAccent),
+          const SizedBox(height: 12),
+          Text('Erreur : $_error', textAlign: TextAlign.center),
+          const SizedBox(height: 16),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Fermer'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _showLoading(BuildContext context) {
+    return const DialogShell(
+      content: Padding(
+        padding: EdgeInsets.all(40),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 16),
+            Text('Chargement…'),
+          ],
         ),
       ),
     );
@@ -106,47 +145,20 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
   Widget build(BuildContext context) {
     // ── Chargement ──
     if (_trip == null && _error == null) {
-      return const DialogShell(
-        content: Padding(
-          padding: EdgeInsets.all(40),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text('Chargement…'),
-            ],
-          ),
-        ),
-      );
+      return _showLoading(context);
     }
 
     // ── Erreur ──
     if (_error != null) {
-      return DialogShell(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.error_outline, size: 48, color: Colors.redAccent),
-            const SizedBox(height: 12),
-            Text('Erreur : $_error', textAlign: TextAlign.center),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Fermer'),
-            ),
-          ],
-        ),
-      );
+      return _showError(context);
     }
-
     // ── Contenu ──
     return DialogShell(
       content: TripInfoView(trip: _trip!),
       buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {
-            _showEditor(context: context, trip: _trip!, onChanged: _loadTrip);
+            _showEditor(context: context, trip: _trip!);
           },
         ),
 
