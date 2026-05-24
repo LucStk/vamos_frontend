@@ -43,7 +43,7 @@ class _WaypointVewerDialogState extends State<WaypointViewerDialog> {
     return DialogShell(
       content: WaypointInfo(waypoint: widget.waypoint),
 
-      buttons: [
+      buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {
             _showEditor(context: context, waypoint: widget.waypoint);
@@ -64,26 +64,25 @@ class _WaypointVewerDialogState extends State<WaypointViewerDialog> {
   static void _showEditor({
     required BuildContext context,
     required Waypoint waypoint,
-  }) {
-    // ── Draft partagé ─────────────────────────────
+  }) async {
+    // Une clé pour pouvoir lire l'état du formulaire depuis le bouton "Confirmer"
+    final editorKey = GlobalKey<WaypointEditorState>();
 
-    final draft = ValueNotifier<Waypoint>(waypoint);
-
-    showDialog(
+    final Waypoint? result = await showDialog<Waypoint>(
       context: context,
       barrierDismissible: false,
-
-      builder: (ctx) => DialogShell(
+      // On type explicitement le DialogShell avec <Waypoint>
+      builder: (ctx) => DialogShell<Waypoint>(
         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
 
-        content: WaypointEditor(draft: draft),
+        // L'enfant reçoit la clé
+        content: WaypointEditor(key: editorKey, initialWaypoint: waypoint),
 
-        buttons: [
+        // Le builder nous donne "ctx" (le BuildContext de la modal)
+        buttonsBuilder: (ctx) => [
           // ── Annuler ─────────────────────────────
           TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-            },
+            onPressed: () => Navigator.pop(ctx), // Ferme sans data
             child: const Text('Annuler'),
           ),
 
@@ -92,28 +91,28 @@ class _WaypointVewerDialogState extends State<WaypointViewerDialog> {
           // ── Confirmer ──────────────────────────
           FilledButton(
             onPressed: () async {
-              final editedWaypoint = draft.value;
-              try {
-                // TODO :
-                // appeler ton repository Ferry ici
+              // On récupère le waypoint directement dans l'état de l'enfant !
+              final editedWaypoint = editorKey.currentState?.currentWaypoint;
 
-                // Exemple :
-                //
-                // final updatedWaypoint =
-                //    await repository.updateWaypoint(
-                //      editedWaypoint,
-                //    );
+              if (editedWaypoint != null) {
+                try {
+                  // repository.updateWaypoint(editedWaypoint);
 
-                Navigator.pop(ctx, editedWaypoint);
-              } catch (e) {
-                debugPrint(e.toString());
+                  // On ferme la modal (ctx) EN RENVOYANT la donnée
+                  Navigator.pop(ctx, editedWaypoint);
+                } catch (e) {
+                  debugPrint(e.toString());
+                }
               }
             },
-
             child: const Text('Confirmer'),
           ),
         ],
       ),
     );
+
+    if (result != null) {
+      // Ton parent récupère proprement le waypoint modifié ici !
+    }
   }
 }

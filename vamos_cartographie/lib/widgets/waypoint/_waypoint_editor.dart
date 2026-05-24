@@ -5,94 +5,77 @@ import "_waypoint_header.dart";
 import "../shared/types_selector/waypoint_type_selector.dart";
 import '../shared/text_area_counter.dart';
 
-class WaypointEditor extends StatelessWidget {
-  final ValueNotifier<Waypoint> draft;
+class WaypointEditor extends StatefulWidget {
+  final Waypoint initialWaypoint;
+  const WaypointEditor({super.key, required this.initialWaypoint});
 
-  const WaypointEditor({super.key, required this.draft});
+  @override
+  State<WaypointEditor> createState() => WaypointEditorState(); // Public (sans _)
+}
+
+class WaypointEditorState extends State<WaypointEditor> {
+  late Waypoint currentWaypoint; // Accessible par la GlobalKey
+
+  @override
+  void initState() {
+    super.initState();
+    currentWaypoint = widget.initialWaypoint;
+  }
 
   void _patch(Waypoint newWaypoint) {
-    draft.value = newWaypoint;
+    setState(() {
+      currentWaypoint = newWaypoint;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Waypoint>(
-      valueListenable: draft,
+    // Juste la colonne de champs, pas de ScrollView ici, le Shell s'en occupe
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextFormField(
+          initialValue: currentWaypoint.title ?? '',
+          decoration: const InputDecoration(labelText: 'Titre du waypoint'),
+          onChanged: (val) => _patch(currentWaypoint.copyWith(title: val)),
+        ),
+        const Divider(),
+        TextAreaWithCounter(
+          initialValue: currentWaypoint.description ?? '',
+          readOnly: false,
+          onChanged: (val) =>
+              _patch(currentWaypoint.copyWith(description: val)),
+        ),
 
-      builder: (context, waypoint, _) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Flexible(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
+        const SizedBox(height: 4),
 
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+        // ── Images ─────────────────────────────
+        ImageCarouselPicker(
+          remoteImages: currentWaypoint.images ?? [],
+          readOnly: false,
 
-                  children: [
-                    // ── Titre ───────────────────────────────
-                    TextFormField(
-                      initialValue: waypoint.title ?? '',
+          onChanged: (newImages) {
+            _patch(currentWaypoint.copyWith(images: newImages));
+          },
+        ),
 
-                      decoration: const InputDecoration(
-                        labelText: 'Titre du waypoint',
-                        border: OutlineInputBorder(),
-                      ),
+        const SizedBox(height: 16),
 
-                      onChanged: (newTitle) {
-                        _patch(waypoint.copyWith(title: newTitle));
-                      },
-                    ),
+        // ── Header ─────────────────────────────
+        WaypointHeader(type: currentWaypoint.type),
 
-                    const Divider(),
+        const SizedBox(height: 12),
 
-                    // ── Description ────────────────────────
-                    TextAreaWithCounter(
-                      initialValue: waypoint.description ?? '',
-                      readOnly: false,
+        // ── Type ───────────────────────────────
+        WaypointTypeSelector(
+          selectedType: currentWaypoint.type,
 
-                      onChanged: (newDescription) {
-                        _patch(waypoint.copyWith(description: newDescription));
-                      },
-                    ),
-
-                    const SizedBox(height: 4),
-
-                    // ── Images ─────────────────────────────
-                    ImageCarouselPicker(
-                      remoteImages: waypoint.images ?? [],
-                      readOnly: false,
-
-                      onChanged: (newImages) {
-                        _patch(waypoint.copyWith(images: newImages));
-                      },
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    // ── Header ─────────────────────────────
-                    WaypointHeader(type: waypoint.type),
-
-                    const SizedBox(height: 12),
-
-                    // ── Type ───────────────────────────────
-                    WaypointTypeSelector(
-                      selectedType: waypoint.type,
-
-                      onTypeChanged: (newType) {
-                        _patch(waypoint.copyWith(type: newType));
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
+          onTypeChanged: (newType) {
+            _patch(currentWaypoint.copyWith(type: newType));
+          },
+        ),
+      ],
     );
   }
 }

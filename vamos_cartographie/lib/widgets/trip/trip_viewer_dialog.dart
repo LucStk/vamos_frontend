@@ -143,7 +143,7 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
     // ── Contenu ──
     return DialogShell(
       content: TripInfoView(trip: _trip!),
-      buttons: [
+      buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {
             _showEditor(context: context, trip: _trip!, onChanged: _loadTrip);
