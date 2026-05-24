@@ -445,8 +445,6 @@ class _MapPageState extends State<MapPage> {
             if (widget.isOwner && _mode == _MapMode.observer) ...[
               // Bouton "Modifier route"
               MapEditFab(isActive: false, onTap: _enterEditRoute),
-              // Bouton "Ajouter point"
-              MapAddPointFab(isActive: false, onTap: _enterAddPoint),
             ],
 
             // ── Barre basse : mode édition route ─────────────────────────

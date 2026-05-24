@@ -172,24 +172,6 @@ class _TripInfoEditorState extends State<TripInfoEditor> {
             ),
           ),
         ),
-        const SizedBox(height: 24),
-
-        // ── Boutons ──
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: widget.onCancel,
-              child: const Text('Annuler'),
-            ),
-            const SizedBox(width: 8),
-            FilledButton.icon(
-              onPressed: _confirm,
-              icon: Icon(widget.confirmIcon, size: 18),
-              label: Text(widget.confirmLabel),
-            ),
-          ],
-        ),
       ],
     );
   }

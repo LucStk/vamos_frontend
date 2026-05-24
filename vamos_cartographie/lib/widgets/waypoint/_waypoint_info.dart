@@ -17,7 +17,6 @@ class WaypointInfo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // ── Contenu scrollable ──
         Flexible(
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
@@ -25,6 +24,10 @@ class WaypointInfo extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // CORRECTION ICI : Pas d'accolades, pas de virgule de fin après le bloc
+                if (waypoint.title != null) Text(waypoint.title!),
+
+                const SizedBox(height: 16),
                 WaypointHeader(type: waypoint.type),
                 const SizedBox(height: 16),
 
@@ -35,14 +38,21 @@ class WaypointInfo extends StatelessWidget {
                   onChanged: (_) {},
                 ),
 
-                // Description
+                // Description (Ici ta syntaxe avec ...[ ] était déjà correcte !)
                 if (waypoint.description != null &&
                     waypoint.description!.isNotEmpty) ...[
                   const SizedBox(height: 12),
-                  TextAreaWithCounter(
-                    initialValue: waypoint.description!,
-                    readOnly: true,
-                    onChanged: (_) {},
+                  Text(
+                    waypoint.description!,
+                    style: const TextStyle(
+                      fontSize: 14, // Taille de la police
+                      height:
+                          1.5, // Hauteur de ligne (interligne) pour une meilleure lisibilité
+                      color: Colors
+                          .black87, // Un noir légèrement adouci, plus agréable à lire
+                    ),
+                    textAlign: TextAlign
+                        .justify, // Optionnel : pour justifier le texte comme dans un livre
                   ),
                 ],
                 const SizedBox(height: 16),

@@ -63,15 +63,6 @@ class WaypointEditor extends StatelessWidget {
                   readOnly: false,
                   onChanged: (_) => {},
                 ),
-
-                // ── Suppression ──
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.delete, color: Colors.red),
-                  title: const Text('Supprimer ce waypoint'),
-                  onTap: onDelete,
-                ),
-                const SizedBox(height: 8),
               ],
             ),
           ),
