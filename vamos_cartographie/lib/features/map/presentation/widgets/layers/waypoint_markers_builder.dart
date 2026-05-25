@@ -14,7 +14,7 @@ class WaypointMarkersBuilder {
 
     for (var i = 0; i < trip.waypoints.length; i++) {
       final wp = trip.waypoints[i];
-      final index = i;
+      // final index = i;
 
       markers.add(
         Marker(

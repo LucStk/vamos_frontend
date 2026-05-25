@@ -1,40 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/features/trips/domain/domain.dart';
-import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart';
 import 'package:vamos_cartographie/features/map/map.dart';
+import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExplorerPage extends StatefulWidget {
+class ExplorerPage extends ConsumerWidget {
   const ExplorerPage({super.key});
 
-  @override
-  State<ExplorerPage> createState() => _ExplorerPageState();
-}
-
-class _ExplorerPageState extends State<ExplorerPage> {
-  late Future<List<Trip>> _tripsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadTrips();
-  }
-
-  void _loadTrips() {
-    _tripsFuture = getIt<ITripRepository>().getAllTrips().then((result) {
-      return result.fold((failure) => throw failure, (trips) => trips);
-    });
-  }
-
-  void _refresh() {
-    setState(() {
-      _loadTrips();
-    });
-  }
-
-  void _openTrip(Trip trip) {
+  void _openTrip(BuildContext context, Trip trip) {
     TripViewerDialog.show(
       context: context,
       tripData: trip,
@@ -42,30 +16,22 @@ class _ExplorerPageState extends State<ExplorerPage> {
         await Navigator.of(
           context,
         ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: trip.id)));
-        _refresh();
       },
     );
   }
 
-  void _createTrip() {
-    TripCreatorDialog.show(
-      context: context,
-      onCreated: (id) async {
-        await Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: id)));
-        _refresh();
-      },
-    );
-  }
-
-  Future<void> _deleteTrip(Trip trip) async {
+  Future<void> _deleteTrip(
+    BuildContext context,
+    WidgetRef ref,
+    Trip trip,
+  ) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Supprimer le voyage'),
         content: Text(
-          'Voulez-vous vraiment supprimer « ${trip.title.isEmpty ? 'Sans titre' : trip.title} » ?\nCette action est irréversible.',
+          'Voulez-vous vraiment supprimer '
+          '« ${trip.title.isEmpty ? 'Sans titre' : trip.title} » ?',
         ),
         actions: [
           TextButton(
@@ -73,7 +39,6 @@ class _ExplorerPageState extends State<ExplorerPage> {
             child: const Text('Annuler'),
           ),
           FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () => Navigator.of(ctx).pop(true),
             child: const Text('Supprimer'),
           ),
@@ -83,103 +48,82 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
     if (confirmed != true) return;
 
-    final result = await getIt<ITripRepository>().deleteTrip(trip.id!);
+    try {
+      await ref.read(tripsProvider.notifier).deleteTrip(trip.id!);
 
-    if (!mounted) return;
+      if (!context.mounted) return;
 
-    result.fold(
-      (failure) => _showSnackBar(
-        message: 'Erreur : ${_failureMessage(failure)}',
-        isError: true,
-      ),
-      (_) {
-        _showSnackBar(message: 'Voyage supprimé.', isError: false);
-        _refresh();
-      },
-    );
-  }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Voyage supprimé')));
+    } catch (e) {
+      if (!context.mounted) return;
 
-  String _failureMessage(Failure failure) {
-    if (failure is ServerFailure) return failure.message;
-    if (failure is ConnectionFailure) return 'Impossible de joindre le serveur';
-    if (failure is NotFoundFailure) return 'Voyage introuvable';
-    return failure.toString();
-  }
-
-  void _showSnackBar({required String message, required bool isError}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: isError ? Colors.redAccent : Colors.green.shade600,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 3),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
-
-  String _parseErrorMessage(Object? error) {
-    if (error is ConnectionFailure) {
-      return 'Impossible de joindre le serveur.\nVérifiez votre connexion.';
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
-    if (error is ServerFailure) {
-      return error.message;
-    }
-    return 'Une erreur est survenue.';
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tripsAsync = ref.watch(tripsProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mes voyages'),
-        centerTitle: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'Actualiser',
-            onPressed: _refresh,
+            onPressed: () {
+              ref.read(tripsProvider.notifier).refresh();
+            },
           ),
         ],
       ),
-      body: FutureBuilder<List<Trip>>(
-        future: _tripsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: tripsAsync.when(
+        loading: () {
+          return const Center(child: CircularProgressIndicator());
+        },
 
-          if (snapshot.hasError) {
-            return ExplorerErrorView(
-              message: _parseErrorMessage(snapshot.error),
-              onRetry: _refresh,
-            );
-          }
+        error: (error, _) {
+          return ExplorerErrorView(
+            message: error.toString(),
+            onRetry: () {
+              ref.read(tripsProvider.notifier).refresh();
+            },
+          );
+        },
 
-          final trips = snapshot.data ?? [];
+        data: (trips) {
           if (trips.isEmpty) {
             return const ExplorerEmptyView();
           }
 
           return ListView.separated(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding: const EdgeInsets.all(16),
             itemCount: trips.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            separatorBuilder: (_, _) => const SizedBox(height: 8),
+
             itemBuilder: (context, index) {
+              final trip = trips[index];
+
               return TripCard(
-                trip: trips[index],
-                onTap: () => _openTrip(trips[index]),
-                onDelete: () => _deleteTrip(trips[index]),
+                trip: trip,
+                onTap: () => _openTrip(context, trip),
+                onDelete: () => _deleteTrip(context, ref, trip),
               );
             },
           );
         },
       ),
+
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _createTrip,
+        onPressed: () {
+          TripCreatorDialog.show(context);
+        },
         icon: const Icon(Icons.add),
         label: const Text('Nouveau voyage'),
-        tooltip: 'Créer un nouveau voyage',
       ),
     );
   }

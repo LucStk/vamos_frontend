@@ -14,12 +14,12 @@ class SegmentCard extends StatefulWidget {
   final bool readOnly;
 
   const SegmentCard({
-    Key? key,
+    super.key,
     required this.segmentIndex,
     required this.trip,
     required this.onTypeChanged,
     this.readOnly = false,
-  }) : super(key: key);
+  });
 
   /// Ouvre le dialog de sélection du type de segment.
   static void show({

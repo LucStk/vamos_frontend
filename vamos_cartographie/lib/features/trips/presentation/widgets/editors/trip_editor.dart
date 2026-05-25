@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart'
 
 import 'package:vamos_cartographie/shared/shared.dart';
 
-import '_trip_section_label.dart';
+import '../trip_section_label.dart';
 
 /// Vue d'édition des informations d'un voyage.
 /// Travaille sur une copie locale et n'applique les changements
@@ -21,7 +21,7 @@ class TripInfoEditor extends StatefulWidget {
 class TripInfoEditorState extends State<TripInfoEditor> {
   late Trip currentTrip;
 
-  static const int _maxDesc = 1000;
+  // static const int _maxDesc = 1000;
 
   @override
   void initState() {
@@ -112,7 +112,7 @@ class TripInfoEditorState extends State<TripInfoEditor> {
         const TripSectionLabel(label: 'DESCRIPTION', icon: Icons.notes),
         const SizedBox(height: 8),
         TextAreaWithCounter(
-          initialValue: currentTrip.description ?? '',
+          initialValue: currentTrip.description,
           readOnly: false,
           onChanged: (val) => _patch(currentTrip.copyWith(description: val)),
         ),

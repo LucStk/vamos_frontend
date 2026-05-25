@@ -136,17 +136,6 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  /// Sauvegarde la route et repasse en mode observer.
-  Future<void> _saveAndExitEditRoute() async {
-    await _saveTrip();
-    if (mounted) {
-      setState(() {
-        _mode = _MapMode.observer;
-        _isDirty = false;
-      });
-    }
-  }
-
   /// Annule les modifications de route et restaure le snapshot.
   void _cancelEditRoute() {
     if (_routeSnapshot != null) {
@@ -164,18 +153,18 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  /// Active le mode ajout de point.
-  void _enterAddPoint() {
-    _waypointsCountBeforeAdd = _trip.waypoints.length;
-    setState(() {
-      _mode = _MapMode.addPoint;
-      _isDirty = false;
-    });
-  }
+  // /// Active le mode ajout de point.
+  // void _enterAddPoint() {
+  //   _waypointsCountBeforeAdd = _trip.waypoints.length;
+  //   setState(() {
+  //     _mode = _MapMode.addPoint;
+  //     _isDirty = false;
+  //   });
+  // }
 
   /// Accepte le ou les points ajoutés, sauvegarde et repasse en observer.
   Future<void> _confirmAddPoint() async {
-    await _saveTrip();
+    throw Exception("Error not instancied in _confirmAddPoint in map_page");
     if (mounted) {
       setState(() {
         _mode = _MapMode.observer;
@@ -224,35 +213,6 @@ class _MapPageState extends State<MapPage> {
         seg.type = type;
         _isDirty = true;
       }),
-    );
-  }
-
-  // ── Sauvegarde backend ────────────────────────────────────────────────────
-
-  Future<void> _saveTrip() async {
-    final repository = getIt<ITripRepository>();
-    final Either<Failure, Trip> result;
-
-    if (_trip.id != null) {
-      result = await repository.updateTrip(_trip.id!, _trip);
-    } else {
-      result = await repository.createTrip(_trip);
-    }
-
-    if (!mounted) return;
-
-    result.fold(
-      (failure) => _showSnackBar(
-        message: 'Erreur sauvegarde : ${failure.toString()}',
-        isError: true,
-      ),
-      (savedTrip) {
-        _showSnackBar(message: 'Voyage sauvegardé !', isError: false);
-        setState(() {
-          _trip.id = savedTrip.id;
-          _isDirty = false;
-        });
-      },
     );
   }
 
@@ -325,7 +285,9 @@ class _MapPageState extends State<MapPage> {
         ),
       );
       if (choice == 'cancel' || choice == null) return;
-      if (choice == 'save') await _saveTrip();
+      if (choice == 'save') {
+        throw Exception("Save in map_page is not instancieted");
+      }
     }
     if (mounted) Navigator.of(context).pop();
   }
@@ -347,7 +309,7 @@ class _MapPageState extends State<MapPage> {
               _trip.addWaypoint(latLng);
               _isDirty = true;
             });
-            _saveTrip();
+            throw Exception("Save in map_page is not instancieted");
           },
         ),
 
@@ -439,7 +401,7 @@ class _MapPageState extends State<MapPage> {
             // ── Barre basse : mode édition route ─────────────────────────
             if (_isEditing)
               MapEditRouteBar(
-                onSave: _saveAndExitEditRoute,
+                onSave: throw Exception("Save in map_page is not instancieted"),
                 onCancel: _cancelEditRoute,
               ),
 

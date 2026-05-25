@@ -1,16 +1,34 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class ConfirmButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  const ConfirmButton({super.key, required this.onPressed});
+  final VoidCallback? onPressed;
+  final bool isLoading;
+  final String label;
+
+  const ConfirmButton({
+    super.key,
+    required this.onPressed,
+    this.isLoading = false,
+    this.label = 'Confirmer',
+  });
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.icon(
-      onPressed: onPressed,
-      // style: FilledButton.styleFrom(backgroundColor: Colors.red),
-      // icon: const Icon(Icons.delete_outline, size: 16),
-      label: const Text('Confirmer'),
+    return FilledButton(
+      onPressed: isLoading ? null : onPressed,
+
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+
+        child: isLoading
+            ? const SizedBox(
+                key: ValueKey('loading'),
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : Text(label, key: const ValueKey('label')),
+      ),
     );
   }
 }

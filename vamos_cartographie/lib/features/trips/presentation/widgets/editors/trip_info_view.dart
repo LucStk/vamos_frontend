@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/widgets/carousel/carousel.dart';
-import '_trip_section_label.dart';
+import '../trip_section_label.dart';
 
 /// Vue lecture seule des informations d'un voyage.
 /// Utilisée dans le dialog d'affichage.
