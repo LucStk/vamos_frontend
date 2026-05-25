@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 export "dialogs/dialog_errors_body.dart";
 export "dialogs/dialog_loading_body.dart";
 
-// On ajoute un type générique <T> qui représente la donnée renvoyée par le Dialog
 class DialogShell<T> extends StatelessWidget {
   final Widget content;
-  // Au lieu de List<Widget>?, on demande une fonction qui génère les boutons
-  // et fournit le BuildContext du Dialog
   final List<Widget> Function(BuildContext dialogContext)? buttonsBuilder;
   final BoxConstraints constraints;
+  final VoidCallback? onClose;
 
   const DialogShell({
     super.key,
     required this.content,
-    this.buttonsBuilder, // Renommé pour clarté
+    this.buttonsBuilder,
     this.constraints = const BoxConstraints(maxWidth: 480, maxHeight: 600),
+    this.onClose,
   });
 
   @override
@@ -54,13 +53,13 @@ class DialogShell<T> extends StatelessWidget {
                 ],
               ],
             ),
-
             Positioned(
               top: 8,
               right: 8,
               child: IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: () => Navigator.of(context).pop(),
+                // Étape C : Si onClose est fourni, on l'appelle, sinon pop() classique
+                onPressed: onClose ?? () => Navigator.of(context).pop(),
                 splashRadius: 20,
               ),
             ),

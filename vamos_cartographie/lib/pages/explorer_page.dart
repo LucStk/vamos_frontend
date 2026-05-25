@@ -5,6 +5,9 @@ import 'package:vamos_cartographie/pages/map_page.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/widgets/trip/trip.dart';
+import "package:vamos_cartographie/widgets/explorer/explorer_empty_view.dart";
+
+import "package:vamos_cartographie/widgets/explorer/explorer_error_view.dart";
 
 class ExplorerPage extends StatefulWidget {
   const ExplorerPage({super.key});
@@ -118,12 +121,18 @@ class _ExplorerPageState extends State<ExplorerPage> {
     );
   }
 
-  // ── Build ─────────────────────────────────────────────────────────────────
+  String _parseErrorMessage(Object? error) {
+    if (error is ConnectionFailure) {
+      return 'Impossible de joindre le serveur.\nVérifiez votre connexion.';
+    }
+    if (error is ServerFailure) {
+      return error.message;
+    }
+    return 'Une erreur est survenue.';
+  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mes voyages'),
@@ -139,217 +148,41 @@ class _ExplorerPageState extends State<ExplorerPage> {
       body: FutureBuilder<List<Trip>>(
         future: _tripsFuture,
         builder: (context, snapshot) {
-          // ── Chargement ──
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // ── Erreur ──
           if (snapshot.hasError) {
-            final err = snapshot.error;
-            String message = 'Une erreur est survenue.';
-            if (err is ConnectionFailure) {
-              message =
-                  'Impossible de joindre le serveur.\nVérifiez votre connexion.';
-            } else if (err is ServerFailure) {
-              message = err.message;
-            }
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.cloud_off,
-                      size: 64,
-                      color: theme.colorScheme.error,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      message,
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyLarge,
-                    ),
-                    const SizedBox(height: 24),
-                    FilledButton.icon(
-                      onPressed: _refresh,
-                      icon: const Icon(Icons.refresh),
-                      label: const Text('Réessayer'),
-                    ),
-                  ],
-                ),
-              ),
+            return ExplorerErrorView(
+              message: _parseErrorMessage(snapshot.error),
+              onRetry: _refresh,
             );
           }
 
           final trips = snapshot.data ?? [];
-
-          // ── Liste vide ──
           if (trips.isEmpty) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.map_outlined,
-                      size: 72,
-                      color: theme.colorScheme.primary.withOpacity(0.4),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Aucun voyage pour l\'instant',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Appuyez sur + pour créer votre premier voyage.',
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
+            return const ExplorerEmptyView();
           }
 
-          // ── Liste ──
           return ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             itemCount: trips.length,
             separatorBuilder: (_, __) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
-              final trip = trips[index];
-              return _TripCard(
-                trip: trip,
-                onTap: () => _openTrip(trip),
-                onDelete: () => _deleteTrip(trip),
+              return TripCard(
+                trip: trips[index],
+                onTap: () => _openTrip(trips[index]),
+                onDelete: () => _deleteTrip(trips[index]),
               );
             },
           );
         },
       ),
-
-      // ── FAB ──
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _createTrip,
         icon: const Icon(Icons.add),
         label: const Text('Nouveau voyage'),
         tooltip: 'Créer un nouveau voyage',
-      ),
-    );
-  }
-}
-
-// ── Card ─────────────────────────────────────────────────────────────────────
-
-class _TripCard extends StatelessWidget {
-  final Trip trip;
-  final VoidCallback onTap;
-  final VoidCallback onDelete;
-
-  const _TripCard({
-    required this.trip,
-    required this.onTap,
-    required this.onDelete,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final title = trip.title.trim().isEmpty ? 'Sans titre' : trip.title.trim();
-    final hasDate = trip.date != null;
-    final dateStr = trip.date?.toIso8601String().substring(0, 10);
-    final hasDescription = trip.description.trim().isNotEmpty;
-
-    return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 14, 4, 14),
-          child: Row(
-            children: [
-              // Icône
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.route,
-                  color: theme.colorScheme.onPrimaryContainer,
-                ),
-              ),
-              const SizedBox(width: 14),
-
-              // Texte
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    if (hasDate) ...[
-                      const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_today,
-                            size: 12,
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            dateStr!,
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    if (hasDescription) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        trip.description.trim(),
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-
-              // Actions
-              IconButton(
-                icon: const Icon(Icons.delete_outline),
-                tooltip: 'Supprimer',
-                color: Colors.redAccent,
-                onPressed: onDelete,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
