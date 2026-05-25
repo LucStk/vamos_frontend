@@ -1,13 +1,16 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
-import 'app.dart';
-import 'core/injection.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/app.dart';
+import 'package:vamos_cartographie/core/injection.dart'; // Ton fichier où se trouve configureDependencies
 
-void main() async {
-  // Obligatoire si tu fais du async avant runApp
+Future<void> main() async {
+  // 1. Obligatoire si tu fais du async avant runApp (ex: GetIt, SharedPreferences, etc.)
   WidgetsFlutterBinding.ensureInitialized();
 
-  // On initialise GetIt
+  // 2. On initialise GetIt (chargement de tes repositories, dépendances...)
   await configureDependencies();
 
-  runApp(const CartographieApp());
+  // 3. On lance l'application enveloppée dans le ProviderScope de Riverpod
+  runApp(const ProviderScope(child: CartographieApp()));
 }
