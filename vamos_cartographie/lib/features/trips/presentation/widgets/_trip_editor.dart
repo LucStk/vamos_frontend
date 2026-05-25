@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/shared/widgets/carousel/carousel.dart';
-import 'package:vamos_cartographie/shared/widgets/shared/text_area_counter.dart';
+
+import 'package:vamos_cartographie/shared/shared.dart';
+
 import '_trip_section_label.dart';
 
 /// Vue d'édition des informations d'un voyage.

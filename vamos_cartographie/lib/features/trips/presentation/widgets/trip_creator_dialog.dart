@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
-import 'package:vamos_cartographie/shared/widgets/shared/dialog_shell.dart';
-import 'package:vamos_cartographie/shared/widgets/shared/buttons.dart';
 import '_trip_editor.dart';
+
+import 'package:vamos_cartographie/shared/shared.dart';
 
 /// Dialog de création d'un nouveau voyage.
 /// Affiche un TripInfoEditor sur un Trip vide.

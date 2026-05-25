@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-
+import 'package:vamos_cartographie/shared/shared.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class TripCard extends StatelessWidget {
@@ -9,6 +9,7 @@ class TripCard extends StatelessWidget {
   final VoidCallback onDelete;
 
   const TripCard({
+    super.key,
     required this.trip,
     required this.onTap,
     required this.onDelete,
