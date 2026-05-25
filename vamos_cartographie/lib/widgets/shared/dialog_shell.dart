@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+export "dialogs/dialog_errors_body.dart";
+export "dialogs/dialog_loading_body.dart";
 
 // On ajoute un type générique <T> qui représente la donnée renvoyée par le Dialog
 class DialogShell<T> extends StatelessWidget {

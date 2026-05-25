@@ -7,10 +7,6 @@ import '../shared/buttons.dart';
 import '_trip_info_view.dart';
 import '_trip_editor.dart';
 
-/// Dialog de prévisualisation d'un voyage depuis l'ExplorerPage.
-///
-/// Charge le [Trip] complet (imageUrls, waypoints…) avant d'afficher,
-/// puis propose : Modifier · Explorer.
 class TripViewerDialog extends StatefulWidget {
   final Trip tripData;
   final VoidCallback onExplore;
@@ -21,7 +17,6 @@ class TripViewerDialog extends StatefulWidget {
     required this.onExplore,
   });
 
-  /// Affiche le dialog de prévisualisation.
   static void show({
     required BuildContext context,
     required Trip tripData,
@@ -42,6 +37,12 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
   Trip? _trip;
   String? _error;
 
+  // 1. AJOUT : Un booléen pour savoir si on est en train d'éditer
+  bool _isEditing = false;
+
+  // 2. AJOUT : La clé pour l'éditeur, locale à l'état
+  final _editorKey = GlobalKey<TripInfoEditorState>();
+
   @override
   void initState() {
     super.initState();
@@ -50,145 +51,66 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
 
   Future<void> _loadTrip() async {
     final result = await getIt<ITripRepository>().getTrip(widget.tripData.id!);
-
     if (!mounted) return;
-
     result.fold(
       (failure) => setState(() => _error = failure.message),
       (trip) => setState(() => _trip = trip),
     );
   }
 
-  static Future<void> _upload(BuildContext context, Trip trip) async {
+  // 3. NETTOYAGE : L'upload fait maintenant partie de la logique de l'état
+  Future<void> _handleUpdate(Trip editedTrip) async {
     final saveResult = await getIt<ITripRepository>().updateTrip(
-      trip.id!,
-      trip,
+      editedTrip.id!,
+      editedTrip,
     );
 
-    if (!context.mounted) return;
+    if (!mounted) return;
 
-    saveResult.fold(
-      (failure) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Erreur : ${failure.message}'),
-            backgroundColor: Colors.redAccent,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      },
-      (_) {
-        Navigator.of(context).pop();
-      },
-    );
-  }
-
-  static void _showEditor({
-    required BuildContext context,
-    required Trip trip,
-  }) async {
-    final editorKey = GlobalKey<TripInfoEditorState>();
-
-    final Trip? result = await showDialog<Trip>(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) => DialogShell(
-        constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
-        content: TripInfoEditor(key: editorKey, initialTrip: trip),
-        buttonsBuilder: (ctx) => [
-          CancelButton(onPressed: () => Navigator.of(ctx).pop(null)),
-          const Spacer(),
-          ConfirmButton(
-            onPressed: () =>
-                Navigator.of(ctx).pop(editorKey.currentState?.currentTrip),
-          ),
-        ],
-      ),
-    );
-
-    // --- L'ASYNC GAP COMMENCE ICI (après le await du showDialog) ---
-
-    if (result != null) {
-      // 1. PREMIER CHECK : Est-ce que l'écran est toujours affiché après la fermeture du dialogue ?
-      if (!context.mounted) return; // Si non, on arrête tout proprement.
-
-      try {
-        // On peut utiliser 'context' en toute sécurité ici
-        await _upload(context, result);
-
-        // --- DEUXIÈME ASYNC GAP (après le await de l'upload) ---
-
-        // 2. DEUXIÈME CHECK : Est-ce que l'utilisateur n'a pas quitté l'écran pendant l'upload ?
-        if (!context.mounted) return;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Voyage mis à jour avec succès !')),
-        );
-      } catch (e) {
-        debugPrint("Erreur lors de l'upload : $e");
-      }
-    } else {
-      debugPrint("TripViewDialog : TripEdited is null ?");
-    }
-  }
-
-  Widget _showError(BuildContext context) {
-    return DialogShell(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.error_outline, size: 48, color: Colors.redAccent),
-          const SizedBox(height: 12),
-          Text('Erreur : $_error', textAlign: TextAlign.center),
-          const SizedBox(height: 16),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Fermer'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _showLoading(BuildContext context) {
-    return const DialogShell(
-      content: Padding(
-        padding: EdgeInsets.all(40),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            Text('Chargement…'),
-          ],
-        ),
-      ),
-    );
+    saveResult.fold((failure) => setState(() => _error = failure.message), (_) {
+      // En cas de succès : On met à jour le trip local et on repasse en mode lecture !
+      setState(() {
+        _trip = editedTrip;
+        _isEditing = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Voyage mis à jour avec succès !')),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // ── Chargement ──
-    if (_trip == null && _error == null) {
-      return _showLoading(context);
+    if (_trip == null && _error == null) return _showLoading();
+    if (_error != null) return _showError();
+
+    // 4. LA NORME : On switche le contenu du Dialog selon le mode (_isEditing)
+    if (_isEditing) {
+      return DialogShell(
+        constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
+        content: TripInfoEditor(key: _editorKey, initialTrip: _trip!),
+        buttonsBuilder: (ctx) => [
+          CancelButton(onPressed: () => setState(() => _isEditing = false)),
+          const Spacer(),
+          ConfirmButton(
+            onPressed: () {
+              final edited = _editorKey.currentState?.currentTrip;
+              if (edited != null) _handleUpdate(edited);
+            },
+          ),
+        ],
+      );
     }
 
-    // ── Erreur ──
-    if (_error != null) {
-      return _showError(context);
-    }
-    // ── Contenu ──
+    // Mode Lecture Seule (Visualisation)
     return DialogShell(
       content: TripInfoView(trip: _trip!),
       buttonsBuilder: (ctx) => [
         ModifierButton(
-          onPressed: () {
-            _showEditor(context: context, trip: _trip!);
-          },
+          onPressed: () =>
+              setState(() => _isEditing = true), // On passe en édition
         ),
-
         const SizedBox(width: 8),
-
         ExploreButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -198,4 +120,8 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
       ],
     );
   }
+
+  // (Les widgets de chargement et d'erreur restent identiques mais sans besoin du BuildContext en paramètre)
+  Widget _showError() => DialogErrorBody(errorMessage: _error!);
+  Widget _showLoading() => const DialogLoadingBody();
 }
