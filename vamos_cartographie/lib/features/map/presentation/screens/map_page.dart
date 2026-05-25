@@ -8,41 +8,28 @@ import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
-// ---------------------------------------------------------------------------
-// Modes de la page
-// ---------------------------------------------------------------------------
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Mode de la page carte.
-///
-/// - [observer]  : lecture seule, aucun outil d'édition visible.
-/// - [editRoute] : édition des segments (drag, midpoints, types…).
-/// - [addPoint]  : tap sur la carte pour ajouter un waypoint.
 enum _MapMode { observer, editRoute, addPoint }
 
 // ---------------------------------------------------------------------------
 // MapPage
 // ---------------------------------------------------------------------------
 
-class MapPage extends StatefulWidget {
-  /// L'ID du voyage à charger (optionnel).
+// Remplacer StatefulWidget par ConsumerStatefulWidget
+class MapPage extends ConsumerStatefulWidget {
   final int? tripId;
-
-  /// Indique si l'utilisateur courant est propriétaire du voyage.
-  ///
-  /// `true`  → tous les boutons d'édition sont affichés.
-  /// `false` → interface en lecture seule (exploration).
-  ///
-  /// Défaut : `true` pour faciliter le développement tant que les comptes
-  /// utilisateurs ne sont pas implémentés.
   final bool isOwner;
 
   const MapPage({super.key, this.tripId, this.isOwner = true});
 
   @override
-  _MapPageState createState() => _MapPageState();
+  MapPageState createState() => MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+// Remplacer State<MapPage> par ConsumerState<MapPage>
+class MapPageState extends ConsumerState<MapPage> {
+  // ... tout ton code existant reste accessible via "ref"class _MapPageState extends State<MapPage> {
   late Trip _trip;
   late CustomPolyEditor _editor;
   bool _isLoading = false;
@@ -74,12 +61,6 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     _initDefaultTrip();
-
-    if (widget.tripId != null) {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => _loadTripById(widget.tripId!),
-      );
-    }
   }
 
   void _initDefaultTrip() {
@@ -105,6 +86,30 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  Future<void> _saveChanges() async {
+    if (widget.tripId == null) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      // Appel de la méthode save du Notifier via ref.read
+      await ref.read(tripProvider(widget.tripId!).notifier).save(_trip);
+
+      _showSnackBar(message: 'Voyage enregistré avec succès', isError: false);
+
+      setState(() {
+        _mode = _MapMode.observer;
+        _isDirty = false;
+      });
+    } catch (e) {
+      _showSnackBar(
+        message: 'Erreur lors de la sauvegarde : $e',
+        isError: true,
+      );
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
   // ── Gestion des modes ─────────────────────────────────────────────────────
 
   /// Active le mode édition de route.
@@ -228,35 +233,6 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  // ── Chargement ────────────────────────────────────────────────────────────
-
-  Future<void> _loadTripById(int id) async {
-    setState(() => _isLoading = true);
-
-    final result = await getIt<ITripRepository>().getTrip(id);
-
-    if (!mounted) return;
-
-    result.fold(
-      (failure) {
-        setState(() => _isLoading = false);
-        _showSnackBar(
-          message: 'Erreur chargement : ${failure.toString()}',
-          isError: true,
-        );
-      },
-      (tripLoaded) {
-        setState(() {
-          _trip = tripLoaded;
-          _editor = _buildEditor();
-          _mode = _MapMode.observer;
-          _isDirty = false;
-          _isLoading = false;
-        });
-      },
-    );
-  }
-
   // ── Navigation retour ────────────────────────────────────────────────────
 
   Future<void> _handleBack() async {
@@ -286,7 +262,7 @@ class _MapPageState extends State<MapPage> {
       );
       if (choice == 'cancel' || choice == null) return;
       if (choice == 'save') {
-        throw Exception("Save in map_page is not instancieted");
+        await _saveChanges();
       }
     }
     if (mounted) Navigator.of(context).pop();
@@ -304,12 +280,12 @@ class _MapPageState extends State<MapPage> {
         MapContextMenuOption(
           icon: Icons.add_location_alt,
           label: 'Créer un point',
-          onTap: (latLng) {
+          onTap: (latLng) async {
             setState(() {
               _trip.addWaypoint(latLng);
               _isDirty = true;
             });
-            throw Exception("Save in map_page is not instancieted");
+            await _saveChanges(); // Sauvegarde automatique après l'ajout rapide
           },
         ),
 
@@ -328,92 +304,90 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const CircularProgressIndicator(),
-              const SizedBox(height: 16),
-              Text(
-                'Chargement du voyage…',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          ),
-        ),
+    // Si aucun ID n'est fourni, on peut soit lever une erreur soit utiliser un comportement par défaut.
+    if (widget.tripId == null) {
+      return const Scaffold(
+        body: Center(child: Text("ID de voyage manquant.")),
       );
     }
 
-    final title = _trip.title.trim();
+    // Écoute de l'état asynchrone du voyage
+    final tripAsync = ref.watch(tripProvider(widget.tripId!));
 
-    return PopScope(
-      // Bloque le retour système uniquement quand il y a des modifs non sauvegardées
-      // en mode édition, pour afficher le dialog de confirmation.
-      canPop: !(_isDirty && _mode != _MapMode.observer),
-      onPopInvokedWithResult: (didPop, _) async {
-        if (!didPop) await _handleBack();
+    return tripAsync.when(
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
+      error: (err, stack) =>
+          Scaffold(body: Center(child: Text('Erreur : $err'))),
+      data: (tripFromProvider) {
+        // Synchronisation de notre variable locale pour l'éditeur de carte
+        _trip = tripFromProvider;
+
+        final title = _trip.title.trim();
+
+        return PopScope(
+          canPop: !(_isDirty && _mode != _MapMode.observer),
+          onPopInvokedWithResult: (didPop, _) async {
+            if (!didPop) await _handleBack();
+          },
+          child: Scaffold(
+            body: Stack(
+              children: [
+                // ── Carte plein écran ────────────────────────────────────────
+                MapView(
+                  trip: _trip,
+                  editor: _editor,
+                  editable: _isEditing,
+                  mapController: _mapController,
+                  onTap: _isAddingPoint
+                      ? (latLng) => setState(() {
+                          _trip.addWaypoint(latLng);
+                          _isDirty = true;
+                        })
+                      : null,
+                  contextMenuOptions: _mode == _MapMode.observer
+                      ? _buildContextMenuOptions()
+                      : null,
+                  onSegmentTypeMarkerTap: _isEditing
+                      ? _showSegmentOptions
+                      : null,
+                  onWaypointTap: _showWaypointInfo,
+                ),
+
+                // ── Barre supérieure ─────────────────────────────────────────
+                MapTopBar(
+                  title: title.isEmpty ? 'Sans titre' : title,
+                  isDirty: _isDirty,
+                  onBack: _handleBack,
+                  onTitleTap: () {},
+                ),
+
+                // ── Boutons de contrôle carte ─────────────────────────────────
+                MapControls(mapController: _mapController),
+
+                // ── Boutons flottants owner-only ──────────────────────────────
+                if (widget.isOwner && _mode == _MapMode.observer) ...[
+                  MapEditFab(isActive: false, onTap: _enterEditRoute),
+                ],
+
+                // ── Barre basse : mode édition route ─────────────────────────
+                if (_isEditing)
+                  MapEditRouteBar(
+                    onSave: _saveChanges, // Implémenté ci-dessous
+                    onCancel: _cancelEditRoute,
+                  ),
+
+                // ── Barre basse : mode ajout de point ─────────────────────────
+                if (_isAddingPoint)
+                  MapAddPointBar(
+                    onConfirm: _confirmAddPoint,
+                    onCancel: _cancelAddPoint,
+                  ),
+              ],
+            ),
+          ),
+        );
       },
-      child: Scaffold(
-        body: Stack(
-          children: [
-            // ── Carte plein écran ────────────────────────────────────────
-            MapView(
-              trip: _trip,
-              editor: _editor,
-              editable: _isEditing,
-              mapController: _mapController,
-              // En mode ajout : tap = ajouter un waypoint
-              // En mode observer : tap = ouvrir le menu contextuel
-              onTap: _isAddingPoint
-                  ? (latLng) => setState(() {
-                      _trip.addWaypoint(latLng);
-                      _isDirty = true;
-                    })
-                  : null,
-              contextMenuOptions: _mode == _MapMode.observer
-                  ? _buildContextMenuOptions()
-                  : null,
-              onSegmentTypeMarkerTap: _isEditing ? _showSegmentOptions : null,
-              // Tap waypoint : info en lecture, édition si on est en train
-              // d'éditer la route
-              onWaypointTap: _showWaypointInfo,
-            ),
-
-            // ── Barre supérieure ─────────────────────────────────────────
-            MapTopBar(
-              title: title,
-              isDirty: _isDirty,
-              onBack: _handleBack,
-              onTitleTap: () {},
-            ),
-
-            // ── Boutons de contrôle carte ─────────────────────────────────
-            MapControls(mapController: _mapController),
-
-            // ── Boutons flottants owner-only ──────────────────────────────
-            if (widget.isOwner && _mode == _MapMode.observer) ...[
-              // Bouton "Modifier route"
-              MapEditFab(isActive: false, onTap: _enterEditRoute),
-            ],
-
-            // ── Barre basse : mode édition route ─────────────────────────
-            if (_isEditing)
-              MapEditRouteBar(
-                onSave: throw Exception("Save in map_page is not instancieted"),
-                onCancel: _cancelEditRoute,
-              ),
-
-            // ── Barre basse : mode ajout de point ─────────────────────────
-            if (_isAddingPoint)
-              MapAddPointBar(
-                onConfirm: _confirmAddPoint,
-                onCancel: _cancelAddPoint,
-              ),
-          ],
-        ),
-      ),
     );
   }
 }
