@@ -19,11 +19,8 @@ void main() async {
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(100),
-            child: TripInfoEditor(
-              trip: trip,
-              onConfirm: () {},
-              onCancel: () {},
-            ),
+            // child: TripInfoEditor(
+            // ),
           ),
         ),
       ),

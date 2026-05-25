@@ -3,6 +3,8 @@ import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/domain/domain.dart';
 import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
 import '_trip_editor.dart';
+import "../shared/dialog_shell.dart";
+import "../shared/buttons.dart";
 
 /// Dialog de création d'un nouveau voyage.
 /// Affiche un TripInfoEditor sur un Trip vide.
@@ -35,37 +37,42 @@ class TripCreatorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // Trip vide sur lequel TripInfoEditor travaille
     final newTrip = Trip(waypoints: [], segments: []);
+    final editorKey = GlobalKey<TripInfoEditorState>();
 
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // ── En-tête ──
-              Text(
-                'Nouveau voyage',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Divider(color: theme.colorScheme.outlineVariant),
-              const SizedBox(height: 12),
-
-              // ── Éditeur ──
-              TripInfoEditor(initialTrip: newTrip),
-            ],
+    return DialogShell(
+      constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
+      content: Column(
+        children: [
+          // ── En-tête ──
+          Text(
+            'Nouveau voyage',
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
+          const SizedBox(height: 4),
+          Divider(color: theme.colorScheme.outlineVariant),
+          const SizedBox(height: 12),
+          TripInfoEditor(key: editorKey, initialTrip: newTrip),
+        ],
       ),
+      buttonsBuilder: (ctx) => [
+        CancelButton(onPressed: () => Navigator.pop(ctx)),
+        const Spacer(),
+        ConfirmButton(
+          onPressed: () {
+            final editedTrip = editorKey.currentState?.currentTrip;
+            if (editedTrip != null) {
+              _handleCreate(ctx, editedTrip);
+            } else {
+              debugPrint("TripCreatorDialog : editedTrip is Null ?");
+              Navigator.of(ctx).pop();
+            }
+          },
+        ),
+      ],
     );
   }
 
