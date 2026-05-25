@@ -94,24 +94,42 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
       barrierDismissible: false,
       builder: (ctx) => DialogShell(
         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
-        content: TripInfoEditor(initialTrip: trip),
+        content: TripInfoEditor(key: editorKey, initialTrip: trip),
         buttonsBuilder: (ctx) => [
-          CancelButton(onPressed: () => Navigator.pop(ctx)),
+          CancelButton(onPressed: () => Navigator.of(ctx).pop(null)),
           const Spacer(),
           ConfirmButton(
-            onPressed: () {
-              final editedTrip = editorKey.currentState?.currentTrip;
-              if (editedTrip != null) {
-                _upload(ctx, editedTrip);
-              } else {
-                debugPrint("TripViewDialog : editedTrip is Null ?");
-                Navigator.of(ctx).pop();
-              }
-            },
+            onPressed: () =>
+                Navigator.of(ctx).pop(editorKey.currentState?.currentTrip),
           ),
         ],
       ),
     );
+
+    // --- L'ASYNC GAP COMMENCE ICI (après le await du showDialog) ---
+
+    if (result != null) {
+      // 1. PREMIER CHECK : Est-ce que l'écran est toujours affiché après la fermeture du dialogue ?
+      if (!context.mounted) return; // Si non, on arrête tout proprement.
+
+      try {
+        // On peut utiliser 'context' en toute sécurité ici
+        await _upload(context, result);
+
+        // --- DEUXIÈME ASYNC GAP (après le await de l'upload) ---
+
+        // 2. DEUXIÈME CHECK : Est-ce que l'utilisateur n'a pas quitté l'écran pendant l'upload ?
+        if (!context.mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Voyage mis à jour avec succès !')),
+        );
+      } catch (e) {
+        debugPrint("Erreur lors de l'upload : $e");
+      }
+    } else {
+      debugPrint("TripViewDialog : TripEdited is null ?");
+    }
   }
 
   Widget _showError(BuildContext context) {

@@ -54,7 +54,8 @@ class TripInfoEditorState extends State<TripInfoEditor> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // ── Titre ──
-        TextField(
+        TextFormField(
+          initialValue: widget.initialTrip.title,
           onChanged: (val) => _patch(currentTrip.copyWith(title: val)),
           textCapitalization: TextCapitalization.sentences,
           decoration: const InputDecoration(
