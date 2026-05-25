@@ -3,7 +3,7 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:vamos_cartographie/features/trips/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
-import 'package:vamos_cartographie/features/trips/presentation/widgets/trip.dart';
+import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart';
 import 'package:vamos_cartographie/features/map/map.dart';
 
 class ExplorerPage extends StatefulWidget {

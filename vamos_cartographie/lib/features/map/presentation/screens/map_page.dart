@@ -5,18 +5,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/core/injection.dart';
-import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/customPolyEditor.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/map_context_menu.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/map_view.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/map/map_controls.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/map/map_edit_toolbar.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/map/map_top_bar.dart';
-import 'package:vamos_cartographie/features/waypoints/presentation/widgets/segment/segment_bottom_sheet.dart';
-import 'package:vamos_cartographie/features/waypoints/presentation/widgets/waypoint_viewer_dialog.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-
+import 'package:vamos_cartographie/features/trips/trips.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
+import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 // ---------------------------------------------------------------------------
 // Modes de la page
 // ---------------------------------------------------------------------------

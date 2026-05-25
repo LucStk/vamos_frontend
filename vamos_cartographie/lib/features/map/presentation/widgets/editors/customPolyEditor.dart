@@ -3,7 +3,7 @@ import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/segment_intermediatePoints.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/layers/layers.dart';
 
 class CustomPolyEditor {
   final Trip trip;
