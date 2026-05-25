@@ -4,11 +4,11 @@ import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-import 'customPolyEditor.dart';
-import 'map_context_menu.dart';
-import 'segment_layers_builder.dart';
-import 'segment_type_markers_builder.dart';
-import 'waypoint_markers_builder.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/customPolyEditor.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/map_context_menu.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/segment_layers_builder.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/segment_type_markers_builder.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/waypoint_markers_builder.dart';
 
 class MapView extends StatefulWidget {
   final Trip trip;
