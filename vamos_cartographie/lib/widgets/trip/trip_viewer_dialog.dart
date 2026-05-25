@@ -59,7 +59,7 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
     );
   }
 
-  Future<void> _upload(BuildContext context, Trip trip) async {
+  static Future<void> _upload(BuildContext context, Trip trip) async {
     final saveResult = await getIt<ITripRepository>().updateTrip(
       trip.id!,
       trip,
@@ -94,14 +94,21 @@ class _TripPreviewDialogState extends State<TripViewerDialog> {
       barrierDismissible: false,
       builder: (ctx) => DialogShell(
         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
-        content: TripInfoEditor(trip: trip),
+        content: TripInfoEditor(initialTrip: trip),
         buttonsBuilder: (ctx) => [
           CancelButton(onPressed: () => Navigator.pop(ctx)),
           const Spacer(),
-          ConfirmButton(onPressed: (){
-            final editedTrip = editorKey.currentState?.currentTrip
-
-          },)
+          ConfirmButton(
+            onPressed: () {
+              final editedTrip = editorKey.currentState?.currentTrip;
+              if (editedTrip != null) {
+                _upload(ctx, editedTrip);
+              } else {
+                debugPrint("TripViewDialog : editedTrip is Null ?");
+                Navigator.of(ctx).pop();
+              }
+            },
+          ),
         ],
       ),
     );

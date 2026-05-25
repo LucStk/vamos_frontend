@@ -61,13 +61,7 @@ class TripCreatorDialog extends StatelessWidget {
               const SizedBox(height: 12),
 
               // ── Éditeur ──
-              TripInfoEditor(
-                trip: newTrip,
-                confirmLabel: 'Valider et ouvrir la carte',
-                confirmIcon: Icons.map_outlined,
-                onConfirm: () => _handleCreate(context, newTrip),
-                onCancel: onCancel,
-              ),
+              TripInfoEditor(initialTrip: newTrip),
             ],
           ),
         ),

@@ -76,6 +76,24 @@ class Trip {
     }
   }
 
+  Trip copyWith({
+    int? id,
+    String? title,
+    String? description,
+    DateTime? date,
+    List<TripImage>? images,
+  }) {
+    return Trip(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      date: date ?? this.date,
+      images: images ?? this.images,
+      waypoints: waypoints,
+      segments: segments,
+    );
+  }
+
   List<LatLng> segmentPoints(int segmentIndex) {
     return segments[segmentIndex].allPoints(
       waypoints[segmentIndex].latLng,
