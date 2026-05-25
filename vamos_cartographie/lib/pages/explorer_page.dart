@@ -18,6 +18,37 @@ class ExplorerPage extends StatefulWidget {
 
 class _ExplorerPageState extends State<ExplorerPage> {
   late Future<List<Trip>> _tripsFuture;
+  List<Trip>? _localTrips;
+
+  void _openTrip(Trip trip) async {
+    // Le showDialog attend maintenant un <Trip>, plus un <bool>
+    final Trip? updatedTrip = await showDialog<Trip>(
+      context: context,
+      builder: (ctx) => TripViewerDialog(
+        tripData: trip,
+        onExplore: () async {
+          Navigator.of(ctx).pop(null);
+          await Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: trip.id)));
+          _refresh(); // Après la carte, un refresh global reste plus sûr
+        },
+      ),
+    );
+
+    // 2. Si on a récupéré un voyage modifié, on met à jour localement
+    if (updatedTrip != null && _localTrips != null) {
+      setState(() {
+        // On cherche l'index de l'ancien voyage dans notre liste locale
+        final index = _localTrips!.indexWhere((t) => t.id == updatedTrip.id);
+
+        if (index != -1) {
+          // On remplace uniquement ce voyage par sa nouvelle version
+          _localTrips![index] = updatedTrip;
+        }
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -33,21 +64,10 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
   void _refresh() {
     setState(() {
+      _localTrips =
+          null; // En remettant à null, le FutureBuilder va recharger proprement
       _loadTrips();
     });
-  }
-
-  void _openTrip(Trip trip) {
-    TripViewerDialog.show(
-      context: context,
-      tripData: trip,
-      onExplore: () async {
-        await Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: trip.id)));
-        _refresh();
-      },
-    );
   }
 
   void _createTrip() {
@@ -159,20 +179,24 @@ class _ExplorerPageState extends State<ExplorerPage> {
             );
           }
 
-          final trips = snapshot.data ?? [];
-          if (trips.isEmpty) {
+          final tripsFromServer = snapshot.data ?? [];
+
+          // Si notre liste locale n'est pas encore initialisée, on lui donne les données du serveur
+          _localTrips ??= List.from(tripsFromServer);
+
+          if (_localTrips!.isEmpty) {
             return const ExplorerEmptyView();
           }
 
           return ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            itemCount: trips.length,
+            itemCount: _localTrips!.length, // <-- On utilise la liste locale
             separatorBuilder: (_, __) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               return TripCard(
-                trip: trips[index],
-                onTap: () => _openTrip(trips[index]),
-                onDelete: () => _deleteTrip(trips[index]),
+                trip: _localTrips![index], // <-- On utilise la liste locale
+                onTap: () => _openTrip(_localTrips![index]),
+                onDelete: () => _deleteTrip(_localTrips![index]),
               );
             },
           );
