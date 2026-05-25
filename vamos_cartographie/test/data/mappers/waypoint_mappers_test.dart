@@ -2,8 +2,8 @@ import 'package:api_client/api_client.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
-import 'package:vamos_cartographie/data/mappers/waypoint_mappers.dart';
-import 'package:vamos_cartographie/domain/domain.dart';
+import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers GQL

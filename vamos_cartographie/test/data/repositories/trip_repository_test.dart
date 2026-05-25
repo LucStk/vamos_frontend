@@ -4,10 +4,11 @@ import 'package:latlong2/latlong.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/data/datasources/trip_remote_datasource.dart';
-import 'package:vamos_cartographie/data/repositories/trip_repository.dart';
-import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
-import 'package:vamos_cartographie/domain/domain.dart';
+import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_datasource.dart';
+import 'package:vamos_cartographie/features/trips/data/repositories/trip_repository.dart';
+import 'package:vamos_cartographie/features/trips/data/repositories/upload_img_repository.dart';
+import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mock du datasource

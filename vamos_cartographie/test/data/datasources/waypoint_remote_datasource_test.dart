@@ -3,7 +3,7 @@ import 'package:ferry/ferry.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import 'package:vamos_cartographie/data/datasources/waypoint_remote_datasource.dart';
+import 'package:vamos_cartographie/features/waypoints/data/datasources/waypoint_remote_datasource.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mocks & Fakes

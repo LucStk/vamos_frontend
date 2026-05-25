@@ -1,10 +1,11 @@
 import 'package:api_client/api_client.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/data/mappers/trip_mappers.dart';
-import 'package:vamos_cartographie/data/repositories/i_trip_repository.dart';
+import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
+import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:test/test.dart';
-import 'package:vamos_cartographie/domain/domain.dart';
+import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
 void main() async {
   await configureDependencies();

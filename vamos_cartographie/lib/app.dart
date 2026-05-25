@@ -1,6 +1,6 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
-import 'pages/explorer_page.dart';
+import 'package:vamos_cartographie/features/trips/presentation/screens/explorer_page.dart';
 
 class CartographieApp extends StatelessWidget {
   const CartographieApp({super.key});

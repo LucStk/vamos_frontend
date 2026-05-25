@@ -5,10 +5,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/data/datasources/waypoint_remote_datasource.dart';
-import 'package:vamos_cartographie/data/repositories/upload_img_repository.dart';
-import 'package:vamos_cartographie/data/repositories/waypoint_repository.dart';
-import 'package:vamos_cartographie/domain/domain.dart';
+import 'package:vamos_cartographie/features/waypoints/data/datasources/waypoint_remote_datasource.dart';
+import 'package:vamos_cartographie/features/trips/data/repositories/upload_img_repository.dart';
+import 'package:vamos_cartographie/features/waypoints/data/repositeries/waypoint_repository.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mocks & Fakes

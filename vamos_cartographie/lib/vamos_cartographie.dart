@@ -1,3 +1,5 @@
-export 'domain/domain.dart';
+export 'core/core.dart';
+export 'features/features.dart';
+export 'shared/shared.dart';
+export 'app.dart';
 export 'main.dart';
-export "app.dart";
