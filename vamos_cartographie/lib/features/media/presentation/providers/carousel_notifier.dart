@@ -84,11 +84,7 @@ class CarouselNotifier extends _$CarouselNotifier {
         );
 
         // On extrait les images distantes valides pour notifier le formulaire parent
-        final remoteImages = updatedItems
-            .where((i) => !i.isLocal)
-            .map((i) => MediaImage(fileKey: i.value, url: i.displayUrl))
-            .toList();
-
+        final remoteImages = CarouselItem.toRemote(updatedItems);
         onChanged(remoteImages);
       },
     );
@@ -105,11 +101,7 @@ class CarouselNotifier extends _$CarouselNotifier {
       uploadErrors: {...state.uploadErrors}..remove(val),
     );
 
-    final remoteImages = updatedItems
-        .where((i) => !i.isLocal)
-        .map((i) => MediaImage(fileKey: i.value, url: i.displayUrl))
-        .toList();
-
+    final remoteImages = CarouselItem.toRemote(updatedItems);
     onChanged(remoteImages);
   }
 }

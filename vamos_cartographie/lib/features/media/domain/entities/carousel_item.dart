@@ -25,7 +25,9 @@ class CarouselItem {
   const CarouselItem._remote(this.value, this._url) : kind = ItemKind.remote;
   MediaImage? get remoteImage {
     if (_url != null) return MediaImage(fileKey: value, url: _url);
-    return null;
+    throw Exception(
+      "Try to get a remotImage from a carousel_item without _url",
+    );
   }
 
   /// Crée un item distant depuis un [MediaImage].
@@ -45,5 +47,11 @@ class CarouselItem {
           (image) => CarouselItem.remote(image),
         ) // Réutilisation de ta factory !
         .toList();
+  }
+
+  static List<MediaImage> toRemote(List<CarouselItem> carouselItems) {
+    return [
+      ...carouselItems.where((i) => i.isRemote).map((i) => i.remoteImage!),
+    ];
   }
 }
