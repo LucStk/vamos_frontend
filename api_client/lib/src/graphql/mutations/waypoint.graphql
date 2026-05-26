@@ -1,6 +1,0 @@
-#import "../fragments/trip.graphql"
-mutation UpdateWaypoint($waypoint: WaypointUpdateInput!, $id: Int!) {
-    updateWaypoint(waypoint: $waypoint, id: $id) {
-        ...WaypointFields
-    }
-}

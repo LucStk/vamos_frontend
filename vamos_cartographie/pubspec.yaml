@@ -43,8 +43,6 @@ dependencies:
   flutter_map_line_editor: ^8.0.0
   image_picker: ^1.2.2
   file_selector: ^1.1.0
-  api_client:
-    path: ../api_client
   get_it: ^9.2.1
   dartz: ^0.10.1
   equatable: ^2.0.8
@@ -56,6 +54,10 @@ dependencies:
   riverpod: ^3.2.1
   flutter_riverpod: ^3.3.1
   riverpod_annotation: ^4.0.2
+  http: ^1.6.0
+  gql_http_link: ^1.2.0
+  built_value: ^8.12.6
+  ferry_exec: ^0.7.0
 
 dev_dependencies:
   test: ^1.30.0
@@ -72,6 +74,8 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   build_runner: ^2.15.0
   riverpod_generator: ^4.0.3
+  ferry_generator2: ^0.1.0-dev.5
+  lints: ^6.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

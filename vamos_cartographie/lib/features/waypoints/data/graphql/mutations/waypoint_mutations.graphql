@@ -1,0 +1,21 @@
+#import "../fragments/trip.graphql"
+mutation UpdateWaypoint($waypoint: WaypointUpdateInput!, $id: Int!) {
+    updateWaypoint(waypoint: $waypoint, id: $id) {
+        ...WaypointFields
+    }
+}
+
+mutation DeleteImageFromWaypoint($WaypointId: Int!, $fileKey: String!) {
+    deleteImageFromWaypoint(waypointId: $WaypointId, fileKey: $fileKey)
+}
+
+mutation DeleteImageFromWaypoint($waypointId: Int!, $fileKey: String!) {
+    deleteImageFromWaypoint(WaypointId: $waypointId, fileKey: $fileKey)
+}
+mutation AttachImageToWaypoint($waypointId: Int!, $fileKey: String!) {
+    attachImageToWaypoint(waypointId: $waypointId, fileKey: $fileKey) {
+        image {
+            ...ImageFields
+        }
+    }
+}

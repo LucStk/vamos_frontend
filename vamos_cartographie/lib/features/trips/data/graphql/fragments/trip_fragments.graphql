@@ -21,17 +21,3 @@ fragment SegmentFields on SegmentType {
         lng
     }
 }
-
-fragment WaypointFields on WaypointType {
-    id
-    lat
-    lng
-    type
-    title
-    description
-    images {
-        image {
-            ...ImageFields
-        }
-    }
-}
