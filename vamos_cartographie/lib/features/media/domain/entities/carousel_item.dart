@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -22,12 +23,17 @@ class CarouselItem {
   const CarouselItem.local(this.value) : kind = ItemKind.local, _url = null;
 
   const CarouselItem._remote(this.value, this._url) : kind = ItemKind.remote;
+  MediaImage? get remoteImage {
+    if (_url != null) return MediaImage(fileKey: value, url: _url);
+    return null;
+  }
 
   /// Crée un item distant depuis un [MediaImage].
   factory CarouselItem.remote(MediaImage image) =>
       CarouselItem._remote(image.fileKey, image.url);
 
   bool get isLocal => kind == ItemKind.local;
+  bool get isRemote => kind == ItemKind.remote;
 
   /// URL utilisable pour afficher l'image.
   /// - local  → path direct (passé à Image.file)

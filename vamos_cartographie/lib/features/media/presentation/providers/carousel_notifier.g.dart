@@ -10,23 +10,30 @@ part of 'carousel_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(CarouselNotifier)
-final carouselProvider = CarouselNotifierProvider._();
+final carouselProvider = CarouselNotifierFamily._();
 
 final class CarouselNotifierProvider
     extends $NotifierProvider<CarouselNotifier, CarouselState> {
-  CarouselNotifierProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'carouselProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  CarouselNotifierProvider._({
+    required CarouselNotifierFamily super.from,
+    required List<MediaImage> super.argument,
+  }) : super(
+         retry: null,
+         name: r'carouselProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$carouselNotifierHash();
+
+  @override
+  String toString() {
+    return r'carouselProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -39,12 +46,50 @@ final class CarouselNotifierProvider
       providerOverride: $SyncValueProvider<CarouselState>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CarouselNotifierProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$carouselNotifierHash() => r'8cf7f98bb013ed441d223147964bddcb29932e49';
+String _$carouselNotifierHash() => r'86535ca0daa6b69e6c484fadfe7b4f0301f11c7b';
+
+final class CarouselNotifierFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          CarouselNotifier,
+          CarouselState,
+          CarouselState,
+          CarouselState,
+          List<MediaImage>
+        > {
+  CarouselNotifierFamily._()
+    : super(
+        retry: null,
+        name: r'carouselProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  CarouselNotifierProvider call(List<MediaImage> initialImages) =>
+      CarouselNotifierProvider._(argument: initialImages, from: this);
+
+  @override
+  String toString() => r'carouselProvider';
+}
 
 abstract class _$CarouselNotifier extends $Notifier<CarouselState> {
-  CarouselState build();
+  late final _$args = ref.$arg as List<MediaImage>;
+  List<MediaImage> get initialImages => _$args;
+
+  CarouselState build(List<MediaImage> initialImages);
   @$mustCallSuper
   @override
   void runBuild() {
@@ -57,6 +102,6 @@ abstract class _$CarouselNotifier extends $Notifier<CarouselState> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

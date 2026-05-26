@@ -1,4 +1,6 @@
 import 'carousel_item.dart';
+import "media_image.dart";
+// import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 class CarouselState {
   final List<CarouselItem> items;
@@ -21,5 +23,9 @@ class CarouselState {
       uploadProgress: uploadProgress ?? this.uploadProgress,
       uploadErrors: uploadErrors ?? this.uploadErrors,
     );
+  }
+
+  List<MediaImage> toMediaImages() {
+    return items.where((e) => e.isRemote).map((e) => e.remoteImage!).toList();
   }
 }

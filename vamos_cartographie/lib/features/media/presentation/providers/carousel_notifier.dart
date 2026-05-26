@@ -1,9 +1,8 @@
 import 'dart:io';
 // 1. Remplacement de l'import pur riverpod par l'annotation et ajout du fichier .g.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/carousel_item.dart';
 import 'package:vamos_cartographie/features/media/data/repositories/upload_img_repository.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 // REQUIS : Remplacez 'carousel_notifier' par le nom exact de votre fichier .dart
 part 'carousel_notifier.g.dart';
 
@@ -11,9 +10,7 @@ part 'carousel_notifier.g.dart';
 class CarouselNotifier extends _$CarouselNotifier {
   @override
   CarouselState build(List<MediaImage> initialImages) {
-    final items = initialImages
-        .map((img) => CarouselItem.fromRemote(img))
-        .toList();
+    final items = CarouselItem.fromRemote(initialImages);
 
     return CarouselState(
       items: items,
