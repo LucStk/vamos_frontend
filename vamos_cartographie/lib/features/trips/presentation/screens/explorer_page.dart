@@ -4,6 +4,7 @@ import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.d
 import 'package:vamos_cartographie/features/map/map.dart';
 import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "package:vamos_cartographie/features/trips/presentation/widgets/dialogs/dialogs.dart";
 
 class ExplorerPage extends ConsumerWidget {
   const ExplorerPage({super.key});
@@ -25,43 +26,28 @@ class ExplorerPage extends ConsumerWidget {
     WidgetRef ref,
     Trip trip,
   ) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Supprimer le voyage'),
-        content: Text(
-          'Voulez-vous vraiment supprimer '
-          '« ${trip.title.isEmpty ? 'Sans titre' : trip.title} » ?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Annuler'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Supprimer'),
-          ),
-        ],
-      ),
-    );
+    // On appelle la méthode statique qu'on a créée au-dessus
+    final confirmed = await TripValidateDeleteDialog.show(context, trip);
 
+    // Si l'utilisateur a annulé ou cliqué à côté de la boîte de dialogue
     if (confirmed != true) return;
 
     try {
+      // Appel à Riverpod pour supprimer dans le state / serveur
       await ref.read(tripsProvider.notifier).deleteTrip(trip.id!);
 
+      // Sécurité Flutter obligatoire après un "await"
       if (!context.mounted) return;
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Voyage supprimé')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Voyage supprimé avec succès')),
+      );
     } catch (e) {
       if (!context.mounted) return;
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur lors de la suppression : $e')),
+      );
     }
   }
 

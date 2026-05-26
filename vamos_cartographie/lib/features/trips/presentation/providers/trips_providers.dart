@@ -5,31 +5,12 @@ import "package:get_it/get_it.dart";
 
 final getIt = GetIt.instance;
 
-final tripRepositoryProvider = Provider<ITripRepository>((ref) {
-  return getIt<ITripRepository>();
-});
-
-final tripsProvider = AsyncNotifierProvider<TripsNotifier, List<Trip>>(
-  TripsNotifier.new,
-);
-
-final tripProvider = FutureProvider.family<Trip, int>((ref, tripId) async {
-  final repository = ref.read(tripRepositoryProvider);
-
-  final result = await repository.getTrip(tripId);
-
-  return result.fold(
-    (failure) => throw Exception(failure.message),
-    (trip) => trip,
-  );
-});
-
 class TripsNotifier extends AsyncNotifier<List<Trip>> {
   late final ITripRepository repository;
 
   @override
   Future<List<Trip>> build() async {
-    repository = ref.read(tripRepositoryProvider);
+    repository = ref.read(_tripRepositoryProvider);
 
     return _loadTrips();
   }
@@ -97,3 +78,23 @@ class TripsNotifier extends AsyncNotifier<List<Trip>> {
     });
   }
 }
+
+final _tripRepositoryProvider = Provider<ITripRepository>((ref) {
+  return getIt<ITripRepository>();
+});
+
+final tripsProvider = AsyncNotifierProvider<TripsNotifier, List<Trip>>(
+  TripsNotifier.new,
+);
+
+final tripProvider = FutureProvider.family<Trip, int>((ref, tripId) async {
+  // Demande un certain "Trip" au réseau
+  final repository = ref.read(_tripRepositoryProvider);
+
+  final result = await repository.getTrip(tripId);
+
+  return result.fold(
+    (failure) => throw Exception(failure.message),
+    (trip) => trip,
+  );
+});
