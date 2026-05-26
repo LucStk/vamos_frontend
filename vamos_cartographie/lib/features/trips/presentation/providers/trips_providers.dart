@@ -1,18 +1,33 @@
 import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/repositories.dart';
-import "package:riverpod/riverpod.dart";
+// 1. Remplacement des imports riverpod classiques par les annotations
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import "package:get_it/get_it.dart";
+
+// REQUIS : Lien vers le fichier généré
+part 'trips_providers.g.dart';
 
 final getIt = GetIt.instance;
 
-class TripsNotifier extends AsyncNotifier<List<Trip>> {
+// 2. Migration de l'ancien Provider<ITripRepository>
+// En le préfixant par un '_', le provider généré restera "privé" à ce fichier.
+@riverpod
+ITripRepository _tripRepository(Ref ref) {
+  return getIt<ITripRepository>();
+}
+
+// 3. Migration du AsyncNotifierProvider vers une classe annotée
+// Note : Par défaut, @riverpod applique le comportement AutoDispose.
+// Si vous voulez garder vos voyages en mémoire indéfiniment, utilisez plutôt : @Riverpod(keepAlive: true)
+@riverpod
+class TripsNotifier extends _$TripsNotifier {
   late final ITripRepository repository;
 
   @override
   Future<List<Trip>> build() async {
+    // On lit le provider généré privé (il a maintenant le suffixe Provider)
     repository = ref.read(_tripRepositoryProvider);
-
     return _loadTrips();
   }
 
@@ -38,7 +53,6 @@ class TripsNotifier extends AsyncNotifier<List<Trip>> {
 
     result.fold((failure) => throw Exception(failure.message), (createdTrip) {
       final current = state.value ?? [];
-
       state = AsyncData([createdTrip, ...current]);
     });
   }
@@ -75,28 +89,20 @@ class TripsNotifier extends AsyncNotifier<List<Trip>> {
 
     result.fold((failure) => throw Exception(failure.message), (_) {
       final current = state.value ?? [];
-
       state = AsyncData(current.where((t) => t.id != id).toList());
     });
   }
 }
 
-final _tripRepositoryProvider = Provider<ITripRepository>((ref) {
-  return getIt<ITripRepository>();
-});
-
-final tripsProvider = AsyncNotifierProvider<TripsNotifier, List<Trip>>(
-  TripsNotifier.new,
-);
-
-final tripProvider = FutureProvider.family<Trip, int>((ref, tripId) async {
-  // Demande un certain "Trip" au réseau
+// 4. Migration du FutureProvider.family
+// Pour passer des paramètres à une fonction sous @riverpod, on ajoute simplement l'argument à la fonction !
+@riverpod
+Future<Trip> trip(Ref ref, int tripId) async {
   final repository = ref.read(_tripRepositoryProvider);
-
   final result = await repository.getTrip(tripId);
 
   return result.fold(
     (failure) => throw Exception(failure.message),
     (trip) => trip,
   );
-});
+}

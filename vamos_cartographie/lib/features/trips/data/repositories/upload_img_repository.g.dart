@@ -55,4 +55,4 @@ final class UploadImgRepositoryProvider
 }
 
 String _$uploadImgRepositoryHash() =>
-    r'648695d568732f5bdd40f2273ad50e3140ec4c47';
+    r'879d8691a7145c904670cd43e0a9e76e12677f5d';
