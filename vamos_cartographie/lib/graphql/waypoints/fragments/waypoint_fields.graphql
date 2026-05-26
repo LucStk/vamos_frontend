@@ -1,0 +1,14 @@
+#import "../../media/fragments/image_fields.graphql"
+fragment WaypointFields on WaypointType {
+    id
+    lat
+    lng
+    type
+    title
+    description
+    images {
+        image {
+            ...ImageFields
+        }
+    }
+}

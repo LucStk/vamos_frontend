@@ -1,0 +1,4 @@
+fragment ImageFields on MediaImageType {
+    url
+    fileKey
+}
