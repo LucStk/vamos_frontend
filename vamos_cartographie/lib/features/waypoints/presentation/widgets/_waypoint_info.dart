@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-import 'package:vamos_cartographie/shared/widgets/carousel/carousel.dart';
+import 'package:vamos_cartographie/shared/widgets/widgets.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
 import "_waypoint_header.dart";
 

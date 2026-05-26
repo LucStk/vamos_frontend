@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-
 import 'package:vamos_cartographie/shared/shared.dart';
-
 import '../trip_section_label.dart';
 
 /// Vue d'édition des informations d'un voyage.
@@ -35,20 +32,8 @@ class TripInfoEditorState extends State<TripInfoEditor> {
     });
   }
 
-  Future<void> _pickDate() async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: currentTrip.date ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-      locale: const Locale('fr', 'FR'),
-    );
-    if (picked != null) _patch(currentTrip.copyWith(date: picked));
-  }
-
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -75,37 +60,17 @@ class TripInfoEditorState extends State<TripInfoEditor> {
         Row(
           children: [
             // Bouton date (pas toute la largeur)
-            OutlinedButton.icon(
-              icon: const Icon(Icons.calendar_today, size: 16),
-              label: Text(
-                currentTrip.date != null
-                    ? DateFormat(
-                        'dd MMM yyyy',
-                        'fr_FR',
-                      ).format(currentTrip.date!)
-                    : 'Choisir une date',
-                style: TextStyle(
-                  color: currentTrip.date != null
-                      ? theme.colorScheme.onSurface
-                      : theme.colorScheme.onSurface.withOpacity(0.5),
-                ),
-              ),
-              onPressed: _pickDate,
+            // ── Date ──
+            const TripSectionLabel(label: 'DATE', icon: Icons.calendar_today),
+            const SizedBox(height: 8),
+
+            TripDatePicker(
+              date: currentTrip.date,
+              onDateChanged: (newDate) {
+                _patch(currentTrip.copyWith(date: newDate));
+              },
             ),
-            if (currentTrip.date != null) ...[
-              const SizedBox(width: 8),
-              IconButton.outlined(
-                icon: const Icon(Icons.clear, size: 18),
-                tooltip: 'Effacer la date',
-                onPressed: () => setState(() => currentTrip.date = null),
-                style: IconButton.styleFrom(
-                  padding: const EdgeInsets.all(6),
-                  minimumSize: const Size(32, 32),
-                ),
-              ),
-            ],
-          ],
-        ),
+
         const SizedBox(height: 20),
 
         // ── Description ──

@@ -2,8 +2,9 @@ import 'dart:io';
 // 1. Remplacement de l'import pur riverpod par l'annotation et ajout du fichier .g.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/trip_image.dart';
-import '../carousel_state.dart';
-import '../carousel_item.dart';
+
+import 'package:vamos_cartographie/features/images/domain/entities/carousel_item.dart';
+
 import 'package:vamos_cartographie/features/trips/data/repositories/upload_img_repository.dart';
 // REQUIS : Remplacez 'carousel_notifier' par le nom exact de votre fichier .dart
 part 'carousel_notifier.g.dart';
@@ -11,15 +12,16 @@ part 'carousel_notifier.g.dart';
 @riverpod
 class CarouselNotifier extends _$CarouselNotifier {
   @override
-  CarouselState build() => const CarouselState();
+  CarouselState build(List<TripImage> initialImages) {
+    final items = initialImages
+        .map((img) => CarouselItem.fromRemote(img))
+        .toList();
 
-  /// Initialise les images distantes au chargement du widget
-  void initImages(List<TripImage> remoteImages) {
-    if (state.items.isEmpty && remoteImages.isNotEmpty) {
-      state = CarouselState(
-        items: remoteImages.map(CarouselItem.remote).toList(),
-      );
-    }
+    return CarouselState(
+      items: items,
+      uploadProgress: const {},
+      uploadErrors: const {},
+    );
   }
 
   /// Ajoute des images locales sélectionnées et lance l'upload

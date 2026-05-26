@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 // Bouton "+"
 // ─────────────────────────────────────────────────────────────────────────────
 
-class AddButton extends StatelessWidget {
+class ThumbnailButtonAdd extends StatelessWidget {
   final double size;
   final VoidCallback onTap;
 
-  const AddButton({required this.size, required this.onTap});
+  const ThumbnailButtonAdd({
+    super.key,
+    required this.size,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
