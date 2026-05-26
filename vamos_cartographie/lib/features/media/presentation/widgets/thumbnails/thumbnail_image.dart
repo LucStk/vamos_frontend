@@ -15,7 +15,7 @@ class ThumbnailImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (item.isLocal) {
       return Image.file(
-        File(item.value),
+        File(item.fileKey),
         fit: BoxFit.cover,
         errorBuilder: (_, _, _) => ThumbnailError(onTap: onRetry),
       );

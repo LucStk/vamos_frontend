@@ -130,7 +130,7 @@ class LightBoxState extends State<LightBox> {
 
   Widget _buildPage(CarouselItem item) {
     final image = item.isLocal
-        ? Image.file(File(item.value), fit: BoxFit.contain)
+        ? Image.file(File(item.fileKey), fit: BoxFit.contain)
         : Image.network(
             item.displayUrl,
             fit: BoxFit.contain,

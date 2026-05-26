@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 import 'package:vamos_cartographie/features/media/media.dart';
 import "thumbnails/thumbnail_view.dart";
 
@@ -18,7 +17,7 @@ class ImageCarouselView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 1. On passe les images directement au provider.
     // Riverpod va créer ou récupérer l'état existant de manière totalement sécurisée.
-    final items = CarouselItem.fromRemote(remoteImages);
+    final items = remoteImages.map(CarouselItem.remote).toList();
 
     if (items.isEmpty) return const SizedBox.shrink();
 
@@ -29,7 +28,9 @@ class ImageCarouselView extends ConsumerWidget {
         for (int i = 0; i < items.length; i++)
           ThumbnailView(
             item: items[i],
-            key: ValueKey('${items[i].value}_${items[i].displayUrl.hashCode}'),
+            key: ValueKey(
+              '${items[i].fileKey}_${items[i].displayUrl.hashCode}',
+            ),
             size: thumbSize,
           ),
       ],

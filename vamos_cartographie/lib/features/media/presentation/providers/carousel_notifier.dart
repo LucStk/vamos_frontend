@@ -13,89 +13,102 @@ class CarouselNotifier extends _$CarouselNotifier {
     return CarouselState.fromRemote(initialImages);
   }
 
-  /// Ajoute des images locales sélectionnées et lance l'upload
-  void addLocalImages(
-    List<String> paths,
-    Function(List<MediaImage>) onChanged,
+  // ─────────────────────────────────────────────────────────────
+  // Helpers
+  // ─────────────────────────────────────────────────────────────
+
+  void _updateItem(
+    String fileKey,
+    CarouselItem Function(CarouselItem item) update,
   ) {
+    final index = state.items.indexWhere((i) => i.fileKey == fileKey);
+    if (index == -1) return;
+    final updatedItems = List<CarouselItem>.from(state.items);
+    updatedItems[index] = update(updatedItems[index]);
+    state = state.copyWith(items: updatedItems);
+  }
+
+  void _replaceItem(String fileKey, CarouselItem newItem) {
+    state = state.copyWith(
+      items: state.items.map((item) {
+        if (item.fileKey != fileKey) return item;
+        return newItem;
+      }).toList(),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Public API
+  // ─────────────────────────────────────────────────────────────
+
+  void addLocalImages(List<String> paths) {
     final newItems = paths.map(CarouselItem.local).toList();
 
     state = state.copyWith(items: [...state.items, ...newItems]);
 
     for (final item in newItems) {
-      uploadItem(item, onChanged);
+      uploadItem(item);
     }
   }
 
-  /// Gère l'upload d'un item individuel
-  Future<void> uploadItem(
-    CarouselItem item,
-    Function(List<MediaImage>) onChanged,
-  ) async {
-    final path = item.value;
+  Future<void> uploadItem(CarouselItem item) async {
+    if (!item.isLocal) return;
+
+    final path = item.fileKey;
+
     final ext = path.split('.').last.toLowerCase();
 
-    // On initialise le loader pour cette image
-    state = state.copyWith(
-      uploadProgress: {...state.uploadProgress, path: 0.0},
-      uploadErrors: {...state.uploadErrors}..remove(path),
+    // Etat initial upload
+    _updateItem(
+      path,
+      (item) => item.copyWith(
+        uploadStatus: UploadStatus.uploading,
+        progress: 0,
+        error: null,
+      ),
     );
 
-    // Note : Avec build_runner, le "ref" change subtilement en tâche de fond mais s'utilise à l'identique.
     final repository = ref.read(uploadImgRepositoryProvider);
 
     final result = await repository.uploadImage(
       File(path),
       ext,
       onProgress: (sent, total) {
-        state = state.copyWith(
-          uploadProgress: {
-            ...state.uploadProgress,
-            path: total > 0 ? sent / total : 0.0,
-          },
+        _updateItem(
+          path,
+          (item) => item.copyWith(progress: total > 0 ? sent / total : 0),
         );
       },
     );
 
-    final idx = state.items.indexWhere((i) => i.isLocal && i.value == path);
-    if (idx == -1) return;
+    // Item supprimé pendant upload
+    final stillExists = state.items.any((i) => i.isLocal && i.fileKey == path);
+
+    if (!stillExists) return;
 
     result.fold(
       (failure) {
-        state = state.copyWith(
-          uploadProgress: {...state.uploadProgress}..remove(path),
-          uploadErrors: {...state.uploadErrors, path: 'Échec upload'},
+        _updateItem(
+          path,
+          (item) => item.copyWith(
+            uploadStatus: UploadStatus.failure,
+            error: "Échec upload",
+          ),
         );
       },
       (MediaImage image) {
-        final updatedItems = [...state.items];
-        updatedItems[idx] = CarouselItem.remote(image);
-
-        state = state.copyWith(
-          uploadProgress: {...state.uploadProgress}..remove(path),
-          uploadErrors: {...state.uploadErrors}..remove(path),
-          items: updatedItems,
-        );
-
-        // On extrait les images distantes valides pour notifier le formulaire parent
-        final remoteImages = CarouselItem.toRemote(updatedItems);
-        onChanged(remoteImages);
+        _replaceItem(path, CarouselItem.remote(image));
       },
     );
   }
 
-  /// Supprime un item
-  void deleteItem(int idx, Function(List<MediaImage>) onChanged) {
-    final val = state.items[idx].value;
-    final updatedItems = [...state.items]..removeAt(idx);
+  void retryUpload(CarouselItem item) {
+    uploadItem(item);
+  }
 
+  void deleteItem(CarouselItem item) {
     state = state.copyWith(
-      items: updatedItems,
-      uploadProgress: {...state.uploadProgress}..remove(val),
-      uploadErrors: {...state.uploadErrors}..remove(val),
+      items: state.items.where((i) => i.fileKey != item.fileKey).toList(),
     );
-
-    final remoteImages = CarouselItem.toRemote(updatedItems);
-    onChanged(remoteImages);
   }
 }
