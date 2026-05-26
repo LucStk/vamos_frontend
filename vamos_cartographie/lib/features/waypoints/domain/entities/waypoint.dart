@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:api_client/api_client.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/trips/domain/entities/trip_image.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 
 class Waypoint {
   int? id;
@@ -9,7 +9,7 @@ class Waypoint {
   LatLng latLng;
   GWaypointEnum type;
   String? description;
-  List<TripImage>? images;
+  List<MediaImage>? images;
 
   Waypoint({
     this.id,
@@ -17,7 +17,7 @@ class Waypoint {
     this.title,
     this.type = GWaypointEnum.WAYPOINT,
     this.description = '',
-    List<TripImage>? images,
+    List<MediaImage>? images,
   }) : images = images ?? [];
 
   Waypoint copyWith({
@@ -25,7 +25,7 @@ class Waypoint {
     String? title,
     String? description,
     GWaypointEnum? type,
-    List<TripImage>? images,
+    List<MediaImage>? images,
   }) {
     return Waypoint(
       id: id ?? this.id,

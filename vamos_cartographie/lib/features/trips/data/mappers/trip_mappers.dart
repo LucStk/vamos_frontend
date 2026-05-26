@@ -2,6 +2,7 @@ import 'package:api_client/api_client.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
@@ -22,7 +23,7 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
   );
 
@@ -34,7 +35,7 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
     waypoints: data.waypoints.map(WaypointMapper.waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
@@ -47,7 +48,7 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
     waypoints: data.waypoints.map(WaypointMapper.waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),
@@ -60,7 +61,7 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
     waypoints: data.waypoints.map(WaypointMapper.waypointFromGQL).toList(),
     segments: data.segments.map(segmentFromGQL).toList(),

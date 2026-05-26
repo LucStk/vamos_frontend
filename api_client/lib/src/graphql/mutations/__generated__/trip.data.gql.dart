@@ -16,7 +16,8 @@ class GCreateTripData {
   factory GCreateTripData.fromJson(Map<String, dynamic> json) {
     return GCreateTripData(
       createTrip: GCreateTripData_createTrip.fromJson(
-          (json['createTrip'] as Map<String, dynamic>)),
+        (json['createTrip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -80,17 +81,24 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GCreateTripData_createTrip_images.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GCreateTripData_createTrip_images.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
     );
   }
@@ -165,15 +173,16 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(images),
-        G__typename,
-        _gqlUtils.listHash(waypoints),
-        _gqlUtils.listHash(segments));
+      runtimeType,
+      id,
+      title,
+      date,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+      _gqlUtils.listHash(waypoints),
+      _gqlUtils.listHash(segments),
+    );
   }
 
   @override
@@ -185,14 +194,16 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
 class GCreateTripData_createTrip_images implements _i1.GTripFields_images {
   const GCreateTripData_createTrip_images({
     required this.image,
-    this.G__typename = 'TripImageType',
+    this.G__typename = 'MediaImageType',
   });
 
   factory GCreateTripData_createTrip_images.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return GCreateTripData_createTrip_images(
       image: _i1.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -246,7 +257,8 @@ class GUpdateTripData {
   factory GUpdateTripData.fromJson(Map<String, dynamic> json) {
     return GUpdateTripData(
       updateTrip: GUpdateTripData_updateTrip.fromJson(
-          (json['updateTrip'] as Map<String, dynamic>)),
+        (json['updateTrip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -310,17 +322,24 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GUpdateTripData_updateTrip_images.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GUpdateTripData_updateTrip_images.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
     );
   }
@@ -395,15 +414,16 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(images),
-        G__typename,
-        _gqlUtils.listHash(waypoints),
-        _gqlUtils.listHash(segments));
+      runtimeType,
+      id,
+      title,
+      date,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+      _gqlUtils.listHash(waypoints),
+      _gqlUtils.listHash(segments),
+    );
   }
 
   @override
@@ -415,14 +435,16 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
 class GUpdateTripData_updateTrip_images implements _i1.GTripFields_images {
   const GUpdateTripData_updateTrip_images({
     required this.image,
-    this.G__typename = 'TripImageType',
+    this.G__typename = 'MediaImageType',
   });
 
   factory GUpdateTripData_updateTrip_images.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return GUpdateTripData_updateTrip_images(
       image: _i1.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -476,7 +498,8 @@ class GDeleteTripData {
   factory GDeleteTripData.fromJson(Map<String, dynamic> json) {
     return GDeleteTripData(
       deleteTrip: GDeleteTripData_deleteTrip.fromJson(
-          (json['deleteTrip'] as Map<String, dynamic>)),
+        (json['deleteTrip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -545,10 +568,7 @@ class GDeleteTripData_deleteTrip {
     return _$result;
   }
 
-  GDeleteTripData_deleteTrip copyWith({
-    int? id,
-    String? G__typename,
-  }) {
+  GDeleteTripData_deleteTrip copyWith({int? id, String? G__typename}) {
     return GDeleteTripData_deleteTrip(
       id: id ?? this.id,
       G__typename: G__typename ?? this.G__typename,

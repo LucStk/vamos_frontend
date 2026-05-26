@@ -1,9 +1,8 @@
 import 'package:api_client/api_client.dart';
 import 'package:latlong2/latlong.dart';
 import "segment.dart";
-import "trip_image.dart";
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-
+import "package:vamos_cartographie/features/media/domain/entities/media_image.dart";
 // ---------------------------------------------------------------------------
 // Route
 // ---------------------------------------------------------------------------
@@ -13,7 +12,7 @@ class Trip {
   String title;
   String description;
   DateTime? date;
-  List<TripImage> images;
+  List<MediaImage> images;
   final List<Waypoint> waypoints;
   final List<Segment> segments;
 
@@ -22,7 +21,7 @@ class Trip {
     this.title = '',
     this.description = '',
     this.date,
-    List<TripImage>? images,
+    List<MediaImage>? images,
     this.waypoints = const [],
     this.segments = const [],
   }) : images = images ?? [],
@@ -80,7 +79,7 @@ class Trip {
     String? title,
     String? description,
     DateTime? date,
-    List<TripImage>? images,
+    List<MediaImage>? images,
   }) {
     return Trip(
       id: id ?? this.id,

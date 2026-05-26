@@ -5,9 +5,8 @@ import 'package:vamos_cartographie/core/config.dart';
 import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/trip_repository.dart';
-import 'package:vamos_cartographie/features/trips/data/repositories/upload_img_repository.dart';
+import 'package:vamos_cartographie/features/media/media.dart';
 import 'package:vamos_cartographie/features/trips/data/mocks/mock_trip_repository.dart';
-import 'package:vamos_cartographie/features/trips/data/mocks/mock_upload_img_repository.dart';
 
 final getIt = GetIt.instance;
 

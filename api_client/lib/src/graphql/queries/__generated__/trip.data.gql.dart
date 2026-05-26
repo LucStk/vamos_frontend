@@ -8,16 +8,15 @@ import 'package:api_client/src/graphql/fragments/__generated__/trip.data.gql.dar
     as _i1;
 
 class GGetAllTripsData {
-  const GGetAllTripsData({
-    required this.trips,
-    this.G__typename = 'Query',
-  });
+  const GGetAllTripsData({required this.trips, this.G__typename = 'Query'});
 
   factory GGetAllTripsData.fromJson(Map<String, dynamic> json) {
     return GGetAllTripsData(
       trips: (json['trips'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -64,10 +63,7 @@ class GGetAllTripsData {
 }
 
 class GGetTripData {
-  const GGetTripData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
+  const GGetTripData({required this.trip, this.G__typename = 'Query'});
 
   factory GGetTripData.fromJson(Map<String, dynamic> json) {
     return GGetTripData(
@@ -87,10 +83,7 @@ class GGetTripData {
     return _$result;
   }
 
-  GGetTripData copyWith({
-    GGetTripData_trip? trip,
-    String? G__typename,
-  }) {
+  GGetTripData copyWith({GGetTripData_trip? trip, String? G__typename}) {
     return GGetTripData(
       trip: trip ?? this.trip,
       G__typename: G__typename ?? this.G__typename,
@@ -135,17 +128,24 @@ class GGetTripData_trip implements _i1.GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) =>
-              GGetTripData_trip_images.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GGetTripData_trip_images.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
     );
   }
@@ -220,15 +220,16 @@ class GGetTripData_trip implements _i1.GTripFields {
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(images),
-        G__typename,
-        _gqlUtils.listHash(waypoints),
-        _gqlUtils.listHash(segments));
+      runtimeType,
+      id,
+      title,
+      date,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+      _gqlUtils.listHash(waypoints),
+      _gqlUtils.listHash(segments),
+    );
   }
 
   @override
@@ -240,13 +241,14 @@ class GGetTripData_trip implements _i1.GTripFields {
 class GGetTripData_trip_images implements _i1.GTripFields_images {
   const GGetTripData_trip_images({
     required this.image,
-    this.G__typename = 'TripImageType',
+    this.G__typename = 'MediaImageType',
   });
 
   factory GGetTripData_trip_images.fromJson(Map<String, dynamic> json) {
     return GGetTripData_trip_images(
       image: _i1.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

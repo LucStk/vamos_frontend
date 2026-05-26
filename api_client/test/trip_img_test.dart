@@ -17,18 +17,18 @@ void printError(response) {
   }
 }
 
-Future<void> addTripImage(client, tripId, fileKey) async {
-  final tripImageResponse = await client
+Future<void> addMediaImage(client, tripId, fileKey) async {
+  final MediaImageResponse = await client
       .request(
         GAttachImageToTripReq(
           vars: GAttachImageToTripVars(tripId: tripId, fileKey: fileKey),
         ),
       )
       .first;
-  expect(tripImageResponse.data, isNotNull);
+  expect(MediaImageResponse.data, isNotNull);
 }
 
-Future<void> deleteTripImage(Client client, int tripId, String fileKey) async {
+Future<void> deleteMediaImage(Client client, int tripId, String fileKey) async {
   final response = await client
       .request(
         GDeleteImageFromTripReq(
@@ -60,7 +60,7 @@ void main() {
     final tripId = tripResponse.id;
 
     // Ajout d'une image au trip
-    await addTripImage(client, tripId, fileKey);
+    await addMediaImage(client, tripId, fileKey);
 
     // Vérification que l'image est bien attachée au trip
     final tripByIdResponse = await getTripById(tripId, client);
@@ -70,7 +70,7 @@ void main() {
 
     // Suppression de l'image dans le trip
     print("test de suppression");
-    await deleteTripImage(client, tripId, fileKey);
+    await deleteMediaImage(client, tripId, fileKey);
     await deleteTripRequest(tripId, client);
   });
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TripDatePicker extends StatelessWidget {
+class DatePicker extends StatelessWidget {
   final DateTime? date;
   final ValueChanged<DateTime?> onDateChanged;
 
-  const TripDatePicker({
+  const DatePicker({
     super.key,
     required this.date,
     required this.onDateChanged,

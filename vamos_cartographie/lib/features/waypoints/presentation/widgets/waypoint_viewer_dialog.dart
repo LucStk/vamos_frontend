@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:api_client/api_client.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
-import '_waypoint_info.dart';
-import '_waypoint_editor.dart';
+import 'waypoint_info.dart';
+import 'waypoint_editor.dart';
 
 class WaypointViewerDialog extends StatefulWidget {
   final Waypoint waypoint;

@@ -38,8 +38,10 @@ class GTripFieldsData implements GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) =>
-              GTripFieldsData_images.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                GTripFieldsData_images.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -102,8 +104,15 @@ class GTripFieldsData implements GTripFields {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, title, date, description,
-        _gqlUtils.listHash(images), G__typename);
+    return Object.hash(
+      runtimeType,
+      id,
+      title,
+      date,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+    );
   }
 
   @override
@@ -115,7 +124,7 @@ class GTripFieldsData implements GTripFields {
 class GTripFieldsData_images implements GTripFields_images {
   const GTripFieldsData_images({
     required this.image,
-    this.G__typename = 'TripImageType',
+    this.G__typename = 'MediaImageType',
   });
 
   factory GTripFieldsData_images.fromJson(Map<String, dynamic> json) {
@@ -255,8 +264,11 @@ class GSegmentFieldsData implements GSegmentFields {
     return GSegmentFieldsData(
       type: _i1.GSegmentTypeEnum.fromJson((json['type'] as String)),
       intermediatePoints: (json['intermediatePoints'] as List<dynamic>)
-          .map((_$e) => GSegmentFieldsData_intermediatePoints.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GSegmentFieldsData_intermediatePoints.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -271,8 +283,9 @@ class GSegmentFieldsData implements GSegmentFields {
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['type'] = this.type.toJson();
-    _$result['intermediatePoints'] =
-        this.intermediatePoints.map((_$e) => _$e.toJson()).toList();
+    _$result['intermediatePoints'] = this.intermediatePoints
+        .map((_$e) => _$e.toJson())
+        .toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -295,14 +308,20 @@ class GSegmentFieldsData implements GSegmentFields {
         (other is GSegmentFieldsData &&
             type == other.type &&
             _gqlUtils.listEquals(
-                intermediatePoints, other.intermediatePoints) &&
+              intermediatePoints,
+              other.intermediatePoints,
+            ) &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType, type, _gqlUtils.listHash(intermediatePoints), G__typename);
+      runtimeType,
+      type,
+      _gqlUtils.listHash(intermediatePoints),
+      G__typename,
+    );
   }
 
   @override
@@ -320,7 +339,8 @@ class GSegmentFieldsData_intermediatePoints
   });
 
   factory GSegmentFieldsData_intermediatePoints.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return GSegmentFieldsData_intermediatePoints(
       lat: (json['lat'] as double),
       lng: (json['lng'] as double),
@@ -411,8 +431,11 @@ class GWaypointFieldsData implements GWaypointFields {
       title: (json['title'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GWaypointFieldsData_images.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GWaypointFieldsData_images.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -485,8 +508,17 @@ class GWaypointFieldsData implements GWaypointFields {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, lat, lng, type, title, description,
-        _gqlUtils.listHash(images), G__typename);
+    return Object.hash(
+      runtimeType,
+      id,
+      lat,
+      lng,
+      type,
+      title,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+    );
   }
 
   @override

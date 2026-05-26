@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
 import '../trip_section_label.dart';
+import "package:vamos_cartographie/features/media/media.dart";
 
 /// Vue d'édition des informations d'un voyage.
 /// Travaille sur une copie locale et n'applique les changements
@@ -34,7 +35,6 @@ class TripInfoEditorState extends State<TripInfoEditor> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,43 +64,45 @@ class TripInfoEditorState extends State<TripInfoEditor> {
             const TripSectionLabel(label: 'DATE', icon: Icons.calendar_today),
             const SizedBox(height: 8),
 
-            TripDatePicker(
+            DatePicker(
               date: currentTrip.date,
               onDateChanged: (newDate) {
                 _patch(currentTrip.copyWith(date: newDate));
               },
             ),
 
-        const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-        // ── Description ──
-        const TripSectionLabel(label: 'DESCRIPTION', icon: Icons.notes),
-        const SizedBox(height: 8),
-        TextAreaWithCounter(
-          initialValue: currentTrip.description,
-          readOnly: false,
-          onChanged: (val) => _patch(currentTrip.copyWith(description: val)),
-        ),
-        const SizedBox(height: 20),
-
-        // ── Photos ──
-        const TripSectionLabel(
-          label: 'PHOTOS',
-          icon: Icons.photo_library_outlined,
-        ),
-        const SizedBox(height: 8),
-        // Le picker est limité en largeur via Align + FractionallySizedBox
-        Align(
-          alignment: Alignment.centerLeft,
-          child: FractionallySizedBox(
-            widthFactor: 0.9,
-            child: ImageCarouselPicker(
-              remoteImages: currentTrip.images,
+            // ── Description ──
+            const TripSectionLabel(label: 'DESCRIPTION', icon: Icons.notes),
+            const SizedBox(height: 8),
+            TextAreaWithCounter(
+              initialValue: currentTrip.description,
               readOnly: false,
-              onChanged: (images) =>
-                  setState(() => currentTrip.images = images),
+              onChanged: (val) =>
+                  _patch(currentTrip.copyWith(description: val)),
             ),
-          ),
+            const SizedBox(height: 20),
+
+            // ── Photos ──
+            const TripSectionLabel(
+              label: 'PHOTOS',
+              icon: Icons.photo_library_outlined,
+            ),
+            const SizedBox(height: 8),
+            // Le picker est limité en largeur via Align + FractionallySizedBox
+            Align(
+              alignment: Alignment.centerLeft,
+              child: FractionallySizedBox(
+                widthFactor: 0.9,
+                child: ImageCarouselPicker(
+                  remoteImages: currentTrip.images,
+                  onChanged: (images) =>
+                      setState(() => currentTrip.images = images),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

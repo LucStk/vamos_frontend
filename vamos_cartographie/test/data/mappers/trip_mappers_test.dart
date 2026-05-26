@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -157,7 +158,7 @@ void main() {
       expect(trip.description, 'Une belle aventure');
       expect(trip.date, DateTime(2024, 7, 14));
       expect(trip.images, [
-        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+        const MediaImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
       ]);
       // tripFromGQLFields n'inclut pas de waypoints ni segments
       expect(trip.waypoints, isEmpty);
@@ -222,7 +223,7 @@ void main() {
       final trip = TripMapper.tripFromGQLDetail(_gqlTripDetail());
 
       expect(trip.images, [
-        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+        const MediaImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
       ]);
     });
 
@@ -247,7 +248,7 @@ void main() {
       expect(trip.description, 'Créé via mutation');
       expect(trip.date, isNull);
       expect(trip.images, [
-        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+        const MediaImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
       ]);
       expect(trip.waypoints, hasLength(2));
       expect(trip.segments, hasLength(1));
@@ -275,7 +276,7 @@ void main() {
       expect(trip.description, 'Mis à jour');
       expect(trip.date, DateTime(2024, 8, 1));
       expect(trip.images, [
-        const TripImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
+        const MediaImage(url: 'https://cdn/img.jpg', fileKey: 'media/img.jpg'),
       ]);
       expect(trip.waypoints, hasLength(2));
       expect(trip.segments, hasLength(1));

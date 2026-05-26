@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 
 class MockTripRepository implements ITripRepository {
   // Base de données en mémoire
@@ -17,7 +18,7 @@ class MockTripRepository implements ITripRepository {
           'Un grand tour de Bretagne en passant par Rennes, Brest et le long des côtes bretonnes. Paysages grandioses, crêpes et cidre garantis !',
       date: DateTime(2024, 7, 14),
       images: [
-        TripImage(
+        MediaImage(
           fileKey: 'seed/v1',
           url: 'https://picsum.photos/seed/v1/600/400',
         ),

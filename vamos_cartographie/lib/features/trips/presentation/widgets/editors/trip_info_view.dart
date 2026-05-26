@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/widgets/widgets.dart';
 import '../trip_section_label.dart';
+
+import "package:vamos_cartographie/features/media/media.dart";
 
 /// Vue lecture seule des informations d'un voyage.
 /// Utilisée dans le dialog d'affichage.
@@ -38,22 +39,7 @@ class TripInfoView extends StatelessWidget {
 
         // Date
         if (hasDate) ...[
-          Row(
-            children: [
-              Icon(
-                Icons.calendar_today,
-                size: 15,
-                color: theme.colorScheme.primary,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                DateFormat('dd MMMM yyyy', 'fr_FR').format(trip.date!),
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
+          DateDisplay(date: trip.date!),
           const SizedBox(height: 12),
         ],
 
@@ -72,11 +58,7 @@ class TripInfoView extends StatelessWidget {
             icon: Icons.photo_library_outlined,
           ),
           const SizedBox(height: 8),
-          ImageCarouselPicker(
-            remoteImages: trip.images,
-            readOnly: true,
-            onChanged: (_) {},
-          ),
+          ImageCarouselView(remoteImages: trip.images),
         ],
 
         // État vide

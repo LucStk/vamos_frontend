@@ -3,8 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
-import 'package:vamos_cartographie/features/trips/data/repositories/upload_img_repository.dart';
+import 'package:vamos_cartographie/features/media/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 import 'i_trip_repository.dart';
 
 /// Implémentation concrète de [ITripRepository].
@@ -86,7 +87,7 @@ class TripRepository implements ITripRepository {
 
       // Les images déjà attachées côté serveur (retournées par la mutation).
       final alreadyAttached = gqlResult.images
-          .map((i) => TripImage(fileKey: i.image.fileKey, url: i.image.url))
+          .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
           .toSet();
 
       // On n'attache que les images nouvelles (présentes localement mais pas
@@ -139,13 +140,13 @@ class TripRepository implements ITripRepository {
   /// silencieusement (l'image reste dans le modèle local, l'opération peut
   /// être rejouée à la prochaine sauvegarde).
   ///
-  /// Retourne l'ensemble des [TripImage] effectivement attachés (+ ceux déjà là).
-  Future<Set<TripImage>> _attachImages({
+  /// Retourne l'ensemble des [MediaImage] effectivement attachés (+ ceux déjà là).
+  Future<Set<MediaImage>> _attachImages({
     required int tripId,
-    required List<TripImage> desired,
-    required Set<TripImage> alreadyAttached,
+    required List<MediaImage> desired,
+    required Set<MediaImage> alreadyAttached,
   }) async {
-    final attached = <TripImage>{...alreadyAttached};
+    final attached = <MediaImage>{...alreadyAttached};
     final attachedFileKeys = attached.map((i) => i.fileKey).toSet();
 
     for (final image in desired) {
@@ -173,7 +174,7 @@ class TripRepository implements ITripRepository {
   /// retentée à la prochaine sauvegarde).
   Future<void> _deleteImages({
     required int tripId,
-    required List<TripImage> toRemove,
+    required List<MediaImage> toRemove,
   }) async {
     for (final image in toRemove) {
       await remote.deleteImgTrip(tripId: tripId, fileKey: image.fileKey);
@@ -181,7 +182,7 @@ class TripRepository implements ITripRepository {
   }
 
   /// Reconstruit un [Trip] domaine en remplaçant sa liste d'images.
-  Trip _rebuildWithImages(Trip source, List<TripImage> images) => Trip(
+  Trip _rebuildWithImages(Trip source, List<MediaImage> images) => Trip(
     id: source.id,
     title: source.title,
     description: source.description,

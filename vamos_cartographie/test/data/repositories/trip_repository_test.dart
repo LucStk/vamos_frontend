@@ -6,10 +6,10 @@ import 'package:test/test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/trip_repository.dart';
-import 'package:vamos_cartographie/features/trips/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
+import 'package:vamos_cartographie/features/media/media.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 // Mock du datasource
 // ─────────────────────────────────────────────────────────────────────────────
@@ -146,7 +146,7 @@ void main() {
       expect(trips.first.id, 1);
       expect(trips.first.title, 'Trip 1');
       expect(trips.first.images, [
-        TripImage(fileKey: 'media/x.jpg', url: 'https://cdn/media/x.jpg'),
+        MediaImage(fileKey: 'media/x.jpg', url: 'https://cdn/media/x.jpg'),
       ]);
     });
 
@@ -238,8 +238,8 @@ void main() {
         title: 'Avec images',
         description: '',
         images: [
-          TripImage(fileKey: 'media/a.jpg', url: ""),
-          TripImage(fileKey: 'media/b.jpg', url: ""),
+          MediaImage(fileKey: 'media/a.jpg', url: ""),
+          MediaImage(fileKey: 'media/b.jpg', url: ""),
         ],
 
         waypoints: [
@@ -339,11 +339,11 @@ void main() {
           title: 'Trip',
           description: '',
           images: [
-            const TripImage(
+            const MediaImage(
               fileKey: 'media/existing.jpg',
               url: 'https://cdn/existing.jpg',
             ),
-            const TripImage(
+            const MediaImage(
               fileKey: 'media/new.jpg',
               url: 'https://cdn/new.jpg',
             ),
@@ -388,8 +388,8 @@ void main() {
           title: 'Trip',
           description: '',
           images: [
-            const TripImage(fileKey: 'media/a.jpg', url: 'https://cdn/a.jpg'),
-            const TripImage(fileKey: 'media/b.jpg', url: 'https://cdn/b.jpg'),
+            const MediaImage(fileKey: 'media/a.jpg', url: 'https://cdn/a.jpg'),
+            const MediaImage(fileKey: 'media/b.jpg', url: 'https://cdn/b.jpg'),
           ],
         );
         await repository.updateTrip(3, trip);
@@ -427,7 +427,7 @@ void main() {
           title: 'Trip',
           description: '',
           images: [
-            const TripImage(
+            const MediaImage(
               fileKey: 'media/kept.jpg',
               url: 'https://cdn/kept.jpg',
             ),
@@ -523,11 +523,11 @@ void main() {
           title: 'Trip',
           description: '',
           images: [
-            const TripImage(
+            const MediaImage(
               fileKey: 'media/kept.jpg',
               url: 'https://cdn/kept.jpg',
             ),
-            const TripImage(
+            const MediaImage(
               fileKey: 'media/new.jpg',
               url: 'https://cdn/new.jpg',
             ),

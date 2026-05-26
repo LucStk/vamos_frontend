@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
+import "package:vamos_cartographie/features/media/media.dart";
 
 enum MapMode { observer, editRoute, addPoint }
 
@@ -54,7 +55,7 @@ class MapStateNotifier extends Notifier<MapState> {
             latLng: LatLng(w.latLng.latitude, w.latLng.longitude),
             type: w.type,
             description: w.description,
-            images: List<TripImage>.from(w.images ?? []),
+            images: List<MediaImage>.from(w.images ?? []),
           ),
         )
         .toList();
