@@ -10,13 +10,7 @@ part 'carousel_notifier.g.dart';
 class CarouselNotifier extends _$CarouselNotifier {
   @override
   CarouselState build(List<MediaImage> initialImages) {
-    final items = CarouselItem.fromRemote(initialImages);
-
-    return CarouselState(
-      items: items,
-      uploadProgress: const {},
-      uploadErrors: const {},
-    );
+    return CarouselState.fromRemote(initialImages);
   }
 
   /// Ajoute des images locales sélectionnées et lance l'upload

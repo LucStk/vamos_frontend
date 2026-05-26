@@ -4,28 +4,24 @@ import "media_image.dart";
 
 class CarouselState {
   final List<CarouselItem> items;
-  final Map<String, double> uploadProgress;
-  final Map<String, String> uploadErrors;
 
-  const CarouselState({
-    this.items = const [],
-    this.uploadProgress = const {},
-    this.uploadErrors = const {},
-  });
+  const CarouselState({this.items = const []});
 
-  CarouselState copyWith({
-    List<CarouselItem>? items,
-    Map<String, double>? uploadProgress,
-    Map<String, String>? uploadErrors,
-  }) {
-    return CarouselState(
-      items: items ?? this.items,
-      uploadProgress: uploadProgress ?? this.uploadProgress,
-      uploadErrors: uploadErrors ?? this.uploadErrors,
-    );
+  CarouselState copyWith({List<CarouselItem>? items}) {
+    return CarouselState(items: items ?? this.items);
   }
 
-  List<MediaImage> toMediaImages() {
+  List<MediaImage> get remoteImages {
     return items.where((e) => e.isRemote).map((e) => e.remoteImage!).toList();
+  }
+
+  factory CarouselState.fromRemote(List<MediaImage> remoteImages) {
+    return CarouselState(
+      items: remoteImages
+          .map(
+            (image) => CarouselItem.remote(image),
+          ) // Réutilisation de ta factory !
+          .toList(),
+    );
   }
 }
