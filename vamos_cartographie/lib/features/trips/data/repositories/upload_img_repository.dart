@@ -3,11 +3,16 @@ import 'package:api_client/api_client.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ferry/ferry.dart';
+import 'package:get_it/get_it.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/trip_image.dart';
 
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'upload_img_repository.g.dart';
+
+final dio = Dio();
+
 class UploadImgRepository {
-  final _dio = Dio();
   final Client _client;
 
   UploadImgRepository(this._client);
@@ -41,7 +46,7 @@ class UploadImgRepository {
       final fileKey = uploadConfig.fileKey;
 
       // 2. Upload vers le stockage objet
-      await _dio.put(
+      await dio.put(
         signedUrl,
         data: imageFile.openRead(),
         options: Options(
@@ -101,4 +106,11 @@ class UploadImgRepository {
       return Left(ConnectionFailure());
     }
   }
+}
+
+@riverpod
+UploadImgRepository uploadImgRepository(Ref ref) {
+  // 2. On récupère directement l'instance configurée dans GetIt.
+  // Que ce soit le vrai Repository ou le Mock, GetIt donnera la bonne version.
+  return GetIt.instance<UploadImgRepository>();
 }

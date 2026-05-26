@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/repositories.dart';
 import "package:riverpod/riverpod.dart";
@@ -60,6 +61,7 @@ class TripsNotifier extends AsyncNotifier<List<Trip>> {
       },
       (serverTrip) {
         // sync avec vérité serveur
+        debugPrint("updateTrip result image ${serverTrip.images}");
         state = AsyncData([
           for (final t in state.value ?? [])
             if (t.id == id) serverTrip else t,

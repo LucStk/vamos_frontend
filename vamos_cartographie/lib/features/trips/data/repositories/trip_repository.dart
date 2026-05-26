@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
@@ -108,7 +109,7 @@ class TripRepository implements ITripRepository {
       final finalImages = attachedImages
           .where((i) => desiredFileKeys.contains(i.fileKey))
           .toList();
-
+      debugPrint("update_trip_images $finalImages");
       return Right(_rebuildWithImages(updatedTrip, finalImages));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
