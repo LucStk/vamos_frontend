@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 
-import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+import "package:vamos_cartographie/features/segments/segments.dart";
 
 class SegmentLayersBuilder {
   static List<Widget> buildLayers(Trip trip) {

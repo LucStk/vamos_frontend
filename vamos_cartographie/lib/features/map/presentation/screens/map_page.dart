@@ -20,7 +20,6 @@ class MapPage extends ConsumerStatefulWidget {
 
 class MapPageState extends ConsumerState<MapPage> {
   final MapController _mapController = MapController();
-  late CustomPolyEditor _editor;
   bool _isSaving = false;
 
   CustomPolyEditor _refreshEditor(Trip trip) {

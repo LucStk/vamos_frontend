@@ -7,7 +7,7 @@ part 'map_state.freezed.dart';
 // enum MapMode { observer, editRoute, addPoint }
 
 @freezed
-class MapState with _$MapState {
+abstract class MapState with _$MapState {
   const factory MapState({
     required Trip currentTrip,
     @Default(false) bool isDirty,

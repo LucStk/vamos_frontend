@@ -1,6 +1,7 @@
 // features/map/presentation/providers/map_state_provider.dart
+import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
-
+import "package:vamos_cartographie/features/waypoints/waypoints.dart";
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import "package:vamos_cartographie/features/map/domain/entities/map_state.dart";
 part 'map_notifier.g.dart';
@@ -12,8 +13,8 @@ class MapStateNotifier extends _$MapStateNotifier {
     return MapState.fromTrip(trip);
   }
 
-  void markDirty() {
-    state = state.copyWith(isDirty: true);
+  void cleanDirty() {
+    state = state.copyWith(isDirty: false);
   }
 
   void resetSnapshots() {
@@ -24,6 +25,68 @@ class MapStateNotifier extends _$MapStateNotifier {
     );
   }
 
+  void _updateTrip(Trip trip) {
+    state = state.copyWith(currentTrip: trip, isDirty: true);
+  }
+
+  void addWaypoint(Waypoint waypoint) {
+    _updateTrip(
+      state.currentTrip.copyWith(
+        waypoints: [...state.currentTrip.waypoints, waypoint],
+      ),
+    );
+  }
+
+  void removeWaypointById(int id) {
+    _updateTrip(
+      state.currentTrip.copyWith(
+        waypoints: state.currentTrip.waypoints
+            .where((w) => w.id != id)
+            .toList(),
+      ),
+    );
+  }
+
+  void updateWaypoint(Waypoint updatedWaypoint) {
+    _updateTrip(
+      state.currentTrip.copyWith(
+        waypoints: state.currentTrip.waypoints.map((w) {
+          if (w.id == updatedWaypoint.id) {
+            return updatedWaypoint;
+          }
+          return w;
+        }).toList(),
+      ),
+    );
+  }
+
+  void moveWaypoint(int index, LatLng latLng) {
+    final updated = [...state.currentTrip.waypoints];
+
+    updated[index] = updated[index].copyWith(latLng: latLng);
+
+    state = state.copyWith(
+      currentTrip: state.currentTrip.copyWith(waypoints: updated),
+      isDirty: true,
+    );
+  }
+
+  void moveIntermediatePoint(int segmentIndex, int pointIndex, LatLng latLng) {
+    final segments = [...state.currentTrip.segments];
+
+    final segment = segments[segmentIndex];
+
+    final points = [...segment.intermediatePoints];
+
+    points[pointIndex] = latLng;
+
+    segments[segmentIndex] = segment.copyWith(intermediatePoints: points);
+
+    state = state.copyWith(
+      currentTrip: state.currentTrip.copyWith(segments: segments),
+      isDirty: true,
+    );
+  }
   //   void updateTrip(Trip updatedTrip) {
   //     state = state.copyWith(
   //       currentTrip: updatedTrip,
