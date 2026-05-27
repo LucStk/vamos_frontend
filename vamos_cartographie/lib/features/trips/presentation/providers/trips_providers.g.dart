@@ -149,7 +149,7 @@ final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
   }
 }
 
-String _$tripHash() => r'7b46dfb131d674ee5526b657362782dc1acf30f2';
+String _$tripHash() => r'bf52831310361217f66d58392602db70de340454';
 
 final class TripFamily extends $Family
     with $FunctionalFamilyOverride<Trip?, int> {

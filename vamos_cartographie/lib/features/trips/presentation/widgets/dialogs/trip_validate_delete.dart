@@ -6,23 +6,23 @@ import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart'
 class TripValidateDeleteDialog extends StatelessWidget {
   const TripValidateDeleteDialog({
     super.key,
-    required this.trip, // On exige le voyage à supprimer
+    required this.tripTitle, // On exige le voyage à supprimer
   });
 
-  final Trip trip;
+  final String? tripTitle;
 
   /// Raccourci statique pour afficher la boîte de dialogue proprement
-  static Future<bool?> show(BuildContext context, Trip trip) async {
+  static Future<bool?> show(BuildContext context, String tripTitle) async {
     return showDialog<bool>(
       context: context,
-      builder: (context) => TripValidateDeleteDialog(trip: trip),
+      builder: (context) => TripValidateDeleteDialog(tripTitle: tripTitle),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     // Évite d'avoir un titre vide affiché bizarrement dans la dialog
-    final displayTitle = trip.title.isEmpty ? 'Sans titre' : trip.title;
+    final displayTitle = tripTitle != null ? 'Sans titre' : tripTitle;
 
     return AlertDialog(
       title: const Text('Supprimer le voyage'),

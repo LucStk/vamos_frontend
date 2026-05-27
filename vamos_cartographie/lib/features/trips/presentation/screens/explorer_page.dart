@@ -21,36 +21,6 @@ class ExplorerPage extends ConsumerWidget {
     );
   }
 
-  Future<void> _deleteTrip(
-    BuildContext context,
-    WidgetRef ref,
-    Trip trip,
-  ) async {
-    // On appelle la méthode statique qu'on a créée au-dessus
-    final confirmed = await TripValidateDeleteDialog.show(context, trip);
-
-    // Si l'utilisateur a annulé ou cliqué à côté de la boîte de dialogue
-    if (confirmed != true) return;
-
-    try {
-      // Appel à Riverpod pour supprimer dans le state / serveur
-      await ref.read(tripsProvider.notifier).deleteTrip(trip.id!);
-
-      // Sécurité Flutter obligatoire après un "await"
-      if (!context.mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Voyage supprimé avec succès')),
-      );
-    } catch (e) {
-      if (!context.mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur lors de la suppression : $e')),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tripsAsync = ref.watch(tripsProvider);
@@ -97,7 +67,6 @@ class ExplorerPage extends ConsumerWidget {
               return TripCard(
                 trip: trip,
                 onTap: () => _openTrip(context, trip),
-                onDelete: () => _deleteTrip(context, ref, trip),
               );
             },
           );

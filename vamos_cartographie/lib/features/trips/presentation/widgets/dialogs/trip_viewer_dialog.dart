@@ -6,6 +6,8 @@ import "package:vamos_cartographie/features/trips/presentation/providers/trips_p
 import "trip_editor_dialog.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
+import "package:vamos_cartographie/features/trips/presentation/widgets/dialogs/dialogs.dart";
+
 class TripViewerDialog extends ConsumerWidget {
   final Trip tripData;
   final VoidCallback onExplore;
@@ -28,6 +30,37 @@ class TripViewerDialog extends ConsumerWidget {
     );
   }
 
+  Future<void> _deleteTrip(
+    BuildContext context,
+    WidgetRef ref,
+    Trip trip,
+  ) async {
+    // On appelle la méthode statique qu'on a créée au-dessus
+    final confirmed = await TripValidateDeleteDialog.show(context, trip.title);
+
+    // Si l'utilisateur a annulé ou cliqué à côté de la boîte de dialogue
+    if (confirmed != true) return;
+
+    try {
+      // Appel à Riverpod pour supprimer dans le state / serveur
+      await ref.read(tripsProvider.notifier).deleteTrip(trip.id!);
+
+      // Sécurité Flutter obligatoire après un "await"
+      if (!context.mounted) return;
+
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Voyage supprimé avec succès')),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur lors de la suppression : $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tripsAsync = ref.watch(tripsProvider);
@@ -40,12 +73,23 @@ class TripViewerDialog extends ConsumerWidget {
       },
 
       data: (trips) {
-        final trip = trips.firstWhere((t) => t.id == tripData.id);
+        final trip = trips.where((t) => t.id == tripData.id).firstOrNull;
+
+        if (trip == null) {
+          return const SizedBox.shrink();
+        }
 
         return DialogShell(
           content: TripInfoView(trip: trip),
 
           buttonsBuilder: (ctx) => [
+            DeleteButton(
+              onPressed: () async {
+                await _deleteTrip(context, ref, tripData);
+              },
+            ),
+
+            const SizedBox(width: 8),
             ModifierButton(
               onPressed: () async {
                 Navigator.of(context).pop();

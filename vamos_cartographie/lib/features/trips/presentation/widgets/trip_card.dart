@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/shared/shared.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class TripCard extends StatelessWidget {
   final Trip trip;
   final VoidCallback onTap;
-  final VoidCallback onDelete;
 
-  const TripCard({
-    super.key,
-    required this.trip,
-    required this.onTap,
-    required this.onDelete,
-  });
+  const TripCard({super.key, required this.trip, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -93,14 +86,6 @@ class TripCard extends StatelessWidget {
                     ],
                   ],
                 ),
-              ),
-
-              // Actions
-              IconButton(
-                icon: const Icon(Icons.delete_outline),
-                tooltip: 'Supprimer',
-                color: Colors.redAccent,
-                onPressed: onDelete,
               ),
             ],
           ),

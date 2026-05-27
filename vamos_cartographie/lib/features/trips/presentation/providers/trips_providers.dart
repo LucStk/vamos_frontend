@@ -75,7 +75,7 @@ class TripsNotifier extends _$TripsNotifier {
       },
       (serverTrip) {
         // sync avec vérité serveur
-        debugPrint("updateTrip result image ${serverTrip.images}");
+        // debugPrint("updateTrip result image ${serverTrip.images}");
         state = AsyncData([
           for (final t in state.value ?? [])
             if (t.id == id) serverTrip else t,
