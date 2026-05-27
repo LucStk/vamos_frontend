@@ -1,6 +1,7 @@
 #import "../../waypoints/fragments/waypoint_fields.graphql"
 #import "../fragments/trip_fields.graphql"
 #import "../../media/fragments/image_fields.graphql"
+#import "../../segments/fragments/segment_fields.graphql"
 mutation CreateTrip($trip: TripInput!) {
     createTrip(trip: $trip) {
         ...TripFields

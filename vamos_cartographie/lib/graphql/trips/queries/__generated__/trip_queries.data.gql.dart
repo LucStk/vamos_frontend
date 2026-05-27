@@ -5,6 +5,8 @@
 import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.data.gql.dart'
+    as _i4;
+import 'package:vamos_cartographie/graphql/segments/fragments/__generated__/segment_fields.data.gql.dart'
     as _i3;
 import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.data.gql.dart'
     as _i1;
@@ -149,7 +151,7 @@ class GGetTripData_trip implements _i1.GTripFields {
           .toList(),
       segments: (json['segments'] as List<dynamic>)
           .map((_$e) =>
-              _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i3.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -168,7 +170,7 @@ class GGetTripData_trip implements _i1.GTripFields {
 
   final List<_i2.GWaypointFieldsData> waypoints;
 
-  final List<_i1.GSegmentFieldsData> segments;
+  final List<_i3.GSegmentFieldsData> segments;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -193,7 +195,7 @@ class GGetTripData_trip implements _i1.GTripFields {
     List<GGetTripData_trip_images>? images,
     String? G__typename,
     List<_i2.GWaypointFieldsData>? waypoints,
-    List<_i1.GSegmentFieldsData>? segments,
+    List<_i3.GSegmentFieldsData>? segments,
   }) {
     return GGetTripData_trip(
       id: id ?? this.id,
@@ -249,13 +251,13 @@ class GGetTripData_trip_images implements _i1.GTripFields_images {
 
   factory GGetTripData_trip_images.fromJson(Map<String, dynamic> json) {
     return GGetTripData_trip_images(
-      image: _i3.GImageFieldsData.fromJson(
+      image: _i4.GImageFieldsData.fromJson(
           (json['image'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i3.GImageFieldsData image;
+  final _i4.GImageFieldsData image;
 
   final String G__typename;
 
@@ -267,7 +269,7 @@ class GGetTripData_trip_images implements _i1.GTripFields_images {
   }
 
   GGetTripData_trip_images copyWith({
-    _i3.GImageFieldsData? image,
+    _i4.GImageFieldsData? image,
     String? G__typename,
   }) {
     return GGetTripData_trip_images(

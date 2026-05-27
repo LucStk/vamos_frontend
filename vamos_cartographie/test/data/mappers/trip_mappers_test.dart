@@ -7,6 +7,7 @@ import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart'
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers GQL — évitent la répétition dans les tests
 // ─────────────────────────────────────────────────────────────────────────────

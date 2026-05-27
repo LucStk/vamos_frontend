@@ -5,10 +5,12 @@
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.ast.gql.dart'
+import 'package:vamos_cartographie/graphql/segments/fragments/__generated__/segment_fields.ast.gql.dart'
     as _i3;
-import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.ast.gql.dart'
+import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.ast.gql.dart'
     as _i4;
+import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.ast.gql.dart'
+    as _i5;
 
 const CreateTrip = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -388,7 +390,7 @@ const document = _i1.DocumentNode(definitions: [
   DeleteImageFromTrip,
   AttachImageToTrip,
   _i2.ImageFields,
-  _i3.TripFields,
   _i3.SegmentFields,
-  _i4.WaypointFields,
+  _i4.TripFields,
+  _i5.WaypointFields,
 ]);

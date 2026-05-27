@@ -7,6 +7,8 @@ import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repos
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+
 class MockTripRepository implements ITripRepository {
   // Base de données en mémoire
   final List<Trip> _trips = [

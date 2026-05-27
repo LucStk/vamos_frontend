@@ -89,3 +89,57 @@ extension WaypointTypeExtension on GWaypointEnum {
     _ => Colors.grey,
   };
 }
+
+// void addWaypoint(
+//   LatLng latLng, {
+//   GWaypointEnum type = GWaypointEnum.WAYPOINT,
+// }) {
+//   if (waypoints.isEmpty) {
+//     waypoints.add(Waypoint(latLng: latLng, type: GWaypointEnum.START));
+//   } else {
+//     waypoints.add(Waypoint(latLng: latLng, type: type));
+//     segments.add(Segment());
+//   }
+//   _updateEndpoints();
+// }
+
+// void removeWaypoint(int index) {
+//   if (waypoints.length <= 2) return;
+//   waypoints.removeAt(index);
+//   if (index == 0) {
+//     segments.removeAt(0);
+//   } else if (index >= segments.length) {
+//     segments.removeAt(segments.length - 1);
+//   } else {
+//     final merged = Segment(
+//       type: segments[index - 1].type,
+//       intermediatePoints: [
+//         ...segments[index - 1].intermediatePoints,
+//         ...segments[index].intermediatePoints,
+//       ],
+//     );
+//     segments.removeAt(index);
+//     segments.removeAt(index - 1);
+//     segments.insert(index - 1, merged);
+//   }
+//   _updateEndpoints();
+// }
+
+// void _updateEndpoints() {
+//   if (waypoints.isEmpty) return;
+//   if (waypoints.first.type == GWaypointEnum.END ||
+//       waypoints.first.type == GWaypointEnum.START) {
+//     waypoints.first.type = GWaypointEnum.START;
+//   }
+//   if (waypoints.last.type == GWaypointEnum.START ||
+//       waypoints.last.type == GWaypointEnum.END) {
+//     waypoints.last.type = GWaypointEnum.END;
+//   }
+// }
+
+// List<LatLng> segmentPoints(int segmentIndex) {
+//   return segments[segmentIndex].allPoints(
+//     waypoints[segmentIndex].latLng,
+//     waypoints[segmentIndex + 1].latLng,
+//   );
+// }

@@ -5,6 +5,8 @@ import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart'
 import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
 
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class TripMapper {
   /// Convertit un [GSegmentFieldsData] (fragment GQL) en [Segment] domaine.

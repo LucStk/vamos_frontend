@@ -5,6 +5,8 @@
 import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.data.gql.dart'
+    as _i4;
+import 'package:vamos_cartographie/graphql/segments/fragments/__generated__/segment_fields.data.gql.dart'
     as _i3;
 import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.data.gql.dart'
     as _i1;
@@ -94,7 +96,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
           .toList(),
       segments: (json['segments'] as List<dynamic>)
           .map((_$e) =>
-              _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i3.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -113,7 +115,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
 
   final List<_i2.GWaypointFieldsData> waypoints;
 
-  final List<_i1.GSegmentFieldsData> segments;
+  final List<_i3.GSegmentFieldsData> segments;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -138,7 +140,7 @@ class GCreateTripData_createTrip implements _i1.GTripFields {
     List<GCreateTripData_createTrip_images>? images,
     String? G__typename,
     List<_i2.GWaypointFieldsData>? waypoints,
-    List<_i1.GSegmentFieldsData>? segments,
+    List<_i3.GSegmentFieldsData>? segments,
   }) {
     return GCreateTripData_createTrip(
       id: id ?? this.id,
@@ -195,13 +197,13 @@ class GCreateTripData_createTrip_images implements _i1.GTripFields_images {
   factory GCreateTripData_createTrip_images.fromJson(
       Map<String, dynamic> json) {
     return GCreateTripData_createTrip_images(
-      image: _i3.GImageFieldsData.fromJson(
+      image: _i4.GImageFieldsData.fromJson(
           (json['image'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i3.GImageFieldsData image;
+  final _i4.GImageFieldsData image;
 
   final String G__typename;
 
@@ -213,7 +215,7 @@ class GCreateTripData_createTrip_images implements _i1.GTripFields_images {
   }
 
   GCreateTripData_createTrip_images copyWith({
-    _i3.GImageFieldsData? image,
+    _i4.GImageFieldsData? image,
     String? G__typename,
   }) {
     return GCreateTripData_createTrip_images(
@@ -324,7 +326,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
           .toList(),
       segments: (json['segments'] as List<dynamic>)
           .map((_$e) =>
-              _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i3.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -343,7 +345,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
 
   final List<_i2.GWaypointFieldsData> waypoints;
 
-  final List<_i1.GSegmentFieldsData> segments;
+  final List<_i3.GSegmentFieldsData> segments;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -368,7 +370,7 @@ class GUpdateTripData_updateTrip implements _i1.GTripFields {
     List<GUpdateTripData_updateTrip_images>? images,
     String? G__typename,
     List<_i2.GWaypointFieldsData>? waypoints,
-    List<_i1.GSegmentFieldsData>? segments,
+    List<_i3.GSegmentFieldsData>? segments,
   }) {
     return GUpdateTripData_updateTrip(
       id: id ?? this.id,
@@ -425,13 +427,13 @@ class GUpdateTripData_updateTrip_images implements _i1.GTripFields_images {
   factory GUpdateTripData_updateTrip_images.fromJson(
       Map<String, dynamic> json) {
     return GUpdateTripData_updateTrip_images(
-      image: _i3.GImageFieldsData.fromJson(
+      image: _i4.GImageFieldsData.fromJson(
           (json['image'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i3.GImageFieldsData image;
+  final _i4.GImageFieldsData image;
 
   final String G__typename;
 
@@ -443,7 +445,7 @@ class GUpdateTripData_updateTrip_images implements _i1.GTripFields_images {
   }
 
   GUpdateTripData_updateTrip_images copyWith({
-    _i3.GImageFieldsData? image,
+    _i4.GImageFieldsData? image,
     String? G__typename,
   }) {
     return GUpdateTripData_updateTrip_images(
@@ -694,13 +696,13 @@ class GAttachImageToTripData_attachImageToTrip {
   factory GAttachImageToTripData_attachImageToTrip.fromJson(
       Map<String, dynamic> json) {
     return GAttachImageToTripData_attachImageToTrip(
-      image: _i3.GImageFieldsData.fromJson(
+      image: _i4.GImageFieldsData.fromJson(
           (json['image'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i3.GImageFieldsData image;
+  final _i4.GImageFieldsData image;
 
   final String G__typename;
 
@@ -712,7 +714,7 @@ class GAttachImageToTripData_attachImageToTrip {
   }
 
   GAttachImageToTripData_attachImageToTrip copyWith({
-    _i3.GImageFieldsData? image,
+    _i4.GImageFieldsData? image,
     String? G__typename,
   }) {
     return GAttachImageToTripData_attachImageToTrip(

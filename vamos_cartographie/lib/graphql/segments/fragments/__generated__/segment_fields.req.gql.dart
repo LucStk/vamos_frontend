@@ -6,17 +6,16 @@ import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
 import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
-    as _i5;
-import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.ast.gql.dart'
+import 'package:vamos_cartographie/graphql/segments/fragments/__generated__/segment_fields.ast.gql.dart'
     as _i4;
-import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.data.gql.dart'
+import 'package:vamos_cartographie/graphql/segments/fragments/__generated__/segment_fields.data.gql.dart'
     as _i2;
 
-class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
-  GTripFieldsReq({
+class GSegmentFieldsReq
+    implements _i1.FragmentRequest<_i2.GSegmentFieldsData, Null> {
+  GSegmentFieldsReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'TripFields',
+    this.fragmentName = 'SegmentFields',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -28,25 +27,23 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.TripFields,
-    _i5.ImageFields,
-  ]);
+  static const _i3.DocumentNode _document =
+      _i3.DocumentNode(definitions: [_i4.SegmentFields]);
 
-  _i2.GTripFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GTripFieldsData.fromJson(json);
+  _i2.GSegmentFieldsData? parseData(Map<String, dynamic> json) =>
+      _i2.GSegmentFieldsData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GTripFieldsData data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GSegmentFieldsData data) => data.toJson();
 
-  GTripFieldsReq copyWith({
+  GSegmentFieldsReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GTripFieldsReq(
+    return GSegmentFieldsReq(
       document: document ?? this.document,
       fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
       idFields: idFields ?? this.idFields,
@@ -56,7 +53,7 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GTripFieldsReq &&
+        (other is GSegmentFieldsReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -71,6 +68,6 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   @override
   String toString() {
-    return 'GTripFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GSegmentFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }

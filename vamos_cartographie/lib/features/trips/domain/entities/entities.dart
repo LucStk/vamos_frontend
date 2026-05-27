@@ -1,2 +1,2 @@
-export 'segment.dart';
+// export 'segment.dart';
 export 'trip.dart';

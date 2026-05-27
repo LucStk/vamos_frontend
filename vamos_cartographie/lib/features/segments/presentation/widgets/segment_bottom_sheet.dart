@@ -2,6 +2,8 @@ import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+
 /// Affiche les informations d'un segment dans un Dialog centré (Card).
 ///
 /// Utilise [SegmentCard.show] pour ouvrir le dialog.

@@ -1,5 +1,7 @@
 #import "../../waypoints/fragments/waypoint_fields.graphql"
 #import "../fragments/trip_fields.graphql"
+
+#import "../../segments/fragments/segment_fields.graphql"
 query GetAllTrips {
     trips {
         ...TripFields

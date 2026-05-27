@@ -1,54 +1,30 @@
 // features/map/presentation/providers/map_state_provider.dart
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import "package:vamos_cartographie/features/media/media.dart";
 
-enum MapMode { observer, editRoute, addPoint }
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import "package:vamos_cartographie/features/map/domain/entities/map_state.dart";
+part 'map_notifier.g.dart';
 
-class MapState {
-  final MapMode mode;
-  final bool isDirty;
-  final List<Waypoint>? routeSnapshot;
-  final List<Segment>? segmentsSnapshot;
-  final int waypointsCountBeforeAdd;
-
-  const MapState({
-    this.mode = MapMode.observer,
-    this.isDirty = false,
-    this.routeSnapshot,
-    this.segmentsSnapshot,
-    this.waypointsCountBeforeAdd = 0,
-  });
-
-  MapState copyWith({
-    MapMode? mode,
-    bool? isDirty,
-    List<Waypoint>? routeSnapshot,
-    List<Segment>? segmentsSnapshot,
-    int? waypointsCountBeforeAdd,
-  }) {
-    return MapState(
-      mode: mode ?? this.mode,
-      isDirty: isDirty ?? this.isDirty,
-      routeSnapshot: routeSnapshot ?? this.routeSnapshot,
-      segmentsSnapshot: segmentsSnapshot ?? this.segmentsSnapshot,
-      waypointsCountBeforeAdd:
-          waypointsCountBeforeAdd ?? this.waypointsCountBeforeAdd,
-    );
-  }
-}
-
-class MapStateNotifier extends Notifier<MapState> {
+@riverpod
+class MapStateNotifier extends _$MapStateNotifier {
   @override
-  MapState build() => const MapState();
+  MapState build(int tripId) {
+    return const MapState();
+  }
+
+  void initialize(Trip trip) {
+    if (state.currentTrip != null) return;
+    state = MapState(currentTrip: trip);
+  }
 
   void setDirty(bool dirty) => state = state.copyWith(isDirty: dirty);
 
-  void enterEditRoute(Trip trip) {
+  void enterEditRoute() {
     // Clone profond pour isoler les objets de l'UI pendant l'édition
-    final routeSnap = trip.waypoints
+    final routeSnap = state.currentTrip?.waypoints
         .map(
           (w) => Waypoint(
             id: w.id,
@@ -60,7 +36,7 @@ class MapStateNotifier extends Notifier<MapState> {
         )
         .toList();
 
-    final segmentsSnap = trip.segments
+    final segmentsSnap = state.currentTrip?.segments
         .map(
           (s) => Segment(
             id: s.id,
@@ -115,7 +91,3 @@ class MapStateNotifier extends Notifier<MapState> {
     state = state.copyWith(mode: MapMode.observer, isDirty: false);
   }
 }
-
-final mapStateProvider = NotifierProvider<MapStateNotifier, MapState>(
-  MapStateNotifier.new,
-);

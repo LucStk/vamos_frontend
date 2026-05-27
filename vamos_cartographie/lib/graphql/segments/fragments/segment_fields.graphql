@@ -1,0 +1,7 @@
+fragment SegmentFields on SegmentType {
+    type
+    intermediatePoints {
+        lat
+        lng
+    }
+}

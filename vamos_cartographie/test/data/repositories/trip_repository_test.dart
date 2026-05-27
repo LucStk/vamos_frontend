@@ -9,6 +9,7 @@ import 'package:vamos_cartographie/features/trips/data/repositories/trip_reposit
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 import 'package:vamos_cartographie/features/media/media.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 // Mock du datasource

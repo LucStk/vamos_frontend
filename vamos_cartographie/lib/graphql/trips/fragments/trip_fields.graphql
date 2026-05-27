@@ -10,11 +10,3 @@ fragment TripFields on TripType {
         }
     }
 }
-
-fragment SegmentFields on SegmentType {
-    type
-    intermediatePoints {
-        lat
-        lng
-    }
-}
