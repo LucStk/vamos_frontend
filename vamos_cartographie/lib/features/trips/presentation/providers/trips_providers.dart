@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/repositories.dart';
 // 1. Remplacement des imports riverpod classiques par les annotations
