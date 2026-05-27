@@ -22,7 +22,7 @@ class TripValidateDeleteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Évite d'avoir un titre vide affiché bizarrement dans la dialog
-    final displayTitle = tripTitle != null ? 'Sans titre' : tripTitle;
+    final displayTitle = tripTitle ?? 'Sans titre';
 
     return AlertDialog(
       title: const Text('Supprimer le voyage'),
