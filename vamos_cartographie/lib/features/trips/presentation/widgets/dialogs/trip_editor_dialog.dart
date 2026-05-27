@@ -1,10 +1,13 @@
-import "package:flutter_riverpod/flutter_riverpod.dart";
-import "../editors/trip_editor.dart";
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:vamos_cartographie/features/trips/domain/domain.dart';
-import "package:vamos_cartographie/shared/widgets/buttons/buttons.dart";
-import "package:vamos_cartographie/shared/widgets/dialog_shell.dart";
+import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
+
+import '../editors/trip_editor.dart';
+
+import 'package:vamos_cartographie/shared/widgets/buttons/buttons.dart';
+import 'package:vamos_cartographie/shared/widgets/dialog_shell.dart';
 
 class TripEditorDialog extends ConsumerStatefulWidget {
   final int tripId;
@@ -38,8 +41,6 @@ class _TripEditorDialogState extends ConsumerState<TripEditorDialog> {
           .read(tripsProvider.notifier)
           .updateTrip(editedTrip.id!, editedTrip);
 
-      ref.invalidate(tripProvider(editedTrip.id!));
-
       if (!mounted) return;
 
       Navigator.of(context).pop();
@@ -64,20 +65,26 @@ class _TripEditorDialogState extends ConsumerState<TripEditorDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final tripAsync = ref.watch(tripProvider(widget.tripId));
+    final tripsAsync = ref.watch(tripsProvider);
 
-    return tripAsync.when(
+    return tripsAsync.when(
       loading: () => const DialogLoadingBody(),
 
       error: (error, _) {
         return DialogErrorBody(errorMessage: error.toString());
       },
 
-      data: (trip) {
+      data: (trips) {
+        final trip = trips.where((t) => t.id == widget.tripId);
+
+        if (trip.isEmpty) {
+          return const DialogErrorBody(errorMessage: 'Voyage introuvable');
+        }
+
         return DialogShell(
           constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
 
-          content: TripInfoEditor(key: _editorKey, initialTrip: trip),
+          content: TripInfoEditor(key: _editorKey, initialTrip: trip.first),
 
           buttonsBuilder: (ctx) => [
             CancelButton(

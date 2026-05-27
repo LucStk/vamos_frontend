@@ -94,15 +94,11 @@ class TripsNotifier extends _$TripsNotifier {
   }
 }
 
-// 4. Migration du FutureProvider.family
-// Pour passer des paramètres à une fonction sous @riverpod, on ajoute simplement l'argument à la fonction !
 @riverpod
-Future<Trip> trip(Ref ref, int tripId) async {
-  final repository = ref.read(_tripRepositoryProvider);
-  final result = await repository.getTrip(tripId);
+Trip? trip(Ref ref, int tripId) {
+  final trips = ref.watch(tripsProvider).value;
 
-  return result.fold(
-    (failure) => throw Exception(failure.message),
-    (trip) => trip,
-  );
+  if (trips == null) return null;
+
+  return trips.where((t) => t.id == tripId).firstOrNull;
 }

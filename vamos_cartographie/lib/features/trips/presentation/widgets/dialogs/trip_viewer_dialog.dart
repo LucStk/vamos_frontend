@@ -30,16 +30,18 @@ class TripViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripAsync = ref.watch(tripProvider(tripData.id!));
+    final tripsAsync = ref.watch(tripsProvider);
 
-    return tripAsync.when(
+    return tripsAsync.when(
       loading: () => const DialogLoadingBody(),
 
       error: (error, _) {
         return DialogErrorBody(errorMessage: error.toString());
       },
 
-      data: (trip) {
+      data: (trips) {
+        final trip = trips.firstWhere((t) => t.id == tripData.id);
+
         return DialogShell(
           content: TripInfoView(trip: trip),
 
