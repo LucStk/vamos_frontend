@@ -1,11 +1,7 @@
-import 'package:api_client/api_client.dart';
-import 'package:api_client/src/ferry_client.dart';
-// Importe le fichier .req.gql.dart (il contient la classe de requête)
-import 'package:api_client/src/graphql/mutations/__generated__/trip.var.gql.dart';
-import 'package:api_client/src/graphql/mutations/__generated__/trip.req.gql.dart';
-import 'package:api_client/src/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:test/test.dart';
 
+import 'package:vamos_cartographie/core/network/graphql/ferry_client.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 
 void printError(response) {

@@ -1,4 +1,4 @@
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';

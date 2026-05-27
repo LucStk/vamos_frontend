@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
-import "package:api_client/api_client.dart";
+
+import "package:vamos_cartographie/graphql/graphql.dart";
+
 import "waypoint_type_card.dart";
 // Pense à importer ton sous-widget s'il est dans un autre fichier
 // import 'waypoint_type_card.dart';

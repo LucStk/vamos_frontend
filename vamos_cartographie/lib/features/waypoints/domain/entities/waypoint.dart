@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
 

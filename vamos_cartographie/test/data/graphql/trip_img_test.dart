@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:ferry/ferry.dart';
-
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/core/network/graphql/ferry_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:test/test.dart';
 import './trip_test.dart';
 

@@ -1,0 +1,502 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:ferry_exec/ferry_exec.dart' as _i1;
+import 'package:gql/ast.dart' as _i5;
+import 'package:gql_exec/gql_exec.dart' as _i4;
+import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
+    as _gqlUtils;
+import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
+    as _i7;
+import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.ast.gql.dart'
+    as _i8;
+import 'package:vamos_cartographie/graphql/waypoints/mutations/__generated__/waypoint_mutations.ast.gql.dart'
+    as _i6;
+import 'package:vamos_cartographie/graphql/waypoints/mutations/__generated__/waypoint_mutations.data.gql.dart'
+    as _i2;
+import 'package:vamos_cartographie/graphql/waypoints/mutations/__generated__/waypoint_mutations.var.gql.dart'
+    as _i3;
+
+class GUpdateWaypointReq
+    implements
+        _i1.OperationRequest<_i2.GUpdateWaypointData, _i3.GUpdateWaypointVars> {
+  GUpdateWaypointReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GUpdateWaypointVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GUpdateWaypointData? Function(
+    _i2.GUpdateWaypointData?,
+    _i2.GUpdateWaypointData?,
+  )? updateResult;
+
+  final _i2.GUpdateWaypointData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.UpdateWaypoint,
+    _i7.ImageFields,
+    _i8.WaypointFields,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'UpdateWaypoint',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GUpdateWaypointData? parseData(Map<String, dynamic> json) =>
+      _i2.GUpdateWaypointData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GUpdateWaypointData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GUpdateWaypointData, _i3.GUpdateWaypointVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GUpdateWaypointReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GUpdateWaypointReq copyWith({
+    _i3.GUpdateWaypointVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GUpdateWaypointData? Function(
+      _i2.GUpdateWaypointData?,
+      _i2.GUpdateWaypointData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GUpdateWaypointData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GUpdateWaypointReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId: requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResultIsSet ? updateResult : this.updateResult,
+      optimisticResponse: optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKeyIsSet
+          ? updateCacheHandlerKey
+          : this.updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContextIsSet
+          ? updateCacheHandlerContext
+          : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicyIsSet ? fetchPolicy : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUpdateWaypointReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GUpdateWaypointReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GDeleteImageFromWaypointReq
+    implements
+        _i1.OperationRequest<_i2.GDeleteImageFromWaypointData,
+            _i3.GDeleteImageFromWaypointVars> {
+  GDeleteImageFromWaypointReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GDeleteImageFromWaypointVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GDeleteImageFromWaypointData? Function(
+    _i2.GDeleteImageFromWaypointData?,
+    _i2.GDeleteImageFromWaypointData?,
+  )? updateResult;
+
+  final _i2.GDeleteImageFromWaypointData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document =
+      _i5.DocumentNode(definitions: [_i6.DeleteImageFromWaypoint]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'DeleteImageFromWaypoint',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GDeleteImageFromWaypointData? parseData(Map<String, dynamic> json) =>
+      _i2.GDeleteImageFromWaypointData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GDeleteImageFromWaypointData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GDeleteImageFromWaypointData,
+          _i3.GDeleteImageFromWaypointVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GDeleteImageFromWaypointReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GDeleteImageFromWaypointReq copyWith({
+    _i3.GDeleteImageFromWaypointVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GDeleteImageFromWaypointData? Function(
+      _i2.GDeleteImageFromWaypointData?,
+      _i2.GDeleteImageFromWaypointData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GDeleteImageFromWaypointData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GDeleteImageFromWaypointReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId: requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResultIsSet ? updateResult : this.updateResult,
+      optimisticResponse: optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKeyIsSet
+          ? updateCacheHandlerKey
+          : this.updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContextIsSet
+          ? updateCacheHandlerContext
+          : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicyIsSet ? fetchPolicy : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteImageFromWaypointReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteImageFromWaypointReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GAttachImageToWaypointReq
+    implements
+        _i1.OperationRequest<_i2.GAttachImageToWaypointData,
+            _i3.GAttachImageToWaypointVars> {
+  GAttachImageToWaypointReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GAttachImageToWaypointVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GAttachImageToWaypointData? Function(
+    _i2.GAttachImageToWaypointData?,
+    _i2.GAttachImageToWaypointData?,
+  )? updateResult;
+
+  final _i2.GAttachImageToWaypointData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.AttachImageToWaypoint,
+    _i7.ImageFields,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'AttachImageToWaypoint',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GAttachImageToWaypointData? parseData(Map<String, dynamic> json) =>
+      _i2.GAttachImageToWaypointData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GAttachImageToWaypointData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GAttachImageToWaypointData,
+          _i3.GAttachImageToWaypointVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GAttachImageToWaypointReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GAttachImageToWaypointReq copyWith({
+    _i3.GAttachImageToWaypointVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GAttachImageToWaypointData? Function(
+      _i2.GAttachImageToWaypointData?,
+      _i2.GAttachImageToWaypointData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GAttachImageToWaypointData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GAttachImageToWaypointReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId: requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResultIsSet ? updateResult : this.updateResult,
+      optimisticResponse: optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKeyIsSet
+          ? updateCacheHandlerKey
+          : this.updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContextIsSet
+          ? updateCacheHandlerContext
+          : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicyIsSet ? fetchPolicy : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachImageToWaypointReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GAttachImageToWaypointReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}

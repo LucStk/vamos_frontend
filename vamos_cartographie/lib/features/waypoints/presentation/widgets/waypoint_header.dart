@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).

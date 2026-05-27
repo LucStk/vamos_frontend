@@ -1,5 +1,5 @@
 // Importe tes fichiers générés par Ferry en haut
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter/material.dart';
 

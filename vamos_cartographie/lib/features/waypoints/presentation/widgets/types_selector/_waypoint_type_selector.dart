@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
-import "package:api_client/api_client.dart";
+
+import "package:vamos_cartographie/graphql/graphql.dart";
+
 import "package:vamos_cartographie/features/waypoints/domain/entities/entities.dart";
 
 class WaypointTypeSelector extends StatelessWidget {

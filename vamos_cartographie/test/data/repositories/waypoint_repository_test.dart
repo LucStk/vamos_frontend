@@ -1,4 +1,4 @@
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:dartz/dartz.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';

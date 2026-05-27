@@ -1,4 +1,4 @@
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:mocktail/mocktail.dart';

@@ -1,17 +1,19 @@
 targets:
   $default:
     sources:
+      - $package$
       - lib/**
       - graphql/**
 
     builders:
       ferry_generator2|graphql_builder:
         options:
-          schema: graphql/schema.graphql
-
+          schema:
+            file: vamos_cartographie|lib/graphql/schema.graphql
           scalars:
             Date:
               type: String
+
             DateTime:
               type: String
 
@@ -24,9 +26,11 @@ targets:
 
           data_classes:
             reuse_fragments: true
+
             when_extensions:
               when: true
               maybe_when: true
+
             utils:
               copy_with: true
               equals: true

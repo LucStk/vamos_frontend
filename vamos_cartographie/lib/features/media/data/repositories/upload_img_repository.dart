@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ferry/ferry.dart';

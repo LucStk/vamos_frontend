@@ -1,4 +1,4 @@
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 
 /// Datasource distant pour les opérations sur les trips.

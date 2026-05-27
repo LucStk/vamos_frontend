@@ -1,4 +1,4 @@
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 

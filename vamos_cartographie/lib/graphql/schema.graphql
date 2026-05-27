@@ -1,164 +1,154 @@
-"""
-Exposes a URL that specifies the behavior of this scalar.
-"""
+"""Exposes a URL that specifies the behavior of this scalar."""
 directive @specifiedBy(
-    """
-    The URL that specifies the behavior of this scalar.
-    """
-    url: String!
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
 ) on SCALAR
 
-"""
-Indicates an Input Object is a OneOf Input Object.
-"""
+"""Indicates an Input Object is a OneOf Input Object."""
 directive @oneOf on INPUT_OBJECT
 
-"""
-Date (isoformat)
-"""
+"""Date (isoformat)"""
 scalar Date
 
-input ImageInput {
-    fileKey: String!
-}
-
-type ImageType {
-    fileKey: String!
-    url: String!
-}
-
 input LatLngInput {
-    lat: Float!
-    lng: Float!
+  lat: Float!
+  lng: Float!
 }
 
 type LatLngType {
-    lat: Float!
-    lng: Float!
+  lat: Float!
+  lng: Float!
 }
 
-type Mutation {
-    createTrip(trip: TripInput!): TripType!
-    deleteTrip(input: TripDeleteInput!): TripType!
-    attachImageToTrip(tripId: Int!, fileKey: String!): MediaImageType!
-    updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
-    deleteImageFromTrip(tripId: Int!, fileKey: String!): String!
-    createImage(data: ImageInput!): ImageType!
-    generateImageUploadUrl(extension: String!): UploadConfig!
-    attachImageToWaypoint(
-        waypointId: Int!
-        fileKey: String!
-    ): WaypointImageType!
-    deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
-    updateWaypoint(id: Int!, waypoint: WaypointUpdateInput!): WaypointType!
-MediaImageMediaImage}
-
-type Query {
-    trips: [TripType!]!
-    trip(id: Int!): TripType!
-}
-
-input SegmentInput {
-    type: SegmentTypeEnum!
-    intermediatePoints: [LatLngInput!]!
-}
-
-type SegmentType {
-    type: SegmentTypeEnum!
-    intermediatePoints: [LatLngType!]!
-}
-
-enum SegmentTypeEnum {
-    bike
-    car
-    boat
-    walk
-    train
-}
-
-input TripDeleteInput {
-    id: Int!
+input MediaImageInput {
+  fileKey: String!
 }
 
 type MediaImageType {
-    image: ImageType!
-    order: Int!
+  fileKey: String!
+  url: String!
+}
+
+type Mutation {
+  createTrip(trip: TripInput!): TripType!
+  deleteTrip(input: TripDeleteInput!): TripType!
+  attachImageToTrip(tripId: Int!, fileKey: String!): TripImageType!
+  updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
+  deleteImageFromTrip(tripId: Int!, fileKey: String!): String!
+  createImage(data: MediaImageInput!): MediaImageType!
+  generateImageUploadUrl(extension: String!): UploadConfig!
+  attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
+  deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
+  updateWaypoint(id: Int!, waypoint: WaypointUpdateInput!): WaypointType!
+}
+
+type Query {
+  trips: [TripType!]!
+  trip(id: Int!): TripType!
+}
+
+input SegmentInput {
+  type: SegmentTypeEnum!
+  intermediatePoints: [LatLngInput!]!
+}
+
+type SegmentType {
+  type: SegmentTypeEnum!
+  intermediatePoints: [LatLngType!]!
+}
+
+enum SegmentTypeEnum {
+  bike
+  car
+  boat
+  walk
+  train
+}
+
+input TripDeleteInput {
+  id: Int!
+}
+
+type TripImageType {
+  image: MediaImageType!
+  order: Int!
 }
 
 input TripInput {
-    title: String!
-    description: String
-    date: Date
-    waypoints: [WaypointInput!] = null
-    segments: [SegmentInput!] = null
+  title: String!
+  description: String
+  date: Date
+  waypoints: [WaypointInput!] = null
+  segments: [SegmentInput!] = null
 }
 
 type TripType {
-    id: Int!
-    title: String!
-    description: String!
-    date: Date
-    images: [MediaImageType!]!
-    waypoints: [WaypointType!]!
-    segments: [SegmentType!]!
+  id: Int!
+  title: String!
+  description: String!
+  date: Date
+  images: [TripImageType!]!
+  waypoints: [WaypointType!]!
+  segments: [SegmentType!]!
 }
 
 input TripUpdateInput {
-    title: String
-    description: String
-    date: Date
-    waypoints: [WaypointInput!] = null
-    segments: [SegmentInput!] = null
+  title: String
+  description: String
+  date: Date
+  waypoints: [WaypointInput!] = null
+  segments: [SegmentInput!] = null
 }
 
 type UploadConfig {
-    uploadUrl: String!
-    fileKey: String!
+  uploadUrl: String!
+  fileKey: String!
 }
 
 enum WaypointEnum {
-    START
-    END
-    WAYPOINT
-    WATER
-    FOOD
-    REPAIR
-    SHELTER
-    CAMPING
-    VIEWPOINT
-    HISTORIC
-    BEACH
-    BOAT
-    WARNING
+  START
+  END
+  WAYPOINT
+  WATER
+  FOOD
+  REPAIR
+  SHELTER
+  CAMPING
+  VIEWPOINT
+  HISTORIC
+  BEACH
+  BOAT
+  WARNING
 }
 
 type WaypointImageType {
-    image: ImageType!
-    order: Int!
+  image: MediaImageType!
+  order: Int!
 }
 
 input WaypointInput {
-    lat: Float!
-    lng: Float!
-    title: String
-    type: WaypointEnum!
-    description: String
+  lat: Float!
+  lng: Float!
+  title: String
+  type: WaypointEnum!
+  description: String
 }
 
 type WaypointType {
-    id: Int!
-    lat: Float!
-    lng: Float!
-    title: String!
-    description: String!
-    images: [WaypointImageType!]!
-    type: WaypointEnum!
+  id: Int!
+  lat: Float!
+  lng: Float!
+  title: String!
+  description: String!
+  images: [WaypointImageType!]!
+  type: WaypointEnum!
 }
 
 input WaypointUpdateInput {
-    lat: Float
-    lng: Float
-    title: String
-    type: WaypointEnum
-    description: String
+  lat: Float
+  lng: Float
+  title: String
+  type: WaypointEnum
+  description: String
 }
+

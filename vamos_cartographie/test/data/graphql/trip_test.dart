@@ -1,7 +1,8 @@
-import 'package:api_client/api_client.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:test/test.dart';
 
+import 'package:vamos_cartographie/core/network/graphql/ferry_client.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 
 void printError(response) {

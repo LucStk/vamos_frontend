@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:api_client/api_client.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
 import 'waypoint_info.dart';

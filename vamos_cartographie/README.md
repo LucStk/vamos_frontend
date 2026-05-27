@@ -79,13 +79,13 @@ const bool kUseMock = true;  // ← données fictives en mémoire
 Les données fictives (3 voyages en France) sont définies dans `mock_trip_repository.dart`.
 Avant de lancer la génération, il faut télécharger le schema graphql du backend ->
 ```
-get-graphql-schema http://localhost:8000/graphql/ > lib/src/graphql/schema.graphql
+get-graphql-schema http://localhost:8000/graphql/ > lib/graphql/schema.graphql
 ```
 Le client tourne avec ferry generator 2.
 Pour lancer la génération automatique des modèles dart :
 
 ```
-dart run build_runner build --delete-conflicting-outputs
+flutter run build_runner build --delete-conflicting-outputs
 ```
 
 Pour lancer les test
