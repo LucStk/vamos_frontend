@@ -16,7 +16,7 @@ final class CarouselNotifierProvider
     extends $NotifierProvider<CarouselNotifier, CarouselState> {
   CarouselNotifierProvider._({
     required CarouselNotifierFamily super.from,
-    required List<MediaImage> super.argument,
+    required String super.argument,
   }) : super(
          retry: null,
          name: r'carouselProvider',
@@ -58,7 +58,7 @@ final class CarouselNotifierProvider
   }
 }
 
-String _$carouselNotifierHash() => r'8943aab413b893be1fee6439a0fa94bf92ee0a66';
+String _$carouselNotifierHash() => r'904624ede6710417c1858fb998668e4bfb46a1e7';
 
 final class CarouselNotifierFamily extends $Family
     with
@@ -67,7 +67,7 @@ final class CarouselNotifierFamily extends $Family
           CarouselState,
           CarouselState,
           CarouselState,
-          List<MediaImage>
+          String
         > {
   CarouselNotifierFamily._()
     : super(
@@ -78,18 +78,18 @@ final class CarouselNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
-  CarouselNotifierProvider call(List<MediaImage> initialImages) =>
-      CarouselNotifierProvider._(argument: initialImages, from: this);
+  CarouselNotifierProvider call(String carouselId) =>
+      CarouselNotifierProvider._(argument: carouselId, from: this);
 
   @override
   String toString() => r'carouselProvider';
 }
 
 abstract class _$CarouselNotifier extends $Notifier<CarouselState> {
-  late final _$args = ref.$arg as List<MediaImage>;
-  List<MediaImage> get initialImages => _$args;
+  late final _$args = ref.$arg as String;
+  String get carouselId => _$args;
 
-  CarouselState build(List<MediaImage> initialImages);
+  CarouselState build(String carouselId);
   @$mustCallSuper
   @override
   void runBuild() {

@@ -9,8 +9,13 @@ part 'carousel_notifier.g.dart';
 @riverpod
 class CarouselNotifier extends _$CarouselNotifier {
   @override
-  CarouselState build(List<MediaImage> initialImages) {
-    return CarouselState.fromRemote(initialImages);
+  CarouselState build(String carouselId) {
+    return const CarouselState();
+  }
+
+  void initialize(List<MediaImage> images) {
+    if (state.items.isNotEmpty) return;
+    state = CarouselState.fromRemote(images);
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -58,7 +63,6 @@ class CarouselNotifier extends _$CarouselNotifier {
 
     final ext = path.split('.').last.toLowerCase();
 
-    // Etat initial upload
     _updateItem(
       path,
       (item) => item.copyWith(
@@ -74,6 +78,8 @@ class CarouselNotifier extends _$CarouselNotifier {
       File(path),
       ext,
       onProgress: (sent, total) {
+        if (!ref.mounted) return;
+
         _updateItem(
           path,
           (item) => item.copyWith(progress: total > 0 ? sent / total : 0),
@@ -81,7 +87,8 @@ class CarouselNotifier extends _$CarouselNotifier {
       },
     );
 
-    // Item supprimé pendant upload
+    if (!ref.mounted) return;
+
     final stillExists = state.items.any((i) => i.isLocal && i.fileKey == path);
 
     if (!stillExists) return;

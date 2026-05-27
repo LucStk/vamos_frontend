@@ -1,17 +1,15 @@
 import 'dart:io';
-
-import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-
 import '../providers/carousel_notifier.dart';
 
-import "thumbnails/thumbnails.dart";
+import 'thumbnails/thumbnails.dart';
 
-class ImageCarouselPicker extends ConsumerWidget {
+class ImageCarouselPicker extends ConsumerStatefulWidget {
   final List<MediaImage> remoteImages;
 
   final void Function(List<MediaImage> images) onChanged;
@@ -25,7 +23,30 @@ class ImageCarouselPicker extends ConsumerWidget {
     this.thumbSize = 80,
   });
 
-  Future<void> _pickImages(WidgetRef ref) async {
+  @override
+  ConsumerState<ImageCarouselPicker> createState() =>
+      _ImageCarouselPickerState();
+}
+
+class _ImageCarouselPickerState extends ConsumerState<ImageCarouselPicker> {
+  late final String _carouselId;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // ID unique pour cette instance widget
+    _carouselId = UniqueKey().toString();
+
+    // Initialisation UNE seule fois
+    Future.microtask(() {
+      ref
+          .read(carouselProvider(_carouselId).notifier)
+          .initialize(widget.remoteImages);
+    });
+  }
+
+  Future<void> _pickImages() async {
     List<String> picked = [];
 
     if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
@@ -47,35 +68,32 @@ class ImageCarouselPicker extends ConsumerWidget {
 
     if (picked.isEmpty) return;
 
-    ref.read(carouselProvider(remoteImages).notifier).addLocalImages(picked);
+    ref.read(carouselProvider(_carouselId).notifier).addLocalImages(picked);
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = carouselProvider(remoteImages);
+  Widget build(BuildContext context) {
+    final provider = carouselProvider(_carouselId);
 
     final state = ref.watch(provider);
 
     final notifier = ref.read(provider.notifier);
 
-    // Synchronisation avec parent
     ref.listen(provider, (_, next) {
-      onChanged(next.remoteImages);
+      widget.onChanged(next.remoteImages);
     });
-
-    final items = state.items;
 
     return Wrap(
       spacing: 8,
       runSpacing: 8,
       children: [
-        for (final item in items)
+        for (final item in state.items)
           ThumbnailPicker(
             key: ValueKey(item.fileKey),
 
             item: item,
 
-            size: thumbSize,
+            size: widget.thumbSize,
 
             isUploading: item.uploadStatus == UploadStatus.uploading,
 
@@ -94,7 +112,7 @@ class ImageCarouselPicker extends ConsumerWidget {
             },
           ),
 
-        ThumbnailButtonAdd(size: thumbSize, onTap: () => _pickImages(ref)),
+        ThumbnailButtonAdd(size: widget.thumbSize, onTap: _pickImages),
       ],
     );
   }
