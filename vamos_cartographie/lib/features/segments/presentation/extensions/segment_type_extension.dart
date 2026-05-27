@@ -1,0 +1,38 @@
+import 'package:vamos_cartographie/graphql/graphql.dart';
+
+import 'package:flutter/material.dart';
+
+extension SegmentTypeExtension on GSegmentTypeEnum {
+  String get label => switch (this) {
+    GSegmentTypeEnum.bike => 'Vélo',
+    GSegmentTypeEnum.car => 'Voiture',
+    GSegmentTypeEnum.boat => 'Bateau',
+    GSegmentTypeEnum.walk => 'Marche',
+    GSegmentTypeEnum.train => 'Train',
+    _ => 'Autre',
+  };
+
+  IconData get icon => switch (this) {
+    GSegmentTypeEnum.bike => Icons.directions_bike,
+    GSegmentTypeEnum.car => Icons.directions_car,
+    GSegmentTypeEnum.boat => Icons.directions_boat,
+    GSegmentTypeEnum.walk => Icons.directions_walk,
+    GSegmentTypeEnum.train => Icons.train,
+    _ => Icons.help_outline,
+  };
+
+  Color get color => switch (this) {
+    GSegmentTypeEnum.bike => Colors.blue,
+    GSegmentTypeEnum.car => Colors.grey,
+    GSegmentTypeEnum.boat => Colors.indigo,
+    GSegmentTypeEnum.walk => Colors.green,
+    GSegmentTypeEnum.train => Colors.red,
+    _ => Colors.grey,
+  };
+
+  bool get isDashed => switch (this) {
+    GSegmentTypeEnum.boat => true,
+    GSegmentTypeEnum.train => true,
+    _ => false,
+  };
+}

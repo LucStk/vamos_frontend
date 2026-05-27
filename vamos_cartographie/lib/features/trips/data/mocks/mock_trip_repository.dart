@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 

@@ -1,27 +1,29 @@
 import 'carousel_item.dart';
-import "media_image.dart";
 // import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
-class CarouselState {
-  final List<CarouselItem> items;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const CarouselState({this.items = const []});
+part 'carousel_state.freezed.dart';
 
-  CarouselState copyWith({List<CarouselItem>? items}) {
-    return CarouselState(items: items ?? this.items);
-  }
+@freezed
+abstract class CarouselState with _$CarouselState {
+  const factory CarouselState({@Default([]) List<CarouselItem> items}) =
+      _CarouselState;
 
-  List<MediaImage> get remoteImages {
-    return items.where((e) => e.isRemote).map((e) => e.remoteImage!).toList();
-  }
+  const CarouselState._(); // Nécessaire pour les méthodes et getters
 
+  // Ta factory de conversion reste très propre
   factory CarouselState.fromRemote(List<MediaImage> remoteImages) {
     return CarouselState(
       items: remoteImages
-          .map(
-            (image) => CarouselItem.remote(image),
-          ) // Réutilisation de ta factory !
+          .map((img) => CarouselItem.remote(image: img))
           .toList(),
     );
   }
+
+  // Ton getter pour extraire uniquement les images distantes
+  List<MediaImage> get remoteImages => items
+      .where((item) => item.isRemote)
+      .map((item) => item.remoteImage!)
+      .toList();
 }

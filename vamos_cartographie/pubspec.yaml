@@ -58,6 +58,8 @@ dependencies:
   gql_http_link: ^1.2.0
   built_value: ^8.12.6
   ferry_exec: ^0.7.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.11.0
 
 dev_dependencies:
   test: ^1.30.0
@@ -76,6 +78,8 @@ dev_dependencies:
   riverpod_generator: ^4.0.3
   ferry_generator2: ^0.1.0-dev.5
   lints: ^6.1.0
+  freezed: ^3.2.5
+  json_serializable: ^6.13.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

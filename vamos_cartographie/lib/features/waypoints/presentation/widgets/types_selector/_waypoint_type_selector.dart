@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import "package:vamos_cartographie/graphql/graphql.dart";
 
-import "package:vamos_cartographie/features/waypoints/domain/entities/entities.dart";
+import "package:vamos_cartographie/features/waypoints/presentation/extensions/waypoint_type_extension.dart";
 
 class WaypointTypeSelector extends StatelessWidget {
   final ValueChanged<GWaypointEnum> onTypeChanged;

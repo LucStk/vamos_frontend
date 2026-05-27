@@ -4,6 +4,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+
 class SegmentTypeMarkersBuilder {
   static List<Marker> buildMarkers(Trip trip, void Function(int) onTap) {
     final markers = <Marker>[];

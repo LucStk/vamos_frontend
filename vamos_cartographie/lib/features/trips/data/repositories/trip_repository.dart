@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_d
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/media/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'i_trip_repository.dart';
 
 /// Implémentation concrète de [ITripRepository].

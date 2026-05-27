@@ -1,42 +1,32 @@
 // features/map/presentation/providers/map_state_provider.dart
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+part 'map_state.freezed.dart';
+// enum MapMode { observer, editRoute, addPoint }
 
-enum MapMode { observer, editRoute, addPoint }
+@freezed
+class MapState with _$MapState {
+  const factory MapState({
+    required Trip currentTrip,
+    @Default(false) bool isDirty,
+    @Default([]) List<Waypoint> waypointsSnapshot,
+    @Default([]) List<Segment> segmentsSnapshot,
+    // AddPoint, editRoute, etc. (Tu pourras les décommenter facilement)
+    // @Default(MapMode.observer) MapMode mode,
+    // @Default(0) int waypointsCountBeforeAdd,
+  }) = _MapState;
 
-class MapState {
-  final MapMode mode;
-  final bool isDirty;
-  final Trip? currentTrip;
-  final List<Waypoint>? routeSnapshot;
-  final List<Segment>? segmentsSnapshot;
-  final int waypointsCountBeforeAdd;
+  // Pour ajouter un constructeur personnalisé (comme ton .fromTrip)
+  // ou des getters, Freezed impose d'ajouter ce constructeur privé :
+  const MapState._();
 
-  const MapState({
-    this.mode = MapMode.observer,
-    this.currentTrip,
-    this.isDirty = false,
-    this.routeSnapshot,
-    this.segmentsSnapshot,
-    this.waypointsCountBeforeAdd = 0,
-  });
-
-  MapState copyWith({
-    MapMode? mode,
-    bool? isDirty,
-    Trip? currentTrip,
-    List<Waypoint>? routeSnapshot,
-    List<Segment>? segmentsSnapshot,
-    int? waypointsCountBeforeAdd,
-  }) {
+  factory MapState.fromTrip(Trip trip) {
     return MapState(
-      currentTrip: currentTrip ?? this.currentTrip,
-      mode: mode ?? this.mode,
-      isDirty: isDirty ?? this.isDirty,
-      routeSnapshot: routeSnapshot ?? this.routeSnapshot,
-      segmentsSnapshot: segmentsSnapshot ?? this.segmentsSnapshot,
-      waypointsCountBeforeAdd:
-          waypointsCountBeforeAdd ?? this.waypointsCountBeforeAdd,
+      currentTrip: trip,
+      waypointsSnapshot: List.unmodifiable(trip.waypoints),
+      segmentsSnapshot: List.unmodifiable(trip.segments),
     );
   }
 }

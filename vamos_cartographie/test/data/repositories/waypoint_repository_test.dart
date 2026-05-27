@@ -49,8 +49,8 @@ Waypoint _domainWaypoint({
   double lat = 48.85,
   double lng = 2.35,
   GWaypointEnum type = GWaypointEnum.WAYPOINT,
-  String? title,
-  String? description,
+  String title = "",
+  String description = "",
 }) => Waypoint(
   id: id,
   latLng: LatLng(lat, lng),
@@ -178,10 +178,7 @@ void main() {
         return _gqlWaypoint();
       });
 
-      await repository.updateWaypoint(
-        1,
-        _domainWaypoint(title: null, description: ''),
-      );
+      await repository.updateWaypoint(1, _domainWaypoint(description: ''));
 
       expect(capturedInput!.title, const Value.absent());
       expect(capturedInput!.description, const Value.absent());

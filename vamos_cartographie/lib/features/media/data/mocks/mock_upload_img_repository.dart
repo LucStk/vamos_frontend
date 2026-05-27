@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/media/data/repositories/upload_img_repository.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 class MockUploadImgRepository implements UploadImgRepository {
   @override

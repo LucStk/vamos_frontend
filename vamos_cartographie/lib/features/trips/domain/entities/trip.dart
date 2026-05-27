@@ -1,46 +1,23 @@
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-import "package:vamos_cartographie/features/media/domain/entities/media_image.dart";
+import "package:vamos_cartographie/features/media/domain/entities/entities.dart";
 // ---------------------------------------------------------------------------
 // Route
 // ---------------------------------------------------------------------------
 
-class Trip {
-  final int? id;
-  final String title;
-  final String description;
-  final DateTime? date;
-  final List<MediaImage> images;
-  final List<Waypoint> waypoints;
-  final List<Segment> segments;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const Trip({
-    this.id,
-    this.title = '',
-    this.description = '',
-    this.date,
-    this.images = const [],
-    this.waypoints = const [],
-    this.segments = const [],
-  });
+part 'trip.freezed.dart';
 
-  Trip copyWith({
+@freezed
+abstract class Trip with _$Trip {
+  const factory Trip({
     int? id,
-    String? title,
-    String? description,
+    @Default('') String title,
+    @Default('') String description,
     DateTime? date,
-    List<MediaImage>? images,
-    List<Waypoint>? waypoints,
-    List<Segment>? segments,
-  }) {
-    return Trip(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      date: date ?? this.date,
-      images: images ?? this.images,
-      waypoints: waypoints ?? this.waypoints,
-      segments: segments ?? this.segments,
-    );
-  }
+    @Default([]) List<MediaImage> images,
+    @Default([]) List<Waypoint> waypoints,
+    @Default([]) List<Segment> segments,
+  }) = _Trip;
 }

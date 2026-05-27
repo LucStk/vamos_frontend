@@ -4,6 +4,8 @@ import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 
+import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+
 class IntermediatePoints extends DragMarker {
   IntermediatePoints({
     required LatLng point,

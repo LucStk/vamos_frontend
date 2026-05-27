@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/media_image.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'upload_img_repository.g.dart';

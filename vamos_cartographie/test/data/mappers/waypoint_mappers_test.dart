@@ -128,7 +128,6 @@ void main() {
       final wp = Waypoint(
         latLng: const LatLng(0, 0),
         type: GWaypointEnum.WAYPOINT,
-        description: null,
       );
       expect(
         WaypointMapper.waypointToGQLInput(wp).description,
@@ -161,7 +160,6 @@ void main() {
       final wp = Waypoint(
         latLng: const LatLng(0, 0),
         type: GWaypointEnum.WAYPOINT,
-        title: null,
       );
       expect(WaypointMapper.waypointToGQLInput(wp).title, const Value.absent());
     });

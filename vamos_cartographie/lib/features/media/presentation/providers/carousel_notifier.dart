@@ -47,8 +47,9 @@ class CarouselNotifier extends _$CarouselNotifier {
   // ─────────────────────────────────────────────────────────────
 
   void addLocalImages(List<String> paths) {
-    final newItems = paths.map(CarouselItem.local).toList();
-
+    final newItems = paths
+        .map((path) => CarouselItem.local(fileKey: path))
+        .toList();
     state = state.copyWith(items: [...state.items, ...newItems]);
 
     for (final item in newItems) {
@@ -104,7 +105,7 @@ class CarouselNotifier extends _$CarouselNotifier {
         );
       },
       (MediaImage image) {
-        _replaceItem(path, CarouselItem.remote(image));
+        _replaceItem(path, CarouselItem.remote(image: image));
       },
     );
   }
