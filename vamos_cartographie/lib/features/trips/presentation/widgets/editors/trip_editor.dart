@@ -57,52 +57,42 @@ class TripInfoEditorState extends State<TripInfoEditor> {
         // ── Date ──
         const TripSectionLabel(label: 'DATE', icon: Icons.calendar_today),
         const SizedBox(height: 8),
-        Row(
-          children: [
-            // Bouton date (pas toute la largeur)
-            // ── Date ──
-            const TripSectionLabel(label: 'DATE', icon: Icons.calendar_today),
-            const SizedBox(height: 8),
+        DatePicker(
+          date: currentTrip.date,
+          onDateChanged: (newDate) {
+            _patch(currentTrip.copyWith(date: newDate));
+          },
+        ),
 
-            DatePicker(
-              date: currentTrip.date,
-              onDateChanged: (newDate) {
-                _patch(currentTrip.copyWith(date: newDate));
-              },
-            ),
+        const SizedBox(height: 20),
 
-            const SizedBox(height: 20),
+        // ── Description ──
+        const TripSectionLabel(label: 'DESCRIPTION', icon: Icons.notes),
+        const SizedBox(height: 8),
+        TextAreaWithCounter(
+          initialValue: currentTrip.description,
+          readOnly: false,
+          onChanged: (val) => _patch(currentTrip.copyWith(description: val)),
+        ),
+        const SizedBox(height: 20),
 
-            // ── Description ──
-            const TripSectionLabel(label: 'DESCRIPTION', icon: Icons.notes),
-            const SizedBox(height: 8),
-            TextAreaWithCounter(
-              initialValue: currentTrip.description,
-              readOnly: false,
-              onChanged: (val) =>
-                  _patch(currentTrip.copyWith(description: val)),
+        // ── Photos ──
+        const TripSectionLabel(
+          label: 'PHOTOS',
+          icon: Icons.photo_library_outlined,
+        ),
+        const SizedBox(height: 8),
+        // Le picker est limité en largeur via Align + FractionallySizedBox
+        Align(
+          alignment: Alignment.centerLeft,
+          child: FractionallySizedBox(
+            widthFactor: 0.9,
+            child: ImageCarouselPicker(
+              remoteImages: currentTrip.images,
+              onChanged: (images) =>
+                  setState(() => currentTrip.images = images),
             ),
-            const SizedBox(height: 20),
-
-            // ── Photos ──
-            const TripSectionLabel(
-              label: 'PHOTOS',
-              icon: Icons.photo_library_outlined,
-            ),
-            const SizedBox(height: 8),
-            // Le picker est limité en largeur via Align + FractionallySizedBox
-            Align(
-              alignment: Alignment.centerLeft,
-              child: FractionallySizedBox(
-                widthFactor: 0.9,
-                child: ImageCarouselPicker(
-                  remoteImages: currentTrip.images,
-                  onChanged: (images) =>
-                      setState(() => currentTrip.images = images),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ],
     );
