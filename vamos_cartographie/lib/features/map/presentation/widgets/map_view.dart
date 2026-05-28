@@ -8,28 +8,29 @@ import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dar
 
 class MapView extends StatefulWidget {
   final Trip trip;
+
   final CustomPolyEditor editor;
-  final void Function(LatLng)? onTap;
-  final void Function(int)? onSegmentTypeMarkerTap;
-  final void Function(Waypoint)? onWaypointTap;
+
   final bool editable;
+
   final MapController? mapController;
 
-  /// Options affichées dans le menu contextuel (clic sur la carte).
-  /// Si la liste est vide ou null, aucun menu n'apparaît au clic.
-  final List<MapContextMenuOption>? contextMenuOptions;
+  final void Function(Waypoint)? onWaypointTap;
+
+  final void Function(int)? onSegmentTypeMarkerTap;
+
+  final List<MapContextAction>? contextMenuActions;
 
   const MapView({
-    Key? key,
+    super.key,
     required this.trip,
     required this.editor,
-    this.onTap,
-    this.onSegmentTypeMarkerTap,
-    this.onWaypointTap,
-    this.editable = true,
+    required this.editable,
     this.mapController,
-    this.contextMenuOptions,
-  }) : super(key: key);
+    this.onWaypointTap,
+    this.onSegmentTypeMarkerTap,
+    this.contextMenuActions,
+  });
 
   @override
   State<MapView> createState() => _MapViewState();
@@ -40,14 +41,13 @@ class _MapViewState extends State<MapView> {
 
   void _handleTap(LatLng latLng) {
     final hasMenu =
-        widget.contextMenuOptions != null &&
-        widget.contextMenuOptions!.isNotEmpty;
+        widget.contextMenuActions != null &&
+        widget.contextMenuActions!.isNotEmpty;
 
     if (hasMenu) {
-      // Priorité au menu contextuel : on l'ouvre (ou on le déplace)
-      setState(() => _contextMenuPosition = latLng);
-    } else if (widget.onTap != null) {
-      widget.onTap!(latLng);
+      setState(() {
+        _contextMenuPosition = latLng;
+      });
     }
   }
 
@@ -55,61 +55,65 @@ class _MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     return FlutterMap(
       mapController: widget.mapController,
+
       options: MapOptions(
         initialCenter: LatLng(46.8, 2.2),
         initialZoom: 7,
-        onTap: (_, latLng) => _handleTap(latLng),
+
+        onTap: (_, latLng) {
+          _handleTap(latLng);
+        },
       ),
+
       children: [
         TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.example.vamos_cartographie',
+          urlTemplate:
+              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+
+          userAgentPackageName:
+              'com.example.vamos_cartographie',
         ),
 
-        // ── Couche "vivante" ────────────────────────────────────────────────
-        // Se redessine à chaque repaintNotifier++ (pendant le drag) pour
-        // mettre à jour les polylines. DragMarkers n'est PAS ici.
         _LiveSegmentLayer(
           trip: widget.trip,
-          repaintNotifier: widget.editor.repaintNotifier,
+          repaintNotifier:
+              widget.editor.repaintNotifier,
           editable: widget.editable,
-          onSegmentTypeMarkerTap: widget.onSegmentTypeMarkerTap,
           onWaypointTap: widget.onWaypointTap,
+          onSegmentTypeMarkerTap:
+              widget.onSegmentTypeMarkerTap,
         ),
 
-        // ── DragMarkers ─────────────────────────────────────────────────────
-        // FRÈRE (pas enfant) de _LiveSegmentLayer.
-        // Ne rebuild QUE quand MapView lui-même rebuild, c'est-à-dire
-        // uniquement sur setState de MapPage — jamais pendant un drag actif.
-        // Cela préserve les états internes des DragMarkerWidget (position du
-        // drag en cours, _isDragging, etc.) et évite la reconciliation par
-        // position qui causait le bug.
-        if (widget.editable) DragMarkers(markers: widget.editor.edit()),
+        if (widget.editable)
+          DragMarkers(
+            markers: widget.editor.build(),
+          ),
 
-        // Marqueurs statiques tappables (mode observateur)
-        if (!widget.editable && widget.onWaypointTap != null)
+        if (!widget.editable &&
+            widget.onWaypointTap != null)
           MarkerLayer(
-            markers: WaypointMarkersBuilder.buildMarkers(
+            markers:
+                WaypointMarkersBuilder.buildMarkers(
               widget.trip,
               widget.onWaypointTap!,
             ),
           ),
 
-        // ── Menu contextuel géo-ancré ────────────────────────────────────
         if (_contextMenuPosition != null &&
-            widget.contextMenuOptions != null &&
-            widget.contextMenuOptions!.isNotEmpty)
+            widget.contextMenuActions != null)
           MapContextMenu(
             position: _contextMenuPosition!,
-            options: widget.contextMenuOptions!,
-            onClose: () => setState(() => _contextMenuPosition = null),
+            actions: widget.contextMenuActions!,
+            onClose: () {
+              setState(() {
+                _contextMenuPosition = null;
+              });
+            },
           ),
       ],
     );
   }
-}
-
-// ── _LiveSegmentLayer ─────────────────────────────────────────────────────────
+}veSegmentLayer ─────────────────────────────────────────────────────────
 // Widget interne qui s'abonne au repaintNotifier du CustomPolyEditor.
 // Il ne contient QUE les polylines et les marqueurs de type de segment —
 // pas les DragMarkers.

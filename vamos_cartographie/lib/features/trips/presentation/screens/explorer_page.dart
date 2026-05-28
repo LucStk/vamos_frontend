@@ -16,7 +16,7 @@ class ExplorerPage extends ConsumerWidget {
       onExplore: () async {
         await Navigator.of(
           context,
-        ).push(MaterialPageRoute(builder: (_) => MapPage(tripId: trip.id)));
+        ).push(MaterialPageRoute(builder: (_) => MapScreen(tripId: trip.id)));
       },
     );
   }

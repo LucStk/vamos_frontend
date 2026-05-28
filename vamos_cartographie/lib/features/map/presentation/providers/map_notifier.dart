@@ -9,7 +9,13 @@ part 'map_notifier.g.dart';
 @riverpod
 class MapStateNotifier extends _$MapStateNotifier {
   @override
-  MapState build(Trip trip) {
+  MapState build(int tripId) {
+    final trip = ref.watch(tripProvider(tripId));
+
+    if (trip == null) {
+      throw Exception('Trip introuvable');
+    }
+
     return MapState.fromTrip(trip);
   }
 
@@ -25,12 +31,12 @@ class MapStateNotifier extends _$MapStateNotifier {
     );
   }
 
-  void _updateTrip(Trip trip) {
+  void _updateCurrentTrip(Trip trip) {
     state = state.copyWith(currentTrip: trip, isDirty: true);
   }
 
   void addWaypoint(Waypoint waypoint) {
-    _updateTrip(
+    _updateCurrentTrip(
       state.currentTrip.copyWith(
         waypoints: [...state.currentTrip.waypoints, waypoint],
       ),
@@ -38,7 +44,7 @@ class MapStateNotifier extends _$MapStateNotifier {
   }
 
   void removeWaypointById(int id) {
-    _updateTrip(
+    _updateCurrentTrip(
       state.currentTrip.copyWith(
         waypoints: state.currentTrip.waypoints
             .where((w) => w.id != id)
@@ -48,7 +54,7 @@ class MapStateNotifier extends _$MapStateNotifier {
   }
 
   void updateWaypoint(Waypoint updatedWaypoint) {
-    _updateTrip(
+    _updateCurrentTrip(
       state.currentTrip.copyWith(
         waypoints: state.currentTrip.waypoints.map((w) {
           if (w.id == updatedWaypoint.id) {
