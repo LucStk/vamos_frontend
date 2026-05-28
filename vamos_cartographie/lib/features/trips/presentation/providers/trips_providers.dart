@@ -1,4 +1,6 @@
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+
+import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/repositories.dart';
 // 1. Remplacement des imports riverpod classiques par les annotations
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -59,6 +61,7 @@ class TripsNotifier extends _$TripsNotifier {
   Future<void> updateTrip(int id, TripDraft tripdraft) async {
     final previous = state.value ?? [];
 
+    debugPrint("Draft Trip : $tripdraft");
     // optimistic update
     state = AsyncData([
       for (final t in previous)
@@ -74,7 +77,7 @@ class TripsNotifier extends _$TripsNotifier {
       },
       (serverTrip) {
         // sync avec vérité serveur
-        // debugPrint("updateTrip result image ${serverTrip.images}");
+        debugPrint("updateTrip result image ${serverTrip.images}");
         state = AsyncData([
           for (final t in state.value ?? [])
             if (t.id == id) serverTrip else t,

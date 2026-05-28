@@ -14,15 +14,15 @@ class WaypointMapper {
   );
 
   /// Convertit un [Waypoint] domaine en [GWaypointInput] pour les mutations.
-  static GWaypointInput waypointToGQLInput(Waypoint w) => GWaypointInput(
-    lat: w.latLng.latitude,
-    lng: w.latLng.longitude,
-    type: w.type,
-    description: w.description.isNotEmpty
-        ? Value.present(w.description)
-        : const Value.absent(),
-    title: w.title.isNotEmpty ? Value.present(w.title) : const Value.absent(),
-  );
+  // static GWaypointInput toGQLInput(Waypoint w) => GWaypointInput(
+  //   lat: w.latLng.latitude,
+  //   lng: w.latLng.longitude,
+  //   type: w.type,
+  //   description: w.description.isNotEmpty
+  //       ? Value.present(w.description)
+  //       : const Value.absent(),
+  //   title: w.title.isNotEmpty ? Value.present(w.title) : const Value.absent(),
+  // );
   static GWaypointUpdateInput waypointToGQLUpdateInput(Waypoint w) =>
       GWaypointUpdateInput(
         lat: Value.present(w.latLng.latitude),

@@ -9,18 +9,14 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
     as _i7;
-import 'package:vamos_cartographie/graphql/segments/fragments/__generated__/segment_fields.ast.gql.dart'
-    as _i8;
 import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.ast.gql.dart'
-    as _i9;
+    as _i8;
 import 'package:vamos_cartographie/graphql/trips/mutations/__generated__/trip_mutations.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/graphql/trips/mutations/__generated__/trip_mutations.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/graphql/trips/mutations/__generated__/trip_mutations.var.gql.dart'
     as _i3;
-import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.ast.gql.dart'
-    as _i10;
 
 class GCreateTripReq
     implements _i1.OperationRequest<_i2.GCreateTripData, _i3.GCreateTripVars> {
@@ -63,9 +59,7 @@ class GCreateTripReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateTrip,
     _i7.ImageFields,
-    _i8.SegmentFields,
-    _i9.TripFields,
-    _i10.WaypointFields,
+    _i8.TripFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -224,9 +218,7 @@ class GUpdateTripReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.UpdateTrip,
     _i7.ImageFields,
-    _i8.SegmentFields,
-    _i9.TripFields,
-    _i10.WaypointFields,
+    _i8.TripFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

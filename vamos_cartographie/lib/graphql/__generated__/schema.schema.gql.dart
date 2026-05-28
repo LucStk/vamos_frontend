@@ -6,60 +6,6 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
-class GLatLngInput {
-  const GLatLngInput({
-    required this.lat,
-    required this.lng,
-  });
-
-  factory GLatLngInput.fromJson(Map<String, dynamic> json) {
-    return GLatLngInput(
-      lat: (json['lat'] as double),
-      lng: (json['lng'] as double),
-    );
-  }
-
-  final double lat;
-
-  final double lng;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$latValue = this.lat;
-    _$result['lat'] = _$latValue;
-    final _$lngValue = this.lng;
-    _$result['lng'] = _$lngValue;
-    return _$result;
-  }
-
-  GLatLngInput copyWith({
-    double? lat,
-    double? lng,
-  }) {
-    return GLatLngInput(
-      lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GLatLngInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GLatLngInput(lat: $lat, lng: $lng)';
-  }
-}
-
 class GMediaImageInput {
   const GMediaImageInput({required this.fileKey});
 
@@ -95,63 +41,6 @@ class GMediaImageInput {
   @override
   String toString() {
     return 'GMediaImageInput(fileKey: $fileKey)';
-  }
-}
-
-class GSegmentInput {
-  const GSegmentInput({
-    required this.type,
-    required this.intermediatePoints,
-  });
-
-  factory GSegmentInput.fromJson(Map<String, dynamic> json) {
-    return GSegmentInput(
-      type: GSegmentTypeEnum.fromJson((json['type'] as String)),
-      intermediatePoints: (json['intermediatePoints'] as List<dynamic>)
-          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-    );
-  }
-
-  final GSegmentTypeEnum type;
-
-  final List<GLatLngInput> intermediatePoints;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$typeValue = this.type;
-    _$result['type'] = _$typeValue.toJson();
-    final _$intermediatePointsValue = this.intermediatePoints;
-    _$result['intermediatePoints'] =
-        _$intermediatePointsValue.map((_$e) => _$e.toJson()).toList();
-    return _$result;
-  }
-
-  GSegmentInput copyWith({
-    GSegmentTypeEnum? type,
-    List<GLatLngInput>? intermediatePoints,
-  }) {
-    return GSegmentInput(
-      type: type ?? this.type,
-      intermediatePoints: intermediatePoints ?? this.intermediatePoints,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GSegmentInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GSegmentInput(type: $type, intermediatePoints: $intermediatePoints)';
   }
 }
 
@@ -241,8 +130,6 @@ class GTripInput {
     required this.title,
     this.description = const Value.absent(),
     this.date = const Value.absent(),
-    this.waypoints = const Value.absent(),
-    this.segments = const Value.absent(),
   });
 
   factory GTripInput.fromJson(Map<String, dynamic> json) {
@@ -257,22 +144,6 @@ class GTripInput {
           ? Value.present(
               json['date'] == null ? null : (json['date'] as String))
           : Value.absent(),
-      waypoints: json.containsKey('waypoints')
-          ? Value.present(json['waypoints'] == null
-              ? null
-              : (json['waypoints'] as List<dynamic>)
-                  .map((_$e) =>
-                      GWaypointInput.fromJson((_$e as Map<String, dynamic>)))
-                  .toList())
-          : Value.absent(),
-      segments: json.containsKey('segments')
-          ? Value.present(json['segments'] == null
-              ? null
-              : (json['segments'] as List<dynamic>)
-                  .map((_$e) =>
-                      GSegmentInput.fromJson((_$e as Map<String, dynamic>)))
-                  .toList())
-          : Value.absent(),
     );
   }
 
@@ -281,10 +152,6 @@ class GTripInput {
   final Value<String> description;
 
   final Value<String> date;
-
-  final Value<List<GWaypointInput>> waypoints;
-
-  final Value<List<GSegmentInput>> segments;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -301,20 +168,6 @@ class GTripInput {
       final _$dateRequired = _$dateValue.requireValue;
       _$result['date'] = _$dateRequired == null ? null : _$dateRequired;
     }
-    final _$waypointsValue = this.waypoints;
-    if (_$waypointsValue.isPresent) {
-      final _$waypointsRequired = _$waypointsValue.requireValue;
-      _$result['waypoints'] = _$waypointsRequired == null
-          ? null
-          : _$waypointsRequired.map((_$e) => _$e.toJson()).toList();
-    }
-    final _$segmentsValue = this.segments;
-    if (_$segmentsValue.isPresent) {
-      final _$segmentsRequired = _$segmentsValue.requireValue;
-      _$result['segments'] = _$segmentsRequired == null
-          ? null
-          : _$segmentsRequired.map((_$e) => _$e.toJson()).toList();
-    }
     return _$result;
   }
 
@@ -322,15 +175,11 @@ class GTripInput {
     String? title,
     Value<String>? description,
     Value<String>? date,
-    Value<List<GWaypointInput>>? waypoints,
-    Value<List<GSegmentInput>>? segments,
   }) {
     return GTripInput(
       title: title ?? this.title,
       description: description ?? this.description,
       date: date ?? this.date,
-      waypoints: waypoints ?? this.waypoints,
-      segments: segments ?? this.segments,
     );
   }
 
@@ -347,7 +196,7 @@ class GTripInput {
 
   @override
   String toString() {
-    return 'GTripInput(title: $title, description: $description, date: $date, waypoints: $waypoints, segments: $segments)';
+    return 'GTripInput(title: $title, description: $description, date: $date)';
   }
 }
 
@@ -356,8 +205,6 @@ class GTripUpdateInput {
     this.title = const Value.absent(),
     this.description = const Value.absent(),
     this.date = const Value.absent(),
-    this.waypoints = const Value.absent(),
-    this.segments = const Value.absent(),
   });
 
   factory GTripUpdateInput.fromJson(Map<String, dynamic> json) {
@@ -375,22 +222,6 @@ class GTripUpdateInput {
           ? Value.present(
               json['date'] == null ? null : (json['date'] as String))
           : Value.absent(),
-      waypoints: json.containsKey('waypoints')
-          ? Value.present(json['waypoints'] == null
-              ? null
-              : (json['waypoints'] as List<dynamic>)
-                  .map((_$e) =>
-                      GWaypointInput.fromJson((_$e as Map<String, dynamic>)))
-                  .toList())
-          : Value.absent(),
-      segments: json.containsKey('segments')
-          ? Value.present(json['segments'] == null
-              ? null
-              : (json['segments'] as List<dynamic>)
-                  .map((_$e) =>
-                      GSegmentInput.fromJson((_$e as Map<String, dynamic>)))
-                  .toList())
-          : Value.absent(),
     );
   }
 
@@ -399,10 +230,6 @@ class GTripUpdateInput {
   final Value<String> description;
 
   final Value<String> date;
-
-  final Value<List<GWaypointInput>> waypoints;
-
-  final Value<List<GSegmentInput>> segments;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -422,20 +249,6 @@ class GTripUpdateInput {
       final _$dateRequired = _$dateValue.requireValue;
       _$result['date'] = _$dateRequired == null ? null : _$dateRequired;
     }
-    final _$waypointsValue = this.waypoints;
-    if (_$waypointsValue.isPresent) {
-      final _$waypointsRequired = _$waypointsValue.requireValue;
-      _$result['waypoints'] = _$waypointsRequired == null
-          ? null
-          : _$waypointsRequired.map((_$e) => _$e.toJson()).toList();
-    }
-    final _$segmentsValue = this.segments;
-    if (_$segmentsValue.isPresent) {
-      final _$segmentsRequired = _$segmentsValue.requireValue;
-      _$result['segments'] = _$segmentsRequired == null
-          ? null
-          : _$segmentsRequired.map((_$e) => _$e.toJson()).toList();
-    }
     return _$result;
   }
 
@@ -443,15 +256,11 @@ class GTripUpdateInput {
     Value<String>? title,
     Value<String>? description,
     Value<String>? date,
-    Value<List<GWaypointInput>>? waypoints,
-    Value<List<GSegmentInput>>? segments,
   }) {
     return GTripUpdateInput(
       title: title ?? this.title,
       description: description ?? this.description,
       date: date ?? this.date,
-      waypoints: waypoints ?? this.waypoints,
-      segments: segments ?? this.segments,
     );
   }
 
@@ -469,7 +278,7 @@ class GTripUpdateInput {
 
   @override
   String toString() {
-    return 'GTripUpdateInput(title: $title, description: $description, date: $date, waypoints: $waypoints, segments: $segments)';
+    return 'GTripUpdateInput(title: $title, description: $description, date: $date)';
   }
 }
 
@@ -553,98 +362,6 @@ enum GWaypointEnum {
       case GWaypointEnum.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
-  }
-}
-
-class GWaypointInput {
-  const GWaypointInput({
-    required this.lat,
-    required this.lng,
-    this.title = const Value.absent(),
-    required this.type,
-    this.description = const Value.absent(),
-  });
-
-  factory GWaypointInput.fromJson(Map<String, dynamic> json) {
-    return GWaypointInput(
-      lat: (json['lat'] as double),
-      lng: (json['lng'] as double),
-      title: json.containsKey('title')
-          ? Value.present(
-              json['title'] == null ? null : (json['title'] as String))
-          : Value.absent(),
-      type: GWaypointEnum.fromJson((json['type'] as String)),
-      description: json.containsKey('description')
-          ? Value.present(json['description'] == null
-              ? null
-              : (json['description'] as String))
-          : Value.absent(),
-    );
-  }
-
-  final double lat;
-
-  final double lng;
-
-  final Value<String> title;
-
-  final GWaypointEnum type;
-
-  final Value<String> description;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$latValue = this.lat;
-    _$result['lat'] = _$latValue;
-    final _$lngValue = this.lng;
-    _$result['lng'] = _$lngValue;
-    final _$titleValue = this.title;
-    if (_$titleValue.isPresent) {
-      final _$titleRequired = _$titleValue.requireValue;
-      _$result['title'] = _$titleRequired == null ? null : _$titleRequired;
-    }
-    final _$typeValue = this.type;
-    _$result['type'] = _$typeValue.toJson();
-    final _$descriptionValue = this.description;
-    if (_$descriptionValue.isPresent) {
-      final _$descriptionRequired = _$descriptionValue.requireValue;
-      _$result['description'] =
-          _$descriptionRequired == null ? null : _$descriptionRequired;
-    }
-    return _$result;
-  }
-
-  GWaypointInput copyWith({
-    double? lat,
-    double? lng,
-    Value<String>? title,
-    GWaypointEnum? type,
-    Value<String>? description,
-  }) {
-    return GWaypointInput(
-      lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
-      title: title ?? this.title,
-      type: type ?? this.type,
-      description: description ?? this.description,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GWaypointInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GWaypointInput(lat: $lat, lng: $lng, title: $title, type: $type, description: $description)';
   }
 }
 

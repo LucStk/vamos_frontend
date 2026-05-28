@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
+import 'package:vamos_cartographie/features/trips/data/mappers/trip_draft_mappers.dart';
 import 'package:vamos_cartographie/features/media/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
@@ -30,7 +31,7 @@ class TripRepository implements ITripRepository {
   Future<Either<Failure, List<Trip>>> getAllTrips() async {
     try {
       final gqlTrips = await remote.getAllTrips();
-      return Right(gqlTrips.map(TripMapper.tripFromGQLFields).toList());
+      return Right(gqlTrips.map(TripMapper.fromGQLFields).toList());
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -42,7 +43,7 @@ class TripRepository implements ITripRepository {
   Future<Either<Failure, Trip>> getTrip(int id) async {
     try {
       final gqlTrip = await remote.getTripById(id: id);
-      return Right(TripMapper.tripFromGQLDetail(gqlTrip));
+      return Right(TripMapper.fromGQLDetail(gqlTrip));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -57,9 +58,9 @@ class TripRepository implements ITripRepository {
   @override
   Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
     try {
-      final input = TripMapper.tripToGQLInput(trip);
+      final input = TripDraftMapper.toGQLInput(trip);
       final gqlResult = await remote.createTrip(input: input);
-      final createdTrip = TripMapper.tripFromGQLCreateResult(gqlResult);
+      final createdTrip = TripMapper.fromGQLCreateResult(gqlResult);
       final tripId = createdTrip.id;
 
       // Après création, aucune image n'est encore attachée côté serveur.
@@ -81,9 +82,9 @@ class TripRepository implements ITripRepository {
   @override
   Future<Either<Failure, Trip>> updateTrip(int id, TripDraft trip) async {
     try {
-      final input = TripMapper.tripToGQLUpdateInput(trip);
+      final input = TripDraftMapper.toGQLUpdateInput(trip);
       final gqlResult = await remote.updateTrip(id: id, input: input);
-      final updatedTrip = TripMapper.tripFromGQLUpdateResult(gqlResult);
+      final updatedTrip = TripMapper.fromGQLUpdateResult(gqlResult);
 
       // Les images déjà attachées côté serveur (retournées par la mutation).
       final alreadyAttached = gqlResult.images

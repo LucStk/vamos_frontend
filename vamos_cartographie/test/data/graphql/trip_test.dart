@@ -16,7 +16,7 @@ void printError(response) {
   }
 }
 
-Future<GCreateTripData_createTrip> newTripRequest(Client client) async {
+Future<GTripFields> newTripRequest(Client client) async {
   final newTripRequest = GCreateTripReq(
     vars: GCreateTripVars(
       trip: GTripInput(

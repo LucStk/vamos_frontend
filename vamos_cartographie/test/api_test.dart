@@ -1,6 +1,7 @@
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
+import 'package:vamos_cartographie/features/trips/data/mappers/trip_draft_mappers.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/core/injection.dart';
 import 'package:test/test.dart';
@@ -72,7 +73,7 @@ void main() async {
         throw failure;
       },
       (fetchedTrip) {
-        final json = TripMapper.tripToGQLInput(fetchedTrip.toDraft()).toJson();
+        final json = TripDraftMapper.toGQLInput(fetchedTrip.toDraft()).toJson();
         print('trip retourné : $json');
       },
     );

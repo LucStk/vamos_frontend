@@ -1,3 +1,4 @@
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:gql_exec/gql_exec.dart';
@@ -77,24 +78,15 @@ GGetTripData_trip _tripDetail(int id) => GGetTripData_trip(
   segments: [],
 );
 
-GCreateTripData_createTrip _createResult(int id) => GCreateTripData_createTrip(
-  id: id,
-  title: 'Créé $id',
-  date: null,
-  description: 'Desc',
-  images: [],
-  waypoints: [],
-  segments: [],
-);
+GTripFieldsData _createResult(int id) =>
+    GTripFieldsData(id: id, title: 'Créé $id', description: 'Desc', images: []);
 
-GUpdateTripData_updateTrip _updateResult(int id) => GUpdateTripData_updateTrip(
+GTripFieldsData _updateResult(int id) => GTripFieldsData(
   id: id,
   title: 'Modifié $id',
   date: null,
   description: 'Desc',
   images: [],
-  waypoints: [],
-  segments: [],
 );
 
 GDeleteTripData_deleteTrip _deleteResult(int id) =>

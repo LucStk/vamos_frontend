@@ -90,7 +90,7 @@ class TripInfoEditorState extends State<TripInfoEditor> {
             child: ImageCarouselPicker(
               remoteImages: currentTrip.images,
               onChanged: (images) =>
-                  setState(() => currentTrip.copyWith(images: images)),
+                  _patch(currentTrip.copyWith(images: images)),
             ),
           ),
         ),

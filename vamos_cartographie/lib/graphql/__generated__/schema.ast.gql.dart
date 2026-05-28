@@ -30,30 +30,6 @@ const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
 );
-const LatLngInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'LatLngInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lat'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lng'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
 const LatLngType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'LatLngType'),
   directives: [],
@@ -408,33 +384,6 @@ const Query = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const SegmentInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentTypeEnum'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'intermediatePoints'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
 const SegmentType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'SegmentType'),
   directives: [],
@@ -560,30 +509,6 @@ const TripInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'waypoints'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'WaypointInput'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'segments'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'SegmentInput'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
   ],
 );
 const TripType = _i1.ObjectTypeDefinitionNode(
@@ -696,30 +621,6 @@ const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'waypoints'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'WaypointInput'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'segments'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'SegmentInput'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
   ],
 );
 const UploadConfig = _i1.ObjectTypeDefinitionNode(
@@ -827,57 +728,6 @@ const WaypointImageType = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
       ),
-    ),
-  ],
-);
-const WaypointInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lat'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lng'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'title'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointEnum'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'description'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
     ),
   ],
 );
@@ -1009,13 +859,11 @@ const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
   Date,
-  LatLngInput,
   LatLngType,
   MediaImageInput,
   MediaImageType,
   Mutation,
   Query,
-  SegmentInput,
   SegmentType,
   SegmentTypeEnum,
   TripDeleteInput,
@@ -1026,7 +874,6 @@ const document = _i1.DocumentNode(definitions: [
   UploadConfig,
   WaypointEnum,
   WaypointImageType,
-  WaypointInput,
   WaypointType,
   WaypointUpdateInput,
 ]);

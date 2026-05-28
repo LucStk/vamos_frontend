@@ -2,16 +2,10 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
-    as _gqlUtils;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.data.gql.dart'
-    as _i4;
-import 'package:vamos_cartographie/graphql/segments/fragments/__generated__/segment_fields.data.gql.dart'
-    as _i3;
+    as _i2;
 import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.data.gql.dart'
     as _i1;
-import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.data.gql.dart'
-    as _i2;
 
 class GCreateTripData {
   const GCreateTripData({
@@ -21,13 +15,13 @@ class GCreateTripData {
 
   factory GCreateTripData.fromJson(Map<String, dynamic> json) {
     return GCreateTripData(
-      createTrip: GCreateTripData_createTrip.fromJson(
+      createTrip: _i1.GTripFieldsData.fromJson(
           (json['createTrip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final GCreateTripData_createTrip createTrip;
+  final _i1.GTripFieldsData createTrip;
 
   final String G__typename;
 
@@ -39,7 +33,7 @@ class GCreateTripData {
   }
 
   GCreateTripData copyWith({
-    GCreateTripData_createTrip? createTrip,
+    _i1.GTripFieldsData? createTrip,
     String? G__typename,
   }) {
     return GCreateTripData(
@@ -67,182 +61,6 @@ class GCreateTripData {
   }
 }
 
-class GCreateTripData_createTrip implements _i1.GTripFields {
-  const GCreateTripData_createTrip({
-    required this.id,
-    required this.title,
-    this.date,
-    required this.description,
-    required this.images,
-    this.G__typename = 'TripType',
-    required this.waypoints,
-    required this.segments,
-  });
-
-  factory GCreateTripData_createTrip.fromJson(Map<String, dynamic> json) {
-    return GCreateTripData_createTrip(
-      id: (json['id'] as int),
-      title: (json['title'] as String),
-      date: json['date'] == null ? null : (json['date'] as String),
-      description: (json['description'] as String),
-      images: (json['images'] as List<dynamic>)
-          .map((_$e) => GCreateTripData_createTrip_images.fromJson(
-              (_$e as Map<String, dynamic>)))
-          .toList(),
-      G__typename: (json['__typename'] as String),
-      waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i2.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-      segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i3.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-    );
-  }
-
-  final int id;
-
-  final String title;
-
-  final String? date;
-
-  final String description;
-
-  final List<GCreateTripData_createTrip_images> images;
-
-  final String G__typename;
-
-  final List<_i2.GWaypointFieldsData> waypoints;
-
-  final List<_i3.GSegmentFieldsData> segments;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
-    _$result['title'] = this.title;
-    final _$dateValue = this.date;
-    _$result['date'] = _$dateValue == null ? null : _$dateValue;
-    _$result['description'] = this.description;
-    _$result['images'] = this.images.map((_$e) => _$e.toJson()).toList();
-    _$result['__typename'] = this.G__typename;
-    _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
-    _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
-    return _$result;
-  }
-
-  GCreateTripData_createTrip copyWith({
-    int? id,
-    String? title,
-    String? date,
-    bool dateIsSet = false,
-    String? description,
-    List<GCreateTripData_createTrip_images>? images,
-    String? G__typename,
-    List<_i2.GWaypointFieldsData>? waypoints,
-    List<_i3.GSegmentFieldsData>? segments,
-  }) {
-    return GCreateTripData_createTrip(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      date: dateIsSet ? date : this.date,
-      description: description ?? this.description,
-      images: images ?? this.images,
-      G__typename: G__typename ?? this.G__typename,
-      waypoints: waypoints ?? this.waypoints,
-      segments: segments ?? this.segments,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GCreateTripData_createTrip &&
-            id == other.id &&
-            title == other.title &&
-            date == other.date &&
-            description == other.description &&
-            _gqlUtils.listEquals(images, other.images) &&
-            G__typename == other.G__typename &&
-            _gqlUtils.listEquals(waypoints, other.waypoints) &&
-            _gqlUtils.listEquals(segments, other.segments));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(images),
-        G__typename,
-        _gqlUtils.listHash(waypoints),
-        _gqlUtils.listHash(segments));
-  }
-
-  @override
-  String toString() {
-    return 'GCreateTripData_createTrip(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename, waypoints: $waypoints, segments: $segments)';
-  }
-}
-
-class GCreateTripData_createTrip_images implements _i1.GTripFields_images {
-  const GCreateTripData_createTrip_images({
-    required this.image,
-    this.G__typename = 'TripImageType',
-  });
-
-  factory GCreateTripData_createTrip_images.fromJson(
-      Map<String, dynamic> json) {
-    return GCreateTripData_createTrip_images(
-      image: _i4.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final _i4.GImageFieldsData image;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['image'] = this.image.toJson();
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GCreateTripData_createTrip_images copyWith({
-    _i4.GImageFieldsData? image,
-    String? G__typename,
-  }) {
-    return GCreateTripData_createTrip_images(
-      image: image ?? this.image,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GCreateTripData_createTrip_images &&
-            image == other.image &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, image, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GCreateTripData_createTrip_images(image: $image, G__typename: $G__typename)';
-  }
-}
-
 class GUpdateTripData {
   const GUpdateTripData({
     required this.updateTrip,
@@ -251,13 +69,13 @@ class GUpdateTripData {
 
   factory GUpdateTripData.fromJson(Map<String, dynamic> json) {
     return GUpdateTripData(
-      updateTrip: GUpdateTripData_updateTrip.fromJson(
+      updateTrip: _i1.GTripFieldsData.fromJson(
           (json['updateTrip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final GUpdateTripData_updateTrip updateTrip;
+  final _i1.GTripFieldsData updateTrip;
 
   final String G__typename;
 
@@ -269,7 +87,7 @@ class GUpdateTripData {
   }
 
   GUpdateTripData copyWith({
-    GUpdateTripData_updateTrip? updateTrip,
+    _i1.GTripFieldsData? updateTrip,
     String? G__typename,
   }) {
     return GUpdateTripData(
@@ -294,182 +112,6 @@ class GUpdateTripData {
   @override
   String toString() {
     return 'GUpdateTripData(updateTrip: $updateTrip, G__typename: $G__typename)';
-  }
-}
-
-class GUpdateTripData_updateTrip implements _i1.GTripFields {
-  const GUpdateTripData_updateTrip({
-    required this.id,
-    required this.title,
-    this.date,
-    required this.description,
-    required this.images,
-    this.G__typename = 'TripType',
-    required this.waypoints,
-    required this.segments,
-  });
-
-  factory GUpdateTripData_updateTrip.fromJson(Map<String, dynamic> json) {
-    return GUpdateTripData_updateTrip(
-      id: (json['id'] as int),
-      title: (json['title'] as String),
-      date: json['date'] == null ? null : (json['date'] as String),
-      description: (json['description'] as String),
-      images: (json['images'] as List<dynamic>)
-          .map((_$e) => GUpdateTripData_updateTrip_images.fromJson(
-              (_$e as Map<String, dynamic>)))
-          .toList(),
-      G__typename: (json['__typename'] as String),
-      waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i2.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-      segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i3.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-    );
-  }
-
-  final int id;
-
-  final String title;
-
-  final String? date;
-
-  final String description;
-
-  final List<GUpdateTripData_updateTrip_images> images;
-
-  final String G__typename;
-
-  final List<_i2.GWaypointFieldsData> waypoints;
-
-  final List<_i3.GSegmentFieldsData> segments;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
-    _$result['title'] = this.title;
-    final _$dateValue = this.date;
-    _$result['date'] = _$dateValue == null ? null : _$dateValue;
-    _$result['description'] = this.description;
-    _$result['images'] = this.images.map((_$e) => _$e.toJson()).toList();
-    _$result['__typename'] = this.G__typename;
-    _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
-    _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
-    return _$result;
-  }
-
-  GUpdateTripData_updateTrip copyWith({
-    int? id,
-    String? title,
-    String? date,
-    bool dateIsSet = false,
-    String? description,
-    List<GUpdateTripData_updateTrip_images>? images,
-    String? G__typename,
-    List<_i2.GWaypointFieldsData>? waypoints,
-    List<_i3.GSegmentFieldsData>? segments,
-  }) {
-    return GUpdateTripData_updateTrip(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      date: dateIsSet ? date : this.date,
-      description: description ?? this.description,
-      images: images ?? this.images,
-      G__typename: G__typename ?? this.G__typename,
-      waypoints: waypoints ?? this.waypoints,
-      segments: segments ?? this.segments,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GUpdateTripData_updateTrip &&
-            id == other.id &&
-            title == other.title &&
-            date == other.date &&
-            description == other.description &&
-            _gqlUtils.listEquals(images, other.images) &&
-            G__typename == other.G__typename &&
-            _gqlUtils.listEquals(waypoints, other.waypoints) &&
-            _gqlUtils.listEquals(segments, other.segments));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(images),
-        G__typename,
-        _gqlUtils.listHash(waypoints),
-        _gqlUtils.listHash(segments));
-  }
-
-  @override
-  String toString() {
-    return 'GUpdateTripData_updateTrip(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename, waypoints: $waypoints, segments: $segments)';
-  }
-}
-
-class GUpdateTripData_updateTrip_images implements _i1.GTripFields_images {
-  const GUpdateTripData_updateTrip_images({
-    required this.image,
-    this.G__typename = 'TripImageType',
-  });
-
-  factory GUpdateTripData_updateTrip_images.fromJson(
-      Map<String, dynamic> json) {
-    return GUpdateTripData_updateTrip_images(
-      image: _i4.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final _i4.GImageFieldsData image;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['image'] = this.image.toJson();
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GUpdateTripData_updateTrip_images copyWith({
-    _i4.GImageFieldsData? image,
-    String? G__typename,
-  }) {
-    return GUpdateTripData_updateTrip_images(
-      image: image ?? this.image,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GUpdateTripData_updateTrip_images &&
-            image == other.image &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, image, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GUpdateTripData_updateTrip_images(image: $image, G__typename: $G__typename)';
   }
 }
 
@@ -696,13 +338,13 @@ class GAttachImageToTripData_attachImageToTrip {
   factory GAttachImageToTripData_attachImageToTrip.fromJson(
       Map<String, dynamic> json) {
     return GAttachImageToTripData_attachImageToTrip(
-      image: _i4.GImageFieldsData.fromJson(
+      image: _i2.GImageFieldsData.fromJson(
           (json['image'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i4.GImageFieldsData image;
+  final _i2.GImageFieldsData image;
 
   final String G__typename;
 
@@ -714,7 +356,7 @@ class GAttachImageToTripData_attachImageToTrip {
   }
 
   GAttachImageToTripData_attachImageToTrip copyWith({
-    _i4.GImageFieldsData? image,
+    _i2.GImageFieldsData? image,
     String? G__typename,
   }) {
     return GAttachImageToTripData_attachImageToTrip(

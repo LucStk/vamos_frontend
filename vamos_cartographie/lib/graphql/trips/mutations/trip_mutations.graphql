@@ -5,24 +5,12 @@
 mutation CreateTrip($trip: TripInput!) {
     createTrip(trip: $trip) {
         ...TripFields
-        waypoints {
-            ...WaypointFields
-        }
-        segments {
-            ...SegmentFields
-        }
     }
 }
 
 mutation UpdateTrip($trip: TripUpdateInput!, $id: Int!) {
     updateTrip(trip: $trip, id: $id) {
         ...TripFields
-        waypoints {
-            ...WaypointFields
-        }
-        segments {
-            ...SegmentFields
-        }
     }
 }
 

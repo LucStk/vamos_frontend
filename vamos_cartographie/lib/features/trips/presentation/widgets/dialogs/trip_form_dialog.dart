@@ -32,7 +32,6 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
 
   Future<void> _submit() async {
     final trip = _editorKey.currentState?.currentTrip;
-
     if (trip == null) return;
 
     setState(() {

@@ -46,9 +46,7 @@ class TripRemoteDatasource {
 
   /// Crée un nouveau trip à partir d'un [GTripInput] et retourne les données
   /// complètes du trip créé (avec waypoints et segments).
-  Future<GCreateTripData_createTrip> createTrip({
-    required GTripInput input,
-  }) async {
+  Future<GTripFields> createTrip({required GTripInput input}) async {
     final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
@@ -62,7 +60,7 @@ class TripRemoteDatasource {
 
   /// Met à jour un trip existant identifié par [id] avec les données fournies
   /// dans [input]. Retourne le trip mis à jour (avec waypoints et segments).
-  Future<GUpdateTripData_updateTrip> updateTrip({
+  Future<GTripFields> updateTrip({
     required int id,
     required GTripUpdateInput input,
   }) async {
