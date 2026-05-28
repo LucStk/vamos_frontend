@@ -37,13 +37,13 @@ class WaypointEditorState extends State<WaypointEditor> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         TextFormField(
-          initialValue: currentWaypoint.title ?? '',
+          initialValue: currentWaypoint.title,
           decoration: const InputDecoration(labelText: 'Titre du waypoint'),
           onChanged: (val) => _patch(currentWaypoint.copyWith(title: val)),
         ),
         const Divider(),
         TextAreaWithCounter(
-          initialValue: currentWaypoint.description ?? '',
+          initialValue: currentWaypoint.description,
           readOnly: false,
           onChanged: (val) =>
               _patch(currentWaypoint.copyWith(description: val)),
@@ -53,7 +53,7 @@ class WaypointEditorState extends State<WaypointEditor> {
 
         // ── Images ─────────────────────────────
         ImageCarouselPicker(
-          remoteImages: currentWaypoint.images ?? [],
+          remoteImages: currentWaypoint.images,
           onChanged: (newImages) {
             _patch(currentWaypoint.copyWith(images: newImages));
           },

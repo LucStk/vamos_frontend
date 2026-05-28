@@ -95,7 +95,7 @@ void main() async {
 
     // Suppression
     print('Suppression du trip {id: $id}');
-    final deleteResult = await getIt<ITripRepository>().deleteTrip(id!);
+    final deleteResult = await getIt<ITripRepository>().deleteTrip(id);
     deleteResult.fold((failure) {
       print(failure);
       throw failure;

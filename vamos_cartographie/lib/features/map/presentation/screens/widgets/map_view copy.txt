@@ -9,9 +9,7 @@ import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dar
 class MapView extends StatefulWidget {
   final Trip trip;
 
-  final CustomPolyEditor editor;
 
-  final bool editable;
 
   final MapController? mapController;
 

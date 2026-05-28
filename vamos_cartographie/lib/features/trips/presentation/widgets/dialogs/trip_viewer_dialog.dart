@@ -43,7 +43,7 @@ class TripViewerDialog extends ConsumerWidget {
 
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
-      await ref.read(tripsProvider.notifier).deleteTrip(trip.id!);
+      await ref.read(tripsProvider.notifier).deleteTrip(trip.id);
 
       // Sécurité Flutter obligatoire après un "await"
       if (!context.mounted) return;
@@ -98,7 +98,7 @@ class TripViewerDialog extends ConsumerWidget {
 
                 if (!context.mounted) return;
 
-                TripEditorDialog.show(context: context, tripId: trip.id!);
+                TripEditorDialog.show(context: context, tripId: trip.id);
               },
             ),
 

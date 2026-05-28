@@ -22,9 +22,9 @@ class WaypointInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // ── Titre mis en valeur ──
-                if (waypoint.title != null)
+                if (waypoint.title.isNotEmpty)
                   Text(
-                    waypoint.title!,
+                    waypoint.title,
                     textAlign: TextAlign
                         .center, // Aligne le texte au milieu sur l'axe X
                     style: const TextStyle(
@@ -40,14 +40,13 @@ class WaypointInfo extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Photos
-                ImageCarouselView(remoteImages: waypoint.images ?? []),
+                ImageCarouselView(remoteImages: waypoint.images),
 
                 // Description (Ici ta syntaxe avec ...[ ] était déjà correcte !)
-                if (waypoint.description != null &&
-                    waypoint.description!.isNotEmpty) ...[
+                if (waypoint.description.isNotEmpty) ...[
                   const SizedBox(height: 12),
                   Text(
-                    waypoint.description!,
+                    waypoint.description,
                     style: const TextStyle(
                       fontSize: 14, // Taille de la police
                       height:

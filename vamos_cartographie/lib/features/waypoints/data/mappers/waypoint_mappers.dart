@@ -18,22 +18,20 @@ class WaypointMapper {
     lat: w.latLng.latitude,
     lng: w.latLng.longitude,
     type: w.type,
-    description: w.description != null && w.description!.isNotEmpty
+    description: w.description.isNotEmpty
         ? Value.present(w.description)
         : const Value.absent(),
-    title: w.title != null && w.title!.isNotEmpty
-        ? Value.present(w.title)
-        : const Value.absent(),
+    title: w.title.isNotEmpty ? Value.present(w.title) : const Value.absent(),
   );
   static GWaypointUpdateInput waypointToGQLUpdateInput(Waypoint w) =>
       GWaypointUpdateInput(
         lat: Value.present(w.latLng.latitude),
         lng: Value.present(w.latLng.longitude),
         type: Value.present(w.type),
-        description: w.description != null && w.description!.isNotEmpty
+        description: w.description.isNotEmpty
             ? Value.present(w.description)
             : const Value.absent(),
-        title: w.title != null && w.title!.isNotEmpty
+        title: w.title.isNotEmpty
             ? Value.present(w.title)
             : const Value.absent(),
       );
