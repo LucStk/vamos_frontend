@@ -6,12 +6,7 @@ import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
 
 /// Gère le retour en arrière avec validation des données modifiées
-Future<void> handleBack(
-  BuildContext context,
-  WidgetRef ref,
-  int tripId,
-  Future<void> Function(Trip) onSaveRequested,
-) async {
+Future<void> handleBack(BuildContext context, WidgetRef ref, int tripId) async {
   final mapState = ref.watch(mapStateProvider(tripId));
   if (mapState.isDirty) {
     HandleBackDialog.show(

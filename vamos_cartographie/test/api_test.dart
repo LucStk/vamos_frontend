@@ -26,7 +26,7 @@ void main() async {
   });
 
   test('Trip création / lecture / modification / suppression', () async {
-    final trip = Trip(
+    final trip = TripDraft(
       title: 'Trip venant de la création',
       description: 'ceci est une description',
       date: DateTime.now(),
@@ -52,27 +52,27 @@ void main() async {
 
     // Création
     final createResult = await getIt<ITripRepository>().createTrip(trip);
-    int? id;
-    createResult.fold(
+    int id = createResult.fold(
       (failure) {
         print(failure);
         throw failure;
       },
       (createdTrip) {
-        id = createdTrip.id;
-        print('Trip bien créé dans la base de données id : $id');
+        print('Trip bien créé dans la base de données id : ${createdTrip.id}');
+        return createdTrip.id;
       },
     );
+
     print("trip id est $id");
     // Lecture
-    final getTripResult = await getIt<ITripRepository>().getTrip(id!);
+    final getTripResult = await getIt<ITripRepository>().getTrip(id);
     getTripResult.fold(
       (failure) {
         print(failure);
         throw failure;
       },
       (fetchedTrip) {
-        final json = TripMapper.tripToGQLInput(fetchedTrip).toJson();
+        final json = TripMapper.tripToGQLInput(fetchedTrip.toDraft()).toJson();
         print('trip retourné : $json');
       },
     );
@@ -85,8 +85,8 @@ void main() async {
       description: 'description modifiée',
     );
     final updateResult = await getIt<ITripRepository>().updateTrip(
-      id!,
-      updatedTrip,
+      id,
+      updatedTrip.toDraft(),
     );
     updateResult.fold((failure) {
       print(failure);

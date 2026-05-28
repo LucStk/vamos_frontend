@@ -55,12 +55,12 @@ class TripRepository implements ITripRepository {
   // ---------------------------------------------------------------------------
 
   @override
-  Future<Either<Failure, Trip>> createTrip(Trip trip) async {
+  Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
     try {
       final input = TripMapper.tripToGQLInput(trip);
       final gqlResult = await remote.createTrip(input: input);
       final createdTrip = TripMapper.tripFromGQLCreateResult(gqlResult);
-      final tripId = createdTrip.id!;
+      final tripId = createdTrip.id;
 
       // Après création, aucune image n'est encore attachée côté serveur.
       // On attache toutes les images présentes dans le modèle local.
@@ -79,7 +79,7 @@ class TripRepository implements ITripRepository {
   }
 
   @override
-  Future<Either<Failure, Trip>> updateTrip(int id, Trip trip) async {
+  Future<Either<Failure, Trip>> updateTrip(int id, TripDraft trip) async {
     try {
       final input = TripMapper.tripToGQLUpdateInput(trip);
       final gqlResult = await remote.updateTrip(id: id, input: input);

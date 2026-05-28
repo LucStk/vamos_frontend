@@ -13,11 +13,11 @@ abstract class ITripRepository {
 
   /// Crée un nouveau trip à partir d'un objet [Trip] domaine.
   /// Retourne le trip créé (avec son id assigné par le serveur).
-  Future<Either<Failure, Trip>> createTrip(Trip trip);
+  Future<Either<Failure, Trip>> createTrip(TripDraft trip);
 
   /// Met à jour le trip identifié par [id] avec les données de [trip].
   /// Retourne le trip mis à jour.
-  Future<Either<Failure, Trip>> updateTrip(int id, Trip trip);
+  Future<Either<Failure, Trip>> updateTrip(int id, TripDraft trip);
   // Future<Either<Failure, String>> createImageToTrip(
   //   int id,
   //   File file,

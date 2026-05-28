@@ -83,8 +83,7 @@ GUpdateTripData_updateTrip _gqlUpdate(int id) => GUpdateTripData_updateTrip(
 );
 
 /// Trip domaine minimal pour les appels de mutation.
-Trip _domainTrip({int? id}) => Trip(
-  id: id,
+TripDraft _domainTrip() => TripDraft(
   title: 'Test',
   description: 'Desc',
   waypoints: [
@@ -235,7 +234,7 @@ void main() {
         () => mockDatasource.createTrip(input: any(named: 'input')),
       ).thenAnswer((_) async => _gqlCreate(10));
 
-      final tripWithImages = Trip(
+      final tripWithImages = TripDraft(
         title: 'Avec images',
         description: '',
         images: [
@@ -310,7 +309,7 @@ void main() {
         ),
       ).thenAnswer((_) async => _gqlUpdate(7));
 
-      final result = await repository.updateTrip(7, _domainTrip(id: 7));
+      final result = await repository.updateTrip(7, _domainTrip());
 
       expect(result.isRight(), isTrue);
       final trip = (result as Right).value as Trip;
@@ -350,7 +349,7 @@ void main() {
             ),
           ],
         );
-        await repository.updateTrip(5, trip);
+        await repository.updateTrip(5, trip.toDraft());
 
         // 'existing.jpg' est déjà sur le serveur → aucun appel d'attachement.
         verifyNever(
@@ -393,7 +392,7 @@ void main() {
             const MediaImage(fileKey: 'media/b.jpg', url: 'https://cdn/b.jpg'),
           ],
         );
-        await repository.updateTrip(3, trip);
+        await repository.updateTrip(3, trip.toDraft());
 
         verifyNever(
           () => mockImageRepo.attachImageToTrip(
@@ -434,7 +433,7 @@ void main() {
             ),
           ],
         );
-        await repository.updateTrip(8, trip);
+        await repository.updateTrip(8, trip.toDraft());
 
         // 'removed.jpg' doit être supprimé côté serveur.
         verify(
@@ -470,7 +469,7 @@ void main() {
 
         // L'utilisateur a tout retiré.
         final trip = Trip(id: 9, title: 'Trip', description: '', images: []);
-        await repository.updateTrip(9, trip);
+        await repository.updateTrip(9, trip.toDraft());
 
         verify(
           () => mockDatasource.deleteImgTrip(tripId: 9, fileKey: 'media/a.jpg'),
@@ -490,7 +489,7 @@ void main() {
       ).thenAnswer((_) async => _gqlUpdateWithImages(2, []));
 
       final trip = Trip(id: 2, title: 'Trip', description: '', images: []);
-      await repository.updateTrip(2, trip);
+      await repository.updateTrip(2, trip.toDraft());
 
       verifyNever(
         () => mockDatasource.deleteImgTrip(
@@ -534,7 +533,7 @@ void main() {
             ),
           ],
         );
-        final result = await repository.updateTrip(6, trip);
+        final result = await repository.updateTrip(6, trip.toDraft());
 
         expect(result.isRight(), isTrue);
         final returned = (result as Right).value as Trip;
@@ -559,7 +558,7 @@ void main() {
           ),
         ).thenThrow(Exception('Erreur mise à jour'));
 
-        final result = await repository.updateTrip(7, _domainTrip(id: 7));
+        final result = await repository.updateTrip(7, _domainTrip());
 
         expect(result.isLeft(), isTrue);
         expect((result as Left).value, isA<ServerFailure>());

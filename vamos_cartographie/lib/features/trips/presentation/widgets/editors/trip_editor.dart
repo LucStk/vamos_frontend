@@ -8,7 +8,7 @@ import "package:vamos_cartographie/features/media/media.dart";
 /// Travaille sur une copie locale et n'applique les changements
 /// qu'à la confirmation via [onConfirm].
 class TripInfoEditor extends StatefulWidget {
-  final Trip initialTrip;
+  final TripDraft initialTrip;
 
   const TripInfoEditor({super.key, required this.initialTrip});
 
@@ -17,7 +17,7 @@ class TripInfoEditor extends StatefulWidget {
 }
 
 class TripInfoEditorState extends State<TripInfoEditor> {
-  late Trip currentTrip;
+  late TripDraft currentTrip;
 
   // static const int _maxDesc = 1000;
 
@@ -27,7 +27,7 @@ class TripInfoEditorState extends State<TripInfoEditor> {
     currentTrip = widget.initialTrip;
   }
 
-  void _patch(Trip newTrip) {
+  void _patch(TripDraft newTrip) {
     setState(() {
       currentTrip = newTrip;
     });

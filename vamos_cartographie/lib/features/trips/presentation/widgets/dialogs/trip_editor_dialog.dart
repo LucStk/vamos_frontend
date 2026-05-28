@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/features/trips/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
 import "trip_form_dialog.dart";
 
@@ -33,14 +34,14 @@ class TripEditorDialog extends ConsumerWidget {
         final trip = trips.firstWhere((t) => t.id == tripId);
 
         return TripFormDialog(
-          initialTrip: trip,
+          initialTrip: trip.toDraft(),
 
           successMessage: 'Voyage mis à jour',
 
           onSubmit: (ref, editedTrip) async {
             await ref
                 .read(tripsProvider.notifier)
-                .updateTrip(editedTrip.id!, editedTrip);
+                .updateTrip(tripId, editedTrip);
           },
         );
       },

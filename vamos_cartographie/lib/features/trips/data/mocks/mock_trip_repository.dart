@@ -186,7 +186,7 @@ class MockTripRepository implements ITripRepository {
   }
 
   @override
-  Future<Either<Failure, Trip>> createTrip(Trip trip) async {
+  Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
     await Future.delayed(_delay);
     final id = DateTime.now().millisecondsSinceEpoch;
     final created = Trip(
@@ -203,7 +203,7 @@ class MockTripRepository implements ITripRepository {
   }
 
   @override
-  Future<Either<Failure, Trip>> updateTrip(int id, Trip trip) async {
+  Future<Either<Failure, Trip>> updateTrip(int id, TripDraft trip) async {
     await Future.delayed(_delay);
     final index = _trips.indexWhere((t) => t.id == id);
     if (index == -1) return Left(const NotFoundFailure());

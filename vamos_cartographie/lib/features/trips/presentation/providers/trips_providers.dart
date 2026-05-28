@@ -47,7 +47,7 @@ class TripsNotifier extends _$TripsNotifier {
     });
   }
 
-  Future<void> createTrip(Trip trip) async {
+  Future<void> createTrip(TripDraft trip) async {
     final result = await repository.createTrip(trip);
 
     result.fold((failure) => throw Exception(failure.message), (createdTrip) {
@@ -56,16 +56,16 @@ class TripsNotifier extends _$TripsNotifier {
     });
   }
 
-  Future<void> updateTrip(int id, Trip trip) async {
+  Future<void> updateTrip(int id, TripDraft tripdraft) async {
     final previous = state.value ?? [];
 
     // optimistic update
     state = AsyncData([
       for (final t in previous)
-        if (t.id == id) trip else t,
+        if (t.id == id) tripdraft.toTrip(id) else t,
     ]);
 
-    final result = await repository.updateTrip(id, trip);
+    final result = await repository.updateTrip(id, tripdraft);
 
     result.fold(
       (_) {

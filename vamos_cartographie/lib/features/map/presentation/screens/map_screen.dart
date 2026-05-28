@@ -8,6 +8,7 @@ import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dar
 import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
 import 'package:vamos_cartographie/features/map/presentation/screens/utils/map_coordinator.dart';
 import "../widgets/map_top_bar.dart";
+import "utils/handle_back.dart";
 
 class MapScreen extends ConsumerStatefulWidget {
   final int tripId;
@@ -33,10 +34,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
       onPopInvokedWithResult: (didPop, _) async {
         if (!didPop) {
-          await coordinator.handleBack(
-            mapState.currentTrip,
-            (trip) => _saveChanges(trip, coordinator),
-          );
+          await handleBack(context, ref, mapState.currentTrip.id);
         }
       },
 

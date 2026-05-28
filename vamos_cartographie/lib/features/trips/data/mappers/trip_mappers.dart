@@ -82,7 +82,7 @@ class TripMapper {
   );
 
   /// Convertit un [Trip] domaine en [GTripInput] pour la mutation createTrip.
-  static GTripInput tripToGQLInput(Trip trip) => GTripInput(
+  static GTripInput tripToGQLInput(TripDraft trip) => GTripInput(
     title: trip.title,
     description: trip.description.isNotEmpty
         ? Value.present(trip.description)
@@ -102,17 +102,18 @@ class TripMapper {
 
   /// Convertit un [Trip] domaine en [GTripUpdateInput] pour la mutation
   /// updateTrip. Tous les champs sont envoyés tels quels (remplacement complet).
-  static GTripUpdateInput tripToGQLUpdateInput(Trip trip) => GTripUpdateInput(
-    title: Value.present(trip.title),
-    description: Value.present(
-      trip.description.isNotEmpty ? trip.description : null,
-    ),
-    date: trip.date != null
-        ? Value.present(trip.date!.toIso8601String().substring(0, 10))
-        : const Value.absent(),
-    waypoints: Value.present(
-      trip.waypoints.map(WaypointMapper.waypointToGQLInput).toList(),
-    ),
-    segments: Value.present(trip.segments.map(segmentToGQLInput).toList()),
-  );
+  static GTripUpdateInput tripToGQLUpdateInput(TripDraft trip) =>
+      GTripUpdateInput(
+        title: Value.present(trip.title),
+        description: Value.present(
+          trip.description.isNotEmpty ? trip.description : null,
+        ),
+        date: trip.date != null
+            ? Value.present(trip.date!.toIso8601String().substring(0, 10))
+            : const Value.absent(),
+        waypoints: Value.present(
+          trip.waypoints.map(WaypointMapper.waypointToGQLInput).toList(),
+        ),
+        segments: Value.present(trip.segments.map(segmentToGQLInput).toList()),
+      );
 }

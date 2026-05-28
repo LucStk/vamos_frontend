@@ -323,7 +323,7 @@ void main() {
 
   group('TripMapper.tripToGQLInput', () {
     test('mappe les champs principaux avec date et waypoints', () {
-      final trip = Trip(
+      final trip = TripDraft(
         title: 'Mon voyage',
         description: 'Super trip',
         date: DateTime(2024, 6, 1),
@@ -345,27 +345,27 @@ void main() {
     });
 
     test('description absente si chaîne vide', () {
-      final trip = Trip(title: 'Test', description: '');
+      final trip = TripDraft(title: 'Test', description: '');
       expect(TripMapper.tripToGQLInput(trip).description, const Value.absent());
     });
 
     test('date absente si null', () {
-      final trip = Trip(title: 'Test', date: null);
+      final trip = TripDraft(title: 'Test', date: null);
       expect(TripMapper.tripToGQLInput(trip).date, const Value.absent());
     });
 
     test('waypoints absents si liste vide', () {
-      final trip = Trip(title: 'Test');
+      final trip = TripDraft(title: 'Test');
       expect(TripMapper.tripToGQLInput(trip).waypoints, const Value.absent());
     });
 
     test('segments absents si liste vide', () {
-      final trip = Trip(title: 'Test');
+      final trip = TripDraft(title: 'Test');
       expect(TripMapper.tripToGQLInput(trip).segments, const Value.absent());
     });
 
     test('date formatée en YYYY-MM-DD (ISO tronqué)', () {
-      final trip = Trip(title: 'T', date: DateTime(2025, 1, 9));
+      final trip = TripDraft(title: 'T', date: DateTime(2025, 1, 9));
       expect(TripMapper.tripToGQLInput(trip).date, Value.present('2025-01-09'));
     });
   });
@@ -383,7 +383,7 @@ void main() {
         segments: [],
       );
       expect(
-        TripMapper.tripToGQLUpdateInput(trip).title,
+        TripMapper.tripToGQLUpdateInput(trip.toDraft()).title,
         Value.present('Titre mis à jour'),
       );
     });
@@ -396,7 +396,7 @@ void main() {
         waypoints: [],
         segments: [],
       );
-      final input = TripMapper.tripToGQLUpdateInput(trip);
+      final input = TripMapper.tripToGQLUpdateInput(trip.toDraft());
 
       expect(input.description.isPresent, isTrue);
       expect(input.description.requireValue, isNull);
@@ -411,7 +411,7 @@ void main() {
         segments: [],
       );
       expect(
-        TripMapper.tripToGQLUpdateInput(trip).description,
+        TripMapper.tripToGQLUpdateInput(trip.toDraft()).description,
         Value.present('Super aventure'),
       );
     });
@@ -424,7 +424,10 @@ void main() {
         waypoints: [],
         segments: [],
       );
-      expect(TripMapper.tripToGQLUpdateInput(trip).date, const Value.absent());
+      expect(
+        TripMapper.tripToGQLUpdateInput(trip.toDraft()).date,
+        const Value.absent(),
+      );
     });
 
     test('date présente si non null, formatée en YYYY-MM-DD', () {
@@ -436,14 +439,14 @@ void main() {
         segments: [],
       );
       expect(
-        TripMapper.tripToGQLUpdateInput(trip).date,
+        TripMapper.tripToGQLUpdateInput(trip.toDraft()).date,
         Value.present('2024-12-25'),
       );
     });
 
     test('waypoints présents même si liste vide', () {
       final trip = Trip(id: 10, title: 'T', waypoints: [], segments: []);
-      final input = TripMapper.tripToGQLUpdateInput(trip);
+      final input = TripMapper.tripToGQLUpdateInput(trip.toDraft());
 
       expect(input.waypoints.isPresent, isTrue);
       expect(input.waypoints.requireValue, isEmpty);
@@ -459,7 +462,7 @@ void main() {
         ],
         segments: [Segment(type: GSegmentTypeEnum.walk)],
       );
-      final input = TripMapper.tripToGQLUpdateInput(trip);
+      final input = TripMapper.tripToGQLUpdateInput(trip.toDraft());
 
       expect(input.waypoints.isPresent, isTrue);
       expect(input.waypoints.requireValue, hasLength(2));
@@ -467,7 +470,7 @@ void main() {
 
     test('segments présents même si liste vide', () {
       final trip = Trip(id: 10, title: 'T', waypoints: [], segments: []);
-      final input = TripMapper.tripToGQLUpdateInput(trip);
+      final input = TripMapper.tripToGQLUpdateInput(trip.toDraft());
 
       expect(input.segments.isPresent, isTrue);
       expect(input.segments.requireValue, isEmpty);
