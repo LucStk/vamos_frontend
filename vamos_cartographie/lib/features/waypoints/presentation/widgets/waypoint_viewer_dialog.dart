@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
+import "package:collection/collection.dart";
 import 'waypoint_editor_dialog.dart';
 import 'waypoint_info.dart';
 
@@ -32,10 +32,12 @@ class WaypointViewerDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final waypoint = ref.watch(
       mapStateProvider(tripId).select(
-        (state) => state.waypoints.firstWhere((w) => w.id == waypointId),
+        (state) => state.waypoints.firstWhereOrNull((w) => w.id == waypointId),
       ),
     );
-
+    if (waypoint == null) {
+      return const SizedBox.shrink();
+    }
     return DialogShell(
       content: WaypointInfo(waypoint: waypoint),
 
