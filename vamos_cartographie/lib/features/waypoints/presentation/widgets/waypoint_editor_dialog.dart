@@ -50,9 +50,12 @@ class WaypointEditorDialog extends ConsumerWidget {
 
         FilledButton(
           onPressed: () {
-            final edited = editorKey.currentState?.currentWaypoint;
+            final Waypoint? edited = editorKey.currentState?.currentWaypoint;
 
             if (edited != null) {
+              ref
+                  .read(mapStateProvider(tripId).notifier)
+                  .updateWaypoint(edited);
               Navigator.pop(ctx, edited);
             }
           },

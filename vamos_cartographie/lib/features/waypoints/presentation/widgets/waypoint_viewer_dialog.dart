@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
-
+import 'waypoint_editor_dialog.dart';
 import 'waypoint_info.dart';
 
 class WaypointViewerDialog extends ConsumerWidget {
@@ -42,9 +42,11 @@ class WaypointViewerDialog extends ConsumerWidget {
       buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {
-            ref
-                .read(mapStateProvider(tripId).notifier)
-                .openWaypointEditor(waypoint.id);
+            WaypointEditorDialog.show(
+              context: ctx,
+              waypointId: waypointId,
+              tripId: tripId,
+            );
           },
         ),
 

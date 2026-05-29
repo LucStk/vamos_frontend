@@ -4,7 +4,6 @@ import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 import 'map_interaction_state.dart';
-import 'map_event.dart';
 part 'map_state.freezed.dart';
 
 @freezed
@@ -16,7 +15,6 @@ abstract class MapState with _$MapState {
     @Default([]) List<Waypoint> savedWaypoints,
     @Default([]) List<Segment> savedSegments,
     @Default(MapInteraction.none()) MapInteraction interaction,
-    MapEvent? event,
   }) = _MapState;
 
   const MapState._();

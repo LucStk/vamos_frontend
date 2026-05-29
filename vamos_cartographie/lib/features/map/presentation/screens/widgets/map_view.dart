@@ -36,19 +36,18 @@ class _MapViewState extends ConsumerState<MapView> {
     _mapNotifier.updateWaypointPosition(waypoint, newLatLng);
   }
 
+  void _showWaypoint(int waypointId) {
+    WaypointViewerDialog.show(
+      context: context,
+      waypointId: waypointId,
+      tripId: _tripId,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mapState = ref.watch(mapStateProvider(_tripId));
-    ref.listen<MapState>(mapStateProvider(_tripId), (prev, next) {
-      if (prev?. != next.selectedWaypointId &&
-          next.selectedWaypointId != null) {
-        WaypointViewerDialog.show(
-          context: context,
-          waypointId: next.selectedWaypointId!,
-          tripId: _tripId,
-        );
-      }
-    });
+
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -62,7 +61,7 @@ class _MapViewState extends ConsumerState<MapView> {
           waypoints: mapState.waypoints,
           dragEnd: (waypoint, latLng, _) =>
               _onWaypointDragged(waypoint, latLng),
-          onTap: (waypoint, latLng) => _mapNotifier.openWaypoint(waypoint.id),
+          onTap: (waypoint, latLng) => _showWaypoint(waypoint.id),
         ),
       ],
     );
