@@ -90,7 +90,7 @@ void main() {
       // → on envoie null explicitement (Value.present(null)).
       expect(
         TripDraftMapper.toGQLUpdateInput(draft).description,
-        const Value.present(null),
+        const Value<String>.present(null),
       );
     });
 
