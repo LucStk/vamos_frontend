@@ -5,34 +5,11 @@ import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.d
 
 class WaypointMapper {
   /// Convertit un [GWaypointFieldsData] (fragment GQL) en [Waypoint] domaine.
-  static Waypoint waypointFromGQL(GWaypointFields data) => Waypoint(
+  static Waypoint fromGQL(GWaypointFields data) => Waypoint(
     id: data.id,
     latLng: LatLng(data.lat, data.lng),
     type: data.type,
     title: data.title,
     description: data.description,
   );
-
-  /// Convertit un [Waypoint] domaine en [GWaypointInput] pour les mutations.
-  // static GWaypointInput toGQLInput(Waypoint w) => GWaypointInput(
-  //   lat: w.latLng.latitude,
-  //   lng: w.latLng.longitude,
-  //   type: w.type,
-  //   description: w.description.isNotEmpty
-  //       ? Value.present(w.description)
-  //       : const Value.absent(),
-  //   title: w.title.isNotEmpty ? Value.present(w.title) : const Value.absent(),
-  // );
-  static GWaypointUpdateInput waypointToGQLUpdateInput(Waypoint w) =>
-      GWaypointUpdateInput(
-        lat: Value.present(w.latLng.latitude),
-        lng: Value.present(w.latLng.longitude),
-        type: Value.present(w.type),
-        description: w.description.isNotEmpty
-            ? Value.present(w.description)
-            : const Value.absent(),
-        title: w.title.isNotEmpty
-            ? Value.present(w.title)
-            : const Value.absent(),
-      );
 }

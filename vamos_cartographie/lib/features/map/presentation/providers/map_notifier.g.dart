@@ -9,6 +9,54 @@ part of 'map_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(_waypointRepository)
+final _waypointRepositoryProvider = _WaypointRepositoryProvider._();
+
+final class _WaypointRepositoryProvider
+    extends
+        $FunctionalProvider<
+          IWaypointRepository,
+          IWaypointRepository,
+          IWaypointRepository
+        >
+    with $Provider<IWaypointRepository> {
+  _WaypointRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'_waypointRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$_waypointRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<IWaypointRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  IWaypointRepository create(Ref ref) {
+    return _waypointRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(IWaypointRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<IWaypointRepository>(value),
+    );
+  }
+}
+
+String _$_waypointRepositoryHash() =>
+    r'36de92de7b59a342926efd16b91d07398c45ee60';
+
 @ProviderFor(MapStateNotifier)
 final mapStateProvider = MapStateNotifierFamily._();
 
@@ -58,7 +106,7 @@ final class MapStateNotifierProvider
   }
 }
 
-String _$mapStateNotifierHash() => r'445e027dc5a33933fe06187e300fbb3e4d4d2c7c';
+String _$mapStateNotifierHash() => r'81a4678826ff96870355243376d40a902ce66c44';
 
 final class MapStateNotifierFamily extends $Family
     with

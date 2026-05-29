@@ -15,15 +15,15 @@ class WaypointEditor extends StatefulWidget {
 }
 
 class WaypointEditorState extends State<WaypointEditor> {
-  late Waypoint currentWaypoint; // Accessible par la GlobalKey
+  late WaypointDraft currentWaypoint; // Accessible par la GlobalKey
 
   @override
   void initState() {
     super.initState();
-    currentWaypoint = widget.initialWaypoint;
+    currentWaypoint = widget.initialWaypoint.toDraft();
   }
 
-  void _patch(Waypoint newWaypoint) {
+  void _patch(WaypointDraft newWaypoint) {
     setState(() {
       currentWaypoint = newWaypoint;
     });

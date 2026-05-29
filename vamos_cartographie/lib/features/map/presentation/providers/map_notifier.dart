@@ -1,4 +1,7 @@
 // features/map/presentation/providers/map_state_provider.dart
+import 'package:get_it/get_it.dart';
+import 'package:vamos_cartographie/core/failure.dart';
+import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import "package:vamos_cartographie/features/waypoints/waypoints.dart";
@@ -8,6 +11,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/features/map/domain/entities/entities.dart";
 part 'map_notifier.g.dart';
 
+final getIt = GetIt.instance;
+@riverpod
+IWaypointRepository _waypointRepository(Ref ref) {
+  return getIt<IWaypointRepository>();
+}
+
 // Permet d'accéder au trip actuel sans prop drilling le tripId
 final currentTripIdProvider = Provider<int>((ref) {
   throw UnimplementedError();
@@ -15,10 +24,11 @@ final currentTripIdProvider = Provider<int>((ref) {
 
 @riverpod
 class MapStateNotifier extends _$MapStateNotifier {
+  late final IWaypointRepository repository;
   @override
   MapState build(int tripId) {
     final trip = ref.read(tripProvider(tripId));
-
+    repository = ref.read(_waypointRepositoryProvider);
     if (trip == null) {
       throw Exception('Trip introuvable');
     }
@@ -75,19 +85,63 @@ class MapStateNotifier extends _$MapStateNotifier {
     );
   }
 
-  void updateWaypoint(Waypoint updatedWaypoint) {
+  Future<void> updateWaypoint(int id, WaypointDraft draft) async {
+    final previous = state;
+
+    // waypoint optimiste local
+    final optimisticWaypoint = draft.toWaypoint(id);
+
+    // optimistic update
     state = state.copyWith(
       waypoints: state.waypoints.map((w) {
-        if (w.id == updatedWaypoint.id) {
-          return updatedWaypoint;
+        if (w.id == id) {
+          return optimisticWaypoint;
+        }
+        return w;
+      }).toList(),
+    );
+
+    // appel serveur
+    final Either<Failure, Waypoint> result = await repository.updateWaypoint(
+      id,
+      draft,
+    );
+
+    result.fold(
+      (failure) {
+        // rollback
+        state = previous;
+      },
+      (serverWaypoint) {
+        // sync avec vérité serveur
+        state = state.copyWith(
+          waypoints: state.waypoints.map((w) {
+            if (w.id == id) {
+              return serverWaypoint;
+            }
+            return w;
+          }).toList(),
+        );
+      },
+    );
+  }
+
+  void updateWaypointPositionLocal(Waypoint waypoint, LatLng latLng) {
+    state = state.copyWith(
+      waypoints: state.waypoints.map((w) {
+        if (w.id == waypoint.id) {
+          return w.copyWith(latLng: latLng);
         }
         return w;
       }).toList(),
     );
   }
 
-  void updateWaypointPosition(Waypoint waypoint, LatLng latLng) {
-    updateWaypoint(waypoint.copyWith(latLng: latLng));
+  Future<void> updateWaypointPosition(Waypoint waypoint, LatLng latLng) async {
+    await updateWaypoint(
+      waypoint.id,
+      waypoint.copyWith(latLng: latLng).toDraft(),
+    );
   }
 
   void moveIntermediatePoint(int segmentIndex, int pointIndex, LatLng latLng) {

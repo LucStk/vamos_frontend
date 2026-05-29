@@ -3,7 +3,7 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
+import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/segments/data/mappers/segment_mappers.dart';
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 
@@ -30,7 +30,7 @@ class TripMapper {
     images: data.images
         .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
-    waypoints: data.waypoints.map(WaypointMapper.waypointFromGQL).toList(),
+    waypoints: data.waypoints.map(WaypointMapper.fromGQL).toList(),
     segments: data.segments.map(SegmentMapper.segmentFromGQL).toList(),
   );
 

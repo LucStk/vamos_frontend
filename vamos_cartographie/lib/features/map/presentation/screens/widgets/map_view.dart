@@ -32,8 +32,12 @@ class _MapViewState extends ConsumerState<MapView> {
     _mapNotifier.startWaypointCreation(latLng);
   }
 
+  void _onWaypointDraggedEnd(Waypoint waypoint, LatLng newLatLng) {
+    _mapNotifier.updateWaypointPositionLocal(waypoint, newLatLng);
+  }
+
   void _onWaypointDragged(Waypoint waypoint, LatLng newLatLng) {
-    _mapNotifier.updateWaypointPosition(waypoint, newLatLng);
+    _mapNotifier.updateWaypointPositionLocal(waypoint, newLatLng);
   }
 
   void _showWaypoint(int waypointId) {
@@ -59,8 +63,9 @@ class _MapViewState extends ConsumerState<MapView> {
         buildMapTileLayer(),
         buildWaypointsDragMarkers(
           waypoints: mapState.waypoints,
-          dragEnd: (waypoint, latLng, _) =>
-              _onWaypointDragged(waypoint, latLng),
+          onDragUpdate: _onWaypointDragged,
+          onDragEnd: (waypoint, latLng, _) =>
+              _onWaypointDraggedEnd(waypoint, latLng),
           onTap: (waypoint, latLng) => _showWaypoint(waypoint.id),
         ),
       ],

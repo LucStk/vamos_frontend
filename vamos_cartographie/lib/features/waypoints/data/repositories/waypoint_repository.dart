@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/data/datasources/waypoint_remote_datasource.dart';
-import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
+import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/media/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'i_waypoint_repository.dart';
@@ -15,12 +15,12 @@ class WaypointRepository implements IWaypointRepository {
   @override
   Future<Either<Failure, Waypoint>> updateWaypoint(
     int id,
-    Waypoint waypoint,
+    WaypointDraft waypoint,
   ) async {
     try {
-      final input = WaypointMapper.waypointToGQLUpdateInput(waypoint);
+      final input = WaypointDraftMapper.toGQLUpdateInput(waypoint);
       final gqlResult = await remote.updateWaypoint(id: id, input: input);
-      final updatedWaypoint = WaypointMapper.waypointFromGQL(gqlResult);
+      final updatedWaypoint = WaypointMapper.fromGQL(gqlResult);
 
       return Right(updatedWaypoint);
     } on Exception catch (e) {

@@ -38,7 +38,7 @@ class WaypointEditorDialog extends ConsumerWidget {
 
     final editorKey = GlobalKey<WaypointEditorState>();
 
-    return DialogShell<Waypoint>(
+    return DialogShell(
       constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
 
       content: WaypointEditor(key: editorKey, initialWaypoint: waypoint),
@@ -50,13 +50,14 @@ class WaypointEditorDialog extends ConsumerWidget {
 
         FilledButton(
           onPressed: () {
-            final Waypoint? edited = editorKey.currentState?.currentWaypoint;
+            final WaypointDraft? edited =
+                editorKey.currentState?.currentWaypoint;
 
             if (edited != null) {
               ref
                   .read(mapStateProvider(tripId).notifier)
-                  .updateWaypoint(edited);
-              Navigator.pop(ctx, edited);
+                  .updateWaypoint(waypointId, edited);
+              Navigator.pop(ctx);
             }
           },
           child: const Text('Confirmer'),
