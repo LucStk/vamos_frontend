@@ -7,15 +7,50 @@ part 'waypoint.freezed.dart';
 
 @freezed
 abstract class Waypoint with _$Waypoint {
+  const Waypoint._();
   const factory Waypoint({
-    int? id,
+    required int id,
     required LatLng latLng,
     @Default('') String title,
     @Default(GWaypointEnum.WAYPOINT) GWaypointEnum type,
     @Default('') String description,
     @Default([]) List<MediaImage> images,
   }) = _Waypoint;
-} // Utilise les extensions définit dans le schema pour obtenir le label et l'icône correspondant à chaque type de point de passage
+  WaypointDraft toDraft() {
+    return WaypointDraft(
+      latLng: latLng,
+      title: title,
+      type: type,
+      description: description,
+      images: images,
+    );
+  }
+}
+
+@freezed
+abstract class WaypointDraft with _$WaypointDraft {
+  const WaypointDraft._();
+  const factory WaypointDraft({
+    required LatLng latLng,
+    @Default('') String title,
+    @Default(GWaypointEnum.WAYPOINT) GWaypointEnum type,
+    @Default('') String description,
+    @Default([]) List<MediaImage> images,
+  }) = _WaypointDraft;
+
+  Waypoint toWaypoint(int id) {
+    return Waypoint(
+      id: id,
+      latLng: latLng,
+      title: title,
+      type: type,
+      description: description,
+      images: images,
+    );
+  }
+}
+
+// Utilise les extensions définit dans le schema pour obtenir le label et l'icône correspondant à chaque type de point de passage
 
 // void addWaypoint(
 //   LatLng latLng, {

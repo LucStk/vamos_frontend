@@ -1,24 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
+import 'package:vamos_cartographie/features/map/presentation/screens/utils/utils.dart';
 
-class MapView extends StatefulWidget {
+class MapView extends ConsumerStatefulWidget {
   const MapView({super.key});
 
   @override
-  State<MapView> createState() => _MapViewState();
+  ConsumerState<MapView> createState() => _MapViewState();
 }
 
-class _MapViewState extends State<MapView> {
+class _MapViewState extends ConsumerState<MapView> {
+  late final MapController _mapController;
+
+  int get _tripId => ref.read(currentTripIdProvider);
+
+  MapStateNotifier get _mapNotifier =>
+      ref.read(mapStateProvider(_tripId).notifier);
+
+  @override
+  void initState() {
+    super.initState();
+    _mapController = MapController();
+  }
+
+  void _onMapTap(LatLng latLng) {
+    _mapNotifier.startWaypointCreation(latLng);
+  }
+
+  void _onWaypointDragged(Waypoint waypoint, LatLng newLatLng) {
+    _mapNotifier.updateWaypointPosition(waypoint, newLatLng);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FlutterMap(
-      options: MapOptions(initialCenter: LatLng(46.8, 2.2), initialZoom: 7),
+    final mapState = ref.watch(mapStateProvider(_tripId));
 
+    return FlutterMap(
+      mapController: _mapController,
+      options: MapOptions(
+        initialCenter: const LatLng(46.8, 2.2),
+        initialZoom: 7,
+        onTap: (_, latLng) => _onMapTap(latLng),
+      ),
       children: [
-        TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.example.vamos_cartographie',
+        buildMapTileLayer(),
+        buildWaypointsDragMarkers(
+          waypoints: mapState.waypoints,
+          dragEnd: (waypoint, latLng, _) =>
+              _onWaypointDragged(waypoint, latLng),
         ),
       ],
     );

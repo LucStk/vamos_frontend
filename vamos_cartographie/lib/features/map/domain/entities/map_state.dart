@@ -3,30 +3,36 @@ import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+import 'map_interaction_state.dart';
 part 'map_state.freezed.dart';
 // enum MapMode { observer, editRoute, addPoint }
 
 @freezed
 abstract class MapState with _$MapState {
   const factory MapState({
-    required Trip currentTrip,
-    @Default(false) bool isDirty,
-    @Default([]) List<Waypoint> waypointsSnapshot,
-    @Default([]) List<Segment> segmentsSnapshot,
+    required int tripId,
+    @Default([]) List<Waypoint> waypoints,
+    @Default([]) List<Segment> segments,
+    @Default([]) List<Waypoint> savedWaypoints,
+    @Default([]) List<Segment> savedSegments,
+    @Default(MapInteraction.none()) MapInteraction interaction,
     // AddPoint, editRoute, etc. (Tu pourras les décommenter facilement)
     // @Default(MapMode.observer) MapMode mode,
     // @Default(0) int waypointsCountBeforeAdd,
   }) = _MapState;
 
-  // Pour ajouter un constructeur personnalisé (comme ton .fromTrip)
-  // ou des getters, Freezed impose d'ajouter ce constructeur privé :
   const MapState._();
-
+  bool get isDirty =>
+      !const DeepCollectionEquality().equals(waypoints, savedWaypoints) ||
+      !const DeepCollectionEquality().equals(segments, savedSegments);
   factory MapState.fromTrip(Trip trip) {
     return MapState(
-      currentTrip: trip,
-      waypointsSnapshot: List.unmodifiable(trip.waypoints),
-      segmentsSnapshot: List.unmodifiable(trip.segments),
+      tripId: trip.id,
+      savedWaypoints: List.unmodifiable(trip.waypoints),
+      waypoints: List.unmodifiable(trip.waypoints),
+
+      savedSegments: List.unmodifiable(trip.segments),
+      segments: List.unmodifiable(trip.segments),
     );
   }
 }

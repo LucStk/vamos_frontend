@@ -16,7 +16,7 @@ class MapTopBar extends ConsumerWidget {
     final theme = Theme.of(context);
     final tripId = ref.watch(currentTripIdProvider);
     final mapState = ref.watch(mapStateProvider(tripId));
-    final title = mapState.currentTrip.title;
+    final title = "test title"; //mapState.currentTrip.title;
 
     // Style commun pour les ombres des capsules flottantes
     final boxShadow = [
