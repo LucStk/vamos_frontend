@@ -102,4 +102,16 @@ class MapStateNotifier extends _$MapStateNotifier {
 
     state = state.copyWith(segments: segments);
   }
+
+  void openWaypoint(int id) {
+    state = state.copyWith(event: MapEvent.openWaypointDialog(waypointId: id));
+  }
+
+  void openWaypointEditor(int id) {
+    state = state.copyWith(event: MapEvent.openWaypointEditor(waypointId: id));
+  }
+
+  void clearEvent() {
+    state = state.copyWith(event: null);
+  }
 }

@@ -1,47 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
-import 'waypoint_info.dart';
-import 'waypoint_editor.dart';
 
-class WaypointViewerDialog extends StatefulWidget {
-  final Waypoint waypoint;
-  final VoidCallback? onEdit;
+import 'waypoint_info.dart';
+
+class WaypointViewerDialog extends ConsumerWidget {
+  final int waypointId;
+  final int tripId;
 
   const WaypointViewerDialog({
     super.key,
-    required this.waypoint,
-    required this.onEdit,
+    required this.waypointId,
+    required this.tripId,
   });
 
   static void show({
     required BuildContext context,
-    required Waypoint waypoint,
-    required VoidCallback onEdit,
+    required int waypointId,
+    required int tripId,
   }) {
     showDialog(
       context: context,
-      barrierDismissible: true,
-      builder: (_) => WaypointViewerDialog(waypoint: waypoint, onEdit: onEdit),
+      builder: (_) =>
+          WaypointViewerDialog(waypointId: waypointId, tripId: tripId),
     );
   }
 
   @override
-  State<WaypointViewerDialog> createState() => _WaypointVewerDialogState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final waypoint = ref.watch(
+      mapStateProvider(tripId).select(
+        (state) => state.waypoints.firstWhere((w) => w.id == waypointId),
+      ),
+    );
 
-class _WaypointVewerDialogState extends State<WaypointViewerDialog> {
-  String? _error;
-
-  @override
-  Widget build(BuildContext context) {
     return DialogShell(
-      content: WaypointInfo(waypoint: widget.waypoint),
+      content: WaypointInfo(waypoint: waypoint),
 
       buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {
-            _showEditor(context: context, waypoint: widget.waypoint);
+            ref
+                .read(mapStateProvider(tripId).notifier)
+                .openWaypointEditor(waypoint.id);
           },
         ),
 
@@ -49,61 +52,180 @@ class _WaypointVewerDialogState extends State<WaypointViewerDialog> {
 
         DeleteButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            ref
+                .read(mapStateProvider(tripId).notifier)
+                .removeWaypointById(waypoint.id);
+            Navigator.of(ctx).pop();
           },
         ),
       ],
     );
   }
-
-  static void _showEditor({
-    required BuildContext context,
-    required Waypoint waypoint,
-  }) async {
-    // Une clé pour pouvoir lire l'état du formulaire depuis le bouton "Confirmer"
-    final editorKey = GlobalKey<WaypointEditorState>();
-
-    final Waypoint? result = await showDialog<Waypoint>(
-      context: context,
-      barrierDismissible: false,
-      // On type explicitement le DialogShell avec <Waypoint>
-      builder: (ctx) => DialogShell<Waypoint>(
-        constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
-
-        // L'enfant reçoit la clé
-        content: WaypointEditor(key: editorKey, initialWaypoint: waypoint),
-
-        // Le builder nous donne "ctx" (le BuildContext de la modal)
-        buttonsBuilder: (ctx) => [
-          CancelButton(onPressed: () => Navigator.pop(ctx)), // Ferme sans data
-
-          const Spacer(),
-
-          // ── Confirmer ──────────────────────────
-          FilledButton(
-            onPressed: () async {
-              // On récupère le waypoint directement dans l'état de l'enfant !
-              final editedWaypoint = editorKey.currentState?.currentWaypoint;
-
-              if (editedWaypoint != null) {
-                try {
-                  // repository.updateWaypoint(editedWaypoint);
-
-                  // On ferme la modal (ctx) EN RENVOYANT la donnée
-                  Navigator.pop(ctx, editedWaypoint);
-                } catch (e) {
-                  debugPrint(e.toString());
-                }
-              }
-            },
-            child: const Text('Confirmer'),
-          ),
-        ],
-      ),
-    );
-
-    if (result != null) {
-      // Ton parent récupère proprement le waypoint modifié ici !
-    }
-  }
 }
+
+
+// class WaypointViewerDialog extends ConsumerWidget {
+//   final Waypoint waypoint;
+//   final ValueChanged<Waypoint> onEdit;
+
+//   const WaypointViewerDialog({
+//     super.key,
+//     required this.waypoint,
+//     required this.onEdit,
+//   });
+
+//   static void show({
+//     required BuildContext context,
+//     required Waypoint waypoint,
+//     required ValueChanged<Waypoint> onEdit,
+//   }) {
+//     showDialog(
+//       context: context,
+//       barrierDismissible: true,
+//       builder: (_) => WaypointViewerDialog(waypoint: waypoint, onEdit: onEdit),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final tripId = ref.read(currentTripIdProvider);
+//     final waypoint = ref.watch(
+//       mapStateProvider(tripId).select(
+//         (state) => state.waypoints.firstWhere((w) => w.id == widget.waypointId),
+//       ),
+//     );
+//     return DialogShell(
+//       content: WaypointInfo(waypoint: widget.waypoint),
+
+//       buttonsBuilder: (ctx) => [
+//         ModifierButton(
+//           onPressed: () async {
+//             final editedWaypoint = await _showEditor(
+//               context: context,
+//               waypoint: widget.waypoint,
+//             );
+
+//             if (editedWaypoint != null) {
+//               widget.onEdit(editedWaypoint);
+//             }
+//           },
+//         ),
+
+//         const SizedBox(width: 8),
+
+//         DeleteButton(
+//           onPressed: () {
+//             Navigator.of(context).pop();
+//           },
+//         ),
+//       ],
+//     );
+//   }
+
+//   static Future<Waypoint?> _showEditor({
+//     required BuildContext context,
+//     required Waypoint waypoint,
+//   }) async {
+//     final editorKey = GlobalKey<WaypointEditorState>();
+
+//     return await showDialog<Waypoint>(
+//       context: context,
+//       barrierDismissible: false,
+//       builder: (ctx) => DialogShell<Waypoint>(
+//         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
+
+//         content: WaypointEditor(key: editorKey, initialWaypoint: waypoint),
+
+//         buttonsBuilder: (ctx) => [
+//           CancelButton(onPressed: () => Navigator.pop(ctx)),
+
+//           const Spacer(),
+
+//           FilledButton(
+//             onPressed: () {
+//               final editedWaypoint = editorKey.currentState?.currentWaypoint;
+
+//               if (editedWaypoint != null) {
+//                 Navigator.pop(ctx, editedWaypoint);
+//               }
+//             },
+//             child: const Text('Confirmer'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final tripId = ref.read(currentTripIdProvider);
+//     final waypoint = ref.watch(
+//       mapStateProvider(tripId).select(
+//         (state) => state.waypoints.firstWhere((w) => w.id == widget.waypointId),
+//       ),
+//     );
+//     return DialogShell(
+//       content: WaypointInfo(waypoint: widget.waypoint),
+
+//       buttonsBuilder: (ctx) => [
+//         ModifierButton(
+//           onPressed: () async {
+//             final editedWaypoint = await _showEditor(
+//               context: context,
+//               waypoint: widget.waypoint,
+//             );
+
+//             if (editedWaypoint != null) {
+//               widget.onEdit(editedWaypoint);
+//             }
+//           },
+//         ),
+
+//         const SizedBox(width: 8),
+
+//         DeleteButton(
+//           onPressed: () {
+//             Navigator.of(context).pop();
+//           },
+//         ),
+//       ],
+//     );
+//   }
+
+//   static Future<Waypoint?> _showEditor({
+//     required BuildContext context,
+//     required Waypoint waypoint,
+//   }) async {
+//     final editorKey = GlobalKey<WaypointEditorState>();
+
+//     return await showDialog<Waypoint>(
+//       context: context,
+//       barrierDismissible: false,
+//       builder: (ctx) => DialogShell<Waypoint>(
+//         constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
+
+//         content: WaypointEditor(key: editorKey, initialWaypoint: waypoint),
+
+//         buttonsBuilder: (ctx) => [
+//           CancelButton(onPressed: () => Navigator.pop(ctx)),
+
+//           const Spacer(),
+
+//           FilledButton(
+//             onPressed: () {
+//               final editedWaypoint = editorKey.currentState?.currentWaypoint;
+
+//               if (editedWaypoint != null) {
+//                 Navigator.pop(ctx, editedWaypoint);
+//               }
+//             },
+//             child: const Text('Confirmer'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//  });

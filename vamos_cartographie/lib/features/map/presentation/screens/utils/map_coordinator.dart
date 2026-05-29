@@ -4,15 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 
-/// Ouvre la fiche d'information d'un Waypoint
-void showWaypointInfo(BuildContext context, Waypoint waypoint) {
-  WaypointViewerDialog.show(
-    context: context,
-    waypoint: waypoint,
-    onEdit: () {}, // Implémentation future
-  );
-}
-
 /// Ouvre les options d'édition d'un segment de trajet
 // void showSegmentOptions(int segmentIndex, Trip trip) {
 //   final seg = trip.segments[segmentIndex];

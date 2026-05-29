@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
 import 'package:vamos_cartographie/features/map/presentation/screens/utils/utils.dart';
+import 'package:vamos_cartographie/features/map/domain/entities/entities.dart';
 
 class MapView extends ConsumerStatefulWidget {
   const MapView({super.key});
@@ -39,7 +39,16 @@ class _MapViewState extends ConsumerState<MapView> {
   @override
   Widget build(BuildContext context) {
     final mapState = ref.watch(mapStateProvider(_tripId));
-
+    ref.listen<MapState>(mapStateProvider(_tripId), (prev, next) {
+      if (prev?. != next.selectedWaypointId &&
+          next.selectedWaypointId != null) {
+        WaypointViewerDialog.show(
+          context: context,
+          waypointId: next.selectedWaypointId!,
+          tripId: _tripId,
+        );
+      }
+    });
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -53,6 +62,7 @@ class _MapViewState extends ConsumerState<MapView> {
           waypoints: mapState.waypoints,
           dragEnd: (waypoint, latLng, _) =>
               _onWaypointDragged(waypoint, latLng),
+          onTap: (waypoint, latLng) => _mapNotifier.openWaypoint(waypoint.id),
         ),
       ],
     );
