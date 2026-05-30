@@ -88,4 +88,36 @@ class TripRemoteDatasource {
       );
     }
   }
+
+  Future<void> attachImageToTrip({
+    required int tripId,
+    required String fileKey,
+  }) async {
+    final req = GAttachImageToTripReq(
+      vars: GAttachImageToTripVars(tripId: tripId, fileKey: fileKey),
+    );
+    final response = await client.request(req).first;
+    if (response.hasErrors || response.data == null) {
+      throw Exception(
+        response.graphqlErrors?.first.message ??
+            'Erreur lors de l\'association de l\'image au trip',
+      );
+    }
+  }
+
+  Future<void> deleteImgFromTrip({
+    required int tripId,
+    required String fileKey,
+  }) async {
+    final req = GDeleteImageFromTripReq(
+      vars: GDeleteImageFromTripVars(tripId: tripId, fileKey: fileKey),
+    );
+    final response = await client.request(req).first;
+    if (response.hasErrors || response.data == null) {
+      throw Exception(
+        response.graphqlErrors?.first.message ??
+            "Erreur lors de la suppression de l'image trip",
+      );
+    }
+  }
 }
