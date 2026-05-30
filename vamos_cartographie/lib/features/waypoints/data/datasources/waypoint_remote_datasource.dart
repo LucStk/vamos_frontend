@@ -10,6 +10,23 @@ class WaypointRemoteDatasource {
 
   WaypointRemoteDatasource(this.client);
 
+  Future<GWaypointFields> createWaypoint({
+    required int tripId,
+    required GWaypointCreateInput input,
+  }) async {
+    final req = GCreateWaypointReq(
+      vars: GCreateWaypointVars(tripId: tripId, waypoint: input),
+    );
+    final response = await client.request(req).first;
+    if (response.hasErrors || response.data == null) {
+      throw Exception(
+        response.graphqlErrors?.first.message ??
+            'Erreur dans la création du waypoint',
+      );
+    }
+    return response.data!.createWaypoint;
+  }
+
   Future<GWaypointFields> updateWaypoint({
     required int id,
     required GWaypointUpdateInput input,
@@ -25,5 +42,16 @@ class WaypointRemoteDatasource {
       );
     }
     return response.data!.updateWaypoint;
+  }
+
+  Future<void> deleteWaypoint({required int id}) async {
+    final req = GDeleteWaypointReq(vars: GDeleteWaypointVars(waypointId: id));
+    final response = await client.request(req).first;
+    if (response.hasErrors || response.data == null) {
+      throw Exception(
+        response.graphqlErrors?.first.message ??
+            'Erreur lors de la suppression du waypoint',
+      );
+    }
   }
 }

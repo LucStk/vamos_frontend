@@ -11,6 +11,26 @@ class WaypointRepository implements IWaypointRepository {
   final UploadImgRepository imageRepo;
 
   WaypointRepository(this.remote, this.imageRepo);
+  @override
+  Future<Either<Failure, Waypoint>> createWaypoint(
+    int tripId,
+    WaypointDraft waypoint,
+  ) async {
+    try {
+      final input = WaypointDraftMapper.toGQLInput(waypoint);
+      final gqlResult = await remote.createWaypoint(
+        tripId: tripId,
+        input: input,
+      );
+      final createWaypoint = WaypointMapper.fromGQL(gqlResult);
+
+      return Right(createWaypoint);
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    } catch (_) {
+      return Left(const ConnectionFailure());
+    }
+  }
 
   @override
   Future<Either<Failure, Waypoint>> updateWaypoint(
@@ -23,6 +43,18 @@ class WaypointRepository implements IWaypointRepository {
       final updatedWaypoint = WaypointMapper.fromGQL(gqlResult);
 
       return Right(updatedWaypoint);
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    } catch (_) {
+      return Left(const ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteWaypoint(int id) async {
+    try {
+      await remote.deleteWaypoint(id: id);
+      return const Right(null);
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
