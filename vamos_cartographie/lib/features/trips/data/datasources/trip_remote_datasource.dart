@@ -88,20 +88,4 @@ class TripRemoteDatasource {
       );
     }
   }
-
-  Future<void> deleteImgTrip({
-    required int tripId,
-    required String fileKey,
-  }) async {
-    final req = GDeleteImageFromTripReq(
-      vars: GDeleteImageFromTripVars(tripId: tripId, fileKey: fileKey),
-    );
-    final response = await client.request(req).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            "Erreur lors de la suppression de l'image trip",
-      );
-    }
-  }
 }

@@ -75,37 +75,6 @@ class UploadImgRepository {
       return Left(ConnectionFailure());
     }
   }
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Association image → trip
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /// Associe une image (identifiée par [fileKey]) à un trip côté serveur.
-  ///
-  /// À appeler après la création / mise à jour d'un trip pour chaque image
-  /// nouvellement ajoutée par l'utilisateur.
-  Future<Either<Failure, void>> attachImageToTrip({
-    required int tripId,
-    required String fileKey,
-  }) async {
-    try {
-      final req = GAttachImageToTripReq(
-        vars: GAttachImageToTripVars(tripId: tripId, fileKey: fileKey),
-      );
-      final response = await _client.request(req).first;
-      if (response.hasErrors || response.data == null) {
-        return Left(
-          ServerFailure(
-            response.graphqlErrors?.first.message ??
-                'Erreur lors de l\'association de l\'image au trip',
-          ),
-        );
-      }
-      return const Right(null);
-    } catch (e) {
-      return Left(ConnectionFailure());
-    }
-  }
 }
 
 @riverpod
