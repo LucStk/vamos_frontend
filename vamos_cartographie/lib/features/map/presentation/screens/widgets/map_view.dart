@@ -6,6 +6,9 @@ import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
 import 'package:vamos_cartographie/features/map/presentation/screens/utils/utils.dart';
 import 'package:vamos_cartographie/features/map/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/map/presentation/screens/widgets/pending_waypoint_layer.dart';
+import 'map_context_menu.dart';
+import 'pending_waypoint_layer.dart';
 
 class MapView extends ConsumerStatefulWidget {
   const MapView({super.key});
@@ -48,6 +51,21 @@ class _MapViewState extends ConsumerState<MapView> {
     );
   }
 
+  List<Widget> _buildInteractionLayers(MapState mapState) {
+    return mapState.interaction.map(
+      none: (_) => [],
+
+      creatingWaypoint: (interaction) => [
+        MapContextMenu(
+          position: interaction.position,
+          onClose: _mapNotifier.cancelInteraction,
+        ),
+      ],
+
+      creatingSegment: (_) => [],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mapState = ref.watch(mapStateProvider(_tripId));
@@ -61,6 +79,7 @@ class _MapViewState extends ConsumerState<MapView> {
       ),
       children: [
         buildMapTileLayer(),
+
         buildWaypointsDragMarkers(
           waypoints: mapState.waypoints,
           onDragUpdate: _onWaypointDragged,
@@ -68,6 +87,8 @@ class _MapViewState extends ConsumerState<MapView> {
               _onWaypointDraggedEnd(waypoint, latLng),
           onTap: (waypoint, latLng) => _showWaypoint(waypoint.id),
         ),
+
+        const PendingWaypointLayer(),
       ],
     );
   }

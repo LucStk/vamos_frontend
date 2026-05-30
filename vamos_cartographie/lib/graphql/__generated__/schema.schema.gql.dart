@@ -87,44 +87,6 @@ enum GSegmentTypeEnum {
   }
 }
 
-class GTripDeleteInput {
-  const GTripDeleteInput({required this.id});
-
-  factory GTripDeleteInput.fromJson(Map<String, dynamic> json) {
-    return GTripDeleteInput(id: (json['id'] as int));
-  }
-
-  final int id;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$idValue = this.id;
-    _$result['id'] = _$idValue;
-    return _$result;
-  }
-
-  GTripDeleteInput copyWith({int? id}) {
-    return GTripDeleteInput(id: id ?? this.id);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GTripDeleteInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GTripDeleteInput(id: $id)';
-  }
-}
-
 class GTripInput {
   const GTripInput({
     required this.title,
@@ -279,6 +241,98 @@ class GTripUpdateInput {
   @override
   String toString() {
     return 'GTripUpdateInput(title: $title, description: $description, date: $date)';
+  }
+}
+
+class GWaypointCreateInput {
+  const GWaypointCreateInput({
+    required this.lat,
+    required this.lng,
+    required this.type,
+    this.title = const Value.absent(),
+    this.description = const Value.absent(),
+  });
+
+  factory GWaypointCreateInput.fromJson(Map<String, dynamic> json) {
+    return GWaypointCreateInput(
+      lat: (json['lat'] as double),
+      lng: (json['lng'] as double),
+      type: GWaypointEnum.fromJson((json['type'] as String)),
+      title: json.containsKey('title')
+          ? Value.present(
+              json['title'] == null ? null : (json['title'] as String))
+          : Value.absent(),
+      description: json.containsKey('description')
+          ? Value.present(json['description'] == null
+              ? null
+              : (json['description'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final double lat;
+
+  final double lng;
+
+  final GWaypointEnum type;
+
+  final Value<String> title;
+
+  final Value<String> description;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$latValue = this.lat;
+    _$result['lat'] = _$latValue;
+    final _$lngValue = this.lng;
+    _$result['lng'] = _$lngValue;
+    final _$typeValue = this.type;
+    _$result['type'] = _$typeValue.toJson();
+    final _$titleValue = this.title;
+    if (_$titleValue.isPresent) {
+      final _$titleRequired = _$titleValue.requireValue;
+      _$result['title'] = _$titleRequired == null ? null : _$titleRequired;
+    }
+    final _$descriptionValue = this.description;
+    if (_$descriptionValue.isPresent) {
+      final _$descriptionRequired = _$descriptionValue.requireValue;
+      _$result['description'] =
+          _$descriptionRequired == null ? null : _$descriptionRequired;
+    }
+    return _$result;
+  }
+
+  GWaypointCreateInput copyWith({
+    double? lat,
+    double? lng,
+    GWaypointEnum? type,
+    Value<String>? title,
+    Value<String>? description,
+  }) {
+    return GWaypointCreateInput(
+      lat: lat ?? this.lat,
+      lng: lng ?? this.lng,
+      type: type ?? this.type,
+      title: title ?? this.title,
+      description: description ?? this.description,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GWaypointCreateInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GWaypointCreateInput(lat: $lat, lng: $lng, type: $type, title: $title, description: $description)';
   }
 }
 

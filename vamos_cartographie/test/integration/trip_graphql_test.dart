@@ -59,8 +59,9 @@ Future<void> _deleteTrip(int id, Client client) async {
 // ─────────────────────────────────────────────────────────────────────────────
 
 void main() {
-  const skipReason = 'Requiert un serveur local sur localhost:8000';
-
+  final skipReason = const bool.fromEnvironment('RUN_INTEGRATION')
+      ? false
+      : 'Requiert un serveur local (lancez avec --dart-define=RUN_INTEGRATION=true)';
   // ---------------------------------------------------------------------------
   // Tests GraphQL bruts (ex-trip_test.dart)
   // ---------------------------------------------------------------------------

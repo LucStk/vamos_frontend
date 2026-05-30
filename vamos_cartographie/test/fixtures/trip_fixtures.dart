@@ -100,8 +100,7 @@ GTripFieldsData gUpdateTripResult({
   images: images ?? [GTripFieldsData_images(image: gImageData())],
 );
 
-GDeleteTripData_deleteTrip gDeleteTripResult(int id) =>
-    GDeleteTripData_deleteTrip(id: id);
+GDeleteTripData gDeleteTripResult(int id) => GDeleteTripData(deleteTrip: true);
 
 // ── Domain fixtures ──────────────────────────────────────────────────────────
 

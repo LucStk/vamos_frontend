@@ -193,7 +193,7 @@ void main() {
     group('TripRemoteDatasource.deleteTrip', () {
       test('se termine normalement quand la requête réussit', () async {
         final req = GDeleteTripReq(vars: GDeleteTripVars(id: 7));
-        final gqlData = GDeleteTripData(deleteTrip: gDeleteTripResult(7));
+        final gqlData = GDeleteTripData(deleteTrip: true);
         when(
           () => mockClient.request(any<GDeleteTripReq>()),
         ).thenAnswer((_) => Stream.value(okResponse(req, gqlData)));

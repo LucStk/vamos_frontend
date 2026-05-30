@@ -144,32 +144,12 @@ const DeleteTrip = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.ObjectValueNode(fields: [
-            _i1.ObjectFieldNode(
-              name: _i1.NameNode(value: 'id'),
-              value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-            )
-          ]),
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
         )
       ],
       directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
+      selectionSet: null,
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: '__typename'),

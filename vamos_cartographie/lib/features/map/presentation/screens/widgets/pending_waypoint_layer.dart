@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
+import 'package:vamos_cartographie/features/map/domain/entities/entities.dart';
+import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
+import 'context_menu_card.dart';
+import 'package:flutter/widgets.dart';
+
+class PendingWaypointLayer extends ConsumerWidget {
+  const PendingWaypointLayer({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tripId = ref.watch(currentTripIdProvider);
+    final mapState = ref.watch(mapStateProvider(tripId));
+    final notifier = ref.read(mapStateProvider(tripId).notifier);
+
+    return mapState.interaction.maybeMap(
+      creatingWaypoint: (interaction) {
+        return DragMarkers(
+          markers: [
+            DragMarker(
+              size: const Size(250, 100),
+              point: interaction.position,
+
+              onDragUpdate: (_, latLng) {
+                notifier.updatePendingWaypointPosition(latLng);
+              },
+
+              builder: (context, point, isDragging) {
+                return MenuCard(onClose: notifier.cancelInteraction);
+              },
+            ),
+          ],
+        );
+      },
+
+      orElse: () => const SizedBox.shrink(),
+    );
+  }
+}

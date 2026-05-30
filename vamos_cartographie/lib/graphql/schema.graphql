@@ -26,15 +26,17 @@ type MediaImageType {
 
 type Mutation {
   createTrip(trip: TripInput!): TripType!
-  deleteTrip(input: TripDeleteInput!): TripType!
   attachImageToTrip(tripId: Int!, fileKey: String!): TripImageType!
   updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
   deleteImageFromTrip(tripId: Int!, fileKey: String!): String!
+  deleteTrip(id: Int!): Boolean!
   createImage(data: MediaImageInput!): MediaImageType!
   generateImageUploadUrl(extension: String!): UploadConfig!
   attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
   deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
   updateWaypoint(id: Int!, waypoint: WaypointUpdateInput!): WaypointType!
+  createWaypoint(tripId: Int!, waypoint: WaypointCreateInput!): WaypointType!
+  deleteWaypoint(id: Int!): Boolean!
 }
 
 type Query {
@@ -53,10 +55,6 @@ enum SegmentTypeEnum {
   boat
   walk
   train
-}
-
-input TripDeleteInput {
-  id: Int!
 }
 
 type TripImageType {
@@ -89,6 +87,14 @@ input TripUpdateInput {
 type UploadConfig {
   uploadUrl: String!
   fileKey: String!
+}
+
+input WaypointCreateInput {
+  lat: Float!
+  lng: Float!
+  type: WaypointEnum!
+  title: String = null
+  description: String = null
 }
 
 enum WaypointEnum {

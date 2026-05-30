@@ -14,6 +14,7 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/core/network/graphql/ferry_client.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -34,7 +35,9 @@ void _printError(dynamic response) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 void main() {
-  const skipReason = 'Requiert un serveur local sur localhost:8000';
+  final skipReason = const bool.fromEnvironment('RUN_INTEGRATION')
+      ? false
+      : 'Requiert un serveur local (lancez avec --dart-define=RUN_INTEGRATION=true)';
 
   // ---------------------------------------------------------------------------
   // Mise à jour individuelle d'un waypoint (ex-waypoints_test.dart, partie updateWaypoint)
@@ -63,7 +66,23 @@ void main() {
       expect(createTripResponse.data?.createTrip, isNotNull);
       final tripId = createTripResponse.data!.createTrip.id;
       print('Trip créé id : $tripId');
+      // Création d'un waypoint sur le trip
 
+      final createWapointReq = GCreateWaypointReq(
+        vars: GCreateWaypointVars(
+          tripId: tripId,
+          waypoint: GWaypointCreateInput(
+            lat: 0,
+            lng: 0,
+            type: GWaypointEnum.START,
+          ),
+        ),
+      );
+      final createWaypointResponse = await client
+          .request(createWapointReq)
+          .first;
+      _printError(createWaypointResponse);
+      expect(createWaypointResponse.data?.createWaypoint, isNotNull);
       // Récupérer le trip complet pour accéder aux waypoints éventuels.
       final getTripReq = GGetTripReq(vars: GGetTripVars(id: tripId));
       final getTripResponse = await client.request(getTripReq).first;

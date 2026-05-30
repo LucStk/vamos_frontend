@@ -15,9 +15,7 @@ mutation UpdateTrip($trip: TripUpdateInput!, $id: Int!) {
 }
 
 mutation DeleteTrip($id: Int!) {
-    deleteTrip(input: { id: $id }) {
-        id
-    }
+    deleteTrip(id: $id)
 }
 mutation DeleteImageFromTrip($tripId: Int!, $fileKey: String!) {
     deleteImageFromTrip(tripId: $tripId, fileKey: $fileKey)

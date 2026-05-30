@@ -51,16 +51,6 @@ class MapStateNotifier extends _$MapStateNotifier {
     );
   }
 
-  void setDragging(bool dragging) {
-    state.interaction.mapOrNull(
-      creatingWaypoint: (interaction) {
-        state = state.copyWith(
-          interaction: interaction.copyWith(isDragging: dragging),
-        );
-      },
-    );
-  }
-
   void confirmPendingWaypoint() {
     state.interaction.mapOrNull(
       creatingWaypoint: (interaction) {

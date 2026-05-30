@@ -123,25 +123,24 @@ class GDeleteTripData {
 
   factory GDeleteTripData.fromJson(Map<String, dynamic> json) {
     return GDeleteTripData(
-      deleteTrip: GDeleteTripData_deleteTrip.fromJson(
-          (json['deleteTrip'] as Map<String, dynamic>)),
+      deleteTrip: (json['deleteTrip'] as bool),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final GDeleteTripData_deleteTrip deleteTrip;
+  final bool deleteTrip;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['deleteTrip'] = this.deleteTrip.toJson();
+    _$result['deleteTrip'] = this.deleteTrip;
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
   GDeleteTripData copyWith({
-    GDeleteTripData_deleteTrip? deleteTrip,
+    bool? deleteTrip,
     String? G__typename,
   }) {
     return GDeleteTripData(
@@ -166,59 +165,6 @@ class GDeleteTripData {
   @override
   String toString() {
     return 'GDeleteTripData(deleteTrip: $deleteTrip, G__typename: $G__typename)';
-  }
-}
-
-class GDeleteTripData_deleteTrip {
-  const GDeleteTripData_deleteTrip({
-    required this.id,
-    this.G__typename = 'TripType',
-  });
-
-  factory GDeleteTripData_deleteTrip.fromJson(Map<String, dynamic> json) {
-    return GDeleteTripData_deleteTrip(
-      id: (json['id'] as int),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final int id;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GDeleteTripData_deleteTrip copyWith({
-    int? id,
-    String? G__typename,
-  }) {
-    return GDeleteTripData_deleteTrip(
-      id: id ?? this.id,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GDeleteTripData_deleteTrip &&
-            id == other.id &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, id, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GDeleteTripData_deleteTrip(id: $id, G__typename: $G__typename)';
   }
 }
 

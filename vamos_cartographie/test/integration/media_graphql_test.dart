@@ -90,7 +90,10 @@ Future<void> _deleteImageFromTrip(
 // ─────────────────────────────────────────────────────────────────────────────
 
 void main() {
-  const skipReason = 'Requiert un serveur local sur localhost:8000 et Garage';
+  // Si on passe --dart-define=RUN_INTEGRATION=true, on ne skip pas. Sinon, on skip.
+  final skipReason = const bool.fromEnvironment('RUN_INTEGRATION')
+      ? false
+      : 'Requiert un serveur local (lancez avec --dart-define=RUN_INTEGRATION=true)';
   // ---------------------------------------------------------------------------
   // Création et suppression d'image sur un trip (ex-trip_img_test.dart)
   // ---------------------------------------------------------------------------

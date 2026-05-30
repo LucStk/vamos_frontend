@@ -122,11 +122,11 @@ return creatingSegment(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( LatLng position,  bool isDragging)?  creatingWaypoint,TResult Function( LatLng start,  LatLng? current)?  creatingSegment,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( LatLng position)?  creatingWaypoint,TResult Function( LatLng start,  LatLng? current)?  creatingSegment,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case NoMapInteraction() when none != null:
 return none();case CreatingWaypointInteraction() when creatingWaypoint != null:
-return creatingWaypoint(_that.position,_that.isDragging);case CreatingSegmentInteraction() when creatingSegment != null:
+return creatingWaypoint(_that.position);case CreatingSegmentInteraction() when creatingSegment != null:
 return creatingSegment(_that.start,_that.current);case _:
   return orElse();
 
@@ -145,11 +145,11 @@ return creatingSegment(_that.start,_that.current);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( LatLng position,  bool isDragging)  creatingWaypoint,required TResult Function( LatLng start,  LatLng? current)  creatingSegment,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( LatLng position)  creatingWaypoint,required TResult Function( LatLng start,  LatLng? current)  creatingSegment,}) {final _that = this;
 switch (_that) {
 case NoMapInteraction():
 return none();case CreatingWaypointInteraction():
-return creatingWaypoint(_that.position,_that.isDragging);case CreatingSegmentInteraction():
+return creatingWaypoint(_that.position);case CreatingSegmentInteraction():
 return creatingSegment(_that.start,_that.current);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -164,11 +164,11 @@ return creatingSegment(_that.start,_that.current);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( LatLng position,  bool isDragging)?  creatingWaypoint,TResult? Function( LatLng start,  LatLng? current)?  creatingSegment,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( LatLng position)?  creatingWaypoint,TResult? Function( LatLng start,  LatLng? current)?  creatingSegment,}) {final _that = this;
 switch (_that) {
 case NoMapInteraction() when none != null:
 return none();case CreatingWaypointInteraction() when creatingWaypoint != null:
-return creatingWaypoint(_that.position,_that.isDragging);case CreatingSegmentInteraction() when creatingSegment != null:
+return creatingWaypoint(_that.position);case CreatingSegmentInteraction() when creatingSegment != null:
 return creatingSegment(_that.start,_that.current);case _:
   return null;
 
@@ -213,11 +213,10 @@ String toString() {
 
 
 class CreatingWaypointInteraction implements MapInteraction {
-  const CreatingWaypointInteraction({required this.position, this.isDragging = false});
+  const CreatingWaypointInteraction({required this.position});
   
 
  final  LatLng position;
-@JsonKey() final  bool isDragging;
 
 /// Create a copy of MapInteraction
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +228,16 @@ $CreatingWaypointInteractionCopyWith<CreatingWaypointInteraction> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreatingWaypointInteraction&&(identical(other.position, position) || other.position == position)&&(identical(other.isDragging, isDragging) || other.isDragging == isDragging));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreatingWaypointInteraction&&(identical(other.position, position) || other.position == position));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,position,isDragging);
+int get hashCode => Object.hash(runtimeType,position);
 
 @override
 String toString() {
-  return 'MapInteraction.creatingWaypoint(position: $position, isDragging: $isDragging)';
+  return 'MapInteraction.creatingWaypoint(position: $position)';
 }
 
 
@@ -249,7 +248,7 @@ abstract mixin class $CreatingWaypointInteractionCopyWith<$Res> implements $MapI
   factory $CreatingWaypointInteractionCopyWith(CreatingWaypointInteraction value, $Res Function(CreatingWaypointInteraction) _then) = _$CreatingWaypointInteractionCopyWithImpl;
 @useResult
 $Res call({
- LatLng position, bool isDragging
+ LatLng position
 });
 
 
@@ -266,11 +265,10 @@ class _$CreatingWaypointInteractionCopyWithImpl<$Res>
 
 /// Create a copy of MapInteraction
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? position = null,Object? isDragging = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? position = null,}) {
   return _then(CreatingWaypointInteraction(
 position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as LatLng,isDragging: null == isDragging ? _self.isDragging : isDragging // ignore: cast_nullable_to_non_nullable
-as bool,
+as LatLng,
   ));
 }
 
