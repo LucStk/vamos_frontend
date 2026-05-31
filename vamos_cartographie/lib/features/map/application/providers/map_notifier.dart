@@ -76,17 +76,21 @@ class MapStateNotifier extends _$MapStateNotifier {
   }
 
   void _updateWaypointLocal(Waypoint waypoint) {
+    bool wFind = false;
     state = state.copyWith(
       waypoints: state.waypoints.map((w) {
         if (w.id == waypoint.id) {
+          wFind = true;
           return waypoint;
         }
         return w;
       }).toList(),
     );
-    throw (Exception(
-      "Call to UpdateWapointLocal fail : waypoint not in state",
-    ));
+    if (!wFind) {
+      throw (Exception(
+        "Call to UpdateWapointLocal fail : waypoint not in state",
+      ));
+    }
   }
 
   Future<void> updateWaypointRemote(int id, WaypointDraft draft) async {
