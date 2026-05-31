@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
-import "utils/handle_back.dart";
-import "map_body.dart";
+import 'package:vamos_cartographie/features/map/application/applications.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
+import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
 
 class MapScreen extends ConsumerWidget {
   final int tripId;
@@ -31,11 +31,21 @@ class _MapScreenView extends ConsumerWidget {
     return PopScope(
       canPop: !mapState.isDirty,
       onPopInvokedWithResult: (didPop, _) async {
-        if (!didPop) {
-          await handleBack(context, ref, tripId);
+        if (!didPop && mapState.isDirty) {
+          HandleBackDialog.show(
+            context: context,
+            onCancel: () {},
+            onIgnore: () {
+              Navigator.pop(context);
+            },
+            onSave: () {
+              throw Exception("Implémenter onSave de HandleBackDialog");
+              if (context.mounted) Navigator.of(context).pop();
+            },
+          );
         }
       },
-      child: const MapBody(),
+      child: const Scaffold(body: Stack(children: [MapView(), MapTopBar()])),
     );
   }
 }

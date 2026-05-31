@@ -4,35 +4,35 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 
-class PolyEditorService {
-  static List<DragMarker> buildMarkers({
-    required Trip trip,
-    required void Function(int index, LatLng latLng) onWaypointMoved,
-    required void Function(int segmentIndex, int pointIndex, LatLng latLng)
-    onIntermediateMoved,
-  }) {
-    final markers = <DragMarker>[];
+// class PolyEditorService {
+//   static List<DragMarker> buildMarkers({
+//     required Trip trip,
+//     required void Function(int index, LatLng latLng) onWaypointMoved,
+//     required void Function(int segmentIndex, int pointIndex, LatLng latLng)
+//     onIntermediateMoved,
+//   }) {
+//     final markers = <DragMarker>[];
 
-    for (var i = 0; i < trip.waypoints.length; i++) {
-      final waypoint = trip.waypoints[i];
+//     for (var i = 0; i < trip.waypoints.length; i++) {
+//       final waypoint = trip.waypoints[i];
 
-      markers.add(
-        DragMarker(
-          size: const Size(36, 36),
-          point: waypoint.latLng,
-          onDragUpdate: (_, latLng) {
-            onWaypointMoved(i, latLng);
-          },
-          builder: (_, __, isDragging) {
-            return WaypointMarker(waypoint: waypoint, isDragging: isDragging);
-          },
-        ),
-      );
-    }
+//       markers.add(
+//         DragMarker(
+//           size: const Size(36, 36),
+//           point: waypoint.latLng,
+//           onDragUpdate: (_, latLng) {
+//             onWaypointMoved(i, latLng);
+//           },
+//           builder: (_, __, isDragging) {
+//             return WaypointMarker(waypoint: waypoint, isDragging: isDragging);
+//           },
+//         ),
+//       );
+//     }
 
-    return markers;
-  }
-}
+//     return markers;
+//   }
+// }
 // class CustomPolyEditor {
 //   final Trip trip;
 

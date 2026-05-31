@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
+import 'package:vamos_cartographie/features/map/application/applications.dart';
 
 /// Barre supérieure de la MapPage.
 /// Contient un bouton retour en capsule et un titre centré et ajusté.

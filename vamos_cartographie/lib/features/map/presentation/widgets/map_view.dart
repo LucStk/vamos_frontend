@@ -3,12 +3,11 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/map_notifier.dart';
-import 'package:vamos_cartographie/features/map/presentation/screens/utils/utils.dart';
-import 'package:vamos_cartographie/features/map/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/map/presentation/screens/widgets/pending_waypoint_layer.dart';
+import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
+import 'package:vamos_cartographie/features/map/application/applications.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/layers.dart';
+import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
 import 'map_context_menu.dart';
-import 'pending_waypoint_layer.dart';
 
 class MapView extends ConsumerStatefulWidget {
   const MapView({super.key});
@@ -78,17 +77,19 @@ class _MapViewState extends ConsumerState<MapView> {
         onTap: (_, latLng) => _onMapTap(latLng),
       ),
       children: [
-        buildMapTileLayer(),
-
-        buildWaypointsDragMarkers(
-          waypoints: mapState.waypoints,
-          onDragUpdate: _onWaypointDragged,
-          onDragEnd: (waypoint, latLng, _) =>
-              _onWaypointDraggedEnd(waypoint, latLng),
-          onTap: (waypoint, latLng) => _showWaypoint(waypoint.id),
+        MapTileLayer(),
+        DragMarkers(
+          markers: [
+            ...mapState.waypoints.map((w) {
+              return w.toDragMarker(
+                onDragUpdate: _onWaypointDragged,
+                onDragEnd: _onWaypointDraggedEnd,
+                onTap: _showWaypoint,
+              );
+            }),
+          ],
         ),
-
-        const PendingWaypointLayer(),
+        // const PendingWaypointLayer(),
       ],
     );
   }

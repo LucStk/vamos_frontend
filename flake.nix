@@ -29,6 +29,7 @@
           glib
           libunwind
           orc
+          tree
           libepoxy
           gsettings-desktop-schemas
           at-spi2-atk
