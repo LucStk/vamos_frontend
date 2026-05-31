@@ -34,14 +34,6 @@ class _MapViewState extends ConsumerState<MapView> {
     _mapNotifier.startWaypointCreation(latLng);
   }
 
-  void _onWaypointDraggedEnd(Waypoint waypoint, LatLng newLatLng) {
-    _mapNotifier.updateWaypointPositionLocal(waypoint, newLatLng);
-  }
-
-  void _onWaypointDragged(Waypoint waypoint, LatLng newLatLng) {
-    _mapNotifier.updateWaypointPositionLocal(waypoint, newLatLng);
-  }
-
   void _showWaypoint(int waypointId) {
     WaypointViewerDialog.show(
       context: context,
@@ -82,14 +74,13 @@ class _MapViewState extends ConsumerState<MapView> {
           markers: [
             ...mapState.waypoints.map((w) {
               return w.toDragMarker(
-                onDragUpdate: _onWaypointDragged,
-                onDragEnd: _onWaypointDraggedEnd,
+                onDragUpdate: _mapNotifier.updateWaypointPositionLocal,
+                onDragEnd: _mapNotifier.updateWaypointPositionLocal,
                 onTap: _showWaypoint,
               );
             }),
           ],
         ),
-        // const PendingWaypointLayer(),
       ],
     );
   }

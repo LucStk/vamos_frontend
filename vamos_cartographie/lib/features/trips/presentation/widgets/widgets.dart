@@ -1,5 +1,6 @@
-export "dialogs/trip_viewer_dialog.dart";
-export 'dialogs/trip_creator_dialog.dart';
 export 'trip_card.dart';
-export "explorer/explorer_empty_view.dart";
-export "explorer/explorer_error_view.dart";
+export "explorer_empty_view.dart";
+export "explorer_error_view.dart";
+export "trip_card.dart";
+export "trip_editor.dart";
+export "trip_info_view.dart";

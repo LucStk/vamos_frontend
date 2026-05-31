@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.d
 import 'package:vamos_cartographie/features/map/map.dart';
 import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import "package:vamos_cartographie/features/trips/presentation/widgets/dialogs/dialogs.dart";
+import "package:vamos_cartographie/features/trips/presentation/dialogs/dialogs.dart";
 
 class ExplorerPage extends ConsumerWidget {
   const ExplorerPage({super.key});

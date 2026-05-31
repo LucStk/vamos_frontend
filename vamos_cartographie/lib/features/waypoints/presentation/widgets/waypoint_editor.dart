@@ -7,7 +7,7 @@ import "types_selector/waypoint_type_selector.dart";
 import 'package:vamos_cartographie/features/media/media.dart';
 
 class WaypointEditor extends StatefulWidget {
-  final Waypoint initialWaypoint;
+  final WaypointDraft initialWaypoint;
   const WaypointEditor({super.key, required this.initialWaypoint});
 
   @override
@@ -20,7 +20,7 @@ class WaypointEditorState extends State<WaypointEditor> {
   @override
   void initState() {
     super.initState();
-    currentWaypoint = widget.initialWaypoint.toDraft();
+    currentWaypoint = widget.initialWaypoint;
   }
 
   void _patch(WaypointDraft newWaypoint) {

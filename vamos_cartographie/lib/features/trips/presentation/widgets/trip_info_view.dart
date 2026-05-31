@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/widgets/widgets.dart';
-import '../trip_section_label.dart';
+import 'trip_section_label.dart';
 
 import "package:vamos_cartographie/features/media/media.dart";
 

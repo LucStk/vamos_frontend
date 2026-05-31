@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import '../editors/trip_info_view.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
 import "package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart";
 import "trip_editor_dialog.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
-import "package:vamos_cartographie/features/trips/presentation/widgets/dialogs/dialogs.dart";
+import 'package:vamos_cartographie/shared/widgets/widgets.dart';
+
+import "package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart";
 
 class TripViewerDialog extends ConsumerWidget {
   final Trip tripData;
@@ -36,7 +37,10 @@ class TripViewerDialog extends ConsumerWidget {
     Trip trip,
   ) async {
     // On appelle la méthode statique qu'on a créée au-dessus
-    final confirmed = await TripValidateDeleteDialog.show(context, trip.title);
+    final confirmed = await AskConfirmDialog.show(
+      context,
+      "Voulez vous vraiment supprimer ce voyage ? Cette action est irréversible.",
+    );
 
     // Si l'utilisateur a annulé ou cliqué à côté de la boîte de dialogue
     if (confirmed != true) return;

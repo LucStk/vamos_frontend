@@ -1,32 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 
 /// Boîte de dialogue de confirmation pour la suppression d'un voyage.
 /// Retourne `true` si l'utilisateur confirme, sinon `false` (ou `null`).
-class TripValidateDeleteDialog extends StatelessWidget {
-  const TripValidateDeleteDialog({
-    super.key,
-    required this.tripTitle, // On exige le voyage à supprimer
-  });
-
-  final String? tripTitle;
+class AskConfirmDialog extends StatelessWidget {
+  final String message;
+  const AskConfirmDialog({super.key, required this.message});
 
   /// Raccourci statique pour afficher la boîte de dialogue proprement
-  static Future<bool?> show(BuildContext context, String tripTitle) async {
+  static Future<bool?> show(BuildContext context, String? message) async {
     return showDialog<bool>(
       context: context,
-      builder: (context) => TripValidateDeleteDialog(tripTitle: tripTitle),
+      builder: (context) => AskConfirmDialog(
+        message: message ?? "Êtes vous sûr de vouloir effectuer cette action",
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     // Évite d'avoir un titre vide affiché bizarrement dans la dialog
-    final displayTitle = tripTitle ?? 'Sans titre';
 
     return AlertDialog(
-      title: const Text('Supprimer le voyage'),
-      content: Text('Voulez-vous vraiment supprimer « $displayTitle » ?'),
+      title: const Text('Attention'),
+      content: Text(message),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
@@ -39,7 +35,7 @@ class TripValidateDeleteDialog extends StatelessWidget {
             foregroundColor: Theme.of(context).colorScheme.onError,
           ),
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Supprimer'),
+          child: const Text('Confirmer'),
         ),
       ],
     );

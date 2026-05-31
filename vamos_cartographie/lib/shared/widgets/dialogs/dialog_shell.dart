@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-export "dialogs/dialog_errors_body.dart";
-export "dialogs/dialog_loading_body.dart";
+export "dialog_errors_body.dart";
+export "dialog_loading_body.dart";
 
 class DialogShell<T> extends StatelessWidget {
   final Widget content;

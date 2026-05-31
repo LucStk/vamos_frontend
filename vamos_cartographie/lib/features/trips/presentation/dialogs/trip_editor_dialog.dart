@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/trips/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
 import "trip_form_dialog.dart";
 
-import 'package:vamos_cartographie/shared/widgets/dialog_shell.dart';
+import 'package:vamos_cartographie/shared/widgets/widgets.dart';
 
 class TripEditorDialog extends ConsumerWidget {
   final int tripId;

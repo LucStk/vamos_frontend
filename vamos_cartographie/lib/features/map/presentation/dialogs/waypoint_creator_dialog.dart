@@ -1,49 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
-import 'package:vamos_cartographie/shared/shared.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import "waypoint_form_dialog.dart";
 
-class WaypointEditorDialog extends ConsumerWidget {
-  final int waypointId;
+class WaypointCreatorDialog extends ConsumerWidget {
   final int tripId;
+  final LatLng latLng;
 
-  const WaypointEditorDialog({
+  const WaypointCreatorDialog({
     super.key,
-    required this.waypointId,
     required this.tripId,
+    required this.latLng,
   });
 
   static Future<void> show({
     required BuildContext context,
-    required int waypointId,
+    required LatLng latLng,
     required int tripId,
   }) {
     return showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) =>
-          WaypointEditorDialog(waypointId: waypointId, tripId: tripId),
+      builder: (_) => WaypointCreatorDialog(tripId: tripId, latLng: latLng),
     );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(waypointProvider(tripId, waypointId));
-
-    if (waypoint == null) {
-      return const DialogErrorBody(errorMessage: 'Waypoint introuvable');
-    }
-
     return WaypointFormDialog(
-      initialWaypoint: waypoint.toDraft(),
+      initialWaypoint: WaypointDraft(latLng: latLng),
 
-      successMessage: 'Waypoint mis à jour',
+      successMessage: 'Waypoint créé',
 
       onSubmit: (ref, editedWaypoint) async {
         await ref
             .read(mapStateProvider(tripId).notifier)
-            .updateWaypointRemote(waypointId, editedWaypoint);
+            .createWaypointRemote(editedWaypoint);
       },
     );
   }

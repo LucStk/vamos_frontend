@@ -35,6 +35,7 @@ class MapStateNotifier extends _$MapStateNotifier {
   }
 
   void startWaypointCreation(LatLng position) {
+    print("startWaypointCreation {$position");
     state = state.copyWith(
       interaction: MapInteraction.creatingWaypoint(position: position),
     );
@@ -50,46 +51,50 @@ class MapStateNotifier extends _$MapStateNotifier {
     );
   }
 
-  void confirmPendingWaypoint() {
-    state.interaction.mapOrNull(
-      creatingWaypoint: (interaction) {
-        addWaypoint(WaypointDraft(latLng: interaction.position));
+  // void confirmPendingWaypoint() {
+  //   state.interaction.mapOrNull(
+  //     creatingWaypoint: (interaction) {
+  //       _addWaypointLocal(WaypointDraft(latLng: interaction.position));
 
-        state = state.copyWith(interaction: const MapInteraction.none());
-      },
-    );
-  }
+  //       state = state.copyWith(interaction: const MapInteraction.none());
+  //     },
+  //   );
+  // }
 
   void cancelInteraction() {
     state = state.copyWith(interaction: const MapInteraction.none());
   }
 
-  void addWaypoint(WaypointDraft waypoint) {
-    //state = state.copyWith(waypoints: [...state.waypoints, waypoint]);
+  void _addWaypointLocal(Waypoint waypoint) {
+    state = state.copyWith(waypoints: [...state.waypoints, waypoint]);
   }
 
-  void removeWaypointById(int id) {
+  void _removeWaypointLocalById(int id) {
     state = state.copyWith(
       waypoints: state.waypoints.where((w) => w.id != id).toList(),
     );
   }
 
-  Future<void> updateWaypoint(int id, WaypointDraft draft) async {
-    final previous = state;
-
-    // waypoint optimiste local
-    final optimisticWaypoint = draft.toWaypoint(id);
-
-    // optimistic update
+  void _updateWaypointLocal(Waypoint waypoint) {
     state = state.copyWith(
       waypoints: state.waypoints.map((w) {
-        if (w.id == id) {
-          return optimisticWaypoint;
+        if (w.id == waypoint.id) {
+          return waypoint;
         }
         return w;
       }).toList(),
     );
+    throw (Exception(
+      "Call to UpdateWapointLocal fail : waypoint not in state",
+    ));
+  }
 
+  Future<void> updateWaypointRemote(int id, WaypointDraft draft) async {
+    final previous = state;
+
+    // waypoint optimiste local
+    final optimisticWaypoint = draft.toWaypoint(id);
+    _updateWaypointLocal(optimisticWaypoint);
     // appel serveur
     final Either<Failure, Waypoint> result = await repository.updateWaypoint(
       id,
@@ -103,31 +108,52 @@ class MapStateNotifier extends _$MapStateNotifier {
       },
       (serverWaypoint) {
         // sync avec vérité serveur
-        state = state.copyWith(
-          waypoints: state.waypoints.map((w) {
-            if (w.id == id) {
-              return serverWaypoint;
-            }
-            return w;
-          }).toList(),
-        );
+        if (optimisticWaypoint != serverWaypoint) {
+          _updateWaypointLocal(serverWaypoint);
+        }
+      },
+    );
+  }
+
+  Future<void> createWaypointRemote(WaypointDraft waypoint) async {
+    // appel serveur
+    final Either<Failure, Waypoint> result = await repository.createWaypoint(
+      state.tripId,
+      waypoint,
+    );
+
+    result.fold(
+      (failure) {
+        // TODO : throw argument ou qq chose comme ça
+      },
+      (serverWaypoint) {
+        // sync avec vérité serveur
+        _addWaypointLocal(serverWaypoint);
+      },
+    );
+  }
+
+  Future<void> deleteWaypointRemote(int waypointId) async {
+    final Either<Failure, void> result = await repository.deleteWaypoint(
+      waypointId,
+    );
+
+    result.fold(
+      (failure) {
+        // TODO : throw argument ou qq chose comme ça
+      },
+      (_) {
+        _removeWaypointLocalById(waypointId);
       },
     );
   }
 
   void updateWaypointPositionLocal(Waypoint waypoint, LatLng latLng) {
-    state = state.copyWith(
-      waypoints: state.waypoints.map((w) {
-        if (w.id == waypoint.id) {
-          return w.copyWith(latLng: latLng);
-        }
-        return w;
-      }).toList(),
-    );
+    _updateWaypointLocal(waypoint.copyWith(latLng: latLng));
   }
 
   Future<void> updateWaypointPosition(Waypoint waypoint, LatLng latLng) async {
-    await updateWaypoint(
+    await updateWaypointRemote(
       waypoint.id,
       waypoint.copyWith(latLng: latLng).toDraft(),
     );
@@ -145,16 +171,11 @@ class MapStateNotifier extends _$MapStateNotifier {
 
     state = state.copyWith(segments: segments);
   }
+}
 
-  // void openWaypoint(int id) {
-  //   state = state.copyWith(event: MapEvent.openWaypointDialog(waypointId: id));
-  // }
+@riverpod
+Waypoint? waypoint(Ref ref, int tripId, int waypointId) {
+  final mapState = ref.watch(mapStateProvider(tripId));
 
-  // void openWaypointEditor(int id) {
-  //   state = state.copyWith(event: MapEvent.openWaypointEditor(waypointId: id));
-  // }
-
-  // void clearEvent() {
-  //   state = state.copyWith(event: null);
-  // }
+  return mapState.waypoints.where((w) => w.id == waypointId).firstOrNull;
 }
