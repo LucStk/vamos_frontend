@@ -22,7 +22,7 @@ void main() {
   setUp(() {
     mockDatasource = MockWaypointRemoteDatasource();
     mockImageRepo = MockUploadImgRepository();
-    repository = WaypointRepository(mockDatasource, mockImageRepo);
+    repository = WaypointRepository(mockDatasource);
   });
 
   // ---------------------------------------------------------------------------

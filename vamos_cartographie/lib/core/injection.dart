@@ -1,7 +1,6 @@
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vamos_cartographie/features/waypoints/data/data.dart';
-import 'package:vamos_cartographie/features/waypoints/data/repositories/i_waypoint_repository.dart';
 import 'network/graphql/ferry_client.dart';
 import 'package:vamos_cartographie/core/config.dart';
 import 'package:vamos_cartographie/features/trips/data/datasources/trip_remote_datasource.dart';
@@ -43,16 +42,13 @@ Future<void> configureDependencies({Client? client}) async {
       () => UploadImgRepository(getIt<Client>()),
     );
     getIt.registerLazySingleton<ITripRepository>(
-      () => TripRepository(
-        getIt<TripRemoteDatasource>(),
-        getIt<UploadImgRepository>(),
-      ),
+      () => TripRepository(getIt<TripRemoteDatasource>()),
+    );
+    getIt.registerLazySingleton<WaypointRemoteDatasource>(
+      () => WaypointRemoteDatasource(getIt<Client>()),
     );
     getIt.registerLazySingleton<IWaypointRepository>(
-      () => WaypointRepository(
-        WaypointRemoteDatasource(getIt<Client>()),
-        getIt<UploadImgRepository>(),
-      ),
+      () => WaypointRepository(getIt<WaypointRemoteDatasource>()),
     );
     // getIt.registerLazySingleton<AppConfig>(
     //   () => const AppConfig(imageBaseUrl: ""),

@@ -174,7 +174,7 @@ const DeleteImageFromWaypoint = _i1.OperationDefinitionNode(
   name: _i1.NameNode(value: 'DeleteImageFromWaypoint'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'WaypointId')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'waypointId')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
@@ -200,7 +200,7 @@ const DeleteImageFromWaypoint = _i1.OperationDefinitionNode(
       arguments: [
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'waypointId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'WaypointId')),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'waypointId')),
         ),
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'fileKey'),

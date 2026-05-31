@@ -2,15 +2,15 @@ import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/data/datasources/waypoint_remote_datasource.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
-import 'package:vamos_cartographie/features/media/data/repositories/upload_img_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'i_waypoint_repository.dart';
 
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
+
 class WaypointRepository implements IWaypointRepository {
   final WaypointRemoteDatasource remote;
-  final UploadImgRepository imageRepo;
 
-  WaypointRepository(this.remote, this.imageRepo);
+  WaypointRepository(this.remote);
   @override
   Future<Either<Failure, Waypoint>> createWaypoint(
     int tripId,
@@ -23,8 +23,13 @@ class WaypointRepository implements IWaypointRepository {
         input: input,
       );
       final createWaypoint = WaypointMapper.fromGQL(gqlResult);
+      final attachedImages = await _attachImages(
+        waypointId: createWaypoint.id,
+        desired: waypoint.images,
+        alreadyAttached: const {},
+      );
 
-      return Right(createWaypoint);
+      return Right(_rebuildWithImages(createWaypoint, attachedImages.toList()));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -42,7 +47,29 @@ class WaypointRepository implements IWaypointRepository {
       final gqlResult = await remote.updateWaypoint(id: id, input: input);
       final updatedWaypoint = WaypointMapper.fromGQL(gqlResult);
 
-      return Right(updatedWaypoint);
+      final alreadyAttached = gqlResult.images
+          .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
+          .toSet();
+
+      final attachedImages = await _attachImages(
+        waypointId: id,
+        desired: waypoint.images,
+        alreadyAttached: alreadyAttached,
+      );
+
+      // On supprime les images présentes sur le serveur mais absentes localement
+      // (supprimées par l'utilisateur).
+      final desiredFileKeys = waypoint.images.map((i) => i.fileKey).toSet();
+      final toDelete = alreadyAttached
+          .where((i) => !desiredFileKeys.contains(i.fileKey))
+          .toList();
+      await _deleteImages(waypointId: id, toRemove: toDelete);
+
+      // La liste finale exclut les images supprimées.
+      final finalImages = attachedImages
+          .where((i) => desiredFileKeys.contains(i.fileKey))
+          .toList();
+      return Right(_rebuildWithImages(updatedWaypoint, finalImages));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -61,4 +88,53 @@ class WaypointRepository implements IWaypointRepository {
       return Left(const ConnectionFailure());
     }
   }
+
+  Future<Set<MediaImage>> _attachImages({
+    required int waypointId,
+    required List<MediaImage> desired,
+    required Set<MediaImage> alreadyAttached,
+  }) async {
+    final attached = <MediaImage>{...alreadyAttached};
+    final attachedFileKeys = attached.map((i) => i.fileKey).toSet();
+
+    for (final image in desired) {
+      if (attachedFileKeys.contains(image.fileKey)) continue;
+      try {
+        await remote.attachImageToWaypoint(
+          waypointId: waypointId,
+          fileKey: image.fileKey,
+        );
+        attached.add(image);
+        attachedFileKeys.add(image.fileKey);
+      } catch (_) {}
+    }
+
+    return attached;
+  }
+
+  /// Supprime sur le serveur toutes les images de [toRemove].
+  /// Les erreurs sont ignorées silencieusement (la suppression pourra être
+  /// retentée à la prochaine sauvegarde).
+  Future<void> _deleteImages({
+    required int waypointId,
+    required List<MediaImage> toRemove,
+  }) async {
+    for (final image in toRemove) {
+      await remote.deleteImgFromWaypoint(
+        waypointId: waypointId,
+        fileKey: image.fileKey,
+      );
+    }
+  }
+
+  /// Reconstruit un [Trip] domaine en remplaçant sa liste d'images.
+  Waypoint _rebuildWithImages(Waypoint source, List<MediaImage> images) =>
+      Waypoint(
+        id: source.id,
+        title: source.title,
+        description: source.description,
+        images: images,
+        type: source.type,
+        latLng: source.latLng,
+      ); // data/repositories/trip_repository.dart
 }

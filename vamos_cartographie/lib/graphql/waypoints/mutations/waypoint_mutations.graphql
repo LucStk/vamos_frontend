@@ -15,8 +15,8 @@ mutation DeleteWaypoint($waypointId: Int!) {
     deleteWaypoint(id: $waypointId)
 }
 
-mutation DeleteImageFromWaypoint($WaypointId: Int!, $fileKey: String!) {
-    deleteImageFromWaypoint(waypointId: $WaypointId, fileKey: $fileKey)
+mutation DeleteImageFromWaypoint($waypointId: Int!, $fileKey: String!) {
+    deleteImageFromWaypoint(waypointId: $waypointId, fileKey: $fileKey)
 }
 
 mutation AttachImageToWaypoint($waypointId: Int!, $fileKey: String!) {

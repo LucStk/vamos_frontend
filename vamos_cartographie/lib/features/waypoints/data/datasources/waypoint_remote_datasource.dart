@@ -54,4 +54,42 @@ class WaypointRemoteDatasource {
       );
     }
   }
+
+  Future<void> attachImageToWaypoint({
+    required int waypointId,
+    required String fileKey,
+  }) async {
+    final req = GAttachImageToWaypointReq(
+      vars: GAttachImageToWaypointVars(
+        waypointId: waypointId,
+        fileKey: fileKey,
+      ),
+    );
+    final response = await client.request(req).first;
+    if (response.hasErrors || response.data == null) {
+      throw Exception(
+        response.graphqlErrors?.first.message ??
+            'Erreur lors de l\'association de l\'image au waypoint',
+      );
+    }
+  }
+
+  Future<void> deleteImgFromWaypoint({
+    required int waypointId,
+    required String fileKey,
+  }) async {
+    final req = GDeleteImageFromWaypointReq(
+      vars: GDeleteImageFromWaypointVars(
+        waypointId: waypointId,
+        fileKey: fileKey,
+      ),
+    );
+    final response = await client.request(req).first;
+    if (response.hasErrors || response.data == null) {
+      throw Exception(
+        response.graphqlErrors?.first.message ??
+            "Erreur lors de la suppression de l'image waypoint",
+      );
+    }
+  }
 }

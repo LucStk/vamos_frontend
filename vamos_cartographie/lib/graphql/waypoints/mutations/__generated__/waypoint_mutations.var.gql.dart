@@ -157,36 +157,36 @@ class GDeleteWaypointVars {
 
 class GDeleteImageFromWaypointVars {
   const GDeleteImageFromWaypointVars({
-    required this.WaypointId,
+    required this.waypointId,
     required this.fileKey,
   });
 
   factory GDeleteImageFromWaypointVars.fromJson(Map<String, dynamic> json) {
     return GDeleteImageFromWaypointVars(
-      WaypointId: (json['WaypointId'] as int),
+      waypointId: (json['waypointId'] as int),
       fileKey: (json['fileKey'] as String),
     );
   }
 
-  final int WaypointId;
+  final int waypointId;
 
   final String fileKey;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$WaypointIdValue = this.WaypointId;
-    _$result['WaypointId'] = _$WaypointIdValue;
+    final _$waypointIdValue = this.waypointId;
+    _$result['waypointId'] = _$waypointIdValue;
     final _$fileKeyValue = this.fileKey;
     _$result['fileKey'] = _$fileKeyValue;
     return _$result;
   }
 
   GDeleteImageFromWaypointVars copyWith({
-    int? WaypointId,
+    int? waypointId,
     String? fileKey,
   }) {
     return GDeleteImageFromWaypointVars(
-      WaypointId: WaypointId ?? this.WaypointId,
+      waypointId: waypointId ?? this.waypointId,
       fileKey: fileKey ?? this.fileKey,
     );
   }
@@ -205,7 +205,7 @@ class GDeleteImageFromWaypointVars {
 
   @override
   String toString() {
-    return 'GDeleteImageFromWaypointVars(WaypointId: $WaypointId, fileKey: $fileKey)';
+    return 'GDeleteImageFromWaypointVars(waypointId: $waypointId, fileKey: $fileKey)';
   }
 }
 

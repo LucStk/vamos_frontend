@@ -62,7 +62,7 @@ void main() {
 
     // Par défaut : attachImageToTrip réussit silencieusement.
     when(
-      () => mockImageRepo.attachImageToTrip(
+      () => mockDatasource.attachImageToTrip(
         tripId: any(named: 'tripId'),
         fileKey: any(named: 'fileKey'),
       ),
@@ -70,13 +70,13 @@ void main() {
 
     // Par défaut : deleteImgTrip réussit silencieusement.
     when(
-      () => mockDatasource.deleteImgTrip(
+      () => mockDatasource.deleteImgFromTrip(
         tripId: any(named: 'tripId'),
         fileKey: any(named: 'fileKey'),
       ),
     ).thenAnswer((_) async {});
 
-    repository = TripRepository(mockDatasource, mockImageRepo);
+    repository = TripRepository(mockDatasource);
   });
 
   // ---------------------------------------------------------------------------
@@ -208,12 +208,16 @@ void main() {
 
       expect(result.isRight(), isTrue);
       verify(
-        () =>
-            mockImageRepo.attachImageToTrip(tripId: 10, fileKey: 'media/a.jpg'),
+        () => mockDatasource.attachImageToTrip(
+          tripId: 10,
+          fileKey: 'media/a.jpg',
+        ),
       ).called(1);
       verify(
-        () =>
-            mockImageRepo.attachImageToTrip(tripId: 10, fileKey: 'media/b.jpg'),
+        () => mockDatasource.attachImageToTrip(
+          tripId: 10,
+          fileKey: 'media/b.jpg',
+        ),
       ).called(1);
     });
 
@@ -290,14 +294,14 @@ void main() {
 
         // 'existing.jpg' est déjà sur le serveur → pas d'attachement.
         verifyNever(
-          () => mockImageRepo.attachImageToTrip(
+          () => mockDatasource.attachImageToTrip(
             tripId: 5,
             fileKey: 'media/existing.jpg',
           ),
         );
         // 'new.jpg' est nouveau → doit être attaché une seule fois.
         verify(
-          () => mockImageRepo.attachImageToTrip(
+          () => mockDatasource.attachImageToTrip(
             tripId: 5,
             fileKey: 'media/new.jpg',
           ),
@@ -332,7 +336,7 @@ void main() {
         await repository.updateTrip(3, trip.toDraft());
 
         verifyNever(
-          () => mockImageRepo.attachImageToTrip(
+          () => mockDatasource.attachImageToTrip(
             tripId: any(named: 'tripId'),
             fileKey: any(named: 'fileKey'),
           ),
@@ -370,13 +374,13 @@ void main() {
         await repository.updateTrip(8, trip.toDraft());
 
         verify(
-          () => mockDatasource.deleteImgTrip(
+          () => mockDatasource.deleteImgFromTrip(
             tripId: 8,
             fileKey: 'media/removed.jpg',
           ),
         ).called(1);
         verifyNever(
-          () => mockDatasource.deleteImgTrip(
+          () => mockDatasource.deleteImgFromTrip(
             tripId: 8,
             fileKey: 'media/kept.jpg',
           ),
@@ -403,10 +407,16 @@ void main() {
         await repository.updateTrip(9, trip.toDraft());
 
         verify(
-          () => mockDatasource.deleteImgTrip(tripId: 9, fileKey: 'media/a.jpg'),
+          () => mockDatasource.deleteImgFromTrip(
+            tripId: 9,
+            fileKey: 'media/a.jpg',
+          ),
         ).called(1);
         verify(
-          () => mockDatasource.deleteImgTrip(tripId: 9, fileKey: 'media/b.jpg'),
+          () => mockDatasource.deleteImgFromTrip(
+            tripId: 9,
+            fileKey: 'media/b.jpg',
+          ),
         ).called(1);
       },
     );

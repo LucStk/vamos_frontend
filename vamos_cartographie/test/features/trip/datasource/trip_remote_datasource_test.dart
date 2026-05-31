@@ -226,7 +226,7 @@ void main() {
         ).thenAnswer((_) => Stream.value(okResponse(req, gqlData)));
 
         await expectLater(
-          datasource.deleteImgTrip(tripId: 4, fileKey: 'media/x.jpg'),
+          datasource.deleteImgFromTrip(tripId: 4, fileKey: 'media/x.jpg'),
           completes,
         );
       });
@@ -240,7 +240,7 @@ void main() {
         ).thenAnswer((_) => Stream.value(errResponse(req)));
 
         expect(
-          datasource.deleteImgTrip(tripId: 4, fileKey: 'media/x.jpg'),
+          datasource.deleteImgFromTrip(tripId: 4, fileKey: 'media/x.jpg'),
           throwsException,
         );
       });
