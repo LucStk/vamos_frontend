@@ -19,10 +19,6 @@ class _MapViewState extends ConsumerState<MapView> {
   late final MapController _mapController;
 
   int get _tripId => ref.read(currentTripIdProvider);
-
-  MapStateNotifier get _mapNotifier =>
-      ref.read(mapStateProvider(_tripId).notifier);
-
   @override
   void initState() {
     super.initState();
@@ -34,14 +30,6 @@ class _MapViewState extends ConsumerState<MapView> {
     WaypointCreatorDialog.show(
       context: context,
       latLng: latLng,
-      tripId: _tripId,
-    );
-  }
-
-  void _showWaypoint(int waypointId) {
-    WaypointViewerDialog.show(
-      context: context,
-      waypointId: waypointId,
       tripId: _tripId,
     );
   }
@@ -63,8 +51,6 @@ class _MapViewState extends ConsumerState<MapView> {
 
   @override
   Widget build(BuildContext context) {
-    final mapState = ref.watch(mapStateProvider(_tripId));
-
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -72,20 +58,7 @@ class _MapViewState extends ConsumerState<MapView> {
         initialZoom: 7,
         onTap: (_, latLng) => _onMapTap(context, latLng),
       ),
-      children: [
-        MapTileLayer(),
-        DragMarkers(
-          markers: [
-            ...mapState.waypoints.map((w) {
-              return w.toDragMarker(
-                onDragUpdate: _mapNotifier.updateWaypointPositionLocal,
-                onDragEnd: _mapNotifier.updateWaypointPositionLocal,
-                onTap: _showWaypoint,
-              );
-            }),
-          ],
-        ),
-      ],
+      children: [MapTileLayer(), WaypointsLayer()],
     );
   }
 }

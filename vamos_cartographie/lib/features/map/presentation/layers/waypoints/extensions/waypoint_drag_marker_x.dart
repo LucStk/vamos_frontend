@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/waypoints/waypoint_marker.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/waypoints/waypoint_marker_view.dart';
 
 typedef DragEndType = void Function(Waypoint, LatLng);
 typedef OnWaypointLatLngType = void Function(Waypoint, LatLng);
@@ -25,7 +25,7 @@ extension WaypointDragMarkerX on Waypoint {
         onDragUpdate(this, latLng);
       },
       builder: (_, _, isDragging) {
-        return WaypointMarker(waypoint: this, isDragging: isDragging);
+        return WaypointMarkerView(waypoint: this, isDragging: isDragging);
       },
       onTap: (LatLng latLng) {
         onTap(id);

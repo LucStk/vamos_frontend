@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/core/injection.dart'; // Ton fichier où se t
 Future<void> main() async {
   // 1. Obligatoire si tu fais du async avant runApp (ex: GetIt, SharedPreferences, etc.)
   WidgetsFlutterBinding.ensureInitialized();
-
+  debugProfileBuildsEnabled = true;
   // 2. On initialise GetIt (chargement de tes repositories, dépendances...)
   await configureDependencies();
 

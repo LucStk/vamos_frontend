@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 
-class WaypointMarker extends StatelessWidget {
+class WaypointMarkerView extends StatelessWidget {
   final Waypoint waypoint;
   final bool isDragging;
 
-  const WaypointMarker({
+  const WaypointMarkerView({
     super.key,
     required this.waypoint,
     this.isDragging = false,
