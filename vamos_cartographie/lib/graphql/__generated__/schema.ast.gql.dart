@@ -30,6 +30,30 @@ const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
 );
+const LatLngInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'LatLngInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'lat'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'lng'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
 const LatLngType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'LatLngType'),
   directives: [],
@@ -391,6 +415,81 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateSegment'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'segment'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'SegmentUpdateInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createSegment'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'segment'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'SegmentCreateInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'deleteSegment'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const Query = _i1.ObjectTypeDefinitionNode(
@@ -431,11 +530,47 @@ const Query = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SegmentCreateInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'type'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentTypeEnum'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'intermediatePoints'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
 const SegmentType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'SegmentType'),
   directives: [],
   interfaces: [],
   fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'type'),
       directives: [],
@@ -482,6 +617,33 @@ const SegmentTypeEnum = _i1.EnumTypeDefinitionNode(
     _i1.EnumValueDefinitionNode(
       name: _i1.NameNode(value: 'train'),
       directives: [],
+    ),
+  ],
+);
+const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SegmentUpdateInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'type'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentTypeEnum'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'intermediatePoints'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+      defaultValue: null,
     ),
   ],
 );
@@ -942,13 +1104,16 @@ const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
   Date,
+  LatLngInput,
   LatLngType,
   MediaImageInput,
   MediaImageType,
   Mutation,
   Query,
+  SegmentCreateInput,
   SegmentType,
   SegmentTypeEnum,
+  SegmentUpdateInput,
   TripImageType,
   TripInput,
   TripType,

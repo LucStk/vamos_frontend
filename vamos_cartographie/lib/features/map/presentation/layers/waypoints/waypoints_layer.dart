@@ -11,7 +11,7 @@ class WaypointsLayer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tripId = ref.watch(currentTripIdProvider);
     final waypointsIds = ref.watch(waypointIdsProvider(tripId));
-
+    debugPrint("Built WaypoinsLayer");
     return DragMarkers(
       markers: waypointsIds.map((wId) {
         return buildMarker(ref, context, tripId, wId);

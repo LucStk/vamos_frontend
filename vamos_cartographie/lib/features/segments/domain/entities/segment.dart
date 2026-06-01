@@ -10,12 +10,28 @@ part 'segment.freezed.dart';
 @freezed
 abstract class Segment with _$Segment {
   const factory Segment({
-    int? id,
+    required int id,
     @Default(GSegmentTypeEnum.bike) GSegmentTypeEnum type,
     @Default([]) List<LatLng> intermediatePoints,
   }) = _Segment;
 
   const Segment._();
+
+  List<LatLng> allPoints(LatLng from, LatLng to) => [
+    from,
+    ...intermediatePoints,
+    to,
+  ];
+}
+
+@freezed
+abstract class SegmentDraft with _$SegmentDraft {
+  const factory SegmentDraft({
+    @Default(GSegmentTypeEnum.bike) GSegmentTypeEnum type,
+    @Default([]) List<LatLng> intermediatePoints,
+  }) = _SegmentDraft;
+
+  const SegmentDraft._();
 
   List<LatLng> allPoints(LatLng from, LatLng to) => [
     from,

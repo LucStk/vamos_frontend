@@ -10,6 +10,7 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
 abstract class GSegmentFields {
   _i1.GSegmentTypeEnum get type;
   List<GSegmentFields_intermediatePoints> get intermediatePoints;
+  int get id;
   String get G__typename;
 }
 
@@ -23,6 +24,7 @@ class GSegmentFieldsData implements GSegmentFields {
   const GSegmentFieldsData({
     required this.type,
     required this.intermediatePoints,
+    required this.id,
     this.G__typename = 'SegmentType',
   });
 
@@ -33,6 +35,7 @@ class GSegmentFieldsData implements GSegmentFields {
           .map((_$e) => GSegmentFieldsData_intermediatePoints.fromJson(
               (_$e as Map<String, dynamic>)))
           .toList(),
+      id: (json['id'] as int),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -41,6 +44,8 @@ class GSegmentFieldsData implements GSegmentFields {
 
   final List<GSegmentFieldsData_intermediatePoints> intermediatePoints;
 
+  final int id;
+
   final String G__typename;
 
   Map<String, dynamic> toJson() {
@@ -48,6 +53,7 @@ class GSegmentFieldsData implements GSegmentFields {
     _$result['type'] = this.type.toJson();
     _$result['intermediatePoints'] =
         this.intermediatePoints.map((_$e) => _$e.toJson()).toList();
+    _$result['id'] = this.id;
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -55,11 +61,13 @@ class GSegmentFieldsData implements GSegmentFields {
   GSegmentFieldsData copyWith({
     _i1.GSegmentTypeEnum? type,
     List<GSegmentFieldsData_intermediatePoints>? intermediatePoints,
+    int? id,
     String? G__typename,
   }) {
     return GSegmentFieldsData(
       type: type ?? this.type,
       intermediatePoints: intermediatePoints ?? this.intermediatePoints,
+      id: id ?? this.id,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -71,18 +79,19 @@ class GSegmentFieldsData implements GSegmentFields {
             type == other.type &&
             _gqlUtils.listEquals(
                 intermediatePoints, other.intermediatePoints) &&
+            id == other.id &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, type, _gqlUtils.listHash(intermediatePoints), G__typename);
+    return Object.hash(runtimeType, type,
+        _gqlUtils.listHash(intermediatePoints), id, G__typename);
   }
 
   @override
   String toString() {
-    return 'GSegmentFieldsData(type: $type, intermediatePoints: $intermediatePoints, G__typename: $G__typename)';
+    return 'GSegmentFieldsData(type: $type, intermediatePoints: $intermediatePoints, id: $id, G__typename: $G__typename)';
   }
 }
 

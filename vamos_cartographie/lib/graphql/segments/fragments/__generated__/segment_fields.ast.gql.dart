@@ -50,6 +50,13 @@ const SegmentFields = _i1.FragmentDefinitionNode(
       ]),
     ),
     _i1.FieldNode(
+      name: _i1.NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
       name: _i1.NameNode(value: '__typename'),
       alias: null,
       arguments: [],

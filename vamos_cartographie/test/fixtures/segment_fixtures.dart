@@ -8,6 +8,7 @@ GSegmentFieldsData gSegmentData({
   List<GSegmentFieldsData_intermediatePoints>? intermediatePoints,
 }) => GSegmentFieldsData(
   type: type,
+  id: 1,
   intermediatePoints:
       intermediatePoints ??
       [GSegmentFieldsData_intermediatePoints(lat: 48.0, lng: 2.0)],

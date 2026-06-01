@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
-import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
 import "waypoint_marker_view.dart";
 
 DragMarker buildMarker(
@@ -12,7 +11,7 @@ DragMarker buildMarker(
   int tripId,
   int waypointId,
 ) {
-  debugPrint("WaypointMaprker rebuild $waypointId");
+  debugPrint("WaypointMarker rebuild $waypointId");
   final latLng = ref.watch(waypointLatLngProvider(tripId, waypointId));
   final notifier = ref.read(waypointsStoreProvider(tripId).notifier);
   if (latLng == null) {
@@ -37,12 +36,8 @@ DragMarker buildMarker(
         isDragging: isDragging,
       );
     },
-    onTap: (id) {
-      WaypointViewerDialog.show(
-        context: context,
-        waypointId: waypointId,
-        tripId: tripId,
-      );
-    },
+    // onTap: (id) {
+    //   //
+    // },
   );
 }

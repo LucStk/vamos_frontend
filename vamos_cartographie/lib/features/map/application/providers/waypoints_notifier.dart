@@ -101,6 +101,7 @@ class WaypointsStore extends _$WaypointsStore {
     );
   }
 
+  //TODO : Faire la requête uniquement sur la position, pas la peine d'envoyer le reste
   Future<void> updateWaypointPositionRemote(
     int waypointId,
     LatLng latLng,

@@ -6,6 +6,60 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
+class GLatLngInput {
+  const GLatLngInput({
+    required this.lat,
+    required this.lng,
+  });
+
+  factory GLatLngInput.fromJson(Map<String, dynamic> json) {
+    return GLatLngInput(
+      lat: (json['lat'] as double),
+      lng: (json['lng'] as double),
+    );
+  }
+
+  final double lat;
+
+  final double lng;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$latValue = this.lat;
+    _$result['lat'] = _$latValue;
+    final _$lngValue = this.lng;
+    _$result['lng'] = _$lngValue;
+    return _$result;
+  }
+
+  GLatLngInput copyWith({
+    double? lat,
+    double? lng,
+  }) {
+    return GLatLngInput(
+      lat: lat ?? this.lat,
+      lng: lng ?? this.lng,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GLatLngInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GLatLngInput(lat: $lat, lng: $lng)';
+  }
+}
+
 class GMediaImageInput {
   const GMediaImageInput({required this.fileKey});
 
@@ -41,6 +95,63 @@ class GMediaImageInput {
   @override
   String toString() {
     return 'GMediaImageInput(fileKey: $fileKey)';
+  }
+}
+
+class GSegmentCreateInput {
+  const GSegmentCreateInput({
+    required this.type,
+    required this.intermediatePoints,
+  });
+
+  factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
+    return GSegmentCreateInput(
+      type: GSegmentTypeEnum.fromJson((json['type'] as String)),
+      intermediatePoints: (json['intermediatePoints'] as List<dynamic>)
+          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+    );
+  }
+
+  final GSegmentTypeEnum type;
+
+  final List<GLatLngInput> intermediatePoints;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$typeValue = this.type;
+    _$result['type'] = _$typeValue.toJson();
+    final _$intermediatePointsValue = this.intermediatePoints;
+    _$result['intermediatePoints'] =
+        _$intermediatePointsValue.map((_$e) => _$e.toJson()).toList();
+    return _$result;
+  }
+
+  GSegmentCreateInput copyWith({
+    GSegmentTypeEnum? type,
+    List<GLatLngInput>? intermediatePoints,
+  }) {
+    return GSegmentCreateInput(
+      type: type ?? this.type,
+      intermediatePoints: intermediatePoints ?? this.intermediatePoints,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSegmentCreateInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSegmentCreateInput(type: $type, intermediatePoints: $intermediatePoints)';
   }
 }
 
@@ -84,6 +195,81 @@ enum GSegmentTypeEnum {
       case GSegmentTypeEnum.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
+  }
+}
+
+class GSegmentUpdateInput {
+  const GSegmentUpdateInput({
+    this.type = const Value.absent(),
+    this.intermediatePoints = const Value.absent(),
+  });
+
+  factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
+    return GSegmentUpdateInput(
+      type: json.containsKey('type')
+          ? Value.present(json['type'] == null
+              ? null
+              : GSegmentTypeEnum.fromJson((json['type'] as String)))
+          : Value.absent(),
+      intermediatePoints: json.containsKey('intermediatePoints')
+          ? Value.present(json['intermediatePoints'] == null
+              ? null
+              : (json['intermediatePoints'] as List<dynamic>)
+                  .map((_$e) =>
+                      GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+                  .toList())
+          : Value.absent(),
+    );
+  }
+
+  final Value<GSegmentTypeEnum> type;
+
+  final Value<List<GLatLngInput>> intermediatePoints;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$typeValue = this.type;
+    if (_$typeValue.isPresent) {
+      final _$typeRequired = _$typeValue.requireValue;
+      _$result['type'] =
+          _$typeRequired == null ? null : _$typeRequired.toJson();
+    }
+    final _$intermediatePointsValue = this.intermediatePoints;
+    if (_$intermediatePointsValue.isPresent) {
+      final _$intermediatePointsRequired =
+          _$intermediatePointsValue.requireValue;
+      _$result['intermediatePoints'] = _$intermediatePointsRequired == null
+          ? null
+          : _$intermediatePointsRequired.map((_$e) => _$e.toJson()).toList();
+    }
+    return _$result;
+  }
+
+  GSegmentUpdateInput copyWith({
+    Value<GSegmentTypeEnum>? type,
+    Value<List<GLatLngInput>>? intermediatePoints,
+  }) {
+    return GSegmentUpdateInput(
+      type: type ?? this.type,
+      intermediatePoints: intermediatePoints ?? this.intermediatePoints,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSegmentUpdateInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSegmentUpdateInput(type: $type, intermediatePoints: $intermediatePoints)';
   }
 }
 

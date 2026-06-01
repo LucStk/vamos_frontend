@@ -37,6 +37,7 @@ void main() {
       final gql = GSegmentFieldsData(
         type: GSegmentTypeEnum.car,
         intermediatePoints: [],
+        id: 1,
       );
       final seg = SegmentMapper.segmentFromGQL(gql);
 

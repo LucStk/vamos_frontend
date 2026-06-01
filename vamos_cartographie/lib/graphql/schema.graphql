@@ -10,6 +10,11 @@ directive @oneOf on INPUT_OBJECT
 """Date (isoformat)"""
 scalar Date
 
+input LatLngInput {
+  lat: Float!
+  lng: Float!
+}
+
 type LatLngType {
   lat: Float!
   lng: Float!
@@ -37,6 +42,9 @@ type Mutation {
   updateWaypoint(id: Int!, waypoint: WaypointUpdateInput!): WaypointType!
   createWaypoint(tripId: Int!, waypoint: WaypointCreateInput!): WaypointType!
   deleteWaypoint(id: Int!): Boolean!
+  updateSegment(id: Int!, segment: SegmentUpdateInput!): SegmentType!
+  createSegment(tripId: Int!, segment: SegmentCreateInput!): SegmentType!
+  deleteSegment(id: Int!): Boolean!
 }
 
 type Query {
@@ -44,7 +52,13 @@ type Query {
   trip(id: Int!): TripType!
 }
 
+input SegmentCreateInput {
+  type: SegmentTypeEnum!
+  intermediatePoints: [LatLngInput!]!
+}
+
 type SegmentType {
+  id: Int!
   type: SegmentTypeEnum!
   intermediatePoints: [LatLngType!]!
 }
@@ -55,6 +69,11 @@ enum SegmentTypeEnum {
   boat
   walk
   train
+}
+
+input SegmentUpdateInput {
+  type: SegmentTypeEnum
+  intermediatePoints: [LatLngInput!]
 }
 
 type TripImageType {
