@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/features/media/domain/entities/entities.dart'
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/trip_fixtures.dart';
+import '../../../fixtures/segment_fixtures.dart';
 
 void main() {
   // ---------------------------------------------------------------------------
@@ -58,6 +59,27 @@ void main() {
       expect(trip.waypoints, isEmpty);
       expect(trip.segments, isEmpty);
     });
+
+    test('liste d\'images vide si aucune image', () {
+      final trip = TripMapper.fromGQLFields(gTripFieldsData(images: []));
+
+      expect(trip.images, isEmpty);
+    });
+
+    test('gestion de plusieurs trips avec des ids différents', () {
+      final trip1 = TripMapper.fromGQLFields(gTripFieldsData(id: 10));
+      final trip2 = TripMapper.fromGQLFields(gTripFieldsData(id: 20));
+
+      expect(trip1.id, 10);
+      expect(trip2.id, 20);
+      expect(trip1.id, isNot(equals(trip2.id)));
+    });
+
+    test('description vide est correctement mappée', () {
+      final trip = TripMapper.fromGQLFields(gTripFieldsData(description: ''));
+
+      expect(trip.description, '');
+    });
   });
 
   // ---------------------------------------------------------------------------
@@ -82,12 +104,55 @@ void main() {
       expect(wp.type, GWaypointEnum.WAYPOINT);
     });
 
+    test('tous les waypoints sont bien mappés', () {
+      final trip = TripMapper.fromGQLDetail(gTripDetailData());
+
+      expect(trip.waypoints[0].id, 1);
+      expect(trip.waypoints[0].latLng, const LatLng(48.85, 2.35));
+      expect(trip.waypoints[1].id, 2);
+      expect(trip.waypoints[1].latLng, const LatLng(48.85, 2.35));
+    });
+
     test('segment bien mappé — type et point intermédiaire', () {
       final trip = TripMapper.fromGQLDetail(gTripDetailData());
       final seg = trip.segments.first;
 
       expect(seg.type, GSegmentTypeEnum.bike);
       expect(seg.intermediatePoints, [const LatLng(48.0, 2.0)]);
+    });
+
+    test('plusieurs segments sont correctement mappés', () {
+      final trip = TripMapper.fromGQLDetail(
+        gTripDetailData(
+          segments: [
+            gSegmentData(type: GSegmentTypeEnum.bike),
+            gSegmentData(type: GSegmentTypeEnum.walk),
+            gSegmentData(type: GSegmentTypeEnum.car),
+          ],
+        ),
+      );
+
+      expect(trip.segments, hasLength(3));
+      expect(trip.segments[0].type, GSegmentTypeEnum.bike);
+      expect(trip.segments[1].type, GSegmentTypeEnum.walk);
+      expect(trip.segments[2].type, GSegmentTypeEnum.car);
+    });
+
+    test('segment sans points intermédiaires', () {
+      final trip = TripMapper.fromGQLDetail(
+        gTripDetailData(segments: [gSegmentData(intermediatePoints: [])]),
+      );
+
+      expect(trip.segments.first.intermediatePoints, isEmpty);
+    });
+
+    test('waypoints et segments vides si absents', () {
+      final trip = TripMapper.fromGQLDetail(
+        gTripDetailData(waypoints: [], segments: []),
+      );
+
+      expect(trip.waypoints, isEmpty);
+      expect(trip.segments, isEmpty);
     });
 
     test('images du trip bien mappées', () {
@@ -112,6 +177,38 @@ void main() {
         gTripDetailData(date: '2024-07-14'),
       );
       expect(trip.date, DateTime(2024, 7, 14));
+    });
+
+    test('différentes dates sont parsées correctement', () {
+      final trip1 = TripMapper.fromGQLDetail(
+        gTripDetailData(date: '2025-01-01'),
+      );
+      final trip2 = TripMapper.fromGQLDetail(
+        gTripDetailData(date: '2023-12-31'),
+      );
+
+      expect(trip1.date, DateTime(2025, 1, 1));
+      expect(trip2.date, DateTime(2023, 12, 31));
+    });
+
+    test('titre et description sont correctement mappés', () {
+      final trip = TripMapper.fromGQLDetail(
+        gTripDetailData(
+          title: 'Voyage extraordinaire',
+          description: 'Une description détaillée',
+        ),
+      );
+
+      expect(trip.title, 'Voyage extraordinaire');
+      expect(trip.description, 'Une description détaillée');
+    });
+
+    test('gestion des caractères spéciaux dans le titre', () {
+      final trip = TripMapper.fromGQLDetail(
+        gTripDetailData(title: 'Trip avec éàçù & spéciaux'),
+      );
+
+      expect(trip.title, 'Trip avec éàçù & spéciaux');
     });
   });
 
@@ -152,6 +249,33 @@ void main() {
       expect(trip.waypoints, isEmpty);
       expect(trip.segments, isEmpty);
     });
+
+    test('plusieurs images sont correctement mappées', () {
+      final trip = TripMapper.fromGQLCreateResult(
+        gCreateTripResult(
+          images: [
+            GTripFieldsData_images(
+              image: gImageData(fileKey: 'media/img1.jpg'),
+            ),
+            GTripFieldsData_images(
+              image: gImageData(fileKey: 'media/img2.jpg'),
+            ),
+          ],
+        ),
+      );
+
+      expect(trip.images, hasLength(2));
+      expect(trip.images[0].fileKey, 'media/img1.jpg');
+      expect(trip.images[1].fileKey, 'media/img2.jpg');
+    });
+
+    test('date avec différents formats', () {
+      final trip = TripMapper.fromGQLCreateResult(
+        gCreateTripResult(date: '2024-12-25'),
+      );
+
+      expect(trip.date, DateTime(2024, 12, 25));
+    });
   });
 
   // ---------------------------------------------------------------------------
@@ -190,6 +314,51 @@ void main() {
 
       expect(trip.waypoints, isEmpty);
       expect(trip.segments, isEmpty);
+    });
+
+    test('liste d\'images vide si aucune image', () {
+      final trip = TripMapper.fromGQLUpdateResult(
+        gUpdateTripResult(images: []),
+      );
+
+      expect(trip.images, isEmpty);
+    });
+
+    test('modification du titre conserve les autres champs', () {
+      final trip = TripMapper.fromGQLUpdateResult(
+        gUpdateTripResult(
+          id: 99,
+          title: 'Nouveau titre',
+          description: 'Ancienne description',
+        ),
+      );
+
+      expect(trip.id, 99);
+      expect(trip.title, 'Nouveau titre');
+      expect(trip.description, 'Ancienne description');
+    });
+
+    test('plusieurs images dans le résultat de mise à jour', () {
+      final trip = TripMapper.fromGQLUpdateResult(
+        gUpdateTripResult(
+          images: [
+            GTripFieldsData_images(
+              image: gImageData(fileKey: 'media/a.jpg', url: 'https://a.jpg'),
+            ),
+            GTripFieldsData_images(
+              image: gImageData(fileKey: 'media/b.jpg', url: 'https://b.jpg'),
+            ),
+            GTripFieldsData_images(
+              image: gImageData(fileKey: 'media/c.jpg', url: 'https://c.jpg'),
+            ),
+          ],
+        ),
+      );
+
+      expect(trip.images, hasLength(3));
+      expect(trip.images[0].fileKey, 'media/a.jpg');
+      expect(trip.images[1].fileKey, 'media/b.jpg');
+      expect(trip.images[2].fileKey, 'media/c.jpg');
     });
   });
 }

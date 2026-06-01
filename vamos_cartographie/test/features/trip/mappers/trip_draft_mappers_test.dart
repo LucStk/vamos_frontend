@@ -54,6 +54,41 @@ void main() {
         Value.present('2025-01-09'),
       );
     });
+
+    test('différentes dates sont correctement formatées', () {
+      final dates = [
+        (DateTime(2024, 1, 1), '2024-01-01'),
+        (DateTime(2024, 12, 31), '2024-12-31'),
+        (DateTime(2025, 6, 15), '2025-06-15'),
+        (DateTime(2023, 2, 28), '2023-02-28'),
+      ];
+
+      for (final (date, expected) in dates) {
+        final draft = domainTripDraft(date: date);
+        expect(
+          TripDraftMapper.toGQLInput(draft).date,
+          Value.present(expected),
+          reason: 'Date $date devrait être formatée en $expected',
+        );
+      }
+    });
+
+    test('titre avec caractères spéciaux', () {
+      final draft = domainTripDraft(title: 'Voyage à l\'aventure & découverte');
+      expect(
+        TripDraftMapper.toGQLInput(draft).title,
+        'Voyage à l\'aventure & découverte',
+      );
+    });
+
+    test('description longue est correctement mappée', () {
+      final longDesc = 'A' * 500; // 500 caractères
+      final draft = domainTripDraft(description: longDesc);
+      expect(
+        TripDraftMapper.toGQLInput(draft).description,
+        Value.present(longDesc),
+      );
+    });
   });
 
   // ---------------------------------------------------------------------------
@@ -115,6 +150,50 @@ void main() {
       expect(
         TripDraftMapper.toGQLUpdateInput(draft).date,
         Value.present('2025-03-15'),
+      );
+    });
+
+    test('titre vide est quand même présent (pour effacement)', () {
+      final draft = TripDraft(title: '');
+      expect(TripDraftMapper.toGQLUpdateInput(draft).title, Value.present(''));
+    });
+
+    test('plusieurs champs mis à jour simultanément', () {
+      final draft = TripDraft(
+        title: 'Nouveau titre',
+        description: 'Nouvelle description',
+        date: DateTime(2024, 7, 20),
+      );
+      final input = TripDraftMapper.toGQLUpdateInput(draft);
+
+      expect(input.title, Value.present('Nouveau titre'));
+      expect(input.description, Value.present('Nouvelle description'));
+      expect(input.date, Value.present('2024-07-20'));
+    });
+
+    test('mise à jour partielle - uniquement le titre', () {
+      final draft = TripDraft(title: 'Juste le titre');
+      final input = TripDraftMapper.toGQLUpdateInput(draft);
+
+      expect(input.title, Value.present('Juste le titre'));
+      expect(input.description, const Value<String>.present(null));
+      expect(input.date, const Value.absent());
+    });
+
+    test('effacement de la description (string vide → null)', () {
+      final draft = TripDraft(title: 'T', description: '');
+      expect(
+        TripDraftMapper.toGQLUpdateInput(draft).description,
+        const Value<String>.present(null),
+      );
+    });
+
+    test('effacement de la date impossible (absent si null)', () {
+      final draft = TripDraft(title: 'T', date: null);
+      // Pour la date, null → absent (pas Value.present(null))
+      expect(
+        TripDraftMapper.toGQLUpdateInput(draft).date,
+        const Value.absent(),
       );
     });
   });
