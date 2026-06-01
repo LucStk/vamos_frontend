@@ -5,6 +5,7 @@ class MapTileLayer extends StatelessWidget {
   const MapTileLayer({super.key});
   @override
   Widget build(BuildContext context) {
+    debugPrint("Maptitle Layer Rebuild");
     return TileLayer(
       urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       userAgentPackageName: 'com.example.vamos_cartographie',

@@ -25,6 +25,7 @@ class _MapViewState extends ConsumerState<MapView> {
 
   void _onMapTap(BuildContext context, LatLng latLng) {
     // _mapNotifier.startWaypointCreation(latLng);
+    debugPrint('tap');
     WaypointCreatorDialog.show(
       context: context,
       latLng: latLng,
@@ -55,7 +56,10 @@ class _MapViewState extends ConsumerState<MapView> {
       options: MapOptions(
         initialCenter: const LatLng(46.8, 2.2),
         initialZoom: 7,
-        // onTap: (_, latLng) => _onMapTap(context, latLng),
+        onTap: (_, latLng) => _onMapTap(context, latLng),
+        interactionOptions: const InteractionOptions(
+          flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
+        ),
       ),
       children: [MapTileLayer(), WaypointsLayer()],
     );

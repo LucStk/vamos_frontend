@@ -24,7 +24,6 @@ class WaypointFormDialog extends ConsumerStatefulWidget {
 
 class _WaypointFormDialogState extends ConsumerState<WaypointFormDialog> {
   final _editorKey = GlobalKey<WaypointEditorState>();
-
   bool _isSaving = false;
 
   Future<void> _submit() async {
@@ -62,6 +61,7 @@ class _WaypointFormDialogState extends ConsumerState<WaypointFormDialog> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("waypoint_form build");
     return DialogShell(
       constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
 

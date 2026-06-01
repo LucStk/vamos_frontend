@@ -17,8 +17,6 @@ class WaypointMarkerView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    debugPrint("REAL UI rebuild $waypointId");
-
     final waypointType = ref.watch(
       waypointProvider(tripId, waypointId).select((w) => (w?.type)),
     );

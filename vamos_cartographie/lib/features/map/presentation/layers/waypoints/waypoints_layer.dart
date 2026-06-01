@@ -9,8 +9,6 @@ class WaypointsLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    debugPrint('WaypointsLayer rebuild');
-
     final tripId = ref.watch(currentTripIdProvider);
     final waypointsIds = ref.watch(waypointIdsProvider(tripId));
 
