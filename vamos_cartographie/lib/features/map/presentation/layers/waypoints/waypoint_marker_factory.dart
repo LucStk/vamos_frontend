@@ -24,7 +24,7 @@ DragMarker buildMarker(
     size: const Size(36, 36),
     point: latLng,
     onDragEnd: (details, LatLng latLng) {
-      notifier.updateWaypointPositionLocal(waypointId, latLng);
+      notifier.updateWaypointPositionRemote(waypointId, latLng);
     },
     onDragUpdate: (DragUpdateDetails details, LatLng latLng) {
       // notifier.updateWaypointPositionLocal(waypointId, latLng);

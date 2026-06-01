@@ -45,13 +45,6 @@ class WaypointsStore extends _$WaypointsStore {
 
   // --- Mises à jour locales (Synchrones pour l'UI) ---
 
-  void updateWaypointPositionLocal(int waypointId, LatLng latLng) {
-    final waypoint = state[waypointId];
-    if (waypoint == null) return;
-
-    state = {...state, waypointId: waypoint.copyWith(latLng: latLng)};
-  }
-
   void _addWaypointLocal(Waypoint waypoint) {
     state = {...state, waypoint.id: waypoint};
   }
@@ -109,13 +102,24 @@ class WaypointsStore extends _$WaypointsStore {
   }
 
   Future<void> updateWaypointPositionRemote(
-    Waypoint waypoint,
+    int waypointId,
     LatLng latLng,
   ) async {
+    final waypoint = state[waypointId];
+    if (waypoint == null) {
+      throw Exception("WaypointNotifier -> waypointId not valid key");
+    }
     await updateWaypointRemote(
       waypoint.id,
       waypoint.copyWith(latLng: latLng).toDraft(),
     );
+  }
+
+  void updateWaypointPositionLocal(int waypointId, LatLng latLng) {
+    final waypoint = state[waypointId];
+    if (waypoint == null) return;
+
+    state = {...state, waypointId: waypoint.copyWith(latLng: latLng)};
   }
 
   Future<void> deleteWaypointRemote(int waypointId) async {
