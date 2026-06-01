@@ -5,7 +5,7 @@ import "package:vamos_cartographie/features/segments/domain/entities/segment.dar
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class SegmentMapper {
   /// Convertit un [GSegmentFieldsData] (fragment GQL) en [Segment] domaine.
-  static Segment fromGQL(GSegmentFieldsData data) => Segment(
+  static Segment fromGQL(GSegmentFields data) => Segment(
     id: data.id,
     type: data.type,
     intermediatePoints: data.intermediatePoints

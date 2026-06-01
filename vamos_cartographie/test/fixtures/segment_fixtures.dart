@@ -16,6 +16,7 @@ GSegmentFieldsData gSegmentData({
 
 /// Construit un [Segment] domaine minimal pour les tests.
 Segment domainSegment({
+  int id = 0,
   GSegmentTypeEnum type = GSegmentTypeEnum.bike,
   List<LatLng> intermediatePoints = const [],
-}) => Segment(type: type, intermediatePoints: intermediatePoints);
+}) => Segment(id: id, type: type, intermediatePoints: intermediatePoints);

@@ -43,7 +43,7 @@ TripDraft _domainTrip() => TripDraft(
     Waypoint(id: 1, latLng: const LatLng(1, 2), type: GWaypointEnum.START),
     Waypoint(id: 2, latLng: const LatLng(3, 4), type: GWaypointEnum.END),
   ],
-  segments: [Segment(type: GSegmentTypeEnum.bike)],
+  segments: [Segment(id: 1, type: GSegmentTypeEnum.bike)],
 );
 
 void main() {

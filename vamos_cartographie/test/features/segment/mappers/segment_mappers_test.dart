@@ -13,7 +13,7 @@ void main() {
   group('SegmentMapper.segmentFromGQL', () {
     test('mappe le type correctement', () {
       final gql = gSegmentData(type: GSegmentTypeEnum.walk);
-      final seg = SegmentMapper.segmentFromGQL(gql);
+      final seg = SegmentMapper.fromGQL(gql);
 
       expect(seg.type, GSegmentTypeEnum.walk);
     });
@@ -26,7 +26,7 @@ void main() {
           GSegmentFieldsData_intermediatePoints(lat: 45.5, lng: 3.5),
         ],
       );
-      final seg = SegmentMapper.segmentFromGQL(gql);
+      final seg = SegmentMapper.fromGQL(gql);
 
       expect(seg.intermediatePoints, hasLength(2));
       expect(seg.intermediatePoints[0], const LatLng(48.0, 2.0));
@@ -39,14 +39,14 @@ void main() {
         intermediatePoints: [],
         id: 1,
       );
-      final seg = SegmentMapper.segmentFromGQL(gql);
+      final seg = SegmentMapper.fromGQL(gql);
 
       expect(seg.intermediatePoints, isEmpty);
     });
 
     test('mappe le type train correctement', () {
       final gql = gSegmentData(type: GSegmentTypeEnum.train);
-      expect(SegmentMapper.segmentFromGQL(gql).type, GSegmentTypeEnum.train);
+      expect(SegmentMapper.fromGQL(gql).type, GSegmentTypeEnum.train);
     });
 
     test('les coordonnées lat/lng sont bien converties', () {
@@ -55,7 +55,7 @@ void main() {
           GSegmentFieldsData_intermediatePoints(lat: 43.296, lng: 5.381),
         ],
       );
-      final point = SegmentMapper.segmentFromGQL(gql).intermediatePoints.first;
+      final point = SegmentMapper.fromGQL(gql).intermediatePoints.first;
 
       expect(point.latitude, closeTo(43.296, 0.001));
       expect(point.longitude, closeTo(5.381, 0.001));
