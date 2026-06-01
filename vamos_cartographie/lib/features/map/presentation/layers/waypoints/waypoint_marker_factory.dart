@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
-import "extensions/waypoint_drag_marker_x.dart";
+import "waypoint_marker_view.dart";
 
 DragMarker buildMarker(
   WidgetRef ref,
@@ -11,21 +12,35 @@ DragMarker buildMarker(
   int tripId,
   int waypointId,
 ) {
-  final waypoint = ref.watch(waypointProvider(tripId, waypointId));
-
-  final notifier = ref.read(mapStateProvider(tripId).notifier);
-
-  if (waypoint == null) {
+  debugPrint("WaypointMaprker rebuild $waypointId");
+  final latLng = ref.watch(waypointLatLngProvider(tripId, waypointId));
+  final notifier = ref.read(waypointsStoreProvider(tripId).notifier);
+  if (latLng == null) {
     throw Exception('Waypoint not found');
   }
 
-  return waypoint.toDragMarker(
-    onDragUpdate: notifier.updateWaypointPositionLocal,
-    onDragEnd: notifier.updateWaypointPositionLocal,
+  return DragMarker(
+    key: ValueKey("marker_$waypointId"),
+    size: const Size(36, 36),
+    point: latLng,
+    onDragEnd: (details, LatLng latLng) {
+      notifier.updateWaypointPositionLocal(waypointId, latLng);
+    },
+    onDragUpdate: (DragUpdateDetails details, LatLng latLng) {
+      // notifier.updateWaypointPositionLocal(waypointId, latLng);
+    },
+    builder: (_, _, isDragging) {
+      return WaypointMarkerView(
+        key: ValueKey("marker_wp_view_$waypointId"),
+        waypointId: waypointId,
+        tripId: tripId,
+        isDragging: isDragging,
+      );
+    },
     onTap: (id) {
       WaypointViewerDialog.show(
         context: context,
-        waypointId: id,
+        waypointId: waypointId,
         tripId: tripId,
       );
     },

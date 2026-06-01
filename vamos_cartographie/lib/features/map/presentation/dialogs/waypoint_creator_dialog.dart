@@ -36,7 +36,7 @@ class WaypointCreatorDialog extends ConsumerWidget {
 
       onSubmit: (ref, editedWaypoint) async {
         await ref
-            .read(mapStateProvider(tripId).notifier)
+            .read(waypointsStoreProvider(tripId).notifier)
             .createWaypointRemote(editedWaypoint);
       },
     );

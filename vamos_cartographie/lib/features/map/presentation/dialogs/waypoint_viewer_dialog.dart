@@ -41,7 +41,7 @@ class WaypointViewerDialog extends ConsumerWidget {
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
       await ref
-          .read(mapStateProvider(tripId).notifier)
+          .read(waypointsStoreProvider(tripId).notifier)
           .deleteWaypointRemote(waypointId);
 
       // Sécurité Flutter obligatoire après un "await"
@@ -62,11 +62,8 @@ class WaypointViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(
-      mapStateProvider(tripId).select(
-        (state) => state.waypoints.firstWhereOrNull((w) => w.id == waypointId),
-      ),
-    );
+    final waypoint = ref.watch(waypointProvider(tripId, waypointId));
+
     if (waypoint == null) {
       return const SizedBox.shrink();
     }

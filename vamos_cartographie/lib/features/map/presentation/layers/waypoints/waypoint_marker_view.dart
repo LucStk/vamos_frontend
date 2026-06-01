@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
+import 'package:vamos_cartographie/features/map/application/applications.dart';
 
-class WaypointMarkerView extends StatelessWidget {
-  final Waypoint waypoint;
+class WaypointMarkerView extends ConsumerWidget {
+  final int waypointId;
+  final int tripId;
   final bool isDragging;
 
   const WaypointMarkerView({
     super.key,
-    required this.waypoint,
+    required this.waypointId,
+    required this.tripId,
     this.isDragging = false,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint("REAL UI rebuild $waypointId");
+
+    final waypointType = ref.watch(
+      waypointProvider(tripId, waypointId).select((w) => (w?.type)),
+    );
+    if (waypointType == null) {
+      throw Exception('WaypointMarkerViewError : Waypoint not found');
+    }
     return Container(
       decoration: BoxDecoration(
         color: isDragging
-            ? waypoint.type.color.withOpacity(0.7)
-            : waypoint.type.color,
+            ? waypointType.color.withOpacity(0.7)
+            : waypointType.color,
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
@@ -28,7 +40,7 @@ class WaypointMarkerView extends StatelessWidget {
           ),
         ],
       ),
-      child: Icon(waypoint.type.icon, color: Colors.white, size: 20),
+      child: Icon(waypointType.icon, color: Colors.white, size: 20),
     );
   }
 }

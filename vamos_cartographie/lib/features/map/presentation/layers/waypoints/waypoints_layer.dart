@@ -12,12 +12,7 @@ class WaypointsLayer extends ConsumerWidget {
     debugPrint('WaypointsLayer rebuild');
 
     final tripId = ref.watch(currentTripIdProvider);
-
-    final waypointsIds = ref.watch(
-      mapStateProvider(
-        tripId,
-      ).select((s) => s.waypoints.map((w) => w.id).toList()),
-    );
+    final waypointsIds = ref.watch(waypointIdsProvider(tripId));
 
     return DragMarkers(
       markers: waypointsIds.map((wId) {

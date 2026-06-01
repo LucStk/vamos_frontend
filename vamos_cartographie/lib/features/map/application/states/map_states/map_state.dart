@@ -10,7 +10,6 @@ part 'map_state.freezed.dart';
 abstract class MapState with _$MapState {
   const factory MapState({
     required int tripId,
-    @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Segment> segments,
     @Default([]) List<Waypoint> savedWaypoints,
     @Default([]) List<Segment> savedSegments,
@@ -19,13 +18,10 @@ abstract class MapState with _$MapState {
 
   const MapState._();
   bool get isDirty =>
-      !const DeepCollectionEquality().equals(waypoints, savedWaypoints) ||
       !const DeepCollectionEquality().equals(segments, savedSegments);
   factory MapState.fromTrip(Trip trip) {
     return MapState(
       tripId: trip.id,
-      savedWaypoints: List.unmodifiable(trip.waypoints),
-      waypoints: List.unmodifiable(trip.waypoints),
 
       savedSegments: List.unmodifiable(trip.segments),
       segments: List.unmodifiable(trip.segments),

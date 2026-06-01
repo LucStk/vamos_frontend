@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/map/application/applications.dart';
 
 class MenuCard extends StatelessWidget {
   // final LatLng position;
