@@ -88,10 +88,9 @@ class MockWaypointRepository implements IWaypointRepository {
         id: id,
         latLng: waypoint.latLng,
         type: waypoint.type,
-        title: waypoint.title ?? targetTrip.waypoints[waypointIndex].title,
-        description:
-            waypoint.description ??
-            targetTrip.waypoints[waypointIndex].description,
+        title: waypoint.title,
+        description: waypoint.description,
+        images: waypoint.images,
       );
 
       // 4. Cloner et mettre à jour la liste des waypoints de ce voyage

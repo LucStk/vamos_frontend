@@ -61,7 +61,6 @@ class _WaypointFormDialogState extends ConsumerState<WaypointFormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("waypoint_form build");
     return DialogShell(
       constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
 

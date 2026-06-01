@@ -25,7 +25,6 @@ class _MapViewState extends ConsumerState<MapView> {
 
   void _onMapTap(BuildContext context, LatLng latLng) {
     // _mapNotifier.startWaypointCreation(latLng);
-    debugPrint('tap');
     WaypointCreatorDialog.show(
       context: context,
       latLng: latLng,

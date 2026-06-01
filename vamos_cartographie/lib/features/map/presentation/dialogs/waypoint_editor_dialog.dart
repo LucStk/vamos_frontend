@@ -41,6 +41,7 @@ class WaypointEditorDialog extends ConsumerWidget {
       successMessage: 'Waypoint mis à jour',
 
       onSubmit: (ref, editedWaypoint) async {
+        debugPrint("edited : $editedWaypoint");
         await ref
             .read(waypointsStoreProvider(tripId).notifier)
             .updateWaypointRemote(waypointId, editedWaypoint);
