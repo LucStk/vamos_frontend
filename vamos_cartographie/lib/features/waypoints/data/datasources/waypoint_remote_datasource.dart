@@ -10,6 +10,19 @@ class WaypointRemoteDatasource {
 
   WaypointRemoteDatasource(this.client);
 
+  Future<List<GWaypointFields>> getWaypoints({required int tripId}) async {
+    final req = GGetWaypointsReq(vars: GGetWaypointsVars(tripId: tripId));
+    final response = await client.request(req).first;
+
+    if (response.hasErrors || response.data == null) {
+      throw Exception(
+        response.graphqlErrors?.first.message ??
+            'Erreur dans le get des waypoints du trip',
+      );
+    }
+    return response.data!.trip.waypoints;
+  }
+
   Future<GWaypointFields> createWaypoint({
     required int tripId,
     required GWaypointCreateInput input,

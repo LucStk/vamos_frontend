@@ -1,0 +1,13 @@
+#import "../../trips/fragments/trip_fields.graphql"
+#import "../fragments/waypoint_fields.graphql"
+
+#import "../../segments/fragments/segment_fields.graphql"
+
+query GetWaypoints($tripId: Int!) {
+    trip(id: $tripId) {
+        ...TripFields
+        waypoints {
+            ...WaypointFields
+        }
+    }
+}

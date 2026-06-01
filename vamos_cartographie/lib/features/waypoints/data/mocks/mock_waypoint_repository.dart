@@ -12,6 +12,17 @@ class MockWaypointRepository implements IWaypointRepository {
   static const _delay = Duration(milliseconds: 300);
 
   MockWaypointRepository(this._tripRepository);
+  @override
+  Future<Either<Failure, List<Waypoint>>> getWaypoints(int tripId) async {
+    // 1. Récupérer tous les voyages pour trouver celui correspont au tripId
+    final tripsResult = await _tripRepository.getAllTrips();
+
+    return tripsResult.fold((failure) => Left(failure), (trips) async {
+      final Trip trip = trips.where((t) => t.id == tripId).first;
+      // 6. Retourner le waypoint modifié si tout s'est bien passé
+      return Right(trip.waypoints);
+    });
+  }
 
   @override
   Future<Either<Failure, Waypoint>> createWaypoint(

@@ -11,6 +11,20 @@ class WaypointRepository implements IWaypointRepository {
   final WaypointRemoteDatasource remote;
 
   WaypointRepository(this.remote);
+
+  @override
+  Future<Either<Failure, List<Waypoint>>> getWaypoints(int tripId) async {
+    try {
+      final waypoints = await remote.getWaypoints(tripId: tripId);
+      final ret = waypoints.map(WaypointMapper.fromGQL).toList();
+      return Right(ret);
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    } catch (_) {
+      return Left(const ConnectionFailure());
+    }
+  }
+
   @override
   Future<Either<Failure, Waypoint>> createWaypoint(
     int tripId,

@@ -5,8 +5,9 @@ import 'package:get_it/get_it.dart';
 import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
+import 'package:flutter/material.dart';
+
 part 'waypoints_notifier.g.dart';
 
 final getIt = GetIt.instance;
@@ -24,16 +25,22 @@ class WaypointsStore extends _$WaypointsStore {
   Map<int, Waypoint> build(int tripId) {
     repository = ref.read(_waypointRepositoryProvider);
 
-    // On récupère le trip initial pour peupler le store de waypoints normé
-    final trip = ref.read(tripProvider(tripId));
-    if (trip == null) {
-      throw Exception(
-        'Trip introuvable lors de l\'initialisation des waypoints',
-      );
-    }
+    _load(tripId);
 
-    // Transformation de la liste de départ en Map (id -> Waypoint)
-    return {for (var w in trip.waypoints) w.id: w};
+    return {};
+  }
+
+  Future<void> _load(int tripId) async {
+    final result = await repository.getWaypoints(tripId);
+
+    result.fold(
+      (failure) {
+        debugPrint('load failed');
+      },
+      (waypoints) {
+        state = {for (final w in waypoints) w.id: w};
+      },
+    );
   }
 
   // --- Mises à jour locales (Synchrones pour l'UI) ---

@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.d
 // import 'dart:io';
 
 abstract class IWaypointRepository {
+  Future<Either<Failure, List<Waypoint>>> getWaypoints(int tripId);
   Future<Either<Failure, Waypoint>> createWaypoint(
     int tripId,
     WaypointDraft waypoint,
