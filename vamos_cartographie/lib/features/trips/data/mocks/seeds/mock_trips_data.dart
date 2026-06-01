@@ -1,9 +1,6 @@
 import 'package:vamos_cartographie/graphql/graphql.dart';
-import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 

@@ -23,13 +23,4 @@ class MockUploadImgRepository implements UploadImgRepository {
       MediaImage(fileKey: fileKey, url: "https://picsum.photos/seed/$fileKey"),
     );
   }
-
-  @override
-  Future<Either<Failure, void>> attachImageToTrip({
-    required int tripId,
-    required String fileKey,
-  }) async {
-    // En mode mock, on simule simplement un succès immédiat.
-    return const Right(null);
-  }
 }

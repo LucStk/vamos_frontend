@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
-import 'package:vamos_cartographie/features/map/application/applications.dart';
 
 import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
+import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
 
 class WaypointMarkerView extends ConsumerWidget {
   final int waypointId;
   final int tripId;
   final bool isDragging;
+  final GWaypointEnum type;
 
   const WaypointMarkerView({
     super.key,
     required this.waypointId,
     required this.tripId,
+    required this.type,
     this.isDragging = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypointType = ref.watch(
-      waypointProvider(tripId, waypointId).select((w) => (w?.type)),
-    );
-    if (waypointType == null) {
-      throw Exception('WaypointMarkerViewError : Waypoint not found');
-    }
     return GestureDetector(
       onDoubleTap: () {
         WaypointViewerDialog.show(
@@ -35,9 +31,7 @@ class WaypointMarkerView extends ConsumerWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isDragging
-              ? waypointType.color.withOpacity(0.7)
-              : waypointType.color,
+          color: isDragging ? type.color.withOpacity(0.7) : type.color,
           shape: BoxShape.circle,
           border: Border.all(color: Colors.white, width: 2),
           boxShadow: [
@@ -48,7 +42,7 @@ class WaypointMarkerView extends ConsumerWidget {
             ),
           ],
         ),
-        child: Icon(waypointType.icon, color: Colors.white, size: 20),
+        child: Icon(type.icon, color: Colors.white, size: 20),
       ),
     );
   }

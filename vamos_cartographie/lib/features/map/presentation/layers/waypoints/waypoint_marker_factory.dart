@@ -13,6 +13,9 @@ DragMarker buildMarker(
 ) {
   debugPrint("WaypointMarker rebuild $waypointId");
   final latLng = ref.watch(waypointLatLngProvider(tripId, waypointId));
+  final type = ref.watch(
+    waypointProvider(tripId, waypointId).select((w) => (w?.type)),
+  );
   final notifier = ref.read(waypointsStoreProvider(tripId).notifier);
   if (latLng == null) {
     throw Exception('Waypoint not found');
@@ -34,6 +37,7 @@ DragMarker buildMarker(
         waypointId: waypointId,
         tripId: tripId,
         isDragging: isDragging,
+        type: type!,
       );
     },
     // onTap: (id) {

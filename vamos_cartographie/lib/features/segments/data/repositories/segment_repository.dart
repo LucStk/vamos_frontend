@@ -5,8 +5,6 @@ import 'package:vamos_cartographie/features/segments/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/segments/domain/entities/entities.dart';
 import 'i_segment_repository.dart';
 
-import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-
 class SegmentRepository implements ISegmentRepository {
   final SegmentRemoteDatasource remote;
 

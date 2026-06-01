@@ -14,7 +14,6 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/core/network/graphql/ferry_client.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────

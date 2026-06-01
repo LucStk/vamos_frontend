@@ -40,7 +40,7 @@ class _MapScreenView extends ConsumerWidget {
             },
             onSave: () {
               throw Exception("Implémenter onSave de HandleBackDialog");
-              if (context.mounted) Navigator.of(context).pop();
+              // if (context.mounted) Navigator.of(context).pop();
             },
           );
         }

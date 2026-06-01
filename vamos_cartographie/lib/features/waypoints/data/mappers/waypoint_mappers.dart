@@ -1,5 +1,4 @@
 import 'package:vamos_cartographie/graphql/graphql.dart';
-import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 
