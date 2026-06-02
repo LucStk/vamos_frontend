@@ -1,7 +1,6 @@
 // Importe tes fichiers générés par Ferry en haut
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 // Remplace par le bon package de ton projet (ex: google_maps_flutter ou latlong2)
 
@@ -22,6 +21,9 @@ abstract class Segment with _$Segment {
     ...intermediatePoints,
     to,
   ];
+  SegmentDraft toDraft() {
+    return SegmentDraft(type: type, intermediatePoints: intermediatePoints);
+  }
 }
 
 @freezed
@@ -38,4 +40,7 @@ abstract class SegmentDraft with _$SegmentDraft {
     ...intermediatePoints,
     to,
   ];
+  Segment toSegment(int id) {
+    return Segment(id: id, type: type, intermediatePoints: intermediatePoints);
+  }
 }

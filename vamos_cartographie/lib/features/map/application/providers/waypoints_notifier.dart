@@ -1,16 +1,13 @@
 // features/waypoints/presentation/providers/waypoints_notifier.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:get_it/get_it.dart';
 import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:flutter/material.dart';
-
+import 'package:vamos_cartographie/core/injection.dart';
 part 'waypoints_notifier.g.dart';
-
-final getIt = GetIt.instance;
 
 @riverpod
 IWaypointRepository _waypointRepository(Ref ref) {

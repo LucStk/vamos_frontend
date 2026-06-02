@@ -55,5 +55,5 @@ class MenuCard extends StatelessWidget {
     );
   }
 
-  String _format(double value) => value.toStringAsFixed(5);
+  // String _format(double value) => value.toStringAsFixed(5);
 }

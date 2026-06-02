@@ -60,7 +60,7 @@ class _MapViewState extends ConsumerState<MapView> {
           flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
         ),
       ),
-      children: [MapTileLayer(), WaypointsLayer()],
+      children: [MapTileLayer(), WaypointsLayer(), SegmentsLayer()],
     );
   }
 }

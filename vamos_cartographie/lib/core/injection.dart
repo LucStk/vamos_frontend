@@ -1,5 +1,7 @@
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
+import 'package:vamos_cartographie/features/segments/data/mocks/mock_segment_repository.dart';
+import 'package:vamos_cartographie/features/segments/data/repositories/i_segment_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/data/data.dart';
 import 'network/graphql/ferry_client.dart';
 import 'package:vamos_cartographie/core/config.dart';
@@ -9,6 +11,7 @@ import 'package:vamos_cartographie/features/trips/data/repositories/trip_reposit
 import 'package:vamos_cartographie/features/media/media.dart';
 import 'package:vamos_cartographie/features/trips/data/mocks/mock_trip_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mocks/mock_waypoint_repository.dart';
+import 'package:vamos_cartographie/features/segments/segments.dart';
 
 final getIt = GetIt.instance;
 
@@ -27,9 +30,9 @@ Future<void> configureDependencies({Client? client}) async {
     getIt.registerLazySingleton<IWaypointRepository>(
       () => MockWaypointRepository(getIt<ITripRepository>()),
     );
-    // getIt.registerLazySingleton<AppConfig>(
-    // () => const AppConfig(imageBaseUrl: "https://picsum.photos/seed/"),
-    // );
+    getIt.registerLazySingleton<ISegmentRepository>(
+      () => MockSegmentRepository(getIt<ITripRepository>()),
+    );
   } else {
     // Mode production : client fourni par l'appelant, ou client par défaut
     final ferryClient =
@@ -50,8 +53,11 @@ Future<void> configureDependencies({Client? client}) async {
     getIt.registerLazySingleton<IWaypointRepository>(
       () => WaypointRepository(getIt<WaypointRemoteDatasource>()),
     );
-    // getIt.registerLazySingleton<AppConfig>(
-    //   () => const AppConfig(imageBaseUrl: ""),
-    // );
+    getIt.registerLazySingleton<SegmentRemoteDatasource>(
+      () => SegmentRemoteDatasource(getIt<Client>()),
+    );
+    getIt.registerLazySingleton<ISegmentRepository>(
+      () => SegmentRepository(getIt<SegmentRemoteDatasource>()),
+    );
   }
 }
