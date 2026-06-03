@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/segments/markers/segment_type_marker_view.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/waypoints/waypoint_marker_factory.dart';
 import "segment_line_factory.dart";
 import "segment_type_marker_factory.dart";
 

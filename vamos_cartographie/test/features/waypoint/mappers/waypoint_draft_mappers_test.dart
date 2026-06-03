@@ -2,7 +2,6 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_draft_mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
-import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/waypoint_fixtures.dart';
 

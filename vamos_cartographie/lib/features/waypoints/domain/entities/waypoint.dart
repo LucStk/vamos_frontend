@@ -1,7 +1,6 @@
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
-import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'waypoint.freezed.dart';

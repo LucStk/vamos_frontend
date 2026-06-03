@@ -1,5 +1,4 @@
 // Importe tes fichiers générés par Ferry en haut
-import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import "../types/segment_type.dart";
