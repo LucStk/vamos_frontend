@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
 import "package:vamos_cartographie/features/segments/segments.dart";
 
 Polyline? buildLine(
@@ -13,14 +10,11 @@ Polyline? buildLine(
   int tripId,
   int segmentId,
 ) {
+  final points = ref.watch(segmentPolylinePointsProvider(tripId, segmentId));
   final type = ref.watch(
     segmentProvider(tripId, segmentId).select((s) => s?.type),
   );
-
-  final points = ref.watch(segmentPointsProvider(tripId, segmentId));
-
-  if (points == null || points.isEmpty || type == null) {
-    debugPrint("Segment $segmentId ignoré : points vides");
+  if (type == null || points == null || points.length < 2) {
     return null;
   }
 

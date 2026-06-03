@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/segments/markers/segment_type_marker_view.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/waypoints/waypoint_marker_factory.dart';
 import "segment_line_factory.dart";
+import "segment_type_marker_factory.dart";
 
 class SegmentsLayer extends ConsumerWidget {
   const SegmentsLayer({super.key});
@@ -17,46 +20,28 @@ class SegmentsLayer extends ConsumerWidget {
       return const SizedBox.shrink();
     }
 
-    final polylines = segmentsIds
-        .map((sId) => buildLine(ref, context, tripId, sId))
-        .whereType<Polyline>()
-        .toList();
+    final List<Polyline> polylines = [];
+    final List<Marker> typeMarkers = [];
+
+    for (int segmentId in segmentsIds) {
+      var line = buildLine(ref, context, tripId, segmentId);
+      if (line != null) polylines.add(line);
+      var typeMarker = buildTypeMarker(ref, context, tripId, segmentId);
+      if (typeMarker != null && typeMarker.isNotEmpty) {
+        typeMarkers.addAll(typeMarker);
+      }
+    }
 
     if (polylines.isEmpty) {
       return const SizedBox.shrink();
     }
+    debugPrint("list type Markers $typeMarkers");
 
-    return PolylineLayer(polylines: polylines);
+    return Stack(
+      children: [
+        PolylineLayer(polylines: polylines),
+        MarkerLayer(markers: typeMarkers),
+      ],
+    );
   }
-  // static List<Widget> buildLayers(Trip trip) {
-  //   final layers = <Widget>[];
-
-  //   for (var i = 0; i < trip.segments.length; i++) {
-  //     final seg = trip.segments[i];
-  //     final points = trip.segmentPoints(i);
-
-  //     // TODO: Implémenter la détection de tap sur les segments
-  //     // Options possibles :
-  //     // 1. Utiliser des marqueurs invisibles le long du segment
-  //     // 2. Calculer la distance du tap par rapport aux lignes dans onTap
-  //     // 3. Utiliser un package tiers pour la détection de tap sur polylines
-
-  //     layers.add(
-  //       PolylineLayer(
-  //         polylines: [
-  //           Polyline(
-  //             points: points,
-  //             color: seg.type.color,
-  //             strokeWidth: 5,
-  //             pattern: seg.type.isDashed
-  //                 ? StrokePattern.dashed(segments: const [12, 8])
-  //                 : const StrokePattern.solid(),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   }
-
-  //   return layers;
-  // }
 }

@@ -18,39 +18,12 @@ class IntermediatePoints extends DragMarker {
   }) : super(
          point: point,
          size: isGhost ? const Size(18, 18) : const Size(24, 24),
-         builder: (_, __, isDragging) =>
-             _buildIcon(segmentType, isDragging, isGhost),
+         builder: (_, __, isDragging) {},
+         // _buildIcon(segmentType, isDragging, isGhost),
          onDragStart: onDragStartCallback,
          onDragUpdate: onDragUpdateCallback,
          onDragEnd: onDragEndCallback,
          onLongPress: onLongPressCallback,
          onTap: onTapCallback,
        );
-
-  static Widget _buildIcon(
-    GSegmentTypeEnum type,
-    bool isDragging,
-    bool isGhost,
-  ) {
-    if (isGhost && !isDragging) {
-      // Icône fantôme
-      return Container(
-        decoration: BoxDecoration(
-          color: type.color.withOpacity(0.3),
-          shape: BoxShape.circle,
-          border: Border.all(color: type.color.withOpacity(0.6), width: 1),
-        ),
-      );
-    } else {
-      // Icône intermédiaire normale ou fantôme en cours de drag
-      return Container(
-        decoration: BoxDecoration(
-          color: isDragging ? type.color : type.color.withOpacity(0.7),
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.white, width: 1.5),
-        ),
-        child: Icon(Icons.circle, color: Colors.white, size: 10),
-      );
-    }
-  }
 }

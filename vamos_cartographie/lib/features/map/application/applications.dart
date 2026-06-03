@@ -3,3 +3,4 @@ export 'package:vamos_cartographie/features/map/application/states/states.dart';
 export 'package:vamos_cartographie/features/map/application/providers/map_notifier.dart';
 export 'providers/waypoints_notifier.dart';
 export 'providers/segments_notifier.dart';
+export 'providers/segments_polyline_notifier.dart';
