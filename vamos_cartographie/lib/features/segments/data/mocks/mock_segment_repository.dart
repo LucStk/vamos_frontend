@@ -40,6 +40,8 @@ class MockSegmentRepository implements ISegmentRepository {
         id: trip.segments.length,
         type: segment.type,
         intermediatePoints: segment.intermediatePoints,
+        startWaypointId: segment.startWaypointId,
+        endWaypointId: segment.endWaypointId,
       );
 
       // 4. Ajouter le Segment dans la liste
@@ -92,6 +94,8 @@ class MockSegmentRepository implements ISegmentRepository {
         id: id,
         type: segment.type,
         intermediatePoints: segment.intermediatePoints,
+        startWaypointId: segment.startWaypointId,
+        endWaypointId: segment.endWaypointId,
       );
 
       // 4. Cloner et mettre à jour la liste des segments de ce voyage

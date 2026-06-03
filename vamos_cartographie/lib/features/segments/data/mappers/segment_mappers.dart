@@ -11,5 +11,7 @@ class SegmentMapper {
     intermediatePoints: data.intermediatePoints
         .map((p) => LatLng(p.lat, p.lng))
         .toList(),
+    startWaypointId: data.startWaypoint.id,
+    endWaypointId: data.endWaypoint.id,
   );
 }

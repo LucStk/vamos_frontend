@@ -38,6 +38,8 @@ void main() {
         type: GSegmentTypeEnum.car,
         intermediatePoints: [],
         id: 1,
+        startWaypoint: GSegmentFieldsData_startWaypoint(id: 0),
+        endWaypoint: GSegmentFieldsData_endWaypoint(id: 1),
       );
       final seg = SegmentMapper.fromGQL(gql);
 
@@ -124,6 +126,8 @@ void main() {
         id: 42,
         type: GSegmentTypeEnum.bike,
         intermediatePoints: [],
+        startWaypoint: GSegmentFieldsData_startWaypoint(id: 0),
+        endWaypoint: GSegmentFieldsData_endWaypoint(id: 1),
       );
       final seg = SegmentMapper.fromGQL(gql);
 

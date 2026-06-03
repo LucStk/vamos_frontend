@@ -54,12 +54,16 @@ type Query {
 
 input SegmentCreateInput {
   type: SegmentTypeEnum!
-  intermediatePoints: [LatLngInput!]!
+  startWaypointId: Int!
+  endWaypointId: Int!
+  intermediatePoints: [LatLngInput!]! = []
 }
 
 type SegmentType {
   id: Int!
   type: SegmentTypeEnum!
+  startWaypoint: WaypointType!
+  endWaypoint: WaypointType!
   intermediatePoints: [LatLngType!]!
 }
 
@@ -73,6 +77,8 @@ enum SegmentTypeEnum {
 
 input SegmentUpdateInput {
   type: SegmentTypeEnum
+  startWaypointId: Int
+  endWaypointId: Int
   intermediatePoints: [LatLngInput!]
 }
 

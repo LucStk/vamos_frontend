@@ -10,37 +10,52 @@ part 'segment.freezed.dart';
 abstract class Segment with _$Segment {
   const factory Segment({
     required int id,
+    required int startWaypointId,
+    required int endWaypointId,
     @Default(GSegmentTypeEnum.bike) GSegmentTypeEnum type,
     @Default([]) List<LatLng> intermediatePoints,
   }) = _Segment;
 
   const Segment._();
 
-  List<LatLng> allPoints(LatLng from, LatLng to) => [
-    from,
-    ...intermediatePoints,
-    to,
-  ];
+  // List<LatLng> allPoints(LatLng from, LatLng to) => [
+  //   from,
+  //   ...intermediatePoints,
+  //   to,
+  // ];
   SegmentDraft toDraft() {
-    return SegmentDraft(type: type, intermediatePoints: intermediatePoints);
+    return SegmentDraft(
+      type: type,
+      intermediatePoints: intermediatePoints,
+      startWaypointId: startWaypointId,
+      endWaypointId: endWaypointId,
+    );
   }
 }
 
 @freezed
 abstract class SegmentDraft with _$SegmentDraft {
   const factory SegmentDraft({
+    required int startWaypointId,
+    required int endWaypointId,
     @Default(GSegmentTypeEnum.bike) GSegmentTypeEnum type,
     @Default([]) List<LatLng> intermediatePoints,
   }) = _SegmentDraft;
 
   const SegmentDraft._();
 
-  List<LatLng> allPoints(LatLng from, LatLng to) => [
-    from,
-    ...intermediatePoints,
-    to,
-  ];
+  // List<LatLng> allPoints(LatLng from, LatLng to) => [
+  //   from,
+  //   ...intermediatePoints,
+  //   to,
+  // ];
   Segment toSegment(int id) {
-    return Segment(id: id, type: type, intermediatePoints: intermediatePoints);
+    return Segment(
+      id: id,
+      type: type,
+      intermediatePoints: intermediatePoints,
+      startWaypointId: startWaypointId,
+      endWaypointId: endWaypointId,
+    );
   }
 }

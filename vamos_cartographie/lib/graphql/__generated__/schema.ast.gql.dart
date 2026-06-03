@@ -544,6 +544,24 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'startWaypointId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'endWaypointId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'intermediatePoints'),
       directives: [],
       type: _i1.ListTypeNode(
@@ -553,7 +571,7 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
         ),
         isNonNull: true,
       ),
-      defaultValue: null,
+      defaultValue: _i1.ListValueNode(values: []),
     ),
   ],
 );
@@ -577,6 +595,24 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'SegmentTypeEnum'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'startWaypoint'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'WaypointType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'endWaypoint'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'WaypointType'),
         isNonNull: true,
       ),
     ),
@@ -629,6 +665,24 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'SegmentTypeEnum'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'startWaypointId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'endWaypointId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
         isNonNull: false,
       ),
       defaultValue: null,

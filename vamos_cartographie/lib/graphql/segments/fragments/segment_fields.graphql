@@ -1,8 +1,14 @@
 fragment SegmentFields on SegmentType {
+    id
     type
     intermediatePoints {
         lat
         lng
     }
-    id
+    startWaypoint {
+        id
+    }
+    endWaypoint {
+        id
+    }
 }

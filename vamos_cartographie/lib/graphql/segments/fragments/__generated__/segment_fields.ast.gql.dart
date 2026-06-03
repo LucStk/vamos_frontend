@@ -14,6 +14,13 @@ const SegmentFields = _i1.FragmentDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
+      name: _i1.NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
       name: _i1.NameNode(value: 'type'),
       alias: null,
       arguments: [],
@@ -50,11 +57,48 @@ const SegmentFields = _i1.FragmentDefinitionNode(
       ]),
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'id'),
+      name: _i1.NameNode(value: 'startWaypoint'),
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'endWaypoint'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: '__typename'),

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Segment {
 
- int get id; GSegmentTypeEnum get type; List<LatLng> get intermediatePoints;
+ int get id; int get startWaypointId; int get endWaypointId; GSegmentTypeEnum get type; List<LatLng> get intermediatePoints;
 /// Create a copy of Segment
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SegmentCopyWith<Segment> get copyWith => _$SegmentCopyWithImpl<Segment>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Segment&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other.intermediatePoints, intermediatePoints));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Segment&&(identical(other.id, id) || other.id == id)&&(identical(other.startWaypointId, startWaypointId) || other.startWaypointId == startWaypointId)&&(identical(other.endWaypointId, endWaypointId) || other.endWaypointId == endWaypointId)&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other.intermediatePoints, intermediatePoints));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(intermediatePoints));
+int get hashCode => Object.hash(runtimeType,id,startWaypointId,endWaypointId,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(intermediatePoints));
 
 @override
 String toString() {
-  return 'Segment(id: $id, type: $type, intermediatePoints: $intermediatePoints)';
+  return 'Segment(id: $id, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, type: $type, intermediatePoints: $intermediatePoints)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SegmentCopyWith<$Res>  {
   factory $SegmentCopyWith(Segment value, $Res Function(Segment) _then) = _$SegmentCopyWithImpl;
 @useResult
 $Res call({
- int id, GSegmentTypeEnum type, List<LatLng> intermediatePoints
+ int id, int startWaypointId, int endWaypointId, GSegmentTypeEnum type, List<LatLng> intermediatePoints
 });
 
 
@@ -62,9 +62,11 @@ class _$SegmentCopyWithImpl<$Res>
 
 /// Create a copy of Segment
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = freezed,Object? intermediatePoints = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startWaypointId = null,Object? endWaypointId = null,Object? type = freezed,Object? intermediatePoints = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,startWaypointId: null == startWaypointId ? _self.startWaypointId : startWaypointId // ignore: cast_nullable_to_non_nullable
+as int,endWaypointId: null == endWaypointId ? _self.endWaypointId : endWaypointId // ignore: cast_nullable_to_non_nullable
 as int,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as GSegmentTypeEnum,intermediatePoints: null == intermediatePoints ? _self.intermediatePoints : intermediatePoints // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,
@@ -152,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int startWaypointId,  int endWaypointId,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Segment() when $default != null:
-return $default(_that.id,_that.type,_that.intermediatePoints);case _:
+return $default(_that.id,_that.startWaypointId,_that.endWaypointId,_that.type,_that.intermediatePoints);case _:
   return orElse();
 
 }
@@ -173,10 +175,10 @@ return $default(_that.id,_that.type,_that.intermediatePoints);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int startWaypointId,  int endWaypointId,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)  $default,) {final _that = this;
 switch (_that) {
 case _Segment():
-return $default(_that.id,_that.type,_that.intermediatePoints);case _:
+return $default(_that.id,_that.startWaypointId,_that.endWaypointId,_that.type,_that.intermediatePoints);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +195,10 @@ return $default(_that.id,_that.type,_that.intermediatePoints);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int startWaypointId,  int endWaypointId,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,) {final _that = this;
 switch (_that) {
 case _Segment() when $default != null:
-return $default(_that.id,_that.type,_that.intermediatePoints);case _:
+return $default(_that.id,_that.startWaypointId,_that.endWaypointId,_that.type,_that.intermediatePoints);case _:
   return null;
 
 }
@@ -208,10 +210,12 @@ return $default(_that.id,_that.type,_that.intermediatePoints);case _:
 
 
 class _Segment extends Segment {
-  const _Segment({required this.id, this.type = GSegmentTypeEnum.bike, final  List<LatLng> intermediatePoints = const []}): _intermediatePoints = intermediatePoints,super._();
+  const _Segment({required this.id, required this.startWaypointId, required this.endWaypointId, this.type = GSegmentTypeEnum.bike, final  List<LatLng> intermediatePoints = const []}): _intermediatePoints = intermediatePoints,super._();
   
 
 @override final  int id;
+@override final  int startWaypointId;
+@override final  int endWaypointId;
 @override@JsonKey() final  GSegmentTypeEnum type;
  final  List<LatLng> _intermediatePoints;
 @override@JsonKey() List<LatLng> get intermediatePoints {
@@ -231,16 +235,16 @@ _$SegmentCopyWith<_Segment> get copyWith => __$SegmentCopyWithImpl<_Segment>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Segment&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other._intermediatePoints, _intermediatePoints));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Segment&&(identical(other.id, id) || other.id == id)&&(identical(other.startWaypointId, startWaypointId) || other.startWaypointId == startWaypointId)&&(identical(other.endWaypointId, endWaypointId) || other.endWaypointId == endWaypointId)&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other._intermediatePoints, _intermediatePoints));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(_intermediatePoints));
+int get hashCode => Object.hash(runtimeType,id,startWaypointId,endWaypointId,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(_intermediatePoints));
 
 @override
 String toString() {
-  return 'Segment(id: $id, type: $type, intermediatePoints: $intermediatePoints)';
+  return 'Segment(id: $id, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, type: $type, intermediatePoints: $intermediatePoints)';
 }
 
 
@@ -251,7 +255,7 @@ abstract mixin class _$SegmentCopyWith<$Res> implements $SegmentCopyWith<$Res> {
   factory _$SegmentCopyWith(_Segment value, $Res Function(_Segment) _then) = __$SegmentCopyWithImpl;
 @override @useResult
 $Res call({
- int id, GSegmentTypeEnum type, List<LatLng> intermediatePoints
+ int id, int startWaypointId, int endWaypointId, GSegmentTypeEnum type, List<LatLng> intermediatePoints
 });
 
 
@@ -268,9 +272,11 @@ class __$SegmentCopyWithImpl<$Res>
 
 /// Create a copy of Segment
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = freezed,Object? intermediatePoints = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startWaypointId = null,Object? endWaypointId = null,Object? type = freezed,Object? intermediatePoints = null,}) {
   return _then(_Segment(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,startWaypointId: null == startWaypointId ? _self.startWaypointId : startWaypointId // ignore: cast_nullable_to_non_nullable
+as int,endWaypointId: null == endWaypointId ? _self.endWaypointId : endWaypointId // ignore: cast_nullable_to_non_nullable
 as int,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as GSegmentTypeEnum,intermediatePoints: null == intermediatePoints ? _self._intermediatePoints : intermediatePoints // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,
@@ -283,7 +289,7 @@ as List<LatLng>,
 /// @nodoc
 mixin _$SegmentDraft {
 
- GSegmentTypeEnum get type; List<LatLng> get intermediatePoints;
+ int get startWaypointId; int get endWaypointId; GSegmentTypeEnum get type; List<LatLng> get intermediatePoints;
 /// Create a copy of SegmentDraft
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -294,16 +300,16 @@ $SegmentDraftCopyWith<SegmentDraft> get copyWith => _$SegmentDraftCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentDraft&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other.intermediatePoints, intermediatePoints));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentDraft&&(identical(other.startWaypointId, startWaypointId) || other.startWaypointId == startWaypointId)&&(identical(other.endWaypointId, endWaypointId) || other.endWaypointId == endWaypointId)&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other.intermediatePoints, intermediatePoints));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(intermediatePoints));
+int get hashCode => Object.hash(runtimeType,startWaypointId,endWaypointId,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(intermediatePoints));
 
 @override
 String toString() {
-  return 'SegmentDraft(type: $type, intermediatePoints: $intermediatePoints)';
+  return 'SegmentDraft(startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, type: $type, intermediatePoints: $intermediatePoints)';
 }
 
 
@@ -314,7 +320,7 @@ abstract mixin class $SegmentDraftCopyWith<$Res>  {
   factory $SegmentDraftCopyWith(SegmentDraft value, $Res Function(SegmentDraft) _then) = _$SegmentDraftCopyWithImpl;
 @useResult
 $Res call({
- GSegmentTypeEnum type, List<LatLng> intermediatePoints
+ int startWaypointId, int endWaypointId, GSegmentTypeEnum type, List<LatLng> intermediatePoints
 });
 
 
@@ -331,9 +337,11 @@ class _$SegmentDraftCopyWithImpl<$Res>
 
 /// Create a copy of SegmentDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = freezed,Object? intermediatePoints = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? startWaypointId = null,Object? endWaypointId = null,Object? type = freezed,Object? intermediatePoints = null,}) {
   return _then(_self.copyWith(
-type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+startWaypointId: null == startWaypointId ? _self.startWaypointId : startWaypointId // ignore: cast_nullable_to_non_nullable
+as int,endWaypointId: null == endWaypointId ? _self.endWaypointId : endWaypointId // ignore: cast_nullable_to_non_nullable
+as int,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as GSegmentTypeEnum,intermediatePoints: null == intermediatePoints ? _self.intermediatePoints : intermediatePoints // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,
   ));
@@ -420,10 +428,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int startWaypointId,  int endWaypointId,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SegmentDraft() when $default != null:
-return $default(_that.type,_that.intermediatePoints);case _:
+return $default(_that.startWaypointId,_that.endWaypointId,_that.type,_that.intermediatePoints);case _:
   return orElse();
 
 }
@@ -441,10 +449,10 @@ return $default(_that.type,_that.intermediatePoints);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( GSegmentTypeEnum type,  List<LatLng> intermediatePoints)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int startWaypointId,  int endWaypointId,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)  $default,) {final _that = this;
 switch (_that) {
 case _SegmentDraft():
-return $default(_that.type,_that.intermediatePoints);case _:
+return $default(_that.startWaypointId,_that.endWaypointId,_that.type,_that.intermediatePoints);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -461,10 +469,10 @@ return $default(_that.type,_that.intermediatePoints);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int startWaypointId,  int endWaypointId,  GSegmentTypeEnum type,  List<LatLng> intermediatePoints)?  $default,) {final _that = this;
 switch (_that) {
 case _SegmentDraft() when $default != null:
-return $default(_that.type,_that.intermediatePoints);case _:
+return $default(_that.startWaypointId,_that.endWaypointId,_that.type,_that.intermediatePoints);case _:
   return null;
 
 }
@@ -476,9 +484,11 @@ return $default(_that.type,_that.intermediatePoints);case _:
 
 
 class _SegmentDraft extends SegmentDraft {
-  const _SegmentDraft({this.type = GSegmentTypeEnum.bike, final  List<LatLng> intermediatePoints = const []}): _intermediatePoints = intermediatePoints,super._();
+  const _SegmentDraft({required this.startWaypointId, required this.endWaypointId, this.type = GSegmentTypeEnum.bike, final  List<LatLng> intermediatePoints = const []}): _intermediatePoints = intermediatePoints,super._();
   
 
+@override final  int startWaypointId;
+@override final  int endWaypointId;
 @override@JsonKey() final  GSegmentTypeEnum type;
  final  List<LatLng> _intermediatePoints;
 @override@JsonKey() List<LatLng> get intermediatePoints {
@@ -498,16 +508,16 @@ _$SegmentDraftCopyWith<_SegmentDraft> get copyWith => __$SegmentDraftCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentDraft&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other._intermediatePoints, _intermediatePoints));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentDraft&&(identical(other.startWaypointId, startWaypointId) || other.startWaypointId == startWaypointId)&&(identical(other.endWaypointId, endWaypointId) || other.endWaypointId == endWaypointId)&&const DeepCollectionEquality().equals(other.type, type)&&const DeepCollectionEquality().equals(other._intermediatePoints, _intermediatePoints));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(_intermediatePoints));
+int get hashCode => Object.hash(runtimeType,startWaypointId,endWaypointId,const DeepCollectionEquality().hash(type),const DeepCollectionEquality().hash(_intermediatePoints));
 
 @override
 String toString() {
-  return 'SegmentDraft(type: $type, intermediatePoints: $intermediatePoints)';
+  return 'SegmentDraft(startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, type: $type, intermediatePoints: $intermediatePoints)';
 }
 
 
@@ -518,7 +528,7 @@ abstract mixin class _$SegmentDraftCopyWith<$Res> implements $SegmentDraftCopyWi
   factory _$SegmentDraftCopyWith(_SegmentDraft value, $Res Function(_SegmentDraft) _then) = __$SegmentDraftCopyWithImpl;
 @override @useResult
 $Res call({
- GSegmentTypeEnum type, List<LatLng> intermediatePoints
+ int startWaypointId, int endWaypointId, GSegmentTypeEnum type, List<LatLng> intermediatePoints
 });
 
 
@@ -535,9 +545,11 @@ class __$SegmentDraftCopyWithImpl<$Res>
 
 /// Create a copy of SegmentDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = freezed,Object? intermediatePoints = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? startWaypointId = null,Object? endWaypointId = null,Object? type = freezed,Object? intermediatePoints = null,}) {
   return _then(_SegmentDraft(
-type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+startWaypointId: null == startWaypointId ? _self.startWaypointId : startWaypointId // ignore: cast_nullable_to_non_nullable
+as int,endWaypointId: null == endWaypointId ? _self.endWaypointId : endWaypointId // ignore: cast_nullable_to_non_nullable
+as int,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as GSegmentTypeEnum,intermediatePoints: null == intermediatePoints ? _self._intermediatePoints : intermediatePoints // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,
   ));
