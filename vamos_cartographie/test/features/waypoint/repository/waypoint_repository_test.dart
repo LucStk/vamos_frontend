@@ -63,7 +63,7 @@ void main() {
         expect(wp.id, 3);
         expect(wp.latLng.latitude, 43.0);
         expect(wp.latLng.longitude, 1.5);
-        expect(wp.type, GWaypointEnum.CAMPING);
+        expect(wp.type, WaypointType.camping);
         expect(wp.description, 'Camping en forêt');
       },
     );

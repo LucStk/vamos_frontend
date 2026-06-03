@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
+import 'package:vamos_cartographie/features/segments/segments.dart';
 import "package:vamos_cartographie/features/map/application/states/states.dart";
 
 part 'map_notifier.g.dart';
@@ -47,12 +48,16 @@ class MapStateNotifier extends _$MapStateNotifier {
   void moveIntermediatePoint(int segmentIndex, int pointIndex, LatLng latLng) {
     final segments = [...state.segments];
     final segment = segments[segmentIndex];
-    final points = [...segment.geometry];
+    final vertices = [...segment.middleVertices];
 
-    if (points[pointIndex] == latLng) return;
+    if (vertices.isEmpty || pointIndex >= vertices.length) return;
+    if (vertices[pointIndex].point == latLng) return;
 
-    points[pointIndex] = latLng;
-    segments[segmentIndex] = segment.copyWith(geometry: points);
+    vertices[pointIndex] = SegmentVertex(
+      id: vertices[pointIndex].id,
+      point: latLng,
+    );
+    segments[segmentIndex] = segment.copyWith(middleVertices: vertices);
 
     state = state.copyWith(segments: segments);
   }

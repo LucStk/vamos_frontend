@@ -2,6 +2,7 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_draft_mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
+import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/waypoint_fixtures.dart';
 
@@ -23,7 +24,7 @@ void main() {
       final draft = domainWaypointDraft(type: WaypointType.shelter);
       final input = WaypointDraftMapper.toGQLUpdateInput(draft);
 
-      expect(input.type, Value.present(WaypointType.shelter));
+      expect(input.type, Value.present(GWaypointEnum.SHELTER));
     });
 
     test('lat, lng et type sont tous présents ensemble', () {
@@ -36,7 +37,7 @@ void main() {
 
       expect(input.lat, Value.present(45.0));
       expect(input.lng, Value.present(5.0));
-      expect(input.type, Value.present(WaypointType.shelter));
+      expect(input.type, Value.present(GWaypointEnum.SHELTER));
     });
 
     test('description présente si non vide', () {

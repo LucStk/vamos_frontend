@@ -67,7 +67,7 @@ final class SegmentPolylinePointsProvider
 }
 
 String _$segmentPolylinePointsHash() =>
-    r'879a699888040bd960c68fff763d26ac00a36a18';
+    r'9fd58b441721fa1c708c15528e92a3966984e019';
 
 final class SegmentPolylinePointsFamily extends $Family
     with $FunctionalFamilyOverride<List<LatLng>?, (int, int)> {
@@ -147,7 +147,7 @@ final class SegmentNodesProvider
   }
 }
 
-String _$segmentNodesHash() => r'4a78f4bbe3a4070e26b575e22c6b8b905fdcebff';
+String _$segmentNodesHash() => r'da7c2c46e16fe1cbfe901dbc14ce330cdf824622';
 
 final class SegmentNodesFamily extends $Family
     with $FunctionalFamilyOverride<List<LineNode>, (int, int)> {

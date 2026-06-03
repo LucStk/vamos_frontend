@@ -22,7 +22,7 @@ List<LatLng>? segmentPolylinePoints(Ref ref, int tripId, int segmentId) {
 
   if (start == null || end == null) return null;
 
-  return [start, ...segment.geometry, end];
+  return [start, ...segment.middleVertices.map((v) => v.point), end];
 }
 
 @riverpod
@@ -38,12 +38,22 @@ List<LineNode> segmentNodes(Ref ref, int tripId, int segmentId) {
   if (start == null || end == null) return [];
 
   return [
-    WaypointNode(waypointId: start.id, position: start.latLng),
-
-    for (final entry in segment.geometry.indexed)
-      IntermediateNode(index: entry.$1, position: entry.$2),
-
-    WaypointNode(waypointId: end.id, position: end.latLng),
+    WaypointNode(
+      uid: 'waypoint-${start.id}',
+      waypointId: start.id,
+      latLng: start.latLng,
+    ),
+    for (final vertex in segment.middleVertices)
+      MiddleVertexNode(
+        uid: vertex.id,
+        vertexId: vertex.id,
+        latLng: vertex.point,
+      ),
+    WaypointNode(
+      uid: 'waypoint-${end.id}',
+      waypointId: end.id,
+      latLng: end.latLng,
+    ),
   ];
 }
 

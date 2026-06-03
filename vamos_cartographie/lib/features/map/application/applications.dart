@@ -4,3 +4,4 @@ export 'package:vamos_cartographie/features/map/application/providers/map_notifi
 export 'providers/waypoints_notifier.dart';
 export 'providers/segments_notifier.dart';
 export 'providers/segments_polyline_notifier.dart';
+export 'providers/segment_vertices_notifier.dart';

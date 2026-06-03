@@ -2,6 +2,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
+import 'package:uuid/uuid.dart';
 
 import "package:vamos_cartographie/features/segments/domain/domain.dart";
 
@@ -55,25 +56,30 @@ final List<Trip> trips = [
       Segment(
         id: 1,
         type: SegmentType.train,
+        middleVertices: [],
         startWaypointId: 0,
         endWaypointId: 1,
       ),
       Segment(
         id: 2,
         type: SegmentType.bike,
-        geometry: [LatLng(48.2523, -2.9060)],
+        middleVertices: [
+          SegmentVertex(id: const Uuid().v4(), point: LatLng(48.2523, -2.9060)),
+        ],
         startWaypointId: 1,
         endWaypointId: 2,
       ),
       Segment(
         id: 3,
         type: SegmentType.bike,
+        middleVertices: [],
         startWaypointId: 2,
         endWaypointId: 3,
       ),
       Segment(
         id: 4,
         type: SegmentType.bike,
+        middleVertices: [],
         startWaypointId: 3,
         endWaypointId: 4,
       ),
@@ -123,25 +129,30 @@ final List<Trip> trips = [
       Segment(
         id: 101,
         type: SegmentType.bike,
+        middleVertices: [],
         startWaypointId: 21,
         endWaypointId: 22,
       ),
       Segment(
         id: 102,
         type: SegmentType.bike,
-        geometry: [LatLng(48.1638, 7.3350)],
+        middleVertices: [
+          SegmentVertex(id: const Uuid().v4(), point: LatLng(48.1638, 7.3350)),
+        ],
         startWaypointId: 22,
         endWaypointId: 23,
       ),
       Segment(
         id: 103,
         type: SegmentType.walk,
+        middleVertices: [],
         startWaypointId: 23,
         endWaypointId: 24,
       ),
       Segment(
         id: 104,
         type: SegmentType.bike,
+        middleVertices: [],
         startWaypointId: 24,
         endWaypointId: 25,
       ),
@@ -187,19 +198,23 @@ final List<Trip> trips = [
       Segment(
         id: 201,
         type: SegmentType.bike,
-        geometry: [LatLng(43.4800, -0.7750)],
+        middleVertices: [
+          SegmentVertex(id: const Uuid().v4(), point: LatLng(43.4800, -0.7750)),
+        ],
         startWaypointId: 30,
         endWaypointId: 31,
       ),
       Segment(
         id: 202,
         type: SegmentType.bike,
+        middleVertices: [],
         startWaypointId: 31,
         endWaypointId: 32,
       ),
       Segment(
         id: 203,
         type: SegmentType.bike,
+        middleVertices: [],
         startWaypointId: 32,
         endWaypointId: 33,
       ),

@@ -93,12 +93,13 @@ extension LineNodePatterns on LineNode {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( WaypointNode value)?  waypoint,TResult Function( IntermediateNode value)?  intermediate,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( WaypointNode value)?  waypoint,TResult Function( IntermediateNode value)?  intermediate,TResult Function( MiddleVertexNode value)?  middleVertex,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case WaypointNode() when waypoint != null:
 return waypoint(_that);case IntermediateNode() when intermediate != null:
-return intermediate(_that);case _:
+return intermediate(_that);case MiddleVertexNode() when middleVertex != null:
+return middleVertex(_that);case _:
   return orElse();
 
 }
@@ -116,12 +117,13 @@ return intermediate(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( WaypointNode value)  waypoint,required TResult Function( IntermediateNode value)  intermediate,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( WaypointNode value)  waypoint,required TResult Function( IntermediateNode value)  intermediate,required TResult Function( MiddleVertexNode value)  middleVertex,}){
 final _that = this;
 switch (_that) {
 case WaypointNode():
 return waypoint(_that);case IntermediateNode():
-return intermediate(_that);}
+return intermediate(_that);case MiddleVertexNode():
+return middleVertex(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -135,12 +137,13 @@ return intermediate(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( WaypointNode value)?  waypoint,TResult? Function( IntermediateNode value)?  intermediate,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( WaypointNode value)?  waypoint,TResult? Function( IntermediateNode value)?  intermediate,TResult? Function( MiddleVertexNode value)?  middleVertex,}){
 final _that = this;
 switch (_that) {
 case WaypointNode() when waypoint != null:
 return waypoint(_that);case IntermediateNode() when intermediate != null:
-return intermediate(_that);case _:
+return intermediate(_that);case MiddleVertexNode() when middleVertex != null:
+return middleVertex(_that);case _:
   return null;
 
 }
@@ -157,11 +160,12 @@ return intermediate(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String uid,  int waypointId,  LatLng latLng)?  waypoint,TResult Function( String uid,  int index,  LatLng latLng)?  intermediate,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String uid,  int waypointId,  LatLng latLng)?  waypoint,TResult Function( String uid,  int index,  LatLng latLng)?  intermediate,TResult Function( String uid,  String vertexId,  LatLng latLng)?  middleVertex,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case WaypointNode() when waypoint != null:
 return waypoint(_that.uid,_that.waypointId,_that.latLng);case IntermediateNode() when intermediate != null:
-return intermediate(_that.uid,_that.index,_that.latLng);case _:
+return intermediate(_that.uid,_that.index,_that.latLng);case MiddleVertexNode() when middleVertex != null:
+return middleVertex(_that.uid,_that.vertexId,_that.latLng);case _:
   return orElse();
 
 }
@@ -179,11 +183,12 @@ return intermediate(_that.uid,_that.index,_that.latLng);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String uid,  int waypointId,  LatLng latLng)  waypoint,required TResult Function( String uid,  int index,  LatLng latLng)  intermediate,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String uid,  int waypointId,  LatLng latLng)  waypoint,required TResult Function( String uid,  int index,  LatLng latLng)  intermediate,required TResult Function( String uid,  String vertexId,  LatLng latLng)  middleVertex,}) {final _that = this;
 switch (_that) {
 case WaypointNode():
 return waypoint(_that.uid,_that.waypointId,_that.latLng);case IntermediateNode():
-return intermediate(_that.uid,_that.index,_that.latLng);}
+return intermediate(_that.uid,_that.index,_that.latLng);case MiddleVertexNode():
+return middleVertex(_that.uid,_that.vertexId,_that.latLng);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -197,11 +202,12 @@ return intermediate(_that.uid,_that.index,_that.latLng);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String uid,  int waypointId,  LatLng latLng)?  waypoint,TResult? Function( String uid,  int index,  LatLng latLng)?  intermediate,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String uid,  int waypointId,  LatLng latLng)?  waypoint,TResult? Function( String uid,  int index,  LatLng latLng)?  intermediate,TResult? Function( String uid,  String vertexId,  LatLng latLng)?  middleVertex,}) {final _that = this;
 switch (_that) {
 case WaypointNode() when waypoint != null:
 return waypoint(_that.uid,_that.waypointId,_that.latLng);case IntermediateNode() when intermediate != null:
-return intermediate(_that.uid,_that.index,_that.latLng);case _:
+return intermediate(_that.uid,_that.index,_that.latLng);case MiddleVertexNode() when middleVertex != null:
+return middleVertex(_that.uid,_that.vertexId,_that.latLng);case _:
   return null;
 
 }
@@ -354,6 +360,82 @@ class _$IntermediateNodeCopyWithImpl<$Res>
 uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+as LatLng,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class MiddleVertexNode extends LineNode with DiagnosticableTreeMixin {
+  const MiddleVertexNode({required this.uid, required this.vertexId, required this.latLng}): super._();
+  
+
+@override final  String uid;
+ final  String vertexId;
+@override final  LatLng latLng;
+
+/// Create a copy of LineNode
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MiddleVertexNodeCopyWith<MiddleVertexNode> get copyWith => _$MiddleVertexNodeCopyWithImpl<MiddleVertexNode>(this, _$identity);
+
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'LineNode.middleVertex'))
+    ..add(DiagnosticsProperty('uid', uid))..add(DiagnosticsProperty('vertexId', vertexId))..add(DiagnosticsProperty('latLng', latLng));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MiddleVertexNode&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.latLng, latLng) || other.latLng == latLng));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,uid,vertexId,latLng);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'LineNode.middleVertex(uid: $uid, vertexId: $vertexId, latLng: $latLng)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $MiddleVertexNodeCopyWith<$Res> implements $LineNodeCopyWith<$Res> {
+  factory $MiddleVertexNodeCopyWith(MiddleVertexNode value, $Res Function(MiddleVertexNode) _then) = _$MiddleVertexNodeCopyWithImpl;
+@override @useResult
+$Res call({
+ String uid, String vertexId, LatLng latLng
+});
+
+
+
+
+}
+/// @nodoc
+class _$MiddleVertexNodeCopyWithImpl<$Res>
+    implements $MiddleVertexNodeCopyWith<$Res> {
+  _$MiddleVertexNodeCopyWithImpl(this._self, this._then);
+
+  final MiddleVertexNode _self;
+  final $Res Function(MiddleVertexNode) _then;
+
+/// Create a copy of LineNode
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? vertexId = null,Object? latLng = null,}) {
+  return _then(MiddleVertexNode(
+uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
+as String,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as String,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
 as LatLng,
   ));
 }

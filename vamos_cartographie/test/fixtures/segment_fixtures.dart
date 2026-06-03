@@ -1,4 +1,3 @@
-import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/segments/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
@@ -18,11 +17,11 @@ GSegmentFieldsData gSegmentData({
 Segment domainSegment({
   int id = 0,
   SegmentType type = SegmentType.bike,
-  List<LatLng> geometry = const [],
+  List<SegmentVertex> middleVertices = const [],
 }) => Segment(
   id: id,
   type: type,
-  geometry: geometry,
+  middleVertices: middleVertices,
   startWaypointId: 1,
   endWaypointId: 2,
 );

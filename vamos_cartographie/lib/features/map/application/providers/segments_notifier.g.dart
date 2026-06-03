@@ -106,7 +106,7 @@ final class SegmentsStoreProvider
   }
 }
 
-String _$segmentsStoreHash() => r'a5343012cac985d2671bdf95dc647a7d3545922c';
+String _$segmentsStoreHash() => r'ecd52fd942363f8369d7df20513078bf235bc5c8';
 
 final class SegmentsStoreFamily extends $Family
     with
@@ -365,7 +365,7 @@ final class SegmentPointsProvider
   }
 }
 
-String _$segmentPointsHash() => r'c5547dcc5f90e96c4e8439795569be147cafd98a';
+String _$segmentPointsHash() => r'079efbf0cd4f8a134884a58c58d47ac9eabf164e';
 
 final class SegmentPointsFamily extends $Family
     with $FunctionalFamilyOverride<List<LatLng>?, (int, int)> {

@@ -23,8 +23,15 @@ sealed class LineNode with _$LineNode {
     required LatLng latLng,
   }) = IntermediateNode;
 
+  const factory LineNode.middleVertex({
+    required String uid,
+    required String vertexId,
+    required LatLng latLng,
+  }) = MiddleVertexNode;
+
   LatLng get position => switch (this) {
     WaypointNode(:final latLng) => latLng,
     IntermediateNode(:final latLng) => latLng,
+    MiddleVertexNode(:final latLng) => latLng,
   };
 }

@@ -1,6 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/waypoint_fixtures.dart';
@@ -26,7 +27,7 @@ void main() {
 
     test('mappe le type GWaypointEnum', () {
       final gql = gWaypointData(type: GWaypointEnum.CAMPING);
-      expect(WaypointMapper.fromGQL(gql).type, GWaypointEnum.CAMPING);
+      expect(WaypointMapper.fromGQL(gql).type, WaypointType.camping);
     });
 
     test('mappe le titre', () {
@@ -52,7 +53,7 @@ void main() {
 
       expect(wp.id, 2);
       expect(wp.latLng, const LatLng(43.0, 1.5));
-      expect(wp.type, GWaypointEnum.CAMPING);
+      expect(wp.type, WaypointType.camping);
       expect(wp.title, 'Bivouac');
       expect(wp.description, 'Camping sympa');
     });

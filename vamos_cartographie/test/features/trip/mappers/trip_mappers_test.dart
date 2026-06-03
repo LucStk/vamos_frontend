@@ -2,6 +2,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/segments/domain/types/segment_type.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/trip_fixtures.dart';
@@ -101,7 +103,7 @@ void main() {
 
       expect(wp.id, 1);
       expect(wp.latLng, const LatLng(48.85, 2.35));
-      expect(wp.type, GWaypointEnum.WAYPOINT);
+      expect(wp.type, WaypointType.waypoint);
     });
 
     test('tous les waypoints sont bien mappés', () {
@@ -117,8 +119,9 @@ void main() {
       final trip = TripMapper.fromGQLDetail(gTripDetailData());
       final seg = trip.segments.first;
 
-      expect(seg.type, GSegmentTypeEnum.bike);
-      expect(seg.geometry, [const LatLng(48.0, 2.0)]);
+      expect(seg.type, SegmentType.bike);
+      expect(seg.middleVertices, hasLength(1));
+      expect(seg.middleVertices.first.point, const LatLng(48.0, 2.0));
     });
 
     test('plusieurs segments sont correctement mappés', () {
@@ -133,9 +136,9 @@ void main() {
       );
 
       expect(trip.segments, hasLength(3));
-      expect(trip.segments[0].type, GSegmentTypeEnum.bike);
-      expect(trip.segments[1].type, GSegmentTypeEnum.walk);
-      expect(trip.segments[2].type, GSegmentTypeEnum.car);
+      expect(trip.segments[0].type, SegmentType.bike);
+      expect(trip.segments[1].type, SegmentType.walk);
+      expect(trip.segments[2].type, SegmentType.car);
     });
 
     test('segment sans points intermédiaires', () {
@@ -143,7 +146,7 @@ void main() {
         gTripDetailData(segments: [gSegmentData(geometry: [])]),
       );
 
-      expect(trip.segments.first.geometry, isEmpty);
+      expect(trip.segments.first.middleVertices, isEmpty);
     });
 
     test('waypoints et segments vides si absents', () {
