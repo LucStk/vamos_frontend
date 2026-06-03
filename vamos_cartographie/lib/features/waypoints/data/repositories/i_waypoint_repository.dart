@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
 // import 'dart:io';
 

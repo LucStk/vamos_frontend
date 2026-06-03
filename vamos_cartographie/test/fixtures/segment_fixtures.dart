@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/segments/domain/entities/segment.dart';
+import 'package:vamos_cartographie/features/segments/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 /// Construit un [GSegmentFieldsData] minimal pour les tests.
@@ -19,7 +19,7 @@ GSegmentFieldsData gSegmentData({
 /// Construit un [Segment] domaine minimal pour les tests.
 Segment domainSegment({
   int id = 0,
-  GSegmentTypeEnum type = GSegmentTypeEnum.bike,
+  SegmentType type = SegmentType.bike,
   List<LatLng> intermediatePoints = const [],
 }) => Segment(
   id: id,

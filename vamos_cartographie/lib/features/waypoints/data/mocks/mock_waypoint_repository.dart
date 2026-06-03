@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/repositories/i_waypoint_repository.dart';
 
 class MockWaypointRepository implements IWaypointRepository {

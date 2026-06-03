@@ -1,1 +1,2 @@
-export 'entities/entities.dart';
+export 'entities/waypoint.dart';
+export 'types/waypoint_type.dart';

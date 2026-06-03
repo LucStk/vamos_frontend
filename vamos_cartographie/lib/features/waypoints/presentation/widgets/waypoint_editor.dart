@@ -1,9 +1,7 @@
 import "package:flutter/material.dart";
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
 import "waypoint_header.dart";
-import "types_selector/waypoint_type_selector.dart";
-
+import "package:vamos_cartographie/features/waypoints/domain/domain.dart";
 import 'package:vamos_cartographie/features/media/media.dart';
 
 class WaypointEditor extends StatefulWidget {
@@ -67,7 +65,8 @@ class WaypointEditorState extends State<WaypointEditor> {
         const SizedBox(height: 12),
 
         // ── Type ───────────────────────────────
-        WaypointTypeSelector(
+        TypeSelector(
+          values: WaypointType.values,
           selectedType: currentWaypoint.type,
 
           onTypeChanged: (newType) {

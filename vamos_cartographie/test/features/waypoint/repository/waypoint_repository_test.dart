@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/data/repositories/waypoint_repository.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/mock_classes.dart';
@@ -53,7 +53,7 @@ void main() {
         final draft = domainWaypointDraft(
           lat: 43.0,
           lng: 1.5,
-          type: GWaypointEnum.CAMPING,
+          type: WaypointType.camping,
           description: 'Camping en forêt',
         );
         final result = await repository.updateWaypoint(3, draft);

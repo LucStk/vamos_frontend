@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/data/datasources/waypoint_remote_datasource.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'i_waypoint_repository.dart';
 
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';

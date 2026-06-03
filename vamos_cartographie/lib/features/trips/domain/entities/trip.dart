@@ -1,5 +1,5 @@
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import "package:vamos_cartographie/features/media/domain/entities/entities.dart";
 // ---------------------------------------------------------------------------
 // Route

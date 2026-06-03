@@ -6,8 +6,8 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/segments/domain/entities/segment.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
+import 'package:vamos_cartographie/features/segments/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/mock_classes.dart';
@@ -40,13 +40,13 @@ TripDraft _domainTrip() => TripDraft(
   title: 'Test',
   description: 'Desc',
   waypoints: [
-    Waypoint(id: 1, latLng: const LatLng(1, 2), type: GWaypointEnum.START),
-    Waypoint(id: 2, latLng: const LatLng(3, 4), type: GWaypointEnum.END),
+    Waypoint(id: 1, latLng: const LatLng(1, 2), type: WaypointType.start),
+    Waypoint(id: 2, latLng: const LatLng(3, 4), type: WaypointType.end),
   ],
   segments: [
     Segment(
       id: 1,
-      type: GSegmentTypeEnum.bike,
+      type: SegmentType.bike,
       startWaypointId: 1,
       endWaypointId: 2,
     ),

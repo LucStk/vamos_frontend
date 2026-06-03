@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/segments/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/segments/domain/domain.dart';
 import 'package:vamos_cartographie/features/segments/data/repositories/i_segment_repository.dart';
 
 class MockSegmentRepository implements ISegmentRepository {

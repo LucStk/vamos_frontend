@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/segments/segments.dart';
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
 
 class SegmentTypeMarkerView extends ConsumerWidget {
-  final GSegmentTypeEnum type;
+  final SegmentType type;
 
   const SegmentTypeMarkerView({super.key, required this.type});
 

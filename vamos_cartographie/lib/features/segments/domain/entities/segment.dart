@@ -2,6 +2,7 @@
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import "../types/segment_type.dart";
 // Remplace par le bon package de ton projet (ex: google_maps_flutter ou latlong2)
 
 part 'segment.freezed.dart';
@@ -12,7 +13,7 @@ abstract class Segment with _$Segment {
     required int id,
     required int startWaypointId,
     required int endWaypointId,
-    @Default(GSegmentTypeEnum.bike) GSegmentTypeEnum type,
+    @Default(SegmentType.bike) SegmentType type,
     @Default([]) List<LatLng> intermediatePoints,
   }) = _Segment;
 
@@ -38,7 +39,7 @@ abstract class SegmentDraft with _$SegmentDraft {
   const factory SegmentDraft({
     required int startWaypointId,
     required int endWaypointId,
-    @Default(GSegmentTypeEnum.bike) GSegmentTypeEnum type,
+    @Default(SegmentType.bike) SegmentType type,
     @Default([]) List<LatLng> intermediatePoints,
   }) = _SegmentDraft;
 

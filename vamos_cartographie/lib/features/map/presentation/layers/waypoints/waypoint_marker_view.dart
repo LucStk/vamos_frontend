@@ -3,13 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 
 import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
 
 class WaypointMarkerView extends ConsumerWidget {
   final int waypointId;
   final int tripId;
   final bool isDragging;
-  final GWaypointEnum type;
+  final WaypointType type;
 
   const WaypointMarkerView({
     super.key,

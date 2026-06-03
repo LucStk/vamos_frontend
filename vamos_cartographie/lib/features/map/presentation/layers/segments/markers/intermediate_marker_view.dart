@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
 
 class IntermediateMarkerView extends ConsumerWidget {
-  final GWaypointEnum type;
+  final type;
   final bool isDragging = false;
   const IntermediateMarkerView({super.key, required this.type, isDragging});
 

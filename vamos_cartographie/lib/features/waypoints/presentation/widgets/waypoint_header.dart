@@ -1,10 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:vamos_cartographie/graphql/graphql.dart';
-import 'package:vamos_cartographie/features/waypoints/presentation/extensions/waypoint_type_extension.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class WaypointHeader extends StatelessWidget {
-  final GWaypointEnum type;
+  final WaypointType type;
 
   const WaypointHeader({super.key, required this.type});
 

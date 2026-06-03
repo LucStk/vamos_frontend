@@ -1,13 +1,14 @@
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+import "segment_type_mapper.dart";
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class SegmentMapper {
   /// Convertit un [GSegmentFieldsData] (fragment GQL) en [Segment] domaine.
   static Segment fromGQL(GSegmentFields data) => Segment(
     id: data.id,
-    type: data.type,
+    type: data.type.toDomain(),
     intermediatePoints: data.intermediatePoints
         .map((p) => LatLng(p.lat, p.lng))
         .toList(),

@@ -16,7 +16,6 @@ class SegmentsLayer extends ConsumerWidget {
     final segmentsIds = ref.watch(segmentIdsProvider(tripId));
 
     if (segmentsIds.isEmpty) {
-      debugPrint("SegmentsLayer : Aucun segment à afficher");
       return const SizedBox.shrink();
     }
 
@@ -35,7 +34,6 @@ class SegmentsLayer extends ConsumerWidget {
     if (polylines.isEmpty) {
       return const SizedBox.shrink();
     }
-    debugPrint("list type Markers $typeMarkers");
 
     return Stack(
       children: [

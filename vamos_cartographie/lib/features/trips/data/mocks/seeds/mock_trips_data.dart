@@ -1,10 +1,10 @@
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
-import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+import "package:vamos_cartographie/features/segments/domain/domain.dart";
 
 final List<Trip> trips = [
   // --- Voyage 1 : Tour de Bretagne à vélo ---
@@ -24,57 +24,57 @@ final List<Trip> trips = [
       Waypoint(
         id: 0,
         latLng: LatLng(48.8566, 2.3522),
-        type: GWaypointEnum.START,
+        type: WaypointType.start,
         description: 'Départ depuis Paris',
       ),
       Waypoint(
         id: 1,
         latLng: LatLng(48.1173, -1.6778),
-        type: GWaypointEnum.WAYPOINT,
+        type: WaypointType.waypoint,
         description: 'Étape à Rennes — centre historique',
       ),
       Waypoint(
         id: 2,
         latLng: LatLng(48.3904, -4.4861),
-        type: GWaypointEnum.VIEWPOINT,
+        type: WaypointType.viewpoint,
         description: 'Vue sur la rade de Brest',
       ),
       Waypoint(
         id: 3,
         latLng: LatLng(47.6587, -2.7600),
-        type: GWaypointEnum.FOOD,
+        type: WaypointType.food,
         description: 'Ravitaillement au marché de Vannes',
       ),
       Waypoint(
         id: 4,
         latLng: LatLng(47.2184, -1.5536),
-        type: GWaypointEnum.END,
+        type: WaypointType.end,
         description: 'Arrivée à Nantes',
       ),
     ],
     segments: [
       Segment(
         id: 1,
-        type: GSegmentTypeEnum.train,
+        type: SegmentType.train,
         startWaypointId: 0,
         endWaypointId: 1,
       ),
       Segment(
         id: 2,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         intermediatePoints: [LatLng(48.2523, -2.9060)],
         startWaypointId: 1,
         endWaypointId: 2,
       ),
       Segment(
         id: 3,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         startWaypointId: 2,
         endWaypointId: 3,
       ),
       Segment(
         id: 4,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         startWaypointId: 3,
         endWaypointId: 4,
       ),
@@ -92,57 +92,57 @@ final List<Trip> trips = [
       Waypoint(
         id: 21,
         latLng: LatLng(48.5734, 7.7521),
-        type: GWaypointEnum.START,
+        type: WaypointType.start,
         description: 'Départ de Strasbourg',
       ),
       Waypoint(
         id: 22,
         latLng: LatLng(48.2500, 7.3100),
-        type: GWaypointEnum.HISTORIC,
+        type: WaypointType.historic,
         description: 'Patrimoine médiéval de Sélestat',
       ),
       Waypoint(
         id: 23,
         latLng: LatLng(48.0791, 7.3580),
-        type: GWaypointEnum.FOOD,
+        type: WaypointType.food,
         description: 'Dégustation de vins à Colmar',
       ),
       Waypoint(
         id: 24,
         latLng: LatLng(47.8683, 7.3174),
-        type: GWaypointEnum.VIEWPOINT,
+        type: WaypointType.viewpoint,
         description: 'Point de vue sur les vignes',
       ),
       Waypoint(
         id: 25,
         latLng: LatLng(47.7508, 7.3359),
-        type: GWaypointEnum.END,
+        type: WaypointType.end,
         description: 'Arrivée à Mulhouse',
       ),
     ],
     segments: [
       Segment(
         id: 101,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         startWaypointId: 21,
         endWaypointId: 22,
       ),
       Segment(
         id: 102,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         intermediatePoints: [LatLng(48.1638, 7.3350)],
         startWaypointId: 22,
         endWaypointId: 23,
       ),
       Segment(
         id: 103,
-        type: GSegmentTypeEnum.walk,
+        type: SegmentType.walk,
         startWaypointId: 23,
         endWaypointId: 24,
       ),
       Segment(
         id: 104,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         startWaypointId: 24,
         endWaypointId: 25,
       ),
@@ -161,46 +161,46 @@ final List<Trip> trips = [
         id: 30,
         title: "départ",
         latLng: LatLng(43.4929, -1.4748),
-        type: GWaypointEnum.START,
+        type: WaypointType.start,
         description: 'Départ de Bayonne',
       ),
       Waypoint(
         id: 31,
         title: "Super point d'eau",
         latLng: LatLng(43.2951, -0.3708),
-        type: GWaypointEnum.WATER,
+        type: WaypointType.water,
         description: "Point d'eau au gave de Pau",
       ),
       Waypoint(
         id: 32,
         latLng: LatLng(43.1042, -0.0785),
-        type: GWaypointEnum.CAMPING,
+        type: WaypointType.camping,
         description: 'Nuit en camping à Tarbes',
       ),
       Waypoint(
         id: 33,
         latLng: LatLng(43.0958, -0.0461),
-        type: GWaypointEnum.END,
+        type: WaypointType.end,
         description: 'Arrivée à Lourdes',
       ),
     ],
     segments: [
       Segment(
         id: 201,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         intermediatePoints: [LatLng(43.4800, -0.7750)],
         startWaypointId: 30,
         endWaypointId: 31,
       ),
       Segment(
         id: 202,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         startWaypointId: 31,
         endWaypointId: 32,
       ),
       Segment(
         id: 203,
-        type: GSegmentTypeEnum.bike,
+        type: SegmentType.bike,
         startWaypointId: 32,
         endWaypointId: 33,
       ),

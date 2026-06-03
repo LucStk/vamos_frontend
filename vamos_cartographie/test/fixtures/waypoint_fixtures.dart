@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 /// Construit un [GWaypointFieldsData] minimal pour les tests.
@@ -25,7 +25,7 @@ GWaypointFieldsData gWaypointData({
 WaypointDraft domainWaypointDraft({
   double lat = 48.85,
   double lng = 2.35,
-  GWaypointEnum type = GWaypointEnum.WAYPOINT,
+  WaypointType type = WaypointType.waypoint,
   String title = '',
   String description = '',
 }) => WaypointDraft(
@@ -40,7 +40,7 @@ Waypoint domainWaypoint({
   int id = 1,
   double lat = 48.85,
   double lng = 2.35,
-  GWaypointEnum type = GWaypointEnum.WAYPOINT,
+  WaypointType type = WaypointType.waypoint,
   String title = '',
   String description = '',
 }) => Waypoint(

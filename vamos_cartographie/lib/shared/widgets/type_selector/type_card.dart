@@ -1,14 +1,12 @@
 import "package:flutter/material.dart";
-import "package:vamos_cartographie/graphql/graphql.dart";
+import "package:vamos_cartographie/shared/domain/types/map_item_type.dart";
 
-import "package:vamos_cartographie/features/waypoints/presentation/extensions/waypoint_type_extension.dart";
-
-class WaypointTypeCard extends StatelessWidget {
-  final GWaypointEnum type;
+class TypeCard extends StatelessWidget {
+  final MapItemType type;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const WaypointTypeCard({
+  const TypeCard({
     super.key,
     required this.type,
     required this.isSelected,
