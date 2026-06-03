@@ -13,20 +13,15 @@ abstract class Segment with _$Segment {
     required int startWaypointId,
     required int endWaypointId,
     @Default(SegmentType.bike) SegmentType type,
-    @Default([]) List<LatLng> intermediatePoints,
+    @Default([]) List<LatLng> geometry,
   }) = _Segment;
 
   const Segment._();
 
-  // List<LatLng> allPoints(LatLng from, LatLng to) => [
-  //   from,
-  //   ...intermediatePoints,
-  //   to,
-  // ];
   SegmentDraft toDraft() {
     return SegmentDraft(
       type: type,
-      intermediatePoints: intermediatePoints,
+      geometry: geometry,
       startWaypointId: startWaypointId,
       endWaypointId: endWaypointId,
     );
@@ -39,21 +34,16 @@ abstract class SegmentDraft with _$SegmentDraft {
     required int startWaypointId,
     required int endWaypointId,
     @Default(SegmentType.bike) SegmentType type,
-    @Default([]) List<LatLng> intermediatePoints,
+    @Default([]) List<LatLng> geometry,
   }) = _SegmentDraft;
 
   const SegmentDraft._();
 
-  // List<LatLng> allPoints(LatLng from, LatLng to) => [
-  //   from,
-  //   ...intermediatePoints,
-  //   to,
-  // ];
   Segment toSegment(int id) {
     return Segment(
       id: id,
       type: type,
-      intermediatePoints: intermediatePoints,
+      geometry: geometry,
       startWaypointId: startWaypointId,
       endWaypointId: endWaypointId,
     );

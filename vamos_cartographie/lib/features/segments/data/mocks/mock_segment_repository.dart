@@ -39,7 +39,7 @@ class MockSegmentRepository implements ISegmentRepository {
       final createSegment = Segment(
         id: trip.segments.length,
         type: segment.type,
-        intermediatePoints: segment.intermediatePoints,
+        geometry: segment.geometry,
         startWaypointId: segment.startWaypointId,
         endWaypointId: segment.endWaypointId,
       );
@@ -93,7 +93,7 @@ class MockSegmentRepository implements ISegmentRepository {
       final updatedSegment = Segment(
         id: id,
         type: segment.type,
-        intermediatePoints: segment.intermediatePoints,
+        geometry: segment.geometry,
         startWaypointId: segment.startWaypointId,
         endWaypointId: segment.endWaypointId,
       );

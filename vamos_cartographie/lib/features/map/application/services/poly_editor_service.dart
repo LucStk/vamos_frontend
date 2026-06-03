@@ -95,11 +95,11 @@
 //       final segIndex = s;
 
 //       // Midpoints déjà insérés dans ce segment
-//       for (var p = 0; p < segment.intermediatePoints.length; p++) {
+//       for (var p = 0; p < segment.geometry.length; p++) {
 //         final pIndex = p;
 //         markers.add(
-//           IntermediatePoints(
-//             point: segment.intermediatePoints[p],
+//           geometry(
+//             point: segment.geometry[p],
 //             segmentType: trip.segments[segIndex].type,
 //             isGhost: false,
 //             onDragStartCallback: (_, __) {
@@ -107,7 +107,7 @@
 //               _draggingIntermediateIndex = pIndex;
 //             },
 //             onDragUpdateCallback: (_, latLng) {
-//               trip.segments[segIndex].intermediatePoints[pIndex] = latLng;
+//               trip.segments[segIndex].geometry[pIndex] = latLng;
 //               // La liste ne change pas de taille → rebuild complet OK
 //               // Les ghost points se repositionnent correctement
 //               callbackRefresh(latLng);
@@ -117,7 +117,7 @@
 //               _draggingIntermediateIndex = null;
 //             },
 //             onTapCallback: (_) {
-//               trip.segments[segIndex].intermediatePoints.removeAt(pIndex);
+//               trip.segments[segIndex].geometry.removeAt(pIndex);
 //               onIntermediatePointDeleted(segIndex, pIndex);
 //             },
 //           ),
@@ -137,13 +137,13 @@
 //           final insertAt = pp;
 
 //           markers.add(
-//             IntermediatePoints(
+//             geometry(
 //               point: mid,
 //               segmentType: trip.segments[segIndex].type,
 //               isGhost: true,
 //               onDragStartCallback: (_, __) {
 //                 // Insère le point fantôme comme point réel
-//                 trip.segments[segIndex].intermediatePoints.insert(
+//                 trip.segments[segIndex].geometry.insert(
 //                   insertAt,
 //                   mid,
 //                 );
@@ -157,7 +157,7 @@
 //                     _draggingIntermediateIndex != null) {
 //                   trip
 //                           .segments[_draggingIntermediateSegment!]
-//                           .intermediatePoints[_draggingIntermediateIndex!] =
+//                           .geometry[_draggingIntermediateIndex!] =
 //                       latLng;
 //                   _repaint();
 //                 }

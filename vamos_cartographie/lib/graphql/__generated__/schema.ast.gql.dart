@@ -562,7 +562,7 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'intermediatePoints'),
+      name: _i1.NameNode(value: 'geometry'),
       directives: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
@@ -571,7 +571,7 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
         ),
         isNonNull: true,
       ),
-      defaultValue: _i1.ListValueNode(values: []),
+      defaultValue: null,
     ),
   ],
 );
@@ -617,7 +617,7 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'intermediatePoints'),
+      name: _i1.NameNode(value: 'geometry'),
       directives: [],
       args: [],
       type: _i1.ListTypeNode(
@@ -688,7 +688,7 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'intermediatePoints'),
+      name: _i1.NameNode(value: 'geometry'),
       directives: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(

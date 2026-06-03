@@ -43,7 +43,7 @@ lib/
 │   ├── waypoint_markers_builder.dart      # Marqueurs de points de passage
 │   ├── segment_layers_builder.dart        # Couches de segments (lignes)
 │   ├── segment_type_markers_builder.dart  # Marqueurs de type de segment
-│   └── segment_intermediatePoints.dart    # Points intermédiaires d'un segment
+│   └── segment_geometry.dart    # Points intermédiaires d'un segment
 │
 ├── widgets/
 │   ├── trip_info_sheet.dart         # Bottom sheet infos du voyage

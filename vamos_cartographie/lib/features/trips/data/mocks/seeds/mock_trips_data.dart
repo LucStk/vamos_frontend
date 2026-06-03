@@ -61,7 +61,7 @@ final List<Trip> trips = [
       Segment(
         id: 2,
         type: SegmentType.bike,
-        intermediatePoints: [LatLng(48.2523, -2.9060)],
+        geometry: [LatLng(48.2523, -2.9060)],
         startWaypointId: 1,
         endWaypointId: 2,
       ),
@@ -129,7 +129,7 @@ final List<Trip> trips = [
       Segment(
         id: 102,
         type: SegmentType.bike,
-        intermediatePoints: [LatLng(48.1638, 7.3350)],
+        geometry: [LatLng(48.1638, 7.3350)],
         startWaypointId: 22,
         endWaypointId: 23,
       ),
@@ -187,7 +187,7 @@ final List<Trip> trips = [
       Segment(
         id: 201,
         type: SegmentType.bike,
-        intermediatePoints: [LatLng(43.4800, -0.7750)],
+        geometry: [LatLng(43.4800, -0.7750)],
         startWaypointId: 30,
         endWaypointId: 31,
       ),

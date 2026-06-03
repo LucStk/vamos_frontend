@@ -1,7 +1,7 @@
 fragment SegmentFields on SegmentType {
     id
     type
-    intermediatePoints {
+    geometry {
         lat
         lng
     }

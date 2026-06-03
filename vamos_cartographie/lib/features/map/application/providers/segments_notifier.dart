@@ -151,7 +151,7 @@ Segment? segment(Ref ref, int tripId, int segmentId) {
 @riverpod
 List<LatLng>? segmentPoints(Ref ref, int tripId, int segmentId) {
   return ref.watch(
-    segmentProvider(tripId, segmentId).select((s) => s?.intermediatePoints),
+    segmentProvider(tripId, segmentId).select((s) => s?.geometry),
   );
 }
 

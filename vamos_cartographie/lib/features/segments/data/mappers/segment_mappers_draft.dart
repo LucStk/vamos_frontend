@@ -6,7 +6,7 @@ import "package:vamos_cartographie/features/segments/domain/entities/segment.dar
 class SegmentDraftMapper {
   static GSegmentCreateInput toGQLInput(SegmentDraft s) => GSegmentCreateInput(
     type: s.type.toGQL(),
-    intermediatePoints: [],
+    geometry: [],
     startWaypointId: s.startWaypointId,
     endWaypointId: s.endWaypointId,
   );

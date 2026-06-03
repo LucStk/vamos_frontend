@@ -103,7 +103,7 @@ class GSegmentCreateInput {
     required this.type,
     required this.startWaypointId,
     required this.endWaypointId,
-    required this.intermediatePoints,
+    required this.geometry,
   });
 
   factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
@@ -111,7 +111,7 @@ class GSegmentCreateInput {
       type: GSegmentTypeEnum.fromJson((json['type'] as String)),
       startWaypointId: (json['startWaypointId'] as int),
       endWaypointId: (json['endWaypointId'] as int),
-      intermediatePoints: (json['intermediatePoints'] as List<dynamic>)
+      geometry: (json['geometry'] as List<dynamic>)
           .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
     );
@@ -123,7 +123,7 @@ class GSegmentCreateInput {
 
   final int endWaypointId;
 
-  final List<GLatLngInput> intermediatePoints;
+  final List<GLatLngInput> geometry;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -133,9 +133,8 @@ class GSegmentCreateInput {
     _$result['startWaypointId'] = _$startWaypointIdValue;
     final _$endWaypointIdValue = this.endWaypointId;
     _$result['endWaypointId'] = _$endWaypointIdValue;
-    final _$intermediatePointsValue = this.intermediatePoints;
-    _$result['intermediatePoints'] =
-        _$intermediatePointsValue.map((_$e) => _$e.toJson()).toList();
+    final _$geometryValue = this.geometry;
+    _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
     return _$result;
   }
 
@@ -143,13 +142,13 @@ class GSegmentCreateInput {
     GSegmentTypeEnum? type,
     int? startWaypointId,
     int? endWaypointId,
-    List<GLatLngInput>? intermediatePoints,
+    List<GLatLngInput>? geometry,
   }) {
     return GSegmentCreateInput(
       type: type ?? this.type,
       startWaypointId: startWaypointId ?? this.startWaypointId,
       endWaypointId: endWaypointId ?? this.endWaypointId,
-      intermediatePoints: intermediatePoints ?? this.intermediatePoints,
+      geometry: geometry ?? this.geometry,
     );
   }
 
@@ -167,7 +166,7 @@ class GSegmentCreateInput {
 
   @override
   String toString() {
-    return 'GSegmentCreateInput(type: $type, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, intermediatePoints: $intermediatePoints)';
+    return 'GSegmentCreateInput(type: $type, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, geometry: $geometry)';
   }
 }
 
@@ -219,7 +218,7 @@ class GSegmentUpdateInput {
     this.type = const Value.absent(),
     this.startWaypointId = const Value.absent(),
     this.endWaypointId = const Value.absent(),
-    this.intermediatePoints = const Value.absent(),
+    this.geometry = const Value.absent(),
   });
 
   factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
@@ -239,10 +238,10 @@ class GSegmentUpdateInput {
               ? null
               : (json['endWaypointId'] as int))
           : Value.absent(),
-      intermediatePoints: json.containsKey('intermediatePoints')
-          ? Value.present(json['intermediatePoints'] == null
+      geometry: json.containsKey('geometry')
+          ? Value.present(json['geometry'] == null
               ? null
-              : (json['intermediatePoints'] as List<dynamic>)
+              : (json['geometry'] as List<dynamic>)
                   .map((_$e) =>
                       GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
                   .toList())
@@ -256,7 +255,7 @@ class GSegmentUpdateInput {
 
   final Value<int> endWaypointId;
 
-  final Value<List<GLatLngInput>> intermediatePoints;
+  final Value<List<GLatLngInput>> geometry;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -278,13 +277,12 @@ class GSegmentUpdateInput {
       _$result['endWaypointId'] =
           _$endWaypointIdRequired == null ? null : _$endWaypointIdRequired;
     }
-    final _$intermediatePointsValue = this.intermediatePoints;
-    if (_$intermediatePointsValue.isPresent) {
-      final _$intermediatePointsRequired =
-          _$intermediatePointsValue.requireValue;
-      _$result['intermediatePoints'] = _$intermediatePointsRequired == null
+    final _$geometryValue = this.geometry;
+    if (_$geometryValue.isPresent) {
+      final _$geometryRequired = _$geometryValue.requireValue;
+      _$result['geometry'] = _$geometryRequired == null
           ? null
-          : _$intermediatePointsRequired.map((_$e) => _$e.toJson()).toList();
+          : _$geometryRequired.map((_$e) => _$e.toJson()).toList();
     }
     return _$result;
   }
@@ -293,13 +291,13 @@ class GSegmentUpdateInput {
     Value<GSegmentTypeEnum>? type,
     Value<int>? startWaypointId,
     Value<int>? endWaypointId,
-    Value<List<GLatLngInput>>? intermediatePoints,
+    Value<List<GLatLngInput>>? geometry,
   }) {
     return GSegmentUpdateInput(
       type: type ?? this.type,
       startWaypointId: startWaypointId ?? this.startWaypointId,
       endWaypointId: endWaypointId ?? this.endWaypointId,
-      intermediatePoints: intermediatePoints ?? this.intermediatePoints,
+      geometry: geometry ?? this.geometry,
     );
   }
 
@@ -317,7 +315,7 @@ class GSegmentUpdateInput {
 
   @override
   String toString() {
-    return 'GSegmentUpdateInput(type: $type, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, intermediatePoints: $intermediatePoints)';
+    return 'GSegmentUpdateInput(type: $type, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, geometry: $geometry)';
   }
 }
 

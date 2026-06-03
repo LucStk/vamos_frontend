@@ -75,9 +75,9 @@ abstract class WaypointDraft with _$WaypointDraft {
 //   } else {
 //     final merged = Segment(
 //       type: segments[index - 1].type,
-//       intermediatePoints: [
-//         ...segments[index - 1].intermediatePoints,
-//         ...segments[index].intermediatePoints,
+//       geometry: [
+//         ...segments[index - 1].geometry,
+//         ...segments[index].geometry,
 //       ],
 //     );
 //     segments.removeAt(index);

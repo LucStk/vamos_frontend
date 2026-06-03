@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import "segments_notifier.dart";
 import "waypoints_notifier.dart";
+import "package:vamos_cartographie/features/map/application/states/segment_states.dart";
 part 'segments_polyline_notifier.g.dart';
 
 @riverpod
@@ -21,7 +22,29 @@ List<LatLng>? segmentPolylinePoints(Ref ref, int tripId, int segmentId) {
 
   if (start == null || end == null) return null;
 
-  return [start, ...segment.intermediatePoints, end];
+  return [start, ...segment.geometry, end];
+}
+
+@riverpod
+List<LineNode> segmentNodes(Ref ref, int tripId, int segmentId) {
+  final segment = ref.watch(segmentProvider(tripId, segmentId));
+
+  if (segment == null) return [];
+
+  final start = ref.watch(waypointProvider(tripId, segment.startWaypointId));
+
+  final end = ref.watch(waypointProvider(tripId, segment.endWaypointId));
+
+  if (start == null || end == null) return [];
+
+  return [
+    WaypointNode(waypointId: start.id, position: start.latLng),
+
+    for (final entry in segment.geometry.indexed)
+      IntermediateNode(index: entry.$1, position: entry.$2),
+
+    WaypointNode(waypointId: end.id, position: end.latLng),
+  ];
 }
 
 @riverpod

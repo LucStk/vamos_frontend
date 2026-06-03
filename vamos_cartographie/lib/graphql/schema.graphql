@@ -56,7 +56,7 @@ input SegmentCreateInput {
   type: SegmentTypeEnum!
   startWaypointId: Int!
   endWaypointId: Int!
-  intermediatePoints: [LatLngInput!]! = []
+  geometry: [LatLngInput!]!
 }
 
 type SegmentType {
@@ -64,7 +64,7 @@ type SegmentType {
   type: SegmentTypeEnum!
   startWaypoint: WaypointType!
   endWaypoint: WaypointType!
-  intermediatePoints: [LatLngType!]!
+  geometry: [LatLngType!]!
 }
 
 enum SegmentTypeEnum {
@@ -79,7 +79,7 @@ input SegmentUpdateInput {
   type: SegmentTypeEnum
   startWaypointId: Int
   endWaypointId: Int
-  intermediatePoints: [LatLngInput!]
+  geometry: [LatLngInput!]
 }
 
 type TripImageType {

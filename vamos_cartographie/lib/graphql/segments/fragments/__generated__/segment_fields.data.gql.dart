@@ -10,13 +10,13 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
 abstract class GSegmentFields {
   int get id;
   _i1.GSegmentTypeEnum get type;
-  List<GSegmentFields_intermediatePoints> get intermediatePoints;
+  List<GSegmentFields_geometry> get geometry;
   GSegmentFields_startWaypoint get startWaypoint;
   GSegmentFields_endWaypoint get endWaypoint;
   String get G__typename;
 }
 
-abstract class GSegmentFields_intermediatePoints {
+abstract class GSegmentFields_geometry {
   double get lat;
   double get lng;
   String get G__typename;
@@ -36,7 +36,7 @@ class GSegmentFieldsData implements GSegmentFields {
   const GSegmentFieldsData({
     required this.id,
     required this.type,
-    required this.intermediatePoints,
+    required this.geometry,
     required this.startWaypoint,
     required this.endWaypoint,
     this.G__typename = 'SegmentType',
@@ -46,8 +46,8 @@ class GSegmentFieldsData implements GSegmentFields {
     return GSegmentFieldsData(
       id: (json['id'] as int),
       type: _i1.GSegmentTypeEnum.fromJson((json['type'] as String)),
-      intermediatePoints: (json['intermediatePoints'] as List<dynamic>)
-          .map((_$e) => GSegmentFieldsData_intermediatePoints.fromJson(
+      geometry: (json['geometry'] as List<dynamic>)
+          .map((_$e) => GSegmentFieldsData_geometry.fromJson(
               (_$e as Map<String, dynamic>)))
           .toList(),
       startWaypoint: GSegmentFieldsData_startWaypoint.fromJson(
@@ -62,7 +62,7 @@ class GSegmentFieldsData implements GSegmentFields {
 
   final _i1.GSegmentTypeEnum type;
 
-  final List<GSegmentFieldsData_intermediatePoints> intermediatePoints;
+  final List<GSegmentFieldsData_geometry> geometry;
 
   final GSegmentFieldsData_startWaypoint startWaypoint;
 
@@ -74,8 +74,7 @@ class GSegmentFieldsData implements GSegmentFields {
     final _$result = <String, dynamic>{};
     _$result['id'] = this.id;
     _$result['type'] = this.type.toJson();
-    _$result['intermediatePoints'] =
-        this.intermediatePoints.map((_$e) => _$e.toJson()).toList();
+    _$result['geometry'] = this.geometry.map((_$e) => _$e.toJson()).toList();
     _$result['startWaypoint'] = this.startWaypoint.toJson();
     _$result['endWaypoint'] = this.endWaypoint.toJson();
     _$result['__typename'] = this.G__typename;
@@ -85,7 +84,7 @@ class GSegmentFieldsData implements GSegmentFields {
   GSegmentFieldsData copyWith({
     int? id,
     _i1.GSegmentTypeEnum? type,
-    List<GSegmentFieldsData_intermediatePoints>? intermediatePoints,
+    List<GSegmentFieldsData_geometry>? geometry,
     GSegmentFieldsData_startWaypoint? startWaypoint,
     GSegmentFieldsData_endWaypoint? endWaypoint,
     String? G__typename,
@@ -93,7 +92,7 @@ class GSegmentFieldsData implements GSegmentFields {
     return GSegmentFieldsData(
       id: id ?? this.id,
       type: type ?? this.type,
-      intermediatePoints: intermediatePoints ?? this.intermediatePoints,
+      geometry: geometry ?? this.geometry,
       startWaypoint: startWaypoint ?? this.startWaypoint,
       endWaypoint: endWaypoint ?? this.endWaypoint,
       G__typename: G__typename ?? this.G__typename,
@@ -106,8 +105,7 @@ class GSegmentFieldsData implements GSegmentFields {
         (other is GSegmentFieldsData &&
             id == other.id &&
             type == other.type &&
-            _gqlUtils.listEquals(
-                intermediatePoints, other.intermediatePoints) &&
+            _gqlUtils.listEquals(geometry, other.geometry) &&
             startWaypoint == other.startWaypoint &&
             endWaypoint == other.endWaypoint &&
             G__typename == other.G__typename);
@@ -115,33 +113,25 @@ class GSegmentFieldsData implements GSegmentFields {
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType,
-        id,
-        type,
-        _gqlUtils.listHash(intermediatePoints),
-        startWaypoint,
-        endWaypoint,
-        G__typename);
+    return Object.hash(runtimeType, id, type, _gqlUtils.listHash(geometry),
+        startWaypoint, endWaypoint, G__typename);
   }
 
   @override
   String toString() {
-    return 'GSegmentFieldsData(id: $id, type: $type, intermediatePoints: $intermediatePoints, startWaypoint: $startWaypoint, endWaypoint: $endWaypoint, G__typename: $G__typename)';
+    return 'GSegmentFieldsData(id: $id, type: $type, geometry: $geometry, startWaypoint: $startWaypoint, endWaypoint: $endWaypoint, G__typename: $G__typename)';
   }
 }
 
-class GSegmentFieldsData_intermediatePoints
-    implements GSegmentFields_intermediatePoints {
-  const GSegmentFieldsData_intermediatePoints({
+class GSegmentFieldsData_geometry implements GSegmentFields_geometry {
+  const GSegmentFieldsData_geometry({
     required this.lat,
     required this.lng,
     this.G__typename = 'LatLngType',
   });
 
-  factory GSegmentFieldsData_intermediatePoints.fromJson(
-      Map<String, dynamic> json) {
-    return GSegmentFieldsData_intermediatePoints(
+  factory GSegmentFieldsData_geometry.fromJson(Map<String, dynamic> json) {
+    return GSegmentFieldsData_geometry(
       lat: (json['lat'] as double),
       lng: (json['lng'] as double),
       G__typename: (json['__typename'] as String),
@@ -162,12 +152,12 @@ class GSegmentFieldsData_intermediatePoints
     return _$result;
   }
 
-  GSegmentFieldsData_intermediatePoints copyWith({
+  GSegmentFieldsData_geometry copyWith({
     double? lat,
     double? lng,
     String? G__typename,
   }) {
-    return GSegmentFieldsData_intermediatePoints(
+    return GSegmentFieldsData_geometry(
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
       G__typename: G__typename ?? this.G__typename,
@@ -177,7 +167,7 @@ class GSegmentFieldsData_intermediatePoints
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GSegmentFieldsData_intermediatePoints &&
+        (other is GSegmentFieldsData_geometry &&
             lat == other.lat &&
             lng == other.lng &&
             G__typename == other.G__typename);
@@ -190,7 +180,7 @@ class GSegmentFieldsData_intermediatePoints
 
   @override
   String toString() {
-    return 'GSegmentFieldsData_intermediatePoints(lat: $lat, lng: $lng, G__typename: $G__typename)';
+    return 'GSegmentFieldsData_geometry(lat: $lat, lng: $lng, G__typename: $G__typename)';
   }
 }
 

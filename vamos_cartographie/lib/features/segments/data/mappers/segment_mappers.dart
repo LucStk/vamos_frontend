@@ -9,9 +9,7 @@ class SegmentMapper {
   static Segment fromGQL(GSegmentFields data) => Segment(
     id: data.id,
     type: data.type.toDomain(),
-    intermediatePoints: data.intermediatePoints
-        .map((p) => LatLng(p.lat, p.lng))
-        .toList(),
+    geometry: data.geometry.map((p) => LatLng(p.lat, p.lng)).toList(),
     startWaypointId: data.startWaypoint.id,
     endWaypointId: data.endWaypoint.id,
   );

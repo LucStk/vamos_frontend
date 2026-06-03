@@ -118,7 +118,7 @@ void main() {
       final seg = trip.segments.first;
 
       expect(seg.type, GSegmentTypeEnum.bike);
-      expect(seg.intermediatePoints, [const LatLng(48.0, 2.0)]);
+      expect(seg.geometry, [const LatLng(48.0, 2.0)]);
     });
 
     test('plusieurs segments sont correctement mappés', () {
@@ -140,10 +140,10 @@ void main() {
 
     test('segment sans points intermédiaires', () {
       final trip = TripMapper.fromGQLDetail(
-        gTripDetailData(segments: [gSegmentData(intermediatePoints: [])]),
+        gTripDetailData(segments: [gSegmentData(geometry: [])]),
       );
 
-      expect(trip.segments.first.intermediatePoints, isEmpty);
+      expect(trip.segments.first.geometry, isEmpty);
     });
 
     test('waypoints et segments vides si absents', () {

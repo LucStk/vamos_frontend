@@ -19,6 +19,7 @@ class SegmentsLayer extends ConsumerWidget {
 
     final List<Polyline> polylines = [];
     final List<Marker> typeMarkers = [];
+    final List<Marker> ghostMarkers = [];
 
     for (int segmentId in segmentsIds) {
       var line = buildLine(ref, context, tripId, segmentId);

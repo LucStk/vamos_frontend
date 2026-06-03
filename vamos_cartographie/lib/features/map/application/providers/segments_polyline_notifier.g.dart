@@ -90,6 +90,83 @@ final class SegmentPolylinePointsFamily extends $Family
   String toString() => r'segmentPolylinePointsProvider';
 }
 
+@ProviderFor(segmentNodes)
+final segmentNodesProvider = SegmentNodesFamily._();
+
+final class SegmentNodesProvider
+    extends $FunctionalProvider<List<LineNode>, List<LineNode>, List<LineNode>>
+    with $Provider<List<LineNode>> {
+  SegmentNodesProvider._({
+    required SegmentNodesFamily super.from,
+    required (int, int) super.argument,
+  }) : super(
+         retry: null,
+         name: r'segmentNodesProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$segmentNodesHash();
+
+  @override
+  String toString() {
+    return r'segmentNodesProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<LineNode>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<LineNode> create(Ref ref) {
+    final argument = this.argument as (int, int);
+    return segmentNodes(ref, argument.$1, argument.$2);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<LineNode> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<LineNode>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SegmentNodesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$segmentNodesHash() => r'4a78f4bbe3a4070e26b575e22c6b8b905fdcebff';
+
+final class SegmentNodesFamily extends $Family
+    with $FunctionalFamilyOverride<List<LineNode>, (int, int)> {
+  SegmentNodesFamily._()
+    : super(
+        retry: null,
+        name: r'segmentNodesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  SegmentNodesProvider call(int tripId, int segmentId) =>
+      SegmentNodesProvider._(argument: (tripId, segmentId), from: this);
+
+  @override
+  String toString() => r'segmentNodesProvider';
+}
+
 @ProviderFor(segmentTypePoints)
 final segmentTypePointsProvider = SegmentTypePointsFamily._();
 

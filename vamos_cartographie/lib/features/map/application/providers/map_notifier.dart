@@ -47,12 +47,12 @@ class MapStateNotifier extends _$MapStateNotifier {
   void moveIntermediatePoint(int segmentIndex, int pointIndex, LatLng latLng) {
     final segments = [...state.segments];
     final segment = segments[segmentIndex];
-    final points = [...segment.intermediatePoints];
+    final points = [...segment.geometry];
 
     if (points[pointIndex] == latLng) return;
 
     points[pointIndex] = latLng;
-    segments[segmentIndex] = segment.copyWith(intermediatePoints: points);
+    segments[segmentIndex] = segment.copyWith(geometry: points);
 
     state = state.copyWith(segments: segments);
   }
