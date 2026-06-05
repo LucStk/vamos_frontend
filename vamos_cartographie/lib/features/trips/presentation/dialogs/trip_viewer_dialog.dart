@@ -67,7 +67,7 @@ class TripViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsAsync = ref.watch(tripsProvider);
+    final tripsAsync = ref.watch(tripProvider(tripData.id));
 
     return tripsAsync.when(
       loading: () => const DialogLoadingBody(),
@@ -76,9 +76,7 @@ class TripViewerDialog extends ConsumerWidget {
         return DialogErrorBody(errorMessage: error.toString());
       },
 
-      data: (trips) {
-        final trip = trips.where((t) => t.id == tripData.id).firstOrNull;
-
+      data: (trip) {
         if (trip == null) {
           return const SizedBox.shrink();
         }

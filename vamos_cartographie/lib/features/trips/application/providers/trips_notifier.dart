@@ -16,13 +16,20 @@ class TripsNotifier extends _$TripsNotifier {
   }
 
   @override
-  Future<Map<int, Trip>> build() async {
+  Future<Map<int, Trip>> build() => _load();
+
+  Future<Map<int, Trip>> _load() async {
     final result = await repository.getAllTrips();
 
     return result.fold(
       (e) => throw Exception(e.message),
-      (list) => {for (final w in list) w.id: w},
+      (list) => {for (final trip in list) trip.id: trip},
     );
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(_load);
   }
 
   Future<void> createTrip(TripDraft trip) async {
@@ -83,8 +90,10 @@ Iterable<int> tripIds(Ref ref) {
 }
 
 @riverpod
-Trip? trip(Ref ref, int tripId) {
+AsyncValue<Trip?> trip(Ref ref, int tripId) {
   return ref.watch(
-    tripsProvider.select((asyncTrips) => asyncTrips.value?[tripId]),
+    tripsProvider.select(
+      (asyncTrips) => asyncTrips.whenData((map) => map[tripId]),
+    ),
   );
 }

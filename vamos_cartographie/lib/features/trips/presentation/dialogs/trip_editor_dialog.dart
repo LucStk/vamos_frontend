@@ -20,17 +20,17 @@ class TripEditorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsAsync = ref.watch(tripsProvider);
+    final tripAsync = ref.watch(tripProvider(tripId));
 
-    return tripsAsync.when(
+    return tripAsync.when(
       loading: () => const DialogLoadingBody(),
 
-      error: (error, _) {
-        return DialogErrorBody(errorMessage: error.toString());
-      },
+      error: (e, st) => DialogErrorBody(errorMessage: e.toString()),
 
-      data: (trips) {
-        final trip = trips.firstWhere((t) => t.id == tripId);
+      data: (trip) {
+        if (trip == null) {
+          return const DialogErrorBody(errorMessage: 'Voyage introuvable');
+        }
 
         return TripFormDialog(
           initialTrip: trip.toDraft(),
