@@ -13,7 +13,7 @@ part of 'trips_notifier.dart';
 final tripsProvider = TripsNotifierProvider._();
 
 final class TripsNotifierProvider
-    extends $AsyncNotifierProvider<TripsNotifier, List<Trip>> {
+    extends $AsyncNotifierProvider<TripsNotifier, Map<int, Trip>> {
   TripsNotifierProvider._()
     : super(
         from: null,
@@ -33,25 +33,66 @@ final class TripsNotifierProvider
   TripsNotifier create() => TripsNotifier();
 }
 
-String _$tripsNotifierHash() => r'e0860c627e3744d821408264b306a7a854f825f8';
+String _$tripsNotifierHash() => r'b6f561ac3d9d0f05b980909fbcf6121b6174e9dd';
 
-abstract class _$TripsNotifier extends $AsyncNotifier<List<Trip>> {
-  FutureOr<List<Trip>> build();
+abstract class _$TripsNotifier extends $AsyncNotifier<Map<int, Trip>> {
+  FutureOr<Map<int, Trip>> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<List<Trip>>, List<Trip>>;
+    final ref = this.ref as $Ref<AsyncValue<Map<int, Trip>>, Map<int, Trip>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<Trip>>, List<Trip>>,
-              AsyncValue<List<Trip>>,
+              AnyNotifier<AsyncValue<Map<int, Trip>>, Map<int, Trip>>,
+              AsyncValue<Map<int, Trip>>,
               Object?,
               Object?
             >;
     element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(tripIds)
+final tripIdsProvider = TripIdsProvider._();
+
+final class TripIdsProvider
+    extends $FunctionalProvider<Iterable<int>, Iterable<int>, Iterable<int>>
+    with $Provider<Iterable<int>> {
+  TripIdsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'tripIdsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$tripIdsHash();
+
+  @$internal
+  @override
+  $ProviderElement<Iterable<int>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Iterable<int> create(Ref ref) {
+    return tripIds(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Iterable<int> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Iterable<int>>(value),
+    );
+  }
+}
+
+String _$tripIdsHash() => r'29e0db6de65079ac1a8619969317557441326049';
 
 @ProviderFor(trip)
 final tripProvider = TripFamily._();
@@ -107,7 +148,7 @@ final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
   }
 }
 
-String _$tripHash() => r'bf52831310361217f66d58392602db70de340454';
+String _$tripHash() => r'4f4f7e0a62b70dcab123a5744d06d3f94583f16e';
 
 final class TripFamily extends $Family
     with $FunctionalFamilyOverride<Trip?, int> {
