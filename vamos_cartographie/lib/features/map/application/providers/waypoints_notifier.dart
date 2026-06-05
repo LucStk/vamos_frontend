@@ -74,13 +74,19 @@ class WaypointsStore extends _$WaypointsStore {
 
   Future<void> updateWaypointRemote(int id, WaypointDraft draft) async {
     final previousState = state;
+    final currentWaypoint = state[id];
+
+    if (currentWaypoint == null) {
+      throw Exception('Waypoint $id not found in state');
+    }
 
     // Mise à jour optimiste locale
-    final optimisticWaypoint = draft.toWaypoint(id);
+    final optimisticWaypoint = draft.toWaypoint(id, currentWaypoint.vertexId);
     _updateWaypointLocal(optimisticWaypoint);
 
     final Either<Failure, Waypoint> result = await repository.updateWaypoint(
       id,
+      currentWaypoint.vertexId,
       draft,
     );
 

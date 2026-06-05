@@ -1,4 +1,3 @@
-import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/features/segments/data/mappers/segment_mappers.dart';
 import 'package:vamos_cartographie/features/segments/domain/types/segment_type.dart';
@@ -8,10 +7,10 @@ import '../../../fixtures/segment_fixtures.dart';
 
 void main() {
   // ---------------------------------------------------------------------------
-  // SegmentMapper.segmentFromGQL — GQL → Domaine
+  // SegmentMapper.fromGQL — GQL → Domaine
   // ---------------------------------------------------------------------------
 
-  group('SegmentMapper.segmentFromGQL', () {
+  group('SegmentMapper.fromGQL', () {
     test('mappe le type correctement', () {
       final gql = gSegmentData(type: GSegmentTypeEnum.walk);
       final seg = SegmentMapper.fromGQL(gql);
@@ -19,29 +18,16 @@ void main() {
       expect(seg.type, SegmentType.walk);
     });
 
-    test('mappe les points intermédiaires en liste de SegmentVertex', () {
-      final gql = gSegmentData(
-        type: GSegmentTypeEnum.bike,
-        geometry: [
-          GSegmentFieldsData_geometry(lat: 48.0, lng: 2.0),
-          GSegmentFieldsData_geometry(lat: 45.5, lng: 3.5),
-        ],
-      );
+    test('mappe les IDs des vertex de départ et de fin', () {
+      final gql = gSegmentData(startVertexId: 10, endVertexId: 20);
       final seg = SegmentMapper.fromGQL(gql);
 
-      expect(seg.middleVertices, hasLength(2));
-      expect(seg.middleVertices[0].point, const LatLng(48.0, 2.0));
-      expect(seg.middleVertices[1].point, const LatLng(45.5, 3.5));
+      expect(seg.startWaypointId, 10);
+      expect(seg.endWaypointId, 20);
     });
 
-    test('liste vide quand aucun point intermédiaire', () {
-      final gql = GSegmentFieldsData(
-        type: GSegmentTypeEnum.car,
-        geometry: [],
-        id: 1,
-        startWaypoint: GSegmentFieldsData_startWaypoint(id: 0),
-        endWaypoint: GSegmentFieldsData_endWaypoint(id: 1),
-      );
+    test('crée une liste vide pour middleVertices', () {
+      final gql = gSegmentData();
       final seg = SegmentMapper.fromGQL(gql);
 
       expect(seg.middleVertices, isEmpty);
@@ -50,16 +36,6 @@ void main() {
     test('mappe le type train correctement', () {
       final gql = gSegmentData(type: GSegmentTypeEnum.train);
       expect(SegmentMapper.fromGQL(gql).type, SegmentType.train);
-    });
-
-    test('les coordonnées lat/lng sont bien converties', () {
-      final gql = gSegmentData(
-        geometry: [GSegmentFieldsData_geometry(lat: 43.296, lng: 5.381)],
-      );
-      final vertex = SegmentMapper.fromGQL(gql).middleVertices.first;
-
-      expect(vertex.point.latitude, closeTo(43.296, 0.001));
-      expect(vertex.point.longitude, closeTo(5.381, 0.001));
     });
 
     test('mappe tous les types de segment disponibles', () {
@@ -89,55 +65,53 @@ void main() {
       }
     });
 
-    test('segment avec plusieurs points intermédiaires', () {
-      final gql = gSegmentData(
-        geometry: [
-          GSegmentFieldsData_geometry(lat: 48.0, lng: 2.0),
-          GSegmentFieldsData_geometry(lat: 47.0, lng: 3.0),
-          GSegmentFieldsData_geometry(lat: 46.0, lng: 4.0),
-          GSegmentFieldsData_geometry(lat: 45.0, lng: 5.0),
-        ],
-      );
-      final seg = SegmentMapper.fromGQL(gql);
-
-      expect(seg.middleVertices, hasLength(4));
-      expect(seg.middleVertices[0].point, const LatLng(48.0, 2.0));
-      expect(seg.middleVertices[1].point, const LatLng(47.0, 3.0));
-      expect(seg.middleVertices[2].point, const LatLng(46.0, 4.0));
-      expect(seg.middleVertices[3].point, const LatLng(45.0, 5.0));
-    });
-
-    test('coordonnées négatives sont correctement mappées', () {
-      final gql = gSegmentData(
-        geometry: [GSegmentFieldsData_geometry(lat: -33.8688, lng: 151.2093)],
-      );
-      final vertex = SegmentMapper.fromGQL(gql).middleVertices.first;
-
-      expect(vertex.point.latitude, closeTo(-33.8688, 0.0001));
-      expect(vertex.point.longitude, closeTo(151.2093, 0.0001));
-    });
-
-    test('coordonnées avec précision décimale', () {
-      final gql = gSegmentData(
-        geometry: [GSegmentFieldsData_geometry(lat: 48.858370, lng: 2.294481)],
-      );
-      final vertex = SegmentMapper.fromGQL(gql).middleVertices.first;
-
-      expect(vertex.point.latitude, 48.858370);
-      expect(vertex.point.longitude, 2.294481);
-    });
-
     test('l\'id du segment est correctement mappé', () {
-      final gql = GSegmentFieldsData(
-        id: 42,
-        type: GSegmentTypeEnum.bike,
-        geometry: [],
-        startWaypoint: GSegmentFieldsData_startWaypoint(id: 0),
-        endWaypoint: GSegmentFieldsData_endWaypoint(id: 1),
-      );
+      final gql = gSegmentData(id: 42);
       final seg = SegmentMapper.fromGQL(gql);
 
       expect(seg.id, 42);
+    });
+
+    test('mappe correctement les vertex avec leurs coordonnées', () {
+      final gql = GSegmentFieldsData(
+        id: 1,
+        type: GSegmentTypeEnum.bike,
+        startVertex: GVertexFieldsData(
+          id: 100,
+          latLng: GLatLngFieldsData(lat: 48.8566, lng: 2.3522),
+        ),
+        endVertex: GVertexFieldsData(
+          id: 200,
+          latLng: GLatLngFieldsData(lat: 48.8606, lng: 2.3376),
+        ),
+      );
+      final seg = SegmentMapper.fromGQL(gql);
+
+      expect(seg.startWaypointId, 100);
+      expect(seg.endWaypointId, 200);
+    });
+
+    test('segment avec type boat', () {
+      final gql = gSegmentData(type: GSegmentTypeEnum.boat);
+      final seg = SegmentMapper.fromGQL(gql);
+
+      expect(seg.type, SegmentType.boat);
+      expect(seg.middleVertices, isEmpty);
+    });
+
+    test('segment avec type car', () {
+      final gql = gSegmentData(type: GSegmentTypeEnum.car);
+      final seg = SegmentMapper.fromGQL(gql);
+
+      expect(seg.type, SegmentType.car);
+    });
+
+    test('segment avec différents IDs de vertex', () {
+      final gql = gSegmentData(startVertexId: 5, endVertexId: 15);
+      final seg = SegmentMapper.fromGQL(gql);
+
+      expect(seg.startWaypointId, 5);
+      expect(seg.endWaypointId, 15);
     });
   });
 }

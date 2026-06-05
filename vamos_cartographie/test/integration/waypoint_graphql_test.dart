@@ -65,16 +65,24 @@ void main() {
       expect(createTripResponse.data?.createTrip, isNotNull);
       final tripId = createTripResponse.data!.createTrip.id;
       print('Trip créé id : $tripId');
-      // Création d'un waypoint sur le trip
+      // Création d'un vertex d'abord
+      final createVertexReq = GCreateVertexReq(
+        vars: GCreateVertexVars(
+          tripId: tripId,
+          latLng: GLatLngInput(lat: 0, lng: 0),
+        ),
+      );
+      final createVertexResponse = await client.request(createVertexReq).first;
+      _printError(createVertexResponse);
+      expect(createVertexResponse.data?.createVertex, isNotNull);
+      final vertexId = createVertexResponse.data!.createVertex.id;
 
+      // Création d'un waypoint sur le trip
       final createWapointReq = GCreateWaypointReq(
         vars: GCreateWaypointVars(
           tripId: tripId,
-          waypoint: GWaypointCreateInput(
-            lat: 0,
-            lng: 0,
-            type: GWaypointEnum.START,
-          ),
+          vertexId: vertexId,
+          waypoint: GWaypointCreateInput(type: GWaypointEnum.START),
         ),
       );
       final createWaypointResponse = await client
@@ -102,14 +110,24 @@ void main() {
 
       final waypointId = waypoints.first.id;
 
+      // Déplacer le vertex associé au waypoint
+      final waypointVertexId = waypoints.first.vertex.id;
+      final moveVertexReq = GMoveVertexReq(
+        vars: GMoveVertexVars(
+          id: waypointVertexId,
+          latLng: GLatLngInput(lat: 1.1, lng: 0.0),
+        ),
+      );
+      final moveVertexResponse = await client.request(moveVertexReq).first;
+      _printError(moveVertexResponse);
+      expect(moveVertexResponse.data?.moveVertex, isNotNull);
+
       // Mettre à jour le waypoint
       final updateWaypointReq = GUpdateWaypointReq(
         vars: GUpdateWaypointVars(
           id: waypointId,
           waypoint: GWaypointUpdateInput(
             title: const Value.present('update title test'),
-            lat: const Value.present(0.0),
-            lng: const Value.present(1.1),
             description: const Value.present('Nouvelle description'),
             type: const Value.present(GWaypointEnum.BEACH),
           ),

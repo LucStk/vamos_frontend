@@ -10,15 +10,11 @@ class SegmentMapper {
   static Segment fromGQL(GSegmentFields data) => Segment(
     id: data.id,
     type: data.type.toDomain(),
-    middleVertices: data.geometry.indexed
-        .map(
-          (e) => SegmentVertex(
-            id: "${data.id}-${e.$1}",
-            point: LatLng(e.$2.lat, e.$2.lng),
-          ),
-        )
-        .toList(),
-    startWaypointId: data.startWaypoint.id,
-    endWaypointId: data.endWaypoint.id,
+    // Note: geometry is now stored separately on the server side
+    // For now, we create an empty list. The geometry will be calculated client-side
+    // or fetched separately if needed
+    middleVertices: [],
+    startWaypointId: data.startVertex.id,
+    endWaypointId: data.endVertex.id,
   );
 }

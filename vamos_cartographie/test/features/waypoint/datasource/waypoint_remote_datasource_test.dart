@@ -33,6 +33,7 @@ void main() {
       final gqlData = GUpdateWaypointData(
         updateWaypoint: gWaypointData(
           id: 12,
+          vertexId: 100,
           lat: 48.8566,
           lng: 2.3522,
           type: GWaypointEnum.WAYPOINT,
@@ -49,8 +50,8 @@ void main() {
       expect(result.id, 12);
       expect(result.title, 'Waypoint 12');
       expect(result.type, GWaypointEnum.WAYPOINT);
-      expect(result.lat, closeTo(48.8566, 0.0001));
-      expect(result.lng, closeTo(2.3522, 0.0001));
+      expect(result.vertex.latLng.lat, closeTo(48.8566, 0.0001));
+      expect(result.vertex.latLng.lng, closeTo(2.3522, 0.0001));
     });
 
     test('lève une Exception en cas d\'erreur GraphQL', () async {

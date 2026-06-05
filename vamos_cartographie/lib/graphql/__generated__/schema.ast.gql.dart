@@ -382,6 +382,15 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'vertexId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
           name: _i1.NameNode(value: 'waypoint'),
           directives: [],
           type: _i1.NamedTypeNode(
@@ -490,6 +499,81 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'moveVertex'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'latLng'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'LatLngInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'VertexType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createVertex'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'latLng'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'LatLngInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'VertexType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'deleteVertex'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const Query = _i1.ObjectTypeDefinitionNode(
@@ -544,7 +628,7 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'startWaypointId'),
+      name: _i1.NameNode(value: 'startVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
@@ -553,7 +637,7 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'endWaypointId'),
+      name: _i1.NameNode(value: 'endVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
@@ -599,32 +683,20 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'startWaypoint'),
+      name: _i1.NameNode(value: 'startVertex'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointType'),
+        name: _i1.NameNode(value: 'VertexType'),
         isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'endWaypoint'),
+      name: _i1.NameNode(value: 'endVertex'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'geometry'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngType'),
-          isNonNull: true,
-        ),
+        name: _i1.NameNode(value: 'VertexType'),
         isNonNull: true,
       ),
     ),
@@ -670,7 +742,7 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'startWaypointId'),
+      name: _i1.NameNode(value: 'startVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
@@ -679,7 +751,7 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'endWaypointId'),
+      name: _i1.NameNode(value: 'endVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
@@ -698,6 +770,37 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
         isNonNull: false,
       ),
       defaultValue: null,
+    ),
+  ],
+);
+const TopologyType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'TopologyType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'vertices'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'VertexType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'segments'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'SegmentType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
     ),
   ],
 );
@@ -825,14 +928,11 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'segments'),
+      name: _i1.NameNode(value: 'topology'),
       directives: [],
       args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'SegmentType'),
-          isNonNull: true,
-        ),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'TopologyType'),
         isNonNull: true,
       ),
     ),
@@ -896,28 +996,35 @@ const UploadConfig = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const VertexType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'VertexType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'latLng'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngType'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const WaypointCreateInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointCreateInput'),
   directives: [],
   fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lat'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lng'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'type'),
       directives: [],
@@ -1045,24 +1152,6 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'lat'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'lng'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'title'),
       directives: [],
       args: [],
@@ -1101,30 +1190,21 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'vertex'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'VertexType'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointUpdateInput'),
   directives: [],
   fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lat'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'lng'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'title'),
       directives: [],
@@ -1139,6 +1219,15 @@ const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'WaypointEnum'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'vertexId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -1168,11 +1257,13 @@ const document = _i1.DocumentNode(definitions: [
   SegmentType,
   SegmentTypeEnum,
   SegmentUpdateInput,
+  TopologyType,
   TripImageType,
   TripInput,
   TripType,
   TripUpdateInput,
   UploadConfig,
+  VertexType,
   WaypointCreateInput,
   WaypointEnum,
   WaypointImageType,

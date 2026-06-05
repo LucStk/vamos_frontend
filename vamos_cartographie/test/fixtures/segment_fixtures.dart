@@ -3,14 +3,21 @@ import 'package:vamos_cartographie/graphql/graphql.dart';
 
 /// Construit un [GSegmentFieldsData] minimal pour les tests.
 GSegmentFieldsData gSegmentData({
+  int id = 1,
+  int startVertexId = 1,
+  int endVertexId = 2,
   GSegmentTypeEnum type = GSegmentTypeEnum.bike,
-  List<GSegmentFieldsData_geometry>? geometry,
 }) => GSegmentFieldsData(
+  id: id,
   type: type,
-  id: 1,
-  geometry: geometry ?? [GSegmentFieldsData_geometry(lat: 48.0, lng: 2.0)],
-  startWaypoint: GSegmentFieldsData_startWaypoint(id: 1),
-  endWaypoint: GSegmentFieldsData_endWaypoint(id: 2),
+  startVertex: GVertexFieldsData(
+    id: startVertexId,
+    latLng: GLatLngFieldsData(lat: 48.85, lng: 2.35),
+  ),
+  endVertex: GVertexFieldsData(
+    id: endVertexId,
+    latLng: GLatLngFieldsData(lat: 48.86, lng: 2.36),
+  ),
 );
 
 /// Construit un [Segment] domaine minimal pour les tests.

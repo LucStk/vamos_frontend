@@ -9,15 +9,15 @@ class SegmentDraftMapper {
     geometry: s.middleVertices.map((m) {
       return GLatLngInput(lat: m.point.latitude, lng: m.point.longitude);
     }).toList(),
-    startWaypointId: s.startWaypointId,
-    endWaypointId: s.endWaypointId,
+    startVertexId: s.startWaypointId,
+    endVertexId: s.endWaypointId,
   );
 
   static GSegmentUpdateInput toGQLUpdateInput(SegmentDraft s) {
     return GSegmentUpdateInput(
       type: Value.present(s.type.toGQL()),
-      startWaypointId: Value.present(s.startWaypointId),
-      endWaypointId: Value.present(s.endWaypointId),
+      startVertexId: Value.present(s.startWaypointId),
+      endVertexId: Value.present(s.endWaypointId),
       geometry: Value.present(
         s.middleVertices.map((m) {
           return GLatLngInput(lat: m.point.latitude, lng: m.point.longitude);

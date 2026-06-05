@@ -23,30 +23,35 @@ final List<Trip> trips = [
     waypoints: [
       Waypoint(
         id: 0,
+        vertexId: 0,
         latLng: LatLng(48.8566, 2.3522),
         type: WaypointType.start,
         description: 'Départ depuis Paris',
       ),
       Waypoint(
         id: 1,
+        vertexId: 1,
         latLng: LatLng(48.1173, -1.6778),
         type: WaypointType.waypoint,
         description: 'Étape à Rennes — centre historique',
       ),
       Waypoint(
         id: 2,
+        vertexId: 2,
         latLng: LatLng(48.3904, -4.4861),
         type: WaypointType.viewpoint,
         description: 'Vue sur la rade de Brest',
       ),
       Waypoint(
         id: 3,
+        vertexId: 3,
         latLng: LatLng(47.6587, -2.7600),
         type: WaypointType.food,
         description: 'Ravitaillement au marché de Vannes',
       ),
       Waypoint(
         id: 4,
+        vertexId: 4,
         latLng: LatLng(47.2184, -1.5536),
         type: WaypointType.end,
         description: 'Arrivée à Nantes',
@@ -96,30 +101,35 @@ final List<Trip> trips = [
     waypoints: [
       Waypoint(
         id: 21,
+        vertexId: 21,
         latLng: LatLng(48.5734, 7.7521),
         type: WaypointType.start,
         description: 'Départ de Strasbourg',
       ),
       Waypoint(
         id: 22,
+        vertexId: 22,
         latLng: LatLng(48.2500, 7.3100),
         type: WaypointType.historic,
         description: 'Patrimoine médiéval de Sélestat',
       ),
       Waypoint(
         id: 23,
+        vertexId: 23,
         latLng: LatLng(48.0791, 7.3580),
         type: WaypointType.food,
         description: 'Dégustation de vins à Colmar',
       ),
       Waypoint(
         id: 24,
+        vertexId: 24,
         latLng: LatLng(47.8683, 7.3174),
         type: WaypointType.viewpoint,
         description: 'Point de vue sur les vignes',
       ),
       Waypoint(
         id: 25,
+        vertexId: 25,
         latLng: LatLng(47.7508, 7.3359),
         type: WaypointType.end,
         description: 'Arrivée à Mulhouse',
@@ -169,6 +179,7 @@ final List<Trip> trips = [
     waypoints: [
       Waypoint(
         id: 30,
+        vertexId: 30,
         title: "départ",
         latLng: LatLng(43.4929, -1.4748),
         type: WaypointType.start,
@@ -176,6 +187,7 @@ final List<Trip> trips = [
       ),
       Waypoint(
         id: 31,
+        vertexId: 31,
         title: "Super point d'eau",
         latLng: LatLng(43.2951, -0.3708),
         type: WaypointType.water,
@@ -183,12 +195,14 @@ final List<Trip> trips = [
       ),
       Waypoint(
         id: 32,
+        vertexId: 32,
         latLng: LatLng(43.1042, -0.0785),
         type: WaypointType.camping,
         description: 'Nuit en camping à Tarbes',
       ),
       Waypoint(
         id: 33,
+        vertexId: 33,
         latLng: LatLng(43.0958, -0.0461),
         type: WaypointType.end,
         description: 'Arrivée à Lourdes',

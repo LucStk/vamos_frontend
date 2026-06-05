@@ -12,6 +12,7 @@ abstract class IWaypointRepository {
   );
   Future<Either<Failure, Waypoint>> updateWaypoint(
     int id,
+    int currentVertexId,
     WaypointDraft waypoint,
   );
   Future<Either<Failure, void>> deleteWaypoint(int id);

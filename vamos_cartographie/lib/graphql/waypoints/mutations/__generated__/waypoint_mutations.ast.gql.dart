@@ -5,6 +5,10 @@
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
     as _i2;
+import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.ast.gql.dart'
+    as _i5;
+import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
+    as _i4;
 import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.ast.gql.dart'
     as _i3;
 
@@ -84,6 +88,15 @@ const CreateWaypoint = _i1.OperationDefinitionNode(
       directives: [],
     ),
     _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'WaypointCreateInput'),
@@ -102,6 +115,10 @@ const CreateWaypoint = _i1.OperationDefinitionNode(
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'tripId'),
           value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'vertexId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
         ),
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'waypoint'),
@@ -304,4 +321,6 @@ const document = _i1.DocumentNode(definitions: [
   AttachImageToWaypoint,
   _i2.ImageFields,
   _i3.WaypointFields,
+  _i4.VertexFields,
+  _i5.LatLngFields,
 ]);

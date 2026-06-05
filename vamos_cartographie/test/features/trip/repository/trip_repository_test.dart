@@ -40,8 +40,18 @@ TripDraft _domainTrip() => TripDraft(
   title: 'Test',
   description: 'Desc',
   waypoints: [
-    Waypoint(id: 1, latLng: const LatLng(1, 2), type: WaypointType.start),
-    Waypoint(id: 2, latLng: const LatLng(3, 4), type: WaypointType.end),
+    Waypoint(
+      id: 1,
+      vertexId: 1,
+      latLng: const LatLng(1, 2),
+      type: WaypointType.start,
+    ),
+    Waypoint(
+      id: 2,
+      vertexId: 2,
+      latLng: const LatLng(3, 4),
+      type: WaypointType.end,
+    ),
   ],
   segments: [
     Segment(

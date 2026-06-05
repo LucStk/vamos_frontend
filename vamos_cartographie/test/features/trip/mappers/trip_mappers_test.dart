@@ -115,22 +115,38 @@ void main() {
       expect(trip.waypoints[1].latLng, const LatLng(48.85, 2.35));
     });
 
-    test('segment bien mappé — type et point intermédiaire', () {
+    test('segment bien mappé — type et vertex IDs', () {
       final trip = TripMapper.fromGQLDetail(gTripDetailData());
       final seg = trip.segments.first;
 
       expect(seg.type, SegmentType.bike);
-      expect(seg.middleVertices, hasLength(1));
-      expect(seg.middleVertices.first.point, const LatLng(48.0, 2.0));
+      expect(seg.startWaypointId, 1);
+      expect(seg.endWaypointId, 2);
+      expect(seg.middleVertices, isEmpty);
     });
 
     test('plusieurs segments sont correctement mappés', () {
       final trip = TripMapper.fromGQLDetail(
         gTripDetailData(
           segments: [
-            gSegmentData(type: GSegmentTypeEnum.bike),
-            gSegmentData(type: GSegmentTypeEnum.walk),
-            gSegmentData(type: GSegmentTypeEnum.car),
+            gSegmentData(
+              id: 1,
+              startVertexId: 1,
+              endVertexId: 2,
+              type: GSegmentTypeEnum.bike,
+            ),
+            gSegmentData(
+              id: 2,
+              startVertexId: 2,
+              endVertexId: 3,
+              type: GSegmentTypeEnum.walk,
+            ),
+            gSegmentData(
+              id: 3,
+              startVertexId: 3,
+              endVertexId: 4,
+              type: GSegmentTypeEnum.car,
+            ),
           ],
         ),
       );
@@ -143,7 +159,7 @@ void main() {
 
     test('segment sans points intermédiaires', () {
       final trip = TripMapper.fromGQLDetail(
-        gTripDetailData(segments: [gSegmentData(geometry: [])]),
+        gTripDetailData(segments: [gSegmentData()]),
       );
 
       expect(trip.segments.first.middleVertices, isEmpty);

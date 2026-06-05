@@ -56,16 +56,41 @@ GGetTripData_trip gTripDetailData({
   String description = 'Une belle aventure',
   List<GGetTripData_trip_images>? images,
   List<GWaypointFieldsData>? waypoints,
+  List<GVertexFieldsData>? vertices,
   List<GSegmentFieldsData>? segments,
-}) => GGetTripData_trip(
-  id: id,
-  title: title,
-  date: date,
-  description: description,
-  images: images ?? [GGetTripData_trip_images(image: gImageData())],
-  waypoints: waypoints ?? [gWaypointData(id: 1), gWaypointData(id: 2)],
-  segments: segments ?? [gSegmentData()],
-);
+}) {
+  // Si waypoints n'est pas fourni, créer des waypoints par défaut
+  final defaultWaypoints =
+      waypoints ??
+      [gWaypointData(id: 1, vertexId: 1), gWaypointData(id: 2, vertexId: 2)];
+
+  // Si vertices n'est pas fourni, créer des vertices par défaut
+  final defaultVertices =
+      vertices ??
+      [
+        GVertexFieldsData(
+          id: 1,
+          latLng: GLatLngFieldsData(lat: 48.85, lng: 2.35),
+        ),
+        GVertexFieldsData(
+          id: 2,
+          latLng: GLatLngFieldsData(lat: 48.86, lng: 2.36),
+        ),
+      ];
+
+  return GGetTripData_trip(
+    id: id,
+    title: title,
+    date: date,
+    description: description,
+    images: images ?? [GGetTripData_trip_images(image: gImageData())],
+    waypoints: defaultWaypoints,
+    topology: GGetTripData_trip_topology(
+      vertices: defaultVertices,
+      segments: segments ?? [gSegmentData()],
+    ),
+  );
+}
 
 // ── Helpers pour les mutations create/update ──────────────────────────────────
 //

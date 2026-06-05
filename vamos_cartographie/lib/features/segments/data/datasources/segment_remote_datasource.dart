@@ -20,7 +20,7 @@ class SegmentRemoteDatasource {
             'Erreur dans le get des waypoints du trip',
       );
     }
-    return response.data!.trip.segments;
+    return response.data!.trip.topology.segments;
   }
 
   Future<GSegmentFields> createSegment({

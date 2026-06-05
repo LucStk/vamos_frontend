@@ -12,31 +12,10 @@ void main() {
   // ---------------------------------------------------------------------------
 
   group('WaypointDraftMapper.toGQLUpdateInput', () {
-    test('lat et lng sont toujours présents', () {
-      final draft = domainWaypointDraft(lat: 45.0, lng: 5.0);
-      final input = WaypointDraftMapper.toGQLUpdateInput(draft);
-
-      expect(input.lat, Value.present(45.0));
-      expect(input.lng, Value.present(5.0));
-    });
-
     test('type est toujours présent', () {
       final draft = domainWaypointDraft(type: WaypointType.shelter);
       final input = WaypointDraftMapper.toGQLUpdateInput(draft);
 
-      expect(input.type, Value.present(GWaypointEnum.SHELTER));
-    });
-
-    test('lat, lng et type sont tous présents ensemble', () {
-      final draft = domainWaypointDraft(
-        lat: 45.0,
-        lng: 5.0,
-        type: WaypointType.shelter,
-      );
-      final input = WaypointDraftMapper.toGQLUpdateInput(draft);
-
-      expect(input.lat, Value.present(45.0));
-      expect(input.lng, Value.present(5.0));
       expect(input.type, Value.present(GWaypointEnum.SHELTER));
     });
 
@@ -72,11 +51,13 @@ void main() {
       final draft = domainWaypointDraft(
         title: 'Mont Blanc',
         description: 'Belle vue',
+        type: WaypointType.shelter,
       );
       final input = WaypointDraftMapper.toGQLUpdateInput(draft);
 
       expect(input.title, Value.present('Mont Blanc'));
       expect(input.description, Value.present('Belle vue'));
+      expect(input.type, Value.present(GWaypointEnum.SHELTER));
     });
 
     test('description et title absents simultanément', () {

@@ -5,6 +5,10 @@
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
     as _i2;
+import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.ast.gql.dart'
+    as _i4;
+import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
+    as _i3;
 
 const WaypointFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'WaypointFields'),
@@ -17,20 +21,6 @@ const WaypointFields = _i1.FragmentDefinitionNode(
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
       name: _i1.NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'lat'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'lng'),
       alias: null,
       arguments: [],
       directives: [],
@@ -56,6 +46,25 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'vertex'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'VertexFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'images'),
@@ -103,4 +112,6 @@ const WaypointFields = _i1.FragmentDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   WaypointFields,
   _i2.ImageFields,
+  _i3.VertexFields,
+  _i4.LatLngFields,
 ]);

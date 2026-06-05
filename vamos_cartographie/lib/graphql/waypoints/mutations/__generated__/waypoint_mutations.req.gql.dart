@@ -9,6 +9,10 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
     as _i7;
+import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.ast.gql.dart'
+    as _i10;
+import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
+    as _i9;
 import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.ast.gql.dart'
     as _i8;
 import 'package:vamos_cartographie/graphql/waypoints/mutations/__generated__/waypoint_mutations.ast.gql.dart'
@@ -61,6 +65,8 @@ class GUpdateWaypointReq
     _i6.UpdateWaypoint,
     _i7.ImageFields,
     _i8.WaypointFields,
+    _i9.VertexFields,
+    _i10.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -222,6 +228,8 @@ class GCreateWaypointReq
     _i6.CreateWaypoint,
     _i7.ImageFields,
     _i8.WaypointFields,
+    _i9.VertexFields,
+    _i10.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

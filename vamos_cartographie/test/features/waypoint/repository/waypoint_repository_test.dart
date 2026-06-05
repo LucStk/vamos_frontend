@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
@@ -17,12 +18,24 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(FakeGWaypointUpdateInput());
+    registerFallbackValue(const LatLng(0, 0));
   });
 
   setUp(() {
     mockDatasource = MockWaypointRemoteDatasource();
     mockImageRepo = MockUploadImgRepository();
     repository = WaypointRepository(mockDatasource);
+
+    // Par défaut : moveVertex réussit
+    when(
+      () => mockDatasource.moveVertex(
+        vertexId: any(named: 'vertexId'),
+        latLng: any(named: 'latLng'),
+      ),
+    ).thenAnswer(
+      (_) async =>
+          GVertexFieldsData(id: 100, latLng: GLatLngFieldsData(lat: 0, lng: 0)),
+    );
   });
 
   // ---------------------------------------------------------------------------
@@ -56,7 +69,7 @@ void main() {
           type: WaypointType.camping,
           description: 'Camping en forêt',
         );
-        final result = await repository.updateWaypoint(3, draft);
+        final result = await repository.updateWaypoint(3, 100, draft);
 
         expect(result.isRight(), isTrue);
         final wp = (result as Right).value as Waypoint;
@@ -76,7 +89,7 @@ void main() {
         ),
       ).thenAnswer((_) async => gWaypointData(id: 7));
 
-      await repository.updateWaypoint(7, domainWaypointDraft());
+      await repository.updateWaypoint(7, 100, domainWaypointDraft());
 
       verify(
         () => mockDatasource.updateWaypoint(id: 7, input: any(named: 'input')),
@@ -101,6 +114,7 @@ void main() {
 
       await repository.updateWaypoint(
         1,
+        100,
         domainWaypointDraft(title: 'Mont Blanc', description: 'Belle vue'),
       );
 
@@ -124,6 +138,7 @@ void main() {
 
       await repository.updateWaypoint(
         1,
+        100,
         domainWaypointDraft(title: '', description: ''),
       );
 
@@ -145,6 +160,7 @@ void main() {
 
         final result = await repository.updateWaypoint(
           99,
+          100,
           domainWaypointDraft(),
         );
 
@@ -165,6 +181,7 @@ void main() {
 
         final result = await repository.updateWaypoint(
           1,
+          100,
           domainWaypointDraft(),
         );
 

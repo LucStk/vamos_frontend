@@ -65,12 +65,14 @@ class GUpdateWaypointVars {
 class GCreateWaypointVars {
   const GCreateWaypointVars({
     required this.tripId,
+    required this.vertexId,
     required this.waypoint,
   });
 
   factory GCreateWaypointVars.fromJson(Map<String, dynamic> json) {
     return GCreateWaypointVars(
       tripId: (json['tripId'] as int),
+      vertexId: (json['vertexId'] as int),
       waypoint: _i1.GWaypointCreateInput.fromJson(
           (json['waypoint'] as Map<String, dynamic>)),
     );
@@ -78,12 +80,16 @@ class GCreateWaypointVars {
 
   final int tripId;
 
+  final int vertexId;
+
   final _i1.GWaypointCreateInput waypoint;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     final _$tripIdValue = this.tripId;
     _$result['tripId'] = _$tripIdValue;
+    final _$vertexIdValue = this.vertexId;
+    _$result['vertexId'] = _$vertexIdValue;
     final _$waypointValue = this.waypoint;
     _$result['waypoint'] = _$waypointValue.toJson();
     return _$result;
@@ -91,10 +97,12 @@ class GCreateWaypointVars {
 
   GCreateWaypointVars copyWith({
     int? tripId,
+    int? vertexId,
     _i1.GWaypointCreateInput? waypoint,
   }) {
     return GCreateWaypointVars(
       tripId: tripId ?? this.tripId,
+      vertexId: vertexId ?? this.vertexId,
       waypoint: waypoint ?? this.waypoint,
     );
   }
@@ -113,7 +121,7 @@ class GCreateWaypointVars {
 
   @override
   String toString() {
-    return 'GCreateWaypointVars(tripId: $tripId, waypoint: $waypoint)';
+    return 'GCreateWaypointVars(tripId: $tripId, vertexId: $vertexId, waypoint: $waypoint)';
   }
 }
 

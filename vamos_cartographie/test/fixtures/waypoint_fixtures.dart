@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/graphql/graphql.dart';
 /// Construit un [GWaypointFieldsData] minimal pour les tests.
 GWaypointFieldsData gWaypointData({
   int id = 1,
+  int vertexId = 1,
   double lat = 48.85,
   double lng = 2.35,
   GWaypointEnum type = GWaypointEnum.WAYPOINT,
@@ -13,8 +14,10 @@ GWaypointFieldsData gWaypointData({
   List<GWaypointFieldsData_images> images = const [],
 }) => GWaypointFieldsData(
   id: id,
-  lat: lat,
-  lng: lng,
+  vertex: GVertexFieldsData(
+    id: vertexId,
+    latLng: GLatLngFieldsData(lat: lat, lng: lng),
+  ),
   type: type,
   title: title,
   description: description,
@@ -38,6 +41,7 @@ WaypointDraft domainWaypointDraft({
 /// Construit un [Waypoint] domaine minimal pour les tests.
 Waypoint domainWaypoint({
   int id = 1,
+  int vertexId = 1,
   double lat = 48.85,
   double lng = 2.35,
   WaypointType type = WaypointType.waypoint,
@@ -45,6 +49,7 @@ Waypoint domainWaypoint({
   String description = '',
 }) => Waypoint(
   id: id,
+  vertexId: vertexId,
   latLng: LatLng(lat, lng),
   type: type,
   title: title,

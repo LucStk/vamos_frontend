@@ -7,7 +7,8 @@ class WaypointMapper {
   /// Convertit un [GWaypointFieldsData] (fragment GQL) en [Waypoint] domaine.
   static Waypoint fromGQL(GWaypointFields data) => Waypoint(
     id: data.id,
-    latLng: LatLng(data.lat, data.lng),
+    vertexId: data.vertex.id,
+    latLng: LatLng(data.vertex.latLng.lat, data.vertex.latLng.lng),
     type: data.type.toDomain(),
     title: data.title,
     description: data.description,

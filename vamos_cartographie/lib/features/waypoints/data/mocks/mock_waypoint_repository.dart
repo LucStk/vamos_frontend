@@ -38,6 +38,7 @@ class MockWaypointRepository implements IWaypointRepository {
       // 3. Créer le waypoint
       final createWaypoint = Waypoint(
         id: trip.waypoints.length,
+        vertexId: trip.waypoints.length, // Mock: use same ID for vertex
         latLng: waypoint.latLng,
         type: waypoint.type,
         title: waypoint.title,
@@ -67,6 +68,7 @@ class MockWaypointRepository implements IWaypointRepository {
   @override
   Future<Either<Failure, Waypoint>> updateWaypoint(
     int id,
+    int currentVertexId,
     WaypointDraft waypoint,
   ) async {
     await Future.delayed(_delay);
@@ -95,6 +97,7 @@ class MockWaypointRepository implements IWaypointRepository {
       // 3. Créer le waypoint mis à jour
       final updatedWaypoint = Waypoint(
         id: id,
+        vertexId: currentVertexId, // Keep the same vertex ID
         latLng: waypoint.latLng,
         type: waypoint.type,
         title: waypoint.title,

@@ -101,16 +101,16 @@ class GMediaImageInput {
 class GSegmentCreateInput {
   const GSegmentCreateInput({
     required this.type,
-    required this.startWaypointId,
-    required this.endWaypointId,
+    required this.startVertexId,
+    required this.endVertexId,
     required this.geometry,
   });
 
   factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
     return GSegmentCreateInput(
       type: GSegmentTypeEnum.fromJson((json['type'] as String)),
-      startWaypointId: (json['startWaypointId'] as int),
-      endWaypointId: (json['endWaypointId'] as int),
+      startVertexId: (json['startVertexId'] as int),
+      endVertexId: (json['endVertexId'] as int),
       geometry: (json['geometry'] as List<dynamic>)
           .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
@@ -119,9 +119,9 @@ class GSegmentCreateInput {
 
   final GSegmentTypeEnum type;
 
-  final int startWaypointId;
+  final int startVertexId;
 
-  final int endWaypointId;
+  final int endVertexId;
 
   final List<GLatLngInput> geometry;
 
@@ -129,10 +129,10 @@ class GSegmentCreateInput {
     final _$result = <String, dynamic>{};
     final _$typeValue = this.type;
     _$result['type'] = _$typeValue.toJson();
-    final _$startWaypointIdValue = this.startWaypointId;
-    _$result['startWaypointId'] = _$startWaypointIdValue;
-    final _$endWaypointIdValue = this.endWaypointId;
-    _$result['endWaypointId'] = _$endWaypointIdValue;
+    final _$startVertexIdValue = this.startVertexId;
+    _$result['startVertexId'] = _$startVertexIdValue;
+    final _$endVertexIdValue = this.endVertexId;
+    _$result['endVertexId'] = _$endVertexIdValue;
     final _$geometryValue = this.geometry;
     _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
     return _$result;
@@ -140,14 +140,14 @@ class GSegmentCreateInput {
 
   GSegmentCreateInput copyWith({
     GSegmentTypeEnum? type,
-    int? startWaypointId,
-    int? endWaypointId,
+    int? startVertexId,
+    int? endVertexId,
     List<GLatLngInput>? geometry,
   }) {
     return GSegmentCreateInput(
       type: type ?? this.type,
-      startWaypointId: startWaypointId ?? this.startWaypointId,
-      endWaypointId: endWaypointId ?? this.endWaypointId,
+      startVertexId: startVertexId ?? this.startVertexId,
+      endVertexId: endVertexId ?? this.endVertexId,
       geometry: geometry ?? this.geometry,
     );
   }
@@ -166,7 +166,7 @@ class GSegmentCreateInput {
 
   @override
   String toString() {
-    return 'GSegmentCreateInput(type: $type, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, geometry: $geometry)';
+    return 'GSegmentCreateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry)';
   }
 }
 
@@ -216,8 +216,8 @@ enum GSegmentTypeEnum {
 class GSegmentUpdateInput {
   const GSegmentUpdateInput({
     this.type = const Value.absent(),
-    this.startWaypointId = const Value.absent(),
-    this.endWaypointId = const Value.absent(),
+    this.startVertexId = const Value.absent(),
+    this.endVertexId = const Value.absent(),
     this.geometry = const Value.absent(),
   });
 
@@ -228,15 +228,14 @@ class GSegmentUpdateInput {
               ? null
               : GSegmentTypeEnum.fromJson((json['type'] as String)))
           : Value.absent(),
-      startWaypointId: json.containsKey('startWaypointId')
-          ? Value.present(json['startWaypointId'] == null
+      startVertexId: json.containsKey('startVertexId')
+          ? Value.present(json['startVertexId'] == null
               ? null
-              : (json['startWaypointId'] as int))
+              : (json['startVertexId'] as int))
           : Value.absent(),
-      endWaypointId: json.containsKey('endWaypointId')
-          ? Value.present(json['endWaypointId'] == null
-              ? null
-              : (json['endWaypointId'] as int))
+      endVertexId: json.containsKey('endVertexId')
+          ? Value.present(
+              json['endVertexId'] == null ? null : (json['endVertexId'] as int))
           : Value.absent(),
       geometry: json.containsKey('geometry')
           ? Value.present(json['geometry'] == null
@@ -251,9 +250,9 @@ class GSegmentUpdateInput {
 
   final Value<GSegmentTypeEnum> type;
 
-  final Value<int> startWaypointId;
+  final Value<int> startVertexId;
 
-  final Value<int> endWaypointId;
+  final Value<int> endVertexId;
 
   final Value<List<GLatLngInput>> geometry;
 
@@ -265,17 +264,17 @@ class GSegmentUpdateInput {
       _$result['type'] =
           _$typeRequired == null ? null : _$typeRequired.toJson();
     }
-    final _$startWaypointIdValue = this.startWaypointId;
-    if (_$startWaypointIdValue.isPresent) {
-      final _$startWaypointIdRequired = _$startWaypointIdValue.requireValue;
-      _$result['startWaypointId'] =
-          _$startWaypointIdRequired == null ? null : _$startWaypointIdRequired;
+    final _$startVertexIdValue = this.startVertexId;
+    if (_$startVertexIdValue.isPresent) {
+      final _$startVertexIdRequired = _$startVertexIdValue.requireValue;
+      _$result['startVertexId'] =
+          _$startVertexIdRequired == null ? null : _$startVertexIdRequired;
     }
-    final _$endWaypointIdValue = this.endWaypointId;
-    if (_$endWaypointIdValue.isPresent) {
-      final _$endWaypointIdRequired = _$endWaypointIdValue.requireValue;
-      _$result['endWaypointId'] =
-          _$endWaypointIdRequired == null ? null : _$endWaypointIdRequired;
+    final _$endVertexIdValue = this.endVertexId;
+    if (_$endVertexIdValue.isPresent) {
+      final _$endVertexIdRequired = _$endVertexIdValue.requireValue;
+      _$result['endVertexId'] =
+          _$endVertexIdRequired == null ? null : _$endVertexIdRequired;
     }
     final _$geometryValue = this.geometry;
     if (_$geometryValue.isPresent) {
@@ -289,14 +288,14 @@ class GSegmentUpdateInput {
 
   GSegmentUpdateInput copyWith({
     Value<GSegmentTypeEnum>? type,
-    Value<int>? startWaypointId,
-    Value<int>? endWaypointId,
+    Value<int>? startVertexId,
+    Value<int>? endVertexId,
     Value<List<GLatLngInput>>? geometry,
   }) {
     return GSegmentUpdateInput(
       type: type ?? this.type,
-      startWaypointId: startWaypointId ?? this.startWaypointId,
-      endWaypointId: endWaypointId ?? this.endWaypointId,
+      startVertexId: startVertexId ?? this.startVertexId,
+      endVertexId: endVertexId ?? this.endVertexId,
       geometry: geometry ?? this.geometry,
     );
   }
@@ -315,7 +314,7 @@ class GSegmentUpdateInput {
 
   @override
   String toString() {
-    return 'GSegmentUpdateInput(type: $type, startWaypointId: $startWaypointId, endWaypointId: $endWaypointId, geometry: $geometry)';
+    return 'GSegmentUpdateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry)';
   }
 }
 
@@ -478,8 +477,6 @@ class GTripUpdateInput {
 
 class GWaypointCreateInput {
   const GWaypointCreateInput({
-    required this.lat,
-    required this.lng,
     required this.type,
     this.title = const Value.absent(),
     this.description = const Value.absent(),
@@ -487,8 +484,6 @@ class GWaypointCreateInput {
 
   factory GWaypointCreateInput.fromJson(Map<String, dynamic> json) {
     return GWaypointCreateInput(
-      lat: (json['lat'] as double),
-      lng: (json['lng'] as double),
       type: GWaypointEnum.fromJson((json['type'] as String)),
       title: json.containsKey('title')
           ? Value.present(
@@ -502,10 +497,6 @@ class GWaypointCreateInput {
     );
   }
 
-  final double lat;
-
-  final double lng;
-
   final GWaypointEnum type;
 
   final Value<String> title;
@@ -514,10 +505,6 @@ class GWaypointCreateInput {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$latValue = this.lat;
-    _$result['lat'] = _$latValue;
-    final _$lngValue = this.lng;
-    _$result['lng'] = _$lngValue;
     final _$typeValue = this.type;
     _$result['type'] = _$typeValue.toJson();
     final _$titleValue = this.title;
@@ -535,15 +522,11 @@ class GWaypointCreateInput {
   }
 
   GWaypointCreateInput copyWith({
-    double? lat,
-    double? lng,
     GWaypointEnum? type,
     Value<String>? title,
     Value<String>? description,
   }) {
     return GWaypointCreateInput(
-      lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
       type: type ?? this.type,
       title: title ?? this.title,
       description: description ?? this.description,
@@ -564,7 +547,7 @@ class GWaypointCreateInput {
 
   @override
   String toString() {
-    return 'GWaypointCreateInput(lat: $lat, lng: $lng, type: $type, title: $title, description: $description)';
+    return 'GWaypointCreateInput(type: $type, title: $title, description: $description)';
   }
 }
 
@@ -653,21 +636,14 @@ enum GWaypointEnum {
 
 class GWaypointUpdateInput {
   const GWaypointUpdateInput({
-    this.lat = const Value.absent(),
-    this.lng = const Value.absent(),
     this.title = const Value.absent(),
     this.type = const Value.absent(),
+    this.vertexId = const Value.absent(),
     this.description = const Value.absent(),
   });
 
   factory GWaypointUpdateInput.fromJson(Map<String, dynamic> json) {
     return GWaypointUpdateInput(
-      lat: json.containsKey('lat')
-          ? Value.present(json['lat'] == null ? null : (json['lat'] as double))
-          : Value.absent(),
-      lng: json.containsKey('lng')
-          ? Value.present(json['lng'] == null ? null : (json['lng'] as double))
-          : Value.absent(),
       title: json.containsKey('title')
           ? Value.present(
               json['title'] == null ? null : (json['title'] as String))
@@ -677,6 +653,10 @@ class GWaypointUpdateInput {
               ? null
               : GWaypointEnum.fromJson((json['type'] as String)))
           : Value.absent(),
+      vertexId: json.containsKey('vertexId')
+          ? Value.present(
+              json['vertexId'] == null ? null : (json['vertexId'] as int))
+          : Value.absent(),
       description: json.containsKey('description')
           ? Value.present(json['description'] == null
               ? null
@@ -685,28 +665,16 @@ class GWaypointUpdateInput {
     );
   }
 
-  final Value<double> lat;
-
-  final Value<double> lng;
-
   final Value<String> title;
 
   final Value<GWaypointEnum> type;
+
+  final Value<int> vertexId;
 
   final Value<String> description;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$latValue = this.lat;
-    if (_$latValue.isPresent) {
-      final _$latRequired = _$latValue.requireValue;
-      _$result['lat'] = _$latRequired == null ? null : _$latRequired;
-    }
-    final _$lngValue = this.lng;
-    if (_$lngValue.isPresent) {
-      final _$lngRequired = _$lngValue.requireValue;
-      _$result['lng'] = _$lngRequired == null ? null : _$lngRequired;
-    }
     final _$titleValue = this.title;
     if (_$titleValue.isPresent) {
       final _$titleRequired = _$titleValue.requireValue;
@@ -718,6 +686,12 @@ class GWaypointUpdateInput {
       _$result['type'] =
           _$typeRequired == null ? null : _$typeRequired.toJson();
     }
+    final _$vertexIdValue = this.vertexId;
+    if (_$vertexIdValue.isPresent) {
+      final _$vertexIdRequired = _$vertexIdValue.requireValue;
+      _$result['vertexId'] =
+          _$vertexIdRequired == null ? null : _$vertexIdRequired;
+    }
     final _$descriptionValue = this.description;
     if (_$descriptionValue.isPresent) {
       final _$descriptionRequired = _$descriptionValue.requireValue;
@@ -728,17 +702,15 @@ class GWaypointUpdateInput {
   }
 
   GWaypointUpdateInput copyWith({
-    Value<double>? lat,
-    Value<double>? lng,
     Value<String>? title,
     Value<GWaypointEnum>? type,
+    Value<int>? vertexId,
     Value<String>? description,
   }) {
     return GWaypointUpdateInput(
-      lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
       title: title ?? this.title,
       type: type ?? this.type,
+      vertexId: vertexId ?? this.vertexId,
       description: description ?? this.description,
     );
   }
@@ -757,7 +729,7 @@ class GWaypointUpdateInput {
 
   @override
   String toString() {
-    return 'GWaypointUpdateInput(lat: $lat, lng: $lng, title: $title, type: $type, description: $description)';
+    return 'GWaypointUpdateInput(title: $title, type: $type, vertexId: $vertexId, description: $description)';
   }
 }
 

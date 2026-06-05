@@ -28,7 +28,7 @@ class TripMapper {
         .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
         .toList(),
     waypoints: data.waypoints.map(WaypointMapper.fromGQL).toList(),
-    segments: data.segments.map(SegmentMapper.fromGQL).toList(),
+    segments: data.topology.segments.map(SegmentMapper.fromGQL).toList(),
   );
 
   /// Convertit le résultat de la mutation createTrip en [Trip] domaine.

@@ -8,6 +8,10 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.ast.gql.dart'
     as _i5;
+import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.ast.gql.dart'
+    as _i7;
+import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
+    as _i6;
 import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.ast.gql.dart'
     as _i4;
 import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.data.gql.dart'
@@ -32,6 +36,8 @@ class GWaypointFieldsReq
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.WaypointFields,
     _i5.ImageFields,
+    _i6.VertexFields,
+    _i7.LatLngFields,
   ]);
 
   _i2.GWaypointFieldsData? parseData(Map<String, dynamic> json) =>

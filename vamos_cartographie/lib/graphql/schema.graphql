@@ -40,11 +40,14 @@ type Mutation {
   attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
   deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
   updateWaypoint(id: Int!, waypoint: WaypointUpdateInput!): WaypointType!
-  createWaypoint(tripId: Int!, waypoint: WaypointCreateInput!): WaypointType!
+  createWaypoint(tripId: Int!, vertexId: Int!, waypoint: WaypointCreateInput!): WaypointType!
   deleteWaypoint(id: Int!): Boolean!
   updateSegment(id: Int!, segment: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: Int!, segment: SegmentCreateInput!): SegmentType!
   deleteSegment(id: Int!): Boolean!
+  moveVertex(id: Int!, latLng: LatLngInput!): VertexType!
+  createVertex(tripId: Int!, latLng: LatLngInput!): VertexType!
+  deleteVertex(id: Int!): Boolean!
 }
 
 type Query {
@@ -54,17 +57,16 @@ type Query {
 
 input SegmentCreateInput {
   type: SegmentTypeEnum!
-  startWaypointId: Int!
-  endWaypointId: Int!
+  startVertexId: Int!
+  endVertexId: Int!
   geometry: [LatLngInput!]!
 }
 
 type SegmentType {
   id: Int!
   type: SegmentTypeEnum!
-  startWaypoint: WaypointType!
-  endWaypoint: WaypointType!
-  geometry: [LatLngType!]!
+  startVertex: VertexType!
+  endVertex: VertexType!
 }
 
 enum SegmentTypeEnum {
@@ -77,9 +79,14 @@ enum SegmentTypeEnum {
 
 input SegmentUpdateInput {
   type: SegmentTypeEnum
-  startWaypointId: Int
-  endWaypointId: Int
+  startVertexId: Int
+  endVertexId: Int
   geometry: [LatLngInput!]
+}
+
+type TopologyType {
+  vertices: [VertexType!]!
+  segments: [SegmentType!]!
 }
 
 type TripImageType {
@@ -100,7 +107,7 @@ type TripType {
   date: Date
   images: [TripImageType!]!
   waypoints: [WaypointType!]!
-  segments: [SegmentType!]!
+  topology: TopologyType!
 }
 
 input TripUpdateInput {
@@ -114,9 +121,12 @@ type UploadConfig {
   fileKey: String!
 }
 
+type VertexType {
+  id: Int!
+  latLng: LatLngType!
+}
+
 input WaypointCreateInput {
-  lat: Float!
-  lng: Float!
   type: WaypointEnum!
   title: String = null
   description: String = null
@@ -145,19 +155,17 @@ type WaypointImageType {
 
 type WaypointType {
   id: Int!
-  lat: Float!
-  lng: Float!
   title: String!
   description: String!
   images: [WaypointImageType!]!
   type: WaypointEnum!
+  vertex: VertexType!
 }
 
 input WaypointUpdateInput {
-  lat: Float
-  lng: Float
   title: String
   type: WaypointEnum
+  vertexId: Int
   description: String
 }
 

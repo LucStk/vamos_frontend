@@ -1,11 +1,14 @@
 #import "../../media/fragments/image_fields.graphql"
+#import "../../topology/vertex/vertex_fields.graphql"
+
 fragment WaypointFields on WaypointType {
     id
-    lat
-    lng
     type
     title
     description
+    vertex {
+        ...VertexFields
+    }
     images {
         image {
             ...ImageFields

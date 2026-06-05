@@ -106,7 +106,7 @@ final class WaypointsStoreProvider
   }
 }
 
-String _$waypointsStoreHash() => r'6cd499a1623c5179a69137bced50b9eaf1c23ff4';
+String _$waypointsStoreHash() => r'c33e592ffe434b1a1536fbb9ae70b0ce946928f7';
 
 final class WaypointsStoreFamily extends $Family
     with
