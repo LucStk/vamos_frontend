@@ -1,0 +1,11 @@
+#import "../fragments/segment_fields.graphql"
+
+query GetSegments($tripId: Int!) {
+    trip(id: $tripId) {
+        topology {
+            segments {
+                ...SegmentFields
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+#import "../../vertex/vertex_fields.graphql"
+
+fragment SegmentFields on SegmentType {
+    id
+    type
+    startVertex {
+        ...VertexFields
+    }
+    endVertex {
+        ...VertexFields
+    }
+}
