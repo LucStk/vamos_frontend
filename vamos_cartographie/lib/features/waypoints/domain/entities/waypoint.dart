@@ -10,7 +10,6 @@ abstract class Waypoint with _$Waypoint {
   const Waypoint._();
   const factory Waypoint({
     required int id,
-    required int vertexId,
     @Default('') String title,
     @Default(WaypointType.waypoint) WaypointType type,
     @Default('') String description,
@@ -36,9 +35,8 @@ abstract class WaypointDraft with _$WaypointDraft {
     @Default([]) List<MediaImage> images,
   }) = _WaypointDraft;
 
-  Waypoint toWaypoint(int id, int vertexId) {
+  Waypoint toWaypoint(int id) {
     return Waypoint(
-      vertexId: vertexId,
       id: id,
       title: title,
       type: type,

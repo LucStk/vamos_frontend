@@ -40,9 +40,7 @@ class WaypointViewerDialog extends ConsumerWidget {
 
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
-      await ref
-          .read(waypointsProvider(tripId).notifier)
-          .deleteWaypointRemote(waypointId);
+      await ref.read(waypointsProvider(tripId).notifier).delete(waypointId);
 
       // Sécurité Flutter obligatoire après un "await"
       if (!context.mounted) return;

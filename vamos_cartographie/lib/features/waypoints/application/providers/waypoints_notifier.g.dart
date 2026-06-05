@@ -50,7 +50,7 @@ final class WaypointsNotifierProvider
   }
 }
 
-String _$waypointsNotifierHash() => r'aaeb03530a9bdcc022f372642bd570cf73dca8ed';
+String _$waypointsNotifierHash() => r'9586456fed7cefbf6008214d172c5822f270b9f9';
 
 final class WaypointsNotifierFamily extends $Family
     with

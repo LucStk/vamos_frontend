@@ -9,7 +9,6 @@ class WaypointsNotifier extends _$WaypointsNotifier {
   WaypointRepository get repository => ref.read(waypointRepositoryProvider);
 
   Map<int, Waypoint> get _current => state.value ?? <int, Waypoint>{};
-
   void _emit(Map<int, Waypoint> next) => state = AsyncData(next);
 
   void _update(Waypoint w) {
@@ -33,15 +32,14 @@ class WaypointsNotifier extends _$WaypointsNotifier {
     );
   }
 
-  Future<void> create(int tripId, WaypointDraft draft) async {
-    final result = await repository.createWaypoint(tripId, draft);
+  Future<void> create(int vertexId, WaypointDraft draft) async {
+    final result = await repository.createWaypoint(tripId, vertexId, draft);
 
     result.fold((_) {}, (w) => _update(w));
   }
 
   Future<void> update(int id, WaypointDraft draft) async {
     final previous = _current;
-
     final optimistic = draft.toWaypoint(id);
     _update(optimistic);
 
