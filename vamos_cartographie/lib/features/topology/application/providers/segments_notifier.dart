@@ -1,9 +1,9 @@
 // features/segments/presentation/providers/segments_notifier.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 
+import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
 part 'segments_notifier.g.dart';
 
 @riverpod
@@ -19,18 +19,6 @@ class SegmentsNotifier extends _$SegmentsNotifier {
   void _emit(Map<int, Segment> next) {
     state = AsyncData(next);
   }
-
-  void _update(Segment segment) {
-    final next = Map<int, Segment>.from(_current)..[segment.id] = segment;
-
-    _emit(next);
-  }
-
-  void _remove(int id) {
-    final next = Map<int, Segment>.from(_current)..remove(id);
-    _emit(next);
-  }
-
   // ---------------------------------------------------------------------------
   // Lifecycle
   // ---------------------------------------------------------------------------
@@ -55,7 +43,6 @@ class SegmentsNotifier extends _$SegmentsNotifier {
 
   Future<void> refresh(int tripId) async {
     state = const AsyncLoading();
-
     state = await AsyncValue.guard(() => _load(tripId));
   }
 
@@ -63,24 +50,33 @@ class SegmentsNotifier extends _$SegmentsNotifier {
   Future<void> createSegment(int tripId, SegmentDraft draft) async {
     final result = await repository.createSegment(tripId, draft);
 
-    result.fold((_) {}, (segment) => _update(segment));
+    result.fold((_) {}, (w) {
+      final next = EntityStoreHelpers.set(_current, w.id, w);
+      _emit(next);
+    });
   }
 
   // UPDATE (optimistic)
   Future<void> updateSegment(int id, SegmentDraft draft) async {
     final previous = _current;
 
-    final optimistic = draft.toSegment(id);
-    _update(optimistic);
+    final existing = previous[id];
+    if (existing == null) return;
+
+    final optimistic = existing.copyWith(
+      startVertexId: draft.startVertexId,
+      endVertexId: draft.startVertexId,
+      geometry: draft.geometry != null ? draft.geometry! : [],
+    );
+    _emit(EntityStoreHelpers.update(previous, id, optimistic));
 
     final result = await repository.updateSegment(id, draft);
 
     result.fold(
-      (_) {
-        _emit(previous); // rollback
-      },
+      (_) => _emit(previous), // rollback
       (server) {
-        _update(server); // sync truth serveur
+        final next = EntityStoreHelpers.set(_current, server.id, server);
+        _emit(next);
       },
     );
   }
@@ -89,112 +85,28 @@ class SegmentsNotifier extends _$SegmentsNotifier {
   Future<void> deleteSegment(int id) async {
     final previous = _current;
 
-    _remove(id);
+    _emit(EntityStoreHelpers.remove(_current, id));
 
     final result = await repository.deleteSegment(id);
 
-    result.fold((_) {
-      _emit(previous); // rollback
-    }, (_) {});
+    result.fold(
+      (_) => _emit(previous), // rollback
+      (_) {},
+    );
   }
 }
 
 @riverpod
-List<int> segmentIds(Ref ref, int tripId) {
-  // Ce provider ne notifiera que si un identifiant est ajouté ou retiré
-  return ref.watch(segmentsProvider(tripId).select((map) => map.keys.toList()));
+Map<int, Segment> segmentMap(Ref ref, int tripId) {
+  return ref.watch(segmentsProvider(tripId)).value ?? const {};
+}
+
+@riverpod
+Iterable<int> segmentsIds(Ref ref, int tripId) {
+  return ref.watch(segmentMapProvider(tripId).select((map) => map.keys));
 }
 
 @riverpod
 Segment? segment(Ref ref, int tripId, int segmentId) {
-  // Ce provider ne rebuilde le marqueur individuel QUE si ses données changent
-  return ref.watch(segmentsProvider(tripId).select((map) => map[segmentId]));
+  return ref.watch(segmentMapProvider(tripId).select((map) => map[segmentId]));
 }
-
-@riverpod
-List<LatLng>? segmentPoints(Ref ref, int tripId, int segmentId) {
-  return ref.watch(
-    segmentProvider(
-      tripId,
-      segmentId,
-    ).select((s) => s?.middleVertices.map((v) => v.point).toList()),
-  );
-}
-
-// @riverpod
-// SegmentEnum? segmentType(Ref ref, int tripId, int segmentId) {
-//   return ref.watch(segmentProvider(tripId, segmentId).select((w) => w!.type));
-// }
-
-//   // --- Opérations sur les middleVertices ---
-
-//   /// Met à jour la position d'un middleVertex
-//   Future<void> updateMiddleVertexPosition({
-//     required String vertexId,
-//     required LatLng newPosition,
-//   }) async {
-//     Segment? segment;
-//     try {
-//       segment = state.values.firstWhere(
-//         (s) => s.middleVertices.any((v) => v.id == vertexId),
-//       );
-//     } catch (e) {
-//       return; // Vertex non trouvé
-//     }
-
-//     final updatedVertices = segment.middleVertices.map((v) {
-//       if (v.id == vertexId) {
-//         return SegmentVertex(id: v.id, point: newPosition);
-//       }
-//       return v;
-//     }).toList();
-
-//     final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
-//     await updateSegmentRemote(segment.id, draft);
-//   }
-
-//   /// Ajoute un nouveau middleVertex à un index spécifique
-//   Future<void> addMiddleVertex({
-//     required int segmentId,
-//     required int insertIndex,
-//     required LatLng position,
-//   }) async {
-//     final segment = state[segmentId];
-//     if (segment == null) return;
-
-//     // Calcul de l'index dans middleVertices (on retire 1 car insertIndex inclut le waypoint de départ)
-//     final middleIndex = insertIndex - 1;
-
-//     final newVertex = SegmentVertex(
-//       id: '${segment.id}-${DateTime.now().millisecondsSinceEpoch}',
-//       point: position,
-//     );
-
-//     final updatedVertices = List<SegmentVertex>.from(segment.middleVertices);
-//     updatedVertices.insert(middleIndex, newVertex);
-
-//     final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
-//     await updateSegmentRemote(segment.id, draft);
-//   }
-
-//   /// Supprime un middleVertex
-//   Future<void> removeMiddleVertex({required String vertexId}) async {
-//     Segment? segment;
-//     try {
-//       segment = state.values.firstWhere(
-//         (s) => s.middleVertices.any((v) => v.id == vertexId),
-//       );
-//     } catch (e) {
-//       return; // Vertex non trouvé
-//     }
-
-//     final updatedVertices = segment.middleVertices
-//         .where((v) => v.id != vertexId)
-//         .toList();
-
-//     final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
-//     await updateSegmentRemote(segment.id, draft);
-//   }
-// }
-
-// --- Providers Sélecteurs pour optimiser l'UI ---

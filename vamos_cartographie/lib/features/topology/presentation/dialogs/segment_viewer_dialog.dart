@@ -36,7 +36,7 @@ class SegmentViewerDialog extends ConsumerWidget {
         successMessage: "Segment mis à jour",
         onSubmit: (ref, editedSegment) async {
           await ref
-              .read(segmentsStoreProvider(tripId).notifier)
+              .read(segmentsProvider(tripId).notifier)
               .updateSegmentRemote(segmentId, editedSegment);
         },
       ),

@@ -11,7 +11,6 @@ class WaypointRepository {
 
   WaypointRepository(this.remote);
 
-  @override
   Future<Either<Failure, List<Waypoint>>> getWaypoints(int tripId) async {
     try {
       final waypoints = await remote.getWaypoints(tripId: tripId);
@@ -24,7 +23,6 @@ class WaypointRepository {
     }
   }
 
-  @override
   Future<Either<Failure, Waypoint>> createWaypoint(
     int tripId,
     int vertexId,
@@ -53,7 +51,6 @@ class WaypointRepository {
     }
   }
 
-  @override
   Future<Either<Failure, Waypoint>> updateWaypoint(
     int id,
     WaypointDraft waypoint,
@@ -93,7 +90,6 @@ class WaypointRepository {
     }
   }
 
-  @override
   Future<Either<Failure, void>> deleteWaypoint(int id) async {
     try {
       await remote.deleteWaypoint(id: id);

@@ -16,7 +16,6 @@ class TripRepository {
   // Queries
   // ---------------------------------------------------------------------------
 
-  @override
   Future<Either<Failure, List<Trip>>> getAllTrips() async {
     try {
       final gqlTrips = await remote.getAllTrips();
@@ -28,7 +27,6 @@ class TripRepository {
     }
   }
 
-  @override
   Future<Either<Failure, Trip>> getTrip(int id) async {
     try {
       final gqlTrip = await remote.getTripById(id: id);
@@ -44,7 +42,6 @@ class TripRepository {
   // Mutations
   // ---------------------------------------------------------------------------
 
-  @override
   Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
     try {
       final input = TripDraftMapper.toGQLInput(trip);
@@ -68,7 +65,6 @@ class TripRepository {
     }
   }
 
-  @override
   Future<Either<Failure, Trip>> updateTrip(int id, TripDraft trip) async {
     try {
       final input = TripDraftMapper.toGQLUpdateInput(trip);
@@ -109,7 +105,6 @@ class TripRepository {
     }
   }
 
-  @override
   Future<Either<Failure, void>> deleteTrip(int id) async {
     try {
       await remote.deleteTrip(id: id);
