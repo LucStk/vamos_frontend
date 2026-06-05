@@ -44,7 +44,7 @@ class WaypointEditorDialog extends ConsumerWidget {
         debugPrint("edited : $editedWaypoint");
         await ref
             .read(waypointsProvider(tripId).notifier)
-            .update(waypointId, editedWaypoint);
+            .updateWaypoint(waypointId, editedWaypoint);
       },
     );
   }

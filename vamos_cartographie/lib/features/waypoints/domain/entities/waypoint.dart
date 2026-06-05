@@ -10,6 +10,7 @@ abstract class Waypoint with _$Waypoint {
   const Waypoint._();
   const factory Waypoint({
     required int id,
+    required int vertexId,
     @Default('') String title,
     @Default(WaypointType.waypoint) WaypointType type,
     @Default('') String description,
@@ -34,16 +35,6 @@ abstract class WaypointDraft with _$WaypointDraft {
     @Default('') String description,
     @Default([]) List<MediaImage> images,
   }) = _WaypointDraft;
-
-  Waypoint toWaypoint(int id) {
-    return Waypoint(
-      id: id,
-      title: title,
-      type: type,
-      description: description,
-      images: images,
-    );
-  }
 }
 
 // Utilise les extensions définit dans le schema pour obtenir le label et l'icône correspondant à chaque type de point de passage

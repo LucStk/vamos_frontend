@@ -2,25 +2,26 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
+import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
 part 'waypoints_notifier.g.dart';
 
 @riverpod
 class WaypointsNotifier extends _$WaypointsNotifier {
   WaypointRepository get repository => ref.read(waypointRepositoryProvider);
 
+  // ---------------------------------------------------------------------------
+  // STATE ACCESS
+  // ---------------------------------------------------------------------------
+
   Map<int, Waypoint> get _current => state.value ?? <int, Waypoint>{};
-  void _emit(Map<int, Waypoint> next) => state = AsyncData(next);
 
-  void _update(Waypoint w) {
-    final next = Map<int, Waypoint>.from(_current)..[w.id] = w;
-
-    _emit(next);
+  void _emit(Map<int, Waypoint> next) {
+    state = AsyncData(next);
   }
 
-  void _remove(int id) {
-    final next = Map<int, Waypoint>.from(_current)..remove(id);
-    _emit(next);
-  }
+  // ---------------------------------------------------------------------------
+  // LIFECYCLE
+  // ---------------------------------------------------------------------------
 
   @override
   Future<Map<int, Waypoint>> build(int tripId) async {
@@ -32,45 +33,80 @@ class WaypointsNotifier extends _$WaypointsNotifier {
     );
   }
 
-  Future<void> create(int vertexId, WaypointDraft draft) async {
+  // ---------------------------------------------------------------------------
+  // CREATE
+  // ---------------------------------------------------------------------------
+
+  Future<void> createWaypoint(int vertexId, WaypointDraft draft) async {
     final result = await repository.createWaypoint(tripId, vertexId, draft);
 
-    result.fold((_) {}, (w) => _update(w));
+    result.fold((_) {}, (w) {
+      final next = EntityStoreHelpers.set(_current, w.id, w);
+      _emit(next);
+    });
   }
 
-  Future<void> update(int id, WaypointDraft draft) async {
+  // ---------------------------------------------------------------------------
+  // UPDATE (OPTIMISTIC)
+  // ---------------------------------------------------------------------------
+
+  Future<void> updateWaypoint(int id, WaypointDraft draft) async {
     final previous = _current;
-    final optimistic = draft.toWaypoint(id);
-    _update(optimistic);
+
+    final existing = previous[id];
+    if (existing == null) return;
+
+    final optimistic = existing.copyWith(
+      title: draft.title,
+      type: draft.type,
+      description: draft.description,
+      images: draft.images,
+    );
+
+    _emit(EntityStoreHelpers.update(previous, id, optimistic));
 
     final result = await repository.updateWaypoint(id, draft);
 
-    result.fold((_) => _emit(previous), (server) => _update(server));
+    result.fold(
+      (_) => _emit(previous), // rollback
+      (server) {
+        final next = EntityStoreHelpers.set(_current, server.id, server);
+        _emit(next);
+      },
+    );
   }
 
-  Future<void> delete(int id) async {
+  // ---------------------------------------------------------------------------
+  // DELETE
+  // ---------------------------------------------------------------------------
+
+  Future<void> deleteWaypoint(int id) async {
     final previous = _current;
 
-    _remove(id);
+    _emit(EntityStoreHelpers.remove(_current, id));
 
     final result = await repository.deleteWaypoint(id);
 
-    result.fold((_) => _emit(previous), (_) {});
+    result.fold(
+      (_) => _emit(previous), // rollback
+      (_) {},
+    );
   }
-}
-
-// --- Providers Sélecteurs pour optimiser l'UI ---
+} // --- Providers Sélecteurs pour optimiser l'UI ---
 
 @riverpod
-List<int> waypointIds(Ref ref, int tripId) {
-  // Ce provider ne notifiera que si un identifiant est ajouté ou retiré
-  return ref.watch(
-    waypointsProvider(tripId).select((map) => map.keys.toList()),
-  );
+Map<int, Waypoint> waypointMap(Ref ref, int tripId) {
+  return ref.watch(waypointsProvider(tripId)).value ?? const {};
+}
+
+@riverpod
+Iterable<int> waypointIds(Ref ref, int tripId) {
+  return ref.watch(waypointMapProvider(tripId).select((map) => map.keys));
 }
 
 @riverpod
 Waypoint? waypoint(Ref ref, int tripId, int waypointId) {
-  // Ce provider ne rebuilde le marqueur individuel QUE si ses données changent
-  return ref.watch(waypointsProvider(tripId).select((map) => map[waypointId]));
+  return ref.watch(
+    waypointMapProvider(tripId).select((map) => map[waypointId]),
+  );
 }
