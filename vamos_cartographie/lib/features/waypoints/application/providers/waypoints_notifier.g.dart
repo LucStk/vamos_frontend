@@ -9,35 +9,35 @@ part of 'waypoints_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(WaypointsStore)
-final waypointsStoreProvider = WaypointsStoreFamily._();
+@ProviderFor(WaypointsNotifier)
+final waypointsProvider = WaypointsNotifierFamily._();
 
-final class WaypointsStoreProvider
-    extends $NotifierProvider<WaypointsStore, Map<int, Waypoint>> {
-  WaypointsStoreProvider._({
-    required WaypointsStoreFamily super.from,
+final class WaypointsNotifierProvider
+    extends $NotifierProvider<WaypointsNotifier, Map<int, Waypoint>> {
+  WaypointsNotifierProvider._({
+    required WaypointsNotifierFamily super.from,
     required int super.argument,
   }) : super(
          retry: null,
-         name: r'waypointsStoreProvider',
+         name: r'waypointsProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$waypointsStoreHash();
+  String debugGetCreateSourceHash() => _$waypointsNotifierHash();
 
   @override
   String toString() {
-    return r'waypointsStoreProvider'
+    return r'waypointsProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  WaypointsStore create() => WaypointsStore();
+  WaypointsNotifier create() => WaypointsNotifier();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(Map<int, Waypoint> value) {
@@ -49,7 +49,7 @@ final class WaypointsStoreProvider
 
   @override
   bool operator ==(Object other) {
-    return other is WaypointsStoreProvider && other.argument == argument;
+    return other is WaypointsNotifierProvider && other.argument == argument;
   }
 
   @override
@@ -58,34 +58,34 @@ final class WaypointsStoreProvider
   }
 }
 
-String _$waypointsStoreHash() => r'b23bf80b7a37f95131fa04e821362b4fb63d87ea';
+String _$waypointsNotifierHash() => r'418973af13ce4c53b0f335d015f85d2b4f13ef47';
 
-final class WaypointsStoreFamily extends $Family
+final class WaypointsNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
-          WaypointsStore,
+          WaypointsNotifier,
           Map<int, Waypoint>,
           Map<int, Waypoint>,
           Map<int, Waypoint>,
           int
         > {
-  WaypointsStoreFamily._()
+  WaypointsNotifierFamily._()
     : super(
         retry: null,
-        name: r'waypointsStoreProvider',
+        name: r'waypointsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  WaypointsStoreProvider call(int tripId) =>
-      WaypointsStoreProvider._(argument: tripId, from: this);
+  WaypointsNotifierProvider call(int tripId) =>
+      WaypointsNotifierProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'waypointsStoreProvider';
+  String toString() => r'waypointsProvider';
 }
 
-abstract class _$WaypointsStore extends $Notifier<Map<int, Waypoint>> {
+abstract class _$WaypointsNotifier extends $Notifier<Map<int, Waypoint>> {
   late final _$args = ref.$arg as int;
   int get tripId => _$args;
 
@@ -163,7 +163,7 @@ final class WaypointIdsProvider
   }
 }
 
-String _$waypointIdsHash() => r'280ac0f3ac0f35e08eab0c9a52463b86026cbc82';
+String _$waypointIdsHash() => r'99d4c19c6e27c27b3878be585997f9f5ca19fe25';
 
 final class WaypointIdsFamily extends $Family
     with $FunctionalFamilyOverride<List<int>, int> {
@@ -240,7 +240,7 @@ final class WaypointProvider
   }
 }
 
-String _$waypointHash() => r'e07358f8c327c0e01bdd8e42cbde3c137ab9e49a';
+String _$waypointHash() => r'9df49af7553d691f3154db0fd86db877dcae35a3';
 
 final class WaypointFamily extends $Family
     with $FunctionalFamilyOverride<Waypoint?, (int, int)> {
@@ -258,81 +258,4 @@ final class WaypointFamily extends $Family
 
   @override
   String toString() => r'waypointProvider';
-}
-
-@ProviderFor(waypointLatLng)
-final waypointLatLngProvider = WaypointLatLngFamily._();
-
-final class WaypointLatLngProvider
-    extends $FunctionalProvider<LatLng?, LatLng?, LatLng?>
-    with $Provider<LatLng?> {
-  WaypointLatLngProvider._({
-    required WaypointLatLngFamily super.from,
-    required (int, int) super.argument,
-  }) : super(
-         retry: null,
-         name: r'waypointLatLngProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$waypointLatLngHash();
-
-  @override
-  String toString() {
-    return r'waypointLatLngProvider'
-        ''
-        '$argument';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<LatLng?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  LatLng? create(Ref ref) {
-    final argument = this.argument as (int, int);
-    return waypointLatLng(ref, argument.$1, argument.$2);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(LatLng? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<LatLng?>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is WaypointLatLngProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$waypointLatLngHash() => r'0603f009eaec67bf9c612891e760db2fc4f1bec7';
-
-final class WaypointLatLngFamily extends $Family
-    with $FunctionalFamilyOverride<LatLng?, (int, int)> {
-  WaypointLatLngFamily._()
-    : super(
-        retry: null,
-        name: r'waypointLatLngProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  WaypointLatLngProvider call(int tripId, int waypointId) =>
-      WaypointLatLngProvider._(argument: (tripId, waypointId), from: this);
-
-  @override
-  String toString() => r'waypointLatLngProvider';
 }

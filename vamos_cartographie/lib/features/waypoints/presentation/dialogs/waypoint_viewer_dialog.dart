@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
 import 'waypoint_editor_dialog.dart';
 
-import "package:vamos_cartographie/features/waypoints/application/waypoints_notifier.dart";
+import "package:vamos_cartographie/features/waypoints/application/providers/waypoints_notifier.dart";
 
 class WaypointViewerDialog extends ConsumerWidget {
   final int waypointId;
@@ -41,7 +41,7 @@ class WaypointViewerDialog extends ConsumerWidget {
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
       await ref
-          .read(waypointsStoreProvider(tripId).notifier)
+          .read(waypointsProvider(tripId).notifier)
           .deleteWaypointRemote(waypointId);
 
       // Sécurité Flutter obligatoire après un "await"

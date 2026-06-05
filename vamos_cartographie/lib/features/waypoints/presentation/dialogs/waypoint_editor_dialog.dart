@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
-import "package:vamos_cartographie/features/waypoints/application/waypoints_notifier.dart";
+import "package:vamos_cartographie/features/waypoints/application/providers/waypoints_notifier.dart";
 import "waypoint_form_dialog.dart";
 
 class WaypointEditorDialog extends ConsumerWidget {
@@ -43,7 +43,7 @@ class WaypointEditorDialog extends ConsumerWidget {
       onSubmit: (ref, editedWaypoint) async {
         debugPrint("edited : $editedWaypoint");
         await ref
-            .read(waypointsStoreProvider(tripId).notifier)
+            .read(waypointsProvider(tripId).notifier)
             .updateWaypointRemote(waypointId, editedWaypoint);
       },
     );

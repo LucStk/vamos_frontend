@@ -4,24 +4,18 @@ import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/features/segments/segments.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:flutter/material.dart';
 
-import 'package:vamos_cartographie/core/injection.dart';
 part 'segments_notifier.g.dart';
 
 @riverpod
-ISegmentRepository _segmentRepository(Ref ref) {
-  return getIt<ISegmentRepository>();
-}
-
-@riverpod
 class SegmentsStore extends _$SegmentsStore {
-  late final ISegmentRepository repository;
+  late final SegmentRepository repository;
 
   @override
   Map<int, Segment> build(int tripId) {
-    repository = ref.read(_segmentRepositoryProvider);
+    repository = ref.read(segmentRepositoryProvider);
 
     _load(tripId);
 
@@ -98,25 +92,6 @@ class SegmentsStore extends _$SegmentsStore {
       },
     );
   }
-
-  // //TODO : Faire la requête uniquement sur la position, pas la peine d'envoyer le reste
-  // Future<void> updateSegmentPositionRemote(int segmentId, LatLng latLng) async {
-  //   final segment = state[segmentId];
-  //   if (segment == null) {
-  //     throw Exception("SegmentNotifier -> segmentId not valid key");
-  //   }
-  //   await updateSegmentRemote(
-  //     segment.id,
-  //     segment.copyWith(latLng: latLng).toDraft(),
-  //   );
-  // }
-
-  // void updateSegmentPositionLocal(int segmentId, LatLng latLng) {
-  //   final segment = state[segmentId];
-  //   if (segment == null) return;
-
-  //   state = {...state, segmentId: segment.copyWith(latLng: latLng)};
-  // }
 
   Future<void> deleteSegmentRemote(int segmentId) async {
     final Either<Failure, void> result = await repository.deleteSegment(

@@ -2,19 +2,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:dartz/dartz.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:flutter/material.dart';
 part 'waypoints_notifier.g.dart';
 
 @riverpod
-class WaypointsStore extends _$WaypointsStore {
-  late final WaypointRepository repository;
-
+class WaypointsNotifier extends _$WaypointsNotifier {
+  WaypointRepository get repository => ref.read(waypointRepositoryProvider);
   @override
   Map<int, Waypoint> build(int tripId) {
-    repository = ref.read(waypointRepositoryProvider);
     _load(tripId);
     return {};
   }
@@ -114,14 +111,12 @@ class WaypointsStore extends _$WaypointsStore {
 List<int> waypointIds(Ref ref, int tripId) {
   // Ce provider ne notifiera que si un identifiant est ajouté ou retiré
   return ref.watch(
-    waypointsStoreProvider(tripId).select((map) => map.keys.toList()),
+    waypointsProvider(tripId).select((map) => map.keys.toList()),
   );
 }
 
 @riverpod
 Waypoint? waypoint(Ref ref, int tripId, int waypointId) {
   // Ce provider ne rebuilde le marqueur individuel QUE si ses données changent
-  return ref.watch(
-    waypointsStoreProvider(tripId).select((map) => map[waypointId]),
-  );
+  return ref.watch(waypointsProvider(tripId).select((map) => map[waypointId]));
 }

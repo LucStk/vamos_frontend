@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
-import "package:vamos_cartographie/features/waypoints/application/waypoints_notifier.dart";
+import "package:vamos_cartographie/features/waypoints/application/providers/waypoints_notifier.dart";
 import "waypoint_form_dialog.dart";
 
 class WaypointCreatorDialog extends ConsumerWidget {
@@ -33,7 +33,7 @@ class WaypointCreatorDialog extends ConsumerWidget {
       successMessage: 'Waypoint créé',
       onSubmit: (ref, editedWaypoint) async {
         await ref
-            .read(waypointsStoreProvider(tripId).notifier)
+            .read(waypointsProvider(tripId).notifier)
             .createWaypointRemote(editedWaypoint, vertexId);
       },
     );

@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import "package:vamos_cartographie/features/trips/data/data.dart";
 import "package:vamos_cartographie/features/trips/domain/trip.dart";
-part 'trips_providers.g.dart';
+part 'trips_notifier.g.dart';
 
 @riverpod
 class TripsNotifier extends _$TripsNotifier {
-  late final TripRepository repository;
+  TripRepository get repository => ref.read(tripRepositoryProvider);
 
   @override
   Future<List<Trip>> build() async {
     // On lit le provider généré privé (il a maintenant le suffixe Provider)
-    repository = ref.read(tripRepositoryProvider);
     return _loadTrips();
   }
 
