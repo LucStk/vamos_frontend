@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/repositories/i_trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/segments/domain/domain.dart';
-import 'package:vamos_cartographie/features/segments/data/repositories/i_segment_repository.dart';
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/features/topology/data/repositories/i_segment_repository.dart';
 
 class MockSegmentRepository implements ISegmentRepository {
   final ITripRepository _tripRepository;
@@ -39,7 +39,9 @@ class MockSegmentRepository implements ISegmentRepository {
       final createSegment = Segment(
         id: trip.segments.length,
         type: segment.type,
-        geometry: segment.geometry,
+        geometry: segment.geometry != null ? segment.geometry! :
+          trip.segments.
+        ,
         startVertexId: segment.startVertexId,
         endVertexId: segment.endVertexId,
       );

@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
-import 'package:vamos_cartographie/features/segments/data/mappers/segment_mappers.dart';
-import 'package:vamos_cartographie/features/segments/domain/types/segment_type.dart';
+import 'package:vamos_cartographie/features/topology/data/mappers/segment_mappers.dart';
+import 'package:vamos_cartographie/features/topology/domain/types/segment_type.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/segment_fixtures.dart';

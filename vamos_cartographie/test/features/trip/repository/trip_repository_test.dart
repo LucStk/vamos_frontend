@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/features/media/domain/entities/entities.dart'
 import 'package:vamos_cartographie/features/trips/data/repositories/trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
-import 'package:vamos_cartographie/features/segments/domain/domain.dart';
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import '../../../fixtures/mock_classes.dart';

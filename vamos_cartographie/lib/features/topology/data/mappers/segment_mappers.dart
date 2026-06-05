@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/features/segments/segments.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:latlong2/latlong.dart';
 import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";

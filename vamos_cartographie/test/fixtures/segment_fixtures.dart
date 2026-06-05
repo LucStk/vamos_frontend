@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/features/segments/domain/domain.dart';
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 /// Construit un [GSegmentFieldsData] minimal pour les tests.

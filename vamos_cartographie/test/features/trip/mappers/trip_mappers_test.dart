@@ -2,7 +2,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:test/test.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/segments/domain/types/segment_type.dart';
+import 'package:vamos_cartographie/features/topology/domain/types/segment_type.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 

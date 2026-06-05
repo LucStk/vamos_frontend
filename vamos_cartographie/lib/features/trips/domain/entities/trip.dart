@@ -1,4 +1,4 @@
-import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
+import "package:vamos_cartographie/features/topology/topology.dart";
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import "package:vamos_cartographie/features/media/domain/entities/entities.dart";
 // ---------------------------------------------------------------------------
@@ -20,6 +20,7 @@ abstract class Trip with _$Trip {
     @Default([]) List<MediaImage> images,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Segment> segments,
+    @Default([]) List<Vertex> vertex,
   }) = _Trip;
   TripDraft toDraft() {
     return TripDraft(
@@ -27,8 +28,6 @@ abstract class Trip with _$Trip {
       description: description,
       date: date,
       images: images,
-      waypoints: waypoints,
-      segments: segments,
     );
   }
 }
@@ -41,8 +40,6 @@ abstract class TripDraft with _$TripDraft {
     @Default('') String description,
     DateTime? date,
     @Default([]) List<MediaImage> images,
-    @Default([]) List<Waypoint> waypoints,
-    @Default([]) List<Segment> segments,
   }) = _TripDraft;
 
   Trip toTrip(int id) {
@@ -52,8 +49,6 @@ abstract class TripDraft with _$TripDraft {
       description: description,
       date: date,
       images: images,
-      waypoints: waypoints,
-      segments: segments,
     );
   }
 }
