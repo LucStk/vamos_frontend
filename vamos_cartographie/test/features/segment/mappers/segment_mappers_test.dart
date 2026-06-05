@@ -22,15 +22,8 @@ void main() {
       final gql = gSegmentData(startVertexId: 10, endVertexId: 20);
       final seg = SegmentMapper.fromGQL(gql);
 
-      expect(seg.startWaypointId, 10);
-      expect(seg.endWaypointId, 20);
-    });
-
-    test('crée une liste vide pour middleVertices', () {
-      final gql = gSegmentData();
-      final seg = SegmentMapper.fromGQL(gql);
-
-      expect(seg.middleVertices, isEmpty);
+      expect(seg.startVertexId, 10);
+      expect(seg.endVertexId, 20);
     });
 
     test('mappe le type train correctement', () {
@@ -87,16 +80,8 @@ void main() {
       );
       final seg = SegmentMapper.fromGQL(gql);
 
-      expect(seg.startWaypointId, 100);
-      expect(seg.endWaypointId, 200);
-    });
-
-    test('segment avec type boat', () {
-      final gql = gSegmentData(type: GSegmentTypeEnum.boat);
-      final seg = SegmentMapper.fromGQL(gql);
-
-      expect(seg.type, SegmentType.boat);
-      expect(seg.middleVertices, isEmpty);
+      expect(seg.startVertexId, 100);
+      expect(seg.endVertexId, 200);
     });
 
     test('segment avec type car', () {
@@ -110,8 +95,8 @@ void main() {
       final gql = gSegmentData(startVertexId: 5, endVertexId: 15);
       final seg = SegmentMapper.fromGQL(gql);
 
-      expect(seg.startWaypointId, 5);
-      expect(seg.endWaypointId, 15);
+      expect(seg.startVertexId, 5);
+      expect(seg.endVertexId, 15);
     });
   });
 }

@@ -59,7 +59,7 @@ input SegmentCreateInput {
   type: SegmentTypeEnum!
   startVertexId: Int!
   endVertexId: Int!
-  geometry: [LatLngInput!]!
+  geometry: [LatLngInput!] = null
 }
 
 type SegmentType {
@@ -67,6 +67,7 @@ type SegmentType {
   type: SegmentTypeEnum!
   startVertex: VertexType!
   endVertex: VertexType!
+  geometry: [LatLngType!]!
 }
 
 enum SegmentTypeEnum {

@@ -103,7 +103,7 @@ class GSegmentCreateInput {
     required this.type,
     required this.startVertexId,
     required this.endVertexId,
-    required this.geometry,
+    this.geometry = const Value.absent(),
   });
 
   factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
@@ -111,9 +111,14 @@ class GSegmentCreateInput {
       type: GSegmentTypeEnum.fromJson((json['type'] as String)),
       startVertexId: (json['startVertexId'] as int),
       endVertexId: (json['endVertexId'] as int),
-      geometry: (json['geometry'] as List<dynamic>)
-          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
+      geometry: json.containsKey('geometry')
+          ? Value.present(json['geometry'] == null
+              ? null
+              : (json['geometry'] as List<dynamic>)
+                  .map((_$e) =>
+                      GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+                  .toList())
+          : Value.absent(),
     );
   }
 
@@ -123,7 +128,7 @@ class GSegmentCreateInput {
 
   final int endVertexId;
 
-  final List<GLatLngInput> geometry;
+  final Value<List<GLatLngInput>> geometry;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -134,7 +139,12 @@ class GSegmentCreateInput {
     final _$endVertexIdValue = this.endVertexId;
     _$result['endVertexId'] = _$endVertexIdValue;
     final _$geometryValue = this.geometry;
-    _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
+    if (_$geometryValue.isPresent) {
+      final _$geometryRequired = _$geometryValue.requireValue;
+      _$result['geometry'] = _$geometryRequired == null
+          ? null
+          : _$geometryRequired.map((_$e) => _$e.toJson()).toList();
+    }
     return _$result;
   }
 
@@ -142,7 +152,7 @@ class GSegmentCreateInput {
     GSegmentTypeEnum? type,
     int? startVertexId,
     int? endVertexId,
-    List<GLatLngInput>? geometry,
+    Value<List<GLatLngInput>>? geometry,
   }) {
     return GSegmentCreateInput(
       type: type ?? this.type,

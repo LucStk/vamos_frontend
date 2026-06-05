@@ -18,7 +18,7 @@ List<LatLng>? segmentPolylinePoints(Ref ref, int tripId, int segmentId) {
     waypointLatLngProvider(tripId, segment.startWaypointId),
   );
 
-  final end = ref.watch(waypointLatLngProvider(tripId, segment.endWaypointId));
+  final end = ref.watch(waypointLatLngProvider(tripId, segment.endVertexId));
 
   if (start == null || end == null) return null;
 
@@ -33,7 +33,7 @@ List<LineNode> segmentNodes(Ref ref, int tripId, int segmentId) {
 
   final start = ref.watch(waypointProvider(tripId, segment.startWaypointId));
 
-  final end = ref.watch(waypointProvider(tripId, segment.endWaypointId));
+  final end = ref.watch(waypointProvider(tripId, segment.endVertexId));
 
   if (start == null || end == null) return [];
 
@@ -67,7 +67,7 @@ List<LatLng>? segmentTypePoints(Ref ref, int tripId, int segmentId) {
     waypointLatLngProvider(tripId, segment.startWaypointId),
   );
 
-  final end = ref.watch(waypointLatLngProvider(tripId, segment.endWaypointId));
+  final end = ref.watch(waypointLatLngProvider(tripId, segment.endVertexId));
 
   if (start == null || end == null) return null;
   // On calcule la position du point de légende du type.

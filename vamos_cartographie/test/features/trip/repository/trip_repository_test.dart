@@ -54,13 +54,7 @@ TripDraft _domainTrip() => TripDraft(
     ),
   ],
   segments: [
-    Segment(
-      id: 1,
-      type: SegmentType.bike,
-      middleVertices: [],
-      startWaypointId: 1,
-      endWaypointId: 2,
-    ),
+    Segment(id: 1, type: SegmentType.bike, startVertexId: 1, endVertexId: 2),
   ],
 );
 

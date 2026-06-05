@@ -21,14 +21,5 @@ GSegmentFieldsData gSegmentData({
 );
 
 /// Construit un [Segment] domaine minimal pour les tests.
-Segment domainSegment({
-  int id = 0,
-  SegmentType type = SegmentType.bike,
-  List<SegmentVertex> middleVertices = const [],
-}) => Segment(
-  id: id,
-  type: type,
-  middleVertices: middleVertices,
-  startWaypointId: 1,
-  endWaypointId: 2,
-);
+Segment domainSegment({int id = 0, SegmentType type = SegmentType.bike}) =>
+    Segment(id: id, type: type, startVertexId: 1, endVertexId: 2);

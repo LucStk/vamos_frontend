@@ -13,8 +13,7 @@ class SegmentMapper {
     // Note: geometry is now stored separately on the server side
     // For now, we create an empty list. The geometry will be calculated client-side
     // or fetched separately if needed
-    middleVertices: [],
-    startWaypointId: data.startVertex.id,
-    endWaypointId: data.endVertex.id,
+    startVertexId: data.startVertex.id,
+    endVertexId: data.endVertex.id,
   );
 }

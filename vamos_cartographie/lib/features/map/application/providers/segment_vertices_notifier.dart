@@ -15,7 +15,7 @@ List<SegmentVertex>? segmentAllVertices(Ref ref, int tripId, int segmentId) {
   final start = ref.watch(
     waypointLatLngProvider(tripId, segment.startWaypointId),
   );
-  final end = ref.watch(waypointLatLngProvider(tripId, segment.endWaypointId));
+  final end = ref.watch(waypointLatLngProvider(tripId, segment.endVertexId));
 
   if (start == null || end == null) return null;
 

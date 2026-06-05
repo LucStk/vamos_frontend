@@ -653,9 +653,9 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'LatLngInput'),
           isNonNull: true,
         ),
-        isNonNull: true,
+        isNonNull: false,
       ),
-      defaultValue: null,
+      defaultValue: _i1.NullValueNode(),
     ),
   ],
 );
@@ -697,6 +697,18 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'VertexType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'geometry'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngType'),
+          isNonNull: true,
+        ),
         isNonNull: true,
       ),
     ),

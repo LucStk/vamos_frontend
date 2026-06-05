@@ -39,9 +39,9 @@ class MockSegmentRepository implements ISegmentRepository {
       final createSegment = Segment(
         id: trip.segments.length,
         type: segment.type,
-        middleVertices: segment.middleVertices,
-        startWaypointId: segment.startWaypointId,
-        endWaypointId: segment.endWaypointId,
+        geometry: segment.geometry,
+        startVertexId: segment.startVertexId,
+        endVertexId: segment.endVertexId,
       );
 
       // 4. Ajouter le Segment dans la liste
@@ -93,9 +93,9 @@ class MockSegmentRepository implements ISegmentRepository {
       final updatedSegment = Segment(
         id: id,
         type: segment.type,
-        middleVertices: segment.middleVertices,
-        startWaypointId: segment.startWaypointId,
-        endWaypointId: segment.endWaypointId,
+        geometry: segment.geometry,
+        startVertexId: segment.startVertexId,
+        endVertexId: segment.endVertexId,
       );
 
       // 4. Cloner et mettre à jour la liste des segments de ce voyage

@@ -120,9 +120,8 @@ void main() {
       final seg = trip.segments.first;
 
       expect(seg.type, SegmentType.bike);
-      expect(seg.startWaypointId, 1);
-      expect(seg.endWaypointId, 2);
-      expect(seg.middleVertices, isEmpty);
+      expect(seg.startVertexId, 1);
+      expect(seg.endVertexId, 2);
     });
 
     test('plusieurs segments sont correctement mappés', () {
@@ -155,14 +154,6 @@ void main() {
       expect(trip.segments[0].type, SegmentType.bike);
       expect(trip.segments[1].type, SegmentType.walk);
       expect(trip.segments[2].type, SegmentType.car);
-    });
-
-    test('segment sans points intermédiaires', () {
-      final trip = TripMapper.fromGQLDetail(
-        gTripDetailData(segments: [gSegmentData()]),
-      );
-
-      expect(trip.segments.first.middleVertices, isEmpty);
     });
 
     test('waypoints et segments vides si absents', () {

@@ -6,21 +6,23 @@ import "package:vamos_cartographie/features/segments/domain/entities/segment.dar
 class SegmentDraftMapper {
   static GSegmentCreateInput toGQLInput(SegmentDraft s) => GSegmentCreateInput(
     type: s.type.toGQL(),
-    geometry: s.middleVertices.map((m) {
-      return GLatLngInput(lat: m.point.latitude, lng: m.point.longitude);
-    }).toList(),
-    startVertexId: s.startWaypointId,
-    endVertexId: s.endWaypointId,
+    geometry: Value.present(
+      s.geometry.map((m) {
+        return GLatLngInput(lat: m.latitude, lng: m.longitude);
+      }).toList(),
+    ),
+    startVertexId: s.startVertexId,
+    endVertexId: s.endVertexId,
   );
 
   static GSegmentUpdateInput toGQLUpdateInput(SegmentDraft s) {
     return GSegmentUpdateInput(
       type: Value.present(s.type.toGQL()),
-      startVertexId: Value.present(s.startWaypointId),
-      endVertexId: Value.present(s.endWaypointId),
+      startVertexId: Value.present(s.startVertexId),
+      endVertexId: Value.present(s.endVertexId),
       geometry: Value.present(
-        s.middleVertices.map((m) {
-          return GLatLngInput(lat: m.point.latitude, lng: m.point.longitude);
+        s.geometry.map((m) {
+          return GLatLngInput(lat: m.latitude, lng: m.longitude);
         }).toList(),
       ),
     );

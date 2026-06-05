@@ -19,7 +19,7 @@ abstract class Segment with _$Segment {
   const factory Segment({
     required int id,
     required int startWaypointId,
-    required int endWaypointId,
+    required int endVertexId,
     required List<SegmentVertex> middleVertices, // ← Nouveau !
     @Default(SegmentType.bike) SegmentType type,
   }) = _Segment;
