@@ -9,7 +9,6 @@ class SegmentRepository {
 
   SegmentRepository(this.remote);
 
-  @override
   Future<Either<Failure, List<Segment>>> getSegments(int tripId) async {
     try {
       final segments = await remote.getSegments(tripId: tripId);
@@ -22,7 +21,6 @@ class SegmentRepository {
     }
   }
 
-  @override
   Future<Either<Failure, Segment>> createSegment(
     int tripId,
     SegmentDraft segment,
@@ -42,7 +40,6 @@ class SegmentRepository {
     }
   }
 
-  @override
   Future<Either<Failure, Segment>> updateSegment(
     int id,
     SegmentDraft segment,
@@ -60,7 +57,6 @@ class SegmentRepository {
     }
   }
 
-  @override
   Future<Either<Failure, void>> deleteSegment(int id) async {
     try {
       await remote.deleteSegment(id: id);

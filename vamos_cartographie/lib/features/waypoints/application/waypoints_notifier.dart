@@ -6,24 +6,16 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/core/injection.dart';
 part 'waypoints_notifier.g.dart';
 
 @riverpod
-IWaypointRepository _waypointRepository(Ref ref) {
-  return getIt<IWaypointRepository>();
-}
-
-@riverpod
 class WaypointsStore extends _$WaypointsStore {
-  late final IWaypointRepository repository;
+  late final WaypointRepository repository;
 
   @override
   Map<int, Waypoint> build(int tripId) {
-    repository = ref.read(_waypointRepositoryProvider);
-
+    repository = ref.read(waypointRepositoryProvider);
     _load(tripId);
-
     return {};
   }
 
@@ -60,9 +52,10 @@ class WaypointsStore extends _$WaypointsStore {
 
   // --- Opérations Distantes (Asynchrones avec le serveur) ---
 
-  Future<void> createWaypointRemote(WaypointDraft draft) async {
+  Future<void> createWaypointRemote(WaypointDraft draft, int vertexId) async {
     final Either<Failure, Waypoint> result = await repository.createWaypoint(
       tripId, // tripId est accessible directement via l'argument du build
+      vertexId,
       draft,
     );
 
@@ -86,7 +79,6 @@ class WaypointsStore extends _$WaypointsStore {
 
     final Either<Failure, Waypoint> result = await repository.updateWaypoint(
       id,
-      currentWaypoint.vertexId,
       draft,
     );
 
@@ -102,28 +94,6 @@ class WaypointsStore extends _$WaypointsStore {
         }
       },
     );
-  }
-
-  //TODO : Faire la requête uniquement sur la position, pas la peine d'envoyer le reste
-  Future<void> updateWaypointPositionRemote(
-    int waypointId,
-    LatLng latLng,
-  ) async {
-    final waypoint = state[waypointId];
-    if (waypoint == null) {
-      throw Exception("WaypointNotifier -> waypointId not valid key");
-    }
-    await updateWaypointRemote(
-      waypoint.id,
-      waypoint.copyWith(latLng: latLng).toDraft(),
-    );
-  }
-
-  void updateWaypointPositionLocal(int waypointId, LatLng latLng) {
-    final waypoint = state[waypointId];
-    if (waypoint == null) return;
-
-    state = {...state, waypointId: waypoint.copyWith(latLng: latLng)};
   }
 
   Future<void> deleteWaypointRemote(int waypointId) async {
@@ -155,15 +125,3 @@ Waypoint? waypoint(Ref ref, int tripId, int waypointId) {
     waypointsStoreProvider(tripId).select((map) => map[waypointId]),
   );
 }
-
-@riverpod
-LatLng? waypointLatLng(Ref ref, int tripId, int waypointId) {
-  return ref.watch(
-    waypointProvider(tripId, waypointId).select((w) => w?.latLng),
-  );
-}
-
-// @riverpod
-// WaypointEnum? waypointType(Ref ref, int tripId, int waypointId) {
-//   return ref.watch(waypointProvider(tripId, waypointId).select((w) => w!.type));
-// }

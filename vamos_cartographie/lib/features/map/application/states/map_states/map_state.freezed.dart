@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MapState {
 
- int get tripId; List<Segment> get segments; List<Waypoint> get savedWaypoints; List<Segment> get savedSegments; MapInteraction get interaction;
+ int get tripId; MapInteraction get interaction;
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MapStateCopyWith<MapState> get copyWith => _$MapStateCopyWithImpl<MapState>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapState&&(identical(other.tripId, tripId) || other.tripId == tripId)&&const DeepCollectionEquality().equals(other.segments, segments)&&const DeepCollectionEquality().equals(other.savedWaypoints, savedWaypoints)&&const DeepCollectionEquality().equals(other.savedSegments, savedSegments)&&(identical(other.interaction, interaction) || other.interaction == interaction));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapState&&(identical(other.tripId, tripId) || other.tripId == tripId)&&(identical(other.interaction, interaction) || other.interaction == interaction));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tripId,const DeepCollectionEquality().hash(segments),const DeepCollectionEquality().hash(savedWaypoints),const DeepCollectionEquality().hash(savedSegments),interaction);
+int get hashCode => Object.hash(runtimeType,tripId,interaction);
 
 @override
 String toString() {
-  return 'MapState(tripId: $tripId, segments: $segments, savedWaypoints: $savedWaypoints, savedSegments: $savedSegments, interaction: $interaction)';
+  return 'MapState(tripId: $tripId, interaction: $interaction)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MapStateCopyWith<$Res>  {
   factory $MapStateCopyWith(MapState value, $Res Function(MapState) _then) = _$MapStateCopyWithImpl;
 @useResult
 $Res call({
- int tripId, List<Segment> segments, List<Waypoint> savedWaypoints, List<Segment> savedSegments, MapInteraction interaction
+ int tripId, MapInteraction interaction
 });
 
 
@@ -62,13 +62,10 @@ class _$MapStateCopyWithImpl<$Res>
 
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? tripId = null,Object? segments = null,Object? savedWaypoints = null,Object? savedSegments = null,Object? interaction = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? tripId = null,Object? interaction = null,}) {
   return _then(_self.copyWith(
 tripId: null == tripId ? _self.tripId : tripId // ignore: cast_nullable_to_non_nullable
-as int,segments: null == segments ? _self.segments : segments // ignore: cast_nullable_to_non_nullable
-as List<Segment>,savedWaypoints: null == savedWaypoints ? _self.savedWaypoints : savedWaypoints // ignore: cast_nullable_to_non_nullable
-as List<Waypoint>,savedSegments: null == savedSegments ? _self.savedSegments : savedSegments // ignore: cast_nullable_to_non_nullable
-as List<Segment>,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
+as int,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
 as MapInteraction,
   ));
 }
@@ -163,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int tripId,  List<Segment> segments,  List<Waypoint> savedWaypoints,  List<Segment> savedSegments,  MapInteraction interaction)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int tripId,  MapInteraction interaction)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MapState() when $default != null:
-return $default(_that.tripId,_that.segments,_that.savedWaypoints,_that.savedSegments,_that.interaction);case _:
+return $default(_that.tripId,_that.interaction);case _:
   return orElse();
 
 }
@@ -184,10 +181,10 @@ return $default(_that.tripId,_that.segments,_that.savedWaypoints,_that.savedSegm
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int tripId,  List<Segment> segments,  List<Waypoint> savedWaypoints,  List<Segment> savedSegments,  MapInteraction interaction)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int tripId,  MapInteraction interaction)  $default,) {final _that = this;
 switch (_that) {
 case _MapState():
-return $default(_that.tripId,_that.segments,_that.savedWaypoints,_that.savedSegments,_that.interaction);case _:
+return $default(_that.tripId,_that.interaction);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +201,10 @@ return $default(_that.tripId,_that.segments,_that.savedWaypoints,_that.savedSegm
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int tripId,  List<Segment> segments,  List<Waypoint> savedWaypoints,  List<Segment> savedSegments,  MapInteraction interaction)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int tripId,  MapInteraction interaction)?  $default,) {final _that = this;
 switch (_that) {
 case _MapState() when $default != null:
-return $default(_that.tripId,_that.segments,_that.savedWaypoints,_that.savedSegments,_that.interaction);case _:
+return $default(_that.tripId,_that.interaction);case _:
   return null;
 
 }
@@ -219,31 +216,10 @@ return $default(_that.tripId,_that.segments,_that.savedWaypoints,_that.savedSegm
 
 
 class _MapState extends MapState {
-  const _MapState({required this.tripId, final  List<Segment> segments = const [], final  List<Waypoint> savedWaypoints = const [], final  List<Segment> savedSegments = const [], this.interaction = const MapInteraction.none()}): _segments = segments,_savedWaypoints = savedWaypoints,_savedSegments = savedSegments,super._();
+  const _MapState({required this.tripId, this.interaction = const MapInteraction.none()}): super._();
   
 
 @override final  int tripId;
- final  List<Segment> _segments;
-@override@JsonKey() List<Segment> get segments {
-  if (_segments is EqualUnmodifiableListView) return _segments;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_segments);
-}
-
- final  List<Waypoint> _savedWaypoints;
-@override@JsonKey() List<Waypoint> get savedWaypoints {
-  if (_savedWaypoints is EqualUnmodifiableListView) return _savedWaypoints;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_savedWaypoints);
-}
-
- final  List<Segment> _savedSegments;
-@override@JsonKey() List<Segment> get savedSegments {
-  if (_savedSegments is EqualUnmodifiableListView) return _savedSegments;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_savedSegments);
-}
-
 @override@JsonKey() final  MapInteraction interaction;
 
 /// Create a copy of MapState
@@ -256,16 +232,16 @@ _$MapStateCopyWith<_MapState> get copyWith => __$MapStateCopyWithImpl<_MapState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapState&&(identical(other.tripId, tripId) || other.tripId == tripId)&&const DeepCollectionEquality().equals(other._segments, _segments)&&const DeepCollectionEquality().equals(other._savedWaypoints, _savedWaypoints)&&const DeepCollectionEquality().equals(other._savedSegments, _savedSegments)&&(identical(other.interaction, interaction) || other.interaction == interaction));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapState&&(identical(other.tripId, tripId) || other.tripId == tripId)&&(identical(other.interaction, interaction) || other.interaction == interaction));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tripId,const DeepCollectionEquality().hash(_segments),const DeepCollectionEquality().hash(_savedWaypoints),const DeepCollectionEquality().hash(_savedSegments),interaction);
+int get hashCode => Object.hash(runtimeType,tripId,interaction);
 
 @override
 String toString() {
-  return 'MapState(tripId: $tripId, segments: $segments, savedWaypoints: $savedWaypoints, savedSegments: $savedSegments, interaction: $interaction)';
+  return 'MapState(tripId: $tripId, interaction: $interaction)';
 }
 
 
@@ -276,7 +252,7 @@ abstract mixin class _$MapStateCopyWith<$Res> implements $MapStateCopyWith<$Res>
   factory _$MapStateCopyWith(_MapState value, $Res Function(_MapState) _then) = __$MapStateCopyWithImpl;
 @override @useResult
 $Res call({
- int tripId, List<Segment> segments, List<Waypoint> savedWaypoints, List<Segment> savedSegments, MapInteraction interaction
+ int tripId, MapInteraction interaction
 });
 
 
@@ -293,13 +269,10 @@ class __$MapStateCopyWithImpl<$Res>
 
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? tripId = null,Object? segments = null,Object? savedWaypoints = null,Object? savedSegments = null,Object? interaction = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? tripId = null,Object? interaction = null,}) {
   return _then(_MapState(
 tripId: null == tripId ? _self.tripId : tripId // ignore: cast_nullable_to_non_nullable
-as int,segments: null == segments ? _self._segments : segments // ignore: cast_nullable_to_non_nullable
-as List<Segment>,savedWaypoints: null == savedWaypoints ? _self._savedWaypoints : savedWaypoints // ignore: cast_nullable_to_non_nullable
-as List<Waypoint>,savedSegments: null == savedSegments ? _self._savedSegments : savedSegments // ignore: cast_nullable_to_non_nullable
-as List<Segment>,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
+as int,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
 as MapInteraction,
   ));
 }

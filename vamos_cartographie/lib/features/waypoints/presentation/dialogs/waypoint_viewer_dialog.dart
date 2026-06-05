@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
 import 'waypoint_editor_dialog.dart';
+
+import "package:vamos_cartographie/features/waypoints/application/waypoints_notifier.dart";
 
 class WaypointViewerDialog extends ConsumerWidget {
   final int waypointId;
