@@ -9,47 +9,39 @@ part of 'segments_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(SegmentsStore)
-final segmentsStoreProvider = SegmentsStoreFamily._();
+@ProviderFor(SegmentsNotifier)
+final segmentsProvider = SegmentsNotifierFamily._();
 
-final class SegmentsStoreProvider
-    extends $NotifierProvider<SegmentsStore, Map<int, Segment>> {
-  SegmentsStoreProvider._({
-    required SegmentsStoreFamily super.from,
+final class SegmentsNotifierProvider
+    extends $AsyncNotifierProvider<SegmentsNotifier, Map<int, Segment>> {
+  SegmentsNotifierProvider._({
+    required SegmentsNotifierFamily super.from,
     required int super.argument,
   }) : super(
          retry: null,
-         name: r'segmentsStoreProvider',
+         name: r'segmentsProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentsStoreHash();
+  String debugGetCreateSourceHash() => _$segmentsNotifierHash();
 
   @override
   String toString() {
-    return r'segmentsStoreProvider'
+    return r'segmentsProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  SegmentsStore create() => SegmentsStore();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Map<int, Segment> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Map<int, Segment>>(value),
-    );
-  }
+  SegmentsNotifier create() => SegmentsNotifier();
 
   @override
   bool operator ==(Object other) {
-    return other is SegmentsStoreProvider && other.argument == argument;
+    return other is SegmentsNotifierProvider && other.argument == argument;
   }
 
   @override
@@ -58,47 +50,48 @@ final class SegmentsStoreProvider
   }
 }
 
-String _$segmentsStoreHash() => r'faa59dac710ff59503ce83c4e219044ac19391e3';
+String _$segmentsNotifierHash() => r'345dae3b5a0007ce22320c821a6950d364c0d111';
 
-final class SegmentsStoreFamily extends $Family
+final class SegmentsNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
-          SegmentsStore,
+          SegmentsNotifier,
+          AsyncValue<Map<int, Segment>>,
           Map<int, Segment>,
-          Map<int, Segment>,
-          Map<int, Segment>,
+          FutureOr<Map<int, Segment>>,
           int
         > {
-  SegmentsStoreFamily._()
+  SegmentsNotifierFamily._()
     : super(
         retry: null,
-        name: r'segmentsStoreProvider',
+        name: r'segmentsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  SegmentsStoreProvider call(int tripId) =>
-      SegmentsStoreProvider._(argument: tripId, from: this);
+  SegmentsNotifierProvider call(int tripId) =>
+      SegmentsNotifierProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'segmentsStoreProvider';
+  String toString() => r'segmentsProvider';
 }
 
-abstract class _$SegmentsStore extends $Notifier<Map<int, Segment>> {
+abstract class _$SegmentsNotifier extends $AsyncNotifier<Map<int, Segment>> {
   late final _$args = ref.$arg as int;
   int get tripId => _$args;
 
-  Map<int, Segment> build(int tripId);
+  FutureOr<Map<int, Segment>> build(int tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<Map<int, Segment>, Map<int, Segment>>;
+    final ref =
+        this.ref as $Ref<AsyncValue<Map<int, Segment>>, Map<int, Segment>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<Map<int, Segment>, Map<int, Segment>>,
-              Map<int, Segment>,
+              AnyNotifier<AsyncValue<Map<int, Segment>>, Map<int, Segment>>,
+              AsyncValue<Map<int, Segment>>,
               Object?,
               Object?
             >;
@@ -163,7 +156,7 @@ final class SegmentIdsProvider
   }
 }
 
-String _$segmentIdsHash() => r'29bc286d9bc49026c96fa98301c4b25618cee3d6';
+String _$segmentIdsHash() => r'f603e38ae657271f00d6e929f239af867f0908b0';
 
 final class SegmentIdsFamily extends $Family
     with $FunctionalFamilyOverride<List<int>, int> {
@@ -240,7 +233,7 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'9b9cb252ecd6a951b33f8b7f34f9ef8e5b05cbd1';
+String _$segmentHash() => r'7d8826fab9f0b2909a77aed4e99bfcea402807de';
 
 final class SegmentFamily extends $Family
     with $FunctionalFamilyOverride<Segment?, (int, int)> {

@@ -1,107 +1,63 @@
 // features/waypoints/presentation/providers/waypoints_notifier.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:dartz/dartz.dart';
-import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
-import 'package:flutter/material.dart';
 part 'waypoints_notifier.g.dart';
 
 @riverpod
 class WaypointsNotifier extends _$WaypointsNotifier {
   WaypointRepository get repository => ref.read(waypointRepositoryProvider);
-  @override
-  Map<int, Waypoint> build(int tripId) {
-    _load(tripId);
-    return {};
+
+  Map<int, Waypoint> get _current => state.value ?? <int, Waypoint>{};
+
+  void _emit(Map<int, Waypoint> next) => state = AsyncData(next);
+
+  void _update(Waypoint w) {
+    final next = Map<int, Waypoint>.from(_current)..[w.id] = w;
+
+    _emit(next);
   }
 
-  Future<void> _load(int tripId) async {
+  void _remove(int id) {
+    final next = Map<int, Waypoint>.from(_current)..remove(id);
+    _emit(next);
+  }
+
+  @override
+  Future<Map<int, Waypoint>> build(int tripId) async {
     final result = await repository.getWaypoints(tripId);
 
-    result.fold(
-      (failure) {
-        debugPrint('load failed');
-      },
-      (waypoints) {
-        state = {for (final w in waypoints) w.id: w};
-      },
+    return result.fold(
+      (e) => throw Exception(e.message),
+      (list) => {for (final w in list) w.id: w},
     );
   }
 
-  // --- Mises à jour locales (Synchrones pour l'UI) ---
+  Future<void> create(int tripId, WaypointDraft draft) async {
+    final result = await repository.createWaypoint(tripId, draft);
 
-  void _addWaypointLocal(Waypoint waypoint) {
-    state = {...state, waypoint.id: waypoint};
+    result.fold((_) {}, (w) => _update(w));
   }
 
-  void _removeWaypointLocalById(int id) {
-    final updated = Map<int, Waypoint>.from(state)..remove(id);
-    state = updated;
+  Future<void> update(int id, WaypointDraft draft) async {
+    final previous = _current;
+
+    final optimistic = draft.toWaypoint(id);
+    _update(optimistic);
+
+    final result = await repository.updateWaypoint(id, draft);
+
+    result.fold((_) => _emit(previous), (server) => _update(server));
   }
 
-  void _updateWaypointLocal(Waypoint waypoint) {
-    if (!state.containsKey(waypoint.id)) {
-      throw Exception("Waypoint non trouvé dans le store local");
-    }
-    state = {...state, waypoint.id: waypoint};
-  }
+  Future<void> delete(int id) async {
+    final previous = _current;
 
-  // --- Opérations Distantes (Asynchrones avec le serveur) ---
+    _remove(id);
 
-  Future<void> createWaypointRemote(WaypointDraft draft, int vertexId) async {
-    final Either<Failure, Waypoint> result = await repository.createWaypoint(
-      tripId, // tripId est accessible directement via l'argument du build
-      vertexId,
-      draft,
-    );
+    final result = await repository.deleteWaypoint(id);
 
-    result.fold(
-      (failure) => null, // Gérer l'erreur si nécessaire
-      (serverWaypoint) => _addWaypointLocal(serverWaypoint),
-    );
-  }
-
-  Future<void> updateWaypointRemote(int id, WaypointDraft draft) async {
-    final previousState = state;
-    final currentWaypoint = state[id];
-
-    if (currentWaypoint == null) {
-      throw Exception('Waypoint $id not found in state');
-    }
-
-    // Mise à jour optimiste locale
-    final optimisticWaypoint = draft.toWaypoint(id, currentWaypoint.vertexId);
-    _updateWaypointLocal(optimisticWaypoint);
-
-    final Either<Failure, Waypoint> result = await repository.updateWaypoint(
-      id,
-      draft,
-    );
-
-    result.fold(
-      (failure) {
-        // Rollback en cas d'échec
-        state = previousState;
-      },
-      (serverWaypoint) {
-        // Synchronisation avec la vérité du serveur si différente
-        if (optimisticWaypoint != serverWaypoint) {
-          _updateWaypointLocal(serverWaypoint);
-        }
-      },
-    );
-  }
-
-  Future<void> deleteWaypointRemote(int waypointId) async {
-    final Either<Failure, void> result = await repository.deleteWaypoint(
-      waypointId,
-    );
-
-    result.fold(
-      (failure) => null, // Gérer l'erreur si nécessaire
-      (_) => _removeWaypointLocalById(waypointId),
-    );
+    result.fold((_) => _emit(previous), (_) {});
   }
 }
 

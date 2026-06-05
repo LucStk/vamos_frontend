@@ -2,195 +2,113 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:dartz/dartz.dart';
-import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
-import 'package:flutter/material.dart';
 
 part 'segments_notifier.g.dart';
 
 @riverpod
-class SegmentsStore extends _$SegmentsStore {
-  late final SegmentRepository repository;
+class SegmentsNotifier extends _$SegmentsNotifier {
+  SegmentRepository get repository => ref.read(segmentRepositoryProvider);
+
+  // ---------------------------------------------------------------------------
+  // Helpers internes
+  // ---------------------------------------------------------------------------
+
+  Map<int, Segment> get _current => state.value ?? <int, Segment>{};
+
+  void _emit(Map<int, Segment> next) {
+    state = AsyncData(next);
+  }
+
+  void _update(Segment segment) {
+    final next = Map<int, Segment>.from(_current)..[segment.id] = segment;
+
+    _emit(next);
+  }
+
+  void _remove(int id) {
+    final next = Map<int, Segment>.from(_current)..remove(id);
+    _emit(next);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Lifecycle
+  // ---------------------------------------------------------------------------
 
   @override
-  Map<int, Segment> build(int tripId) {
-    repository = ref.read(segmentRepositoryProvider);
-
-    _load(tripId);
-
-    return {};
+  Future<Map<int, Segment>> build(int tripId) async {
+    return _load(tripId);
   }
 
-  Future<void> _load(int tripId) async {
+  Future<Map<int, Segment>> _load(int tripId) async {
     final result = await repository.getSegments(tripId);
 
-    result.fold(
-      (failure) {
-        debugPrint('load failed');
-      },
-      (segments) {
-        state = {for (final w in segments) w.id: w};
-      },
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (segments) => {for (final s in segments) s.id: s},
     );
   }
 
-  // --- Mises à jour locales (Synchrones pour l'UI) ---
+  // ---------------------------------------------------------------------------
+  // Public API (UI actions)
+  // ---------------------------------------------------------------------------
 
-  void _addSegmentLocal(Segment segment) {
-    state = {...state, segment.id: segment};
+  Future<void> refresh(int tripId) async {
+    state = const AsyncLoading();
+
+    state = await AsyncValue.guard(() => _load(tripId));
   }
 
-  void _removeSegmentLocalById(int id) {
-    final updated = Map<int, Segment>.from(state)..remove(id);
-    state = updated;
+  // CREATE
+  Future<void> createSegment(int tripId, SegmentDraft draft) async {
+    final result = await repository.createSegment(tripId, draft);
+
+    result.fold((_) {}, (segment) => _update(segment));
   }
 
-  void _updateSegmentLocal(Segment segment) {
-    if (!state.containsKey(segment.id)) {
-      throw Exception("Segment non trouvé dans le store local");
-    }
-    state = {...state, segment.id: segment};
-  }
+  // UPDATE (optimistic)
+  Future<void> updateSegment(int id, SegmentDraft draft) async {
+    final previous = _current;
 
-  // --- Opérations Distantes (Asynchrones avec le serveur) ---
+    final optimistic = draft.toSegment(id);
+    _update(optimistic);
 
-  Future<void> createSegmentRemote(SegmentDraft draft) async {
-    final Either<Failure, Segment> result = await repository.createSegment(
-      tripId, // tripId est accessible directement via l'argument du build
-      draft,
-    );
+    final result = await repository.updateSegment(id, draft);
 
     result.fold(
-      (failure) => null, // Gérer l'erreur si nécessaire
-      (serverSegment) => _addSegmentLocal(serverSegment),
-    );
-  }
-
-  Future<void> updateSegmentRemote(int id, SegmentDraft draft) async {
-    final previousState = state;
-
-    // Mise à jour optimiste locale
-    final optimisticSegment = draft.toSegment(id);
-    _updateSegmentLocal(optimisticSegment);
-
-    final Either<Failure, Segment> result = await repository.updateSegment(
-      id,
-      draft,
-    );
-
-    result.fold(
-      (failure) {
-        // Rollback en cas d'échec
-        state = previousState;
+      (_) {
+        _emit(previous); // rollback
       },
-      (serverSegment) {
-        // Synchronisation avec la vérité du serveur si différente
-        if (optimisticSegment != serverSegment) {
-          _updateSegmentLocal(serverSegment);
-        }
+      (server) {
+        _update(server); // sync truth serveur
       },
     );
   }
 
-  Future<void> deleteSegmentRemote(int segmentId) async {
-    final Either<Failure, void> result = await repository.deleteSegment(
-      segmentId,
-    );
+  // DELETE
+  Future<void> deleteSegment(int id) async {
+    final previous = _current;
 
-    result.fold(
-      (failure) => null, // Gérer l'erreur si nécessaire
-      (_) => _removeSegmentLocalById(segmentId),
-    );
-  }
+    _remove(id);
 
-  // --- Opérations sur les middleVertices ---
+    final result = await repository.deleteSegment(id);
 
-  /// Met à jour la position d'un middleVertex
-  Future<void> updateMiddleVertexPosition({
-    required String vertexId,
-    required LatLng newPosition,
-  }) async {
-    Segment? segment;
-    try {
-      segment = state.values.firstWhere(
-        (s) => s.middleVertices.any((v) => v.id == vertexId),
-      );
-    } catch (e) {
-      return; // Vertex non trouvé
-    }
-
-    final updatedVertices = segment.middleVertices.map((v) {
-      if (v.id == vertexId) {
-        return SegmentVertex(id: v.id, point: newPosition);
-      }
-      return v;
-    }).toList();
-
-    final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
-    await updateSegmentRemote(segment.id, draft);
-  }
-
-  /// Ajoute un nouveau middleVertex à un index spécifique
-  Future<void> addMiddleVertex({
-    required int segmentId,
-    required int insertIndex,
-    required LatLng position,
-  }) async {
-    final segment = state[segmentId];
-    if (segment == null) return;
-
-    // Calcul de l'index dans middleVertices (on retire 1 car insertIndex inclut le waypoint de départ)
-    final middleIndex = insertIndex - 1;
-
-    final newVertex = SegmentVertex(
-      id: '${segment.id}-${DateTime.now().millisecondsSinceEpoch}',
-      point: position,
-    );
-
-    final updatedVertices = List<SegmentVertex>.from(segment.middleVertices);
-    updatedVertices.insert(middleIndex, newVertex);
-
-    final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
-    await updateSegmentRemote(segment.id, draft);
-  }
-
-  /// Supprime un middleVertex
-  Future<void> removeMiddleVertex({required String vertexId}) async {
-    Segment? segment;
-    try {
-      segment = state.values.firstWhere(
-        (s) => s.middleVertices.any((v) => v.id == vertexId),
-      );
-    } catch (e) {
-      return; // Vertex non trouvé
-    }
-
-    final updatedVertices = segment.middleVertices
-        .where((v) => v.id != vertexId)
-        .toList();
-
-    final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
-    await updateSegmentRemote(segment.id, draft);
+    result.fold((_) {
+      _emit(previous); // rollback
+    }, (_) {});
   }
 }
-
-// --- Providers Sélecteurs pour optimiser l'UI ---
 
 @riverpod
 List<int> segmentIds(Ref ref, int tripId) {
   // Ce provider ne notifiera que si un identifiant est ajouté ou retiré
-  return ref.watch(
-    segmentsStoreProvider(tripId).select((map) => map.keys.toList()),
-  );
+  return ref.watch(segmentsProvider(tripId).select((map) => map.keys.toList()));
 }
 
 @riverpod
 Segment? segment(Ref ref, int tripId, int segmentId) {
   // Ce provider ne rebuilde le marqueur individuel QUE si ses données changent
-  return ref.watch(
-    segmentsStoreProvider(tripId).select((map) => map[segmentId]),
-  );
+  return ref.watch(segmentsProvider(tripId).select((map) => map[segmentId]));
 }
 
 @riverpod
@@ -207,3 +125,76 @@ List<LatLng>? segmentPoints(Ref ref, int tripId, int segmentId) {
 // SegmentEnum? segmentType(Ref ref, int tripId, int segmentId) {
 //   return ref.watch(segmentProvider(tripId, segmentId).select((w) => w!.type));
 // }
+
+//   // --- Opérations sur les middleVertices ---
+
+//   /// Met à jour la position d'un middleVertex
+//   Future<void> updateMiddleVertexPosition({
+//     required String vertexId,
+//     required LatLng newPosition,
+//   }) async {
+//     Segment? segment;
+//     try {
+//       segment = state.values.firstWhere(
+//         (s) => s.middleVertices.any((v) => v.id == vertexId),
+//       );
+//     } catch (e) {
+//       return; // Vertex non trouvé
+//     }
+
+//     final updatedVertices = segment.middleVertices.map((v) {
+//       if (v.id == vertexId) {
+//         return SegmentVertex(id: v.id, point: newPosition);
+//       }
+//       return v;
+//     }).toList();
+
+//     final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
+//     await updateSegmentRemote(segment.id, draft);
+//   }
+
+//   /// Ajoute un nouveau middleVertex à un index spécifique
+//   Future<void> addMiddleVertex({
+//     required int segmentId,
+//     required int insertIndex,
+//     required LatLng position,
+//   }) async {
+//     final segment = state[segmentId];
+//     if (segment == null) return;
+
+//     // Calcul de l'index dans middleVertices (on retire 1 car insertIndex inclut le waypoint de départ)
+//     final middleIndex = insertIndex - 1;
+
+//     final newVertex = SegmentVertex(
+//       id: '${segment.id}-${DateTime.now().millisecondsSinceEpoch}',
+//       point: position,
+//     );
+
+//     final updatedVertices = List<SegmentVertex>.from(segment.middleVertices);
+//     updatedVertices.insert(middleIndex, newVertex);
+
+//     final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
+//     await updateSegmentRemote(segment.id, draft);
+//   }
+
+//   /// Supprime un middleVertex
+//   Future<void> removeMiddleVertex({required String vertexId}) async {
+//     Segment? segment;
+//     try {
+//       segment = state.values.firstWhere(
+//         (s) => s.middleVertices.any((v) => v.id == vertexId),
+//       );
+//     } catch (e) {
+//       return; // Vertex non trouvé
+//     }
+
+//     final updatedVertices = segment.middleVertices
+//         .where((v) => v.id != vertexId)
+//         .toList();
+
+//     final draft = segment.copyWith(middleVertices: updatedVertices).toDraft();
+//     await updateSegmentRemote(segment.id, draft);
+//   }
+// }
+
+// --- Providers Sélecteurs pour optimiser l'UI ---

@@ -13,7 +13,7 @@ part of 'waypoints_notifier.dart';
 final waypointsProvider = WaypointsNotifierFamily._();
 
 final class WaypointsNotifierProvider
-    extends $NotifierProvider<WaypointsNotifier, Map<int, Waypoint>> {
+    extends $AsyncNotifierProvider<WaypointsNotifier, Map<int, Waypoint>> {
   WaypointsNotifierProvider._({
     required WaypointsNotifierFamily super.from,
     required int super.argument,
@@ -39,14 +39,6 @@ final class WaypointsNotifierProvider
   @override
   WaypointsNotifier create() => WaypointsNotifier();
 
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Map<int, Waypoint> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Map<int, Waypoint>>(value),
-    );
-  }
-
   @override
   bool operator ==(Object other) {
     return other is WaypointsNotifierProvider && other.argument == argument;
@@ -58,15 +50,15 @@ final class WaypointsNotifierProvider
   }
 }
 
-String _$waypointsNotifierHash() => r'418973af13ce4c53b0f335d015f85d2b4f13ef47';
+String _$waypointsNotifierHash() => r'aaeb03530a9bdcc022f372642bd570cf73dca8ed';
 
 final class WaypointsNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           WaypointsNotifier,
+          AsyncValue<Map<int, Waypoint>>,
           Map<int, Waypoint>,
-          Map<int, Waypoint>,
-          Map<int, Waypoint>,
+          FutureOr<Map<int, Waypoint>>,
           int
         > {
   WaypointsNotifierFamily._()
@@ -85,20 +77,21 @@ final class WaypointsNotifierFamily extends $Family
   String toString() => r'waypointsProvider';
 }
 
-abstract class _$WaypointsNotifier extends $Notifier<Map<int, Waypoint>> {
+abstract class _$WaypointsNotifier extends $AsyncNotifier<Map<int, Waypoint>> {
   late final _$args = ref.$arg as int;
   int get tripId => _$args;
 
-  Map<int, Waypoint> build(int tripId);
+  FutureOr<Map<int, Waypoint>> build(int tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<Map<int, Waypoint>, Map<int, Waypoint>>;
+    final ref =
+        this.ref as $Ref<AsyncValue<Map<int, Waypoint>>, Map<int, Waypoint>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<Map<int, Waypoint>, Map<int, Waypoint>>,
-              Map<int, Waypoint>,
+              AnyNotifier<AsyncValue<Map<int, Waypoint>>, Map<int, Waypoint>>,
+              AsyncValue<Map<int, Waypoint>>,
               Object?,
               Object?
             >;
