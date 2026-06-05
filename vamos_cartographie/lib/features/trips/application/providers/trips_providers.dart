@@ -1,34 +1,17 @@
-import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/data/repositories/repositories.dart';
-// 1. Remplacement des imports riverpod classiques par les annotations
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import "package:get_it/get_it.dart";
-
-// REQUIS : Lien vers le fichier généré
+import "package:vamos_cartographie/features/trips/data/data.dart";
+import "package:vamos_cartographie/features/trips/domain/trip.dart";
 part 'trips_providers.g.dart';
 
-final getIt = GetIt.instance;
-
-// 2. Migration de l'ancien Provider<ITripRepository>
-// En le préfixant par un '_', le provider généré restera "privé" à ce fichier.
-@riverpod
-ITripRepository _tripRepository(Ref ref) {
-  return getIt<ITripRepository>();
-}
-
-// 3. Migration du AsyncNotifierProvider vers une classe annotée
-// Note : Par défaut, @riverpod applique le comportement AutoDispose.
-// Si vous voulez garder vos voyages en mémoire indéfiniment, utilisez plutôt : @Riverpod(keepAlive: true)
 @riverpod
 class TripsNotifier extends _$TripsNotifier {
-  late final ITripRepository repository;
+  late final TripRepository repository;
 
   @override
   Future<List<Trip>> build() async {
     // On lit le provider généré privé (il a maintenant le suffixe Provider)
-    repository = ref.read(_tripRepositoryProvider);
+    repository = ref.read(tripRepositoryProvider);
     return _loadTrips();
   }
 

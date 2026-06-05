@@ -1,5 +1,5 @@
 import 'package:vamos_cartographie/graphql/graphql.dart';
-import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/segment_mappers.dart';

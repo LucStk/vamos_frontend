@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:vamos_cartographie/features/trips/domain/domain.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart';
 
 import 'package:vamos_cartographie/shared/widgets/widgets.dart';

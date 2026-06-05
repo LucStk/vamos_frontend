@@ -1,14 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/features/trips/data/datasources/datasources.dart';
+import 'package:vamos_cartographie/features/trips/data/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_draft_mappers.dart';
-import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-import 'i_trip_repository.dart';
 
-class TripRepository implements ITripRepository {
+class TripRepository {
   final TripRemoteDatasource remote;
 
   TripRepository(this.remote);

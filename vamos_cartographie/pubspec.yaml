@@ -43,7 +43,6 @@ dependencies:
   flutter_map_line_editor: ^8.0.0
   image_picker: ^1.2.2
   file_selector: ^1.1.0
-  get_it: ^9.2.1
   dartz: ^0.10.1
   equatable: ^2.0.8
   ferry: ^0.16.1+2

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/trips/presentation/providers/trips_providers.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:vamos_cartographie/features/trips/application/providers/trips_providers.dart';
 import "trip_form_dialog.dart";
 
 class TripCreatorDialog extends StatelessWidget {

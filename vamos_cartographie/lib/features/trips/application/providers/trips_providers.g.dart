@@ -9,48 +9,6 @@ part of 'trips_providers.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(_tripRepository)
-final _tripRepositoryProvider = _TripRepositoryProvider._();
-
-final class _TripRepositoryProvider
-    extends
-        $FunctionalProvider<ITripRepository, ITripRepository, ITripRepository>
-    with $Provider<ITripRepository> {
-  _TripRepositoryProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'_tripRepositoryProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$_tripRepositoryHash();
-
-  @$internal
-  @override
-  $ProviderElement<ITripRepository> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  ITripRepository create(Ref ref) {
-    return _tripRepository(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ITripRepository value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ITripRepository>(value),
-    );
-  }
-}
-
-String _$_tripRepositoryHash() => r'0870812eebd0c290654613097007bc69d91cda75';
-
 @ProviderFor(TripsNotifier)
 final tripsProvider = TripsNotifierProvider._();
 
@@ -75,7 +33,7 @@ final class TripsNotifierProvider
   TripsNotifier create() => TripsNotifier();
 }
 
-String _$tripsNotifierHash() => r'0b12d8cf1ab2aaeb4d9492cfbf037f6ca92b3291';
+String _$tripsNotifierHash() => r'edfaf9dc17f34ecc1ed29e5813564246e899e380';
 
 abstract class _$TripsNotifier extends $AsyncNotifier<List<Trip>> {
   FutureOr<List<Trip>> build();

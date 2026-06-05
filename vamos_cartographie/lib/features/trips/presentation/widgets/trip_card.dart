@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class TripCard extends StatelessWidget {

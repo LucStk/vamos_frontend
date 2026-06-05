@@ -12,6 +12,13 @@ part 'upload_img_repository.g.dart';
 
 final dio = Dio();
 
+@riverpod
+UploadImgRepository uploadImgRepository(Ref ref) {
+  // 2. On récupère directement l'instance configurée dans GetIt.
+  // Que ce soit le vrai Repository ou le Mock, GetIt donnera la bonne version.
+  return GetIt.instance<UploadImgRepository>();
+}
+
 class UploadImgRepository {
   final Client _client;
 
@@ -75,11 +82,4 @@ class UploadImgRepository {
       return Left(ConnectionFailure());
     }
   }
-}
-
-@riverpod
-UploadImgRepository uploadImgRepository(Ref ref) {
-  // 2. On récupère directement l'instance configurée dans GetIt.
-  // Que ce soit le vrai Repository ou le Mock, GetIt donnera la bonne version.
-  return GetIt.instance<UploadImgRepository>();
 }

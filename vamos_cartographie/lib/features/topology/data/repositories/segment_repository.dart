@@ -3,9 +3,8 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/topology/data/datasources/segment_remote_datasource.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import 'i_segment_repository.dart';
 
-class SegmentRepository implements ISegmentRepository {
+class SegmentRepository {
   final SegmentRemoteDatasource remote;
 
   SegmentRepository(this.remote);
