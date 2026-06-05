@@ -5,5 +5,5 @@ part 'vertex.freezed.dart';
 
 @freezed
 abstract class Vertex with _$Vertex {
-  const factory Vertex({required String id, required LatLng point}) = _Vertex;
+  const factory Vertex({required int id, required LatLng latLng}) = _Vertex;
 }

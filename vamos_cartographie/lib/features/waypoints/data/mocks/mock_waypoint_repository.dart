@@ -25,6 +25,7 @@ class MockWaypointRepository implements IWaypointRepository {
   @override
   Future<Either<Failure, Waypoint>> createWaypoint(
     int tripId,
+    int vertexId,
     WaypointDraft waypoint,
   ) async {
     await Future.delayed(_delay);
@@ -38,8 +39,7 @@ class MockWaypointRepository implements IWaypointRepository {
       // 3. Créer le waypoint
       final createWaypoint = Waypoint(
         id: trip.waypoints.length,
-        vertexId: trip.waypoints.length, // Mock: use same ID for vertex
-        latLng: waypoint.latLng,
+        vertexId: vertexId,
         type: waypoint.type,
         title: waypoint.title,
         description: waypoint.description,
@@ -52,16 +52,10 @@ class MockWaypointRepository implements IWaypointRepository {
       ];
 
       // 5. Sauvegarder les changements dans le TripRepository via un TripDraft
-      final updateResult = await _tripRepository.updateTrip(
-        tripId,
-        trip.toDraft().copyWith(waypoints: updatedWaypoints),
-      );
+      final updateResult = trip.copyWith(waypoints: updatedWaypoints);
 
       // 6. Retourner le waypoint modifié si tout s'est bien passé
-      return updateResult.fold(
-        (failure) => Left(failure),
-        (_) => Right(createWaypoint),
-      );
+      return Right(createWaypoint);
     });
   }
 
@@ -98,7 +92,6 @@ class MockWaypointRepository implements IWaypointRepository {
       final updatedWaypoint = Waypoint(
         id: id,
         vertexId: currentVertexId, // Keep the same vertex ID
-        latLng: waypoint.latLng,
         type: waypoint.type,
         title: waypoint.title,
         description: waypoint.description,
@@ -117,8 +110,6 @@ class MockWaypointRepository implements IWaypointRepository {
           description: targetTrip.description,
           date: targetTrip.date,
           images: targetTrip.images,
-          segments: targetTrip.segments,
-          waypoints: updatedWaypoints, // Notre liste modifiée
         ),
       );
 

@@ -1,7 +1,5 @@
-import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
-import 'package:latlong2/latlong.dart';
-import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 import "segment_type_mapper.dart";
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.

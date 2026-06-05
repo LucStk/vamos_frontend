@@ -1,10 +1,7 @@
 // features/map/presentation/providers/map_state_provider.dart
 import 'package:flutter/foundation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/trips/trips.dart';
-import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:vamos_cartographie/features/segments/domain/entities/segment.dart";
 part 'segment_states.freezed.dart';
 
 @freezed

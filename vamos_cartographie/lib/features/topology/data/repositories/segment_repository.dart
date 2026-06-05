@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/features/segments/data/datasources/segment_remote_datasource.dart';
-import 'package:vamos_cartographie/features/segments/data/mappers/mappers.dart';
-import 'package:vamos_cartographie/features/segments/domain/domain.dart';
+import 'package:vamos_cartographie/features/topology/data/datasources/segment_remote_datasource.dart';
+import 'package:vamos_cartographie/features/topology/data/mappers/mappers.dart';
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'i_segment_repository.dart';
 
 class SegmentRepository implements ISegmentRepository {

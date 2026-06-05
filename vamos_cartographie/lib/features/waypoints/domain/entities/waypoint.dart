@@ -11,7 +11,6 @@ abstract class Waypoint with _$Waypoint {
   const factory Waypoint({
     required int id,
     required int vertexId,
-    required LatLng latLng,
     @Default('') String title,
     @Default(WaypointType.waypoint) WaypointType type,
     @Default('') String description,
@@ -19,7 +18,6 @@ abstract class Waypoint with _$Waypoint {
   }) = _Waypoint;
   WaypointDraft toDraft() {
     return WaypointDraft(
-      latLng: latLng,
       title: title,
       type: type,
       description: description,
@@ -32,7 +30,6 @@ abstract class Waypoint with _$Waypoint {
 abstract class WaypointDraft with _$WaypointDraft {
   const WaypointDraft._();
   const factory WaypointDraft({
-    required LatLng latLng,
     @Default('') String title,
     @Default(WaypointType.waypoint) WaypointType type,
     @Default('') String description,
@@ -41,9 +38,8 @@ abstract class WaypointDraft with _$WaypointDraft {
 
   Waypoint toWaypoint(int id, int vertexId) {
     return Waypoint(
-      id: id,
       vertexId: vertexId,
-      latLng: latLng,
+      id: id,
       title: title,
       type: type,
       description: description,

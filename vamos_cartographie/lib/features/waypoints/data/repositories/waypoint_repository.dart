@@ -28,20 +28,15 @@ class WaypointRepository implements IWaypointRepository {
   @override
   Future<Either<Failure, Waypoint>> createWaypoint(
     int tripId,
+    int vertexId,
     WaypointDraft waypoint,
   ) async {
     try {
-      // First, create a vertex at the waypoint's location
-      final vertexResult = await remote.createVertex(
-        tripId: tripId,
-        latLng: waypoint.latLng,
-      );
-
       // Then create the waypoint with the vertex ID
       final input = WaypointDraftMapper.toGQLInput(waypoint);
       final gqlResult = await remote.createWaypoint(
         tripId: tripId,
-        vertexId: vertexResult.id,
+        vertexId: vertexId,
         input: input,
       );
       final createWaypoint = WaypointMapper.fromGQL(gqlResult);
@@ -62,16 +57,9 @@ class WaypointRepository implements IWaypointRepository {
   @override
   Future<Either<Failure, Waypoint>> updateWaypoint(
     int id,
-    int currentVertexId,
     WaypointDraft waypoint,
   ) async {
     try {
-      // Move the vertex to the new position using moveVertex mutation
-      await remote.moveVertex(
-        vertexId: currentVertexId,
-        latLng: waypoint.latLng,
-      );
-
       final input = WaypointDraftMapper.toGQLUpdateInput(waypoint);
       final gqlResult = await remote.updateWaypoint(id: id, input: input);
       final updatedWaypoint = WaypointMapper.fromGQL(gqlResult);
@@ -165,6 +153,5 @@ class WaypointRepository implements IWaypointRepository {
         description: source.description,
         images: images,
         type: source.type,
-        latLng: source.latLng,
       ); // data/repositories/trip_repository.dart
 }

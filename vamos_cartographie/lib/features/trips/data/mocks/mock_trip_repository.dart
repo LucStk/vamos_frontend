@@ -6,6 +6,7 @@ import "seeds/mock_trips_data.dart";
 
 class MockTripRepository implements ITripRepository {
   // Base de données en mémoire
+  final MockRemoteDatasource remote;
   static const _delay = Duration(milliseconds: 400);
 
   @override
@@ -34,8 +35,6 @@ class MockTripRepository implements ITripRepository {
       description: trip.description,
       date: trip.date,
       images: trip.images,
-      waypoints: trip.waypoints,
-      segments: trip.segments,
     );
     trips.add(created);
     return Right(created);
@@ -52,8 +51,9 @@ class MockTripRepository implements ITripRepository {
       description: trip.description,
       date: trip.date,
       images: trip.images,
-      waypoints: trip.waypoints,
-      segments: trip.segments,
+      waypoints: trips[index].waypoints,
+      segments: trips[index].segments,
+      vertex: trips[index].vertex,
     );
     trips[index] = updated;
     return Right(updated);
