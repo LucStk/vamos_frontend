@@ -50,7 +50,7 @@ final class SegmentsNotifierProvider
   }
 }
 
-String _$segmentsNotifierHash() => r'2989407673e1dd045202f9e436432420fba39cce';
+String _$segmentsNotifierHash() => r'5aa4c4f9457bbde1a8b3c353dedaf4241af26d41';
 
 final class SegmentsNotifierFamily extends $Family
     with
@@ -182,55 +182,55 @@ final class SegmentMapFamily extends $Family
   String toString() => r'segmentMapProvider';
 }
 
-@ProviderFor(segmentsIds)
-final segmentsIdsProvider = SegmentsIdsFamily._();
+@ProviderFor(segmentIds)
+final segmentIdsProvider = SegmentIdsFamily._();
 
-final class SegmentsIdsProvider
-    extends $FunctionalProvider<Iterable<int>, Iterable<int>, Iterable<int>>
-    with $Provider<Iterable<int>> {
-  SegmentsIdsProvider._({
-    required SegmentsIdsFamily super.from,
+final class SegmentIdsProvider
+    extends $FunctionalProvider<List<int>, List<int>, List<int>>
+    with $Provider<List<int>> {
+  SegmentIdsProvider._({
+    required SegmentIdsFamily super.from,
     required int super.argument,
   }) : super(
          retry: null,
-         name: r'segmentsIdsProvider',
+         name: r'segmentIdsProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentsIdsHash();
+  String debugGetCreateSourceHash() => _$segmentIdsHash();
 
   @override
   String toString() {
-    return r'segmentsIdsProvider'
+    return r'segmentIdsProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<Iterable<int>> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<List<int>> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  Iterable<int> create(Ref ref) {
+  List<int> create(Ref ref) {
     final argument = this.argument as int;
-    return segmentsIds(ref, argument);
+    return segmentIds(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Iterable<int> value) {
+  Override overrideWithValue(List<int> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Iterable<int>>(value),
+      providerOverride: $SyncValueProvider<List<int>>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SegmentsIdsProvider && other.argument == argument;
+    return other is SegmentIdsProvider && other.argument == argument;
   }
 
   @override
@@ -239,49 +239,49 @@ final class SegmentsIdsProvider
   }
 }
 
-String _$segmentsIdsHash() => r'32d57de1b5512c9a1c8e9b45a2dbe206ba383605';
+String _$segmentIdsHash() => r'fd5c189132dbaf072c51460e234b11a5c0831cff';
 
-final class SegmentsIdsFamily extends $Family
-    with $FunctionalFamilyOverride<Iterable<int>, int> {
-  SegmentsIdsFamily._()
+final class SegmentIdsFamily extends $Family
+    with $FunctionalFamilyOverride<List<int>, int> {
+  SegmentIdsFamily._()
     : super(
         retry: null,
-        name: r'segmentsIdsProvider',
+        name: r'segmentIdsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  SegmentsIdsProvider call(int tripId) =>
-      SegmentsIdsProvider._(argument: tripId, from: this);
+  SegmentIdsProvider call(int tripId) =>
+      SegmentIdsProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'segmentsIdsProvider';
+  String toString() => r'segmentIdsProvider';
 }
 
-@ProviderFor(segment)
-final segmentProvider = SegmentFamily._();
+@ProviderFor(segmentById)
+final segmentByIdProvider = SegmentByIdFamily._();
 
-final class SegmentProvider
+final class SegmentByIdProvider
     extends $FunctionalProvider<Segment?, Segment?, Segment?>
     with $Provider<Segment?> {
-  SegmentProvider._({
-    required SegmentFamily super.from,
+  SegmentByIdProvider._({
+    required SegmentByIdFamily super.from,
     required (int, int) super.argument,
   }) : super(
          retry: null,
-         name: r'segmentProvider',
+         name: r'segmentByIdProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentHash();
+  String debugGetCreateSourceHash() => _$segmentByIdHash();
 
   @override
   String toString() {
-    return r'segmentProvider'
+    return r'segmentByIdProvider'
         ''
         '$argument';
   }
@@ -294,7 +294,7 @@ final class SegmentProvider
   @override
   Segment? create(Ref ref) {
     final argument = this.argument as (int, int);
-    return segment(ref, argument.$1, argument.$2);
+    return segmentById(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -307,7 +307,7 @@ final class SegmentProvider
 
   @override
   bool operator ==(Object other) {
-    return other is SegmentProvider && other.argument == argument;
+    return other is SegmentByIdProvider && other.argument == argument;
   }
 
   @override
@@ -316,22 +316,22 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'4242fb9374e9dfaa4a324e2e8b976c6aa0c1c595';
+String _$segmentByIdHash() => r'96def0d5501ec98d40387e4df4ab468c2f21d0e1';
 
-final class SegmentFamily extends $Family
+final class SegmentByIdFamily extends $Family
     with $FunctionalFamilyOverride<Segment?, (int, int)> {
-  SegmentFamily._()
+  SegmentByIdFamily._()
     : super(
         retry: null,
-        name: r'segmentProvider',
+        name: r'segmentByIdProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  SegmentProvider call(int tripId, int segmentId) =>
-      SegmentProvider._(argument: (tripId, segmentId), from: this);
+  SegmentByIdProvider call(int tripId, int segmentId) =>
+      SegmentByIdProvider._(argument: (tripId, segmentId), from: this);
 
   @override
-  String toString() => r'segmentProvider';
+  String toString() => r'segmentByIdProvider';
 }

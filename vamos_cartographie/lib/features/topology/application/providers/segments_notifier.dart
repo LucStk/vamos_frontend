@@ -1,62 +1,64 @@
-// features/segments/presentation/providers/segments_notifier.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
 
+import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
+
 part 'segments_notifier.g.dart';
 
 @riverpod
 class SegmentsNotifier extends _$SegmentsNotifier {
   SegmentRepository get repository => ref.read(segmentRepositoryProvider);
 
+  late final int _tripId;
+
   // ---------------------------------------------------------------------------
-  // Helpers internes
+  // Helpers
   // ---------------------------------------------------------------------------
 
-  Map<int, Segment> get _current => state.value ?? <int, Segment>{};
+  Map<int, Segment> get _current => state.value ?? const <int, Segment>{};
 
   void _emit(Map<int, Segment> next) {
     state = AsyncData(next);
   }
+
   // ---------------------------------------------------------------------------
   // Lifecycle
   // ---------------------------------------------------------------------------
 
   @override
   Future<Map<int, Segment>> build(int tripId) async {
-    return _load(tripId);
+    _tripId = tripId;
+    return _load();
   }
 
-  Future<Map<int, Segment>> _load(int tripId) async {
-    final result = await repository.getSegments(tripId);
+  Future<Map<int, Segment>> _load() async {
+    final result = await repository.getSegments(_tripId);
 
     return result.fold(
       (failure) => throw Exception(failure.message),
-      (segments) => {for (final s in segments) s.id: s},
+      (segments) => {for (final segment in segments) segment.id: segment},
     );
   }
 
   // ---------------------------------------------------------------------------
-  // Public API (UI actions)
+  // Public API
   // ---------------------------------------------------------------------------
 
-  Future<void> refresh(int tripId) async {
+  Future<void> refresh() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => _load(tripId));
+
+    state = await AsyncValue.guard(() => _load());
   }
 
-  // CREATE
-  Future<void> createSegment(int tripId, SegmentDraft draft) async {
-    final result = await repository.createSegment(tripId, draft);
+  Future<void> createSegment(SegmentDraft draft) async {
+    final result = await repository.createSegment(_tripId, draft);
 
-    result.fold((_) {}, (w) {
-      final next = EntityStoreHelpers.set(_current, w.id, w);
-      _emit(next);
+    result.fold((_) {}, (segment) {
+      _emit(EntityStoreHelpers.set(_current, segment.id, segment));
     });
   }
 
-  // UPDATE (optimistic)
   Future<void> updateSegment(int id, SegmentDraft draft) async {
     final previous = _current;
 
@@ -65,23 +67,26 @@ class SegmentsNotifier extends _$SegmentsNotifier {
 
     final optimistic = existing.copyWith(
       startVertexId: draft.startVertexId,
-      endVertexId: draft.startVertexId,
-      geometry: draft.geometry != null ? draft.geometry! : [],
+      endVertexId: draft.endVertexId,
+      geometry: draft.geometry ?? existing.geometry,
     );
+
     _emit(EntityStoreHelpers.update(previous, id, optimistic));
 
     final result = await repository.updateSegment(id, draft);
 
     result.fold(
-      (_) => _emit(previous), // rollback
-      (server) {
-        final next = EntityStoreHelpers.set(_current, server.id, server);
-        _emit(next);
+      (_) {
+        _emit(previous);
+      },
+      (serverSegment) {
+        _emit(
+          EntityStoreHelpers.set(_current, serverSegment.id, serverSegment),
+        );
       },
     );
   }
 
-  // DELETE
   Future<void> deleteSegment(int id) async {
     final previous = _current;
 
@@ -89,10 +94,7 @@ class SegmentsNotifier extends _$SegmentsNotifier {
 
     final result = await repository.deleteSegment(id);
 
-    result.fold(
-      (_) => _emit(previous), // rollback
-      (_) {},
-    );
+    result.fold((_) => _emit(previous), (_) {});
   }
 }
 
@@ -102,11 +104,13 @@ Map<int, Segment> segmentMap(Ref ref, int tripId) {
 }
 
 @riverpod
-Iterable<int> segmentsIds(Ref ref, int tripId) {
-  return ref.watch(segmentMapProvider(tripId).select((map) => map.keys));
+List<int> segmentIds(Ref ref, int tripId) {
+  return ref.watch(
+    segmentMapProvider(tripId).select((map) => map.keys.toList()),
+  );
 }
 
 @riverpod
-Segment? segment(Ref ref, int tripId, int segmentId) {
+Segment? segmentById(Ref ref, int tripId, int segmentId) {
   return ref.watch(segmentMapProvider(tripId).select((map) => map[segmentId]));
 }

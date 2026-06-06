@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
-import "waypoint_marker_view.dart";
+import "package:vamos_cartographie/features/map/presentation/widgets/markers/waypoint_marker_view.dart";
 
 DragMarker buildMarker(
   WidgetRef ref,

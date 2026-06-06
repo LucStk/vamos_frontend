@@ -9,55 +9,61 @@ part of 'segments_polyline_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(segmentPolylinePoints)
-final segmentPolylinePointsProvider = SegmentPolylinePointsFamily._();
+@ProviderFor(segmentPolylines)
+final segmentPolylinesProvider = SegmentPolylinesFamily._();
 
-final class SegmentPolylinePointsProvider
-    extends $FunctionalProvider<List<LatLng>?, List<LatLng>?, List<LatLng>?>
-    with $Provider<List<LatLng>?> {
-  SegmentPolylinePointsProvider._({
-    required SegmentPolylinePointsFamily super.from,
-    required (int, int) super.argument,
+final class SegmentPolylinesProvider
+    extends
+        $FunctionalProvider<
+          List<Polyline<Object>>,
+          List<Polyline<Object>>,
+          List<Polyline<Object>>
+        >
+    with $Provider<List<Polyline<Object>>> {
+  SegmentPolylinesProvider._({
+    required SegmentPolylinesFamily super.from,
+    required int super.argument,
   }) : super(
          retry: null,
-         name: r'segmentPolylinePointsProvider',
+         name: r'segmentPolylinesProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentPolylinePointsHash();
+  String debugGetCreateSourceHash() => _$segmentPolylinesHash();
 
   @override
   String toString() {
-    return r'segmentPolylinePointsProvider'
+    return r'segmentPolylinesProvider'
         ''
-        '$argument';
+        '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<List<LatLng>?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<List<Polyline<Object>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  List<LatLng>? create(Ref ref) {
-    final argument = this.argument as (int, int);
-    return segmentPolylinePoints(ref, argument.$1, argument.$2);
+  List<Polyline<Object>> create(Ref ref) {
+    final argument = this.argument as int;
+    return segmentPolylines(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<LatLng>? value) {
+  Override overrideWithValue(List<Polyline<Object>> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<LatLng>?>(value),
+      providerOverride: $SyncValueProvider<List<Polyline<Object>>>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SegmentPolylinePointsProvider && other.argument == argument;
+    return other is SegmentPolylinesProvider && other.argument == argument;
   }
 
   @override
@@ -66,180 +72,22 @@ final class SegmentPolylinePointsProvider
   }
 }
 
-String _$segmentPolylinePointsHash() =>
-    r'a8578c827f60e2882452d487ef3fa66a260942f9';
+String _$segmentPolylinesHash() => r'8c14076364fd2e316d94456c9d366e34d687c5a1';
 
-final class SegmentPolylinePointsFamily extends $Family
-    with $FunctionalFamilyOverride<List<LatLng>?, (int, int)> {
-  SegmentPolylinePointsFamily._()
+final class SegmentPolylinesFamily extends $Family
+    with $FunctionalFamilyOverride<List<Polyline<Object>>, int> {
+  SegmentPolylinesFamily._()
     : super(
         retry: null,
-        name: r'segmentPolylinePointsProvider',
+        name: r'segmentPolylinesProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  SegmentPolylinePointsProvider call(int tripId, int segmentId) =>
-      SegmentPolylinePointsProvider._(
-        argument: (tripId, segmentId),
-        from: this,
-      );
+  SegmentPolylinesProvider call(int tripId) =>
+      SegmentPolylinesProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'segmentPolylinePointsProvider';
-}
-
-@ProviderFor(segmentNodes)
-final segmentNodesProvider = SegmentNodesFamily._();
-
-final class SegmentNodesProvider
-    extends $FunctionalProvider<List<LineNode>, List<LineNode>, List<LineNode>>
-    with $Provider<List<LineNode>> {
-  SegmentNodesProvider._({
-    required SegmentNodesFamily super.from,
-    required (int, int) super.argument,
-  }) : super(
-         retry: null,
-         name: r'segmentNodesProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$segmentNodesHash();
-
-  @override
-  String toString() {
-    return r'segmentNodesProvider'
-        ''
-        '$argument';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<List<LineNode>> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  List<LineNode> create(Ref ref) {
-    final argument = this.argument as (int, int);
-    return segmentNodes(ref, argument.$1, argument.$2);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<LineNode> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<LineNode>>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is SegmentNodesProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$segmentNodesHash() => r'6c7b3c84dc337238cd61467e48048a6f0e6d2fa7';
-
-final class SegmentNodesFamily extends $Family
-    with $FunctionalFamilyOverride<List<LineNode>, (int, int)> {
-  SegmentNodesFamily._()
-    : super(
-        retry: null,
-        name: r'segmentNodesProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  SegmentNodesProvider call(int tripId, int segmentId) =>
-      SegmentNodesProvider._(argument: (tripId, segmentId), from: this);
-
-  @override
-  String toString() => r'segmentNodesProvider';
-}
-
-@ProviderFor(segmentTypePoints)
-final segmentTypePointsProvider = SegmentTypePointsFamily._();
-
-final class SegmentTypePointsProvider
-    extends $FunctionalProvider<List<LatLng>?, List<LatLng>?, List<LatLng>?>
-    with $Provider<List<LatLng>?> {
-  SegmentTypePointsProvider._({
-    required SegmentTypePointsFamily super.from,
-    required (int, int) super.argument,
-  }) : super(
-         retry: null,
-         name: r'segmentTypePointsProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$segmentTypePointsHash();
-
-  @override
-  String toString() {
-    return r'segmentTypePointsProvider'
-        ''
-        '$argument';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<List<LatLng>?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  List<LatLng>? create(Ref ref) {
-    final argument = this.argument as (int, int);
-    return segmentTypePoints(ref, argument.$1, argument.$2);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<LatLng>? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<LatLng>?>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is SegmentTypePointsProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$segmentTypePointsHash() => r'6ecd3a0317ae1498d7885d131ae43fd8a26d714e';
-
-final class SegmentTypePointsFamily extends $Family
-    with $FunctionalFamilyOverride<List<LatLng>?, (int, int)> {
-  SegmentTypePointsFamily._()
-    : super(
-        retry: null,
-        name: r'segmentTypePointsProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  SegmentTypePointsProvider call(int tripId, int segmentId) =>
-      SegmentTypePointsProvider._(argument: (tripId, segmentId), from: this);
-
-  @override
-  String toString() => r'segmentTypePointsProvider';
+  String toString() => r'segmentPolylinesProvider';
 }
