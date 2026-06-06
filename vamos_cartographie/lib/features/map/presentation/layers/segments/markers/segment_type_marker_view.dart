@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/segments/segments.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
 
 class SegmentTypeMarkerView extends ConsumerWidget {
   final SegmentType type;

@@ -182,29 +182,29 @@ final class WaypointMapFamily extends $Family
   String toString() => r'waypointMapProvider';
 }
 
-@ProviderFor(waypointIds)
-final waypointIdsProvider = WaypointIdsFamily._();
+@ProviderFor(waypointsIds)
+final waypointsIdsProvider = WaypointsIdsFamily._();
 
-final class WaypointIdsProvider
+final class WaypointsIdsProvider
     extends $FunctionalProvider<Iterable<int>, Iterable<int>, Iterable<int>>
     with $Provider<Iterable<int>> {
-  WaypointIdsProvider._({
-    required WaypointIdsFamily super.from,
+  WaypointsIdsProvider._({
+    required WaypointsIdsFamily super.from,
     required int super.argument,
   }) : super(
          retry: null,
-         name: r'waypointIdsProvider',
+         name: r'waypointsIdsProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$waypointIdsHash();
+  String debugGetCreateSourceHash() => _$waypointsIdsHash();
 
   @override
   String toString() {
-    return r'waypointIdsProvider'
+    return r'waypointsIdsProvider'
         ''
         '($argument)';
   }
@@ -217,7 +217,7 @@ final class WaypointIdsProvider
   @override
   Iterable<int> create(Ref ref) {
     final argument = this.argument as int;
-    return waypointIds(ref, argument);
+    return waypointsIds(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -230,7 +230,7 @@ final class WaypointIdsProvider
 
   @override
   bool operator ==(Object other) {
-    return other is WaypointIdsProvider && other.argument == argument;
+    return other is WaypointsIdsProvider && other.argument == argument;
   }
 
   @override
@@ -239,24 +239,24 @@ final class WaypointIdsProvider
   }
 }
 
-String _$waypointIdsHash() => r'90ee06a3d44097a6c004e7bcf879c0b6eff54564';
+String _$waypointsIdsHash() => r'37338f64e0ea3b2f13039897a146723514305d34';
 
-final class WaypointIdsFamily extends $Family
+final class WaypointsIdsFamily extends $Family
     with $FunctionalFamilyOverride<Iterable<int>, int> {
-  WaypointIdsFamily._()
+  WaypointsIdsFamily._()
     : super(
         retry: null,
-        name: r'waypointIdsProvider',
+        name: r'waypointsIdsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  WaypointIdsProvider call(int tripId) =>
-      WaypointIdsProvider._(argument: tripId, from: this);
+  WaypointsIdsProvider call(int tripId) =>
+      WaypointsIdsProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'waypointIdsProvider';
+  String toString() => r'waypointsIdsProvider';
 }
 
 @ProviderFor(waypoint)

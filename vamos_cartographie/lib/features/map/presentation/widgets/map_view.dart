@@ -26,11 +26,7 @@ class _MapViewState extends ConsumerState<MapView> {
 
   void _onMapTap(BuildContext context, LatLng latLng) {
     // _mapNotifier.startWaypointCreation(latLng);
-    WaypointCreatorDialog.show(
-      context: context,
-      latLng: latLng,
-      tripId: _tripId,
-    );
+    WaypointCreatorDialog.show(context: context, tripId: _tripId);
   }
 
   List<Widget> _buildInteractionLayers(MapState mapState) {
@@ -61,7 +57,11 @@ class _MapViewState extends ConsumerState<MapView> {
           flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
         ),
       ),
-      children: [MapTileLayer(), SegmentsLayer(), WaypointsLayer()],
+      children: [
+        MapTileLayer(),
+        SegmentsLayer(tripId: _tripId),
+        WaypointsLayer(tripId: _tripId),
+      ],
     );
   }
 }

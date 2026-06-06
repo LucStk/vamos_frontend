@@ -100,7 +100,7 @@ Map<int, Waypoint> waypointMap(Ref ref, int tripId) {
 }
 
 @riverpod
-Iterable<int> waypointIds(Ref ref, int tripId) {
+Iterable<int> waypointsIds(Ref ref, int tripId) {
   return ref.watch(waypointMapProvider(tripId).select((map) => map.keys));
 }
 

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/application/applications.dart';
+import 'package:vamos_cartographie/features/topology/application/providers/segments_notifier.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
 import 'segment_line_factory.dart';
 import 'segment_type_marker_factory.dart';
 import 'middle_vertex_marker_factory.dart';
 import 'ghost_marker_factory_v2.dart';
 
-class SegmentsLayer extends ConsumerWidget {
-  const SegmentsLayer({super.key});
+class SegmentsLayer extends AbstractLayer {
+  const SegmentsLayer({super.key, required super.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripId = ref.watch(currentTripIdProvider);
-    final segmentsIds = ref.watch(segmentIdsProvider(tripId));
+    final segmentsIds = ref.watch(segmentsIdsProvider(tripId));
 
     if (segmentsIds.isEmpty) {
       return const SizedBox.shrink();

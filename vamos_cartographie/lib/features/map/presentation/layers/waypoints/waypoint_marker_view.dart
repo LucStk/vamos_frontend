@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 
-import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
-
 class WaypointMarkerView extends ConsumerWidget {
   final int waypointId;
   final int tripId;

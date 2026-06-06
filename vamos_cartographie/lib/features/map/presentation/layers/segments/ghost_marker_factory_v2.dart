@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:vamos_cartographie/features/map/application/providers/segment_vertices_notifier.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
-import 'package:vamos_cartographie/features/segments/segments.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'markers/segment_ghost_marker_view.dart';
 
 /// Construit les ghost markers pour un segment
