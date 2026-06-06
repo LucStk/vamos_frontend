@@ -12,8 +12,10 @@ Polyline? buildLine(
   int segmentId,
 ) {
   final points = ref.watch(segmentPolylinePointsProvider(tripId, segmentId));
-  final type = ref.watch(segmentProvider(tripId, segmentId));
-  if (type == null || points == null || points.length < 2) {
+  final type = ref.watch(
+    segmentProvider(tripId, segmentId).select((s) => s!.type),
+  );
+  if (points == null || points.length < 2) {
     return null;
   }
 

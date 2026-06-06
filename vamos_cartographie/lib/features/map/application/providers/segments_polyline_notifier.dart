@@ -3,8 +3,7 @@
 import 'dart:math' as math;
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import "segments_notifier.dart";
-import "waypoints_notifier.dart";
+import 'package:vamos_cartographie/features/topology/topology.dart';
 import "package:vamos_cartographie/features/map/application/states/segment_states.dart";
 part 'segments_polyline_notifier.g.dart';
 

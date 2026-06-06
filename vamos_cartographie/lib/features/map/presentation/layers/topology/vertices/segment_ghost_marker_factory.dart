@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:vamos_cartographie/features/map/presentation/dialogs/segment_viewer_dialog.dart';
-import 'package:vamos_cartographie/features/segments/segments.dart';
-import "markers/segment_type_marker_view.dart";
+import 'package:vamos_cartographie/features/topology/topology.dart';
+import "markers/segment_ghost_marker_view.dart";
 import "package:vamos_cartographie/features/map/application/applications.dart";
 
-List<Marker>? buildTypeMarker(
+List<Marker>? buildGhostMarker(
   WidgetRef ref,
   BuildContext context,
   int tripId,
@@ -29,14 +28,7 @@ List<Marker>? buildTypeMarker(
           point: point,
           width: 20,
           height: 20,
-          child: GestureDetector(
-            onTap: () => SegmentViewerDialog.show(
-              context: context,
-              segmentId: segmentId,
-              tripId: tripId,
-            ),
-            child: SegmentTypeMarkerView(type: type),
-          ),
+          child: GestureDetector(child: GhostMarkerView(type: type)),
         ),
       )
       .toList();

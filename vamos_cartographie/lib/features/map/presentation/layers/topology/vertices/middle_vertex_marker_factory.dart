@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
-import 'package:vamos_cartographie/features/segments/segments.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'markers/middle_vertex_marker_view.dart';
 
 /// Construit les markers draggables pour les middleVertices d'un segment

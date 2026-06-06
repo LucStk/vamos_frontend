@@ -8,8 +8,8 @@ import 'segment_type_marker_factory.dart';
 import 'middle_vertex_marker_factory.dart';
 import 'ghost_marker_factory_v2.dart';
 
-class SegmentsLayer extends AbstractLayer {
-  const SegmentsLayer({super.key, required super.tripId});
+class TopologyLayer extends AbstractLayer {
+  const TopologyLayer({super.key, required super.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

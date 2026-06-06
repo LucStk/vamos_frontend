@@ -1,8 +1,6 @@
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
-import 'segments_notifier.dart';
-import 'waypoints_notifier.dart';
 
 part 'segment_vertices_notifier.g.dart';
 
