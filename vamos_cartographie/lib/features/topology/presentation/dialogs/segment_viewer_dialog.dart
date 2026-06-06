@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
+import 'package:vamos_cartographie/features/topology/application/providers/segments_notifier.dart';
+import 'package:vamos_cartographie/features/topology/presentation/widgets/segment_editor.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
   final int segmentId;
@@ -37,7 +39,7 @@ class SegmentViewerDialog extends ConsumerWidget {
         onSubmit: (ref, editedSegment) async {
           await ref
               .read(segmentsProvider(tripId).notifier)
-              .updateSegmentRemote(segmentId, editedSegment);
+              .updateSegment(segmentId, editedSegment);
         },
       ),
 

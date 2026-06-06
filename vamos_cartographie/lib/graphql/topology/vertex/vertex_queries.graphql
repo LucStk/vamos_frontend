@@ -1,0 +1,11 @@
+
+#import "vertex_fields.graphql"
+query GetVertices($tripId: Int!) {
+    trip(id: $tripId) {
+        topology {
+            vertices{
+            ...VertexFields
+            }
+        }
+    }
+}

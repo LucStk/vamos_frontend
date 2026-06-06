@@ -1,0 +1,112 @@
+// features/waypoints/presentation/providers/waypoints_notifier.dart
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
+import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
+part 'vertex_notifier.g.dart';
+
+@riverpod
+class WaypointsNotifier extends _$WaypointsNotifier {
+  WaypointRepository get repository => ref.read(waypointRepositoryProvider);
+
+  // ---------------------------------------------------------------------------
+  // STATE ACCESS
+  // ---------------------------------------------------------------------------
+
+  Map<int, Waypoint> get _current => state.value ?? <int, Waypoint>{};
+
+  void _emit(Map<int, Waypoint> next) {
+    state = AsyncData(next);
+  }
+
+  // ---------------------------------------------------------------------------
+  // LIFECYCLE
+  // ---------------------------------------------------------------------------
+
+  @override
+  Future<Map<int, Waypoint>> build(int tripId) async {
+    final result = await repository.getWaypoints(tripId);
+
+    return result.fold(
+      (e) => throw Exception(e.message),
+      (list) => {for (final w in list) w.id: w},
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // CREATE
+  // ---------------------------------------------------------------------------
+
+  Future<void> createWaypoint(int vertexId, WaypointDraft draft) async {
+    final result = await repository.createWaypoint(tripId, vertexId, draft);
+
+    result.fold((_) {}, (w) {
+      final next = EntityStoreHelpers.set(_current, w.id, w);
+      _emit(next);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // UPDATE (OPTIMISTIC)
+  // ---------------------------------------------------------------------------
+
+  Future<void> updateWaypoint(int id, WaypointDraft draft) async {
+    final previous = _current;
+
+    final existing = previous[id];
+    if (existing == null) return;
+
+    final optimistic = existing.copyWith(
+      title: draft.title,
+      type: draft.type,
+      description: draft.description,
+      images: draft.images,
+    );
+
+    _emit(EntityStoreHelpers.update(previous, id, optimistic));
+
+    final result = await repository.updateWaypoint(id, draft);
+
+    result.fold(
+      (_) => _emit(previous), // rollback
+      (server) {
+        final next = EntityStoreHelpers.set(_current, server.id, server);
+        _emit(next);
+      },
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // DELETE
+  // ---------------------------------------------------------------------------
+
+  Future<void> deleteWaypoint(int id) async {
+    final previous = _current;
+
+    _emit(EntityStoreHelpers.remove(_current, id));
+
+    final result = await repository.deleteWaypoint(id);
+
+    result.fold(
+      (_) => _emit(previous), // rollback
+      (_) {},
+    );
+  }
+} // --- Providers Sélecteurs pour optimiser l'UI ---
+
+@riverpod
+Map<int, Waypoint> waypointMap(Ref ref, int tripId) {
+  return ref.watch(waypointsProvider(tripId)).value ?? const {};
+}
+
+@riverpod
+Iterable<int> waypointIds(Ref ref, int tripId) {
+  return ref.watch(waypointMapProvider(tripId).select((map) => map.keys));
+}
+
+@riverpod
+Waypoint? waypoint(Ref ref, int tripId, int waypointId) {
+  return ref.watch(
+    waypointMapProvider(tripId).select((map) => map[waypointId]),
+  );
+}

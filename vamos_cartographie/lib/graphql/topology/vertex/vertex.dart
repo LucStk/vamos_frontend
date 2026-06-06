@@ -6,3 +6,7 @@ export '__generated__/vertex_mutations.ast.gql.dart';
 export '__generated__/vertex_mutations.data.gql.dart';
 export '__generated__/vertex_mutations.req.gql.dart';
 export '__generated__/vertex_mutations.var.gql.dart';
+
+export '__generated__/vertex_queries.data.gql.dart';
+export '__generated__/vertex_queries.req.gql.dart';
+export '__generated__/vertex_queries.var.gql.dart';

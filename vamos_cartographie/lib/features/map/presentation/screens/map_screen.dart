@@ -29,9 +29,10 @@ class _MapScreenView extends ConsumerWidget {
     final tripId = ref.watch(currentTripIdProvider);
     final mapState = ref.watch(mapStateProvider(tripId));
     return PopScope(
-      canPop: !mapState.isDirty,
+      // canPop: !mapState.isDirty,
       onPopInvokedWithResult: (didPop, _) async {
-        if (!didPop && mapState.isDirty) {
+        if (!didPop) {
+          // && mapState.isDirty) {
           HandleBackDialog.show(
             context: context,
             onCancel: () {},
