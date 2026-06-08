@@ -79,12 +79,13 @@ class GGetTripData {
 
   factory GGetTripData.fromJson(Map<String, dynamic> json) {
     return GGetTripData(
-      trip: GGetTripData_trip.fromJson((json['trip'] as Map<String, dynamic>)),
+      trip:
+          _i1.GTripFieldsData.fromJson((json['trip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final GGetTripData_trip trip;
+  final _i1.GTripFieldsData trip;
 
   final String G__typename;
 
@@ -96,7 +97,7 @@ class GGetTripData {
   }
 
   GGetTripData copyWith({
-    GGetTripData_trip? trip,
+    _i1.GTripFieldsData? trip,
     String? G__typename,
   }) {
     return GGetTripData(
@@ -124,8 +125,62 @@ class GGetTripData {
   }
 }
 
-class GGetTripData_trip implements _i1.GTripFields {
-  const GGetTripData_trip({
+class GGetTripDetailsData {
+  const GGetTripDetailsData({
+    required this.trip,
+    this.G__typename = 'Query',
+  });
+
+  factory GGetTripDetailsData.fromJson(Map<String, dynamic> json) {
+    return GGetTripDetailsData(
+      trip: GGetTripDetailsData_trip.fromJson(
+          (json['trip'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GGetTripDetailsData_trip trip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['trip'] = this.trip.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetTripDetailsData copyWith({
+    GGetTripDetailsData_trip? trip,
+    String? G__typename,
+  }) {
+    return GGetTripDetailsData(
+      trip: trip ?? this.trip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetTripDetailsData &&
+            trip == other.trip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, trip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetTripDetailsData(trip: $trip, G__typename: $G__typename)';
+  }
+}
+
+class GGetTripDetailsData_trip implements _i1.GTripFields {
+  const GGetTripDetailsData_trip({
     required this.id,
     required this.title,
     this.date,
@@ -136,22 +191,22 @@ class GGetTripData_trip implements _i1.GTripFields {
     required this.topology,
   });
 
-  factory GGetTripData_trip.fromJson(Map<String, dynamic> json) {
-    return GGetTripData_trip(
+  factory GGetTripDetailsData_trip.fromJson(Map<String, dynamic> json) {
+    return GGetTripDetailsData_trip(
       id: (json['id'] as int),
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) =>
-              GGetTripData_trip_images.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) => GGetTripDetailsData_trip_images.fromJson(
+              (_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
               _i2.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      topology: GGetTripData_trip_topology.fromJson(
+      topology: GGetTripDetailsData_trip_topology.fromJson(
           (json['topology'] as Map<String, dynamic>)),
     );
   }
@@ -164,13 +219,13 @@ class GGetTripData_trip implements _i1.GTripFields {
 
   final String description;
 
-  final List<GGetTripData_trip_images> images;
+  final List<GGetTripDetailsData_trip_images> images;
 
   final String G__typename;
 
   final List<_i2.GWaypointFieldsData> waypoints;
 
-  final GGetTripData_trip_topology topology;
+  final GGetTripDetailsData_trip_topology topology;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -186,18 +241,18 @@ class GGetTripData_trip implements _i1.GTripFields {
     return _$result;
   }
 
-  GGetTripData_trip copyWith({
+  GGetTripDetailsData_trip copyWith({
     int? id,
     String? title,
     String? date,
     bool dateIsSet = false,
     String? description,
-    List<GGetTripData_trip_images>? images,
+    List<GGetTripDetailsData_trip_images>? images,
     String? G__typename,
     List<_i2.GWaypointFieldsData>? waypoints,
-    GGetTripData_trip_topology? topology,
+    GGetTripDetailsData_trip_topology? topology,
   }) {
-    return GGetTripData_trip(
+    return GGetTripDetailsData_trip(
       id: id ?? this.id,
       title: title ?? this.title,
       date: dateIsSet ? date : this.date,
@@ -212,7 +267,7 @@ class GGetTripData_trip implements _i1.GTripFields {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetTripData_trip &&
+        (other is GGetTripDetailsData_trip &&
             id == other.id &&
             title == other.title &&
             date == other.date &&
@@ -239,18 +294,18 @@ class GGetTripData_trip implements _i1.GTripFields {
 
   @override
   String toString() {
-    return 'GGetTripData_trip(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename, waypoints: $waypoints, topology: $topology)';
+    return 'GGetTripDetailsData_trip(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename, waypoints: $waypoints, topology: $topology)';
   }
 }
 
-class GGetTripData_trip_images implements _i1.GTripFields_images {
-  const GGetTripData_trip_images({
+class GGetTripDetailsData_trip_images implements _i1.GTripFields_images {
+  const GGetTripDetailsData_trip_images({
     required this.image,
     this.G__typename = 'TripImageType',
   });
 
-  factory GGetTripData_trip_images.fromJson(Map<String, dynamic> json) {
-    return GGetTripData_trip_images(
+  factory GGetTripDetailsData_trip_images.fromJson(Map<String, dynamic> json) {
+    return GGetTripDetailsData_trip_images(
       image: _i3.GImageFieldsData.fromJson(
           (json['image'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
@@ -268,11 +323,11 @@ class GGetTripData_trip_images implements _i1.GTripFields_images {
     return _$result;
   }
 
-  GGetTripData_trip_images copyWith({
+  GGetTripDetailsData_trip_images copyWith({
     _i3.GImageFieldsData? image,
     String? G__typename,
   }) {
-    return GGetTripData_trip_images(
+    return GGetTripDetailsData_trip_images(
       image: image ?? this.image,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -281,7 +336,7 @@ class GGetTripData_trip_images implements _i1.GTripFields_images {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetTripData_trip_images &&
+        (other is GGetTripDetailsData_trip_images &&
             image == other.image &&
             G__typename == other.G__typename);
   }
@@ -293,19 +348,20 @@ class GGetTripData_trip_images implements _i1.GTripFields_images {
 
   @override
   String toString() {
-    return 'GGetTripData_trip_images(image: $image, G__typename: $G__typename)';
+    return 'GGetTripDetailsData_trip_images(image: $image, G__typename: $G__typename)';
   }
 }
 
-class GGetTripData_trip_topology {
-  const GGetTripData_trip_topology({
+class GGetTripDetailsData_trip_topology {
+  const GGetTripDetailsData_trip_topology({
     required this.vertices,
     required this.segments,
     this.G__typename = 'TopologyType',
   });
 
-  factory GGetTripData_trip_topology.fromJson(Map<String, dynamic> json) {
-    return GGetTripData_trip_topology(
+  factory GGetTripDetailsData_trip_topology.fromJson(
+      Map<String, dynamic> json) {
+    return GGetTripDetailsData_trip_topology(
       vertices: (json['vertices'] as List<dynamic>)
           .map((_$e) =>
               _i4.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)))
@@ -332,12 +388,12 @@ class GGetTripData_trip_topology {
     return _$result;
   }
 
-  GGetTripData_trip_topology copyWith({
+  GGetTripDetailsData_trip_topology copyWith({
     List<_i4.GVertexFieldsData>? vertices,
     List<_i5.GSegmentFieldsData>? segments,
     String? G__typename,
   }) {
-    return GGetTripData_trip_topology(
+    return GGetTripDetailsData_trip_topology(
       vertices: vertices ?? this.vertices,
       segments: segments ?? this.segments,
       G__typename: G__typename ?? this.G__typename,
@@ -347,7 +403,7 @@ class GGetTripData_trip_topology {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetTripData_trip_topology &&
+        (other is GGetTripDetailsData_trip_topology &&
             _gqlUtils.listEquals(vertices, other.vertices) &&
             _gqlUtils.listEquals(segments, other.segments) &&
             G__typename == other.G__typename);
@@ -361,6 +417,6 @@ class GGetTripData_trip_topology {
 
   @override
   String toString() {
-    return 'GGetTripData_trip_topology(vertices: $vertices, segments: $segments, G__typename: $G__typename)';
+    return 'GGetTripDetailsData_trip_topology(vertices: $vertices, segments: $segments, G__typename: $G__typename)';
   }
 }

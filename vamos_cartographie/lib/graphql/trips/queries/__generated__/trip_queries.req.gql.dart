@@ -221,12 +221,8 @@ class GGetTripReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetTrip,
-    _i9.SegmentFields,
-    _i10.VertexFields,
-    _i11.LatLngFields,
     _i6.TripFields,
     _i7.ImageFields,
-    _i12.WaypointFields,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -341,5 +337,170 @@ class GGetTripReq
   @override
   String toString() {
     return 'GGetTripReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GGetTripDetailsReq
+    implements
+        _i1.OperationRequest<_i2.GGetTripDetailsData, _i8.GGetTripDetailsVars> {
+  GGetTripDetailsReq({
+    required this.vars,
+    _i3.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i8.GGetTripDetailsVars vars;
+
+  final _i3.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GGetTripDetailsData? Function(
+    _i2.GGetTripDetailsData?,
+    _i2.GGetTripDetailsData?,
+  )? updateResult;
+
+  final _i2.GGetTripDetailsData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i3.Context? context;
+
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetTripDetails,
+    _i9.SegmentFields,
+    _i10.VertexFields,
+    _i11.LatLngFields,
+    _i6.TripFields,
+    _i7.ImageFields,
+    _i12.WaypointFields,
+  ]);
+
+  static const _i3.Operation _operation = _i3.Operation(
+    document: _document,
+    operationName: 'GetTripDetails',
+  );
+
+  _i3.Request get execRequest => _i3.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
+
+  _i2.GGetTripDetailsData? parseData(Map<String, dynamic> json) =>
+      _i2.GGetTripDetailsData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GGetTripDetailsData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GGetTripDetailsData, _i8.GGetTripDetailsVars>
+      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
+    return GGetTripDetailsReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GGetTripDetailsReq copyWith({
+    _i8.GGetTripDetailsVars? vars,
+    _i3.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GGetTripDetailsData? Function(
+      _i2.GGetTripDetailsData?,
+      _i2.GGetTripDetailsData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GGetTripDetailsData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i3.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GGetTripDetailsReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId: requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResultIsSet ? updateResult : this.updateResult,
+      optimisticResponse: optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKeyIsSet
+          ? updateCacheHandlerKey
+          : this.updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContextIsSet
+          ? updateCacheHandlerContext
+          : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicyIsSet ? fetchPolicy : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetTripDetailsReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GGetTripDetailsReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
   }
 }

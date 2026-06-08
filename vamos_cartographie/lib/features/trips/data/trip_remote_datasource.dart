@@ -29,7 +29,7 @@ class TripRemoteDatasource {
   }
 
   /// Récupère un trip complet (avec waypoints et segments) par son [id].
-  Future<GGetTripData_trip> getTripById({required int id}) async {
+  Future<GTripFieldsData> getTripById({required int id}) async {
     final req = GGetTripReq(vars: GGetTripVars(id: id));
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {

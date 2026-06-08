@@ -19,7 +19,7 @@ class TripMapper {
 
   /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
   /// segments) en [Trip] domaine.
-  static Trip fromGQLDetail(GGetTripData_trip data) => Trip(
+  static Trip fromGQLDetail(GTripFieldsData data) => Trip(
     id: data.id,
     title: data.title,
     description: data.description,

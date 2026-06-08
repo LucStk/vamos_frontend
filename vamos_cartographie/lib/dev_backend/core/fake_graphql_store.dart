@@ -31,22 +31,29 @@ class FakeGraphQLStore {
   late IdGenerator nextSegmentId;
   late IdGenerator nextVertexId;
 
+  Trip trip(int tripId) {
+    if (!tripsMap.containsKey(tripId)) {
+      throw Exception('Trip introuvable : id=$tripId');
+    }
+    return tripsMap[tripId]!;
+  }
+
   Vertex vertex(int vertexId) {
-    if (verticesMap.containsKey(vertexId)) {
+    if (!verticesMap.containsKey(vertexId)) {
       throw Exception('Fake-Backend : Vertex introuvable : id=$vertexId');
     }
     return verticesMap[vertexId]!;
   }
 
   Segment segment(int segmentId) {
-    if (segmentsMap.containsKey(segmentId)) {
+    if (!segmentsMap.containsKey(segmentId)) {
       throw Exception('Fake-Backend : Segment introuvable : id=$segmentId');
     }
     return segmentsMap[segmentId]!;
   }
 
   Waypoint waypoint(int waypointId) {
-    if (waypointsMap.containsKey(waypointId)) {
+    if (!waypointsMap.containsKey(waypointId)) {
       throw Exception('Fake-Backend : Segment introuvable : id=$waypointId');
     }
     return waypointsMap[waypointId]!;
@@ -64,11 +71,44 @@ class FakeGraphQLStore {
     return tripIdWpId[tripId]!.map(waypoint).toList();
   }
 
-  Trip trip(int tripId) {
-    if (!tripsMap.containsKey(tripId)) {
-      throw Exception('Trip introuvable : id=$tripId');
+  void addTrip(Trip trip) {
+    final int tripId = trip.id;
+    tripsMap[tripId] = trip;
+    tripIdSgId[tripId] = [];
+    tripIdWpId[tripId] = [];
+    tripIdVxId[tripId] = [];
+  }
+
+  void removeTrip(int tripId) {
+    // 1. Vérifier si le voyage existe pour éviter les erreurs de type Null
+    if (!tripsMap.containsKey(tripId)) return;
+
+    // 2. Nettoyer les Waypoints associés
+    final wpIds = tripIdWpId[tripId] ?? [];
+    for (final wId in wpIds) {
+      waypointsMap.remove(wId);
+      wpIdTripId.remove(wId);
     }
-    return tripsMap[tripId]!;
+
+    // 3. Nettoyer les Segments associés
+    final sgIds = tripIdSgId[tripId] ?? [];
+    for (final sId in sgIds) {
+      segmentsMap.remove(sId);
+      sgIdTripId.remove(sId);
+    }
+
+    // 4. Nettoyer les Vertices associés
+    final vxIds = tripIdVxId[tripId] ?? [];
+    for (final vId in vxIds) {
+      verticesMap.remove(vId);
+      vxIdTripId.remove(vId);
+    }
+
+    // 5. Supprimer le voyage et ses listes d'index de l'historique du Store
+    tripsMap.remove(tripId);
+    tripIdWpId.remove(tripId);
+    tripIdSgId.remove(tripId);
+    tripIdVxId.remove(tripId);
   }
 
   void addVertex(int tripId, Vertex v) {
@@ -117,11 +157,8 @@ class FakeGraphQLStore {
     int maxVertexId = 0;
     for (Seed seed in seeds) {
       final int tripId = seed.trip.id;
-      tripsMap[tripId] = seed.trip;
       maxTripId = max(tripId, maxTripId);
-      tripIdSgId[tripId] = [];
-      tripIdWpId[tripId] = [];
-      tripIdVxId[tripId] = [];
+      addTrip(seed.trip);
 
       for (final w in seed.waypoints) {
         maxWaypointId = max(w.id, maxWaypointId);

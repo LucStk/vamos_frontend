@@ -12,6 +12,12 @@ query GetAllTrips {
 query GetTrip($id: Int!) {
     trip(id: $id) {
         ...TripFields
+    }
+}
+
+query GetTripDetails($id: Int!) {
+    trip(id: $id) {
+        ...TripFields
         waypoints {
             ...WaypointFields
         }

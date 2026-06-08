@@ -16,9 +16,7 @@ class TripResolver {
   // ── Queries ──────────────────────────────────────────────────────────────────
 
   Map<String, dynamic> getAllTrips() {
-    final trips = store.tripsMap.values
-        .map((t) => tripFieldsToGql(t.trip))
-        .toList();
+    final trips = store.tripsMap.values.map(tripFieldsToGql).toList();
     return GGetAllTripsData(trips: trips).toJson();
   }
 
@@ -26,31 +24,23 @@ class TripResolver {
     final base = store.tripsMap[id];
     if (base == null) throw Exception('Trip introuvable : id=$id');
 
-    final waypointIds = store.tripWaypointIds[id] ?? [];
-    final segmentIds = store.tripSegmentIds[id] ?? [];
-    final vertexIds = store.tripVertexIds[id] ?? [];
-
-    final waypoints = waypointIds.map((wId) {
-      final w = store.waypoints[wId]!;
-      final v = store.vertices[w.vertexId]!;
+    final waypoints = store.waypoints(id).map((w) {
+      final v = store.vertex(w.vertexId);
       return waypointToGql(w, v);
     }).toList();
 
-    final segments = segmentIds.map((sId) {
-      final s = store.segments[sId]!;
+    final segments = store.segments(id).map((s) {
       return segmentToGql(
         s,
-        store.vertices[s.startVertexId]!,
-        store.vertices[s.endVertexId]!,
+        store.vertex(s.startVertexId),
+        store.vertex(s.endVertexId),
       );
     }).toList();
 
-    final vertices = vertexIds
-        .map((vId) => vertexToGql(store.vertices[vId]!))
-        .toList();
+    final vertices = store.vertices(id).map(vertexToGql).toList();
 
     return GGetTripData(
-      trip: GGetTripData_trip(
+      trip: GTripFieldsData(
         id: base.id,
         title: base.title,
         description: base.description,
@@ -58,11 +48,6 @@ class TripResolver {
         images: base.images
             .map((img) => GGetTripData_trip_images(image: imageToGql(img)))
             .toList(),
-        waypoints: waypoints,
-        topology: GGetTripData_trip_topology(
-          vertices: vertices,
-          segments: segments,
-        ),
       ),
     ).toJson();
   }
@@ -73,7 +58,7 @@ class TripResolver {
     final input = GTripInput.fromJson(
       variables['trip'] as Map<String, dynamic>,
     );
-    final id = store.allocateTripId();
+    final id = store.nextTripId.next();
 
     final trip = Trip(
       id: id,
@@ -86,10 +71,7 @@ class TripResolver {
           : null,
     );
 
-    store.trips[id] = trip;
-    store.tripWaypointIds[id] = [];
-    store.tripSegmentIds[id] = [];
-    store.tripVertexIds[id] = [];
+    store.addTrip(trip);
 
     return GCreateTripData(createTrip: tripFieldsToGql(trip)).toJson();
   }
@@ -100,7 +82,7 @@ class TripResolver {
       variables['trip'] as Map<String, dynamic>,
     );
 
-    final existing = store.trips[id];
+    final existing = store.tripsMap[id];
     if (existing == null) throw Exception('Trip introuvable : id=$id');
 
     final updated = existing.copyWith(
@@ -118,30 +100,12 @@ class TripResolver {
           : existing.date,
     );
 
-    store.trips[id] = updated;
+    store.tripsMap[id] = updated;
     return GUpdateTripData(updateTrip: tripFieldsToGql(updated)).toJson();
   }
 
   Map<String, dynamic> deleteTrip(int id) {
-    if (!store.trips.containsKey(id)) {
-      throw Exception('Trip introuvable : id=$id');
-    }
-
-    // Supprime toutes les entités associées.
-    for (final wId in store.tripWaypointIds[id] ?? []) {
-      store.waypoints.remove(wId);
-    }
-    for (final sId in store.tripSegmentIds[id] ?? []) {
-      store.segments.remove(sId);
-    }
-    for (final vId in store.tripVertexIds[id] ?? []) {
-      store.vertices.remove(vId);
-    }
-    store.tripWaypointIds.remove(id);
-    store.tripSegmentIds.remove(id);
-    store.tripVertexIds.remove(id);
-    store.trips.remove(id);
-
+    store.removeTrip(id);
     return GDeleteTripData(deleteTrip: true).toJson();
   }
 
@@ -149,7 +113,7 @@ class TripResolver {
     final tripId = variables['tripId'] as int;
     final fileKey = variables['fileKey'] as String;
 
-    final trip = store.trips[tripId];
+    final trip = store.tripsMap[tripId];
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
 
     final image = store.carouselItems[fileKey]?.remoteImage;
@@ -158,7 +122,7 @@ class TripResolver {
     }
 
     if (!trip.images.any((img) => img.fileKey == fileKey)) {
-      store.trips[tripId] = trip.copyWith(images: [...trip.images, image]);
+      store.tripsMap[tripId] = trip.copyWith(images: [...trip.images, image]);
     }
 
     return GAttachImageToTripData(
@@ -172,10 +136,10 @@ class TripResolver {
     final tripId = variables['tripId'] as int;
     final fileKey = variables['fileKey'] as String;
 
-    final trip = store.trips[tripId];
+    final trip = store.tripsMap[tripId];
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
 
-    store.trips[tripId] = trip.copyWith(
+    store.tripsMap[tripId] = trip.copyWith(
       images: trip.images.where((img) => img.fileKey != fileKey).toList(),
     );
 

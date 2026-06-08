@@ -33,7 +33,7 @@ class TopologyResolver {
   Map<String, dynamic> getVertices(int tripId) {
     final vertices = (store.vertices(
       tripId,
-    )).map((vId) => vertexToGql(store.verticesMap[vId.id]!)).toList();
+    )).map((v) => vertexToGql(store.verticesMap[v.id]!)).toList();
 
     return GGetVerticesData(
       trip: GGetVerticesData_trip(
@@ -79,10 +79,7 @@ class TopologyResolver {
       id: id,
       latLng: LatLng(latLngMap['lat'] as double, latLngMap['lng'] as double),
     );
-
-    store.verticesMap[id] = vertex;
-    (store.tripVertexIds[tripId] ??= []).add(id);
-
+    store.addVertex(tripId, vertex);
     return GCreateVertexData(createVertex: vertexToGql(vertex)).toJson();
   }
 
@@ -90,26 +87,22 @@ class TopologyResolver {
     final id = variables['id'] as int;
     final latLngMap = variables['latLng'] as Map<String, dynamic>;
 
-    final existing = store.vertices[id];
-    if (existing == null) throw Exception('Vertex introuvable : id=$id');
+    final existing = store.vertex(id);
 
     final updated = Vertex(
       id: id,
       latLng: LatLng(latLngMap['lat'] as double, latLngMap['lng'] as double),
     );
-
-    store.vertices[id] = updated;
+    store.verticesMap[id] = updated;
     return GMoveVertexData(moveVertex: vertexToGql(updated)).toJson();
   }
 
   Map<String, dynamic> deleteVertex(int vertexId) {
-    if (!store.vertices.containsKey(vertexId)) {
+    if (!store.verticesMap.containsKey(vertexId)) {
       throw Exception('Vertex introuvable : id=$vertexId');
     }
 
-    store.vertices.remove(vertexId);
-    final tripId = store.tripIdForVertex(vertexId);
-    store.tripVertexIds[tripId]?.remove(vertexId);
+    store.removeVertex(vertexId);
 
     return GDeleteVertexData(deleteVertex: true).toJson();
   }
@@ -125,35 +118,28 @@ class TopologyResolver {
     if (!store.tripsMap.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
     }
-    if (!store.vertices.containsKey(input.startVertexId)) {
-      throw Exception('startVertex introuvable : id=${input.startVertexId}');
-    }
-    if (!store.vertices.containsKey(input.endVertexId)) {
-      throw Exception('endVertex introuvable : id=${input.endVertexId}');
-    }
 
     // Par défaut géometry est juste une ligne entre les deux points
-    final startVertex = store.vertices[input.startVertexId];
-    final endVertex = store.vertices[input.endVertexId];
-    final List<LatLng> geometry = [startVertex!.latLng, endVertex!.latLng];
+    final startVertex = store.vertex(input.startVertexId);
+    final endVertex = store.vertex(input.endVertexId);
+    final List<LatLng> geometry = [startVertex.latLng, endVertex.latLng];
 
-    final id = store.allocateSegmentId();
+    final sid = store.nextSegmentId.next();
     final segment = Segment(
-      id: id,
+      id: sid,
       startVertexId: input.startVertexId,
       endVertexId: input.endVertexId,
       type: input.type.toDomain(),
       geometry: geometry,
     );
 
-    store.segments[id] = segment;
-    (store.tripSegmentIds[tripId] ??= []).add(id);
+    store.addSegment(tripId, segment);
 
     return GCreateSegmentData(
       createSegment: segmentToGql(
         segment,
-        store.vertices[segment.startVertexId]!,
-        store.vertices[segment.endVertexId]!,
+        store.vertex(segment.startVertexId),
+        store.vertex(segment.endVertexId),
       ),
     ).toJson();
   }
@@ -164,8 +150,7 @@ class TopologyResolver {
       variables['segment'] as Map<String, dynamic>,
     );
 
-    final existing = store.segments[id];
-    if (existing == null) throw Exception('Segment introuvable : id=$id');
+    final existing = store.segment(id);
 
     final updatedStartId =
         input.startVertexId.isPresent &&
@@ -178,13 +163,6 @@ class TopologyResolver {
         ? input.endVertexId.requireValue!
         : existing.endVertexId;
 
-    if (!store.vertices.containsKey(updatedStartId)) {
-      throw Exception('startVertex introuvable : id=$updatedStartId');
-    }
-    if (!store.vertices.containsKey(updatedEndId)) {
-      throw Exception('endVertex introuvable : id=$updatedEndId');
-    }
-
     final updated = existing.copyWith(
       type: input.type.isPresent && input.type.requireValue != null
           ? input.type.requireValue!.toDomain()
@@ -193,26 +171,19 @@ class TopologyResolver {
       endVertexId: updatedEndId,
     );
 
-    store.segments[id] = updated;
+    store.segmentsMap[id] = updated;
 
     return GUpdateSegmentData(
       updateSegment: segmentToGql(
         updated,
-        store.vertices[updated.startVertexId]!,
-        store.vertices[updated.endVertexId]!,
+        store.vertex(updated.startVertexId),
+        store.vertex(updated.endVertexId),
       ),
     ).toJson();
   }
 
   Map<String, dynamic> deleteSegment(int segmentId) {
-    if (!store.segments.containsKey(segmentId)) {
-      throw Exception('Segment introuvable : id=$segmentId');
-    }
-
-    store.segments.remove(segmentId);
-    final tripId = store.tripIdForSegment(segmentId);
-    store.tripSegmentIds[tripId]?.remove(segmentId);
-
+    store.removeSegment(segmentId);
     return GDeleteSegmentData(deleteSegment: true).toJson();
   }
 }
