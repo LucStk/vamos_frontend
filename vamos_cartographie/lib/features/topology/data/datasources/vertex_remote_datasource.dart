@@ -17,7 +17,7 @@ class VertexRemoteDatasource {
     if (response.hasErrors || response.data == null) {
       throw Exception(
         response.graphqlErrors?.first.message ??
-            'Erreur dans le get des waypoints du trip',
+            'Erreur dans le get des vertex du trip',
       );
     }
     return response.data!.trip.topology.vertices;
