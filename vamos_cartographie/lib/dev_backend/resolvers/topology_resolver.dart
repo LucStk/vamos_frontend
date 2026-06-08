@@ -14,8 +14,8 @@ class TopologyResolver {
 
   // ── Queries ──────────────────────────────────────────────────────────────────
 
-  Map<String, dynamic> getSegments(int tripId) {
-    final segments = store.segments(tripId).map((s) {
+  GGetSegmentsData getSegments(GGetSegmentsVars vars) {
+    final segments = store.segments(vars.tripId).map((s) {
       return segmentToGql(
         s,
         store.vertex(s.startVertexId),
@@ -27,25 +27,25 @@ class TopologyResolver {
       trip: GGetSegmentsData_trip(
         topology: GGetSegmentsData_trip_topology(segments: segments),
       ),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> getVertices(int tripId) {
+  GGetVerticesData getVertices(GGetVerticesVars vars) {
     final vertices = (store.vertices(
-      tripId,
+      vars.tripId,
     )).map((v) => vertexToGql(store.verticesMap[v.id]!)).toList();
 
     return GGetVerticesData(
       trip: GGetVerticesData_trip(
         topology: GGetVerticesData_trip_topology(vertices: vertices),
       ),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> getTopology(int tripId) {
-    final vertices = (store.vertices(tripId)).map(vertexToGql).toList();
+  GGetTopologyData getTopology(GGetTopologyVars vars) {
+    final vertices = (store.vertices(vars.tripId)).map(vertexToGql).toList();
 
-    final segments = store.segments(tripId).map((s) {
+    final segments = store.segments(vars.tripId).map((s) {
       return segmentToGql(
         s,
         store.verticesMap[s.startVertexId]!,
@@ -55,65 +55,60 @@ class TopologyResolver {
 
     return GGetTopologyData(
       trip: GGetTopologyData_trip(
-        id: tripId,
+        id: vars.tripId,
         topology: GGetTopologyData_trip_topology(
           vertices: vertices,
           segments: segments,
         ),
       ),
-    ).toJson();
+    );
   }
 
   // ── Mutations — Vertices ──────────────────────────────────────────────────────
 
-  Map<String, dynamic> createVertex(Map<String, dynamic> variables) {
-    final tripId = variables['tripId'] as int;
-    final latLngMap = variables['latLng'] as Map<String, dynamic>;
+  GCreateVertexData createVertex(GCreateVertexVars vars) {
+    final int tripId = vars.tripId;
+    final latLngMap = vars.latLng;
 
     if (!store.tripsMap.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
     }
 
     final id = store.nextVertexId.next();
-    final vertex = Vertex(
-      id: id,
-      latLng: LatLng(latLngMap['lat'] as double, latLngMap['lng'] as double),
-    );
+    final vertex = Vertex(id: id, latLng: LatLng(latLngMap.lat, latLngMap.lng));
     store.addVertex(tripId, vertex);
-    return GCreateVertexData(createVertex: vertexToGql(vertex)).toJson();
+    return GCreateVertexData(createVertex: vertexToGql(vertex));
   }
 
-  Map<String, dynamic> moveVertex(Map<String, dynamic> variables) {
-    final id = variables['id'] as int;
-    final latLngMap = variables['latLng'] as Map<String, dynamic>;
+  GMoveVertexData moveVertex(GMoveVertexVars vars) {
+    final int id = vars.id;
+    final latLngMap = vars.latLng;
 
     final existing = store.vertex(id);
 
     final updated = Vertex(
       id: id,
-      latLng: LatLng(latLngMap['lat'] as double, latLngMap['lng'] as double),
+      latLng: LatLng(latLngMap.lat, latLngMap.lng),
     );
     store.verticesMap[id] = updated;
-    return GMoveVertexData(moveVertex: vertexToGql(updated)).toJson();
+    return GMoveVertexData(moveVertex: vertexToGql(updated));
   }
 
-  Map<String, dynamic> deleteVertex(int vertexId) {
-    if (!store.verticesMap.containsKey(vertexId)) {
-      throw Exception('Vertex introuvable : id=$vertexId');
+  GDeleteVertexData deleteVertex(GDeleteVertexVars vars) {
+    if (!store.verticesMap.containsKey(vars.vertexId)) {
+      throw Exception('Vertex introuvable : id=$vars.vertexId');
     }
 
-    store.removeVertex(vertexId);
+    store.removeVertex(vars.vertexId);
 
-    return GDeleteVertexData(deleteVertex: true).toJson();
+    return GDeleteVertexData(deleteVertex: true);
   }
 
   // ── Mutations — Segments ──────────────────────────────────────────────────────
 
-  Map<String, dynamic> createSegment(Map<String, dynamic> variables) {
-    final tripId = variables['tripId'] as int;
-    final input = GSegmentCreateInput.fromJson(
-      variables['segment'] as Map<String, dynamic>,
-    );
+  GCreateSegmentData createSegment(GCreateSegmentVars vars) {
+    final int tripId = vars.tripId;
+    final GSegmentCreateInput input = vars.segment;
 
     if (!store.tripsMap.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
@@ -141,14 +136,12 @@ class TopologyResolver {
         store.vertex(segment.startVertexId),
         store.vertex(segment.endVertexId),
       ),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> updateSegment(Map<String, dynamic> variables) {
-    final id = variables['id'] as int;
-    final input = GSegmentUpdateInput.fromJson(
-      variables['segment'] as Map<String, dynamic>,
-    );
+  GUpdateSegmentData updateSegment(GUpdateSegmentVars vars) {
+    final int id = vars.id;
+    final GSegmentUpdateInput input = vars.segment;
 
     final existing = store.segment(id);
 
@@ -179,11 +172,11 @@ class TopologyResolver {
         store.vertex(updated.startVertexId),
         store.vertex(updated.endVertexId),
       ),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> deleteSegment(int segmentId) {
-    store.removeSegment(segmentId);
-    return GDeleteSegmentData(deleteSegment: true).toJson();
+  GDeleteSegmentData deleteSegment(GDeleteSegmentVars vars) {
+    store.removeSegment(vars.segmentId);
+    return GDeleteSegmentData(deleteSegment: true);
   }
 }

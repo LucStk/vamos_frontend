@@ -18,8 +18,10 @@ class MediaResolver {
   ///
   /// Dans le fake, l'upload réel est simulé (aucun fichier n'est transféré).
   /// L'image devient disponible côté store lors de l'appel à [createImage].
-  Map<String, dynamic> generateImageUploadUrl(Map<String, dynamic> variables) {
-    final extension = variables['extension'] as String;
+  GGenerateImageUploadUrlData generateImageUploadUrl(
+    GGenerateImageUploadUrlVars vars,
+  ) {
+    final String extension = vars.extension;
     final fileKey =
         'media/fake_${DateTime.now().microsecondsSinceEpoch}.$extension';
     final uploadUrl = '$_fakeUploadBase/$fileKey';
@@ -30,18 +32,18 @@ class MediaResolver {
             fileKey: fileKey,
             uploadUrl: uploadUrl,
           ),
-    ).toJson();
+    );
   }
 
   /// Marque l'image [fileKey] comme distante (upload terminé) dans le store.
   ///
   /// Si la clé n'existe pas encore dans le store, elle est créée.
-  Map<String, dynamic> createImage(Map<String, dynamic> variables) {
-    final fileKey = variables['fileKey'] as String;
+  GCreateImageData createImage(GCreateImageVars vars) {
+    final String fileKey = vars.fileKey;
     final url = 'https://cdn.example.com/$fileKey';
 
     final image = MediaImage(fileKey: fileKey, url: url);
 
-    return GCreateImageData(createImage: imageToGql(image)).toJson();
+    return GCreateImageData(createImage: imageToGql(image));
   }
 }

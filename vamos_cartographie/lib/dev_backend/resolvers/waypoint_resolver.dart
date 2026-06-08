@@ -1,4 +1,3 @@
-import 'package:vamos_cartographie/features/media/domain/entities/carousel_item.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
@@ -14,9 +13,9 @@ class WaypointResolver {
 
   // ── Queries ──────────────────────────────────────────────────────────────────
 
-  Map<String, dynamic> getWaypoints(int tripId) {
-    final base = store.trip(tripId);
-    final waypoints = store.waypoints(tripId).map((w) {
+  GGetWaypointsData getWaypoints(GGetWaypointsVars vars) {
+    final base = store.trip(vars.tripId);
+    final waypoints = store.waypoints(vars.tripId).map((w) {
       return waypointToGql(w, store.vertex(w.vertexId));
     }).toList();
 
@@ -31,16 +30,16 @@ class WaypointResolver {
             .toList(),
         waypoints: waypoints,
       ),
-    ).toJson();
+    );
   }
 
   // ── Mutations ─────────────────────────────────────────────────────────────────
 
-  Map<String, dynamic> createWaypoint(Map<String, dynamic> variables) {
-    final tripId = variables['tripId'] as int;
-    final vertexId = variables['vertexId'] as int;
+  GCreateWaypointData createWaypoint(GCreateWaypointVars vars) {
+    final tripId = vars.tripId;
+    final vertexId = vars.vertexId;
     final input = GWaypointCreateInput.fromJson(
-      variables['waypoint'] as Map<String, dynamic>,
+      vars.waypoint as Map<String, dynamic>,
     );
 
     final id = store.nextWaypointId.next();
@@ -58,14 +57,12 @@ class WaypointResolver {
 
     return GCreateWaypointData(
       createWaypoint: waypointToGql(waypoint, store.vertex(vertexId)),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> updateWaypoint(Map<String, dynamic> variables) {
-    final id = variables['id'] as int;
-    final input = GWaypointUpdateInput.fromJson(
-      variables['waypoint'] as Map<String, dynamic>,
-    );
+  GUpdateWaypointData updateWaypoint(GUpdateWaypointVars vars) {
+    final int id = vars.id;
+    final GWaypointUpdateInput input = vars.waypoint;
 
     final existing = store.waypoint(id);
     final updatedVertexId =
@@ -91,17 +88,19 @@ class WaypointResolver {
 
     return GUpdateWaypointData(
       updateWaypoint: waypointToGql(updated, store.vertex(updatedVertexId)),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> deleteWaypoint(int waypointId) {
-    store.removeWaypoint(waypointId);
-    return GDeleteWaypointData(deleteWaypoint: true).toJson();
+  GDeleteWaypointData deleteWaypoint(GDeleteWaypointVars vars) {
+    store.removeWaypoint(vars.waypointId);
+    return GDeleteWaypointData(deleteWaypoint: true);
   }
 
-  Map<String, dynamic> attachImageToWaypoint(Map<String, dynamic> variables) {
-    final waypointId = variables['waypointId'] as int;
-    final fileKey = variables['fileKey'] as String;
+  GAttachImageToWaypointData attachImageToWaypoint(
+    GAttachImageToWaypointVars vars,
+  ) {
+    final int waypointId = vars.waypointId;
+    final String fileKey = vars.fileKey;
 
     final waypoint = store.waypoint(waypointId);
 
@@ -117,12 +116,14 @@ class WaypointResolver {
       attachImageToWaypoint: GAttachImageToWaypointData_attachImageToWaypoint(
         image: imageToGql(image),
       ),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> deleteImageFromWaypoint(Map<String, dynamic> variables) {
-    final waypointId = variables['waypointId'] as int;
-    final fileKey = variables['fileKey'] as String;
+  GDeleteImageFromWaypointData deleteImageFromWaypoint(
+    GDeleteImageFromWaypointVars vars,
+  ) {
+    final int waypointId = vars.waypointId;
+    final String fileKey = vars.fileKey;
 
     final waypoint = store.waypoint(waypointId);
 
@@ -130,8 +131,6 @@ class WaypointResolver {
       images: waypoint.images.where((img) => img.fileKey != fileKey).toList(),
     );
 
-    return GDeleteImageFromWaypointData(
-      deleteImageFromWaypoint: fileKey,
-    ).toJson();
+    return GDeleteImageFromWaypointData(deleteImageFromWaypoint: fileKey);
   }
 }

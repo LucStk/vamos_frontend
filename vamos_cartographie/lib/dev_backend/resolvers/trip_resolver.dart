@@ -15,21 +15,21 @@ class TripResolver {
 
   // ── Queries ──────────────────────────────────────────────────────────────────
 
-  Map<String, dynamic> getAllTrips() {
+  GGetAllTripsData getAllTrips() {
     final trips = store.tripsMap.values.map(tripFieldsToGql).toList();
-    return GGetAllTripsData(trips: trips).toJson();
+    return GGetAllTripsData(trips: trips);
   }
 
-  Map<String, dynamic> getTrip(int id) {
-    final base = store.tripsMap[id];
-    if (base == null) throw Exception('Trip introuvable : id=$id');
+  GGetTripData getTrip(GGetTripVars vars) {
+    final base = store.tripsMap[vars.id];
+    if (base == null) throw Exception('Trip introuvable : id=$vars.id');
 
-    final waypoints = store.waypoints(id).map((w) {
+    final waypoints = store.waypoints(vars.id).map((w) {
       final v = store.vertex(w.vertexId);
       return waypointToGql(w, v);
     }).toList();
 
-    final segments = store.segments(id).map((s) {
+    final segments = store.segments(vars.id).map((s) {
       return segmentToGql(
         s,
         store.vertex(s.startVertexId),
@@ -37,7 +37,7 @@ class TripResolver {
       );
     }).toList();
 
-    final vertices = store.vertices(id).map(vertexToGql).toList();
+    final vertices = store.vertices(vars.id).map(vertexToGql).toList();
 
     return GGetTripData(
       trip: GTripFieldsData(
@@ -49,15 +49,13 @@ class TripResolver {
             .map((img) => GTripFieldsData_images(image: imageToGql(img)))
             .toList(),
       ),
-    ).toJson();
+    );
   }
 
   // ── Mutations ─────────────────────────────────────────────────────────────────
 
-  Map<String, dynamic> createTrip(Map<String, dynamic> variables) {
-    final input = GTripInput.fromJson(
-      variables['trip'] as Map<String, dynamic>,
-    );
+  GCreateTripData createTrip(GCreateTripVars vars) {
+    final GTripInput input = vars.trip;
     final id = store.nextTripId.next();
 
     final trip = Trip(
@@ -73,14 +71,12 @@ class TripResolver {
 
     store.addTrip(trip);
 
-    return GCreateTripData(createTrip: tripFieldsToGql(trip)).toJson();
+    return GCreateTripData(createTrip: tripFieldsToGql(trip));
   }
 
-  Map<String, dynamic> updateTrip(Map<String, dynamic> variables) {
-    final id = variables['id'] as int;
-    final input = GTripUpdateInput.fromJson(
-      variables['trip'] as Map<String, dynamic>,
-    );
+  GUpdateTripData updateTrip(GUpdateTripVars vars) {
+    final int id = vars.id;
+    final GTripUpdateInput input = vars.trip;
 
     final existing = store.tripsMap[id];
     if (existing == null) throw Exception('Trip introuvable : id=$id');
@@ -101,17 +97,17 @@ class TripResolver {
     );
 
     store.tripsMap[id] = updated;
-    return GUpdateTripData(updateTrip: tripFieldsToGql(updated)).toJson();
+    return GUpdateTripData(updateTrip: tripFieldsToGql(updated));
   }
 
-  Map<String, dynamic> deleteTrip(int id) {
-    store.removeTrip(id);
-    return GDeleteTripData(deleteTrip: true).toJson();
+  GDeleteTripData deleteTrip(GDeleteImageFromTripVars vars) {
+    store.removeTrip(vars.tripId);
+    return GDeleteTripData(deleteTrip: true);
   }
 
-  Map<String, dynamic> attachImageToTrip(Map<String, dynamic> variables) {
-    final tripId = variables['tripId'] as int;
-    final fileKey = variables['fileKey'] as String;
+  GAttachImageToTripData attachImageToTrip(GAttachImageToTripVars vars) {
+    final int tripId = vars.tripId;
+    final String fileKey = vars.fileKey;
 
     final trip = store.tripsMap[tripId];
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
@@ -126,12 +122,12 @@ class TripResolver {
       attachImageToTrip: GAttachImageToTripData_attachImageToTrip(
         image: imageToGql(image),
       ),
-    ).toJson();
+    );
   }
 
-  Map<String, dynamic> deleteImageFromTrip(Map<String, dynamic> variables) {
-    final tripId = variables['tripId'] as int;
-    final fileKey = variables['fileKey'] as String;
+  GDeleteImageFromTripData deleteImageFromTrip(GDeleteImageFromTripVars vars) {
+    final int tripId = vars.tripId;
+    final String fileKey = vars.fileKey;
 
     final trip = store.tripsMap[tripId];
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
@@ -140,6 +136,6 @@ class TripResolver {
       images: trip.images.where((img) => img.fileKey != fileKey).toList(),
     );
 
-    return GDeleteImageFromTripData(deleteImageFromTrip: fileKey).toJson();
+    return GDeleteImageFromTripData(deleteImageFromTrip: fileKey);
   }
 }
