@@ -103,7 +103,6 @@ class GSegmentCreateInput {
     required this.type,
     required this.startVertexId,
     required this.endVertexId,
-    this.geometry = const Value.absent(),
   });
 
   factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
@@ -111,14 +110,6 @@ class GSegmentCreateInput {
       type: GSegmentTypeEnum.fromJson((json['type'] as String)),
       startVertexId: (json['startVertexId'] as int),
       endVertexId: (json['endVertexId'] as int),
-      geometry: json.containsKey('geometry')
-          ? Value.present(json['geometry'] == null
-              ? null
-              : (json['geometry'] as List<dynamic>)
-                  .map((_$e) =>
-                      GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-                  .toList())
-          : Value.absent(),
     );
   }
 
@@ -128,8 +119,6 @@ class GSegmentCreateInput {
 
   final int endVertexId;
 
-  final Value<List<GLatLngInput>> geometry;
-
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     final _$typeValue = this.type;
@@ -138,13 +127,6 @@ class GSegmentCreateInput {
     _$result['startVertexId'] = _$startVertexIdValue;
     final _$endVertexIdValue = this.endVertexId;
     _$result['endVertexId'] = _$endVertexIdValue;
-    final _$geometryValue = this.geometry;
-    if (_$geometryValue.isPresent) {
-      final _$geometryRequired = _$geometryValue.requireValue;
-      _$result['geometry'] = _$geometryRequired == null
-          ? null
-          : _$geometryRequired.map((_$e) => _$e.toJson()).toList();
-    }
     return _$result;
   }
 
@@ -152,13 +134,11 @@ class GSegmentCreateInput {
     GSegmentTypeEnum? type,
     int? startVertexId,
     int? endVertexId,
-    Value<List<GLatLngInput>>? geometry,
   }) {
     return GSegmentCreateInput(
       type: type ?? this.type,
       startVertexId: startVertexId ?? this.startVertexId,
       endVertexId: endVertexId ?? this.endVertexId,
-      geometry: geometry ?? this.geometry,
     );
   }
 
@@ -176,7 +156,7 @@ class GSegmentCreateInput {
 
   @override
   String toString() {
-    return 'GSegmentCreateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry)';
+    return 'GSegmentCreateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId)';
   }
 }
 
@@ -228,7 +208,6 @@ class GSegmentUpdateInput {
     this.type = const Value.absent(),
     this.startVertexId = const Value.absent(),
     this.endVertexId = const Value.absent(),
-    this.geometry = const Value.absent(),
   });
 
   factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
@@ -247,14 +226,6 @@ class GSegmentUpdateInput {
           ? Value.present(
               json['endVertexId'] == null ? null : (json['endVertexId'] as int))
           : Value.absent(),
-      geometry: json.containsKey('geometry')
-          ? Value.present(json['geometry'] == null
-              ? null
-              : (json['geometry'] as List<dynamic>)
-                  .map((_$e) =>
-                      GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-                  .toList())
-          : Value.absent(),
     );
   }
 
@@ -263,8 +234,6 @@ class GSegmentUpdateInput {
   final Value<int> startVertexId;
 
   final Value<int> endVertexId;
-
-  final Value<List<GLatLngInput>> geometry;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -286,13 +255,6 @@ class GSegmentUpdateInput {
       _$result['endVertexId'] =
           _$endVertexIdRequired == null ? null : _$endVertexIdRequired;
     }
-    final _$geometryValue = this.geometry;
-    if (_$geometryValue.isPresent) {
-      final _$geometryRequired = _$geometryValue.requireValue;
-      _$result['geometry'] = _$geometryRequired == null
-          ? null
-          : _$geometryRequired.map((_$e) => _$e.toJson()).toList();
-    }
     return _$result;
   }
 
@@ -300,13 +262,11 @@ class GSegmentUpdateInput {
     Value<GSegmentTypeEnum>? type,
     Value<int>? startVertexId,
     Value<int>? endVertexId,
-    Value<List<GLatLngInput>>? geometry,
   }) {
     return GSegmentUpdateInput(
       type: type ?? this.type,
       startVertexId: startVertexId ?? this.startVertexId,
       endVertexId: endVertexId ?? this.endVertexId,
-      geometry: geometry ?? this.geometry,
     );
   }
 
@@ -324,7 +284,7 @@ class GSegmentUpdateInput {
 
   @override
   String toString() {
-    return 'GSegmentUpdateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry)';
+    return 'GSegmentUpdateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId)';
   }
 }
 

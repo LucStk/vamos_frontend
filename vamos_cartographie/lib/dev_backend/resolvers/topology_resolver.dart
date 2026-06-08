@@ -154,11 +154,6 @@ class TopologyResolver {
       startVertexId: input.startVertexId,
       endVertexId: input.endVertexId,
       type: input.type.toDomain(),
-      geometry: input.geometry.isPresent && input.geometry.requireValue != null
-          ? input.geometry.requireValue!
-                .map((ll) => LatLng(ll.lat, ll.lng))
-                .toList()
-          : [],
     );
 
     store.segments[id] = segment;
@@ -206,11 +201,6 @@ class TopologyResolver {
           : existing.type,
       startVertexId: updatedStartId,
       endVertexId: updatedEndId,
-      geometry: input.geometry.isPresent && input.geometry.requireValue != null
-          ? input.geometry.requireValue!
-                .map((ll) => LatLng(ll.lat, ll.lng))
-                .toList()
-          : existing.geometry,
     );
 
     store.segments[id] = updated;

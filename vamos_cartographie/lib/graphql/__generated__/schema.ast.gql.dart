@@ -645,18 +645,6 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'geometry'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
   ],
 );
 const SegmentType = _i1.ObjectTypeDefinitionNode(
@@ -767,18 +755,6 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'geometry'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
         isNonNull: false,
       ),
       defaultValue: null,

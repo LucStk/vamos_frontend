@@ -13,18 +13,20 @@ class SegmentLayer extends AbstractLayer {
     if (segments.isEmpty) {
       return const SizedBox.shrink();
     }
-    return PolylineLayer(
-      polylines: [
-        for (final segment in segments.values)
-          Polyline(
-            points: segment.geometry,
-            color: segment.type.color,
-            strokeWidth: 5,
-            pattern: segment.type.isDashed
-                ? StrokePattern.dashed(segments: const [12, 8])
-                : const StrokePattern.solid(),
-          ),
-      ],
-    );
+    final List<Polyline> polyline = [];
+    for (final segment in segments.values) {
+      debugPrint("segment étudié $segment");
+      polyline.add(
+        Polyline(
+          points: segment.geometry,
+          color: segment.type.color,
+          strokeWidth: 5,
+          pattern: segment.type.isDashed
+              ? StrokePattern.dashed(segments: const [12, 8])
+              : const StrokePattern.solid(),
+        ),
+      );
+    }
+    return PolylineLayer(polylines: polyline);
   }
 }
