@@ -161,7 +161,7 @@ final class VertexMapProvider
   }
 }
 
-String _$vertexMapHash() => r'518401da1cfd60a46a28412ea7b9d388f0e491fc';
+String _$vertexMapHash() => r'ba85abcc98a10afd675bde02e350c55aaae82e8f';
 
 final class VertexMapFamily extends $Family
     with $FunctionalFamilyOverride<Map<int, Vertex>, int> {
@@ -258,29 +258,29 @@ final class VertexIdsFamily extends $Family
   String toString() => r'vertexIdsProvider';
 }
 
-@ProviderFor(vertex)
-final vertexProvider = VertexFamily._();
+@ProviderFor(vertexById)
+final vertexByIdProvider = VertexByIdFamily._();
 
-final class VertexProvider
+final class VertexByIdProvider
     extends $FunctionalProvider<Vertex?, Vertex?, Vertex?>
     with $Provider<Vertex?> {
-  VertexProvider._({
-    required VertexFamily super.from,
+  VertexByIdProvider._({
+    required VertexByIdFamily super.from,
     required (int, int) super.argument,
   }) : super(
          retry: null,
-         name: r'vertexProvider',
+         name: r'vertexByIdProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$vertexHash();
+  String debugGetCreateSourceHash() => _$vertexByIdHash();
 
   @override
   String toString() {
-    return r'vertexProvider'
+    return r'vertexByIdProvider'
         ''
         '$argument';
   }
@@ -293,7 +293,7 @@ final class VertexProvider
   @override
   Vertex? create(Ref ref) {
     final argument = this.argument as (int, int);
-    return vertex(ref, argument.$1, argument.$2);
+    return vertexById(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -306,7 +306,7 @@ final class VertexProvider
 
   @override
   bool operator ==(Object other) {
-    return other is VertexProvider && other.argument == argument;
+    return other is VertexByIdProvider && other.argument == argument;
   }
 
   @override
@@ -315,22 +315,22 @@ final class VertexProvider
   }
 }
 
-String _$vertexHash() => r'725688c91588924b10a439a8a0173acad68efaec';
+String _$vertexByIdHash() => r'22d4e9019ccdfbb45042777e911e8529c4e51a92';
 
-final class VertexFamily extends $Family
+final class VertexByIdFamily extends $Family
     with $FunctionalFamilyOverride<Vertex?, (int, int)> {
-  VertexFamily._()
+  VertexByIdFamily._()
     : super(
         retry: null,
-        name: r'vertexProvider',
+        name: r'vertexByIdProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  VertexProvider call(int tripId, int vertexId) =>
-      VertexProvider._(argument: (tripId, vertexId), from: this);
+  VertexByIdProvider call(int tripId, int vertexId) =>
+      VertexByIdProvider._(argument: (tripId, vertexId), from: this);
 
   @override
-  String toString() => r'vertexProvider';
+  String toString() => r'vertexByIdProvider';
 }

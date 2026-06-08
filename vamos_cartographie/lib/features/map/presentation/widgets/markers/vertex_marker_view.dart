@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
 
-class MiddleVertexMarkerView extends ConsumerWidget {
-  final SegmentType type;
-
-  const MiddleVertexMarkerView({super.key, required this.type});
+class VertexMarkerView extends ConsumerWidget {
+  const VertexMarkerView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
-        color: type.color.withOpacity(0.8),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [

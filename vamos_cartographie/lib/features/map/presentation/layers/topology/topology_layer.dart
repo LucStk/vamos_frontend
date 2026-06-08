@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/topology/segment_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/topology/segment_type_marker_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/topology/vertex_layer.dart';
 
 class TopologyLayer extends AbstractLayer {
   const TopologyLayer({super.key, required super.tripId});
@@ -13,6 +14,7 @@ class TopologyLayer extends AbstractLayer {
       children: [
         SegmentLayer(tripId: tripId),
         SegmentTypeMarkerLayer(tripId: tripId),
+        VertexLayer(tripId: tripId),
       ],
     );
   }

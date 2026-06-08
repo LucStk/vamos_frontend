@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/shared/shared.dart';
-import 'package:vamos_cartographie/features/topology/application/providers/segments_notifier.dart';
-import 'package:vamos_cartographie/features/topology/presentation/widgets/segment_editor.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
   final int segmentId;
@@ -27,7 +26,7 @@ class SegmentViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segment = ref.watch(segmentProvider(tripId, segmentId));
+    final segment = ref.watch(segmentByIdProvider(tripId, segmentId));
 
     if (segment == null) {
       return const SizedBox.shrink();

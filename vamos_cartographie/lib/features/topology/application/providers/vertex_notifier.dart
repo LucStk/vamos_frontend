@@ -108,6 +108,6 @@ Iterable<int> vertexIds(Ref ref, int tripId) {
 }
 
 @riverpod
-Vertex? vertex(Ref ref, int tripId, int vertexId) {
+Vertex? vertexById(Ref ref, int tripId, int vertexId) {
   return ref.watch(vertexMapProvider(tripId).select((map) => map[vertexId]));
 }

@@ -2,7 +2,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/trips/trips.dart';
 import "package:vamos_cartographie/features/map/application/states/states.dart";
 
 part 'map_notifier.g.dart';
@@ -16,11 +15,7 @@ final currentTripIdProvider = Provider<int>((ref) {
 class MapStateNotifier extends _$MapStateNotifier {
   @override
   MapState build(int tripId) {
-    final trip = ref.read(tripProvider(tripId));
-    if (trip == null) {
-      throw Exception('Trip introuvable');
-    }
-    return MapState.fromTrip(trip);
+    return MapState.fromTrip(tripId);
   }
 
   void startWaypointCreation(LatLng position) {
