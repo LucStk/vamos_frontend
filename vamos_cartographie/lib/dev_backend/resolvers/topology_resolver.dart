@@ -3,8 +3,8 @@ import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/segment_type_mapper.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
-import '../fake_graphql_store.dart';
-import 'gql_mappers.dart';
+import "package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart";
+import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
 
 /// Résout les opérations GraphQL relatives aux segments et vertices.
 class TopologyResolver {
@@ -15,8 +15,9 @@ class TopologyResolver {
   // ── Queries ──────────────────────────────────────────────────────────────────
 
   Map<String, dynamic> getSegments(int tripId) {
-    if (!store.trips.containsKey(tripId))
+    if (!store.trips.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
+    }
 
     final segments = (store.tripSegmentIds[tripId] ?? []).map((sId) {
       final s = store.segments[sId]!;
@@ -35,8 +36,9 @@ class TopologyResolver {
   }
 
   Map<String, dynamic> getVertices(int tripId) {
-    if (!store.trips.containsKey(tripId))
+    if (!store.trips.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
+    }
 
     final vertices = (store.tripVertexIds[tripId] ?? [])
         .map((vId) => vertexToGql(store.vertices[vId]!))
@@ -50,8 +52,9 @@ class TopologyResolver {
   }
 
   Map<String, dynamic> getTopology(int tripId) {
-    if (!store.trips.containsKey(tripId))
+    if (!store.trips.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
+    }
 
     final vertices = (store.tripVertexIds[tripId] ?? [])
         .map((vId) => vertexToGql(store.vertices[vId]!))
@@ -83,8 +86,9 @@ class TopologyResolver {
     final tripId = variables['tripId'] as int;
     final latLngMap = variables['latLng'] as Map<String, dynamic>;
 
-    if (!store.trips.containsKey(tripId))
+    if (!store.trips.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
+    }
 
     final id = store.allocateVertexId();
     final vertex = Vertex(
@@ -115,8 +119,9 @@ class TopologyResolver {
   }
 
   Map<String, dynamic> deleteVertex(int vertexId) {
-    if (!store.vertices.containsKey(vertexId))
+    if (!store.vertices.containsKey(vertexId)) {
       throw Exception('Vertex introuvable : id=$vertexId');
+    }
 
     store.vertices.remove(vertexId);
     final tripId = store.tripIdForVertex(vertexId);
@@ -133,12 +138,15 @@ class TopologyResolver {
       variables['segment'] as Map<String, dynamic>,
     );
 
-    if (!store.trips.containsKey(tripId))
+    if (!store.trips.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
-    if (!store.vertices.containsKey(input.startVertexId))
+    }
+    if (!store.vertices.containsKey(input.startVertexId)) {
       throw Exception('startVertex introuvable : id=${input.startVertexId}');
-    if (!store.vertices.containsKey(input.endVertexId))
+    }
+    if (!store.vertices.containsKey(input.endVertexId)) {
       throw Exception('endVertex introuvable : id=${input.endVertexId}');
+    }
 
     final id = store.allocateSegmentId();
     final segment = Segment(
@@ -185,10 +193,12 @@ class TopologyResolver {
         ? input.endVertexId.requireValue!
         : existing.endVertexId;
 
-    if (!store.vertices.containsKey(updatedStartId))
+    if (!store.vertices.containsKey(updatedStartId)) {
       throw Exception('startVertex introuvable : id=$updatedStartId');
-    if (!store.vertices.containsKey(updatedEndId))
+    }
+    if (!store.vertices.containsKey(updatedEndId)) {
       throw Exception('endVertex introuvable : id=$updatedEndId');
+    }
 
     final updated = existing.copyWith(
       type: input.type.isPresent && input.type.requireValue != null
@@ -215,8 +225,9 @@ class TopologyResolver {
   }
 
   Map<String, dynamic> deleteSegment(int segmentId) {
-    if (!store.segments.containsKey(segmentId))
+    if (!store.segments.containsKey(segmentId)) {
       throw Exception('Segment introuvable : id=$segmentId');
+    }
 
     store.segments.remove(segmentId);
     final tripId = store.tripIdForSegment(segmentId);

@@ -1,8 +1,7 @@
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
-
-import '../fake_graphql_store.dart';
-import 'gql_mappers.dart';
+import "package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart";
+import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
 
 /// Résout les opérations GraphQL relatives aux trips.
 ///
@@ -122,15 +121,20 @@ class TripResolver {
   }
 
   Map<String, dynamic> deleteTrip(int id) {
-    if (!store.trips.containsKey(id))
+    if (!store.trips.containsKey(id)) {
       throw Exception('Trip introuvable : id=$id');
+    }
 
     // Supprime toutes les entités associées.
-    for (final wId in store.tripWaypointIds[id] ?? [])
+    for (final wId in store.tripWaypointIds[id] ?? []) {
       store.waypoints.remove(wId);
-    for (final sId in store.tripSegmentIds[id] ?? [])
+    }
+    for (final sId in store.tripSegmentIds[id] ?? []) {
       store.segments.remove(sId);
-    for (final vId in store.tripVertexIds[id] ?? []) store.vertices.remove(vId);
+    }
+    for (final vId in store.tripVertexIds[id] ?? []) {
+      store.vertices.remove(vId);
+    }
     store.tripWaypointIds.remove(id);
     store.tripSegmentIds.remove(id);
     store.tripVertexIds.remove(id);
@@ -147,8 +151,9 @@ class TripResolver {
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
 
     final image = store.carouselItems[fileKey]?.remoteImage;
-    if (image == null)
+    if (image == null) {
       throw Exception('Image introuvable dans le store : $fileKey');
+    }
 
     if (!trip.images.any((img) => img.fileKey == fileKey)) {
       store.trips[tripId] = trip.copyWith(images: [...trip.images, image]);

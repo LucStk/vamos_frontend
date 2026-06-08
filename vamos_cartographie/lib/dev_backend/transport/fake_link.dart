@@ -1,11 +1,9 @@
 import 'package:gql_exec/gql_exec.dart';
 import 'package:ferry/ferry.dart' show Link, NextLink;
 
-import 'fake_graphql_store.dart';
-import 'resolvers/media_resolver.dart';
-import 'resolvers/topology_resolver.dart';
-import 'resolvers/trip_resolver.dart';
-import 'resolvers/waypoint_resolver.dart';
+import "package:vamos_cartographie/dev_backend/resolvers/resolvers.dart";
+
+import "package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart";
 
 /// Implémentation fake de [Link] pour les tests.
 ///

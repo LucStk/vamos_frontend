@@ -81,20 +81,23 @@ class FakeGraphQLStore {
     return base.copyWith(
       waypoints: (tripWaypointIds[tripId] ?? []).map((id) {
         final w = waypoints[id];
-        if (w == null)
+        if (w == null) {
           throw Exception('Waypoint introuvable : id=$id (trip $tripId)');
+        }
         return w;
       }).toList(),
       segments: (tripSegmentIds[tripId] ?? []).map((id) {
         final s = segments[id];
-        if (s == null)
+        if (s == null) {
           throw Exception('Segment introuvable : id=$id (trip $tripId)');
+        }
         return s;
       }).toList(),
       vertex: (tripVertexIds[tripId] ?? []).map((id) {
         final v = vertices[id];
-        if (v == null)
+        if (v == null) {
           throw Exception('Vertex introuvable : id=$id (trip $tripId)');
+        }
         return v;
       }).toList(),
     );

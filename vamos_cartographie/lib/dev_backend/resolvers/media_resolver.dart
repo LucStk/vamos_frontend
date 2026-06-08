@@ -1,8 +1,8 @@
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
-import '../fake_graphql_store.dart';
-import 'gql_mappers.dart';
+import "package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart";
+import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
 
 /// Résout les opérations GraphQL relatives aux médias.
 class MediaResolver {

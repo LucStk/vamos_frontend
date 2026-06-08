@@ -2,8 +2,11 @@ import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
-import '../fake_graphql_store.dart';
-import 'gql_mappers.dart';
+
+import "package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart";
+import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
+
+
 
 /// Résout les opérations GraphQL relatives aux waypoints.
 class WaypointResolver {
@@ -46,10 +49,12 @@ class WaypointResolver {
       variables['waypoint'] as Map<String, dynamic>,
     );
 
-    if (!store.trips.containsKey(tripId))
+    if (!store.trips.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
-    if (!store.vertices.containsKey(vertexId))
+    }
+    if (!store.vertices.containsKey(vertexId)) {
       throw Exception('Vertex introuvable : id=$vertexId');
+    }
 
     final id = store.allocateWaypointId();
     final waypoint = Waypoint(
@@ -84,8 +89,9 @@ class WaypointResolver {
         ? input.vertexId.requireValue!
         : existing.vertexId;
 
-    if (!store.vertices.containsKey(updatedVertexId))
+    if (!store.vertices.containsKey(updatedVertexId)) {
       throw Exception('Vertex introuvable : id=$updatedVertexId');
+    }
 
     final updated = existing.copyWith(
       title: input.title.isPresent && input.title.requireValue != null
@@ -109,8 +115,9 @@ class WaypointResolver {
   }
 
   Map<String, dynamic> deleteWaypoint(int waypointId) {
-    if (!store.waypoints.containsKey(waypointId))
+    if (!store.waypoints.containsKey(waypointId)) {
       throw Exception('Waypoint introuvable : id=$waypointId');
+    }
 
     store.waypoints.remove(waypointId);
     final tripId = store.tripIdForWaypoint(waypointId);
@@ -124,12 +131,14 @@ class WaypointResolver {
     final fileKey = variables['fileKey'] as String;
 
     final waypoint = store.waypoints[waypointId];
-    if (waypoint == null)
+    if (waypoint == null) {
       throw Exception('Waypoint introuvable : id=$waypointId');
+    }
 
     final image = store.carouselItems[fileKey]?.remoteImage;
-    if (image == null)
+    if (image == null) {
       throw Exception('Image introuvable dans le store : $fileKey');
+    }
 
     if (!waypoint.images.any((img) => img.fileKey == fileKey)) {
       store.waypoints[waypointId] = waypoint.copyWith(
@@ -149,8 +158,9 @@ class WaypointResolver {
     final fileKey = variables['fileKey'] as String;
 
     final waypoint = store.waypoints[waypointId];
-    if (waypoint == null)
+    if (waypoint == null) {
       throw Exception('Waypoint introuvable : id=$waypointId');
+    }
 
     store.waypoints[waypointId] = waypoint.copyWith(
       images: waypoint.images.where((img) => img.fileKey != fileKey).toList(),
