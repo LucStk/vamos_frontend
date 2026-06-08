@@ -55,14 +55,16 @@ class ExplorerPage extends ConsumerWidget {
           if (trips.isEmpty) {
             return const ExplorerEmptyView();
           }
-
+          debugPrint("Trips are $trips");
+          final tripsList = trips.values.toList();
           return ListView.separated(
             padding: const EdgeInsets.all(16),
             itemCount: trips.length,
             separatorBuilder: (_, _) => const SizedBox(height: 8),
 
             itemBuilder: (context, index) {
-              final trip = trips[index];
+              final trip = tripsList[index];
+              debugPrint("Trip is $trip on $index");
 
               return TripCard(
                 trip: trip!,
