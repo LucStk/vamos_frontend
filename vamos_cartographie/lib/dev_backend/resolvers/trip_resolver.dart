@@ -16,12 +16,14 @@ class TripResolver {
   // ── Queries ──────────────────────────────────────────────────────────────────
 
   Map<String, dynamic> getAllTrips() {
-    final trips = store.trips.values.map(tripFieldsToGql).toList();
+    final trips = store.tripsMap.values
+        .map((t) => tripFieldsToGql(t.trip))
+        .toList();
     return GGetAllTripsData(trips: trips).toJson();
   }
 
   Map<String, dynamic> getTrip(int id) {
-    final base = store.trips[id];
+    final base = store.tripsMap[id];
     if (base == null) throw Exception('Trip introuvable : id=$id');
 
     final waypointIds = store.tripWaypointIds[id] ?? [];

@@ -1,6 +1,6 @@
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
-final List<Waypoint> tripWaypoints = [
+final List<Waypoint> t2Waypoints = [
   Waypoint(
     id: 21,
     vertexId: 21,
@@ -13,12 +13,7 @@ final List<Waypoint> tripWaypoints = [
     type: WaypointType.historic,
     description: 'Patrimoine médiéval de Sélestat',
   ),
-  Waypoint(
-    id: 23,
-    vertexId: 23,
-    type: WaypointType.food,
-    description: 'Dégustation de vins à Colmar',
-  ),
+
   Waypoint(
     id: 24,
     vertexId: 24,

@@ -45,12 +45,7 @@ GSegmentFieldsData segmentToGql(Segment s, Vertex start, Vertex end) =>
       startVertex: vertexToGql(start),
       endVertex: vertexToGql(end),
       geometry: s.geometry
-          .map(
-            (ll) => GSegmentFieldsData_geometry(
-              lat: ll.latitude,
-              lng: ll.longitude,
-            ),
-          )
+          .map((ll) => GLatLngFieldsData(lat: ll.latitude, lng: ll.longitude))
           .toList(),
     );
 

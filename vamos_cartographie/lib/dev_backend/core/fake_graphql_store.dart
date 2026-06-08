@@ -1,131 +1,146 @@
-import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
+import 'dart:math';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
-/// Source de vérité unique du fake backend.
-///
-/// Règle d'or : chaque entité n'existe qu'à **un seul endroit**.
-///
-/// - Les maps plates ([waypoints], [segments], [vertices]) sont la source de
-///   vérité pour l'**état** (données) de chaque entité.
-/// - Les maps de relations ([tripWaypointIds], [tripSegmentIds],
-///   [tripVertexIds]) sont la source de vérité pour l'**appartenance** d'une
-///   entité à un trip.
-/// - [trips] stocke les champs de base du trip uniquement (listes embarquées
-///   toujours vides — elles sont assemblées à la lecture via [assembleTrip]).
+import "package:vamos_cartographie/dev_backend/core/fake_seeds.dart";
+
+class IdGenerator {
+  int _next;
+  IdGenerator(this._next);
+  int next() => _next++;
+}
+
 class FakeGraphQLStore {
-  final Map<int, Trip> trips;
-  final Map<int, Waypoint> waypoints;
-  final Map<int, Segment> segments;
-  final Map<int, Vertex> vertices;
-  final Map<String, CarouselItem> carouselItems;
+  Map<int, Trip> tripsMap = {};
 
-  // ── Relations trip → enfants ────────────────────────────────────────────────
+  Map<int, Waypoint> waypointsMap = {};
+  Map<int, Segment> segmentsMap = {};
+  Map<int, Vertex> verticesMap = {};
 
-  /// Ordre des waypoints dans le trip (significant pour l'affichage).
-  final Map<int, List<int>> tripWaypointIds;
-  final Map<int, List<int>> tripSegmentIds;
-  final Map<int, List<int>> tripVertexIds;
+  Map<int, int> wpIdTripId = {};
+  Map<int, int> sgIdTripId = {};
+  Map<int, int> vxIdTripId = {};
 
-  // ── Compteurs auto-incrément ────────────────────────────────────────────────
+  Map<int, List<int>> tripIdWpId = {};
+  Map<int, List<int>> tripIdSgId = {};
+  Map<int, List<int>> tripIdVxId = {};
 
-  int _nextTripId;
-  int _nextWaypointId;
-  int _nextSegmentId;
-  int _nextVertexId;
+  late IdGenerator nextTripId;
+  late IdGenerator nextWaypointId;
+  late IdGenerator nextSegmentId;
+  late IdGenerator nextVertexId;
 
-  FakeGraphQLStore({
-    Map<int, Trip>? trips,
-    Map<int, Waypoint>? waypoints,
-    Map<int, Segment>? segments,
-    Map<int, Vertex>? vertices,
-    Map<String, CarouselItem>? carouselItems,
-    Map<int, List<int>>? tripWaypointIds,
-    Map<int, List<int>>? tripSegmentIds,
-    Map<int, List<int>>? tripVertexIds,
-    int nextTripId = 1,
-    int nextWaypointId = 1,
-    int nextSegmentId = 1,
-    int nextVertexId = 1,
-  }) : trips = trips ?? {},
-       waypoints = waypoints ?? {},
-       segments = segments ?? {},
-       vertices = vertices ?? {},
-       carouselItems = carouselItems ?? {},
-       tripWaypointIds = tripWaypointIds ?? {},
-       tripSegmentIds = tripSegmentIds ?? {},
-       tripVertexIds = tripVertexIds ?? {},
-       _nextTripId = nextTripId,
-       _nextWaypointId = nextWaypointId,
-       _nextSegmentId = nextSegmentId,
-       _nextVertexId = nextVertexId;
-
-  // ── Allocation d'IDs ────────────────────────────────────────────────────────
-
-  int allocateTripId() => _nextTripId++;
-  int allocateWaypointId() => _nextWaypointId++;
-  int allocateSegmentId() => _nextSegmentId++;
-  int allocateVertexId() => _nextVertexId++;
-
-  // ── Assemblage ──────────────────────────────────────────────────────────────
-
-  /// Retourne le [Trip] complet avec ses entités embarquées reconstituées
-  /// depuis les maps plates.
-  ///
-  /// Utile lorsque la couche applicative attend un [Trip] hydraté.
-  /// Les resolvers préfèrent généralement accéder directement aux maps.
-  Trip assembleTrip(int tripId) {
-    final base = trips[tripId];
-    if (base == null) throw Exception('Trip introuvable : id=$tripId');
-    return base.copyWith(
-      waypoints: (tripWaypointIds[tripId] ?? []).map((id) {
-        final w = waypoints[id];
-        if (w == null) {
-          throw Exception('Waypoint introuvable : id=$id (trip $tripId)');
-        }
-        return w;
-      }).toList(),
-      segments: (tripSegmentIds[tripId] ?? []).map((id) {
-        final s = segments[id];
-        if (s == null) {
-          throw Exception('Segment introuvable : id=$id (trip $tripId)');
-        }
-        return s;
-      }).toList(),
-      vertex: (tripVertexIds[tripId] ?? []).map((id) {
-        final v = vertices[id];
-        if (v == null) {
-          throw Exception('Vertex introuvable : id=$id (trip $tripId)');
-        }
-        return v;
-      }).toList(),
-    );
+  Vertex vertex(int vertexId) {
+    if (verticesMap.containsKey(vertexId)) {
+      throw Exception('Fake-Backend : Vertex introuvable : id=$vertexId');
+    }
+    return verticesMap[vertexId]!;
   }
 
-  // ── Recherches inverses ──────────────────────────────────────────────────────
-
-  /// Retourne l'ID du trip auquel appartient le waypoint, ou `null`.
-  int? tripIdForWaypoint(int waypointId) {
-    for (final entry in tripWaypointIds.entries) {
-      if (entry.value.contains(waypointId)) return entry.key;
+  Segment segment(int segmentId) {
+    if (segmentsMap.containsKey(segmentId)) {
+      throw Exception('Fake-Backend : Segment introuvable : id=$segmentId');
     }
-    return null;
+    return segmentsMap[segmentId]!;
   }
 
-  /// Retourne l'ID du trip auquel appartient le segment, ou `null`.
-  int? tripIdForSegment(int segmentId) {
-    for (final entry in tripSegmentIds.entries) {
-      if (entry.value.contains(segmentId)) return entry.key;
+  Waypoint waypoint(int waypointId) {
+    if (waypointsMap.containsKey(waypointId)) {
+      throw Exception('Fake-Backend : Segment introuvable : id=$waypointId');
     }
-    return null;
+    return waypointsMap[waypointId]!;
   }
 
-  /// Retourne l'ID du trip auquel appartient le vertex, ou `null`.
-  int? tripIdForVertex(int vertexId) {
-    for (final entry in tripVertexIds.entries) {
-      if (entry.value.contains(vertexId)) return entry.key;
+  List<Segment> segments(int tripId) {
+    return tripIdSgId[tripId]!.map(segment).toList();
+  }
+
+  List<Vertex> vertices(int tripId) {
+    return tripIdVxId[tripId]!.map(vertex).toList();
+  }
+
+  List<Waypoint> waypoints(int tripId) {
+    return tripIdWpId[tripId]!.map(waypoint).toList();
+  }
+
+  Trip trip(int tripId) {
+    if (!tripsMap.containsKey(tripId)) {
+      throw Exception('Trip introuvable : id=$tripId');
     }
-    return null;
+    return tripsMap[tripId]!;
+  }
+
+  void addVertex(int tripId, Vertex v) {
+    verticesMap[v.id] = v;
+    vxIdTripId[v.id] = tripId;
+    tripIdVxId[tripId]!.add(v.id);
+  }
+
+  void removeVertex(int vId) {
+    int tripId = vxIdTripId[vId]!;
+    verticesMap.remove(vId);
+    vxIdTripId.remove(vId);
+    tripIdVxId[tripId]!.removeWhere((x) => x == vId);
+  }
+
+  void addSegment(int tripId, Segment s) {
+    segmentsMap[s.id] = s;
+    sgIdTripId[s.id] = tripId;
+    tripIdSgId[tripId]!.add(s.id);
+  }
+
+  void removeSegment(int sId) {
+    int tripId = sgIdTripId[sId]!;
+    segmentsMap.remove(sId);
+    sgIdTripId.remove(sId);
+    tripIdSgId[tripId]!.removeWhere((x) => x == sId);
+  }
+
+  void addWaypoint(int tripId, Waypoint w) {
+    waypointsMap[w.id] = w;
+    wpIdTripId[w.id] = tripId;
+    tripIdWpId[tripId]!.add(w.id);
+  }
+
+  void removeWaypoint(int wId) {
+    int tripId = wpIdTripId[wId]!;
+    waypointsMap.remove(wId);
+    wpIdTripId.remove(wId);
+    tripIdWpId[tripId]!.removeWhere((x) => x == wId);
+  }
+
+  FakeGraphQLStore(List<Seed> seeds) {
+    int maxTripId = 0;
+    int maxWaypointId = 0;
+    int maxSegmentId = 0;
+    int maxVertexId = 0;
+    for (Seed seed in seeds) {
+      final int tripId = seed.trip.id;
+      tripsMap[tripId] = seed.trip;
+      maxTripId = max(tripId, maxTripId);
+      tripIdSgId[tripId] = [];
+      tripIdWpId[tripId] = [];
+      tripIdVxId[tripId] = [];
+
+      for (final w in seed.waypoints) {
+        maxWaypointId = max(w.id, maxWaypointId);
+        addWaypoint(tripId, w);
+      }
+      for (final s in seed.segments) {
+        segmentsMap[s.id] = s;
+        maxSegmentId = max(s.id, maxSegmentId);
+        addSegment(tripId, s);
+      }
+      for (final v in seed.vertices) {
+        maxVertexId = max(v.id, maxVertexId);
+        addVertex(tripId, v);
+      }
+    }
+
+    nextTripId = IdGenerator(maxTripId + 1);
+    nextWaypointId = IdGenerator(maxWaypointId + 1);
+    nextSegmentId = IdGenerator(maxSegmentId + 1);
+    nextVertexId = IdGenerator(maxVertexId + 1);
   }
 }

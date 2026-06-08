@@ -15,16 +15,11 @@ class TopologyResolver {
   // ── Queries ──────────────────────────────────────────────────────────────────
 
   Map<String, dynamic> getSegments(int tripId) {
-    if (!store.trips.containsKey(tripId)) {
-      throw Exception('Trip introuvable : id=$tripId');
-    }
-
-    final segments = (store.tripSegmentIds[tripId] ?? []).map((sId) {
-      final s = store.segments[sId]!;
+    final segments = store.segments(tripId).map((s) {
       return segmentToGql(
         s,
-        store.vertices[s.startVertexId]!,
-        store.vertices[s.endVertexId]!,
+        store.vertex(s.startVertexId),
+        store.vertex(s.endVertexId),
       );
     }).toList();
 
@@ -36,13 +31,9 @@ class TopologyResolver {
   }
 
   Map<String, dynamic> getVertices(int tripId) {
-    if (!store.trips.containsKey(tripId)) {
-      throw Exception('Trip introuvable : id=$tripId');
-    }
-
-    final vertices = (store.tripVertexIds[tripId] ?? [])
-        .map((vId) => vertexToGql(store.vertices[vId]!))
-        .toList();
+    final vertices = (store.vertices(
+      tripId,
+    )).map((vId) => vertexToGql(store.verticesMap[vId.id]!)).toList();
 
     return GGetVerticesData(
       trip: GGetVerticesData_trip(
@@ -52,20 +43,13 @@ class TopologyResolver {
   }
 
   Map<String, dynamic> getTopology(int tripId) {
-    if (!store.trips.containsKey(tripId)) {
-      throw Exception('Trip introuvable : id=$tripId');
-    }
+    final vertices = (store.vertices(tripId)).map(vertexToGql).toList();
 
-    final vertices = (store.tripVertexIds[tripId] ?? [])
-        .map((vId) => vertexToGql(store.vertices[vId]!))
-        .toList();
-
-    final segments = (store.tripSegmentIds[tripId] ?? []).map((sId) {
-      final s = store.segments[sId]!;
+    final segments = store.segments(tripId).map((s) {
       return segmentToGql(
         s,
-        store.vertices[s.startVertexId]!,
-        store.vertices[s.endVertexId]!,
+        store.verticesMap[s.startVertexId]!,
+        store.verticesMap[s.endVertexId]!,
       );
     }).toList();
 
@@ -86,17 +70,17 @@ class TopologyResolver {
     final tripId = variables['tripId'] as int;
     final latLngMap = variables['latLng'] as Map<String, dynamic>;
 
-    if (!store.trips.containsKey(tripId)) {
+    if (!store.tripsMap.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
     }
 
-    final id = store.allocateVertexId();
+    final id = store.nextVertexId.next();
     final vertex = Vertex(
       id: id,
       latLng: LatLng(latLngMap['lat'] as double, latLngMap['lng'] as double),
     );
 
-    store.vertices[id] = vertex;
+    store.verticesMap[id] = vertex;
     (store.tripVertexIds[tripId] ??= []).add(id);
 
     return GCreateVertexData(createVertex: vertexToGql(vertex)).toJson();
@@ -138,7 +122,7 @@ class TopologyResolver {
       variables['segment'] as Map<String, dynamic>,
     );
 
-    if (!store.trips.containsKey(tripId)) {
+    if (!store.tripsMap.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
     }
     if (!store.vertices.containsKey(input.startVertexId)) {
@@ -148,12 +132,18 @@ class TopologyResolver {
       throw Exception('endVertex introuvable : id=${input.endVertexId}');
     }
 
+    // Par défaut géometry est juste une ligne entre les deux points
+    final startVertex = store.vertices[input.startVertexId];
+    final endVertex = store.vertices[input.endVertexId];
+    final List<LatLng> geometry = [startVertex!.latLng, endVertex!.latLng];
+
     final id = store.allocateSegmentId();
     final segment = Segment(
       id: id,
       startVertexId: input.startVertexId,
       endVertexId: input.endVertexId,
       type: input.type.toDomain(),
+      geometry: geometry,
     );
 
     store.segments[id] = segment;

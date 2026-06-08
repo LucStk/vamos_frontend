@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Trip {
 
- int get id; String get title; String get description; DateTime? get date; List<MediaImage> get images; List<Waypoint> get waypoints; List<Segment> get segments; List<Vertex> get vertex;
+ int get id; String get title; String get description; DateTime? get date; List<MediaImage> get images;
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $TripCopyWith<Trip> get copyWith => _$TripCopyWithImpl<Trip>(this as Trip, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.images, images)&&const DeepCollectionEquality().equals(other.waypoints, waypoints)&&const DeepCollectionEquality().equals(other.segments, segments)&&const DeepCollectionEquality().equals(other.vertex, vertex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.images, images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,date,const DeepCollectionEquality().hash(images),const DeepCollectionEquality().hash(waypoints),const DeepCollectionEquality().hash(segments),const DeepCollectionEquality().hash(vertex));
+int get hashCode => Object.hash(runtimeType,id,title,description,date,const DeepCollectionEquality().hash(images));
 
 @override
 String toString() {
-  return 'Trip(id: $id, title: $title, description: $description, date: $date, images: $images, waypoints: $waypoints, segments: $segments, vertex: $vertex)';
+  return 'Trip(id: $id, title: $title, description: $description, date: $date, images: $images)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $TripCopyWith<$Res>  {
   factory $TripCopyWith(Trip value, $Res Function(Trip) _then) = _$TripCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String description, DateTime? date, List<MediaImage> images, List<Waypoint> waypoints, List<Segment> segments, List<Vertex> vertex
+ int id, String title, String description, DateTime? date, List<MediaImage> images
 });
 
 
@@ -62,17 +62,14 @@ class _$TripCopyWithImpl<$Res>
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,Object? waypoints = null,Object? segments = null,Object? vertex = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime?,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,waypoints: null == waypoints ? _self.waypoints : waypoints // ignore: cast_nullable_to_non_nullable
-as List<Waypoint>,segments: null == segments ? _self.segments : segments // ignore: cast_nullable_to_non_nullable
-as List<Segment>,vertex: null == vertex ? _self.vertex : vertex // ignore: cast_nullable_to_non_nullable
-as List<Vertex>,
+as List<MediaImage>,
   ));
 }
 
@@ -157,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String description,  DateTime? date,  List<MediaImage> images,  List<Waypoint> waypoints,  List<Segment> segments,  List<Vertex> vertex)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String description,  DateTime? date,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Trip() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.date,_that.images,_that.waypoints,_that.segments,_that.vertex);case _:
+return $default(_that.id,_that.title,_that.description,_that.date,_that.images);case _:
   return orElse();
 
 }
@@ -178,10 +175,10 @@ return $default(_that.id,_that.title,_that.description,_that.date,_that.images,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String description,  DateTime? date,  List<MediaImage> images,  List<Waypoint> waypoints,  List<Segment> segments,  List<Vertex> vertex)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String description,  DateTime? date,  List<MediaImage> images)  $default,) {final _that = this;
 switch (_that) {
 case _Trip():
-return $default(_that.id,_that.title,_that.description,_that.date,_that.images,_that.waypoints,_that.segments,_that.vertex);case _:
+return $default(_that.id,_that.title,_that.description,_that.date,_that.images);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +195,10 @@ return $default(_that.id,_that.title,_that.description,_that.date,_that.images,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String description,  DateTime? date,  List<MediaImage> images,  List<Waypoint> waypoints,  List<Segment> segments,  List<Vertex> vertex)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String description,  DateTime? date,  List<MediaImage> images)?  $default,) {final _that = this;
 switch (_that) {
 case _Trip() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.date,_that.images,_that.waypoints,_that.segments,_that.vertex);case _:
+return $default(_that.id,_that.title,_that.description,_that.date,_that.images);case _:
   return null;
 
 }
@@ -213,7 +210,7 @@ return $default(_that.id,_that.title,_that.description,_that.date,_that.images,_
 
 
 class _Trip extends Trip {
-  const _Trip({required this.id, this.title = '', this.description = '', this.date, final  List<MediaImage> images = const [], final  List<Waypoint> waypoints = const [], final  List<Segment> segments = const [], final  List<Vertex> vertex = const []}): _images = images,_waypoints = waypoints,_segments = segments,_vertex = vertex,super._();
+  const _Trip({required this.id, this.title = '', this.description = '', this.date, final  List<MediaImage> images = const []}): _images = images,super._();
   
 
 @override final  int id;
@@ -227,27 +224,6 @@ class _Trip extends Trip {
   return EqualUnmodifiableListView(_images);
 }
 
- final  List<Waypoint> _waypoints;
-@override@JsonKey() List<Waypoint> get waypoints {
-  if (_waypoints is EqualUnmodifiableListView) return _waypoints;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_waypoints);
-}
-
- final  List<Segment> _segments;
-@override@JsonKey() List<Segment> get segments {
-  if (_segments is EqualUnmodifiableListView) return _segments;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_segments);
-}
-
- final  List<Vertex> _vertex;
-@override@JsonKey() List<Vertex> get vertex {
-  if (_vertex is EqualUnmodifiableListView) return _vertex;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_vertex);
-}
-
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
@@ -259,16 +235,16 @@ _$TripCopyWith<_Trip> get copyWith => __$TripCopyWithImpl<_Trip>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._images, _images)&&const DeepCollectionEquality().equals(other._waypoints, _waypoints)&&const DeepCollectionEquality().equals(other._segments, _segments)&&const DeepCollectionEquality().equals(other._vertex, _vertex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._images, _images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,date,const DeepCollectionEquality().hash(_images),const DeepCollectionEquality().hash(_waypoints),const DeepCollectionEquality().hash(_segments),const DeepCollectionEquality().hash(_vertex));
+int get hashCode => Object.hash(runtimeType,id,title,description,date,const DeepCollectionEquality().hash(_images));
 
 @override
 String toString() {
-  return 'Trip(id: $id, title: $title, description: $description, date: $date, images: $images, waypoints: $waypoints, segments: $segments, vertex: $vertex)';
+  return 'Trip(id: $id, title: $title, description: $description, date: $date, images: $images)';
 }
 
 
@@ -279,7 +255,7 @@ abstract mixin class _$TripCopyWith<$Res> implements $TripCopyWith<$Res> {
   factory _$TripCopyWith(_Trip value, $Res Function(_Trip) _then) = __$TripCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String description, DateTime? date, List<MediaImage> images, List<Waypoint> waypoints, List<Segment> segments, List<Vertex> vertex
+ int id, String title, String description, DateTime? date, List<MediaImage> images
 });
 
 
@@ -296,17 +272,14 @@ class __$TripCopyWithImpl<$Res>
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,Object? waypoints = null,Object? segments = null,Object? vertex = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,}) {
   return _then(_Trip(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime?,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,waypoints: null == waypoints ? _self._waypoints : waypoints // ignore: cast_nullable_to_non_nullable
-as List<Waypoint>,segments: null == segments ? _self._segments : segments // ignore: cast_nullable_to_non_nullable
-as List<Segment>,vertex: null == vertex ? _self._vertex : vertex // ignore: cast_nullable_to_non_nullable
-as List<Vertex>,
+as List<MediaImage>,
   ));
 }
 

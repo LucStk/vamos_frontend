@@ -10,7 +10,6 @@ fragment SegmentFields on SegmentType {
         ...VertexFields
     }
     geometry {
-        lat
-        lng
+        ...LatLngFields
     }
 }

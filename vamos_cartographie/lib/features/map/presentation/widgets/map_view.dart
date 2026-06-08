@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
-import 'package:vamos_cartographie/features/waypoints/presentation/dialogs/waypoint_creator_dialog.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/layers.dart';
-import 'package:vamos_cartographie/testing/backend/seeds/trip1/mock_trip_data.dart';
 
 class MapView extends ConsumerStatefulWidget {
   const MapView({super.key});

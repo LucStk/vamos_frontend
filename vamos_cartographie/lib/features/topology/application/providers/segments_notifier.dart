@@ -68,7 +68,7 @@ class SegmentsNotifier extends _$SegmentsNotifier {
     final optimistic = existing.copyWith(
       startVertexId: draft.startVertexId,
       endVertexId: draft.endVertexId,
-      geometry: draft.geometry ?? existing.geometry,
+      geometry: existing.geometry,
     );
 
     _emit(EntityStoreHelpers.update(previous, id, optimistic));

@@ -12,8 +12,8 @@ class TopologyLayer extends AbstractLayer {
   Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
-        SegmentLayer(tripId: tripId),
-        SegmentTypeMarkerLayer(tripId: tripId),
+        // SegmentLayer(tripId: tripId),
+        // SegmentTypeMarkerLayer(tripId: tripId),
         VertexLayer(tripId: tripId),
       ],
     );

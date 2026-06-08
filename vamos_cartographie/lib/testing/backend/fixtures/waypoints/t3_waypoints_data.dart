@@ -1,6 +1,6 @@
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
-final List<Waypoint> tripWaypoints = [
+final List<Waypoint> t3Waypoints = [
   Waypoint(
     id: 30,
     vertexId: 30,

@@ -18,9 +18,6 @@ abstract class Trip with _$Trip {
     @Default('') String description,
     DateTime? date,
     @Default([]) List<MediaImage> images,
-    @Default([]) List<Waypoint> waypoints,
-    @Default([]) List<Segment> segments,
-    @Default([]) List<Vertex> vertex,
   }) = _Trip;
   TripDraft toDraft() {
     return TripDraft(

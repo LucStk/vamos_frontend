@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/topology/data/datasources/vertex_remote_datasource.dart';
+import 'package:vamos_cartographie/features/topology/data/mappers/gis_mapper.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 
@@ -28,7 +29,7 @@ class VertexRepository {
     try {
       final gqlResult = await remote.createVertex(
         tripId: tripId,
-        latLng: VertexMapper.toGql(latLng),
+        latLng: GisMapper.toGQL(latLng),
       );
       final createSegment = VertexMapper.fromGQL(gqlResult);
       return Right(createSegment);
@@ -46,7 +47,7 @@ class VertexRepository {
     try {
       final gqlResult = await remote.moveVertex(
         id: vertexId,
-        latLng: VertexMapper.toGql(latLng),
+        latLng: GisMapper.toGQL(latLng),
       );
       final movedVertex = VertexMapper.fromGQL(gqlResult);
 

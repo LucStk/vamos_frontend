@@ -1,6 +1,7 @@
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import "segment_type_mapper.dart";
+import "gis_mapper.dart";
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class SegmentMapper {
@@ -8,9 +9,7 @@ class SegmentMapper {
   static Segment fromGQL(GSegmentFields data) => Segment(
     id: data.id,
     type: data.type.toDomain(),
-    // Note: geometry is now stored separately on the server side
-    // For now, we create an empty list. The geometry will be calculated client-side
-    // or fetched separately if needed
+    geometry: data.geometry.map((d) => GisMapper.fromGQL(d)).toList(),
     startVertexId: data.startVertex.id,
     endVertexId: data.endVertex.id,
   );

@@ -11,8 +11,7 @@ abstract class Segment with _$Segment {
     required int id,
     required int startVertexId,
     required int endVertexId,
-    @Default([]) List<LatLng> geometry,
-
+    required List<LatLng> geometry,
     @Default(SegmentType.bike) SegmentType type,
   }) = _Segment;
 
@@ -22,7 +21,6 @@ abstract class Segment with _$Segment {
       startVertexId: startVertexId,
       endVertexId: endVertexId,
       type: type,
-      geometry: geometry,
     );
   }
 }
@@ -32,7 +30,6 @@ abstract class SegmentDraft with _$SegmentDraft {
   const factory SegmentDraft({
     required int startVertexId,
     required int endVertexId,
-    List<LatLng>? geometry,
     @Default(SegmentType.bike) SegmentType type,
   }) = _SegmentDraft;
 

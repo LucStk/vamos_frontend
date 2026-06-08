@@ -155,7 +155,5 @@ class TripRepository {
     description: source.description,
     date: source.date,
     images: images,
-    waypoints: source.waypoints,
-    segments: source.segments,
   ); // data/repositories/trip_repository.dart
 }
