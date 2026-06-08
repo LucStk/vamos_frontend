@@ -21,7 +21,7 @@ class VertexRepository {
     }
   }
 
-  Future<Either<Failure, Vertex>> createSegment(
+  Future<Either<Failure, Vertex>> createVertex(
     int tripId,
     LatLng latLng,
   ) async {

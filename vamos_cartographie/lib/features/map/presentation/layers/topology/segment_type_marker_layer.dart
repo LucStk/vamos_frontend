@@ -20,7 +20,7 @@ class SegmentTypeMarkerLayer extends AbstractLayer {
       markers: [
         for (final segment in segments.values)
           Marker(
-            point: segment.geometry[segment.geometry.length ~/ 2],
+            point: segment.geometry[segment.geometry.length ~/ 3],
             width: 20,
             height: 20,
             child: GestureDetector(
