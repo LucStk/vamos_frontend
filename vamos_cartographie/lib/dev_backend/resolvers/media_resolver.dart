@@ -24,9 +24,6 @@ class MediaResolver {
         'media/fake_${DateTime.now().microsecondsSinceEpoch}.$extension';
     final uploadUrl = '$_fakeUploadBase/$fileKey';
 
-    // Réserve l'entrée dans le store pour que attachImage* puisse s'y référer.
-    store.carouselItems[fileKey] = CarouselItem.local(fileKey: fileKey);
-
     return GGenerateImageUploadUrlData(
       generateImageUploadUrl:
           GGenerateImageUploadUrlData_generateImageUploadUrl(
@@ -44,7 +41,6 @@ class MediaResolver {
     final url = 'https://cdn.example.com/$fileKey';
 
     final image = MediaImage(fileKey: fileKey, url: url);
-    store.carouselItems[fileKey] = CarouselItem.remote(image: image);
 
     return GCreateImageData(createImage: imageToGql(image)).toJson();
   }

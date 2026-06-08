@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:vamos_cartographie/features/media/media.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
@@ -30,6 +31,7 @@ class FakeGraphQLStore {
   late IdGenerator nextWaypointId;
   late IdGenerator nextSegmentId;
   late IdGenerator nextVertexId;
+  final IdGenerator nextMediaSeed = IdGenerator(0);
 
   Trip trip(int tripId) {
     if (!tripsMap.containsKey(tripId)) {
@@ -148,6 +150,14 @@ class FakeGraphQLStore {
     waypointsMap.remove(wId);
     wpIdTripId.remove(wId);
     tripIdWpId[tripId]!.removeWhere((x) => x == wId);
+  }
+
+  MediaImage getRandomPhoto(int id) {
+    final fileKey = nextMediaSeed.next();
+    return MediaImage(
+      fileKey: "$fileKey",
+      url: "https://picsum.photos/seed/$fileKey/300/300",
+    );
   }
 
   FakeGraphQLStore(List<Seed> seeds) {

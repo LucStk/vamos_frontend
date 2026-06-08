@@ -1,3 +1,4 @@
+import 'package:vamos_cartographie/features/media/domain/entities/carousel_item.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
@@ -104,10 +105,7 @@ class WaypointResolver {
 
     final waypoint = store.waypoint(waypointId);
 
-    final image = store.carouselItems[fileKey]?.remoteImage;
-    if (image == null) {
-      throw Exception('Image introuvable dans le store : $fileKey');
-    }
+    final image = store.getRandomPhoto(waypointId);
 
     if (!waypoint.images.any((img) => img.fileKey == fileKey)) {
       store.waypointsMap[waypointId] = waypoint.copyWith(

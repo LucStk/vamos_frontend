@@ -46,7 +46,7 @@ class TripResolver {
         description: base.description,
         date: base.date?.toIso8601String().substring(0, 10),
         images: base.images
-            .map((img) => GGetTripData_trip_images(image: imageToGql(img)))
+            .map((img) => GTripFieldsData_images(image: imageToGql(img)))
             .toList(),
       ),
     ).toJson();
@@ -116,10 +116,7 @@ class TripResolver {
     final trip = store.tripsMap[tripId];
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
 
-    final image = store.carouselItems[fileKey]?.remoteImage;
-    if (image == null) {
-      throw Exception('Image introuvable dans le store : $fileKey');
-    }
+    final image = store.getRandomPhoto(tripId);
 
     if (!trip.images.any((img) => img.fileKey == fileKey)) {
       store.tripsMap[tripId] = trip.copyWith(images: [...trip.images, image]);
