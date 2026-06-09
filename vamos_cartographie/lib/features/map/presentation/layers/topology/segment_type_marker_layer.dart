@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/gis.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import "package:vamos_cartographie/features/map/presentation/widgets/markers/segment_type_marker_view.dart";
@@ -20,7 +21,7 @@ class SegmentTypeMarkerLayer extends AbstractLayer {
       markers: [
         for (final segment in segments.values)
           Marker(
-            point: segment.geometry[segment.geometry.length ~/ 3],
+            point: boundsCenter(segment.geometry),
             width: 20,
             height: 20,
             child: GestureDetector(

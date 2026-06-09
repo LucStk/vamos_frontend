@@ -22,7 +22,6 @@ class WaypointsNotifier extends _$WaypointsNotifier {
   // ---------------------------------------------------------------------------
   // LIFECYCLE
   // ---------------------------------------------------------------------------
-
   @override
   Future<Map<int, Waypoint>> build(int tripId) async {
     final result = await repository.getWaypoints(tripId);
@@ -32,6 +31,10 @@ class WaypointsNotifier extends _$WaypointsNotifier {
       (list) => {for (final w in list) w.id: w},
     );
   }
+
+  Map<int, Waypoint> get byVertexId => {
+    for (final w in _current.values) w.vertexId: w,
+  };
 
   // ---------------------------------------------------------------------------
   // CREATE
@@ -109,4 +112,12 @@ Waypoint? waypoint(Ref ref, int tripId, int waypointId) {
   return ref.watch(
     waypointMapProvider(tripId).select((map) => map[waypointId]),
   );
+}
+
+// Provider pour retrouver un Waypoint depuis son vertexId
+@riverpod
+Map<int, Waypoint> waypointsByVertex(Ref ref, int tripId) {
+  final waypoints = ref.watch(waypointsProvider(tripId)).value ?? {};
+
+  return {for (final w in waypoints.values) w.vertexId: w};
 }

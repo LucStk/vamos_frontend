@@ -50,7 +50,7 @@ final class WaypointsNotifierProvider
   }
 }
 
-String _$waypointsNotifierHash() => r'7dff63c69269dccd5c34df113cac688df08668b1';
+String _$waypointsNotifierHash() => r'f8dfbc80bb27c2e4ec18da8003466c149b4c5c90';
 
 final class WaypointsNotifierFamily extends $Family
     with
@@ -334,4 +334,87 @@ final class WaypointFamily extends $Family
 
   @override
   String toString() => r'waypointProvider';
+}
+
+@ProviderFor(waypointsByVertex)
+final waypointsByVertexProvider = WaypointsByVertexFamily._();
+
+final class WaypointsByVertexProvider
+    extends
+        $FunctionalProvider<
+          Map<int, Waypoint>,
+          Map<int, Waypoint>,
+          Map<int, Waypoint>
+        >
+    with $Provider<Map<int, Waypoint>> {
+  WaypointsByVertexProvider._({
+    required WaypointsByVertexFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'waypointsByVertexProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$waypointsByVertexHash();
+
+  @override
+  String toString() {
+    return r'waypointsByVertexProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<Map<int, Waypoint>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Map<int, Waypoint> create(Ref ref) {
+    final argument = this.argument as int;
+    return waypointsByVertex(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<int, Waypoint> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<int, Waypoint>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is WaypointsByVertexProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$waypointsByVertexHash() => r'77e8dcde7af5d10d291f1d2079ccb18d95a37d3e';
+
+final class WaypointsByVertexFamily extends $Family
+    with $FunctionalFamilyOverride<Map<int, Waypoint>, int> {
+  WaypointsByVertexFamily._()
+    : super(
+        retry: null,
+        name: r'waypointsByVertexProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  WaypointsByVertexProvider call(int tripId) =>
+      WaypointsByVertexProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'waypointsByVertexProvider';
 }
