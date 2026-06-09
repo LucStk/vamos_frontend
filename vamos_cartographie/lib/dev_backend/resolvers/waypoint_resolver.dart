@@ -70,9 +70,7 @@ class WaypointResolver {
   GCreateWaypointData createWaypoint(GCreateWaypointVars vars) {
     final tripId = vars.tripId;
     final vertexId = vars.vertexId;
-    final input = GWaypointCreateInput.fromJson(
-      vars.waypoint as Map<String, dynamic>,
-    );
+    final input = vars.waypoint;
 
     final id = store.nextWaypointId.next();
     final waypoint = Waypoint(

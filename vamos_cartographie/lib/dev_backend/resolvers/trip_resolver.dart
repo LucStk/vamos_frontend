@@ -108,12 +108,11 @@ class TripResolver {
     if (existing == null) throw Exception('Trip introuvable : id=$id');
 
     final updated = existing.copyWith(
-      title: input.title.isPresent && input.title.requireValue != null
-          ? input.title.requireValue!
+      title: input.title.isPresent
+          ? (input.title.requireValue ?? existing.title)
           : existing.title,
-      description:
-          input.description.isPresent && input.description.requireValue != null
-          ? input.description.requireValue!
+      description: input.description.isPresent
+          ? (input.description.requireValue ?? '')
           : existing.description,
       date: input.date.isPresent
           ? (input.date.requireValue != null
