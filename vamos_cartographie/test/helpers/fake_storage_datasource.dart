@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/features/media/data/datasources/storage_datasource.dart';
+import 'package:vamos_cartographie/core/network/storage_datasource.dart';
 
 /// Implémentation fake de [StorageDatasource] pour les tests.
 ///
