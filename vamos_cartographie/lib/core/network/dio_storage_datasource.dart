@@ -1,14 +1,5 @@
 import 'package:dio/dio.dart';
-
-abstract class StorageDatasource {
-  Future<void> uploadFile({
-    required String url,
-    required Stream<List<int>> data,
-    required int length,
-    required String contentType,
-    void Function(int sent, int total)? onProgress,
-  });
-}
+import "storage_datasource.dart";
 
 class DioStorageDatasource implements StorageDatasource {
   final Dio dio;

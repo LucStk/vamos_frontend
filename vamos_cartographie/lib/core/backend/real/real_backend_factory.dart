@@ -1,10 +1,13 @@
-import "package:vamos_cartographie/core/network/graphql/backend/backend_factory.dart";
+import "package:vamos_cartographie/core/backend/backend_factory.dart";
 
-import "package:vamos_cartographie/core/network/graphql/backend/app_environment.dart";
+import 'package:dio/dio.dart';
+import "package:vamos_cartographie/core/config/app_environment.dart";
 import "package:ferry/ferry.dart";
 import 'package:gql_http_link/gql_http_link.dart';
 
-class StagingBackendFactory implements BackendFactory {
+import "package:vamos_cartographie/core/network/network.dart";
+
+class RealBackendFactory implements BackendFactory {
   @override
   AppEnvironment get environment => AppEnvironment.real;
 
@@ -19,5 +22,10 @@ class StagingBackendFactory implements BackendFactory {
     );
 
     return client;
+  }
+
+  @override
+  StorageDatasource createStorage() {
+    return DioStorageDatasource(Dio());
   }
 }

@@ -28,6 +28,7 @@ class MediaRemoteDatasource {
   }
 
   Future<GImageFieldsData> createMediaData(String fileKey) async {
+    // Créer un objet media dans la db
     final saveReq = GCreateImageReq(vars: GCreateImageVars(fileKey: fileKey));
     final response = await client.request(saveReq).first;
     if (response.hasErrors || response.data == null) {

@@ -1,7 +1,7 @@
 import 'package:ferry/ferry.dart';
 import 'package:riverpod/riverpod.dart';
-import "backend_factory_provider.dart";
+import "backend_controller_provider.dart";
 
 final clientProvider = Provider<Client>((ref) {
-  return ref.watch(backendFactoryProvider).createClient();
+  return ref.watch(backendControllerProvider).client;
 });

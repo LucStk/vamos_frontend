@@ -1,4 +1,4 @@
-import "package:vamos_cartographie/core/network/graphql/backend/app_environment.dart";
+import "package:vamos_cartographie/core/config/app_environment.dart";
 
 class AppConfig {
   static AppEnvironment get environment {
