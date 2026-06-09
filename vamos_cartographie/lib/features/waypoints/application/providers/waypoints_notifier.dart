@@ -2,6 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/features/waypoints/application/services/waypoint_service.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
 import "package:vamos_cartographie/features/shared/shared.dart";
@@ -9,7 +10,7 @@ part 'waypoints_notifier.g.dart';
 
 @riverpod
 class WaypointsNotifier extends _$WaypointsNotifier {
-  WaypointRepository get repository => ref.read(waypointRepositoryProvider);
+  WaypointService get service => ref.read(waypointServiceProvider);
 
   // ---------------------------------------------------------------------------
   // STATE ACCESS
@@ -26,38 +27,25 @@ class WaypointsNotifier extends _$WaypointsNotifier {
   // ---------------------------------------------------------------------------
   @override
   Future<Map<int, Waypoint>> build(int tripId) async {
-    final result = await repository.getWaypoints(tripId);
-
-    return result.fold(
-      (e) => throw Exception(e.message),
-      (list) => {for (final w in list) w.id: w},
-    );
+    return await service.getWaypoints(tripId);
   }
 
   Map<int, Waypoint> get byVertexId => {
     for (final w in _current.values) w.vertexId: w,
   };
 
-  // ---------------------------------------------------------------------------
-  // CREATE
-  // ---------------------------------------------------------------------------
-
   Future<void> createWaypoint(
     WaypointDraft waypointDraft,
     int? vertexId,
     LatLng? latLng,
   ) async {
-    final result = await repository.createWaypoint(
+    final result = await service.createWaypoint(
       tripId,
       waypointDraft,
       vertexId,
       latLng,
     );
-
-    result.fold((_) {}, (w) {
-      final next = EntityStoreHelpers.set(_current, w.id, w);
-      _emit(next);
-    });
+    _emit(EntityStoreHelpers.set(_current, result.id, result));
   }
 
   // ---------------------------------------------------------------------------
@@ -78,16 +66,12 @@ class WaypointsNotifier extends _$WaypointsNotifier {
     );
 
     _emit(EntityStoreHelpers.update(previous, id, optimistic));
-
-    final result = await repository.updateWaypoint(id, draft);
-
-    result.fold(
-      (_) => _emit(previous), // rollback
-      (server) {
-        final next = EntityStoreHelpers.set(_current, server.id, server);
-        _emit(next);
-      },
-    );
+    try {
+      final server = await service.updateWaypoint(id, draft);
+      _emit(EntityStoreHelpers.set(_current, server.id, server));
+    } catch (_) {
+      _emit(previous); // rollback
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -96,15 +80,12 @@ class WaypointsNotifier extends _$WaypointsNotifier {
 
   Future<void> deleteWaypoint(int id) async {
     final previous = _current;
-
     _emit(EntityStoreHelpers.remove(_current, id));
-
-    final result = await repository.deleteWaypoint(id);
-
-    result.fold(
-      (_) => _emit(previous), // rollback
-      (_) {},
-    );
+    try {
+      await service.deleteWaypoint(id);
+    } catch (_) {
+      _emit(previous);
+    }
   }
 } // --- Providers Sélecteurs pour optimiser l'UI ---
 
