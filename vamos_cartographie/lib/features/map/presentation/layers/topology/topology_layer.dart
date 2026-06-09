@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/topology/segment_layer.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/topology/segment_type_marker_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/topology/vertex_layer.dart';
 

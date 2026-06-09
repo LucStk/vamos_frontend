@@ -50,21 +50,6 @@ class TripResolver {
     final base = store.tripsMap[vars.id];
     if (base == null) throw Exception('Trip introuvable : id=${vars.id}');
 
-    final waypoints = store.waypoints(vars.id).map((w) {
-      final v = store.vertex(w.vertexId);
-      return waypointToGql(w, v);
-    }).toList();
-
-    final segments = store.segments(vars.id).map((s) {
-      return segmentToGql(
-        s,
-        store.vertex(s.startVertexId),
-        store.vertex(s.endVertexId),
-      );
-    }).toList();
-
-    final vertices = store.vertices(vars.id).map(vertexToGql).toList();
-
     return GGetTripData(
       trip: GTripFieldsData(
         id: base.id,
@@ -137,7 +122,7 @@ class TripResolver {
     final trip = store.tripsMap[tripId];
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
 
-    final image = store.getRandomPhoto(tripId);
+    final image = store.getMediaImage(fileKey);
 
     if (!trip.images.any((img) => img.fileKey == fileKey)) {
       store.tripsMap[tripId] = trip.copyWith(images: [...trip.images, image]);

@@ -133,8 +133,7 @@ class WaypointResolver {
     final String fileKey = vars.fileKey;
 
     final waypoint = store.waypoint(waypointId);
-
-    final image = store.getRandomPhoto(waypointId);
+    final image = store.getMediaImage(fileKey);
 
     if (!waypoint.images.any((img) => img.fileKey == fileKey)) {
       store.waypointsMap[waypointId] = waypoint.copyWith(

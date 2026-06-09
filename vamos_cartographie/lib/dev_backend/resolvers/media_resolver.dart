@@ -40,9 +40,8 @@ class MediaResolver {
     GGenerateImageUploadUrlVars vars,
   ) {
     final String extension = vars.extension;
-    final fileKey =
-        'media/fake_${DateTime.now().microsecondsSinceEpoch}.$extension';
-    final uploadUrl = '$_fakeUploadBase/$fileKey';
+    final fileKey = 'fake_${DateTime.now().microsecondsSinceEpoch}';
+    final uploadUrl = '$_fakeUploadBase/$fileKey.$extension';
 
     return GGenerateImageUploadUrlData(
       generateImageUploadUrl:
@@ -58,9 +57,7 @@ class MediaResolver {
   /// Si la clé n'existe pas encore dans le store, elle est créée.
   GCreateImageData createImage(GCreateImageVars vars) {
     final String fileKey = vars.fileKey;
-    final url = 'https://cdn.example.com/$fileKey';
-
-    final image = MediaImage(fileKey: fileKey, url: url);
+    final image = store.getMediaImage(fileKey);
 
     return GCreateImageData(createImage: imageToGql(image));
   }

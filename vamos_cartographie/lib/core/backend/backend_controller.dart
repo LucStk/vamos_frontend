@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:riverpod_annotation/experimental/persist.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
 import 'backend_factory.dart';
-import 'backend_registry.dart';
 import "package:ferry/ferry.dart";
-import "package:vamos_cartographie/core/config/app_environment.dart";
 
 class BackendController extends ChangeNotifier {
   BackendFactory _factory;

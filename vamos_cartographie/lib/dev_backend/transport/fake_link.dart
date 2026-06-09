@@ -1,7 +1,5 @@
 import 'package:gql_link/gql_link.dart';
 import 'package:gql_exec/gql_exec.dart'; // 1. On l'importe NORMALEMENT (sans alias)
-import 'package:ferry/ferry.dart'
-    hide Response; // 2. On CACHE le Response de Ferry !
 import 'package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart';
 
 import "package:vamos_cartographie/dev_backend/resolvers/resolvers.dart";

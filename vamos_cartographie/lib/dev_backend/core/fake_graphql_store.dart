@@ -152,10 +152,9 @@ class FakeGraphQLStore {
     tripIdWpId[tripId]!.removeWhere((x) => x == wId);
   }
 
-  MediaImage getRandomPhoto(int id) {
-    final fileKey = nextMediaSeed.next();
+  MediaImage getMediaImage(String fileKey) {
     return MediaImage(
-      fileKey: "$fileKey",
+      fileKey: fileKey,
       url: "https://picsum.photos/seed/$fileKey/300/300",
     );
   }

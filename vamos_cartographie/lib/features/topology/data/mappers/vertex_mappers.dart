@@ -1,4 +1,3 @@
-import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import "gis_mapper.dart";

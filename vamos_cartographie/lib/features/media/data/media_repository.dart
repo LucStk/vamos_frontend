@@ -4,7 +4,6 @@ import 'package:vamos_cartographie/features/media/domain/entities/entities.dart'
 import "media_remote_datasource.dart";
 import 'dart:io';
 import "package:vamos_cartographie/core/network/storage_datasource.dart";
-import "package:vamos_cartographie/core/failure.dart";
 
 class MediaRepository {
   final MediaRemoteDatasource remote;

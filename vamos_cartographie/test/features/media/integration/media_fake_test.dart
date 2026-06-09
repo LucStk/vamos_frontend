@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/dev_backend/seeds/explore_seed.dart';
