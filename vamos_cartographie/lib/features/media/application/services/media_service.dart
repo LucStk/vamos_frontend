@@ -1,0 +1,30 @@
+import 'package:latlong2/latlong.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/features/media/data/media_repository.dart';
+import 'package:vamos_cartographie/features/media/data/media_providers.dart';
+import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
+import 'dart:io';
+part "media_service.g.dart";
+
+class MediaService {
+  final MediaRepository _repo;
+  MediaService(this._repo);
+
+  Future<MediaImage> uploadMedia(
+    File imageFile,
+    String type,
+    Function(int sent, int total)? onProgress,
+  ) async {
+    final result = await _repo.uploadImage(imageFile, type, onProgress);
+
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (media) => media,
+    );
+  }
+}
+
+@riverpod
+MediaService mediaService(Ref ref) {
+  return MediaService(ref.read(mediaRepositoryProvider));
+}

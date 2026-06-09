@@ -1,13 +1,13 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import "package:vamos_cartographie/features/trips/data/data.dart";
 import "package:vamos_cartographie/features/trips/domain/trip.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
+import 'package:vamos_cartographie/features/trips/application/services/trip_service.dart';
 part 'trips_notifier.g.dart';
 
 @riverpod
 class TripsNotifier extends _$TripsNotifier {
-  TripRepository get repository => ref.read(tripRepositoryProvider);
+  TripService get service => ref.read(tripServiceProvider);
 
   Map<int, Trip> get _current => state.value ?? <int, Trip>{};
 
@@ -16,29 +16,16 @@ class TripsNotifier extends _$TripsNotifier {
   }
 
   @override
-  Future<Map<int, Trip>> build() => _load();
-
-  Future<Map<int, Trip>> _load() async {
-    final result = await repository.getAllTrips();
-
-    return result.fold(
-      (e) => throw Exception(e.message),
-      (list) => {for (final trip in list) trip.id: trip},
-    );
-  }
+  Future<Map<int, Trip>> build() async => await service.getAllTrips();
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(_load);
+    state = await AsyncValue.guard(() async => await service.getAllTrips());
   }
 
-  Future<void> createTrip(TripDraft trip) async {
-    final result = await repository.createTrip(trip);
-
-    result.fold((_) {}, (w) {
-      final next = EntityStoreHelpers.set(_current, w.id, w);
-      _emit(next);
-    });
+  Future<void> createTrip(TripDraft tripDraft) async {
+    final trip = await service.createTrip(tripDraft);
+    _emit(EntityStoreHelpers.set(_current, trip.id, trip));
   }
 
   Future<void> updateTrip(int id, TripDraft draft) async {
@@ -55,15 +42,12 @@ class TripsNotifier extends _$TripsNotifier {
     );
     _emit(EntityStoreHelpers.update(previous, id, optimistic));
 
-    final result = await repository.updateTrip(id, draft);
-
-    result.fold(
-      (_) => _emit(previous), // rollback
-      (server) {
-        final next = EntityStoreHelpers.set(_current, server.id, server);
-        _emit(next);
-      },
-    );
+    try {
+      final server = await service.updateTrip(id, draft);
+      _emit(EntityStoreHelpers.set(_current, server.id, server));
+    } catch (_) {
+      _emit(previous); // rollback
+    }
   }
 
   Future<void> deleteTrip(int id) async {
@@ -71,12 +55,11 @@ class TripsNotifier extends _$TripsNotifier {
 
     _emit(EntityStoreHelpers.remove(_current, id));
 
-    final result = await repository.deleteTrip(id);
-
-    result.fold(
-      (_) => _emit(previous), // rollback
-      (_) {},
-    );
+    try {
+      await service.deleteTrip(id);
+    } catch (_) {
+      _emit(previous);
+    }
   }
 }
 

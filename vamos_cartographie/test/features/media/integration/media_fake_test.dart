@@ -117,7 +117,7 @@ void main() {
       // Then: Right(MediaImage) est retourné avec un fileKey et une url
       final (:repo, storage: _) = buildMediaRepo();
 
-      final result = await repo.uploadImage(testImageFile, 'jpg');
+      final result = await repo.uploadImage(testImageFile, 'jpg', null);
 
       expect(result.isRight(), isTrue);
       result.fold((_) => fail('Expected Right'), (image) {
@@ -132,7 +132,7 @@ void main() {
       // Then: le storage reçoit bien l'appel d'upload
       final (:repo, :storage) = buildMediaRepo();
 
-      await repo.uploadImage(testImageFile, 'jpg');
+      await repo.uploadImage(testImageFile, 'jpg', null);
 
       expect(storage.wasUploadCalled, isTrue);
     });
@@ -158,7 +158,7 @@ void main() {
         storage: capturingStorage,
       );
 
-      await repo.uploadImage(pngFile, 'png');
+      await repo.uploadImage(pngFile, 'png', null);
 
       expect(capturedContentType, 'image/png');
     });
@@ -177,7 +177,7 @@ void main() {
         storage: capturingStorage,
       );
 
-      await repo.uploadImage(testImageFile, 'jpg');
+      await repo.uploadImage(testImageFile, 'jpg', null);
 
       expect(capturedContentType, 'image/jpeg');
     });

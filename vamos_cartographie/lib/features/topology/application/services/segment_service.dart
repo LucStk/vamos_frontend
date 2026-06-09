@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
+import 'package:vamos_cartographie/features/topology/data/repositories/segment_repository.dart';
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 part "segment_service.g.dart";
 
 class SegmentService {

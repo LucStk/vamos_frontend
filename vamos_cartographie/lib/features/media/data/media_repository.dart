@@ -13,9 +13,9 @@ class MediaRepository {
 
   Future<Either<Failure, MediaImage>> uploadImage(
     File imageFile,
-    String type, {
+    String type,
     Function(int sent, int total)? onProgress,
-  }) async {
+  ) async {
     try {
       final mimeType = type == 'jpg' ? 'jpeg' : type;
 
