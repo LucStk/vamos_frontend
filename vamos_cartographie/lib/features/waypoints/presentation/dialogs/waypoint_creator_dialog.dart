@@ -6,13 +6,9 @@ import "waypoint_form_dialog.dart";
 
 class WaypointCreatorDialog extends ConsumerWidget {
   final int tripId;
-  final int vertexId;
+  final int? vertexId;
 
-  const WaypointCreatorDialog({
-    super.key,
-    required this.tripId,
-    required this.vertexId,
-  });
+  const WaypointCreatorDialog({super.key, required this.tripId, this.vertexId});
 
   static Future<void> show({
     required BuildContext context,

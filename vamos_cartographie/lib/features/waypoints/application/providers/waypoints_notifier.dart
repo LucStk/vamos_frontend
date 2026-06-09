@@ -40,7 +40,8 @@ class WaypointsNotifier extends _$WaypointsNotifier {
   // CREATE
   // ---------------------------------------------------------------------------
 
-  Future<void> createWaypoint(int vertexId, WaypointDraft draft) async {
+  Future<void> createWaypoint(int? vertexId, WaypointDraft draft) async {
+    
     final result = await repository.createWaypoint(tripId, vertexId, draft);
 
     result.fold((_) {}, (w) {
