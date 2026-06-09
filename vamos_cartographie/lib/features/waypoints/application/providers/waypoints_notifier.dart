@@ -1,8 +1,10 @@
 // features/waypoints/presentation/providers/waypoints_notifier.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
+import "package:vamos_cartographie/features/shared/shared.dart";
 part 'waypoints_notifier.g.dart';
 
 @riverpod
@@ -40,9 +42,17 @@ class WaypointsNotifier extends _$WaypointsNotifier {
   // CREATE
   // ---------------------------------------------------------------------------
 
-  Future<void> createWaypoint(int? vertexId, WaypointDraft draft) async {
-    
-    final result = await repository.createWaypoint(tripId, vertexId, draft);
+  Future<void> createWaypoint(
+    WaypointDraft waypointDraft,
+    int? vertexId,
+    LatLng? latLng,
+  ) async {
+    final result = await repository.createWaypoint(
+      tripId,
+      waypointDraft,
+      vertexId,
+      latLng,
+    );
 
     result.fold((_) {}, (w) {
       final next = EntityStoreHelpers.set(_current, w.id, w);

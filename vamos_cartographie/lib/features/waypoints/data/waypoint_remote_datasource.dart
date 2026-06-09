@@ -1,3 +1,4 @@
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:latlong2/latlong.dart';
@@ -70,15 +71,10 @@ class WaypointRemoteDatasource {
 
   Future<GWaypointFields> createWaypoint({
     required int tripId,
-    required int vertexId,
     required GWaypointCreateInput input,
   }) async {
     final req = GCreateWaypointReq(
-      vars: GCreateWaypointVars(
-        tripId: tripId,
-        vertexId: vertexId,
-        waypoint: input,
-      ),
+      vars: GCreateWaypointVars(tripId: tripId, waypoint: input),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {

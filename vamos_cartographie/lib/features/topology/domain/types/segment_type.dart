@@ -1,5 +1,6 @@
-import 'package:vamos_cartographie/shared/shared.dart';
 import "package:flutter/material.dart";
+
+import "package:vamos_cartographie/features/shared/shared.dart";
 
 enum SegmentType implements MapItemType {
   bike,

@@ -3,7 +3,7 @@ import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoint_remote_datasource.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
-
+import "package:latlong2/latlong.dart";
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 class WaypointRepository {
@@ -25,21 +25,25 @@ class WaypointRepository {
 
   Future<Either<Failure, Waypoint>> createWaypoint(
     int tripId,
-    int vertexId,
-    WaypointDraft waypoint,
+    WaypointDraft waypointDraft,
+    int? vertexId,
+    LatLng? latLng,
   ) async {
     try {
       // Then create the waypoint with the vertex ID
-      final input = WaypointDraftMapper.toGQLInput(waypoint);
+      final input = WaypointDraftMapper.toGQLInput(
+        waypointDraft,
+        vertexId,
+        latLng,
+      );
       final gqlResult = await remote.createWaypoint(
         tripId: tripId,
-        vertexId: vertexId,
         input: input,
       );
       final createWaypoint = WaypointMapper.fromGQL(gqlResult);
       final attachedImages = await _attachImages(
         waypointId: createWaypoint.id,
-        desired: waypoint.images,
+        desired: waypointDraft.images,
         alreadyAttached: const {},
       );
 

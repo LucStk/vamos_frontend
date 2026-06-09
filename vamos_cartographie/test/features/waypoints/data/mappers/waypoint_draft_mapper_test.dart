@@ -17,7 +17,7 @@ void main() {
       test('maps required type', () {
         final draft = WaypointDraft(type: WaypointType.water);
 
-        final input = WaypointDraftMapper.toGQLInput(draft);
+        final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
         expect(input.type, GWaypointEnum.WATER);
       });
@@ -28,7 +28,7 @@ void main() {
           title: 'Source du moulin',
         );
 
-        final input = WaypointDraftMapper.toGQLInput(draft);
+        final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
         expect(input.title.isPresent, isTrue);
         expect(input.title.requireValue, 'Source du moulin');
@@ -40,7 +40,7 @@ void main() {
         // Then title is absent (not sent to the server)
         final draft = WaypointDraft(type: WaypointType.water, title: '');
 
-        final input = WaypointDraftMapper.toGQLInput(draft);
+        final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
         expect(input.title.isPresent, isFalse);
       });
@@ -51,7 +51,7 @@ void main() {
           description: 'Boulangerie ouverte le dimanche',
         );
 
-        final input = WaypointDraftMapper.toGQLInput(draft);
+        final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
         expect(input.description.isPresent, isTrue);
         expect(
@@ -63,7 +63,7 @@ void main() {
       test('omits description when empty', () {
         final draft = WaypointDraft(type: WaypointType.food, description: '');
 
-        final input = WaypointDraftMapper.toGQLInput(draft);
+        final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
         expect(input.description.isPresent, isFalse);
       });

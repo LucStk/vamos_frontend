@@ -2,9 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/topology/data/datasources/vertex_remote_datasource.dart';
-import 'package:vamos_cartographie/features/topology/data/mappers/gis_mapper.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
+
+import "package:vamos_cartographie/features/shared/shared.dart";
 
 class VertexRepository {
   final VertexRemoteDatasource remote;

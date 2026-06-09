@@ -450,6 +450,8 @@ class GWaypointCreateInput {
     required this.type,
     this.title = const Value.absent(),
     this.description = const Value.absent(),
+    this.vertexId = const Value.absent(),
+    this.latLng = const Value.absent(),
   });
 
   factory GWaypointCreateInput.fromJson(Map<String, dynamic> json) {
@@ -464,6 +466,15 @@ class GWaypointCreateInput {
               ? null
               : (json['description'] as String))
           : Value.absent(),
+      vertexId: json.containsKey('vertexId')
+          ? Value.present(
+              json['vertexId'] == null ? null : (json['vertexId'] as int))
+          : Value.absent(),
+      latLng: json.containsKey('latLng')
+          ? Value.present(json['latLng'] == null
+              ? null
+              : GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)))
+          : Value.absent(),
     );
   }
 
@@ -472,6 +483,10 @@ class GWaypointCreateInput {
   final Value<String> title;
 
   final Value<String> description;
+
+  final Value<int> vertexId;
+
+  final Value<GLatLngInput> latLng;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -488,6 +503,18 @@ class GWaypointCreateInput {
       _$result['description'] =
           _$descriptionRequired == null ? null : _$descriptionRequired;
     }
+    final _$vertexIdValue = this.vertexId;
+    if (_$vertexIdValue.isPresent) {
+      final _$vertexIdRequired = _$vertexIdValue.requireValue;
+      _$result['vertexId'] =
+          _$vertexIdRequired == null ? null : _$vertexIdRequired;
+    }
+    final _$latLngValue = this.latLng;
+    if (_$latLngValue.isPresent) {
+      final _$latLngRequired = _$latLngValue.requireValue;
+      _$result['latLng'] =
+          _$latLngRequired == null ? null : _$latLngRequired.toJson();
+    }
     return _$result;
   }
 
@@ -495,11 +522,15 @@ class GWaypointCreateInput {
     GWaypointEnum? type,
     Value<String>? title,
     Value<String>? description,
+    Value<int>? vertexId,
+    Value<GLatLngInput>? latLng,
   }) {
     return GWaypointCreateInput(
       type: type ?? this.type,
       title: title ?? this.title,
       description: description ?? this.description,
+      vertexId: vertexId ?? this.vertexId,
+      latLng: latLng ?? this.latLng,
     );
   }
 
@@ -517,7 +548,7 @@ class GWaypointCreateInput {
 
   @override
   String toString() {
-    return 'GWaypointCreateInput(type: $type, title: $title, description: $description)';
+    return 'GWaypointCreateInput(type: $type, title: $title, description: $description, vertexId: $vertexId, latLng: $latLng)';
   }
 }
 

@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/shared/shared.dart';
+import 'package:vamos_cartographie/features/shared/shared.dart';
 import "package:flutter/material.dart";
 
 enum WaypointType implements MapItemType {

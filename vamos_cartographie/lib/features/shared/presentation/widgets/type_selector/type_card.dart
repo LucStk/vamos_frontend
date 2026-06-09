@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:vamos_cartographie/shared/domain/types/map_item_type.dart";
+import "package:vamos_cartographie/features/shared/domain/types/map_item_type.dart";
 
 class TypeCard extends StatelessWidget {
   final MapItemType type;

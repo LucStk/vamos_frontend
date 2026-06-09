@@ -1,9 +1,13 @@
+import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/features/shared/data/mappers/gis_mapper.dart';
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
 
 import "package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart";
 import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
+import "package:gql_tristate_value/gql_tristate_value.dart";
 
 /// Résout les opérations GraphQL relatives aux waypoints.
 class WaypointResolver {
@@ -69,8 +73,24 @@ class WaypointResolver {
 
   GCreateWaypointData createWaypoint(GCreateWaypointVars vars) {
     final tripId = vars.tripId;
-    final vertexId = vars.vertexId;
     final input = vars.waypoint;
+    late int vertexId;
+    switch (input.vertexId) {
+      case PresentValue(value: final id):
+        vertexId = id!;
+        break;
+      case AbsentValue():
+        final latLng = input.latLng.valueOrNull;
+        if (latLng == null) {
+          throw Exception("CreateWaypoint Fail : pas de vertexId et de latLng");
+        }
+        // Création d'un nouveau vertex à l'endroit approprié
+        vertexId = store.nextVertexId.next();
+        store.addVertex(
+          tripId,
+          Vertex(id: vertexId, latLng: LatLng(latLng.lat, latLng.lng)),
+        );
+    }
 
     final id = store.nextWaypointId.next();
     final waypoint = Waypoint(
@@ -86,7 +106,7 @@ class WaypointResolver {
     store.addWaypoint(tripId, waypoint);
 
     return GCreateWaypointData(
-      createWaypoint: waypointToGql(waypoint, store.vertex(vertexId)),
+      createWaypoint: waypointToGql(waypoint, store.vertex(waypoint.vertexId)),
     );
   }
 

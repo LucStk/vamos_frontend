@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/shared/shared.dart';
+import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'trip_section_label.dart';
 import "package:vamos_cartographie/features/media/media.dart";
 

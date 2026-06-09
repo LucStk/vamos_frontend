@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/layers.dart';
+import 'package:vamos_cartographie/features/waypoints/presentation/dialogs/waypoint_creator_dialog.dart';
 
 class MapView extends ConsumerStatefulWidget {
   const MapView({super.key});
@@ -24,7 +25,12 @@ class _MapViewState extends ConsumerState<MapView> {
 
   void _onMapTap(BuildContext context, LatLng latLng) {
     // _mapNotifier.startWaypointCreation(latLng);
-    // WaypointCreatorDialog.show(context: context, tripId: _tripId);
+    WaypointCreatorDialog.show(
+      context: context,
+      tripId: _tripId,
+      vertexId: null,
+      latLng: latLng,
+    );
   }
 
   List<Widget> _buildInteractionLayers(MapState mapState) {

@@ -42,7 +42,7 @@ const UpdateWaypoint = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'waypoint'),
+          name: _i1.NameNode(value: 'input'),
           value: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
         ),
         _i1.ArgumentNode(
@@ -88,15 +88,6 @@ const CreateWaypoint = _i1.OperationDefinitionNode(
       directives: [],
     ),
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-    _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'WaypointCreateInput'),
@@ -117,11 +108,7 @@ const CreateWaypoint = _i1.OperationDefinitionNode(
           value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
         ),
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'vertexId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
-        ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'waypoint'),
+          name: _i1.NameNode(value: 'input'),
           value: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
         ),
       ],

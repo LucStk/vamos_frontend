@@ -354,7 +354,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'waypoint'),
+          name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'WaypointUpdateInput'),
@@ -382,16 +382,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'vertexId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'waypoint'),
+          name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'WaypointCreateInput'),
@@ -1036,6 +1027,24 @@ const WaypointCreateInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'vertexId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'latLng'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
         isNonNull: false,
       ),
       defaultValue: _i1.NullValueNode(),

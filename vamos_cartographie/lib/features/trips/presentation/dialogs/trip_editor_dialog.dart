@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart';
 import "trip_form_dialog.dart";
 
-import 'package:vamos_cartographie/shared/widgets/widgets.dart';
+import 'package:vamos_cartographie/features/shared/shared.dart';
 
 class TripEditorDialog extends ConsumerWidget {
   final int tripId;

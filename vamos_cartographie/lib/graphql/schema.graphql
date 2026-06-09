@@ -39,8 +39,8 @@ type Mutation {
   generateImageUploadUrl(extension: String!): UploadConfig!
   attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
   deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
-  updateWaypoint(id: Int!, waypoint: WaypointUpdateInput!): WaypointType!
-  createWaypoint(tripId: Int!, vertexId: Int!, waypoint: WaypointCreateInput!): WaypointType!
+  updateWaypoint(id: Int!, input: WaypointUpdateInput!): WaypointType!
+  createWaypoint(tripId: Int!, input: WaypointCreateInput!): WaypointType!
   deleteWaypoint(id: Int!): Boolean!
   updateSegment(id: Int!, segment: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: Int!, segment: SegmentCreateInput!): SegmentType!
@@ -129,6 +129,8 @@ input WaypointCreateInput {
   type: WaypointEnum!
   title: String = null
   description: String = null
+  vertexId: Int = null
+  latLng: LatLngInput = null
 }
 
 enum WaypointEnum {

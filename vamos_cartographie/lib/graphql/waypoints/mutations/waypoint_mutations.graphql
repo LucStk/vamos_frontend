@@ -1,16 +1,12 @@
 #import "../fragments/waypoint_fields.graphql"
 #import "../../media/fragments/image_fields.graphql"
 mutation UpdateWaypoint($id: Int!, $waypoint: WaypointUpdateInput!) {
-    updateWaypoint(waypoint: $waypoint, id: $id) {
+    updateWaypoint(input: $waypoint, id: $id) {
         ...WaypointFields
     }
 }
-mutation CreateWaypoint(
-    $tripId: Int!
-    $vertexId: Int!
-    $waypoint: WaypointCreateInput!
-) {
-    createWaypoint(tripId: $tripId, vertexId: $vertexId, waypoint: $waypoint) {
+mutation CreateWaypoint($tripId: Int!, $waypoint: WaypointCreateInput!) {
+    createWaypoint(tripId: $tripId, input: $waypoint) {
         ...WaypointFields
     }
 }

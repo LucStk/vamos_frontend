@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/shared/shared.dart';
+import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {

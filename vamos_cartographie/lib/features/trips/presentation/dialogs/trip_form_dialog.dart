@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart';
 
-import 'package:vamos_cartographie/shared/widgets/widgets.dart';
+import 'package:vamos_cartographie/features/shared/shared.dart';
 
 class TripFormDialog extends ConsumerStatefulWidget {
   final TripDraft initialTrip;

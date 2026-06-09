@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/presentation/widgets/widgets.dart';
 
-import 'package:vamos_cartographie/shared/widgets/widgets.dart';
+import "package:vamos_cartographie/features/shared/shared.dart";
 
 class WaypointFormDialog extends ConsumerStatefulWidget {
   final WaypointDraft initialWaypoint;

@@ -1,6 +1,7 @@
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/graphql/graphql.dart';
-import "gis_mapper.dart";
+
+import "package:vamos_cartographie/features/shared/shared.dart";
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class VertexMapper {

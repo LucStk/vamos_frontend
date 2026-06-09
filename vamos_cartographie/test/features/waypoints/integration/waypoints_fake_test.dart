@@ -112,7 +112,7 @@ void main() {
         final draft = WaypointDraft(type: WaypointType.viewpoint);
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, unusedVertexId, draft),
+          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
         expect(created.type, WaypointType.viewpoint);
@@ -131,7 +131,7 @@ void main() {
         );
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, unusedVertexId, draft),
+          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
         expect(created.type, WaypointType.camping);
@@ -147,7 +147,7 @@ void main() {
         final draft = WaypointDraft(type: WaypointType.water, title: 'Source');
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, unusedVertexId, draft),
+          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
         expect(store.waypointsMap.containsKey(created.id), isTrue);
@@ -162,7 +162,7 @@ void main() {
         final draft = WaypointDraft(type: WaypointType.waypoint, title: '');
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, unusedVertexId, draft),
+          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
         expect(created.title, '');
@@ -340,7 +340,7 @@ void main() {
       );
       await container
           .read(waypointsProvider(t1TripId).notifier)
-          .createWaypoint(unusedVertexId, draft);
+          .createWaypoint(draft, unusedVertexId, null);
 
       final waypoints = container
           .read(waypointsProvider(t1TripId))
