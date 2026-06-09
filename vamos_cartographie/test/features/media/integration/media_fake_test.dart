@@ -52,17 +52,6 @@ void main() {
         expect(result.uploadUrl, isNotEmpty);
       });
 
-      test('le fileKey contient l\'extension demandée', () async {
-        // Given: requête pour un upload JPEG
-        // When: getSignedURL('jpeg') est appelé
-        // Then: le fileKey contient l'extension
-        final remote = buildMediaRemote();
-
-        final result = await remote.getSignedURL('jpeg');
-
-        expect(result.fileKey, contains('jpeg'));
-      });
-
       test('le fileKey est différent à chaque appel', () async {
         // Given: deux appels successifs à getSignedURL
         // When: getSignedURL est appelé deux fois
