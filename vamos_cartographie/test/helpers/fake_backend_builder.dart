@@ -6,6 +6,10 @@ import 'package:vamos_cartographie/dev_backend/core/fake_seeds.dart';
 import 'package:vamos_cartographie/dev_backend/transport/fake_link.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_repository.dart';
+import 'package:vamos_cartographie/features/topology/data/datasources/segment_remote_datasource.dart';
+import 'package:vamos_cartographie/features/topology/data/datasources/vertex_remote_datasource.dart';
+import 'package:vamos_cartographie/features/topology/data/repositories/segment_repository.dart';
+import 'package:vamos_cartographie/features/topology/data/repositories/vertex_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoint_remote_datasource.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoint_repository.dart';
 
@@ -47,5 +51,23 @@ ProviderContainer buildContainer(List<Seed> seeds, {FakeBackend? backend}) {
 ) {
   final (:client, :store) = buildFakeBackend(seeds);
   final repo = WaypointRepository(WaypointRemoteDatasource(client));
+  return (repo: repo, store: store);
+}
+
+/// Construit un [SegmentRepository] directement connecté au fake backend.
+({SegmentRepository repo, FakeGraphQLStore store}) buildSegmentRepo(
+  List<Seed> seeds,
+) {
+  final (:client, :store) = buildFakeBackend(seeds);
+  final repo = SegmentRepository(SegmentRemoteDatasource(client));
+  return (repo: repo, store: store);
+}
+
+/// Construit un [VertexRepository] directement connecté au fake backend.
+({VertexRepository repo, FakeGraphQLStore store}) buildVertexRepo(
+  List<Seed> seeds,
+) {
+  final (:client, :store) = buildFakeBackend(seeds);
+  final repo = VertexRepository(VertexRemoteDatasource(client));
   return (repo: repo, store: store);
 }

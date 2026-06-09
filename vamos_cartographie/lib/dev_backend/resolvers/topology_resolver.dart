@@ -22,7 +22,7 @@ class TopologyResolver {
   void _initHandlers() {
     mockHandlers = {
       // Queries
-      "GetSegment": (raw) =>
+      "GetSegments": (raw) =>
           getSegments(GGetSegmentsVars.fromJson(raw ?? const {})).toJson(),
       "GetVertices": (raw) =>
           getVertices(GGetVerticesVars.fromJson(raw ?? const {})).toJson(),
