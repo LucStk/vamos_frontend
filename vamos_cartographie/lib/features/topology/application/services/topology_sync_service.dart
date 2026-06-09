@@ -1,0 +1,23 @@
+class TopologySyncService {
+  TopologySyncService(this.ref);
+
+  final Ref ref;
+
+  void applyWaypointCreated({
+    required int tripId,
+    required Waypoint waypoint,
+    Vertex? vertex,
+  }) {
+    final waypoints = ref.read(waypointsProvider(tripId).notifier);
+
+    waypoints.addLocal(waypoint);
+
+    if (vertex != null) {
+      ref.read(verticesProvider(tripId).notifier).upsert(vertex);
+    }
+  }
+
+  void applyVertexCreated(Vertex vertex, int tripId) {
+    ref.read(verticesProvider(tripId).notifier).upsert(vertex);
+  }
+}

@@ -3,18 +3,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
-
+import "package:vamos_cartographie/features/topology/application/services/segment_service.dart";
 part 'segments_notifier.g.dart';
 
 @riverpod
 class SegmentsNotifier extends _$SegmentsNotifier {
-  SegmentRepository get repository => ref.read(segmentRepositoryProvider);
-
+  SegmentService get service => ref.read(segmentServiceProvider);
   late final int _tripId;
-
-  // ---------------------------------------------------------------------------
-  // Helpers
-  // ---------------------------------------------------------------------------
 
   Map<int, Segment> get _current => state.value ?? const <int, Segment>{};
 
@@ -22,41 +17,22 @@ class SegmentsNotifier extends _$SegmentsNotifier {
     state = AsyncData(next);
   }
 
-  // ---------------------------------------------------------------------------
-  // Lifecycle
-  // ---------------------------------------------------------------------------
-
   @override
   Future<Map<int, Segment>> build(int tripId) async {
     _tripId = tripId;
-    return _load();
+    return await service.getSegments(_tripId);
   }
-
-  Future<Map<int, Segment>> _load() async {
-    final result = await repository.getSegments(_tripId);
-
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (segments) => {for (final segment in segments) segment.id: segment},
-    );
-  }
-
-  // ---------------------------------------------------------------------------
-  // Public API
-  // ---------------------------------------------------------------------------
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-
-    state = await AsyncValue.guard(() => _load());
+    state = await AsyncValue.guard(
+      () async => await service.getSegments(_tripId),
+    );
   }
 
   Future<void> createSegment(SegmentDraft draft) async {
-    final result = await repository.createSegment(_tripId, draft);
-
-    result.fold((_) {}, (segment) {
-      _emit(EntityStoreHelpers.set(_current, segment.id, segment));
-    });
+    final segment = await service.createSegment(_tripId, draft);
+    _emit(EntityStoreHelpers.set(_current, segment.id, segment));
   }
 
   Future<void> updateSegment(int id, SegmentDraft draft) async {
@@ -73,28 +49,22 @@ class SegmentsNotifier extends _$SegmentsNotifier {
 
     _emit(EntityStoreHelpers.update(previous, id, optimistic));
 
-    final result = await repository.updateSegment(id, draft);
-
-    result.fold(
-      (_) {
-        _emit(previous);
-      },
-      (serverSegment) {
-        _emit(
-          EntityStoreHelpers.set(_current, serverSegment.id, serverSegment),
-        );
-      },
-    );
+    try {
+      final server = await service.updateSegment(id, draft);
+      _emit(EntityStoreHelpers.set(_current, server.id, server));
+    } catch (_) {
+      _emit(previous); // rollback
+    }
   }
 
   Future<void> deleteSegment(int id) async {
     final previous = _current;
-
     _emit(EntityStoreHelpers.remove(_current, id));
-
-    final result = await repository.deleteSegment(id);
-
-    result.fold((_) => _emit(previous), (_) {});
+    try {
+      await service.deleteSegment(id);
+    } catch (_) {
+      _emit(previous);
+    }
   }
 }
 
