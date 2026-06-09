@@ -10,7 +10,42 @@ import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
 class TopologyResolver {
   final FakeGraphQLStore store;
 
-  TopologyResolver(this.store);
+  /// Table de correspondance qui associe chaque nom d'opération GraphQL
+  /// à une fonction gérant la désérialisation, l'exécution et la sérialisation.
+  late final Map<String, Map<String, dynamic>? Function(Map<String, dynamic>?)>
+  mockHandlers;
+
+  TopologyResolver(this.store) {
+    _initHandlers();
+  }
+
+  void _initHandlers() {
+    mockHandlers = {
+      // Queries
+      "GetSegment": (raw) =>
+          getSegments(GGetSegmentsVars.fromJson(raw ?? const {})).toJson(),
+      "GetVertices": (raw) =>
+          getVertices(GGetVerticesVars.fromJson(raw ?? const {})).toJson(),
+      "GetTopology": (raw) =>
+          getTopology(GGetTopologyVars.fromJson(raw ?? const {})).toJson(),
+
+      // Mutations — Vertices
+      "CreateVertex": (raw) =>
+          createVertex(GCreateVertexVars.fromJson(raw ?? const {})).toJson(),
+      "MoveVertex": (raw) =>
+          moveVertex(GMoveVertexVars.fromJson(raw ?? const {})).toJson(),
+      "DeleteVertex": (raw) =>
+          deleteVertex(GDeleteVertexVars.fromJson(raw ?? const {})).toJson(),
+
+      // Mutations — Segments
+      "CreateSegment": (raw) =>
+          createSegment(GCreateSegmentVars.fromJson(raw ?? const {})).toJson(),
+      "UpdateSegment": (raw) =>
+          updateSegment(GUpdateSegmentVars.fromJson(raw ?? const {})).toJson(),
+      "DeleteSegment": (raw) =>
+          deleteSegment(GDeleteSegmentVars.fromJson(raw ?? const {})).toJson(),
+    };
+  }
 
   // ── Queries ──────────────────────────────────────────────────────────────────
 
@@ -84,8 +119,6 @@ class TopologyResolver {
     final int id = vars.id;
     final latLngMap = vars.latLng;
 
-    final existing = store.vertex(id);
-
     final updated = Vertex(
       id: id,
       latLng: LatLng(latLngMap.lat, latLngMap.lng),
@@ -114,7 +147,6 @@ class TopologyResolver {
       throw Exception('Trip introuvable : id=$tripId');
     }
 
-    // Par défaut géometry est juste une ligne entre les deux points
     final startVertex = store.vertex(input.startVertexId);
     final endVertex = store.vertex(input.endVertexId);
     final List<LatLng> geometry = [startVertex.latLng, endVertex.latLng];

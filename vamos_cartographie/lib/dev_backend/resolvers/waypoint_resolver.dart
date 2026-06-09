@@ -9,7 +9,39 @@ import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
 class WaypointResolver {
   final FakeGraphQLStore store;
 
-  WaypointResolver(this.store);
+  /// Table de correspondance qui associe chaque nom d'opération GraphQL
+  /// à sa fonction de traitement (désérialisation -> exécution -> JSON).
+  late final Map<String, Map<String, dynamic>? Function(Map<String, dynamic>?)>
+  mockHandlers;
+
+  WaypointResolver(this.store) {
+    _initHandlers();
+  }
+
+  void _initHandlers() {
+    mockHandlers = {
+      // Queries
+      "GetWaypoints": (raw) =>
+          getWaypoints(GGetWaypointsVars.fromJson(raw ?? const {})).toJson(),
+
+      // Mutations
+      "CreateWaypoint": (raw) => createWaypoint(
+        GCreateWaypointVars.fromJson(raw ?? const {}),
+      ).toJson(),
+      "UpdateWaypoint": (raw) => updateWaypoint(
+        GUpdateWaypointVars.fromJson(raw ?? const {}),
+      ).toJson(),
+      "DeleteWaypoint": (raw) => deleteWaypoint(
+        GDeleteWaypointVars.fromJson(raw ?? const {}),
+      ).toJson(),
+      "AttachImageToWaypoint": (raw) => attachImageToWaypoint(
+        GAttachImageToWaypointVars.fromJson(raw ?? const {}),
+      ).toJson(),
+      "DeleteImageFromWaypoint": (raw) => deleteImageFromWaypoint(
+        GDeleteImageFromWaypointVars.fromJson(raw ?? const {}),
+      ).toJson(),
+    };
+  }
 
   // ── Queries ──────────────────────────────────────────────────────────────────
 

@@ -4,14 +4,40 @@ import "package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart";
 import "package:vamos_cartographie/dev_backend/mapping/gql_mappers.dart";
 
 /// Résout les opérations GraphQL relatives aux trips.
-///
-/// Chaque méthode lit ou mutate le [FakeGraphQLStore], puis retourne un
-/// [Map<String, dynamic>] prêt à être émis par [FakeLink] via
-/// `G*Data(...).toJson()`.
 class TripResolver {
   final FakeGraphQLStore store;
 
-  TripResolver(this.store);
+  /// Table de correspondance qui associe chaque nom d'opération GraphQL
+  /// à sa fonction de traitement (désérialisation -> exécution -> JSON).
+  late final Map<String, Map<String, dynamic>? Function(Map<String, dynamic>?)>
+  mockHandlers;
+
+  TripResolver(this.store) {
+    _initHandlers();
+  }
+
+  void _initHandlers() {
+    mockHandlers = {
+      // Queries
+      "GetAllTrips": (_) => getAllTrips().toJson(),
+      "GetTrip": (raw) =>
+          getTrip(GGetTripVars.fromJson(raw ?? const {})).toJson(),
+
+      // Mutations
+      "CreateTrip": (raw) =>
+          createTrip(GCreateTripVars.fromJson(raw ?? const {})).toJson(),
+      "UpdateTrip": (raw) =>
+          updateTrip(GUpdateTripVars.fromJson(raw ?? const {})).toJson(),
+      "DeleteTrip": (raw) =>
+          deleteTrip(GDeleteTripVars.fromJson(raw ?? const {})).toJson(),
+      "AttachImageToTrip": (raw) => attachImageToTrip(
+        GAttachImageToTripVars.fromJson(raw ?? const {}),
+      ).toJson(),
+      "DeleteImageFromTrip": (raw) => deleteImageFromTrip(
+        GDeleteImageFromTripVars.fromJson(raw ?? const {}),
+      ).toJson(),
+    };
+  }
 
   // ── Queries ──────────────────────────────────────────────────────────────────
 
@@ -22,7 +48,7 @@ class TripResolver {
 
   GGetTripData getTrip(GGetTripVars vars) {
     final base = store.tripsMap[vars.id];
-    if (base == null) throw Exception('Trip introuvable : id=$vars.id');
+    if (base == null) throw Exception('Trip introuvable : id=${vars.id}');
 
     final waypoints = store.waypoints(vars.id).map((w) {
       final v = store.vertex(w.vertexId);
@@ -100,8 +126,8 @@ class TripResolver {
     return GUpdateTripData(updateTrip: tripFieldsToGql(updated));
   }
 
-  GDeleteTripData deleteTrip(GDeleteImageFromTripVars vars) {
-    store.removeTrip(vars.tripId);
+  GDeleteTripData deleteTrip(GDeleteTripVars vars) {
+    store.removeTrip(vars.id);
     return GDeleteTripData(deleteTrip: true);
   }
 

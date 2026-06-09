@@ -13,9 +13,7 @@ class FakeBackendFactory implements BackendFactory {
   @override
   Client createClient() {
     final store = FakeGraphQLStore(exploreSeed);
-
-    final link = FakeLink(store);
-
+    final link = FakeGraphQLLink(store);
     return Client(link: link);
   }
 }

@@ -11,7 +11,25 @@ class MediaResolver {
   /// URL de base utilisée pour les pre-signed URLs fictives.
   static const _fakeUploadBase = 'https://fake-storage.example.com/upload';
 
-  MediaResolver(this.store);
+  /// Table de correspondance qui associe chaque nom d'opération GraphQL
+  /// à sa fonction de traitement (désérialisation -> exécution -> JSON).
+  late final Map<String, Map<String, dynamic>? Function(Map<String, dynamic>?)>
+  mockHandlers;
+
+  MediaResolver(this.store) {
+    _initHandlers();
+  }
+
+  void _initHandlers() {
+    mockHandlers = {
+      // Mutations
+      "GenerateImageUploadUrl": (raw) => generateImageUploadUrl(
+        GGenerateImageUploadUrlVars.fromJson(raw ?? const {}),
+      ).toJson(),
+      "CreateImage": (raw) =>
+          createImage(GCreateImageVars.fromJson(raw ?? const {})).toJson(),
+    };
+  }
 
   /// Génère une URL d'upload fictive et enregistre le futur [CarouselItem]
   /// dans le store avec le statut [UploadStatus.idle].
