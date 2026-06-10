@@ -2,40 +2,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/state/entity_notifier.dart';
 import 'package:vamos_cartographie/features/waypoints/application/services/waypoint_service.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
-import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
 import "package:vamos_cartographie/features/topology/topology.dart";
 part 'waypoints_notifier.g.dart';
 
 @riverpod
-class WaypointsNotifier extends _$WaypointsNotifier {
+class WaypointsNotifier extends _$WaypointsNotifier
+    with EntityNotifier<Waypoint> {
   WaypointService get service => ref.read(waypointServiceProvider);
 
-  // ---------------------------------------------------------------------------
-  // STATE ACCESS
-  // ---------------------------------------------------------------------------
-
-  Map<int, Waypoint> get _current => state.value ?? <int, Waypoint>{};
-
-  void _emit(Map<int, Waypoint> next) {
-    state = AsyncData(next);
-  }
-
-  void upsertLocal(Waypoint waypoint) {
-    _emit(EntityStoreHelpers.set(_current, waypoint.id, waypoint));
-  }
-
-  // ---------------------------------------------------------------------------
-  // LIFECYCLE
-  // ---------------------------------------------------------------------------
   @override
   Future<Map<int, Waypoint>> build(int tripId) async {
     return await service.getWaypoints(tripId);
   }
 
   Map<int, Waypoint> get byVertexId => {
-    for (final w in _current.values) w.vertexId: w,
+    for (final w in current.values) w.vertexId: w,
   };
 
   Future<void> createWaypoint(
@@ -58,25 +42,16 @@ class WaypointsNotifier extends _$WaypointsNotifier {
   // ---------------------------------------------------------------------------
 
   Future<void> updateWaypoint(int id, WaypointDraft draft) async {
-    final previous = _current;
-
-    final existing = previous[id];
-    if (existing == null) return;
-
-    final optimistic = existing.copyWith(
-      title: draft.title,
-      type: draft.type,
-      description: draft.description,
-      images: draft.images,
+    await optimisticUpdate(
+      id: id,
+      patch: (w) => w.copyWith(
+        title: draft.title,
+        type: draft.type,
+        description: draft.description,
+        images: draft.images,
+      ),
+      remote: () => service.updateWaypoint(id, draft),
     );
-
-    _emit(EntityStoreHelpers.update(previous, id, optimistic));
-    try {
-      final server = await service.updateWaypoint(id, draft);
-      _emit(EntityStoreHelpers.set(_current, server.id, server));
-    } catch (_) {
-      _emit(previous); // rollback
-    }
   }
 
   // ---------------------------------------------------------------------------

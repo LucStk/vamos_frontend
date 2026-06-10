@@ -2,13 +2,13 @@ import "package:vamos_cartographie/features/media/domain/entities/entities.dart"
 // ---------------------------------------------------------------------------
 // Route
 // ---------------------------------------------------------------------------
-
+import "package:vamos_cartographie/core/type/has_id.dart";
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'trip.freezed.dart';
 
 @freezed
-abstract class Trip with _$Trip {
+abstract class Trip with _$Trip implements HasId {
   const Trip._();
   const factory Trip({
     required int id,

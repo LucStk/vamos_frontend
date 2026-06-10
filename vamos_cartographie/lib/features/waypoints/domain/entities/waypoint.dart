@@ -2,10 +2,11 @@ import 'package:vamos_cartographie/features/media/domain/entities/entities.dart'
 import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import "package:vamos_cartographie/core/type/has_id.dart";
 part 'waypoint.freezed.dart';
 
 @freezed
-abstract class Waypoint with _$Waypoint {
+abstract class Waypoint with _$Waypoint implements HasId {
   const Waypoint._();
   const factory Waypoint({
     required int id,

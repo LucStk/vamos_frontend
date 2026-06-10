@@ -2,11 +2,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import "../types/segment_type.dart";
+import "package:vamos_cartographie/core/type/has_id.dart";
 // Remplace par le bon package de ton projet (ex: google_maps_flutter ou latlong2)
 part 'segment.freezed.dart';
 
 @freezed
-abstract class Segment with _$Segment {
+abstract class Segment with _$Segment implements HasId {
   const factory Segment({
     required int id,
     required int startVertexId,
