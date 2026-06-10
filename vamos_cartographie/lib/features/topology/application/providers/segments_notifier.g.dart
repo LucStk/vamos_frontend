@@ -50,7 +50,7 @@ final class SegmentsNotifierProvider
   }
 }
 
-String _$segmentsNotifierHash() => r'bc91612394c0763ea6938aa3717b56df8555b98a';
+String _$segmentsNotifierHash() => r'ddffe968ad26cb03e12fda59fe80bb00e798e348';
 
 final class SegmentsNotifierFamily extends $Family
     with

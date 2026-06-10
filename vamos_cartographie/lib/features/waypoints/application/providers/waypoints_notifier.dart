@@ -2,12 +2,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/core/state/entity_notifier.dart';
+import 'package:vamos_cartographie/core/state/state.dart';
 import 'package:vamos_cartographie/features/waypoints/application/services/waypoint_service.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import "package:vamos_cartographie/features/topology/topology.dart";
-import "package:vamos_cartographie/core/state/entity_command.dart";
-import "package:vamos_cartographie/core/state/entity_reducer.dart";
 part 'waypoints_notifier.g.dart';
 
 @riverpod
@@ -29,14 +27,21 @@ class WaypointsNotifier extends _$WaypointsNotifier
     int? vertexId,
     LatLng? latLng,
   ) async {
-    await optimistic(
-      optimistic:()=> Insert(waypointDraft.),
-      remote: () => service.createWaypoint(...),
-      onSuccess: (result) {
-        upsertLocal(result.waypoint);
-        ref.read(verticesProvider(tripId).notifier)
-            .upsertLocal(result.vertex);
-      },
+    final tmpId = nextTempId();
+    await optimistic(spec : OptimisticSpec(
+
+    apply:(){
+    upsertLocal(waypointDraft.toWaypoint(tmpId));
+    VerticesNotifier.upsertLocal();
+    },
+    rollback: (){
+      removeLocal(tmpId);
+      verticesProvider.removeLocal()
+    }
+
+    ),
+
+     remote: () => service.createWaypoint(tripId,waypointDraft,vertexId,latLng);
     );
   }
 
@@ -45,18 +50,25 @@ class WaypointsNotifier extends _$WaypointsNotifier
   // ---------------------------------------------------------------------------
 
   Future<void> updateWaypoint(int id, WaypointDraft draft) async {
-  await optimistic(
-    optimisticCommand: Update(draft.toWaypoint(id)),
-    remote: () => service.updateWaypoint(id, draft),
-    onSuccess: (server) => upsertLocal(server),
-  );
+    final old = getOrThrow(id);
+    await optimistic(
+      spec: OptimisticSpec(
+        apply: () => updateLocal(draft.toWaypoint(id)),
+        reconcile: updateLocal,
+        rollback: () => updateLocal(old),
+      ),
+      remote: () => service.updateWaypoint(id, draft),
+    );
   }
 
   Future<void> deleteWaypoint(int id) async {
+    final old = getOrThrow(id);
     await optimistic(
-      optimisticCommand: Remove(id),
+      spec: OptimisticSpec(
+        apply: () => removeLocal(id),
+        rollback: () => upsertLocal(old),
+      ),
       remote: () => service.deleteWaypoint(id),
-      onSuccess: (_) => removeLocal(id),
     );
   }
 } // --- Providers Sélecteurs pour optimiser l'UI ---

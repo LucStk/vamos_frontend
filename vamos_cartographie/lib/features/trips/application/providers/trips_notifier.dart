@@ -29,20 +29,23 @@ class TripsNotifier extends _$TripsNotifier with EntityNotifier<Trip> {
     final old = getOrThrow(id);
 
     await optimistic(
-      optimistic: () => updateLocal(draft.toTrip(id)),
+      spec: OptimisticSpec(
+        apply: () => updateLocal(draft.toTrip(id)),
+        reconcile: upsertLocal,
+        rollback: () => updateLocal(old),
+      ),
       remote: () => service.updateTrip(id, draft),
-      onSuccess: (server) => upsertLocal(server),
-      rollback: () => updateLocal(old),
     );
   }
 
   Future<void> deleteTrip(int id) async {
     final old = getOrThrow(id);
     await optimistic(
-      optimistic: () => removeLocal(id),
+      spec: OptimisticSpec(
+        apply: () => removeLocal(id),
+        rollback: () => upsertLocal(old),
+      ),
       remote: () => service.deleteTrip(id),
-      onSuccess: (_) => removeLocal(id),
-      rollback: () => upsertLocal(old),
     );
   }
 }

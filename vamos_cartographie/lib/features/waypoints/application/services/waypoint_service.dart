@@ -19,18 +19,13 @@ class WaypointService {
     );
   }
 
-  Future<CreateWaypointResult> createWaypoint(
+  Future<Either<Failure, CreateWaypointResult>> createWaypoint(
     int tripId,
     WaypointDraft draft,
     int? vertexId,
     LatLng? latLng,
   ) async {
-    final result = await _repo.createWaypoint(tripId, draft, vertexId, latLng);
-
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (ret) => ret,
-    );
+    return await _repo.createWaypoint(tripId, draft, vertexId, latLng);
   }
 
   Future<Either<Failure, Waypoint>> updateWaypoint(

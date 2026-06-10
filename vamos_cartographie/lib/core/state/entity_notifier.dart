@@ -5,6 +5,7 @@ import "package:vamos_cartographie/core/type/has_id.dart";
 import "package:vamos_cartographie/core/failure.dart";
 import "entity_command.dart";
 import "entity_reducer.dart";
+import "optimistic.dart";
 
 class SyncAction<T> {
   final int txId;
@@ -50,17 +51,30 @@ mixin EntityNotifier<T extends HasId> {
     return entity;
   }
 
-  Future<void> optimistic({
-    required VoidCallback optimistic,
-    required VoidCallback rollback,
-    required Future<Either<Failure, dynamic>> Function() remote,
-    required void Function(dynamic result) onSuccess,
+  Future<T> optimistic<T>({
+    required OptimisticSpec<T> spec,
+    required Future<Either<Failure, T>> Function() remote,
   }) async {
-    final txId = ++_tx;
-    optimistic();
+    final tx = ++_tx;
+
+    spec.apply();
+
     final result = await remote();
-    if (txId != _tx) return;
-    result.fold((failure) => rollback(), (data) => onSuccess(data));
+
+    if (tx != _tx) {
+      return result.getOrElse(() => throw Exception());
+    }
+
+    return result.fold(
+      (failure) {
+        spec.rollback();
+        throw failure;
+      },
+      (data) {
+        spec.reconcile?.call(data);
+        return data;
+      },
+    );
   }
 
   void enqueue(SyncAction action) {

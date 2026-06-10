@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/state/optimistic.dart';
 import 'package:vamos_cartographie/core/state/state.dart';
 
 import 'package:vamos_cartographie/features/topology/topology.dart';
@@ -30,18 +31,25 @@ class SegmentsNotifier extends _$SegmentsNotifier with EntityNotifier<Segment> {
   }
 
   Future<void> updateSegment(int id, SegmentDraft draft) async {
+    final old = getOrThrow(id);
     await optimistic(
-      optimisticCommand: Update(draft.toSegment(id)),
+      spec: OptimisticSpec(
+        apply: () => updateLocal(draft.toSegment(id)),
+        rollback: () => updateLocal(old),
+        reconcile: upsertLocal,
+      ),
       remote: () => service.updateSegment(id, draft),
-      onSuccess: (server) => upsertLocal(server),
     );
   }
 
   Future<void> deleteSegment(int id) async {
+    final old = getOrThrow(id);
     await optimistic(
-      optimistic: () => Remove(id),
+      spec: OptimisticSpec(
+        apply: () => removeLocal(id),
+        rollback: () => upsertLocal(old),
+      ),
       remote: () => service.deleteSegment(id),
-      onSuccess: (_) => removeLocal(id),
     );
   }
 }

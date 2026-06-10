@@ -18,6 +18,7 @@ abstract class Waypoint with _$Waypoint implements HasId {
   }) = _Waypoint;
   WaypointDraft toDraft() {
     return WaypointDraft(
+      vertexId: vertexId,
       title: title,
       type: type,
       description: description,

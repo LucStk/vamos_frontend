@@ -10,11 +10,9 @@ part 'vertex_notifier.g.dart';
 @riverpod
 class VerticesNotifier extends _$VerticesNotifier with EntityNotifier<Vertex> {
   VertexService get service => ref.read(vertexServiceProvider);
-  late final int _tripId;
 
   @override
   Future<Map<int, Vertex>> build(int tripId) async {
-    _tripId = tripId;
     return await service.getVertices(tripId);
   }
 
@@ -24,13 +22,15 @@ class VerticesNotifier extends _$VerticesNotifier with EntityNotifier<Vertex> {
   }
 
   Future<void> moveVertex(int vertexId, LatLng latLng) async {
-    final existing = current[vertexId];
-    if (existing == null) return;
-    final o = existing.copyWith(latLng: latLng);
+    final old = getOrThrow(vertexId);
+    final n = old.copyWith(latLng: latLng);
     await optimistic(
-      optimisticCommand: Update(o),
+      spec: OptimisticSpec(
+        apply: () => updateLocal(n),
+        rollback: () => updateLocal(old),
+        reconcile: upsertLocal,
+      ),
       remote: () => service.moveVertex(vertexId, latLng),
-      onSuccess: (server) => upsertLocal(server),
     );
   }
 
@@ -39,10 +39,13 @@ class VerticesNotifier extends _$VerticesNotifier with EntityNotifier<Vertex> {
   // ---------------------------------------------------------------------------
 
   Future<void> deleteVertex(int id) async {
+    final old = getOrThrow(id);
     await optimistic(
-      optimisticCommand: Remove(id),
+      spec: OptimisticSpec(
+        apply: () => removeLocal(id),
+        rollback: () => upsertLocal(old),
+      ),
       remote: () => service.deleteVertex(id),
-      onSuccess: (_) => removeLocal(id),
     );
   }
 } // --- Providers Sélecteurs pour optimiser l'UI ---
