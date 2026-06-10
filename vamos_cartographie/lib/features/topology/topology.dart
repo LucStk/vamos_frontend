@@ -6,3 +6,4 @@ export "presentation/widgets/segment_editor.dart";
 export "presentation/dialogs/segment_viewer_dialog.dart";
 export "application/providers/segments_notifier.dart";
 export "application/providers/vertex_notifier.dart";
+export "application/services/vertex_service.dart";

@@ -115,7 +115,7 @@ const CreateWaypoint = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'WaypointFields'),
+          name: _i1.NameNode(value: 'CreateWaypointPayloadFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -308,6 +308,7 @@ const document = _i1.DocumentNode(definitions: [
   AttachImageToWaypoint,
   _i2.ImageFields,
   _i3.WaypointFields,
+  _i3.CreateWaypointPayloadFields,
   _i4.VertexFields,
   _i5.LatLngFields,
 ]);

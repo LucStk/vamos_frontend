@@ -298,6 +298,7 @@ const document = _i1.DocumentNode(definitions: [
   _i2.ImageFields,
   _i3.TripFields,
   _i4.WaypointFields,
+  _i4.CreateWaypointPayloadFields,
   _i5.VertexFields,
   _i6.LatLngFields,
 ]);

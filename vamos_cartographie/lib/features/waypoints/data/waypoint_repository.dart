@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
+import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoint_remote_datasource.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
@@ -23,7 +25,7 @@ class WaypointRepository {
     }
   }
 
-  Future<Either<Failure, Waypoint>> createWaypoint(
+  Future<Either<Failure, CreateWaypointResult>> createWaypoint(
     int tripId,
     WaypointDraft waypointDraft,
     int? vertexId,
@@ -40,14 +42,20 @@ class WaypointRepository {
         tripId: tripId,
         input: input,
       );
-      final createWaypoint = WaypointMapper.fromGQL(gqlResult);
+      final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
+      final waypointVertex = VertexMapper.fromGQL(gqlResult.vertex);
       final attachedImages = await _attachImages(
         waypointId: createWaypoint.id,
         desired: waypointDraft.images,
         alreadyAttached: const {},
       );
-
-      return Right(_rebuildWithImages(createWaypoint, attachedImages.toList()));
+      final rebuilt = _rebuildWithImages(
+        createWaypoint,
+        attachedImages.toList(),
+      );
+      return Right(
+        CreateWaypointResult(waypoint: rebuilt, vertex: waypointVertex),
+      );
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {

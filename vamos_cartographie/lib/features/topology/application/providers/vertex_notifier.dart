@@ -23,6 +23,9 @@ class VerticesNotifier extends _$VerticesNotifier {
     state = AsyncData(next);
   }
 
+  void upsertLocal(Vertex vertex) {
+    _emit(EntityStoreHelpers.set(_current, vertex.id, vertex));
+  }
   // ---------------------------------------------------------------------------
   // LIFECYCLE
   // ---------------------------------------------------------------------------

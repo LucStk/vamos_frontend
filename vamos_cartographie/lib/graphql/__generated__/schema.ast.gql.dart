@@ -26,6 +26,31 @@ const oneOf = _i1.DirectiveDefinitionNode(
   locations: [_i1.DirectiveLocation.inputObject],
   repeatable: false,
 );
+const CreateWaypointPayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateWaypointPayload'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'waypoint'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'WaypointType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'vertex'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'VertexType'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
@@ -392,7 +417,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointType'),
+        name: _i1.NameNode(value: 'CreateWaypointPayload'),
         isNonNull: true,
       ),
     ),
@@ -1243,6 +1268,7 @@ const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
+  CreateWaypointPayload,
   Date,
   LatLngInput,
   LatLngType,

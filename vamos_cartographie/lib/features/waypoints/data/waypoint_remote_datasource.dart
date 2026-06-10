@@ -69,7 +69,7 @@ class WaypointRemoteDatasource {
     return response.data!.trip.waypoints;
   }
 
-  Future<GWaypointFields> createWaypoint({
+  Future<GCreateWaypointPayloadFields> createWaypoint({
     required int tripId,
     required GWaypointCreateInput input,
   }) async {

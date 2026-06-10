@@ -7,6 +7,11 @@ directive @specifiedBy(
 """Indicates an Input Object is a OneOf Input Object."""
 directive @oneOf on INPUT_OBJECT
 
+type CreateWaypointPayload {
+  waypoint: WaypointType!
+  vertex: VertexType!
+}
+
 """Date (isoformat)"""
 scalar Date
 
@@ -40,7 +45,7 @@ type Mutation {
   attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
   deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
   updateWaypoint(id: Int!, input: WaypointUpdateInput!): WaypointType!
-  createWaypoint(tripId: Int!, input: WaypointCreateInput!): WaypointType!
+  createWaypoint(tripId: Int!, input: WaypointCreateInput!): CreateWaypointPayload!
   deleteWaypoint(id: Int!): Boolean!
   updateSegment(id: Int!, segment: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: Int!, segment: SegmentCreateInput!): SegmentType!

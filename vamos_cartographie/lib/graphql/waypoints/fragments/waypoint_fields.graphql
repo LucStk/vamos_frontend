@@ -15,3 +15,11 @@ fragment WaypointFields on WaypointType {
         }
     }
 }
+fragment CreateWaypointPayloadFields on CreateWaypointPayload {
+    waypoint {
+        ...WaypointFields
+    }
+    vertex {
+        ...VertexFields
+    }
+}

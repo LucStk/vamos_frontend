@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/waypoints/application/services/waypoint_service.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
-import "package:vamos_cartographie/features/shared/shared.dart";
+import "package:vamos_cartographie/features/topology/topology.dart";
 part 'waypoints_notifier.g.dart';
 
 @riverpod
@@ -20,6 +20,10 @@ class WaypointsNotifier extends _$WaypointsNotifier {
 
   void _emit(Map<int, Waypoint> next) {
     state = AsyncData(next);
+  }
+
+  void upsertLocal(Waypoint waypoint) {
+    _emit(EntityStoreHelpers.set(_current, waypoint.id, waypoint));
   }
 
   // ---------------------------------------------------------------------------
@@ -45,7 +49,8 @@ class WaypointsNotifier extends _$WaypointsNotifier {
       vertexId,
       latLng,
     );
-    _emit(EntityStoreHelpers.set(_current, result.id, result));
+    upsertLocal(result.waypoint);
+    ref.read(verticesProvider(tripId).notifier).upsertLocal(result.vertex);
   }
 
   // ---------------------------------------------------------------------------

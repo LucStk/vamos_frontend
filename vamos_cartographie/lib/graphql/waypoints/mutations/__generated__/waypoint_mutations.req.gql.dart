@@ -228,6 +228,7 @@ class GCreateWaypointReq
     _i6.CreateWaypoint,
     _i7.ImageFields,
     _i8.WaypointFields,
+    _i8.CreateWaypointPayloadFields,
     _i9.VertexFields,
     _i10.LatLngFields,
   ]);

@@ -17,7 +17,7 @@ class WaypointService {
     );
   }
 
-  Future<Waypoint> createWaypoint(
+  Future<CreateWaypointResult> createWaypoint(
     int tripId,
     WaypointDraft draft,
     int? vertexId,
@@ -27,7 +27,7 @@ class WaypointService {
 
     return result.fold(
       (failure) => throw Exception(failure.message),
-      (waypoint) => waypoint,
+      (ret) => ret,
     );
   }
 

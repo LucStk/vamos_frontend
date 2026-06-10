@@ -69,13 +69,13 @@ class GCreateWaypointData {
 
   factory GCreateWaypointData.fromJson(Map<String, dynamic> json) {
     return GCreateWaypointData(
-      createWaypoint: _i1.GWaypointFieldsData.fromJson(
+      createWaypoint: _i1.GCreateWaypointPayloadFieldsData.fromJson(
           (json['createWaypoint'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GWaypointFieldsData createWaypoint;
+  final _i1.GCreateWaypointPayloadFieldsData createWaypoint;
 
   final String G__typename;
 
@@ -87,7 +87,7 @@ class GCreateWaypointData {
   }
 
   GCreateWaypointData copyWith({
-    _i1.GWaypointFieldsData? createWaypoint,
+    _i1.GCreateWaypointPayloadFieldsData? createWaypoint,
     String? G__typename,
   }) {
     return GCreateWaypointData(

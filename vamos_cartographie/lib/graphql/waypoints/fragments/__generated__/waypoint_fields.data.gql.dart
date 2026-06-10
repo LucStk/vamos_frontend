@@ -177,3 +177,72 @@ class GWaypointFieldsData_images implements GWaypointFields_images {
     return 'GWaypointFieldsData_images(image: $image, G__typename: $G__typename)';
   }
 }
+
+abstract class GCreateWaypointPayloadFields {
+  GWaypointFields get waypoint;
+  _i2.GVertexFields get vertex;
+  String get G__typename;
+}
+
+class GCreateWaypointPayloadFieldsData implements GCreateWaypointPayloadFields {
+  const GCreateWaypointPayloadFieldsData({
+    required this.waypoint,
+    required this.vertex,
+    this.G__typename = 'CreateWaypointPayload',
+  });
+
+  factory GCreateWaypointPayloadFieldsData.fromJson(Map<String, dynamic> json) {
+    return GCreateWaypointPayloadFieldsData(
+      waypoint: GWaypointFieldsData.fromJson(
+          (json['waypoint'] as Map<String, dynamic>)),
+      vertex: _i2.GVertexFieldsData.fromJson(
+          (json['vertex'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GWaypointFieldsData waypoint;
+
+  final _i2.GVertexFieldsData vertex;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['waypoint'] = this.waypoint.toJson();
+    _$result['vertex'] = this.vertex.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GCreateWaypointPayloadFieldsData copyWith({
+    GWaypointFieldsData? waypoint,
+    _i2.GVertexFieldsData? vertex,
+    String? G__typename,
+  }) {
+    return GCreateWaypointPayloadFieldsData(
+      waypoint: waypoint ?? this.waypoint,
+      vertex: vertex ?? this.vertex,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateWaypointPayloadFieldsData &&
+            waypoint == other.waypoint &&
+            vertex == other.vertex &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, waypoint, vertex, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GCreateWaypointPayloadFieldsData(waypoint: $waypoint, vertex: $vertex, G__typename: $G__typename)';
+  }
+}

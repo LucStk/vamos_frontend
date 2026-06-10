@@ -7,7 +7,7 @@ mutation UpdateWaypoint($id: Int!, $waypoint: WaypointUpdateInput!) {
 }
 mutation CreateWaypoint($tripId: Int!, $waypoint: WaypointCreateInput!) {
     createWaypoint(tripId: $tripId, input: $waypoint) {
-        ...WaypointFields
+        ...CreateWaypointPayloadFields
     }
 }
 
