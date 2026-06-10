@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "entity_store_helpers.dart";
+
 abstract class EntityNotifier<T> {
   AsyncValue<Map<int, T>> get state;
   set state(AsyncValue<Map<int, T>> value);

@@ -115,8 +115,8 @@ void main() {
           await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
-        expect(created.$1.type, WaypointType.viewpoint);
-        expect(created.$1.vertexId, unusedVertexId);
+        expect(created.waypoint.type, WaypointType.viewpoint);
+        expect(created.vertex.id, unusedVertexId);
       });
 
       test('crée un waypoint avec titre et description', () async {
@@ -134,9 +134,9 @@ void main() {
           await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
-        expect(created.$1.type, WaypointType.camping);
-        expect(created.$1.title, 'Camp de la forêt');
-        expect(created.$1.description, 'Nuit en plein air');
+        expect(created.waypoint.type, WaypointType.camping);
+        expect(created.waypoint.title, 'Camp de la forêt');
+        expect(created.waypoint.description, 'Nuit en plein air');
       });
 
       test('le waypoint créé est accessible dans le store', () async {
@@ -150,8 +150,8 @@ void main() {
           await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
-        expect(store.waypointsMap.containsKey(created.$1.id), isTrue);
-        expect(store.waypointsMap[created.$1.id]?.title, 'Source');
+        expect(store.waypointsMap.containsKey(created.waypoint.id), isTrue);
+        expect(store.waypointsMap[created.waypoint.id]?.title, 'Source');
       });
 
       test('le waypoint sans titre reçoit une chaîne vide', () async {
@@ -165,7 +165,7 @@ void main() {
           await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
         );
 
-        expect(created.$1.title, '');
+        expect(created.waypoint.title, '');
       });
     });
 

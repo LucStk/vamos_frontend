@@ -106,7 +106,10 @@ class WaypointResolver {
     store.addWaypoint(tripId, waypoint);
 
     return GCreateWaypointData(
-      createWaypoint: waypointToGql(waypoint, store.vertex(waypoint.vertexId)),
+      createWaypoint: waypointCreateToGql(
+        waypoint,
+        store.vertex(waypoint.vertexId),
+      ),
     );
   }
 

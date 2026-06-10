@@ -37,6 +37,14 @@ GWaypointFieldsData waypointToGql(Waypoint w, Vertex vertex) =>
           .toList(),
     );
 
+GCreateWaypointPayloadFieldsData waypointCreateToGql(
+  Waypoint w,
+  Vertex vertex,
+) => GCreateWaypointPayloadFieldsData(
+  waypoint: waypointToGql(w, vertex),
+  vertex: vertexToGql(vertex),
+);
+
 /// Construit un [GSegmentFieldsData] à partir d'un [Segment] et de ses deux [Vertex].
 GSegmentFieldsData segmentToGql(Segment s, Vertex start, Vertex end) =>
     GSegmentFieldsData(
