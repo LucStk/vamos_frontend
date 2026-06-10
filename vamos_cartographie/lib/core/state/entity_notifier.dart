@@ -1,87 +1,67 @@
 import "package:dartz/dartz.dart";
+import "package:flutter/animation.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/core/type/has_id.dart";
 import "package:vamos_cartographie/core/failure.dart";
+import "entity_command.dart";
+import "entity_reducer.dart";
 
 class SyncAction<T> {
   final int txId;
   final Future<void> Function() execute;
+  final Future<void> Function()? rollback;
 
-  SyncAction({required this.txId, required this.execute});
+  SyncAction({required this.txId, required this.execute, this.rollback});
 }
 
 mixin EntityNotifier<T extends HasId> {
   AsyncValue<Map<int, T>> get state;
   set state(AsyncValue<Map<int, T>> value);
 
+  final EntityReducer<T> _reducer = EntityReducer<T>();
+
   Map<int, T> get current => state.value ?? {};
-
-  int _tx = 0;
-  final List<SyncAction> _queue = [];
-
-  // ─────────────────────────────
-  // Core map ops
-  // ─────────────────────────────
-
-  Map<int, T> _set(Map<int, T> map, T value) {
-    final next = Map<int, T>.from(map);
-    next[value.id] = value;
-    return next;
-  }
-
-  Map<int, T> _remove(Map<int, T> map, int id) {
-    final next = Map<int, T>.from(map)..remove(id);
-    return next;
-  }
 
   void emit(Map<int, T> next) {
     state = AsyncData(next);
   }
 
-  // ─────────────────────────────
-  // Public API
-  // ─────────────────────────────
-
-  void upsertLocal(T entity) => emit(_set(current, entity));
-  void updateLocal(T entity) => emit(_set(current, entity));
-  void removeLocal(int id) => emit(_remove(current, id));
-
-  // ─────────────────────────────
-  // ✔ OPTIMISTIC CORE (Either + rollback safe)
-  // ─────────────────────────────
-
-  Future<void> optimistic<TRemote>({
-    required Map<int, T> Function() local,
-    required Future<Either<Failure, TRemote>> Function() remote,
-    required void Function(TRemote result) onSuccess,
-    void Function(Failure failure)? onFailure,
-  }) async {
-    final txId = ++_tx;
-    final previous = current;
-
-    // 1. apply optimistic state
-    emit(local());
-
-    // 2. remote call
-    final result = await remote();
-
-    // 3. ignore stale rollback (anti double rollback)
-    if (txId != _tx) return;
-
-    result.fold(
-      (failure) {
-        emit(previous);
-        onFailure?.call(failure);
-      },
-      (data) {
-        onSuccess(data);
-      },
-    );
+  void dispatch(EntityCommand<T> command) {
+    emit(_reducer.reduce(current, command));
   }
 
-  // ─────────────────────────────
-  // Offline queue
-  // ─────────────────────────────
+  int _tx = 0;
+  final List<SyncAction> _queue = [];
+
+  int _tempId = -1;
+  int nextTempId() => _tempId--;
+
+  void upsertLocal(T entity) => dispatch(Insert(entity));
+  void updateLocal(T entity) => dispatch(Update(entity));
+  void removeLocal(int id) => dispatch(Remove(id));
+
+  T? tryGet(int id) => current[id];
+
+  T getOrThrow(int id) {
+    final entity = current[id];
+    if (entity == null) {
+      throw StateError("$T $id not found in store");
+    }
+    return entity;
+  }
+
+  Future<void> optimistic({
+    required VoidCallback optimistic,
+    required VoidCallback rollback,
+    required Future<Either<Failure, dynamic>> Function() remote,
+    required void Function(dynamic result) onSuccess,
+  }) async {
+    final txId = ++_tx;
+    optimistic();
+    final result = await remote();
+    if (txId != _tx) return;
+    result.fold((failure) => rollback(), (data) => onSuccess(data));
+  }
 
   void enqueue(SyncAction action) {
     _queue.add(action);

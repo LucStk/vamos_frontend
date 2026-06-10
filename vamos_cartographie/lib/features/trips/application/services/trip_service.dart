@@ -1,5 +1,6 @@
-import 'package:latlong2/latlong.dart';
+import 'package:dartz/dartz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_providers.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
@@ -17,28 +18,16 @@ class TripService {
     );
   }
 
-  Future<Trip> createTrip(TripDraft tripDraft) async {
-    final result = await _repo.createTrip(tripDraft);
-
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (trip) => trip,
-    );
+  Future<Either<Failure, Trip>> createTrip(TripDraft tripDraft) async {
+    return await _repo.createTrip(tripDraft);
   }
 
-  Future<Trip> updateTrip(int id, TripDraft tripDraft) async {
-    final result = await _repo.updateTrip(id, tripDraft);
-
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (trip) => trip,
-    );
+  Future<Either<Failure, Trip>> updateTrip(int id, TripDraft tripDraft) async {
+    return await _repo.updateTrip(id, tripDraft);
   }
 
-  Future<void> deleteTrip(int id) async {
-    final result = await _repo.deleteTrip(id);
-
-    return result.fold((failure) => throw Exception(failure.message), (_) {});
+  Future<Either<Failure, void>> deleteTrip(int id) async {
+    return await _repo.deleteTrip(id);
   }
 }
 

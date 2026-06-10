@@ -1,9 +1,11 @@
+import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/topology/data/repositories/vertex_repository.dart';
 
 import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/vamos_cartographie.dart';
 part "vertex_service.g.dart";
 
 class VertexService {
@@ -27,19 +29,12 @@ class VertexService {
     );
   }
 
-  Future<Vertex> moveVertex(int id, LatLng latLng) async {
-    final result = await _repo.moveVertex(id, latLng);
-
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (vertex) => vertex,
-    );
+  Future<Either<Failure, Vertex>> moveVertex(int id, LatLng latLng) async {
+    return await _repo.moveVertex(id, latLng);
   }
 
-  Future<void> deleteVertex(int id) async {
-    final result = await _repo.deleteVertex(id);
-
-    return result.fold((failure) => throw Exception(failure.message), (_) {});
+  Future<Either<Failure, void>> deleteVertex(int id) async {
+    return await _repo.deleteVertex(id);
   }
 }
 

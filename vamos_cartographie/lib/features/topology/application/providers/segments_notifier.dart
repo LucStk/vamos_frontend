@@ -1,21 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/state/state.dart';
 
 import 'package:vamos_cartographie/features/topology/topology.dart';
-import 'package:vamos_cartographie/core/state/entity_store_helpers.dart';
 import "package:vamos_cartographie/features/topology/application/services/segment_service.dart";
 part 'segments_notifier.g.dart';
 
 @riverpod
-class SegmentsNotifier extends _$SegmentsNotifier {
+class SegmentsNotifier extends _$SegmentsNotifier with EntityNotifier<Segment> {
   SegmentService get service => ref.read(segmentServiceProvider);
   late final int _tripId;
-
-  Map<int, Segment> get _current => state.value ?? const <int, Segment>{};
-
-  void _emit(Map<int, Segment> next) {
-    state = AsyncData(next);
-  }
 
   @override
   Future<Map<int, Segment>> build(int tripId) async {
@@ -32,39 +26,23 @@ class SegmentsNotifier extends _$SegmentsNotifier {
 
   Future<void> createSegment(SegmentDraft draft) async {
     final segment = await service.createSegment(_tripId, draft);
-    _emit(EntityStoreHelpers.set(_current, segment.id, segment));
+    upsertLocal(segment);
   }
 
   Future<void> updateSegment(int id, SegmentDraft draft) async {
-    final previous = _current;
-
-    final existing = previous[id];
-    if (existing == null) return;
-
-    final optimistic = existing.copyWith(
-      startVertexId: draft.startVertexId,
-      endVertexId: draft.endVertexId,
-      geometry: existing.geometry,
+    await optimistic(
+      optimisticCommand: Update(draft.toSegment(id)),
+      remote: () => service.updateSegment(id, draft),
+      onSuccess: (server) => upsertLocal(server),
     );
-
-    _emit(EntityStoreHelpers.update(previous, id, optimistic));
-
-    try {
-      final server = await service.updateSegment(id, draft);
-      _emit(EntityStoreHelpers.set(_current, server.id, server));
-    } catch (_) {
-      _emit(previous); // rollback
-    }
   }
 
   Future<void> deleteSegment(int id) async {
-    final previous = _current;
-    _emit(EntityStoreHelpers.remove(_current, id));
-    try {
-      await service.deleteSegment(id);
-    } catch (_) {
-      _emit(previous);
-    }
+    await optimistic(
+      optimistic: () => Remove(id),
+      remote: () => service.deleteSegment(id),
+      onSuccess: (_) => removeLocal(id),
+    );
   }
 }
 

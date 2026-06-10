@@ -6,6 +6,8 @@ import 'package:vamos_cartographie/core/state/entity_notifier.dart';
 import 'package:vamos_cartographie/features/waypoints/application/services/waypoint_service.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import "package:vamos_cartographie/features/topology/topology.dart";
+import "package:vamos_cartographie/core/state/entity_command.dart";
+import "package:vamos_cartographie/core/state/entity_reducer.dart";
 part 'waypoints_notifier.g.dart';
 
 @riverpod
@@ -27,14 +29,15 @@ class WaypointsNotifier extends _$WaypointsNotifier
     int? vertexId,
     LatLng? latLng,
   ) async {
-    final result = await service.createWaypoint(
-      tripId,
-      waypointDraft,
-      vertexId,
-      latLng,
+    await optimistic(
+      optimistic:()=> Insert(waypointDraft.),
+      remote: () => service.createWaypoint(...),
+      onSuccess: (result) {
+        upsertLocal(result.waypoint);
+        ref.read(verticesProvider(tripId).notifier)
+            .upsertLocal(result.vertex);
+      },
     );
-    upsertLocal(result.waypoint);
-    ref.read(verticesProvider(tripId).notifier).upsertLocal(result.vertex);
   }
 
   // ---------------------------------------------------------------------------
@@ -42,30 +45,19 @@ class WaypointsNotifier extends _$WaypointsNotifier
   // ---------------------------------------------------------------------------
 
   Future<void> updateWaypoint(int id, WaypointDraft draft) async {
-    await optimisticUpdate(
-      id: id,
-      patch: (w) => w.copyWith(
-        title: draft.title,
-        type: draft.type,
-        description: draft.description,
-        images: draft.images,
-      ),
-      remote: () => service.updateWaypoint(id, draft),
-    );
+  await optimistic(
+    optimisticCommand: Update(draft.toWaypoint(id)),
+    remote: () => service.updateWaypoint(id, draft),
+    onSuccess: (server) => upsertLocal(server),
+  );
   }
 
-  // ---------------------------------------------------------------------------
-  // DELETE
-  // ---------------------------------------------------------------------------
-
   Future<void> deleteWaypoint(int id) async {
-    final previous = _current;
-    _emit(EntityStoreHelpers.remove(_current, id));
-    try {
-      await service.deleteWaypoint(id);
-    } catch (_) {
-      _emit(previous);
-    }
+    await optimistic(
+      optimisticCommand: Remove(id),
+      remote: () => service.deleteWaypoint(id),
+      onSuccess: (_) => removeLocal(id),
+    );
   }
 } // --- Providers Sélecteurs pour optimiser l'UI ---
 

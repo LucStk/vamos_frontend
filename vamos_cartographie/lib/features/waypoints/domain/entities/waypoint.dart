@@ -30,9 +30,20 @@ abstract class Waypoint with _$Waypoint implements HasId {
 abstract class WaypointDraft with _$WaypointDraft {
   const WaypointDraft._();
   const factory WaypointDraft({
+    required int vertexId,
     @Default('') String title,
     @Default(WaypointType.waypoint) WaypointType type,
     @Default('') String description,
     @Default([]) List<MediaImage> images,
   }) = _WaypointDraft;
+  Waypoint toWaypoint(int id) {
+    return Waypoint(
+      title: title,
+      description: description,
+      type: type,
+      images: images,
+      id: id,
+      vertexId: vertexId,
+    );
+  }
 }

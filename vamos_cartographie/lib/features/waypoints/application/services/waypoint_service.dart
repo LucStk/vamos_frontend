@@ -1,5 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoints_providers.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoint_repository.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
@@ -31,19 +33,15 @@ class WaypointService {
     );
   }
 
-  Future<Waypoint> updateWaypoint(int id, WaypointDraft draft) async {
-    final result = await _repo.updateWaypoint(id, draft);
-
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (waypoint) => waypoint,
-    );
+  Future<Either<Failure, Waypoint>> updateWaypoint(
+    int id,
+    WaypointDraft draft,
+  ) async {
+    return await _repo.updateWaypoint(id, draft);
   }
 
-  Future<void> deleteWaypoint(int id) async {
-    final result = await _repo.deleteWaypoint(id);
-
-    return result.fold((failure) => throw Exception(failure.message), (_) {});
+  Future<Either<Failure, void>> deleteWaypoint(int id) async {
+    return await _repo.deleteWaypoint(id);
   }
 }
 

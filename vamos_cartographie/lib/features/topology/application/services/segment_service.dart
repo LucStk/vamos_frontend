@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
 import 'package:vamos_cartographie/features/topology/data/repositories/segment_repository.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/vamos_cartographie.dart';
 part "segment_service.g.dart";
 
 class SegmentService {
@@ -25,19 +27,15 @@ class SegmentService {
     );
   }
 
-  Future<Segment> updateSegment(int id, SegmentDraft draft) async {
-    final result = await _repo.updateSegment(id, draft);
-
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (segment) => segment,
-    );
+  Future<Either<Failure, Segment>> updateSegment(
+    int id,
+    SegmentDraft draft,
+  ) async {
+    return await _repo.updateSegment(id, draft);
   }
 
-  Future<void> deleteSegment(int id) async {
-    final result = await _repo.deleteSegment(id);
-
-    return result.fold((failure) => throw Exception(failure.message), (_) {});
+  Future<Either<Failure, void>> deleteSegment(int id) async {
+    return await _repo.deleteSegment(id);
   }
 }
 
