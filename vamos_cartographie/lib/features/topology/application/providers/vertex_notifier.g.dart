@@ -50,7 +50,7 @@ final class VerticesNotifierProvider
   }
 }
 
-String _$verticesNotifierHash() => r'1415afa3d65689fe9f8da84be3a70be7b35a4ce0';
+String _$verticesNotifierHash() => r'ca63d2dc244b816af012b26f92e8b9b11b6b4867';
 
 final class VerticesNotifierFamily extends $Family
     with

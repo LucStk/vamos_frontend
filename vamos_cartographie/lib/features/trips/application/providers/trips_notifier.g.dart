@@ -33,7 +33,7 @@ final class TripsNotifierProvider
   TripsNotifier create() => TripsNotifier();
 }
 
-String _$tripsNotifierHash() => r'27422fc70ed029a0726035e13fb0c115e21b5961';
+String _$tripsNotifierHash() => r'083142655c2c543299ce15a081817a77c8ca04c1';
 
 abstract class _$TripsNotifier extends $AsyncNotifier<Map<int, Trip>> {
   FutureOr<Map<int, Trip>> build();
@@ -97,14 +97,8 @@ String _$tripIdsHash() => r'29e0db6de65079ac1a8619969317557441326049';
 @ProviderFor(trip)
 final tripProvider = TripFamily._();
 
-final class TripProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<Trip?>,
-          AsyncValue<Trip?>,
-          AsyncValue<Trip?>
-        >
-    with $Provider<AsyncValue<Trip?>> {
+final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
+    with $Provider<Trip?> {
   TripProvider._({required TripFamily super.from, required int super.argument})
     : super(
         retry: null,
@@ -126,21 +120,20 @@ final class TripProvider
 
   @$internal
   @override
-  $ProviderElement<AsyncValue<Trip?>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<Trip?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  AsyncValue<Trip?> create(Ref ref) {
+  Trip? create(Ref ref) {
     final argument = this.argument as int;
     return trip(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AsyncValue<Trip?> value) {
+  Override overrideWithValue(Trip? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<AsyncValue<Trip?>>(value),
+      providerOverride: $SyncValueProvider<Trip?>(value),
     );
   }
 
@@ -155,10 +148,10 @@ final class TripProvider
   }
 }
 
-String _$tripHash() => r'b90ff19d260c27245c227eebaa1f29492a7a59c9';
+String _$tripHash() => r'06e28c63c318864a9ba1f7791fa863f8a562e8ac';
 
 final class TripFamily extends $Family
-    with $FunctionalFamilyOverride<AsyncValue<Trip?>, int> {
+    with $FunctionalFamilyOverride<Trip?, int> {
   TripFamily._()
     : super(
         retry: null,
@@ -168,7 +161,7 @@ final class TripFamily extends $Family
         isAutoDispose: true,
       );
 
-  TripProvider call(int tripId) => TripProvider._(argument: tripId, from: this);
+  TripProvider call(int id) => TripProvider._(argument: id, from: this);
 
   @override
   String toString() => r'tripProvider';

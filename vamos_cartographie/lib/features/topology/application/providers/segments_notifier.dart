@@ -1,33 +1,39 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/core/state/optimistic.dart';
 import 'package:vamos_cartographie/core/state/state.dart';
 
 import 'package:vamos_cartographie/features/topology/topology.dart';
-import "package:vamos_cartographie/features/topology/application/services/segment_service.dart";
 part 'segments_notifier.g.dart';
 
 @riverpod
 class SegmentsNotifier extends _$SegmentsNotifier with EntityNotifier<Segment> {
-  SegmentService get service => ref.read(segmentServiceProvider);
-  late final int _tripId;
+  SegmentRepository get repo => ref.read(segmentRepositoryProvider);
+
+  Future<Map<int, Segment>> _load() async {
+    final result = await repo.getSegments(tripId);
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (segments) => {for (final segment in segments) segment.id: segment},
+    );
+  }
 
   @override
   Future<Map<int, Segment>> build(int tripId) async {
-    _tripId = tripId;
-    return await service.getSegments(_tripId);
+    return await _load();
   }
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () async => await service.getSegments(_tripId),
-    );
+    state = await AsyncValue.guard(() async => await _load());
   }
 
   Future<void> createSegment(SegmentDraft draft) async {
-    final segment = await service.createSegment(_tripId, draft);
-    upsertLocal(segment);
+    final result = await repo.createSegment(tripId, draft);
+
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (segment) => upsertLocal(segment),
+    );
   }
 
   Future<void> updateSegment(int id, SegmentDraft draft) async {
@@ -38,7 +44,7 @@ class SegmentsNotifier extends _$SegmentsNotifier with EntityNotifier<Segment> {
         rollback: () => updateLocal(old),
         reconcile: upsertLocal,
       ),
-      remote: () => service.updateSegment(id, draft),
+      remote: () => repo.updateSegment(id, draft),
     );
   }
 
@@ -49,7 +55,7 @@ class SegmentsNotifier extends _$SegmentsNotifier with EntityNotifier<Segment> {
         apply: () => removeLocal(id),
         rollback: () => upsertLocal(old),
       ),
-      remote: () => service.deleteSegment(id),
+      remote: () => repo.deleteSegment(id),
     );
   }
 }

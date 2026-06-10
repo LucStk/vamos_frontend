@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/state/state.dart';
-import 'package:vamos_cartographie/features/waypoints/application/services/waypoint_service.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import "package:vamos_cartographie/features/topology/topology.dart";
 part 'waypoints_notifier.g.dart';
@@ -11,11 +10,20 @@ part 'waypoints_notifier.g.dart';
 @riverpod
 class WaypointsNotifier extends _$WaypointsNotifier
     with EntityNotifier<Waypoint> {
-  WaypointService get service => ref.read(waypointServiceProvider);
+  WaypointRepository get repo => ref.read(waypointRepositoryProvider);
 
   @override
   Future<Map<int, Waypoint>> build(int tripId) async {
-    return await service.getWaypoints(tripId);
+    return _load(tripId);
+  }
+
+  Future<Map<int, Waypoint>> _load(int tripId) async {
+    final result = await repo.getWaypoints(tripId);
+
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (trips) => {for (final trip in trips) trip.id: trip},
+    );
   }
 
   Map<int, Waypoint> get byVertexId => {
@@ -28,20 +36,20 @@ class WaypointsNotifier extends _$WaypointsNotifier
     LatLng? latLng,
   ) async {
     final tmpId = nextTempId();
-    await optimistic(spec : OptimisticSpec(
+    await optimistic(
+      spec: OptimisticSpec(
+        apply: () {
+          upsertLocal(waypointDraft.toWaypoint(tmpId));
+          VerticesNotifier.upsertLocal();
+        },
+        rollback: () {
+          removeLocal(tmpId);
+          verticesProvider.removeLocal();
+        },
+      ),
 
-    apply:(){
-    upsertLocal(waypointDraft.toWaypoint(tmpId));
-    VerticesNotifier.upsertLocal();
-    },
-    rollback: (){
-      removeLocal(tmpId);
-      verticesProvider.removeLocal()
-    }
-
-    ),
-
-     remote: () => service.createWaypoint(tripId,waypointDraft,vertexId,latLng);
+      remote: () =>
+          repo.createWaypoint(tripId, waypointDraft, vertexId, latLng),
     );
   }
 
@@ -57,7 +65,7 @@ class WaypointsNotifier extends _$WaypointsNotifier
         reconcile: updateLocal,
         rollback: () => updateLocal(old),
       ),
-      remote: () => service.updateWaypoint(id, draft),
+      remote: () => repo.updateWaypoint(id, draft),
     );
   }
 
@@ -68,7 +76,7 @@ class WaypointsNotifier extends _$WaypointsNotifier
         apply: () => removeLocal(id),
         rollback: () => upsertLocal(old),
       ),
-      remote: () => service.deleteWaypoint(id),
+      remote: () => repo.deleteWaypoint(id),
     );
   }
 } // --- Providers Sélecteurs pour optimiser l'UI ---

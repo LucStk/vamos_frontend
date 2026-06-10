@@ -3,22 +3,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/state/state.dart';
+import 'package:vamos_cartographie/features/topology/data/repositories/vertex_repository.dart';
+import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import "package:vamos_cartographie/features/topology/application/services/vertex_service.dart";
 part 'vertex_notifier.g.dart';
 
 @riverpod
 class VerticesNotifier extends _$VerticesNotifier with EntityNotifier<Vertex> {
-  VertexService get service => ref.read(vertexServiceProvider);
+  VertexRepository get repo => ref.read(vertexRepositoryProvider);
+
+  Future<Map<int, Vertex>> _load() async {
+    final result = await repo.getVertices(tripId);
+
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (trips) => {for (final trip in trips) trip.id: trip},
+    );
+  }
 
   @override
   Future<Map<int, Vertex>> build(int tripId) async {
-    return await service.getVertices(tripId);
+    return await _load();
   }
 
-  Future<void> createVertex(LatLng latLng) async {
-    final vertex = await service.createVertex(tripId, latLng);
-    upsertLocal(vertex);
+  Future<Vertex> createVertex(LatLng latLng) async {
+    final result = await repo.createVertex(tripId, latLng);
+
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (vertex) => vertex,
+    );
   }
 
   Future<void> moveVertex(int vertexId, LatLng latLng) async {
@@ -30,7 +44,7 @@ class VerticesNotifier extends _$VerticesNotifier with EntityNotifier<Vertex> {
         rollback: () => updateLocal(old),
         reconcile: upsertLocal,
       ),
-      remote: () => service.moveVertex(vertexId, latLng),
+      remote: () => repo.moveVertex(vertexId, latLng),
     );
   }
 
@@ -45,7 +59,7 @@ class VerticesNotifier extends _$VerticesNotifier with EntityNotifier<Vertex> {
         apply: () => removeLocal(id),
         rollback: () => upsertLocal(old),
       ),
-      remote: () => service.deleteVertex(id),
+      remote: () => repo.deleteVertex(id),
     );
   }
 } // --- Providers Sélecteurs pour optimiser l'UI ---

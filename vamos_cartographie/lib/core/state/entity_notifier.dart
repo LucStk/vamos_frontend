@@ -32,7 +32,6 @@ mixin EntityNotifier<T extends HasId> {
   }
 
   int _tx = 0;
-  final List<SyncAction> _queue = [];
 
   int _tempId = -1;
   int nextTempId() => _tempId--;
@@ -75,22 +74,5 @@ mixin EntityNotifier<T extends HasId> {
         return data;
       },
     );
-  }
-
-  void enqueue(SyncAction action) {
-    _queue.add(action);
-  }
-
-  Future<void> flushQueue() async {
-    final queue = List<SyncAction>.from(_queue);
-    _queue.clear();
-
-    for (final action in queue) {
-      try {
-        await action.execute();
-      } catch (_) {
-        _queue.add(action); // retry later
-      }
-    }
   }
 }

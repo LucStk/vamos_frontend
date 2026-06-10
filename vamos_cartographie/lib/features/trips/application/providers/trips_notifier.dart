@@ -1,24 +1,35 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/state/state.dart';
 import "package:vamos_cartographie/features/trips/domain/trip.dart";
+import 'package:vamos_cartographie/features/trips/data/trip_repository.dart';
+import 'package:vamos_cartographie/features/trips/data/trip_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/trips/application/services/trip_service.dart';
 part 'trips_notifier.g.dart';
 
 @riverpod
 class TripsNotifier extends _$TripsNotifier with EntityNotifier<Trip> {
-  TripService get service => ref.read(tripServiceProvider);
+  TripRepository get repo => ref.read(tripRepositoryProvider);
+
+  Future<Map<int, Trip>> _load() async {
+    final result = await repo.getAllTrips();
+
+    return result.fold(
+      (failure) => throw Exception(failure.message),
+      (trips) => {for (final trip in trips) trip.id: trip},
+    );
+  }
 
   @override
-  Future<Map<int, Trip>> build() async => await service.getAllTrips();
+  Future<Map<int, Trip>> build() async => _load();
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() async => await service.getAllTrips());
+    state = await AsyncValue.guard(() async => await _load());
   }
 
   Future<void> createTrip(TripDraft tripDraft) async {
-    final result = await service.createTrip(tripDraft);
+    final result = await repo.createTrip(tripDraft);
+
     result.fold(
       (failure) => throw Exception(failure.message),
       (trip) => upsertLocal(trip),
@@ -34,7 +45,7 @@ class TripsNotifier extends _$TripsNotifier with EntityNotifier<Trip> {
         reconcile: upsertLocal,
         rollback: () => updateLocal(old),
       ),
-      remote: () => service.updateTrip(id, draft),
+      remote: () => repo.updateTrip(id, draft),
     );
   }
 
@@ -45,7 +56,7 @@ class TripsNotifier extends _$TripsNotifier with EntityNotifier<Trip> {
         apply: () => removeLocal(id),
         rollback: () => upsertLocal(old),
       ),
-      remote: () => service.deleteTrip(id),
+      remote: () => repo.deleteTrip(id),
     );
   }
 }
@@ -59,11 +70,15 @@ Iterable<int> tripIds(Ref ref) {
   );
 }
 
+// @riverpod
+// AsyncValue<Trip?> trip(Ref ref, int tripId) {
+//   return ref.watch(
+//     tripsProvider.select(
+//       (asyncTrips) => asyncTrips.whenData((map) => map[tripId]),
+//     ),
+//   );
+// }
 @riverpod
-AsyncValue<Trip?> trip(Ref ref, int tripId) {
-  return ref.watch(
-    tripsProvider.select(
-      (asyncTrips) => asyncTrips.whenData((map) => map[tripId]),
-    ),
-  );
+Trip? trip(Ref ref, int id) {
+  return ref.watch(tripsProvider.select((state) => state.value?[id]));
 }
