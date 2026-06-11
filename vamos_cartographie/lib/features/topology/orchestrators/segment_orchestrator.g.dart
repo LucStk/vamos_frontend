@@ -61,7 +61,7 @@ final class WaypointTopologyOrchestratorProvider
 }
 
 String _$waypointTopologyOrchestratorHash() =>
-    r'bcb370f98fdc405cb139a6dbffa1d68a7958de2e';
+    r'a96ff466d89cf38c1995018a2fcd316e73e5890d';
 
 final class WaypointTopologyOrchestratorFamily extends $Family
     with

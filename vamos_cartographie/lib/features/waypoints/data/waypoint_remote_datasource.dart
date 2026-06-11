@@ -1,5 +1,5 @@
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/graphql/graphql.dart';
+import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:latlong2/latlong.dart';
 

@@ -37,6 +37,7 @@ abstract class WaypointDraft with _$WaypointDraft {
   }) = _WaypointDraft;
   Waypoint toWaypoint(int id, int vertexId) {
     return Waypoint(
+      vertexId: vertexId,
       title: title,
       description: description,
       type: type,

@@ -33,7 +33,7 @@ final class TripsNotifierProvider
   TripsNotifier create() => TripsNotifier();
 }
 
-String _$tripsNotifierHash() => r'083142655c2c543299ce15a081817a77c8ca04c1';
+String _$tripsNotifierHash() => r'ef010a1bbcc4ef551a4bdb75ff01fec7f6afbbac';
 
 abstract class _$TripsNotifier extends $AsyncNotifier<Map<int, Trip>> {
   FutureOr<Map<int, Trip>> build();

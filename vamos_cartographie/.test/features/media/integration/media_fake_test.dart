@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vamos_cartographie/dev_backend/seeds/explore_seed.dart';
+import 'package:vamos_cartographie/backend/seeds/explore_seed.dart';
 import 'package:vamos_cartographie/features/media/application/providers/carousel_notifier.dart';
 import 'package:vamos_cartographie/features/media/data/media_remote_datasource.dart';
 import 'package:vamos_cartographie/features/media/data/media_repository.dart';

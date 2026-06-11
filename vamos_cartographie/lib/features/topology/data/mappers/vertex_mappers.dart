@@ -1,5 +1,5 @@
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import 'package:vamos_cartographie/graphql/graphql.dart';
+import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 

@@ -59,7 +59,7 @@ final class WaypointOrchestratorProvider
 }
 
 String _$waypointOrchestratorHash() =>
-    r'0fcea477e9a0d2f72200a87dfd17b01bb82597e1';
+    r'f1d83b7ede650bec37b83ce803290cdcaf2863da';
 
 final class WaypointOrchestratorFamily extends $Family
     with $ClassFamilyOverride<WaypointOrchestrator, void, void, void, int> {

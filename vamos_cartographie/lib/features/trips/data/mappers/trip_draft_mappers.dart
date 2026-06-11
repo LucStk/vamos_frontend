@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/graphql/graphql.dart';
+import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 

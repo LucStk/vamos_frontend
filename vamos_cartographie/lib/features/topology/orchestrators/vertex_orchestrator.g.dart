@@ -9,36 +9,35 @@ part of 'vertex_orchestrator.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(WaypointTopologyOrchestrator)
-final waypointTopologyOrchestratorProvider =
-    WaypointTopologyOrchestratorFamily._();
+@ProviderFor(VertexOrchestrator)
+final vertexOrchestratorProvider = VertexOrchestratorFamily._();
 
-final class WaypointTopologyOrchestratorProvider
-    extends $NotifierProvider<WaypointTopologyOrchestrator, void> {
-  WaypointTopologyOrchestratorProvider._({
-    required WaypointTopologyOrchestratorFamily super.from,
+final class VertexOrchestratorProvider
+    extends $NotifierProvider<VertexOrchestrator, void> {
+  VertexOrchestratorProvider._({
+    required VertexOrchestratorFamily super.from,
     required int super.argument,
   }) : super(
          retry: null,
-         name: r'waypointTopologyOrchestratorProvider',
+         name: r'vertexOrchestratorProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$waypointTopologyOrchestratorHash();
+  String debugGetCreateSourceHash() => _$vertexOrchestratorHash();
 
   @override
   String toString() {
-    return r'waypointTopologyOrchestratorProvider'
+    return r'vertexOrchestratorProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  WaypointTopologyOrchestrator create() => WaypointTopologyOrchestrator();
+  VertexOrchestrator create() => VertexOrchestrator();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(void value) {
@@ -50,8 +49,7 @@ final class WaypointTopologyOrchestratorProvider
 
   @override
   bool operator ==(Object other) {
-    return other is WaypointTopologyOrchestratorProvider &&
-        other.argument == argument;
+    return other is VertexOrchestratorProvider && other.argument == argument;
   }
 
   @override
@@ -60,35 +58,28 @@ final class WaypointTopologyOrchestratorProvider
   }
 }
 
-String _$waypointTopologyOrchestratorHash() =>
-    r'3d6f93fb8c4bf642fd7c87c6f1193503b56c9191';
+String _$vertexOrchestratorHash() =>
+    r'7e963c691310be8c8f8f6e39740d7f338839b050';
 
-final class WaypointTopologyOrchestratorFamily extends $Family
-    with
-        $ClassFamilyOverride<
-          WaypointTopologyOrchestrator,
-          void,
-          void,
-          void,
-          int
-        > {
-  WaypointTopologyOrchestratorFamily._()
+final class VertexOrchestratorFamily extends $Family
+    with $ClassFamilyOverride<VertexOrchestrator, void, void, void, int> {
+  VertexOrchestratorFamily._()
     : super(
         retry: null,
-        name: r'waypointTopologyOrchestratorProvider',
+        name: r'vertexOrchestratorProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  WaypointTopologyOrchestratorProvider call(int tripId) =>
-      WaypointTopologyOrchestratorProvider._(argument: tripId, from: this);
+  VertexOrchestratorProvider call(int tripId) =>
+      VertexOrchestratorProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'waypointTopologyOrchestratorProvider';
+  String toString() => r'vertexOrchestratorProvider';
 }
 
-abstract class _$WaypointTopologyOrchestrator extends $Notifier<void> {
+abstract class _$VertexOrchestrator extends $Notifier<void> {
   late final _$args = ref.$arg as int;
   int get tripId => _$args;
 

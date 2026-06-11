@@ -41,7 +41,7 @@ class WaypointOrchestrator extends _$WaypointOrchestrator {
             (id) => Vertex(id: id, latLng: latLng!),
           );
         } else {
-          tempVertexId = vertexId!;
+          tempVertexId = vertexId;
         }
 
         tempWaypointId = graph.create<Waypoint>(

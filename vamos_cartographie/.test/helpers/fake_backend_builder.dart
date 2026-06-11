@@ -1,9 +1,9 @@
 import 'package:ferry/ferry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/injection/client_provider.dart';
-import 'package:vamos_cartographie/dev_backend/core/fake_graphql_store.dart';
-import 'package:vamos_cartographie/dev_backend/core/fake_seeds.dart';
-import 'package:vamos_cartographie/dev_backend/transport/fake_link.dart';
+import 'package:vamos_cartographie/backend/core/fake_graphql_store.dart';
+import 'package:vamos_cartographie/backend/core/fake_seeds.dart';
+import 'package:vamos_cartographie/backend/transport/fake_link.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_repository.dart';
 import 'package:vamos_cartographie/features/topology/data/datasources/segment_remote_datasource.dart';

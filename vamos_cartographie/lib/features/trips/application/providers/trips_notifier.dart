@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/graph/application/graph_store_providers.dart';
-import 'package:vamos_cartographie/features/graph/application/optimistic_executor.dart';
+import 'package:vamos_cartographie/features/graph/application/graph_executor.dart';
+import 'package:vamos_cartographie/features/graph/application/graph_providers.dart';
 import 'package:vamos_cartographie/features/graph/store/entity_store.dart';
 import "package:vamos_cartographie/features/trips/domain/trip.dart";
 import 'package:vamos_cartographie/features/trips/data/trip_repository.dart';

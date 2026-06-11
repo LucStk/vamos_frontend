@@ -9,7 +9,7 @@ targets:
       ferry_generator2|graphql_builder:
         options:
           schema:
-            file: vamos_cartographie|lib/graphql/schema.graphql
+            file: vamos_cartographie|lib/backend/graphql/schema.graphql
           scalars:
             Date:
               type: String

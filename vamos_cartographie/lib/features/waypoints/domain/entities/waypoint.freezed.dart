@@ -292,7 +292,7 @@ as List<MediaImage>,
 /// @nodoc
 mixin _$WaypointDraft {
 
- int get vertexId; String get title; WaypointType get type; String get description; List<MediaImage> get images;
+ String get title; WaypointType get type; String get description; List<MediaImage> get images;
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -303,16 +303,16 @@ $WaypointDraftCopyWith<WaypointDraft> get copyWith => _$WaypointDraftCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointDraft&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.images, images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.images, images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexId,title,type,description,const DeepCollectionEquality().hash(images));
+int get hashCode => Object.hash(runtimeType,title,type,description,const DeepCollectionEquality().hash(images));
 
 @override
 String toString() {
-  return 'WaypointDraft(vertexId: $vertexId, title: $title, type: $type, description: $description, images: $images)';
+  return 'WaypointDraft(title: $title, type: $type, description: $description, images: $images)';
 }
 
 
@@ -323,7 +323,7 @@ abstract mixin class $WaypointDraftCopyWith<$Res>  {
   factory $WaypointDraftCopyWith(WaypointDraft value, $Res Function(WaypointDraft) _then) = _$WaypointDraftCopyWithImpl;
 @useResult
 $Res call({
- int vertexId, String title, WaypointType type, String description, List<MediaImage> images
+ String title, WaypointType type, String description, List<MediaImage> images
 });
 
 
@@ -340,10 +340,9 @@ class _$WaypointDraftCopyWithImpl<$Res>
 
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? vertexId = null,Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
   return _then(_self.copyWith(
-vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
@@ -432,10 +431,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WaypointDraft() when $default != null:
-return $default(_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.title,_that.type,_that.description,_that.images);case _:
   return orElse();
 
 }
@@ -453,10 +452,10 @@ return $default(_that.vertexId,_that.title,_that.type,_that.description,_that.im
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  WaypointType type,  String description,  List<MediaImage> images)  $default,) {final _that = this;
 switch (_that) {
 case _WaypointDraft():
-return $default(_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.title,_that.type,_that.description,_that.images);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -473,10 +472,10 @@ return $default(_that.vertexId,_that.title,_that.type,_that.description,_that.im
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
 switch (_that) {
 case _WaypointDraft() when $default != null:
-return $default(_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.title,_that.type,_that.description,_that.images);case _:
   return null;
 
 }
@@ -488,10 +487,9 @@ return $default(_that.vertexId,_that.title,_that.type,_that.description,_that.im
 
 
 class _WaypointDraft extends WaypointDraft {
-  const _WaypointDraft({required this.vertexId, this.title = '', this.type = WaypointType.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
+  const _WaypointDraft({this.title = '', this.type = WaypointType.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
   
 
-@override final  int vertexId;
 @override@JsonKey() final  String title;
 @override@JsonKey() final  WaypointType type;
 @override@JsonKey() final  String description;
@@ -513,16 +511,16 @@ _$WaypointDraftCopyWith<_WaypointDraft> get copyWith => __$WaypointDraftCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointDraft&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._images, _images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._images, _images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexId,title,type,description,const DeepCollectionEquality().hash(_images));
+int get hashCode => Object.hash(runtimeType,title,type,description,const DeepCollectionEquality().hash(_images));
 
 @override
 String toString() {
-  return 'WaypointDraft(vertexId: $vertexId, title: $title, type: $type, description: $description, images: $images)';
+  return 'WaypointDraft(title: $title, type: $type, description: $description, images: $images)';
 }
 
 
@@ -533,7 +531,7 @@ abstract mixin class _$WaypointDraftCopyWith<$Res> implements $WaypointDraftCopy
   factory _$WaypointDraftCopyWith(_WaypointDraft value, $Res Function(_WaypointDraft) _then) = __$WaypointDraftCopyWithImpl;
 @override @useResult
 $Res call({
- int vertexId, String title, WaypointType type, String description, List<MediaImage> images
+ String title, WaypointType type, String description, List<MediaImage> images
 });
 
 
@@ -550,10 +548,9 @@ class __$WaypointDraftCopyWithImpl<$Res>
 
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? vertexId = null,Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
   return _then(_WaypointDraft(
-vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable

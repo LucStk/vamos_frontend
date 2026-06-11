@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/features/graph/application/graph_store_providers.dart';
+import 'package:vamos_cartographie/features/graph/graph.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
