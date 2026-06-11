@@ -1,19 +1,16 @@
-import "package:riverpod/riverpod.dart";
-import "package:vamos_cartographie/features/media/data/data.dart";
-import "package:vamos_cartographie/core/injection/injection.dart";
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/features/media/application/controllers/upload_controller.dart';
+import 'package:vamos_cartographie/features/media/application/usecases/upload_media_use_case.dart';
+import 'package:vamos_cartographie/features/media/data/providers/media_providers.dart';
 
-part "media_provider.g.dart";
+part 'media_providers.g.dart';
 
-final mediaRemoteDatasourceProvider = Provider<MediaRemoteDatasource>((ref) {
-  return MediaRemoteDatasource(ref.watch(clientProvider));
-});
-final mediaRepositoryProvider = Provider<MediaRepository>((ref) {
-  return MediaRepository(
-    remote: ref.watch(mediaRemoteDatasourceProvider),
-    storage: ref.watch(storageDatasourceProvider),
-  );
-});
 @riverpod
-MediaService mediaService(Ref ref) {
-  return MediaService(ref.read(mediaRepositoryProvider));
+UploadMediaUseCase uploadMediaUseCase(Ref ref) {
+  return UploadMediaUseCase(ref.read(mediaRepositoryProvider));
+}
+
+@riverpod
+UploadCarouselImageController uploadCarouselImageController(Ref ref) {
+  return UploadCarouselImageController(ref.read(uploadMediaUseCaseProvider));
 }

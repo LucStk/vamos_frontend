@@ -1,21 +1,23 @@
 import 'dart:io';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/features/media/application/controllers/upload_carousel_commands.dart';
+import 'package:vamos_cartographie/features/media/application/controllers/upload_controller.dart';
+import 'package:vamos_cartographie/features/media/application/providers/media_providers.dart';
 
-import 'package:vamos_cartographie/features/media/application/services/media_service.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 part 'carousel_notifier.g.dart';
 
 @riverpod
 class CarouselNotifier extends _$CarouselNotifier {
-  MediaService get service => ref.read(mediaServiceProvider);
+  UploadCarouselImageController get _upload =>
+      ref.read(uploadCarouselImageControllerProvider);
 
   @override
   CarouselState build(String carouselId) {
     return const CarouselState();
   }
-
   // ─────────────────────────────────────────────────────────────
   // Initialization
   // ─────────────────────────────────────────────────────────────
@@ -35,13 +37,9 @@ class CarouselNotifier extends _$CarouselNotifier {
     CarouselItem Function(CarouselItem item) update,
   ) {
     final index = state.items.indexWhere((i) => i.fileKey == fileKey);
-
     if (index == -1) return;
-
     final updatedItems = List<CarouselItem>.from(state.items);
-
     updatedItems[index] = update(updatedItems[index]);
-
     state = state.copyWith(items: updatedItems);
   }
 
@@ -59,18 +57,14 @@ class CarouselNotifier extends _$CarouselNotifier {
   // ─────────────────────────────────────────────────────────────
 
   void addLocalImages(List<String> paths) {
-    final newItems = paths
-        .map((path) => CarouselItem.local(fileKey: path))
-        .toList();
-
+    final newItems = paths.map((p) => CarouselItem.local(fileKey: p)).toList();
     state = state.copyWith(items: [...state.items, ...newItems]);
-
     for (final item in newItems) {
-      uploadItem(item);
+      _uploadItem(item);
     }
   }
 
-  Future<void> uploadItem(CarouselItem item) async {
+  Future<void> _uploadItem(CarouselItem item) async {
     if (!item.isLocal) return;
 
     final path = item.fileKey;
@@ -78,32 +72,27 @@ class CarouselNotifier extends _$CarouselNotifier {
 
     _updateItem(
       path,
-      (item) => item.copyWith(
+      (i) => i.copyWith(
         uploadStatus: UploadStatus.uploading,
         progress: 0,
         error: null,
       ),
     );
 
-    void onProgress(int sent, int total) {
-      if (!ref.mounted) return;
-
-      _updateItem(
-        path,
-        (item) => item.copyWith(progress: total > 0 ? sent / total : 0),
-      );
-    }
-
     try {
-      final image = await service.uploadMedia(File(path), ext, onProgress);
+      final image = await _upload(
+        UploadCarouselImageCommand(
+          file: File(path),
+          type: ext,
+          onProgress: (progress) {
+            if (!ref.mounted) return;
 
-      if (!ref.mounted) return;
-
-      final stillExists = state.items.any(
-        (i) => i.isLocal && i.fileKey == path,
+            _updateItem(path, (i) => i.copyWith(progress: progress));
+          },
+        ),
       );
 
-      if (!stillExists) return;
+      if (!ref.mounted) return;
 
       _replaceItem(path, CarouselItem.remote(image: image));
     } catch (e) {
@@ -111,16 +100,14 @@ class CarouselNotifier extends _$CarouselNotifier {
 
       _updateItem(
         path,
-        (item) => item.copyWith(
-          uploadStatus: UploadStatus.failure,
-          error: e.toString(),
-        ),
+        (i) =>
+            i.copyWith(uploadStatus: UploadStatus.failure, error: e.toString()),
       );
     }
   }
 
   void retryUpload(CarouselItem item) {
-    uploadItem(item);
+    _uploadItem(item);
   }
 
   void deleteItem(CarouselItem item) {

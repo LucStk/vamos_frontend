@@ -8,14 +8,6 @@ import 'package:vamos_cartographie/features/topology/data/data.dart';
 import "package:vamos_cartographie/core/injection/client_provider.dart";
 part 'vertex_notifier.g.dart';
 
-final vertexRemoteDatasourceProvider = Provider<VertexRemoteDatasource>((ref) {
-  return VertexRemoteDatasource(ref.watch(clientProvider));
-});
-
-final vertexRepositoryProvider = Provider<VertexRepository>((ref) {
-  return VertexRepository(ref.watch(vertexRemoteDatasourceProvider));
-});
-
 @riverpod
 Map<int, Vertex> vertexMap(Ref ref, int tripId) {
   return ref.watch(verticesProvider(tripId)).value ?? const {};

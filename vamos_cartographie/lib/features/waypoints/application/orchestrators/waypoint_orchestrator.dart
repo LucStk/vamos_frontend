@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/features/waypoints/data/providers/waypoints_providers.dart';
 
 part 'waypoint_orchestrator.g.dart';
 

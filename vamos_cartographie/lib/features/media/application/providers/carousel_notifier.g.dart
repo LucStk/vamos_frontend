@@ -58,7 +58,7 @@ final class CarouselNotifierProvider
   }
 }
 
-String _$carouselNotifierHash() => r'dd55962a5f635ca194bda4448b10dc892dee89f8';
+String _$carouselNotifierHash() => r'dc959221d062dd21bbca056e1d107b04ddd8c1f2';
 
 final class CarouselNotifierFamily extends $Family
     with

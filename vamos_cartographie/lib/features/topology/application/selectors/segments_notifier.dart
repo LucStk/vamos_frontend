@@ -5,16 +5,6 @@ import "package:vamos_cartographie/core/injection/client_provider.dart";
 import 'package:vamos_cartographie/features/topology/topology.dart';
 part 'segments_notifier.g.dart';
 
-final segmentRemoteDatasourceProvider = Provider<SegmentRemoteDatasource>((
-  ref,
-) {
-  return SegmentRemoteDatasource(ref.watch(clientProvider));
-});
-
-final segmentRepositoryProvider = Provider<SegmentRepository>((ref) {
-  return SegmentRepository(ref.watch(segmentRemoteDatasourceProvider));
-});
-
 @riverpod
 Map<int, Segment> segmentMap(Ref ref, int tripId) {
   return ref.watch(segmentsProvider(tripId)).value ?? const {};
