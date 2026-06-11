@@ -1,46 +1,107 @@
-import 'package:vamos_cartographie/core/state/graph_store_providers.dart';
-import 'package:vamos_cartographie/core/state/optimistic_graph_store.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:vamos_cartographie/features/features.dart';
-import "package:riverpod_annotation/riverpod_annotation.dart";
-part "waypoint_orchestrator.g.dart";
+import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
+import "package:vamos_cartographie/features/graph/graph.dart";
+import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+
+part 'waypoint_orchestrator.g.dart';
 
 @riverpod
 class WaypointOrchestrator extends _$WaypointOrchestrator {
-  OptimisticGraphStore get graph => ref.read(graphStoreProvider);
-  WaypointRepository get repo => ref.read(waypointRepositoryProvider);
-
+  GraphStore get graph => ref.read(graphStoreProvider);
+  OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
+  WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);
   @override
   void build(int tripId) {}
 
-  Future<void> updateWaypoint(int id, WaypointDraft draft) async {
-    final old = graph.getOrThrow<Waypoint>(id);
-    final updated = draft.toWaypoint(id);
+  // ---------------------------------------------------------------------------
+  // CREATE WAYPOINT (WITH OPTIONAL VERTEX)
+  // ---------------------------------------------------------------------------
 
-    graph.update<Waypoint>(updated);
+  Future<void> createWaypoint(
+    WaypointDraft draft,
+    int? vertexId,
+    LatLng? latLng,
+  ) async {
+    final needsVertex = vertexId == null;
 
-    final result = await repo.updateWaypoint(id, draft);
+    if (needsVertex && latLng == null) {
+      throw Exception("CreateWaypoint Error: no vertexId and no latLng");
+    }
 
-    result.fold(
-      (failure) {
-        graph.update<Waypoint>(old);
-        throw Exception(failure.message);
+    late int tempWaypointId;
+    late int tempVertexId;
+
+    await executor.run(
+      onApply: () {
+        if (needsVertex) {
+          tempVertexId = graph.create<Vertex>(
+            (id) => Vertex(id: id, latLng: latLng!),
+          );
+        } else {
+          tempVertexId = vertexId!;
+        }
+
+        tempWaypointId = graph.create<Waypoint>(
+          (id) => draft.toWaypoint(id, tempVertexId),
+        );
       },
-      (wp) {
-        graph.upsert<Waypoint>(wp);
+
+      remote: () =>
+          waypointRepo.createWaypoint(tripId, draft, vertexId, latLng),
+
+      onSuccess: (server) {
+        if (needsVertex) {
+          graph.commitCreate<Vertex>(
+            tempId: tempVertexId,
+            serverEntity: server.vertex,
+          );
+        }
+
+        graph.commitCreate<Waypoint>(
+          tempId: tempWaypointId,
+          serverEntity: server.waypoint,
+        );
+      },
+
+      onError: () {
+        if (needsVertex) {
+          graph.rollbackCreate<Vertex>(tempVertexId);
+        }
+
+        graph.rollbackCreate<Waypoint>(tempWaypointId);
       },
     );
   }
 
   Future<void> deleteWaypoint(int id) async {
-    final old = graph.getOrThrow<Waypoint>(id);
+    await executor.run(
+      onApply: () => graph.delete<Waypoint>(id),
+      remote: () => waypointRepo.deleteWaypoint(id),
+      onSuccess: (_) => graph.commitDelete(id),
+      onError: () => graph.rollbackDelete(id),
+    );
+  }
 
-    graph.remove<Waypoint>(id);
-
-    final result = await repo.deleteWaypoint(id);
-
-    result.fold((failure) {
-      graph.upsert<Waypoint>(old);
-      throw Exception(failure.message);
-    }, (_) {});
+  Future<void> updateWaypoint(
+    int waypointId,
+    int vertexId,
+    WaypointDraft draft,
+  ) async {
+    late Waypoint oldValue;
+    await executor.run(
+      onApply: () {
+        oldValue = graph.update<Waypoint>(waypointId, (Waypoint v) {
+          return draft.toWaypoint(waypointId, vertexId);
+        });
+      },
+      remote: () => waypointRepo.updateWaypoint(waypointId, draft),
+      onSuccess: (serveurValue) => graph.commitUpdate(waypointId, serveurValue),
+      onError: () => graph.update<Waypoint>(waypointId, (v) {
+        return oldValue;
+      }),
+    );
   }
 }

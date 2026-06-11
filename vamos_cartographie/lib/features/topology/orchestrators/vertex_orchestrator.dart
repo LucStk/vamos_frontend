@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/features/topology/data/repositories/vertex_re
 part 'vertex_orchestrator.g.dart';
 
 @riverpod
-class WaypointTopologyOrchestrator extends _$WaypointTopologyOrchestrator {
+class VertexOrchestrator extends _$VertexOrchestrator {
   GraphStore get graph => ref.read(graphStoreProvider);
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);
