@@ -21,54 +21,38 @@ class WaypointTopologyOrchestrator extends _$WaypointTopologyOrchestrator {
   // ---------------------------------------------------------------------------
   // CREATE WAYPOINT (WITH OPTIONAL VERTEX)
   // ---------------------------------------------------------------------------
-
   Future<void> createWaypoint(WaypointDraft draft, LatLng? latLng) async {
-    final waypointTempId = graph.nextTempId();
-    int vertexId;
+    final tx = graph.beginTx();
 
-    if (latLng != null) {
-      final vertexTempId = graph.nextTempId();
-      final vertex = Vertex(id: vertexTempId, latLng: latLng);
-      graph.upsert<Vertex>(vertex);
-      vertexId = vertexTempId;
-    } else {
-      throw Exception("LatLng required to create vertex");
-    }
-    final waypoint = draft
-        .toWaypoint(waypointTempId)
-        .copyWith(vertexId: vertexId);
+    late int waypointTempId;
+    late int vertexTempId;
 
     await executor.run(
-      spec: OptimisticSpec(
-        apply: () => graph.upsert<Waypoint>(waypoint),
+      onApply: () {
+        vertexTempId = graph.nextTempId();
+        waypointTempId = graph.nextTempId();
 
-        rollback: () {
-          graph.remove<Waypoint>(waypointTempId);
-          graph.remove<Vertex>(vertexId);
-        },
-
-        reconcile: (result) {
-          final serverWaypoint = result.waypoint;
-          final serverVertex = result.vertex;
-          if (serverVertex != null) {
-            graph.reconcileVertex(tempId: vertexId, realVertex: serverVertex);
-          }
-
-          graph.reconcileWaypoint(serverWaypoint);
-        },
-      ),
-
-      remote: () async {
-        final vertex = await vertexRepo.createVertex(tripId, latLng);
-
-        final waypoint = await waypointRepo.createWaypoint(
-          tripId,
-          draft,
-          vertex.id,
-          latLng,
+        graph.createWaypointOptimistic(
+          waypointTempId: waypointTempId,
+          vertexTempId: vertexTempId,
+          draft: draft,
+          latLng: latLng,
         );
+      },
 
-        return CreateWaypointResult(waypoint: waypoint, vertex: vertex);
+      remote: () => waypointRepo.createWaypoint(tripId, draft, latLng),
+
+      onSuccess: (result) {
+        graph.commitCreateWaypoint(
+          waypointTempId: waypointTempId,
+          vertexTempId: vertexTempId,
+          serverWaypoint: result.waypoint,
+          serverVertex: result.vertex,
+        );
+      },
+
+      onError: () {
+        graph.rollbackTx(tx);
       },
     );
   }

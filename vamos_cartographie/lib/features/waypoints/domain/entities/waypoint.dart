@@ -18,7 +18,6 @@ abstract class Waypoint with _$Waypoint implements HasId {
   }) = _Waypoint;
   WaypointDraft toDraft() {
     return WaypointDraft(
-      vertexId: vertexId,
       title: title,
       type: type,
       description: description,
@@ -31,20 +30,18 @@ abstract class Waypoint with _$Waypoint implements HasId {
 abstract class WaypointDraft with _$WaypointDraft {
   const WaypointDraft._();
   const factory WaypointDraft({
-    required int vertexId,
     @Default('') String title,
     @Default(WaypointType.waypoint) WaypointType type,
     @Default('') String description,
     @Default([]) List<MediaImage> images,
   }) = _WaypointDraft;
-  Waypoint toWaypoint(int id) {
+  Waypoint toWaypoint(int id, int vertexId) {
     return Waypoint(
       title: title,
       description: description,
       type: type,
       images: images,
       id: id,
-      vertexId: vertexId,
     );
   }
 }
