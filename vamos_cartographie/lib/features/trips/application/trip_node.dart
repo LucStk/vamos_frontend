@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
-class Node<T> {
-  T? value;
-  bool deleted = false;
-  int revision = 0;
+class TripNode {
+  TripNode(this.value);
 
-  Node(this.value);
+  Trip value;
   final ValueNotifier<int> _vn = ValueNotifier(0);
 
-  void notify() {
+  void set(Trip v) {
+    value = v;
     _vn.value++;
   }
 

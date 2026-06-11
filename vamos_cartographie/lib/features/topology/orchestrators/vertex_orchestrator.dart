@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
-import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
+import 'package:vamos_cartographie/features/topology/data/providers/vertex_providers.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/topology/data/repositories/vertex_repository.dart';

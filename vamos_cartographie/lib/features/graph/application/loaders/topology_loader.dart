@@ -1,6 +1,7 @@
 import 'package:vamos_cartographie/features/graph/graph.dart';
+import 'package:vamos_cartographie/features/topology/data/providers/segments_providers.dart';
+import 'package:vamos_cartographie/features/topology/data/providers/vertex_providers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 part "topology_loader.g.dart";
 

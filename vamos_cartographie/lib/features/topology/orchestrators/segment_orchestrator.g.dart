@@ -9,36 +9,35 @@ part of 'segment_orchestrator.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(WaypointTopologyOrchestrator)
-final waypointTopologyOrchestratorProvider =
-    WaypointTopologyOrchestratorFamily._();
+@ProviderFor(SegmentOrchestrator)
+final segmentOrchestratorProvider = SegmentOrchestratorFamily._();
 
-final class WaypointTopologyOrchestratorProvider
-    extends $NotifierProvider<WaypointTopologyOrchestrator, void> {
-  WaypointTopologyOrchestratorProvider._({
-    required WaypointTopologyOrchestratorFamily super.from,
+final class SegmentOrchestratorProvider
+    extends $NotifierProvider<SegmentOrchestrator, void> {
+  SegmentOrchestratorProvider._({
+    required SegmentOrchestratorFamily super.from,
     required int super.argument,
   }) : super(
          retry: null,
-         name: r'waypointTopologyOrchestratorProvider',
+         name: r'segmentOrchestratorProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$waypointTopologyOrchestratorHash();
+  String debugGetCreateSourceHash() => _$segmentOrchestratorHash();
 
   @override
   String toString() {
-    return r'waypointTopologyOrchestratorProvider'
+    return r'segmentOrchestratorProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  WaypointTopologyOrchestrator create() => WaypointTopologyOrchestrator();
+  SegmentOrchestrator create() => SegmentOrchestrator();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(void value) {
@@ -50,8 +49,7 @@ final class WaypointTopologyOrchestratorProvider
 
   @override
   bool operator ==(Object other) {
-    return other is WaypointTopologyOrchestratorProvider &&
-        other.argument == argument;
+    return other is SegmentOrchestratorProvider && other.argument == argument;
   }
 
   @override
@@ -60,35 +58,28 @@ final class WaypointTopologyOrchestratorProvider
   }
 }
 
-String _$waypointTopologyOrchestratorHash() =>
-    r'a96ff466d89cf38c1995018a2fcd316e73e5890d';
+String _$segmentOrchestratorHash() =>
+    r'9aaae9576b403e63d6d0f1e763b1a1c89caf3115';
 
-final class WaypointTopologyOrchestratorFamily extends $Family
-    with
-        $ClassFamilyOverride<
-          WaypointTopologyOrchestrator,
-          void,
-          void,
-          void,
-          int
-        > {
-  WaypointTopologyOrchestratorFamily._()
+final class SegmentOrchestratorFamily extends $Family
+    with $ClassFamilyOverride<SegmentOrchestrator, void, void, void, int> {
+  SegmentOrchestratorFamily._()
     : super(
         retry: null,
-        name: r'waypointTopologyOrchestratorProvider',
+        name: r'segmentOrchestratorProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  WaypointTopologyOrchestratorProvider call(int tripId) =>
-      WaypointTopologyOrchestratorProvider._(argument: tripId, from: this);
+  SegmentOrchestratorProvider call(int tripId) =>
+      SegmentOrchestratorProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'waypointTopologyOrchestratorProvider';
+  String toString() => r'segmentOrchestratorProvider';
 }
 
-abstract class _$WaypointTopologyOrchestrator extends $Notifier<void> {
+abstract class _$SegmentOrchestrator extends $Notifier<void> {
   late final _$args = ref.$arg as int;
   int get tripId => _$args;
 

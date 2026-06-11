@@ -1,14 +1,22 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/type/has_id.dart';
 
+/// Reactive entity store based on per-entity ValueNotifier.
+/// This enables fine-grained updates (only affected entities rebuild).
 mixin EntityStore<T extends HasId> {
-  AsyncValue<Map<int, T>> get state;
-  set state(AsyncValue<Map<int, T>> value);
-  Map<int, T> get entities => state.value ?? const {};
+  /// MUST be implemented by the concrete store:
+  /// Map<entityId, ValueNotifier<entity>>
+  Map<int, ValueNotifier<T>> get state;
+
   int _tempId = -1;
   int nextTempId() => _tempId--;
 
-  T? get(int id) => entities[id];
+  // ─────────────────────────────────────────────
+  // READ
+  // ─────────────────────────────────────────────
+
+  T? get(int id) => state[id]?.value;
 
   T getOrThrow(int id) {
     final entity = get(id);
@@ -18,74 +26,87 @@ mixin EntityStore<T extends HasId> {
     return entity;
   }
 
+  // ─────────────────────────────────────────────
+  // CREATE (local optimistic)
+  // ─────────────────────────────────────────────
+
   int createLocal(T Function(int tempId) builder) {
     final id = nextTempId();
 
-    final copy = Map<int, T>.from(entities);
-
-    copy[id] = builder(id);
-
-    state = AsyncData(copy);
+    state[id] = ValueNotifier<T>(builder(id));
 
     return id;
   }
 
+  // ─────────────────────────────────────────────
+  // UPDATE (local optimistic)
+  // ─────────────────────────────────────────────
+
   T patchLocal(int id, T Function(T current) mutate) {
-    final copy = Map<int, T>.from(entities);
+    final node = state[id];
 
-    final current = copy[id];
-
-    if (current == null) {
+    if (node == null) {
       throw StateError('$T $id not found');
     }
 
-    final old = current;
-
-    copy[id] = mutate(current);
-
-    state = AsyncData(copy);
+    final old = node.value;
+    node.value = mutate(old);
 
     return old;
   }
 
+  // ─────────────────────────────────────────────
+  // DELETE (local optimistic)
+  // ─────────────────────────────────────────────
+
   void removeLocal(int id) {
-    final copy = Map<int, T>.from(entities);
-
-    copy.remove(id);
-
-    state = AsyncData(copy);
+    state.remove(id);
   }
 
+  // ─────────────────────────────────────────────
+  // COMMIT (server reconciliation)
+  // ─────────────────────────────────────────────
+
   void commitCreate(T entity, int tempId) {
-    final copy = Map<int, T>.from(entities);
-
-    copy.remove(tempId);
-    copy[entity.id] = entity;
-
-    state = AsyncData(copy);
+    state.remove(tempId);
+    state[entity.id] = ValueNotifier<T>(entity);
   }
 
   void commitUpdate(T entity) {
-    final copy = Map<int, T>.from(entities);
+    final node = state[entity.id];
 
-    copy[entity.id] = entity;
+    if (node == null) {
+      state[entity.id] = ValueNotifier<T>(entity);
+      return;
+    }
 
-    state = AsyncData(copy);
+    node.value = entity;
   }
 
+  void commitDelete(int id) {
+    state.remove(id);
+  }
+
+  // ─────────────────────────────────────────────
+  // ROLLBACK (error recovery)
+  // ─────────────────────────────────────────────
+
   void rollbackCreate(int tempId) {
-    final copy = Map<int, T>.from(entities);
-
-    copy.remove(tempId);
-
-    state = AsyncData(copy);
+    state.remove(tempId);
   }
 
   void rollbackUpdate(T previous) {
-    final copy = Map<int, T>.from(entities);
+    final node = state[previous.id];
 
-    copy[previous.id] = previous;
+    if (node == null) {
+      state[previous.id] = ValueNotifier<T>(previous);
+      return;
+    }
 
-    state = AsyncData(copy);
+    node.value = previous;
+  }
+
+  void rollbackDelete(T previous) {
+    state[previous.id] = ValueNotifier<T>(previous);
   }
 }

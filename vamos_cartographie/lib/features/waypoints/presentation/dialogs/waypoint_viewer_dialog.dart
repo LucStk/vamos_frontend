@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/features/graph/application/graph_providers.dart';
+import 'package:vamos_cartographie/features/waypoints/application/orchestrators/waypoint_orchestrator.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'waypoint_editor_dialog.dart';
 
@@ -40,7 +42,7 @@ class WaypointViewerDialog extends ConsumerWidget {
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
       await ref
-          .read(waypointsProvider(tripId).notifier)
+          .read(waypointOrchestratorProvider(tripId).notifier)
           .deleteWaypoint(waypointId);
 
       // Sécurité Flutter obligatoire après un "await"
@@ -61,8 +63,10 @@ class WaypointViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(waypointProvider(tripId, waypointId));
-
+    final waypoint = ref
+        .read(graphStoreProvider)
+        .map<Waypoint>()[waypointId]
+        ?.value;
     if (waypoint == null) {
       return const SizedBox.shrink();
     }

@@ -1,111 +1,111 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/graph/application/graph_executor.dart';
 import 'package:vamos_cartographie/features/graph/application/graph_providers.dart';
-import 'package:vamos_cartographie/features/graph/store/entity_store.dart';
-import "package:vamos_cartographie/features/trips/domain/trip.dart";
+import 'package:vamos_cartographie/features/trips/application/trip_node.dart';
 import 'package:vamos_cartographie/features/trips/data/data.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import "package:riverpod/riverpod.dart";
-import "package:vamos_cartographie/core/injection/client_provider.dart";
+import 'package:vamos_cartographie/features/trips/data/providers/trips_providers.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:vamos_cartographie/features/graph/application/graph_executor.dart';
+
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'trips_notifier.g.dart';
 
-final tripRemoteDatasourceProvider = Provider<TripRemoteDatasource>((ref) {
-  return TripRemoteDatasource(ref.watch(clientProvider));
-});
-
-final tripRepositoryProvider = Provider<TripRepository>((ref) {
-  return TripRepository(ref.watch(tripRemoteDatasourceProvider));
-});
-
 @riverpod
-class TripsNotifier extends _$TripsNotifier with EntityStore<Trip> {
-  TripRepository get repo => ref.read(tripRepositoryProvider);
-  OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
+class TripsNotifier extends _$TripsNotifier {
+  @override
+  Map<int, TripNode> build() {
+    _load();
+    return {};
+  }
 
-  Future<Map<int, Trip>> _load() async {
+  TripRepository get repo => ref.read(tripRepositoryProvider);
+  OptimisticExecutor get executor => ref.read(
+    optimisticExecutorProvider,
+  ); // ─────────────────────────────────────────────
+  // STATE ACCESS
+  // ─────────────────────────────────────────────
+
+  Map<int, TripNode> get _store => state;
+
+  Trip? getTrip(int id) => _store[id]?.value;
+
+  Trip getOrThrow(int id) {
+    final trip = getTrip(id);
+    if (trip == null) throw StateError('Trip $id not found');
+    return trip;
+  }
+
+  Future<void> _load() async {
     final result = await repo.getAllTrips();
 
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (trips) => {for (final trip in trips) trip.id: trip},
-    );
+    result.fold((f) => throw Exception(f.message), (list) {
+      final map = <int, TripNode>{};
+
+      for (final t in list) {
+        map[t.id] = TripNode(t);
+      }
+
+      state = map;
+    });
   }
 
-  @override
-  Future<Map<int, Trip>> build() => _load();
-
-  Future<void> refresh() async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(_load);
-  }
-
-  // --------------------------------------------------
+  // ─────────────────────────────────────────────
   // CREATE
-  // --------------------------------------------------
+  // ─────────────────────────────────────────────
 
-  Future<void> createTrip(TripDraft tripDraft) async {
-    final result = await repo.createTrip(tripDraft);
+  Future<void> createTrip(TripDraft draft) async {
+    final result = await repo.createTrip(draft);
 
-    result.fold(
-      (failure) => throw Exception(failure.message),
-      (trip) => createLocal((_) => trip),
-    );
+    result.fold((f) => throw Exception(f.message), (trip) {
+      state = {...state, trip.id: TripNode(trip)};
+    });
   }
 
-  // --------------------------------------------------
-  // UPDATE
-  // --------------------------------------------------
+  // ─────────────────────────────────────────────
+  // UPDATE (optimistic)
+  // ─────────────────────────────────────────────
 
   Future<void> updateTrip(int id, TripDraft draft) async {
-    final old = getOrThrow(id);
+    final node = state[id];
+    if (node == null) return;
+
+    final old = node.value;
+    final newTrip = draft.toTrip(id);
 
     await executor.run(
       onApply: () {
-        patchLocal(id, (_) => draft.toTrip(id));
+        node.set(newTrip);
       },
       remote: () => repo.updateTrip(id, draft),
       onSuccess: (Trip serverTrip) {
-        createLocal((_) => serverTrip); // ou commitLocal(serverTrip)
+        node.set(serverTrip);
       },
       onError: () {
-        patchLocal(id, (_) => old);
+        node.set(old);
       },
     );
   }
 
-  // --------------------------------------------------
+  // ─────────────────────────────────────────────
   // DELETE
-  // --------------------------------------------------
+  // ─────────────────────────────────────────────
 
   Future<void> deleteTrip(int id) async {
-    final old = getOrThrow(id);
+    final node = state[id];
+    if (node == null) return;
+
+    final old = node.value;
 
     await executor.run(
       onApply: () {
-        removeLocal(id);
+        final copy = Map<int, TripNode>.from(state);
+        copy.remove(id);
+        state = copy;
       },
       remote: () => repo.deleteTrip(id),
-      onSuccess: (_) {
-        // rien ou commitDeleteLocal(id)
-      },
+      onSuccess: (_) {},
       onError: () {
-        createLocal((_) => old);
+        state = {...state, id: TripNode(old)};
       },
     );
   }
-}
-
-@riverpod
-Iterable<int> tripIds(Ref ref) {
-  return ref.watch(
-    tripsProvider.select(
-      (asyncTrips) => (asyncTrips.value ?? const <int, Trip>{}).keys,
-    ),
-  );
-}
-
-@riverpod
-Trip? trip(Ref ref, int id) {
-  return ref.watch(tripsProvider.select((state) => state.value?[id]));
 }

@@ -1,12 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/features.dart';
-
-// @riverpod
-// Map<int, Waypoint> waypoints(Ref ref) {
-//   final graph = ref.watch(graphStoreProvider);
-
-//   return graph.getAll<Waypoint>();
-// }
+import 'package:vamos_cartographie/features/graph/application/graph_providers.dart';
 
 // @riverpod
 // Iterable<int> waypointIds(Ref ref) {
@@ -14,12 +8,11 @@ import 'package:vamos_cartographie/features/features.dart';
 // }
 
 // @riverpod
-// Waypoint? waypointById(Ref ref, int waypointId) {
+// Waypoint? waypointById(Ref ref, int id) {
 //   final graph = ref.watch(graphStoreProvider);
 
-//   return graph.get<Waypoint>(waypointId);
+//   return graph.map<Waypoint>()[id]?.value;
 // }
-
 // @riverpod
 // Map<int, Waypoint> waypointsByVertex(Ref ref) {
 //   final waypoints = ref.watch(waypointsProvider);

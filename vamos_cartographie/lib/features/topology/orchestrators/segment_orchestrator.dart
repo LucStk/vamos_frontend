@@ -1,12 +1,13 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
+import 'package:vamos_cartographie/features/topology/data/providers/segments_providers.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 
 part 'segment_orchestrator.g.dart';
 
 @riverpod
-class WaypointTopologyOrchestrator extends _$WaypointTopologyOrchestrator {
+class SegmentOrchestrator extends _$SegmentOrchestrator {
   GraphStore get graph => ref.read(graphStoreProvider);
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   SegmentRepository get segmentRepo => ref.read(segmentRepositoryProvider);
