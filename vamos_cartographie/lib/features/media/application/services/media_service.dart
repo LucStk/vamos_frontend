@@ -1,4 +1,3 @@
-import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/media/data/media_repository.dart';
 import 'package:vamos_cartographie/features/media/data/media_providers.dart';

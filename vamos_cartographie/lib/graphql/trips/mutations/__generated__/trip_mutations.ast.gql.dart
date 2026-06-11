@@ -26,42 +26,46 @@ const CreateTrip = _i1.OperationDefinitionNode(
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
-    )
+    ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'createTrip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'trip'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
-          directives: [],
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'createTrip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'trip'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'TripFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ],
         ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
 const UpdateTrip = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -87,43 +91,47 @@ const UpdateTrip = _i1.OperationDefinitionNode(
     ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'updateTrip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'trip'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'updateTrip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'trip'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
+          ),
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'id'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'TripFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ],
         ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-        ),
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
 const DeleteTrip = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -137,30 +145,32 @@ const DeleteTrip = _i1.OperationDefinitionNode(
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
-    )
+    ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'deleteTrip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-        )
-      ],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'deleteTrip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'id'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+          ),
+        ],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
 const DeleteImageFromTrip = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -186,31 +196,33 @@ const DeleteImageFromTrip = _i1.OperationDefinitionNode(
     ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'deleteImageFromTrip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'tripId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
-        ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'fileKey'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'fileKey')),
-        ),
-      ],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'deleteImageFromTrip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'tripId'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+          ),
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'fileKey'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'fileKey')),
+          ),
+        ],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
 const AttachImageToTrip = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -236,31 +248,44 @@ const AttachImageToTrip = _i1.OperationDefinitionNode(
     ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'attachImageToTrip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'tripId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
-        ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'fileKey'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'fileKey')),
-        ),
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'image'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'ImageFields'),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'attachImageToTrip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'tripId'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+          ),
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'fileKey'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'fileKey')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'image'),
+              alias: null,
+              arguments: [],
               directives: [],
+              selectionSet: _i1.SelectionSetNode(
+                selections: [
+                  _i1.FragmentSpreadNode(
+                    name: _i1.NameNode(value: 'ImageFields'),
+                    directives: [],
+                  ),
+                  _i1.FieldNode(
+                    name: _i1.NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ],
+              ),
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
@@ -269,36 +294,31 @@ const AttachImageToTrip = _i1.OperationDefinitionNode(
               directives: [],
               selectionSet: null,
             ),
-          ]),
+          ],
         ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const document = _i1.DocumentNode(definitions: [
-  CreateTrip,
-  UpdateTrip,
-  DeleteTrip,
-  DeleteImageFromTrip,
-  AttachImageToTrip,
-  _i2.ImageFields,
-  _i3.TripFields,
-  _i4.WaypointFields,
-  _i4.CreateWaypointPayloadFields,
-  _i5.VertexFields,
-  _i6.LatLngFields,
-]);
+const document = _i1.DocumentNode(
+  definitions: [
+    CreateTrip,
+    UpdateTrip,
+    DeleteTrip,
+    DeleteImageFromTrip,
+    AttachImageToTrip,
+    _i2.ImageFields,
+    _i3.TripFields,
+    _i4.WaypointFields,
+    _i4.CreateWaypointPayloadFields,
+    _i5.VertexFields,
+    _i6.LatLngFields,
+  ],
+);

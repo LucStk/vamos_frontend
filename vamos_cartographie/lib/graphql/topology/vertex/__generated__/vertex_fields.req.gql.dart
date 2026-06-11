@@ -29,10 +29,9 @@ class GVertexFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.VertexFields,
-    _i5.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [_i4.VertexFields, _i5.LatLngFields],
+  );
 
   _i2.GVertexFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GVertexFieldsData.fromJson(json);
@@ -66,8 +65,13 @@ class GVertexFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

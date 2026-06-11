@@ -49,7 +49,8 @@ class GGetWaypointsReq
   final _i2.GGetWaypointsData? Function(
     _i2.GGetWaypointsData?,
     _i2.GGetWaypointsData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GGetWaypointsData? optimisticResponse;
 
@@ -63,14 +64,16 @@ class GGetWaypointsReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.GetWaypoints,
-    _i7.TripFields,
-    _i8.ImageFields,
-    _i9.WaypointFields,
-    _i10.VertexFields,
-    _i11.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [
+      _i6.GetWaypoints,
+      _i7.TripFields,
+      _i8.ImageFields,
+      _i9.WaypointFields,
+      _i10.VertexFields,
+      _i11.LatLngFields,
+    ],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -78,10 +81,10 @@ class GGetWaypointsReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GGetWaypointsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetWaypointsData.fromJson(json);
@@ -91,7 +94,7 @@ class GGetWaypointsReq
   Map<String, dynamic> dataToJson(_i2.GGetWaypointsData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GGetWaypointsData, _i3.GGetWaypointsVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GGetWaypointsReq(
       vars: vars,
       operation: transform(operation),
@@ -114,7 +117,8 @@ class GGetWaypointsReq
     _i2.GGetWaypointsData? Function(
       _i2.GGetWaypointsData?,
       _i2.GGetWaypointsData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GGetWaypointsData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -159,7 +163,9 @@ class GGetWaypointsReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -168,17 +174,18 @@ class GGetWaypointsReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

@@ -22,7 +22,8 @@ class GVertexFieldsData implements GVertexFields {
     return GVertexFieldsData(
       id: (json['id'] as int),
       latLng: _i1.GLatLngFieldsData.fromJson(
-          (json['latLng'] as Map<String, dynamic>)),
+        (json['latLng'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

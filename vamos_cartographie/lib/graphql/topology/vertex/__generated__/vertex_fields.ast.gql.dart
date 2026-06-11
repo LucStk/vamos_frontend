@@ -9,48 +9,52 @@ import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.ast.g
 const VertexFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'VertexFields'),
   typeCondition: _i1.TypeConditionNode(
-      on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'VertexType'),
-    isNonNull: false,
-  )),
+    on: _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'VertexType'),
+      isNonNull: false,
+    ),
+  ),
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'latLng'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'LatLngFields'),
-          directives: [],
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'id'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'latLng'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'LatLngFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ],
         ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const document = _i1.DocumentNode(definitions: [
-  VertexFields,
-  _i2.LatLngFields,
-]);
+const document = _i1.DocumentNode(
+  definitions: [VertexFields, _i2.LatLngFields],
+);

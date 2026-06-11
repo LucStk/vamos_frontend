@@ -35,12 +35,16 @@ class GSegmentFieldsData implements GSegmentFields {
       id: (json['id'] as int),
       type: _i1.GSegmentTypeEnum.fromJson((json['type'] as String)),
       startVertex: _i2.GVertexFieldsData.fromJson(
-          (json['startVertex'] as Map<String, dynamic>)),
+        (json['startVertex'] as Map<String, dynamic>),
+      ),
       endVertex: _i2.GVertexFieldsData.fromJson(
-          (json['endVertex'] as Map<String, dynamic>)),
+        (json['endVertex'] as Map<String, dynamic>),
+      ),
       geometry: (json['geometry'] as List<dynamic>)
-          .map((_$e) =>
-              _i3.GLatLngFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i3.GLatLngFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -101,8 +105,15 @@ class GSegmentFieldsData implements GSegmentFields {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, type, startVertex, endVertex,
-        _gqlUtils.listHash(geometry), G__typename);
+    return Object.hash(
+      runtimeType,
+      id,
+      type,
+      startVertex,
+      endVertex,
+      _gqlUtils.listHash(geometry),
+      G__typename,
+    );
   }
 
   @override

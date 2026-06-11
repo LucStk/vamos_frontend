@@ -32,43 +32,47 @@ const CreateVertex = _i1.OperationDefinitionNode(
     ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'createVertex'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'tripId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'createVertex'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'tripId'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+          ),
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'latLng'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'VertexFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ],
         ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'latLng'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
-        ),
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'VertexFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
 const MoveVertex = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -94,43 +98,47 @@ const MoveVertex = _i1.OperationDefinitionNode(
     ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'moveVertex'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'moveVertex'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'id'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+          ),
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'latLng'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'VertexFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ],
         ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'latLng'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
-        ),
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'VertexFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
 const DeleteVertex = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -144,35 +152,39 @@ const DeleteVertex = _i1.OperationDefinitionNode(
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
-    )
+    ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'deleteVertex'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
-        )
-      ],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'deleteVertex'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'id'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
+          ),
+        ],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const document = _i1.DocumentNode(definitions: [
-  CreateVertex,
-  MoveVertex,
-  DeleteVertex,
-  _i2.VertexFields,
-  _i3.LatLngFields,
-]);
+const document = _i1.DocumentNode(
+  definitions: [
+    CreateVertex,
+    MoveVertex,
+    DeleteVertex,
+    _i2.VertexFields,
+    _i3.LatLngFields,
+  ],
+);

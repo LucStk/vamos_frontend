@@ -15,13 +15,14 @@ class GGenerateImageUploadUrlData {
     return GGenerateImageUploadUrlData(
       generateImageUploadUrl:
           GGenerateImageUploadUrlData_generateImageUploadUrl.fromJson(
-              (json['generateImageUploadUrl'] as Map<String, dynamic>)),
+            (json['generateImageUploadUrl'] as Map<String, dynamic>),
+          ),
       G__typename: (json['__typename'] as String),
     );
   }
 
   final GGenerateImageUploadUrlData_generateImageUploadUrl
-      generateImageUploadUrl;
+  generateImageUploadUrl;
 
   final String G__typename;
 
@@ -70,7 +71,8 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
   });
 
   factory GGenerateImageUploadUrlData_generateImageUploadUrl.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return GGenerateImageUploadUrlData_generateImageUploadUrl(
       fileKey: (json['fileKey'] as String),
       uploadUrl: (json['uploadUrl'] as String),
@@ -133,7 +135,8 @@ class GCreateImageData {
   factory GCreateImageData.fromJson(Map<String, dynamic> json) {
     return GCreateImageData(
       createImage: _i1.GImageFieldsData.fromJson(
-          (json['createImage'] as Map<String, dynamic>)),
+        (json['createImage'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

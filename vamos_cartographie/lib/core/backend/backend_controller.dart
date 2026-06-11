@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:vamos_cartographie/core/network/network.dart';
+import 'package:vamos_cartographie/core/backend/network/network.dart';
 import 'backend_factory.dart';
 import "package:ferry/ferry.dart";
 

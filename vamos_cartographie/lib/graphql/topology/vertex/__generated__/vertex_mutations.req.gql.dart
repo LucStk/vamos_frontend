@@ -43,7 +43,8 @@ class GCreateVertexReq
   final _i2.GCreateVertexData? Function(
     _i2.GCreateVertexData?,
     _i2.GCreateVertexData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GCreateVertexData? optimisticResponse;
 
@@ -57,11 +58,9 @@ class GCreateVertexReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.CreateVertex,
-    _i7.VertexFields,
-    _i8.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.CreateVertex, _i7.VertexFields, _i8.LatLngFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -69,10 +68,10 @@ class GCreateVertexReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GCreateVertexData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateVertexData.fromJson(json);
@@ -82,7 +81,7 @@ class GCreateVertexReq
   Map<String, dynamic> dataToJson(_i2.GCreateVertexData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GCreateVertexData, _i3.GCreateVertexVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GCreateVertexReq(
       vars: vars,
       operation: transform(operation),
@@ -105,7 +104,8 @@ class GCreateVertexReq
     _i2.GCreateVertexData? Function(
       _i2.GCreateVertexData?,
       _i2.GCreateVertexData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GCreateVertexData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -150,7 +150,9 @@ class GCreateVertexReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -159,17 +161,18 @@ class GCreateVertexReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -202,7 +205,8 @@ class GMoveVertexReq
   final _i2.GMoveVertexData? Function(
     _i2.GMoveVertexData?,
     _i2.GMoveVertexData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GMoveVertexData? optimisticResponse;
 
@@ -216,11 +220,9 @@ class GMoveVertexReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.MoveVertex,
-    _i7.VertexFields,
-    _i8.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.MoveVertex, _i7.VertexFields, _i8.LatLngFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -228,10 +230,10 @@ class GMoveVertexReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GMoveVertexData? parseData(Map<String, dynamic> json) =>
       _i2.GMoveVertexData.fromJson(json);
@@ -241,7 +243,7 @@ class GMoveVertexReq
   Map<String, dynamic> dataToJson(_i2.GMoveVertexData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GMoveVertexData, _i3.GMoveVertexVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GMoveVertexReq(
       vars: vars,
       operation: transform(operation),
@@ -261,10 +263,8 @@ class GMoveVertexReq
     _i4.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GMoveVertexData? Function(
-      _i2.GMoveVertexData?,
-      _i2.GMoveVertexData?,
-    )? updateResult,
+    _i2.GMoveVertexData? Function(_i2.GMoveVertexData?, _i2.GMoveVertexData?)?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GMoveVertexData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -309,7 +309,9 @@ class GMoveVertexReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -318,17 +320,18 @@ class GMoveVertexReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -362,7 +365,8 @@ class GDeleteVertexReq
   final _i2.GDeleteVertexData? Function(
     _i2.GDeleteVertexData?,
     _i2.GDeleteVertexData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GDeleteVertexData? optimisticResponse;
 
@@ -376,8 +380,9 @@ class GDeleteVertexReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.DeleteVertex]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.DeleteVertex],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -385,10 +390,10 @@ class GDeleteVertexReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GDeleteVertexData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteVertexData.fromJson(json);
@@ -398,7 +403,7 @@ class GDeleteVertexReq
   Map<String, dynamic> dataToJson(_i2.GDeleteVertexData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GDeleteVertexData, _i3.GDeleteVertexVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GDeleteVertexReq(
       vars: vars,
       operation: transform(operation),
@@ -421,7 +426,8 @@ class GDeleteVertexReq
     _i2.GDeleteVertexData? Function(
       _i2.GDeleteVertexData?,
       _i2.GDeleteVertexData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GDeleteVertexData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -466,7 +472,9 @@ class GDeleteVertexReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -475,17 +483,18 @@ class GDeleteVertexReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

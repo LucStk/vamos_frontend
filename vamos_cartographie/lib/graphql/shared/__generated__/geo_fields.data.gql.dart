@@ -36,11 +36,7 @@ class GLatLngFieldsData implements GLatLngFields {
     return _$result;
   }
 
-  GLatLngFieldsData copyWith({
-    double? lat,
-    double? lng,
-    String? G__typename,
-  }) {
+  GLatLngFieldsData copyWith({double? lat, double? lng, String? G__typename}) {
     return GLatLngFieldsData(
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,

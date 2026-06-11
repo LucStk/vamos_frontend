@@ -8,15 +8,13 @@ import 'package:vamos_cartographie/graphql/topology/segments/fragments/__generat
     as _i1;
 
 class GGetSegmentsData {
-  const GGetSegmentsData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
+  const GGetSegmentsData({required this.trip, this.G__typename = 'Query'});
 
   factory GGetSegmentsData.fromJson(Map<String, dynamic> json) {
     return GGetSegmentsData(
       trip: GGetSegmentsData_trip.fromJson(
-          (json['trip'] as Map<String, dynamic>)),
+        (json['trip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -70,7 +68,8 @@ class GGetSegmentsData_trip {
   factory GGetSegmentsData_trip.fromJson(Map<String, dynamic> json) {
     return GGetSegmentsData_trip(
       topology: GGetSegmentsData_trip_topology.fromJson(
-          (json['topology'] as Map<String, dynamic>)),
+        (json['topology'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -124,8 +123,10 @@ class GGetSegmentsData_trip_topology {
   factory GGetSegmentsData_trip_topology.fromJson(Map<String, dynamic> json) {
     return GGetSegmentsData_trip_topology(
       segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );

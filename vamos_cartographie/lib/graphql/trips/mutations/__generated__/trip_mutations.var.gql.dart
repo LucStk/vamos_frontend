@@ -12,7 +12,8 @@ class GCreateTripVars {
 
   factory GCreateTripVars.fromJson(Map<String, dynamic> json) {
     return GCreateTripVars(
-        trip: _i1.GTripInput.fromJson((json['trip'] as Map<String, dynamic>)));
+      trip: _i1.GTripInput.fromJson((json['trip'] as Map<String, dynamic>)),
+    );
   }
 
   final _i1.GTripInput trip;
@@ -47,15 +48,13 @@ class GCreateTripVars {
 }
 
 class GUpdateTripVars {
-  const GUpdateTripVars({
-    required this.trip,
-    required this.id,
-  });
+  const GUpdateTripVars({required this.trip, required this.id});
 
   factory GUpdateTripVars.fromJson(Map<String, dynamic> json) {
     return GUpdateTripVars(
-      trip:
-          _i1.GTripUpdateInput.fromJson((json['trip'] as Map<String, dynamic>)),
+      trip: _i1.GTripUpdateInput.fromJson(
+        (json['trip'] as Map<String, dynamic>),
+      ),
       id: (json['id'] as int),
     );
   }
@@ -73,14 +72,8 @@ class GUpdateTripVars {
     return _$result;
   }
 
-  GUpdateTripVars copyWith({
-    _i1.GTripUpdateInput? trip,
-    int? id,
-  }) {
-    return GUpdateTripVars(
-      trip: trip ?? this.trip,
-      id: id ?? this.id,
-    );
+  GUpdateTripVars copyWith({_i1.GTripUpdateInput? trip, int? id}) {
+    return GUpdateTripVars(trip: trip ?? this.trip, id: id ?? this.id);
   }
 
   @override
@@ -140,10 +133,7 @@ class GDeleteTripVars {
 }
 
 class GDeleteImageFromTripVars {
-  const GDeleteImageFromTripVars({
-    required this.tripId,
-    required this.fileKey,
-  });
+  const GDeleteImageFromTripVars({required this.tripId, required this.fileKey});
 
   factory GDeleteImageFromTripVars.fromJson(Map<String, dynamic> json) {
     return GDeleteImageFromTripVars(
@@ -165,10 +155,7 @@ class GDeleteImageFromTripVars {
     return _$result;
   }
 
-  GDeleteImageFromTripVars copyWith({
-    int? tripId,
-    String? fileKey,
-  }) {
+  GDeleteImageFromTripVars copyWith({int? tripId, String? fileKey}) {
     return GDeleteImageFromTripVars(
       tripId: tripId ?? this.tripId,
       fileKey: fileKey ?? this.fileKey,
@@ -194,10 +181,7 @@ class GDeleteImageFromTripVars {
 }
 
 class GAttachImageToTripVars {
-  const GAttachImageToTripVars({
-    required this.tripId,
-    required this.fileKey,
-  });
+  const GAttachImageToTripVars({required this.tripId, required this.fileKey});
 
   factory GAttachImageToTripVars.fromJson(Map<String, dynamic> json) {
     return GAttachImageToTripVars(
@@ -219,10 +203,7 @@ class GAttachImageToTripVars {
     return _$result;
   }
 
-  GAttachImageToTripVars copyWith({
-    int? tripId,
-    String? fileKey,
-  }) {
+  GAttachImageToTripVars copyWith({int? tripId, String? fileKey}) {
     return GAttachImageToTripVars(
       tripId: tripId ?? this.tripId,
       fileKey: fileKey ?? this.fileKey,

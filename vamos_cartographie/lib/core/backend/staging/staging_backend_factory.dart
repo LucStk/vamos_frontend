@@ -1,7 +1,7 @@
 import "package:vamos_cartographie/core/backend/backend_factory.dart";
 
 import 'package:dio/dio.dart';
-import "package:vamos_cartographie/core/network/network.dart";
+import "package:vamos_cartographie/core/backend/network/network.dart";
 import "package:vamos_cartographie/core/config/app_environment.dart";
 import "package:ferry/ferry.dart";
 import 'package:gql_http_link/gql_http_link.dart';

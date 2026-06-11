@@ -44,10 +44,14 @@ class GWaypointFieldsData implements GWaypointFields {
       title: (json['title'] as String),
       description: (json['description'] as String),
       vertex: _i2.GVertexFieldsData.fromJson(
-          (json['vertex'] as Map<String, dynamic>)),
+        (json['vertex'] as Map<String, dynamic>),
+      ),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GWaypointFieldsData_images.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GWaypointFieldsData_images.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -114,8 +118,16 @@ class GWaypointFieldsData implements GWaypointFields {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, type, title, description, vertex,
-        _gqlUtils.listHash(images), G__typename);
+    return Object.hash(
+      runtimeType,
+      id,
+      type,
+      title,
+      description,
+      vertex,
+      _gqlUtils.listHash(images),
+      G__typename,
+    );
   }
 
   @override
@@ -133,7 +145,8 @@ class GWaypointFieldsData_images implements GWaypointFields_images {
   factory GWaypointFieldsData_images.fromJson(Map<String, dynamic> json) {
     return GWaypointFieldsData_images(
       image: _i3.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -194,9 +207,11 @@ class GCreateWaypointPayloadFieldsData implements GCreateWaypointPayloadFields {
   factory GCreateWaypointPayloadFieldsData.fromJson(Map<String, dynamic> json) {
     return GCreateWaypointPayloadFieldsData(
       waypoint: GWaypointFieldsData.fromJson(
-          (json['waypoint'] as Map<String, dynamic>)),
+        (json['waypoint'] as Map<String, dynamic>),
+      ),
       vertex: _i2.GVertexFieldsData.fromJson(
-          (json['vertex'] as Map<String, dynamic>)),
+        (json['vertex'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

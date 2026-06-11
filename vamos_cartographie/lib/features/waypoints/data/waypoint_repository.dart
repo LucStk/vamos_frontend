@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoint_remote_datasource.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';

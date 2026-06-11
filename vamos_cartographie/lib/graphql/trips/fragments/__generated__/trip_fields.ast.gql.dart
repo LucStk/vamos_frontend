@@ -9,55 +9,69 @@ import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_f
 const TripFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'TripFields'),
   typeCondition: _i1.TypeConditionNode(
-      on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'TripType'),
-    isNonNull: false,
-  )),
+    on: _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'TripType'),
+      isNonNull: false,
+    ),
+  ),
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'title'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'date'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'description'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'images'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'image'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'ImageFields'),
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'id'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'title'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'date'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'description'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'images'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'image'),
+              alias: null,
+              arguments: [],
               directives: [],
+              selectionSet: _i1.SelectionSetNode(
+                selections: [
+                  _i1.FragmentSpreadNode(
+                    name: _i1.NameNode(value: 'ImageFields'),
+                    directives: [],
+                  ),
+                  _i1.FieldNode(
+                    name: _i1.NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ],
+              ),
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
@@ -66,27 +80,17 @@ const TripFields = _i1.FragmentDefinitionNode(
               directives: [],
               selectionSet: null,
             ),
-          ]),
+          ],
         ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const document = _i1.DocumentNode(definitions: [
-  TripFields,
-  _i2.ImageFields,
-]);
+const document = _i1.DocumentNode(definitions: [TripFields, _i2.ImageFields]);

@@ -292,7 +292,7 @@ void main() {
         // Given: store seedé avec t1 (4 segments)
         // When: SegmentsNotifier(t1.id) s'initialise
         // Then: les 4 segments sont dans l'état
-        container.listen(segmentsProvider(t1TripId), (_, __) {});
+        container.listen(segmentsProvider(t1TripId), (_, _) {});
 
         final segments = await container.read(
           segmentsProvider(t1TripId).future,
@@ -307,7 +307,7 @@ void main() {
       // Given: segments de t1 chargés
       // When: createSegment est appelé
       // Then: l'état contient le nouveau segment
-      container.listen(segmentsProvider(t1TripId), (_, __) {});
+      container.listen(segmentsProvider(t1TripId), (_, _) {});
       await container.read(segmentsProvider(t1TripId).future);
 
       final draft = SegmentDraft(
@@ -333,7 +333,7 @@ void main() {
       // Given: segment 10 de t1 chargé
       // When: updateSegment est appelé avec type=boat
       // Then: l'état contient le type mis à jour
-      container.listen(segmentsProvider(t1TripId), (_, __) {});
+      container.listen(segmentsProvider(t1TripId), (_, _) {});
       await container.read(segmentsProvider(t1TripId).future);
 
       final draft = SegmentDraft(
@@ -359,7 +359,7 @@ void main() {
         final backend = buildFakeBackend(exploreSeed);
         final rollbackContainer = buildContainer([], backend: backend);
         addTearDown(rollbackContainer.dispose);
-        rollbackContainer.listen(segmentsProvider(t1TripId), (_, __) {});
+        rollbackContainer.listen(segmentsProvider(t1TripId), (_, _) {});
         await rollbackContainer.read(segmentsProvider(t1TripId).future);
 
         final originalType = rollbackContainer
@@ -390,7 +390,7 @@ void main() {
       // Given: segments de t1 chargés
       // When: deleteSegment(10) est appelé
       // Then: segment 10 n'est plus dans l'état
-      container.listen(segmentsProvider(t1TripId), (_, __) {});
+      container.listen(segmentsProvider(t1TripId), (_, _) {});
       await container.read(segmentsProvider(t1TripId).future);
 
       await container
@@ -586,7 +586,7 @@ void main() {
         // Given: store seedé avec t1 (5 vertices)
         // When: VerticesNotifier(t1.id) s'initialise
         // Then: les 5 vertices sont dans l'état
-        container.listen(verticesProvider(t1TripId), (_, __) {});
+        container.listen(verticesProvider(t1TripId), (_, _) {});
 
         final vertices = await container.read(
           verticesProvider(t1TripId).future,
@@ -601,7 +601,7 @@ void main() {
       // Given: vertices de t1 chargés
       // When: createVertex est appelé
       // Then: l'état contient le nouveau vertex
-      container.listen(verticesProvider(t1TripId), (_, __) {});
+      container.listen(verticesProvider(t1TripId), (_, _) {});
       await container.read(verticesProvider(t1TripId).future);
 
       final newLatLng = LatLng(43.0, 1.0);
@@ -624,7 +624,7 @@ void main() {
         // Given: vertex 10 de t1 chargé
         // When: moveVertex est appelé avec de nouvelles coordonnées
         // Then: l'état contient les nouvelles coordonnées
-        container.listen(verticesProvider(t1TripId), (_, __) {});
+        container.listen(verticesProvider(t1TripId), (_, _) {});
         await container.read(verticesProvider(t1TripId).future);
 
         final newLatLng = LatLng(50.0, 5.0);
@@ -644,7 +644,7 @@ void main() {
       // Given: vertices de t1 chargés
       // When: deleteVertex(10) est appelé
       // Then: vertex 10 n'est plus dans l'état, les autres sont présents
-      container.listen(verticesProvider(t1TripId), (_, __) {});
+      container.listen(verticesProvider(t1TripId), (_, _) {});
       await container.read(verticesProvider(t1TripId).future);
 
       await container
@@ -666,7 +666,7 @@ void main() {
         final backend = buildFakeBackend(exploreSeed);
         final rollbackContainer = buildContainer([], backend: backend);
         addTearDown(rollbackContainer.dispose);
-        rollbackContainer.listen(verticesProvider(t1TripId), (_, __) {});
+        rollbackContainer.listen(verticesProvider(t1TripId), (_, _) {});
         await rollbackContainer.read(verticesProvider(t1TripId).future);
 
         // Supprime vertex 10 du store (le notifier ne le sait pas encore)

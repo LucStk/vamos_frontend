@@ -14,7 +14,8 @@ class GCreateVertexData {
   factory GCreateVertexData.fromJson(Map<String, dynamic> json) {
     return GCreateVertexData(
       createVertex: _i1.GVertexFieldsData.fromJson(
-          (json['createVertex'] as Map<String, dynamic>)),
+        (json['createVertex'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -68,7 +69,8 @@ class GMoveVertexData {
   factory GMoveVertexData.fromJson(Map<String, dynamic> json) {
     return GMoveVertexData(
       moveVertex: _i1.GVertexFieldsData.fromJson(
-          (json['moveVertex'] as Map<String, dynamic>)),
+        (json['moveVertex'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -137,10 +139,7 @@ class GDeleteVertexData {
     return _$result;
   }
 
-  GDeleteVertexData copyWith({
-    bool? deleteVertex,
-    String? G__typename,
-  }) {
+  GDeleteVertexData copyWith({bool? deleteVertex, String? G__typename}) {
     return GDeleteVertexData(
       deleteVertex: deleteVertex ?? this.deleteVertex,
       G__typename: G__typename ?? this.G__typename,

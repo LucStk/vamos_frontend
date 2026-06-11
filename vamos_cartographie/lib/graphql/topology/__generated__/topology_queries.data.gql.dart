@@ -10,15 +10,13 @@ import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_
     as _i1;
 
 class GGetTopologyData {
-  const GGetTopologyData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
+  const GGetTopologyData({required this.trip, this.G__typename = 'Query'});
 
   factory GGetTopologyData.fromJson(Map<String, dynamic> json) {
     return GGetTopologyData(
       trip: GGetTopologyData_trip.fromJson(
-          (json['trip'] as Map<String, dynamic>)),
+        (json['trip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -74,7 +72,8 @@ class GGetTopologyData_trip {
     return GGetTopologyData_trip(
       id: (json['id'] as int),
       topology: GGetTopologyData_trip_topology.fromJson(
-          (json['topology'] as Map<String, dynamic>)),
+        (json['topology'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -135,12 +134,16 @@ class GGetTopologyData_trip_topology {
   factory GGetTopologyData_trip_topology.fromJson(Map<String, dynamic> json) {
     return GGetTopologyData_trip_topology(
       vertices: (json['vertices'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i2.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i2.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -183,8 +186,12 @@ class GGetTopologyData_trip_topology {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.listHash(vertices),
-        _gqlUtils.listHash(segments), G__typename);
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.listHash(vertices),
+      _gqlUtils.listHash(segments),
+      G__typename,
+    );
   }
 
   @override

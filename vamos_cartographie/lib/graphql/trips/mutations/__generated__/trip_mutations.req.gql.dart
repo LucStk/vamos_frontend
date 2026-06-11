@@ -42,7 +42,8 @@ class GCreateTripReq
   final _i2.GCreateTripData? Function(
     _i2.GCreateTripData?,
     _i2.GCreateTripData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GCreateTripData? optimisticResponse;
 
@@ -56,11 +57,9 @@ class GCreateTripReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.CreateTrip,
-    _i7.ImageFields,
-    _i8.TripFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.CreateTrip, _i7.ImageFields, _i8.TripFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -68,10 +67,10 @@ class GCreateTripReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GCreateTripData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateTripData.fromJson(json);
@@ -81,7 +80,7 @@ class GCreateTripReq
   Map<String, dynamic> dataToJson(_i2.GCreateTripData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GCreateTripData, _i3.GCreateTripVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GCreateTripReq(
       vars: vars,
       operation: transform(operation),
@@ -101,10 +100,8 @@ class GCreateTripReq
     _i4.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GCreateTripData? Function(
-      _i2.GCreateTripData?,
-      _i2.GCreateTripData?,
-    )? updateResult,
+    _i2.GCreateTripData? Function(_i2.GCreateTripData?, _i2.GCreateTripData?)?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GCreateTripData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -149,7 +146,9 @@ class GCreateTripReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -158,17 +157,18 @@ class GCreateTripReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -201,7 +201,8 @@ class GUpdateTripReq
   final _i2.GUpdateTripData? Function(
     _i2.GUpdateTripData?,
     _i2.GUpdateTripData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GUpdateTripData? optimisticResponse;
 
@@ -215,11 +216,9 @@ class GUpdateTripReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.UpdateTrip,
-    _i7.ImageFields,
-    _i8.TripFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.UpdateTrip, _i7.ImageFields, _i8.TripFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -227,10 +226,10 @@ class GUpdateTripReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GUpdateTripData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateTripData.fromJson(json);
@@ -240,7 +239,7 @@ class GUpdateTripReq
   Map<String, dynamic> dataToJson(_i2.GUpdateTripData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GUpdateTripData, _i3.GUpdateTripVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GUpdateTripReq(
       vars: vars,
       operation: transform(operation),
@@ -260,10 +259,8 @@ class GUpdateTripReq
     _i4.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GUpdateTripData? Function(
-      _i2.GUpdateTripData?,
-      _i2.GUpdateTripData?,
-    )? updateResult,
+    _i2.GUpdateTripData? Function(_i2.GUpdateTripData?, _i2.GUpdateTripData?)?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GUpdateTripData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -308,7 +305,9 @@ class GUpdateTripReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -317,17 +316,18 @@ class GUpdateTripReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -360,7 +360,8 @@ class GDeleteTripReq
   final _i2.GDeleteTripData? Function(
     _i2.GDeleteTripData?,
     _i2.GDeleteTripData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GDeleteTripData? optimisticResponse;
 
@@ -374,8 +375,9 @@ class GDeleteTripReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.DeleteTrip]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.DeleteTrip],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -383,10 +385,10 @@ class GDeleteTripReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GDeleteTripData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteTripData.fromJson(json);
@@ -396,7 +398,7 @@ class GDeleteTripReq
   Map<String, dynamic> dataToJson(_i2.GDeleteTripData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GDeleteTripData, _i3.GDeleteTripVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GDeleteTripReq(
       vars: vars,
       operation: transform(operation),
@@ -416,10 +418,8 @@ class GDeleteTripReq
     _i4.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GDeleteTripData? Function(
-      _i2.GDeleteTripData?,
-      _i2.GDeleteTripData?,
-    )? updateResult,
+    _i2.GDeleteTripData? Function(_i2.GDeleteTripData?, _i2.GDeleteTripData?)?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GDeleteTripData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -464,7 +464,9 @@ class GDeleteTripReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -473,17 +475,18 @@ class GDeleteTripReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -494,8 +497,10 @@ class GDeleteTripReq
 
 class GDeleteImageFromTripReq
     implements
-        _i1.OperationRequest<_i2.GDeleteImageFromTripData,
-            _i3.GDeleteImageFromTripVars> {
+        _i1.OperationRequest<
+          _i2.GDeleteImageFromTripData,
+          _i3.GDeleteImageFromTripVars
+        > {
   GDeleteImageFromTripReq({
     required this.vars,
     _i4.Operation? operation,
@@ -518,7 +523,8 @@ class GDeleteImageFromTripReq
   final _i2.GDeleteImageFromTripData? Function(
     _i2.GDeleteImageFromTripData?,
     _i2.GDeleteImageFromTripData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GDeleteImageFromTripData? optimisticResponse;
 
@@ -532,8 +538,9 @@ class GDeleteImageFromTripReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.DeleteImageFromTrip]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.DeleteImageFromTrip],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -541,10 +548,10 @@ class GDeleteImageFromTripReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GDeleteImageFromTripData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteImageFromTripData.fromJson(json);
@@ -554,9 +561,11 @@ class GDeleteImageFromTripReq
   Map<String, dynamic> dataToJson(_i2.GDeleteImageFromTripData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GDeleteImageFromTripData,
-          _i3.GDeleteImageFromTripVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  _i1.OperationRequest<
+    _i2.GDeleteImageFromTripData,
+    _i3.GDeleteImageFromTripVars
+  >
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GDeleteImageFromTripReq(
       vars: vars,
       operation: transform(operation),
@@ -579,7 +588,8 @@ class GDeleteImageFromTripReq
     _i2.GDeleteImageFromTripData? Function(
       _i2.GDeleteImageFromTripData?,
       _i2.GDeleteImageFromTripData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GDeleteImageFromTripData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -624,7 +634,9 @@ class GDeleteImageFromTripReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -633,17 +645,18 @@ class GDeleteImageFromTripReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -654,8 +667,10 @@ class GDeleteImageFromTripReq
 
 class GAttachImageToTripReq
     implements
-        _i1.OperationRequest<_i2.GAttachImageToTripData,
-            _i3.GAttachImageToTripVars> {
+        _i1.OperationRequest<
+          _i2.GAttachImageToTripData,
+          _i3.GAttachImageToTripVars
+        > {
   GAttachImageToTripReq({
     required this.vars,
     _i4.Operation? operation,
@@ -678,7 +693,8 @@ class GAttachImageToTripReq
   final _i2.GAttachImageToTripData? Function(
     _i2.GAttachImageToTripData?,
     _i2.GAttachImageToTripData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GAttachImageToTripData? optimisticResponse;
 
@@ -692,10 +708,9 @@ class GAttachImageToTripReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.AttachImageToTrip,
-    _i7.ImageFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.AttachImageToTrip, _i7.ImageFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -703,10 +718,10 @@ class GAttachImageToTripReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GAttachImageToTripData? parseData(Map<String, dynamic> json) =>
       _i2.GAttachImageToTripData.fromJson(json);
@@ -717,7 +732,7 @@ class GAttachImageToTripReq
       data.toJson();
 
   _i1.OperationRequest<_i2.GAttachImageToTripData, _i3.GAttachImageToTripVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GAttachImageToTripReq(
       vars: vars,
       operation: transform(operation),
@@ -740,7 +755,8 @@ class GAttachImageToTripReq
     _i2.GAttachImageToTripData? Function(
       _i2.GAttachImageToTripData?,
       _i2.GAttachImageToTripData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GAttachImageToTripData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -785,7 +801,9 @@ class GAttachImageToTripReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -794,17 +812,18 @@ class GAttachImageToTripReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

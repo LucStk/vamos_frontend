@@ -16,7 +16,8 @@ class GCreateTripData {
   factory GCreateTripData.fromJson(Map<String, dynamic> json) {
     return GCreateTripData(
       createTrip: _i1.GTripFieldsData.fromJson(
-          (json['createTrip'] as Map<String, dynamic>)),
+        (json['createTrip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -70,7 +71,8 @@ class GUpdateTripData {
   factory GUpdateTripData.fromJson(Map<String, dynamic> json) {
     return GUpdateTripData(
       updateTrip: _i1.GTripFieldsData.fromJson(
-          (json['updateTrip'] as Map<String, dynamic>)),
+        (json['updateTrip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -139,10 +141,7 @@ class GDeleteTripData {
     return _$result;
   }
 
-  GDeleteTripData copyWith({
-    bool? deleteTrip,
-    String? G__typename,
-  }) {
+  GDeleteTripData copyWith({bool? deleteTrip, String? G__typename}) {
     return GDeleteTripData(
       deleteTrip: deleteTrip ?? this.deleteTrip,
       G__typename: G__typename ?? this.G__typename,
@@ -230,7 +229,8 @@ class GAttachImageToTripData {
   factory GAttachImageToTripData.fromJson(Map<String, dynamic> json) {
     return GAttachImageToTripData(
       attachImageToTrip: GAttachImageToTripData_attachImageToTrip.fromJson(
-          (json['attachImageToTrip'] as Map<String, dynamic>)),
+        (json['attachImageToTrip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -282,10 +282,12 @@ class GAttachImageToTripData_attachImageToTrip {
   });
 
   factory GAttachImageToTripData_attachImageToTrip.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return GAttachImageToTripData_attachImageToTrip(
       image: _i2.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

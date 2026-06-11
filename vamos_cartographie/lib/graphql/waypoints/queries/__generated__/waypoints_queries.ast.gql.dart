@@ -26,34 +26,47 @@ const GetWaypoints = _i1.OperationDefinitionNode(
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
-    )
+    ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'trip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'waypoints'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'trip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'id'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'WaypointFields'),
+              name: _i1.NameNode(value: 'TripFields'),
               directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'waypoints'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: _i1.SelectionSetNode(
+                selections: [
+                  _i1.FragmentSpreadNode(
+                    name: _i1.NameNode(value: 'WaypointFields'),
+                    directives: [],
+                  ),
+                  _i1.FieldNode(
+                    name: _i1.NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ],
+              ),
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
@@ -62,32 +75,27 @@ const GetWaypoints = _i1.OperationDefinitionNode(
               directives: [],
               selectionSet: null,
             ),
-          ]),
+          ],
         ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const document = _i1.DocumentNode(definitions: [
-  GetWaypoints,
-  _i2.TripFields,
-  _i3.ImageFields,
-  _i4.WaypointFields,
-  _i4.CreateWaypointPayloadFields,
-  _i5.VertexFields,
-  _i6.LatLngFields,
-]);
+const document = _i1.DocumentNode(
+  definitions: [
+    GetWaypoints,
+    _i2.TripFields,
+    _i3.ImageFields,
+    _i4.WaypointFields,
+    _i4.CreateWaypointPayloadFields,
+    _i5.VertexFields,
+    _i6.LatLngFields,
+  ],
+);

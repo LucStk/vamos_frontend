@@ -33,12 +33,14 @@ class GWaypointFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.WaypointFields,
-    _i5.ImageFields,
-    _i6.VertexFields,
-    _i7.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [
+      _i4.WaypointFields,
+      _i5.ImageFields,
+      _i6.VertexFields,
+      _i7.LatLngFields,
+    ],
+  );
 
   _i2.GWaypointFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GWaypointFieldsData.fromJson(json);
@@ -73,8 +75,13 @@ class GWaypointFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override
@@ -99,13 +106,15 @@ class GCreateWaypointPayloadFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.WaypointFields,
-    _i4.CreateWaypointPayloadFields,
-    _i5.ImageFields,
-    _i6.VertexFields,
-    _i7.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [
+      _i4.WaypointFields,
+      _i4.CreateWaypointPayloadFields,
+      _i5.ImageFields,
+      _i6.VertexFields,
+      _i7.LatLngFields,
+    ],
+  );
 
   _i2.GCreateWaypointPayloadFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateWaypointPayloadFieldsData.fromJson(json);
@@ -140,8 +149,13 @@ class GCreateWaypointPayloadFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

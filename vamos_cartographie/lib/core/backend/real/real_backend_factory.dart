@@ -5,7 +5,7 @@ import "package:vamos_cartographie/core/config/app_environment.dart";
 import "package:ferry/ferry.dart";
 import 'package:gql_http_link/gql_http_link.dart';
 
-import "package:vamos_cartographie/core/network/network.dart";
+import "package:vamos_cartographie/core/backend/network/network.dart";
 
 class RealBackendFactory implements BackendFactory {
   @override

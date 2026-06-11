@@ -38,8 +38,10 @@ class GTripFieldsData implements GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) =>
-              GTripFieldsData_images.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                GTripFieldsData_images.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -102,8 +104,15 @@ class GTripFieldsData implements GTripFields {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, title, date, description,
-        _gqlUtils.listHash(images), G__typename);
+    return Object.hash(
+      runtimeType,
+      id,
+      title,
+      date,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+    );
   }
 
   @override
@@ -121,7 +130,8 @@ class GTripFieldsData_images implements GTripFields_images {
   factory GTripFieldsData_images.fromJson(Map<String, dynamic> json) {
     return GTripFieldsData_images(
       image: _i1.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

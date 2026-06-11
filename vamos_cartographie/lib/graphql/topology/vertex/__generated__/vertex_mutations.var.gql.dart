@@ -8,16 +8,14 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
 class GCreateVertexVars {
-  const GCreateVertexVars({
-    required this.tripId,
-    required this.latLng,
-  });
+  const GCreateVertexVars({required this.tripId, required this.latLng});
 
   factory GCreateVertexVars.fromJson(Map<String, dynamic> json) {
     return GCreateVertexVars(
       tripId: (json['tripId'] as int),
-      latLng:
-          _i1.GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)),
+      latLng: _i1.GLatLngInput.fromJson(
+        (json['latLng'] as Map<String, dynamic>),
+      ),
     );
   }
 
@@ -34,10 +32,7 @@ class GCreateVertexVars {
     return _$result;
   }
 
-  GCreateVertexVars copyWith({
-    int? tripId,
-    _i1.GLatLngInput? latLng,
-  }) {
+  GCreateVertexVars copyWith({int? tripId, _i1.GLatLngInput? latLng}) {
     return GCreateVertexVars(
       tripId: tripId ?? this.tripId,
       latLng: latLng ?? this.latLng,
@@ -63,16 +58,14 @@ class GCreateVertexVars {
 }
 
 class GMoveVertexVars {
-  const GMoveVertexVars({
-    required this.id,
-    required this.latLng,
-  });
+  const GMoveVertexVars({required this.id, required this.latLng});
 
   factory GMoveVertexVars.fromJson(Map<String, dynamic> json) {
     return GMoveVertexVars(
       id: (json['id'] as int),
-      latLng:
-          _i1.GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)),
+      latLng: _i1.GLatLngInput.fromJson(
+        (json['latLng'] as Map<String, dynamic>),
+      ),
     );
   }
 
@@ -89,14 +82,8 @@ class GMoveVertexVars {
     return _$result;
   }
 
-  GMoveVertexVars copyWith({
-    int? id,
-    _i1.GLatLngInput? latLng,
-  }) {
-    return GMoveVertexVars(
-      id: id ?? this.id,
-      latLng: latLng ?? this.latLng,
-    );
+  GMoveVertexVars copyWith({int? id, _i1.GLatLngInput? latLng}) {
+    return GMoveVertexVars(id: id ?? this.id, latLng: latLng ?? this.latLng);
   }
 
   @override

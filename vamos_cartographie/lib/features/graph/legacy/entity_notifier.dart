@@ -1,11 +1,10 @@
 import "package:dartz/dartz.dart";
-import "package:flutter/animation.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/core/type/has_id.dart";
 import "package:vamos_cartographie/core/failure.dart";
-import "entity_command.dart";
-import "entity_reducer.dart";
-import "optimistic.dart";
+import "package:vamos_cartographie/features/graph/application/optimistic_executor.dart";
+import "package:vamos_cartographie/features/graph/domain/entity_command.dart";
+import "package:vamos_cartographie/features/graph/domain/entity_reducer.dart";
 
 class SyncAction<T> {
   final int txId;

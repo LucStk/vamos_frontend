@@ -10,7 +10,8 @@ class GGenerateImageUploadUrlVars {
 
   factory GGenerateImageUploadUrlVars.fromJson(Map<String, dynamic> json) {
     return GGenerateImageUploadUrlVars(
-        extension: (json['extension'] as String));
+      extension: (json['extension'] as String),
+    );
   }
 
   final String extension;

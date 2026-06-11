@@ -28,10 +28,9 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.TripFields,
-    _i5.ImageFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [_i4.TripFields, _i5.ImageFields],
+  );
 
   _i2.GTripFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GTripFieldsData.fromJson(json);
@@ -65,8 +64,13 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

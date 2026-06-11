@@ -27,8 +27,9 @@ class GLatLngFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.LatLngFields]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [_i4.LatLngFields],
+  );
 
   _i2.GLatLngFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GLatLngFieldsData.fromJson(json);
@@ -62,8 +63,13 @@ class GLatLngFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

@@ -16,7 +16,8 @@ class GUpdateWaypointData {
   factory GUpdateWaypointData.fromJson(Map<String, dynamic> json) {
     return GUpdateWaypointData(
       updateWaypoint: _i1.GWaypointFieldsData.fromJson(
-          (json['updateWaypoint'] as Map<String, dynamic>)),
+        (json['updateWaypoint'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -70,7 +71,8 @@ class GCreateWaypointData {
   factory GCreateWaypointData.fromJson(Map<String, dynamic> json) {
     return GCreateWaypointData(
       createWaypoint: _i1.GCreateWaypointPayloadFieldsData.fromJson(
-          (json['createWaypoint'] as Map<String, dynamic>)),
+        (json['createWaypoint'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -139,10 +141,7 @@ class GDeleteWaypointData {
     return _$result;
   }
 
-  GDeleteWaypointData copyWith({
-    bool? deleteWaypoint,
-    String? G__typename,
-  }) {
+  GDeleteWaypointData copyWith({bool? deleteWaypoint, String? G__typename}) {
     return GDeleteWaypointData(
       deleteWaypoint: deleteWaypoint ?? this.deleteWaypoint,
       G__typename: G__typename ?? this.G__typename,
@@ -232,7 +231,8 @@ class GAttachImageToWaypointData {
     return GAttachImageToWaypointData(
       attachImageToWaypoint:
           GAttachImageToWaypointData_attachImageToWaypoint.fromJson(
-              (json['attachImageToWaypoint'] as Map<String, dynamic>)),
+            (json['attachImageToWaypoint'] as Map<String, dynamic>),
+          ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -285,10 +285,12 @@ class GAttachImageToWaypointData_attachImageToWaypoint {
   });
 
   factory GAttachImageToWaypointData_attachImageToWaypoint.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return GAttachImageToWaypointData_attachImageToWaypoint(
       image: _i2.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

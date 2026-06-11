@@ -293,7 +293,7 @@ void main() {
         // Given: store seedé avec t1 (4 waypoints)
         // When: WaypointsNotifier(t1.id) s'initialise
         // Then: les 4 waypoints sont dans l'état
-        container.listen(waypointsProvider(t1TripId), (_, __) {});
+        container.listen(waypointsProvider(t1TripId), (_, _) {});
 
         final waypoints = await container.read(
           waypointsProvider(t1TripId).future,
@@ -311,7 +311,7 @@ void main() {
       final seed = emptyWaypointSeed(tripId: 99);
       final emptyContainer = buildContainer([seed]);
       addTearDown(emptyContainer.dispose);
-      emptyContainer.listen(waypointsProvider(99), (_, __) {});
+      emptyContainer.listen(waypointsProvider(99), (_, _) {});
 
       final waypoints = await emptyContainer.read(waypointsProvider(99).future);
 
@@ -330,7 +330,7 @@ void main() {
       // Given: waypoints de t1 chargés
       // When: createWaypoint est appelé avec vertexId=13
       // Then: l'état contient le nouveau waypoint
-      container.listen(waypointsProvider(t1TripId), (_, __) {});
+      container.listen(waypointsProvider(t1TripId), (_, _) {});
       await container.read(waypointsProvider(t1TripId).future);
 
       final draft = WaypointDraft(
@@ -361,7 +361,7 @@ void main() {
       // Given: waypoints de t1 chargés
       // When: updateWaypoint est appelé sur id=10
       // Then: l'état contient le waypoint mis à jour
-      container.listen(waypointsProvider(t1TripId), (_, __) {});
+      container.listen(waypointsProvider(t1TripId), (_, _) {});
       await container.read(waypointsProvider(t1TripId).future);
 
       final draft = WaypointDraft(
@@ -390,7 +390,7 @@ void main() {
         final backend = buildFakeBackend(exploreSeed);
         final rollbackContainer = buildContainer([], backend: backend);
         addTearDown(rollbackContainer.dispose);
-        rollbackContainer.listen(waypointsProvider(t1TripId), (_, __) {});
+        rollbackContainer.listen(waypointsProvider(t1TripId), (_, _) {});
         await rollbackContainer.read(waypointsProvider(t1TripId).future);
 
         final originalType = rollbackContainer
@@ -422,7 +422,7 @@ void main() {
       // Given: waypoints de t1 chargés
       // When: deleteWaypoint(10) est appelé
       // Then: waypoint 10 n'est plus dans l'état, les autres sont présents
-      container.listen(waypointsProvider(t1TripId), (_, __) {});
+      container.listen(waypointsProvider(t1TripId), (_, _) {});
       await container.read(waypointsProvider(t1TripId).future);
 
       await container

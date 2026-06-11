@@ -27,8 +27,9 @@ class GImageFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.ImageFields]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [_i4.ImageFields],
+  );
 
   _i2.GImageFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GImageFieldsData.fromJson(json);
@@ -62,8 +63,13 @@ class GImageFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

@@ -16,16 +16,15 @@ import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/way
     as _i2;
 
 class GGetAllTripsData {
-  const GGetAllTripsData({
-    required this.trips,
-    this.G__typename = 'Query',
-  });
+  const GGetAllTripsData({required this.trips, this.G__typename = 'Query'});
 
   factory GGetAllTripsData.fromJson(Map<String, dynamic> json) {
     return GGetAllTripsData(
       trips: (json['trips'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -72,15 +71,13 @@ class GGetAllTripsData {
 }
 
 class GGetTripData {
-  const GGetTripData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
+  const GGetTripData({required this.trip, this.G__typename = 'Query'});
 
   factory GGetTripData.fromJson(Map<String, dynamic> json) {
     return GGetTripData(
-      trip:
-          _i1.GTripFieldsData.fromJson((json['trip'] as Map<String, dynamic>)),
+      trip: _i1.GTripFieldsData.fromJson(
+        (json['trip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -96,10 +93,7 @@ class GGetTripData {
     return _$result;
   }
 
-  GGetTripData copyWith({
-    _i1.GTripFieldsData? trip,
-    String? G__typename,
-  }) {
+  GGetTripData copyWith({_i1.GTripFieldsData? trip, String? G__typename}) {
     return GGetTripData(
       trip: trip ?? this.trip,
       G__typename: G__typename ?? this.G__typename,
@@ -126,15 +120,13 @@ class GGetTripData {
 }
 
 class GGetTripDetailsData {
-  const GGetTripDetailsData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
+  const GGetTripDetailsData({required this.trip, this.G__typename = 'Query'});
 
   factory GGetTripDetailsData.fromJson(Map<String, dynamic> json) {
     return GGetTripDetailsData(
       trip: GGetTripDetailsData_trip.fromJson(
-          (json['trip'] as Map<String, dynamic>)),
+        (json['trip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -198,16 +190,22 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GGetTripDetailsData_trip_images.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GGetTripDetailsData_trip_images.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i2.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i2.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       topology: GGetTripDetailsData_trip_topology.fromJson(
-          (json['topology'] as Map<String, dynamic>)),
+        (json['topology'] as Map<String, dynamic>),
+      ),
     );
   }
 
@@ -281,15 +279,16 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(images),
-        G__typename,
-        _gqlUtils.listHash(waypoints),
-        topology);
+      runtimeType,
+      id,
+      title,
+      date,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+      _gqlUtils.listHash(waypoints),
+      topology,
+    );
   }
 
   @override
@@ -307,7 +306,8 @@ class GGetTripDetailsData_trip_images implements _i1.GTripFields_images {
   factory GGetTripDetailsData_trip_images.fromJson(Map<String, dynamic> json) {
     return GGetTripDetailsData_trip_images(
       image: _i3.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -360,15 +360,20 @@ class GGetTripDetailsData_trip_topology {
   });
 
   factory GGetTripDetailsData_trip_topology.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return GGetTripDetailsData_trip_topology(
       vertices: (json['vertices'] as List<dynamic>)
-          .map((_$e) =>
-              _i4.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i4.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       segments: (json['segments'] as List<dynamic>)
-          .map((_$e) =>
-              _i5.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i5.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -411,8 +416,12 @@ class GGetTripDetailsData_trip_topology {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.listHash(vertices),
-        _gqlUtils.listHash(segments), G__typename);
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.listHash(vertices),
+      _gqlUtils.listHash(segments),
+      G__typename,
+    );
   }
 
   @override

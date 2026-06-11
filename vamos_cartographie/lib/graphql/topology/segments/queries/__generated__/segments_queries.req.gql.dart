@@ -45,7 +45,8 @@ class GGetSegmentsReq
   final _i2.GGetSegmentsData? Function(
     _i2.GGetSegmentsData?,
     _i2.GGetSegmentsData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GGetSegmentsData? optimisticResponse;
 
@@ -59,12 +60,14 @@ class GGetSegmentsReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.GetSegments,
-    _i7.SegmentFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [
+      _i6.GetSegments,
+      _i7.SegmentFields,
+      _i8.VertexFields,
+      _i9.LatLngFields,
+    ],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -72,10 +75,10 @@ class GGetSegmentsReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GGetSegmentsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetSegmentsData.fromJson(json);
@@ -85,7 +88,7 @@ class GGetSegmentsReq
   Map<String, dynamic> dataToJson(_i2.GGetSegmentsData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GGetSegmentsData, _i3.GGetSegmentsVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GGetSegmentsReq(
       vars: vars,
       operation: transform(operation),
@@ -108,7 +111,8 @@ class GGetSegmentsReq
     _i2.GGetSegmentsData? Function(
       _i2.GGetSegmentsData?,
       _i2.GGetSegmentsData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GGetSegmentsData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -153,7 +157,9 @@ class GGetSegmentsReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -162,17 +168,18 @@ class GGetSegmentsReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

@@ -2,10 +2,7 @@
 // ignore_for_file: type=lint
 
 @pragma('vm:prefer-inline')
-bool listEquals<T>(
-  List<T>? left,
-  List<T>? right,
-) {
+bool listEquals<T>(List<T>? left, List<T>? right) {
   if (identical(left, right)) return true;
   if (left == null || right == null) return false;
   final _$length = left.length;
@@ -17,10 +14,7 @@ bool listEquals<T>(
 }
 
 @pragma('vm:prefer-inline')
-bool listEqualsDeep<T>(
-  List<T>? left,
-  List<T>? right,
-) {
+bool listEqualsDeep<T>(List<T>? left, List<T>? right) {
   if (identical(left, right)) return true;
   if (left == null || right == null) return false;
   final _$length = left.length;
@@ -48,10 +42,7 @@ int listHashDeep<T>(List<T>? values) {
 }
 
 @pragma('vm:prefer-inline')
-bool deepEquals(
-  Object? left,
-  Object? right,
-) {
+bool deepEquals(Object? left, Object? right) {
   if (identical(left, right)) return true;
   if (left == null || right == null) return false;
   if (left is List && right is List) {
@@ -77,10 +68,8 @@ int deepHash(Object? value) {
   if (value is Map) {
     return Object.hashAllUnordered(
       value.entries.map(
-        (_$entry) => Object.hash(
-          deepHash(_$entry.key),
-          deepHash(_$entry.value),
-        ),
+        (_$entry) =>
+            Object.hash(deepHash(_$entry.key), deepHash(_$entry.value)),
       ),
     );
   }

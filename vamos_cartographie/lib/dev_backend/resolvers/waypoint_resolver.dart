@@ -1,5 +1,4 @@
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/shared/data/mappers/gis_mapper.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';

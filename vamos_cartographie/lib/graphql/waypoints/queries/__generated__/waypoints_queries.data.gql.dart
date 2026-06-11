@@ -12,15 +12,13 @@ import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/way
     as _i2;
 
 class GGetWaypointsData {
-  const GGetWaypointsData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
+  const GGetWaypointsData({required this.trip, this.G__typename = 'Query'});
 
   factory GGetWaypointsData.fromJson(Map<String, dynamic> json) {
     return GGetWaypointsData(
       trip: GGetWaypointsData_trip.fromJson(
-          (json['trip'] as Map<String, dynamic>)),
+        (json['trip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -83,13 +81,18 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
       images: (json['images'] as List<dynamic>)
-          .map((_$e) => GGetWaypointsData_trip_images.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) => GGetWaypointsData_trip_images.fromJson(
+              (_$e as Map<String, dynamic>),
+            ),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i2.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i2.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
     );
   }
@@ -157,8 +160,16 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, title, date, description,
-        _gqlUtils.listHash(images), G__typename, _gqlUtils.listHash(waypoints));
+    return Object.hash(
+      runtimeType,
+      id,
+      title,
+      date,
+      description,
+      _gqlUtils.listHash(images),
+      G__typename,
+      _gqlUtils.listHash(waypoints),
+    );
   }
 
   @override
@@ -176,7 +187,8 @@ class GGetWaypointsData_trip_images implements _i1.GTripFields_images {
   factory GGetWaypointsData_trip_images.fromJson(Map<String, dynamic> json) {
     return GGetWaypointsData_trip_images(
       image: _i3.GImageFieldsData.fromJson(
-          (json['image'] as Map<String, dynamic>)),
+        (json['image'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }

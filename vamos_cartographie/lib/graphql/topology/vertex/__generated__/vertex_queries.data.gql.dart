@@ -8,15 +8,13 @@ import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_
     as _i1;
 
 class GGetVerticesData {
-  const GGetVerticesData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
+  const GGetVerticesData({required this.trip, this.G__typename = 'Query'});
 
   factory GGetVerticesData.fromJson(Map<String, dynamic> json) {
     return GGetVerticesData(
       trip: GGetVerticesData_trip.fromJson(
-          (json['trip'] as Map<String, dynamic>)),
+        (json['trip'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -70,7 +68,8 @@ class GGetVerticesData_trip {
   factory GGetVerticesData_trip.fromJson(Map<String, dynamic> json) {
     return GGetVerticesData_trip(
       topology: GGetVerticesData_trip_topology.fromJson(
-          (json['topology'] as Map<String, dynamic>)),
+        (json['topology'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -124,8 +123,10 @@ class GGetVerticesData_trip_topology {
   factory GGetVerticesData_trip_topology.fromJson(Map<String, dynamic> json) {
     return GGetVerticesData_trip_topology(
       vertices: (json['vertices'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map(
+            (_$e) =>
+                _i1.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)),
+          )
           .toList(),
       G__typename: (json['__typename'] as String),
     );

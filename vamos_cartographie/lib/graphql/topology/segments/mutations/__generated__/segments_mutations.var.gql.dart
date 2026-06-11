@@ -8,16 +8,14 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
 class GUpdateSegmentVars {
-  const GUpdateSegmentVars({
-    required this.id,
-    required this.segment,
-  });
+  const GUpdateSegmentVars({required this.id, required this.segment});
 
   factory GUpdateSegmentVars.fromJson(Map<String, dynamic> json) {
     return GUpdateSegmentVars(
       id: (json['id'] as int),
       segment: _i1.GSegmentUpdateInput.fromJson(
-          (json['segment'] as Map<String, dynamic>)),
+        (json['segment'] as Map<String, dynamic>),
+      ),
     );
   }
 
@@ -34,10 +32,7 @@ class GUpdateSegmentVars {
     return _$result;
   }
 
-  GUpdateSegmentVars copyWith({
-    int? id,
-    _i1.GSegmentUpdateInput? segment,
-  }) {
+  GUpdateSegmentVars copyWith({int? id, _i1.GSegmentUpdateInput? segment}) {
     return GUpdateSegmentVars(
       id: id ?? this.id,
       segment: segment ?? this.segment,
@@ -63,16 +58,14 @@ class GUpdateSegmentVars {
 }
 
 class GCreateSegmentVars {
-  const GCreateSegmentVars({
-    required this.tripId,
-    required this.segment,
-  });
+  const GCreateSegmentVars({required this.tripId, required this.segment});
 
   factory GCreateSegmentVars.fromJson(Map<String, dynamic> json) {
     return GCreateSegmentVars(
       tripId: (json['tripId'] as int),
       segment: _i1.GSegmentCreateInput.fromJson(
-          (json['segment'] as Map<String, dynamic>)),
+        (json['segment'] as Map<String, dynamic>),
+      ),
     );
   }
 
@@ -89,10 +82,7 @@ class GCreateSegmentVars {
     return _$result;
   }
 
-  GCreateSegmentVars copyWith({
-    int? tripId,
-    _i1.GSegmentCreateInput? segment,
-  }) {
+  GCreateSegmentVars copyWith({int? tripId, _i1.GSegmentCreateInput? segment}) {
     return GCreateSegmentVars(
       tripId: tripId ?? this.tripId,
       segment: segment ?? this.segment,

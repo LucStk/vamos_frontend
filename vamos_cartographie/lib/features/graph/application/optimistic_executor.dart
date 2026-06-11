@@ -1,32 +1,38 @@
 import 'package:dartz/dartz.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 
 class OptimisticSpec<T> {
   final void Function() apply;
   final void Function() rollback;
+
+  /// version locale au moment de l'envoi
+  final int revision;
+
+  /// vérifie si on peut appliquer la réponse
+  final bool Function()? isStillValid;
+
   final void Function(T result)? reconcile;
 
-  OptimisticSpec({required this.apply, required this.rollback, this.reconcile});
+  OptimisticSpec({
+    required this.apply,
+    required this.rollback,
+    required this.revision,
+    this.isStillValid,
+    this.reconcile,
+  });
 }
 
-@riverpod
 class OptimisticExecutor {
-  int _tx = 0; //TODO : Tx par key
-
   Future<T> run<T>({
     required Future<Either<Failure, T>> Function() remote,
-    required OptimisticSpec spec,
+    required OptimisticSpec<T> spec,
   }) async {
-    final tx = ++_tx;
-
     spec.apply();
 
     final result = await remote();
 
-    // ignore stale response
-    if (tx != _tx) {
-      return result.getOrElse(() => throw Exception("stale"));
+    if (spec.isStillValid != null && !spec.isStillValid!()) {
+      return result.getOrElse(() => throw StateError('stale response'));
     }
 
     return result.fold(
@@ -36,7 +42,6 @@ class OptimisticExecutor {
       },
       (data) {
         spec.reconcile?.call(data);
-
         return data;
       },
     );

@@ -22,71 +22,88 @@ const GetTopology = _i1.OperationDefinitionNode(
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
-    )
+    ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'trip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'topology'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'trip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'id'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'vertices'),
+              name: _i1.NameNode(value: 'id'),
               alias: null,
               arguments: [],
               directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FragmentSpreadNode(
-                  name: _i1.NameNode(value: 'VertexFields'),
-                  directives: [],
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
+              selectionSet: null,
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'segments'),
+              name: _i1.NameNode(value: 'topology'),
               alias: null,
               arguments: [],
               directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FragmentSpreadNode(
-                  name: _i1.NameNode(value: 'SegmentFields'),
-                  directives: [],
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
+              selectionSet: _i1.SelectionSetNode(
+                selections: [
+                  _i1.FieldNode(
+                    name: _i1.NameNode(value: 'vertices'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: _i1.SelectionSetNode(
+                      selections: [
+                        _i1.FragmentSpreadNode(
+                          name: _i1.NameNode(value: 'VertexFields'),
+                          directives: [],
+                        ),
+                        _i1.FieldNode(
+                          name: _i1.NameNode(value: '__typename'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null,
+                        ),
+                      ],
+                    ),
+                  ),
+                  _i1.FieldNode(
+                    name: _i1.NameNode(value: 'segments'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: _i1.SelectionSetNode(
+                      selections: [
+                        _i1.FragmentSpreadNode(
+                          name: _i1.NameNode(value: 'SegmentFields'),
+                          directives: [],
+                        ),
+                        _i1.FieldNode(
+                          name: _i1.NameNode(value: '__typename'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null,
+                        ),
+                      ],
+                    ),
+                  ),
+                  _i1.FieldNode(
+                    name: _i1.NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ],
+              ),
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
@@ -95,29 +112,24 @@ const GetTopology = _i1.OperationDefinitionNode(
               directives: [],
               selectionSet: null,
             ),
-          ]),
+          ],
         ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const document = _i1.DocumentNode(definitions: [
-  GetTopology,
-  _i2.SegmentFields,
-  _i3.VertexFields,
-  _i4.LatLngFields,
-]);
+const document = _i1.DocumentNode(
+  definitions: [
+    GetTopology,
+    _i2.SegmentFields,
+    _i3.VertexFields,
+    _i4.LatLngFields,
+  ],
+);

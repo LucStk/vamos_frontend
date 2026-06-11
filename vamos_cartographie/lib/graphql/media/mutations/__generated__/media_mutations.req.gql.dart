@@ -18,8 +18,10 @@ import 'package:vamos_cartographie/graphql/media/mutations/__generated__/media_m
 
 class GGenerateImageUploadUrlReq
     implements
-        _i1.OperationRequest<_i2.GGenerateImageUploadUrlData,
-            _i3.GGenerateImageUploadUrlVars> {
+        _i1.OperationRequest<
+          _i2.GGenerateImageUploadUrlData,
+          _i3.GGenerateImageUploadUrlVars
+        > {
   GGenerateImageUploadUrlReq({
     required this.vars,
     _i4.Operation? operation,
@@ -42,7 +44,8 @@ class GGenerateImageUploadUrlReq
   final _i2.GGenerateImageUploadUrlData? Function(
     _i2.GGenerateImageUploadUrlData?,
     _i2.GGenerateImageUploadUrlData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GGenerateImageUploadUrlData? optimisticResponse;
 
@@ -56,8 +59,9 @@ class GGenerateImageUploadUrlReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.GenerateImageUploadUrl]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.GenerateImageUploadUrl],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -65,10 +69,10 @@ class GGenerateImageUploadUrlReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GGenerateImageUploadUrlData? parseData(Map<String, dynamic> json) =>
       _i2.GGenerateImageUploadUrlData.fromJson(json);
@@ -78,9 +82,11 @@ class GGenerateImageUploadUrlReq
   Map<String, dynamic> dataToJson(_i2.GGenerateImageUploadUrlData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GGenerateImageUploadUrlData,
-          _i3.GGenerateImageUploadUrlVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  _i1.OperationRequest<
+    _i2.GGenerateImageUploadUrlData,
+    _i3.GGenerateImageUploadUrlVars
+  >
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GGenerateImageUploadUrlReq(
       vars: vars,
       operation: transform(operation),
@@ -103,7 +109,8 @@ class GGenerateImageUploadUrlReq
     _i2.GGenerateImageUploadUrlData? Function(
       _i2.GGenerateImageUploadUrlData?,
       _i2.GGenerateImageUploadUrlData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GGenerateImageUploadUrlData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -148,7 +155,9 @@ class GGenerateImageUploadUrlReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -157,17 +166,18 @@ class GGenerateImageUploadUrlReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -201,7 +211,8 @@ class GCreateImageReq
   final _i2.GCreateImageData? Function(
     _i2.GCreateImageData?,
     _i2.GCreateImageData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GCreateImageData? optimisticResponse;
 
@@ -215,10 +226,9 @@ class GCreateImageReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.CreateImage,
-    _i7.ImageFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.CreateImage, _i7.ImageFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -226,10 +236,10 @@ class GCreateImageReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GCreateImageData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateImageData.fromJson(json);
@@ -239,7 +249,7 @@ class GCreateImageReq
   Map<String, dynamic> dataToJson(_i2.GCreateImageData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GCreateImageData, _i3.GCreateImageVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GCreateImageReq(
       vars: vars,
       operation: transform(operation),
@@ -262,7 +272,8 @@ class GCreateImageReq
     _i2.GCreateImageData? Function(
       _i2.GCreateImageData?,
       _i2.GCreateImageData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GCreateImageData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -307,7 +318,9 @@ class GCreateImageReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -316,17 +329,18 @@ class GCreateImageReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

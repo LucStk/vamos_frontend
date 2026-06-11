@@ -310,7 +310,7 @@ void main() {
       // Given: store seedé avec t1, t2, t3
       // When: TripsNotifier s'initialise
       // Then: les 3 trips sont dans l'état
-      container.listen(tripsProvider, (_, __) {});
+      container.listen(tripsProvider, (_, _) {});
 
       final trips = await container.read(tripsProvider.future);
 
@@ -326,7 +326,7 @@ void main() {
       // Then: état est vide
       final emptyContainer = buildContainer([]);
       addTearDown(emptyContainer.dispose);
-      emptyContainer.listen(tripsProvider, (_, __) {});
+      emptyContainer.listen(tripsProvider, (_, _) {});
 
       final trips = await emptyContainer.read(tripsProvider.future);
 
@@ -339,7 +339,7 @@ void main() {
       // Given: state chargé avec 3 trips
       // When: createTrip est appelé
       // Then: l'état contient 4 trips dont le nouveau
-      container.listen(tripsProvider, (_, __) {});
+      container.listen(tripsProvider, (_, _) {});
       await container.read(tripsProvider.future);
 
       final draft = TripDraft(
@@ -363,7 +363,7 @@ void main() {
       // Given: state chargé
       // When: createTrip est appelé sans description
       // Then: le trip est créé avec description vide
-      container.listen(tripsProvider, (_, __) {});
+      container.listen(tripsProvider, (_, _) {});
       await container.read(tripsProvider.future);
 
       await container
@@ -385,7 +385,7 @@ void main() {
         // Given: t1 chargé dans l'état
         // When: updateTrip est appelé avec un nouveau titre
         // Then: l'état contient le titre mis à jour
-        container.listen(tripsProvider, (_, __) {});
+        container.listen(tripsProvider, (_, _) {});
         await container.read(tripsProvider.future);
 
         final draft = t1.toDraft().copyWith(title: 'Bretagne revisitée');
@@ -406,7 +406,7 @@ void main() {
         final backend = buildFakeBackend(exploreSeed);
         final rollbackContainer = buildContainer([], backend: backend);
         addTearDown(rollbackContainer.dispose);
-        rollbackContainer.listen(tripsProvider, (_, __) {});
+        rollbackContainer.listen(tripsProvider, (_, _) {});
         await rollbackContainer.read(tripsProvider.future);
 
         // Supprime t1 directement du store (le notifier ne le sait pas encore)
@@ -429,7 +429,7 @@ void main() {
       // Given: t2 chargé dans l'état
       // When: deleteTrip(t2.id) est appelé
       // Then: t2 n'est plus dans l'état, les autres trips sont présents
-      container.listen(tripsProvider, (_, __) {});
+      container.listen(tripsProvider, (_, _) {});
       await container.read(tripsProvider.future);
 
       await container.read(tripsProvider.notifier).deleteTrip(t2.id);
@@ -448,7 +448,7 @@ void main() {
       final backend = buildFakeBackend(exploreSeed);
       final refreshContainer = buildContainer([], backend: backend);
       addTearDown(refreshContainer.dispose);
-      refreshContainer.listen(tripsProvider, (_, __) {});
+      refreshContainer.listen(tripsProvider, (_, _) {});
       await refreshContainer.read(tripsProvider.future);
 
       // Injection directe dans le store (simule une création externe)

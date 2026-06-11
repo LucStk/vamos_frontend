@@ -7,10 +7,7 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
 class GLatLngInput {
-  const GLatLngInput({
-    required this.lat,
-    required this.lng,
-  });
+  const GLatLngInput({required this.lat, required this.lng});
 
   factory GLatLngInput.fromJson(Map<String, dynamic> json) {
     return GLatLngInput(
@@ -32,14 +29,8 @@ class GLatLngInput {
     return _$result;
   }
 
-  GLatLngInput copyWith({
-    double? lat,
-    double? lng,
-  }) {
-    return GLatLngInput(
-      lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
-    );
+  GLatLngInput copyWith({double? lat, double? lng}) {
+    return GLatLngInput(lat: lat ?? this.lat, lng: lng ?? this.lng);
   }
 
   @override
@@ -213,18 +204,23 @@ class GSegmentUpdateInput {
   factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
     return GSegmentUpdateInput(
       type: json.containsKey('type')
-          ? Value.present(json['type'] == null
-              ? null
-              : GSegmentTypeEnum.fromJson((json['type'] as String)))
+          ? Value.present(
+              json['type'] == null
+                  ? null
+                  : GSegmentTypeEnum.fromJson((json['type'] as String)),
+            )
           : Value.absent(),
       startVertexId: json.containsKey('startVertexId')
-          ? Value.present(json['startVertexId'] == null
-              ? null
-              : (json['startVertexId'] as int))
+          ? Value.present(
+              json['startVertexId'] == null
+                  ? null
+                  : (json['startVertexId'] as int),
+            )
           : Value.absent(),
       endVertexId: json.containsKey('endVertexId')
           ? Value.present(
-              json['endVertexId'] == null ? null : (json['endVertexId'] as int))
+              json['endVertexId'] == null ? null : (json['endVertexId'] as int),
+            )
           : Value.absent(),
     );
   }
@@ -240,20 +236,23 @@ class GSegmentUpdateInput {
     final _$typeValue = this.type;
     if (_$typeValue.isPresent) {
       final _$typeRequired = _$typeValue.requireValue;
-      _$result['type'] =
-          _$typeRequired == null ? null : _$typeRequired.toJson();
+      _$result['type'] = _$typeRequired == null
+          ? null
+          : _$typeRequired.toJson();
     }
     final _$startVertexIdValue = this.startVertexId;
     if (_$startVertexIdValue.isPresent) {
       final _$startVertexIdRequired = _$startVertexIdValue.requireValue;
-      _$result['startVertexId'] =
-          _$startVertexIdRequired == null ? null : _$startVertexIdRequired;
+      _$result['startVertexId'] = _$startVertexIdRequired == null
+          ? null
+          : _$startVertexIdRequired;
     }
     final _$endVertexIdValue = this.endVertexId;
     if (_$endVertexIdValue.isPresent) {
       final _$endVertexIdRequired = _$endVertexIdValue.requireValue;
-      _$result['endVertexId'] =
-          _$endVertexIdRequired == null ? null : _$endVertexIdRequired;
+      _$result['endVertexId'] = _$endVertexIdRequired == null
+          ? null
+          : _$endVertexIdRequired;
     }
     return _$result;
   }
@@ -299,13 +298,16 @@ class GTripInput {
     return GTripInput(
       title: (json['title'] as String),
       description: json.containsKey('description')
-          ? Value.present(json['description'] == null
-              ? null
-              : (json['description'] as String))
+          ? Value.present(
+              json['description'] == null
+                  ? null
+                  : (json['description'] as String),
+            )
           : Value.absent(),
       date: json.containsKey('date')
           ? Value.present(
-              json['date'] == null ? null : (json['date'] as String))
+              json['date'] == null ? null : (json['date'] as String),
+            )
           : Value.absent(),
     );
   }
@@ -323,8 +325,9 @@ class GTripInput {
     final _$descriptionValue = this.description;
     if (_$descriptionValue.isPresent) {
       final _$descriptionRequired = _$descriptionValue.requireValue;
-      _$result['description'] =
-          _$descriptionRequired == null ? null : _$descriptionRequired;
+      _$result['description'] = _$descriptionRequired == null
+          ? null
+          : _$descriptionRequired;
     }
     final _$dateValue = this.date;
     if (_$dateValue.isPresent) {
@@ -374,16 +377,20 @@ class GTripUpdateInput {
     return GTripUpdateInput(
       title: json.containsKey('title')
           ? Value.present(
-              json['title'] == null ? null : (json['title'] as String))
+              json['title'] == null ? null : (json['title'] as String),
+            )
           : Value.absent(),
       description: json.containsKey('description')
-          ? Value.present(json['description'] == null
-              ? null
-              : (json['description'] as String))
+          ? Value.present(
+              json['description'] == null
+                  ? null
+                  : (json['description'] as String),
+            )
           : Value.absent(),
       date: json.containsKey('date')
           ? Value.present(
-              json['date'] == null ? null : (json['date'] as String))
+              json['date'] == null ? null : (json['date'] as String),
+            )
           : Value.absent(),
     );
   }
@@ -404,8 +411,9 @@ class GTripUpdateInput {
     final _$descriptionValue = this.description;
     if (_$descriptionValue.isPresent) {
       final _$descriptionRequired = _$descriptionValue.requireValue;
-      _$result['description'] =
-          _$descriptionRequired == null ? null : _$descriptionRequired;
+      _$result['description'] = _$descriptionRequired == null
+          ? null
+          : _$descriptionRequired;
     }
     final _$dateValue = this.date;
     if (_$dateValue.isPresent) {
@@ -459,21 +467,29 @@ class GWaypointCreateInput {
       type: GWaypointEnum.fromJson((json['type'] as String)),
       title: json.containsKey('title')
           ? Value.present(
-              json['title'] == null ? null : (json['title'] as String))
+              json['title'] == null ? null : (json['title'] as String),
+            )
           : Value.absent(),
       description: json.containsKey('description')
-          ? Value.present(json['description'] == null
-              ? null
-              : (json['description'] as String))
+          ? Value.present(
+              json['description'] == null
+                  ? null
+                  : (json['description'] as String),
+            )
           : Value.absent(),
       vertexId: json.containsKey('vertexId')
           ? Value.present(
-              json['vertexId'] == null ? null : (json['vertexId'] as int))
+              json['vertexId'] == null ? null : (json['vertexId'] as int),
+            )
           : Value.absent(),
       latLng: json.containsKey('latLng')
-          ? Value.present(json['latLng'] == null
-              ? null
-              : GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)))
+          ? Value.present(
+              json['latLng'] == null
+                  ? null
+                  : GLatLngInput.fromJson(
+                      (json['latLng'] as Map<String, dynamic>),
+                    ),
+            )
           : Value.absent(),
     );
   }
@@ -500,20 +516,23 @@ class GWaypointCreateInput {
     final _$descriptionValue = this.description;
     if (_$descriptionValue.isPresent) {
       final _$descriptionRequired = _$descriptionValue.requireValue;
-      _$result['description'] =
-          _$descriptionRequired == null ? null : _$descriptionRequired;
+      _$result['description'] = _$descriptionRequired == null
+          ? null
+          : _$descriptionRequired;
     }
     final _$vertexIdValue = this.vertexId;
     if (_$vertexIdValue.isPresent) {
       final _$vertexIdRequired = _$vertexIdValue.requireValue;
-      _$result['vertexId'] =
-          _$vertexIdRequired == null ? null : _$vertexIdRequired;
+      _$result['vertexId'] = _$vertexIdRequired == null
+          ? null
+          : _$vertexIdRequired;
     }
     final _$latLngValue = this.latLng;
     if (_$latLngValue.isPresent) {
       final _$latLngRequired = _$latLngValue.requireValue;
-      _$result['latLng'] =
-          _$latLngRequired == null ? null : _$latLngRequired.toJson();
+      _$result['latLng'] = _$latLngRequired == null
+          ? null
+          : _$latLngRequired.toJson();
     }
     return _$result;
   }
@@ -647,21 +666,27 @@ class GWaypointUpdateInput {
     return GWaypointUpdateInput(
       title: json.containsKey('title')
           ? Value.present(
-              json['title'] == null ? null : (json['title'] as String))
+              json['title'] == null ? null : (json['title'] as String),
+            )
           : Value.absent(),
       type: json.containsKey('type')
-          ? Value.present(json['type'] == null
-              ? null
-              : GWaypointEnum.fromJson((json['type'] as String)))
+          ? Value.present(
+              json['type'] == null
+                  ? null
+                  : GWaypointEnum.fromJson((json['type'] as String)),
+            )
           : Value.absent(),
       vertexId: json.containsKey('vertexId')
           ? Value.present(
-              json['vertexId'] == null ? null : (json['vertexId'] as int))
+              json['vertexId'] == null ? null : (json['vertexId'] as int),
+            )
           : Value.absent(),
       description: json.containsKey('description')
-          ? Value.present(json['description'] == null
-              ? null
-              : (json['description'] as String))
+          ? Value.present(
+              json['description'] == null
+                  ? null
+                  : (json['description'] as String),
+            )
           : Value.absent(),
     );
   }
@@ -684,20 +709,23 @@ class GWaypointUpdateInput {
     final _$typeValue = this.type;
     if (_$typeValue.isPresent) {
       final _$typeRequired = _$typeValue.requireValue;
-      _$result['type'] =
-          _$typeRequired == null ? null : _$typeRequired.toJson();
+      _$result['type'] = _$typeRequired == null
+          ? null
+          : _$typeRequired.toJson();
     }
     final _$vertexIdValue = this.vertexId;
     if (_$vertexIdValue.isPresent) {
       final _$vertexIdRequired = _$vertexIdValue.requireValue;
-      _$result['vertexId'] =
-          _$vertexIdRequired == null ? null : _$vertexIdRequired;
+      _$result['vertexId'] = _$vertexIdRequired == null
+          ? null
+          : _$vertexIdRequired;
     }
     final _$descriptionValue = this.description;
     if (_$descriptionValue.isPresent) {
       final _$descriptionRequired = _$descriptionValue.requireValue;
-      _$result['description'] =
-          _$descriptionRequired == null ? null : _$descriptionRequired;
+      _$result['description'] = _$descriptionRequired == null
+          ? null
+          : _$descriptionRequired;
     }
     return _$result;
   }

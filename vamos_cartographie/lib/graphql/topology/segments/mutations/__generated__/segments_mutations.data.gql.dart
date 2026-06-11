@@ -14,7 +14,8 @@ class GUpdateSegmentData {
   factory GUpdateSegmentData.fromJson(Map<String, dynamic> json) {
     return GUpdateSegmentData(
       updateSegment: _i1.GSegmentFieldsData.fromJson(
-          (json['updateSegment'] as Map<String, dynamic>)),
+        (json['updateSegment'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -68,7 +69,8 @@ class GCreateSegmentData {
   factory GCreateSegmentData.fromJson(Map<String, dynamic> json) {
     return GCreateSegmentData(
       createSegment: _i1.GSegmentFieldsData.fromJson(
-          (json['createSegment'] as Map<String, dynamic>)),
+        (json['createSegment'] as Map<String, dynamic>),
+      ),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -137,10 +139,7 @@ class GDeleteSegmentData {
     return _$result;
   }
 
-  GDeleteSegmentData copyWith({
-    bool? deleteSegment,
-    String? G__typename,
-  }) {
+  GDeleteSegmentData copyWith({bool? deleteSegment, String? G__typename}) {
     return GDeleteSegmentData(
       deleteSegment: deleteSegment ?? this.deleteSegment,
       G__typename: G__typename ?? this.G__typename,

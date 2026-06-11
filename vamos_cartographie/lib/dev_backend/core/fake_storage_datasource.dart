@@ -1,4 +1,4 @@
-import "package:vamos_cartographie/core/network/storage_datasource.dart";
+import "package:vamos_cartographie/core/backend/network/storage_datasource.dart";
 
 class FakeStorageDatasource implements StorageDatasource {
   FakeStorageDatasource();

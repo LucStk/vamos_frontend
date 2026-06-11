@@ -45,7 +45,8 @@ class GGetTopologyReq
   final _i2.GGetTopologyData? Function(
     _i2.GGetTopologyData?,
     _i2.GGetTopologyData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GGetTopologyData? optimisticResponse;
 
@@ -59,12 +60,14 @@ class GGetTopologyReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.GetTopology,
-    _i7.SegmentFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [
+      _i6.GetTopology,
+      _i7.SegmentFields,
+      _i8.VertexFields,
+      _i9.LatLngFields,
+    ],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -72,10 +75,10 @@ class GGetTopologyReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GGetTopologyData? parseData(Map<String, dynamic> json) =>
       _i2.GGetTopologyData.fromJson(json);
@@ -85,7 +88,7 @@ class GGetTopologyReq
   Map<String, dynamic> dataToJson(_i2.GGetTopologyData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GGetTopologyData, _i3.GGetTopologyVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GGetTopologyReq(
       vars: vars,
       operation: transform(operation),
@@ -108,7 +111,8 @@ class GGetTopologyReq
     _i2.GGetTopologyData? Function(
       _i2.GGetTopologyData?,
       _i2.GGetTopologyData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GGetTopologyData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -153,7 +157,9 @@ class GGetTopologyReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -162,17 +168,18 @@ class GGetTopologyReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

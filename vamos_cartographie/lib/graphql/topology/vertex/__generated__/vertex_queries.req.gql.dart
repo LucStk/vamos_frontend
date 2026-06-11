@@ -43,7 +43,8 @@ class GGetVerticesReq
   final _i2.GGetVerticesData? Function(
     _i2.GGetVerticesData?,
     _i2.GGetVerticesData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GGetVerticesData? optimisticResponse;
 
@@ -57,11 +58,9 @@ class GGetVerticesReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.GetVertices,
-    _i7.VertexFields,
-    _i8.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.GetVertices, _i7.VertexFields, _i8.LatLngFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -69,10 +68,10 @@ class GGetVerticesReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GGetVerticesData? parseData(Map<String, dynamic> json) =>
       _i2.GGetVerticesData.fromJson(json);
@@ -82,7 +81,7 @@ class GGetVerticesReq
   Map<String, dynamic> dataToJson(_i2.GGetVerticesData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GGetVerticesData, _i3.GGetVerticesVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GGetVerticesReq(
       vars: vars,
       operation: transform(operation),
@@ -105,7 +104,8 @@ class GGetVerticesReq
     _i2.GGetVerticesData? Function(
       _i2.GGetVerticesData?,
       _i2.GGetVerticesData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GGetVerticesData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -150,7 +150,9 @@ class GGetVerticesReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -159,17 +161,18 @@ class GGetVerticesReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

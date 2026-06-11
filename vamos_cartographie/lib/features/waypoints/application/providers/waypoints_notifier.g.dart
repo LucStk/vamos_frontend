@@ -13,7 +13,7 @@ part of 'waypoints_notifier.dart';
 final waypointsProvider = WaypointsNotifierFamily._();
 
 final class WaypointsNotifierProvider
-    extends $AsyncNotifierProvider<WaypointsNotifier, Map<int, Waypoint>> {
+    extends $NotifierProvider<WaypointsNotifier, void> {
   WaypointsNotifierProvider._({
     required WaypointsNotifierFamily super.from,
     required int super.argument,
@@ -39,6 +39,14 @@ final class WaypointsNotifierProvider
   @override
   WaypointsNotifier create() => WaypointsNotifier();
 
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(void value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<void>(value),
+    );
+  }
+
   @override
   bool operator ==(Object other) {
     return other is WaypointsNotifierProvider && other.argument == argument;
@@ -50,17 +58,10 @@ final class WaypointsNotifierProvider
   }
 }
 
-String _$waypointsNotifierHash() => r'bff219ddde74c6084bfcd2a36a60a3ceee099e6b';
+String _$waypointsNotifierHash() => r'255fe90817ac6326e78a87f7480ac23426dcff52';
 
 final class WaypointsNotifierFamily extends $Family
-    with
-        $ClassFamilyOverride<
-          WaypointsNotifier,
-          AsyncValue<Map<int, Waypoint>>,
-          Map<int, Waypoint>,
-          FutureOr<Map<int, Waypoint>>,
-          int
-        > {
+    with $ClassFamilyOverride<WaypointsNotifier, void, void, void, int> {
   WaypointsNotifierFamily._()
     : super(
         retry: null,
@@ -77,21 +78,20 @@ final class WaypointsNotifierFamily extends $Family
   String toString() => r'waypointsProvider';
 }
 
-abstract class _$WaypointsNotifier extends $AsyncNotifier<Map<int, Waypoint>> {
+abstract class _$WaypointsNotifier extends $Notifier<void> {
   late final _$args = ref.$arg as int;
   int get tripId => _$args;
 
-  FutureOr<Map<int, Waypoint>> build(int tripId);
+  void build(int tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<Map<int, Waypoint>>, Map<int, Waypoint>>;
+    final ref = this.ref as $Ref<void, void>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<Map<int, Waypoint>>, Map<int, Waypoint>>,
-              AsyncValue<Map<int, Waypoint>>,
+              AnyNotifier<void, void>,
+              void,
               Object?,
               Object?
             >;
@@ -162,7 +162,7 @@ final class WaypointMapProvider
   }
 }
 
-String _$waypointMapHash() => r'9e49b378f2749afe0497da9131ad79ba3ada8042';
+String _$waypointMapHash() => r'4175448389427245e2f418071bae346829a4b166';
 
 final class WaypointMapFamily extends $Family
     with $FunctionalFamilyOverride<Map<int, Waypoint>, int> {
@@ -239,7 +239,7 @@ final class WaypointsIdsProvider
   }
 }
 
-String _$waypointsIdsHash() => r'37338f64e0ea3b2f13039897a146723514305d34';
+String _$waypointsIdsHash() => r'375cb3db392e3f208f4a7f8a916a2ab23e5a40fc';
 
 final class WaypointsIdsFamily extends $Family
     with $FunctionalFamilyOverride<Iterable<int>, int> {
@@ -316,7 +316,7 @@ final class WaypointProvider
   }
 }
 
-String _$waypointHash() => r'acbec1e0789095d1842584613ccaf911ec3d77f3';
+String _$waypointHash() => r'fb733c07c2fff4bb99b1e996df73eeba0403875e';
 
 final class WaypointFamily extends $Family
     with $FunctionalFamilyOverride<Waypoint?, (int, int)> {
@@ -399,7 +399,7 @@ final class WaypointsByVertexProvider
   }
 }
 
-String _$waypointsByVertexHash() => r'77e8dcde7af5d10d291f1d2079ccb18d95a37d3e';
+String _$waypointsByVertexHash() => r'4d1c48849b7d85e07a8e731d48e9dd0ec910bc27';
 
 final class WaypointsByVertexFamily extends $Family
     with $FunctionalFamilyOverride<Map<int, Waypoint>, int> {

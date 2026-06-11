@@ -47,7 +47,8 @@ class GUpdateWaypointReq
   final _i2.GUpdateWaypointData? Function(
     _i2.GUpdateWaypointData?,
     _i2.GUpdateWaypointData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GUpdateWaypointData? optimisticResponse;
 
@@ -61,13 +62,15 @@ class GUpdateWaypointReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.UpdateWaypoint,
-    _i7.ImageFields,
-    _i8.WaypointFields,
-    _i9.VertexFields,
-    _i10.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [
+      _i6.UpdateWaypoint,
+      _i7.ImageFields,
+      _i8.WaypointFields,
+      _i9.VertexFields,
+      _i10.LatLngFields,
+    ],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -75,10 +78,10 @@ class GUpdateWaypointReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GUpdateWaypointData? parseData(Map<String, dynamic> json) =>
       _i2.GUpdateWaypointData.fromJson(json);
@@ -89,7 +92,7 @@ class GUpdateWaypointReq
       data.toJson();
 
   _i1.OperationRequest<_i2.GUpdateWaypointData, _i3.GUpdateWaypointVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GUpdateWaypointReq(
       vars: vars,
       operation: transform(operation),
@@ -112,7 +115,8 @@ class GUpdateWaypointReq
     _i2.GUpdateWaypointData? Function(
       _i2.GUpdateWaypointData?,
       _i2.GUpdateWaypointData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GUpdateWaypointData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -157,7 +161,9 @@ class GUpdateWaypointReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -166,17 +172,18 @@ class GUpdateWaypointReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -210,7 +217,8 @@ class GCreateWaypointReq
   final _i2.GCreateWaypointData? Function(
     _i2.GCreateWaypointData?,
     _i2.GCreateWaypointData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GCreateWaypointData? optimisticResponse;
 
@@ -224,14 +232,16 @@ class GCreateWaypointReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.CreateWaypoint,
-    _i7.ImageFields,
-    _i8.WaypointFields,
-    _i8.CreateWaypointPayloadFields,
-    _i9.VertexFields,
-    _i10.LatLngFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [
+      _i6.CreateWaypoint,
+      _i7.ImageFields,
+      _i8.WaypointFields,
+      _i8.CreateWaypointPayloadFields,
+      _i9.VertexFields,
+      _i10.LatLngFields,
+    ],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -239,10 +249,10 @@ class GCreateWaypointReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GCreateWaypointData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateWaypointData.fromJson(json);
@@ -253,7 +263,7 @@ class GCreateWaypointReq
       data.toJson();
 
   _i1.OperationRequest<_i2.GCreateWaypointData, _i3.GCreateWaypointVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GCreateWaypointReq(
       vars: vars,
       operation: transform(operation),
@@ -276,7 +286,8 @@ class GCreateWaypointReq
     _i2.GCreateWaypointData? Function(
       _i2.GCreateWaypointData?,
       _i2.GCreateWaypointData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GCreateWaypointData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -321,7 +332,9 @@ class GCreateWaypointReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -330,17 +343,18 @@ class GCreateWaypointReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -374,7 +388,8 @@ class GDeleteWaypointReq
   final _i2.GDeleteWaypointData? Function(
     _i2.GDeleteWaypointData?,
     _i2.GDeleteWaypointData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GDeleteWaypointData? optimisticResponse;
 
@@ -388,8 +403,9 @@ class GDeleteWaypointReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.DeleteWaypoint]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.DeleteWaypoint],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -397,10 +413,10 @@ class GDeleteWaypointReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GDeleteWaypointData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteWaypointData.fromJson(json);
@@ -411,7 +427,7 @@ class GDeleteWaypointReq
       data.toJson();
 
   _i1.OperationRequest<_i2.GDeleteWaypointData, _i3.GDeleteWaypointVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GDeleteWaypointReq(
       vars: vars,
       operation: transform(operation),
@@ -434,7 +450,8 @@ class GDeleteWaypointReq
     _i2.GDeleteWaypointData? Function(
       _i2.GDeleteWaypointData?,
       _i2.GDeleteWaypointData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GDeleteWaypointData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -479,7 +496,9 @@ class GDeleteWaypointReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -488,17 +507,18 @@ class GDeleteWaypointReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -509,8 +529,10 @@ class GDeleteWaypointReq
 
 class GDeleteImageFromWaypointReq
     implements
-        _i1.OperationRequest<_i2.GDeleteImageFromWaypointData,
-            _i3.GDeleteImageFromWaypointVars> {
+        _i1.OperationRequest<
+          _i2.GDeleteImageFromWaypointData,
+          _i3.GDeleteImageFromWaypointVars
+        > {
   GDeleteImageFromWaypointReq({
     required this.vars,
     _i4.Operation? operation,
@@ -533,7 +555,8 @@ class GDeleteImageFromWaypointReq
   final _i2.GDeleteImageFromWaypointData? Function(
     _i2.GDeleteImageFromWaypointData?,
     _i2.GDeleteImageFromWaypointData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GDeleteImageFromWaypointData? optimisticResponse;
 
@@ -547,8 +570,9 @@ class GDeleteImageFromWaypointReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.DeleteImageFromWaypoint]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.DeleteImageFromWaypoint],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -556,10 +580,10 @@ class GDeleteImageFromWaypointReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GDeleteImageFromWaypointData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteImageFromWaypointData.fromJson(json);
@@ -569,9 +593,11 @@ class GDeleteImageFromWaypointReq
   Map<String, dynamic> dataToJson(_i2.GDeleteImageFromWaypointData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GDeleteImageFromWaypointData,
-          _i3.GDeleteImageFromWaypointVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  _i1.OperationRequest<
+    _i2.GDeleteImageFromWaypointData,
+    _i3.GDeleteImageFromWaypointVars
+  >
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GDeleteImageFromWaypointReq(
       vars: vars,
       operation: transform(operation),
@@ -594,7 +620,8 @@ class GDeleteImageFromWaypointReq
     _i2.GDeleteImageFromWaypointData? Function(
       _i2.GDeleteImageFromWaypointData?,
       _i2.GDeleteImageFromWaypointData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GDeleteImageFromWaypointData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -639,7 +666,9 @@ class GDeleteImageFromWaypointReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -648,17 +677,18 @@ class GDeleteImageFromWaypointReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override
@@ -669,8 +699,10 @@ class GDeleteImageFromWaypointReq
 
 class GAttachImageToWaypointReq
     implements
-        _i1.OperationRequest<_i2.GAttachImageToWaypointData,
-            _i3.GAttachImageToWaypointVars> {
+        _i1.OperationRequest<
+          _i2.GAttachImageToWaypointData,
+          _i3.GAttachImageToWaypointVars
+        > {
   GAttachImageToWaypointReq({
     required this.vars,
     _i4.Operation? operation,
@@ -693,7 +725,8 @@ class GAttachImageToWaypointReq
   final _i2.GAttachImageToWaypointData? Function(
     _i2.GAttachImageToWaypointData?,
     _i2.GAttachImageToWaypointData?,
-  )? updateResult;
+  )?
+  updateResult;
 
   final _i2.GAttachImageToWaypointData? optimisticResponse;
 
@@ -707,10 +740,9 @@ class GAttachImageToWaypointReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.AttachImageToWaypoint,
-    _i7.ImageFields,
-  ]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(
+    definitions: [_i6.AttachImageToWaypoint, _i7.ImageFields],
+  );
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
@@ -718,10 +750,10 @@ class GAttachImageToWaypointReq
   );
 
   _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i4.Context(),
-      );
+    operation: operation,
+    variables: varsToJson(),
+    context: context ?? const _i4.Context(),
+  );
 
   _i2.GAttachImageToWaypointData? parseData(Map<String, dynamic> json) =>
       _i2.GAttachImageToWaypointData.fromJson(json);
@@ -731,9 +763,11 @@ class GAttachImageToWaypointReq
   Map<String, dynamic> dataToJson(_i2.GAttachImageToWaypointData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GAttachImageToWaypointData,
-          _i3.GAttachImageToWaypointVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+  _i1.OperationRequest<
+    _i2.GAttachImageToWaypointData,
+    _i3.GAttachImageToWaypointVars
+  >
+  transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GAttachImageToWaypointReq(
       vars: vars,
       operation: transform(operation),
@@ -756,7 +790,8 @@ class GAttachImageToWaypointReq
     _i2.GAttachImageToWaypointData? Function(
       _i2.GAttachImageToWaypointData?,
       _i2.GAttachImageToWaypointData?,
-    )? updateResult,
+    )?
+    updateResult,
     bool updateResultIsSet = false,
     _i2.GAttachImageToWaypointData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -801,7 +836,9 @@ class GAttachImageToWaypointReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+              updateCacheHandlerContext,
+              other.updateCacheHandlerContext,
+            ) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -810,17 +847,18 @@ class GAttachImageToWaypointReq
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      operation,
+      requestId,
+      updateResult,
+      optimisticResponse,
+      updateCacheHandlerKey,
+      _gqlUtils.deepHash(updateCacheHandlerContext),
+      fetchPolicy,
+      executeOnListen,
+      context,
+    );
   }
 
   @override

@@ -8,16 +8,14 @@ import 'package:vamos_cartographie/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
 class GUpdateWaypointVars {
-  const GUpdateWaypointVars({
-    required this.id,
-    required this.waypoint,
-  });
+  const GUpdateWaypointVars({required this.id, required this.waypoint});
 
   factory GUpdateWaypointVars.fromJson(Map<String, dynamic> json) {
     return GUpdateWaypointVars(
       id: (json['id'] as int),
       waypoint: _i1.GWaypointUpdateInput.fromJson(
-          (json['waypoint'] as Map<String, dynamic>)),
+        (json['waypoint'] as Map<String, dynamic>),
+      ),
     );
   }
 
@@ -34,10 +32,7 @@ class GUpdateWaypointVars {
     return _$result;
   }
 
-  GUpdateWaypointVars copyWith({
-    int? id,
-    _i1.GWaypointUpdateInput? waypoint,
-  }) {
+  GUpdateWaypointVars copyWith({int? id, _i1.GWaypointUpdateInput? waypoint}) {
     return GUpdateWaypointVars(
       id: id ?? this.id,
       waypoint: waypoint ?? this.waypoint,
@@ -63,16 +58,14 @@ class GUpdateWaypointVars {
 }
 
 class GCreateWaypointVars {
-  const GCreateWaypointVars({
-    required this.tripId,
-    required this.waypoint,
-  });
+  const GCreateWaypointVars({required this.tripId, required this.waypoint});
 
   factory GCreateWaypointVars.fromJson(Map<String, dynamic> json) {
     return GCreateWaypointVars(
       tripId: (json['tripId'] as int),
       waypoint: _i1.GWaypointCreateInput.fromJson(
-          (json['waypoint'] as Map<String, dynamic>)),
+        (json['waypoint'] as Map<String, dynamic>),
+      ),
     );
   }
 
@@ -181,10 +174,7 @@ class GDeleteImageFromWaypointVars {
     return _$result;
   }
 
-  GDeleteImageFromWaypointVars copyWith({
-    int? waypointId,
-    String? fileKey,
-  }) {
+  GDeleteImageFromWaypointVars copyWith({int? waypointId, String? fileKey}) {
     return GDeleteImageFromWaypointVars(
       waypointId: waypointId ?? this.waypointId,
       fileKey: fileKey ?? this.fileKey,
@@ -235,10 +225,7 @@ class GAttachImageToWaypointVars {
     return _$result;
   }
 
-  GAttachImageToWaypointVars copyWith({
-    int? waypointId,
-    String? fileKey,
-  }) {
+  GAttachImageToWaypointVars copyWith({int? waypointId, String? fileKey}) {
     return GAttachImageToWaypointVars(
       waypointId: waypointId ?? this.waypointId,
       fileKey: fileKey ?? this.fileKey,

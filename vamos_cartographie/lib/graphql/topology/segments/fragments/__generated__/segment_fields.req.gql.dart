@@ -31,11 +31,9 @@ class GSegmentFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.SegmentFields,
-    _i5.VertexFields,
-    _i6.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [_i4.SegmentFields, _i5.VertexFields, _i6.LatLngFields],
+  );
 
   _i2.GSegmentFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GSegmentFieldsData.fromJson(json);
@@ -69,8 +67,13 @@ class GSegmentFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

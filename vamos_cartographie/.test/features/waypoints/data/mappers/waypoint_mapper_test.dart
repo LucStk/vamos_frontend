@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
 import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
-import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.data.gql.dart';
 import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.data.gql.dart';
 import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_fields.data.gql.dart';
 import 'package:vamos_cartographie/graphql/waypoints/fragments/__generated__/waypoint_fields.data.gql.dart';

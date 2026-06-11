@@ -10,7 +10,7 @@ class LightBox extends StatefulWidget {
   final List<CarouselItem> items;
   final int initialIndex;
 
-  const LightBox({required this.items, required this.initialIndex});
+  const LightBox({super.key, required this.items, required this.initialIndex});
 
   @override
   State<LightBox> createState() => LightBoxState();
@@ -140,7 +140,7 @@ class LightBoxState extends State<LightBox> {
                 child: CircularProgressIndicator(color: Colors.white),
               );
             },
-            errorBuilder: (_, __, ___) => const Center(
+            errorBuilder: (_, _, _) => const Center(
               child: Icon(
                 Icons.broken_image_outlined,
                 size: 64,
@@ -160,7 +160,7 @@ class LightBoxArrow extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
-  const LightBoxArrow({required this.icon, required this.onTap});
+  const LightBoxArrow({super.key, required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
