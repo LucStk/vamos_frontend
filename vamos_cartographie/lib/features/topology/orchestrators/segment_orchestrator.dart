@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/graph/domain/optimistic_spec.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
+import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 
 part 'segment_orchestrator.g.dart';
@@ -19,45 +19,44 @@ class WaypointTopologyOrchestrator extends _$WaypointTopologyOrchestrator {
   // ---------------------------------------------------------------------------
 
   Future<void> createSegment(SegmentDraft draft) async {
-    final tmpId = graph.nextTempId();
-    final tmpSegment = draft.toSegment(tmpId);
-
+    late int tempId;
     await executor.run(
-      spec: OptimisticSpec(
-        apply: () => graph.upsert<Segment>(tmpSegment),
-        rollback: () => graph.remove<Segment>(tmpId),
-        reconcile: (Segment v) {
-          graph.remove<Segment>(tmpId);
-          graph.upsert<Segment>(v);
-        },
+      onApply: () {
+        tempId = graph.create<Segment>((int tmpId) => draft.toSegment(tempId));
+      },
+      remote: () => segmentRepo.createSegment(tripId, draft),
+      onSuccess: (Segment serverSegment) => graph.commitCreate<Segment>(
+        tempId: tempId,
+        serverEntity: serverSegment,
       ),
-      remote: () => segmentRepo.createSegment(tmpId, draft),
+      onError: () {
+        graph.rollbackCreate<Segment>(tempId);
+      },
     );
   }
 
   Future<void> deleteSegment(int id) async {
-    final old = graph.getOrThrow<Segment>(id);
     await executor.run(
-      spec: OptimisticSpec(
-        apply: () => graph.remove<Segment>(id),
-        rollback: () => graph.upsert<Segment>(old),
-        reconcile: (_) {},
-      ),
-
+      onApply: () => graph.delete<Segment>(id),
       remote: () => segmentRepo.deleteSegment(id),
+      onSuccess: (_) => graph.commitDelete(id),
+      onError: () => graph.rollbackDelete(id),
     );
   }
 
   Future<void> updateSegment(int segmentId, SegmentDraft draft) async {
-    final old = graph.getOrThrow<Segment>(segmentId);
+    late Segment oldValue;
     await executor.run(
-      spec: OptimisticSpec(
-        apply: () => graph.update<Segment>(draft.toSegment(segmentId)),
-        rollback: () => graph.update(old),
-        reconcile: (Segment segment) => graph.upsert<Segment>(segment),
-        revision: 0,
-      ),
+      onApply: () {
+        oldValue = graph.update<Segment>(segmentId, (Segment v) {
+          return draft.toSegment(segmentId);
+        });
+      },
       remote: () => segmentRepo.updateSegment(segmentId, draft),
+      onSuccess: (serveurValue) => graph.commitUpdate(segmentId, serveurValue),
+      onError: () => graph.update<Segment>(segmentId, (v) {
+        return oldValue;
+      }),
     );
   }
 }

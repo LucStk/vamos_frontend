@@ -1,7 +1,5 @@
 import 'package:vamos_cartographie/core/type/has_id.dart';
-import "package:vamos_cartographie/features/graph/core/core.dart";
-
-typedef EntityMap<T> = Map<int, Node<T>>;
+import 'package:vamos_cartographie/features/graph/core/core.dart';
 
 class GraphStore {
   final Map<Type, Map<int, Node<dynamic>>> _entities = {};
@@ -9,13 +7,7 @@ class GraphStore {
   int _tempId = -1;
   int nextTempId() => _tempId--;
 
-  int _txCounter = 0;
-  int nextTxId() => ++_txCounter;
-
-  // =========================
-  // INTERNAL MAP
-  // =========================
-  Map<int, Node<T>> _map<T>() {
+  Map<int, Node<T>> map<T>() {
     final map = _entities[T];
     if (map == null) {
       final newMap = <int, Node<T>>{};
@@ -25,127 +17,67 @@ class GraphStore {
     return map.cast<int, Node<T>>();
   }
 
-  // =========================
-  // TX LIFECYCLE
-  // =========================
-  TxId beginTx() => nextTxId();
-
-  // =========================
-  // UPDATE (OPTIMISTIC)
-  // =========================
-  void applyTx<T>({
-    required TxId txId,
-    required int id,
-    required T Function(T current) mutate,
-  }) {
-    final node = _map<T>()[id];
-    if (node == null || node.value == null) return;
-
-    final before = node.value as T;
-    final after = mutate(before);
-
-    node.txStack.add(Tx(id: txId, before: before, after: after));
-
-    node.value = after;
+  // CREATE
+  int create<T>(T Function(int tempId) builder) {
+    final id = nextTempId();
+    map<T>()[id] = Node<T>(builder(id));
+    return id;
   }
 
-  // =========================
-  // CREATE (OPTIMISTIC)
-  // =========================
-  int applyCreateTx<T>({
-    required TxId txId,
-    required T Function(int tempId) create,
-  }) {
-    final tempId = nextTempId();
-
-    final node = Node<T>(create(tempId));
-
-    node.txStack.add(
-      Tx(id: txId, before: node.value as T, after: node.value as T),
-    );
-
-    _map<T>()[tempId] = node;
-
-    return tempId;
+  // UPDATE
+  T update<T>(int id, T Function(T current) mutate) {
+    final node = map<T>()[id];
+    if (node?.value == null) {
+      throw Exception("id not find in update graph_store");
+    }
+    final T oldValue = node!.value as T;
+    node.value = mutate(node.value as T);
+    return oldValue;
   }
 
-  // =========================
-  // DELETE (OPTIMISTIC)
-  // =========================
-  void applyDeleteTx<T>({required TxId txId, required int id}) {
-    final node = _map<T>()[id];
+  // DELETE
+  void delete<T>(int id) {
+    final node = map<T>()[id];
     if (node == null) return;
-
-    node.txStack.add(
-      Tx(id: txId, before: node.value as T, after: node.value as T),
-    );
 
     node.deleted = true;
   }
 
-  // =========================
-  // ROLLBACK TX
-  // =========================
-  void rollbackTx(TxId txId) {
-    for (final nodeMap in _entities.values) {
-      for (final node in nodeMap.values) {
-        final index = node.txStack.indexWhere((t) => t.id == txId);
-        if (index == -1) continue;
+  // COMMIT
+  void commitUpdate<T>(int id, T serverValue) {
+    final node = map<T>()[id];
+    if (node == null) return;
 
-        final tx = node.txStack.removeAt(index);
-
-        node.value = tx.before;
-        node.deleted = false;
-      }
-    }
+    node.value = serverValue;
+    node.revision++;
+    node.deleted = false;
   }
 
-  // =========================
-  // COMMIT TX
-  // =========================
-  void commitTx(TxId txId) {
-    for (final nodeMap in _entities.values) {
-      for (final node in nodeMap.values) {
-        final hasTx = node.txStack.any((t) => t.id == txId);
-        if (!hasTx) continue;
-
-        node.txStack.removeWhere((t) => t.id == txId);
-
-        node.revision++;
-        node.txStack.clear();
-
-        node.value = null;
-        node.deleted = true;
-      }
-    }
-  }
-
-  // =========================
-  // COMMIT CREATE (SERVER SYNC)
-  // =========================
-  void commitCreateTx<T>({
-    required TxId txId,
+  void commitCreate<T extends HasId>({
     required int tempId,
     required T serverEntity,
   }) {
-    final map = _map<T>();
-    final node = map[tempId];
-
+    final entities = map<T>();
+    final node = entities.remove(tempId);
     if (node == null) return;
-
-    map.remove(tempId);
-
-    final realNode = Node<T>(serverEntity)..revision = node.revision + 1;
-
-    map[(serverEntity as HasId).id] = realNode;
-
-    node.txStack.clear();
+    node.value = serverEntity;
+    node.deleted = false;
+    node.revision++;
+    entities[serverEntity.id] = node;
   }
 
-  // =========================
-  // ROLLBACK CREATE
-  // =========================
-  void rollbackCreateTx<T>(int tempId) {
-    _map<T>().remove(tempId);
+  void commitDelete<T>(int id) {
+    map<T>().remove(id);
+  }
+
+  void rollbackCreate<T>(int id) {
+    map<T>().remove(id);
+  }
+
+  void rollbackDelete<T>(int id) {
+    final node = map<T>()[id];
+    if (node == null) return;
+
+    node.deleted = false;
   }
 }

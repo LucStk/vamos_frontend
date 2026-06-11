@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/features/graph/infrastructure/graph_store.dart';
+import "package:vamos_cartographie/features/graph/store/graph_store.dart";
 import "optimistic_executor.dart";
 import "package:riverpod/riverpod.dart";
 
