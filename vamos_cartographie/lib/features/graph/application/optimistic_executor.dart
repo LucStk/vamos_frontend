@@ -4,26 +4,20 @@ import "package:vamos_cartographie/features/graph/domain/optimistic_spec.dart";
 
 class OptimisticExecutor {
   Future<T> run<T>({
-    required Future<Either<Failure, T>> Function() remote,
-    required OptimisticSpec<T> spec,
+    required Future<T> Function() remote,
+    required void Function() onApply,
+    required void Function(T result) onSuccess,
+    required void Function() onError,
   }) async {
-    spec.apply();
+    onApply();
 
-    final result = await remote();
-
-    if (spec.isStillValid != null && !spec.isStillValid!()) {
-      return result.getOrElse(() => throw StateError('stale response'));
+    try {
+      final result = await remote();
+      onSuccess(result);
+      return result;
+    } catch (e) {
+      onError();
+      rethrow;
     }
-
-    return result.fold(
-      (failure) {
-        spec.rollback();
-        throw failure;
-      },
-      (data) {
-        spec.reconcile?.call(data);
-        return data;
-      },
-    );
   }
 }

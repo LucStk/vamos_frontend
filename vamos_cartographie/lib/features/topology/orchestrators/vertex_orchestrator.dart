@@ -53,14 +53,23 @@ class WaypointTopologyOrchestrator extends _$WaypointTopologyOrchestrator {
   }
 
   Future<void> moveVertex(int vertexId, LatLng latLng) async {
-    final old = graph.getOrThrow<Vertex>(vertexId);
+    final tx = graph.beginTx();
+
     await executor.run(
-      spec: OptimisticSpec(
-        apply: () => graph.update<Vertex>(old.copyWith(latLng: latLng)),
-        rollback: () => graph.update(old),
-        reconcile: (vertex) => graph.upsert<Vertex>(vertex),
-      ),
+      onApply: () {
+        graph.applyTx<Vertex>(
+          txId: tx,
+          id: vertexId,
+          mutate: (v) => v.copyWith(latLng: latLng),
+        );
+      },
       remote: () => vertexRepo.moveVertex(vertexId, latLng),
+      onSuccess: (_) {
+        graph.commitTx(tx);
+      },
+      onError: () {
+        graph.rollbackTx(tx);
+      },
     );
   }
 }

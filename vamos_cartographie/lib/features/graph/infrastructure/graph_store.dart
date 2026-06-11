@@ -2,77 +2,89 @@ import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/type/has_id.dart';
 import 'package:vamos_cartographie/features/graph/domain/entity_state.dart';
 
-typedef EntityMap<T> = Map<int, T>;
+typedef TxId = int;
+typedef EntityMap<T> = Map<int, _Node<T>>;
+
+class _Tx<T> {
+  final int id;
+  final T before;
+  T after;
+
+  bool committed = false;
+
+  _Tx({required this.id, required this.before, required this.after});
+}
+
+class _Node<T> {
+  T value;
+
+  int revision = 0;
+
+  final List<_Tx<T>> _txStack = [];
+
+  _Node(this.value);
+}
 
 class GraphStore {
-  /// global store: Type -> entityId -> EntityState<dynamic>
-  final Map<Type, Map<int, EntityState<dynamic>>> _entities = {};
-  int _tempId = -1;
+  final Map<Type, Map<int, _Node<dynamic>>> _entities = {};
 
-  int nextTempId() => _tempId--;
+  int _txCounter = 0;
 
-  Map<int, EntityState<T>> getEntityMap<T>() {
-    final sourceMap = _entities[T];
-    if (sourceMap == null) {
-      throw Exception("GraphStore Exception, $T not in _entities");
+  int nextTxId() => ++_txCounter;
+
+  Map<int, _Node<T>> _map<T>() {
+    final map = _entities[T];
+    if (map == null) {
+      final newMap = <int, _Node<T>>{};
+      _entities[T] = newMap;
+      return newMap;
     }
-    return sourceMap.cast<int, EntityState<T>>();
+    return map.cast<int, _Node<T>>();
   }
 
-  T? get<T>(int id) => getEntityMap<T>()[id]?.value;
-  EntityState<T>? getState<T>(int id) => getEntityMap<T>()[id];
+  int beginTx() => nextTxId();
+  void applyTx<T>({
+    required int txId,
+    required int id,
+    required T Function(T current) mutate,
+  }) {
+    final node = _map<T>()[id];
+    if (node == null) return;
 
-  T getOrThrow<T>(int id) {
-    final entity = get<T>(id);
-    if (entity == null) {
-      throw StateError('$T $id not found in GraphStore');
-    }
-    return entity;
+    final before = node.value;
+    final after = mutate(before);
+
+    node._txStack.add(_Tx(id: txId, before: before, after: after));
+
+    node.value = after;
   }
 
-  bool isRevisionCurrent<T>(int id, int revision) =>
-      this.revision<T>(id) == revision;
+  void rollbackTx(int txId) {
+    for (final entry in _entities.entries) {
+      for (final node in entry.value.values) {
+        final txIndex = node._txStack.indexWhere((tx) => tx.id == txId);
 
-  int revision<T>(int id) {
-    final t = getEntityMap<T>()[id];
-    return (t != null) ? t.revision : 0;
-  }
+        if (txIndex == -1) continue;
 
-  DateTime? updatedAt<T>(int id) {
-    final t = getEntityMap<T>()[id];
-    return (t != null) ? t.updatedAt : null;
-  }
+        final tx = node._txStack.removeAt(txIndex);
 
-  void upsert<T extends HasId>(T entity) {
-    final existing = getState<T>(entity.id);
-    if (existing != null) {
-      // On inject la nouvelle entity
-      getEntityMap<T>()[entity.id] = existing.copyWith(value: entity);
-    } else {
-      getEntityMap<T>()[entity.id] = EntityState<T>(value: entity);
+        node.value = tx.before;
+      }
     }
   }
 
-  void update<T extends HasId>(T entity) {
-    if (!getEntityMap<T>().containsKey(entity.id)) {
-      throw StateError('Cannot update missing entity ${entity.id}');
+  void commitTx(int txId) {
+    for (final nodeMap in _entities.values) {
+      for (final node in nodeMap.values) {
+        final tx = node._txStack.where((t) => t.id == txId);
+
+        for (final t in tx) {
+          t.committed = true;
+        }
+
+        node._txStack.removeWhere((t) => t.id == txId);
+        node.revision++;
+      }
     }
-    upsert<T>(entity);
-  }
-
-  void remove<T>(int id) => getEntityMap<T>().remove(id);
-
-  void apply(void Function() fn) => fn();
-  void rollback(void Function() fn) => fn();
-
-  void debugPrintState() {
-    // ignore: avoid_print
-    print('--- GRAPH STATE ---');
-
-    _entities.forEach((key, val) {
-      val.forEach((k, v) {
-        debugPrint('$k -> ${v.value} (rev: ${v.revision})');
-      });
-    });
   }
 }
