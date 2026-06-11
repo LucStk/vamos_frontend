@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/core/state/state.dart';
+import 'package:vamos_cartographie/features/graph/application/graph_store_providers.dart';
+import 'package:vamos_cartographie/features/graph/application/optimistic_executor.dart';
+import 'package:vamos_cartographie/features/graph/store/entity_store.dart';
 import "package:vamos_cartographie/features/trips/domain/trip.dart";
 import 'package:vamos_cartographie/features/trips/data/trip_repository.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_providers.dart';
@@ -7,8 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 part 'trips_notifier.g.dart';
 
 @riverpod
-class TripsNotifier extends _$TripsNotifier with EntityNotifier<Trip> {
+class TripsNotifier extends _$TripsNotifier with EntityStore<Trip> {
   TripRepository get repo => ref.read(tripRepositoryProvider);
+  OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
 
   Future<Map<int, Trip>> _load() async {
     final result = await repo.getAllTrips();
@@ -20,43 +23,65 @@ class TripsNotifier extends _$TripsNotifier with EntityNotifier<Trip> {
   }
 
   @override
-  Future<Map<int, Trip>> build() async => _load();
+  Future<Map<int, Trip>> build() => _load();
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() async => await _load());
+    state = await AsyncValue.guard(_load);
   }
+
+  // --------------------------------------------------
+  // CREATE
+  // --------------------------------------------------
 
   Future<void> createTrip(TripDraft tripDraft) async {
     final result = await repo.createTrip(tripDraft);
 
     result.fold(
       (failure) => throw Exception(failure.message),
-      (trip) => upsertLocal(trip),
+      (trip) => createLocal((_) => trip),
     );
   }
+
+  // --------------------------------------------------
+  // UPDATE
+  // --------------------------------------------------
 
   Future<void> updateTrip(int id, TripDraft draft) async {
     final old = getOrThrow(id);
 
-    await optimistic(
-      spec: OptimisticSpec(
-        apply: () => updateLocal(draft.toTrip(id)),
-        reconcile: upsertLocal,
-        rollback: () => updateLocal(old),
-      ),
+    await executor.run(
+      onApply: () {
+        patchLocal(id, (_) => draft.toTrip(id));
+      },
       remote: () => repo.updateTrip(id, draft),
+      onSuccess: (Trip serverTrip) {
+        createLocal((_) => serverTrip); // ou commitLocal(serverTrip)
+      },
+      onError: () {
+        patchLocal(id, (_) => old);
+      },
     );
   }
 
+  // --------------------------------------------------
+  // DELETE
+  // --------------------------------------------------
+
   Future<void> deleteTrip(int id) async {
     final old = getOrThrow(id);
-    await optimistic(
-      spec: OptimisticSpec(
-        apply: () => removeLocal(id),
-        rollback: () => upsertLocal(old),
-      ),
+
+    await executor.run(
+      onApply: () {
+        removeLocal(id);
+      },
       remote: () => repo.deleteTrip(id),
+      onSuccess: (_) {
+        // rien ou commitDeleteLocal(id)
+      },
+      onError: () {
+        createLocal((_) => old);
+      },
     );
   }
 }
@@ -70,14 +95,6 @@ Iterable<int> tripIds(Ref ref) {
   );
 }
 
-// @riverpod
-// AsyncValue<Trip?> trip(Ref ref, int tripId) {
-//   return ref.watch(
-//     tripsProvider.select(
-//       (asyncTrips) => asyncTrips.whenData((map) => map[tripId]),
-//     ),
-//   );
-// }
 @riverpod
 Trip? trip(Ref ref, int id) {
   return ref.watch(tripsProvider.select((state) => state.value?[id]));
