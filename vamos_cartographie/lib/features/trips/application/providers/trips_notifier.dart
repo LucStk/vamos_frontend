@@ -3,10 +3,20 @@ import 'package:vamos_cartographie/features/graph/application/graph_executor.dar
 import 'package:vamos_cartographie/features/graph/application/graph_providers.dart';
 import 'package:vamos_cartographie/features/graph/store/entity_store.dart';
 import "package:vamos_cartographie/features/trips/domain/trip.dart";
-import 'package:vamos_cartographie/features/trips/data/trip_repository.dart';
-import 'package:vamos_cartographie/features/trips/data/trip_providers.dart';
+import 'package:vamos_cartographie/features/trips/data/data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "package:riverpod/riverpod.dart";
+import "package:vamos_cartographie/core/injection/client_provider.dart";
+
 part 'trips_notifier.g.dart';
+
+final tripRemoteDatasourceProvider = Provider<TripRemoteDatasource>((ref) {
+  return TripRemoteDatasource(ref.watch(clientProvider));
+});
+
+final tripRepositoryProvider = Provider<TripRepository>((ref) {
+  return TripRepository(ref.watch(tripRemoteDatasourceProvider));
+});
 
 @riverpod
 class TripsNotifier extends _$TripsNotifier with EntityStore<Trip> {

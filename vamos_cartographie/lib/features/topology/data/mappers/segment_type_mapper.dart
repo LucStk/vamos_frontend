@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/backend/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart'; // Ajuste le chemin selon ton projet
 
 // 1. De ton modèle local (SegmentType) VERS GraphQL (GSegmentTypeEnum)

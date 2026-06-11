@@ -1,9 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/media/data/media_repository.dart';
-import 'package:vamos_cartographie/features/media/data/media_providers.dart';
+import 'package:vamos_cartographie/features/media/data/data.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'dart:io';
-part "media_service.g.dart";
 
 class MediaService {
   final MediaRepository _repo;
@@ -23,7 +21,4 @@ class MediaService {
   }
 }
 
-@riverpod
-MediaService mediaService(Ref ref) {
-  return MediaService(ref.read(mediaRepositoryProvider));
-}
+

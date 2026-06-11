@@ -3,28 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/graph/graph.dart';
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
-import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/features/topology/data/data.dart';
+import "package:vamos_cartographie/core/injection/client_provider.dart";
 part 'vertex_notifier.g.dart';
 
-@riverpod
-class VerticesNotifier extends _$VerticesNotifier {
-  GraphStore get graph => ref.read(graphStoreProvider);
+final vertexRemoteDatasourceProvider = Provider<VertexRemoteDatasource>((ref) {
+  return VertexRemoteDatasource(ref.watch(clientProvider));
+});
 
-  Future<Map<int, Vertex>> _load() async {
-    final repo = ref.read(vertexRepositoryProvider);
-    final result = await repo.getVertices(tripId);
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (trips) => {for (final trip in trips) trip.id: trip},
-    );
-  }
-
-  @override
-  Future<Map<int, Vertex>> build(int tripId) async {
-    return await _load();
-  }
-} // --- Providers Sélecteurs pour optimiser l'UI ---
+final vertexRepositoryProvider = Provider<VertexRepository>((ref) {
+  return VertexRepository(ref.watch(vertexRemoteDatasourceProvider));
+});
 
 @riverpod
 Map<int, Vertex> vertexMap(Ref ref, int tripId) {
