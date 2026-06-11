@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'waypoint_topology_orchestrator.dart';
+part of 'vertex_orchestrator.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -61,7 +61,7 @@ final class WaypointTopologyOrchestratorProvider
 }
 
 String _$waypointTopologyOrchestratorHash() =>
-    r'38fa9a442ed3b2aa7e2059e980ff60a2aeef79cf';
+    r'3d6f93fb8c4bf642fd7c87c6f1193503b56c9191';
 
 final class WaypointTopologyOrchestratorFamily extends $Family
     with

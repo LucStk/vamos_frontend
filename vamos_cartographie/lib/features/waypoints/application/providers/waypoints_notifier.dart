@@ -1,12 +1,12 @@
 // features/waypoints/presentation/providers/waypoints_notifier.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/core/state/state.dart';
+import 'package:vamos_cartographie/features/graph/graph.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 part 'waypoints_notifier.g.dart';
 
 @riverpod
 class WaypointsNotifier extends _$WaypointsNotifier {
-  OptimisticGraphStore get graph => ref.read(graphStoreProvider);
+  GraphStore get graph => ref.read(graphStoreProvider);
 
   @override
   void build(int tripId) {
