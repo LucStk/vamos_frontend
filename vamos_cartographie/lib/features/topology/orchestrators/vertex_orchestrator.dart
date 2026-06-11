@@ -1,7 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/graph/domain/optimistic_spec.dart';
 import 'package:vamos_cartographie/features/topology/data/topology_providers.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
@@ -23,32 +21,47 @@ class WaypointTopologyOrchestrator extends _$WaypointTopologyOrchestrator {
   // ---------------------------------------------------------------------------
 
   Future<void> createVertex(LatLng latLng) async {
-    final tmpId = graph.nextTempId();
-    final tmpVertex = Vertex(id: tmpId, latLng: latLng);
+    final tx = graph.beginTx();
+
+    late int tempId;
 
     await executor.run(
-      spec: OptimisticSpec(
-        apply: () => graph.upsert<Vertex>(tmpVertex),
-        rollback: () => graph.remove<Vertex>(tmpId),
-        reconcile: (Vertex v) {
-          graph.remove<Vertex>(tmpId);
-          graph.upsert<Vertex>(v);
-        },
-      ),
-      remote: () => vertexRepo.createVertex(tmpId, latLng),
+      onApply: () {
+        tempId = graph.applyCreateTx<Vertex>(
+          txId: tx,
+          create: (id) => Vertex(
+            id: id, // temporaire
+            latLng: latLng,
+          ),
+        );
+      },
+
+      remote: () => vertexRepo.createVertex(tripId, latLng),
+
+      onSuccess: (Vertex serverVertex) {
+        graph.commitCreateTx<Vertex>(
+          txId: tx,
+          tempId: tempId,
+          serverEntity: serverVertex,
+        );
+      },
+
+      onError: () {
+        graph.rollbackTx(tx);
+      },
     );
   }
 
   Future<void> deleteVertex(int id) async {
-    final old = graph.getOrThrow<Vertex>(id);
-    await executor.run(
-      spec: OptimisticSpec(
-        apply: () => graph.remove<Vertex>(id),
-        rollback: () => graph.upsert<Vertex>(old),
-        reconcile: (_) {},
-      ),
+    final tx = graph.beginTx();
 
+    await executor.run(
+      onApply: () {
+        graph.applyDeleteTx<Vertex>(txId: tx, id: id);
+      },
       remote: () => vertexRepo.deleteVertex(id),
+      onSuccess: (_) => graph.commitTx(tx),
+      onError: () => graph.rollbackTx(tx),
     );
   }
 
