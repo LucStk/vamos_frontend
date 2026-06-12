@@ -1,4 +1,3 @@
-import 'package:vamos_cartographie/features/graph/core/node.dart';
 import 'package:vamos_cartographie/features/graph/graph.dart';
 import 'package:vamos_cartographie/features/topology/data/providers/segments_providers.dart';
 import 'package:vamos_cartographie/features/topology/data/providers/vertex_providers.dart';
@@ -18,23 +17,23 @@ class GraphLoader extends _$GraphLoader {
     final segmentsRepo = ref.read(segmentRepositoryProvider);
     final waypointsRepo = ref.read(waypointRepositoryProvider);
 
-    final vertices = await verticesRepo.getVertices(tripId);
-    final segments = await segmentsRepo.getSegments(tripId);
-    final waypoints = await waypointsRepo.getWaypoints(tripId);
+    final verticesResult = await verticesRepo.getVertices(tripId);
+    final segmentsResult = await segmentsRepo.getSegments(tripId);
+    final waypointsResult = await waypointsRepo.getWaypoints(tripId);
 
-    vertices.fold((f) => throw f, (items) {
+    verticesResult.fold((f) => throw Exception(f.message), (items) {
       for (final v in items) {
-        graph.map<Vertex>()[v.id] = Node(v);
+        graph.seed<Vertex>(v);
       }
     });
-    segments.fold((f) => throw f, (items) {
+    segmentsResult.fold((f) => throw Exception(f.message), (items) {
       for (final s in items) {
-        graph.map<Segment>()[s.id] = Node(s);
+        graph.seed<Segment>(s);
       }
     });
-    waypoints.fold((f) => throw f, (items) {
+    waypointsResult.fold((f) => throw Exception(f.message), (items) {
       for (final w in items) {
-        graph.map<Waypoint>()[w.id] = Node(w);
+        graph.seed<Waypoint>(w);
       }
     });
   }

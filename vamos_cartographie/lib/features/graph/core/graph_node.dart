@@ -14,24 +14,25 @@ class GraphNode<T> {
 
   ValueListenable<int> get listenable => _vn;
 
+  void update(T Function(T current) mutate) {
+    _value = mutate(_value);
+    revision++;
+    _notify();
+  }
+
   void set(T value) {
     _value = value;
-    notify();
-  }
-
-  void setDeleted(bool v) {
-    deleted = v;
-    notify();
-  }
-
-  void bumpRevision() {
     revision++;
-    notify();
+    _notify();
   }
 
-  void notify() {
+  void markDeleted(bool value) {
+    deleted = value;
+    revision++;
+    _notify();
+  }
+
+  void _notify() {
     _vn.value++;
   }
-
-  static GraphNode<T> create<T>(T value) => GraphNode<T>(value);
 }
