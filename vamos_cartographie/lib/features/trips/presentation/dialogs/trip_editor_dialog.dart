@@ -20,29 +20,17 @@ class TripEditorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripAsync = ref.watch(tripProvider(tripId));
+    final trip = ref.read(tripsProvider.notifier).getTrip(tripId);
 
-    return tripAsync.when(
-      loading: () => const DialogLoadingBody(),
+    if (trip == null) {
+      return const DialogErrorBody(errorMessage: 'Voyage introuvable');
+    }
 
-      error: (e, st) => DialogErrorBody(errorMessage: e.toString()),
-
-      data: (trip) {
-        if (trip == null) {
-          return const DialogErrorBody(errorMessage: 'Voyage introuvable');
-        }
-
-        return TripFormDialog(
-          initialTrip: trip.toDraft(),
-
-          successMessage: 'Voyage mis à jour',
-
-          onSubmit: (ref, editedTrip) async {
-            await ref
-                .read(tripsProvider.notifier)
-                .updateTrip(tripId, editedTrip);
-          },
-        );
+    return TripFormDialog(
+      initialTrip: trip.toDraft(),
+      successMessage: 'Voyage mis à jour',
+      onSubmit: (ref, editedTrip) async {
+        await ref.read(tripsProvider.notifier).updateTrip(tripId, editedTrip);
       },
     );
   }

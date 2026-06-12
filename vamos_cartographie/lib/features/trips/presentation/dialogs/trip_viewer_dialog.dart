@@ -65,55 +65,39 @@ class TripViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsAsync = ref.watch(tripProvider(tripData.id));
+    return DialogShell(
+      content: TripInfoView(trip: tripData),
 
-    return tripsAsync.when(
-      loading: () => const DialogLoadingBody(),
+      buttonsBuilder: (ctx) => [
+        DeleteButton(
+          onPressed: () async {
+            await _deleteTrip(context, ref, tripData);
+          },
+        ),
 
-      error: (error, _) {
-        return DialogErrorBody(errorMessage: error.toString());
-      },
+        const SizedBox(width: 8),
 
-      data: (trip) {
-        if (trip == null) {
-          return const SizedBox.shrink();
-        }
+        ModifierButton(
+          onPressed: () async {
+            Navigator.of(context).pop();
 
-        return DialogShell(
-          content: TripInfoView(trip: trip),
+            await Future.delayed(Duration.zero);
 
-          buttonsBuilder: (ctx) => [
-            DeleteButton(
-              onPressed: () async {
-                await _deleteTrip(context, ref, tripData);
-              },
-            ),
+            if (!context.mounted) return;
 
-            const SizedBox(width: 8),
-            ModifierButton(
-              onPressed: () async {
-                Navigator.of(context).pop();
+            TripEditorDialog.show(context: context, tripId: tripData.id);
+          },
+        ),
 
-                await Future.delayed(Duration.zero);
+        const SizedBox(width: 8),
 
-                if (!context.mounted) return;
-
-                TripEditorDialog.show(context: context, tripId: trip.id);
-              },
-            ),
-
-            const SizedBox(width: 8),
-
-            ExploreButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-
-                onExplore();
-              },
-            ),
-          ],
-        );
-      },
+        ExploreButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            onExplore();
+          },
+        ),
+      ],
     );
   }
 }

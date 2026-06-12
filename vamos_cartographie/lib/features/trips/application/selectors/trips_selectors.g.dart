@@ -15,11 +15,11 @@ final tripListenableProvider = TripListenableFamily._();
 final class TripListenableProvider
     extends
         $FunctionalProvider<
-          ValueListenable<Trip>?,
-          ValueListenable<Trip>?,
-          ValueListenable<Trip>?
+          ValueListenable<int>?,
+          ValueListenable<int>?,
+          ValueListenable<int>?
         >
-    with $Provider<ValueListenable<Trip>?> {
+    with $Provider<ValueListenable<int>?> {
   TripListenableProvider._({
     required TripListenableFamily super.from,
     required int super.argument,
@@ -43,21 +43,21 @@ final class TripListenableProvider
 
   @$internal
   @override
-  $ProviderElement<ValueListenable<Trip>?> $createElement(
+  $ProviderElement<ValueListenable<int>?> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  ValueListenable<Trip>? create(Ref ref) {
+  ValueListenable<int>? create(Ref ref) {
     final argument = this.argument as int;
     return tripListenable(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ValueListenable<Trip>? value) {
+  Override overrideWithValue(ValueListenable<int>? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ValueListenable<Trip>?>(value),
+      providerOverride: $SyncValueProvider<ValueListenable<int>?>(value),
     );
   }
 
@@ -72,10 +72,10 @@ final class TripListenableProvider
   }
 }
 
-String _$tripListenableHash() => r'7acde94f304f7f734d9c220f30fff981bd1fee86';
+String _$tripListenableHash() => r'b80476a3e42d401a985f2be6f8e8915e983b97b3';
 
 final class TripListenableFamily extends $Family
-    with $FunctionalFamilyOverride<ValueListenable<Trip>?, int> {
+    with $FunctionalFamilyOverride<ValueListenable<int>?, int> {
   TripListenableFamily._()
     : super(
         retry: null,
@@ -146,7 +146,7 @@ final class TripProvider extends $FunctionalProvider<Trip, Trip, Trip>
   }
 }
 
-String _$tripHash() => r'cf8784d41603922ba55f3b8ca45907e6c620c320';
+String _$tripHash() => r'bdea408dcb1d6845acb96fbe307f075933b5593e';
 
 final class TripFamily extends $Family
     with $FunctionalFamilyOverride<Trip, int> {
