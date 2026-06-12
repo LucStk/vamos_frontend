@@ -15,7 +15,7 @@ class WaypointOrchestrator extends _$WaypointOrchestrator {
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);
   @override
-  void build(int tripId) {}
+  void build() {}
 
   // ---------------------------------------------------------------------------
   // CREATE WAYPOINT (WITH OPTIONAL VERTEX)

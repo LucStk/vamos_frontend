@@ -4,15 +4,11 @@ import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 
 class WaypointMarkerView extends ConsumerWidget {
   final int waypointId;
-  final int tripId;
   final bool isDragging;
-  final WaypointType type;
 
   const WaypointMarkerView({
     super.key,
     required this.waypointId,
-    required this.tripId,
-    required this.type,
     this.isDragging = false,
   });
 

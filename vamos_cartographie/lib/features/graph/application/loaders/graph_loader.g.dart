@@ -50,7 +50,7 @@ final class GraphLoaderProvider
   }
 }
 
-String _$graphLoaderHash() => r'7d75d2fd909e078e978c80796ae9f0cede35c456';
+String _$graphLoaderHash() => r'f37ff2fe44296550377d5052ac5c1afdbaa2d11f';
 
 final class GraphLoaderFamily extends $Family
     with
