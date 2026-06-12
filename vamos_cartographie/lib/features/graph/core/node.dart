@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 
 class Node<T> {
-  T? value;
-  bool deleted = false;
-  int revision = 0;
+  T value;
+  bool deleted;
+  int revision;
 
-  Node(this.value);
   final ValueNotifier<int> _vn = ValueNotifier(0);
+
+  Node(this.value, {this.deleted = false, this.revision = 0});
 
   void notify() {
     _vn.value++;
