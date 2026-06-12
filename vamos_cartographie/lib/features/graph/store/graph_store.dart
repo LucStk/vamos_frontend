@@ -1,41 +1,51 @@
+import 'package:flutter/foundation.dart';
 import 'package:vamos_cartographie/core/type/has_id.dart';
-import 'package:vamos_cartographie/features/graph/core/core.dart';
+import 'package:vamos_cartographie/features/graph/core/graph_node.dart';
 
 class GraphStore {
-  final Map<Type, Map<int, Node<dynamic>>> _entities = {};
-  final Map<Type, CollectionNode> _collections = {};
+  final Map<Type, Map<int, GraphNode<dynamic>>> _entities = {};
+  final Map<Type, ValueNotifier<int>> _collectionSignals = {};
 
   int _tempId = -1;
   int nextTempId() => _tempId--;
 
   // ─────────────────────────────────────────────
-  // COLLECTION ACCESS
+  // COLLECTION SIGNAL
   // ─────────────────────────────────────────────
 
-  CollectionNode collection<T>() {
-    return _collections.putIfAbsent(T, () => CollectionNode());
+  ValueListenable<int> collectionSignal<T>() {
+    return _collectionSignals.putIfAbsent(T, () => ValueNotifier(0));
+  }
+
+  void _notifyCollection<T>() {
+    _collectionSignals[T]?.value++;
   }
 
   // ─────────────────────────────────────────────
-  // ENTITY ACCESS
+  // INTERNAL MAP
   // ─────────────────────────────────────────────
 
-  Map<int, Node<T>> map<T>() {
+  Map<int, GraphNode<T>> map<T>() {
     final existing = _entities[T];
+
     if (existing != null) {
-      return existing.cast<int, Node<T>>();
+      return existing.cast<int, GraphNode<T>>();
     }
 
-    final created = <int, Node<T>>{};
+    final created = <int, GraphNode<T>>{};
     _entities[T] = created;
     return created;
   }
 
-  Node<T>? node<T>(int id) {
-    return map<T>()[id];
+  GraphNode<T>? node<T>(int id) {
+    return map<T>()[id] as GraphNode<T>?;
   }
 
   T? get<T>(int id) => node<T>(id)?.value;
+
+  Map<int, T> getAll<T>() {
+    return map<T>().map((k, v) => MapEntry(k, v.value));
+  }
 
   // ─────────────────────────────────────────────
   // CREATE
@@ -44,59 +54,54 @@ class GraphStore {
   int create<T>(T Function(int tempId) builder) {
     final id = nextTempId();
 
-    map<T>()[id] = Node<T>(builder(id));
+    map<T>()[id] = GraphNode<T>.create(builder(id));
 
-    // structure change only
-    collection<T>().notify();
+    _notifyCollection<T>();
 
     return id;
   }
 
   // ─────────────────────────────────────────────
-  // UPDATE (local optimistic)
+  // UPDATE (optimistic local)
   // ─────────────────────────────────────────────
 
   T update<T>(int id, T Function(T current) mutate) {
     final node = map<T>()[id];
+
     if (node == null) {
       throw Exception("Entity $T:$id not found");
     }
 
     final old = node.value;
-    node.value = mutate(node.value);
 
-    node.revision++;
-    node.notify(); // 👈 ONLY NODE
+    node.set(mutate(node.value)); // <- centralisé dans GraphNode
 
     return old;
   }
 
   // ─────────────────────────────────────────────
-  // DELETE (soft delete local)
+  // DELETE (soft delete)
   // ─────────────────────────────────────────────
 
   void delete<T>(int id) {
     final node = map<T>()[id];
     if (node == null) return;
 
-    node.deleted = true;
-
-    node.notify(); // fine-grain
+    node.setDeleted(true);
   }
 
   // ─────────────────────────────────────────────
-  // COMMIT UPDATE (server sync)
+  // COMMIT UPDATE
   // ─────────────────────────────────────────────
 
   void commitUpdate<T>(int id, T serverValue) {
     final node = map<T>()[id];
     if (node == null) return;
 
-    node.value = serverValue;
-    node.revision++;
-    node.deleted = false;
-
-    node.notify();
+    node
+      ..set(serverValue)
+      ..setDeleted(false)
+      ..bumpRevision();
   }
 
   // ─────────────────────────────────────────────
@@ -107,19 +112,19 @@ class GraphStore {
     required int tempId,
     required T serverEntity,
   }) {
-    final map = this.map<T>();
+    final m = map<T>();
 
-    final node = map.remove(tempId);
+    final node = m.remove(tempId);
     if (node == null) return;
 
-    node.value = serverEntity;
-    node.deleted = false;
-    node.revision++;
+    node
+      ..set(serverEntity)
+      ..setDeleted(false)
+      ..bumpRevision();
 
-    map[serverEntity.id] = node;
+    m[serverEntity.id] = node;
 
-    // structure changed
-    collection<T>().notify();
+    _notifyCollection<T>();
   }
 
   // ─────────────────────────────────────────────
@@ -128,9 +133,7 @@ class GraphStore {
 
   void commitDelete<T>(int id) {
     map<T>().remove(id);
-
-    // structure changed
-    collection<T>().notify();
+    _notifyCollection<T>();
   }
 
   // ─────────────────────────────────────────────
@@ -139,22 +142,24 @@ class GraphStore {
 
   void rollbackCreate<T>(int id) {
     map<T>().remove(id);
-    collection<T>().notify();
+    _notifyCollection<T>();
   }
 
   void rollbackDelete<T>(int id) {
     final node = map<T>()[id];
     if (node == null) return;
 
-    node.deleted = false;
-    node.notify();
+    node
+      ..setDeleted(false)
+      ..notify();
   }
 
   void rollbackUpdate<T>(int id, T previous) {
     final node = map<T>()[id];
     if (node == null) return;
 
-    node.value = previous;
-    node.notify();
+    node
+      ..set(previous)
+      ..notify();
   }
 }
