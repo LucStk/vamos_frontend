@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/features/features.dart";
-import "package:vamos_cartographie/features/graph/application/graph_providers.dart";
+import "package:vamos_cartographie/features/graph/graph.dart";
 import "package:vamos_cartographie/features/waypoints/application/orchestrators/waypoint_orchestrator.dart";
 import "waypoint_form_dialog.dart";
 

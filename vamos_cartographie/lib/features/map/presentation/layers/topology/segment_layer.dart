@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
 
 class SegmentLayer extends AbstractLayer {

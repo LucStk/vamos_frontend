@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
+import "package:vamos_cartographie/features/topology/data/providers/segments_providers.dart";
 import "package:vamos_cartographie/core/injection/client_provider.dart";
 import 'package:vamos_cartographie/features/topology/topology.dart';
 part 'segments_notifier.g.dart';

@@ -1,2 +1,2 @@
 export "application/graph_executor.dart";
-export "application/graph_providers.dart";
+export "application/providers/graph_providers.dart";

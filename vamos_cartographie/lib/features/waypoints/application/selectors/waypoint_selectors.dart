@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/graph/application/graph_providers.dart';
 
 // @riverpod
 // Iterable<int> waypointIds(Ref ref) {

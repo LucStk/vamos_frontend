@@ -66,8 +66,8 @@ class ExplorerPage extends ConsumerWidget {
               final trip = tripsList[index];
 
               return TripCard(
-                trip: trip,
-                onTap: () => _openTrip(context, trip),
+                trip: trip.value,
+                onTap: () => _openTrip(context, trip.value),
               );
             },
           );

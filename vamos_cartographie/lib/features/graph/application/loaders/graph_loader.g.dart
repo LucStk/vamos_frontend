@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'topology_loader.dart';
+part of 'graph_loader.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,39 +9,39 @@ part of 'topology_loader.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(TopologyLoader)
-final topologyLoaderProvider = TopologyLoaderFamily._();
+@ProviderFor(GraphLoader)
+final graphLoaderProvider = GraphLoaderFamily._();
 
-final class TopologyLoaderProvider
-    extends $AsyncNotifierProvider<TopologyLoader, void> {
-  TopologyLoaderProvider._({
-    required TopologyLoaderFamily super.from,
+final class GraphLoaderProvider
+    extends $AsyncNotifierProvider<GraphLoader, void> {
+  GraphLoaderProvider._({
+    required GraphLoaderFamily super.from,
     required int super.argument,
   }) : super(
          retry: null,
-         name: r'topologyLoaderProvider',
+         name: r'graphLoaderProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$topologyLoaderHash();
+  String debugGetCreateSourceHash() => _$graphLoaderHash();
 
   @override
   String toString() {
-    return r'topologyLoaderProvider'
+    return r'graphLoaderProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  TopologyLoader create() => TopologyLoader();
+  GraphLoader create() => GraphLoader();
 
   @override
   bool operator ==(Object other) {
-    return other is TopologyLoaderProvider && other.argument == argument;
+    return other is GraphLoaderProvider && other.argument == argument;
   }
 
   @override
@@ -50,34 +50,34 @@ final class TopologyLoaderProvider
   }
 }
 
-String _$topologyLoaderHash() => r'f35a2d4c37a50488b8356d45f4ca55fbf2dfdc8c';
+String _$graphLoaderHash() => r'7d75d2fd909e078e978c80796ae9f0cede35c456';
 
-final class TopologyLoaderFamily extends $Family
+final class GraphLoaderFamily extends $Family
     with
         $ClassFamilyOverride<
-          TopologyLoader,
+          GraphLoader,
           AsyncValue<void>,
           void,
           FutureOr<void>,
           int
         > {
-  TopologyLoaderFamily._()
+  GraphLoaderFamily._()
     : super(
         retry: null,
-        name: r'topologyLoaderProvider',
+        name: r'graphLoaderProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  TopologyLoaderProvider call(int tripId) =>
-      TopologyLoaderProvider._(argument: tripId, from: this);
+  GraphLoaderProvider call(int tripId) =>
+      GraphLoaderProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'topologyLoaderProvider';
+  String toString() => r'graphLoaderProvider';
 }
 
-abstract class _$TopologyLoader extends $AsyncNotifier<void> {
+abstract class _$GraphLoader extends $AsyncNotifier<void> {
   late final _$args = ref.$arg as int;
   int get tripId => _$args;
 
