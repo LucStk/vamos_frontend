@@ -7,11 +7,14 @@ part 'trips_selectors.g.dart';
 
 @riverpod
 ValueListenable<int>? tripListenable(Ref ref, int id) {
-  final store = ref.watch(tripsProvider);
-  return store[id]?.listenable;
+  final asyncStore = ref.watch(tripsProvider);
+
+  return asyncStore.value?[id]?.listenable;
 }
 
 @riverpod
 Trip? trip(Ref ref, int id) {
-  return ref.watch(tripsProvider)[id]?.value;
+  final asyncStore = ref.watch(tripsProvider);
+
+  return asyncStore.value?[id]?.value;
 }

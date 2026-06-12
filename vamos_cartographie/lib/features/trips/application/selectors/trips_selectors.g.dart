@@ -72,7 +72,7 @@ final class TripListenableProvider
   }
 }
 
-String _$tripListenableHash() => r'b80476a3e42d401a985f2be6f8e8915e983b97b3';
+String _$tripListenableHash() => r'd3e2763c9b43cb6d129987090f994649dc4edcc7';
 
 final class TripListenableFamily extends $Family
     with $FunctionalFamilyOverride<ValueListenable<int>?, int> {
@@ -95,8 +95,8 @@ final class TripListenableFamily extends $Family
 @ProviderFor(trip)
 final tripProvider = TripFamily._();
 
-final class TripProvider extends $FunctionalProvider<Trip, Trip, Trip>
-    with $Provider<Trip> {
+final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
+    with $Provider<Trip?> {
   TripProvider._({required TripFamily super.from, required int super.argument})
     : super(
         retry: null,
@@ -118,20 +118,20 @@ final class TripProvider extends $FunctionalProvider<Trip, Trip, Trip>
 
   @$internal
   @override
-  $ProviderElement<Trip> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<Trip?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  Trip create(Ref ref) {
+  Trip? create(Ref ref) {
     final argument = this.argument as int;
     return trip(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Trip value) {
+  Override overrideWithValue(Trip? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Trip>(value),
+      providerOverride: $SyncValueProvider<Trip?>(value),
     );
   }
 
@@ -146,10 +146,10 @@ final class TripProvider extends $FunctionalProvider<Trip, Trip, Trip>
   }
 }
 
-String _$tripHash() => r'bdea408dcb1d6845acb96fbe307f075933b5593e';
+String _$tripHash() => r'8c0c050903e53d25022c0673c6498c9fc543e8e9';
 
 final class TripFamily extends $Family
-    with $FunctionalFamilyOverride<Trip, int> {
+    with $FunctionalFamilyOverride<Trip?, int> {
   TripFamily._()
     : super(
         retry: null,

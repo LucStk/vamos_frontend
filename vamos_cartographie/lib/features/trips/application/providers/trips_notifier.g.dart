@@ -13,7 +13,7 @@ part of 'trips_notifier.dart';
 final tripsProvider = TripsNotifierProvider._();
 
 final class TripsNotifierProvider
-    extends $NotifierProvider<TripsNotifier, Map<int, TripNode>> {
+    extends $AsyncNotifierProvider<TripsNotifier, Map<int, TripNode>> {
   TripsNotifierProvider._()
     : super(
         from: null,
@@ -31,29 +31,22 @@ final class TripsNotifierProvider
   @$internal
   @override
   TripsNotifier create() => TripsNotifier();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Map<int, TripNode> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Map<int, TripNode>>(value),
-    );
-  }
 }
 
-String _$tripsNotifierHash() => r'ceb4171f72b1bec97d130a89408a7a4d74388a1f';
+String _$tripsNotifierHash() => r'7f73c23c3050b2f2a73fed9c99bcc862d9d78db5';
 
-abstract class _$TripsNotifier extends $Notifier<Map<int, TripNode>> {
-  Map<int, TripNode> build();
+abstract class _$TripsNotifier extends $AsyncNotifier<Map<int, TripNode>> {
+  FutureOr<Map<int, TripNode>> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<Map<int, TripNode>, Map<int, TripNode>>;
+    final ref =
+        this.ref as $Ref<AsyncValue<Map<int, TripNode>>, Map<int, TripNode>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<Map<int, TripNode>, Map<int, TripNode>>,
-              Map<int, TripNode>,
+              AnyNotifier<AsyncValue<Map<int, TripNode>>, Map<int, TripNode>>,
+              AsyncValue<Map<int, TripNode>>,
               Object?,
               Object?
             >;
