@@ -30,7 +30,7 @@ class SegmentViewerDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final segment = ref
-        .watch(graphStoreProvider)
+        .watch(graphStoreProvider(tripId))
         .map<Segment>()[segmentId]
         ?.value;
 

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Waypoint {
 
- int get id; int get vertexId; String get title; WaypointType get type; String get description; List<MediaImage> get images;
+ Id<Waypoint> get id; Id<Vertex> get vertexId; String get title; WaypointType get type; String get description; List<MediaImage> get images;
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $WaypointCopyWith<$Res>  {
   factory $WaypointCopyWith(Waypoint value, $Res Function(Waypoint) _then) = _$WaypointCopyWithImpl;
 @useResult
 $Res call({
- int id, int vertexId, String title, WaypointType type, String description, List<MediaImage> images
+ Id<Waypoint> id, Id<Vertex> vertexId, String title, WaypointType type, String description, List<MediaImage> images
 });
 
 
@@ -65,8 +65,8 @@ class _$WaypointCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Waypoint() when $default != null:
 return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
@@ -176,7 +176,7 @@ return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)  $default,) {final _that = this;
 switch (_that) {
 case _Waypoint():
 return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
@@ -196,7 +196,7 @@ return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
 switch (_that) {
 case _Waypoint() when $default != null:
 return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
@@ -214,8 +214,8 @@ class _Waypoint extends Waypoint {
   const _Waypoint({required this.id, required this.vertexId, this.title = '', this.type = WaypointType.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
   
 
-@override final  int id;
-@override final  int vertexId;
+@override final  Id<Waypoint> id;
+@override final  Id<Vertex> vertexId;
 @override@JsonKey() final  String title;
 @override@JsonKey() final  WaypointType type;
 @override@JsonKey() final  String description;
@@ -257,7 +257,7 @@ abstract mixin class _$WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res>
   factory _$WaypointCopyWith(_Waypoint value, $Res Function(_Waypoint) _then) = __$WaypointCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int vertexId, String title, WaypointType type, String description, List<MediaImage> images
+ Id<Waypoint> id, Id<Vertex> vertexId, String title, WaypointType type, String description, List<MediaImage> images
 });
 
 
@@ -277,8 +277,8 @@ class __$WaypointCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
   return _then(_Waypoint(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable

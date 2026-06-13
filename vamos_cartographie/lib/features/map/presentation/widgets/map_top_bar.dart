@@ -5,7 +5,8 @@ import 'package:vamos_cartographie/features/map/application/applications.dart';
 /// Barre supérieure de la MapPage.
 /// Contient un bouton retour en capsule et un titre centré et ajusté.
 class MapTopBar extends ConsumerWidget {
-  const MapTopBar({super.key});
+  final int tripId;
+  const MapTopBar({super.key, required this.tripId});
 
   void _onBack(BuildContext context) {
     Navigator.pop(context);
@@ -14,7 +15,6 @@ class MapTopBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final tripId = ref.watch(currentTripIdProvider);
     final mapState = ref.watch(mapStateProvider(tripId));
     final title = "test title"; //mapState.currentTrip.title;
 

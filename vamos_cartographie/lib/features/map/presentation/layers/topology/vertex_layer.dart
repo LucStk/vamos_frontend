@@ -20,13 +20,13 @@ class VertexLayer extends AbstractLayer {
     /// ─────────────────────────────────────────────
     /// 1. STRUCTURE ONLY (ajout / suppression vertices)
     /// ─────────────────────────────────────────────
-    final vertices = ref.watch(collectionProvider<Vertex>());
+    final vertices = ref.watch(collectionProvider<Vertex>(tripId));
 
     /// ─────────────────────────────────────────────
     /// 2. RELATION INDEX (vertexId -> waypoint)
     /// ─────────────────────────────────────────────
     final waypointByVertex = ref.watch(
-      indexedByProvider<Waypoint, int>((w) => w.vertexId),
+      indexedByProvider<Waypoint, int>(tripId, (w) => w.vertexId),
     );
 
     if (vertices.isEmpty) {

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Vertex {
 
- int get id; LatLng get latLng;
+ Id<Vertex> get id; LatLng get latLng;
 /// Create a copy of Vertex
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $VertexCopyWith<$Res>  {
   factory $VertexCopyWith(Vertex value, $Res Function(Vertex) _then) = _$VertexCopyWithImpl;
 @useResult
 $Res call({
- int id, LatLng latLng
+ Id<Vertex> id, LatLng latLng
 });
 
 
@@ -65,7 +65,7 @@ class _$VertexCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? latLng = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
 as LatLng,
   ));
 }
@@ -151,7 +151,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  LatLng latLng)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Vertex> id,  LatLng latLng)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Vertex() when $default != null:
 return $default(_that.id,_that.latLng);case _:
@@ -172,7 +172,7 @@ return $default(_that.id,_that.latLng);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  LatLng latLng)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Vertex> id,  LatLng latLng)  $default,) {final _that = this;
 switch (_that) {
 case _Vertex():
 return $default(_that.id,_that.latLng);case _:
@@ -192,7 +192,7 @@ return $default(_that.id,_that.latLng);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  LatLng latLng)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Vertex> id,  LatLng latLng)?  $default,) {final _that = this;
 switch (_that) {
 case _Vertex() when $default != null:
 return $default(_that.id,_that.latLng);case _:
@@ -210,7 +210,7 @@ class _Vertex implements Vertex {
   const _Vertex({required this.id, required this.latLng});
   
 
-@override final  int id;
+@override final  Id<Vertex> id;
 @override final  LatLng latLng;
 
 /// Create a copy of Vertex
@@ -243,7 +243,7 @@ abstract mixin class _$VertexCopyWith<$Res> implements $VertexCopyWith<$Res> {
   factory _$VertexCopyWith(_Vertex value, $Res Function(_Vertex) _then) = __$VertexCopyWithImpl;
 @override @useResult
 $Res call({
- int id, LatLng latLng
+ Id<Vertex> id, LatLng latLng
 });
 
 
@@ -263,7 +263,7 @@ class __$VertexCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? latLng = null,}) {
   return _then(_Vertex(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
 as LatLng,
   ));
 }

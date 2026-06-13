@@ -35,8 +35,8 @@ final class CollectionListenableProvider<T>
   /// ─────────────────────────────────────────────
   CollectionListenableProvider._({
     required CollectionListenableFamily super.from,
+    required int super.argument,
   }) : super(
-         argument: null,
          retry: null,
          name: r'collectionListenableProvider',
          isAutoDispose: true,
@@ -51,7 +51,7 @@ final class CollectionListenableProvider<T>
   String toString() {
     return r'collectionListenableProvider'
         '<${T}>'
-        '()';
+        '($argument)';
   }
 
   @$internal
@@ -62,7 +62,8 @@ final class CollectionListenableProvider<T>
 
   @override
   ValueListenable<int> create(Ref ref) {
-    return collectionListenable<T>(ref);
+    final argument = this.argument as int;
+    return collectionListenable<T>(ref, argument);
   }
 
   $R _captureGenerics<$R>($R Function<T>() cb) {
@@ -91,7 +92,7 @@ final class CollectionListenableProvider<T>
 }
 
 String _$collectionListenableHash() =>
-    r'e2d3e68b8e8ad286e7c62dc8c46421f88977da67';
+    r'7d4733cf699f670ca1ae7c67a421b0d4e75255cc';
 
 /// ─────────────────────────────────────────────
 /// COLLECTION (structure-level)
@@ -113,24 +114,28 @@ final class CollectionListenableFamily extends $Family {
   /// rebuild uniquement si ajout / suppression
   /// ─────────────────────────────────────────────
 
-  CollectionListenableProvider<T> call<T>() =>
-      CollectionListenableProvider<T>._(from: this);
+  CollectionListenableProvider<T> call<T>(int tripId) =>
+      CollectionListenableProvider<T>._(argument: tripId, from: this);
 
   @override
   String toString() => r'collectionListenableProvider';
 
   /// {@macro riverpod.override_with}
-  Override overrideWith(ValueListenable<int> Function<T>(Ref ref) create) =>
-      $FamilyOverride(
-        from: this,
-        createElement: (pointer) {
-          final provider = pointer.origin as CollectionListenableProvider;
-          return provider._captureGenerics(<T>() {
-            provider as CollectionListenableProvider<T>;
-            return provider.$view(create: create<T>).$createElement(pointer);
-          });
-        },
-      );
+  Override overrideWith(
+    ValueListenable<int> Function<T>(Ref ref, int args) create,
+  ) => $FamilyOverride(
+    from: this,
+    createElement: (pointer) {
+      final provider = pointer.origin as CollectionListenableProvider;
+      return provider._captureGenerics(<T>() {
+        provider as CollectionListenableProvider<T>;
+        final argument = provider.argument as int;
+        return provider
+            .$view(create: (ref) => create(ref, argument))
+            .$createElement(pointer);
+      });
+    },
+  );
 }
 
 @ProviderFor(collection)
@@ -139,15 +144,16 @@ final collectionProvider = CollectionFamily._();
 final class CollectionProvider<T>
     extends $FunctionalProvider<Map<int, T>, Map<int, T>, Map<int, T>>
     with $Provider<Map<int, T>> {
-  CollectionProvider._({required CollectionFamily super.from})
-    : super(
-        argument: null,
-        retry: null,
-        name: r'collectionProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  CollectionProvider._({
+    required CollectionFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'collectionProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$collectionHash();
@@ -156,7 +162,7 @@ final class CollectionProvider<T>
   String toString() {
     return r'collectionProvider'
         '<${T}>'
-        '()';
+        '($argument)';
   }
 
   @$internal
@@ -166,7 +172,8 @@ final class CollectionProvider<T>
 
   @override
   Map<int, T> create(Ref ref) {
-    return collection<T>(ref);
+    final argument = this.argument as int;
+    return collection<T>(ref, argument);
   }
 
   $R _captureGenerics<$R>($R Function<T>() cb) {
@@ -194,7 +201,7 @@ final class CollectionProvider<T>
   }
 }
 
-String _$collectionHash() => r'ae7ddae4d6c557e92ba0ba41b3b22e1eff39d5b0';
+String _$collectionHash() => r'ad124e59229c32a00b7c700b3886a2d1c371f53a';
 
 final class CollectionFamily extends $Family {
   CollectionFamily._()
@@ -206,20 +213,24 @@ final class CollectionFamily extends $Family {
         isAutoDispose: true,
       );
 
-  CollectionProvider<T> call<T>() => CollectionProvider<T>._(from: this);
+  CollectionProvider<T> call<T>(int tripId) =>
+      CollectionProvider<T>._(argument: tripId, from: this);
 
   @override
   String toString() => r'collectionProvider';
 
   /// {@macro riverpod.override_with}
-  Override overrideWith(Map<int, T> Function<T>(Ref ref) create) =>
+  Override overrideWith(Map<int, T> Function<T>(Ref ref, int args) create) =>
       $FamilyOverride(
         from: this,
         createElement: (pointer) {
           final provider = pointer.origin as CollectionProvider;
           return provider._captureGenerics(<T>() {
             provider as CollectionProvider<T>;
-            return provider.$view(create: create<T>).$createElement(pointer);
+            final argument = provider.argument as int;
+            return provider
+                .$view(create: (ref) => create(ref, argument))
+                .$createElement(pointer);
           });
         },
       );
@@ -252,7 +263,7 @@ final class NodeListenableProvider<T>
   /// ─────────────────────────────────────────────
   NodeListenableProvider._({
     required NodeListenableFamily super.from,
-    required int super.argument,
+    required (int, int) super.argument,
   }) : super(
          retry: null,
          name: r'nodeListenableProvider',
@@ -268,7 +279,7 @@ final class NodeListenableProvider<T>
   String toString() {
     return r'nodeListenableProvider'
         '<${T}>'
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -279,8 +290,8 @@ final class NodeListenableProvider<T>
 
   @override
   ValueListenable<int>? create(Ref ref) {
-    final argument = this.argument as int;
-    return nodeListenable<T>(ref, argument);
+    final argument = this.argument as (int, int);
+    return nodeListenable<T>(ref, argument.$1, argument.$2);
   }
 
   $R _captureGenerics<$R>($R Function<T>() cb) {
@@ -308,7 +319,7 @@ final class NodeListenableProvider<T>
   }
 }
 
-String _$nodeListenableHash() => r'4130e46f8e82ba81a2f4ae40f24190d7ce2d26e8';
+String _$nodeListenableHash() => r'c273e10047fc71bdcb5c60fe3f2ddd88936020c1';
 
 /// ─────────────────────────────────────────────
 /// NODE (fine grain reactive entity)
@@ -330,22 +341,22 @@ final class NodeListenableFamily extends $Family {
   /// rebuild uniquement si 1 entity change
   /// ─────────────────────────────────────────────
 
-  NodeListenableProvider<T> call<T>(int id) =>
-      NodeListenableProvider<T>._(argument: id, from: this);
+  NodeListenableProvider<T> call<T>(int tripId, int id) =>
+      NodeListenableProvider<T>._(argument: (tripId, id), from: this);
 
   @override
   String toString() => r'nodeListenableProvider';
 
   /// {@macro riverpod.override_with}
   Override overrideWith(
-    ValueListenable<int>? Function<T>(Ref ref, int args) create,
+    ValueListenable<int>? Function<T>(Ref ref, (int, int) args) create,
   ) => $FamilyOverride(
     from: this,
     createElement: (pointer) {
       final provider = pointer.origin as NodeListenableProvider;
       return provider._captureGenerics(<T>() {
         provider as NodeListenableProvider<T>;
-        final argument = provider.argument as int;
+        final argument = provider.argument as (int, int);
         return provider
             .$view(create: (ref) => create(ref, argument))
             .$createElement(pointer);
@@ -359,14 +370,16 @@ final nodeProvider = NodeFamily._();
 
 final class NodeProvider<T> extends $FunctionalProvider<T?, T?, T?>
     with $Provider<T?> {
-  NodeProvider._({required NodeFamily super.from, required int super.argument})
-    : super(
-        retry: null,
-        name: r'nodeProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  NodeProvider._({
+    required NodeFamily super.from,
+    required (int, int) super.argument,
+  }) : super(
+         retry: null,
+         name: r'nodeProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$nodeHash();
@@ -375,7 +388,7 @@ final class NodeProvider<T> extends $FunctionalProvider<T?, T?, T?>
   String toString() {
     return r'nodeProvider'
         '<${T}>'
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -385,8 +398,8 @@ final class NodeProvider<T> extends $FunctionalProvider<T?, T?, T?>
 
   @override
   T? create(Ref ref) {
-    final argument = this.argument as int;
-    return node<T>(ref, argument);
+    final argument = this.argument as (int, int);
+    return node<T>(ref, argument.$1, argument.$2);
   }
 
   $R _captureGenerics<$R>($R Function<T>() cb) {
@@ -414,7 +427,7 @@ final class NodeProvider<T> extends $FunctionalProvider<T?, T?, T?>
   }
 }
 
-String _$nodeHash() => r'6f537c19369130823fb9ca8850c6ea35b99bfb4c';
+String _$nodeHash() => r'96eb3e5ef588e126241383622483d3e3ac7c965b';
 
 final class NodeFamily extends $Family {
   NodeFamily._()
@@ -426,21 +439,21 @@ final class NodeFamily extends $Family {
         isAutoDispose: true,
       );
 
-  NodeProvider<T> call<T>(int id) =>
-      NodeProvider<T>._(argument: id, from: this);
+  NodeProvider<T> call<T>(int tripId, int id) =>
+      NodeProvider<T>._(argument: (tripId, id), from: this);
 
   @override
   String toString() => r'nodeProvider';
 
   /// {@macro riverpod.override_with}
-  Override overrideWith(T? Function<T>(Ref ref, int args) create) =>
+  Override overrideWith(T? Function<T>(Ref ref, (int, int) args) create) =>
       $FamilyOverride(
         from: this,
         createElement: (pointer) {
           final provider = pointer.origin as NodeProvider;
           return provider._captureGenerics(<T>() {
             provider as NodeProvider<T>;
-            final argument = provider.argument as int;
+            final argument = provider.argument as (int, int);
             return provider
                 .$view(create: (ref) => create(ref, argument))
                 .$createElement(pointer);
@@ -467,7 +480,7 @@ final class NodeRequiredProvider<T> extends $FunctionalProvider<T, T, T>
   /// ─────────────────────────────────────────────
   NodeRequiredProvider._({
     required NodeRequiredFamily super.from,
-    required int super.argument,
+    required (int, int) super.argument,
   }) : super(
          retry: null,
          name: r'nodeRequiredProvider',
@@ -483,7 +496,7 @@ final class NodeRequiredProvider<T> extends $FunctionalProvider<T, T, T>
   String toString() {
     return r'nodeRequiredProvider'
         '<${T}>'
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -493,8 +506,8 @@ final class NodeRequiredProvider<T> extends $FunctionalProvider<T, T, T>
 
   @override
   T create(Ref ref) {
-    final argument = this.argument as int;
-    return nodeRequired<T>(ref, argument);
+    final argument = this.argument as (int, int);
+    return nodeRequired<T>(ref, argument.$1, argument.$2);
   }
 
   $R _captureGenerics<$R>($R Function<T>() cb) {
@@ -522,7 +535,7 @@ final class NodeRequiredProvider<T> extends $FunctionalProvider<T, T, T>
   }
 }
 
-String _$nodeRequiredHash() => r'8238f0c9d31e5c5bf9402711d40c1f5678210daf';
+String _$nodeRequiredHash() => r'19055b6d52b42f37adffc1d579c267ec989c9b32';
 
 /// ─────────────────────────────────────────────
 /// OPTIONAL: safe required node (throw if missing)
@@ -542,21 +555,21 @@ final class NodeRequiredFamily extends $Family {
   /// OPTIONAL: safe required node (throw if missing)
   /// ─────────────────────────────────────────────
 
-  NodeRequiredProvider<T> call<T>(int id) =>
-      NodeRequiredProvider<T>._(argument: id, from: this);
+  NodeRequiredProvider<T> call<T>(int id, int tripId) =>
+      NodeRequiredProvider<T>._(argument: (id, tripId), from: this);
 
   @override
   String toString() => r'nodeRequiredProvider';
 
   /// {@macro riverpod.override_with}
-  Override overrideWith(T Function<T>(Ref ref, int args) create) =>
+  Override overrideWith(T Function<T>(Ref ref, (int, int) args) create) =>
       $FamilyOverride(
         from: this,
         createElement: (pointer) {
           final provider = pointer.origin as NodeRequiredProvider;
           return provider._captureGenerics(<T>() {
             provider as NodeRequiredProvider<T>;
-            final argument = provider.argument as int;
+            final argument = provider.argument as (int, int);
             return provider
                 .$view(create: (ref) => create(ref, argument))
                 .$createElement(pointer);
@@ -573,7 +586,7 @@ final class GraphNodeProvider<T>
     with $Provider<GraphNode<T>?> {
   GraphNodeProvider._({
     required GraphNodeFamily super.from,
-    required int super.argument,
+    required (int, int) super.argument,
   }) : super(
          retry: null,
          name: r'graphNodeProvider',
@@ -589,7 +602,7 @@ final class GraphNodeProvider<T>
   String toString() {
     return r'graphNodeProvider'
         '<${T}>'
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -599,8 +612,8 @@ final class GraphNodeProvider<T>
 
   @override
   GraphNode<T>? create(Ref ref) {
-    final argument = this.argument as int;
-    return graphNode<T>(ref, argument);
+    final argument = this.argument as (int, int);
+    return graphNode<T>(ref, argument.$1, argument.$2);
   }
 
   $R _captureGenerics<$R>($R Function<T>() cb) {
@@ -628,7 +641,7 @@ final class GraphNodeProvider<T>
   }
 }
 
-String _$graphNodeHash() => r'2434951fe14b617bb9a7a747f0cbb26cdc044e7f';
+String _$graphNodeHash() => r'f73f81c90f026304da3123303ec9f6046c2dc24b';
 
 final class GraphNodeFamily extends $Family {
   GraphNodeFamily._()
@@ -640,25 +653,26 @@ final class GraphNodeFamily extends $Family {
         isAutoDispose: true,
       );
 
-  GraphNodeProvider<T> call<T>(int id) =>
-      GraphNodeProvider<T>._(argument: id, from: this);
+  GraphNodeProvider<T> call<T>(int id, int tripId) =>
+      GraphNodeProvider<T>._(argument: (id, tripId), from: this);
 
   @override
   String toString() => r'graphNodeProvider';
 
   /// {@macro riverpod.override_with}
-  Override overrideWith(GraphNode<T>? Function<T>(Ref ref, int args) create) =>
-      $FamilyOverride(
-        from: this,
-        createElement: (pointer) {
-          final provider = pointer.origin as GraphNodeProvider;
-          return provider._captureGenerics(<T>() {
-            provider as GraphNodeProvider<T>;
-            final argument = provider.argument as int;
-            return provider
-                .$view(create: (ref) => create(ref, argument))
-                .$createElement(pointer);
-          });
-        },
-      );
+  Override overrideWith(
+    GraphNode<T>? Function<T>(Ref ref, (int, int) args) create,
+  ) => $FamilyOverride(
+    from: this,
+    createElement: (pointer) {
+      final provider = pointer.origin as GraphNodeProvider;
+      return provider._captureGenerics(<T>() {
+        provider as GraphNodeProvider<T>;
+        final argument = provider.argument as (int, int);
+        return provider
+            .$view(create: (ref) => create(ref, argument))
+            .$createElement(pointer);
+      });
+    },
+  );
 }

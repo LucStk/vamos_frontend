@@ -33,7 +33,7 @@ class WaypointEditorDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final waypoint = ref
-        .read(graphStoreProvider)
+        .read(graphStoreProvider(tripId))
         .map<Waypoint>()[waypointId]
         ?.value;
     if (waypoint == null) {

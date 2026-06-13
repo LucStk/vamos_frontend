@@ -6,11 +6,11 @@ import 'context_menu_card.dart';
 import 'package:flutter/widgets.dart';
 
 class PendingWaypointLayer extends ConsumerWidget {
-  const PendingWaypointLayer({super.key});
+  final int tripId;
+  const PendingWaypointLayer({super.key, required this.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripId = ref.watch(currentTripIdProvider);
     final mapState = ref.watch(mapStateProvider(tripId));
     final notifier = ref.read(mapStateProvider(tripId).notifier);
 

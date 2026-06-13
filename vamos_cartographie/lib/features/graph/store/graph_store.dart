@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:vamos_cartographie/core/type/has_id.dart';
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/graph/core/core.dart';
 
 class GraphStore {
-  final Map<Type, Map<int, GraphNode<dynamic>>> _entities = {};
+  final Map<Type, Map<dynamic, GraphNode<dynamic>>> _entities = {};
   final Map<Type, ValueNotifier<int>> _collectionSignals = {};
 
   int _tempId = -1;
@@ -17,35 +17,46 @@ class GraphStore {
     return _collectionSignals.putIfAbsent(T, () => ValueNotifier(0));
   }
 
+  void clear() {
+    _entities.clear();
+
+    for (final signal in _collectionSignals.values) {
+      signal.value++;
+    }
+  }
+
   void _notifyCollection<T>() {
     _collectionSignals[T]?.value++;
   }
+
+  Map<Id<T>, GraphNode<T>> map<T>() {
+    final raw = _entities[T];
+
+    if (raw != null) {
+      return raw.cast<Id<T>, GraphNode<T>>();
+    }
+
+    final created = <Id<T>, GraphNode<T>>{};
+    _entities[T] = created;
+    return created;
+  }
+
   // Permet de charger les données sans passer par les notifiers
-  void seed<T extends HasId>(T entity) {
-    map<T>()[entity.id] = GraphNode(entity);
+  void seed<T extends HasId<T>>(T entity) {
+    final store = map<T>();
+    store[entity.id] = GraphNode<T>(entity);
+
     _notifyCollection<T>();
   }
   // ─────────────────────────────────────────────
   // INTERNAL MAP
   // ─────────────────────────────────────────────
 
-  Map<int, GraphNode<T>> map<T>() {
-    final existing = _entities[T];
+  GraphNode<T>? node<T>(Id<T> id) => map<T>()[id];
 
-    if (existing != null) {
-      return existing.cast<int, GraphNode<T>>();
-    }
+  T? get<T>(Id<T> id) => node<T>(id)?.value;
 
-    final created = <int, GraphNode<T>>{};
-    _entities[T] = created;
-    return created;
-  }
-
-  GraphNode<T>? node<T>(int id) => map<T>()[id];
-
-  T? get<T>(int id) => node<T>(id)?.value;
-
-  Map<int, T> getAll<T>() {
+  Map<Id<T>, T> getAll<T>() {
     return map<T>().map((k, v) => MapEntry(k, v.value));
   }
 
@@ -53,8 +64,8 @@ class GraphStore {
   // CREATE
   // ─────────────────────────────────────────────
 
-  int create<T>(T Function(int tempId) builder) {
-    final id = nextTempId();
+  Id<T> create<T>(T Function(Id<T> tempId) builder) {
+    final id = Id<T>(nextTempId());
 
     map<T>()[id] = GraphNode<T>(builder(id));
 
@@ -66,7 +77,7 @@ class GraphStore {
   // UPDATE (optimistic)
   // ─────────────────────────────────────────────
 
-  T update<T>(int id, T Function(T current) mutate) {
+  T update<T>(Id<T> id, T Function(T current) mutate) {
     final node = map<T>()[id];
 
     if (node == null) {
@@ -83,7 +94,7 @@ class GraphStore {
   // DELETE (soft)
   // ─────────────────────────────────────────────
 
-  void delete<T>(int id) {
+  void delete<T>(Id<T> id) {
     final node = map<T>()[id];
     if (node == null) return;
 
@@ -94,8 +105,8 @@ class GraphStore {
   // COMMIT CREATE
   // ─────────────────────────────────────────────
 
-  void commitCreate<T extends HasId>({
-    required int tempId,
+  void commitCreate<T extends HasId<T>>({
+    required Id<T> tempId,
     required T serverEntity,
   }) {
     final m = map<T>();
@@ -115,7 +126,7 @@ class GraphStore {
   // COMMIT UPDATE
   // ─────────────────────────────────────────────
 
-  void commitUpdate<T>(int id, T serverValue) {
+  void commitUpdate<T>(Id<T> id, T serverValue) {
     final node = map<T>()[id];
     if (node == null) return;
 
@@ -127,7 +138,7 @@ class GraphStore {
   // COMMIT DELETE
   // ─────────────────────────────────────────────
 
-  void commitDelete<T>(int id) {
+  void commitDelete<T>(Id<T> id) {
     map<T>().remove(id);
     _notifyCollection<T>();
   }
@@ -136,19 +147,19 @@ class GraphStore {
   // ROLLBACKS
   // ─────────────────────────────────────────────
 
-  void rollbackCreate<T>(int id) {
+  void rollbackCreate<T>(Id<T> id) {
     map<T>().remove(id);
     _notifyCollection<T>();
   }
 
-  void rollbackDelete<T>(int id) {
+  void rollbackDelete<T>(Id<T> id) {
     final node = map<T>()[id];
     if (node == null) return;
 
     node.markDeleted(false);
   }
 
-  void rollbackUpdate<T>(int id, T previous) {
+  void rollbackUpdate<T>(Id<T> id, T previous) {
     final node = map<T>()[id];
     if (node == null) return;
 

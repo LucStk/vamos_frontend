@@ -1,5 +1,6 @@
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
@@ -10,16 +11,16 @@ part 'waypoint_orchestrator.g.dart';
 
 @riverpod
 class WaypointOrchestrator extends _$WaypointOrchestrator {
-  GraphStore get graph => ref.read(graphStoreProvider);
+  GraphStore get graph => ref.read(graphStoreProvider(tripId));
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);
 
   @override
-  void build(int tripId) {}
+  void build(Id<Trip> tripId) {}
 
   Future<void> createWaypoint(
     WaypointDraft draft,
-    int? vertexId,
+    Id<Vertex>? vertexId,
     LatLng? latLng,
   ) async {
     final needsVertex = vertexId == null;
@@ -28,8 +29,8 @@ class WaypointOrchestrator extends _$WaypointOrchestrator {
       throw Exception("CreateWaypoint Error: no vertexId and no latLng");
     }
 
-    late int tempWaypointId;
-    late int tempVertexId;
+    late Id<Waypoint> tempWaypointId;
+    late Id<Vertex> tempVertexId;
 
     await executor.run(
       onApply: () {

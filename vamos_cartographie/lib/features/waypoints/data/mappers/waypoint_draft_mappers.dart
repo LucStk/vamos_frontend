@@ -1,5 +1,7 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 import 'waypoint_enum_mapper.dart';
 import "package:latlong2/latlong.dart";
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
@@ -8,7 +10,7 @@ import "package:vamos_cartographie/features/shared/shared.dart";
 class WaypointDraftMapper {
   static GWaypointCreateInput toGQLInput(
     WaypointDraft waypointDraft,
-    int? vertexId,
+    Id<Vertex>? vertexId,
     LatLng? latlng,
   ) => GWaypointCreateInput(
     type: waypointDraft.type.toGQL(),
@@ -22,7 +24,7 @@ class WaypointDraftMapper {
         ? Value.present(GisMapper.toGQL(latlng))
         : const Value.absent(),
     vertexId: (vertexId != null)
-        ? Value.present(vertexId)
+        ? Value.present(vertexId.value)
         : const Value.absent(),
   );
 

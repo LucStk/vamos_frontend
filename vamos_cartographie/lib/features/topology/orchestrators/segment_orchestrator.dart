@@ -8,7 +8,7 @@ part 'segment_orchestrator.g.dart';
 
 @riverpod
 class SegmentOrchestrator extends _$SegmentOrchestrator {
-  GraphStore get graph => ref.read(graphStoreProvider);
+  GraphStore get graph => ref.read(graphStoreProvider(tripId));
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   SegmentRepository get segmentRepo => ref.read(segmentRepositoryProvider);
 

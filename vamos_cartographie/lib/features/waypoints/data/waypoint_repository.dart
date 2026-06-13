@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/data/waypoint_remote_datasource.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
@@ -12,7 +14,7 @@ class WaypointRepository {
 
   WaypointRepository(this.remote);
 
-  Future<Either<Failure, List<Waypoint>>> getWaypoints(int tripId) async {
+  Future<Either<Failure, List<Waypoint>>> getWaypoints(Id<Trip> tripId) async {
     try {
       final waypoints = await remote.getWaypoints(tripId: tripId);
       final ret = waypoints.map(WaypointMapper.fromGQL).toList();
@@ -25,9 +27,9 @@ class WaypointRepository {
   }
 
   Future<Either<Failure, CreateWaypointResult>> createWaypoint(
-    int tripId,
+    Id<Trip> tripId,
     WaypointDraft waypointDraft,
-    int? vertexId,
+    Id<Vertex>? vertexId,
     LatLng? latLng,
   ) async {
     try {
@@ -63,7 +65,7 @@ class WaypointRepository {
   }
 
   Future<Either<Failure, Waypoint>> updateWaypoint(
-    int id,
+    Id<Waypoint> id,
     WaypointDraft waypoint,
   ) async {
     try {
@@ -101,7 +103,7 @@ class WaypointRepository {
     }
   }
 
-  Future<Either<Failure, void>> deleteWaypoint(int id) async {
+  Future<Either<Failure, void>> deleteWaypoint(Id<Waypoint> id) async {
     try {
       await remote.deleteWaypoint(id: id);
       return const Right(null);
@@ -113,7 +115,7 @@ class WaypointRepository {
   }
 
   Future<Set<MediaImage>> _attachImages({
-    required int waypointId,
+    required Id<Waypoint> waypointId,
     required List<MediaImage> desired,
     required Set<MediaImage> alreadyAttached,
   }) async {
@@ -139,7 +141,7 @@ class WaypointRepository {
   /// Les erreurs sont ignorées silencieusement (la suppression pourra être
   /// retentée à la prochaine sauvegarde).
   Future<void> _deleteImages({
-    required int waypointId,
+    required Id<Waypoint> waypointId,
     required List<MediaImage> toRemove,
   }) async {
     for (final image in toRemove) {

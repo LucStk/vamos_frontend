@@ -1,52 +1,46 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:vamos_cartographie/features/map/application/applications.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/on_map_tap.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
-import 'package:vamos_cartographie/features/map/presentation/dialogs/dialogs.dart';
 
-class MapScreen extends ConsumerWidget {
+import 'package:vamos_cartographie/features/map/presentation/layers/layers.dart';
+
+class MapScreen extends StatefulWidget {
   final int tripId;
   final bool isOwner;
 
   const MapScreen({super.key, required this.tripId, this.isOwner = true});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ProviderScope(
-      overrides: [currentTripIdProvider.overrideWithValue(tripId)],
-      child: _MapScreenView(),
-    );
-  }
+  State<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapScreenView extends ConsumerWidget {
-  const _MapScreenView();
-
+class _MapScreenState extends State<MapScreen> {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tripId = ref.watch(currentTripIdProvider);
-    final mapState = ref.watch(mapStateProvider(tripId));
-    return PopScope(
-      // canPop: !mapState.isDirty,
-      onPopInvokedWithResult: (didPop, _) async {
-        if (!didPop) {
-          // && mapState.isDirty) {
-          HandleBackDialog.show(
-            context: context,
-            onCancel: () {},
-            onIgnore: () {
-              Navigator.pop(context);
-            },
-            onSave: () {
-              throw Exception("Implémenter onSave de HandleBackDialog");
-              // if (context.mounted) Navigator.of(context).pop();
-            },
-          );
-        }
-      },
-      child: const Scaffold(body: Stack(children: [MapView(), MapTopBar()])),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          FlutterMap(
+            // mapController: _mapController,
+            options: MapOptions(
+              initialCenter: const LatLng(46.8, 2.2),
+              initialZoom: 7,
+              onTap: (_, latLng) => onMapTap(context, latLng, widget.tripId),
+              interactionOptions: const InteractionOptions(
+                flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
+              ),
+            ),
+            children: [
+              MapTileLayer(),
+              TopologyLayer(tripId: widget.tripId),
+            ],
+          ),
+          MapTopBar(tripId: widget.tripId),
+        ],
+      ),
     );
   }
 }

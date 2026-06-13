@@ -1,17 +1,18 @@
 // Importe tes fichiers générés par Ferry en haut
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import "../types/segment_type.dart";
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import "package:vamos_cartographie/core/type/has_id.dart";
 // Remplace par le bon package de ton projet (ex: google_maps_flutter ou latlong2)
 part 'segment.freezed.dart';
 
 @freezed
-abstract class Segment with _$Segment implements HasId {
+abstract class Segment with _$Segment implements HasId<Segment> {
   const factory Segment({
-    required int id,
-    required int startVertexId,
-    required int endVertexId,
+    required Id<Segment> id,
+    required Id<Vertex> startVertexId,
+    required Id<Vertex> endVertexId,
     required List<LatLng> geometry,
     @Default(SegmentType.bike) SegmentType type,
   }) = _Segment;
@@ -30,15 +31,15 @@ abstract class Segment with _$Segment implements HasId {
 @freezed
 abstract class SegmentDraft with _$SegmentDraft {
   const factory SegmentDraft({
-    required int startVertexId,
-    required int endVertexId,
+    required Id<Vertex> startVertexId,
+    required Id<Vertex> endVertexId,
     required List<LatLng> geometry,
     @Default(SegmentType.bike) SegmentType type,
   }) = _SegmentDraft;
 
   const SegmentDraft._();
 
-  Segment toSegment(int id) {
+  Segment toSegment(Id<Segment> id) {
     return Segment(
       id: id,
       type: type,

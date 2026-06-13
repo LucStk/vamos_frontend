@@ -10,7 +10,7 @@ part 'vertex_orchestrator.g.dart';
 
 @riverpod
 class VertexOrchestrator extends _$VertexOrchestrator {
-  GraphStore get graph => ref.read(graphStoreProvider);
+  GraphStore get graph => ref.read(graphStoreProvider(tripId));
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);
 

@@ -12,7 +12,7 @@ class SegmentTypeMarkerLayer extends AbstractLayer {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segments = ref.watch(collectionProvider<Segment>());
+    final segments = ref.watch(collectionProvider<Segment>(tripId));
     if (segments.isEmpty) {
       return const SizedBox.shrink();
     }

@@ -1,15 +1,9 @@
 // features/map/presentation/providers/map_notifier.dart
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import "package:vamos_cartographie/features/map/application/states/states.dart";
 
 part 'map_notifier.g.dart';
-
-// Permet d'accéder au trip actuel sans prop drilling le tripId
-final currentTripIdProvider = Provider<int>((ref) {
-  throw UnimplementedError();
-});
 
 @riverpod
 class MapStateNotifier extends _$MapStateNotifier {

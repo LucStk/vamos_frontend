@@ -6,21 +6,25 @@ import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
 part 'query_selectors.g.dart';
 
 @riverpod
-List<T> query<T>(Ref ref, bool Function(T entity) predicate) {
-  final store = ref.watch(graphStoreProvider);
+List<T> query<T>(Ref ref, tripId, bool Function(T entity) predicate) {
+  final store = ref.watch(graphStoreProvider(tripId));
 
   // dépendance structurelle (ajout/suppression)
-  ref.watch(collectionListenableProvider<T>());
+  ref.watch(collectionListenableProvider<T>(tripId));
 
   return store.getAll<T>().values.where(predicate).toList(growable: false);
 }
 
 @riverpod
-Map<K, List<T>> indexedBy<T, K>(Ref ref, K Function(T entity) keySelector) {
-  final store = ref.watch(graphStoreProvider);
+Map<K, List<T>> indexedBy<T, K>(
+  Ref ref,
+  int tripId,
+  K Function(T entity) keySelector,
+) {
+  final store = ref.watch(graphStoreProvider(tripId));
 
   // dépendance structurelle
-  ref.watch(collectionListenableProvider<T>());
+  ref.watch(collectionListenableProvider<T>(tripId));
 
   final map = <K, List<T>>{};
 
@@ -33,16 +37,16 @@ Map<K, List<T>> indexedBy<T, K>(Ref ref, K Function(T entity) keySelector) {
 }
 
 @riverpod
-List<T> queryLive<T>(Ref ref, bool Function(T entity) predicate) {
-  final store = ref.watch(graphStoreProvider);
+List<T> queryLive<T>(Ref ref, int tripId, bool Function(T entity) predicate) {
+  final store = ref.watch(graphStoreProvider(tripId));
 
-  ref.watch(collectionListenableProvider<T>());
+  ref.watch(collectionListenableProvider<T>(tripId));
 
   final all = store.getAll<T>();
 
   // ⚠️ attention: ici on écoute chaque node
   for (final id in all.keys) {
-    ref.watch(nodeListenableProvider<T>(id));
+    ref.watch(nodeListenableProvider<T>(id, tripId));
   }
 
   return all.values.where(predicate).toList();

@@ -17,7 +17,9 @@ class WaypointMarkerView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(nodeRequiredProvider<Waypoint>(waypointId));
+    final waypoint = ref.watch(
+      nodeRequiredProvider<Waypoint>(waypointId, tripId),
+    );
     return GestureDetector(
       onDoubleTap: () {
         WaypointViewerDialog.show(
