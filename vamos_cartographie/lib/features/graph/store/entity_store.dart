@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/type/has_id.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 
 /// Reactive entity store based on per-entity ValueNotifier.
 /// This enables fine-grained updates (only affected entities rebuild).
-mixin EntityStore<T extends HasId> {
+mixin EntityStore<T extends HasId<T>> {
   /// MUST be implemented by the concrete store:
-  /// Map<entityId, ValueNotifier<entity>>
-  Map<int, ValueNotifier<T>> get state;
+  Map<Id<T>, ValueNotifier<T>> get state;
 
   int _tempId = -1;
   int nextTempId() => _tempId--;
@@ -16,9 +16,9 @@ mixin EntityStore<T extends HasId> {
   // READ
   // ─────────────────────────────────────────────
 
-  T? get(int id) => state[id]?.value;
+  T? get(Id<T> id) => state[id]?.value;
 
-  T getOrThrow(int id) {
+  T getOrThrow(Id<T> id) {
     final entity = get(id);
     if (entity == null) {
       throw StateError('$T $id not found');
@@ -30,8 +30,8 @@ mixin EntityStore<T extends HasId> {
   // CREATE (local optimistic)
   // ─────────────────────────────────────────────
 
-  int createLocal(T Function(int tempId) builder) {
-    final id = nextTempId();
+  Id<T> createLocal(T Function(Id<T> tempId) builder) {
+    final id = Id<T>(nextTempId());
 
     state[id] = ValueNotifier<T>(builder(id));
 
@@ -42,7 +42,7 @@ mixin EntityStore<T extends HasId> {
   // UPDATE (local optimistic)
   // ─────────────────────────────────────────────
 
-  T patchLocal(int id, T Function(T current) mutate) {
+  T patchLocal(Id<T> id, T Function(T current) mutate) {
     final node = state[id];
 
     if (node == null) {
@@ -59,7 +59,7 @@ mixin EntityStore<T extends HasId> {
   // DELETE (local optimistic)
   // ─────────────────────────────────────────────
 
-  void removeLocal(int id) {
+  void removeLocal(Id<T> id) {
     state.remove(id);
   }
 
@@ -67,7 +67,7 @@ mixin EntityStore<T extends HasId> {
   // COMMIT (server reconciliation)
   // ─────────────────────────────────────────────
 
-  void commitCreate(T entity, int tempId) {
+  void commitCreate(T entity, Id<T> tempId) {
     state.remove(tempId);
     state[entity.id] = ValueNotifier<T>(entity);
   }
@@ -83,7 +83,7 @@ mixin EntityStore<T extends HasId> {
     node.value = entity;
   }
 
-  void commitDelete(int id) {
+  void commitDelete(Id<T> id) {
     state.remove(id);
   }
 
@@ -91,7 +91,7 @@ mixin EntityStore<T extends HasId> {
   // ROLLBACK (error recovery)
   // ─────────────────────────────────────────────
 
-  void rollbackCreate(int tempId) {
+  void rollbackCreate(Id<T> tempId) {
     state.remove(tempId);
   }
 

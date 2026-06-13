@@ -1,3 +1,5 @@
+import 'package:vamos_cartographie/core/type/id.dart';
+
 sealed class EntityCommand<T> {}
 
 class Insert<T> extends EntityCommand<T> {
@@ -11,6 +13,6 @@ class Update<T> extends EntityCommand<T> {
 }
 
 class Remove<T> extends EntityCommand<T> {
-  final int id;
+  final Id<T> id;
   Remove(this.id);
 }

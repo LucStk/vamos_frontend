@@ -1,5 +1,8 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
+import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
+import "package:vamos_cartographie/core/core.dart";
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le client Ferry (GraphQL).
@@ -10,8 +13,8 @@ class VertexRemoteDatasource {
 
   VertexRemoteDatasource(this.client);
 
-  Future<List<GVertexFields>> getVertices({required int tripId}) async {
-    final req = GGetVerticesReq(vars: GGetVerticesVars(tripId: tripId));
+  Future<List<GVertexFields>> getVertices({required Id<Trip> tripId}) async {
+    final req = GGetVerticesReq(vars: GGetVerticesVars(tripId: tripId.value));
     final response = await client.request(req).first;
 
     if (response.hasErrors || response.data == null) {
@@ -24,28 +27,28 @@ class VertexRemoteDatasource {
   }
 
   Future<GVertexFields> createVertex({
-    required int tripId,
+    required Id<Trip> tripId,
     required GLatLngInput latLng,
   }) async {
     final req = GCreateVertexReq(
-      vars: GCreateVertexVars(tripId: tripId, latLng: latLng),
+      vars: GCreateVertexVars(tripId: tripId.value, latLng: latLng),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(
         response.graphqlErrors?.first.message ??
-            'Erreur dans la création du waypoint',
+            'Erreur dans la création du waypoId<Vertex>',
       );
     }
     return response.data!.createVertex;
   }
 
   Future<GVertexFields> moveVertex({
-    required int id,
+    required Id<Vertex> id,
     required GLatLngInput latLng,
   }) async {
     final req = GMoveVertexReq(
-      vars: GMoveVertexVars(id: id, latLng: latLng),
+      vars: GMoveVertexVars(id: id.value, latLng: latLng),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
@@ -57,13 +60,13 @@ class VertexRemoteDatasource {
     return response.data!.moveVertex;
   }
 
-  Future<void> deleteVertex({required int id}) async {
-    final req = GDeleteVertexReq(vars: GDeleteVertexVars(vertexId: id));
+  Future<void> deleteVertex({required Id<Vertex> id}) async {
+    final req = GDeleteVertexReq(vars: GDeleteVertexVars(vertexId: id.value));
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(
         response.graphqlErrors?.first.message ??
-            'Erreur lors de la suppression du waypoint',
+            'Erreur lors de la suppression du waypoId<Vertex>',
       );
     }
   }

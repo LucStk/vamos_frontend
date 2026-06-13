@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 /// Barre supérieure de la MapPage.
 /// Contient un bouton retour en capsule et un titre centré et ajusté.
 class MapTopBar extends ConsumerWidget {
-  final int tripId;
+  final Id<Trip> tripId;
   const MapTopBar({super.key, required this.tripId});
 
   void _onBack(BuildContext context) {

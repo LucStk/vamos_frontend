@@ -11,7 +11,7 @@ class SegmentMapper {
     id: Id<Segment>(data.id),
     type: data.type.toDomain(),
     geometry: data.geometry.map((d) => GisMapper.fromGQL(d)).toList(),
-    startVertexId: data.startVertex.id,
-    endVertexId: data.endVertex.id,
+    startVertexId: Id<Vertex>(data.startVertex.id),
+    endVertexId: Id<Vertex>(data.endVertex.id),
   );
 }

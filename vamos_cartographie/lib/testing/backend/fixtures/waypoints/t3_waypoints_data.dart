@@ -1,29 +1,31 @@
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
 final List<Waypoint> t3Waypoints = [
   Waypoint(
-    id: 30,
-    vertexId: 30,
+    id: Id<Waypoint>(30),
+    vertexId: Id<Vertex>(30),
     title: "départ",
     type: WaypointType.start,
     description: 'Départ de Bayonne',
   ),
   Waypoint(
-    id: 31,
-    vertexId: 31,
+    id: Id<Waypoint>(31),
+    vertexId: Id<Vertex>(31),
     title: "Super point d'eau",
     type: WaypointType.water,
     description: "Point d'eau au gave de Pau",
   ),
   Waypoint(
-    id: 32,
-    vertexId: 32,
+    id: Id<Waypoint>(32),
+    vertexId: Id<Vertex>(32),
     type: WaypointType.camping,
     description: 'Nuit en camping à Tarbes',
   ),
   Waypoint(
-    id: 33,
-    vertexId: 33,
+    id: Id<Waypoint>(33),
+    vertexId: Id<Vertex>(33),
     type: WaypointType.end,
     description: 'Arrivée à Lourdes',
   ),

@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/providers/graph_providers.dart';
 import 'package:vamos_cartographie/features/graph/core/graph_node.dart';
 import 'package:vamos_cartographie/features/trips/application/selectors/trips_selectors.dart';
@@ -12,13 +14,13 @@ part 'graph_selectors.g.dart';
 /// ─────────────────────────────────────────────
 
 @riverpod
-ValueListenable<int> collectionListenable<T>(Ref ref, int tripId) {
+ValueListenable<int> collectionListenable<T>(Ref ref, Id<Trip> tripId) {
   final store = ref.watch(graphStoreProvider(tripId));
   return store.collectionSignal<T>();
 }
 
 @riverpod
-Map<int, T> collection<T>(Ref ref, int tripId) {
+Map<Id<T>, T> collection<T>(Ref ref, Id<Trip> tripId) {
   ref.watch(collectionListenableProvider<T>(tripId));
 
   final store = ref.watch(graphStoreProvider(tripId));
@@ -31,18 +33,18 @@ Map<int, T> collection<T>(Ref ref, int tripId) {
 /// ─────────────────────────────────────────────
 
 @riverpod
-ValueListenable<int>? nodeListenable<T>(Ref ref, int tripId, int id) {
+ValueListenable<int>? nodeListenable<T>(Ref ref, Id<Trip> tripId, Id<T> id) {
   final store = ref.watch(graphStoreProvider(tripId));
 
   return store.node<T>(id)?.listenable;
 }
 
 @riverpod
-T? node<T>(Ref ref, int tripId, int id) {
+T? node<T>(Ref ref, Id<Trip> tripId, Id<T> id) {
   final store = ref.watch(graphStoreProvider(tripId));
 
   // 👇 déclenche rebuild uniquement si node change
-  ref.watch(nodeListenableProvider<T>(id, tripId));
+  ref.watch(nodeListenableProvider<T>(tripId, id));
 
   return store.get<T>(id);
 }
@@ -52,10 +54,10 @@ T? node<T>(Ref ref, int tripId, int id) {
 /// ─────────────────────────────────────────────
 
 @riverpod
-T nodeRequired<T>(Ref ref, int id, int tripId) {
+T nodeRequired<T>(Ref ref, Id<Trip> tripId, Id<T> id) {
   final store = ref.watch(graphStoreProvider(tripId));
 
-  ref.watch(nodeListenableProvider<T>(id, tripId));
+  ref.watch(nodeListenableProvider<T>(tripId, id));
 
   final value = store.get<T>(id);
 
@@ -67,7 +69,7 @@ T nodeRequired<T>(Ref ref, int id, int tripId) {
 }
 
 @riverpod
-GraphNode<T>? graphNode<T>(Ref ref, int id, int tripId) {
+GraphNode<T>? graphNode<T>(Ref ref, Id<Trip> tripId, Id<T> id) {
   final store = ref.watch(graphStoreProvider(tripId));
   return store.node<T>(id);
 }

@@ -2,6 +2,7 @@ import "package:dartz/dartz.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/core/type/has_id.dart";
 import "package:vamos_cartographie/core/failure.dart";
+import "package:vamos_cartographie/core/type/id.dart";
 import "package:vamos_cartographie/features/graph/domain/entity_command.dart";
 import "package:vamos_cartographie/features/graph/domain/entity_reducer.dart";
 import "package:vamos_cartographie/features/graph/domain/optimistic_spec.dart";
@@ -14,15 +15,15 @@ class SyncAction<T> {
   SyncAction({required this.txId, required this.execute, this.rollback});
 }
 
-mixin EntityNotifier<T extends HasId> {
-  AsyncValue<Map<int, T>> get state;
-  set state(AsyncValue<Map<int, T>> value);
+mixin EntityNotifier<T extends HasId<T>> {
+  AsyncValue<Map<Id<T>, T>> get state;
+  set state(AsyncValue<Map<Id<T>, T>> value);
 
   final EntityReducer<T> _reducer = EntityReducer<T>();
 
-  Map<int, T> get current => state.value ?? {};
+  Map<Id<T>, T> get current => state.value ?? {};
 
-  void emit(Map<int, T> next) {
+  void emit(Map<Id<T>, T> next) {
     state = AsyncData(next);
   }
 
@@ -37,11 +38,11 @@ mixin EntityNotifier<T extends HasId> {
 
   void upsertLocal(T entity) => dispatch(Insert(entity));
   void updateLocal(T entity) => dispatch(Update(entity));
-  void removeLocal(int id) => dispatch(Remove(id));
+  void removeLocal(Id<T> id) => dispatch(Remove(id));
 
-  T? tryGet(int id) => current[id];
+  T? tryGet(Id<T> id) => current[id];
 
-  T getOrThrow(int id) {
+  T getOrThrow(Id<T> id) {
     final entity = current[id];
     if (entity == null) {
       throw StateError("$T $id not found in store");

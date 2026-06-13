@@ -1,8 +1,9 @@
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 final Trip t1 = Trip(
-  id: 0,
+  id: Id<Trip>(1),
   title: 'Tour de Bretagne à vélo',
   description:
       'Un grand tour de Bretagne en passant par Rennes, Brest et le long des côtes bretonnes. Paysages grandioses, crêpes et cidre garantis !',
@@ -16,7 +17,7 @@ final Trip t1 = Trip(
 );
 
 final Trip t2 = Trip(
-  id: 2,
+  id: Id<Trip>(2),
   title: "Route des vins d'Alsace",
   description:
       "La célèbre route des vins entre Strasbourg et Mulhouse, en vélo et à pied, avec des arrêts dans les plus beaux villages alsaciens.",
@@ -25,7 +26,7 @@ final Trip t2 = Trip(
 
 final Trip t3 = // --- Voyage 3 : Traversée des Pyrénées ---
 Trip(
-  id: 3,
+  id: Id<Trip>(3),
   title: 'Traversée des Pyrénées',
   description:
       'Un périple épique à vélo à travers les contreforts pyrénéens, de la côte basque jusqu\'aux sommets de Lourdes.',

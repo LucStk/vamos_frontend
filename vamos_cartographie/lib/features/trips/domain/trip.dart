@@ -2,16 +2,16 @@ import "package:vamos_cartographie/features/media/domain/entities/entities.dart"
 // ---------------------------------------------------------------------------
 // Route
 // ---------------------------------------------------------------------------
-import "package:vamos_cartographie/core/type/has_id.dart";
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'package:vamos_cartographie/core/core.dart';
 part 'trip.freezed.dart';
 
 @freezed
 abstract class Trip with _$Trip implements HasId {
   const Trip._();
   const factory Trip({
-    required int id,
+    required Id<Trip> id,
     @Default('') String title,
     @Default('') String description,
     DateTime? date,
@@ -37,7 +37,7 @@ abstract class TripDraft with _$TripDraft {
     @Default([]) List<MediaImage> images,
   }) = _TripDraft;
 
-  Trip toTrip(int id) {
+  Trip toTrip(Id<Trip> id) {
     return Trip(
       id: id,
       title: title,

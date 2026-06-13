@@ -17,7 +17,7 @@ final class QueryProvider<T>
     with $Provider<List<T>> {
   QueryProvider._({
     required QueryFamily super.from,
-    required (dynamic, bool Function(T entity)) super.argument,
+    required (Id<Trip>, bool Function(T entity)) super.argument,
   }) : super(
          retry: null,
          name: r'queryProvider',
@@ -43,7 +43,7 @@ final class QueryProvider<T>
 
   @override
   List<T> create(Ref ref) {
-    final argument = this.argument as (dynamic, bool Function(T entity));
+    final argument = this.argument as (Id<Trip>, bool Function(T entity));
     return query<T>(ref, argument.$1, argument.$2);
   }
 
@@ -72,7 +72,7 @@ final class QueryProvider<T>
   }
 }
 
-String _$queryHash() => r'c047183e48060374750c91a20daf9cd9e1efa605';
+String _$queryHash() => r'd357f44f83a95d3ecd510d725303472f9219b8be';
 
 final class QueryFamily extends $Family {
   QueryFamily._()
@@ -84,15 +84,17 @@ final class QueryFamily extends $Family {
         isAutoDispose: true,
       );
 
-  QueryProvider<T> call<T>(dynamic tripId, bool Function(T entity) predicate) =>
-      QueryProvider<T>._(argument: (tripId, predicate), from: this);
+  QueryProvider<T> call<T>(
+    Id<Trip> tripId,
+    bool Function(T entity) predicate,
+  ) => QueryProvider<T>._(argument: (tripId, predicate), from: this);
 
   @override
   String toString() => r'queryProvider';
 
   /// {@macro riverpod.override_with}
   Override overrideWith(
-    List<T> Function<T>(Ref ref, (dynamic, bool Function(T entity)) args)
+    List<T> Function<T>(Ref ref, (Id<Trip>, bool Function(T entity)) args)
     create,
   ) => $FamilyOverride(
     from: this,
@@ -101,7 +103,7 @@ final class QueryFamily extends $Family {
       return provider._captureGenerics(<T>() {
         provider as QueryProvider<T>;
         final argument =
-            provider.argument as (dynamic, bool Function(T entity));
+            provider.argument as (Id<Trip>, bool Function(T entity));
         return provider
             .$view(create: (ref) => create(ref, argument))
             .$createElement(pointer);
@@ -119,7 +121,7 @@ final class IndexedByProvider<T, K>
     with $Provider<Map<K, List<T>>> {
   IndexedByProvider._({
     required IndexedByFamily super.from,
-    required (int, K Function(T entity)) super.argument,
+    required (Id<Trip>, K Function(T entity)) super.argument,
   }) : super(
          retry: null,
          name: r'indexedByProvider',
@@ -145,7 +147,7 @@ final class IndexedByProvider<T, K>
 
   @override
   Map<K, List<T>> create(Ref ref) {
-    final argument = this.argument as (int, K Function(T entity));
+    final argument = this.argument as (Id<Trip>, K Function(T entity));
     return indexedBy<T, K>(ref, argument.$1, argument.$2);
   }
 
@@ -174,7 +176,7 @@ final class IndexedByProvider<T, K>
   }
 }
 
-String _$indexedByHash() => r'12ca83bf7feafd181c732ec4bc475dac1c752d63';
+String _$indexedByHash() => r'70ef80819db7f906c8dff05262fc045a543bc1af';
 
 final class IndexedByFamily extends $Family {
   IndexedByFamily._()
@@ -187,7 +189,7 @@ final class IndexedByFamily extends $Family {
       );
 
   IndexedByProvider<T, K> call<T, K>(
-    int tripId,
+    Id<Trip> tripId,
     K Function(T entity) keySelector,
   ) => IndexedByProvider<T, K>._(argument: (tripId, keySelector), from: this);
 
@@ -196,7 +198,10 @@ final class IndexedByFamily extends $Family {
 
   /// {@macro riverpod.override_with}
   Override overrideWith(
-    Map<K, List<T>> Function<T, K>(Ref ref, (int, K Function(T entity)) args)
+    Map<K, List<T>> Function<T, K>(
+      Ref ref,
+      (Id<Trip>, K Function(T entity)) args,
+    )
     create,
   ) => $FamilyOverride(
     from: this,
@@ -204,7 +209,7 @@ final class IndexedByFamily extends $Family {
       final provider = pointer.origin as IndexedByProvider;
       return provider._captureGenerics(<T, K>() {
         provider as IndexedByProvider<T, K>;
-        final argument = provider.argument as (int, K Function(T entity));
+        final argument = provider.argument as (Id<Trip>, K Function(T entity));
         return provider
             .$view(create: (ref) => create(ref, argument))
             .$createElement(pointer);
@@ -221,7 +226,7 @@ final class QueryLiveProvider<T>
     with $Provider<List<T>> {
   QueryLiveProvider._({
     required QueryLiveFamily super.from,
-    required (int, bool Function(T entity)) super.argument,
+    required (Id<Trip>, bool Function(T entity)) super.argument,
   }) : super(
          retry: null,
          name: r'queryLiveProvider',
@@ -247,7 +252,7 @@ final class QueryLiveProvider<T>
 
   @override
   List<T> create(Ref ref) {
-    final argument = this.argument as (int, bool Function(T entity));
+    final argument = this.argument as (Id<Trip>, bool Function(T entity));
     return queryLive<T>(ref, argument.$1, argument.$2);
   }
 
@@ -276,7 +281,7 @@ final class QueryLiveProvider<T>
   }
 }
 
-String _$queryLiveHash() => r'352ecfba7440803ef8ff2c5c7cacdce4f3edde4c';
+String _$queryLiveHash() => r'1f77ce319391b5b6e278a947c62054104321ba90';
 
 final class QueryLiveFamily extends $Family {
   QueryLiveFamily._()
@@ -288,22 +293,26 @@ final class QueryLiveFamily extends $Family {
         isAutoDispose: true,
       );
 
-  QueryLiveProvider<T> call<T>(int tripId, bool Function(T entity) predicate) =>
-      QueryLiveProvider<T>._(argument: (tripId, predicate), from: this);
+  QueryLiveProvider<T> call<T>(
+    Id<Trip> tripId,
+    bool Function(T entity) predicate,
+  ) => QueryLiveProvider<T>._(argument: (tripId, predicate), from: this);
 
   @override
   String toString() => r'queryLiveProvider';
 
   /// {@macro riverpod.override_with}
   Override overrideWith(
-    List<T> Function<T>(Ref ref, (int, bool Function(T entity)) args) create,
+    List<T> Function<T>(Ref ref, (Id<Trip>, bool Function(T entity)) args)
+    create,
   ) => $FamilyOverride(
     from: this,
     createElement: (pointer) {
       final provider = pointer.origin as QueryLiveProvider;
       return provider._captureGenerics(<T>() {
         provider as QueryLiveProvider<T>;
-        final argument = provider.argument as (int, bool Function(T entity));
+        final argument =
+            provider.argument as (Id<Trip>, bool Function(T entity));
         return provider
             .$view(create: (ref) => create(ref, argument))
             .$createElement(pointer);

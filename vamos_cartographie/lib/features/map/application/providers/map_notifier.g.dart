@@ -16,7 +16,7 @@ final class MapStateNotifierProvider
     extends $NotifierProvider<MapStateNotifier, MapState> {
   MapStateNotifierProvider._({
     required MapStateNotifierFamily super.from,
-    required int super.argument,
+    required Id<Trip> super.argument,
   }) : super(
          retry: null,
          name: r'mapStateProvider',
@@ -58,7 +58,7 @@ final class MapStateNotifierProvider
   }
 }
 
-String _$mapStateNotifierHash() => r'd9c83dc9d7057f54eef79a88863d31e826857653';
+String _$mapStateNotifierHash() => r'8b3cd765ebb81d39df005c84eb153e309ce3c0ca';
 
 final class MapStateNotifierFamily extends $Family
     with
@@ -67,7 +67,7 @@ final class MapStateNotifierFamily extends $Family
           MapState,
           MapState,
           MapState,
-          int
+          Id<Trip>
         > {
   MapStateNotifierFamily._()
     : super(
@@ -78,7 +78,7 @@ final class MapStateNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
-  MapStateNotifierProvider call(int tripId) =>
+  MapStateNotifierProvider call(Id<Trip> tripId) =>
       MapStateNotifierProvider._(argument: tripId, from: this);
 
   @override
@@ -86,10 +86,10 @@ final class MapStateNotifierFamily extends $Family
 }
 
 abstract class _$MapStateNotifier extends $Notifier<MapState> {
-  late final _$args = ref.$arg as int;
-  int get tripId => _$args;
+  late final _$args = ref.$arg as Id<Trip>;
+  Id<Trip> get tripId => _$args;
 
-  MapState build(int tripId);
+  MapState build(Id<Trip> tripId);
   @$mustCallSuper
   @override
   void runBuild() {

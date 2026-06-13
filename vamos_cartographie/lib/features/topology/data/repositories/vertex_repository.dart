@@ -1,17 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/data/datasources/vertex_remote_datasource.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 class VertexRepository {
   final VertexRemoteDatasource remote;
   VertexRepository(this.remote);
 
-  Future<Either<Failure, List<Vertex>>> getVertices(int tripId) async {
+  Future<Either<Failure, List<Vertex>>> getVertices(Id<Trip> tripId) async {
     try {
       final segments = await remote.getVertices(tripId: tripId);
       final ret = segments.map(VertexMapper.fromGQL).toList();
@@ -24,7 +26,7 @@ class VertexRepository {
   }
 
   Future<Either<Failure, Vertex>> createVertex(
-    int tripId,
+    Id<Trip> tripId,
     LatLng latLng,
   ) async {
     try {
@@ -42,7 +44,7 @@ class VertexRepository {
   }
 
   Future<Either<Failure, Vertex>> moveVertex(
-    int vertexId,
+    Id<Vertex> vertexId,
     LatLng latLng,
   ) async {
     try {
@@ -60,7 +62,7 @@ class VertexRepository {
     }
   }
 
-  Future<Either<Failure, void>> deleteVertex(int vertexId) async {
+  Future<Either<Failure, void>> deleteVertex(Id<Vertex> vertexId) async {
     try {
       await remote.deleteVertex(id: vertexId);
       return const Right(null);

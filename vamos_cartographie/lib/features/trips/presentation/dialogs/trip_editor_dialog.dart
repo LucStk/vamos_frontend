@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import "trip_form_dialog.dart";
 
 import 'package:vamos_cartographie/features/shared/shared.dart';
 
 class TripEditorDialog extends ConsumerWidget {
-  final int tripId;
+  final Id<Trip> tripId;
 
   const TripEditorDialog({super.key, required this.tripId});
 
-  static void show({required BuildContext context, required int tripId}) {
+  static void show({required BuildContext context, required Id<Trip> tripId}) {
     showDialog(
       context: context,
       barrierDismissible: false,

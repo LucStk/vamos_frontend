@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 
 class WaypointMarkerView extends ConsumerWidget {
-  final int waypointId;
+  final Id<Waypoint> waypointId;
   final bool isDragging;
-  final int tripId;
+  final Id<Trip> tripId;
 
   const WaypointMarkerView({
     super.key,
@@ -18,7 +19,7 @@ class WaypointMarkerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final waypoint = ref.watch(
-      nodeRequiredProvider<Waypoint>(waypointId, tripId),
+      nodeRequiredProvider<Waypoint>(tripId, waypointId),
     );
     return GestureDetector(
       onDoubleTap: () {

@@ -1,10 +1,12 @@
 import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/segment_type_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 
 import "package:vamos_cartographie/backend/core/fake_graphql_store.dart";
 import "package:vamos_cartographie/backend/mapping/gql_mappers.dart";
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 /// Résout les opérations GraphQL relatives aux segments et vertices.
 class TopologyResolver {
@@ -50,7 +52,7 @@ class TopologyResolver {
   // ── Queries ──────────────────────────────────────────────────────────────────
 
   GGetSegmentsData getSegments(GGetSegmentsVars vars) {
-    final segments = store.segments(vars.tripId).map((s) {
+    final segments = store.segments(Id<Trip>(vars.tripId)).map((s) {
       return segmentToGql(
         s,
         store.vertex(s.startVertexId),
@@ -67,7 +69,7 @@ class TopologyResolver {
 
   GGetVerticesData getVertices(GGetVerticesVars vars) {
     final vertices = (store.vertices(
-      vars.tripId,
+      Id<Trip>(vars.tripId),
     )).map((v) => vertexToGql(store.verticesMap[v.id]!)).toList();
 
     return GGetVerticesData(
@@ -78,9 +80,11 @@ class TopologyResolver {
   }
 
   GGetTopologyData getTopology(GGetTopologyVars vars) {
-    final vertices = (store.vertices(vars.tripId)).map(vertexToGql).toList();
+    final vertices = (store.vertices(
+      Id<Trip>(vars.tripId),
+    )).map(vertexToGql).toList();
 
-    final segments = store.segments(vars.tripId).map((s) {
+    final segments = store.segments(Id<Trip>(vars.tripId)).map((s) {
       return segmentToGql(
         s,
         store.verticesMap[s.startVertexId]!,
@@ -102,21 +106,21 @@ class TopologyResolver {
   // ── Mutations — Vertices ──────────────────────────────────────────────────────
 
   GCreateVertexData createVertex(GCreateVertexVars vars) {
-    final int tripId = vars.tripId;
+    final Id<Trip> tripId = Id<Trip>(vars.tripId);
     final latLngMap = vars.latLng;
 
     if (!store.tripsMap.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
     }
 
-    final id = store.nextVertexId.next();
+    final id = Id<Vertex>(store.nextVertexId.next());
     final vertex = Vertex(id: id, latLng: LatLng(latLngMap.lat, latLngMap.lng));
     store.addVertex(tripId, vertex);
     return GCreateVertexData(createVertex: vertexToGql(vertex));
   }
 
   GMoveVertexData moveVertex(GMoveVertexVars vars) {
-    final int id = vars.id;
+    final id = Id<Vertex>(vars.id);
     final latLngMap = vars.latLng;
 
     final updated = Vertex(
@@ -128,11 +132,12 @@ class TopologyResolver {
   }
 
   GDeleteVertexData deleteVertex(GDeleteVertexVars vars) {
-    if (!store.verticesMap.containsKey(vars.vertexId)) {
+    final id = Id<Vertex>(vars.vertexId);
+    if (!store.verticesMap.containsKey(id)) {
       throw Exception('Vertex introuvable : id=$vars.vertexId');
     }
 
-    store.removeVertex(vars.vertexId);
+    store.removeVertex(id);
 
     return GDeleteVertexData(deleteVertex: true);
   }
@@ -140,22 +145,22 @@ class TopologyResolver {
   // ── Mutations — Segments ──────────────────────────────────────────────────────
 
   GCreateSegmentData createSegment(GCreateSegmentVars vars) {
-    final int tripId = vars.tripId;
+    final Id<Trip> tripId = Id<Trip>(vars.tripId);
     final GSegmentCreateInput input = vars.segment;
 
     if (!store.tripsMap.containsKey(tripId)) {
       throw Exception('Trip introuvable : id=$tripId');
     }
 
-    final startVertex = store.vertex(input.startVertexId);
-    final endVertex = store.vertex(input.endVertexId);
+    final startVertex = store.vertex(Id<Vertex>(input.startVertexId));
+    final endVertex = store.vertex(Id<Vertex>(input.endVertexId));
     final List<LatLng> geometry = [startVertex.latLng, endVertex.latLng];
 
-    final sid = store.nextSegmentId.next();
+    final sid = Id<Segment>(store.nextSegmentId.next());
     final segment = Segment(
       id: sid,
-      startVertexId: input.startVertexId,
-      endVertexId: input.endVertexId,
+      startVertexId: Id<Vertex>(input.startVertexId),
+      endVertexId: Id<Vertex>(input.endVertexId),
       type: input.type.toDomain(),
       geometry: geometry,
     );
@@ -172,20 +177,20 @@ class TopologyResolver {
   }
 
   GUpdateSegmentData updateSegment(GUpdateSegmentVars vars) {
-    final int id = vars.id;
+    final id = Id<Segment>(vars.id);
     final GSegmentUpdateInput input = vars.segment;
 
     final existing = store.segment(id);
 
-    final updatedStartId =
+    final Id<Vertex> updatedStartId =
         input.startVertexId.isPresent &&
             input.startVertexId.requireValue != null
-        ? input.startVertexId.requireValue!
+        ? Id<Vertex>(input.startVertexId.requireValue!)
         : existing.startVertexId;
 
-    final updatedEndId =
+    final Id<Vertex> updatedEndId =
         input.endVertexId.isPresent && input.endVertexId.requireValue != null
-        ? input.endVertexId.requireValue!
+        ? Id<Vertex>(input.endVertexId.requireValue!)
         : existing.endVertexId;
 
     final updated = existing.copyWith(
@@ -208,7 +213,7 @@ class TopologyResolver {
   }
 
   GDeleteSegmentData deleteSegment(GDeleteSegmentVars vars) {
-    store.removeSegment(vars.segmentId);
+    store.removeSegment(Id<Segment>(vars.segmentId));
     return GDeleteSegmentData(deleteSegment: true);
   }
 }

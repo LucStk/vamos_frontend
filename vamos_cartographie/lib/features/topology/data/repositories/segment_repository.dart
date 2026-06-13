@@ -1,15 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/data/datasources/segment_remote_datasource.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 class SegmentRepository {
   final SegmentRemoteDatasource remote;
 
   SegmentRepository(this.remote);
 
-  Future<Either<Failure, List<Segment>>> getSegments(int tripId) async {
+  Future<Either<Failure, List<Segment>>> getSegments(Id<Trip> tripId) async {
     try {
       final segments = await remote.getSegments(tripId: tripId);
       final ret = segments.map(SegmentMapper.fromGQL).toList();
@@ -22,7 +24,7 @@ class SegmentRepository {
   }
 
   Future<Either<Failure, Segment>> createSegment(
-    int tripId,
+    Id<Trip> tripId,
     SegmentDraft segment,
   ) async {
     try {
@@ -41,7 +43,7 @@ class SegmentRepository {
   }
 
   Future<Either<Failure, Segment>> updateSegment(
-    int id,
+    Id<Segment> id,
     SegmentDraft segment,
   ) async {
     try {
@@ -57,7 +59,7 @@ class SegmentRepository {
     }
   }
 
-  Future<Either<Failure, void>> deleteSegment(int id) async {
+  Future<Either<Failure, void>> deleteSegment(Id<Segment> id) async {
     try {
       await remote.deleteSegment(id: id);
       return const Right(null);

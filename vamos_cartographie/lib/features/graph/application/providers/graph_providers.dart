@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:vamos_cartographie/core/type/id.dart";
 import "package:vamos_cartographie/features/features.dart";
 import "package:vamos_cartographie/features/graph/core/graph_node.dart";
 import "package:vamos_cartographie/features/graph/graph.dart";
@@ -9,12 +10,12 @@ import "package:vamos_cartographie/features/waypoints/data/providers/waypoints_p
 part "graph_providers.g.dart";
 
 @riverpod
-GraphStore graphStore(Ref ref, int tripId) {
+GraphStore graphStore(Ref ref, Id<Trip> tripId) {
   return GraphStore();
 }
 
 @riverpod
-Future<void> graphLoader(Ref ref, int tripId) async {
+Future<void> graphLoader(Ref ref, Id<Trip> tripId) async {
   final graph = ref.read(graphStoreProvider(tripId));
 
   final verticesRepo = ref.read(vertexRepositoryProvider);

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/topology/orchestrators/segment_orchestrator.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 
 import "package:vamos_cartographie/features/graph/graph.dart";
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
-  final int segmentId;
-  final int tripId;
+  final Id<Segment> segmentId;
+  final Id<Trip> tripId;
 
   const SegmentViewerDialog({
     super.key,
@@ -18,8 +20,8 @@ class SegmentViewerDialog extends ConsumerWidget {
 
   static void show({
     required BuildContext context,
-    required int segmentId,
-    required int tripId,
+    required Id<Segment> segmentId,
+    required Id<Trip> tripId,
   }) {
     showDialog(
       context: context,

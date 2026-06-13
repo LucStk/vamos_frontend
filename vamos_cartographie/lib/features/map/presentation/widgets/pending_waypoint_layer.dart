@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'context_menu_card.dart';
 import 'package:flutter/widgets.dart';
 
 class PendingWaypointLayer extends ConsumerWidget {
-  final int tripId;
+  final Id<Trip> tripId;
   const PendingWaypointLayer({super.key, required this.tripId});
 
   @override

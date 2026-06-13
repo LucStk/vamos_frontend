@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';
 
@@ -21,7 +22,11 @@ T expectRight<T>(Either<Failure, T> result) {
 /// Permet de tester le chargement d'une liste vide sans erreur.
 Seed emptyWaypointSeed({int tripId = 99, List<Vertex> vertices = const []}) {
   return Seed(
-    trip: Trip(id: tripId, title: 'Voyage sans waypoints', description: ''),
+    trip: Trip(
+      id: Id<Trip>(tripId),
+      title: 'Voyage sans waypoints',
+      description: '',
+    ),
     waypoints: [],
     vertices: vertices,
     segments: [],
@@ -50,7 +55,9 @@ void main() {
         // Then: les 4 waypoints sont retournés
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
 
-        final waypoints = expectRight(await repo.getWaypoints(t1TripId));
+        final waypoints = expectRight(
+          await repo.getWaypoints(Id<Trip>(t1TripId)),
+        );
 
         expect(waypoints, hasLength(t1Waypoints.length));
       });
@@ -61,7 +68,9 @@ void main() {
         // Then: les champs sont correctement mappés
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
 
-        final waypoints = expectRight(await repo.getWaypoints(t1TripId));
+        final waypoints = expectRight(
+          await repo.getWaypoints(Id<Trip>(t1TripId)),
+        );
 
         final start = waypoints.firstWhere((w) => w.type == WaypointType.start);
         expect(start.description, isNotEmpty);
@@ -75,7 +84,7 @@ void main() {
         final seed = emptyWaypointSeed(tripId: 99);
         final (:repo, store: _) = buildWaypointRepo([seed]);
 
-        final waypoints = expectRight(await repo.getWaypoints(99));
+        final waypoints = expectRight(await repo.getWaypoints(Id<Trip>(99)));
 
         expect(waypoints, isEmpty);
       });
@@ -86,7 +95,7 @@ void main() {
         // Then: Left(ServerFailure) est retourné
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
 
-        final result = await repo.getWaypoints(999);
+        final result = await repo.getWaypoints(Id<Trip>(999));
 
         expect(result.isLeft(), isTrue);
         result.fold(
@@ -107,7 +116,12 @@ void main() {
         final draft = WaypointDraft(type: WaypointType.viewpoint);
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
+          await repo.createWaypoint(
+            Id<Trip>(t1TripId),
+            draft,
+            Id<Vertex>(unusedVertexId),
+            null,
+          ),
         );
 
         expect(created.waypoint.type, WaypointType.viewpoint);
@@ -126,7 +140,12 @@ void main() {
         );
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
+          await repo.createWaypoint(
+            Id<Trip>(t1TripId),
+            draft,
+            Id<Vertex>(unusedVertexId),
+            null,
+          ),
         );
 
         expect(created.waypoint.type, WaypointType.camping);
@@ -142,7 +161,12 @@ void main() {
         final draft = WaypointDraft(type: WaypointType.water, title: 'Source');
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
+          await repo.createWaypoint(
+            Id<Trip>(t1TripId),
+            draft,
+            Id<Vertex>(unusedVertexId),
+            null,
+          ),
         );
 
         expect(store.waypointsMap.containsKey(created.waypoint.id), isTrue);
@@ -157,7 +181,12 @@ void main() {
         final draft = WaypointDraft(type: WaypointType.waypoint, title: '');
 
         final created = expectRight(
-          await repo.createWaypoint(t1TripId, draft, unusedVertexId, null),
+          await repo.createWaypoint(
+            Id<Trip>(t1TripId),
+            draft,
+            Id<Vertex>(unusedVertexId),
+            null,
+          ),
         );
 
         expect(created.waypoint.title, '');
@@ -176,7 +205,7 @@ void main() {
         final draft = WaypointDraft(type: WaypointType.water);
 
         final updated = expectRight(
-          await repo.updateWaypoint(waypointId, draft),
+          await repo.updateWaypoint(Id<Waypoint>(waypointId), draft),
         );
 
         expect(updated.type, WaypointType.water);
@@ -195,7 +224,7 @@ void main() {
         );
 
         final updated = expectRight(
-          await repo.updateWaypoint(waypointId, draft),
+          await repo.updateWaypoint(Id<Waypoint>(waypointId), draft),
         );
 
         expect(updated.title, 'Étape modifiée');
@@ -213,7 +242,7 @@ void main() {
         );
 
         final updated = expectRight(
-          await repo.updateWaypoint(waypointId, draft),
+          await repo.updateWaypoint(Id<Waypoint>(waypointId), draft),
         );
 
         expect(updated.description, 'Panorama exceptionnel');
@@ -226,7 +255,7 @@ void main() {
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
         final draft = WaypointDraft(type: WaypointType.waypoint);
 
-        final result = await repo.updateWaypoint(9999, draft);
+        final result = await repo.updateWaypoint(Id<Waypoint>(9999), draft);
 
         expect(result.isLeft(), isTrue);
         result.fold(
@@ -245,9 +274,9 @@ void main() {
         // Then: le waypoint n'est plus dans le store
         final (:repo, :store) = buildWaypointRepo(exploreSeed);
 
-        expectRight(await repo.deleteWaypoint(10));
+        expectRight(await repo.deleteWaypoint(Id<Waypoint>(10)));
 
-        expect(store.waypointsMap.containsKey(10), isFalse);
+        expect(store.waypointsMap.containsKey(Id<Waypoint>(10)), isFalse);
       });
 
       test('les autres waypoints du trip ne sont pas affectés', () async {
@@ -256,11 +285,11 @@ void main() {
         // Then: les waypoints 11, 12, 14 sont toujours présents
         final (:repo, :store) = buildWaypointRepo(exploreSeed);
 
-        expectRight(await repo.deleteWaypoint(10));
+        expectRight(await repo.deleteWaypoint(Id<Waypoint>(10)));
 
-        expect(store.waypointsMap.containsKey(11), isTrue);
-        expect(store.waypointsMap.containsKey(12), isTrue);
-        expect(store.waypointsMap.containsKey(14), isTrue);
+        expect(store.waypointsMap.containsKey(Id<Waypoint>(11)), isTrue);
+        expect(store.waypointsMap.containsKey(Id<Waypoint>(12)), isTrue);
+        expect(store.waypointsMap.containsKey(Id<Waypoint>(14)), isTrue);
       });
     });
   });

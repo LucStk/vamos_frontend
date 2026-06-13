@@ -1,14 +1,16 @@
 // features/map/presentation/providers/map_notifier.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import "package:vamos_cartographie/features/map/application/states/states.dart";
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 part 'map_notifier.g.dart';
 
 @riverpod
 class MapStateNotifier extends _$MapStateNotifier {
   @override
-  MapState build(int tripId) {
+  MapState build(Id<Trip> tripId) {
     return MapState.fromTrip(tripId);
   }
 

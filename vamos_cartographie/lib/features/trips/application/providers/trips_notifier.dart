@@ -1,3 +1,4 @@
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/application/trip_node.dart';
 import 'package:vamos_cartographie/features/trips/data/data.dart';
 import 'package:vamos_cartographie/features/trips/data/providers/trips_providers.dart';
@@ -15,7 +16,7 @@ class TripsNotifier extends _$TripsNotifier {
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
 
   @override
-  Future<Map<int, TripNode>> build() async {
+  Future<Map<Id<Trip>, TripNode>> build() async {
     final result = await repo.getAllTrips();
 
     return result.fold(
@@ -24,7 +25,7 @@ class TripsNotifier extends _$TripsNotifier {
     );
   }
 
-  Trip? getTrip(int id) {
+  Trip? getTrip(Id<Trip> id) {
     return state.value?[id]?.value;
   }
 
@@ -51,7 +52,7 @@ class TripsNotifier extends _$TripsNotifier {
     });
   }
 
-  Future<void> updateTrip(int id, TripDraft draft) async {
+  Future<void> updateTrip(Id<Trip> id, TripDraft draft) async {
     final node = state.value?[id];
 
     if (node == null) return;
@@ -76,7 +77,7 @@ class TripsNotifier extends _$TripsNotifier {
     );
   }
 
-  Future<void> deleteTrip(int id) async {
+  Future<void> deleteTrip(Id<Trip> id) async {
     final current = state.value;
 
     if (current == null) return;
@@ -89,7 +90,7 @@ class TripsNotifier extends _$TripsNotifier {
 
     await executor.run(
       onApply: () {
-        final copy = Map<int, TripNode>.from(current);
+        final copy = Map<Id<Trip>, TripNode>.from(current);
 
         copy.remove(id);
 
@@ -101,7 +102,7 @@ class TripsNotifier extends _$TripsNotifier {
       onSuccess: (_) {},
 
       onError: () {
-        final copy = Map<int, TripNode>.from(state.value ?? {});
+        final copy = Map<Id<Trip>, TripNode>.from(state.value ?? {});
 
         copy[id] = TripNode(old);
 

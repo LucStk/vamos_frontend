@@ -13,7 +13,7 @@ part of 'trips_notifier.dart';
 final tripsProvider = TripsNotifierProvider._();
 
 final class TripsNotifierProvider
-    extends $AsyncNotifierProvider<TripsNotifier, Map<int, TripNode>> {
+    extends $AsyncNotifierProvider<TripsNotifier, Map<Id<Trip>, TripNode>> {
   TripsNotifierProvider._()
     : super(
         from: null,
@@ -33,20 +33,27 @@ final class TripsNotifierProvider
   TripsNotifier create() => TripsNotifier();
 }
 
-String _$tripsNotifierHash() => r'7f73c23c3050b2f2a73fed9c99bcc862d9d78db5';
+String _$tripsNotifierHash() => r'd6a7dfe07ef200225c4ad3923470dfef25e2453e';
 
-abstract class _$TripsNotifier extends $AsyncNotifier<Map<int, TripNode>> {
-  FutureOr<Map<int, TripNode>> build();
+abstract class _$TripsNotifier extends $AsyncNotifier<Map<Id<Trip>, TripNode>> {
+  FutureOr<Map<Id<Trip>, TripNode>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final ref =
-        this.ref as $Ref<AsyncValue<Map<int, TripNode>>, Map<int, TripNode>>;
+        this.ref
+            as $Ref<
+              AsyncValue<Map<Id<Trip>, TripNode>>,
+              Map<Id<Trip>, TripNode>
+            >;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<Map<int, TripNode>>, Map<int, TripNode>>,
-              AsyncValue<Map<int, TripNode>>,
+              AnyNotifier<
+                AsyncValue<Map<Id<Trip>, TripNode>>,
+                Map<Id<Trip>, TripNode>
+              >,
+              AsyncValue<Map<Id<Trip>, TripNode>>,
               Object?,
               Object?
             >;

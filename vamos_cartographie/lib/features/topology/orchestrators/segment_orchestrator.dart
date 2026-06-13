@@ -1,8 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
 import 'package:vamos_cartographie/features/topology/data/providers/segments_providers.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 part 'segment_orchestrator.g.dart';
 
@@ -13,17 +15,19 @@ class SegmentOrchestrator extends _$SegmentOrchestrator {
   SegmentRepository get segmentRepo => ref.read(segmentRepositoryProvider);
 
   @override
-  void build(int tripId) {}
+  void build(Id<Trip> tripId) {}
 
   // ---------------------------------------------------------------------------
   // CREATE WAYPOINT (WITH OPTIONAL VERTEX)
   // ---------------------------------------------------------------------------
 
   Future<void> createSegment(SegmentDraft draft) async {
-    late int tempId;
+    late Id<Segment> tempId;
     await executor.run(
       onApply: () {
-        tempId = graph.create<Segment>((int tmpId) => draft.toSegment(tempId));
+        tempId = graph.create<Segment>(
+          (Id<Segment> tmpId) => draft.toSegment(tempId),
+        );
       },
       remote: () => segmentRepo.createSegment(tripId, draft),
       onSuccess: (Segment serverSegment) => graph.commitCreate<Segment>(
@@ -36,7 +40,7 @@ class SegmentOrchestrator extends _$SegmentOrchestrator {
     );
   }
 
-  Future<void> deleteSegment(int id) async {
+  Future<void> deleteSegment(Id<Segment> id) async {
     await executor.run(
       onApply: () => graph.delete<Segment>(id),
       remote: () => segmentRepo.deleteSegment(id),
@@ -45,7 +49,7 @@ class SegmentOrchestrator extends _$SegmentOrchestrator {
     );
   }
 
-  Future<void> updateSegment(int segmentId, SegmentDraft draft) async {
+  Future<void> updateSegment(Id<Segment> segmentId, SegmentDraft draft) async {
     late Segment oldValue;
     await executor.run(
       onApply: () {

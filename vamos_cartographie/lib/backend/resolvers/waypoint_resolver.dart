@@ -1,5 +1,7 @@
 import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
@@ -49,14 +51,14 @@ class WaypointResolver {
   // ── Queries ──────────────────────────────────────────────────────────────────
 
   GGetWaypointsData getWaypoints(GGetWaypointsVars vars) {
-    final base = store.trip(vars.tripId);
-    final waypoints = store.waypoints(vars.tripId).map((w) {
+    final base = store.trip(Id<Trip>(vars.tripId));
+    final waypoints = store.waypoints(Id<Trip>(vars.tripId)).map((w) {
       return waypointToGql(w, store.vertex(w.vertexId));
     }).toList();
 
     return GGetWaypointsData(
       trip: GGetWaypointsData_trip(
-        id: base.id,
+        id: base.id.value,
         title: base.title,
         description: base.description,
         date: base.date?.toIso8601String().substring(0, 10),
@@ -71,12 +73,12 @@ class WaypointResolver {
   // ── Mutations ─────────────────────────────────────────────────────────────────
 
   GCreateWaypointData createWaypoint(GCreateWaypointVars vars) {
-    final tripId = vars.tripId;
+    final tripId = Id<Trip>(vars.tripId);
     final input = vars.waypoint;
-    late int vertexId;
+    late Id<Vertex> vertexId;
     switch (input.vertexId) {
       case PresentValue(value: final id):
-        vertexId = id!;
+        vertexId = Id<Vertex>(id!);
         break;
       case AbsentValue():
         final latLng = input.latLng.valueOrNull;
@@ -84,7 +86,7 @@ class WaypointResolver {
           throw Exception("CreateWaypoint Fail : pas de vertexId et de latLng");
         }
         // Création d'un nouveau vertex à l'endroit approprié
-        vertexId = store.nextVertexId.next();
+        vertexId = Id<Vertex>(store.nextVertexId.next());
         store.addVertex(
           tripId,
           Vertex(id: vertexId, latLng: LatLng(latLng.lat, latLng.lng)),
@@ -93,7 +95,7 @@ class WaypointResolver {
 
     final id = store.nextWaypointId.next();
     final waypoint = Waypoint(
-      id: id,
+      id: Id<Waypoint>(id),
       vertexId: vertexId,
       title: input.title.isPresent ? (input.title.requireValue ?? '') : '',
       type: input.type.toDomain(),
@@ -113,13 +115,13 @@ class WaypointResolver {
   }
 
   GUpdateWaypointData updateWaypoint(GUpdateWaypointVars vars) {
-    final int id = vars.id;
+    final id = Id<Waypoint>(vars.id);
     final GWaypointUpdateInput input = vars.waypoint;
 
     final existing = store.waypoint(id);
     final updatedVertexId =
         input.vertexId.isPresent && input.vertexId.requireValue != null
-        ? input.vertexId.requireValue!
+        ? Id<Vertex>(input.vertexId.requireValue!)
         : existing.vertexId;
 
     final updated = existing.copyWith(
@@ -144,14 +146,14 @@ class WaypointResolver {
   }
 
   GDeleteWaypointData deleteWaypoint(GDeleteWaypointVars vars) {
-    store.removeWaypoint(vars.waypointId);
+    store.removeWaypoint(Id<Waypoint>(vars.waypointId));
     return GDeleteWaypointData(deleteWaypoint: true);
   }
 
   GAttachImageToWaypointData attachImageToWaypoint(
     GAttachImageToWaypointVars vars,
   ) {
-    final int waypointId = vars.waypointId;
+    final Id<Waypoint> waypointId = Id<Waypoint>(vars.waypointId);
     final String fileKey = vars.fileKey;
 
     final waypoint = store.waypoint(waypointId);
@@ -173,7 +175,7 @@ class WaypointResolver {
   GDeleteImageFromWaypointData deleteImageFromWaypoint(
     GDeleteImageFromWaypointVars vars,
   ) {
-    final int waypointId = vars.waypointId;
+    final Id<Waypoint> waypointId = Id<Waypoint>(vars.waypointId);
     final String fileKey = vars.fileKey;
 
     final waypoint = store.waypoint(waypointId);

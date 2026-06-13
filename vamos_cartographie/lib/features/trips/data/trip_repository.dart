@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/failure.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_draft_mappers.dart';
@@ -27,7 +28,7 @@ class TripRepository {
     }
   }
 
-  Future<Either<Failure, Trip>> getTrip(int id) async {
+  Future<Either<Failure, Trip>> getTrip(Id<Trip> id) async {
     try {
       final gqlTrip = await remote.getTripById(id: id);
       return Right(TripMapper.fromGQLDetail(gqlTrip));
@@ -65,7 +66,7 @@ class TripRepository {
     }
   }
 
-  Future<Either<Failure, Trip>> updateTrip(int id, TripDraft trip) async {
+  Future<Either<Failure, Trip>> updateTrip(Id<Trip> id, TripDraft trip) async {
     try {
       final input = TripDraftMapper.toGQLUpdateInput(trip);
       final gqlResult = await remote.updateTrip(id: id, input: input);
@@ -105,7 +106,7 @@ class TripRepository {
     }
   }
 
-  Future<Either<Failure, void>> deleteTrip(int id) async {
+  Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
     try {
       await remote.deleteTrip(id: id);
       return const Right(null);
@@ -117,7 +118,7 @@ class TripRepository {
   }
 
   Future<Set<MediaImage>> _attachImages({
-    required int tripId,
+    required Id<Trip> tripId,
     required List<MediaImage> desired,
     required Set<MediaImage> alreadyAttached,
   }) async {
@@ -140,7 +141,7 @@ class TripRepository {
   /// Les erreurs sont ignorées silencieusement (la suppression pourra être
   /// retentée à la prochaine sauvegarde).
   Future<void> _deleteImages({
-    required int tripId,
+    required Id<Trip> tripId,
     required List<MediaImage> toRemove,
   }) async {
     for (final image in toRemove) {

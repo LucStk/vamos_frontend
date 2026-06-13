@@ -1,3 +1,4 @@
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import "package:vamos_cartographie/backend/core/fake_graphql_store.dart";
@@ -47,12 +48,12 @@ class TripResolver {
   }
 
   GGetTripData getTrip(GGetTripVars vars) {
-    final base = store.tripsMap[vars.id];
+    final base = store.tripsMap[Id<Trip>(vars.id)];
     if (base == null) throw Exception('Trip introuvable : id=${vars.id}');
 
     return GGetTripData(
       trip: GTripFieldsData(
-        id: base.id,
+        id: base.id.value,
         title: base.title,
         description: base.description,
         date: base.date?.toIso8601String().substring(0, 10),
@@ -70,7 +71,7 @@ class TripResolver {
     final id = store.nextTripId.next();
 
     final trip = Trip(
-      id: id,
+      id: Id<Trip>(id),
       title: input.title,
       description: input.description.isPresent
           ? (input.description.requireValue ?? '')
@@ -86,7 +87,7 @@ class TripResolver {
   }
 
   GUpdateTripData updateTrip(GUpdateTripVars vars) {
-    final int id = vars.id;
+    final Id<Trip> id = Id<Trip>(vars.id);
     final GTripUpdateInput input = vars.trip;
 
     final existing = store.tripsMap[id];
@@ -111,12 +112,12 @@ class TripResolver {
   }
 
   GDeleteTripData deleteTrip(GDeleteTripVars vars) {
-    store.removeTrip(vars.id);
+    store.removeTrip(Id<Trip>(vars.id));
     return GDeleteTripData(deleteTrip: true);
   }
 
   GAttachImageToTripData attachImageToTrip(GAttachImageToTripVars vars) {
-    final int tripId = vars.tripId;
+    final Id<Trip> tripId = Id<Trip>(vars.tripId);
     final String fileKey = vars.fileKey;
 
     final trip = store.tripsMap[tripId];
@@ -136,9 +137,9 @@ class TripResolver {
   }
 
   GDeleteImageFromTripData deleteImageFromTrip(GDeleteImageFromTripVars vars) {
-    final int tripId = vars.tripId;
     final String fileKey = vars.fileKey;
 
+    final Id<Trip> tripId = Id<Trip>(vars.tripId);
     final trip = store.tripsMap[tripId];
     if (trip == null) throw Exception('Trip introuvable : id=$tripId');
 

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MapState {
 
- int get tripId; MapInteraction get interaction;
+ Id<Trip> get tripId; MapInteraction get interaction;
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $MapStateCopyWith<$Res>  {
   factory $MapStateCopyWith(MapState value, $Res Function(MapState) _then) = _$MapStateCopyWithImpl;
 @useResult
 $Res call({
- int tripId, MapInteraction interaction
+ Id<Trip> tripId, MapInteraction interaction
 });
 
 
@@ -65,7 +65,7 @@ class _$MapStateCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? tripId = null,Object? interaction = null,}) {
   return _then(_self.copyWith(
 tripId: null == tripId ? _self.tripId : tripId // ignore: cast_nullable_to_non_nullable
-as int,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
+as Id<Trip>,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
 as MapInteraction,
   ));
 }
@@ -160,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int tripId,  MapInteraction interaction)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Trip> tripId,  MapInteraction interaction)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MapState() when $default != null:
 return $default(_that.tripId,_that.interaction);case _:
@@ -181,7 +181,7 @@ return $default(_that.tripId,_that.interaction);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int tripId,  MapInteraction interaction)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Trip> tripId,  MapInteraction interaction)  $default,) {final _that = this;
 switch (_that) {
 case _MapState():
 return $default(_that.tripId,_that.interaction);case _:
@@ -201,7 +201,7 @@ return $default(_that.tripId,_that.interaction);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int tripId,  MapInteraction interaction)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Trip> tripId,  MapInteraction interaction)?  $default,) {final _that = this;
 switch (_that) {
 case _MapState() when $default != null:
 return $default(_that.tripId,_that.interaction);case _:
@@ -219,7 +219,7 @@ class _MapState extends MapState {
   const _MapState({required this.tripId, this.interaction = const MapInteraction.none()}): super._();
   
 
-@override final  int tripId;
+@override final  Id<Trip> tripId;
 @override@JsonKey() final  MapInteraction interaction;
 
 /// Create a copy of MapState
@@ -252,7 +252,7 @@ abstract mixin class _$MapStateCopyWith<$Res> implements $MapStateCopyWith<$Res>
   factory _$MapStateCopyWith(_MapState value, $Res Function(_MapState) _then) = __$MapStateCopyWithImpl;
 @override @useResult
 $Res call({
- int tripId, MapInteraction interaction
+ Id<Trip> tripId, MapInteraction interaction
 });
 
 
@@ -272,7 +272,7 @@ class __$MapStateCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? tripId = null,Object? interaction = null,}) {
   return _then(_MapState(
 tripId: null == tripId ? _self.tripId : tripId // ignore: cast_nullable_to_non_nullable
-as int,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
+as Id<Trip>,interaction: null == interaction ? _self.interaction : interaction // ignore: cast_nullable_to_non_nullable
 as MapInteraction,
   ));
 }

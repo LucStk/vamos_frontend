@@ -17,7 +17,7 @@ final class GraphStoreProvider
     with $Provider<GraphStore> {
   GraphStoreProvider._({
     required GraphStoreFamily super.from,
-    required int super.argument,
+    required Id<Trip> super.argument,
   }) : super(
          retry: null,
          name: r'graphStoreProvider',
@@ -43,7 +43,7 @@ final class GraphStoreProvider
 
   @override
   GraphStore create(Ref ref) {
-    final argument = this.argument as int;
+    final argument = this.argument as Id<Trip>;
     return graphStore(ref, argument);
   }
 
@@ -66,10 +66,10 @@ final class GraphStoreProvider
   }
 }
 
-String _$graphStoreHash() => r'cd158b57afd3582f4fdc42f00ceb27e36299e682';
+String _$graphStoreHash() => r'e5f04982aea5561645a4ce23d3f099e82b081c82';
 
 final class GraphStoreFamily extends $Family
-    with $FunctionalFamilyOverride<GraphStore, int> {
+    with $FunctionalFamilyOverride<GraphStore, Id<Trip>> {
   GraphStoreFamily._()
     : super(
         retry: null,
@@ -79,7 +79,7 @@ final class GraphStoreFamily extends $Family
         isAutoDispose: true,
       );
 
-  GraphStoreProvider call(int tripId) =>
+  GraphStoreProvider call(Id<Trip> tripId) =>
       GraphStoreProvider._(argument: tripId, from: this);
 
   @override
@@ -94,7 +94,7 @@ final class GraphLoaderProvider
     with $FutureModifier<void>, $FutureProvider<void> {
   GraphLoaderProvider._({
     required GraphLoaderFamily super.from,
-    required int super.argument,
+    required Id<Trip> super.argument,
   }) : super(
          retry: null,
          name: r'graphLoaderProvider',
@@ -120,7 +120,7 @@ final class GraphLoaderProvider
 
   @override
   FutureOr<void> create(Ref ref) {
-    final argument = this.argument as int;
+    final argument = this.argument as Id<Trip>;
     return graphLoader(ref, argument);
   }
 
@@ -135,10 +135,10 @@ final class GraphLoaderProvider
   }
 }
 
-String _$graphLoaderHash() => r'5651985a9512379d546a52c0c5769a2214cb1fa8';
+String _$graphLoaderHash() => r'e61ec3cba7ab30e2987228a6c2b2b570175402eb';
 
 final class GraphLoaderFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<void>, int> {
+    with $FunctionalFamilyOverride<FutureOr<void>, Id<Trip>> {
   GraphLoaderFamily._()
     : super(
         retry: null,
@@ -148,7 +148,7 @@ final class GraphLoaderFamily extends $Family
         isAutoDispose: true,
       );
 
-  GraphLoaderProvider call(int tripId) =>
+  GraphLoaderProvider call(Id<Trip> tripId) =>
       GraphLoaderProvider._(argument: tripId, from: this);
 
   @override

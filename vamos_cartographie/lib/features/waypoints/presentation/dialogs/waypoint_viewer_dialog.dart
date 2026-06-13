@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/core.dart';
 
 import "package:vamos_cartographie/features/graph/graph.dart";
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/application/orchestrators/waypoint_orchestrator.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'waypoint_editor_dialog.dart';
@@ -9,9 +11,8 @@ import 'waypoint_editor_dialog.dart';
 import "package:vamos_cartographie/features/shared/shared.dart";
 
 class WaypointViewerDialog extends ConsumerWidget {
-  final int waypointId;
-  final int tripId;
-
+  final Id<Waypoint> waypointId;
+  final Id<Trip> tripId;
   const WaypointViewerDialog({
     super.key,
     required this.waypointId,
@@ -20,8 +21,8 @@ class WaypointViewerDialog extends ConsumerWidget {
 
   static void show({
     required BuildContext context,
-    required int waypointId,
-    required int tripId,
+    required Id<Waypoint> waypointId,
+    required Id<Trip> tripId,
   }) {
     showDialog(
       context: context,

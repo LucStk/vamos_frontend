@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/query_selectors.dart';
@@ -9,6 +10,7 @@ import 'package:vamos_cartographie/features/map/presentation/widgets/markers/ver
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/waypoint_marker_view.dart';
 
 import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
 
@@ -26,7 +28,7 @@ class VertexLayer extends AbstractLayer {
     /// 2. RELATION INDEX (vertexId -> waypoint)
     /// ─────────────────────────────────────────────
     final waypointByVertex = ref.watch(
-      indexedByProvider<Waypoint, int>(tripId, (w) => w.vertexId),
+      indexedByProvider<Waypoint, Id<Vertex>>(tripId, (w) => w.vertexId),
     );
 
     if (vertices.isEmpty) {
@@ -47,7 +49,7 @@ class VertexLayer extends AbstractLayer {
 }
 
 Marker buildVertexMarker({
-  required int tripId,
+  required Id<Trip> tripId,
   required Vertex vertex,
   required Waypoint? waypoint,
 }) {

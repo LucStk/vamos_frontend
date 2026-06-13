@@ -18,7 +18,7 @@ GLatLngFieldsData latLngToGql(double lat, double lng) =>
     GLatLngFieldsData(lat: lat, lng: lng);
 
 GVertexFieldsData vertexToGql(Vertex v) => GVertexFieldsData(
-  id: v.id,
+  id: v.id.value,
   latLng: latLngToGql(v.latLng.latitude, v.latLng.longitude),
 );
 
@@ -27,7 +27,7 @@ GVertexFieldsData vertexToGql(Vertex v) => GVertexFieldsData(
 /// Le [vertex] doit être le vertex dont l'id == [w.vertexId].
 GWaypointFieldsData waypointToGql(Waypoint w, Vertex vertex) =>
     GWaypointFieldsData(
-      id: w.id,
+      id: w.id.value,
       title: w.title,
       description: w.description,
       type: w.type.toGQL(),
@@ -48,7 +48,7 @@ GCreateWaypointPayloadFieldsData waypointCreateToGql(
 /// Construit un [GSegmentFieldsData] à partir d'un [Segment] et de ses deux [Vertex].
 GSegmentFieldsData segmentToGql(Segment s, Vertex start, Vertex end) =>
     GSegmentFieldsData(
-      id: s.id,
+      id: s.id.value,
       type: s.type.toGQL(),
       startVertex: vertexToGql(start),
       endVertex: vertexToGql(end),
@@ -59,7 +59,7 @@ GSegmentFieldsData segmentToGql(Segment s, Vertex start, Vertex end) =>
 
 /// Construit un [GTripFieldsData] (fragment de base, sans waypoints ni topology).
 GTripFieldsData tripFieldsToGql(Trip t) => GTripFieldsData(
-  id: t.id,
+  id: t.id.value,
   title: t.title,
   description: t.description,
   date: t.date?.toIso8601String().substring(0, 10),

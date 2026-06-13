@@ -1,5 +1,8 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
+import "package:vamos_cartographie/core/core.dart";
+import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:vamos_cartographie/features/trips/trips.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le client Ferry (GraphQL).
@@ -10,8 +13,8 @@ class SegmentRemoteDatasource {
 
   SegmentRemoteDatasource(this.client);
 
-  Future<List<GSegmentFields>> getSegments({required int tripId}) async {
-    final req = GGetSegmentsReq(vars: GGetSegmentsVars(tripId: tripId));
+  Future<List<GSegmentFields>> getSegments({required Id<Trip> tripId}) async {
+    final req = GGetSegmentsReq(vars: GGetSegmentsVars(tripId: tripId.value));
     final response = await client.request(req).first;
 
     if (response.hasErrors || response.data == null) {
@@ -24,11 +27,11 @@ class SegmentRemoteDatasource {
   }
 
   Future<GSegmentFields> createSegment({
-    required int tripId,
+    required Id<Trip> tripId,
     required GSegmentCreateInput input,
   }) async {
     final req = GCreateSegmentReq(
-      vars: GCreateSegmentVars(tripId: tripId, segment: input),
+      vars: GCreateSegmentVars(tripId: tripId.value, segment: input),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
@@ -41,11 +44,11 @@ class SegmentRemoteDatasource {
   }
 
   Future<GSegmentFields> updateSegment({
-    required int id,
+    required Id<Segment> id,
     required GSegmentUpdateInput input,
   }) async {
     final req = GUpdateSegmentReq(
-      vars: GUpdateSegmentVars(id: id, segment: input),
+      vars: GUpdateSegmentVars(id: id.value, segment: input),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
@@ -57,8 +60,10 @@ class SegmentRemoteDatasource {
     return response.data!.updateSegment;
   }
 
-  Future<void> deleteSegment({required int id}) async {
-    final req = GDeleteSegmentReq(vars: GDeleteSegmentVars(segmentId: id));
+  Future<void> deleteSegment({required Id<Segment> id}) async {
+    final req = GDeleteSegmentReq(
+      vars: GDeleteSegmentVars(segmentId: id.value),
+    );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(

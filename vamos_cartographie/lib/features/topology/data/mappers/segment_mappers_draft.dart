@@ -6,15 +6,15 @@ import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 class SegmentDraftMapper {
   static GSegmentCreateInput toGQLInput(SegmentDraft s) => GSegmentCreateInput(
     type: s.type.toGQL(),
-    startVertexId: s.startVertexId,
-    endVertexId: s.endVertexId,
+    startVertexId: s.startVertexId.value,
+    endVertexId: s.endVertexId.value,
   );
 
   static GSegmentUpdateInput toGQLUpdateInput(SegmentDraft s) {
     return GSegmentUpdateInput(
       type: Value.present(s.type.toGQL()),
-      startVertexId: Value.present(s.startVertexId),
-      endVertexId: Value.present(s.endVertexId),
+      startVertexId: Value.present(s.startVertexId.value),
+      endVertexId: Value.present(s.endVertexId.value),
     );
   }
 }

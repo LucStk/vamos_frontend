@@ -1,5 +1,7 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le client Ferry (GraphQL).
@@ -29,8 +31,8 @@ class TripRemoteDatasource {
   }
 
   /// Récupère un trip complet (avec waypoints et segments) par son [id].
-  Future<GTripFieldsData> getTripById({required int id}) async {
-    final req = GGetTripReq(vars: GGetTripVars(id: id));
+  Future<GTripFieldsData> getTripById({required Id<Trip> id}) async {
+    final req = GGetTripReq(vars: GGetTripVars(id: id.value));
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(
@@ -61,11 +63,11 @@ class TripRemoteDatasource {
   /// Met à jour un trip existant identifié par [id] avec les données fournies
   /// dans [input]. Retourne le trip mis à jour (avec waypoints et segments).
   Future<GTripFields> updateTrip({
-    required int id,
+    required Id<Trip> id,
     required GTripUpdateInput input,
   }) async {
     final req = GUpdateTripReq(
-      vars: GUpdateTripVars(id: id, trip: input),
+      vars: GUpdateTripVars(id: id.value, trip: input),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
@@ -78,8 +80,8 @@ class TripRemoteDatasource {
   }
 
   /// Supprime le trip identifié par [id].
-  Future<void> deleteTrip({required int id}) async {
-    final req = GDeleteTripReq(vars: GDeleteTripVars(id: id));
+  Future<void> deleteTrip({required Id<Trip> id}) async {
+    final req = GDeleteTripReq(vars: GDeleteTripVars(id: id.value));
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(
@@ -90,11 +92,11 @@ class TripRemoteDatasource {
   }
 
   Future<void> attachImageToTrip({
-    required int tripId,
+    required Id<Trip> tripId,
     required String fileKey,
   }) async {
     final req = GAttachImageToTripReq(
-      vars: GAttachImageToTripVars(tripId: tripId, fileKey: fileKey),
+      vars: GAttachImageToTripVars(tripId: tripId.value, fileKey: fileKey),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
@@ -106,11 +108,11 @@ class TripRemoteDatasource {
   }
 
   Future<void> deleteImgFromTrip({
-    required int tripId,
+    required Id<Trip> tripId,
     required String fileKey,
   }) async {
     final req = GDeleteImageFromTripReq(
-      vars: GDeleteImageFromTripVars(tripId: tripId, fileKey: fileKey),
+      vars: GDeleteImageFromTripVars(tripId: tripId.value, fileKey: fileKey),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {

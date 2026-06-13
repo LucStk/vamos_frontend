@@ -1,10 +1,12 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
 import 'package:vamos_cartographie/features/topology/data/providers/vertex_providers.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/topology/data/repositories/vertex_repository.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 part 'vertex_orchestrator.g.dart';
 
@@ -15,19 +17,19 @@ class VertexOrchestrator extends _$VertexOrchestrator {
   VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);
 
   @override
-  void build(int tripId) {}
+  void build(Id<Trip> tripId) {}
 
   // ---------------------------------------------------------------------------
   // CREATE WAYPOINT (WITH OPTIONAL VERTEX)
   // ---------------------------------------------------------------------------
 
   Future<void> createVertex(LatLng latLng) async {
-    late int tempId;
+    late Id<Vertex> tempId;
 
     await executor.run(
       onApply: () {
         tempId = graph.create<Vertex>(
-          (int tmpId) => Vertex(id: tmpId, latLng: latLng),
+          (Id<Vertex> tmpId) => Vertex(id: tmpId, latLng: latLng),
         );
       },
       remote: () => vertexRepo.createVertex(tripId, latLng),
@@ -41,7 +43,7 @@ class VertexOrchestrator extends _$VertexOrchestrator {
     );
   }
 
-  Future<void> deleteVertex(int id) async {
+  Future<void> deleteVertex(Id<Vertex> id) async {
     await executor.run(
       onApply: () => graph.delete<Vertex>(id),
       remote: () => vertexRepo.deleteVertex(id),
@@ -50,7 +52,7 @@ class VertexOrchestrator extends _$VertexOrchestrator {
     );
   }
 
-  Future<void> moveVertex(int vertexId, LatLng latLng) async {
+  Future<void> moveVertex(Id<Vertex> vertexId, LatLng latLng) async {
     late Vertex oldValue;
     await executor.run(
       onApply: () {

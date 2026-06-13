@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/backend/seeds/explore_seed.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';
@@ -92,7 +93,7 @@ void main() {
         // Then: Left(ServerFailure) est retourné
         final (:repo, store: _) = buildTripRepo(exploreSeed);
 
-        final result = await repo.getTrip(999);
+        final result = await repo.getTrip(Id<Trip>(999));
 
         expect(result.isLeft(), isTrue);
         result.fold(
@@ -238,7 +239,7 @@ void main() {
         final (:repo, store: _) = buildTripRepo(exploreSeed);
         final draft = TripDraft(title: 'Inexistant');
 
-        final result = await repo.updateTrip(999, draft);
+        final result = await repo.updateTrip(Id<Trip>(999), draft);
 
         expect(result.isLeft(), isTrue);
         result.fold(
@@ -453,7 +454,9 @@ void main() {
 
       // Injection directe dans le store (simule une création externe)
       final newTripId = backend.store.nextTripId.next();
-      backend.store.addTrip(Trip(id: newTripId, title: 'Ajout externe'));
+      backend.store.addTrip(
+        Trip(id: Id<Trip>(newTripId), title: 'Ajout externe'),
+      );
 
       // When: refresh est appelé
       await refreshContainer.read(tripsProvider.notifier).refresh();

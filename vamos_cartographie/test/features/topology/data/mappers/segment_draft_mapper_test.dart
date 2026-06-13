@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/segment_mappers_draft.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 
@@ -18,8 +19,8 @@ void main() {
       test('maps type, startVertexId and endVertexId', () {
         final draft = SegmentDraft(
           type: SegmentType.bike,
-          startVertexId: 3,
-          endVertexId: 7,
+          startVertexId: Id<Vertex>(3),
+          endVertexId: Id<Vertex>(7),
           geometry: [],
         );
 
@@ -42,8 +43,8 @@ void main() {
         for (final (domainType, gqlType) in types) {
           final draft = SegmentDraft(
             type: domainType,
-            startVertexId: 1,
-            endVertexId: 2,
+            startVertexId: Id<Vertex>(1),
+            endVertexId: Id<Vertex>(2),
             geometry: [],
           );
           final input = SegmentDraftMapper.toGQLInput(draft);
@@ -68,8 +69,8 @@ void main() {
       test('wraps type in Value.present', () {
         final draft = SegmentDraft(
           type: SegmentType.walk,
-          startVertexId: 1,
-          endVertexId: 2,
+          startVertexId: Id<Vertex>(1),
+          endVertexId: Id<Vertex>(2),
           geometry: [],
         );
 
@@ -82,8 +83,8 @@ void main() {
       test('wraps startVertexId in Value.present', () {
         final draft = SegmentDraft(
           type: SegmentType.bike,
-          startVertexId: 5,
-          endVertexId: 9,
+          startVertexId: Id<Vertex>(5),
+          endVertexId: Id<Vertex>(9),
           geometry: [],
         );
 
@@ -96,8 +97,8 @@ void main() {
       test('wraps endVertexId in Value.present', () {
         final draft = SegmentDraft(
           type: SegmentType.bike,
-          startVertexId: 5,
-          endVertexId: 9,
+          startVertexId: Id<Vertex>(5),
+          endVertexId: Id<Vertex>(9),
           geometry: [],
         );
 
@@ -119,8 +120,8 @@ void main() {
         for (final (domainType, gqlType) in types) {
           final draft = SegmentDraft(
             type: domainType,
-            startVertexId: 1,
-            endVertexId: 2,
+            startVertexId: Id<Vertex>(1),
+            endVertexId: Id<Vertex>(2),
             geometry: [],
           );
           final input = SegmentDraftMapper.toGQLUpdateInput(draft);

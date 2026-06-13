@@ -16,7 +16,7 @@ final class WaypointOrchestratorProvider
     extends $NotifierProvider<WaypointOrchestrator, void> {
   WaypointOrchestratorProvider._({
     required WaypointOrchestratorFamily super.from,
-    required int super.argument,
+    required Id<Trip> super.argument,
   }) : super(
          retry: null,
          name: r'waypointOrchestratorProvider',
@@ -59,10 +59,11 @@ final class WaypointOrchestratorProvider
 }
 
 String _$waypointOrchestratorHash() =>
-    r'19577b0e5b575ac55b79a5b27cc99a6e4478835f';
+    r'746184afc4b6a44b8a2af132a466c20ca6bb9c7f';
 
 final class WaypointOrchestratorFamily extends $Family
-    with $ClassFamilyOverride<WaypointOrchestrator, void, void, void, int> {
+    with
+        $ClassFamilyOverride<WaypointOrchestrator, void, void, void, Id<Trip>> {
   WaypointOrchestratorFamily._()
     : super(
         retry: null,
@@ -72,7 +73,7 @@ final class WaypointOrchestratorFamily extends $Family
         isAutoDispose: true,
       );
 
-  WaypointOrchestratorProvider call(int tripId) =>
+  WaypointOrchestratorProvider call(Id<Trip> tripId) =>
       WaypointOrchestratorProvider._(argument: tripId, from: this);
 
   @override
@@ -80,10 +81,10 @@ final class WaypointOrchestratorFamily extends $Family
 }
 
 abstract class _$WaypointOrchestrator extends $Notifier<void> {
-  late final _$args = ref.$arg as int;
-  int get tripId => _$args;
+  late final _$args = ref.$arg as Id<Trip>;
+  Id<Trip> get tripId => _$args;
 
-  void build(int tripId);
+  void build(Id<Trip> tripId);
   @$mustCallSuper
   @override
   void runBuild() {

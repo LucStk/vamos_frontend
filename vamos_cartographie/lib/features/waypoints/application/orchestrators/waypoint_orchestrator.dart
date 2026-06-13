@@ -74,7 +74,7 @@ class WaypointOrchestrator extends _$WaypointOrchestrator {
     );
   }
 
-  Future<void> deleteWaypoint(int id) async {
+  Future<void> deleteWaypoint(Id<Waypoint> id) async {
     await executor.run(
       onApply: () => graph.delete<Waypoint>(id),
       remote: () => waypointRepo.deleteWaypoint(id),
@@ -84,8 +84,8 @@ class WaypointOrchestrator extends _$WaypointOrchestrator {
   }
 
   Future<void> updateWaypoint(
-    int waypointId,
-    int vertexId,
+    Id<Waypoint> waypointId,
+    Id<Vertex> vertexId,
     WaypointDraft draft,
   ) async {
     late Waypoint oldValue;

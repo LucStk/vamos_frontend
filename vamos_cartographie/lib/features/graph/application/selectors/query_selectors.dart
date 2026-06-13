@@ -1,12 +1,14 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/application/providers/graph_providers.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 part 'query_selectors.g.dart';
 
 @riverpod
-List<T> query<T>(Ref ref, tripId, bool Function(T entity) predicate) {
+List<T> query<T>(Ref ref, Id<Trip> tripId, bool Function(T entity) predicate) {
   final store = ref.watch(graphStoreProvider(tripId));
 
   // dépendance structurelle (ajout/suppression)
@@ -18,7 +20,7 @@ List<T> query<T>(Ref ref, tripId, bool Function(T entity) predicate) {
 @riverpod
 Map<K, List<T>> indexedBy<T, K>(
   Ref ref,
-  int tripId,
+  Id<Trip> tripId,
   K Function(T entity) keySelector,
 ) {
   final store = ref.watch(graphStoreProvider(tripId));
@@ -37,7 +39,11 @@ Map<K, List<T>> indexedBy<T, K>(
 }
 
 @riverpod
-List<T> queryLive<T>(Ref ref, int tripId, bool Function(T entity) predicate) {
+List<T> queryLive<T>(
+  Ref ref,
+  Id<Trip> tripId,
+  bool Function(T entity) predicate,
+) {
   final store = ref.watch(graphStoreProvider(tripId));
 
   ref.watch(collectionListenableProvider<T>(tripId));
@@ -46,7 +52,7 @@ List<T> queryLive<T>(Ref ref, int tripId, bool Function(T entity) predicate) {
 
   // ⚠️ attention: ici on écoute chaque node
   for (final id in all.keys) {
-    ref.watch(nodeListenableProvider<T>(id, tripId));
+    ref.watch(nodeListenableProvider<T>(tripId, id));
   }
 
   return all.values.where(predicate).toList();

@@ -1,4 +1,5 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
@@ -6,7 +7,7 @@ import 'package:vamos_cartographie/features/media/domain/entities/entities.dart'
 class TripMapper {
   /// segments) en [Trip] domaine. Utilisé pour la liste de trips.
   static Trip fromGQLFields(GTripFieldsData data) => Trip(
-    id: data.id,
+    id: Id<Trip>(data.id),
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
@@ -18,7 +19,7 @@ class TripMapper {
   /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
   /// segments) en [Trip] domaine.
   static Trip fromGQLDetail(GTripFieldsData data) => Trip(
-    id: data.id,
+    id: Id<Trip>(data.id),
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
@@ -29,7 +30,7 @@ class TripMapper {
 
   /// Convertit le résultat de la mutation createTrip en [Trip] domaine.
   static Trip fromGQLCreateResult(GTripFields data) => Trip(
-    id: data.id,
+    id: Id<Trip>(data.id),
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
@@ -40,7 +41,7 @@ class TripMapper {
 
   /// Convertit le résultat de la mutation updateTrip en [Trip] domaine.
   static Trip fromGQLUpdateResult(GTripFields data) => Trip(
-    id: data.id,
+    id: Id<Trip>(data.id),
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,

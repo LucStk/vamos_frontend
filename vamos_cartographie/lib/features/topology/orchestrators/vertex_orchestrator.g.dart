@@ -16,7 +16,7 @@ final class VertexOrchestratorProvider
     extends $NotifierProvider<VertexOrchestrator, void> {
   VertexOrchestratorProvider._({
     required VertexOrchestratorFamily super.from,
-    required int super.argument,
+    required Id<Trip> super.argument,
   }) : super(
          retry: null,
          name: r'vertexOrchestratorProvider',
@@ -59,10 +59,10 @@ final class VertexOrchestratorProvider
 }
 
 String _$vertexOrchestratorHash() =>
-    r'7718bf012587f38472bfbff16a60022647807836';
+    r'7016d4b6f25b408cd19082009b2efb0d0ba3ec21';
 
 final class VertexOrchestratorFamily extends $Family
-    with $ClassFamilyOverride<VertexOrchestrator, void, void, void, int> {
+    with $ClassFamilyOverride<VertexOrchestrator, void, void, void, Id<Trip>> {
   VertexOrchestratorFamily._()
     : super(
         retry: null,
@@ -72,7 +72,7 @@ final class VertexOrchestratorFamily extends $Family
         isAutoDispose: true,
       );
 
-  VertexOrchestratorProvider call(int tripId) =>
+  VertexOrchestratorProvider call(Id<Trip> tripId) =>
       VertexOrchestratorProvider._(argument: tripId, from: this);
 
   @override
@@ -80,10 +80,10 @@ final class VertexOrchestratorFamily extends $Family
 }
 
 abstract class _$VertexOrchestrator extends $Notifier<void> {
-  late final _$args = ref.$arg as int;
-  int get tripId => _$args;
+  late final _$args = ref.$arg as Id<Trip>;
+  Id<Trip> get tripId => _$args;
 
-  void build(int tripId);
+  void build(Id<Trip> tripId);
   @$mustCallSuper
   @override
   void runBuild() {

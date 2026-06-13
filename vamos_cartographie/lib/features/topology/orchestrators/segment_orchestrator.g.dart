@@ -16,7 +16,7 @@ final class SegmentOrchestratorProvider
     extends $NotifierProvider<SegmentOrchestrator, void> {
   SegmentOrchestratorProvider._({
     required SegmentOrchestratorFamily super.from,
-    required int super.argument,
+    required Id<Trip> super.argument,
   }) : super(
          retry: null,
          name: r'segmentOrchestratorProvider',
@@ -59,10 +59,10 @@ final class SegmentOrchestratorProvider
 }
 
 String _$segmentOrchestratorHash() =>
-    r'5c47731c4360125ef8457c477181919d058e94fa';
+    r'fdffad1eee1a0d51ef4061d3af8b516456892aa2';
 
 final class SegmentOrchestratorFamily extends $Family
-    with $ClassFamilyOverride<SegmentOrchestrator, void, void, void, int> {
+    with $ClassFamilyOverride<SegmentOrchestrator, void, void, void, Id<Trip>> {
   SegmentOrchestratorFamily._()
     : super(
         retry: null,
@@ -72,7 +72,7 @@ final class SegmentOrchestratorFamily extends $Family
         isAutoDispose: true,
       );
 
-  SegmentOrchestratorProvider call(int tripId) =>
+  SegmentOrchestratorProvider call(Id<Trip> tripId) =>
       SegmentOrchestratorProvider._(argument: tripId, from: this);
 
   @override
@@ -80,10 +80,10 @@ final class SegmentOrchestratorFamily extends $Family
 }
 
 abstract class _$SegmentOrchestrator extends $Notifier<void> {
-  late final _$args = ref.$arg as int;
-  int get tripId => _$args;
+  late final _$args = ref.$arg as Id<Trip>;
+  Id<Trip> get tripId => _$args;
 
-  void build(int tripId);
+  void build(Id<Trip> tripId);
   @$mustCallSuper
   @override
   void runBuild() {
