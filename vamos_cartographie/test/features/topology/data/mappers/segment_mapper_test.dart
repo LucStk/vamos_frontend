@@ -1,10 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/segment_mappers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
-import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.data.gql.dart';
-import 'package:vamos_cartographie/graphql/topology/segments/fragments/__generated__/segment_fields.data.gql.dart';
-import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_fields.data.gql.dart';
+
+import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
   group('SegmentMapper', () {

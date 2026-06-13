@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
+
+import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
   group('WaypointEnumMapper', () {

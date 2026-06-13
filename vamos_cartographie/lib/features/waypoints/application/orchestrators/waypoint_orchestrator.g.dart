@@ -10,23 +10,30 @@ part of 'waypoint_orchestrator.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(WaypointOrchestrator)
-final waypointOrchestratorProvider = WaypointOrchestratorProvider._();
+final waypointOrchestratorProvider = WaypointOrchestratorFamily._();
 
 final class WaypointOrchestratorProvider
     extends $NotifierProvider<WaypointOrchestrator, void> {
-  WaypointOrchestratorProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'waypointOrchestratorProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  WaypointOrchestratorProvider._({
+    required WaypointOrchestratorFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'waypointOrchestratorProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$waypointOrchestratorHash();
+
+  @override
+  String toString() {
+    return r'waypointOrchestratorProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -39,13 +46,44 @@ final class WaypointOrchestratorProvider
       providerOverride: $SyncValueProvider<void>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is WaypointOrchestratorProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$waypointOrchestratorHash() =>
-    r'948fabdac0b3f5a53b5c76d98e74e6069e8ec67d';
+    r'f1d83b7ede650bec37b83ce803290cdcaf2863da';
+
+final class WaypointOrchestratorFamily extends $Family
+    with $ClassFamilyOverride<WaypointOrchestrator, void, void, void, int> {
+  WaypointOrchestratorFamily._()
+    : super(
+        retry: null,
+        name: r'waypointOrchestratorProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  WaypointOrchestratorProvider call(int tripId) =>
+      WaypointOrchestratorProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'waypointOrchestratorProvider';
+}
 
 abstract class _$WaypointOrchestrator extends $Notifier<void> {
-  void build();
+  late final _$args = ref.$arg as int;
+  int get tripId => _$args;
+
+  void build(int tripId);
   @$mustCallSuper
   @override
   void runBuild() {
@@ -58,6 +96,6 @@ abstract class _$WaypointOrchestrator extends $Notifier<void> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

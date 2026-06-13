@@ -13,6 +13,7 @@ class VertexOrchestrator extends _$VertexOrchestrator {
   GraphStore get graph => ref.read(graphStoreProvider);
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);
+
   @override
   void build(int tripId) {}
 

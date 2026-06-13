@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
-import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.data.gql.dart';
+
+import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
   group('GisMapper', () {

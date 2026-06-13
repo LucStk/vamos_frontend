@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/segment_mappers_draft.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import 'package:vamos_cartographie/graphql/__generated__/schema.schema.gql.dart';
+
+import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
   group('SegmentDraftMapper', () {
@@ -19,6 +20,7 @@ void main() {
           type: SegmentType.bike,
           startVertexId: 3,
           endVertexId: 7,
+          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLInput(draft);
@@ -42,6 +44,7 @@ void main() {
             type: domainType,
             startVertexId: 1,
             endVertexId: 2,
+            geometry: [],
           );
           final input = SegmentDraftMapper.toGQLInput(draft);
           expect(
@@ -67,6 +70,7 @@ void main() {
           type: SegmentType.walk,
           startVertexId: 1,
           endVertexId: 2,
+          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLUpdateInput(draft);
@@ -80,6 +84,7 @@ void main() {
           type: SegmentType.bike,
           startVertexId: 5,
           endVertexId: 9,
+          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLUpdateInput(draft);
@@ -93,6 +98,7 @@ void main() {
           type: SegmentType.bike,
           startVertexId: 5,
           endVertexId: 9,
+          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLUpdateInput(draft);
@@ -115,6 +121,7 @@ void main() {
             type: domainType,
             startVertexId: 1,
             endVertexId: 2,
+            geometry: [],
           );
           final input = SegmentDraftMapper.toGQLUpdateInput(draft);
           expect(

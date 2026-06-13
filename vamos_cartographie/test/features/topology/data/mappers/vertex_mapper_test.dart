@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
-import 'package:vamos_cartographie/graphql/shared/__generated__/geo_fields.data.gql.dart';
-import 'package:vamos_cartographie/graphql/topology/vertex/__generated__/vertex_fields.data.gql.dart';
+import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
   group('VertexMapper', () {

@@ -57,6 +57,6 @@ Marker buildVertexMarker({
     height: 30,
     child: waypoint == null
         ? const VertexMarkerView()
-        : WaypointMarkerView(waypointId: waypoint.id),
+        : WaypointMarkerView(waypointId: waypoint.id, tripId: tripId),
   );
 }

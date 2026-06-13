@@ -3,12 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/backend/core/fake_seeds.dart';
-import 'package:vamos_cartographie/backend/seeds/explore_seed.dart';
-import 'package:vamos_cartographie/features/topology/application/providers/segments_notifier.dart';
-import 'package:vamos_cartographie/features/topology/application/providers/vertex_notifier.dart';
-import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:vamos_cartographie/backend/backend.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';
 
 import '../../../helpers/fake_backend_builder.dart';

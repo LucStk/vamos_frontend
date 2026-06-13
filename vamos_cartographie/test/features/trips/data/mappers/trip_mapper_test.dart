@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
-import 'package:vamos_cartographie/graphql/media/fragments/__generated__/image_fields.data.gql.dart';
-import 'package:vamos_cartographie/graphql/trips/fragments/__generated__/trip_fields.data.gql.dart';
+import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
   group('TripMapper', () {
