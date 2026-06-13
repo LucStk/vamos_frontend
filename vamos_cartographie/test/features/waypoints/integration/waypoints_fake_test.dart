@@ -38,7 +38,7 @@ void main() {
   //   Waypoints : 10, 11, 12, 14
   //   Vertices  : 10, 11, 12, 13, 14
   //   Vertex 13 n'a pas de waypoint attaché — utilisé pour les créations.
-  const int t1TripId = 0;
+  const int t1TripId = 1;
   const int unusedVertexId = 13;
 
   // =========================================================================
@@ -74,7 +74,7 @@ void main() {
 
         final start = waypoints.firstWhere((w) => w.type == WaypointType.start);
         expect(start.description, isNotEmpty);
-        expect(start.vertexId, isPositive);
+        expect(start.vertexId.value, isPositive);
       });
 
       test("retourne une liste vide si le trip n'a pas de waypoints", () async {
@@ -125,7 +125,7 @@ void main() {
         );
 
         expect(created.waypoint.type, WaypointType.viewpoint);
-        expect(created.vertex.id, unusedVertexId);
+        expect(created.vertex.id, Id<Vertex>(unusedVertexId));
       });
 
       test('crée un waypoint avec titre et description', () async {

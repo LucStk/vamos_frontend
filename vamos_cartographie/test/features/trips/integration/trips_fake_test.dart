@@ -464,7 +464,7 @@ void main() {
       // Then: l'état reflète la nouvelle réalité du store
       final trips = refreshContainer.read(tripsProvider).requireValue;
       expect(trips, hasLength(4));
-      expect(trips[newTripId]?.value.title, 'Ajout externe');
+      expect(trips[Id<Trip>(newTripId)]?.value.title, 'Ajout externe');
     });
   });
 }
