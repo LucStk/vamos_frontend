@@ -19,13 +19,31 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  // 1. Déclarer la variable du contrôleur
+  late final MapController _mapController;
+
+  @override
+  void initState() {
+    super.initState();
+    // 2. Initialiser le contrôleur au démarrage du widget
+    _mapController = MapController();
+  }
+
+  @override
+  void dispose() {
+    // 3. Libérer les ressources du contrôleur à la fermeture de l'écran
+    _mapController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           FlutterMap(
-            // mapController: _mapController,
+            // 4. Passer le contrôleur à FlutterMap
+            mapController: _mapController,
             options: MapOptions(
               initialCenter: const LatLng(46.8, 2.2),
               initialZoom: 7,
@@ -37,6 +55,8 @@ class _MapScreenState extends State<MapScreen> {
             children: [
               MapTileLayer(),
               TopologyLayer(tripId: widget.tripId),
+              // 5. Passer le contrôleur à tes boutons/widgets de contrôle de la carte
+              MapControls(mapController: _mapController),
             ],
           ),
           MapTopBar(tripId: widget.tripId),
