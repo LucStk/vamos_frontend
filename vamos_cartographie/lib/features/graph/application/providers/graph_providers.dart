@@ -13,10 +13,7 @@ GraphStore graphStore(Ref ref, Id<Trip> tripId) {
   return GraphStore();
 }
 
-@riverpod
-Future<void> graphLoader(Ref ref, Id<Trip> tripId) async {
-  final graph = ref.read(graphStoreProvider(tripId));
-
+Future<void> graphLoader(Ref ref, GraphStore graph, Id<Trip> tripId) async {
   final verticesRepo = ref.read(vertexRepositoryProvider);
   final segmentsRepo = ref.read(segmentRepositoryProvider);
   final waypointsRepo = ref.read(waypointRepositoryProvider);
@@ -40,6 +37,13 @@ Future<void> graphLoader(Ref ref, Id<Trip> tripId) async {
       graph.seed<Waypoint>(w);
     }
   });
+}
+
+@riverpod
+Future<GraphStore> tripGraph(Ref ref, Id<Trip> tripId) async {
+  final graphStore = ref.watch(graphStoreProvider(tripId));
+  await graphLoader(ref, graphStore, tripId);
+  return graphStore;
 }
 
 @riverpod

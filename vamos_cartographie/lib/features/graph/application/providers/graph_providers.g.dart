@@ -94,7 +94,7 @@ final class GraphLoaderProvider
     with $FutureModifier<void>, $FutureProvider<void> {
   GraphLoaderProvider._({
     required GraphLoaderFamily super.from,
-    required Id<Trip> super.argument,
+    required (GraphStore, Id<Trip>) super.argument,
   }) : super(
          retry: null,
          name: r'graphLoaderProvider',
@@ -110,7 +110,7 @@ final class GraphLoaderProvider
   String toString() {
     return r'graphLoaderProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -120,8 +120,8 @@ final class GraphLoaderProvider
 
   @override
   FutureOr<void> create(Ref ref) {
-    final argument = this.argument as Id<Trip>;
-    return graphLoader(ref, argument);
+    final argument = this.argument as (GraphStore, Id<Trip>);
+    return graphLoader(ref, argument.$1, argument.$2);
   }
 
   @override
@@ -135,10 +135,10 @@ final class GraphLoaderProvider
   }
 }
 
-String _$graphLoaderHash() => r'e61ec3cba7ab30e2987228a6c2b2b570175402eb';
+String _$graphLoaderHash() => r'b6d91c54d8f26c14d720b458a3f8e9b3006cbb12';
 
 final class GraphLoaderFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<void>, Id<Trip>> {
+    with $FunctionalFamilyOverride<FutureOr<void>, (GraphStore, Id<Trip>)> {
   GraphLoaderFamily._()
     : super(
         retry: null,
@@ -148,11 +148,85 @@ final class GraphLoaderFamily extends $Family
         isAutoDispose: true,
       );
 
-  GraphLoaderProvider call(Id<Trip> tripId) =>
-      GraphLoaderProvider._(argument: tripId, from: this);
+  GraphLoaderProvider call(GraphStore graph, Id<Trip> tripId) =>
+      GraphLoaderProvider._(argument: (graph, tripId), from: this);
 
   @override
   String toString() => r'graphLoaderProvider';
+}
+
+@ProviderFor(tripGraph)
+final tripGraphProvider = TripGraphFamily._();
+
+final class TripGraphProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<GraphStore>,
+          GraphStore,
+          FutureOr<GraphStore>
+        >
+    with $FutureModifier<GraphStore>, $FutureProvider<GraphStore> {
+  TripGraphProvider._({
+    required TripGraphFamily super.from,
+    required Id<Trip> super.argument,
+  }) : super(
+         retry: null,
+         name: r'tripGraphProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$tripGraphHash();
+
+  @override
+  String toString() {
+    return r'tripGraphProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<GraphStore> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<GraphStore> create(Ref ref) {
+    final argument = this.argument as Id<Trip>;
+    return tripGraph(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TripGraphProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$tripGraphHash() => r'0b11d76189fe3af7b5a15c08dcc115e95a1d9684';
+
+final class TripGraphFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<GraphStore>, Id<Trip>> {
+  TripGraphFamily._()
+    : super(
+        retry: null,
+        name: r'tripGraphProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  TripGraphProvider call(Id<Trip> tripId) =>
+      TripGraphProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'tripGraphProvider';
 }
 
 @ProviderFor(optimisticExecutor)
