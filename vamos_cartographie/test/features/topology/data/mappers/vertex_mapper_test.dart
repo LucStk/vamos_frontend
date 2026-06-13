@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 
@@ -33,7 +35,7 @@ void main() {
 
         final vertex = VertexMapper.fromGQL(gql);
 
-        expect(vertex.id, 42);
+        expect(vertex.id, Id<Vertex>(42));
       });
 
       test('maps latitude and longitude', () {
@@ -59,7 +61,7 @@ void main() {
 
         final vertex = VertexMapper.fromGQL(gql);
 
-        expect(vertex.id, 0);
+        expect(vertex.id, Id<Vertex>(0));
         expect(vertex.latLng.latitude, 0.0);
         expect(vertex.latLng.longitude, 0.0);
       });

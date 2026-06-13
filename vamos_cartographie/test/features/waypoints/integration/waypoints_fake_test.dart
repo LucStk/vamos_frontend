@@ -209,7 +209,7 @@ void main() {
         );
 
         expect(updated.type, WaypointType.water);
-        expect(updated.id, waypointId);
+        expect(updated.id, Id<Waypoint>(waypointId));
       });
 
       test('met à jour le titre du waypoint', () async {

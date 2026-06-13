@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 void main() {
   group('TripMapper', () {
@@ -51,7 +53,7 @@ void main() {
 
         final trip = TripMapper.fromGQLFields(gql);
 
-        expect(trip.id, 42);
+        expect(trip.id, Id<Trip>(42));
         expect(trip.title, 'Bretagne');
         expect(trip.description, 'Côte sauvage');
       });
@@ -133,7 +135,7 @@ void main() {
 
         final trip = TripMapper.fromGQLCreateResult(gql);
 
-        expect(trip.id, 99);
+        expect(trip.id, Id<Trip>(99));
         expect(trip.title, 'Nouveau voyage');
         expect(trip.date, DateTime(2025, 1, 1));
       });
@@ -165,7 +167,7 @@ void main() {
 
         final trip = TripMapper.fromGQLUpdateResult(gql);
 
-        expect(trip.id, 7);
+        expect(trip.id, Id<Trip>(7));
         expect(trip.title, 'Voyage modifié');
         expect(trip.description, 'Nouvelle description');
       });

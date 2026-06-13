@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/data/mappers/segment_mappers.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 
@@ -51,9 +52,9 @@ void main() {
 
         final segment = SegmentMapper.fromGQL(gql);
 
-        expect(segment.id, 10);
-        expect(segment.startVertexId, 3);
-        expect(segment.endVertexId, 7);
+        expect(segment.id, Id<Segment>(10));
+        expect(segment.startVertexId, Id<Vertex>(3));
+        expect(segment.endVertexId, Id<Vertex>(7));
       });
 
       test('maps segment type via SegmentTypeMapper', () {

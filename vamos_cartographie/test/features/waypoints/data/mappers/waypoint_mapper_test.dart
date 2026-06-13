@@ -1,5 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 
@@ -48,7 +51,7 @@ void main() {
 
         final waypoint = WaypointMapper.fromGQL(gql);
 
-        expect(waypoint.id, 5);
+        expect(waypoint.id, Id<Waypoint>(5));
         expect(waypoint.title, 'Camping des pins');
         expect(waypoint.description, 'Un camping sympa');
       });
@@ -58,7 +61,7 @@ void main() {
 
         final waypoint = WaypointMapper.fromGQL(gql);
 
-        expect(waypoint.vertexId, 42);
+        expect(waypoint.vertexId, Id<Vertex>(42));
       });
 
       test('maps GWaypointEnum to WaypointType via enum mapper', () {
