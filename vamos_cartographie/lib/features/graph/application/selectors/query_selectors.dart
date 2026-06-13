@@ -2,7 +2,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/application/providers/graph_providers.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/graph/store/graph_store.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 part 'query_selectors.g.dart';

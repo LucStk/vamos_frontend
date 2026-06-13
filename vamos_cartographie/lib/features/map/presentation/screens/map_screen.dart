@@ -14,7 +14,6 @@ class MapScreen extends StatefulWidget {
   final bool isOwner;
 
   const MapScreen({super.key, required this.tripId, this.isOwner = true});
-
   @override
   State<MapScreen> createState() => _MapScreenState();
 }

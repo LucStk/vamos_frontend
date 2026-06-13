@@ -4,7 +4,6 @@ import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/providers/graph_providers.dart';
 import 'package:vamos_cartographie/features/graph/core/graph_node.dart';
-import 'package:vamos_cartographie/features/trips/application/selectors/trips_selectors.dart';
 
 part 'graph_selectors.g.dart';
 
