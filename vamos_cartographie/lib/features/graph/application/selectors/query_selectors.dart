@@ -11,7 +11,7 @@ List<T> query<T>(Ref ref, Id<Trip> tripId, bool Function(T entity) predicate) {
   final store = ref.watch(graphStoreProvider(tripId));
 
   // dépendance structurelle (ajout/suppression)
-  ref.watch(collectionListenableProvider<T>(tripId));
+  ref.watch(collectionProvider<T>(tripId));
 
   return store.getAll<T>().values.where(predicate).toList(growable: false);
 }
@@ -25,7 +25,7 @@ Map<K, List<T>> indexedBy<T, K>(
   final store = ref.watch(graphStoreProvider(tripId));
 
   // dépendance structurelle
-  ref.watch(collectionListenableProvider<T>(tripId));
+  ref.watch(collectionProvider<T>(tripId));
 
   final map = <K, List<T>>{};
 
@@ -45,13 +45,13 @@ List<T> queryLive<T>(
 ) {
   final store = ref.watch(graphStoreProvider(tripId));
 
-  ref.watch(collectionListenableProvider<T>(tripId));
+  ref.watch(collectionProvider<T>(tripId));
 
   final all = store.getAll<T>();
 
   // ⚠️ attention: ici on écoute chaque node
   for (final id in all.keys) {
-    ref.watch(nodeListenableProvider<T>(tripId, id));
+    ref.watch(nodeProvider<T>(tripId, id));
   }
 
   return all.values.where(predicate).toList();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
+import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
+import 'package:vamos_cartographie/features/graph/core/core.dart';
 
 import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
@@ -65,16 +67,20 @@ class WaypointViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref
-        .read(graphStoreProvider(tripId))
-        .map<Waypoint>()[waypointId]
-        ?.value;
-    if (waypoint == null) {
+    final waypointNode = ref.watch(
+      graphNodeProvider<Waypoint>(tripId, waypointId),
+    );
+    if (waypointNode == null) {
       return const SizedBox.shrink();
     }
-    return DialogShell(
-      content: WaypointInfo(waypoint: waypoint),
 
+    return DialogShell(
+      content: ListenableBuilder(
+        listenable: waypointNode,
+        builder: (context, _) {
+          return WaypointInfo(waypoint: waypointNode.value);
+        },
+      ),
       buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {
