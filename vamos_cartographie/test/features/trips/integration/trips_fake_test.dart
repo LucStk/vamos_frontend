@@ -354,10 +354,10 @@ void main() {
       expect(trips, hasLength(4));
 
       final nouveau = trips.values.firstWhere(
-        (t) => t.value.title == 'Chemin de Compostelle',
+        (t) => t.title == 'Chemin de Compostelle',
       );
-      expect(nouveau.value.description, 'Via Turonensis');
-      expect(nouveau.value.date, DateTime(2025, 5, 1));
+      expect(nouveau.description, 'Via Turonensis');
+      expect(nouveau.date, DateTime(2025, 5, 1));
     });
 
     test("createTrip sans description : champ vide dans l'état", () async {
@@ -373,9 +373,9 @@ void main() {
 
       final trips = container.read(tripsProvider).requireValue;
       final nouveau = trips.values.firstWhere(
-        (t) => t.value.title == 'Sans description',
+        (t) => t.title == 'Sans description',
       );
-      expect(nouveau.value.description, '');
+      expect(nouveau.description, '');
     });
 
     // ── updateTrip ─────────────────────────────────────────────────────────
@@ -393,7 +393,7 @@ void main() {
         await container.read(tripsProvider.notifier).updateTrip(t1.id, draft);
 
         final trips = container.read(tripsProvider).requireValue;
-        expect(trips[t1.id]?.value.title, 'Bretagne revisitée');
+        expect(trips[t1.id]?.title, 'Bretagne revisitée');
       },
     );
 
@@ -420,7 +420,7 @@ void main() {
 
         final trips = rollbackContainer.read(tripsProvider).requireValue;
         // Le rollback restaure le titre original de t1
-        expect(trips[t1.id]?.value.title, t1.title);
+        expect(trips[t1.id]?.title, t1.title);
       },
     );
 
@@ -464,7 +464,7 @@ void main() {
       // Then: l'état reflète la nouvelle réalité du store
       final trips = refreshContainer.read(tripsProvider).requireValue;
       expect(trips, hasLength(4));
-      expect(trips[Id<Trip>(newTripId)]?.value.title, 'Ajout externe');
+      expect(trips[Id<Trip>(newTripId)]?.title, 'Ajout externe');
     });
   });
 }

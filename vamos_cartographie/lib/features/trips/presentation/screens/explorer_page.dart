@@ -12,7 +12,7 @@ class ExplorerPage extends ConsumerWidget {
   void _openTrip(BuildContext context, Trip trip) {
     TripViewerDialog.show(
       context: context,
-      tripData: trip,
+      tripId: trip.id,
       onExplore: () async {
         await Navigator.of(
           context,
@@ -66,8 +66,8 @@ class ExplorerPage extends ConsumerWidget {
               final trip = tripsList[index];
 
               return TripCard(
-                trip: trip.value,
-                onTap: () => _openTrip(context, trip.value),
+                trip: trip,
+                onTap: () => _openTrip(context, trip),
               );
             },
           );

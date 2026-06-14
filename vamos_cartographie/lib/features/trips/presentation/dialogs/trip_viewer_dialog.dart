@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:vamos_cartographie/core/core.dart";
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import "package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart";
@@ -8,48 +9,38 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart";
 
 class TripViewerDialog extends ConsumerWidget {
-  final Trip tripData;
+  final Id<Trip> tripId;
   final VoidCallback onExplore;
 
   const TripViewerDialog({
     super.key,
-    required this.tripData,
+    required this.tripId,
     required this.onExplore,
   });
 
   static void show({
     required BuildContext context,
-    required Trip tripData,
+    required Id<Trip> tripId,
     required VoidCallback onExplore,
   }) {
     showDialog(
       context: context,
-      builder: (_) =>
-          TripViewerDialog(tripData: tripData, onExplore: onExplore),
+      builder: (_) => TripViewerDialog(tripId: tripId, onExplore: onExplore),
     );
   }
 
-  Future<void> _deleteTrip(
-    BuildContext context,
-    WidgetRef ref,
-    Trip trip,
-  ) async {
+  Future<void> _deleteTrip(BuildContext context, WidgetRef ref) async {
     // On appelle la méthode statique qu'on a créée au-dessus
     final confirmed = await AskConfirmDialog.show(
       context,
       "Voulez vous vraiment supprimer ce voyage ? Cette action est irréversible.",
     );
-
-    // Si l'utilisateur a annulé ou cliqué à côté de la boîte de dialogue
     if (confirmed != true) return;
-
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
-      await ref.read(tripsProvider.notifier).deleteTrip(trip.id);
-
+      await ref.read(tripsProvider.notifier).deleteTrip(tripId);
       // Sécurité Flutter obligatoire après un "await"
       if (!context.mounted) return;
-
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Voyage supprimé avec succès')),
@@ -66,12 +57,12 @@ class TripViewerDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DialogShell(
-      content: TripInfoView(trip: tripData),
+      content: TripInfoView(tripId: tripId),
 
       buttonsBuilder: (ctx) => [
         DeleteButton(
           onPressed: () async {
-            await _deleteTrip(context, ref, tripData);
+            await _deleteTrip(context, ref);
           },
         ),
 
@@ -79,13 +70,11 @@ class TripViewerDialog extends ConsumerWidget {
 
         ModifierButton(
           onPressed: () async {
-            Navigator.of(context).pop();
-
             await Future.delayed(Duration.zero);
 
             if (!context.mounted) return;
 
-            TripEditorDialog.show(context: context, tripId: tripData.id);
+            TripEditorDialog.show(context: context, tripId: tripId);
           },
         ),
 

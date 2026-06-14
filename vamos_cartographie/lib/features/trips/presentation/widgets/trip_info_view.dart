@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
+import 'package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart';
+import 'package:vamos_cartographie/features/trips/application/selectors/trips_selectors.dart';
 import 'trip_section_label.dart';
 
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
@@ -7,15 +11,19 @@ import "package:vamos_cartographie/features/media/media.dart";
 
 /// Vue lecture seule des informations d'un voyage.
 /// Utilisée dans le dialog d'affichage.
-class TripInfoView extends StatelessWidget {
-  final Trip trip;
+class TripInfoView extends ConsumerWidget {
+  final Id<Trip> tripId;
   final VoidCallback? onEdit;
 
-  const TripInfoView({super.key, required this.trip, this.onEdit});
+  const TripInfoView({super.key, required this.tripId, this.onEdit});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final trip = ref.watch(tripByIdProvider(tripId));
+    if (trip == null) {
+      return const SizedBox.shrink();
+    }
     final hasTitle = trip.title.trim().isNotEmpty;
     final hasDesc = trip.description.trim().isNotEmpty;
     final hasDate = trip.date != null;

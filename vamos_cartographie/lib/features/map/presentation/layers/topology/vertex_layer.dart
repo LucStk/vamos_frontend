@@ -66,7 +66,7 @@ DragMarker buildVertexMarker({
     size: Size(30, 30),
     builder: (BuildContext context, LatLng latLng, bool bool) {
       if (waypoint == null) {
-        return VertexMarkerView();
+        return VertexMarkerView(tripId: tripId, vertexId: vertex.id);
       }
       return WaypointMarkerView(waypointId: waypoint.id, tripId: tripId);
     },

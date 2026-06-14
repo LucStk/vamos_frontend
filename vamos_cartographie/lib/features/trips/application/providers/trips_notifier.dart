@@ -1,5 +1,4 @@
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/features/trips/application/trip_node.dart';
 import 'package:vamos_cartographie/features/trips/data/data.dart';
 import 'package:vamos_cartographie/features/trips/data/providers/trips_providers.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
@@ -16,17 +15,24 @@ class TripsNotifier extends _$TripsNotifier {
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
 
   @override
-  Future<Map<Id<Trip>, TripNode>> build() async {
+  Future<Map<Id<Trip>, Trip>> build() async {
     final result = await repo.getAllTrips();
 
     return result.fold(
       (failure) => throw Exception(failure.message),
-      (trips) => {for (final trip in trips) trip.id: TripNode(trip)},
+      (trips) => {for (final trip in trips) trip.id: trip},
     );
   }
 
-  Trip? getTrip(Id<Trip> id) {
-    return state.value?[id]?.value;
+  Trip? get(Id<Trip> id) {
+    return state.value?[id];
+  }
+
+  void set(Trip trip) {
+    final current = state.value;
+    if (current != null) {
+      state = AsyncData({...current, trip.id: trip});
+    }
   }
 
   Future<void> refresh() async {
@@ -37,7 +43,7 @@ class TripsNotifier extends _$TripsNotifier {
 
       return result.fold(
         (failure) => throw Exception(failure.message),
-        (trips) => {for (final trip in trips) trip.id: TripNode(trip)},
+        (trips) => {for (final trip in trips) trip.id: trip},
       );
     });
   }
@@ -48,52 +54,31 @@ class TripsNotifier extends _$TripsNotifier {
     result.fold((f) => throw Exception(f.message), (trip) {
       final current = state.value ?? {};
 
-      state = AsyncData({...current, trip.id: TripNode(trip)});
+      state = AsyncData({...current, trip.id: trip});
     });
   }
 
   Future<void> updateTrip(Id<Trip> id, TripDraft draft) async {
-    final node = state.value?[id];
-
-    if (node == null) return;
-
-    final old = node.value;
-    final optimistic = draft.toTrip(id);
+    final old = state.value?[id];
+    if (old == null) return;
 
     await executor.run(
-      onApply: () {
-        node.set(optimistic);
-      },
-
+      onApply: () => set(draft.toTrip(id)),
       remote: () => repo.updateTrip(id, draft),
-
-      onSuccess: (Trip serverTrip) {
-        node.set(serverTrip);
-      },
-
-      onError: () {
-        node.set(old);
-      },
+      onSuccess: (Trip serverTrip) => set(serverTrip),
+      onError: () => set(old),
     );
   }
 
   Future<void> deleteTrip(Id<Trip> id) async {
     final current = state.value;
-
     if (current == null) return;
-
-    final node = current[id];
-
-    if (node == null) return;
-
-    final old = node.value;
-
+    final old = current[id];
+    if (old == null) return;
     await executor.run(
       onApply: () {
-        final copy = Map<Id<Trip>, TripNode>.from(current);
-
+        final copy = Map<Id<Trip>, Trip>.from(current);
         copy.remove(id);
-
         state = AsyncData(copy);
       },
 
@@ -102,10 +87,8 @@ class TripsNotifier extends _$TripsNotifier {
       onSuccess: (_) {},
 
       onError: () {
-        final copy = Map<Id<Trip>, TripNode>.from(state.value ?? {});
-
-        copy[id] = TripNode(old);
-
+        final copy = Map<Id<Trip>, Trip>.from(state.value ?? {});
+        copy[id] = old;
         state = AsyncData(copy);
       },
     );

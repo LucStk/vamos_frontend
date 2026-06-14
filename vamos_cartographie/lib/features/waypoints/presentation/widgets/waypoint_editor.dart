@@ -36,7 +36,7 @@ class WaypointEditorState extends State<WaypointEditor> {
       children: [
         TextFormField(
           initialValue: currentWaypoint.title,
-          decoration: const InputDecoration(labelText: 'Titre du waypoint'),
+          decoration: const InputDecoration(labelText: 'Titre'),
           onChanged: (val) => _patch(currentWaypoint.copyWith(title: val)),
         ),
         const Divider(),

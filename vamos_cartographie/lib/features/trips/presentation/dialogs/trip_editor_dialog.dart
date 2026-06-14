@@ -22,7 +22,7 @@ class TripEditorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trip = ref.read(tripsProvider.notifier).getTrip(tripId);
+    final trip = ref.watch(tripsProvider.notifier).get(tripId);
 
     if (trip == null) {
       return const DialogErrorBody(errorMessage: 'Voyage introuvable');
