@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/graph/core/core.dart';
+import 'package:vamos_cartographie/features/graph/application/notifiers/collection_change_notifier.dart';
+import 'package:vamos_cartographie/features/graph/application/notifiers/graph_node_change_notifier.dart';
 
 class GraphStore {
   final Map<Type, Map<dynamic, GraphNode<dynamic>>> _entities = {};
-  final Map<Type, ValueNotifier<int>> _collectionSignals = {};
+  final Map<Type, CollectionSignal<dynamic>> _collectionSignals = {};
 
   int _tempId = -1;
   int nextTempId() => _tempId--;
@@ -13,20 +14,16 @@ class GraphStore {
   // COLLECTION SIGNAL
   // ─────────────────────────────────────────────
 
-  ValueListenable<int> collectionSignal<T>() {
-    return _collectionSignals.putIfAbsent(T, () => ValueNotifier(0));
+  CollectionSignal collectionSignal<T>() {
+    return _collectionSignals.putIfAbsent(T, () => CollectionSignal<T>());
   }
 
   void clear() {
     _entities.clear();
 
     for (final signal in _collectionSignals.values) {
-      signal.value++;
+      signal.notify();
     }
-  }
-
-  void _notifyCollection<T>() {
-    _collectionSignals[T]?.value++;
   }
 
   Map<Id<T>, GraphNode<T>> map<T>() {
@@ -46,7 +43,7 @@ class GraphStore {
     final store = map<T>();
     store[entity.id] = GraphNode<T>(entity);
 
-    _notifyCollection<T>();
+    collectionSignal<T>().notify();
   }
   // ─────────────────────────────────────────────
   // INTERNAL MAP
@@ -57,7 +54,7 @@ class GraphStore {
   T? get<T>(Id<T> id) => node<T>(id)?.value;
 
   Map<Id<T>, T> getAll<T>() {
-    return map<T>().map((k, v) => MapEntry(k, v.value));
+    return Map.unmodifiable(map<T>().map((k, v) => MapEntry(k, v.value)));
   }
 
   // ─────────────────────────────────────────────
@@ -69,7 +66,8 @@ class GraphStore {
 
     map<T>()[id] = GraphNode<T>(builder(id));
 
-    _notifyCollection<T>();
+    collectionSignal<T>().notify();
+    debugPrint("create $T -> ${map<T>()}");
     return id;
   }
 
@@ -119,7 +117,8 @@ class GraphStore {
 
     m[serverEntity.id] = node;
 
-    _notifyCollection<T>();
+    debugPrint("commitCreate $T -> ${map<T>()}");
+    collectionSignal<T>().notify();
   }
 
   // ─────────────────────────────────────────────
@@ -140,7 +139,7 @@ class GraphStore {
 
   void commitDelete<T>(Id<T> id) {
     map<T>().remove(id);
-    _notifyCollection<T>();
+    collectionSignal<T>().notify();
   }
 
   // ─────────────────────────────────────────────
@@ -149,7 +148,7 @@ class GraphStore {
 
   void rollbackCreate<T>(Id<T> id) {
     map<T>().remove(id);
-    _notifyCollection<T>();
+    collectionSignal<T>().notify();
   }
 
   void rollbackDelete<T>(Id<T> id) {

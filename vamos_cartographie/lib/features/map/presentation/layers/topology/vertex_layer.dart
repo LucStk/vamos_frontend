@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
@@ -42,6 +38,7 @@ class VertexLayer extends AbstractLayer {
     if (vertices.isEmpty) {
       return const SizedBox.shrink();
     }
+    debugPrint("Vertex Marker rebuild $vertices");
 
     return DragMarkers(
       markers: [

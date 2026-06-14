@@ -1,9 +1,10 @@
+import 'package:flutter/rendering.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/providers/graph_providers.dart';
-import 'package:vamos_cartographie/features/graph/core/graph_node.dart';
+import 'package:vamos_cartographie/features/graph/application/notifiers/graph_node_change_notifier.dart';
 
 part 'graph_selectors.g.dart';
 
@@ -15,7 +16,23 @@ part 'graph_selectors.g.dart';
 Map<Id<T>, T> collection<T>(Ref ref, Id<Trip> tripId) {
   final store = ref.watch(graphStoreProvider(tripId));
 
-  return store.getAll<T>();
+  void listener() {
+    debugPrint("collection signal fired");
+    // Remplace ref.notifyListeners() par invalidateSelf()
+    ref.invalidateSelf();
+  }
+
+  store.collectionSignal<T>().addListener(listener);
+
+  ref.onDispose(() {
+    store.collectionSignal<T>().removeListener(listener);
+  });
+
+  debugPrint("\ncollection rebuild ${store.map<T>()}\n");
+
+  // Optionnel mais recommandé : utilise le spread operator `{...}`
+  // pour renvoyer une nouvelle référence de Map et garantir le rebuild du Widget.
+  return {...store.getAll<T>()};
 }
 
 /// ======================================================

@@ -82,7 +82,7 @@ final class CollectionProvider<T>
   }
 }
 
-String _$collectionHash() => r'635f54a35cfa0a6de3e329a2b95c353c219e0b6e';
+String _$collectionHash() => r'71f89839d615aeea598a50120b27b47cb2f770cb';
 
 /// ======================================================
 /// COLLECTION
