@@ -32,7 +32,10 @@ class SegmentTypeMarkerLayer extends AbstractLayer {
                   segmentId: segment.id,
                 );
               },
-              child: SegmentTypeMarkerView(type: segment.type),
+              child: SegmentTypeMarkerView(
+                tripId: tripId,
+                segmentId: segment.id,
+              ),
             ),
           ),
       ],

@@ -18,6 +18,7 @@ class WaypointMarkerView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint('WAYPOINT $waypointId BUILD');
     final waypoint = ref.watch(
       nodeRequiredProvider<Waypoint>(tripId, waypointId),
     );

@@ -47,9 +47,7 @@ class _SegmentEditorState extends ConsumerState<SegmentEditor> {
     } finally {
       if (mounted) {
         setState(() {
-          setState(() {
-            currentSegment = newSegment;
-          });
+          currentSegment = newSegment;
         });
       }
     }
