@@ -8,8 +8,7 @@ part 'query_selectors.g.dart';
 
 @riverpod
 List<T> query<T>(Ref ref, Id<Trip> tripId, bool Function(T entity) predicate) {
-  final store = ref.watch(graphStoreProvider(tripId));
-
+  final store = ref.watch(tripGraphProvider(tripId)).requireValue;
   // dépendance structurelle (ajout/suppression)
   ref.watch(collectionProvider<T>(tripId));
 
@@ -22,8 +21,7 @@ Map<K, List<T>> indexedBy<T, K>(
   Id<Trip> tripId,
   K Function(T entity) keySelector,
 ) {
-  final store = ref.watch(graphStoreProvider(tripId));
-
+  final store = ref.watch(tripGraphProvider(tripId)).requireValue;
   // dépendance structurelle
   ref.watch(collectionProvider<T>(tripId));
 
@@ -43,7 +41,7 @@ List<T> queryLive<T>(
   Id<Trip> tripId,
   bool Function(T entity) predicate,
 ) {
-  final store = ref.watch(graphStoreProvider(tripId));
+  final store = ref.watch(tripGraphProvider(tripId)).requireValue;
 
   ref.watch(collectionProvider<T>(tripId));
 

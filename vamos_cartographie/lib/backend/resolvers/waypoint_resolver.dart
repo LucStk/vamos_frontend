@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
@@ -55,6 +56,7 @@ class WaypointResolver {
     final waypoints = store.waypoints(Id<Trip>(vars.tripId)).map((w) {
       return waypointToGql(w, store.vertex(w.vertexId));
     }).toList();
+    debugPrint("\n\nbackend Waypoint ${vars.tripId}, base $waypoints\n\n");
 
     return GGetWaypointsData(
       trip: GGetWaypointsData_trip(
@@ -105,7 +107,14 @@ class WaypointResolver {
     );
 
     store.addWaypoint(tripId, waypoint);
-
+    // À la fin de createWaypoint, juste avant le return :
+    debugPrint("FAKE BACKEND CHECK :");
+    debugPrint(
+      "Vertices dans le store pour ce trip: ${store.tripIdVxId[tripId]}",
+    );
+    debugPrint(
+      "Waypoints dans le store pour ce trip: ${store.tripIdWpId[tripId]}",
+    );
     return GCreateWaypointData(
       createWaypoint: waypointCreateToGql(
         waypoint,

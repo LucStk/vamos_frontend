@@ -72,7 +72,7 @@ final class QueryProvider<T>
   }
 }
 
-String _$queryHash() => r'2cc18e37deaf8496ce8fe376474f587f5a806200';
+String _$queryHash() => r'c4875582bd31ccc7a8a8b247d14f1d4aed882b68';
 
 final class QueryFamily extends $Family {
   QueryFamily._()
@@ -176,7 +176,7 @@ final class IndexedByProvider<T, K>
   }
 }
 
-String _$indexedByHash() => r'633f2bc9f6bc8c2c1fb3dbc3a84252314b347684';
+String _$indexedByHash() => r'674d41d2db0e687ee3c568dbb33653219cd4ceef';
 
 final class IndexedByFamily extends $Family {
   IndexedByFamily._()
@@ -281,7 +281,7 @@ final class QueryLiveProvider<T>
   }
 }
 
-String _$queryLiveHash() => r'6edeb8c859bd8f1bba94c113b637876ddc6dca5a';
+String _$queryLiveHash() => r'e5e72d0e727c60340d80c6c5ea4de3e5d64751d8';
 
 final class QueryLiveFamily extends $Family {
   QueryLiveFamily._()

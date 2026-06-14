@@ -11,7 +11,7 @@ part 'waypoint_orchestrator.g.dart';
 
 @riverpod
 class WaypointOrchestrator extends _$WaypointOrchestrator {
-  GraphStore get graph => ref.read(graphStoreProvider(tripId));
+  GraphStore get graph => ref.watch(tripGraphProvider(tripId)).requireValue;
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);
 

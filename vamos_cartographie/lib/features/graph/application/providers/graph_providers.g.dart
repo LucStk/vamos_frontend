@@ -9,94 +9,11 @@ part of 'graph_providers.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(graphStore)
-final graphStoreProvider = GraphStoreFamily._();
-
-final class GraphStoreProvider
-    extends $FunctionalProvider<GraphStore, GraphStore, GraphStore>
-    with $Provider<GraphStore> {
-  GraphStoreProvider._({
-    required GraphStoreFamily super.from,
-    required Id<Trip> super.argument,
-  }) : super(
-         retry: null,
-         name: r'graphStoreProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$graphStoreHash();
-
-  @override
-  String toString() {
-    return r'graphStoreProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<GraphStore> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  GraphStore create(Ref ref) {
-    final argument = this.argument as Id<Trip>;
-    return graphStore(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphStore value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GraphStore>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is GraphStoreProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$graphStoreHash() => r'e5f04982aea5561645a4ce23d3f099e82b081c82';
-
-final class GraphStoreFamily extends $Family
-    with $FunctionalFamilyOverride<GraphStore, Id<Trip>> {
-  GraphStoreFamily._()
-    : super(
-        retry: null,
-        name: r'graphStoreProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  GraphStoreProvider call(Id<Trip> tripId) =>
-      GraphStoreProvider._(argument: tripId, from: this);
-
-  @override
-  String toString() => r'graphStoreProvider';
-}
-
-@ProviderFor(tripGraph)
+@ProviderFor(TripGraph)
 final tripGraphProvider = TripGraphFamily._();
 
 final class TripGraphProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<GraphStore>,
-          GraphStore,
-          FutureOr<GraphStore>
-        >
-    with $FutureModifier<GraphStore>, $FutureProvider<GraphStore> {
+    extends $AsyncNotifierProvider<TripGraph, GraphStore> {
   TripGraphProvider._({
     required TripGraphFamily super.from,
     required Id<Trip> super.argument,
@@ -120,14 +37,7 @@ final class TripGraphProvider
 
   @$internal
   @override
-  $FutureProviderElement<GraphStore> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<GraphStore> create(Ref ref) {
-    final argument = this.argument as Id<Trip>;
-    return tripGraph(ref, argument);
-  }
+  TripGraph create() => TripGraph();
 
   @override
   bool operator ==(Object other) {
@@ -140,10 +50,17 @@ final class TripGraphProvider
   }
 }
 
-String _$tripGraphHash() => r'0b11d76189fe3af7b5a15c08dcc115e95a1d9684';
+String _$tripGraphHash() => r'1fb3143169db22329e0eb720adf250eafcba36d0';
 
 final class TripGraphFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<GraphStore>, Id<Trip>> {
+    with
+        $ClassFamilyOverride<
+          TripGraph,
+          AsyncValue<GraphStore>,
+          GraphStore,
+          FutureOr<GraphStore>,
+          Id<Trip>
+        > {
   TripGraphFamily._()
     : super(
         retry: null,
@@ -158,6 +75,27 @@ final class TripGraphFamily extends $Family
 
   @override
   String toString() => r'tripGraphProvider';
+}
+
+abstract class _$TripGraph extends $AsyncNotifier<GraphStore> {
+  late final _$args = ref.$arg as Id<Trip>;
+  Id<Trip> get tripId => _$args;
+
+  FutureOr<GraphStore> build(Id<Trip> tripId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<GraphStore>, GraphStore>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<GraphStore>, GraphStore>,
+              AsyncValue<GraphStore>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
 }
 
 @ProviderFor(optimisticExecutor)

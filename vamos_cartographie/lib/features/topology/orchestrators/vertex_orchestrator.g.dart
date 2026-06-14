@@ -59,7 +59,7 @@ final class VertexOrchestratorProvider
 }
 
 String _$vertexOrchestratorHash() =>
-    r'7016d4b6f25b408cd19082009b2efb0d0ba3ec21';
+    r'4bda8b69256af29f28334070dc2f509597135a12';
 
 final class VertexOrchestratorFamily extends $Family
     with $ClassFamilyOverride<VertexOrchestrator, void, void, void, Id<Trip>> {

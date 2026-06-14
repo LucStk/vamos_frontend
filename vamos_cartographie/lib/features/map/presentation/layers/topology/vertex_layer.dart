@@ -25,6 +25,7 @@ class VertexLayer extends AbstractLayer {
     /// 1. STRUCTURE ONLY (ajout / suppression vertices)
     /// ─────────────────────────────────────────────
     final vertices = ref.watch(collectionProvider<Vertex>(tripId));
+    final waypoints = ref.watch(collectionProvider<Waypoint>(tripId));
 
     /// ─────────────────────────────────────────────
     /// 2. RELATION INDEX (vertexId -> waypoint)
@@ -38,7 +39,6 @@ class VertexLayer extends AbstractLayer {
     if (vertices.isEmpty) {
       return const SizedBox.shrink();
     }
-    debugPrint("Vertex Marker rebuild $vertices");
 
     return DragMarkers(
       markers: [

@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/graph/application/notifiers/collection_change_notifier.dart';
 import 'package:vamos_cartographie/features/graph/application/notifiers/graph_node_change_notifier.dart';
@@ -67,7 +66,6 @@ class GraphStore {
     map<T>()[id] = GraphNode<T>(builder(id));
 
     collectionSignal<T>().notify();
-    debugPrint("create $T -> ${map<T>()}");
     return id;
   }
 
@@ -117,7 +115,6 @@ class GraphStore {
 
     m[serverEntity.id] = node;
 
-    debugPrint("commitCreate $T -> ${map<T>()}");
     collectionSignal<T>().notify();
   }
 

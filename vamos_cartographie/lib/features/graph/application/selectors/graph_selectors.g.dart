@@ -82,7 +82,7 @@ final class CollectionProvider<T>
   }
 }
 
-String _$collectionHash() => r'71f89839d615aeea598a50120b27b47cb2f770cb';
+String _$collectionHash() => r'f13af9fdbe7be54dc1fc1fccfcf7b7540e1eb302';
 
 /// ======================================================
 /// COLLECTION
@@ -203,7 +203,7 @@ final class GraphNodeProvider<T>
   }
 }
 
-String _$graphNodeHash() => r'c27b60e4ca38c7d5cc924664f159a7ef8a816f1e';
+String _$graphNodeHash() => r'4ce1760a252989e66e922f5dfd804a8126eae8f2';
 
 /// ======================================================
 /// GRAPH NODE
