@@ -1,92 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/features/trips/application/selectors/trips_selectors.dart';
+import 'package:vamos_cartographie/features/trips/presentation/dialogs/trip_viewer_dialog.dart';
+import 'package:vamos_cartographie/features/trips/presentation/widgets/trip_card/trip_card_content.dart';
+import 'package:vamos_cartographie/features/trips/presentation/widgets/trip_card/trip_card_icon.dart';
+import 'package:vamos_cartographie/vamos_cartographie.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
-class TripCard extends StatelessWidget {
-  final Trip trip;
-  final VoidCallback onTap;
+class TripCard extends ConsumerWidget {
+  final Id<Trip> tripId;
 
-  const TripCard({super.key, required this.trip, required this.onTap});
+  const TripCard({super.key, required this.tripId});
+
+  void _openTrip(BuildContext context) {
+    TripViewerDialog.show(
+      context: context,
+      tripId: tripId,
+      onExplore: () => _explore(context),
+    );
+  }
+
+  void _explore(BuildContext context) async {
+    await Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => MapScreen(tripId: tripId)));
+  }
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final title = trip.title.trim().isEmpty ? 'Sans titre' : trip.title.trim();
-    final hasDate = trip.date != null;
-    final dateStr = trip.date?.toIso8601String().substring(0, 10);
-    final hasDescription = trip.description.trim().isNotEmpty;
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    final trip = ref.watch(tripByIdProvider(tripId));
+    if (trip == null) {
+      throw Exception("TripCard -> tripId not found in tripByIdProvider");
+    }
     return Card(
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: onTap,
+        onTap: () => _openTrip(context),
+        onDoubleTap: () => _explore(context),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 14, 4, 14),
           child: Row(
             children: [
-              // Icône
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.route,
-                  color: theme.colorScheme.onPrimaryContainer,
-                ),
-              ),
+              TripCardIcon(),
               const SizedBox(width: 14),
-
-              // Texte
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    if (hasDate) ...[
-                      const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_today,
-                            size: 12,
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            dateStr!,
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    if (hasDescription) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        trip.description.trim(),
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ],
-                ),
-              ),
+              TripCardContent(trip: trip),
             ],
           ),
         ),

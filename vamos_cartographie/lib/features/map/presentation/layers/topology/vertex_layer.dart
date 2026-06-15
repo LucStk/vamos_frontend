@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/core/type/id.dart';
 
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/query_selectors.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/marker_wt_menu_shell.dart';
 
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/vertex_marker_view.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/waypoint_marker_view.dart';
@@ -65,10 +66,12 @@ DragMarker buildVertexMarker({
     point: vertex.latLng,
     size: Size(30, 30),
     builder: (BuildContext context, LatLng latLng, bool bool) {
-      if (waypoint == null) {
-        return VertexMarkerView(tripId: tripId, vertexId: vertex.id);
+      late Widget marker;
+      if (waypoint != null) {
+        marker = WaypointMarkerView(waypointId: waypoint.id, tripId: tripId);
       }
-      return WaypointMarkerView(waypointId: waypoint.id, tripId: tripId);
+      marker = VertexMarkerView(tripId: tripId, vertexId: vertex.id);
+      return MarkerWtMenuShell(marker: marker);
     },
     onDragEnd: (details, latLng) => onDragEnd(vertex.id, latLng),
   );

@@ -1,8 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart';
-
-import 'package:flutter/foundation.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 part 'trips_selectors.g.dart';
 
