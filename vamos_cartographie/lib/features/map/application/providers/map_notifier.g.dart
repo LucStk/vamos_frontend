@@ -13,7 +13,7 @@ part of 'map_notifier.dart';
 final mapStateProvider = MapStateNotifierFamily._();
 
 final class MapStateNotifierProvider
-    extends $NotifierProvider<MapStateNotifier, MapState> {
+    extends $NotifierProvider<MapStateNotifier, void> {
   MapStateNotifierProvider._({
     required MapStateNotifierFamily super.from,
     required Id<Trip> super.argument,
@@ -40,10 +40,10 @@ final class MapStateNotifierProvider
   MapStateNotifier create() => MapStateNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapState value) {
+  Override overrideWithValue(void value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapState>(value),
+      providerOverride: $SyncValueProvider<void>(value),
     );
   }
 
@@ -58,17 +58,10 @@ final class MapStateNotifierProvider
   }
 }
 
-String _$mapStateNotifierHash() => r'2712dc51333bf4474bfffcb4e78a73173c9aed4b';
+String _$mapStateNotifierHash() => r'09acd80e4dfcc2be1e81ef0b71bbee4cce757d3f';
 
 final class MapStateNotifierFamily extends $Family
-    with
-        $ClassFamilyOverride<
-          MapStateNotifier,
-          MapState,
-          MapState,
-          MapState,
-          Id<Trip>
-        > {
+    with $ClassFamilyOverride<MapStateNotifier, void, void, void, Id<Trip>> {
   MapStateNotifierFamily._()
     : super(
         retry: null,
@@ -85,20 +78,20 @@ final class MapStateNotifierFamily extends $Family
   String toString() => r'mapStateProvider';
 }
 
-abstract class _$MapStateNotifier extends $Notifier<MapState> {
+abstract class _$MapStateNotifier extends $Notifier<void> {
   late final _$args = ref.$arg as Id<Trip>;
   Id<Trip> get tripId => _$args;
 
-  MapState build(Id<Trip> tripId);
+  void build(Id<Trip> tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<MapState, MapState>;
+    final ref = this.ref as $Ref<void, void>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MapState, MapState>,
-              MapState,
+              AnyNotifier<void, void>,
+              void,
               Object?,
               Object?
             >;

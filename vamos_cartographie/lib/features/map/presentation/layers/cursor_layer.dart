@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/cursor_marker.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/marker_wt_menu_shell.dart';
@@ -18,6 +19,9 @@ class CursorLayer extends AbstractLayer {
     /// ─────────────────────────────────────────────
     final cursor = ref.watch(mapCursorProvider);
     final cursorNotifier = ref.watch(mapCursorProvider.notifier);
+    final mapNotifier = ref.watch(mapStateProvider(tripId).notifier);
+    
+    mapNotifier.closePopMap.addListener;
     if (!cursor.isOpen) {
       return SizedBox.shrink();
     }
