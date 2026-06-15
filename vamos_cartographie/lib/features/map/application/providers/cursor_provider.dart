@@ -21,6 +21,10 @@ class MapCursorNotifier extends _$MapCursorNotifier {
     overlayPortalController.show();
   }
 
-  void close() => state = state.copyWith(isOpen: false);
+  void close() {
+    state = state.copyWith(isOpen: false);
+    overlayPortalController.hide();
+  }
+
   void open() => state = state.copyWith(isOpen: true);
 }

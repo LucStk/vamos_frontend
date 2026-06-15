@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/cursor_marker_view.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/cursor_marker.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/marker_wt_menu_shell.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
+import 'package:vamos_cartographie/features/map/presentation/widgets/menus/cursor_menu.dart';
 
 class CursorLayer extends AbstractLayer {
   const CursorLayer({super.key, required super.tripId});
@@ -17,7 +18,9 @@ class CursorLayer extends AbstractLayer {
     /// ─────────────────────────────────────────────
     final cursor = ref.watch(mapCursorProvider);
     final cursorNotifier = ref.watch(mapCursorProvider.notifier);
-
+    if (!cursor.isOpen) {
+      return SizedBox.shrink();
+    }
     return DragMarkers(
       markers: [
         DragMarker(
@@ -26,7 +29,8 @@ class CursorLayer extends AbstractLayer {
           builder: (BuildContext context, LatLng latLng, bool isDragging) {
             return MarkerWtMenuShell(
               isDragging: isDragging,
-              marker: CursorMarkerView(tripId: tripId),
+              popMenu: CursorMenu(tripId: tripId),
+              marker: CursorMarker(tripId: tripId),
               controller: cursorNotifier.overlayPortalController,
             );
           },

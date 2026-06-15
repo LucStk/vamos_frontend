@@ -5,10 +5,8 @@ import 'package:vamos_cartographie/core/type/id.dart';
 
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/query_selectors.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/marker_wt_menu_shell.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/vertex_marker_view.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/waypoint_marker_view.dart';
 import 'package:vamos_cartographie/features/topology/orchestrators/vertex_orchestrator.dart';
 
 import 'package:vamos_cartographie/features/topology/topology.dart';
@@ -65,15 +63,19 @@ DragMarker buildVertexMarker({
     point: vertex.latLng,
     size: Size(32, 32),
     builder: (BuildContext context, LatLng latLng, bool isDragging) {
-      late Widget marker;
+      late MapMarker marker;
+      late PopMenu popMenu;
       if (waypoint != null) {
-        marker = WaypointMarkerView(waypointId: waypoint.id, tripId: tripId);
+        marker = WaypointMarker(waypointId: waypoint.id, tripId: tripId);
+        popMenu = WaypointMenu(tripId: tripId);
       } else {
-        marker = VertexMarkerView(tripId: tripId, vertexId: vertex.id);
+        marker = VertexMarker(tripId: tripId, vertexId: vertex.id);
+        popMenu = VertexMenu(tripId: tripId);
       }
       final controller = OverlayPortalController();
       return MarkerWtMenuShell(
         isDragging: isDragging,
+        popMenu: popMenu,
         marker: marker,
         controller: controller,
       );

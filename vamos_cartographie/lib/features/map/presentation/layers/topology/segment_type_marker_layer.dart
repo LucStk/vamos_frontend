@@ -4,8 +4,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/map/presentation/helpers/gis.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/segment_type_marker.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
-import "package:vamos_cartographie/features/map/presentation/widgets/markers/segment_type_marker_view.dart";
 
 class SegmentTypeMarkerLayer extends AbstractLayer {
   const SegmentTypeMarkerLayer({super.key, required super.tripId});
@@ -32,10 +32,7 @@ class SegmentTypeMarkerLayer extends AbstractLayer {
                   segmentId: segment.id,
                 );
               },
-              child: SegmentTypeMarkerView(
-                tripId: tripId,
-                segmentId: segment.id,
-              ),
+              child: SegmentTypeMarker(tripId: tripId, segmentId: segment.id),
             ),
           ),
       ],

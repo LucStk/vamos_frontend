@@ -5,11 +5,11 @@ import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
-class SegmentTypeMarkerView extends ConsumerWidget {
+class SegmentTypeMarker extends ConsumerWidget {
   final Id<Segment> segmentId;
   final Id<Trip> tripId;
 
-  const SegmentTypeMarkerView({
+  const SegmentTypeMarker({
     super.key,
     required this.tripId,
     required this.segmentId,

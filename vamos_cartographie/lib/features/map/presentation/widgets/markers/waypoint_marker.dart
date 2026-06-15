@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
+import "map_marker.dart";
 
-class WaypointMarkerView extends ConsumerWidget {
+class WaypointMarker extends MapMarker {
   final Id<Waypoint> waypointId;
   final bool isDragging;
-  final Id<Trip> tripId;
 
-  const WaypointMarkerView({
+  const WaypointMarker({
     super.key,
     required this.waypointId,
-    required this.tripId,
+    required super.tripId,
     this.isDragging = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    debugPrint('WAYPOINT $waypointId BUILD');
+    // debugPrint('WAYPOINT $waypointId BUILD');
     final waypoint = ref.watch(
       nodeRequiredProvider<Waypoint>(tripId, waypointId),
     );

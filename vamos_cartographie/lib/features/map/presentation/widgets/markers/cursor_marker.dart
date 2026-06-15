@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/trips/trips.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
 
-class CursorMarkerView extends ConsumerWidget {
-  final Id<Trip> tripId;
-  const CursorMarkerView({super.key, required this.tripId});
+class CursorMarker extends MapMarker {
+  const CursorMarker({super.key, required super.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

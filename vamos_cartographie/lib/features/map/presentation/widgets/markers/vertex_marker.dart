@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
-import 'package:vamos_cartographie/features/trips/trips.dart';
 
-class VertexMarkerView extends ConsumerWidget {
-  final Id<Trip> tripId;
+class VertexMarker extends MapMarker {
   final Id<Vertex> vertexId;
-  const VertexMarkerView({
+  const VertexMarker({
     super.key,
-    required this.tripId,
+    required super.tripId,
     required this.vertexId,
   });
 
