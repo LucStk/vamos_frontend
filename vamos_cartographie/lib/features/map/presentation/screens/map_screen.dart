@@ -1,24 +1,26 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/features/map/presentation/helpers/on_map_tap.dart';
+import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/cursor_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 
 import 'package:vamos_cartographie/features/map/presentation/layers/layers.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
-class MapScreen extends StatefulWidget {
+class MapScreen extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
   final bool isOwner;
 
   const MapScreen({super.key, required this.tripId, this.isOwner = true});
   @override
-  State<MapScreen> createState() => _MapScreenState();
+  ConsumerState<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends ConsumerState<MapScreen> {
   // 1. Déclarer la variable du contrôleur
   late final MapController _mapController;
 
@@ -38,6 +40,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cursorProvider = ref.watch(mapCursorProvider.notifier);
     return Scaffold(
       body: Stack(
         children: [
@@ -47,7 +50,11 @@ class _MapScreenState extends State<MapScreen> {
             options: MapOptions(
               initialCenter: const LatLng(46.8, 2.2),
               initialZoom: 7,
-              // onTap: (_, latLng) => onMapTap(context, latLng, widget.tripId),
+              onTap: (_, latLng) {
+                cursorProvider.setPosition(latLng);
+                cursorProvider.open();
+                debugPrint("cursor Set $latLng");
+              },
               interactionOptions: const InteractionOptions(
                 flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
               ),
@@ -57,6 +64,7 @@ class _MapScreenState extends State<MapScreen> {
               TopologyLayer(tripId: widget.tripId),
               // 5. Passer le contrôleur à tes boutons/widgets de contrôle de la carte
               MapControls(mapController: _mapController),
+              CursorLayer(tripId: widget.tripId),
             ],
           ),
           MapTopBar(tripId: widget.tripId),

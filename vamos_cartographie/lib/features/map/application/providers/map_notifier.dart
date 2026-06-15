@@ -9,10 +9,22 @@ part 'map_notifier.g.dart';
 
 @riverpod
 class MapStateNotifier extends _$MapStateNotifier {
+  var _cursor = MapCursor();
+
   @override
   MapState build(Id<Trip> tripId) {
     return MapState.fromTrip(tripId);
   }
+
+  MapCursor getCursor() {
+    return _cursor;
+  }
+
+  void setCursorPosition(LatLng latLng) =>
+      _cursor = _cursor.copyWith(latLng: latLng);
+
+  void closeCursor() => _cursor = _cursor.copyWith(isOpen: false);
+  void openCursor() => _cursor = _cursor.copyWith(isOpen: true);
 
   void startWaypointCreation(LatLng position) {
     state = state.copyWith(
