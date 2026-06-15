@@ -71,7 +71,7 @@ DragMarker buildVertexMarker({
       } else {
         marker = VertexMarkerView(tripId: tripId, vertexId: vertex.id);
       }
-      return MarkerWtMenuShell(marker: marker);
+      return MarkerWtMenuShell(isDragging: isDragging, marker: marker);
     },
     onDragEnd: (details, latLng) => onDragEnd(vertex.id, latLng),
   );

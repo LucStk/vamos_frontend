@@ -37,7 +37,6 @@ class MenuCard extends StatelessWidget {
                     iconSize: 18,
                     visualDensity: VisualDensity.compact,
                     splashRadius: 18,
-                    tooltip: 'Fermer',
                   ),
                 ],
               ),

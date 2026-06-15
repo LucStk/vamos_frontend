@@ -3,45 +3,74 @@ import 'package:vamos_cartographie/features/map/presentation/widgets/tap_menu.da
 
 class MarkerWtMenuShell extends StatefulWidget {
   final Widget marker;
-  const MarkerWtMenuShell({super.key, required this.marker});
+  final bool isDragging;
+
+  const MarkerWtMenuShell({
+    super.key,
+    required this.marker,
+    required this.isDragging,
+  });
 
   @override
   State<MarkerWtMenuShell> createState() => _MarkerWtMenuShellState();
 }
 
 class _MarkerWtMenuShellState extends State<MarkerWtMenuShell> {
-  // Le contrôleur qui gère l'affichage du menu dans l'overlay
   final _tooltipController = OverlayPortalController();
+  final LayerLink _layerLink = LayerLink();
+
+  @override
+  void didUpdateWidget(covariant MarkerWtMenuShell oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Si le marqueur commence à être dragué, on attend la fin de la frame pour masquer
+    if (widget.isDragging && _tooltipController.isShowing) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Cette vérification évite de masquer si l'état a rechangé entre-temps
+        if (mounted && _tooltipController.isShowing) {
+          _tooltipController.hide();
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return OverlayPortal(
       controller: _tooltipController,
-      // Ce qui est dessiné dans l'Overlay au-dessus de la carte
       overlayChildBuilder: (BuildContext context) {
         return CompositedTransformFollower(
           link: _layerLink,
           targetAnchor: Alignment.topCenter,
           followerAnchor: Alignment.bottomCenter,
-          offset: const Offset(0, -8), // Petit espace de 8px au-dessus du point
+          offset: const Offset(0, -8),
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: MenuCard(onClose: () => _tooltipController.hide()),
+            child: MenuCard(
+              onClose: () {
+                // 🎯 On sécurise la fermeture manuelle ici aussi
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (mounted && _tooltipController.isShowing) {
+                    _tooltipController.hide();
+                  }
+                });
+              },
+            ),
           ),
         );
       },
-      // Le marqueur physique sur la carte
       child: CompositedTransformTarget(
         link: _layerLink,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => _tooltipController.toggle(),
+          onTap: () {
+            if (!widget.isDragging) {
+              _tooltipController.toggle();
+            }
+          },
           child: widget.marker,
         ),
       ),
     );
   }
-
-  // Lien requis par Flutter pour connecter le marqueur et son menu flottant
-  final LayerLink _layerLink = LayerLink();
 }
