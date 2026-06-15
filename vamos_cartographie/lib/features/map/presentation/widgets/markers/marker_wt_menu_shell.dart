@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/menu_overlay_builder.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/tap_menu.dart';
 
 class MarkerWtMenuShell extends StatefulWidget {
   final Widget marker;
   final bool isDragging;
+  final OverlayPortalController controller;
 
   const MarkerWtMenuShell({
     super.key,
     required this.marker,
     required this.isDragging,
+    required this.controller,
   });
 
   @override
@@ -16,7 +19,6 @@ class MarkerWtMenuShell extends StatefulWidget {
 }
 
 class _MarkerWtMenuShellState extends State<MarkerWtMenuShell> {
-  final _tooltipController = OverlayPortalController();
   final LayerLink _layerLink = LayerLink();
 
   @override
@@ -24,11 +26,11 @@ class _MarkerWtMenuShellState extends State<MarkerWtMenuShell> {
     super.didUpdateWidget(oldWidget);
 
     // Si le marqueur commence à être dragué, on attend la fin de la frame pour masquer
-    if (widget.isDragging && _tooltipController.isShowing) {
+    if (widget.isDragging && widget.controller.isShowing) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         // Cette vérification évite de masquer si l'état a rechangé entre-temps
-        if (mounted && _tooltipController.isShowing) {
-          _tooltipController.hide();
+        if (mounted && widget.controller.isShowing) {
+          widget.controller.hide();
         }
       });
     }
@@ -37,35 +39,16 @@ class _MarkerWtMenuShellState extends State<MarkerWtMenuShell> {
   @override
   Widget build(BuildContext context) {
     return OverlayPortal(
-      controller: _tooltipController,
-      overlayChildBuilder: (BuildContext context) {
-        return CompositedTransformFollower(
-          link: _layerLink,
-          targetAnchor: Alignment.topCenter,
-          followerAnchor: Alignment.bottomCenter,
-          offset: const Offset(0, -8),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: MenuCard(
-              onClose: () {
-                // 🎯 On sécurise la fermeture manuelle ici aussi
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (mounted && _tooltipController.isShowing) {
-                    _tooltipController.hide();
-                  }
-                });
-              },
-            ),
-          ),
-        );
-      },
+      controller: widget.controller,
+      overlayChildBuilder: (BuildContext context) =>
+          menuOverlayBuilder(context, _layerLink, widget.controller),
       child: CompositedTransformTarget(
         link: _layerLink,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
             if (!widget.isDragging) {
-              _tooltipController.toggle();
+              widget.controller.toggle();
             }
           },
           child: widget.marker,

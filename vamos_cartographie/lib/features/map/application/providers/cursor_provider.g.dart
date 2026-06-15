@@ -41,7 +41,7 @@ final class MapCursorNotifierProvider
   }
 }
 
-String _$mapCursorNotifierHash() => r'17d0a90cfdb2325ff763a15ca064a0680bac050c';
+String _$mapCursorNotifierHash() => r'69f213aa0696431f31dcc7795650187852f7e55c';
 
 abstract class _$MapCursorNotifier extends $Notifier<MapCursor> {
   MapCursor build();

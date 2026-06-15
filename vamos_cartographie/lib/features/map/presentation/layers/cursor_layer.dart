@@ -27,6 +27,7 @@ class CursorLayer extends AbstractLayer {
             return MarkerWtMenuShell(
               isDragging: isDragging,
               marker: CursorMarkerView(tripId: tripId),
+              controller: cursorNotifier.overlayPortalController,
             );
           },
           onDragEnd: (details, latLng) => cursorNotifier.setPosition(latLng),
