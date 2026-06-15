@@ -47,7 +47,7 @@ class _MapScreenState extends State<MapScreen> {
             options: MapOptions(
               initialCenter: const LatLng(46.8, 2.2),
               initialZoom: 7,
-              onTap: (_, latLng) => onMapTap(context, latLng, widget.tripId),
+              // onTap: (_, latLng) => onMapTap(context, latLng, widget.tripId),
               interactionOptions: const InteractionOptions(
                 flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
               ),

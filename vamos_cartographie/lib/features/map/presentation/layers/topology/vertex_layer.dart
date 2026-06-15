@@ -26,7 +26,6 @@ class VertexLayer extends AbstractLayer {
     /// 1. STRUCTURE ONLY (ajout / suppression vertices)
     /// ─────────────────────────────────────────────
     final vertices = ref.watch(collectionProvider<Vertex>(tripId));
-    final waypoints = ref.watch(collectionProvider<Waypoint>(tripId));
 
     /// ─────────────────────────────────────────────
     /// 2. RELATION INDEX (vertexId -> waypoint)
@@ -64,13 +63,14 @@ DragMarker buildVertexMarker({
 }) {
   return DragMarker(
     point: vertex.latLng,
-    size: Size(30, 30),
-    builder: (BuildContext context, LatLng latLng, bool bool) {
+    size: Size(32, 32),
+    builder: (BuildContext context, LatLng latLng, bool isDragging) {
       late Widget marker;
       if (waypoint != null) {
         marker = WaypointMarkerView(waypointId: waypoint.id, tripId: tripId);
+      } else {
+        marker = VertexMarkerView(tripId: tripId, vertexId: vertex.id);
       }
-      marker = VertexMarkerView(tripId: tripId, vertexId: vertex.id);
       return MarkerWtMenuShell(marker: marker);
     },
     onDragEnd: (details, latLng) => onDragEnd(vertex.id, latLng),

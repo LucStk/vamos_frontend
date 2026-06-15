@@ -22,31 +22,22 @@ class WaypointMarkerView extends ConsumerWidget {
     final waypoint = ref.watch(
       nodeRequiredProvider<Waypoint>(tripId, waypointId),
     );
-    return GestureDetector(
-      onDoubleTap: () {
-        WaypointViewerDialog.show(
-          context: context,
-          waypointId: waypointId,
-          tripId: tripId,
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: isDragging
-              ? waypoint.type.color.withOpacity(0.7)
-              : waypoint.type.color,
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.white, width: 2),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: isDragging ? 8 : 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Icon(waypoint.type.icon, color: Colors.white, size: 20),
+    return Container(
+      decoration: BoxDecoration(
+        color: isDragging
+            ? waypoint.type.color.withOpacity(0.7)
+            : waypoint.type.color,
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: isDragging ? 8 : 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
+      child: Icon(waypoint.type.icon, color: Colors.white, size: 20),
     );
   }
 }

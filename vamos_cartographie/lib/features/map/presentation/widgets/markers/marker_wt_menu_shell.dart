@@ -10,26 +10,38 @@ class MarkerWtMenuShell extends StatefulWidget {
 }
 
 class _MarkerWtMenuShellState extends State<MarkerWtMenuShell> {
-  var openMenu = false;
+  // Le contrôleur qui gère l'affichage du menu dans l'overlay
+  final _tooltipController = OverlayPortalController();
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        openMenu = !openMenu; // On inverse la valeure
+    return OverlayPortal(
+      controller: _tooltipController,
+      // Ce qui est dessiné dans l'Overlay au-dessus de la carte
+      overlayChildBuilder: (BuildContext context) {
+        return CompositedTransformFollower(
+          link: _layerLink,
+          targetAnchor: Alignment.topCenter,
+          followerAnchor: Alignment.bottomCenter,
+          offset: const Offset(0, -8), // Petit espace de 8px au-dessus du point
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: MenuCard(onClose: () => _tooltipController.hide()),
+          ),
+        );
       },
-      child: Builder(
-        builder: (context) {
-          if (!openMenu) {
-            return Stack(
-              children: [
-                MenuCard(onClose: () {}),
-                widget.marker,
-              ],
-            );
-          }
-          return widget.marker;
-        },
+      // Le marqueur physique sur la carte
+      child: CompositedTransformTarget(
+        link: _layerLink,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => _tooltipController.toggle(),
+          child: widget.marker,
+        ),
       ),
     );
   }
+
+  // Lien requis par Flutter pour connecter le marqueur et son menu flottant
+  final LayerLink _layerLink = LayerLink();
 }

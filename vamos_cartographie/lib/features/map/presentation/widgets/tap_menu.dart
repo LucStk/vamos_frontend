@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MenuCard extends StatelessWidget {
-  // final LatLng position;
   final VoidCallback onClose;
 
-  const MenuCard({
-    super.key,
-    // required this.position,
-    required this.onClose,
-  });
+  const MenuCard({super.key, required this.onClose});
 
   @override
   Widget build(BuildContext context) {
