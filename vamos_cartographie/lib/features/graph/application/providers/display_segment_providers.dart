@@ -4,11 +4,12 @@ import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/graph/domain/entities/display_segment.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/gis.dart';
 
 part 'display_segment_providers.g.dart';
 
 @riverpod
-class DisplaySegmentProvider extends _$DisplaySegmentProvider {
+class DisplaySegmentNotifier extends _$DisplaySegmentNotifier {
   bool _isInit = true; // Cet état persiste tant que le provider est vivant !
 
   @override
@@ -24,19 +25,15 @@ class DisplaySegmentProvider extends _$DisplaySegmentProvider {
       }
     });
     final segment = ref.watch(nodeProvider<Segment>(tripId, segmentId));
-
     if (segment == null) {
       throw Exception('Segment not found');
     }
-
     final Vertex startVertex = ref.watch(
       nodeRequiredProvider<Vertex>(tripId, segment.startVertexId),
     );
-
     final Vertex endVertex = ref.watch(
       nodeRequiredProvider<Vertex>(tripId, segment.endVertexId),
     );
-
     if (_isInit) {
       _isInit = false;
       // Sera false au prochain changement de startVertex/endVertex
@@ -48,4 +45,10 @@ class DisplaySegmentProvider extends _$DisplaySegmentProvider {
 
     return DisplaySegment(segment: segment, geometry: geometry);
   }
+}
+
+@riverpod
+LatLng segmentMarkerLatLng(Ref ref, Id<Trip> tripId, Id<Segment> segmentId) {
+  final display = ref.watch(displaySegmentProvider(tripId, segmentId));
+  return boundsCenter(display.geometry);
 }
