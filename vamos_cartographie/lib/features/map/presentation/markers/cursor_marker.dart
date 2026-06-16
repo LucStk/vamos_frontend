@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/application/providers/map_notifier.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
+import 'package:vamos_cartographie/features/map/presentation/markers/marker_abstract.dart';
 
-class CursorMarker extends MapMarker {
+class CursorMarker extends AbstractMarker {
   const CursorMarker({
     super.key,
     required super.tripId,
@@ -18,7 +18,7 @@ class CursorMarker extends MapMarker {
         // if (!isDragging) {
         //   ref
         //       .read(mapPopupProvider(tripId).notifier)
-        //       .show(latLng: latLng, popMenu: popMenu);
+        //       .show(latLng: latLng, popUp: popUp);
         // }
       },
       child: Icon(Icons.place_sharp, size: 30, color: Colors.black),

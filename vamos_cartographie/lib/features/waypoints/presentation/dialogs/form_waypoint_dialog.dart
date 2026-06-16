@@ -6,12 +6,12 @@ import 'package:vamos_cartographie/features/waypoints/presentation/widgets/widge
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 
-class WaypointFormDialog extends ConsumerStatefulWidget {
+class FormWaypointDialog extends ConsumerStatefulWidget {
   final WaypointDraft initialWaypoint;
   final Future<void> Function(WidgetRef ref, WaypointDraft waypoint) onSubmit;
   final String successMessage;
 
-  const WaypointFormDialog({
+  const FormWaypointDialog({
     super.key,
     required this.initialWaypoint,
     required this.onSubmit,
@@ -19,10 +19,10 @@ class WaypointFormDialog extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<WaypointFormDialog> createState() => _WaypointFormDialogState();
+  ConsumerState<FormWaypointDialog> createState() => _FormWaypointDialogState();
 }
 
-class _WaypointFormDialogState extends ConsumerState<WaypointFormDialog> {
+class _FormWaypointDialogState extends ConsumerState<FormWaypointDialog> {
   final _editorKey = GlobalKey<WaypointEditorState>();
   bool _isSaving = false;
 

@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/graph/graph.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import "segment_layer.dart";
-import "segment_type_marker_layer.dart";
+import "segment_markers_layer.dart";
 
 import 'vertex_layer.dart';
 
@@ -25,7 +25,7 @@ class TopologyLayer extends ConsumerWidget {
         return Stack(
           children: [
             SegmentLayer(tripId: tripId),
-            SegmentTypeMarkerLayer(tripId: tripId),
+            SegmentMarkersLayer(tripId: tripId),
             VertexLayer(tripId: tripId),
           ],
         );

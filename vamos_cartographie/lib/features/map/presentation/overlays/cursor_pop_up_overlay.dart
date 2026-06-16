@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
+import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up.dart';
 
 class CursorPopUpOverlay extends ConsumerWidget {
   const CursorPopUpOverlay({
@@ -42,7 +43,7 @@ class CursorPopUpOverlay extends ConsumerWidget {
                 child: Padding(
                   // On ajoute une marge uniquement en bas pour "pousser" le menu de 8px vers le haut
                   padding: const EdgeInsets.only(bottom: 20.0),
-                  child: CursorMenu(tripId: tripId),
+                  child: CursorPopUp(tripId: tripId),
                 ),
               ),
             ),

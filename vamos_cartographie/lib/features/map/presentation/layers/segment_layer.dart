@@ -3,7 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/map/presentation/helpers/segment_polyline_builder.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 
 class SegmentLayer extends AbstractLayer {

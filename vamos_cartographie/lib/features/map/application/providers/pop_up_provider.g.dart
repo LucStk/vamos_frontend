@@ -58,7 +58,7 @@ final class MapPopupNotifierProvider
   }
 }
 
-String _$mapPopupNotifierHash() => r'e5940e314dad1607fa049d07d9da3ffc8a93dbdc';
+String _$mapPopupNotifierHash() => r'fa5703b4b19401e96c025ce047ec8fa91bff03de';
 
 final class MapPopupNotifierFamily extends $Family
     with

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/menus/pop_menu.dart';
+import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
+import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up_abstract.dart';
 
 class MarkerWtMenuShell extends StatefulWidget {
-  final MapMarker marker;
-  final PopMenu popMenu;
+  final AbstractMarker marker;
+  final AbstractPopUp popUp;
   final bool isDragging;
   final OverlayPortalController controller;
 
   const MarkerWtMenuShell({
     super.key,
     required this.marker,
-    required this.popMenu,
+    required this.popUp,
     required this.isDragging,
     required this.controller,
   });
@@ -48,10 +48,7 @@ class _MarkerWtMenuShellState extends State<MarkerWtMenuShell> {
           targetAnchor: Alignment.topCenter,
           followerAnchor: Alignment.bottomCenter,
           offset: const Offset(0, -8),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: widget.popMenu,
-          ),
+          child: Align(alignment: Alignment.bottomCenter, child: widget.popUp),
         );
       },
       child: CompositedTransformTarget(

@@ -5,14 +5,14 @@ import 'package:vamos_cartographie/features/graph/application/selectors/graph_se
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/application/orchestrators/waypoint_orchestrator.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
-import 'waypoint_editor_dialog.dart';
+import 'edit_waypoint_dialog.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 
-class WaypointViewerDialog extends ConsumerWidget {
+class ShowWaypointDialog extends ConsumerWidget {
   final Id<Waypoint> waypointId;
   final Id<Trip> tripId;
-  const WaypointViewerDialog({
+  const ShowWaypointDialog({
     super.key,
     required this.waypointId,
     required this.tripId,
@@ -26,7 +26,7 @@ class WaypointViewerDialog extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (_) =>
-          WaypointViewerDialog(waypointId: waypointId, tripId: tripId),
+          ShowWaypointDialog(waypointId: waypointId, tripId: tripId),
     );
   }
 
@@ -81,7 +81,7 @@ class WaypointViewerDialog extends ConsumerWidget {
       buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {
-            WaypointEditorDialog.show(
+            EditWaypointDialog.show(
               context: ctx,
               waypointId: waypointId,
               tripId: tripId,

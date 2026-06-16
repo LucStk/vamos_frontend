@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MapPopupState {
 
- LatLng get latLng; PopMenu get popMenu;
+ LatLng get latLng; AbstractPopUp get popUp;
 /// Create a copy of MapPopupState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MapPopupStateCopyWith<MapPopupState> get copyWith => _$MapPopupStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapPopupState&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.popMenu, popMenu) || other.popMenu == popMenu));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapPopupState&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.popUp, popUp) || other.popUp == popUp));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,latLng,popMenu);
+int get hashCode => Object.hash(runtimeType,latLng,popUp);
 
 @override
 String toString() {
-  return 'MapPopupState(latLng: $latLng, popMenu: $popMenu)';
+  return 'MapPopupState(latLng: $latLng, popUp: $popUp)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MapPopupStateCopyWith<$Res>  {
   factory $MapPopupStateCopyWith(MapPopupState value, $Res Function(MapPopupState) _then) = _$MapPopupStateCopyWithImpl;
 @useResult
 $Res call({
- LatLng latLng, PopMenu popMenu
+ LatLng latLng, AbstractPopUp popUp
 });
 
 
@@ -62,11 +62,11 @@ class _$MapPopupStateCopyWithImpl<$Res>
 
 /// Create a copy of MapPopupState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? latLng = null,Object? popMenu = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? latLng = null,Object? popUp = null,}) {
   return _then(_self.copyWith(
 latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
-as LatLng,popMenu: null == popMenu ? _self.popMenu : popMenu // ignore: cast_nullable_to_non_nullable
-as PopMenu,
+as LatLng,popUp: null == popUp ? _self.popUp : popUp // ignore: cast_nullable_to_non_nullable
+as AbstractPopUp,
   ));
 }
 
@@ -151,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng latLng,  PopMenu popMenu)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng latLng,  AbstractPopUp popUp)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MapPopupState() when $default != null:
-return $default(_that.latLng,_that.popMenu);case _:
+return $default(_that.latLng,_that.popUp);case _:
   return orElse();
 
 }
@@ -172,10 +172,10 @@ return $default(_that.latLng,_that.popMenu);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng latLng,  PopMenu popMenu)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng latLng,  AbstractPopUp popUp)  $default,) {final _that = this;
 switch (_that) {
 case _MapPopupState():
-return $default(_that.latLng,_that.popMenu);case _:
+return $default(_that.latLng,_that.popUp);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +192,10 @@ return $default(_that.latLng,_that.popMenu);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng latLng,  PopMenu popMenu)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng latLng,  AbstractPopUp popUp)?  $default,) {final _that = this;
 switch (_that) {
 case _MapPopupState() when $default != null:
-return $default(_that.latLng,_that.popMenu);case _:
+return $default(_that.latLng,_that.popUp);case _:
   return null;
 
 }
@@ -207,11 +207,11 @@ return $default(_that.latLng,_that.popMenu);case _:
 
 
 class _MapPopupState implements MapPopupState {
-  const _MapPopupState({required this.latLng, required this.popMenu});
+  const _MapPopupState({required this.latLng, required this.popUp});
   
 
 @override final  LatLng latLng;
-@override final  PopMenu popMenu;
+@override final  AbstractPopUp popUp;
 
 /// Create a copy of MapPopupState
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +223,16 @@ _$MapPopupStateCopyWith<_MapPopupState> get copyWith => __$MapPopupStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapPopupState&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.popMenu, popMenu) || other.popMenu == popMenu));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapPopupState&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.popUp, popUp) || other.popUp == popUp));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,latLng,popMenu);
+int get hashCode => Object.hash(runtimeType,latLng,popUp);
 
 @override
 String toString() {
-  return 'MapPopupState(latLng: $latLng, popMenu: $popMenu)';
+  return 'MapPopupState(latLng: $latLng, popUp: $popUp)';
 }
 
 
@@ -243,7 +243,7 @@ abstract mixin class _$MapPopupStateCopyWith<$Res> implements $MapPopupStateCopy
   factory _$MapPopupStateCopyWith(_MapPopupState value, $Res Function(_MapPopupState) _then) = __$MapPopupStateCopyWithImpl;
 @override @useResult
 $Res call({
- LatLng latLng, PopMenu popMenu
+ LatLng latLng, AbstractPopUp popUp
 });
 
 
@@ -260,11 +260,11 @@ class __$MapPopupStateCopyWithImpl<$Res>
 
 /// Create a copy of MapPopupState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? latLng = null,Object? popMenu = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? latLng = null,Object? popUp = null,}) {
   return _then(_MapPopupState(
 latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
-as LatLng,popMenu: null == popMenu ? _self.popMenu : popMenu // ignore: cast_nullable_to_non_nullable
-as PopMenu,
+as LatLng,popUp: null == popUp ? _self.popUp : popUp // ignore: cast_nullable_to_non_nullable
+as AbstractPopUp,
   ));
 }
 

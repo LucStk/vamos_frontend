@@ -6,13 +6,13 @@ import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/application/orchestrators/waypoint_orchestrator.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
-import "waypoint_form_dialog.dart";
+import "form_waypoint_dialog.dart";
 
-class WaypointCreatorDialog extends ConsumerWidget {
+class CreateWaypointDialog extends ConsumerWidget {
   final Id<Trip> tripId;
   final Id<Vertex>? vertexId;
   final LatLng? latLng;
-  const WaypointCreatorDialog({
+  const CreateWaypointDialog({
     super.key,
     required this.tripId,
     this.vertexId,
@@ -28,7 +28,7 @@ class WaypointCreatorDialog extends ConsumerWidget {
     return showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => WaypointCreatorDialog(
+      builder: (_) => CreateWaypointDialog(
         tripId: tripId,
         vertexId: vertexId,
         latLng: latLng,
@@ -38,7 +38,7 @@ class WaypointCreatorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return WaypointFormDialog(
+    return FormWaypointDialog(
       initialWaypoint: WaypointDraft(),
       successMessage: 'Waypoint créé',
       onSubmit: (ref, editedWaypoint) async {

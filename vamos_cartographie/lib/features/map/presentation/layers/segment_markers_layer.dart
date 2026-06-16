@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/presentation/helpers/gis.dart';
 import 'package:vamos_cartographie/features/map/presentation/helpers/segment_marker_builder.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/segment_type_marker.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 
-class SegmentTypeMarkerLayer extends AbstractLayer {
-  const SegmentTypeMarkerLayer({super.key, required super.tripId});
+class SegmentMarkersLayer extends AbstractLayer {
+  const SegmentMarkersLayer({super.key, required super.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

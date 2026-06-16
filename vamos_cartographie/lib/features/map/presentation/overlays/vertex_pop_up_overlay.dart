@@ -5,8 +5,8 @@ import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/map/application/providers/pop_up_provider.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 
-class PopUpOverlay extends ConsumerWidget {
-  const PopUpOverlay({
+class VertexPopUpOverlay extends ConsumerWidget {
+  const VertexPopUpOverlay({
     super.key,
     required this.tripId,
     required this.mapController,
@@ -42,7 +42,7 @@ class PopUpOverlay extends ConsumerWidget {
                 child: Padding(
                   // On ajoute une marge uniquement en bas pour "pousser" le menu de 8px vers le haut
                   padding: const EdgeInsets.only(bottom: 20.0),
-                  child: popup.popMenu,
+                  child: popup.popUp,
                 ),
               ),
             ),

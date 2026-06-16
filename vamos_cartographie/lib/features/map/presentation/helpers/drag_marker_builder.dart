@@ -4,7 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/graph.dart';
 import 'package:vamos_cartographie/features/map/application/providers/pop_up_provider.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
+import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
@@ -13,7 +13,7 @@ DragMarker buildDragMarker({
   required WidgetRef ref,
   required Id<Trip> tripId,
   required Id<Vertex> vertexId,
-  required MapMarker Function(LatLng, bool) markerBuilder,
+  required AbstractMarker Function(LatLng, bool) markerBuilder,
 }) {
   final VertexOrchestrator vertexOrchestrator = ref.watch(
     vertexOrchestratorProvider(tripId).notifier,

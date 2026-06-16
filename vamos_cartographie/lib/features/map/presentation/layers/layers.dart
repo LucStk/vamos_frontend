@@ -1,6 +1,6 @@
 export "map_tile_layer.dart";
 export "segment_layer.dart";
-export "segment_type_marker_layer.dart";
+export "segment_markers_layer.dart";
 export "vertex_layer.dart";
 export "topology_layer.dart";
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:vamos_cartographie/features/map/presentation/widgets/buttons/map_control_button.dart';
+import 'package:vamos_cartographie/features/map/presentation/buttons/map_control_button_shell.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
 class MapControls extends StatelessWidget {

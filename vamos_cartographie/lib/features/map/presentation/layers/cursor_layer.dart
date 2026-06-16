@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/abstract_layer.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
-import 'package:vamos_cartographie/features/map/presentation/widgets/markers/cursor_marker.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
+import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
+import 'package:vamos_cartographie/features/waypoints/presentation/dialogs/create_waypoint_dialog.dart';
 
 class CursorLayer extends AbstractLayer {
   const CursorLayer({super.key, required super.tripId});
@@ -30,6 +31,13 @@ class CursorLayer extends AbstractLayer {
           size: Size(32, 32),
           builder: (BuildContext context, LatLng latLng, bool isDragging) {
             return CursorMarker(tripId: tripId, isDragging: isDragging);
+          },
+          onTap: (LatLng? latLng) {
+            CreateWaypointDialog.show(
+              context: context,
+              tripId: tripId,
+              latLng: latLng,
+            );
           },
           onDragStart: (_, _) => cursorNotifier.hidePopUp(),
           onDragEnd: (details, latLng) => cursorNotifier.setPosition(latLng),
