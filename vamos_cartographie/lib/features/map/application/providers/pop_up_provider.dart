@@ -16,6 +16,19 @@ class MapPopupNotifier extends _$MapPopupNotifier {
     state = MapPopupState(latLng: latLng, popUp: popUp);
   }
 
+  bool isOpen() {
+    return (state != null);
+  }
+
+  void toggle({required LatLng latLng, required AbstractPopUp popUp}) {
+    // Ouvre si fermé et ferme si ouvert
+    if (isOpen()) {
+      hide();
+    } else {
+      state = MapPopupState(latLng: latLng, popUp: popUp);
+    }
+  }
+
   void hide() {
     state = null;
   }
