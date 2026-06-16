@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/cursor_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/pop_up_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 
 import 'package:vamos_cartographie/features/map/presentation/layers/layers.dart';
@@ -67,6 +68,10 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               CursorLayer(tripId: widget.tripId),
             ],
           ),
+          PopupLayer(
+            tripId: widget.tripId,
+            mapController: _mapController,
+          ), // déssine par dessus la map
           MapTopBar(tripId: widget.tripId),
         ],
       ),

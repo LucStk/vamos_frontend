@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:vamos_cartographie/features/graph/graph.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/drag_marker_builder.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/drag_marker_builder.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
@@ -24,7 +24,7 @@ class VertexLayer extends AbstractLayer {
     );
     // On trouve les vertex qui ne sont pas associé à un waypoint.
     final simplesVertex = vertexIds.toSet().difference(
-      waypointsVertex.keys.toSet(),
+      waypointsVertex.values.toSet(),
     );
 
     if (simplesVertex.isEmpty && waypointsVertex.isEmpty) {
@@ -33,32 +33,36 @@ class VertexLayer extends AbstractLayer {
 
     return DragMarkers(
       markers: [
-        for (final vertexId in simplesVertex)
-          buildDragMarker(
-            ref: ref,
-            tripId: tripId,
-            vertexId: vertexId,
-            markerBuilder: (latLng, isDragging) {
-              return VertexMarker(
-                tripId: tripId,
-                vertexId: vertexId,
-                isDragging: isDragging,
-              );
-            },
-          ),
-        for (final v in waypointsVertex.entries)
-          buildDragMarker(
-            ref: ref,
-            tripId: tripId,
-            vertexId: v.value,
-            markerBuilder: (latLng, isDragging) {
-              return WaypointMarker(
-                tripId: tripId,
-                waypointId: v.key,
-                isDragging: isDragging,
-              );
-            },
-          ),
+        ...[
+          for (final vertexId in simplesVertex)
+            buildDragMarker(
+              ref: ref,
+              tripId: tripId,
+              vertexId: vertexId,
+              markerBuilder: (latLng, isDragging) {
+                return VertexMarker(
+                  tripId: tripId,
+                  vertexId: vertexId,
+                  isDragging: isDragging,
+                );
+              },
+            ),
+        ],
+        ...[
+          for (final v in waypointsVertex.entries)
+            buildDragMarker(
+              ref: ref,
+              tripId: tripId,
+              vertexId: v.value,
+              markerBuilder: (latLng, isDragging) {
+                return WaypointMarker(
+                  tripId: tripId,
+                  waypointId: v.key,
+                  isDragging: isDragging,
+                );
+              },
+            ),
+        ],
       ],
     );
   }
