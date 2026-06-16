@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/map/application/providers/pop_up_provider.dart';
-import 'package:vamos_cartographie/features/trips/trips.dart';
+import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
 
-class PopupLayer extends ConsumerWidget {
-  const PopupLayer({
+class CursorPopUpOverlay extends ConsumerWidget {
+  const CursorPopUpOverlay({
     super.key,
     required this.tripId,
     required this.mapController,
@@ -17,9 +17,9 @@ class PopupLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final popup = ref.watch(mapPopupProvider(tripId));
+    final cursor = ref.watch(mapCursorProvider(tripId));
 
-    if (popup == null) {
+    if (!cursor.isOpen || !cursor.popUpOpen) {
       return const SizedBox.shrink();
     }
 
@@ -28,7 +28,7 @@ class PopupLayer extends ConsumerWidget {
     return StreamBuilder(
       stream: mapController.mapEventStream,
       builder: (context, snapshot) {
-        final point = mapController.camera.latLngToScreenOffset(popup.latLng);
+        final point = mapController.camera.latLngToScreenOffset(cursor.latLng);
 
         return Stack(
           children: [
@@ -42,7 +42,7 @@ class PopupLayer extends ConsumerWidget {
                 child: Padding(
                   // On ajoute une marge uniquement en bas pour "pousser" le menu de 8px vers le haut
                   padding: const EdgeInsets.only(bottom: 20.0),
-                  child: popup.popMenu,
+                  child: CursorMenu(tripId: tripId),
                 ),
               ),
             ),

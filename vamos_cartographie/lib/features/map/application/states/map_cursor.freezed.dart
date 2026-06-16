@@ -12,40 +12,40 @@ part of 'map_cursor.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MapCursor {
+mixin _$MapCursorState {
 
- LatLng get latLng; bool get isOpen;
-/// Create a copy of MapCursor
+ LatLng get latLng; bool get isOpen; bool get popUpOpen;
+/// Create a copy of MapCursorState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$MapCursorCopyWith<MapCursor> get copyWith => _$MapCursorCopyWithImpl<MapCursor>(this as MapCursor, _$identity);
+$MapCursorStateCopyWith<MapCursorState> get copyWith => _$MapCursorStateCopyWithImpl<MapCursorState>(this as MapCursorState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapCursor&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.isOpen, isOpen) || other.isOpen == isOpen));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapCursorState&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.isOpen, isOpen) || other.isOpen == isOpen)&&(identical(other.popUpOpen, popUpOpen) || other.popUpOpen == popUpOpen));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,latLng,isOpen);
+int get hashCode => Object.hash(runtimeType,latLng,isOpen,popUpOpen);
 
 @override
 String toString() {
-  return 'MapCursor(latLng: $latLng, isOpen: $isOpen)';
+  return 'MapCursorState(latLng: $latLng, isOpen: $isOpen, popUpOpen: $popUpOpen)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $MapCursorCopyWith<$Res>  {
-  factory $MapCursorCopyWith(MapCursor value, $Res Function(MapCursor) _then) = _$MapCursorCopyWithImpl;
+abstract mixin class $MapCursorStateCopyWith<$Res>  {
+  factory $MapCursorStateCopyWith(MapCursorState value, $Res Function(MapCursorState) _then) = _$MapCursorStateCopyWithImpl;
 @useResult
 $Res call({
- LatLng latLng, bool isOpen
+ LatLng latLng, bool isOpen, bool popUpOpen
 });
 
 
@@ -53,19 +53,20 @@ $Res call({
 
 }
 /// @nodoc
-class _$MapCursorCopyWithImpl<$Res>
-    implements $MapCursorCopyWith<$Res> {
-  _$MapCursorCopyWithImpl(this._self, this._then);
+class _$MapCursorStateCopyWithImpl<$Res>
+    implements $MapCursorStateCopyWith<$Res> {
+  _$MapCursorStateCopyWithImpl(this._self, this._then);
 
-  final MapCursor _self;
-  final $Res Function(MapCursor) _then;
+  final MapCursorState _self;
+  final $Res Function(MapCursorState) _then;
 
-/// Create a copy of MapCursor
+/// Create a copy of MapCursorState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? latLng = null,Object? isOpen = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? latLng = null,Object? isOpen = null,Object? popUpOpen = null,}) {
   return _then(_self.copyWith(
 latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
 as LatLng,isOpen: null == isOpen ? _self.isOpen : isOpen // ignore: cast_nullable_to_non_nullable
+as bool,popUpOpen: null == popUpOpen ? _self.popUpOpen : popUpOpen // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -73,8 +74,8 @@ as bool,
 }
 
 
-/// Adds pattern-matching-related methods to [MapCursor].
-extension MapCursorPatterns on MapCursor {
+/// Adds pattern-matching-related methods to [MapCursorState].
+extension MapCursorStatePatterns on MapCursorState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -87,10 +88,10 @@ extension MapCursorPatterns on MapCursor {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MapCursor value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MapCursorState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _MapCursor() when $default != null:
+case _MapCursorState() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -109,10 +110,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MapCursor value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MapCursorState value)  $default,){
 final _that = this;
 switch (_that) {
-case _MapCursor():
+case _MapCursorState():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -130,10 +131,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MapCursor value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MapCursorState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _MapCursor() when $default != null:
+case _MapCursorState() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng latLng,  bool isOpen)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng latLng,  bool isOpen,  bool popUpOpen)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _MapCursor() when $default != null:
-return $default(_that.latLng,_that.isOpen);case _:
+case _MapCursorState() when $default != null:
+return $default(_that.latLng,_that.isOpen,_that.popUpOpen);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.latLng,_that.isOpen);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng latLng,  bool isOpen)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng latLng,  bool isOpen,  bool popUpOpen)  $default,) {final _that = this;
 switch (_that) {
-case _MapCursor():
-return $default(_that.latLng,_that.isOpen);case _:
+case _MapCursorState():
+return $default(_that.latLng,_that.isOpen,_that.popUpOpen);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return $default(_that.latLng,_that.isOpen);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng latLng,  bool isOpen)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng latLng,  bool isOpen,  bool popUpOpen)?  $default,) {final _that = this;
 switch (_that) {
-case _MapCursor() when $default != null:
-return $default(_that.latLng,_that.isOpen);case _:
+case _MapCursorState() when $default != null:
+return $default(_that.latLng,_that.isOpen,_that.popUpOpen);case _:
   return null;
 
 }
@@ -206,44 +207,45 @@ return $default(_that.latLng,_that.isOpen);case _:
 /// @nodoc
 
 
-class _MapCursor implements MapCursor {
-  const _MapCursor({this.latLng = const LatLng(0, 0), this.isOpen = false});
+class _MapCursorState implements MapCursorState {
+  const _MapCursorState({this.latLng = const LatLng(0, 0), this.isOpen = false, this.popUpOpen = true});
   
 
 @override@JsonKey() final  LatLng latLng;
 @override@JsonKey() final  bool isOpen;
+@override@JsonKey() final  bool popUpOpen;
 
-/// Create a copy of MapCursor
+/// Create a copy of MapCursorState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$MapCursorCopyWith<_MapCursor> get copyWith => __$MapCursorCopyWithImpl<_MapCursor>(this, _$identity);
+_$MapCursorStateCopyWith<_MapCursorState> get copyWith => __$MapCursorStateCopyWithImpl<_MapCursorState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapCursor&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.isOpen, isOpen) || other.isOpen == isOpen));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapCursorState&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.isOpen, isOpen) || other.isOpen == isOpen)&&(identical(other.popUpOpen, popUpOpen) || other.popUpOpen == popUpOpen));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,latLng,isOpen);
+int get hashCode => Object.hash(runtimeType,latLng,isOpen,popUpOpen);
 
 @override
 String toString() {
-  return 'MapCursor(latLng: $latLng, isOpen: $isOpen)';
+  return 'MapCursorState(latLng: $latLng, isOpen: $isOpen, popUpOpen: $popUpOpen)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$MapCursorCopyWith<$Res> implements $MapCursorCopyWith<$Res> {
-  factory _$MapCursorCopyWith(_MapCursor value, $Res Function(_MapCursor) _then) = __$MapCursorCopyWithImpl;
+abstract mixin class _$MapCursorStateCopyWith<$Res> implements $MapCursorStateCopyWith<$Res> {
+  factory _$MapCursorStateCopyWith(_MapCursorState value, $Res Function(_MapCursorState) _then) = __$MapCursorStateCopyWithImpl;
 @override @useResult
 $Res call({
- LatLng latLng, bool isOpen
+ LatLng latLng, bool isOpen, bool popUpOpen
 });
 
 
@@ -251,19 +253,20 @@ $Res call({
 
 }
 /// @nodoc
-class __$MapCursorCopyWithImpl<$Res>
-    implements _$MapCursorCopyWith<$Res> {
-  __$MapCursorCopyWithImpl(this._self, this._then);
+class __$MapCursorStateCopyWithImpl<$Res>
+    implements _$MapCursorStateCopyWith<$Res> {
+  __$MapCursorStateCopyWithImpl(this._self, this._then);
 
-  final _MapCursor _self;
-  final $Res Function(_MapCursor) _then;
+  final _MapCursorState _self;
+  final $Res Function(_MapCursorState) _then;
 
-/// Create a copy of MapCursor
+/// Create a copy of MapCursorState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? latLng = null,Object? isOpen = null,}) {
-  return _then(_MapCursor(
+@override @pragma('vm:prefer-inline') $Res call({Object? latLng = null,Object? isOpen = null,Object? popUpOpen = null,}) {
+  return _then(_MapCursorState(
 latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
 as LatLng,isOpen: null == isOpen ? _self.isOpen : isOpen // ignore: cast_nullable_to_non_nullable
+as bool,popUpOpen: null == popUpOpen ? _self.popUpOpen : popUpOpen // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/application/applications.dart';
 import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/buttons/create_waypoint_button.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/menus/pop_menu_shell.dart';
@@ -12,8 +11,8 @@ class CursorMenu extends PopMenu {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cursor = ref.watch(mapCursorProvider);
-    final cursorNotifier = ref.watch(mapCursorProvider.notifier);
+    final cursor = ref.watch(mapCursorProvider(tripId));
+    final cursorNotifier = ref.watch(mapCursorProvider(tripId).notifier);
     return PopMenuShell(
       buttonsBuilder: (ctx) => [
         CreateWaypointButton(

@@ -6,10 +6,12 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/cursor_layer.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/pop_up_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/overlays/cursor_pop_up_overlay.dart';
+import 'package:vamos_cartographie/features/map/presentation/overlays/pop_up_overlay.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 
 import 'package:vamos_cartographie/features/map/presentation/layers/layers.dart';
+import 'package:vamos_cartographie/features/trips/application/selectors/trips_selectors.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
@@ -41,7 +43,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cursorProvider = ref.watch(mapCursorProvider.notifier);
+    final cursorProvider = ref.watch(mapCursorProvider(widget.tripId).notifier);
     return Scaffold(
       body: Stack(
         children: [
@@ -68,10 +70,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               CursorLayer(tripId: widget.tripId),
             ],
           ),
-          PopupLayer(
+          PopUpOverlay(
             tripId: widget.tripId,
             mapController: _mapController,
           ), // déssine par dessus la map
+          CursorPopUpOverlay(
+            tripId: widget.tripId,
+            mapController: _mapController,
+          ),
           MapTopBar(tripId: widget.tripId),
         ],
       ),

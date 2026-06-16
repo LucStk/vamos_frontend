@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/map/application/providers/map_notifier.dart';
+import 'package:vamos_cartographie/features/map/application/providers/pop_up_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/menus/menus.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
@@ -27,8 +28,8 @@ class MarkerWtPopmenuShell extends ConsumerWidget {
       onTap: () {
         if (!isDragging) {
           ref
-              .read(mapStateProvider(tripId).notifier)
-              .showPopUp(latLng: latLng, popMenu: popMenu);
+              .read(mapPopupProvider(tripId).notifier)
+              .show(latLng: latLng, popMenu: popMenu);
         }
       },
       child: child,
