@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/graph/graph.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/marker_shell.dart';
+import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
+
+DragMarker buildDragMarker({
+  required WidgetRef ref,
+  required Id<Trip> tripId,
+  required Id<Vertex> vertexId,
+  required MapMarker Function(LatLng, bool) markerBuilder,
+}) {
+  final VertexOrchestrator vertexOrchestrator = ref.watch(
+    vertexOrchestratorProvider(tripId).notifier,
+  );
+  final vertex = ref.watch(nodeRequiredProvider<Vertex>(tripId, vertexId));
+  return DragMarker(
+    point: vertex.latLng,
+    size: Size(32, 32),
+    builder: (_, LatLng latLng, bool isDragging) =>
+        markerBuilder(latLng, isDragging),
+    onDragEnd: (details, latLng) =>
+        vertexOrchestrator.moveVertex(vertexId, latLng),
+  );
+}

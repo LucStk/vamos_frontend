@@ -4,5 +4,6 @@ import 'package:vamos_cartographie/features/trips/trips.dart';
 
 abstract class MapMarker extends ConsumerWidget {
   final Id<Trip> tripId;
-  const MapMarker({super.key, required this.tripId});
+  final bool isDragging;
+  const MapMarker({super.key, required this.tripId, required this.isDragging});
 }

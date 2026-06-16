@@ -3,7 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
 
 class CursorMarker extends MapMarker {
-  const CursorMarker({super.key, required super.tripId});
+  const CursorMarker({
+    super.key,
+    required super.tripId,
+    super.isDragging = false,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

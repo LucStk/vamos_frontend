@@ -112,6 +112,105 @@ final class QueryFamily extends $Family {
   );
 }
 
+@ProviderFor(getIds)
+final getIdsProvider = GetIdsFamily._();
+
+final class GetIdsProvider<T>
+    extends $FunctionalProvider<List<Id<T>>, List<Id<T>>, List<Id<T>>>
+    with $Provider<List<Id<T>>> {
+  GetIdsProvider._({
+    required GetIdsFamily super.from,
+    required Id<Trip> super.argument,
+  }) : super(
+         retry: null,
+         name: r'getIdsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$getIdsHash();
+
+  @override
+  String toString() {
+    return r'getIdsProvider'
+        '<${T}>'
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<Id<T>>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<Id<T>> create(Ref ref) {
+    final argument = this.argument as Id<Trip>;
+    return getIds<T>(ref, argument);
+  }
+
+  $R _captureGenerics<$R>($R Function<T>() cb) {
+    return cb<T>();
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Id<T>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Id<T>>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetIdsProvider &&
+        other.runtimeType == runtimeType &&
+        other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, argument);
+  }
+}
+
+String _$getIdsHash() => r'0156fb7f142ce9228856d887bc886eb9c9a5ba5b';
+
+final class GetIdsFamily extends $Family {
+  GetIdsFamily._()
+    : super(
+        retry: null,
+        name: r'getIdsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  GetIdsProvider<T> call<T>(Id<Trip> tripId) =>
+      GetIdsProvider<T>._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'getIdsProvider';
+
+  /// {@macro riverpod.override_with}
+  Override overrideWith(
+    List<Id<T>> Function<T>(Ref ref, Id<Trip> args) create,
+  ) => $FamilyOverride(
+    from: this,
+    createElement: (pointer) {
+      final provider = pointer.origin as GetIdsProvider;
+      return provider._captureGenerics(<T>() {
+        provider as GetIdsProvider<T>;
+        final argument = provider.argument as Id<Trip>;
+        return provider
+            .$view(create: (ref) => create(ref, argument))
+            .$createElement(pointer);
+      });
+    },
+  );
+}
+
 @ProviderFor(indexedBy)
 final indexedByProvider = IndexedByFamily._();
 

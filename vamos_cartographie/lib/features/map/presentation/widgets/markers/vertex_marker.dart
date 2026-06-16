@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
+import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/markers/map_marker.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/markers/marker_shell.dart';
+import 'package:vamos_cartographie/features/map/presentation/widgets/menus/vertex_menu.dart';
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 
 class VertexMarker extends MapMarker {
@@ -10,22 +13,16 @@ class VertexMarker extends MapMarker {
     super.key,
     required super.tripId,
     required this.vertexId,
+    super.isDragging = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 2),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+    final vertex = ref.watch(nodeRequiredProvider<Vertex>(tripId, vertexId));
+    return MarkerShell(
+      tripId: tripId,
+      latLng: vertex.latLng,
+      popMenu: VertexMenu(tripId: tripId),
       child: Icon(Icons.circle, size: 8, color: Colors.white.withOpacity(0.5)),
     );
   }

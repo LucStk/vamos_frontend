@@ -16,6 +16,12 @@ List<T> query<T>(Ref ref, Id<Trip> tripId, bool Function(T entity) predicate) {
 }
 
 @riverpod
+List<Id<T>> getIds<T>(Ref ref, Id<Trip> tripId) {
+  final collection = ref.watch(collectionProvider<T>(tripId));
+  return collection.keys.toList();
+}
+
+@riverpod
 Map<K, List<T>> indexedBy<T, K>(
   Ref ref,
   Id<Trip> tripId,
