@@ -12,16 +12,7 @@ class CursorMarker extends AbstractMarker {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapState = ref.watch(mapStateProvider(tripId).notifier);
-    return GestureDetector(
-      onTap: () {
-        // if (!isDragging) {
-        //   ref
-        //       .read(mapPopupProvider(tripId).notifier)
-        //       .show(latLng: latLng, popUp: popUp);
-        // }
-      },
-      child: Icon(Icons.place_sharp, size: 30, color: Colors.black),
-    );
+    // final mapState = ref.watch(mapStateProvider(tripId).notifier);
+    return Icon(Icons.place_sharp, size: 30, color: Colors.black);
   }
 }

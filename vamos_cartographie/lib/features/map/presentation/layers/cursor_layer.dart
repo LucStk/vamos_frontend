@@ -37,6 +37,9 @@ class CursorLayer extends AbstractLayer {
               context: context,
               tripId: tripId,
               latLng: latLng,
+              onSuccess: () {
+                cursorNotifier.close();
+              },
             );
           },
           onDragStart: (_, _) => cursorNotifier.hidePopUp(),

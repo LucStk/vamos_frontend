@@ -12,11 +12,13 @@ class CreateWaypointDialog extends ConsumerWidget {
   final Id<Trip> tripId;
   final Id<Vertex>? vertexId;
   final LatLng? latLng;
+  final VoidCallback? onSuccess;
   const CreateWaypointDialog({
     super.key,
     required this.tripId,
     this.vertexId,
     this.latLng,
+    this.onSuccess,
   });
 
   static Future<void> show({
@@ -24,6 +26,7 @@ class CreateWaypointDialog extends ConsumerWidget {
     required Id<Trip> tripId,
     Id<Vertex>? vertexId,
     LatLng? latLng,
+    VoidCallback? onSuccess,
   }) {
     return showDialog(
       context: context,
@@ -32,6 +35,7 @@ class CreateWaypointDialog extends ConsumerWidget {
         tripId: tripId,
         vertexId: vertexId,
         latLng: latLng,
+        onSuccess: onSuccess,
       ),
     );
   }
@@ -40,7 +44,13 @@ class CreateWaypointDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return FormWaypointDialog(
       initialWaypoint: WaypointDraft(),
-      successMessage: 'Waypoint créé',
+      onSuccess: () {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Point Créé")));
+
+        if (onSuccess != null) onSuccess!();
+      },
       onSubmit: (ref, editedWaypoint) async {
         await ref
             .read(waypointOrchestratorProvider(tripId).notifier)

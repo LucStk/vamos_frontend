@@ -9,13 +9,13 @@ import "package:vamos_cartographie/features/shared/shared.dart";
 class FormWaypointDialog extends ConsumerStatefulWidget {
   final WaypointDraft initialWaypoint;
   final Future<void> Function(WidgetRef ref, WaypointDraft waypoint) onSubmit;
-  final String successMessage;
+  final VoidCallback? onSuccess;
 
   const FormWaypointDialog({
     super.key,
     required this.initialWaypoint,
     required this.onSubmit,
-    required this.successMessage,
+    this.onSuccess,
   });
 
   @override
@@ -36,14 +36,9 @@ class _FormWaypointDialogState extends ConsumerState<FormWaypointDialog> {
 
     try {
       await widget.onSubmit(ref, waypoint);
-
       if (!mounted) return;
-
       Navigator.of(context).pop();
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(widget.successMessage)));
+      if (widget.onSuccess != null) widget.onSuccess!();
     } catch (e) {
       if (!mounted) return;
 
