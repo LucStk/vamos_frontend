@@ -9,37 +9,6 @@ import "package:vamos_cartographie/features/topology/data/providers/vertex_provi
 import "package:vamos_cartographie/features/waypoints/data/providers/waypoints_providers.dart";
 part "graph_providers.g.dart";
 
-// @riverpod
-// GraphStore graphStore(Ref ref, Id<Trip> tripId) {
-//   return GraphStore();
-// }
-
-// Future<void> graphLoader(Ref ref, GraphStore graph, Id<Trip> tripId) async {
-//   final verticesRepo = ref.read(vertexRepositoryProvider);
-//   final segmentsRepo = ref.read(segmentRepositoryProvider);
-//   final waypointsRepo = ref.read(waypointRepositoryProvider);
-
-//   final verticesResult = await verticesRepo.getVertices(tripId);
-//   final segmentsResult = await segmentsRepo.getSegments(tripId);
-//   final waypointsResult = await waypointsRepo.getWaypoints(tripId);
-
-//   verticesResult.fold((f) => throw Exception(f.message), (items) {
-//     for (final v in items) {
-//       graph.seed<Vertex>(v);
-//     }
-//   });
-//   segmentsResult.fold((f) => throw Exception(f.message), (items) {
-//     for (final s in items) {
-//       graph.seed<Segment>(s);
-//     }
-//   });
-//   waypointsResult.fold((f) => throw Exception(f.message), (items) {
-//     for (final w in items) {
-//       graph.seed<Waypoint>(w);
-//     }
-//   });
-// }
-
 @riverpod
 class TripGraph extends _$TripGraph {
   @override
