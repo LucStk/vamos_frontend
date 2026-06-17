@@ -1,3 +1,4 @@
+import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import "package:vamos_cartographie/features/graph/graph.dart";
@@ -21,12 +22,15 @@ class SegmentOrchestrator extends _$SegmentOrchestrator {
   // CREATE WAYPOINT (WITH OPTIONAL VERTEX)
   // ---------------------------------------------------------------------------
 
-  Future<void> createSegment(SegmentDraft draft) async {
+  Future<void> createSegment(
+    SegmentDraft draft,
+    List<LatLng> optimistGeometry,
+  ) async {
     late Id<Segment> tempId;
     await executor.run(
       onApply: () {
         tempId = graph.create<Segment>(
-          (Id<Segment> tmpId) => draft.toSegment(tempId),
+          (Id<Segment> tempId) => draft.toSegment(tempId, optimistGeometry),
         );
       },
       remote: () => segmentRepo.createSegment(tripId, draft),
@@ -49,12 +53,22 @@ class SegmentOrchestrator extends _$SegmentOrchestrator {
     );
   }
 
-  Future<void> updateSegment(Id<Segment> segmentId, SegmentDraft draft) async {
+  Future<void> updateSegment({
+    required Id<Segment> segmentId,
+    required SegmentDraft draft,
+    List<LatLng>? optimistGeometry,
+  }) async {
     late Segment oldValue;
+    late List<LatLng> geometry;
+    if (optimistGeometry == null) {
+      geometry = ref.read(nodeRequiredProvider(tripId, segmentId)).geometry;
+    } else {
+      geometry = optimistGeometry;
+    }
     await executor.run(
       onApply: () {
         oldValue = graph.update<Segment>(segmentId, (Segment v) {
-          return draft.toSegment(segmentId);
+          return draft.toSegment(segmentId, geometry);
         });
       },
       remote: () => segmentRepo.updateSegment(segmentId, draft),

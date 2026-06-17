@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class StartSegmentButton extends StatelessWidget {
+class EndSegmentButton extends StatelessWidget {
   final VoidCallback onPressed;
-  const StartSegmentButton({super.key, required this.onPressed});
+  const EndSegmentButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class StartSegmentButton extends StatelessWidget {
         iconColor: Colors.white,
         backgroundColor: Colors.lightGreen,
       ),
-      icon: const Icon(Icons.star_border, size: 30),
+      icon: const Icon(Icons.stop_circle, size: 30),
     );
   }
 }

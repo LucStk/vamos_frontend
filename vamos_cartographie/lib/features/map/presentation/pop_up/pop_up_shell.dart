@@ -9,6 +9,6 @@ class PopUpShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Stack(children: buttonsBuilder!(context));
+    return Row(children: buttonsBuilder!(context));
   }
 }

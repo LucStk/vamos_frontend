@@ -27,7 +27,7 @@ class VertexMarker extends AbstractMarker {
               .read(mapPopupProvider(tripId).notifier)
               .toggle(
                 latLng: vertex.latLng,
-                popUp: WaypointPopUp(tripId: tripId),
+                popUp: WaypointPopUp(tripId: tripId, vertexId: vertexId),
               );
         }
       },

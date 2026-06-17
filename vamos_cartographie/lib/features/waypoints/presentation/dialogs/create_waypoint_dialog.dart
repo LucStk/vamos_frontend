@@ -4,7 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-import 'package:vamos_cartographie/features/waypoints/application/orchestrators/waypoint_orchestrator.dart';
+import 'package:vamos_cartographie/features/waypoints/orchestrators/waypoint_orchestrator.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import "form_waypoint_dialog.dart";
 

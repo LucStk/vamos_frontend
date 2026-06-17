@@ -29,7 +29,6 @@ class TripGraph extends _$TripGraph {
     // 3. Remplissage du store tout neuf
     verticesResult.fold((f) => throw Exception(f.message), (items) {
       items.forEach(graph.seed<Vertex>);
-      debugPrint("Vertices loadé ${items.map((v) => v.id)}");
     });
     segmentsResult.fold(
       (f) => throw Exception(f.message),
@@ -37,7 +36,6 @@ class TripGraph extends _$TripGraph {
     );
     waypointsResult.fold((f) => throw Exception(f.message), (items) {
       items.forEach(graph.seed<Waypoint>);
-      debugPrint("Waypoints loadé ${items.map((v) => v.id)}");
     });
 
     return graph;

@@ -59,7 +59,7 @@ final class SegmentOrchestratorProvider
 }
 
 String _$segmentOrchestratorHash() =>
-    r'c145c7d468e985b62552f52658f9166a090d169a';
+    r'fb8371dae3875b52d76aa486ee955ffb27280a57';
 
 final class SegmentOrchestratorFamily extends $Family
     with $ClassFamilyOverride<SegmentOrchestrator, void, void, void, Id<Trip>> {

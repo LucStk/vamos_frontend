@@ -21,7 +21,6 @@ void main() {
           type: SegmentType.bike,
           startVertexId: Id<Vertex>(3),
           endVertexId: Id<Vertex>(7),
-          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLInput(draft);
@@ -45,7 +44,6 @@ void main() {
             type: domainType,
             startVertexId: Id<Vertex>(1),
             endVertexId: Id<Vertex>(2),
-            geometry: [],
           );
           final input = SegmentDraftMapper.toGQLInput(draft);
           expect(
@@ -71,7 +69,6 @@ void main() {
           type: SegmentType.walk,
           startVertexId: Id<Vertex>(1),
           endVertexId: Id<Vertex>(2),
-          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLUpdateInput(draft);
@@ -85,7 +82,6 @@ void main() {
           type: SegmentType.bike,
           startVertexId: Id<Vertex>(5),
           endVertexId: Id<Vertex>(9),
-          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLUpdateInput(draft);
@@ -99,7 +95,6 @@ void main() {
           type: SegmentType.bike,
           startVertexId: Id<Vertex>(5),
           endVertexId: Id<Vertex>(9),
-          geometry: [],
         );
 
         final input = SegmentDraftMapper.toGQLUpdateInput(draft);
@@ -122,7 +117,6 @@ void main() {
             type: domainType,
             startVertexId: Id<Vertex>(1),
             endVertexId: Id<Vertex>(2),
-            geometry: [],
           );
           final input = SegmentDraftMapper.toGQLUpdateInput(draft);
           expect(

@@ -47,7 +47,7 @@ class SegmentViewerDialog extends ConsumerWidget {
         onSubmit: (ref, editedSegment) async {
           await ref
               .read(segmentOrchestratorProvider(tripId).notifier)
-              .updateSegment(segmentId, editedSegment);
+              .updateSegment(segmentId: segmentId, draft: editedSegment);
         },
       ),
 

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/core/type/id.dart";
 import "package:vamos_cartographie/features/features.dart";
 import "package:vamos_cartographie/features/graph/graph.dart";
-import "package:vamos_cartographie/features/waypoints/application/orchestrators/waypoint_orchestrator.dart";
+import "package:vamos_cartographie/features/waypoints/orchestrators/waypoint_orchestrator.dart";
 
 import "form_waypoint_dialog.dart";
 import "package:vamos_cartographie/features/shared/shared.dart";
