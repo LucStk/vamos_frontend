@@ -2,8 +2,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/graph/application/providers/display_segment_providers.dart';
-import 'package:vamos_cartographie/features/graph/domain/entities/display_segment.dart';
+import 'package:vamos_cartographie/features/map/application/providers/display_segment_providers.dart';
+import 'package:vamos_cartographie/features/map/domain/entities/display_segment.dart';
 
 Polyline? segmentPolylineBuilder(
   WidgetRef ref,

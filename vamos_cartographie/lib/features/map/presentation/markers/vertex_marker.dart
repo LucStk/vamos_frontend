@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/application/providers/pop_up_provider.dart';
+import 'package:vamos_cartographie/features/map/presentation/providers/pop_up_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/marker_abstract.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up.dart';

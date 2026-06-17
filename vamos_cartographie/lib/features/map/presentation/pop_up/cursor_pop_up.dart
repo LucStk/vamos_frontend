@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
+import 'package:vamos_cartographie/features/map/presentation/providers/cursor_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/buttons/create_waypoint_button.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up_abstract.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up_shell.dart';
