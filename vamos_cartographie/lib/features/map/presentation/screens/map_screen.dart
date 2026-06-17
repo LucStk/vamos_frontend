@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/on_map_tap.dart';
 import 'package:vamos_cartographie/features/map/presentation/providers/cursor_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/cursor_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/overlays/vertex_pop_up_overlay.dart';
@@ -40,7 +41,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cursorProvider = ref.watch(mapCursorProvider(widget.tripId).notifier);
     return Scaffold(
       body: Stack(
         children: [
@@ -50,11 +50,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             options: MapOptions(
               initialCenter: const LatLng(46.8, 2.2),
               initialZoom: 7,
-              onTap: (_, latLng) {
-                cursorProvider.setPosition(latLng);
-                cursorProvider.open();
-                debugPrint("cursor Set $latLng");
-              },
+              onTap: (_, latLng) =>
+                  onMapTap(ref, context, latLng, widget.tripId),
               interactionOptions: const InteractionOptions(
                 flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
               ),

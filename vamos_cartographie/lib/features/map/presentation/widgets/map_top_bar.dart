@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/providers.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 /// Barre supérieure de la MapPage.
@@ -17,7 +16,6 @@ class MapTopBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final mapState = ref.watch(mapStateProvider(tripId));
     final title = "test title"; //mapState.currentTrip.title;
 
     // Style commun pour les ombres des capsules flottantes

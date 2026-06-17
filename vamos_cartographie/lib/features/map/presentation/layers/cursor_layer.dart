@@ -17,9 +17,7 @@ class CursorLayer extends AbstractLayer {
     /// ─────────────────────────────────────────────
     final cursor = ref.watch(mapCursorProvider(tripId));
     final cursorNotifier = ref.watch(mapCursorProvider(tripId).notifier);
-    final mapNotifier = ref.watch(mapStateProvider(tripId).notifier);
 
-    mapNotifier.closePopMap.addListener;
     if (!cursor.isOpen) {
       return SizedBox.shrink();
     }

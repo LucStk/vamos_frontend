@@ -50,7 +50,7 @@ final class TripGraphProvider
   }
 }
 
-String _$tripGraphHash() => r'bfad710d88f27ffebabf3aab8abb7036a6c9a83d';
+String _$tripGraphHash() => r'430dad9e98324ac8fec1c6a5ddb4d830fdcc0b47';
 
 final class TripGraphFamily extends $Family
     with
