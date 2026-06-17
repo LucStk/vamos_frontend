@@ -3,10 +3,11 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/presentation/helpers/factories/factories.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/builders/builders.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
-import 'package:vamos_cartographie/features/map/presentation/notifiers/map_interaction_notifier.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+
+import 'package:vamos_cartographie/features/map/presentation/controllers/controllers.dart';
 
 class SegmentLayer extends AbstractLayer {
   const SegmentLayer({super.key, required super.tripId});

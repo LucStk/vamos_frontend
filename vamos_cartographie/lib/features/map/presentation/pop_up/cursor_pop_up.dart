@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/cursor_provider.dart';
 import 'package:vamos_cartographie/features/map/presentation/buttons/create_waypoint_button.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up_abstract.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up_shell.dart';
 import 'package:vamos_cartographie/features/waypoints/presentation/dialogs/create_waypoint_dialog.dart';
+
+import 'package:vamos_cartographie/features/map/presentation/controllers/controllers.dart';
 
 class CursorPopUp extends AbstractPopUp {
   const CursorPopUp({super.key, required super.tripId});

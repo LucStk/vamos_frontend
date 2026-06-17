@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/pop_up_provider.dart';
+import 'package:vamos_cartographie/features/map/interaction/interation.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/marker_abstract.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/waypoint_pop_up.dart';
 import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
@@ -21,12 +21,9 @@ class WaypointMarker extends AbstractMarker {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // debugPrint('WAYPOINT $waypointId BUILD');
+    final ctrl = ref.read(mapInteractionControllerProvider(tripId).notifier);
     final waypoint = ref.watch(
       nodeRequiredProvider<Waypoint>(tripId, waypointId),
-    );
-    final vertex = ref.watch(
-      nodeRequiredProvider<Vertex>(tripId, waypoint.vertexId),
     );
 
     return GestureDetector(
@@ -46,7 +43,7 @@ class WaypointMarker extends AbstractMarker {
       onDoubleTap: () {
         ShowWaypointDialog.show(
           context: context,
-          waypointId: waypoint.id,
+          waypointId: waypointId,
           tripId: tripId,
         );
       },

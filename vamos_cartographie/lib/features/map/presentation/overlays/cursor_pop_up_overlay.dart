@@ -3,7 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/cursor_provider.dart';
+import 'package:vamos_cartographie/features/map/presentation/controllers/controllers.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up.dart';
 
 class CursorPopUpOverlay extends ConsumerWidget {

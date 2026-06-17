@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/graph.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/pop_up_provider.dart';
+import 'package:vamos_cartographie/features/map/interaction/interation.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
@@ -15,18 +15,15 @@ DragMarker buildDragMarker({
   required Id<Vertex> vertexId,
   required AbstractMarker Function(LatLng, bool) markerBuilder,
 }) {
-  final VertexOrchestrator vertexOrchestrator = ref.watch(
-    vertexOrchestratorProvider(tripId).notifier,
-  );
   final vertex = ref.watch(nodeRequiredProvider<Vertex>(tripId, vertexId));
-  final popUp = ref.watch(mapPopupProvider(tripId).notifier);
+  final ctrl = ref.watch(mapInteractionControllerProvider(tripId).notifier);
   return DragMarker(
     point: vertex.latLng,
     size: Size(32, 32),
     builder: (_, LatLng latLng, bool isDragging) =>
         markerBuilder(latLng, isDragging),
-    onDragStart: (_, _) => {popUp.hide()},
+    onDragStart: (_, _) => ctrl.handle(VertexDragStarted(vertexId)),
     onDragEnd: (details, latLng) =>
-        vertexOrchestrator.moveVertex(vertexId, latLng),
+        ctrl.handle(VertexDragEnded(vertexId, latLng)),
   );
 }

@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/features/graph/application/selectors/graph_se
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 
-import 'package:vamos_cartographie/features/map/presentation/helpers/factories/factories.dart';
+import 'package:vamos_cartographie/features/map/presentation/helpers/builders/builders.dart';
 
 class SegmentMarkersLayer extends AbstractLayer {
   const SegmentMarkersLayer({super.key, required super.tripId});

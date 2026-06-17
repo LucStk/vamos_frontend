@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/map/presentation/providers/providers.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
 import 'package:vamos_cartographie/features/waypoints/presentation/dialogs/create_waypoint_dialog.dart';
+
+import 'package:vamos_cartographie/features/map/presentation/controllers/controllers.dart';
 
 class CursorLayer extends AbstractLayer {
   const CursorLayer({super.key, required super.tripId});
