@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map/application/providers/display_segment_providers.dart';
 import 'package:vamos_cartographie/features/map/domain/entities/display_segment.dart';
 
-Polyline? segmentPolylineBuilder(
+Polyline<Id<Segment>> segmentPolylineBuilder(
   WidgetRef ref,
   Id<Trip> tripId,
   Id<Segment> segmentId,
@@ -18,6 +18,7 @@ Polyline? segmentPolylineBuilder(
     points: display.geometry,
     color: display.segment.type.color,
     strokeWidth: 5,
+    hitValue: segmentId,
     pattern: display.segment.type.isDashed
         ? StrokePattern.dashed(segments: const [12, 8])
         : const StrokePattern.solid(),
