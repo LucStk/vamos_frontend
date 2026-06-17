@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
+import 'package:vamos_cartographie/features/map/interaction/controllers/map_interaction_controller.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
 import 'package:vamos_cartographie/features/waypoints/presentation/dialogs/create_waypoint_dialog.dart';
-
-import 'package:vamos_cartographie/features/map/presentation/controllers/controllers.dart';
 
 class CursorLayer extends AbstractLayer {
   const CursorLayer({super.key, required super.tripId});
@@ -19,6 +18,7 @@ class CursorLayer extends AbstractLayer {
     final cursor = ref.watch(mapCursorProvider(tripId));
     final cursorNotifier = ref.watch(mapCursorProvider(tripId).notifier);
 
+    final ctrl = ref.watch(mapInteractionControllerProvider(tripId).notifier);
     if (!cursor.isOpen) {
       return SizedBox.shrink();
     }
@@ -40,7 +40,7 @@ class CursorLayer extends AbstractLayer {
               },
             );
           },
-          onDragStart: (_, _) => cursorNotifier.hidePopUp(),
+          onDragStart: (_, _) => ctrl.hidePopUp(),
           onDragEnd: (details, latLng) => cursorNotifier.setPosition(latLng),
         ),
       ],

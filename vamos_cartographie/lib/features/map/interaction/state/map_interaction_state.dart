@@ -1,9 +1,9 @@
 import 'package:flutter_map/flutter_map.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map/interaction/state/interaction_mode.dart';
 import 'package:vamos_cartographie/features/map/interaction/state/map_cursor.dart';
 import 'package:vamos_cartographie/features/map/interaction/state/pop_up.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 part "map_interaction_state.freezed.dart";
 
@@ -16,6 +16,7 @@ abstract class MapInteractionState with _$MapInteractionState {
 
     Id<Vertex>? activeVertex,
     Id<Segment>? activeSegment,
+    Id<Waypoint>? activeWaypoint,
     LayerHitResult<Id<Segment>>? segmentHit,
   }) = _MapInteractionState;
 

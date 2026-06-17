@@ -19,7 +19,7 @@ class VertexMarker extends AbstractMarker {
   Widget build(BuildContext context, WidgetRef ref) {
     final ctrl = ref.read(mapInteractionControllerProvider(tripId).notifier);
     return GestureDetector(
-      onTap: () => ctrl.handle(VertexTapped(vertexId)),
+      onTap: () => ctrl.onVertexTap(vertexId),
       child: Icon(Icons.circle, size: 8, color: Colors.white.withOpacity(0.5)),
     );
   }

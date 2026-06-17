@@ -1,11 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/map/interaction/actions/pop_up_actions.dart';
-import 'package:vamos_cartographie/features/map/interaction/events/events.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map/interaction/state/interaction_mode.dart';
 import 'package:vamos_cartographie/features/map/interaction/state/map_cursor.dart';
 import 'package:vamos_cartographie/features/map/interaction/state/map_interaction_state.dart';
+import 'package:vamos_cartographie/features/map/interaction/state/pop_up.dart';
+import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
@@ -33,6 +35,20 @@ class MapInteractionController extends _$MapInteractionController {
     );
   }
 
+  void onWaypointTap(Id<Waypoint> waypointId) {
+    state = state.copyWith(
+      mode: InteractionMode.tappingWaypoint,
+      activeWaypoint: waypointId,
+      popup: MapPopupState(WaypointPopUp(tripId: tripId,vertexId: vertexId));
+    );
+  }
+  void onWaypointDoubleTap(Id<Waypoint> waypointId) {
+    state = state.copyWith(
+      mode: InteractionMode.tappingWaypoint,
+      activeWaypoint: waypointId,
+      popup: MapPopupState(WaypointPopUp(tripId: tripId,vertexId: vertexId));
+    );
+  }
   void onVertexDragStart(Id<Vertex> id) {
     state = state.copyWith(
       mode: InteractionMode.draggingVertex,
@@ -51,7 +67,7 @@ class MapInteractionController extends _$MapInteractionController {
     ref.read(vertexOrchestratorProvider(tripId).notifier).moveVertex(id, pos);
   }
 
-  void onHover(LayerHitResult<Id<Segment>>? hitResult) {
+  void onHoverSegment(LayerHitResult<Id<Segment>>? hitResult) {
     state = state.copyWith(segmentHit: hitResult);
   }
 

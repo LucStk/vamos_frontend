@@ -60,7 +60,7 @@ final class MapInteractionControllerProvider
 }
 
 String _$mapInteractionControllerHash() =>
-    r'f334498d8a823b42978d6e04e3c30d27b0e3ce35';
+    r'2d08b1d86c51cb57cb7774cc3c3f79f239987186';
 
 final class MapInteractionControllerFamily extends $Family
     with

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MapInteractionState {
 
- InteractionMode? get mode; MapCursorState? get cursor; MapPopupState? get popup; Id<Vertex>? get activeVertex; Id<Segment>? get activeSegment; LayerHitResult<Id<Segment>>? get segmentHit;
+ InteractionMode? get mode; MapCursorState? get cursor; MapPopupState? get popup; Id<Vertex>? get activeVertex; Id<Segment>? get activeSegment; Id<Waypoint>? get activeWaypoint; LayerHitResult<Id<Segment>>? get segmentHit;
 /// Create a copy of MapInteractionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MapInteractionStateCopyWith<MapInteractionState> get copyWith => _$MapInteracti
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapInteractionState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.cursor, cursor) || other.cursor == cursor)&&(identical(other.popup, popup) || other.popup == popup)&&(identical(other.activeVertex, activeVertex) || other.activeVertex == activeVertex)&&(identical(other.activeSegment, activeSegment) || other.activeSegment == activeSegment)&&(identical(other.segmentHit, segmentHit) || other.segmentHit == segmentHit));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapInteractionState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.cursor, cursor) || other.cursor == cursor)&&(identical(other.popup, popup) || other.popup == popup)&&(identical(other.activeVertex, activeVertex) || other.activeVertex == activeVertex)&&(identical(other.activeSegment, activeSegment) || other.activeSegment == activeSegment)&&(identical(other.activeWaypoint, activeWaypoint) || other.activeWaypoint == activeWaypoint)&&(identical(other.segmentHit, segmentHit) || other.segmentHit == segmentHit));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mode,cursor,popup,activeVertex,activeSegment,segmentHit);
+int get hashCode => Object.hash(runtimeType,mode,cursor,popup,activeVertex,activeSegment,activeWaypoint,segmentHit);
 
 @override
 String toString() {
-  return 'MapInteractionState(mode: $mode, cursor: $cursor, popup: $popup, activeVertex: $activeVertex, activeSegment: $activeSegment, segmentHit: $segmentHit)';
+  return 'MapInteractionState(mode: $mode, cursor: $cursor, popup: $popup, activeVertex: $activeVertex, activeSegment: $activeSegment, activeWaypoint: $activeWaypoint, segmentHit: $segmentHit)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MapInteractionStateCopyWith<$Res>  {
   factory $MapInteractionStateCopyWith(MapInteractionState value, $Res Function(MapInteractionState) _then) = _$MapInteractionStateCopyWithImpl;
 @useResult
 $Res call({
- InteractionMode? mode, MapCursorState? cursor, MapPopupState? popup, Id<Vertex>? activeVertex, Id<Segment>? activeSegment, LayerHitResult<Id<Segment>>? segmentHit
+ InteractionMode? mode, MapCursorState? cursor, MapPopupState? popup, Id<Vertex>? activeVertex, Id<Segment>? activeSegment, Id<Waypoint>? activeWaypoint, LayerHitResult<Id<Segment>>? segmentHit
 });
 
 
@@ -62,14 +62,15 @@ class _$MapInteractionStateCopyWithImpl<$Res>
 
 /// Create a copy of MapInteractionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? mode = freezed,Object? cursor = freezed,Object? popup = freezed,Object? activeVertex = freezed,Object? activeSegment = freezed,Object? segmentHit = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? mode = freezed,Object? cursor = freezed,Object? popup = freezed,Object? activeVertex = freezed,Object? activeSegment = freezed,Object? activeWaypoint = freezed,Object? segmentHit = freezed,}) {
   return _then(_self.copyWith(
 mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as InteractionMode?,cursor: freezed == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
 as MapCursorState?,popup: freezed == popup ? _self.popup : popup // ignore: cast_nullable_to_non_nullable
 as MapPopupState?,activeVertex: freezed == activeVertex ? _self.activeVertex : activeVertex // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>?,activeSegment: freezed == activeSegment ? _self.activeSegment : activeSegment // ignore: cast_nullable_to_non_nullable
-as Id<Segment>?,segmentHit: freezed == segmentHit ? _self.segmentHit : segmentHit // ignore: cast_nullable_to_non_nullable
+as Id<Segment>?,activeWaypoint: freezed == activeWaypoint ? _self.activeWaypoint : activeWaypoint // ignore: cast_nullable_to_non_nullable
+as Id<Waypoint>?,segmentHit: freezed == segmentHit ? _self.segmentHit : segmentHit // ignore: cast_nullable_to_non_nullable
 as LayerHitResult<Id<Segment>>?,
   ));
 }
@@ -179,10 +180,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( InteractionMode? mode,  MapCursorState? cursor,  MapPopupState? popup,  Id<Vertex>? activeVertex,  Id<Segment>? activeSegment,  LayerHitResult<Id<Segment>>? segmentHit)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( InteractionMode? mode,  MapCursorState? cursor,  MapPopupState? popup,  Id<Vertex>? activeVertex,  Id<Segment>? activeSegment,  Id<Waypoint>? activeWaypoint,  LayerHitResult<Id<Segment>>? segmentHit)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MapInteractionState() when $default != null:
-return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.activeSegment,_that.segmentHit);case _:
+return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.activeSegment,_that.activeWaypoint,_that.segmentHit);case _:
   return orElse();
 
 }
@@ -200,10 +201,10 @@ return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.act
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( InteractionMode? mode,  MapCursorState? cursor,  MapPopupState? popup,  Id<Vertex>? activeVertex,  Id<Segment>? activeSegment,  LayerHitResult<Id<Segment>>? segmentHit)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( InteractionMode? mode,  MapCursorState? cursor,  MapPopupState? popup,  Id<Vertex>? activeVertex,  Id<Segment>? activeSegment,  Id<Waypoint>? activeWaypoint,  LayerHitResult<Id<Segment>>? segmentHit)  $default,) {final _that = this;
 switch (_that) {
 case _MapInteractionState():
-return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.activeSegment,_that.segmentHit);case _:
+return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.activeSegment,_that.activeWaypoint,_that.segmentHit);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -220,10 +221,10 @@ return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.act
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( InteractionMode? mode,  MapCursorState? cursor,  MapPopupState? popup,  Id<Vertex>? activeVertex,  Id<Segment>? activeSegment,  LayerHitResult<Id<Segment>>? segmentHit)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( InteractionMode? mode,  MapCursorState? cursor,  MapPopupState? popup,  Id<Vertex>? activeVertex,  Id<Segment>? activeSegment,  Id<Waypoint>? activeWaypoint,  LayerHitResult<Id<Segment>>? segmentHit)?  $default,) {final _that = this;
 switch (_that) {
 case _MapInteractionState() when $default != null:
-return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.activeSegment,_that.segmentHit);case _:
+return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.activeSegment,_that.activeWaypoint,_that.segmentHit);case _:
   return null;
 
 }
@@ -235,7 +236,7 @@ return $default(_that.mode,_that.cursor,_that.popup,_that.activeVertex,_that.act
 
 
 class _MapInteractionState implements MapInteractionState {
-  const _MapInteractionState({this.mode, this.cursor, this.popup, this.activeVertex, this.activeSegment, this.segmentHit});
+  const _MapInteractionState({this.mode, this.cursor, this.popup, this.activeVertex, this.activeSegment, this.activeWaypoint, this.segmentHit});
   
 
 @override final  InteractionMode? mode;
@@ -243,6 +244,7 @@ class _MapInteractionState implements MapInteractionState {
 @override final  MapPopupState? popup;
 @override final  Id<Vertex>? activeVertex;
 @override final  Id<Segment>? activeSegment;
+@override final  Id<Waypoint>? activeWaypoint;
 @override final  LayerHitResult<Id<Segment>>? segmentHit;
 
 /// Create a copy of MapInteractionState
@@ -255,16 +257,16 @@ _$MapInteractionStateCopyWith<_MapInteractionState> get copyWith => __$MapIntera
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapInteractionState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.cursor, cursor) || other.cursor == cursor)&&(identical(other.popup, popup) || other.popup == popup)&&(identical(other.activeVertex, activeVertex) || other.activeVertex == activeVertex)&&(identical(other.activeSegment, activeSegment) || other.activeSegment == activeSegment)&&(identical(other.segmentHit, segmentHit) || other.segmentHit == segmentHit));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapInteractionState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.cursor, cursor) || other.cursor == cursor)&&(identical(other.popup, popup) || other.popup == popup)&&(identical(other.activeVertex, activeVertex) || other.activeVertex == activeVertex)&&(identical(other.activeSegment, activeSegment) || other.activeSegment == activeSegment)&&(identical(other.activeWaypoint, activeWaypoint) || other.activeWaypoint == activeWaypoint)&&(identical(other.segmentHit, segmentHit) || other.segmentHit == segmentHit));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mode,cursor,popup,activeVertex,activeSegment,segmentHit);
+int get hashCode => Object.hash(runtimeType,mode,cursor,popup,activeVertex,activeSegment,activeWaypoint,segmentHit);
 
 @override
 String toString() {
-  return 'MapInteractionState(mode: $mode, cursor: $cursor, popup: $popup, activeVertex: $activeVertex, activeSegment: $activeSegment, segmentHit: $segmentHit)';
+  return 'MapInteractionState(mode: $mode, cursor: $cursor, popup: $popup, activeVertex: $activeVertex, activeSegment: $activeSegment, activeWaypoint: $activeWaypoint, segmentHit: $segmentHit)';
 }
 
 
@@ -275,7 +277,7 @@ abstract mixin class _$MapInteractionStateCopyWith<$Res> implements $MapInteract
   factory _$MapInteractionStateCopyWith(_MapInteractionState value, $Res Function(_MapInteractionState) _then) = __$MapInteractionStateCopyWithImpl;
 @override @useResult
 $Res call({
- InteractionMode? mode, MapCursorState? cursor, MapPopupState? popup, Id<Vertex>? activeVertex, Id<Segment>? activeSegment, LayerHitResult<Id<Segment>>? segmentHit
+ InteractionMode? mode, MapCursorState? cursor, MapPopupState? popup, Id<Vertex>? activeVertex, Id<Segment>? activeSegment, Id<Waypoint>? activeWaypoint, LayerHitResult<Id<Segment>>? segmentHit
 });
 
 
@@ -292,14 +294,15 @@ class __$MapInteractionStateCopyWithImpl<$Res>
 
 /// Create a copy of MapInteractionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? mode = freezed,Object? cursor = freezed,Object? popup = freezed,Object? activeVertex = freezed,Object? activeSegment = freezed,Object? segmentHit = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? mode = freezed,Object? cursor = freezed,Object? popup = freezed,Object? activeVertex = freezed,Object? activeSegment = freezed,Object? activeWaypoint = freezed,Object? segmentHit = freezed,}) {
   return _then(_MapInteractionState(
 mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as InteractionMode?,cursor: freezed == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
 as MapCursorState?,popup: freezed == popup ? _self.popup : popup // ignore: cast_nullable_to_non_nullable
 as MapPopupState?,activeVertex: freezed == activeVertex ? _self.activeVertex : activeVertex // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>?,activeSegment: freezed == activeSegment ? _self.activeSegment : activeSegment // ignore: cast_nullable_to_non_nullable
-as Id<Segment>?,segmentHit: freezed == segmentHit ? _self.segmentHit : segmentHit // ignore: cast_nullable_to_non_nullable
+as Id<Segment>?,activeWaypoint: freezed == activeWaypoint ? _self.activeWaypoint : activeWaypoint // ignore: cast_nullable_to_non_nullable
+as Id<Waypoint>?,segmentHit: freezed == segmentHit ? _self.segmentHit : segmentHit // ignore: cast_nullable_to_non_nullable
 as LayerHitResult<Id<Segment>>?,
   ));
 }

@@ -22,8 +22,7 @@ DragMarker buildDragMarker({
     size: Size(32, 32),
     builder: (_, LatLng latLng, bool isDragging) =>
         markerBuilder(latLng, isDragging),
-    onDragStart: (_, _) => ctrl.handle(VertexDragStarted(vertexId)),
-    onDragEnd: (details, latLng) =>
-        ctrl.handle(VertexDragEnded(vertexId, latLng)),
+    onDragStart: (_, _) => ctrl.onVertexDragStart(vertexId),
+    onDragEnd: (details, latLng) => ctrl.onVertexDragEnd(vertexId, latLng),
   );
 }
