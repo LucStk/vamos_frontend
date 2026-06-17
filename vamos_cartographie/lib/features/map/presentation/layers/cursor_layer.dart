@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/map/application/applications.dart';
-import 'package:vamos_cartographie/features/map/application/providers/cursor_provider.dart';
+import 'package:vamos_cartographie/features/map/presentation/providers/providers.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';

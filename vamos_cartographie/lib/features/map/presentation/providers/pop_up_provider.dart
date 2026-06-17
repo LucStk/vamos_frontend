@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/map/application/states/states.dart';
+import 'package:vamos_cartographie/features/map/presentation/states/states.dart';
 import 'package:vamos_cartographie/features/map/presentation/pop_up/pop_up_abstract.dart';
 part "pop_up_provider.g.dart";
 

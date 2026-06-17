@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/map/application/applications.dart';
+import 'package:vamos_cartographie/features/map/presentation/providers/providers.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 /// Barre supérieure de la MapPage.

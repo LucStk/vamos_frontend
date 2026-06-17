@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import "package:vamos_cartographie/features/map/application/states/states.dart";
+import "package:vamos_cartographie/features/map/presentation/states/states.dart";
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
