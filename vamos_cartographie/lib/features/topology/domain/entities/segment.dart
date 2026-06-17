@@ -14,7 +14,7 @@ abstract class Segment with _$Segment implements HasId<Segment> {
     required Id<Vertex> startVertexId,
     required Id<Vertex> endVertexId,
     required List<LatLng> geometry,
-    @Default(SegmentType.bike) SegmentType type,
+    @Default(MobilityType.bike) MobilityType mobilityType,
   }) = _Segment;
 
   const Segment._();
@@ -22,7 +22,7 @@ abstract class Segment with _$Segment implements HasId<Segment> {
     return SegmentDraft(
       startVertexId: startVertexId,
       endVertexId: endVertexId,
-      type: type,
+      mobilityType: mobilityType,
     );
   }
 }
@@ -32,7 +32,7 @@ abstract class SegmentDraft with _$SegmentDraft {
   const factory SegmentDraft({
     required Id<Vertex> startVertexId,
     required Id<Vertex> endVertexId,
-    @Default(SegmentType.bike) SegmentType type,
+    @Default(MobilityType.bike) MobilityType mobilityType,
   }) = _SegmentDraft;
 
   const SegmentDraft._();
@@ -40,7 +40,7 @@ abstract class SegmentDraft with _$SegmentDraft {
   Segment toSegment(Id<Segment> id, List<LatLng> geometry) {
     return Segment(
       id: id,
-      type: type,
+      mobilityType: mobilityType,
       startVertexId: startVertexId,
       endVertexId: endVertexId,
       geometry: geometry,

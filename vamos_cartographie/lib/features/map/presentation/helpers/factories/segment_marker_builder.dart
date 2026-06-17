@@ -29,7 +29,7 @@ Marker buildSegmentMarker({
           segmentId: segmentId,
         );
       },
-      child: SegmentTypeMarker(tripId: tripId, segmentId: segmentId),
+      child: MobilityTypeMarker(tripId: tripId, segmentId: segmentId),
     ),
   );
 }

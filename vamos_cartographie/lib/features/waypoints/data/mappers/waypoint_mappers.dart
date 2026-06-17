@@ -9,7 +9,7 @@ class WaypointMapper {
   static Waypoint fromGQL(GWaypointFields data) => Waypoint(
     id: Id<Waypoint>(data.id),
     vertexId: Id<Vertex>(data.vertex.id),
-    type: data.type.toDomain(),
+    poiCategory: data.poiCategory.toDomain(),
     title: data.title,
     description: data.description,
   );

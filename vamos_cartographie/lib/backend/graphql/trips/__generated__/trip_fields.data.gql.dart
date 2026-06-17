@@ -1,0 +1,167 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
+    as _gqlUtils;
+import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.data.gql.dart'
+    as _i1;
+
+abstract class GTripFields {
+  int get id;
+  String get title;
+  String? get date;
+  String get description;
+  List<GTripFields_images> get images;
+  String get G__typename;
+}
+
+abstract class GTripFields_images {
+  _i1.GImageFields get image;
+  String get G__typename;
+}
+
+class GTripFieldsData implements GTripFields {
+  const GTripFieldsData({
+    required this.id,
+    required this.title,
+    this.date,
+    required this.description,
+    required this.images,
+    this.G__typename = 'TripType',
+  });
+
+  factory GTripFieldsData.fromJson(Map<String, dynamic> json) {
+    return GTripFieldsData(
+      id: (json['id'] as int),
+      title: (json['title'] as String),
+      date: json['date'] == null ? null : (json['date'] as String),
+      description: (json['description'] as String),
+      images: (json['images'] as List<dynamic>)
+          .map((_$e) =>
+              GTripFieldsData_images.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final int id;
+
+  final String title;
+
+  final String? date;
+
+  final String description;
+
+  final List<GTripFieldsData_images> images;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['id'] = this.id;
+    _$result['title'] = this.title;
+    final _$dateValue = this.date;
+    _$result['date'] = _$dateValue == null ? null : _$dateValue;
+    _$result['description'] = this.description;
+    _$result['images'] = this.images.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GTripFieldsData copyWith({
+    int? id,
+    String? title,
+    String? date,
+    bool dateIsSet = false,
+    String? description,
+    List<GTripFieldsData_images>? images,
+    String? G__typename,
+  }) {
+    return GTripFieldsData(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      date: dateIsSet ? date : this.date,
+      description: description ?? this.description,
+      images: images ?? this.images,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTripFieldsData &&
+            id == other.id &&
+            title == other.title &&
+            date == other.date &&
+            description == other.description &&
+            _gqlUtils.listEquals(images, other.images) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, id, title, date, description,
+        _gqlUtils.listHash(images), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GTripFieldsData(id: $id, title: $title, date: $date, description: $description, images: $images, G__typename: $G__typename)';
+  }
+}
+
+class GTripFieldsData_images implements GTripFields_images {
+  const GTripFieldsData_images({
+    required this.image,
+    this.G__typename = 'TripImageType',
+  });
+
+  factory GTripFieldsData_images.fromJson(Map<String, dynamic> json) {
+    return GTripFieldsData_images(
+      image: _i1.GImageFieldsData.fromJson(
+          (json['image'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GImageFieldsData image;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['image'] = this.image.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GTripFieldsData_images copyWith({
+    _i1.GImageFieldsData? image,
+    String? G__typename,
+  }) {
+    return GTripFieldsData_images(
+      image: image ?? this.image,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTripFieldsData_images &&
+            image == other.image &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, image, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GTripFieldsData_images(image: $image, G__typename: $G__typename)';
+  }
+}

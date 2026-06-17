@@ -158,6 +158,6 @@ class WaypointRepository {
         title: source.title,
         description: source.description,
         images: images,
-        type: source.type,
+        poiCategory: source.poiCategory,
       ); // data/repositories/trip_repository.dart
 }

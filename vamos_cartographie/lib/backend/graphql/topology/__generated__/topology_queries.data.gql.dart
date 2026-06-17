@@ -4,7 +4,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/backend/graphql/topology/segments/fragments/__generated__/segment_fields.data.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/topology/segments/__generated__/segment_fields.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.data.gql.dart'
     as _i1;

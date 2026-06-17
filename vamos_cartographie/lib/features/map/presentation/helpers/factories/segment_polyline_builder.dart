@@ -16,10 +16,10 @@ Polyline<Id<Segment>> segmentPolylineBuilder(
 
   return Polyline(
     points: display.geometry,
-    color: display.segment.type.color,
+    color: display.segment.mobilityType.color,
     strokeWidth: 5,
     hitValue: segmentId,
-    pattern: display.segment.type.isDashed
+    pattern: display.segment.mobilityType.isDashed
         ? StrokePattern.dashed(segments: const [12, 8])
         : const StrokePattern.solid(),
   );

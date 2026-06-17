@@ -1,9 +1,8 @@
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
-import 'package:vamos_cartographie/features/topology/data/mappers/segment_type_mapper.dart';
+import 'package:vamos_cartographie/features/topology/data/mappers/mobility_type_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
-
 import "package:vamos_cartographie/backend/core/fake_graphql_store.dart";
 import "package:vamos_cartographie/backend/mapping/gql_mappers.dart";
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
@@ -161,7 +160,7 @@ class TopologyResolver {
       id: sid,
       startVertexId: Id<Vertex>(input.startVertexId),
       endVertexId: Id<Vertex>(input.endVertexId),
-      type: input.type.toDomain(),
+      mobilityType: input.mobilityType.toDomain(),
       geometry: geometry,
     );
 
@@ -194,9 +193,11 @@ class TopologyResolver {
         : existing.endVertexId;
 
     final updated = existing.copyWith(
-      type: input.type.isPresent && input.type.requireValue != null
-          ? input.type.requireValue!.toDomain()
-          : existing.type,
+      mobilityType:
+          input.mobilityType.isPresent &&
+              input.mobilityType.requireValue != null
+          ? input.mobilityType.requireValue!.toDomain()
+          : existing.mobilityType,
       startVertexId: updatedStartId,
       endVertexId: updatedEndId,
     );

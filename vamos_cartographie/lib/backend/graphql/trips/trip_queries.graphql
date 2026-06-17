@@ -1,0 +1,33 @@
+#import "../waypoints/waypoint_fields.graphql"
+#import "trip_fields.graphql"
+#import "../topology/segments/segment_fields.graphql"
+#import "../topology/vertex/vertex_fields.graphql"
+
+query GetAllTrips {
+    trips {
+        ...TripFields
+    }
+}
+
+query GetTrip($id: Int!) {
+    trip(id: $id) {
+        ...TripFields
+    }
+}
+
+query GetTripDetails($id: Int!) {
+    trip(id: $id) {
+        ...TripFields
+        waypoints {
+            ...WaypointFields
+        }
+        topology {
+            vertices {
+                ...VertexFields
+            }
+            segments {
+                ...SegmentFields
+            }
+        }
+    }
+}

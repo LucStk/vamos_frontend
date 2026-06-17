@@ -12,9 +12,9 @@ part of 'waypoint.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Waypoint {
+mixin _$Waypoint implements DiagnosticableTreeMixin {
 
- Id<Waypoint> get id; Id<Vertex> get vertexId; String get title; WaypointType get type; String get description; List<MediaImage> get images;
+ Id<Waypoint> get id; Id<Vertex> get vertexId; String get title; PoiCategory get poiCategory; String get description; List<MediaImage> get images;
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -22,19 +22,25 @@ mixin _$Waypoint {
 $WaypointCopyWith<Waypoint> get copyWith => _$WaypointCopyWithImpl<Waypoint>(this as Waypoint, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'Waypoint'))
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('vertexId', vertexId))..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('poiCategory', poiCategory))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('images', images));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.images, images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.images, images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,type,description,const DeepCollectionEquality().hash(images));
+int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description,const DeepCollectionEquality().hash(images));
 
 @override
-String toString() {
-  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, type: $type, description: $description, images: $images)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, images: $images)';
 }
 
 
@@ -45,7 +51,7 @@ abstract mixin class $WaypointCopyWith<$Res>  {
   factory $WaypointCopyWith(Waypoint value, $Res Function(Waypoint) _then) = _$WaypointCopyWithImpl;
 @useResult
 $Res call({
- Id<Waypoint> id, Id<Vertex> vertexId, String title, WaypointType type, String description, List<MediaImage> images
+ Id<Waypoint> id, Id<Vertex> vertexId, String title, PoiCategory poiCategory, String description, List<MediaImage> images
 });
 
 
@@ -62,13 +68,13 @@ class _$WaypointCopyWithImpl<$Res>
 
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? images = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
 as List<MediaImage>,
   ));
@@ -155,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Waypoint() when $default != null:
-return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.images);case _:
   return orElse();
 
 }
@@ -176,10 +182,10 @@ return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)  $default,) {final _that = this;
 switch (_that) {
 case _Waypoint():
-return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.images);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +202,10 @@ return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Waypoint> id,  Id<Vertex> vertexId,  String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
 switch (_that) {
 case _Waypoint() when $default != null:
-return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.images);case _:
   return null;
 
 }
@@ -210,14 +216,14 @@ return $default(_that.id,_that.vertexId,_that.title,_that.type,_that.description
 /// @nodoc
 
 
-class _Waypoint extends Waypoint {
-  const _Waypoint({required this.id, required this.vertexId, this.title = '', this.type = WaypointType.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
+class _Waypoint extends Waypoint with DiagnosticableTreeMixin {
+  const _Waypoint({required this.id, required this.vertexId, this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
   
 
 @override final  Id<Waypoint> id;
 @override final  Id<Vertex> vertexId;
 @override@JsonKey() final  String title;
-@override@JsonKey() final  WaypointType type;
+@override@JsonKey() final  PoiCategory poiCategory;
 @override@JsonKey() final  String description;
  final  List<MediaImage> _images;
 @override@JsonKey() List<MediaImage> get images {
@@ -234,19 +240,25 @@ class _Waypoint extends Waypoint {
 _$WaypointCopyWith<_Waypoint> get copyWith => __$WaypointCopyWithImpl<_Waypoint>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'Waypoint'))
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('vertexId', vertexId))..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('poiCategory', poiCategory))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('images', images));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._images, _images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._images, _images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,type,description,const DeepCollectionEquality().hash(_images));
+int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description,const DeepCollectionEquality().hash(_images));
 
 @override
-String toString() {
-  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, type: $type, description: $description, images: $images)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, images: $images)';
 }
 
 
@@ -257,7 +269,7 @@ abstract mixin class _$WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res>
   factory _$WaypointCopyWith(_Waypoint value, $Res Function(_Waypoint) _then) = __$WaypointCopyWithImpl;
 @override @useResult
 $Res call({
- Id<Waypoint> id, Id<Vertex> vertexId, String title, WaypointType type, String description, List<MediaImage> images
+ Id<Waypoint> id, Id<Vertex> vertexId, String title, PoiCategory poiCategory, String description, List<MediaImage> images
 });
 
 
@@ -274,13 +286,13 @@ class __$WaypointCopyWithImpl<$Res>
 
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? images = null,}) {
   return _then(_Waypoint(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
 as List<MediaImage>,
   ));
@@ -290,9 +302,9 @@ as List<MediaImage>,
 }
 
 /// @nodoc
-mixin _$WaypointDraft {
+mixin _$WaypointDraft implements DiagnosticableTreeMixin {
 
- String get title; WaypointType get type; String get description; List<MediaImage> get images;
+ String get title; PoiCategory get poiCategory; String get description; List<MediaImage> get images;
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -300,19 +312,25 @@ mixin _$WaypointDraft {
 $WaypointDraftCopyWith<WaypointDraft> get copyWith => _$WaypointDraftCopyWithImpl<WaypointDraft>(this as WaypointDraft, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'WaypointDraft'))
+    ..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('poiCategory', poiCategory))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('images', images));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.images, images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.images, images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,type,description,const DeepCollectionEquality().hash(images));
+int get hashCode => Object.hash(runtimeType,title,poiCategory,description,const DeepCollectionEquality().hash(images));
 
 @override
-String toString() {
-  return 'WaypointDraft(title: $title, type: $type, description: $description, images: $images)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'WaypointDraft(title: $title, poiCategory: $poiCategory, description: $description, images: $images)';
 }
 
 
@@ -323,7 +341,7 @@ abstract mixin class $WaypointDraftCopyWith<$Res>  {
   factory $WaypointDraftCopyWith(WaypointDraft value, $Res Function(WaypointDraft) _then) = _$WaypointDraftCopyWithImpl;
 @useResult
 $Res call({
- String title, WaypointType type, String description, List<MediaImage> images
+ String title, PoiCategory poiCategory, String description, List<MediaImage> images
 });
 
 
@@ -340,11 +358,11 @@ class _$WaypointDraftCopyWithImpl<$Res>
 
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? poiCategory = null,Object? description = null,Object? images = null,}) {
   return _then(_self.copyWith(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
 as List<MediaImage>,
   ));
@@ -431,10 +449,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WaypointDraft() when $default != null:
-return $default(_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.title,_that.poiCategory,_that.description,_that.images);case _:
   return orElse();
 
 }
@@ -452,10 +470,10 @@ return $default(_that.title,_that.type,_that.description,_that.images);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  WaypointType type,  String description,  List<MediaImage> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)  $default,) {final _that = this;
 switch (_that) {
 case _WaypointDraft():
-return $default(_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.title,_that.poiCategory,_that.description,_that.images);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -472,10 +490,10 @@ return $default(_that.title,_that.type,_that.description,_that.images);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  WaypointType type,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
 switch (_that) {
 case _WaypointDraft() when $default != null:
-return $default(_that.title,_that.type,_that.description,_that.images);case _:
+return $default(_that.title,_that.poiCategory,_that.description,_that.images);case _:
   return null;
 
 }
@@ -486,12 +504,12 @@ return $default(_that.title,_that.type,_that.description,_that.images);case _:
 /// @nodoc
 
 
-class _WaypointDraft extends WaypointDraft {
-  const _WaypointDraft({this.title = '', this.type = WaypointType.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
+class _WaypointDraft extends WaypointDraft with DiagnosticableTreeMixin {
+  const _WaypointDraft({this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
   
 
 @override@JsonKey() final  String title;
-@override@JsonKey() final  WaypointType type;
+@override@JsonKey() final  PoiCategory poiCategory;
 @override@JsonKey() final  String description;
  final  List<MediaImage> _images;
 @override@JsonKey() List<MediaImage> get images {
@@ -508,19 +526,25 @@ class _WaypointDraft extends WaypointDraft {
 _$WaypointDraftCopyWith<_WaypointDraft> get copyWith => __$WaypointDraftCopyWithImpl<_WaypointDraft>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'WaypointDraft'))
+    ..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('poiCategory', poiCategory))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('images', images));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._images, _images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._images, _images));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,type,description,const DeepCollectionEquality().hash(_images));
+int get hashCode => Object.hash(runtimeType,title,poiCategory,description,const DeepCollectionEquality().hash(_images));
 
 @override
-String toString() {
-  return 'WaypointDraft(title: $title, type: $type, description: $description, images: $images)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'WaypointDraft(title: $title, poiCategory: $poiCategory, description: $description, images: $images)';
 }
 
 
@@ -531,7 +555,7 @@ abstract mixin class _$WaypointDraftCopyWith<$Res> implements $WaypointDraftCopy
   factory _$WaypointDraftCopyWith(_WaypointDraft value, $Res Function(_WaypointDraft) _then) = __$WaypointDraftCopyWithImpl;
 @override @useResult
 $Res call({
- String title, WaypointType type, String description, List<MediaImage> images
+ String title, PoiCategory poiCategory, String description, List<MediaImage> images
 });
 
 
@@ -548,11 +572,11 @@ class __$WaypointDraftCopyWithImpl<$Res>
 
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? type = null,Object? description = null,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? poiCategory = null,Object? description = null,Object? images = null,}) {
   return _then(_WaypointDraft(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as WaypointType,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
 as List<MediaImage>,
   ));

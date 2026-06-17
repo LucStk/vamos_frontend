@@ -13,7 +13,7 @@ class WaypointDraftMapper {
     Id<Vertex>? vertexId,
     LatLng? latlng,
   ) => GWaypointCreateInput(
-    type: waypointDraft.type.toGQL(),
+    poiCategory: waypointDraft.poiCategory.toGQL(),
     description: waypointDraft.description.isNotEmpty
         ? Value.present(waypointDraft.description)
         : const Value.absent(),
@@ -30,7 +30,7 @@ class WaypointDraftMapper {
 
   static GWaypointUpdateInput toGQLUpdateInput(WaypointDraft waypointDraft) =>
       GWaypointUpdateInput(
-        type: Value.present(waypointDraft.type.toGQL()),
+        poiCategory: Value.present(waypointDraft.poiCategory.toGQL()),
         description: waypointDraft.description.isNotEmpty
             ? Value.present(waypointDraft.description)
             : const Value.absent(),

@@ -59,7 +59,7 @@ group('WaypointsNotifier avec Fake Client', () {
     await container.read(waypointsProvider(t1TripId).future);
 
     final draft = WaypointDraft(
-      type: WaypointType.camping,
+      type: PoiCategory.camping,
       title: 'Camp de nuit',
       description: 'Au bord de la rivière',
     );
@@ -75,7 +75,7 @@ group('WaypointsNotifier avec Fake Client', () {
     final nouveau = waypoints.values.firstWhere(
       (w) => w.title == 'Camp de nuit',
     );
-    expect(nouveau.type, WaypointType.camping);
+    expect(nouveau.type, PoiCategory.camping);
     expect(nouveau.description, 'Au bord de la rivière');
     expect(nouveau.vertexId, unusedVertexId);
   });
@@ -90,7 +90,7 @@ group('WaypointsNotifier avec Fake Client', () {
     await container.read(waypointsProvider(t1TripId).future);
 
     final draft = WaypointDraft(
-      type: WaypointType.viewpoint,
+      type: PoiCategory.viewpoint,
       title: 'Belvédère',
       description: 'Vue panoramique',
     );
@@ -101,7 +101,7 @@ group('WaypointsNotifier avec Fake Client', () {
     final waypoints = container
         .read(waypointsProvider(t1TripId))
         .requireValue;
-    expect(waypoints[10]?.type, WaypointType.viewpoint);
+    expect(waypoints[10]?.type, PoiCategory.viewpoint);
     expect(waypoints[10]?.title, 'Belvédère');
   });
 
@@ -127,7 +127,7 @@ group('WaypointsNotifier avec Fake Client', () {
       backend.store.removeWaypoint(10);
 
       final draft = WaypointDraft(
-        type: WaypointType.historic,
+        type: PoiCategory.historic,
         title: 'Titre non sauvegardé',
       );
       await rollbackContainer

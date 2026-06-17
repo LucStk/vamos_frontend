@@ -1,0 +1,25 @@
+#import "../media/image_fields.graphql"
+#import "../topology/vertex/vertex_fields.graphql"
+
+fragment WaypointFields on WaypointType {
+    id
+    poiCategory
+    title
+    description
+    vertex {
+        ...VertexFields
+    }
+    images {
+        image {
+            ...ImageFields
+        }
+    }
+}
+fragment CreateWaypointPayloadFields on CreateWaypointPayload {
+    waypoint {
+        ...WaypointFields
+    }
+    vertex {
+        ...VertexFields
+    }
+}

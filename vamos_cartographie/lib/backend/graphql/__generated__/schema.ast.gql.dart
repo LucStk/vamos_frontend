@@ -55,6 +55,31 @@ const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
 );
+const InsertVertexToSegmentPayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'InsertVertexToSegmentPayload'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'segmentLeft'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'segmentRight'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const LatLngInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'LatLngInput'),
   directives: [],
@@ -141,6 +166,32 @@ const MediaImageType = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
+    ),
+  ],
+);
+const MobilityType = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'MobilityType'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'BIKE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'CAR'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'BOAT'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WALK'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'TRAIN'),
+      directives: [],
     ),
   ],
 );
@@ -441,6 +492,34 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'insertVertexToSegment'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'vertexId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'segmentId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'InsertVertexToSegmentPayload'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'updateSegment'),
       directives: [],
       args: [
@@ -454,7 +533,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'segment'),
+          name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'SegmentUpdateInput'),
@@ -482,7 +561,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'segment'),
+          name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'SegmentCreateInput'),
@@ -592,6 +671,64 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const PoiCategory = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'PoiCategory'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'START'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'END'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WAYPOINT'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WATER'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'FOOD'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'REPAIR'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'SHELTER'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'CAMPING'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'VIEWPOINT'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'HISTORIC'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'BEACH'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'BOAT'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WARNING'),
+      directives: [],
+    ),
+  ],
+);
 const Query = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'Query'),
   directives: [],
@@ -635,10 +772,10 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
+      name: _i1.NameNode(value: 'mobilityType'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentTypeEnum'),
+        name: _i1.NameNode(value: 'MobilityType'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -678,11 +815,11 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
+      name: _i1.NameNode(value: 'mobilityType'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentTypeEnum'),
+        name: _i1.NameNode(value: 'MobilityType'),
         isNonNull: true,
       ),
     ),
@@ -718,41 +855,15 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const SegmentTypeEnum = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentTypeEnum'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'bike'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'car'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'boat'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'walk'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'train'),
-      directives: [],
-    ),
-  ],
-);
 const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'SegmentUpdateInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
+      name: _i1.NameNode(value: 'mobilityType'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentTypeEnum'),
+        name: _i1.NameNode(value: 'MobilityType'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -1030,10 +1141,10 @@ const WaypointCreateInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
+      name: _i1.NameNode(value: 'poiCategory'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointEnum'),
+        name: _i1.NameNode(value: 'PoiCategory'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -1073,64 +1184,6 @@ const WaypointCreateInput = _i1.InputObjectTypeDefinitionNode(
         isNonNull: false,
       ),
       defaultValue: _i1.NullValueNode(),
-    ),
-  ],
-);
-const WaypointEnum = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointEnum'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'START'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'END'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WAYPOINT'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WATER'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'FOOD'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'REPAIR'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'SHELTER'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'CAMPING'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'VIEWPOINT'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'HISTORIC'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'BEACH'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'BOAT'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WARNING'),
-      directives: [],
     ),
   ],
 );
@@ -1204,11 +1257,11 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
+      name: _i1.NameNode(value: 'poiCategory'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointEnum'),
+        name: _i1.NameNode(value: 'PoiCategory'),
         isNonNull: true,
       ),
     ),
@@ -1237,10 +1290,10 @@ const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'type'),
+      name: _i1.NameNode(value: 'poiCategory'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointEnum'),
+        name: _i1.NameNode(value: 'PoiCategory'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -1270,15 +1323,17 @@ const document = _i1.DocumentNode(definitions: [
   oneOf,
   CreateWaypointPayload,
   Date,
+  InsertVertexToSegmentPayload,
   LatLngInput,
   LatLngType,
   MediaImageInput,
   MediaImageType,
+  MobilityType,
   Mutation,
+  PoiCategory,
   Query,
   SegmentCreateInput,
   SegmentType,
-  SegmentTypeEnum,
   SegmentUpdateInput,
   TopologyType,
   TripImageType,
@@ -1288,7 +1343,6 @@ const document = _i1.DocumentNode(definitions: [
   UploadConfig,
   VertexType,
   WaypointCreateInput,
-  WaypointEnum,
   WaypointImageType,
   WaypointType,
   WaypointUpdateInput,

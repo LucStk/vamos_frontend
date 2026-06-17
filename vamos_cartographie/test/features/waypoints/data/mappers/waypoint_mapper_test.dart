@@ -1,9 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_mappers.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
@@ -15,14 +12,14 @@ void main() {
     GWaypointFieldsData buildGQLWaypoint({
       int id = 5,
       int vertexId = 12,
-      GWaypointEnum type = GWaypointEnum.WAYPOINT,
+      GPoiCategory type = GPoiCategory.WAYPOINT,
       String title = 'Point de passage',
       String description = 'Une description',
       List<GWaypointFieldsData_images> images = const [],
     }) {
       return GWaypointFieldsData(
         id: id,
-        type: type,
+        poiCategory: type,
         title: title,
         description: description,
         vertex: GVertexFieldsData(
@@ -64,12 +61,12 @@ void main() {
         expect(waypoint.vertexId, Id<Vertex>(42));
       });
 
-      test('maps GWaypointEnum to WaypointType via enum mapper', () {
-        final gql = buildGQLWaypoint(type: GWaypointEnum.CAMPING);
+      test('maps GPoiCategory to PoiCategory via enum mapper', () {
+        final gql = buildGQLWaypoint(type: GPoiCategory.CAMPING);
 
         final waypoint = WaypointMapper.fromGQL(gql);
 
-        expect(waypoint.type, WaypointType.camping);
+        expect(waypoint.poiCategory, PoiCategory.camping);
       });
 
       test('maps empty title and description', () {
@@ -82,19 +79,19 @@ void main() {
       });
 
       test('maps waypoint of type START', () {
-        final gql = buildGQLWaypoint(type: GWaypointEnum.START);
+        final gql = buildGQLWaypoint(type: GPoiCategory.START);
 
         final waypoint = WaypointMapper.fromGQL(gql);
 
-        expect(waypoint.type, WaypointType.start);
+        expect(waypoint.poiCategory, PoiCategory.start);
       });
 
       test('maps waypoint of type END', () {
-        final gql = buildGQLWaypoint(type: GWaypointEnum.END);
+        final gql = buildGQLWaypoint(type: GPoiCategory.END);
 
         final waypoint = WaypointMapper.fromGQL(gql);
 
-        expect(waypoint.type, WaypointType.end);
+        expect(waypoint.poiCategory, PoiCategory.end);
       });
     });
   });

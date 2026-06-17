@@ -1,34 +1,34 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
 
+import "package:vamos_cartographie/features/waypoints/domain/types/poi_category_types.dart";
 import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {
   group('WaypointEnumMapper', () {
     // ---------------------------------------------------------------------------
-    // GWaypointEnum → WaypointType  (toDomain)
+    // GPoiCategory → PoiCategory  (toDomain)
     // ---------------------------------------------------------------------------
 
-    group('GWaypointEnum.toDomain', () {
+    group('GPoiCategory.toDomain', () {
       // Given a GQL enum value
       // When toDomain is called
-      // Then the corresponding domain WaypointType is returned
+      // Then the corresponding domain PoiCategory is returned
 
       const knownMappings = [
-        (GWaypointEnum.START, WaypointType.start),
-        (GWaypointEnum.END, WaypointType.end),
-        (GWaypointEnum.WAYPOINT, WaypointType.waypoint),
-        (GWaypointEnum.WATER, WaypointType.water),
-        (GWaypointEnum.FOOD, WaypointType.food),
-        (GWaypointEnum.REPAIR, WaypointType.repair),
-        (GWaypointEnum.SHELTER, WaypointType.shelter),
-        (GWaypointEnum.CAMPING, WaypointType.camping),
-        (GWaypointEnum.VIEWPOINT, WaypointType.viewpoint),
-        (GWaypointEnum.HISTORIC, WaypointType.historic),
-        (GWaypointEnum.BEACH, WaypointType.beach),
-        (GWaypointEnum.BOAT, WaypointType.boat),
-        (GWaypointEnum.WARNING, WaypointType.warning),
+        (GPoiCategory.START, PoiCategory.start),
+        (GPoiCategory.END, PoiCategory.end),
+        (GPoiCategory.WAYPOINT, PoiCategory.waypoint),
+        (GPoiCategory.WATER, PoiCategory.water),
+        (GPoiCategory.FOOD, PoiCategory.food),
+        (GPoiCategory.REPAIR, PoiCategory.repair),
+        (GPoiCategory.SHELTER, PoiCategory.shelter),
+        (GPoiCategory.CAMPING, PoiCategory.camping),
+        (GPoiCategory.VIEWPOINT, PoiCategory.viewpoint),
+        (GPoiCategory.HISTORIC, PoiCategory.historic),
+        (GPoiCategory.BEACH, PoiCategory.beach),
+        (GPoiCategory.BOAT, PoiCategory.boat),
+        (GPoiCategory.WARNING, PoiCategory.warning),
       ];
 
       for (final (gqlValue, domainValue) in knownMappings) {
@@ -38,42 +38,39 @@ void main() {
       }
 
       test(
-        'maps gUnknownEnumValue to WaypointType.other (valeur inconnue du schéma)',
+        'maps gUnknownEnumValue to PoiCategory.other (valeur inconnue du schéma)',
         () {
           // Given a future or unknown enum value from the backend
           // When toDomain is called
           // Then a safe fallback (other) is returned instead of crashing
-          expect(
-            GWaypointEnum.gUnknownEnumValue.toDomain(),
-            WaypointType.other,
-          );
+          expect(GPoiCategory.gUnknownEnumValue.toDomain(), PoiCategory.other);
         },
       );
     });
 
     // ---------------------------------------------------------------------------
-    // WaypointType → GWaypointEnum  (toGQL)
+    // PoiCategory → GPoiCategory  (toGQL)
     // ---------------------------------------------------------------------------
 
-    group('WaypointType.toGQL', () {
-      // Given a domain WaypointType
+    group('PoiCategory.toGQL', () {
+      // Given a domain PoiCategory
       // When toGQL is called
       // Then the corresponding GQL enum value is returned
 
       const knownMappings = [
-        (WaypointType.start, GWaypointEnum.START),
-        (WaypointType.end, GWaypointEnum.END),
-        (WaypointType.waypoint, GWaypointEnum.WAYPOINT),
-        (WaypointType.water, GWaypointEnum.WATER),
-        (WaypointType.food, GWaypointEnum.FOOD),
-        (WaypointType.repair, GWaypointEnum.REPAIR),
-        (WaypointType.shelter, GWaypointEnum.SHELTER),
-        (WaypointType.camping, GWaypointEnum.CAMPING),
-        (WaypointType.viewpoint, GWaypointEnum.VIEWPOINT),
-        (WaypointType.historic, GWaypointEnum.HISTORIC),
-        (WaypointType.beach, GWaypointEnum.BEACH),
-        (WaypointType.boat, GWaypointEnum.BOAT),
-        (WaypointType.warning, GWaypointEnum.WARNING),
+        (PoiCategory.start, GPoiCategory.START),
+        (PoiCategory.end, GPoiCategory.END),
+        (PoiCategory.waypoint, GPoiCategory.WAYPOINT),
+        (PoiCategory.water, GPoiCategory.WATER),
+        (PoiCategory.food, GPoiCategory.FOOD),
+        (PoiCategory.repair, GPoiCategory.REPAIR),
+        (PoiCategory.shelter, GPoiCategory.SHELTER),
+        (PoiCategory.camping, GPoiCategory.CAMPING),
+        (PoiCategory.viewpoint, GPoiCategory.VIEWPOINT),
+        (PoiCategory.historic, GPoiCategory.HISTORIC),
+        (PoiCategory.beach, GPoiCategory.BEACH),
+        (PoiCategory.boat, GPoiCategory.BOAT),
+        (PoiCategory.warning, GPoiCategory.WARNING),
       ];
 
       for (final (domainValue, gqlValue) in knownMappings) {
@@ -83,17 +80,17 @@ void main() {
       }
 
       test(
-        'throws Exception for WaypointType.other (non transmissible au backend)',
+        'throws Exception for PoiCategory.other (non transmissible au backend)',
         () {
-          // Given WaypointType.other, which has no GQL equivalent
+          // Given PoiCategory.other, which has no GQL equivalent
           // When toGQL is called
           // Then an Exception is thrown to prevent sending an invalid value
-          expect(() => WaypointType.other.toGQL(), throwsException);
+          expect(() => PoiCategory.other.toGQL(), throwsException);
         },
       );
 
       test('round-trip: toGQL().toDomain() returns the original value', () {
-        // Given any known WaypointType
+        // Given any known PoiCategory
         // When converted to GQL and back to domain
         // Then the original value is recovered
         for (final (domainValue, _) in knownMappings) {

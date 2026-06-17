@@ -1,5 +1,5 @@
 #import "vertex/vertex_fields.graphql"
-#import "segments/fragments/segment_fields.graphql"
+#import "segments/segment_fields.graphql"
 
 query GetTopology($tripId: Int!) {
     trip(id: $tripId) {

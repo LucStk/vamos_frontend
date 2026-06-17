@@ -1,41 +1,41 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/types/waypoint_type.dart';
+import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
-extension GWaypointEnumMapper on GWaypointEnum {
-  WaypointType toDomain() => switch (this) {
-    GWaypointEnum.START => WaypointType.start,
-    GWaypointEnum.END => WaypointType.end,
-    GWaypointEnum.WAYPOINT => WaypointType.waypoint,
-    GWaypointEnum.WATER => WaypointType.water,
-    GWaypointEnum.FOOD => WaypointType.food,
-    GWaypointEnum.REPAIR => WaypointType.repair,
-    GWaypointEnum.SHELTER => WaypointType.shelter,
-    GWaypointEnum.CAMPING => WaypointType.camping,
-    GWaypointEnum.VIEWPOINT => WaypointType.viewpoint,
-    GWaypointEnum.HISTORIC => WaypointType.historic,
-    GWaypointEnum.BEACH => WaypointType.beach,
-    GWaypointEnum.BOAT => WaypointType.boat,
-    GWaypointEnum.WARNING => WaypointType.warning,
-    _ => WaypointType.other,
+extension GPoiCategoryMapper on GPoiCategory {
+  PoiCategory toDomain() => switch (this) {
+    GPoiCategory.START => PoiCategory.start,
+    GPoiCategory.END => PoiCategory.end,
+    GPoiCategory.WAYPOINT => PoiCategory.waypoint,
+    GPoiCategory.WATER => PoiCategory.water,
+    GPoiCategory.FOOD => PoiCategory.food,
+    GPoiCategory.REPAIR => PoiCategory.repair,
+    GPoiCategory.SHELTER => PoiCategory.shelter,
+    GPoiCategory.CAMPING => PoiCategory.camping,
+    GPoiCategory.VIEWPOINT => PoiCategory.viewpoint,
+    GPoiCategory.HISTORIC => PoiCategory.historic,
+    GPoiCategory.BEACH => PoiCategory.beach,
+    GPoiCategory.BOAT => PoiCategory.boat,
+    GPoiCategory.WARNING => PoiCategory.warning,
+    _ => PoiCategory.other,
   };
 }
 
-// 1. De ton modèle local (WaypointType) VERS GraphQL (GWaypointEnum)
-extension WaypointTypeMapper on WaypointType {
-  GWaypointEnum toGQL() => switch (this) {
-    WaypointType.start => GWaypointEnum.START,
-    WaypointType.end => GWaypointEnum.END,
-    WaypointType.waypoint => GWaypointEnum.WAYPOINT,
-    WaypointType.water => GWaypointEnum.WATER,
-    WaypointType.food => GWaypointEnum.FOOD,
-    WaypointType.repair => GWaypointEnum.REPAIR,
-    WaypointType.shelter => GWaypointEnum.SHELTER,
-    WaypointType.camping => GWaypointEnum.CAMPING,
-    WaypointType.viewpoint => GWaypointEnum.VIEWPOINT,
-    WaypointType.historic => GWaypointEnum.HISTORIC,
-    WaypointType.beach => GWaypointEnum.BEACH,
-    WaypointType.boat => GWaypointEnum.BOAT,
-    WaypointType.warning => GWaypointEnum.WARNING,
-    WaypointType.other => throw (Exception("Other is not an option")),
+// 1. De ton modèle local (PoiCategory) VERS GraphQL (GPoiCategory)
+extension PoiCategoryMapper on PoiCategory {
+  GPoiCategory toGQL() => switch (this) {
+    PoiCategory.start => GPoiCategory.START,
+    PoiCategory.end => GPoiCategory.END,
+    PoiCategory.waypoint => GPoiCategory.WAYPOINT,
+    PoiCategory.water => GPoiCategory.WATER,
+    PoiCategory.food => GPoiCategory.FOOD,
+    PoiCategory.repair => GPoiCategory.REPAIR,
+    PoiCategory.shelter => GPoiCategory.SHELTER,
+    PoiCategory.camping => GPoiCategory.CAMPING,
+    PoiCategory.viewpoint => GPoiCategory.VIEWPOINT,
+    PoiCategory.historic => GPoiCategory.HISTORIC,
+    PoiCategory.beach => GPoiCategory.BEACH,
+    PoiCategory.boat => GPoiCategory.BOAT,
+    PoiCategory.warning => GPoiCategory.WARNING,
+    PoiCategory.other => throw (Exception("Other is not an option")),
   };
 }

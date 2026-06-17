@@ -15,7 +15,7 @@ import 'package:vamos_cartographie/backend/graphql/topology/__generated__/topolo
     as _i2;
 import 'package:vamos_cartographie/backend/graphql/topology/__generated__/topology_queries.var.gql.dart'
     as _i3;
-import 'package:vamos_cartographie/backend/graphql/topology/segments/fragments/__generated__/segment_fields.ast.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/topology/segments/__generated__/segment_fields.ast.gql.dart'
     as _i7;
 import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
     as _i8;

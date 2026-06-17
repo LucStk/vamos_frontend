@@ -5,11 +5,11 @@ import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
-class SegmentTypeMarker extends ConsumerWidget {
+class MobilityTypeMarker extends ConsumerWidget {
   final Id<Segment> segmentId;
   final Id<Trip> tripId;
 
-  const SegmentTypeMarker({
+  const MobilityTypeMarker({
     super.key,
     required this.tripId,
     required this.segmentId,
@@ -20,11 +20,11 @@ class SegmentTypeMarker extends ConsumerWidget {
     final segment = ref.watch(nodeRequiredProvider<Segment>(tripId, segmentId));
     return Container(
       decoration: BoxDecoration(
-        color: segment.type.color.withOpacity(0.7),
+        color: segment.mobilityType.color.withOpacity(0.7),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
       ),
-      child: Icon(segment.type.icon, color: Colors.white, size: 12),
+      child: Icon(segment.mobilityType.icon, color: Colors.white, size: 12),
     );
   }
 }

@@ -99,7 +99,7 @@ class WaypointResolver {
       id: Id<Waypoint>(id),
       vertexId: vertexId,
       title: input.title.isPresent ? (input.title.requireValue ?? '') : '',
-      type: input.type.toDomain(),
+      poiCategory: input.poiCategory.toDomain(),
       description: input.description.isPresent
           ? (input.description.requireValue ?? '')
           : '',
@@ -129,9 +129,10 @@ class WaypointResolver {
       title: input.title.isPresent && input.title.requireValue != null
           ? input.title.requireValue!
           : existing.title,
-      type: input.type.isPresent && input.type.requireValue != null
-          ? input.type.requireValue!.toDomain()
-          : existing.type,
+      poiCategory:
+          input.poiCategory.isPresent && input.poiCategory.requireValue != null
+          ? input.poiCategory.requireValue!.toDomain()
+          : existing.poiCategory,
       description:
           input.description.isPresent && input.description.requireValue != null
           ? input.description.requireValue!

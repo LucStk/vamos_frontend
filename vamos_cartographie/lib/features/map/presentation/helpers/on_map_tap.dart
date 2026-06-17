@@ -14,7 +14,8 @@ void onMapTap(
 ) {
   final cursorProvider = ref.watch(mapCursorProvider(tripId).notifier);
   final mapInteraction = ref.watch(mapInteractionProvider.notifier);
-  debugPrint("$mapInteraction");
+  final hitSegment = mapInteraction.getState();
+  if (hitSegment != null) {}
   // cursorProvider.setPosition(latLng);
   // cursorProvider.open();
 }

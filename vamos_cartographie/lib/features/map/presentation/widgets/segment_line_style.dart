@@ -20,11 +20,11 @@ class SegmentLineStyle extends ConsumerWidget {
     final segment = ref.watch(nodeRequiredProvider<Segment>(tripId, segmentId));
     return Container(
       decoration: BoxDecoration(
-        color: segment.type.color.withOpacity(0.7),
+        color: segment.mobilityType.color.withOpacity(0.7),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
       ),
-      child: Icon(segment.type.icon, color: Colors.white, size: 12),
+      child: Icon(segment.mobilityType.icon, color: Colors.white, size: 12),
     );
   }
 }

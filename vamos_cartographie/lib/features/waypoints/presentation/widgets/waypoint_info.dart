@@ -36,7 +36,7 @@ class WaypointInfo extends StatelessWidget {
                   ),
 
                 const SizedBox(height: 16),
-                WaypointHeader(type: waypoint.type),
+                WaypointHeader(type: waypoint.poiCategory),
                 const SizedBox(height: 16),
 
                 // Photos

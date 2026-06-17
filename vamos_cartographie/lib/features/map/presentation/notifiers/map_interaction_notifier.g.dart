@@ -41,7 +41,7 @@ final class MapInteractionProvider
   }
 }
 
-String _$mapInteractionHash() => r'0fcb69cdd35a0dffe66408e726e4886acf7cd8f6';
+String _$mapInteractionHash() => r'b3090bbe49297e932d0c99161bc0e7f6df47ee7c';
 
 abstract class _$MapInteraction
     extends $Notifier<LayerHitResult<Id<Segment>>?> {

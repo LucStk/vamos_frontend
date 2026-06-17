@@ -21,7 +21,6 @@ class MapInteraction extends _$MapInteraction {
   // Permet au PolylineLayer de mettre à jour le hitResult lors du survol
   void updateHitResult(LayerHitResult<Id<Segment>>? hitResult) {
     state = hitResult;
-    debugPrint("hit segment $hitResult");
   }
 
   // Déclenché uniquement lors d'un vrai clic sur la carte

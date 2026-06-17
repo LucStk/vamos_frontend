@@ -98,22 +98,148 @@ class GMediaImageInput {
   }
 }
 
+enum GMobilityType {
+  BIKE,
+  CAR,
+  BOAT,
+  WALK,
+  TRAIN,
+  gUnknownEnumValue;
+
+  static GMobilityType fromJson(String value) {
+    switch (value) {
+      case r'BIKE':
+        return GMobilityType.BIKE;
+      case r'CAR':
+        return GMobilityType.CAR;
+      case r'BOAT':
+        return GMobilityType.BOAT;
+      case r'WALK':
+        return GMobilityType.WALK;
+      case r'TRAIN':
+        return GMobilityType.TRAIN;
+      default:
+        return GMobilityType.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GMobilityType.BIKE:
+        return r'BIKE';
+      case GMobilityType.CAR:
+        return r'CAR';
+      case GMobilityType.BOAT:
+        return r'BOAT';
+      case GMobilityType.WALK:
+        return r'WALK';
+      case GMobilityType.TRAIN:
+        return r'TRAIN';
+      case GMobilityType.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
+enum GPoiCategory {
+  START,
+  END,
+  WAYPOINT,
+  WATER,
+  FOOD,
+  REPAIR,
+  SHELTER,
+  CAMPING,
+  VIEWPOINT,
+  HISTORIC,
+  BEACH,
+  BOAT,
+  WARNING,
+  gUnknownEnumValue;
+
+  static GPoiCategory fromJson(String value) {
+    switch (value) {
+      case r'START':
+        return GPoiCategory.START;
+      case r'END':
+        return GPoiCategory.END;
+      case r'WAYPOINT':
+        return GPoiCategory.WAYPOINT;
+      case r'WATER':
+        return GPoiCategory.WATER;
+      case r'FOOD':
+        return GPoiCategory.FOOD;
+      case r'REPAIR':
+        return GPoiCategory.REPAIR;
+      case r'SHELTER':
+        return GPoiCategory.SHELTER;
+      case r'CAMPING':
+        return GPoiCategory.CAMPING;
+      case r'VIEWPOINT':
+        return GPoiCategory.VIEWPOINT;
+      case r'HISTORIC':
+        return GPoiCategory.HISTORIC;
+      case r'BEACH':
+        return GPoiCategory.BEACH;
+      case r'BOAT':
+        return GPoiCategory.BOAT;
+      case r'WARNING':
+        return GPoiCategory.WARNING;
+      default:
+        return GPoiCategory.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GPoiCategory.START:
+        return r'START';
+      case GPoiCategory.END:
+        return r'END';
+      case GPoiCategory.WAYPOINT:
+        return r'WAYPOINT';
+      case GPoiCategory.WATER:
+        return r'WATER';
+      case GPoiCategory.FOOD:
+        return r'FOOD';
+      case GPoiCategory.REPAIR:
+        return r'REPAIR';
+      case GPoiCategory.SHELTER:
+        return r'SHELTER';
+      case GPoiCategory.CAMPING:
+        return r'CAMPING';
+      case GPoiCategory.VIEWPOINT:
+        return r'VIEWPOINT';
+      case GPoiCategory.HISTORIC:
+        return r'HISTORIC';
+      case GPoiCategory.BEACH:
+        return r'BEACH';
+      case GPoiCategory.BOAT:
+        return r'BOAT';
+      case GPoiCategory.WARNING:
+        return r'WARNING';
+      case GPoiCategory.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 class GSegmentCreateInput {
   const GSegmentCreateInput({
-    required this.type,
+    required this.mobilityType,
     required this.startVertexId,
     required this.endVertexId,
   });
 
   factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
     return GSegmentCreateInput(
-      type: GSegmentTypeEnum.fromJson((json['type'] as String)),
+      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
       startVertexId: (json['startVertexId'] as int),
       endVertexId: (json['endVertexId'] as int),
     );
   }
 
-  final GSegmentTypeEnum type;
+  final GMobilityType mobilityType;
 
   final int startVertexId;
 
@@ -121,8 +247,8 @@ class GSegmentCreateInput {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$typeValue = this.type;
-    _$result['type'] = _$typeValue.toJson();
+    final _$mobilityTypeValue = this.mobilityType;
+    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
     final _$startVertexIdValue = this.startVertexId;
     _$result['startVertexId'] = _$startVertexIdValue;
     final _$endVertexIdValue = this.endVertexId;
@@ -131,12 +257,12 @@ class GSegmentCreateInput {
   }
 
   GSegmentCreateInput copyWith({
-    GSegmentTypeEnum? type,
+    GMobilityType? mobilityType,
     int? startVertexId,
     int? endVertexId,
   }) {
     return GSegmentCreateInput(
-      type: type ?? this.type,
+      mobilityType: mobilityType ?? this.mobilityType,
       startVertexId: startVertexId ?? this.startVertexId,
       endVertexId: endVertexId ?? this.endVertexId,
     );
@@ -156,66 +282,23 @@ class GSegmentCreateInput {
 
   @override
   String toString() {
-    return 'GSegmentCreateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId)';
-  }
-}
-
-enum GSegmentTypeEnum {
-  bike,
-  car,
-  boat,
-  walk,
-  train,
-  gUnknownEnumValue;
-
-  static GSegmentTypeEnum fromJson(String value) {
-    switch (value) {
-      case r'bike':
-        return GSegmentTypeEnum.bike;
-      case r'car':
-        return GSegmentTypeEnum.car;
-      case r'boat':
-        return GSegmentTypeEnum.boat;
-      case r'walk':
-        return GSegmentTypeEnum.walk;
-      case r'train':
-        return GSegmentTypeEnum.train;
-      default:
-        return GSegmentTypeEnum.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GSegmentTypeEnum.bike:
-        return r'bike';
-      case GSegmentTypeEnum.car:
-        return r'car';
-      case GSegmentTypeEnum.boat:
-        return r'boat';
-      case GSegmentTypeEnum.walk:
-        return r'walk';
-      case GSegmentTypeEnum.train:
-        return r'train';
-      case GSegmentTypeEnum.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
+    return 'GSegmentCreateInput(mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
   }
 }
 
 class GSegmentUpdateInput {
   const GSegmentUpdateInput({
-    this.type = const Value.absent(),
+    this.mobilityType = const Value.absent(),
     this.startVertexId = const Value.absent(),
     this.endVertexId = const Value.absent(),
   });
 
   factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
     return GSegmentUpdateInput(
-      type: json.containsKey('type')
-          ? Value.present(json['type'] == null
+      mobilityType: json.containsKey('mobilityType')
+          ? Value.present(json['mobilityType'] == null
               ? null
-              : GSegmentTypeEnum.fromJson((json['type'] as String)))
+              : GMobilityType.fromJson((json['mobilityType'] as String)))
           : Value.absent(),
       startVertexId: json.containsKey('startVertexId')
           ? Value.present(json['startVertexId'] == null
@@ -229,7 +312,7 @@ class GSegmentUpdateInput {
     );
   }
 
-  final Value<GSegmentTypeEnum> type;
+  final Value<GMobilityType> mobilityType;
 
   final Value<int> startVertexId;
 
@@ -237,11 +320,12 @@ class GSegmentUpdateInput {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$typeValue = this.type;
-    if (_$typeValue.isPresent) {
-      final _$typeRequired = _$typeValue.requireValue;
-      _$result['type'] =
-          _$typeRequired == null ? null : _$typeRequired.toJson();
+    final _$mobilityTypeValue = this.mobilityType;
+    if (_$mobilityTypeValue.isPresent) {
+      final _$mobilityTypeRequired = _$mobilityTypeValue.requireValue;
+      _$result['mobilityType'] = _$mobilityTypeRequired == null
+          ? null
+          : _$mobilityTypeRequired.toJson();
     }
     final _$startVertexIdValue = this.startVertexId;
     if (_$startVertexIdValue.isPresent) {
@@ -259,12 +343,12 @@ class GSegmentUpdateInput {
   }
 
   GSegmentUpdateInput copyWith({
-    Value<GSegmentTypeEnum>? type,
+    Value<GMobilityType>? mobilityType,
     Value<int>? startVertexId,
     Value<int>? endVertexId,
   }) {
     return GSegmentUpdateInput(
-      type: type ?? this.type,
+      mobilityType: mobilityType ?? this.mobilityType,
       startVertexId: startVertexId ?? this.startVertexId,
       endVertexId: endVertexId ?? this.endVertexId,
     );
@@ -284,7 +368,7 @@ class GSegmentUpdateInput {
 
   @override
   String toString() {
-    return 'GSegmentUpdateInput(type: $type, startVertexId: $startVertexId, endVertexId: $endVertexId)';
+    return 'GSegmentUpdateInput(mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
   }
 }
 
@@ -447,7 +531,7 @@ class GTripUpdateInput {
 
 class GWaypointCreateInput {
   const GWaypointCreateInput({
-    required this.type,
+    required this.poiCategory,
     this.title = const Value.absent(),
     this.description = const Value.absent(),
     this.vertexId = const Value.absent(),
@@ -456,7 +540,7 @@ class GWaypointCreateInput {
 
   factory GWaypointCreateInput.fromJson(Map<String, dynamic> json) {
     return GWaypointCreateInput(
-      type: GWaypointEnum.fromJson((json['type'] as String)),
+      poiCategory: GPoiCategory.fromJson((json['poiCategory'] as String)),
       title: json.containsKey('title')
           ? Value.present(
               json['title'] == null ? null : (json['title'] as String))
@@ -478,7 +562,7 @@ class GWaypointCreateInput {
     );
   }
 
-  final GWaypointEnum type;
+  final GPoiCategory poiCategory;
 
   final Value<String> title;
 
@@ -490,8 +574,8 @@ class GWaypointCreateInput {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$typeValue = this.type;
-    _$result['type'] = _$typeValue.toJson();
+    final _$poiCategoryValue = this.poiCategory;
+    _$result['poiCategory'] = _$poiCategoryValue.toJson();
     final _$titleValue = this.title;
     if (_$titleValue.isPresent) {
       final _$titleRequired = _$titleValue.requireValue;
@@ -519,14 +603,14 @@ class GWaypointCreateInput {
   }
 
   GWaypointCreateInput copyWith({
-    GWaypointEnum? type,
+    GPoiCategory? poiCategory,
     Value<String>? title,
     Value<String>? description,
     Value<int>? vertexId,
     Value<GLatLngInput>? latLng,
   }) {
     return GWaypointCreateInput(
-      type: type ?? this.type,
+      poiCategory: poiCategory ?? this.poiCategory,
       title: title ?? this.title,
       description: description ?? this.description,
       vertexId: vertexId ?? this.vertexId,
@@ -548,97 +632,14 @@ class GWaypointCreateInput {
 
   @override
   String toString() {
-    return 'GWaypointCreateInput(type: $type, title: $title, description: $description, vertexId: $vertexId, latLng: $latLng)';
-  }
-}
-
-enum GWaypointEnum {
-  START,
-  END,
-  WAYPOINT,
-  WATER,
-  FOOD,
-  REPAIR,
-  SHELTER,
-  CAMPING,
-  VIEWPOINT,
-  HISTORIC,
-  BEACH,
-  BOAT,
-  WARNING,
-  gUnknownEnumValue;
-
-  static GWaypointEnum fromJson(String value) {
-    switch (value) {
-      case r'START':
-        return GWaypointEnum.START;
-      case r'END':
-        return GWaypointEnum.END;
-      case r'WAYPOINT':
-        return GWaypointEnum.WAYPOINT;
-      case r'WATER':
-        return GWaypointEnum.WATER;
-      case r'FOOD':
-        return GWaypointEnum.FOOD;
-      case r'REPAIR':
-        return GWaypointEnum.REPAIR;
-      case r'SHELTER':
-        return GWaypointEnum.SHELTER;
-      case r'CAMPING':
-        return GWaypointEnum.CAMPING;
-      case r'VIEWPOINT':
-        return GWaypointEnum.VIEWPOINT;
-      case r'HISTORIC':
-        return GWaypointEnum.HISTORIC;
-      case r'BEACH':
-        return GWaypointEnum.BEACH;
-      case r'BOAT':
-        return GWaypointEnum.BOAT;
-      case r'WARNING':
-        return GWaypointEnum.WARNING;
-      default:
-        return GWaypointEnum.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GWaypointEnum.START:
-        return r'START';
-      case GWaypointEnum.END:
-        return r'END';
-      case GWaypointEnum.WAYPOINT:
-        return r'WAYPOINT';
-      case GWaypointEnum.WATER:
-        return r'WATER';
-      case GWaypointEnum.FOOD:
-        return r'FOOD';
-      case GWaypointEnum.REPAIR:
-        return r'REPAIR';
-      case GWaypointEnum.SHELTER:
-        return r'SHELTER';
-      case GWaypointEnum.CAMPING:
-        return r'CAMPING';
-      case GWaypointEnum.VIEWPOINT:
-        return r'VIEWPOINT';
-      case GWaypointEnum.HISTORIC:
-        return r'HISTORIC';
-      case GWaypointEnum.BEACH:
-        return r'BEACH';
-      case GWaypointEnum.BOAT:
-        return r'BOAT';
-      case GWaypointEnum.WARNING:
-        return r'WARNING';
-      case GWaypointEnum.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
+    return 'GWaypointCreateInput(poiCategory: $poiCategory, title: $title, description: $description, vertexId: $vertexId, latLng: $latLng)';
   }
 }
 
 class GWaypointUpdateInput {
   const GWaypointUpdateInput({
     this.title = const Value.absent(),
-    this.type = const Value.absent(),
+    this.poiCategory = const Value.absent(),
     this.vertexId = const Value.absent(),
     this.description = const Value.absent(),
   });
@@ -649,10 +650,10 @@ class GWaypointUpdateInput {
           ? Value.present(
               json['title'] == null ? null : (json['title'] as String))
           : Value.absent(),
-      type: json.containsKey('type')
-          ? Value.present(json['type'] == null
+      poiCategory: json.containsKey('poiCategory')
+          ? Value.present(json['poiCategory'] == null
               ? null
-              : GWaypointEnum.fromJson((json['type'] as String)))
+              : GPoiCategory.fromJson((json['poiCategory'] as String)))
           : Value.absent(),
       vertexId: json.containsKey('vertexId')
           ? Value.present(
@@ -668,7 +669,7 @@ class GWaypointUpdateInput {
 
   final Value<String> title;
 
-  final Value<GWaypointEnum> type;
+  final Value<GPoiCategory> poiCategory;
 
   final Value<int> vertexId;
 
@@ -681,11 +682,11 @@ class GWaypointUpdateInput {
       final _$titleRequired = _$titleValue.requireValue;
       _$result['title'] = _$titleRequired == null ? null : _$titleRequired;
     }
-    final _$typeValue = this.type;
-    if (_$typeValue.isPresent) {
-      final _$typeRequired = _$typeValue.requireValue;
-      _$result['type'] =
-          _$typeRequired == null ? null : _$typeRequired.toJson();
+    final _$poiCategoryValue = this.poiCategory;
+    if (_$poiCategoryValue.isPresent) {
+      final _$poiCategoryRequired = _$poiCategoryValue.requireValue;
+      _$result['poiCategory'] =
+          _$poiCategoryRequired == null ? null : _$poiCategoryRequired.toJson();
     }
     final _$vertexIdValue = this.vertexId;
     if (_$vertexIdValue.isPresent) {
@@ -704,13 +705,13 @@ class GWaypointUpdateInput {
 
   GWaypointUpdateInput copyWith({
     Value<String>? title,
-    Value<GWaypointEnum>? type,
+    Value<GPoiCategory>? poiCategory,
     Value<int>? vertexId,
     Value<String>? description,
   }) {
     return GWaypointUpdateInput(
       title: title ?? this.title,
-      type: type ?? this.type,
+      poiCategory: poiCategory ?? this.poiCategory,
       vertexId: vertexId ?? this.vertexId,
       description: description ?? this.description,
     );
@@ -730,7 +731,7 @@ class GWaypointUpdateInput {
 
   @override
   String toString() {
-    return 'GWaypointUpdateInput(title: $title, type: $type, vertexId: $vertexId, description: $description)';
+    return 'GWaypointUpdateInput(title: $title, poiCategory: $poiCategory, vertexId: $vertexId, description: $description)';
   }
 }
 

@@ -6,25 +6,25 @@ final List<Waypoint> t2Waypoints = [
   Waypoint(
     id: Id<Waypoint>(21),
     vertexId: Id<Vertex>(21),
-    type: WaypointType.start,
+    poiCategory: PoiCategory.start,
     description: 'Départ de Strasbourg',
   ),
   Waypoint(
     id: Id<Waypoint>(22),
     vertexId: Id<Vertex>(22),
-    type: WaypointType.historic,
+    poiCategory: PoiCategory.historic,
     description: 'Patrimoine médiéval de Sélestat',
   ),
   Waypoint(
     id: Id<Waypoint>(24),
     vertexId: Id<Vertex>(24),
-    type: WaypointType.viewpoint,
+    poiCategory: PoiCategory.viewpoint,
     description: 'Point de vue sur les vignes',
   ),
   Waypoint(
     id: Id<Waypoint>(25),
     vertexId: Id<Vertex>(25),
-    type: WaypointType.end,
+    poiCategory: PoiCategory.end,
     description: 'Arrivée à Mulhouse',
   ),
 ];

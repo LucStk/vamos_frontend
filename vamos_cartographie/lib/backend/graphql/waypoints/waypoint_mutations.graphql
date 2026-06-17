@@ -1,0 +1,28 @@
+#import "waypoint_fields.graphql"
+#import "../media/image_fields.graphql"
+mutation UpdateWaypoint($id: Int!, $waypoint: WaypointUpdateInput!) {
+    updateWaypoint(input: $waypoint, id: $id) {
+        ...WaypointFields
+    }
+}
+mutation CreateWaypoint($tripId: Int!, $waypoint: WaypointCreateInput!) {
+    createWaypoint(tripId: $tripId, input: $waypoint) {
+        ...CreateWaypointPayloadFields
+    }
+}
+
+mutation DeleteWaypoint($waypointId: Int!) {
+    deleteWaypoint(id: $waypointId)
+}
+
+mutation DeleteImageFromWaypoint($waypointId: Int!, $fileKey: String!) {
+    deleteImageFromWaypoint(waypointId: $waypointId, fileKey: $fileKey)
+}
+
+mutation AttachImageToWaypoint($waypointId: Int!, $fileKey: String!) {
+    attachImageToWaypoint(waypointId: $waypointId, fileKey: $fileKey) {
+        image {
+            ...ImageFields
+        }
+    }
+}

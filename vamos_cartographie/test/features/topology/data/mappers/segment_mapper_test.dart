@@ -24,14 +24,14 @@ void main() {
 
     GSegmentFieldsData buildGQLSegment({
       int id = 10,
-      GSegmentTypeEnum type = GSegmentTypeEnum.bike,
+      GMobilityType type = GMobilityType.BIKE,
       int startVertexId = 1,
       int endVertexId = 2,
       List<GLatLngFieldsData> geometry = const [],
     }) {
       return GSegmentFieldsData(
         id: id,
-        type: type,
+        mobilityType: type,
         startVertex: buildVertex(startVertexId, lat: 48.0, lng: 2.0),
         endVertex: buildVertex(endVertexId, lat: 48.1, lng: 2.1),
         geometry: geometry,
@@ -57,12 +57,12 @@ void main() {
         expect(segment.endVertexId, Id<Vertex>(7));
       });
 
-      test('maps segment type via SegmentTypeMapper', () {
-        final gql = buildGQLSegment(type: GSegmentTypeEnum.train);
+      test('maps segment type via MobilityTypeMapper', () {
+        final gql = buildGQLSegment(type: GMobilityType.TRAIN);
 
         final segment = SegmentMapper.fromGQL(gql);
 
-        expect(segment.type, SegmentType.train);
+        expect(segment.mobilityType, MobilityType.train);
       });
 
       test('maps empty geometry list', () {
@@ -104,18 +104,18 @@ void main() {
 
       test('maps all segment types correctly', () {
         final types = [
-          (GSegmentTypeEnum.bike, SegmentType.bike),
-          (GSegmentTypeEnum.car, SegmentType.car),
-          (GSegmentTypeEnum.boat, SegmentType.boat),
-          (GSegmentTypeEnum.walk, SegmentType.walk),
-          (GSegmentTypeEnum.train, SegmentType.train),
+          (GMobilityType.BIKE, MobilityType.bike),
+          (GMobilityType.CAR, MobilityType.car),
+          (GMobilityType.BOAT, MobilityType.boat),
+          (GMobilityType.WALK, MobilityType.walk),
+          (GMobilityType.TRAIN, MobilityType.train),
         ];
 
         for (final (gqlType, domainType) in types) {
           final gql = buildGQLSegment(type: gqlType);
           final segment = SegmentMapper.fromGQL(gql);
           expect(
-            segment.type,
+            segment.mobilityType,
             domainType,
             reason: 'type $gqlType should map to $domainType',
           );

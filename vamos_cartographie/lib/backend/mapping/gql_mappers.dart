@@ -1,11 +1,12 @@
+import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.data.gql.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
-import 'package:vamos_cartographie/features/topology/data/mappers/segment_type_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 
+import 'package:vamos_cartographie/features/topology/data/mappers/mobility_type_mapper.dart';
 // ── Conversions domaine → types Ferry générés ─────────────────────────────────
 //
 // Fonctions pures : aucun accès au store.
@@ -30,7 +31,7 @@ GWaypointFieldsData waypointToGql(Waypoint w, Vertex vertex) =>
       id: w.id.value,
       title: w.title,
       description: w.description,
-      type: w.type.toGQL(),
+      poiCategory: w.poiCategory.toGQL(),
       vertex: vertexToGql(vertex),
       images: w.images
           .map((img) => GWaypointFieldsData_images(image: imageToGql(img)))
@@ -49,7 +50,7 @@ GCreateWaypointPayloadFieldsData waypointCreateToGql(
 GSegmentFieldsData segmentToGql(Segment s, Vertex start, Vertex end) =>
     GSegmentFieldsData(
       id: s.id.value,
-      type: s.type.toGQL(),
+      mobilityType: s.mobilityType.toGQL(),
       startVertex: vertexToGql(start),
       endVertex: vertexToGql(end),
       geometry: s.geometry

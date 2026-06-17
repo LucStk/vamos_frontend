@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/map/orchestrators/display_segment_orchestrator.dart';
+import 'package:vamos_cartographie/features/map/controllers/segment_editing_controller.dart';
 import 'package:vamos_cartographie/features/map/presentation/buttons/buttons.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import "pop_up_abstract.dart";
@@ -18,7 +18,7 @@ class WaypointPopUp extends AbstractPopUp {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     segOrchestrator() =>
-        ref.read(displaySegmentOrchestratorProvider(tripId).notifier);
+        ref.read(segmentEditingControllerProvider(tripId).notifier);
 
     return PopUpShell(
       buttonsBuilder: (ctx) => [

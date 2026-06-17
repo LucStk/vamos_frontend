@@ -1,3 +1,3 @@
 export "entities/segment.dart";
-export "types/segment_type.dart";
+export "types/mobility_types.dart";
 export 'entities/vertex.dart';

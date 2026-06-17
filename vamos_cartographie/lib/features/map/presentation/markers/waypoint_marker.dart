@@ -53,8 +53,8 @@ class WaypointMarker extends AbstractMarker {
       child: CircleAvatar(
         radius: 16, // Taille globale du cercle (diamètre = 32)
         backgroundColor:
-            waypoint.type.color, // <-- La couleur de votre fond rond
-        child: Icon(waypoint.type.icon, color: Colors.white, size: 20),
+            waypoint.poiCategory.color, // <-- La couleur de votre fond rond
+        child: Icon(waypoint.poiCategory.icon, color: Colors.white, size: 20),
       ),
     );
   }

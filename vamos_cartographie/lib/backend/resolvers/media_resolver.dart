@@ -1,3 +1,4 @@
+import 'package:vamos_cartographie/backend/graphql/media/__generated__/media_mutations.var.gql.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 

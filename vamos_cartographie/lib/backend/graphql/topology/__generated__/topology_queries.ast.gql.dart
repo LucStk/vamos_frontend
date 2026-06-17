@@ -5,7 +5,7 @@
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/backend/graphql/shared/__generated__/geo_fields.ast.gql.dart'
     as _i4;
-import 'package:vamos_cartographie/backend/graphql/topology/segments/fragments/__generated__/segment_fields.ast.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/topology/segments/__generated__/segment_fields.ast.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
     as _i3;

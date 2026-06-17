@@ -15,17 +15,17 @@ void main() {
       // When toGQLInput is called
       // Then the GWaypointCreateInput reflects the tristate Value rules
 
-      test('maps required type', () {
-        final draft = WaypointDraft(type: WaypointType.water);
+      test('maps required poiCategory', () {
+        final draft = WaypointDraft(poiCategory: PoiCategory.water);
 
         final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
-        expect(input.type, GWaypointEnum.WATER);
+        expect(input.poiCategory, GPoiCategory.WATER);
       });
 
       test('includes title when non-empty', () {
         final draft = WaypointDraft(
-          type: WaypointType.water,
+          poiCategory: PoiCategory.water,
           title: 'Source du moulin',
         );
 
@@ -39,7 +39,7 @@ void main() {
         // Given no title provided
         // When toGQLInput is called
         // Then title is absent (not sent to the server)
-        final draft = WaypointDraft(type: WaypointType.water, title: '');
+        final draft = WaypointDraft(poiCategory: PoiCategory.water, title: '');
 
         final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
@@ -48,7 +48,7 @@ void main() {
 
       test('includes description when non-empty', () {
         final draft = WaypointDraft(
-          type: WaypointType.food,
+          poiCategory: PoiCategory.food,
           description: 'Boulangerie ouverte le dimanche',
         );
 
@@ -62,7 +62,10 @@ void main() {
       });
 
       test('omits description when empty', () {
-        final draft = WaypointDraft(type: WaypointType.food, description: '');
+        final draft = WaypointDraft(
+          poiCategory: PoiCategory.food,
+          description: '',
+        );
 
         final input = WaypointDraftMapper.toGQLInput(draft, null, null);
 
@@ -77,21 +80,21 @@ void main() {
     group('toGQLUpdateInput', () {
       // Given a WaypointDraft
       // When toGQLUpdateInput is called
-      // Then type is always present as Value.present
+      // Then poiCategory is always present as Value.present
 
-      test('always includes type as Value.present', () {
-        // An update must always transmit the type
-        final draft = WaypointDraft(type: WaypointType.shelter);
+      test('always includes poiCategory as Value.present', () {
+        // An update must always transmit the poiCategory
+        final draft = WaypointDraft(poiCategory: PoiCategory.shelter);
 
         final input = WaypointDraftMapper.toGQLUpdateInput(draft);
 
-        expect(input.type.isPresent, isTrue);
-        expect(input.type.requireValue, GWaypointEnum.SHELTER);
+        expect(input.poiCategory.isPresent, isTrue);
+        expect(input.poiCategory.requireValue, GPoiCategory.SHELTER);
       });
 
       test('includes title when non-empty', () {
         final draft = WaypointDraft(
-          type: WaypointType.waypoint,
+          poiCategory: PoiCategory.waypoint,
           title: 'Étape principale',
         );
 
@@ -102,7 +105,10 @@ void main() {
       });
 
       test('omits title when empty', () {
-        final draft = WaypointDraft(type: WaypointType.waypoint, title: '');
+        final draft = WaypointDraft(
+          poiCategory: PoiCategory.waypoint,
+          title: '',
+        );
 
         final input = WaypointDraftMapper.toGQLUpdateInput(draft);
 
@@ -111,7 +117,7 @@ void main() {
 
       test('includes description when non-empty', () {
         final draft = WaypointDraft(
-          type: WaypointType.historic,
+          poiCategory: PoiCategory.historic,
           description: 'Château médiéval',
         );
 
@@ -123,7 +129,7 @@ void main() {
 
       test('omits description when empty', () {
         final draft = WaypointDraft(
-          type: WaypointType.historic,
+          poiCategory: PoiCategory.historic,
           description: '',
         );
 

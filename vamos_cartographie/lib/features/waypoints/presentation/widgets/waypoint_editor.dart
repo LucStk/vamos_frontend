@@ -60,17 +60,17 @@ class WaypointEditorState extends State<WaypointEditor> {
         const SizedBox(height: 16),
 
         // ── Header ─────────────────────────────
-        WaypointHeader(type: currentWaypoint.type),
+        WaypointHeader(type: currentWaypoint.poiCategory),
 
         const SizedBox(height: 12),
 
         // ── Type ───────────────────────────────
         TypeSelector(
-          values: WaypointType.values,
-          selectedType: currentWaypoint.type,
+          values: PoiCategory.values,
+          selectedType: currentWaypoint.poiCategory,
 
           onTypeChanged: (newType) {
-            _patch(currentWaypoint.copyWith(type: newType));
+            _patch(currentWaypoint.copyWith(poiCategory: newType));
           },
         ),
       ],

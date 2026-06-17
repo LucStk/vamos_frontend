@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
-import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';
+import 'package:vamos_cartographie/vamos_cartographie.dart';
 
 import '../../../helpers/fake_backend_builder.dart';
 
@@ -72,7 +71,9 @@ void main() {
           await repo.getWaypoints(Id<Trip>(t1TripId)),
         );
 
-        final start = waypoints.firstWhere((w) => w.type == WaypointType.start);
+        final start = waypoints.firstWhere(
+          (w) => w.poiCategory == PoiCategory.start,
+        );
         expect(start.description, isNotEmpty);
         expect(start.vertexId.value, isPositive);
       });
@@ -108,12 +109,12 @@ void main() {
     // ── createWaypoint ──────────────────────────────────────────────────────
 
     group('createWaypoint', () {
-      test('crée un waypoint avec le type uniquement', () async {
+      test('crée un waypoint avec le poiCategory uniquement', () async {
         // Given: t1 avec vertex 13 disponible
-        // When: createWaypoint est appelé avec type=viewpoint
-        // Then: le waypoint est créé et son type est correct
+        // When: createWaypoint est appelé avec poiCategory=viewpoint
+        // Then: le waypoint est créé et son poiCategory est correct
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
-        final draft = WaypointDraft(type: WaypointType.viewpoint);
+        final draft = WaypointDraft(poiCategory: PoiCategory.viewpoint);
 
         final created = expectRight(
           await repo.createWaypoint(
@@ -124,7 +125,7 @@ void main() {
           ),
         );
 
-        expect(created.waypoint.type, WaypointType.viewpoint);
+        expect(created.waypoint.poiCategory, PoiCategory.viewpoint);
         expect(created.vertex.id, Id<Vertex>(unusedVertexId));
       });
 
@@ -134,7 +135,7 @@ void main() {
         // Then: tous les champs sont persistés
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
         final draft = WaypointDraft(
-          type: WaypointType.camping,
+          poiCategory: PoiCategory.camping,
           title: 'Camp de la forêt',
           description: 'Nuit en plein air',
         );
@@ -148,7 +149,7 @@ void main() {
           ),
         );
 
-        expect(created.waypoint.type, WaypointType.camping);
+        expect(created.waypoint.poiCategory, PoiCategory.camping);
         expect(created.waypoint.title, 'Camp de la forêt');
         expect(created.waypoint.description, 'Nuit en plein air');
       });
@@ -158,7 +159,10 @@ void main() {
         // When: createWaypoint est appelé
         // Then: le nouveau waypoint est présent dans le store sous-jacent
         final (:repo, :store) = buildWaypointRepo(exploreSeed);
-        final draft = WaypointDraft(type: WaypointType.water, title: 'Source');
+        final draft = WaypointDraft(
+          poiCategory: PoiCategory.water,
+          title: 'Source',
+        );
 
         final created = expectRight(
           await repo.createWaypoint(
@@ -178,7 +182,10 @@ void main() {
         // When: createWaypoint est appelé
         // Then: le waypoint est créé avec un titre vide sans erreur
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
-        final draft = WaypointDraft(type: WaypointType.waypoint, title: '');
+        final draft = WaypointDraft(
+          poiCategory: PoiCategory.waypoint,
+          title: '',
+        );
 
         final created = expectRight(
           await repo.createWaypoint(
@@ -196,19 +203,19 @@ void main() {
     // ── updateWaypoint ──────────────────────────────────────────────────────
 
     group('updateWaypoint', () {
-      test('met à jour le type du waypoint', () async {
-        // Given: waypoint id=10 de type START
-        // When: updateWaypoint est appelé avec type=water
-        // Then: le type est mis à jour
+      test('met à jour le poiCategory du waypoint', () async {
+        // Given: waypoint id=10 de poiCategory START
+        // When: updateWaypoint est appelé avec poiCategory=water
+        // Then: le poiCategory est mis à jour
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
         const waypointId = 10;
-        final draft = WaypointDraft(type: WaypointType.water);
+        final draft = WaypointDraft(poiCategory: PoiCategory.water);
 
         final updated = expectRight(
           await repo.updateWaypoint(Id<Waypoint>(waypointId), draft),
         );
 
-        expect(updated.type, WaypointType.water);
+        expect(updated.poiCategory, PoiCategory.water);
         expect(updated.id, Id<Waypoint>(waypointId));
       });
 
@@ -219,7 +226,7 @@ void main() {
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
         const waypointId = 11;
         final draft = WaypointDraft(
-          type: WaypointType.waypoint,
+          poiCategory: PoiCategory.waypoint,
           title: 'Étape modifiée',
         );
 
@@ -237,7 +244,7 @@ void main() {
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
         const waypointId = 12;
         final draft = WaypointDraft(
-          type: WaypointType.viewpoint,
+          poiCategory: PoiCategory.viewpoint,
           description: 'Panorama exceptionnel',
         );
 
@@ -253,7 +260,7 @@ void main() {
         // When: updateWaypoint(9999, ...) est appelé
         // Then: Left(ServerFailure) est retourné
         final (:repo, store: _) = buildWaypointRepo(exploreSeed);
-        final draft = WaypointDraft(type: WaypointType.waypoint);
+        final draft = WaypointDraft(poiCategory: PoiCategory.waypoint);
 
         final result = await repo.updateWaypoint(Id<Waypoint>(9999), draft);
 
