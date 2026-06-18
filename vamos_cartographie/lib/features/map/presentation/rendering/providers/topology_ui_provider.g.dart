@@ -15,11 +15,11 @@ final topologyVerticesProvider = TopologyVerticesFamily._();
 final class TopologyVerticesProvider
     extends
         $FunctionalProvider<
-          List<VertexUiModel>,
-          List<VertexUiModel>,
-          List<VertexUiModel>
+          List<VertexUiElement>,
+          List<VertexUiElement>,
+          List<VertexUiElement>
         >
-    with $Provider<List<VertexUiModel>> {
+    with $Provider<List<VertexUiElement>> {
   TopologyVerticesProvider._({
     required TopologyVerticesFamily super.from,
     required Id<Trip> super.argument,
@@ -43,21 +43,21 @@ final class TopologyVerticesProvider
 
   @$internal
   @override
-  $ProviderElement<List<VertexUiModel>> $createElement(
+  $ProviderElement<List<VertexUiElement>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  List<VertexUiModel> create(Ref ref) {
+  List<VertexUiElement> create(Ref ref) {
     final argument = this.argument as Id<Trip>;
     return topologyVertices(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<VertexUiModel> value) {
+  Override overrideWithValue(List<VertexUiElement> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<VertexUiModel>>(value),
+      providerOverride: $SyncValueProvider<List<VertexUiElement>>(value),
     );
   }
 
@@ -72,10 +72,10 @@ final class TopologyVerticesProvider
   }
 }
 
-String _$topologyVerticesHash() => r'143ee6a5b928f32cde61b791adc5f5ec9b4f765f';
+String _$topologyVerticesHash() => r'af22837f8741f59551ac380210e610f775fdc700';
 
 final class TopologyVerticesFamily extends $Family
-    with $FunctionalFamilyOverride<List<VertexUiModel>, Id<Trip>> {
+    with $FunctionalFamilyOverride<List<VertexUiElement>, Id<Trip>> {
   TopologyVerticesFamily._()
     : super(
         retry: null,

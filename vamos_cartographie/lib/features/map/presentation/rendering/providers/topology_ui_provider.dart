@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/vamos_cartographie.dart';
 part 'topology_ui_provider.g.dart';
 
 @riverpod
-List<VertexUiModel> topologyVertices(Ref ref, Id<Trip> tripId) {
+List<VertexUiElement> topologyVertices(Ref ref, Id<Trip> tripId) {
   final vertices = ref.watch(collectionProvider<Vertex>(tripId));
 
   final waypoints = ref.watch(collectionProvider<Waypoint>(tripId));
@@ -22,9 +22,9 @@ List<VertexUiModel> topologyVertices(Ref ref, Id<Trip> tripId) {
     final waypoint = waypointByVertexId[vertex.id];
 
     if (waypoint != null) {
-      return WaypointVertexUiModel(tripId, vertex, waypoint);
+      return WaypointUiElement(tripId, vertex, waypoint);
     }
 
-    return VertexUiModel(tripId, vertex);
+    return VertexUiElement(tripId, vertex);
   }).toList();
 }

@@ -1,13 +1,12 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-
-import "anchor.dart";
-
+import "package:vamos_cartographie/features/map/presentation/rendering/models/map_ui_element.dart";
+import "package:vamos_cartographie/features/map/presentation/rendering/models/markers/marker_ui_element.dart";
 part "overlay_state.freezed.dart";
 
 @freezed
 sealed class MapOverlayState with _$MapOverlayState {
   const factory MapOverlayState.hidden() = OverlayHidden;
 
-  const factory MapOverlayState.popup({required OverlayAnchor anchor}) =
+  const factory MapOverlayState.popup({required MarkerUiElement element}) =
       OverlayPopup;
 }

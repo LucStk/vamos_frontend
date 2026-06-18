@@ -6,6 +6,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
+import 'package:vamos_cartographie/features/map/presentation/rendering/layers/cursor_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/rendering/layers/map_tile_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/rendering/layers/segment_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/rendering/layers/vertex_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
@@ -55,10 +59,10 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             ),
             children: [
               MapTileLayer(),
-              TopologyLayer(tripId: widget.tripId),
-              // 5. Passer le contrôleur à tes boutons/widgets de contrôle de la carte
-              MapControls(mapController: _mapController),
+              VertexLayer(tripId: widget.tripId),
               CursorLayer(tripId: widget.tripId),
+              SegmentLayer(tripId: widget.tripId),
+              MapControls(mapController: _mapController),
             ],
           ),
           PopUpOverlay(tripId: widget.tripId, mapController: _mapController),

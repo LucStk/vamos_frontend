@@ -1,9 +1,9 @@
 part of "marker_ui_element.dart";
 
-class WaypointVertexUiModel extends VertexUiModel {
+class WaypointUiElement extends VertexUiElement {
   final Waypoint waypoint;
 
-  const WaypointVertexUiModel(super.tripId, super.vertex, this.waypoint);
+  const WaypointUiElement(super.tripId, super.vertex, this.waypoint);
 
   @override
   Widget buildMarker({bool isDragging = false}) {

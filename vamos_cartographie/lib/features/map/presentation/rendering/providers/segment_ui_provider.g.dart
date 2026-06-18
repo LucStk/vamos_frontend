@@ -72,7 +72,7 @@ final class SegmentUiNotifierProvider
   }
 }
 
-String _$segmentUiNotifierHash() => r'72241f88439828ecd8336b9fa0adc42005ac4f24';
+String _$segmentUiNotifierHash() => r'1ceb1f2c12bb85e3617837e1097392ab8f31165d';
 
 final class SegmentUiNotifierFamily extends $Family
     with $FunctionalFamilyOverride<List<SegMarkerUiElement>, Id<Trip>> {

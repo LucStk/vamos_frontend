@@ -119,11 +119,11 @@ return popup(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  hidden,TResult Function( OverlayAnchor anchor)?  popup,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  hidden,TResult Function( MarkerUiElement element)?  popup,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden();case OverlayPopup() when popup != null:
-return popup(_that.anchor);case _:
+return popup(_that.element);case _:
   return orElse();
 
 }
@@ -141,11 +141,11 @@ return popup(_that.anchor);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  hidden,required TResult Function( OverlayAnchor anchor)  popup,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  hidden,required TResult Function( MarkerUiElement element)  popup,}) {final _that = this;
 switch (_that) {
 case OverlayHidden():
 return hidden();case OverlayPopup():
-return popup(_that.anchor);}
+return popup(_that.element);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -159,11 +159,11 @@ return popup(_that.anchor);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  hidden,TResult? Function( OverlayAnchor anchor)?  popup,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  hidden,TResult? Function( MarkerUiElement element)?  popup,}) {final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden();case OverlayPopup() when popup != null:
-return popup(_that.anchor);case _:
+return popup(_that.element);case _:
   return null;
 
 }
@@ -207,10 +207,10 @@ String toString() {
 
 
 class OverlayPopup implements MapOverlayState {
-  const OverlayPopup({required this.anchor});
+  const OverlayPopup({required this.element});
   
 
- final  OverlayAnchor anchor;
+ final  MarkerUiElement element;
 
 /// Create a copy of MapOverlayState
 /// with the given fields replaced by the non-null parameter values.
@@ -222,16 +222,16 @@ $OverlayPopupCopyWith<OverlayPopup> get copyWith => _$OverlayPopupCopyWithImpl<O
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OverlayPopup&&(identical(other.anchor, anchor) || other.anchor == anchor));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OverlayPopup&&(identical(other.element, element) || other.element == element));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,anchor);
+int get hashCode => Object.hash(runtimeType,element);
 
 @override
 String toString() {
-  return 'MapOverlayState.popup(anchor: $anchor)';
+  return 'MapOverlayState.popup(element: $element)';
 }
 
 
@@ -242,7 +242,7 @@ abstract mixin class $OverlayPopupCopyWith<$Res> implements $MapOverlayStateCopy
   factory $OverlayPopupCopyWith(OverlayPopup value, $Res Function(OverlayPopup) _then) = _$OverlayPopupCopyWithImpl;
 @useResult
 $Res call({
- OverlayAnchor anchor
+ MarkerUiElement element
 });
 
 
@@ -259,10 +259,10 @@ class _$OverlayPopupCopyWithImpl<$Res>
 
 /// Create a copy of MapOverlayState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? anchor = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? element = null,}) {
   return _then(OverlayPopup(
-anchor: null == anchor ? _self.anchor : anchor // ignore: cast_nullable_to_non_nullable
-as OverlayAnchor,
+element: null == element ? _self.element : element // ignore: cast_nullable_to_non_nullable
+as MarkerUiElement,
   ));
 }
 

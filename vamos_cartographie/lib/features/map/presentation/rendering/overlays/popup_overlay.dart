@@ -7,6 +7,8 @@ import 'package:vamos_cartographie/features/map/interaction/controllers/map_stat
 import 'package:vamos_cartographie/features/map/interaction/overlay/overlay_state.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 
+import 'package:vamos_cartographie/features/map/presentation/rendering/adapters/popup_adapter.dart';
+
 class PopUpOverlay extends ConsumerWidget {
   const PopUpOverlay({
     super.key,
@@ -28,11 +30,8 @@ class PopUpOverlay extends ConsumerWidget {
         return StreamBuilder(
           stream: mapController.mapEventStream,
           builder: (context, snapshot) {
-            final point = OverlayPositionResolver.resolve(
-              popup.anchor,
-              ref,
-              tripId,
-              mapController,
+            final point = mapController.camera.latLngToScreenOffset(
+              popup.element.latLng,
             );
 
             return Stack(
@@ -47,7 +46,7 @@ class PopUpOverlay extends ConsumerWidget {
                     child: Padding(
                       // On ajoute une marge uniquement en bas pour "pousser" le menu de 8px vers le haut
                       padding: const EdgeInsets.only(bottom: 20.0),
-                      child: OverlayPopupFactory.build(popup.anchor, tripId),
+                      child: popup.element.buildPopup(tripId),
                     ),
                   ),
                 ),

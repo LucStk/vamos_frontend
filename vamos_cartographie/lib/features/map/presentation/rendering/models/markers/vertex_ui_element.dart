@@ -1,9 +1,9 @@
 part of "marker_ui_element.dart";
 
-class VertexUiModel extends DragMarkerUiElement {
+class VertexUiElement extends DragMarkerUiElement {
   final Vertex vertex;
 
-  const VertexUiModel(super.tripId, this.vertex);
+  const VertexUiElement(super.tripId, this.vertex);
 
   Id<Vertex> get id => vertex.id;
 
