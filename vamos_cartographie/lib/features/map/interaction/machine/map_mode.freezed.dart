@@ -55,11 +55,12 @@ extension MapModePatterns on MapMode {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Idle value)?  idle,TResult Function( VertexSelected value)?  vertexSelected,TResult Function( DraggingVertex value)?  draggingVertex,TResult Function( SegmentSelected value)?  segmentSelected,TResult Function( CreatingSegment value)?  creatingSegment,TResult Function( SplittingSegment value)?  splittingSegment,TResult Function( WaypointSelected value)?  waypointSelected,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Idle value)?  idle,TResult Function( CursorDrawn value)?  cursorDrawn,TResult Function( VertexSelected value)?  vertexSelected,TResult Function( DraggingVertex value)?  draggingVertex,TResult Function( SegmentSelected value)?  segmentSelected,TResult Function( CreatingSegment value)?  creatingSegment,TResult Function( SplittingSegment value)?  splittingSegment,TResult Function( WaypointSelected value)?  waypointSelected,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle(_that);case VertexSelected() when vertexSelected != null:
+return idle(_that);case CursorDrawn() when cursorDrawn != null:
+return cursorDrawn(_that);case VertexSelected() when vertexSelected != null:
 return vertexSelected(_that);case DraggingVertex() when draggingVertex != null:
 return draggingVertex(_that);case SegmentSelected() when segmentSelected != null:
 return segmentSelected(_that);case CreatingSegment() when creatingSegment != null:
@@ -83,11 +84,12 @@ return waypointSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Idle value)  idle,required TResult Function( VertexSelected value)  vertexSelected,required TResult Function( DraggingVertex value)  draggingVertex,required TResult Function( SegmentSelected value)  segmentSelected,required TResult Function( CreatingSegment value)  creatingSegment,required TResult Function( SplittingSegment value)  splittingSegment,required TResult Function( WaypointSelected value)  waypointSelected,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Idle value)  idle,required TResult Function( CursorDrawn value)  cursorDrawn,required TResult Function( VertexSelected value)  vertexSelected,required TResult Function( DraggingVertex value)  draggingVertex,required TResult Function( SegmentSelected value)  segmentSelected,required TResult Function( CreatingSegment value)  creatingSegment,required TResult Function( SplittingSegment value)  splittingSegment,required TResult Function( WaypointSelected value)  waypointSelected,}){
 final _that = this;
 switch (_that) {
 case Idle():
-return idle(_that);case VertexSelected():
+return idle(_that);case CursorDrawn():
+return cursorDrawn(_that);case VertexSelected():
 return vertexSelected(_that);case DraggingVertex():
 return draggingVertex(_that);case SegmentSelected():
 return segmentSelected(_that);case CreatingSegment():
@@ -107,11 +109,12 @@ return waypointSelected(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Idle value)?  idle,TResult? Function( VertexSelected value)?  vertexSelected,TResult? Function( DraggingVertex value)?  draggingVertex,TResult? Function( SegmentSelected value)?  segmentSelected,TResult? Function( CreatingSegment value)?  creatingSegment,TResult? Function( SplittingSegment value)?  splittingSegment,TResult? Function( WaypointSelected value)?  waypointSelected,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Idle value)?  idle,TResult? Function( CursorDrawn value)?  cursorDrawn,TResult? Function( VertexSelected value)?  vertexSelected,TResult? Function( DraggingVertex value)?  draggingVertex,TResult? Function( SegmentSelected value)?  segmentSelected,TResult? Function( CreatingSegment value)?  creatingSegment,TResult? Function( SplittingSegment value)?  splittingSegment,TResult? Function( WaypointSelected value)?  waypointSelected,}){
 final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle(_that);case VertexSelected() when vertexSelected != null:
+return idle(_that);case CursorDrawn() when cursorDrawn != null:
+return cursorDrawn(_that);case VertexSelected() when vertexSelected != null:
 return vertexSelected(_that);case DraggingVertex() when draggingVertex != null:
 return draggingVertex(_that);case SegmentSelected() when segmentSelected != null:
 return segmentSelected(_that);case CreatingSegment() when creatingSegment != null:
@@ -134,10 +137,11 @@ return waypointSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( Id<Vertex> vertexId)?  vertexSelected,TResult Function( Id<Vertex> vertexId)?  draggingVertex,TResult Function( Id<Segment> segmentId)?  segmentSelected,TResult Function( Id<Segment>? segmentId)?  creatingSegment,TResult Function( Id<Segment> segmentId)?  splittingSegment,TResult Function( Id<Waypoint> waypointId)?  waypointSelected,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( LatLng latLng)?  cursorDrawn,TResult Function( Id<Vertex> vertexId)?  vertexSelected,TResult Function( Id<Vertex> vertexId)?  draggingVertex,TResult Function( Id<Segment> segmentId)?  segmentSelected,TResult Function( Id<Segment>? segmentId)?  creatingSegment,TResult Function( Id<Segment> segmentId)?  splittingSegment,TResult Function( Id<Waypoint> waypointId)?  waypointSelected,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle();case VertexSelected() when vertexSelected != null:
+return idle();case CursorDrawn() when cursorDrawn != null:
+return cursorDrawn(_that.latLng);case VertexSelected() when vertexSelected != null:
 return vertexSelected(_that.vertexId);case DraggingVertex() when draggingVertex != null:
 return draggingVertex(_that.vertexId);case SegmentSelected() when segmentSelected != null:
 return segmentSelected(_that.segmentId);case CreatingSegment() when creatingSegment != null:
@@ -161,10 +165,11 @@ return waypointSelected(_that.waypointId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( Id<Vertex> vertexId)  vertexSelected,required TResult Function( Id<Vertex> vertexId)  draggingVertex,required TResult Function( Id<Segment> segmentId)  segmentSelected,required TResult Function( Id<Segment>? segmentId)  creatingSegment,required TResult Function( Id<Segment> segmentId)  splittingSegment,required TResult Function( Id<Waypoint> waypointId)  waypointSelected,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( LatLng latLng)  cursorDrawn,required TResult Function( Id<Vertex> vertexId)  vertexSelected,required TResult Function( Id<Vertex> vertexId)  draggingVertex,required TResult Function( Id<Segment> segmentId)  segmentSelected,required TResult Function( Id<Segment>? segmentId)  creatingSegment,required TResult Function( Id<Segment> segmentId)  splittingSegment,required TResult Function( Id<Waypoint> waypointId)  waypointSelected,}) {final _that = this;
 switch (_that) {
 case Idle():
-return idle();case VertexSelected():
+return idle();case CursorDrawn():
+return cursorDrawn(_that.latLng);case VertexSelected():
 return vertexSelected(_that.vertexId);case DraggingVertex():
 return draggingVertex(_that.vertexId);case SegmentSelected():
 return segmentSelected(_that.segmentId);case CreatingSegment():
@@ -184,10 +189,11 @@ return waypointSelected(_that.waypointId);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( Id<Vertex> vertexId)?  vertexSelected,TResult? Function( Id<Vertex> vertexId)?  draggingVertex,TResult? Function( Id<Segment> segmentId)?  segmentSelected,TResult? Function( Id<Segment>? segmentId)?  creatingSegment,TResult? Function( Id<Segment> segmentId)?  splittingSegment,TResult? Function( Id<Waypoint> waypointId)?  waypointSelected,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( LatLng latLng)?  cursorDrawn,TResult? Function( Id<Vertex> vertexId)?  vertexSelected,TResult? Function( Id<Vertex> vertexId)?  draggingVertex,TResult? Function( Id<Segment> segmentId)?  segmentSelected,TResult? Function( Id<Segment>? segmentId)?  creatingSegment,TResult? Function( Id<Segment> segmentId)?  splittingSegment,TResult? Function( Id<Waypoint> waypointId)?  waypointSelected,}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle();case VertexSelected() when vertexSelected != null:
+return idle();case CursorDrawn() when cursorDrawn != null:
+return cursorDrawn(_that.latLng);case VertexSelected() when vertexSelected != null:
 return vertexSelected(_that.vertexId);case DraggingVertex() when draggingVertex != null:
 return draggingVertex(_that.vertexId);case SegmentSelected() when segmentSelected != null:
 return segmentSelected(_that.segmentId);case CreatingSegment() when creatingSegment != null:
@@ -232,6 +238,72 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class CursorDrawn implements MapMode {
+  const CursorDrawn({required this.latLng});
+  
+
+ final  LatLng latLng;
+
+/// Create a copy of MapMode
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CursorDrawnCopyWith<CursorDrawn> get copyWith => _$CursorDrawnCopyWithImpl<CursorDrawn>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CursorDrawn&&(identical(other.latLng, latLng) || other.latLng == latLng));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,latLng);
+
+@override
+String toString() {
+  return 'MapMode.cursorDrawn(latLng: $latLng)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CursorDrawnCopyWith<$Res> implements $MapModeCopyWith<$Res> {
+  factory $CursorDrawnCopyWith(CursorDrawn value, $Res Function(CursorDrawn) _then) = _$CursorDrawnCopyWithImpl;
+@useResult
+$Res call({
+ LatLng latLng
+});
+
+
+
+
+}
+/// @nodoc
+class _$CursorDrawnCopyWithImpl<$Res>
+    implements $CursorDrawnCopyWith<$Res> {
+  _$CursorDrawnCopyWithImpl(this._self, this._then);
+
+  final CursorDrawn _self;
+  final $Res Function(CursorDrawn) _then;
+
+/// Create a copy of MapMode
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? latLng = null,}) {
+  return _then(CursorDrawn(
+latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+as LatLng,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

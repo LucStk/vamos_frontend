@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/features/map/interaction/controllers/map_state.dart';
 import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/builders/segment_polyline_builder.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
@@ -13,7 +14,12 @@ class SegmentLayer extends AbstractLayer {
   const SegmentLayer({super.key, required super.tripId});
 
   @override
-  Widget buildWithCtrl(BuildContext context, WidgetRef ref, MapCtrl mapCtrl) {
+  Widget buildWithCtrl(
+    BuildContext context,
+    WidgetRef ref,
+    MapCtrl mapCtrl,
+    MapState mapState,
+  ) {
     final ids = ref.watch(
       collectionProvider<Segment>(super.tripId).select((m) => m.keys.toList()),
     );

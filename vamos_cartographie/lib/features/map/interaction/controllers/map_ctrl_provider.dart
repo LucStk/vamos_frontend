@@ -13,7 +13,7 @@ part 'map_ctrl_provider.g.dart';
 class MapCtrl extends _$MapCtrl {
   @override
   MapState build(Id<Trip> tripId) {
-    return const MapState(mode: Idle(), overlay: MapOverlayState());
+    return const MapState(mode: Idle(), overlay: MapOverlayState.hidden());
   }
 
   void onUiEvent(MapUiEvent event) {

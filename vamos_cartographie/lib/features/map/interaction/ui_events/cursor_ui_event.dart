@@ -7,4 +7,7 @@ class CursorDraggedend extends MapUiEvent {
   const CursorDraggedend(this.latLng);
 }
 
-class CursorTapped extends MapUiEvent {}
+class CursorTapped extends MapUiEvent {
+  final LatLng latLng;
+  const CursorTapped(this.latLng);
+}

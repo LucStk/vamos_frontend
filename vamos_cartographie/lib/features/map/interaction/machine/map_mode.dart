@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
@@ -8,6 +9,7 @@ part 'map_mode.freezed.dart';
 @freezed
 sealed class MapMode with _$MapMode {
   const factory MapMode.idle() = Idle;
+  const factory MapMode.cursorDrawn({required LatLng latLng}) = CursorDrawn;
 
   const factory MapMode.vertexSelected({required Id<Vertex> vertexId}) =
       VertexSelected;

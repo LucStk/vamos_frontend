@@ -57,7 +57,7 @@ final class MapCtrlProvider extends $NotifierProvider<MapCtrl, MapState> {
   }
 }
 
-String _$mapCtrlHash() => r'7afb95eae777d79d2709092c487b1cafb48b9fc2';
+String _$mapCtrlHash() => r'4c47374f6f537641d58cb6a4974848826c7d49c3';
 
 final class MapCtrlFamily extends $Family
     with $ClassFamilyOverride<MapCtrl, MapState, MapState, MapState, Id<Trip>> {

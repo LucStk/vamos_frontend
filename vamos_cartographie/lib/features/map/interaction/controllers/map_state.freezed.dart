@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MapState implements DiagnosticableTreeMixin {
 
- MapMode get mode; MapOverlayState get overlay; bool get cursorOpen;
+ MapMode get mode; MapOverlayState get overlay;
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,21 +26,21 @@ $MapStateCopyWith<MapState> get copyWith => _$MapStateCopyWithImpl<MapState>(thi
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'MapState'))
-    ..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('overlay', overlay))..add(DiagnosticsProperty('cursorOpen', cursorOpen));
+    ..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('overlay', overlay));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.overlay, overlay) || other.overlay == overlay)&&(identical(other.cursorOpen, cursorOpen) || other.cursorOpen == cursorOpen));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.overlay, overlay) || other.overlay == overlay));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mode,overlay,cursorOpen);
+int get hashCode => Object.hash(runtimeType,mode,overlay);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MapState(mode: $mode, overlay: $overlay, cursorOpen: $cursorOpen)';
+  return 'MapState(mode: $mode, overlay: $overlay)';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $MapStateCopyWith<$Res>  {
   factory $MapStateCopyWith(MapState value, $Res Function(MapState) _then) = _$MapStateCopyWithImpl;
 @useResult
 $Res call({
- MapMode mode, MapOverlayState overlay, bool cursorOpen
+ MapMode mode, MapOverlayState overlay
 });
 
 
@@ -68,12 +68,11 @@ class _$MapStateCopyWithImpl<$Res>
 
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? mode = null,Object? overlay = null,Object? cursorOpen = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? mode = null,Object? overlay = null,}) {
   return _then(_self.copyWith(
 mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as MapMode,overlay: null == overlay ? _self.overlay : overlay // ignore: cast_nullable_to_non_nullable
-as MapOverlayState,cursorOpen: null == cursorOpen ? _self.cursorOpen : cursorOpen // ignore: cast_nullable_to_non_nullable
-as bool,
+as MapOverlayState,
   ));
 }
 /// Create a copy of MapState
@@ -176,10 +175,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MapMode mode,  MapOverlayState overlay,  bool cursorOpen)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MapMode mode,  MapOverlayState overlay)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MapState() when $default != null:
-return $default(_that.mode,_that.overlay,_that.cursorOpen);case _:
+return $default(_that.mode,_that.overlay);case _:
   return orElse();
 
 }
@@ -197,10 +196,10 @@ return $default(_that.mode,_that.overlay,_that.cursorOpen);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MapMode mode,  MapOverlayState overlay,  bool cursorOpen)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MapMode mode,  MapOverlayState overlay)  $default,) {final _that = this;
 switch (_that) {
 case _MapState():
-return $default(_that.mode,_that.overlay,_that.cursorOpen);case _:
+return $default(_that.mode,_that.overlay);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -217,10 +216,10 @@ return $default(_that.mode,_that.overlay,_that.cursorOpen);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MapMode mode,  MapOverlayState overlay,  bool cursorOpen)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MapMode mode,  MapOverlayState overlay)?  $default,) {final _that = this;
 switch (_that) {
 case _MapState() when $default != null:
-return $default(_that.mode,_that.overlay,_that.cursorOpen);case _:
+return $default(_that.mode,_that.overlay);case _:
   return null;
 
 }
@@ -232,12 +231,11 @@ return $default(_that.mode,_that.overlay,_that.cursorOpen);case _:
 
 
 class _MapState with DiagnosticableTreeMixin implements MapState {
-  const _MapState({required this.mode, required this.overlay, this.cursorOpen = false});
+  const _MapState({required this.mode, required this.overlay});
   
 
 @override final  MapMode mode;
 @override final  MapOverlayState overlay;
-@override@JsonKey() final  bool cursorOpen;
 
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
@@ -250,21 +248,21 @@ _$MapStateCopyWith<_MapState> get copyWith => __$MapStateCopyWithImpl<_MapState>
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'MapState'))
-    ..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('overlay', overlay))..add(DiagnosticsProperty('cursorOpen', cursorOpen));
+    ..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('overlay', overlay));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.overlay, overlay) || other.overlay == overlay)&&(identical(other.cursorOpen, cursorOpen) || other.cursorOpen == cursorOpen));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.overlay, overlay) || other.overlay == overlay));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mode,overlay,cursorOpen);
+int get hashCode => Object.hash(runtimeType,mode,overlay);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MapState(mode: $mode, overlay: $overlay, cursorOpen: $cursorOpen)';
+  return 'MapState(mode: $mode, overlay: $overlay)';
 }
 
 
@@ -275,7 +273,7 @@ abstract mixin class _$MapStateCopyWith<$Res> implements $MapStateCopyWith<$Res>
   factory _$MapStateCopyWith(_MapState value, $Res Function(_MapState) _then) = __$MapStateCopyWithImpl;
 @override @useResult
 $Res call({
- MapMode mode, MapOverlayState overlay, bool cursorOpen
+ MapMode mode, MapOverlayState overlay
 });
 
 
@@ -292,12 +290,11 @@ class __$MapStateCopyWithImpl<$Res>
 
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? mode = null,Object? overlay = null,Object? cursorOpen = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? mode = null,Object? overlay = null,}) {
   return _then(_MapState(
 mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as MapMode,overlay: null == overlay ? _self.overlay : overlay // ignore: cast_nullable_to_non_nullable
-as MapOverlayState,cursorOpen: null == cursorOpen ? _self.cursorOpen : cursorOpen // ignore: cast_nullable_to_non_nullable
-as bool,
+as MapOverlayState,
   ));
 }
 

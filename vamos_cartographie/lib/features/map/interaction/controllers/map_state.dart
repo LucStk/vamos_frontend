@@ -11,6 +11,5 @@ abstract class MapState with _$MapState {
   const factory MapState({
     required MapMode mode,
     required MapOverlayState overlay,
-    @Default(false) bool cursorOpen,
   }) = _MapState;
 }
