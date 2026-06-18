@@ -1,6 +1,6 @@
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/graph/application/notifiers/collection_change_notifier.dart';
-import 'package:vamos_cartographie/features/graph/application/notifiers/graph_node_change_notifier.dart';
+import '../notifiers/collection_change_notifier.dart';
+import '../store/nodes/graph_node.dart';
 
 class GraphStore {
   final Map<Type, Map<dynamic, GraphNode<dynamic>>> _entities = {};

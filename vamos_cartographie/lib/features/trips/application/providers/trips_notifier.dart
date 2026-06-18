@@ -2,9 +2,9 @@ import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/trips/data/data.dart';
 import 'package:vamos_cartographie/features/trips/data/providers/trips_providers.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-
-import "package:vamos_cartographie/features/graph/graph.dart";
+import 'package:vamos_cartographie/features/topology/application/pipeline/graph_executor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/features/topology/infrastructure/providers/topology_providers.dart';
 
 part 'trips_notifier.g.dart';
 

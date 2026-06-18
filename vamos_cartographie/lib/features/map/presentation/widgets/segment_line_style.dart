@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
+import 'package:vamos_cartographie/features/topology/queries/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';

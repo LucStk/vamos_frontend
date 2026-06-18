@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/features/graph/application/application.dart';
+import 'package:vamos_cartographie/features/topology/queries/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/map/presentation/rendering/models/markers/marker_ui_element.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';

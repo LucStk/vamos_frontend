@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
-import 'package:vamos_cartographie/features/topology/orchestrators/segment_orchestrator.dart';
+import 'package:vamos_cartographie/features/topology/application/command_handlers/segment_handler.dart';
+import 'package:vamos_cartographie/features/topology/infrastructure/providers/topology_providers.dart';
+import 'package:vamos_cartographie/features/topology/presentation/widgets/segment_editor.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
-
-import "package:vamos_cartographie/features/graph/graph.dart";
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
@@ -46,7 +46,7 @@ class SegmentViewerDialog extends ConsumerWidget {
         successMessage: "Segment mis à jour",
         onSubmit: (ref, editedSegment) async {
           await ref
-              .read(segmentOrchestratorProvider(tripId).notifier)
+              .read(segmentHandlerProvider(tripId).notifier)
               .updateSegment(segmentId: segmentId, draft: editedSegment);
         },
       ),

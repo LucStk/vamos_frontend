@@ -2,8 +2,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/topology/orchestrators/segment_orchestrator.dart';
+import 'package:vamos_cartographie/features/topology/queries/selectors/graph_selectors.dart';
+import 'package:vamos_cartographie/features/topology/application/command_handlers/segment_handler.dart';
 
 part 'segment_editing_controller.g.dart';
 
@@ -16,8 +16,8 @@ class SegmentEditingController extends _$SegmentEditingController {
 
   T readNode<T>(Id<T> id) => ref.read(nodeRequiredProvider<T>(tripId, id));
 
-  SegmentOrchestrator get segmentOrchestrator =>
-      ref.read(segmentOrchestratorProvider(tripId).notifier);
+  SegmentHandler get segmentHandler =>
+      ref.read(segmentHandlerProvider(tripId).notifier);
 
   void startWaypoint(Id<Vertex> vertexId) {
     state = vertexId;
@@ -62,6 +62,6 @@ class SegmentEditingController extends _$SegmentEditingController {
     // Optionnel : réinitialiser l'état après la création
     state = null;
 
-    await segmentOrchestrator.createSegment(draft, optimistGeo);
+    await segmentHandler.createSegment(draft, optimistGeo);
   }
 }

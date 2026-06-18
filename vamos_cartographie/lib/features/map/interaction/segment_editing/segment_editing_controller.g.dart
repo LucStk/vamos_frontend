@@ -60,7 +60,7 @@ final class SegmentEditingControllerProvider
 }
 
 String _$segmentEditingControllerHash() =>
-    r'30d37475a227e9702b299b1d7c9a010c714741f9';
+    r'1cd4f920b37ac22d361ce1c652fa9d2927a9045d';
 
 final class SegmentEditingControllerFamily extends $Family
     with
