@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/interaction/ui_events/map_ui_event.dart';
+import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/cursor_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/overlays/vertex_pop_up_overlay.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';

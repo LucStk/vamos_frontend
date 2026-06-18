@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/interaction/interation.dart';
 import 'package:vamos_cartographie/features/map/presentation/markers/marker_abstract.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
 
@@ -18,20 +17,15 @@ class WaypointMarker extends AbstractMarker {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ctrl = ref.read(mapInteractionControllerProvider(tripId).notifier);
     final waypoint = ref.watch(
       nodeRequiredProvider<Waypoint>(tripId, waypointId),
     );
 
-    return GestureDetector(
-      onTap: () => ctrl.onWaypointTap(waypointId),
-      onDoubleTap: () => ctrl.onWaypointDoubleTap(waypointId),
-      child: CircleAvatar(
-        radius: 16, // Taille globale du cercle (diamètre = 32)
-        backgroundColor:
-            waypoint.poiCategory.color, // <-- La couleur de votre fond rond
-        child: Icon(waypoint.poiCategory.icon, color: Colors.white, size: 20),
-      ),
+    return CircleAvatar(
+      radius: 16, // Taille globale du cercle (diamètre = 32)
+      backgroundColor:
+          waypoint.poiCategory.color, // <-- La couleur de votre fond rond
+      child: Icon(waypoint.poiCategory.icon, color: Colors.white, size: 20),
     );
   }
 }

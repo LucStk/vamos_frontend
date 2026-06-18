@@ -3,8 +3,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/interaction/controllers/map_interaction_controller.dart';
-import 'package:vamos_cartographie/features/map/presentation/helpers/builders/builders.dart';
+import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
+import 'package:vamos_cartographie/features/map/presentation/layers/builders/segment_polyline_builder.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 
@@ -12,8 +13,7 @@ class SegmentLayer extends AbstractLayer {
   const SegmentLayer({super.key, required super.tripId});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final ctrl = ref.watch(mapInteractionControllerProvider(tripId).notifier);
+  Widget buildWithCtrl(BuildContext context, WidgetRef ref, MapCtrl mapCtrl) {
     final ids = ref.watch(
       collectionProvider<Segment>(super.tripId).select((m) => m.keys.toList()),
     );
@@ -31,7 +31,7 @@ class SegmentLayer extends AbstractLayer {
     );
 
     polylineHitNotifier.addListener(() {
-      ctrl.onHoverSegment(polylineHitNotifier.value);
+      mapCtrl.onUiEvent(HoverSegments(polylineHitNotifier.value?.hitValues));
     });
     // 3. On le passe au PolylineLayer
     return PolylineLayer<Id<Segment>>(

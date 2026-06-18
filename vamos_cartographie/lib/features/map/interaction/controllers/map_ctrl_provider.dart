@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/features/map/interaction/commands/commands.dart';
-import 'package:vamos_cartographie/features/map/interaction/ui_events/map_ui_event.dart';
+import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 

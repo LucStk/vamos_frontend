@@ -11,7 +11,6 @@ class CursorMarker extends AbstractMarker {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final mapState = ref.watch(mapStateProvider(tripId).notifier);
     return Icon(Icons.place_sharp, size: 30, color: Colors.black);
   }
 }
