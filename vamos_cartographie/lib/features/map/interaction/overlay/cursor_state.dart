@@ -1,7 +1,7 @@
 // features/map/presentation/providers/map_state_provider.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-part 'map_cursor.freezed.dart';
+part 'cursor_state.freezed.dart';
 
 @freezed
 abstract class MapCursorState with _$MapCursorState {
