@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "package:vamos_cartographie/core/core.dart";
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
-import "package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart";
+import "package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart";
 import "trip_editor_dialog.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
@@ -38,7 +38,7 @@ class TripViewerDialog extends ConsumerWidget {
     if (confirmed != true) return;
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
-      await ref.read(tripsProvider.notifier).deleteTrip(tripId);
+      await ref.read(tripHandlerProvider.notifier).deleteTrip(tripId);
       // Sécurité Flutter obligatoire après un "await"
       if (!context.mounted) return;
       Navigator.of(context).pop();

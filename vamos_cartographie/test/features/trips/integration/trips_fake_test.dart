@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/backend/seeds/explore_seed.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart';
+import 'package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';
 
@@ -311,9 +311,9 @@ void main() {
       // Given: store seedé avec t1, t2, t3
       // When: TripsNotifier s'initialise
       // Then: les 3 trips sont dans l'état
-      container.listen(tripsProvider, (_, _) {});
+      container.listen(tripHandlerProvider, (_, _) {});
 
-      final trips = await container.read(tripsProvider.future);
+      final trips = await container.read(tripHandlerProvider.future);
 
       expect(trips, hasLength(3));
       expect(trips.containsKey(t1.id), isTrue);
@@ -327,9 +327,9 @@ void main() {
       // Then: état est vide
       final emptyContainer = buildContainer([]);
       addTearDown(emptyContainer.dispose);
-      emptyContainer.listen(tripsProvider, (_, _) {});
+      emptyContainer.listen(tripHandlerProvider, (_, _) {});
 
-      final trips = await emptyContainer.read(tripsProvider.future);
+      final trips = await emptyContainer.read(tripHandlerProvider.future);
 
       expect(trips, isEmpty);
     });
@@ -340,17 +340,17 @@ void main() {
       // Given: state chargé avec 3 trips
       // When: createTrip est appelé
       // Then: l'état contient 4 trips dont le nouveau
-      container.listen(tripsProvider, (_, _) {});
-      await container.read(tripsProvider.future);
+      container.listen(tripHandlerProvider, (_, _) {});
+      await container.read(tripHandlerProvider.future);
 
       final draft = TripDraft(
         title: 'Chemin de Compostelle',
         description: 'Via Turonensis',
         date: DateTime(2025, 5, 1),
       );
-      await container.read(tripsProvider.notifier).createTrip(draft);
+      await container.read(tripHandlerProvider.notifier).createTrip(draft);
 
-      final trips = container.read(tripsProvider).requireValue;
+      final trips = container.read(tripHandlerProvider).requireValue;
       expect(trips, hasLength(4));
 
       final nouveau = trips.values.firstWhere(
@@ -364,14 +364,14 @@ void main() {
       // Given: state chargé
       // When: createTrip est appelé sans description
       // Then: le trip est créé avec description vide
-      container.listen(tripsProvider, (_, _) {});
-      await container.read(tripsProvider.future);
+      container.listen(tripHandlerProvider, (_, _) {});
+      await container.read(tripHandlerProvider.future);
 
       await container
-          .read(tripsProvider.notifier)
+          .read(tripHandlerProvider.notifier)
           .createTrip(TripDraft(title: 'Sans description'));
 
-      final trips = container.read(tripsProvider).requireValue;
+      final trips = container.read(tripHandlerProvider).requireValue;
       final nouveau = trips.values.firstWhere(
         (t) => t.title == 'Sans description',
       );
@@ -386,13 +386,15 @@ void main() {
         // Given: t1 chargé dans l'état
         // When: updateTrip est appelé avec un nouveau titre
         // Then: l'état contient le titre mis à jour
-        container.listen(tripsProvider, (_, _) {});
-        await container.read(tripsProvider.future);
+        container.listen(tripHandlerProvider, (_, _) {});
+        await container.read(tripHandlerProvider.future);
 
         final draft = t1.toDraft().copyWith(title: 'Bretagne revisitée');
-        await container.read(tripsProvider.notifier).updateTrip(t1.id, draft);
+        await container
+            .read(tripHandlerProvider.notifier)
+            .updateTrip(t1.id, draft);
 
-        final trips = container.read(tripsProvider).requireValue;
+        final trips = container.read(tripHandlerProvider).requireValue;
         expect(trips[t1.id]?.title, 'Bretagne revisitée');
       },
     );
@@ -407,18 +409,18 @@ void main() {
         final backend = buildFakeBackend(exploreSeed);
         final rollbackContainer = buildContainer([], backend: backend);
         addTearDown(rollbackContainer.dispose);
-        rollbackContainer.listen(tripsProvider, (_, _) {});
-        await rollbackContainer.read(tripsProvider.future);
+        rollbackContainer.listen(tripHandlerProvider, (_, _) {});
+        await rollbackContainer.read(tripHandlerProvider.future);
 
         // Supprime t1 directement du store (le notifier ne le sait pas encore)
         backend.store.removeTrip(t1.id);
 
         final draft = t1.toDraft().copyWith(title: 'Titre non sauvegardé');
         await rollbackContainer
-            .read(tripsProvider.notifier)
+            .read(tripHandlerProvider.notifier)
             .updateTrip(t1.id, draft);
 
-        final trips = rollbackContainer.read(tripsProvider).requireValue;
+        final trips = rollbackContainer.read(tripHandlerProvider).requireValue;
         // Le rollback restaure le titre original de t1
         expect(trips[t1.id]?.title, t1.title);
       },
@@ -430,12 +432,12 @@ void main() {
       // Given: t2 chargé dans l'état
       // When: deleteTrip(t2.id) est appelé
       // Then: t2 n'est plus dans l'état, les autres trips sont présents
-      container.listen(tripsProvider, (_, _) {});
-      await container.read(tripsProvider.future);
+      container.listen(tripHandlerProvider, (_, _) {});
+      await container.read(tripHandlerProvider.future);
 
-      await container.read(tripsProvider.notifier).deleteTrip(t2.id);
+      await container.read(tripHandlerProvider.notifier).deleteTrip(t2.id);
 
-      final trips = container.read(tripsProvider).requireValue;
+      final trips = container.read(tripHandlerProvider).requireValue;
       expect(trips.containsKey(t2.id), isFalse);
       expect(trips.containsKey(t1.id), isTrue);
       expect(trips.containsKey(t3.id), isTrue);
@@ -449,8 +451,8 @@ void main() {
       final backend = buildFakeBackend(exploreSeed);
       final refreshContainer = buildContainer([], backend: backend);
       addTearDown(refreshContainer.dispose);
-      refreshContainer.listen(tripsProvider, (_, _) {});
-      await refreshContainer.read(tripsProvider.future);
+      refreshContainer.listen(tripHandlerProvider, (_, _) {});
+      await refreshContainer.read(tripHandlerProvider.future);
 
       // Injection directe dans le store (simule une création externe)
       final newTripId = backend.store.nextTripId.next();
@@ -459,10 +461,10 @@ void main() {
       );
 
       // When: refresh est appelé
-      await refreshContainer.read(tripsProvider.notifier).refresh();
+      await refreshContainer.read(tripHandlerProvider.notifier).refresh();
 
       // Then: l'état reflète la nouvelle réalité du store
-      final trips = refreshContainer.read(tripsProvider).requireValue;
+      final trips = refreshContainer.read(tripHandlerProvider).requireValue;
       expect(trips, hasLength(4));
       expect(trips[Id<Trip>(newTripId)]?.title, 'Ajout externe');
     });

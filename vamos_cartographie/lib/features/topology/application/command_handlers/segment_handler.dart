@@ -4,7 +4,6 @@ import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/topology/application/pipeline/graph_executor.dart';
 import 'package:vamos_cartographie/features/topology/runtime/store/graph_store.dart';
 import 'package:vamos_cartographie/features/topology/data/providers/segments_providers.dart';
-import 'package:vamos_cartographie/features/topology/infrastructure/providers/topology_providers.dart';
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/topology/queries/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/topology/queries/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-import 'package:vamos_cartographie/features/waypoints/orchestrators/waypoint_orchestrator.dart';
+import 'package:vamos_cartographie/features/waypoints/command_handlers/waypoint_handler.dart';
 import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
 import 'edit_waypoint_dialog.dart';
 
@@ -43,7 +43,7 @@ class ShowWaypointDialog extends ConsumerWidget {
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
       await ref
-          .read(waypointOrchestratorProvider(tripId).notifier)
+          .read(waypointHandlerProvider(tripId).notifier)
           .deleteWaypoint(waypointId);
 
       // Sécurité Flutter obligatoire après un "await"

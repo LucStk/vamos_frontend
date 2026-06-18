@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/features.dart';
 
 part 'segment_overlay.freezed.dart';
 

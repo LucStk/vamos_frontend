@@ -3,10 +3,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/adapters/marker_adapter.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/adapters/segment_adapter.dart';
+import 'package:vamos_cartographie/features/map/infrastructure/controllers/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/features/map/application/events/ui_events.dart';
+import 'package:vamos_cartographie/features/map/infrastructure/adapters/marker_adapter.dart';
+import 'package:vamos_cartographie/features/map/infrastructure/adapters/segment_adapter.dart';
 import 'package:vamos_cartographie/features/map/presentation/rendering/providers/segment_ui_provider.dart';
 
 class SegmentLayer extends ConsumerStatefulWidget {

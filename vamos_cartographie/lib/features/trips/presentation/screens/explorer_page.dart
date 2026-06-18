@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart';
-import 'package:vamos_cartographie/features/trips/application/providers/trips_notifier.dart';
+import 'package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/features/trips/presentation/dialogs/dialogs.dart";
 
@@ -9,7 +9,7 @@ class ExplorerPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsAsync = ref.watch(tripsProvider);
+    final tripsAsync = ref.watch(tripHandlerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -18,7 +18,7 @@ class ExplorerPage extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              ref.read(tripsProvider.notifier).refresh();
+              ref.read(tripHandlerProvider.notifier).refresh();
             },
           ),
         ],
@@ -32,7 +32,7 @@ class ExplorerPage extends ConsumerWidget {
           return ExplorerErrorView(
             message: error.toString(),
             onRetry: () {
-              ref.read(tripsProvider.notifier).refresh();
+              ref.read(tripHandlerProvider.notifier).refresh();
             },
           );
         },
