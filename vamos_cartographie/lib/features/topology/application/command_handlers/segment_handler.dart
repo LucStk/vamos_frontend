@@ -7,10 +7,10 @@ import 'package:vamos_cartographie/features/topology/data/providers/segments_pro
 import 'package:vamos_cartographie/features/topology/topology.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
-part 'segment_orchestrator.g.dart';
+part 'segment_handler.g.dart';
 
 @riverpod
-class SegmentOrchestrator extends _$SegmentOrchestrator {
+class SegmentHandler extends _$SegmentHandler {
   GraphStore get graph => ref.read(tripGraphProvider(tripId)).requireValue;
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   SegmentRepository get segmentRepo => ref.read(segmentRepositoryProvider);

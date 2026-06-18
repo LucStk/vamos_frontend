@@ -10,6 +10,7 @@ import 'package:vamos_cartographie/features/map/presentation/rendering/layers/cu
 import 'package:vamos_cartographie/features/map/presentation/rendering/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/rendering/layers/segment_layer.dart';
 import 'package:vamos_cartographie/features/map/presentation/rendering/layers/vertex_layer.dart';
+import 'package:vamos_cartographie/features/map/presentation/rendering/overlays/popup_overlay.dart';
 import 'package:vamos_cartographie/features/map/presentation/widgets/widgets.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 

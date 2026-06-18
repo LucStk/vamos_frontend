@@ -7,7 +7,7 @@ import "package:vamos_cartographie/features/graph/store/graph_store.dart";
 import "package:vamos_cartographie/features/topology/data/providers/segments_providers.dart";
 import "package:vamos_cartographie/features/topology/data/providers/vertex_providers.dart";
 import "package:vamos_cartographie/features/waypoints/data/providers/waypoints_providers.dart";
-part "graph_providers.g.dart";
+part "topology_providers.g.dart";
 
 @riverpod
 class TripGraph extends _$TripGraph {

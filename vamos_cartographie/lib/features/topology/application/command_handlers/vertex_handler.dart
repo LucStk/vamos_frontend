@@ -8,10 +8,10 @@ import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart
 import 'package:vamos_cartographie/features/topology/data/repositories/vertex_repository.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
-part 'vertex_orchestrator.g.dart';
+part 'vertex_handler.g.dart';
 
 @riverpod
-class VertexOrchestrator extends _$VertexOrchestrator {
+class VertexHandler extends _$VertexHandler {
   GraphStore get graph => ref.read(tripGraphProvider(tripId)).requireValue;
   OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
   VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);
