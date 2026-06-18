@@ -15,11 +15,11 @@ final segmentUiProvider = SegmentUiNotifierFamily._();
 final class SegmentUiNotifierProvider
     extends
         $FunctionalProvider<
-          List<SegmentUiElement>,
-          List<SegmentUiElement>,
-          List<SegmentUiElement>
+          List<SegMarkerUiElement>,
+          List<SegMarkerUiElement>,
+          List<SegMarkerUiElement>
         >
-    with $Provider<List<SegmentUiElement>> {
+    with $Provider<List<SegMarkerUiElement>> {
   SegmentUiNotifierProvider._({
     required SegmentUiNotifierFamily super.from,
     required Id<Trip> super.argument,
@@ -43,21 +43,21 @@ final class SegmentUiNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<List<SegmentUiElement>> $createElement(
+  $ProviderElement<List<SegMarkerUiElement>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  List<SegmentUiElement> create(Ref ref) {
+  List<SegMarkerUiElement> create(Ref ref) {
     final argument = this.argument as Id<Trip>;
     return segmentUiNotifier(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<SegmentUiElement> value) {
+  Override overrideWithValue(List<SegMarkerUiElement> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<SegmentUiElement>>(value),
+      providerOverride: $SyncValueProvider<List<SegMarkerUiElement>>(value),
     );
   }
 
@@ -72,10 +72,10 @@ final class SegmentUiNotifierProvider
   }
 }
 
-String _$segmentUiNotifierHash() => r'b0a5a5c9746f21b77e26361547b7cabd0d619b05';
+String _$segmentUiNotifierHash() => r'72241f88439828ecd8336b9fa0adc42005ac4f24';
 
 final class SegmentUiNotifierFamily extends $Family
-    with $FunctionalFamilyOverride<List<SegmentUiElement>, Id<Trip>> {
+    with $FunctionalFamilyOverride<List<SegMarkerUiElement>, Id<Trip>> {
   SegmentUiNotifierFamily._()
     : super(
         retry: null,
