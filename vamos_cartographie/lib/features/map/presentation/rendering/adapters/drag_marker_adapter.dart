@@ -3,8 +3,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/models/map_ui_element.dart';
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/features/map/presentation/rendering/models/markers/marker_ui_element.dart';
 
 DragMarker toDragMarker(
   DragMarkerUiElement element,
@@ -18,7 +18,7 @@ DragMarker toDragMarker(
     builder: (_, LatLng latLng, isDragging) => GestureDetector(
       onTap: () => ctrl.onUiEvent(element.tapEvent()),
       onDoubleTap: () => ctrl.onUiEvent(element.tapEvent()),
-      child: element.buildMarker(tripId, isDragging),
+      child: element.buildMarker(tripId, isDragging: isDragging),
     ),
 
     onDragStart: (_, LatLng latLng) =>

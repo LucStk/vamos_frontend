@@ -1,29 +1,30 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/models/map_ui_element.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/features/graph/application/application.dart';
+import 'package:vamos_cartographie/features/map/presentation/rendering/models/markers/marker_ui_element.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
-final topologyVerticesProvider = Provider.family<List<VertexUiModel>, Id<Trip>>(
-  (ref, tripId) {
-    final vertices = ref.watch(collectionProvider<Vertex>(tripId));
+part 'topology_ui_provider.g.dart';
 
-    final waypoints = ref.watch(collectionProvider<Waypoint>(tripId));
+@riverpod
+List<VertexUiModel> topologyVertices(Ref ref, Id<Trip> tripId) {
+  final vertices = ref.watch(collectionProvider<Vertex>(tripId));
 
-    final waypointByVertexId = {
-      for (final wp in waypoints.values) wp.vertexId: wp,
-    };
+  final waypoints = ref.watch(collectionProvider<Waypoint>(tripId));
 
-    return vertices.values.map((vertex) {
-      final waypoint = waypointByVertexId[vertex.id];
+  final waypointByVertexId = {
+    for (final wp in waypoints.values) wp.vertexId: wp,
+  };
 
-      if (waypoint != null) {
-        return WaypointVertexUiModel(vertex, waypoint);
-      }
+  return vertices.values.map((vertex) {
+    final waypoint = waypointByVertexId[vertex.id];
 
-      return PureVertexUiModel(vertex);
-    }).toList();
-  },
-);
+    if (waypoint != null) {
+      return WaypointVertexUiModel(vertex, waypoint);
+    }
+
+    return VertexUiModel(vertex);
+  }).toList();
+}

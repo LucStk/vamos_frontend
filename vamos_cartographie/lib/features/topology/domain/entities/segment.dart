@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import "package:vamos_cartographie/core/type/has_id.dart";
+import 'package:vamos_cartographie/features/topology/helpers/gis.dart';
 // Remplace par le bon package de ton projet (ex: google_maps_flutter ou latlong2)
 part 'segment.freezed.dart';
 
@@ -18,6 +19,8 @@ abstract class Segment with _$Segment implements HasId<Segment> {
   }) = _Segment;
 
   const Segment._();
+  LatLng get mobilityMarkerPosition => boundsCenter(geometry);
+
   SegmentDraft toDraft() {
     return SegmentDraft(
       startVertexId: startVertexId,

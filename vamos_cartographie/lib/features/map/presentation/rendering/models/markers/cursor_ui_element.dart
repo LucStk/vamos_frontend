@@ -1,4 +1,4 @@
-part of "map_ui_element.dart";
+part of "marker_ui_element.dart";
 
 class CursorUiElement extends DragMarkerUiElement {
   @override
@@ -7,7 +7,7 @@ class CursorUiElement extends DragMarkerUiElement {
   const CursorUiElement(this.latLng);
 
   @override
-  Widget buildMarker(Id<Trip> tripId, bool isDragging) =>
+  Widget buildMarker(Id<Trip> tripId, {bool isDragging = false}) =>
       CursorMarker(tripId: tripId, isDragging: isDragging);
   @override
   MapUiEvent tapEvent() => CursorTapped(latLng);

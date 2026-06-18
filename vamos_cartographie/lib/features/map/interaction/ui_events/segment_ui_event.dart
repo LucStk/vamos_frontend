@@ -9,3 +9,8 @@ class SegmentMobilityMarkerTapped extends MapUiEvent {
   final Id<Segment> segmentId;
   const SegmentMobilityMarkerTapped(this.segmentId);
 }
+
+class SegmentMobilityMarkerDoubleTapped extends MapUiEvent {
+  final Id<Segment> segmentId;
+  const SegmentMobilityMarkerDoubleTapped(this.segmentId);
+}

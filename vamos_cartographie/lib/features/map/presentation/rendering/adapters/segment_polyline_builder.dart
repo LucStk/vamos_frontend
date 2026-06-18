@@ -13,14 +13,4 @@ Polyline<Id<Segment>> segmentPolylineBuilder(
   final DisplaySegment display = ref.watch(
     displaySegmentProvider(tripId, segmentId),
   );
-
-  return Polyline(
-    points: display.geometry,
-    color: display.segment.mobilityType.color,
-    strokeWidth: 5,
-    hitValue: segmentId,
-    pattern: display.segment.mobilityType.isDashed
-        ? StrokePattern.dashed(segments: const [12, 8])
-        : const StrokePattern.solid(),
-  );
 }

@@ -1,4 +1,4 @@
-part of "map_ui_element.dart";
+part of "marker_ui_element.dart";
 
 class VertexUiModel extends DragMarkerUiElement {
   final Vertex vertex;
@@ -11,7 +11,7 @@ class VertexUiModel extends DragMarkerUiElement {
   LatLng get latLng => vertex.latLng;
 
   @override
-  Widget buildMarker(Id<Trip> tripId, bool isDragging) =>
+  Widget buildMarker(Id<Trip> tripId, {bool isDragging = false}) =>
       VertexMarker(tripId: tripId, vertexId: id, isDragging: isDragging);
   @override
   MapUiEvent tapEvent() => VertexTapped(id);
