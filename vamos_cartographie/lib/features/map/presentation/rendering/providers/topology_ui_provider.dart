@@ -22,9 +22,9 @@ List<VertexUiModel> topologyVertices(Ref ref, Id<Trip> tripId) {
     final waypoint = waypointByVertexId[vertex.id];
 
     if (waypoint != null) {
-      return WaypointVertexUiModel(vertex, waypoint);
+      return WaypointVertexUiModel(tripId, vertex, waypoint);
     }
 
-    return VertexUiModel(vertex);
+    return VertexUiModel(tripId, vertex);
   }).toList();
 }

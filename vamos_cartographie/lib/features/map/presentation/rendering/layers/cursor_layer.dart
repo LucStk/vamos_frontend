@@ -20,7 +20,11 @@ class CursorLayer extends ConsumerWidget {
       case CursorDrawn cursorDrawn:
         return DragMarkers(
           markers: [
-            toDragMarker(CursorUiElement(cursorDrawn.latLng), tripId, mapCtrl),
+            toDragMarker(
+              CursorUiElement(tripId, cursorDrawn.latLng),
+              tripId,
+              mapCtrl,
+            ),
           ],
         );
       case _:

@@ -13,6 +13,6 @@ List<SegMarkerUiElement> segmentUiNotifier(Ref ref, Id<Trip> tripId) {
   final segments = ref.watch(collectionProvider<Segment>(tripId));
 
   return segments.entries.map((entries) {
-    return SegMarkerUiElement(entries.value);
+    return SegMarkerUiElement(tripId, entries.value);
   }).toList();
 }

@@ -3,5 +3,5 @@ import 'map_ui_element.dart';
 
 class SegmentUiElement extends MapUiElement {
   final Segment segment;
-  const SegmentUiElement(this.segment);
+  const SegmentUiElement(super.tripId, this.segment);
 }

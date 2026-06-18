@@ -1,13 +1,15 @@
 part of "marker_ui_element.dart";
 
-class CursorUiElement extends DragMarkerUiElement {
+class CursorUiElement extends DragMarkerUiElement with HasPopUp {
   @override
   final LatLng latLng;
 
-  const CursorUiElement(this.latLng);
+  const CursorUiElement(super.tripId, this.latLng);
+  @override
+  Widget get popup => CursorPopUp(tripId: tripId, latLng: latLng);
 
   @override
-  Widget buildMarker(Id<Trip> tripId, {bool isDragging = false}) =>
+  Widget buildMarker({bool isDragging = false}) =>
       CursorMarker(tripId: tripId, isDragging: isDragging);
   @override
   MapUiEvent tapEvent() => CursorTapped(latLng);

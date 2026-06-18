@@ -12,7 +12,7 @@ Marker toMarker(MarkerUiElement element, Id<Trip> tripId, MapCtrl ctrl) {
     child: GestureDetector(
       onTap: () => ctrl.onUiEvent(element.tapEvent()),
       onDoubleTap: () => ctrl.onUiEvent(element.tapEvent()),
-      child: element.buildMarker(tripId),
+      child: element.buildMarker(),
     ),
   );
 }

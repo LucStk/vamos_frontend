@@ -18,7 +18,7 @@ DragMarker toDragMarker(
     builder: (_, LatLng latLng, isDragging) => GestureDetector(
       onTap: () => ctrl.onUiEvent(element.tapEvent()),
       onDoubleTap: () => ctrl.onUiEvent(element.tapEvent()),
-      child: element.buildMarker(tripId, isDragging: isDragging),
+      child: element.buildMarker(isDragging: isDragging),
     ),
 
     onDragStart: (_, LatLng latLng) =>

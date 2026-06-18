@@ -3,10 +3,10 @@ part of "marker_ui_element.dart";
 class WaypointVertexUiModel extends VertexUiModel {
   final Waypoint waypoint;
 
-  const WaypointVertexUiModel(super.vertex, this.waypoint);
+  const WaypointVertexUiModel(super.tripId, super.vertex, this.waypoint);
 
   @override
-  Widget buildMarker(Id<Trip> tripId, {bool isDragging = false}) {
+  Widget buildMarker({bool isDragging = false}) {
     return WaypointMarker(tripId: tripId, waypointId: waypoint.id);
   }
 
