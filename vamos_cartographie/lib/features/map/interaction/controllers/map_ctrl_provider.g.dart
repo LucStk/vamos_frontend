@@ -12,7 +12,7 @@ part of 'map_ctrl_provider.dart';
 @ProviderFor(MapCtrl)
 final mapCtrlProvider = MapCtrlFamily._();
 
-final class MapCtrlProvider extends $NotifierProvider<MapCtrl, void> {
+final class MapCtrlProvider extends $NotifierProvider<MapCtrl, MapState> {
   MapCtrlProvider._({
     required MapCtrlFamily super.from,
     required Id<Trip> super.argument,
@@ -39,10 +39,10 @@ final class MapCtrlProvider extends $NotifierProvider<MapCtrl, void> {
   MapCtrl create() => MapCtrl();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(void value) {
+  Override overrideWithValue(MapState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<void>(value),
+      providerOverride: $SyncValueProvider<MapState>(value),
     );
   }
 
@@ -57,10 +57,10 @@ final class MapCtrlProvider extends $NotifierProvider<MapCtrl, void> {
   }
 }
 
-String _$mapCtrlHash() => r'05b6aa5f3a1b792290ac016516268b1c72d95e5c';
+String _$mapCtrlHash() => r'7afb95eae777d79d2709092c487b1cafb48b9fc2';
 
 final class MapCtrlFamily extends $Family
-    with $ClassFamilyOverride<MapCtrl, void, void, void, Id<Trip>> {
+    with $ClassFamilyOverride<MapCtrl, MapState, MapState, MapState, Id<Trip>> {
   MapCtrlFamily._()
     : super(
         retry: null,
@@ -77,20 +77,20 @@ final class MapCtrlFamily extends $Family
   String toString() => r'mapCtrlProvider';
 }
 
-abstract class _$MapCtrl extends $Notifier<void> {
+abstract class _$MapCtrl extends $Notifier<MapState> {
   late final _$args = ref.$arg as Id<Trip>;
   Id<Trip> get tripId => _$args;
 
-  void build(Id<Trip> tripId);
+  MapState build(Id<Trip> tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<void, void>;
+    final ref = this.ref as $Ref<MapState, MapState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<void, void>,
-              void,
+              AnyNotifier<MapState, MapState>,
+              MapState,
               Object?,
               Object?
             >;
