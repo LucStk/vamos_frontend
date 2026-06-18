@@ -3,7 +3,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/domain/entities/display_segment.dart';
 import 'package:vamos_cartographie/features/map/presentation/helpers/gis.dart';
 
 part 'display_segment_providers.g.dart';

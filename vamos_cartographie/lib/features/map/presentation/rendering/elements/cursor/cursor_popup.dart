@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/map/presentation/popups/popup_shell.dart';
-import 'package:vamos_cartographie/features/map/presentation/popups/popup_abstract.dart';
+import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
-class CursorPopUp extends AbstractPopUp {
+class CursorPopUp extends StatelessWidget {
+  final Id<Trip> tripId;
   final LatLng latLng;
-  const CursorPopUp({super.key, required super.tripId, required this.latLng});
+  const CursorPopUp({super.key, required this.tripId, required this.latLng});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return PopUpShell(buttonsBuilder: (ctx) => []);
   }
 }

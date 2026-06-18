@@ -9,7 +9,8 @@ import 'package:vamos_cartographie/vamos_cartographie.dart';
 part "topology_ui_element.dart";
 part "vertex_ui_element.dart";
 part "waypoint_vertex_ui_element.dart";
-part "pure_vertex_ui_element.dart";
+part "cursor_ui_element.dart";
+part "marker_ui_element.dart";
 
 sealed class MapUiElement {
   const MapUiElement();

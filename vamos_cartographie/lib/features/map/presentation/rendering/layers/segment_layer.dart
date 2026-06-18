@@ -2,34 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/interaction/controllers/map_state.dart';
 import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
-import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 
-class SegmentLayer extends AbstractLayer {
-  const SegmentLayer({super.key, required super.tripId});
+class SegmentLayer extends ConsumerWidget {
+  final Id<Trip> tripId;
+  const SegmentLayer({super.key, required this.tripId});
 
   @override
-  Widget buildWithCtrl(
-    BuildContext context,
-    WidgetRef ref,
-    MapCtrl mapCtrl,
-    MapState mapState,
-  ) {
-    final ids = ref.watch(
-      collectionProvider<Segment>(super.tripId).select((m) => m.keys.toList()),
-    );
-    final segments = ref.watch(collectionProvider<Segment>(super.tripId));
-    if (segments.isEmpty) {
-      return const SizedBox.shrink();
-    }
-    final List<Polyline<Id<Segment>>> polylines = [];
-    for (final id in ids) {
-      polylines.add(segmentPolylineBuilder(ref, super.tripId, id));
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final segments = ref.watch(collectionProvider<Segment>(tripId));
+    final mapCtrl = ref.read(mapCtrlProvider(tripId).notifier);
+    final polylines = segments.entries.map((entry) {
+      final sId = entry.key;
+      final segment = entry.value;
+      return Polyline(
+        points: segment.geometry,
+        color: segment.mobilityType.color,
+        strokeWidth: 5,
+        hitValue: sId,
+        pattern: segment.mobilityType.isDashed
+            ? StrokePattern.dashed(segments: const [12, 8])
+            : const StrokePattern.solid(),
+      );
+    }).toList(); // <--- On transforme le tout en List<Polyline>
     // 1. On crée le notifier de manière standard
     final polylineHitNotifier = ValueNotifier<LayerHitResult<Id<Segment>>?>(
       null,

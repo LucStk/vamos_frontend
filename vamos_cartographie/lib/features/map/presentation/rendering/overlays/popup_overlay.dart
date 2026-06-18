@@ -5,8 +5,6 @@ import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_state.dart';
 import 'package:vamos_cartographie/features/map/interaction/overlay/overlay_state.dart';
-import 'package:vamos_cartographie/features/map/presentation/overlays/overlay_popup_factory.dart';
-import 'package:vamos_cartographie/features/map/presentation/overlays/overlay_position_resolver.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 
 class PopUpOverlay extends ConsumerWidget {
