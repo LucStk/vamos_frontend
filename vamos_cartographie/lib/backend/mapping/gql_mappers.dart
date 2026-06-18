@@ -1,12 +1,12 @@
 import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.data.gql.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 
-import 'package:vamos_cartographie/features/topology/data/mappers/mobility_type_mapper.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/data/mappers/mobility_type_mapper.dart';
 // ── Conversions domaine → types Ferry générés ─────────────────────────────────
 //
 // Fonctions pures : aucun accès au store.

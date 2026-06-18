@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vamos_cartographie/features/topology/data/mappers/segment_mappers_draft.dart';
-import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/data/mappers/segment_mappers_draft.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/types/mobility_types.dart';
 
 import 'package:vamos_cartographie/backend/backend.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';

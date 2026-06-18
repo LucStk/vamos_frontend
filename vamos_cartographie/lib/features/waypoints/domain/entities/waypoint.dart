@@ -4,8 +4,9 @@ import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/types/poi_category_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:vamos_cartographie/core/type/has_id.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 
-import "package:vamos_cartographie/core/type/has_id.dart";
 part 'waypoint.freezed.dart';
 
 @freezed

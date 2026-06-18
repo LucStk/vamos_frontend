@@ -2,7 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/topology/data/mappers/vertex_mappers.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/data/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
 import "package:latlong2/latlong.dart";
 import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
@@ -15,7 +16,7 @@ class WaypointRepository {
   Future<Either<Failure, List<Waypoint>>> getWaypoints(Id<Trip> tripId) async {
     try {
       final waypoints = await remote.getWaypoints(tripId: tripId);
-      final ret = waypoints.map(WaypointMapper.fromGQL).toList();
+      final ret = waypoints.map((w) => WaypointMapper.fromGQL(w)).toList();
       return Right(ret);
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));

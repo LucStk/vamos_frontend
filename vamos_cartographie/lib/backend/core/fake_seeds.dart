@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 

@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
 sealed class MapEffect {

@@ -1,5 +1,5 @@
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/features/topology/topology.dart';
+import 'package:topology_engine/domain/domain.dart';
 import 'vertices_data.dart';
 
 // 1. Le Helper magique

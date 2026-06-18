@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:vamos_cartographie/core/type/id.dart";
 import "package:vamos_cartographie/features/features.dart";
 import "package:vamos_cartographie/features/waypoints/command_handlers/waypoint_handler.dart";
+import 'package:vamos_cartographie/packages/topology_engine/lib/infrastructure/providers/topology_providers.dart';
 
 import "form_waypoint_dialog.dart";
 import "package:vamos_cartographie/features/shared/shared.dart";
@@ -37,11 +38,8 @@ class EditWaypointDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref
-        .read(tripGraphProvider(tripId))
-        .requireValue
-        .map<Waypoint>()[waypointId]
-        ?.value;
+    final store = ref.read(tripGraphProvider(tripId)).requireValue;
+    final waypoint = store.map<Waypoint>()[waypointId]?.value;
     if (waypoint == null) {
       return const DialogErrorBody(errorMessage: 'Waypoint introuvable');
     }

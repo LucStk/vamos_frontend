@@ -1,7 +1,6 @@
-import 'package:flutter/rendering.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';

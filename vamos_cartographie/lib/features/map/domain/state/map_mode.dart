@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/topology/domain/domain.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/entities.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
 
 part 'map_mode.freezed.dart';

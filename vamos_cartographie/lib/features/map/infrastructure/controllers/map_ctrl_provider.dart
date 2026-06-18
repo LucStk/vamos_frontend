@@ -3,7 +3,7 @@ import 'package:vamos_cartographie/features/map/application/commands/commands.da
 import 'package:vamos_cartographie/features/map/domain/state/map_state.dart';
 import 'package:vamos_cartographie/features/map/domain/state/map_mode.dart';
 import 'package:vamos_cartographie/features/map/domain/state/overlay_state.dart';
-import 'package:vamos_cartographie/features/map/application/events/ui_events.dart';
+import 'package:vamos_cartographie/features/map/application/events/ui/ui_events.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 

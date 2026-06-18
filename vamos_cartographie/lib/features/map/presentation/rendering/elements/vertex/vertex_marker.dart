@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 
 class VertexMarker extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/command_handlers/waypoint_handler.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';

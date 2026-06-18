@@ -3,8 +3,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/topology/runtime/store/graph_store.dart';
-import 'package:vamos_cartographie/features/topology/application/pipeline/graph_executor.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/runtime/store/graph_store.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/application/pipeline/graph_executor.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/infrastructure/providers/topology_providers.dart';
 import 'package:vamos_cartographie/features/waypoints/data/providers/waypoints_providers.dart';
 
 part 'waypoint_handler.g.dart';

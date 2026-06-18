@@ -1,5 +1,5 @@
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/features/topology/domain/entities/vertex.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
