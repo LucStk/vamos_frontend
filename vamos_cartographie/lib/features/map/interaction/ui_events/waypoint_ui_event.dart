@@ -15,7 +15,7 @@ class WaypointDragStarted extends MapUiEvent {
   const WaypointDragStarted(this.waypointId);
 }
 
-class WaypointDragEndend extends MapUiEvent {
+class WaypointDragEnded extends MapUiEvent {
   final Id<Waypoint> waypointId;
-  const WaypointDragEndend(this.waypointId);
+  const WaypointDragEnded(this.waypointId);
 }

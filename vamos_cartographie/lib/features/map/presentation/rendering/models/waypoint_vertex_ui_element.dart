@@ -15,7 +15,7 @@ class WaypointVertexUiModel extends VertexUiModel {
   @override
   MapUiEvent doubleTapEvent() => WaypointDoubleTapped(waypoint.id);
   @override
-  MapUiEvent dragStartEvent() => WaypointDragStarted(waypoint.id);
+  MapUiEvent dragStartEvent(_) => WaypointDragStarted(waypoint.id);
   @override
-  MapUiEvent dragEndEvent() => WaypointDragEndend(waypoint.id);
+  MapUiEvent dragEndEvent(_) => WaypointDragEnded(waypoint.id);
 }

@@ -1,18 +1,20 @@
-
 part of "map_ui_element.dart";
 
-sealed class CursorUiElement extends MapUiElement {
-  final Vertex vertex;
+class CursorUiElement extends DragMarkerUiElement {
+  @override
+  final LatLng latLng;
 
-  const VertexUiModel(this.vertex);
+  const CursorUiElement(this.latLng);
 
-  Id<Vertex> get id => vertex.id;
-  LatLng get latLng => vertex.latLng;
-
-  Widget buildMarker(Id<Trip> tripId, bool isDragging);
-
-  MapUiEvent tapEvent();
-  MapUiEvent doubleTapEvent();
-  MapUiEvent dragStartEvent();
-  MapUiEvent dragEndEvent();
+  @override
+  Widget buildMarker(Id<Trip> tripId, bool isDragging) =>
+      CursorMarker(tripId: tripId, isDragging: isDragging);
+  @override
+  MapUiEvent tapEvent() => CursorTapped(latLng);
+  @override
+  MapUiEvent doubleTapEvent() => CursorDoubleTapped(latLng);
+  @override
+  MapUiEvent dragStartEvent(LatLng latLng) => CursorDraggedStart();
+  @override
+  MapUiEvent dragEndEvent(LatLng latLng) => CursorDraggedEnd(latLng);
 }
