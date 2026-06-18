@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
-import "popup_shell.dart";
-import "popup_abstract.dart";
 
 class VertexPopUp extends AbstractPopUp {
   final Id<Vertex> vertexId;

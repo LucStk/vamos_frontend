@@ -6,7 +6,6 @@ import 'package:vamos_cartographie/features/graph/application/selectors/graph_se
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_state.dart';
 import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/builders/segment_polyline_builder.dart';
 import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
 import 'package:vamos_cartographie/features/topology/domain/domain.dart';
 

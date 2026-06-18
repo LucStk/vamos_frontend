@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/graph/application/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/map/presentation/markers/marker_abstract.dart';
+import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
 
-class WaypointMarker extends AbstractMarker {
+class WaypointMarker extends ConsumerWidget {
   final Id<Waypoint> waypointId;
+  final Id<Trip> tripId;
+  final bool isDragging;
 
   const WaypointMarker({
     super.key,
     required this.waypointId,
-    required super.tripId,
-    super.isDragging = false,
+    required this.tripId,
+    this.isDragging = false,
   });
 
   @override

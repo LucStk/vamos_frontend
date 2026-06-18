@@ -3,22 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:vamos_cartographie/features/map/interaction/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/interaction/controllers/map_state.dart';
 import 'package:vamos_cartographie/features/map/interaction/machine/map_mode.dart';
 import 'package:vamos_cartographie/features/map/interaction/ui_events/ui_events.dart';
-import 'package:vamos_cartographie/features/map/presentation/layers/layer_abstract.dart';
-import 'package:vamos_cartographie/features/map/presentation/markers/markers.dart';
 
 class CursorLayer extends AbstractLayer {
   const CursorLayer({super.key, required super.tripId});
 
   @override
-  Widget buildWithCtrl(
-    BuildContext context,
-    WidgetRef ref,
-    MapCtrl mapCtrl,
-    MapState mapState,
-  ) {
+  Widget buildWithCtrl(BuildContext context, WidgetRef ref, MapCtrl mapCtrl) {
+    final mapState = ref.watch(mapCtrlProvider(tripId));
     switch (mapState.mode) {
       case CursorDrawn cursorDrawn:
         return DragMarkers(
