@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:topology_engine/topology_engine.dart';
-
-import 'vertex.dart';
+import 'package:topology_engine/domain/entities/vertex.dart';
+import 'package:topology_engine/domain/value_objects/mobility_types.dart';
 
 part 'segment.freezed.dart';
 

@@ -1,30 +1,32 @@
-import 'package:flutter/foundation.dart';
+import 'package:topology_engine/runtime/observables/observable_node.dart';
 
-class GraphNode<T> extends ChangeNotifier {
+class GraphNode<T> {
+  final ObservableNode observer;
   T _value;
 
   bool deleted = false;
   int revision = 0;
 
-  GraphNode(this._value);
+  GraphNode(this._value, this.observer);
 
   T get value => _value;
 
   void update(T Function(T current) mutate) {
     _value = mutate(_value);
     revision++;
-    notifyListeners();
+    observer.notify();
   }
 
   void set(T value) {
     _value = value;
     revision++;
-    notifyListeners();
+
+    observer.notify();
   }
 
   void markDeleted(bool value) {
     deleted = value;
     revision++;
-    notifyListeners();
+    observer.notify();
   }
 }

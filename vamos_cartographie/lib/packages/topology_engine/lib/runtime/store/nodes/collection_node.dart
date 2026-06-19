@@ -1,7 +1,9 @@
-import 'package:flutter/foundation.dart';
+import 'package:topology_engine/runtime/observables/observable_node.dart';
 
-class CollectionSignal<T> extends ChangeNotifier {
+class CollectionNode<T> {
+  final ObservableNode _observer;
+  CollectionNode(this._observer);
   void notify() {
-    notifyListeners();
+    _observer.notify();
   }
 }
