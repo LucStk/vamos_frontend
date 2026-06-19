@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/core.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import "trip_form_dialog.dart";

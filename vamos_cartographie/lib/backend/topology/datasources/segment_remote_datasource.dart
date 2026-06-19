@@ -1,6 +1,6 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
-import "package:vamos_cartographie/core/core.dart";
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 

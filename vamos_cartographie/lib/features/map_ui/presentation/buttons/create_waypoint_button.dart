@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/features/map_editor/commands/commands.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/entities/waypoint.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
 import "button_abstract.dart";
+
+import 'package:domain_core/domain_core.dart';
 
 class CreateWaypointButton extends AbstractMapButton {
   final Id<Waypoint> waypointId;

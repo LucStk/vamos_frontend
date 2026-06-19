@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
-import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
 import 'package:vamos_cartographie/features/map_ui/adapters/marker_adapter.dart';

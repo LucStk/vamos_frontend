@@ -2,9 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/backend/topology/mappers/segment_mappers_draft.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:topology_engine/topology_engine.dart';
-
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
 
 void main() {
   group('SegmentDraftMapper', () {

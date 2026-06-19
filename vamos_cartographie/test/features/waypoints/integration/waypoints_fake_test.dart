@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
 
+import 'package:domain_core/domain_core.dart';
 import '../../../helpers/fake_backend_builder.dart';
 
 // ---------------------------------------------------------------------------

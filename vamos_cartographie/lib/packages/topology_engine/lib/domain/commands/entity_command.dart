@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:domain_core/domain_core.dart';
 
 sealed class EntityCommand<T> {}
 

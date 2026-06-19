@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/backend/topology/datasources/segment_remote_datasource.dart';
 import 'package:vamos_cartographie/backend/topology/mappers/mappers.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+
+import 'package:domain_core/domain_core.dart';
 
 class SegmentRepository {
   final SegmentRemoteDatasource remote;

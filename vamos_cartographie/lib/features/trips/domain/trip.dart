@@ -4,7 +4,7 @@ import "package:vamos_cartographie/features/media/domain/entities/entities.dart"
 // ---------------------------------------------------------------------------
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:vamos_cartographie/core/core.dart';
+import 'package:domain_core/domain_core.dart';
 part 'trip.freezed.dart';
 
 @freezed

@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/core/core.dart';
+import 'package:domain_core/domain_core.dart';
 import '../events/collection_change_notifier.dart';
 import '../store/nodes/graph_node.dart';
 

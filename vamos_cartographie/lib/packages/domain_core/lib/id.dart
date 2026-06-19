@@ -1,8 +1,5 @@
 // lib/core/types/id.dart
 
-import 'package:flutter/foundation.dart';
-
-@immutable
 class Id<T> {
   final int value;
 

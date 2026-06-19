@@ -1,5 +1,5 @@
-name: topology_engine
-description: "Topology engine for vamos cartography"
+name: domain_core
+description: "Domain core for vamos cartographie"
 publish_to: "none"
 
 version: 1.0.0+1
@@ -8,8 +8,10 @@ environment:
   sdk: ^3.11.4
 
 dependencies:
+  flutter:
+    sdk: flutter
   latlong2: ^0.9.1
   dartz: ^0.10.1
+  riverpod: ^3.2.1
+  riverpod_annotation: ^4.0.2
   freezed_annotation: ^3.1.0
-  domain_core:
-    path: ../domain_core

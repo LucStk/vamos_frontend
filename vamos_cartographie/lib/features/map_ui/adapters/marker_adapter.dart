@@ -1,7 +1,7 @@
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:flutter/material.dart';

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/core/failure.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';

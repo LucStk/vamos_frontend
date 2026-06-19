@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:domain_core/domain_core.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/backend/topology/mappers/vertex_mappers.dart';

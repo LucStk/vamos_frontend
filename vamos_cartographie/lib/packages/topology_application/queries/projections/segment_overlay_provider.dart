@@ -1,7 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/features.dart';
 
 import 'package:vamos_cartographie/packages/topology_application/queries/projections/segment_overlay.dart';

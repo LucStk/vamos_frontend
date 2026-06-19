@@ -3,7 +3,7 @@ import 'package:vamos_cartographie/packages/topology_application/queries/selecto
 import 'package:vamos_cartographie/features/map_ui/rendering/models/markers/marker_ui_element.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
+import 'package:domain_core/domain_core.dart';
 
 part 'segment_ui_provider.g.dart';
 

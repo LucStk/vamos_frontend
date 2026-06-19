@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/rendering.dart';
-import 'package:vamos_cartographie/core/failure.dart';
-import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:domain_core/domain_core.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/trips/data/trip_remote_datasource.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
 import 'package:vamos_cartographie/features/trips/data/mappers/trip_draft_mappers.dart';

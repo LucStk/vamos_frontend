@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:vamos_cartographie/core/failure.dart';
+import 'package:domain_core/domain_core.dart';
 
 class OptimisticExecutor {
   Future<void> run<T>({

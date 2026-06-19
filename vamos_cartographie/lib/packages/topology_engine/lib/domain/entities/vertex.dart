@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 
-import "package:vamos_cartographie/core/type/has_id.dart";
-import 'package:vamos_cartographie/core/type/id.dart';
+import "package:domain_core/domain_core.dart";
 part 'vertex.freezed.dart';
 
 @freezed

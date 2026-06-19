@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/backend/seeds/explore_seed.dart';
-import 'package:vamos_cartographie/core/type/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';

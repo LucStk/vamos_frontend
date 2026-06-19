@@ -1,14 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/application/pipeline/graph_executor.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/runtime/store/graph_store.dart';
-import 'package:vamos_cartographie/core/injection/segments_providers.dart';
-import 'package:vamos_cartographie/backend/topology/repositories/segment_repository.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
-import 'package:vamos_cartographie/packages/topology_application/queries/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/core/injection/topology_providers.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:domain_core/domain_core.dart';
+import 'package:topology_engine/topology_engine.dart';
 
 part 'segment_handler.g.dart';
 

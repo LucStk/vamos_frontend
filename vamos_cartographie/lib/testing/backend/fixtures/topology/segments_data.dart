@@ -1,6 +1,7 @@
-import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'vertices_data.dart';
+
+import 'package:domain_core/domain_core.dart';
 
 // 1. Le Helper magique
 Segment createSegment({

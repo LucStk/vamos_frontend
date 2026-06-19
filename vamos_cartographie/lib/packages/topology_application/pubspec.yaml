@@ -1,0 +1,12 @@
+name: topology_application
+description: "Topology application for vamos cartographie"
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.4
+
+dependencies:
+  domain_core:
+    path: ../domain_core
