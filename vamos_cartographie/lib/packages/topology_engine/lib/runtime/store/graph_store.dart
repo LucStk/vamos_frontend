@@ -1,5 +1,5 @@
 import 'package:vamos_cartographie/core/core.dart';
-import '../notifiers/collection_change_notifier.dart';
+import '../events/collection_change_notifier.dart';
 import '../store/nodes/graph_node.dart';
 
 class GraphStore {

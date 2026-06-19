@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/features/map/infrastructure/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/infrastructure/adapters/marker_adapter.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/providers/topology_ui_provider.dart';
+import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/features/map_ui/adapters/marker_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/providers/topology_ui_provider.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:vamos_cartographie/vamos_cartographie.dart';

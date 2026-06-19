@@ -1,5 +1,5 @@
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:topology_engine/domain/entities/vertex.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 
 final List<Waypoint> t2Waypoints = [

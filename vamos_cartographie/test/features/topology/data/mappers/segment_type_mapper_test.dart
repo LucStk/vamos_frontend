@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/data/mappers/mobility_type_mapper.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/types/mobility_types.dart';
+import 'package:vamos_cartographie/backend/topology/mappers/mobility_type_mapper.dart';
+
+import 'package:topology_engine/topology_engine.dart';
 
 void main() {
   group('MobilityTypeMapper', () {

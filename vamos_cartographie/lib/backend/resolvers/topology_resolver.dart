@@ -1,7 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/data/mappers/mobility_type_mapper.dart';
+import 'package:vamos_cartographie/backend/topology/mappers/mobility_type_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import "package:vamos_cartographie/backend/core/fake_graphql_store.dart";
 import "package:vamos_cartographie/backend/mapping/gql_mappers.dart";

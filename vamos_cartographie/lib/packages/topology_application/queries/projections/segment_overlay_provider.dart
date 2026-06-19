@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 
-import 'segment_overlay.dart';
+import 'package:vamos_cartographie/packages/topology_application/queries/projections/segment_overlay.dart';
 
 part 'segment_overlay_provider.g.dart';
 

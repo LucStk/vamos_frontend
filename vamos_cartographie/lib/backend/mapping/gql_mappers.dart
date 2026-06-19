@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 
-import 'package:vamos_cartographie/packages/topology_engine/lib/data/mappers/mobility_type_mapper.dart';
+import 'package:vamos_cartographie/backend/topology/mappers/mobility_type_mapper.dart';
 // ── Conversions domaine → types Ferry générés ─────────────────────────────────
 //
 // Fonctions pures : aucun accès au store.

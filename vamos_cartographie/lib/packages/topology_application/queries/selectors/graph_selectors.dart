@@ -2,8 +2,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:topology_engine/runtime/store/nodes/graph_node.dart';
-import 'package:topology_engine/infrastructure/providers/topology_providers.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/runtime/store/nodes/graph_node.dart';
+import 'package:vamos_cartographie/core/injection/topology_providers.dart';
 
 part 'graph_selectors.g.dart';
 

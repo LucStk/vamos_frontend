@@ -1,6 +1,6 @@
-import 'package:vamos_cartographie/features/map/application/commands/commands.dart';
-import 'package:vamos_cartographie/features/map/domain/state/map_mode.dart';
-import 'package:vamos_cartographie/features/map/application/handlers/transition_result.dart';
+import 'package:vamos_cartographie/features/map_editor/commands/commands.dart';
+import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
+import 'package:vamos_cartographie/features/map_ui/application/handlers/transition_result.dart';
 
 TransitionResult reduceIdle(MapMode state, MapCommand command) {
   return switch (command) {

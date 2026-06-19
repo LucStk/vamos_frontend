@@ -1,6 +1,6 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
-import 'package:topology_engine/domain/domain.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 
 import "mobility_type_mapper.dart";
 

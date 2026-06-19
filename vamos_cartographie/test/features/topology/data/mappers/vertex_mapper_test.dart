@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/data/mappers/vertex_mappers.dart';
+import 'package:vamos_cartographie/backend/topology/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 
 void main() {

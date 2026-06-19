@@ -1,6 +1,6 @@
 import "package:vamos_cartographie/core/type/id.dart";
 import "package:vamos_cartographie/core/type/has_id.dart";
-import "package:topology_engine/domain/commands/entity_command.dart"
+import "package:vamos_cartographie/packages/topology_engine/lib/domain/commands/entity_command.dart"
     show EntityCommand, Insert, Update, Remove;
 
 class EntityReducer<T extends HasId<T>> {

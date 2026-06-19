@@ -1,8 +1,8 @@
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/models/map_ui_element.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/models/markers/marker_ui_element.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/models/map_ui_element.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/models/markers/marker_ui_element.dart';
 
 extension PopupAdapter on MapUiElement {
   Widget buildPopup(Id<Trip> tripId) {

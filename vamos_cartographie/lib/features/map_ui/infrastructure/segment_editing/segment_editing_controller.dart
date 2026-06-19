@@ -3,8 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/entities.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/application/command_handlers/command_handlers.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/queries/selectors/graph_selectors.dart';
+import 'package:vamos_cartographie/packages/topology_application/command_handlers/segment_handler.dart';
+import 'package:vamos_cartographie/packages/topology_application/queries/selectors/graph_selectors.dart';
 
 part 'segment_editing_controller.g.dart';
 

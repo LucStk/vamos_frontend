@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
-import 'package:vamos_cartographie/features/map/infrastructure/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/domain/state/map_state.dart';
-import 'package:vamos_cartographie/features/map/domain/state/overlay_state.dart';
+import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/features/map_ui/domain/state/map_state.dart';
+import 'package:vamos_cartographie/features/map_ui/domain/state/overlay_state.dart';
 import 'package:vamos_cartographie/features/trips/trips.dart';
 
-import 'package:vamos_cartographie/features/map/infrastructure/adapters/popup_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/adapters/popup_adapter.dart';
 
 class PopUpOverlay extends ConsumerWidget {
   const PopUpOverlay({

@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:topology_engine/infrastructure/providers/topology_providers.dart';
-import 'package:topology_engine/queries/selectors/graph_selectors.dart';
+import 'package:vamos_cartographie/core/injection/topology_providers.dart';
+import 'package:vamos_cartographie/packages/topology_application/queries/selectors/graph_selectors.dart';
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 part 'query_selectors.g.dart';

@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/failure.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
-import 'package:topology_engine/data/datasources/vertex_remote_datasource.dart';
-import 'package:topology_engine/data/mappers/vertex_mappers.dart';
-import 'package:topology_engine/domain/entities/vertex.dart';
+import 'package:vamos_cartographie/backend/topology/datasources/vertex_remote_datasource.dart';
+import 'package:vamos_cartographie/backend/topology/mappers/vertex_mappers.dart';
+import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';

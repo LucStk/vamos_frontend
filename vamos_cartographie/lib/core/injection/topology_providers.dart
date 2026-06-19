@@ -2,10 +2,10 @@ import "package:flutter/rendering.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:vamos_cartographie/core/type/id.dart";
 import "package:vamos_cartographie/features/features.dart";
-import "package:topology_engine/runtime/store/graph_store.dart";
-import "package:topology_engine/application/pipeline/graph_executor.dart";
-import "package:topology_engine/data/providers/segments_providers.dart";
-import "package:topology_engine/data/providers/vertex_providers.dart";
+import "package:vamos_cartographie/packages/topology_engine/lib/runtime/store/graph_store.dart";
+import "package:vamos_cartographie/packages/topology_engine/lib/application/pipeline/graph_executor.dart";
+import "package:vamos_cartographie/core/injection/segments_providers.dart";
+import "package:vamos_cartographie/core/injection/vertex_providers.dart";
 import "package:vamos_cartographie/features/waypoints/data/providers/waypoints_providers.dart";
 part "topology_providers.g.dart";
 

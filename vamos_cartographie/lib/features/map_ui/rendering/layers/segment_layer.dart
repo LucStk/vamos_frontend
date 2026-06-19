@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/core.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/map/infrastructure/controllers/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map/application/events/ui/ui_events.dart';
-import 'package:vamos_cartographie/features/map/infrastructure/adapters/marker_adapter.dart';
-import 'package:vamos_cartographie/features/map/infrastructure/adapters/segment_adapter.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/providers/segment_ui_provider.dart';
+import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
+import 'package:vamos_cartographie/features/map_ui/adapters/marker_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/adapters/segment_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/providers/segment_ui_provider.dart';
 
 class SegmentLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;

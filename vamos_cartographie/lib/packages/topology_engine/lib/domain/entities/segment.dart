@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/core/type/has_id.dart';
-import 'package:topology_engine/domain/types/mobility_types.dart';
+import 'package:topology_engine/topology_engine.dart';
 import 'vertex.dart';
 
 part 'segment.freezed.dart';

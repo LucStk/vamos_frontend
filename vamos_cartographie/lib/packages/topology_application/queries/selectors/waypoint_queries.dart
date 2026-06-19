@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:topology_engine/queries/selectors/graph_selectors.dart';
+import 'package:vamos_cartographie/packages/topology_application/queries/selectors/graph_selectors.dart';
 
 part 'waypoint_queries.g.dart';
 

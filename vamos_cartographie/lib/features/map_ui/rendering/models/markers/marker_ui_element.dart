@@ -3,10 +3,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/map/application/events/ui/ui_events.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/elements/cursor/cursor_marker.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/elements/vertex/vertex_marker.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/elements/vertex/waypoint_marker.dart';
+import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/cursor/cursor_marker.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_marker.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/waypoint_marker.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 import '../map_ui_element.dart';
 

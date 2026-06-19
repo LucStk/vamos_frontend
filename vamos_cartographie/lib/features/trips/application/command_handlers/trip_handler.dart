@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/features/trips/data/providers/trips_providers
 import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/application/pipeline/graph_executor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/infrastructure/providers/topology_providers.dart';
+import 'package:vamos_cartographie/core/injection/topology_providers.dart';
 
 part 'trip_handler.g.dart';
 

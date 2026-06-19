@@ -3,9 +3,9 @@ import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/type/id.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/map/infrastructure/controllers/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/map/presentation/rendering/models/markers/marker_ui_element.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/models/markers/marker_ui_element.dart';
 
 Marker toMarker(MarkerUiElement element, Id<Trip> tripId, MapCtrl ctrl) {
   return Marker(
