@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';

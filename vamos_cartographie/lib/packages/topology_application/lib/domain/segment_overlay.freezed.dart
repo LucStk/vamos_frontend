@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SegmentOverlay {
 
- List<LatLng>? get geometryOverride; bool get recomputing; Object? get error;
+ List<LatLng> get geometry; bool get recomputing; Object? get error;
 /// Create a copy of SegmentOverlay
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SegmentOverlayCopyWith<SegmentOverlay> get copyWith => _$SegmentOverlayCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentOverlay&&const DeepCollectionEquality().equals(other.geometryOverride, geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentOverlay&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(geometry),recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentOverlay(geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
+  return 'SegmentOverlay(geometry: $geometry, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SegmentOverlayCopyWith<$Res>  {
   factory $SegmentOverlayCopyWith(SegmentOverlay value, $Res Function(SegmentOverlay) _then) = _$SegmentOverlayCopyWithImpl;
 @useResult
 $Res call({
- List<LatLng>? geometryOverride, bool recomputing, Object? error
+ List<LatLng> geometry, bool recomputing, Object? error
 });
 
 
@@ -62,10 +62,10 @@ class _$SegmentOverlayCopyWithImpl<$Res>
 
 /// Create a copy of SegmentOverlay
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? geometryOverride = freezed,Object? recomputing = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? geometry = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
-geometryOverride: freezed == geometryOverride ? _self.geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
-as List<LatLng>?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }
@@ -151,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<LatLng>? geometryOverride,  bool recomputing,  Object? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<LatLng> geometry,  bool recomputing,  Object? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SegmentOverlay() when $default != null:
-return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
+return $default(_that.geometry,_that.recomputing,_that.error);case _:
   return orElse();
 
 }
@@ -172,10 +172,10 @@ return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<LatLng>? geometryOverride,  bool recomputing,  Object? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<LatLng> geometry,  bool recomputing,  Object? error)  $default,) {final _that = this;
 switch (_that) {
 case _SegmentOverlay():
-return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
+return $default(_that.geometry,_that.recomputing,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +192,10 @@ return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<LatLng>? geometryOverride,  bool recomputing,  Object? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<LatLng> geometry,  bool recomputing,  Object? error)?  $default,) {final _that = this;
 switch (_that) {
 case _SegmentOverlay() when $default != null:
-return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
+return $default(_that.geometry,_that.recomputing,_that.error);case _:
   return null;
 
 }
@@ -207,16 +207,14 @@ return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
 
 
 class _SegmentOverlay implements SegmentOverlay {
-  const _SegmentOverlay({final  List<LatLng>? geometryOverride, this.recomputing = false, this.error}): _geometryOverride = geometryOverride;
+  const _SegmentOverlay({required final  List<LatLng> geometry, this.recomputing = false, this.error}): _geometry = geometry;
   
 
- final  List<LatLng>? _geometryOverride;
-@override List<LatLng>? get geometryOverride {
-  final value = _geometryOverride;
-  if (value == null) return null;
-  if (_geometryOverride is EqualUnmodifiableListView) return _geometryOverride;
+ final  List<LatLng> _geometry;
+@override List<LatLng> get geometry {
+  if (_geometry is EqualUnmodifiableListView) return _geometry;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
+  return EqualUnmodifiableListView(_geometry);
 }
 
 @override@JsonKey() final  bool recomputing;
@@ -232,16 +230,16 @@ _$SegmentOverlayCopyWith<_SegmentOverlay> get copyWith => __$SegmentOverlayCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentOverlay&&const DeepCollectionEquality().equals(other._geometryOverride, _geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentOverlay&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_geometry),recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentOverlay(geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
+  return 'SegmentOverlay(geometry: $geometry, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -252,7 +250,7 @@ abstract mixin class _$SegmentOverlayCopyWith<$Res> implements $SegmentOverlayCo
   factory _$SegmentOverlayCopyWith(_SegmentOverlay value, $Res Function(_SegmentOverlay) _then) = __$SegmentOverlayCopyWithImpl;
 @override @useResult
 $Res call({
- List<LatLng>? geometryOverride, bool recomputing, Object? error
+ List<LatLng> geometry, bool recomputing, Object? error
 });
 
 
@@ -269,10 +267,10 @@ class __$SegmentOverlayCopyWithImpl<$Res>
 
 /// Create a copy of SegmentOverlay
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? geometryOverride = freezed,Object? recomputing = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? geometry = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_SegmentOverlay(
-geometryOverride: freezed == geometryOverride ? _self._geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
-as List<LatLng>?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }

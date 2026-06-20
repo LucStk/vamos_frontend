@@ -69,6 +69,13 @@ class GraphStore {
   }
 
   T? get<T>(Id<T> id) => node<T>(id)?.value;
+  T getRequired<T>(Id<T> id) {
+    final res = get<T>(id);
+    if (res == null) {
+      throw Exception("Error topology_engine : id item not found in store");
+    }
+    return res;
+  }
 
   Map<Id<T>, T> getAll<T>() {
     return Map.unmodifiable(map<T>().map((k, v) => MapEntry(k, v.value)));

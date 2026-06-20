@@ -6,7 +6,7 @@ part 'segment_overlay.freezed.dart';
 @freezed
 abstract class SegmentOverlay with _$SegmentOverlay {
   const factory SegmentOverlay({
-    List<LatLng>? geometryOverride,
+    required List<LatLng> geometry,
     @Default(false) bool recomputing,
     Object? error,
   }) = _SegmentOverlay;

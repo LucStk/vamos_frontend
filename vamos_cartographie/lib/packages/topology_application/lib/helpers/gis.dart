@@ -1,4 +1,6 @@
+import 'package:domain_core/id.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:topology_engine/topology_engine.dart';
 
 LatLng boundsCenter(List<LatLng> points) {
   final minLat = points.map((p) => p.latitude).reduce((a, b) => a < b ? a : b);
@@ -9,3 +11,6 @@ LatLng boundsCenter(List<LatLng> points) {
 
   return LatLng((minLat + maxLat) / 2, (minLng + maxLng) / 2);
 }
+
+typedef Geometry = List<LatLng>;
+typedef SegmentId = Id<Segment>;
