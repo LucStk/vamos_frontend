@@ -11,6 +11,3 @@ LatLng boundsCenter(List<LatLng> points) {
 
   return LatLng((minLat + maxLat) / 2, (minLng + maxLng) / 2);
 }
-
-typedef Geometry = List<LatLng>;
-typedef SegmentId = Id<Segment>;
