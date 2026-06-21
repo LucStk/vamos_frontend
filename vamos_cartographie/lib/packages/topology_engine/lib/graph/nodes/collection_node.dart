@@ -1,5 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:topology_engine/graph/observable_factory.dart';
 import 'observable_node.dart';
 import 'graph_node.dart';
 
@@ -7,12 +6,9 @@ class CollectionNode<T extends HasId<T>> {
   final Map<Id<T>, GraphNode<T>> _elements = {};
 
   late ObservableNode _observer;
-  late ObservableFactory _observableFactory;
 
-  CollectionNode({required ObservableFactory observableFactory}) {
-    _observableFactory = observableFactory;
-    // On install un observeur pour watch la collection
-    _observer = observableFactory();
+  CollectionNode({required ObservableNode observableNode}) {
+    _observer = observableNode;
   }
   void notify() => _observer.notify();
 
@@ -37,6 +33,13 @@ class CollectionNode<T extends HasId<T>> {
 
   Map<Id<T>, T> getAll() =>
       Map.unmodifiable(_elements.map((k, v) => MapEntry(k, v.value)));
+
+  void add(T value, ObservableNode observer) {
+    GraphNode<T> newNode = GraphNode<T>(value, observer);
+    _elements[value.id] = newNode;
+    notify();
+    observer.notify();
+  }
 
   void remove(Id<T> id) {
     getRequired(id);

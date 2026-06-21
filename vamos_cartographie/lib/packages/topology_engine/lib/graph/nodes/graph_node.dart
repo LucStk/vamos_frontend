@@ -4,7 +4,6 @@ class GraphNode<T> {
   final ObservableNode observer;
   T _value;
 
-  bool deleted = false;
   int revision = 0;
 
   GraphNode(this._value, this.observer);
@@ -21,12 +20,6 @@ class GraphNode<T> {
     _value = value;
     revision++;
 
-    observer.notify();
-  }
-
-  void markDeleted(bool value) {
-    deleted = value;
-    revision++;
     observer.notify();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:topology_engine/domain/domain.dart';
+import 'package:topology_engine/graph/nodes/observable_node.dart';
 import 'package:topology_engine/graph/observable_factory.dart';
 import 'topology_index.dart';
 import "nodes/collection_node.dart";
@@ -13,11 +14,12 @@ class GraphStore {
   late ObservableFactory observableFactory;
   final TopologyIndex<VertexId, SegmentId> topologyIndex = TopologyIndex();
 
-  GraphStore({required this.observableFactory}) {
-    segmentStore = CollectionNode<Segment>(
-      observableFactory: observableFactory,
-    );
-    vertexStore = CollectionNode<Vertex>(observableFactory: observableFactory);
+  GraphStore({
+    required ObservableNode segmentObserver,
+    required ObservableNode vertexObserver,
+  }) {
+    segmentStore = CollectionNode<Segment>(observableNode: segmentObserver);
+    vertexStore = CollectionNode<Vertex>(observableNode: vertexObserver);
   }
 
   void clear() {
