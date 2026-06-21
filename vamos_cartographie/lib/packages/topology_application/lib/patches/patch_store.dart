@@ -9,7 +9,8 @@ class PatchStore {
   final Map<VertexId, VertexPatch> vertexPatches = {};
   PatchStore();
 
-  SegmentPatch? get(SegmentId segmentId) => segmentPatches[segmentId];
+  SegmentPatch? getSegment(SegmentId segmentId) => segmentPatches[segmentId];
+  VertexPatch? getVertex(VertexId vertexId) => vertexPatches[vertexId];
 
   void setSegmentPatch(SegmentId segmentId, Geometry geometry) {
     // Création d'un OverlaySegment à poser à la place de la vraie geometry
@@ -22,6 +23,10 @@ class PatchStore {
 
   void removeSegmentPatch(SegmentId segmentId) {
     segmentPatches.remove(segmentId);
+  }
+
+  void removeVertexPatch(VertexId vertexId) {
+    vertexPatches.remove(vertexId);
   }
 
   void clear() {
