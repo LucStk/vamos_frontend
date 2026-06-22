@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/media_image.dart';
-import 'package:vamos_cartographie/features/carousel/domain/entities/entities.dart';
 import "thumbnails/thumbnail_view.dart";
 
 class ImageCarouselView extends ConsumerWidget {

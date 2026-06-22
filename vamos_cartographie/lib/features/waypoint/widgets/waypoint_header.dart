@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
+import 'package:trip_domain/domain/poi_category_types.dart';
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class WaypointHeader extends StatelessWidget {

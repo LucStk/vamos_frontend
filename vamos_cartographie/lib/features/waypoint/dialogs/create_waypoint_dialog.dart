@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:trip_domain/domain/trip.dart';
+import 'package:trip_domain/domain/waypoint.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-import 'package:vamos_cartographie/features/waypoints/command_handlers/waypoint_handler.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
 import "form_waypoint_dialog.dart";
 
 class CreateWaypointDialog extends ConsumerWidget {
@@ -52,9 +51,7 @@ class CreateWaypointDialog extends ConsumerWidget {
         if (onSuccess != null) onSuccess!();
       },
       onSubmit: (ref, editedWaypoint) async {
-        await ref
-            .read(waypointHandlerProvider(tripId).notifier)
-            .createWaypoint(editedWaypoint, vertexId, latLng);
+        throw Exception("onSubmit to build");
       },
     );
   }

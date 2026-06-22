@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:domain_core/domain_core.dart";
-
-import "package:vamos_cartographie/features/features.dart";
-import "package:vamos_cartographie/features/waypoints/command_handlers/waypoint_handler.dart";
-import 'package:vamos_cartographie/core/injection/topology_providers.dart';
+import "package:trip_domain/domain/trip.dart";
+import "package:trip_domain/domain/waypoint.dart";
 
 import "form_waypoint_dialog.dart";
 import "package:vamos_cartographie/features/shared/shared.dart";
@@ -56,9 +54,7 @@ class EditWaypointDialog extends ConsumerWidget {
       },
       onSubmit: (ref, editedWaypoint) async {
         debugPrint("edited : $editedWaypoint");
-        await ref
-            .read(waypointHandlerProvider(tripId).notifier)
-            .updateWaypoint(waypointId, waypoint.vertexId, editedWaypoint);
+        throw ("edit_waypoint_dialog onSubmit not implemented");
       },
     );
   }
