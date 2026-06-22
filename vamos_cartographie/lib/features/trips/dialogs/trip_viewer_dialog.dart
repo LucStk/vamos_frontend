@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
-import "package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart";
+import 'package:vamos_cartographie/features/trips/widgets/widgets.dart';
 import "trip_editor_dialog.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-
-import "package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart";
 
 class TripViewerDialog extends ConsumerWidget {
   final Id<Trip> tripId;

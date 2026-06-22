@@ -1,9 +1,9 @@
 // features/vertexs/presentation/providers/vertexs_notifier.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/backend/topology/datasources/vertex_remote_datasource.dart';
-import 'package:vamos_cartographie/backend/topology/repositories/vertex_repository.dart';
-import "package:vamos_cartographie/core/injection/client_provider.dart";
-part 'vertex_providers.g.dart';
+import "/core/injection/client_provider.dart";
+import '/infrastructure/topology/datasources/vertex_remote_datasource.dart';
+import '/infrastructure/topology/repositories/vertex_repository.dart';
+part 'vertex_provider.g.dart';
 
 @riverpod
 VertexRemoteDatasource vertexRemoteDatasource(Ref ref) {

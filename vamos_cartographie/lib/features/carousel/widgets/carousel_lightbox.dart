@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:media_application/read_models/image_ui_model.dart';
 
 // Lightbox fullscreen
 // ─────────────────────────────────────────────────────────────────────────────
 
 class LightBox extends StatefulWidget {
-  final List<CarouselItem> items;
+  final List<ImageUiModel> items;
   final int initialIndex;
 
   const LightBox({super.key, required this.items, required this.initialIndex});
@@ -126,26 +127,27 @@ class LightBoxState extends State<LightBox> {
     );
   }
 
-  Widget _buildPage(CarouselItem item) {
-    final image = item.isLocal
-        ? Image.file(File(item.fileKey), fit: BoxFit.contain)
-        : Image.network(
-            item.displayUrl,
-            fit: BoxFit.contain,
-            loadingBuilder: (_, child, prog) {
-              if (prog == null) return child;
-              return const Center(
-                child: CircularProgressIndicator(color: Colors.white),
-              );
-            },
-            errorBuilder: (_, _, _) => const Center(
-              child: Icon(
-                Icons.broken_image_outlined,
-                size: 64,
-                color: Colors.white38,
-              ),
-            ),
+  Widget _buildPage(ImageUiModel item) {
+    final image = switch (item.imageLocation) {
+      LocalPath(:final File file) => Image.file(file, fit: BoxFit.contain),
+      RemoteUrl(:final url) => Image.network(
+        url as String,
+        fit: BoxFit.contain,
+        loadingBuilder: (_, child, prog) {
+          if (prog == null) return child;
+          return const Center(
+            child: CircularProgressIndicator(color: Colors.white),
           );
+        },
+        errorBuilder: (_, _, _) => const Center(
+          child: Icon(
+            Icons.broken_image_outlined,
+            size: 64,
+            color: Colors.white38,
+          ),
+        ),
+      ),
+    };
 
     return GestureDetector(
       onTap: () => Navigator.of(context).pop(),

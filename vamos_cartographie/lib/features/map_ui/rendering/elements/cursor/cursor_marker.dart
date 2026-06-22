@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:trip_domain/domain/domain.dart';
 
 class CursorMarker extends StatelessWidget {
   final Id<Trip> tripId;

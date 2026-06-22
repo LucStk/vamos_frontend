@@ -1,7 +1,12 @@
 import 'package:ferry/ferry.dart';
-import 'package:riverpod/riverpod.dart';
-import "backend_controller_provider.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+import 'package:vamos_cartographie/backend/core/network/ferry_client.dart';
+part "client_provider.g.dart";
 
-final clientProvider = Provider<Client>((ref) {
-  return ref.watch(backendControllerProvider).client;
-});
+@riverpod
+class ClientNotifier extends _$ClientNotifier {
+  @override
+  Client build() {
+    return createClient();
+  }
+}

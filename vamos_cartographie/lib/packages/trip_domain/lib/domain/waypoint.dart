@@ -42,7 +42,6 @@ abstract class WaypointDraft with _$WaypointDraft {
       title: title,
       description: description,
       poiCategory: poiCategory,
-      images: images,
       id: id,
     );
   }

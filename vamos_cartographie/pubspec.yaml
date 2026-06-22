@@ -32,7 +32,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-
+  media_application:
+    path: lib/packages/media_application
   topology_engine:
     path: lib/packages/topology_engine
   domain_core:

@@ -30,12 +30,6 @@ abstract class TripDraft with _$TripDraft {
   }) = _TripDraft;
 
   Trip toTrip(TripId id) {
-    return Trip(
-      id: id,
-      title: title,
-      description: description,
-      date: date,
-      images: images,
-    );
+    return Trip(id: id, title: title, description: description, date: date);
   }
 }

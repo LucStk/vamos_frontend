@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:media_application/read_models/image_ui_model.dart';
 import 'thumbnail_error.dart';
 import 'thumbnail_image.dart'; // Pense à importer ton nouveau widget
 
 class ThumbnailView extends StatelessWidget {
-  final CarouselItem item;
+  final ImageUiModel item;
   final double size;
 
   final bool hasError;

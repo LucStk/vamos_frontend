@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
-import 'package:vamos_cartographie/features/trips/application/selectors/trips_selectors.dart';
 import 'trip_section_label.dart';
-
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-import "package:vamos_cartographie/features/media/media.dart";
 
 /// Vue lecture seule des informations d'un voyage.
 /// Utilisée dans le dialog d'affichage.

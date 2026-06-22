@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trip_domain/domain/trip.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/features/trips/application/selectors/trips_selectors.dart';
-import 'package:vamos_cartographie/features/trips/presentation/dialogs/trip_viewer_dialog.dart';
-import 'package:vamos_cartographie/features/trips/presentation/widgets/trip_card/trip_card_content.dart';
-import 'package:vamos_cartographie/features/trips/presentation/widgets/trip_card/trip_card_icon.dart';
 import 'package:domain_core/domain_core.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 

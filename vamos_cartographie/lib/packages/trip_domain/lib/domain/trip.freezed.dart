@@ -289,7 +289,7 @@ as List<MediaImage>,
 /// @nodoc
 mixin _$TripDraft {
 
- String get title; String get description; DateTime? get date; List<MediaImage> get images;
+ String get title; String get description; DateTime? get date;
 /// Create a copy of TripDraft
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -300,16 +300,16 @@ $TripDraftCopyWith<TripDraft> get copyWith => _$TripDraftCopyWithImpl<TripDraft>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TripDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.images, images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TripDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,description,date,const DeepCollectionEquality().hash(images));
+int get hashCode => Object.hash(runtimeType,title,description,date);
 
 @override
 String toString() {
-  return 'TripDraft(title: $title, description: $description, date: $date, images: $images)';
+  return 'TripDraft(title: $title, description: $description, date: $date)';
 }
 
 
@@ -320,7 +320,7 @@ abstract mixin class $TripDraftCopyWith<$Res>  {
   factory $TripDraftCopyWith(TripDraft value, $Res Function(TripDraft) _then) = _$TripDraftCopyWithImpl;
 @useResult
 $Res call({
- String title, String description, DateTime? date, List<MediaImage> images
+ String title, String description, DateTime? date
 });
 
 
@@ -337,13 +337,12 @@ class _$TripDraftCopyWithImpl<$Res>
 
 /// Create a copy of TripDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = null,Object? date = freezed,}) {
   return _then(_self.copyWith(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,
+as DateTime?,
   ));
 }
 
@@ -428,10 +427,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String description,  DateTime? date,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String description,  DateTime? date)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TripDraft() when $default != null:
-return $default(_that.title,_that.description,_that.date,_that.images);case _:
+return $default(_that.title,_that.description,_that.date);case _:
   return orElse();
 
 }
@@ -449,10 +448,10 @@ return $default(_that.title,_that.description,_that.date,_that.images);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String description,  DateTime? date,  List<MediaImage> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String description,  DateTime? date)  $default,) {final _that = this;
 switch (_that) {
 case _TripDraft():
-return $default(_that.title,_that.description,_that.date,_that.images);case _:
+return $default(_that.title,_that.description,_that.date);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -469,10 +468,10 @@ return $default(_that.title,_that.description,_that.date,_that.images);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String description,  DateTime? date,  List<MediaImage> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String description,  DateTime? date)?  $default,) {final _that = this;
 switch (_that) {
 case _TripDraft() when $default != null:
-return $default(_that.title,_that.description,_that.date,_that.images);case _:
+return $default(_that.title,_that.description,_that.date);case _:
   return null;
 
 }
@@ -484,19 +483,12 @@ return $default(_that.title,_that.description,_that.date,_that.images);case _:
 
 
 class _TripDraft extends TripDraft {
-  const _TripDraft({this.title = '', this.description = '', this.date, final  List<MediaImage> images = const []}): _images = images,super._();
+  const _TripDraft({this.title = '', this.description = '', this.date}): super._();
   
 
 @override@JsonKey() final  String title;
 @override@JsonKey() final  String description;
 @override final  DateTime? date;
- final  List<MediaImage> _images;
-@override@JsonKey() List<MediaImage> get images {
-  if (_images is EqualUnmodifiableListView) return _images;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_images);
-}
-
 
 /// Create a copy of TripDraft
 /// with the given fields replaced by the non-null parameter values.
@@ -508,16 +500,16 @@ _$TripDraftCopyWith<_TripDraft> get copyWith => __$TripDraftCopyWithImpl<_TripDr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TripDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._images, _images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TripDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,description,date,const DeepCollectionEquality().hash(_images));
+int get hashCode => Object.hash(runtimeType,title,description,date);
 
 @override
 String toString() {
-  return 'TripDraft(title: $title, description: $description, date: $date, images: $images)';
+  return 'TripDraft(title: $title, description: $description, date: $date)';
 }
 
 
@@ -528,7 +520,7 @@ abstract mixin class _$TripDraftCopyWith<$Res> implements $TripDraftCopyWith<$Re
   factory _$TripDraftCopyWith(_TripDraft value, $Res Function(_TripDraft) _then) = __$TripDraftCopyWithImpl;
 @override @useResult
 $Res call({
- String title, String description, DateTime? date, List<MediaImage> images
+ String title, String description, DateTime? date
 });
 
 
@@ -545,13 +537,12 @@ class __$TripDraftCopyWithImpl<$Res>
 
 /// Create a copy of TripDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = null,Object? date = freezed,}) {
   return _then(_TripDraft(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,
+as DateTime?,
   ));
 }
 

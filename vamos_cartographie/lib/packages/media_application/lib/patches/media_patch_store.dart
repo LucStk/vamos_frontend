@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:domain_core/media.dart';
 import 'package:media_application/patches/patch_image.dart';
-import 'package:trip_domain/trip_domain.dart';
 
 class MediaPatchStore {
   final Map<FileKey, PatchImageMedia> patchImages = {};

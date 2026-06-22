@@ -7,7 +7,13 @@ part "dio_media_handler.g.dart";
 class DioMediaHandler implements StorageDatasource {
   final Dio dio = Dio();
 
-  DioMediaHandler();
+  @override
+  void build() {
+    return;
+  }
+
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
 
   @override
   Future<void> uploadFile({
