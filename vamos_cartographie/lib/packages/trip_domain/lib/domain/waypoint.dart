@@ -6,12 +6,14 @@ import "media_image.dart";
 import "package:topology_engine/topology_engine.dart";
 part 'waypoint.freezed.dart';
 
+typedef WaypointId = Id<Waypoint>;
+
 @freezed
 abstract class Waypoint with _$Waypoint implements HasId<Waypoint> {
   const Waypoint._();
   const factory Waypoint({
-    required Id<Waypoint> id,
-    required Id<Vertex> vertexId,
+    required WaypointId id,
+    required VertexId vertexId,
     @Default('') String title,
     @Default(PoiCategory.waypoint) PoiCategory poiCategory,
     @Default('') String description,
@@ -36,7 +38,7 @@ abstract class WaypointDraft with _$WaypointDraft {
     @Default('') String description,
     @Default([]) List<MediaImage> images,
   }) = _WaypointDraft;
-  Waypoint toWaypoint(Id<Waypoint> id, Id<Vertex> vertexId) {
+  Waypoint toWaypoint(WaypointId id, VertexId vertexId) {
     return Waypoint(
       vertexId: vertexId,
       title: title,

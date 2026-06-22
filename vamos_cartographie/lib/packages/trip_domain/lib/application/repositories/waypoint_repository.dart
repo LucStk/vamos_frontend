@@ -1,0 +1,20 @@
+import 'package:dartz/dartz.dart';
+import 'package:domain_core/failure.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:topology_engine/topology_engine.dart';
+import 'package:trip_domain/domain/domain.dart';
+
+abstract class WaypointRepository {
+  Future<Either<Failure, List<Waypoint>>> getWaypoints(TripId id);
+  Future<Either<Failure, (Waypoint, Vertex)>> createWaypoint(
+    TripId tripId,
+    WaypointDraft waypointDraft,
+    VertexId? vertexId,
+    LatLng? latLng,
+  );
+  Future<Either<Failure, Waypoint>> updateWaypoint(
+    WaypointId id,
+    WaypointDraft waypoint,
+  );
+  Future<Either<Failure, void>> deleteWaypoint(WaypointId id);
+}
