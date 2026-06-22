@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:trip_domain/trip_domain.dart';
 
 class TripCardContent extends StatelessWidget {
   final Trip trip;

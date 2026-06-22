@@ -137,4 +137,4 @@ final class TripHandlerProvider
   }
 }
 
-String _$tripHandlerHash() => r'51bd489a49de9721d117bc2f5f6c677bb5b4415e';
+String _$tripHandlerHash() => r'd1a890343f963e1750fdcb4f806c29baceeb2928';

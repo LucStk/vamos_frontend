@@ -1,7 +1,7 @@
+import 'package:domain_core/observable_node.dart';
 import 'package:topology_engine/domain/entities/segment.dart';
 import 'package:topology_engine/domain/entities/vertex.dart';
 import 'package:topology_engine/graph/graph_store.dart';
-import 'package:topology_engine/graph/nodes/observable_node.dart';
 
 class GraphMutator {
   final GraphStore store;

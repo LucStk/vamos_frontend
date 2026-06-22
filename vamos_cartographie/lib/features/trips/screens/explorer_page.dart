@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/presentation/widgets/widgets.dart';
-import 'package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import "package:vamos_cartographie/features/trips/presentation/dialogs/dialogs.dart";
+import 'package:vamos_cartographie/core/injection/commands_provider.dart/trip_provider.dart';
+import 'package:vamos_cartographie/core/injection/trip_store.dart';
+import 'package:vamos_cartographie/features/trips/dialogs/trip_creator_dialog.dart';
+import 'package:vamos_cartographie/features/trips/widgets/explorer_empty_view.dart';
+import 'package:vamos_cartographie/features/trips/widgets/explorer_error_view.dart';
+import 'package:vamos_cartographie/features/trips/widgets/trip_card.dart';
 
 class ExplorerPage extends ConsumerWidget {
   const ExplorerPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsAsync = ref.watch(tripHandlerProvider);
+    final tripList = ref.watch(tripStoreProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -18,12 +21,12 @@ class ExplorerPage extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              ref.read(tripHandlerProvider.notifier).refresh();
+              ref.read(tripHandlerProvider).loadFromRemote();
             },
           ),
         ],
       ),
-      body: tripsAsync.when(
+      body: tripList.when(
         loading: () {
           return const Center(child: CircularProgressIndicator());
         },
@@ -32,7 +35,7 @@ class ExplorerPage extends ConsumerWidget {
           return ExplorerErrorView(
             message: error.toString(),
             onRetry: () {
-              ref.read(tripHandlerProvider.notifier).refresh();
+              ref.read(tripHandlerProvider).loadFromRemote();
             },
           );
         },

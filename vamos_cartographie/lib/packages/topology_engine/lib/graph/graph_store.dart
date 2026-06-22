@@ -1,9 +1,10 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:domain_core/observable_factory.dart';
 import 'package:topology_engine/domain/domain.dart';
-import 'package:topology_engine/graph/nodes/observable_node.dart';
-import 'package:topology_engine/graph/observable_factory.dart';
 import 'topology_index.dart';
 import "nodes/collection_node.dart";
+
+import 'package:domain_core/observable_node.dart';
 
 typedef SegmentId = Id<Segment>;
 typedef VertexId = Id<Vertex>;

@@ -1,13 +1,11 @@
+import 'package:domain_core/observable_node.dart';
 import 'package:trip_domain/domain/domain.dart';
 
 class TripStore {
   final Map<TripId, Trip> store = {};
+  final ObservableNode observableNode;
 
-  TripStore();
-
-  void clear() {
-    store.clear();
-  }
+  TripStore(this.observableNode);
 
   Trip? get(TripId tripId) => store[tripId];
 
@@ -19,6 +17,18 @@ class TripStore {
     return r;
   }
 
-  void upsert(Trip trip) => store[trip.id] = trip;
-  void remove(TripId id) => store.remove(id);
+  void clear() {
+    observableNode.notify();
+    store.clear();
+  }
+
+  void upsert(Trip trip) {
+    store[trip.id] = trip;
+    observableNode.notify();
+  }
+
+  void remove(TripId id) {
+    store.remove(id);
+    observableNode.notify();
+  }
 }

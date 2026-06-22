@@ -1,12 +1,10 @@
-import 'package:domain_core/optimitic_executor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/application/commands/commands.dart';
 import 'package:trip_domain/application/repositories/trip_repository.dart';
 
 import "package:vamos_cartographie/core/injection/client_provider.dart";
-import 'package:vamos_cartographie/core/injection/commands_provider.dart/topology_providers.dart';
 import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';
-import 'package:vamos_cartographie/core/injection/stores_provider.dart';
+import 'package:vamos_cartographie/core/injection/trip_store.dart';
 import '/infrastructure/trip/trip_remote_datasource.dart';
 import '/infrastructure/trip/trip_repository_impl.dart';
 part 'trip_provider.g.dart';
@@ -23,8 +21,8 @@ TripRepository tripRepository(Ref ref) {
 
 @riverpod
 TripHandler tripHandler(Ref ref) {
-  final tripStore = ref.watch(tripStoreProvider);
-  final OptimisticExecutor executor = ref.watch(optimisticExecutorProvider);
+  final store = ref.watch(rawTripStoreProvider);
   final repo = ref.watch(tripRepositoryProvider);
-  return TripHandler(tripStore, repo, executor);
+  final executor = ref.watch(optimisticExecutorProvider);
+  return TripHandler(store, repo, executor);
 }

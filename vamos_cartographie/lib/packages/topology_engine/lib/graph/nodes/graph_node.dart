@@ -1,4 +1,4 @@
-import 'observable_node.dart';
+import 'package:domain_core/observable_node.dart';
 
 class GraphNode<T> {
   final ObservableNode observer;

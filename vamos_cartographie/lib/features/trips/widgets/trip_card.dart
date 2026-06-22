@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/trip.dart';
+import 'package:vamos_cartographie/core/injection/trip_store.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/features/trips/dialogs/trip_viewer_dialog.dart';
+import 'package:vamos_cartographie/features/trips/widgets/trip_card/trip_card_content.dart';
+import 'package:vamos_cartographie/features/trips/widgets/trip_card/trip_card_icon.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class TripCard extends ConsumerWidget {
@@ -26,7 +30,7 @@ class TripCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trip = ref.watch(tripByIdProvider(tripId));
+    final trip = ref.watch(tripProvider(tripId));
     if (trip == null) {
       throw Exception("TripCard -> tripId not found in tripByIdProvider");
     }

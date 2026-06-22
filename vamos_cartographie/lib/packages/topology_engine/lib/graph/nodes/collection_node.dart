@@ -1,5 +1,5 @@
 import 'package:domain_core/domain_core.dart';
-import 'observable_node.dart';
+import 'package:domain_core/observable_node.dart';
 import 'graph_node.dart';
 
 class CollectionNode<T extends HasId<T>> {
