@@ -1,7 +1,5 @@
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-
 import 'package:trip_domain/trip_domain.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.

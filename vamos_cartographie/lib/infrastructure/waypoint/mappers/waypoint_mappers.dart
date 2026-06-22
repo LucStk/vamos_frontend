@@ -1,8 +1,9 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
-import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_enum_mapper.dart';
+import 'package:topology_engine/topology_engine.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
+
+import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/infrastructure/waypoint/mappers/waypoint_enum_mapper.dart';
 
 class WaypointMapper {
   /// Convertit un [GWaypointFieldsData] (fragment GQL) en [Waypoint] domaine.

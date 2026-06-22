@@ -3,11 +3,13 @@ import "media_image.dart";
 import 'package:domain_core/domain_core.dart';
 part 'trip.freezed.dart';
 
+typedef TripId = Id<Trip>;
+
 @freezed
-abstract class Trip with _$Trip implements HasId {
+abstract class Trip with _$Trip {
   const Trip._();
   const factory Trip({
-    required Id<Trip> id,
+    required TripId id,
     @Default('') String title,
     @Default('') String description,
     DateTime? date,
@@ -33,7 +35,7 @@ abstract class TripDraft with _$TripDraft {
     @Default([]) List<MediaImage> images,
   }) = _TripDraft;
 
-  Trip toTrip(Id<Trip> id) {
+  Trip toTrip(TripId id) {
     return Trip(
       id: id,
       title: title,

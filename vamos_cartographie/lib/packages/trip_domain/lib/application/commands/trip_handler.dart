@@ -1,96 +1,58 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/features/trips/data/data.dart';
-import 'package:vamos_cartographie/features/trips/data/providers/trips_providers.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/application/pipeline/graph_executor.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/core/injection/topology_providers.dart';
+import 'package:trip_domain/application/repositories/trip_repository.dart';
+import 'package:trip_domain/domain/domain.dart';
+import "package:trip_domain/runtime/store/trip_store.dart";
 
-part 'trip_handler.g.dart';
+import 'package:domain_core/optimitic_executor.dart';
 
-@riverpod
-class TripHandler extends _$TripHandler {
-  TripRepository get repo => ref.read(tripRepositoryProvider);
+class TripHandler {
+  TripStore tripStore;
+  TripRepository repo;
+  OptimisticExecutor executor;
 
-  OptimisticExecutor get executor => ref.read(optimisticExecutorProvider);
+  TripHandler(this.tripStore, this.repo, this.executor);
 
-  @override
-  Future<Map<Id<Trip>, Trip>> build() async {
+  void loadFromRemote() async {
+    tripStore.clear();
     final result = await repo.getAllTrips();
 
-    return result.fold(
-      (failure) => throw Exception(failure.message),
-      (trips) => {for (final trip in trips) trip.id: trip},
-    );
-  }
-
-  Trip? get(Id<Trip> id) {
-    return state.value?[id];
-  }
-
-  void set(Trip trip) {
-    final current = state.value;
-    if (current != null) {
-      state = AsyncData({...current, trip.id: trip});
-    }
-  }
-
-  Future<void> refresh() async {
-    state = const AsyncLoading();
-
-    state = await AsyncValue.guard(() async {
-      final result = await repo.getAllTrips();
-
-      return result.fold(
-        (failure) => throw Exception(failure.message),
-        (trips) => {for (final trip in trips) trip.id: trip},
-      );
+    result.fold((failure) => throw Exception(failure.message), (
+      List<Trip> trips,
+    ) {
+      // Remplacement du .forEach par une boucle for-in
+      for (final trip in trips) {
+        tripStore.upsert(trip);
+      }
     });
   }
 
   Future<void> createTrip(TripDraft draft) async {
     final result = await repo.createTrip(draft);
 
-    result.fold((f) => throw Exception(f.message), (trip) {
-      final current = state.value ?? {};
-
-      state = AsyncData({...current, trip.id: trip});
-    });
+    result.fold(
+      (f) => throw Exception(f.message),
+      (trip) => tripStore.upsert(trip),
+    );
   }
 
   Future<void> updateTrip(Id<Trip> id, TripDraft draft) async {
-    final old = state.value?[id];
-    if (old == null) return;
+    final old = tripStore.getRequired(id);
 
     await executor.run(
-      onApply: () => set(draft.toTrip(id)),
+      onApply: () => tripStore.upsert(draft.toTrip(id)),
       remote: () => repo.updateTrip(id, draft),
-      onSuccess: (Trip serverTrip) => set(serverTrip),
-      onError: () => set(old),
+      onSuccess: (Trip serverTrip) => tripStore.upsert(serverTrip),
+      onError: () => tripStore.upsert(old),
     );
   }
 
   Future<void> deleteTrip(Id<Trip> id) async {
-    final current = state.value;
-    if (current == null) return;
-    final old = current[id];
-    if (old == null) return;
+    final old = tripStore.getRequired(id);
     await executor.run(
-      onApply: () {
-        final copy = Map<Id<Trip>, Trip>.from(current);
-        copy.remove(id);
-        state = AsyncData(copy);
-      },
-
+      onApply: () => tripStore.remove(id),
       remote: () => repo.deleteTrip(id),
-
       onSuccess: (_) {},
-
-      onError: () {
-        final copy = Map<Id<Trip>, Trip>.from(state.value ?? {});
-        copy[id] = old;
-        state = AsyncData(copy);
-      },
+      onError: () => tripStore.upsert(old),
     );
   }
 }

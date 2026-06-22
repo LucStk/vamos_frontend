@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:topology_engine/domain/types/geometry.dart';
-part "segment_view_model.freeze.dart";
+part "segment_ui_model.freeze.dart";
 
 @freezed
 abstract class SegmentUiModel with _$SegmentUiModel {

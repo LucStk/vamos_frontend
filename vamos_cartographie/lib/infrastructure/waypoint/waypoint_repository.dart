@@ -1,12 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
-import 'package:vamos_cartographie/backend/topology/mappers/vertex_mappers.dart';
-import 'package:vamos_cartographie/features/waypoints/data/mappers/mappers.dart';
+import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/infrastructure/topology/mappers/vertex_mappers.dart';
+import 'package:vamos_cartographie/infrastructure/waypoint/mappers/mappers.dart';
+import 'package:vamos_cartographie/infrastructure/waypoint/waypoint_remote_datasource.dart';
+import 'package:topology_engine/topology_engine.dart';
 import "package:latlong2/latlong.dart";
-import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 
 class WaypointRepository {
   final WaypointRemoteDatasource remote;
@@ -25,7 +24,7 @@ class WaypointRepository {
     }
   }
 
-  Future<Either<Failure, CreateWaypointResult>> createWaypoint(
+  Future<Either<Failure, (Waypoint, Vertex)>> createWaypoint(
     Id<Trip> tripId,
     WaypointDraft waypointDraft,
     Id<Vertex>? vertexId,
@@ -53,9 +52,7 @@ class WaypointRepository {
         createWaypoint,
         attachedImages.toList(),
       );
-      return Right(
-        CreateWaypointResult(waypoint: rebuilt, vertex: waypointVertex),
-      );
+      return Right((rebuilt, waypointVertex));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {

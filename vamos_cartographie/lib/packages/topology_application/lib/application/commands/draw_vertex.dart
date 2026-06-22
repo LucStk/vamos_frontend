@@ -1,8 +1,8 @@
 import 'package:domain_core/id.dart';
+import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:topology_application/application/ports/vertex_port.dart';
 import 'package:topology_application/patches/patch_store.dart';
-import 'package:topology_application/services/optimitis_executor.dart';
 import 'package:topology_engine/topology_engine.dart';
 
 class DrawVertex {

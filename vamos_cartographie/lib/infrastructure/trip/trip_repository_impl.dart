@@ -1,23 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/rendering.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:domain_core/domain_core.dart';
-
-import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 import 'package:vamos_cartographie/infrastructure/trip/data.dart';
 import 'package:vamos_cartographie/infrastructure/trip/mappers/trip_draft_mappers.dart';
-import 'package:vamos_cartographie/infrastructure/trip/trip_remote_datasource.dart';
 import 'package:trip_domain/trip_domain.dart';
 
-class TripRepository {
+class TripRepositoryImpl extends TripRepository {
   final TripRemoteDatasource remote;
 
-  TripRepository(this.remote);
+  TripRepositoryImpl(this.remote);
 
   // ---------------------------------------------------------------------------
   // Queries
   // ---------------------------------------------------------------------------
-
+  @override
   Future<Either<Failure, List<Trip>>> getAllTrips() async {
     try {
       final gqlTrips = await remote.getAllTrips();
@@ -29,6 +25,7 @@ class TripRepository {
     }
   }
 
+  @override
   Future<Either<Failure, Trip>> getTrip(Id<Trip> id) async {
     try {
       final gqlTrip = await remote.getTripById(id: id);
@@ -44,6 +41,7 @@ class TripRepository {
   // Mutations
   // ---------------------------------------------------------------------------
 
+  @override
   Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
     try {
       final input = TripDraftMapper.toGQLInput(trip);
@@ -67,6 +65,7 @@ class TripRepository {
     }
   }
 
+  @override
   Future<Either<Failure, Trip>> updateTrip(Id<Trip> id, TripDraft trip) async {
     try {
       final input = TripDraftMapper.toGQLUpdateInput(trip);
@@ -107,6 +106,7 @@ class TripRepository {
     }
   }
 
+  @override
   Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
     try {
       await remote.deleteTrip(id: id);
