@@ -1,6 +1,7 @@
 import 'package:topology_application/patches/patch_store.dart';
 import 'package:topology_application/read_models/vertex_ui_model.dart';
 import 'package:topology_engine/graph/graph_store.dart';
+import 'package:trip_domain/trip_domain.dart';
 
 class VertexProjector {
   final GraphStore graph;
@@ -17,7 +18,12 @@ class VertexProjector {
     final patch = patches.getVertex(id);
 
     final position = patch?.positionOverride ?? vertex.latLng;
+    final Waypoint? waypoint = waypointStore.getFromVertex(id);
 
-    return VertexUiModel(position: position, isOptimistic: patch != null);
+    return VertexUiModel(
+      position: position,
+      isOptimistic: patch != null,
+      poiCategory: (waypoint != null) ? waypoint.poiCategory : null,
+    );
   }
 }

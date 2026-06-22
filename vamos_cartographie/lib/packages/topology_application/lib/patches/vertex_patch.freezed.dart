@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$VertexPatch {
 
- LatLng get positionOverride; bool get recomputing; Object? get error;
+ LatLng get positionOverride; PoiCategory? get type; bool get recomputing; Object? get error;
 /// Create a copy of VertexPatch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $VertexPatchCopyWith<VertexPatch> get copyWith => _$VertexPatchCopyWithImpl<Vert
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexPatch&&(identical(other.positionOverride, positionOverride) || other.positionOverride == positionOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexPatch&&(identical(other.positionOverride, positionOverride) || other.positionOverride == positionOverride)&&(identical(other.type, type) || other.type == type)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,positionOverride,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,positionOverride,type,recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'VertexPatch(positionOverride: $positionOverride, recomputing: $recomputing, error: $error)';
+  return 'VertexPatch(positionOverride: $positionOverride, type: $type, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $VertexPatchCopyWith<$Res>  {
   factory $VertexPatchCopyWith(VertexPatch value, $Res Function(VertexPatch) _then) = _$VertexPatchCopyWithImpl;
 @useResult
 $Res call({
- LatLng positionOverride, bool recomputing, Object? error
+ LatLng positionOverride, PoiCategory? type, bool recomputing, Object? error
 });
 
 
@@ -62,10 +62,11 @@ class _$VertexPatchCopyWithImpl<$Res>
 
 /// Create a copy of VertexPatch
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? positionOverride = null,Object? recomputing = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? positionOverride = null,Object? type = freezed,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 positionOverride: null == positionOverride ? _self.positionOverride : positionOverride // ignore: cast_nullable_to_non_nullable
-as LatLng,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+as LatLng,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as PoiCategory?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng positionOverride,  bool recomputing,  Object? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _VertexPatch() when $default != null:
-return $default(_that.positionOverride,_that.recomputing,_that.error);case _:
+return $default(_that.positionOverride,_that.type,_that.recomputing,_that.error);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.positionOverride,_that.recomputing,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng positionOverride,  bool recomputing,  Object? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)  $default,) {final _that = this;
 switch (_that) {
 case _VertexPatch():
-return $default(_that.positionOverride,_that.recomputing,_that.error);case _:
+return $default(_that.positionOverride,_that.type,_that.recomputing,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return $default(_that.positionOverride,_that.recomputing,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng positionOverride,  bool recomputing,  Object? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)?  $default,) {final _that = this;
 switch (_that) {
 case _VertexPatch() when $default != null:
-return $default(_that.positionOverride,_that.recomputing,_that.error);case _:
+return $default(_that.positionOverride,_that.type,_that.recomputing,_that.error);case _:
   return null;
 
 }
@@ -207,10 +208,11 @@ return $default(_that.positionOverride,_that.recomputing,_that.error);case _:
 
 
 class _VertexPatch implements VertexPatch {
-  const _VertexPatch({required this.positionOverride, this.recomputing = false, this.error});
+  const _VertexPatch({required this.positionOverride, this.type = null, this.recomputing = false, this.error});
   
 
 @override final  LatLng positionOverride;
+@override@JsonKey() final  PoiCategory? type;
 @override@JsonKey() final  bool recomputing;
 @override final  Object? error;
 
@@ -224,16 +226,16 @@ _$VertexPatchCopyWith<_VertexPatch> get copyWith => __$VertexPatchCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexPatch&&(identical(other.positionOverride, positionOverride) || other.positionOverride == positionOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexPatch&&(identical(other.positionOverride, positionOverride) || other.positionOverride == positionOverride)&&(identical(other.type, type) || other.type == type)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,positionOverride,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,positionOverride,type,recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'VertexPatch(positionOverride: $positionOverride, recomputing: $recomputing, error: $error)';
+  return 'VertexPatch(positionOverride: $positionOverride, type: $type, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -244,7 +246,7 @@ abstract mixin class _$VertexPatchCopyWith<$Res> implements $VertexPatchCopyWith
   factory _$VertexPatchCopyWith(_VertexPatch value, $Res Function(_VertexPatch) _then) = __$VertexPatchCopyWithImpl;
 @override @useResult
 $Res call({
- LatLng positionOverride, bool recomputing, Object? error
+ LatLng positionOverride, PoiCategory? type, bool recomputing, Object? error
 });
 
 
@@ -261,10 +263,11 @@ class __$VertexPatchCopyWithImpl<$Res>
 
 /// Create a copy of VertexPatch
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? positionOverride = null,Object? recomputing = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? positionOverride = null,Object? type = freezed,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_VertexPatch(
 positionOverride: null == positionOverride ? _self.positionOverride : positionOverride // ignore: cast_nullable_to_non_nullable
-as LatLng,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+as LatLng,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as PoiCategory?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }
