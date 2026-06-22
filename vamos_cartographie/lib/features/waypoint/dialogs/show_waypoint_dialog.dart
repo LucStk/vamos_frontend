@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/packages/topology_application/queries/selectors/graph_selectors.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-import 'package:vamos_cartographie/features/waypoints/command_handlers/waypoint_handler.dart';
-import 'package:vamos_cartographie/features/waypoints/waypoints.dart';
+import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/commands_provider.dart/waypoint_provider.dart';
+import 'package:vamos_cartographie/core/injection/waypoint_store.dart';
+import 'package:vamos_cartographie/features/waypoint/widgets/widgets.dart';
 import 'edit_waypoint_dialog.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 
 class ShowWaypointDialog extends ConsumerWidget {
-  final Id<Waypoint> waypointId;
-  final Id<Trip> tripId;
+  final WaypointId waypointId;
+  final TripId tripId;
   const ShowWaypointDialog({
     super.key,
     required this.waypointId,
@@ -20,8 +19,8 @@ class ShowWaypointDialog extends ConsumerWidget {
 
   static void show({
     required BuildContext context,
-    required Id<Waypoint> waypointId,
-    required Id<Trip> tripId,
+    required WaypointId waypointId,
+    required TripId tripId,
   }) {
     showDialog(
       context: context,
@@ -43,7 +42,7 @@ class ShowWaypointDialog extends ConsumerWidget {
     try {
       // Appel à Riverpod pour supprimer dans le state / serveur
       await ref
-          .read(waypointHandlerProvider(tripId).notifier)
+          .read(waypointHandlerProvider(tripId))
           .deleteWaypoint(waypointId);
 
       // Sécurité Flutter obligatoire après un "await"
@@ -64,20 +63,13 @@ class ShowWaypointDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypointNode = ref.watch(
-      graphNodeProvider<Waypoint>(tripId, waypointId),
-    );
-    if (waypointNode == null) {
+    final waypoint = ref.watch(waypointProvider(waypointId));
+    if (waypoint == null) {
       return const SizedBox.shrink();
     }
 
     return DialogShell(
-      content: ListenableBuilder(
-        listenable: waypointNode,
-        builder: (context, _) {
-          return WaypointInfo(waypoint: waypointNode.value);
-        },
-      ),
+      content: WaypointInfo(waypoint: waypoint),
       buttonsBuilder: (ctx) => [
         ModifierButton(
           onPressed: () {

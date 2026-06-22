@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
-import 'package:vamos_cartographie/features/waypoints/presentation/widgets/widgets.dart';
+import 'package:trip_domain/trip_domain.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
+import 'package:vamos_cartographie/features/waypoint/widgets/widgets.dart';
 
 class FormWaypointDialog extends ConsumerStatefulWidget {
   final WaypointDraft initialWaypoint;

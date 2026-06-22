@@ -1,3 +1,4 @@
+import 'package:domain_core/domain_core.dart';
 import 'package:topology_engine/topology_engine.dart';
 import 'package:trip_domain/domain/waypoint.dart';
 
@@ -5,10 +6,12 @@ class WaypointStore {
   final Map<WaypointId, Waypoint> store = {};
   final Map<VertexId, WaypointId> vertexIndex = {};
 
-  WaypointStore();
+  final ObservableNode observableNode;
+  WaypointStore(this.observableNode);
 
   void clear() {
     store.clear();
+    observableNode.notify();
   }
 
   Waypoint? get(WaypointId id) => store[id];
@@ -35,6 +38,7 @@ class WaypointStore {
   void upsert(Waypoint waypoint) {
     store[waypoint.id] = waypoint;
     vertexIndex[waypoint.vertexId] = waypoint.id;
+    observableNode.notify();
   }
 
   void remove(WaypointId id) {
@@ -43,5 +47,6 @@ class WaypointStore {
       throw Exception("No id to remove");
     }
     vertexIndex.remove(waypoint.vertexId);
+    observableNode.notify();
   }
 }

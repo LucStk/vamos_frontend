@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
-import 'package:vamos_cartographie/features/trips/application/command_handlers/trip_handler.dart';
+import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/commands_provider.dart/trip_provider.dart';
 import "trip_form_dialog.dart";
 
 class TripCreatorDialog extends StatelessWidget {
@@ -21,8 +21,8 @@ class TripCreatorDialog extends StatelessWidget {
 
       successMessage: 'Voyage créé',
 
-      onSubmit: (ref, trip) async {
-        await ref.read(tripHandlerProvider.notifier).createTrip(trip);
+      onSubmit: (ref, TripDraft trip) async {
+        await ref.read(tripHandlerProvider).createTrip(trip);
       },
     );
   }

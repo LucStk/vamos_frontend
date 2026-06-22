@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/trip.dart';
+import 'package:vamos_cartographie/core/injection/commands_provider.dart/trip_provider.dart';
+import 'package:vamos_cartographie/core/injection/trip_store.dart';
 import "trip_form_dialog.dart";
 
 import 'package:vamos_cartographie/features/shared/shared.dart';
@@ -21,7 +23,7 @@ class TripEditorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trip = ref.watch(tripHandlerProvider.notifier).get(tripId);
+    final trip = ref.read(tripProvider(tripId));
 
     if (trip == null) {
       return const DialogErrorBody(errorMessage: 'Voyage introuvable');
@@ -30,10 +32,8 @@ class TripEditorDialog extends ConsumerWidget {
     return TripFormDialog(
       initialTrip: trip.toDraft(),
       successMessage: 'Voyage mis à jour',
-      onSubmit: (ref, editedTrip) async {
-        await ref
-            .read(tripHandlerProvider.notifier)
-            .updateTrip(tripId, editedTrip);
+      onSubmit: (ref, TripDraft editedTrip) async {
+        await ref.read(tripHandlerProvider).updateTrip(tripId, editedTrip);
       },
     );
   }

@@ -18,8 +18,8 @@ class TripStore {
   }
 
   void clear() {
-    observableNode.notify();
     store.clear();
+    observableNode.notify();
   }
 
   void upsert(Trip trip) {

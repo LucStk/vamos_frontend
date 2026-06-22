@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:trip_domain/domain/waypoint.dart";
-import 'package:vamos_cartographie/features/media/media.dart';
 import "waypoint_header.dart";
 
 class WaypointInfo extends StatelessWidget {

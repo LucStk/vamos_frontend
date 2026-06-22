@@ -39,4 +39,14 @@ class WaypointHandler {
       onError: () => waypointStore.upsert(oldValue),
     );
   }
+
+  Future<void> deleteWaypoint(WaypointId id) async {
+    final old = waypointStore.getRequired(id);
+    await executor.run(
+      onApply: () => waypointStore.remove(id),
+      remote: () => repo.deleteWaypoint(id),
+      onSuccess: (_) {},
+      onError: () => waypointStore.upsert(old),
+    );
+  }
 }
