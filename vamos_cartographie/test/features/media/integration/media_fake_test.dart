@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:trip_domain/domain/media_image.dart';
 import 'package:vamos_cartographie/backend/seeds/explore_seed.dart';
-import 'package:vamos_cartographie/features/media/application/providers/carousel_notifier.dart';
-import 'package:vamos_cartographie/features/media/data/media_remote_datasource.dart';
-import 'package:vamos_cartographie/features/media/data/media_repository.dart';
-import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
-
+import 'package:vamos_cartographie/features/carousel/application/carousel_notifier.dart';
+import 'package:vamos_cartographie/infrastructure/media/media_remote_datasource.dart';
+import 'package:vamos_cartographie/infrastructure/media/media_repository_impl.dart';
 import '../../../helpers/fake_backend_builder.dart';
 import '../../../helpers/fake_storage_datasource.dart';
 

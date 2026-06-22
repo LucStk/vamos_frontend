@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/features/carousel/domain/entities/entities.dart';
 import 'thumbnail_error.dart';
 import 'thumbnail_loading.dart';
 import 'thumbnail_image.dart'; // Pense à importer ton nouveau widget
 import 'thumbnail_delete_button.dart';
-
-import 'package:vamos_cartographie/features/media/domain/entities/carousel_item.dart';
 
 class ThumbnailPicker extends StatelessWidget {
   final CarouselItem item;

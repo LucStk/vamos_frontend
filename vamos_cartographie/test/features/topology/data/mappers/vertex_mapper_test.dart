@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/backend/topology/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
+import 'package:vamos_cartographie/infrastructure/topology/mappers/vertex_mappers.dart';
 
 void main() {
   group('VertexMapper', () {

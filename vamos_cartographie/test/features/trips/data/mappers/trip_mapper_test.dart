@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/features/trips/data/mappers/trip_mappers.dart';
+import 'package:trip_domain/domain/trip.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:vamos_cartographie/infrastructure/trip/mappers/mappers.dart';
 
 void main() {
   group('TripMapper', () {

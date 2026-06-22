@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/testing/backend/fixtures/fixtures.dart';

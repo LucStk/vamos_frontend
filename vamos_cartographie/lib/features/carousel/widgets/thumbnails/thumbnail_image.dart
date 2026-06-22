@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/features/carousel/domain/entities/entities.dart';
 import 'dart:io';
 import 'thumbnail_error.dart';
 import 'thumbnail_loading.dart';
-
-import 'package:vamos_cartographie/features/media/domain/entities/carousel_item.dart';
 
 class ThumbnailImage extends StatelessWidget {
   final CarouselItem item;

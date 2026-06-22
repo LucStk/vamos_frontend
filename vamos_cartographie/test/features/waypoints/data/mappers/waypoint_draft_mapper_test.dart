@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vamos_cartographie/features/waypoints/data/mappers/waypoint_draft_mappers.dart';
-import 'package:vamos_cartographie/features/waypoints/domain/domain.dart';
+import 'package:trip_domain/domain/domain.dart';
 
 import 'package:vamos_cartographie/backend/backend.dart';
+import 'package:vamos_cartographie/infrastructure/waypoint/mappers/waypoint_draft_mappers.dart';
 
 void main() {
   group('WaypointDraftMapper', () {

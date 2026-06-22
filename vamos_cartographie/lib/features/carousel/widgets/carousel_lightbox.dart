@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-
-import 'package:vamos_cartographie/features/media/domain/entities/carousel_item.dart';
+import 'package:vamos_cartographie/features/carousel/domain/entities/entities.dart';
 
 // Lightbox fullscreen
 // ─────────────────────────────────────────────────────────────────────────────
