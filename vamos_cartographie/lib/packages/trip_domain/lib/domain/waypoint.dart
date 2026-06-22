@@ -24,7 +24,6 @@ abstract class Waypoint with _$Waypoint implements HasId<Waypoint> {
       title: title,
       poiCategory: poiCategory,
       description: description,
-      images: images,
     );
   }
 }
@@ -36,7 +35,6 @@ abstract class WaypointDraft with _$WaypointDraft {
     @Default('') String title,
     @Default(PoiCategory.waypoint) PoiCategory poiCategory,
     @Default('') String description,
-    @Default([]) List<MediaImage> images,
   }) = _WaypointDraft;
   Waypoint toWaypoint(WaypointId id, VertexId vertexId) {
     return Waypoint(

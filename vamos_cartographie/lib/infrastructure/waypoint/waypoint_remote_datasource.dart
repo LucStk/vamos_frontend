@@ -118,14 +118,14 @@ class WaypointRemoteDatasource {
     }
   }
 
-  Future<void> attachImageToWaypoint({
+  Future<GImageFieldsData> attachImageToWaypoint({
     required Id<Waypoint> waypointId,
-    required String fileKey,
+    required FileKey fileKey,
   }) async {
     final req = GAttachImageToWaypointReq(
       vars: GAttachImageToWaypointVars(
         waypointId: waypointId.value,
-        fileKey: fileKey,
+        fileKey: fileKey.value,
       ),
     );
     final response = await client.request(req).first;
@@ -135,6 +135,7 @@ class WaypointRemoteDatasource {
             'Erreur lors de l\'association de l\'image au waypoint',
       );
     }
+    return response.data!.attachImageToWaypoint.image;
   }
 
   Future<void> deleteImgFromWaypoint({

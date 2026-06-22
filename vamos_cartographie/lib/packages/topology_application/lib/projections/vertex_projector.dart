@@ -14,10 +14,11 @@ class VertexProjector {
   });
 
   VertexUiModel project(VertexId id) {
-    final vertex = graph.vertexStore.getRequired(id);
     final patch = patches.getVertex(id);
 
-    final position = patch?.positionOverride ?? vertex.latLng;
+    final position =
+        patch?.positionOverride ?? graph.vertexStore.getRequired(id).latLng;
+
     final Waypoint? waypoint = waypointStore.getFromVertex(id);
 
     return VertexUiModel(

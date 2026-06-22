@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MediaImage {
 
- String get fileKey; String get url;
+ FileKey get fileKey; Url get url;
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $MediaImageCopyWith<$Res>  {
   factory $MediaImageCopyWith(MediaImage value, $Res Function(MediaImage) _then) = _$MediaImageCopyWithImpl;
 @useResult
 $Res call({
- String fileKey, String url
+ FileKey fileKey, Url url
 });
 
 
@@ -65,8 +65,8 @@ class _$MediaImageCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? url = null,}) {
   return _then(_self.copyWith(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
-as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String,
+as FileKey,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as Url,
   ));
 }
 
@@ -151,7 +151,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String fileKey,  String url)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FileKey fileKey,  Url url)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MediaImage() when $default != null:
 return $default(_that.fileKey,_that.url);case _:
@@ -172,7 +172,7 @@ return $default(_that.fileKey,_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String fileKey,  String url)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FileKey fileKey,  Url url)  $default,) {final _that = this;
 switch (_that) {
 case _MediaImage():
 return $default(_that.fileKey,_that.url);case _:
@@ -192,7 +192,7 @@ return $default(_that.fileKey,_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String fileKey,  String url)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FileKey fileKey,  Url url)?  $default,) {final _that = this;
 switch (_that) {
 case _MediaImage() when $default != null:
 return $default(_that.fileKey,_that.url);case _:
@@ -210,8 +210,8 @@ class _MediaImage implements MediaImage {
   const _MediaImage({required this.fileKey, required this.url});
   
 
-@override final  String fileKey;
-@override final  String url;
+@override final  FileKey fileKey;
+@override final  Url url;
 
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
@@ -243,7 +243,7 @@ abstract mixin class _$MediaImageCopyWith<$Res> implements $MediaImageCopyWith<$
   factory _$MediaImageCopyWith(_MediaImage value, $Res Function(_MediaImage) _then) = __$MediaImageCopyWithImpl;
 @override @useResult
 $Res call({
- String fileKey, String url
+ FileKey fileKey, Url url
 });
 
 
@@ -263,8 +263,8 @@ class __$MediaImageCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? url = null,}) {
   return _then(_MediaImage(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
-as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String,
+as FileKey,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as Url,
   ));
 }
 

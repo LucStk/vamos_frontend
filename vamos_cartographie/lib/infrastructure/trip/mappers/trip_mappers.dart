@@ -11,7 +11,12 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map(
+          (i) => MediaImage(
+            fileKey: i.image.fileKey as FileKey,
+            url: i.image.url as Url,
+          ),
+        )
         .toList(),
   );
 
@@ -23,7 +28,12 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map(
+          (i) => MediaImage(
+            fileKey: i.image.fileKey as FileKey,
+            url: i.image.url as Url,
+          ),
+        )
         .toList(),
   );
 
@@ -34,7 +44,12 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map(
+          (i) => MediaImage(
+            fileKey: i.image.fileKey as FileKey,
+            url: i.image.url as Url,
+          ),
+        )
         .toList(),
   );
 
@@ -45,7 +60,12 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
     images: data.images
-        .map((i) => MediaImage(fileKey: i.image.fileKey, url: i.image.url))
+        .map(
+          (i) => MediaImage(
+            fileKey: i.image.fileKey as FileKey,
+            url: i.image.url as Url,
+          ),
+        )
         .toList(),
   );
 }

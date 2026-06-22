@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain_core/failure.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:topology_engine/topology_engine.dart';
 import 'package:trip_domain/domain/domain.dart';
@@ -17,4 +17,8 @@ abstract class WaypointRepository {
     WaypointDraft waypoint,
   );
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id);
+  Future<Either<Failure, MediaImage>> attachImageToWaypoint(
+    WaypointId id,
+    FileKey filekey,
+  );
 }

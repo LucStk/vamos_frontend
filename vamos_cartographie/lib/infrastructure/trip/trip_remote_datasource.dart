@@ -91,12 +91,15 @@ class TripRemoteDatasource {
     }
   }
 
-  Future<void> attachImageToTrip({
+  Future<GImageFieldsData> attachImageToTrip({
     required Id<Trip> tripId,
-    required String fileKey,
+    required FileKey fileKey,
   }) async {
     final req = GAttachImageToTripReq(
-      vars: GAttachImageToTripVars(tripId: tripId.value, fileKey: fileKey),
+      vars: GAttachImageToTripVars(
+        tripId: tripId.value,
+        fileKey: fileKey.value,
+      ),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
@@ -105,6 +108,7 @@ class TripRemoteDatasource {
             'Erreur lors de l\'association de l\'image au trip',
       );
     }
+    return response.data!.attachImageToTrip.image;
   }
 
   Future<void> deleteImgFromTrip({

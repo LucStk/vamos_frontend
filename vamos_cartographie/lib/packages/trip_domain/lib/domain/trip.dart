@@ -16,12 +16,7 @@ abstract class Trip with _$Trip {
     @Default([]) List<MediaImage> images,
   }) = _Trip;
   TripDraft toDraft() {
-    return TripDraft(
-      title: title,
-      description: description,
-      date: date,
-      images: images,
-    );
+    return TripDraft(title: title, description: description, date: date);
   }
 }
 
@@ -32,7 +27,6 @@ abstract class TripDraft with _$TripDraft {
     @Default('') String title,
     @Default('') String description,
     DateTime? date,
-    @Default([]) List<MediaImage> images,
   }) = _TripDraft;
 
   Trip toTrip(TripId id) {

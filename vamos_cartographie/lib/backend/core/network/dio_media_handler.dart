@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
-import "storage_datasource.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+import 'package:vamos_cartographie/infrastructure/media/storage_datasource.dart';
+part "dio_media_handler.g.dart";
 
-class DioStorageDatasource implements StorageDatasource {
-  final Dio dio;
+@Riverpod(keepAlive: true)
+class DioMediaHandler implements StorageDatasource {
+  final Dio dio = Dio();
 
-  DioStorageDatasource(this.dio);
+  DioMediaHandler();
 
   @override
   Future<void> uploadFile({

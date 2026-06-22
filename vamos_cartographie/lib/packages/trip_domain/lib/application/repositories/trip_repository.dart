@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
+import 'package:domain_core/media.dart';
 import 'package:trip_domain/domain/domain.dart';
 
 abstract class TripRepository {
@@ -8,4 +9,8 @@ abstract class TripRepository {
   Future<Either<Failure, Trip>> createTrip(TripDraft trip);
   Future<Either<Failure, Trip>> updateTrip(TripId id, TripDraft trip);
   Future<Either<Failure, void>> deleteTrip(TripId id);
+  Future<Either<Failure, MediaImage>> attachImageToTrip(
+    TripId id,
+    FileKey filekey,
+  );
 }

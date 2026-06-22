@@ -9,10 +9,10 @@ class SegmentProjector {
   SegmentProjector({required this.graph, required this.patches});
 
   SegmentUiModel project(SegmentId id) {
-    final segment = graph.segmentStore.getRequired(id);
     final patch = patches.getSegment(id);
 
-    final geometry = patch?.geometryOverride ?? segment.geometry;
+    final geometry =
+        patch?.geometryOverride ?? graph.segmentStore.getRequired(id).geometry;
 
     return SegmentUiModel(
       geometry: geometry,
