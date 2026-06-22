@@ -1,3 +1,5 @@
+import 'package:trip_domain/domain/media_image.dart';
+
 import 'carousel_item.dart';
 // import 'package:vamos_cartographie/features/media/domain/entities/entities.dart';
 

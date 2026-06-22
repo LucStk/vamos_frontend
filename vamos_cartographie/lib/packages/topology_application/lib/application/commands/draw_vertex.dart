@@ -13,15 +13,15 @@ class DrawVertex {
 
   DrawVertex(this.port, this.store, this.patchStore, this.executor);
 
-  Future<void> call(Id<Vertex> vertexId, LatLng latLng) async {
-    late Vertex oldValue;
-    await executor.run(
-      onApply: () => _onApply(vertexId, latLng),
-      remote: () => port.createVertex(latLng),
-      onSuccess: (serveurValue) => store.commitUpdate(vertexId, serveurValue),
-      onError: () => store.update<Vertex>(vertexId, (v) {
-        return oldValue;
-      }),
-    );
-  }
+  // Future<void> call(Id<Vertex> vertexId, LatLng latLng) async {
+  //   late Vertex oldValue;
+  //   await executor.run(
+  //     onApply: () => _onApply(vertexId, latLng),
+  //     remote: () => port.createVertex(latLng),
+  //     onSuccess: (serveurValue) => store.commitUpdate(vertexId, serveurValue),
+  //     onError: () => store.update<Vertex>(vertexId, (v) {
+  //       return oldValue;
+  //     }),
+  //   );
+  // }
 }

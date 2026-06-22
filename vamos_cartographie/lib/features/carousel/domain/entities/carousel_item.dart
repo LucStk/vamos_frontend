@@ -5,17 +5,11 @@
 // Modèle interne
 // ─────────────────────────────────────────────────────────────────────────────
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:trip_domain/domain/media_image.dart';
 
 part 'carousel_item.freezed.dart';
 
 enum UploadStatus { idle, uploading, success, failure }
-
-@freezed
-abstract class MediaImage with _$MediaImage {
-  // <-- 'class' au lieu de 'abstract class'
-  const factory MediaImage({required String fileKey, required String url}) =
-      _MediaImage;
-}
 
 @freezed
 abstract class CarouselItem with _$CarouselItem {

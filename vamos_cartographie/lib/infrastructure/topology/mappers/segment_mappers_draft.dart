@@ -14,8 +14,8 @@ class SegmentDraftMapper {
   static GSegmentUpdateInput toGQLUpdateInput(SegmentDraft s) {
     return GSegmentUpdateInput(
       mobilityType: Value.present(s.mobilityType.toGQL()),
-      startVertexId: Value.present(s.startVertexId.value),
-      endVertexId: Value.present(s.endVertexId.value),
+      // startVertexId: Value.present(s.startVertexId.value),
+      // endVertexId: Value.present(s.endVertexId.value),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_domain/domain/media_image.dart';
 import 'package:vamos_cartographie/features/media/application/controllers/upload_carousel_commands.dart';
 import 'package:vamos_cartographie/features/media/application/controllers/upload_controller.dart';
 import 'package:vamos_cartographie/features/media/application/providers/media_providers.dart';
