@@ -1,10 +1,23 @@
 import "dart:async";
 
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:trip_domain/application/repositories/waypoint_repository.dart";
 import "package:trip_domain/domain/domain.dart";
 import "package:trip_domain/runtime/store/waypoint_store.dart";
+import "package:vamos_cartographie/core/injection/injection.dart";
 import "package:vamos_cartographie/core/injection/observable_node_impl.dart";
+import "package:vamos_cartographie/infrastructure/waypoint/data.dart";
 part "waypoint_store.g.dart";
+
+@riverpod
+WaypointRemoteDatasource waypointRemoteDatasource(Ref ref) {
+  return WaypointRemoteDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+WaypointRepository waypointRepository(Ref ref) {
+  return WaypointRepositoryImpl(ref.watch(waypointRemoteDatasourceProvider));
+}
 
 @riverpod
 WaypointStore rawWaypointStore(Ref ref) {

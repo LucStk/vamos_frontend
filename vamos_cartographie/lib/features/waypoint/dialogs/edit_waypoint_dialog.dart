@@ -43,7 +43,7 @@ class EditWaypointDialog extends ConsumerWidget {
     }
 
     return FormWaypointDialog(
-      initialWaypoint: waypoint.toDraft(),
+      initialWaypoint: waypoint,
       onSuccess: () {
         ScaffoldMessenger.of(
           context,

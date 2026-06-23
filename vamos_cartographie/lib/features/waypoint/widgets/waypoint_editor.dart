@@ -1,13 +1,12 @@
 import "package:flutter/material.dart";
-import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:vamos_cartographie/features/shared/domain/entities/poi_ui.dart";
 import '/features/carousel/widgets/widgets.dart';
 import '/features/shared/shared.dart';
 import "/features/waypoint/domain/waypoint_ui.dart";
 import "waypoint_header.dart";
 
-class WaypointEditor extends ConsumerStatefulWidget {
-  final WaypointDraft initialWaypoint;
+class WaypointEditor extends StatefulWidget {
+  final Waypoint initialWaypoint;
   const WaypointEditor({super.key, required this.initialWaypoint});
 
   @override
@@ -20,7 +19,7 @@ class WaypointEditorState extends State<WaypointEditor> {
   @override
   void initState() {
     super.initState();
-    currentWaypoint = widget.initialWaypoint;
+    currentWaypoint = widget.initialWaypoint.toDraft();
   }
 
   void _patch(WaypointDraft newWaypoint) {
@@ -52,12 +51,7 @@ class WaypointEditorState extends State<WaypointEditor> {
         const SizedBox(height: 4),
 
         // ── Images ─────────────────────────────
-        ImageCarouselPicker(
-          remoteImages: currentWaypoint.images,
-          onChanged: (newImages) {
-            _patch(currentWaypoint.copyWith(images: newImages));
-          },
-        ),
+        ImageCarouselPicker(id: widget.initialWaypoint.id),
 
         const SizedBox(height: 16),
 

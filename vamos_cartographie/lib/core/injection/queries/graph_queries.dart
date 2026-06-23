@@ -3,7 +3,7 @@ import 'package:media_application/media_application.dart';
 import 'package:media_application/patches/upload_status.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '/core/injection/stores/media_store.dart';
-part 'media_queries.g.dart';
+part 'graph_queries.g.dart';
 
 @riverpod
 FutureOr<List<ImageUiModel>> entityImages(Ref ref, Id id) async {

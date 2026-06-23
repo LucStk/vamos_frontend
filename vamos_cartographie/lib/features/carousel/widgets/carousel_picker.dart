@@ -1,26 +1,22 @@
-import 'dart:io';
 import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:file_selector/file_selector.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:media_application/patches/patch_image.dart';
 import 'package:media_application/patches/upload_status.dart';
-import 'package:media_application/read_models/image_ui_model.dart';
-import 'package:trip_domain/domain/entities/media_image.dart';
+import 'package:vamos_cartographie/core/injection/commands.dart/media_provider.dart';
 import 'package:vamos_cartographie/core/injection/queries/media_queries.dart';
 import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
 
 import 'thumbnails/thumbnails.dart';
 
-class ImageCarouselPicker extends ConsumerWidget {
-  final Id entityId;
+class ImageCarouselPicker<T> extends ConsumerWidget {
+  final Id<T> id;
   final double thumbSize = 80;
-  const ImageCarouselPicker({super.key, required this.entityId});
+  const ImageCarouselPicker({super.key, required this.id});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imagesAsync = ref.watch(entityImagesProvider(entityId));
+    final imagesAsync = ref.watch(entityImagesProvider(id));
+    final mediaHandler = ref.read(mediaHandlerProvider);
     return imagesAsync.when(
       loading: () => const CircularProgressIndicator(),
       error: (_, _) => const Text("Error"),
@@ -37,10 +33,10 @@ class ImageCarouselPicker extends ConsumerWidget {
                 isUploading: item.uploadStatus == UploadStatus.uploading,
                 hasError: item.uploadStatus == UploadStatus.failure,
                 onDelete: () {
-                  notifier.deleteItem(item);
+                  mediaHandler.removeImage<T>(id, item.fileKey);
                 },
                 onRetry: () {
-                  notifier.retryUpload(item);
+                  // mediaHandler.addImage<T>(id, item);
                 },
                 onTap: () {
                   // TODO lightbox

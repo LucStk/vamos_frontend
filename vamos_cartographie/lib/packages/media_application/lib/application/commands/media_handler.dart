@@ -12,26 +12,22 @@ class MediaHandler {
 
   MediaHandler(this.patchStore, this.executor, this.mediaServices);
 
-  Future<void> addImage(Id id, PatchImageMedia patch) async {
+  Future<void> addImage<T>(Id<T> id, PatchImageMedia patch) async {
     await executor.run<MediaImage>(
       onApply: () => patchStore.upsert(id, patch),
-      remote: () => mediaServices.uploadAndAttach(id, patch.file),
+      remote: () => mediaServices.uploadAndAttach<T>(id, patch.file),
       onSuccess: (MediaImage _) => patchStore.remove(id, patch.fileKey),
       onError: () =>
           patchStore.updateStatus(id, patch.fileKey, UploadStatus.failure),
     );
   }
 
-  Future<void> removeImage(Id id, FileKey key) async {
+  Future<void> removeImage<T>(Id<T> id, FileKey key) async {
     await executor.run<void>(
-      onApply: () => mediaServices.detachFromEntity(id, key),
-      remote: () => mediaServices.detachFromEntity(id, key),
+      onApply: () => throw ("not Implemented yet"),
+      remote: () => mediaServices.detachFromEntity<T>(id, key),
       onSuccess: (_) {},
       onError: () {}, // re-upsert si besoin
     );
-  }
-
-  Future<void> retryImage(Id id, PatchImageMedia patch) async {
-    await addImage(id, patch);
   }
 }

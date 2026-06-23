@@ -21,10 +21,13 @@ class MediaServices {
     return result.fold((f) => throw Exception(f.message), (m) => m);
   }
 
-  Future<Either<Failure, MediaImage>> uploadAndAttach(Id id, File file) async {
+  Future<Either<Failure, MediaImage>> uploadAndAttach<T>(
+    Id<T> id,
+    File file,
+  ) async {
     try {
       final mediaImage = await uploadMedia(file, "", (_, _) {});
-      final result = await repo.attachImage(id, mediaImage.fileKey);
+      final result = await repo.attachImage<T>(id, mediaImage.fileKey);
       return result.fold((f) => Left(f), (image) {
         store.upsert(id, image);
         return Right(image);
@@ -36,9 +39,12 @@ class MediaServices {
     }
   }
 
-  Future<Either<Failure, void>> detachFromEntity(Id id, FileKey key) async {
+  Future<Either<Failure, void>> detachFromEntity<T>(
+    Id<T> id,
+    FileKey key,
+  ) async {
     try {
-      final result = await repo.detachImage(id, key);
+      final result = await repo.detachImage<T>(id, key);
       return result.fold((f) => Left(f), (_) {
         store.remove(id, key);
         return const Right(null);

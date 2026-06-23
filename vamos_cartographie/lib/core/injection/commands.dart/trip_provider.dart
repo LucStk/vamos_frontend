@@ -12,31 +12,10 @@ import '/infrastructure/trip/trip_repository_impl.dart';
 part 'trip_provider.g.dart';
 
 @riverpod
-TripRemoteDatasource tripRemoteDatasource(Ref ref) {
-  return TripRemoteDatasource(ref.watch(clientProvider));
-}
-
-@riverpod
-TripRepository tripRepository(Ref ref) {
-  return TripRepositoryImpl(ref.watch(tripRemoteDatasourceProvider));
-}
-
-@riverpod
 TripHandler tripHandler(Ref ref) {
   final store = ref.watch(rawTripStoreProvider);
   final mediaStore = ref.watch(rawMediaStoreProvider);
   final repo = ref.watch(tripRepositoryProvider);
   final executor = ref.watch(optimisticExecutorProvider);
   return TripHandler(store, mediaStore, repo, executor);
-}
-
-@riverpod
-MediaHandler tripMediaHandler(Ref ref) {
-  final patchStore = ref.watch(rawMediaPatchStoreProvider);
-  final mediaStore = ref.watch(rawMediaStoreProvider);
-  final executor = ref.watch(optimisticExecutorProvider);
-  final mediaRepo = ref.watch(mediaRepositoryProvider);
-  final tripRepo = ref.watch(tripRepositoryProvider);
-  final mediaService = MediaServices(mediaRepo, tripRepo, mediaStore);
-  return MediaHandler(patchStore, executor, mediaService);
 }

@@ -6,7 +6,7 @@ import "package:vamos_cartographie/features/shared/shared.dart";
 import 'package:vamos_cartographie/features/waypoint/widgets/widgets.dart';
 
 class FormWaypointDialog extends ConsumerStatefulWidget {
-  final WaypointDraft initialWaypoint;
+  final Waypoint initialWaypoint;
   final Future<void> Function(WidgetRef ref, WaypointDraft waypoint) onSubmit;
   final VoidCallback? onSuccess;
 

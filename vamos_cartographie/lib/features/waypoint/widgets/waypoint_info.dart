@@ -1,17 +1,15 @@
 import "package:flutter/material.dart";
-import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:vamos_cartographie/core/injection/queries/media_queries.dart";
+import "package:vamos_cartographie/features/carousel/widgets/carousel_view.dart";
 import "waypoint_header.dart";
 import "/features/waypoint/domain/waypoint_ui.dart";
 
-class WaypointInfo extends ConsumerWidget {
+class WaypointInfo extends StatelessWidget {
   final Waypoint waypoint;
   final VoidCallback? onEdit;
   const WaypointInfo({super.key, required this.waypoint, this.onEdit});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) async {
-    final r = ref.watch(entityImagesProvider);
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,7 +40,7 @@ class WaypointInfo extends ConsumerWidget {
                 const SizedBox(height: 16),
 
                 // Photos
-                ImageCarouselView(remoteImages: waypoint.images),
+                ImageCarouselView(id: waypoint.id),
 
                 // Description (Ici ta syntaxe avec ...[ ] était déjà correcte !)
                 if (waypoint.description.isNotEmpty) ...[

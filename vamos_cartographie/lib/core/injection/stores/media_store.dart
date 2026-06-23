@@ -5,8 +5,24 @@ import "package:media_application/patches/patch_image.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_domain/trip_domain.dart";
 import "package:media_application/media_application.dart";
+import "package:vamos_cartographie/core/injection/dio_media_provider.dart";
+import "package:vamos_cartographie/core/injection/injection.dart";
 import "package:vamos_cartographie/core/injection/observable_node_impl.dart";
+import "package:vamos_cartographie/infrastructure/media/media_remote_datasource.dart";
+import "package:vamos_cartographie/infrastructure/media/media_repository_impl.dart";
 part "media_store.g.dart";
+
+@riverpod
+MediaRemoteDatasource mediaRemoteDatasource(Ref ref) {
+  return MediaRemoteDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+MediaRepository mediaRepository(Ref ref) {
+  final datasource = ref.watch(mediaRemoteDatasourceProvider);
+  final dioMedia = ref.watch(dioMediaProvider);
+  return MediaRepositoryImpl(remote: datasource, storage: dioMedia);
+}
 
 @riverpod
 MediaStore rawMediaStore(Ref ref) => MediaStore(ObservableNodeImpl());
