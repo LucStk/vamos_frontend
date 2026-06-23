@@ -177,3 +177,164 @@ class GCreateImageData {
     return 'GCreateImageData(createImage: $createImage, G__typename: $G__typename)';
   }
 }
+
+class GDeleteImageFromData {
+  const GDeleteImageFromData({
+    required this.deleteImageFrom,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GDeleteImageFromData.fromJson(Map<String, dynamic> json) {
+    return GDeleteImageFromData(
+      deleteImageFrom: (json['deleteImageFrom'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String deleteImageFrom;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['deleteImageFrom'] = this.deleteImageFrom;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDeleteImageFromData copyWith({
+    String? deleteImageFrom,
+    String? G__typename,
+  }) {
+    return GDeleteImageFromData(
+      deleteImageFrom: deleteImageFrom ?? this.deleteImageFrom,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteImageFromData &&
+            deleteImageFrom == other.deleteImageFrom &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, deleteImageFrom, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteImageFromData(deleteImageFrom: $deleteImageFrom, G__typename: $G__typename)';
+  }
+}
+
+class GAttachImageToData {
+  const GAttachImageToData({
+    required this.attachImageTo,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GAttachImageToData.fromJson(Map<String, dynamic> json) {
+    return GAttachImageToData(
+      attachImageTo: GAttachImageToData_attachImageTo.fromJson(
+          (json['attachImageTo'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GAttachImageToData_attachImageTo attachImageTo;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['attachImageTo'] = this.attachImageTo.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GAttachImageToData copyWith({
+    GAttachImageToData_attachImageTo? attachImageTo,
+    String? G__typename,
+  }) {
+    return GAttachImageToData(
+      attachImageTo: attachImageTo ?? this.attachImageTo,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachImageToData &&
+            attachImageTo == other.attachImageTo &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, attachImageTo, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GAttachImageToData(attachImageTo: $attachImageTo, G__typename: $G__typename)';
+  }
+}
+
+class GAttachImageToData_attachImageTo {
+  const GAttachImageToData_attachImageTo({
+    required this.image,
+    this.G__typename = 'MediaAttachmentType',
+  });
+
+  factory GAttachImageToData_attachImageTo.fromJson(Map<String, dynamic> json) {
+    return GAttachImageToData_attachImageTo(
+      image: _i1.GImageFieldsData.fromJson(
+          (json['image'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GImageFieldsData image;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['image'] = this.image.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GAttachImageToData_attachImageTo copyWith({
+    _i1.GImageFieldsData? image,
+    String? G__typename,
+  }) {
+    return GAttachImageToData_attachImageTo(
+      image: image ?? this.image,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachImageToData_attachImageTo &&
+            image == other.image &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, image, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GAttachImageToData_attachImageTo(image: $image, G__typename: $G__typename)';
+  }
+}

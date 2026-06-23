@@ -84,37 +84,4 @@ class WaypointRepositoryImpl extends WaypointRepository {
       return Left(const ConnectionFailure());
     }
   }
-
-  @override
-  Future<Either<Failure, MediaImage>> attachImage(
-    Id<Waypoint> id,
-    FileKey filekey,
-  ) async {
-    try {
-      final res = await remote.attachImageToWaypoint(
-        waypointId: id,
-        fileKey: filekey,
-      );
-      return Right(MediaImageMappers.fromGQL(res));
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> detachImage(
-    Id<Waypoint> id,
-    FileKey filekey,
-  ) async {
-    try {
-      await remote.deleteImgFromWaypoint(waypointId: id, fileKey: filekey);
-      return Right(null);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
-  }
 }

@@ -129,6 +129,31 @@ const LatLngType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const MediaAttachmentType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'MediaAttachmentType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'image'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MediaImageType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'order'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const MediaImageInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'MediaImageInput'),
   directives: [],
@@ -220,34 +245,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'attachImageToTrip'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'tripId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'fileKey'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'TripImageType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'updateTrip'),
       directives: [],
       args: [
@@ -272,34 +269,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'TripType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'deleteImageFromTrip'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'tripId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'fileKey'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
     ),
@@ -361,14 +330,23 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'attachImageToWaypoint'),
+      name: _i1.NameNode(value: 'attachImageTo'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'waypointId'),
+          name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'type'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'OwnerType'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -384,19 +362,28 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointImageType'),
+        name: _i1.NameNode(value: 'MediaAttachmentType'),
         isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'deleteImageFromWaypoint'),
+      name: _i1.NameNode(value: 'deleteImageFrom'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'waypointId'),
+          name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'type'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'OwnerType'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -671,6 +658,20 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const OwnerType = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'OwnerType'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'TRIP'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WAYPOINT'),
+      directives: [],
+    ),
+  ],
+);
 const PoiCategory = _i1.EnumTypeDefinitionNode(
   name: _i1.NameNode(value: 'PoiCategory'),
   directives: [],
@@ -919,31 +920,6 @@ const TopologyType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const TripImageType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'TripImageType'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'image'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MediaImageType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'order'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
 const TripInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'TripInput'),
   directives: [],
@@ -1016,18 +992,6 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Date'),
         isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'images'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'TripImageType'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -1187,31 +1151,6 @@ const WaypointCreateInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const WaypointImageType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointImageType'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'image'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MediaImageType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'order'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
 const WaypointType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointType'),
   directives: [],
@@ -1241,18 +1180,6 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'images'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'WaypointImageType'),
-          isNonNull: true,
-        ),
         isNonNull: true,
       ),
     ),
@@ -1326,24 +1253,24 @@ const document = _i1.DocumentNode(definitions: [
   InsertVertexToSegmentPayload,
   LatLngInput,
   LatLngType,
+  MediaAttachmentType,
   MediaImageInput,
   MediaImageType,
   MobilityType,
   Mutation,
+  OwnerType,
   PoiCategory,
   Query,
   SegmentCreateInput,
   SegmentType,
   SegmentUpdateInput,
   TopologyType,
-  TripImageType,
   TripInput,
   TripType,
   TripUpdateInput,
   UploadConfig,
   VertexType,
   WaypointCreateInput,
-  WaypointImageType,
   WaypointType,
   WaypointUpdateInput,
 ]);

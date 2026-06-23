@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:trip_domain/application/repositories/media_repository.dart';
 import 'package:trip_domain/domain/entities/media_image.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/infrastructure/media/mappers/media_image_mappers.dart';
+import 'package:vamos_cartographie/infrastructure/media/mappers/owner_type_mappers.dart';
 import 'package:vamos_cartographie/infrastructure/media/storage_datasource.dart';
 import "media_remote_datasource.dart";
 import 'dart:io';
@@ -36,6 +38,40 @@ class MediaRepositoryImpl extends MediaRepository {
       );
     } catch (e) {
       return Left(ServerFailure("Upload failde $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MediaImage>> attachImage<T>(
+    Id<T> id,
+    FileKey filekey,
+  ) async {
+    try {
+      final res = await remote.attachImageTo(
+        id: id,
+        fileKey: filekey,
+        type: ownerType(T),
+      );
+      return Right(MediaImageMappers.fromGQL(res));
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    } catch (_) {
+      return Left(const ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> detachImage<T>(
+    Id<T> id,
+    FileKey filekey,
+  ) async {
+    try {
+      await remote.deleteImgFrom(id: id, fileKey: filekey, type: ownerType(T));
+      return Right(null);
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    } catch (_) {
+      return Left(const ConnectionFailure());
     }
   }
 }

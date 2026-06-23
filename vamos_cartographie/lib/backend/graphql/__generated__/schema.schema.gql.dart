@@ -141,6 +141,34 @@ enum GMobilityType {
   }
 }
 
+enum GOwnerType {
+  TRIP,
+  WAYPOINT,
+  gUnknownEnumValue;
+
+  static GOwnerType fromJson(String value) {
+    switch (value) {
+      case r'TRIP':
+        return GOwnerType.TRIP;
+      case r'WAYPOINT':
+        return GOwnerType.WAYPOINT;
+      default:
+        return GOwnerType.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GOwnerType.TRIP:
+        return r'TRIP';
+      case GOwnerType.WAYPOINT:
+        return r'WAYPOINT';
+      case GOwnerType.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 enum GPoiCategory {
   START,
   END,

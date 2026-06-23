@@ -14,15 +14,3 @@ mutation CreateWaypoint($tripId: Int!, $waypoint: WaypointCreateInput!) {
 mutation DeleteWaypoint($waypointId: Int!) {
     deleteWaypoint(id: $waypointId)
 }
-
-mutation DeleteImageFromWaypoint($waypointId: Int!, $fileKey: String!) {
-    deleteImageFromWaypoint(waypointId: $waypointId, fileKey: $fileKey)
-}
-
-mutation AttachImageToWaypoint($waypointId: Int!, $fileKey: String!) {
-    attachImageToWaypoint(waypointId: $waypointId, fileKey: $fileKey) {
-        image {
-            ...ImageFields
-        }
-    }
-}

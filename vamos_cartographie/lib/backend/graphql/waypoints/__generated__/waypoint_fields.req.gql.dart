@@ -6,12 +6,10 @@ import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.ast.gql.dart'
-    as _i5;
 import 'package:vamos_cartographie/backend/graphql/shared/__generated__/geo_fields.ast.gql.dart'
-    as _i7;
-import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
     as _i6;
+import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
+    as _i5;
 import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_fields.ast.gql.dart'
     as _i4;
 import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_fields.data.gql.dart'
@@ -35,9 +33,8 @@ class GWaypointFieldsReq
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.WaypointFields,
-    _i5.ImageFields,
-    _i6.VertexFields,
-    _i7.LatLngFields,
+    _i5.VertexFields,
+    _i6.LatLngFields,
   ]);
 
   _i2.GWaypointFieldsData? parseData(Map<String, dynamic> json) =>
@@ -102,9 +99,8 @@ class GCreateWaypointPayloadFieldsReq
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.WaypointFields,
     _i4.CreateWaypointPayloadFields,
-    _i5.ImageFields,
-    _i6.VertexFields,
-    _i7.LatLngFields,
+    _i5.VertexFields,
+    _i6.LatLngFields,
   ]);
 
   _i2.GCreateWaypointPayloadFieldsData? parseData(Map<String, dynamic> json) =>

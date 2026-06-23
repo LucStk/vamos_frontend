@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/application/repositories/attachable_media_repository.dart';
 import 'package:trip_domain/application/repositories/media_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'dart:io';
@@ -9,10 +8,9 @@ import 'package:trip_domain/runtime/store/media_store.dart';
 
 class MediaServices {
   final MediaRepository repo;
-  final AttachableMediaRepository attachRepo;
   final MediaStore store;
 
-  MediaServices(this.repo, this.attachRepo, this.store);
+  MediaServices(this.repo, this.store);
 
   Future<MediaImage> uploadMedia(
     File file,
@@ -26,7 +24,7 @@ class MediaServices {
   Future<Either<Failure, MediaImage>> uploadAndAttach(Id id, File file) async {
     try {
       final mediaImage = await uploadMedia(file, "", (_, _) {});
-      final result = await attachRepo.attachImage(id, mediaImage.fileKey);
+      final result = await repo.attachImage(id, mediaImage.fileKey);
       return result.fold((f) => Left(f), (image) {
         store.upsert(id, image);
         return Right(image);
@@ -40,7 +38,7 @@ class MediaServices {
 
   Future<Either<Failure, void>> detachFromEntity(Id id, FileKey key) async {
     try {
-      final result = await attachRepo.detachImage(id, key);
+      final result = await repo.detachImage(id, key);
       return result.fold((f) => Left(f), (_) {
         store.remove(id, key);
         return const Right(null);

@@ -6,8 +6,6 @@ import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.ast.gql.dart'
-    as _i5;
 import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_fields.ast.gql.dart'
     as _i4;
 import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_fields.data.gql.dart'
@@ -28,10 +26,8 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.TripFields,
-    _i5.ImageFields,
-  ]);
+  static const _i3.DocumentNode _document =
+      _i3.DocumentNode(definitions: [_i4.TripFields]);
 
   _i2.GTripFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GTripFieldsData.fromJson(json);

@@ -30,6 +30,11 @@ type LatLngType {
   lng: Float!
 }
 
+type MediaAttachmentType {
+  image: MediaImageType!
+  order: Int!
+}
+
 input MediaImageInput {
   fileKey: String!
 }
@@ -49,14 +54,12 @@ enum MobilityType {
 
 type Mutation {
   createTrip(trip: TripInput!): TripType!
-  attachImageToTrip(tripId: Int!, fileKey: String!): TripImageType!
   updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
-  deleteImageFromTrip(tripId: Int!, fileKey: String!): String!
   deleteTrip(id: Int!): Boolean!
   createImage(data: MediaImageInput!): MediaImageType!
   generateImageUploadUrl(extension: String!): UploadConfig!
-  attachImageToWaypoint(waypointId: Int!, fileKey: String!): WaypointImageType!
-  deleteImageFromWaypoint(waypointId: Int!, fileKey: String!): String!
+  attachImageTo(id: Int!, type: OwnerType!, fileKey: String!): MediaAttachmentType!
+  deleteImageFrom(id: Int!, type: OwnerType!, fileKey: String!): String!
   updateWaypoint(id: Int!, input: WaypointUpdateInput!): WaypointType!
   createWaypoint(tripId: Int!, input: WaypointCreateInput!): CreateWaypointPayload!
   deleteWaypoint(id: Int!): Boolean!
@@ -67,6 +70,11 @@ type Mutation {
   moveVertex(id: Int!, latLng: LatLngInput!): VertexType!
   createVertex(tripId: Int!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: Int!): Boolean!
+}
+
+enum OwnerType {
+  TRIP
+  WAYPOINT
 }
 
 enum PoiCategory {
@@ -115,11 +123,6 @@ type TopologyType {
   segments: [SegmentType!]!
 }
 
-type TripImageType {
-  image: MediaImageType!
-  order: Int!
-}
-
 input TripInput {
   title: String!
   description: String
@@ -131,7 +134,6 @@ type TripType {
   title: String!
   description: String!
   date: Date
-  images: [TripImageType!]!
   waypoints: [WaypointType!]!
   topology: TopologyType!
 }
@@ -160,16 +162,10 @@ input WaypointCreateInput {
   latLng: LatLngInput = null
 }
 
-type WaypointImageType {
-  image: MediaImageType!
-  order: Int!
-}
-
 type WaypointType {
   id: Int!
   title: String!
   description: String!
-  images: [WaypointImageType!]!
   poiCategory: PoiCategory!
   vertex: VertexType!
 }
