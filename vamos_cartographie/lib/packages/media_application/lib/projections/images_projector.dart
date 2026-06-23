@@ -8,12 +8,12 @@ abstract interface class ImageResolver<T> {
   T resolve(ImageUiModel image);
 }
 
-class ImageProjector {
+class ImagesProjector {
   final MediaStore store;
   final MediaPatchStore patches;
-  ImageProjector({required this.store, required this.patches});
+  ImagesProjector({required this.store, required this.patches});
 
-  ImageUiModel project(Id id, FileKey key) {
+  List<ImageUiModel> project(Id id) {
     final patch = patches.get(key);
     late ImageLocation imageLocation;
     if (patch != null) {

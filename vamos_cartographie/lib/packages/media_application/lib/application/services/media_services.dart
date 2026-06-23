@@ -1,21 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
-import 'package:trip_domain/application/commands/attach_image_to_trip.dart';
-import 'package:trip_domain/application/commands/attach_image_to_waypoint.dart';
+import 'package:domain_core/id.dart';
+import 'package:trip_domain/application/commands/attach_image_to_entity.dart';
 import 'package:trip_domain/application/repositories/media_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'dart:io';
 
 class MediaServices {
   final MediaRepository repo;
-  final AttachImageToTrip _attachImageToTrip;
-  final AttachImageToWaypoint _attachImageToWaypoint;
+  final AttachImageToEntity _attachImageToEntity;
 
-  MediaServices(
-    this.repo,
-    this._attachImageToTrip,
-    this._attachImageToWaypoint,
-  );
+  MediaServices(this.repo, this._attachImageToEntity);
 
   Future<MediaImage> uploadMedia(
     File file,
@@ -31,28 +26,13 @@ class MediaServices {
     return result.fold((f) => throw Exception(f.message), (m) => m);
   }
 
-  Future<Either<Failure, MediaImage>> uploadAndAttachToTrip(
+  Future<Either<Failure, MediaImage>> uploadAndAttachToEntity(
+    Id id,
     File file,
-    TripId tripId,
   ) async {
     try {
       final mediaImage = await uploadMedia(file, "", (_) {});
-      await _attachImageToTrip.call(tripId, mediaImage.fileKey);
-      return Right(mediaImage);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
-  }
-
-  Future<Either<Failure, MediaImage>> uploadAndAttachToWaypoint(
-    File file,
-    WaypointId id,
-  ) async {
-    try {
-      final mediaImage = await uploadMedia(file, "", (_) {});
-      await _attachImageToWaypoint.call(id, mediaImage.fileKey);
+      await _attachImageToEntity.call(id, mediaImage.fileKey);
       return Right(mediaImage);
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));

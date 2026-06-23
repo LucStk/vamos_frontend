@@ -3,22 +3,20 @@ import 'package:domain_core/media.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 class MediaStore {
-  final Map<Id<dynamic>, List<MediaImage>> _store = {};
+  final Map<Id<dynamic>, Map<FileKey, MediaImage>> _store = {};
 
-  List<MediaImage> getFor(Id id) => _store[id] ?? [];
+  Map<FileKey, MediaImage> getFor(Id id) => _store[id] ?? {};
 
   void upsert(Id id, MediaImage image) {
-    final current = _store[id] ?? [];
-    final updated = [
-      ...current.where((i) => i.fileKey != image.fileKey),
-      image,
-    ];
-    _store[id] = updated;
+    var current = _store[id];
+    if (current != null) {
+      current[image.fileKey] = image;
+    } else {
+      _store[id] = {image.fileKey: image};
+    }
   }
 
-  void remove(Id id, FileKey key) {
-    _store[id]?.removeWhere((i) => i.fileKey == key);
-  }
+  void remove(Id id, FileKey key) => _store[id]?.remove(key);
 
   void clear() => _store.clear();
 }

@@ -1,10 +1,8 @@
-import 'dart:io';
-
-import 'package:domain_core/media.dart';
+import 'package:domain_core/id.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:media_application/application/services/media_services.dart';
 import 'package:media_application/patches/media_patch_store.dart';
-import 'package:trip_domain/application/repositories/media_repository.dart';
+import 'package:media_application/patches/patch_image.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 class ImagesHandler {
@@ -14,20 +12,11 @@ class ImagesHandler {
 
   ImagesHandler(this.patchStore, this.executor, this.mediaServices);
 
-  void addImageToTrip(FileKey key, File file, TripId tripId) async {
+  void addImageToEntity(Id id, PatchImageMedia patch) async {
     await executor.run<MediaImage>(
-      onApply: () => patchStore.upsert(key, file),
-      remote: () => mediaServices.uploadAndAttachToTrip(file, tripId),
-      onSuccess: (MediaImage server) => patchStore.remove(server.fileKey),
-      onError: () {},
-    );
-  }
-
-  void addImageToWaypoint(FileKey key, File file, WaypointId id) async {
-    await executor.run<MediaImage>(
-      onApply: () => patchStore.upsert(key, file),
-      remote: () => mediaServices.uploadAndAttachToWaypoint(file, id),
-      onSuccess: (MediaImage server) => patchStore.remove(server.fileKey),
+      onApply: () => patchStore.upsert(id, patch),
+      remote: () => mediaServices.uploadAndAttachToEntity(id, patch.file),
+      onSuccess: (MediaImage server) => patchStore.remove(id, patch.fileKey),
       onError: () {},
     );
   }

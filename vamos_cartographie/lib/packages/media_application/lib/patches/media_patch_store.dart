@@ -1,34 +1,24 @@
-import 'dart:io';
-
-import 'package:domain_core/media.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:media_application/patches/patch_image.dart';
 
 class MediaPatchStore {
-  final Map<FileKey, PatchImageMedia> patchImages = {};
+  final Map<Id, Map<FileKey, PatchImageMedia>> patchImages = {};
   MediaPatchStore();
 
   void clear() {
     patchImages.clear();
   }
 
-  PatchImageMedia? get(FileKey key) => patchImages[key];
+  Map<FileKey, PatchImageMedia> get(Id id) => patchImages[id] ?? {};
 
-  PatchImageMedia getRequired(FileKey key) {
-    var r = get(key);
-    if (r == null) {
-      throw Exception("Image $key not found in store");
-    }
-    return r;
-  }
-
-  void upsert(FileKey key, File file) {
-    patchImages[key] = PatchImageMedia(fileKey: key, file: file);
-  }
-
-  void remove(FileKey key) {
-    PatchImageMedia? patchImage = patchImages.remove(key);
-    if (patchImage == null) {
-      throw Exception("No id to remove");
+  void upsert(Id id, PatchImageMedia patch) {
+    var current = patchImages[id];
+    if (current != null) {
+      current[patch.fileKey] = patch;
+    } else {
+      patchImages[id] = {patch.fileKey: patch};
     }
   }
+
+  void remove(Id id, FileKey key) => patchImages[id]?.remove(key);
 }

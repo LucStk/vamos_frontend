@@ -2,9 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:topology_engine/topology_engine.dart';
+import 'package:trip_domain/application/repositories/attachable_media_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
 
-abstract class WaypointRepository {
+abstract class WaypointRepository implements AttachableMediaRepository {
   Future<Either<Failure, List<Waypoint>>> getWaypoints(TripId id);
   Future<Either<Failure, (Waypoint, Vertex)>> createWaypoint(
     TripId tripId,
