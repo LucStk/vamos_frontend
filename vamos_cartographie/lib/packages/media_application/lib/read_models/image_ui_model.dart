@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:domain_core/media.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:media_application/patches/patch_image.dart';
+import 'package:trip_domain/domain/entities/media_image.dart';
 
 part 'image_ui_model.freezed.dart';
 
@@ -30,4 +32,22 @@ abstract class ImageUiModel with _$ImageUiModel {
     @Default(0.0) double progress,
     String? error,
   }) = _ImageUiModel;
+}
+
+// media_image_extensions.dart
+extension MediaImageUi on MediaImage {
+  ImageUiModel toUiModel() => ImageUiModel(
+    fileKey: fileKey,
+    imageLocation: RemoteUrl(url),
+    uploadStatus: UploadStatus.success,
+  );
+}
+
+// patch_image_extensions.dart
+extension PatchImageUi on PatchImageMedia {
+  ImageUiModel toUiModel(UploadStatus status) => ImageUiModel(
+    fileKey: fileKey,
+    imageLocation: LocalPath(file),
+    uploadStatus: status,
+  );
 }

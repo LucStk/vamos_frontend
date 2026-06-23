@@ -26,9 +26,9 @@ class TripInfoView extends ConsumerWidget {
     final hasTitle = trip.title.trim().isNotEmpty;
     final hasDesc = trip.description.trim().isNotEmpty;
     final hasDate = trip.date != null;
-    final hasPhotos = trip.images.isNotEmpty;
 
     final images = ref.watch(tripImagesProvider(tripId));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,

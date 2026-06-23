@@ -5,7 +5,8 @@ import 'package:topology_engine/topology_engine.dart';
 import 'package:trip_domain/application/repositories/attachable_media_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
 
-abstract class WaypointRepository implements AttachableMediaRepository {
+abstract class WaypointRepository
+    implements AttachableMediaRepository<Waypoint> {
   Future<Either<Failure, List<Waypoint>>> getWaypoints(TripId id);
   Future<Either<Failure, (Waypoint, Vertex)>> createWaypoint(
     TripId tripId,
@@ -18,8 +19,4 @@ abstract class WaypointRepository implements AttachableMediaRepository {
     WaypointDraft waypoint,
   );
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id);
-  Future<Either<Failure, MediaImage>> attachImageToWaypoint(
-    WaypointId id,
-    FileKey filekey,
-  );
 }

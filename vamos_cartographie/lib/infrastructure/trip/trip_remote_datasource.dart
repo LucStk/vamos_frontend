@@ -113,10 +113,13 @@ class TripRemoteDatasource {
 
   Future<void> deleteImgFromTrip({
     required Id<Trip> tripId,
-    required String fileKey,
+    required FileKey fileKey,
   }) async {
     final req = GDeleteImageFromTripReq(
-      vars: GDeleteImageFromTripVars(tripId: tripId.value, fileKey: fileKey),
+      vars: GDeleteImageFromTripVars(
+        tripId: tripId.value,
+        fileKey: fileKey as String,
+      ),
     );
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {

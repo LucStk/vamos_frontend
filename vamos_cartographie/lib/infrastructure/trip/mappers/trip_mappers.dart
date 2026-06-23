@@ -10,14 +10,6 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images
-        .map(
-          (i) => MediaImage(
-            fileKey: i.image.fileKey as FileKey,
-            url: i.image.url as Url,
-          ),
-        )
-        .toList(),
   );
 
   /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
@@ -27,14 +19,6 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images
-        .map(
-          (i) => MediaImage(
-            fileKey: i.image.fileKey as FileKey,
-            url: i.image.url as Url,
-          ),
-        )
-        .toList(),
   );
 
   /// Convertit le résultat de la mutation createTrip en [Trip] domaine.
@@ -43,14 +27,6 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images
-        .map(
-          (i) => MediaImage(
-            fileKey: i.image.fileKey as FileKey,
-            url: i.image.url as Url,
-          ),
-        )
-        .toList(),
   );
 
   /// Convertit le résultat de la mutation updateTrip en [Trip] domaine.
@@ -59,13 +35,5 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
-    images: data.images
-        .map(
-          (i) => MediaImage(
-            fileKey: i.image.fileKey as FileKey,
-            url: i.image.url as Url,
-          ),
-        )
-        .toList(),
   );
 }

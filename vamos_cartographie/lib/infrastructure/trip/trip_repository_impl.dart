@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/infrastructure/media/mappers/media_image_mappers.dart';
@@ -83,13 +85,28 @@ class TripRepositoryImpl extends TripRepository {
   }
 
   @override
-  Future<Either<Failure, MediaImage>> attachImageToTrip(
+  Future<Either<Failure, MediaImage>> attachImage(
     Id<Trip> id,
     FileKey filekey,
   ) async {
     try {
       final res = await remote.attachImageToTrip(tripId: id, fileKey: filekey);
       return Right(MediaImageMappers.fromGQL(res));
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    } catch (_) {
+      return Left(const ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> detachImage(
+    Id<Trip> id,
+    FileKey filekey,
+  ) async {
+    try {
+      await remote.deleteImgFromTrip(tripId: id, fileKey: filekey);
+      return Right(null);
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {

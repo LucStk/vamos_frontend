@@ -140,12 +140,12 @@ class WaypointRemoteDatasource {
 
   Future<void> deleteImgFromWaypoint({
     required Id<Waypoint> waypointId,
-    required String fileKey,
+    required FileKey fileKey,
   }) async {
     final req = GDeleteImageFromWaypointReq(
       vars: GDeleteImageFromWaypointVars(
         waypointId: waypointId.value,
-        fileKey: fileKey,
+        fileKey: fileKey as String,
       ),
     );
     final response = await client.request(req).first;

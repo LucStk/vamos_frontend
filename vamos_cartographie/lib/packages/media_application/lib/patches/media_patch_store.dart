@@ -20,5 +20,11 @@ class MediaPatchStore {
     }
   }
 
+  void updateStatus(Id id, FileKey key, UploadStatus status) {
+    final patch = patchImages[id]?[key];
+    if (patch == null) return;
+    patchImages[id]![key] = patch.copyWith(uploadStatus: status);
+  }
+
   void remove(Id id, FileKey key) => patchImages[id]?.remove(key);
 }
