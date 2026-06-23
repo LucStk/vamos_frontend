@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Waypoint {
 
- WaypointId get id; VertexId get vertexId; String get title; PoiCategory get poiCategory; String get description; List<MediaImage> get images;
+ WaypointId get id; VertexId get vertexId; String get title; PoiCategory get poiCategory; String get description;
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $WaypointCopyWith<Waypoint> get copyWith => _$WaypointCopyWithImpl<Waypoint>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.images, images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other.poiCategory, poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description,const DeepCollectionEquality().hash(images));
+int get hashCode => Object.hash(runtimeType,id,vertexId,title,const DeepCollectionEquality().hash(poiCategory),description);
 
 @override
 String toString() {
-  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, images: $images)';
+  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $WaypointCopyWith<$Res>  {
   factory $WaypointCopyWith(Waypoint value, $Res Function(Waypoint) _then) = _$WaypointCopyWithImpl;
 @useResult
 $Res call({
- WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description, List<MediaImage> images
+ WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description
 });
 
 
@@ -62,15 +62,14 @@ class _$WaypointCopyWithImpl<$Res>
 
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = freezed,Object? description = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,
+as String,
   ));
 }
 
@@ -155,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Waypoint() when $default != null:
-return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.images);case _:
+return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description);case _:
   return orElse();
 
 }
@@ -176,10 +175,10 @@ return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)  $default,) {final _that = this;
 switch (_that) {
 case _Waypoint():
-return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.images);case _:
+return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +195,10 @@ return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  List<MediaImage> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)?  $default,) {final _that = this;
 switch (_that) {
 case _Waypoint() when $default != null:
-return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.images);case _:
+return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description);case _:
   return null;
 
 }
@@ -211,7 +210,7 @@ return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 
 
 class _Waypoint extends Waypoint {
-  const _Waypoint({required this.id, required this.vertexId, this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = '', final  List<MediaImage> images = const []}): _images = images,super._();
+  const _Waypoint({required this.id, required this.vertexId, this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = ''}): super._();
   
 
 @override final  WaypointId id;
@@ -219,13 +218,6 @@ class _Waypoint extends Waypoint {
 @override@JsonKey() final  String title;
 @override@JsonKey() final  PoiCategory poiCategory;
 @override@JsonKey() final  String description;
- final  List<MediaImage> _images;
-@override@JsonKey() List<MediaImage> get images {
-  if (_images is EqualUnmodifiableListView) return _images;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_images);
-}
-
 
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +229,16 @@ _$WaypointCopyWith<_Waypoint> get copyWith => __$WaypointCopyWithImpl<_Waypoint>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._images, _images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other.poiCategory, poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description,const DeepCollectionEquality().hash(_images));
+int get hashCode => Object.hash(runtimeType,id,vertexId,title,const DeepCollectionEquality().hash(poiCategory),description);
 
 @override
 String toString() {
-  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, images: $images)';
+  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
 }
 
 
@@ -257,7 +249,7 @@ abstract mixin class _$WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res>
   factory _$WaypointCopyWith(_Waypoint value, $Res Function(_Waypoint) _then) = __$WaypointCopyWithImpl;
 @override @useResult
 $Res call({
- WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description, List<MediaImage> images
+ WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description
 });
 
 
@@ -274,15 +266,14 @@ class __$WaypointCopyWithImpl<$Res>
 
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = freezed,Object? description = null,}) {
   return _then(_Waypoint(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,
+as String,
   ));
 }
 
@@ -303,12 +294,12 @@ $WaypointDraftCopyWith<WaypointDraft> get copyWith => _$WaypointDraftCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointDraft&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other.poiCategory, poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,poiCategory,description);
+int get hashCode => Object.hash(runtimeType,title,const DeepCollectionEquality().hash(poiCategory),description);
 
 @override
 String toString() {
@@ -340,10 +331,10 @@ class _$WaypointDraftCopyWithImpl<$Res>
 
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? poiCategory = null,Object? description = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? poiCategory = freezed,Object? description = null,}) {
   return _then(_self.copyWith(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -503,12 +494,12 @@ _$WaypointDraftCopyWith<_WaypointDraft> get copyWith => __$WaypointDraftCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointDraft&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointDraft&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other.poiCategory, poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,poiCategory,description);
+int get hashCode => Object.hash(runtimeType,title,const DeepCollectionEquality().hash(poiCategory),description);
 
 @override
 String toString() {
@@ -540,10 +531,10 @@ class __$WaypointDraftCopyWithImpl<$Res>
 
 /// Create a copy of WaypointDraft
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? poiCategory = null,Object? description = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? poiCategory = freezed,Object? description = null,}) {
   return _then(_WaypointDraft(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
+as String,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,
   ));

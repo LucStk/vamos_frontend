@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Trip {
 
- TripId get id; String get title; String get description; DateTime? get date; List<MediaImage> get images;
+ TripId get id; String get title; String get description; DateTime? get date;
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $TripCopyWith<Trip> get copyWith => _$TripCopyWithImpl<Trip>(this as Trip, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.images, images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,date,const DeepCollectionEquality().hash(images));
+int get hashCode => Object.hash(runtimeType,id,title,description,date);
 
 @override
 String toString() {
-  return 'Trip(id: $id, title: $title, description: $description, date: $date, images: $images)';
+  return 'Trip(id: $id, title: $title, description: $description, date: $date)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $TripCopyWith<$Res>  {
   factory $TripCopyWith(Trip value, $Res Function(Trip) _then) = _$TripCopyWithImpl;
 @useResult
 $Res call({
- TripId id, String title, String description, DateTime? date, List<MediaImage> images
+ TripId id, String title, String description, DateTime? date
 });
 
 
@@ -62,14 +62,13 @@ class _$TripCopyWithImpl<$Res>
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,
+as DateTime?,
   ));
 }
 
@@ -154,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TripId id,  String title,  String description,  DateTime? date,  List<MediaImage> images)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TripId id,  String title,  String description,  DateTime? date)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Trip() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.date,_that.images);case _:
+return $default(_that.id,_that.title,_that.description,_that.date);case _:
   return orElse();
 
 }
@@ -175,10 +174,10 @@ return $default(_that.id,_that.title,_that.description,_that.date,_that.images);
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TripId id,  String title,  String description,  DateTime? date,  List<MediaImage> images)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TripId id,  String title,  String description,  DateTime? date)  $default,) {final _that = this;
 switch (_that) {
 case _Trip():
-return $default(_that.id,_that.title,_that.description,_that.date,_that.images);case _:
+return $default(_that.id,_that.title,_that.description,_that.date);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +194,10 @@ return $default(_that.id,_that.title,_that.description,_that.date,_that.images);
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TripId id,  String title,  String description,  DateTime? date,  List<MediaImage> images)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TripId id,  String title,  String description,  DateTime? date)?  $default,) {final _that = this;
 switch (_that) {
 case _Trip() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.date,_that.images);case _:
+return $default(_that.id,_that.title,_that.description,_that.date);case _:
   return null;
 
 }
@@ -210,20 +209,13 @@ return $default(_that.id,_that.title,_that.description,_that.date,_that.images);
 
 
 class _Trip extends Trip {
-  const _Trip({required this.id, this.title = '', this.description = '', this.date, final  List<MediaImage> images = const []}): _images = images,super._();
+  const _Trip({required this.id, this.title = '', this.description = '', this.date}): super._();
   
 
 @override final  TripId id;
 @override@JsonKey() final  String title;
 @override@JsonKey() final  String description;
 @override final  DateTime? date;
- final  List<MediaImage> _images;
-@override@JsonKey() List<MediaImage> get images {
-  if (_images is EqualUnmodifiableListView) return _images;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_images);
-}
-
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +227,16 @@ _$TripCopyWith<_Trip> get copyWith => __$TripCopyWithImpl<_Trip>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._images, _images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,date,const DeepCollectionEquality().hash(_images));
+int get hashCode => Object.hash(runtimeType,id,title,description,date);
 
 @override
 String toString() {
-  return 'Trip(id: $id, title: $title, description: $description, date: $date, images: $images)';
+  return 'Trip(id: $id, title: $title, description: $description, date: $date)';
 }
 
 
@@ -255,7 +247,7 @@ abstract mixin class _$TripCopyWith<$Res> implements $TripCopyWith<$Res> {
   factory _$TripCopyWith(_Trip value, $Res Function(_Trip) _then) = __$TripCopyWithImpl;
 @override @useResult
 $Res call({
- TripId id, String title, String description, DateTime? date, List<MediaImage> images
+ TripId id, String title, String description, DateTime? date
 });
 
 
@@ -272,14 +264,13 @@ class __$TripCopyWithImpl<$Res>
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? date = freezed,}) {
   return _then(_Trip(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
-as List<MediaImage>,
+as DateTime?,
   ));
 }
 

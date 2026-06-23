@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:trip_domain/domain/media_image.dart';
+import 'package:trip_domain/domain/entities/media_image.dart';
 
 import 'thumbnails/thumbnails.dart';
 
@@ -35,13 +35,6 @@ class _ImageCarouselPickerState extends ConsumerState<ImageCarouselPicker> {
 
     // ID unique pour cette instance widget
     _carouselId = UniqueKey().toString();
-
-    // Initialisation UNE seule fois
-    Future.microtask(() {
-      ref
-          .read(carouselProvider(_carouselId).notifier)
-          .initialize(widget.remoteImages);
-    });
   }
 
   Future<void> _pickImages() async {
@@ -88,23 +81,16 @@ class _ImageCarouselPickerState extends ConsumerState<ImageCarouselPicker> {
         for (final item in state.items)
           ThumbnailPicker(
             key: ValueKey(item.fileKey),
-
             item: item,
-
             size: widget.thumbSize,
-
             isUploading: item.uploadStatus == UploadStatus.uploading,
-
             hasError: item.uploadStatus == UploadStatus.failure,
-
             onDelete: () {
               notifier.deleteItem(item);
             },
-
             onRetry: () {
               notifier.retryUpload(item);
             },
-
             onTap: () {
               // TODO lightbox
             },

@@ -13,7 +13,6 @@ abstract class Trip with _$Trip {
     @Default('') String title,
     @Default('') String description,
     DateTime? date,
-    @Default([]) List<MediaImage> images,
   }) = _Trip;
   TripDraft toDraft() {
     return TripDraft(title: title, description: description, date: date);

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:trip_domain/trip_domain.dart";
+import "package:vamos_cartographie/features/shared/domain/types/map_item_type.dart";
 
 // poi_category_ui.dart — vamos_cartographie, tout l'UI ici
-import 'package:vamos_cartographie/features/shared/presentation/map_item_type.dart';
 
 enum PoiCategoryUi implements MapItemType {
   start(

@@ -17,7 +17,6 @@ abstract class Waypoint with _$Waypoint implements HasId<Waypoint> {
     @Default('') String title,
     @Default(PoiCategory.waypoint) PoiCategory poiCategory,
     @Default('') String description,
-    @Default([]) List<MediaImage> images,
   }) = _Waypoint;
   WaypointDraft toDraft() {
     return WaypointDraft(

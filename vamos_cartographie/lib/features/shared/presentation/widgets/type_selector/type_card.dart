@@ -21,10 +21,10 @@ class TypeCard extends StatelessWidget {
         width: 72,
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? type.color.withOpacity(0.15) : Colors.transparent,
+          color: isSelected ? Color(type.colorValue) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected ? type.color : Colors.grey.shade300,
+            color: isSelected ? Color(type.colorValue) : Colors.grey.shade300,
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -32,14 +32,14 @@ class TypeCard extends StatelessWidget {
           mainAxisSize:
               MainAxisSize.min, // Évite que la colonne prenne trop de hauteur
           children: [
-            Icon(type.icon, color: type.color, size: 24),
+            Icon(type.icon, color: Color(type.colorValue), size: 24),
             const SizedBox(height: 4),
             Text(
               type.label,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 10,
-                color: isSelected ? type.color : Colors.black87,
+                color: isSelected ? Color(type.colorValue) : Colors.black87,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),

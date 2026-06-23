@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:trip_domain/domain/waypoint.dart";
 import "waypoint_header.dart";
+import "/features/waypoint/domain/waypoint_ui.dart";
 
 class WaypointInfo extends StatelessWidget {
   final Waypoint waypoint;
@@ -35,7 +35,7 @@ class WaypointInfo extends StatelessWidget {
                   ),
 
                 const SizedBox(height: 16),
-                WaypointHeader(type: waypoint.poiCategory),
+                WaypointHeader(type: waypoint.categoryUi),
                 const SizedBox(height: 16),
 
                 // Photos

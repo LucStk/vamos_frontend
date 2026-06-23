@@ -1,25 +1,24 @@
+import 'package:domain_core/id.dart';
 import 'package:domain_core/media.dart';
 import 'package:trip_domain/trip_domain.dart';
 
-class MediaStore {
-  final Map<FileKey, MediaImage> store = {};
+class MediaStore<T> {
+  final Map<Id<T>, List<MediaImage>> _store = {};
 
-  MediaStore();
+  List<MediaImage> getFor(Id<T> id) => _store[id] ?? [];
 
-  void clear() {
-    store.clear();
+  void upsert(Id<T> id, MediaImage image) {
+    final current = _store[id] ?? [];
+    final updated = [
+      ...current.where((i) => i.fileKey != image.fileKey),
+      image,
+    ];
+    _store[id] = updated;
   }
 
-  MediaImage? get(FileKey key) => store[key];
-
-  MediaImage getRequired(FileKey key) {
-    var r = get(key);
-    if (r == null) {
-      throw Exception("Image $key not found in store");
-    }
-    return r;
+  void remove(Id<T> id, FileKey key) {
+    _store[id]?.removeWhere((i) => i.fileKey == key);
   }
 
-  void upsert(MediaImage image) => store[image.fileKey] = image;
-  void remove(FileKey key) => store.remove(key);
+  void clear() => _store.clear();
 }

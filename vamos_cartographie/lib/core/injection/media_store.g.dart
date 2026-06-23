@@ -13,8 +13,13 @@ part of 'media_store.dart';
 final rawMediaStoreProvider = RawMediaStoreProvider._();
 
 final class RawMediaStoreProvider
-    extends $FunctionalProvider<MediaStore, MediaStore, MediaStore>
-    with $Provider<MediaStore> {
+    extends
+        $FunctionalProvider<
+          MediaStore<dynamic>,
+          MediaStore<dynamic>,
+          MediaStore<dynamic>
+        >
+    with $Provider<MediaStore<dynamic>> {
   RawMediaStoreProvider._()
     : super(
         from: null,
@@ -31,24 +36,25 @@ final class RawMediaStoreProvider
 
   @$internal
   @override
-  $ProviderElement<MediaStore> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<MediaStore<dynamic>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  MediaStore create(Ref ref) {
+  MediaStore<dynamic> create(Ref ref) {
     return rawMediaStore(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MediaStore value) {
+  Override overrideWithValue(MediaStore<dynamic> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MediaStore>(value),
+      providerOverride: $SyncValueProvider<MediaStore<dynamic>>(value),
     );
   }
 }
 
-String _$rawMediaStoreHash() => r'109b4137b43f390f2c567f694c6b8289c061f357';
+String _$rawMediaStoreHash() => r'd490d65bdb71f08f43ee8f8b4c7ceea4d37b0fc0';
 
 @ProviderFor(mediaPatchStore)
 final mediaPatchStoreProvider = MediaPatchStoreProvider._();
@@ -131,4 +137,4 @@ final class ImageProjectorProvider
   }
 }
 
-String _$imageProjectorHash() => r'ad83d2d0bcbe8ead0eec6faeaaa69939d45fde48';
+String _$imageProjectorHash() => r'77e0b1ba1705df5a3fe088bc55d21feba5faf7d2';

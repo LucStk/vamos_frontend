@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/trip.dart';
-import 'package:trip_domain/domain/waypoint.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/vertex.dart';
+import 'package:topology_engine/domain/entities/vertex.dart';
+import 'package:trip_domain/domain/domain.dart';
 import "form_waypoint_dialog.dart";
 
 class CreateWaypointDialog extends ConsumerWidget {

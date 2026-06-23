@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:trip_domain/domain/poi_category_types.dart';
+import "package:vamos_cartographie/features/shared/domain/entities/poi_ui.dart";
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class WaypointHeader extends StatelessWidget {
-  final PoiCategory type;
+  final PoiCategoryUi type;
 
   const WaypointHeader({super.key, required this.type});
 
@@ -14,7 +14,10 @@ class WaypointHeader extends StatelessWidget {
         Container(
           width: 36,
           height: 36,
-          decoration: BoxDecoration(color: type.color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: Color(type.colorValue),
+            shape: BoxShape.circle,
+          ),
           child: Icon(type.icon, color: Colors.white, size: 20),
         ),
         const SizedBox(width: 10),
@@ -26,7 +29,7 @@ class WaypointHeader extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: type.color,
+                color: Color(type.colorValue),
               ),
             ),
             // TODO : Afficher le numéro de l'étape

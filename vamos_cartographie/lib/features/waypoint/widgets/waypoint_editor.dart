@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:trip_domain/domain/poi_category_types.dart';
-import 'package:trip_domain/domain/waypoint.dart';
+import "package:vamos_cartographie/features/shared/domain/entities/poi_ui.dart";
 import '/features/carousel/widgets/widgets.dart';
 import '/features/shared/shared.dart';
+import "/features/waypoint/domain/waypoint_ui.dart";
 import "waypoint_header.dart";
 
 class WaypointEditor extends StatefulWidget {
@@ -61,17 +61,17 @@ class WaypointEditorState extends State<WaypointEditor> {
         const SizedBox(height: 16),
 
         // ── Header ─────────────────────────────
-        WaypointHeader(type: currentWaypoint.poiCategory),
+        WaypointHeader(type: currentWaypoint.categoryUi),
 
         const SizedBox(height: 12),
 
         // ── Type ───────────────────────────────
         TypeSelector(
-          values: PoiCategory.values,
-          selectedType: currentWaypoint.poiCategory,
+          values: PoiCategoryUi.values,
+          selectedType: currentWaypoint.categoryUi,
 
           onTypeChanged: (newType) {
-            _patch(currentWaypoint.copyWith(poiCategory: newType));
+            _patch(currentWaypoint.copyWith(poiCategory: newType.category));
           },
         ),
       ],
