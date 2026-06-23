@@ -14,7 +14,7 @@ class AttachImageToWaypoint {
 
     result.fold(
       (f) => throw Exception(f.message),
-      (image) => store.upsert(image),
+      (image) => store.upsert(id, image),
     );
   }
 }

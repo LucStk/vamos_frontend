@@ -9,12 +9,12 @@ class AttachImageToTrip {
 
   AttachImageToTrip(this.store, this.repo);
 
-  Future<void> call(TripId tripId, FileKey key) async {
-    final result = await repo.attachImageToTrip(tripId, key);
+  Future<void> call(TripId id, FileKey key) async {
+    final result = await repo.attachImageToTrip(id, key);
 
     result.fold(
       (f) => throw Exception(f.message),
-      (image) => store.upsert(image),
+      (image) => store.upsert(id, image),
     );
   }
 }

@@ -23,10 +23,6 @@ class TripHandler {
     ) {
       for (final trip in trips) {
         tripStore.upsert(trip);
-        for (final image in trip.images) {
-          // ajout
-          mediaStore.upsert(image);
-        }
       }
     });
   }

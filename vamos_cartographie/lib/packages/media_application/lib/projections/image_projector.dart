@@ -1,3 +1,4 @@
+import 'package:domain_core/id.dart';
 import 'package:domain_core/media.dart';
 import 'package:media_application/patches/media_patch_store.dart';
 import 'package:media_application/read_models/image_ui_model.dart';
@@ -12,13 +13,13 @@ class ImageProjector {
   final MediaPatchStore patches;
   ImageProjector({required this.store, required this.patches});
 
-  ImageUiModel project(FileKey key) {
+  ImageUiModel project(Id id, FileKey key) {
     final patch = patches.get(key);
     late ImageLocation imageLocation;
     if (patch != null) {
       imageLocation = LocalPath(patch.file);
     } else {
-      final image = store.getRequired(key);
+      final image = store.get(id, key);
       imageLocation = RemoteUrl(image.url);
     }
 
