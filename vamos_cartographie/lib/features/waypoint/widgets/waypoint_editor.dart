@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:trip_domain/domain/poi_category_types.dart';
 import 'package:trip_domain/domain/waypoint.dart';
-import 'package:vamos_cartographie/features/carousel/widgets/widgets.dart';
-import 'package:vamos_cartographie/features/shared/shared.dart';
+import '/features/carousel/widgets/widgets.dart';
+import '/features/shared/shared.dart';
 import "waypoint_header.dart";
 
 class WaypointEditor extends StatefulWidget {

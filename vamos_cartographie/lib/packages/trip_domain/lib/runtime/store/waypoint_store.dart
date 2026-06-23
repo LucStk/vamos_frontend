@@ -1,6 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:topology_engine/topology_engine.dart';
-import 'package:trip_domain/domain/waypoint.dart';
+import 'package:trip_domain/domain/domain.dart';
 
 class WaypointStore {
   final Map<WaypointId, Waypoint> store = {};

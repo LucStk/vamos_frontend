@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
-import 'package:vamos_cartographie/packages/topology_application/command_handlers/segment_handler.dart';
-import 'package:vamos_cartographie/core/injection/topology_providers.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/segment_editor.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 import 'package:domain_core/domain_core.dart';
 

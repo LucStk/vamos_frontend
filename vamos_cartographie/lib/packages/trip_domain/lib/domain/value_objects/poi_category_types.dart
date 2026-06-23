@@ -1,0 +1,16 @@
+enum PoiCategory {
+  start,
+  end,
+  waypoint,
+  water,
+  food,
+  repair,
+  shelter,
+  camping,
+  viewpoint,
+  historic,
+  beach,
+  boat,
+  warning,
+  other,
+}

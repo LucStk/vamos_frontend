@@ -1,7 +1,7 @@
 import 'package:domain_core/has_id.dart';
 import 'package:domain_core/id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "poi_category_types.dart";
+import "/domain/value_objects/poi_category_types.dart";
 import "media_image.dart";
 import "package:topology_engine/topology_engine.dart";
 part 'waypoint.freezed.dart';

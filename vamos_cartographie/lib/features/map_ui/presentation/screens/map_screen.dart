@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/layers/cursor_layer.dart';
@@ -12,7 +13,6 @@ import 'package:vamos_cartographie/features/map_ui/rendering/layers/segment_laye
 import 'package:vamos_cartographie/features/map_ui/rendering/layers/vertex_layer.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/overlays/popup_overlay.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/widgets.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   final Id<Trip> tripId;

@@ -83,6 +83,7 @@ class TripInfoEditorState extends State<TripInfoEditor> {
         ),
         const SizedBox(height: 8),
         // Le picker est limité en largeur via Align + FractionallySizedBox
+        //
         Align(
           alignment: Alignment.centerLeft,
           child: FractionallySizedBox(

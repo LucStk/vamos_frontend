@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/features/trips/domain/trip.dart';
+import 'package:trip_domain/trip_domain.dart';
 
 /// Barre supérieure de la MapPage.
 /// Contient un bouton retour en capsule et un titre centré et ajusté.

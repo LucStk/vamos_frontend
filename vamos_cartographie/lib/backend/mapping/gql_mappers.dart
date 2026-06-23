@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 // Fonctions pures : aucun accès au store.
 // Utilisées à la frontière GraphQL pour construire les réponses Ferry.
 
-GImageFieldsData imageToGql(MediaImage img) =>
+GImageFieldsData imageToGql(GMediaImageInput img) =>
     GImageFieldsData(fileKey: img.fileKey, url: img.url);
 
 GLatLngFieldsData latLngToGql(double lat, double lng) =>

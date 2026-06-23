@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/commands_provider.dart/trip_provider.dart';
 import 'package:vamos_cartographie/core/injection/trip_store.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
@@ -27,6 +28,7 @@ class TripInfoView extends ConsumerWidget {
     final hasDate = trip.date != null;
     final hasPhotos = trip.images.isNotEmpty;
 
+    final images = ref.watch(tripImagesProvider(tripId));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -64,7 +66,7 @@ class TripInfoView extends ConsumerWidget {
             icon: Icons.photo_library_outlined,
           ),
           const SizedBox(height: 8),
-          ImageCarouselView(images: trip.images),
+          ImageCarouselView(images: images),
         ],
 
         // État vide

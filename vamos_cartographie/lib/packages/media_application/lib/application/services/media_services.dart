@@ -3,11 +3,8 @@ import 'package:domain_core/failure.dart';
 import 'package:trip_domain/application/commands/attach_image_to_trip.dart';
 import 'package:trip_domain/application/commands/attach_image_to_waypoint.dart';
 import 'package:trip_domain/application/repositories/media_repository.dart';
-import 'package:trip_domain/domain/media_image.dart';
+import 'package:trip_domain/domain/domain.dart';
 import 'dart:io';
-
-import 'package:trip_domain/domain/trip.dart';
-import 'package:trip_domain/domain/waypoint.dart';
 
 class MediaServices {
   final MediaRepository repo;
