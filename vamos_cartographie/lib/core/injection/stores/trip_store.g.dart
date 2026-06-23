@@ -89,4 +89,4 @@ final class TripStoreProvider
   }
 }
 
-String _$tripStoreHash() => r'424071f63b76f85c8f7728c94ef15cf4ac152ceb';
+String _$tripStoreHash() => r'dbcf587449c1d83abef47c3204e9ba7d3ff18940';

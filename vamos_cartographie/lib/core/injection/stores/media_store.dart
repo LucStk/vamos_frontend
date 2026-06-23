@@ -19,7 +19,7 @@ MediaPatchStore rawMediaPatchStore(Ref ref) =>
 Stream<Map<FileKey, MediaImage>> mediaStore(Ref ref) {
   final store = ref.watch(rawMediaStoreProvider);
   final controller = StreamController<Map<FileKey, MediaImage>>();
-
+  controller.add(Map.unmodifiable(store.store));
   void listener() => controller.add(Map.unmodifiable(store.store));
 
   store.observableNode.addListener(listener);
@@ -36,7 +36,7 @@ Stream<Map<FileKey, MediaImage>> mediaStore(Ref ref) {
 Stream<Map<FileKey, PatchImageMedia>> mediaPatchStore(Ref ref) {
   final store = ref.watch(rawMediaPatchStoreProvider);
   final controller = StreamController<Map<FileKey, PatchImageMedia>>();
-
+  controller.add(Map.unmodifiable(store.patchImages));
   void listener() => controller.add(Map.unmodifiable(store.patchImages));
 
   store.observableNode.addListener(listener);

@@ -132,7 +132,7 @@ final class MediaStoreProvider
   }
 }
 
-String _$mediaStoreHash() => r'895502dba119596db72b63a835c1741cef3f5145';
+String _$mediaStoreHash() => r'65f0c2c9228eee48be21aa390725dce0ad0eada7';
 
 @ProviderFor(mediaPatchStore)
 final mediaPatchStoreProvider = MediaPatchStoreProvider._();
@@ -173,4 +173,4 @@ final class MediaPatchStoreProvider
   }
 }
 
-String _$mediaPatchStoreHash() => r'a3e189b893e023eca3d2f431676b5b25698fe5dd';
+String _$mediaPatchStoreHash() => r'3dde2171f348f06eee9d4b32e29e3e07d5e9e51c';

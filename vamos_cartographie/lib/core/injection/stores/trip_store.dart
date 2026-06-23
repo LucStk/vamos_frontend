@@ -15,7 +15,7 @@ TripStore rawTripStore(Ref ref) {
 Stream<Map<TripId, Trip>> tripStore(Ref ref) {
   final store = ref.watch(rawTripStoreProvider);
   final controller = StreamController<Map<TripId, Trip>>();
-
+  controller.add(Map.unmodifiable(store.store));
   void listener() => controller.add(Map.unmodifiable(store.store));
 
   store.observableNode.addListener(listener);
