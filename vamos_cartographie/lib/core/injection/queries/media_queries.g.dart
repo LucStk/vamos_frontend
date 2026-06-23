@@ -9,10 +9,10 @@ part of 'media_queries.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(tripImages)
-final tripImagesProvider = TripImagesFamily._();
+@ProviderFor(entityImages)
+final entityImagesProvider = EntityImagesFamily._();
 
-final class TripImagesProvider
+final class EntityImagesProvider
     extends
         $FunctionalProvider<
           AsyncValue<List<ImageUiModel>>,
@@ -22,23 +22,23 @@ final class TripImagesProvider
     with
         $FutureModifier<List<ImageUiModel>>,
         $FutureProvider<List<ImageUiModel>> {
-  TripImagesProvider._({
-    required TripImagesFamily super.from,
+  EntityImagesProvider._({
+    required EntityImagesFamily super.from,
     required Id<dynamic> super.argument,
   }) : super(
          retry: null,
-         name: r'tripImagesProvider',
+         name: r'entityImagesProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$tripImagesHash();
+  String debugGetCreateSourceHash() => _$entityImagesHash();
 
   @override
   String toString() {
-    return r'tripImagesProvider'
+    return r'entityImagesProvider'
         ''
         '($argument)';
   }
@@ -52,12 +52,12 @@ final class TripImagesProvider
   @override
   FutureOr<List<ImageUiModel>> create(Ref ref) {
     final argument = this.argument as Id<dynamic>;
-    return tripImages(ref, argument);
+    return entityImages(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is TripImagesProvider && other.argument == argument;
+    return other is EntityImagesProvider && other.argument == argument;
   }
 
   @override
@@ -66,22 +66,22 @@ final class TripImagesProvider
   }
 }
 
-String _$tripImagesHash() => r'375ea3c1371b80e37ee7202747721965c415182c';
+String _$entityImagesHash() => r'5339acac779a1f93101cf1a2242f974bebee2de7';
 
-final class TripImagesFamily extends $Family
+final class EntityImagesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<ImageUiModel>>, Id<dynamic>> {
-  TripImagesFamily._()
+  EntityImagesFamily._()
     : super(
         retry: null,
-        name: r'tripImagesProvider',
+        name: r'entityImagesProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  TripImagesProvider call(Id<dynamic> id) =>
-      TripImagesProvider._(argument: id, from: this);
+  EntityImagesProvider call(Id<dynamic> id) =>
+      EntityImagesProvider._(argument: id, from: this);
 
   @override
-  String toString() => r'tripImagesProvider';
+  String toString() => r'entityImagesProvider';
 }

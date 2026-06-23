@@ -1,103 +1,59 @@
 import 'dart:io';
+import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:media_application/patches/patch_image.dart';
+import 'package:media_application/patches/upload_status.dart';
+import 'package:media_application/read_models/image_ui_model.dart';
 import 'package:trip_domain/domain/entities/media_image.dart';
+import 'package:vamos_cartographie/core/injection/queries/media_queries.dart';
+import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
 
 import 'thumbnails/thumbnails.dart';
 
-class ImageCarouselPicker extends ConsumerStatefulWidget {
-  final List<MediaImage> remoteImages;
-
-  final void Function(List<MediaImage> images) onChanged;
-
-  final double thumbSize;
-
-  const ImageCarouselPicker({
-    super.key,
-    required this.remoteImages,
-    required this.onChanged,
-    this.thumbSize = 80,
-  });
+class ImageCarouselPicker extends ConsumerWidget {
+  final Id entityId;
+  final double thumbSize = 80;
+  const ImageCarouselPicker({super.key, required this.entityId});
 
   @override
-  ConsumerState<ImageCarouselPicker> createState() =>
-      _ImageCarouselPickerState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final imagesAsync = ref.watch(entityImagesProvider(entityId));
+    return imagesAsync.when(
+      loading: () => const CircularProgressIndicator(),
+      error: (_, _) => const Text("Error"),
+      data: (imagesUi) {
+        return Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final item in imagesUi)
+              ThumbnailPicker(
+                key: ValueKey(item.fileKey),
+                item: item,
+                size: thumbSize,
+                isUploading: item.uploadStatus == UploadStatus.uploading,
+                hasError: item.uploadStatus == UploadStatus.failure,
+                onDelete: () {
+                  notifier.deleteItem(item);
+                },
+                onRetry: () {
+                  notifier.retryUpload(item);
+                },
+                onTap: () {
+                  // TODO lightbox
+                },
+              ),
 
-class _ImageCarouselPickerState extends ConsumerState<ImageCarouselPicker> {
-  late final String _carouselId;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // ID unique pour cette instance widget
-    _carouselId = UniqueKey().toString();
-  }
-
-  Future<void> _pickImages() async {
-    List<String> picked = [];
-
-    if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
-      const typeGroup = XTypeGroup(
-        label: 'Images',
-        extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-      );
-
-      final files = await openFiles(acceptedTypeGroups: [typeGroup]);
-
-      picked = files.map((f) => f.path).toList();
-    } else {
-      final picker = ImagePicker();
-
-      final images = await picker.pickMultiImage();
-
-      picked = images.map((x) => x.path).toList();
-    }
-
-    if (picked.isEmpty) return;
-
-    ref.read(carouselProvider(_carouselId).notifier).addLocalImages(picked);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final provider = carouselProvider(_carouselId);
-
-    final state = ref.watch(provider);
-
-    final notifier = ref.read(provider.notifier);
-
-    ref.listen(provider, (_, next) {
-      widget.onChanged(next.remoteImages);
-    });
-
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        for (final item in state.items)
-          ThumbnailPicker(
-            key: ValueKey(item.fileKey),
-            item: item,
-            size: widget.thumbSize,
-            isUploading: item.uploadStatus == UploadStatus.uploading,
-            hasError: item.uploadStatus == UploadStatus.failure,
-            onDelete: () {
-              notifier.deleteItem(item);
-            },
-            onRetry: () {
-              notifier.retryUpload(item);
-            },
-            onTap: () {
-              // TODO lightbox
-            },
-          ),
-
-        ThumbnailButtonAdd(size: widget.thumbSize, onTap: _pickImages),
-      ],
+            ThumbnailButtonAdd(
+              size: thumbSize,
+              onTap: () => pickImages(context, ref),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,14 +1,17 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:vamos_cartographie/core/injection/queries/media_queries.dart";
 import "waypoint_header.dart";
 import "/features/waypoint/domain/waypoint_ui.dart";
 
-class WaypointInfo extends StatelessWidget {
+class WaypointInfo extends ConsumerWidget {
   final Waypoint waypoint;
   final VoidCallback? onEdit;
   const WaypointInfo({super.key, required this.waypoint, this.onEdit});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) async {
+    final r = ref.watch(entityImagesProvider);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,

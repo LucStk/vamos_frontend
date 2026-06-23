@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:domain_core/media.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:media_application/patches/patch_image.dart';
+import 'package:media_application/patches/upload_status.dart';
 import 'package:trip_domain/domain/entities/media_image.dart';
 
 part 'image_ui_model.freezed.dart';
-
-enum UploadStatus { idle, uploading, success, failure }
 
 sealed class ImageLocation {
   const ImageLocation();

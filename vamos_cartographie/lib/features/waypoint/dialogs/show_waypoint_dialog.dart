@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/commands_provider.dart/waypoint_provider.dart';
-import 'package:vamos_cartographie/core/injection/waypoint_store.dart';
+import 'package:vamos_cartographie/core/injection/commands.dart/waypoint_provider.dart';
+import 'package:vamos_cartographie/core/injection/queries/waypoint_queries.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/widgets.dart';
 import 'edit_waypoint_dialog.dart';
 

@@ -3,8 +3,6 @@ import 'package:domain_core/media.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'patch_image.freezed.dart';
 
-enum UploadStatus { idle, uploading, success, failure }
-
 @freezed
 abstract class PatchImageMedia with _$PatchImageMedia {
   const factory PatchImageMedia({

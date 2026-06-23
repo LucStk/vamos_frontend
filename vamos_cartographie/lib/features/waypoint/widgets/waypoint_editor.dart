@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:vamos_cartographie/features/shared/domain/entities/poi_ui.dart";
 import '/features/carousel/widgets/widgets.dart';
 import '/features/shared/shared.dart';
 import "/features/waypoint/domain/waypoint_ui.dart";
 import "waypoint_header.dart";
 
-class WaypointEditor extends StatefulWidget {
+class WaypointEditor extends ConsumerStatefulWidget {
   final WaypointDraft initialWaypoint;
   const WaypointEditor({super.key, required this.initialWaypoint});
 

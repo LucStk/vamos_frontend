@@ -56,6 +56,7 @@ class _SegmentEditorState extends ConsumerState<SegmentEditor> {
   @override
   Widget build(BuildContext context) {
     // Juste la colonne de champs, pas de ScrollView ici, le Shell s'en occupe
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
