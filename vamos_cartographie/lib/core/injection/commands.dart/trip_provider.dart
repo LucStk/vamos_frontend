@@ -1,11 +1,12 @@
 import 'package:media_application/media_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/commands.dart/media_provider.dart';
 
 import "/core/injection/client_provider.dart";
-import '/core/injection/media_store.dart';
+import '/core/injection/stores/media_store.dart';
 import '/core/injection/optimistic_executor_provider.dart';
-import '/core/injection/trip_store.dart';
+import '/core/injection/stores/trip_store.dart';
 import '/infrastructure/trip/trip_remote_datasource.dart';
 import '/infrastructure/trip/trip_repository_impl.dart';
 part 'trip_provider.g.dart';
@@ -30,12 +31,12 @@ TripHandler tripHandler(Ref ref) {
 }
 
 @riverpod
-List<ImageUiModel> tripImages(Ref ref, TripId tripId) {
-  // Réactif au trip (si ses images changent)
-  final asyncTrips = ref.watch(tripStoreProvider);
-  final trip = asyncTrips.value?[tripId];
-  if (trip == null) return [];
-
-  final projector = ref.watch(imageProjectorProvider);
-  return trip.images.map((img) => projector.project(img.fileKey)).toList();
+MediaHandler tripMediaHandler(Ref ref) {
+  final patchStore = ref.watch(rawMediaPatchStoreProvider);
+  final mediaStore = ref.watch(rawMediaStoreProvider);
+  final executor = ref.watch(optimisticExecutorProvider);
+  final mediaRepo = ref.watch(mediaRepositoryProvider);
+  final tripRepo = ref.watch(tripRepositoryProvider);
+  final mediaService = MediaServices(mediaRepo, tripRepo, mediaStore);
+  return MediaHandler(patchStore, executor, mediaService);
 }

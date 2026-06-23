@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PatchImageMedia {
 
- FileKey get fileKey; File get file; UploadStatus get uploadStatus; double get progress; String? get error;
+ FileKey get fileKey; File get file;
 /// Create a copy of PatchImageMedia
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $PatchImageMediaCopyWith<PatchImageMedia> get copyWith => _$PatchImageMediaCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatchImageMedia&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.file, file) || other.file == file)&&(identical(other.uploadStatus, uploadStatus) || other.uploadStatus == uploadStatus)&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatchImageMedia&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.file, file) || other.file == file));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,file,uploadStatus,progress,error);
+int get hashCode => Object.hash(runtimeType,fileKey,file);
 
 @override
 String toString() {
-  return 'PatchImageMedia(fileKey: $fileKey, file: $file, uploadStatus: $uploadStatus, progress: $progress, error: $error)';
+  return 'PatchImageMedia(fileKey: $fileKey, file: $file)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $PatchImageMediaCopyWith<$Res>  {
   factory $PatchImageMediaCopyWith(PatchImageMedia value, $Res Function(PatchImageMedia) _then) = _$PatchImageMediaCopyWithImpl;
 @useResult
 $Res call({
- FileKey fileKey, File file, UploadStatus uploadStatus, double progress, String? error
+ FileKey fileKey, File file
 });
 
 
@@ -62,14 +62,11 @@ class _$PatchImageMediaCopyWithImpl<$Res>
 
 /// Create a copy of PatchImageMedia
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? file = null,Object? uploadStatus = null,Object? progress = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? file = null,}) {
   return _then(_self.copyWith(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
 as FileKey,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
-as File,uploadStatus: null == uploadStatus ? _self.uploadStatus : uploadStatus // ignore: cast_nullable_to_non_nullable
-as UploadStatus,progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as double,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
+as File,
   ));
 }
 
@@ -154,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FileKey fileKey,  File file,  UploadStatus uploadStatus,  double progress,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FileKey fileKey,  File file)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PatchImageMedia() when $default != null:
-return $default(_that.fileKey,_that.file,_that.uploadStatus,_that.progress,_that.error);case _:
+return $default(_that.fileKey,_that.file);case _:
   return orElse();
 
 }
@@ -175,10 +172,10 @@ return $default(_that.fileKey,_that.file,_that.uploadStatus,_that.progress,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FileKey fileKey,  File file,  UploadStatus uploadStatus,  double progress,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FileKey fileKey,  File file)  $default,) {final _that = this;
 switch (_that) {
 case _PatchImageMedia():
-return $default(_that.fileKey,_that.file,_that.uploadStatus,_that.progress,_that.error);case _:
+return $default(_that.fileKey,_that.file);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +192,10 @@ return $default(_that.fileKey,_that.file,_that.uploadStatus,_that.progress,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FileKey fileKey,  File file,  UploadStatus uploadStatus,  double progress,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FileKey fileKey,  File file)?  $default,) {final _that = this;
 switch (_that) {
 case _PatchImageMedia() when $default != null:
-return $default(_that.fileKey,_that.file,_that.uploadStatus,_that.progress,_that.error);case _:
+return $default(_that.fileKey,_that.file);case _:
   return null;
 
 }
@@ -210,14 +207,11 @@ return $default(_that.fileKey,_that.file,_that.uploadStatus,_that.progress,_that
 
 
 class _PatchImageMedia implements PatchImageMedia {
-  const _PatchImageMedia({required this.fileKey, required this.file, this.uploadStatus = UploadStatus.idle, this.progress = 0.0, this.error = null});
+  const _PatchImageMedia({required this.fileKey, required this.file});
   
 
 @override final  FileKey fileKey;
 @override final  File file;
-@override@JsonKey() final  UploadStatus uploadStatus;
-@override@JsonKey() final  double progress;
-@override@JsonKey() final  String? error;
 
 /// Create a copy of PatchImageMedia
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +223,16 @@ _$PatchImageMediaCopyWith<_PatchImageMedia> get copyWith => __$PatchImageMediaCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatchImageMedia&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.file, file) || other.file == file)&&(identical(other.uploadStatus, uploadStatus) || other.uploadStatus == uploadStatus)&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatchImageMedia&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.file, file) || other.file == file));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,file,uploadStatus,progress,error);
+int get hashCode => Object.hash(runtimeType,fileKey,file);
 
 @override
 String toString() {
-  return 'PatchImageMedia(fileKey: $fileKey, file: $file, uploadStatus: $uploadStatus, progress: $progress, error: $error)';
+  return 'PatchImageMedia(fileKey: $fileKey, file: $file)';
 }
 
 
@@ -249,7 +243,7 @@ abstract mixin class _$PatchImageMediaCopyWith<$Res> implements $PatchImageMedia
   factory _$PatchImageMediaCopyWith(_PatchImageMedia value, $Res Function(_PatchImageMedia) _then) = __$PatchImageMediaCopyWithImpl;
 @override @useResult
 $Res call({
- FileKey fileKey, File file, UploadStatus uploadStatus, double progress, String? error
+ FileKey fileKey, File file
 });
 
 
@@ -266,14 +260,11 @@ class __$PatchImageMediaCopyWithImpl<$Res>
 
 /// Create a copy of PatchImageMedia
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? file = null,Object? uploadStatus = null,Object? progress = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? file = null,}) {
   return _then(_PatchImageMedia(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
 as FileKey,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
-as File,uploadStatus: null == uploadStatus ? _self.uploadStatus : uploadStatus // ignore: cast_nullable_to_non_nullable
-as UploadStatus,progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as double,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
+as File,
   ));
 }
 

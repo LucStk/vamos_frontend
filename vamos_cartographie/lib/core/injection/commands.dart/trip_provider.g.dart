@@ -139,85 +139,43 @@ final class TripHandlerProvider
 
 String _$tripHandlerHash() => r'077bd56f08e34fff866c3410bcde341fd75b354f';
 
-@ProviderFor(tripImages)
-final tripImagesProvider = TripImagesFamily._();
+@ProviderFor(tripMediaHandler)
+final tripMediaHandlerProvider = TripMediaHandlerProvider._();
 
-final class TripImagesProvider
-    extends
-        $FunctionalProvider<
-          List<ImageUiModel>,
-          List<ImageUiModel>,
-          List<ImageUiModel>
-        >
-    with $Provider<List<ImageUiModel>> {
-  TripImagesProvider._({
-    required TripImagesFamily super.from,
-    required TripId super.argument,
-  }) : super(
-         retry: null,
-         name: r'tripImagesProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
+final class TripMediaHandlerProvider
+    extends $FunctionalProvider<MediaHandler, MediaHandler, MediaHandler>
+    with $Provider<MediaHandler> {
+  TripMediaHandlerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'tripMediaHandlerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
-  String debugGetCreateSourceHash() => _$tripImagesHash();
-
-  @override
-  String toString() {
-    return r'tripImagesProvider'
-        ''
-        '($argument)';
-  }
+  String debugGetCreateSourceHash() => _$tripMediaHandlerHash();
 
   @$internal
   @override
-  $ProviderElement<List<ImageUiModel>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<MediaHandler> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  List<ImageUiModel> create(Ref ref) {
-    final argument = this.argument as TripId;
-    return tripImages(ref, argument);
+  MediaHandler create(Ref ref) {
+    return tripMediaHandler(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<ImageUiModel> value) {
+  Override overrideWithValue(MediaHandler value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<ImageUiModel>>(value),
+      providerOverride: $SyncValueProvider<MediaHandler>(value),
     );
   }
-
-  @override
-  bool operator ==(Object other) {
-    return other is TripImagesProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
 }
 
-String _$tripImagesHash() => r'e3fa6d4b7d560486a0fc794cb53752d6df67b3c3';
-
-final class TripImagesFamily extends $Family
-    with $FunctionalFamilyOverride<List<ImageUiModel>, TripId> {
-  TripImagesFamily._()
-    : super(
-        retry: null,
-        name: r'tripImagesProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  TripImagesProvider call(TripId tripId) =>
-      TripImagesProvider._(argument: tripId, from: this);
-
-  @override
-  String toString() => r'tripImagesProvider';
-}
+String _$tripMediaHandlerHash() => r'3de3bfe9416781b62c2e307baff08219c1e7c58b';

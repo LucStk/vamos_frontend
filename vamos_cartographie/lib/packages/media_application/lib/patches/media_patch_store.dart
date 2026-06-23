@@ -3,10 +3,12 @@ import 'package:media_application/patches/patch_image.dart';
 
 class MediaPatchStore {
   final Map<Id, Map<FileKey, PatchImageMedia>> patchImages = {};
-  MediaPatchStore();
+  final ObservableNode observableNode;
+  MediaPatchStore(this.observableNode);
 
   void clear() {
     patchImages.clear();
+    observableNode.notify();
   }
 
   Map<FileKey, PatchImageMedia> get(Id id) => patchImages[id] ?? {};
@@ -18,13 +20,11 @@ class MediaPatchStore {
     } else {
       patchImages[id] = {patch.fileKey: patch};
     }
+    observableNode.notify();
   }
 
-  void updateStatus(Id id, FileKey key, UploadStatus status) {
-    final patch = patchImages[id]?[key];
-    if (patch == null) return;
-    patchImages[id]![key] = patch.copyWith(uploadStatus: status);
+  void remove(Id id, FileKey key) {
+    patchImages[id]?.remove(key);
+    observableNode.notify();
   }
-
-  void remove(Id id, FileKey key) => patchImages[id]?.remove(key);
 }

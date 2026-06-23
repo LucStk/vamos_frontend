@@ -4,9 +4,6 @@ import 'package:vamos_cartographie/backend/core/network/ferry_client.dart';
 part "client_provider.g.dart";
 
 @riverpod
-class ClientNotifier extends _$ClientNotifier {
-  @override
-  Client build() {
-    return createClient();
-  }
+Client clientNotifier(Ref ref) {
+  return createClient();
 }

@@ -9,11 +9,12 @@ part of 'client_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ClientNotifier)
+@ProviderFor(clientNotifier)
 final clientProvider = ClientNotifierProvider._();
 
 final class ClientNotifierProvider
-    extends $NotifierProvider<ClientNotifier, Client> {
+    extends $FunctionalProvider<Client, Client, Client>
+    with $Provider<Client> {
   ClientNotifierProvider._()
     : super(
         from: null,
@@ -30,7 +31,13 @@ final class ClientNotifierProvider
 
   @$internal
   @override
-  ClientNotifier create() => ClientNotifier();
+  $ProviderElement<Client> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Client create(Ref ref) {
+    return clientNotifier(ref);
+  }
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(Client value) {
@@ -41,22 +48,4 @@ final class ClientNotifierProvider
   }
 }
 
-String _$clientNotifierHash() => r'3648755f4d7c0edb84093634e16b55735f3fd3a1';
-
-abstract class _$ClientNotifier extends $Notifier<Client> {
-  Client build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final ref = this.ref as $Ref<Client, Client>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<Client, Client>,
-              Client,
-              Object?,
-              Object?
-            >;
-    element.handleCreate(ref, build);
-  }
-}
+String _$clientNotifierHash() => r'8d4e7e0da17d11c5c53aa38fe730ad713db662c7';

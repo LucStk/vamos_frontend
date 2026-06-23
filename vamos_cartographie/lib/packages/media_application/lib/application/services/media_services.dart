@@ -25,7 +25,7 @@ class MediaServices {
 
   Future<Either<Failure, MediaImage>> uploadAndAttach(Id id, File file) async {
     try {
-      final mediaImage = await uploadMedia(file, "", (_) {});
+      final mediaImage = await uploadMedia(file, "", (_, _) {});
       final result = await attachRepo.attachImage(id, mediaImage.fileKey);
       return result.fold((f) => Left(f), (image) {
         store.upsert(id, image);

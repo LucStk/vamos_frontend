@@ -1,19 +1,18 @@
 import 'package:dio/dio.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import 'package:vamos_cartographie/infrastructure/media/storage_datasource.dart';
-part "dio_media_handler.g.dart";
 
-@Riverpod(keepAlive: true)
-class DioMediaHandler implements StorageDatasource {
-  final Dio dio = Dio();
+part "dio_media_provider.g.dart";
 
-  @override
-  void build() {
-    return;
-  }
+@riverpod
+StorageDatasource dioMedia(Ref ref) {
+  return _DioStorageDatasource(Dio());
+}
 
-  // TODO: implement hashCode
-  int get hashCode => super.hashCode;
+class _DioStorageDatasource implements StorageDatasource {
+  _DioStorageDatasource(this._dio);
+
+  final Dio _dio;
 
   @override
   Future<void> uploadFile({
@@ -23,7 +22,7 @@ class DioMediaHandler implements StorageDatasource {
     required String contentType,
     void Function(int sent, int total)? onProgress,
   }) {
-    return dio.put(
+    return _dio.put(
       url,
       data: data,
       options: Options(

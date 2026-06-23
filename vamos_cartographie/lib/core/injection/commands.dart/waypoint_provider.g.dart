@@ -182,3 +182,45 @@ final class WaypointHandlerFamily extends $Family
   @override
   String toString() => r'waypointHandlerProvider';
 }
+
+@ProviderFor(waypointMediaHandler)
+final waypointMediaHandlerProvider = WaypointMediaHandlerProvider._();
+
+final class WaypointMediaHandlerProvider
+    extends $FunctionalProvider<MediaHandler, MediaHandler, MediaHandler>
+    with $Provider<MediaHandler> {
+  WaypointMediaHandlerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'waypointMediaHandlerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$waypointMediaHandlerHash();
+
+  @$internal
+  @override
+  $ProviderElement<MediaHandler> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  MediaHandler create(Ref ref) {
+    return waypointMediaHandler(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MediaHandler value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MediaHandler>(value),
+    );
+  }
+}
+
+String _$waypointMediaHandlerHash() =>
+    r'fafb545c6d39299d554f8eda32ab17fca5506ad7';

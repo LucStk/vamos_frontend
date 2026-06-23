@@ -24,24 +24,24 @@ class SegmentRepository {
     }
   }
 
-  Future<Either<Failure, Segment>> createSegment(
-    Id<Trip> tripId,
-    SegmentDraft segment,
-  ) async {
-    try {
-      final input = SegmentDraftMapper.toGQLInput(segment);
-      final gqlResult = await remote.createSegment(
-        tripId: tripId,
-        input: input,
-      );
-      final createSegment = SegmentMapper.fromGQL(gqlResult);
-      return Right(createSegment);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
-  }
+  // Future<Either<Failure, Segment>> createSegment(
+  //   Id<Trip> tripId,
+  //   SegmentDraft segment,
+  // ) async {
+  //   try {
+  //     final input = SegmentDraftMapper.toGQLInput(segment);
+  //     final gqlResult = await remote.createSegment(
+  //       tripId: tripId,
+  //       input: input,
+  //     );
+  //     final createSegment = SegmentMapper.fromGQL(gqlResult);
+  //     return Right(createSegment);
+  //   } on Exception catch (e) {
+  //     return Left(ServerFailure(e.toString()));
+  //   } catch (_) {
+  //     return Left(const ConnectionFailure());
+  //   }
+  // }
 
   Future<Either<Failure, Segment>> updateSegment(
     Id<Segment> id,

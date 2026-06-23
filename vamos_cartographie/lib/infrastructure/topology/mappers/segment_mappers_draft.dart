@@ -5,11 +5,11 @@ import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.da
 import "mobility_type_mapper.dart";
 
 class SegmentDraftMapper {
-  static GSegmentCreateInput toGQLInput(SegmentDraft s) => GSegmentCreateInput(
-    mobilityType: s.mobilityType.toGQL(),
-    startVertexId: s.startVertexId.value,
-    endVertexId: s.endVertexId.value,
-  );
+  // static GSegmentCreateInput toGQLInput(SegmentDraft s) => GSegmentCreateInput(
+  //   mobilityType: s.mobilityType.toGQL(),
+  //   startVertexId: s.startVertexId.value,
+  //   endVertexId: s.endVertexId.value,
+  // );
 
   static GSegmentUpdateInput toGQLUpdateInput(SegmentDraft s) {
     return GSegmentUpdateInput(

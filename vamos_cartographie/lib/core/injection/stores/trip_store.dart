@@ -27,9 +27,3 @@ Stream<Map<TripId, Trip>> tripStore(Ref ref) {
 
   return controller.stream;
 }
-
-@riverpod
-Trip? trip(Ref ref, TripId tripId) {
-  final asyncTrips = ref.watch(tripStoreProvider);
-  return asyncTrips.value?[tripId];
-}
