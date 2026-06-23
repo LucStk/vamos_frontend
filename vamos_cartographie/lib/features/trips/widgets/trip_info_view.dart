@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/commands_provider.dart/trip_provider.dart';
 import 'package:vamos_cartographie/core/injection/queries/trip_queries.dart';
-import 'package:vamos_cartographie/core/injection/trip_store.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'trip_section_label.dart';
@@ -27,8 +25,6 @@ class TripInfoView extends ConsumerWidget {
     final hasTitle = trip.title.trim().isNotEmpty;
     final hasDesc = trip.description.trim().isNotEmpty;
     final hasDate = trip.date != null;
-
-    final images = ref.watch(tripImagesProvider(tripId));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,18 +56,17 @@ class TripInfoView extends ConsumerWidget {
           const SizedBox(height: 16),
         ],
 
-        // Photos
-        if (hasPhotos) ...[
+        ...[
           const TripSectionLabel(
             label: 'PHOTOS',
             icon: Icons.photo_library_outlined,
           ),
           const SizedBox(height: 8),
-          ImageCarouselView(images: images),
+          ImageCarouselView(id: tripId),
         ],
 
         // État vide
-        if (!hasDesc && !hasPhotos)
+        if (!hasDesc)
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),

@@ -8,7 +8,7 @@ import 'trip_section_label.dart';
 /// Travaille sur une copie locale et n'applique les changements
 /// qu'à la confirmation via [onConfirm].
 class TripInfoEditor extends StatefulWidget {
-  final TripDraft initialTrip;
+  final Trip initialTrip;
 
   const TripInfoEditor({super.key, required this.initialTrip});
 
@@ -24,7 +24,7 @@ class TripInfoEditorState extends State<TripInfoEditor> {
   @override
   void initState() {
     super.initState();
-    currentTrip = widget.initialTrip;
+    currentTrip = widget.initialTrip.toDraft();
   }
 
   void _patch(TripDraft newTrip) {
@@ -88,11 +88,7 @@ class TripInfoEditorState extends State<TripInfoEditor> {
           alignment: Alignment.centerLeft,
           child: FractionallySizedBox(
             widthFactor: 0.9,
-            child: ImageCarouselPicker(
-              remoteImages: currentTrip.images,
-              onChanged: (images) =>
-                  _patch(currentTrip.copyWith(images: images)),
-            ),
+            child: ImageCarouselPicker(id: widget.initialTrip.id),
           ),
         ),
       ],

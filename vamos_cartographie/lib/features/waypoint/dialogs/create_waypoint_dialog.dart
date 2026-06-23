@@ -41,7 +41,7 @@ class CreateWaypointDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FormWaypointDialog(
-      initialWaypoint: Waypoint(),
+      initialWaypoint: ,
       onSuccess: () {
         ScaffoldMessenger.of(
           context,
