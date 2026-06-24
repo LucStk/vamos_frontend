@@ -1,8 +1,9 @@
 library ui_events;
 
 import 'package:latlong2/latlong.dart';
-import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/entities/entities.dart';
+import 'package:vamos_cartographie/features/topology/segment_ui.dart';
+import 'package:vamos_cartographie/features/topology/vertex_ui.dart';
+import 'package:vamos_cartographie/features/waypoint/domain/waypoint_ui.dart';
 part "vertex_ui_event.dart";
 part "waypoint_ui_event.dart";
 part "cursor_ui_event.dart";

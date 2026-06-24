@@ -222,12 +222,12 @@ $OverlayPopupCopyWith<OverlayPopup> get copyWith => _$OverlayPopupCopyWithImpl<O
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OverlayPopup&&(identical(other.element, element) || other.element == element));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OverlayPopup&&const DeepCollectionEquality().equals(other.element, element));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,element);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(element));
 
 @override
 String toString() {
@@ -259,9 +259,9 @@ class _$OverlayPopupCopyWithImpl<$Res>
 
 /// Create a copy of MapOverlayState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? element = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? element = freezed,}) {
   return _then(OverlayPopup(
-element: null == element ? _self.element : element // ignore: cast_nullable_to_non_nullable
+element: freezed == element ? _self.element : element // ignore: cast_nullable_to_non_nullable
 as MarkerUiElement,
   ));
 }

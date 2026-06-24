@@ -1,16 +1,16 @@
 part of "ui_events.dart";
 
 class HoverSegments extends MapUiEvent {
-  final List<Id<Segment>>? listSegmentsId;
+  final List<SegmentUiId>? listSegmentsId;
   const HoverSegments(this.listSegmentsId);
 }
 
 class SegmentMobilityMarkerTapped extends MapUiEvent {
-  final Id<Segment> segmentId;
-  const SegmentMobilityMarkerTapped(this.segmentId);
+  final SegmentUiId segmentUiId;
+  const SegmentMobilityMarkerTapped(this.segmentUiId);
 }
 
 class SegmentMobilityMarkerDoubleTapped extends MapUiEvent {
-  final Id<Segment> segmentId;
-  const SegmentMobilityMarkerDoubleTapped(this.segmentId);
+  final SegmentUiId segmentUiId;
+  const SegmentMobilityMarkerDoubleTapped(this.segmentUiId);
 }

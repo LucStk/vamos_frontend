@@ -1,14 +1,18 @@
-part of "marker_ui_element.dart";
+import 'package:flutter/cupertino.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
+import "cursor_marker.dart";
 
-class CursorMarkerElement extends DragMarkerUiElement {
+class CursorUiElement extends DragMarkerUiElement {
   @override
   final LatLng latLng;
-
-  const CursorMarkerElement(super.tripId, this.latLng);
+  const CursorUiElement(super.tripId, this.latLng);
 
   @override
   Widget buildMarker({bool isDragging = false}) =>
-      CursorMarker(tripId: tripId, isDragging: isDragging);
+      CursorMarker(isDragging: isDragging);
+
   @override
   MapUiEvent tapEvent() => CursorTapped(latLng);
   @override

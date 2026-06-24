@@ -4,7 +4,7 @@ import "waypoint_header.dart";
 import "/features/waypoint/domain/waypoint_ui.dart";
 
 class WaypointInfo extends StatelessWidget {
-  final Waypoint waypoint;
+  final WaypointUi waypoint;
   final VoidCallback? onEdit;
   const WaypointInfo({super.key, required this.waypoint, this.onEdit});
 
@@ -36,7 +36,7 @@ class WaypointInfo extends StatelessWidget {
                   ),
 
                 const SizedBox(height: 16),
-                WaypointHeader(type: waypoint.categoryUi),
+                WaypointHeader(type: waypoint.poiCategoryUi),
                 const SizedBox(height: 16),
 
                 // Photos

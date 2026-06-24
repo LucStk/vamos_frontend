@@ -7,8 +7,6 @@ import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_prov
 import 'package:vamos_cartographie/features/map_ui/domain/state/map_state.dart';
 import 'package:vamos_cartographie/features/map_ui/domain/state/overlay_state.dart';
 
-import 'package:vamos_cartographie/features/map_ui/adapters/popup_adapter.dart';
-
 class PopUpOverlay extends ConsumerWidget {
   const PopUpOverlay({
     super.key,

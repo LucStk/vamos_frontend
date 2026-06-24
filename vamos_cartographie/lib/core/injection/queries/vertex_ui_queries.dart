@@ -5,11 +5,11 @@ import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/queries/graph_queries.dart';
 import 'package:vamos_cartographie/core/injection/queries/trip_domain_queries.dart';
 import 'package:vamos_cartographie/core/injection/stores/graph_store.dart';
-import 'package:vamos_cartographie/features/topology/vertex_ui_model.dart';
+import 'package:vamos_cartographie/features/topology/vertex_ui.dart';
 part 'vertex_ui_queries.g.dart';
 
 @riverpod
-List<VertexUiId> vertexUiIds(Ref ref, SegmentId segId) {
+List<VertexUiId> vertexUiIds(Ref ref) {
   // Permets d'avoir tous les segment avec un granularité de rebuild à l'échelle du segment
   final vertexPatchIds =
       ref.watch(vertexPatchStoreProvider).getIds() as List<Id>;
@@ -19,7 +19,7 @@ List<VertexUiId> vertexUiIds(Ref ref, SegmentId segId) {
 }
 
 @riverpod
-VertexUiModel? segmentUi(Ref ref, VertexUiId id) {
+VertexUi? vertexUi(Ref ref, VertexUiId id) {
   final VertexPatch? vPatch = ref.watch(
     vertexPatchProvider(id as VertexPatchId),
   );

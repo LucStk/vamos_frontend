@@ -11,9 +11,12 @@ class MobilityTypeMarker extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final segmentUi = ref.watch(segmentUiProvider(segmentUiId));
+    if (segmentUi == null) {
+      return ErrorWidget(Exception("noSegmentUIFound"));
+    }
     return Container(
       decoration: BoxDecoration(
-        color: segmentUi.mobilityTypeUi.color.withOpacity(0.7),
+        color: Color(segmentUi.mobilityType.colorValue).withOpacity(0.7),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
       ),

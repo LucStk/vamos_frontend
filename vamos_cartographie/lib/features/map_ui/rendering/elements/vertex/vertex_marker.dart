@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/features/topology/vertex_ui.dart';
 
 class VertexMarker extends StatelessWidget {
-  final Id<Vertex> vertexId;
-  final Id<Trip> tripId;
+  final VertexUiId vertexUiId;
   final bool isDragging;
 
   const VertexMarker({
     super.key,
-    required this.tripId,
-    required this.vertexId,
+    required this.vertexUiId,
     this.isDragging = false,
   });
 

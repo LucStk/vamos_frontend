@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/entities/entities.dart';
+import 'package:vamos_cartographie/backend/graphql/__generated__/schema.ast.gql.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 
 class SegmentEditor extends ConsumerStatefulWidget {
@@ -63,8 +64,8 @@ class _SegmentEditorState extends ConsumerState<SegmentEditor> {
       children: [
         // ── Type ───────────────────────────────
         TypeSelector(
-          values: MobilityTypeUi.values,
-          selectedType: MobilityTypeUi.from(currentSegment.mobilityType),
+          values: MobilityType.values,
+          selectedType: MobilityType.from(currentSegment.mobilityType),
 
           onTypeChanged: (newType) {
             _submit(currentSegment.copyWith(mobilityType: newType.type));

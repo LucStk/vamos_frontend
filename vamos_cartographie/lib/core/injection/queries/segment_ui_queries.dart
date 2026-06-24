@@ -4,11 +4,11 @@ import 'package:topology_application/domain/entities/entities.dart';
 import 'package:vamos_cartographie/core/injection/queries/graph_queries.dart';
 import 'package:vamos_cartographie/core/injection/stores/graph_store.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/features/topology/segment_ui_model.dart';
+import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 part 'segment_ui_queries.g.dart';
 
 @riverpod
-List<SegmentUiId> segmentUiIds(Ref ref, SegmentId segId) {
+List<SegmentUiId> segmentUiIds(Ref ref) {
   // Permets d'avoir tous les segment avec un granularité de rebuild à l'échelle du segment
   final segmentPatchIds =
       ref.watch(segmentPatchStoreProvider).getIds() as List<Id>;
@@ -18,7 +18,7 @@ List<SegmentUiId> segmentUiIds(Ref ref, SegmentId segId) {
 }
 
 @riverpod
-SegmentUiModel? segmentUi(Ref ref, SegmentUiId id) {
+SegmentUi? segmentUi(Ref ref, SegmentUiId id) {
   final SegmentPatch? segPatch = ref.watch(
     segmentPatchProvider(id as SegmentPatchId),
   );

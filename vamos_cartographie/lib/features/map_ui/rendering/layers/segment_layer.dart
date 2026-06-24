@@ -6,8 +6,8 @@ import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/queries/segment_ui_queries.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
-import 'package:vamos_cartographie/features/map_ui/adapters/marker_adapter.dart';
-import 'package:vamos_cartographie/features/map_ui/adapters/segment_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/adapters/marker_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/adapters/segment_adapter.dart';
 
 class SegmentLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -44,14 +44,12 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
 
   @override
   Widget build(BuildContext context) {
-    final segments = ref.watch(segmentUiProvider(widget.tripId));
+    final segments = ref.watch(segmentUiIdsProvider);
     final mapCtrl = ref.read(mapCtrlProvider(widget.tripId).notifier);
 
     final polylines =
         segments
-                .map(
-                  (entry) => toPolyline(entry.segment, widget.tripId, mapCtrl),
-                )
+                .map((id) => toPolyline(ref, id, widget.tripId, mapCtrl))
                 .toList()
             as List<Polyline<Id<Segment>>>;
     // On en profite pour construire les markers mobility sur les segments

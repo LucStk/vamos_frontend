@@ -6,7 +6,7 @@ import "/features/waypoint/domain/waypoint_ui.dart";
 import "waypoint_header.dart";
 
 class WaypointEditor extends StatefulWidget {
-  final Waypoint initialWaypoint;
+  final WaypointUi initialWaypoint;
   const WaypointEditor({super.key, required this.initialWaypoint});
 
   @override
@@ -14,15 +14,15 @@ class WaypointEditor extends StatefulWidget {
 }
 
 class WaypointEditorState extends State<WaypointEditor> {
-  late WaypointUiDraft currentWaypoint; // Accessible par la GlobalKey
+  late WaypointUi currentWaypoint; // Accessible par la GlobalKey
 
   @override
   void initState() {
     super.initState();
-    currentWaypoint = widget.initialWaypoint.toDraft();
+    currentWaypoint = widget.initialWaypoint;
   }
 
-  void _patch(WaypointDraft newWaypoint) {
+  void _patch(WaypointUi newWaypoint) {
     setState(() {
       currentWaypoint = newWaypoint;
     });
@@ -56,14 +56,14 @@ class WaypointEditorState extends State<WaypointEditor> {
         const SizedBox(height: 16),
 
         // ── Header ─────────────────────────────
-        WaypointHeader(type: currentWaypoint.categoryUi),
+        WaypointHeader(type: currentWaypoint.poiCategoryUi),
 
         const SizedBox(height: 12),
 
         // ── Type ───────────────────────────────
         TypeSelector(
           values: PoiCategoryUi.values,
-          selectedType: currentWaypoint.categoryUi,
+          selectedType: currentWaypoint.poiCategoryUi,
 
           onTypeChanged: (newType) {
             _patch(currentWaypoint.copyWith(poiCategory: newType.category));
