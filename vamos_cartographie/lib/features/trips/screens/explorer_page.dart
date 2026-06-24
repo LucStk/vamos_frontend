@@ -4,7 +4,6 @@ import 'package:vamos_cartographie/core/injection/commands.dart/trip_provider.da
 import 'package:vamos_cartographie/core/injection/stores/trip_store.dart';
 import 'package:vamos_cartographie/features/trips/dialogs/trip_creator_dialog.dart';
 import 'package:vamos_cartographie/features/trips/widgets/explorer_empty_view.dart';
-import 'package:vamos_cartographie/features/trips/widgets/explorer_error_view.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_card.dart';
 
 class ExplorerPage extends ConsumerWidget {
@@ -12,7 +11,7 @@ class ExplorerPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripList = ref.watch(tripStoreProvider);
+    final tripStore = ref.watch(tripStoreProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,29 +25,16 @@ class ExplorerPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: tripList.when(
-        loading: () {
-          return const Center(child: CircularProgressIndicator());
-        },
-
-        error: (error, _) {
-          return ExplorerErrorView(
-            message: error.toString(),
-            onRetry: () {
-              ref.read(tripHandlerProvider).loadFromRemote();
-            },
-          );
-        },
-
-        data: (trips) {
-          if (trips.isEmpty) {
+      body: Builder(
+        builder: (context) {
+          if (tripStore.store.isEmpty) {
             return const ExplorerEmptyView();
           }
           // debugPrint("Trips are $trips");
-          final tripsList = trips.values.toList();
+          final tripsList = tripStore.store.values.toList();
           return ListView.separated(
             padding: const EdgeInsets.all(16),
-            itemCount: trips.length,
+            itemCount: tripsList.length,
             separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               final trip = tripsList[index];

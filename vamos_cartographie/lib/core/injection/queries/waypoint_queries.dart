@@ -2,19 +2,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/stores/waypoint_store.dart';
 
-import 'package:trip_domain/trip_domain.dart';
 part 'waypoint_queries.g.dart';
 
 @riverpod
 Waypoint? waypoint(Ref ref, WaypointId id) {
-  final asyncWaypoint = ref.watch(waypointStoreProvider);
-  return asyncWaypoint.value?[id];
+  final waypointStore = ref.watch(waypointStoreProvider);
+  return waypointStore.get(id);
 }
 
 @riverpod
 Waypoint? waypointFromVertex(Ref ref, VertexId vertexId) {
-  final store = ref.watch(rawWaypointStoreProvider);
-  // On s'abonne au stream pour les rebuilds
-  ref.watch(waypointStoreProvider);
+  final store = ref.watch(waypointStoreProvider);
   return store.getFromVertex(vertexId);
 }

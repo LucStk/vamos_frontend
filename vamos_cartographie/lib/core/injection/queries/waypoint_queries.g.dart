@@ -66,7 +66,7 @@ final class WaypointProvider
   }
 }
 
-String _$waypointHash() => r'06c814c42a0fda8a1d69c6256471b93cb40fe86e';
+String _$waypointHash() => r'cdf05dce9211713d67ee33554e7df89fe2e87056';
 
 final class WaypointFamily extends $Family
     with $FunctionalFamilyOverride<Waypoint?, WaypointId> {
@@ -144,7 +144,7 @@ final class WaypointFromVertexProvider
 }
 
 String _$waypointFromVertexHash() =>
-    r'dc3520b063c4497fc7903d3ef5dc632c0d3157cd';
+    r'f50f23d1434aabec3547cabe4180f3d75c86e636';
 
 final class WaypointFromVertexFamily extends $Family
     with $FunctionalFamilyOverride<Waypoint?, VertexId> {

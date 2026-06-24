@@ -17,7 +17,7 @@ class TripCreatorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TripFormDialog(
-      initialTrip: TripDraft(),
+      initialTrip: Trip(), //Doit créer un Trip avant
 
       successMessage: 'Voyage créé',
 
