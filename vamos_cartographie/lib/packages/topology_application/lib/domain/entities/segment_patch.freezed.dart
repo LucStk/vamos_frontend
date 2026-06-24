@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SegmentPatch {
 
- Id<SegmentPatch> get id; Geometry get geometryOverride; bool get recomputing; Object? get error;
+ SegmentPatchId get id; Geometry get geometryOverride; MobilityType get mobilityType; bool get recomputing; Object? get error;
 /// Create a copy of SegmentPatch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SegmentPatchCopyWith<SegmentPatch> get copyWith => _$SegmentPatchCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatch&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.geometryOverride, geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatch&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.geometryOverride, geometryOverride)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(geometryOverride),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentPatch(id: $id, geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
+  return 'SegmentPatch(id: $id, geometryOverride: $geometryOverride, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SegmentPatchCopyWith<$Res>  {
   factory $SegmentPatchCopyWith(SegmentPatch value, $Res Function(SegmentPatch) _then) = _$SegmentPatchCopyWithImpl;
 @useResult
 $Res call({
- Id<SegmentPatch> id, Geometry geometryOverride, bool recomputing, Object? error
+ SegmentPatchId id, Geometry geometryOverride, MobilityType mobilityType, bool recomputing, Object? error
 });
 
 
@@ -62,11 +62,12 @@ class _$SegmentPatchCopyWithImpl<$Res>
 
 /// Create a copy of SegmentPatch
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? geometryOverride = null,Object? recomputing = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? geometryOverride = null,Object? mobilityType = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<SegmentPatch>,geometryOverride: null == geometryOverride ? _self.geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
-as Geometry,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+as SegmentPatchId,geometryOverride: null == geometryOverride ? _self.geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
+as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as MobilityType,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }
@@ -152,10 +153,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<SegmentPatch> id,  Geometry geometryOverride,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( SegmentPatchId id,  Geometry geometryOverride,  MobilityType mobilityType,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SegmentPatch() when internal != null:
-return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);case _:
+return internal(_that.id,_that.geometryOverride,_that.mobilityType,_that.recomputing,_that.error);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<SegmentPatch> id,  Geometry geometryOverride,  bool recomputing,  Object? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( SegmentPatchId id,  Geometry geometryOverride,  MobilityType mobilityType,  bool recomputing,  Object? error)  internal,}) {final _that = this;
 switch (_that) {
 case _SegmentPatch():
-return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);case _:
+return internal(_that.id,_that.geometryOverride,_that.mobilityType,_that.recomputing,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +194,10 @@ return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<SegmentPatch> id,  Geometry geometryOverride,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( SegmentPatchId id,  Geometry geometryOverride,  MobilityType mobilityType,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
 switch (_that) {
 case _SegmentPatch() when internal != null:
-return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);case _:
+return internal(_that.id,_that.geometryOverride,_that.mobilityType,_that.recomputing,_that.error);case _:
   return null;
 
 }
@@ -208,10 +209,10 @@ return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);c
 
 
 class _SegmentPatch extends SegmentPatch {
-  const _SegmentPatch({required this.id, required final  Geometry geometryOverride, this.recomputing = false, this.error}): _geometryOverride = geometryOverride,super._();
+  const _SegmentPatch({required this.id, required final  Geometry geometryOverride, this.mobilityType = MobilityType.bike, this.recomputing = false, this.error}): _geometryOverride = geometryOverride,super._();
   
 
-@override final  Id<SegmentPatch> id;
+@override final  SegmentPatchId id;
  final  Geometry _geometryOverride;
 @override Geometry get geometryOverride {
   if (_geometryOverride is EqualUnmodifiableListView) return _geometryOverride;
@@ -219,6 +220,7 @@ class _SegmentPatch extends SegmentPatch {
   return EqualUnmodifiableListView(_geometryOverride);
 }
 
+@override@JsonKey() final  MobilityType mobilityType;
 @override@JsonKey() final  bool recomputing;
 @override final  Object? error;
 
@@ -232,16 +234,16 @@ _$SegmentPatchCopyWith<_SegmentPatch> get copyWith => __$SegmentPatchCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatch&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._geometryOverride, _geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatch&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._geometryOverride, _geometryOverride)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_geometryOverride),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentPatch.internal(id: $id, geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
+  return 'SegmentPatch.internal(id: $id, geometryOverride: $geometryOverride, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -252,7 +254,7 @@ abstract mixin class _$SegmentPatchCopyWith<$Res> implements $SegmentPatchCopyWi
   factory _$SegmentPatchCopyWith(_SegmentPatch value, $Res Function(_SegmentPatch) _then) = __$SegmentPatchCopyWithImpl;
 @override @useResult
 $Res call({
- Id<SegmentPatch> id, Geometry geometryOverride, bool recomputing, Object? error
+ SegmentPatchId id, Geometry geometryOverride, MobilityType mobilityType, bool recomputing, Object? error
 });
 
 
@@ -269,11 +271,12 @@ class __$SegmentPatchCopyWithImpl<$Res>
 
 /// Create a copy of SegmentPatch
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? geometryOverride = null,Object? recomputing = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? geometryOverride = null,Object? mobilityType = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_SegmentPatch(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<SegmentPatch>,geometryOverride: null == geometryOverride ? _self._geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
-as Geometry,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+as SegmentPatchId,geometryOverride: null == geometryOverride ? _self._geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
+as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as MobilityType,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }

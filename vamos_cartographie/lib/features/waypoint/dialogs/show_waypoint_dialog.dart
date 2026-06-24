@@ -2,30 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/commands.dart/waypoint_provider.dart';
-import 'package:vamos_cartographie/core/injection/queries/waypoint_queries.dart';
+import 'package:vamos_cartographie/core/injection/queries/waypoint_ui_queries.dart';
+import 'package:vamos_cartographie/features/waypoint/waypoint.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/widgets.dart';
 import 'edit_waypoint_dialog.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 
 class ShowWaypointDialog extends ConsumerWidget {
-  final WaypointId waypointId;
+  final WaypointUiId waypointUiId;
   final TripId tripId;
   const ShowWaypointDialog({
     super.key,
-    required this.waypointId,
+    required this.waypointUiId,
     required this.tripId,
   });
 
   static void show({
     required BuildContext context,
-    required WaypointId waypointId,
+    required WaypointUiId waypointUiId,
     required TripId tripId,
   }) {
     showDialog(
       context: context,
       builder: (_) =>
-          ShowWaypointDialog(waypointId: waypointId, tripId: tripId),
+          ShowWaypointDialog(waypointUiId: waypointUiId, tripId: tripId),
     );
   }
 
@@ -43,7 +44,7 @@ class ShowWaypointDialog extends ConsumerWidget {
       // Appel à Riverpod pour supprimer dans le state / serveur
       await ref
           .read(waypointHandlerProvider(tripId))
-          .deleteWaypoint(waypointId);
+          .deleteWaypoint(waypointUiId);
 
       // Sécurité Flutter obligatoire après un "await"
       if (!context.mounted) return;
@@ -63,7 +64,7 @@ class ShowWaypointDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(waypointProvider(waypointId));
+    final waypoint = ref.watch(waypointUiProvider(waypointUiId));
     if (waypoint == null) {
       return const SizedBox.shrink();
     }
@@ -75,7 +76,7 @@ class ShowWaypointDialog extends ConsumerWidget {
           onPressed: () {
             EditWaypointDialog.show(
               context: ctx,
-              waypointId: waypointId,
+              waypointUiId: waypointUiId,
               tripId: tripId,
             );
           },

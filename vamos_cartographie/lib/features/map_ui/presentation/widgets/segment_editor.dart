@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/entities/entities.dart';
-import 'package:vamos_cartographie/features/shared/domain/entities/mobility_types_ui.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 
 class SegmentEditor extends ConsumerStatefulWidget {

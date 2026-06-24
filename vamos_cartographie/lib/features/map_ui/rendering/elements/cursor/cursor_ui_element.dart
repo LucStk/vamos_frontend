@@ -1,10 +1,10 @@
 part of "marker_ui_element.dart";
 
-class CursorUiElement extends DragMarkerUiElement {
+class CursorMarkerElement extends DragMarkerUiElement {
   @override
   final LatLng latLng;
 
-  const CursorUiElement(super.tripId, this.latLng);
+  const CursorMarkerElement(super.tripId, this.latLng);
 
   @override
   Widget buildMarker({bool isDragging = false}) =>

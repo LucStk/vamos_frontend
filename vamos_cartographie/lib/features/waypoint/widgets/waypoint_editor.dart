@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:vamos_cartographie/features/shared/domain/entities/poi_ui.dart";
+import "package:vamos_cartographie/features/waypoint/domain/poi_ui.dart";
 import '/features/carousel/widgets/widgets.dart';
 import '/features/shared/shared.dart';
 import "/features/waypoint/domain/waypoint_ui.dart";
@@ -14,7 +14,7 @@ class WaypointEditor extends StatefulWidget {
 }
 
 class WaypointEditorState extends State<WaypointEditor> {
-  late WaypointDraft currentWaypoint; // Accessible par la GlobalKey
+  late WaypointUiDraft currentWaypoint; // Accessible par la GlobalKey
 
   @override
   void initState() {

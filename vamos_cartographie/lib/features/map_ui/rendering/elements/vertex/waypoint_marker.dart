@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/queries/waypoint_ui_queries.dart';
+import 'package:vamos_cartographie/features/features.dart';
 
 class WaypointMarker extends ConsumerWidget {
-  final Id<Waypoint> waypointId;
-  final Id<Trip> tripId;
+  final WaypointUiId waypointId;
   final bool isDragging;
 
   const WaypointMarker({
     super.key,
     required this.waypointId,
-    required this.tripId,
     this.isDragging = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(
-      nodeRequiredProvider<Waypoint>(tripId, waypointId),
-    );
-
+    final waypoint = ref.watch(waypointUiProvider(waypointId));
+    if (waypoint == null) {
+      return SizedBox.shrink();
+    }
     return CircleAvatar(
       radius: 16, // Taille globale du cercle (diamètre = 32)
-      backgroundColor:
-          waypoint.poiCategory.color, // <-- La couleur de votre fond rond
-      child: Icon(waypoint.poiCategory.icon, color: Colors.white, size: 20),
+      backgroundColor: Color(
+        waypoint.poiCategoryUi.colorValue,
+      ), // <-- La couleur de votre fond rond
+      child: Icon(waypoint.poiCategoryUi.icon, color: Colors.white, size: 20),
     );
   }
 }

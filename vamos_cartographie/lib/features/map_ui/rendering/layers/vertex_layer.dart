@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/queries/graph_queries.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/adapters/marker_adapter.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
@@ -11,7 +12,7 @@ class VertexLayer extends ConsumerWidget {
   const VertexLayer({super.key, required this.tripId});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vertices = ref.watch(topologyVerticesProvider(tripId));
+    final vertices = ref.watch(vertexProvider());
     final ctrl = ref.read(mapCtrlProvider(tripId).notifier);
     final markers = vertices.map((vertex) {
       return toDragMarker(vertex, tripId, ctrl);

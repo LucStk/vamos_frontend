@@ -11,7 +11,7 @@ class GraphStore {
 
   void insertSegment(Segment segment) => segmentStore.insert(segment);
   void updateSegment(Segment segment) => segmentStore.update(segment);
-  void removeSegment(Id<Segment> id) => segmentStore.remove(id);
+  void removeSegment(SegmentId id) => segmentStore.remove(id);
 
   void insertVertex(Vertex vertex) => vertexStore.insert(vertex);
   void updateVertex(Vertex vertex) => vertexStore.update(vertex);

@@ -4,30 +4,27 @@ import 'package:topology_application/domain/entities/entities.dart';
 import 'package:vamos_cartographie/core/injection/queries/graph_queries.dart';
 import 'package:vamos_cartographie/core/injection/stores/graph_store.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/features/topology/segment_ui_model.dart';
 part 'segment_ui_queries.g.dart';
 
 @riverpod
-Map<Id, SegmentUiModel> segmentsUi(Ref ref, TripId tripId, SegmentId segId) {
+List<SegmentUiId> segmentUiIds(Ref ref, SegmentId segId) {
   // Permets d'avoir tous les segment avec un granularité de rebuild à l'échelle du segment
-  final segmentStore = ref.watch(segmentStoreProvider);
-  final patchStore = ref.watch(segmentPatchStoreProvider);
-  final segmentPatchIds = patchStore.getIds() as List<Id>;
-  final segmentIds = segmentStore.getIds() as List<Id>;
-  final onlyInSegmentsIds =
-      segmentIds.toSet().difference(segmentPatchIds.toSet()).toList()
-          as List<SegmentId>;
-  final Map<Id, SegmentUiModel> r = {};
-  for (Id<Segment> id in onlyInSegmentsIds) {
-    final seg = ref.watch(segmentProvider(id));
-    if (seg == null) continue;
-    final sUi = seg.toUiModel();
-    r[sUi.id] = sUi;
+  final segmentPatchIds =
+      ref.watch(segmentPatchStoreProvider).getIds() as List<Id>;
+  final segmentIds = ref.watch(segmentStoreProvider).getIds() as List<Id>;
+  return segmentPatchIds.toSet().union(segmentIds.toSet()).toList()
+      as List<SegmentUiId>;
+}
+
+@riverpod
+SegmentUiModel? segmentUi(Ref ref, SegmentUiId id) {
+  final SegmentPatch? segPatch = ref.watch(
+    segmentPatchProvider(id as SegmentPatchId),
+  );
+  if (segPatch != null) {
+    return segPatch.toUiModel();
   }
-  for (Id<SegmentPatch> id in (segmentPatchIds as List<Id<SegmentPatch>>)) {
-    final seg = ref.watch(segmentPatchProvider(id));
-    if (seg == null) continue;
-    final sUi = seg.toUiModel();
-    r[sUi.id] = sUi;
-  }
-  return r;
+  final Segment? seg = ref.watch(segmentProvider(id as SegmentId));
+  return seg?.toUiModel();
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'waypoint_queries.dart';
+part of 'trip_domain_queries.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,55 +9,54 @@ part of 'waypoint_queries.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(waypoint)
-final waypointProvider = WaypointFamily._();
+@ProviderFor(trip)
+final tripProvider = TripFamily._();
 
-final class WaypointProvider
-    extends $FunctionalProvider<Waypoint?, Waypoint?, Waypoint?>
-    with $Provider<Waypoint?> {
-  WaypointProvider._({
-    required WaypointFamily super.from,
-    required WaypointId super.argument,
+final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
+    with $Provider<Trip?> {
+  TripProvider._({
+    required TripFamily super.from,
+    required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'waypointProvider',
+         name: r'tripProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$waypointHash();
+  String debugGetCreateSourceHash() => _$tripHash();
 
   @override
   String toString() {
-    return r'waypointProvider'
+    return r'tripProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<Waypoint?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<Trip?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  Waypoint? create(Ref ref) {
-    final argument = this.argument as WaypointId;
-    return waypoint(ref, argument);
+  Trip? create(Ref ref) {
+    final argument = this.argument as TripId;
+    return trip(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Waypoint? value) {
+  Override overrideWithValue(Trip? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Waypoint?>(value),
+      providerOverride: $SyncValueProvider<Trip?>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is WaypointProvider && other.argument == argument;
+    return other is TripProvider && other.argument == argument;
   }
 
   @override
@@ -66,24 +65,24 @@ final class WaypointProvider
   }
 }
 
-String _$waypointHash() => r'cdf05dce9211713d67ee33554e7df89fe2e87056';
+String _$tripHash() => r'e84d34ed9cad921ffb306d6c42603174dc086aaa';
 
-final class WaypointFamily extends $Family
-    with $FunctionalFamilyOverride<Waypoint?, WaypointId> {
-  WaypointFamily._()
+final class TripFamily extends $Family
+    with $FunctionalFamilyOverride<Trip?, TripId> {
+  TripFamily._()
     : super(
         retry: null,
-        name: r'waypointProvider',
+        name: r'tripProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  WaypointProvider call(WaypointId id) =>
-      WaypointProvider._(argument: id, from: this);
+  TripProvider call(TripId tripId) =>
+      TripProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'waypointProvider';
+  String toString() => r'tripProvider';
 }
 
 @ProviderFor(waypointFromVertex)

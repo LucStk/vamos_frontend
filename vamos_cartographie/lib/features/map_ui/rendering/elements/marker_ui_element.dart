@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart'
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/cursor/cursor_marker.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_marker.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/waypoint_marker.dart';
+import 'package:vamos_cartographie/features/topology/vertex_ui.dart';
 import '../map_ui_element.dart';
 
 part "vertex_ui_element.dart";

@@ -1,5 +1,4 @@
 import 'package:trip_domain/domain/domain.dart';
-import 'package:trip_domain/domain/types/Ids.dart';
 
 class WaypointStore {
   final Map<WaypointId, Waypoint> store = {};

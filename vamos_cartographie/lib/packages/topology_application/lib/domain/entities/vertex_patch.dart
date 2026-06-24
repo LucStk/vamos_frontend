@@ -6,6 +6,7 @@ import 'package:trip_domain/domain/value_objects/poi_category_types.dart';
 
 part 'vertex_patch.freezed.dart';
 
+typedef VertexPatchId = Id<VertexPatch>;
 int _nextVertexNegativeId = -1;
 
 @freezed
@@ -14,7 +15,7 @@ abstract class VertexPatch with _$VertexPatch implements HasId {
 
   // On utilise @Implements sur le constructeur cible
   const factory VertexPatch.internal({
-    required Id<VertexPatch> id,
+    required VertexPatchId id,
     required LatLng positionOverride,
     PoiCategory? type,
     required bool recomputing,
@@ -24,7 +25,7 @@ abstract class VertexPatch with _$VertexPatch implements HasId {
   const VertexPatch._(); // Requis pour pouvoir utiliser @Implements
 
   factory VertexPatch({
-    Id<VertexPatch>? id,
+    VertexPatchId? id,
     required LatLng positionOverride,
     PoiCategory? type,
     bool recomputing = false,

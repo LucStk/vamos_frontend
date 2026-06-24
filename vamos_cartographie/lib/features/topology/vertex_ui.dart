@@ -3,30 +3,32 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:topology_application/topology_application.dart';
 import 'package:trip_domain/domain/domain.dart';
-part "vertex_ui_model.freezed.dart";
+part "vertex_ui.freezed.dart";
+
+typedef VertexUiId = Id<VertexUi>;
 
 @freezed
-abstract class VertexUiModel with _$VertexUiModel {
-  const factory VertexUiModel({
-    required Id id,
+abstract class VertexUi with _$VertexUi {
+  const factory VertexUi({
+    required VertexUiId id,
     required LatLng position,
     required bool isOptimistic,
     required PoiCategory? poiCategory,
-  }) = _VertexUiModel;
+  }) = _VertexUi;
 }
 
-extension VertexUi on Vertex {
-  VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
-    id: id,
+extension ToVertexUi on Vertex {
+  VertexUi toUiModel(PoiCategory? poiCategory) => VertexUi(
+    id: id as VertexUiId,
     position: latLng,
     isOptimistic: false,
     poiCategory: poiCategory,
   );
 }
 
-extension VertexPatchUi on VertexPatch {
-  VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
-    id: id,
+extension ToVertexPatchUi on VertexPatch {
+  VertexUi toUiModel(PoiCategory? poiCategory) => VertexUi(
+    id: id as VertexUiId,
     position: positionOverride,
     isOptimistic: true,
     poiCategory: poiCategory,
