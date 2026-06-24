@@ -1,7 +1,7 @@
 import 'package:domain_core/has_id.dart';
 import 'package:domain_core/id.dart';
 import 'package:domain_core/observable.dart';
-import 'package:topology_engine/graph/collection_store.dart';
+import '/collection_store.dart';
 
 class ObservableCollectionStore<T extends HasId<T>> extends CollectionStore<T>
     with Observable {

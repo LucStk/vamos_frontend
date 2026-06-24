@@ -1,6 +1,6 @@
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:trip_domain/domain/entities/vertex.dart';
 
 sealed class MapEffect {
   const MapEffect();

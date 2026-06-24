@@ -1,4 +1,4 @@
-export "entities/media_image.dart";
-export "entities/trip.dart";
-export "entities/waypoint.dart";
+export "entities/entities.dart";
 export "value_objects/poi_category_types.dart";
+export "value_objects/mobility_types.dart";
+export "types/Ids.dart";

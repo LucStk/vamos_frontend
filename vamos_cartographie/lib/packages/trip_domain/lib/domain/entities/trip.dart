@@ -1,8 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:domain_core/domain_core.dart';
+import 'package:trip_domain/domain/types/Ids.dart';
 part 'trip.freezed.dart';
-
-typedef TripId = Id<Trip>;
 
 @freezed
 abstract class Trip with _$Trip {

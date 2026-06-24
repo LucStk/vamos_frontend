@@ -4,8 +4,6 @@ library map_commands;
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/entities.dart';
 // On inclut les fichiers enfants
 part "vertex_commands.dart";
 part "segments_commands.dart";

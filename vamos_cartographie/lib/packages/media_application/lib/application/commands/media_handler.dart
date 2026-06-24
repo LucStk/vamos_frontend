@@ -1,16 +1,14 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:media_application/application/services/media_services.dart';
-import 'package:media_application/patches/media_patch_store.dart';
-import 'package:media_application/patches/patch_image.dart';
-import 'package:media_application/patches/upload_status.dart';
+import 'package:media_application/runtime/observable_media_patch_store.dart';
+import '/domain/domain.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 class MediaHandler {
-  MediaPatchStore patchStore;
+  ObservableMediaPatchStore patchStore;
   OptimisticExecutor executor;
   MediaServices mediaServices;
-
   MediaHandler(this.patchStore, this.executor, this.mediaServices);
 
   Future<void> addImage<T>(Id<T> id, PatchImageMedia patch) async {

@@ -1,5 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'observable_graph_node.dart';
 
 class CollectionStore<T extends HasId<T>> {
   final Map<Id<T>, ObservableGraphNode<T>> store = {};
@@ -7,6 +6,10 @@ class CollectionStore<T extends HasId<T>> {
   CollectionStore();
 
   void clear() => store.clear();
+
+  void update(T value) {
+    store[value.id]!.set(value);
+  }
 
   void insert(T value) => store[value.id] = ObservableGraphNode<T>(value);
 
@@ -16,7 +19,7 @@ class CollectionStore<T extends HasId<T>> {
   }
 }
 
-extension CollectionStoreGetterss<T extends HasId<T>> on CollectionStore<T> {
+extension CollectionStoreGetters<T extends HasId<T>> on CollectionStore<T> {
   ObservableGraphNode<T>? getNode(Id<T> id) => store[id];
 
   ObservableGraphNode<T> getNodeRequired(Id<T> id) {

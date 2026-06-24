@@ -1,6 +1,6 @@
 // mobility_type_ui.dart — vamos_cartographie
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/features.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/shared/domain/types/map_item_type.dart';
 
 enum MobilityTypeUi implements MapItemType {

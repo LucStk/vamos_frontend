@@ -1,7 +1,7 @@
 import 'package:domain_core/optimitic_executor.dart';
-import 'package:topology_engine/topology_engine.dart';
 import 'package:trip_domain/application/repositories/waypoint_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_domain/domain/types/Ids.dart';
 import 'package:trip_domain/runtime/store/waypoint_store.dart';
 
 class WaypointHandler {

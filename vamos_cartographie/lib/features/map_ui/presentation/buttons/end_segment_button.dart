@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/entities.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/buttons/button_abstract.dart';
-import 'package:domain_core/domain_core.dart';
 
 class EndSegmentButton extends AbstractMapButton {
   final Id<Vertex> vertexId;

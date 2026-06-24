@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
 import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_domain/domain/types/Ids.dart';
 
 abstract class TripRepository {
   Future<Either<Failure, List<Trip>>> getAllTrips();

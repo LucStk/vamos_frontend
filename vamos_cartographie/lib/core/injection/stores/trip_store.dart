@@ -5,7 +5,6 @@ import "package:trip_domain/application/repositories/trip_repository.dart";
 import "package:trip_domain/domain/domain.dart";
 import "package:trip_domain/runtime/store/trip_store.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
-import "package:vamos_cartographie/core/injection/observable_node_impl.dart";
 import "package:vamos_cartographie/infrastructure/trip/data.dart";
 part "trip_store.g.dart";
 

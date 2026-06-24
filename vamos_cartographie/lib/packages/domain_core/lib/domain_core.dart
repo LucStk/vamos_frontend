@@ -3,3 +3,8 @@ export 'has_id.dart';
 export 'failure.dart';
 export "media.dart";
 export "observable.dart";
+export "collection_store.dart";
+export "observable_collection_store.dart";
+export "observable_graph_node.dart";
+export "topology_index.dart";
+export "graph_id.dart";

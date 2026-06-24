@@ -13,8 +13,6 @@ dependencies:
   freezed_annotation: ^3.1.0
   domain_core:
     path: ../domain_core
-  topology_engine:
-    path: ../topology_engine
 
 dev_dependencies:
   build_runner: ^2.15.0

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/entities/waypoint.dart';
-import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/packages/topology_engine/lib/domain/entities/entities.dart';
+import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/cursor/cursor_marker.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_marker.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/waypoint_marker.dart';
-import 'package:domain_core/domain_core.dart';
 import '../map_ui_element.dart';
 
 part "vertex_ui_element.dart";

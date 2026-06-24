@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:topology_engine/topology_engine.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_domain/domain/entities/entities.dart';
+import 'package:trip_domain/domain/types/Ids.dart';
 
 abstract class WaypointRepository {
   Future<Either<Failure, List<Waypoint>>> getWaypoints(TripId id);

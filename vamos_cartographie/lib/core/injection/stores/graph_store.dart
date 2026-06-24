@@ -2,9 +2,6 @@ import "dart:async";
 
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:topology_application/patches/graph_patch_store.dart";
-import "package:topology_engine/graph/graph_store.dart";
-import "package:topology_engine/graph/nodes/graph_node.dart";
-import "package:vamos_cartographie/core/injection/observable_node_impl.dart";
 import "package:vamos_cartographie/features/features.dart";
 import "package:topology_application/topology_application.dart";
 part "graph_store.g.dart";

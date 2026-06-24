@@ -1,13 +1,11 @@
 import 'package:topology_application/helpers/optimist_geometry.dart';
-import 'package:topology_engine/domain/types/geometry.dart';
-import 'package:topology_engine/graph/queries/segment_queries.dart';
-import 'package:topology_engine/topology_engine.dart';
+import 'package:trip_domain/runtime/store/graph_store.dart';
 
 class GeometryRecalculator {
-  late SegmentQueries queries;
+  late GraphStore store;
 
   GeometryRecalculator({required GraphStore store}) {
-    queries = SegmentQueries(store);
+    store = (store);
   }
 
   Geometry computeSegmentGeometry(SegmentId id) {

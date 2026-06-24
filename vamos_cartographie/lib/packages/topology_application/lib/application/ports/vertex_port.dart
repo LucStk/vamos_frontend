@@ -1,8 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:topology_engine/domain/entities/entities.dart';
-import 'package:topology_engine/domain/types/graph_id.dart';
+import 'package:trip_domain/domain/entities/entities.dart';
 
 typedef ResMoveVertex = (Vertex, List<Segment>);
 

@@ -1,9 +1,8 @@
-import 'package:domain_core/observable_node.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:topology_application/patches/segment_patch.dart';
 import 'package:topology_application/patches/vertex_patch.dart';
-import 'package:topology_engine/domain/types/geometry.dart';
-import 'package:topology_engine/graph/graph_store.dart';
+import 'package:trip_domain/domain/types/Ids.dart';
 
 class GraphPatchStore {
   final Map<SegmentId, SegmentPatch> segmentPatches = {};
