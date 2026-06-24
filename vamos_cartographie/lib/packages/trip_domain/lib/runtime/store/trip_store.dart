@@ -1,12 +1,14 @@
-import 'package:domain_core/observable_node.dart';
 import 'package:trip_domain/domain/domain.dart';
 
 class TripStore {
   final Map<TripId, Trip> store = {};
-  final ObservableNode observableNode;
+  TripStore();
+  void clear() => store.clear();
+  void upsert(Trip trip) => store[trip.id] = trip;
+  void remove(TripId id) => store.remove(id);
+}
 
-  TripStore(this.observableNode);
-
+extension TripStoreGetters on TripStore {
   Trip? get(TripId tripId) => store[tripId];
 
   Trip getRequired(TripId tripId) {
@@ -15,20 +17,5 @@ class TripStore {
       throw Exception("Trip $tripId not found in store");
     }
     return r;
-  }
-
-  void clear() {
-    store.clear();
-    observableNode.notify();
-  }
-
-  void upsert(Trip trip) {
-    store[trip.id] = trip;
-    observableNode.notify();
-  }
-
-  void remove(TripId id) {
-    store.remove(id);
-    observableNode.notify();
   }
 }

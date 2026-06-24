@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/providers/segment_ui_provider.dart';
 import 'package:vamos_cartographie/packages/topology_engine/lib/domain/domain.dart';
 import 'package:domain_core/domain_core.dart';
 

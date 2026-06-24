@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "media_image.dart";
 import 'package:domain_core/domain_core.dart';
 part 'trip.freezed.dart';
 

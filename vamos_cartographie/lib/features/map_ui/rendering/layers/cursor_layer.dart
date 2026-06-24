@@ -6,7 +6,6 @@ import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
 import 'package:vamos_cartographie/features/map_ui/adapters/marker_adapter.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/models/markers/marker_ui_element.dart';
 
 class CursorLayer extends ConsumerWidget {
   final Id<Trip> tripId;

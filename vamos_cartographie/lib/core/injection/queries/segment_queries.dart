@@ -1,0 +1,24 @@
+import 'package:media_application/media_application.dart';
+import 'package:media_application/patches/upload_status.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:topology_application/read_models/segment_ui_model.dart';
+import 'package:topology_engine/graph/graph_store.dart';
+import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/stores/graph_store.dart';
+import '/core/injection/stores/media_store.dart';
+part 'segment_queries.g.dart';
+
+@riverpod
+FutureOr<List<SegmentUiModel>> segments(
+  Ref ref,
+  TripId tripId,
+  SegmentId segId,
+) async {
+  final segmentStore = await ref.watch(segmentGraphStoreProvider.future);
+  final patchStore = await ref.watch(segmentPatchStoreProvider.future);
+
+  return [
+    ...segmentStore..map((v) => v.toUiModel()),
+    ...patchStore.values.map((v) => v.toUiModel(UploadStatus.success)),
+  ];
+}

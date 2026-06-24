@@ -1,30 +1,22 @@
-import 'package:topology_application/patches/patch_store.dart';
+import 'package:topology_application/patches/graph_patch_store.dart';
+import 'package:topology_application/patches/vertex_patch.dart';
 import 'package:topology_application/read_models/vertex_ui_model.dart';
+import 'package:topology_engine/domain/entities/vertex.dart';
 import 'package:topology_engine/graph/graph_store.dart';
 import 'package:trip_domain/trip_domain.dart';
 
-class VertexProjector {
-  final GraphStore graph;
-  final PatchStore patches;
-  final WaypointStore waypointStore;
-  VertexProjector({
-    required this.graph,
-    required this.patches,
-    required this.waypointStore,
-  });
+VertexUiModel vertexProject(
+  Vertex? vertex,
+  VertexPatch? vertexPatch,
+  Waypoint? vertexWaypoint,
+) {
+  final position = vertexPatch?.positionOverride ?? .latLng;
 
-  VertexUiModel project(VertexId id) {
-    final patch = patches.getVertex(id);
+  final Waypoint? waypoint = waypointStore.getFromVertex(id);
 
-    final position =
-        patch?.positionOverride ?? graph.vertexStore.getRequired(id).latLng;
-
-    final Waypoint? waypoint = waypointStore.getFromVertex(id);
-
-    return VertexUiModel(
-      position: position,
-      isOptimistic: patch != null,
-      poiCategory: (waypoint != null) ? waypoint.poiCategory : null,
-    );
-  }
+  return VertexUiModel(
+    position: position,
+    isOptimistic: patch != null,
+    poiCategory: (waypoint != null) ? waypoint.poiCategory : null,
+  );
 }

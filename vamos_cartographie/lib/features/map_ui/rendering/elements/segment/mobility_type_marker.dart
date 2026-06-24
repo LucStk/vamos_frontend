@@ -19,7 +19,7 @@ class MobilityTypeMarker extends ConsumerWidget {
     final segment = ref.watch(nodeRequiredProvider<Segment>(tripId, segmentId));
     return Container(
       decoration: BoxDecoration(
-        color: segment.mobilityType.color.withOpacity(0.7),
+        color: segment.mobilityTypeUi.color.withOpacity(0.7),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
       ),

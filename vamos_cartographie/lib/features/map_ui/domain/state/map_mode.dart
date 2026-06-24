@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/waypoint.dart';
 import 'package:topology_engine/topology_engine.dart';
+import 'package:trip_domain/domain/domain.dart';
 
 part 'map_mode.freezed.dart';
 

@@ -1,11 +1,11 @@
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:topology_application/application/ports/vertex_port.dart';
-import 'package:topology_application/patches/patch_store.dart';
+import 'package:topology_application/patches/graph_patch_store.dart';
 import 'package:topology_engine/topology_engine.dart';
 
 class DrawVertex {
   final VertexPort port;
-  final PatchStore patchStore;
+  final GraphPatchStore patchStore;
   final GraphStore store;
   final OptimisticExecutor executor;
 

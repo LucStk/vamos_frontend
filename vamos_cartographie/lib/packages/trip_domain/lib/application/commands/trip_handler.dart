@@ -1,14 +1,13 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/application/repositories/trip_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:trip_domain/runtime/store/media_store.dart';
-import "package:trip_domain/runtime/store/trip_store.dart";
+import 'package:trip_domain/runtime/runtime.dart';
 
 import 'package:domain_core/optimitic_executor.dart';
 
 class TripHandler {
-  TripStore tripStore;
-  MediaStore mediaStore;
+  ObservableTripStore tripStore;
+  ObservableMediaStore mediaStore;
   TripRepository repo;
   OptimisticExecutor executor;
 

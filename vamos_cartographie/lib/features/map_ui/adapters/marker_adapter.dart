@@ -5,7 +5,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/models/markers/marker_ui_element.dart';
+import 'package:vamos_cartographie/features/map_ui/domain/entities/models/markers/marker_ui_element.dart';
 
 Marker toMarker(MarkerUiElement element, Id<Trip> tripId, MapCtrl ctrl) {
   return Marker(

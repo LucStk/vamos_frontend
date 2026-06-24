@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/trip.dart';
-import 'package:trip_domain/domain/waypoint.dart';
+import 'package:trip_domain/domain/domain.dart';
 
 class WaypointMarker extends ConsumerWidget {
   final Id<Waypoint> waypointId;

@@ -1,5 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:vamos_cartographie/features/map_ui/rendering/models/markers/marker_ui_element.dart";
+import "package:vamos_cartographie/features/map_ui/domain/entities/models/markers/marker_ui_element.dart";
 part "overlay_state.freezed.dart";
 
 @freezed
