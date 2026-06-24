@@ -1,17 +1,20 @@
 import 'package:domain_core/id.dart';
 import 'package:media_application/media_application.dart';
-import 'package:media_application/patches/upload_status.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_domain/runtime/store/media_store.dart';
 import '/core/injection/stores/media_store.dart';
 part 'media_queries.g.dart';
 
 @riverpod
-FutureOr<List<ImageUiModel>> entityImages(Ref ref, Id id) async {
-  final mediaStore = await ref.watch(mediaStoreProvider.future);
-  final patchStore = await ref.watch(mediaPatchStoreProvider.future);
+List<ImageUiModel> entityImages(Ref ref, Id id) {
+  final mediaStore = ref.watch(mediaStoreProvider);
+  final patchStore = ref.watch(mediaPatchStoreProvider);
 
   return [
-    ...mediaStore.values.map((v) => v.toUiModel()),
-    ...patchStore.values.map((v) => v.toUiModel(UploadStatus.success)),
+    ...mediaStore.getFor(id).values.map((v) => v.toUiModel()),
+    ...patchStore
+        .getFor(id)
+        .values
+        .map((v) => v.toUiModel(UploadStatus.success)),
   ];
 }

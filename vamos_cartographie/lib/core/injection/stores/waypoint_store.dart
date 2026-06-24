@@ -1,11 +1,7 @@
-import "dart:async";
-
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:trip_domain/application/repositories/waypoint_repository.dart";
-import "package:trip_domain/domain/domain.dart";
-import "package:trip_domain/runtime/store/waypoint_store.dart";
+import "package:trip_domain/trip_domain.dart";
+import "package:vamos_cartographie/core/injection/help/add_listener_to_observable.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
-import "package:vamos_cartographie/core/injection/observable_node_impl.dart";
 import "package:vamos_cartographie/infrastructure/waypoint/data.dart";
 part "waypoint_store.g.dart";
 
@@ -20,29 +16,13 @@ WaypointRepository waypointRepository(Ref ref) {
 }
 
 @riverpod
-WaypointStore rawWaypointStore(Ref ref) {
-  return WaypointStore(ObservableNodeImpl());
+ObservableWaypointStore rawWaypointStore(Ref ref) {
+  return ObservableWaypointStore();
 }
 
 @riverpod
-Stream<Map<WaypointId, Waypoint>> waypointStore(Ref ref) {
+ObservableWaypointStore waypointStore(Ref ref) {
   final store = ref.watch(rawWaypointStoreProvider);
-  final controller = StreamController<Map<WaypointId, Waypoint>>();
-
-  void listener() => controller.add(Map.unmodifiable(store.store));
-
-  store.observableNode.addListener(listener);
-
-  ref.onDispose(() {
-    store.observableNode.removeListener(listener);
-    controller.close();
-  });
-
-  return controller.stream;
-}
-
-@riverpod
-Waypoint? waypoint(Ref ref, WaypointId id) {
-  final asyncTrips = ref.watch(waypointStoreProvider);
-  return asyncTrips.value?[id];
+  addListenerRebuild(ref, store);
+  return store;
 }

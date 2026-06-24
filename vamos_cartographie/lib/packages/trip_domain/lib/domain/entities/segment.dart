@@ -7,7 +7,7 @@ import 'package:trip_domain/domain/value_objects/mobility_types.dart';
 part 'segment.freezed.dart';
 
 @freezed
-abstract class Segment with _$Segment implements HasId<Segment> {
+abstract class Segment with _$Segment implements HasId {
   const factory Segment({
     required Id<Segment> id,
     required Id<Vertex> startVertexId,

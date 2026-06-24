@@ -1,6 +1,6 @@
 import 'package:topology_application/helpers/gis.dart';
-import 'package:topology_application/patches/graph_patch_store.dart';
-import 'package:topology_application/read_models/segment_ui_model.dart';
+import 'package:topology_application/runtime/graph_patch_store.dart';
+import 'package:topology_application/topology_application.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 class SegmentProjector {

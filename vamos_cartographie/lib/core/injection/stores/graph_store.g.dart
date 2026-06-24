@@ -48,28 +48,28 @@ final class RawGraphStoreProvider
   }
 }
 
-String _$rawGraphStoreHash() => r'1f381479849b7aa0f0856b211cb6a9c7b8e39b32';
+String _$rawGraphStoreHash() => r'36d466b744ecfa7a6e5a4f88f703c5e5b812b01d';
 
-@ProviderFor(rawPatchStore)
-final rawPatchStoreProvider = RawPatchStoreProvider._();
+@ProviderFor(rawGraphPatchStore)
+final rawGraphPatchStoreProvider = RawGraphPatchStoreProvider._();
 
-final class RawPatchStoreProvider
+final class RawGraphPatchStoreProvider
     extends
         $FunctionalProvider<GraphPatchStore, GraphPatchStore, GraphPatchStore>
     with $Provider<GraphPatchStore> {
-  RawPatchStoreProvider._()
+  RawGraphPatchStoreProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'rawPatchStoreProvider',
+        name: r'rawGraphPatchStoreProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$rawPatchStoreHash();
+  String debugGetCreateSourceHash() => _$rawGraphPatchStoreHash();
 
   @$internal
   @override
@@ -78,7 +78,7 @@ final class RawPatchStoreProvider
 
   @override
   GraphPatchStore create(Ref ref) {
-    return rawPatchStore(ref);
+    return rawGraphPatchStore(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -90,7 +90,8 @@ final class RawPatchStoreProvider
   }
 }
 
-String _$rawPatchStoreHash() => r'068037ceb303624e753ab6a0bef4d557793db542';
+String _$rawGraphPatchStoreHash() =>
+    r'58895d5f3f8a29c095ff0fc5ac3f7393266e9b26';
 
 @ProviderFor(vertexGraphStore)
 final vertexGraphStoreProvider = VertexGraphStoreProvider._();
@@ -98,13 +99,11 @@ final vertexGraphStoreProvider = VertexGraphStoreProvider._();
 final class VertexGraphStoreProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<VertexId, GraphNode<Vertex>>>,
-          Map<VertexId, GraphNode<Vertex>>,
-          Stream<Map<VertexId, GraphNode<Vertex>>>
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>
         >
-    with
-        $FutureModifier<Map<VertexId, GraphNode<Vertex>>>,
-        $StreamProvider<Map<VertexId, GraphNode<Vertex>>> {
+    with $Provider<ObservableCollectionStore<HasId>> {
   VertexGraphStoreProvider._()
     : super(
         from: null,
@@ -121,17 +120,77 @@ final class VertexGraphStoreProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<VertexId, GraphNode<Vertex>>> $createElement(
+  $ProviderElement<ObservableCollectionStore<HasId>> $createElement(
     $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  Stream<Map<VertexId, GraphNode<Vertex>>> create(Ref ref) {
+  ObservableCollectionStore<HasId> create(Ref ref) {
     return vertexGraphStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableCollectionStore<HasId> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableCollectionStore<HasId>>(
+        value,
+      ),
+    );
   }
 }
 
-String _$vertexGraphStoreHash() => r'cfaeeb94af3961911e4bd4fcedf512ca019aed90';
+String _$vertexGraphStoreHash() => r'd84d839fcdd673d9f5593ccf6b351b4ec4e4e02b';
+
+@ProviderFor(vertexGraphPatchStore)
+final vertexGraphPatchStoreProvider = VertexGraphPatchStoreProvider._();
+
+final class VertexGraphPatchStoreProvider
+    extends
+        $FunctionalProvider<
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>
+        >
+    with $Provider<ObservableCollectionStore<HasId>> {
+  VertexGraphPatchStoreProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'vertexGraphPatchStoreProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$vertexGraphPatchStoreHash();
+
+  @$internal
+  @override
+  $ProviderElement<ObservableCollectionStore<HasId>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ObservableCollectionStore<HasId> create(Ref ref) {
+    return vertexGraphPatchStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableCollectionStore<HasId> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableCollectionStore<HasId>>(
+        value,
+      ),
+    );
+  }
+}
+
+String _$vertexGraphPatchStoreHash() =>
+    r'b279f62dc5b6fb4e8450fbec0014dc9aa2812fbf';
 
 @ProviderFor(segmentGraphStore)
 final segmentGraphStoreProvider = SegmentGraphStoreProvider._();
@@ -139,13 +198,11 @@ final segmentGraphStoreProvider = SegmentGraphStoreProvider._();
 final class SegmentGraphStoreProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<SegmentId, GraphNode<Segment>>>,
-          Map<SegmentId, GraphNode<Segment>>,
-          Stream<Map<SegmentId, GraphNode<Segment>>>
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>
         >
-    with
-        $FutureModifier<Map<SegmentId, GraphNode<Segment>>>,
-        $StreamProvider<Map<SegmentId, GraphNode<Segment>>> {
+    with $Provider<ObservableCollectionStore<HasId>> {
   SegmentGraphStoreProvider._()
     : super(
         from: null,
@@ -162,96 +219,74 @@ final class SegmentGraphStoreProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<SegmentId, GraphNode<Segment>>> $createElement(
+  $ProviderElement<ObservableCollectionStore<HasId>> $createElement(
     $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  Stream<Map<SegmentId, GraphNode<Segment>>> create(Ref ref) {
+  ObservableCollectionStore<HasId> create(Ref ref) {
     return segmentGraphStore(ref);
   }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableCollectionStore<HasId> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableCollectionStore<HasId>>(
+        value,
+      ),
+    );
+  }
 }
 
-String _$segmentGraphStoreHash() => r'9d07d02cefec6a8749a3f3d30de59465c54de232';
+String _$segmentGraphStoreHash() => r'98c6a7d1dd61b6777e8bbad10275dd886b760f44';
 
-@ProviderFor(segmentPatchStore)
-final segmentPatchStoreProvider = SegmentPatchStoreProvider._();
+@ProviderFor(segmentGraphPatchStore)
+final segmentGraphPatchStoreProvider = SegmentGraphPatchStoreProvider._();
 
-final class SegmentPatchStoreProvider
+final class SegmentGraphPatchStoreProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<SegmentId, SegmentPatch>>,
-          Map<SegmentId, SegmentPatch>,
-          Stream<Map<SegmentId, SegmentPatch>>
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>,
+          ObservableCollectionStore<HasId>
         >
-    with
-        $FutureModifier<Map<SegmentId, SegmentPatch>>,
-        $StreamProvider<Map<SegmentId, SegmentPatch>> {
-  SegmentPatchStoreProvider._()
+    with $Provider<ObservableCollectionStore<HasId>> {
+  SegmentGraphPatchStoreProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'segmentPatchStoreProvider',
+        name: r'segmentGraphPatchStoreProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentPatchStoreHash();
+  String debugGetCreateSourceHash() => _$segmentGraphPatchStoreHash();
 
   @$internal
   @override
-  $StreamProviderElement<Map<SegmentId, SegmentPatch>> $createElement(
+  $ProviderElement<ObservableCollectionStore<HasId>> $createElement(
     $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  Stream<Map<SegmentId, SegmentPatch>> create(Ref ref) {
-    return segmentPatchStore(ref);
+  ObservableCollectionStore<HasId> create(Ref ref) {
+    return segmentGraphPatchStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableCollectionStore<HasId> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableCollectionStore<HasId>>(
+        value,
+      ),
+    );
   }
 }
 
-String _$segmentPatchStoreHash() => r'50e24f259517800d5d537417c07ad0654ecd8ed8';
-
-@ProviderFor(vertexPatchStore)
-final vertexPatchStoreProvider = VertexPatchStoreProvider._();
-
-final class VertexPatchStoreProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<Map<VertexId, VertexPatch>>,
-          Map<VertexId, VertexPatch>,
-          Stream<Map<VertexId, VertexPatch>>
-        >
-    with
-        $FutureModifier<Map<VertexId, VertexPatch>>,
-        $StreamProvider<Map<VertexId, VertexPatch>> {
-  VertexPatchStoreProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'vertexPatchStoreProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$vertexPatchStoreHash();
-
-  @$internal
-  @override
-  $StreamProviderElement<Map<VertexId, VertexPatch>> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
-
-  @override
-  Stream<Map<VertexId, VertexPatch>> create(Ref ref) {
-    return vertexPatchStore(ref);
-  }
-}
-
-String _$vertexPatchStoreHash() => r'9c0e527bad9171c50f89527c41353e42fbf6134c';
+String _$segmentGraphPatchStoreHash() =>
+    r'e0880140d5b953cf0a918dc7de95419cf246c7d2';

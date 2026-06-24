@@ -25,12 +25,12 @@ $ImageUiModelCopyWith<ImageUiModel> get copyWith => _$ImageUiModelCopyWithImpl<I
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageUiModel&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.imageLocation, imageLocation) || other.imageLocation == imageLocation)&&(identical(other.uploadStatus, uploadStatus) || other.uploadStatus == uploadStatus)&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageUiModel&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.imageLocation, imageLocation) || other.imageLocation == imageLocation)&&const DeepCollectionEquality().equals(other.uploadStatus, uploadStatus)&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,imageLocation,uploadStatus,progress,error);
+int get hashCode => Object.hash(runtimeType,fileKey,imageLocation,const DeepCollectionEquality().hash(uploadStatus),progress,error);
 
 @override
 String toString() {
@@ -62,11 +62,11 @@ class _$ImageUiModelCopyWithImpl<$Res>
 
 /// Create a copy of ImageUiModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? imageLocation = null,Object? uploadStatus = null,Object? progress = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? imageLocation = null,Object? uploadStatus = freezed,Object? progress = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
 as FileKey,imageLocation: null == imageLocation ? _self.imageLocation : imageLocation // ignore: cast_nullable_to_non_nullable
-as ImageLocation,uploadStatus: null == uploadStatus ? _self.uploadStatus : uploadStatus // ignore: cast_nullable_to_non_nullable
+as ImageLocation,uploadStatus: freezed == uploadStatus ? _self.uploadStatus : uploadStatus // ignore: cast_nullable_to_non_nullable
 as UploadStatus,progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
 as double,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -229,12 +229,12 @@ _$ImageUiModelCopyWith<_ImageUiModel> get copyWith => __$ImageUiModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImageUiModel&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.imageLocation, imageLocation) || other.imageLocation == imageLocation)&&(identical(other.uploadStatus, uploadStatus) || other.uploadStatus == uploadStatus)&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImageUiModel&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.imageLocation, imageLocation) || other.imageLocation == imageLocation)&&const DeepCollectionEquality().equals(other.uploadStatus, uploadStatus)&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,imageLocation,uploadStatus,progress,error);
+int get hashCode => Object.hash(runtimeType,fileKey,imageLocation,const DeepCollectionEquality().hash(uploadStatus),progress,error);
 
 @override
 String toString() {
@@ -266,11 +266,11 @@ class __$ImageUiModelCopyWithImpl<$Res>
 
 /// Create a copy of ImageUiModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? imageLocation = null,Object? uploadStatus = null,Object? progress = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? imageLocation = null,Object? uploadStatus = freezed,Object? progress = null,Object? error = freezed,}) {
   return _then(_ImageUiModel(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
 as FileKey,imageLocation: null == imageLocation ? _self.imageLocation : imageLocation // ignore: cast_nullable_to_non_nullable
-as ImageLocation,uploadStatus: null == uploadStatus ? _self.uploadStatus : uploadStatus // ignore: cast_nullable_to_non_nullable
+as ImageLocation,uploadStatus: freezed == uploadStatus ? _self.uploadStatus : uploadStatus // ignore: cast_nullable_to_non_nullable
 as UploadStatus,progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
 as double,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,

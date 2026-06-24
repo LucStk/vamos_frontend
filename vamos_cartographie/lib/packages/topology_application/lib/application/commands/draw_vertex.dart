@@ -1,6 +1,6 @@
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:topology_application/application/ports/vertex_port.dart';
-import 'package:topology_application/patches/graph_patch_store.dart';
+import 'package:topology_application/runtime/graph_patch_store.dart';
 import 'package:trip_domain/runtime/store/graph_store.dart';
 
 class DrawVertex {

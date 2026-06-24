@@ -102,8 +102,13 @@ String _$tripRepositoryHash() => r'faf61679c894cea032e294dc345fdaf776d938d6';
 final rawTripStoreProvider = RawTripStoreProvider._();
 
 final class RawTripStoreProvider
-    extends $FunctionalProvider<TripStore, TripStore, TripStore>
-    with $Provider<TripStore> {
+    extends
+        $FunctionalProvider<
+          ObservableTripStore,
+          ObservableTripStore,
+          ObservableTripStore
+        >
+    with $Provider<ObservableTripStore> {
   RawTripStoreProvider._()
     : super(
         from: null,
@@ -120,24 +125,25 @@ final class RawTripStoreProvider
 
   @$internal
   @override
-  $ProviderElement<TripStore> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ObservableTripStore> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  TripStore create(Ref ref) {
+  ObservableTripStore create(Ref ref) {
     return rawTripStore(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(TripStore value) {
+  Override overrideWithValue(ObservableTripStore value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<TripStore>(value),
+      providerOverride: $SyncValueProvider<ObservableTripStore>(value),
     );
   }
 }
 
-String _$rawTripStoreHash() => r'2330277caf76bb253497ab03b29a75fff822f8a8';
+String _$rawTripStoreHash() => r'cbbea334ba59d6164e6e5eb0fb04d12a53c9ae33';
 
 @ProviderFor(tripStore)
 final tripStoreProvider = TripStoreProvider._();
@@ -145,13 +151,11 @@ final tripStoreProvider = TripStoreProvider._();
 final class TripStoreProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<TripId, Trip>>,
-          Map<TripId, Trip>,
-          Stream<Map<TripId, Trip>>
+          ObservableTripStore,
+          ObservableTripStore,
+          ObservableTripStore
         >
-    with
-        $FutureModifier<Map<TripId, Trip>>,
-        $StreamProvider<Map<TripId, Trip>> {
+    with $Provider<ObservableTripStore> {
   TripStoreProvider._()
     : super(
         from: null,
@@ -168,14 +172,22 @@ final class TripStoreProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<TripId, Trip>> $createElement(
+  $ProviderElement<ObservableTripStore> $createElement(
     $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  Stream<Map<TripId, Trip>> create(Ref ref) {
+  ObservableTripStore create(Ref ref) {
     return tripStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableTripStore value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableTripStore>(value),
+    );
   }
 }
 
-String _$tripStoreHash() => r'dbcf587449c1d83abef47c3204e9ba7d3ff18940';
+String _$tripStoreHash() => r'57a8e4909314d2a36e2bb148e8646319ff819b5f';

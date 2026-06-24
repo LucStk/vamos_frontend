@@ -1,86 +1,40 @@
-import "dart:async";
-
+import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:topology_application/patches/graph_patch_store.dart";
-import "package:vamos_cartographie/features/features.dart";
+import "package:trip_domain/runtime/store/graph_store.dart";
 import "package:topology_application/topology_application.dart";
+import "package:vamos_cartographie/core/injection/help/add_listener_to_observable.dart";
 part "graph_store.g.dart";
 
 @riverpod
-GraphStore rawGraphStore(Ref ref) => GraphStore(
-  segmentObserver: ObservableNodeImpl(),
-  vertexObserver: ObservableNodeImpl(),
-);
+GraphStore rawGraphStore(Ref ref) => GraphStore();
 
 @riverpod
-GraphPatchStore rawPatchStore(Ref ref) =>
-    GraphPatchStore(ObservableNodeImpl(), ObservableNodeImpl());
+GraphPatchStore rawGraphPatchStore(Ref ref) => GraphPatchStore();
+
 @riverpod
-Stream<Map<VertexId, GraphNode<Vertex>>> vertexGraphStore(Ref ref) {
-  final store = ref.watch(rawGraphStoreProvider);
-  final controller = StreamController<Map<VertexId, GraphNode<Vertex>>>();
-  controller.add(Map.unmodifiable(store.vertexStore.elements));
-  void listener() =>
-      controller.add(Map.unmodifiable(store.vertexStore.elements));
-
-  store.vertexStore.observableNode.addListener(listener);
-
-  ref.onDispose(() {
-    store.vertexStore.observableNode.removeListener(listener);
-    controller.close();
-  });
-
-  return controller.stream;
+ObservableCollectionStore vertexGraphStore(Ref ref) {
+  final graphStore = ref.watch(rawGraphStoreProvider);
+  addListenerRebuild(ref, graphStore.vertexStore);
+  return graphStore.vertexStore;
 }
 
 @riverpod
-Stream<Map<SegmentId, GraphNode<Segment>>> segmentGraphStore(Ref ref) {
-  final store = ref.watch(rawGraphStoreProvider);
-  final controller = StreamController<Map<SegmentId, GraphNode<Segment>>>();
-  controller.add(Map.unmodifiable(store.segmentStore.elements));
-  void listener() =>
-      controller.add(Map.unmodifiable(store.segmentStore.elements));
-
-  store.segmentStore.observableNode.addListener(listener);
-
-  ref.onDispose(() {
-    store.segmentStore.observableNode.removeListener(listener);
-    controller.close();
-  });
-
-  return controller.stream;
+ObservableCollectionStore vertexGraphPatchStore(Ref ref) {
+  final graphStore = ref.watch(rawGraphPatchStoreProvider);
+  addListenerRebuild(ref, graphStore.vertexPatchStore);
+  return graphStore.vertexPatchStore;
 }
 
 @riverpod
-Stream<Map<SegmentId, SegmentPatch>> segmentPatchStore(Ref ref) {
-  final store = ref.watch(rawPatchStoreProvider);
-  final controller = StreamController<Map<SegmentId, SegmentPatch>>();
-  controller.add(Map.unmodifiable(store.segmentPatches));
-  void listener() => controller.add(Map.unmodifiable(store.segmentPatches));
-
-  store.segmentObserver.addListener(listener);
-
-  ref.onDispose(() {
-    store.segmentObserver.removeListener(listener);
-    controller.close();
-  });
-
-  return controller.stream;
+ObservableCollectionStore segmentGraphStore(Ref ref) {
+  final graphStore = ref.watch(rawGraphStoreProvider);
+  addListenerRebuild(ref, graphStore.segmentStore);
+  return graphStore.segmentStore;
 }
 
 @riverpod
-Stream<Map<VertexId, VertexPatch>> vertexPatchStore(Ref ref) {
-  final store = ref.watch(rawPatchStoreProvider);
-  final controller = StreamController<Map<VertexId, VertexPatch>>();
-  controller.add(Map.unmodifiable(store.vertexPatches));
-  void listener() => controller.add(Map.unmodifiable(store.vertexPatches));
-
-  store.vertexObserver.addListener(listener);
-
-  ref.onDispose(() {
-    store.vertexObserver.removeListener(listener);
-    controller.close();
-  });
-
-  return controller.stream;
+ObservableCollectionStore segmentGraphPatchStore(Ref ref) {
+  final graphStore = ref.watch(rawGraphPatchStoreProvider);
+  addListenerRebuild(ref, graphStore.segmentPatchStore);
+  return graphStore.segmentPatchStore;
 }

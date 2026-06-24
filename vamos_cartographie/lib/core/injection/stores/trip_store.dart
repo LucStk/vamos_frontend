@@ -1,9 +1,6 @@
-import "dart:async";
-
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:trip_domain/application/repositories/trip_repository.dart";
-import "package:trip_domain/domain/domain.dart";
-import "package:trip_domain/runtime/store/trip_store.dart";
+import "package:trip_domain/trip_domain.dart";
+import "package:vamos_cartographie/core/injection/help/add_listener_to_observable.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
 import "package:vamos_cartographie/infrastructure/trip/data.dart";
 part "trip_store.g.dart";
@@ -19,23 +16,13 @@ TripRepository tripRepository(Ref ref) {
 }
 
 @riverpod
-TripStore rawTripStore(Ref ref) {
-  return TripStore(ObservableNodeImpl());
+ObservableTripStore rawTripStore(Ref ref) {
+  return ObservableTripStore();
 }
 
 @riverpod
-Stream<Map<TripId, Trip>> tripStore(Ref ref) {
+ObservableTripStore tripStore(Ref ref) {
   final store = ref.watch(rawTripStoreProvider);
-  final controller = StreamController<Map<TripId, Trip>>();
-  controller.add(Map.unmodifiable(store.store));
-  void listener() => controller.add(Map.unmodifiable(store.store));
-
-  store.observableNode.addListener(listener);
-
-  ref.onDispose(() {
-    store.observableNode.removeListener(listener);
-    controller.close();
-  });
-
-  return controller.stream;
+  addListenerRebuild(ref, store);
+  return store;
 }

@@ -6,7 +6,7 @@ import "/domain/value_objects/poi_category_types.dart";
 part 'waypoint.freezed.dart';
 
 @freezed
-abstract class Waypoint with _$Waypoint implements HasId<Waypoint> {
+abstract class Waypoint with _$Waypoint implements HasId {
   const Waypoint._();
   const factory Waypoint({
     required WaypointId id,

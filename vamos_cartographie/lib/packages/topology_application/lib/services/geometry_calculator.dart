@@ -1,3 +1,4 @@
+import 'package:domain_core/geometry.dart';
 import 'package:topology_application/helpers/optimist_geometry.dart';
 import 'package:trip_domain/runtime/store/graph_store.dart';
 

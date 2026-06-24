@@ -3,7 +3,7 @@ import 'package:domain_core/id.dart';
 import 'package:domain_core/observable.dart';
 import '/collection_store.dart';
 
-class ObservableCollectionStore<T extends HasId<T>> extends CollectionStore<T>
+class ObservableCollectionStore<T extends HasId> extends CollectionStore<T>
     with Observable {
   @override
   void insert(T value) {

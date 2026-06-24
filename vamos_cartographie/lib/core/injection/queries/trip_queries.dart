@@ -5,6 +5,6 @@ part 'trip_queries.g.dart';
 
 @riverpod
 Trip? trip(Ref ref, TripId tripId) {
-  final asyncTrips = ref.watch(tripStoreProvider);
-  return asyncTrips.value?[tripId];
+  final tripStore = ref.watch(tripStoreProvider);
+  return tripStore.get(tripId);
 }

@@ -5,7 +5,7 @@ import "package:domain_core/domain_core.dart";
 part 'vertex.freezed.dart';
 
 @freezed
-abstract class Vertex with _$Vertex implements HasId<Vertex> {
+abstract class Vertex with _$Vertex implements HasId {
   const factory Vertex({required Id<Vertex> id, required LatLng latLng}) =
       _Vertex;
 }

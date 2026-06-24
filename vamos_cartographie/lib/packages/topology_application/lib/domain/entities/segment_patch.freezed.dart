@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SegmentPatch {
 
- List<LatLng> get geometryOverride; bool get recomputing; Object? get error;
+ Id<SegmentPatch> get id; Geometry get geometryOverride; bool get recomputing; Object? get error;
 /// Create a copy of SegmentPatch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SegmentPatchCopyWith<SegmentPatch> get copyWith => _$SegmentPatchCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatch&&const DeepCollectionEquality().equals(other.geometryOverride, geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatch&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.geometryOverride, geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentPatch(geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
+  return 'SegmentPatch(id: $id, geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SegmentPatchCopyWith<$Res>  {
   factory $SegmentPatchCopyWith(SegmentPatch value, $Res Function(SegmentPatch) _then) = _$SegmentPatchCopyWithImpl;
 @useResult
 $Res call({
- List<LatLng> geometryOverride, bool recomputing, Object? error
+ Id<SegmentPatch> id, Geometry geometryOverride, bool recomputing, Object? error
 });
 
 
@@ -62,10 +62,11 @@ class _$SegmentPatchCopyWithImpl<$Res>
 
 /// Create a copy of SegmentPatch
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? geometryOverride = null,Object? recomputing = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? geometryOverride = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
-geometryOverride: null == geometryOverride ? _self.geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
-as List<LatLng>,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<SegmentPatch>,geometryOverride: null == geometryOverride ? _self.geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
+as Geometry,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }
@@ -87,11 +88,11 @@ extension SegmentPatchPatterns on SegmentPatch {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SegmentPatch value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _SegmentPatch value)?  internal,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _SegmentPatch() when $default != null:
-return $default(_that);case _:
+case _SegmentPatch() when internal != null:
+return internal(_that);case _:
   return orElse();
 
 }
@@ -109,11 +110,11 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SegmentPatch value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _SegmentPatch value)  internal,}){
 final _that = this;
 switch (_that) {
 case _SegmentPatch():
-return $default(_that);case _:
+return internal(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -130,11 +131,11 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SegmentPatch value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _SegmentPatch value)?  internal,}){
 final _that = this;
 switch (_that) {
-case _SegmentPatch() when $default != null:
-return $default(_that);case _:
+case _SegmentPatch() when internal != null:
+return internal(_that);case _:
   return null;
 
 }
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<LatLng> geometryOverride,  bool recomputing,  Object? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<SegmentPatch> id,  Geometry geometryOverride,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _SegmentPatch() when $default != null:
-return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
+case _SegmentPatch() when internal != null:
+return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<LatLng> geometryOverride,  bool recomputing,  Object? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<SegmentPatch> id,  Geometry geometryOverride,  bool recomputing,  Object? error)  internal,}) {final _that = this;
 switch (_that) {
 case _SegmentPatch():
-return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
+return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<LatLng> geometryOverride,  bool recomputing,  Object? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<SegmentPatch> id,  Geometry geometryOverride,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
 switch (_that) {
-case _SegmentPatch() when $default != null:
-return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
+case _SegmentPatch() when internal != null:
+return internal(_that.id,_that.geometryOverride,_that.recomputing,_that.error);case _:
   return null;
 
 }
@@ -206,12 +207,13 @@ return $default(_that.geometryOverride,_that.recomputing,_that.error);case _:
 /// @nodoc
 
 
-class _SegmentPatch implements SegmentPatch {
-  const _SegmentPatch({required final  List<LatLng> geometryOverride, this.recomputing = false, this.error}): _geometryOverride = geometryOverride;
+class _SegmentPatch extends SegmentPatch {
+  const _SegmentPatch({required this.id, required final  Geometry geometryOverride, this.recomputing = false, this.error}): _geometryOverride = geometryOverride,super._();
   
 
- final  List<LatLng> _geometryOverride;
-@override List<LatLng> get geometryOverride {
+@override final  Id<SegmentPatch> id;
+ final  Geometry _geometryOverride;
+@override Geometry get geometryOverride {
   if (_geometryOverride is EqualUnmodifiableListView) return _geometryOverride;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_geometryOverride);
@@ -230,16 +232,16 @@ _$SegmentPatchCopyWith<_SegmentPatch> get copyWith => __$SegmentPatchCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatch&&const DeepCollectionEquality().equals(other._geometryOverride, _geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatch&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._geometryOverride, _geometryOverride)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_geometryOverride),recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentPatch(geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
+  return 'SegmentPatch.internal(id: $id, geometryOverride: $geometryOverride, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -250,7 +252,7 @@ abstract mixin class _$SegmentPatchCopyWith<$Res> implements $SegmentPatchCopyWi
   factory _$SegmentPatchCopyWith(_SegmentPatch value, $Res Function(_SegmentPatch) _then) = __$SegmentPatchCopyWithImpl;
 @override @useResult
 $Res call({
- List<LatLng> geometryOverride, bool recomputing, Object? error
+ Id<SegmentPatch> id, Geometry geometryOverride, bool recomputing, Object? error
 });
 
 
@@ -267,10 +269,11 @@ class __$SegmentPatchCopyWithImpl<$Res>
 
 /// Create a copy of SegmentPatch
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? geometryOverride = null,Object? recomputing = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? geometryOverride = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_SegmentPatch(
-geometryOverride: null == geometryOverride ? _self._geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
-as List<LatLng>,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<SegmentPatch>,geometryOverride: null == geometryOverride ? _self._geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
+as Geometry,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }

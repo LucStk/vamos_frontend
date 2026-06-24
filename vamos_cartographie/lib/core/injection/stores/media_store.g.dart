@@ -103,8 +103,13 @@ String _$mediaRepositoryHash() => r'3c50ffc9e49d2cfcd3b3243fa551adc8ccc9e244';
 final rawMediaStoreProvider = RawMediaStoreProvider._();
 
 final class RawMediaStoreProvider
-    extends $FunctionalProvider<MediaStore, MediaStore, MediaStore>
-    with $Provider<MediaStore> {
+    extends
+        $FunctionalProvider<
+          ObservableMediaStore,
+          ObservableMediaStore,
+          ObservableMediaStore
+        >
+    with $Provider<ObservableMediaStore> {
   RawMediaStoreProvider._()
     : super(
         from: null,
@@ -121,32 +126,37 @@ final class RawMediaStoreProvider
 
   @$internal
   @override
-  $ProviderElement<MediaStore> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ObservableMediaStore> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  MediaStore create(Ref ref) {
+  ObservableMediaStore create(Ref ref) {
     return rawMediaStore(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MediaStore value) {
+  Override overrideWithValue(ObservableMediaStore value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MediaStore>(value),
+      providerOverride: $SyncValueProvider<ObservableMediaStore>(value),
     );
   }
 }
 
-String _$rawMediaStoreHash() => r'3e7b349abf18d714772b5cd5edef48ab40c58815';
+String _$rawMediaStoreHash() => r'c166416682467aa6f3c4444562d95c1ac75d7955';
 
 @ProviderFor(rawMediaPatchStore)
 final rawMediaPatchStoreProvider = RawMediaPatchStoreProvider._();
 
 final class RawMediaPatchStoreProvider
     extends
-        $FunctionalProvider<MediaPatchStore, MediaPatchStore, MediaPatchStore>
-    with $Provider<MediaPatchStore> {
+        $FunctionalProvider<
+          ObservableMediaPatchStore,
+          ObservableMediaPatchStore,
+          ObservableMediaPatchStore
+        >
+    with $Provider<ObservableMediaPatchStore> {
   RawMediaPatchStoreProvider._()
     : super(
         from: null,
@@ -163,25 +173,26 @@ final class RawMediaPatchStoreProvider
 
   @$internal
   @override
-  $ProviderElement<MediaPatchStore> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ObservableMediaPatchStore> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  MediaPatchStore create(Ref ref) {
+  ObservableMediaPatchStore create(Ref ref) {
     return rawMediaPatchStore(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MediaPatchStore value) {
+  Override overrideWithValue(ObservableMediaPatchStore value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MediaPatchStore>(value),
+      providerOverride: $SyncValueProvider<ObservableMediaPatchStore>(value),
     );
   }
 }
 
 String _$rawMediaPatchStoreHash() =>
-    r'8e5c6551148ad80dc330fe23f8942dab210632b0';
+    r'9a9e5990f95d94e01aa885b5b27e3febb5fe9411';
 
 @ProviderFor(mediaStore)
 final mediaStoreProvider = MediaStoreProvider._();
@@ -189,13 +200,11 @@ final mediaStoreProvider = MediaStoreProvider._();
 final class MediaStoreProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<FileKey, MediaImage>>,
-          Map<FileKey, MediaImage>,
-          Stream<Map<FileKey, MediaImage>>
+          ObservableMediaStore,
+          ObservableMediaStore,
+          ObservableMediaStore
         >
-    with
-        $FutureModifier<Map<FileKey, MediaImage>>,
-        $StreamProvider<Map<FileKey, MediaImage>> {
+    with $Provider<ObservableMediaStore> {
   MediaStoreProvider._()
     : super(
         from: null,
@@ -212,17 +221,25 @@ final class MediaStoreProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<FileKey, MediaImage>> $createElement(
+  $ProviderElement<ObservableMediaStore> $createElement(
     $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  Stream<Map<FileKey, MediaImage>> create(Ref ref) {
+  ObservableMediaStore create(Ref ref) {
     return mediaStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableMediaStore value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableMediaStore>(value),
+    );
   }
 }
 
-String _$mediaStoreHash() => r'65f0c2c9228eee48be21aa390725dce0ad0eada7';
+String _$mediaStoreHash() => r'692a8bff55187f10334e68724f0168fd0bea580b';
 
 @ProviderFor(mediaPatchStore)
 final mediaPatchStoreProvider = MediaPatchStoreProvider._();
@@ -230,13 +247,11 @@ final mediaPatchStoreProvider = MediaPatchStoreProvider._();
 final class MediaPatchStoreProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<FileKey, PatchImageMedia>>,
-          Map<FileKey, PatchImageMedia>,
-          Stream<Map<FileKey, PatchImageMedia>>
+          ObservableMediaPatchStore,
+          ObservableMediaPatchStore,
+          ObservableMediaPatchStore
         >
-    with
-        $FutureModifier<Map<FileKey, PatchImageMedia>>,
-        $StreamProvider<Map<FileKey, PatchImageMedia>> {
+    with $Provider<ObservableMediaPatchStore> {
   MediaPatchStoreProvider._()
     : super(
         from: null,
@@ -253,14 +268,22 @@ final class MediaPatchStoreProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<FileKey, PatchImageMedia>> $createElement(
+  $ProviderElement<ObservableMediaPatchStore> $createElement(
     $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  Stream<Map<FileKey, PatchImageMedia>> create(Ref ref) {
+  ObservableMediaPatchStore create(Ref ref) {
     return mediaPatchStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableMediaPatchStore value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableMediaPatchStore>(value),
+    );
   }
 }
 
-String _$mediaPatchStoreHash() => r'3dde2171f348f06eee9d4b32e29e3e07d5e9e51c';
+String _$mediaPatchStoreHash() => r'6a16297426a32ce40c510016acc00b5624b0ee07';

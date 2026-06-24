@@ -15,13 +15,11 @@ final entityImagesProvider = EntityImagesFamily._();
 final class EntityImagesProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<ImageUiModel>>,
           List<ImageUiModel>,
-          FutureOr<List<ImageUiModel>>
+          List<ImageUiModel>,
+          List<ImageUiModel>
         >
-    with
-        $FutureModifier<List<ImageUiModel>>,
-        $FutureProvider<List<ImageUiModel>> {
+    with $Provider<List<ImageUiModel>> {
   EntityImagesProvider._({
     required EntityImagesFamily super.from,
     required Id<dynamic> super.argument,
@@ -45,14 +43,22 @@ final class EntityImagesProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<ImageUiModel>> $createElement(
+  $ProviderElement<List<ImageUiModel>> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<List<ImageUiModel>> create(Ref ref) {
+  List<ImageUiModel> create(Ref ref) {
     final argument = this.argument as Id<dynamic>;
     return entityImages(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<ImageUiModel> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<ImageUiModel>>(value),
+    );
   }
 
   @override
@@ -66,10 +72,10 @@ final class EntityImagesProvider
   }
 }
 
-String _$entityImagesHash() => r'5339acac779a1f93101cf1a2242f974bebee2de7';
+String _$entityImagesHash() => r'5aacdfdf98754d0a0587f120d12655c40bbeaeb4';
 
 final class EntityImagesFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<ImageUiModel>>, Id<dynamic>> {
+    with $FunctionalFamilyOverride<List<ImageUiModel>, Id<dynamic>> {
   EntityImagesFamily._()
     : super(
         retry: null,
