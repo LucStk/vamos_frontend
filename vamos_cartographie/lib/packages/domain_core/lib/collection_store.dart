@@ -34,6 +34,5 @@ extension CollectionStoreGetters<T extends HasId> on CollectionStore<T> {
 
   T getRequired(Id<T> id) => getNodeRequired(id).value;
 
-  Map<Id<T>, T> getAll() =>
-      Map.unmodifiable(store.map((k, v) => MapEntry(k, v.value)));
+  List<Id<T>> getIds() => store.keys.toList() as List<Id<T>>;
 }

@@ -1,6 +1,7 @@
 import 'package:domain_core/has_id.dart';
 import 'package:domain_core/id.dart';
 import 'package:domain_core/observable.dart';
+import 'package:domain_core/observable_graph_node.dart';
 import '/collection_store.dart';
 
 class ObservableCollectionStore<T extends HasId> extends CollectionStore<T>

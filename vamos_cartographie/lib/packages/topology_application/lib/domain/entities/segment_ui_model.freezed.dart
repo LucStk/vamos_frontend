@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SegmentUiModel {
 
- Geometry get geometry; Geometry get mobilityMarker; bool get isOptimistic;
+ Id get id; Geometry get geometry; bool get isOptimistic;
 /// Create a copy of SegmentUiModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SegmentUiModelCopyWith<SegmentUiModel> get copyWith => _$SegmentUiModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentUiModel&&const DeepCollectionEquality().equals(other.geometry, geometry)&&const DeepCollectionEquality().equals(other.mobilityMarker, mobilityMarker)&&(identical(other.isOptimistic, isOptimistic) || other.isOptimistic == isOptimistic));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentUiModel&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.isOptimistic, isOptimistic) || other.isOptimistic == isOptimistic));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(geometry),const DeepCollectionEquality().hash(mobilityMarker),isOptimistic);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(geometry),isOptimistic);
 
 @override
 String toString() {
-  return 'SegmentUiModel(geometry: $geometry, mobilityMarker: $mobilityMarker, isOptimistic: $isOptimistic)';
+  return 'SegmentUiModel(id: $id, geometry: $geometry, isOptimistic: $isOptimistic)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SegmentUiModelCopyWith<$Res>  {
   factory $SegmentUiModelCopyWith(SegmentUiModel value, $Res Function(SegmentUiModel) _then) = _$SegmentUiModelCopyWithImpl;
 @useResult
 $Res call({
- Geometry geometry, Geometry mobilityMarker, bool isOptimistic
+ Id id, Geometry geometry, bool isOptimistic
 });
 
 
@@ -62,10 +62,10 @@ class _$SegmentUiModelCopyWithImpl<$Res>
 
 /// Create a copy of SegmentUiModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? geometry = null,Object? mobilityMarker = null,Object? isOptimistic = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? geometry = null,Object? isOptimistic = null,}) {
   return _then(_self.copyWith(
-geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
-as Geometry,mobilityMarker: null == mobilityMarker ? _self.mobilityMarker : mobilityMarker // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,isOptimistic: null == isOptimistic ? _self.isOptimistic : isOptimistic // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -152,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Geometry geometry,  Geometry mobilityMarker,  bool isOptimistic)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id id,  Geometry geometry,  bool isOptimistic)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SegmentUiModel() when $default != null:
-return $default(_that.geometry,_that.mobilityMarker,_that.isOptimistic);case _:
+return $default(_that.id,_that.geometry,_that.isOptimistic);case _:
   return orElse();
 
 }
@@ -173,10 +173,10 @@ return $default(_that.geometry,_that.mobilityMarker,_that.isOptimistic);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Geometry geometry,  Geometry mobilityMarker,  bool isOptimistic)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id id,  Geometry geometry,  bool isOptimistic)  $default,) {final _that = this;
 switch (_that) {
 case _SegmentUiModel():
-return $default(_that.geometry,_that.mobilityMarker,_that.isOptimistic);case _:
+return $default(_that.id,_that.geometry,_that.isOptimistic);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +193,10 @@ return $default(_that.geometry,_that.mobilityMarker,_that.isOptimistic);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Geometry geometry,  Geometry mobilityMarker,  bool isOptimistic)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id id,  Geometry geometry,  bool isOptimistic)?  $default,) {final _that = this;
 switch (_that) {
 case _SegmentUiModel() when $default != null:
-return $default(_that.geometry,_that.mobilityMarker,_that.isOptimistic);case _:
+return $default(_that.id,_that.geometry,_that.isOptimistic);case _:
   return null;
 
 }
@@ -207,22 +207,16 @@ return $default(_that.geometry,_that.mobilityMarker,_that.isOptimistic);case _:
 /// @nodoc
 
 
-class _SegmentUiModel implements SegmentUiModel {
-  const _SegmentUiModel({required final  Geometry geometry, required final  Geometry mobilityMarker, required this.isOptimistic}): _geometry = geometry,_mobilityMarker = mobilityMarker;
+class _SegmentUiModel extends SegmentUiModel {
+  const _SegmentUiModel({required this.id, required final  Geometry geometry, required this.isOptimistic}): _geometry = geometry,super._();
   
 
+@override final  Id id;
  final  Geometry _geometry;
 @override Geometry get geometry {
   if (_geometry is EqualUnmodifiableListView) return _geometry;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_geometry);
-}
-
- final  Geometry _mobilityMarker;
-@override Geometry get mobilityMarker {
-  if (_mobilityMarker is EqualUnmodifiableListView) return _mobilityMarker;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_mobilityMarker);
 }
 
 @override final  bool isOptimistic;
@@ -237,16 +231,16 @@ _$SegmentUiModelCopyWith<_SegmentUiModel> get copyWith => __$SegmentUiModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentUiModel&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&const DeepCollectionEquality().equals(other._mobilityMarker, _mobilityMarker)&&(identical(other.isOptimistic, isOptimistic) || other.isOptimistic == isOptimistic));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentUiModel&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.isOptimistic, isOptimistic) || other.isOptimistic == isOptimistic));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_geometry),const DeepCollectionEquality().hash(_mobilityMarker),isOptimistic);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_geometry),isOptimistic);
 
 @override
 String toString() {
-  return 'SegmentUiModel(geometry: $geometry, mobilityMarker: $mobilityMarker, isOptimistic: $isOptimistic)';
+  return 'SegmentUiModel(id: $id, geometry: $geometry, isOptimistic: $isOptimistic)';
 }
 
 
@@ -257,7 +251,7 @@ abstract mixin class _$SegmentUiModelCopyWith<$Res> implements $SegmentUiModelCo
   factory _$SegmentUiModelCopyWith(_SegmentUiModel value, $Res Function(_SegmentUiModel) _then) = __$SegmentUiModelCopyWithImpl;
 @override @useResult
 $Res call({
- Geometry geometry, Geometry mobilityMarker, bool isOptimistic
+ Id id, Geometry geometry, bool isOptimistic
 });
 
 
@@ -274,10 +268,10 @@ class __$SegmentUiModelCopyWithImpl<$Res>
 
 /// Create a copy of SegmentUiModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? geometry = null,Object? mobilityMarker = null,Object? isOptimistic = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? geometry = null,Object? isOptimistic = null,}) {
   return _then(_SegmentUiModel(
-geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
-as Geometry,mobilityMarker: null == mobilityMarker ? _self._mobilityMarker : mobilityMarker // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,isOptimistic: null == isOptimistic ? _self.isOptimistic : isOptimistic // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

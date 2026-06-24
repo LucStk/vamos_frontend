@@ -11,7 +11,7 @@ class GraphStore {
 
   void insertSegment(Segment segment) => segmentStore.insert(segment);
   void updateSegment(Segment segment) => segmentStore.update(segment);
-  void removeSegment(SegmentId id) => segmentStore.remove(id);
+  void removeSegment(Id<Segment> id) => segmentStore.remove(id);
 
   void insertVertex(Vertex vertex) => vertexStore.insert(vertex);
   void updateVertex(Vertex vertex) => vertexStore.update(vertex);
@@ -24,10 +24,6 @@ class GraphStore {
 }
 
 extension SegmentGetters on GraphStore {
-  Map<SegmentId, Segment> getAllSegments() {
-    return segmentStore.getAll();
-  }
-
   (Vertex, Vertex) getVerticesfromSegment(SegmentId segmentId) {
     final res = topologyIndex.getVerticesOf(segmentId);
     return (vertexStore.getRequired(res.$1), vertexStore.getRequired(res.$2));
@@ -38,8 +34,4 @@ extension SegmentGetters on GraphStore {
   }
 }
 
-extension VertexGetters on GraphStore {
-  Map<VertexId, Vertex> getAllVertex() {
-    return vertexStore.getAll();
-  }
-}
+extension VertexGetters on GraphStore {}
