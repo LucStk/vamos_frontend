@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/commands.dart/trip_provider.dart';
+import 'package:vamos_cartographie/core/injection/commands/trip_provider.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/trips/widgets/widgets.dart';
 import "trip_editor_dialog.dart";

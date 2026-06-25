@@ -5,8 +5,14 @@ mutation UpdateWaypoint($id: Int!, $waypoint: WaypointUpdateInput!) {
         ...WaypointFields
     }
 }
-mutation CreateWaypoint($tripId: Int!, $waypoint: WaypointCreateInput!) {
-    createWaypoint(tripId: $tripId, input: $waypoint) {
+mutation CreateBlankWaypointFromPosition($tripId: Int!, $latLng: LatLngInput!) {
+    createBlankWaypointFromPosition(tripId: $tripId, latLng: $latLng) {
+        ...CreateWaypointPayloadFields
+    }
+}
+
+mutation CreateBlankWaypointFromVertex($tripId: Int!, $vertexId: Int!) {
+    createBlankWaypointFromVertex(tripId: $tripId, vertexId: $vertexId) {
         ...CreateWaypointPayloadFields
     }
 }

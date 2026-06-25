@@ -48,7 +48,7 @@ class SegmentEditingController extends _$SegmentEditingController {
       throw Exception("No startVertexId defined $state");
     }
 
-    final draft = SegmentDraft(
+    final draft = Segment(
       startVertexId: currentStartVertexId,
       endVertexId: endVertexId,
     );

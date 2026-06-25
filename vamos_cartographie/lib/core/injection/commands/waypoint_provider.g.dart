@@ -67,7 +67,7 @@ final class WaypointHandlerProvider
   }
 }
 
-String _$waypointHandlerHash() => r'968064166e43a5b1cdd7603c5534435763beae63';
+String _$waypointHandlerHash() => r'cad0ef027e2817d4c68daea4e5d71d35d9e76113';
 
 final class WaypointHandlerFamily extends $Family
     with $FunctionalFamilyOverride<WaypointHandler, TripId> {

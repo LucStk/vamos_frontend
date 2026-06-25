@@ -5,11 +5,12 @@ import 'package:trip_domain/trip_domain.dart';
 
 import 'package:domain_core/domain_core.dart';
 
-class SegmentRepository {
+class SegmentRepositoryImpl extends SegmentRepository {
   final SegmentRemoteDatasource remote;
 
-  SegmentRepository(this.remote);
+  SegmentRepositoryImpl(this.remote);
 
+  @override
   Future<Either<Failure, List<Segment>>> getSegments(Id<Trip> tripId) async {
     try {
       final segments = await remote.getSegments(tripId: tripId);
@@ -41,13 +42,14 @@ class SegmentRepository {
   //   }
   // }
 
-  Future<Either<Failure, Segment>> updateSegment(
-    Id<Segment> id,
-    Segment segment,
-  ) async {
+  @override
+  Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
     try {
       final input = SegmentMapper.toGQLUpdateInput(segment);
-      final gqlResult = await remote.updateSegment(id: id, input: input);
+      final gqlResult = await remote.updateSegment(
+        id: segment.id,
+        input: input,
+      );
       final updatedSegment = SegmentMapper.fromGQL(gqlResult);
 
       return Right(updatedSegment);
@@ -58,6 +60,7 @@ class SegmentRepository {
     }
   }
 
+  @override
   Future<Either<Failure, void>> deleteSegment(Id<Segment> id) async {
     try {
       await remote.deleteSegment(id: id);

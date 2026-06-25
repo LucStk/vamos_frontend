@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/queries/segment_ui_queries.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/segment_editor.dart';
+import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
   final Id<Segment> segmentId;
@@ -28,18 +30,14 @@ class SegmentViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segment = ref
-        .watch(tripGraphProvide(tripId))
-        .requireValue
-        .map<Segment>()[segmentId]
-        ?.value;
+    final segment = ref.watch(segmentUiProvider(segmentId as SegmentUiId));
 
     if (segment == null) {
       return const SizedBox.shrink();
     }
     return DialogShell(
       content: SegmentEditor(
-        initialSegment: segment,
+        initialSegment: segment as Segment,
         successMessage: "Segment mis à jour",
         onSubmit: (ref, editedSegment) async {
           await ref

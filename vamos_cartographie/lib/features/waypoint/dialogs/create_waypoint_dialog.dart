@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/commands/waypoint_provider.dart';
 import "form_waypoint_dialog.dart";
 
 class CreateWaypointDialog extends ConsumerWidget {
@@ -39,18 +40,25 @@ class CreateWaypointDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return FormWaypointDialog(
-      initialWaypoint: ,
-      onSuccess: () {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Point Créé")));
+    final futurNewWaypoint = ref
+        .read(waypointHandlerProvider(tripId))
+        .createBlankWaypoint(vertexId, latLng);
 
-        if (onSuccess != null) onSuccess!();
-      },
-      onSubmit: (ref, editedWaypoint) async {
-        throw Exception("onSubmit to build");
-      },
-    );
+    futurNewWaypoint.then((newWaypoint) {
+      return FormWaypointDialog(
+        initialWaypoint: newWaypoint,
+        onSuccess: () {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Point Créé")));
+
+          if (onSuccess != null) onSuccess!();
+        },
+        onSubmit: (ref, editedWaypoint) async {
+          throw Exception("onSubmit to build");
+        },
+      );
+    });
+    return CircularProgressIndicator();
   }
 }

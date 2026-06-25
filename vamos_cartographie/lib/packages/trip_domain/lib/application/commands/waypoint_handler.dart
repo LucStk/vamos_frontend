@@ -1,16 +1,21 @@
 import 'package:domain_core/optimitic_executor.dart';
-import 'package:trip_domain/application/repositories/waypoint_repository.dart';
-import 'package:trip_domain/domain/domain.dart';
-import 'package:trip_domain/domain/types/Ids.dart';
-import 'package:trip_domain/runtime/store/waypoint_store.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:trip_domain/trip_domain.dart';
 
 class WaypointHandler {
   WaypointStore waypointStore;
+  GraphStore graphStore;
   WaypointRepository repo;
   OptimisticExecutor executor;
   TripId tripId;
 
-  WaypointHandler(this.tripId, this.waypointStore, this.repo, this.executor);
+  WaypointHandler(
+    this.tripId,
+    this.waypointStore,
+    this.graphStore,
+    this.repo,
+    this.executor,
+  );
 
   void loadFromRemote() async {
     waypointStore.clear();
@@ -33,6 +38,20 @@ class WaypointHandler {
       onSuccess: (serveurValue) => waypointStore.upsert(serveurValue),
       onError: () => waypointStore.upsert(oldValue),
     );
+  }
+
+  Future<Waypoint> createBlankWaypoint(
+    VertexId? vertexId,
+    LatLng? latLng,
+  ) async {
+    final result = await repo.createBlankWaypoint(tripId, vertexId, latLng);
+
+    return result.fold((f) => throw Exception(f.message), (data) {
+      waypointStore.upsert(data.$1);
+      graphStore.insertVertex(data.$2);
+
+      return data.$1;
+    });
   }
 
   Future<void> deleteWaypoint(WaypointId id) async {

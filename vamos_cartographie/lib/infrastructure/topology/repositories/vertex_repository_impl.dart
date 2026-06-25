@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_domain/trip_domain.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 import 'package:vamos_cartographie/infrastructure/topology/datasources/vertex_remote_datasource.dart';
 import 'package:vamos_cartographie/infrastructure/topology/mappers/vertex_mappers.dart';
 
-class VertexRepository {
+class VertexRepositoryImpl extends VertexRepository {
   final VertexRemoteDatasource remote;
-  VertexRepository(this.remote);
-
+  VertexRepositoryImpl(this.remote);
+  @override
   Future<Either<Failure, List<Vertex>>> getVertices(Id<Trip> tripId) async {
     try {
       final segments = await remote.getVertices(tripId: tripId);
@@ -23,6 +23,7 @@ class VertexRepository {
     }
   }
 
+  @override
   Future<Either<Failure, Vertex>> createVertex(
     Id<Trip> tripId,
     LatLng latLng,
@@ -41,6 +42,7 @@ class VertexRepository {
     }
   }
 
+  @override
   Future<Either<Failure, Vertex>> moveVertex(
     Id<Vertex> vertexId,
     LatLng latLng,
@@ -60,6 +62,7 @@ class VertexRepository {
     }
   }
 
+  @override
   Future<Either<Failure, void>> deleteVertex(Id<Vertex> vertexId) async {
     try {
       await remote.deleteVertex(id: vertexId);

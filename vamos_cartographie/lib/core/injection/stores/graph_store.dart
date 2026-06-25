@@ -1,10 +1,33 @@
 import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:trip_domain/application/repositories/segment_repository.dart";
 import "package:trip_domain/domain/entities/entities.dart";
 import "package:trip_domain/runtime/store/graph_store.dart";
 import "package:topology_application/topology_application.dart";
+import "package:vamos_cartographie/core/core.dart";
 import "package:vamos_cartographie/core/injection/services//add_listener_to_observable.dart";
+import "package:vamos_cartographie/infrastructure/topology/data.dart";
 part "graph_store.g.dart";
+
+@riverpod
+VertexRemoteDatasource vertexRemoteDatasource(Ref ref) {
+  return VertexRemoteDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+VertexRepository vertexRepository(Ref ref) {
+  return VertexRepositoryImpl(ref.watch(vertexRemoteDatasourceProvider));
+}
+
+@riverpod
+SegmentRemoteDatasource segmentRemoteDatasource(Ref ref) {
+  return SegmentRemoteDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+SegmentRepository segmentRepository(Ref ref) {
+  return SegmentRepositoryImpl(ref.watch(segmentRemoteDatasourceProvider));
+}
 
 @riverpod
 GraphStore rawGraphStore(Ref ref) => GraphStore();

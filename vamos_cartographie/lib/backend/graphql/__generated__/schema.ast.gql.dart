@@ -441,7 +441,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createWaypoint'),
+      name: _i1.NameNode(value: 'createBlankWaypointFromPosition'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -454,10 +454,38 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
+          name: _i1.NameNode(value: 'latLng'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'WaypointCreateInput'),
+            name: _i1.NameNode(value: 'LatLngInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateWaypointPayload'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createBlankWaypointFromVertex'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'vertexId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -1109,57 +1137,6 @@ const VertexType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const WaypointCreateInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointCreateInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'poiCategory'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'PoiCategory'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'title'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'description'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'vertexId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'latLng'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'LatLngInput'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-  ],
-);
 const WaypointType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointType'),
   directives: [],
@@ -1279,7 +1256,6 @@ const document = _i1.DocumentNode(definitions: [
   TripUpdateInput,
   UploadConfig,
   VertexType,
-  WaypointCreateInput,
   WaypointType,
   WaypointUpdateInput,
 ]);

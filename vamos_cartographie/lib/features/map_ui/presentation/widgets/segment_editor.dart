@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/entities/entities.dart';
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.ast.gql.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
+import 'package:vamos_cartographie/features/topology/mobility_types_ui.dart';
 
 class SegmentEditor extends ConsumerStatefulWidget {
   final Segment initialSegment;
-  final Future<void> Function(WidgetRef ref, SegmentDraft segment) onSubmit;
+  final Future<void> Function(WidgetRef ref, Segment segment) onSubmit;
   final String successMessage;
   const SegmentEditor({
     super.key,
@@ -20,15 +21,15 @@ class SegmentEditor extends ConsumerStatefulWidget {
 }
 
 class _SegmentEditorState extends ConsumerState<SegmentEditor> {
-  late SegmentDraft currentSegment; // Accessible par la GlobalKey
+  late Segment currentSegment; // Accessible par la GlobalKey
 
   @override
   void initState() {
     super.initState();
-    currentSegment = widget.initialSegment.toDraft();
+    currentSegment = widget.initialSegment;
   }
 
-  void _submit(SegmentDraft newSegment) async {
+  void _submit(Segment newSegment) async {
     try {
       await widget.onSubmit(ref, newSegment);
 
@@ -64,8 +65,8 @@ class _SegmentEditorState extends ConsumerState<SegmentEditor> {
       children: [
         // ── Type ───────────────────────────────
         TypeSelector(
-          values: MobilityType.values,
-          selectedType: MobilityType.from(currentSegment.mobilityType),
+          values: MobilityTypeUi.values,
+          selectedType: MobilityTypeUi.from(currentSegment.mobilityType),
 
           onTypeChanged: (newType) {
             _submit(currentSegment.copyWith(mobilityType: newType.type));

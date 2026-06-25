@@ -62,7 +62,8 @@ type Mutation {
   attachImageTo(id: Int!, type: OwnerType!, fileKey: String!): MediaAttachmentType!
   deleteImageFrom(id: Int!, type: OwnerType!, fileKey: String!): String!
   updateWaypoint(id: Int!, input: WaypointUpdateInput!): WaypointType!
-  createWaypoint(tripId: Int!, input: WaypointCreateInput!): CreateWaypointPayload!
+  createBlankWaypointFromPosition(tripId: Int!, latLng: LatLngInput!): CreateWaypointPayload!
+  createBlankWaypointFromVertex(tripId: Int!, vertexId: Int!): CreateWaypointPayload!
   deleteWaypoint(id: Int!): Boolean!
   insertVertexToSegment(vertexId: Int!, segmentId: Int!): InsertVertexToSegmentPayload!
   updateSegment(id: Int!, input: SegmentUpdateInput!): SegmentType!
@@ -153,14 +154,6 @@ type UploadConfig {
 type VertexType {
   id: Int!
   latLng: LatLngType!
-}
-
-input WaypointCreateInput {
-  poiCategory: PoiCategory!
-  title: String = null
-  description: String = null
-  vertexId: Int = null
-  latLng: LatLngInput = null
 }
 
 type WaypointType {

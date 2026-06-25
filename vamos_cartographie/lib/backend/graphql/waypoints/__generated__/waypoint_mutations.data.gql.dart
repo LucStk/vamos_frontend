@@ -59,37 +59,42 @@ class GUpdateWaypointData {
   }
 }
 
-class GCreateWaypointData {
-  const GCreateWaypointData({
-    required this.createWaypoint,
+class GCreateBlankWaypointFromPositionData {
+  const GCreateBlankWaypointFromPositionData({
+    required this.createBlankWaypointFromPosition,
     this.G__typename = 'Mutation',
   });
 
-  factory GCreateWaypointData.fromJson(Map<String, dynamic> json) {
-    return GCreateWaypointData(
-      createWaypoint: _i1.GCreateWaypointPayloadFieldsData.fromJson(
-          (json['createWaypoint'] as Map<String, dynamic>)),
+  factory GCreateBlankWaypointFromPositionData.fromJson(
+      Map<String, dynamic> json) {
+    return GCreateBlankWaypointFromPositionData(
+      createBlankWaypointFromPosition:
+          _i1.GCreateWaypointPayloadFieldsData.fromJson(
+              (json['createBlankWaypointFromPosition']
+                  as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GCreateWaypointPayloadFieldsData createWaypoint;
+  final _i1.GCreateWaypointPayloadFieldsData createBlankWaypointFromPosition;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['createWaypoint'] = this.createWaypoint.toJson();
+    _$result['createBlankWaypointFromPosition'] =
+        this.createBlankWaypointFromPosition.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
-  GCreateWaypointData copyWith({
-    _i1.GCreateWaypointPayloadFieldsData? createWaypoint,
+  GCreateBlankWaypointFromPositionData copyWith({
+    _i1.GCreateWaypointPayloadFieldsData? createBlankWaypointFromPosition,
     String? G__typename,
   }) {
-    return GCreateWaypointData(
-      createWaypoint: createWaypoint ?? this.createWaypoint,
+    return GCreateBlankWaypointFromPositionData(
+      createBlankWaypointFromPosition: createBlankWaypointFromPosition ??
+          this.createBlankWaypointFromPosition,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -97,19 +102,80 @@ class GCreateWaypointData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateWaypointData &&
-            createWaypoint == other.createWaypoint &&
+        (other is GCreateBlankWaypointFromPositionData &&
+            createBlankWaypointFromPosition ==
+                other.createBlankWaypointFromPosition &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, createWaypoint, G__typename);
+    return Object.hash(
+        runtimeType, createBlankWaypointFromPosition, G__typename);
   }
 
   @override
   String toString() {
-    return 'GCreateWaypointData(createWaypoint: $createWaypoint, G__typename: $G__typename)';
+    return 'GCreateBlankWaypointFromPositionData(createBlankWaypointFromPosition: $createBlankWaypointFromPosition, G__typename: $G__typename)';
+  }
+}
+
+class GCreateBlankWaypointFromVertexData {
+  const GCreateBlankWaypointFromVertexData({
+    required this.createBlankWaypointFromVertex,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GCreateBlankWaypointFromVertexData.fromJson(
+      Map<String, dynamic> json) {
+    return GCreateBlankWaypointFromVertexData(
+      createBlankWaypointFromVertex:
+          _i1.GCreateWaypointPayloadFieldsData.fromJson(
+              (json['createBlankWaypointFromVertex'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GCreateWaypointPayloadFieldsData createBlankWaypointFromVertex;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['createBlankWaypointFromVertex'] =
+        this.createBlankWaypointFromVertex.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GCreateBlankWaypointFromVertexData copyWith({
+    _i1.GCreateWaypointPayloadFieldsData? createBlankWaypointFromVertex,
+    String? G__typename,
+  }) {
+    return GCreateBlankWaypointFromVertexData(
+      createBlankWaypointFromVertex:
+          createBlankWaypointFromVertex ?? this.createBlankWaypointFromVertex,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateBlankWaypointFromVertexData &&
+            createBlankWaypointFromVertex ==
+                other.createBlankWaypointFromVertex &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, createBlankWaypointFromVertex, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GCreateBlankWaypointFromVertexData(createBlankWaypointFromVertex: $createBlankWaypointFromVertex, G__typename: $G__typename)';
   }
 }
 

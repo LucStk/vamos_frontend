@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trip_domain/trip_domain.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
+import 'package:vamos_cartographie/features/waypoint/waypoint.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/widgets.dart';
 
 class FormWaypointDialog extends ConsumerStatefulWidget {
@@ -60,7 +60,7 @@ class _FormWaypointDialogState extends ConsumerState<FormWaypointDialog> {
 
       content: WaypointEditor(
         key: _editorKey,
-        initialWaypoint: widget.initialWaypoint,
+        initialWaypoint: WaypointUi(widget.initialWaypoint),
       ),
 
       buttonsBuilder: (ctx) => [

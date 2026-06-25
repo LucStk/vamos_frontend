@@ -62,47 +62,48 @@ class GUpdateWaypointVars {
   }
 }
 
-class GCreateWaypointVars {
-  const GCreateWaypointVars({
+class GCreateBlankWaypointFromPositionVars {
+  const GCreateBlankWaypointFromPositionVars({
     required this.tripId,
-    required this.waypoint,
+    required this.latLng,
   });
 
-  factory GCreateWaypointVars.fromJson(Map<String, dynamic> json) {
-    return GCreateWaypointVars(
+  factory GCreateBlankWaypointFromPositionVars.fromJson(
+      Map<String, dynamic> json) {
+    return GCreateBlankWaypointFromPositionVars(
       tripId: (json['tripId'] as int),
-      waypoint: _i1.GWaypointCreateInput.fromJson(
-          (json['waypoint'] as Map<String, dynamic>)),
+      latLng:
+          _i1.GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)),
     );
   }
 
   final int tripId;
 
-  final _i1.GWaypointCreateInput waypoint;
+  final _i1.GLatLngInput latLng;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     final _$tripIdValue = this.tripId;
     _$result['tripId'] = _$tripIdValue;
-    final _$waypointValue = this.waypoint;
-    _$result['waypoint'] = _$waypointValue.toJson();
+    final _$latLngValue = this.latLng;
+    _$result['latLng'] = _$latLngValue.toJson();
     return _$result;
   }
 
-  GCreateWaypointVars copyWith({
+  GCreateBlankWaypointFromPositionVars copyWith({
     int? tripId,
-    _i1.GWaypointCreateInput? waypoint,
+    _i1.GLatLngInput? latLng,
   }) {
-    return GCreateWaypointVars(
+    return GCreateBlankWaypointFromPositionVars(
       tripId: tripId ?? this.tripId,
-      waypoint: waypoint ?? this.waypoint,
+      latLng: latLng ?? this.latLng,
     );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateWaypointVars &&
+        (other is GCreateBlankWaypointFromPositionVars &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -113,7 +114,62 @@ class GCreateWaypointVars {
 
   @override
   String toString() {
-    return 'GCreateWaypointVars(tripId: $tripId, waypoint: $waypoint)';
+    return 'GCreateBlankWaypointFromPositionVars(tripId: $tripId, latLng: $latLng)';
+  }
+}
+
+class GCreateBlankWaypointFromVertexVars {
+  const GCreateBlankWaypointFromVertexVars({
+    required this.tripId,
+    required this.vertexId,
+  });
+
+  factory GCreateBlankWaypointFromVertexVars.fromJson(
+      Map<String, dynamic> json) {
+    return GCreateBlankWaypointFromVertexVars(
+      tripId: (json['tripId'] as int),
+      vertexId: (json['vertexId'] as int),
+    );
+  }
+
+  final int tripId;
+
+  final int vertexId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$vertexIdValue = this.vertexId;
+    _$result['vertexId'] = _$vertexIdValue;
+    return _$result;
+  }
+
+  GCreateBlankWaypointFromVertexVars copyWith({
+    int? tripId,
+    int? vertexId,
+  }) {
+    return GCreateBlankWaypointFromVertexVars(
+      tripId: tripId ?? this.tripId,
+      vertexId: vertexId ?? this.vertexId,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateBlankWaypointFromVertexVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GCreateBlankWaypointFromVertexVars(tripId: $tripId, vertexId: $vertexId)';
   }
 }
 

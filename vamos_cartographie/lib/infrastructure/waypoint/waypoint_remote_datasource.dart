@@ -70,13 +70,31 @@ class WaypointRemoteDatasource {
     return response.data!.trip.waypoints;
   }
 
-  Future<GCreateWaypointPayloadFields> createWaypoint({
+  Future<GCreateWaypointPayloadFields> createBlankWaypoint({
     required Id<Trip> tripId,
-    required GWaypointCreateInput input,
+    LatLng? latLng,
+    VertexId? vertexId,
   }) async {
-    final req = GCreateWaypointReq(
-      vars: GCreateWaypointVars(tripId: tripId.value, waypoint: input),
-    );
+    if (latLng == null && vertexId == null) {
+      throw Exception("LatLng et VertexId shouldn't be null at the same time");
+    }
+    late dynamic req;
+    if (vertexId != null) {
+      req = GCreateBlankWaypointFromVertexReq(
+        vars: GCreateBlankWaypointFromVertexVars(
+          tripId: tripId.value,
+          vertexId: vertexId as int,
+        ),
+      );
+    } else {
+      req = GCreateBlankWaypointFromPositionReq(
+        vars: GCreateBlankWaypointFromPositionVars(
+          tripId: tripId.value,
+          latLng: GLatLngInput(lat: latLng!.latitude, lng: latLng.longitude),
+        ),
+      );
+    }
+
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(

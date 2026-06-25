@@ -7,9 +7,8 @@ import 'package:trip_domain/domain/types/Ids.dart';
 abstract class WaypointRepository {
   Future<Either<Failure, List<Waypoint>>> getWaypoints(TripId id);
 
-  Future<Either<Failure, (Waypoint, Vertex)>> createWaypoint(
+  Future<Either<Failure, (Waypoint, Vertex)>> createBlankWaypoint(
     TripId tripId,
-    Waypoint waypointDraft,
     VertexId? vertexId,
     LatLng? latLng,
   );

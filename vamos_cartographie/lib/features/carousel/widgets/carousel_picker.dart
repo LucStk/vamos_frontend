@@ -2,7 +2,7 @@ import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/domain/value_objects/upload_status.dart';
-import 'package:vamos_cartographie/core/injection/commands.dart/media_provider.dart';
+import 'package:vamos_cartographie/core/injection/commands/media_provider.dart';
 import 'package:vamos_cartographie/core/injection/queries/media_ui_queries.dart';
 import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
 

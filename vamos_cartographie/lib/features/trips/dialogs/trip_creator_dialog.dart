@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/commands.dart/trip_provider.dart';
+import 'package:vamos_cartographie/core/injection/commands/trip_provider.dart';
 import "trip_form_dialog.dart";
 
 class TripCreatorDialog extends ConsumerWidget {
@@ -28,7 +28,7 @@ class TripCreatorDialog extends ConsumerWidget {
         );
       },
       onError: (error) {
-        return ErrorWidget(Exception("Cannot creat New Waypoint"));
+        return ErrorWidget(Exception("Cannot creat New Trip"));
       },
     );
     return CircularProgressIndicator();

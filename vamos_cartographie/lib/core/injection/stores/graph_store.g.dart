@@ -9,6 +9,195 @@ part of 'graph_store.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(vertexRemoteDatasource)
+final vertexRemoteDatasourceProvider = VertexRemoteDatasourceProvider._();
+
+final class VertexRemoteDatasourceProvider
+    extends
+        $FunctionalProvider<
+          VertexRemoteDatasource,
+          VertexRemoteDatasource,
+          VertexRemoteDatasource
+        >
+    with $Provider<VertexRemoteDatasource> {
+  VertexRemoteDatasourceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'vertexRemoteDatasourceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$vertexRemoteDatasourceHash();
+
+  @$internal
+  @override
+  $ProviderElement<VertexRemoteDatasource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  VertexRemoteDatasource create(Ref ref) {
+    return vertexRemoteDatasource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(VertexRemoteDatasource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<VertexRemoteDatasource>(value),
+    );
+  }
+}
+
+String _$vertexRemoteDatasourceHash() =>
+    r'06a82eb656f73e16ff72176824f7c2cb28c87374';
+
+@ProviderFor(vertexRepository)
+final vertexRepositoryProvider = VertexRepositoryProvider._();
+
+final class VertexRepositoryProvider
+    extends
+        $FunctionalProvider<
+          VertexRepository,
+          VertexRepository,
+          VertexRepository
+        >
+    with $Provider<VertexRepository> {
+  VertexRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'vertexRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$vertexRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<VertexRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  VertexRepository create(Ref ref) {
+    return vertexRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(VertexRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<VertexRepository>(value),
+    );
+  }
+}
+
+String _$vertexRepositoryHash() => r'ec39ce9d28f07d399f6e0d51cee0a9916831ceae';
+
+@ProviderFor(segmentRemoteDatasource)
+final segmentRemoteDatasourceProvider = SegmentRemoteDatasourceProvider._();
+
+final class SegmentRemoteDatasourceProvider
+    extends
+        $FunctionalProvider<
+          SegmentRemoteDatasource,
+          SegmentRemoteDatasource,
+          SegmentRemoteDatasource
+        >
+    with $Provider<SegmentRemoteDatasource> {
+  SegmentRemoteDatasourceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'segmentRemoteDatasourceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$segmentRemoteDatasourceHash();
+
+  @$internal
+  @override
+  $ProviderElement<SegmentRemoteDatasource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SegmentRemoteDatasource create(Ref ref) {
+    return segmentRemoteDatasource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SegmentRemoteDatasource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SegmentRemoteDatasource>(value),
+    );
+  }
+}
+
+String _$segmentRemoteDatasourceHash() =>
+    r'c453bca3547d179470fdd6aab233c70c5dc92fa3';
+
+@ProviderFor(segmentRepository)
+final segmentRepositoryProvider = SegmentRepositoryProvider._();
+
+final class SegmentRepositoryProvider
+    extends
+        $FunctionalProvider<
+          SegmentRepository,
+          SegmentRepository,
+          SegmentRepository
+        >
+    with $Provider<SegmentRepository> {
+  SegmentRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'segmentRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$segmentRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<SegmentRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SegmentRepository create(Ref ref) {
+    return segmentRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SegmentRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SegmentRepository>(value),
+    );
+  }
+}
+
+String _$segmentRepositoryHash() => r'72087992023f023edd9452392f361924929c08af';
+
 @ProviderFor(rawGraphStore)
 final rawGraphStoreProvider = RawGraphStoreProvider._();
 
