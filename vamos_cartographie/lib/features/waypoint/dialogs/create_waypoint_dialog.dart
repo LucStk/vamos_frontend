@@ -44,21 +44,31 @@ class CreateWaypointDialog extends ConsumerWidget {
         .read(waypointHandlerProvider(tripId))
         .createBlankWaypoint(vertexId, latLng);
 
-    futurNewWaypoint.then((newWaypoint) {
-      return FormWaypointDialog(
-        initialWaypoint: newWaypoint,
-        onSuccess: () {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("Point Créé")));
+    return FutureBuilder<Waypoint>(
+      future: futurNewWaypoint,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return ErrorWidget(Exception("Cannot create New Trip"));
+        }
 
-          if (onSuccess != null) onSuccess!();
-        },
-        onSubmit: (ref, editedWaypoint) async {
-          throw Exception("onSubmit to build");
-        },
-      );
-    });
-    return CircularProgressIndicator();
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return FormWaypointDialog(
+          initialWaypoint: snapshot.data!,
+          onSuccess: () {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("Point Créé")));
+
+            if (onSuccess != null) onSuccess!();
+          },
+          onSubmit: (ref, editedWaypoint) async {
+            throw Exception("onSubmit to build");
+          },
+        );
+      },
+    );
   }
 }

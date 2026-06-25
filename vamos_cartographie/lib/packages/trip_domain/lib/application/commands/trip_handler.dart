@@ -3,6 +3,7 @@ import 'package:trip_domain/application/repositories/trip_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:trip_domain/runtime/runtime.dart';
 
+import 'package:flutter/material.dart';
 import 'package:domain_core/optimitic_executor.dart';
 
 class TripHandler {
@@ -31,6 +32,7 @@ class TripHandler {
 
     return result.fold((f) => throw Exception(f.message), (trip) {
       tripStore.upsert(trip);
+      debugPrint("createBlankTrip result $trip");
       return trip;
     });
   }

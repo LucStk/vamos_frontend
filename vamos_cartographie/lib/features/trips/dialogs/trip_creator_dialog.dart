@@ -17,20 +17,25 @@ class TripCreatorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // On génére un trip à compléter
     final futurNewTrip = ref.read(tripHandlerProvider).createBlankTrip();
-    futurNewTrip.then(
-      (newTrip) {
+
+    return FutureBuilder<Trip>(
+      future: futurNewTrip,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return ErrorWidget(Exception("Cannot create New Trip"));
+        }
+
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
         return TripFormDialog(
-          initialTrip: newTrip, //Doit créer un Trip avant
+          initialTrip: snapshot.data!,
           successMessage: 'Voyage créé',
           onSubmit: (ref, Trip trip) async {},
         );
       },
-      onError: (error) {
-        return ErrorWidget(Exception("Cannot creat New Trip"));
-      },
     );
-    return CircularProgressIndicator();
   }
 }
