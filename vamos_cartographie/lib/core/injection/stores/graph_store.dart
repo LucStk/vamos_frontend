@@ -1,6 +1,7 @@
 import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_domain/application/repositories/segment_repository.dart";
+import "package:trip_domain/application/repositories/vertex_repository.dart";
 import "package:trip_domain/domain/entities/entities.dart";
 import "package:trip_domain/runtime/store/graph_store.dart";
 import "package:topology_application/topology_application.dart";

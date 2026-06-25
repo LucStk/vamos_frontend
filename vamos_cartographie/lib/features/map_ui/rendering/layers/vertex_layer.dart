@@ -14,7 +14,8 @@ class VertexLayer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final vertexIds = ref.watch(vertexUiIdsProvider);
     final ctrl = ref.read(mapCtrlProvider(tripId).notifier);
-    final markers = vertexIds.map((vertexUi) {
+    final markers = vertexIds.map((vertexUiId) {
+      
       return toDragMarker(vertexUiId, tripId, ctrl);
     }).toList();
 

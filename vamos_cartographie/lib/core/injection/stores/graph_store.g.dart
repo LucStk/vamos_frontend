@@ -101,7 +101,7 @@ final class VertexRepositoryProvider
   }
 }
 
-String _$vertexRepositoryHash() => r'ec39ce9d28f07d399f6e0d51cee0a9916831ceae';
+String _$vertexRepositoryHash() => r'66dd891c01a4ecc21944f43123c221426aaebe65';
 
 @ProviderFor(segmentRemoteDatasource)
 final segmentRemoteDatasourceProvider = SegmentRemoteDatasourceProvider._();
