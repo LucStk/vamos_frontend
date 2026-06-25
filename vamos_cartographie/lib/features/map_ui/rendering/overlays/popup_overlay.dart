@@ -44,7 +44,7 @@ class PopUpOverlay extends ConsumerWidget {
                     child: Padding(
                       // On ajoute une marge uniquement en bas pour "pousser" le menu de 8px vers le haut
                       padding: const EdgeInsets.only(bottom: 20.0),
-                      child: popup.element.buildPopup(tripId),
+                      child: const SizedBox.shrink(),
                     ),
                   ),
                 ),

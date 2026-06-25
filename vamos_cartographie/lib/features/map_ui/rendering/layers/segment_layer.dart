@@ -3,6 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/segment/segment_ui_element.dart';
+import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 import '/core/injection/queries/segment_ui_queries.dart';
 import '/features/map_editor/controllers/map_ctrl_provider.dart';
 import '/features/map_editor/events/ui/ui_events.dart';
@@ -18,12 +20,12 @@ class SegmentLayer extends ConsumerStatefulWidget {
 }
 
 class _SegmentLayerState extends ConsumerState<SegmentLayer> {
-  late final ValueNotifier<LayerHitResult<Id<Segment>>?> _polylineHitNotifier;
+  late final ValueNotifier<LayerHitResult<SegmentUiId>?> _polylineHitNotifier;
 
   @override
   void initState() {
     super.initState();
-    _polylineHitNotifier = ValueNotifier<LayerHitResult<Id<Segment>>?>(null);
+    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentUiId>?>(null);
 
     _polylineHitNotifier.addListener(_onHoverChanged);
   }
@@ -51,15 +53,17 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
         segments
                 .map((id) => toPolyline(ref, id, widget.tripId, mapCtrl))
                 .toList()
-            as List<Polyline<Id<Segment>>>;
+            as List<Polyline<SegmentUiId>>;
     // On en profite pour construire les markers mobility sur les segments
-    final segMarkers = segments
-        .map((entry) => toMarker(entry, widget.tripId, mapCtrl))
-        .toList();
+    final segMarkers = segments.map((entry) {
+      final res = ref.read(segmentUiProvider(entry));
+      final segment = SegmentUiElement(widget.tripId, res!);
+      return toMarker(segment, widget.tripId, mapCtrl);
+    }).toList();
 
     return Stack(
       children: [
-        PolylineLayer<Id<Segment>>(
+        PolylineLayer<SegmentUiId>(
           hitNotifier: _polylineHitNotifier,
           polylines: polylines,
         ),

@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_prov
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/adapters/marker_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_ui_element.dart';
 
 class VertexLayer extends ConsumerWidget {
   final Id<Trip> tripId;
@@ -15,8 +16,8 @@ class VertexLayer extends ConsumerWidget {
     final vertexIds = ref.watch(vertexUiIdsProvider);
     final ctrl = ref.read(mapCtrlProvider(tripId).notifier);
     final markers = vertexIds.map((vertexUiId) {
-      
-      return toDragMarker(vertexUiId, tripId, ctrl);
+      final vertex = ref.read(vertexUiProvider(vertexUiId))!;
+      return toDragMarker(VertexUiElement(tripId, vertex), tripId, ctrl);
     }).toList();
 
     return DragMarkers(markers: markers);
