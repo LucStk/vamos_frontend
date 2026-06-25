@@ -32,8 +32,8 @@ class TripEditorDialog extends ConsumerWidget {
     return TripFormDialog(
       initialTrip: trip,
       successMessage: 'Voyage mis à jour',
-      onSubmit: (ref, TripDraft editedTrip) async {
-        await ref.read(tripHandlerProvider).updateTrip(tripId, editedTrip);
+      onSubmit: (ref, Trip editedTrip) async {
+        await ref.read(tripHandlerProvider).updateTrip(editedTrip);
       },
     );
   }

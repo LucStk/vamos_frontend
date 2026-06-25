@@ -40,11 +40,23 @@ class TripRepositoryImpl extends TripRepository {
   // Mutations
   // ---------------------------------------------------------------------------
 
+  // @override
+  // Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
+  //   try {
+  //     final input = TripDraftMapper.toGQLInput(trip);
+  //     final gqlResult = await remote.createTrip(input: input);
+  //     final createdTrip = TripMapper.fromGQLCreateResult(gqlResult);
+  //     return Right(createdTrip);
+  //   } on Exception catch (e) {
+  //     return Left(ServerFailure(e.toString()));
+  //   } catch (_) {
+  //     return Left(const ConnectionFailure());
+  //   }
+  // }
   @override
-  Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
+  Future<Either<Failure, Trip>> createBlankTrip() async {
     try {
-      final input = TripDraftMapper.toGQLInput(trip);
-      final gqlResult = await remote.createTrip(input: input);
+      final gqlResult = await remote.createBlankTrip();
       final createdTrip = TripMapper.fromGQLCreateResult(gqlResult);
       return Right(createdTrip);
     } on Exception catch (e) {
@@ -55,10 +67,10 @@ class TripRepositoryImpl extends TripRepository {
   }
 
   @override
-  Future<Either<Failure, Trip>> updateTrip(Id<Trip> id, TripDraft trip) async {
+  Future<Either<Failure, Trip>> updateTrip(Trip trip) async {
     try {
       final input = TripDraftMapper.toGQLUpdateInput(trip);
-      final gqlResult = await remote.updateTrip(id: id, input: input);
+      final gqlResult = await remote.updateTrip(id: trip.id, input: input);
       final updatedTrip = TripMapper.fromGQLUpdateResult(gqlResult);
 
       return Right(updatedTrip);

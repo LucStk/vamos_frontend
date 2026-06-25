@@ -63,6 +63,40 @@ const CreateTrip = _i1.OperationDefinitionNode(
     ),
   ]),
 );
+const CreateBlankTrip = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'CreateBlankTrip'),
+  variableDefinitions: [],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'createBlankTrip'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'TripFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
 const UpdateTrip = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
   name: _i1.NameNode(value: 'UpdateTrip'),
@@ -164,6 +198,7 @@ const DeleteTrip = _i1.OperationDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   CreateTrip,
+  CreateBlankTrip,
   UpdateTrip,
   DeleteTrip,
   _i2.ImageFields,

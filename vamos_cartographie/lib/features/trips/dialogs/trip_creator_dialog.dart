@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/commands.dart/trip_provider.dart';
 import "trip_form_dialog.dart";
 
-class TripCreatorDialog extends StatelessWidget {
+class TripCreatorDialog extends ConsumerWidget {
   const TripCreatorDialog({super.key});
 
   static void show(BuildContext context) {
@@ -15,15 +16,21 @@ class TripCreatorDialog extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return TripFormDialog(
-      initialTrip: Trip(), //Doit créer un Trip avant
-
-      successMessage: 'Voyage créé',
-
-      onSubmit: (ref, TripDraft trip) async {
-        await ref.read(tripHandlerProvider).createTrip(trip);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // On génére un trip à compléter
+    final futurNewTrip = ref.read(tripHandlerProvider).createBlankTrip();
+    futurNewTrip.then(
+      (newTrip) {
+        return TripFormDialog(
+          initialTrip: newTrip, //Doit créer un Trip avant
+          successMessage: 'Voyage créé',
+          onSubmit: (ref, Trip trip) async {},
+        );
+      },
+      onError: (error) {
+        return ErrorWidget(Exception("Cannot creat New Waypoint"));
       },
     );
+    return CircularProgressIndicator();
   }
 }

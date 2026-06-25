@@ -2,6 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import "mobility_type_mapper.dart";
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import "package:vamos_cartographie/features/shared/shared.dart" show GisMapper;
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
@@ -14,4 +15,11 @@ class SegmentMapper {
     startVertexId: Id<Vertex>(data.startVertex.id),
     endVertexId: Id<Vertex>(data.endVertex.id),
   );
+  static GSegmentUpdateInput toGQLUpdateInput(Segment s) {
+    return GSegmentUpdateInput(
+      mobilityType: Value.present(s.mobilityType.toGQL()),
+      // startVertexId: Value.present(s.startVertexId.value),
+      // endVertexId: Value.present(s.endVertexId.value),
+    );
+  }
 }

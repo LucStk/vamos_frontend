@@ -16,8 +16,9 @@ class MediaHandler {
       onApply: () => patchStore.upsert(id, patch),
       remote: () => mediaServices.uploadAndAttach<T>(id, patch.file),
       onSuccess: (MediaImage _) => patchStore.remove(id, patch.fileKey),
-      onError: () =>
-          patchStore.updateStatus(id, patch.fileKey, UploadStatus.failure),
+      onError: () {
+        //TODO
+      },
     );
   }
 

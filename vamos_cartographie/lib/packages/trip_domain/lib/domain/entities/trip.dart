@@ -11,21 +11,4 @@ abstract class Trip with _$Trip {
     @Default('') String description,
     DateTime? date,
   }) = _Trip;
-  TripDraft toDraft() {
-    return TripDraft(title: title, description: description, date: date);
-  }
-}
-
-@freezed
-abstract class TripDraft with _$TripDraft {
-  const TripDraft._();
-  const factory TripDraft({
-    @Default('') String title,
-    @Default('') String description,
-    DateTime? date,
-  }) = _TripDraft;
-
-  Trip toTrip(TripId id) {
-    return Trip(id: id, title: title, description: description, date: date);
-  }
 }

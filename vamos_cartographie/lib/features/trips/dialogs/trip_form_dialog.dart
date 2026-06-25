@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/features/trips/widgets/widgets.dart';
 
 class TripFormDialog extends ConsumerStatefulWidget {
   final Trip initialTrip;
-  final Future<void> Function(WidgetRef ref, TripDraft trip) onSubmit;
+  final Future<void> Function(WidgetRef ref, Trip trip) onSubmit;
   final String successMessage;
 
   const TripFormDialog({

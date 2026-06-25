@@ -4,7 +4,7 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class TripDraftMapper {
-  static GTripInput toGQLInput(TripDraft trip) => GTripInput(
+  static GTripInput toGQLInput(Trip trip) => GTripInput(
     title: trip.title,
     description: trip.description.isNotEmpty
         ? Value.present(trip.description)
@@ -14,7 +14,7 @@ class TripDraftMapper {
         : const Value.absent(),
   );
 
-  static GTripUpdateInput toGQLUpdateInput(TripDraft trip) => GTripUpdateInput(
+  static GTripUpdateInput toGQLUpdateInput(Trip trip) => GTripUpdateInput(
     title: Value.present(trip.title),
     description: Value.present(
       trip.description.isNotEmpty ? trip.description : null,

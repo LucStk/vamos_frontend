@@ -17,17 +17,17 @@ class TripInfoEditor extends StatefulWidget {
 }
 
 class TripInfoEditorState extends State<TripInfoEditor> {
-  late TripDraft currentTrip;
+  late Trip currentTrip;
 
   // static const int _maxDesc = 1000;
 
   @override
   void initState() {
     super.initState();
-    currentTrip = widget.initialTrip.toDraft();
+    currentTrip = widget.initialTrip;
   }
 
-  void _patch(TripDraft newTrip) {
+  void _patch(Trip newTrip) {
     setState(() {
       currentTrip = newTrip;
     });

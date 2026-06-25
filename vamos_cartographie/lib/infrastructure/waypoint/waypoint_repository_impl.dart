@@ -27,17 +27,13 @@ class WaypointRepositoryImpl extends WaypointRepository {
   @override
   Future<Either<Failure, (Waypoint, Vertex)>> createWaypoint(
     Id<Trip> tripId,
-    WaypointDraft waypointDraft,
+    Waypoint waypointDraft,
     Id<Vertex>? vertexId,
     LatLng? latLng,
   ) async {
     try {
       // Then create the waypoint with the vertex ID
-      final input = WaypointDraftMapper.toGQLInput(
-        waypointDraft,
-        vertexId,
-        latLng,
-      );
+      final input = WaypointMapper.toGQLInput(waypointDraft, vertexId, latLng);
       final gqlResult = await remote.createWaypoint(
         tripId: tripId,
         input: input,
@@ -54,13 +50,13 @@ class WaypointRepositoryImpl extends WaypointRepository {
   }
 
   @override
-  Future<Either<Failure, Waypoint>> updateWaypoint(
-    Id<Waypoint> id,
-    WaypointDraft waypoint,
-  ) async {
+  Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint) async {
     try {
-      final input = WaypointDraftMapper.toGQLUpdateInput(waypoint);
-      final gqlResult = await remote.updateWaypoint(id: id, input: input);
+      final input = WaypointMapper.toGQLUpdateInput(waypoint);
+      final gqlResult = await remote.updateWaypoint(
+        id: waypoint.id,
+        input: input,
+      );
       final updatedWaypoint = WaypointMapper.fromGQL(gqlResult);
 
       return Right(updatedWaypoint);

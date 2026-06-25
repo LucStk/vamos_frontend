@@ -25,16 +25,11 @@ class WaypointHandler {
     });
   }
 
-  Future<void> updateWaypoint(
-    WaypointId waypointId,
-    VertexId vertexId,
-    WaypointDraft draft,
-  ) async {
-    final Waypoint oldValue = waypointStore.getRequired(waypointId);
+  Future<void> updateWaypoint(Waypoint waypoint) async {
+    final Waypoint oldValue = waypointStore.getRequired(waypoint.id);
     await executor.run(
-      onApply: () =>
-          waypointStore.upsert(draft.toWaypoint(waypointId, vertexId)),
-      remote: () => repo.updateWaypoint(waypointId, draft),
+      onApply: () => waypointStore.upsert(waypoint),
+      remote: () => repo.updateWaypoint(waypoint),
       onSuccess: (serveurValue) => waypointStore.upsert(serveurValue),
       onError: () => waypointStore.upsert(oldValue),
     );

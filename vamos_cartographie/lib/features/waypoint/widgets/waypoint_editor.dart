@@ -38,14 +38,15 @@ class WaypointEditorState extends State<WaypointEditor> {
         TextFormField(
           initialValue: currentWaypoint.title,
           decoration: const InputDecoration(labelText: 'Titre'),
-          onChanged: (val) => _patch(currentWaypoint.copyWith(title: val)),
+          onChanged: (val) =>
+              _patch(currentWaypoint.copyWith(title: val) as WaypointUi),
         ),
         const Divider(),
         TextAreaWithCounter(
           initialValue: currentWaypoint.description,
           readOnly: false,
           onChanged: (val) =>
-              _patch(currentWaypoint.copyWith(description: val)),
+              _patch(currentWaypoint.copyWith(description: val) as WaypointUi),
         ),
 
         const SizedBox(height: 4),
@@ -66,7 +67,10 @@ class WaypointEditorState extends State<WaypointEditor> {
           selectedType: currentWaypoint.poiCategoryUi,
 
           onTypeChanged: (newType) {
-            _patch(currentWaypoint.copyWith(poiCategory: newType.category));
+            _patch(
+              currentWaypoint.copyWith(poiCategory: newType.category)
+                  as WaypointUi,
+            );
           },
         ),
       ],

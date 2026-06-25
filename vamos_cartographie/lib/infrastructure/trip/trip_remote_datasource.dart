@@ -46,10 +46,21 @@ class TripRemoteDatasource {
   // Mutations
   // ---------------------------------------------------------------------------
 
-  /// Crée un nouveau trip à partir d'un [GTripInput] et retourne les données
-  /// complètes du trip créé (avec waypoints et segments).
-  Future<GTripFields> createTrip({required GTripInput input}) async {
-    final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
+  // /// Crée un nouveau trip à partir d'un [GTripInput] et retourne les données
+  // /// complètes du trip créé (avec waypoints et segments).
+  // Future<GTripFields> createTrip({required GTripInput input}) async {
+  //   final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
+  //   final response = await client.request(req).first;
+  //   if (response.hasErrors || response.data == null) {
+  //     throw Exception(
+  //       response.graphqlErrors?.first.message ??
+  //           'Erreur lors de la création du trip',
+  //     );
+  //   }
+  //   return response.data!.createTrip;
+  // }
+  Future<GTripFields> createBlankTrip() async {
+    final req = GCreateBlankTripReq();
     final response = await client.request(req).first;
     if (response.hasErrors || response.data == null) {
       throw Exception(
@@ -57,7 +68,7 @@ class TripRemoteDatasource {
             'Erreur lors de la création du trip',
       );
     }
-    return response.data!.createTrip;
+    return response.data!.createBlankTrip;
   }
 
   /// Met à jour un trip existant identifié par [id] avec les données fournies

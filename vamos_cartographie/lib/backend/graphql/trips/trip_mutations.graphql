@@ -6,6 +6,11 @@ mutation CreateTrip($trip: TripInput!) {
         ...TripFields
     }
 }
+mutation CreateBlankTrip(){
+    createBlankTrip(){
+        ...TripFields
+    }
+}
 
 mutation UpdateTrip($trip: TripUpdateInput!, $id: Int!) {
     updateTrip(trip: $trip, id: $id) {

@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:vamos_cartographie/infrastructure/topology/datasources/segment_remote_datasource.dart';
 import 'package:vamos_cartographie/infrastructure/topology/mappers/segment_mappers.dart';
-import 'package:vamos_cartographie/infrastructure/topology/mappers/segment_mappers_draft.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 import 'package:domain_core/domain_core.dart';
@@ -44,10 +43,10 @@ class SegmentRepository {
 
   Future<Either<Failure, Segment>> updateSegment(
     Id<Segment> id,
-    SegmentDraft segment,
+    Segment segment,
   ) async {
     try {
-      final input = SegmentDraftMapper.toGQLUpdateInput(segment);
+      final input = SegmentMapper.toGQLUpdateInput(segment);
       final gqlResult = await remote.updateSegment(id: id, input: input);
       final updatedSegment = SegmentMapper.fromGQL(gqlResult);
 

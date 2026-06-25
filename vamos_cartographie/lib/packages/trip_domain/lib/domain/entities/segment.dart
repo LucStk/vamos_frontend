@@ -17,21 +17,4 @@ abstract class Segment with _$Segment implements HasId {
   }) = _Segment;
 
   const Segment._();
-
-  SegmentDraft toDraft() {
-    return SegmentDraft(mobilityType: mobilityType);
-  }
-
-  Segment copyWithDraft(SegmentDraft draft) {
-    return copyWith(mobilityType: draft.mobilityType);
-  }
-}
-
-@freezed
-abstract class SegmentDraft with _$SegmentDraft {
-  const factory SegmentDraft({
-    @Default(MobilityType.bike) MobilityType mobilityType,
-  }) = _SegmentDraft;
-
-  const SegmentDraft._();
 }

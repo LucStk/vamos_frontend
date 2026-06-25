@@ -59,6 +59,60 @@ class GCreateTripData {
   }
 }
 
+class GCreateBlankTripData {
+  const GCreateBlankTripData({
+    required this.createBlankTrip,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GCreateBlankTripData.fromJson(Map<String, dynamic> json) {
+    return GCreateBlankTripData(
+      createBlankTrip: _i1.GTripFieldsData.fromJson(
+          (json['createBlankTrip'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GTripFieldsData createBlankTrip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['createBlankTrip'] = this.createBlankTrip.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GCreateBlankTripData copyWith({
+    _i1.GTripFieldsData? createBlankTrip,
+    String? G__typename,
+  }) {
+    return GCreateBlankTripData(
+      createBlankTrip: createBlankTrip ?? this.createBlankTrip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateBlankTripData &&
+            createBlankTrip == other.createBlankTrip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, createBlankTrip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GCreateBlankTripData(createBlankTrip: $createBlankTrip, G__typename: $G__typename)';
+  }
+}
+
 class GUpdateTripData {
   const GUpdateTripData({
     required this.updateTrip,

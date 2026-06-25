@@ -26,21 +26,21 @@ class TripHandler {
     });
   }
 
-  Future<void> createTrip(TripDraft draft) async {
-    final result = await repo.createTrip(draft);
+  Future<Trip> createBlankTrip() async {
+    final result = await repo.createBlankTrip();
 
-    result.fold(
-      (f) => throw Exception(f.message),
-      (trip) => tripStore.upsert(trip),
-    );
+    return result.fold((f) => throw Exception(f.message), (trip) {
+      tripStore.upsert(trip);
+      return trip;
+    });
   }
 
-  Future<void> updateTrip(Id<Trip> id, TripDraft draft) async {
-    final old = tripStore.getRequired(id);
+  Future<void> updateTrip(Trip trip) async {
+    final old = tripStore.getRequired(trip.id);
 
     await executor.run(
-      onApply: () => tripStore.upsert(draft.toTrip(id)),
-      remote: () => repo.updateTrip(id, draft),
+      onApply: () => tripStore.upsert(trip),
+      remote: () => repo.updateTrip(trip),
       onSuccess: (Trip serverTrip) => tripStore.upsert(serverTrip),
       onError: () => tripStore.upsert(old),
     );

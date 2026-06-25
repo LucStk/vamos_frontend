@@ -6,15 +6,15 @@ import 'package:trip_domain/domain/types/Ids.dart';
 
 abstract class WaypointRepository {
   Future<Either<Failure, List<Waypoint>>> getWaypoints(TripId id);
+
   Future<Either<Failure, (Waypoint, Vertex)>> createWaypoint(
     TripId tripId,
-    WaypointDraft waypointDraft,
+    Waypoint waypointDraft,
     VertexId? vertexId,
     LatLng? latLng,
   );
-  Future<Either<Failure, Waypoint>> updateWaypoint(
-    WaypointId id,
-    WaypointDraft waypoint,
-  );
+
+  Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint);
+
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id);
 }

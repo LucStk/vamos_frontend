@@ -15,30 +15,4 @@ abstract class Waypoint with _$Waypoint implements HasId {
     @Default(PoiCategory.waypoint) PoiCategory poiCategory,
     @Default('') String description,
   }) = _Waypoint;
-  WaypointDraft toDraft() {
-    return WaypointDraft(
-      title: title,
-      poiCategory: poiCategory,
-      description: description,
-    );
-  }
-}
-
-@freezed
-abstract class WaypointDraft with _$WaypointDraft {
-  const WaypointDraft._();
-  const factory WaypointDraft({
-    @Default('') String title,
-    @Default(PoiCategory.waypoint) PoiCategory poiCategory,
-    @Default('') String description,
-  }) = _WaypointDraft;
-  Waypoint toWaypoint(WaypointId id, VertexId vertexId) {
-    return Waypoint(
-      vertexId: vertexId,
-      title: title,
-      description: description,
-      poiCategory: poiCategory,
-      id: id,
-    );
-  }
 }

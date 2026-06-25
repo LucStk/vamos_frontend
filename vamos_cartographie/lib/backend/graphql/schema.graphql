@@ -56,6 +56,7 @@ type Mutation {
   createTrip(trip: TripInput!): TripType!
   updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
   deleteTrip(id: Int!): Boolean!
+  createBlankTrip: TripType!
   createImage(data: MediaImageInput!): MediaImageType!
   generateImageUploadUrl(extension: String!): UploadConfig!
   attachImageTo(id: Int!, type: OwnerType!, fileKey: String!): MediaAttachmentType!
