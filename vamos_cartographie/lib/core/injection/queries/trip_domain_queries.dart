@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/commands/trip_provider.dart';
 import 'package:vamos_cartographie/core/injection/stores/waypoint_store.dart';
 import '/core/injection/stores/trip_store.dart';
 part 'trip_domain_queries.g.dart';
@@ -14,4 +15,10 @@ Trip? trip(Ref ref, TripId tripId) {
 Waypoint? waypointFromVertex(Ref ref, VertexId vertexId) {
   final store = ref.watch(waypointStoreProvider);
   return store.getFromVertex(vertexId);
+}
+
+@riverpod
+Future<void> loadTrips(Ref ref) async {
+  final result = await ref.read(tripHandlerProvider).loadFromRemote();
+  result.fold((failure) => throw failure, (_) => null);
 }

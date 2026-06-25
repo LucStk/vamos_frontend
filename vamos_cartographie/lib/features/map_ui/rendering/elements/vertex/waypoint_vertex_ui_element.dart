@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:trip_domain/domain/entities/waypoint.dart';
 import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_ui_element.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/waypoint_marker.dart';

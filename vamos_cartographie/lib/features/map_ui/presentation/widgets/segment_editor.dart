@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/entities/entities.dart';
-import 'package:vamos_cartographie/backend/graphql/__generated__/schema.ast.gql.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/topology/mobility_types_ui.dart';
 
