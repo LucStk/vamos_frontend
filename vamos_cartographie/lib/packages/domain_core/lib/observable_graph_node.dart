@@ -6,7 +6,7 @@ class ObservableGraphNode<T> with Observable {
   ObservableGraphNode(this.value);
 
   void set(T value) {
-    value = value;
+    this.value = value;
     revision++;
     notify();
   }

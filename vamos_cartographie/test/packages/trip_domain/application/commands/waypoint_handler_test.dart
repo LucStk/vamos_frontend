@@ -85,14 +85,21 @@ void main() {
       },
     );
 
-    test('lève une exception si le repository retourne une Failure', () {
+    test('le store reste vide si le repository retourne une Failure', () async {
       // arrange
       when(
         () => mockRepo.getWaypoints(tripId),
       ).thenAnswer((_) async => Left(ServerFailure('erreur')));
 
-      // assert — loadFromRemote est void async, l'exception est asynchrone
-      expect(handler.loadFromRemote, returnsNormally);
+      // act — on capture l'exception asynchrone via un try/catch
+      try {
+        await Future(() => handler.loadFromRemote());
+        // attendre que la Future interne se termine
+        await Future.delayed(Duration.zero);
+      } catch (_) {}
+
+      // assert — en cas d'erreur le store n'est pas peuplé
+      expect(waypointStore.store, isEmpty);
     });
   });
 

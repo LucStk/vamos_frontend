@@ -73,7 +73,7 @@ void main() {
         final updated = makeSegment(id: 1, mobilityType: MobilityType.walk);
         final serverSegment = makeSegment(
           id: 1,
-          mobilityType: MobilityType.run,
+          mobilityType: MobilityType.car,
         );
         graphStore.insertSegment(original);
         when(
@@ -86,7 +86,7 @@ void main() {
         // assert — valeur finale = réponse serveur
         expect(
           graphStore.segmentStore.get(Id<Segment>(1))!.mobilityType,
-          equals(MobilityType.run),
+          equals(MobilityType.car),
         );
       },
     );

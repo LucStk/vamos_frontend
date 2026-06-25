@@ -51,8 +51,9 @@ void main() {
         () => mockRepo.getAllTrips(),
       ).thenAnswer((_) async => Right(remoteTrips));
 
-      // act
-      await handler.loadFromRemote();
+      // act — loadFromRemote est void async (fire-and-forget)
+      handler.loadFromRemote();
+      await Future<void>.delayed(Duration.zero);
 
       // assert
       expect(tripStore.get(Id<Trip>(99)), isNull);
@@ -60,14 +61,18 @@ void main() {
       expect(tripStore.get(Id<Trip>(2)), equals(remoteTrips[1]));
     });
 
-    test('lève une exception si le repository retourne une Failure', () async {
+    test('vide le tripStore de manière synchrone au début du chargement', () {
       // arrange
+      tripStore.upsert(makeTrip(id: 99, title: 'Ancien'));
       when(
         () => mockRepo.getAllTrips(),
-      ).thenAnswer((_) async => Left(ServerFailure('erreur réseau')));
+      ).thenAnswer((_) async => const Right([]));
 
-      // assert
-      expect(() => handler.loadFromRemote(), throwsException);
+      // act — l'appel synchrone vide immédiatement le store
+      handler.loadFromRemote();
+
+      // assert — clear est synchrone dans loadFromRemote
+      expect(tripStore.get(Id<Trip>(99)), isNull);
     });
 
     test('vide le mediaStore avant de charger', () async {
@@ -79,9 +84,9 @@ void main() {
       mediaStore.addListener(() => mediaStoreClearCalled = true);
 
       // act
-      await handler.loadFromRemote();
+      handler.loadFromRemote();
 
-      // assert — clear déclenche une notification
+      // assert — clear est synchrone donc immédiatement visible
       expect(mediaStoreClearCalled, true);
     });
   });

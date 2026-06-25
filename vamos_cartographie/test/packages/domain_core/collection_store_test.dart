@@ -110,31 +110,29 @@ void main() {
       store.clear();
 
       // assert
-      expect(store.getIds(), isEmpty);
+      expect(store.store, isEmpty);
     });
 
     // -------------------------------------------------------------------------
     // getIds
     // -------------------------------------------------------------------------
 
-    test('getIds retourne les ids de tous les éléments présents', () {
+    test('store contient les deux éléments insérés', () {
       // arrange
       final a = _Item(10);
       final b = _Item(20);
       store.insert(a);
       store.insert(b);
 
-      // act
-      final ids = store.getIds();
-
       // assert
-      expect(ids, containsAll([a.id, b.id]));
-      expect(ids.length, 2);
+      expect(store.store.length, 2);
+      expect(store.get(a.id), equals(a));
+      expect(store.get(b.id), equals(b));
     });
 
-    test('getIds retourne une liste vide quand le store est vide', () {
+    test('store est vide par défaut', () {
       // assert
-      expect(store.getIds(), isEmpty);
+      expect(store.store, isEmpty);
     });
 
     // -------------------------------------------------------------------------

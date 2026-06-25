@@ -148,7 +148,7 @@ void main() {
       store.clear();
 
       // assert
-      expect(store.getIds(), isEmpty);
+      expect(store.store, isEmpty);
     });
   });
 }
