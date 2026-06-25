@@ -1,9 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/application/repositories/trip_repository.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:trip_domain/runtime/runtime.dart';
 
-import 'package:flutter/material.dart';
 import 'package:domain_core/optimitic_executor.dart';
 
 class TripHandler {
@@ -14,13 +14,11 @@ class TripHandler {
 
   TripHandler(this.tripStore, this.mediaStore, this.repo, this.executor);
 
-  void loadFromRemote() async {
+  Future<Either<Failure, void>> loadFromRemote() async {
     tripStore.clear();
-    mediaStore.clear(); // ajout
+    mediaStore.clear();
     final result = await repo.getAllTrips();
-    result.fold((failure) => throw Exception(failure.message), (
-      List<Trip> trips,
-    ) {
+    return result.map((trips) {
       for (final trip in trips) {
         tripStore.upsert(trip);
       }
@@ -32,7 +30,6 @@ class TripHandler {
 
     return result.fold((f) => throw Exception(f.message), (trip) {
       tripStore.upsert(trip);
-      debugPrint("createBlankTrip result $trip");
       return trip;
     });
   }

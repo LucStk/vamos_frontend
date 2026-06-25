@@ -4,15 +4,20 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
-import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.data.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
+    as _gqlUtils;
+import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.data.gql.dart'
     as _i2;
+import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.data.gql.dart'
+    as _i3;
 
 abstract class GWaypointFields {
   int get id;
   _i1.GPoiCategory get poiCategory;
   String get title;
   String get description;
-  _i2.GVertexFields get vertex;
+  List<_i2.GImageFields> get images;
+  _i3.GVertexFields get vertex;
   String get G__typename;
 }
 
@@ -22,6 +27,7 @@ class GWaypointFieldsData implements GWaypointFields {
     required this.poiCategory,
     required this.title,
     required this.description,
+    required this.images,
     required this.vertex,
     this.G__typename = 'WaypointType',
   });
@@ -32,7 +38,11 @@ class GWaypointFieldsData implements GWaypointFields {
       poiCategory: _i1.GPoiCategory.fromJson((json['poiCategory'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
-      vertex: _i2.GVertexFieldsData.fromJson(
+      images: (json['images'] as List<dynamic>)
+          .map((_$e) =>
+              _i2.GImageFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      vertex: _i3.GVertexFieldsData.fromJson(
           (json['vertex'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
@@ -46,7 +56,9 @@ class GWaypointFieldsData implements GWaypointFields {
 
   final String description;
 
-  final _i2.GVertexFieldsData vertex;
+  final List<_i2.GImageFieldsData> images;
+
+  final _i3.GVertexFieldsData vertex;
 
   final String G__typename;
 
@@ -56,6 +68,7 @@ class GWaypointFieldsData implements GWaypointFields {
     _$result['poiCategory'] = this.poiCategory.toJson();
     _$result['title'] = this.title;
     _$result['description'] = this.description;
+    _$result['images'] = this.images.map((_$e) => _$e.toJson()).toList();
     _$result['vertex'] = this.vertex.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
@@ -66,7 +79,8 @@ class GWaypointFieldsData implements GWaypointFields {
     _i1.GPoiCategory? poiCategory,
     String? title,
     String? description,
-    _i2.GVertexFieldsData? vertex,
+    List<_i2.GImageFieldsData>? images,
+    _i3.GVertexFieldsData? vertex,
     String? G__typename,
   }) {
     return GWaypointFieldsData(
@@ -74,6 +88,7 @@ class GWaypointFieldsData implements GWaypointFields {
       poiCategory: poiCategory ?? this.poiCategory,
       title: title ?? this.title,
       description: description ?? this.description,
+      images: images ?? this.images,
       vertex: vertex ?? this.vertex,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -87,25 +102,26 @@ class GWaypointFieldsData implements GWaypointFields {
             poiCategory == other.poiCategory &&
             title == other.title &&
             description == other.description &&
+            _gqlUtils.listEquals(images, other.images) &&
             vertex == other.vertex &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, id, poiCategory, title, description, vertex, G__typename);
+    return Object.hash(runtimeType, id, poiCategory, title, description,
+        _gqlUtils.listHash(images), vertex, G__typename);
   }
 
   @override
   String toString() {
-    return 'GWaypointFieldsData(id: $id, poiCategory: $poiCategory, title: $title, description: $description, vertex: $vertex, G__typename: $G__typename)';
+    return 'GWaypointFieldsData(id: $id, poiCategory: $poiCategory, title: $title, description: $description, images: $images, vertex: $vertex, G__typename: $G__typename)';
   }
 }
 
 abstract class GCreateWaypointPayloadFields {
   GWaypointFields get waypoint;
-  _i2.GVertexFields get vertex;
+  _i3.GVertexFields get vertex;
   String get G__typename;
 }
 
@@ -120,7 +136,7 @@ class GCreateWaypointPayloadFieldsData implements GCreateWaypointPayloadFields {
     return GCreateWaypointPayloadFieldsData(
       waypoint: GWaypointFieldsData.fromJson(
           (json['waypoint'] as Map<String, dynamic>)),
-      vertex: _i2.GVertexFieldsData.fromJson(
+      vertex: _i3.GVertexFieldsData.fromJson(
           (json['vertex'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
@@ -128,7 +144,7 @@ class GCreateWaypointPayloadFieldsData implements GCreateWaypointPayloadFields {
 
   final GWaypointFieldsData waypoint;
 
-  final _i2.GVertexFieldsData vertex;
+  final _i3.GVertexFieldsData vertex;
 
   final String G__typename;
 
@@ -142,7 +158,7 @@ class GCreateWaypointPayloadFieldsData implements GCreateWaypointPayloadFields {
 
   GCreateWaypointPayloadFieldsData copyWith({
     GWaypointFieldsData? waypoint,
-    _i2.GVertexFieldsData? vertex,
+    _i3.GVertexFieldsData? vertex,
     String? G__typename,
   }) {
     return GCreateWaypointPayloadFieldsData(

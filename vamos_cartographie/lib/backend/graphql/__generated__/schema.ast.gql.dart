@@ -55,6 +55,10 @@ const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
 );
+const DateTime = _i1.ScalarTypeDefinitionNode(
+  name: _i1.NameNode(value: 'DateTime'),
+  directives: [],
+);
 const InsertVertexToSegmentPayload = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'InsertVertexToSegmentPayload'),
   directives: [],
@@ -175,11 +179,29 @@ const MediaImageType = _i1.ObjectTypeDefinitionNode(
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'fileKey'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createdAt'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
         isNonNull: true,
       ),
     ),
@@ -1052,6 +1074,18 @@ const TripType = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'images'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'MediaImageType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
@@ -1187,6 +1221,18 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'images'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'MediaImageType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
@@ -1236,6 +1282,7 @@ const document = _i1.DocumentNode(definitions: [
   oneOf,
   CreateWaypointPayload,
   Date,
+  DateTime,
   InsertVertexToSegmentPayload,
   LatLngInput,
   LatLngType,

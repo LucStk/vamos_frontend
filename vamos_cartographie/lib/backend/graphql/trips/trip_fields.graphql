@@ -4,4 +4,7 @@ fragment TripFields on TripType {
     title
     date
     description
+    images {
+        ...ImageFields
+    }
 }

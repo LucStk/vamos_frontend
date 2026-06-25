@@ -7,12 +7,14 @@ import 'package:gql/ast.dart' as _i5;
 import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/backend/graphql/shared/__generated__/geo_fields.ast.gql.dart'
-    as _i9;
-import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
-    as _i8;
-import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_fields.ast.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.ast.gql.dart'
     as _i7;
+import 'package:vamos_cartographie/backend/graphql/shared/__generated__/geo_fields.ast.gql.dart'
+    as _i10;
+import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
+    as _i9;
+import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_fields.ast.gql.dart'
+    as _i8;
 import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_mutations.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_mutations.data.gql.dart'
@@ -61,9 +63,10 @@ class GUpdateWaypointReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.UpdateWaypoint,
-    _i7.WaypointFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i7.ImageFields,
+    _i8.WaypointFields,
+    _i9.VertexFields,
+    _i10.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -224,10 +227,11 @@ class GCreateBlankWaypointFromPositionReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateBlankWaypointFromPosition,
-    _i7.WaypointFields,
-    _i7.CreateWaypointPayloadFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i7.ImageFields,
+    _i8.WaypointFields,
+    _i8.CreateWaypointPayloadFields,
+    _i9.VertexFields,
+    _i10.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -391,10 +395,11 @@ class GCreateBlankWaypointFromVertexReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateBlankWaypointFromVertex,
-    _i7.WaypointFields,
-    _i7.CreateWaypointPayloadFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i7.ImageFields,
+    _i8.WaypointFields,
+    _i8.CreateWaypointPayloadFields,
+    _i9.VertexFields,
+    _i10.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

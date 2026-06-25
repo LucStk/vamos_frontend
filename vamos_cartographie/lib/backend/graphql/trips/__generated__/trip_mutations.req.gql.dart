@@ -7,8 +7,10 @@ import 'package:gql/ast.dart' as _i5;
 import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_fields.ast.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.ast.gql.dart'
     as _i7;
+import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_fields.ast.gql.dart'
+    as _i8;
 import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_mutations.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_mutations.data.gql.dart'
@@ -56,7 +58,8 @@ class GCreateTripReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateTrip,
-    _i7.TripFields,
+    _i7.ImageFields,
+    _i8.TripFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -213,7 +216,8 @@ class GCreateBlankTripReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateBlankTrip,
-    _i7.TripFields,
+    _i7.ImageFields,
+    _i8.TripFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -369,7 +373,8 @@ class GUpdateTripReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.UpdateTrip,
-    _i7.TripFields,
+    _i7.ImageFields,
+    _i8.TripFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

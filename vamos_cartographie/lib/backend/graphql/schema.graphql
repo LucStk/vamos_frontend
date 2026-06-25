@@ -15,6 +15,9 @@ type CreateWaypointPayload {
 """Date (isoformat)"""
 scalar Date
 
+"""Date with time (isoformat)"""
+scalar DateTime
+
 type InsertVertexToSegmentPayload {
   segmentLeft: SegmentType!
   segmentRight: SegmentType!
@@ -40,7 +43,9 @@ input MediaImageInput {
 }
 
 type MediaImageType {
+  id: Int!
   fileKey: String!
+  createdAt: DateTime!
   url: String!
 }
 
@@ -138,6 +143,7 @@ type TripType {
   date: Date
   waypoints: [WaypointType!]!
   topology: TopologyType!
+  images: [MediaImageType!]!
 }
 
 input TripUpdateInput {
@@ -162,6 +168,7 @@ type WaypointType {
   description: String!
   poiCategory: PoiCategory!
   vertex: VertexType!
+  images: [MediaImageType!]!
 }
 
 input WaypointUpdateInput {

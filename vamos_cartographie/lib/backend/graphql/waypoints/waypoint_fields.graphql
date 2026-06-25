@@ -6,6 +6,9 @@ fragment WaypointFields on WaypointType {
     poiCategory
     title
     description
+    images {
+        ...ImageFields
+    }
     vertex {
         ...VertexFields
     }
