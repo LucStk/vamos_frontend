@@ -40,7 +40,7 @@ class TripCard extends ConsumerWidget {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () => _openTrip(context),
-        onDoubleTap: () => _explore(context),
+
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 14, 4, 14),
           child: Row(
