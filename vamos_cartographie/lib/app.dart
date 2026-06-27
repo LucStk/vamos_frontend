@@ -17,7 +17,7 @@ class CartographieApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale('fr', 'FR'), Locale('en', 'US')],
       locale: const Locale('fr', 'FR'),
-      home: const ExplorerPage(),
+      home: NotificationListener(child: const ExplorerPage()),
     );
   }
 }
