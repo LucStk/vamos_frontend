@@ -5,7 +5,7 @@ import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_link/gql_link.dart';
 
 class ExceptionMapper {
-  static Failure fromException(Object error, StackTrace stackTrace) {
+  static Failure fromException(Object error, StackTrace? stackTrace) {
     return switch (error) {
       // Erreurs réseau / transport
       LinkException _ => const ConnectionFailure(),
