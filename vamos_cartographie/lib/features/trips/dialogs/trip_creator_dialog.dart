@@ -33,7 +33,9 @@ class TripCreatorDialog extends ConsumerWidget {
         return TripFormDialog(
           initialTrip: snapshot.data!,
           successMessage: 'Voyage créé',
-          onSubmit: (ref, Trip trip) async {},
+          onSubmit: (ref, Trip editedTrip) async {
+            await ref.read(tripHandlerProvider).updateTrip(editedTrip);
+          },
         );
       },
     );
