@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/injection/commands/trip_provider.dart';
-import 'package:vamos_cartographie/core/injection/stores/trip_store.dart';
-import 'package:vamos_cartographie/features/trips/dialogs/trip_creator_dialog.dart';
-import 'package:vamos_cartographie/features/trips/widgets/explorer_empty_view.dart';
-import 'package:vamos_cartographie/features/trips/widgets/explorer_error_view.dart';
-import 'package:vamos_cartographie/features/trips/widgets/trip_card.dart';
+import '/core/injection/commands/trip_provider.dart';
+import '/core/injection/stores/trip_store.dart';
+import '/features/trips/widgets/widgets.dart';
 
 class ExplorerPage extends ConsumerWidget {
   const ExplorerPage({super.key});
