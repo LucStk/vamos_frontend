@@ -21,7 +21,7 @@ class ThumbnailImage extends StatelessWidget {
         errorBuilder: (_, _, _) => ThumbnailError(onTap: onRetry),
       ),
       RemoteUrl(:final Url url) => Image.network(
-        url as String,
+        url.value,
         fit: BoxFit.cover,
         loadingBuilder: (_, child, loadingProgress) {
           if (loadingProgress == null) return child;

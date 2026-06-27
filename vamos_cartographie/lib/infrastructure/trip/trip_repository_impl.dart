@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/infrastructure/trip/data.dart';
-import 'package:vamos_cartographie/infrastructure/trip/mappers/trip_draft_mappers.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/infrastructure/trip/trip_mappers.dart';
 
 class TripRepositoryImpl extends TripRepository {
   final TripRemoteDatasource remote;
@@ -69,7 +69,7 @@ class TripRepositoryImpl extends TripRepository {
   @override
   Future<Either<Failure, Trip>> updateTrip(Trip trip) async {
     try {
-      final input = TripDraftMapper.toGQLUpdateInput(trip);
+      final input = TripMapper.toGQLUpdateInput(trip);
       final gqlResult = await remote.updateTrip(id: trip.id, input: input);
       final updatedTrip = TripMapper.fromGQLUpdateResult(gqlResult);
 

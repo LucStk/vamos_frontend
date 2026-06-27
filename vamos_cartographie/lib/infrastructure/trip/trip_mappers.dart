@@ -1,3 +1,4 @@
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -35,5 +36,24 @@ class TripMapper {
     title: data.title,
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
+  );
+  static GTripInput toGQLInput(Trip trip) => GTripInput(
+    title: trip.title,
+    description: trip.description.isNotEmpty
+        ? Value.present(trip.description)
+        : const Value.absent(),
+    date: trip.date != null
+        ? Value.present(trip.date!.toIso8601String().substring(0, 10))
+        : const Value.absent(),
+  );
+
+  static GTripUpdateInput toGQLUpdateInput(Trip trip) => GTripUpdateInput(
+    title: Value.present(trip.title),
+    description: trip.description.isNotEmpty
+        ? Value.present(trip.description)
+        : const Value.absent(), // ne pas envoyer si vide
+    date: trip.date != null
+        ? Value.present(trip.date!.toIso8601String().substring(0, 10))
+        : const Value.absent(),
   );
 }
