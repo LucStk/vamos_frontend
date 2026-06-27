@@ -1,3 +1,4 @@
+import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -36,7 +37,7 @@ class WaypointHandler {
       onApply: () => waypointStore.upsert(waypoint),
       remote: () => repo.updateWaypoint(waypoint),
       onSuccess: (serveurValue) => waypointStore.upsert(serveurValue),
-      onError: () => waypointStore.upsert(oldValue),
+      onError: (Failure failure) => waypointStore.upsert(oldValue),
     );
   }
 
@@ -60,7 +61,7 @@ class WaypointHandler {
       onApply: () => waypointStore.remove(id),
       remote: () => repo.deleteWaypoint(id),
       onSuccess: (_) {},
-      onError: () => waypointStore.upsert(old),
+      onError: (Failure failure) => waypointStore.upsert(old),
     );
   }
 }

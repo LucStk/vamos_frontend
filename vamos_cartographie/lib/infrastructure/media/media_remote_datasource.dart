@@ -13,11 +13,11 @@ class MediaRemoteDatasource {
   MediaRemoteDatasource(this.client);
 
   Future<GGenerateImageUploadUrlData_generateImageUploadUrl> getSignedURL(
-    String type,
+    String filename,
   ) async {
     // 1. Demander l'URL signée au backend
     final signReq = GGenerateImageUploadUrlReq(
-      vars: GGenerateImageUploadUrlVars(extension: type),
+      vars: GGenerateImageUploadUrlVars(filename: filename),
     );
     final response = await client.request(signReq).first;
     if (response.hasErrors || response.data == null) {

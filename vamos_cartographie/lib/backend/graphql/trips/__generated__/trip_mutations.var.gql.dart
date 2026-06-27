@@ -7,45 +7,6 @@ import 'package:vamos_cartographie/backend/graphql/__generated__/schema.schema.g
 import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
-class GCreateTripVars {
-  const GCreateTripVars({required this.trip});
-
-  factory GCreateTripVars.fromJson(Map<String, dynamic> json) {
-    return GCreateTripVars(
-        trip: _i1.GTripInput.fromJson((json['trip'] as Map<String, dynamic>)));
-  }
-
-  final _i1.GTripInput trip;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$tripValue = this.trip;
-    _$result['trip'] = _$tripValue.toJson();
-    return _$result;
-  }
-
-  GCreateTripVars copyWith({_i1.GTripInput? trip}) {
-    return GCreateTripVars(trip: trip ?? this.trip);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GCreateTripVars &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GCreateTripVars(trip: $trip)';
-  }
-}
-
 class GUpdateTripVars {
   const GUpdateTripVars({
     required this.trip,

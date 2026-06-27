@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/domain/value_objects/upload_status.dart';
+import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/commands/media_provider.dart';
 import 'package:vamos_cartographie/core/injection/queries/media_ui_queries.dart';
 import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
@@ -42,7 +45,12 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
 
         ThumbnailButtonAdd(
           size: thumbSize,
-          onTap: () => pickImages(context, ref),
+          onTap: () async {
+            final picked = await pickImages();
+            for (File f in picked) {
+              mediaHandler.addImage(id, f);
+            }
+          },
         ),
       ],
     );

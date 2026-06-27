@@ -58,12 +58,11 @@ enum MobilityType {
 }
 
 type Mutation {
-  createTrip(trip: TripInput!): TripType!
   updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
   deleteTrip(id: Int!): Boolean!
   createBlankTrip: TripType!
   createImage(data: MediaImageInput!): MediaImageType!
-  generateImageUploadUrl(extension: String!): UploadConfig!
+  generateImageUploadUrl(filename: String!): UploadConfig!
   attachImageTo(id: Int!, type: OwnerType!, fileKey: String!): MediaAttachmentType!
   deleteImageFrom(id: Int!, type: OwnerType!, fileKey: String!): String!
   updateWaypoint(id: Int!, input: WaypointUpdateInput!): WaypointType!
@@ -128,12 +127,6 @@ input SegmentUpdateInput {
 type TopologyType {
   vertices: [VertexType!]!
   segments: [SegmentType!]!
-}
-
-input TripInput {
-  title: String!
-  description: String
-  date: Date
 }
 
 type TripType {

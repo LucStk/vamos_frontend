@@ -1,3 +1,4 @@
+import 'package:domain_core/failure.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:trip_domain/trip_domain.dart';
 import "package:domain_core/collection_store.dart";
@@ -26,7 +27,7 @@ class TopologyHandler {
       onApply: () => graphStore.updateSegment(segment),
       remote: () => segmentRepo.updateSegment(segment),
       onSuccess: (serveurValue) => graphStore.updateSegment(serveurValue),
-      onError: () => graphStore.updateSegment(oldValue),
+      onError: (Failure failure) => graphStore.updateSegment(oldValue),
     );
   }
 }

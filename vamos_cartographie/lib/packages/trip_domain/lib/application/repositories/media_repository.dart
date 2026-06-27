@@ -8,8 +8,7 @@ import 'dart:io';
 
 abstract class MediaRepository {
   Future<Either<Failure, MediaImage>> uploadImage(
-    File imageFile,
-    String type,
+    File file,
     Function(int sent, int total)? onProgress,
   );
   Future<Either<Failure, MediaImage>> attachImage<T>(Id<T> id, FileKey filekey);

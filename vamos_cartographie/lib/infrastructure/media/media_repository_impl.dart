@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/infrastructure/media/mappers/media_image_mapp
 import 'package:vamos_cartographie/infrastructure/media/mappers/owner_type_mappers.dart';
 import 'package:vamos_cartographie/infrastructure/media/storage_datasource.dart';
 import "media_remote_datasource.dart";
+import 'package:path/path.dart' as p;
 import 'dart:io';
 
 class MediaRepositoryImpl extends MediaRepository {
@@ -15,17 +16,17 @@ class MediaRepositoryImpl extends MediaRepository {
   MediaRepositoryImpl({required this.remote, required this.storage});
   @override
   Future<Either<Failure, MediaImage>> uploadImage(
-    File imageFile,
-    String type,
+    File file,
     Function(int sent, int total)? onProgress,
   ) async {
     try {
+      final type = p.extension(file.path).replaceFirst('.', '');
       final mimeType = type == 'jpg' ? 'jpeg' : type;
       final uploadConfig = await remote.getSignedURL(mimeType);
       await storage.uploadFile(
         url: uploadConfig.uploadUrl,
-        data: imageFile.openRead(),
-        length: imageFile.lengthSync(),
+        data: file.openRead(),
+        length: file.lengthSync(),
         contentType: 'image/$mimeType',
         onProgress: onProgress,
       );

@@ -27,7 +27,7 @@ void main() {
           return const Right('ok');
         },
         onSuccess: (_) => log.add('success'),
-        onError: () => log.add('error'),
+        onError: (Failure failure) => log.add('error'),
       );
 
       // assert
@@ -50,7 +50,7 @@ void main() {
           onApply: () {},
           remote: () async => const Right('résultat'),
           onSuccess: (v) => received = v,
-          onError: () => fail('onError ne doit pas être appelé'),
+          onError: (Failure failure) => fail('onError ne doit pas être appelé'),
         );
 
         // assert
@@ -67,7 +67,7 @@ void main() {
         onApply: () => log.add('apply'),
         remote: () async => const Right(42),
         onSuccess: (v) => log.add('success:$v'),
-        onError: () => log.add('error'),
+        onError: (Failure failure) => log.add('error'),
       );
 
       // assert
@@ -87,7 +87,7 @@ void main() {
         onApply: () {},
         remote: () async => Left(ServerFailure('erreur réseau')),
         onSuccess: (_) => fail('onSuccess ne doit pas être appelé'),
-        onError: () => errorCalled = true,
+        onError: (Failure failure) => errorCalled = true,
       );
 
       // assert
@@ -103,7 +103,7 @@ void main() {
         onApply: () => log.add('apply'),
         remote: () async => Left(ServerFailure('échec')),
         onSuccess: (_) => log.add('success'),
-        onError: () => log.add('error'),
+        onError: (Failure failure) => log.add('error'),
       );
 
       // assert
@@ -119,7 +119,7 @@ void main() {
         onApply: () {},
         remote: () async => Left(ConnectionFailure()),
         onSuccess: (_) => successCalled = true,
-        onError: () {},
+        onError: (Failure failure) {},
       );
 
       // assert

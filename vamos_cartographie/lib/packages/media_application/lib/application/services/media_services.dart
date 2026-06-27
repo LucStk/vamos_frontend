@@ -14,10 +14,9 @@ class MediaServices {
 
   Future<MediaImage> uploadMedia(
     File file,
-    String type,
     Function(int sent, int total) onProgress,
   ) async {
-    final result = await repo.uploadImage(file, type, onProgress);
+    final result = await repo.uploadImage(file, onProgress);
     return result.fold((f) => throw Exception(f.message), (m) => m);
   }
 
@@ -26,7 +25,7 @@ class MediaServices {
     File file,
   ) async {
     try {
-      final mediaImage = await uploadMedia(file, "", (_, _) {});
+      final mediaImage = await uploadMedia(file, (_, _) {});
       final result = await repo.attachImage<T>(id, mediaImage.fileKey);
       return result.fold((f) => Left(f), (image) {
         store.upsert(id, image);

@@ -1,6 +1,6 @@
 #import "image_fields.graphql"
-mutation GenerateImageUploadUrl($extension: String!) {
-    generateImageUploadUrl(extension: $extension) {
+mutation GenerateImageUploadUrl($filename: String!) {
+    generateImageUploadUrl(filename: $filename) {
         fileKey
         uploadUrl
     }

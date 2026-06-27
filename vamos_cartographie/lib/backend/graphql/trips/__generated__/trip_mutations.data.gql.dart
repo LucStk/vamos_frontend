@@ -5,60 +5,6 @@
 import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_fields.data.gql.dart'
     as _i1;
 
-class GCreateTripData {
-  const GCreateTripData({
-    required this.createTrip,
-    this.G__typename = 'Mutation',
-  });
-
-  factory GCreateTripData.fromJson(Map<String, dynamic> json) {
-    return GCreateTripData(
-      createTrip: _i1.GTripFieldsData.fromJson(
-          (json['createTrip'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final _i1.GTripFieldsData createTrip;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['createTrip'] = this.createTrip.toJson();
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GCreateTripData copyWith({
-    _i1.GTripFieldsData? createTrip,
-    String? G__typename,
-  }) {
-    return GCreateTripData(
-      createTrip: createTrip ?? this.createTrip,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GCreateTripData &&
-            createTrip == other.createTrip &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, createTrip, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GCreateTripData(createTrip: $createTrip, G__typename: $G__typename)';
-  }
-}
-
 class GCreateBlankTripData {
   const GCreateBlankTripData({
     required this.createBlankTrip,

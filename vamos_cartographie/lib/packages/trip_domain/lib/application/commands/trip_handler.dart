@@ -41,7 +41,7 @@ class TripHandler {
       onApply: () => tripStore.upsert(trip),
       remote: () => repo.updateTrip(trip),
       onSuccess: (Trip serverTrip) => tripStore.upsert(serverTrip),
-      onError: () => tripStore.upsert(old),
+      onError: (Failure failure) => tripStore.upsert(old),
     );
   }
 
@@ -51,7 +51,7 @@ class TripHandler {
       onApply: () => tripStore.remove(id),
       remote: () => repo.deleteTrip(id),
       onSuccess: (_) {},
-      onError: () => tripStore.upsert(old),
+      onError: (Failure failure) => tripStore.upsert(old),
     );
   }
 }

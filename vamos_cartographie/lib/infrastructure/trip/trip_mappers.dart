@@ -37,15 +37,6 @@ class TripMapper {
     description: data.description,
     date: data.date != null ? DateTime.parse(data.date!) : null,
   );
-  static GTripInput toGQLInput(Trip trip) => GTripInput(
-    title: trip.title,
-    description: trip.description.isNotEmpty
-        ? Value.present(trip.description)
-        : const Value.absent(),
-    date: trip.date != null
-        ? Value.present(trip.date!.toIso8601String().substring(0, 10))
-        : const Value.absent(),
-  );
 
   static GTripUpdateInput toGQLUpdateInput(Trip trip) => GTripUpdateInput(
     title: Value.present(trip.title),

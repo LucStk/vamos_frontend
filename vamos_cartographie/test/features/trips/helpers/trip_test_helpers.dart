@@ -6,10 +6,10 @@
 /// ```
 library trip_test_helpers;
 
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:domain_core/id.dart';
-import 'package:domain_core/media.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +20,7 @@ import 'package:media_application/domain/entities/patch_image.dart';
 import 'package:media_application/domain/value_objects/upload_status.dart';
 import 'package:media_application/runtime/observable_media_patch_store.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:vamos_cartographie/core/injection/commands/media_provider.dart';
 import 'package:vamos_cartographie/core/injection/commands/trip_provider.dart';
@@ -82,13 +83,19 @@ class FakeMediaHandler extends Fake implements MediaHandler {
   final List<({dynamic id, PatchImageMedia patch})> addCalls = [];
 
   @override
-  Future<void> removeImage<T>(Id<T> id, FileKey key) async {
+  Future<Either<Failure, void>> removeImage<T>(Id<T> id, FileKey key) async {
     removeCalls.add((id: id, key: key));
+    return Right(null);
   }
 
   @override
-  Future<void> addImage<T>(Id<T> id, PatchImageMedia patch) async {
+  Future<Either<Failure, void>> addImage<T>(Id<T> id, File file) async {
+    final patch = PatchImageMedia(
+      fileKey: ("temp-${const Uuid().v4()}") as FileKey,
+      file: file,
+    );
     addCalls.add((id: id, patch: patch));
+    return Right(null);
   }
 
   @override

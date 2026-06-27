@@ -8,24 +8,23 @@ import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gq
     as _gqlUtils;
 
 class GGenerateImageUploadUrlVars {
-  const GGenerateImageUploadUrlVars({required this.extension});
+  const GGenerateImageUploadUrlVars({required this.filename});
 
   factory GGenerateImageUploadUrlVars.fromJson(Map<String, dynamic> json) {
-    return GGenerateImageUploadUrlVars(
-        extension: (json['extension'] as String));
+    return GGenerateImageUploadUrlVars(filename: (json['filename'] as String));
   }
 
-  final String extension;
+  final String filename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$extensionValue = this.extension;
-    _$result['extension'] = _$extensionValue;
+    final _$filenameValue = this.filename;
+    _$result['filename'] = _$filenameValue;
     return _$result;
   }
 
-  GGenerateImageUploadUrlVars copyWith({String? extension}) {
-    return GGenerateImageUploadUrlVars(extension: extension ?? this.extension);
+  GGenerateImageUploadUrlVars copyWith({String? filename}) {
+    return GGenerateImageUploadUrlVars(filename: filename ?? this.filename);
   }
 
   @override
@@ -42,7 +41,7 @@ class GGenerateImageUploadUrlVars {
 
   @override
   String toString() {
-    return 'GGenerateImageUploadUrlVars(extension: $extension)';
+    return 'GGenerateImageUploadUrlVars(filename: $filename)';
   }
 }
 

@@ -1,11 +1,7 @@
 #import "../waypoints/waypoint_fields.graphql"
 #import "trip_fields.graphql"
 #import "../media/image_fields.graphql"
-mutation CreateTrip($trip: TripInput!) {
-    createTrip(trip: $trip) {
-        ...TripFields
-    }
-}
+
 mutation CreateBlankTrip(){
     createBlankTrip(){
         ...TripFields
