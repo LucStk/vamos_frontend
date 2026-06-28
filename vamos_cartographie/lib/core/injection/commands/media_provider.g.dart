@@ -48,4 +48,4 @@ final class MediaHandlerProvider
   }
 }
 
-String _$mediaHandlerHash() => r'da27683081affeb1e2529acc6184e72a1ec22379';
+String _$mediaHandlerHash() => r'b2a12bf4e85dd37247e2dae1777ddd29488452db';

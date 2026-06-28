@@ -1,4 +1,3 @@
-import 'package:domain_core/error_logger.dart';
 import 'package:media_application/media_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';

@@ -15,7 +15,7 @@ class ImageCarouselView<T> extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 1. On passe les images directement au provider.
     // Riverpod va créer ou récupérer l'état existant de manière totalement sécurisée.
-    final imagesUi = ref.watch(entityImagesProvider(id));
+    final imagesUi = ref.watch(syncedImagesProvider(id));
 
     return Wrap(
       spacing: 8,

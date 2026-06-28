@@ -17,7 +17,7 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imagesUi = ref.watch(entityImagesProvider(id));
+    final imagesUi = ref.watch(visibleImagesProvider(id));
     final mediaHandler = ref.read(mediaHandlerProvider);
 
     return Wrap(

@@ -6,7 +6,7 @@ import '/core/injection/stores/media_store.dart';
 part 'media_ui_queries.g.dart';
 
 @riverpod
-List<ImageUiModel> entityImages(Ref ref, Id id) {
+List<ImageUiModel> visibleImages(Ref ref, Id id) {
   final mediaStore = ref.watch(mediaStoreProvider);
   final patchStore = ref.watch(mediaPatchStoreProvider);
   final uploadStore = ref.watch(uploadStateStoreProvider);
@@ -27,4 +27,10 @@ List<ImageUiModel> entityImages(Ref ref, Id id) {
       );
     }),
   ];
+}
+
+@riverpod
+List<ImageUiModel> syncedImages(Ref ref, Id id) {
+  final mediaStore = ref.watch(mediaStoreProvider);
+  return mediaStore.getFor(id).values.map((img) => img.toUiModel()).toList();
 }

@@ -142,7 +142,7 @@ Widget buildExplorerApp({
       rawTripStoreProvider.overrideWith((ref) => tripStore),
       tripHandlerProvider.overrideWith((ref) => fakeTripHandler),
       mediaHandlerProvider.overrideWith((ref) => fakeMediaHandler),
-      entityImagesProvider.overrideWith(imagesOverride ?? (ref, id) => []),
+      visibleImagesProvider.overrideWith(imagesOverride ?? (ref, id) => []),
     ],
     child: const MaterialApp(home: ExplorerPage()),
   );
