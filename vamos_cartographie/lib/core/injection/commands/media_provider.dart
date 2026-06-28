@@ -1,8 +1,9 @@
-import 'package:media_application/application/commands/media_handler.dart';
-import 'package:media_application/application/services/media_services.dart';
+import 'package:domain_core/error_logger.dart';
+import 'package:media_application/media_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';
 import 'package:vamos_cartographie/core/injection/stores/media_store.dart';
+import 'package:vamos_cartographie/infrastructure/core/erreur_handler.dart';
 
 part 'media_provider.g.dart';
 
@@ -14,11 +15,13 @@ MediaHandler mediaHandler(Ref ref) {
   final executor = ref.watch(optimisticExecutorProvider);
   final mediaRepo = ref.watch(mediaRepositoryProvider);
   final mediaService = MediaServices(mediaRepo, mediaStore);
+  final errorLogger = ErrorHandler.instance;
   return MediaHandler(
     mediaStore,
     patchStore,
     uploadStore,
     executor,
     mediaService,
+    errorLogger,
   );
 }

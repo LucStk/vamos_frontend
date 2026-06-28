@@ -9,3 +9,4 @@ export "observable_graph_node.dart";
 export "topology_index.dart";
 export "graph_id.dart";
 export "id_generator.dart";
+export "error_logger.dart";

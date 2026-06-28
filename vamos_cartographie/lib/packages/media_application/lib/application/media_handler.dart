@@ -1,11 +1,12 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
-import 'package:media_application/application/services/media_services.dart';
-import 'package:media_application/runtime/observable_media_patch_store.dart';
-import 'package:media_application/runtime/observable_upload_state_store.dart';
+import './media_services.dart';
+import '/runtime/observable_media_patch_store.dart';
+import '/runtime/observable_upload_state_store.dart';
 import '/domain/domain.dart';
 import 'package:trip_domain/trip_domain.dart';
 import "package:uuid/uuid.dart";
@@ -16,6 +17,7 @@ class MediaHandler {
   ObservableUploadStateStore uploadStore;
   OptimisticExecutor executor;
   MediaServices mediaServices;
+  ErrorLogger? errorLogger;
 
   MediaHandler(
     this.mediaStore,
@@ -23,6 +25,7 @@ class MediaHandler {
     this.uploadStore,
     this.executor,
     this.mediaServices,
+    this.errorLogger,
   );
 
   // 1. Premier téléversement (crée le patch avec un nouvel UUID temporaire)
@@ -88,6 +91,7 @@ class MediaHandler {
       },
       onError: (Failure failure) {
         updateUploadState(UploadStatus.failure, error: failure.message);
+        errorLogger?.logError(failure, StackTrace.current);
       },
     );
   }
