@@ -20,12 +20,15 @@ class MediaServices {
     Function(int sent, int total)? onProgress,
   ) async {
     final resUpload = await repo.uploadImage(file, onProgress);
-    return resUpload.fold((Failure f) => Left(f), (MediaImage image) async {
-      final result = await repo.attachImage<T>(id, image.fileKey, ownerType);
-      return result.fold((f) => Left(f), (image) {
-        store.upsert(id, image);
-        return Right(image);
-      });
+
+    if (resUpload.isLeft()) return resUpload;
+
+    final image = resUpload.getOrElse(() => throw Exception());
+    final result = await repo.attachImage<T>(id, image.fileKey, ownerType);
+
+    return result.fold((f) => Left(f), (image) {
+      store.upsert(id, image);
+      return Right(image);
     });
   }
 

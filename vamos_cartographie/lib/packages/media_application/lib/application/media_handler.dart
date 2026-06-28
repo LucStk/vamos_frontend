@@ -90,9 +90,8 @@ class MediaHandler {
             updateUploadState(UploadStatus.uploading, sent: sent, total: total),
       ),
       onSuccess: (MediaImage _) {
-        // C'est ici qu'on nettoie le store une fois que c'est un succès en base
-        // patchStore.remove(id, patch.fileKey);
-        // updateUploadState(UploadStatus.success);
+        patchStore.remove(id, patch.fileKey);
+        uploadStore.remove(patch.fileKey);
       },
       onError: (Failure failure) {
         updateUploadState(UploadStatus.failure, error: failure.message);
