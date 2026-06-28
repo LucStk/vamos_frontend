@@ -9,12 +9,19 @@ import 'package:media_application/media_application.dart';
 import 'package:trip_domain/trip_domain.dart';
 import "package:uuid/uuid.dart";
 
+PatchImageMedia generatePatchImage(File file) {
+  return PatchImageMedia(
+    fileKey: FileKey("temp-${const Uuid().v4()}"),
+    file: file,
+  );
+}
+
 class MediaHandler {
   ObservableMediaPatchStore patchStore;
   ObservableMediaStore mediaStore;
   ObservableUploadStateStore uploadStore;
   OptimisticExecutor executor;
-  MediaServices mediaServices;
+  MediaRepository repository;
   ErrorLogger? errorLogger;
 
   MediaHandler(
@@ -22,45 +29,12 @@ class MediaHandler {
     this.patchStore,
     this.uploadStore,
     this.executor,
-    this.mediaServices,
+    this.repository,
     this.errorLogger,
   );
 
   // 1. Premier téléversement (crée le patch avec un nouvel UUID temporaire)
-  Future<Either<Failure, void>> uploadImage<T>(
-    Id<T> id,
-    File file,
-    MediaOwnerType ownerType,
-  ) async {
-    final patch = PatchImageMedia(
-      fileKey: FileKey("temp-${const Uuid().v4()}"),
-      file: file,
-    );
-    return addImage(id, patch, ownerType);
-  }
-
-  // 2. Nouvelle méthode pour relancer un échec depuis l'UI
-  Future<Either<Failure, void>> retryImageUpload<T>(
-    Id<T> id,
-    FileKey key,
-    MediaOwnerType ownerType,
-  ) async {
-    // Optionnel : On peut nettoyer l'ancien état d'erreur avant de recommencer
-    final patch = patchStore.get(id)[key];
-    if (patch == null) {
-      return Left(
-        NotFoundFailure(resourceType: "PatchImage", resourceId: "$id - $key"),
-      );
-    }
-    uploadStore.upsert(
-      patch.fileKey,
-      const UploadState(status: UploadStatus.idle, sent: 0, total: 0),
-    );
-
-    return addImage(id, patch, ownerType);
-  }
-
-  Future<Either<Failure, void>> addImage<T>(
+  Future<Either<Failure, void>> uploadPatchImage<T>(
     Id<T> id,
     PatchImageMedia patch,
     MediaOwnerType ownerType,
@@ -82,22 +56,57 @@ class MediaHandler {
         patchStore.upsert(id, patch);
         updateUploadState(UploadStatus.uploading);
       },
-      remote: () => mediaServices.uploadAndAttach<T>(
-        id,
+      remote: () => repository.uploadImage(
         patch.file,
-        ownerType,
         (sent, total) =>
             updateUploadState(UploadStatus.uploading, sent: sent, total: total),
       ),
       onSuccess: (MediaImage _) {
-        patchStore.remove(id, patch.fileKey);
-        uploadStore.remove(patch.fileKey);
+        updateUploadState(UploadStatus.success);
       },
       onError: (Failure failure) {
         updateUploadState(UploadStatus.failure, error: failure.message);
         errorLogger?.logError(failure, StackTrace.current);
       },
     );
+  }
+
+  // 2. Nouvelle méthode pour relancer un échec depuis l'UI
+  Future<Either<Failure, void>> retryImageUpload<T>(
+    Id<T> id,
+    FileKey key,
+    MediaOwnerType ownerType,
+  ) async {
+    // Optionnel : On peut nettoyer l'ancien état d'erreur avant de recommencer
+    final patch = patchStore.get(id)[key];
+    if (patch == null) {
+      return Left(
+        NotFoundFailure(resourceType: "PatchImage", resourceId: "$id - $key"),
+      );
+    }
+    uploadStore.upsert(
+      patch.fileKey,
+      const UploadState(status: UploadStatus.idle, sent: 0, total: 0),
+    );
+
+    return uploadPatchImage(id, patch, ownerType);
+  }
+
+  Future<Either<Failure, void>> attachImage<T>(
+    Id<T> id,
+    PatchImageMedia image,
+    MediaOwnerType ownerType,
+  ) async {
+    final result = await repository.attachImage<T>(
+      id,
+      image.fileKey,
+      ownerType,
+    );
+    return result.fold((f) => Left(f), (image) {
+      patchStore.remove(id, image.fileKey);
+      mediaStore.upsert(id, image);
+      return Right(null);
+    });
   }
 
   Future<Either<Failure, void>> removeImage<T>(
@@ -107,7 +116,7 @@ class MediaHandler {
   ) async {
     return await executor.run<void>(
       onApply: () => throw ("not Implemented yet"),
-      remote: () => mediaServices.detachFromEntity<T>(id, key, ownerType),
+      remote: () => repository.detachImage<T>(id, key, ownerType),
       onSuccess: (_) {},
       onError: (Failure failure) {}, // re-upsert si besoin
     );

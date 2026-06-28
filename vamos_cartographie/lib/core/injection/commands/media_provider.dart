@@ -13,14 +13,13 @@ MediaHandler mediaHandler(Ref ref) {
   final uploadStore = ref.watch(rawUploadStateStoreProvider);
   final executor = ref.watch(optimisticExecutorProvider);
   final mediaRepo = ref.watch(mediaRepositoryProvider);
-  final mediaService = MediaServices(mediaRepo, mediaStore);
   final errorLogger = ErrorHandler.instance;
   return MediaHandler(
     mediaStore,
     patchStore,
     uploadStore,
     executor,
-    mediaService,
+    mediaRepo,
     errorLogger,
   );
 }

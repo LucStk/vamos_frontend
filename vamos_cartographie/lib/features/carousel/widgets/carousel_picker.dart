@@ -52,7 +52,11 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
           onTap: () async {
             final picked = await pickImages();
             for (File f in picked) {
-              mediaHandler.uploadImage(id, f, ownerType);
+              mediaHandler.uploadPatchImage(
+                id,
+                generatePatchImage(f),
+                ownerType,
+              );
             }
           },
         ),
