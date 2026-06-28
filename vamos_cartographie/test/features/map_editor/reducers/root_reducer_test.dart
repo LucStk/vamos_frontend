@@ -74,7 +74,7 @@ void main() {
         final command = SelectVertex(Id<Vertex>(1));
 
         // act
-        final result = reduce(cursorDrawn as MapMode, command);
+        final result = reduce(cursorDrawn, command);
 
         // assert
         expect(result.nextState, equals(cursorDrawn));

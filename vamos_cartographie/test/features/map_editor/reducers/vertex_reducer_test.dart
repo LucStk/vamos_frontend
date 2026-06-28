@@ -100,7 +100,7 @@ void main() {
       const command = StartDragVertex();
 
       // act
-      final result = reduceVertex(segmentSelected as MapMode, command);
+      final result = reduceVertex(segmentSelected, command);
 
       // assert
       expect(result.nextState, equals(segmentSelected));

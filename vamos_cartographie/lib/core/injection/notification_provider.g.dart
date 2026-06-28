@@ -20,7 +20,7 @@ final class NotificationQueueProvider
         argument: null,
         retry: null,
         name: r'notificationQueueProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class NotificationQueueProvider
   }
 }
 
-String _$notificationQueueHash() => r'b11243e304886ce084780143fab74bd9ec69d609';
+String _$notificationQueueHash() => r'c99c63a1c4d5823afac9490bac236f7c509da485';
 
 abstract class _$NotificationQueue extends $Notifier<AppNotification?> {
   AppNotification? build();
