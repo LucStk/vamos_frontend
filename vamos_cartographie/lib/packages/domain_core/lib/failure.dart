@@ -24,7 +24,16 @@ final class ConnectionFailure extends Failure {
 }
 
 final class NotFoundFailure extends Failure {
-  const NotFoundFailure() : super("Ressource introuvable");
+  final String? resourceType;
+  final String? resourceId;
+  const NotFoundFailure({this.resourceType, this.resourceId})
+    : super("Ressource introuvable");
+
+  @override
+  List<Object?> get props => [...super.props, resourceType, resourceId];
+  // Optionnel : une méthode pour faciliter le debug/log
+  @override
+  String toString() => 'NotFoundFailure($resourceType #$resourceId): $message';
 }
 
 final class UnexpectedFailure extends Failure {

@@ -89,7 +89,7 @@ class FakeMediaHandler extends Fake implements MediaHandler {
   }
 
   @override
-  Future<Either<Failure, void>> addImage<T>(Id<T> id, File file) async {
+  Future<Either<Failure, void>> uploadImage<T>(Id<T> id, File file) async {
     final patch = PatchImageMedia(
       fileKey: ("temp-${const Uuid().v4()}") as FileKey,
       file: file,

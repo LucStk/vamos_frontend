@@ -16,6 +16,7 @@ class MediaHandler {
   ObservableUploadStateStore uploadStore;
   OptimisticExecutor executor;
   MediaServices mediaServices;
+
   MediaHandler(
     this.mediaStore,
     this.patchStore,
@@ -24,11 +25,39 @@ class MediaHandler {
     this.mediaServices,
   );
 
-  Future<Either<Failure, void>> addImage<T>(Id<T> id, File file) async {
+  // 1. Premier téléversement (crée le patch avec un nouvel UUID temporaire)
+  Future<Either<Failure, void>> uploadImage<T>(Id<T> id, File file) async {
     final patch = PatchImageMedia(
       fileKey: FileKey("temp-${const Uuid().v4()}"),
       file: file,
     );
+    return addImage(id, patch);
+  }
+
+  // 2. Nouvelle méthode pour relancer un échec depuis l'UI
+  Future<Either<Failure, void>> retryImageUpload<T>(
+    Id<T> id,
+    FileKey key,
+  ) async {
+    // Optionnel : On peut nettoyer l'ancien état d'erreur avant de recommencer
+    final patch = patchStore.get(id)[key];
+    if (patch == null) {
+      return Left(
+        NotFoundFailure(resourceType: "PatchImage", resourceId: "$id - $key"),
+      );
+    }
+    uploadStore.upsert(
+      patch.fileKey,
+      const UploadState(status: UploadStatus.idle, sent: 0, total: 0),
+    );
+
+    return addImage(id, patch);
+  }
+
+  Future<Either<Failure, void>> addImage<T>(
+    Id<T> id,
+    PatchImageMedia patch,
+  ) async {
     void updateUploadState(
       UploadStatus status, {
       int? sent,
@@ -52,7 +81,11 @@ class MediaHandler {
         (sent, total) =>
             updateUploadState(UploadStatus.uploading, sent: sent, total: total),
       ),
-      onSuccess: (MediaImage _) => {}, // patchStore.remove(id, patch.fileKey),
+      onSuccess: (MediaImage _) {
+        // C'est ici qu'on nettoie le store une fois que c'est un succès en base
+        // patchStore.remove(id, patch.fileKey);
+        // updateUploadState(UploadStatus.success);
+      },
       onError: (Failure failure) {
         updateUploadState(UploadStatus.failure, error: failure.message);
       },

@@ -35,7 +35,7 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
               mediaHandler.removeImage<T>(id, item.fileKey);
             },
             onRetry: () {
-              // mediaHandler.addImage<T>(id, item);
+              mediaHandler.retryImageUpload<T>(id, item.fileKey);
             },
             onTap: () {
               // TODO lightbox
@@ -47,7 +47,7 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
           onTap: () async {
             final picked = await pickImages();
             for (File f in picked) {
-              mediaHandler.addImage(id, f);
+              mediaHandler.uploadImage(id, f);
             }
           },
         ),
