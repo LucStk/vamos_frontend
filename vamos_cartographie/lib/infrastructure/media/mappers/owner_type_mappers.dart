@@ -1,17 +1,5 @@
-import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
-
-enum MediaOwnerType { waypoint, trip }
-
-MediaOwnerType ownerType(Object entity) {
-  if (entity is Trip) {
-    return MediaOwnerType.trip;
-  }
-  if (entity is Waypoint) {
-    return MediaOwnerType.waypoint;
-  }
-  throw Exception("Media is not implemented for Type");
-}
+import "package:media_application/media_application.dart";
 
 extension GOwnerTypeMappers on GOwnerType {
   MediaOwnerType toDomain() => switch (this) {

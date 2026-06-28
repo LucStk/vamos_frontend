@@ -1,11 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:trip_domain/application/repositories/media_repository.dart';
 import 'package:trip_domain/domain/entities/media_image.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/infrastructure/media/mappers/media_image_mappers.dart';
-import 'package:vamos_cartographie/infrastructure/media/mappers/owner_type_mappers.dart';
 import 'package:vamos_cartographie/infrastructure/media/storage_datasource.dart';
 import "media_remote_datasource.dart";
+import "package:media_application/media_application.dart";
 import 'package:path/path.dart' as p;
 import 'dart:io';
 
@@ -14,31 +13,26 @@ class MediaRepositoryImpl extends MediaRepository {
   final StorageDatasource storage;
 
   MediaRepositoryImpl({required this.remote, required this.storage});
+
   @override
   Future<Either<Failure, MediaImage>> uploadImage(
     File file,
     Function(int sent, int total)? onProgress,
   ) async {
     try {
-      final type = p.extension(file.path).replaceFirst('.', '');
-      final mimeType = type == 'jpg' ? 'jpeg' : type;
-      final uploadConfig = await remote.getSignedURL(mimeType);
+      final filename = p.basename(file.path);
+      final uploadConfig = await remote.getSignedURL(filename);
       await storage.uploadFile(
         url: uploadConfig.uploadUrl,
         data: file.openRead(),
         length: file.lengthSync(),
-        contentType: 'image/$mimeType',
+        contentType: uploadConfig.contentType,
         onProgress: onProgress,
       );
       final saveRes = await remote.createMediaData(uploadConfig.fileKey);
-      return Right(
-        MediaImage(
-          fileKey: uploadConfig.fileKey as FileKey,
-          url: saveRes.url as Url,
-        ),
-      );
+      return Right(MediaImageMappers.fromGQL(saveRes));
     } catch (e) {
-      return Left(ServerFailure("Upload failde $e"));
+      return Left(ServerFailure("Upload failed $e"));
     }
   }
 
@@ -46,12 +40,13 @@ class MediaRepositoryImpl extends MediaRepository {
   Future<Either<Failure, MediaImage>> attachImage<T>(
     Id<T> id,
     FileKey filekey,
+    MediaOwnerType ownerType,
   ) async {
     try {
       final res = await remote.attachImageTo(
         id: id,
         fileKey: filekey,
-        type: ownerType(T),
+        type: ownerType,
       );
       return Right(MediaImageMappers.fromGQL(res));
     } on Exception catch (e) {
@@ -65,9 +60,10 @@ class MediaRepositoryImpl extends MediaRepository {
   Future<Either<Failure, void>> detachImage<T>(
     Id<T> id,
     FileKey filekey,
+    MediaOwnerType ownerType,
   ) async {
     try {
-      await remote.deleteImgFrom(id: id, fileKey: filekey, type: ownerType(T));
+      await remote.deleteImgFrom(id: id, fileKey: filekey, type: ownerType);
       return Right(null);
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));

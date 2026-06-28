@@ -3,6 +3,7 @@ mutation GenerateImageUploadUrl($filename: String!) {
     generateImageUploadUrl(filename: $filename) {
         fileKey
         uploadUrl
+        contentType
     }
 }
 

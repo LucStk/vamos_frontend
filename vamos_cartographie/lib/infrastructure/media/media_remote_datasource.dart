@@ -2,6 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:vamos_cartographie/infrastructure/media/mappers/owner_type_mappers.dart';
+import "package:media_application/media_application.dart";
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le client Ferry (GraphQL).

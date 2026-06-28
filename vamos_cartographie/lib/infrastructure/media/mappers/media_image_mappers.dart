@@ -4,5 +4,5 @@ import 'package:trip_domain/trip_domain.dart';
 
 class MediaImageMappers {
   static MediaImage fromGQL(GImageFieldsData data) =>
-      MediaImage(fileKey: data.fileKey as FileKey, url: data.url as Url);
+      MediaImage(fileKey: FileKey(data.fileKey), url: Url(data.url));
 }

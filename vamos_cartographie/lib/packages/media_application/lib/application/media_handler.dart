@@ -4,10 +4,8 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
-import './media_services.dart';
-import '/runtime/observable_media_patch_store.dart';
-import '/runtime/observable_upload_state_store.dart';
-import '/domain/domain.dart';
+import 'package:media_application/media_application.dart';
+
 import 'package:trip_domain/trip_domain.dart';
 import "package:uuid/uuid.dart";
 
@@ -29,18 +27,23 @@ class MediaHandler {
   );
 
   // 1. Premier téléversement (crée le patch avec un nouvel UUID temporaire)
-  Future<Either<Failure, void>> uploadImage<T>(Id<T> id, File file) async {
+  Future<Either<Failure, void>> uploadImage<T>(
+    Id<T> id,
+    File file,
+    MediaOwnerType ownerType,
+  ) async {
     final patch = PatchImageMedia(
       fileKey: FileKey("temp-${const Uuid().v4()}"),
       file: file,
     );
-    return addImage(id, patch);
+    return addImage(id, patch, ownerType);
   }
 
   // 2. Nouvelle méthode pour relancer un échec depuis l'UI
   Future<Either<Failure, void>> retryImageUpload<T>(
     Id<T> id,
     FileKey key,
+    MediaOwnerType ownerType,
   ) async {
     // Optionnel : On peut nettoyer l'ancien état d'erreur avant de recommencer
     final patch = patchStore.get(id)[key];
@@ -54,12 +57,13 @@ class MediaHandler {
       const UploadState(status: UploadStatus.idle, sent: 0, total: 0),
     );
 
-    return addImage(id, patch);
+    return addImage(id, patch, ownerType);
   }
 
   Future<Either<Failure, void>> addImage<T>(
     Id<T> id,
     PatchImageMedia patch,
+    MediaOwnerType ownerType,
   ) async {
     void updateUploadState(
       UploadStatus status, {
@@ -81,6 +85,7 @@ class MediaHandler {
       remote: () => mediaServices.uploadAndAttach<T>(
         id,
         patch.file,
+        ownerType,
         (sent, total) =>
             updateUploadState(UploadStatus.uploading, sent: sent, total: total),
       ),
@@ -96,10 +101,14 @@ class MediaHandler {
     );
   }
 
-  Future<Either<Failure, void>> removeImage<T>(Id<T> id, FileKey key) async {
+  Future<Either<Failure, void>> removeImage<T>(
+    Id<T> id,
+    FileKey key,
+    MediaOwnerType ownerType,
+  ) async {
     return await executor.run<void>(
       onApply: () => throw ("not Implemented yet"),
-      remote: () => mediaServices.detachFromEntity<T>(id, key),
+      remote: () => mediaServices.detachFromEntity<T>(id, key, ownerType),
       onSuccess: (_) {},
       onError: (Failure failure) {}, // re-upsert si besoin
     );

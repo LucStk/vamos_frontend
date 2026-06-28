@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:media_application/media_application.dart";
 import "package:vamos_cartographie/features/waypoint/domain/poi_ui.dart";
 import '/features/carousel/widgets/widgets.dart';
 import '/features/shared/shared.dart';
@@ -52,7 +53,10 @@ class WaypointEditorState extends State<WaypointEditor> {
         const SizedBox(height: 4),
 
         // ── Images ─────────────────────────────
-        ImageCarouselPicker(id: widget.initialWaypoint.id),
+        ImageCarouselPicker(
+          id: widget.initialWaypoint.id,
+          ownerType: MediaOwnerType.waypoint,
+        ),
 
         const SizedBox(height: 16),
 

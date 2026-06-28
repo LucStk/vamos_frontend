@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:media_application/domain/value_objects/upload_status.dart';
+import 'package:media_application/media_application.dart';
 import 'package:vamos_cartographie/core/injection/commands/media_provider.dart';
 import 'package:vamos_cartographie/core/injection/queries/media_ui_queries.dart';
 import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
@@ -12,8 +12,13 @@ import 'thumbnails/thumbnails.dart';
 
 class ImageCarouselPicker<T> extends ConsumerWidget {
   final Id<T> id;
+  final MediaOwnerType ownerType;
   final double thumbSize = 80;
-  const ImageCarouselPicker({super.key, required this.id});
+  const ImageCarouselPicker({
+    super.key,
+    required this.id,
+    required this.ownerType,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,10 +37,10 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
             isUploading: item.uploadStatus == UploadStatus.uploading,
             hasError: item.uploadStatus == UploadStatus.failure,
             onDelete: () {
-              mediaHandler.removeImage<T>(id, item.fileKey);
+              mediaHandler.removeImage<T>(id, item.fileKey, ownerType);
             },
             onRetry: () {
-              mediaHandler.retryImageUpload<T>(id, item.fileKey);
+              mediaHandler.retryImageUpload<T>(id, item.fileKey, ownerType);
             },
             onTap: () {
               // TODO lightbox
@@ -47,7 +52,7 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
           onTap: () async {
             final picked = await pickImages();
             for (File f in picked) {
-              mediaHandler.uploadImage(id, f);
+              mediaHandler.uploadImage(id, f, ownerType);
             }
           },
         ),

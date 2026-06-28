@@ -148,6 +148,7 @@ input TripUpdateInput {
 type UploadConfig {
   uploadUrl: String!
   fileKey: String!
+  contentType: String!
 }
 
 type VertexType {

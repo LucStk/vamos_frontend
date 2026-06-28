@@ -79,13 +79,21 @@ class FakeMediaHandler extends Fake implements MediaHandler {
   final List<({dynamic id, PatchImageMedia patch})> addCalls = [];
 
   @override
-  Future<Either<Failure, void>> removeImage<T>(Id<T> id, FileKey key) async {
+  Future<Either<Failure, void>> removeImage<T>(
+    Id<T> id,
+    FileKey key,
+    MediaOwnerType ownerType,
+  ) async {
     removeCalls.add((id: id, key: key));
     return Right(null);
   }
 
   @override
-  Future<Either<Failure, void>> uploadImage<T>(Id<T> id, File file) async {
+  Future<Either<Failure, void>> uploadImage<T>(
+    Id<T> id,
+    File file,
+    MediaOwnerType ownerType,
+  ) async {
     final patch = PatchImageMedia(
       fileKey: ("temp-${const Uuid().v4()}") as FileKey,
       file: file,

@@ -66,6 +66,7 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
   const GGenerateImageUploadUrlData_generateImageUploadUrl({
     required this.fileKey,
     required this.uploadUrl,
+    required this.contentType,
     this.G__typename = 'UploadConfig',
   });
 
@@ -74,6 +75,7 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
     return GGenerateImageUploadUrlData_generateImageUploadUrl(
       fileKey: (json['fileKey'] as String),
       uploadUrl: (json['uploadUrl'] as String),
+      contentType: (json['contentType'] as String),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -82,12 +84,15 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
 
   final String uploadUrl;
 
+  final String contentType;
+
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['fileKey'] = this.fileKey;
     _$result['uploadUrl'] = this.uploadUrl;
+    _$result['contentType'] = this.contentType;
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -95,11 +100,13 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
   GGenerateImageUploadUrlData_generateImageUploadUrl copyWith({
     String? fileKey,
     String? uploadUrl,
+    String? contentType,
     String? G__typename,
   }) {
     return GGenerateImageUploadUrlData_generateImageUploadUrl(
       fileKey: fileKey ?? this.fileKey,
       uploadUrl: uploadUrl ?? this.uploadUrl,
+      contentType: contentType ?? this.contentType,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -110,17 +117,19 @@ class GGenerateImageUploadUrlData_generateImageUploadUrl {
         (other is GGenerateImageUploadUrlData_generateImageUploadUrl &&
             fileKey == other.fileKey &&
             uploadUrl == other.uploadUrl &&
+            contentType == other.contentType &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, fileKey, uploadUrl, G__typename);
+    return Object.hash(
+        runtimeType, fileKey, uploadUrl, contentType, G__typename);
   }
 
   @override
   String toString() {
-    return 'GGenerateImageUploadUrlData_generateImageUploadUrl(fileKey: $fileKey, uploadUrl: $uploadUrl, G__typename: $G__typename)';
+    return 'GGenerateImageUploadUrlData_generateImageUploadUrl(fileKey: $fileKey, uploadUrl: $uploadUrl, contentType: $contentType, G__typename: $G__typename)';
   }
 }
 

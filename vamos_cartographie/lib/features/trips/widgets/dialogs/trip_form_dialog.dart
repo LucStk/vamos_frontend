@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:media_application/domain/value_objects/media_owner_ext.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
@@ -112,7 +113,10 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
             alignment: Alignment.centerLeft,
             child: FractionallySizedBox(
               widthFactor: 0.9,
-              child: ImageCarouselPicker(id: widget.initialTrip.id),
+              child: ImageCarouselPicker(
+                id: widget.initialTrip.id,
+                ownerType: MediaOwnerType.trip,
+              ),
             ),
           ),
         ],
