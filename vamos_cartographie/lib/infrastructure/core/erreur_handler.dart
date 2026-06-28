@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/core/injection/notification_provider.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +17,7 @@ class ErrorHandler {
 
   void handle(Object error, StackTrace? stackTrace) {
     // 1. Log l'erreur dans ta console ou sur un outil comme Crashlytics
-    print('Erreur capturée globalement : $error');
+    debugPrint('Erreur capturée globalement : $error ->\n $stackTrace');
 
     // 2. Déclenche la notification système via Riverpod
     _container

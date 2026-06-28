@@ -1,5 +1,4 @@
 import 'package:domain_core/id.dart';
-import 'package:flutter/rendering.dart';
 import 'package:media_application/media_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/runtime/store/media_store.dart';
@@ -10,14 +9,22 @@ part 'media_ui_queries.g.dart';
 List<ImageUiModel> entityImages(Ref ref, Id id) {
   final mediaStore = ref.watch(mediaStoreProvider);
   final patchStore = ref.watch(mediaPatchStoreProvider);
+  final uploadStore = ref.watch(uploadStateStoreProvider);
 
-  final res = [
-    ...mediaStore.getFor(id).values.map((v) => v.toUiModel()),
-    ...patchStore
-        .getFor(id)
-        .values
-        .map((v) => v.toUiModel(UploadStatus.success)),
+  return [
+    ...mediaStore.getFor(id).values.map((img) => img.toUiModel()),
+    ...patchStore.getFor(id).values.map((patch) {
+      final upload = uploadStore.get(patch.fileKey);
+
+      return ImageUiModel(
+        fileKey: patch.fileKey,
+        imageLocation: LocalPath(patch.file),
+        uploadStatus: upload?.status ?? UploadStatus.idle,
+        progress: upload == null || upload.total == 0
+            ? 0
+            : upload.sent / upload.total,
+        error: upload?.error,
+      );
+    }),
   ];
-  debugPrint("image ui store : $res");
-  return res;
 }

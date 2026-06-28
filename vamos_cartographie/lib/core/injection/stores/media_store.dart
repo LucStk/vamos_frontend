@@ -1,3 +1,4 @@
+import "package:flutter/rendering.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_domain/trip_domain.dart";
 import "package:media_application/media_application.dart";
@@ -28,6 +29,10 @@ ObservableMediaPatchStore rawMediaPatchStore(Ref ref) =>
     ObservableMediaPatchStore();
 
 @riverpod
+ObservableUploadStateStore rawUploadStateStore(Ref ref) =>
+    ObservableUploadStateStore();
+
+@riverpod
 ObservableMediaStore mediaStore(Ref ref) {
   final store = ref.watch(rawMediaStoreProvider);
   addListenerRebuild(ref, store);
@@ -37,6 +42,14 @@ ObservableMediaStore mediaStore(Ref ref) {
 @riverpod
 ObservableMediaPatchStore mediaPatchStore(Ref ref) {
   final store = ref.watch(rawMediaPatchStoreProvider);
+  addListenerRebuild(ref, store);
+  debugPrint("MediaStore $store");
+  return store;
+}
+
+@riverpod
+ObservableUploadStateStore uploadStateStore(Ref ref) {
+  final store = ref.watch(rawUploadStateStoreProvider);
   addListenerRebuild(ref, store);
   return store;
 }

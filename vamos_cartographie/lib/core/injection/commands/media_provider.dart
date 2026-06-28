@@ -10,8 +10,15 @@ part 'media_provider.g.dart';
 MediaHandler mediaHandler(Ref ref) {
   final patchStore = ref.watch(rawMediaPatchStoreProvider);
   final mediaStore = ref.watch(rawMediaStoreProvider);
+  final uploadStore = ref.watch(rawUploadStateStoreProvider);
   final executor = ref.watch(optimisticExecutorProvider);
   final mediaRepo = ref.watch(mediaRepositoryProvider);
   final mediaService = MediaServices(mediaRepo, mediaStore);
-  return MediaHandler(patchStore, executor, mediaService);
+  return MediaHandler(
+    mediaStore,
+    patchStore,
+    uploadStore,
+    executor,
+    mediaService,
+  );
 }

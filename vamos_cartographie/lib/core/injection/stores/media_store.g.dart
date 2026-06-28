@@ -194,6 +194,54 @@ final class RawMediaPatchStoreProvider
 String _$rawMediaPatchStoreHash() =>
     r'9a9e5990f95d94e01aa885b5b27e3febb5fe9411';
 
+@ProviderFor(rawUploadStateStore)
+final rawUploadStateStoreProvider = RawUploadStateStoreProvider._();
+
+final class RawUploadStateStoreProvider
+    extends
+        $FunctionalProvider<
+          ObservableUploadStateStore,
+          ObservableUploadStateStore,
+          ObservableUploadStateStore
+        >
+    with $Provider<ObservableUploadStateStore> {
+  RawUploadStateStoreProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'rawUploadStateStoreProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$rawUploadStateStoreHash();
+
+  @$internal
+  @override
+  $ProviderElement<ObservableUploadStateStore> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ObservableUploadStateStore create(Ref ref) {
+    return rawUploadStateStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableUploadStateStore value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableUploadStateStore>(value),
+    );
+  }
+}
+
+String _$rawUploadStateStoreHash() =>
+    r'07032c9355bfed5110721e90dc574bfabcfa8dbb';
+
 @ProviderFor(mediaStore)
 final mediaStoreProvider = MediaStoreProvider._();
 
@@ -286,4 +334,51 @@ final class MediaPatchStoreProvider
   }
 }
 
-String _$mediaPatchStoreHash() => r'6a16297426a32ce40c510016acc00b5624b0ee07';
+String _$mediaPatchStoreHash() => r'd4bb6b9fd17c42eec4e5bfacbbe83c074c47e68f';
+
+@ProviderFor(uploadStateStore)
+final uploadStateStoreProvider = UploadStateStoreProvider._();
+
+final class UploadStateStoreProvider
+    extends
+        $FunctionalProvider<
+          ObservableUploadStateStore,
+          ObservableUploadStateStore,
+          ObservableUploadStateStore
+        >
+    with $Provider<ObservableUploadStateStore> {
+  UploadStateStoreProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'uploadStateStoreProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$uploadStateStoreHash();
+
+  @$internal
+  @override
+  $ProviderElement<ObservableUploadStateStore> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ObservableUploadStateStore create(Ref ref) {
+    return uploadStateStore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ObservableUploadStateStore value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ObservableUploadStateStore>(value),
+    );
+  }
+}
+
+String _$uploadStateStoreHash() => r'6362cf21b37c57c7a39678d20f1ad6fdb33d4cf7';

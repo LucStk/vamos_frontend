@@ -12,46 +12,29 @@ class MediaServices {
 
   MediaServices(this.repo, this.store);
 
-  Future<MediaImage> uploadMedia(
-    File file,
-    Function(int sent, int total) onProgress,
-  ) async {
-    final result = await repo.uploadImage(file, onProgress);
-    return result.fold((f) => throw Exception(f.message), (m) => m);
-  }
-
   Future<Either<Failure, MediaImage>> uploadAndAttach<T>(
     Id<T> id,
     File file,
+    Function(int sent, int total)? onProgress,
   ) async {
-    try {
-      final mediaImage = await uploadMedia(file, (_, _) {});
-      final result = await repo.attachImage<T>(id, mediaImage.fileKey);
+    final resUpload = await repo.uploadImage(file, onProgress);
+    return resUpload.fold((Failure f) => Left(f), (MediaImage image) async {
+      final result = await repo.attachImage<T>(id, image.fileKey);
       return result.fold((f) => Left(f), (image) {
         store.upsert(id, image);
         return Right(image);
       });
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+    });
   }
 
   Future<Either<Failure, void>> detachFromEntity<T>(
     Id<T> id,
     FileKey key,
   ) async {
-    try {
-      final result = await repo.detachImage<T>(id, key);
-      return result.fold((f) => Left(f), (_) {
-        store.remove(id, key);
-        return const Right(null);
-      });
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+    final result = await repo.detachImage<T>(id, key);
+    return result.fold((f) => Left(f), (_) {
+      store.remove(id, key);
+      return const Right(null);
+    });
   }
 }
