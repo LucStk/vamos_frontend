@@ -25,19 +25,18 @@ class TripHandler {
     });
   }
 
-  Future<Trip> createBlankTrip() async {
+  Future<Either<Failure, Trip>> createBlankTrip() async {
     final result = await repo.createBlankTrip();
 
-    return result.fold((f) => throw Exception(f.message), (trip) {
+    return result.fold((f) => Left(f), (trip) {
       tripStore.upsert(trip);
-      return trip;
+      return Right(trip);
     });
   }
 
-  Future<void> updateTrip(Trip trip) async {
+  Future<Either<Failure, Trip>> updateTrip(Trip trip) async {
     final old = tripStore.getRequired(trip.id);
-
-    await executor.run(
+    return await executor.run(
       onApply: () => tripStore.upsert(trip),
       remote: () => repo.updateTrip(trip),
       onSuccess: (Trip serverTrip) => tripStore.upsert(serverTrip),
@@ -45,9 +44,9 @@ class TripHandler {
     );
   }
 
-  Future<void> deleteTrip(Id<Trip> id) async {
+  Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
     final old = tripStore.getRequired(id);
-    await executor.run(
+    return await executor.run(
       onApply: () => tripStore.remove(id),
       remote: () => repo.deleteTrip(id),
       onSuccess: (_) {},

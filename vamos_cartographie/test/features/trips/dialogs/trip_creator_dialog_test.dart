@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -30,7 +32,8 @@ void main() {
   group('TripCreatorDialog — ouverture via FAB', () {
     testWidgets('Spinner affiché pendant createBlankTrip', (tester) async {
       // arrange
-      fakeTripHandler.createBlankTripFn = () => Completer<Trip>().future;
+      fakeTripHandler.createBlankTripFn = () =>
+          Completer<Either<Failure, Trip>>().future;
 
       // act
       await tester.pumpWidget(pump());

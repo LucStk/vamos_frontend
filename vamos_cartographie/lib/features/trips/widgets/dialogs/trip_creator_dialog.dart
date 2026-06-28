@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -19,22 +21,22 @@ class TripCreatorDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final futurNewTrip = ref.read(tripHandlerProvider).createBlankTrip();
 
-    return FutureBuilder<Trip>(
+    return FutureBuilder<Either<Failure, Trip>>(
       future: futurNewTrip,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return ErrorWidget(Exception("Cannot create New Trip"));
         }
-
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
-
-        return TripFormDialog(
-          initialTrip: snapshot.data!,
-          successMessage: 'Voyage créé',
-          onSubmit: (ref, Trip editedTrip) async {
-            await ref.read(tripHandlerProvider).updateTrip(editedTrip);
+        return snapshot.data!.fold(
+          (f) => ErrorWidget(Exception("Cannot create New Trip")),
+          (data) {
+            return TripFormDialog(
+              initialTrip: data,
+              successMessage: 'Voyage créé',
+            );
           },
         );
       },

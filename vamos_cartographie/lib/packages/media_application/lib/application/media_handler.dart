@@ -111,13 +111,12 @@ class MediaHandler {
 
   Future<List<Failure>> attachPatchImage<T>(
     Id<T> id,
-    PatchImageMedia image,
     MediaOwnerType ownerType,
   ) async {
     final List<Failure> failureList = [];
     for (PatchImageMedia patch in patchStore.getFor(id).values) {
       if (uploadStore.get(patch.fileKey)?.status == UploadStatus.success) {
-        final res = await repository.attachImage(id, image.fileKey, ownerType);
+        final res = await repository.attachImage(id, patch.fileKey, ownerType);
         res.fold((failure) {
           failureList.add(failure);
         }, (_) {});

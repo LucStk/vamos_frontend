@@ -31,9 +31,9 @@ import 'package:vamos_cartographie/features/trips/screens/explorer_page.dart';
 class FakeTripHandler extends Fake implements TripHandler {
   final ObservableTripStore store;
 
-  Future<Trip> Function()? createBlankTripFn;
-  Future<void> Function(Trip)? updateTripFn;
-  Future<void> Function(Id<Trip>)? deleteTripFn;
+  Future<Either<Failure, Trip>> Function()? createBlankTripFn;
+  Future<Either<Failure, Trip>> Function(Trip)? updateTripFn;
+  Future<Either<Failure, void>> Function(Id<Trip>)? deleteTripFn;
 
   int createCalls = 0;
   Trip? lastUpdated;
@@ -47,26 +47,28 @@ class FakeTripHandler extends Fake implements TripHandler {
   Future<Either<Failure, void>> loadFromRemote() async => const Right(null);
 
   @override
-  Future<Trip> createBlankTrip() async {
+  Future<Either<Failure, Trip>> createBlankTrip() async {
     createCalls++;
-    if (createBlankTripFn != null) return createBlankTripFn!();
+    if (createBlankTripFn != null) return await createBlankTripFn!();
     final trip = Trip(id: Id<Trip>(_nextId++), title: '');
     store.upsert(trip);
-    return trip;
+    return Right(trip);
   }
 
   @override
-  Future<void> updateTrip(Trip trip) async {
+  Future<Either<Failure, Trip>> updateTrip(Trip trip) async {
     lastUpdated = trip;
-    if (updateTripFn != null) return updateTripFn!(trip);
+    if (updateTripFn != null) return await updateTripFn!(trip);
     store.upsert(trip);
+    return Right(trip);
   }
 
   @override
-  Future<void> deleteTrip(Id<Trip> id) async {
+  Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
     lastDeleted = id;
     if (deleteTripFn != null) return deleteTripFn!(id);
     store.remove(id);
+    return Right(null);
   }
 }
 

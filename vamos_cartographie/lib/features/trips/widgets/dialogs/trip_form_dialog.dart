@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/domain/value_objects/media_owner_ext.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/commands/media_provider.dart';
+import 'package:vamos_cartographie/core/injection/commands/trip_provider.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_section_label.dart';
 
 class TripFormDialog extends ConsumerStatefulWidget {
   final Trip initialTrip;
-  final Future<void> Function(WidgetRef ref, Trip trip) onSubmit;
   final String successMessage;
 
   const TripFormDialog({
     super.key,
     required this.initialTrip,
-    required this.onSubmit,
     required this.successMessage,
   });
 
@@ -40,26 +40,44 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
   }
 
   Future<void> _submit() async {
-    setState(() {
-      _isSaving = true;
-    });
+    setState(() => _isSaving = true);
 
     try {
-      // On passe directement le _currentTrip local sans passer par une Key !
-      await widget.onSubmit(ref, _currentTrip);
+      final tripResult = await ref
+          .read(tripHandlerProvider)
+          .updateTrip(_currentTrip);
+
+      if (tripResult.isLeft()) {
+        // Affiche l'erreur trip
+        tripResult.fold((f) => _showError(f.message), (_) {});
+        return;
+      }
+
+      final mediaFailures = await ref
+          .read(mediaHandlerProvider)
+          .attachPatchImage<Trip>(_currentTrip.id, MediaOwnerType.trip);
+
+      if (mediaFailures.isNotEmpty) {
+        // Optionnel : afficher les erreurs media sans bloquer la fermeture
+        // car le trip a bien été sauvegardé
+        _showError(mediaFailures.map((f) => f.message).join(', '));
+        return;
+      }
+
       if (!mounted) return;
       Navigator.of(context).pop();
     } catch (e) {
-      if (!mounted) return;
-      // Optionnel : gérer l'affichage de l'erreur ici
-      rethrow;
+      _showError(e.toString());
     } finally {
-      if (mounted) {
-        setState(() {
-          _isSaving = false;
-        });
-      }
+      if (mounted) setState(() => _isSaving = false);
     }
+  }
+
+  void _showError(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.red),
+    );
   }
 
   @override
