@@ -29,7 +29,12 @@ class MediaHandler {
       fileKey: FileKey("temp-${const Uuid().v4()}"),
       file: file,
     );
-    void updateUploadState({status, sent, total, error}) {
+    void updateUploadState(
+      UploadStatus status, {
+      int? sent,
+      int? total,
+      String? error,
+    }) {
       uploadStore.upsert(
         patch.fileKey,
         UploadState(status: status, sent: sent, total: total, error: error),
@@ -39,20 +44,17 @@ class MediaHandler {
     return await executor.run<MediaImage>(
       onApply: () {
         patchStore.upsert(id, patch);
-        updateUploadState(status: UploadStatus.uploading);
+        updateUploadState(UploadStatus.uploading);
       },
       remote: () => mediaServices.uploadAndAttach<T>(
         id,
         patch.file,
-        (sent, total) => updateUploadState(
-          status: UploadStatus.uploading,
-          sent: sent,
-          total: total,
-        ),
+        (sent, total) =>
+            updateUploadState(UploadStatus.uploading, sent: sent, total: total),
       ),
       onSuccess: (MediaImage _) => {}, // patchStore.remove(id, patch.fileKey),
       onError: (Failure failure) {
-        updateUploadState(status: UploadStatus.failure, error: failure.message);
+        updateUploadState(UploadStatus.failure, error: failure.message);
       },
     );
   }

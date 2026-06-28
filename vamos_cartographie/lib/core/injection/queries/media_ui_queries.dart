@@ -20,9 +20,9 @@ List<ImageUiModel> entityImages(Ref ref, Id id) {
         fileKey: patch.fileKey,
         imageLocation: LocalPath(patch.file),
         uploadStatus: upload?.status ?? UploadStatus.idle,
-        progress: upload == null || upload.total == 0
+        progress: upload == null || upload.total == 0 || upload.total == null
             ? 0
-            : upload.sent / upload.total,
+            : (upload.sent ?? 0) / (upload.total ?? 1),
         error: upload?.error,
       );
     }),

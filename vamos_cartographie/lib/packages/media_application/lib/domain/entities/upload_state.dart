@@ -6,9 +6,9 @@ part 'upload_state.freezed.dart';
 @freezed
 abstract class UploadState with _$UploadState {
   const factory UploadState({
-    @Default(UploadStatus.idle) UploadStatus status,
-    @Default(0) int sent,
-    @Default(0) int total,
+    @Default(UploadStatus.idle) UploadStatus? status,
+    @Default(0) int? sent,
+    @Default(0) int? total,
     String? error,
   }) = _UploadState;
 }
