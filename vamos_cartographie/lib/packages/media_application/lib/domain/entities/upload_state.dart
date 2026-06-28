@@ -1,3 +1,5 @@
+import 'package:domain_core/media.dart';
+
 import '/domain/value_objects/upload_status.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -10,5 +12,6 @@ abstract class UploadState with _$UploadState {
     @Default(0) int? sent,
     @Default(0) int? total,
     String? error,
+    FileKey? resolvedFileKey, // ✅ le vrai fileKey retourné par le backend
   }) = _UploadState;
 }

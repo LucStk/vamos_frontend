@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UploadState {
 
- UploadStatus? get status; int? get sent; int? get total; String? get error;
+ UploadStatus? get status; int? get sent; int? get total; String? get error; FileKey? get resolvedFileKey;
 /// Create a copy of UploadState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $UploadStateCopyWith<UploadState> get copyWith => _$UploadStateCopyWithImpl<Uplo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UploadState&&const DeepCollectionEquality().equals(other.status, status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UploadState&&const DeepCollectionEquality().equals(other.status, status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error)&&(identical(other.resolvedFileKey, resolvedFileKey) || other.resolvedFileKey == resolvedFileKey));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(status),sent,total,error);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(status),sent,total,error,resolvedFileKey);
 
 @override
 String toString() {
-  return 'UploadState(status: $status, sent: $sent, total: $total, error: $error)';
+  return 'UploadState(status: $status, sent: $sent, total: $total, error: $error, resolvedFileKey: $resolvedFileKey)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $UploadStateCopyWith<$Res>  {
   factory $UploadStateCopyWith(UploadState value, $Res Function(UploadState) _then) = _$UploadStateCopyWithImpl;
 @useResult
 $Res call({
- UploadStatus? status, int? sent, int? total, String? error
+ UploadStatus? status, int? sent, int? total, String? error, FileKey? resolvedFileKey
 });
 
 
@@ -62,13 +62,14 @@ class _$UploadStateCopyWithImpl<$Res>
 
 /// Create a copy of UploadState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,Object? resolvedFileKey = freezed,}) {
   return _then(_self.copyWith(
 status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
 as int?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
 as int?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,resolvedFileKey: freezed == resolvedFileKey ? _self.resolvedFileKey : resolvedFileKey // ignore: cast_nullable_to_non_nullable
+as FileKey?,
   ));
 }
 
@@ -153,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UploadStatus? status,  int? sent,  int? total,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UploadState() when $default != null:
-return $default(_that.status,_that.sent,_that.total,_that.error);case _:
+return $default(_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
   return orElse();
 
 }
@@ -174,10 +175,10 @@ return $default(_that.status,_that.sent,_that.total,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UploadStatus? status,  int? sent,  int? total,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)  $default,) {final _that = this;
 switch (_that) {
 case _UploadState():
-return $default(_that.status,_that.sent,_that.total,_that.error);case _:
+return $default(_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +195,10 @@ return $default(_that.status,_that.sent,_that.total,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UploadStatus? status,  int? sent,  int? total,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)?  $default,) {final _that = this;
 switch (_that) {
 case _UploadState() when $default != null:
-return $default(_that.status,_that.sent,_that.total,_that.error);case _:
+return $default(_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
   return null;
 
 }
@@ -209,13 +210,14 @@ return $default(_that.status,_that.sent,_that.total,_that.error);case _:
 
 
 class _UploadState implements UploadState {
-  const _UploadState({this.status = UploadStatus.idle, this.sent = 0, this.total = 0, this.error});
+  const _UploadState({this.status = UploadStatus.idle, this.sent = 0, this.total = 0, this.error, this.resolvedFileKey});
   
 
 @override@JsonKey() final  UploadStatus? status;
 @override@JsonKey() final  int? sent;
 @override@JsonKey() final  int? total;
 @override final  String? error;
+@override final  FileKey? resolvedFileKey;
 
 /// Create a copy of UploadState
 /// with the given fields replaced by the non-null parameter values.
@@ -227,16 +229,16 @@ _$UploadStateCopyWith<_UploadState> get copyWith => __$UploadStateCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UploadState&&const DeepCollectionEquality().equals(other.status, status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UploadState&&const DeepCollectionEquality().equals(other.status, status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error)&&(identical(other.resolvedFileKey, resolvedFileKey) || other.resolvedFileKey == resolvedFileKey));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(status),sent,total,error);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(status),sent,total,error,resolvedFileKey);
 
 @override
 String toString() {
-  return 'UploadState(status: $status, sent: $sent, total: $total, error: $error)';
+  return 'UploadState(status: $status, sent: $sent, total: $total, error: $error, resolvedFileKey: $resolvedFileKey)';
 }
 
 
@@ -247,7 +249,7 @@ abstract mixin class _$UploadStateCopyWith<$Res> implements $UploadStateCopyWith
   factory _$UploadStateCopyWith(_UploadState value, $Res Function(_UploadState) _then) = __$UploadStateCopyWithImpl;
 @override @useResult
 $Res call({
- UploadStatus? status, int? sent, int? total, String? error
+ UploadStatus? status, int? sent, int? total, String? error, FileKey? resolvedFileKey
 });
 
 
@@ -264,13 +266,14 @@ class __$UploadStateCopyWithImpl<$Res>
 
 /// Create a copy of UploadState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,Object? resolvedFileKey = freezed,}) {
   return _then(_UploadState(
 status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
 as int?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
 as int?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,resolvedFileKey: freezed == resolvedFileKey ? _self.resolvedFileKey : resolvedFileKey // ignore: cast_nullable_to_non_nullable
+as FileKey?,
   ));
 }
 

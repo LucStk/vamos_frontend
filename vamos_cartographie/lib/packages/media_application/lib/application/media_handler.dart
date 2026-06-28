@@ -44,10 +44,17 @@ class MediaHandler {
       int? sent,
       int? total,
       String? error,
+      FileKey? resolvedFileKey,
     }) {
       uploadStore.upsert(
         patch.fileKey,
-        UploadState(status: status, sent: sent, total: total, error: error),
+        UploadState(
+          status: status,
+          sent: sent,
+          total: total,
+          error: error,
+          resolvedFileKey: resolvedFileKey,
+        ),
       );
     }
 
@@ -61,14 +68,42 @@ class MediaHandler {
         (sent, total) =>
             updateUploadState(UploadStatus.uploading, sent: sent, total: total),
       ),
-      onSuccess: (MediaImage _) {
-        updateUploadState(UploadStatus.success);
+      onSuccess: (MediaImage image) {
+        updateUploadState(
+          UploadStatus.success,
+          resolvedFileKey: image.fileKey, // ✅ on stocke le vrai fileKey
+        );
       },
       onError: (Failure failure) {
         updateUploadState(UploadStatus.failure, error: failure.message);
         errorLogger?.logError(failure, StackTrace.current);
       },
     );
+  }
+
+  Future<List<Failure>> attachPatchImage<T>(
+    Id<T> id,
+    MediaOwnerType ownerType,
+  ) async {
+    final List<Failure> failureList = [];
+    for (PatchImageMedia patch in patchStore.getFor(id).values) {
+      final uploadState = uploadStore.get(patch.fileKey);
+      final resolvedFileKey = uploadState?.resolvedFileKey;
+
+      if (uploadState?.status == UploadStatus.success &&
+          resolvedFileKey != null) {
+        final res = await repository.attachImage(
+          id,
+          resolvedFileKey,
+          ownerType,
+        );
+        res.fold((failure) => failureList.add(failure), (image) {
+          patchStore.remove(id, patch.fileKey); // supprime avec la clé temp
+          mediaStore.upsert(id, image);
+        });
+      }
+    }
+    return failureList;
   }
 
   // 2. Nouvelle méthode pour relancer un échec depuis l'UI
@@ -90,39 +125,6 @@ class MediaHandler {
     );
 
     return uploadPatchImage(id, patch, ownerType);
-  }
-
-  Future<Either<Failure, void>> attachImage<T>(
-    Id<T> id,
-    PatchImageMedia image,
-    MediaOwnerType ownerType,
-  ) async {
-    final result = await repository.attachImage<T>(
-      id,
-      image.fileKey,
-      ownerType,
-    );
-    return result.fold((f) => Left(f), (image) {
-      patchStore.remove(id, image.fileKey);
-      mediaStore.upsert(id, image);
-      return Right(null);
-    });
-  }
-
-  Future<List<Failure>> attachPatchImage<T>(
-    Id<T> id,
-    MediaOwnerType ownerType,
-  ) async {
-    final List<Failure> failureList = [];
-    for (PatchImageMedia patch in patchStore.getFor(id).values) {
-      if (uploadStore.get(patch.fileKey)?.status == UploadStatus.success) {
-        final res = await repository.attachImage(id, patch.fileKey, ownerType);
-        res.fold((failure) {
-          failureList.add(failure);
-        }, (_) {});
-      }
-    }
-    return failureList;
   }
 
   Future<Either<Failure, void>> removeImage<T>(
