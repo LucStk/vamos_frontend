@@ -6,8 +6,6 @@
 /// ```
 library trip_test_helpers;
 
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
@@ -16,7 +14,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:media_application/media_application.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:uuid/uuid.dart';
 
 import 'package:vamos_cartographie/core/injection/commands/media_provider.dart';
 import 'package:vamos_cartographie/core/injection/commands/trip_provider.dart';
@@ -89,15 +86,11 @@ class FakeMediaHandler extends Fake implements MediaHandler {
   }
 
   @override
-  Future<Either<Failure, void>> uploadImage<T>(
+  Future<Either<Failure, void>> uploadPatchImage<T>(
     Id<T> id,
-    File file,
+    PatchImageMedia patch,
     MediaOwnerType ownerType,
   ) async {
-    final patch = PatchImageMedia(
-      fileKey: ("temp-${const Uuid().v4()}") as FileKey,
-      file: file,
-    );
     addCalls.add((id: id, patch: patch));
     return Right(null);
   }

@@ -78,7 +78,7 @@ class MediaHandler {
     MediaOwnerType ownerType,
   ) async {
     // Optionnel : On peut nettoyer l'ancien état d'erreur avant de recommencer
-    final patch = patchStore.get(id)[key];
+    final patch = patchStore.getFor(id)[key];
     if (patch == null) {
       return Left(
         NotFoundFailure(resourceType: "PatchImage", resourceId: "$id - $key"),
@@ -107,6 +107,23 @@ class MediaHandler {
       mediaStore.upsert(id, image);
       return Right(null);
     });
+  }
+
+  Future<List<Failure>> attachPatchImage<T>(
+    Id<T> id,
+    PatchImageMedia image,
+    MediaOwnerType ownerType,
+  ) async {
+    final List<Failure> failureList = [];
+    for (PatchImageMedia patch in patchStore.getFor(id).values) {
+      if (uploadStore.get(patch.fileKey)?.status == UploadStatus.success) {
+        final res = await repository.attachImage(id, image.fileKey, ownerType);
+        res.fold((failure) {
+          failureList.add(failure);
+        }, (_) {});
+      }
+    }
+    return failureList;
   }
 
   Future<Either<Failure, void>> removeImage<T>(

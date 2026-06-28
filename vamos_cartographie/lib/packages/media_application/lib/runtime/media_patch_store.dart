@@ -8,7 +8,7 @@ class MediaPatchStore {
     store.clear();
   }
 
-  Map<FileKey, PatchImageMedia> get(Id id) => store[id] ?? {};
+  Map<FileKey, PatchImageMedia> getFor(Id id) => store[id] ?? {};
 
   void upsert(Id id, PatchImageMedia patch) {
     var current = store[id];
@@ -22,8 +22,4 @@ class MediaPatchStore {
   void remove(Id id, FileKey key) {
     store[id]?.remove(key);
   }
-}
-
-extension MediaPatchStoreGetters on MediaPatchStore {
-  Map<FileKey, PatchImageMedia> getFor(Id id) => store[id] ?? {};
 }
