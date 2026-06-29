@@ -39,8 +39,7 @@ dependencies:
 
   domain_core:
     path: lib/packages/domain_core
-  topology_application:
-    path: lib/packages/topology_application
+
   trip_domain:
     path: lib/packages/trip_domain
   # The following adds the Cupertino Icons font to your application.

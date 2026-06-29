@@ -3,10 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/core/injection/queries/segment_ui_queries.dart';
-import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 
 class SegmentLineStyle extends ConsumerWidget {
-  final SegmentUiId segmentId;
+  final SegmentRef segmentId;
   final Id<Trip> tripId;
 
   const SegmentLineStyle({
@@ -19,7 +18,7 @@ class SegmentLineStyle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final segment = ref.watch(segmentUiProvider(segmentId));
     if (segment == null) {
-      return ErrorWidget(Exception("SegmentUiId not found"));
+      return ErrorWidget(Exception("SegmentRef not found"));
     }
     return Container(
       decoration: BoxDecoration(

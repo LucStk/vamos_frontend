@@ -3,25 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:domain_core/domain_core.dart";
 import "package:trip_domain/domain/domain.dart";
 import "package:vamos_cartographie/core/injection/queries/waypoint_ui_queries.dart";
-import "package:vamos_cartographie/features/waypoint/waypoint.dart";
 
 import "form_waypoint_dialog.dart";
 import "package:vamos_cartographie/features/shared/shared.dart";
 
 class EditWaypointDialog extends ConsumerWidget {
-  final WaypointUiId waypointUiId;
+  final WaypointId waypointId;
   final Id<Trip> tripId;
   final VoidCallback? onSuccess;
   const EditWaypointDialog({
     super.key,
-    required this.waypointUiId,
+    required this.waypointId,
     required this.tripId,
     this.onSuccess,
   });
 
   static Future<void> show({
     required BuildContext context,
-    required WaypointUiId waypointUiId,
+    required WaypointId waypointId,
     required Id<Trip> tripId,
     VoidCallback? onSuccess,
   }) {
@@ -29,7 +28,7 @@ class EditWaypointDialog extends ConsumerWidget {
       context: context,
       barrierDismissible: false,
       builder: (_) => EditWaypointDialog(
-        waypointUiId: waypointUiId,
+        waypointId: waypointId,
         tripId: tripId,
         onSuccess: onSuccess,
       ),
@@ -38,7 +37,7 @@ class EditWaypointDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.read(waypointUiProvider(waypointUiId));
+    final waypoint = ref.read(waypointUiProvider(waypointId));
     if (waypoint == null) {
       return const DialogErrorBody(errorMessage: 'Waypoint introuvable');
     }

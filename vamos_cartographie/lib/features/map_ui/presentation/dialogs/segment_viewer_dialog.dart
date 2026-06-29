@@ -6,7 +6,6 @@ import 'package:vamos_cartographie/core/injection/commands/topology_provider.dar
 import 'package:vamos_cartographie/core/injection/queries/segment_ui_queries.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/segment_editor.dart';
-import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
   final Id<Segment> segmentId;
@@ -31,7 +30,7 @@ class SegmentViewerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segment = ref.watch(segmentUiProvider(segmentId as SegmentUiId));
+    final segment = ref.watch(segmentUiProvider(segmentId as SegmentRef));
 
     if (segment == null) {
       return const SizedBox.shrink();

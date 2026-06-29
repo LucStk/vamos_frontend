@@ -9,52 +9,51 @@ part of 'segment_ui_queries.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(segmentUiIds)
-final segmentUiIdsProvider = SegmentUiIdsProvider._();
+@ProviderFor(segmentRefs)
+final segmentRefsProvider = SegmentRefsProvider._();
 
-final class SegmentUiIdsProvider
+final class SegmentRefsProvider
     extends
         $FunctionalProvider<
-          List<SegmentUiId>,
-          List<SegmentUiId>,
-          List<SegmentUiId>
+          List<SegmentRef>,
+          List<SegmentRef>,
+          List<SegmentRef>
         >
-    with $Provider<List<SegmentUiId>> {
-  SegmentUiIdsProvider._()
+    with $Provider<List<SegmentRef>> {
+  SegmentRefsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'segmentUiIdsProvider',
+        name: r'segmentRefsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentUiIdsHash();
+  String debugGetCreateSourceHash() => _$segmentRefsHash();
 
   @$internal
   @override
-  $ProviderElement<List<SegmentUiId>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<SegmentRef>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  List<SegmentUiId> create(Ref ref) {
-    return segmentUiIds(ref);
+  List<SegmentRef> create(Ref ref) {
+    return segmentRefs(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<SegmentUiId> value) {
+  Override overrideWithValue(List<SegmentRef> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<SegmentUiId>>(value),
+      providerOverride: $SyncValueProvider<List<SegmentRef>>(value),
     );
   }
 }
 
-String _$segmentUiIdsHash() => r'f9d9871438cae860f39da695a7977ab76bbdc25c';
+String _$segmentRefsHash() => r'ae09ecff86d16b2c192f24f3b6e15b67e9fbdc93';
 
 @ProviderFor(segmentUi)
 final segmentUiProvider = SegmentUiFamily._();
@@ -64,7 +63,7 @@ final class SegmentUiProvider
     with $Provider<SegmentUi?> {
   SegmentUiProvider._({
     required SegmentUiFamily super.from,
-    required SegmentUiId super.argument,
+    required SegmentRef super.argument,
   }) : super(
          retry: null,
          name: r'segmentUiProvider',
@@ -90,7 +89,7 @@ final class SegmentUiProvider
 
   @override
   SegmentUi? create(Ref ref) {
-    final argument = this.argument as SegmentUiId;
+    final argument = this.argument as SegmentRef;
     return segmentUi(ref, argument);
   }
 
@@ -113,10 +112,10 @@ final class SegmentUiProvider
   }
 }
 
-String _$segmentUiHash() => r'125aae6577cd4a48c01edfb85e97b5241c748635';
+String _$segmentUiHash() => r'b9b33b00a3dac91fe934c54013845873f8162f57';
 
 final class SegmentUiFamily extends $Family
-    with $FunctionalFamilyOverride<SegmentUi?, SegmentUiId> {
+    with $FunctionalFamilyOverride<SegmentUi?, SegmentRef> {
   SegmentUiFamily._()
     : super(
         retry: null,
@@ -126,7 +125,7 @@ final class SegmentUiFamily extends $Family
         isAutoDispose: true,
       );
 
-  SegmentUiProvider call(SegmentUiId id) =>
+  SegmentUiProvider call(SegmentRef id) =>
       SegmentUiProvider._(argument: id, from: this);
 
   @override

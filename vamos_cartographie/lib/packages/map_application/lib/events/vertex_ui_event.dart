@@ -1,21 +1,21 @@
 part of "ui_events.dart";
 
 class VertexTapped extends MapUiEvent {
-  final VertexUiId vertexId;
-  const VertexTapped(this.vertexId);
+  final VertexRef vertexRef;
+  const VertexTapped(this.vertexRef);
 }
 
 class VertexDoubleTapped extends MapUiEvent {
-  final VertexUiId vertexId;
-  const VertexDoubleTapped(this.vertexId);
+  final VertexRef vertexRef;
+  const VertexDoubleTapped(this.vertexRef);
 }
 
 class VertexDragStarted extends MapUiEvent {
-  final VertexUiId vertexId;
-  const VertexDragStarted(this.vertexId);
+  final VertexRef vertexRef;
+  const VertexDragStarted(this.vertexRef);
 }
 
 class VertexDragEndend extends MapUiEvent {
-  final VertexUiId vertexId;
-  const VertexDragEndend(this.vertexId);
+  final VertexRef vertexRef;
+  const VertexDragEndend(this.vertexRef);
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/queries/segment_ui_queries.dart';
-import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 
 class MobilityTypeMarker extends ConsumerWidget {
-  final SegmentUiId segmentUiId;
+  final SegmentRef segmentRef;
 
-  const MobilityTypeMarker({super.key, required this.segmentUiId});
+  const MobilityTypeMarker({super.key, required this.segmentRef});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segmentUi = ref.watch(segmentUiProvider(segmentUiId));
+    final segmentUi = ref.watch(segmentUiProvider(segmentRef));
     if (segmentUi == null) {
       return ErrorWidget(Exception("noSegmentUIFound"));
     }

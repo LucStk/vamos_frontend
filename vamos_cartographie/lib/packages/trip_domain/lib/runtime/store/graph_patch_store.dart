@@ -1,7 +1,8 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:topology_application/domain/entities/entities.dart';
 import 'package:trip_domain/domain/entities/segment.dart';
+import 'package:trip_domain/domain/entities/segment_patch.dart';
 import 'package:trip_domain/domain/entities/vertex.dart';
+import 'package:trip_domain/domain/entities/vertex_patch.dart';
 
 class GraphPatchStore {
   final segmentPatchStore = ObservableCollectionStore<SegmentPatch>();

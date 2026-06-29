@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SegmentUi {
 
- SegmentUiId get id; Geometry get geometry; bool get isOptimistic; MobilityTypeUi get mobilityType;
+ SegmentRef get id; Geometry get geometry; bool get isOptimistic; MobilityTypeDisplay get mobilityType;
 /// Create a copy of SegmentUi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $SegmentUiCopyWith<$Res>  {
   factory $SegmentUiCopyWith(SegmentUi value, $Res Function(SegmentUi) _then) = _$SegmentUiCopyWithImpl;
 @useResult
 $Res call({
- SegmentUiId id, Geometry geometry, bool isOptimistic, MobilityTypeUi mobilityType
+ SegmentRef id, Geometry geometry, bool isOptimistic, MobilityTypeDisplay mobilityType
 });
 
 
@@ -65,10 +65,10 @@ class _$SegmentUiCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? geometry = null,Object? isOptimistic = null,Object? mobilityType = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as SegmentUiId,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
+as SegmentRef,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,isOptimistic: null == isOptimistic ? _self.isOptimistic : isOptimistic // ignore: cast_nullable_to_non_nullable
 as bool,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
-as MobilityTypeUi,
+as MobilityTypeDisplay,
   ));
 }
 
@@ -153,7 +153,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentUiId id,  Geometry geometry,  bool isOptimistic,  MobilityTypeUi mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentRef id,  Geometry geometry,  bool isOptimistic,  MobilityTypeDisplay mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SegmentUi() when $default != null:
 return $default(_that.id,_that.geometry,_that.isOptimistic,_that.mobilityType);case _:
@@ -174,7 +174,7 @@ return $default(_that.id,_that.geometry,_that.isOptimistic,_that.mobilityType);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentUiId id,  Geometry geometry,  bool isOptimistic,  MobilityTypeUi mobilityType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentRef id,  Geometry geometry,  bool isOptimistic,  MobilityTypeDisplay mobilityType)  $default,) {final _that = this;
 switch (_that) {
 case _SegmentUi():
 return $default(_that.id,_that.geometry,_that.isOptimistic,_that.mobilityType);case _:
@@ -194,7 +194,7 @@ return $default(_that.id,_that.geometry,_that.isOptimistic,_that.mobilityType);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentUiId id,  Geometry geometry,  bool isOptimistic,  MobilityTypeUi mobilityType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentRef id,  Geometry geometry,  bool isOptimistic,  MobilityTypeDisplay mobilityType)?  $default,) {final _that = this;
 switch (_that) {
 case _SegmentUi() when $default != null:
 return $default(_that.id,_that.geometry,_that.isOptimistic,_that.mobilityType);case _:
@@ -212,7 +212,7 @@ class _SegmentUi extends SegmentUi {
   const _SegmentUi({required this.id, required final  Geometry geometry, required this.isOptimistic, required this.mobilityType}): _geometry = geometry,super._();
   
 
-@override final  SegmentUiId id;
+@override final  SegmentRef id;
  final  Geometry _geometry;
 @override Geometry get geometry {
   if (_geometry is EqualUnmodifiableListView) return _geometry;
@@ -221,7 +221,7 @@ class _SegmentUi extends SegmentUi {
 }
 
 @override final  bool isOptimistic;
-@override final  MobilityTypeUi mobilityType;
+@override final  MobilityTypeDisplay mobilityType;
 
 /// Create a copy of SegmentUi
 /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +253,7 @@ abstract mixin class _$SegmentUiCopyWith<$Res> implements $SegmentUiCopyWith<$Re
   factory _$SegmentUiCopyWith(_SegmentUi value, $Res Function(_SegmentUi) _then) = __$SegmentUiCopyWithImpl;
 @override @useResult
 $Res call({
- SegmentUiId id, Geometry geometry, bool isOptimistic, MobilityTypeUi mobilityType
+ SegmentRef id, Geometry geometry, bool isOptimistic, MobilityTypeDisplay mobilityType
 });
 
 
@@ -273,10 +273,10 @@ class __$SegmentUiCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? geometry = null,Object? isOptimistic = null,Object? mobilityType = null,}) {
   return _then(_SegmentUi(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as SegmentUiId,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
+as SegmentRef,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,isOptimistic: null == isOptimistic ? _self.isOptimistic : isOptimistic // ignore: cast_nullable_to_non_nullable
 as bool,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
-as MobilityTypeUi,
+as MobilityTypeDisplay,
   ));
 }
 

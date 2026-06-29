@@ -17,7 +17,7 @@ final class WaypointUiProvider
     with $Provider<WaypointUi?> {
   WaypointUiProvider._({
     required WaypointUiFamily super.from,
-    required WaypointUiId super.argument,
+    required WaypointId super.argument,
   }) : super(
          retry: null,
          name: r'waypointUiProvider',
@@ -43,7 +43,7 @@ final class WaypointUiProvider
 
   @override
   WaypointUi? create(Ref ref) {
-    final argument = this.argument as WaypointUiId;
+    final argument = this.argument as WaypointId;
     return waypointUi(ref, argument);
   }
 
@@ -66,10 +66,10 @@ final class WaypointUiProvider
   }
 }
 
-String _$waypointUiHash() => r'd28aa518357dd1a4963e77a2454fce1d2d3c0add';
+String _$waypointUiHash() => r'6696cf18ed77326e4ef29c805df20409184b3be6';
 
 final class WaypointUiFamily extends $Family
-    with $FunctionalFamilyOverride<WaypointUi?, WaypointUiId> {
+    with $FunctionalFamilyOverride<WaypointUi?, WaypointId> {
   WaypointUiFamily._()
     : super(
         retry: null,
@@ -79,7 +79,7 @@ final class WaypointUiFamily extends $Family
         isAutoDispose: true,
       );
 
-  WaypointUiProvider call(WaypointUiId id) =>
+  WaypointUiProvider call(WaypointId id) =>
       WaypointUiProvider._(argument: id, from: this);
 
   @override

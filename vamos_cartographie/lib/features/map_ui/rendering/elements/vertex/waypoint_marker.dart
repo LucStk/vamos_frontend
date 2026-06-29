@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/queries/waypoint_ui_queries.dart';
-import 'package:vamos_cartographie/features/features.dart';
 
 class WaypointMarker extends ConsumerWidget {
-  final WaypointUiId waypointId;
+  final WaypointId waypointId;
   final bool isDragging;
 
   const WaypointMarker({

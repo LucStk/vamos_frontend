@@ -9,51 +9,47 @@ part of 'vertex_ui_queries.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(vertexUiIds)
-final vertexUiIdsProvider = VertexUiIdsProvider._();
+@ProviderFor(vertexRefs)
+final vertexRefsProvider = VertexRefsProvider._();
 
-final class VertexUiIdsProvider
+final class VertexRefsProvider
     extends
-        $FunctionalProvider<
-          List<VertexUiId>,
-          List<VertexUiId>,
-          List<VertexUiId>
-        >
-    with $Provider<List<VertexUiId>> {
-  VertexUiIdsProvider._()
+        $FunctionalProvider<List<VertexRef>, List<VertexRef>, List<VertexRef>>
+    with $Provider<List<VertexRef>> {
+  VertexRefsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'vertexUiIdsProvider',
+        name: r'vertexRefsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$vertexUiIdsHash();
+  String debugGetCreateSourceHash() => _$vertexRefsHash();
 
   @$internal
   @override
-  $ProviderElement<List<VertexUiId>> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<List<VertexRef>> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  List<VertexUiId> create(Ref ref) {
-    return vertexUiIds(ref);
+  List<VertexRef> create(Ref ref) {
+    return vertexRefs(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<VertexUiId> value) {
+  Override overrideWithValue(List<VertexRef> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<VertexUiId>>(value),
+      providerOverride: $SyncValueProvider<List<VertexRef>>(value),
     );
   }
 }
 
-String _$vertexUiIdsHash() => r'd65bca6fe26f29f637d780b830b7dcfe480abc5f';
+String _$vertexRefsHash() => r'a70b347e7906adfbf2a859b8ab5531c949cc1e81';
 
 @ProviderFor(vertexUi)
 final vertexUiProvider = VertexUiFamily._();
@@ -63,7 +59,7 @@ final class VertexUiProvider
     with $Provider<VertexUi?> {
   VertexUiProvider._({
     required VertexUiFamily super.from,
-    required VertexUiId super.argument,
+    required VertexRef super.argument,
   }) : super(
          retry: null,
          name: r'vertexUiProvider',
@@ -89,7 +85,7 @@ final class VertexUiProvider
 
   @override
   VertexUi? create(Ref ref) {
-    final argument = this.argument as VertexUiId;
+    final argument = this.argument as VertexRef;
     return vertexUi(ref, argument);
   }
 
@@ -112,10 +108,10 @@ final class VertexUiProvider
   }
 }
 
-String _$vertexUiHash() => r'30a0f1d31f8bbdb706dd5e7cf6e806d404a5c10a';
+String _$vertexUiHash() => r'506334a4ea366a7112515de407901cc32a8ed45c';
 
 final class VertexUiFamily extends $Family
-    with $FunctionalFamilyOverride<VertexUi?, VertexUiId> {
+    with $FunctionalFamilyOverride<VertexUi?, VertexRef> {
   VertexUiFamily._()
     : super(
         retry: null,
@@ -125,7 +121,7 @@ final class VertexUiFamily extends $Family
         isAutoDispose: true,
       );
 
-  VertexUiProvider call(VertexUiId id) =>
+  VertexUiProvider call(VertexRef id) =>
       VertexUiProvider._(argument: id, from: this);
 
   @override

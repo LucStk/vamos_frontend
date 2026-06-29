@@ -6,7 +6,6 @@ import 'package:map_application/events/ui_events.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/segment/segment_ui_element.dart';
-import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 import '/core/injection/queries/segment_ui_queries.dart';
 import '/features/map_ui/rendering/adapters/marker_adapter.dart';
 import '/features/map_ui/rendering/adapters/segment_adapter.dart';
@@ -20,12 +19,12 @@ class SegmentLayer extends ConsumerStatefulWidget {
 }
 
 class _SegmentLayerState extends ConsumerState<SegmentLayer> {
-  late final ValueNotifier<LayerHitResult<SegmentUiId>?> _polylineHitNotifier;
+  late final ValueNotifier<LayerHitResult<SegmentRef>?> _polylineHitNotifier;
 
   @override
   void initState() {
     super.initState();
-    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentUiId>?>(null);
+    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentRef>?>(null);
 
     _polylineHitNotifier.addListener(_onHoverChanged);
   }
@@ -46,14 +45,14 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
 
   @override
   Widget build(BuildContext context) {
-    final segments = ref.watch(segmentUiIdsProvider);
+    final segments = ref.watch(segmentRefsProvider);
     final mapCtrl = ref.read(mapCtrlProvider(widget.tripId).notifier);
 
     final polylines =
         segments
                 .map((id) => toPolyline(ref, id, widget.tripId, mapCtrl))
                 .toList()
-            as List<Polyline<SegmentUiId>>;
+            as List<Polyline<SegmentRef>>;
     // On en profite pour construire les markers mobility sur les segments
     final segMarkers = segments.map((entry) {
       final res = ref.read(segmentUiProvider(entry));
@@ -63,7 +62,7 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
 
     return Stack(
       children: [
-        PolylineLayer<SegmentUiId>(
+        PolylineLayer<SegmentRef>(
           hitNotifier: _polylineHitNotifier,
           polylines: polylines,
         ),

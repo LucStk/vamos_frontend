@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$VertexUi {
 
- VertexUiId get id; LatLng get position; bool get isOptimistic; PoiCategory? get poiCategory;
+ VertexRef get id; LatLng get position; bool get isOptimistic; PoiCategory? get poiCategory;
 /// Create a copy of VertexUi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $VertexUiCopyWith<$Res>  {
   factory $VertexUiCopyWith(VertexUi value, $Res Function(VertexUi) _then) = _$VertexUiCopyWithImpl;
 @useResult
 $Res call({
- VertexUiId id, LatLng position, bool isOptimistic, PoiCategory? poiCategory
+ VertexRef id, LatLng position, bool isOptimistic, PoiCategory? poiCategory
 });
 
 
@@ -65,7 +65,7 @@ class _$VertexUiCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? position = null,Object? isOptimistic = null,Object? poiCategory = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as VertexUiId,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as VertexRef,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
 as LatLng,isOptimistic: null == isOptimistic ? _self.isOptimistic : isOptimistic // ignore: cast_nullable_to_non_nullable
 as bool,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory?,
@@ -153,7 +153,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( VertexUiId id,  LatLng position,  bool isOptimistic,  PoiCategory? poiCategory)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( VertexRef id,  LatLng position,  bool isOptimistic,  PoiCategory? poiCategory)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _VertexUi() when $default != null:
 return $default(_that.id,_that.position,_that.isOptimistic,_that.poiCategory);case _:
@@ -174,7 +174,7 @@ return $default(_that.id,_that.position,_that.isOptimistic,_that.poiCategory);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( VertexUiId id,  LatLng position,  bool isOptimistic,  PoiCategory? poiCategory)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( VertexRef id,  LatLng position,  bool isOptimistic,  PoiCategory? poiCategory)  $default,) {final _that = this;
 switch (_that) {
 case _VertexUi():
 return $default(_that.id,_that.position,_that.isOptimistic,_that.poiCategory);case _:
@@ -194,7 +194,7 @@ return $default(_that.id,_that.position,_that.isOptimistic,_that.poiCategory);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( VertexUiId id,  LatLng position,  bool isOptimistic,  PoiCategory? poiCategory)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( VertexRef id,  LatLng position,  bool isOptimistic,  PoiCategory? poiCategory)?  $default,) {final _that = this;
 switch (_that) {
 case _VertexUi() when $default != null:
 return $default(_that.id,_that.position,_that.isOptimistic,_that.poiCategory);case _:
@@ -212,7 +212,7 @@ class _VertexUi implements VertexUi {
   const _VertexUi({required this.id, required this.position, required this.isOptimistic, required this.poiCategory});
   
 
-@override final  VertexUiId id;
+@override final  VertexRef id;
 @override final  LatLng position;
 @override final  bool isOptimistic;
 @override final  PoiCategory? poiCategory;
@@ -247,7 +247,7 @@ abstract mixin class _$VertexUiCopyWith<$Res> implements $VertexUiCopyWith<$Res>
   factory _$VertexUiCopyWith(_VertexUi value, $Res Function(_VertexUi) _then) = __$VertexUiCopyWithImpl;
 @override @useResult
 $Res call({
- VertexUiId id, LatLng position, bool isOptimistic, PoiCategory? poiCategory
+ VertexRef id, LatLng position, bool isOptimistic, PoiCategory? poiCategory
 });
 
 
@@ -267,7 +267,7 @@ class __$VertexUiCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? position = null,Object? isOptimistic = null,Object? poiCategory = freezed,}) {
   return _then(_VertexUi(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as VertexUiId,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as VertexRef,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
 as LatLng,isOptimistic: null == isOptimistic ? _self.isOptimistic : isOptimistic // ignore: cast_nullable_to_non_nullable
 as bool,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory?,

@@ -13,10 +13,10 @@ class VertexLayer extends ConsumerWidget {
   const VertexLayer({super.key, required this.tripId});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vertexIds = ref.watch(vertexUiIdsProvider);
+    final vertexIds = ref.watch(vertexRefsProvider);
     final ctrl = ref.read(mapCtrlProvider(tripId).notifier);
-    final markers = vertexIds.map((vertexUiId) {
-      final vertex = ref.read(vertexUiProvider(vertexUiId))!;
+    final markers = vertexIds.map((vertexRef) {
+      final vertex = ref.read(vertexUiProvider(vertexRef))!;
       return toDragMarker(VertexUiElement(tripId, vertex), tripId, ctrl);
     }).toList();
 

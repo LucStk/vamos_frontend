@@ -3,30 +3,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/commands/waypoint_provider.dart';
 import 'package:vamos_cartographie/core/injection/queries/waypoint_ui_queries.dart';
-import 'package:vamos_cartographie/features/waypoint/waypoint.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/widgets.dart';
 import 'edit_waypoint_dialog.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 
 class ShowWaypointDialog extends ConsumerWidget {
-  final WaypointUiId waypointUiId;
+  final WaypointId waypointId;
   final TripId tripId;
   const ShowWaypointDialog({
     super.key,
-    required this.waypointUiId,
+    required this.waypointId,
     required this.tripId,
   });
 
   static void show({
     required BuildContext context,
-    required WaypointUiId waypointUiId,
+    required WaypointId waypointId,
     required TripId tripId,
   }) {
     showDialog(
       context: context,
       builder: (_) =>
-          ShowWaypointDialog(waypointUiId: waypointUiId, tripId: tripId),
+          ShowWaypointDialog(waypointId: waypointId, tripId: tripId),
     );
   }
 
@@ -44,7 +43,7 @@ class ShowWaypointDialog extends ConsumerWidget {
       // Appel à Riverpod pour supprimer dans le state / serveur
       await ref
           .read(waypointHandlerProvider(tripId))
-          .deleteWaypoint(waypointUiId);
+          .deleteWaypoint(waypointId);
 
       // Sécurité Flutter obligatoire après un "await"
       if (!context.mounted) return;
@@ -64,7 +63,7 @@ class ShowWaypointDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(waypointUiProvider(waypointUiId));
+    final waypoint = ref.watch(waypointUiProvider(waypointId));
     if (waypoint == null) {
       return const SizedBox.shrink();
     }
@@ -76,7 +75,7 @@ class ShowWaypointDialog extends ConsumerWidget {
           onPressed: () {
             EditWaypointDialog.show(
               context: ctx,
-              waypointUiId: waypointUiId,
+              waypointId: waypointId,
               tripId: tripId,
             );
           },

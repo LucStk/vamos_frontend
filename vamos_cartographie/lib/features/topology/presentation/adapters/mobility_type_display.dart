@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/shared/domain/types/map_item_type.dart';
 
-enum MobilityTypeUi implements MapItemType {
+enum MobilityTypeDisplay implements MapItemType {
   bike(
     label: 'Vélo',
     icon: Icons.directions_bike,
@@ -40,7 +40,7 @@ enum MobilityTypeUi implements MapItemType {
     type: MobilityType.train,
   );
 
-  const MobilityTypeUi({
+  const MobilityTypeDisplay({
     required this.label,
     required this.icon,
     required this.colorValue,
@@ -57,6 +57,6 @@ enum MobilityTypeUi implements MapItemType {
   final bool isDashed;
   final MobilityType type;
 
-  static MobilityTypeUi from(MobilityType type) =>
+  static MobilityTypeDisplay from(MobilityType type) =>
       values.firstWhere((e) => e.type == type);
 }
