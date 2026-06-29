@@ -118,9 +118,13 @@ class MediaHandler {
     // Optionnel : On peut nettoyer l'ancien état d'erreur avant de recommencer
     final patch = patchStore.getFor(id)[key];
     if (patch == null) {
-      return Left(
-        NotFoundFailure(resourceType: "PatchImage", resourceId: "$id - $key"),
+      final failure = NotFoundFailure(
+        resourceType: "PatchImage",
+        resourceId: "$id - $key",
       );
+
+      errorLogger?.logError(failure, StackTrace.current);
+      return Left(failure);
     }
     uploadStore.upsert(
       patch.fileKey,
@@ -135,11 +139,16 @@ class MediaHandler {
     FileKey key,
     MediaOwnerType ownerType,
   ) async {
-    return await executor.run<void>(
-      onApply: () => throw ("not Implemented yet"),
-      remote: () => repository.detachImage<T>(id, key, ownerType),
-      onSuccess: (_) {},
-      onError: (Failure failure) {}, // re-upsert si besoin
+    final res = await repository.detachImage<T>(id, key, ownerType);
+    res.fold(
+      (Failure f) {
+        errorLogger?.logError(f, StackTrace.current);
+        return f;
+      },
+      (_) {
+        mediaStore.remove(id, key);
+      },
     );
+    return Right(null);
   }
 }
