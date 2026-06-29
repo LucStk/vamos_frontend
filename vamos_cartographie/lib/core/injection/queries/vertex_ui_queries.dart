@@ -10,13 +10,18 @@ part 'vertex_ui_queries.g.dart';
 
 @riverpod
 List<VertexUiId> vertexUiIds(Ref ref) {
-  // Permets d'avoir tous les segment avec un granularité de rebuild à l'échelle du segment
-  final vertexPatchIds =
-      ref.watch(vertexPatchStoreProvider).getIds() as List<Id>;
-  final vertexIds = ref.watch(vertexStoreProvider).getIds() as List<Id>;
-  return [];
-  // return vertexIds.toSet().union(vertexPatchIds.toSet()).toList()
-  //     as List<VertexUiId>;
+  final Set<VertexUiId> vertexPatchIds = ref
+      .watch(vertexPatchStoreProvider)
+      .getIds()
+      .cast<VertexUiId>()
+      .toSet();
+  final Set<VertexUiId> vertexIds = ref
+      .watch(vertexStoreProvider)
+      .getIds()
+      .cast<VertexUiId>()
+      .toSet();
+
+  return vertexIds.union(vertexPatchIds).toList();
 }
 
 @riverpod

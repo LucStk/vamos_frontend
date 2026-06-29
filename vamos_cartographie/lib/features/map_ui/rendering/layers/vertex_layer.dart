@@ -14,13 +14,12 @@ class VertexLayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vertexIds = ref.watch(vertexUiIdsProvider);
-    return SizedBox.shrink();
-    // final ctrl = ref.read(mapCtrlProvider(tripId).notifier);
-    // final markers = vertexIds.map((vertexUiId) {
-    //   final vertex = ref.read(vertexUiProvider(vertexUiId))!;
-    //   return toDragMarker(VertexUiElement(tripId, vertex), tripId, ctrl);
-    // }).toList();
+    final ctrl = ref.read(mapCtrlProvider(tripId).notifier);
+    final markers = vertexIds.map((vertexUiId) {
+      final vertex = ref.read(vertexUiProvider(vertexUiId))!;
+      return toDragMarker(VertexUiElement(tripId, vertex), tripId, ctrl);
+    }).toList();
 
-    // return DragMarkers(markers: markers);
+    return DragMarkers(markers: markers);
   }
 }
