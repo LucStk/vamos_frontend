@@ -3,13 +3,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/core/injection/commands/trip_provider.dart';
 import '/core/injection/stores/trip_store.dart';
 import '/features/trips/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExplorerPage extends ConsumerWidget {
+import '/core/injection/commands/trip_provider.dart';
+import '/core/injection/stores/trip_store.dart';
+import '/features/trips/widgets/widgets.dart';
+
+class ExplorerPage extends ConsumerStatefulWidget {
   const ExplorerPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final loadState = ref.watch(loadTripsProvider);
+  ConsumerState<ExplorerPage> createState() => _ExplorerPageState();
+}
+
+class _ExplorerPageState extends ConsumerState<ExplorerPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(tripHandlerProvider).loadFromRemote();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // final loadState = ref.watch(loadTripsProvider);
     final tripStore = ref.watch(tripStoreProvider);
 
     return Scaffold(
@@ -18,28 +38,30 @@ class ExplorerPage extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => ref.invalidate(loadTripsProvider),
+            onPressed: () {
+              ref.read(tripHandlerProvider).loadFromRemote();
+            },
           ),
         ],
       ),
-      body: loadState.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => ExplorerErrorView(
-          message: e.toString(),
-          onRetry: () => ref.invalidate(loadTripsProvider),
-        ),
-        data: (_) => tripStore.store.isEmpty
-            ? const ExplorerEmptyView()
-            : ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: tripStore.store.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 8),
-                itemBuilder: (context, index) {
-                  final trip = tripStore.store.values.elementAt(index);
-                  return TripCard(tripId: trip.id);
-                },
-              ),
+      body: Builder(
+        builder: (context) {
+          if (tripStore.store.isEmpty) {
+            return const ExplorerEmptyView();
+          }
+
+          return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: tripStore.store.length,
+            separatorBuilder: (_, _) => const SizedBox(height: 8),
+            itemBuilder: (context, index) {
+              final trip = tripStore.store.values.elementAt(index);
+              return TripCard(tripId: trip.id);
+            },
+          );
+        },
       ),
+
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => TripCreatorDialog.show(context),
         icon: const Icon(Icons.add),

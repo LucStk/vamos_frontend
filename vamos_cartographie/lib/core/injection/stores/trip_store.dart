@@ -15,6 +15,7 @@ TripRepository tripRepository(Ref ref) {
   return TripRepositoryImpl(ref.watch(tripRemoteDatasourceProvider));
 }
 
+@Riverpod(keepAlive: true)
 @riverpod
 ObservableTripStore rawTripStore(Ref ref) {
   return ObservableTripStore();

@@ -116,7 +116,7 @@ final class RawMediaStoreProvider
         argument: null,
         retry: null,
         name: r'rawMediaStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -144,7 +144,7 @@ final class RawMediaStoreProvider
   }
 }
 
-String _$rawMediaStoreHash() => r'c166416682467aa6f3c4444562d95c1ac75d7955';
+String _$rawMediaStoreHash() => r'1ee2695cbcefc207e66ebcdda54bd43855381be6';
 
 @ProviderFor(rawMediaPatchStore)
 final rawMediaPatchStoreProvider = RawMediaPatchStoreProvider._();
@@ -163,7 +163,7 @@ final class RawMediaPatchStoreProvider
         argument: null,
         retry: null,
         name: r'rawMediaPatchStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -192,7 +192,7 @@ final class RawMediaPatchStoreProvider
 }
 
 String _$rawMediaPatchStoreHash() =>
-    r'9a9e5990f95d94e01aa885b5b27e3febb5fe9411';
+    r'4f34349e3b522c37554536590a764f81a9ed3bb3';
 
 @ProviderFor(rawUploadStateStore)
 final rawUploadStateStoreProvider = RawUploadStateStoreProvider._();
@@ -211,7 +211,7 @@ final class RawUploadStateStoreProvider
         argument: null,
         retry: null,
         name: r'rawUploadStateStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -240,7 +240,7 @@ final class RawUploadStateStoreProvider
 }
 
 String _$rawUploadStateStoreHash() =>
-    r'07032c9355bfed5110721e90dc574bfabcfa8dbb';
+    r'dae1e9b0149ed61cd06116968c57b8feffc0e1dd';
 
 @ProviderFor(mediaStore)
 final mediaStoreProvider = MediaStoreProvider._();

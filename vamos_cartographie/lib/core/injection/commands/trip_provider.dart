@@ -8,10 +8,10 @@ part 'trip_provider.g.dart';
 
 @riverpod
 TripHandler tripHandler(Ref ref) {
-  final store = ref.watch(rawTripStoreProvider);
-  final mediaStore = ref.watch(rawMediaStoreProvider);
-  final repo = ref.watch(tripRepositoryProvider);
-  final executor = ref.watch(optimisticExecutorProvider);
+  final store = ref.read(rawTripStoreProvider);
+  final mediaStore = ref.read(rawMediaStoreProvider);
+  final repo = ref.read(tripRepositoryProvider);
+  final executor = ref.read(optimisticExecutorProvider);
   return TripHandler(store, mediaStore, repo, executor);
 }
 

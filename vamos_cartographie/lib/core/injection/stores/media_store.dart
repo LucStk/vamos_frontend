@@ -21,13 +21,15 @@ MediaRepository mediaRepository(Ref ref) {
   return MediaRepositoryImpl(remote: datasource, storage: dioMedia);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 ObservableMediaStore rawMediaStore(Ref ref) => ObservableMediaStore();
 
+@Riverpod(keepAlive: true)
 @riverpod
 ObservableMediaPatchStore rawMediaPatchStore(Ref ref) =>
     ObservableMediaPatchStore();
 
+@Riverpod(keepAlive: true)
 @riverpod
 ObservableUploadStateStore rawUploadStateStore(Ref ref) =>
     ObservableUploadStateStore();

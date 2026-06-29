@@ -115,7 +115,7 @@ final class RawTripStoreProvider
         argument: null,
         retry: null,
         name: r'rawTripStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -143,7 +143,7 @@ final class RawTripStoreProvider
   }
 }
 
-String _$rawTripStoreHash() => r'cbbea334ba59d6164e6e5eb0fb04d12a53c9ae33';
+String _$rawTripStoreHash() => r'48389ab1ce556bd6281b6fbdbdcddcad50ea59c9';
 
 @ProviderFor(tripStore)
 final tripStoreProvider = TripStoreProvider._();
