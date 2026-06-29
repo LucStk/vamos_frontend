@@ -1,5 +1,7 @@
 import 'package:domain_core/failure.dart';
+import 'package:domain_core/id.dart';
 import 'package:domain_core/optimitic_executor.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:trip_domain/trip_domain.dart';
 import "package:domain_core/collection_store.dart";
 
@@ -29,5 +31,9 @@ class TopologyHandler {
       onSuccess: (serveurValue) => graphStore.updateSegment(serveurValue),
       onError: (Failure failure) => graphStore.updateSegment(oldValue),
     );
+  }
+
+  Future<void> moveVertex(Id id, LatLng latLng) async {
+    throw Exception("Move vertex not implemented yet");
   }
 }

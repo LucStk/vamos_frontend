@@ -14,7 +14,6 @@ TransitionResult reduce(MapMode state, MapIntents intent) {
 
     VertexSelected s => reduceVertex(s, intent),
     DraggingVertex s => reduceVertex(s, intent),
-
     SegmentSelected s => reduceSegment(s, intent),
     CreatingSegment s => reduceSegment(s, intent),
     SplittingSegment s => reduceSegment(s, intent),

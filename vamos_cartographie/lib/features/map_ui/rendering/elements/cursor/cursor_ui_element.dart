@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
+import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
 import "cursor_marker.dart";
 

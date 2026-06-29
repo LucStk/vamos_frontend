@@ -5,6 +5,9 @@ import '/features/map_editor/domain/domain.dart';
 
 TransitionResult reduceIdle(MapMode state, MapIntents intent) {
   return switch (intent) {
+    PutCursor cmd => TransitionResult(
+      nextState: MapMode.cursorDrawn(latLng: cmd.latLng),
+    ),
     SelectVertex cmd => TransitionResult(
       nextState: MapMode.vertexSelected(vertexId: cmd.vertexId),
     ),

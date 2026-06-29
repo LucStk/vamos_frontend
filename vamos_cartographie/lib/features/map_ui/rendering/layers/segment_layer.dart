@@ -6,7 +6,6 @@ import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/segment/segment_ui_element.dart';
 import 'package:vamos_cartographie/features/topology/segment_ui.dart';
 import '/core/injection/queries/segment_ui_queries.dart';
-import '/features/map_editor/events/ui/ui_events.dart';
 import '/features/map_ui/rendering/adapters/marker_adapter.dart';
 import '/features/map_ui/rendering/adapters/segment_adapter.dart';
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
+
+import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
 
 abstract class AbstractMapButton extends ConsumerWidget {
   final Id<Trip> tripId;
