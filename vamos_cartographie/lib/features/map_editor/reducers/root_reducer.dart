@@ -1,23 +1,23 @@
-import 'package:vamos_cartographie/features/map_editor/commands/commands.dart';
+import '/features/map_editor/intents/intents.dart';
 import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
-import 'package:vamos_cartographie/features/map_ui/application/handlers/transition_result.dart';
+import 'package:vamos_cartographie/features/map_editor/application/transition_result.dart';
 import 'idle_reducer.dart';
-import 'vertex/vertex_reducer.dart';
-import 'segment/segment_reducer.dart';
-import 'waypoint/waypoint_reducer.dart';
+import 'vertex_reducer.dart';
+import 'segment_reducer.dart';
+import 'waypoint_reducer.dart';
 
-TransitionResult reduce(MapMode state, MapCommand command) {
+TransitionResult reduce(MapMode state, MapIntents intent) {
   return switch (state) {
-    Idle() => reduceIdle(state, command),
+    Idle() => reduceIdle(state, intent),
     CursorDrawn() => TransitionResult(nextState: state),
 
-    VertexSelected s => reduceVertex(s, command),
-    DraggingVertex s => reduceVertex(s, command),
+    VertexSelected s => reduceVertex(s, intent),
+    DraggingVertex s => reduceVertex(s, intent),
 
-    SegmentSelected s => reduceSegment(s, command),
-    CreatingSegment s => reduceSegment(s, command),
-    SplittingSegment s => reduceSegment(s, command),
+    SegmentSelected s => reduceSegment(s, intent),
+    CreatingSegment s => reduceSegment(s, intent),
+    SplittingSegment s => reduceSegment(s, intent),
 
-    WaypointSelected s => reduceWaypoint(s, command),
+    WaypointSelected s => reduceWaypoint(s, intent),
   };
 }

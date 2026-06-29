@@ -1,9 +1,9 @@
-import 'package:vamos_cartographie/features/map_editor/commands/commands.dart';
+import '/features/map_editor/intents/intents.dart';
 import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
-import 'package:vamos_cartographie/features/map_ui/application/handlers/transition_result.dart';
+import 'package:vamos_cartographie/features/map_editor/application/transition_result.dart';
 
-TransitionResult reduceIdle(MapMode state, MapCommand command) {
-  return switch (command) {
+TransitionResult reduceIdle(MapMode state, MapIntents intent) {
+  return switch (intent) {
     SelectVertex cmd => TransitionResult(
       nextState: MapMode.vertexSelected(vertexId: cmd.vertexId),
     ),

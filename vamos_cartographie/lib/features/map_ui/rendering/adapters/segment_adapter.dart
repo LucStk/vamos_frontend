@@ -4,8 +4,9 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/queries/segment_ui_queries.dart';
-import 'package:vamos_cartographie/features/map_editor/controllers/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/topology/segment_ui.dart';
+
+import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
 
 Polyline toPolyline(
   WidgetRef ref,

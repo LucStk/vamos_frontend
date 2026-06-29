@@ -1,15 +1,15 @@
-part of 'commands.dart';
+part of 'intents.dart';
 
-class SelectVertex extends MapCommand {
+class SelectVertex extends MapIntents {
   final Id<Vertex> vertexId;
   const SelectVertex(this.vertexId);
 }
 
-class StartDragVertex extends MapCommand {
+class StartDragVertex extends MapIntents {
   const StartDragVertex();
 }
 
-class EndDragVertex extends MapCommand {
+class EndDragVertex extends MapIntents {
   final Id<Vertex> vertexId;
   final LatLng position;
 

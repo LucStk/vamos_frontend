@@ -1,5 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/rendering.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:vamos_cartographie/infrastructure/media/mappers/owner_type_mappers.dart';

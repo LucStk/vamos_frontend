@@ -2,9 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/id.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/features/map_editor/commands/commands.dart';
-import 'package:vamos_cartographie/features/map_editor/reducers/vertex/vertex_reducer.dart';
+import 'package:vamos_cartographie/features/map_editor/reducers/reducers.dart';
 import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
+
+import 'package:vamos_cartographie/features/map_editor/intents/intents.dart';
 
 void main() {
   group('reduceVertex', () {

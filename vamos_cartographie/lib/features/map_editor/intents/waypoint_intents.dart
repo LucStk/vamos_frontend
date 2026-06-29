@@ -1,20 +1,20 @@
-part of 'commands.dart';
+part of 'intents.dart';
 
-class OpenEditWaypointDialog extends MapCommand {
+class OpenEditWaypointDialog extends MapIntents {
   final Id<Waypoint> waypointId;
   const OpenEditWaypointDialog(this.waypointId);
 }
 
-class SelectWaypoint extends MapCommand {
+class SelectWaypoint extends MapIntents {
   final Id<Waypoint> waypointId;
   const SelectWaypoint(this.waypointId);
 }
 
-class StartDragWaypoint extends MapCommand {
+class StartDragWaypoint extends MapIntents {
   const StartDragWaypoint();
 }
 
-class EndDragWaypoint extends MapCommand {
+class EndDragWaypoint extends MapIntents {
   final Id<Waypoint> waypointId;
   final LatLng position;
 

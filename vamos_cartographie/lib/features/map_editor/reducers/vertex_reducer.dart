@@ -1,8 +1,8 @@
-import 'package:vamos_cartographie/features/map_editor/commands/commands.dart';
+import '/features/map_editor/intents/intents.dart';
 import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
-import 'package:vamos_cartographie/features/map_ui/application/handlers/transition_result.dart';
+import 'package:vamos_cartographie/features/map_editor/application/transition_result.dart';
 
-TransitionResult reduceVertex(MapMode state, MapCommand intent) {
+TransitionResult reduceVertex(MapMode state, MapIntents intent) {
   return switch (state) {
     VertexSelected s => _reduceVertexSelected(s, intent),
     // DraggingVertex s => _reduceDraggingVertex(s, intent),
@@ -12,7 +12,7 @@ TransitionResult reduceVertex(MapMode state, MapCommand intent) {
 
 TransitionResult _reduceVertexSelected(
   VertexSelected state,
-  MapCommand intent,
+  MapIntents intent,
 ) {
   if (intent is StartDragVertex) {
     return TransitionResult(
@@ -29,7 +29,7 @@ TransitionResult _reduceVertexSelected(
 
 // TransitionResult _reduceDraggingVertex(
 //   DraggingVertex state,
-//   MapCommand intent,
+//   MapIntents intent,
 // ) {
 //   if (intent is PointerMoved) {
 //     return TransitionResult(
