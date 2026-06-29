@@ -46,7 +46,10 @@ void main() {
     test('vide les stores puis upsert les trips retournés', () async {
       // arrange
       tripStore.upsert(makeTrip(id: 99, title: 'Ancien'));
-      final remoteTrips = [makeTrip(id: 1), makeTrip(id: 2)];
+      final List<(Trip, List<MediaImage>)> remoteTrips = [
+        (makeTrip(id: 1), []),
+        (makeTrip(id: 2), []),
+      ];
       when(
         () => mockRepo.getAllTrips(),
       ).thenAnswer((_) async => Right(remoteTrips));

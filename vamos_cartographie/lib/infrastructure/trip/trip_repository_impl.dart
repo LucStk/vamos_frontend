@@ -13,10 +13,10 @@ class TripRepositoryImpl extends TripRepository {
   // Queries
   // ---------------------------------------------------------------------------
   @override
-  Future<Either<Failure, List<Trip>>> getAllTrips() async {
+  Future<Either<Failure, List<(Trip, List<MediaImage>)>>> getAllTrips() async {
     try {
       final gqlTrips = await remote.getAllTrips();
-      return Right(gqlTrips.map(TripMapper.fromGQLFields).toList());
+      return Right(gqlTrips.map(TripMapper.fromGQLDetail).toList());
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {
@@ -25,7 +25,7 @@ class TripRepositoryImpl extends TripRepository {
   }
 
   @override
-  Future<Either<Failure, Trip>> getTrip(Id<Trip> id) async {
+  Future<Either<Failure, (Trip, List<MediaImage>)>> getTrip(Id<Trip> id) async {
     try {
       final gqlTrip = await remote.getTripById(id: id);
       return Right(TripMapper.fromGQLDetail(gqlTrip));

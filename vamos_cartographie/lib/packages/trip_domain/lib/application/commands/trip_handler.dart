@@ -19,8 +19,11 @@ class TripHandler {
     mediaStore.clear();
     final result = await repo.getAllTrips();
     return result.map((trips) {
-      for (final trip in trips) {
+      for (final (trip, listImages) in trips) {
         tripStore.upsert(trip);
+        for (MediaImage i in listImages) {
+          mediaStore.upsert(trip.id, i);
+        }
       }
     });
   }

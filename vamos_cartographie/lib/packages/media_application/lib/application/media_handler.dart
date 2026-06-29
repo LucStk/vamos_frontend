@@ -86,10 +86,13 @@ class MediaHandler {
     MediaOwnerType ownerType,
   ) async {
     final List<Failure> failureList = [];
-    for (PatchImageMedia patch in patchStore.getFor(id).values) {
+
+    // Snapshot de la map avant l'itération
+    final patches = List<PatchImageMedia>.from(patchStore.getFor(id).values);
+
+    for (PatchImageMedia patch in patches) {
       final uploadState = uploadStore.get(patch.fileKey);
       final resolvedFileKey = uploadState?.resolvedFileKey;
-
       if (uploadState?.status == UploadStatus.success &&
           resolvedFileKey != null) {
         final res = await repository.attachImage(
@@ -98,7 +101,7 @@ class MediaHandler {
           ownerType,
         );
         res.fold((failure) => failureList.add(failure), (image) {
-          patchStore.remove(id, patch.fileKey); // supprime avec la clé temp
+          patchStore.remove(id, patch.fileKey);
           mediaStore.upsert(id, image);
         });
       }
