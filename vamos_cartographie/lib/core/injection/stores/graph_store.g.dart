@@ -210,7 +210,7 @@ final class RawGraphStoreProvider
         argument: null,
         retry: null,
         name: r'rawGraphStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -237,7 +237,7 @@ final class RawGraphStoreProvider
   }
 }
 
-String _$rawGraphStoreHash() => r'36d466b744ecfa7a6e5a4f88f703c5e5b812b01d';
+String _$rawGraphStoreHash() => r'13118b4dbe9c2d62bafeefce044e92acb2f199cd';
 
 @ProviderFor(rawGraphPatchStore)
 final rawGraphPatchStoreProvider = RawGraphPatchStoreProvider._();
@@ -252,7 +252,7 @@ final class RawGraphPatchStoreProvider
         argument: null,
         retry: null,
         name: r'rawGraphPatchStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -280,7 +280,7 @@ final class RawGraphPatchStoreProvider
 }
 
 String _$rawGraphPatchStoreHash() =>
-    r'58895d5f3f8a29c095ff0fc5ac3f7393266e9b26';
+    r'228206a2a1fff4100f6c1bed3bf1ef8d809ba273';
 
 @ProviderFor(vertexStore)
 final vertexStoreProvider = VertexStoreProvider._();

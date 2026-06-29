@@ -50,8 +50,8 @@ class NotificationQueue extends _$NotificationQueue {
         duration: duration ?? const Duration(seconds: 3),
       ),
     );
-
-    _checkQueue();
+    // Diffère pour éviter la modification pendant le build
+    Future(_checkQueue);
   }
 
   void dismissCurrent() {
@@ -70,16 +70,17 @@ class NotificationQueue extends _$NotificationQueue {
     if (!ref.mounted) return;
     if (_isDisplaying) return;
     if (_queue.isEmpty) return;
-
     _isDisplaying = true;
-    state = _queue.removeFirst();
-
-    _dismissTimer?.cancel();
-    _dismissTimer = Timer(state!.duration, () {
+    final next = _queue.removeFirst();
+    // Diffère l'assignation du state
+    Future(() {
       if (!ref.mounted) return;
-      if (_isDisplaying) {
-        dismissCurrent();
-      }
+      state = next;
+      _dismissTimer?.cancel();
+      _dismissTimer = Timer(next.duration, () {
+        if (!ref.mounted) return;
+        if (_isDisplaying) dismissCurrent();
+      });
     });
   }
 

@@ -62,7 +62,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               MapTileLayer(),
               VertexLayer(tripId: widget.tripId),
               CursorLayer(tripId: widget.tripId),
-              SegmentLayer(tripId: widget.tripId),
+              // SegmentLayer(tripId: widget.tripId),
               MapControls(mapController: _mapController),
             ],
           ),

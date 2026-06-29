@@ -30,10 +30,10 @@ SegmentRepository segmentRepository(Ref ref) {
   return SegmentRepositoryImpl(ref.watch(segmentRemoteDatasourceProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 GraphStore rawGraphStore(Ref ref) => GraphStore();
 
-@riverpod
+@Riverpod(keepAlive: true)
 GraphPatchStore rawGraphPatchStore(Ref ref) => GraphPatchStore();
 
 @riverpod

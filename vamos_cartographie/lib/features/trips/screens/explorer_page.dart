@@ -3,12 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/core/injection/commands/trip_provider.dart';
 import '/core/injection/stores/trip_store.dart';
 import '/features/trips/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '/core/injection/commands/trip_provider.dart';
-import '/core/injection/stores/trip_store.dart';
-import '/features/trips/widgets/widgets.dart';
 
 class ExplorerPage extends ConsumerStatefulWidget {
   const ExplorerPage({super.key});

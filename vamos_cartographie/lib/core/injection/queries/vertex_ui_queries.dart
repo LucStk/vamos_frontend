@@ -14,8 +14,9 @@ List<VertexUiId> vertexUiIds(Ref ref) {
   final vertexPatchIds =
       ref.watch(vertexPatchStoreProvider).getIds() as List<Id>;
   final vertexIds = ref.watch(vertexStoreProvider).getIds() as List<Id>;
-  return vertexIds.toSet().union(vertexPatchIds.toSet()).toList()
-      as List<VertexUiId>;
+  return [];
+  // return vertexIds.toSet().union(vertexPatchIds.toSet()).toList()
+  //     as List<VertexUiId>;
 }
 
 @riverpod
