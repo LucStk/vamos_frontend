@@ -2,10 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/id.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/features/map_editor/reducers/root_reducer.dart';
-import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
 
-import 'package:vamos_cartographie/features/map_editor/intents/intents.dart';
+import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
 
 void main() {
   group('root_reducer (reduce)', () {

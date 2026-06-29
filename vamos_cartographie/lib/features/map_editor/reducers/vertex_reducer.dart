@@ -1,6 +1,7 @@
 import '/features/map_editor/intents/intents.dart';
-import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
 import 'package:vamos_cartographie/features/map_editor/application/transition_result.dart';
+
+import '/features/map_editor/domain/domain.dart';
 
 TransitionResult reduceVertex(MapMode state, MapIntents intent) {
   return switch (state) {

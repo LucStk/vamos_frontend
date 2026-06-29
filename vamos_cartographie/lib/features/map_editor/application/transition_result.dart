@@ -1,5 +1,4 @@
-import 'package:vamos_cartographie/features/map_ui/domain/effects/map_effect.dart';
-import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
+import '/features/map_editor/domain/domain.dart';
 
 class TransitionResult {
   final MapMode nextState;

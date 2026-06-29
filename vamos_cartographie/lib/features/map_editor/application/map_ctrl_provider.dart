@@ -1,9 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/features/map_ui/domain/state/map_state.dart';
-import 'package:vamos_cartographie/features/map_ui/domain/state/map_mode.dart';
-import 'package:vamos_cartographie/features/map_ui/domain/state/overlay_state.dart';
 import 'package:vamos_cartographie/features/map_editor/events/ui/ui_events.dart';
+
+import '/features/map_editor/domain/domain.dart';
 
 import 'package:vamos_cartographie/features/map_editor/intents/intents.dart';
 import 'package:domain_core/domain_core.dart';
