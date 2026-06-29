@@ -1,6 +1,6 @@
 // L'EffectRunner connaît le store, pas le reducer
+import 'package:map_application/map_application.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
 
 class EffectRunner {
   final TopologyHandler topologyHandler;
@@ -8,6 +8,8 @@ class EffectRunner {
 
   Future<void> run(MapEffect effect) async {
     switch (effect) {
+      case CreateSimpleVertex e:
+        await topologyHandler.createSimpleVertex(e.position);
       case MoveVertexEffect e:
         await topologyHandler.moveVertex(e.vertexId, e.newPosition);
     }

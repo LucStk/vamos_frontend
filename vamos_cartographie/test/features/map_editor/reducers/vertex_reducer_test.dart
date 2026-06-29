@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/id.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
 
 void main() {
   group('reduceVertex', () {

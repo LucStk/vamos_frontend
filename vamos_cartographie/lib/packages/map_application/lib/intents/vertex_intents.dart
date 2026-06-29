@@ -15,3 +15,13 @@ class EndDragVertex extends MapIntents {
 
   const EndDragVertex(this.vertexId, this.position);
 }
+
+class CreateSimpleVertex extends MapIntents {
+  final LatLng position;
+  const CreateSimpleVertex(this.position);
+}
+
+class CreateWaypointVertex extends MapIntents {
+  final LatLng position;
+  const CreateWaypointVertex(this.position);
+}

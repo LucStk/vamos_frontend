@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
+import 'package:map_application/events/ui_events.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_marker.dart';
 import 'package:vamos_cartographie/features/topology/vertex_ui.dart';

@@ -1,16 +1,10 @@
-import '/features/map_editor/intents/intents.dart';
-import 'package:vamos_cartographie/features/map_editor/application/transition_result.dart';
-import 'idle_reducer.dart';
-import 'vertex_reducer.dart';
-import 'segment_reducer.dart';
-import 'waypoint_reducer.dart';
-
-import '/features/map_editor/domain/domain.dart';
+import 'package:map_application/map_application.dart';
+import "cursor_reducer.dart";
 
 TransitionResult reduce(MapMode state, MapIntents intent) {
   return switch (state) {
     Idle() => reduceIdle(state, intent),
-    CursorDrawn() => TransitionResult(nextState: state),
+    CursorDrawn() => reduceCursor(state, intent),
 
     VertexSelected s => reduceVertex(s, intent),
     DraggingVertex s => reduceVertex(s, intent),

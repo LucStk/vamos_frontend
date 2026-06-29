@@ -34,6 +34,8 @@ dependencies:
     sdk: flutter
   media_application:
     path: lib/packages/media_application
+  map_application:
+    path: lib/packages/map_application
 
   domain_core:
     path: lib/packages/domain_core

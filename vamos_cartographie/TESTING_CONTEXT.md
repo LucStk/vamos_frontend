@@ -28,7 +28,7 @@ Contiennent la logique métier pure, indépendante de Flutter :
 lib/
 ├── backend/          # Couche réseau : client Ferry (GraphQL) + requêtes générées
 ├── core/             # Config, injection (Riverpod), stores observables, providers
-├── features/         # UI par feature (map_ui, map_editor, trips, waypoint, carousel)
+├── features/         # UI par feature (map_ui, map_application, trips, waypoint, carousel)
 ├── infrastructure/   # Implémentations des repositories (datasources, mappers)
 └── packages/         # Packages internes (voir ci-dessus)
 ```
@@ -87,7 +87,7 @@ setUpAll(() {
 - Handlers et commands dans `packages/*/lib/application/commands/`
 - Stores runtime dans `packages/*/lib/runtime/`
 - Mappers dans `lib/infrastructure/*/mappers/`
-- Reducers dans `lib/features/map_editor/reducers/`
+- Reducers dans `lib/features/map_application/reducers/`
 
 ### Template
 
@@ -143,7 +143,7 @@ void main() {
 - Les entités utilisent `freezed` : tester `copyWith`, l'égalité structurelle (`==`), et `hashCode`.
 - `OptimisticExecutor` dans `domain_core` : tester la cohérence optimiste (rollback en cas d'erreur).
 - `ObservableCollectionStore` : tester que les listeners sont bien notifiés après mutation.
-- Reducers (`map_editor/reducers/`) : tester chaque transition d'état (event → nouveau state).
+- Reducers (`map_application/reducers/`) : tester chaque transition d'état (event → nouveau state).
 
 ---
 

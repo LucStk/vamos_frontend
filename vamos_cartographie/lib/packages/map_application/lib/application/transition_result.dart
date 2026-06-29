@@ -1,4 +1,4 @@
-import '/features/map_editor/domain/domain.dart';
+import '/domain/domain.dart';
 
 class TransitionResult {
   final MapMode nextState;

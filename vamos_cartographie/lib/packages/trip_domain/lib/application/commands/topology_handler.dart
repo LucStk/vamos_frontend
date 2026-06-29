@@ -33,6 +33,10 @@ class TopologyHandler {
     );
   }
 
+  Future<void> createSimpleVertex(LatLng latLng) async {
+    throw Exception("Create Simple Vertex not implemented yet");
+  }
+
   Future<void> moveVertex(Id id, LatLng latLng) async {
     throw Exception("Move vertex not implemented yet");
   }

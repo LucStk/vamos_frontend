@@ -1,14 +1,11 @@
+import 'package:map_application/application/effect_runner.dart';
+import 'package:map_application/application/translator/root_translator.dart';
+import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/commands/topology_provider.dart';
-import 'package:vamos_cartographie/features/map_editor/application/effect_runner.dart';
-import 'package:vamos_cartographie/features/map_editor/application/reducers/root_reducer.dart';
 
-import 'package:vamos_cartographie/features/map_editor/intents/intents.dart';
-import 'package:vamos_cartographie/features/map_editor/events/ui_events.dart';
-import '/features/map_editor/domain/domain.dart';
-import "translator/root_translator.dart";
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/core/injection/commands/topology_provider.dart';
 part 'map_ctrl_provider.g.dart';
 
 @riverpod

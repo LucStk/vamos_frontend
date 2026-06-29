@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/buttons/button_abstract.dart';
-
-import 'package:vamos_cartographie/features/map_editor/map_editor.dart';
 
 class StartSegmentButton extends AbstractMapButton {
   final Id<Vertex> vertexId;
