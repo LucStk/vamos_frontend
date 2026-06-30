@@ -33,15 +33,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   media_application:
-    path: lib/packages/media_application
+    path: packages/media_application
   map_application:
-    path: lib/packages/map_application
-
+    path: packages/map_application
   domain_core:
-    path: lib/packages/domain_core
-
+    path: packages/domain_core
   trip_domain:
-    path: lib/packages/trip_domain
+    path: packages/trip_domain
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8

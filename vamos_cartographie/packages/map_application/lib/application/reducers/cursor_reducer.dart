@@ -10,7 +10,6 @@ TransitionResult reduceCursor(MapMode state, MapIntents intent) {
       nextState: MapMode.cursorDrawn(latLng: e.latLng),
     ),
     CreateSimpleVertex _ => TransitionResult(nextState: MapMode.idle()),
-
     _ => TransitionResult(nextState: state),
   };
 }
