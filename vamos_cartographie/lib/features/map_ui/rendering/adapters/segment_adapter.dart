@@ -3,14 +3,14 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/segment_ui_queries.dart';
 
 Polyline toPolyline(
   WidgetRef ref,
   SegmentRef segmentRef,
   Id<Trip> tripId,
-  MapCtrl ctrl,
+  MapStateNotifier mapStateNotifier,
 ) {
   final segment = ref.watch(segmentUiProvider(segmentRef));
   if (segment == null) {

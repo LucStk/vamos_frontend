@@ -12,7 +12,7 @@ part of 'map_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MapState implements DiagnosticableTreeMixin {
+mixin _$MapState {
 
  MapMode get mode; MapOverlayState get overlay;
 /// Create a copy of MapState
@@ -22,12 +22,6 @@ mixin _$MapState implements DiagnosticableTreeMixin {
 $MapStateCopyWith<MapState> get copyWith => _$MapStateCopyWithImpl<MapState>(this as MapState, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'MapState'))
-    ..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('overlay', overlay));
-}
 
 @override
 bool operator ==(Object other) {
@@ -39,7 +33,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,mode,overlay);
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+String toString() {
   return 'MapState(mode: $mode, overlay: $overlay)';
 }
 
@@ -230,12 +224,12 @@ return $default(_that.mode,_that.overlay);case _:
 /// @nodoc
 
 
-class _MapState with DiagnosticableTreeMixin implements MapState {
-  const _MapState({required this.mode, required this.overlay});
+class _MapState implements MapState {
+  const _MapState({this.mode = const Idle(), this.overlay = const MapOverlayState.hidden()});
   
 
-@override final  MapMode mode;
-@override final  MapOverlayState overlay;
+@override@JsonKey() final  MapMode mode;
+@override@JsonKey() final  MapOverlayState overlay;
 
 /// Create a copy of MapState
 /// with the given fields replaced by the non-null parameter values.
@@ -244,12 +238,6 @@ class _MapState with DiagnosticableTreeMixin implements MapState {
 _$MapStateCopyWith<_MapState> get copyWith => __$MapStateCopyWithImpl<_MapState>(this, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'MapState'))
-    ..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('overlay', overlay));
-}
 
 @override
 bool operator ==(Object other) {
@@ -261,7 +249,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,mode,overlay);
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+String toString() {
   return 'MapState(mode: $mode, overlay: $overlay)';
 }
 

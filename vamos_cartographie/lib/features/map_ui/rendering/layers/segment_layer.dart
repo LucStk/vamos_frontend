@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/events/ui_events.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/queries/segment_ui_queries.dart';
+import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/segment/segment_ui_element.dart';
 import '/features/map_ui/rendering/adapters/marker_adapter.dart';
 import '/features/map_ui/rendering/adapters/segment_adapter.dart';
@@ -32,8 +31,8 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
   void _onHoverChanged() {
     // ref est accessible partout dans le State d'un ConsumerStatefulWidget
     ref
-        .read(mapCtrlProvider(widget.tripId).notifier)
-        .onUiEvent(HoverSegments(_polylineHitNotifier.value?.hitValues));
+        .read(mapStateProvider(widget.tripId).notifier)
+        .sendUiEvent(HoverSegments(_polylineHitNotifier.value?.hitValues));
   }
 
   @override
@@ -46,18 +45,18 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
   @override
   Widget build(BuildContext context) {
     final segments = ref.watch(segmentRefsProvider);
-    final mapCtrl = ref.read(mapCtrlProvider(widget.tripId).notifier);
+    final mapState = ref.read(mapStateProvider(widget.tripId).notifier);
 
     final polylines =
         segments
-                .map((id) => toPolyline(ref, id, widget.tripId, mapCtrl))
+                .map((id) => toPolyline(ref, id, widget.tripId, mapState))
                 .toList()
             as List<Polyline<SegmentRef>>;
     // On en profite pour construire les markers mobility sur les segments
     final segMarkers = segments.map((entry) {
       final res = ref.read(segmentUiProvider(entry));
       final segment = SegmentUiElement(widget.tripId, res!);
-      return toMarker(segment, widget.tripId, mapCtrl);
+      return toMarker(segment, widget.tripId, mapState);
     }).toList();
 
     return Stack(

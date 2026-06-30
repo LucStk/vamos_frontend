@@ -6,11 +6,11 @@ class PutCursor extends MapIntents {
 }
 
 class OpenWaypointDialog extends MapIntents {
-  final int waypointId;
+  final WaypointId waypointId;
   const OpenWaypointDialog(this.waypointId);
 }
 
 class OpenWaypointEditor extends MapIntents {
-  final int waypointId;
+  final WaypointId waypointId;
   const OpenWaypointEditor(this.waypointId);
 }

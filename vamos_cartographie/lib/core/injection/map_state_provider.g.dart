@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'map_ctrl_provider.dart';
+part of 'map_state_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,34 +9,35 @@ part of 'map_ctrl_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(MapCtrl)
-final mapCtrlProvider = MapCtrlFamily._();
+@ProviderFor(MapStateNotifier)
+final mapStateProvider = MapStateNotifierFamily._();
 
-final class MapCtrlProvider extends $NotifierProvider<MapCtrl, MapState> {
-  MapCtrlProvider._({
-    required MapCtrlFamily super.from,
-    required Id<Trip> super.argument,
+final class MapStateNotifierProvider
+    extends $NotifierProvider<MapStateNotifier, MapState> {
+  MapStateNotifierProvider._({
+    required MapStateNotifierFamily super.from,
+    required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'mapCtrlProvider',
+         name: r'mapStateProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$mapCtrlHash();
+  String debugGetCreateSourceHash() => _$mapStateNotifierHash();
 
   @override
   String toString() {
-    return r'mapCtrlProvider'
+    return r'mapStateProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  MapCtrl create() => MapCtrl();
+  MapStateNotifier create() => MapStateNotifier();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(MapState value) {
@@ -48,7 +49,7 @@ final class MapCtrlProvider extends $NotifierProvider<MapCtrl, MapState> {
 
   @override
   bool operator ==(Object other) {
-    return other is MapCtrlProvider && other.argument == argument;
+    return other is MapStateNotifierProvider && other.argument == argument;
   }
 
   @override
@@ -57,31 +58,38 @@ final class MapCtrlProvider extends $NotifierProvider<MapCtrl, MapState> {
   }
 }
 
-String _$mapCtrlHash() => r'b7957c5b095f90eddde6686a4099965d01589ed4';
+String _$mapStateNotifierHash() => r'5d8c8ecdaf6f787eb2f6017704e60345a0105b22';
 
-final class MapCtrlFamily extends $Family
-    with $ClassFamilyOverride<MapCtrl, MapState, MapState, MapState, Id<Trip>> {
-  MapCtrlFamily._()
+final class MapStateNotifierFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          MapStateNotifier,
+          MapState,
+          MapState,
+          MapState,
+          TripId
+        > {
+  MapStateNotifierFamily._()
     : super(
         retry: null,
-        name: r'mapCtrlProvider',
+        name: r'mapStateProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  MapCtrlProvider call(Id<Trip> tripId) =>
-      MapCtrlProvider._(argument: tripId, from: this);
+  MapStateNotifierProvider call(TripId tripId) =>
+      MapStateNotifierProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'mapCtrlProvider';
+  String toString() => r'mapStateProvider';
 }
 
-abstract class _$MapCtrl extends $Notifier<MapState> {
-  late final _$args = ref.$arg as Id<Trip>;
-  Id<Trip> get tripId => _$args;
+abstract class _$MapStateNotifier extends $Notifier<MapState> {
+  late final _$args = ref.$arg as TripId;
+  TripId get tripId => _$args;
 
-  MapState build(Id<Trip> tripId);
+  MapState build(TripId tripId);
   @$mustCallSuper
   @override
   void runBuild() {

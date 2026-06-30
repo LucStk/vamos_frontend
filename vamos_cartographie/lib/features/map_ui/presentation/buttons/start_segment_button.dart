@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
-import 'package:vamos_cartographie/features/map_ui/presentation/buttons/button_abstract.dart';
 
-class StartSegmentButton extends AbstractMapButton {
+class StartSegmentButton extends ConsumerWidget {
   final Id<Vertex> vertexId;
+  final TripId tripId;
   const StartSegmentButton({
     super.key,
-    required super.tripId,
+    required this.tripId,
     required this.vertexId,
   });
 
   @override
-  Widget buildWithCtrl(BuildContext context, WidgetRef ref, MapCtrl mapCtrl) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       onPressed:
           () {}, //TODO => mapCtrl.dispatch(OpenEditWaypointDialog(waypointId)),

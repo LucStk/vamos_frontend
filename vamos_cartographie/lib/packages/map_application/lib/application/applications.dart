@@ -2,3 +2,4 @@
 export "poly_editor_service.dart";
 export "transition_result.dart";
 export "reducers/reducers.dart";
+export "map_handler.dart";

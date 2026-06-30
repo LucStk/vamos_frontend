@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'overlay_state.dart';
 
@@ -9,7 +8,7 @@ part "map_state.freezed.dart";
 @freezed
 abstract class MapState with _$MapState {
   const factory MapState({
-    required MapMode mode,
-    required MapOverlayState overlay,
+    @Default(Idle()) MapMode mode,
+    @Default(MapOverlayState.hidden()) MapOverlayState overlay,
   }) = _MapState;
 }

@@ -6,7 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/events/ui_events.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/layers/cursor_layer.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/layers/vertex_layer.dart';
@@ -42,7 +42,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ctrl = ref.watch(mapCtrlProvider(widget.tripId).notifier);
+    final mapState = ref.watch(mapStateProvider(widget.tripId).notifier);
     return Scaffold(
       body: Stack(
         children: [
@@ -52,7 +52,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             options: MapOptions(
               initialCenter: const LatLng(46.8, 2.2),
               initialZoom: 7,
-              onTap: (_, latLng) => ctrl.onUiEvent(MapTapped(latLng)),
+              onTap: (_, latLng) => mapState.sendUiEvent(MapTapped(latLng)),
               interactionOptions: const InteractionOptions(
                 flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
               ),

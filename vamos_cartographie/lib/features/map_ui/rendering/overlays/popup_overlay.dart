@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class PopUpOverlay extends ConsumerWidget {
   const PopUpOverlay({
@@ -18,7 +18,7 @@ class PopUpOverlay extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final MapState mapCtrl = ref.watch(mapCtrlProvider(tripId));
+    final MapState mapCtrl = ref.watch(mapStateProvider(tripId));
 
     switch (mapCtrl.overlay) {
       case OverlayHidden():
