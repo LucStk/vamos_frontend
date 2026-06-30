@@ -1,5 +1,5 @@
-import 'package:domain_core/media.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:media_application/domain/domain.dart';
 part "media_image.freezed.dart";
 
 @freezed

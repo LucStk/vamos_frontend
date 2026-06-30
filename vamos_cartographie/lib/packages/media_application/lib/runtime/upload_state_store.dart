@@ -1,5 +1,4 @@
-import 'package:domain_core/domain_core.dart';
-import 'package:media_application/domain/entities/upload_state.dart';
+import 'package:media_application/domain/domain.dart';
 
 class UploadStateStore {
   final Map<FileKey, UploadState> store = {};

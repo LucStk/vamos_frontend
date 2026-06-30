@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:domain_core/media.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:media_application/domain/types/media_types.dart';
 part 'patch_image.freezed.dart';
 
 @freezed

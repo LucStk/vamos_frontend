@@ -66,7 +66,7 @@ final class WaypointUiProvider
   }
 }
 
-String _$waypointUiHash() => r'6696cf18ed77326e4ef29c805df20409184b3be6';
+String _$waypointUiHash() => r'da5d3b73818d13109ebb4be9368d8fb3c21a19e0';
 
 final class WaypointUiFamily extends $Family
     with $FunctionalFamilyOverride<WaypointUi?, WaypointId> {

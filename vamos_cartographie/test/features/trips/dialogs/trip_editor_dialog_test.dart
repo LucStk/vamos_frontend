@@ -1,9 +1,8 @@
-import 'package:domain_core/media.dart';
 import 'package:flutter/material.dart';
-import 'package:media_application/domain/entities/image_ui_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trip_domain/trip_domain.dart';
 
+import 'package:media_application/media_application.dart';
 import 'package:vamos_cartographie/features/trips/widgets/widgets.dart';
 
 import '../helpers/trip_test_helpers.dart';

@@ -1,7 +1,6 @@
 import 'package:domain_core/id.dart';
 import 'package:media_application/media_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_domain/runtime/store/media_store.dart';
 import '/core/injection/stores/media_store.dart';
 part 'media_ui_queries.g.dart';
 

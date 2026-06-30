@@ -1,4 +1,5 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
+import 'package:media_application/domain/entities/media_image.dart';
 import 'package:vamos_cartographie/backend/graphql/graphql.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';

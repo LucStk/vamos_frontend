@@ -1,7 +1,6 @@
-import 'package:domain_core/media.dart';
-
 import '/domain/value_objects/upload_status.dart';
 
+import 'package:media_application/domain/types/media_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'upload_state.freezed.dart';
 

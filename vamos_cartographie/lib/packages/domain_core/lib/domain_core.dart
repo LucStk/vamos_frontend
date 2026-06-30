@@ -1,7 +1,6 @@
 export 'id.dart';
 export 'has_id.dart';
 export 'failure.dart';
-export "media.dart";
 export "observable.dart";
 export "collection_store.dart";
 export "observable_collection_store.dart";

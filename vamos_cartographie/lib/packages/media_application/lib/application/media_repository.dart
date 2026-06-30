@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
 import 'package:domain_core/id.dart';
-import 'package:domain_core/media.dart';
+import 'package:media_application/domain/entities/media_image.dart';
+import 'package:media_application/domain/value_objects/media_owner_ext.dart';
 import 'package:media_application/media_application.dart';
-import 'package:trip_domain/domain/domain.dart';
 
 import 'dart:io';
 

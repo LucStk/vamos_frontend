@@ -1,7 +1,6 @@
 import 'package:domain_core/id.dart';
-import 'package:domain_core/media.dart';
 import 'package:domain_core/observable.dart';
-import 'package:media_application/domain/entities/patch_image.dart';
+import 'package:media_application/domain/domain.dart';
 import 'package:media_application/runtime/media_patch_store.dart';
 
 class ObservableMediaPatchStore extends MediaPatchStore with Observable {

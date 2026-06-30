@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
+import 'package:media_application/domain/entities/media_image.dart';
+import 'package:media_application/domain/value_objects/media_owner_ext.dart';
 import 'package:media_application/media_application.dart';
+import 'package:media_application/runtime/observables/observable_media_store.dart';
 
-import 'package:trip_domain/trip_domain.dart';
 import "package:uuid/uuid.dart";
 
 PatchImageMedia generatePatchImage(File file) {

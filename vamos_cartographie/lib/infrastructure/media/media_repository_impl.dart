@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:trip_domain/domain/entities/media_image.dart';
+import 'package:media_application/domain/entities/media_image.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:media_application/domain/value_objects/media_owner_ext.dart';
 import 'package:vamos_cartographie/infrastructure/media/mappers/media_image_mappers.dart';
 import 'package:vamos_cartographie/infrastructure/media/storage_datasource.dart';
 import "media_remote_datasource.dart";

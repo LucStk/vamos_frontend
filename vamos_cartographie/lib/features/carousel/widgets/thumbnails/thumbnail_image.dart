@@ -4,8 +4,6 @@ import 'thumbnail_error.dart';
 import 'thumbnail_loading.dart';
 import "package:media_application/media_application.dart";
 
-import 'package:domain_core/media.dart';
-
 class ThumbnailImage extends StatelessWidget {
   final ImageUiModel item;
   final VoidCallback? onRetry;

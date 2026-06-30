@@ -1,7 +1,7 @@
-import 'package:domain_core/media.dart';
 import 'package:domain_core/observable.dart';
-import '/domain/entities/upload_state.dart';
 import '/runtime/upload_state_store.dart';
+
+import 'package:media_application/domain/domain.dart';
 
 class ObservableUploadStateStore extends UploadStateStore with Observable {
   @override
