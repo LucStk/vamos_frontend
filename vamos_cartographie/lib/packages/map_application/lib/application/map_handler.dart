@@ -41,8 +41,4 @@ class MapHandler {
 
     return newState;
   }
-
-  // Fonctions pures inchangées...
-  // List<MapIntents> translate(MapUiEvent event, MapState currentState) { ... }
-  // TransitionResult reduce(MapMode currentMode, MapIntents intent) { ... }
 }

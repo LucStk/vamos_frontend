@@ -23,12 +23,12 @@ class PopUpOverlay extends ConsumerWidget {
     switch (mapCtrl.overlay) {
       case OverlayHidden():
         return const SizedBox.shrink();
-      case OverlayPopup popup:
+      case OverlayPopup overlayPopup:
         return StreamBuilder(
           stream: mapController.mapEventStream,
           builder: (context, snapshot) {
             final point = mapController.camera.latLngToScreenOffset(
-              popup.element.latLng,
+              overlayPopup.popUpState.latLng,
             );
 
             return Stack(

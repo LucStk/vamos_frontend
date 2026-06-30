@@ -119,11 +119,11 @@ return popup(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  hidden,TResult Function( MarkerUiElement element)?  popup,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  hidden,TResult Function( PopUpState popUpState)?  popup,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden();case OverlayPopup() when popup != null:
-return popup(_that.element);case _:
+return popup(_that.popUpState);case _:
   return orElse();
 
 }
@@ -141,11 +141,11 @@ return popup(_that.element);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  hidden,required TResult Function( MarkerUiElement element)  popup,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  hidden,required TResult Function( PopUpState popUpState)  popup,}) {final _that = this;
 switch (_that) {
 case OverlayHidden():
 return hidden();case OverlayPopup():
-return popup(_that.element);}
+return popup(_that.popUpState);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -159,11 +159,11 @@ return popup(_that.element);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  hidden,TResult? Function( MarkerUiElement element)?  popup,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  hidden,TResult? Function( PopUpState popUpState)?  popup,}) {final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden();case OverlayPopup() when popup != null:
-return popup(_that.element);case _:
+return popup(_that.popUpState);case _:
   return null;
 
 }
@@ -207,10 +207,10 @@ String toString() {
 
 
 class OverlayPopup implements MapOverlayState {
-  const OverlayPopup({required this.element});
+  const OverlayPopup({required this.popUpState});
   
 
- final  MarkerUiElement element;
+ final  PopUpState popUpState;
 
 /// Create a copy of MapOverlayState
 /// with the given fields replaced by the non-null parameter values.
@@ -222,16 +222,16 @@ $OverlayPopupCopyWith<OverlayPopup> get copyWith => _$OverlayPopupCopyWithImpl<O
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OverlayPopup&&(identical(other.element, element) || other.element == element));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OverlayPopup&&(identical(other.popUpState, popUpState) || other.popUpState == popUpState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,element);
+int get hashCode => Object.hash(runtimeType,popUpState);
 
 @override
 String toString() {
-  return 'MapOverlayState.popup(element: $element)';
+  return 'MapOverlayState.popup(popUpState: $popUpState)';
 }
 
 
@@ -242,11 +242,11 @@ abstract mixin class $OverlayPopupCopyWith<$Res> implements $MapOverlayStateCopy
   factory $OverlayPopupCopyWith(OverlayPopup value, $Res Function(OverlayPopup) _then) = _$OverlayPopupCopyWithImpl;
 @useResult
 $Res call({
- MarkerUiElement element
+ PopUpState popUpState
 });
 
 
-
+$PopUpStateCopyWith<$Res> get popUpState;
 
 }
 /// @nodoc
@@ -259,14 +259,23 @@ class _$OverlayPopupCopyWithImpl<$Res>
 
 /// Create a copy of MapOverlayState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? element = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? popUpState = null,}) {
   return _then(OverlayPopup(
-element: null == element ? _self.element : element // ignore: cast_nullable_to_non_nullable
-as MarkerUiElement,
+popUpState: null == popUpState ? _self.popUpState : popUpState // ignore: cast_nullable_to_non_nullable
+as PopUpState,
   ));
 }
 
-
+/// Create a copy of MapOverlayState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PopUpStateCopyWith<$Res> get popUpState {
+  
+  return $PopUpStateCopyWith<$Res>(_self.popUpState, (value) {
+    return _then(_self.copyWith(popUpState: value));
+  });
+}
 }
 
 // dart format on
