@@ -5,7 +5,7 @@ import "package:trip_domain/application/repositories/vertex_repository.dart";
 import "package:trip_domain/domain/entities/entities.dart";
 import "package:trip_domain/runtime/runtime.dart";
 import "package:vamos_cartographie/core/core.dart";
-import "package:vamos_cartographie/core/injection/services//add_listener_to_observable.dart";
+import "package:vamos_cartographie/core/injection/services/add_listener_to_observable.dart";
 import "package:vamos_cartographie/infrastructure/topology/data.dart";
 part "graph_store.g.dart";
 

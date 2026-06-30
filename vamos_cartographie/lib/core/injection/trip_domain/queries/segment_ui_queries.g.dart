@@ -59,8 +59,9 @@ String _$segmentRefsHash() => r'ae09ecff86d16b2c192f24f3b6e15b67e9fbdc93';
 final segmentUiProvider = SegmentUiFamily._();
 
 final class SegmentUiProvider
-    extends $FunctionalProvider<SegmentUi?, SegmentUi?, SegmentUi?>
-    with $Provider<SegmentUi?> {
+    extends
+        $FunctionalProvider<SegmentUiModel?, SegmentUiModel?, SegmentUiModel?>
+    with $Provider<SegmentUiModel?> {
   SegmentUiProvider._({
     required SegmentUiFamily super.from,
     required SegmentRef super.argument,
@@ -84,20 +85,20 @@ final class SegmentUiProvider
 
   @$internal
   @override
-  $ProviderElement<SegmentUi?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<SegmentUiModel?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  SegmentUi? create(Ref ref) {
+  SegmentUiModel? create(Ref ref) {
     final argument = this.argument as SegmentRef;
     return segmentUi(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SegmentUi? value) {
+  Override overrideWithValue(SegmentUiModel? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SegmentUi?>(value),
+      providerOverride: $SyncValueProvider<SegmentUiModel?>(value),
     );
   }
 
@@ -112,10 +113,10 @@ final class SegmentUiProvider
   }
 }
 
-String _$segmentUiHash() => r'b9b33b00a3dac91fe934c54013845873f8162f57';
+String _$segmentUiHash() => r'aa424905b7c3547cd1f15482596aa1418f25c90c';
 
 final class SegmentUiFamily extends $Family
-    with $FunctionalFamilyOverride<SegmentUi?, SegmentRef> {
+    with $FunctionalFamilyOverride<SegmentUiModel?, SegmentRef> {
   SegmentUiFamily._()
     : super(
         retry: null,

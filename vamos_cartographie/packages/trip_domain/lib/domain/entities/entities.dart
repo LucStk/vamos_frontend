@@ -1,6 +1,4 @@
-export 'segment.dart';
 export 'trip.dart';
-export 'vertex.dart';
+export 'vertex/vertex.dart';
 export 'waypoint.dart';
-export "segment_patch.dart";
-export "vertex_patch.dart";
+export "segment/segment.dart";

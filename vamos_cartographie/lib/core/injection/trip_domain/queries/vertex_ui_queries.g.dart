@@ -55,8 +55,8 @@ String _$vertexRefsHash() => r'a70b347e7906adfbf2a859b8ab5531c949cc1e81';
 final vertexUiProvider = VertexUiFamily._();
 
 final class VertexUiProvider
-    extends $FunctionalProvider<VertexUi?, VertexUi?, VertexUi?>
-    with $Provider<VertexUi?> {
+    extends $FunctionalProvider<VertexUiModel?, VertexUiModel?, VertexUiModel?>
+    with $Provider<VertexUiModel?> {
   VertexUiProvider._({
     required VertexUiFamily super.from,
     required VertexRef super.argument,
@@ -80,20 +80,20 @@ final class VertexUiProvider
 
   @$internal
   @override
-  $ProviderElement<VertexUi?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<VertexUiModel?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  VertexUi? create(Ref ref) {
+  VertexUiModel? create(Ref ref) {
     final argument = this.argument as VertexRef;
     return vertexUi(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(VertexUi? value) {
+  Override overrideWithValue(VertexUiModel? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<VertexUi?>(value),
+      providerOverride: $SyncValueProvider<VertexUiModel?>(value),
     );
   }
 
@@ -108,10 +108,10 @@ final class VertexUiProvider
   }
 }
 
-String _$vertexUiHash() => r'506334a4ea366a7112515de407901cc32a8ed45c';
+String _$vertexUiHash() => r'84627b39206876656a2ed307c6c030425fafb189';
 
 final class VertexUiFamily extends $Family
-    with $FunctionalFamilyOverride<VertexUi?, VertexRef> {
+    with $FunctionalFamilyOverride<VertexUiModel?, VertexRef> {
   VertexUiFamily._()
     : super(
         retry: null,

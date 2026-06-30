@@ -4,7 +4,6 @@ import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/graph_queries.dart';
 
-import 'package:vamos_cartographie/features/topology/domain/segment_ui.dart';
 part 'segment_ui_queries.g.dart';
 
 @riverpod
@@ -18,7 +17,7 @@ List<SegmentRef> segmentRefs(Ref ref) {
 }
 
 @riverpod
-SegmentUi? segmentUi(Ref ref, SegmentRef id) {
+SegmentUiModel? segmentUi(Ref ref, SegmentRef id) {
   final SegmentPatch? segPatch = ref.watch(
     segmentPatchProvider(id as SegmentPatchId),
   );

@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/entities/vertex.dart';
+import 'package:trip_domain/domain/entities/vertex/vertex.dart';
 import 'package:trip_domain/domain/value_objects/mobility_types.dart';
 
-part 'segment.freezed.dart';
+part 'segment_model.freezed.dart';
 
 @freezed
 abstract class Segment with _$Segment implements HasId {

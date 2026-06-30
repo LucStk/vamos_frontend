@@ -1,20 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/events/ui_events.dart';
+import 'package:trip_domain/domain/entities/vertex/vertex_ui_model.dart';
 import 'package:trip_domain/domain/types/vertex_ref.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_marker.dart';
-import 'package:vamos_cartographie/features/topology/domain/vertex_ui.dart';
+import 'package:vamos_cartographie/features/topology/presentation/adapters/mobility_type_display.dart';
 
-class VertexUiElement extends DragMarkerUiElement {
-  final VertexUi vertex;
-
-  const VertexUiElement(super.trip, this.vertex);
-
-  VertexRef get id => vertex.id;
-
+extension VertexUiDisplay with Marker on VertexUiModel {
   @override
-  LatLng get latLng => vertex.position;
+  LatLng get latLng => position;
 
   @override
   Widget buildMarker({bool isDragging = false}) =>

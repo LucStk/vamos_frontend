@@ -4,7 +4,6 @@ import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/graph_queries.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/trip_domain_queries.dart';
-import 'package:vamos_cartographie/features/topology/domain/vertex_ui.dart';
 part 'vertex_ui_queries.g.dart';
 
 @riverpod
@@ -24,7 +23,7 @@ List<VertexRef> vertexRefs(Ref ref) {
 }
 
 @riverpod
-VertexUi? vertexUi(Ref ref, VertexRef id) {
+VertexUiModel? vertexUi(Ref ref, VertexRef id) {
   final VertexPatch? vPatch = ref.watch(
     vertexPatchProvider(id as VertexPatchId),
   );

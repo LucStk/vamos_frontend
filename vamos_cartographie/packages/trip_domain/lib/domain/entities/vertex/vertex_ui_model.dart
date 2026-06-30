@@ -1,32 +1,29 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_domain/domain/domain.dart';
-part "vertex_ui.freezed.dart";
+part "vertex_ui_model.freezed.dart";
 
 @freezed
-abstract class VertexUi with _$VertexUi {
-  const factory VertexUi({
+abstract class VertexUiModel with _$VertexUiModel {
+  const factory VertexUiModel({
     required VertexRef id,
     required LatLng position,
-    required bool isOptimistic,
     required PoiCategory? poiCategory,
-  }) = _VertexUi;
+  }) = _VertexUiModel;
 }
 
 extension ToVertexUi on Vertex {
-  VertexUi toUiModel(PoiCategory? poiCategory) => VertexUi(
+  VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
     id: ConfirmedVertexRef(id),
     position: latLng,
-    isOptimistic: false,
     poiCategory: poiCategory,
   );
 }
 
 extension ToVertexPatchUi on VertexPatch {
-  VertexUi toUiModel(PoiCategory? poiCategory) => VertexUi(
+  VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
     id: PendingVertexRef(id),
     position: positionOverride,
-    isOptimistic: true,
     poiCategory: poiCategory,
   );
 }

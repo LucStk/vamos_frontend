@@ -1,31 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/events/ui_events.dart';
+import 'package:trip_domain/domain/entities/segment/segment_ui_model.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/cursor/cursor_marker.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/marker_ui_element.dart';
-import 'package:vamos_cartographie/features/topology/domain/segment_ui.dart';
+import 'package:vamos_cartographie/features/topology/presentation/adapters/mobility_type_display.dart';
 
-class SegmentUiElement extends MarkerUiElement {
-  final SegmentUi segmentUi;
+class SegmentUiDisplay  {
+  final SegmentUiModel segmentUiModel;
 
-  const SegmentUiElement(super.tripId, this.segmentUi);
+  const SegmentUiDisplay(super.tripId, this.segmentUiModel);
+
+  MobilityTypeDisplay get mobilityType =>
+      MobilityTypeDisplay.from(segmentUiModel.mobilityType);
 
   @override
   LatLng get latLng {
     // Compute center of segment geometry
-    if (segmentUi.geometry.isEmpty) {
+    if (segmentUiModel.geometry.isEmpty) {
       return const LatLng(0, 0);
     }
-    final minLat = segmentUi.geometry
+    final minLat = segmentUiModel.geometry
         .map((p) => p.latitude)
         .reduce((a, b) => a < b ? a : b);
-    final maxLat = segmentUi.geometry
+    final maxLat = segmentUiModel.geometry
         .map((p) => p.latitude)
         .reduce((a, b) => a > b ? a : b);
-    final minLng = segmentUi.geometry
+    final minLng = segmentUiModel.geometry
         .map((p) => p.longitude)
         .reduce((a, b) => a < b ? a : b);
-    final maxLng = segmentUi.geometry
+    final maxLng = segmentUiModel.geometry
         .map((p) => p.longitude)
         .reduce((a, b) => a > b ? a : b);
     return LatLng((minLat + maxLat) / 2, (minLng + maxLng) / 2);
@@ -36,9 +40,9 @@ class SegmentUiElement extends MarkerUiElement {
       CursorMarker(isDragging: isDragging);
 
   @override
-  MapUiEvent tapEvent() => SegmentMobilityMarkerTapped(segmentUi.id);
+  MapUiEvent tapEvent() => SegmentMobilityMarkerTapped(segmentUiModel.id);
 
   @override
   MapUiEvent doubleTapEvent() =>
-      SegmentMobilityMarkerDoubleTapped(segmentUi.id);
+      SegmentMobilityMarkerDoubleTapped(segmentUiModel.id);
 }
