@@ -1,5 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:map_application/domain/state/popup_state.dart";
+import "popup_state.dart";
 part "overlay_state.freezed.dart";
 
 @freezed

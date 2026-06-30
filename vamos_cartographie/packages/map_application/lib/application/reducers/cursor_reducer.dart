@@ -1,3 +1,5 @@
+import 'package:map_application/effects/map_effect.dart';
+
 import '/intents/intents.dart';
 import '/application/transition_result.dart';
 
@@ -9,7 +11,10 @@ TransitionResult reduceCursor(MapMode state, MapIntents intent) {
     PutCursor e => TransitionResult(
       nextState: MapMode.cursorDrawn(latLng: e.latLng),
     ),
-    CreateSimpleVertex _ => TransitionResult(nextState: MapMode.idle()),
+    CreateSimpleVertex e => TransitionResult(
+      nextState: MapMode.idle(),
+      effects: [CreateSimpleVertexEffect(position: e.position)],
+    ),
     _ => TransitionResult(nextState: state),
   };
 }

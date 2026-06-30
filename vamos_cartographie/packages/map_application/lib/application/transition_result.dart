@@ -1,3 +1,5 @@
+import '/effects/map_effect.dart';
+
 import '/domain/domain.dart';
 
 class TransitionResult {
