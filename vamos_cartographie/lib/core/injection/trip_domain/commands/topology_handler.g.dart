@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'topology_provider.dart';
+part of 'topology_handler.dart';
 
 // **************************************************************************
 // RiverpodGenerator

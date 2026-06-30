@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '/core/injection/commands/trip_provider.dart';
-import '/core/injection/stores/trip_store.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/commands/trip_handler.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/providers/trip_store.dart';
 import '/features/trips/widgets/widgets.dart';
 
 class ExplorerPage extends ConsumerStatefulWidget {

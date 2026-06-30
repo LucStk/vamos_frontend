@@ -1,10 +1,10 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/queries/graph_queries.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/queries/graph_queries.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/queries/trip_domain_queries.dart';
 import 'package:vamos_cartographie/features/topology/domain/vertex_ui.dart';
-import 'package:vamos_cartographie/core/injection/queries/trip_domain_queries.dart';
-import 'package:vamos_cartographie/core/injection/stores/graph_store.dart';
 part 'vertex_ui_queries.g.dart';
 
 @riverpod

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'trip_provider.dart';
+part of 'trip_handler.dart';
 
 // **************************************************************************
 // RiverpodGenerator

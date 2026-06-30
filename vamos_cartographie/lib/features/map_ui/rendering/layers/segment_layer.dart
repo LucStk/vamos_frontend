@@ -5,8 +5,8 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_application/events/ui_events.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/map_ctrl_provider.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/queries/segment_ui_queries.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/segment/segment_ui_element.dart';
-import '/core/injection/queries/segment_ui_queries.dart';
 import '/features/map_ui/rendering/adapters/marker_adapter.dart';
 import '/features/map_ui/rendering/adapters/segment_adapter.dart';
 

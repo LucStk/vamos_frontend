@@ -3,8 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/application/commands/commands.dart';
 import 'package:trip_domain/domain/types/Ids.dart';
 import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';
-import 'package:vamos_cartographie/core/injection/stores/graph_store.dart';
-part 'topology_provider.g.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
+part 'topology_handler.g.dart';
 
 @riverpod
 TopologyHandler topologyHandler(Ref ref, TripId tripId) {

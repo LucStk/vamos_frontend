@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'waypoint_provider.dart';
+part of 'waypoint_handler.dart';
 
 // **************************************************************************
 // RiverpodGenerator

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/stores/trip_store.dart';
 import 'package:vamos_cartographie/features/trips/widgets/explorer_empty_view.dart';
 import 'package:vamos_cartographie/features/trips/widgets/explorer_error_view.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_card.dart';
 
+import 'package:vamos_cartographie/core/injection/injection.dart';
 import '../helpers/trip_test_helpers.dart';
 
 // ---------------------------------------------------------------------------

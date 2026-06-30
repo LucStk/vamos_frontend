@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/domain/domain.dart';
 
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/core/injection/commands/topology_provider.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/commands/topology_handler.dart';
 part 'map_ctrl_provider.g.dart';
 
 @riverpod

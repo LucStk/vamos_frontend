@@ -1,7 +1,7 @@
 import 'package:domain_core/id.dart';
 import 'package:media_application/media_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '/core/injection/stores/media_store.dart';
+import 'package:vamos_cartographie/core/injection/media/providers/media_store.dart';
 part 'media_ui_queries.g.dart';
 
 @riverpod

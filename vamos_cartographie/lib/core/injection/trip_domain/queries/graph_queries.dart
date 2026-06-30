@@ -2,7 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/services/add_listener_to_observable.dart';
-import 'package:vamos_cartographie/core/injection/stores/graph_store.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
 part 'graph_queries.g.dart';
 
 @riverpod

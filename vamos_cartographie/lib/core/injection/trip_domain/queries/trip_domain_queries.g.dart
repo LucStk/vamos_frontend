@@ -162,36 +162,3 @@ final class WaypointFromVertexFamily extends $Family
   @override
   String toString() => r'waypointFromVertexProvider';
 }
-
-@ProviderFor(loadTrips)
-final loadTripsProvider = LoadTripsProvider._();
-
-final class LoadTripsProvider
-    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
-    with $FutureModifier<void>, $FutureProvider<void> {
-  LoadTripsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'loadTripsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$loadTripsHash();
-
-  @$internal
-  @override
-  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<void> create(Ref ref) {
-    return loadTrips(ref);
-  }
-}
-
-String _$loadTripsHash() => r'15fe304710cb8c36e22cd4fa332b362d28ef7ef6';

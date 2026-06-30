@@ -1,10 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/media/providers/media_store.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/providers/trip_store.dart';
 
-import '/core/injection/stores/media_store.dart';
 import '/core/injection/optimistic_executor_provider.dart';
-import '/core/injection/stores/trip_store.dart';
-part 'trip_provider.g.dart';
+part 'trip_handler.g.dart';
 
 @riverpod
 TripHandler tripHandler(Ref ref) {

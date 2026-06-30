@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/commands/waypoint_provider.dart';
+import 'package:vamos_cartographie/core/injection/trip_domain/commands/waypoint_handler.dart';
 import "form_waypoint_dialog.dart";
 
 class CreateWaypointDialog extends ConsumerWidget {
