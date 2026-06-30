@@ -24,17 +24,16 @@ List<VertexRef> vertexRefs(Ref ref) {
 
 @riverpod
 VertexUiModel? vertexUi(Ref ref, VertexRef id) {
-  final VertexPatch? vPatch = ref.watch(
-    vertexPatchProvider(id as VertexPatchId),
-  );
-  if (vPatch != null) {
-    return vPatch.toUiModel(null);
+  switch (id) {
+    case PendingVertexRef e:
+      final VertexPatch? vPatch = ref.watch(vertexPatchProvider(e.id));
+      return vPatch?.toUiModel(null);
+    case ConfirmedVertexRef e:
+      final Vertex? v = ref.watch(vertexProvider(e.id));
+      if (v == null) {
+        return null;
+      }
+      final Waypoint? w = ref.watch(waypointFromVertexProvider(v.id));
+      return v.toUiModel(w?.poiCategory);
   }
-
-  final Vertex? v = ref.watch(vertexProvider(id as VertexId));
-  if (v == null) {
-    return null;
-  }
-  final Waypoint? w = ref.watch(waypointFromVertexProvider(v.id));
-  return v.toUiModel(w?.poiCategory);
 }
