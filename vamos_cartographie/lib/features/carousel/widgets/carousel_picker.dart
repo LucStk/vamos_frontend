@@ -36,7 +36,7 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
             isUploading: item.uploadStatus == UploadStatus.uploading,
             hasError: item.uploadStatus == UploadStatus.failure,
             onDelete: () {
-              mediaHandler.removeImage<T>(id, item.fileKey, ownerType);
+              mediaHandler.removeImage<T>(id, item, ownerType);
             },
             onRetry: () {
               mediaHandler.retryImageUpload<T>(id, item.fileKey, ownerType);

@@ -77,10 +77,10 @@ class FakeMediaHandler extends Fake implements MediaHandler {
   @override
   Future<Either<Failure, void>> removeImage<T>(
     Id<T> id,
-    FileKey key,
+    ImageUiModel imageUi,
     MediaOwnerType ownerType,
   ) async {
-    removeCalls.add((id: id, key: key));
+    removeCalls.add((id: id, key: imageUi.fileKey));
     return Right(null);
   }
 

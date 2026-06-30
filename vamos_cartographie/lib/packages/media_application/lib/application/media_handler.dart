@@ -4,10 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
-import 'package:media_application/domain/entities/media_image.dart';
-import 'package:media_application/domain/value_objects/media_owner_ext.dart';
 import 'package:media_application/media_application.dart';
-import 'package:media_application/runtime/observables/observable_media_store.dart';
 
 import "package:uuid/uuid.dart";
 
@@ -138,19 +135,29 @@ class MediaHandler {
 
   Future<Either<Failure, void>> removeImage<T>(
     Id<T> id,
-    FileKey key,
+    ImageUiModel imageUi,
     MediaOwnerType ownerType,
   ) async {
-    final res = await repository.detachImage<T>(id, key, ownerType);
-    res.fold(
-      (Failure f) {
-        errorLogger?.logError(f, StackTrace.current);
-        return f;
-      },
-      (_) {
-        mediaStore.remove(id, key);
-      },
-    );
+    switch (imageUi.imageLocation) {
+      case LocalPath():
+        patchStore.remove(id, imageUi.fileKey);
+      case RemoteUrl():
+        final res = await repository.detachImage<T>(
+          id,
+          imageUi.fileKey,
+          ownerType,
+        );
+        res.fold(
+          (Failure f) {
+            errorLogger?.logError(f, StackTrace.current);
+            return f;
+          },
+          (_) {
+            mediaStore.remove(id, imageUi.fileKey);
+          },
+        );
+    }
+
     return Right(null);
   }
 }
