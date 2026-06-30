@@ -6,7 +6,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/vertex_ui_queries.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/adapters/marker_adapter.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex/vertex_ui_element.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex_ui_element.dart';
 
 class VertexLayer extends ConsumerWidget {
   final Id<Trip> tripId;

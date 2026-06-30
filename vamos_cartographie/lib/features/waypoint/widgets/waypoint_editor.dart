@@ -3,11 +3,11 @@ import "package:media_application/media_application.dart";
 import "package:vamos_cartographie/features/waypoint/domain/poi_ui.dart";
 import '/features/carousel/widgets/widgets.dart';
 import '/features/shared/shared.dart';
-import "/features/waypoint/domain/waypoint_ui.dart";
+import "/features/waypoint/domain/ext_waypoint_poi.dart";
 import "waypoint_header.dart";
 
 class WaypointEditor extends StatefulWidget {
-  final WaypointUi initialWaypoint;
+  final Waypoint initialWaypoint;
   const WaypointEditor({super.key, required this.initialWaypoint});
 
   @override
@@ -15,7 +15,7 @@ class WaypointEditor extends StatefulWidget {
 }
 
 class WaypointEditorState extends State<WaypointEditor> {
-  late WaypointUi currentWaypoint; // Accessible par la GlobalKey
+  late Waypoint currentWaypoint; // Accessible par la GlobalKey
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class WaypointEditorState extends State<WaypointEditor> {
     currentWaypoint = widget.initialWaypoint;
   }
 
-  void _patch(WaypointUi newWaypoint) {
+  void _patch(Waypoint newWaypoint) {
     setState(() {
       currentWaypoint = newWaypoint;
     });
@@ -39,15 +39,14 @@ class WaypointEditorState extends State<WaypointEditor> {
         TextFormField(
           initialValue: currentWaypoint.title,
           decoration: const InputDecoration(labelText: 'Titre'),
-          onChanged: (val) =>
-              _patch(currentWaypoint.copyWith(title: val) as WaypointUi),
+          onChanged: (val) => _patch(currentWaypoint.copyWith(title: val)),
         ),
         const Divider(),
         TextAreaWithCounter(
           initialValue: currentWaypoint.description,
           readOnly: false,
           onChanged: (val) =>
-              _patch(currentWaypoint.copyWith(description: val) as WaypointUi),
+              _patch(currentWaypoint.copyWith(description: val)),
         ),
 
         const SizedBox(height: 4),
@@ -71,10 +70,7 @@ class WaypointEditorState extends State<WaypointEditor> {
           selectedType: currentWaypoint.poiCategoryUi,
 
           onTypeChanged: (newType) {
-            _patch(
-              currentWaypoint.copyWith(poiCategory: newType.category)
-                  as WaypointUi,
-            );
+            _patch(currentWaypoint.copyWith(poiCategory: newType.category));
           },
         ),
       ],

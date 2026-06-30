@@ -18,12 +18,12 @@ List<SegmentRef> segmentRefs(Ref ref) {
 
 @riverpod
 SegmentUiModel? segmentUi(Ref ref, SegmentRef id) {
-  final SegmentPatch? segPatch = ref.watch(
-    segmentPatchProvider(id as SegmentPatchId),
-  );
-  if (segPatch != null) {
-    return segPatch.toUiModel();
+  switch (id) {
+    case PendingSegmentRef e:
+      final SegmentPatch? segPatch = ref.watch(segmentPatchProvider(e.id));
+      return segPatch?.toUiModel();
+    case ConfirmedSegmentRef e:
+      final Segment? seg = ref.watch(segmentProvider(e.id));
+      return seg?.toUiModel();
   }
-  final Segment? seg = ref.watch(segmentProvider(id as SegmentId));
-  return seg?.toUiModel();
 }

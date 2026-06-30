@@ -13,8 +13,8 @@ part of 'waypoint_ui_queries.dart';
 final waypointUiProvider = WaypointUiFamily._();
 
 final class WaypointUiProvider
-    extends $FunctionalProvider<WaypointUi?, WaypointUi?, WaypointUi?>
-    with $Provider<WaypointUi?> {
+    extends $FunctionalProvider<Waypoint?, Waypoint?, Waypoint?>
+    with $Provider<Waypoint?> {
   WaypointUiProvider._({
     required WaypointUiFamily super.from,
     required WaypointId super.argument,
@@ -38,20 +38,20 @@ final class WaypointUiProvider
 
   @$internal
   @override
-  $ProviderElement<WaypointUi?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<Waypoint?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  WaypointUi? create(Ref ref) {
+  Waypoint? create(Ref ref) {
     final argument = this.argument as WaypointId;
     return waypointUi(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(WaypointUi? value) {
+  Override overrideWithValue(Waypoint? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<WaypointUi?>(value),
+      providerOverride: $SyncValueProvider<Waypoint?>(value),
     );
   }
 
@@ -66,10 +66,10 @@ final class WaypointUiProvider
   }
 }
 
-String _$waypointUiHash() => r'da5d3b73818d13109ebb4be9368d8fb3c21a19e0';
+String _$waypointUiHash() => r'f8d0b7d2d72495904764ce0104d1ad3344644e70';
 
 final class WaypointUiFamily extends $Family
-    with $FunctionalFamilyOverride<WaypointUi?, WaypointId> {
+    with $FunctionalFamilyOverride<Waypoint?, WaypointId> {
   WaypointUiFamily._()
     : super(
         retry: null,

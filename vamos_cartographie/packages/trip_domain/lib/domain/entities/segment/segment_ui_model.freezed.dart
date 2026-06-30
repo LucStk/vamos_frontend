@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SegmentUiModel {
 
- SegmentRef get id; Geometry get geometry; MobilityType get mobilityType;
+ SegmentRef get ref; Geometry get geometry; MobilityType get mobilityType;
 /// Create a copy of SegmentUiModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SegmentUiModelCopyWith<SegmentUiModel> get copyWith => _$SegmentUiModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentUiModel&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentUiModel&&(identical(other.ref, ref) || other.ref == ref)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(geometry),mobilityType);
+int get hashCode => Object.hash(runtimeType,ref,const DeepCollectionEquality().hash(geometry),mobilityType);
 
 @override
 String toString() {
-  return 'SegmentUiModel(id: $id, geometry: $geometry, mobilityType: $mobilityType)';
+  return 'SegmentUiModel(ref: $ref, geometry: $geometry, mobilityType: $mobilityType)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SegmentUiModelCopyWith<$Res>  {
   factory $SegmentUiModelCopyWith(SegmentUiModel value, $Res Function(SegmentUiModel) _then) = _$SegmentUiModelCopyWithImpl;
 @useResult
 $Res call({
- SegmentRef id, Geometry geometry, MobilityType mobilityType
+ SegmentRef ref, Geometry geometry, MobilityType mobilityType
 });
 
 
@@ -62,9 +62,9 @@ class _$SegmentUiModelCopyWithImpl<$Res>
 
 /// Create a copy of SegmentUiModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? geometry = null,Object? mobilityType = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? ref = null,Object? geometry = null,Object? mobilityType = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+ref: null == ref ? _self.ref : ref // ignore: cast_nullable_to_non_nullable
 as SegmentRef,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,
@@ -152,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentRef id,  Geometry geometry,  MobilityType mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentRef ref,  Geometry geometry,  MobilityType mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SegmentUiModel() when $default != null:
-return $default(_that.id,_that.geometry,_that.mobilityType);case _:
+return $default(_that.ref,_that.geometry,_that.mobilityType);case _:
   return orElse();
 
 }
@@ -173,10 +173,10 @@ return $default(_that.id,_that.geometry,_that.mobilityType);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentRef id,  Geometry geometry,  MobilityType mobilityType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentRef ref,  Geometry geometry,  MobilityType mobilityType)  $default,) {final _that = this;
 switch (_that) {
 case _SegmentUiModel():
-return $default(_that.id,_that.geometry,_that.mobilityType);case _:
+return $default(_that.ref,_that.geometry,_that.mobilityType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +193,10 @@ return $default(_that.id,_that.geometry,_that.mobilityType);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentRef id,  Geometry geometry,  MobilityType mobilityType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentRef ref,  Geometry geometry,  MobilityType mobilityType)?  $default,) {final _that = this;
 switch (_that) {
 case _SegmentUiModel() when $default != null:
-return $default(_that.id,_that.geometry,_that.mobilityType);case _:
+return $default(_that.ref,_that.geometry,_that.mobilityType);case _:
   return null;
 
 }
@@ -208,10 +208,10 @@ return $default(_that.id,_that.geometry,_that.mobilityType);case _:
 
 
 class _SegmentUiModel extends SegmentUiModel {
-  const _SegmentUiModel({required this.id, required final  Geometry geometry, required this.mobilityType}): _geometry = geometry,super._();
+  const _SegmentUiModel({required this.ref, required final  Geometry geometry, required this.mobilityType}): _geometry = geometry,super._();
   
 
-@override final  SegmentRef id;
+@override final  SegmentRef ref;
  final  Geometry _geometry;
 @override Geometry get geometry {
   if (_geometry is EqualUnmodifiableListView) return _geometry;
@@ -231,16 +231,16 @@ _$SegmentUiModelCopyWith<_SegmentUiModel> get copyWith => __$SegmentUiModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentUiModel&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentUiModel&&(identical(other.ref, ref) || other.ref == ref)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_geometry),mobilityType);
+int get hashCode => Object.hash(runtimeType,ref,const DeepCollectionEquality().hash(_geometry),mobilityType);
 
 @override
 String toString() {
-  return 'SegmentUiModel(id: $id, geometry: $geometry, mobilityType: $mobilityType)';
+  return 'SegmentUiModel(ref: $ref, geometry: $geometry, mobilityType: $mobilityType)';
 }
 
 
@@ -251,7 +251,7 @@ abstract mixin class _$SegmentUiModelCopyWith<$Res> implements $SegmentUiModelCo
   factory _$SegmentUiModelCopyWith(_SegmentUiModel value, $Res Function(_SegmentUiModel) _then) = __$SegmentUiModelCopyWithImpl;
 @override @useResult
 $Res call({
- SegmentRef id, Geometry geometry, MobilityType mobilityType
+ SegmentRef ref, Geometry geometry, MobilityType mobilityType
 });
 
 
@@ -268,9 +268,9 @@ class __$SegmentUiModelCopyWithImpl<$Res>
 
 /// Create a copy of SegmentUiModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? geometry = null,Object? mobilityType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? ref = null,Object? geometry = null,Object? mobilityType = null,}) {
   return _then(_SegmentUiModel(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+ref: null == ref ? _self.ref : ref // ignore: cast_nullable_to_non_nullable
 as SegmentRef,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,

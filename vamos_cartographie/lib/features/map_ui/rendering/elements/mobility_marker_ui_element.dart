@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/events/ui_events.dart';
 import 'package:trip_domain/domain/entities/segment/segment_ui_model.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/elements/cursor/cursor_marker.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/marker_ui_element.dart';
-import 'package:vamos_cartographie/features/topology/presentation/adapters/mobility_type_display.dart';
+import 'package:vamos_cartographie/features/topology/mobility_type_display.dart';
 
-class SegmentUiDisplay  {
+class MobilityMarkerUiElement extends MarkerUiElement {
   final SegmentUiModel segmentUiModel;
 
-  const SegmentUiDisplay(super.tripId, this.segmentUiModel);
+  const MobilityMarkerUiElement(super.tripId, this.segmentUiModel);
 
   MobilityTypeDisplay get mobilityType =>
       MobilityTypeDisplay.from(segmentUiModel.mobilityType);
@@ -36,13 +35,27 @@ class SegmentUiDisplay  {
   }
 
   @override
-  Widget buildMarker({bool isDragging = false}) =>
-      CursorMarker(isDragging: isDragging);
+  Widget buildMarker({bool isDragging = false}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(
+          segmentUiModel.mobilityTypeDisplay.colorValue,
+        ).withOpacity(0.7),
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
+      ),
+      child: Icon(
+        segmentUiModel.mobilityTypeDisplay.icon,
+        color: Colors.white,
+        size: 12,
+      ),
+    );
+  }
 
   @override
-  MapUiEvent tapEvent() => SegmentMobilityMarkerTapped(segmentUiModel.id);
+  MapUiEvent tapEvent() => SegmentMobilityMarkerTapped(segmentUiModel.ref);
 
   @override
   MapUiEvent doubleTapEvent() =>
-      SegmentMobilityMarkerDoubleTapped(segmentUiModel.id);
+      SegmentMobilityMarkerDoubleTapped(segmentUiModel.ref);
 }

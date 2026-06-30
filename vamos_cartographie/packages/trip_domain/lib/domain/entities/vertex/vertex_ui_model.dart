@@ -6,7 +6,7 @@ part "vertex_ui_model.freezed.dart";
 @freezed
 abstract class VertexUiModel with _$VertexUiModel {
   const factory VertexUiModel({
-    required VertexRef id,
+    required VertexRef ref,
     required LatLng position,
     required PoiCategory? poiCategory,
   }) = _VertexUiModel;
@@ -14,7 +14,7 @@ abstract class VertexUiModel with _$VertexUiModel {
 
 extension ToVertexUi on Vertex {
   VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
-    id: ConfirmedVertexRef(id),
+    ref: ConfirmedVertexRef(id),
     position: latLng,
     poiCategory: poiCategory,
   );
@@ -22,7 +22,7 @@ extension ToVertexUi on Vertex {
 
 extension ToVertexPatchUi on VertexPatch {
   VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
-    id: PendingVertexRef(id),
+    ref: PendingVertexRef(id),
     position: positionOverride,
     poiCategory: poiCategory,
   );

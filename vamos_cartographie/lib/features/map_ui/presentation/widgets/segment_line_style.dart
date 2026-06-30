@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/segment_ui_queries.dart';
+import 'package:vamos_cartographie/features/topology/mobility_type_display.dart';
 
 class SegmentLineStyle extends ConsumerWidget {
   final SegmentRef segmentId;
@@ -22,11 +23,15 @@ class SegmentLineStyle extends ConsumerWidget {
     }
     return Container(
       decoration: BoxDecoration(
-        color: Color(segment.mobilityType.colorValue),
+        color: Color(segment.mobilityTypeDisplay.colorValue),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white.withOpacity(0.8), width: 1),
       ),
-      child: Icon(segment.mobilityType.icon, color: Colors.white, size: 12),
+      child: Icon(
+        segment.mobilityTypeDisplay.icon,
+        color: Colors.white,
+        size: 12,
+      ),
     );
   }
 }

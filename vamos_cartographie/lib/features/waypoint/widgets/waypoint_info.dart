@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:vamos_cartographie/features/carousel/widgets/carousel_view.dart";
 import "waypoint_header.dart";
-import "/features/waypoint/domain/waypoint_ui.dart";
+import "/features/waypoint/domain/ext_waypoint_poi.dart";
 
 class WaypointInfo extends StatelessWidget {
-  final WaypointUi waypoint;
+  final Waypoint waypoint;
   final VoidCallback? onEdit;
   const WaypointInfo({super.key, required this.waypoint, this.onEdit});
 

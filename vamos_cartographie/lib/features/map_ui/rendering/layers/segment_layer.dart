@@ -5,7 +5,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_application/events/ui_events.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/elements/segment/segment_ui_element.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/mobility_marker_ui_element.dart';
 import '/features/map_ui/rendering/adapters/marker_adapter.dart';
 import '/features/map_ui/rendering/adapters/segment_adapter.dart';
 
@@ -53,11 +53,17 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
                 .toList()
             as List<Polyline<SegmentRef>>;
     // On en profite pour construire les markers mobility sur les segments
-    final segMarkers = segments.map((entry) {
-      final res = ref.read(segmentUiProvider(entry));
-      final segment = SegmentUiElement(widget.tripId, res!);
-      return toMarker(segment, widget.tripId, mapState);
-    }).toList();
+    final List<Marker> segMarkers = [];
+    for (SegmentRef entry in segments) {
+      final segment = ref.read(segmentUiProvider(entry));
+      if (segment != null) {
+        final MobilityMarkerUiElement m = MobilityMarkerUiElement(
+          widget.tripId,
+          segment,
+        );
+        segMarkers.add(toMarker(m, widget.tripId, mapState));
+      }
+    }
 
     return Stack(
       children: [

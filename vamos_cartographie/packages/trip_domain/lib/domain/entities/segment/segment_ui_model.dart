@@ -7,7 +7,7 @@ part "segment_ui_model.freezed.dart";
 @freezed
 abstract class SegmentUiModel with _$SegmentUiModel {
   const factory SegmentUiModel({
-    required SegmentRef id,
+    required SegmentRef ref,
     required Geometry geometry,
     required MobilityType mobilityType,
   }) = _SegmentUiModel;
@@ -17,7 +17,7 @@ abstract class SegmentUiModel with _$SegmentUiModel {
 
 extension ToSegmentUiModel on Segment {
   SegmentUiModel toUiModel() => SegmentUiModel(
-    id: ConfirmedSegmentRef(id),
+    ref: ConfirmedSegmentRef(id),
     geometry: geometry,
     mobilityType: mobilityType,
   );
@@ -25,7 +25,7 @@ extension ToSegmentUiModel on Segment {
 
 extension SegmentPatchUi on SegmentPatch {
   SegmentUiModel toUiModel() => SegmentUiModel(
-    id: PendingSegmentRef(id),
+    ref: PendingSegmentRef(id),
     geometry: geometryOverride,
     mobilityType: mobilityType,
   );

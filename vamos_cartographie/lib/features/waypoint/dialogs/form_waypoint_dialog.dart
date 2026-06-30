@@ -60,7 +60,7 @@ class _FormWaypointDialogState extends ConsumerState<FormWaypointDialog> {
 
       content: WaypointEditor(
         key: _editorKey,
-        initialWaypoint: WaypointUi(widget.initialWaypoint),
+        initialWaypoint: widget.initialWaypoint,
       ),
 
       buttonsBuilder: (ctx) => [

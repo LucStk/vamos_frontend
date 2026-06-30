@@ -6,8 +6,7 @@ import '/features/features.dart';
 part 'waypoint_ui_queries.g.dart';
 
 @riverpod
-WaypointUi? waypointUi(Ref ref, WaypointId id) {
+Waypoint? waypointUi(Ref ref, WaypointId id) {
   final waypointStore = ref.watch(waypointStoreProvider);
-  final w = waypointStore.get(id);
-  return (w != null) ? WaypointUi(w) : null;
+  return waypointStore.get(id);
 }

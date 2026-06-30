@@ -1,2 +1,2 @@
-export "domain/waypoint_ui.dart";
+export "domain/ext_waypoint_poi.dart";
 export "domain/poi_ui.dart";
