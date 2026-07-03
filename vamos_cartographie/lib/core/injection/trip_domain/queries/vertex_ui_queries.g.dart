@@ -108,7 +108,7 @@ final class VertexUiProvider
   }
 }
 
-String _$vertexUiHash() => r'84627b39206876656a2ed307c6c030425fafb189';
+String _$vertexUiHash() => r'83d5bd7f266da6b1b02b25f2055417e820ae0776';
 
 final class VertexUiFamily extends $Family
     with $FunctionalFamilyOverride<VertexUiModel?, VertexRef> {
@@ -126,4 +126,86 @@ final class VertexUiFamily extends $Family
 
   @override
   String toString() => r'vertexUiProvider';
+}
+
+@ProviderFor(vertexMarkers)
+final vertexMarkersProvider = VertexMarkersFamily._();
+
+final class VertexMarkersProvider
+    extends
+        $FunctionalProvider<
+          List<DragMarker>,
+          List<DragMarker>,
+          List<DragMarker>
+        >
+    with $Provider<List<DragMarker>> {
+  VertexMarkersProvider._({
+    required VertexMarkersFamily super.from,
+    required Id<Trip> super.argument,
+  }) : super(
+         retry: null,
+         name: r'vertexMarkersProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$vertexMarkersHash();
+
+  @override
+  String toString() {
+    return r'vertexMarkersProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<DragMarker>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<DragMarker> create(Ref ref) {
+    final argument = this.argument as Id<Trip>;
+    return vertexMarkers(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<DragMarker> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<DragMarker>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is VertexMarkersProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$vertexMarkersHash() => r'87a7eb76cf729e8b9caff93a5a0843f38516b985';
+
+final class VertexMarkersFamily extends $Family
+    with $FunctionalFamilyOverride<List<DragMarker>, Id<Trip>> {
+  VertexMarkersFamily._()
+    : super(
+        retry: null,
+        name: r'vertexMarkersProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  VertexMarkersProvider call(Id<Trip> tripId) =>
+      VertexMarkersProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'vertexMarkersProvider';
 }

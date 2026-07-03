@@ -113,7 +113,7 @@ final class SegmentUiProvider
   }
 }
 
-String _$segmentUiHash() => r'aa424905b7c3547cd1f15482596aa1418f25c90c';
+String _$segmentUiHash() => r'9ae9496a711f91b92d0c76c32025ee160fcede6d';
 
 final class SegmentUiFamily extends $Family
     with $FunctionalFamilyOverride<SegmentUiModel?, SegmentRef> {
