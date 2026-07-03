@@ -1,5 +1,4 @@
 // L'EffectRunner connaît le store, pas le reducer
-import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
 
@@ -11,7 +10,7 @@ class EffectRunner {
   EffectRunner(this.topologyHandler, this.errorLogger);
 
   Future<void> run(MapEffect effect) async {
-    final Either<Failure, Object> res = switch (effect) {
+    final Failure? f = switch (effect) {
       CreateSimpleVertexEffect e => await topologyHandler.createSimpleVertex(
         e.position,
       ),
@@ -20,10 +19,8 @@ class EffectRunner {
         e.newPosition,
       ),
     };
-
-    res.fold(
-      (failure) => errorLogger?.logError(failure),
-      (_) => null, // succès, rien à faire
-    );
+    if (f != null) {
+      errorLogger?.logError(f);
+    }
   }
 }

@@ -21,14 +21,15 @@ class TopologyHandler {
     this.executor,
   );
 
-  Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
+  Future<Failure?> updateSegment(Segment segment) async {
     final Segment? oldValue = graphStore.segmentStore.get(segment.id);
     if (oldValue == null) {
-      return Left(
-        NotFoundFailure(resourceType: "Segment", resourceId: "${segment.id}"),
+      return NotFoundFailure(
+        resourceType: "Segment",
+        resourceId: "${segment.id}",
       );
     }
-    return await executor.run(
+    final res = await executor.run(
       onApply: () => graphStore.updateSegment(segment),
       remote: () => segmentRepo.updateSegment(segment),
       onSuccess: (serveurValue) => graphStore.updateSegment(serveurValue),
@@ -36,13 +37,22 @@ class TopologyHandler {
         graphStore.updateSegment(oldValue);
       },
     );
+    return res.fold((failure) => failure, (_) => null);
   }
 
-  Future<Either<Failure, Vertex>> createSimpleVertex(LatLng latLng) async {
-    return await vertexRepo.createVertex(tripId, latLng);
+  Future<Failure?> createSimpleVertex(LatLng latLng) async {
+    final res = await vertexRepo.createVertex(tripId, latLng);
+    res.fold(
+      (Failure f) {
+        return f;
+      },
+      (Vertex v) {
+        graphStore.insertVertex(v);
+      },
+    );
   }
 
-  Future<Either<Failure, Vertex>> moveVertex(Id id, LatLng latLng) async {
-    return Left(UnexpectedFailure());
+  Future<Failure?> moveVertex(Id id, LatLng latLng) async {
+    return UnexpectedFailure();
   }
 }
