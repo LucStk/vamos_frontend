@@ -17,6 +17,8 @@ class MapHandler {
   // On passe le currentState à l'entrée de l'action UI
   void onUiEvent(MapUiEvent event, MapState currentState) {
     print("event");
+    // Prends l'event et la situation courante et la traduit en "intent"
+    // (poser un vertex, poser le curseur sur une position, ..)
     final intents = translate(event, currentState);
 
     // On accumule les changements localement si plusieurs intents s'enchaînent

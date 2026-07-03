@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
 import 'package:domain_core/id.dart';
 import 'package:domain_core/optimitic_executor.dart';
@@ -20,24 +21,28 @@ class TopologyHandler {
     this.executor,
   );
 
-  Future<void> updateSegment(Segment segment) async {
+  Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
     final Segment? oldValue = graphStore.segmentStore.get(segment.id);
     if (oldValue == null) {
-      throw Exception("Segment.id not in graphStore");
+      return Left(
+        NotFoundFailure(resourceType: "Segment", resourceId: "${segment.id}"),
+      );
     }
-    await executor.run(
+    return await executor.run(
       onApply: () => graphStore.updateSegment(segment),
       remote: () => segmentRepo.updateSegment(segment),
       onSuccess: (serveurValue) => graphStore.updateSegment(serveurValue),
-      onError: (Failure failure) => graphStore.updateSegment(oldValue),
+      onError: (Failure failure) {
+        graphStore.updateSegment(oldValue);
+      },
     );
   }
 
-  Future<void> createSimpleVertex(LatLng latLng) async {
-    throw Exception("Create Simple Vertex not implemented yet");
+  Future<Either<Failure, Vertex>> createSimpleVertex(LatLng latLng) async {
+    return await vertexRepo.createVertex(tripId, latLng);
   }
 
-  Future<void> moveVertex(Id id, LatLng latLng) async {
-    throw Exception("Move vertex not implemented yet");
+  Future<Either<Failure, Vertex>> moveVertex(Id id, LatLng latLng) async {
+    return Left(UnexpectedFailure());
   }
 }
