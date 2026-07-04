@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
 import 'package:domain_core/id.dart';
 import 'package:domain_core/optimitic_executor.dart';
@@ -50,6 +49,7 @@ class TopologyHandler {
         graphStore.insertVertex(v);
       },
     );
+    return null;
   }
 
   Future<Failure?> moveVertex(Id id, LatLng latLng) async {

@@ -7,11 +7,8 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_application/events/ui_events.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/layers/cursor_layer.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/layers/map_tile_layer.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/layers/vertex_layer.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/overlays/popup_overlay.dart';
-import 'package:vamos_cartographie/features/map_ui/presentation/widgets/widgets.dart';
+import '/features/map_ui/presentation/widgets/widgets.dart';
+import '/features/map_ui/rendering/rendering.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
