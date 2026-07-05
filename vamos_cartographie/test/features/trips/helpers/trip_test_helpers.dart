@@ -41,9 +41,6 @@ class FakeTripHandler extends Fake implements TripHandler {
   FakeTripHandler(this.store);
 
   @override
-  Future<Either<Failure, void>> loadFromRemote() async => const Right(null);
-
-  @override
   Future<Either<Failure, Trip>> createBlankTrip() async {
     createCalls++;
     if (createBlankTripFn != null) return await createBlankTripFn!();

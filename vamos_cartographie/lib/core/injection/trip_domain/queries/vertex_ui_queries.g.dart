@@ -49,7 +49,7 @@ final class VertexRefsProvider
   }
 }
 
-String _$vertexRefsHash() => r'a70b347e7906adfbf2a859b8ab5531c949cc1e81';
+String _$vertexRefsHash() => r'51dfa2b46d169ec6e21fc3d83d5e184629dff146';
 
 @ProviderFor(vertexUi)
 final vertexUiProvider = VertexUiFamily._();
@@ -108,7 +108,7 @@ final class VertexUiProvider
   }
 }
 
-String _$vertexUiHash() => r'83d5bd7f266da6b1b02b25f2055417e820ae0776';
+String _$vertexUiHash() => r'b04b1030ef27cc14c5bcbe1716cb892cd6f03a11';
 
 final class VertexUiFamily extends $Family
     with $FunctionalFamilyOverride<VertexUiModel?, VertexRef> {
@@ -190,7 +190,7 @@ final class VertexMarkersProvider
   }
 }
 
-String _$vertexMarkersHash() => r'87a7eb76cf729e8b9caff93a5a0843f38516b985';
+String _$vertexMarkersHash() => r'27818fb656a3690cfe25cfd6cfc69c5a38fff7ba';
 
 final class VertexMarkersFamily extends $Family
     with $FunctionalFamilyOverride<List<DragMarker>, Id<Trip>> {

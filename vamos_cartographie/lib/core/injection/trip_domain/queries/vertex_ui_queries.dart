@@ -1,4 +1,5 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -12,22 +13,27 @@ part 'vertex_ui_queries.g.dart';
 
 @riverpod
 List<VertexRef> vertexRefs(Ref ref) {
-  final Set<VertexRef> vertexPatchIds = ref
-      .watch(vertexPatchStoreProvider)
-      .getIds()
-      .cast<VertexRef>()
-      .toSet();
-  final Set<VertexRef> vertexIds = ref
+  final confirmedRefs = ref
       .watch(vertexStoreProvider)
       .getIds()
-      .cast<VertexRef>()
-      .toSet();
+      .map(ConfirmedVertexRef.new);
 
-  return vertexIds.union(vertexPatchIds).toList();
+  final pendingRefs = ref
+      .watch(vertexPatchStoreProvider)
+      .getIds()
+      .map(PendingVertexRef.new);
+
+  final Map<int, VertexRef> byKey = {
+    for (final r in confirmedRefs) r.id.value: r,
+    for (final r in pendingRefs) r.id.value: r, // écrase les confirmed
+  };
+
+  return byKey.values.toList();
 }
 
 @riverpod
 VertexUiModel? vertexUi(Ref ref, VertexRef id) {
+  debugPrint("vertexUi rebuild $id");
   switch (id) {
     case PendingVertexRef e:
       final VertexPatch? vPatch = ref.watch(vertexPatchProvider(e.id));
@@ -44,7 +50,7 @@ VertexUiModel? vertexUi(Ref ref, VertexRef id) {
 
 @riverpod
 List<DragMarker> vertexMarkers(Ref ref, Id<Trip> tripId) {
-  final mapState = ref.read(mapStateProvider(tripId).notifier);
+  final mapState = ref.watch(mapStateProvider(tripId).notifier);
   final vertexIds = ref.watch(vertexRefsProvider);
   return [
     for (final vertexRef in vertexIds)

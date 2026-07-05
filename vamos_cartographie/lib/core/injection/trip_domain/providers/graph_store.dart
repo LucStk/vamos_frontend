@@ -1,4 +1,5 @@
 import "package:domain_core/domain_core.dart";
+import "package:flutter/rendering.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "package:trip_domain/trip_domain.dart";
@@ -46,6 +47,8 @@ GraphPatchStore rawGraphPatchStore(Ref ref) => GraphPatchStore();
 @riverpod
 ObservableCollectionStore<Vertex> vertexStore(Ref ref) {
   final graphStore = ref.watch(rawGraphStoreProvider);
+
+  debugPrint("vertexStore rebuild");
   addListenerRebuild(ref, graphStore.vertexStore);
   return graphStore.vertexStore;
 }

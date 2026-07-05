@@ -49,7 +49,7 @@ $Res call({
 });
 
 
-
+$SegmentRefCopyWith<$Res> get ref;
 
 }
 /// @nodoc
@@ -70,7 +70,16 @@ as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityTy
 as MobilityType,
   ));
 }
-
+/// Create a copy of SegmentUiModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SegmentRefCopyWith<$Res> get ref {
+  
+  return $SegmentRefCopyWith<$Res>(_self.ref, (value) {
+    return _then(_self.copyWith(ref: value));
+  });
+}
 }
 
 
@@ -255,7 +264,7 @@ $Res call({
 });
 
 
-
+@override $SegmentRefCopyWith<$Res> get ref;
 
 }
 /// @nodoc
@@ -277,7 +286,16 @@ as MobilityType,
   ));
 }
 
-
+/// Create a copy of SegmentUiModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SegmentRefCopyWith<$Res> get ref {
+  
+  return $SegmentRefCopyWith<$Res>(_self.ref, (value) {
+    return _then(_self.copyWith(ref: value));
+  });
+}
 }
 
 // dart format on

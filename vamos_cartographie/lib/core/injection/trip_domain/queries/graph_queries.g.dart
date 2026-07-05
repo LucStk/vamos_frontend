@@ -363,7 +363,7 @@ final class TopologyQueryHandlerProvider
 }
 
 String _$topologyQueryHandlerHash() =>
-    r'9613306bc470a959bf2793271262308dc0b535ce';
+    r'0f9dd004e7643d0099edeafe928c26ed8bdebe81';
 
 @ProviderFor(loadTopology)
 final loadTopologyProvider = LoadTopologyFamily._();
@@ -414,7 +414,7 @@ final class LoadTopologyProvider
   }
 }
 
-String _$loadTopologyHash() => r'3469185526550eef463ce9da63522fc183edbd60';
+String _$loadTopologyHash() => r'0cc804c4f1ae48150e89f12a4801ce129c0a5fae';
 
 final class LoadTopologyFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<void>, TripId> {

@@ -49,7 +49,7 @@ $Res call({
 });
 
 
-
+$VertexRefCopyWith<$Res> get ref;
 
 }
 /// @nodoc
@@ -70,7 +70,16 @@ as LatLng,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory 
 as PoiCategory?,
   ));
 }
-
+/// Create a copy of VertexUiModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VertexRefCopyWith<$Res> get ref {
+  
+  return $VertexRefCopyWith<$Res>(_self.ref, (value) {
+    return _then(_self.copyWith(ref: value));
+  });
+}
 }
 
 
@@ -249,7 +258,7 @@ $Res call({
 });
 
 
-
+@override $VertexRefCopyWith<$Res> get ref;
 
 }
 /// @nodoc
@@ -271,7 +280,16 @@ as PoiCategory?,
   ));
 }
 
-
+/// Create a copy of VertexUiModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VertexRefCopyWith<$Res> get ref {
+  
+  return $VertexRefCopyWith<$Res>(_self.ref, (value) {
+    return _then(_self.copyWith(ref: value));
+  });
+}
 }
 
 // dart format on

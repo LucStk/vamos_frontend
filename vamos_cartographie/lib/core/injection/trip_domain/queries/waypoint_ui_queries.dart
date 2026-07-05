@@ -1,7 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/providers/waypoint_store.dart';
-import '/features/features.dart';
 
 part 'waypoint_ui_queries.g.dart';
 

@@ -13,7 +13,7 @@ class VertexUiElement extends DragMarkerUiElement {
 
   @override
   Widget buildMarker({bool isDragging = false}) {
-    return Icon(Icons.circle, size: 8, color: Colors.white.withOpacity(0.5));
+    return Icon(Icons.circle, size: 20, color: Colors.black);
   }
 
   @override

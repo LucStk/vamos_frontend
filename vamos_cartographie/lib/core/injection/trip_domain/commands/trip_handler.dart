@@ -14,14 +14,3 @@ TripHandler tripHandler(Ref ref) {
   final executor = ref.read(optimisticExecutorProvider);
   return TripHandler(store, mediaStore, repo, executor);
 }
-
-// core/injection/commands/trip_provider.dart
-
-// // Déclenché une fois à l'ouverture de l'explorer
-// @riverpod
-// Future<void> loadTripContext(LoadTripContextRef ref, TripId tripId) async {
-//   await Future.wait([
-//     ref.watch(loadWaypointsProvider(tripId).future),
-//     ref.watch(loadTopologyProvider(tripId).future),
-//   ]);
-// }
