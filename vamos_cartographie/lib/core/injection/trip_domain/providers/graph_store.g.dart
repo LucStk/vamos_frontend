@@ -198,6 +198,102 @@ final class SegmentRepositoryProvider
 
 String _$segmentRepositoryHash() => r'72087992023f023edd9452392f361924929c08af';
 
+@ProviderFor(topologyRemoteDatasource)
+final topologyRemoteDatasourceProvider = TopologyRemoteDatasourceProvider._();
+
+final class TopologyRemoteDatasourceProvider
+    extends
+        $FunctionalProvider<
+          TopologyRemoteDatasource,
+          TopologyRemoteDatasource,
+          TopologyRemoteDatasource
+        >
+    with $Provider<TopologyRemoteDatasource> {
+  TopologyRemoteDatasourceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'topologyRemoteDatasourceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$topologyRemoteDatasourceHash();
+
+  @$internal
+  @override
+  $ProviderElement<TopologyRemoteDatasource> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  TopologyRemoteDatasource create(Ref ref) {
+    return topologyRemoteDatasource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TopologyRemoteDatasource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TopologyRemoteDatasource>(value),
+    );
+  }
+}
+
+String _$topologyRemoteDatasourceHash() =>
+    r'2bdcf38911778d96e57ca5036cdfdce9a49cce3c';
+
+@ProviderFor(topologyRepository)
+final topologyRepositoryProvider = TopologyRepositoryProvider._();
+
+final class TopologyRepositoryProvider
+    extends
+        $FunctionalProvider<
+          TopologyRepository,
+          TopologyRepository,
+          TopologyRepository
+        >
+    with $Provider<TopologyRepository> {
+  TopologyRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'topologyRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$topologyRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<TopologyRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  TopologyRepository create(Ref ref) {
+    return topologyRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TopologyRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TopologyRepository>(value),
+    );
+  }
+}
+
+String _$topologyRepositoryHash() =>
+    r'ce459e341adf92a08b78ff18080239737e638be0';
+
 @ProviderFor(rawGraphStore)
 final rawGraphStoreProvider = RawGraphStoreProvider._();
 
@@ -475,72 +571,3 @@ final class SegmentPatchStoreProvider
 }
 
 String _$segmentPatchStoreHash() => r'cd237c1c03eb4640168fe15a3adae40919702705';
-
-@ProviderFor(loadTopology)
-final loadTopologyProvider = LoadTopologyFamily._();
-
-final class LoadTopologyProvider
-    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
-    with $FutureModifier<void>, $FutureProvider<void> {
-  LoadTopologyProvider._({
-    required LoadTopologyFamily super.from,
-    required TripId super.argument,
-  }) : super(
-         retry: null,
-         name: r'loadTopologyProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$loadTopologyHash();
-
-  @override
-  String toString() {
-    return r'loadTopologyProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<void> create(Ref ref) {
-    final argument = this.argument as TripId;
-    return loadTopology(ref, argument);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is LoadTopologyProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$loadTopologyHash() => r'aa7b234956d67e8285c97b2793e03369efb77e75';
-
-final class LoadTopologyFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<void>, TripId> {
-  LoadTopologyFamily._()
-    : super(
-        retry: null,
-        name: r'loadTopologyProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  LoadTopologyProvider call(TripId tripId) =>
-      LoadTopologyProvider._(argument: tripId, from: this);
-
-  @override
-  String toString() => r'loadTopologyProvider';
-}

@@ -1,9 +1,6 @@
 import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:trip_domain/application/repositories/segment_repository.dart";
-import "package:trip_domain/application/repositories/vertex_repository.dart";
-import "package:trip_domain/domain/entities/entities.dart";
-import "package:trip_domain/runtime/runtime.dart";
+
 import "package:trip_domain/trip_domain.dart";
 import "package:vamos_cartographie/core/core.dart";
 import "package:vamos_cartographie/core/injection/services/add_listener_to_observable.dart";
@@ -28,6 +25,16 @@ SegmentRemoteDatasource segmentRemoteDatasource(Ref ref) {
 @riverpod
 SegmentRepository segmentRepository(Ref ref) {
   return SegmentRepositoryImpl(ref.watch(segmentRemoteDatasourceProvider));
+}
+
+@riverpod
+TopologyRemoteDatasource topologyRemoteDatasource(Ref ref) {
+  return TopologyRemoteDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+TopologyRepository topologyRepository(Ref ref) {
+  return TopologyRepositoryImpl(ref.watch(topologyRemoteDatasourceProvider));
 }
 
 @Riverpod(keepAlive: true)
@@ -62,14 +69,4 @@ ObservableCollectionStore<SegmentPatch> segmentPatchStore(Ref ref) {
   final graphStore = ref.watch(rawGraphPatchStoreProvider);
   addListenerRebuild(ref, graphStore.segmentPatchStore);
   return graphStore.segmentPatchStore;
-}
-
-@riverpod
-Future<void> loadTopology(Ref ref, TripId tripId) async {
-  final handler = ref.watch(tripHandlerProvider);
-  final result = await handler.loadFromRemote();
-  result.fold(
-    (failure) => throw failure, // Riverpod capture ça en AsyncError
-    (_) => null,
-  );
 }

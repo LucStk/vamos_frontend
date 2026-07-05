@@ -16,15 +16,6 @@ TripHandler tripHandler(Ref ref) {
 }
 
 // core/injection/commands/trip_provider.dart
-@riverpod
-Future<void> loadTrips(Ref ref) async {
-  final handler = ref.watch(tripHandlerProvider);
-  final result = await handler.loadFromRemote();
-  result.fold(
-    (failure) => throw failure, // Riverpod capture ça en AsyncError
-    (_) => null,
-  );
-}
 
 // // Déclenché une fois à l'ouverture de l'explorer
 // @riverpod

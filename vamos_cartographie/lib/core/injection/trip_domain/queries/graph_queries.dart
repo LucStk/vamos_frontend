@@ -1,5 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_domain/application/queries/topology_query_handler.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/services/add_listener_to_observable.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
@@ -55,4 +56,21 @@ SegmentPatch? segmentPatch(Ref ref, Id<SegmentPatch> id) {
   }
   addListenerRebuild(ref, node); // Rebuild si change
   return node.value;
+}
+
+@riverpod
+TopologyQueryHandler topologyQueryHandler(Ref ref) {
+  final graphStore = ref.read(rawGraphStoreProvider);
+  final repo = ref.read(topologyRepositoryProvider);
+  return TopologyQueryHandler(graphStore, repo);
+}
+
+@riverpod
+Future<void> loadTopology(Ref ref, TripId tripId) async {
+  final handler = ref.watch(topologyQueryHandlerProvider);
+  final result = await handler.loadTopology(tripId);
+  result.fold(
+    (failure) => throw failure, // Riverpod capture ça en AsyncError
+    (_) => null,
+  );
 }
