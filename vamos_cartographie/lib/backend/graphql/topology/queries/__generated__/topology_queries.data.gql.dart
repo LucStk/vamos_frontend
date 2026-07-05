@@ -72,14 +72,14 @@ class GGetTopologyData_trip {
 
   factory GGetTopologyData_trip.fromJson(Map<String, dynamic> json) {
     return GGetTopologyData_trip(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       topology: GGetTopologyData_trip_topology.fromJson(
           (json['topology'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final int id;
+  final String id;
 
   final GGetTopologyData_trip_topology topology;
 
@@ -94,7 +94,7 @@ class GGetTopologyData_trip {
   }
 
   GGetTopologyData_trip copyWith({
-    int? id,
+    String? id,
     GGetTopologyData_trip_topology? topology,
     String? G__typename,
   }) {

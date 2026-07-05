@@ -9,8 +9,7 @@ List<MapIntents> translate(MapUiEvent event, MapState state) {
     case CursorTapped e:
       return [CreateSimpleVertex(e.latLng)];
     case VertexDragEnd e:
-      
-      return [UpdateVertexPosition(e.vertexRef.id, e.latLng)];
+      return [UpdateVertexPosition(e.vertexRef, e.latLng)];
     default:
       return [];
   }

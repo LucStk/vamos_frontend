@@ -12,11 +12,11 @@ mutation CreateImage($fileKey: String!) {
         ...ImageFields
     }
 }
-mutation DeleteImageFrom($id: Int!, $fileKey: String!, $type: OwnerType!) {
+mutation DeleteImageFrom($id: UUID!, $fileKey: String!, $type: OwnerType!) {
     deleteImageFrom(id: $id, fileKey: $fileKey, type: $type)
 }
 
-mutation AttachImageTo($id: Int!, $fileKey: String!, $type: OwnerType!) {
+mutation AttachImageTo($id: UUID!, $fileKey: String!, $type: OwnerType!) {
     attachImageTo(id: $id, fileKey: $fileKey, type: $type) {
         image {
             ...ImageFields

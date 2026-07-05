@@ -83,7 +83,7 @@ class WaypointRemoteDatasource {
       req = GCreateBlankWaypointFromVertexReq(
         vars: GCreateBlankWaypointFromVertexVars(
           tripId: tripId.value,
-          vertexId: vertexId as int,
+          vertexId: vertexId as String,
         ),
       );
     } else {

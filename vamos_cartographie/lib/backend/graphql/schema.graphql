@@ -43,7 +43,7 @@ input MediaImageInput {
 }
 
 type MediaImageType {
-  id: Int!
+  id: UUID!
   fileKey: String!
   createdAt: DateTime!
   url: String!
@@ -58,23 +58,23 @@ enum MobilityType {
 }
 
 type Mutation {
-  updateTrip(id: Int!, trip: TripUpdateInput!): TripType!
-  deleteTrip(id: Int!): Boolean!
+  updateTrip(id: UUID!, trip: TripUpdateInput!): TripType!
+  deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
   createImage(data: MediaImageInput!): MediaImageType!
   generateImageUploadUrl(filename: String!): UploadConfig!
-  attachImageTo(id: Int!, type: OwnerType!, fileKey: String!): MediaAttachmentType!
-  deleteImageFrom(id: Int!, type: OwnerType!, fileKey: String!): String!
-  updateWaypoint(id: Int!, input: WaypointUpdateInput!): WaypointType!
-  createBlankWaypointFromPosition(tripId: Int!, latLng: LatLngInput!): CreateWaypointPayload!
-  createBlankWaypointFromVertex(tripId: Int!, vertexId: Int!): CreateWaypointPayload!
-  deleteWaypoint(id: Int!): Boolean!
+  attachImageTo(id: UUID!, type: OwnerType!, fileKey: String!): MediaAttachmentType!
+  deleteImageFrom(id: UUID!, type: OwnerType!, fileKey: String!): String!
+  updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
+  createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): CreateWaypointPayload!
+  createBlankWaypointFromVertex(tripId: UUID!, vertexId: UUID!): CreateWaypointPayload!
+  deleteWaypoint(id: UUID!): Boolean!
   insertVertexToSegment(vertexId: UUID!, segmentId: UUID!): InsertVertexToSegmentPayload!
   updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
-  createSegment(tripId: Int!, input: SegmentCreateInput!): SegmentType!
+  createSegment(tripId: UUID!, input: SegmentCreateInput!): SegmentType!
   deleteSegment(id: UUID!): Boolean!
   moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
-  createVertex(tripId: Int!, latLng: LatLngInput!): VertexType!
+  createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: UUID!): Boolean!
 }
 
@@ -101,7 +101,7 @@ enum PoiCategory {
 
 type Query {
   trips: [TripType!]!
-  trip(id: Int!): TripType!
+  trip(id: UUID!): TripType!
 }
 
 input SegmentCreateInput {
@@ -131,7 +131,7 @@ type TopologyType {
 }
 
 type TripType {
-  id: Int!
+  id: UUID!
   title: String!
   description: String!
   date: Date
@@ -160,7 +160,7 @@ type VertexType {
 }
 
 type WaypointType {
-  id: Int!
+  id: UUID!
   title: String!
   description: String!
   poiCategory: PoiCategory!

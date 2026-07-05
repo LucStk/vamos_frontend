@@ -1,14 +1,14 @@
 part of 'intents.dart';
 
 class SelectVertex extends MapIntents {
-  final Id<Vertex> vertexId;
-  const SelectVertex(this.vertexId);
+  final VertexRef vertexRef;
+  const SelectVertex(this.vertexRef);
 }
 
 class UpdateVertexPosition extends MapIntents {
-  final Id<Vertex> vertexId;
+  final VertexRef vertexRef;
   final LatLng position;
-  const UpdateVertexPosition(this.vertexId, this.position);
+  const UpdateVertexPosition(this.vertexRef, this.position);
 }
 
 class CreateSimpleVertex extends MapIntents {

@@ -12,7 +12,7 @@ import 'package:vamos_cartographie/backend/graphql/topology/fields/__generated__
     as _i3;
 
 abstract class GWaypointFields {
-  int get id;
+  String get id;
   _i1.GPoiCategory get poiCategory;
   String get title;
   String get description;
@@ -34,7 +34,7 @@ class GWaypointFieldsData implements GWaypointFields {
 
   factory GWaypointFieldsData.fromJson(Map<String, dynamic> json) {
     return GWaypointFieldsData(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       poiCategory: _i1.GPoiCategory.fromJson((json['poiCategory'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
@@ -48,7 +48,7 @@ class GWaypointFieldsData implements GWaypointFields {
     );
   }
 
-  final int id;
+  final String id;
 
   final _i1.GPoiCategory poiCategory;
 
@@ -75,7 +75,7 @@ class GWaypointFieldsData implements GWaypointFields {
   }
 
   GWaypointFieldsData copyWith({
-    int? id,
+    String? id,
     _i1.GPoiCategory? poiCategory,
     String? title,
     String? description,

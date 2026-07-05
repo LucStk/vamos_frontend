@@ -9,10 +9,10 @@ class GGetWaypointsVars {
   const GGetWaypointsVars({required this.tripId});
 
   factory GGetWaypointsVars.fromJson(Map<String, dynamic> json) {
-    return GGetWaypointsVars(tripId: (json['tripId'] as int));
+    return GGetWaypointsVars(tripId: (json['tripId'] as String));
   }
 
-  final int tripId;
+  final String tripId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -21,7 +21,7 @@ class GGetWaypointsVars {
     return _$result;
   }
 
-  GGetWaypointsVars copyWith({int? tripId}) {
+  GGetWaypointsVars copyWith({String? tripId}) {
     return GGetWaypointsVars(tripId: tripId ?? this.tripId);
   }
 

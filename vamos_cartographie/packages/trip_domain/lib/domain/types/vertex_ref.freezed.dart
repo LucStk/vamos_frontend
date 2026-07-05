@@ -119,7 +119,7 @@ return pending(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<Vertex> id)?  confirmed,TResult Function( Id<VertexPatch> id)?  pending,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( VertexId id)?  confirmed,TResult Function( Id<VertexPatch> id)?  pending,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ConfirmedVertexRef() when confirmed != null:
 return confirmed(_that.id);case PendingVertexRef() when pending != null:
@@ -141,7 +141,7 @@ return pending(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<Vertex> id)  confirmed,required TResult Function( Id<VertexPatch> id)  pending,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( VertexId id)  confirmed,required TResult Function( Id<VertexPatch> id)  pending,}) {final _that = this;
 switch (_that) {
 case ConfirmedVertexRef():
 return confirmed(_that.id);case PendingVertexRef():
@@ -159,7 +159,7 @@ return pending(_that.id);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<Vertex> id)?  confirmed,TResult? Function( Id<VertexPatch> id)?  pending,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( VertexId id)?  confirmed,TResult? Function( Id<VertexPatch> id)?  pending,}) {final _that = this;
 switch (_that) {
 case ConfirmedVertexRef() when confirmed != null:
 return confirmed(_that.id);case PendingVertexRef() when pending != null:
@@ -178,7 +178,7 @@ class ConfirmedVertexRef implements VertexRef {
   const ConfirmedVertexRef(this.id);
   
 
-@override final  Id<Vertex> id;
+@override final  VertexId id;
 
 /// Create a copy of VertexRef
 /// with the given fields replaced by the non-null parameter values.
@@ -210,7 +210,7 @@ abstract mixin class $ConfirmedVertexRefCopyWith<$Res> implements $VertexRefCopy
   factory $ConfirmedVertexRefCopyWith(ConfirmedVertexRef value, $Res Function(ConfirmedVertexRef) _then) = _$ConfirmedVertexRefCopyWithImpl;
 @useResult
 $Res call({
- Id<Vertex> id
+ VertexId id
 });
 
 
@@ -230,7 +230,7 @@ class _$ConfirmedVertexRefCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
   return _then(ConfirmedVertexRef(
 null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,
+as VertexId,
   ));
 }
 

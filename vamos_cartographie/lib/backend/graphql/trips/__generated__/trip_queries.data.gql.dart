@@ -193,7 +193,7 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
 
   factory GGetTripDetailsData_trip.fromJson(Map<String, dynamic> json) {
     return GGetTripDetailsData_trip(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
@@ -211,7 +211,7 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
     );
   }
 
-  final int id;
+  final String id;
 
   final String title;
 
@@ -242,7 +242,7 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
   }
 
   GGetTripDetailsData_trip copyWith({
-    int? id,
+    String? id,
     String? title,
     String? date,
     bool dateIsSet = false,

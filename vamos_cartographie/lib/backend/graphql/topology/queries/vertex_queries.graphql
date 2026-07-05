@@ -1,5 +1,5 @@
 #import "../fields/vertex_fields.graphql"
-query GetVertices($tripId: Int!) {
+query GetVertices($tripId: UUID!) {
     trip(id: $tripId) {
         topology {
             vertices {

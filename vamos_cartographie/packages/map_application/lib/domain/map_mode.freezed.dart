@@ -137,16 +137,16 @@ return waypointSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( LatLng latLng)?  cursorDrawn,TResult Function( Id<Vertex> vertexId)?  vertexSelected,TResult Function( Id<Vertex> vertexId)?  draggingVertex,TResult Function( Id<Segment> segmentId)?  segmentSelected,TResult Function( Id<Segment>? segmentId)?  creatingSegment,TResult Function( Id<Segment> segmentId)?  splittingSegment,TResult Function( Id<Waypoint> waypointId)?  waypointSelected,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( LatLng latLng)?  cursorDrawn,TResult Function( VertexRef vertexRef)?  vertexSelected,TResult Function( VertexRef vertexRef)?  draggingVertex,TResult Function( SegmentRef segmentRef)?  segmentSelected,TResult Function( SegmentRef? segmentRef)?  creatingSegment,TResult Function( SegmentRef segmentRef)?  splittingSegment,TResult Function( Id<Waypoint> waypointId)?  waypointSelected,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
 return idle();case CursorDrawn() when cursorDrawn != null:
 return cursorDrawn(_that.latLng);case VertexSelected() when vertexSelected != null:
-return vertexSelected(_that.vertexId);case DraggingVertex() when draggingVertex != null:
-return draggingVertex(_that.vertexId);case SegmentSelected() when segmentSelected != null:
-return segmentSelected(_that.segmentId);case CreatingSegment() when creatingSegment != null:
-return creatingSegment(_that.segmentId);case SplittingSegment() when splittingSegment != null:
-return splittingSegment(_that.segmentId);case WaypointSelected() when waypointSelected != null:
+return vertexSelected(_that.vertexRef);case DraggingVertex() when draggingVertex != null:
+return draggingVertex(_that.vertexRef);case SegmentSelected() when segmentSelected != null:
+return segmentSelected(_that.segmentRef);case CreatingSegment() when creatingSegment != null:
+return creatingSegment(_that.segmentRef);case SplittingSegment() when splittingSegment != null:
+return splittingSegment(_that.segmentRef);case WaypointSelected() when waypointSelected != null:
 return waypointSelected(_that.waypointId);case _:
   return orElse();
 
@@ -165,16 +165,16 @@ return waypointSelected(_that.waypointId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( LatLng latLng)  cursorDrawn,required TResult Function( Id<Vertex> vertexId)  vertexSelected,required TResult Function( Id<Vertex> vertexId)  draggingVertex,required TResult Function( Id<Segment> segmentId)  segmentSelected,required TResult Function( Id<Segment>? segmentId)  creatingSegment,required TResult Function( Id<Segment> segmentId)  splittingSegment,required TResult Function( Id<Waypoint> waypointId)  waypointSelected,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( LatLng latLng)  cursorDrawn,required TResult Function( VertexRef vertexRef)  vertexSelected,required TResult Function( VertexRef vertexRef)  draggingVertex,required TResult Function( SegmentRef segmentRef)  segmentSelected,required TResult Function( SegmentRef? segmentRef)  creatingSegment,required TResult Function( SegmentRef segmentRef)  splittingSegment,required TResult Function( Id<Waypoint> waypointId)  waypointSelected,}) {final _that = this;
 switch (_that) {
 case Idle():
 return idle();case CursorDrawn():
 return cursorDrawn(_that.latLng);case VertexSelected():
-return vertexSelected(_that.vertexId);case DraggingVertex():
-return draggingVertex(_that.vertexId);case SegmentSelected():
-return segmentSelected(_that.segmentId);case CreatingSegment():
-return creatingSegment(_that.segmentId);case SplittingSegment():
-return splittingSegment(_that.segmentId);case WaypointSelected():
+return vertexSelected(_that.vertexRef);case DraggingVertex():
+return draggingVertex(_that.vertexRef);case SegmentSelected():
+return segmentSelected(_that.segmentRef);case CreatingSegment():
+return creatingSegment(_that.segmentRef);case SplittingSegment():
+return splittingSegment(_that.segmentRef);case WaypointSelected():
 return waypointSelected(_that.waypointId);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -189,16 +189,16 @@ return waypointSelected(_that.waypointId);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( LatLng latLng)?  cursorDrawn,TResult? Function( Id<Vertex> vertexId)?  vertexSelected,TResult? Function( Id<Vertex> vertexId)?  draggingVertex,TResult? Function( Id<Segment> segmentId)?  segmentSelected,TResult? Function( Id<Segment>? segmentId)?  creatingSegment,TResult? Function( Id<Segment> segmentId)?  splittingSegment,TResult? Function( Id<Waypoint> waypointId)?  waypointSelected,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( LatLng latLng)?  cursorDrawn,TResult? Function( VertexRef vertexRef)?  vertexSelected,TResult? Function( VertexRef vertexRef)?  draggingVertex,TResult? Function( SegmentRef segmentRef)?  segmentSelected,TResult? Function( SegmentRef? segmentRef)?  creatingSegment,TResult? Function( SegmentRef segmentRef)?  splittingSegment,TResult? Function( Id<Waypoint> waypointId)?  waypointSelected,}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
 return idle();case CursorDrawn() when cursorDrawn != null:
 return cursorDrawn(_that.latLng);case VertexSelected() when vertexSelected != null:
-return vertexSelected(_that.vertexId);case DraggingVertex() when draggingVertex != null:
-return draggingVertex(_that.vertexId);case SegmentSelected() when segmentSelected != null:
-return segmentSelected(_that.segmentId);case CreatingSegment() when creatingSegment != null:
-return creatingSegment(_that.segmentId);case SplittingSegment() when splittingSegment != null:
-return splittingSegment(_that.segmentId);case WaypointSelected() when waypointSelected != null:
+return vertexSelected(_that.vertexRef);case DraggingVertex() when draggingVertex != null:
+return draggingVertex(_that.vertexRef);case SegmentSelected() when segmentSelected != null:
+return segmentSelected(_that.segmentRef);case CreatingSegment() when creatingSegment != null:
+return creatingSegment(_that.segmentRef);case SplittingSegment() when splittingSegment != null:
+return splittingSegment(_that.segmentRef);case WaypointSelected() when waypointSelected != null:
 return waypointSelected(_that.waypointId);case _:
   return null;
 
@@ -309,10 +309,10 @@ as LatLng,
 
 
 class VertexSelected implements MapMode {
-  const VertexSelected({required this.vertexId});
+  const VertexSelected({required this.vertexRef});
   
 
- final  Id<Vertex> vertexId;
+ final  VertexRef vertexRef;
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
@@ -324,16 +324,16 @@ $VertexSelectedCopyWith<VertexSelected> get copyWith => _$VertexSelectedCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelected&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelected&&(identical(other.vertexRef, vertexRef) || other.vertexRef == vertexRef));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexId);
+int get hashCode => Object.hash(runtimeType,vertexRef);
 
 @override
 String toString() {
-  return 'MapMode.vertexSelected(vertexId: $vertexId)';
+  return 'MapMode.vertexSelected(vertexRef: $vertexRef)';
 }
 
 
@@ -344,11 +344,11 @@ abstract mixin class $VertexSelectedCopyWith<$Res> implements $MapModeCopyWith<$
   factory $VertexSelectedCopyWith(VertexSelected value, $Res Function(VertexSelected) _then) = _$VertexSelectedCopyWithImpl;
 @useResult
 $Res call({
- Id<Vertex> vertexId
+ VertexRef vertexRef
 });
 
 
-
+$VertexRefCopyWith<$Res> get vertexRef;
 
 }
 /// @nodoc
@@ -361,24 +361,33 @@ class _$VertexSelectedCopyWithImpl<$Res>
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? vertexId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? vertexRef = null,}) {
   return _then(VertexSelected(
-vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,
+vertexRef: null == vertexRef ? _self.vertexRef : vertexRef // ignore: cast_nullable_to_non_nullable
+as VertexRef,
   ));
 }
 
-
+/// Create a copy of MapMode
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VertexRefCopyWith<$Res> get vertexRef {
+  
+  return $VertexRefCopyWith<$Res>(_self.vertexRef, (value) {
+    return _then(_self.copyWith(vertexRef: value));
+  });
+}
 }
 
 /// @nodoc
 
 
 class DraggingVertex implements MapMode {
-  const DraggingVertex({required this.vertexId});
+  const DraggingVertex({required this.vertexRef});
   
 
- final  Id<Vertex> vertexId;
+ final  VertexRef vertexRef;
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
@@ -390,16 +399,16 @@ $DraggingVertexCopyWith<DraggingVertex> get copyWith => _$DraggingVertexCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DraggingVertex&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DraggingVertex&&(identical(other.vertexRef, vertexRef) || other.vertexRef == vertexRef));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexId);
+int get hashCode => Object.hash(runtimeType,vertexRef);
 
 @override
 String toString() {
-  return 'MapMode.draggingVertex(vertexId: $vertexId)';
+  return 'MapMode.draggingVertex(vertexRef: $vertexRef)';
 }
 
 
@@ -410,11 +419,11 @@ abstract mixin class $DraggingVertexCopyWith<$Res> implements $MapModeCopyWith<$
   factory $DraggingVertexCopyWith(DraggingVertex value, $Res Function(DraggingVertex) _then) = _$DraggingVertexCopyWithImpl;
 @useResult
 $Res call({
- Id<Vertex> vertexId
+ VertexRef vertexRef
 });
 
 
-
+$VertexRefCopyWith<$Res> get vertexRef;
 
 }
 /// @nodoc
@@ -427,24 +436,33 @@ class _$DraggingVertexCopyWithImpl<$Res>
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? vertexId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? vertexRef = null,}) {
   return _then(DraggingVertex(
-vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,
+vertexRef: null == vertexRef ? _self.vertexRef : vertexRef // ignore: cast_nullable_to_non_nullable
+as VertexRef,
   ));
 }
 
-
+/// Create a copy of MapMode
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VertexRefCopyWith<$Res> get vertexRef {
+  
+  return $VertexRefCopyWith<$Res>(_self.vertexRef, (value) {
+    return _then(_self.copyWith(vertexRef: value));
+  });
+}
 }
 
 /// @nodoc
 
 
 class SegmentSelected implements MapMode {
-  const SegmentSelected({required this.segmentId});
+  const SegmentSelected({required this.segmentRef});
   
 
- final  Id<Segment> segmentId;
+ final  SegmentRef segmentRef;
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
@@ -456,16 +474,16 @@ $SegmentSelectedCopyWith<SegmentSelected> get copyWith => _$SegmentSelectedCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelected&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelected&&(identical(other.segmentRef, segmentRef) || other.segmentRef == segmentRef));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,segmentId);
+int get hashCode => Object.hash(runtimeType,segmentRef);
 
 @override
 String toString() {
-  return 'MapMode.segmentSelected(segmentId: $segmentId)';
+  return 'MapMode.segmentSelected(segmentRef: $segmentRef)';
 }
 
 
@@ -476,11 +494,11 @@ abstract mixin class $SegmentSelectedCopyWith<$Res> implements $MapModeCopyWith<
   factory $SegmentSelectedCopyWith(SegmentSelected value, $Res Function(SegmentSelected) _then) = _$SegmentSelectedCopyWithImpl;
 @useResult
 $Res call({
- Id<Segment> segmentId
+ SegmentRef segmentRef
 });
 
 
-
+$SegmentRefCopyWith<$Res> get segmentRef;
 
 }
 /// @nodoc
@@ -493,24 +511,33 @@ class _$SegmentSelectedCopyWithImpl<$Res>
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? segmentId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? segmentRef = null,}) {
   return _then(SegmentSelected(
-segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
-as Id<Segment>,
+segmentRef: null == segmentRef ? _self.segmentRef : segmentRef // ignore: cast_nullable_to_non_nullable
+as SegmentRef,
   ));
 }
 
-
+/// Create a copy of MapMode
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SegmentRefCopyWith<$Res> get segmentRef {
+  
+  return $SegmentRefCopyWith<$Res>(_self.segmentRef, (value) {
+    return _then(_self.copyWith(segmentRef: value));
+  });
+}
 }
 
 /// @nodoc
 
 
 class CreatingSegment implements MapMode {
-  const CreatingSegment({this.segmentId});
+  const CreatingSegment({this.segmentRef});
   
 
- final  Id<Segment>? segmentId;
+ final  SegmentRef? segmentRef;
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
@@ -522,16 +549,16 @@ $CreatingSegmentCopyWith<CreatingSegment> get copyWith => _$CreatingSegmentCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreatingSegment&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreatingSegment&&(identical(other.segmentRef, segmentRef) || other.segmentRef == segmentRef));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,segmentId);
+int get hashCode => Object.hash(runtimeType,segmentRef);
 
 @override
 String toString() {
-  return 'MapMode.creatingSegment(segmentId: $segmentId)';
+  return 'MapMode.creatingSegment(segmentRef: $segmentRef)';
 }
 
 
@@ -542,11 +569,11 @@ abstract mixin class $CreatingSegmentCopyWith<$Res> implements $MapModeCopyWith<
   factory $CreatingSegmentCopyWith(CreatingSegment value, $Res Function(CreatingSegment) _then) = _$CreatingSegmentCopyWithImpl;
 @useResult
 $Res call({
- Id<Segment>? segmentId
+ SegmentRef? segmentRef
 });
 
 
-
+$SegmentRefCopyWith<$Res>? get segmentRef;
 
 }
 /// @nodoc
@@ -559,24 +586,36 @@ class _$CreatingSegmentCopyWithImpl<$Res>
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? segmentId = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? segmentRef = freezed,}) {
   return _then(CreatingSegment(
-segmentId: freezed == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
-as Id<Segment>?,
+segmentRef: freezed == segmentRef ? _self.segmentRef : segmentRef // ignore: cast_nullable_to_non_nullable
+as SegmentRef?,
   ));
 }
 
+/// Create a copy of MapMode
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SegmentRefCopyWith<$Res>? get segmentRef {
+    if (_self.segmentRef == null) {
+    return null;
+  }
 
+  return $SegmentRefCopyWith<$Res>(_self.segmentRef!, (value) {
+    return _then(_self.copyWith(segmentRef: value));
+  });
+}
 }
 
 /// @nodoc
 
 
 class SplittingSegment implements MapMode {
-  const SplittingSegment({required this.segmentId});
+  const SplittingSegment({required this.segmentRef});
   
 
- final  Id<Segment> segmentId;
+ final  SegmentRef segmentRef;
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
@@ -588,16 +627,16 @@ $SplittingSegmentCopyWith<SplittingSegment> get copyWith => _$SplittingSegmentCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SplittingSegment&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SplittingSegment&&(identical(other.segmentRef, segmentRef) || other.segmentRef == segmentRef));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,segmentId);
+int get hashCode => Object.hash(runtimeType,segmentRef);
 
 @override
 String toString() {
-  return 'MapMode.splittingSegment(segmentId: $segmentId)';
+  return 'MapMode.splittingSegment(segmentRef: $segmentRef)';
 }
 
 
@@ -608,11 +647,11 @@ abstract mixin class $SplittingSegmentCopyWith<$Res> implements $MapModeCopyWith
   factory $SplittingSegmentCopyWith(SplittingSegment value, $Res Function(SplittingSegment) _then) = _$SplittingSegmentCopyWithImpl;
 @useResult
 $Res call({
- Id<Segment> segmentId
+ SegmentRef segmentRef
 });
 
 
-
+$SegmentRefCopyWith<$Res> get segmentRef;
 
 }
 /// @nodoc
@@ -625,14 +664,23 @@ class _$SplittingSegmentCopyWithImpl<$Res>
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? segmentId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? segmentRef = null,}) {
   return _then(SplittingSegment(
-segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
-as Id<Segment>,
+segmentRef: null == segmentRef ? _self.segmentRef : segmentRef // ignore: cast_nullable_to_non_nullable
+as SegmentRef,
   ));
 }
 
-
+/// Create a copy of MapMode
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SegmentRefCopyWith<$Res> get segmentRef {
+  
+  return $SegmentRefCopyWith<$Res>(_self.segmentRef, (value) {
+    return _then(_self.copyWith(segmentRef: value));
+  });
+}
 }
 
 /// @nodoc

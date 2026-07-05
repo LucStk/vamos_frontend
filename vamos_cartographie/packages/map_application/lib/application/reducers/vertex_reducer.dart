@@ -3,11 +3,11 @@ import 'package:map_application/map_application.dart';
 
 TransitionResult reduceVertex(MapMode state, MapIntents intent) {
   return switch (intent) {
-    UpdateVertexPosition s => TransitionResult(
+    UpdateVertexPosition _ => TransitionResult(
       nextState: state,
       effects: [
         MoveVertexEffect(
-          vertexId: intent.vertexId,
+          vertexRef: intent.vertexRef,
           newPosition: intent.position,
         ),
       ],

@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fie
     as _i1;
 
 abstract class GTripFields {
-  int get id;
+  String get id;
   String get title;
   String? get date;
   String get description;
@@ -28,7 +28,7 @@ class GTripFieldsData implements GTripFields {
 
   factory GTripFieldsData.fromJson(Map<String, dynamic> json) {
     return GTripFieldsData(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
@@ -40,7 +40,7 @@ class GTripFieldsData implements GTripFields {
     );
   }
 
-  final int id;
+  final String id;
 
   final String title;
 
@@ -65,7 +65,7 @@ class GTripFieldsData implements GTripFields {
   }
 
   GTripFieldsData copyWith({
-    int? id,
+    String? id,
     String? title,
     String? date,
     bool dateIsSet = false,

@@ -9,10 +9,10 @@ class GGetSegmentsVars {
   const GGetSegmentsVars({required this.tripId});
 
   factory GGetSegmentsVars.fromJson(Map<String, dynamic> json) {
-    return GGetSegmentsVars(tripId: (json['tripId'] as int));
+    return GGetSegmentsVars(tripId: (json['tripId'] as String));
   }
 
-  final int tripId;
+  final String tripId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -21,7 +21,7 @@ class GGetSegmentsVars {
     return _$result;
   }
 
-  GGetSegmentsVars copyWith({int? tripId}) {
+  GGetSegmentsVars copyWith({String? tripId}) {
     return GGetSegmentsVars(tripId: tripId ?? this.tripId);
   }
 

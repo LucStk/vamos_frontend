@@ -22,7 +22,7 @@ List<VertexRef> vertexRefs(Ref ref) {
       .getIds()
       .map(PendingVertexRef.new);
 
-  final Map<int, VertexRef> byKey = {
+  final Map<String, VertexRef> byKey = {
     for (final r in confirmedRefs) r.id.value: r,
     for (final r in pendingRefs) r.id.value: r, // écrase les confirmed
   };

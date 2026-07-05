@@ -9,10 +9,10 @@ class GGetTopologyVars {
   const GGetTopologyVars({required this.tripId});
 
   factory GGetTopologyVars.fromJson(Map<String, dynamic> json) {
-    return GGetTopologyVars(tripId: (json['tripId'] as int));
+    return GGetTopologyVars(tripId: (json['tripId'] as String));
   }
 
-  final int tripId;
+  final String tripId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -21,7 +21,7 @@ class GGetTopologyVars {
     return _$result;
   }
 
-  GGetTopologyVars copyWith({int? tripId}) {
+  GGetTopologyVars copyWith({String? tripId}) {
     return GGetTopologyVars(tripId: tripId ?? this.tripId);
   }
 

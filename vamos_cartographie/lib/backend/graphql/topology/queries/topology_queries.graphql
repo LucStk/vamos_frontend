@@ -1,7 +1,7 @@
 #import "../fields/vertex_fields.graphql"
 #import "../fields/segment_fields.graphql"
 
-query GetTopology($tripId: Int!) {
+query GetTopology($tripId: UUID!) {
     trip(id: $tripId) {
         id
         topology {

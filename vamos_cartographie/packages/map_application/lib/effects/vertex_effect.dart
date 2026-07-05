@@ -6,8 +6,8 @@ class CreateSimpleVertexEffect extends MapEffect {
 }
 
 class MoveVertexEffect extends MapEffect {
-  final Id<Vertex> vertexId;
+  final VertexRef vertexRef;
   final LatLng newPosition;
 
-  const MoveVertexEffect({required this.vertexId, required this.newPosition});
+  const MoveVertexEffect({required this.vertexRef, required this.newPosition});
 }

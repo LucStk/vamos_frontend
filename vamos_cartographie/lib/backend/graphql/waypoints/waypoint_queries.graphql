@@ -1,7 +1,7 @@
 #import "../trips/trip_fields.graphql"
 #import "waypoint_fields.graphql"
 
-query GetWaypoints($tripId: Int!) {
+query GetWaypoints($tripId: UUID!) {
     trip(id: $tripId) {
         ...TripFields
         waypoints {

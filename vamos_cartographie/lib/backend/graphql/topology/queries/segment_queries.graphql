@@ -1,6 +1,6 @@
 #import "../fields/segment_fields.graphql"
 
-query GetSegments($tripId: Int!) {
+query GetSegments($tripId: UUID!) {
     trip(id: $tripId) {
         topology {
             segments {

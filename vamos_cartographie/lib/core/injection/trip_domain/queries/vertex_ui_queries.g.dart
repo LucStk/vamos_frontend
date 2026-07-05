@@ -49,7 +49,7 @@ final class VertexRefsProvider
   }
 }
 
-String _$vertexRefsHash() => r'51dfa2b46d169ec6e21fc3d83d5e184629dff146';
+String _$vertexRefsHash() => r'fa3d295c0747af9cd14dd37bd742b9c17de1cd1d';
 
 @ProviderFor(vertexUi)
 final vertexUiProvider = VertexUiFamily._();

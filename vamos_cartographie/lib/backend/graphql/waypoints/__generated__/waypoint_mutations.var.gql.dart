@@ -15,13 +15,13 @@ class GUpdateWaypointVars {
 
   factory GUpdateWaypointVars.fromJson(Map<String, dynamic> json) {
     return GUpdateWaypointVars(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       waypoint: _i1.GWaypointUpdateInput.fromJson(
           (json['waypoint'] as Map<String, dynamic>)),
     );
   }
 
-  final int id;
+  final String id;
 
   final _i1.GWaypointUpdateInput waypoint;
 
@@ -35,7 +35,7 @@ class GUpdateWaypointVars {
   }
 
   GUpdateWaypointVars copyWith({
-    int? id,
+    String? id,
     _i1.GWaypointUpdateInput? waypoint,
   }) {
     return GUpdateWaypointVars(
@@ -71,13 +71,13 @@ class GCreateBlankWaypointFromPositionVars {
   factory GCreateBlankWaypointFromPositionVars.fromJson(
       Map<String, dynamic> json) {
     return GCreateBlankWaypointFromPositionVars(
-      tripId: (json['tripId'] as int),
+      tripId: (json['tripId'] as String),
       latLng:
           _i1.GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)),
     );
   }
 
-  final int tripId;
+  final String tripId;
 
   final _i1.GLatLngInput latLng;
 
@@ -91,7 +91,7 @@ class GCreateBlankWaypointFromPositionVars {
   }
 
   GCreateBlankWaypointFromPositionVars copyWith({
-    int? tripId,
+    String? tripId,
     _i1.GLatLngInput? latLng,
   }) {
     return GCreateBlankWaypointFromPositionVars(
@@ -127,14 +127,14 @@ class GCreateBlankWaypointFromVertexVars {
   factory GCreateBlankWaypointFromVertexVars.fromJson(
       Map<String, dynamic> json) {
     return GCreateBlankWaypointFromVertexVars(
-      tripId: (json['tripId'] as int),
-      vertexId: (json['vertexId'] as int),
+      tripId: (json['tripId'] as String),
+      vertexId: (json['vertexId'] as String),
     );
   }
 
-  final int tripId;
+  final String tripId;
 
-  final int vertexId;
+  final String vertexId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -146,8 +146,8 @@ class GCreateBlankWaypointFromVertexVars {
   }
 
   GCreateBlankWaypointFromVertexVars copyWith({
-    int? tripId,
-    int? vertexId,
+    String? tripId,
+    String? vertexId,
   }) {
     return GCreateBlankWaypointFromVertexVars(
       tripId: tripId ?? this.tripId,
@@ -177,10 +177,10 @@ class GDeleteWaypointVars {
   const GDeleteWaypointVars({required this.waypointId});
 
   factory GDeleteWaypointVars.fromJson(Map<String, dynamic> json) {
-    return GDeleteWaypointVars(waypointId: (json['waypointId'] as int));
+    return GDeleteWaypointVars(waypointId: (json['waypointId'] as String));
   }
 
-  final int waypointId;
+  final String waypointId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -189,7 +189,7 @@ class GDeleteWaypointVars {
     return _$result;
   }
 
-  GDeleteWaypointVars copyWith({int? waypointId}) {
+  GDeleteWaypointVars copyWith({String? waypointId}) {
     return GDeleteWaypointVars(waypointId: waypointId ?? this.waypointId);
   }
 

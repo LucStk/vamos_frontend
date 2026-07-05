@@ -15,7 +15,7 @@ class EffectRunner {
         e.position,
       ),
       MoveVertexEffect e => await topologyHandler.moveVertex(
-        e.vertexId,
+        e.vertexRef,
         e.newPosition,
       ),
     };

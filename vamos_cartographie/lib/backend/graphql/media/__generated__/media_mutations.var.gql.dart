@@ -92,13 +92,13 @@ class GDeleteImageFromVars {
 
   factory GDeleteImageFromVars.fromJson(Map<String, dynamic> json) {
     return GDeleteImageFromVars(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       fileKey: (json['fileKey'] as String),
       type: _i1.GOwnerType.fromJson((json['type'] as String)),
     );
   }
 
-  final int id;
+  final String id;
 
   final String fileKey;
 
@@ -116,7 +116,7 @@ class GDeleteImageFromVars {
   }
 
   GDeleteImageFromVars copyWith({
-    int? id,
+    String? id,
     String? fileKey,
     _i1.GOwnerType? type,
   }) {
@@ -154,13 +154,13 @@ class GAttachImageToVars {
 
   factory GAttachImageToVars.fromJson(Map<String, dynamic> json) {
     return GAttachImageToVars(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       fileKey: (json['fileKey'] as String),
       type: _i1.GOwnerType.fromJson((json['type'] as String)),
     );
   }
 
-  final int id;
+  final String id;
 
   final String fileKey;
 
@@ -178,7 +178,7 @@ class GAttachImageToVars {
   }
 
   GAttachImageToVars copyWith({
-    int? id,
+    String? id,
     String? fileKey,
     _i1.GOwnerType? type,
   }) {

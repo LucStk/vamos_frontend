@@ -1,5 +1,4 @@
 import 'package:domain_core/failure.dart';
-import 'package:domain_core/id.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -52,7 +51,7 @@ class TopologyHandler {
     return null;
   }
 
-  Future<Failure?> moveVertex(Id id, LatLng latLng) async {
+  Future<Failure?> moveVertex(VertexRef ref, LatLng latLng) async {
     return UnexpectedFailure();
   }
 }

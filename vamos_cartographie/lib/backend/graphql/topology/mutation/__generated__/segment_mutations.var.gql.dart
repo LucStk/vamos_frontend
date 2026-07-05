@@ -70,13 +70,13 @@ class GCreateSegmentVars {
 
   factory GCreateSegmentVars.fromJson(Map<String, dynamic> json) {
     return GCreateSegmentVars(
-      tripId: (json['tripId'] as int),
+      tripId: (json['tripId'] as String),
       segment: _i1.GSegmentCreateInput.fromJson(
           (json['segment'] as Map<String, dynamic>)),
     );
   }
 
-  final int tripId;
+  final String tripId;
 
   final _i1.GSegmentCreateInput segment;
 
@@ -90,7 +90,7 @@ class GCreateSegmentVars {
   }
 
   GCreateSegmentVars copyWith({
-    int? tripId,
+    String? tripId,
     _i1.GSegmentCreateInput? segment,
   }) {
     return GCreateSegmentVars(

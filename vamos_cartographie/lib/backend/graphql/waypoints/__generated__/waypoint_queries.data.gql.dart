@@ -78,7 +78,7 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
 
   factory GGetWaypointsData_trip.fromJson(Map<String, dynamic> json) {
     return GGetWaypointsData_trip(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
@@ -94,7 +94,7 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
     );
   }
 
-  final int id;
+  final String id;
 
   final String title;
 
@@ -122,7 +122,7 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
   }
 
   GGetWaypointsData_trip copyWith({
-    int? id,
+    String? id,
     String? title,
     String? date,
     bool dateIsSet = false,

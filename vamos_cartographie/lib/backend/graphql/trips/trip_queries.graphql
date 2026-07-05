@@ -9,13 +9,13 @@ query GetAllTrips {
     }
 }
 
-query GetTrip($id: Int!) {
+query GetTrip($id: UUID!) {
     trip(id: $id) {
         ...TripFields
     }
 }
 
-query GetTripDetails($id: Int!) {
+query GetTripDetails($id: UUID!) {
     trip(id: $id) {
         ...TripFields
         waypoints {

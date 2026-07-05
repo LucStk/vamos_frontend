@@ -23,6 +23,5 @@ class VertexUiElement extends DragMarkerUiElement {
   @override
   MapUiEvent dragStartEvent(_) => VertexDragStarted(vertexUi.ref);
   @override
-  MapUiEvent dragEndEvent(LatLng latLng) =>
-      VertexDragEndend(vertexUi.ref, latLng);
+  MapUiEvent dragEndEvent(LatLng latLng) => VertexDragEnd(vertexUi.ref, latLng);
 }

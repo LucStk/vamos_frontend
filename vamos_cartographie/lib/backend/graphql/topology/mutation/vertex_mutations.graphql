@@ -1,6 +1,6 @@
 #import "../fields/vertex_fields.graphql"
 
-mutation CreateVertex($tripId: Int!, $latLng: LatLngInput!) {
+mutation CreateVertex($tripId: UUID!, $latLng: LatLngInput!) {
     createVertex(tripId: $tripId, latLng: $latLng) {
         ...VertexFields
     }

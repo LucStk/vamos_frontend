@@ -7,7 +7,6 @@ import 'package:trip_domain/domain/domain.dart';
 part 'segment_patch.freezed.dart';
 
 typedef SegmentPatchId = Id<SegmentPatch>;
-int _nextSegmentNegativeId = -1;
 
 @freezed
 abstract class SegmentPatch with _$SegmentPatch implements HasId {
@@ -31,7 +30,7 @@ abstract class SegmentPatch with _$SegmentPatch implements HasId {
     Object? error,
     MobilityType mobilityType = MobilityType.bike,
   }) {
-    final finalId = id ?? Id(_nextSegmentNegativeId--);
+    final finalId = id ?? Id.generate();
 
     return SegmentPatch.internal(
       id: finalId,

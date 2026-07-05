@@ -17,13 +17,13 @@ class GUpdateTripVars {
     return GUpdateTripVars(
       trip:
           _i1.GTripUpdateInput.fromJson((json['trip'] as Map<String, dynamic>)),
-      id: (json['id'] as int),
+      id: (json['id'] as String),
     );
   }
 
   final _i1.GTripUpdateInput trip;
 
-  final int id;
+  final String id;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -36,7 +36,7 @@ class GUpdateTripVars {
 
   GUpdateTripVars copyWith({
     _i1.GTripUpdateInput? trip,
-    int? id,
+    String? id,
   }) {
     return GUpdateTripVars(
       trip: trip ?? this.trip,
@@ -66,10 +66,10 @@ class GDeleteTripVars {
   const GDeleteTripVars({required this.id});
 
   factory GDeleteTripVars.fromJson(Map<String, dynamic> json) {
-    return GDeleteTripVars(id: (json['id'] as int));
+    return GDeleteTripVars(id: (json['id'] as String));
   }
 
-  final int id;
+  final String id;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -78,7 +78,7 @@ class GDeleteTripVars {
     return _$result;
   }
 
-  GDeleteTripVars copyWith({int? id}) {
+  GDeleteTripVars copyWith({String? id}) {
     return GDeleteTripVars(id: id ?? this.id);
   }
 

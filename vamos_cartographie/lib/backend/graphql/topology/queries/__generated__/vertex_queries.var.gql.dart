@@ -9,10 +9,10 @@ class GGetVerticesVars {
   const GGetVerticesVars({required this.tripId});
 
   factory GGetVerticesVars.fromJson(Map<String, dynamic> json) {
-    return GGetVerticesVars(tripId: (json['tripId'] as int));
+    return GGetVerticesVars(tripId: (json['tripId'] as String));
   }
 
-  final int tripId;
+  final String tripId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -21,7 +21,7 @@ class GGetVerticesVars {
     return _$result;
   }
 
-  GGetVerticesVars copyWith({int? tripId}) {
+  GGetVerticesVars copyWith({String? tripId}) {
     return GGetVerticesVars(tripId: tripId ?? this.tripId);
   }
 

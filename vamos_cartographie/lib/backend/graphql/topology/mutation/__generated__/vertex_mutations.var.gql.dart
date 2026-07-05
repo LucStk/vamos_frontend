@@ -15,13 +15,13 @@ class GCreateVertexVars {
 
   factory GCreateVertexVars.fromJson(Map<String, dynamic> json) {
     return GCreateVertexVars(
-      tripId: (json['tripId'] as int),
+      tripId: (json['tripId'] as String),
       latLng:
           _i1.GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)),
     );
   }
 
-  final int tripId;
+  final String tripId;
 
   final _i1.GLatLngInput latLng;
 
@@ -35,7 +35,7 @@ class GCreateVertexVars {
   }
 
   GCreateVertexVars copyWith({
-    int? tripId,
+    String? tripId,
     _i1.GLatLngInput? latLng,
   }) {
     return GCreateVertexVars(

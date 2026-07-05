@@ -6,10 +6,10 @@ TransitionResult reduceIdle(MapMode state, MapIntents intent) {
       nextState: MapMode.cursorDrawn(latLng: cmd.latLng),
     ),
     SelectVertex cmd => TransitionResult(
-      nextState: MapMode.vertexSelected(vertexId: cmd.vertexId),
+      nextState: MapMode.vertexSelected(vertexRef: cmd.vertexRef),
     ),
     SelectSegment cmd => TransitionResult(
-      nextState: MapMode.segmentSelected(segmentId: cmd.segmentId),
+      nextState: MapMode.segmentSelected(segmentRef: cmd.segmentRef),
     ),
     SelectWaypoint cmd => TransitionResult(
       nextState: MapMode.waypointSelected(waypointId: cmd.waypointId),

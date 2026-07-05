@@ -1,4 +1,3 @@
-import "package:flutter/rendering.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:media_application/media_application.dart";
 import "package:vamos_cartographie/core/injection/services/add_listener_to_observable.dart";

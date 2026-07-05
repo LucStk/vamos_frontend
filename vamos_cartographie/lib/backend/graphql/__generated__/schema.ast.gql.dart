@@ -183,7 +183,7 @@ const MediaImageType = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
     ),
@@ -255,7 +255,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -283,7 +283,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -349,7 +349,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -386,7 +386,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -423,7 +423,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -451,7 +451,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'tripId'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -479,7 +479,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'tripId'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -488,7 +488,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'vertexId'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -507,7 +507,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -582,7 +582,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'tripId'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -657,7 +657,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'tripId'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -795,7 +795,7 @@ const Query = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -979,7 +979,7 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
     ),
@@ -1151,7 +1151,7 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
     ),

@@ -9,10 +9,10 @@ class GGetTripVars {
   const GGetTripVars({required this.id});
 
   factory GGetTripVars.fromJson(Map<String, dynamic> json) {
-    return GGetTripVars(id: (json['id'] as int));
+    return GGetTripVars(id: (json['id'] as String));
   }
 
-  final int id;
+  final String id;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -21,7 +21,7 @@ class GGetTripVars {
     return _$result;
   }
 
-  GGetTripVars copyWith({int? id}) {
+  GGetTripVars copyWith({String? id}) {
     return GGetTripVars(id: id ?? this.id);
   }
 
@@ -47,10 +47,10 @@ class GGetTripDetailsVars {
   const GGetTripDetailsVars({required this.id});
 
   factory GGetTripDetailsVars.fromJson(Map<String, dynamic> json) {
-    return GGetTripDetailsVars(id: (json['id'] as int));
+    return GGetTripDetailsVars(id: (json['id'] as String));
   }
 
-  final int id;
+  final String id;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -59,7 +59,7 @@ class GGetTripDetailsVars {
     return _$result;
   }
 
-  GGetTripDetailsVars copyWith({int? id}) {
+  GGetTripDetailsVars copyWith({String? id}) {
     return GGetTripDetailsVars(id: id ?? this.id);
   }
 

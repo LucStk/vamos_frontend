@@ -8,12 +8,12 @@ mutation CreateBlankTrip(){
     }
 }
 
-mutation UpdateTrip($trip: TripUpdateInput!, $id: Int!) {
+mutation UpdateTrip($trip: TripUpdateInput!, $id: UUID!) {
     updateTrip(trip: $trip, id: $id) {
         ...TripFields
     }
 }
 
-mutation DeleteTrip($id: Int!) {
+mutation DeleteTrip($id: UUID!) {
     deleteTrip(id: $id)
 }

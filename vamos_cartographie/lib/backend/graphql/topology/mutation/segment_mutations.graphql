@@ -6,7 +6,7 @@ mutation UpdateSegment($id: UUID!, $segment: SegmentUpdateInput!) {
     }
 }
 
-mutation CreateSegment($tripId: Int!, $segment: SegmentCreateInput!) {
+mutation CreateSegment($tripId: UUID!, $segment: SegmentCreateInput!) {
     createSegment(tripId: $tripId, input: $segment) {
         ...SegmentFields
     }
