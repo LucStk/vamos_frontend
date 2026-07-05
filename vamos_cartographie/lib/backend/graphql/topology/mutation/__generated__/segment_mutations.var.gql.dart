@@ -15,13 +15,13 @@ class GUpdateSegmentVars {
 
   factory GUpdateSegmentVars.fromJson(Map<String, dynamic> json) {
     return GUpdateSegmentVars(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       segment: _i1.GSegmentUpdateInput.fromJson(
           (json['segment'] as Map<String, dynamic>)),
     );
   }
 
-  final int id;
+  final String id;
 
   final _i1.GSegmentUpdateInput segment;
 
@@ -35,7 +35,7 @@ class GUpdateSegmentVars {
   }
 
   GUpdateSegmentVars copyWith({
-    int? id,
+    String? id,
     _i1.GSegmentUpdateInput? segment,
   }) {
     return GUpdateSegmentVars(
@@ -121,10 +121,10 @@ class GDeleteSegmentVars {
   const GDeleteSegmentVars({required this.segmentId});
 
   factory GDeleteSegmentVars.fromJson(Map<String, dynamic> json) {
-    return GDeleteSegmentVars(segmentId: (json['segmentId'] as int));
+    return GDeleteSegmentVars(segmentId: (json['segmentId'] as String));
   }
 
-  final int segmentId;
+  final String segmentId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -133,7 +133,7 @@ class GDeleteSegmentVars {
     return _$result;
   }
 
-  GDeleteSegmentVars copyWith({int? segmentId}) {
+  GDeleteSegmentVars copyWith({String? segmentId}) {
     return GDeleteSegmentVars(segmentId: segmentId ?? this.segmentId);
   }
 

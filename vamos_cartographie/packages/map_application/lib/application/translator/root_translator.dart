@@ -3,9 +3,15 @@
 import 'package:map_application/map_application.dart';
 
 List<MapIntents> translate(MapUiEvent event, MapState state) {
-  return switch (event) {
-    MapTapped e => [PutCursor(e.latLng)],
-    CursorTapped e => [CreateSimpleVertex(e.latLng)],
-    _ => [],
-  };
+  switch (event) {
+    case MapTapped e:
+      return [PutCursor(e.latLng)];
+    case CursorTapped e:
+      return [CreateSimpleVertex(e.latLng)];
+    case VertexDragEnd e:
+      
+      return [UpdateVertexPosition(e.vertexRef.id, e.latLng)];
+    default:
+      return [];
+  }
 }

@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/backend/graphql/shared/__generated__/geo_fiel
     as _i1;
 
 abstract class GVertexFields {
-  int get id;
+  String get id;
   _i1.GLatLngFields get latLng;
   String get G__typename;
 }
@@ -20,14 +20,14 @@ class GVertexFieldsData implements GVertexFields {
 
   factory GVertexFieldsData.fromJson(Map<String, dynamic> json) {
     return GVertexFieldsData(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       latLng: _i1.GLatLngFieldsData.fromJson(
           (json['latLng'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final int id;
+  final String id;
 
   final _i1.GLatLngFieldsData latLng;
 
@@ -42,7 +42,7 @@ class GVertexFieldsData implements GVertexFields {
   }
 
   GVertexFieldsData copyWith({
-    int? id,
+    String? id,
     _i1.GLatLngFieldsData? latLng,
     String? G__typename,
   }) {

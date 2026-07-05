@@ -11,6 +11,8 @@ targets:
           schema:
             file: vamos_cartographie|lib/backend/graphql/schema.graphql
           scalars:
+            UUID:
+              type: String
             Date:
               type: String
 

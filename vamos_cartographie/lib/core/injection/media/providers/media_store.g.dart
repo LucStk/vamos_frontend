@@ -334,7 +334,7 @@ final class MediaPatchStoreProvider
   }
 }
 
-String _$mediaPatchStoreHash() => r'd4bb6b9fd17c42eec4e5bfacbbe83c074c47e68f';
+String _$mediaPatchStoreHash() => r'6a16297426a32ce40c510016acc00b5624b0ee07';
 
 @ProviderFor(uploadStateStore)
 final uploadStateStoreProvider = UploadStateStoreProvider._();

@@ -1,5 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/rendering.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/application/queries/topology_query_handler.dart';
 import 'package:trip_domain/trip_domain.dart';

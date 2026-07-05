@@ -108,7 +108,7 @@ final class VertexUiProvider
   }
 }
 
-String _$vertexUiHash() => r'b04b1030ef27cc14c5bcbe1716cb892cd6f03a11';
+String _$vertexUiHash() => r'83d5bd7f266da6b1b02b25f2055417e820ae0776';
 
 final class VertexUiFamily extends $Family
     with $FunctionalFamilyOverride<VertexUiModel?, VertexRef> {

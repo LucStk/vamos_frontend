@@ -68,16 +68,16 @@ void main() {
     // Commandes inconnues → état inchangé
     // -------------------------------------------------------------------------
 
-    test('StartDragVertex depuis Idle → état Idle inchangé', () {
-      // arrange
-      const command = StartDragVertex();
+    // test('StartDragVertex depuis Idle → état Idle inchangé', () {
+    //   // arrange
+    //   const command = StartDragVertex();
 
-      // act
-      final result = reduceIdle(idle, command);
+    //   // act
+    //   final result = reduceIdle(idle, command);
 
-      // assert
-      expect(result.nextState, isA<Idle>());
-    });
+    //   // assert
+    //   expect(result.nextState, isA<Idle>());
+    // });
 
     test('OpenEditWaypointDialog depuis Idle → état Idle inchangé', () {
       // arrange

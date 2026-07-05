@@ -70,13 +70,13 @@ class GMoveVertexVars {
 
   factory GMoveVertexVars.fromJson(Map<String, dynamic> json) {
     return GMoveVertexVars(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       latLng:
           _i1.GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)),
     );
   }
 
-  final int id;
+  final String id;
 
   final _i1.GLatLngInput latLng;
 
@@ -90,7 +90,7 @@ class GMoveVertexVars {
   }
 
   GMoveVertexVars copyWith({
-    int? id,
+    String? id,
     _i1.GLatLngInput? latLng,
   }) {
     return GMoveVertexVars(
@@ -121,10 +121,10 @@ class GDeleteVertexVars {
   const GDeleteVertexVars({required this.vertexId});
 
   factory GDeleteVertexVars.fromJson(Map<String, dynamic> json) {
-    return GDeleteVertexVars(vertexId: (json['vertexId'] as int));
+    return GDeleteVertexVars(vertexId: (json['vertexId'] as String));
   }
 
-  final int vertexId;
+  final String vertexId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -133,7 +133,7 @@ class GDeleteVertexVars {
     return _$result;
   }
 
-  GDeleteVertexVars copyWith({int? vertexId}) {
+  GDeleteVertexVars copyWith({String? vertexId}) {
     return GDeleteVertexVars(vertexId: vertexId ?? this.vertexId);
   }
 

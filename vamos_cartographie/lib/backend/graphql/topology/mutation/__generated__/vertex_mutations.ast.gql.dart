@@ -77,7 +77,7 @@ const MoveVertex = _i1.OperationDefinitionNode(
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -139,7 +139,7 @@ const DeleteVertex = _i1.OperationDefinitionNode(
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),

@@ -69,13 +69,13 @@ type Mutation {
   createBlankWaypointFromPosition(tripId: Int!, latLng: LatLngInput!): CreateWaypointPayload!
   createBlankWaypointFromVertex(tripId: Int!, vertexId: Int!): CreateWaypointPayload!
   deleteWaypoint(id: Int!): Boolean!
-  insertVertexToSegment(vertexId: Int!, segmentId: Int!): InsertVertexToSegmentPayload!
-  updateSegment(id: Int!, input: SegmentUpdateInput!): SegmentType!
+  insertVertexToSegment(vertexId: UUID!, segmentId: UUID!): InsertVertexToSegmentPayload!
+  updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: Int!, input: SegmentCreateInput!): SegmentType!
-  deleteSegment(id: Int!): Boolean!
-  moveVertex(id: Int!, latLng: LatLngInput!): VertexType!
+  deleteSegment(id: UUID!): Boolean!
+  moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
   createVertex(tripId: Int!, latLng: LatLngInput!): VertexType!
-  deleteVertex(id: Int!): Boolean!
+  deleteVertex(id: UUID!): Boolean!
 }
 
 enum OwnerType {
@@ -105,13 +105,14 @@ type Query {
 }
 
 input SegmentCreateInput {
+  id: UUID
   mobilityType: MobilityType!
-  startVertexId: Int!
-  endVertexId: Int!
+  startVertexId: UUID!
+  endVertexId: UUID!
 }
 
 type SegmentType {
-  id: Int!
+  id: UUID!
   mobilityType: MobilityType!
   startVertex: VertexType!
   endVertex: VertexType!
@@ -120,8 +121,8 @@ type SegmentType {
 
 input SegmentUpdateInput {
   mobilityType: MobilityType
-  startVertexId: Int
-  endVertexId: Int
+  startVertexId: UUID
+  endVertexId: UUID
 }
 
 type TopologyType {
@@ -151,8 +152,10 @@ type UploadConfig {
   contentType: String!
 }
 
+scalar UUID
+
 type VertexType {
-  id: Int!
+  id: UUID!
   latLng: LatLngType!
 }
 

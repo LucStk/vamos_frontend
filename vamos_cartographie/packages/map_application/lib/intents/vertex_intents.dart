@@ -5,15 +5,10 @@ class SelectVertex extends MapIntents {
   const SelectVertex(this.vertexId);
 }
 
-class StartDragVertex extends MapIntents {
-  const StartDragVertex();
-}
-
-class EndDragVertex extends MapIntents {
+class UpdateVertexPosition extends MapIntents {
   final Id<Vertex> vertexId;
   final LatLng position;
-
-  const EndDragVertex(this.vertexId, this.position);
+  const UpdateVertexPosition(this.vertexId, this.position);
 }
 
 class CreateSimpleVertex extends MapIntents {

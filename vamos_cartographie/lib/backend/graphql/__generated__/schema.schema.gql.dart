@@ -254,6 +254,7 @@ enum GPoiCategory {
 
 class GSegmentCreateInput {
   const GSegmentCreateInput({
+    this.id = const Value.absent(),
     required this.mobilityType,
     required this.startVertexId,
     required this.endVertexId,
@@ -261,20 +262,30 @@ class GSegmentCreateInput {
 
   factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
     return GSegmentCreateInput(
+      id: json.containsKey('id')
+          ? Value.present(json['id'] == null ? null : (json['id'] as String))
+          : Value.absent(),
       mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
-      startVertexId: (json['startVertexId'] as int),
-      endVertexId: (json['endVertexId'] as int),
+      startVertexId: (json['startVertexId'] as String),
+      endVertexId: (json['endVertexId'] as String),
     );
   }
 
+  final Value<String> id;
+
   final GMobilityType mobilityType;
 
-  final int startVertexId;
+  final String startVertexId;
 
-  final int endVertexId;
+  final String endVertexId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    if (_$idValue.isPresent) {
+      final _$idRequired = _$idValue.requireValue;
+      _$result['id'] = _$idRequired == null ? null : _$idRequired;
+    }
     final _$mobilityTypeValue = this.mobilityType;
     _$result['mobilityType'] = _$mobilityTypeValue.toJson();
     final _$startVertexIdValue = this.startVertexId;
@@ -285,11 +296,13 @@ class GSegmentCreateInput {
   }
 
   GSegmentCreateInput copyWith({
+    Value<String>? id,
     GMobilityType? mobilityType,
-    int? startVertexId,
-    int? endVertexId,
+    String? startVertexId,
+    String? endVertexId,
   }) {
     return GSegmentCreateInput(
+      id: id ?? this.id,
       mobilityType: mobilityType ?? this.mobilityType,
       startVertexId: startVertexId ?? this.startVertexId,
       endVertexId: endVertexId ?? this.endVertexId,
@@ -310,7 +323,7 @@ class GSegmentCreateInput {
 
   @override
   String toString() {
-    return 'GSegmentCreateInput(mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
+    return 'GSegmentCreateInput(id: $id, mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
   }
 }
 
@@ -331,20 +344,21 @@ class GSegmentUpdateInput {
       startVertexId: json.containsKey('startVertexId')
           ? Value.present(json['startVertexId'] == null
               ? null
-              : (json['startVertexId'] as int))
+              : (json['startVertexId'] as String))
           : Value.absent(),
       endVertexId: json.containsKey('endVertexId')
-          ? Value.present(
-              json['endVertexId'] == null ? null : (json['endVertexId'] as int))
+          ? Value.present(json['endVertexId'] == null
+              ? null
+              : (json['endVertexId'] as String))
           : Value.absent(),
     );
   }
 
   final Value<GMobilityType> mobilityType;
 
-  final Value<int> startVertexId;
+  final Value<String> startVertexId;
 
-  final Value<int> endVertexId;
+  final Value<String> endVertexId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -372,8 +386,8 @@ class GSegmentUpdateInput {
 
   GSegmentUpdateInput copyWith({
     Value<GMobilityType>? mobilityType,
-    Value<int>? startVertexId,
-    Value<int>? endVertexId,
+    Value<String>? startVertexId,
+    Value<String>? endVertexId,
   }) {
     return GSegmentUpdateInput(
       mobilityType: mobilityType ?? this.mobilityType,

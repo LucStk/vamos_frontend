@@ -43,7 +43,6 @@ ObservableMediaStore mediaStore(Ref ref) {
 ObservableMediaPatchStore mediaPatchStore(Ref ref) {
   final store = ref.watch(rawMediaPatchStoreProvider);
   addListenerRebuild(ref, store);
-  debugPrint("MediaStore $store");
   return store;
 }
 

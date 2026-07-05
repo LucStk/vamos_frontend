@@ -15,7 +15,7 @@ abstract class VertexPatch with _$VertexPatch implements HasId {
 
   // On utilise @Implements sur le constructeur cible
   const factory VertexPatch.internal({
-    required VertexPatchId id,
+    required VertexId id,
     required LatLng positionOverride,
     PoiCategory? type,
     required bool recomputing,
@@ -25,7 +25,7 @@ abstract class VertexPatch with _$VertexPatch implements HasId {
   const VertexPatch._(); // Requis pour pouvoir utiliser @Implements
 
   factory VertexPatch({
-    VertexPatchId? id,
+    VertexId? id,
     required LatLng positionOverride,
     PoiCategory? type,
     bool recomputing = false,

@@ -12,7 +12,7 @@ import 'package:vamos_cartographie/backend/graphql/topology/fields/__generated__
     as _i2;
 
 abstract class GSegmentFields {
-  int get id;
+  String get id;
   _i1.GMobilityType get mobilityType;
   _i2.GVertexFields get startVertex;
   _i2.GVertexFields get endVertex;
@@ -32,7 +32,7 @@ class GSegmentFieldsData implements GSegmentFields {
 
   factory GSegmentFieldsData.fromJson(Map<String, dynamic> json) {
     return GSegmentFieldsData(
-      id: (json['id'] as int),
+      id: (json['id'] as String),
       mobilityType:
           _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
       startVertex: _i2.GVertexFieldsData.fromJson(
@@ -47,7 +47,7 @@ class GSegmentFieldsData implements GSegmentFields {
     );
   }
 
-  final int id;
+  final String id;
 
   final _i1.GMobilityType mobilityType;
 
@@ -71,7 +71,7 @@ class GSegmentFieldsData implements GSegmentFields {
   }
 
   GSegmentFieldsData copyWith({
-    int? id,
+    String? id,
     _i1.GMobilityType? mobilityType,
     _i2.GVertexFieldsData? startVertex,
     _i2.GVertexFieldsData? endVertex,

@@ -1,28 +1,20 @@
+import 'package:map_application/effects/map_effect.dart';
 import 'package:map_application/map_application.dart';
 
 TransitionResult reduceVertex(MapMode state, MapIntents intent) {
-  return switch (state) {
-    VertexSelected s => _reduceVertexSelected(s, intent),
-    // DraggingVertex s => _reduceDraggingVertex(s, intent),
+  return switch (intent) {
+    UpdateVertexPosition s => TransitionResult(
+      nextState: state,
+      effects: [
+        MoveVertexEffect(
+          vertexId: intent.vertexId,
+          newPosition: intent.position,
+        ),
+      ],
+    ),
+
     _ => TransitionResult(nextState: state),
   };
-}
-
-TransitionResult _reduceVertexSelected(
-  VertexSelected state,
-  MapIntents intent,
-) {
-  if (intent is StartDragVertex) {
-    return TransitionResult(
-      nextState: MapMode.draggingVertex(vertexId: state.vertexId),
-    );
-  }
-  if (intent is SelectVertex) {
-    return TransitionResult(
-      nextState: MapMode.vertexSelected(vertexId: intent.vertexId),
-    );
-  }
-  return TransitionResult(nextState: state);
 }
 
 // TransitionResult _reduceDraggingVertex(

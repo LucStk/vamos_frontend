@@ -15,7 +15,8 @@ class VertexDragStarted extends MapUiEvent {
   const VertexDragStarted(this.vertexRef);
 }
 
-class VertexDragEndend extends MapUiEvent {
+class VertexDragEnd extends MapUiEvent {
   final VertexRef vertexRef;
-  const VertexDragEndend(this.vertexRef);
+  final LatLng latLng;
+  const VertexDragEnd(this.vertexRef, this.latLng);
 }

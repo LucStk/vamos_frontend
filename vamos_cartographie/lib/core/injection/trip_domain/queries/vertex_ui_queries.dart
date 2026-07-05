@@ -1,5 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -33,7 +32,6 @@ List<VertexRef> vertexRefs(Ref ref) {
 
 @riverpod
 VertexUiModel? vertexUi(Ref ref, VertexRef id) {
-  debugPrint("vertexUi rebuild $id");
   switch (id) {
     case PendingVertexRef e:
       final VertexPatch? vPatch = ref.watch(vertexPatchProvider(e.id));

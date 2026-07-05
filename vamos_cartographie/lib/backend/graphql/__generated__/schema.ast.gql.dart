@@ -526,7 +526,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'vertexId'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -535,7 +535,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'segmentId'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -554,7 +554,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -610,7 +610,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -629,7 +629,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -685,7 +685,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -813,6 +813,15 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'mobilityType'),
       directives: [],
       type: _i1.NamedTypeNode(
@@ -825,7 +834,7 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'startVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -834,7 +843,7 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'endVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -851,7 +860,7 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
     ),
@@ -913,7 +922,7 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'startVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -922,7 +931,7 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'endVertexId'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -1103,6 +1112,10 @@ const UploadConfig = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const UUID = _i1.ScalarTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UUID'),
+  directives: [],
+);
 const VertexType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'VertexType'),
   directives: [],
@@ -1113,7 +1126,7 @@ const VertexType = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
     ),
@@ -1258,6 +1271,7 @@ const document = _i1.DocumentNode(definitions: [
   TripType,
   TripUpdateInput,
   UploadConfig,
+  UUID,
   VertexType,
   WaypointType,
   WaypointUpdateInput,
