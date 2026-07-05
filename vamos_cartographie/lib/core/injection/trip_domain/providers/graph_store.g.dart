@@ -475,3 +475,72 @@ final class SegmentPatchStoreProvider
 }
 
 String _$segmentPatchStoreHash() => r'cd237c1c03eb4640168fe15a3adae40919702705';
+
+@ProviderFor(loadTopology)
+final loadTopologyProvider = LoadTopologyFamily._();
+
+final class LoadTopologyProvider
+    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
+    with $FutureModifier<void>, $FutureProvider<void> {
+  LoadTopologyProvider._({
+    required LoadTopologyFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'loadTopologyProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadTopologyHash();
+
+  @override
+  String toString() {
+    return r'loadTopologyProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<void> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return loadTopology(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadTopologyProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$loadTopologyHash() => r'aa7b234956d67e8285c97b2793e03369efb77e75';
+
+final class LoadTopologyFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<void>, TripId> {
+  LoadTopologyFamily._()
+    : super(
+        retry: null,
+        name: r'loadTopologyProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  LoadTopologyProvider call(TripId tripId) =>
+      LoadTopologyProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'loadTopologyProvider';
+}

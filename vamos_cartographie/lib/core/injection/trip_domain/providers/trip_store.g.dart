@@ -191,3 +191,36 @@ final class TripStoreProvider
 }
 
 String _$tripStoreHash() => r'57a8e4909314d2a36e2bb148e8646319ff819b5f';
+
+@ProviderFor(loadTrips)
+final loadTripsProvider = LoadTripsProvider._();
+
+final class LoadTripsProvider
+    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
+    with $FutureModifier<void>, $FutureProvider<void> {
+  LoadTripsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loadTripsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadTripsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<void> create(Ref ref) {
+    return loadTrips(ref);
+  }
+}
+
+String _$loadTripsHash() => r'99e16af5988a5f20bcb4b66c9bcd4f6c5dc8c25d';

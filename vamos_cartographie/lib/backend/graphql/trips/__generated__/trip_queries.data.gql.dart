@@ -6,9 +6,9 @@ import 'package:vamos_cartographie/backend/graphql/__generated__/schema.utils.gq
     as _gqlUtils;
 import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.data.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/backend/graphql/topology/segments/__generated__/segment_fields.data.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/topology/fields/__generated__/segment_fields.data.gql.dart'
     as _i5;
-import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.data.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/topology/fields/__generated__/vertex_fields.data.gql.dart'
     as _i4;
 import 'package:vamos_cartographie/backend/graphql/trips/__generated__/trip_fields.data.gql.dart'
     as _i1;

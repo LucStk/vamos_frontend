@@ -10,7 +10,7 @@ import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fie
     as _i5;
 import 'package:vamos_cartographie/backend/graphql/shared/__generated__/geo_fields.ast.gql.dart'
     as _i7;
-import 'package:vamos_cartographie/backend/graphql/topology/vertex/__generated__/vertex_fields.ast.gql.dart'
+import 'package:vamos_cartographie/backend/graphql/topology/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_fields.ast.gql.dart'
     as _i4;

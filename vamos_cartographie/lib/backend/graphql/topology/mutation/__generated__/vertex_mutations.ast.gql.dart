@@ -3,80 +3,14 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/backend/graphql/media/__generated__/image_fields.ast.gql.dart'
-    as _i2;
 import 'package:vamos_cartographie/backend/graphql/shared/__generated__/geo_fields.ast.gql.dart'
-    as _i5;
-import 'package:vamos_cartographie/backend/graphql/topology/fields/__generated__/vertex_fields.ast.gql.dart'
-    as _i4;
-import 'package:vamos_cartographie/backend/graphql/waypoints/__generated__/waypoint_fields.ast.gql.dart'
     as _i3;
+import 'package:vamos_cartographie/backend/graphql/topology/fields/__generated__/vertex_fields.ast.gql.dart'
+    as _i2;
 
-const UpdateWaypoint = _i1.OperationDefinitionNode(
+const CreateVertex = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'UpdateWaypoint'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointUpdateInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'updateWaypoint'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
-        ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-        ),
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'WaypointFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
-);
-const CreateBlankWaypointFromPosition = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'CreateBlankWaypointFromPosition'),
+  name: _i1.NameNode(value: 'CreateVertex'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
@@ -100,7 +34,7 @@ const CreateBlankWaypointFromPosition = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'createBlankWaypointFromPosition'),
+      name: _i1.NameNode(value: 'createVertex'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
@@ -115,7 +49,7 @@ const CreateBlankWaypointFromPosition = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'CreateWaypointPayloadFields'),
+          name: _i1.NameNode(value: 'VertexFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -136,12 +70,12 @@ const CreateBlankWaypointFromPosition = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const CreateBlankWaypointFromVertex = _i1.OperationDefinitionNode(
+const MoveVertex = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'CreateBlankWaypointFromVertex'),
+  name: _i1.NameNode(value: 'MoveVertex'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
@@ -150,9 +84,9 @@ const CreateBlankWaypointFromVertex = _i1.OperationDefinitionNode(
       directives: [],
     ),
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'LatLngInput'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -162,22 +96,22 @@ const CreateBlankWaypointFromVertex = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'createBlankWaypointFromVertex'),
+      name: _i1.NameNode(value: 'moveVertex'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'tripId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
         ),
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'vertexId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
+          name: _i1.NameNode(value: 'latLng'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
         ),
       ],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'CreateWaypointPayloadFields'),
+          name: _i1.NameNode(value: 'VertexFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -198,12 +132,12 @@ const CreateBlankWaypointFromVertex = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const DeleteWaypoint = _i1.OperationDefinitionNode(
+const DeleteVertex = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'DeleteWaypoint'),
+  name: _i1.NameNode(value: 'DeleteVertex'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'waypointId')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
@@ -215,12 +149,12 @@ const DeleteWaypoint = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'deleteWaypoint'),
+      name: _i1.NameNode(value: 'deleteVertex'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'waypointId')),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'vertexId')),
         )
       ],
       directives: [],
@@ -236,13 +170,9 @@ const DeleteWaypoint = _i1.OperationDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  UpdateWaypoint,
-  CreateBlankWaypointFromPosition,
-  CreateBlankWaypointFromVertex,
-  DeleteWaypoint,
-  _i2.ImageFields,
-  _i3.WaypointFields,
-  _i3.CreateWaypointPayloadFields,
-  _i4.VertexFields,
-  _i5.LatLngFields,
+  CreateVertex,
+  MoveVertex,
+  DeleteVertex,
+  _i2.VertexFields,
+  _i3.LatLngFields,
 ]);

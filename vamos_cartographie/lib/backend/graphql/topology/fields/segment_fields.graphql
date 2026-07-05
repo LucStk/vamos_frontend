@@ -1,0 +1,15 @@
+#import "vertex_fields.graphql"
+
+fragment SegmentFields on SegmentType {
+    id
+    mobilityType
+    startVertex {
+        ...VertexFields
+    }
+    endVertex {
+        ...VertexFields
+    }
+    geometry {
+        ...LatLngFields
+    }
+}

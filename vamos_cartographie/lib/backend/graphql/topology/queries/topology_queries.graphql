@@ -1,0 +1,16 @@
+#import "../fields/vertex_fields.graphql"
+#import "../fields/segment_fields.graphql"
+
+query GetTopology($tripId: Int!) {
+    trip(id: $tripId) {
+        id
+        topology {
+            vertices {
+                ...VertexFields
+            }
+            segments {
+                ...SegmentFields
+            }
+        }
+    }
+}

@@ -28,6 +28,10 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     super.initState();
     // 2. Initialiser le contrôleur au démarrage du widget
     _mapController = MapController();
+    // Aller chercher sur le réseau les élements topologique
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(tripHandlerProvider).loadFromRemote();
+    });
   }
 
   @override
