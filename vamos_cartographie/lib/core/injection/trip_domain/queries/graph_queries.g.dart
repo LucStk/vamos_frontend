@@ -414,7 +414,7 @@ final class LoadTopologyProvider
   }
 }
 
-String _$loadTopologyHash() => r'5bdd1b5654a674475f3c797810a8a2a92dd67642';
+String _$loadTopologyHash() => r'3469185526550eef463ce9da63522fc183edbd60';
 
 final class LoadTopologyFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<void>, TripId> {

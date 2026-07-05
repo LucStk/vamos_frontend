@@ -14,19 +14,19 @@ class TripHandler {
 
   TripHandler(this.tripStore, this.mediaStore, this.repo, this.executor);
 
-  Future<Either<Failure, void>> loadFromRemote() async {
-    tripStore.clear();
-    mediaStore.clear();
-    final result = await repo.getAllTrips();
-    return result.map((trips) {
-      for (final (trip, listImages) in trips) {
-        tripStore.upsert(trip);
-        for (MediaImage i in listImages) {
-          mediaStore.upsert(trip.id, i);
-        }
-      }
-    });
-  }
+  // Future<Either<Failure, void>> loadFromRemote() async {
+  //   tripStore.clear();
+  //   mediaStore.clear();
+  //   final result = await repo.getAllTrips();
+  //   return result.map((trips) {
+  //     for (final (trip, listImages) in trips) {
+  //       tripStore.upsert(trip);
+  //       for (MediaImage i in listImages) {
+  //         mediaStore.upsert(trip.id, i);
+  //       }
+  //     }
+  //   });
+  // }
 
   Future<Either<Failure, Trip>> createBlankTrip() async {
     final result = await repo.createBlankTrip();

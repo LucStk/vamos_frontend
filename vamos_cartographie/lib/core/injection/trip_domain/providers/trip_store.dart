@@ -30,7 +30,7 @@ ObservableTripStore tripStore(Ref ref) {
 
 @riverpod
 Future<void> loadTrips(Ref ref) async {
-  final handler = ref.watch(tripHandlerProvider);
+  final handler = ref.watch(tripQueryHandlerProvider);
   final result = await handler.loadFromRemote();
   result.fold(
     (failure) => throw failure, // Riverpod capture ça en AsyncError

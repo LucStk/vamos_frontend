@@ -162,3 +162,82 @@ final class WaypointFromVertexFamily extends $Family
   @override
   String toString() => r'waypointFromVertexProvider';
 }
+
+@ProviderFor(tripQueryHandler)
+final tripQueryHandlerProvider = TripQueryHandlerProvider._();
+
+final class TripQueryHandlerProvider
+    extends
+        $FunctionalProvider<
+          TripQueryHandler,
+          TripQueryHandler,
+          TripQueryHandler
+        >
+    with $Provider<TripQueryHandler> {
+  TripQueryHandlerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'tripQueryHandlerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$tripQueryHandlerHash();
+
+  @$internal
+  @override
+  $ProviderElement<TripQueryHandler> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  TripQueryHandler create(Ref ref) {
+    return tripQueryHandler(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TripQueryHandler value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TripQueryHandler>(value),
+    );
+  }
+}
+
+String _$tripQueryHandlerHash() => r'50df24fe5e4a083d5e7091e51f47cec33095b59d';
+
+@ProviderFor(loadTrips)
+final loadTripsProvider = LoadTripsProvider._();
+
+final class LoadTripsProvider
+    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
+    with $FutureModifier<void>, $FutureProvider<void> {
+  LoadTripsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loadTripsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadTripsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<void> create(Ref ref) {
+    return loadTrips(ref);
+  }
+}
+
+String _$loadTripsHash() => r'3b70800d92fa7508d1c371b5cd23f71f077ddb03';

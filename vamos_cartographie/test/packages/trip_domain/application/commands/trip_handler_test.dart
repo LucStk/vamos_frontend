@@ -4,6 +4,7 @@ import 'package:media_application/media_application.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
+import 'package:trip_domain/application/queries/trip_query_handler.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 // ---------------------------------------------------------------------------
@@ -25,6 +26,7 @@ void main() {
   late ObservableMediaStore mediaStore;
   late OptimisticExecutor executor;
   late TripHandler handler;
+  late TripQueryHandler queryHandler;
 
   setUpAll(() {
     registerFallbackValue(makeTrip());
@@ -37,6 +39,7 @@ void main() {
     mediaStore = ObservableMediaStore();
     executor = OptimisticExecutor();
     handler = TripHandler(tripStore, mediaStore, mockRepo, executor);
+    queryHandler = TripQueryHandler(tripStore, mediaStore, mockRepo);
   });
 
   // -------------------------------------------------------------------------
@@ -56,7 +59,7 @@ void main() {
       ).thenAnswer((_) async => Right(remoteTrips));
 
       // act — loadFromRemote retourne maintenant Future<Either<Failure,void>>
-      await handler.loadFromRemote();
+      await queryHandler.loadFromRemote();
 
       // assert
       expect(tripStore.get(Id<Trip>(99)), isNull);
@@ -72,7 +75,7 @@ void main() {
       ).thenAnswer((_) async => const Right([]));
 
       // act
-      await handler.loadFromRemote();
+      await queryHandler.loadFromRemote();
 
       // assert
       expect(tripStore.get(Id<Trip>(99)), isNull);
@@ -85,7 +88,7 @@ void main() {
       ).thenAnswer((_) async => const Right([]));
 
       // act
-      final result = await handler.loadFromRemote();
+      final result = await queryHandler.loadFromRemote();
 
       // assert
       expect(result.isRight(), true);
@@ -98,7 +101,7 @@ void main() {
       ).thenAnswer((_) async => Left(ServerFailure('erreur réseau')));
 
       // act
-      final result = await handler.loadFromRemote();
+      final result = await queryHandler.loadFromRemote();
 
       // assert
       expect(result.isLeft(), true);
@@ -113,7 +116,7 @@ void main() {
       mediaStore.addListener(() => mediaStoreClearCalled = true);
 
       // act
-      await handler.loadFromRemote();
+      await queryHandler.loadFromRemote();
 
       // assert
       expect(mediaStoreClearCalled, true);
