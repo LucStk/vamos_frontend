@@ -2,6 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 
 class OptimisticExecutor {
+  ErrorLogger? errorLogger;
+  OptimisticExecutor(this.errorLogger);
+
   Future<Either<Failure, T>> run<T>({
     required Future<Either<Failure, T>> Function() remote,
     required void Function() onApply,
@@ -12,7 +15,10 @@ class OptimisticExecutor {
 
     final result = await remote();
 
-    result.fold(onError, onSuccess);
+    result.fold((Failure f) {
+      errorLogger?.logError(f, StackTrace.current);
+      onError(f);
+    }, onSuccess);
 
     return result;
   }

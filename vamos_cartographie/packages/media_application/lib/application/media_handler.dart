@@ -21,7 +21,6 @@ class MediaHandler {
   ObservableUploadStateStore uploadStore;
   OptimisticExecutor executor;
   MediaRepository repository;
-  ErrorLogger? errorLogger;
 
   MediaHandler(
     this.mediaStore,
@@ -29,7 +28,6 @@ class MediaHandler {
     this.uploadStore,
     this.executor,
     this.repository,
-    this.errorLogger,
   );
 
   // 1. Premier téléversement (crée le patch avec un nouvel UUID temporaire)
@@ -73,10 +71,8 @@ class MediaHandler {
           resolvedFileKey: image.fileKey, // ✅ on stocke le vrai fileKey
         );
       },
-      onError: (Failure failure) {
-        updateUploadState(UploadStatus.failure, error: failure.message);
-        errorLogger?.logError(failure, StackTrace.current);
-      },
+      onError: (Failure failure) =>
+          updateUploadState(UploadStatus.failure, error: failure.message),
     );
   }
 
@@ -94,15 +90,17 @@ class MediaHandler {
       final resolvedFileKey = uploadState?.resolvedFileKey;
       if (uploadState?.status == UploadStatus.success &&
           resolvedFileKey != null) {
-        final res = await repository.attachImage(
-          id,
-          resolvedFileKey,
-          ownerType,
+        await executor.run(
+          onApply: () {},
+          remote: () => repository.attachImage(id, resolvedFileKey, ownerType),
+          onSuccess: (image) {
+            patchStore.remove(id, patch.fileKey);
+            mediaStore.upsert(id, image);
+          },
+          onError: (Failure failure) {
+            failureList.add(failure);
+          },
         );
-        res.fold((failure) => failureList.add(failure), (image) {
-          patchStore.remove(id, patch.fileKey);
-          mediaStore.upsert(id, image);
-        });
       }
     }
     return failureList;
@@ -122,7 +120,6 @@ class MediaHandler {
         resourceId: "$id - $key",
       );
 
-      errorLogger?.logError(failure, StackTrace.current);
       return Left(failure);
     }
     uploadStore.upsert(
@@ -142,19 +139,12 @@ class MediaHandler {
       case LocalPath():
         patchStore.remove(id, imageUi.fileKey);
       case RemoteUrl():
-        final res = await repository.detachImage<T>(
-          id,
-          imageUi.fileKey,
-          ownerType,
-        );
-        res.fold(
-          (Failure f) {
-            errorLogger?.logError(f, StackTrace.current);
-            return f;
-          },
-          (_) {
-            mediaStore.remove(id, imageUi.fileKey);
-          },
+        return await executor.run(
+          onApply: () {},
+          remote: () =>
+              repository.detachImage<T>(id, imageUi.fileKey, ownerType),
+          onSuccess: (data) => mediaStore.remove(id, imageUi.fileKey),
+          onError: (Failure failure) {},
         );
     }
 

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
@@ -18,17 +19,18 @@ class WaypointHandler {
     this.executor,
   );
 
-  void loadFromRemote() async {
+  Future<Either<Failure, List<Waypoint>>> loadFromRemote() async {
     waypointStore.clear();
-    final result = await repo.getWaypoints(tripId);
-
-    result.fold((failure) => throw Exception(failure.message), (
-      List<Waypoint> waypoints,
-    ) {
-      for (final w in waypoints) {
-        waypointStore.upsert(w);
-      }
-    });
+    return await executor.run(
+      onApply: () {},
+      remote: () => repo.getWaypoints(tripId),
+      onSuccess: (data) {
+        for (final w in data) {
+          waypointStore.upsert(w);
+        }
+      },
+      onError: (f) {},
+    );
   }
 
   Future<void> updateWaypoint(Waypoint waypoint) async {
@@ -41,18 +43,19 @@ class WaypointHandler {
     );
   }
 
-  Future<Waypoint> createBlankWaypoint(
+  Future<Either<Failure, (Waypoint, Vertex)>> createBlankWaypoint(
     VertexId? vertexId,
     LatLng? latLng,
   ) async {
-    final result = await repo.createBlankWaypoint(tripId, vertexId, latLng);
-
-    return result.fold((f) => throw Exception(f.message), (data) {
-      waypointStore.upsert(data.$1);
-      graphStore.insertVertex(data.$2);
-
-      return data.$1;
-    });
+    return await executor.run(
+      onApply: () {},
+      remote: () => repo.createBlankWaypoint(tripId, vertexId, latLng),
+      onSuccess: (data) {
+        waypointStore.upsert(data.$1);
+        graphStore.insertVertex(data.$2);
+      },
+      onError: (Failure failure) {},
+    );
   }
 
   Future<void> deleteWaypoint(WaypointId id) async {

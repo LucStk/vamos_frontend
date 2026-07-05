@@ -15,12 +15,12 @@ class TripHandler {
   TripHandler(this.tripStore, this.mediaStore, this.repo, this.executor);
 
   Future<Either<Failure, Trip>> createBlankTrip() async {
-    final result = await repo.createBlankTrip();
-
-    return result.fold((f) => Left(f), (trip) {
-      tripStore.upsert(trip);
-      return Right(trip);
-    });
+    return await executor.run(
+      onApply: () {},
+      remote: () => repo.createBlankTrip(),
+      onSuccess: (Trip serverTrip) => tripStore.upsert(serverTrip),
+      onError: (Failure failure) {},
+    );
   }
 
   Future<Either<Failure, Trip>> updateTrip(Trip trip) async {

@@ -1,6 +1,5 @@
 import 'package:domain_core/id.dart';
 import 'package:media_application/domain/domain.dart';
-import 'package:media_application/domain/entities/media_image.dart';
 
 class MediaStore {
   final Map<Id<dynamic>, Map<FileKey, MediaImage>> store = {};

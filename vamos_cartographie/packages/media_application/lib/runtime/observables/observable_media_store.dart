@@ -1,6 +1,5 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:media_application/domain/domain.dart';
-import 'package:media_application/domain/entities/media_image.dart';
 import 'package:media_application/runtime/media_store.dart';
 
 class ObservableMediaStore extends MediaStore with Observable {
