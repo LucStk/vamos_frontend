@@ -7,17 +7,19 @@ class CartographieApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vamos Cartographie',
-      theme: ThemeData(colorSchemeSeed: Colors.green),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('fr', 'FR'), Locale('en', 'US')],
-      locale: const Locale('fr', 'FR'),
-      home: NotificationListener(child: const ExplorerPage()),
+    return NotificationListener(
+      child: MaterialApp(
+        title: 'Vamos Cartographie',
+        theme: ThemeData(colorSchemeSeed: Colors.green),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('fr', 'FR'), Locale('en', 'US')],
+        locale: const Locale('fr', 'FR'),
+        home: NotificationListener(child: const ExplorerPage()),
+      ),
     );
   }
 }

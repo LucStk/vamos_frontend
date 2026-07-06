@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/features/trips/widgets/dialogs/trip_form_dialog.dart';
 import '/features/trips/widgets/widgets.dart';
 
 class ExplorerPage extends ConsumerStatefulWidget {
   const ExplorerPage({super.key});
-
   @override
   ConsumerState<ExplorerPage> createState() => _ExplorerPageState();
 }
@@ -70,7 +68,7 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
             separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               final trip = tripStore.store.values.elementAt(index);
-              return TripCard(tripId: trip.id);
+              return TripCardView(tripId: trip.id);
             },
           );
         },

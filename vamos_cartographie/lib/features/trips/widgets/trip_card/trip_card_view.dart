@@ -9,10 +9,10 @@ import 'package:vamos_cartographie/features/trips/widgets/trip_card/trip_card_co
 import 'package:vamos_cartographie/features/trips/widgets/trip_card/trip_card_icon.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
-class TripCard extends ConsumerWidget {
+class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
 
-  const TripCard({super.key, required this.tripId});
+  const TripCardView({super.key, required this.tripId});
 
   void _openTrip(BuildContext context) {
     TripViewerDialog.show(
