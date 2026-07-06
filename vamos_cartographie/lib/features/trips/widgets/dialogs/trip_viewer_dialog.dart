@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/core/injection/trip_domain/queries/trip_domai
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_section_label.dart';
-import "trip_editor_dialog.dart";
+import "trip_form_dialog.dart";
 
 class TripViewerDialog extends ConsumerWidget {
   final Id<Trip> tripId;
@@ -37,26 +37,32 @@ class TripViewerDialog extends ConsumerWidget {
     );
     if (confirmed != true) return;
 
-    // Plus de try-catch local !
-    // Si deleteTrip crash, le gestionnaire global l'attrapera.
     await ref.read(tripHandlerProvider).deleteTrip(tripId);
 
     if (!context.mounted) return;
-    // On ne gère ICI que le comportement en cas de succès
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Voyage supprimé avec succès')),
     );
   }
 
+  void _openEditor(BuildContext context, Trip trip) {
+    Navigator.of(context).pop(); // ferme le viewer, comme avant
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => TripFormDialog(
+        initialTrip: trip,
+        successMessage: 'Voyage mis à jour',
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-
-    // Récupération directe du voyage via le provider hérité de TripInfoView
     final trip = ref.watch(tripProvider(tripId));
 
-    // Gestion de l'état où le voyage n'existe pas ou est en cours de suppression
     if (trip == null) {
       return const SizedBox.shrink();
     }
@@ -66,12 +72,10 @@ class TripViewerDialog extends ConsumerWidget {
     final hasDate = trip.date != null;
 
     return DialogShell(
-      // 1. Le Contenu textuel et visuel (anciennement TripInfoView)
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Titre
           Text(
             hasTitle ? trip.title.trim() : 'Sans titre',
             style: theme.textTheme.headlineSmall?.copyWith(
@@ -82,30 +86,22 @@ class TripViewerDialog extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 12),
-
-          // Date
           if (hasDate) ...[
             DateDisplay(date: trip.date!),
             const SizedBox(height: 12),
           ],
-
-          // Description
           if (hasDesc) ...[
             const TripSectionLabel(label: 'DESCRIPTION', icon: Icons.notes),
             const SizedBox(height: 6),
             Text(trip.description.trim(), style: theme.textTheme.bodyMedium),
             const SizedBox(height: 16),
           ],
-
-          // Photos
           const TripSectionLabel(
             label: 'PHOTOS',
             icon: Icons.photo_library_outlined,
           ),
           const SizedBox(height: 8),
           ImageCarouselView(id: tripId),
-
-          // État vide (Uniquement si pas de description)
           if (!hasDesc)
             Center(
               child: Padding(
@@ -121,8 +117,6 @@ class TripViewerDialog extends ConsumerWidget {
             ),
         ],
       ),
-
-      // 2. Les Boutons d'actions du footer de la modale
       buttonsBuilder: (ctx) => [
         DeleteButton(
           onPressed: () async {
@@ -130,14 +124,7 @@ class TripViewerDialog extends ConsumerWidget {
           },
         ),
         const SizedBox(width: 8),
-        ModifierButton(
-          onPressed: () async {
-            // Sécurité pour s'assurer que le dialogue parent est stable avant d'ouvrir le suivant
-            await Future.delayed(Duration.zero);
-            if (!context.mounted) return;
-            TripEditorDialog.show(context: context, tripId: tripId);
-          },
-        ),
+        ModifierButton(onPressed: () => _openEditor(context, trip)),
         const SizedBox(width: 8),
         ExploreButton(
           onPressed: () {

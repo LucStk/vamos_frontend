@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/features/trips/widgets/dialogs/trip_form_dialog.dart';
 import '/features/trips/widgets/widgets.dart';
 
 class ExplorerPage extends ConsumerStatefulWidget {
@@ -18,6 +19,26 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref.read(tripQueryHandlerProvider).loadFromRemote();
     });
+  }
+
+  Future<void> _createAndOpenTrip(BuildContext context, WidgetRef ref) async {
+    final result = await ref.read(tripHandlerProvider).createBlankTrip();
+
+    result.fold(
+      (failure) {
+        // rien à faire ici : ErrorHandler/notificationQueueProvider
+        // a déjà affiché la notification globale via OptimisticExecutor
+      },
+      (trip) {
+        if (!context.mounted) return;
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) =>
+              TripFormDialog(initialTrip: trip, successMessage: 'Voyage créé'),
+        );
+      },
+    );
   }
 
   @override
@@ -56,7 +77,7 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => TripCreatorDialog.show(context),
+        onPressed: () => _createAndOpenTrip(context, ref),
         icon: const Icon(Icons.add),
         label: const Text('Nouveau voyage'),
       ),

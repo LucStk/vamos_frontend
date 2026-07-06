@@ -24,7 +24,7 @@ class ErrorHandler implements ErrorLogger {
   void handle(Object error, StackTrace? stackTrace) {
     debugPrint('Erreur capturée globalement : $error ->\n $stackTrace');
 
-    // 2. Déclenche la notification système via Riverpod
+    //    2. Déclenche la notification système via Riverpod
     _container
         .read(notificationQueueProvider.notifier)
         .show(
