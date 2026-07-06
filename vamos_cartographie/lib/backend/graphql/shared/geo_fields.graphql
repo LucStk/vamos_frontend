@@ -1,4 +1,0 @@
-fragment LatLngFields on LatLngType {
-    lat
-    lng
-}

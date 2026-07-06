@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import 'package:vamos_cartographie/infrastructure/media/storage_datasource.dart';
+import '/core/infrastructure/media/storage_datasource.dart';
 
 part "dio_media_provider.g.dart";
 

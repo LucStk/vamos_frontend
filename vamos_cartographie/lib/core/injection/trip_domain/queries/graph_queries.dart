@@ -2,9 +2,9 @@ import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/application/queries/topology_query_handler.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';
 import 'package:vamos_cartographie/core/injection/services/add_listener_to_observable.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
-import 'package:vamos_cartographie/infrastructure/core/erreur_handler.dart';
 part 'graph_queries.g.dart';
 
 @riverpod
@@ -64,8 +64,8 @@ SegmentPatch? segmentPatch(Ref ref, Id<SegmentPatch> id) {
 TopologyQueryHandler topologyQueryHandler(Ref ref) {
   final graphStore = ref.read(rawGraphStoreProvider);
   final repo = ref.read(topologyRepositoryProvider);
-  final errorLogger = ErrorHandler.instance;
-  return TopologyQueryHandler(graphStore, repo, errorLogger);
+  final executor = ref.read(optimisticExecutorProvider);
+  return TopologyQueryHandler(graphStore, repo, executor);
 }
 
 @riverpod

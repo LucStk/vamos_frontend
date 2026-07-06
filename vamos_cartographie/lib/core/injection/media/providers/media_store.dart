@@ -2,8 +2,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:media_application/media_application.dart";
 import "package:vamos_cartographie/core/injection/services/add_listener_to_observable.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
-import "package:vamos_cartographie/infrastructure/media/media_remote_datasource.dart";
-import "package:vamos_cartographie/infrastructure/media/media_repository_impl.dart";
+import "/core/infrastructure/media/media.dart";
 part "media_store.g.dart";
 
 @riverpod
