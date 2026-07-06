@@ -1,0 +1,17 @@
+#import "../fields/segment_fields.graphql"
+
+mutation UpdateSegment($id: UUID!, $segment: SegmentUpdateInput!) {
+    updateSegment(id: $id, input: $segment) {
+        ...SegmentFields
+    }
+}
+
+mutation CreateSegment($tripId: UUID!, $segment: SegmentCreateInput!) {
+    createSegment(tripId: $tripId, input: $segment) {
+        ...SegmentFields
+    }
+}
+
+mutation DeleteSegment($segmentId: UUID!) {
+    deleteSegment(id: $segmentId)
+}

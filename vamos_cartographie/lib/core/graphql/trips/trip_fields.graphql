@@ -1,0 +1,10 @@
+#import "../media/image_fields.graphql"
+fragment TripFields on TripType {
+    id
+    title
+    date
+    description
+    images {
+        ...ImageFields
+    }
+}

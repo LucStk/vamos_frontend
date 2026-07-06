@@ -1,0 +1,25 @@
+#import "waypoint_fields.graphql"
+#import "../media/image_fields.graphql"
+mutation UpdateWaypoint($id: UUID!, $waypoint: WaypointUpdateInput!) {
+    updateWaypoint(input: $waypoint, id: $id) {
+        ...WaypointFields
+    }
+}
+mutation CreateBlankWaypointFromPosition(
+    $tripId: UUID!
+    $latLng: LatLngInput!
+) {
+    createBlankWaypointFromPosition(tripId: $tripId, latLng: $latLng) {
+        ...CreateWaypointPayloadFields
+    }
+}
+
+mutation CreateBlankWaypointFromVertex($tripId: UUID!, $vertexId: UUID!) {
+    createBlankWaypointFromVertex(tripId: $tripId, vertexId: $vertexId) {
+        ...CreateWaypointPayloadFields
+    }
+}
+
+mutation DeleteWaypoint($waypointId: UUID!) {
+    deleteWaypoint(id: $waypointId)
+}
