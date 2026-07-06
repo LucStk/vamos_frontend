@@ -363,7 +363,7 @@ final class TopologyQueryHandlerProvider
 }
 
 String _$topologyQueryHandlerHash() =>
-    r'0f9dd004e7643d0099edeafe928c26ed8bdebe81';
+    r'4d3c50ea2b04ebb95fb8cb6c2fbbb5e8269f87e2';
 
 @ProviderFor(loadTopology)
 final loadTopologyProvider = LoadTopologyFamily._();

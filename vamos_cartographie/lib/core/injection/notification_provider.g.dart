@@ -41,7 +41,7 @@ final class NotificationQueueProvider
   }
 }
 
-String _$notificationQueueHash() => r'd18ef96f5423fd6dd8c8f4f43a98abba5bf1e992';
+String _$notificationQueueHash() => r'6095c84418061131160fc3a9b130417b9a2bb091';
 
 abstract class _$NotificationQueue extends $Notifier<AppNotification?> {
   AppNotification? build();
