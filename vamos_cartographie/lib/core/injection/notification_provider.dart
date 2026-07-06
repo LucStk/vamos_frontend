@@ -59,8 +59,9 @@ class NotificationQueue extends _$NotificationQueue {
 
     _dismissTimer?.cancel();
 
-    state = null;
     _isDisplaying = false;
+
+    state = null;
 
     _nextTimer?.cancel();
     _nextTimer = Timer(const Duration(milliseconds: 300), _checkQueue);
