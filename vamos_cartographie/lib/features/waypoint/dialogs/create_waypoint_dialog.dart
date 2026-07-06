@@ -40,11 +40,12 @@ class CreateWaypointDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final futurNewWaypoint = ref
+    final Future<Waypoint?> futurNewWaypoint = ref
         .read(waypointHandlerProvider(tripId))
-        .createBlankWaypoint(vertexId, latLng);
+        .createBlankWaypoint(vertexId, latLng)
+        .then((data) => data.fold((Failure f) => null, (d) => d.waypoint));
 
-    return FutureBuilder<Waypoint>(
+    return FutureBuilder<Waypoint?>(
       future: futurNewWaypoint,
       builder: (context, snapshot) {
         if (snapshot.hasError) {

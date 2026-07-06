@@ -1,8 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:media_application/runtime/observables/observable_media_store.dart';
-import 'package:trip_domain/application/repositories/trip_repository.dart';
-import 'package:trip_domain/runtime/observables/observable_trip_store.dart';
+import 'package:trip_domain/trip_domain.dart';
 
 class TripQueryHandler {
   final ObservableTripStore tripStore;

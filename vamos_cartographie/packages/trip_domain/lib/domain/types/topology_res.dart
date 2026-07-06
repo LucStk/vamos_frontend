@@ -6,3 +6,9 @@ class TopologyRes {
   final List<Segment> segments;
   TopologyRes(this.vertices, this.segments);
 }
+
+class WaypointCreateBlankRes {
+  final Vertex vertex;
+  final Waypoint waypoint;
+  WaypointCreateBlankRes(this.waypoint, this.vertex);
+}

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:trip_domain/domain/types/topology_res.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/infrastructure/topology/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/infrastructure/waypoint/mappers/mappers.dart';
@@ -25,7 +26,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
   }
 
   @override
-  Future<Either<Failure, (Waypoint, Vertex)>> createBlankWaypoint(
+  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypoint(
     Id<Trip> tripId,
     Id<Vertex>? vertexId,
     LatLng? latLng,
@@ -40,7 +41,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
       final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
       final waypointVertex = VertexMapper.fromGQL(gqlResult.vertex);
 
-      return Right((createWaypoint, waypointVertex));
+      return Right(WaypointCreateBlankRes(createWaypoint, waypointVertex));
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));
     } catch (_) {

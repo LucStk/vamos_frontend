@@ -4,3 +4,4 @@ export "value_objects/mobility_types.dart";
 export "types/Ids.dart";
 export "types/segment_ref.dart";
 export "types/vertex_ref.dart";
+export "repositories/repositories.dart";

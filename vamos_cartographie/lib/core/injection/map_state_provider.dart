@@ -3,7 +3,6 @@ import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/commands/commands.dart';
-import 'package:vamos_cartographie/infrastructure/core/erreur_handler.dart';
 
 part 'map_state_provider.g.dart';
 
@@ -16,8 +15,7 @@ class MapStateNotifier extends _$MapStateNotifier {
 
     // Tu peux maintenant utiliser tripId directement dans ton build
     final topologyHandler = ref.watch(topologyHandlerProvider(tripId));
-    final errorLogger = ErrorHandler.instance;
-    final runner = EffectRunner(topologyHandler, errorLogger);
+    final runner = EffectRunner(topologyHandler);
 
     _handler = MapHandler(
       effectRunner: runner,

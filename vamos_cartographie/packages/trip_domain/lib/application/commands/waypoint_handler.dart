@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:trip_domain/domain/types/topology_res.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 class WaypointHandler {
@@ -43,7 +44,7 @@ class WaypointHandler {
     );
   }
 
-  Future<Either<Failure, (Waypoint, Vertex)>> createBlankWaypoint(
+  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypoint(
     VertexId? vertexId,
     LatLng? latLng,
   ) async {
@@ -51,8 +52,8 @@ class WaypointHandler {
       onApply: () {},
       remote: () => repo.createBlankWaypoint(tripId, vertexId, latLng),
       onSuccess: (data) {
-        waypointStore.upsert(data.$1);
-        graphStore.insertVertex(data.$2);
+        waypointStore.upsert(data.waypoint);
+        graphStore.insertVertex(data.vertex);
       },
       onError: (Failure failure) {},
     );
