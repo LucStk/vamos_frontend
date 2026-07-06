@@ -1,4 +1,4 @@
-import 'package:map_application/application/effect_runner.dart';
+import 'package:map_application/application/intent_resolver.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/domain/domain.dart';
@@ -15,10 +15,10 @@ class MapStateNotifier extends _$MapStateNotifier {
 
     // Tu peux maintenant utiliser tripId directement dans ton build
     final topologyHandler = ref.watch(topologyHandlerProvider(tripId));
-    final runner = EffectRunner(topologyHandler);
+    final resolver = IntentResolver(topologyHandler);
 
     _handler = MapHandler(
-      effectRunner: runner,
+      intentResolver: resolver,
       onStateChanged: (newState) => state = newState,
     );
 
@@ -30,6 +30,6 @@ class MapStateNotifier extends _$MapStateNotifier {
   }
 
   void sendIntent(MapIntents intent) {
-    _handler.dispatch(intent, state);
+    _handler.intentResolver.run(intent);
   }
 }

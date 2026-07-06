@@ -2,7 +2,7 @@
 
 import 'package:map_application/map_application.dart';
 
-List<MapIntents> translate(MapUiEvent event, MapState state) {
+List<MapIntents> translate(MapEvent event, MapState state) {
   switch (event) {
     case MapTapped e:
       return [PutCursor(e.latLng)];
