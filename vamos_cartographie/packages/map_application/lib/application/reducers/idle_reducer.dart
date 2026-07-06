@@ -5,6 +5,9 @@ TransitionResult reduceIdle(MapMode state, MapEvent event) {
     MapTapped e => TransitionResult(
       nextState: MapMode.cursorDrawn(latLng: e.latLng),
     ),
+    VertexDragStarted e => TransitionResult(
+      nextState: MapMode.draggingVertex(vertexRef: e.vertexRef),
+    ),
     _ => TransitionResult(nextState: state),
   };
 }

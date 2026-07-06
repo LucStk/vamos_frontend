@@ -13,6 +13,7 @@ class MapHandler {
     final result = reduce(currentState.mode, event);
     final newState = currentState.copyWith(mode: result.nextState);
     onStateChanged(newState);
+    print("onUiEvent $event $newState ${result.intents} ${result.nextState}");
     for (final intent in result.intents) {
       intentResolver.run(intent);
     }

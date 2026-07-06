@@ -3,7 +3,7 @@ import 'package:map_application/map_application.dart';
 TransitionResult reduceVertex(MapMode state, MapEvent event) {
   return switch (event) {
     VertexDragEnd e => TransitionResult(
-      nextState: state,
+      nextState: Idle(),
       intents: [UpdateVertexPosition(e.vertexRef, e.latLng)],
     ),
 
