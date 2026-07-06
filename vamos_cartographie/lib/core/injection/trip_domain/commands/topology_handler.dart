@@ -9,8 +9,16 @@ part 'topology_handler.g.dart';
 @riverpod
 TopologyHandler topologyHandler(Ref ref, TripId tripId) {
   final store = ref.read(rawGraphStoreProvider);
+  final patchStore = ref.read(rawGraphPatchStoreProvider);
   final vertexRepo = ref.read(vertexRepositoryProvider);
   final segmentRepo = ref.read(segmentRepositoryProvider);
   final executor = ref.read(optimisticExecutorProvider);
-  return TopologyHandler(tripId, store, segmentRepo, vertexRepo, executor);
+  return TopologyHandler(
+    tripId,
+    store,
+    patchStore,
+    segmentRepo,
+    vertexRepo,
+    executor,
+  );
 }

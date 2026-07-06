@@ -6,6 +6,7 @@ import 'package:trip_domain/trip_domain.dart';
 
 class TopologyHandler {
   GraphStore graphStore;
+  GraphPatchStore graphPatchStore;
   SegmentRepository segmentRepo;
   VertexRepository vertexRepo;
   OptimisticExecutor executor;
@@ -14,6 +15,7 @@ class TopologyHandler {
   TopologyHandler(
     this.tripId,
     this.graphStore,
+    this.graphPatchStore,
     this.segmentRepo,
     this.vertexRepo,
     this.executor,
@@ -50,9 +52,26 @@ class TopologyHandler {
     LatLng latLng,
   ) async {
     return await executor.run(
-      onApply: () {},
+      onApply: () {
+        switch (ref) {
+          case ConfirmedVertexRef e:
+            graphPatchStore.insertVertexPatch(
+              VertexPatch(
+                id: e.id as Id<VertexPatch>,
+                positionOverride: latLng,
+              ),
+            );
+          case PendingVertexRef e:
+            graphPatchStore.updateVertexPatch(
+              VertexPatch(id: e.id, positionOverride: latLng),
+            );
+        }
+      },
       remote: () => vertexRepo.moveVertex(ref.id as VertexId, latLng),
-      onSuccess: (Vertex serveurValue) => graphStore.updateVertex(serveurValue),
+      onSuccess: (Vertex serveurValue) {
+        graphStore.updateVertex(serveurValue);
+        graphPatchStore.removeVertexPatch(ref.id as Id<VertexPatch>);
+      },
       onError: (Failure failure) {},
     );
   }
