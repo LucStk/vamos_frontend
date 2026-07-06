@@ -1,20 +1,17 @@
-import 'package:map_application/effects/map_effect.dart';
+import 'package:map_application/events/events.dart';
 
 import '/intents/intents.dart';
 import '/application/transition_result.dart';
 
 import '/domain/domain.dart';
 
-TransitionResult reduceCursor(MapMode state, MapIntents intent) {
-  return switch (intent) {
-    CreateWaypointVertex _ => TransitionResult(nextState: MapMode.idle()),
-    PutCursor e => TransitionResult(
-      nextState: MapMode.cursorDrawn(latLng: e.latLng),
-    ),
-    CreateSimpleVertex e => TransitionResult(
+TransitionResult reduceCursor(MapMode state, MapEvent event) {
+  return switch (event) {
+    CursorTapped e => TransitionResult(
       nextState: MapMode.idle(),
-      effects: [CreateSimpleVertexEffect(position: e.position)],
+      intents: [CreateSimpleVertex(e.latLng)],
     ),
+
     _ => TransitionResult(nextState: state),
   };
 }

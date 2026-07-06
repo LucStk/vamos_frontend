@@ -51,6 +51,7 @@ class TopologyHandler {
     VertexRef ref,
     LatLng latLng,
   ) async {
+    print("moveVertex to $latLng");
     return await executor.run(
       onApply: () {
         switch (ref) {

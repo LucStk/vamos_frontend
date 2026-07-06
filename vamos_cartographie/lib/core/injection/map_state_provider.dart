@@ -25,7 +25,7 @@ class MapStateNotifier extends _$MapStateNotifier {
     return const MapState();
   }
 
-  void sendUiEvent(MapUiEvent event) {
+  void sendUiEvent(MapEvent event) {
     _handler.onUiEvent(event, state);
   }
 

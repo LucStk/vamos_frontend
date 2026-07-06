@@ -1,16 +1,20 @@
-part of "ui_events.dart";
+part of "events.dart";
 
-class HoverSegments extends MapUiEvent {
+sealed class SegmentEvent extends MapEvent {
+  const SegmentEvent();
+}
+
+class HoverSegments extends SegmentEvent {
   final List<SegmentRef>? listSegmentsId;
   const HoverSegments(this.listSegmentsId);
 }
 
-class SegmentMobilityMarkerTapped extends MapUiEvent {
+class SegmentMobilityMarkerTapped extends SegmentEvent {
   final SegmentRef segmentRef;
   const SegmentMobilityMarkerTapped(this.segmentRef);
 }
 
-class SegmentMobilityMarkerDoubleTapped extends MapUiEvent {
+class SegmentMobilityMarkerDoubleTapped extends SegmentEvent {
   final SegmentRef segmentRef;
   const SegmentMobilityMarkerDoubleTapped(this.segmentRef);
 }

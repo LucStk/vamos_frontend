@@ -1,10 +1,8 @@
-import '/effects/map_effect.dart';
-
-import '/domain/domain.dart';
+import 'package:map_application/map_application.dart';
 
 class TransitionResult {
   final MapMode nextState;
-  final List<MapEffect> effects;
+  final List<MapIntents> intents;
 
-  const TransitionResult({required this.nextState, this.effects = const []});
+  const TransitionResult({required this.nextState, this.intents = const []});
 }

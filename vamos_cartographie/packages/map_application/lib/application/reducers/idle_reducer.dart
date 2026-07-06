@@ -1,18 +1,9 @@
 import 'package:map_application/map_application.dart';
 
-TransitionResult reduceIdle(MapMode state, MapIntents intent) {
-  return switch (intent) {
-    PutCursor cmd => TransitionResult(
-      nextState: MapMode.cursorDrawn(latLng: cmd.latLng),
-    ),
-    SelectVertex cmd => TransitionResult(
-      nextState: MapMode.vertexSelected(vertexRef: cmd.vertexRef),
-    ),
-    SelectSegment cmd => TransitionResult(
-      nextState: MapMode.segmentSelected(segmentRef: cmd.segmentRef),
-    ),
-    SelectWaypoint cmd => TransitionResult(
-      nextState: MapMode.waypointSelected(waypointId: cmd.waypointId),
+TransitionResult reduceIdle(MapMode state, MapEvent event) {
+  return switch (event) {
+    MapTapped e => TransitionResult(
+      nextState: MapMode.cursorDrawn(latLng: e.latLng),
     ),
     _ => TransitionResult(nextState: state),
   };

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/events/ui_events.dart';
+import 'package:map_application/events/events.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
 
 class CursorUiElement extends DragMarkerUiElement {
@@ -13,11 +13,11 @@ class CursorUiElement extends DragMarkerUiElement {
       Icon(Icons.place_sharp, size: 30, color: Colors.black);
 
   @override
-  MapUiEvent tapEvent() => CursorTapped(latLng);
+  MapEvent tapEvent() => CursorTapped(latLng);
   @override
-  MapUiEvent doubleTapEvent() => CursorDoubleTapped(latLng);
+  MapEvent doubleTapEvent() => CursorDoubleTapped(latLng);
   @override
-  MapUiEvent dragStartEvent(LatLng latLng) => CursorDraggedStart();
+  MapEvent dragStartEvent(LatLng latLng) => CursorDraggedStart();
   @override
-  MapUiEvent dragEndEvent(LatLng latLng) => CursorDraggedEnd(latLng);
+  MapEvent dragEndEvent(LatLng latLng) => CursorDraggedEnd(latLng);
 }

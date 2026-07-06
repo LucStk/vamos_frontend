@@ -1,16 +1,10 @@
-import 'package:map_application/effects/map_effect.dart';
 import 'package:map_application/map_application.dart';
 
-TransitionResult reduceVertex(MapMode state, MapIntents intent) {
-  return switch (intent) {
-    UpdateVertexPosition _ => TransitionResult(
+TransitionResult reduceVertex(MapMode state, MapEvent event) {
+  return switch (event) {
+    VertexDragEnd e => TransitionResult(
       nextState: state,
-      effects: [
-        MoveVertexEffect(
-          vertexRef: intent.vertexRef,
-          newPosition: intent.position,
-        ),
-      ],
+      intents: [UpdateVertexPosition(e.vertexRef, e.latLng)],
     ),
 
     _ => TransitionResult(nextState: state),

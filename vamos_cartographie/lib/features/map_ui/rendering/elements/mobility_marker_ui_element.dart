@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/events/ui_events.dart';
+import 'package:map_application/events/events.dart';
 import 'package:trip_domain/domain/entities/segment/segment_ui_model.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/marker_ui_element.dart';
 import 'package:vamos_cartographie/features/topology/mobility_type_display.dart';
@@ -53,9 +53,9 @@ class MobilityMarkerUiElement extends MarkerUiElement {
   }
 
   @override
-  MapUiEvent tapEvent() => SegmentMobilityMarkerTapped(segmentUiModel.ref);
+  MapEvent tapEvent() => SegmentMobilityMarkerTapped(segmentUiModel.ref);
 
   @override
-  MapUiEvent doubleTapEvent() =>
+  MapEvent doubleTapEvent() =>
       SegmentMobilityMarkerDoubleTapped(segmentUiModel.ref);
 }

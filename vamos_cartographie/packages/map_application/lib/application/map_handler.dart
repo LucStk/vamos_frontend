@@ -1,5 +1,4 @@
 import 'package:map_application/application/effect_runner.dart';
-import 'package:map_application/application/translator/root_translator.dart';
 import 'package:map_application/map_application.dart';
 
 class MapHandler {
@@ -15,33 +14,14 @@ class MapHandler {
        _onStateChanged = onStateChanged;
 
   // On passe le currentState à l'entrée de l'action UI
-  void onUiEvent(MapUiEvent event, MapState currentState) {
-    print("event");
+  void onUiEvent(MapEvent event, MapState currentState) {
     // Prends l'event et la situation courante et la traduit en "intent"
     // (poser un vertex, poser le curseur sur une position, ..)
-    final intents = translate(event, currentState);
-
-    // On accumule les changements localement si plusieurs intents s'enchaînent
-    MapState tempState = currentState;
-    for (final intent in intents) {
-      tempState = dispatch(intent, tempState);
-    }
-  }
-
-  // Méthode interne qui applique un intent et retourne le nouvel état intermédiaire
-  MapState dispatch(MapIntents intent, MapState currentState) {
-    final result = reduce(currentState.mode, intent);
-
+    final result = reduce(currentState.mode, event);
     final newState = currentState.copyWith(mode: result.nextState);
-
-    // 1. On notifie le conteneur externe du changement d'état
     _onStateChanged(newState);
-
-    // 2. On lance les effets de bord
-    for (final effect in result.effects) {
+    for (final intent in result.intents) {
       _effectRunner.run(effect);
     }
-
-    return newState;
   }
 }

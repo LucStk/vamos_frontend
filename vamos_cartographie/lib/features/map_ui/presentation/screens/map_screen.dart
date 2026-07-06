@@ -4,7 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:map_application/events/ui_events.dart';
+import 'package:map_application/events/events.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
 import '/features/map_ui/presentation/widgets/widgets.dart';

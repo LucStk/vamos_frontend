@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/events/ui_events.dart';
+import 'package:map_application/events/events.dart';
 import 'package:trip_domain/domain/types/Ids.dart';
 
 abstract class MarkerUiElement {
@@ -10,6 +10,6 @@ abstract class MarkerUiElement {
 
   Widget buildMarker({bool isDragging = false});
 
-  MapUiEvent tapEvent();
-  MapUiEvent doubleTapEvent();
+  MapEvent tapEvent();
+  MapEvent doubleTapEvent();
 }

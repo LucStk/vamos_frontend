@@ -1,34 +1,7 @@
 import '/map_application.dart';
 
-TransitionResult reduceSegment(MapMode state, MapIntents intent) {
+TransitionResult reduceSegment(MapMode state, MapEvent event) {
   return switch (state) {
-    SegmentSelected s => _reduceSegmentSelected(s, intent),
-    CreatingSegment s => _reduceCreatingSegment(s, intent),
-    SplittingSegment s => _reduceSplittingSegment(s, intent),
     _ => TransitionResult(nextState: state),
   };
-}
-
-TransitionResult _reduceSegmentSelected(
-  SegmentSelected state,
-  MapIntents intent,
-) {
-  // Handle segment selected state
-  return TransitionResult(nextState: state);
-}
-
-TransitionResult _reduceCreatingSegment(
-  CreatingSegment state,
-  MapIntents intent,
-) {
-  // Handle creating segment state
-  return TransitionResult(nextState: state);
-}
-
-TransitionResult _reduceSplittingSegment(
-  SplittingSegment state,
-  MapIntents intent,
-) {
-  // Handle splitting segment state
-  return TransitionResult(nextState: state);
 }
