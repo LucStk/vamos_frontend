@@ -10,7 +10,25 @@ class NotificationListenerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [child, const NotificationOverlay()]);
+    return Stack(
+      children: [
+        child,
+        Positioned.fill(
+          child: SafeArea(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 600),
+                  child: NotificationOverlay(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 

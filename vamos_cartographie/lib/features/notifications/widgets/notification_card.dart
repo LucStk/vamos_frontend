@@ -25,29 +25,27 @@ class NotificationCard extends ConsumerWidget {
         elevation: 8,
         borderRadius: BorderRadius.circular(16),
         color: backgroundColor,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(icon, color: iconColor, size: 28),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Text(
-                    message,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, color: iconColor, size: 28),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Text(
+                  message,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                 ),
-                IconButton(
-                  onPressed: notifier.dismissCurrent,
-                  icon: Icon(Icons.close, color: iconColor),
-                ),
-              ],
-            ),
+              ),
+              IconButton(
+                onPressed: notifier.dismissCurrent,
+                icon: Icon(Icons.close, color: iconColor),
+              ),
+            ],
           ),
         ),
       ),
