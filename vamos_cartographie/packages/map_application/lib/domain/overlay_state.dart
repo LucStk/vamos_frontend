@@ -10,8 +10,4 @@ sealed class MapOverlayState with _$MapOverlayState {
 
   const factory MapOverlayState.popup({required PopUpState popUpState}) =
       OverlayPopup;
-
-  const factory MapOverlayState.viewWaypointDialog({
-    required Id<Waypoint> waypointId,
-  }) = ViewWaypointDialogOverlay;
 }

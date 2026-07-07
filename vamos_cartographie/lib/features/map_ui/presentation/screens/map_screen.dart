@@ -54,7 +54,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         if (event == null) break;
 
         switch (event) {
-          case OpenWaypointDialog(:final waypointId):
+          case OpenWaypointDialogEvent(:final waypointId):
             await showDialog<void>(
               context: context,
               builder: (bcontext) => WaypointViewerDialog(
