@@ -10,10 +10,8 @@ class MapHandler {
 
   // On passe le currentState à l'entrée de l'action UI
   void onUiEvent(MapEvent event, MapState currentState) {
-    final result = reduce(currentState.mode, event);
-    final newState = currentState.copyWith(mode: result.nextState);
-    onStateChanged(newState);
-    print("onUiEvent $event $newState ${result.intents} ${result.nextState}");
+    final result = reduce(currentState, event);
+    onStateChanged(result.nextState);
     for (final intent in result.intents) {
       intentResolver.run(intent);
     }

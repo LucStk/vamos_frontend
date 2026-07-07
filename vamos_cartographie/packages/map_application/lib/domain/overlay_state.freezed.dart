@@ -55,12 +55,13 @@ extension MapOverlayStatePatterns on MapOverlayState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( OverlayHidden value)?  hidden,TResult Function( OverlayPopup value)?  popup,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( OverlayHidden value)?  hidden,TResult Function( OverlayPopup value)?  popup,TResult Function( ViewWaypointDialogOverlay value)?  viewWaypointDialog,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden(_that);case OverlayPopup() when popup != null:
-return popup(_that);case _:
+return popup(_that);case ViewWaypointDialogOverlay() when viewWaypointDialog != null:
+return viewWaypointDialog(_that);case _:
   return orElse();
 
 }
@@ -78,12 +79,13 @@ return popup(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( OverlayHidden value)  hidden,required TResult Function( OverlayPopup value)  popup,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( OverlayHidden value)  hidden,required TResult Function( OverlayPopup value)  popup,required TResult Function( ViewWaypointDialogOverlay value)  viewWaypointDialog,}){
 final _that = this;
 switch (_that) {
 case OverlayHidden():
 return hidden(_that);case OverlayPopup():
-return popup(_that);}
+return popup(_that);case ViewWaypointDialogOverlay():
+return viewWaypointDialog(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -97,12 +99,13 @@ return popup(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( OverlayHidden value)?  hidden,TResult? Function( OverlayPopup value)?  popup,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( OverlayHidden value)?  hidden,TResult? Function( OverlayPopup value)?  popup,TResult? Function( ViewWaypointDialogOverlay value)?  viewWaypointDialog,}){
 final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden(_that);case OverlayPopup() when popup != null:
-return popup(_that);case _:
+return popup(_that);case ViewWaypointDialogOverlay() when viewWaypointDialog != null:
+return viewWaypointDialog(_that);case _:
   return null;
 
 }
@@ -119,11 +122,12 @@ return popup(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  hidden,TResult Function( PopUpState popUpState)?  popup,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  hidden,TResult Function( PopUpState popUpState)?  popup,TResult Function( Id<Waypoint> waypointId)?  viewWaypointDialog,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden();case OverlayPopup() when popup != null:
-return popup(_that.popUpState);case _:
+return popup(_that.popUpState);case ViewWaypointDialogOverlay() when viewWaypointDialog != null:
+return viewWaypointDialog(_that.waypointId);case _:
   return orElse();
 
 }
@@ -141,11 +145,12 @@ return popup(_that.popUpState);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  hidden,required TResult Function( PopUpState popUpState)  popup,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  hidden,required TResult Function( PopUpState popUpState)  popup,required TResult Function( Id<Waypoint> waypointId)  viewWaypointDialog,}) {final _that = this;
 switch (_that) {
 case OverlayHidden():
 return hidden();case OverlayPopup():
-return popup(_that.popUpState);}
+return popup(_that.popUpState);case ViewWaypointDialogOverlay():
+return viewWaypointDialog(_that.waypointId);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -159,11 +164,12 @@ return popup(_that.popUpState);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  hidden,TResult? Function( PopUpState popUpState)?  popup,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  hidden,TResult? Function( PopUpState popUpState)?  popup,TResult? Function( Id<Waypoint> waypointId)?  viewWaypointDialog,}) {final _that = this;
 switch (_that) {
 case OverlayHidden() when hidden != null:
 return hidden();case OverlayPopup() when popup != null:
-return popup(_that.popUpState);case _:
+return popup(_that.popUpState);case ViewWaypointDialogOverlay() when viewWaypointDialog != null:
+return viewWaypointDialog(_that.waypointId);case _:
   return null;
 
 }
@@ -276,6 +282,72 @@ $PopUpStateCopyWith<$Res> get popUpState {
     return _then(_self.copyWith(popUpState: value));
   });
 }
+}
+
+/// @nodoc
+
+
+class ViewWaypointDialogOverlay implements MapOverlayState {
+  const ViewWaypointDialogOverlay({required this.waypointId});
+  
+
+ final  Id<Waypoint> waypointId;
+
+/// Create a copy of MapOverlayState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ViewWaypointDialogOverlayCopyWith<ViewWaypointDialogOverlay> get copyWith => _$ViewWaypointDialogOverlayCopyWithImpl<ViewWaypointDialogOverlay>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ViewWaypointDialogOverlay&&(identical(other.waypointId, waypointId) || other.waypointId == waypointId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,waypointId);
+
+@override
+String toString() {
+  return 'MapOverlayState.viewWaypointDialog(waypointId: $waypointId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ViewWaypointDialogOverlayCopyWith<$Res> implements $MapOverlayStateCopyWith<$Res> {
+  factory $ViewWaypointDialogOverlayCopyWith(ViewWaypointDialogOverlay value, $Res Function(ViewWaypointDialogOverlay) _then) = _$ViewWaypointDialogOverlayCopyWithImpl;
+@useResult
+$Res call({
+ Id<Waypoint> waypointId
+});
+
+
+
+
+}
+/// @nodoc
+class _$ViewWaypointDialogOverlayCopyWithImpl<$Res>
+    implements $ViewWaypointDialogOverlayCopyWith<$Res> {
+  _$ViewWaypointDialogOverlayCopyWithImpl(this._self, this._then);
+
+  final ViewWaypointDialogOverlay _self;
+  final $Res Function(ViewWaypointDialogOverlay) _then;
+
+/// Create a copy of MapOverlayState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? waypointId = null,}) {
+  return _then(ViewWaypointDialogOverlay(
+waypointId: null == waypointId ? _self.waypointId : waypointId // ignore: cast_nullable_to_non_nullable
+as Id<Waypoint>,
+  ));
+}
+
+
 }
 
 // dart format on

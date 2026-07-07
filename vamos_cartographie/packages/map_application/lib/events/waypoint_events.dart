@@ -20,6 +20,7 @@ class WaypointDragStarted extends WaypointEvent {
 }
 
 class WaypointDragEnded extends WaypointEvent {
-  final WaypointId waypointId;
-  const WaypointDragEnded(this.waypointId);
+  final VertexRef vertexRef;
+  final LatLng latLng;
+  const WaypointDragEnded(this.vertexRef, this.latLng);
 }

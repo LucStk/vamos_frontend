@@ -5,10 +5,10 @@ import '/application/transition_result.dart';
 
 import '/domain/domain.dart';
 
-TransitionResult reduceCursor(MapMode state, MapEvent event) {
+TransitionResult reduceCursor(MapState state, MapEvent event) {
   return switch (event) {
     CursorTapped e => TransitionResult(
-      nextState: MapMode.idle(),
+      nextState: state.copyWith(mode: MapMode.idle()),
       intents: [CreateSimpleVertex(e.latLng)],
     ),
 

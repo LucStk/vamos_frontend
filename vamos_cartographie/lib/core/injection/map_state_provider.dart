@@ -1,3 +1,4 @@
+import 'package:domain_core/id.dart';
 import 'package:map_application/application/intent_resolver.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -32,5 +33,17 @@ class MapStateNotifier extends _$MapStateNotifier {
 
   void sendIntent(MapIntents intent) {
     _handler.intentResolver.run(intent);
+  }
+}
+
+extension MapStateActions on MapStateNotifier {
+  void openEditWaypointDialog(Id<Waypoint> waypointId) {
+    state = state.copyWith(
+      overlay: MapOverlayState.viewWaypointDialog(waypointId: waypointId),
+    );
+  }
+
+  void closeOverlay() {
+    state = state.copyWith(overlay: const MapOverlayState.hidden());
   }
 }

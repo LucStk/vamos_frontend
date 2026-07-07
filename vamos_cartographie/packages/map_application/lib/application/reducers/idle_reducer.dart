@@ -1,16 +1,26 @@
 import 'package:map_application/map_application.dart';
 
-TransitionResult reduceIdle(MapMode state, MapEvent event) {
+TransitionResult reduceIdle(MapState state, MapEvent event) {
   return switch (event) {
     MapTapped e => TransitionResult(
-      nextState: MapMode.cursorDrawn(latLng: e.latLng),
+      nextState: state.copyWith(mode: MapMode.cursorDrawn(latLng: e.latLng)),
     ),
-    VertexDragStarted e => TransitionResult(
-      nextState: MapMode.draggingVertex(vertexRef: e.vertexRef),
+    VertexDragEnd e => TransitionResult(
+      nextState: state.copyWith(mode: Idle()),
+      intents: [UpdateVertexPosition(e.vertexRef, e.latLng)],
+    ),
+    WaypointDragEnded e => TransitionResult(
+      nextState: state.copyWith(mode: Idle()),
+      intents: [UpdateVertexPosition(e.vertexRef, e.latLng)],
     ),
     VertexTapped e => TransitionResult(
       nextState: state,
       intents: [CreateWaypointFromVertex(e.vertexRef)],
+    ),
+    WaypointTapped e => TransitionResult(
+      nextState: state.copyWith(
+        overlay: MapOverlayState.viewWaypointDialog(waypointId: e.waypointId),
+      ),
     ),
     _ => TransitionResult(nextState: state),
   };

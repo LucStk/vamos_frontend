@@ -51,6 +51,8 @@ class PopUpOverlay extends ConsumerWidget {
             );
           },
         );
+      case _:
+        return const SizedBox.shrink();
     }
   }
 }
