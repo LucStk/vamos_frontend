@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
 import '/core/infrastructure/topology/mappers/segment_mappers.dart';
 import 'package:vamos_cartographie/core/infrastructure/topology/topology.dart';
 
@@ -11,16 +12,11 @@ class SegmentRepositoryImpl extends SegmentRepository {
   SegmentRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, List<Segment>>> getSegments(Id<Trip> tripId) async {
-    try {
+  Future<Either<Failure, List<Segment>>> getSegments(Id<Trip> tripId) {
+    return guard(() async {
       final segments = await remote.getSegments(tripId: tripId);
-      final ret = segments.map(SegmentMapper.fromGQL).toList();
-      return Right(ret);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return segments.map(SegmentMapper.fromGQL).toList();
+    });
   }
 
   // Future<Either<Failure, Segment>> createSegment(
@@ -44,31 +40,20 @@ class SegmentRepositoryImpl extends SegmentRepository {
 
   @override
   Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
-    try {
+    return guard(() async {
       final input = SegmentMapper.toGQLUpdateInput(segment);
       final gqlResult = await remote.updateSegment(
         id: segment.id,
         input: input,
       );
-      final updatedSegment = SegmentMapper.fromGQL(gqlResult);
-
-      return Right(updatedSegment);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return SegmentMapper.fromGQL(gqlResult);
+    });
   }
 
   @override
   Future<Either<Failure, void>> deleteSegment(Id<Segment> id) async {
-    try {
+    return guard(() async {
       await remote.deleteSegment(id: id);
-      return const Right(null);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+    });
   }
 }

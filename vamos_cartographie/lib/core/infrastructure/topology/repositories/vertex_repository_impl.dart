@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
 
 import "package:vamos_cartographie/features/shared/shared.dart";
 import '/core/infrastructure/topology/datasources/datasources.dart';
@@ -11,66 +12,42 @@ class VertexRepositoryImpl extends VertexRepository {
   final VertexRemoteDatasource remote;
   VertexRepositoryImpl(this.remote);
   @override
-  Future<Either<Failure, List<Vertex>>> getVertices(Id<Trip> tripId) async {
-    try {
+  Future<Either<Failure, List<Vertex>>> getVertices(Id<Trip> tripId) {
+    return guard(() async {
       final segments = await remote.getVertices(tripId: tripId);
-      final ret = segments.map(VertexMapper.fromGQL).toList();
-      return Right(ret);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return segments.map(VertexMapper.fromGQL).toList();
+    });
   }
 
   @override
-  Future<Either<Failure, Vertex>> createVertex(
-    Id<Trip> tripId,
-    LatLng latLng,
-  ) async {
-    try {
+  Future<Either<Failure, Vertex>> createVertex(Id<Trip> tripId, LatLng latLng) {
+    return guard(() async {
       final gqlResult = await remote.createVertex(
         tripId: tripId,
         latLng: GisMapper.toGQL(latLng),
       );
-      final createSegment = VertexMapper.fromGQL(gqlResult);
-      return Right(createSegment);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return VertexMapper.fromGQL(gqlResult);
+    });
   }
 
   @override
   Future<Either<Failure, Vertex>> moveVertex(
     Id<Vertex> vertexId,
     LatLng latLng,
-  ) async {
-    try {
+  ) {
+    return guard(() async {
       final gqlResult = await remote.moveVertex(
         id: vertexId,
         latLng: GisMapper.toGQL(latLng),
       );
-      final movedVertex = VertexMapper.fromGQL(gqlResult);
-
-      return Right(movedVertex);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return VertexMapper.fromGQL(gqlResult);
+    });
   }
 
   @override
-  Future<Either<Failure, void>> deleteVertex(Id<Vertex> vertexId) async {
-    try {
+  Future<Either<Failure, void>> deleteVertex(Id<Vertex> vertexId) {
+    return guard(() async {
       await remote.deleteVertex(id: vertexId);
-      return const Right(null);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+    });
   }
 }

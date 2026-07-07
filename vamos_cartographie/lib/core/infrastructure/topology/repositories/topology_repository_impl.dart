@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
 import 'package:trip_domain/domain/types/topology_res.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
 import '/core/infrastructure/topology/mappers/mappers.dart';
 import '/core/infrastructure/topology/datasources/datasources.dart';
 
@@ -11,15 +12,10 @@ class TopologyRepositoryImpl extends TopologyRepository {
   TopologyRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, TopologyRes>> getTopology(TripId tripId) async {
-    try {
+  Future<Either<Failure, TopologyRes>> getTopology(TripId tripId) {
+    return guard(() async {
       final data = await remote.getTopology(tripId: tripId);
-      final ret = TopologyMappers.fromGQL(data);
-      return Right(ret);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return TopologyMappers.fromGQL(data);
+    });
   }
 }
