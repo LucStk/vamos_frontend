@@ -1,3 +1,5 @@
+import 'package:media_application/domain/entities/media_image.dart';
+
 import '/domain/entities/entities.dart';
 
 class TopologyRes {
@@ -16,6 +18,6 @@ class WaypointCreateBlankRes {
 class TripDetailsRes {
   final List<Vertex> vertices;
   final List<Segment> segments;
-  final List<Waypoint> waypoints;
-  TripDetailsRes(this.vertices, this.segments, this.waypoints);
+  final List<(Waypoint, List<MediaImage>)> waypoints_images;
+  TripDetailsRes(this.vertices, this.segments, this.waypoints_images);
 }

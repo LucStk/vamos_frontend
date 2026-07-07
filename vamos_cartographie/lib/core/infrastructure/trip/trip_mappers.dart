@@ -37,7 +37,14 @@ class TripMapper {
   static TripDetailsRes fromGQLDetails(GGetTripDetailsData_trip data) {
     final lV = data.topology.vertices.map(VertexMapper.fromGQL).toList();
     final lS = data.topology.segments.map(SegmentMapper.fromGQL).toList();
-    final lW = data.waypoints.map(WaypointMapper.fromGQL).toList();
+    final lW = data.waypoints
+        .map(
+          (m) => (
+            WaypointMapper.fromGQL(m),
+            m.images.map(MediaImageMappers.fromGQL).toList(),
+          ),
+        )
+        .toList();
     return TripDetailsRes(lV, lS, lW);
   }
 

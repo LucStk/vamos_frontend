@@ -46,8 +46,11 @@ class TripQueryHandler {
           onApply: () {},
           remote: () => tripRepo.getTripDetails(tripId),
           onSuccess: (data) {
-            for (final w in data.waypoints) {
+            for (final (w, listImages) in data.waypoints_images) {
               waypointStore.upsert(w);
+              for (final i in listImages) {
+                mediaStore.upsert(w.id, i);
+              }
             }
             for (final v in data.vertices) {
               graphStore.insertVertex(v);

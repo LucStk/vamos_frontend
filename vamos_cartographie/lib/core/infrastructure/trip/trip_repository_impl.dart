@@ -42,19 +42,6 @@ class TripRepositoryImpl extends TripRepository {
   // Mutations
   // ---------------------------------------------------------------------------
 
-  // @override
-  // Future<Either<Failure, Trip>> createTrip(TripDraft trip) async {
-  //   try {
-  //     final input = TripDraftMapper.toGQLInput(trip);
-  //     final gqlResult = await remote.createTrip(input: input);
-  //     final createdTrip = TripMapper.fromGQLCreateResult(gqlResult);
-  //     return Right(createdTrip);
-  //   } on Exception catch (e) {
-  //     return Left(ServerFailure(e.toString()));
-  //   } catch (_) {
-  //     return Left(const ConnectionFailure());
-  //   }
-  // }
   @override
   Future<Either<Failure, Trip>> createBlankTrip() async {
     return guard(() async {

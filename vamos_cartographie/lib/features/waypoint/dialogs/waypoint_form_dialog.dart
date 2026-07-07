@@ -1,4 +1,3 @@
-import 'package:domain_core/failure.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/media_application.dart';
@@ -43,7 +42,6 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final waypointHandler = ref.watch(waypointHandlerProvider(widget.tripId));
     return DialogShell(
       constraints: const BoxConstraints(maxWidth: 480, maxHeight: 680),
 
