@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
 import 'package:vamos_cartographie/core/infrastructure/media/media.dart';
 import "package:media_application/media_application.dart";
 import 'package:path/path.dart' as p;
@@ -15,8 +16,8 @@ class MediaRepositoryImpl extends MediaRepository {
   Future<Either<Failure, MediaImage>> uploadImage(
     File file,
     Function(int sent, int total)? onProgress,
-  ) async {
-    try {
+  ) {
+    return guard(() async {
       final filename = p.basename(file.path);
       final uploadConfig = await remote.getSignedURL(filename);
       await storage.uploadFile(
@@ -27,10 +28,8 @@ class MediaRepositoryImpl extends MediaRepository {
         onProgress: onProgress,
       );
       final saveRes = await remote.createMediaData(uploadConfig.fileKey);
-      return Right(MediaImageMappers.fromGQL(saveRes));
-    } catch (e) {
-      return Left(ServerFailure("Upload failed $e"));
-    }
+      return MediaImageMappers.fromGQL(saveRes);
+    });
   }
 
   @override
@@ -38,19 +37,15 @@ class MediaRepositoryImpl extends MediaRepository {
     Id<T> id,
     FileKey filekey,
     MediaOwnerType ownerType,
-  ) async {
-    try {
+  ) {
+    return guard(() async {
       final res = await remote.attachImageTo(
         id: id,
         fileKey: filekey,
         type: ownerType,
       );
-      return Right(MediaImageMappers.fromGQL(res));
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return MediaImageMappers.fromGQL(res);
+    });
   }
 
   @override
@@ -59,13 +54,8 @@ class MediaRepositoryImpl extends MediaRepository {
     FileKey filekey,
     MediaOwnerType ownerType,
   ) async {
-    try {
+    return guard(() async {
       await remote.deleteImgFrom(id: id, fileKey: filekey, type: ownerType);
-      return Right(null);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+    });
   }
 }

@@ -1,46 +1,39 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/core/infrastructure/media/mappers/owner_type_mappers.dart';
+import 'package:vamos_cartographie/core/network/network.dart';
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 
 import "package:media_application/media_application.dart";
 
 /// Datasource distant pour les opérations sur les trips.
-/// Communique directement avec le backend via le client Ferry (GraphQL).
+/// Communique directement avec le backend via le ferryClient Ferry (GraphQL).
 /// Retourne des types GQL bruts – c'est le repository qui se charge
 /// de les convertir en modèles domaine via [TripMapper].
 class MediaRemoteDatasource {
-  final Client client;
+  final Client ferryClient;
 
-  MediaRemoteDatasource(this.client);
+  MediaRemoteDatasource(this.ferryClient);
 
   Future<GGenerateImageUploadUrlData_generateImageUploadUrl> getSignedURL(
     String filename,
   ) async {
     // 1. Demander l'URL signée au backend
-    final signReq = GGenerateImageUploadUrlReq(
-      vars: GGenerateImageUploadUrlVars(filename: filename),
+    final data = await ferryClient.execute(
+      GGenerateImageUploadUrlReq(
+        vars: GGenerateImageUploadUrlVars(filename: filename),
+      ),
     );
-    final response = await client.request(signReq).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            'Erreur lors de la signature de l\'upload',
-      );
-    }
-    return response.data!.generateImageUploadUrl;
+
+    return data.generateImageUploadUrl;
   }
 
   Future<GImageFieldsData> createMediaData(String fileKey) async {
     // Créer un objet media dans la db
-    final saveReq = GCreateImageReq(vars: GCreateImageVars(fileKey: fileKey));
-    final response = await client.request(saveReq).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ?? "Erreur lors de l'uploadMedia",
-      );
-    }
-    return response.data!.createImage;
+    final data = await ferryClient.execute(
+      GCreateImageReq(vars: GCreateImageVars(fileKey: fileKey)),
+    );
+    return data.createImage;
   }
 
   Future<GImageFieldsData> attachImageTo({
@@ -48,21 +41,17 @@ class MediaRemoteDatasource {
     required FileKey fileKey,
     required MediaOwnerType type,
   }) async {
-    final req = GAttachImageToReq(
-      vars: GAttachImageToVars(
-        id: id.value,
-        fileKey: fileKey.value,
-        type: type.toGQL(),
+    final data = await ferryClient.execute(
+      GAttachImageToReq(
+        vars: GAttachImageToVars(
+          id: id.value,
+          fileKey: fileKey.value,
+          type: type.toGQL(),
+        ),
       ),
     );
-    final response = await client.request(req).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            'Erreur lors de l\'association de l\'image au trip',
-      );
-    }
-    return response.data!.attachImageTo.image;
+
+    return data.attachImageTo.image;
   }
 
   Future<void> deleteImgFrom({
@@ -70,19 +59,14 @@ class MediaRemoteDatasource {
     required FileKey fileKey,
     required MediaOwnerType type,
   }) async {
-    final req = GDeleteImageFromReq(
-      vars: GDeleteImageFromVars(
-        id: id.value,
-        fileKey: fileKey.value,
-        type: type.toGQL(),
+    await ferryClient.execute(
+      GDeleteImageFromReq(
+        vars: GDeleteImageFromVars(
+          id: id.value,
+          fileKey: fileKey.value,
+          type: type.toGQL(),
+        ),
       ),
     );
-    final response = await client.request(req).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            "Erreur lors de la suppression de l'image trip",
-      );
-    }
   }
 }
