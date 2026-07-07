@@ -106,14 +106,8 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
         ConfirmButton(
           isLoading: _isSaving,
           onPressed: () async {
-            setState(() => _isSaving = true);
-            // 1. On capture le navigator AU DÉBUT, quand le contexte est 100% valide
             final navigator = Navigator.of(context);
-
-            setState(
-              () => _isSaving = true,
-            ); // Pense à l'activer ici d'ailleurs !
-
+            setState(() => _isSaving = true);
             final tripResult = await ref
                 .read(tripHandlerProvider)
                 .updateTrip(_currentTrip);
@@ -122,11 +116,9 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
                 .read(mediaHandlerProvider)
                 .attachPatchImage<Trip>(_currentTrip.id, MediaOwnerType.trip);
 
-            // 2. On vérifie si le widget State est toujours là
             if (!mounted) return;
 
             if (tripResult.isRight() && mediaResult.isEmpty) {
-              // 3. On utilise la référence capturée, le linter adore ça !
               navigator.pop();
             }
 

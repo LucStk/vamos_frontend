@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/media_application.dart';
 import 'package:trip_domain/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/media/commands/media_handler.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/commands/waypoint_handler.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 
@@ -102,16 +103,34 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
         ConfirmButton(
           isLoading: _isSaving,
           onPressed: () async {
-            setState(() {
-              _isSaving = true;
-            });
-            final res = await waypointHandler.updateWaypoint(currentWaypoint);
-            res.fold(
-              (Failure f) => setState(() {
-                _isSaving = false;
-              }),
-              (_) => Navigator.of(context).pop(),
-            );
+            setState(() => _isSaving = true);
+            // 1. On capture le navigator AU DÉBUT, quand le contexte est 100% valide
+            final navigator = Navigator.of(context);
+
+            setState(
+              () => _isSaving = true,
+            ); // Pense à l'activer ici d'ailleurs !
+
+            final waypointResult = await ref
+                .read(waypointHandlerProvider(widget.tripId))
+                .updateWaypoint(currentWaypoint);
+
+            final mediaResult = await ref
+                .read(mediaHandlerProvider)
+                .attachPatchImage<Waypoint>(
+                  currentWaypoint.id,
+                  MediaOwnerType.waypoint,
+                );
+
+            // 2. On vérifie si le widget State est toujours là
+            if (!mounted) return;
+
+            if (waypointResult.isRight() && mediaResult.isEmpty) {
+              // 3. On utilise la référence capturée, le linter adore ça !
+              navigator.pop();
+            }
+
+            setState(() => _isSaving = false);
           },
         ),
       ],
