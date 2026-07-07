@@ -37,5 +37,8 @@ final class NotFoundFailure extends Failure {
 }
 
 final class UnexpectedFailure extends Failure {
-  const UnexpectedFailure() : super("Erreur inattendue");
+  final String? debugInfo;
+  const UnexpectedFailure({this.debugInfo}) : super("Erreur inattendue");
+  @override
+  List<Object?> get props => [...super.props, debugInfo];
 }

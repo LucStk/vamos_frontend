@@ -30,8 +30,22 @@ class ExceptionMapper {
       // --- Exceptions Dart génériques restantes ---
       Exception ex => ServerFailure(ex.toString()),
 
-      _ => const UnexpectedFailure(),
+      _ => _unexpected(error, stackTrace),
     };
+  }
+
+  static Failure _unexpected(Object error, StackTrace? stackTrace) {
+    final info = '${error.runtimeType}: $error';
+    if (kDebugMode) {
+      debugPrint('🐛 BUG NON GÉRÉ ── $info');
+      if (stackTrace != null) {
+        debugPrintStack(stackTrace: stackTrace, label: '🐛 Stacktrace');
+      }
+    } else {
+      // En prod : log silencieux vers un service de crash reporting
+      // ex: Sentry.captureException(error, stackTrace: stackTrace);
+    }
+    return UnexpectedFailure(debugInfo: info);
   }
 
   static Failure _fromDioException(DioException e) {
@@ -56,11 +70,6 @@ class ExceptionMapper {
       case DioExceptionType.badCertificate:
         return const ConnectionFailure();
     }
-  }
-
-  static Failure _unexpected(Object e, StackTrace? s) {
-    debugPrint('Bug détecté: $e\n$s');
-    return const UnexpectedFailure();
   }
 
   static bool _isNotFound(GraphQLError error) {
