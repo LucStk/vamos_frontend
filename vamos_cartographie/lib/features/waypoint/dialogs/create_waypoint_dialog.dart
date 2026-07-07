@@ -8,21 +8,19 @@ import "form_waypoint_dialog.dart";
 
 class CreateWaypointDialog extends ConsumerWidget {
   final Id<Trip> tripId;
-  final Id<Vertex>? vertexId;
-  final LatLng? latLng;
+  final Id<Vertex> vertexId;
   final VoidCallback? onSuccess;
   const CreateWaypointDialog({
     super.key,
     required this.tripId,
-    this.vertexId,
-    this.latLng,
+    required this.vertexId,
     this.onSuccess,
   });
 
   static Future<void> show({
     required BuildContext context,
     required Id<Trip> tripId,
-    Id<Vertex>? vertexId,
+    required Id<Vertex> vertexId,
     LatLng? latLng,
     VoidCallback? onSuccess,
   }) {
@@ -32,7 +30,6 @@ class CreateWaypointDialog extends ConsumerWidget {
       builder: (_) => CreateWaypointDialog(
         tripId: tripId,
         vertexId: vertexId,
-        latLng: latLng,
         onSuccess: onSuccess,
       ),
     );
@@ -42,7 +39,7 @@ class CreateWaypointDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Future<Waypoint?> futurNewWaypoint = ref
         .read(waypointHandlerProvider(tripId))
-        .createBlankWaypoint(vertexId, latLng)
+        .createBlankWaypointFromVertex(vertexId)
         .then((data) => data.fold((Failure f) => null, (d) => d.waypoint));
 
     return FutureBuilder<Waypoint?>(

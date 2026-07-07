@@ -7,10 +7,11 @@ import 'package:trip_domain/domain/types/topology_res.dart';
 
 abstract class WaypointRepository {
   Future<Either<Failure, List<Waypoint>>> getWaypoints(TripId id);
-  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypoint(
+  Future<Either<Failure, WaypointCreateBlankRes>>
+  createBlankWaypointFromPosition(TripId tripId, LatLng latLng);
+  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypointFromVertex(
     TripId tripId,
-    VertexId? vertexId,
-    LatLng? latLng,
+    VertexId vertexId,
   );
   Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint);
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id);

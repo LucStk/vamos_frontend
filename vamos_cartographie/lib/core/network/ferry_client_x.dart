@@ -1,6 +1,5 @@
 // core/network/ferry_client_x.dart
 import 'package:ferry/ferry.dart';
-import 'package:flutter/cupertino.dart';
 import 'graphql_request_exception.dart';
 
 extension FerryClientX on Client {
@@ -13,8 +12,6 @@ extension FerryClientX on Client {
         .timeout(const Duration(seconds: 15));
 
     if (response.linkException != null || response.hasErrors) {
-      debugPrint('linkException: ${response.linkException}');
-      debugPrint('graphqlErrors: ${response.graphqlErrors}');
       throw GraphQLRequestException(
         linkException: response.linkException,
         graphqlErrors: response.graphqlErrors ?? [],

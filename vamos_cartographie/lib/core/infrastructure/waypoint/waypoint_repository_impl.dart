@@ -22,22 +22,31 @@ class WaypointRepositoryImpl extends WaypointRepository {
   }
 
   @override
-  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypoint(
-    Id<Trip> tripId,
-    Id<Vertex>? vertexId,
-    LatLng? latLng,
-  ) {
+  Future<Either<Failure, WaypointCreateBlankRes>>
+  createBlankWaypointFromPosition(Id<Trip> tripId, LatLng latLng) {
     return guard(() async {
-      print("start createBlankWaypoint");
-      final gqlResult = await remote.createBlankWaypoint(
+      final gqlResult = await remote.createBlankWaypointFromPosition(
         tripId: tripId,
-        vertexId: vertexId,
         latLng: latLng,
       );
-      print("gqlResult $gqlResult");
       final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
       final waypointVertex = VertexMapper.fromGQL(gqlResult.vertex);
+      return WaypointCreateBlankRes(createWaypoint, waypointVertex);
+    });
+  }
 
+  @override
+  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypointFromVertex(
+    Id<Trip> tripId,
+    Id<Vertex> vertexId,
+  ) {
+    return guard(() async {
+      final gqlResult = await remote.createBlankWaypointFromVertex(
+        tripId: tripId,
+        vertexId: vertexId,
+      );
+      final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
+      final waypointVertex = VertexMapper.fromGQL(gqlResult.vertex);
       return WaypointCreateBlankRes(createWaypoint, waypointVertex);
     });
   }

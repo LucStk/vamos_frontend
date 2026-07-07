@@ -44,13 +44,25 @@ class WaypointHandler {
     );
   }
 
-  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypoint(
-    VertexId? vertexId,
-    LatLng? latLng,
+  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypointFromVertex(
+    VertexId vertexId,
   ) async {
     return await executor.run(
       onApply: () {},
-      remote: () => repo.createBlankWaypoint(tripId, vertexId, latLng),
+      remote: () => repo.createBlankWaypointFromVertex(tripId, vertexId),
+      onSuccess: (data) {
+        waypointStore.upsert(data.waypoint);
+        graphStore.insertVertex(data.vertex);
+      },
+      onError: (Failure failure) {},
+    );
+  }
+
+  Future<Either<Failure, WaypointCreateBlankRes>>
+  createBlankWaypointFromPosition(LatLng latLng) async {
+    return await executor.run(
+      onApply: () {},
+      remote: () => repo.createBlankWaypointFromPosition(tripId, latLng),
       onSuccess: (data) {
         waypointStore.upsert(data.waypoint);
         graphStore.insertVertex(data.vertex);

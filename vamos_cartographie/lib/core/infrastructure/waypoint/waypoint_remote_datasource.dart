@@ -55,33 +55,34 @@ class WaypointRemoteDatasource {
     return data.trip.waypoints;
   }
 
-  Future<GCreateWaypointPayloadFields> createBlankWaypoint({
+  Future<GCreateWaypointPayloadFields> createBlankWaypointFromVertex({
     required Id<Trip> tripId,
-    LatLng? latLng,
-    VertexId? vertexId,
+    required VertexId vertexId,
   }) async {
-    if (latLng == null && vertexId == null) {
-      throw Exception("LatLng et VertexId shouldn't be null at the same time");
-    }
-    late dynamic req;
-    if (vertexId != null) {
-      req = GCreateBlankWaypointFromVertexReq(
+    final data = await ferryClient.execute(
+      GCreateBlankWaypointFromVertexReq(
         vars: GCreateBlankWaypointFromVertexVars(
           tripId: tripId.value,
           vertexId: vertexId.value,
         ),
-      );
-    } else {
-      req = GCreateBlankWaypointFromPositionReq(
+      ),
+    );
+    return data.createBlankWaypointFromVertex;
+  }
+
+  Future<GCreateWaypointPayloadFields> createBlankWaypointFromPosition({
+    required Id<Trip> tripId,
+    required LatLng latLng,
+  }) async {
+    final data = await ferryClient.execute(
+      GCreateBlankWaypointFromPositionReq(
         vars: GCreateBlankWaypointFromPositionVars(
           tripId: tripId.value,
-          latLng: GLatLngInput(lat: latLng!.latitude, lng: latLng.longitude),
+          latLng: GLatLngInput(lat: latLng.latitude, lng: latLng.longitude),
         ),
-      );
-    }
-    print("try wyapoint remote");
-    final data = await ferryClient.execute(req);
-    return data.createWaypoint;
+      ),
+    );
+    return data.createBlankWaypointFromPosition;
   }
 
   Future<GWaypointFields> updateWaypoint({
