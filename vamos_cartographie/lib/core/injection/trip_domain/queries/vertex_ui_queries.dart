@@ -44,7 +44,6 @@ DragMarkerUiElement vertexUiElement(
   final Waypoint? w = ref.watch(
     waypointFromVertexProvider(Id<Vertex>(vertexRef.id.toString())),
   );
-  print("waypoint in vertexUI $w");
   if (w != null) {
     return WaypointUiElement(tripId, vertexUi, w);
   }

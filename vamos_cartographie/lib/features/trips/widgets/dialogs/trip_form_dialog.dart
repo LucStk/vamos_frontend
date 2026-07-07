@@ -39,47 +39,6 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
     });
   }
 
-  Future<void> _submit() async {
-    setState(() => _isSaving = true);
-
-    try {
-      final tripResult = await ref
-          .read(tripHandlerProvider)
-          .updateTrip(_currentTrip);
-
-      if (tripResult.isLeft()) {
-        // Affiche l'erreur trip
-        tripResult.fold((f) => _showError(f.message), (_) {});
-        return;
-      }
-
-      final mediaFailures = await ref
-          .read(mediaHandlerProvider)
-          .attachPatchImage<Trip>(_currentTrip.id, MediaOwnerType.trip);
-
-      if (mediaFailures.isNotEmpty) {
-        // Optionnel : afficher les erreurs media sans bloquer la fermeture
-        // car le trip a bien été sauvegardé
-        _showError(mediaFailures.map((f) => f.message).join(', '));
-        return;
-      }
-
-      if (!mounted) return;
-      Navigator.of(context).pop();
-    } catch (e) {
-      _showError(e.toString());
-    } finally {
-      if (mounted) setState(() => _isSaving = false);
-    }
-  }
-
-  void _showError(String message) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.red),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return DialogShell(
@@ -146,7 +105,33 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
         const Spacer(),
         ConfirmButton(
           isLoading: _isSaving,
-          onPressed: _submit, // Appelle la fonction locale directement
+          onPressed: () async {
+            setState(() => _isSaving = true);
+            // 1. On capture le navigator AU DÉBUT, quand le contexte est 100% valide
+            final navigator = Navigator.of(context);
+
+            setState(
+              () => _isSaving = true,
+            ); // Pense à l'activer ici d'ailleurs !
+
+            final tripResult = await ref
+                .read(tripHandlerProvider)
+                .updateTrip(_currentTrip);
+
+            final mediaResult = await ref
+                .read(mediaHandlerProvider)
+                .attachPatchImage<Trip>(_currentTrip.id, MediaOwnerType.trip);
+
+            // 2. On vérifie si le widget State est toujours là
+            if (!mounted) return;
+
+            if (tripResult.isRight() && mediaResult.isEmpty) {
+              // 3. On utilise la référence capturée, le linter adore ça !
+              navigator.pop();
+            }
+
+            setState(() => _isSaving = false);
+          },
         ),
       ],
     );

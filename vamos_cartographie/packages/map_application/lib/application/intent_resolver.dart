@@ -19,7 +19,6 @@ class IntentResolver {
           VertexId(e.vertexRef.id.value),
         );
       case OpenWaypointDialog e:
-        print("emit openWDialog");
         mapOutput.emit(OpenWaypointDialogEvent(e.waypointId));
       case _:
         print("Resolver not found for intent $intent");

@@ -17,7 +17,7 @@ extension GPoiCategoryMapper on GPoiCategory {
     GPoiCategory.BEACH => PoiCategory.beach,
     GPoiCategory.BOAT => PoiCategory.boat,
     GPoiCategory.WARNING => PoiCategory.warning,
-    _ => PoiCategory.other,
+    _ => throw (Exception("Mapper GPoiCategory impossible pour $this")),
   };
 }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/application/queries/trip_query_handler.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -16,9 +15,6 @@ Trip? trip(Ref ref, TripId tripId) {
 @riverpod
 Waypoint? waypointFromVertex(Ref ref, VertexId vertexId) {
   final store = ref.watch(waypointStoreProvider);
-  debugPrint("keys in vertexIndex: ${store.vertexIndex.keys.toList()}");
-  debugPrint("looking for: $vertexId (hash: ${vertexId.hashCode})");
-
   return store.getFromVertex(vertexId);
 }
 
