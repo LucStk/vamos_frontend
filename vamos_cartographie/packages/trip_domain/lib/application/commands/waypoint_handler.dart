@@ -34,9 +34,9 @@ class WaypointHandler {
     );
   }
 
-  Future<void> updateWaypoint(Waypoint waypoint) async {
+  Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint) async {
     final Waypoint oldValue = waypointStore.getRequired(waypoint.id);
-    await executor.run(
+    return await executor.run(
       onApply: () => waypointStore.upsert(waypoint),
       remote: () => repo.updateWaypoint(waypoint),
       onSuccess: (serveurValue) => waypointStore.upsert(serveurValue),

@@ -1,11 +1,12 @@
 // L'EffectRunner connaît le store, pas le reducer
-import 'package:map_application/intents/intents.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 class IntentResolver {
   final TopologyHandler topologyHandler;
   final WaypointHandler waypointHandler;
-  IntentResolver(this.topologyHandler, this.waypointHandler);
+  final MapOutput mapOutput;
+  IntentResolver(this.topologyHandler, this.waypointHandler, this.mapOutput);
 
   Future<void> run(MapIntents intent) async {
     switch (intent) {
@@ -17,6 +18,8 @@ class IntentResolver {
         await waypointHandler.createBlankWaypointFromVertex(
           VertexId(e.vertexRef.id.value),
         );
+      case OpenWaypointDialog e:
+        mapOutput.emit(OpenWaypointDialogEvent(e.waypointId));
       case _:
         print("Resolver not found for intent $intent");
     }

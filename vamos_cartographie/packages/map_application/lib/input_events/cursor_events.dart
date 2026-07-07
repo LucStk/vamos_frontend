@@ -1,6 +1,6 @@
-part of "events.dart";
+part of "input_events.dart";
 
-sealed class CursorEvent extends MapEvent {
+sealed class CursorEvent extends MapInputEvent {
   const CursorEvent();
 }
 

@@ -1,6 +1,6 @@
-part of "events.dart";
+part of "input_events.dart";
 
-sealed class SegmentEvent extends MapEvent {
+sealed class SegmentEvent extends MapInputEvent {
   const SegmentEvent();
 }
 

@@ -1,6 +1,6 @@
-part of "events.dart";
+part of "input_events.dart";
 
-sealed class VertexEvent extends MapEvent {
+sealed class VertexEvent extends MapInputEvent {
   const VertexEvent();
 }
 

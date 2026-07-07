@@ -7,6 +7,6 @@ part "segment_events.dart";
 part "idle_events.dart";
 
 //Ici on capture exactement ce que Flutter observe.
-sealed class MapEvent {
-  const MapEvent();
+sealed class MapInputEvent {
+  const MapInputEvent();
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/events/events.dart';
+import 'package:map_application/map_application.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex_ui_element.dart';
 import 'package:vamos_cartographie/features/waypoint/domain/ext_waypoint_poi.dart';
 
@@ -21,12 +21,12 @@ class WaypointUiElement extends VertexUiElement {
   }
 
   @override
-  MapEvent tapEvent() => WaypointTapped(waypoint.id);
+  MapInputEvent tapEvent() => WaypointTapped(waypoint.id);
   @override
-  MapEvent doubleTapEvent() => WaypointDoubleTapped(waypoint.id);
+  MapInputEvent doubleTapEvent() => WaypointDoubleTapped(waypoint.id);
   @override
-  MapEvent dragStartEvent(_) => WaypointDragStarted(waypoint.id);
+  MapInputEvent dragStartEvent(_) => WaypointDragStarted(waypoint.id);
   @override
-  MapEvent dragEndEvent(LatLng latLng) =>
+  MapInputEvent dragEndEvent(LatLng latLng) =>
       WaypointDragEnded(super.vertexUi.ref, latLng);
 }

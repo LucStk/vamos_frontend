@@ -9,7 +9,7 @@ class MapHandler {
   MapHandler({required this.intentResolver, required this.onStateChanged});
 
   // On passe le currentState à l'entrée de l'action UI
-  void onUiEvent(MapEvent event, MapState currentState) {
+  void onUiEvent(MapInputEvent event, MapState currentState) {
     final result = reduce(currentState, event);
     onStateChanged(result.nextState);
     for (final intent in result.intents) {

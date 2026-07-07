@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/events/events.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_domain/domain/entities/vertex/vertex_ui_model.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
 
@@ -17,11 +17,12 @@ class VertexUiElement extends DragMarkerUiElement {
   }
 
   @override
-  MapEvent tapEvent() => VertexTapped(vertexUi.ref);
+  MapInputEvent tapEvent() => VertexTapped(vertexUi.ref);
   @override
-  MapEvent doubleTapEvent() => VertexDoubleTapped(vertexUi.ref);
+  MapInputEvent doubleTapEvent() => VertexDoubleTapped(vertexUi.ref);
   @override
-  MapEvent dragStartEvent(_) => VertexDragStarted(vertexUi.ref);
+  MapInputEvent dragStartEvent(_) => VertexDragStarted(vertexUi.ref);
   @override
-  MapEvent dragEndEvent(LatLng latLng) => VertexDragEnd(vertexUi.ref, latLng);
+  MapInputEvent dragEndEvent(LatLng latLng) =>
+      VertexDragEnd(vertexUi.ref, latLng);
 }

@@ -5,9 +5,9 @@ class CreateWaypointFromVertex extends MapIntents {
   const CreateWaypointFromVertex(this.vertexRef);
 }
 
-class OpenEditWaypointDialog extends MapIntents {
+class OpenWaypointDialog extends MapIntents {
   final Id<Waypoint> waypointId;
-  const OpenEditWaypointDialog(this.waypointId);
+  const OpenWaypointDialog(this.waypointId);
 }
 
 class SelectWaypoint extends MapIntents {

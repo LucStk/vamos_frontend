@@ -1,6 +1,6 @@
-part of "events.dart";
+part of "input_events.dart";
 
-sealed class WaypointEvent extends MapEvent {
+sealed class WaypointEvent extends MapInputEvent {
   const WaypointEvent();
 }
 
