@@ -1,26 +1,63 @@
-import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:domain_core/optimitic_executor.dart';
 import 'package:media_application/runtime/observables/observable_media_store.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 class TripQueryHandler {
+  final GraphStore graphStore;
   final ObservableTripStore tripStore;
   final ObservableMediaStore mediaStore;
-  final TripRepository repo;
+  final WaypointStore waypointStore;
+  final TripRepository tripRepo;
+  final OptimisticExecutor executor;
 
-  TripQueryHandler(this.tripStore, this.mediaStore, this.repo);
+  TripQueryHandler({
+    required this.graphStore,
+    required this.tripStore,
+    required this.waypointStore,
+    required this.mediaStore,
+    required this.tripRepo,
+    required this.executor,
+  });
 
-  Future<Either<Failure, void>> loadFromRemote() async {
-    tripStore.clear();
-    mediaStore.clear();
-    final result = await repo.getAllTrips();
-    return result.map((trips) {
-      for (final (trip, listImages) in trips) {
-        tripStore.upsert(trip);
-        for (final i in listImages) {
-          mediaStore.upsert(trip.id, i);
-        }
-      }
-    });
+  Future<Failure?> loadFromRemote() async {
+    return executor
+        .run(
+          onApply: () {},
+          remote: () => tripRepo.getAllTrips(),
+          onSuccess: (data) {
+            tripStore.clear();
+            mediaStore.clear();
+            for (final (trip, listImages) in data) {
+              tripStore.upsert(trip);
+              for (final i in listImages) {
+                mediaStore.upsert(trip.id, i);
+              }
+            }
+          },
+          onError: (_) {},
+        )
+        .then((data) => data.fold((Failure f) => f, (data) => null));
+  }
+
+  Future<Failure?> loadTripDetails(TripId tripId) async {
+    return executor
+        .run(
+          onApply: () {},
+          remote: () => tripRepo.getTripDetails(tripId),
+          onSuccess: (data) {
+            for (final v in data.vertices) {
+              graphStore.insertVertex(v);
+            }
+            for (final s in data.segments) {
+              graphStore.insertSegment(s);
+            }
+            for (final w in data.waypoints) {
+              waypointStore.upsert(w);
+            }
+          },
+          onError: (Failure failure) {},
+        )
+        .then((data) => data.fold((Failure f) => f, (data) => null));
   }
 }

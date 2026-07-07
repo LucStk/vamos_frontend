@@ -33,27 +33,22 @@ class TripRemoteDatasource {
     final data = await ferryClient.execute(
       GGetTripReq(vars: GGetTripVars(id: id.value)),
     );
-
     return data.trip;
   }
 
+  Future<GGetTripDetailsData_trip> getTripDetails({
+    required Id<Trip> id,
+  }) async {
+    final data = await ferryClient.execute(
+      GGetTripDetailsReq(vars: GGetTripDetailsVars(id: id.value)),
+    );
+
+    return data.trip;
+  }
   // ---------------------------------------------------------------------------
   // Mutations
   // ---------------------------------------------------------------------------
 
-  // /// Crée un nouveau trip à partir d'un [GTripInput] et retourne les données
-  // /// complètes du trip créé (avec waypoints et segments).
-  // Future<GTripFields> createTrip({required GTripInput input}) async {
-  //   final req = GCreateTripReq(vars: GCreateTripVars(trip: input));
-  //   final response = await ferryClient.request(req).first;
-  //   if (response.hasErrors || response.data == null) {
-  //     throw Exception(
-  //       response.graphqlErrors?.first.message ??
-  //           'Erreur lors de la création du trip',
-  //     );
-  //   }
-  //   return response.data!.createTrip;
-  // }
   Future<GTripFields> createBlankTrip() async {
     final data = await ferryClient.execute(GCreateBlankTripReq());
     return data.createBlankTrip;

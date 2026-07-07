@@ -1,5 +1,9 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:media_application/domain/entities/media_image.dart';
+import 'package:trip_domain/domain/types/topology_res.dart';
+import 'package:vamos_cartographie/core/infrastructure/topology/mappers/segment_mappers.dart';
+import 'package:vamos_cartographie/core/infrastructure/topology/mappers/vertex_mappers.dart';
+import 'package:vamos_cartographie/core/infrastructure/waypoint/mappers/mappers.dart';
 import '/core/graphql/graphql.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
@@ -28,6 +32,13 @@ class TripMapper {
         .map((i) => MediaImageMappers.fromGQL(i))
         .toList();
     return (trip, images);
+  }
+
+  static TripDetailsRes fromGQLDetails(GGetTripDetailsData_trip data) {
+    final lV = data.topology.vertices.map(VertexMapper.fromGQL).toList();
+    final lS = data.topology.segments.map(SegmentMapper.fromGQL).toList();
+    final lW = data.waypoints.map(WaypointMapper.fromGQL).toList();
+    return TripDetailsRes(lV, lS, lW);
   }
 
   /// Convertit le résultat de la mutation createTrip en [Trip] domaine.
