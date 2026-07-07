@@ -11,7 +11,15 @@ TransitionResult reduceCursor(MapState state, MapInputEvent event) {
       nextState: state.copyWith(mode: MapMode.idle()),
       intents: [CreateSimpleVertex(e.latLng)],
     ),
-
+    MapTapped e => TransitionResult(
+      nextState: state.copyWith(mode: MapMode.cursorDrawn(latLng: e.latLng)),
+    ),
+    VertexDragStarted _ => TransitionResult(
+      nextState: state.copyWith(mode: Idle()),
+    ),
+    WaypointDragStarted _ => TransitionResult(
+      nextState: state.copyWith(mode: Idle()),
+    ),
     _ => TransitionResult(nextState: state),
   };
 }

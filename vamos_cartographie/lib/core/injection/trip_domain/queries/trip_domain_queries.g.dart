@@ -143,7 +143,7 @@ final class WaypointFromVertexProvider
 }
 
 String _$waypointFromVertexHash() =>
-    r'a20895b340bd0aaf6d0af688d8bfd25633f25b0e';
+    r'f50f23d1434aabec3547cabe4180f3d75c86e636';
 
 final class WaypointFromVertexFamily extends $Family
     with $FunctionalFamilyOverride<Waypoint?, VertexId> {
@@ -207,7 +207,7 @@ final class TripQueryHandlerProvider
   }
 }
 
-String _$tripQueryHandlerHash() => r'b74658850e2f9f6fb7d749df01d5ebe3485c069d';
+String _$tripQueryHandlerHash() => r'30dd6ab3c199c292dc4f33f1b7ebadfe3394f070';
 
 @ProviderFor(loadTrips)
 final loadTripsProvider = LoadTripsProvider._();

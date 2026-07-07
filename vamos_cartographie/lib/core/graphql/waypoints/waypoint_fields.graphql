@@ -9,6 +9,9 @@ fragment WaypointFields on WaypointType {
     images {
         ...ImageFields
     }
+    vertex {
+        ...VertexFields
+    }
 }
 fragment CreateWaypointPayloadFields on CreateWaypointPayload {
     waypoint {

@@ -5,6 +5,7 @@ import 'package:trip_domain/trip_domain.dart';
 
 class TripQueryHandler {
   final GraphStore graphStore;
+  final GraphPatchStore graphPatchStore;
   final ObservableTripStore tripStore;
   final ObservableMediaStore mediaStore;
   final WaypointStore waypointStore;
@@ -13,6 +14,7 @@ class TripQueryHandler {
 
   TripQueryHandler({
     required this.graphStore,
+    required this.graphPatchStore,
     required this.tripStore,
     required this.waypointStore,
     required this.mediaStore,
@@ -46,6 +48,11 @@ class TripQueryHandler {
           onApply: () {},
           remote: () => tripRepo.getTripDetails(tripId),
           onSuccess: (data) {
+            mediaStore.clear();
+            waypointStore.clear();
+            graphStore.clear();
+            graphPatchStore.clear();
+
             for (final (w, listImages) in data.waypoints_images) {
               waypointStore.upsert(w);
               for (final i in listImages) {

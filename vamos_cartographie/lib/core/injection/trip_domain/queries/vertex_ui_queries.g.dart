@@ -114,7 +114,7 @@ final class VertexUiElementProvider
   }
 }
 
-String _$vertexUiElementHash() => r'7603f2caa8570628646147ce2dbdd4f4ace82bd3';
+String _$vertexUiElementHash() => r'ddac2ae509b194a7385bd84237041f4699d4e9eb';
 
 final class VertexUiElementFamily extends $Family
     with $FunctionalFamilyOverride<DragMarkerUiElement, (TripId, VertexRef)> {

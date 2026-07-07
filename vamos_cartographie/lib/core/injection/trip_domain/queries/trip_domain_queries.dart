@@ -21,6 +21,7 @@ Waypoint? waypointFromVertex(Ref ref, VertexId vertexId) {
 @riverpod
 TripQueryHandler tripQueryHandler(Ref ref) {
   final graphStore = ref.read(rawGraphStoreProvider);
+  final graphPatchStore = ref.read(rawGraphPatchStoreProvider);
   final tripStore = ref.read(rawTripStoreProvider);
   final mediaStore = ref.read(rawMediaStoreProvider);
   final tripRepo = ref.read(tripRepositoryProvider);
@@ -28,6 +29,7 @@ TripQueryHandler tripQueryHandler(Ref ref) {
   final waypointStore = ref.read(rawWaypointStoreProvider);
   return TripQueryHandler(
     graphStore: graphStore,
+    graphPatchStore: graphPatchStore,
     mediaStore: mediaStore,
     tripStore: tripStore,
     tripRepo: tripRepo,
