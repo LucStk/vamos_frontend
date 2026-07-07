@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:media_application/domain/entities/media_image.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
 import '/core/infrastructure/trip/data.dart';
 import 'package:trip_domain/trip_domain.dart';
 import '/core/infrastructure/trip/trip_mappers.dart';
@@ -14,27 +15,19 @@ class TripRepositoryImpl extends TripRepository {
   // Queries
   // ---------------------------------------------------------------------------
   @override
-  Future<Either<Failure, List<(Trip, List<MediaImage>)>>> getAllTrips() async {
-    try {
+  Future<Either<Failure, List<(Trip, List<MediaImage>)>>> getAllTrips() {
+    return guard(() async {
       final gqlTrips = await remote.getAllTrips();
-      return Right(gqlTrips.map(TripMapper.fromGQLDetail).toList());
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return gqlTrips.map(TripMapper.fromGQLDetail).toList();
+    });
   }
 
   @override
-  Future<Either<Failure, (Trip, List<MediaImage>)>> getTrip(Id<Trip> id) async {
-    try {
+  Future<Either<Failure, (Trip, List<MediaImage>)>> getTrip(Id<Trip> id) {
+    return guard(() async {
       final gqlTrip = await remote.getTripById(id: id);
-      return Right(TripMapper.fromGQLDetail(gqlTrip));
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return TripMapper.fromGQLDetail(gqlTrip);
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -56,41 +49,25 @@ class TripRepositoryImpl extends TripRepository {
   // }
   @override
   Future<Either<Failure, Trip>> createBlankTrip() async {
-    try {
+    return guard(() async {
       final gqlResult = await remote.createBlankTrip();
-      final createdTrip = TripMapper.fromGQLCreateResult(gqlResult);
-      return Right(createdTrip);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return TripMapper.fromGQLCreateResult(gqlResult);
+    });
   }
 
   @override
   Future<Either<Failure, Trip>> updateTrip(Trip trip) async {
-    try {
+    return guard(() async {
       final input = TripMapper.toGQLUpdateInput(trip);
       final gqlResult = await remote.updateTrip(id: trip.id, input: input);
-      final updatedTrip = TripMapper.fromGQLUpdateResult(gqlResult);
-
-      return Right(updatedTrip);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+      return TripMapper.fromGQLUpdateResult(gqlResult);
+    });
   }
 
   @override
   Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
-    try {
+    return guard(() async {
       await remote.deleteTrip(id: id);
-      return const Right(null);
-    } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
-    } catch (_) {
-      return Left(const ConnectionFailure());
-    }
+    });
   }
 }

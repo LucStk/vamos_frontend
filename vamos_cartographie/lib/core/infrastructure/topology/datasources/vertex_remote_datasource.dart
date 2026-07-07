@@ -1,3 +1,5 @@
+import 'package:vamos_cartographie/core/network/network.dart';
+
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';
@@ -5,69 +7,51 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
 
 /// Datasource distant pour les opérations sur les trips.
-/// Communique directement avec le backend via le client Ferry (GraphQL).
+/// Communique directement avec le backend via le ferryClient Ferry (GraphQL).
 /// Retourne des types GQL bruts – c'est le repository qui se charge
 /// de les convertir en modèles domaine via [TripMapper].
 class VertexRemoteDatasource {
-  final Client client;
+  final Client ferryClient;
 
-  VertexRemoteDatasource(this.client);
+  VertexRemoteDatasource(this.ferryClient);
 
   Future<List<GVertexFields>> getVertices({required Id<Trip> tripId}) async {
-    final req = GGetVerticesReq(vars: GGetVerticesVars(tripId: tripId.value));
-    final response = await client.request(req).first;
+    final data = await ferryClient.execute(
+      GGetVerticesReq(vars: GGetVerticesVars(tripId: tripId.value)),
+    );
 
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            'Erreur dans le get des vertex du trip',
-      );
-    }
-    return response.data!.trip.topology.vertices;
+    return data.trip.topology.vertices;
   }
 
   Future<GVertexFields> createVertex({
     required Id<Trip> tripId,
     required GLatLngInput latLng,
   }) async {
-    final req = GCreateVertexReq(
-      vars: GCreateVertexVars(tripId: tripId.value, latLng: latLng),
+    final data = await ferryClient.execute(
+      GCreateVertexReq(
+        vars: GCreateVertexVars(tripId: tripId.value, latLng: latLng),
+      ),
     );
-    final response = await client.request(req).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            'Erreur dans la création du waypoId<Vertex>',
-      );
-    }
-    return response.data!.createVertex;
+
+    return data.createVertex;
   }
 
   Future<GVertexFields> moveVertex({
     required Id<Vertex> id,
     required GLatLngInput latLng,
   }) async {
-    final req = GMoveVertexReq(
-      vars: GMoveVertexVars(id: id.value, latLng: latLng),
+    final data = await ferryClient.execute(
+      GMoveVertexReq(
+        vars: GMoveVertexVars(id: id.value, latLng: latLng),
+      ),
     );
-    final response = await client.request(req).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            'Erreur lors de la mise à jour du Segment',
-      );
-    }
-    return response.data!.moveVertex;
+
+    return data.moveVertex;
   }
 
   Future<void> deleteVertex({required Id<Vertex> id}) async {
-    final req = GDeleteVertexReq(vars: GDeleteVertexVars(vertexId: id.value));
-    final response = await client.request(req).first;
-    if (response.hasErrors || response.data == null) {
-      throw Exception(
-        response.graphqlErrors?.first.message ??
-            'Erreur lors de la suppression du waypoId<Vertex>',
-      );
-    }
+    await ferryClient.execute(
+      GDeleteVertexReq(vars: GDeleteVertexVars(vertexId: id.value)),
+    );
   }
 }
