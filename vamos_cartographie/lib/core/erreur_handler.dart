@@ -1,8 +1,19 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/rendering.dart';
+import 'package:vamos_cartographie/core/exception_mapper.dart';
 import 'package:vamos_cartographie/core/injection/notification_provider.dart';
 import "package:domain_core/domain_core.dart";
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// core/erreur_handler.dart
+Future<Either<Failure, T>> guard<T>(Future<T> Function() action) async {
+  try {
+    return Right(await action());
+  } catch (e, s) {
+    return Left(ExceptionMapper.fromException(e, s));
+  }
+}
 
 class ErrorHandler implements ErrorLogger {
   // Pattern Singleton classique

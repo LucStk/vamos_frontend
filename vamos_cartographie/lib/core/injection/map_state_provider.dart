@@ -15,7 +15,8 @@ class MapStateNotifier extends _$MapStateNotifier {
 
     // Tu peux maintenant utiliser tripId directement dans ton build
     final topologyHandler = ref.watch(topologyHandlerProvider(tripId));
-    final resolver = IntentResolver(topologyHandler);
+    final waypointHandler = ref.watch(waypointHandlerProvider(tripId));
+    final resolver = IntentResolver(topologyHandler, waypointHandler);
 
     _handler = MapHandler(
       intentResolver: resolver,

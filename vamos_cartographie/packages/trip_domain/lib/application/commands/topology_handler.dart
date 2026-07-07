@@ -58,7 +58,7 @@ class TopologyHandler {
           case ConfirmedVertexRef e:
             graphPatchStore.insertVertexPatch(
               VertexPatch(
-                id: e.id as Id<VertexPatch>,
+                id: Id<VertexPatch>(e.id.value),
                 positionOverride: latLng,
               ),
             );
@@ -68,10 +68,10 @@ class TopologyHandler {
             );
         }
       },
-      remote: () => vertexRepo.moveVertex(ref.id as VertexId, latLng),
+      remote: () => vertexRepo.moveVertex(VertexId(ref.id.value), latLng),
       onSuccess: (Vertex serveurValue) {
         graphStore.updateVertex(serveurValue);
-        graphPatchStore.removeVertexPatch(ref.id as Id<VertexPatch>);
+        graphPatchStore.removeVertexPatch(Id<VertexPatch>(ref.id.value));
       },
       onError: (Failure failure) {},
     );

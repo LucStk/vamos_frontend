@@ -20,7 +20,7 @@ final class ServerFailure extends Failure {
 }
 
 final class ConnectionFailure extends Failure {
-  const ConnectionFailure() : super("Erreur réseau");
+  const ConnectionFailure({String? message}) : super("Erreur réseau $message");
 }
 
 final class NotFoundFailure extends Failure {

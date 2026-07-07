@@ -8,6 +8,10 @@ TransitionResult reduceIdle(MapMode state, MapEvent event) {
     VertexDragStarted e => TransitionResult(
       nextState: MapMode.draggingVertex(vertexRef: e.vertexRef),
     ),
+    VertexTapped e => TransitionResult(
+      nextState: state,
+      intents: [CreateWaypointFromVertex(e.vertexRef)],
+    ),
     _ => TransitionResult(nextState: state),
   };
 }
