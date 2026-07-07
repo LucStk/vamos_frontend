@@ -68,7 +68,7 @@ class WaypointRemoteDatasource {
       req = GCreateBlankWaypointFromVertexReq(
         vars: GCreateBlankWaypointFromVertexVars(
           tripId: tripId.value,
-          vertexId: vertexId as String,
+          vertexId: vertexId.value,
         ),
       );
     } else {
@@ -79,7 +79,7 @@ class WaypointRemoteDatasource {
         ),
       );
     }
-
+    print("try wyapoint remote");
     final data = await ferryClient.execute(req);
     return data.createWaypoint;
   }

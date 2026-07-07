@@ -14,6 +14,7 @@ class IntentResolver {
       case UpdateVertexPosition e:
         await topologyHandler.moveVertex(e.vertexRef, e.position);
       case CreateWaypointFromVertex e:
+        print("CreateWaypointFromVertex");
         await waypointHandler.createBlankWaypoint(
           VertexId(e.vertexRef.id.value),
           null,

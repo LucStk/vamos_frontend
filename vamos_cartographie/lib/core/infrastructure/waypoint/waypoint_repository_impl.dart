@@ -28,11 +28,13 @@ class WaypointRepositoryImpl extends WaypointRepository {
     LatLng? latLng,
   ) {
     return guard(() async {
+      print("start createBlankWaypoint");
       final gqlResult = await remote.createBlankWaypoint(
         tripId: tripId,
         vertexId: vertexId,
         latLng: latLng,
       );
+      print("gqlResult $gqlResult");
       final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
       final waypointVertex = VertexMapper.fromGQL(gqlResult.vertex);
 
