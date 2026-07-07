@@ -51,55 +51,61 @@ final class VertexRefsProvider
 
 String _$vertexRefsHash() => r'fa3d295c0747af9cd14dd37bd742b9c17de1cd1d';
 
-@ProviderFor(vertexUi)
-final vertexUiProvider = VertexUiFamily._();
+@ProviderFor(vertexUiElement)
+final vertexUiElementProvider = VertexUiElementFamily._();
 
-final class VertexUiProvider
-    extends $FunctionalProvider<VertexUiModel?, VertexUiModel?, VertexUiModel?>
-    with $Provider<VertexUiModel?> {
-  VertexUiProvider._({
-    required VertexUiFamily super.from,
-    required VertexRef super.argument,
+final class VertexUiElementProvider
+    extends
+        $FunctionalProvider<
+          DragMarkerUiElement,
+          DragMarkerUiElement,
+          DragMarkerUiElement
+        >
+    with $Provider<DragMarkerUiElement> {
+  VertexUiElementProvider._({
+    required VertexUiElementFamily super.from,
+    required (TripId, VertexRef) super.argument,
   }) : super(
          retry: null,
-         name: r'vertexUiProvider',
+         name: r'vertexUiElementProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$vertexUiHash();
+  String debugGetCreateSourceHash() => _$vertexUiElementHash();
 
   @override
   String toString() {
-    return r'vertexUiProvider'
+    return r'vertexUiElementProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
   @override
-  $ProviderElement<VertexUiModel?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<DragMarkerUiElement> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  VertexUiModel? create(Ref ref) {
-    final argument = this.argument as VertexRef;
-    return vertexUi(ref, argument);
+  DragMarkerUiElement create(Ref ref) {
+    final argument = this.argument as (TripId, VertexRef);
+    return vertexUiElement(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(VertexUiModel? value) {
+  Override overrideWithValue(DragMarkerUiElement value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<VertexUiModel?>(value),
+      providerOverride: $SyncValueProvider<DragMarkerUiElement>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is VertexUiProvider && other.argument == argument;
+    return other is VertexUiElementProvider && other.argument == argument;
   }
 
   @override
@@ -108,24 +114,24 @@ final class VertexUiProvider
   }
 }
 
-String _$vertexUiHash() => r'83d5bd7f266da6b1b02b25f2055417e820ae0776';
+String _$vertexUiElementHash() => r'7603f2caa8570628646147ce2dbdd4f4ace82bd3';
 
-final class VertexUiFamily extends $Family
-    with $FunctionalFamilyOverride<VertexUiModel?, VertexRef> {
-  VertexUiFamily._()
+final class VertexUiElementFamily extends $Family
+    with $FunctionalFamilyOverride<DragMarkerUiElement, (TripId, VertexRef)> {
+  VertexUiElementFamily._()
     : super(
         retry: null,
-        name: r'vertexUiProvider',
+        name: r'vertexUiElementProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  VertexUiProvider call(VertexRef id) =>
-      VertexUiProvider._(argument: id, from: this);
+  VertexUiElementProvider call(TripId tripId, VertexRef vertexRef) =>
+      VertexUiElementProvider._(argument: (tripId, vertexRef), from: this);
 
   @override
-  String toString() => r'vertexUiProvider';
+  String toString() => r'vertexUiElementProvider';
 }
 
 @ProviderFor(vertexMarkers)
@@ -190,7 +196,7 @@ final class VertexMarkersProvider
   }
 }
 
-String _$vertexMarkersHash() => r'27818fb656a3690cfe25cfd6cfc69c5a38fff7ba';
+String _$vertexMarkersHash() => r'f7b0784c68de557b06f961de2fc243195212a56e';
 
 final class VertexMarkersFamily extends $Family
     with $FunctionalFamilyOverride<List<DragMarker>, Id<Trip>> {

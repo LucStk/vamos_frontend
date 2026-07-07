@@ -8,22 +8,15 @@ abstract class VertexUiModel with _$VertexUiModel {
   const factory VertexUiModel({
     required VertexRef ref,
     required LatLng position,
-    required PoiCategory? poiCategory,
   }) = _VertexUiModel;
 }
 
 extension ToVertexUi on Vertex {
-  VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
-    ref: ConfirmedVertexRef(id),
-    position: latLng,
-    poiCategory: poiCategory,
-  );
+  VertexUiModel toUiModel() =>
+      VertexUiModel(ref: ConfirmedVertexRef(id), position: latLng);
 }
 
 extension ToVertexPatchUi on VertexPatch {
-  VertexUiModel toUiModel(PoiCategory? poiCategory) => VertexUiModel(
-    ref: PendingVertexRef(id),
-    position: positionOverride,
-    poiCategory: poiCategory,
-  );
+  VertexUiModel toUiModel() =>
+      VertexUiModel(ref: PendingVertexRef(id), position: positionOverride);
 }

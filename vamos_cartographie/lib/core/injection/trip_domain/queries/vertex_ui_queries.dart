@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_st
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/graph_queries.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/trip_domain_queries.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/adapters/marker_adapter.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex_ui_element.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/elements.dart';
 part 'vertex_ui_queries.g.dart';
 
 @riverpod
@@ -31,28 +31,34 @@ List<VertexRef> vertexRefs(Ref ref) {
 }
 
 @riverpod
-VertexUiModel? vertexUi(Ref ref, VertexRef id) {
-  switch (id) {
-    case PendingVertexRef e:
-      final VertexPatch? vPatch = ref.watch(vertexPatchProvider(e.id));
-      return vPatch?.toUiModel(null);
-    case ConfirmedVertexRef e:
-      final Vertex? v = ref.watch(vertexProvider(e.id));
-      if (v == null) {
-        return null;
-      }
-      final Waypoint? w = ref.watch(waypointFromVertexProvider(v.id));
-      return v.toUiModel(w?.poiCategory);
+DragMarkerUiElement vertexUiElement(
+  Ref ref,
+  TripId tripId,
+  VertexRef vertexRef,
+) {
+  final VertexUiModel vertexUi = switch (vertexRef) {
+    PendingVertexRef e => ref.watch(vertexPatchProvider(e.id))!.toUiModel(),
+    ConfirmedVertexRef e => ref.watch(vertexProvider(e.id))!.toUiModel(),
+  };
+
+  final Waypoint? w = ref.watch(
+    waypointFromVertexProvider(Id<Vertex>(vertexRef.id.toString())),
+  );
+  print("waypoint in vertexUI $w");
+  if (w != null) {
+    return WaypointUiElement(tripId, vertexUi, w);
   }
+  return VertexUiElement(tripId, vertexUi);
 }
 
 @riverpod
 List<DragMarker> vertexMarkers(Ref ref, Id<Trip> tripId) {
   final mapState = ref.watch(mapStateProvider(tripId).notifier);
   final vertexIds = ref.watch(vertexRefsProvider);
-  return [
-    for (final vertexRef in vertexIds)
-      if (ref.watch(vertexUiProvider(vertexRef)) case final vertex?)
-        toDragMarker(VertexUiElement(tripId, vertex), tripId, mapState),
-  ];
+  final List<DragMarker> listDragMarkers = [];
+  for (final vertexRef in vertexIds) {
+    final dragMarker = ref.watch(vertexUiElementProvider(tripId, vertexRef));
+    listDragMarkers.add(toDragMarker(dragMarker, tripId, mapState));
+  }
+  return listDragMarkers;
 }

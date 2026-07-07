@@ -15,12 +15,12 @@ WaypointRepository waypointRepository(Ref ref) {
   return WaypointRepositoryImpl(ref.watch(waypointRemoteDatasourceProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 ObservableWaypointStore rawWaypointStore(Ref ref) {
   return ObservableWaypointStore();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 ObservableWaypointStore waypointStore(Ref ref) {
   final store = ref.watch(rawWaypointStoreProvider);
   addListenerRebuild(ref, store);

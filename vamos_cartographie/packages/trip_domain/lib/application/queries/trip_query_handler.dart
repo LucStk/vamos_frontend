@@ -46,14 +46,14 @@ class TripQueryHandler {
           onApply: () {},
           remote: () => tripRepo.getTripDetails(tripId),
           onSuccess: (data) {
+            for (final w in data.waypoints) {
+              waypointStore.upsert(w);
+            }
             for (final v in data.vertices) {
               graphStore.insertVertex(v);
             }
             for (final s in data.segments) {
               graphStore.insertSegment(s);
-            }
-            for (final w in data.waypoints) {
-              waypointStore.upsert(w);
             }
           },
           onError: (Failure failure) {},

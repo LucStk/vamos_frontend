@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$VertexUiModel {
 
- VertexRef get ref; LatLng get position; PoiCategory? get poiCategory;
+ VertexRef get ref; LatLng get position;
 /// Create a copy of VertexUiModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $VertexUiModelCopyWith<VertexUiModel> get copyWith => _$VertexUiModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexUiModel&&(identical(other.ref, ref) || other.ref == ref)&&(identical(other.position, position) || other.position == position)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexUiModel&&(identical(other.ref, ref) || other.ref == ref)&&(identical(other.position, position) || other.position == position));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,ref,position,poiCategory);
+int get hashCode => Object.hash(runtimeType,ref,position);
 
 @override
 String toString() {
-  return 'VertexUiModel(ref: $ref, position: $position, poiCategory: $poiCategory)';
+  return 'VertexUiModel(ref: $ref, position: $position)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $VertexUiModelCopyWith<$Res>  {
   factory $VertexUiModelCopyWith(VertexUiModel value, $Res Function(VertexUiModel) _then) = _$VertexUiModelCopyWithImpl;
 @useResult
 $Res call({
- VertexRef ref, LatLng position, PoiCategory? poiCategory
+ VertexRef ref, LatLng position
 });
 
 
@@ -62,12 +62,11 @@ class _$VertexUiModelCopyWithImpl<$Res>
 
 /// Create a copy of VertexUiModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? ref = null,Object? position = null,Object? poiCategory = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? ref = null,Object? position = null,}) {
   return _then(_self.copyWith(
 ref: null == ref ? _self.ref : ref // ignore: cast_nullable_to_non_nullable
 as VertexRef,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as LatLng,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
-as PoiCategory?,
+as LatLng,
   ));
 }
 /// Create a copy of VertexUiModel
@@ -161,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( VertexRef ref,  LatLng position,  PoiCategory? poiCategory)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( VertexRef ref,  LatLng position)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _VertexUiModel() when $default != null:
-return $default(_that.ref,_that.position,_that.poiCategory);case _:
+return $default(_that.ref,_that.position);case _:
   return orElse();
 
 }
@@ -182,10 +181,10 @@ return $default(_that.ref,_that.position,_that.poiCategory);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( VertexRef ref,  LatLng position,  PoiCategory? poiCategory)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( VertexRef ref,  LatLng position)  $default,) {final _that = this;
 switch (_that) {
 case _VertexUiModel():
-return $default(_that.ref,_that.position,_that.poiCategory);case _:
+return $default(_that.ref,_that.position);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +201,10 @@ return $default(_that.ref,_that.position,_that.poiCategory);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( VertexRef ref,  LatLng position,  PoiCategory? poiCategory)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( VertexRef ref,  LatLng position)?  $default,) {final _that = this;
 switch (_that) {
 case _VertexUiModel() when $default != null:
-return $default(_that.ref,_that.position,_that.poiCategory);case _:
+return $default(_that.ref,_that.position);case _:
   return null;
 
 }
@@ -217,12 +216,11 @@ return $default(_that.ref,_that.position,_that.poiCategory);case _:
 
 
 class _VertexUiModel implements VertexUiModel {
-  const _VertexUiModel({required this.ref, required this.position, required this.poiCategory});
+  const _VertexUiModel({required this.ref, required this.position});
   
 
 @override final  VertexRef ref;
 @override final  LatLng position;
-@override final  PoiCategory? poiCategory;
 
 /// Create a copy of VertexUiModel
 /// with the given fields replaced by the non-null parameter values.
@@ -234,16 +232,16 @@ _$VertexUiModelCopyWith<_VertexUiModel> get copyWith => __$VertexUiModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexUiModel&&(identical(other.ref, ref) || other.ref == ref)&&(identical(other.position, position) || other.position == position)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexUiModel&&(identical(other.ref, ref) || other.ref == ref)&&(identical(other.position, position) || other.position == position));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,ref,position,poiCategory);
+int get hashCode => Object.hash(runtimeType,ref,position);
 
 @override
 String toString() {
-  return 'VertexUiModel(ref: $ref, position: $position, poiCategory: $poiCategory)';
+  return 'VertexUiModel(ref: $ref, position: $position)';
 }
 
 
@@ -254,7 +252,7 @@ abstract mixin class _$VertexUiModelCopyWith<$Res> implements $VertexUiModelCopy
   factory _$VertexUiModelCopyWith(_VertexUiModel value, $Res Function(_VertexUiModel) _then) = __$VertexUiModelCopyWithImpl;
 @override @useResult
 $Res call({
- VertexRef ref, LatLng position, PoiCategory? poiCategory
+ VertexRef ref, LatLng position
 });
 
 
@@ -271,12 +269,11 @@ class __$VertexUiModelCopyWithImpl<$Res>
 
 /// Create a copy of VertexUiModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? ref = null,Object? position = null,Object? poiCategory = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? ref = null,Object? position = null,}) {
   return _then(_VertexUiModel(
 ref: null == ref ? _self.ref : ref // ignore: cast_nullable_to_non_nullable
 as VertexRef,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as LatLng,poiCategory: freezed == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
-as PoiCategory?,
+as LatLng,
   ));
 }
 

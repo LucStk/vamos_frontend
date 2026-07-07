@@ -122,7 +122,7 @@ final class RawWaypointStoreProvider
         argument: null,
         retry: null,
         name: r'rawWaypointStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -150,7 +150,7 @@ final class RawWaypointStoreProvider
   }
 }
 
-String _$rawWaypointStoreHash() => r'0a87aeb0ea857d2a2315f881a5c4aa544967a8b0';
+String _$rawWaypointStoreHash() => r'5ac50524bc272229422165ae482cfe558a3e12b2';
 
 @ProviderFor(waypointStore)
 final waypointStoreProvider = WaypointStoreProvider._();
@@ -169,7 +169,7 @@ final class WaypointStoreProvider
         argument: null,
         retry: null,
         name: r'waypointStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -197,4 +197,4 @@ final class WaypointStoreProvider
   }
 }
 
-String _$waypointStoreHash() => r'4f6e3506fa5597109ef0497a9fe86eb57e98848b';
+String _$waypointStoreHash() => r'd3f0cb2af326456f5bdff2caa91fb7ed3abc052e';
