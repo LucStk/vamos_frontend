@@ -25,8 +25,14 @@ class WaypointFormDialog extends ConsumerStatefulWidget {
 }
 
 class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
-  late Waypoint currentWaypoint; // Accessible par la GlobalKey
+  late Waypoint currentWaypoint;
   bool _isSaving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    currentWaypoint = widget.initialWaypoint;
+  }
 
   void _patch(Waypoint newWaypoint) {
     setState(() {
