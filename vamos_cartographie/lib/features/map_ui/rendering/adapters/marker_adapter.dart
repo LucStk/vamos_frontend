@@ -31,7 +31,7 @@ DragMarker toDragMarker(
 ) {
   return DragMarker(
     point: element.latLng,
-    size: const Size(32, 32),
+    size: const Size(26, 26),
 
     builder: (_, LatLng latLng, isDragging) => GestureDetector(
       onTap: () => mapStateNotifier.sendUiEvent(element.tapEvent()),

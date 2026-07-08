@@ -12,11 +12,11 @@ class WaypointUiElement extends VertexUiElement {
   @override
   Widget buildMarker({bool isDragging = false}) {
     return CircleAvatar(
-      radius: 16, // Taille globale du cercle (diamètre = 32)
+      radius: 32, // Taille globale du cercle (diamètre = 32)
       backgroundColor: Color(
         waypoint.poiCategoryUi.colorValue,
       ), // <-- La couleur de votre fond rond
-      child: Icon(waypoint.poiCategoryUi.icon, color: Colors.white, size: 20),
+      child: Icon(waypoint.poiCategoryUi.icon, color: Colors.white, size: 15),
     );
   }
 

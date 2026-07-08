@@ -18,3 +18,18 @@ class SegmentMobilityMarkerDoubleTapped extends SegmentEvent {
   final SegmentRef segmentRef;
   const SegmentMobilityMarkerDoubleTapped(this.segmentRef);
 }
+
+class ConnectionDragStart extends SegmentEvent {
+  final VertexRef vertexRef;
+  const ConnectionDragStart(this.vertexRef);
+}
+
+class ConnectionDragUpdate extends SegmentEvent {
+  final VertexRef vertexRef;
+  const ConnectionDragUpdate(this.vertexRef);
+}
+
+class ConnectionDragEnd extends SegmentEvent {
+  final VertexRef vertexRef;
+  const ConnectionDragEnd(this.vertexRef);
+}

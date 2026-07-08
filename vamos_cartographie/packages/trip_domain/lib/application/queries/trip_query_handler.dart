@@ -48,7 +48,6 @@ class TripQueryHandler {
           onApply: () {},
           remote: () => tripRepo.getTripDetails(tripId),
           onSuccess: (data) {
-            mediaStore.clear();
             waypointStore.clear();
             graphStore.clear();
             graphPatchStore.clear();

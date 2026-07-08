@@ -4,6 +4,8 @@ import 'package:map_application/map_application.dart';
 import 'package:trip_domain/domain/entities/vertex/vertex_ui_model.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
 
+enum ConnectionHandleType { incoming, outgoing }
+
 class VertexUiElement extends DragMarkerUiElement {
   final VertexUiModel vertexUi;
   const VertexUiElement(super.trip, this.vertexUi);
@@ -15,6 +17,19 @@ class VertexUiElement extends DragMarkerUiElement {
   Widget buildMarker({bool isDragging = false}) {
     return Icon(Icons.circle, size: 20, color: Colors.black);
   }
+
+  MapInputEvent connectionDragStartEvent(
+    ConnectionHandleType type,
+    Offset offset,
+  ) => ConnectionDragStart(vertexUi.ref);
+
+  MapInputEvent connectionDragUpdateEvent(
+    ConnectionHandleType type,
+    Offset offset,
+  ) => ConnectionDragUpdate(vertexUi.ref);
+
+  MapInputEvent connectionDragEndEvent(ConnectionHandleType type) =>
+      ConnectionDragEnd(vertexUi.ref);
 
   @override
   MapInputEvent tapEvent() => VertexTapped(vertexUi.ref);
