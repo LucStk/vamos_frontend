@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/providers/graph_store.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/graph_queries.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/trip_domain_queries.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/adapters/marker_adapter.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/adapters/vertex_marker_adapter.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/elements.dart';
 part 'vertex_ui_queries.g.dart';
 
@@ -31,11 +31,7 @@ List<VertexRef> vertexRefs(Ref ref) {
 }
 
 @riverpod
-DragMarkerUiElement vertexUiElement(
-  Ref ref,
-  TripId tripId,
-  VertexRef vertexRef,
-) {
+VertexUiElement vertexUiElement(Ref ref, TripId tripId, VertexRef vertexRef) {
   final VertexUiModel vertexUi = switch (vertexRef) {
     PendingVertexRef e => ref.watch(vertexPatchProvider(e.id))!.toUiModel(),
     ConfirmedVertexRef e => ref.watch(vertexProvider(e.id))!.toUiModel(),
@@ -56,8 +52,8 @@ List<DragMarker> vertexMarkers(Ref ref, Id<Trip> tripId) {
   final vertexIds = ref.watch(vertexRefsProvider);
   final List<DragMarker> listDragMarkers = [];
   for (final vertexRef in vertexIds) {
-    final dragMarker = ref.watch(vertexUiElementProvider(tripId, vertexRef));
-    listDragMarkers.add(toDragMarker(dragMarker, tripId, mapState));
+    final vertex = ref.watch(vertexUiElementProvider(tripId, vertexRef));
+    listDragMarkers.add(toVertexMarker(vertex, tripId, mapState));
   }
   return listDragMarkers;
 }

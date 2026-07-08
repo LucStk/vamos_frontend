@@ -56,12 +56,8 @@ final vertexUiElementProvider = VertexUiElementFamily._();
 
 final class VertexUiElementProvider
     extends
-        $FunctionalProvider<
-          DragMarkerUiElement,
-          DragMarkerUiElement,
-          DragMarkerUiElement
-        >
-    with $Provider<DragMarkerUiElement> {
+        $FunctionalProvider<VertexUiElement, VertexUiElement, VertexUiElement>
+    with $Provider<VertexUiElement> {
   VertexUiElementProvider._({
     required VertexUiElementFamily super.from,
     required (TripId, VertexRef) super.argument,
@@ -85,21 +81,20 @@ final class VertexUiElementProvider
 
   @$internal
   @override
-  $ProviderElement<DragMarkerUiElement> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<VertexUiElement> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  DragMarkerUiElement create(Ref ref) {
+  VertexUiElement create(Ref ref) {
     final argument = this.argument as (TripId, VertexRef);
     return vertexUiElement(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(DragMarkerUiElement value) {
+  Override overrideWithValue(VertexUiElement value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<DragMarkerUiElement>(value),
+      providerOverride: $SyncValueProvider<VertexUiElement>(value),
     );
   }
 
@@ -114,10 +109,10 @@ final class VertexUiElementProvider
   }
 }
 
-String _$vertexUiElementHash() => r'ddac2ae509b194a7385bd84237041f4699d4e9eb';
+String _$vertexUiElementHash() => r'0d08bb0d42194cdbd557af39f18ed16669f9621b';
 
 final class VertexUiElementFamily extends $Family
-    with $FunctionalFamilyOverride<DragMarkerUiElement, (TripId, VertexRef)> {
+    with $FunctionalFamilyOverride<VertexUiElement, (TripId, VertexRef)> {
   VertexUiElementFamily._()
     : super(
         retry: null,
@@ -196,7 +191,7 @@ final class VertexMarkersProvider
   }
 }
 
-String _$vertexMarkersHash() => r'f7b0784c68de557b06f961de2fc243195212a56e';
+String _$vertexMarkersHash() => r'790103ce8bbb213b48a9e18101a93c2f4b195a49';
 
 final class VertexMarkersFamily extends $Family
     with $FunctionalFamilyOverride<List<DragMarker>, Id<Trip>> {
