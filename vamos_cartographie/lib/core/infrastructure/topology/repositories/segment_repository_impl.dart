@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:trip_domain/trip_domain.dart';
 
+import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/core/erreur_handler.dart';
 import '/core/infrastructure/topology/mappers/segment_mappers.dart';
 import 'package:vamos_cartographie/core/infrastructure/topology/topology.dart';
 

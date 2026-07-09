@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/erreur_handler.dart';
 
+import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 import "package:vamos_cartographie/features/shared/shared.dart";
 import '/core/infrastructure/topology/datasources/datasources.dart';
 import '/core/infrastructure/topology/mappers/vertex_mappers.dart';

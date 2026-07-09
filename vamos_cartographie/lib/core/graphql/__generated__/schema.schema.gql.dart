@@ -14,8 +14,8 @@ class GLatLngInput {
 
   factory GLatLngInput.fromJson(Map<String, dynamic> json) {
     return GLatLngInput(
-      lat: (json['lat'] as double),
-      lng: (json['lng'] as double),
+      lat: (json['lat'] as num).toDouble(),
+      lng: (json['lng'] as num).toDouble(),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '/core/erreur_handler.dart';
+import '/core/services/services.dart';
 
 part 'optimistic_executor_provider.g.dart';
 

@@ -16,8 +16,8 @@ class GLatLngFieldsData implements GLatLngFields {
 
   factory GLatLngFieldsData.fromJson(Map<String, dynamic> json) {
     return GLatLngFieldsData(
-      lat: (json['lat'] as double),
-      lng: (json['lng'] as double),
+      lat: (json['lat'] as num).toDouble(),
+      lng: (json['lng'] as num).toDouble(),
       G__typename: (json['__typename'] as String),
     );
   }

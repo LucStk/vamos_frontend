@@ -2,11 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/types/topology_res.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/erreur_handler.dart';
 import 'package:vamos_cartographie/core/infrastructure/waypoint/mappers/mappers.dart';
 import '/core/infrastructure/topology/mappers/mappers.dart';
 import '/core/infrastructure/waypoint/waypoint_remote_datasource.dart';
 import "package:latlong2/latlong.dart";
+
+import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 
 class WaypointRepositoryImpl extends WaypointRepository {
   final WaypointRemoteDatasource remote;

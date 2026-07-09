@@ -2,9 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/failure.dart';
 import 'package:trip_domain/domain/types/topology_res.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/erreur_handler.dart';
 import '/core/infrastructure/topology/mappers/mappers.dart';
 import '/core/infrastructure/topology/datasources/datasources.dart';
+
+import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 
 class TopologyRepositoryImpl extends TopologyRepository {
   final TopologyRemoteDatasource remote;

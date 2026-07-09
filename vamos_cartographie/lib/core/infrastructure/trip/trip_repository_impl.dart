@@ -2,10 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:media_application/domain/entities/media_image.dart';
 import 'package:trip_domain/domain/types/topology_res.dart';
-import 'package:vamos_cartographie/core/erreur_handler.dart';
 import '/core/infrastructure/trip/data.dart';
 import 'package:trip_domain/trip_domain.dart';
 import '/core/infrastructure/trip/trip_mappers.dart';
+
+import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 
 class TripRepositoryImpl extends TripRepository {
   final TripRemoteDatasource remote;

@@ -255,7 +255,7 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
     return GGetTripDetailsData_trip(
       id: id ?? this.id,
       title: title ?? this.title,
-      date: dateIsSet ? date : this.date,
+      date: date != null || dateIsSet ? date : this.date,
       description: description ?? this.description,
       images: images ?? this.images,
       G__typename: G__typename ?? this.G__typename,

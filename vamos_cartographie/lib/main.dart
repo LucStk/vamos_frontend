@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '/core/erreur_handler.dart';
+import '/core/services/erreur_handler.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
 void main() {

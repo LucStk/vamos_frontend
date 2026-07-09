@@ -52,7 +52,9 @@ class GSegmentFieldsReq
   }) {
     return GSegmentFieldsReq(
       document: document ?? this.document,
-      fragmentName: fragmentNameIsSet ? fragmentName : this.fragmentName,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
       idFields: idFields ?? this.idFields,
     );
   }
