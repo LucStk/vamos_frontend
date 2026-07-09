@@ -3,7 +3,7 @@ import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/features/map_ui/map_ui.dart';
+import '/map/map.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
 
@@ -30,7 +30,7 @@ List<VertexRef> vertexRefs(Ref ref) {
 }
 
 @riverpod
-VertexUiElement vertexUiElement(Ref ref, TripId tripId, VertexRef vertexRef) {
+VertexElement vertexUiElement(Ref ref, TripId tripId, VertexRef vertexRef) {
   final oldV = ref.read(vertexProvider(vertexRef.id as VertexId));
   final newV = ref.watch(vertexProvider(vertexRef.id as VertexId));
   print("equal? ${oldV == newV} $oldV, $newV");
@@ -52,9 +52,9 @@ VertexUiElement vertexUiElement(Ref ref, TripId tripId, VertexRef vertexRef) {
     waypointFromVertexProvider(Id<Vertex>(vertexRef.id.toString())),
   );
   if (w != null) {
-    return WaypointUiElement(tripId, vertexUi, w);
+    return WaypointElement(tripId, vertexUi, w);
   }
-  return VertexUiElement(tripId, vertexUi);
+  return VertexElement(tripId, vertexUi);
 }
 
 @riverpod
