@@ -18,8 +18,9 @@ TransitionResult reduceIdle(MapState state, MapInputEvent event) {
       intents: [CreateWaypointFromVertex(e.vertexRef)],
     ),
     WaypointTapped e => TransitionResult(
-      nextState: state,
-      intents: [OpenWaypointDialog(e.waypointId)],
+      nextState: state.copyWith(
+        mode: MapMode.waypointSelected(waypointId: e.waypointId),
+      ),
     ),
     _ => TransitionResult(nextState: state),
   };

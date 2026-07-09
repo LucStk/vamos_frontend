@@ -20,6 +20,8 @@ class IntentResolver {
         );
       case OpenWaypointDialog e:
         mapOutput.emit(OpenWaypointDialogEvent(e.waypointId));
+      case SelectWaypoint e:
+      
       case _:
         print("Resolver not found for intent $intent");
     }

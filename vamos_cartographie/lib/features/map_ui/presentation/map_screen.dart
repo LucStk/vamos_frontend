@@ -7,11 +7,8 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/core/injection/map_output_notifier.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/map_controls.dart';
-import 'package:vamos_cartographie/features/map_ui/presentation/widgets/map_top_bar.dart';
-import '/features/map_ui/rendering/rendering.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -47,28 +44,35 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   @override
   Widget build(BuildContext context) {
     final mapState = ref.watch(mapStateProvider(widget.tripId).notifier);
+    // Permet au controlleur d'afficher des widgets
+    //
+    // ref.listen<MapOutputQueue>(mapOutputProvider(widget.tripId), (_, _) async {
+    //   final notifier = ref.read(mapOutputProvider(widget.tripId).notifier);
 
-    ref.listen<MapOutputQueue>(mapOutputProvider(widget.tripId), (_, _) async {
-      final notifier = ref.read(mapOutputProvider(widget.tripId).notifier);
+    //   while (true) {
+    //     final event = notifier.pop();
+    //     if (event == null) break;
 
-      while (true) {
-        final event = notifier.pop();
-        if (event == null) break;
+    //     switch (event) {
+    //       case OpenWaypointDialogEvent(:final waypointId):
+    //         await WaypointViewerBottomSheet.show(
+    //           context: context,
+    //           waypointId: waypointId,
+    //           tripId: widget.tripId,
+    //         );
 
-        switch (event) {
-          case OpenWaypointDialogEvent(:final waypointId):
-            await showDialog<void>(
-              context: context,
-              builder: (bcontext) => WaypointViewerDialog(
-                waypointId: waypointId,
-                tripId: widget.tripId,
-              ),
-            );
-          case _:
-        }
-      }
-    });
-
+    //       case _:
+    //     }
+    //   }
+    // });
+    final selectedWaypointId = ref.watch(
+      mapStateProvider(widget.tripId).select(
+        (state) => switch (state.mode) {
+          WaypointSelected(:final waypointId) => waypointId,
+          _ => null,
+        },
+      ),
+    );
     return Scaffold(
       body: Stack(
         children: [
@@ -91,6 +95,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           ),
           PopUpOverlay(tripId: widget.tripId, mapController: _mapController),
           MapTopBar(tripId: widget.tripId),
+          if (selectedWaypointId != null)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: WaypointViewerBottomSheet(
+                waypointId: selectedWaypointId,
+                tripId: widget.tripId,
+              ),
+            ),
         ],
       ),
     );

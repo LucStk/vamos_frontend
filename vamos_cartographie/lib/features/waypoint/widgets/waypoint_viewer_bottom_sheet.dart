@@ -21,38 +21,22 @@ class WaypointViewerBottomSheet extends ConsumerWidget {
     required this.tripId,
   });
 
-  static Future<void> show({
-    required BuildContext context,
-    required WaypointId waypointId,
-    required TripId tripId,
-  }) {
-    return showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
-      constraints: const BoxConstraints(maxWidth: 560),
-      builder: (_) =>
-          WaypointViewerBottomSheet(waypointId: waypointId, tripId: tripId),
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final waypoint = ref.watch(waypointUiProvider(waypointId));
     if (waypoint == null) {
       return const SizedBox.shrink();
     }
-
-    return BottomSheetShell(
-      content: WaypointViewerContent(waypoint: waypoint),
-      buttonsBuilder: (ctx) => buildWaypointViewerButtons(
-        context: ctx,
-        ref: ref,
-        tripId: tripId,
-        waypointId: waypointId,
-        waypoint: waypoint,
-      ),
+    return DraggableScrollableSheet(
+      initialChildSize: 0.22,
+      minChildSize: 0.22,
+      maxChildSize: 0.90,
+      builder: (context, scrollController) {
+        return Material(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          child: WaypointViewerContent(waypoint: waypoint),
+        );
+      },
     );
   }
 }
