@@ -12,13 +12,13 @@ class WaypointHeader extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 36,
-          height: 36,
+          width: 30,
+          height: 30,
           decoration: BoxDecoration(
             color: Color(type.colorValue),
             shape: BoxShape.circle,
           ),
-          child: Icon(type.icon, color: Colors.white, size: 20),
+          child: Icon(type.icon, color: Colors.white, size: 17),
         ),
         const SizedBox(width: 10),
         Column(
@@ -32,11 +32,6 @@ class WaypointHeader extends StatelessWidget {
                 color: Color(type.colorValue),
               ),
             ),
-            // TODO : Afficher le numéro de l'étape
-            // Text(
-            //   'Étape ,
-            //   style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-            // ),
           ],
         ),
       ],

@@ -8,7 +8,7 @@ class DragHandle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: const EdgeInsets.only(top: 12, bottom: 12),
+        margin: const EdgeInsets.only(top: 8),
         width: 40,
         height: 5,
         decoration: BoxDecoration(

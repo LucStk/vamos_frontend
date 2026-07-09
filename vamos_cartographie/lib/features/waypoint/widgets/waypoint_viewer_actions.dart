@@ -37,34 +37,38 @@ Future<void> deleteWaypointWithConfirmation({
   }
 }
 
-/// Construit la rangée "Modifier / Supprimer", identique pour la version
-/// Dialog et la version BottomSheet. À passer tel quel en `buttonsBuilder`
-/// de DialogShell ou de BottomSheetShell (même signature de callback).
-List<Widget> buildWaypointViewerButtons({
-  required BuildContext context,
-  required WidgetRef ref,
-  required TripId tripId,
-  required WaypointId waypointId,
-  required Waypoint waypoint,
-}) {
-  return [
-    ModifierButton(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (ctx) =>
-              WaypointFormDialog(tripId: tripId, initialWaypoint: waypoint),
-        );
-      },
-    ),
-    const SizedBox(width: 8),
-    DeleteButton(
-      onPressed: () => deleteWaypointWithConfirmation(
-        context: context,
-        ref: ref,
-        tripId: tripId,
-        waypointId: waypointId,
-      ),
-    ),
-  ];
+class WaypointViewerButtons extends ConsumerWidget {
+  final TripId tripId;
+  final Waypoint waypoint;
+  const WaypointViewerButtons({
+    super.key,
+    required this.tripId,
+    required this.waypoint,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Row(
+      children: [
+        ModifierButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (ctx) =>
+                  WaypointFormDialog(tripId: tripId, initialWaypoint: waypoint),
+            );
+          },
+        ),
+        const SizedBox(width: 8),
+        DeleteButton(
+          onPressed: () => deleteWaypointWithConfirmation(
+            context: context,
+            ref: ref,
+            tripId: tripId,
+            waypointId: waypoint.id,
+          ),
+        ),
+      ],
+    );
+  }
 }

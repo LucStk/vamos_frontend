@@ -66,6 +66,7 @@ class _WaypointViewerBottomSheetState
                 },
                 // Condition pour intervertir WidgetA et WidgetB
                 child: WaypointBottomSheetContent(
+                  tripId: widget.tripId,
                   waypoint: waypoint,
                   scrollController: scrollController,
                   isAtMin: _isAtMin, // 👈 On passe l'état ici
