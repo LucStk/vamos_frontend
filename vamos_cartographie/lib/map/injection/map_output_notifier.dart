@@ -1,6 +1,6 @@
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 part 'map_output_notifier.g.dart';
 

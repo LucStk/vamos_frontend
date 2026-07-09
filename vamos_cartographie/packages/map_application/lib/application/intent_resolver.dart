@@ -1,6 +1,8 @@
 // L'EffectRunner connaît le store, pas le reducer
 import 'package:map_application/map_application.dart';
-import "package:trip_domain/trip_domain.dart";
+import 'package:trip_application/topology/application/topology_handler.dart';
+import 'package:trip_application/topology/domain/entities/vertex/vertex_model.dart';
+import "package:trip_application/trip_application.dart";
 
 class IntentResolver {
   final TopologyHandler topologyHandler;

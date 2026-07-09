@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_
 import 'package:vamos_cartographie/waypoint/data/mappers/waypoint_enum_mapper.dart';
 import '/core/graphql/graphql.dart';
 
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 class WaypointMapper {
   /// Convertit un [GWaypointFieldsData] (fragment GQL) en [Waypoint] domaine.

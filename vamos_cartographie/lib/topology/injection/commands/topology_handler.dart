@@ -1,7 +1,6 @@
 // features/vertexs/presentation/providers/vertexs_notifier.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_domain/application/commands/commands.dart';
-import 'package:trip_domain/domain/types/Ids.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 part 'topology_handler.g.dart';

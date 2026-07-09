@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:media_application/domain/entities/image_ui_model.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 import '../helpers/trip_test_helpers.dart';
 

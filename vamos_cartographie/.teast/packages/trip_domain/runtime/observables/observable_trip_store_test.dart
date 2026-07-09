@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:domain_core/id.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 Trip makeTrip({int id = 1, String title = 'Voyage'}) =>
     Trip(id: Id<Trip>(id), title: title);

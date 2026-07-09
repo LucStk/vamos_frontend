@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:domain_core/id.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 Waypoint makeWaypoint({
   int id = 1,

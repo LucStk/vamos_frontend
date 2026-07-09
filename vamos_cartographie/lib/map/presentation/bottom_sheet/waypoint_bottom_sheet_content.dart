@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:trip_domain/domain/entities/waypoint.dart';
-import 'package:trip_domain/domain/types/Ids.dart';
+import 'package:trip_application/trip/domain/trip.dart';
+import 'package:trip_application/trip_application.dart';
 import '/waypoint/waypoint.dart';
 import '/map/presentation/bottom_sheet/drag_handle.dart';
 

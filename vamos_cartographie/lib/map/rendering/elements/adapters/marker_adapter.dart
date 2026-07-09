@@ -2,7 +2,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:flutter/material.dart';
 import '/map/map.dart';
 

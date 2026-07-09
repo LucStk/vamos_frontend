@@ -1,7 +1,7 @@
 // Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_content.dart
 
 import 'package:flutter/material.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
 import 'package:vamos_cartographie/waypoint/presentation/widgets/waypoint_header.dart';

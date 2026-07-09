@@ -17,7 +17,7 @@ Contiennent la logique métier pure, indépendante de Flutter :
 | Package | Rôle |
 |---|---|
 | `domain_core` | Primitives partagées : `Id`, `Geometry`, `Observable`, `CollectionStore`, `OptimisticExecutor` |
-| `trip_domain` | Entités `Trip`, `Waypoint`, `Segment`, `Vertex` + repositories (ports) + stores runtime |
+| `trip_application` | Entités `Trip`, `Waypoint`, `Segment`, `Vertex` + repositories (ports) + stores runtime |
 | `topology_application` | Logique de dessin de graphe topologique, calcul de géométrie, mutation queue |
 | `media_application` | Gestion du cycle de vie des images (upload, patch, statuts) |
 | `waypoint_application` | (en cours) Application layer pour les waypoints |
@@ -56,7 +56,7 @@ lib/
 ### Règles générales
 
 1. **Un fichier de test par fichier source**, miroir de la structure `lib/` dans `test/`.
-   - Ex : `lib/packages/trip_domain/lib/domain/entities/trip.dart` → `test/packages/trip_domain/domain/entities/trip_test.dart`
+   - Ex : `lib/packages/trip_application/lib/domain/entities/trip.dart` → `test/packages/trip_application/domain/entities/trip_test.dart`
 2. **Nommer les groupes** avec `group('NomDeLaClasse', () { ... })`.
 3. **Nommer les cas** de façon descriptive en français ou en anglais, de manière cohérente dans un même fichier.
 4. **Arrange / Act / Assert** : séparer les trois phases par une ligne vide et un commentaire `// arrange`, `// act`, `// assert`.
@@ -94,9 +94,9 @@ setUpAll(() {
 ```dart
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:trip_domain/domain/entities/trip.dart';
-import 'package:trip_domain/application/repositories/trip_repository.dart';
-import 'package:trip_domain/application/commands/trip_handler.dart';
+import 'package:trip_application/domain/entities/trip.dart';
+import 'package:trip_application/application/repositories/trip_repository.dart';
+import 'package:trip_application/application/commands/trip_handler.dart';
 
 class MockTripRepository extends Mock implements TripRepository {}
 

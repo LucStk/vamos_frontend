@@ -38,8 +38,8 @@ dependencies:
     path: packages/map_application
   domain_core:
     path: packages/domain_core
-  trip_domain:
-    path: packages/trip_domain
+  trip_application:
+    path: packages/trip_application
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8

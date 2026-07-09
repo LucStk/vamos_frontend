@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 import 'package:domain_core/domain_core.dart';

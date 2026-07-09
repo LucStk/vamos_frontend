@@ -1,5 +1,5 @@
 import 'package:domain_core/id.dart';
-import 'package:trip_domain/domain/entities/waypoint.dart';
+import 'package:trip_application/waypoint/domain/waypoint.dart';
 
 sealed class MapOutputEvent {
   const MapOutputEvent();

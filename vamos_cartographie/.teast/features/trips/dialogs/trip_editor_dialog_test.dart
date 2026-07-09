@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 import 'package:media_application/media_application.dart';
 import 'package:vamos_cartographie/features/trips/widgets/widgets.dart';

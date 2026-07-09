@@ -1,12 +1,11 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:media_application/domain/entities/media_image.dart';
-import 'package:trip_domain/domain/types/topology_res.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/media/data/mappers/media_image_mappers.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/mappers/mappers.dart';
 import '/core/graphql/graphql.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/trip_domain.dart';
 import "/trip/data/graphql/graphql.dart";
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.

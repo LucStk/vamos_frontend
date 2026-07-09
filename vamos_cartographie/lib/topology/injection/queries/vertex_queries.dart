@@ -1,7 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 import '/map/map.dart';
 import '/topology/injection/injection.dart';
 import '/waypoint/injection/waypoint_queries.dart';

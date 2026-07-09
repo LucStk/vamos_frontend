@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import '/map/presentation/widgets/segment_editor.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';

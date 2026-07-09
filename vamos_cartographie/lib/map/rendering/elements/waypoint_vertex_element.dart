@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
-import 'package:trip_domain/domain/entities/waypoint.dart';
 import '/map/rendering/elements/vertex_element.dart';
 import '/map/rendering/widgets/widgets.dart';
+
+import 'package:trip_application/trip_application.dart';
 
 class WaypointElement extends VertexElement {
   final Waypoint waypoint;

@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/shared/presentation/widgets/buttons/cancel_button.dart';
 
 import 'package:vamos_cartographie/features/trips/widgets/explorer_empty_view.dart';

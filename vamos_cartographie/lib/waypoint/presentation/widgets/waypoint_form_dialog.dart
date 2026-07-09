@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/media_application.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_application/trip/domain/trip.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import "package:vamos_cartographie/features/shared/shared.dart";
 import 'package:vamos_cartographie/media/injection/media_handler.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_handler.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
-import 'package:vamos_cartographie/waypoint/presentation/widgets/waypoint_header.dart';
 
 class WaypointFormDialog extends ConsumerStatefulWidget {
   final Waypoint initialWaypoint;

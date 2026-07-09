@@ -1,5 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:trip_domain/trip_domain.dart";
+import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/services/add_listener_to_observable.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
 import "/trip/data/data.dart";

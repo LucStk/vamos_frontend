@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/s
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le ferryClient Ferry (GraphQL).

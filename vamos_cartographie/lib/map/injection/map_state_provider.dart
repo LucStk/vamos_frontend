@@ -1,7 +1,7 @@
 import 'package:map_application/application/intent_resolver.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_output_notifier.dart';
 import 'package:vamos_cartographie/topology/injection/commands/topology_handler.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_handler.dart';

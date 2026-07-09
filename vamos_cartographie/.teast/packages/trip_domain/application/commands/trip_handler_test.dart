@@ -4,8 +4,8 @@ import 'package:media_application/media_application.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
-import 'package:trip_domain/application/queries/trip_query_handler.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/application/queries/trip_query_handler.dart';
+import 'package:trip_application/trip_application.dart';
 
 // ---------------------------------------------------------------------------
 // Mocks

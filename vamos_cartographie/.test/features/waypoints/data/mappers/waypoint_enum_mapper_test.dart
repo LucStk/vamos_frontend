@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
-import "package:trip_domain/trip_domain.dart";
+import "package:trip_application/trip_application.dart";
 import 'package:vamos_cartographie/infrastructure/waypoint/mappers/waypoint_enum_mapper.dart';
 
 void main() {

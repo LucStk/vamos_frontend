@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/application/applications.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_application/trip/domain/domain.dart';
 import '/map/presentation/bottom_sheet/waypoint_bottom_sheet_content.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
 import '/map/map.dart';

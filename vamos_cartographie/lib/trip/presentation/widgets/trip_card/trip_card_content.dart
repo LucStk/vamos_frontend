@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 class TripCardContent extends StatelessWidget {
   final Trip trip;

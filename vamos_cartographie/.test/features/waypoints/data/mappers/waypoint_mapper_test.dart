@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/backend/backend.dart';
 import 'package:vamos_cartographie/infrastructure/waypoint/mappers/mappers.dart';

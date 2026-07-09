@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/media/injection/media_store.dart';
 import 'trip_store.dart';
 

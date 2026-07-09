@@ -1,6 +1,6 @@
 import 'package:ferry/ferry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trip_domain/application/repositories/trip_repository.dart';
+import 'package:trip_application/application/repositories/trip_repository.dart';
 import 'package:vamos_cartographie/core/injection/client_provider.dart';
 import 'package:vamos_cartographie/backend/core/fake_graphql_store.dart';
 import 'package:vamos_cartographie/backend/core/fake_seeds.dart';

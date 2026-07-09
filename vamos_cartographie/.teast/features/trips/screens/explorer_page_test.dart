@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/trips/widgets/explorer_empty_view.dart';
 import 'package:vamos_cartographie/features/trips/widgets/explorer_error_view.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_card.dart';

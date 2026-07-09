@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_domain/domain/types/topology_res.dart';
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/waypoint_remote_datasource.dart';

@@ -1,6 +1,6 @@
 import '/core/graphql/graphql.dart';
 
-import 'package:trip_domain/trip_domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 extension GPoiCategoryMapper on GPoiCategory {
   PoiCategory toDomain() => switch (this) {

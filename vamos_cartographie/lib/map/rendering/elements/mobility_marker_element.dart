@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
-import 'package:trip_domain/domain/entities/segment/segment_ui_model.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
 import '/map/rendering/elements/marker_element.dart';
 

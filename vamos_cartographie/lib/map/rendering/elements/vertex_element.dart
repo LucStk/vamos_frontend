@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
-import 'package:trip_domain/domain/entities/vertex/vertex_ui_model.dart';
 import 'package:vamos_cartographie/map/rendering/rendering.dart';
-import '/map/rendering/elements/drag_marker_element.dart';
+
+import 'package:trip_application/trip_application.dart';
 
 enum ConnectionHandleType { incoming, outgoing }
 

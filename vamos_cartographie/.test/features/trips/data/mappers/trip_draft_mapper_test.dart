@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trip_domain/domain/trip.dart';
+import 'package:trip_application/domain/trip.dart';
 import 'package:vamos_cartographie/infrastructure/trip/mappers/mappers.dart';
 
 void main() {
