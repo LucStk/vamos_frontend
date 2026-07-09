@@ -1,4 +1,4 @@
-#import "../../shared/geo_fields.graphql"
+#import "/core/graphql/shared/geo_fields.graphql"
 
 fragment VertexFields on VertexType {
     id

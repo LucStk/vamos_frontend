@@ -109,7 +109,7 @@ final class VertexUiElementProvider
   }
 }
 
-String _$vertexUiElementHash() => r'655bdca08bb397e3290e44df8e47979c98bfb4e5';
+String _$vertexUiElementHash() => r'58056a22d8c70303d801c04b8518f1ada6f01c44';
 
 final class VertexUiElementFamily extends $Family
     with $FunctionalFamilyOverride<VertexUiElement, (TripId, VertexRef)> {

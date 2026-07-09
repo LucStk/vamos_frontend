@@ -1,6 +1,6 @@
-#import "../waypoints/waypoint_fields.graphql"
+#import "/waypoint/data/graphql/waypoint_fields.graphql"
 #import "trip_fields.graphql"
-#import "../media/image_fields.graphql"
+#import "/media/data/graphql/image_fields.graphql"
 
 mutation CreateBlankTrip(){
     createBlankTrip(){

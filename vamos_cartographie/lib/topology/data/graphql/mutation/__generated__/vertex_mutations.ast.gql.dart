@@ -5,7 +5,7 @@
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/core/graphql/shared/__generated__/geo_fields.ast.gql.dart'
     as _i3;
-import 'package:vamos_cartographie/core/graphql/topology/fields/__generated__/vertex_fields.ast.gql.dart'
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i2;
 
 const CreateVertex = _i1.OperationDefinitionNode(

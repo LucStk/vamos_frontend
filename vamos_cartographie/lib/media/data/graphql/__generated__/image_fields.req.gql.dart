@@ -6,9 +6,9 @@ import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/core/graphql/media/__generated__/image_fields.ast.gql.dart'
+import 'package:vamos_cartographie/media/data/graphql/__generated__/image_fields.ast.gql.dart'
     as _i4;
-import 'package:vamos_cartographie/core/graphql/media/__generated__/image_fields.data.gql.dart'
+import 'package:vamos_cartographie/media/data/graphql/__generated__/image_fields.data.gql.dart'
     as _i2;
 
 class GImageFieldsReq

@@ -1,7 +1,7 @@
-#import "../waypoints/waypoint_fields.graphql"
+#import "/waypoint/data/graphql/waypoint_fields.graphql"
 #import "trip_fields.graphql"
-#import "../topology/fields/segment_fields.graphql"
-#import "../topology/fields/vertex_fields.graphql"
+#import "/topology/data/graphql/fields/segment_fields.graphql"
+#import "/topology/data/graphql/fields/vertex_fields.graphql"
 
 query GetAllTrips {
     trips {

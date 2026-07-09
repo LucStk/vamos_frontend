@@ -1,5 +1,5 @@
 #import "waypoint_fields.graphql"
-#import "../media/image_fields.graphql"
+#import "/media/data/graphql/image_fields.graphql"
 mutation UpdateWaypoint($id: UUID!, $waypoint: WaypointUpdateInput!) {
     updateWaypoint(input: $waypoint, id: $id) {
         ...WaypointFields

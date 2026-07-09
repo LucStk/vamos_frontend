@@ -2,7 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:vamos_cartographie/core/graphql/media/__generated__/image_fields.data.gql.dart'
+import 'package:vamos_cartographie/media/data/graphql/__generated__/image_fields.data.gql.dart'
     as _i1;
 
 class GGenerateImageUploadUrlData {

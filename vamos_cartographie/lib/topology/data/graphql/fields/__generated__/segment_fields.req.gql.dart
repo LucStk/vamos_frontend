@@ -8,11 +8,11 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
     as _gqlUtils;
 import 'package:vamos_cartographie/core/graphql/shared/__generated__/geo_fields.ast.gql.dart'
     as _i6;
-import 'package:vamos_cartographie/core/graphql/topology/fields/__generated__/segment_fields.ast.gql.dart'
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i4;
-import 'package:vamos_cartographie/core/graphql/topology/fields/__generated__/segment_fields.data.gql.dart'
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/core/graphql/topology/fields/__generated__/vertex_fields.ast.gql.dart'
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i5;
 
 class GSegmentFieldsReq

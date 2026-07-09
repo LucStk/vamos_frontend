@@ -3,13 +3,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/core/graphql/media/__generated__/image_fields.ast.gql.dart'
-    as _i2;
 import 'package:vamos_cartographie/core/graphql/shared/__generated__/geo_fields.ast.gql.dart'
     as _i5;
-import 'package:vamos_cartographie/core/graphql/topology/fields/__generated__/vertex_fields.ast.gql.dart'
+import 'package:vamos_cartographie/media/data/graphql/__generated__/image_fields.ast.gql.dart'
+    as _i2;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i4;
-import 'package:vamos_cartographie/core/graphql/waypoints/__generated__/waypoint_fields.ast.gql.dart'
+import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i3;
 
 const UpdateWaypoint = _i1.OperationDefinitionNode(

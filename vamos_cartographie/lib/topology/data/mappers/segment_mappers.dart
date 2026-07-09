@@ -1,7 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart';
 import '/core/graphql/graphql.dart';
+import "/topology/data/graphql/graphql.dart";
 import "mobility_type_mapper.dart";
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import "package:vamos_cartographie/features/shared/shared.dart" show GisMapper;

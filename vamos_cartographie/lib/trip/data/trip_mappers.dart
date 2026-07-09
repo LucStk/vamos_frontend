@@ -1,8 +1,6 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:media_application/domain/entities/media_image.dart';
 import 'package:trip_domain/domain/types/topology_res.dart';
-import 'package:vamos_cartographie/core/infrastructure/topology/mappers/segment_mappers.dart';
-import 'package:vamos_cartographie/core/infrastructure/topology/mappers/vertex_mappers.dart';
 import 'package:vamos_cartographie/media/data/mappers/media_image_mappers.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/mappers/mappers.dart';
@@ -37,22 +35,17 @@ class TripMapper {
   }
 
   static TripDetailsRes fromGQLDetails(GGetTripDetailsData_trip data) {
-    final lV =
-        data.topology.vertices.map(VertexMapper.fromGQL).toList()
-            as List<Vertex>;
-    final lS =
-        data.topology.segments.map(SegmentMapper.fromGQL).toList()
-            as List<Segment>;
-    final lW =
-        data.waypoints
-                .map(
-                  (m) => (
-                    WaypointMapper.fromGQL(m),
-                    m.images.map(MediaImageMappers.fromGQL).toList(),
-                  ),
-                )
-                .toList()
-            as List<(Waypoint, List<MediaImage>)>;
+    final lV = data.topology.vertices.map(VertexMapper.fromGQL).toList();
+    final lS = data.topology.segments.map(SegmentMapper.fromGQL).toList();
+
+    final lW = data.waypoints
+        .map(
+          (m) => (
+            WaypointMapper.fromGQL(m),
+            m.images.map(MediaImageMappers.fromGQL).toList(),
+          ),
+        )
+        .toList();
     return TripDetailsRes(lV, lS, lW);
   }
 

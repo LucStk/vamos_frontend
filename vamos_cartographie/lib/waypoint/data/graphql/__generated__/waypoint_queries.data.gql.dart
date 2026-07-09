@@ -4,11 +4,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/core/graphql/media/__generated__/image_fields.data.gql.dart'
+import 'package:vamos_cartographie/media/data/graphql/__generated__/image_fields.data.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/core/graphql/trips/__generated__/trip_fields.data.gql.dart'
+import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
     as _i1;
-import 'package:vamos_cartographie/core/graphql/waypoints/__generated__/waypoint_fields.data.gql.dart'
+import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
     as _i3;
 
 class GGetWaypointsData {
