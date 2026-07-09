@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_domain/trip_domain.dart';
 
+import '/map/map.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class CreateWaypointButton extends ConsumerWidget {
   final Id<Trip> tripId;

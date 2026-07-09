@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 import "package:domain_core/domain_core.dart";
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/core/services/services.dart';
+import 'package:vamos_cartographie/map/injection/notification_provider.dart';
 
 // core/erreur_handler.dart
 Future<Either<Failure, T>> guard<T>(Future<T> Function() action) async {

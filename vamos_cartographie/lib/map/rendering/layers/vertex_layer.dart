@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
-import '/map/rendering/elements/adapters/vertex_marker_adapter.dart';
-
-import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
+import '/map/map.dart';
 
 class VertexLayer extends ConsumerWidget {
   final Id<Trip> tripId;

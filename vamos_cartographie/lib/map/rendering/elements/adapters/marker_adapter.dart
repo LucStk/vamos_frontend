@@ -4,10 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:flutter/material.dart';
-import '/map/rendering/elements/drag_marker_element.dart';
-import '/map/rendering/elements/marker_element.dart';
-
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import '/map/map.dart';
 
 Marker toMarker(
   MarkerElement element,

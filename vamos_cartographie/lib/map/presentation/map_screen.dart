@@ -6,15 +6,11 @@ import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/map/presentation/widgets/map_top_bar.dart';
-import 'package:vamos_cartographie/map/rendering/layers/cursor_layer.dart';
-import 'package:vamos_cartographie/map/rendering/layers/map_tile_layer.dart';
-import 'package:vamos_cartographie/map/rendering/layers/vertex_layer.dart';
-import 'package:vamos_cartographie/map/rendering/widgets/popup_overlay.dart';
+import '/map/injection/map_state_provider.dart';
+import '/map/rendering/rendering.dart';
 import '/map/presentation/bottom_sheet/waypoint_bottom_sheet.dart';
-import '/map/presentation/widgets/map_controls.dart';
-import 'package:vamos_cartographie/trip/injection/trip_queries.dart';
+import '/map/presentation/widgets/widgets.dart';
+import '/trip/injection/trip_queries.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   final Id<Trip> tripId;

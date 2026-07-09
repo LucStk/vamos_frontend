@@ -3,10 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
-
-import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/topology/injection/injection.dart';
+import '/topology/topology.dart';
+import '/map/map.dart';
 
 Polyline toPolyline(
   WidgetRef ref,

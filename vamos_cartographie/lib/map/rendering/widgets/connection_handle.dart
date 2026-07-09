@@ -1,9 +1,7 @@
 // map_ui/rendering/widgets/connection_handle.dart
 
 import 'package:flutter/material.dart';
-import '/map/rendering/rendering.dart';
-
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import '/map/map.dart';
 
 class ConnectionHandle extends StatelessWidget {
   final MapStateNotifier mapStateNotifier;

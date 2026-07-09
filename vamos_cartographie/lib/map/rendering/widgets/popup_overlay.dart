@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/application/map_state.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import '/map/map.dart';
 
 class PopUpOverlay extends ConsumerWidget {
   const PopUpOverlay({

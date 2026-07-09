@@ -1,7 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/topology/injection/injection.dart';
+import '/topology/injection/injection.dart';
 
 part 'segment_queries.g.dart';
 
