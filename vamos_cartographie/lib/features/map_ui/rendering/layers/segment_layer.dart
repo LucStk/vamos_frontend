@@ -4,10 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/features/map_ui/rendering/elements/mobility_marker_ui_element.dart';
-import '/features/map_ui/rendering/adapters/marker_adapter.dart';
-import '/features/map_ui/rendering/adapters/segment_adapter.dart';
+import '/core/injection/injection.dart';
+import '/features/map_ui/rendering/elements/elements.dart';
 
 class SegmentLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
