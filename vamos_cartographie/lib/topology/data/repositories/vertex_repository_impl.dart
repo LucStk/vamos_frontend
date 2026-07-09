@@ -4,9 +4,10 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:vamos_cartographie/core/services/erreur_handler.dart';
-import "package:vamos_cartographie/features/shared/shared.dart";
 import 'package:vamos_cartographie/topology/data/datasources/vertex_remote_datasource.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
+
+import "/topology/data/mappers/gis_mapper.dart" show GisMapper;
 
 class VertexRepositoryImpl extends VertexRepository {
   final VertexRemoteDatasource remote;

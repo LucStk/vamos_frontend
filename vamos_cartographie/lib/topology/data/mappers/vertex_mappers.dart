@@ -1,6 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import "package:vamos_cartographie/features/shared/shared.dart" show GisMapper;
+import "gis_mapper.dart" show GisMapper;
 import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.

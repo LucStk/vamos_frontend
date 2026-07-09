@@ -1,5 +1,6 @@
 import 'package:latlong2/latlong.dart';
-import '/core/graphql/graphql.dart';
+import 'package:vamos_cartographie/vamos_cartographie.dart';
+import '/topology/data/graphql/graphql.dart';
 
 class GisMapper {
   static LatLng fromGQL(GLatLngFields latLngData) {

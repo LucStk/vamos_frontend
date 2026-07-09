@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/features/carousel/carousel.dart';
-import 'package:vamos_cartographie/features/shared/shared.dart';
+import 'package:vamos_cartographie/features/features.dart';
 import '/trip/presentation/widgets/trip_section_label.dart';
 import 'package:vamos_cartographie/trip/trip.dart';
 

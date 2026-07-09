@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:vamos_cartographie/features/shared/domain/types/map_item_type.dart";
+import "package:vamos_cartographie/shared/domain/map_item_type.dart";
 
 import "type_card.dart";
 // Pense à importer ton sous-widget s'il est dans un autre fichier

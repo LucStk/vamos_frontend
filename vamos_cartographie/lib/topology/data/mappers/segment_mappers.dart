@@ -4,7 +4,7 @@ import '/core/graphql/graphql.dart';
 import "/topology/data/graphql/graphql.dart";
 import "mobility_type_mapper.dart";
 import 'package:gql_tristate_value/gql_tristate_value.dart';
-import "package:vamos_cartographie/features/shared/shared.dart" show GisMapper;
+import "gis_mapper.dart" show GisMapper;
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class SegmentMapper {
