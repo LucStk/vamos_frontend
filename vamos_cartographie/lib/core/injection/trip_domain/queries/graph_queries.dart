@@ -18,6 +18,7 @@ Vertex? vertex(Ref ref, VertexId id) {
     return null;
   }
   addListenerRebuild(ref, node); // Rebuild si change
+  print("vertex $id rebuild");
   return node.value;
 }
 
@@ -31,6 +32,7 @@ VertexPatch? vertexPatch(Ref ref, Id<VertexPatch> id) {
     return null;
   }
   addListenerRebuild(ref, node); // Rebuild si change
+  print("vertexPatch $id rebuild");
   return node.value;
 }
 

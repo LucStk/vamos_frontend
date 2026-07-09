@@ -1,5 +1,7 @@
 import 'package:map_application/application/intent_resolver.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_application/application/map_state.dart';
+import 'package:map_application/application/reducers/root_reducer.dart';
+import 'package:map_application/input_events/input_events.dart';
 
 class MapHandler {
   final IntentResolver intentResolver;

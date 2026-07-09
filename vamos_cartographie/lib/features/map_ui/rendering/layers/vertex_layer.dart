@@ -3,14 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/vertex_ui_queries.dart';
+import 'package:vamos_cartographie/features/map_ui/rendering/elements/adapters/vertex_marker_adapter.dart';
 
 class VertexLayer extends ConsumerWidget {
   final Id<Trip> tripId;
   const VertexLayer({super.key, required this.tripId});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final markers = ref.watch(vertexMarkersProvider(tripId));
-    return DragMarkers(markers: markers);
+    final mapState = ref.watch(mapStateProvider(tripId).notifier);
+    final vertexIds = ref.watch(vertexRefsProvider);
+
+    final List<DragMarker> listDragMarkers = [];
+    for (final vertexRef in vertexIds) {
+      final vertex = ref.watch(vertexUiElementProvider(tripId, vertexRef));
+      listDragMarkers.add(toVertexMarker(vertex, tripId, mapState));
+    }
+
+    return DragMarkers(markers: listDragMarkers);
   }
 }

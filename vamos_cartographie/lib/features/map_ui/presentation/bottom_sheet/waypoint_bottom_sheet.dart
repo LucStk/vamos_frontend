@@ -2,39 +2,46 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_application/application/applications.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/queries/waypoint_ui_queries.dart';
-import 'package:vamos_cartographie/features/waypoint/widgets/bottom_sheet/waypoint_bottom_sheet_content.dart';
+import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/features/map_ui/presentation/bottom_sheet/waypoint_bottom_sheet_content.dart';
 
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
-class WaypointViewerBottomSheet extends ConsumerStatefulWidget {
-  final WaypointId waypointId;
+class WaypointBottomSheet extends ConsumerStatefulWidget {
   final TripId tripId;
 
-  const WaypointViewerBottomSheet({
-    super.key,
-    required this.waypointId,
-    required this.tripId,
-  });
+  const WaypointBottomSheet({super.key, required this.tripId});
 
   @override
-  ConsumerState<WaypointViewerBottomSheet> createState() =>
+  ConsumerState<WaypointBottomSheet> createState() =>
       _WaypointViewerBottomSheetState();
 }
 
 class _WaypointViewerBottomSheetState
-    extends ConsumerState<WaypointViewerBottomSheet> {
+    extends ConsumerState<WaypointBottomSheet> {
   // On initialise l'état à true car initialChildSize == minChildSize (0.10)
   bool _isAtMin = true;
 
   @override
   Widget build(BuildContext context) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final waypoint = ref.watch(waypointUiProvider(widget.waypointId));
+    final selectedWaypointId = ref.watch(
+      mapStateProvider(widget.tripId).select(
+        (state) => switch (state.selection) {
+          WaypointSelection(:final waypointId) => waypointId,
+          _ => null,
+        },
+      ),
+    );
+    if (selectedWaypointId == null) {
+      return const SizedBox.shrink();
+    }
+    final waypoint = ref.watch(waypointUiProvider(selectedWaypointId));
+
     if (waypoint == null) {
       return const SizedBox.shrink();
     }
-
     return Align(
       alignment: Alignment.bottomCenter,
       child: ConstrainedBox(

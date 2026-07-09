@@ -1,4 +1,5 @@
 import 'package:domain_core/domain_core.dart';
+import 'observable_graph_node.dart';
 
 class CollectionStore<T extends HasId> {
   final Map<Id<T>, ObservableGraphNode<T>> store = {};

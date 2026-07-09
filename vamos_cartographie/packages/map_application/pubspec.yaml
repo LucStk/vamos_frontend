@@ -13,7 +13,6 @@ dependencies:
   freezed_annotation: ^3.1.0
   domain_core:
     path: ../domain_core
-
   trip_domain:
     path: ../trip_domain
   uuid: ^4.5.3

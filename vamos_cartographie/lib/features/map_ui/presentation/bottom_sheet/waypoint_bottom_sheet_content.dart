@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:trip_domain/domain/types/Ids.dart';
+import 'package:vamos_cartographie/features/map_ui/presentation/bottom_sheet/drag_handle.dart';
 import 'package:vamos_cartographie/features/waypoint/domain/ext_waypoint_poi.dart';
-import 'package:vamos_cartographie/features/waypoint/widgets/bottom_sheet/drag_handle.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/waypoint_compact_content.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/waypoint_viewer_content.dart';
 

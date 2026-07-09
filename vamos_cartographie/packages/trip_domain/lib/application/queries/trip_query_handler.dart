@@ -45,7 +45,9 @@ class TripQueryHandler {
   Future<Failure?> loadTripDetails(TripId tripId) async {
     return executor
         .run(
-          onApply: () {},
+          onApply: () {
+            print("LoadTripDetails");
+          },
           remote: () => tripRepo.getTripDetails(tripId),
           onSuccess: (data) {
             waypointStore.clear();

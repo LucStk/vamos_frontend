@@ -6,21 +6,25 @@ sealed class WaypointEvent extends MapInputEvent {
 
 class WaypointTapped extends WaypointEvent {
   final WaypointId waypointId;
-  const WaypointTapped(this.waypointId);
+  final VertexRef vertexRef;
+  const WaypointTapped(this.waypointId, this.vertexRef);
 }
 
 class WaypointDoubleTapped extends WaypointEvent {
   final WaypointId waypointId;
-  const WaypointDoubleTapped(this.waypointId);
+  final VertexRef vertexRef;
+  const WaypointDoubleTapped(this.waypointId, this.vertexRef);
 }
 
 class WaypointDragStarted extends WaypointEvent {
+  final VertexRef vertexRef;
   final WaypointId waypointId;
-  const WaypointDragStarted(this.waypointId);
+  const WaypointDragStarted(this.waypointId, this.vertexRef);
 }
 
 class WaypointDragEnded extends WaypointEvent {
+  final WaypointId waypointId;
   final VertexRef vertexRef;
   final LatLng latLng;
-  const WaypointDragEnded(this.vertexRef, this.latLng);
+  const WaypointDragEnded(this.waypointId, this.vertexRef, this.latLng);
 }

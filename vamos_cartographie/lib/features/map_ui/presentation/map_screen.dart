@@ -8,6 +8,7 @@ import 'package:map_application/map_application.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/features/map_ui/presentation/bottom_sheet/waypoint_bottom_sheet.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/map_controls.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
@@ -65,14 +66,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     //     }
     //   }
     // });
-    final selectedWaypointId = ref.watch(
-      mapStateProvider(widget.tripId).select(
-        (state) => switch (state.mode) {
-          WaypointSelected(:final waypointId) => waypointId,
-          _ => null,
-        },
-      ),
-    );
+
     return Scaffold(
       body: Stack(
         children: [
@@ -95,14 +89,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           ),
           PopUpOverlay(tripId: widget.tripId, mapController: _mapController),
           MapTopBar(tripId: widget.tripId),
-          if (selectedWaypointId != null)
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: WaypointViewerBottomSheet(
-                waypointId: selectedWaypointId,
-                tripId: widget.tripId,
-              ),
-            ),
+          WaypointBottomSheet(tripId: widget.tripId),
         ],
       ),
     );

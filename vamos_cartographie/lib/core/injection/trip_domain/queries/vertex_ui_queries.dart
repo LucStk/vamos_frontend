@@ -1,5 +1,5 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter_map_dragmarker/flutter_map_dragmarker.dart';
+import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
@@ -32,10 +32,22 @@ List<VertexRef> vertexRefs(Ref ref) {
 
 @riverpod
 VertexUiElement vertexUiElement(Ref ref, TripId tripId, VertexRef vertexRef) {
-  final VertexUiModel vertexUi = switch (vertexRef) {
-    PendingVertexRef e => ref.watch(vertexPatchProvider(e.id))!.toUiModel(),
-    ConfirmedVertexRef e => ref.watch(vertexProvider(e.id))!.toUiModel(),
-  };
+  final oldV = ref.read(vertexProvider(vertexRef.id as VertexId));
+  final newV = ref.watch(vertexProvider(vertexRef.id as VertexId));
+  print("equal? ${oldV == newV} $oldV, $newV");
+  final VertexUiModel vertexUi = ref
+      .watch(vertexProvider(vertexRef.id as VertexId))!
+      .toUiModel();
+  // switch (vertexRef) {
+  //   PendingVertexRef e => ref.watch(vertexPatchProvider(e.id))?.toUiModel(),
+  //   ConfirmedVertexRef e => ref.watch(vertexProvider(e.id))?.toUiModel(),
+  // };
+  if (vertexUi == null) {
+    throw NotFoundFailure(
+      resourceId: "$vertexRef",
+      resourceType: "VertexUiModel",
+    );
+  }
 
   final Waypoint? w = ref.watch(
     waypointFromVertexProvider(Id<Vertex>(vertexRef.id.toString())),
@@ -47,13 +59,11 @@ VertexUiElement vertexUiElement(Ref ref, TripId tripId, VertexRef vertexRef) {
 }
 
 @riverpod
-List<DragMarker> vertexMarkers(Ref ref, Id<Trip> tripId) {
-  final mapState = ref.watch(mapStateProvider(tripId).notifier);
-  final vertexIds = ref.watch(vertexRefsProvider);
-  final List<DragMarker> listDragMarkers = [];
-  for (final vertexRef in vertexIds) {
-    final vertex = ref.watch(vertexUiElementProvider(tripId, vertexRef));
-    listDragMarkers.add(toVertexMarker(vertex, tripId, mapState));
-  }
-  return listDragMarkers;
+bool isVertexSelected(Ref ref, TripId tripId, VertexRef vertexRef) {
+  final mapState = ref.watch(mapStateProvider(tripId));
+  return switch (mapState.selection) {
+    VertexSelection e => (vertexRef == e.vertexRef),
+    WaypointSelection e => (vertexRef == e.vertexRef),
+    _ => false,
+  };
 }

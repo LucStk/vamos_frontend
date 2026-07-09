@@ -109,7 +109,7 @@ final class VertexUiElementProvider
   }
 }
 
-String _$vertexUiElementHash() => r'0d08bb0d42194cdbd557af39f18ed16669f9621b';
+String _$vertexUiElementHash() => r'77e841802c7bdc622aa94873303f0e67c7dad607';
 
 final class VertexUiElementFamily extends $Family
     with $FunctionalFamilyOverride<VertexUiElement, (TripId, VertexRef)> {
@@ -129,60 +129,55 @@ final class VertexUiElementFamily extends $Family
   String toString() => r'vertexUiElementProvider';
 }
 
-@ProviderFor(vertexMarkers)
-final vertexMarkersProvider = VertexMarkersFamily._();
+@ProviderFor(isVertexSelected)
+final isVertexSelectedProvider = IsVertexSelectedFamily._();
 
-final class VertexMarkersProvider
-    extends
-        $FunctionalProvider<
-          List<DragMarker>,
-          List<DragMarker>,
-          List<DragMarker>
-        >
-    with $Provider<List<DragMarker>> {
-  VertexMarkersProvider._({
-    required VertexMarkersFamily super.from,
-    required Id<Trip> super.argument,
+final class IsVertexSelectedProvider
+    extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  IsVertexSelectedProvider._({
+    required IsVertexSelectedFamily super.from,
+    required (TripId, VertexRef) super.argument,
   }) : super(
          retry: null,
-         name: r'vertexMarkersProvider',
+         name: r'isVertexSelectedProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$vertexMarkersHash();
+  String debugGetCreateSourceHash() => _$isVertexSelectedHash();
 
   @override
   String toString() {
-    return r'vertexMarkersProvider'
+    return r'isVertexSelectedProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
   @override
-  $ProviderElement<List<DragMarker>> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  List<DragMarker> create(Ref ref) {
-    final argument = this.argument as Id<Trip>;
-    return vertexMarkers(ref, argument);
+  bool create(Ref ref) {
+    final argument = this.argument as (TripId, VertexRef);
+    return isVertexSelected(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<DragMarker> value) {
+  Override overrideWithValue(bool value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<DragMarker>>(value),
+      providerOverride: $SyncValueProvider<bool>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is VertexMarkersProvider && other.argument == argument;
+    return other is IsVertexSelectedProvider && other.argument == argument;
   }
 
   @override
@@ -191,22 +186,22 @@ final class VertexMarkersProvider
   }
 }
 
-String _$vertexMarkersHash() => r'790103ce8bbb213b48a9e18101a93c2f4b195a49';
+String _$isVertexSelectedHash() => r'cf6fda209e717ae768ca43e4337475918246a3ac';
 
-final class VertexMarkersFamily extends $Family
-    with $FunctionalFamilyOverride<List<DragMarker>, Id<Trip>> {
-  VertexMarkersFamily._()
+final class IsVertexSelectedFamily extends $Family
+    with $FunctionalFamilyOverride<bool, (TripId, VertexRef)> {
+  IsVertexSelectedFamily._()
     : super(
         retry: null,
-        name: r'vertexMarkersProvider',
+        name: r'isVertexSelectedProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  VertexMarkersProvider call(Id<Trip> tripId) =>
-      VertexMarkersProvider._(argument: tripId, from: this);
+  IsVertexSelectedProvider call(TripId tripId, VertexRef vertexRef) =>
+      IsVertexSelectedProvider._(argument: (tripId, vertexRef), from: this);
 
   @override
-  String toString() => r'vertexMarkersProvider';
+  String toString() => r'isVertexSelectedProvider';
 }
