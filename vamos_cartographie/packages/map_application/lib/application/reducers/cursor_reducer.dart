@@ -14,6 +14,11 @@ TransitionResult reduceCursor(MapState state, MapInputEvent event) {
     MapTapped e => TransitionResult(
       nextState: state.copyWith(mode: MapMode.cursorDrawn(latLng: e.latLng)),
     ),
+    WaypointTapped e => TransitionResult(
+      nextState: state.copyWith(
+        mode: MapMode.waypointSelected(waypointId: e.waypointId),
+      ),
+    ),
     VertexDragStarted _ => TransitionResult(
       nextState: state.copyWith(mode: Idle()),
     ),

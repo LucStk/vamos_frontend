@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/waypoint/waypoint.dart';
+import 'package:vamos_cartographie/features/waypoint/widgets/bottom_sheet/drag_handle.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/waypoint_header.dart';
 
 /// Contenu "pur" de la visionneuse de waypoint : titre, header, carousel
@@ -34,47 +35,23 @@ class WaypointViewerContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(height: 20),
-
-        // ── Titre mis en valeur ──
-        if (waypoint.title.isNotEmpty)
-          Text(
-            waypoint.title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      // 👈 Utiliser ListView avec le controller
+      child: ListView(
+        children: [
+          WaypointHeader(type: waypoint.poiCategoryUi),
+          const SizedBox(height: 16),
+          ImageCarouselView(id: waypoint.id),
+          if (waypoint.description.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            Text(
+              waypoint.description,
+              style: const TextStyle(fontSize: 14, height: 1.5),
             ),
-          ),
-
-        const SizedBox(height: 16),
-        WaypointHeader(type: waypoint.poiCategoryUi),
-        const SizedBox(height: 16),
-
-        // Photos
-        ImageCarouselView(id: waypoint.id),
-
-        // Description
-        if (waypoint.description.isNotEmpty) ...[
-          const SizedBox(height: 12),
-          Text(
-            waypoint.description,
-            style: const TextStyle(
-              fontSize: 14,
-              height: 1.5,
-              color: Colors.black87,
-            ),
-            textAlign: TextAlign.justify,
-          ),
+          ],
         ],
-
-        const SizedBox(height: 16),
-      ],
+      ),
     );
   }
 }
