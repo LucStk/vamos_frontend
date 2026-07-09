@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:trip_application/shared/shared.dart';
 
 import 'package:trip_application/trip/domain/trip.dart';
 import '/topology/domain/domain.dart';

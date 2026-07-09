@@ -1,6 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/topology/domain/entities/entities.dart';
-import 'package:trip_application/topology/runtime/runtime.dart';
+
+import '/shared/shared.dart';
 
 class GraphStore {
   final TopologyIndex<VertexId, SegmentId> topologyIndex = TopologyIndex();
