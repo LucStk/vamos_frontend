@@ -9,6 +9,8 @@ import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/core/injection/map_output_notifier.dart';
 import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/features/map_ui/presentation/widgets/map_controls.dart';
+import 'package:vamos_cartographie/features/map_ui/presentation/widgets/map_top_bar.dart';
 import '/features/map_ui/rendering/rendering.dart';
 
 class MapScreen extends ConsumerStatefulWidget {

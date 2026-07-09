@@ -18,9 +18,10 @@ DragMarker toVertexMarker(
   return DragMarker(
     point: element.latLng,
     size: const Size(totalSize, totalSize),
+
     // Déplacer le point nécessite désormais un appui long avant le drag,
     // ce qui libère le pan immédiat pour nos poignées de connexion.
-    useLongPress: true,
+    // useLongPress: true,
     builder: (context, LatLng latLng, isDragging) {
       return Stack(
         clipBehavior: Clip.none,

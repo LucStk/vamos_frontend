@@ -1,3 +1,5 @@
+// map_ui/rendering/widgets/connection_handle.dart
+
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/rendering.dart';

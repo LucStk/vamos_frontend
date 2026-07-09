@@ -71,9 +71,9 @@ class WaypointHandler {
     );
   }
 
-  Future<void> deleteWaypoint(WaypointId id) async {
+  Future<Either<Failure, void>> deleteWaypoint(WaypointId id) async {
     final old = waypointStore.getRequired(id);
-    await executor.run(
+    return await executor.run(
       onApply: () => waypointStore.remove(id),
       remote: () => repo.deleteWaypoint(id),
       onSuccess: (_) {},
