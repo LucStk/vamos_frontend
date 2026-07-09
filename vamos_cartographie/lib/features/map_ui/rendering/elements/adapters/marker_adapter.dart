@@ -4,9 +4,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/drag_marker_ui_element.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/marker_ui_element.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 Marker toMarker(
   MarkerUiElement element,

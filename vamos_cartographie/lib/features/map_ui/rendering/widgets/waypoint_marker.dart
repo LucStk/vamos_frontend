@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/queries/vertex_ui_queries.dart';
 import 'package:vamos_cartographie/features/waypoint/waypoint.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class WaypointMarker extends ConsumerWidget {
   final TripId tripId;

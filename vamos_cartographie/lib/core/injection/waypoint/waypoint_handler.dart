@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/trip_domain.dart';
+import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'waypoint_store.dart';
 
 import '/core/injection/optimistic_executor_provider.dart';

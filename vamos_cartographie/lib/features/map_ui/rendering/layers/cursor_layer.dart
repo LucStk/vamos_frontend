@@ -4,8 +4,9 @@ import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/application/map_state.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/elements.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class CursorLayer extends ConsumerWidget {
   final Id<Trip> tripId;

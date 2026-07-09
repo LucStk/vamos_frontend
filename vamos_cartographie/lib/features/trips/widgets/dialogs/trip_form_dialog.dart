@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/domain/value_objects/media_owner_ext.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/media/media_injection.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/commands/trip_handler.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_section_label.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class TripFormDialog extends ConsumerStatefulWidget {
   final Trip initialTrip;

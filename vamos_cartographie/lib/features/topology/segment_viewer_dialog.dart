@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/commands/topology_handler.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/queries/segment_ui_queries.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/segment_editor.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
   final Id<Segment> segmentId;

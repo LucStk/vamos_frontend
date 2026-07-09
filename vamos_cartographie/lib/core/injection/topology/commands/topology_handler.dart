@@ -2,6 +2,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/application/commands/commands.dart';
 import 'package:trip_domain/domain/types/Ids.dart';
+import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';
 part 'topology_handler.g.dart';
 

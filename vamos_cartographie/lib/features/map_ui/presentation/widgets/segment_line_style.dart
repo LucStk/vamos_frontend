@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/queries/segment_ui_queries.dart';
 import 'package:vamos_cartographie/features/topology/mobility_type_display.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class SegmentLineStyle extends ConsumerWidget {
   final SegmentRef segmentId;

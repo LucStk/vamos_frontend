@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/commands/waypoint_handler.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/waypoint_form_dialog.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 /// Confirme puis supprime le waypoint, et ferme la vue courante
 /// (Dialog ou BottomSheet — dans les deux cas `Navigator.of(context).pop()`

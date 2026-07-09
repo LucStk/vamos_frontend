@@ -3,8 +3,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/core/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/features/map_ui/rendering/elements/vertex_ui_element.dart';
+
+import 'package:vamos_cartographie/core/injection/injection.dart';
 
 DragMarker toVertexMarker(
   VertexUiElement element,

@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/media_application.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/media/commands/media_handler.dart';
-import 'package:vamos_cartographie/core/injection/trip_domain/commands/waypoint_handler.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 
+import 'package:vamos_cartographie/core/injection/injection.dart';
 import "package:vamos_cartographie/features/shared/shared.dart";
 import 'package:vamos_cartographie/features/waypoint/waypoint.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/waypoint_header.dart';
