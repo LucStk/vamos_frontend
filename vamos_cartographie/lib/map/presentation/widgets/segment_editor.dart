@@ -64,8 +64,8 @@ class _SegmentEditorState extends ConsumerState<SegmentEditor> {
       children: [
         // ── Type ───────────────────────────────
         TypeSelector(
-          values: MobilityTypeDisplay.values,
-          selectedType: MobilityTypeDisplay.from(currentSegment.mobilityType),
+          values: MobilityTypeStyle.values,
+          selectedType: MobilityTypeStyle.from(currentSegment.mobilityType),
 
           onTypeChanged: (newType) {
             _submit(currentSegment.copyWith(mobilityType: newType.type));

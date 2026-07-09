@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 import "package:trip_application/trip_application.dart";
-import "package:vamos_cartographie/shared/domain/map_item_type.dart";
+import "package:vamos_cartographie/shared_ui/map_item_style.dart";
 
 // poi_category_ui.dart — vamos_cartographie, tout l'UI ici
 
 extension ExtWaypointPoi on Waypoint {
-  PoiCategoryUi get poiCategoryUi => PoiCategoryUi.from(poiCategory);
+  PoiCategoryStyle get poiCategoryUi => PoiCategoryStyle.from(poiCategory);
 }
 
-enum PoiCategoryUi implements MapItemType {
+enum PoiCategoryStyle implements MapItemStyle {
   start(
     label: 'Départ',
     icon: Icons.play_arrow,
@@ -94,7 +94,7 @@ enum PoiCategoryUi implements MapItemType {
     category: PoiCategory.other,
   );
 
-  const PoiCategoryUi({
+  const PoiCategoryStyle({
     required this.label,
     required this.icon,
     required this.colorValue,
@@ -110,6 +110,6 @@ enum PoiCategoryUi implements MapItemType {
   final PoiCategory category;
 
   // Retrouver le UI depuis le domaine
-  static PoiCategoryUi from(PoiCategory category) =>
+  static PoiCategoryStyle from(PoiCategory category) =>
       values.firstWhere((e) => e.category == category);
 }

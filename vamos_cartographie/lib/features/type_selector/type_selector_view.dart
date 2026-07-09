@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import "package:vamos_cartographie/shared/domain/map_item_type.dart";
+import "package:vamos_cartographie/shared_ui/map_item_style.dart";
 
 import "type_card.dart";
 // Pense à importer ton sous-widget s'il est dans un autre fichier
 // import 'waypoint_type_card.dart';
 
-class TypeSelector<T extends MapItemType> extends StatelessWidget {
+class TypeSelector<T extends MapItemStyle> extends StatelessWidget {
   final List<T> values;
   final T selectedType;
   final ValueChanged<T> onTypeChanged;

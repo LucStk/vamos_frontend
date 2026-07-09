@@ -3,7 +3,7 @@ import "package:vamos_cartographie/waypoint/presentation/presentation.dart";
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class WaypointHeader extends StatelessWidget {
-  final PoiCategoryUi type;
+  final PoiCategoryStyle type;
 
   const WaypointHeader({super.key, required this.type});
 

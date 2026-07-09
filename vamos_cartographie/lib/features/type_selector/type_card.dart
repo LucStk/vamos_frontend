@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:vamos_cartographie/shared/domain/map_item_type.dart";
+import "package:vamos_cartographie/shared_ui/map_item_style.dart";
 
 class TypeCard extends StatelessWidget {
-  final MapItemType type;
+  final MapItemStyle type;
   final bool isSelected;
   final VoidCallback onTap;
 

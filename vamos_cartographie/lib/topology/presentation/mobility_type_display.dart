@@ -1,14 +1,14 @@
 // mobility_type_ui.dart — vamos_cartographie
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/shared/domain/map_item_type.dart';
+import 'package:vamos_cartographie/shared_ui/map_item_style.dart';
 
-extension ExtMobilityTypeDisplay on SegmentUiModel {
-  MobilityTypeDisplay get mobilityTypeDisplay =>
-      MobilityTypeDisplay.from(mobilityType);
+extension ExtMobilityTypeStyle on SegmentUiModel {
+  MobilityTypeStyle get mobilityTypeDisplay =>
+      MobilityTypeStyle.from(mobilityType);
 }
 
-enum MobilityTypeDisplay implements MapItemType {
+enum MobilityTypeStyle implements MapItemStyle {
   bike(
     label: 'Vélo',
     icon: Icons.directions_bike,
@@ -45,7 +45,7 @@ enum MobilityTypeDisplay implements MapItemType {
     type: MobilityType.train,
   );
 
-  const MobilityTypeDisplay({
+  const MobilityTypeStyle({
     required this.label,
     required this.icon,
     required this.colorValue,
@@ -62,6 +62,6 @@ enum MobilityTypeDisplay implements MapItemType {
   final bool isDashed;
   final MobilityType type;
 
-  static MobilityTypeDisplay from(MobilityType type) =>
+  static MobilityTypeStyle from(MobilityType type) =>
       values.firstWhere((e) => e.type == type);
 }

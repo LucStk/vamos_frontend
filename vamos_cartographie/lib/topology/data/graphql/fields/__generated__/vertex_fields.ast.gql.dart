@@ -3,7 +3,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/core/graphql/shared/__generated__/geo_fields.ast.gql.dart'
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
     as _i2;
 
 const VertexFields = _i1.FragmentDefinitionNode(

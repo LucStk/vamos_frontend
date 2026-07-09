@@ -76,7 +76,7 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
 
           // ── Type ───────────────────────────────
           TypeSelector(
-            values: PoiCategoryUi.values,
+            values: PoiCategoryStyle.values,
             selectedType: currentWaypoint.poiCategoryUi,
 
             onTypeChanged: (newType) {

@@ -10,8 +10,8 @@ class MobilityMarkerElement extends MarkerElement {
 
   const MobilityMarkerElement(super.tripId, this.segmentUiModel);
 
-  MobilityTypeDisplay get mobilityType =>
-      MobilityTypeDisplay.from(segmentUiModel.mobilityType);
+  MobilityTypeStyle get mobilityType =>
+      MobilityTypeStyle.from(segmentUiModel.mobilityType);
 
   @override
   LatLng get latLng {
