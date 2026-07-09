@@ -38,39 +38,4 @@ class WaypointBottomSheetContent extends StatelessWidget {
       ),
     );
   }
-
-  //   // ── MODE COMPACT ──
-  //   Widget _buildCompactMode() {
-  //     return const Center(
-  //       key: ValueKey('compact'), // Clé requise pour AnimatedSwitcher
-  //       child: Padding(
-  //         padding: EdgeInsets.symmetric(vertical: 8.0),
-  //         child: Text(
-  //           "Glissez vers le haut pour voir les détails",
-  //           style: TextStyle(fontSize: 12, color: Colors.grey),
-  //         ),
-  //       ),
-  //     );
-  //   }
-
-  //   // ── MODE COMPLET ──
-  //   Widget _buildFullMode() {
-  //     return Column(
-  //       key: const ValueKey('full'), // Clé requise pour AnimatedSwitcher
-  //       crossAxisAlignment: CrossAxisAlignment.stretch,
-  //       children: [
-  //         WaypointHeader(type: waypoint.poiCategoryUi),
-  //         const SizedBox(height: 16),
-  //         ImageCarouselView(id: waypoint.id),
-  //         if (waypoint.description.isNotEmpty) ...[
-  //           const SizedBox(height: 12),
-  //           Text(
-  //             waypoint.description,
-  //             style: const TextStyle(fontSize: 14, height: 1.5),
-  //           ),
-  //         ],
-  //       ],
-  //     );
-  //   }
-  // }
 }

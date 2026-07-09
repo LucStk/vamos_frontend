@@ -5,11 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/trip_domain/queries/waypoint_ui_queries.dart';
 import 'package:vamos_cartographie/features/waypoint/widgets/bottom_sheet/waypoint_bottom_sheet_content.dart';
-import 'package:vamos_cartographie/features/waypoint/widgets/waypoint_compact_content.dart';
-import 'package:vamos_cartographie/features/waypoint/widgets/waypoint_viewer_content.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
 class WaypointViewerBottomSheet extends ConsumerStatefulWidget {
