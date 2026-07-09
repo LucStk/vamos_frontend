@@ -5,8 +5,8 @@ import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_section_label.dart';
-
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/media/injection/media_handler.dart';
+import 'package:vamos_cartographie/trip/trip.dart';
 
 class TripFormDialog extends ConsumerStatefulWidget {
   final Trip initialTrip;

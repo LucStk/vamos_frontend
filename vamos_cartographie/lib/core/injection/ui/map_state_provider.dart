@@ -3,7 +3,8 @@ import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_domain/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/core/injection/waypoint/waypoint_handler.dart';
+import 'package:vamos_cartographie/topology/injection/injection.dart';
+import 'package:vamos_cartographie/waypoint/injection/waypoint_handler.dart';
 
 part 'map_state_provider.g.dart';
 

@@ -2,7 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_application/domain/value_objects/upload_status.dart';
-import 'package:vamos_cartographie/core/injection/media/media_injection.dart';
+import 'package:vamos_cartographie/media/injection/media_queries.dart';
 import "thumbnails/thumbnail_view.dart";
 
 class ImageCarouselView<T> extends ConsumerWidget {

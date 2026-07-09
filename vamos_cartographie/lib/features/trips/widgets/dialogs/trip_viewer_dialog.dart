@@ -5,9 +5,8 @@ import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/trips/widgets/trip_section_label.dart';
+import 'package:vamos_cartographie/trip/trip.dart';
 import "trip_form_dialog.dart";
-
-import 'package:vamos_cartographie/core/injection/injection.dart';
 
 class TripViewerDialog extends ConsumerWidget {
   final Id<Trip> tripId;

@@ -4,7 +4,7 @@ import 'package:trip_domain/trip_domain.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/features/topology/mobility_type_display.dart';
 
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/topology/injection/injection.dart';
 
 class SegmentLineStyle extends ConsumerWidget {
   final SegmentRef segmentId;

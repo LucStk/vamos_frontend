@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/trip/trip.dart';
 import '/features/trips/widgets/widgets.dart';
 
 class ExplorerPage extends ConsumerStatefulWidget {

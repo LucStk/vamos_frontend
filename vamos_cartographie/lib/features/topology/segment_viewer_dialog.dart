@@ -4,8 +4,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_domain/trip_domain.dart';
 import 'package:vamos_cartographie/features/shared/shared.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/segment_editor.dart';
-
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/topology/injection/injection.dart';
 
 class SegmentViewerDialog extends ConsumerWidget {
   final Id<Segment> segmentId;

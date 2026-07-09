@@ -10,6 +10,7 @@ import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/bottom_sheet/waypoint_bottom_sheet.dart';
 import 'package:vamos_cartographie/features/map_ui/presentation/widgets/map_controls.dart';
+import 'package:vamos_cartographie/trip/injection/trip_queries.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   final Id<Trip> tripId;

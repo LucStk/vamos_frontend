@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/features/trips/widgets/trip_card/trip_card_co
 import 'package:vamos_cartographie/features/trips/widgets/trip_card/trip_card_icon.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
-import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/trip/injection/trip_queries.dart';
 
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
