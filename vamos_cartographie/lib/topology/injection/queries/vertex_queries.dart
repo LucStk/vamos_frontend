@@ -18,7 +18,7 @@ ObservableGraphNode<Vertex> vertexNode(Ref ref, VertexId id) {
       NotFoundFailure(resourceType: "vertexNode", resourceId: "$id"),
     );
   }
-  addListenerRebuild(ref, node); // notifyListeners(), PAS invalidateSelf()
+  addListenerRebuild(ref, node);
   return node;
 }
 
@@ -31,7 +31,7 @@ ObservableGraphNode<VertexPatch> vertexPatchNode(Ref ref, Id<VertexPatch> id) {
       NotFoundFailure(resourceType: "vertexPatchNode", resourceId: "$id"),
     );
   }
-  addListenerRebuild(ref, node); // notifyListeners(), PAS invalidateSelf()
+  addListenerRebuild(ref, node);
   return node;
 }
 
@@ -69,22 +69,10 @@ List<VertexRef> vertexRefs(Ref ref) {
 
 @riverpod
 VertexElement vertexUiElement(Ref ref, TripId tripId, VertexRef vertexRef) {
-  final oldV = ref.read(vertexProvider(vertexRef.id as VertexId));
-  final newV = ref.watch(vertexProvider(vertexRef.id as VertexId));
-  print("equal? ${oldV == newV} $oldV, $newV");
-  final VertexUiModel vertexUi = ref
-      .watch(vertexProvider(vertexRef.id as VertexId))!
-      .toUiModel();
-  // switch (vertexRef) {
-  //   PendingVertexRef e => ref.watch(vertexPatchProvider(e.id))?.toUiModel(),
-  //   ConfirmedVertexRef e => ref.watch(vertexProvider(e.id))?.toUiModel(),
-  // };
-  // if (vertexUi == null) {
-  //   throw NotFoundFailure(
-  //     resourceId: "$vertexRef",
-  //     resourceType: "VertexUiModel",
-  //   );
-  // }
+  final vertexUi = switch (vertexRef) {
+    PendingVertexRef e => ref.watch(vertexPatchProvider(e.id)).toUiModel(),
+    ConfirmedVertexRef e => ref.watch(vertexProvider(e.id)).toUiModel(),
+  };
 
   final Waypoint? w = ref.watch(
     waypointFromVertexProvider(Id<Vertex>(vertexRef.id.toString())),

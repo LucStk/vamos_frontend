@@ -11,12 +11,6 @@ class ObservableCollectionStore<T extends HasId> extends CollectionStore<T>
   }
 
   @override
-  void update(T value) {
-    super.update(value);
-    print("update collectionStore $value");
-  }
-
-  @override
   void remove(Id<T> id) {
     super.remove(id);
     notify();

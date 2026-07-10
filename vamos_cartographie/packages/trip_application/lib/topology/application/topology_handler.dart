@@ -57,25 +57,24 @@ class TopologyHandler {
   ) async {
     return await executor.run(
       onApply: () {
-        // switch (ref) {
-        //   case ConfirmedVertexRef e:
-        //     graphPatchStore.insertVertexPatch(
-        //       VertexPatch(
-        //         id: Id<VertexPatch>(e.id.value),
-        //         positionOverride: latLng,
-        //       ),
-        //     );
-        //   case PendingVertexRef e:
-        //     graphPatchStore.updateVertexPatch(
-        //       VertexPatch(id: e.id, positionOverride: latLng),
-        //     );
-        // }
+        switch (ref) {
+          case ConfirmedVertexRef e:
+            graphPatchStore.insertVertexPatch(
+              VertexPatch(
+                id: Id<VertexPatch>(e.id.value),
+                positionOverride: latLng,
+              ),
+            );
+          case PendingVertexRef e:
+            graphPatchStore.updateVertexPatch(
+              VertexPatch(id: e.id, positionOverride: latLng),
+            );
+        }
       },
       remote: () => vertexRepo.moveVertex(VertexId(ref.id.value), latLng),
       onSuccess: (Vertex serveurValue) {
-        print("log Success $serveurValue");
         graphStore.updateVertex(serveurValue);
-        // graphPatchStore.removeVertexPatch(Id<VertexPatch>(ref.id.value));
+        graphPatchStore.removeVertexPatch(Id<VertexPatch>(ref.id.value));
       },
       onError: (Failure failure) {},
     );
