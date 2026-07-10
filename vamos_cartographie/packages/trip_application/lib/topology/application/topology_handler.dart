@@ -79,4 +79,16 @@ class TopologyHandler {
       onError: (Failure failure) {},
     );
   }
+
+  Future<Either<Failure, void>> removeVertex(VertexRef ref) async {
+    return await executor.run(
+      onApply: () {},
+      remote: () => vertexRepo.deleteVertex(VertexId(ref.id.value)),
+      onSuccess: (_) {
+        graphStore.removeVertex(Id<Vertex>(ref.id.value));
+        graphPatchStore.removeVertexPatch(Id<VertexPatch>(ref.id.value));
+      },
+      onError: (Failure failure) {},
+    );
+  }
 }

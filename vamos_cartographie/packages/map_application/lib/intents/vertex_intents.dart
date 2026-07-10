@@ -20,3 +20,8 @@ class CreateWaypointVertex extends MapIntents {
   final LatLng position;
   const CreateWaypointVertex(this.position);
 }
+
+class RemoveVertex extends MapIntents {
+  final VertexRef vertexRef;
+  const RemoveVertex(this.vertexRef);
+}

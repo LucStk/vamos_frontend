@@ -1,7 +1,5 @@
 // L'EffectRunner connaît le store, pas le reducer
 import 'package:map_application/map_application.dart';
-import 'package:trip_application/topology/application/topology_handler.dart';
-import 'package:trip_application/topology/domain/entities/vertex/vertex_model.dart';
 import "package:trip_application/trip_application.dart";
 
 class IntentResolver {
@@ -20,6 +18,8 @@ class IntentResolver {
         await waypointHandler.createBlankWaypointFromVertex(
           VertexId(e.vertexRef.id.value),
         );
+      case RemoveVertex e:
+        await topologyHandler.removeVertex(e.vertexRef);
       case OpenWaypointDialog e:
         mapOutput.emit(OpenWaypointDialogEvent(e.waypointId));
 

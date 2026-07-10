@@ -5,7 +5,7 @@ import '/application/transition_result.dart';
 
 TransitionResult reduceCursor(MapState state, MapInputEvent event) {
   return switch (event) {
-    CursorTapped e => TransitionResult(
+    CursorTapped _ => TransitionResult(
       nextState: state.copyWith(mode: MapMode.idle()),
     ),
     MapTapped e => TransitionResult(
