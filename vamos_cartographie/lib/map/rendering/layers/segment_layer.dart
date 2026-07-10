@@ -7,6 +7,8 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import '/map/map.dart';
 
+import "/map/rendering/adapters/adapters.dart";
+
 class SegmentLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
   const SegmentLayer({super.key, required this.tripId});

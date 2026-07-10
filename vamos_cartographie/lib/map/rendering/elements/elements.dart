@@ -5,4 +5,3 @@ export "marker_element.dart";
 export "mobility_marker_element.dart";
 export "vertex_element.dart";
 export "waypoint_vertex_element.dart";
-export "adapters/adapters.dart";

@@ -5,6 +5,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_application/application/map_state.dart';
 import 'package:trip_application/trip_application.dart';
 import '/map/map.dart';
+import "/map/rendering/adapters/adapters.dart";
 
 class CursorLayer extends ConsumerWidget {
   final Id<Trip> tripId;

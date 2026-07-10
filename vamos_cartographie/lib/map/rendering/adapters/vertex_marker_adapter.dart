@@ -10,7 +10,7 @@ DragMarker toVertexMarker(
   Id<Trip> tripId,
   MapStateNotifier mapStateNotifier,
 ) {
-  const totalSize = 30.0;
+  const totalSize = 26.0;
   return DragMarker(
     point: element.latLng,
     size: const Size(totalSize, totalSize),

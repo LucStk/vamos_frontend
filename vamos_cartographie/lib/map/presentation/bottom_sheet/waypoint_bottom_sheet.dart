@@ -1,89 +1,65 @@
-// Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_bottom_sheet.dart
-
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // Remplacé cupertino par material pour SizedBox et ListView standard
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/application/applications.dart';
-import 'package:trip_application/trip/domain/domain.dart';
-import '/map/presentation/bottom_sheet/waypoint_bottom_sheet_content.dart';
-import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
-import '/map/map.dart';
+import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/presentation/bottom_sheet/draggable_bottom_sheet_shell.dart';
+import '/waypoint/waypoint.dart';
+import '/map/presentation/bottom_sheet/drag_handle.dart';
 
-// On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
-class WaypointBottomSheet extends ConsumerStatefulWidget {
+class WaypointBottomSheet extends ConsumerWidget {
   final TripId tripId;
+  final WaypointId waypointId;
 
-  const WaypointBottomSheet({super.key, required this.tripId});
-
-  @override
-  ConsumerState<WaypointBottomSheet> createState() =>
-      _WaypointViewerBottomSheetState();
-}
-
-class _WaypointViewerBottomSheetState
-    extends ConsumerState<WaypointBottomSheet> {
-  // On initialise l'état à true car initialChildSize == minChildSize (0.10)
-  bool _isAtMin = true;
+  const WaypointBottomSheet({
+    super.key,
+    required this.tripId,
+    required this.waypointId,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final selectedWaypointId = ref.watch(
-      mapStateProvider(widget.tripId).select(
-        (state) => switch (state.selection) {
-          WaypointSelection(:final waypointId) => waypointId,
-          _ => null,
-        },
-      ),
-    );
-    if (selectedWaypointId == null) {
-      return const SizedBox.shrink();
-    }
-    final waypoint = ref.watch(waypointUiProvider(selectedWaypointId));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final waypoint = ref.watch(waypointUiProvider(waypointId));
 
     if (waypoint == null) {
       return const SizedBox.shrink();
     }
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 600),
-        child: DraggableScrollableSheet(
-          initialChildSize: 0.10,
-          minChildSize: 0.10,
-          maxChildSize: 0.90,
-          expand: false,
-          builder: (context, scrollController) {
-            return Material(
-              elevation: 8,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: NotificationListener<DraggableScrollableNotification>(
-                onNotification: (notification) {
-                  final atMin =
-                      notification.extent <= (notification.minExtent + 0.01);
 
-                  // On met à jour l'état seulement si la valeur change pour éviter des rebuilds inutiles
-                  if (_isAtMin != atMin) {
-                    setState(() {
-                      _isAtMin = atMin;
-                    });
-                  }
-                  return false; // Changé à false pour permettre à la notification de continuer à se propager si besoin
-                },
-                // Condition pour intervertir WidgetA et WidgetB
-                child: WaypointBottomSheetContent(
-                  tripId: widget.tripId,
-                  waypoint: waypoint,
-                  scrollController: scrollController,
-                  isAtMin: _isAtMin, // 👈 On passe l'état ici
-                ),
+    return DraggableBottomSheetShell(
+      tripId:
+          tripId, // 1. Ne pas oublier de passer le tripId requis par le Shell
+      builder: ({isAtmin = true, required scrollController}) {
+        // 2. Correction de la syntaxe des arguments nommés
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ListView(
+            controller: scrollController,
+            // Empêche le rebond du scroll pour ne pas interférer avec le drag de la sheet
+            physics: const ClampingScrollPhysics(),
+            children: [
+              const DragHandle(),
+              const SizedBox(height: 8),
+
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child:
+                    isAtmin // Attention à la casse "isAtmin" définie dans ton Shell
+                    ? WaypointCompactContent(
+                        key: const ValueKey(
+                          'compact',
+                        ), // Crucial pour l'AnimatedSwitcher
+                        waypoint: waypoint,
+                        tripId: tripId,
+                      )
+                    : WaypointViewerContent(
+                        key: const ValueKey(
+                          'expanded',
+                        ), // Crucial pour l'AnimatedSwitcher
+                        waypoint: waypoint,
+                      ),
               ),
-            );
-          },
-        ),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

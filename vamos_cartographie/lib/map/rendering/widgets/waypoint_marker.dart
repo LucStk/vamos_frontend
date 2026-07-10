@@ -9,7 +9,6 @@ class WaypointMarker extends ConsumerWidget {
   final VertexRef vertexRef;
   final Waypoint waypoint;
   final bool isDragging;
-
   const WaypointMarker({
     super.key,
     required this.tripId,
@@ -22,15 +21,34 @@ class WaypointMarker extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(isVertexSelectedProvider(tripId, vertexRef));
 
-    return CircleAvatar(
-      radius: selected ? 32 : 20, // Taille globale du cercle (diamètre = 32)
-      backgroundColor: Color(
-        waypoint.poiCategoryUi.colorValue,
-      ), // <-- La couleur de votre fond rond
-      child: Icon(
-        waypoint.poiCategoryUi.icon,
-        color: Colors.white,
-        size: selected ? 15 : 10,
+    return AnimatedScale(
+      scale: selected ? 1.5 : 1.0,
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.easeOutBack,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.white, width: selected ? 2 : 0),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.35),
+                    blurRadius: 2,
+                    spreadRadius: 1,
+                  ),
+                ]
+              : [],
+        ),
+        child: CircleAvatar(
+          radius: 15,
+          backgroundColor: Color(waypoint.poiCategoryUi.colorValue),
+          child: Icon(
+            waypoint.poiCategoryUi.icon,
+            color: Colors.white,
+            size: 12,
+          ),
+        ),
       ),
     );
   }

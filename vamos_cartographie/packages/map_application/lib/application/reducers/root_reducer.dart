@@ -1,4 +1,3 @@
-import 'package:map_application/application/map_state.dart';
 import 'package:map_application/map_application.dart';
 import "cursor_reducer.dart";
 import "idle_reducer.dart";
@@ -25,7 +24,6 @@ TransitionResult? reduceSelection(MapState state, MapInputEvent event) {
         mode: MapMode.idle(),
         selection: MapSelection.vertex(vertexRef: e.vertexRef),
       ),
-      intents: [CreateWaypointFromVertex(e.vertexRef)],
     ),
     WaypointTapped e => TransitionResult(
       nextState: state.copyWith(

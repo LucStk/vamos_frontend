@@ -876,13 +876,14 @@ extension MapSelectionPatterns on MapSelection {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( NoSelection value)?  none,TResult Function( VertexSelection value)?  vertex,TResult Function( SegmentSelection value)?  segment,TResult Function( WaypointSelection value)?  waypoint,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( NoSelection value)?  none,TResult Function( VertexSelection value)?  vertex,TResult Function( SegmentSelection value)?  segment,TResult Function( CursorSelection value)?  cursor,TResult Function( WaypointSelection value)?  waypoint,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none(_that);case VertexSelection() when vertex != null:
 return vertex(_that);case SegmentSelection() when segment != null:
-return segment(_that);case WaypointSelection() when waypoint != null:
+return segment(_that);case CursorSelection() when cursor != null:
+return cursor(_that);case WaypointSelection() when waypoint != null:
 return waypoint(_that);case _:
   return orElse();
 
@@ -901,13 +902,14 @@ return waypoint(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( NoSelection value)  none,required TResult Function( VertexSelection value)  vertex,required TResult Function( SegmentSelection value)  segment,required TResult Function( WaypointSelection value)  waypoint,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( NoSelection value)  none,required TResult Function( VertexSelection value)  vertex,required TResult Function( SegmentSelection value)  segment,required TResult Function( CursorSelection value)  cursor,required TResult Function( WaypointSelection value)  waypoint,}){
 final _that = this;
 switch (_that) {
 case NoSelection():
 return none(_that);case VertexSelection():
 return vertex(_that);case SegmentSelection():
-return segment(_that);case WaypointSelection():
+return segment(_that);case CursorSelection():
+return cursor(_that);case WaypointSelection():
 return waypoint(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -922,13 +924,14 @@ return waypoint(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( NoSelection value)?  none,TResult? Function( VertexSelection value)?  vertex,TResult? Function( SegmentSelection value)?  segment,TResult? Function( WaypointSelection value)?  waypoint,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( NoSelection value)?  none,TResult? Function( VertexSelection value)?  vertex,TResult? Function( SegmentSelection value)?  segment,TResult? Function( CursorSelection value)?  cursor,TResult? Function( WaypointSelection value)?  waypoint,}){
 final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none(_that);case VertexSelection() when vertex != null:
 return vertex(_that);case SegmentSelection() when segment != null:
-return segment(_that);case WaypointSelection() when waypoint != null:
+return segment(_that);case CursorSelection() when cursor != null:
+return cursor(_that);case WaypointSelection() when waypoint != null:
 return waypoint(_that);case _:
   return null;
 
@@ -946,12 +949,13 @@ return waypoint(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexRef vertexRef)?  vertex,TResult Function( SegmentRef segmentRef)?  segment,TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexRef vertexRef)?  vertex,TResult Function( SegmentRef segmentRef)?  segment,TResult Function()?  cursor,TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
 return vertex(_that.vertexRef);case SegmentSelection() when segment != null:
-return segment(_that.segmentRef);case WaypointSelection() when waypoint != null:
+return segment(_that.segmentRef);case CursorSelection() when cursor != null:
+return cursor();case WaypointSelection() when waypoint != null:
 return waypoint(_that.waypointId,_that.vertexRef);case _:
   return orElse();
 
@@ -970,12 +974,13 @@ return waypoint(_that.waypointId,_that.vertexRef);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexRef vertexRef)  vertex,required TResult Function( SegmentRef segmentRef)  segment,required TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)  waypoint,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexRef vertexRef)  vertex,required TResult Function( SegmentRef segmentRef)  segment,required TResult Function()  cursor,required TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)  waypoint,}) {final _that = this;
 switch (_that) {
 case NoSelection():
 return none();case VertexSelection():
 return vertex(_that.vertexRef);case SegmentSelection():
-return segment(_that.segmentRef);case WaypointSelection():
+return segment(_that.segmentRef);case CursorSelection():
+return cursor();case WaypointSelection():
 return waypoint(_that.waypointId,_that.vertexRef);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -990,12 +995,13 @@ return waypoint(_that.waypointId,_that.vertexRef);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexRef vertexRef)?  vertex,TResult? Function( SegmentRef segmentRef)?  segment,TResult? Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexRef vertexRef)?  vertex,TResult? Function( SegmentRef segmentRef)?  segment,TResult? Function()?  cursor,TResult? Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
 return vertex(_that.vertexRef);case SegmentSelection() when segment != null:
-return segment(_that.segmentRef);case WaypointSelection() when waypoint != null:
+return segment(_that.segmentRef);case CursorSelection() when cursor != null:
+return cursor();case WaypointSelection() when waypoint != null:
 return waypoint(_that.waypointId,_that.vertexRef);case _:
   return null;
 
@@ -1185,6 +1191,38 @@ $SegmentRefCopyWith<$Res> get segmentRef {
   });
 }
 }
+
+/// @nodoc
+
+
+class CursorSelection implements MapSelection {
+  const CursorSelection();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CursorSelection);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'MapSelection.cursor()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

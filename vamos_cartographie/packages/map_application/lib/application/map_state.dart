@@ -35,6 +35,7 @@ sealed class MapSelection with _$MapSelection {
       VertexSelection;
   const factory MapSelection.segment({required SegmentRef segmentRef}) =
       SegmentSelection;
+  const factory MapSelection.cursor() = CursorSelection;
   const factory MapSelection.waypoint({
     required Id<Waypoint> waypointId,
     required VertexRef vertexRef, // le vertex lié, résolu à la sélection

@@ -6,9 +6,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/presentation/bottom_sheet/map_bottom_sheet.dart';
 import '/map/injection/map_state_provider.dart';
 import '/map/rendering/rendering.dart';
-import '/map/presentation/bottom_sheet/waypoint_bottom_sheet.dart';
 import '/map/presentation/widgets/widgets.dart';
 import '/trip/injection/trip_queries.dart';
 
@@ -46,28 +46,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   @override
   Widget build(BuildContext context) {
     final mapState = ref.watch(mapStateProvider(widget.tripId).notifier);
-    // Permet au controlleur d'afficher des widgets
-    //
-    // ref.listen<MapOutputQueue>(mapOutputProvider(widget.tripId), (_, _) async {
-    //   final notifier = ref.read(mapOutputProvider(widget.tripId).notifier);
-
-    //   while (true) {
-    //     final event = notifier.pop();
-    //     if (event == null) break;
-
-    //     switch (event) {
-    //       case OpenWaypointDialogEvent(:final waypointId):
-    //         await WaypointViewerBottomSheet.show(
-    //           context: context,
-    //           waypointId: waypointId,
-    //           tripId: widget.tripId,
-    //         );
-
-    //       case _:
-    //     }
-    //   }
-    // });
-
     return Scaffold(
       body: Stack(
         children: [
@@ -90,9 +68,30 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           ),
           PopUpOverlay(tripId: widget.tripId, mapController: _mapController),
           MapTopBar(tripId: widget.tripId),
-          WaypointBottomSheet(tripId: widget.tripId),
+          MapBottomSheet(tripId: widget.tripId),
         ],
       ),
     );
   }
 }
+// Permet au controlleur d'afficher des widgets
+//
+// ref.listen<MapOutputQueue>(mapOutputProvider(widget.tripId), (_, _) async {
+//   final notifier = ref.read(mapOutputProvider(widget.tripId).notifier);
+
+//   while (true) {
+//     final event = notifier.pop();
+//     if (event == null) break;
+
+//     switch (event) {
+//       case OpenWaypointDialogEvent(:final waypointId):
+//         await WaypointViewerBottomSheet.show(
+//           context: context,
+//           waypointId: waypointId,
+//           tripId: widget.tripId,
+//         );
+
+//       case _:
+//     }
+//   }
+// });
