@@ -1,3 +1,4 @@
+import "package:flutter/rendering.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "package:trip_application/trip_application.dart";
@@ -23,7 +24,7 @@ VertexRepository vertexRepository(Ref ref) {
 ObservableCollectionStore<Vertex> vertexStore(Ref ref) {
   final graphStore = ref.watch(rawGraphStoreProvider);
 
-  // debugPrint("vertexStore rebuild");
+  debugPrint("vertexStore rebuild");
   addListenerRebuild(ref, graphStore.vertexStore);
   return graphStore.vertexStore;
 }

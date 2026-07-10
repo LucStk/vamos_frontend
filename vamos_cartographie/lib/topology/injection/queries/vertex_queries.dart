@@ -2,11 +2,50 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/services/add_listener_to_observable.dart';
 import '/map/map.dart';
 import '/topology/injection/injection.dart';
 import '/waypoint/injection/waypoint_queries.dart';
 
 part 'vertex_queries.g.dart';
+
+@riverpod
+ObservableGraphNode<Vertex> vertexNode(Ref ref, VertexId id) {
+  final store = ref.watch(vertexStoreProvider);
+  final node = store.getNode(id);
+  if (node == null) {
+    throw Exception(
+      NotFoundFailure(resourceType: "vertexNode", resourceId: "$id"),
+    );
+  }
+  addListenerRebuild(ref, node); // notifyListeners(), PAS invalidateSelf()
+  return node;
+}
+
+@riverpod
+ObservableGraphNode<VertexPatch> vertexPatchNode(Ref ref, Id<VertexPatch> id) {
+  final store = ref.watch(vertexPatchStoreProvider);
+  final node = store.getNode(id);
+  if (node == null) {
+    throw Exception(
+      NotFoundFailure(resourceType: "vertexPatchNode", resourceId: "$id"),
+    );
+  }
+  addListenerRebuild(ref, node); // notifyListeners(), PAS invalidateSelf()
+  return node;
+}
+
+@riverpod
+Vertex vertex(Ref ref, VertexId id) {
+  final node = ref.watch(vertexNodeProvider(id));
+  return node.value;
+}
+
+@riverpod
+VertexPatch vertexPatch(Ref ref, Id<VertexPatch> id) {
+  final node = ref.watch(vertexPatchNodeProvider(id));
+  return node.value;
+}
 
 @riverpod
 List<VertexRef> vertexRefs(Ref ref) {

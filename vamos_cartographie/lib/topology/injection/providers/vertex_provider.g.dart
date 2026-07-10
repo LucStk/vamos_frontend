@@ -150,7 +150,7 @@ final class VertexStoreProvider
   }
 }
 
-String _$vertexStoreHash() => r'4fa740f67a2c82102da5ecd9433e6cd261aef786';
+String _$vertexStoreHash() => r'd6bb6691483d7c6e085a2bd285f37c822b2b39fc';
 
 @ProviderFor(vertexPatchStore)
 final vertexPatchStoreProvider = VertexPatchStoreProvider._();

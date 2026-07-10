@@ -8,6 +8,8 @@ class ObservableGraphNode<T> with Observable {
   void set(T value) {
     this.value = value;
     revision++;
+    print("ObservableGraphNode $value set");
+
     notify();
   }
 }
