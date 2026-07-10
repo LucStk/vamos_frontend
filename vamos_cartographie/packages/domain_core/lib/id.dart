@@ -2,6 +2,10 @@
 
 import 'package:uuid/uuid.dart';
 
+abstract interface class HasId {
+  Id get id;
+}
+
 class Id<T> {
   final String value;
   const Id(this.value);
@@ -14,4 +18,9 @@ class Id<T> {
   int get hashCode => value.hashCode;
   @override
   String toString() => value;
+}
+
+class IdGenerator {
+  static int _currentId = -1;
+  static int next() => _currentId--;
 }

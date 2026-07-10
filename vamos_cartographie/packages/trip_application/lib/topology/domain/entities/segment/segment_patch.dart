@@ -1,5 +1,4 @@
 import 'package:domain_core/geometry.dart';
-import 'package:domain_core/has_id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:domain_core/id.dart';
 import 'package:trip_application/topology/domain/value_objects/mobility_types.dart';

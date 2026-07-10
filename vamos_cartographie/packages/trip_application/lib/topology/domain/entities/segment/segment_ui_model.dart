@@ -1,9 +1,9 @@
 import 'package:domain_core/geometry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:trip_application/topology/services/gis.dart';
 import '/topology/domain/value_objects/mobility_types.dart';
 import '/topology/domain/types/types.dart';
 import '/topology/domain/entities/entities.dart';
-import 'package:trip_application/helpers/gis.dart';
 part "segment_ui_model.freezed.dart";
 
 @freezed

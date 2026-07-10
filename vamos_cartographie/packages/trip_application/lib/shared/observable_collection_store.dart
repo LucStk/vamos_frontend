@@ -1,4 +1,3 @@
-import 'package:domain_core/has_id.dart';
 import 'package:domain_core/id.dart';
 import 'package:domain_core/observable.dart';
 import 'collection_store.dart';
