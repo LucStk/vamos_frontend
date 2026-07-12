@@ -372,15 +372,12 @@ extension MapModePatterns on MapMode {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Idle value)?  idle,TResult Function( CursorDrawn value)?  cursorDrawn,TResult Function( DraggingVertex value)?  draggingVertex,TResult Function( CreatingSegment value)?  creatingSegment,TResult Function( SplittingSegment value)?  splittingSegment,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Idle value)?  idle,TResult Function( SketchMode value)?  sketchMode,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle(_that);case CursorDrawn() when cursorDrawn != null:
-return cursorDrawn(_that);case DraggingVertex() when draggingVertex != null:
-return draggingVertex(_that);case CreatingSegment() when creatingSegment != null:
-return creatingSegment(_that);case SplittingSegment() when splittingSegment != null:
-return splittingSegment(_that);case _:
+return idle(_that);case SketchMode() when sketchMode != null:
+return sketchMode(_that);case _:
   return orElse();
 
 }
@@ -398,15 +395,12 @@ return splittingSegment(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Idle value)  idle,required TResult Function( CursorDrawn value)  cursorDrawn,required TResult Function( DraggingVertex value)  draggingVertex,required TResult Function( CreatingSegment value)  creatingSegment,required TResult Function( SplittingSegment value)  splittingSegment,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Idle value)  idle,required TResult Function( SketchMode value)  sketchMode,}){
 final _that = this;
 switch (_that) {
 case Idle():
-return idle(_that);case CursorDrawn():
-return cursorDrawn(_that);case DraggingVertex():
-return draggingVertex(_that);case CreatingSegment():
-return creatingSegment(_that);case SplittingSegment():
-return splittingSegment(_that);}
+return idle(_that);case SketchMode():
+return sketchMode(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -420,15 +414,12 @@ return splittingSegment(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Idle value)?  idle,TResult? Function( CursorDrawn value)?  cursorDrawn,TResult? Function( DraggingVertex value)?  draggingVertex,TResult? Function( CreatingSegment value)?  creatingSegment,TResult? Function( SplittingSegment value)?  splittingSegment,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Idle value)?  idle,TResult? Function( SketchMode value)?  sketchMode,}){
 final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle(_that);case CursorDrawn() when cursorDrawn != null:
-return cursorDrawn(_that);case DraggingVertex() when draggingVertex != null:
-return draggingVertex(_that);case CreatingSegment() when creatingSegment != null:
-return creatingSegment(_that);case SplittingSegment() when splittingSegment != null:
-return splittingSegment(_that);case _:
+return idle(_that);case SketchMode() when sketchMode != null:
+return sketchMode(_that);case _:
   return null;
 
 }
@@ -445,14 +436,11 @@ return splittingSegment(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( LatLng latLng)?  cursorDrawn,TResult Function( VertexRef vertexRef)?  draggingVertex,TResult Function( SegmentRef? segmentRef)?  creatingSegment,TResult Function( SegmentRef segmentRef)?  splittingSegment,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( VertexRef vertexStart,  List<LatLng> itineraire)?  sketchMode,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle();case CursorDrawn() when cursorDrawn != null:
-return cursorDrawn(_that.latLng);case DraggingVertex() when draggingVertex != null:
-return draggingVertex(_that.vertexRef);case CreatingSegment() when creatingSegment != null:
-return creatingSegment(_that.segmentRef);case SplittingSegment() when splittingSegment != null:
-return splittingSegment(_that.segmentRef);case _:
+return idle();case SketchMode() when sketchMode != null:
+return sketchMode(_that.vertexStart,_that.itineraire);case _:
   return orElse();
 
 }
@@ -470,14 +458,11 @@ return splittingSegment(_that.segmentRef);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( LatLng latLng)  cursorDrawn,required TResult Function( VertexRef vertexRef)  draggingVertex,required TResult Function( SegmentRef? segmentRef)  creatingSegment,required TResult Function( SegmentRef segmentRef)  splittingSegment,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( VertexRef vertexStart,  List<LatLng> itineraire)  sketchMode,}) {final _that = this;
 switch (_that) {
 case Idle():
-return idle();case CursorDrawn():
-return cursorDrawn(_that.latLng);case DraggingVertex():
-return draggingVertex(_that.vertexRef);case CreatingSegment():
-return creatingSegment(_that.segmentRef);case SplittingSegment():
-return splittingSegment(_that.segmentRef);}
+return idle();case SketchMode():
+return sketchMode(_that.vertexStart,_that.itineraire);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -491,14 +476,11 @@ return splittingSegment(_that.segmentRef);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( LatLng latLng)?  cursorDrawn,TResult? Function( VertexRef vertexRef)?  draggingVertex,TResult? Function( SegmentRef? segmentRef)?  creatingSegment,TResult? Function( SegmentRef segmentRef)?  splittingSegment,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( VertexRef vertexStart,  List<LatLng> itineraire)?  sketchMode,}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
-return idle();case CursorDrawn() when cursorDrawn != null:
-return cursorDrawn(_that.latLng);case DraggingVertex() when draggingVertex != null:
-return draggingVertex(_that.vertexRef);case CreatingSegment() when creatingSegment != null:
-return creatingSegment(_that.segmentRef);case SplittingSegment() when splittingSegment != null:
-return splittingSegment(_that.segmentRef);case _:
+return idle();case SketchMode() when sketchMode != null:
+return sketchMode(_that.vertexStart,_that.itineraire);case _:
   return null;
 
 }
@@ -541,129 +523,71 @@ String toString() {
 /// @nodoc
 
 
-class CursorDrawn implements MapMode {
-  const CursorDrawn({required this.latLng});
+class SketchMode implements MapMode {
+  const SketchMode({required this.vertexStart, required final  List<LatLng> itineraire}): _itineraire = itineraire;
   
 
- final  LatLng latLng;
+ final  VertexRef vertexStart;
+ final  List<LatLng> _itineraire;
+ List<LatLng> get itineraire {
+  if (_itineraire is EqualUnmodifiableListView) return _itineraire;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_itineraire);
+}
+
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$CursorDrawnCopyWith<CursorDrawn> get copyWith => _$CursorDrawnCopyWithImpl<CursorDrawn>(this, _$identity);
+$SketchModeCopyWith<SketchMode> get copyWith => _$SketchModeCopyWithImpl<SketchMode>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CursorDrawn&&(identical(other.latLng, latLng) || other.latLng == latLng));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchMode&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other._itineraire, _itineraire));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,latLng);
-
-@override
-String toString() {
-  return 'MapMode.cursorDrawn(latLng: $latLng)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $CursorDrawnCopyWith<$Res> implements $MapModeCopyWith<$Res> {
-  factory $CursorDrawnCopyWith(CursorDrawn value, $Res Function(CursorDrawn) _then) = _$CursorDrawnCopyWithImpl;
-@useResult
-$Res call({
- LatLng latLng
-});
-
-
-
-
-}
-/// @nodoc
-class _$CursorDrawnCopyWithImpl<$Res>
-    implements $CursorDrawnCopyWith<$Res> {
-  _$CursorDrawnCopyWithImpl(this._self, this._then);
-
-  final CursorDrawn _self;
-  final $Res Function(CursorDrawn) _then;
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? latLng = null,}) {
-  return _then(CursorDrawn(
-latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
-as LatLng,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class DraggingVertex implements MapMode {
-  const DraggingVertex({required this.vertexRef});
-  
-
- final  VertexRef vertexRef;
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$DraggingVertexCopyWith<DraggingVertex> get copyWith => _$DraggingVertexCopyWithImpl<DraggingVertex>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DraggingVertex&&(identical(other.vertexRef, vertexRef) || other.vertexRef == vertexRef));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,vertexRef);
+int get hashCode => Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(_itineraire));
 
 @override
 String toString() {
-  return 'MapMode.draggingVertex(vertexRef: $vertexRef)';
+  return 'MapMode.sketchMode(vertexStart: $vertexStart, itineraire: $itineraire)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $DraggingVertexCopyWith<$Res> implements $MapModeCopyWith<$Res> {
-  factory $DraggingVertexCopyWith(DraggingVertex value, $Res Function(DraggingVertex) _then) = _$DraggingVertexCopyWithImpl;
+abstract mixin class $SketchModeCopyWith<$Res> implements $MapModeCopyWith<$Res> {
+  factory $SketchModeCopyWith(SketchMode value, $Res Function(SketchMode) _then) = _$SketchModeCopyWithImpl;
 @useResult
 $Res call({
- VertexRef vertexRef
+ VertexRef vertexStart, List<LatLng> itineraire
 });
 
 
-$VertexRefCopyWith<$Res> get vertexRef;
+$VertexRefCopyWith<$Res> get vertexStart;
 
 }
 /// @nodoc
-class _$DraggingVertexCopyWithImpl<$Res>
-    implements $DraggingVertexCopyWith<$Res> {
-  _$DraggingVertexCopyWithImpl(this._self, this._then);
+class _$SketchModeCopyWithImpl<$Res>
+    implements $SketchModeCopyWith<$Res> {
+  _$SketchModeCopyWithImpl(this._self, this._then);
 
-  final DraggingVertex _self;
-  final $Res Function(DraggingVertex) _then;
+  final SketchMode _self;
+  final $Res Function(SketchMode) _then;
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? vertexRef = null,}) {
-  return _then(DraggingVertex(
-vertexRef: null == vertexRef ? _self.vertexRef : vertexRef // ignore: cast_nullable_to_non_nullable
-as VertexRef,
+@pragma('vm:prefer-inline') $Res call({Object? vertexStart = null,Object? itineraire = null,}) {
+  return _then(SketchMode(
+vertexStart: null == vertexStart ? _self.vertexStart : vertexStart // ignore: cast_nullable_to_non_nullable
+as VertexRef,itineraire: null == itineraire ? _self._itineraire : itineraire // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,
   ));
 }
 
@@ -671,163 +595,10 @@ as VertexRef,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$VertexRefCopyWith<$Res> get vertexRef {
+$VertexRefCopyWith<$Res> get vertexStart {
   
-  return $VertexRefCopyWith<$Res>(_self.vertexRef, (value) {
-    return _then(_self.copyWith(vertexRef: value));
-  });
-}
-}
-
-/// @nodoc
-
-
-class CreatingSegment implements MapMode {
-  const CreatingSegment({this.segmentRef});
-  
-
- final  SegmentRef? segmentRef;
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$CreatingSegmentCopyWith<CreatingSegment> get copyWith => _$CreatingSegmentCopyWithImpl<CreatingSegment>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreatingSegment&&(identical(other.segmentRef, segmentRef) || other.segmentRef == segmentRef));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,segmentRef);
-
-@override
-String toString() {
-  return 'MapMode.creatingSegment(segmentRef: $segmentRef)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $CreatingSegmentCopyWith<$Res> implements $MapModeCopyWith<$Res> {
-  factory $CreatingSegmentCopyWith(CreatingSegment value, $Res Function(CreatingSegment) _then) = _$CreatingSegmentCopyWithImpl;
-@useResult
-$Res call({
- SegmentRef? segmentRef
-});
-
-
-$SegmentRefCopyWith<$Res>? get segmentRef;
-
-}
-/// @nodoc
-class _$CreatingSegmentCopyWithImpl<$Res>
-    implements $CreatingSegmentCopyWith<$Res> {
-  _$CreatingSegmentCopyWithImpl(this._self, this._then);
-
-  final CreatingSegment _self;
-  final $Res Function(CreatingSegment) _then;
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? segmentRef = freezed,}) {
-  return _then(CreatingSegment(
-segmentRef: freezed == segmentRef ? _self.segmentRef : segmentRef // ignore: cast_nullable_to_non_nullable
-as SegmentRef?,
-  ));
-}
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SegmentRefCopyWith<$Res>? get segmentRef {
-    if (_self.segmentRef == null) {
-    return null;
-  }
-
-  return $SegmentRefCopyWith<$Res>(_self.segmentRef!, (value) {
-    return _then(_self.copyWith(segmentRef: value));
-  });
-}
-}
-
-/// @nodoc
-
-
-class SplittingSegment implements MapMode {
-  const SplittingSegment({required this.segmentRef});
-  
-
- final  SegmentRef segmentRef;
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SplittingSegmentCopyWith<SplittingSegment> get copyWith => _$SplittingSegmentCopyWithImpl<SplittingSegment>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SplittingSegment&&(identical(other.segmentRef, segmentRef) || other.segmentRef == segmentRef));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,segmentRef);
-
-@override
-String toString() {
-  return 'MapMode.splittingSegment(segmentRef: $segmentRef)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $SplittingSegmentCopyWith<$Res> implements $MapModeCopyWith<$Res> {
-  factory $SplittingSegmentCopyWith(SplittingSegment value, $Res Function(SplittingSegment) _then) = _$SplittingSegmentCopyWithImpl;
-@useResult
-$Res call({
- SegmentRef segmentRef
-});
-
-
-$SegmentRefCopyWith<$Res> get segmentRef;
-
-}
-/// @nodoc
-class _$SplittingSegmentCopyWithImpl<$Res>
-    implements $SplittingSegmentCopyWith<$Res> {
-  _$SplittingSegmentCopyWithImpl(this._self, this._then);
-
-  final SplittingSegment _self;
-  final $Res Function(SplittingSegment) _then;
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? segmentRef = null,}) {
-  return _then(SplittingSegment(
-segmentRef: null == segmentRef ? _self.segmentRef : segmentRef // ignore: cast_nullable_to_non_nullable
-as SegmentRef,
-  ));
-}
-
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SegmentRefCopyWith<$Res> get segmentRef {
-  
-  return $SegmentRefCopyWith<$Res>(_self.segmentRef, (value) {
-    return _then(_self.copyWith(segmentRef: value));
+  return $VertexRefCopyWith<$Res>(_self.vertexStart, (value) {
+    return _then(_self.copyWith(vertexStart: value));
   });
 }
 }

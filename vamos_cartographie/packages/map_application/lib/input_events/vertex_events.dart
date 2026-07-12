@@ -5,13 +5,15 @@ sealed class VertexEvent extends MapInputEvent {
 }
 
 class VertexButtonDeleteTapped extends VertexEvent {
-  final VertexRef vertexRef;
-  const VertexButtonDeleteTapped(this.vertexRef);
+  const VertexButtonDeleteTapped();
 }
 
 class VertexButtonCreateWaypoint extends VertexEvent {
-  final VertexRef vertexRef;
-  const VertexButtonCreateWaypoint(this.vertexRef);
+  const VertexButtonCreateWaypoint();
+}
+
+class ButtonStartSegment extends VertexEvent {
+  const ButtonStartSegment();
 }
 
 class VertexTapped extends VertexEvent {

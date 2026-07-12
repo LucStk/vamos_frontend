@@ -1,3 +1,4 @@
+import 'package:map_application/application/reducers/drawing_segment_reducer.dart';
 import 'package:map_application/map_application.dart';
 import "idle_reducer.dart";
 
@@ -8,10 +9,7 @@ TransitionResult reduce(MapState state, MapInputEvent event) {
 
   return switch (state.mode) {
     Idle _ => reduceIdle(state, event),
-    // CursorDrawn e => reduceCursor(state, event, e.latLng),
-    // DraggingVertex _ => reduceDraggingVertex(state, event),
-    // CreatingSegment _ => reduceCreatingSegment(state, event),
-    // SplittingSegment _ => reduceSplittingSegment(state, event),
+    SketchMode _ => reduceDrawingSegment(state, event),
     _ => TransitionResult(nextState: state),
   };
 }
@@ -34,26 +32,42 @@ TransitionResult? reduceSelection(MapState state, MapInputEvent event) {
         selection: MapSelection.none(),
       ),
     ),
-    CursorButtonCreateTapped _ => switch (state.selection) {
-      CursorSelection(:final latLng) => TransitionResult(
+    ButtonStartSegment _ => switch (state.selection.vertexRefOrNull) {
+      final vertexRef? => TransitionResult(
+        nextState: MapState(
+          mode: SketchMode(vertexStart: vertexRef, itineraire: []),
+        ),
+      ),
+      null => TransitionResult(nextState: state),
+    },
+    CursorButtonCreateTapped _ => switch (state.selection.cursorLatLngOrNull) {
+      final latLng? => TransitionResult(
         nextState: state.copyWith(
           mode: MapMode.idle(),
           selection: MapSelection.none(),
         ),
         intents: [CreateSimpleVertex(latLng)],
       ),
-      // Sécurité : ce bouton ne devrait être visible que si selection est un curseur.
-      // Si on arrive ici, c'est un bug UI en amont -> on ignore proprement.
-      _ => TransitionResult(nextState: state),
+      null => TransitionResult(
+        nextState: state,
+      ), // bug UI amont : bouton visible hors contexte
     },
-    VertexButtonDeleteTapped e => TransitionResult(
-      nextState: state.copyWith(selection: MapSelection.none()),
-      intents: [RemoveVertex(e.vertexRef)],
-    ),
-    VertexButtonCreateWaypoint e => TransitionResult(
-      nextState: state.copyWith(selection: MapSelection.none()),
-      intents: [CreateWaypointFromVertex(e.vertexRef)],
-    ),
+
+    VertexButtonDeleteTapped _ => switch (state.selection.vertexRefOrNull) {
+      final vertexRef? => TransitionResult(
+        nextState: state.copyWith(selection: MapSelection.none()),
+        intents: [RemoveVertex(vertexRef)],
+      ),
+      null => TransitionResult(nextState: state),
+    },
+
+    VertexButtonCreateWaypoint _ => switch (state.selection.vertexRefOrNull) {
+      final vertexRef? => TransitionResult(
+        nextState: state.copyWith(selection: MapSelection.none()),
+        intents: [CreateWaypointFromVertex(vertexRef)],
+      ),
+      null => TransitionResult(nextState: state),
+    },
     VertexTapped e => TransitionResult(
       nextState: state.copyWith(
         mode: MapMode.idle(),

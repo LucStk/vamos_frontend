@@ -42,12 +42,16 @@ class VertexBottomSheet extends ConsumerWidget {
             children: [
               DeleteButton(
                 onPressed: () =>
-                    notifier.sendUiEvent(VertexButtonDeleteTapped(vertexRef)),
+                    notifier.sendUiEvent(VertexButtonDeleteTapped()),
+              ),
+              ConfirmButton(
+                label: "Start segment",
+                onPressed: () => notifier.sendUiEvent(ButtonStartSegment()),
               ),
               ConfirmButton(
                 label: "Créer une étape ici",
                 onPressed: () =>
-                    notifier.sendUiEvent(VertexButtonCreateWaypoint(vertexRef)),
+                    notifier.sendUiEvent(VertexButtonCreateWaypoint()),
               ),
             ],
           ),

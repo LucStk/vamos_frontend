@@ -19,13 +19,10 @@ abstract class MapState with _$MapState {
 @freezed
 sealed class MapMode with _$MapMode {
   const factory MapMode.idle() = Idle;
-  const factory MapMode.cursorDrawn({required LatLng latLng}) = CursorDrawn;
-  const factory MapMode.draggingVertex({required VertexRef vertexRef}) =
-      DraggingVertex;
-  const factory MapMode.creatingSegment({SegmentRef? segmentRef}) =
-      CreatingSegment;
-  const factory MapMode.splittingSegment({required SegmentRef segmentRef}) =
-      SplittingSegment;
+  const factory MapMode.sketchMode({
+    required VertexRef vertexStart,
+    required List<LatLng> itineraire,
+  }) = SketchMode;
 }
 
 @freezed
@@ -40,6 +37,19 @@ sealed class MapSelection with _$MapSelection {
     required Id<Waypoint> waypointId,
     required VertexRef vertexRef, // le vertex lié, résolu à la sélection
   }) = WaypointSelection;
+}
+
+extension MapSelectionX on MapSelection {
+  LatLng? get cursorLatLngOrNull => switch (this) {
+    CursorSelection(:final latLng) => latLng,
+    _ => null,
+  };
+
+  VertexRef? get vertexRefOrNull => switch (this) {
+    VertexSelection(:final vertexRef) => vertexRef,
+    WaypointSelection(:final vertexRef) => vertexRef, // le vertex lié
+    _ => null,
+  };
 }
 
 @freezed
