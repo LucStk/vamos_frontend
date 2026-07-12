@@ -20,3 +20,7 @@ class CursorDoubleTapped extends CursorEvent {
   final LatLng latLng;
   const CursorDoubleTapped(this.latLng);
 }
+
+class CursorButtonCreateTapped extends CursorEvent {
+  const CursorButtonCreateTapped();
+}

@@ -16,7 +16,6 @@ class CollectionStore<T extends HasId> {
       store[value.id as Id<T>] = ObservableGraphNode<T>(value);
 
   void remove(Id<T> id) {
-    getRequired(id);
     store.remove(id);
   }
 }

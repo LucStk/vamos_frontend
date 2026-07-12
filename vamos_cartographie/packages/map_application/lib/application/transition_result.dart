@@ -1,4 +1,3 @@
-import 'package:map_application/application/map_state.dart';
 import 'package:map_application/map_application.dart';
 
 class TransitionResult {

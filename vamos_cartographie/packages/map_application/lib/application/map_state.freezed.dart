@@ -949,13 +949,13 @@ return waypoint(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexRef vertexRef)?  vertex,TResult Function( SegmentRef segmentRef)?  segment,TResult Function()?  cursor,TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexRef vertexRef)?  vertex,TResult Function( SegmentRef segmentRef)?  segment,TResult Function( LatLng latLng)?  cursor,TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
 return vertex(_that.vertexRef);case SegmentSelection() when segment != null:
 return segment(_that.segmentRef);case CursorSelection() when cursor != null:
-return cursor();case WaypointSelection() when waypoint != null:
+return cursor(_that.latLng);case WaypointSelection() when waypoint != null:
 return waypoint(_that.waypointId,_that.vertexRef);case _:
   return orElse();
 
@@ -974,13 +974,13 @@ return waypoint(_that.waypointId,_that.vertexRef);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexRef vertexRef)  vertex,required TResult Function( SegmentRef segmentRef)  segment,required TResult Function()  cursor,required TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)  waypoint,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexRef vertexRef)  vertex,required TResult Function( SegmentRef segmentRef)  segment,required TResult Function( LatLng latLng)  cursor,required TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)  waypoint,}) {final _that = this;
 switch (_that) {
 case NoSelection():
 return none();case VertexSelection():
 return vertex(_that.vertexRef);case SegmentSelection():
 return segment(_that.segmentRef);case CursorSelection():
-return cursor();case WaypointSelection():
+return cursor(_that.latLng);case WaypointSelection():
 return waypoint(_that.waypointId,_that.vertexRef);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -995,13 +995,13 @@ return waypoint(_that.waypointId,_that.vertexRef);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexRef vertexRef)?  vertex,TResult? Function( SegmentRef segmentRef)?  segment,TResult? Function()?  cursor,TResult? Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexRef vertexRef)?  vertex,TResult? Function( SegmentRef segmentRef)?  segment,TResult? Function( LatLng latLng)?  cursor,TResult? Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
 return vertex(_that.vertexRef);case SegmentSelection() when segment != null:
 return segment(_that.segmentRef);case CursorSelection() when cursor != null:
-return cursor();case WaypointSelection() when waypoint != null:
+return cursor(_that.latLng);case WaypointSelection() when waypoint != null:
 return waypoint(_that.waypointId,_that.vertexRef);case _:
   return null;
 
@@ -1196,33 +1196,67 @@ $SegmentRefCopyWith<$Res> get segmentRef {
 
 
 class CursorSelection implements MapSelection {
-  const CursorSelection();
+  const CursorSelection({required this.latLng});
   
 
+ final  LatLng latLng;
 
-
+/// Create a copy of MapSelection
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CursorSelectionCopyWith<CursorSelection> get copyWith => _$CursorSelectionCopyWithImpl<CursorSelection>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CursorSelection);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CursorSelection&&(identical(other.latLng, latLng) || other.latLng == latLng));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,latLng);
 
 @override
 String toString() {
-  return 'MapSelection.cursor()';
+  return 'MapSelection.cursor(latLng: $latLng)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $CursorSelectionCopyWith<$Res> implements $MapSelectionCopyWith<$Res> {
+  factory $CursorSelectionCopyWith(CursorSelection value, $Res Function(CursorSelection) _then) = _$CursorSelectionCopyWithImpl;
+@useResult
+$Res call({
+ LatLng latLng
+});
 
 
+
+
+}
+/// @nodoc
+class _$CursorSelectionCopyWithImpl<$Res>
+    implements $CursorSelectionCopyWith<$Res> {
+  _$CursorSelectionCopyWithImpl(this._self, this._then);
+
+  final CursorSelection _self;
+  final $Res Function(CursorSelection) _then;
+
+/// Create a copy of MapSelection
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? latLng = null,}) {
+  return _then(CursorSelection(
+latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+as LatLng,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

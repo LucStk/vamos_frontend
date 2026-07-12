@@ -4,6 +4,16 @@ sealed class VertexEvent extends MapInputEvent {
   const VertexEvent();
 }
 
+class VertexButtonDeleteTapped extends VertexEvent {
+  final VertexRef vertexRef;
+  const VertexButtonDeleteTapped(this.vertexRef);
+}
+
+class VertexButtonCreateWaypoint extends VertexEvent {
+  final VertexRef vertexRef;
+  const VertexButtonCreateWaypoint(this.vertexRef);
+}
+
 class VertexTapped extends VertexEvent {
   final VertexRef vertexRef;
   const VertexTapped(this.vertexRef);

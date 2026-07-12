@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/intents/intents.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
@@ -41,7 +41,13 @@ class VertexBottomSheet extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               DeleteButton(
-                onPressed: () => notifier.sendIntent(RemoveVertex(vertexRef)),
+                onPressed: () =>
+                    notifier.sendUiEvent(VertexButtonDeleteTapped(vertexRef)),
+              ),
+              ConfirmButton(
+                label: "Créer une étape ici",
+                onPressed: () =>
+                    notifier.sendUiEvent(VertexButtonCreateWaypoint(vertexRef)),
               ),
             ],
           ),
