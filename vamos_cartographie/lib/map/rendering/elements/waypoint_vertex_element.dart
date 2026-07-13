@@ -32,4 +32,6 @@ class WaypointElement extends VertexElement {
   @override
   MapInputEvent dragEndEvent(LatLng latLng) =>
       WaypointDragEnded(waypoint.id, super.vertexUi.ref, latLng);
+  @override
+  MapInputEvent dragUpdateEvent(LatLng latLng) => WaypointDragUpdate(latLng);
 }

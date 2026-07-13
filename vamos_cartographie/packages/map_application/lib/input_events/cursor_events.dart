@@ -11,6 +11,11 @@ class CursorDraggedEnd extends CursorEvent {
   const CursorDraggedEnd(this.latLng);
 }
 
+class CursorDragUpdate extends CursorEvent {
+  final LatLng latLng;
+  const CursorDragUpdate(this.latLng);
+}
+
 class CursorTapped extends CursorEvent {
   final LatLng latLng;
   const CursorTapped(this.latLng);

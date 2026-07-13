@@ -28,3 +28,8 @@ class WaypointDragEnded extends WaypointEvent {
   final LatLng latLng;
   const WaypointDragEnded(this.waypointId, this.vertexRef, this.latLng);
 }
+
+class WaypointDragUpdate extends CursorEvent {
+  final LatLng latLng;
+  const WaypointDragUpdate(this.latLng);
+}

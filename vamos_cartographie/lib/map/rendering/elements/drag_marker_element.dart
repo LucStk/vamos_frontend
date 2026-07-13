@@ -9,6 +9,7 @@ abstract class DragMarkerElement extends MarkerElement {
   @override
   Widget buildMarker({bool isDragging = false});
 
-  MapInputEvent dragStartEvent(LatLng latng);
+  MapInputEvent dragStartEvent(LatLng latLng);
   MapInputEvent dragEndEvent(LatLng latlng);
+  MapInputEvent dragUpdateEvent(LatLng latLng);
 }

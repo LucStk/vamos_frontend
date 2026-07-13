@@ -36,3 +36,8 @@ class VertexDragEnd extends VertexEvent {
   final LatLng latLng;
   const VertexDragEnd(this.vertexRef, this.latLng);
 }
+
+class VertexDragUpdate extends CursorEvent {
+  final LatLng latLng;
+  const VertexDragUpdate(this.latLng);
+}

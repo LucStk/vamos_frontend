@@ -4,11 +4,20 @@ sealed class PencilEvent extends MapInputEvent {
   const PencilEvent();
 }
 
+class HoverSketchItineraire extends PencilEvent {
+  const HoverSketchItineraire();
+}
+
 class PencilDraggedStart extends PencilEvent {}
 
 class PencilDraggedEnd extends PencilEvent {
   final LatLng latLng;
   const PencilDraggedEnd(this.latLng);
+}
+
+class PencilDragUpdate extends CursorEvent {
+  final LatLng latLng;
+  const PencilDragUpdate(this.latLng);
 }
 
 class PencilTapped extends PencilEvent {

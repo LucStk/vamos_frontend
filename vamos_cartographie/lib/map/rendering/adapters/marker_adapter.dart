@@ -36,6 +36,8 @@ DragMarker toDragMarker(
       onDoubleTap: () => mapStateNotifier.sendUiEvent(element.tapEvent()),
       child: element.buildMarker(isDragging: isDragging),
     ),
+    onDragUpdate: (_, LatLng latLng) =>
+        mapStateNotifier.sendUiEvent(element.dragUpdateEvent(latLng)),
 
     onDragStart: (_, LatLng latLng) =>
         mapStateNotifier.sendUiEvent(element.dragStartEvent(latLng)),

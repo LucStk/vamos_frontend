@@ -45,4 +45,6 @@ class VertexElement extends DragMarkerElement {
   @override
   MapInputEvent dragEndEvent(LatLng latLng) =>
       VertexDragEnd(vertexUi.ref, latLng);
+  @override
+  MapInputEvent dragUpdateEvent(LatLng latLng) => VertexDragUpdate(latLng);
 }

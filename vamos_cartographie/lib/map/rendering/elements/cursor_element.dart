@@ -18,6 +18,8 @@ class CursorElement extends DragMarkerElement {
   @override
   MapInputEvent doubleTapEvent() => CursorDoubleTapped(latLng);
   @override
+  MapInputEvent dragUpdateEvent(LatLng latLng) => CursorDragUpdate(latLng);
+  @override
   MapInputEvent dragStartEvent(LatLng latLng) => CursorDraggedStart();
   @override
   MapInputEvent dragEndEvent(LatLng latLng) => CursorDraggedEnd(latLng);

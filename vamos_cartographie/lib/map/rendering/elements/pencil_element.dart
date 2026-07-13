@@ -11,14 +11,16 @@ class PencilElement extends DragMarkerElement {
 
   @override
   Widget buildMarker({bool isDragging = false}) =>
-      Icon(Icons.place_sharp, size: 30, color: Colors.black);
+      Icon(Icons.draw_sharp, size: 30, color: Colors.black);
 
   @override
-  MapInputEvent tapEvent() => CursorTapped(latLng);
+  MapInputEvent tapEvent() => PencilTapped(latLng);
   @override
-  MapInputEvent doubleTapEvent() => CursorDoubleTapped(latLng);
+  MapInputEvent doubleTapEvent() => PencilDoubleTapped(latLng);
   @override
-  MapInputEvent dragStartEvent(LatLng latLng) => CursorDraggedStart();
+  MapInputEvent dragStartEvent(LatLng latLng) => PencilDraggedStart();
   @override
-  MapInputEvent dragEndEvent(LatLng latLng) => CursorDraggedEnd(latLng);
+  MapInputEvent dragEndEvent(LatLng latLng) => PencilDraggedEnd(latLng);
+  @override
+  MapInputEvent dragUpdateEvent(LatLng latLng) => PencilDragUpdate(latLng);
 }
