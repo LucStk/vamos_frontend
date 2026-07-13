@@ -15,9 +15,10 @@ class PencilDraggedEnd extends PencilEvent {
   const PencilDraggedEnd(this.latLng);
 }
 
-class PencilDragUpdate extends CursorEvent {
+class PencilDragUpdate extends MapInputEvent {
   final LatLng latLng;
-  const PencilDragUpdate(this.latLng);
+  final VertexRef? touchedVertex;
+  const PencilDragUpdate({required this.latLng, this.touchedVertex});
 }
 
 class PencilTapped extends PencilEvent {

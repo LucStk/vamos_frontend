@@ -3,14 +3,13 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_application/application/map_state.dart';
 import 'package:map_application/input_events/input_events.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/rendering/elements/pencil_element.dart';
+import 'package:vamos_cartographie/map/rendering/helpers/vertex_hit_test.dart';
 import 'package:vamos_cartographie/topology/injection/queries/queries.dart';
 import '/map/map.dart';
-
-import "adapters/adapters.dart";
 
 class SketchLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -53,10 +52,21 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
         final vertex = ref.read(
           vertexUiElementProvider(widget.tripId, e.vertexStart),
         );
+
         final pencilLatLng = e.itineraire.isEmpty
             ? vertex.latLng
             : e.itineraire.last;
+        final mapController = MapController.of(context);
 
+        final vertexIds = ref.watch(vertexRefsProvider);
+        final allVertices = ref.watch(
+          vertexProvider(widget.tripId),
+        ); // à toi de nommer ce provider
+        final hoveredVertex = findNearbyVertex(
+          point: pencilLatLng,
+          vertices: allVertices,
+          mapController: mapController,
+        );
         return Stack(
           children: [
             PolylineLayer(
@@ -70,10 +80,41 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
             ),
             DragMarkers(
               markers: [
-                toDragMarker(
-                  PencilElement(widget.tripId, pencilLatLng),
-                  widget.tripId,
-                  mapStateNotifier,
+                DragMarker(
+                  point: vertex.latLng,
+                  size: const Size(26, 26),
+
+                  builder: (_, LatLng latLng, isDragging) => GestureDetector(
+                    onTap: () =>
+                        mapStateNotifier.sendUiEvent(PencilTapped(latLng)),
+                    onDoubleTap: () => mapStateNotifier.sendUiEvent(
+                      PencilDoubleTapped(latLng),
+                    ),
+                    child: Icon(
+                      Icons.draw_sharp,
+                      size: 30,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onDragUpdate: (_, LatLng latLng) {
+                    final camera = MapCamera.of(context);
+                    final hit = findNearbyVertex(
+                      point: latLng,
+                      vertices: allVertices,
+                      camera: camera,
+                    );
+                    mapStateNotifier.sendUiEvent(
+                      PencilDragUpdate(
+                        latLng: latLng,
+                        touchedVertex: hit?.vertexRef,
+                      ),
+                    );
+                  },
+                  onDragStart: (_, LatLng latLng) =>
+                      mapStateNotifier.sendUiEvent(PencilDraggedStart()),
+
+                  onDragEnd: (_, LatLng latLng) =>
+                      mapStateNotifier.sendUiEvent(PencilDraggedEnd(latLng)),
                 ),
               ],
             ),
