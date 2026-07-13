@@ -9,46 +9,22 @@ DragMarker toVertexMarker(
   VertexElement element,
   Id<Trip> tripId,
   MapStateNotifier mapStateNotifier,
+  bool disableDrag, // 👈 nouveau paramètre
 ) {
   const totalSize = 26.0;
   return DragMarker(
     point: element.latLng,
     size: const Size(totalSize, totalSize),
-
-    // Déplacer le point nécessite désormais un appui long avant le drag,
-    // ce qui libère le pan immédiat pour nos poignées de connexion.
-    // useLongPress: true,
+    disableDrag: disableDrag, // 👈
     builder: (context, LatLng latLng, isDragging) {
       return Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
         children: [
-          // --- Marqueur principal : tap = dialog, long-press+drag = déplacement ---
           GestureDetector(
             onTap: () => mapStateNotifier.sendUiEvent(element.tapEvent()),
-            // onDoubleTap: () => mapStateNotifier.sendUiEvent(element.tapEvent()),
             child: element.buildMarker(isDragging: isDragging),
           ),
-
-          // Positioned(
-          //   left: -handleSize * 0.6,
-          //   child: ConnectionHandle(
-          //     type: ConnectionHandleType.incoming,
-          //     element: element,
-          //     mapStateNotifier: mapStateNotifier,
-          //     size: handleSize,
-          //   ),
-          // ),
-
-          // Positioned(
-          //   right: -handleSize * 0.6,
-          //   child: ConnectionHandle(
-          //     type: ConnectionHandleType.outgoing,
-          //     element: element,
-          //     mapStateNotifier: mapStateNotifier,
-          //     size: handleSize,
-          //   ),
-          // ),
         ],
       );
     },
