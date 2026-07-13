@@ -1,9 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:media_application/runtime/observables/observable_media_store.dart';
-import 'package:trip_application/topology/runtime/runtime.dart';
-import 'package:trip_application/trip/domain/trip.dart';
-import 'package:trip_application/trip/domain/trip_repository.dart';
 import 'package:trip_application/trip_application.dart';
 
 class TripQueryHandler {
@@ -53,7 +50,6 @@ class TripQueryHandler {
           onSuccess: (data) {
             waypointStore.clear();
             graphStore.clear();
-            graphPatchStore.clear();
 
             for (final (w, listImages) in data.waypoints_images) {
               waypointStore.upsert(w);

@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:trip_application/shared/shared.dart';
 
 import 'package:trip_application/trip/domain/trip.dart';
 import '/topology/domain/domain.dart';
@@ -31,12 +30,10 @@ class TopologyHandler {
       );
     }
     return await executor.run(
-      onApply: () => graphStore.segmentStore.insert(segment),
+      onApply: () => graphStore.upsertSegment(segment),
       remote: () => segmentRepo.updateSegment(segment),
-      onSuccess: (serveurValue) => graphStore.updateSegment(serveurValue),
-      onError: (Failure failure) {
-        graphStore.updateSegment(oldValue);
-      },
+      onSuccess: (serveurValue) => graphStore.commitSegment(serveurValue),
+      onError: (Failure failure) => graphStore.rollbackSegment(segment.id),
     );
   }
 
@@ -44,47 +41,29 @@ class TopologyHandler {
     return await executor.run(
       onApply: () {},
       remote: () => vertexRepo.createVertex(tripId, latLng),
-      onSuccess: (Vertex serveurValue) => graphStore.insertVertex(serveurValue),
+      onSuccess: (Vertex serveurValue) => graphStore.upsertVertex(serveurValue),
       onError: (Failure failure) {},
     );
   }
 
   Future<Either<Failure, Vertex>> moveVertex(
-    VertexRef ref,
+    VertexId vid,
     LatLng latLng,
   ) async {
     return await executor.run(
-      onApply: () {
-        switch (ref) {
-          case ConfirmedVertexRef e:
-            graphPatchStore.insertVertexPatch(
-              VertexPatch(
-                id: Id<VertexPatch>(e.id.value),
-                positionOverride: latLng,
-              ),
-            );
-          case PendingVertexRef e:
-            graphPatchStore.updateVertexPatch(
-              VertexPatch(id: e.id, positionOverride: latLng),
-            );
-        }
-      },
-      remote: () => vertexRepo.moveVertex(VertexId(ref.id.value), latLng),
-      onSuccess: (Vertex serveurValue) {
-        graphStore.updateVertex(serveurValue);
-        graphPatchStore.removeVertexPatch(Id<VertexPatch>(ref.id.value));
-      },
-      onError: (Failure failure) {},
+      onApply: () => graphStore.upsertVertex(Vertex(id: vid, latLng: latLng)),
+      remote: () => vertexRepo.moveVertex(VertexId(vid.value), latLng),
+      onSuccess: (Vertex serveurValue) => graphStore.commitVertex(serveurValue),
+      onError: (Failure failure) => graphStore.rollbackVertex(vid),
     );
   }
 
-  Future<Either<Failure, void>> removeVertex(VertexRef ref) async {
+  Future<Either<Failure, void>> removeVertex(VertexId vid) async {
     return await executor.run(
       onApply: () {},
-      remote: () => vertexRepo.deleteVertex(VertexId(ref.id.value)),
+      remote: () => vertexRepo.deleteVertex(VertexId(vid.value)),
       onSuccess: (_) {
-        graphStore.removeVertex(Id<Vertex>(ref.id.value));
-        graphPatchStore.removeVertexPatch(Id<VertexPatch>(ref.id.value));
+        graphStore.removeVertex(Id<Vertex>(vid.value));
       },
       onError: (Failure failure) {},
     );

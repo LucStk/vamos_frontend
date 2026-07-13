@@ -7,7 +7,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'collection_store.freezed.dart';
 
 @freezed
-abstract class CollectionStore<T extends HasId> with _$CollectionStore<T> {
+abstract class CollectionStore<T extends Patchable<T>>
+    with _$CollectionStore<T> {
   // On utilise un constructeur privé pour pouvoir ajouter des méthodes et des getters
   const CollectionStore._();
 
@@ -21,7 +22,7 @@ abstract class CollectionStore<T extends HasId> with _$CollectionStore<T> {
     return updated;
   }
 
-  CollectionStore<T> insert(NodeState state) {
+  CollectionStore<T> upsert(NodeState<T> state) {
     final newStore = Map<Id<T>, GraphNode<T>>.from(store);
     // Ici, state.id fonctionne si NodeState<T> expose bien 'id'
     newStore[state.id] = GraphNode<T>(state);
@@ -39,10 +40,10 @@ abstract class CollectionStore<T extends HasId> with _$CollectionStore<T> {
 
 // --- Les Getters (Extension) ---
 
-extension CollectionStoreGetters<T extends HasId> on CollectionStore<T> {
-  GraphNode<T>? getNode(Id<T> id) => store[id];
+extension CollectionStoreGetters<T extends Patchable<T>> on CollectionStore<T> {
+  GraphNode? getNode(Id<T> id) => store[id];
 
-  GraphNode<T> getNodeRequired(Id<T> id) {
+  GraphNode getNodeRequired(Id<T> id) {
     final res = getNode(id);
     if (res == null) {
       throw Exception("Id $id of $T not found in store");

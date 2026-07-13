@@ -21,10 +21,13 @@ sealed class NodeState<T extends Patchable<T>> with _$NodeState<T> {
     T? originalValue,
   }) = HasPatch<T>;
 
-  NodeState<T> patchEntity(T value) {
-    return NodeState.hasPatch(patch: value.createPatch(), originalValue: value);
-  }
+  factory NodeState.patchEntity(T value) =>
+      NodeState.hasPatch(patch: value.createPatch(), originalValue: value);
 
+  T? get originalValue => when(
+    hasValue: (value) => value,
+    hasPatch: (_, originalValue) => originalValue,
+  );
   // Ton getter magique reste inchangé et super propre grâce au pattern matching de Freezed
   Id<T> get id {
     return when(

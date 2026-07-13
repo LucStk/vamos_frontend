@@ -7,11 +7,6 @@ class GraphNode<T extends Patchable<T>> {
   GraphNode(this._state);
   NodeState get current => _state;
 
-  T? get originalValue => _state.when(
-    hasValue: (value) => value,
-    hasPatch: (_, originalValue) => originalValue,
-  );
-
   void set(Patch<T> patchValue) {
     _state = NodeState.hasPatch(
       patch: patchValue,
@@ -21,7 +16,11 @@ class GraphNode<T extends Patchable<T>> {
   }
 
   // 2. Si le commit réussit
-  void commit() {
+  void commit(T? serverValue) {
+    if (serverValue != null) {
+      _state = HasValue(serverValue);
+      revision++;
+    }
     if (_state case HasPatch(patch: final p)) {
       final newValue = p.toEntity();
       _state = HasValue(newValue);

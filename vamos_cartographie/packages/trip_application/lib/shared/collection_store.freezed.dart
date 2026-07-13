@@ -12,7 +12,7 @@ part of 'collection_store.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$CollectionStore<T extends HasId> {
+mixin _$CollectionStore<T extends Patchable<T>> {
 
  Map<Id<T>, GraphNode<T>> get store;
 /// Create a copy of CollectionStore
@@ -41,7 +41,7 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $CollectionStoreCopyWith<T extends HasId,$Res>  {
+abstract mixin class $CollectionStoreCopyWith<T extends Patchable<T>,$Res>  {
   factory $CollectionStoreCopyWith(CollectionStore<T> value, $Res Function(CollectionStore<T>) _then) = _$CollectionStoreCopyWithImpl;
 @useResult
 $Res call({
@@ -53,7 +53,7 @@ $Res call({
 
 }
 /// @nodoc
-class _$CollectionStoreCopyWithImpl<T extends HasId,$Res>
+class _$CollectionStoreCopyWithImpl<T extends Patchable<T>,$Res>
     implements $CollectionStoreCopyWith<T, $Res> {
   _$CollectionStoreCopyWithImpl(this._self, this._then);
 
@@ -73,7 +73,7 @@ as Map<Id<T>, GraphNode<T>>,
 
 
 /// Adds pattern-matching-related methods to [CollectionStore].
-extension CollectionStorePatterns<T extends HasId> on CollectionStore<T> {
+extension CollectionStorePatterns<T extends Patchable<T>> on CollectionStore<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -205,7 +205,7 @@ return $default(_that.store);case _:
 /// @nodoc
 
 
-class _CollectionStore<T extends HasId> extends CollectionStore<T> {
+class _CollectionStore<T extends Patchable<T>> extends CollectionStore<T> {
   const _CollectionStore({final  Map<Id<T>, GraphNode<T>> store = const {}}): _store = store,super._();
   
 
@@ -243,7 +243,7 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$CollectionStoreCopyWith<T extends HasId,$Res> implements $CollectionStoreCopyWith<T, $Res> {
+abstract mixin class _$CollectionStoreCopyWith<T extends Patchable<T>,$Res> implements $CollectionStoreCopyWith<T, $Res> {
   factory _$CollectionStoreCopyWith(_CollectionStore<T> value, $Res Function(_CollectionStore<T>) _then) = __$CollectionStoreCopyWithImpl;
 @override @useResult
 $Res call({
@@ -255,7 +255,7 @@ $Res call({
 
 }
 /// @nodoc
-class __$CollectionStoreCopyWithImpl<T extends HasId,$Res>
+class __$CollectionStoreCopyWithImpl<T extends Patchable<T>,$Res>
     implements _$CollectionStoreCopyWith<T, $Res> {
   __$CollectionStoreCopyWithImpl(this._self, this._then);
 
