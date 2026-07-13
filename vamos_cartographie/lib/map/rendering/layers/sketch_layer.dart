@@ -66,7 +66,7 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
             PolylineLayer(
               polylines: [
                 Polyline(
-                  points: e.itineraire,
+                  points: [vertex.latLng, ...e.itineraire],
                   color: Colors.lightBlue,
                   strokeWidth: 5,
                 ),
