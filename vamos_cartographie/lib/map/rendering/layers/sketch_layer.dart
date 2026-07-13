@@ -9,7 +9,8 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/rendering/elements/pencil_element.dart';
 import 'package:vamos_cartographie/topology/injection/queries/queries.dart';
 import '/map/map.dart';
-import "/map/rendering/adapters/adapters.dart";
+
+import "adapters/adapters.dart";
 
 class SketchLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -52,23 +53,27 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
         final vertex = ref.read(
           vertexUiElementProvider(widget.tripId, e.vertexStart),
         );
+        final pencilLatLng = e.itineraire.isEmpty
+            ? vertex.latLng
+            : e.itineraire.last;
+
         return Stack(
           children: [
-            DragMarkers(
-              markers: [
-                toDragMarker(
-                  PencilElement(widget.tripId, vertex.latLng),
-                  widget.tripId,
-                  mapStateNotifier,
-                ),
-              ],
-            ),
             PolylineLayer(
               polylines: [
                 Polyline(
                   points: [vertex.latLng, ...e.itineraire],
                   color: Colors.lightBlue,
                   strokeWidth: 5,
+                ),
+              ],
+            ),
+            DragMarkers(
+              markers: [
+                toDragMarker(
+                  PencilElement(widget.tripId, pencilLatLng),
+                  widget.tripId,
+                  mapStateNotifier,
                 ),
               ],
             ),

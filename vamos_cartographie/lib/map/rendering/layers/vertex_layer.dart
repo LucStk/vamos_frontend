@@ -6,7 +6,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import '/map/map.dart';
 
-import "/map/rendering/adapters/adapters.dart";
+import "adapters/adapters.dart";
 
 class VertexLayer extends ConsumerWidget {
   final Id<Trip> tripId;
