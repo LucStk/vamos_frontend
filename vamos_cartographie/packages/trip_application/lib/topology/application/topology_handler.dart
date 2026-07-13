@@ -10,7 +10,6 @@ import '/topology/runtime/runtime.dart';
 
 class TopologyHandler {
   GraphStore graphStore;
-  GraphPatchStore graphPatchStore;
   SegmentRepository segmentRepo;
   VertexRepository vertexRepo;
   OptimisticExecutor executor;
@@ -19,21 +18,20 @@ class TopologyHandler {
   TopologyHandler(
     this.tripId,
     this.graphStore,
-    this.graphPatchStore,
     this.segmentRepo,
     this.vertexRepo,
     this.executor,
   );
 
   Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
-    final Segment? oldValue = graphStore.segmentStore.get(segment.id);
+    final oldValue = graphStore.segmentStore.store[segment.id];
     if (oldValue == null) {
       return Left(
         NotFoundFailure(resourceType: "Segment", resourceId: "${segment.id}"),
       );
     }
     return await executor.run(
-      onApply: () => graphStore.updateSegment(segment),
+      onApply: () => graphStore.segmentStore.insert(segment),
       remote: () => segmentRepo.updateSegment(segment),
       onSuccess: (serveurValue) => graphStore.updateSegment(serveurValue),
       onError: (Failure failure) {

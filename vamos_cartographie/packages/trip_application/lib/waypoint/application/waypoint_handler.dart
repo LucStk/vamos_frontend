@@ -2,13 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:domain_core/optimitic_executor.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:trip_application/topology/domain/entities/entities.dart';
-import 'package:trip_application/topology/domain/types/types.dart';
-import 'package:trip_application/topology/runtime/runtime.dart';
-import 'package:trip_application/trip/domain/trip.dart';
 import 'package:trip_application/trip_application.dart';
-import "/waypoint/domain/domain.dart";
-import "/waypoint/runtime/runtime.dart";
 
 class WaypointHandler {
   WaypointStore waypointStore;

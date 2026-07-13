@@ -14,7 +14,12 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SegmentRef {
 
- Id<HasId> get id;
+ Id<Segment> get id;
+/// Create a copy of SegmentRef
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SegmentRefCopyWith<SegmentRef> get copyWith => _$SegmentRefCopyWithImpl<SegmentRef>(this as SegmentRef, _$identity);
 
 
 
@@ -36,8 +41,34 @@ String toString() {
 }
 
 /// @nodoc
-class $SegmentRefCopyWith<$Res>  {
-$SegmentRefCopyWith(SegmentRef _, $Res Function(SegmentRef) __);
+abstract mixin class $SegmentRefCopyWith<$Res>  {
+  factory $SegmentRefCopyWith(SegmentRef value, $Res Function(SegmentRef) _then) = _$SegmentRefCopyWithImpl;
+@useResult
+$Res call({
+ Id<Segment> id
+});
+
+
+
+
+}
+/// @nodoc
+class _$SegmentRefCopyWithImpl<$Res>
+    implements $SegmentRefCopyWith<$Res> {
+  _$SegmentRefCopyWithImpl(this._self, this._then);
+
+  final SegmentRef _self;
+  final $Res Function(SegmentRef) _then;
+
+/// Create a copy of SegmentRef
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<Segment>,
+  ));
+}
+
 }
 
 
@@ -119,7 +150,7 @@ return pending(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<Segment> id)?  confirmed,TResult Function( Id<SegmentPatch> id)?  pending,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<Segment> id)?  confirmed,TResult Function( Id<Segment> id)?  pending,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ConfirmedSegmentRef() when confirmed != null:
 return confirmed(_that.id);case PendingSegmentRef() when pending != null:
@@ -141,7 +172,7 @@ return pending(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<Segment> id)  confirmed,required TResult Function( Id<SegmentPatch> id)  pending,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<Segment> id)  confirmed,required TResult Function( Id<Segment> id)  pending,}) {final _that = this;
 switch (_that) {
 case ConfirmedSegmentRef():
 return confirmed(_that.id);case PendingSegmentRef():
@@ -159,7 +190,7 @@ return pending(_that.id);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<Segment> id)?  confirmed,TResult? Function( Id<SegmentPatch> id)?  pending,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<Segment> id)?  confirmed,TResult? Function( Id<Segment> id)?  pending,}) {final _that = this;
 switch (_that) {
 case ConfirmedSegmentRef() when confirmed != null:
 return confirmed(_that.id);case PendingSegmentRef() when pending != null:
@@ -182,7 +213,7 @@ class ConfirmedSegmentRef implements SegmentRef {
 
 /// Create a copy of SegmentRef
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $ConfirmedSegmentRefCopyWith<ConfirmedSegmentRef> get copyWith => _$ConfirmedSegmentRefCopyWithImpl<ConfirmedSegmentRef>(this, _$identity);
 
@@ -208,7 +239,7 @@ String toString() {
 /// @nodoc
 abstract mixin class $ConfirmedSegmentRefCopyWith<$Res> implements $SegmentRefCopyWith<$Res> {
   factory $ConfirmedSegmentRefCopyWith(ConfirmedSegmentRef value, $Res Function(ConfirmedSegmentRef) _then) = _$ConfirmedSegmentRefCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
  Id<Segment> id
 });
@@ -227,7 +258,7 @@ class _$ConfirmedSegmentRefCopyWithImpl<$Res>
 
 /// Create a copy of SegmentRef
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
   return _then(ConfirmedSegmentRef(
 null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as Id<Segment>,
@@ -244,11 +275,11 @@ class PendingSegmentRef implements SegmentRef {
   const PendingSegmentRef(this.id);
   
 
-@override final  Id<SegmentPatch> id;
+@override final  Id<Segment> id;
 
 /// Create a copy of SegmentRef
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $PendingSegmentRefCopyWith<PendingSegmentRef> get copyWith => _$PendingSegmentRefCopyWithImpl<PendingSegmentRef>(this, _$identity);
 
@@ -274,9 +305,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $PendingSegmentRefCopyWith<$Res> implements $SegmentRefCopyWith<$Res> {
   factory $PendingSegmentRefCopyWith(PendingSegmentRef value, $Res Function(PendingSegmentRef) _then) = _$PendingSegmentRefCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- Id<SegmentPatch> id
+ Id<Segment> id
 });
 
 
@@ -293,10 +324,10 @@ class _$PendingSegmentRefCopyWithImpl<$Res>
 
 /// Create a copy of SegmentRef
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
   return _then(PendingSegmentRef(
 null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<SegmentPatch>,
+as Id<Segment>,
   ));
 }
 

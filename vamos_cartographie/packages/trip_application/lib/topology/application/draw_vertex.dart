@@ -2,11 +2,10 @@ import 'package:domain_core/optimitic_executor.dart';
 import 'package:trip_application/topology/runtime/runtime.dart';
 
 class DrawVertex {
-  final GraphPatchStore patchStore;
   final GraphStore store;
   final OptimisticExecutor executor;
 
-  DrawVertex(this.store, this.patchStore, this.executor);
+  DrawVertex(this.store, this.executor);
 
   // Future<void> call(Id<Vertex> vertexId, LatLng latLng) async {
   //   late Vertex oldValue;

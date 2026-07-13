@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'vertex_patch.dart';
+part of 'vertex_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,9 +12,269 @@ part of 'vertex_patch.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
+mixin _$Vertex {
+
+ Id<Vertex> get id; LatLng get latLng;
+/// Create a copy of Vertex
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VertexCopyWith<Vertex> get copyWith => _$VertexCopyWithImpl<Vertex>(this as Vertex, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Vertex&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id,latLng);
+
+@override
+String toString() {
+  return 'Vertex(id: $id, latLng: $latLng)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $VertexCopyWith<$Res>  {
+  factory $VertexCopyWith(Vertex value, $Res Function(Vertex) _then) = _$VertexCopyWithImpl;
+@useResult
+$Res call({
+ Id<Vertex> id, LatLng latLng
+});
+
+
+
+
+}
+/// @nodoc
+class _$VertexCopyWithImpl<$Res>
+    implements $VertexCopyWith<$Res> {
+  _$VertexCopyWithImpl(this._self, this._then);
+
+  final Vertex _self;
+  final $Res Function(Vertex) _then;
+
+/// Create a copy of Vertex
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? latLng = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+as LatLng,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [Vertex].
+extension VertexPatterns on Vertex {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Vertex value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Vertex() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Vertex value)  $default,){
+final _that = this;
+switch (_that) {
+case _Vertex():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Vertex value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Vertex() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Vertex> id,  LatLng latLng)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Vertex() when $default != null:
+return $default(_that.id,_that.latLng);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Vertex> id,  LatLng latLng)  $default,) {final _that = this;
+switch (_that) {
+case _Vertex():
+return $default(_that.id,_that.latLng);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Vertex> id,  LatLng latLng)?  $default,) {final _that = this;
+switch (_that) {
+case _Vertex() when $default != null:
+return $default(_that.id,_that.latLng);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _Vertex extends Vertex {
+  const _Vertex({required this.id, required this.latLng}): super._();
+  
+
+@override final  Id<Vertex> id;
+@override final  LatLng latLng;
+
+/// Create a copy of Vertex
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$VertexCopyWith<_Vertex> get copyWith => __$VertexCopyWithImpl<_Vertex>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Vertex&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id,latLng);
+
+@override
+String toString() {
+  return 'Vertex(id: $id, latLng: $latLng)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$VertexCopyWith<$Res> implements $VertexCopyWith<$Res> {
+  factory _$VertexCopyWith(_Vertex value, $Res Function(_Vertex) _then) = __$VertexCopyWithImpl;
+@override @useResult
+$Res call({
+ Id<Vertex> id, LatLng latLng
+});
+
+
+
+
+}
+/// @nodoc
+class __$VertexCopyWithImpl<$Res>
+    implements _$VertexCopyWith<$Res> {
+  __$VertexCopyWithImpl(this._self, this._then);
+
+  final _Vertex _self;
+  final $Res Function(_Vertex) _then;
+
+/// Create a copy of Vertex
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? latLng = null,}) {
+  return _then(_Vertex(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+as LatLng,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$VertexPatch {
 
- Id<VertexPatch> get id; LatLng get positionOverride; PoiCategory? get type; bool get recomputing; Object? get error;
+ Id<Vertex> get id; LatLng get positionOverride; PoiCategory? get type; bool get recomputing; Object? get error;
 /// Create a copy of VertexPatch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +305,7 @@ abstract mixin class $VertexPatchCopyWith<$Res>  {
   factory $VertexPatchCopyWith(VertexPatch value, $Res Function(VertexPatch) _then) = _$VertexPatchCopyWithImpl;
 @useResult
 $Res call({
- Id<VertexPatch> id, LatLng positionOverride, PoiCategory? type, bool recomputing, Object? error
+ Id<Vertex> id, LatLng positionOverride, PoiCategory? type, bool recomputing, Object? error
 });
 
 
@@ -65,7 +325,7 @@ class _$VertexPatchCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? positionOverride = null,Object? type = freezed,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<VertexPatch>,positionOverride: null == positionOverride ? _self.positionOverride : positionOverride // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,positionOverride: null == positionOverride ? _self.positionOverride : positionOverride // ignore: cast_nullable_to_non_nullable
 as LatLng,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as PoiCategory?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
@@ -153,7 +413,7 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<VertexPatch> id,  LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<Vertex> id,  LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _VertexPatch() when internal != null:
 return internal(_that.id,_that.positionOverride,_that.type,_that.recomputing,_that.error);case _:
@@ -174,7 +434,7 @@ return internal(_that.id,_that.positionOverride,_that.type,_that.recomputing,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<VertexPatch> id,  LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<Vertex> id,  LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)  internal,}) {final _that = this;
 switch (_that) {
 case _VertexPatch():
 return internal(_that.id,_that.positionOverride,_that.type,_that.recomputing,_that.error);case _:
@@ -194,7 +454,7 @@ return internal(_that.id,_that.positionOverride,_that.type,_that.recomputing,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<VertexPatch> id,  LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<Vertex> id,  LatLng positionOverride,  PoiCategory? type,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
 switch (_that) {
 case _VertexPatch() when internal != null:
 return internal(_that.id,_that.positionOverride,_that.type,_that.recomputing,_that.error);case _:
@@ -208,11 +468,11 @@ return internal(_that.id,_that.positionOverride,_that.type,_that.recomputing,_th
 /// @nodoc
 
 
-class _VertexPatch extends VertexPatch {
+class _VertexPatch extends VertexPatch implements Patch<Vertex> {
   const _VertexPatch({required this.id, required this.positionOverride, this.type, required this.recomputing, this.error}): super._();
   
 
-@override final  Id<VertexPatch> id;
+@override final  Id<Vertex> id;
 @override final  LatLng positionOverride;
 @override final  PoiCategory? type;
 @override final  bool recomputing;
@@ -248,7 +508,7 @@ abstract mixin class _$VertexPatchCopyWith<$Res> implements $VertexPatchCopyWith
   factory _$VertexPatchCopyWith(_VertexPatch value, $Res Function(_VertexPatch) _then) = __$VertexPatchCopyWithImpl;
 @override @useResult
 $Res call({
- Id<VertexPatch> id, LatLng positionOverride, PoiCategory? type, bool recomputing, Object? error
+ Id<Vertex> id, LatLng positionOverride, PoiCategory? type, bool recomputing, Object? error
 });
 
 
@@ -268,7 +528,7 @@ class __$VertexPatchCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? positionOverride = null,Object? type = freezed,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_VertexPatch(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<VertexPatch>,positionOverride: null == positionOverride ? _self.positionOverride : positionOverride // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,positionOverride: null == positionOverride ? _self.positionOverride : positionOverride // ignore: cast_nullable_to_non_nullable
 as LatLng,type: freezed == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as PoiCategory?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,

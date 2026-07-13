@@ -14,7 +14,12 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$VertexRef {
 
- Id<HasId> get id;
+ VertexId get id;
+/// Create a copy of VertexRef
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VertexRefCopyWith<VertexRef> get copyWith => _$VertexRefCopyWithImpl<VertexRef>(this as VertexRef, _$identity);
 
 
 
@@ -36,8 +41,34 @@ String toString() {
 }
 
 /// @nodoc
-class $VertexRefCopyWith<$Res>  {
-$VertexRefCopyWith(VertexRef _, $Res Function(VertexRef) __);
+abstract mixin class $VertexRefCopyWith<$Res>  {
+  factory $VertexRefCopyWith(VertexRef value, $Res Function(VertexRef) _then) = _$VertexRefCopyWithImpl;
+@useResult
+$Res call({
+ Id<Vertex> id
+});
+
+
+
+
+}
+/// @nodoc
+class _$VertexRefCopyWithImpl<$Res>
+    implements $VertexRefCopyWith<$Res> {
+  _$VertexRefCopyWithImpl(this._self, this._then);
+
+  final VertexRef _self;
+  final $Res Function(VertexRef) _then;
+
+/// Create a copy of VertexRef
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<Vertex>,
+  ));
+}
+
 }
 
 
@@ -119,7 +150,7 @@ return pending(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( VertexId id)?  confirmed,TResult Function( Id<VertexPatch> id)?  pending,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( VertexId id)?  confirmed,TResult Function( VertexId id)?  pending,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ConfirmedVertexRef() when confirmed != null:
 return confirmed(_that.id);case PendingVertexRef() when pending != null:
@@ -141,7 +172,7 @@ return pending(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( VertexId id)  confirmed,required TResult Function( Id<VertexPatch> id)  pending,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( VertexId id)  confirmed,required TResult Function( VertexId id)  pending,}) {final _that = this;
 switch (_that) {
 case ConfirmedVertexRef():
 return confirmed(_that.id);case PendingVertexRef():
@@ -159,7 +190,7 @@ return pending(_that.id);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( VertexId id)?  confirmed,TResult? Function( Id<VertexPatch> id)?  pending,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( VertexId id)?  confirmed,TResult? Function( VertexId id)?  pending,}) {final _that = this;
 switch (_that) {
 case ConfirmedVertexRef() when confirmed != null:
 return confirmed(_that.id);case PendingVertexRef() when pending != null:
@@ -182,7 +213,7 @@ class ConfirmedVertexRef implements VertexRef {
 
 /// Create a copy of VertexRef
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $ConfirmedVertexRefCopyWith<ConfirmedVertexRef> get copyWith => _$ConfirmedVertexRefCopyWithImpl<ConfirmedVertexRef>(this, _$identity);
 
@@ -208,7 +239,7 @@ String toString() {
 /// @nodoc
 abstract mixin class $ConfirmedVertexRefCopyWith<$Res> implements $VertexRefCopyWith<$Res> {
   factory $ConfirmedVertexRefCopyWith(ConfirmedVertexRef value, $Res Function(ConfirmedVertexRef) _then) = _$ConfirmedVertexRefCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
  VertexId id
 });
@@ -227,7 +258,7 @@ class _$ConfirmedVertexRefCopyWithImpl<$Res>
 
 /// Create a copy of VertexRef
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
   return _then(ConfirmedVertexRef(
 null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as VertexId,
@@ -244,11 +275,11 @@ class PendingVertexRef implements VertexRef {
   const PendingVertexRef(this.id);
   
 
-@override final  Id<VertexPatch> id;
+@override final  VertexId id;
 
 /// Create a copy of VertexRef
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $PendingVertexRefCopyWith<PendingVertexRef> get copyWith => _$PendingVertexRefCopyWithImpl<PendingVertexRef>(this, _$identity);
 
@@ -274,9 +305,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $PendingVertexRefCopyWith<$Res> implements $VertexRefCopyWith<$Res> {
   factory $PendingVertexRefCopyWith(PendingVertexRef value, $Res Function(PendingVertexRef) _then) = _$PendingVertexRefCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- Id<VertexPatch> id
+ VertexId id
 });
 
 
@@ -293,10 +324,10 @@ class _$PendingVertexRefCopyWithImpl<$Res>
 
 /// Create a copy of VertexRef
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
   return _then(PendingVertexRef(
 null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<VertexPatch>,
+as VertexId,
   ));
 }
 

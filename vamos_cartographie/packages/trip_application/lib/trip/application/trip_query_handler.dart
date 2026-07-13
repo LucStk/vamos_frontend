@@ -8,7 +8,6 @@ import 'package:trip_application/trip_application.dart';
 
 class TripQueryHandler {
   final GraphStore graphStore;
-  final GraphPatchStore graphPatchStore;
   final ObservableTripStore tripStore;
   final ObservableMediaStore mediaStore;
   final WaypointStore waypointStore;
@@ -17,7 +16,6 @@ class TripQueryHandler {
 
   TripQueryHandler({
     required this.graphStore,
-    required this.graphPatchStore,
     required this.tripStore,
     required this.waypointStore,
     required this.mediaStore,

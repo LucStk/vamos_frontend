@@ -7,5 +7,5 @@ part "segment_ref.freezed.dart";
 @freezed
 sealed class SegmentRef with _$SegmentRef {
   const factory SegmentRef.confirmed(Id<Segment> id) = ConfirmedSegmentRef;
-  const factory SegmentRef.pending(Id<SegmentPatch> id) = PendingSegmentRef;
+  const factory SegmentRef.pending(Id<Segment> id) = PendingSegmentRef;
 }

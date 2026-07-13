@@ -8,5 +8,5 @@ part 'vertex_ref.freezed.dart';
 @freezed
 sealed class VertexRef with _$VertexRef {
   const factory VertexRef.confirmed(VertexId id) = ConfirmedVertexRef;
-  const factory VertexRef.pending(Id<VertexPatch> id) = PendingVertexRef;
+  const factory VertexRef.pending(VertexId id) = PendingVertexRef;
 }
