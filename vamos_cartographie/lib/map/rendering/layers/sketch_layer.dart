@@ -50,21 +50,8 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
     switch (mapState.mode) {
       case SketchMode e:
         final vertex = ref.read(vertexProvider(e.vertexStart)).displayValue;
-
-        final pencilLatLng = e.itineraire.isEmpty
-            ? vertex.latLng
-            : e.itineraire.last;
         final mapController = MapController.of(context);
-
-        final vertexIds = ref.watch(vertexStoreProvider).getIds();
-        final allVertices = ref.watch(
-          vertexProvider(),
-        ); // à toi de nommer ce provider
-        final hoveredVertex = findNearbyVertex(
-          point: pencilLatLng,
-          vertices: allVertices,
-          mapController: mapController,
-        );
+        final allVertices = ref.watch(allVertexProvider);
         return Stack(
           children: [
             PolylineLayer(
@@ -95,17 +82,13 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
                     ),
                   ),
                   onDragUpdate: (_, LatLng latLng) {
-                    final camera = MapCamera.of(context);
                     final hit = findNearbyVertex(
                       point: latLng,
                       vertices: allVertices,
-                      camera: camera,
+                      mapController: mapController,
                     );
                     mapStateNotifier.sendUiEvent(
-                      PencilDragUpdate(
-                        latLng: latLng,
-                        touchedVertex: hit?.vertexId,
-                      ),
+                      PencilDragUpdate(latLng: latLng, touchedVertex: hit?.id),
                     );
                   },
                   onDragStart: (_, LatLng latLng) =>

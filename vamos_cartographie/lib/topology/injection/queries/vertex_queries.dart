@@ -27,6 +27,13 @@ NodeState<Vertex> vertex(Ref ref, VertexId id) {
 }
 
 @riverpod
+List<Vertex> allVertex(Ref ref) {
+  // Attention, ne fait pas de watch sur les StateNode<Vertex>
+  final store = ref.watch(vertexStoreProvider);
+  return store.store.values.map((v) => v.current.displayValue).toList();
+}
+
+@riverpod
 Waypoint? waypointFromVertex(Ref ref, VertexId vertexId) {
   final store = ref.watch(waypointStoreProvider);
   return store.getFromVertex(vertexId);

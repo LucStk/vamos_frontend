@@ -175,6 +175,47 @@ final class VertexFamily extends $Family
   String toString() => r'vertexProvider';
 }
 
+@ProviderFor(allVertex)
+final allVertexProvider = AllVertexProvider._();
+
+final class AllVertexProvider
+    extends $FunctionalProvider<List<Vertex>, List<Vertex>, List<Vertex>>
+    with $Provider<List<Vertex>> {
+  AllVertexProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'allVertexProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$allVertexHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<Vertex>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<Vertex> create(Ref ref) {
+    return allVertex(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Vertex> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Vertex>>(value),
+    );
+  }
+}
+
+String _$allVertexHash() => r'6dcc77a249dc2f5ebcbd24e48533dd974227d851';
+
 @ProviderFor(waypointFromVertex)
 final waypointFromVertexProvider = WaypointFromVertexFamily._();
 
@@ -310,7 +351,7 @@ final class IsVertexSelectedProvider
   }
 }
 
-String _$isVertexSelectedHash() => r'f968894ac01aa2f22f83cea21d06971bc3ba4cc1';
+String _$isVertexSelectedHash() => r'989c434f4a61f2bf9ad920f6c3ba440e695c4698';
 
 final class IsVertexSelectedFamily extends $Family
     with $FunctionalFamilyOverride<bool, (TripId, VertexId)> {
