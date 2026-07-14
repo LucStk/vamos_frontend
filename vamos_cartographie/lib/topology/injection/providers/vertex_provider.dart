@@ -17,7 +17,7 @@ VertexRepository vertexRepository(Ref ref) {
   return VertexRepositoryImpl(ref.watch(vertexRemoteDatasourceProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 CollectionStore<Vertex> vertexStore(Ref ref) {
   final graphStore = ref.watch(rawGraphStoreProvider);
   return graphStore.vertexStore;

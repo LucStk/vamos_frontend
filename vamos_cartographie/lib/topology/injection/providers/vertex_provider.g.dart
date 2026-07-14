@@ -120,7 +120,7 @@ final class VertexStoreProvider
         argument: null,
         retry: null,
         name: r'vertexStoreProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -148,4 +148,4 @@ final class VertexStoreProvider
   }
 }
 
-String _$vertexStoreHash() => r'cf5c1bdf9f860d463642bc79753b4e3934397038';
+String _$vertexStoreHash() => r'a86f513cc4616ad5fe99e6c6c466a32243b41405';

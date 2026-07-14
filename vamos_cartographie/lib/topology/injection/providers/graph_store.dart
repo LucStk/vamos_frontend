@@ -1,3 +1,4 @@
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "package:trip_application/trip_application.dart";
@@ -17,4 +18,16 @@ TopologyRepository topologyRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-GraphStore rawGraphStore(Ref ref) => GraphStore();
+GraphStore rawGraphStore(Ref ref) {
+  return GraphStore.initial();
+}
+
+@riverpod
+CollectionStore<Vertex> vertexStore(Ref ref) {
+  return ref.watch(rawGraphStoreProvider.select((gs) => gs.vertexStore));
+}
+
+@riverpod
+CollectionStore<Segment> segmentStore(Ref ref) {
+  return ref.watch(rawGraphStoreProvider.select((gs) => gs.segmentStore));
+}
