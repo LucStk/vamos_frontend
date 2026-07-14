@@ -6,13 +6,19 @@ import '/application/transition_result.dart';
 TransitionResult reduceSketch(MapState state, MapInputEvent event) {
   final mode = state.mode;
   if (mode is! SketchMode) return TransitionResult(nextState: state);
+  switch (event) {
+    case PencilDragUpdate e:
+      final selection = (e.touchedVertex != null)
+          ? VertexSelection(vertexId: e.touchedVertex!)
+          : NoSelection();
+      return TransitionResult(
+        nextState: state.copyWith(
+          selection: selection,
+          mode: mode.copyWith(itineraire: [...mode.itineraire, e.latLng]),
+        ),
+      );
 
-  return switch (event) {
-    PencilDragUpdate e => TransitionResult(
-      nextState: state.copyWith(
-        mode: mode.copyWith(itineraire: [...mode.itineraire, e.latLng]),
-      ),
-    ),
-    _ => TransitionResult(nextState: state),
-  };
+    case _:
+      return TransitionResult(nextState: state);
+  }
 }
