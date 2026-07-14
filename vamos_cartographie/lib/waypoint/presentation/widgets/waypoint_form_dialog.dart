@@ -4,7 +4,7 @@ import 'package:media_application/media_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/media/injection/media_handler.dart';
-import 'package:vamos_cartographie/waypoint/injection/waypoint_handler.dart';
+import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
 
 class WaypointFormDialog extends ConsumerStatefulWidget {
@@ -107,7 +107,7 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
             ); // Pense à l'activer ici d'ailleurs !
 
             final waypointResult = await ref
-                .read(waypointHandlerProvider(widget.tripId))
+                .read(waypointStoreProvider(widget.tripId).notifier)
                 .updateWaypoint(currentWaypoint);
 
             final mediaResult = await ref

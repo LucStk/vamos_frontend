@@ -12,7 +12,7 @@ class MobilityMarker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segment = ref.watch(segmentProvider(segId)).displayValue;
+    final segment = ref.watch(segmentProvider(tripId, segId)).displayValue;
     return Container(
       decoration: BoxDecoration(
         color: Color(segment.mobilityTypeDisplay.colorValue).withOpacity(0.7),

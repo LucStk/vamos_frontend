@@ -1,3 +1,2 @@
-export "application/waypoint_handler.dart";
-export "runtime/runtime.dart";
+export "application/application.dart";
 export "domain/domain.dart";

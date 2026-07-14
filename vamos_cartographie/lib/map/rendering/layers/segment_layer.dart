@@ -44,14 +44,14 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
 
   @override
   Widget build(BuildContext context) {
-    final segmentIds = ref.watch(segmentStoreProvider).getIds();
+    final segmentIds = ref.watch(segmentStoreProvider(widget.tripId)).getIds();
     final notifier = ref.read(mapStateProvider(widget.tripId).notifier);
 
     final List<Polyline<Id<Segment>>> polylines = [];
     final List<Marker> segMarkers = [];
 
     for (SegmentId id in segmentIds) {
-      final state = ref.watch(segmentProvider(id));
+      final state = ref.watch(segmentProvider(widget.tripId, id));
       final segment = state.displayValue;
       polylines.add(
         Polyline(

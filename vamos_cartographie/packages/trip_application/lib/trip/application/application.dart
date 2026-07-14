@@ -1,2 +1,2 @@
-export "trip_handler.dart";
-export "trip_query_handler.dart";
+export "trip_store.dart";
+export "trip_editor.dart";

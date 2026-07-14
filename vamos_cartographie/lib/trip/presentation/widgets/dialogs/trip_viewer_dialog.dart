@@ -34,7 +34,7 @@ class TripViewerDialog extends ConsumerWidget {
     );
     if (confirmed != true) return;
 
-    await ref.read(tripHandlerProvider).deleteTrip(tripId);
+    await ref.read(tripStoreProvider.notifier).deleteTrip(tripId);
 
     if (!context.mounted) return;
     Navigator.of(context).pop();

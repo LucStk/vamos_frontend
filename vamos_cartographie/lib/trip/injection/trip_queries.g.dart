@@ -65,7 +65,7 @@ final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
   }
 }
 
-String _$tripHash() => r'e84d34ed9cad921ffb306d6c42603174dc086aaa';
+String _$tripHash() => r'f095ca0f0e1fa027df1faf1b0e213cd9a4906284';
 
 final class TripFamily extends $Family
     with $FunctionalFamilyOverride<Trip?, TripId> {
@@ -85,58 +85,13 @@ final class TripFamily extends $Family
   String toString() => r'tripProvider';
 }
 
-@ProviderFor(tripQueryHandler)
-final tripQueryHandlerProvider = TripQueryHandlerProvider._();
-
-final class TripQueryHandlerProvider
-    extends
-        $FunctionalProvider<
-          TripQueryHandler,
-          TripQueryHandler,
-          TripQueryHandler
-        >
-    with $Provider<TripQueryHandler> {
-  TripQueryHandlerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'tripQueryHandlerProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$tripQueryHandlerHash();
-
-  @$internal
-  @override
-  $ProviderElement<TripQueryHandler> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  TripQueryHandler create(Ref ref) {
-    return tripQueryHandler(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(TripQueryHandler value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<TripQueryHandler>(value),
-    );
-  }
-}
-
-String _$tripQueryHandlerHash() => r'b74658850e2f9f6fb7d749df01d5ebe3485c069d';
-
 @ProviderFor(loadTrips)
 final loadTripsProvider = LoadTripsProvider._();
 
 final class LoadTripsProvider
-    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
-    with $FutureModifier<void>, $FutureProvider<void> {
+    extends
+        $FunctionalProvider<AsyncValue<Failure?>, Failure?, FutureOr<Failure?>>
+    with $FutureModifier<Failure?>, $FutureProvider<Failure?> {
   LoadTripsProvider._()
     : super(
         from: null,
@@ -153,13 +108,83 @@ final class LoadTripsProvider
 
   @$internal
   @override
-  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
+  $FutureProviderElement<Failure?> $createElement($ProviderPointer pointer) =>
       $FutureProviderElement(pointer);
 
   @override
-  FutureOr<void> create(Ref ref) {
+  FutureOr<Failure?> create(Ref ref) {
     return loadTrips(ref);
   }
 }
 
-String _$loadTripsHash() => r'5e88e56df73f765fc2b46b5eab87484ab9cf72d3';
+String _$loadTripsHash() => r'b2e7cfdf724782efb0301509b863bd3998914223';
+
+@ProviderFor(loadTripDetails)
+final loadTripDetailsProvider = LoadTripDetailsFamily._();
+
+final class LoadTripDetailsProvider
+    extends
+        $FunctionalProvider<AsyncValue<Failure?>, Failure?, FutureOr<Failure?>>
+    with $FutureModifier<Failure?>, $FutureProvider<Failure?> {
+  LoadTripDetailsProvider._({
+    required LoadTripDetailsFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'loadTripDetailsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadTripDetailsHash();
+
+  @override
+  String toString() {
+    return r'loadTripDetailsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Failure?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Failure?> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return loadTripDetails(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadTripDetailsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$loadTripDetailsHash() => r'd48ac398df0dd16967e501a4b7583c7674e096a7';
+
+final class LoadTripDetailsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Failure?>, TripId> {
+  LoadTripDetailsFamily._()
+    : super(
+        retry: null,
+        name: r'loadTripDetailsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  LoadTripDetailsProvider call(TripId tripId) =>
+      LoadTripDetailsProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'loadTripDetailsProvider';
+}

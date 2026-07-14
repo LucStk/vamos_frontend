@@ -17,14 +17,14 @@ class VertexLayer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(mapStateProvider(tripId).notifier);
     final mapMode = ref.watch(mapStateProvider(tripId).select((s) => s.mode));
-    final vertexIds = ref.watch(vertexStoreProvider).getIds();
+    final vertexIds = ref.watch(vertexStoreProvider(tripId)).getIds();
 
     final isSketchMode = mapMode is SketchMode;
 
     const totalSize = 26.0;
     final List<DragMarker> listDragMarkers = [];
     for (final vertexId in vertexIds) {
-      final vertex = ref.watch(vertexProvider(vertexId)).displayValue;
+      final vertex = ref.watch(vertexProvider(tripId, vertexId)).displayValue;
 
       listDragMarkers.add(
         DragMarker(

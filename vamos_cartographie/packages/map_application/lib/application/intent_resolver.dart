@@ -3,23 +3,23 @@ import 'package:map_application/map_application.dart';
 import "package:trip_application/trip_application.dart";
 
 class IntentResolver {
-  final TopologyHandler topologyHandler;
-  final WaypointHandler waypointHandler;
+  final GraphEditor graphEditor;
+  final WaypointEditor waypointEditor;
   final MapOutput mapOutput;
-  IntentResolver(this.topologyHandler, this.waypointHandler, this.mapOutput);
+  IntentResolver(this.graphEditor, this.waypointEditor, this.mapOutput);
 
   Future<void> run(MapIntents intent) async {
     switch (intent) {
       case CreateSimpleVertex e:
-        await topologyHandler.createSimpleVertex(e.position);
+        await graphEditor.createSimpleVertex(e.position);
       case UpdateVertexPosition e:
-        await topologyHandler.moveVertex(e.vertexId, e.position);
+        await graphEditor.moveVertex(e.vertexId, e.position);
       case CreateWaypointFromVertex e:
-        await waypointHandler.createBlankWaypointFromVertex(
+        await waypointEditor.createBlankWaypointFromVertex(
           VertexId(e.vertexId.value),
         );
       case RemoveVertex e:
-        await topologyHandler.removeVertex(e.vertexId);
+        await graphEditor.removeVertex(e.vertexId);
       case OpenWaypointDialog e:
         mapOutput.emit(OpenWaypointDialogEvent(e.waypointId));
 

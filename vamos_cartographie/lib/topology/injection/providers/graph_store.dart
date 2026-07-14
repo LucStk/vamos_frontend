@@ -1,11 +1,32 @@
+import "package:domain_core/error_logger.dart";
+import "package:domain_core/optimitic_runner.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/core.dart";
-import "package:vamos_cartographie/topology/data/datasources/topology_remote_datasource.dart";
-import "package:vamos_cartographie/topology/data/repositories/topology_repository_impl.dart";
+import "package:vamos_cartographie/topology/data/topology.dart";
 part "graph_store.g.dart";
+
+@riverpod
+SegmentRemoteDatasource segmentRemoteDatasource(Ref ref) {
+  return SegmentRemoteDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+SegmentRepository segmentRepository(Ref ref) {
+  return SegmentRepositoryImpl(ref.watch(segmentRemoteDatasourceProvider));
+}
+
+@riverpod
+VertexRemoteDatasource vertexRemoteDatasource(Ref ref) {
+  return VertexRemoteDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+VertexRepository vertexRepository(Ref ref) {
+  return VertexRepositoryImpl(ref.watch(vertexRemoteDatasourceProvider));
+}
 
 @riverpod
 TopologyRemoteDatasource topologyRemoteDatasource(Ref ref) {
@@ -18,16 +39,29 @@ TopologyRepository topologyRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-GraphStore rawGraphStore(Ref ref) {
-  return GraphStore.initial();
+class GraphStoreNotifier extends _$GraphStoreNotifier
+    with OptimisticRunner<GraphStore>, GraphEditor {
+  @override
+  GraphStore build(TripId tripId) => GraphStore.initial();
+
+  // Injection des dépendances requises par le mixin TopologyHandler
+  @override
+  SegmentRepository get segmentRepo => ref.read(segmentRepositoryProvider);
+
+  @override
+  VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);
+
+  @override
+  ErrorLogger? get errorLogger => null;
 }
 
 @riverpod
-CollectionStore<Vertex> vertexStore(Ref ref) {
-  return ref.watch(rawGraphStoreProvider.select((gs) => gs.vertexStore));
+GraphCollectionStore<Vertex> vertexStore(Ref ref, TripId tripId) {
+  print("rebuild vertexStore");
+  return ref.watch(graphStoreProvider(tripId).select((gs) => gs.vertexStore));
 }
 
 @riverpod
-CollectionStore<Segment> segmentStore(Ref ref) {
-  return ref.watch(rawGraphStoreProvider.select((gs) => gs.segmentStore));
+GraphCollectionStore<Segment> segmentStore(Ref ref, TripId tripId) {
+  return ref.watch(graphStoreProvider(tripId).select((gs) => gs.segmentStore));
 }

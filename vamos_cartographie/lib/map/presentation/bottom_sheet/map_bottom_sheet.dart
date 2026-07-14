@@ -32,11 +32,13 @@ class MapBottomSheet extends ConsumerWidget {
           case CursorSelection _:
             return CursorBottomSheet(tripId: tripId);
           case VertexSelection e:
-            final waypoint = ref.watch(waypointFromVertexProvider(e.vertexId));
-            if (waypoint != null) {
+            final waypointId = ref.watch(
+              waypointFromVertexProvider(tripId, e.vertexId),
+            );
+            if (waypointId != null) {
               return WaypointBottomSheet(
                 tripId: tripId,
-                waypointId: waypoint.id,
+                waypointId: waypointId,
               );
             }
             return VertexBottomSheet(tripId: tripId, vertexId: e.vertexId);

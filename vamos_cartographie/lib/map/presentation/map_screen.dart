@@ -32,7 +32,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     _mapController = MapController();
     // Aller chercher sur le réseau les élements topologique
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(tripQueryHandlerProvider).loadTripDetails(widget.tripId);
+      await ref.read(loadTripDetailsProvider(widget.tripId));
     });
   }
 

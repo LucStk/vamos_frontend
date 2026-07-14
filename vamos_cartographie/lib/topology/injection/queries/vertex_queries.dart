@@ -9,33 +9,33 @@ import '/topology/injection/injection.dart';
 part 'vertex_queries.g.dart';
 
 @riverpod
-GraphNode<Vertex> vertexNode(Ref ref, VertexId id) {
-  final store = ref.watch(vertexStoreProvider);
-  final node = store.getNode(id);
+GraphNode<Vertex> vertexNode(Ref ref, TripId tripId, VertexId id) {
+  final store = ref.watch(vertexStoreProvider(tripId));
+  final node = store.get(id);
   if (node == null) {
     throw Exception(
       NotFoundFailure(resourceType: "vertexNode", resourceId: "$id"),
     );
   }
-  return node as GraphNode<Vertex>;
+  return node;
 }
 
 @riverpod
-NodeState<Vertex> vertex(Ref ref, VertexId id) {
-  final node = ref.watch(vertexNodeProvider(id));
+NodeState<Vertex> vertex(Ref ref, TripId tripId, VertexId id) {
+  final node = ref.watch(vertexNodeProvider(tripId, id));
   return node.current;
 }
 
 @riverpod
-List<Vertex> allVertex(Ref ref) {
+List<Vertex> allVertex(Ref ref, TripId tripId) {
   // Attention, ne fait pas de watch sur les StateNode<Vertex>
-  final store = ref.watch(vertexStoreProvider);
+  final store = ref.watch(vertexStoreProvider(tripId));
   return store.store.values.map((v) => v.current.displayValue).toList();
 }
 
 @riverpod
-Waypoint? waypointFromVertex(Ref ref, VertexId vertexId) {
-  final store = ref.watch(waypointStoreProvider);
+WaypointId? waypointFromVertex(Ref ref, TripId tripId, VertexId vertexId) {
+  final store = ref.watch(waypointStoreProvider(tripId));
   return store.getFromVertex(vertexId);
 }
 

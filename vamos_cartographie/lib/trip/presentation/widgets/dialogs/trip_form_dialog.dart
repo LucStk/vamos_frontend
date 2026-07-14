@@ -108,7 +108,7 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
             final navigator = Navigator.of(context);
             setState(() => _isSaving = true);
             final tripResult = await ref
-                .read(tripHandlerProvider)
+                .read(tripStoreProvider.notifier)
                 .updateTrip(_currentTrip);
 
             final mediaResult = await ref

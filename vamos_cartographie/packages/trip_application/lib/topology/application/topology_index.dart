@@ -1,8 +1,12 @@
 class TopologyIndex<V, E> {
   // Key: Vertex, Value: Les Edges (Segments) connectés
-  final Map<V, Set<E>> _vertexToEdges = {};
+  Map<V, Set<E>> _vertexToEdges = {};
   // Key: Edge, Value: Les deux Vertex (Source, Target)
-  final Map<E, (V, V)> _edgeToVertices = {};
+  Map<E, (V, V)> _edgeToVertices = {};
+  void clear() {
+    _vertexToEdges = {};
+    _edgeToVertices = {};
+  }
 
   void addRelationship(E edgeId, V vertexA, V vertexB) {
     _edgeToVertices[edgeId] = (vertexA, vertexB);

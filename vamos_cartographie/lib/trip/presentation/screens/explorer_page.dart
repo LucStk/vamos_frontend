@@ -13,13 +13,13 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(tripQueryHandlerProvider).loadFromRemote();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(loadTripsProvider);
     });
   }
 
   Future<void> _createAndOpenTrip(BuildContext context, WidgetRef ref) async {
-    final result = await ref.read(tripHandlerProvider).createBlankTrip();
+    final result = await ref.read(tripStoreProvider.notifier).createBlankTrip();
 
     result.fold(
       (failure) {
@@ -41,7 +41,7 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
   @override
   Widget build(BuildContext context) {
     // final loadState = ref.watch(loadTripsProvider);
-    final tripStore = ref.watch(tripStoreProvider);
+    final tripStore = ref.watch(tripStoreProvider).tripStore.store;
 
     return Scaffold(
       appBar: AppBar(
@@ -50,23 +50,23 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              ref.read(tripQueryHandlerProvider).loadFromRemote();
+              ref.read(loadTripsProvider);
             },
           ),
         ],
       ),
       body: Builder(
         builder: (context) {
-          if (tripStore.store.isEmpty) {
+          if (tripStore.isEmpty) {
             return const ExplorerEmptyView();
           }
 
           return ListView.separated(
             padding: const EdgeInsets.all(16),
-            itemCount: tripStore.store.length,
+            itemCount: tripStore.length,
             separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
-              final trip = tripStore.store.values.elementAt(index);
+              final trip = tripStore.values.elementAt(index);
               return TripCardView(tripId: trip.id);
             },
           );

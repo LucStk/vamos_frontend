@@ -1,12 +1,12 @@
+import 'topology_index.dart';
 import 'package:trip_application/topology/domain/entities/entities.dart';
-import 'package:trip_application/topology/runtime/topology_index.dart';
 
 import '/shared/shared.dart';
 
 class GraphStore {
   final TopologyIndex<VertexId, SegmentId> topologyIndex;
-  final CollectionStore<Segment> segmentStore;
-  final CollectionStore<Vertex> vertexStore;
+  final GraphCollectionStore<Segment> segmentStore;
+  final GraphCollectionStore<Vertex> vertexStore;
 
   const GraphStore({
     required this.topologyIndex,
@@ -16,12 +16,12 @@ class GraphStore {
 
   GraphStore.initial()
     : topologyIndex = TopologyIndex(),
-      segmentStore = const CollectionStore(),
-      vertexStore = const CollectionStore();
+      segmentStore = const GraphCollectionStore(),
+      vertexStore = const GraphCollectionStore();
 
   GraphStore copyWith({
-    CollectionStore<Segment>? segmentStore,
-    CollectionStore<Vertex>? vertexStore,
+    GraphCollectionStore<Segment>? segmentStore,
+    GraphCollectionStore<Vertex>? vertexStore,
   }) {
     return GraphStore(
       topologyIndex: topologyIndex, // toujours la même instance
@@ -40,7 +40,7 @@ extension GraphStoreActions on GraphStore {
     //   segment.targetVertexId,
     // );
     return copyWith(
-      segmentStore: segmentStore.upsert(
+      segmentStore: segmentStore.upsertState(
         NodeState<Segment>.patchEntity(segment),
       ),
     );
@@ -52,14 +52,16 @@ extension GraphStoreActions on GraphStore {
   }
 
   void commitSegment(Segment serverSegment) {
-    segmentStore.getNode(serverSegment.id)?.commit(serverSegment);
+    segmentStore.get(serverSegment.id)?.commit(serverSegment);
   }
 
-  void rollbackSegment(SegmentId sId) => segmentStore.getNode(sId)?.rollback();
+  void rollbackSegment(SegmentId sId) => segmentStore.get(sId)?.rollback();
 
   GraphStore upsertVertex(Vertex vertex) {
     return copyWith(
-      vertexStore: vertexStore.upsert(NodeState<Vertex>.patchEntity(vertex)),
+      vertexStore: vertexStore.upsertState(
+        NodeState<Vertex>.patchEntity(vertex),
+      ),
     );
   }
 
@@ -68,13 +70,16 @@ extension GraphStoreActions on GraphStore {
   }
 
   void commitVertex(Vertex serverVertex) {
-    vertexStore.getNode(serverVertex.id)?.commit(serverVertex);
+    vertexStore.get(serverVertex.id)?.commit(serverVertex);
   }
 
-  void rollbackVertex(VertexId sId) => vertexStore.getNode(sId)?.rollback();
+  void rollbackVertex(VertexId sId) => vertexStore.get(sId)?.rollback();
 
-  void clear() {
-    segmentStore.clear();
-    vertexStore.clear();
+  GraphStore clear() {
+    topologyIndex.clear();
+    return copyWith(
+      vertexStore: GraphCollectionStore<Vertex>(),
+      segmentStore: GraphCollectionStore<Segment>(),
+    );
   }
 }

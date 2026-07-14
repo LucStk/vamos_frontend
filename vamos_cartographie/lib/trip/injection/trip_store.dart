@@ -1,6 +1,7 @@
+import "package:domain_core/error_logger.dart";
+import "package:domain_core/optimitic_runner.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
-import "package:vamos_cartographie/core/services/add_listener_to_observable.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
 import "/trip/data/data.dart";
 part "trip_store.g.dart";
@@ -16,14 +17,15 @@ TripRepository tripRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-@riverpod
-ObservableTripStore rawTripStore(Ref ref) {
-  return ObservableTripStore();
-}
+class TripStoreNotifier extends _$TripStoreNotifier
+    with OptimisticRunner<TripStore>, TripEditor {
+  @override
+  TripStore build() => TripStore.initial();
 
-@riverpod
-ObservableTripStore tripStore(Ref ref) {
-  final store = ref.watch(rawTripStoreProvider);
-  addListenerRebuild(ref, store);
-  return store;
+  // Injection des dépendances requises par le mixin TopologyHandler
+  @override
+  TripRepository get waypointRepo => ref.read(tripRepositoryProvider);
+
+  @override
+  ErrorLogger? get errorLogger => null;
 }

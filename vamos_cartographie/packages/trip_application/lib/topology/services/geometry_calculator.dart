@@ -1,4 +1,4 @@
-import 'package:trip_application/topology/runtime/runtime.dart';
+import 'package:trip_application/topology/application/graph_store.dart';
 
 class GeometryRecalculator {
   late GraphStore store;

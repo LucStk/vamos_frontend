@@ -22,7 +22,7 @@ final class VertexNodeProvider
     with $Provider<GraphNode<Vertex>> {
   VertexNodeProvider._({
     required VertexNodeFamily super.from,
-    required VertexId super.argument,
+    required (TripId, VertexId) super.argument,
   }) : super(
          retry: null,
          name: r'vertexNodeProvider',
@@ -38,7 +38,7 @@ final class VertexNodeProvider
   String toString() {
     return r'vertexNodeProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -49,8 +49,8 @@ final class VertexNodeProvider
 
   @override
   GraphNode<Vertex> create(Ref ref) {
-    final argument = this.argument as VertexId;
-    return vertexNode(ref, argument);
+    final argument = this.argument as (TripId, VertexId);
+    return vertexNode(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -72,10 +72,10 @@ final class VertexNodeProvider
   }
 }
 
-String _$vertexNodeHash() => r'c7d282f14753a9591d3d368bad4c5c4f54b00489';
+String _$vertexNodeHash() => r'c4005474d5b24693e875d243063dc4d2d101782f';
 
 final class VertexNodeFamily extends $Family
-    with $FunctionalFamilyOverride<GraphNode<Vertex>, VertexId> {
+    with $FunctionalFamilyOverride<GraphNode<Vertex>, (TripId, VertexId)> {
   VertexNodeFamily._()
     : super(
         retry: null,
@@ -85,8 +85,8 @@ final class VertexNodeFamily extends $Family
         isAutoDispose: true,
       );
 
-  VertexNodeProvider call(VertexId id) =>
-      VertexNodeProvider._(argument: id, from: this);
+  VertexNodeProvider call(TripId tripId, VertexId id) =>
+      VertexNodeProvider._(argument: (tripId, id), from: this);
 
   @override
   String toString() => r'vertexNodeProvider';
@@ -105,7 +105,7 @@ final class VertexProvider
     with $Provider<NodeState<Vertex>> {
   VertexProvider._({
     required VertexFamily super.from,
-    required VertexId super.argument,
+    required (TripId, VertexId) super.argument,
   }) : super(
          retry: null,
          name: r'vertexProvider',
@@ -121,7 +121,7 @@ final class VertexProvider
   String toString() {
     return r'vertexProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -132,8 +132,8 @@ final class VertexProvider
 
   @override
   NodeState<Vertex> create(Ref ref) {
-    final argument = this.argument as VertexId;
-    return vertex(ref, argument);
+    final argument = this.argument as (TripId, VertexId);
+    return vertex(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -155,10 +155,10 @@ final class VertexProvider
   }
 }
 
-String _$vertexHash() => r'32eb9bb5945ffc201d53dab170f08a88cdc7f003';
+String _$vertexHash() => r'2623824c0d3305876c739134d7512d2529628116';
 
 final class VertexFamily extends $Family
-    with $FunctionalFamilyOverride<NodeState<Vertex>, VertexId> {
+    with $FunctionalFamilyOverride<NodeState<Vertex>, (TripId, VertexId)> {
   VertexFamily._()
     : super(
         retry: null,
@@ -168,32 +168,39 @@ final class VertexFamily extends $Family
         isAutoDispose: true,
       );
 
-  VertexProvider call(VertexId id) =>
-      VertexProvider._(argument: id, from: this);
+  VertexProvider call(TripId tripId, VertexId id) =>
+      VertexProvider._(argument: (tripId, id), from: this);
 
   @override
   String toString() => r'vertexProvider';
 }
 
 @ProviderFor(allVertex)
-final allVertexProvider = AllVertexProvider._();
+final allVertexProvider = AllVertexFamily._();
 
 final class AllVertexProvider
     extends $FunctionalProvider<List<Vertex>, List<Vertex>, List<Vertex>>
     with $Provider<List<Vertex>> {
-  AllVertexProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'allVertexProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  AllVertexProvider._({
+    required AllVertexFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'allVertexProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$allVertexHash();
+
+  @override
+  String toString() {
+    return r'allVertexProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -202,7 +209,8 @@ final class AllVertexProvider
 
   @override
   List<Vertex> create(Ref ref) {
-    return allVertex(ref);
+    final argument = this.argument as TripId;
+    return allVertex(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -212,19 +220,47 @@ final class AllVertexProvider
       providerOverride: $SyncValueProvider<List<Vertex>>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllVertexProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$allVertexHash() => r'6dcc77a249dc2f5ebcbd24e48533dd974227d851';
+String _$allVertexHash() => r'9019137a815d2c70f4a8090bdee22c715af8628a';
+
+final class AllVertexFamily extends $Family
+    with $FunctionalFamilyOverride<List<Vertex>, TripId> {
+  AllVertexFamily._()
+    : super(
+        retry: null,
+        name: r'allVertexProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  AllVertexProvider call(TripId tripId) =>
+      AllVertexProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'allVertexProvider';
+}
 
 @ProviderFor(waypointFromVertex)
 final waypointFromVertexProvider = WaypointFromVertexFamily._();
 
 final class WaypointFromVertexProvider
-    extends $FunctionalProvider<Waypoint?, Waypoint?, Waypoint?>
-    with $Provider<Waypoint?> {
+    extends $FunctionalProvider<WaypointId?, WaypointId?, WaypointId?>
+    with $Provider<WaypointId?> {
   WaypointFromVertexProvider._({
     required WaypointFromVertexFamily super.from,
-    required VertexId super.argument,
+    required (TripId, VertexId) super.argument,
   }) : super(
          retry: null,
          name: r'waypointFromVertexProvider',
@@ -240,25 +276,25 @@ final class WaypointFromVertexProvider
   String toString() {
     return r'waypointFromVertexProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
   @override
-  $ProviderElement<Waypoint?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<WaypointId?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  Waypoint? create(Ref ref) {
-    final argument = this.argument as VertexId;
-    return waypointFromVertex(ref, argument);
+  WaypointId? create(Ref ref) {
+    final argument = this.argument as (TripId, VertexId);
+    return waypointFromVertex(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Waypoint? value) {
+  Override overrideWithValue(WaypointId? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Waypoint?>(value),
+      providerOverride: $SyncValueProvider<WaypointId?>(value),
     );
   }
 
@@ -274,10 +310,10 @@ final class WaypointFromVertexProvider
 }
 
 String _$waypointFromVertexHash() =>
-    r'f50f23d1434aabec3547cabe4180f3d75c86e636';
+    r'aa1db9e4cf4eedda9f9cf81ac26d6cb547b21767';
 
 final class WaypointFromVertexFamily extends $Family
-    with $FunctionalFamilyOverride<Waypoint?, VertexId> {
+    with $FunctionalFamilyOverride<WaypointId?, (TripId, VertexId)> {
   WaypointFromVertexFamily._()
     : super(
         retry: null,
@@ -287,8 +323,8 @@ final class WaypointFromVertexFamily extends $Family
         isAutoDispose: true,
       );
 
-  WaypointFromVertexProvider call(VertexId vertexId) =>
-      WaypointFromVertexProvider._(argument: vertexId, from: this);
+  WaypointFromVertexProvider call(TripId tripId, VertexId vertexId) =>
+      WaypointFromVertexProvider._(argument: (tripId, vertexId), from: this);
 
   @override
   String toString() => r'waypointFromVertexProvider';

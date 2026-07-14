@@ -1,6 +1,6 @@
+import 'package:domain_core/failure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/core/injection/optimistic_executor_provider.dart';
 import 'package:vamos_cartographie/media/injection/media_store.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/waypoint/injection/injection.dart';
@@ -9,29 +9,61 @@ part 'trip_queries.g.dart';
 
 @riverpod
 Trip? trip(Ref ref, TripId tripId) {
+  return ref.watch(tripStoreProvider).tripStore.get(tripId);
+}
+
+@riverpod
+Future<Failure?> loadTrips(Ref ref) async {
   final tripStore = ref.watch(tripStoreProvider);
-  return tripStore.get(tripId);
-}
-
-@riverpod
-TripQueryHandler tripQueryHandler(Ref ref) {
-  final graphStore = ref.read(rawGraphStoreProvider);
-  final tripStore = ref.read(rawTripStoreProvider);
-  final mediaStore = ref.read(rawMediaStoreProvider);
-  final tripRepo = ref.read(tripRepositoryProvider);
-  final executor = ref.read(optimisticExecutorProvider);
-  final waypointStore = ref.read(rawWaypointStoreProvider);
-  return TripQueryHandler(
-    graphStore: graphStore,
-    mediaStore: mediaStore,
-    tripStore: tripStore,
-    tripRepo: tripRepo,
-    executor: executor,
-    waypointStore: waypointStore,
+  final tripRepo = ref.watch(tripRepositoryProvider);
+  final mediaStore = ref.watch(mediaStoreProvider);
+  final res = await tripRepo.getAllTrips();
+  res.fold(
+    (Failure f) {
+      return f;
+    },
+    (data) {
+      tripStore.clear();
+      for (final (trip, listImages) in data) {
+        tripStore.upsertTrip(trip);
+        for (final i in listImages) {
+          mediaStore.upsert(trip.id, i);
+        }
+      }
+    },
   );
+  return null;
 }
 
 @riverpod
-Future<void> loadTrips(Ref ref) async {
-  await ref.read(tripQueryHandlerProvider).loadFromRemote();
+Future<Failure?> loadTripDetails(Ref ref, TripId tripId) async {
+  final waypointStore = ref.watch(waypointStoreProvider(tripId));
+  final graphStore = ref.watch(graphStoreProvider(tripId));
+  final mediaStore = ref.watch(mediaStoreProvider);
+  final tripRepo = ref.watch(tripRepositoryProvider);
+  final res = await tripRepo.getTripDetails(tripId);
+  res.fold(
+    (Failure f) {
+      return f;
+    },
+    (data) {
+      waypointStore.clear();
+      graphStore.clear();
+
+      for (final (w, listImages) in data.waypoints_images) {
+        waypointStore.upsertWaypoint(w);
+        for (final i in listImages) {
+          mediaStore.upsert(w.id, i);
+        }
+      }
+      for (final v in data.vertices) {
+        graphStore.upsertVertex(v);
+      }
+      for (final s in data.segments) {
+        graphStore.upsertSegment(s);
+      }
+      return null;
+    },
+  );
+  return null;
 }

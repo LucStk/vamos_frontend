@@ -6,19 +6,19 @@ import '/topology/injection/injection.dart';
 part 'segment_queries.g.dart';
 
 @riverpod
-GraphNode<Segment> segmentNode(Ref ref, SegmentId id) {
-  final store = ref.watch(segmentStoreProvider);
-  final node = store.getNode(id);
+GraphNode<Segment> segmentNode(Ref ref, TripId tripId, SegmentId id) {
+  final store = ref.watch(segmentStoreProvider(tripId));
+  final node = store.get(id);
   if (node == null) {
     throw Exception(
       NotFoundFailure(resourceType: "segmentNode", resourceId: "$id"),
     );
   }
-  return node as GraphNode<Segment>;
+  return node;
 }
 
 @riverpod
-NodeState<Segment> segment(Ref ref, SegmentId id) {
-  final node = ref.watch(segmentNodeProvider(id));
+NodeState<Segment> segment(Ref ref, TripId tripId, SegmentId id) {
+  final node = ref.watch(segmentNodeProvider(tripId, id));
   return node.current;
 }

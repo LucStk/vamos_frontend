@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'trip.freezed.dart';
 
 @freezed
-abstract class Trip with _$Trip {
+abstract class Trip with _$Trip implements HasId {
   const Trip._();
   const factory Trip({
     required TripId id,

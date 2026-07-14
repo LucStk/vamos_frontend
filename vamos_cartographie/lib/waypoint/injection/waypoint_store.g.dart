@@ -105,96 +105,100 @@ final class WaypointRepositoryProvider
 String _$waypointRepositoryHash() =>
     r'fc3e46b08f14e0e5a7bdcf4e089cbbb764a095e7';
 
-@ProviderFor(rawWaypointStore)
-final rawWaypointStoreProvider = RawWaypointStoreProvider._();
+@ProviderFor(WaypointStoreNotifier)
+final waypointStoreProvider = WaypointStoreNotifierFamily._();
 
-final class RawWaypointStoreProvider
-    extends
-        $FunctionalProvider<
-          ObservableWaypointStore,
-          ObservableWaypointStore,
-          ObservableWaypointStore
-        >
-    with $Provider<ObservableWaypointStore> {
-  RawWaypointStoreProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'rawWaypointStoreProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+final class WaypointStoreNotifierProvider
+    extends $NotifierProvider<WaypointStoreNotifier, WaypointStore> {
+  WaypointStoreNotifierProvider._({
+    required WaypointStoreNotifierFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'waypointStoreProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  String debugGetCreateSourceHash() => _$rawWaypointStoreHash();
+  String debugGetCreateSourceHash() => _$waypointStoreNotifierHash();
+
+  @override
+  String toString() {
+    return r'waypointStoreProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
-  $ProviderElement<ObservableWaypointStore> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ObservableWaypointStore create(Ref ref) {
-    return rawWaypointStore(ref);
-  }
+  WaypointStoreNotifier create() => WaypointStoreNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableWaypointStore value) {
+  Override overrideWithValue(WaypointStore value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ObservableWaypointStore>(value),
+      providerOverride: $SyncValueProvider<WaypointStore>(value),
     );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is WaypointStoreNotifierProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
   }
 }
 
-String _$rawWaypointStoreHash() => r'5ac50524bc272229422165ae482cfe558a3e12b2';
+String _$waypointStoreNotifierHash() =>
+    r'dea235bcacd794f8d401552134e065ae0bd6a997';
 
-@ProviderFor(waypointStore)
-final waypointStoreProvider = WaypointStoreProvider._();
-
-final class WaypointStoreProvider
-    extends
-        $FunctionalProvider<
-          ObservableWaypointStore,
-          ObservableWaypointStore,
-          ObservableWaypointStore
-        >
-    with $Provider<ObservableWaypointStore> {
-  WaypointStoreProvider._()
+final class WaypointStoreNotifierFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          WaypointStoreNotifier,
+          WaypointStore,
+          WaypointStore,
+          WaypointStore,
+          TripId
+        > {
+  WaypointStoreNotifierFamily._()
     : super(
-        from: null,
-        argument: null,
         retry: null,
         name: r'waypointStoreProvider',
-        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
+        isAutoDispose: false,
       );
 
-  @override
-  String debugGetCreateSourceHash() => _$waypointStoreHash();
-
-  @$internal
-  @override
-  $ProviderElement<ObservableWaypointStore> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  WaypointStoreNotifierProvider call(TripId tripId) =>
+      WaypointStoreNotifierProvider._(argument: tripId, from: this);
 
   @override
-  ObservableWaypointStore create(Ref ref) {
-    return waypointStore(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableWaypointStore value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ObservableWaypointStore>(value),
-    );
-  }
+  String toString() => r'waypointStoreProvider';
 }
 
-String _$waypointStoreHash() => r'd3f0cb2af326456f5bdff2caa91fb7ed3abc052e';
+abstract class _$WaypointStoreNotifier extends $Notifier<WaypointStore> {
+  late final _$args = ref.$arg as TripId;
+  TripId get tripId => _$args;
+
+  WaypointStore build(TripId tripId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<WaypointStore, WaypointStore>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<WaypointStore, WaypointStore>,
+              WaypointStore,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
+}

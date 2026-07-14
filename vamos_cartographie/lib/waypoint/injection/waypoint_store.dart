@@ -1,6 +1,6 @@
+import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
-import "package:vamos_cartographie/core/services/add_listener_to_observable.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
 import "package:vamos_cartographie/waypoint/data/waypoint_remote_datasource.dart";
 import "package:vamos_cartographie/waypoint/data/waypoint_repository_impl.dart";
@@ -17,13 +17,15 @@ WaypointRepository waypointRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-ObservableWaypointStore rawWaypointStore(Ref ref) {
-  return ObservableWaypointStore();
-}
+class WaypointStoreNotifier extends _$WaypointStoreNotifier
+    with OptimisticRunner<WaypointStore>, WaypointEditor {
+  @override
+  WaypointStore build(TripId tripId) => WaypointStore.initial();
 
-@Riverpod(keepAlive: true)
-ObservableWaypointStore waypointStore(Ref ref) {
-  final store = ref.watch(rawWaypointStoreProvider);
-  addListenerRebuild(ref, store);
-  return store;
+  // Injection des dépendances requises par le mixin TopologyHandler
+  @override
+  WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);
+
+  @override
+  ErrorLogger? get errorLogger => null;
 }

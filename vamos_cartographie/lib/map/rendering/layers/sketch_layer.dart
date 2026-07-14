@@ -49,9 +49,11 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
     final mapState = ref.watch(mapStateProvider(widget.tripId));
     switch (mapState.mode) {
       case SketchMode e:
-        final vertex = ref.read(vertexProvider(e.vertexStart)).displayValue;
+        final vertex = ref
+            .read(vertexProvider(widget.tripId, e.vertexStart))
+            .displayValue;
         final mapController = MapController.of(context);
-        final allVertices = ref.watch(allVertexProvider);
+        final allVertices = ref.watch(allVertexProvider(widget.tripId));
         return Stack(
           children: [
             PolylineLayer(

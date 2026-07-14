@@ -22,7 +22,7 @@ final class SegmentNodeProvider
     with $Provider<GraphNode<Segment>> {
   SegmentNodeProvider._({
     required SegmentNodeFamily super.from,
-    required SegmentId super.argument,
+    required (TripId, SegmentId) super.argument,
   }) : super(
          retry: null,
          name: r'segmentNodeProvider',
@@ -38,7 +38,7 @@ final class SegmentNodeProvider
   String toString() {
     return r'segmentNodeProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -49,8 +49,8 @@ final class SegmentNodeProvider
 
   @override
   GraphNode<Segment> create(Ref ref) {
-    final argument = this.argument as SegmentId;
-    return segmentNode(ref, argument);
+    final argument = this.argument as (TripId, SegmentId);
+    return segmentNode(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -72,10 +72,10 @@ final class SegmentNodeProvider
   }
 }
 
-String _$segmentNodeHash() => r'68d647ec5fe1aff7118a311ac0302f01ac4b5c12';
+String _$segmentNodeHash() => r'1b40fb9752f7e8f7d37116951ed21df1a1a5335d';
 
 final class SegmentNodeFamily extends $Family
-    with $FunctionalFamilyOverride<GraphNode<Segment>, SegmentId> {
+    with $FunctionalFamilyOverride<GraphNode<Segment>, (TripId, SegmentId)> {
   SegmentNodeFamily._()
     : super(
         retry: null,
@@ -85,8 +85,8 @@ final class SegmentNodeFamily extends $Family
         isAutoDispose: true,
       );
 
-  SegmentNodeProvider call(SegmentId id) =>
-      SegmentNodeProvider._(argument: id, from: this);
+  SegmentNodeProvider call(TripId tripId, SegmentId id) =>
+      SegmentNodeProvider._(argument: (tripId, id), from: this);
 
   @override
   String toString() => r'segmentNodeProvider';
@@ -105,7 +105,7 @@ final class SegmentProvider
     with $Provider<NodeState<Segment>> {
   SegmentProvider._({
     required SegmentFamily super.from,
-    required SegmentId super.argument,
+    required (TripId, SegmentId) super.argument,
   }) : super(
          retry: null,
          name: r'segmentProvider',
@@ -121,7 +121,7 @@ final class SegmentProvider
   String toString() {
     return r'segmentProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -132,8 +132,8 @@ final class SegmentProvider
 
   @override
   NodeState<Segment> create(Ref ref) {
-    final argument = this.argument as SegmentId;
-    return segment(ref, argument);
+    final argument = this.argument as (TripId, SegmentId);
+    return segment(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -155,10 +155,10 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'3689961adb83cda9e6c75dff768de3ad4aaa1d3f';
+String _$segmentHash() => r'77d7a14d67a6ea884d63ec923e64967ae86bac7a';
 
 final class SegmentFamily extends $Family
-    with $FunctionalFamilyOverride<NodeState<Segment>, SegmentId> {
+    with $FunctionalFamilyOverride<NodeState<Segment>, (TripId, SegmentId)> {
   SegmentFamily._()
     : super(
         retry: null,
@@ -168,8 +168,8 @@ final class SegmentFamily extends $Family
         isAutoDispose: true,
       );
 
-  SegmentProvider call(SegmentId id) =>
-      SegmentProvider._(argument: id, from: this);
+  SegmentProvider call(TripId tripId, SegmentId id) =>
+      SegmentProvider._(argument: (tripId, id), from: this);
 
   @override
   String toString() => r'segmentProvider';

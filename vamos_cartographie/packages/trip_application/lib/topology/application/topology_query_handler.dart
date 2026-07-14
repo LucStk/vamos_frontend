@@ -1,7 +1,6 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:domain_core/optimitic_executor.dart';
+import 'graph_store.dart';
 import 'package:trip_application/topology/domain/repositories/repositories.dart';
-import 'package:trip_application/topology/runtime/runtime.dart';
 import 'package:trip_application/trip/domain/trip.dart';
 
 class TopologyQueryHandler {
