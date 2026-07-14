@@ -1,5 +1,4 @@
-import "package:domain_core/error_logger.dart";
-import "package:domain_core/optimitic_runner.dart";
+import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";

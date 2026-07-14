@@ -1,3 +1,4 @@
+import 'package:domain_core/domain/domain.dart';
 import 'package:trip_application/trip_application.dart';
 
 class WaypointStore {

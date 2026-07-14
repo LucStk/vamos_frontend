@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:domain_core/optimitic_executor.dart';
+import 'package:dartz/dartz.dart';
 import 'package:media_application/media_application.dart';
 
 import "package:uuid/uuid.dart";

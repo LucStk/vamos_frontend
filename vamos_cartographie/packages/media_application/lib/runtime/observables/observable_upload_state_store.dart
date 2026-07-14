@@ -1,6 +1,6 @@
-import 'package:domain_core/observable.dart';
 import '/runtime/upload_state_store.dart';
 
+import 'package:domain_core/domain_core.dart';
 import 'package:media_application/domain/domain.dart';
 
 class ObservableUploadStateStore extends UploadStateStore with Observable {

@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain_core/domain_core.dart';
+import 'package:domain_core/notification/notification.dart';
 
 mixin OptimisticRunner<S> {
   S get state;

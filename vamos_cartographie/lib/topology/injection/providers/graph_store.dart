@@ -1,5 +1,4 @@
-import "package:domain_core/error_logger.dart";
-import "package:domain_core/optimitic_runner.dart";
+import "package:domain_core/domain_core.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 

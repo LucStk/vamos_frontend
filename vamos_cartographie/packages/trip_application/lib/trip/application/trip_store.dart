@@ -1,4 +1,4 @@
-import 'package:trip_application/shared/shared.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 
 class TripStore {

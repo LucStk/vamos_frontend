@@ -1,9 +1,9 @@
 // lib/infrastructure/core/exception_mapper.dart
 import 'package:ferry/ferry.dart';
-import 'package:domain_core/failure.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_link/gql_link.dart';
 
+import 'package:domain_core/domain_core.dart';
 import 'package:dio/dio.dart';
 import 'package:gql_exec/gql_exec.dart' show GraphQLError;
 import 'package:gql_link/gql_link.dart' show LinkException, ServerException;

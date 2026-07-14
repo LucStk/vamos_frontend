@@ -1,8 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain_core/failure.dart';
-import 'package:domain_core/id.dart';
 import 'package:media_application/media_application.dart';
 
+import 'package:domain_core/domain_core.dart';
 import 'dart:io';
 
 abstract class MediaRepository {

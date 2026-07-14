@@ -1,7 +1,6 @@
 import 'package:domain_core/geometry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_application/shared/graph_node_state.dart';
 import '/topology/domain/value_objects/mobility_types.dart';
 import "vertex_model.dart";
 

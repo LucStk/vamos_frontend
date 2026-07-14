@@ -1,5 +1,5 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_application/shared/graph_node_state.dart';
+import 'graph_node_state.dart';
 import 'graph_node.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';

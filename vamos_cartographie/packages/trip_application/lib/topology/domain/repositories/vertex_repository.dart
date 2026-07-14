@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain_core/failure.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import '/topology/domain/domain.dart';
 import '/trip/domain/domain.dart';
