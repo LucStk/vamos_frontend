@@ -12,16 +12,17 @@ import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_s
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
-  final VertexRef vertexRef;
+  final VertexId vertexId;
 
   const VertexBottomSheet({
     super.key,
     required this.tripId,
-    required this.vertexRef,
+    required this.vertexId,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    
     final notifier = ref.watch(mapStateProvider(tripId).notifier);
     return SimpleBottomSheetShell(
       content: Column(

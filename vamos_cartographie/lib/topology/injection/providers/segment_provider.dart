@@ -3,7 +3,6 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/core.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
-import "package:vamos_cartographie/core/services/add_listener_to_observable.dart";
 import "package:vamos_cartographie/topology/data/datasources/segment_remote_datasource.dart";
 import "package:vamos_cartographie/topology/data/repositories/segment_repository_impl.dart";
 import "package:vamos_cartographie/topology/injection/injection.dart";
@@ -20,15 +19,7 @@ SegmentRepository segmentRepository(Ref ref) {
 }
 
 @riverpod
-ObservableCollectionStore<Segment> segmentStore(Ref ref) {
+CollectionStore<Segment> segmentStore(Ref ref) {
   final graphStore = ref.watch(rawGraphStoreProvider);
-  addListenerRebuild(ref, graphStore.segmentStore);
   return graphStore.segmentStore;
-}
-
-@riverpod
-ObservableCollectionStore<SegmentPatch> segmentPatchStore(Ref ref) {
-  final graphStore = ref.watch(rawGraphPatchStoreProvider);
-  addListenerRebuild(ref, graphStore.segmentPatchStore);
-  return graphStore.segmentPatchStore;
 }

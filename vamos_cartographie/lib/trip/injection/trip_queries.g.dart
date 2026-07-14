@@ -129,7 +129,7 @@ final class TripQueryHandlerProvider
   }
 }
 
-String _$tripQueryHandlerHash() => r'30dd6ab3c199c292dc4f33f1b7ebadfe3394f070';
+String _$tripQueryHandlerHash() => r'b74658850e2f9f6fb7d749df01d5ebe3485c069d';
 
 @ProviderFor(loadTrips)
 final loadTripsProvider = LoadTripsProvider._();

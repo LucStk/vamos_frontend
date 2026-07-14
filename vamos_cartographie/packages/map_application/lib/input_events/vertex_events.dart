@@ -17,24 +17,24 @@ class ButtonStartSegment extends VertexEvent {
 }
 
 class VertexTapped extends VertexEvent {
-  final VertexRef vertexRef;
-  const VertexTapped(this.vertexRef);
+  final VertexId vertexId;
+  const VertexTapped(this.vertexId);
 }
 
 class VertexDoubleTapped extends VertexEvent {
-  final VertexRef vertexRef;
-  const VertexDoubleTapped(this.vertexRef);
+  final VertexId vertexId;
+  const VertexDoubleTapped(this.vertexId);
 }
 
 class VertexDragStarted extends VertexEvent {
-  final VertexRef vertexRef;
-  const VertexDragStarted(this.vertexRef);
+  final VertexId vertexId;
+  const VertexDragStarted(this.vertexId);
 }
 
 class VertexDragEnd extends VertexEvent {
-  final VertexRef vertexRef;
+  final VertexId vertexId;
   final LatLng latLng;
-  const VertexDragEnd(this.vertexRef, this.latLng);
+  const VertexDragEnd(this.vertexId, this.latLng);
 }
 
 class VertexDragUpdate extends CursorEvent {

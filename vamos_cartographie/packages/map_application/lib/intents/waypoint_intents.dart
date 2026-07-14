@@ -1,8 +1,8 @@
 part of 'intents.dart';
 
 class CreateWaypointFromVertex extends MapIntents {
-  final VertexRef vertexRef;
-  const CreateWaypointFromVertex(this.vertexRef);
+  final VertexId vertexId;
+  const CreateWaypointFromVertex(this.vertexId);
 }
 
 class OpenWaypointDialog extends MapIntents {

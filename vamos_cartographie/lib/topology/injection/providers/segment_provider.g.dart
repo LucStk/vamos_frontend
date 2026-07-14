@@ -110,11 +110,11 @@ final segmentStoreProvider = SegmentStoreProvider._();
 final class SegmentStoreProvider
     extends
         $FunctionalProvider<
-          ObservableCollectionStore<Segment>,
-          ObservableCollectionStore<Segment>,
-          ObservableCollectionStore<Segment>
+          CollectionStore<Segment>,
+          CollectionStore<Segment>,
+          CollectionStore<Segment>
         >
-    with $Provider<ObservableCollectionStore<Segment>> {
+    with $Provider<CollectionStore<Segment>> {
   SegmentStoreProvider._()
     : super(
         from: null,
@@ -131,72 +131,22 @@ final class SegmentStoreProvider
 
   @$internal
   @override
-  $ProviderElement<ObservableCollectionStore<Segment>> $createElement(
+  $ProviderElement<CollectionStore<Segment>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  ObservableCollectionStore<Segment> create(Ref ref) {
+  CollectionStore<Segment> create(Ref ref) {
     return segmentStore(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableCollectionStore<Segment> value) {
+  Override overrideWithValue(CollectionStore<Segment> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ObservableCollectionStore<Segment>>(
-        value,
-      ),
+      providerOverride: $SyncValueProvider<CollectionStore<Segment>>(value),
     );
   }
 }
 
-String _$segmentStoreHash() => r'221a89707870b0085be18c7362fab9d01f91753b';
-
-@ProviderFor(segmentPatchStore)
-final segmentPatchStoreProvider = SegmentPatchStoreProvider._();
-
-final class SegmentPatchStoreProvider
-    extends
-        $FunctionalProvider<
-          ObservableCollectionStore<SegmentPatch>,
-          ObservableCollectionStore<SegmentPatch>,
-          ObservableCollectionStore<SegmentPatch>
-        >
-    with $Provider<ObservableCollectionStore<SegmentPatch>> {
-  SegmentPatchStoreProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'segmentPatchStoreProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$segmentPatchStoreHash();
-
-  @$internal
-  @override
-  $ProviderElement<ObservableCollectionStore<SegmentPatch>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ObservableCollectionStore<SegmentPatch> create(Ref ref) {
-    return segmentPatchStore(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableCollectionStore<SegmentPatch> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride:
-          $SyncValueProvider<ObservableCollectionStore<SegmentPatch>>(value),
-    );
-  }
-}
-
-String _$segmentPatchStoreHash() => r'cd237c1c03eb4640168fe15a3adae40919702705';
+String _$segmentStoreHash() => r'8bc0fc36534862c336e8ece69dfb88f5f5098014';

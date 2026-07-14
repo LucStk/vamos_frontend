@@ -5,7 +5,7 @@ import 'package:domain_core/domain_core.dart';
 import '/topology/topology.dart';
 
 class SegmentLineStyle extends ConsumerWidget {
-  final SegmentRef segmentId;
+  final SegmentId segmentId;
   final Id<Trip> tripId;
 
   const SegmentLineStyle({
@@ -16,10 +16,7 @@ class SegmentLineStyle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segment = ref.watch(segmentUiProvider(segmentId));
-    if (segment == null) {
-      return ErrorWidget(Exception("SegmentRef not found"));
-    }
+    final segment = ref.watch(segmentProvider(segmentId)).displayValue;
     return Container(
       decoration: BoxDecoration(
         color: Color(segment.mobilityTypeDisplay.colorValue),

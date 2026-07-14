@@ -109,11 +109,11 @@ final vertexStoreProvider = VertexStoreProvider._();
 final class VertexStoreProvider
     extends
         $FunctionalProvider<
-          ObservableCollectionStore<Vertex>,
-          ObservableCollectionStore<Vertex>,
-          ObservableCollectionStore<Vertex>
+          CollectionStore<Vertex>,
+          CollectionStore<Vertex>,
+          CollectionStore<Vertex>
         >
-    with $Provider<ObservableCollectionStore<Vertex>> {
+    with $Provider<CollectionStore<Vertex>> {
   VertexStoreProvider._()
     : super(
         from: null,
@@ -130,72 +130,22 @@ final class VertexStoreProvider
 
   @$internal
   @override
-  $ProviderElement<ObservableCollectionStore<Vertex>> $createElement(
+  $ProviderElement<CollectionStore<Vertex>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  ObservableCollectionStore<Vertex> create(Ref ref) {
+  CollectionStore<Vertex> create(Ref ref) {
     return vertexStore(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableCollectionStore<Vertex> value) {
+  Override overrideWithValue(CollectionStore<Vertex> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ObservableCollectionStore<Vertex>>(
-        value,
-      ),
+      providerOverride: $SyncValueProvider<CollectionStore<Vertex>>(value),
     );
   }
 }
 
-String _$vertexStoreHash() => r'd6bb6691483d7c6e085a2bd285f37c822b2b39fc';
-
-@ProviderFor(vertexPatchStore)
-final vertexPatchStoreProvider = VertexPatchStoreProvider._();
-
-final class VertexPatchStoreProvider
-    extends
-        $FunctionalProvider<
-          ObservableCollectionStore<VertexPatch>,
-          ObservableCollectionStore<VertexPatch>,
-          ObservableCollectionStore<VertexPatch>
-        >
-    with $Provider<ObservableCollectionStore<VertexPatch>> {
-  VertexPatchStoreProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'vertexPatchStoreProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$vertexPatchStoreHash();
-
-  @$internal
-  @override
-  $ProviderElement<ObservableCollectionStore<VertexPatch>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ObservableCollectionStore<VertexPatch> create(Ref ref) {
-    return vertexPatchStore(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableCollectionStore<VertexPatch> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride:
-          $SyncValueProvider<ObservableCollectionStore<VertexPatch>>(value),
-    );
-  }
-}
-
-String _$vertexPatchStoreHash() => r'0834a6bb89cf69b2c29c933bac23d129dbb692a8';
+String _$vertexStoreHash() => r'cf5c1bdf9f860d463642bc79753b4e3934397038';

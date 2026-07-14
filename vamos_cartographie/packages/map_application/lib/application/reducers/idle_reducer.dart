@@ -18,10 +18,10 @@ TransitionResult reduceIdle(MapState state, MapInputEvent event) {
         selection: MapSelection.none(),
       ),
     ),
-    ButtonStartSegment _ => switch (state.selection.vertexRefOrNull) {
-      final vertexRef? => TransitionResult(
+    ButtonStartSegment _ => switch (state.selection.vertexIdOrNull) {
+      final vertexId? => TransitionResult(
         nextState: MapState(
-          mode: SketchMode(vertexStart: vertexRef, itineraire: []),
+          mode: SketchMode(vertexStart: vertexId, itineraire: []),
         ),
       ),
       null => TransitionResult(nextState: state),
@@ -39,49 +39,30 @@ TransitionResult reduceIdle(MapState state, MapInputEvent event) {
       ), // bug UI amont : bouton visible hors contexte
     },
 
-    VertexButtonDeleteTapped _ => switch (state.selection.vertexRefOrNull) {
-      final vertexRef? => TransitionResult(
+    VertexButtonDeleteTapped _ => switch (state.selection.vertexIdOrNull) {
+      final vertexId? => TransitionResult(
         nextState: state.copyWith(selection: MapSelection.none()),
-        intents: [RemoveVertex(vertexRef)],
+        intents: [RemoveVertex(vertexId)],
       ),
       null => TransitionResult(nextState: state),
     },
 
-    VertexButtonCreateWaypoint _ => switch (state.selection.vertexRefOrNull) {
-      final vertexRef? => TransitionResult(
+    VertexButtonCreateWaypoint _ => switch (state.selection.vertexIdOrNull) {
+      final vertexId? => TransitionResult(
         nextState: state.copyWith(selection: MapSelection.none()),
-        intents: [CreateWaypointFromVertex(vertexRef)],
+        intents: [CreateWaypointFromVertex(vertexId)],
       ),
       null => TransitionResult(nextState: state),
     },
     VertexTapped e => TransitionResult(
       nextState: state.copyWith(
         mode: MapMode.idle(),
-        selection: MapSelection.vertex(vertexRef: e.vertexRef),
+        selection: MapSelection.vertex(vertexId: e.vertexId),
       ),
-    ),
-    WaypointTapped e => TransitionResult(
-      nextState: state.copyWith(
-        mode: MapMode.idle(),
-        selection: MapSelection.waypoint(
-          waypointId: e.waypointId,
-          vertexRef: e.vertexRef,
-        ),
-      ),
-    ),
-    WaypointDragEnded e => TransitionResult(
-      nextState: state.copyWith(
-        mode: MapMode.idle(),
-        selection: MapSelection.waypoint(
-          waypointId: e.waypointId,
-          vertexRef: e.vertexRef,
-        ),
-      ),
-      intents: [UpdateVertexPosition(e.vertexRef, e.latLng)],
     ),
     VertexDragEnd e => TransitionResult(
       nextState: state.copyWith(mode: MapMode.idle()),
-      intents: [UpdateVertexPosition(e.vertexRef, e.latLng)],
+      intents: [UpdateVertexPosition(e.vertexId, e.latLng)],
     ),
     _ => TransitionResult(nextState: state),
   };

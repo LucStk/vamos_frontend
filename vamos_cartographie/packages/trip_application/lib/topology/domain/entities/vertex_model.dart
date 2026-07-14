@@ -35,7 +35,7 @@ abstract class VertexPatch with _$VertexPatch implements Patch<Vertex> {
     Object? error,
   }) = _VertexPatch;
 
-  const VertexPatch._(); // Requis pour utiliser @Implements
+  const VertexPatch._();
 
   factory VertexPatch({
     Id<Vertex>? id,
@@ -44,21 +44,15 @@ abstract class VertexPatch with _$VertexPatch implements Patch<Vertex> {
     bool recomputing = false,
     Object? error,
   }) {
-    final finalId = id ?? Id<Vertex>.generate();
-
     return VertexPatch.internal(
-      id: finalId,
+      id: id ?? Id<Vertex>.generate(),
       positionOverride: positionOverride,
       type: type,
       recomputing: recomputing,
       error: error,
     );
   }
+
   @override
-  Vertex toEntity() {
-    return Vertex(
-      id: id, // Ou une logique de conversion d'ID
-      latLng: positionOverride,
-    );
-  }
+  Vertex toEntity() => Vertex(id: id, latLng: positionOverride);
 }

@@ -1,6 +1,6 @@
 part of 'intents.dart';
 
 class SelectSegment extends MapIntents {
-  final SegmentRef segmentRef;
-  const SelectSegment(this.segmentRef);
+  final SegmentId segmentId;
+  const SelectSegment(this.segmentId);
 }

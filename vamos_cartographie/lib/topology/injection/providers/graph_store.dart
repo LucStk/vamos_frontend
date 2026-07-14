@@ -18,6 +18,3 @@ TopologyRepository topologyRepository(Ref ref) {
 
 @Riverpod(keepAlive: true)
 GraphStore rawGraphStore(Ref ref) => GraphStore();
-
-@Riverpod(keepAlive: true)
-GraphPatchStore rawGraphPatchStore(Ref ref) => GraphPatchStore();

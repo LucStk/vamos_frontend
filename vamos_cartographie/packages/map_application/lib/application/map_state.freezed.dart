@@ -436,7 +436,7 @@ return sketchMode(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( VertexRef vertexStart,  List<LatLng> itineraire,  VertexRef? touchedVertex)?  sketchMode,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  VertexId? touchedVertex)?  sketchMode,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
 return idle();case SketchMode() when sketchMode != null:
@@ -458,7 +458,7 @@ return sketchMode(_that.vertexStart,_that.itineraire,_that.touchedVertex);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( VertexRef vertexStart,  List<LatLng> itineraire,  VertexRef? touchedVertex)  sketchMode,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  VertexId? touchedVertex)  sketchMode,}) {final _that = this;
 switch (_that) {
 case Idle():
 return idle();case SketchMode():
@@ -476,7 +476,7 @@ return sketchMode(_that.vertexStart,_that.itineraire,_that.touchedVertex);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( VertexRef vertexStart,  List<LatLng> itineraire,  VertexRef? touchedVertex)?  sketchMode,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( VertexId vertexStart,  List<LatLng> itineraire,  VertexId? touchedVertex)?  sketchMode,}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
 return idle();case SketchMode() when sketchMode != null:
@@ -527,7 +527,7 @@ class SketchMode implements MapMode {
   const SketchMode({required this.vertexStart, required final  List<LatLng> itineraire, this.touchedVertex}): _itineraire = itineraire;
   
 
- final  VertexRef vertexStart;
+ final  VertexId vertexStart;
  final  List<LatLng> _itineraire;
  List<LatLng> get itineraire {
   if (_itineraire is EqualUnmodifiableListView) return _itineraire;
@@ -535,7 +535,7 @@ class SketchMode implements MapMode {
   return EqualUnmodifiableListView(_itineraire);
 }
 
- final  VertexRef? touchedVertex;
+ final  VertexId? touchedVertex;
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
@@ -567,11 +567,11 @@ abstract mixin class $SketchModeCopyWith<$Res> implements $MapModeCopyWith<$Res>
   factory $SketchModeCopyWith(SketchMode value, $Res Function(SketchMode) _then) = _$SketchModeCopyWithImpl;
 @useResult
 $Res call({
- VertexRef vertexStart, List<LatLng> itineraire, VertexRef? touchedVertex
+ VertexId vertexStart, List<LatLng> itineraire, VertexId? touchedVertex
 });
 
 
-$VertexRefCopyWith<$Res> get vertexStart;$VertexRefCopyWith<$Res>? get touchedVertex;
+
 
 }
 /// @nodoc
@@ -587,34 +587,13 @@ class _$SketchModeCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? vertexStart = null,Object? itineraire = null,Object? touchedVertex = freezed,}) {
   return _then(SketchMode(
 vertexStart: null == vertexStart ? _self.vertexStart : vertexStart // ignore: cast_nullable_to_non_nullable
-as VertexRef,itineraire: null == itineraire ? _self._itineraire : itineraire // ignore: cast_nullable_to_non_nullable
+as VertexId,itineraire: null == itineraire ? _self._itineraire : itineraire // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
-as VertexRef?,
+as VertexId?,
   ));
 }
 
-/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$VertexRefCopyWith<$Res> get vertexStart {
-  
-  return $VertexRefCopyWith<$Res>(_self.vertexStart, (value) {
-    return _then(_self.copyWith(vertexStart: value));
-  });
-}/// Create a copy of MapMode
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$VertexRefCopyWith<$Res>? get touchedVertex {
-    if (_self.touchedVertex == null) {
-    return null;
-  }
 
-  return $VertexRefCopyWith<$Res>(_self.touchedVertex!, (value) {
-    return _then(_self.copyWith(touchedVertex: value));
-  });
-}
 }
 
 /// @nodoc
@@ -661,15 +640,14 @@ extension MapSelectionPatterns on MapSelection {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( NoSelection value)?  none,TResult Function( VertexSelection value)?  vertex,TResult Function( SegmentSelection value)?  segment,TResult Function( CursorSelection value)?  cursor,TResult Function( WaypointSelection value)?  waypoint,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( NoSelection value)?  none,TResult Function( VertexSelection value)?  vertex,TResult Function( SegmentSelection value)?  segment,TResult Function( CursorSelection value)?  cursor,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none(_that);case VertexSelection() when vertex != null:
 return vertex(_that);case SegmentSelection() when segment != null:
 return segment(_that);case CursorSelection() when cursor != null:
-return cursor(_that);case WaypointSelection() when waypoint != null:
-return waypoint(_that);case _:
+return cursor(_that);case _:
   return orElse();
 
 }
@@ -687,15 +665,14 @@ return waypoint(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( NoSelection value)  none,required TResult Function( VertexSelection value)  vertex,required TResult Function( SegmentSelection value)  segment,required TResult Function( CursorSelection value)  cursor,required TResult Function( WaypointSelection value)  waypoint,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( NoSelection value)  none,required TResult Function( VertexSelection value)  vertex,required TResult Function( SegmentSelection value)  segment,required TResult Function( CursorSelection value)  cursor,}){
 final _that = this;
 switch (_that) {
 case NoSelection():
 return none(_that);case VertexSelection():
 return vertex(_that);case SegmentSelection():
 return segment(_that);case CursorSelection():
-return cursor(_that);case WaypointSelection():
-return waypoint(_that);}
+return cursor(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -709,15 +686,14 @@ return waypoint(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( NoSelection value)?  none,TResult? Function( VertexSelection value)?  vertex,TResult? Function( SegmentSelection value)?  segment,TResult? Function( CursorSelection value)?  cursor,TResult? Function( WaypointSelection value)?  waypoint,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( NoSelection value)?  none,TResult? Function( VertexSelection value)?  vertex,TResult? Function( SegmentSelection value)?  segment,TResult? Function( CursorSelection value)?  cursor,}){
 final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none(_that);case VertexSelection() when vertex != null:
 return vertex(_that);case SegmentSelection() when segment != null:
 return segment(_that);case CursorSelection() when cursor != null:
-return cursor(_that);case WaypointSelection() when waypoint != null:
-return waypoint(_that);case _:
+return cursor(_that);case _:
   return null;
 
 }
@@ -734,14 +710,13 @@ return waypoint(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexRef vertexRef)?  vertex,TResult Function( SegmentRef segmentRef)?  segment,TResult Function( LatLng latLng)?  cursor,TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexId vertexId)?  vertex,TResult Function( SegmentId segmentId)?  segment,TResult Function( LatLng latLng)?  cursor,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
-return vertex(_that.vertexRef);case SegmentSelection() when segment != null:
-return segment(_that.segmentRef);case CursorSelection() when cursor != null:
-return cursor(_that.latLng);case WaypointSelection() when waypoint != null:
-return waypoint(_that.waypointId,_that.vertexRef);case _:
+return vertex(_that.vertexId);case SegmentSelection() when segment != null:
+return segment(_that.segmentId);case CursorSelection() when cursor != null:
+return cursor(_that.latLng);case _:
   return orElse();
 
 }
@@ -759,14 +734,13 @@ return waypoint(_that.waypointId,_that.vertexRef);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexRef vertexRef)  vertex,required TResult Function( SegmentRef segmentRef)  segment,required TResult Function( LatLng latLng)  cursor,required TResult Function( Id<Waypoint> waypointId,  VertexRef vertexRef)  waypoint,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexId vertexId)  vertex,required TResult Function( SegmentId segmentId)  segment,required TResult Function( LatLng latLng)  cursor,}) {final _that = this;
 switch (_that) {
 case NoSelection():
 return none();case VertexSelection():
-return vertex(_that.vertexRef);case SegmentSelection():
-return segment(_that.segmentRef);case CursorSelection():
-return cursor(_that.latLng);case WaypointSelection():
-return waypoint(_that.waypointId,_that.vertexRef);}
+return vertex(_that.vertexId);case SegmentSelection():
+return segment(_that.segmentId);case CursorSelection():
+return cursor(_that.latLng);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -780,14 +754,13 @@ return waypoint(_that.waypointId,_that.vertexRef);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexRef vertexRef)?  vertex,TResult? Function( SegmentRef segmentRef)?  segment,TResult? Function( LatLng latLng)?  cursor,TResult? Function( Id<Waypoint> waypointId,  VertexRef vertexRef)?  waypoint,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexId vertexId)?  vertex,TResult? Function( SegmentId segmentId)?  segment,TResult? Function( LatLng latLng)?  cursor,}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
-return vertex(_that.vertexRef);case SegmentSelection() when segment != null:
-return segment(_that.segmentRef);case CursorSelection() when cursor != null:
-return cursor(_that.latLng);case WaypointSelection() when waypoint != null:
-return waypoint(_that.waypointId,_that.vertexRef);case _:
+return vertex(_that.vertexId);case SegmentSelection() when segment != null:
+return segment(_that.segmentId);case CursorSelection() when cursor != null:
+return cursor(_that.latLng);case _:
   return null;
 
 }
@@ -831,10 +804,10 @@ String toString() {
 
 
 class VertexSelection implements MapSelection {
-  const VertexSelection({required this.vertexRef});
+  const VertexSelection({required this.vertexId});
   
 
- final  VertexRef vertexRef;
+ final  VertexId vertexId;
 
 /// Create a copy of MapSelection
 /// with the given fields replaced by the non-null parameter values.
@@ -846,16 +819,16 @@ $VertexSelectionCopyWith<VertexSelection> get copyWith => _$VertexSelectionCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelection&&(identical(other.vertexRef, vertexRef) || other.vertexRef == vertexRef));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelection&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexRef);
+int get hashCode => Object.hash(runtimeType,vertexId);
 
 @override
 String toString() {
-  return 'MapSelection.vertex(vertexRef: $vertexRef)';
+  return 'MapSelection.vertex(vertexId: $vertexId)';
 }
 
 
@@ -866,11 +839,11 @@ abstract mixin class $VertexSelectionCopyWith<$Res> implements $MapSelectionCopy
   factory $VertexSelectionCopyWith(VertexSelection value, $Res Function(VertexSelection) _then) = _$VertexSelectionCopyWithImpl;
 @useResult
 $Res call({
- VertexRef vertexRef
+ VertexId vertexId
 });
 
 
-$VertexRefCopyWith<$Res> get vertexRef;
+
 
 }
 /// @nodoc
@@ -883,33 +856,24 @@ class _$VertexSelectionCopyWithImpl<$Res>
 
 /// Create a copy of MapSelection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? vertexRef = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? vertexId = null,}) {
   return _then(VertexSelection(
-vertexRef: null == vertexRef ? _self.vertexRef : vertexRef // ignore: cast_nullable_to_non_nullable
-as VertexRef,
+vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,
   ));
 }
 
-/// Create a copy of MapSelection
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$VertexRefCopyWith<$Res> get vertexRef {
-  
-  return $VertexRefCopyWith<$Res>(_self.vertexRef, (value) {
-    return _then(_self.copyWith(vertexRef: value));
-  });
-}
+
 }
 
 /// @nodoc
 
 
 class SegmentSelection implements MapSelection {
-  const SegmentSelection({required this.segmentRef});
+  const SegmentSelection({required this.segmentId});
   
 
- final  SegmentRef segmentRef;
+ final  SegmentId segmentId;
 
 /// Create a copy of MapSelection
 /// with the given fields replaced by the non-null parameter values.
@@ -921,16 +885,16 @@ $SegmentSelectionCopyWith<SegmentSelection> get copyWith => _$SegmentSelectionCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelection&&(identical(other.segmentRef, segmentRef) || other.segmentRef == segmentRef));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelection&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,segmentRef);
+int get hashCode => Object.hash(runtimeType,segmentId);
 
 @override
 String toString() {
-  return 'MapSelection.segment(segmentRef: $segmentRef)';
+  return 'MapSelection.segment(segmentId: $segmentId)';
 }
 
 
@@ -941,11 +905,11 @@ abstract mixin class $SegmentSelectionCopyWith<$Res> implements $MapSelectionCop
   factory $SegmentSelectionCopyWith(SegmentSelection value, $Res Function(SegmentSelection) _then) = _$SegmentSelectionCopyWithImpl;
 @useResult
 $Res call({
- SegmentRef segmentRef
+ SegmentId segmentId
 });
 
 
-$SegmentRefCopyWith<$Res> get segmentRef;
+
 
 }
 /// @nodoc
@@ -958,23 +922,14 @@ class _$SegmentSelectionCopyWithImpl<$Res>
 
 /// Create a copy of MapSelection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? segmentRef = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? segmentId = null,}) {
   return _then(SegmentSelection(
-segmentRef: null == segmentRef ? _self.segmentRef : segmentRef // ignore: cast_nullable_to_non_nullable
-as SegmentRef,
+segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
+as SegmentId,
   ));
 }
 
-/// Create a copy of MapSelection
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SegmentRefCopyWith<$Res> get segmentRef {
-  
-  return $SegmentRefCopyWith<$Res>(_self.segmentRef, (value) {
-    return _then(_self.copyWith(segmentRef: value));
-  });
-}
+
 }
 
 /// @nodoc
@@ -1041,83 +996,6 @@ as LatLng,
 }
 
 
-}
-
-/// @nodoc
-
-
-class WaypointSelection implements MapSelection {
-  const WaypointSelection({required this.waypointId, required this.vertexRef});
-  
-
- final  Id<Waypoint> waypointId;
- final  VertexRef vertexRef;
-
-/// Create a copy of MapSelection
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$WaypointSelectionCopyWith<WaypointSelection> get copyWith => _$WaypointSelectionCopyWithImpl<WaypointSelection>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointSelection&&(identical(other.waypointId, waypointId) || other.waypointId == waypointId)&&(identical(other.vertexRef, vertexRef) || other.vertexRef == vertexRef));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,waypointId,vertexRef);
-
-@override
-String toString() {
-  return 'MapSelection.waypoint(waypointId: $waypointId, vertexRef: $vertexRef)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $WaypointSelectionCopyWith<$Res> implements $MapSelectionCopyWith<$Res> {
-  factory $WaypointSelectionCopyWith(WaypointSelection value, $Res Function(WaypointSelection) _then) = _$WaypointSelectionCopyWithImpl;
-@useResult
-$Res call({
- Id<Waypoint> waypointId, VertexRef vertexRef
-});
-
-
-$VertexRefCopyWith<$Res> get vertexRef;
-
-}
-/// @nodoc
-class _$WaypointSelectionCopyWithImpl<$Res>
-    implements $WaypointSelectionCopyWith<$Res> {
-  _$WaypointSelectionCopyWithImpl(this._self, this._then);
-
-  final WaypointSelection _self;
-  final $Res Function(WaypointSelection) _then;
-
-/// Create a copy of MapSelection
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? waypointId = null,Object? vertexRef = null,}) {
-  return _then(WaypointSelection(
-waypointId: null == waypointId ? _self.waypointId : waypointId // ignore: cast_nullable_to_non_nullable
-as Id<Waypoint>,vertexRef: null == vertexRef ? _self.vertexRef : vertexRef // ignore: cast_nullable_to_non_nullable
-as VertexRef,
-  ));
-}
-
-/// Create a copy of MapSelection
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$VertexRefCopyWith<$Res> get vertexRef {
-  
-  return $VertexRefCopyWith<$Res>(_self.vertexRef, (value) {
-    return _then(_self.copyWith(vertexRef: value));
-  });
-}
 }
 
 /// @nodoc

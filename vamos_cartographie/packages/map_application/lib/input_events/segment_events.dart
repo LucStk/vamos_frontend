@@ -5,31 +5,31 @@ sealed class SegmentEvent extends MapInputEvent {
 }
 
 class HoverSegments extends SegmentEvent {
-  final List<SegmentRef>? listSegmentsId;
+  final List<SegmentId>? listSegmentsId;
   const HoverSegments(this.listSegmentsId);
 }
 
 class SegmentMobilityMarkerTapped extends SegmentEvent {
-  final SegmentRef segmentRef;
-  const SegmentMobilityMarkerTapped(this.segmentRef);
+  final SegmentId segmentId;
+  const SegmentMobilityMarkerTapped(this.segmentId);
 }
 
 class SegmentMobilityMarkerDoubleTapped extends SegmentEvent {
-  final SegmentRef segmentRef;
-  const SegmentMobilityMarkerDoubleTapped(this.segmentRef);
+  final SegmentId segmentId;
+  const SegmentMobilityMarkerDoubleTapped(this.segmentId);
 }
 
 class ConnectionDragStart extends SegmentEvent {
-  final VertexRef vertexRef;
-  const ConnectionDragStart(this.vertexRef);
+  final VertexId vertexId;
+  const ConnectionDragStart(this.vertexId);
 }
 
 class ConnectionDragUpdate extends SegmentEvent {
-  final VertexRef vertexRef;
-  const ConnectionDragUpdate(this.vertexRef);
+  final VertexId vertexId;
+  const ConnectionDragUpdate(this.vertexId);
 }
 
 class ConnectionDragEnd extends SegmentEvent {
-  final VertexRef vertexRef;
-  const ConnectionDragEnd(this.vertexRef);
+  final VertexId vertexId;
+  const ConnectionDragEnd(this.vertexId);
 }

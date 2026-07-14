@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_application/application/map_state.dart';
+import 'package:map_application/input_events/input_events.dart';
 import 'package:trip_application/trip_application.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import '/map/map.dart';
-
-import "adapters/adapters.dart";
 
 class VertexLayer extends ConsumerWidget {
   final Id<Trip> tripId;
@@ -15,17 +15,43 @@ class VertexLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapStateNotifier = ref.read(mapStateProvider(tripId).notifier);
+    final notifier = ref.read(mapStateProvider(tripId).notifier);
     final mapMode = ref.watch(mapStateProvider(tripId).select((s) => s.mode));
-    final vertexIds = ref.watch(vertexRefsProvider);
+    final vertexIds = ref.watch(vertexStoreProvider).getIds();
 
     final isSketchMode = mapMode is SketchMode;
 
+    const totalSize = 26.0;
     final List<DragMarker> listDragMarkers = [];
-    for (final vertexRef in vertexIds) {
-      final vertex = ref.watch(vertexUiElementProvider(tripId, vertexRef));
+    for (final vertexId in vertexIds) {
+      final vertex = ref.watch(vertexProvider(vertexId)).displayValue;
+
       listDragMarkers.add(
-        toVertexMarker(vertex, tripId, mapStateNotifier, isSketchMode),
+        DragMarker(
+          point: vertex.latLng,
+          size: const Size(totalSize, totalSize),
+          disableDrag: isSketchMode, // 👈
+          builder: (context, LatLng latLng, isDragging) {
+            return Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => notifier.sendUiEvent(VertexTapped(vertex.id)),
+                  child: VertexMarker(
+                    tripId: tripId,
+                    vertexId: vertex.id,
+                    isDragging: isDragging,
+                  ),
+                ),
+              ],
+            );
+          },
+          onDragStart: (_, LatLng latLng) =>
+              notifier.sendUiEvent(VertexDragStarted(vertex.id)),
+          onDragEnd: (_, LatLng latLng) =>
+              notifier.sendUiEvent(VertexDragEnd(vertex.id, latLng)),
+        ),
       );
     }
     return DragMarkers(markers: listDragMarkers);

@@ -8,7 +8,7 @@ import 'package:map_application/application/map_state.dart';
 import 'package:map_application/input_events/input_events.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/rendering/helpers/vertex_hit_test.dart';
-import 'package:vamos_cartographie/topology/injection/queries/queries.dart';
+import 'package:vamos_cartographie/topology/topology.dart';
 import '/map/map.dart';
 
 class SketchLayer extends ConsumerStatefulWidget {
@@ -20,12 +20,12 @@ class SketchLayer extends ConsumerStatefulWidget {
 }
 
 class _SketchLayerState extends ConsumerState<SketchLayer> {
-  late final ValueNotifier<LayerHitResult<SegmentRef>?> _polylineHitNotifier;
+  late final ValueNotifier<LayerHitResult<SegmentId>?> _polylineHitNotifier;
 
   @override
   void initState() {
     super.initState();
-    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentRef>?>(null);
+    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentId>?>(null);
     _polylineHitNotifier.addListener(_onHoverChanged);
   }
 
@@ -49,18 +49,16 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
     final mapState = ref.watch(mapStateProvider(widget.tripId));
     switch (mapState.mode) {
       case SketchMode e:
-        final vertex = ref.read(
-          vertexUiElementProvider(widget.tripId, e.vertexStart),
-        );
+        final vertex = ref.read(vertexProvider(e.vertexStart)).displayValue;
 
         final pencilLatLng = e.itineraire.isEmpty
             ? vertex.latLng
             : e.itineraire.last;
         final mapController = MapController.of(context);
 
-        final vertexIds = ref.watch(vertexRefsProvider);
+        final vertexIds = ref.watch(vertexStoreProvider).getIds();
         final allVertices = ref.watch(
-          vertexProvider(widget.tripId),
+          vertexProvider(),
         ); // à toi de nommer ce provider
         final hoveredVertex = findNearbyVertex(
           point: pencilLatLng,
@@ -106,7 +104,7 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
                     mapStateNotifier.sendUiEvent(
                       PencilDragUpdate(
                         latLng: latLng,
-                        touchedVertex: hit?.vertexRef,
+                        touchedVertex: hit?.vertexId,
                       ),
                     );
                   },

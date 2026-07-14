@@ -51,7 +51,7 @@ class WaypointHandler {
       remote: () => repo.createBlankWaypointFromVertex(tripId, vertexId),
       onSuccess: (data) {
         waypointStore.upsert(data.waypoint);
-        graphStore.insertVertex(data.vertex);
+        graphStore.upsertVertex(data.vertex);
       },
       onError: (Failure failure) {},
     );
@@ -64,7 +64,7 @@ class WaypointHandler {
       remote: () => repo.createBlankWaypointFromPosition(tripId, latLng),
       onSuccess: (data) {
         waypointStore.upsert(data.waypoint);
-        graphStore.insertVertex(data.vertex);
+        graphStore.upsertVertex(data.vertex);
       },
       onError: (Failure failure) {},
     );

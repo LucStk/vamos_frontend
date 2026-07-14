@@ -67,7 +67,7 @@ final class TopologyHandlerProvider
   }
 }
 
-String _$topologyHandlerHash() => r'ff24af16beb5b162b4de208fda984b6b63396c14';
+String _$topologyHandlerHash() => r'2341fcd7a0626543d3e7e34ae2efa4559c8bc059';
 
 final class TopologyHandlerFamily extends $Family
     with $FunctionalFamilyOverride<TopologyHandler, TripId> {

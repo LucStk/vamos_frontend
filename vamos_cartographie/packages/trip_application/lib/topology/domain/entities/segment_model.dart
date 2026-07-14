@@ -1,10 +1,10 @@
 import 'package:domain_core/geometry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/shared/graph_node_state.dart';
 import '/topology/domain/value_objects/mobility_types.dart';
 import "vertex_model.dart";
+
 part 'segment_model.freezed.dart';
 
 @freezed
@@ -13,7 +13,7 @@ abstract class Segment with _$Segment implements Patchable<Segment> {
     required Id<Segment> id,
     required Id<Vertex> startVertexId,
     required Id<Vertex> endVertexId,
-    required List<LatLng> geometry,
+    required Geometry geometry, // <- plus List<LatLng>
     @Default(MobilityType.bike) MobilityType mobilityType,
   }) = _Segment;
 
@@ -22,10 +22,11 @@ abstract class Segment with _$Segment implements Patchable<Segment> {
   @override
   Patch<Segment> createPatch() {
     return SegmentPatch.internal(
-      id: id, // Ou une logique de conversion d'ID
+      id: id,
       startVertexId: startVertexId,
       endVertexId: endVertexId,
       geometryOverride: geometry,
+      recomputing: false,
     );
   }
 }
@@ -45,7 +46,7 @@ abstract class SegmentPatch with _$SegmentPatch implements Patch<Segment> {
     Object? error,
   }) = _SegmentPatch;
 
-  const SegmentPatch._(); // Requis pour pouvoir utiliser @Implements
+  const SegmentPatch._();
 
   factory SegmentPatch({
     SegmentId? id,
@@ -56,10 +57,8 @@ abstract class SegmentPatch with _$SegmentPatch implements Patch<Segment> {
     Object? error,
     MobilityType mobilityType = MobilityType.bike,
   }) {
-    final finalId = id ?? Id.generate();
-
     return SegmentPatch.internal(
-      id: finalId,
+      id: id ?? Id.generate(),
       startVertexId: startVertexId,
       endVertexId: endVertexId,
       geometryOverride: geometryOverride,
@@ -68,13 +67,15 @@ abstract class SegmentPatch with _$SegmentPatch implements Patch<Segment> {
       mobilityType: mobilityType,
     );
   }
+
   @override
   Segment toEntity() {
     return Segment(
-      id: id, // Ou une logique de conversion d'ID
+      id: id,
       startVertexId: startVertexId,
       endVertexId: endVertexId,
       geometry: geometryOverride,
-    );
+      mobilityType: mobilityType,
+    ); // mobilityType manquait dans ta version d'origine
   }
 }

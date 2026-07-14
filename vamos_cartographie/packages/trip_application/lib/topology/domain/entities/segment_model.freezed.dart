@@ -14,7 +14,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Segment {
 
- Id<Segment> get id; Id<Vertex> get startVertexId; Id<Vertex> get endVertexId; List<LatLng> get geometry; MobilityType get mobilityType;
+ Id<Segment> get id; Id<Vertex> get startVertexId; Id<Vertex> get endVertexId; Geometry get geometry;// <- plus List<LatLng>
+ MobilityType get mobilityType;
 /// Create a copy of Segment
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +46,7 @@ abstract mixin class $SegmentCopyWith<$Res>  {
   factory $SegmentCopyWith(Segment value, $Res Function(Segment) _then) = _$SegmentCopyWithImpl;
 @useResult
 $Res call({
- Id<Segment> id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, List<LatLng> geometry, MobilityType mobilityType
+ Id<Segment> id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, Geometry geometry, MobilityType mobilityType
 });
 
 
@@ -68,7 +69,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as Id<Segment>,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
-as List<LatLng>,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,
   ));
 }
@@ -154,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  List<LatLng> geometry,  MobilityType mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometry,  MobilityType mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Segment() when $default != null:
 return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType);case _:
@@ -175,7 +176,7 @@ return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  List<LatLng> geometry,  MobilityType mobilityType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometry,  MobilityType mobilityType)  $default,) {final _that = this;
 switch (_that) {
 case _Segment():
 return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType);case _:
@@ -195,7 +196,7 @@ return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  List<LatLng> geometry,  MobilityType mobilityType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometry,  MobilityType mobilityType)?  $default,) {final _that = this;
 switch (_that) {
 case _Segment() when $default != null:
 return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType);case _:
@@ -210,19 +211,20 @@ return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 
 
 class _Segment extends Segment {
-  const _Segment({required this.id, required this.startVertexId, required this.endVertexId, required final  List<LatLng> geometry, this.mobilityType = MobilityType.bike}): _geometry = geometry,super._();
+  const _Segment({required this.id, required this.startVertexId, required this.endVertexId, required final  Geometry geometry, this.mobilityType = MobilityType.bike}): _geometry = geometry,super._();
   
 
 @override final  Id<Segment> id;
 @override final  Id<Vertex> startVertexId;
 @override final  Id<Vertex> endVertexId;
- final  List<LatLng> _geometry;
-@override List<LatLng> get geometry {
+ final  Geometry _geometry;
+@override Geometry get geometry {
   if (_geometry is EqualUnmodifiableListView) return _geometry;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_geometry);
 }
 
+// <- plus List<LatLng>
 @override@JsonKey() final  MobilityType mobilityType;
 
 /// Create a copy of Segment
@@ -255,7 +257,7 @@ abstract mixin class _$SegmentCopyWith<$Res> implements $SegmentCopyWith<$Res> {
   factory _$SegmentCopyWith(_Segment value, $Res Function(_Segment) _then) = __$SegmentCopyWithImpl;
 @override @useResult
 $Res call({
- Id<Segment> id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, List<LatLng> geometry, MobilityType mobilityType
+ Id<Segment> id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, Geometry geometry, MobilityType mobilityType
 });
 
 
@@ -278,7 +280,7 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as Id<Segment>,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
 as Id<Vertex>,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
-as List<LatLng>,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,
   ));
 }

@@ -1,10 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/topology/domain/domain.dart';
-import 'package:trip_application/topology/domain/types/segment_ref.dart';
-import 'package:trip_application/topology/domain/types/vertex_ref.dart';
-import 'package:trip_application/waypoint/domain/waypoint.dart';
 
 part 'map_state.freezed.dart';
 
@@ -21,24 +17,20 @@ abstract class MapState with _$MapState {
 sealed class MapMode with _$MapMode {
   const factory MapMode.idle() = Idle;
   const factory MapMode.sketchMode({
-    required VertexRef vertexStart,
+    required VertexId vertexStart,
     required List<LatLng> itineraire,
-    VertexRef? touchedVertex,
+    VertexId? touchedVertex,
   }) = SketchMode;
 }
 
 @freezed
 sealed class MapSelection with _$MapSelection {
   const factory MapSelection.none() = NoSelection;
-  const factory MapSelection.vertex({required VertexRef vertexRef}) =
+  const factory MapSelection.vertex({required VertexId vertexId}) =
       VertexSelection;
-  const factory MapSelection.segment({required SegmentRef segmentRef}) =
+  const factory MapSelection.segment({required SegmentId segmentId}) =
       SegmentSelection;
   const factory MapSelection.cursor({required LatLng latLng}) = CursorSelection;
-  const factory MapSelection.waypoint({
-    required Id<Waypoint> waypointId,
-    required VertexRef vertexRef, // le vertex lié, résolu à la sélection
-  }) = WaypointSelection;
 }
 
 extension MapSelectionX on MapSelection {
@@ -47,9 +39,8 @@ extension MapSelectionX on MapSelection {
     _ => null,
   };
 
-  VertexRef? get vertexRefOrNull => switch (this) {
-    VertexSelection(:final vertexRef) => vertexRef,
-    WaypointSelection(:final vertexRef) => vertexRef, // le vertex lié
+  VertexId? get vertexIdOrNull => switch (this) {
+    VertexSelection(:final vertexId) => vertexId,
     _ => null,
   };
 }

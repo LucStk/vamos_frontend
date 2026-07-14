@@ -1,14 +1,14 @@
 part of 'intents.dart';
 
 class SelectVertex extends MapIntents {
-  final VertexRef vertexRef;
-  const SelectVertex(this.vertexRef);
+  final VertexId vertexId;
+  const SelectVertex(this.vertexId);
 }
 
 class UpdateVertexPosition extends MapIntents {
-  final VertexRef vertexRef;
+  final VertexId vertexId;
   final LatLng position;
-  const UpdateVertexPosition(this.vertexRef, this.position);
+  const UpdateVertexPosition(this.vertexId, this.position);
 }
 
 class CreateSimpleVertex extends MapIntents {
@@ -22,6 +22,6 @@ class CreateWaypointVertex extends MapIntents {
 }
 
 class RemoveVertex extends MapIntents {
-  final VertexRef vertexRef;
-  const RemoveVertex(this.vertexRef);
+  final VertexId vertexId;
+  const RemoveVertex(this.vertexId);
 }

@@ -8,6 +8,7 @@ import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/bottom_sheet.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/sketch_bottom_sheet.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/vertex_bottom_sheet.dart';
+import 'package:vamos_cartographie/topology/injection/injection.dart';
 
 class MapBottomSheet extends ConsumerWidget {
   final TripId tripId;
@@ -28,15 +29,17 @@ class MapBottomSheet extends ConsumerWidget {
         return SketchBottomSheet(tripId: tripId);
       case Idle _:
         switch (stateSelection) {
-          case WaypointSelection e:
-            return WaypointBottomSheet(
-              tripId: tripId,
-              waypointId: e.waypointId,
-            );
           case CursorSelection _:
             return CursorBottomSheet(tripId: tripId);
           case VertexSelection e:
-            return VertexBottomSheet(tripId: tripId, vertexRef: e.vertexRef);
+            final waypoint = ref.watch(waypointFromVertexProvider(e.vertexId));
+            if (waypoint != null) {
+              return WaypointBottomSheet(
+                tripId: tripId,
+                waypointId: waypoint.id,
+              );
+            }
+            return VertexBottomSheet(tripId: tripId, vertexId: e.vertexId);
           case SegmentSelection _:
             return const SizedBox.shrink();
           case NoSelection _:

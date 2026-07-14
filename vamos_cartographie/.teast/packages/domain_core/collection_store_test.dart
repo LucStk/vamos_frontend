@@ -144,21 +144,18 @@ void main() {
       expect(store.getNode(Id<_Item>(42)), isNull);
     });
 
-    test(
-      'getNode retourne un ObservableGraphNode pour un élément existant',
-      () {
-        // arrange
-        final item = _Item(5, 'delta');
-        store.insert(item);
+    test('getNode retourne un GraphNode pour un élément existant', () {
+      // arrange
+      final item = _Item(5, 'delta');
+      store.insert(item);
 
-        // act
-        final node = store.getNode(item.id);
+      // act
+      final node = store.getNode(item.id);
 
-        // assert
-        expect(node, isNotNull);
-        expect(node!.value, equals(item));
-      },
-    );
+      // assert
+      expect(node, isNotNull);
+      expect(node!.value, equals(item));
+    });
 
     test('getNodeRequired lève une exception si l\'id est absent', () {
       // assert

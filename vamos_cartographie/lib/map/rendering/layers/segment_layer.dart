@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
+import 'package:vamos_cartographie/topology/presentation/presentation.dart';
 import '/map/map.dart';
-
-import "adapters/adapters.dart";
 
 class SegmentLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -18,12 +18,12 @@ class SegmentLayer extends ConsumerStatefulWidget {
 }
 
 class _SegmentLayerState extends ConsumerState<SegmentLayer> {
-  late final ValueNotifier<LayerHitResult<SegmentRef>?> _polylineHitNotifier;
+  late final ValueNotifier<LayerHitResult<SegmentId>?> _polylineHitNotifier;
 
   @override
   void initState() {
     super.initState();
-    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentRef>?>(null);
+    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentId>?>(null);
 
     _polylineHitNotifier.addListener(_onHoverChanged);
   }
@@ -44,30 +44,40 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
 
   @override
   Widget build(BuildContext context) {
-    final segments = ref.watch(segmentRefsProvider);
-    final mapState = ref.read(mapStateProvider(widget.tripId).notifier);
+    final segmentIds = ref.watch(segmentStoreProvider).getIds();
+    final notifier = ref.read(mapStateProvider(widget.tripId).notifier);
 
-    final polylines =
-        segments
-                .map((id) => toPolyline(ref, id, widget.tripId, mapState))
-                .toList()
-            as List<Polyline<SegmentRef>>;
-    // On en profite pour construire les markers mobility sur les segments
+    final List<Polyline<Id<Segment>>> polylines = [];
     final List<Marker> segMarkers = [];
-    for (SegmentRef entry in segments) {
-      final segment = ref.read(segmentUiProvider(entry));
-      if (segment != null) {
-        final MobilityMarkerElement m = MobilityMarkerElement(
-          widget.tripId,
-          segment,
-        );
-        segMarkers.add(toMarker(m, widget.tripId, mapState));
-      }
+
+    for (SegmentId id in segmentIds) {
+      final state = ref.watch(segmentProvider(id));
+      final segment = state.displayValue;
+      polylines.add(
+        Polyline(
+          points: segment.geometry,
+          color: Color(segment.mobilityTypeDisplay.colorValue),
+          strokeWidth: state.isRecomputing ? 3 : 5,
+          hitValue: segment.id,
+          pattern: segment.mobilityTypeDisplay.isDashed
+              ? StrokePattern.dashed(segments: const [12, 8])
+              : const StrokePattern.solid(),
+        ),
+      );
+      segMarkers.add(
+        Marker(
+          point: calculMobilyMarkerPosition(segment),
+          child: GestureDetector(
+            onTap: () => notifier.sendUiEvent(SegmentMobilityMarkerTapped(id)),
+            child: MobilityMarker(tripId: widget.tripId, segId: id),
+          ),
+        ),
+      );
     }
 
     return Stack(
       children: [
-        PolylineLayer<SegmentRef>(
+        PolylineLayer<SegmentId>(
           hitNotifier: _polylineHitNotifier,
           polylines: polylines,
         ),
@@ -75,4 +85,24 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
       ],
     );
   }
+}
+
+LatLng calculMobilyMarkerPosition(Segment seg) {
+  // Compute center of segment geometry
+  if (seg.geometry.isEmpty) {
+    return const LatLng(0, 0);
+  }
+  final minLat = seg.geometry
+      .map((p) => p.latitude)
+      .reduce((a, b) => a < b ? a : b);
+  final maxLat = seg.geometry
+      .map((p) => p.latitude)
+      .reduce((a, b) => a > b ? a : b);
+  final minLng = seg.geometry
+      .map((p) => p.longitude)
+      .reduce((a, b) => a < b ? a : b);
+  final maxLng = seg.geometry
+      .map((p) => p.longitude)
+      .reduce((a, b) => a > b ? a : b);
+  return LatLng((minLat + maxLat) / 2, (minLng + maxLng) / 2);
 }

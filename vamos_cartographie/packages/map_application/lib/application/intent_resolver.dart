@@ -13,13 +13,13 @@ class IntentResolver {
       case CreateSimpleVertex e:
         await topologyHandler.createSimpleVertex(e.position);
       case UpdateVertexPosition e:
-        await topologyHandler.moveVertex(e.vertexRef, e.position);
+        await topologyHandler.moveVertex(e.vertexId, e.position);
       case CreateWaypointFromVertex e:
         await waypointHandler.createBlankWaypointFromVertex(
-          VertexId(e.vertexRef.id.value),
+          VertexId(e.vertexId.value),
         );
       case RemoveVertex e:
-        await topologyHandler.removeVertex(e.vertexRef);
+        await topologyHandler.removeVertex(e.vertexId);
       case OpenWaypointDialog e:
         mapOutput.emit(OpenWaypointDialogEvent(e.waypointId));
 

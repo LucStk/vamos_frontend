@@ -9,9 +9,3 @@ Waypoint? waypointUi(Ref ref, WaypointId id) {
   final waypointStore = ref.watch(waypointStoreProvider);
   return waypointStore.get(id);
 }
-
-@riverpod
-Waypoint? waypointFromVertex(Ref ref, VertexId vertexId) {
-  final store = ref.watch(waypointStoreProvider);
-  return store.getFromVertex(vertexId);
-}

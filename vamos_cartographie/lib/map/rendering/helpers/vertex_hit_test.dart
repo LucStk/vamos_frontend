@@ -1,17 +1,17 @@
 // lib/map/rendering/helpers/vertex_hit_test.dart
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/map/rendering/elements/vertex_element.dart';
+import 'package:trip_application/topology/topology.dart';
 
-VertexElement? findNearbyVertex({
+Vertex? findNearbyVertex({
   required LatLng point,
-  required List<VertexElement> vertices,
+  required List<Vertex> vertices,
   required MapController mapController,
   double thresholdPx = 24,
 }) {
   final pointPx = mapController.camera.latLngToScreenOffset(point);
 
-  VertexElement? closest;
+  Vertex? closest;
   double closestDist = double.infinity;
 
   for (final v in vertices) {

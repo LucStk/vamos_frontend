@@ -5,12 +5,12 @@ class GraphNode<T extends Patchable<T>> {
   int revision = 0;
 
   GraphNode(this._state);
-  NodeState get current => _state;
+  NodeState<T> get current => _state;
 
   void set(Patch<T> patchValue) {
     _state = NodeState.hasPatch(
       patch: patchValue,
-      originalValue: _state.originalValue,
+      originalValue: _state.serverValue,
     );
     revision++;
   }

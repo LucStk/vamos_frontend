@@ -15,11 +15,11 @@ final vertexNodeProvider = VertexNodeFamily._();
 final class VertexNodeProvider
     extends
         $FunctionalProvider<
-          ObservableGraphNode<Vertex>,
-          ObservableGraphNode<Vertex>,
-          ObservableGraphNode<Vertex>
+          GraphNode<Vertex>,
+          GraphNode<Vertex>,
+          GraphNode<Vertex>
         >
-    with $Provider<ObservableGraphNode<Vertex>> {
+    with $Provider<GraphNode<Vertex>> {
   VertexNodeProvider._({
     required VertexNodeFamily super.from,
     required VertexId super.argument,
@@ -43,21 +43,21 @@ final class VertexNodeProvider
 
   @$internal
   @override
-  $ProviderElement<ObservableGraphNode<Vertex>> $createElement(
+  $ProviderElement<GraphNode<Vertex>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  ObservableGraphNode<Vertex> create(Ref ref) {
+  GraphNode<Vertex> create(Ref ref) {
     final argument = this.argument as VertexId;
     return vertexNode(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableGraphNode<Vertex> value) {
+  Override overrideWithValue(GraphNode<Vertex> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ObservableGraphNode<Vertex>>(value),
+      providerOverride: $SyncValueProvider<GraphNode<Vertex>>(value),
     );
   }
 
@@ -72,10 +72,10 @@ final class VertexNodeProvider
   }
 }
 
-String _$vertexNodeHash() => r'dcc9d8c6bbc8ffad1df32511c5f97090f697d4bb';
+String _$vertexNodeHash() => r'c7d282f14753a9591d3d368bad4c5c4f54b00489';
 
 final class VertexNodeFamily extends $Family
-    with $FunctionalFamilyOverride<ObservableGraphNode<Vertex>, VertexId> {
+    with $FunctionalFamilyOverride<GraphNode<Vertex>, VertexId> {
   VertexNodeFamily._()
     : super(
         retry: null,
@@ -92,100 +92,17 @@ final class VertexNodeFamily extends $Family
   String toString() => r'vertexNodeProvider';
 }
 
-@ProviderFor(vertexPatchNode)
-final vertexPatchNodeProvider = VertexPatchNodeFamily._();
-
-final class VertexPatchNodeProvider
-    extends
-        $FunctionalProvider<
-          ObservableGraphNode<VertexPatch>,
-          ObservableGraphNode<VertexPatch>,
-          ObservableGraphNode<VertexPatch>
-        >
-    with $Provider<ObservableGraphNode<VertexPatch>> {
-  VertexPatchNodeProvider._({
-    required VertexPatchNodeFamily super.from,
-    required Id<VertexPatch> super.argument,
-  }) : super(
-         retry: null,
-         name: r'vertexPatchNodeProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$vertexPatchNodeHash();
-
-  @override
-  String toString() {
-    return r'vertexPatchNodeProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<ObservableGraphNode<VertexPatch>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ObservableGraphNode<VertexPatch> create(Ref ref) {
-    final argument = this.argument as Id<VertexPatch>;
-    return vertexPatchNode(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ObservableGraphNode<VertexPatch> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ObservableGraphNode<VertexPatch>>(
-        value,
-      ),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is VertexPatchNodeProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$vertexPatchNodeHash() => r'35b0fe46ff07c279b8c496f2e1c6caf7bd231623';
-
-final class VertexPatchNodeFamily extends $Family
-    with
-        $FunctionalFamilyOverride<
-          ObservableGraphNode<VertexPatch>,
-          Id<VertexPatch>
-        > {
-  VertexPatchNodeFamily._()
-    : super(
-        retry: null,
-        name: r'vertexPatchNodeProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  VertexPatchNodeProvider call(Id<VertexPatch> id) =>
-      VertexPatchNodeProvider._(argument: id, from: this);
-
-  @override
-  String toString() => r'vertexPatchNodeProvider';
-}
-
 @ProviderFor(vertex)
 final vertexProvider = VertexFamily._();
 
-final class VertexProvider extends $FunctionalProvider<Vertex, Vertex, Vertex>
-    with $Provider<Vertex> {
+final class VertexProvider
+    extends
+        $FunctionalProvider<
+          NodeState<Vertex>,
+          NodeState<Vertex>,
+          NodeState<Vertex>
+        >
+    with $Provider<NodeState<Vertex>> {
   VertexProvider._({
     required VertexFamily super.from,
     required VertexId super.argument,
@@ -209,20 +126,21 @@ final class VertexProvider extends $FunctionalProvider<Vertex, Vertex, Vertex>
 
   @$internal
   @override
-  $ProviderElement<Vertex> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<NodeState<Vertex>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  Vertex create(Ref ref) {
+  NodeState<Vertex> create(Ref ref) {
     final argument = this.argument as VertexId;
     return vertex(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Vertex value) {
+  Override overrideWithValue(NodeState<Vertex> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Vertex>(value),
+      providerOverride: $SyncValueProvider<NodeState<Vertex>>(value),
     );
   }
 
@@ -237,10 +155,10 @@ final class VertexProvider extends $FunctionalProvider<Vertex, Vertex, Vertex>
   }
 }
 
-String _$vertexHash() => r'3faf82875087e213d0b0d175f72541e516fd963a';
+String _$vertexHash() => r'32eb9bb5945ffc201d53dab170f08a88cdc7f003';
 
 final class VertexFamily extends $Family
-    with $FunctionalFamilyOverride<Vertex, VertexId> {
+    with $FunctionalFamilyOverride<NodeState<Vertex>, VertexId> {
   VertexFamily._()
     : super(
         retry: null,
@@ -257,55 +175,55 @@ final class VertexFamily extends $Family
   String toString() => r'vertexProvider';
 }
 
-@ProviderFor(vertexPatch)
-final vertexPatchProvider = VertexPatchFamily._();
+@ProviderFor(waypointFromVertex)
+final waypointFromVertexProvider = WaypointFromVertexFamily._();
 
-final class VertexPatchProvider
-    extends $FunctionalProvider<VertexPatch, VertexPatch, VertexPatch>
-    with $Provider<VertexPatch> {
-  VertexPatchProvider._({
-    required VertexPatchFamily super.from,
-    required Id<VertexPatch> super.argument,
+final class WaypointFromVertexProvider
+    extends $FunctionalProvider<Waypoint?, Waypoint?, Waypoint?>
+    with $Provider<Waypoint?> {
+  WaypointFromVertexProvider._({
+    required WaypointFromVertexFamily super.from,
+    required VertexId super.argument,
   }) : super(
          retry: null,
-         name: r'vertexPatchProvider',
+         name: r'waypointFromVertexProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$vertexPatchHash();
+  String debugGetCreateSourceHash() => _$waypointFromVertexHash();
 
   @override
   String toString() {
-    return r'vertexPatchProvider'
+    return r'waypointFromVertexProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<VertexPatch> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<Waypoint?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  VertexPatch create(Ref ref) {
-    final argument = this.argument as Id<VertexPatch>;
-    return vertexPatch(ref, argument);
+  Waypoint? create(Ref ref) {
+    final argument = this.argument as VertexId;
+    return waypointFromVertex(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(VertexPatch value) {
+  Override overrideWithValue(Waypoint? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<VertexPatch>(value),
+      providerOverride: $SyncValueProvider<Waypoint?>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is VertexPatchProvider && other.argument == argument;
+    return other is WaypointFromVertexProvider && other.argument == argument;
   }
 
   @override
@@ -314,143 +232,25 @@ final class VertexPatchProvider
   }
 }
 
-String _$vertexPatchHash() => r'8fe96e2935842e09383b0e66eb1a51a79d70dcaf';
+String _$waypointFromVertexHash() =>
+    r'f50f23d1434aabec3547cabe4180f3d75c86e636';
 
-final class VertexPatchFamily extends $Family
-    with $FunctionalFamilyOverride<VertexPatch, Id<VertexPatch>> {
-  VertexPatchFamily._()
+final class WaypointFromVertexFamily extends $Family
+    with $FunctionalFamilyOverride<Waypoint?, VertexId> {
+  WaypointFromVertexFamily._()
     : super(
         retry: null,
-        name: r'vertexPatchProvider',
+        name: r'waypointFromVertexProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  VertexPatchProvider call(Id<VertexPatch> id) =>
-      VertexPatchProvider._(argument: id, from: this);
+  WaypointFromVertexProvider call(VertexId vertexId) =>
+      WaypointFromVertexProvider._(argument: vertexId, from: this);
 
   @override
-  String toString() => r'vertexPatchProvider';
-}
-
-@ProviderFor(vertexRefs)
-final vertexRefsProvider = VertexRefsProvider._();
-
-final class VertexRefsProvider
-    extends
-        $FunctionalProvider<List<VertexRef>, List<VertexRef>, List<VertexRef>>
-    with $Provider<List<VertexRef>> {
-  VertexRefsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'vertexRefsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$vertexRefsHash();
-
-  @$internal
-  @override
-  $ProviderElement<List<VertexRef>> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  List<VertexRef> create(Ref ref) {
-    return vertexRefs(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<VertexRef> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<VertexRef>>(value),
-    );
-  }
-}
-
-String _$vertexRefsHash() => r'fa3d295c0747af9cd14dd37bd742b9c17de1cd1d';
-
-@ProviderFor(vertexUiElement)
-final vertexUiElementProvider = VertexUiElementFamily._();
-
-final class VertexUiElementProvider
-    extends $FunctionalProvider<VertexElement, VertexElement, VertexElement>
-    with $Provider<VertexElement> {
-  VertexUiElementProvider._({
-    required VertexUiElementFamily super.from,
-    required (TripId, VertexRef) super.argument,
-  }) : super(
-         retry: null,
-         name: r'vertexUiElementProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$vertexUiElementHash();
-
-  @override
-  String toString() {
-    return r'vertexUiElementProvider'
-        ''
-        '$argument';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<VertexElement> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  VertexElement create(Ref ref) {
-    final argument = this.argument as (TripId, VertexRef);
-    return vertexUiElement(ref, argument.$1, argument.$2);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(VertexElement value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<VertexElement>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is VertexUiElementProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$vertexUiElementHash() => r'257482d9c9c9e4908fe3f125e2b6f075bf63d56e';
-
-final class VertexUiElementFamily extends $Family
-    with $FunctionalFamilyOverride<VertexElement, (TripId, VertexRef)> {
-  VertexUiElementFamily._()
-    : super(
-        retry: null,
-        name: r'vertexUiElementProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  VertexUiElementProvider call(TripId tripId, VertexRef vertexRef) =>
-      VertexUiElementProvider._(argument: (tripId, vertexRef), from: this);
-
-  @override
-  String toString() => r'vertexUiElementProvider';
+  String toString() => r'waypointFromVertexProvider';
 }
 
 @ProviderFor(isVertexSelected)
@@ -461,7 +261,7 @@ final class IsVertexSelectedProvider
     with $Provider<bool> {
   IsVertexSelectedProvider._({
     required IsVertexSelectedFamily super.from,
-    required (TripId, VertexRef) super.argument,
+    required (TripId, VertexId) super.argument,
   }) : super(
          retry: null,
          name: r'isVertexSelectedProvider',
@@ -487,7 +287,7 @@ final class IsVertexSelectedProvider
 
   @override
   bool create(Ref ref) {
-    final argument = this.argument as (TripId, VertexRef);
+    final argument = this.argument as (TripId, VertexId);
     return isVertexSelected(ref, argument.$1, argument.$2);
   }
 
@@ -510,10 +310,10 @@ final class IsVertexSelectedProvider
   }
 }
 
-String _$isVertexSelectedHash() => r'cf6fda209e717ae768ca43e4337475918246a3ac';
+String _$isVertexSelectedHash() => r'f968894ac01aa2f22f83cea21d06971bc3ba4cc1';
 
 final class IsVertexSelectedFamily extends $Family
-    with $FunctionalFamilyOverride<bool, (TripId, VertexRef)> {
+    with $FunctionalFamilyOverride<bool, (TripId, VertexId)> {
   IsVertexSelectedFamily._()
     : super(
         retry: null,
@@ -523,8 +323,8 @@ final class IsVertexSelectedFamily extends $Family
         isAutoDispose: true,
       );
 
-  IsVertexSelectedProvider call(TripId tripId, VertexRef vertexRef) =>
-      IsVertexSelectedProvider._(argument: (tripId, vertexRef), from: this);
+  IsVertexSelectedProvider call(TripId tripId, VertexId vertexId) =>
+      IsVertexSelectedProvider._(argument: (tripId, vertexId), from: this);
 
   @override
   String toString() => r'isVertexSelectedProvider';
