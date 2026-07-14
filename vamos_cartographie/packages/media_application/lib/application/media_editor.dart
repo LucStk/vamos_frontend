@@ -7,32 +7,20 @@ import 'package:media_application/media_application.dart';
 
 import "package:uuid/uuid.dart";
 
-PatchImageMedia generatePatchImage(File file) {
-  return PatchImageMedia(
+MediaImagePatch generatePatchImage(File file) {
+  return MediaImagePatch(
     fileKey: FileKey("temp-${const Uuid().v4()}"),
-    file: file,
+    location: LocalPath(file),
   );
 }
 
-class MediaHandler {
-  ObservableMediaPatchStore patchStore;
-  ObservableMediaStore mediaStore;
-  ObservableUploadStateStore uploadStore;
-  OptimisticExecutor executor;
-  MediaRepository repository;
-
-  MediaHandler(
-    this.mediaStore,
-    this.patchStore,
-    this.uploadStore,
-    this.executor,
-    this.repository,
-  );
+mixin MediaEditor on OptimisticRunner<MediaImage> {
+  MediaRepository get mediaRepo;
 
   // 1. Premier téléversement (crée le patch avec un nouvel UUID temporaire)
   Future<Either<Failure, void>> uploadPatchImage<T>(
     Id<T> id,
-    PatchImageMedia patch,
+    MediaImagePatch patch,
     MediaOwnerType ownerType,
   ) async {
     void updateUploadState(
@@ -54,9 +42,9 @@ class MediaHandler {
       );
     }
 
-    return await executor.run<MediaImage>(
-      onApply: () {
-        patchStore.upsert(id, patch);
+    return await run<MediaImage>(
+      onApply: (gs)=>
+        gs.upsert(id, patch);
         updateUploadState(UploadStatus.uploading);
       },
       remote: () => repository.uploadImage(
@@ -89,9 +77,9 @@ class MediaHandler {
       final resolvedFileKey = uploadState?.resolvedFileKey;
       if (uploadState?.status == UploadStatus.success &&
           resolvedFileKey != null) {
-        await executor.run(
+        await run(
           onApply: () {},
-          remote: () => repository.attachImage(id, resolvedFileKey, ownerType),
+          remote: () => mediaRepo.attachImage(id, resolvedFileKey, ownerType),
           onSuccess: (image) {
             patchStore.remove(id, patch.fileKey);
             mediaStore.upsert(id, image);

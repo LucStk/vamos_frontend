@@ -50,7 +50,7 @@ Future<Failure?> loadTripDetails(Ref ref, TripId tripId) async {
       waypointStore.clear();
       graphStore.clear();
 
-      for (final (w, listImages) in data.waypoints_images) {
+      for (final (w, listImages) in data.waypointsImages) {
         waypointStore.upsertWaypoint(w);
         for (final i in listImages) {
           mediaStore.upsert(w.id, i);

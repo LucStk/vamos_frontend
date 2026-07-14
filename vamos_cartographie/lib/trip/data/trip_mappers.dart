@@ -1,5 +1,5 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
-import 'package:media_application/domain/entities/media_image.dart';
+import 'package:media_application/domain/media_image.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/media/data/mappers/media_image_mappers.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:media_application/domain/entities/image_ui_model.dart';
 
 // Lightbox fullscreen
 // ─────────────────────────────────────────────────────────────────────────────
