@@ -68,7 +68,6 @@
             flutterFixed
             dart
             pkg-config
-            melos
             # LSPs pour Zed
             nixd
             alejandra # Formateur de code Nix
@@ -81,7 +80,7 @@
           shellHook = ''
             # Force CMake à utiliser le pkg-config de Nix au lieu de /usr/bin
             export PKG_CONFIG_EXECUTABLE="${pkgs.pkg-config}/bin/pkg-config"
-
+            export PATH="$HOME/.pub-cache/bin:$PATH"
             # Aide CMake à trouver les bibliothèques GTK et autres via pkg-config
             export PKG_CONFIG_PATH="${pkgs.lib.makeSearchPath "lib/pkgconfig" runtimeLibs}"
 
