@@ -1,0 +1,16 @@
+name: vamos_cartographie
+
+packages:
+  - .
+  - packages/*
+
+scripts:
+  # Commande magique pour lancer build_runner partout
+  build:all:
+    run: melos exec -c 1 --order-dependents --depends-on="build_runner" -- "dart run build_runner build --delete-conflicting-outputs"
+    description: "Génère le code (build_runner) sur tous les packages du projet dans le bon ordre."
+
+  # Optionnel : build_runner watch sur tous les packages en même temps
+  watch:all:
+    run: melos exec --depends-on="build_runner" -- "dart run build_runner watch --delete-conflicting-outputs"
+    description: "Lance le mode watch de build_runner sur tous les packages."

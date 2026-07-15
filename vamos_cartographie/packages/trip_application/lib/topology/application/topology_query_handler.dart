@@ -16,10 +16,10 @@ class TopologyQueryHandler {
           remote: () => repo.getTopology(tripId),
           onSuccess: (data) {
             for (final v in data.vertices) {
-              graphStore.upsertVertex(v);
+              graphStore.insertVertex(v);
             }
             for (final s in data.segments) {
-              graphStore.upsertSegment(s);
+              graphStore.insertSegment(s);
             }
           },
           onError: (Failure failure) {},

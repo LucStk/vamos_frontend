@@ -7,6 +7,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.4
 
+resolution: workspace
+
 dependencies:
   latlong2: ^0.9.1
   dartz: ^0.10.1

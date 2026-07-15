@@ -1,4 +1,4 @@
-import 'package:domain_core/domain/graph_node_state.dart';
+import 'package:domain_core/domain/patchable.dart';
 import 'package:domain_core/id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:trip_application/trip_application.dart';
@@ -17,7 +17,6 @@ abstract class Waypoint with _$Waypoint implements Patchable<Waypoint> {
     @Default('') String description,
   }) = _Waypoint;
 
-  @override
   Patch<Waypoint> createPatch() {
     return WaypointPatch.internal(
       id: id,
@@ -65,7 +64,6 @@ abstract class WaypointPatch with _$WaypointPatch implements Patch<Waypoint> {
     );
   }
 
-  @override
   Waypoint toEntity() => Waypoint(
     id: id,
     vertexId: vertexId,

@@ -14,9 +14,9 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
 
   Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
     return await run(
-      onApply: (gs) => gs.upsertSegment(segment),
+      onApply: (gs) => gs..patchSegment(segment),
       remote: () => segmentRepo.updateSegment(segment),
-      onSuccess: (gs, serveurValue) => gs..commitSegment(serveurValue),
+      onSuccess: (gs, serveurValue) => gs..setSegment(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackSegment(segment.id),
     );
   }
@@ -25,7 +25,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     return await run(
       onApply: (gs) => gs,
       remote: () => vertexRepo.createVertex(tripId, latLng),
-      onSuccess: (gs, Vertex serveurValue) => gs..upsertVertex(serveurValue),
+      onSuccess: (gs, Vertex serveurValue) => gs..insertVertex(serveurValue),
     );
   }
 
@@ -34,9 +34,9 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     LatLng latLng,
   ) async {
     return await run(
-      onApply: (gs) => gs.upsertVertex(Vertex(id: vid, latLng: latLng)),
+      onApply: (gs) => gs..patchVertex(Vertex(id: vid, latLng: latLng)),
       remote: () => vertexRepo.moveVertex(VertexId(vid.value), latLng),
-      onSuccess: (gs, Vertex serveurValue) => gs..commitVertex(serveurValue),
+      onSuccess: (gs, Vertex serveurValue) => gs..setVertex(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackVertex(vid),
     );
   }

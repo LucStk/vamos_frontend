@@ -30,24 +30,3 @@ ObservableMediaPatchStore rawMediaPatchStore(Ref ref) =>
 @riverpod
 ObservableUploadStateStore rawUploadStateStore(Ref ref) =>
     ObservableUploadStateStore();
-
-@riverpod
-ObservableMediaStore mediaStore(Ref ref) {
-  final store = ref.watch(rawMediaStoreProvider);
-  addListenerRebuild(ref, store);
-  return store;
-}
-
-@riverpod
-ObservableMediaPatchStore mediaPatchStore(Ref ref) {
-  final store = ref.watch(rawMediaPatchStoreProvider);
-  addListenerRebuild(ref, store);
-  return store;
-}
-
-@riverpod
-ObservableUploadStateStore uploadStateStore(Ref ref) {
-  final store = ref.watch(rawUploadStateStoreProvider);
-  addListenerRebuild(ref, store);
-  return store;
-}

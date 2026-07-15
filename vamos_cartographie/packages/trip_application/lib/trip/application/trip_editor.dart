@@ -10,7 +10,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
     return await run(
       onApply: (gs) => gs,
       remote: () => waypointRepo.createBlankTrip(),
-      onSuccess: (gs, Trip serverTrip) => gs..upsertTrip(serverTrip),
+      onSuccess: (gs, Trip serverTrip) => gs..insertTrip(serverTrip),
     );
   }
 
@@ -18,7 +18,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
     return await run(
       onApply: (gs) => gs,
       remote: () => waypointRepo.updateTrip(trip),
-      onSuccess: (gs, Trip serverTrip) => gs..upsertTrip(serverTrip),
+      onSuccess: (gs, Trip serverTrip) => gs..insertTrip(serverTrip),
     );
   }
 

@@ -68,6 +68,7 @@
             flutterFixed
             dart
             pkg-config
+            melos
             # LSPs pour Zed
             nixd
             alejandra # Formateur de code Nix

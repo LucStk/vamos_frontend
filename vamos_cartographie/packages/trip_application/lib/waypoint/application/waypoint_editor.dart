@@ -8,9 +8,9 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
 
   Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint) async {
     return await run(
-      onApply: (gs) => gs.upsertWaypoint(waypoint),
+      onApply: (gs) => gs..waypointStore.patchNode(waypoint.createPatch()),
       remote: () => waypointRepo.updateWaypoint(waypoint),
-      onSuccess: (gs, serveurValue) => gs..commitWaypoint(serveurValue),
+      onSuccess: (gs, serveurValue) => gs..setWaypoint(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackWaypoint(waypoint.id),
     );
   }
@@ -22,7 +22,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
       onApply: (gs) => gs,
       remote: () =>
           waypointRepo.createBlankWaypointFromVertex(tripId, vertexId),
-      onSuccess: (gs, data) => gs.upsertWaypoint(data.waypoint),
+      onSuccess: (gs, data) => gs..setWaypoint(data.waypoint),
     );
   }
 

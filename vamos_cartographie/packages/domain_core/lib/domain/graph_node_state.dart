@@ -1,16 +1,14 @@
+import 'package:domain_core/domain/patchable.dart';
 import 'package:domain_core/id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part "graph_node_state.freezed.dart";
 
-abstract interface class Patch<T> implements HasId {
-  bool get recomputing;
-  Object? get error;
-  T toEntity();
-}
-
-abstract interface class Patchable<T extends HasId> implements HasId {
-  Patch<T> createPatch();
+@freezed
+sealed class NodeValueOrPatch<T extends Patchable<T>>
+    with _$NodeValueOrPatch<T> {
+  const factory NodeValueOrPatch.value(T value) = _ValueResult<T>;
+  const factory NodeValueOrPatch.patch(Patch<T> patch) = _PatchResult<T>;
 }
 
 @freezed
@@ -23,23 +21,15 @@ sealed class NodeState<T extends Patchable<T>> with _$NodeState<T> {
     T? originalValue,
   }) = HasPatch<T>;
 
-  factory NodeState.patchEntity(T value) =>
-      NodeState.hasPatch(patch: value.createPatch(), originalValue: value);
-
-  /// Vérité serveur si connue. `null` si le node est une création
   /// locale sans équivalent serveur pour l'instant.
   T? get serverValue => when(
     hasValue: (value) => value,
     hasPatch: (_, originalValue) => originalValue,
   );
-
-  /// Valeur "à afficher" : optimiste si un patch est en vol,
-  /// sinon la valeur stable. Générique grâce à `Patch<T>.toEntity()`.
-  T get displayValue => when(
-    hasValue: (value) => value,
-    hasPatch: (patch, _) => patch.toEntity(),
+  NodeValueOrPatch<T> get valueOrPatch => when(
+    hasValue: (value) => NodeValueOrPatch.value(value),
+    hasPatch: (patch, _) => NodeValueOrPatch.patch(patch),
   );
-
   bool get isRecomputing =>
       when(hasValue: (_) => false, hasPatch: (patch, _) => patch.recomputing);
 

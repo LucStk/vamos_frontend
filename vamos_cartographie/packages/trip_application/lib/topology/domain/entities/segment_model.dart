@@ -18,7 +18,6 @@ abstract class Segment with _$Segment implements Patchable<Segment> {
 
   const Segment._();
 
-  @override
   Patch<Segment> createPatch() {
     return SegmentPatch.internal(
       id: id,
@@ -67,7 +66,6 @@ abstract class SegmentPatch with _$SegmentPatch implements Patch<Segment> {
     );
   }
 
-  @override
   Segment toEntity() {
     return Segment(
       id: id,

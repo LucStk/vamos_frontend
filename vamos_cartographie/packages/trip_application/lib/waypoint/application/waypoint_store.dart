@@ -20,24 +20,28 @@ class WaypointStore {
 }
 
 extension WaypointStoreActions on WaypointStore {
-  WaypointStore upsertWaypoint(Waypoint waypoint) {
+  WaypointStore insertWaypoint(Waypoint waypoint) {
     vertexIndex[waypoint.vertexId] = waypoint.id;
     return copyWith(
-      waypointStore: waypointStore.upsertState(
-        NodeState<Waypoint>.patchEntity(waypoint),
+      waypointStore: waypointStore.insertState(
+        NodeState<Waypoint>.hasPatch(
+          patch: waypoint.createPatch(),
+          originalValue: waypoint,
+        ),
       ),
     );
   }
 
   WaypointStore removeWaypoint(WaypointId id) {
     // on supprime le vertexId associé
-    final vertexId = waypointStore.get(id)?.current.displayValue.vertexId;
+    final wState = waypointStore.getState(id)?.serverValue;
+    final vertexId = wState?.vertexId;
     vertexIndex.remove(vertexId);
     return copyWith(waypointStore: waypointStore.remove(id));
   }
 
-  void commitWaypoint(Waypoint serverWaypoint) {
-    waypointStore.get(serverWaypoint.id)?.commit(serverWaypoint);
+  void setWaypoint(Waypoint serverWaypoint) {
+    waypointStore.get(serverWaypoint.id)?.set(serverWaypoint);
   }
 
   void rollbackWaypoint(WaypointId wid) => waypointStore.get(wid)?.rollback();

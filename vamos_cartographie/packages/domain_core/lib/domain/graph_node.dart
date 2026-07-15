@@ -1,5 +1,3 @@
-import 'graph_node_state.dart';
-
 import 'package:domain_core/domain_core.dart';
 
 class GraphNode<T extends Patchable<T>> implements HasId {
@@ -14,24 +12,17 @@ class GraphNode<T extends Patchable<T>> implements HasId {
   @override
   Id<T> get id => _state.id;
 
-  void set(Patch<T> patchValue) {
+  void patch(Patch<T> patchValue, {T? originalValue}) {
     _state = NodeState.hasPatch(
       patch: patchValue,
-      originalValue: _state.serverValue,
+      originalValue: originalValue,
     );
     revision++;
   }
 
-  void commit(T? serverValue) {
-    if (serverValue != null) {
-      _state = HasValue(serverValue);
-      revision++;
-    }
-    if (_state case HasPatch(patch: final p)) {
-      final newValue = p.toEntity();
-      _state = HasValue(newValue);
-      revision++;
-    }
+  void set(T value) {
+    _state = HasValue(value);
+    revision++;
   }
 
   void rollback() {

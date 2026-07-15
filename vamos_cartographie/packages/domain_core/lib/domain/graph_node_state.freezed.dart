@@ -12,6 +12,298 @@ part of 'graph_node_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
+mixin _$NodeValueOrPatch<T extends Patchable<T>> {
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NodeValueOrPatch<T>);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'NodeValueOrPatch<$T>()';
+}
+
+
+}
+
+/// @nodoc
+class $NodeValueOrPatchCopyWith<T extends Patchable<T>,$Res>  {
+$NodeValueOrPatchCopyWith(NodeValueOrPatch<T> _, $Res Function(NodeValueOrPatch<T>) __);
+}
+
+
+/// Adds pattern-matching-related methods to [NodeValueOrPatch].
+extension NodeValueOrPatchPatterns<T extends Patchable<T>> on NodeValueOrPatch<T> {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ValueResult<T> value)?  value,TResult Function( _PatchResult<T> value)?  patch,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ValueResult() when value != null:
+return value(_that);case _PatchResult() when patch != null:
+return patch(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ValueResult<T> value)  value,required TResult Function( _PatchResult<T> value)  patch,}){
+final _that = this;
+switch (_that) {
+case _ValueResult():
+return value(_that);case _PatchResult():
+return patch(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ValueResult<T> value)?  value,TResult? Function( _PatchResult<T> value)?  patch,}){
+final _that = this;
+switch (_that) {
+case _ValueResult() when value != null:
+return value(_that);case _PatchResult() when patch != null:
+return patch(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T value)?  value,TResult Function( Patch<T> patch)?  patch,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ValueResult() when value != null:
+return value(_that.value);case _PatchResult() when patch != null:
+return patch(_that.patch);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T value)  value,required TResult Function( Patch<T> patch)  patch,}) {final _that = this;
+switch (_that) {
+case _ValueResult():
+return value(_that.value);case _PatchResult():
+return patch(_that.patch);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T value)?  value,TResult? Function( Patch<T> patch)?  patch,}) {final _that = this;
+switch (_that) {
+case _ValueResult() when value != null:
+return value(_that.value);case _PatchResult() when patch != null:
+return patch(_that.patch);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _ValueResult<T extends Patchable<T>> implements NodeValueOrPatch<T> {
+  const _ValueResult(this.value);
+  
+
+ final  T value;
+
+/// Create a copy of NodeValueOrPatch
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ValueResultCopyWith<T, _ValueResult<T>> get copyWith => __$ValueResultCopyWithImpl<T, _ValueResult<T>>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ValueResult<T>&&const DeepCollectionEquality().equals(other.value, value));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(value));
+
+@override
+String toString() {
+  return 'NodeValueOrPatch<$T>.value(value: $value)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ValueResultCopyWith<T extends Patchable<T>,$Res> implements $NodeValueOrPatchCopyWith<T, $Res> {
+  factory _$ValueResultCopyWith(_ValueResult<T> value, $Res Function(_ValueResult<T>) _then) = __$ValueResultCopyWithImpl;
+@useResult
+$Res call({
+ T value
+});
+
+
+
+
+}
+/// @nodoc
+class __$ValueResultCopyWithImpl<T extends Patchable<T>,$Res>
+    implements _$ValueResultCopyWith<T, $Res> {
+  __$ValueResultCopyWithImpl(this._self, this._then);
+
+  final _ValueResult<T> _self;
+  final $Res Function(_ValueResult<T>) _then;
+
+/// Create a copy of NodeValueOrPatch
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
+  return _then(_ValueResult<T>(
+null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as T,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _PatchResult<T extends Patchable<T>> implements NodeValueOrPatch<T> {
+  const _PatchResult(this.patch);
+  
+
+ final  Patch<T> patch;
+
+/// Create a copy of NodeValueOrPatch
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PatchResultCopyWith<T, _PatchResult<T>> get copyWith => __$PatchResultCopyWithImpl<T, _PatchResult<T>>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatchResult<T>&&(identical(other.patch, patch) || other.patch == patch));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,patch);
+
+@override
+String toString() {
+  return 'NodeValueOrPatch<$T>.patch(patch: $patch)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PatchResultCopyWith<T extends Patchable<T>,$Res> implements $NodeValueOrPatchCopyWith<T, $Res> {
+  factory _$PatchResultCopyWith(_PatchResult<T> value, $Res Function(_PatchResult<T>) _then) = __$PatchResultCopyWithImpl;
+@useResult
+$Res call({
+ Patch<T> patch
+});
+
+
+
+
+}
+/// @nodoc
+class __$PatchResultCopyWithImpl<T extends Patchable<T>,$Res>
+    implements _$PatchResultCopyWith<T, $Res> {
+  __$PatchResultCopyWithImpl(this._self, this._then);
+
+  final _PatchResult<T> _self;
+  final $Res Function(_PatchResult<T>) _then;
+
+/// Create a copy of NodeValueOrPatch
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? patch = null,}) {
+  return _then(_PatchResult<T>(
+null == patch ? _self.patch : patch // ignore: cast_nullable_to_non_nullable
+as Patch<T>,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$NodeState<T extends Patchable<T>> {
 
 

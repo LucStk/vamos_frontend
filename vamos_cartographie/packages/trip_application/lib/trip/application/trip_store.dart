@@ -15,8 +15,8 @@ class TripStore {
     return copyWith(tripStore: SimpleCollectionStore<Trip>());
   }
 
-  TripStore upsertTrip(Trip trip) {
-    return copyWith(tripStore: tripStore.upsert(trip));
+  TripStore insertTrip(Trip trip) {
+    return copyWith(tripStore: tripStore.insert(trip));
   }
 
   TripStore removeTrip(TripId id) {

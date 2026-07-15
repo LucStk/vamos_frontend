@@ -1,6 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'graph_node_state.dart';
-import 'graph_node.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,7 +16,7 @@ abstract class CollectionStore<T, V extends HasId>
 
   CollectionStore<T, V> clear() => copyWith(store: {});
 
-  CollectionStore<T, V> upsert(V entry) {
+  CollectionStore<T, V> insert(V entry) {
     final newStore = Map<Id<T>, V>.from(store);
     newStore[entry.id as Id<T>] = entry;
     return copyWith(store: newStore);
@@ -54,7 +52,23 @@ typedef SimpleCollectionStore<T extends HasId> = CollectionStore<T, T>;
 
 extension GraphCollectionStoreX<T extends Patchable<T>>
     on CollectionStore<T, GraphNode<T>> {
-  /// Sucre syntaxique équivalent à l'ancien `upsert(NodeState<T> state)`
-  CollectionStore<T, GraphNode<T>> upsertState(NodeState<T> state) =>
-      upsert(GraphNode<T>(state));
+  CollectionStore<T, GraphNode<T>> insertState(NodeState<T> state) =>
+      insert(GraphNode<T>(state));
+
+  NodeState<T>? getState(Id<T> id) => get(id)?.current;
+
+  CollectionStore<T, GraphNode<T>> patchNode(
+    Patch<T> patch, {
+    T? originalValue,
+  }) {
+    final s = get(patch.id as Id<T>);
+    s?.patch(patch, originalValue: originalValue);
+    return this;
+  }
+
+  CollectionStore<T, GraphNode<T>> set(T value) {
+    final s = get(value.id as Id<T>);
+    s?.set(value);
+    return this;
+  }
 }

@@ -12,7 +12,6 @@ abstract class Vertex with _$Vertex implements Patchable<Vertex> {
 
   const Vertex._();
 
-  @override
   Patch<Vertex> createPatch() {
     return VertexPatch.internal(
       id: id, // Ou une logique de conversion d'ID
@@ -53,6 +52,5 @@ abstract class VertexPatch with _$VertexPatch implements Patch<Vertex> {
     );
   }
 
-  @override
   Vertex toEntity() => Vertex(id: id, latLng: positionOverride);
 }

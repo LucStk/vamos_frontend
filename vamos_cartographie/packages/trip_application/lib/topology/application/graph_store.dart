@@ -32,18 +32,14 @@ class GraphStore {
 }
 
 extension GraphStoreActions on GraphStore {
-  GraphStore upsertSegment(Segment segment) {
+  GraphStore insertSegment(Segment segment) {
     // mutation en place de l'index, pas de recréation
     // topologyIndex.addRelationship(
     //   segment.id,
     //   segment.sourceVertexId,
     //   segment.targetVertexId,
     // );
-    return copyWith(
-      segmentStore: segmentStore.upsertState(
-        NodeState<Segment>.patchEntity(segment),
-      ),
-    );
+    return copyWith(segmentStore: segmentStore.insertState(HasValue(segment)));
   }
 
   GraphStore removeSegment(SegmentId sId) {
@@ -51,26 +47,30 @@ extension GraphStoreActions on GraphStore {
     return copyWith(segmentStore: segmentStore.remove(sId));
   }
 
-  void commitSegment(Segment serverSegment) {
-    segmentStore.get(serverSegment.id)?.commit(serverSegment);
+  void patchSegment(Segment segment) {
+    segmentStore.patchNode(segment.createPatch());
+  }
+
+  void setSegment(Segment serverSegment) {
+    segmentStore.set(serverSegment);
   }
 
   void rollbackSegment(SegmentId sId) => segmentStore.get(sId)?.rollback();
 
-  GraphStore upsertVertex(Vertex vertex) {
-    return copyWith(
-      vertexStore: vertexStore.upsertState(
-        NodeState<Vertex>.patchEntity(vertex),
-      ),
-    );
+  GraphStore insertVertex(Vertex vertex) {
+    return copyWith(vertexStore: vertexStore.insertState(HasValue(vertex)));
+  }
+
+  void patchVertex(Vertex vertex) {
+    vertexStore.patchNode(vertex.createPatch());
   }
 
   GraphStore removeVertex(VertexId vId) {
     return copyWith(vertexStore: vertexStore.remove(vId));
   }
 
-  void commitVertex(Vertex serverVertex) {
-    vertexStore.get(serverVertex.id)?.commit(serverVertex);
+  void setVertex(Vertex serverVertex) {
+    vertexStore.set(serverVertex);
   }
 
   void rollbackVertex(VertexId sId) => vertexStore.get(sId)?.rollback();
