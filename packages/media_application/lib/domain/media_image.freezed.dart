@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MediaImage {
 
- Id<MediaImage> get fileKey; ImageLocation get location;
+ Id<MediaImage> get fileKey; FileKey get filkey; Url get url;
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MediaImageCopyWith<MediaImage> get copyWith => _$MediaImageCopyWithImpl<MediaIm
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MediaImage&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.location, location) || other.location == location));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MediaImage&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.filkey, filkey) || other.filkey == filkey)&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,location);
+int get hashCode => Object.hash(runtimeType,fileKey,filkey,url);
 
 @override
 String toString() {
-  return 'MediaImage(fileKey: $fileKey, location: $location)';
+  return 'MediaImage(fileKey: $fileKey, filkey: $filkey, url: $url)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MediaImageCopyWith<$Res>  {
   factory $MediaImageCopyWith(MediaImage value, $Res Function(MediaImage) _then) = _$MediaImageCopyWithImpl;
 @useResult
 $Res call({
- Id<MediaImage> fileKey, ImageLocation location
+ Id<MediaImage> fileKey, FileKey filkey, Url url
 });
 
 
@@ -62,11 +62,12 @@ class _$MediaImageCopyWithImpl<$Res>
 
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? location = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? filkey = null,Object? url = null,}) {
   return _then(_self.copyWith(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
-as Id<MediaImage>,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as ImageLocation,
+as Id<MediaImage>,filkey: null == filkey ? _self.filkey : filkey // ignore: cast_nullable_to_non_nullable
+as FileKey,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as Url,
   ));
 }
 
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<MediaImage> fileKey,  ImageLocation location)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<MediaImage> fileKey,  FileKey filkey,  Url url)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MediaImage() when $default != null:
-return $default(_that.fileKey,_that.location);case _:
+return $default(_that.fileKey,_that.filkey,_that.url);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.fileKey,_that.location);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<MediaImage> fileKey,  ImageLocation location)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<MediaImage> fileKey,  FileKey filkey,  Url url)  $default,) {final _that = this;
 switch (_that) {
 case _MediaImage():
-return $default(_that.fileKey,_that.location);case _:
+return $default(_that.fileKey,_that.filkey,_that.url);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return $default(_that.fileKey,_that.location);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<MediaImage> fileKey,  ImageLocation location)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<MediaImage> fileKey,  FileKey filkey,  Url url)?  $default,) {final _that = this;
 switch (_that) {
 case _MediaImage() when $default != null:
-return $default(_that.fileKey,_that.location);case _:
+return $default(_that.fileKey,_that.filkey,_that.url);case _:
   return null;
 
 }
@@ -207,11 +208,12 @@ return $default(_that.fileKey,_that.location);case _:
 
 
 class _MediaImage extends MediaImage {
-  const _MediaImage({required this.fileKey, required this.location}): super._();
+  const _MediaImage({required this.fileKey, required this.filkey, required this.url}): super._();
   
 
 @override final  Id<MediaImage> fileKey;
-@override final  ImageLocation location;
+@override final  FileKey filkey;
+@override final  Url url;
 
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +225,16 @@ _$MediaImageCopyWith<_MediaImage> get copyWith => __$MediaImageCopyWithImpl<_Med
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MediaImage&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.location, location) || other.location == location));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MediaImage&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.filkey, filkey) || other.filkey == filkey)&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,location);
+int get hashCode => Object.hash(runtimeType,fileKey,filkey,url);
 
 @override
 String toString() {
-  return 'MediaImage(fileKey: $fileKey, location: $location)';
+  return 'MediaImage(fileKey: $fileKey, filkey: $filkey, url: $url)';
 }
 
 
@@ -243,7 +245,7 @@ abstract mixin class _$MediaImageCopyWith<$Res> implements $MediaImageCopyWith<$
   factory _$MediaImageCopyWith(_MediaImage value, $Res Function(_MediaImage) _then) = __$MediaImageCopyWithImpl;
 @override @useResult
 $Res call({
- Id<MediaImage> fileKey, ImageLocation location
+ Id<MediaImage> fileKey, FileKey filkey, Url url
 });
 
 
@@ -260,11 +262,12 @@ class __$MediaImageCopyWithImpl<$Res>
 
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? location = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? filkey = null,Object? url = null,}) {
   return _then(_MediaImage(
 fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
-as Id<MediaImage>,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as ImageLocation,
+as Id<MediaImage>,filkey: null == filkey ? _self.filkey : filkey // ignore: cast_nullable_to_non_nullable
+as FileKey,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as Url,
   ));
 }
 
@@ -274,7 +277,7 @@ as ImageLocation,
 /// @nodoc
 mixin _$MediaImagePatch {
 
- Id<MediaImage> get fileKey; ImageLocation get location; bool get recomputing; UploadStatus? get status; int? get sent; int? get total; String? get error; FileKey? get resolvedFileKey;
+ Id<MediaImage> get id; File get file; bool get recomputing; UploadStatus? get status; int? get sent; int? get total; String? get error; FileKey? get resolvedFileKey;
 /// Create a copy of MediaImagePatch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -285,16 +288,16 @@ $MediaImagePatchCopyWith<MediaImagePatch> get copyWith => _$MediaImagePatchCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MediaImagePatch&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.location, location) || other.location == location)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error)&&(identical(other.resolvedFileKey, resolvedFileKey) || other.resolvedFileKey == resolvedFileKey));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MediaImagePatch&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error)&&(identical(other.resolvedFileKey, resolvedFileKey) || other.resolvedFileKey == resolvedFileKey));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,location,recomputing,status,sent,total,error,resolvedFileKey);
+int get hashCode => Object.hash(runtimeType,id,file,recomputing,status,sent,total,error,resolvedFileKey);
 
 @override
 String toString() {
-  return 'MediaImagePatch(fileKey: $fileKey, location: $location, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error, resolvedFileKey: $resolvedFileKey)';
+  return 'MediaImagePatch(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error, resolvedFileKey: $resolvedFileKey)';
 }
 
 
@@ -305,7 +308,7 @@ abstract mixin class $MediaImagePatchCopyWith<$Res>  {
   factory $MediaImagePatchCopyWith(MediaImagePatch value, $Res Function(MediaImagePatch) _then) = _$MediaImagePatchCopyWithImpl;
 @useResult
 $Res call({
- Id<MediaImage> fileKey, ImageLocation location, bool recomputing, UploadStatus? status, int? sent, int? total, String? error, FileKey? resolvedFileKey
+ Id<MediaImage> id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error, FileKey? resolvedFileKey
 });
 
 
@@ -322,11 +325,11 @@ class _$MediaImagePatchCopyWithImpl<$Res>
 
 /// Create a copy of MediaImagePatch
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? location = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,Object? resolvedFileKey = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,Object? resolvedFileKey = freezed,}) {
   return _then(_self.copyWith(
-fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
-as Id<MediaImage>,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as ImageLocation,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<MediaImage>,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as File,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
 as int?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
@@ -417,10 +420,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<MediaImage> fileKey,  ImageLocation location,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<MediaImage> id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MediaImagePatch() when internal != null:
-return internal(_that.fileKey,_that.location,_that.recomputing,_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
+return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
   return orElse();
 
 }
@@ -438,10 +441,10 @@ return internal(_that.fileKey,_that.location,_that.recomputing,_that.status,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<MediaImage> fileKey,  ImageLocation location,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<MediaImage> id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)  internal,}) {final _that = this;
 switch (_that) {
 case _MediaImagePatch():
-return internal(_that.fileKey,_that.location,_that.recomputing,_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
+return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -458,10 +461,10 @@ return internal(_that.fileKey,_that.location,_that.recomputing,_that.status,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<MediaImage> fileKey,  ImageLocation location,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<MediaImage> id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error,  FileKey? resolvedFileKey)?  internal,}) {final _that = this;
 switch (_that) {
 case _MediaImagePatch() when internal != null:
-return internal(_that.fileKey,_that.location,_that.recomputing,_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
+return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error,_that.resolvedFileKey);case _:
   return null;
 
 }
@@ -473,11 +476,11 @@ return internal(_that.fileKey,_that.location,_that.recomputing,_that.status,_tha
 
 
 class _MediaImagePatch extends MediaImagePatch implements Patch<MediaImage> {
-  const _MediaImagePatch({required this.fileKey, required this.location, required this.recomputing, this.status = UploadStatus.idle, this.sent = 0, this.total = 0, this.error, this.resolvedFileKey}): super._();
+  const _MediaImagePatch({required this.id, required this.file, required this.recomputing, this.status = UploadStatus.idle, this.sent = 0, this.total = 0, this.error, this.resolvedFileKey}): super._();
   
 
-@override final  Id<MediaImage> fileKey;
-@override final  ImageLocation location;
+@override final  Id<MediaImage> id;
+@override final  File file;
 @override final  bool recomputing;
 @override@JsonKey() final  UploadStatus? status;
 @override@JsonKey() final  int? sent;
@@ -495,16 +498,16 @@ _$MediaImagePatchCopyWith<_MediaImagePatch> get copyWith => __$MediaImagePatchCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MediaImagePatch&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.location, location) || other.location == location)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error)&&(identical(other.resolvedFileKey, resolvedFileKey) || other.resolvedFileKey == resolvedFileKey));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MediaImagePatch&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error)&&(identical(other.resolvedFileKey, resolvedFileKey) || other.resolvedFileKey == resolvedFileKey));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,location,recomputing,status,sent,total,error,resolvedFileKey);
+int get hashCode => Object.hash(runtimeType,id,file,recomputing,status,sent,total,error,resolvedFileKey);
 
 @override
 String toString() {
-  return 'MediaImagePatch.internal(fileKey: $fileKey, location: $location, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error, resolvedFileKey: $resolvedFileKey)';
+  return 'MediaImagePatch.internal(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error, resolvedFileKey: $resolvedFileKey)';
 }
 
 
@@ -515,7 +518,7 @@ abstract mixin class _$MediaImagePatchCopyWith<$Res> implements $MediaImagePatch
   factory _$MediaImagePatchCopyWith(_MediaImagePatch value, $Res Function(_MediaImagePatch) _then) = __$MediaImagePatchCopyWithImpl;
 @override @useResult
 $Res call({
- Id<MediaImage> fileKey, ImageLocation location, bool recomputing, UploadStatus? status, int? sent, int? total, String? error, FileKey? resolvedFileKey
+ Id<MediaImage> id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error, FileKey? resolvedFileKey
 });
 
 
@@ -532,11 +535,11 @@ class __$MediaImagePatchCopyWithImpl<$Res>
 
 /// Create a copy of MediaImagePatch
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? location = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,Object? resolvedFileKey = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,Object? resolvedFileKey = freezed,}) {
   return _then(_MediaImagePatch(
-fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
-as Id<MediaImage>,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as ImageLocation,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as Id<MediaImage>,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as File,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
 as int?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable

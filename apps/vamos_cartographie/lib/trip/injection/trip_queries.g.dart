@@ -169,7 +169,7 @@ final class LoadTripDetailsProvider
   }
 }
 
-String _$loadTripDetailsHash() => r'd48ac398df0dd16967e501a4b7583c7674e096a7';
+String _$loadTripDetailsHash() => r'29dba0ef642d8d41b95f4fd06a078d4383ec9a7e';
 
 final class LoadTripDetailsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Failure?>, TripId> {
