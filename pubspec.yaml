@@ -21,6 +21,14 @@ melos:
     test:
       run: melos exec --dir-exists=test -- dart test
 
+    # Génère pour TOUS les packages éligibles d'un coup
+    generate:all:
+      run: melos exec --depends-on="build_runner" -- flutter pub run build_runner build --delete-conflicting-outputs
+      description: Lance build_runner sur tous les packages compatibles
+
+    # Te demande de CHOISIR le package dans une liste
     generate:
-      run: melos exec --depends-on="build_runner" -- dart run build_runner build --delete-conflicting-outputs
-      description: Lance build_runner dans tous les packages qui en dépendent
+      run: melos exec -- flutter pub run build_runner build --delete-conflicting-outputs
+      description: Choisir un package spécifique pour lancer build_runner
+      select-package:
+        depends-on: "build_runner"

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MediaImage {
 
- Id<MediaImage> get fileKey; FileKey get filkey; Url get url;
+ Id<MediaImage> get id; FileKey get filkey; Url get url;
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MediaImageCopyWith<MediaImage> get copyWith => _$MediaImageCopyWithImpl<MediaIm
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MediaImage&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.filkey, filkey) || other.filkey == filkey)&&(identical(other.url, url) || other.url == url));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MediaImage&&(identical(other.id, id) || other.id == id)&&(identical(other.filkey, filkey) || other.filkey == filkey)&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,filkey,url);
+int get hashCode => Object.hash(runtimeType,id,filkey,url);
 
 @override
 String toString() {
-  return 'MediaImage(fileKey: $fileKey, filkey: $filkey, url: $url)';
+  return 'MediaImage(id: $id, filkey: $filkey, url: $url)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MediaImageCopyWith<$Res>  {
   factory $MediaImageCopyWith(MediaImage value, $Res Function(MediaImage) _then) = _$MediaImageCopyWithImpl;
 @useResult
 $Res call({
- Id<MediaImage> fileKey, FileKey filkey, Url url
+ Id<MediaImage> id, FileKey filkey, Url url
 });
 
 
@@ -62,9 +62,9 @@ class _$MediaImageCopyWithImpl<$Res>
 
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? fileKey = null,Object? filkey = null,Object? url = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? filkey = null,Object? url = null,}) {
   return _then(_self.copyWith(
-fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as Id<MediaImage>,filkey: null == filkey ? _self.filkey : filkey // ignore: cast_nullable_to_non_nullable
 as FileKey,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as Url,
@@ -152,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<MediaImage> fileKey,  FileKey filkey,  Url url)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<MediaImage> id,  FileKey filkey,  Url url)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MediaImage() when $default != null:
-return $default(_that.fileKey,_that.filkey,_that.url);case _:
+return $default(_that.id,_that.filkey,_that.url);case _:
   return orElse();
 
 }
@@ -173,10 +173,10 @@ return $default(_that.fileKey,_that.filkey,_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<MediaImage> fileKey,  FileKey filkey,  Url url)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<MediaImage> id,  FileKey filkey,  Url url)  $default,) {final _that = this;
 switch (_that) {
 case _MediaImage():
-return $default(_that.fileKey,_that.filkey,_that.url);case _:
+return $default(_that.id,_that.filkey,_that.url);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +193,10 @@ return $default(_that.fileKey,_that.filkey,_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<MediaImage> fileKey,  FileKey filkey,  Url url)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<MediaImage> id,  FileKey filkey,  Url url)?  $default,) {final _that = this;
 switch (_that) {
 case _MediaImage() when $default != null:
-return $default(_that.fileKey,_that.filkey,_that.url);case _:
+return $default(_that.id,_that.filkey,_that.url);case _:
   return null;
 
 }
@@ -208,10 +208,10 @@ return $default(_that.fileKey,_that.filkey,_that.url);case _:
 
 
 class _MediaImage extends MediaImage {
-  const _MediaImage({required this.fileKey, required this.filkey, required this.url}): super._();
+  const _MediaImage({required this.id, required this.filkey, required this.url}): super._();
   
 
-@override final  Id<MediaImage> fileKey;
+@override final  Id<MediaImage> id;
 @override final  FileKey filkey;
 @override final  Url url;
 
@@ -225,16 +225,16 @@ _$MediaImageCopyWith<_MediaImage> get copyWith => __$MediaImageCopyWithImpl<_Med
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MediaImage&&(identical(other.fileKey, fileKey) || other.fileKey == fileKey)&&(identical(other.filkey, filkey) || other.filkey == filkey)&&(identical(other.url, url) || other.url == url));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MediaImage&&(identical(other.id, id) || other.id == id)&&(identical(other.filkey, filkey) || other.filkey == filkey)&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fileKey,filkey,url);
+int get hashCode => Object.hash(runtimeType,id,filkey,url);
 
 @override
 String toString() {
-  return 'MediaImage(fileKey: $fileKey, filkey: $filkey, url: $url)';
+  return 'MediaImage(id: $id, filkey: $filkey, url: $url)';
 }
 
 
@@ -245,7 +245,7 @@ abstract mixin class _$MediaImageCopyWith<$Res> implements $MediaImageCopyWith<$
   factory _$MediaImageCopyWith(_MediaImage value, $Res Function(_MediaImage) _then) = __$MediaImageCopyWithImpl;
 @override @useResult
 $Res call({
- Id<MediaImage> fileKey, FileKey filkey, Url url
+ Id<MediaImage> id, FileKey filkey, Url url
 });
 
 
@@ -262,9 +262,9 @@ class __$MediaImageCopyWithImpl<$Res>
 
 /// Create a copy of MediaImage
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? fileKey = null,Object? filkey = null,Object? url = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? filkey = null,Object? url = null,}) {
   return _then(_MediaImage(
-fileKey: null == fileKey ? _self.fileKey : fileKey // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as Id<MediaImage>,filkey: null == filkey ? _self.filkey : filkey // ignore: cast_nullable_to_non_nullable
 as FileKey,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as Url,

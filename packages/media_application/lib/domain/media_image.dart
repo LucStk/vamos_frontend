@@ -7,12 +7,14 @@ part "media_image.freezed.dart";
 
 @freezed
 abstract class MediaImage with _$MediaImage implements Patchable<MediaImage> {
-  const MediaImage._();
   const factory MediaImage({
-    required Id<MediaImage> fileKey,
+    required Id<MediaImage> id,
+    required Id owner,
     required FileKey filkey,
     required Url url,
   }) = _MediaImage;
+
+  const MediaImage._();
 }
 
 @freezed
@@ -35,13 +37,13 @@ abstract class MediaImagePatch
 
   factory MediaImagePatch({
     required Id<MediaImage> id,
-
+    required File file,
     bool recomputing = false,
     Object? error,
   }) {
     return MediaImagePatch.internal(
       id: id,
-      location: location,
+      file: file,
       recomputing: recomputing,
     );
   }

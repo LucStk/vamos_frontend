@@ -16,8 +16,8 @@ class GraphStore {
 
   GraphStore.initial()
     : topologyIndex = TopologyIndex(),
-      segmentStore = const GraphCollectionStore(),
-      vertexStore = const GraphCollectionStore();
+      segmentStore = const GraphCollectionStore<Segment>(),
+      vertexStore = const GraphCollectionStore<Vertex>();
 
   GraphStore copyWith({
     GraphCollectionStore<Segment>? segmentStore,
