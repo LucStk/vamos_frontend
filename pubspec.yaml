@@ -1,0 +1,26 @@
+name: vamos_frontend_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+
+workspace:
+  - apps/vamos_cartographie
+  - packages/domain_core
+  - packages/map_application
+  - packages/media_application
+  - packages/trip_application
+
+dev_dependencies:
+  melos: ^7.0.0
+
+melos:
+  scripts:
+    analyze:
+      run: melos exec -- dart analyze .
+    test:
+      run: melos exec --dir-exists=test -- dart test
+
+    generate:
+      run: melos exec --depends-on="build_runner" -- dart run build_runner build --delete-conflicting-outputs
+      description: Lance build_runner dans tous les packages qui en dépendent
