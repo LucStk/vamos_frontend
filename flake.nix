@@ -24,6 +24,7 @@
 
         # Liste des bibliothèques nécessaires pour Flutter et la Géo
         runtimeLibs = with pkgs; [
+          melos
           # UI & GTK
           gtk3
           glib

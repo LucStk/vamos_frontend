@@ -9,7 +9,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint) async {
     return await run(
       onApply: (gs) => gs..waypointStore.patchNode(waypoint.createPatch()),
-      remote: () => waypointRepo.updateWaypoint(waypoint),
+      remote: (_) => waypointRepo.updateWaypoint(waypoint),
       onSuccess: (gs, serveurValue) => gs..setWaypoint(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackWaypoint(waypoint.id),
     );
@@ -20,7 +20,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   ) async {
     return await run(
       onApply: (gs) => gs,
-      remote: () =>
+      remote: (_) =>
           waypointRepo.createBlankWaypointFromVertex(tripId, vertexId),
       onSuccess: (gs, data) => gs..setWaypoint(data.waypoint),
     );
@@ -43,7 +43,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id) async {
     return await run(
       onApply: (gs) => gs,
-      remote: () => waypointRepo.deleteWaypoint(id),
+      remote: (_) => waypointRepo.deleteWaypoint(id),
     );
   }
 }

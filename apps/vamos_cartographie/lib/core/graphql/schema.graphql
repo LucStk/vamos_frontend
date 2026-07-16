@@ -7,6 +7,11 @@ directive @specifiedBy(
 """Indicates an Input Object is a OneOf Input Object."""
 directive @oneOf on INPUT_OBJECT
 
+input AttachFileTripInput {
+  tripId: UUID!
+  fileId: UUID!
+}
+
 type CreateWaypointPayload {
   waypoint: WaypointType!
   vertex: VertexType!
@@ -15,8 +20,21 @@ type CreateWaypointPayload {
 """Date (isoformat)"""
 scalar Date
 
-"""Date with time (isoformat)"""
-scalar DateTime
+input DetachFileInput {
+  attachmentId: UUID!
+}
+
+type FileAttachmentType {
+  order: Int!
+  isCover: Boolean!
+  file: StoredFileType!
+}
+
+input ImageUploadRequest {
+  filename: String!
+  mimeType: String!
+  size: Int!
+}
 
 type InsertVertexToSegmentPayload {
   segmentLeft: SegmentType!
@@ -33,22 +51,6 @@ type LatLngType {
   lng: Float!
 }
 
-type MediaAttachmentType {
-  image: MediaImageType!
-  order: Int!
-}
-
-input MediaImageInput {
-  fileKey: String!
-}
-
-type MediaImageType {
-  id: UUID!
-  fileKey: String!
-  createdAt: DateTime!
-  url: String!
-}
-
 enum MobilityType {
   BIKE
   CAR
@@ -61,10 +63,7 @@ type Mutation {
   updateTrip(id: UUID!, trip: TripUpdateInput!): TripType!
   deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
-  createImage(data: MediaImageInput!): MediaImageType!
-  generateImageUploadUrl(filename: String!): UploadConfig!
-  attachImageTo(id: UUID!, type: OwnerType!, fileKey: String!): MediaAttachmentType!
-  deleteImageFrom(id: UUID!, type: OwnerType!, fileKey: String!): String!
+  attachFile(input: AttachFileTripInput!): StoredFileType!
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): CreateWaypointPayload!
   createBlankWaypointFromVertex(tripId: UUID!, vertexId: UUID!): CreateWaypointPayload!
@@ -76,11 +75,8 @@ type Mutation {
   moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
   createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: UUID!): Boolean!
-}
-
-enum OwnerType {
-  TRIP
-  WAYPOINT
+  detachFile(input: DetachFileInput!): Boolean!
+  generateImageUploadUrl(input: ImageUploadRequest!): UploadConfig!
 }
 
 enum PoiCategory {
@@ -100,8 +96,8 @@ enum PoiCategory {
 }
 
 type Query {
-  trips: [TripType!]!
   trip(id: UUID!): TripType!
+  trips: [TripType!]!
 }
 
 input SegmentCreateInput {
@@ -125,6 +121,13 @@ input SegmentUpdateInput {
   endVertexId: UUID
 }
 
+type StoredFileType {
+  id: UUID!
+  filename: String!
+  status: String!
+  url: String!
+}
+
 type TopologyType {
   vertices: [VertexType!]!
   segments: [SegmentType!]!
@@ -136,8 +139,8 @@ type TripType {
   description: String!
   date: Date
   waypoints: [WaypointType!]!
+  files: [FileAttachmentType!]!
   topology: TopologyType!
-  images: [MediaImageType!]!
 }
 
 input TripUpdateInput {
@@ -147,6 +150,7 @@ input TripUpdateInput {
 }
 
 type UploadConfig {
+  fileId: UUID!
   uploadUrl: String!
   fileKey: String!
   contentType: String!
@@ -163,9 +167,9 @@ type WaypointType {
   id: UUID!
   title: String!
   description: String!
-  poiCategory: PoiCategory!
   vertex: VertexType!
-  images: [MediaImageType!]!
+  files: [FileAttachmentType!]!
+  poiCategory: PoiCategory!
 }
 
 input WaypointUpdateInput {

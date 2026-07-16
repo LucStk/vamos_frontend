@@ -9,7 +9,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
   Future<Either<Failure, Trip>> createBlankTrip() async {
     return await run(
       onApply: (gs) => gs,
-      remote: () => waypointRepo.createBlankTrip(),
+      remote: (_) => waypointRepo.createBlankTrip(),
       onSuccess: (gs, Trip serverTrip) => gs..insertTrip(serverTrip),
     );
   }
@@ -17,7 +17,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
   Future<Either<Failure, Trip>> updateTrip(Trip trip) async {
     return await run(
       onApply: (gs) => gs,
-      remote: () => waypointRepo.updateTrip(trip),
+      remote: (_) => waypointRepo.updateTrip(trip),
       onSuccess: (gs, Trip serverTrip) => gs..insertTrip(serverTrip),
     );
   }
@@ -25,7 +25,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
   Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
     return await run(
       onApply: (gs) => gs,
-      remote: () => waypointRepo.deleteTrip(id),
+      remote: (_) => waypointRepo.deleteTrip(id),
     );
   }
 }

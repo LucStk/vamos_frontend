@@ -7,7 +7,10 @@ mixin OptimisticRunner<S> {
   ErrorLogger? get errorLogger => null;
 
   Future<Either<Failure, T>> run<T>({
-    required Future<Either<Failure, T>> Function() remote,
+    required Future<Either<Failure, T>> Function(
+      void Function(S Function(S state) update) reportProgress,
+    )
+    remote,
     required S? Function(S state) onApply,
     S? Function(S state, T result)? onSuccess,
     S? Function(S state, Failure failure)? onError,
@@ -15,7 +18,13 @@ mixin OptimisticRunner<S> {
     final applied = onApply(state);
     if (applied != null) state = applied;
 
-    final result = await remote();
+    void reportProgress(S Function(S state) update) {
+      final next = update(state);
+      state = next;
+    }
+
+    final result = await remote(reportProgress);
+
     result.fold(
       (Failure f) {
         errorLogger?.logError(f, StackTrace.current);

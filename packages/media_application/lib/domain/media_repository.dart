@@ -5,10 +5,11 @@ import 'package:domain_core/domain_core.dart';
 import 'dart:io';
 
 abstract class MediaRepository {
-  Future<Either<Failure, MediaImage>> uploadImage(
-    File file,
-    Function(int sent, int total)? onProgress,
-  );
+  // Future<Either<Failure, MediaImage>> uploadImage(
+  //   File file,
+  //   Function(int sent, int total)? onProgress,
+  // );
+  Future<Either<Failure, String>> getSignedURL(String fileName);
   Future<Either<Failure, MediaImage>> attachImage<T>(
     Id<T> id,
     FileKey filekey,
