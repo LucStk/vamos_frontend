@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stored_file_application/domain/entities/image_ui_model.dart';
+import 'package:stored_file_application/domain/stored_file_state.dart';
 import 'thumbnail_error.dart';
 import 'thumbnail_image.dart'; // Pense à importer ton nouveau widget
 
 class ThumbnailView extends StatelessWidget {
-  final ImageUiModel item;
+  final StoreFileState item;
   final double size;
 
   final bool hasError;

@@ -5,8 +5,8 @@ import 'package:vamos_cartographie/features/features.dart';
 import '/topology/presentation/mobility_type_display.dart';
 
 class SegmentEditor extends ConsumerStatefulWidget {
-  final Segment initialSegment;
-  final Future<void> Function(WidgetRef ref, Segment segment) onSubmit;
+  final SegmentFields initialSegment;
+  final Future<void> Function(WidgetRef ref, SegmentFields segment) onSubmit;
   final String successMessage;
   const SegmentEditor({
     super.key,
@@ -20,15 +20,15 @@ class SegmentEditor extends ConsumerStatefulWidget {
 }
 
 class _SegmentEditorState extends ConsumerState<SegmentEditor> {
-  late Segment currentSegment; // Accessible par la GlobalKey
+  late SegmentPatchModel currentSegment; // Accessible par la GlobalKey
 
   @override
   void initState() {
     super.initState();
-    currentSegment = widget.initialSegment;
+    currentSegment = SegmentPatchModel.fromFields(widget.initialSegment);
   }
 
-  void _submit(Segment newSegment) async {
+  void _submit(SegmentPatchModel newSegment) async {
     try {
       await widget.onSubmit(ref, newSegment);
 

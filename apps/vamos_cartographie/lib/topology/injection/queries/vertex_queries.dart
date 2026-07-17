@@ -9,7 +9,7 @@ import '/topology/injection/injection.dart';
 part 'vertex_queries.g.dart';
 
 @riverpod
-GraphNode<Vertex> vertexNode(Ref ref, TripId tripId, VertexId id) {
+GraphNode<VertexFields> vertexNode(Ref ref, TripId tripId, VertexId id) {
   final store = ref.watch(vertexStoreProvider(tripId));
   final node = store.get(id);
   if (node == null) {
@@ -21,16 +21,16 @@ GraphNode<Vertex> vertexNode(Ref ref, TripId tripId, VertexId id) {
 }
 
 @riverpod
-NodeState<Vertex> vertex(Ref ref, TripId tripId, VertexId id) {
+VertexState vertex(Ref ref, TripId tripId, VertexId id) {
   final node = ref.watch(vertexNodeProvider(tripId, id));
   return node.current;
 }
 
 @riverpod
-List<Vertex> allVertex(Ref ref, TripId tripId) {
+List<VertexState> allVertex(Ref ref, TripId tripId) {
   // Attention, ne fait pas de watch sur les StateNode<Vertex>
   final store = ref.watch(vertexStoreProvider(tripId));
-  return store.store.values.map((v) => v.current.displayValue).toList();
+  return store.store.values.map((v) => v.current).toList();
 }
 
 @riverpod

@@ -1,24 +1,25 @@
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:trip_application/waypoint/domain/waypoint.dart';
+import 'package:trip_application/waypoint/domain/domain.dart';
 
 import '/topology/domain/entities/entities.dart';
 
 class TopologyRes {
-  final List<Vertex> vertices;
+  final List<VertexRemoteModel> vertices;
 
-  final List<Segment> segments;
+  final List<SegmentRemoteModel> segments;
   TopologyRes(this.vertices, this.segments);
 }
 
 class WaypointCreateBlankRes {
-  final Vertex vertex;
-  final Waypoint waypoint;
+  final VertexRemoteModel vertex;
+  final WaypointRemoteModel waypoint;
   WaypointCreateBlankRes(this.waypoint, this.vertex);
 }
 
 class TripDetailsRes {
-  final List<Vertex> vertices;
-  final List<Segment> segments;
-  final List<(Waypoint, List<StoredFile>)> waypointsImages;
+  final List<VertexRemoteModel> vertices;
+  final List<SegmentRemoteModel> segments;
+  final List<(WaypointRemoteModel, List<StoredFileRemoteModel>)>
+  waypointsImages;
   TripDetailsRes(this.vertices, this.segments, this.waypointsImages);
 }

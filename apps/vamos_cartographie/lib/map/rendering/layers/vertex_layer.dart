@@ -24,7 +24,7 @@ class VertexLayer extends ConsumerWidget {
     const totalSize = 26.0;
     final List<DragMarker> listDragMarkers = [];
     for (final vertexId in vertexIds) {
-      final vertex = ref.watch(vertexProvider(tripId, vertexId)).displayValue;
+      final vertex = ref.watch(vertexProvider(tripId, vertexId)).display;
 
       listDragMarkers.add(
         DragMarker(

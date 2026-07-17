@@ -15,11 +15,11 @@ final waypointNodeProvider = WaypointNodeFamily._();
 final class WaypointNodeProvider
     extends
         $FunctionalProvider<
-          GraphNode<Waypoint>,
-          GraphNode<Waypoint>,
-          GraphNode<Waypoint>
+          GraphNode<WaypointFields>,
+          GraphNode<WaypointFields>,
+          GraphNode<WaypointFields>
         >
-    with $Provider<GraphNode<Waypoint>> {
+    with $Provider<GraphNode<WaypointFields>> {
   WaypointNodeProvider._({
     required WaypointNodeFamily super.from,
     required (TripId, WaypointId) super.argument,
@@ -43,21 +43,21 @@ final class WaypointNodeProvider
 
   @$internal
   @override
-  $ProviderElement<GraphNode<Waypoint>> $createElement(
+  $ProviderElement<GraphNode<WaypointFields>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  GraphNode<Waypoint> create(Ref ref) {
+  GraphNode<WaypointFields> create(Ref ref) {
     final argument = this.argument as (TripId, WaypointId);
     return waypointNode(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphNode<Waypoint> value) {
+  Override overrideWithValue(GraphNode<WaypointFields> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GraphNode<Waypoint>>(value),
+      providerOverride: $SyncValueProvider<GraphNode<WaypointFields>>(value),
     );
   }
 
@@ -72,10 +72,14 @@ final class WaypointNodeProvider
   }
 }
 
-String _$waypointNodeHash() => r'16e2bfe572bbbf838ef7297ab78325587372fbe3';
+String _$waypointNodeHash() => r'f864fbb23cc1e467953f93fcca2926df426458b3';
 
 final class WaypointNodeFamily extends $Family
-    with $FunctionalFamilyOverride<GraphNode<Waypoint>, (TripId, WaypointId)> {
+    with
+        $FunctionalFamilyOverride<
+          GraphNode<WaypointFields>,
+          (TripId, WaypointId)
+        > {
   WaypointNodeFamily._()
     : super(
         retry: null,
@@ -96,13 +100,8 @@ final class WaypointNodeFamily extends $Family
 final waypointProvider = WaypointFamily._();
 
 final class WaypointProvider
-    extends
-        $FunctionalProvider<
-          NodeState<Waypoint>,
-          NodeState<Waypoint>,
-          NodeState<Waypoint>
-        >
-    with $Provider<NodeState<Waypoint>> {
+    extends $FunctionalProvider<WaypointState, WaypointState, WaypointState>
+    with $Provider<WaypointState> {
   WaypointProvider._({
     required WaypointFamily super.from,
     required (TripId, WaypointId) super.argument,
@@ -126,21 +125,20 @@ final class WaypointProvider
 
   @$internal
   @override
-  $ProviderElement<NodeState<Waypoint>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<WaypointState> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  NodeState<Waypoint> create(Ref ref) {
+  WaypointState create(Ref ref) {
     final argument = this.argument as (TripId, WaypointId);
     return waypoint(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NodeState<Waypoint> value) {
+  Override overrideWithValue(WaypointState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<NodeState<Waypoint>>(value),
+      providerOverride: $SyncValueProvider<WaypointState>(value),
     );
   }
 
@@ -155,10 +153,10 @@ final class WaypointProvider
   }
 }
 
-String _$waypointHash() => r'88dc01e2a0dfb9a5d5e41e0d871378ee430f0b4a';
+String _$waypointHash() => r'cc17a62e820bace95b5de5743d0b594aaf446808';
 
 final class WaypointFamily extends $Family
-    with $FunctionalFamilyOverride<NodeState<Waypoint>, (TripId, WaypointId)> {
+    with $FunctionalFamilyOverride<WaypointState, (TripId, WaypointId)> {
   WaypointFamily._()
     : super(
         retry: null,
@@ -179,8 +177,13 @@ final class WaypointFamily extends $Family
 final allWaypointProvider = AllWaypointFamily._();
 
 final class AllWaypointProvider
-    extends $FunctionalProvider<List<Waypoint>, List<Waypoint>, List<Waypoint>>
-    with $Provider<List<Waypoint>> {
+    extends
+        $FunctionalProvider<
+          List<WaypointState>,
+          List<WaypointState>,
+          List<WaypointState>
+        >
+    with $Provider<List<WaypointState>> {
   AllWaypointProvider._({
     required AllWaypointFamily super.from,
     required TripId super.argument,
@@ -204,20 +207,21 @@ final class AllWaypointProvider
 
   @$internal
   @override
-  $ProviderElement<List<Waypoint>> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<List<WaypointState>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  List<Waypoint> create(Ref ref) {
+  List<WaypointState> create(Ref ref) {
     final argument = this.argument as TripId;
     return allWaypoint(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<Waypoint> value) {
+  Override overrideWithValue(List<WaypointState> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<Waypoint>>(value),
+      providerOverride: $SyncValueProvider<List<WaypointState>>(value),
     );
   }
 
@@ -232,10 +236,10 @@ final class AllWaypointProvider
   }
 }
 
-String _$allWaypointHash() => r'df0bb73a5b9ad0f9eb02d89027265e1781f4a690';
+String _$allWaypointHash() => r'9812268cbf063b584a81a82c4ce4f8e297c92c0b';
 
 final class AllWaypointFamily extends $Family
-    with $FunctionalFamilyOverride<List<Waypoint>, TripId> {
+    with $FunctionalFamilyOverride<List<WaypointState>, TripId> {
   AllWaypointFamily._()
     : super(
         retry: null,

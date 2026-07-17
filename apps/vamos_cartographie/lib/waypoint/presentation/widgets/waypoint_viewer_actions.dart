@@ -39,7 +39,7 @@ Future<void> deleteWaypointWithConfirmation({
 
 class WaypointViewerButtons extends ConsumerWidget {
   final TripId tripId;
-  final Waypoint waypoint;
+  final WaypointFields waypoint;
   const WaypointViewerButtons({
     super.key,
     required this.tripId,

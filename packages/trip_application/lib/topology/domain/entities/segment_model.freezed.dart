@@ -12,21 +12,20 @@ part of 'segment_model.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Segment {
+mixin _$SegmentRemoteModel {
 
- Id<Segment> get id; Id<Vertex> get startVertexId; Id<Vertex> get endVertexId; Geometry get geometry;// <- plus List<LatLng>
- MobilityType get mobilityType;
-/// Create a copy of Segment
+ SegmentId get id; VertexId get startVertexId; VertexId get endVertexId; Geometry get geometry; MobilityType get mobilityType;
+/// Create a copy of SegmentRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SegmentCopyWith<Segment> get copyWith => _$SegmentCopyWithImpl<Segment>(this as Segment, _$identity);
+$SegmentRemoteModelCopyWith<SegmentRemoteModel> get copyWith => _$SegmentRemoteModelCopyWithImpl<SegmentRemoteModel>(this as SegmentRemoteModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Segment&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
 }
 
 
@@ -35,18 +34,18 @@ int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const D
 
 @override
 String toString() {
-  return 'Segment(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType)';
+  return 'SegmentRemoteModel(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SegmentCopyWith<$Res>  {
-  factory $SegmentCopyWith(Segment value, $Res Function(Segment) _then) = _$SegmentCopyWithImpl;
+abstract mixin class $SegmentRemoteModelCopyWith<$Res>  {
+  factory $SegmentRemoteModelCopyWith(SegmentRemoteModel value, $Res Function(SegmentRemoteModel) _then) = _$SegmentRemoteModelCopyWithImpl;
 @useResult
 $Res call({
- Id<Segment> id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, Geometry geometry, MobilityType mobilityType
+ SegmentId id, VertexId startVertexId, VertexId endVertexId, Geometry geometry, MobilityType mobilityType
 });
 
 
@@ -54,21 +53,21 @@ $Res call({
 
 }
 /// @nodoc
-class _$SegmentCopyWithImpl<$Res>
-    implements $SegmentCopyWith<$Res> {
-  _$SegmentCopyWithImpl(this._self, this._then);
+class _$SegmentRemoteModelCopyWithImpl<$Res>
+    implements $SegmentRemoteModelCopyWith<$Res> {
+  _$SegmentRemoteModelCopyWithImpl(this._self, this._then);
 
-  final Segment _self;
-  final $Res Function(Segment) _then;
+  final SegmentRemoteModel _self;
+  final $Res Function(SegmentRemoteModel) _then;
 
-/// Create a copy of Segment
+/// Create a copy of SegmentRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometry = null,Object? mobilityType = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<Segment>,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
+as SegmentId,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,
   ));
@@ -77,8 +76,8 @@ as MobilityType,
 }
 
 
-/// Adds pattern-matching-related methods to [Segment].
-extension SegmentPatterns on Segment {
+/// Adds pattern-matching-related methods to [SegmentRemoteModel].
+extension SegmentRemoteModelPatterns on SegmentRemoteModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -91,10 +90,10 @@ extension SegmentPatterns on Segment {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Segment value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SegmentRemoteModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Segment() when $default != null:
+case _SegmentRemoteModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -113,10 +112,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Segment value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SegmentRemoteModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _Segment():
+case _SegmentRemoteModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -134,10 +133,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Segment value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SegmentRemoteModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Segment() when $default != null:
+case _SegmentRemoteModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -155,9 +154,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometry,  MobilityType mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentId id,  VertexId startVertexId,  VertexId endVertexId,  Geometry geometry,  MobilityType mobilityType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Segment() when $default != null:
+case _SegmentRemoteModel() when $default != null:
 return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType);case _:
   return orElse();
 
@@ -176,9 +175,9 @@ return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometry,  MobilityType mobilityType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentId id,  VertexId startVertexId,  VertexId endVertexId,  Geometry geometry,  MobilityType mobilityType)  $default,) {final _that = this;
 switch (_that) {
-case _Segment():
+case _SegmentRemoteModel():
 return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType);case _:
   throw StateError('Unexpected subclass');
 
@@ -196,9 +195,9 @@ return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Segment> id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometry,  MobilityType mobilityType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentId id,  VertexId startVertexId,  VertexId endVertexId,  Geometry geometry,  MobilityType mobilityType)?  $default,) {final _that = this;
 switch (_that) {
-case _Segment() when $default != null:
+case _SegmentRemoteModel() when $default != null:
 return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType);case _:
   return null;
 
@@ -210,13 +209,13 @@ return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 /// @nodoc
 
 
-class _Segment extends Segment {
-  const _Segment({required this.id, required this.startVertexId, required this.endVertexId, required final  Geometry geometry, this.mobilityType = MobilityType.bike}): _geometry = geometry,super._();
+class _SegmentRemoteModel extends SegmentRemoteModel {
+  const _SegmentRemoteModel({required this.id, required this.startVertexId, required this.endVertexId, required final  Geometry geometry, this.mobilityType = MobilityType.bike}): _geometry = geometry,super._();
   
 
-@override final  Id<Segment> id;
-@override final  Id<Vertex> startVertexId;
-@override final  Id<Vertex> endVertexId;
+@override final  SegmentId id;
+@override final  VertexId startVertexId;
+@override final  VertexId endVertexId;
  final  Geometry _geometry;
 @override Geometry get geometry {
   if (_geometry is EqualUnmodifiableListView) return _geometry;
@@ -224,20 +223,19 @@ class _Segment extends Segment {
   return EqualUnmodifiableListView(_geometry);
 }
 
-// <- plus List<LatLng>
 @override@JsonKey() final  MobilityType mobilityType;
 
-/// Create a copy of Segment
+/// Create a copy of SegmentRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SegmentCopyWith<_Segment> get copyWith => __$SegmentCopyWithImpl<_Segment>(this, _$identity);
+_$SegmentRemoteModelCopyWith<_SegmentRemoteModel> get copyWith => __$SegmentRemoteModelCopyWithImpl<_SegmentRemoteModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Segment&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
 }
 
 
@@ -246,18 +244,18 @@ int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const D
 
 @override
 String toString() {
-  return 'Segment(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType)';
+  return 'SegmentRemoteModel(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SegmentCopyWith<$Res> implements $SegmentCopyWith<$Res> {
-  factory _$SegmentCopyWith(_Segment value, $Res Function(_Segment) _then) = __$SegmentCopyWithImpl;
+abstract mixin class _$SegmentRemoteModelCopyWith<$Res> implements $SegmentRemoteModelCopyWith<$Res> {
+  factory _$SegmentRemoteModelCopyWith(_SegmentRemoteModel value, $Res Function(_SegmentRemoteModel) _then) = __$SegmentRemoteModelCopyWithImpl;
 @override @useResult
 $Res call({
- Id<Segment> id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, Geometry geometry, MobilityType mobilityType
+ SegmentId id, VertexId startVertexId, VertexId endVertexId, Geometry geometry, MobilityType mobilityType
 });
 
 
@@ -265,21 +263,21 @@ $Res call({
 
 }
 /// @nodoc
-class __$SegmentCopyWithImpl<$Res>
-    implements _$SegmentCopyWith<$Res> {
-  __$SegmentCopyWithImpl(this._self, this._then);
+class __$SegmentRemoteModelCopyWithImpl<$Res>
+    implements _$SegmentRemoteModelCopyWith<$Res> {
+  __$SegmentRemoteModelCopyWithImpl(this._self, this._then);
 
-  final _Segment _self;
-  final $Res Function(_Segment) _then;
+  final _SegmentRemoteModel _self;
+  final $Res Function(_SegmentRemoteModel) _then;
 
-/// Create a copy of Segment
+/// Create a copy of SegmentRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometry = null,Object? mobilityType = null,}) {
-  return _then(_Segment(
+  return _then(_SegmentRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<Segment>,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
+as SegmentId,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,
   ));
@@ -289,40 +287,40 @@ as MobilityType,
 }
 
 /// @nodoc
-mixin _$SegmentPatch {
+mixin _$SegmentPatchModel {
 
- SegmentId get id; Id<Vertex> get startVertexId; Id<Vertex> get endVertexId; Geometry get geometryOverride; MobilityType get mobilityType; bool get recomputing; Object? get error;
-/// Create a copy of SegmentPatch
+ SegmentId get id; VertexId get startVertexId; VertexId get endVertexId; Geometry get geometry; MobilityType get mobilityType; bool get recomputing; Object? get error;
+/// Create a copy of SegmentPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SegmentPatchCopyWith<SegmentPatch> get copyWith => _$SegmentPatchCopyWithImpl<SegmentPatch>(this as SegmentPatch, _$identity);
+$SegmentPatchModelCopyWith<SegmentPatchModel> get copyWith => _$SegmentPatchModelCopyWithImpl<SegmentPatchModel>(this as SegmentPatchModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatch&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometryOverride, geometryOverride)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(geometryOverride),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(geometry),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentPatch(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometryOverride: $geometryOverride, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
+  return 'SegmentPatchModel(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SegmentPatchCopyWith<$Res>  {
-  factory $SegmentPatchCopyWith(SegmentPatch value, $Res Function(SegmentPatch) _then) = _$SegmentPatchCopyWithImpl;
+abstract mixin class $SegmentPatchModelCopyWith<$Res>  {
+  factory $SegmentPatchModelCopyWith(SegmentPatchModel value, $Res Function(SegmentPatchModel) _then) = _$SegmentPatchModelCopyWithImpl;
 @useResult
 $Res call({
- SegmentId id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, Geometry geometryOverride, MobilityType mobilityType, bool recomputing, Object? error
+ SegmentId id, VertexId startVertexId, VertexId endVertexId, Geometry geometry, MobilityType mobilityType, bool recomputing, Object? error
 });
 
 
@@ -330,21 +328,21 @@ $Res call({
 
 }
 /// @nodoc
-class _$SegmentPatchCopyWithImpl<$Res>
-    implements $SegmentPatchCopyWith<$Res> {
-  _$SegmentPatchCopyWithImpl(this._self, this._then);
+class _$SegmentPatchModelCopyWithImpl<$Res>
+    implements $SegmentPatchModelCopyWith<$Res> {
+  _$SegmentPatchModelCopyWithImpl(this._self, this._then);
 
-  final SegmentPatch _self;
-  final $Res Function(SegmentPatch) _then;
+  final SegmentPatchModel _self;
+  final $Res Function(SegmentPatchModel) _then;
 
-/// Create a copy of SegmentPatch
+/// Create a copy of SegmentPatchModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometryOverride = null,Object? mobilityType = null,Object? recomputing = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometry = null,Object? mobilityType = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as SegmentId,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,geometryOverride: null == geometryOverride ? _self.geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
+as VertexId,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
@@ -354,8 +352,8 @@ as bool,error: freezed == error ? _self.error : error ,
 }
 
 
-/// Adds pattern-matching-related methods to [SegmentPatch].
-extension SegmentPatchPatterns on SegmentPatch {
+/// Adds pattern-matching-related methods to [SegmentPatchModel].
+extension SegmentPatchModelPatterns on SegmentPatchModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -368,10 +366,10 @@ extension SegmentPatchPatterns on SegmentPatch {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _SegmentPatch value)?  internal,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _SegmentPatchModel value)?  internal,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _SegmentPatch() when internal != null:
+case _SegmentPatchModel() when internal != null:
 return internal(_that);case _:
   return orElse();
 
@@ -390,10 +388,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _SegmentPatch value)  internal,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _SegmentPatchModel value)  internal,}){
 final _that = this;
 switch (_that) {
-case _SegmentPatch():
+case _SegmentPatchModel():
 return internal(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -411,10 +409,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _SegmentPatch value)?  internal,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _SegmentPatchModel value)?  internal,}){
 final _that = this;
 switch (_that) {
-case _SegmentPatch() when internal != null:
+case _SegmentPatchModel() when internal != null:
 return internal(_that);case _:
   return null;
 
@@ -432,10 +430,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( SegmentId id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometryOverride,  MobilityType mobilityType,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( SegmentId id,  VertexId startVertexId,  VertexId endVertexId,  Geometry geometry,  MobilityType mobilityType,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _SegmentPatch() when internal != null:
-return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometryOverride,_that.mobilityType,_that.recomputing,_that.error);case _:
+case _SegmentPatchModel() when internal != null:
+return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType,_that.recomputing,_that.error);case _:
   return orElse();
 
 }
@@ -453,10 +451,10 @@ return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometryOve
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( SegmentId id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometryOverride,  MobilityType mobilityType,  bool recomputing,  Object? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( SegmentId id,  VertexId startVertexId,  VertexId endVertexId,  Geometry geometry,  MobilityType mobilityType,  bool recomputing,  Object? error)  internal,}) {final _that = this;
 switch (_that) {
-case _SegmentPatch():
-return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometryOverride,_that.mobilityType,_that.recomputing,_that.error);case _:
+case _SegmentPatchModel():
+return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType,_that.recomputing,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -473,10 +471,10 @@ return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometryOve
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( SegmentId id,  Id<Vertex> startVertexId,  Id<Vertex> endVertexId,  Geometry geometryOverride,  MobilityType mobilityType,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( SegmentId id,  VertexId startVertexId,  VertexId endVertexId,  Geometry geometry,  MobilityType mobilityType,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
 switch (_that) {
-case _SegmentPatch() when internal != null:
-return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometryOverride,_that.mobilityType,_that.recomputing,_that.error);case _:
+case _SegmentPatchModel() when internal != null:
+return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_that.mobilityType,_that.recomputing,_that.error);case _:
   return null;
 
 }
@@ -487,55 +485,55 @@ return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometryOve
 /// @nodoc
 
 
-class _SegmentPatch extends SegmentPatch implements Patch<Segment> {
-  const _SegmentPatch({required this.id, required this.startVertexId, required this.endVertexId, required final  Geometry geometryOverride, this.mobilityType = MobilityType.bike, this.recomputing = false, this.error}): _geometryOverride = geometryOverride,super._();
+class _SegmentPatchModel extends SegmentPatchModel implements Patch<SegmentRemoteModel> {
+  const _SegmentPatchModel({required this.id, required this.startVertexId, required this.endVertexId, required final  Geometry geometry, this.mobilityType = MobilityType.bike, this.recomputing = false, this.error}): _geometry = geometry,super._();
   
 
 @override final  SegmentId id;
-@override final  Id<Vertex> startVertexId;
-@override final  Id<Vertex> endVertexId;
- final  Geometry _geometryOverride;
-@override Geometry get geometryOverride {
-  if (_geometryOverride is EqualUnmodifiableListView) return _geometryOverride;
+@override final  VertexId startVertexId;
+@override final  VertexId endVertexId;
+ final  Geometry _geometry;
+@override Geometry get geometry {
+  if (_geometry is EqualUnmodifiableListView) return _geometry;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_geometryOverride);
+  return EqualUnmodifiableListView(_geometry);
 }
 
 @override@JsonKey() final  MobilityType mobilityType;
 @override@JsonKey() final  bool recomputing;
 @override final  Object? error;
 
-/// Create a copy of SegmentPatch
+/// Create a copy of SegmentPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SegmentPatchCopyWith<_SegmentPatch> get copyWith => __$SegmentPatchCopyWithImpl<_SegmentPatch>(this, _$identity);
+_$SegmentPatchModelCopyWith<_SegmentPatchModel> get copyWith => __$SegmentPatchModelCopyWithImpl<_SegmentPatchModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatch&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other._geometryOverride, _geometryOverride)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(_geometryOverride),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(_geometry),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
 
 @override
 String toString() {
-  return 'SegmentPatch.internal(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometryOverride: $geometryOverride, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
+  return 'SegmentPatchModel.internal(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SegmentPatchCopyWith<$Res> implements $SegmentPatchCopyWith<$Res> {
-  factory _$SegmentPatchCopyWith(_SegmentPatch value, $Res Function(_SegmentPatch) _then) = __$SegmentPatchCopyWithImpl;
+abstract mixin class _$SegmentPatchModelCopyWith<$Res> implements $SegmentPatchModelCopyWith<$Res> {
+  factory _$SegmentPatchModelCopyWith(_SegmentPatchModel value, $Res Function(_SegmentPatchModel) _then) = __$SegmentPatchModelCopyWithImpl;
 @override @useResult
 $Res call({
- SegmentId id, Id<Vertex> startVertexId, Id<Vertex> endVertexId, Geometry geometryOverride, MobilityType mobilityType, bool recomputing, Object? error
+ SegmentId id, VertexId startVertexId, VertexId endVertexId, Geometry geometry, MobilityType mobilityType, bool recomputing, Object? error
 });
 
 
@@ -543,21 +541,21 @@ $Res call({
 
 }
 /// @nodoc
-class __$SegmentPatchCopyWithImpl<$Res>
-    implements _$SegmentPatchCopyWith<$Res> {
-  __$SegmentPatchCopyWithImpl(this._self, this._then);
+class __$SegmentPatchModelCopyWithImpl<$Res>
+    implements _$SegmentPatchModelCopyWith<$Res> {
+  __$SegmentPatchModelCopyWithImpl(this._self, this._then);
 
-  final _SegmentPatch _self;
-  final $Res Function(_SegmentPatch) _then;
+  final _SegmentPatchModel _self;
+  final $Res Function(_SegmentPatchModel) _then;
 
-/// Create a copy of SegmentPatch
+/// Create a copy of SegmentPatchModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometryOverride = null,Object? mobilityType = null,Object? recomputing = null,Object? error = freezed,}) {
-  return _then(_SegmentPatch(
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometry = null,Object? mobilityType = null,Object? recomputing = null,Object? error = freezed,}) {
+  return _then(_SegmentPatchModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as SegmentId,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
-as Id<Vertex>,geometryOverride: null == geometryOverride ? _self._geometryOverride : geometryOverride // ignore: cast_nullable_to_non_nullable
+as VertexId,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
 as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,

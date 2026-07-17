@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'waypoint.dart';
+part of 'waypoint_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'waypoint.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Waypoint {
+mixin _$WaypointRemoteModel {
 
- Id<Waypoint> get id; VertexId get vertexId; String get title; PoiCategory get poiCategory; String get description;
-/// Create a copy of Waypoint
+ WaypointId get id; VertexId get vertexId; String get title; PoiCategory get poiCategory; String get description;
+/// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$WaypointCopyWith<Waypoint> get copyWith => _$WaypointCopyWithImpl<Waypoint>(this as Waypoint, _$identity);
+$WaypointRemoteModelCopyWith<WaypointRemoteModel> get copyWith => _$WaypointRemoteModelCopyWithImpl<WaypointRemoteModel>(this as WaypointRemoteModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
@@ -34,18 +34,18 @@ int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,descri
 
 @override
 String toString() {
-  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
+  return 'WaypointRemoteModel(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $WaypointCopyWith<$Res>  {
-  factory $WaypointCopyWith(Waypoint value, $Res Function(Waypoint) _then) = _$WaypointCopyWithImpl;
+abstract mixin class $WaypointRemoteModelCopyWith<$Res>  {
+  factory $WaypointRemoteModelCopyWith(WaypointRemoteModel value, $Res Function(WaypointRemoteModel) _then) = _$WaypointRemoteModelCopyWithImpl;
 @useResult
 $Res call({
- Id<Waypoint> id, VertexId vertexId, String title, PoiCategory poiCategory, String description
+ WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description
 });
 
 
@@ -53,19 +53,19 @@ $Res call({
 
 }
 /// @nodoc
-class _$WaypointCopyWithImpl<$Res>
-    implements $WaypointCopyWith<$Res> {
-  _$WaypointCopyWithImpl(this._self, this._then);
+class _$WaypointRemoteModelCopyWithImpl<$Res>
+    implements $WaypointRemoteModelCopyWith<$Res> {
+  _$WaypointRemoteModelCopyWithImpl(this._self, this._then);
 
-  final Waypoint _self;
-  final $Res Function(Waypoint) _then;
+  final WaypointRemoteModel _self;
+  final $Res Function(WaypointRemoteModel) _then;
 
-/// Create a copy of Waypoint
+/// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -76,8 +76,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [Waypoint].
-extension WaypointPatterns on Waypoint {
+/// Adds pattern-matching-related methods to [WaypointRemoteModel].
+extension WaypointRemoteModelPatterns on WaypointRemoteModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -90,10 +90,10 @@ extension WaypointPatterns on Waypoint {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Waypoint value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WaypointRemoteModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Waypoint() when $default != null:
+case _WaypointRemoteModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -112,10 +112,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Waypoint value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WaypointRemoteModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _Waypoint():
+case _WaypointRemoteModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -133,10 +133,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Waypoint value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WaypointRemoteModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Waypoint() when $default != null:
+case _WaypointRemoteModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -154,9 +154,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<Waypoint> id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Waypoint() when $default != null:
+case _WaypointRemoteModel() when $default != null:
 return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description);case _:
   return orElse();
 
@@ -175,9 +175,9 @@ return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<Waypoint> id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)  $default,) {final _that = this;
 switch (_that) {
-case _Waypoint():
+case _WaypointRemoteModel():
 return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description);case _:
   throw StateError('Unexpected subclass');
 
@@ -195,9 +195,9 @@ return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<Waypoint> id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description)?  $default,) {final _that = this;
 switch (_that) {
-case _Waypoint() when $default != null:
+case _WaypointRemoteModel() when $default != null:
 return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description);case _:
   return null;
 
@@ -209,27 +209,27 @@ return $default(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// @nodoc
 
 
-class _Waypoint extends Waypoint {
-  const _Waypoint({required this.id, required this.vertexId, this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = ''}): super._();
+class _WaypointRemoteModel extends WaypointRemoteModel {
+  const _WaypointRemoteModel({required this.id, required this.vertexId, this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = ''}): super._();
   
 
-@override final  Id<Waypoint> id;
+@override final  WaypointId id;
 @override final  VertexId vertexId;
 @override@JsonKey() final  String title;
 @override@JsonKey() final  PoiCategory poiCategory;
 @override@JsonKey() final  String description;
 
-/// Create a copy of Waypoint
+/// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$WaypointCopyWith<_Waypoint> get copyWith => __$WaypointCopyWithImpl<_Waypoint>(this, _$identity);
+_$WaypointRemoteModelCopyWith<_WaypointRemoteModel> get copyWith => __$WaypointRemoteModelCopyWithImpl<_WaypointRemoteModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Waypoint&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
@@ -238,18 +238,18 @@ int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,descri
 
 @override
 String toString() {
-  return 'Waypoint(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
+  return 'WaypointRemoteModel(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res> {
-  factory _$WaypointCopyWith(_Waypoint value, $Res Function(_Waypoint) _then) = __$WaypointCopyWithImpl;
+abstract mixin class _$WaypointRemoteModelCopyWith<$Res> implements $WaypointRemoteModelCopyWith<$Res> {
+  factory _$WaypointRemoteModelCopyWith(_WaypointRemoteModel value, $Res Function(_WaypointRemoteModel) _then) = __$WaypointRemoteModelCopyWithImpl;
 @override @useResult
 $Res call({
- Id<Waypoint> id, VertexId vertexId, String title, PoiCategory poiCategory, String description
+ WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description
 });
 
 
@@ -257,19 +257,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$WaypointCopyWithImpl<$Res>
-    implements _$WaypointCopyWith<$Res> {
-  __$WaypointCopyWithImpl(this._self, this._then);
+class __$WaypointRemoteModelCopyWithImpl<$Res>
+    implements _$WaypointRemoteModelCopyWith<$Res> {
+  __$WaypointRemoteModelCopyWithImpl(this._self, this._then);
 
-  final _Waypoint _self;
-  final $Res Function(_Waypoint) _then;
+  final _WaypointRemoteModel _self;
+  final $Res Function(_WaypointRemoteModel) _then;
 
-/// Create a copy of Waypoint
+/// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,}) {
-  return _then(_Waypoint(
+  return _then(_WaypointRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -281,20 +281,20 @@ as String,
 }
 
 /// @nodoc
-mixin _$WaypointPatch {
+mixin _$WaypointPatchModel {
 
- Id<Waypoint> get id; VertexId get vertexId; String get title; PoiCategory get poiCategory; String get description; bool get recomputing; Object? get error;
-/// Create a copy of WaypointPatch
+ WaypointId get id; VertexId get vertexId; String get title; PoiCategory get poiCategory; String get description; bool get recomputing; Object? get error;
+/// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$WaypointPatchCopyWith<WaypointPatch> get copyWith => _$WaypointPatchCopyWithImpl<WaypointPatch>(this as WaypointPatch, _$identity);
+$WaypointPatchModelCopyWith<WaypointPatchModel> get copyWith => _$WaypointPatchModelCopyWithImpl<WaypointPatchModel>(this as WaypointPatchModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointPatch&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
@@ -303,18 +303,18 @@ int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,descri
 
 @override
 String toString() {
-  return 'WaypointPatch(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
+  return 'WaypointPatchModel(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $WaypointPatchCopyWith<$Res>  {
-  factory $WaypointPatchCopyWith(WaypointPatch value, $Res Function(WaypointPatch) _then) = _$WaypointPatchCopyWithImpl;
+abstract mixin class $WaypointPatchModelCopyWith<$Res>  {
+  factory $WaypointPatchModelCopyWith(WaypointPatchModel value, $Res Function(WaypointPatchModel) _then) = _$WaypointPatchModelCopyWithImpl;
 @useResult
 $Res call({
- Id<Waypoint> id, VertexId vertexId, String title, PoiCategory poiCategory, String description, bool recomputing, Object? error
+ WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description, bool recomputing, Object? error
 });
 
 
@@ -322,19 +322,19 @@ $Res call({
 
 }
 /// @nodoc
-class _$WaypointPatchCopyWithImpl<$Res>
-    implements $WaypointPatchCopyWith<$Res> {
-  _$WaypointPatchCopyWithImpl(this._self, this._then);
+class _$WaypointPatchModelCopyWithImpl<$Res>
+    implements $WaypointPatchModelCopyWith<$Res> {
+  _$WaypointPatchModelCopyWithImpl(this._self, this._then);
 
-  final WaypointPatch _self;
-  final $Res Function(WaypointPatch) _then;
+  final WaypointPatchModel _self;
+  final $Res Function(WaypointPatchModel) _then;
 
-/// Create a copy of WaypointPatch
+/// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -346,8 +346,8 @@ as bool,error: freezed == error ? _self.error : error ,
 }
 
 
-/// Adds pattern-matching-related methods to [WaypointPatch].
-extension WaypointPatchPatterns on WaypointPatch {
+/// Adds pattern-matching-related methods to [WaypointPatchModel].
+extension WaypointPatchModelPatterns on WaypointPatchModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -360,10 +360,10 @@ extension WaypointPatchPatterns on WaypointPatch {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _WaypointPatch value)?  internal,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _WaypointPatchModel value)?  internal,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _WaypointPatch() when internal != null:
+case _WaypointPatchModel() when internal != null:
 return internal(_that);case _:
   return orElse();
 
@@ -382,10 +382,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _WaypointPatch value)  internal,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _WaypointPatchModel value)  internal,}){
 final _that = this;
 switch (_that) {
-case _WaypointPatch():
+case _WaypointPatchModel():
 return internal(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -403,10 +403,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _WaypointPatch value)?  internal,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _WaypointPatchModel value)?  internal,}){
 final _that = this;
 switch (_that) {
-case _WaypointPatch() when internal != null:
+case _WaypointPatchModel() when internal != null:
 return internal(_that);case _:
   return null;
 
@@ -424,9 +424,9 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<Waypoint> id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _WaypointPatch() when internal != null:
+case _WaypointPatchModel() when internal != null:
 return internal(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.recomputing,_that.error);case _:
   return orElse();
 
@@ -445,9 +445,9 @@ return internal(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<Waypoint> id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)  internal,}) {final _that = this;
 switch (_that) {
-case _WaypointPatch():
+case _WaypointPatchModel():
 return internal(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.recomputing,_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -465,9 +465,9 @@ return internal(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<Waypoint> id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( WaypointId id,  VertexId vertexId,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
 switch (_that) {
-case _WaypointPatch() when internal != null:
+case _WaypointPatchModel() when internal != null:
 return internal(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.description,_that.recomputing,_that.error);case _:
   return null;
 
@@ -479,11 +479,11 @@ return internal(_that.id,_that.vertexId,_that.title,_that.poiCategory,_that.desc
 /// @nodoc
 
 
-class _WaypointPatch extends WaypointPatch implements Patch<Waypoint> {
-  const _WaypointPatch({required this.id, required this.vertexId, required this.title, required this.poiCategory, required this.description, required this.recomputing, this.error}): super._();
+class _WaypointPatchModel extends WaypointPatchModel implements Patch<WaypointRemoteModel> {
+  const _WaypointPatchModel({required this.id, required this.vertexId, required this.title, required this.poiCategory, required this.description, required this.recomputing, this.error}): super._();
   
 
-@override final  Id<Waypoint> id;
+@override final  WaypointId id;
 @override final  VertexId vertexId;
 @override final  String title;
 @override final  PoiCategory poiCategory;
@@ -491,17 +491,17 @@ class _WaypointPatch extends WaypointPatch implements Patch<Waypoint> {
 @override final  bool recomputing;
 @override final  Object? error;
 
-/// Create a copy of WaypointPatch
+/// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$WaypointPatchCopyWith<_WaypointPatch> get copyWith => __$WaypointPatchCopyWithImpl<_WaypointPatch>(this, _$identity);
+_$WaypointPatchModelCopyWith<_WaypointPatchModel> get copyWith => __$WaypointPatchModelCopyWithImpl<_WaypointPatchModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointPatch&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
@@ -510,18 +510,18 @@ int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,descri
 
 @override
 String toString() {
-  return 'WaypointPatch.internal(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
+  return 'WaypointPatchModel.internal(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$WaypointPatchCopyWith<$Res> implements $WaypointPatchCopyWith<$Res> {
-  factory _$WaypointPatchCopyWith(_WaypointPatch value, $Res Function(_WaypointPatch) _then) = __$WaypointPatchCopyWithImpl;
+abstract mixin class _$WaypointPatchModelCopyWith<$Res> implements $WaypointPatchModelCopyWith<$Res> {
+  factory _$WaypointPatchModelCopyWith(_WaypointPatchModel value, $Res Function(_WaypointPatchModel) _then) = __$WaypointPatchModelCopyWithImpl;
 @override @useResult
 $Res call({
- Id<Waypoint> id, VertexId vertexId, String title, PoiCategory poiCategory, String description, bool recomputing, Object? error
+ WaypointId id, VertexId vertexId, String title, PoiCategory poiCategory, String description, bool recomputing, Object? error
 });
 
 
@@ -529,19 +529,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$WaypointPatchCopyWithImpl<$Res>
-    implements _$WaypointPatchCopyWith<$Res> {
-  __$WaypointPatchCopyWithImpl(this._self, this._then);
+class __$WaypointPatchModelCopyWithImpl<$Res>
+    implements _$WaypointPatchModelCopyWith<$Res> {
+  __$WaypointPatchModelCopyWithImpl(this._self, this._then);
 
-  final _WaypointPatch _self;
-  final $Res Function(_WaypointPatch) _then;
+  final _WaypointPatchModel _self;
+  final $Res Function(_WaypointPatchModel) _then;
 
-/// Create a copy of WaypointPatch
+/// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? recomputing = null,Object? error = freezed,}) {
-  return _then(_WaypointPatch(
+  return _then(_WaypointPatchModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<Waypoint>,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable

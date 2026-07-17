@@ -51,7 +51,7 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
       case SketchMode e:
         final vertex = ref
             .read(vertexProvider(widget.tripId, e.vertexStart))
-            .displayValue;
+            .display;
         final mapController = MapController.of(context);
         final allVertices = ref.watch(allVertexProvider(widget.tripId));
         return Stack(

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:domain_core/domain_core.dart';
-import 'package:stored_file_application/domain/stored_file.dart';
+import 'package:stored_file_application/domain/stored_file_model.dart';
 
 abstract class StoredFileRepository {
   // Future<Either<Failure, StoredFile>> uploadImage(
@@ -13,5 +13,5 @@ abstract class StoredFileRepository {
     String mimeType,
     int size,
   );
-  Future<Either<Failure, void>> detachFile(Id<StoredFile> id);
+  Future<Either<Failure, void>> detachFile(StoredFileId id);
 }

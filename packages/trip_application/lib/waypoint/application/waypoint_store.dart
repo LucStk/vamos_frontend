@@ -2,7 +2,7 @@ import 'package:domain_core/domain/domain.dart';
 import 'package:trip_application/trip_application.dart';
 
 class WaypointStore {
-  final GraphCollectionStore<Waypoint> waypointStore;
+  final GraphCollectionStore<WaypointFields> waypointStore;
   Map<VertexId, WaypointId> vertexIndex;
 
   WaypointStore({required this.waypointStore, required this.vertexIndex});
@@ -11,7 +11,9 @@ class WaypointStore {
     : vertexIndex = {},
       waypointStore = const GraphCollectionStore();
 
-  WaypointStore copyWith({GraphCollectionStore<Waypoint>? waypointStore}) {
+  WaypointStore copyWith({
+    GraphCollectionStore<WaypointFields>? waypointStore,
+  }) {
     return WaypointStore(
       vertexIndex: vertexIndex, // toujours la même instance
       waypointStore: waypointStore ?? this.waypointStore,
@@ -20,16 +22,9 @@ class WaypointStore {
 }
 
 extension WaypointStoreActions on WaypointStore {
-  WaypointStore insertWaypoint(Waypoint waypoint) {
-    vertexIndex[waypoint.vertexId] = waypoint.id;
-    return copyWith(
-      waypointStore: waypointStore.insertState(
-        NodeState<Waypoint>.hasPatch(
-          patch: waypoint.createPatch(),
-          originalValue: waypoint,
-        ),
-      ),
-    );
+  WaypointStore insertWaypoint(WaypointState state) {
+    vertexIndex[state.display.vertexId] = state.id;
+    return copyWith(waypointStore: waypointStore.insertState(state));
   }
 
   WaypointStore removeWaypoint(WaypointId id) {
@@ -40,7 +35,7 @@ extension WaypointStoreActions on WaypointStore {
     return copyWith(waypointStore: waypointStore.remove(id));
   }
 
-  void setWaypoint(Waypoint serverWaypoint) {
+  void setWaypoint(WaypointRemoteModel serverWaypoint) {
     waypointStore.get(serverWaypoint.id)?.set(serverWaypoint);
   }
 
@@ -48,7 +43,7 @@ extension WaypointStoreActions on WaypointStore {
 
   WaypointStore clear() {
     vertexIndex = {};
-    return copyWith(waypointStore: GraphCollectionStore<Waypoint>());
+    return copyWith(waypointStore: GraphCollectionStore<WaypointFields>());
   }
 }
 

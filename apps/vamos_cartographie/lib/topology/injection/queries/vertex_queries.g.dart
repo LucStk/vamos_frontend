@@ -15,11 +15,11 @@ final vertexNodeProvider = VertexNodeFamily._();
 final class VertexNodeProvider
     extends
         $FunctionalProvider<
-          GraphNode<Vertex>,
-          GraphNode<Vertex>,
-          GraphNode<Vertex>
+          GraphNode<VertexFields>,
+          GraphNode<VertexFields>,
+          GraphNode<VertexFields>
         >
-    with $Provider<GraphNode<Vertex>> {
+    with $Provider<GraphNode<VertexFields>> {
   VertexNodeProvider._({
     required VertexNodeFamily super.from,
     required (TripId, VertexId) super.argument,
@@ -43,21 +43,21 @@ final class VertexNodeProvider
 
   @$internal
   @override
-  $ProviderElement<GraphNode<Vertex>> $createElement(
+  $ProviderElement<GraphNode<VertexFields>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  GraphNode<Vertex> create(Ref ref) {
+  GraphNode<VertexFields> create(Ref ref) {
     final argument = this.argument as (TripId, VertexId);
     return vertexNode(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphNode<Vertex> value) {
+  Override overrideWithValue(GraphNode<VertexFields> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GraphNode<Vertex>>(value),
+      providerOverride: $SyncValueProvider<GraphNode<VertexFields>>(value),
     );
   }
 
@@ -72,10 +72,11 @@ final class VertexNodeProvider
   }
 }
 
-String _$vertexNodeHash() => r'c4005474d5b24693e875d243063dc4d2d101782f';
+String _$vertexNodeHash() => r'3650bf8f8043098670c7a0255ce950bdb3afcead';
 
 final class VertexNodeFamily extends $Family
-    with $FunctionalFamilyOverride<GraphNode<Vertex>, (TripId, VertexId)> {
+    with
+        $FunctionalFamilyOverride<GraphNode<VertexFields>, (TripId, VertexId)> {
   VertexNodeFamily._()
     : super(
         retry: null,
@@ -96,13 +97,8 @@ final class VertexNodeFamily extends $Family
 final vertexProvider = VertexFamily._();
 
 final class VertexProvider
-    extends
-        $FunctionalProvider<
-          NodeState<Vertex>,
-          NodeState<Vertex>,
-          NodeState<Vertex>
-        >
-    with $Provider<NodeState<Vertex>> {
+    extends $FunctionalProvider<VertexState, VertexState, VertexState>
+    with $Provider<VertexState> {
   VertexProvider._({
     required VertexFamily super.from,
     required (TripId, VertexId) super.argument,
@@ -126,21 +122,20 @@ final class VertexProvider
 
   @$internal
   @override
-  $ProviderElement<NodeState<Vertex>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<VertexState> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  NodeState<Vertex> create(Ref ref) {
+  VertexState create(Ref ref) {
     final argument = this.argument as (TripId, VertexId);
     return vertex(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NodeState<Vertex> value) {
+  Override overrideWithValue(VertexState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<NodeState<Vertex>>(value),
+      providerOverride: $SyncValueProvider<VertexState>(value),
     );
   }
 
@@ -155,10 +150,10 @@ final class VertexProvider
   }
 }
 
-String _$vertexHash() => r'2623824c0d3305876c739134d7512d2529628116';
+String _$vertexHash() => r'9c46e33e7d81aa0782b849dcbce077e6a41d5c4b';
 
 final class VertexFamily extends $Family
-    with $FunctionalFamilyOverride<NodeState<Vertex>, (TripId, VertexId)> {
+    with $FunctionalFamilyOverride<VertexState, (TripId, VertexId)> {
   VertexFamily._()
     : super(
         retry: null,
@@ -179,8 +174,13 @@ final class VertexFamily extends $Family
 final allVertexProvider = AllVertexFamily._();
 
 final class AllVertexProvider
-    extends $FunctionalProvider<List<Vertex>, List<Vertex>, List<Vertex>>
-    with $Provider<List<Vertex>> {
+    extends
+        $FunctionalProvider<
+          List<VertexState>,
+          List<VertexState>,
+          List<VertexState>
+        >
+    with $Provider<List<VertexState>> {
   AllVertexProvider._({
     required AllVertexFamily super.from,
     required TripId super.argument,
@@ -204,20 +204,21 @@ final class AllVertexProvider
 
   @$internal
   @override
-  $ProviderElement<List<Vertex>> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<List<VertexState>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  List<Vertex> create(Ref ref) {
+  List<VertexState> create(Ref ref) {
     final argument = this.argument as TripId;
     return allVertex(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<Vertex> value) {
+  Override overrideWithValue(List<VertexState> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<Vertex>>(value),
+      providerOverride: $SyncValueProvider<List<VertexState>>(value),
     );
   }
 
@@ -232,10 +233,10 @@ final class AllVertexProvider
   }
 }
 
-String _$allVertexHash() => r'9019137a815d2c70f4a8090bdee22c715af8628a';
+String _$allVertexHash() => r'eb3fae24d3d2663919de4ec3d946d5930824737e';
 
 final class AllVertexFamily extends $Family
-    with $FunctionalFamilyOverride<List<Vertex>, TripId> {
+    with $FunctionalFamilyOverride<List<VertexState>, TripId> {
   AllVertexFamily._()
     : super(
         retry: null,

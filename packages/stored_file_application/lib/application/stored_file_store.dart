@@ -4,17 +4,17 @@ import 'package:stored_file_application/application/owner_index.dart';
 import 'package:stored_file_application/domain/domain.dart';
 
 class StoredFileStore {
-  final GraphCollectionStore<StoredFile> storedFileStore;
-  OwnerIndex<Id<dynamic>, Id<StoredFile>> ownerIndex;
+  final GraphCollectionStore<StoredFileFields> storedFileStore;
+  OwnerIndex<Id<dynamic>, StoredFileId> ownerIndex;
 
   StoredFileStore({required this.storedFileStore, required this.ownerIndex});
 
   StoredFileStore.initial()
     : ownerIndex = OwnerIndex(),
-      storedFileStore = const GraphCollectionStore<StoredFile>();
+      storedFileStore = const GraphCollectionStore<StoredFileFields>();
 
   StoredFileStore copyWith({
-    GraphCollectionStore<StoredFile>? storedFileStore,
+    GraphCollectionStore<StoredFileFields>? storedFileStore,
   }) {
     return StoredFileStore(
       storedFileStore: storedFileStore ?? this.storedFileStore,
@@ -24,33 +24,33 @@ class StoredFileStore {
 }
 
 extension StoredFileStoreActions on StoredFileStore {
-  StoredFileStore insertPatchMedia(Id ownerId, StoredFilePatch patch) {
+  StoredFileStore insertPatchMedia(Id ownerId, StoredFilePatchModel patch) {
     ownerIndex.addRelationship(ownerId, patch.id);
     return copyWith(
       storedFileStore: storedFileStore.insertState(HasPatch(patch: patch)),
     );
   }
 
-  StoredFileStore removeMedia(Id<StoredFile> id) {
+  StoredFileStore removeMedia(StoredFileId id) {
     ownerIndex.removeOwned(id);
     return copyWith(storedFileStore: storedFileStore.remove(id));
   }
 
-  void setMedia(StoredFile serverMedia) {
+  void insertStoredFile(Id ownerId, StoredFileRemoteModel serverMedia) {
+    ownerIndex.addRelationship(ownerId, serverMedia.id);
     storedFileStore.get(serverMedia.id)?.set(serverMedia);
   }
 
-  void rollbackMedia(Id<StoredFile> wid) =>
-      storedFileStore.get(wid)?.rollback();
+  void rollbackMedia(StoredFileId wid) => storedFileStore.get(wid)?.rollback();
 
   StoredFileStore clear() {
     ownerIndex.clear();
-    return copyWith(storedFileStore: GraphCollectionStore<StoredFile>());
+    return copyWith(storedFileStore: GraphCollectionStore<StoredFileFields>());
   }
 }
 
 extension StoredFileStoreGetters on StoredFileStore {
-  List<Id<StoredFile>>? getFromOwner(Id mId) {
+  List<StoredFileId>? getFromOwner(Id mId) {
     return ownerIndex.owneds(mId)?.toList();
   }
 }

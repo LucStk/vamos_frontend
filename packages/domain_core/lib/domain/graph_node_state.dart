@@ -5,14 +5,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part "graph_node_state.freezed.dart";
 
 @freezed
-sealed class NodeValueOrPatch<T extends Patchable<T>>
-    with _$NodeValueOrPatch<T> {
+sealed class NodeValueOrPatch<T extends HasId> with _$NodeValueOrPatch<T> {
   const factory NodeValueOrPatch.value(T value) = _ValueResult<T>;
   const factory NodeValueOrPatch.patch(Patch<T> patch) = _PatchResult<T>;
 }
 
 @freezed
-sealed class NodeState<T extends Patchable<T>> with _$NodeState<T> {
+sealed class NodeState<T extends HasId> with _$NodeState<T> {
   const NodeState._();
 
   const factory NodeState.hasValue(T value) = HasValue<T>;

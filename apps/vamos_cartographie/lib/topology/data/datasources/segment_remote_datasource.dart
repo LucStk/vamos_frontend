@@ -39,7 +39,7 @@ class SegmentRemoteDatasource {
   }
 
   Future<GSegmentFields> updateSegment({
-    required Id<Segment> id,
+    required SegmentId id,
     required GSegmentUpdateInput input,
   }) async {
     final data = await ferryClient.execute(
@@ -50,7 +50,7 @@ class SegmentRemoteDatasource {
     return data.updateSegment;
   }
 
-  Future<void> deleteSegment({required Id<Segment> id}) async {
+  Future<void> deleteSegment({required SegmentId id}) async {
     await ferryClient.execute(
       GDeleteSegmentReq(vars: GDeleteSegmentVars(segmentId: id.value)),
     );

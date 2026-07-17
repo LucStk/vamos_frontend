@@ -44,13 +44,13 @@ extension CollectionStoreGetters<T, V extends HasId> on CollectionStore<T, V> {
 }
 
 /// Store "avec état optimiste / patch" — équivalent à l'ancien CollectionStore<T>
-typedef GraphCollectionStore<T extends Patchable<T>> =
+typedef GraphCollectionStore<T extends HasId> =
     CollectionStore<T, GraphNode<T>>;
 
 /// Store "simple", sans machinerie de patch, juste des T bruts
 typedef SimpleCollectionStore<T extends HasId> = CollectionStore<T, T>;
 
-extension GraphCollectionStoreX<T extends Patchable<T>>
+extension GraphCollectionStoreX<T extends HasId>
     on CollectionStore<T, GraphNode<T>> {
   CollectionStore<T, GraphNode<T>> insertState(NodeState<T> state) =>
       insert(GraphNode<T>(state));

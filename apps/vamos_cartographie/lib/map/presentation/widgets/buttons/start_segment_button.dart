@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 
 class StartSegmentButton extends ConsumerWidget {
-  final Id<Vertex> vertexId;
+  final VertexId vertexId;
   final TripId tripId;
   const StartSegmentButton({
     super.key,

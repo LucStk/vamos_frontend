@@ -398,11 +398,11 @@ final vertexStoreProvider = VertexStoreFamily._();
 final class VertexStoreProvider
     extends
         $FunctionalProvider<
-          GraphCollectionStore<Vertex>,
-          GraphCollectionStore<Vertex>,
-          GraphCollectionStore<Vertex>
+          GraphCollectionStore<VertexFields>,
+          GraphCollectionStore<VertexFields>,
+          GraphCollectionStore<VertexFields>
         >
-    with $Provider<GraphCollectionStore<Vertex>> {
+    with $Provider<GraphCollectionStore<VertexFields>> {
   VertexStoreProvider._({
     required VertexStoreFamily super.from,
     required TripId super.argument,
@@ -426,21 +426,23 @@ final class VertexStoreProvider
 
   @$internal
   @override
-  $ProviderElement<GraphCollectionStore<Vertex>> $createElement(
+  $ProviderElement<GraphCollectionStore<VertexFields>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  GraphCollectionStore<Vertex> create(Ref ref) {
+  GraphCollectionStore<VertexFields> create(Ref ref) {
     final argument = this.argument as TripId;
     return vertexStore(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphCollectionStore<Vertex> value) {
+  Override overrideWithValue(GraphCollectionStore<VertexFields> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GraphCollectionStore<Vertex>>(value),
+      providerOverride: $SyncValueProvider<GraphCollectionStore<VertexFields>>(
+        value,
+      ),
     );
   }
 
@@ -455,10 +457,10 @@ final class VertexStoreProvider
   }
 }
 
-String _$vertexStoreHash() => r'123cbdd0efec284c4ef60cf3d5a61e3c2dce703f';
+String _$vertexStoreHash() => r'baaa551c523e4041aee48c9861723a7032884047';
 
 final class VertexStoreFamily extends $Family
-    with $FunctionalFamilyOverride<GraphCollectionStore<Vertex>, TripId> {
+    with $FunctionalFamilyOverride<GraphCollectionStore<VertexFields>, TripId> {
   VertexStoreFamily._()
     : super(
         retry: null,
@@ -481,11 +483,11 @@ final segmentStoreProvider = SegmentStoreFamily._();
 final class SegmentStoreProvider
     extends
         $FunctionalProvider<
-          GraphCollectionStore<Segment>,
-          GraphCollectionStore<Segment>,
-          GraphCollectionStore<Segment>
+          GraphCollectionStore<SegmentFields>,
+          GraphCollectionStore<SegmentFields>,
+          GraphCollectionStore<SegmentFields>
         >
-    with $Provider<GraphCollectionStore<Segment>> {
+    with $Provider<GraphCollectionStore<SegmentFields>> {
   SegmentStoreProvider._({
     required SegmentStoreFamily super.from,
     required TripId super.argument,
@@ -509,21 +511,21 @@ final class SegmentStoreProvider
 
   @$internal
   @override
-  $ProviderElement<GraphCollectionStore<Segment>> $createElement(
+  $ProviderElement<GraphCollectionStore<SegmentFields>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  GraphCollectionStore<Segment> create(Ref ref) {
+  GraphCollectionStore<SegmentFields> create(Ref ref) {
     final argument = this.argument as TripId;
     return segmentStore(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphCollectionStore<Segment> value) {
+  Override overrideWithValue(GraphCollectionStore<SegmentFields> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GraphCollectionStore<Segment>>(
+      providerOverride: $SyncValueProvider<GraphCollectionStore<SegmentFields>>(
         value,
       ),
     );
@@ -540,10 +542,11 @@ final class SegmentStoreProvider
   }
 }
 
-String _$segmentStoreHash() => r'cd7c661af9bc045ec25f6601f74b16d70168f9f5';
+String _$segmentStoreHash() => r'bcdbfbd7511137a01ea768bc2c9da6335f25df9d';
 
 final class SegmentStoreFamily extends $Family
-    with $FunctionalFamilyOverride<GraphCollectionStore<Segment>, TripId> {
+    with
+        $FunctionalFamilyOverride<GraphCollectionStore<SegmentFields>, TripId> {
   SegmentStoreFamily._()
     : super(
         retry: null,

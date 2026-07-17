@@ -14,7 +14,9 @@ class WaypointRepositoryImpl extends WaypointRepository {
   WaypointRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, List<Waypoint>>> getWaypoints(Id<Trip> tripId) {
+  Future<Either<Failure, List<WaypointRemoteModel>>> getWaypoints(
+    Id<Trip> tripId,
+  ) {
     return guard(() async {
       final waypoints = await remote.getWaypoints(tripId: tripId);
       return waypoints.map((w) => WaypointMapper.fromGQL(w)).toList();
@@ -38,7 +40,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
   @override
   Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypointFromVertex(
     Id<Trip> tripId,
-    Id<Vertex> vertexId,
+    VertexId vertexId,
   ) {
     return guard(() async {
       final gqlResult = await remote.createBlankWaypointFromVertex(
@@ -52,7 +54,9 @@ class WaypointRepositoryImpl extends WaypointRepository {
   }
 
   @override
-  Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint) {
+  Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
+    WaypointFields waypoint,
+  ) {
     return guard(() async {
       final input = WaypointMapper.toGQLUpdateInput(waypoint);
       final gqlResult = await remote.updateWaypoint(
@@ -64,7 +68,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteWaypoint(Id<Waypoint> id) {
+  Future<Either<Failure, void>> deleteWaypoint(WaypointId id) {
     return guard(() async {
       await remote.deleteWaypoint(id: id);
     });

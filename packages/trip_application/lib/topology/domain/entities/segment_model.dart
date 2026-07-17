@@ -6,73 +6,92 @@ import "vertex_model.dart";
 
 part 'segment_model.freezed.dart';
 
+abstract interface class SegmentFields implements HasId {
+  MobilityType get mobilityType;
+  @override
+  Id<SegmentFields> get id;
+  VertexId get startVertexId;
+  VertexId get endVertexId;
+  Geometry get geometry; // <- plus List<LatLng>
+}
+
+typedef SegmentId = Id<SegmentFields>;
+
 @freezed
-abstract class Segment with _$Segment implements Patchable<Segment> {
-  const factory Segment({
-    required Id<Segment> id,
-    required Id<Vertex> startVertexId,
-    required Id<Vertex> endVertexId,
-    required Geometry geometry, // <- plus List<LatLng>
+abstract class SegmentRemoteModel
+    with _$SegmentRemoteModel
+    implements SegmentFields {
+  const factory SegmentRemoteModel({
+    required SegmentId id,
+    required VertexId startVertexId,
+    required VertexId endVertexId,
+    required Geometry geometry,
     @Default(MobilityType.bike) MobilityType mobilityType,
-  }) = _Segment;
+  }) = _SegmentRemoteModel;
 
-  const Segment._();
+  const SegmentRemoteModel._();
 
-  Patch<Segment> createPatch() {
-    return SegmentPatch.internal(
-      id: id,
-      startVertexId: startVertexId,
-      endVertexId: endVertexId,
-      geometryOverride: geometry,
-      recomputing: false,
+  factory SegmentRemoteModel.fromFields(SegmentFields fields) {
+    return SegmentRemoteModel(
+      id: fields.id,
+      startVertexId: fields.startVertexId,
+      endVertexId: fields.endVertexId,
+      geometry: fields.geometry,
+      mobilityType: fields.mobilityType,
     );
   }
 }
 
-typedef SegmentId = Id<Segment>;
-
 @freezed
-abstract class SegmentPatch with _$SegmentPatch implements Patch<Segment> {
-  @Implements<Patch<Segment>>()
-  const factory SegmentPatch.internal({
+abstract class SegmentPatchModel
+    with _$SegmentPatchModel
+    implements Patch<SegmentRemoteModel>, SegmentFields {
+  @Implements<Patch<SegmentRemoteModel>>()
+  const factory SegmentPatchModel.internal({
     required SegmentId id,
-    required Id<Vertex> startVertexId,
-    required Id<Vertex> endVertexId,
-    required Geometry geometryOverride,
+    required VertexId startVertexId,
+    required VertexId endVertexId,
+    required Geometry geometry,
     @Default(MobilityType.bike) MobilityType mobilityType,
     @Default(false) bool recomputing,
     Object? error,
-  }) = _SegmentPatch;
+  }) = _SegmentPatchModel;
 
-  const SegmentPatch._();
+  const SegmentPatchModel._();
 
-  factory SegmentPatch({
+  factory SegmentPatchModel.fromFields(
+    SegmentFields fields, {
+    bool recomputing = false,
+    Object? error,
+  }) {
+    return SegmentPatchModel.internal(
+      id: fields.id,
+      startVertexId: fields.startVertexId,
+      endVertexId: fields.endVertexId,
+      geometry: fields.geometry,
+      mobilityType: fields.mobilityType,
+      recomputing: recomputing,
+      error: error,
+    );
+  }
+
+  factory SegmentPatchModel({
     SegmentId? id,
-    required Id<Vertex> startVertexId,
-    required Geometry geometryOverride,
-    required Id<Vertex> endVertexId,
+    required VertexId startVertexId,
+    required Geometry geometry,
+    required VertexId endVertexId,
     bool recomputing = false,
     Object? error,
     MobilityType mobilityType = MobilityType.bike,
   }) {
-    return SegmentPatch.internal(
+    return SegmentPatchModel.internal(
       id: id ?? Id.generate(),
       startVertexId: startVertexId,
       endVertexId: endVertexId,
-      geometryOverride: geometryOverride,
+      geometry: geometry,
       recomputing: recomputing,
       error: error,
       mobilityType: mobilityType,
     );
-  }
-
-  Segment toEntity() {
-    return Segment(
-      id: id,
-      startVertexId: startVertexId,
-      endVertexId: endVertexId,
-      geometry: geometryOverride,
-      mobilityType: mobilityType,
-    ); // mobilityType manquait dans ta version d'origine
   }
 }

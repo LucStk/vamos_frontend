@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
 
 class WaypointFormDialog extends ConsumerStatefulWidget {
-  final Waypoint initialWaypoint;
+  final WaypointFields initialWaypoint;
   final TripId tripId;
 
   const WaypointFormDialog({
@@ -21,16 +21,16 @@ class WaypointFormDialog extends ConsumerStatefulWidget {
 }
 
 class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
-  late Waypoint currentWaypoint;
+  late WaypointPatchModel currentWaypoint;
   bool _isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    currentWaypoint = widget.initialWaypoint;
+    currentWaypoint = WaypointPatchModel.fromFields(widget.initialWaypoint);
   }
 
-  void _patch(Waypoint newWaypoint) {
+  void _patch(WaypointPatchModel newWaypoint) {
     setState(() {
       currentWaypoint = newWaypoint;
     });
@@ -61,10 +61,7 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
           const SizedBox(height: 4),
 
           // ── Images ─────────────────────────────
-          ImageCarouselPicker(
-            id: widget.initialWaypoint.id,
-            ownerType: MediaOwnerType.waypoint,
-          ),
+          ImageCarouselPicker(id: widget.initialWaypoint.id),
 
           const SizedBox(height: 16),
 

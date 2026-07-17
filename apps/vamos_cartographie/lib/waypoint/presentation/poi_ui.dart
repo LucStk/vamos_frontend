@@ -4,7 +4,7 @@ import "package:vamos_cartographie/shared_ui/map_item_style.dart";
 
 // poi_category_ui.dart — vamos_cartographie, tout l'UI ici
 
-extension ExtWaypointPoi on Waypoint {
+extension ExtWaypointPoi on WaypointFields {
   PoiCategoryStyle get poiCategoryUi => PoiCategoryStyle.from(poiCategory);
 }
 

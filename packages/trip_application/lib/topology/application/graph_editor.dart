@@ -12,31 +12,38 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   SegmentRepository get segmentRepo;
   VertexRepository get vertexRepo;
 
-  Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
+  Future<Either<Failure, SegmentRemoteModel>> updateSegment(
+    SegmentFields segment,
+  ) async {
     return await run(
-      onApply: (gs) => gs..patchSegment(segment),
+      onApply: (gs) => gs..patchSegment(SegmentRemoteModel.fromFields(segment)),
       remote: (_) => segmentRepo.updateSegment(segment),
       onSuccess: (gs, serveurValue) => gs..setSegment(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackSegment(segment.id),
     );
   }
 
-  Future<Either<Failure, Vertex>> createSimpleVertex(LatLng latLng) async {
+  Future<Either<Failure, VertexRemoteModel>> createSimpleVertex(
+    LatLng latLng,
+  ) async {
     return await run(
       onApply: (gs) => gs,
       remote: (_) => vertexRepo.createVertex(tripId, latLng),
-      onSuccess: (gs, Vertex serveurValue) => gs..insertVertex(serveurValue),
+      onSuccess: (gs, VertexRemoteModel serveurValue) =>
+          gs..insertVertex(serveurValue),
     );
   }
 
-  Future<Either<Failure, Vertex>> moveVertex(
+  Future<Either<Failure, VertexRemoteModel>> moveVertex(
     VertexId vid,
     LatLng latLng,
   ) async {
     return await run(
-      onApply: (gs) => gs..patchVertex(Vertex(id: vid, latLng: latLng)),
+      onApply: (gs) =>
+          gs..patchVertex(VertexRemoteModel(id: vid, latLng: latLng)),
       remote: (_) => vertexRepo.moveVertex(VertexId(vid.value), latLng),
-      onSuccess: (gs, Vertex serveurValue) => gs..setVertex(serveurValue),
+      onSuccess: (gs, VertexRemoteModel serveurValue) =>
+          gs..setVertex(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackVertex(vid),
     );
   }
@@ -45,7 +52,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     return await run(
       onApply: (gs) => gs,
       remote: (_) => vertexRepo.deleteVertex(VertexId(vid.value)),
-      onSuccess: (gs, _) => gs..removeVertex(Id<Vertex>(vid.value)),
+      onSuccess: (gs, _) => gs..removeVertex(VertexId(vid.value)),
     );
   }
 }

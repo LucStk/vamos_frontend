@@ -12,7 +12,9 @@ class SegmentRepositoryImpl extends SegmentRepository {
   SegmentRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, List<Segment>>> getSegments(Id<Trip> tripId) {
+  Future<Either<Failure, List<SegmentRemoteModel>>> getSegments(
+    Id<Trip> tripId,
+  ) {
     return guard(() async {
       final segments = await remote.getSegments(tripId: tripId);
       return segments.map(SegmentMapper.fromGQL).toList();
@@ -39,7 +41,9 @@ class SegmentRepositoryImpl extends SegmentRepository {
   // }
 
   @override
-  Future<Either<Failure, Segment>> updateSegment(Segment segment) async {
+  Future<Either<Failure, SegmentRemoteModel>> updateSegment(
+    SegmentFields segment,
+  ) async {
     return guard(() async {
       final input = SegmentMapper.toGQLUpdateInput(segment);
       final gqlResult = await remote.updateSegment(
@@ -51,7 +55,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteSegment(Id<Segment> id) async {
+  Future<Either<Failure, void>> deleteSegment(SegmentId id) async {
     return guard(() async {
       await remote.deleteSegment(id: id);
     });

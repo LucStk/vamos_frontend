@@ -8,7 +8,7 @@ import '/waypoint/presentation/widgets/waypoint_viewer_actions.dart';
 
 class WaypointCompactContent extends StatelessWidget {
   final TripId tripId;
-  final Waypoint waypoint;
+  final WaypointFields waypoint;
 
   const WaypointCompactContent({
     super.key,

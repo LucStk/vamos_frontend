@@ -15,11 +15,11 @@ final segmentNodeProvider = SegmentNodeFamily._();
 final class SegmentNodeProvider
     extends
         $FunctionalProvider<
-          GraphNode<Segment>,
-          GraphNode<Segment>,
-          GraphNode<Segment>
+          GraphNode<SegmentFields>,
+          GraphNode<SegmentFields>,
+          GraphNode<SegmentFields>
         >
-    with $Provider<GraphNode<Segment>> {
+    with $Provider<GraphNode<SegmentFields>> {
   SegmentNodeProvider._({
     required SegmentNodeFamily super.from,
     required (TripId, SegmentId) super.argument,
@@ -43,21 +43,21 @@ final class SegmentNodeProvider
 
   @$internal
   @override
-  $ProviderElement<GraphNode<Segment>> $createElement(
+  $ProviderElement<GraphNode<SegmentFields>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  GraphNode<Segment> create(Ref ref) {
+  GraphNode<SegmentFields> create(Ref ref) {
     final argument = this.argument as (TripId, SegmentId);
     return segmentNode(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphNode<Segment> value) {
+  Override overrideWithValue(GraphNode<SegmentFields> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GraphNode<Segment>>(value),
+      providerOverride: $SyncValueProvider<GraphNode<SegmentFields>>(value),
     );
   }
 
@@ -72,10 +72,14 @@ final class SegmentNodeProvider
   }
 }
 
-String _$segmentNodeHash() => r'1b40fb9752f7e8f7d37116951ed21df1a1a5335d';
+String _$segmentNodeHash() => r'11f9dce651845e6e166e8f5618a4c25634a6b238';
 
 final class SegmentNodeFamily extends $Family
-    with $FunctionalFamilyOverride<GraphNode<Segment>, (TripId, SegmentId)> {
+    with
+        $FunctionalFamilyOverride<
+          GraphNode<SegmentFields>,
+          (TripId, SegmentId)
+        > {
   SegmentNodeFamily._()
     : super(
         retry: null,
@@ -98,11 +102,11 @@ final segmentProvider = SegmentFamily._();
 final class SegmentProvider
     extends
         $FunctionalProvider<
-          NodeState<Segment>,
-          NodeState<Segment>,
-          NodeState<Segment>
+          NodeState<SegmentFields>,
+          NodeState<SegmentFields>,
+          NodeState<SegmentFields>
         >
-    with $Provider<NodeState<Segment>> {
+    with $Provider<NodeState<SegmentFields>> {
   SegmentProvider._({
     required SegmentFamily super.from,
     required (TripId, SegmentId) super.argument,
@@ -126,21 +130,21 @@ final class SegmentProvider
 
   @$internal
   @override
-  $ProviderElement<NodeState<Segment>> $createElement(
+  $ProviderElement<NodeState<SegmentFields>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  NodeState<Segment> create(Ref ref) {
+  NodeState<SegmentFields> create(Ref ref) {
     final argument = this.argument as (TripId, SegmentId);
     return segment(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NodeState<Segment> value) {
+  Override overrideWithValue(NodeState<SegmentFields> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<NodeState<Segment>>(value),
+      providerOverride: $SyncValueProvider<NodeState<SegmentFields>>(value),
     );
   }
 
@@ -155,10 +159,14 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'77d7a14d67a6ea884d63ec923e64967ae86bac7a';
+String _$segmentHash() => r'64b84be2ffc5242e857de5e669ffbe1fae3a2955';
 
 final class SegmentFamily extends $Family
-    with $FunctionalFamilyOverride<NodeState<Segment>, (TripId, SegmentId)> {
+    with
+        $FunctionalFamilyOverride<
+          NodeState<SegmentFields>,
+          (TripId, SegmentId)
+        > {
   SegmentFamily._()
     : super(
         retry: null,

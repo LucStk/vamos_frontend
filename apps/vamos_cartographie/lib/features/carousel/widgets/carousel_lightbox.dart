@@ -1,11 +1,14 @@
-import 'dart:io';
+import 'package:domain_core/domain/graph_node_state.dart';
 import 'package:flutter/material.dart';
+import 'package:stored_file_application/domain/stored_file_model.dart';
+import 'package:stored_file_application/domain/stored_file_state.dart';
 
+import 'package:domain_core/domain/patchable.dart';
 // Lightbox fullscreen
 // ─────────────────────────────────────────────────────────────────────────────
 
 class LightBox extends StatefulWidget {
-  final List<ImageUiModel> items;
+  final List<StoreFileState> items;
   final int initialIndex;
 
   const LightBox({super.key, required this.items, required this.initialIndex});
@@ -126,26 +129,30 @@ class LightBoxState extends State<LightBox> {
     );
   }
 
-  Widget _buildPage(ImageUiModel item) {
-    final image = switch (item.imageLocation) {
-      LocalPath(:final File file) => Image.file(file, fit: BoxFit.contain),
-      RemoteUrl(:final url) => Image.network(
-        url as String,
-        fit: BoxFit.contain,
-        loadingBuilder: (_, child, prog) {
-          if (prog == null) return child;
-          return const Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          );
-        },
-        errorBuilder: (_, _, _) => const Center(
-          child: Icon(
-            Icons.broken_image_outlined,
-            size: 64,
-            color: Colors.white38,
+  Widget _buildPage(StoreFileState item) {
+    final image = switch (item) {
+      HasPatch<StoredFileRemoteModel>(
+        :final Patch<StoredFileRemoteModel> patch,
+      ) =>
+        Image.file((patch as StoredFilePatchModel).file, fit: BoxFit.contain),
+      HasValue<StoredFileRemoteModel>(:final StoredFileRemoteModel value) =>
+        Image.network(
+          value.url,
+          fit: BoxFit.contain,
+          loadingBuilder: (_, child, prog) {
+            if (prog == null) return child;
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            );
+          },
+          errorBuilder: (_, _, _) => const Center(
+            child: Icon(
+              Icons.broken_image_outlined,
+              size: 64,
+              color: Colors.white38,
+            ),
           ),
         ),
-      ),
     };
 
     return GestureDetector(

@@ -1,4 +1,3 @@
-import 'package:domain_core/domain_core.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart';
 import 'package:vamos_cartographie/waypoint/data/mappers/waypoint_enum_mapper.dart';
@@ -8,15 +7,16 @@ import 'package:trip_application/trip_application.dart';
 
 class WaypointMapper {
   /// Convertit un [GWaypointFieldsData] (fragment GQL) en [Waypoint] domaine.
-  static Waypoint fromGQL(GWaypointFields data) => Waypoint(
-    id: Id<Waypoint>(data.id),
-    vertexId: Id<Vertex>(data.vertex.id),
-    poiCategory: data.poiCategory.toDomain(),
-    title: data.title,
-    description: data.description,
-  );
+  static WaypointRemoteModel fromGQL(GWaypointFields data) =>
+      WaypointRemoteModel(
+        id: WaypointId(data.id),
+        vertexId: VertexId(data.vertex.id),
+        poiCategory: data.poiCategory.toDomain(),
+        title: data.title,
+        description: data.description,
+      );
 
-  static GWaypointUpdateInput toGQLUpdateInput(Waypoint waypointDraft) =>
+  static GWaypointUpdateInput toGQLUpdateInput(WaypointFields waypointDraft) =>
       GWaypointUpdateInput(
         poiCategory: Value.present(waypointDraft.poiCategory.toGQL()),
         description: waypointDraft.description.isNotEmpty

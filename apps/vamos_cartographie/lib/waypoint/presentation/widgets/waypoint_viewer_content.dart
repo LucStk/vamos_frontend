@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/carousel/carousel.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
-import 'package:vamos_cartographie/waypoint/presentation/widgets/waypoint_header.dart';
 
 class WaypointViewerContent extends StatelessWidget {
-  final Waypoint waypoint;
+  final WaypointFields waypoint;
 
   // On ajoute une ValueKey pour que l'AnimatedSwitcher repère le changement
   const WaypointViewerContent({super.key, required this.waypoint});

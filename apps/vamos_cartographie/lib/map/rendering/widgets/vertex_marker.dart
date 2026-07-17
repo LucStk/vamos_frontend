@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/rendering/widgets/selected_widget.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
-import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/waypoint/waypoint.dart';
 
 class VertexMarker extends ConsumerWidget {
@@ -37,7 +36,7 @@ class VertexMarker extends ConsumerWidget {
           }
           final waypoint = ref
               .watch(waypointProvider(tripId, waypointId))
-              .displayValue;
+              .display;
 
           return CircleAvatar(
             radius: 15,

@@ -42,7 +42,7 @@ class VertexRemoteDatasource {
   }
 
   Future<GVertexFields> moveVertex({
-    required Id<Vertex> id,
+    required VertexId id,
     required GLatLngInput latLng,
   }) async {
     final data = await ferryClient.execute(
@@ -54,7 +54,7 @@ class VertexRemoteDatasource {
     return data.moveVertex;
   }
 
-  Future<void> deleteVertex({required Id<Vertex> id}) async {
+  Future<void> deleteVertex({required VertexId id}) async {
     await ferryClient.execute(
       GDeleteVertexReq(vars: GDeleteVertexVars(vertexId: id.value)),
     );

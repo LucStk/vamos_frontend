@@ -5,8 +5,14 @@ import '/topology/domain/domain.dart';
 import '/trip/domain/domain.dart';
 
 abstract class VertexRepository {
-  Future<Either<Failure, List<Vertex>>> getVertices(TripId tripId);
-  Future<Either<Failure, Vertex>> createVertex(TripId tripId, LatLng latLng);
-  Future<Either<Failure, Vertex>> moveVertex(VertexId vertexId, LatLng latLng);
+  Future<Either<Failure, List<VertexRemoteModel>>> getVertices(TripId tripId);
+  Future<Either<Failure, VertexRemoteModel>> createVertex(
+    TripId tripId,
+    LatLng latLng,
+  );
+  Future<Either<Failure, VertexRemoteModel>> moveVertex(
+    VertexId vertexId,
+    LatLng latLng,
+  );
   Future<Either<Failure, void>> deleteVertex(VertexId vertexId);
 }

@@ -13,7 +13,9 @@ class VertexRepositoryImpl extends VertexRepository {
   final VertexRemoteDatasource remote;
   VertexRepositoryImpl(this.remote);
   @override
-  Future<Either<Failure, List<Vertex>>> getVertices(Id<Trip> tripId) {
+  Future<Either<Failure, List<VertexRemoteModel>>> getVertices(
+    Id<Trip> tripId,
+  ) {
     return guard(() async {
       final segments = await remote.getVertices(tripId: tripId);
       return segments.map(VertexMapper.fromGQL).toList();
@@ -21,7 +23,10 @@ class VertexRepositoryImpl extends VertexRepository {
   }
 
   @override
-  Future<Either<Failure, Vertex>> createVertex(Id<Trip> tripId, LatLng latLng) {
+  Future<Either<Failure, VertexRemoteModel>> createVertex(
+    Id<Trip> tripId,
+    LatLng latLng,
+  ) {
     return guard(() async {
       final gqlResult = await remote.createVertex(
         tripId: tripId,
@@ -32,8 +37,8 @@ class VertexRepositoryImpl extends VertexRepository {
   }
 
   @override
-  Future<Either<Failure, Vertex>> moveVertex(
-    Id<Vertex> vertexId,
+  Future<Either<Failure, VertexRemoteModel>> moveVertex(
+    VertexId vertexId,
     LatLng latLng,
   ) {
     return guard(() async {
@@ -46,7 +51,7 @@ class VertexRepositoryImpl extends VertexRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteVertex(Id<Vertex> vertexId) {
+  Future<Either<Failure, void>> deleteVertex(VertexId vertexId) {
     return guard(() async {
       await remote.deleteVertex(id: vertexId);
     });

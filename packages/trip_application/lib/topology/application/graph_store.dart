@@ -5,8 +5,8 @@ import 'package:trip_application/topology/domain/entities/entities.dart';
 
 class GraphStore {
   final TopologyIndex<VertexId, SegmentId> topologyIndex;
-  final GraphCollectionStore<Segment> segmentStore;
-  final GraphCollectionStore<Vertex> vertexStore;
+  final GraphCollectionStore<SegmentFields> segmentStore;
+  final GraphCollectionStore<VertexFields> vertexStore;
 
   const GraphStore({
     required this.topologyIndex,
@@ -16,12 +16,12 @@ class GraphStore {
 
   GraphStore.initial()
     : topologyIndex = TopologyIndex(),
-      segmentStore = const GraphCollectionStore<Segment>(),
-      vertexStore = const GraphCollectionStore<Vertex>();
+      segmentStore = const GraphCollectionStore<SegmentFields>(),
+      vertexStore = const GraphCollectionStore<VertexFields>();
 
   GraphStore copyWith({
-    GraphCollectionStore<Segment>? segmentStore,
-    GraphCollectionStore<Vertex>? vertexStore,
+    GraphCollectionStore<SegmentFields>? segmentStore,
+    GraphCollectionStore<VertexFields>? vertexStore,
   }) {
     return GraphStore(
       topologyIndex: topologyIndex, // toujours la même instance
@@ -32,7 +32,7 @@ class GraphStore {
 }
 
 extension GraphStoreActions on GraphStore {
-  GraphStore insertSegment(Segment segment) {
+  GraphStore insertSegment(SegmentRemoteModel segment) {
     // mutation en place de l'index, pas de recréation
     // topologyIndex.addRelationship(
     //   segment.id,
@@ -47,29 +47,29 @@ extension GraphStoreActions on GraphStore {
     return copyWith(segmentStore: segmentStore.remove(sId));
   }
 
-  void patchSegment(Segment segment) {
-    segmentStore.patchNode(segment.createPatch());
+  void patchSegment(SegmentRemoteModel segment) {
+    segmentStore.patchNode(SegmentPatchModel.fromFields(segment));
   }
 
-  void setSegment(Segment serverSegment) {
+  void setSegment(SegmentRemoteModel serverSegment) {
     segmentStore.set(serverSegment);
   }
 
   void rollbackSegment(SegmentId sId) => segmentStore.get(sId)?.rollback();
 
-  GraphStore insertVertex(Vertex vertex) {
+  GraphStore insertVertex(VertexRemoteModel vertex) {
     return copyWith(vertexStore: vertexStore.insertState(HasValue(vertex)));
   }
 
-  void patchVertex(Vertex vertex) {
-    vertexStore.patchNode(vertex.createPatch());
+  void patchVertex(VertexRemoteModel vertex) {
+    vertexStore.patchNode(VertexPatchModel.fromFields(vertex));
   }
 
   GraphStore removeVertex(VertexId vId) {
     return copyWith(vertexStore: vertexStore.remove(vId));
   }
 
-  void setVertex(Vertex serverVertex) {
+  void setVertex(VertexRemoteModel serverVertex) {
     vertexStore.set(serverVertex);
   }
 
@@ -78,8 +78,8 @@ extension GraphStoreActions on GraphStore {
   GraphStore clear() {
     topologyIndex.clear();
     return copyWith(
-      vertexStore: GraphCollectionStore<Vertex>(),
-      segmentStore: GraphCollectionStore<Segment>(),
+      vertexStore: GraphCollectionStore<VertexFields>(),
+      segmentStore: GraphCollectionStore<SegmentFields>(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/media/injection/media_store.dart';
+import 'package:vamos_cartographie/stored_file/injection/injection.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/waypoint/injection/injection.dart';
 import 'trip_store.dart';
@@ -16,7 +16,7 @@ Trip? trip(Ref ref, TripId tripId) {
 Future<Failure?> loadTrips(Ref ref) async {
   final tripStore = ref.watch(tripStoreProvider);
   final tripRepo = ref.watch(tripRepositoryProvider);
-  final mediaStore = ref.watch(mediaStoreProvider);
+  final mediaStore = ref.watch(storedFileStoreProvider);
   final res = await tripRepo.getAllTrips();
   res.fold(
     (Failure f) {
@@ -25,9 +25,9 @@ Future<Failure?> loadTrips(Ref ref) async {
     (data) {
       tripStore.clear();
       for (final (trip, listImages) in data) {
-        tripStore.upsertTrip(trip);
+        tripStore.insertTrip(trip);
         for (final i in listImages) {
-          mediaStore.upsert(trip.id, i);
+          mediaStore.insertS(trip.id, i);
         }
       }
     },

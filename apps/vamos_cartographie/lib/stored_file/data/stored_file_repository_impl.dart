@@ -21,7 +21,7 @@ class StoredFileRepositoryImpl extends StoredFileRepository {
   }
 
   @override
-  Future<Either<Failure, void>> detachFile(Id<StoredFile> id) async {
+  Future<Either<Failure, void>> detachFile(StoredFileId id) async {
     return guard(() async {
       await remote.deleteFile(id: id);
     });

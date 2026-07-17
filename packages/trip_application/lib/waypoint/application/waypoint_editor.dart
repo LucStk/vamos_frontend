@@ -6,10 +6,14 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   WaypointRepository get waypointRepo;
   TripId get tripId;
 
-  Future<Either<Failure, Waypoint>> updateWaypoint(Waypoint waypoint) async {
+  Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
+    WaypointFields waypoint,
+  ) async {
     return await run(
-      onApply: (gs) => gs..waypointStore.patchNode(waypoint.createPatch()),
-      remote: (_) => waypointRepo.updateWaypoint(waypoint),
+      onApply: (gs) =>
+          gs..waypointStore.patchNode(WaypointPatchModel.fromFields(waypoint)),
+      remote: (_) =>
+          waypointRepo.updateWaypoint(WaypointRemoteModel.fromFields(waypoint)),
       onSuccess: (gs, serveurValue) => gs..setWaypoint(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackWaypoint(waypoint.id),
     );

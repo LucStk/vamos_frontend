@@ -6,12 +6,12 @@ class CreateWaypointFromVertex extends MapIntents {
 }
 
 class OpenWaypointDialog extends MapIntents {
-  final Id<Waypoint> waypointId;
+  final WaypointId waypointId;
   const OpenWaypointDialog(this.waypointId);
 }
 
 class SelectWaypoint extends MapIntents {
-  final Id<Waypoint> waypointId;
+  final WaypointId waypointId;
   const SelectWaypoint(this.waypointId);
 }
 
@@ -20,7 +20,7 @@ class StartDragWaypoint extends MapIntents {
 }
 
 class EndDragWaypoint extends MapIntents {
-  final Id<Waypoint> waypointId;
+  final WaypointId waypointId;
   final LatLng position;
 
   const EndDragWaypoint(this.waypointId, this.position);

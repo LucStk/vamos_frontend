@@ -1,12 +1,11 @@
-import 'package:domain_core/id.dart';
-import 'package:trip_application/waypoint/domain/waypoint.dart';
+import 'package:trip_application/waypoint/domain/domain.dart';
 
 sealed class MapOutputEvent {
   const MapOutputEvent();
 }
 
 class OpenWaypointDialogEvent extends MapOutputEvent {
-  final Id<Waypoint> waypointId;
+  final WaypointId waypointId;
   const OpenWaypointDialogEvent(this.waypointId);
 }
 

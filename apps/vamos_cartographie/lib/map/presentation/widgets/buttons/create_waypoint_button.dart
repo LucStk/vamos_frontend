@@ -8,7 +8,7 @@ import 'package:domain_core/domain_core.dart';
 
 class CreateWaypointButton extends ConsumerWidget {
   final Id<Trip> tripId;
-  final Id<Waypoint> waypointId;
+  final WaypointId waypointId;
   const CreateWaypointButton({
     super.key,
     required this.tripId,

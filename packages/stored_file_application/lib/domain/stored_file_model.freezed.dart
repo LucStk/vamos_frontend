@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'stored_file.dart';
+part of 'stored_file_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'stored_file.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$StoredFile {
+mixin _$StoredFileRemoteModel {
 
- Id<StoredFile> get id; String get filename; String get url; String get status;
-/// Create a copy of StoredFile
+ StoredFileId get id; String get filename; String get url; String get status;
+/// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$StoredFileCopyWith<StoredFile> get copyWith => _$StoredFileCopyWithImpl<StoredFile>(this as StoredFile, _$identity);
+$StoredFileRemoteModelCopyWith<StoredFileRemoteModel> get copyWith => _$StoredFileRemoteModelCopyWithImpl<StoredFileRemoteModel>(this as StoredFileRemoteModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFile&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFileRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url)&&(identical(other.status, status) || other.status == status));
 }
 
 
@@ -34,18 +34,18 @@ int get hashCode => Object.hash(runtimeType,id,filename,url,status);
 
 @override
 String toString() {
-  return 'StoredFile(id: $id, filename: $filename, url: $url, status: $status)';
+  return 'StoredFileRemoteModel(id: $id, filename: $filename, url: $url, status: $status)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $StoredFileCopyWith<$Res>  {
-  factory $StoredFileCopyWith(StoredFile value, $Res Function(StoredFile) _then) = _$StoredFileCopyWithImpl;
+abstract mixin class $StoredFileRemoteModelCopyWith<$Res>  {
+  factory $StoredFileRemoteModelCopyWith(StoredFileRemoteModel value, $Res Function(StoredFileRemoteModel) _then) = _$StoredFileRemoteModelCopyWithImpl;
 @useResult
 $Res call({
- Id<StoredFile> id, String filename, String url, String status
+ StoredFileId id, String filename, String url, String status
 });
 
 
@@ -53,19 +53,19 @@ $Res call({
 
 }
 /// @nodoc
-class _$StoredFileCopyWithImpl<$Res>
-    implements $StoredFileCopyWith<$Res> {
-  _$StoredFileCopyWithImpl(this._self, this._then);
+class _$StoredFileRemoteModelCopyWithImpl<$Res>
+    implements $StoredFileRemoteModelCopyWith<$Res> {
+  _$StoredFileRemoteModelCopyWithImpl(this._self, this._then);
 
-  final StoredFile _self;
-  final $Res Function(StoredFile) _then;
+  final StoredFileRemoteModel _self;
+  final $Res Function(StoredFileRemoteModel) _then;
 
-/// Create a copy of StoredFile
+/// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? filename = null,Object? url = null,Object? status = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<StoredFile>,filename: null == filename ? _self.filename : filename // ignore: cast_nullable_to_non_nullable
+as StoredFileId,filename: null == filename ? _self.filename : filename // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,
@@ -75,8 +75,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [StoredFile].
-extension StoredFilePatterns on StoredFile {
+/// Adds pattern-matching-related methods to [StoredFileRemoteModel].
+extension StoredFileRemoteModelPatterns on StoredFileRemoteModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -89,10 +89,10 @@ extension StoredFilePatterns on StoredFile {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _StoredFile value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _StoredFileRemoteModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _StoredFile() when $default != null:
+case _StoredFileRemoteModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -111,10 +111,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _StoredFile value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _StoredFileRemoteModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _StoredFile():
+case _StoredFileRemoteModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -132,10 +132,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _StoredFile value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _StoredFileRemoteModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _StoredFile() when $default != null:
+case _StoredFileRemoteModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -153,9 +153,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Id<StoredFile> id,  String filename,  String url,  String status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StoredFileId id,  String filename,  String url,  String status)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _StoredFile() when $default != null:
+case _StoredFileRemoteModel() when $default != null:
 return $default(_that.id,_that.filename,_that.url,_that.status);case _:
   return orElse();
 
@@ -174,9 +174,9 @@ return $default(_that.id,_that.filename,_that.url,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Id<StoredFile> id,  String filename,  String url,  String status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StoredFileId id,  String filename,  String url,  String status)  $default,) {final _that = this;
 switch (_that) {
-case _StoredFile():
+case _StoredFileRemoteModel():
 return $default(_that.id,_that.filename,_that.url,_that.status);case _:
   throw StateError('Unexpected subclass');
 
@@ -194,9 +194,9 @@ return $default(_that.id,_that.filename,_that.url,_that.status);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Id<StoredFile> id,  String filename,  String url,  String status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StoredFileId id,  String filename,  String url,  String status)?  $default,) {final _that = this;
 switch (_that) {
-case _StoredFile() when $default != null:
+case _StoredFileRemoteModel() when $default != null:
 return $default(_that.id,_that.filename,_that.url,_that.status);case _:
   return null;
 
@@ -208,26 +208,26 @@ return $default(_that.id,_that.filename,_that.url,_that.status);case _:
 /// @nodoc
 
 
-class _StoredFile extends StoredFile {
-  const _StoredFile({required this.id, required this.filename, required this.url, required this.status}): super._();
+class _StoredFileRemoteModel extends StoredFileRemoteModel {
+  const _StoredFileRemoteModel({required this.id, required this.filename, required this.url, required this.status}): super._();
   
 
-@override final  Id<StoredFile> id;
+@override final  StoredFileId id;
 @override final  String filename;
 @override final  String url;
 @override final  String status;
 
-/// Create a copy of StoredFile
+/// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$StoredFileCopyWith<_StoredFile> get copyWith => __$StoredFileCopyWithImpl<_StoredFile>(this, _$identity);
+_$StoredFileRemoteModelCopyWith<_StoredFileRemoteModel> get copyWith => __$StoredFileRemoteModelCopyWithImpl<_StoredFileRemoteModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFile&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFileRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url)&&(identical(other.status, status) || other.status == status));
 }
 
 
@@ -236,18 +236,18 @@ int get hashCode => Object.hash(runtimeType,id,filename,url,status);
 
 @override
 String toString() {
-  return 'StoredFile(id: $id, filename: $filename, url: $url, status: $status)';
+  return 'StoredFileRemoteModel(id: $id, filename: $filename, url: $url, status: $status)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$StoredFileCopyWith<$Res> implements $StoredFileCopyWith<$Res> {
-  factory _$StoredFileCopyWith(_StoredFile value, $Res Function(_StoredFile) _then) = __$StoredFileCopyWithImpl;
+abstract mixin class _$StoredFileRemoteModelCopyWith<$Res> implements $StoredFileRemoteModelCopyWith<$Res> {
+  factory _$StoredFileRemoteModelCopyWith(_StoredFileRemoteModel value, $Res Function(_StoredFileRemoteModel) _then) = __$StoredFileRemoteModelCopyWithImpl;
 @override @useResult
 $Res call({
- Id<StoredFile> id, String filename, String url, String status
+ StoredFileId id, String filename, String url, String status
 });
 
 
@@ -255,19 +255,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$StoredFileCopyWithImpl<$Res>
-    implements _$StoredFileCopyWith<$Res> {
-  __$StoredFileCopyWithImpl(this._self, this._then);
+class __$StoredFileRemoteModelCopyWithImpl<$Res>
+    implements _$StoredFileRemoteModelCopyWith<$Res> {
+  __$StoredFileRemoteModelCopyWithImpl(this._self, this._then);
 
-  final _StoredFile _self;
-  final $Res Function(_StoredFile) _then;
+  final _StoredFileRemoteModel _self;
+  final $Res Function(_StoredFileRemoteModel) _then;
 
-/// Create a copy of StoredFile
+/// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? filename = null,Object? url = null,Object? status = null,}) {
-  return _then(_StoredFile(
+  return _then(_StoredFileRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<StoredFile>,filename: null == filename ? _self.filename : filename // ignore: cast_nullable_to_non_nullable
+as StoredFileId,filename: null == filename ? _self.filename : filename // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,
@@ -278,20 +278,20 @@ as String,
 }
 
 /// @nodoc
-mixin _$StoredFilePatch {
+mixin _$StoredFilePatchModel {
 
- Id<StoredFile> get id; File get file; bool get recomputing; UploadStatus? get status; int? get sent; int? get total; String? get error;
-/// Create a copy of StoredFilePatch
+ StoredFileId get id; File get file; bool get recomputing; UploadStatus? get status; int? get sent; int? get total; String? get error;
+/// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$StoredFilePatchCopyWith<StoredFilePatch> get copyWith => _$StoredFilePatchCopyWithImpl<StoredFilePatch>(this as StoredFilePatch, _$identity);
+$StoredFilePatchModelCopyWith<StoredFilePatchModel> get copyWith => _$StoredFilePatchModelCopyWithImpl<StoredFilePatchModel>(this as StoredFilePatchModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFilePatch&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFilePatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
 }
 
 
@@ -300,18 +300,18 @@ int get hashCode => Object.hash(runtimeType,id,file,recomputing,status,sent,tota
 
 @override
 String toString() {
-  return 'StoredFilePatch(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error)';
+  return 'StoredFilePatchModel(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $StoredFilePatchCopyWith<$Res>  {
-  factory $StoredFilePatchCopyWith(StoredFilePatch value, $Res Function(StoredFilePatch) _then) = _$StoredFilePatchCopyWithImpl;
+abstract mixin class $StoredFilePatchModelCopyWith<$Res>  {
+  factory $StoredFilePatchModelCopyWith(StoredFilePatchModel value, $Res Function(StoredFilePatchModel) _then) = _$StoredFilePatchModelCopyWithImpl;
 @useResult
 $Res call({
- Id<StoredFile> id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error
+ StoredFileId id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error
 });
 
 
@@ -319,19 +319,19 @@ $Res call({
 
 }
 /// @nodoc
-class _$StoredFilePatchCopyWithImpl<$Res>
-    implements $StoredFilePatchCopyWith<$Res> {
-  _$StoredFilePatchCopyWithImpl(this._self, this._then);
+class _$StoredFilePatchModelCopyWithImpl<$Res>
+    implements $StoredFilePatchModelCopyWith<$Res> {
+  _$StoredFilePatchModelCopyWithImpl(this._self, this._then);
 
-  final StoredFilePatch _self;
-  final $Res Function(StoredFilePatch) _then;
+  final StoredFilePatchModel _self;
+  final $Res Function(StoredFilePatchModel) _then;
 
-/// Create a copy of StoredFilePatch
+/// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<StoredFile>,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as StoredFileId,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
 as File,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
@@ -344,8 +344,8 @@ as String?,
 }
 
 
-/// Adds pattern-matching-related methods to [StoredFilePatch].
-extension StoredFilePatchPatterns on StoredFilePatch {
+/// Adds pattern-matching-related methods to [StoredFilePatchModel].
+extension StoredFilePatchModelPatterns on StoredFilePatchModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -358,10 +358,10 @@ extension StoredFilePatchPatterns on StoredFilePatch {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _StoredFilePatch value)?  internal,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _StoredFilePatchModel value)?  internal,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _StoredFilePatch() when internal != null:
+case _StoredFilePatchModel() when internal != null:
 return internal(_that);case _:
   return orElse();
 
@@ -380,10 +380,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _StoredFilePatch value)  internal,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _StoredFilePatchModel value)  internal,}){
 final _that = this;
 switch (_that) {
-case _StoredFilePatch():
+case _StoredFilePatchModel():
 return internal(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -401,10 +401,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _StoredFilePatch value)?  internal,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _StoredFilePatchModel value)?  internal,}){
 final _that = this;
 switch (_that) {
-case _StoredFilePatch() when internal != null:
+case _StoredFilePatchModel() when internal != null:
 return internal(_that);case _:
   return null;
 
@@ -422,9 +422,9 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Id<StoredFile> id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _StoredFilePatch() when internal != null:
+case _StoredFilePatchModel() when internal != null:
 return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error);case _:
   return orElse();
 
@@ -443,9 +443,9 @@ return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Id<StoredFile> id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)  internal,}) {final _that = this;
 switch (_that) {
-case _StoredFilePatch():
+case _StoredFilePatchModel():
 return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -463,9 +463,9 @@ return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Id<StoredFile> id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)?  internal,}) {final _that = this;
 switch (_that) {
-case _StoredFilePatch() when internal != null:
+case _StoredFilePatchModel() when internal != null:
 return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error);case _:
   return null;
 
@@ -477,11 +477,11 @@ return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_t
 /// @nodoc
 
 
-class _StoredFilePatch extends StoredFilePatch implements Patch<StoredFile> {
-  const _StoredFilePatch({required this.id, required this.file, required this.recomputing, this.status = UploadStatus.idle, this.sent = 0, this.total = 0, this.error}): super._();
+class _StoredFilePatchModel extends StoredFilePatchModel implements Patch<StoredFileRemoteModel> {
+  const _StoredFilePatchModel({required this.id, required this.file, required this.recomputing, this.status = UploadStatus.idle, this.sent = 0, this.total = 0, this.error}): super._();
   
 
-@override final  Id<StoredFile> id;
+@override final  StoredFileId id;
 @override final  File file;
 @override final  bool recomputing;
 @override@JsonKey() final  UploadStatus? status;
@@ -489,17 +489,17 @@ class _StoredFilePatch extends StoredFilePatch implements Patch<StoredFile> {
 @override@JsonKey() final  int? total;
 @override final  String? error;
 
-/// Create a copy of StoredFilePatch
+/// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$StoredFilePatchCopyWith<_StoredFilePatch> get copyWith => __$StoredFilePatchCopyWithImpl<_StoredFilePatch>(this, _$identity);
+_$StoredFilePatchModelCopyWith<_StoredFilePatchModel> get copyWith => __$StoredFilePatchModelCopyWithImpl<_StoredFilePatchModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFilePatch&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFilePatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
 }
 
 
@@ -508,18 +508,18 @@ int get hashCode => Object.hash(runtimeType,id,file,recomputing,status,sent,tota
 
 @override
 String toString() {
-  return 'StoredFilePatch.internal(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error)';
+  return 'StoredFilePatchModel.internal(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$StoredFilePatchCopyWith<$Res> implements $StoredFilePatchCopyWith<$Res> {
-  factory _$StoredFilePatchCopyWith(_StoredFilePatch value, $Res Function(_StoredFilePatch) _then) = __$StoredFilePatchCopyWithImpl;
+abstract mixin class _$StoredFilePatchModelCopyWith<$Res> implements $StoredFilePatchModelCopyWith<$Res> {
+  factory _$StoredFilePatchModelCopyWith(_StoredFilePatchModel value, $Res Function(_StoredFilePatchModel) _then) = __$StoredFilePatchModelCopyWithImpl;
 @override @useResult
 $Res call({
- Id<StoredFile> id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error
+ StoredFileId id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error
 });
 
 
@@ -527,19 +527,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$StoredFilePatchCopyWithImpl<$Res>
-    implements _$StoredFilePatchCopyWith<$Res> {
-  __$StoredFilePatchCopyWithImpl(this._self, this._then);
+class __$StoredFilePatchModelCopyWithImpl<$Res>
+    implements _$StoredFilePatchModelCopyWith<$Res> {
+  __$StoredFilePatchModelCopyWithImpl(this._self, this._then);
 
-  final _StoredFilePatch _self;
-  final $Res Function(_StoredFilePatch) _then;
+  final _StoredFilePatchModel _self;
+  final $Res Function(_StoredFilePatchModel) _then;
 
-/// Create a copy of StoredFilePatch
+/// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,}) {
-  return _then(_StoredFilePatch(
+  return _then(_StoredFilePatchModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as Id<StoredFile>,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as StoredFileId,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
 as File,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable

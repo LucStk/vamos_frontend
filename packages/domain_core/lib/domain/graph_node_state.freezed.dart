@@ -12,7 +12,7 @@ part of 'graph_node_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$NodeValueOrPatch<T extends Patchable<T>> {
+mixin _$NodeValueOrPatch<T extends HasId> {
 
 
 
@@ -36,13 +36,13 @@ String toString() {
 }
 
 /// @nodoc
-class $NodeValueOrPatchCopyWith<T extends Patchable<T>,$Res>  {
+class $NodeValueOrPatchCopyWith<T extends HasId,$Res>  {
 $NodeValueOrPatchCopyWith(NodeValueOrPatch<T> _, $Res Function(NodeValueOrPatch<T>) __);
 }
 
 
 /// Adds pattern-matching-related methods to [NodeValueOrPatch].
-extension NodeValueOrPatchPatterns<T extends Patchable<T>> on NodeValueOrPatch<T> {
+extension NodeValueOrPatchPatterns<T extends HasId> on NodeValueOrPatch<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -174,7 +174,7 @@ return patch(_that.patch);case _:
 /// @nodoc
 
 
-class _ValueResult<T extends Patchable<T>> implements NodeValueOrPatch<T> {
+class _ValueResult<T extends HasId> implements NodeValueOrPatch<T> {
   const _ValueResult(this.value);
   
 
@@ -206,7 +206,7 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$ValueResultCopyWith<T extends Patchable<T>,$Res> implements $NodeValueOrPatchCopyWith<T, $Res> {
+abstract mixin class _$ValueResultCopyWith<T extends HasId,$Res> implements $NodeValueOrPatchCopyWith<T, $Res> {
   factory _$ValueResultCopyWith(_ValueResult<T> value, $Res Function(_ValueResult<T>) _then) = __$ValueResultCopyWithImpl;
 @useResult
 $Res call({
@@ -218,7 +218,7 @@ $Res call({
 
 }
 /// @nodoc
-class __$ValueResultCopyWithImpl<T extends Patchable<T>,$Res>
+class __$ValueResultCopyWithImpl<T extends HasId,$Res>
     implements _$ValueResultCopyWith<T, $Res> {
   __$ValueResultCopyWithImpl(this._self, this._then);
 
@@ -240,7 +240,7 @@ as T,
 /// @nodoc
 
 
-class _PatchResult<T extends Patchable<T>> implements NodeValueOrPatch<T> {
+class _PatchResult<T extends HasId> implements NodeValueOrPatch<T> {
   const _PatchResult(this.patch);
   
 
@@ -272,7 +272,7 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$PatchResultCopyWith<T extends Patchable<T>,$Res> implements $NodeValueOrPatchCopyWith<T, $Res> {
+abstract mixin class _$PatchResultCopyWith<T extends HasId,$Res> implements $NodeValueOrPatchCopyWith<T, $Res> {
   factory _$PatchResultCopyWith(_PatchResult<T> value, $Res Function(_PatchResult<T>) _then) = __$PatchResultCopyWithImpl;
 @useResult
 $Res call({
@@ -284,7 +284,7 @@ $Res call({
 
 }
 /// @nodoc
-class __$PatchResultCopyWithImpl<T extends Patchable<T>,$Res>
+class __$PatchResultCopyWithImpl<T extends HasId,$Res>
     implements _$PatchResultCopyWith<T, $Res> {
   __$PatchResultCopyWithImpl(this._self, this._then);
 
@@ -304,7 +304,7 @@ as Patch<T>,
 }
 
 /// @nodoc
-mixin _$NodeState<T extends Patchable<T>> {
+mixin _$NodeState<T extends HasId> {
 
 
 
@@ -328,13 +328,13 @@ String toString() {
 }
 
 /// @nodoc
-class $NodeStateCopyWith<T extends Patchable<T>,$Res>  {
+class $NodeStateCopyWith<T extends HasId,$Res>  {
 $NodeStateCopyWith(NodeState<T> _, $Res Function(NodeState<T>) __);
 }
 
 
 /// Adds pattern-matching-related methods to [NodeState].
-extension NodeStatePatterns<T extends Patchable<T>> on NodeState<T> {
+extension NodeStatePatterns<T extends HasId> on NodeState<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -466,7 +466,7 @@ return hasPatch(_that.patch,_that.originalValue);case _:
 /// @nodoc
 
 
-class HasValue<T extends Patchable<T>> extends NodeState<T> {
+class HasValue<T extends HasId> extends NodeState<T> {
   const HasValue(this.value): super._();
   
 
@@ -498,7 +498,7 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $HasValueCopyWith<T extends Patchable<T>,$Res> implements $NodeStateCopyWith<T, $Res> {
+abstract mixin class $HasValueCopyWith<T extends HasId,$Res> implements $NodeStateCopyWith<T, $Res> {
   factory $HasValueCopyWith(HasValue<T> value, $Res Function(HasValue<T>) _then) = _$HasValueCopyWithImpl;
 @useResult
 $Res call({
@@ -510,7 +510,7 @@ $Res call({
 
 }
 /// @nodoc
-class _$HasValueCopyWithImpl<T extends Patchable<T>,$Res>
+class _$HasValueCopyWithImpl<T extends HasId,$Res>
     implements $HasValueCopyWith<T, $Res> {
   _$HasValueCopyWithImpl(this._self, this._then);
 
@@ -532,7 +532,7 @@ as T,
 /// @nodoc
 
 
-class HasPatch<T extends Patchable<T>> extends NodeState<T> {
+class HasPatch<T extends HasId> extends NodeState<T> {
   const HasPatch({required this.patch, this.originalValue}): super._();
   
 
@@ -565,7 +565,7 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $HasPatchCopyWith<T extends Patchable<T>,$Res> implements $NodeStateCopyWith<T, $Res> {
+abstract mixin class $HasPatchCopyWith<T extends HasId,$Res> implements $NodeStateCopyWith<T, $Res> {
   factory $HasPatchCopyWith(HasPatch<T> value, $Res Function(HasPatch<T>) _then) = _$HasPatchCopyWithImpl;
 @useResult
 $Res call({
@@ -577,7 +577,7 @@ $Res call({
 
 }
 /// @nodoc
-class _$HasPatchCopyWithImpl<T extends Patchable<T>,$Res>
+class _$HasPatchCopyWithImpl<T extends HasId,$Res>
     implements $HasPatchCopyWith<T, $Res> {
   _$HasPatchCopyWithImpl(this._self, this._then);
 

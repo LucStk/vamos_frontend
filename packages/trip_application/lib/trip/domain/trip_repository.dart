@@ -5,8 +5,11 @@ import 'package:trip_application/trip/domain/domain.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 
 abstract class TripRepository {
-  Future<Either<Failure, List<(Trip, List<StoredFile>)>>> getAllTrips();
-  Future<Either<Failure, (Trip, List<StoredFile>)>> getTrip(TripId id);
+  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
+  getAllTrips();
+  Future<Either<Failure, (Trip, List<StoredFileRemoteModel>)>> getTrip(
+    TripId id,
+  );
   Future<Either<Failure, TripDetailsRes>> getTripDetails(TripId id);
   Future<Either<Failure, Trip>> updateTrip(Trip trip);
   Future<Either<Failure, void>> deleteTrip(TripId id);

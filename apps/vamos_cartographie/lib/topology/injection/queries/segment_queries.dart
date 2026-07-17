@@ -6,7 +6,7 @@ import '/topology/injection/injection.dart';
 part 'segment_queries.g.dart';
 
 @riverpod
-GraphNode<Segment> segmentNode(Ref ref, TripId tripId, SegmentId id) {
+GraphNode<SegmentFields> segmentNode(Ref ref, TripId tripId, SegmentId id) {
   final store = ref.watch(segmentStoreProvider(tripId));
   final node = store.get(id);
   if (node == null) {
@@ -18,7 +18,7 @@ GraphNode<Segment> segmentNode(Ref ref, TripId tripId, SegmentId id) {
 }
 
 @riverpod
-NodeState<Segment> segment(Ref ref, TripId tripId, SegmentId id) {
+NodeState<SegmentFields> segment(Ref ref, TripId tripId, SegmentId id) {
   final node = ref.watch(segmentNodeProvider(tripId, id));
   return node.current;
 }

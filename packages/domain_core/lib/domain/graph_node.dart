@@ -1,6 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 
-class GraphNode<T extends Patchable<T>> implements HasId {
+class GraphNode<T extends HasId> implements HasId {
   NodeState<T> _state;
   int revision = 0;
 

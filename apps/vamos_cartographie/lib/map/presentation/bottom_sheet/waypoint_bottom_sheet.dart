@@ -2,7 +2,6 @@ import 'package:flutter/material.dart'; // Remplacé cupertino par material pour
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/draggable_bottom_sheet_shell.dart';
-import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
 import '/waypoint/waypoint.dart';
 import '/map/presentation/bottom_sheet/drag_handle.dart';
 
@@ -18,9 +17,7 @@ class WaypointBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref
-        .watch(waypointProvider(tripId, waypointId))
-        .displayValue;
+    final waypoint = ref.watch(waypointProvider(tripId, waypointId)).display;
 
     return DraggableBottomSheetShell(
       tripId:

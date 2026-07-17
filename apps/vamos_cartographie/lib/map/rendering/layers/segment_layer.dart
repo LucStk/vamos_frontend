@@ -52,7 +52,7 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
 
     for (SegmentId id in segmentIds) {
       final state = ref.watch(segmentProvider(widget.tripId, id));
-      final segment = state.displayValue;
+      final segment = state.display;
       polylines.add(
         Polyline(
           points: segment.geometry,
@@ -87,7 +87,7 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
   }
 }
 
-LatLng calculMobilyMarkerPosition(Segment seg) {
+LatLng calculMobilyMarkerPosition(SegmentFields seg) {
   // Compute center of segment geometry
   if (seg.geometry.isEmpty) {
     return const LatLng(0, 0);

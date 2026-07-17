@@ -38,7 +38,7 @@ class WaypointRemoteDatasource {
   /// Move a vertex to a new location.
   /// This is typically used when updating a waypoint's position.
   Future<GVertexFields> moveVertex({
-    required Id<Vertex> vertexId,
+    required VertexId vertexId,
     required LatLng latLng,
   }) async {
     final data = await ferryClient.execute(
@@ -90,7 +90,7 @@ class WaypointRemoteDatasource {
   }
 
   Future<GWaypointFields> updateWaypoint({
-    required Id<Waypoint> id,
+    required WaypointId id,
     required GWaypointUpdateInput input,
   }) async {
     final data = await ferryClient.execute(
@@ -101,7 +101,7 @@ class WaypointRemoteDatasource {
     return data.updateWaypoint;
   }
 
-  Future<void> deleteWaypoint({required Id<Waypoint> id}) async {
+  Future<void> deleteWaypoint({required WaypointId id}) async {
     await ferryClient.execute(
       GDeleteWaypointReq(vars: GDeleteWaypointVars(waypointId: id.value)),
     );
