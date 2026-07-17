@@ -1,19 +1,33 @@
+import "package:domain_core/notification/error_logger.dart";
+import "package:domain_core/runtime/optimitic_runner.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:stored_file_application/stored_file_application.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
+import "package:vamos_cartographie/stored_file/data/stored_file.dart";
 part "stored_file_provider.g.dart";
 
 @riverpod
-StorRemoteDatasource mediaRemoteDatasource(Ref ref) {
-  return MediaRemoteDatasource(ref.watch(clientProvider));
+StoredFileRemoteDatasource storedFileRemoteDatasource(Ref ref) {
+  return StoredFileRemoteDatasource(ref.watch(clientProvider));
 }
 
 @riverpod
-MediaRepository mediaRepository(Ref ref) {
-  final datasource = ref.watch(mediaRemoteDatasourceProvider);
-  final dioMedia = ref.watch(dioMediaProvider);
-  return MediaRepositoryImpl(remote: datasource, storage: dioMedia);
+StoredFileRepository storedFileRepository(Ref ref) {
+  final datasource = ref.watch(storedFileRemoteDatasourceProvider);
+  return StoredFileRepositoryImpl(remote: datasource);
 }
 
 @Riverpod(keepAlive: true)
-ObservableMediaStore rawMediaStore(Ref ref) => ObservableMediaStore();
+class StoredFileStoreNotifier extends _$StoredFileStoreNotifier
+    with OptimisticRunner<StoredFileStore>, StoredFileEditor {
+  @override
+  StoredFileStore build() => StoredFileStore.initial();
+
+  // Injection des dépendances requises par le mixin TopologyHandler
+  @override
+  StoredFileRepository get storedFileRepo =>
+      ref.read(storedFileRepositoryProvider);
+
+  @override
+  ErrorLogger? get errorLogger => null;
+}

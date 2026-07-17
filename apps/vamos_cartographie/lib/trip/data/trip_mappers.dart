@@ -1,8 +1,7 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
-import 'package:stored_file_application/domain/media_image.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:stored_file_application/domain/stored_file.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/media/data/mappers/media_image_mappers.dart';
 import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/mappers/mappers.dart';

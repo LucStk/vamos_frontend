@@ -1,2 +1,2 @@
-export "media_editor.dart";
-export "media_store.dart";
+export "stored_file_editor.dart";
+export "stored_file_store.dart";

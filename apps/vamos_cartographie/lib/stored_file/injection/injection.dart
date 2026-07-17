@@ -1,1 +1,1 @@
-export "stored_file_store.dart";
+export "stored_file_provider.dart";
