@@ -14,6 +14,7 @@ workspace:
 dev_dependencies:
   melos: ^7.0.0
 
+
 melos:
   scripts:
     get-graphql-schema :
@@ -34,3 +35,6 @@ melos:
       description: Choisir un package spécifique pour lancer build_runner
       select-package:
         depends-on: "build_runner"
+
+    clean:build:
+      run: melos exec --depends-on="build_runner" -- dart run build_runner clean

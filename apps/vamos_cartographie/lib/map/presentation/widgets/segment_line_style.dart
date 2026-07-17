@@ -16,7 +16,7 @@ class SegmentLineStyle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segment = ref.watch(segmentProvider(tripId, segmentId)).display;
+    final segment = ref.watch(segmentProvider(tripId, segmentId));
     return Container(
       decoration: BoxDecoration(
         color: Color(segment.mobilityTypeDisplay.colorValue),

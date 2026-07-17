@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
+import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
 import '/map/map.dart';
 
 class SegmentLayer extends ConsumerStatefulWidget {
@@ -50,22 +51,21 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
     final List<Marker> segMarkers = [];
 
     for (SegmentId id in segmentIds) {
-      final state = ref.watch(segmentProvider(widget.tripId, id));
-      final segment = state.display;
+      final segmentNode = ref.watch(segmentNodeProvider(widget.tripId, id));
       polylines.add(
         Polyline(
-          points: segment.geometry,
-          color: Color(segment.mobilityTypeDisplay.colorValue),
-          strokeWidth: state.isRecomputing ? 3 : 5,
-          hitValue: segment.id,
-          pattern: segment.mobilityTypeDisplay.isDashed
+          points: segmentNode.current.geometry,
+          color: Color(segmentNode.current.mobilityTypeDisplay.colorValue),
+          strokeWidth: segmentNode.isRecomputing ? 3 : 5,
+          hitValue: segmentNode.id,
+          pattern: segmentNode.current.mobilityTypeDisplay.isDashed
               ? StrokePattern.dashed(segments: const [12, 8])
               : const StrokePattern.solid(),
         ),
       );
       segMarkers.add(
         Marker(
-          point: calculMobilyMarkerPosition(segment),
+          point: calculMobilyMarkerPosition(segmentNode.current),
           child: GestureDetector(
             onTap: () => notifier.sendUiEvent(SegmentMobilityMarkerTapped(id)),
             child: MobilityMarker(tripId: widget.tripId, segId: id),

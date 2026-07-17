@@ -17,7 +17,7 @@ class WaypointBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final waypoint = ref.watch(waypointProvider(tripId, waypointId)).display;
+    final waypoint = ref.watch(waypointProvider(tripId, waypointId));
 
     return DraggableBottomSheetShell(
       tripId:

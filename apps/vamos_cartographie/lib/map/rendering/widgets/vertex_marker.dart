@@ -34,10 +34,7 @@ class VertexMarker extends ConsumerWidget {
               color: selected ? Colors.red : Colors.black,
             );
           }
-          final waypoint = ref
-              .watch(waypointProvider(tripId, waypointId))
-              .display;
-
+          final waypoint = ref.watch(waypointProvider(tripId, waypointId));
           return CircleAvatar(
             radius: 15,
             backgroundColor: Color(waypoint.poiCategoryUi.colorValue),

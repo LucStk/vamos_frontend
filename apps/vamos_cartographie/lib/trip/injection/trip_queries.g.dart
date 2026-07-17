@@ -117,7 +117,7 @@ final class LoadTripsProvider
   }
 }
 
-String _$loadTripsHash() => r'b2e7cfdf724782efb0301509b863bd3998914223';
+String _$loadTripsHash() => r'62f24ee37d65338eae362d57e8021a50165b9757';
 
 @ProviderFor(loadTripDetails)
 final loadTripDetailsProvider = LoadTripDetailsFamily._();
@@ -169,7 +169,7 @@ final class LoadTripDetailsProvider
   }
 }
 
-String _$loadTripDetailsHash() => r'29dba0ef642d8d41b95f4fd06a078d4383ec9a7e';
+String _$loadTripDetailsHash() => r'1d622fe0a624b64bde56049a8932a22890251ea1';
 
 final class LoadTripDetailsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Failure?>, TripId> {
