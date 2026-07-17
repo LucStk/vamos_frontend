@@ -8,7 +8,7 @@ workspace:
   - apps/vamos_cartographie
   - packages/domain_core
   - packages/map_application
-  - packages/media_application
+  - packages/stored_file_application
   - packages/trip_application
 
 dev_dependencies:
@@ -16,6 +16,8 @@ dev_dependencies:
 
 melos:
   scripts:
+    get-graphql-schema :
+      get-graphql-schema http://127.0.0.1:8000/graphql/ > apps/vamos_cartographie/lib/core/graphql/schema.graphql
     analyze:
       run: melos exec -- dart analyze .
     test:

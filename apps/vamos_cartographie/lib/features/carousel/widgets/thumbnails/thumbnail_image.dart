@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'thumbnail_error.dart';
 import 'thumbnail_loading.dart';
-import "package:media_application/media_application.dart";
+import "package:stored_file_application/stored_file_application.dart";
 
 class ThumbnailImage extends StatelessWidget {
   final ImageUiModel item;

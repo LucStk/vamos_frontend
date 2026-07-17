@@ -1,4 +1,4 @@
-#import "/media/data/graphql/image_fields.graphql"
+#import "/media/data/graphql/file_storage_fields.graphql"
 #import "/topology/data/graphql/fields/vertex_fields.graphql"
 
 fragment WaypointFields on WaypointType {
@@ -6,8 +6,8 @@ fragment WaypointFields on WaypointType {
     poiCategory
     title
     description
-    images {
-        ...ImageFields
+    files {
+        ...FileAttachment
     }
     vertex {
         ...VertexFields

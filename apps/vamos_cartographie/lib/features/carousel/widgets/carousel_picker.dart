@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:media_application/media_application.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
 import 'package:vamos_cartographie/media/injection/media_handler.dart';
 import 'package:vamos_cartographie/media/injection/media_queries.dart';

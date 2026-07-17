@@ -1,0 +1,10 @@
+#import "file_storage_fields.graphql"
+mutation GenerateImageUploadUrl($input: ImageUploadRequest!) {
+    generateImageUploadUrl(input: $input) {
+        ...UploadConfigFields
+    }
+}
+
+mutation DetachFile($input: DetachFileInput!) {
+    detachFile(input: $input)
+}

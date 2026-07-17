@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:media_application/domain/media_image.dart';
+import 'package:stored_file_application/domain/media_image.dart';
 import 'package:trip_application/trip_application.dart';
 import 'trip_remote_datasource.dart';
 import 'trip_mappers.dart';

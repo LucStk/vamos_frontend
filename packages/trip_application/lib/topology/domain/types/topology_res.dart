@@ -1,4 +1,4 @@
-import 'package:media_application/media_application.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/waypoint/domain/waypoint.dart';
 
 import '/topology/domain/entities/entities.dart';

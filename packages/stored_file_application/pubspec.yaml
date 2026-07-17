@@ -1,23 +1,23 @@
-name: trip_application
-description: "Trip Domain for vamos cartography"
+name: stored_file_application
+description: "Stored_file Application for vamos cartography"
 publish_to: "none"
 
 version: 1.0.0+1
 
+resolution: workspace
+
 environment:
   sdk: ^3.11.4
-
-resolution: workspace
 
 dependencies:
   latlong2: ^0.9.1
   dartz: ^0.10.1
   freezed_annotation: ^3.1.0
+  dio: ^5.10.0
   domain_core:
     path: ../domain_core
 
-  stored_file_application:
-    path: ../stored_file_application
+  uuid: ^4.5.3
 
 dev_dependencies:
   build_runner: ^2.15.0

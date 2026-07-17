@@ -1,19 +1,21 @@
-#import "/waypoint/data/graphql/waypoint_fields.graphql"
 #import "trip_fields.graphql"
-#import "/media/data/graphql/image_fields.graphql"
+#import "/media/data/graphql/file_storage_fields.graphql"
 
 mutation CreateBlankTrip(){
     createBlankTrip(){
         ...TripFields
     }
 }
-
 mutation UpdateTrip($trip: TripUpdateInput!, $id: UUID!) {
     updateTrip(trip: $trip, id: $id) {
         ...TripFields
     }
 }
-
 mutation DeleteTrip($id: UUID!) {
     deleteTrip(id: $id)
+}
+mutation AttachFileToTrip($input: AttachFileTripInput!){
+    attachFileToTrip(input:$input ){
+        ...StoredFile
+    }
 }

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/topology/domain/types/types.dart';
 import 'package:trip_application/trip/domain/domain.dart';
-import 'package:media_application/media_application.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 
 abstract class TripRepository {
   Future<Either<Failure, List<(Trip, List<MediaImage>)>>> getAllTrips();

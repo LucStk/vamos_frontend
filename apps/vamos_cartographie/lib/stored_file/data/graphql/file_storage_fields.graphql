@@ -1,0 +1,21 @@
+fragment StoredFile on StoredFileType {
+    id
+    filename
+    status
+    url
+}
+
+fragment FileAttachment on FileAttachmentType {
+    order
+    isCover
+    file {
+        ...StoredFile
+    }
+}
+
+fragment UploadConfigFields on UploadConfig {
+    fileId
+    uploadUrl
+    fileKey
+    contentType
+}

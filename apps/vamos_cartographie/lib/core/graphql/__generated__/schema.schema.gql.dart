@@ -6,6 +6,214 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
+class GAttachFileTripInput {
+  const GAttachFileTripInput({
+    required this.tripId,
+    required this.fileId,
+  });
+
+  factory GAttachFileTripInput.fromJson(Map<String, dynamic> json) {
+    return GAttachFileTripInput(
+      tripId: (json['tripId'] as String),
+      fileId: (json['fileId'] as String),
+    );
+  }
+
+  final String tripId;
+
+  final String fileId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$fileIdValue = this.fileId;
+    _$result['fileId'] = _$fileIdValue;
+    return _$result;
+  }
+
+  GAttachFileTripInput copyWith({
+    String? tripId,
+    String? fileId,
+  }) {
+    return GAttachFileTripInput(
+      tripId: tripId ?? this.tripId,
+      fileId: fileId ?? this.fileId,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachFileTripInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GAttachFileTripInput(tripId: $tripId, fileId: $fileId)';
+  }
+}
+
+class GAttachFileWaypointInput {
+  const GAttachFileWaypointInput({
+    required this.waypointId,
+    required this.fileId,
+  });
+
+  factory GAttachFileWaypointInput.fromJson(Map<String, dynamic> json) {
+    return GAttachFileWaypointInput(
+      waypointId: (json['waypointId'] as String),
+      fileId: (json['fileId'] as String),
+    );
+  }
+
+  final String waypointId;
+
+  final String fileId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$waypointIdValue = this.waypointId;
+    _$result['waypointId'] = _$waypointIdValue;
+    final _$fileIdValue = this.fileId;
+    _$result['fileId'] = _$fileIdValue;
+    return _$result;
+  }
+
+  GAttachFileWaypointInput copyWith({
+    String? waypointId,
+    String? fileId,
+  }) {
+    return GAttachFileWaypointInput(
+      waypointId: waypointId ?? this.waypointId,
+      fileId: fileId ?? this.fileId,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachFileWaypointInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GAttachFileWaypointInput(waypointId: $waypointId, fileId: $fileId)';
+  }
+}
+
+class GDetachFileInput {
+  const GDetachFileInput({required this.attachmentId});
+
+  factory GDetachFileInput.fromJson(Map<String, dynamic> json) {
+    return GDetachFileInput(attachmentId: (json['attachmentId'] as String));
+  }
+
+  final String attachmentId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$attachmentIdValue = this.attachmentId;
+    _$result['attachmentId'] = _$attachmentIdValue;
+    return _$result;
+  }
+
+  GDetachFileInput copyWith({String? attachmentId}) {
+    return GDetachFileInput(attachmentId: attachmentId ?? this.attachmentId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDetachFileInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GDetachFileInput(attachmentId: $attachmentId)';
+  }
+}
+
+class GImageUploadRequest {
+  const GImageUploadRequest({
+    required this.filename,
+    required this.mimeType,
+    required this.size,
+  });
+
+  factory GImageUploadRequest.fromJson(Map<String, dynamic> json) {
+    return GImageUploadRequest(
+      filename: (json['filename'] as String),
+      mimeType: (json['mimeType'] as String),
+      size: (json['size'] as int),
+    );
+  }
+
+  final String filename;
+
+  final String mimeType;
+
+  final int size;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$filenameValue = this.filename;
+    _$result['filename'] = _$filenameValue;
+    final _$mimeTypeValue = this.mimeType;
+    _$result['mimeType'] = _$mimeTypeValue;
+    final _$sizeValue = this.size;
+    _$result['size'] = _$sizeValue;
+    return _$result;
+  }
+
+  GImageUploadRequest copyWith({
+    String? filename,
+    String? mimeType,
+    int? size,
+  }) {
+    return GImageUploadRequest(
+      filename: filename ?? this.filename,
+      mimeType: mimeType ?? this.mimeType,
+      size: size ?? this.size,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GImageUploadRequest &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GImageUploadRequest(filename: $filename, mimeType: $mimeType, size: $size)';
+  }
+}
+
 class GLatLngInput {
   const GLatLngInput({
     required this.lat,
@@ -60,44 +268,6 @@ class GLatLngInput {
   }
 }
 
-class GMediaImageInput {
-  const GMediaImageInput({required this.fileKey});
-
-  factory GMediaImageInput.fromJson(Map<String, dynamic> json) {
-    return GMediaImageInput(fileKey: (json['fileKey'] as String));
-  }
-
-  final String fileKey;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$fileKeyValue = this.fileKey;
-    _$result['fileKey'] = _$fileKeyValue;
-    return _$result;
-  }
-
-  GMediaImageInput copyWith({String? fileKey}) {
-    return GMediaImageInput(fileKey: fileKey ?? this.fileKey);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GMediaImageInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GMediaImageInput(fileKey: $fileKey)';
-  }
-}
-
 enum GMobilityType {
   BIKE,
   CAR,
@@ -136,34 +306,6 @@ enum GMobilityType {
       case GMobilityType.TRAIN:
         return r'TRAIN';
       case GMobilityType.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
-  }
-}
-
-enum GOwnerType {
-  TRIP,
-  WAYPOINT,
-  gUnknownEnumValue;
-
-  static GOwnerType fromJson(String value) {
-    switch (value) {
-      case r'TRIP':
-        return GOwnerType.TRIP;
-      case r'WAYPOINT':
-        return GOwnerType.WAYPOINT;
-      default:
-        return GOwnerType.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GOwnerType.TRIP:
-        return r'TRIP';
-      case GOwnerType.WAYPOINT:
-        return r'WAYPOINT';
-      case GOwnerType.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
   }

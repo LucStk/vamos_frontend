@@ -16,8 +16,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  media_application:
-    path: ../../packages/media_application
+  stored_file_application:
+    path: ../../packages/stored_file_application
   map_application:
     path: ../../packages/map_application
   domain_core:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:media_application/domain/value_objects/media_owner_ext.dart';
+import 'package:stored_file_application/domain/value_objects/media_owner_ext.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import '/trip/presentation/widgets/trip_section_label.dart';

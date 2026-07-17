@@ -1,10 +1,11 @@
-#import "/media/data/graphql/image_fields.graphql"
+#import "/media/data/graphql/file_storage_fields.graphql"
+
 fragment TripFields on TripType {
     id
     title
     date
     description
-    images {
-        ...ImageFields
+    files {
+        ...FileAttachment
     }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:media_application/media_application.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/media/injection/media_handler.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
 

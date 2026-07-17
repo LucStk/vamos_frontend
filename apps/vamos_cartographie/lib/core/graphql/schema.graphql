@@ -12,6 +12,11 @@ input AttachFileTripInput {
   fileId: UUID!
 }
 
+input AttachFileWaypointInput {
+  waypointId: UUID!
+  fileId: UUID!
+}
+
 type CreateWaypointPayload {
   waypoint: WaypointType!
   vertex: VertexType!
@@ -63,11 +68,12 @@ type Mutation {
   updateTrip(id: UUID!, trip: TripUpdateInput!): TripType!
   deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
-  attachFile(input: AttachFileTripInput!): StoredFileType!
+  attachFileToTrip(input: AttachFileTripInput!): StoredFileType!
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): CreateWaypointPayload!
   createBlankWaypointFromVertex(tripId: UUID!, vertexId: UUID!): CreateWaypointPayload!
   deleteWaypoint(id: UUID!): Boolean!
+  attachFileToWaypoint(input: AttachFileWaypointInput!): StoredFileType!
   insertVertexToSegment(vertexId: UUID!, segmentId: UUID!): InsertVertexToSegmentPayload!
   updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: UUID!, input: SegmentCreateInput!): SegmentType!
