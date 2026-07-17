@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:stored_file_application/domain/stored_file_model.dart';
 import 'package:trip_application/trip_application.dart';
 
 mixin WaypointEditor on OptimisticRunner<WaypointStore> {
@@ -29,24 +30,34 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     );
   }
 
-  // Future<Either<Failure, WaypointCreateBlankRes>>
-  // createBlankWaypointFromPosition(LatLng latLng) async {
-  //   return await executor.run(
-  //     onApply: () {},
-  //     remote: () =>
-  //         waypointRepo.createBlankWaypointFromPosition(tripId, latLng),
-  //     onSuccess: (data) {
-  //       waypointStore.upsert(data.waypoint);
-  //       graphStore.upsertVertex(data.vertex);
-  //     },
-  //     onError: (Failure failure) {},
-  //   );
-  // }
-
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id) async {
     return await run(
       onApply: (gs) => gs,
       remote: (_) => waypointRepo.deleteWaypoint(id),
     );
   }
+
+  Future<Either<Failure, void>> attachFileToWaypoint(
+    WaypointId waypointId,
+    StoredFileId fileId,
+  ) async {
+    return await run(
+      onApply: (gs) => gs,
+      remote: (_) => waypointRepo.attachFileToWaypoint(waypointId, fileId),
+    );
+  }
 }
+
+// Future<Either<Failure, WaypointCreateBlankRes>>
+// createBlankWaypointFromPosition(LatLng latLng) async {
+//   return await executor.run(
+//     onApply: () {},
+//     remote: () =>
+//         waypointRepo.createBlankWaypointFromPosition(tripId, latLng),
+//     onSuccess: (data) {
+//       waypointStore.upsert(data.waypoint);
+//       graphStore.upsertVertex(data.vertex);
+//     },
+//     onError: (Failure failure) {},
+//   );
+// }

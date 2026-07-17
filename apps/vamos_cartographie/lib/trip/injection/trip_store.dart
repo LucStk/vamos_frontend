@@ -23,7 +23,7 @@ class TripStoreNotifier extends _$TripStoreNotifier
 
   // Injection des dépendances requises par le mixin TopologyHandler
   @override
-  TripRepository get waypointRepo => ref.read(tripRepositoryProvider);
+  TripRepository get tripRepo => ref.read(tripRepositoryProvider);
 
   @override
   ErrorLogger? get errorLogger => null;

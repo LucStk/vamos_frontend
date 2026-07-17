@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import '/trip/presentation/widgets/trip_section_label.dart';
 import 'package:vamos_cartographie/trip/trip.dart';
 
@@ -107,13 +106,14 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
                 .read(tripStoreProvider.notifier)
                 .updateTrip(_currentTrip);
 
-            final mediaResult = await ref
-                .read(storedFileStoreProvider)
-                .attachPatchImage<Trip>(_currentTrip.id, MediaOwnerType.trip);
+            // final mediaResult = await ref
+            //     .read(storedFileStoreProvider)
+            //     .attachPatchImage<Trip>(_currentTrip.id, MediaOwnerType.trip);
 
             if (!mounted) return;
 
-            if (tripResult.isRight() && mediaResult.isEmpty) {
+            if (tripResult.isRight()) {
+              // && mediaResult.isEmpty) {
               navigator.pop();
             }
 

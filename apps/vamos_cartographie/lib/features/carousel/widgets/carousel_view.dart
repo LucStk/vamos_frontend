@@ -1,6 +1,8 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stored_file_application/application/stored_file_store.dart';
+import 'package:vamos_cartographie/stored_file/injection/injection.dart';
 import "thumbnails/thumbnail_view.dart";
 
 class ImageCarouselView<T> extends ConsumerWidget {
@@ -11,13 +13,15 @@ class ImageCarouselView<T> extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imagesUi = ref.watch(syncedImagesProvider(id));
+    final store = ref.watch(storedFileStoreProvider);
+    final files = store.getFromOwner(id);
+    final images = files?.map((i) => store.storedFileStore.get(i));
 
     return Wrap(
       spacing: 8,
       runSpacing: 8,
       children: [
-        for (final item in imagesUi)
+        for (final item in images)
           ThumbnailView(
             key: ValueKey(item.fileKey),
             item: item,

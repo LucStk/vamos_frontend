@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
@@ -106,17 +105,18 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
                 .read(waypointStoreProvider(widget.tripId).notifier)
                 .updateWaypoint(currentWaypoint);
 
-            final mediaResult = await ref
-                .read(waypointStoreProvider(widget.tripId).notifier)
-                .attachPatchImage<Waypoint>(
-                  currentWaypoint.id,
-                  MediaOwnerType.waypoint,
-                );
+            // final mediaResult = await ref
+            //     .read(waypointStoreProvider(widget.tripId).notifier)
+            //     .attachFileToWaypoint(
+            //       currentWaypoint.id,
+            //       MediaOwnerType.waypoint,
+            //     );
 
             // 2. On vérifie si le widget State est toujours là
             if (!mounted) return;
 
-            if (waypointResult.isRight() && mediaResult.isEmpty) {
+            if (waypointResult.isRight()) {
+              //&& mediaResult.isEmpty) {
               // 3. On utilise la référence capturée, le linter adore ça !
               navigator.pop();
             }
