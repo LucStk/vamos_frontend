@@ -54,6 +54,4 @@ extension GraphCollectionStoreX<T extends HasId>
     on CollectionStore<T, GraphNode<T>> {
   CollectionStore<T, GraphNode<T>> insertState(T state) =>
       insert(GraphNode<T>(state));
-
-  T? getState(Id<T> id) => get(id)?.current;
 }

@@ -39,7 +39,7 @@ extension GraphStoreActions on GraphStore {
     //   segment.sourceVertexId,
     //   segment.targetVertexId,
     // );
-    return copyWith(segmentStore: segmentStore.insertState(HasValue(segment)));
+    return copyWith(segmentStore: segmentStore.insertState(segment));
   }
 
   GraphStore removeSegment(SegmentId sId) {
@@ -47,30 +47,22 @@ extension GraphStoreActions on GraphStore {
     return copyWith(segmentStore: segmentStore.remove(sId));
   }
 
-  void patchSegment(SegmentRemoteModel segment) {
-    segmentStore.patchNode(SegmentPatchModel.fromFields(segment));
-  }
-
-  void setSegment(SegmentRemoteModel serverSegment) {
-    segmentStore.set(serverSegment);
+  void setSegment(SegmentFields segment) {
+    segmentStore.get(segment.id)?.set(segment);
   }
 
   void rollbackSegment(SegmentId sId) => segmentStore.get(sId)?.rollback();
 
-  GraphStore insertVertex(VertexRemoteModel vertex) {
-    return copyWith(vertexStore: vertexStore.insertState(HasValue(vertex)));
-  }
-
-  void patchVertex(VertexRemoteModel vertex) {
-    vertexStore.patchNode(VertexPatchModel.fromFields(vertex));
+  GraphStore insertVertex(VertexFields vertex) {
+    return copyWith(vertexStore: vertexStore.insertState(vertex));
   }
 
   GraphStore removeVertex(VertexId vId) {
     return copyWith(vertexStore: vertexStore.remove(vId));
   }
 
-  void setVertex(VertexRemoteModel serverVertex) {
-    vertexStore.set(serverVertex);
+  void setVertex(VertexFields serverVertex) {
+    vertexStore.get(serverVertex.id)?.set(serverVertex);
   }
 
   void rollbackVertex(VertexId sId) => vertexStore.get(sId)?.rollback();

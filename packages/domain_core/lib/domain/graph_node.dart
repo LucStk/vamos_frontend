@@ -21,16 +21,11 @@ class GraphNode<T extends HasId> implements HasId {
   T? get serverValue => _lastRemoteValue;
 
   /// applique un patch local (optimistic update)
-  void patch(T patchValue) {
-    assert(patchValue is Patch, 'patchValue doit implémenter Patch<T>');
-    _current = patchValue;
-    revision++;
-  }
-
-  /// reçoit une valeur confirmée par le serveur
-  void confirm(T remoteValue) {
-    _current = remoteValue;
-    _lastRemoteValue = remoteValue;
+  void set(T value) {
+    _current = value;
+    if (value is! Patch) {
+      _lastRemoteValue = value;
+    }
     revision++;
   }
 

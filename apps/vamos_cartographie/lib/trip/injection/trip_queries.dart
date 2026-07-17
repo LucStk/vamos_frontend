@@ -1,5 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:stored_file_application/application/application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/stored_file/injection/injection.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
@@ -27,7 +28,7 @@ Future<Failure?> loadTrips(Ref ref) async {
       for (final (trip, listImages) in data) {
         tripStore.insertTrip(trip);
         for (final i in listImages) {
-          mediaStore.insertS(trip.id, i);
+          mediaStore.insertPatchMedia(trip.id, i);
         }
       }
     },
@@ -39,7 +40,7 @@ Future<Failure?> loadTrips(Ref ref) async {
 Future<Failure?> loadTripDetails(Ref ref, TripId tripId) async {
   final waypointStore = ref.watch(waypointStoreProvider(tripId));
   final graphStore = ref.watch(graphStoreProvider(tripId));
-  final mediaStore = ref.watch(mediaStoreProvider);
+  final mediaStore = ref.watch(storedFileStoreProvider);
   final tripRepo = ref.watch(tripRepositoryProvider);
   final res = await tripRepo.getTripDetails(tripId);
   res.fold(
@@ -51,16 +52,16 @@ Future<Failure?> loadTripDetails(Ref ref, TripId tripId) async {
       graphStore.clear();
 
       for (final (w, listImages) in data.waypointsImages) {
-        waypointStore.upsertWaypoint(w);
+        waypointStore.insertWaypoint(w);
         for (final i in listImages) {
-          mediaStore.upsert(w.id, i);
+          mediaStore.insertPatchMedia(w.id, i);
         }
       }
       for (final v in data.vertices) {
-        graphStore.upsertVertex(v);
+        graphStore.insertVertex(v);
       }
       for (final s in data.segments) {
-        graphStore.upsertSegment(s);
+        graphStore.insertSegment(s);
       }
       return null;
     },

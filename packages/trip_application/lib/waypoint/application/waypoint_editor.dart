@@ -10,8 +10,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     WaypointFields waypoint,
   ) async {
     return await run(
-      onApply: (gs) =>
-          gs..waypointStore.patchNode(WaypointPatchModel.fromFields(waypoint)),
+      onApply: (gs) => gs..waypointStore.get(waypoint.id)?.set(waypoint),
       remote: (_) =>
           waypointRepo.updateWaypoint(WaypointRemoteModel.fromFields(waypoint)),
       onSuccess: (gs, serveurValue) => gs..setWaypoint(serveurValue),

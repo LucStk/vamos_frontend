@@ -21,13 +21,13 @@ GraphNode<VertexFields> vertexNode(Ref ref, TripId tripId, VertexId id) {
 }
 
 @riverpod
-VertexState vertex(Ref ref, TripId tripId, VertexId id) {
+VertexFields vertex(Ref ref, TripId tripId, VertexId id) {
   final node = ref.watch(vertexNodeProvider(tripId, id));
   return node.current;
 }
 
 @riverpod
-List<VertexState> allVertex(Ref ref, TripId tripId) {
+List<VertexFields> allVertex(Ref ref, TripId tripId) {
   // Attention, ne fait pas de watch sur les StateNode<Vertex>
   final store = ref.watch(vertexStoreProvider(tripId));
   return store.store.values.map((v) => v.current).toList();

@@ -18,7 +18,7 @@ GraphNode<SegmentFields> segmentNode(Ref ref, TripId tripId, SegmentId id) {
 }
 
 @riverpod
-NodeState<SegmentFields> segment(Ref ref, TripId tripId, SegmentId id) {
+SegmentFields segment(Ref ref, TripId tripId, SegmentId id) {
   final node = ref.watch(segmentNodeProvider(tripId, id));
   return node.current;
 }

@@ -13,10 +13,10 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   VertexRepository get vertexRepo;
 
   Future<Either<Failure, SegmentRemoteModel>> updateSegment(
-    SegmentFields segment,
+    SegmentPatchModel segment,
   ) async {
     return await run(
-      onApply: (gs) => gs..patchSegment(SegmentRemoteModel.fromFields(segment)),
+      onApply: (gs) => gs..setSegment(segment),
       remote: (_) => segmentRepo.updateSegment(segment),
       onSuccess: (gs, serveurValue) => gs..setSegment(serveurValue),
       onError: (gs, Failure failure) => gs..rollbackSegment(segment.id),
@@ -40,7 +40,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   ) async {
     return await run(
       onApply: (gs) =>
-          gs..patchVertex(VertexRemoteModel(id: vid, latLng: latLng)),
+          gs..insertVertex(VertexPatchModel(id: vid, latLng: latLng)),
       remote: (_) => vertexRepo.moveVertex(VertexId(vid.value), latLng),
       onSuccess: (gs, VertexRemoteModel serveurValue) =>
           gs..setVertex(serveurValue),

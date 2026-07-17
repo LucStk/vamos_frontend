@@ -1,6 +1,5 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:stored_file_application/domain/stored_file.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
@@ -21,7 +20,9 @@ class TripMapper {
 
   /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
   /// segments) en [Trip] domaine.
-  static (Trip, List<StoredFile>) fromGQLDetail(GTripFieldsData data) {
+  static (Trip, List<StoredFileRemoteModel>) fromGQLDetail(
+    GTripFieldsData data,
+  ) {
     final trip = Trip(
       id: Id<Trip>(data.id),
       title: data.title,

@@ -6,7 +6,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
-import 'package:vamos_cartographie/topology/presentation/presentation.dart';
 import '/map/map.dart';
 
 class SegmentLayer extends ConsumerStatefulWidget {
@@ -47,7 +46,7 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
     final segmentIds = ref.watch(segmentStoreProvider(widget.tripId)).getIds();
     final notifier = ref.read(mapStateProvider(widget.tripId).notifier);
 
-    final List<Polyline<Id<Segment>>> polylines = [];
+    final List<Polyline<SegmentId>> polylines = [];
     final List<Marker> segMarkers = [];
 
     for (SegmentId id in segmentIds) {

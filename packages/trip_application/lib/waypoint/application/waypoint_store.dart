@@ -29,7 +29,7 @@ extension WaypointStoreActions on WaypointStore {
 
   WaypointStore removeWaypoint(WaypointId id) {
     // on supprime le vertexId associé
-    final wState = waypointStore.getState(id)?.serverValue;
+    final wState = waypointStore.get(id)?.serverValue;
     final vertexId = wState?.vertexId;
     vertexIndex.remove(vertexId);
     return copyWith(waypointStore: waypointStore.remove(id));

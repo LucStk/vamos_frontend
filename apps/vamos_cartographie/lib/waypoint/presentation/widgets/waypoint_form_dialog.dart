@@ -107,7 +107,7 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
                 .updateWaypoint(currentWaypoint);
 
             final mediaResult = await ref
-                .read(mediaHandlerProvider)
+                .read(waypointStoreProvider(widget.tripId).notifier)
                 .attachPatchImage<Waypoint>(
                   currentWaypoint.id,
                   MediaOwnerType.waypoint,

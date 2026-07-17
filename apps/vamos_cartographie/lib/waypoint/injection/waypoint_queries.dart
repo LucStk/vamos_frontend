@@ -18,13 +18,13 @@ GraphNode<WaypointFields> waypointNode(Ref ref, TripId tripId, WaypointId id) {
 }
 
 @riverpod
-WaypointState waypoint(Ref ref, TripId tripId, WaypointId id) {
+WaypointFields waypoint(Ref ref, TripId tripId, WaypointId id) {
   final node = ref.watch(waypointNodeProvider(tripId, id));
   return node.current;
 }
 
 @riverpod
-List<WaypointState> allWaypoint(Ref ref, TripId tripId) {
+List<WaypointFields> allWaypoint(Ref ref, TripId tripId) {
   // Attention, ne fait pas de watch sur les StateNode<Vertex>
   final store = ref.watch(waypointStoreProvider(tripId));
   return store.waypointStore.store.values.map((v) => v.current).toList();

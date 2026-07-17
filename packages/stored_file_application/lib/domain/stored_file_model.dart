@@ -6,7 +6,7 @@ part "stored_file_model.freezed.dart";
 
 enum UploadStatus { idle, uploading, success, failure }
 
-abstract interface class StoredFileFields implements HasId {
+sealed class StoredFileFields implements HasId {
   @override
   Id<StoredFileFields> get id;
 }

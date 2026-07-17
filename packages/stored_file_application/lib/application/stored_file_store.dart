@@ -24,21 +24,14 @@ class StoredFileStore {
 }
 
 extension StoredFileStoreActions on StoredFileStore {
-  StoredFileStore insertPatchMedia(Id ownerId, StoredFilePatchModel patch) {
+  StoredFileStore insertPatchMedia(Id ownerId, StoredFileFields patch) {
     ownerIndex.addRelationship(ownerId, patch.id);
-    return copyWith(
-      storedFileStore: storedFileStore.insertState(HasPatch(patch: patch)),
-    );
+    return copyWith(storedFileStore: storedFileStore.insertState(patch));
   }
 
   StoredFileStore removeMedia(StoredFileId id) {
     ownerIndex.removeOwned(id);
     return copyWith(storedFileStore: storedFileStore.remove(id));
-  }
-
-  void insertStoredFile(Id ownerId, StoredFileRemoteModel serverMedia) {
-    ownerIndex.addRelationship(ownerId, serverMedia.id);
-    storedFileStore.get(serverMedia.id)?.set(serverMedia);
   }
 
   void rollbackMedia(StoredFileId wid) => storedFileStore.get(wid)?.rollback();

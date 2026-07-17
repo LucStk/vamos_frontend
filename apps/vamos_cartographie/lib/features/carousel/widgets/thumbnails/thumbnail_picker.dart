@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:stored_file_application/domain/stored_file_state.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'thumbnail_error.dart';
 import 'thumbnail_loading.dart';
 import 'thumbnail_image.dart'; // Pense à importer ton nouveau widget
 import 'thumbnail_delete_button.dart';
 
 class ThumbnailPicker extends StatelessWidget {
-  final StoreFileState item;
+  final StoredFileFields item;
   final double size;
   final bool isUploading;
   final bool hasError;
