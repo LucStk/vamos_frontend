@@ -4,7 +4,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/domain/stored_file.dart';
 
 abstract class StoredFileRepository {
-  // Future<Either<Failure, MediaImage>> uploadImage(
+  // Future<Either<Failure, StoredFile>> uploadImage(
   //   File file,
   //   Function(int sent, int total)? onProgress,
   // );

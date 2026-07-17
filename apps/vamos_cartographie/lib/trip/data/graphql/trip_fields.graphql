@@ -1,4 +1,4 @@
-#import "/media/data/graphql/file_storage_fields.graphql"
+#import "/stored_file/data/graphql/file_storage_fields.graphql"
 
 fragment TripFields on TripType {
     id

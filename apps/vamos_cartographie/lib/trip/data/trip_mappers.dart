@@ -1,7 +1,9 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:stored_file_application/domain/media_image.dart';
+import 'package:stored_file_application/domain/stored_file.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/media/data/mappers/media_image_mappers.dart';
+import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/mappers/mappers.dart';
 import '/core/graphql/graphql.dart';
@@ -20,15 +22,15 @@ class TripMapper {
 
   /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
   /// segments) en [Trip] domaine.
-  static (Trip, List<MediaImage>) fromGQLDetail(GTripFieldsData data) {
+  static (Trip, List<StoredFile>) fromGQLDetail(GTripFieldsData data) {
     final trip = Trip(
       id: Id<Trip>(data.id),
       title: data.title,
       description: data.description,
       date: data.date != null ? DateTime.parse(data.date!) : null,
     );
-    final images = data.images
-        .map((i) => MediaImageMappers.fromGQL(i))
+    final images = data.files
+        .map((i) => StoredFileMappers.fromGQL(i.file))
         .toList();
     return (trip, images);
   }
@@ -41,7 +43,7 @@ class TripMapper {
         .map(
           (m) => (
             WaypointMapper.fromGQL(m),
-            m.images.map(MediaImageMappers.fromGQL).toList(),
+            m.files.map((i) => StoredFileMappers.fromGQL(i.file)).toList(),
           ),
         )
         .toList();

@@ -32,7 +32,7 @@ extension StoredFileStoreActions on StoredFileStore {
     return copyWith(mediaStore: mediaStore.remove(id));
   }
 
-  void setMedia(MediaImage serverMedia) {
+  void setMedia(StoredFile serverMedia) {
     mediaStore.get(serverMedia.id)?.set(serverMedia);
   }
 
@@ -40,7 +40,7 @@ extension StoredFileStoreActions on StoredFileStore {
 
   MediaStore clear() {
     graphStore = {};
-    return copyWith(mediaStore: GraphCollectionStore<MediaImage>());
+    return copyWith(mediaStore: GraphCollectionStore<StoredFile>());
   }
 }
 

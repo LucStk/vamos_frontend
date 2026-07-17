@@ -19,6 +19,6 @@ class WaypointCreateBlankRes {
 class TripDetailsRes {
   final List<Vertex> vertices;
   final List<Segment> segments;
-  final List<(Waypoint, List<MediaImage>)> waypointsImages;
+  final List<(Waypoint, List<StoredFile>)> waypointsImages;
   TripDetailsRes(this.vertices, this.segments, this.waypointsImages);
 }
