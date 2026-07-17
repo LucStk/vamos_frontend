@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 part 'waypoint_model.freezed.dart';
 
-abstract interface class WaypointFields implements HasId {
+sealed class WaypointFields implements HasId {
   @override
   WaypointId get id;
   VertexId get vertexId;

@@ -5,7 +5,7 @@ import "package:domain_core/domain_core.dart";
 import 'package:trip_application/trip_application.dart';
 part 'vertex_model.freezed.dart';
 
-abstract interface class VertexFields implements HasId {
+sealed class VertexFields implements HasId {
   @override
   Id<VertexFields> get id;
   LatLng get latLng;

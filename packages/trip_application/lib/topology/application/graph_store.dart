@@ -32,7 +32,7 @@ class GraphStore {
 }
 
 extension GraphStoreActions on GraphStore {
-  GraphStore insertSegment(SegmentRemoteModel segment) {
+  GraphStore insertSegment(SegmentFields segment) {
     // mutation en place de l'index, pas de recréation
     // topologyIndex.addRelationship(
     //   segment.id,

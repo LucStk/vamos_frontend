@@ -6,7 +6,7 @@ import "vertex_model.dart";
 
 part 'segment_model.freezed.dart';
 
-abstract interface class SegmentFields implements HasId {
+sealed class SegmentFields implements HasId {
   MobilityType get mobilityType;
   @override
   Id<SegmentFields> get id;

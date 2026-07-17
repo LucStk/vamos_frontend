@@ -22,8 +22,8 @@ class WaypointStore {
 }
 
 extension WaypointStoreActions on WaypointStore {
-  WaypointStore insertWaypoint(WaypointState state) {
-    vertexIndex[state.display.vertexId] = state.id;
+  WaypointStore insertWaypoint(WaypointFields state) {
+    vertexIndex[state.vertexId] = state.id;
     return copyWith(waypointStore: waypointStore.insertState(state));
   }
 

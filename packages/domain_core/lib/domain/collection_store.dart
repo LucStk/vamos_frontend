@@ -52,23 +52,8 @@ typedef SimpleCollectionStore<T extends HasId> = CollectionStore<T, T>;
 
 extension GraphCollectionStoreX<T extends HasId>
     on CollectionStore<T, GraphNode<T>> {
-  CollectionStore<T, GraphNode<T>> insertState(NodeState<T> state) =>
+  CollectionStore<T, GraphNode<T>> insertState(T state) =>
       insert(GraphNode<T>(state));
 
-  NodeState<T>? getState(Id<T> id) => get(id)?.current;
-
-  CollectionStore<T, GraphNode<T>> patchNode(
-    Patch<T> patch, {
-    T? originalValue,
-  }) {
-    final s = get(patch.id as Id<T>);
-    s?.patch(patch, originalValue: originalValue);
-    return this;
-  }
-
-  CollectionStore<T, GraphNode<T>> set(T value) {
-    final s = get(value.id as Id<T>);
-    s?.set(value);
-    return this;
-  }
+  T? getState(Id<T> id) => get(id)?.current;
 }
