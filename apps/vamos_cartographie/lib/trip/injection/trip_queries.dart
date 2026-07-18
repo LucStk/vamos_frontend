@@ -14,29 +14,6 @@ Trip? trip(Ref ref, TripId tripId) {
 }
 
 @riverpod
-Future<Failure?> loadTrips(Ref ref) async {
-  final tripStore = ref.watch(tripStoreProvider);
-  final tripRepo = ref.watch(tripRepositoryProvider);
-  final mediaStore = ref.watch(storedFileStoreProvider);
-  final res = await tripRepo.getAllTrips();
-  res.fold(
-    (Failure f) {
-      return f;
-    },
-    (data) {
-      tripStore.clear();
-      for (final (trip, listImages) in data) {
-        tripStore.insertTrip(trip);
-        for (final i in listImages) {
-          mediaStore.insertPatchMedia(trip.id, i);
-        }
-      }
-    },
-  );
-  return null;
-}
-
-@riverpod
 Future<Failure?> loadTripDetails(Ref ref, TripId tripId) async {
   final waypointStore = ref.watch(waypointStoreProvider(tripId));
   final graphStore = ref.watch(graphStoreProvider(tripId));
@@ -54,7 +31,7 @@ Future<Failure?> loadTripDetails(Ref ref, TripId tripId) async {
       for (final (w, listImages) in data.waypointsImages) {
         waypointStore.insertWaypoint(w);
         for (final i in listImages) {
-          mediaStore.insertPatchMedia(w.id, i);
+          mediaStore.insertStoredFile(w.id, i);
         }
       }
       for (final v in data.vertices) {

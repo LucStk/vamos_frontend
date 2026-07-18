@@ -130,7 +130,7 @@ final class TripStoreNotifierProvider
   }
 }
 
-String _$tripStoreNotifierHash() => r'3f48d2bbd154e3a8a013b22a40b3fbdb7851d4bb';
+String _$tripStoreNotifierHash() => r'fd1e7752bf23ee4532888c18e5cc67b19092ef94';
 
 abstract class _$TripStoreNotifier extends $Notifier<TripStore> {
   TripStore build();

@@ -11,7 +11,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
     return await run(
       onApply: (gs) => gs,
       remote: (_) => tripRepo.createBlankTrip(),
-      onSuccess: (gs, Trip serverTrip) => gs..insertTrip(serverTrip),
+      onSuccess: (gs, Trip serverTrip) => gs.insertTrip(serverTrip),
     );
   }
 
@@ -19,7 +19,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
     return await run(
       onApply: (gs) => gs,
       remote: (_) => tripRepo.updateTrip(trip),
-      onSuccess: (gs, Trip serverTrip) => gs..insertTrip(serverTrip),
+      onSuccess: (gs, Trip serverTrip) => gs.insertTrip(serverTrip),
     );
   }
 

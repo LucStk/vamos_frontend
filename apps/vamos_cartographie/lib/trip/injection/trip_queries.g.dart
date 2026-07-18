@@ -85,40 +85,6 @@ final class TripFamily extends $Family
   String toString() => r'tripProvider';
 }
 
-@ProviderFor(loadTrips)
-final loadTripsProvider = LoadTripsProvider._();
-
-final class LoadTripsProvider
-    extends
-        $FunctionalProvider<AsyncValue<Failure?>, Failure?, FutureOr<Failure?>>
-    with $FutureModifier<Failure?>, $FutureProvider<Failure?> {
-  LoadTripsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'loadTripsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$loadTripsHash();
-
-  @$internal
-  @override
-  $FutureProviderElement<Failure?> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<Failure?> create(Ref ref) {
-    return loadTrips(ref);
-  }
-}
-
-String _$loadTripsHash() => r'62f24ee37d65338eae362d57e8021a50165b9757';
-
 @ProviderFor(loadTripDetails)
 final loadTripDetailsProvider = LoadTripDetailsFamily._();
 
@@ -169,7 +135,7 @@ final class LoadTripDetailsProvider
   }
 }
 
-String _$loadTripDetailsHash() => r'1d622fe0a624b64bde56049a8932a22890251ea1';
+String _$loadTripDetailsHash() => r'e34343c7d3b63717eec3dbcac245afab112db03b';
 
 final class LoadTripDetailsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Failure?>, TripId> {

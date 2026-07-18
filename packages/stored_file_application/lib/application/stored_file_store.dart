@@ -24,9 +24,9 @@ class StoredFileStore {
 }
 
 extension StoredFileStoreActions on StoredFileStore {
-  StoredFileStore insertPatchMedia(Id ownerId, StoredFileFields patch) {
-    ownerIndex.addRelationship(ownerId, patch.id);
-    return copyWith(storedFileStore: storedFileStore.insertState(patch));
+  StoredFileStore insertStoredFile(Id ownerId, StoredFileFields file) {
+    ownerIndex.addRelationship(ownerId, file.id);
+    return copyWith(storedFileStore: storedFileStore.insertState(file));
   }
 
   StoredFileStore removeMedia(StoredFileId id) {

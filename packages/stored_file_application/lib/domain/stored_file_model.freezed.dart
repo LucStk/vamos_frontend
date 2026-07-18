@@ -280,7 +280,7 @@ as String,
 /// @nodoc
 mixin _$StoredFilePatchModel {
 
- StoredFileId get id; File get file; bool get recomputing; UploadStatus? get status; int? get sent; int? get total; String? get error;
+ StoredFileId get id; File get file; bool get recomputing; UploadStatus get status; int get sent; int get total; String? get error;
 /// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -311,7 +311,7 @@ abstract mixin class $StoredFilePatchModelCopyWith<$Res>  {
   factory $StoredFilePatchModelCopyWith(StoredFilePatchModel value, $Res Function(StoredFilePatchModel) _then) = _$StoredFilePatchModelCopyWithImpl;
 @useResult
 $Res call({
- StoredFileId id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error
+ StoredFileId id, File file, bool recomputing, UploadStatus status, int sent, int total, String? error
 });
 
 
@@ -328,15 +328,15 @@ class _$StoredFilePatchModelCopyWithImpl<$Res>
 
 /// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = null,Object? sent = null,Object? total = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as StoredFileId,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
 as File,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
-as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
-as int?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as int?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as UploadStatus,sent: null == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
+as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -422,7 +422,7 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus status,  int sent,  int total,  String? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoredFilePatchModel() when internal != null:
 return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error);case _:
@@ -443,7 +443,7 @@ return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus status,  int sent,  int total,  String? error)  internal,}) {final _that = this;
 switch (_that) {
 case _StoredFilePatchModel():
 return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error);case _:
@@ -463,7 +463,7 @@ return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus? status,  int? sent,  int? total,  String? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( StoredFileId id,  File file,  bool recomputing,  UploadStatus status,  int sent,  int total,  String? error)?  internal,}) {final _that = this;
 switch (_that) {
 case _StoredFilePatchModel() when internal != null:
 return internal(_that.id,_that.file,_that.recomputing,_that.status,_that.sent,_that.total,_that.error);case _:
@@ -484,9 +484,9 @@ class _StoredFilePatchModel extends StoredFilePatchModel implements Patch<Stored
 @override final  StoredFileId id;
 @override final  File file;
 @override final  bool recomputing;
-@override@JsonKey() final  UploadStatus? status;
-@override@JsonKey() final  int? sent;
-@override@JsonKey() final  int? total;
+@override@JsonKey() final  UploadStatus status;
+@override@JsonKey() final  int sent;
+@override@JsonKey() final  int total;
 @override final  String? error;
 
 /// Create a copy of StoredFilePatchModel
@@ -519,7 +519,7 @@ abstract mixin class _$StoredFilePatchModelCopyWith<$Res> implements $StoredFile
   factory _$StoredFilePatchModelCopyWith(_StoredFilePatchModel value, $Res Function(_StoredFilePatchModel) _then) = __$StoredFilePatchModelCopyWithImpl;
 @override @useResult
 $Res call({
- StoredFileId id, File file, bool recomputing, UploadStatus? status, int? sent, int? total, String? error
+ StoredFileId id, File file, bool recomputing, UploadStatus status, int sent, int total, String? error
 });
 
 
@@ -536,15 +536,15 @@ class __$StoredFilePatchModelCopyWithImpl<$Res>
 
 /// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = freezed,Object? sent = freezed,Object? total = freezed,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = null,Object? sent = null,Object? total = null,Object? error = freezed,}) {
   return _then(_StoredFilePatchModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as StoredFileId,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
 as File,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
-as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as UploadStatus?,sent: freezed == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
-as int?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as int?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as UploadStatus,sent: null == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
+as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
