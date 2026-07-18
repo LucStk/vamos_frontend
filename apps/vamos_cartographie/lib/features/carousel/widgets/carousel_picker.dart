@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
+import 'package:vamos_cartographie/stored_file/injection/injection.dart';
 
 import 'thumbnails/thumbnails.dart';
 
@@ -15,39 +13,27 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imagesUi = ref.watch(visibleImagesProvider(id));
-    final mediaHandler = ref.read(mediaHandlerProvider);
-
+    final store = ref.watch(storedFileStoreProvider);
+    final filesId = store.getFromOwner(id);
+    if (filesId == null) {
+      return SizedBox.shrink();
+    }
     return Wrap(
       spacing: 8,
       runSpacing: 8,
       children: [
-        for (final item in imagesUi)
-          ThumbnailPicker(
-            key: ValueKey(item.fileKey),
-            item: item,
-            size: thumbSize,
-            isUploading: item.uploadStatus == UploadStatus.uploading,
-            hasError: item.uploadStatus == UploadStatus.failure,
-            onDelete: () {
-              mediaHandler.removeImage<T>(id, item);
-            },
-            onRetry: () {
-              mediaHandler.retryImageUpload<T>(id, item.fileKey);
-            },
-            onTap: () {
-              // TODO lightbox
-            },
-          ),
+        for (final fId in filesId)
+          ThumbnailPicker(fileId: fId, size: thumbSize),
 
         ThumbnailButtonAdd(
           size: thumbSize,
-          onTap: () async {
-            final picked = await pickImages();
-            for (File f in picked) {
-              mediaHandler.uploadPatchImage(id, generatePatchImage(f));
-            }
-          },
+          onTap: () {},
+          // onTap: () async {
+          //   final picked = await pickImages();
+          //   for (File f in picked) {
+          //     mediaHandler.uploadPatchImage(id, generatePatchImage(f));
+          //   }
+          // },
         ),
       ],
     );

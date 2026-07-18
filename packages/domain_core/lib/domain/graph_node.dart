@@ -16,7 +16,6 @@ class GraphNode<T extends HasId> implements HasId {
 
   bool get isRecomputing =>
       _current is Patch ? (_current as Patch).recomputing : false;
-  Object? get error => _current is Patch ? (_current as Patch).error : null;
   bool get isPendingCreation => _lastRemoteValue == null && _current is Patch;
   T? get serverValue => _lastRemoteValue;
 

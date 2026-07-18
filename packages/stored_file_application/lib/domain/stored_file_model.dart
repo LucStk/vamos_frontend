@@ -9,6 +9,8 @@ enum UploadStatus { idle, uploading, success, failure }
 sealed class StoredFileFields implements HasId {
   @override
   Id<StoredFileFields> get id;
+  bool get hasError;
+  bool get isUploading;
 }
 
 typedef StoredFileId = Id<StoredFileFields>;
@@ -25,6 +27,11 @@ abstract class StoredFileRemoteModel
   }) = _StoredFileRemoteModel;
 
   const StoredFileRemoteModel._();
+
+  @override
+  bool get hasError => false;
+  @override
+  bool get isUploading => false;
 }
 
 @freezed
@@ -36,13 +43,18 @@ abstract class StoredFilePatchModel
     required StoredFileId id,
     required File file,
     required bool recomputing,
-    @Default(UploadStatus.idle) UploadStatus? status,
-    @Default(0) int? sent,
-    @Default(0) int? total,
+    @Default(UploadStatus.idle) UploadStatus status,
+    @Default(0) int sent,
+    @Default(0) int total,
     String? error,
   }) = _StoredFilePatchModel;
 
   const StoredFilePatchModel._();
+
+  @override
+  bool get hasError => status == UploadStatus.failure;
+  @override
+  bool get isUploading => status == UploadStatus.uploading;
 
   factory StoredFilePatchModel({
     required StoredFileId? id,

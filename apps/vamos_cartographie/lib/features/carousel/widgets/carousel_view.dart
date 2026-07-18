@@ -14,20 +14,16 @@ class ImageCarouselView<T> extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final store = ref.watch(storedFileStoreProvider);
-    final files = store.getFromOwner(id);
-    final images = files?.map((i) => store.storedFileStore.get(i));
+    final filesId = store.getFromOwner(id);
+    if (filesId == null) {
+      return SizedBox.shrink();
+    }
 
     return Wrap(
       spacing: 8,
       runSpacing: 8,
       children: [
-        for (final item in images)
-          ThumbnailView(
-            key: ValueKey(item.fileKey),
-            item: item,
-            size: thumbSize,
-            hasError: item.uploadStatus == UploadStatus.failure,
-          ),
+        for (final fId in filesId) ThumbnailView(fileId: fId, size: thumbSize),
       ],
     );
   }

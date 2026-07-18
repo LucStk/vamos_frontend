@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
+import 'package:vamos_cartographie/features/carousel/widgets/thumbnails/thumbnail_loading.dart';
+import 'package:vamos_cartographie/stored_file/injection/stored_file_queries.dart';
 import 'thumbnail_error.dart';
-import 'thumbnail_image.dart'; // Pense à importer ton nouveau widget
 
-class ThumbnailView extends StatelessWidget {
-  final StoredFileFields item;
+import 'dart:io';
+
+class ThumbnailView extends ConsumerWidget {
+  final StoredFileId fileId;
   final double size;
-
-  final bool hasError;
-
   final VoidCallback? onTap;
   final VoidCallback? onRetry;
 
   const ThumbnailView({
     super.key,
-    required this.item,
+    required this.fileId,
     required this.size,
-    this.hasError = false,
     this.onTap,
     this.onRetry,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final file = ref.watch(storeFileProvider(fileId));
     return GestureDetector(
-      onTap: hasError ? null : onTap,
+      onTap: onTap,
       child: SizedBox(
         width: size,
         height: size,
@@ -33,8 +34,22 @@ class ThumbnailView extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              ThumbnailImage(item: item, onRetry: onRetry),
-              if (hasError) ThumbnailError(onTap: onRetry),
+              switch (file) {
+                StoredFilePatchModel(:final File file) => Image.file(
+                  file,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, _, _) => ThumbnailError(onTap: onRetry),
+                ),
+                StoredFileRemoteModel(:final String url) => Image.network(
+                  url,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (_, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const ThumbnailLoading();
+                  },
+                  errorBuilder: (_, _, _) => ThumbnailError(onTap: onRetry),
+                ),
+              },
             ],
           ),
         ),
