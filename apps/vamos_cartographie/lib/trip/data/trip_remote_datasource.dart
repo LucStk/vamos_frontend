@@ -1,6 +1,4 @@
-import 'package:stored_file_application/domain/stored_file_model.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
-import 'package:vamos_cartographie/stored_file/data/graphql/graphql.dart';
 
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
@@ -78,22 +76,5 @@ class TripRemoteDatasource {
     await ferryClient.execute(
       GDeleteTripReq(vars: GDeleteTripVars(id: id.value)),
     );
-  }
-
-  Future<GStoredFile> attachFileToTrip({
-    required TripId tripId,
-    required StoredFileId fileId,
-  }) async {
-    final res = await ferryClient.execute(
-      GAttachFileToTripReq(
-        vars: GAttachFileToTripVars(
-          input: GAttachFileTripInput(
-            tripId: tripId.value,
-            fileId: fileId.value,
-          ),
-        ),
-      ),
-    );
-    return res.attachFileToTrip;
   }
 }

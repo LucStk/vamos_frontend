@@ -14,8 +14,3 @@ mutation UpdateTrip($trip: TripUpdateInput!, $id: UUID!) {
 mutation DeleteTrip($id: UUID!) {
     deleteTrip(id: $id)
 }
-mutation AttachFileToTrip($input: AttachFileTripInput!){
-    attachFileToTrip(input:$input ){
-        ...StoredFile
-    }
-}

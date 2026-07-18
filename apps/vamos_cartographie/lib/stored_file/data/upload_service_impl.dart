@@ -3,15 +3,14 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:domain_core/notification/failure.dart';
-import 'package:stored_file_application/domain/stored_file_repository.dart';
-import 'package:stored_file_application/domain/upload_config_model.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 
 import 'package:mime/mime.dart'; // Packge utile pour le mimeType
 import 'package:path/path.dart' as p;
-import 'package:stored_file_application/domain/upload_service.dart'; // Package utile pour le nom du fichier
 
 class UploadServiceImpl implements UploadService {
   final StoredFileRepository storedFileRepo;
+
   final Dio dio;
 
   UploadServiceImpl({required this.storedFileRepo, required this.dio});

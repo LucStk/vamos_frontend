@@ -14,8 +14,4 @@ abstract class TripRepository {
   Future<Either<Failure, Trip>> updateTrip(Trip trip);
   Future<Either<Failure, void>> deleteTrip(TripId id);
   Future<Either<Failure, Trip>> createBlankTrip();
-  Future<Either<Failure, StoredFileFields>> attachFileToTrip(
-    TripId tripId,
-    StoredFileId fileId,
-  );
 }

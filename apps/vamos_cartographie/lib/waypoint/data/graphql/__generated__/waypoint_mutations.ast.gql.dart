@@ -235,61 +235,11 @@ const DeleteWaypoint = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const AttachFileToWaypoint = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'AttachFileToWaypoint'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'AttachFileWaypointInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'attachFileToWaypoint'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'StoredFile'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
-);
 const document = _i1.DocumentNode(definitions: [
   UpdateWaypoint,
   CreateBlankWaypointFromPosition,
   CreateBlankWaypointFromVertex,
   DeleteWaypoint,
-  AttachFileToWaypoint,
   _i2.StoredFile,
   _i2.FileAttachment,
   _i2.UploadConfigFields,

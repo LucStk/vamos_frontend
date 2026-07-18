@@ -112,3 +112,57 @@ class GDetachFileData {
     return 'GDetachFileData(detachFile: $detachFile, G__typename: $G__typename)';
   }
 }
+
+class GAttachFileData {
+  const GAttachFileData({
+    required this.attachFile,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GAttachFileData.fromJson(Map<String, dynamic> json) {
+    return GAttachFileData(
+      attachFile: _i1.GFileAttachmentData.fromJson(
+          (json['attachFile'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GFileAttachmentData attachFile;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['attachFile'] = this.attachFile.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GAttachFileData copyWith({
+    _i1.GFileAttachmentData? attachFile,
+    String? G__typename,
+  }) {
+    return GAttachFileData(
+      attachFile: attachFile ?? this.attachFile,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachFileData &&
+            attachFile == other.attachFile &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, attachFile, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GAttachFileData(attachFile: $attachFile, G__typename: $G__typename)';
+  }
+}

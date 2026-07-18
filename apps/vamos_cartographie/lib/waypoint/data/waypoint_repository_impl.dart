@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/mappers/mappers.dart';
 import 'package:vamos_cartographie/waypoint/data/waypoint_remote_datasource.dart';
@@ -73,20 +71,6 @@ class WaypointRepositoryImpl extends WaypointRepository {
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id) {
     return guard(() async {
       await remote.deleteWaypoint(id: id);
-    });
-  }
-
-  @override
-  Future<Either<Failure, StoredFileFields>> attachFileToWaypoint(
-    WaypointId waypointId,
-    StoredFileId fileId,
-  ) async {
-    return guard(() async {
-      final res = await remote.attachFileToWaypoint(
-        waypointId: waypointId,
-        fileId: fileId,
-      );
-      return res.toRemoteModel();
     });
   }
 }

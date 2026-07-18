@@ -13,6 +13,11 @@ class StoredFileRemoteDatasource {
 
   StoredFileRemoteDatasource(this.ferryClient);
 
+  Future<GAttachFileData> attachFile({ow})async{
+final data = await ferryClient.execute(GAttachFileReq(vars: GAttachFileVars(input: GAttachFileInput(ownerId: ,))));
+  return data;
+
+  }
   Future<GUploadConfigFields> getSignedURL(
     String filename,
     String mimeType,

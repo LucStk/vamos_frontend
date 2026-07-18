@@ -6,38 +6,46 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
-class GAttachFileTripInput {
-  const GAttachFileTripInput({
-    required this.tripId,
+class GAttachFileInput {
+  const GAttachFileInput({
+    required this.ownerType,
+    required this.ownerId,
     required this.fileId,
   });
 
-  factory GAttachFileTripInput.fromJson(Map<String, dynamic> json) {
-    return GAttachFileTripInput(
-      tripId: (json['tripId'] as String),
+  factory GAttachFileInput.fromJson(Map<String, dynamic> json) {
+    return GAttachFileInput(
+      ownerType: GOwnerTypeEnum.fromJson((json['ownerType'] as String)),
+      ownerId: (json['ownerId'] as String),
       fileId: (json['fileId'] as String),
     );
   }
 
-  final String tripId;
+  final GOwnerTypeEnum ownerType;
+
+  final String ownerId;
 
   final String fileId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$tripIdValue = this.tripId;
-    _$result['tripId'] = _$tripIdValue;
+    final _$ownerTypeValue = this.ownerType;
+    _$result['ownerType'] = _$ownerTypeValue.toJson();
+    final _$ownerIdValue = this.ownerId;
+    _$result['ownerId'] = _$ownerIdValue;
     final _$fileIdValue = this.fileId;
     _$result['fileId'] = _$fileIdValue;
     return _$result;
   }
 
-  GAttachFileTripInput copyWith({
-    String? tripId,
+  GAttachFileInput copyWith({
+    GOwnerTypeEnum? ownerType,
+    String? ownerId,
     String? fileId,
   }) {
-    return GAttachFileTripInput(
-      tripId: tripId ?? this.tripId,
+    return GAttachFileInput(
+      ownerType: ownerType ?? this.ownerType,
+      ownerId: ownerId ?? this.ownerId,
       fileId: fileId ?? this.fileId,
     );
   }
@@ -45,7 +53,7 @@ class GAttachFileTripInput {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GAttachFileTripInput &&
+        (other is GAttachFileInput &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -56,61 +64,7 @@ class GAttachFileTripInput {
 
   @override
   String toString() {
-    return 'GAttachFileTripInput(tripId: $tripId, fileId: $fileId)';
-  }
-}
-
-class GAttachFileWaypointInput {
-  const GAttachFileWaypointInput({
-    required this.waypointId,
-    required this.fileId,
-  });
-
-  factory GAttachFileWaypointInput.fromJson(Map<String, dynamic> json) {
-    return GAttachFileWaypointInput(
-      waypointId: (json['waypointId'] as String),
-      fileId: (json['fileId'] as String),
-    );
-  }
-
-  final String waypointId;
-
-  final String fileId;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$waypointIdValue = this.waypointId;
-    _$result['waypointId'] = _$waypointIdValue;
-    final _$fileIdValue = this.fileId;
-    _$result['fileId'] = _$fileIdValue;
-    return _$result;
-  }
-
-  GAttachFileWaypointInput copyWith({
-    String? waypointId,
-    String? fileId,
-  }) {
-    return GAttachFileWaypointInput(
-      waypointId: waypointId ?? this.waypointId,
-      fileId: fileId ?? this.fileId,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GAttachFileWaypointInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GAttachFileWaypointInput(waypointId: $waypointId, fileId: $fileId)';
+    return 'GAttachFileInput(ownerType: $ownerType, ownerId: $ownerId, fileId: $fileId)';
   }
 }
 
@@ -306,6 +260,34 @@ enum GMobilityType {
       case GMobilityType.TRAIN:
         return r'TRAIN';
       case GMobilityType.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
+enum GOwnerTypeEnum {
+  TRIP,
+  WAYPOINT,
+  gUnknownEnumValue;
+
+  static GOwnerTypeEnum fromJson(String value) {
+    switch (value) {
+      case r'TRIP':
+        return GOwnerTypeEnum.TRIP;
+      case r'WAYPOINT':
+        return GOwnerTypeEnum.WAYPOINT;
+      default:
+        return GOwnerTypeEnum.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GOwnerTypeEnum.TRIP:
+        return r'TRIP';
+      case GOwnerTypeEnum.WAYPOINT:
+        return r'WAYPOINT';
+      case GOwnerTypeEnum.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
   }

@@ -7,14 +7,10 @@ directive @specifiedBy(
 """Indicates an Input Object is a OneOf Input Object."""
 directive @oneOf on INPUT_OBJECT
 
-input AttachFileTripInput {
-  tripId: UUID!
-  fileId: UUID!
-}
-
-input AttachFileWaypointInput {
-  waypointId: UUID!
-  fileId: UUID!
+input AttachFileInput {
+  ownerType: OwnerTypeEnum!
+  ownerId: ID!
+  fileId: ID!
 }
 
 type CreateWaypointPayload {
@@ -68,12 +64,10 @@ type Mutation {
   updateTrip(id: UUID!, trip: TripUpdateInput!): TripType!
   deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
-  attachFileToTrip(input: AttachFileTripInput!): StoredFileType!
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): CreateWaypointPayload!
   createBlankWaypointFromVertex(tripId: UUID!, vertexId: UUID!): CreateWaypointPayload!
   deleteWaypoint(id: UUID!): Boolean!
-  attachFileToWaypoint(input: AttachFileWaypointInput!): StoredFileType!
   insertVertexToSegment(vertexId: UUID!, segmentId: UUID!): InsertVertexToSegmentPayload!
   updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: UUID!, input: SegmentCreateInput!): SegmentType!
@@ -83,6 +77,12 @@ type Mutation {
   deleteVertex(id: UUID!): Boolean!
   detachFile(input: DetachFileInput!): Boolean!
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
+  attachFile(input: AttachFileInput!): FileAttachmentType!
+}
+
+enum OwnerTypeEnum {
+  TRIP
+  WAYPOINT
 }
 
 enum PoiCategory {

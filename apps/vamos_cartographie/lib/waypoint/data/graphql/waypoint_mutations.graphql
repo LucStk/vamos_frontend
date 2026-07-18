@@ -24,8 +24,3 @@ mutation CreateBlankWaypointFromVertex($tripId: UUID!, $vertexId: UUID!) {
 mutation DeleteWaypoint($waypointId: UUID!) {
     deleteWaypoint(id: $waypointId)
 }
-mutation AttachFileToWaypoint($input: AttachFileWaypointInput!) {
-    attachFileToWaypoint(input: $input) {
-        ...StoredFile
-    }
-}

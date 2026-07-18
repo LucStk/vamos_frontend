@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:stored_file_application/domain/stored_file_model.dart';
 import 'package:trip_application/trip_application.dart';
 
 mixin WaypointEditor on OptimisticRunner<WaypointStore> {
@@ -36,17 +35,6 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
       entityKey: id,
       onApply: (gs) => gs,
       remote: (_) => waypointRepo.deleteWaypoint(id),
-    );
-  }
-
-  Future<Either<Failure, void>> attachFileToWaypoint(
-    WaypointId waypointId,
-    StoredFileId fileId,
-  ) async {
-    return await run(
-      entityKey: waypointId,
-      onApply: (gs) => gs,
-      remote: (_) => waypointRepo.attachFileToWaypoint(waypointId, fileId),
     );
   }
 }

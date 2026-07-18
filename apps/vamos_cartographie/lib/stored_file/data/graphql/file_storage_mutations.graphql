@@ -8,3 +8,9 @@ mutation GenerateImageUploadUrl($input: ImageUploadRequest!) {
 mutation DetachFile($input: DetachFileInput!) {
     detachFile(input: $input)
 }
+
+mutation AttachFile($input: AttachFileInput!) {
+    attachFile(input: $input) {
+        ...FileAttachment
+    }
+}

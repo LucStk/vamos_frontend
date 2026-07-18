@@ -1,8 +1,6 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
-import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/vertex_mutations.req.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/vertex_mutations.var.gql.dart';
@@ -107,22 +105,5 @@ class WaypointRemoteDatasource {
     await ferryClient.execute(
       GDeleteWaypointReq(vars: GDeleteWaypointVars(waypointId: id.value)),
     );
-  }
-
-  Future<GStoredFile> attachFileToWaypoint({
-    required WaypointId waypointId,
-    required StoredFileId fileId,
-  }) async {
-    final res = await ferryClient.execute(
-      GAttachFileToWaypointReq(
-        vars: GAttachFileToWaypointVars(
-          input: GAttachFileWaypointInput(
-            waypointId: waypointId.value,
-            fileId: fileId.value,
-          ),
-        ),
-      ),
-    );
-    return res.attachFileToWaypoint;
   }
 }

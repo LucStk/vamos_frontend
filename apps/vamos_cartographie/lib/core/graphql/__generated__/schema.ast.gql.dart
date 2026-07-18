@@ -26,15 +26,24 @@ const oneOf = _i1.DirectiveDefinitionNode(
   locations: [_i1.DirectiveLocation.inputObject],
   repeatable: false,
 );
-const AttachFileTripInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'AttachFileTripInput'),
+const AttachFileInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'AttachFileInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'tripId'),
+      name: _i1.NameNode(value: 'ownerType'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
+        name: _i1.NameNode(value: 'OwnerTypeEnum'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'ownerId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ID'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -43,31 +52,7 @@ const AttachFileTripInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'fileId'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
-const AttachFileWaypointInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'AttachFileWaypointInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'waypointId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'fileId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
+        name: _i1.NameNode(value: 'ID'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -347,25 +332,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'attachFileToTrip'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'AttachFileTripInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'StoredFileType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'updateWaypoint'),
       directives: [],
       args: [
@@ -465,25 +431,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'attachFileToWaypoint'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'AttachFileWaypointInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'StoredFileType'),
         isNonNull: true,
       ),
     ),
@@ -702,6 +649,39 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'UploadConfigType'),
         isNonNull: true,
       ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'attachFile'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'AttachFileInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'FileAttachmentType'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
+const OwnerTypeEnum = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'OwnerTypeEnum'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'TRIP'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WAYPOINT'),
+      directives: [],
     ),
   ],
 );
@@ -1295,8 +1275,7 @@ const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
-  AttachFileTripInput,
-  AttachFileWaypointInput,
+  AttachFileInput,
   CreateWaypointPayload,
   Date,
   DetachFileInput,
@@ -1307,6 +1286,7 @@ const document = _i1.DocumentNode(definitions: [
   LatLngType,
   MobilityType,
   Mutation,
+  OwnerTypeEnum,
   PoiCategory,
   Query,
   SegmentCreateInput,

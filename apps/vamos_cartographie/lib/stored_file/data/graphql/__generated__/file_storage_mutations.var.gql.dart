@@ -86,3 +86,43 @@ class GDetachFileVars {
     return 'GDetachFileVars(input: $input)';
   }
 }
+
+class GAttachFileVars {
+  const GAttachFileVars({required this.input});
+
+  factory GAttachFileVars.fromJson(Map<String, dynamic> json) {
+    return GAttachFileVars(
+        input: _i1.GAttachFileInput.fromJson(
+            (json['input'] as Map<String, dynamic>)));
+  }
+
+  final _i1.GAttachFileInput input;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$inputValue = this.input;
+    _$result['input'] = _$inputValue.toJson();
+    return _$result;
+  }
+
+  GAttachFileVars copyWith({_i1.GAttachFileInput? input}) {
+    return GAttachFileVars(input: input ?? this.input);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GAttachFileVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GAttachFileVars(input: $input)';
+  }
+}

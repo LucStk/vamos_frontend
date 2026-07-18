@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:stored_file_application/domain/upload_service.dart';
-import 'package:stored_file_application/stored_file_application.dart';
+import 'package:stored_file_application/application/upload_service.dart';
+import 'stored_file_store.dart';
+import '/domain/domain.dart';
 
 mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
   StoredFileRepository get storedFileRepo;
@@ -18,8 +19,8 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     );
   }
 
-  Future<Either<Failure, UploadConfigModel>> uploadFile({
-    required Id ownerId,
+  Future<Either<Failure, UploadConfigModel>> uploadFile<T>({
+    required Id<T> ownerId,
     required File file,
   }) async {
     final signedRes = await uploadService.requestSignedUrl(file);

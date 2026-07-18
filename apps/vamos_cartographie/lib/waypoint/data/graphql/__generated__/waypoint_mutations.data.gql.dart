@@ -2,8 +2,6 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
-    as _i2;
 import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
     as _i1;
 
@@ -231,59 +229,5 @@ class GDeleteWaypointData {
   @override
   String toString() {
     return 'GDeleteWaypointData(deleteWaypoint: $deleteWaypoint, G__typename: $G__typename)';
-  }
-}
-
-class GAttachFileToWaypointData {
-  const GAttachFileToWaypointData({
-    required this.attachFileToWaypoint,
-    this.G__typename = 'Mutation',
-  });
-
-  factory GAttachFileToWaypointData.fromJson(Map<String, dynamic> json) {
-    return GAttachFileToWaypointData(
-      attachFileToWaypoint: _i2.GStoredFileData.fromJson(
-          (json['attachFileToWaypoint'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final _i2.GStoredFileData attachFileToWaypoint;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['attachFileToWaypoint'] = this.attachFileToWaypoint.toJson();
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GAttachFileToWaypointData copyWith({
-    _i2.GStoredFileData? attachFileToWaypoint,
-    String? G__typename,
-  }) {
-    return GAttachFileToWaypointData(
-      attachFileToWaypoint: attachFileToWaypoint ?? this.attachFileToWaypoint,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GAttachFileToWaypointData &&
-            attachFileToWaypoint == other.attachFileToWaypoint &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, attachFileToWaypoint, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GAttachFileToWaypointData(attachFileToWaypoint: $attachFileToWaypoint, G__typename: $G__typename)';
   }
 }

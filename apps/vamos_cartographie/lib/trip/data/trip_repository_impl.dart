@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
 import 'trip_remote_datasource.dart';
 import 'trip_mappers.dart';
 
@@ -67,17 +66,6 @@ class TripRepositoryImpl extends TripRepository {
   Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
     return guard(() async {
       await remote.deleteTrip(id: id);
-    });
-  }
-
-  @override
-  Future<Either<Failure, StoredFileFields>> attachFileToTrip(
-    TripId tripId,
-    StoredFileId fileId,
-  ) async {
-    return guard(() async {
-      final res = await remote.attachFileToTrip(tripId: tripId, fileId: fileId);
-      return res.toRemoteModel();
     });
   }
 }
