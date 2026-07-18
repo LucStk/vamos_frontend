@@ -82,7 +82,7 @@ type Mutation {
   createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: UUID!): Boolean!
   detachFile(input: DetachFileInput!): Boolean!
-  generateImageUploadUrl(input: ImageUploadRequest!): UploadConfig!
+  generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
 }
 
 enum PoiCategory {
@@ -155,8 +155,8 @@ input TripUpdateInput {
   date: Date
 }
 
-type UploadConfig {
-  fileId: UUID!
+type UploadConfigType {
+  file: StoredFileType!
   uploadUrl: String!
   fileKey: String!
   contentType: String!

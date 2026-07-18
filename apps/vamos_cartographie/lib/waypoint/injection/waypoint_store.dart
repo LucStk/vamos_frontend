@@ -27,5 +27,8 @@ class WaypointStoreNotifier extends _$WaypointStoreNotifier
   WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);
 
   @override
+  MutationQueue get mutationQueue => ref.read(mutationQueueProvider);
+
+  @override
   ErrorLogger? get errorLogger => null;
 }

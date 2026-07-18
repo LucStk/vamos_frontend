@@ -106,6 +106,47 @@ final class StoredFileRepositoryProvider
 String _$storedFileRepositoryHash() =>
     r'9028cd8a1b32fd86c16af8d39a4cc00dd7534c9d';
 
+@ProviderFor(uploadService)
+final uploadServiceProvider = UploadServiceProvider._();
+
+final class UploadServiceProvider
+    extends $FunctionalProvider<UploadService, UploadService, UploadService>
+    with $Provider<UploadService> {
+  UploadServiceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'uploadServiceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$uploadServiceHash();
+
+  @$internal
+  @override
+  $ProviderElement<UploadService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UploadService create(Ref ref) {
+    return uploadService(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UploadService value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UploadService>(value),
+    );
+  }
+}
+
+String _$uploadServiceHash() => r'1e538af622aaaba2a7dee9aae81d4f7ffb2a26c4';
+
 @ProviderFor(StoredFileStoreNotifier)
 final storedFileStoreProvider = StoredFileStoreNotifierProvider._();
 
@@ -139,7 +180,7 @@ final class StoredFileStoreNotifierProvider
 }
 
 String _$storedFileStoreNotifierHash() =>
-    r'052c631fc359813402230b6b6878066512691c0c';
+    r'69b18011856f3268bfca3a66c41dd379dc51e5f6';
 
 abstract class _$StoredFileStoreNotifier extends $Notifier<StoredFileStore> {
   StoredFileStore build();

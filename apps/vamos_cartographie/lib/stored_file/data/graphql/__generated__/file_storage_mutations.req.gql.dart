@@ -58,6 +58,7 @@ class GGenerateImageUploadUrlReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.GenerateImageUploadUrl,
+    _i7.StoredFile,
     _i7.UploadConfigFields,
   ]);
 

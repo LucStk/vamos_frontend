@@ -105,17 +105,29 @@ const UploadConfigFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'UploadConfigFields'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'UploadConfig'),
+    name: _i1.NameNode(value: 'UploadConfigType'),
     isNonNull: false,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'fileId'),
+      name: _i1.NameNode(value: 'file'),
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'StoredFile'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'uploadUrl'),

@@ -77,7 +77,7 @@ class TripRepositoryImpl extends TripRepository {
   ) async {
     return guard(() async {
       final res = await remote.attachFileToTrip(tripId: tripId, fileId: fileId);
-      return StoredFileMappers.fromGQL(res);
+      return res.toRemoteModel();
     });
   }
 }

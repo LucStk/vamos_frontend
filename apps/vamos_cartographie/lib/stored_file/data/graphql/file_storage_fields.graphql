@@ -13,8 +13,10 @@ fragment FileAttachment on FileAttachmentType {
     }
 }
 
-fragment UploadConfigFields on UploadConfig {
-    fileId
+fragment UploadConfigFields on UploadConfigType {
+    file {
+        ...StoredFile
+    }
     uploadUrl
     fileKey
     contentType

@@ -163,7 +163,7 @@ class GFileAttachmentData implements GFileAttachment {
 }
 
 abstract class GUploadConfigFields {
-  String get fileId;
+  GStoredFile get file;
   String get uploadUrl;
   String get fileKey;
   String get contentType;
@@ -172,16 +172,16 @@ abstract class GUploadConfigFields {
 
 class GUploadConfigFieldsData implements GUploadConfigFields {
   const GUploadConfigFieldsData({
-    required this.fileId,
+    required this.file,
     required this.uploadUrl,
     required this.fileKey,
     required this.contentType,
-    this.G__typename = 'UploadConfig',
+    this.G__typename = 'UploadConfigType',
   });
 
   factory GUploadConfigFieldsData.fromJson(Map<String, dynamic> json) {
     return GUploadConfigFieldsData(
-      fileId: (json['fileId'] as String),
+      file: GStoredFileData.fromJson((json['file'] as Map<String, dynamic>)),
       uploadUrl: (json['uploadUrl'] as String),
       fileKey: (json['fileKey'] as String),
       contentType: (json['contentType'] as String),
@@ -189,7 +189,7 @@ class GUploadConfigFieldsData implements GUploadConfigFields {
     );
   }
 
-  final String fileId;
+  final GStoredFileData file;
 
   final String uploadUrl;
 
@@ -201,7 +201,7 @@ class GUploadConfigFieldsData implements GUploadConfigFields {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['fileId'] = this.fileId;
+    _$result['file'] = this.file.toJson();
     _$result['uploadUrl'] = this.uploadUrl;
     _$result['fileKey'] = this.fileKey;
     _$result['contentType'] = this.contentType;
@@ -210,14 +210,14 @@ class GUploadConfigFieldsData implements GUploadConfigFields {
   }
 
   GUploadConfigFieldsData copyWith({
-    String? fileId,
+    GStoredFileData? file,
     String? uploadUrl,
     String? fileKey,
     String? contentType,
     String? G__typename,
   }) {
     return GUploadConfigFieldsData(
-      fileId: fileId ?? this.fileId,
+      file: file ?? this.file,
       uploadUrl: uploadUrl ?? this.uploadUrl,
       fileKey: fileKey ?? this.fileKey,
       contentType: contentType ?? this.contentType,
@@ -229,7 +229,7 @@ class GUploadConfigFieldsData implements GUploadConfigFields {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is GUploadConfigFieldsData &&
-            fileId == other.fileId &&
+            file == other.file &&
             uploadUrl == other.uploadUrl &&
             fileKey == other.fileKey &&
             contentType == other.contentType &&
@@ -239,11 +239,11 @@ class GUploadConfigFieldsData implements GUploadConfigFields {
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType, fileId, uploadUrl, fileKey, contentType, G__typename);
+        runtimeType, file, uploadUrl, fileKey, contentType, G__typename);
   }
 
   @override
   String toString() {
-    return 'GUploadConfigFieldsData(fileId: $fileId, uploadUrl: $uploadUrl, fileKey: $fileKey, contentType: $contentType, G__typename: $G__typename)';
+    return 'GUploadConfigFieldsData(file: $file, uploadUrl: $uploadUrl, fileKey: $fileKey, contentType: $contentType, G__typename: $G__typename)';
   }
 }

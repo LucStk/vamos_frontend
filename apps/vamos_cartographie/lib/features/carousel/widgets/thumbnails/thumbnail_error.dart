@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThumbnailError extends StatelessWidget {
-  final VoidCallback? onTap;
-
-  const ThumbnailError({super.key, this.onTap});
+  const ThumbnailError({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +9,6 @@ class ThumbnailError extends StatelessWidget {
     return Material(
       color: Colors.redAccent.withValues(alpha: 0.6),
       child: InkWell(
-        // 2. On passe le callback ici. Si onTap est nul, l'effet visuel est automatiquement désactivé
-        onTap: onTap,
         // 3. Optionnel : On peut personnaliser la couleur de l'ondulation pour qu'elle ressorte bien sur le rouge
         splashColor: Colors.white24,
         highlightColor: Colors.white10,

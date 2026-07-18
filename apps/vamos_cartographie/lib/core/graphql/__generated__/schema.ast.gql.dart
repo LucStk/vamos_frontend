@@ -699,7 +699,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         )
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UploadConfig'),
+        name: _i1.NameNode(value: 'UploadConfigType'),
         isNonNull: true,
       ),
     ),
@@ -1114,17 +1114,17 @@ const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const UploadConfig = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'UploadConfig'),
+const UploadConfigType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UploadConfigType'),
   directives: [],
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'fileId'),
+      name: _i1.NameNode(value: 'file'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
+        name: _i1.NameNode(value: 'StoredFileType'),
         isNonNull: true,
       ),
     ),
@@ -1316,7 +1316,7 @@ const document = _i1.DocumentNode(definitions: [
   TopologyType,
   TripType,
   TripUpdateInput,
-  UploadConfig,
+  UploadConfigType,
   UUID,
   VertexType,
   WaypointType,

@@ -86,7 +86,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
         waypointId: waypointId,
         fileId: fileId,
       );
-      return StoredFileMappers.fromGQL(res);
+      return res.toRemoteModel();
     });
   }
 }

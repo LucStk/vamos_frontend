@@ -4,6 +4,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/core.dart";
+import "package:vamos_cartographie/core/injection/mutation_queue_provider.dart";
 import "package:vamos_cartographie/topology/data/topology.dart";
 part "graph_store.g.dart";
 
@@ -46,6 +47,9 @@ class GraphStoreNotifier extends _$GraphStoreNotifier
   // Injection des dépendances requises par le mixin TopologyHandler
   @override
   SegmentRepository get segmentRepo => ref.read(segmentRepositoryProvider);
+
+  @override
+  MutationQueue get mutationQueue => ref.read(mutationQueueProvider);
 
   @override
   VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);

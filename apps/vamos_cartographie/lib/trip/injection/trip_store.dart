@@ -27,6 +27,9 @@ class TripStoreNotifier extends _$TripStoreNotifier
   TripRepository get tripRepo => ref.read(tripRepositoryProvider);
 
   @override
+  MutationQueue get mutationQueue => ref.read(mutationQueueProvider);
+
+  @override
   ErrorLogger? get errorLogger => null;
 
   Future<Failure?> loadTrips() async {

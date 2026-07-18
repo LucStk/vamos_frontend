@@ -23,7 +23,6 @@ abstract class StoredFileRemoteModel
     required StoredFileId id,
     required String filename,
     required String url,
-    required String status,
   }) = _StoredFileRemoteModel;
 
   const StoredFileRemoteModel._();

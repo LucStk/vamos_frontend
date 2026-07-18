@@ -11,6 +11,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     WaypointFields waypoint,
   ) async {
     return await run(
+      entityKey: waypoint.id,
       onApply: (gs) => gs..waypointStore.get(waypoint.id)?.set(waypoint),
       remote: (_) =>
           waypointRepo.updateWaypoint(WaypointRemoteModel.fromFields(waypoint)),
@@ -32,6 +33,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
 
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id) async {
     return await run(
+      entityKey: id,
       onApply: (gs) => gs,
       remote: (_) => waypointRepo.deleteWaypoint(id),
     );
@@ -42,6 +44,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     StoredFileId fileId,
   ) async {
     return await run(
+      entityKey: waypointId,
       onApply: (gs) => gs,
       remote: (_) => waypointRepo.attachFileToWaypoint(waypointId, fileId),
     );

@@ -17,6 +17,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
 
   Future<Either<Failure, Trip>> updateTrip(Trip trip) async {
     return await run(
+      entityKey: trip.id,
       onApply: (gs) => gs,
       remote: (_) => tripRepo.updateTrip(trip),
       onSuccess: (gs, Trip serverTrip) => gs.insertTrip(serverTrip),
@@ -25,6 +26,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
 
   Future<Either<Failure, void>> deleteTrip(Id<Trip> id) async {
     return await run(
+      entityKey: id,
       onApply: (gs) => gs,
       remote: (_) => tripRepo.deleteTrip(id),
     );
@@ -35,6 +37,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
     StoredFileId fileId,
   ) async {
     return await run(
+      entityKey: tripId,
       onApply: (gs) => gs,
       remote: (_) => tripRepo.attachFileToTrip(tripId, fileId),
     );

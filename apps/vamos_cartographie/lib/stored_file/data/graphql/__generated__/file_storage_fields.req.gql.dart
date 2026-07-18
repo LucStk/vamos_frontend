@@ -155,8 +155,10 @@ class GUploadConfigFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.UploadConfigFields]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
+    _i4.StoredFile,
+    _i4.UploadConfigFields,
+  ]);
 
   _i2.GUploadConfigFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GUploadConfigFieldsData.fromJson(json);

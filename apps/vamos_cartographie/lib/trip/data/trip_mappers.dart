@@ -29,9 +29,7 @@ class TripMapper {
       description: data.description,
       date: data.date != null ? DateTime.parse(data.date!) : null,
     );
-    final images = data.files
-        .map((i) => StoredFileMappers.fromGQL(i.file))
-        .toList();
+    final images = data.files.map((i) => i.file.toRemoteModel()).toList();
     return (trip, images);
   }
 
@@ -43,7 +41,7 @@ class TripMapper {
         .map(
           (m) => (
             WaypointMapper.fromGQL(m),
-            m.files.map((i) => StoredFileMappers.fromGQL(i.file)).toList(),
+            m.files.map((i) => i.file.toRemoteModel()).toList(),
           ),
         )
         .toList();

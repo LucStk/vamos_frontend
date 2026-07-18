@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/features/carousel/widgets/thumbnails/thumbnail_loading.dart';
+import 'package:vamos_cartographie/features/carousel/widgets/thumbnails/thumbnails.dart';
 import 'package:vamos_cartographie/stored_file/injection/stored_file_queries.dart';
-import 'thumbnail_error.dart';
 
 import 'dart:io';
 
@@ -38,7 +38,7 @@ class ThumbnailView extends ConsumerWidget {
                 StoredFilePatchModel(:final File file) => Image.file(
                   file,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, _, _) => ThumbnailError(onTap: onRetry),
+                  errorBuilder: (_, _, _) => ThumbnailError(),
                 ),
                 StoredFileRemoteModel(:final String url) => Image.network(
                   url,
@@ -47,7 +47,7 @@ class ThumbnailView extends ConsumerWidget {
                     if (loadingProgress == null) return child;
                     return const ThumbnailLoading();
                   },
-                  errorBuilder: (_, _, _) => ThumbnailError(onTap: onRetry),
+                  errorBuilder: (_, _, _) => ThumbnailError(),
                 ),
               },
             ],
