@@ -180,7 +180,7 @@ final class StoredFileStoreNotifierProvider
 }
 
 String _$storedFileStoreNotifierHash() =>
-    r'69b18011856f3268bfca3a66c41dd379dc51e5f6';
+    r'dfd15cf1af2c939d4bfc7c906f5a5ba05fff07ad';
 
 abstract class _$StoredFileStoreNotifier extends $Notifier<StoredFileStore> {
   StoredFileStore build();

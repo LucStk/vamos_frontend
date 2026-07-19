@@ -5,6 +5,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/core.dart";
 import "package:vamos_cartographie/core/injection/mutation_queue_provider.dart";
+import "package:vamos_cartographie/notification/injection/injection.dart";
 import "package:vamos_cartographie/topology/data/topology.dart";
 part "graph_store.g.dart";
 
@@ -55,7 +56,7 @@ class GraphStoreNotifier extends _$GraphStoreNotifier
   VertexRepository get vertexRepo => ref.read(vertexRepositoryProvider);
 
   @override
-  ErrorLogger? get errorLogger => null;
+  ErrorLogger? get errorLogger => ref.read(errorLoggerProvider);
 }
 
 @riverpod

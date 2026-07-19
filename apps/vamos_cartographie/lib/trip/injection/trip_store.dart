@@ -3,6 +3,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:stored_file_application/stored_file_application.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
+import "package:vamos_cartographie/notification/injection/error_logger.dart";
 import "package:vamos_cartographie/stored_file/injection/injection.dart";
 import "/trip/data/data.dart";
 part "trip_store.g.dart";
@@ -30,7 +31,7 @@ class TripStoreNotifier extends _$TripStoreNotifier
   MutationQueue get mutationQueue => ref.read(mutationQueueProvider);
 
   @override
-  ErrorLogger? get errorLogger => null;
+  ErrorLogger? get errorLogger => ref.read(errorLoggerProvider);
 
   Future<Failure?> loadTrips() async {
     final res = await tripRepo.getAllTrips();

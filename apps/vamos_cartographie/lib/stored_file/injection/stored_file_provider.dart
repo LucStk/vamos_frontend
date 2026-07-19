@@ -5,6 +5,7 @@ import "package:domain_core/runtime/optimitic_runner.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:stored_file_application/stored_file_application.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
+import "package:vamos_cartographie/notification/injection/error_logger.dart";
 import "package:vamos_cartographie/stored_file/data/stored_file.dart";
 import "package:vamos_cartographie/stored_file/data/upload_service_impl.dart";
 part "stored_file_provider.g.dart";
@@ -42,5 +43,5 @@ class StoredFileStoreNotifier extends _$StoredFileStoreNotifier
   @override
   UploadService get uploadService => ref.read(uploadServiceProvider);
   @override
-  ErrorLogger? get errorLogger => errorLogger;
+  ErrorLogger? get errorLogger => ref.read(errorLoggerProvider);
 }
