@@ -42,5 +42,5 @@ class StoredFileStoreNotifier extends _$StoredFileStoreNotifier
   @override
   UploadService get uploadService => ref.read(uploadServiceProvider);
   @override
-  ErrorLogger? get errorLogger => null;
+  ErrorLogger? get errorLogger => errorLogger;
 }

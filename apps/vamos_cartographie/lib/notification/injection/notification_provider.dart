@@ -2,22 +2,9 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/notification/domain/domain.dart';
 
 part 'notification_provider.g.dart';
-
-enum NotificationType { success, error }
-
-class AppNotification {
-  final String message;
-  final NotificationType type;
-  final Duration duration;
-
-  AppNotification({
-    required this.message,
-    required this.type,
-    this.duration = const Duration(seconds: 3),
-  });
-}
 
 @Riverpod(keepAlive: true)
 class NotificationQueue extends _$NotificationQueue {

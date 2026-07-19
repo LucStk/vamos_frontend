@@ -19,8 +19,9 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     );
   }
 
-  Future<Either<Failure, UploadConfigModel>> uploadFile<T>({
+  Future<Either<Failure, StoredFileRemoteModel>> uploadFile<T>({
     required Id<T> ownerId,
+    required OwnerType ownerType,
     required File file,
   }) async {
     final signedRes = await uploadService.requestSignedUrl(file);
@@ -30,10 +31,11 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
         failure,
       ), // rien à insérer, rien à rollback : pas de state touché
       (config) async {
-        final patch = StoredFilePatchModel(id: config.file.id, file: file);
+        final fileId = config.file.id;
+        final patch = StoredFilePatchModel(id: fileId, file: file);
 
         return await run(
-          entityKey: config.file.id,
+          entityKey: fileId,
           onApply: (gs) => gs.insertStoredFile(ownerId, patch),
           remote: (reportProgress) async {
             final putRes = await uploadService.putFile(
@@ -41,19 +43,22 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
               config,
               onProgress: (sent, total) {
                 reportProgress(
-                  (gs) => gs
-                    ..updatePatchProgress(
-                      config.file.id,
-                      sent: sent,
-                      total: total,
-                    ),
+                  (gs) =>
+                      gs..updatePatchProgress(fileId, sent: sent, total: total),
                 );
               },
             );
-            return putRes.fold((f) => Left(f), (_) => Right(config));
+            return putRes.fold((f) => Left(f), (data) async {
+              final attachRes = await storedFileRepo.attachFile(
+                ownerId,
+                ownerType,
+                fileId,
+              );
+              return attachRes.fold((f) => Left(f), (data) => Right(data));
+            });
           },
-          onSuccess: (gs, config) => gs..markUploaded(config.file),
-          onError: (gs, f) => gs..markFailed(config.file.id, f),
+          onSuccess: (gs, data) => gs..markUploaded(data),
+          onError: (gs, f) => gs..markFailed(fileId, f),
         );
       },
     );

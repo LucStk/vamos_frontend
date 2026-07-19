@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/features/carousel/widgets/thumbnails/thumbnail_loading.dart';
-import 'package:vamos_cartographie/features/carousel/widgets/thumbnails/thumbnails.dart';
-import 'package:vamos_cartographie/stored_file/injection/injection.dart';
 import 'package:vamos_cartographie/stored_file/injection/stored_file_queries.dart';
+import "widgets/widgets.dart";
 
 import 'dart:io';
 
-class ThumbnailPicker extends ConsumerWidget {
+class ThumbnailView extends ConsumerWidget {
   final StoredFileId fileId;
   final double size;
+  final VoidCallback? onTap;
+  final VoidCallback? onRetry;
 
-  const ThumbnailPicker({super.key, required this.fileId, required this.size});
+  const ThumbnailView({
+    super.key,
+    required this.fileId,
+    required this.size,
+    this.onTap,
+    this.onRetry,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final file = ref.watch(storeFileProvider(fileId));
-    final notifier = ref.watch(storedFileStoreProvider.notifier);
-
     return GestureDetector(
-      // onTap: file.hasError ? null : onTap,
+      onTap: onTap,
       child: SizedBox(
         width: size,
         height: size,
@@ -45,16 +49,6 @@ class ThumbnailPicker extends ConsumerWidget {
                   errorBuilder: (_, _, _) => ThumbnailError(),
                 ),
               },
-              // Overlays d'états globaux
-              if (file.isUploading) const ThumbnailLoading(),
-              if (file.hasError) ThumbnailError(),
-
-              // Bouton Supprimer
-              if (!file.isUploading && !file.hasError)
-                GestureDetector(
-                  onTap: () => notifier.deleteFile(id: file.id),
-                  child: ThumbnailDeleteButton(),
-                ),
             ],
           ),
         ),

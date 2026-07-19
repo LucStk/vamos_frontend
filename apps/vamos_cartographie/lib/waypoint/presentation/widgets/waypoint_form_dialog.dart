@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
 
@@ -60,7 +62,10 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
           const SizedBox(height: 4),
 
           // ── Images ─────────────────────────────
-          ImageCarouselPicker(id: widget.initialWaypoint.id),
+          ImageCarouselPicker(
+            id: widget.initialWaypoint.id,
+            ownerType: OwnerType.waypoint,
+          ),
 
           const SizedBox(height: 16),
 

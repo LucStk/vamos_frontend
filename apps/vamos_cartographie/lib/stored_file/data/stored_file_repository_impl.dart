@@ -22,6 +22,18 @@ class StoredFileRepositoryImpl extends StoredFileRepository {
   }
 
   @override
+  Future<Either<Failure, StoredFileRemoteModel>> attachFile(
+    Id ownerId,
+    OwnerType ownerType,
+    StoredFileId fileId,
+  ) {
+    return guard(() async {
+      final res = await remote.attachFile(ownerId, ownerType, fileId);
+      return res.attachFile.toRemoteModel();
+    });
+  }
+
+  @override
   Future<Either<Failure, void>> detachFile(StoredFileId id) async {
     return guard(() async {
       await remote.deleteFile(id: id);

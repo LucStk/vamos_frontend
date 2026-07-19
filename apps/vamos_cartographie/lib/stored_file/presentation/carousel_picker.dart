@@ -2,15 +2,20 @@ import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/features/carousel/help/image_picker_service.dart';
-import 'package:vamos_cartographie/features/carousel/widgets/thumbnail_picker.dart';
 import 'package:vamos_cartographie/stored_file/injection/injection.dart';
-import 'thumbnails/thumbnails.dart';
+import 'package:vamos_cartographie/stored_file/services/services.dart';
+import 'widgets/widgets.dart';
+import "thumbnail_picker.dart";
 
 class ImageCarouselPicker<T> extends ConsumerWidget {
   final Id<T> id;
+  final OwnerType ownerType;
   final double thumbSize = 80;
-  const ImageCarouselPicker({super.key, required this.id});
+  const ImageCarouselPicker({
+    super.key,
+    required this.id,
+    required this.ownerType,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,7 +36,11 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
           onTap: () async {
             final listFile = await pickImages();
             listFile.map(
-              (file) => notifier.uploadFile(file: file, ownerId: id),
+              (file) => notifier.uploadFile(
+                file: file,
+                ownerId: id,
+                ownerType: ownerType,
+              ),
             );
           },
           child: ThumbnailButtonAdd(size: thumbSize),

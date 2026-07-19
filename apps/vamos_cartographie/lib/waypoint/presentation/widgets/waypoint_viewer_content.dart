@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/features/carousel/carousel.dart';
+import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
 
 class WaypointViewerContent extends StatelessWidget {

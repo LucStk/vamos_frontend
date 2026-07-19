@@ -1,5 +1,7 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
 import "/stored_file/data/graphql/graphql.dart";
 import 'package:vamos_cartographie/core/network/network.dart';
 import 'package:ferry/ferry.dart';
@@ -13,11 +15,25 @@ class StoredFileRemoteDatasource {
 
   StoredFileRemoteDatasource(this.ferryClient);
 
-  Future<GAttachFileData> attachFile({ow})async{
-final data = await ferryClient.execute(GAttachFileReq(vars: GAttachFileVars(input: GAttachFileInput(ownerId: ,))));
-  return data;
-
+  Future<GAttachFileData> attachFile(
+    Id ownerId,
+    OwnerType ownerType,
+    StoredFileId fileId,
+  ) async {
+    final data = await ferryClient.execute(
+      GAttachFileReq(
+        vars: GAttachFileVars(
+          input: GAttachFileInput(
+            ownerId: ownerId.value,
+            ownerType: ownerType.toGql(),
+            fileId: fileId.value,
+          ),
+        ),
+      ),
+    );
+    return data;
   }
+
   Future<GUploadConfigFields> getSignedURL(
     String filename,
     String mimeType,

@@ -1,31 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/features/carousel/widgets/thumbnails/thumbnail_loading.dart';
-import 'package:vamos_cartographie/features/carousel/widgets/thumbnails/thumbnails.dart';
+import 'package:vamos_cartographie/stored_file/injection/injection.dart';
 import 'package:vamos_cartographie/stored_file/injection/stored_file_queries.dart';
-
+import "widgets/widgets.dart";
 import 'dart:io';
 
-class ThumbnailView extends ConsumerWidget {
+class ThumbnailPicker extends ConsumerWidget {
   final StoredFileId fileId;
   final double size;
-  final VoidCallback? onTap;
-  final VoidCallback? onRetry;
 
-  const ThumbnailView({
-    super.key,
-    required this.fileId,
-    required this.size,
-    this.onTap,
-    this.onRetry,
-  });
+  const ThumbnailPicker({super.key, required this.fileId, required this.size});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final file = ref.watch(storeFileProvider(fileId));
+    final notifier = ref.watch(storedFileStoreProvider.notifier);
+
     return GestureDetector(
-      onTap: onTap,
+      // onTap: file.hasError ? null : onTap,
       child: SizedBox(
         width: size,
         height: size,
@@ -50,6 +43,22 @@ class ThumbnailView extends ConsumerWidget {
                   errorBuilder: (_, _, _) => ThumbnailError(),
                 ),
               },
+              // Overlays d'états globaux
+              if (file.isUploading) const ThumbnailLoading(),
+              if (file.hasError) ThumbnailError(),
+
+              // Bouton Supprimer
+              if (!file.isUploading && !file.hasError)
+                Positioned(
+                  top: 4,
+                  right: 4,
+                  child: GestureDetector(
+                    behavior: HitTestBehavior
+                        .opaque, // Assure que tout le clic est capturé
+                    onTap: () => notifier.deleteFile(id: file.id),
+                    child: const ThumbnailDeleteButton(),
+                  ),
+                ),
             ],
           ),
         ),

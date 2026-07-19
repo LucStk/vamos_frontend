@@ -1,6 +1,3 @@
-export 'carousel/carousel.dart';
-export "notifications/notification.dart";
-export "notifications/notification_card.dart";
 export "text/text_area_counter.dart";
 export "type_selector/type_card.dart";
 export "type_selector/type_selector_view.dart";
