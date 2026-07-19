@@ -21,10 +21,6 @@ type CreateWaypointPayload {
 """Date (isoformat)"""
 scalar Date
 
-input DetachFileInput {
-  attachmentId: UUID!
-}
-
 type FileAttachmentType {
   order: Int!
   isCover: Boolean!
@@ -75,9 +71,9 @@ type Mutation {
   moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
   createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: UUID!): Boolean!
-  detachFile(input: DetachFileInput!): Boolean!
-  generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
+  detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
+  generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
 }
 
 enum OwnerTypeEnum {

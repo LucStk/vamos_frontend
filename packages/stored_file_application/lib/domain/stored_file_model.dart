@@ -56,7 +56,7 @@ abstract class StoredFilePatchModel
   bool get isUploading => status == UploadStatus.uploading;
 
   factory StoredFilePatchModel({
-    required StoredFileId? id,
+    StoredFileId? id,
     required File file,
     bool recomputing = false,
     Object? error,

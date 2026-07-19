@@ -8,7 +8,7 @@ import 'package:stored_file_application/domain/upload_config_model.dart';
 abstract class UploadService {
   Future<Either<Failure, UploadConfigModel>> requestSignedUrl(File file);
 
-  Future<Either<Failure, void>> putFile(
+  Future<Failure?> putFile(
     File file,
     UploadConfigModel config, {
     void Function(int sent, int total)? onProgress,

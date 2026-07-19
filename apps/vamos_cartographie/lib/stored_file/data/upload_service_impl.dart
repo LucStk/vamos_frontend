@@ -7,6 +7,7 @@ import 'package:stored_file_application/stored_file_application.dart';
 
 import 'package:mime/mime.dart'; // Packge utile pour le mimeType
 import 'package:path/path.dart' as p;
+import 'package:vamos_cartographie/core/services/exception_mapper.dart';
 
 class UploadServiceImpl implements UploadService {
   final StoredFileRepository storedFileRepo;
@@ -24,14 +25,14 @@ class UploadServiceImpl implements UploadService {
   }
 
   @override
-  Future<Either<Failure, void>> putFile(
+  Future<Failure?> putFile(
     File file,
     UploadConfigModel config, {
     void Function(int sent, int total)? onProgress,
     CancelToken? cancelToken,
   }) async {
+    final size = await file.length();
     try {
-      final size = await file.length();
       final response = await dio.put(
         config.uploadUrl,
         data: file.openRead(),
@@ -41,12 +42,15 @@ class UploadServiceImpl implements UploadService {
         cancelToken: cancelToken,
         onSendProgress: onProgress,
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return const Right(null);
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        return ServerFailure(
+          'Échec de l\'upload vers SeaweedFS : ${response.statusMessage}',
+        );
       }
-      return Left(ServerFailure('Échec de l\'upload vers SeaweedFS'));
-    } on DioException catch (e) {
-      return Left(ServerFailure(e.message ?? 'Erreur réseau'));
+    } catch (e) {
+      return ExceptionMapper.fromException(e);
     }
+
+    return null;
   }
 }

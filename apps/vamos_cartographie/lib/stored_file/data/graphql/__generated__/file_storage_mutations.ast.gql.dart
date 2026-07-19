@@ -60,9 +60,9 @@ const DetachFile = _i1.OperationDefinitionNode(
   name: _i1.NameNode(value: 'DetachFile'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DetachFileInput'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -76,8 +76,8 @@ const DetachFile = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
         )
       ],
       directives: [],

@@ -57,9 +57,7 @@ class StoredFileRemoteDatasource {
 
   Future<void> deleteFile({required Id id}) async {
     await ferryClient.execute(
-      GDetachFileReq(
-        vars: GDetachFileVars(input: GDetachFileInput(attachmentId: id.value)),
-      ),
+      GDetachFileReq(vars: GDetachFileVars(id: id.value)),
     );
   }
 }

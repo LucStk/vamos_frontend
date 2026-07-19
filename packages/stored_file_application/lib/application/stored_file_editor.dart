@@ -19,48 +19,67 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     );
   }
 
-  Future<Either<Failure, StoredFileRemoteModel>> uploadFile<T>({
-    required Id<T> ownerId,
+  Future<Failure?> attachFile({
+    required Id ownerId,
+    required OwnerType ownerType,
+    required StoredFileId fileId,
+  }) async {
+    final res = await storedFileRepo.attachFile(ownerId, ownerType, fileId);
+    return res.fold((Failure f) => f, (data) {
+      final node = state.get(fileId);
+      if (node == null) {
+        state = state.insertStoredFile(ownerId, data);
+      } else {
+        node.set(data);
+      }
+      return;
+    });
+  }
+
+  Future<Either<Failure, UploadConfigModel>> getSignedUrl({
+    required Id ownerId,
+    required File file,
+  }) async {
+    final res = await uploadService.requestSignedUrl(file);
+    return res.fold(
+      (Failure f) {
+        errorLogger?.logError(f, StackTrace.current);
+        return Left(f);
+      },
+      (UploadConfigModel data) {
+        //On ajoute le storeFilePatch
+        state = state.insertStoredFile(
+          ownerId,
+          StoredFilePatchModel(id: data.file.id, file: file),
+        );
+        return Right(data);
+      },
+    );
+  }
+
+  Future<Failure?> uploadFile<T>({
+    required Id ownerId,
     required OwnerType ownerType,
     required File file,
   }) async {
-    final signedRes = await uploadService.requestSignedUrl(file);
+    final uploadConf = await getSignedUrl(ownerId: ownerId, file: file);
+    return uploadConf.fold((Failure f) => f, (config) async {
+      final putRes = await uploadService.putFile(
+        file,
+        config,
+        onProgress: (sent, total) {
+          print("sent");
+          state.updatePatchProgress(config.file.id, sent: sent, total: total);
+        },
+      );
+      if (putRes != null) return putRes;
 
-    return await signedRes.fold(
-      (failure) => Left(
-        failure,
-      ), // rien à insérer, rien à rollback : pas de state touché
-      (config) async {
-        final fileId = config.file.id;
-        final patch = StoredFilePatchModel(id: fileId, file: file);
-
-        return await run(
-          entityKey: fileId,
-          onApply: (gs) => gs.insertStoredFile(ownerId, patch),
-          remote: (reportProgress) async {
-            final putRes = await uploadService.putFile(
-              file,
-              config,
-              onProgress: (sent, total) {
-                reportProgress(
-                  (gs) =>
-                      gs..updatePatchProgress(fileId, sent: sent, total: total),
-                );
-              },
-            );
-            return putRes.fold((f) => Left(f), (data) async {
-              final attachRes = await storedFileRepo.attachFile(
-                ownerId,
-                ownerType,
-                fileId,
-              );
-              return attachRes.fold((f) => Left(f), (data) => Right(data));
-            });
-          },
-          onSuccess: (gs, data) => gs..markUploaded(data),
-          onError: (gs, f) => gs..markFailed(fileId, f),
-        );
-      },
-    );
+      await attachFile(
+        ownerId: ownerId,
+        ownerType: ownerType,
+        fileId: config.file.id,
+      );
+      return null;
+    });
   }
 }

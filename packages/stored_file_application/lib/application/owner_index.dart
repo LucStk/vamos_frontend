@@ -1,14 +1,12 @@
 class OwnerIndex<V, E> {
-  Map<V, Set<E>> _ownerIndex = {};
-  Map<E, V> _ownedIndex = {};
+  final Map<V, Set<E>> _ownerIndex = {};
+  final Map<E, V> _ownedIndex = {};
 
-  Set<E>? owneds(V owner) {
-    return _ownerIndex[owner];
-  }
+  Set<E>? owneds(V owner) => _ownerIndex[owner];
 
   void clear() {
-    _ownedIndex = {};
-    _ownerIndex = {};
+    _ownedIndex.clear();
+    _ownerIndex.clear();
   }
 
   void addRelationship(V owner, E owned) {
@@ -17,9 +15,12 @@ class OwnerIndex<V, E> {
   }
 
   void removeOwner(V owner) {
-    final l = _ownerIndex.remove(owner);
-    if (l != null) {
-      l.map(_ownedIndex.remove);
+    final elements = _ownerIndex.remove(owner);
+    if (elements != null) {
+      // Correction du bug .map() : on utilise une vraie boucle
+      for (final element in elements) {
+        _ownedIndex.remove(element);
+      }
     }
   }
 
@@ -27,6 +28,10 @@ class OwnerIndex<V, E> {
     final owner = _ownedIndex.remove(owned);
     if (owner != null) {
       _ownerIndex[owner]?.remove(owned);
+      // Optionnel : nettoyer la map si le Set de l'owner est vide
+      if (_ownerIndex[owner]?.isEmpty ?? false) {
+        _ownerIndex.remove(owner);
+      }
     }
   }
 }

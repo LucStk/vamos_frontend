@@ -68,44 +68,6 @@ class GAttachFileInput {
   }
 }
 
-class GDetachFileInput {
-  const GDetachFileInput({required this.attachmentId});
-
-  factory GDetachFileInput.fromJson(Map<String, dynamic> json) {
-    return GDetachFileInput(attachmentId: (json['attachmentId'] as String));
-  }
-
-  final String attachmentId;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$attachmentIdValue = this.attachmentId;
-    _$result['attachmentId'] = _$attachmentIdValue;
-    return _$result;
-  }
-
-  GDetachFileInput copyWith({String? attachmentId}) {
-    return GDetachFileInput(attachmentId: attachmentId ?? this.attachmentId);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GDetachFileInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GDetachFileInput(attachmentId: $attachmentId)';
-  }
-}
-
 class GImageUploadRequest {
   const GImageUploadRequest({
     required this.filename,

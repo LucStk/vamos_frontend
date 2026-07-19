@@ -22,9 +22,6 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
     final store = ref.watch(storedFileStoreProvider);
     final notifier = ref.watch(storedFileStoreProvider.notifier);
     final filesId = store.getFromOwner(id);
-    if (filesId == null) {
-      return SizedBox.shrink();
-    }
     return Wrap(
       spacing: 8,
       runSpacing: 8,
@@ -35,13 +32,13 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
         GestureDetector(
           onTap: () async {
             final listFile = await pickImages();
-            listFile.map(
-              (file) => notifier.uploadFile(
+            for (final file in listFile) {
+              notifier.uploadFile(
                 file: file,
                 ownerId: id,
                 ownerType: ownerType,
-              ),
-            );
+              );
+            }
           },
           child: ThumbnailButtonAdd(size: thumbSize),
         ),

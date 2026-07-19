@@ -15,9 +15,7 @@ class ImageCarouselView<T> extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final store = ref.watch(storedFileStoreProvider);
     final filesId = store.getFromOwner(id);
-    if (filesId == null) {
-      return SizedBox.shrink();
-    }
+
     return Wrap(
       spacing: 8,
       runSpacing: 8,

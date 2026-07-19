@@ -48,25 +48,23 @@ class GGenerateImageUploadUrlVars {
 }
 
 class GDetachFileVars {
-  const GDetachFileVars({required this.input});
+  const GDetachFileVars({required this.id});
 
   factory GDetachFileVars.fromJson(Map<String, dynamic> json) {
-    return GDetachFileVars(
-        input: _i1.GDetachFileInput.fromJson(
-            (json['input'] as Map<String, dynamic>)));
+    return GDetachFileVars(id: (json['id'] as String));
   }
 
-  final _i1.GDetachFileInput input;
+  final String id;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$inputValue = this.input;
-    _$result['input'] = _$inputValue.toJson();
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue;
     return _$result;
   }
 
-  GDetachFileVars copyWith({_i1.GDetachFileInput? input}) {
-    return GDetachFileVars(input: input ?? this.input);
+  GDetachFileVars copyWith({String? id}) {
+    return GDetachFileVars(id: id ?? this.id);
   }
 
   @override
@@ -83,7 +81,7 @@ class GDetachFileVars {
 
   @override
   String toString() {
-    return 'GDetachFileVars(input: $input)';
+    return 'GDetachFileVars(id: $id)';
   }
 }
 

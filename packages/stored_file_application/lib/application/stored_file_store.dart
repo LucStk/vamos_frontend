@@ -69,7 +69,11 @@ extension StoredFileStoreActions on StoredFileStore {
 }
 
 extension StoredFileStoreGetters on StoredFileStore {
-  List<StoredFileId>? getFromOwner(Id mId) {
-    return ownerIndex.owneds(mId)?.toList();
+  List<StoredFileId> getFromOwner(Id mId) {
+    return ownerIndex.owneds(mId)?.toList() ?? [];
+  }
+
+  GraphNode<StoredFileFields>? get(StoredFileId id) {
+    return storedFileStore.get(id);
   }
 }

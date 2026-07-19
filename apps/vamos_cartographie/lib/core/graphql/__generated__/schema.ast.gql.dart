@@ -88,21 +88,6 @@ const Date = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Date'),
   directives: [],
 );
-const DetachFileInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'DetachFileInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'attachmentId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
 const FileAttachmentType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'FileAttachmentType'),
   directives: [],
@@ -617,10 +602,10 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
+          name: _i1.NameNode(value: 'id'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'DetachFileInput'),
+            name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -628,25 +613,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'generateImageUploadUrl'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'ImageUploadRequest'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UploadConfigType'),
         isNonNull: true,
       ),
     ),
@@ -666,6 +632,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'FileAttachmentType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'generateImageUploadUrl'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'ImageUploadRequest'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UploadConfigType'),
         isNonNull: true,
       ),
     ),
@@ -1278,7 +1263,6 @@ const document = _i1.DocumentNode(definitions: [
   AttachFileInput,
   CreateWaypointPayload,
   Date,
-  DetachFileInput,
   FileAttachmentType,
   ImageUploadRequest,
   InsertVertexToSegmentPayload,
