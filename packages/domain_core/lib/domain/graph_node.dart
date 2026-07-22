@@ -1,41 +1,47 @@
-import 'package:domain_core/domain_core.dart';
+import 'package:domain_core/domain/patchable.dart';
+import 'package:domain_core/id.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class GraphNode<T extends HasId> implements HasId {
-  T _current;
-  T? _lastRemoteValue; // dernière valeur confirmée serveur, pour rollback
-  int revision = 0;
+part 'graph_node.freezed.dart';
 
-  GraphNode(T initial)
-    : _current = initial,
-      _lastRemoteValue = initial is Patch ? null : initial;
+@freezed
+abstract class GraphNode<T extends HasId> with _$GraphNode<T> implements HasId {
+  const GraphNode._();
 
-  T get current => _current;
+  const factory GraphNode({
+    required T current,
+    T? lastRemoteValue,
+    @Default(0) int revision,
+  }) = _GraphNode<T>;
+
+  factory GraphNode.initial(T initial) => GraphNode(
+    current: initial,
+    lastRemoteValue: initial is Patch ? null : initial,
+  );
 
   @override
-  Id<T> get id => _current.id as Id<T>;
+  Id<T> get id => current.id as Id<T>;
 
   bool get isRecomputing =>
-      _current is Patch ? (_current as Patch).recomputing : false;
-  bool get isPendingCreation => _lastRemoteValue == null && _current is Patch;
-  T? get serverValue => _lastRemoteValue;
+      current is Patch ? (current as Patch).recomputing : false;
 
-  /// applique un patch local (optimistic update)
-  void set(T value) {
-    _current = value;
-    if (value is! Patch) {
-      _lastRemoteValue = value;
+  bool get isPendingCreation => lastRemoteValue == null && current is Patch;
+
+  T? get serverValue => lastRemoteValue;
+
+  /// Applique un patch local (optimistic update)
+  GraphNode<T> set(T value) => copyWith(
+    current: value,
+    lastRemoteValue: value is Patch ? lastRemoteValue : value,
+    revision: revision + 1,
+  );
+
+  /// Revient à la dernière valeur confirmée par le serveur
+  GraphNode<T> rollback() {
+    if (current is! Patch || lastRemoteValue == null) {
+      return this;
     }
-    revision++;
-  }
 
-  void rollback() {
-    if (_current is Patch && _lastRemoteValue != null) {
-      _current = _lastRemoteValue!;
-      revision++;
-    }
+    return copyWith(current: lastRemoteValue as T, revision: revision + 1);
   }
-}
-
-extension GraphNodeDisplayX<T extends HasId> on GraphNode<T> {
-  T get display => current;
 }

@@ -20,7 +20,7 @@ final class MapStateNotifierProvider
   }) : super(
          retry: null,
          name: r'mapStateProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -58,7 +58,7 @@ final class MapStateNotifierProvider
   }
 }
 
-String _$mapStateNotifierHash() => r'eeb45325e67980d83a6439bd9b36aed148993666';
+String _$mapStateNotifierHash() => r'11eb8c2e9cd2e1e594c01a73f2fb4603fcccfd23';
 
 final class MapStateNotifierFamily extends $Family
     with
@@ -75,7 +75,7 @@ final class MapStateNotifierFamily extends $Family
         name: r'mapStateProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   MapStateNotifierProvider call(TripId tripId) =>

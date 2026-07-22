@@ -37,7 +37,7 @@ class ThumbnailView extends ConsumerWidget {
                 StoredFilePatchModel(:final File file) => Image.file(
                   file,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, _, _) => ThumbnailError(),
+                  errorBuilder: (context, error, track) => ThumbnailError(),
                 ),
                 StoredFileRemoteModel(:final String url) => Image.network(
                   url,
@@ -46,7 +46,10 @@ class ThumbnailView extends ConsumerWidget {
                     if (loadingProgress == null) return child;
                     return const ThumbnailLoading();
                   },
-                  errorBuilder: (_, _, _) => ThumbnailError(),
+                  errorBuilder: (context, error, track) {
+                    print("Error dans le thumbnail $error");
+                    return ThumbnailError();
+                  },
                 ),
               },
             ],

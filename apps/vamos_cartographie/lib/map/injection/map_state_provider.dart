@@ -1,43 +1,58 @@
+import 'package:domain_core/notification/failure.dart';
 import 'package:map_application/application/intent_resolver.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:stored_file_application/application/application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_output_notifier.dart';
+import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
+import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
 part 'map_state_provider.g.dart';
 
-@riverpod
-class MapStateNotifier extends _$MapStateNotifier {
-  late final MapHandler _handler;
+@Riverpod(keepAlive: true)
+class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   @override
   MapState build(TripId tripId) {
-    // 2. On passe le tripId ICI en paramètre de build()
-
-    // Tu peux maintenant utiliser tripId directement dans ton build
-    final GraphEditor graphEditor = ref.watch(
-      graphStoreProvider(tripId).notifier,
-    );
-    final WaypointEditor waypointEditor = ref.watch(
-      waypointStoreProvider(tripId).notifier,
-    );
-    final mapOutput = ref.watch(mapOutputProvider(tripId).notifier);
-    final resolver = IntentResolver(graphEditor, waypointEditor, mapOutput);
-
-    _handler = MapHandler(
-      intentResolver: resolver,
-      onStateChanged: (newState) => state = newState,
-    );
-
     return const MapState();
   }
 
-  void sendUiEvent(MapInputEvent event) {
-    _handler.onUiEvent(event, state);
-  }
+  @override
+  IntentResolver get intentResolver => IntentResolver(
+    ref.read(graphStoreProvider(tripId).notifier),
+    ref.read(waypointStoreProvider(tripId).notifier),
+    ref.read(mapOutputProvider(tripId).notifier),
+  );
 
-  void sendIntent(MapIntents intent) {
-    _handler.intentResolver.run(intent);
+  Future<Failure?> loadTripDetails() async {
+    final tripRepo = ref.read(tripRepositoryProvider);
+    final res = await tripRepo.getTripDetails(tripId);
+    return res.fold((Failure f) => f, (data) {
+      var newWaypointStore = WaypointStore.initial();
+      var newGraphStore = GraphStore.initial();
+      var newMediaStore = StoredFileStore.initial();
+
+      for (final (w, listImages) in data.waypointsImages) {
+        newWaypointStore.insertWaypoint(w);
+        for (final i in listImages) {
+          newMediaStore.insertStoredFile(w.id, i);
+        }
+      }
+      for (final v in data.vertices) {
+        newGraphStore.insertVertex(v);
+      }
+      for (final s in data.segments) {
+        newGraphStore.insertSegment(s);
+      }
+      final waypointStore = ref.read(waypointStoreProvider(tripId).notifier);
+      waypointStore.state = newWaypointStore;
+      final graphStore = ref.read(graphStoreProvider(tripId).notifier);
+      graphStore.state = newGraphStore;
+      final mediaStore = ref.read(storedFileStoreProvider.notifier);
+      mediaStore.state = newMediaStore;
+      return null;
+    });
   }
 }

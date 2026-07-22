@@ -28,11 +28,24 @@ class ThumbnailPicker extends ConsumerWidget {
             fit: StackFit.expand,
             children: [
               switch (file) {
-                StoredFilePatchModel(:final File file) => Image.file(
-                  file,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, _, _) => ThumbnailError(),
-                ),
+                StoredFilePatchModel(
+                  :final File file,
+                  :final UploadStatus status,
+                ) =>
+                  Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.file(
+                        file,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) => ThumbnailError(),
+                      ),
+                      if (status == UploadStatus.uploading)
+                        const ThumbnailLoading(),
+
+                      ColoredBox(color: Colors.lightGreenAccent),
+                    ],
+                  ),
                 StoredFileRemoteModel(:final String url) => Image.network(
                   url,
                   fit: BoxFit.cover,
@@ -44,11 +57,10 @@ class ThumbnailPicker extends ConsumerWidget {
                 ),
               },
               // Overlays d'états globaux
-              if (file.isUploading) const ThumbnailLoading(),
               if (file.hasError) ThumbnailError(),
 
               // Bouton Supprimer
-              if (!file.isUploading && !file.hasError)
+              if (!file.hasError)
                 Positioned(
                   top: 4,
                   right: 4,

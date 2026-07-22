@@ -10,7 +10,6 @@ import 'package:vamos_cartographie/map/presentation/bottom_sheet/map_bottom_shee
 import '/map/injection/map_state_provider.dart';
 import '/map/rendering/rendering.dart';
 import '/map/presentation/widgets/widgets.dart';
-import '/trip/injection/trip_queries.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -32,7 +31,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     _mapController = MapController();
     // Aller chercher sur le réseau les élements topologique
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(loadTripDetailsProvider(widget.tripId));
+      ref.read(mapStateProvider(widget.tripId).notifier).loadTripDetails();
     });
   }
 

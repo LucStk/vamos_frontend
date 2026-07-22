@@ -25,34 +25,20 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     required StoredFileId fileId,
   }) async {
     final res = await storedFileRepo.attachFile(ownerId, ownerType, fileId);
-    return res.fold((Failure f) => f, (data) {
-      final node = state.get(fileId);
-      if (node == null) {
-        state = state.insertStoredFile(ownerId, data);
-      } else {
-        node.set(data);
-      }
-      return;
-    });
-  }
-
-  Future<Either<Failure, UploadConfigModel>> getSignedUrl({
-    required Id ownerId,
-    required File file,
-  }) async {
-    final res = await uploadService.requestSignedUrl(file);
     return res.fold(
       (Failure f) {
         errorLogger?.logError(f, StackTrace.current);
-        return Left(f);
+        return f;
       },
-      (UploadConfigModel data) {
-        //On ajoute le storeFilePatch
-        state = state.insertStoredFile(
-          ownerId,
-          StoredFilePatchModel(id: data.file.id, file: file),
-        );
-        return Right(data);
+      (data) {
+        final node = state.get(fileId);
+        print("attachFile $node");
+        if (node == null) {
+          state = state.insertStoredFile(ownerId, data);
+        } else {
+          state = state.setNode(data);
+        }
+        return;
       },
     );
   }
@@ -62,24 +48,38 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     required OwnerType ownerType,
     required File file,
   }) async {
-    final uploadConf = await getSignedUrl(ownerId: ownerId, file: file);
-    return uploadConf.fold((Failure f) => f, (config) async {
-      final putRes = await uploadService.putFile(
-        file,
-        config,
-        onProgress: (sent, total) {
-          print("sent");
-          state.updatePatchProgress(config.file.id, sent: sent, total: total);
-        },
-      );
-      if (putRes != null) return putRes;
+    final uploadConf = await uploadService.requestSignedUrl(file);
 
-      await attachFile(
-        ownerId: ownerId,
-        ownerType: ownerType,
-        fileId: config.file.id,
-      );
-      return null;
-    });
+    return uploadConf.fold(
+      (Failure f) {
+        errorLogger?.logError(f, StackTrace.current);
+        return f;
+      },
+      (config) async {
+        final patch = StoredFilePatchModel(id: config.file.id, file: file);
+        state = state.insertStoredFile(ownerId, patch);
+        final putRes = await uploadService.putFile(
+          file,
+          config,
+          onProgress: (sent, total) {
+            final v = patch.copyWith(sent: sent, total: total);
+            state = state.updateNode(
+              config.file.id,
+              (node) => node.copyWith(current: v),
+            );
+          },
+        );
+        if (putRes != null) {
+          errorLogger?.logError(putRes);
+          return putRes;
+        }
+
+        return await attachFile(
+          ownerId: ownerId,
+          ownerType: ownerType,
+          fileId: config.file.id,
+        );
+      },
+    );
   }
 }

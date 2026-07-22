@@ -1,6 +1,5 @@
 import 'package:domain_core/domain/domain.dart';
 import 'package:domain_core/id.dart';
-import 'package:domain_core/notification/failure.dart';
 import 'package:stored_file_application/application/owner_index.dart';
 import 'package:stored_file_application/domain/domain.dart';
 
@@ -35,36 +34,25 @@ extension StoredFileStoreActions on StoredFileStore {
     return copyWith(storedFileStore: storedFileStore.remove(id));
   }
 
-  void rollbackMedia(StoredFileId wid) => storedFileStore.get(wid)?.rollback();
+  StoredFileStore rollbackMedia(StoredFileId wid) {
+    return copyWith(storedFileStore: storedFileStore.rollbackNode(wid));
+  }
+
+  StoredFileStore setNode(StoredFileFields value) {
+    return copyWith(storedFileStore: storedFileStore.setNode(value));
+  }
+
+  StoredFileStore updateNode(
+    StoredFileId id,
+    GraphNode<StoredFileFields> Function(GraphNode<StoredFileFields> node)
+    update,
+  ) {
+    return copyWith(storedFileStore: storedFileStore.updateNode(id, update));
+  }
 
   StoredFileStore clear() {
     ownerIndex.clear();
     return copyWith(storedFileStore: GraphCollectionStore<StoredFileFields>());
-  }
-
-  void updatePatchProgress(
-    StoredFileId id, {
-    required int sent,
-    required int total,
-  }) {
-    final node = storedFileStore.get(id);
-    if (node?.current case StoredFilePatchModel e) {
-      node!.set(
-        e.copyWith(status: UploadStatus.uploading, sent: sent, total: total),
-      );
-    }
-  }
-
-  void markUploaded(StoredFileRemoteModel file) {
-    final node = storedFileStore.get(file.id);
-    node?.set(file);
-  }
-
-  void markFailed(StoredFileId id, Failure f) {
-    final node = storedFileStore.get(id);
-    if (node?.current case StoredFilePatchModel e) {
-      node!.set(e.copyWith(status: UploadStatus.failure, error: f.toString()));
-    }
   }
 }
 

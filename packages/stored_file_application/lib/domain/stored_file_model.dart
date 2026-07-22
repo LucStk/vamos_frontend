@@ -10,7 +10,6 @@ sealed class StoredFileFields implements HasId {
   @override
   Id<StoredFileFields> get id;
   bool get hasError;
-  bool get isUploading;
 }
 
 typedef StoredFileId = Id<StoredFileFields>;
@@ -29,8 +28,6 @@ abstract class StoredFileRemoteModel
 
   @override
   bool get hasError => false;
-  @override
-  bool get isUploading => false;
 }
 
 @freezed
@@ -52,8 +49,6 @@ abstract class StoredFilePatchModel
 
   @override
   bool get hasError => status == UploadStatus.failure;
-  @override
-  bool get isUploading => status == UploadStatus.uploading;
 
   factory StoredFilePatchModel({
     StoredFileId? id,

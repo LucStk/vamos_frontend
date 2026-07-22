@@ -53,3 +53,8 @@ class TripStoreNotifier extends _$TripStoreNotifier
     });
   }
 }
+
+@riverpod
+Trip? trip(Ref ref, TripId tripId) {
+  return ref.watch(tripStoreProvider).tripStore.get(tripId);
+}

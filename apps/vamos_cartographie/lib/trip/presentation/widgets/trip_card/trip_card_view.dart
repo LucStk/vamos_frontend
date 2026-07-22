@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import '/map/map.dart';
 import '/trip/presentation/widgets/dialogs/trip_viewer_dialog.dart';
 import '/trip/presentation/widgets/trip_card/trip_card_content.dart';
 import '/trip/presentation/widgets/trip_card/trip_card_icon.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
-
-import 'package:vamos_cartographie/trip/injection/trip_queries.dart';
 
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
