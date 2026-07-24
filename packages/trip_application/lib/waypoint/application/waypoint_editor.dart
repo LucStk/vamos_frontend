@@ -35,6 +35,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
       entityKey: id,
       onApply: (gs) => gs,
       remote: (_) => waypointRepo.deleteWaypoint(id),
+      onSuccess: (gs, _) => gs.removeWaypoint(id),
     );
   }
 }

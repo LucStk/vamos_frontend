@@ -30,7 +30,7 @@ Future<void> deleteWaypointWithConfirmation({
   if (!context.mounted) return;
 
   if (res.isRight()) {
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Waypoint supprimé avec succès')),
     );
