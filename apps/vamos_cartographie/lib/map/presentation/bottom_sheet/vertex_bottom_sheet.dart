@@ -8,6 +8,7 @@ import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/presentation/widgets/buttons/buttons.dart';
 
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
 class VertexBottomSheet extends ConsumerWidget {
@@ -22,7 +23,6 @@ class VertexBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     final notifier = ref.watch(mapStateProvider(tripId).notifier);
     return SimpleBottomSheetShell(
       content: Column(
@@ -41,18 +41,15 @@ class VertexBottomSheet extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              DeleteButton(
-                onPressed: () =>
-                    notifier.sendUiEvent(VertexButtonDeleteTapped()),
-              ),
-              ConfirmButton(
-                label: "Start segment",
-                onPressed: () => notifier.sendUiEvent(ButtonStartSegment()),
-              ),
+              DrawSegment(vertexId: vertexId, tripId: tripId),
               ConfirmButton(
                 label: "Créer une étape ici",
                 onPressed: () =>
                     notifier.sendUiEvent(VertexButtonCreateWaypoint()),
+              ),
+              DeleteButton(
+                onPressed: () =>
+                    notifier.sendUiEvent(VertexButtonDeleteTapped()),
               ),
             ],
           ),

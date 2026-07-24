@@ -61,7 +61,6 @@ class GraphStoreNotifier extends _$GraphStoreNotifier
 
 @riverpod
 GraphCollectionStore<VertexFields> vertexStore(Ref ref, TripId tripId) {
-  print("rebuild vertexStore");
   return ref.watch(graphStoreProvider(tripId).select((gs) => gs.vertexStore));
 }
 

@@ -30,7 +30,7 @@ class VertexMarker extends ConsumerWidget {
           if (waypointId == null) {
             return Icon(
               Icons.circle,
-              size: selected ? 30 : 20,
+              size: 20,
               color: selected ? Colors.red : Colors.black,
             );
           }

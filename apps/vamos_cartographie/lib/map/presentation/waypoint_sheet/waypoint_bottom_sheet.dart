@@ -4,6 +4,8 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/draggable_bottom_sheet_shell.dart';
 import '/waypoint/waypoint.dart';
 import '/map/presentation/bottom_sheet/drag_handle.dart';
+import "waypoint_compact_content.dart";
+import "waypoint_viewer_content.dart";
 
 class WaypointBottomSheet extends ConsumerWidget {
   final TripId tripId;

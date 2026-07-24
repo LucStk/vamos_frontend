@@ -6,11 +6,11 @@ class DeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.icon(
+    return IconButton.outlined(
       onPressed: onPressed,
       style: FilledButton.styleFrom(backgroundColor: Colors.red),
       icon: const Icon(Icons.delete_outline, size: 16),
-      label: const Text('Delete'),
+      color: Colors.white,
     );
   }
 }

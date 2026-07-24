@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/map/presentation/waypoint_sheet/waypoint_sheet.dart';
+import 'package:vamos_cartographie/map/presentation/widgets/buttons/buttons.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
-import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
 
 /// Confirme puis supprime le waypoint, et ferme la vue courante
 /// (Dialog ou BottomSheet — dans les deux cas `Navigator.of(context).pop()`
@@ -50,6 +51,9 @@ class WaypointViewerButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
+        DrawSegment(vertexId: waypoint.vertexId, tripId: tripId),
+
+        const SizedBox(width: 8),
         ModifierButton(
           onPressed: () {
             showDialog(
