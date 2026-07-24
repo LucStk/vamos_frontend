@@ -26,7 +26,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
       onApply: (gs) => gs,
       remote: (_) =>
           waypointRepo.createBlankWaypointFromVertex(tripId, vertexId),
-      onSuccess: (gs, data) => gs.setWaypoint(data.waypoint),
+      onSuccess: (gs, data) => gs.insertWaypoint(data.waypoint),
     );
   }
 
