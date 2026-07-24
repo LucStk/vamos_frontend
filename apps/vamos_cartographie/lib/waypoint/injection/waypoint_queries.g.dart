@@ -72,7 +72,7 @@ final class WaypointNodeProvider
   }
 }
 
-String _$waypointNodeHash() => r'f864fbb23cc1e467953f93fcca2926df426458b3';
+String _$waypointNodeHash() => r'05617377b215961cfb8b1edc53e2a7af6c031a86';
 
 final class WaypointNodeFamily extends $Family
     with
@@ -153,7 +153,7 @@ final class WaypointProvider
   }
 }
 
-String _$waypointHash() => r'bca9a7fb41c7116467183b2ee29e57e6708cb48c';
+String _$waypointHash() => r'8081ddca66ec6c9d98e0c99d08ac47ea974fd399';
 
 final class WaypointFamily extends $Family
     with $FunctionalFamilyOverride<WaypointFields, (TripId, WaypointId)> {
@@ -173,61 +173,60 @@ final class WaypointFamily extends $Family
   String toString() => r'waypointProvider';
 }
 
-@ProviderFor(allWaypoint)
-final allWaypointProvider = AllWaypointFamily._();
+@ProviderFor(allWaypointIds)
+final allWaypointIdsProvider = AllWaypointIdsFamily._();
 
-final class AllWaypointProvider
+final class AllWaypointIdsProvider
     extends
         $FunctionalProvider<
-          List<WaypointFields>,
-          List<WaypointFields>,
-          List<WaypointFields>
+          List<WaypointId>,
+          List<WaypointId>,
+          List<WaypointId>
         >
-    with $Provider<List<WaypointFields>> {
-  AllWaypointProvider._({
-    required AllWaypointFamily super.from,
+    with $Provider<List<WaypointId>> {
+  AllWaypointIdsProvider._({
+    required AllWaypointIdsFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'allWaypointProvider',
+         name: r'allWaypointIdsProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$allWaypointHash();
+  String debugGetCreateSourceHash() => _$allWaypointIdsHash();
 
   @override
   String toString() {
-    return r'allWaypointProvider'
+    return r'allWaypointIdsProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<List<WaypointFields>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<WaypointId>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  List<WaypointFields> create(Ref ref) {
+  List<WaypointId> create(Ref ref) {
     final argument = this.argument as TripId;
-    return allWaypoint(ref, argument);
+    return allWaypointIds(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<WaypointFields> value) {
+  Override overrideWithValue(List<WaypointId> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<WaypointFields>>(value),
+      providerOverride: $SyncValueProvider<List<WaypointId>>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AllWaypointProvider && other.argument == argument;
+    return other is AllWaypointIdsProvider && other.argument == argument;
   }
 
   @override
@@ -236,22 +235,22 @@ final class AllWaypointProvider
   }
 }
 
-String _$allWaypointHash() => r'9ddd0d04d2490942d9d06831c16fabc292d00652';
+String _$allWaypointIdsHash() => r'4d9715f6fe92ae8547b37b3cd20f7645c9455cda';
 
-final class AllWaypointFamily extends $Family
-    with $FunctionalFamilyOverride<List<WaypointFields>, TripId> {
-  AllWaypointFamily._()
+final class AllWaypointIdsFamily extends $Family
+    with $FunctionalFamilyOverride<List<WaypointId>, TripId> {
+  AllWaypointIdsFamily._()
     : super(
         retry: null,
-        name: r'allWaypointProvider',
+        name: r'allWaypointIdsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  AllWaypointProvider call(TripId tripId) =>
-      AllWaypointProvider._(argument: tripId, from: this);
+  AllWaypointIdsProvider call(TripId tripId) =>
+      AllWaypointIdsProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'allWaypointProvider';
+  String toString() => r'allWaypointIdsProvider';
 }

@@ -35,11 +35,12 @@ extension WaypointStoreActions on WaypointStore {
     return copyWith(waypointStore: waypointStore.remove(id));
   }
 
-  void setWaypoint(WaypointRemoteModel serverWaypoint) {
-    waypointStore.get(serverWaypoint.id)?.set(serverWaypoint);
+  WaypointStore setWaypoint(WaypointFields serverWaypoint) {
+    return copyWith(waypointStore: waypointStore.setNode(serverWaypoint));
   }
 
-  void rollbackWaypoint(WaypointId wid) => waypointStore.get(wid)?.rollback();
+  WaypointStore rollbackWaypoint(WaypointId wid) =>
+      copyWith(waypointStore: waypointStore.rollbackNode(wid));
 
   WaypointStore clear() {
     vertexIndex = {};

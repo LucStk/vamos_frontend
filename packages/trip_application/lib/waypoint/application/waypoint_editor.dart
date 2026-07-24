@@ -11,11 +11,11 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   ) async {
     return await run(
       entityKey: waypoint.id,
-      onApply: (gs) => gs..waypointStore.get(waypoint.id)?.set(waypoint),
+      onApply: (gs) => gs.setWaypoint(waypoint),
       remote: (_) =>
           waypointRepo.updateWaypoint(WaypointRemoteModel.fromFields(waypoint)),
-      onSuccess: (gs, serveurValue) => gs..setWaypoint(serveurValue),
-      onError: (gs, Failure failure) => gs..rollbackWaypoint(waypoint.id),
+      onSuccess: (gs, serveurValue) => gs.setWaypoint(serveurValue),
+      onError: (gs, Failure failure) => gs.rollbackWaypoint(waypoint.id),
     );
   }
 
@@ -26,7 +26,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
       onApply: (gs) => gs,
       remote: (_) =>
           waypointRepo.createBlankWaypointFromVertex(tripId, vertexId),
-      onSuccess: (gs, data) => gs..setWaypoint(data.waypoint),
+      onSuccess: (gs, data) => gs.setWaypoint(data.waypoint),
     );
   }
 

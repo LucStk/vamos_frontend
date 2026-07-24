@@ -169,9 +169,9 @@ type WaypointType {
   id: UUID!
   title: String!
   description: String!
+  poiCategory: PoiCategory!
   vertex: VertexType!
   files: [FileAttachmentType!]!
-  poiCategory: PoiCategory!
 }
 
 input WaypointUpdateInput {

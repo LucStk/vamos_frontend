@@ -1,5 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/waypoint/waypoint.dart';
@@ -10,8 +11,7 @@ part 'vertex_queries.g.dart';
 
 @riverpod
 GraphNode<VertexFields> vertexNode(Ref ref, TripId tripId, VertexId id) {
-  final store = ref.watch(vertexStoreProvider(tripId));
-  final node = store.get(id);
+  final node = ref.watch(vertexStoreProvider(tripId).select((s) => s.get(id)));
   if (node == null) {
     throw Exception(
       NotFoundFailure(resourceType: "vertexNode", resourceId: "$id"),
@@ -22,8 +22,7 @@ GraphNode<VertexFields> vertexNode(Ref ref, TripId tripId, VertexId id) {
 
 @riverpod
 VertexFields vertex(Ref ref, TripId tripId, VertexId id) {
-  final node = ref.watch(vertexNodeProvider(tripId, id));
-  return node.current;
+  return ref.watch(vertexNodeProvider(tripId, id).select((e) => e.current));
 }
 
 @riverpod
@@ -35,15 +34,19 @@ List<VertexFields> allVertex(Ref ref, TripId tripId) {
 
 @riverpod
 WaypointId? waypointFromVertex(Ref ref, TripId tripId, VertexId vertexId) {
-  final store = ref.watch(waypointStoreProvider(tripId));
-  return store.getFromVertex(vertexId);
+  return ref.watch(
+    waypointStoreProvider(tripId).select((s) => s.getFromVertex(vertexId)),
+  );
 }
 
 @riverpod
 bool isVertexSelected(Ref ref, TripId tripId, VertexId vertexId) {
-  final mapState = ref.watch(mapStateProvider(tripId));
-  return switch (mapState.selection) {
-    VertexSelection e => (vertexId == e.vertexId),
-    _ => false,
-  };
+  return ref.watch(
+    mapStateProvider(tripId).select((s) {
+      return switch (s.selection) {
+        VertexSelection e => (vertexId == e.vertexId),
+        _ => false,
+      };
+    }),
+  );
 }

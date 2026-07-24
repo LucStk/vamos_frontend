@@ -18,8 +18,8 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     return await run(
       onApply: (gs) => gs..setSegment(segment),
       remote: (_) => segmentRepo.updateSegment(segment),
-      onSuccess: (gs, serveurValue) => gs..setSegment(serveurValue),
-      onError: (gs, Failure failure) => gs..rollbackSegment(segment.id),
+      onSuccess: (gs, serveurValue) => gs.setSegment(serveurValue),
+      onError: (gs, Failure failure) => gs.rollbackSegment(segment.id),
     );
   }
 
@@ -30,7 +30,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
       onApply: (gs) => gs,
       remote: (_) => vertexRepo.createVertex(tripId, latLng),
       onSuccess: (gs, VertexRemoteModel serveurValue) =>
-          gs..insertVertex(serveurValue),
+          gs.insertVertex(serveurValue),
     );
   }
 
@@ -40,11 +40,11 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   ) async {
     return await run(
       onApply: (gs) =>
-          gs..insertVertex(VertexPatchModel(id: vid, latLng: latLng)),
+          gs.insertVertex(VertexPatchModel(id: vid, latLng: latLng)),
       remote: (_) => vertexRepo.moveVertex(VertexId(vid.value), latLng),
       onSuccess: (gs, VertexRemoteModel serveurValue) =>
-          gs..setVertex(serveurValue),
-      onError: (gs, Failure failure) => gs..rollbackVertex(vid),
+          gs.setVertex(serveurValue),
+      onError: (gs, Failure failure) => gs.rollbackVertex(vid),
     );
   }
 
@@ -52,7 +52,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     return await run(
       onApply: (gs) => gs,
       remote: (_) => vertexRepo.deleteVertex(VertexId(vid.value)),
-      onSuccess: (gs, _) => gs..removeVertex(VertexId(vid.value)),
+      onSuccess: (gs, _) => gs.removeVertex(VertexId(vid.value)),
     );
   }
 }

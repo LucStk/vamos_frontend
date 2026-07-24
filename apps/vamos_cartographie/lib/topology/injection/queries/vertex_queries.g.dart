@@ -72,7 +72,7 @@ final class VertexNodeProvider
   }
 }
 
-String _$vertexNodeHash() => r'3650bf8f8043098670c7a0255ce950bdb3afcead';
+String _$vertexNodeHash() => r'8eaed2c3ffeccf8d5d8edf702da8e5000d572e35';
 
 final class VertexNodeFamily extends $Family
     with
@@ -150,7 +150,7 @@ final class VertexProvider
   }
 }
 
-String _$vertexHash() => r'18aeb681ef189cdb4b24dbfb2fbaa0d0b7c06996';
+String _$vertexHash() => r'4fc6b6b24760611f169e0b79f9d415285c9ce2e9';
 
 final class VertexFamily extends $Family
     with $FunctionalFamilyOverride<VertexFields, (TripId, VertexId)> {
@@ -311,7 +311,7 @@ final class WaypointFromVertexProvider
 }
 
 String _$waypointFromVertexHash() =>
-    r'aa1db9e4cf4eedda9f9cf81ac26d6cb547b21767';
+    r'b9b629e8c55376b6f1659906c86b91cb9c6f7a00';
 
 final class WaypointFromVertexFamily extends $Family
     with $FunctionalFamilyOverride<WaypointId?, (TripId, VertexId)> {
@@ -388,7 +388,7 @@ final class IsVertexSelectedProvider
   }
 }
 
-String _$isVertexSelectedHash() => r'989c434f4a61f2bf9ad920f6c3ba440e695c4698';
+String _$isVertexSelectedHash() => r'513644236cfce29b6f0492fc07a7594b8343728e';
 
 final class IsVertexSelectedFamily extends $Family
     with $FunctionalFamilyOverride<bool, (TripId, VertexId)> {

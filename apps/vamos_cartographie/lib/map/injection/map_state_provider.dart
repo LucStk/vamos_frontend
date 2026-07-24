@@ -34,12 +34,6 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       var newGraphStore = GraphStore.initial();
       var newMediaStore = StoredFileStore.initial();
 
-      for (final (w, listImages) in data.waypointsImages) {
-        newWaypointStore.insertWaypoint(w);
-        for (final i in listImages) {
-          newMediaStore = newMediaStore.insertStoredFile(w.id, i);
-        }
-      }
       for (final v in data.vertices) {
         newGraphStore = newGraphStore.insertVertex(v);
         print("insert vertex $v");
@@ -47,9 +41,15 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       for (final s in data.segments) {
         newGraphStore = newGraphStore.insertSegment(s);
       }
+      for (final (w, listImages) in data.waypointsImages) {
+        newWaypointStore = newWaypointStore.insertWaypoint(w);
+        for (final i in listImages) {
+          newMediaStore = newMediaStore.insertStoredFile(w.id, i);
+        }
+      }
       final waypointStore = ref.read(waypointStoreProvider(tripId).notifier);
       waypointStore.state = newWaypointStore;
-      print("NewWaypointStore $newWaypointStore");
+
       final graphStore = ref.read(graphStoreProvider(tripId).notifier);
       graphStore.state = newGraphStore;
 

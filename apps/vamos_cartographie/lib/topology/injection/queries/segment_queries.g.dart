@@ -72,7 +72,7 @@ final class SegmentNodeProvider
   }
 }
 
-String _$segmentNodeHash() => r'11f9dce651845e6e166e8f5618a4c25634a6b238';
+String _$segmentNodeHash() => r'a0eefb4e7f538f0a9b27db5315dfd3eeb4cb861d';
 
 final class SegmentNodeFamily extends $Family
     with
@@ -153,7 +153,7 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'ceec4cd025ba04a83f41cf3c6c3722513d704ff9';
+String _$segmentHash() => r'89105d6a11cc5f022bc642085e572f2480ffa376';
 
 final class SegmentFamily extends $Family
     with $FunctionalFamilyOverride<SegmentFields, (TripId, SegmentId)> {

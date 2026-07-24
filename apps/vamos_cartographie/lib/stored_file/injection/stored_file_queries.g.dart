@@ -72,7 +72,7 @@ final class StoredFileNodeProvider
   }
 }
 
-String _$storedFileNodeHash() => r'e64d5e3b307ae65623f0d900326769737799e1e7';
+String _$storedFileNodeHash() => r'bdff11e0c51f5c75f4c3c80f86fd3e167e8278ec';
 
 final class StoredFileNodeFamily extends $Family
     with $FunctionalFamilyOverride<GraphNode<StoredFileFields>, StoredFileId> {
@@ -154,7 +154,7 @@ final class StoreFileProvider
   }
 }
 
-String _$storeFileHash() => r'bffa8a864ce393018de7406eccc59d1a0ebef456';
+String _$storeFileHash() => r'81967fe9252d3a93f985dea2a9cb594c29ded456';
 
 final class StoreFileFamily extends $Family
     with $FunctionalFamilyOverride<StoredFileFields, StoredFileId> {

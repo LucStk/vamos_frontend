@@ -47,11 +47,13 @@ extension GraphStoreActions on GraphStore {
     return copyWith(segmentStore: segmentStore.remove(sId));
   }
 
-  void setSegment(SegmentFields segment) {
-    segmentStore.get(segment.id)?.set(segment);
+  GraphStore setSegment(SegmentFields segment) {
+    return copyWith(segmentStore: segmentStore.setNode(segment));
   }
 
-  void rollbackSegment(SegmentId sId) => segmentStore.get(sId)?.rollback();
+  GraphStore rollbackSegment(SegmentId sId) {
+    return copyWith(segmentStore: segmentStore.rollbackNode(sId));
+  }
 
   GraphStore insertVertex(VertexFields vertex) {
     return copyWith(vertexStore: vertexStore.insertState(vertex));
@@ -61,11 +63,13 @@ extension GraphStoreActions on GraphStore {
     return copyWith(vertexStore: vertexStore.remove(vId));
   }
 
-  void setVertex(VertexFields serverVertex) {
-    vertexStore.get(serverVertex.id)?.set(serverVertex);
+  GraphStore setVertex(VertexFields serverVertex) {
+    return copyWith(vertexStore: vertexStore.setNode(serverVertex));
   }
 
-  void rollbackVertex(VertexId sId) => vertexStore.get(sId)?.rollback();
+  GraphStore rollbackVertex(VertexId sId) {
+    return copyWith(vertexStore: vertexStore.rollbackNode(sId));
+  }
 
   GraphStore clear() {
     topologyIndex.clear();
