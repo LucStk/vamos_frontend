@@ -37,19 +37,22 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       for (final (w, listImages) in data.waypointsImages) {
         newWaypointStore.insertWaypoint(w);
         for (final i in listImages) {
-          newMediaStore.insertStoredFile(w.id, i);
+          newMediaStore = newMediaStore.insertStoredFile(w.id, i);
         }
       }
       for (final v in data.vertices) {
-        newGraphStore.insertVertex(v);
+        newGraphStore = newGraphStore.insertVertex(v);
+        print("insert vertex $v");
       }
       for (final s in data.segments) {
-        newGraphStore.insertSegment(s);
+        newGraphStore = newGraphStore.insertSegment(s);
       }
       final waypointStore = ref.read(waypointStoreProvider(tripId).notifier);
       waypointStore.state = newWaypointStore;
+      print("NewWaypointStore $newWaypointStore");
       final graphStore = ref.read(graphStoreProvider(tripId).notifier);
       graphStore.state = newGraphStore;
+
       final mediaStore = ref.read(storedFileStoreProvider.notifier);
       mediaStore.state = newMediaStore;
       return null;

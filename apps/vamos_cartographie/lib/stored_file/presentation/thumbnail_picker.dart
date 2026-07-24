@@ -42,8 +42,6 @@ class ThumbnailPicker extends ConsumerWidget {
                       ),
                       if (status == UploadStatus.uploading)
                         const ThumbnailLoading(),
-
-                      ColoredBox(color: Colors.lightGreenAccent),
                     ],
                   ),
                 StoredFileRemoteModel(:final String url) => Image.network(
