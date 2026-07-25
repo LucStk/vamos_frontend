@@ -6,7 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/presentation/bottom_sheet/map_bottom_sheet.dart';
+import 'map_bottom_sheet.dart';
 import '/map/injection/map_state_provider.dart';
 import '/map/rendering/rendering.dart';
 import '/map/presentation/widgets/widgets.dart';

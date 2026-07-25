@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/draggable_bottom_sheet_shell.dart';
 import '/waypoint/waypoint.dart';
-import '/map/presentation/bottom_sheet/drag_handle.dart';
 import "waypoint_compact_content.dart";
 import "waypoint_viewer_content.dart";
 
@@ -33,9 +32,6 @@ class WaypointBottomSheet extends ConsumerWidget {
             // Empêche le rebond du scroll pour ne pas interférer avec le drag de la sheet
             physics: const ClampingScrollPhysics(),
             children: [
-              const DragHandle(),
-              const SizedBox(height: 8),
-
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
                 child:

@@ -89,14 +89,14 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
                       mapController: mapController,
                     );
                     mapStateNotifier.sendUiEvent(
-                      PencilDragUpdate(latLng: latLng, touchedVertex: hit?.id),
+                      SketchDragUpdate(latLng: latLng, touchedVertex: hit?.id),
                     );
                   },
                   onDragStart: (_, LatLng latLng) =>
-                      mapStateNotifier.sendUiEvent(PencilDraggedStart()),
+                      mapStateNotifier.sendUiEvent(SketchDraggedStart()),
 
                   onDragEnd: (_, LatLng latLng) =>
-                      mapStateNotifier.sendUiEvent(PencilDraggedEnd(latLng)),
+                      mapStateNotifier.sendUiEvent(SketchDraggedEnd(latLng)),
                 ),
               ],
             ),

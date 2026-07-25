@@ -5,10 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/application/map_state.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
-import 'package:vamos_cartographie/map/presentation/bottom_sheet/bottom_sheet.dart';
-import 'package:vamos_cartographie/map/presentation/bottom_sheet/sketch_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/presentation/bottom_sheet/vertex_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/presentation/waypoint_sheet/waypoint_sheet.dart';
+import 'bottom_sheet/bottom_sheet.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 
 class MapBottomSheet extends ConsumerWidget {

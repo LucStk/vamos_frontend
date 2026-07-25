@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip/domain/domain.dart';
-import 'package:vamos_cartographie/features/buttons/confirm_button.dart';
 import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_sheet_shell.dart';
 
@@ -19,27 +18,22 @@ class SketchBottomSheet extends ConsumerWidget {
     final notifier = ref.watch(mapStateProvider(tripId).notifier);
     return SimpleBottomSheetShell(
       content: Column(
-        key: const ValueKey(
-          'compact_content',
-        ), // 👈 CRUCIAL pour AnimatedSwitcher
+        key: const ValueKey('compact_content'),
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: Text(
-                "Glissez vers le haut pour voir les détails",
-                style: TextStyle(fontSize: 12, color: Colors.grey),
-              ),
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ConfirmButton(
-                label: "Create Vertex",
+              const Spacer(),
+              FilledButton.icon(
                 onPressed: () =>
-                    notifier.sendUiEvent(CursorButtonCreateTapped()),
+                    notifier.sendUiEvent(SketchCancelButtonTapped()),
+                icon: const Icon(Icons.draw_outlined, size: 16),
+                label: const Text("Cancel"),
+                style: FilledButton.styleFrom(
+                  iconColor: Colors.white,
+                  backgroundColor: Colors.red,
+                ),
               ),
             ],
           ),
