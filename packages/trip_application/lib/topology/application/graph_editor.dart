@@ -27,7 +27,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
         mobilityType: mobilityType,
         geometry: geometry,
       ),
-      onSuccess: (gs, serveurValue) => gs.setSegment(serveurValue),
+      onSuccess: (gs, serveurValue) => gs.insertSegment(serveurValue),
     );
   }
 

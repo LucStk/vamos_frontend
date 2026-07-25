@@ -11,34 +11,33 @@ import '/map/map.dart';
 
 class SegmentLayer extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
-  const SegmentLayer({super.key, required this.tripId});
+  final ValueNotifier<LayerHitResult<SegmentId>?> hitNotifier;
+  const SegmentLayer({
+    super.key,
+    required this.tripId,
+    required this.hitNotifier,
+  });
 
   @override
   ConsumerState<SegmentLayer> createState() => _SegmentLayerState();
 }
 
 class _SegmentLayerState extends ConsumerState<SegmentLayer> {
-  late final ValueNotifier<LayerHitResult<SegmentId>?> _polylineHitNotifier;
-
   @override
   void initState() {
     super.initState();
-    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentId>?>(null);
-
-    _polylineHitNotifier.addListener(_onHoverChanged);
+    widget.hitNotifier.addListener(_onHoverChanged);
   }
 
   void _onHoverChanged() {
-    // ref est accessible partout dans le State d'un ConsumerStatefulWidget
     ref
         .read(mapStateProvider(widget.tripId).notifier)
-        .sendUiEvent(HoverSegments(_polylineHitNotifier.value?.hitValues));
+        .sendUiEvent(HoverSegments(widget.hitNotifier.value?.hitValues));
   }
 
   @override
   void dispose() {
-    _polylineHitNotifier.removeListener(_onHoverChanged);
-    _polylineHitNotifier.dispose(); // Nettoyage propre
+    widget.hitNotifier.removeListener(_onHoverChanged);
     super.dispose();
   }
 
@@ -46,7 +45,6 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
   Widget build(BuildContext context) {
     final segmentIds = ref.watch(segmentStoreProvider(widget.tripId)).getIds();
     final notifier = ref.read(mapStateProvider(widget.tripId).notifier);
-
     final List<Polyline<SegmentId>> polylines = [];
     final List<Marker> segMarkers = [];
 
@@ -77,7 +75,7 @@ class _SegmentLayerState extends ConsumerState<SegmentLayer> {
     return Stack(
       children: [
         PolylineLayer<SegmentId>(
-          hitNotifier: _polylineHitNotifier,
+          hitNotifier: widget.hitNotifier,
           polylines: polylines,
         ),
         MarkerLayer(markers: segMarkers),

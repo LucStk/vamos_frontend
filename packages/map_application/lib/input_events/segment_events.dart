@@ -33,3 +33,8 @@ class ConnectionDragEnd extends SegmentEvent {
   final VertexId vertexId;
   const ConnectionDragEnd(this.vertexId);
 }
+
+class SegmentTapped extends SegmentEvent {
+  final SegmentId segId;
+  const SegmentTapped(this.segId);
+}

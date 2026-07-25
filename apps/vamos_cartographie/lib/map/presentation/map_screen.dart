@@ -21,15 +21,14 @@ class MapScreen extends ConsumerStatefulWidget {
 }
 
 class _MapScreenState extends ConsumerState<MapScreen> {
-  // 1. Déclarer la variable du contrôleur
   late final MapController _mapController;
+  late final ValueNotifier<LayerHitResult<SegmentId>?> _segmentHitNotifier;
 
   @override
   void initState() {
     super.initState();
-    // 2. Initialiser le contrôleur au démarrage du widget
     _mapController = MapController();
-    // Aller chercher sur le réseau les élements topologique
+    _segmentHitNotifier = ValueNotifier<LayerHitResult<SegmentId>?>(null);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(mapStateProvider(widget.tripId).notifier).loadTripDetails();
     });
@@ -37,8 +36,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   @override
   void dispose() {
-    // 3. Libérer les ressources du contrôleur à la fermeture de l'écran
     _mapController.dispose();
+    _segmentHitNotifier.dispose();
     super.dispose();
   }
 
@@ -53,16 +52,26 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             options: MapOptions(
               initialCenter: const LatLng(46.8, 2.2),
               initialZoom: 7,
-              onTap: (_, latLng) => mapState.sendUiEvent(MapTapped(latLng)),
+              onTap: (_, latLng) {
+                final hit = _segmentHitNotifier.value;
+                if (hit != null && hit.hitValues.isNotEmpty) {
+                  mapState.sendUiEvent(SegmentTapped(hit.hitValues.first));
+                  print("segment tapped");
+                } else {
+                  mapState.sendUiEvent(MapTapped(latLng));
+                }
+              },
               interactionOptions: const InteractionOptions(
                 flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
               ),
             ),
             children: [
               MapTileLayer(),
-              SegmentLayer(tripId: widget.tripId),
+              SegmentLayer(
+                tripId: widget.tripId,
+                hitNotifier: _segmentHitNotifier,
+              ),
               VertexLayer(tripId: widget.tripId),
-
               CursorLayer(tripId: widget.tripId),
               SketchLayer(tripId: widget.tripId),
               MapControls(mapController: _mapController),

@@ -36,11 +36,9 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
 
       for (final v in data.vertices) {
         newGraphStore = newGraphStore.insertVertex(v);
-        print("insert vertex $v");
       }
       for (final s in data.segments) {
         newGraphStore = newGraphStore.insertSegment(s);
-        print("insert segment $s");
       }
       for (final (w, listImages) in data.waypointsImages) {
         newWaypointStore = newWaypointStore.insertWaypoint(w);
