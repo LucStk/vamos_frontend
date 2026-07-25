@@ -457,7 +457,7 @@ final class VertexStoreProvider
   }
 }
 
-String _$vertexStoreHash() => r'baaa551c523e4041aee48c9861723a7032884047';
+String _$vertexStoreHash() => r'73472e485f674c8410c9092c54abf740bb3cec49';
 
 final class VertexStoreFamily extends $Family
     with $FunctionalFamilyOverride<GraphCollectionStore<VertexFields>, TripId> {

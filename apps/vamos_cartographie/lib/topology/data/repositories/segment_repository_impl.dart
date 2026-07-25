@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:vamos_cartographie/core/services/erreur_handler.dart';
@@ -17,40 +18,40 @@ class SegmentRepositoryImpl extends SegmentRepository {
   ) {
     return guard(() async {
       final segments = await remote.getSegments(tripId: tripId);
-      return segments.map(SegmentMapper.fromGQL).toList();
+      return segments.map((m) => m.toSegmentRemoteModel()).toList();
     });
   }
 
-  // Future<Either<Failure, Segment>> createSegment(
-  //   Id<Trip> tripId,
-  //   SegmentDraft segment,
-  // ) async {
-  //   try {
-  //     final input = SegmentDraftMapper.toGQLInput(segment);
-  //     final gqlResult = await remote.createSegment(
-  //       tripId: tripId,
-  //       input: input,
-  //     );
-  //     final createSegment = SegmentMapper.fromGQL(gqlResult);
-  //     return Right(createSegment);
-  //   } on Exception catch (e) {
-  //     return Left(ServerFailure(e.toString()));
-  //   } catch (_) {
-  //     return Left(const ConnectionFailure());
-  //   }
-  // }
+  @override
+  Future<Either<Failure, SegmentRemoteModel>> createSegment({
+    required Id<Trip> tripId,
+    required VertexId startVertexId,
+    required VertexId endVertexId,
+    required MobilityType mobilityType,
+    required List<LatLng> geometry,
+  }) async {
+    return guard(() async {
+      final gqlResult = await remote.createSegment(
+        tripId: tripId,
+        startVertexId: startVertexId,
+        endVertexId: endVertexId,
+        mobilityType: mobilityType,
+        geometry: geometry,
+      );
+      return gqlResult.toSegmentRemoteModel();
+    });
+  }
 
   @override
   Future<Either<Failure, SegmentRemoteModel>> updateSegment(
     SegmentFields segment,
   ) async {
     return guard(() async {
-      final input = SegmentMapper.toGQLUpdateInput(segment);
       final gqlResult = await remote.updateSegment(
         id: segment.id,
-        input: input,
+        input: segment.toGQLUpdateInput(),
       );
-      return SegmentMapper.fromGQL(gqlResult);
+      return gqlResult.toSegmentRemoteModel();
     });
   }
 

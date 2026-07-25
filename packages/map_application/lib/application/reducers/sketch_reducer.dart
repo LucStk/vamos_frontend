@@ -1,5 +1,6 @@
 import 'package:map_application/application/map_state.dart';
 import 'package:map_application/input_events/input_events.dart';
+import 'package:map_application/intents/intents.dart';
 
 import '/application/transition_result.dart';
 
@@ -8,12 +9,22 @@ TransitionResult reduceSketch(MapState state, MapInputEvent event) {
   if (mode is! SketchMode) return TransitionResult(nextState: state);
   switch (event) {
     case SketchDragUpdate e:
-      final selection = (e.touchedVertex != null)
-          ? VertexSelection(vertexId: e.touchedVertex!)
-          : NoSelection();
+      if (e.touchedVertex != null) {
+        return TransitionResult(
+          nextState: MapState(mode: MapMode.idle(), selection: NoSelection()),
+          intents: [
+            CreateSegment(
+              startVertexId: mode.vertexStart,
+              endVertexId: e.touchedVertex!,
+              geometry: mode.itineraire,
+              mobilityType: mode.mobilityType,
+            ),
+          ],
+        );
+      }
       return TransitionResult(
         nextState: state.copyWith(
-          selection: selection,
+          selection: NoSelection(),
           mode: mode.copyWith(itineraire: [...mode.itineraire, e.latLng]),
         ),
       );

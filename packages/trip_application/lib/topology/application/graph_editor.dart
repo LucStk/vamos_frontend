@@ -12,11 +12,30 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   SegmentRepository get segmentRepo;
   VertexRepository get vertexRepo;
 
+  Future<Either<Failure, SegmentRemoteModel>> createSegment({
+    required VertexId startVertexId,
+    required VertexId endVertexId,
+    required List<LatLng> geometry,
+    required MobilityType mobilityType,
+  }) async {
+    return await run(
+      onApply: (gs) => gs,
+      remote: (_) => segmentRepo.createSegment(
+        tripId: tripId,
+        startVertexId: startVertexId,
+        endVertexId: endVertexId,
+        mobilityType: mobilityType,
+        geometry: geometry,
+      ),
+      onSuccess: (gs, serveurValue) => gs.setSegment(serveurValue),
+    );
+  }
+
   Future<Either<Failure, SegmentRemoteModel>> updateSegment(
     SegmentPatchModel segment,
   ) async {
     return await run(
-      onApply: (gs) => gs..setSegment(segment),
+      onApply: (gs) => gs.setSegment(segment),
       remote: (_) => segmentRepo.updateSegment(segment),
       onSuccess: (gs, serveurValue) => gs.setSegment(serveurValue),
       onError: (gs, Failure failure) => gs.rollbackSegment(segment.id),

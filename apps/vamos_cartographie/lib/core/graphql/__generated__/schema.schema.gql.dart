@@ -344,6 +344,7 @@ class GSegmentCreateInput {
     required this.mobilityType,
     required this.startVertexId,
     required this.endVertexId,
+    required this.geometry,
   });
 
   factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
@@ -354,6 +355,9 @@ class GSegmentCreateInput {
       mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
       startVertexId: (json['startVertexId'] as String),
       endVertexId: (json['endVertexId'] as String),
+      geometry: (json['geometry'] as List<dynamic>)
+          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
     );
   }
 
@@ -364,6 +368,8 @@ class GSegmentCreateInput {
   final String startVertexId;
 
   final String endVertexId;
+
+  final List<GLatLngInput> geometry;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -378,6 +384,8 @@ class GSegmentCreateInput {
     _$result['startVertexId'] = _$startVertexIdValue;
     final _$endVertexIdValue = this.endVertexId;
     _$result['endVertexId'] = _$endVertexIdValue;
+    final _$geometryValue = this.geometry;
+    _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
     return _$result;
   }
 
@@ -386,12 +394,14 @@ class GSegmentCreateInput {
     GMobilityType? mobilityType,
     String? startVertexId,
     String? endVertexId,
+    List<GLatLngInput>? geometry,
   }) {
     return GSegmentCreateInput(
       id: id ?? this.id,
       mobilityType: mobilityType ?? this.mobilityType,
       startVertexId: startVertexId ?? this.startVertexId,
       endVertexId: endVertexId ?? this.endVertexId,
+      geometry: geometry ?? this.geometry,
     );
   }
 
@@ -409,7 +419,7 @@ class GSegmentCreateInput {
 
   @override
   String toString() {
-    return 'GSegmentCreateInput(id: $id, mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
+    return 'GSegmentCreateInput(id: $id, mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry)';
   }
 }
 

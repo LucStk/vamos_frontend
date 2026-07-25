@@ -1,9 +1,12 @@
+import 'package:latlong2/latlong.dart';
+import 'package:vamos_cartographie/core/mappers/mappers.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
 import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/segment_mutations.req.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/segment_mutations.var.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/segment_queries.req.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/segment_queries.var.gql.dart';
+import 'package:vamos_cartographie/topology/data/mappers/mobility_type_mapper.dart';
 
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
@@ -28,11 +31,22 @@ class SegmentRemoteDatasource {
 
   Future<GSegmentFields> createSegment({
     required Id<Trip> tripId,
-    required GSegmentCreateInput input,
+    required VertexId startVertexId,
+    required VertexId endVertexId,
+    required MobilityType mobilityType,
+    required List<LatLng> geometry,
   }) async {
     final data = await ferryClient.execute(
       GCreateSegmentReq(
-        vars: GCreateSegmentVars(tripId: tripId.value, segment: input),
+        vars: GCreateSegmentVars(
+          tripId: tripId.value,
+          segment: GSegmentCreateInput(
+            startVertexId: startVertexId.value,
+            endVertexId: endVertexId.value,
+            mobilityType: mobilityType.toGQL(),
+            geometry: geometry.map((m) => m.toGQLInput()).toList(),
+          ),
+        ),
       ),
     );
     return data.createSegment;

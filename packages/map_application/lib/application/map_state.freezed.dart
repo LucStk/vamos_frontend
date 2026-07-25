@@ -436,11 +436,11 @@ return sketchMode(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  VertexId? touchedVertex)?  sketchMode,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex)?  sketchMode,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
 return idle();case SketchMode() when sketchMode != null:
-return sketchMode(_that.vertexStart,_that.itineraire,_that.touchedVertex);case _:
+return sketchMode(_that.vertexStart,_that.itineraire,_that.mobilityType,_that.touchedVertex);case _:
   return orElse();
 
 }
@@ -458,11 +458,11 @@ return sketchMode(_that.vertexStart,_that.itineraire,_that.touchedVertex);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  VertexId? touchedVertex)  sketchMode,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex)  sketchMode,}) {final _that = this;
 switch (_that) {
 case Idle():
 return idle();case SketchMode():
-return sketchMode(_that.vertexStart,_that.itineraire,_that.touchedVertex);}
+return sketchMode(_that.vertexStart,_that.itineraire,_that.mobilityType,_that.touchedVertex);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -476,11 +476,11 @@ return sketchMode(_that.vertexStart,_that.itineraire,_that.touchedVertex);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( VertexId vertexStart,  List<LatLng> itineraire,  VertexId? touchedVertex)?  sketchMode,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex)?  sketchMode,}) {final _that = this;
 switch (_that) {
 case Idle() when idle != null:
 return idle();case SketchMode() when sketchMode != null:
-return sketchMode(_that.vertexStart,_that.itineraire,_that.touchedVertex);case _:
+return sketchMode(_that.vertexStart,_that.itineraire,_that.mobilityType,_that.touchedVertex);case _:
   return null;
 
 }
@@ -524,7 +524,7 @@ String toString() {
 
 
 class SketchMode implements MapMode {
-  const SketchMode({required this.vertexStart, required final  List<LatLng> itineraire, this.touchedVertex}): _itineraire = itineraire;
+  const SketchMode({required this.vertexStart, required final  List<LatLng> itineraire, required this.mobilityType, this.touchedVertex}): _itineraire = itineraire;
   
 
  final  VertexId vertexStart;
@@ -535,6 +535,7 @@ class SketchMode implements MapMode {
   return EqualUnmodifiableListView(_itineraire);
 }
 
+ final  MobilityType mobilityType;
  final  VertexId? touchedVertex;
 
 /// Create a copy of MapMode
@@ -547,16 +548,16 @@ $SketchModeCopyWith<SketchMode> get copyWith => _$SketchModeCopyWithImpl<SketchM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchMode&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other._itineraire, _itineraire)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchMode&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other._itineraire, _itineraire)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(_itineraire),touchedVertex);
+int get hashCode => Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(_itineraire),mobilityType,touchedVertex);
 
 @override
 String toString() {
-  return 'MapMode.sketchMode(vertexStart: $vertexStart, itineraire: $itineraire, touchedVertex: $touchedVertex)';
+  return 'MapMode.sketchMode(vertexStart: $vertexStart, itineraire: $itineraire, mobilityType: $mobilityType, touchedVertex: $touchedVertex)';
 }
 
 
@@ -567,7 +568,7 @@ abstract mixin class $SketchModeCopyWith<$Res> implements $MapModeCopyWith<$Res>
   factory $SketchModeCopyWith(SketchMode value, $Res Function(SketchMode) _then) = _$SketchModeCopyWithImpl;
 @useResult
 $Res call({
- VertexId vertexStart, List<LatLng> itineraire, VertexId? touchedVertex
+ VertexId vertexStart, List<LatLng> itineraire, MobilityType mobilityType, VertexId? touchedVertex
 });
 
 
@@ -584,11 +585,12 @@ class _$SketchModeCopyWithImpl<$Res>
 
 /// Create a copy of MapMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? vertexStart = null,Object? itineraire = null,Object? touchedVertex = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? vertexStart = null,Object? itineraire = null,Object? mobilityType = null,Object? touchedVertex = freezed,}) {
   return _then(SketchMode(
 vertexStart: null == vertexStart ? _self.vertexStart : vertexStart // ignore: cast_nullable_to_non_nullable
 as VertexId,itineraire: null == itineraire ? _self._itineraire : itineraire // ignore: cast_nullable_to_non_nullable
-as List<LatLng>,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as MobilityType,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,
   ));
 }

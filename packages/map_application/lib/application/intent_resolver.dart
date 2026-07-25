@@ -18,6 +18,13 @@ class IntentResolver {
         await waypointEditor.createBlankWaypointFromVertex(
           VertexId(e.vertexId.value),
         );
+      case CreateSegment e:
+        await graphEditor.createSegment(
+          startVertexId: e.startVertexId,
+          endVertexId: e.endVertexId,
+          geometry: e.geometry,
+          mobilityType: e.mobilityType,
+        );
       case RemoveVertex e:
         await graphEditor.removeVertex(e.vertexId);
       case OpenWaypointDialog e:

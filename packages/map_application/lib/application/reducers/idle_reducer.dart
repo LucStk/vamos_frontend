@@ -1,4 +1,5 @@
 import 'package:map_application/map_application.dart';
+import 'package:trip_application/topology/domain/value_objects/mobility_types.dart';
 
 TransitionResult reduceIdle(MapState state, MapInputEvent event) {
   return switch (event) {
@@ -21,7 +22,11 @@ TransitionResult reduceIdle(MapState state, MapInputEvent event) {
     ButtonStartSegment _ => switch (state.selection.vertexIdOrNull) {
       final vertexId? => TransitionResult(
         nextState: MapState(
-          mode: SketchMode(vertexStart: vertexId, itineraire: []),
+          mode: SketchMode(
+            vertexStart: vertexId,
+            itineraire: [],
+            mobilityType: MobilityType.bike,
+          ),
         ),
       ),
       null => TransitionResult(nextState: state),

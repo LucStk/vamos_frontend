@@ -32,7 +32,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
         latLng: latLng,
       );
       final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
-      final waypointVertex = VertexMapper.fromGQL(gqlResult.vertex);
+      final waypointVertex = gqlResult.vertex.toVertexRemoteModel();
       return WaypointCreateBlankRes(createWaypoint, waypointVertex);
     });
   }
@@ -48,7 +48,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
         vertexId: vertexId,
       );
       final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
-      final waypointVertex = VertexMapper.fromGQL(gqlResult.vertex);
+      final waypointVertex = gqlResult.vertex.toVertexRemoteModel();
       return WaypointCreateBlankRes(createWaypoint, waypointVertex);
     });
   }

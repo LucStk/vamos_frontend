@@ -19,6 +19,7 @@ sealed class MapMode with _$MapMode {
   const factory MapMode.sketchMode({
     required VertexId vertexStart,
     required List<LatLng> itineraire,
+    required MobilityType mobilityType,
     VertexId? touchedVertex,
   }) = SketchMode;
 }

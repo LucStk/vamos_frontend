@@ -52,6 +52,9 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
         final vertex = ref.read(vertexProvider(widget.tripId, e.vertexStart));
         final mapController = MapController.of(context);
         final allVertices = ref.watch(allVertexProvider(widget.tripId));
+        final candidateVertices = allVertices
+            .where((v) => v.id != e.vertexStart)
+            .toList();
         final sketchRoad = [vertex.latLng, ...e.itineraire];
         return Stack(
           children: [
@@ -85,7 +88,7 @@ class _SketchLayerState extends ConsumerState<SketchLayer> {
                   onDragUpdate: (_, LatLng latLng) {
                     final hit = findNearbyVertex(
                       point: latLng,
-                      vertices: allVertices,
+                      vertices: candidateVertices,
                       mapController: mapController,
                     );
                     mapStateNotifier.sendUiEvent(

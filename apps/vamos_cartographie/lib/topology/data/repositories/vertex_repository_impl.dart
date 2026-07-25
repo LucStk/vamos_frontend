@@ -2,12 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/mappers/mappers.dart';
 
 import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 import 'package:vamos_cartographie/topology/data/datasources/vertex_remote_datasource.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
-
-import "/topology/data/mappers/gis_mapper.dart" show GisMapper;
 
 class VertexRepositoryImpl extends VertexRepository {
   final VertexRemoteDatasource remote;
@@ -18,7 +17,7 @@ class VertexRepositoryImpl extends VertexRepository {
   ) {
     return guard(() async {
       final segments = await remote.getVertices(tripId: tripId);
-      return segments.map(VertexMapper.fromGQL).toList();
+      return segments.map((m) => m.toVertexRemoteModel()).toList();
     });
   }
 
@@ -30,9 +29,9 @@ class VertexRepositoryImpl extends VertexRepository {
     return guard(() async {
       final gqlResult = await remote.createVertex(
         tripId: tripId,
-        latLng: GisMapper.toGQL(latLng),
+        latLng: latLng.toGQLInput(),
       );
-      return VertexMapper.fromGQL(gqlResult);
+      return gqlResult.toVertexRemoteModel();
     });
   }
 
@@ -44,9 +43,9 @@ class VertexRepositoryImpl extends VertexRepository {
     return guard(() async {
       final gqlResult = await remote.moveVertex(
         id: vertexId,
-        latLng: GisMapper.toGQL(latLng),
+        latLng: latLng.toGQLInput(),
       );
-      return VertexMapper.fromGQL(gqlResult);
+      return gqlResult.toVertexRemoteModel();
     });
   }
 

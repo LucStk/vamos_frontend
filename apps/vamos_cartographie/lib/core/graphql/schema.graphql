@@ -107,6 +107,7 @@ input SegmentCreateInput {
   mobilityType: MobilityType!
   startVertexId: UUID!
   endVertexId: UUID!
+  geometry: [LatLngInput!]!
 }
 
 type SegmentType {
