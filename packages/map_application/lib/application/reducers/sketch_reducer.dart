@@ -11,7 +11,7 @@ TransitionResult reduceSketch(MapState state, MapInputEvent event) {
     case SketchDragUpdate e:
       if (e.touchedVertex != null) {
         return TransitionResult(
-          nextState: MapState(mode: MapMode.idle(), selection: NoSelection()),
+          nextState: state,
           intents: [
             CreateSegment(
               startVertexId: mode.vertexStart,

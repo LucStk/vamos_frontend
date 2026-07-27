@@ -13,6 +13,15 @@ TransitionResult reduceIdle(MapState state, MapInputEvent event) {
         selection: MapSelection.segment(segmentId: e.segId),
       ),
     ),
+    SegmentCreated e => TransitionResult(
+      nextState: state.copyWith(
+        mode: MapMode.idle(),
+        selection: MapSelection.segment(segmentId: e.segmentId),
+      ),
+    ),
+    SegmentCreateFailed _ => TransitionResult(
+      nextState: state.copyWith(mode: MapMode.idle()),
+    ),
     SegmentButtonDeleteTapped _ => switch (state.selection.segmentIdOrNull) {
       final segmentId? => TransitionResult(
         nextState: state.copyWith(selection: NoSelection()),

@@ -42,3 +42,12 @@ class SegmentTapped extends SegmentEvent {
 class SegmentButtonDeleteTapped extends SegmentEvent {
   const SegmentButtonDeleteTapped();
 }
+
+class SegmentCreated implements MapInputEvent {
+  final SegmentId segmentId;
+  const SegmentCreated(this.segmentId);
+}
+
+class SegmentCreateFailed implements MapInputEvent {
+  const SegmentCreateFailed();
+}

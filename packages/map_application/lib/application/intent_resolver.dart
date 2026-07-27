@@ -1,4 +1,5 @@
 // L'EffectRunner connaît le store, pas le reducer
+import 'package:domain_core/notification/failure.dart';
 import 'package:map_application/map_application.dart';
 import "package:trip_application/trip_application.dart";
 
@@ -6,7 +7,13 @@ class IntentResolver {
   final GraphEditor graphEditor;
   final WaypointEditor waypointEditor;
   final MapOutput mapOutput;
-  IntentResolver(this.graphEditor, this.waypointEditor, this.mapOutput);
+  final void Function(MapInputEvent) dispatch;
+  IntentResolver({
+    required this.graphEditor,
+    required this.waypointEditor,
+    required this.mapOutput,
+    required this.dispatch,
+  });
 
   Future<void> run(MapIntents intent) async {
     switch (intent) {
@@ -19,11 +26,16 @@ class IntentResolver {
           VertexId(e.vertexId.value),
         );
       case CreateSegment e:
-        await graphEditor.createSegment(
+        final res = await graphEditor.createSegment(
           startVertexId: e.startVertexId,
           endVertexId: e.endVertexId,
           geometry: e.geometry,
           mobilityType: e.mobilityType,
+        );
+        res.fold(
+          (Failure f) => dispatch(SegmentCreateFailed()),
+          (SegmentRemoteModel waypoint) =>
+              dispatch(SegmentCreated(waypoint.id)),
         );
       case DeleteSegment e:
         await graphEditor.deleteSegment(e.segmentId);

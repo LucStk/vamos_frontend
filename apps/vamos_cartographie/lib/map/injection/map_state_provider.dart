@@ -21,9 +21,10 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
 
   @override
   IntentResolver get intentResolver => IntentResolver(
-    ref.read(graphStoreProvider(tripId).notifier),
-    ref.read(waypointStoreProvider(tripId).notifier),
-    ref.read(mapOutputProvider(tripId).notifier),
+    graphEditor: ref.read(graphStoreProvider(tripId).notifier),
+    waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
+    mapOutput: ref.read(mapOutputProvider(tripId).notifier),
+    dispatch: sendUiEvent,
   );
 
   Future<Failure?> loadTripDetails() async {
