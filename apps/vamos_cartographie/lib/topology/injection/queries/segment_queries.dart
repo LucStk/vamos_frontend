@@ -1,7 +1,9 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:map_application/map_application.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
 import '/topology/injection/injection.dart';
 
 part 'segment_queries.g.dart';
@@ -22,6 +24,19 @@ GraphNode<SegmentFields> segmentNode(Ref ref, TripId tripId, SegmentId id) {
 }
 
 @riverpod
-SegmentFields segment(Ref ref, TripId tripId, SegmentId id) {
-  return ref.watch(segmentNodeProvider(tripId, id).select((s) => s.current));
+SegmentFields? segment(Ref ref, TripId tripId, SegmentId id) {
+  final node = ref.watch(segmentStoreProvider(tripId).select((s) => s.get(id)));
+  return node?.current;
+}
+
+@riverpod
+bool isSegmentSelected(Ref ref, TripId tripId, SegmentId segId) {
+  return ref.watch(
+    mapStateProvider(tripId).select((s) {
+      return switch (s.selection) {
+        SegmentSelection e => (segId == e.segmentId),
+        _ => false,
+      };
+    }),
+  );
 }

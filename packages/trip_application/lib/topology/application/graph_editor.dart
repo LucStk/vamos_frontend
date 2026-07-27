@@ -42,6 +42,14 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     );
   }
 
+  Future<Either<Failure, void>> deleteSegment(SegmentId segId) async {
+    return await run(
+      onApply: (gs) => gs,
+      remote: (_) => segmentRepo.deleteSegment(segId),
+      onSuccess: (gs, _) => gs.removeSegment(segId),
+    );
+  }
+
   Future<Either<Failure, VertexRemoteModel>> createSimpleVertex(
     LatLng latLng,
   ) async {

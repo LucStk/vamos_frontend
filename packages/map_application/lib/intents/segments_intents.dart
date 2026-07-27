@@ -18,3 +18,8 @@ class CreateSegment extends MapIntents {
     required this.mobilityType,
   });
 }
+
+class DeleteSegment extends MapIntents {
+  final SegmentId segmentId;
+  const DeleteSegment({required this.segmentId});
+}

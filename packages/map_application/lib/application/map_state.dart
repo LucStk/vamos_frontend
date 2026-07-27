@@ -44,6 +44,10 @@ extension MapSelectionX on MapSelection {
     VertexSelection(:final vertexId) => vertexId,
     _ => null,
   };
+  SegmentId? get segmentIdOrNull => switch (this) {
+    SegmentSelection(:final segmentId) => segmentId,
+    _ => null,
+  };
 }
 
 @freezed

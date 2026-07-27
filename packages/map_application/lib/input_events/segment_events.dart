@@ -38,3 +38,7 @@ class SegmentTapped extends SegmentEvent {
   final SegmentId segId;
   const SegmentTapped(this.segId);
 }
+
+class SegmentButtonDeleteTapped extends SegmentEvent {
+  const SegmentButtonDeleteTapped();
+}

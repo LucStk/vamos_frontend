@@ -40,8 +40,8 @@ class MapBottomSheet extends ConsumerWidget {
               );
             }
             return VertexBottomSheet(tripId: tripId, vertexId: e.vertexId);
-          case SegmentSelection _:
-            return const SizedBox.shrink();
+          case SegmentSelection e:
+            return SegmentBottomSheet(tripId: tripId, segmentId: e.segmentId);
           case NoSelection _:
             return const SizedBox.shrink();
         }

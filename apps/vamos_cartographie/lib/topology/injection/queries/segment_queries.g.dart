@@ -100,8 +100,8 @@ final class SegmentNodeFamily extends $Family
 final segmentProvider = SegmentFamily._();
 
 final class SegmentProvider
-    extends $FunctionalProvider<SegmentFields, SegmentFields, SegmentFields>
-    with $Provider<SegmentFields> {
+    extends $FunctionalProvider<SegmentFields?, SegmentFields?, SegmentFields?>
+    with $Provider<SegmentFields?> {
   SegmentProvider._({
     required SegmentFamily super.from,
     required (TripId, SegmentId) super.argument,
@@ -125,20 +125,20 @@ final class SegmentProvider
 
   @$internal
   @override
-  $ProviderElement<SegmentFields> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<SegmentFields?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  SegmentFields create(Ref ref) {
+  SegmentFields? create(Ref ref) {
     final argument = this.argument as (TripId, SegmentId);
     return segment(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SegmentFields value) {
+  Override overrideWithValue(SegmentFields? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SegmentFields>(value),
+      providerOverride: $SyncValueProvider<SegmentFields?>(value),
     );
   }
 
@@ -153,10 +153,10 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'89105d6a11cc5f022bc642085e572f2480ffa376';
+String _$segmentHash() => r'0f1db7d3a8248fcf7e81c0dc5638349b5f3aebc4';
 
 final class SegmentFamily extends $Family
-    with $FunctionalFamilyOverride<SegmentFields, (TripId, SegmentId)> {
+    with $FunctionalFamilyOverride<SegmentFields?, (TripId, SegmentId)> {
   SegmentFamily._()
     : super(
         retry: null,
@@ -171,4 +171,81 @@ final class SegmentFamily extends $Family
 
   @override
   String toString() => r'segmentProvider';
+}
+
+@ProviderFor(isSegmentSelected)
+final isSegmentSelectedProvider = IsSegmentSelectedFamily._();
+
+final class IsSegmentSelectedProvider
+    extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  IsSegmentSelectedProvider._({
+    required IsSegmentSelectedFamily super.from,
+    required (TripId, SegmentId) super.argument,
+  }) : super(
+         retry: null,
+         name: r'isSegmentSelectedProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$isSegmentSelectedHash();
+
+  @override
+  String toString() {
+    return r'isSegmentSelectedProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    final argument = this.argument as (TripId, SegmentId);
+    return isSegmentSelected(ref, argument.$1, argument.$2);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is IsSegmentSelectedProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$isSegmentSelectedHash() => r'f073738f30f4001a71d810985f6df21a218e1466';
+
+final class IsSegmentSelectedFamily extends $Family
+    with $FunctionalFamilyOverride<bool, (TripId, SegmentId)> {
+  IsSegmentSelectedFamily._()
+    : super(
+        retry: null,
+        name: r'isSegmentSelectedProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  IsSegmentSelectedProvider call(TripId tripId, SegmentId segId) =>
+      IsSegmentSelectedProvider._(argument: (tripId, segId), from: this);
+
+  @override
+  String toString() => r'isSegmentSelectedProvider';
 }

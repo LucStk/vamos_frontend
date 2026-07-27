@@ -8,6 +8,19 @@ TransitionResult reduceIdle(MapState state, MapInputEvent event) {
         selection: MapSelection.cursor(latLng: e.latLng),
       ),
     ),
+    SegmentTapped e => TransitionResult(
+      nextState: state.copyWith(
+        selection: MapSelection.segment(segmentId: e.segId),
+      ),
+    ),
+    SegmentButtonDeleteTapped _ => switch (state.selection.segmentIdOrNull) {
+      final segmentId? => TransitionResult(
+        nextState: state.copyWith(selection: NoSelection()),
+        intents: [DeleteSegment(segmentId: segmentId)],
+      ),
+      null => TransitionResult(nextState: state),
+    },
+
     MapTapped e => TransitionResult(
       nextState: state.copyWith(
         selection: MapSelection.cursor(latLng: e.latLng),

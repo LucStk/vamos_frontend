@@ -25,6 +25,8 @@ class IntentResolver {
           geometry: e.geometry,
           mobilityType: e.mobilityType,
         );
+      case DeleteSegment e:
+        await graphEditor.deleteSegment(e.segmentId);
       case RemoveVertex e:
         await graphEditor.removeVertex(e.vertexId);
       case OpenWaypointDialog e:
