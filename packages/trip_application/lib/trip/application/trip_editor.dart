@@ -28,6 +28,7 @@ mixin TripEditor on OptimisticRunner<TripStore> {
       entityKey: id,
       onApply: (gs) => gs,
       remote: (_) => tripRepo.deleteTrip(id),
+      onSuccess: (gs, _) => gs.removeTrip(id),
     );
   }
 }

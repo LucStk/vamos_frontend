@@ -116,18 +116,18 @@ class TripViewerDialog extends ConsumerWidget {
         ],
       ),
       buttonsBuilder: (ctx) => [
-        DeleteButton(
-          onPressed: () async {
-            await _deleteTrip(context, ref);
-          },
-        ),
-        const SizedBox(width: 8),
         ModifierButton(onPressed: () => _openEditor(context, trip)),
         const SizedBox(width: 8),
         ExploreButton(
           onPressed: () {
             Navigator.of(context).pop();
             onExplore();
+          },
+        ),
+        const SizedBox(width: 8),
+        DeleteButton(
+          onPressed: () async {
+            await _deleteTrip(context, ref);
           },
         ),
       ],

@@ -1,4 +1,4 @@
-// Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_bottom_sheet.dart
+// Emplacement : lib/features/waypoint/widgets/segment_bottom_sheet.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,11 +6,11 @@ import 'package:map_application/map_application.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
+import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
 
-// On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
 class SegmentBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final SegmentId segmentId;
@@ -27,33 +27,52 @@ class SegmentBottomSheet extends ConsumerWidget {
     if (segment == null) return const SizedBox.shrink();
 
     final notifier = ref.watch(mapStateProvider(tripId).notifier);
+
+    // Récupération de la valeur enum courante du segment pour présélectionner le bon TypeSelector
+    final currentStyle = segment.mobilityTypeDisplay;
+
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey('compact_content'),
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Container(
-                // Ajoute le padding ici (ajuste la valeur selon le rendu souhaité)
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Color(
-                    segment.mobilityTypeDisplay.colorValue,
-                  ).withValues(alpha: 0.7),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.8),
-                    width: 1,
-                  ),
-                ),
-                child: Icon(
-                  segment.mobilityTypeDisplay.icon,
-                  color: Colors.white,
-                  size: 20,
+              // 1. Sélecteur de modalité défilable dans l'espace disponible
+              Expanded(
+                child: TypeSelector(
+                  values: MobilityTypeStyle.values,
+                  selectedType: currentStyle,
+                  onTypeChanged: (newType) {
+                    notifier.sendUiEvent(
+                      SegmentMobilityTypeChanged(newType.type),
+                    );
+                  },
                 ),
               ),
-              Spacer(),
+
+              const SizedBox(width: 8),
+
+              // 2. Bouton "Redessiner" le segment
+              IconButton.filledTonal(
+                onPressed: () =>
+                    notifier.sendUiEvent(SegmentRedrawButtonTapped(segmentId)),
+                icon: const Icon(Icons.edit_road_rounded, size: 20),
+                tooltip: "Redessiner le segment",
+                style: IconButton.styleFrom(
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer.withValues(alpha: 0.7),
+                  foregroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onPrimaryContainer,
+                ),
+              ),
+
+              const SizedBox(width: 4),
+
+              // 3. Bouton "Supprimer" le segment
               DeleteButton(
                 onPressed: () =>
                     notifier.sendUiEvent(SegmentButtonDeleteTapped()),
