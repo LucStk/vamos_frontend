@@ -1,7 +1,8 @@
-// Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_content.dart
+// Emplacement : lib/features/waypoint/widgets/waypoint_viewer_content.dart
 
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/presentation/bottom_sheet/drag_hint_header.dart';
 import 'package:vamos_cartographie/waypoint/presentation/poi_ui.dart';
 import 'waypoint_header.dart';
 import 'waypoint_viewer_actions.dart';
@@ -19,25 +20,25 @@ class WaypointCompactContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      key: const ValueKey(
-        'compact_content',
-      ), // 👈 CRUCIAL pour AnimatedSwitcher
+      key: const ValueKey('compact_content'), // CRUCIAL pour AnimatedSwitcher
       mainAxisSize: MainAxisSize.min,
       children: [
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 15),
-            child: Text(
-              "Glissez vers le haut pour voir les détails",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-          ),
-        ),
+        // Indicateur visuel pour inciter au glissement vers le haut
+        const DragHintHeader(),
+
+        const SizedBox(height: 12),
+
+        // Ligne d'en-tête + boutons d'action
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            WaypointHeader(type: waypoint.poiCategoryUi),
+            // Expanded empêche le titre/catégorie de déborder sur les boutons
+            Expanded(child: WaypointHeader(type: waypoint.poiCategoryUi)),
 
+            const SizedBox(width: 12),
+
+            // Actions (Ex: Édition, Suppression, etc.)
             WaypointViewerButtons(tripId: tripId, waypoint: waypoint),
           ],
         ),

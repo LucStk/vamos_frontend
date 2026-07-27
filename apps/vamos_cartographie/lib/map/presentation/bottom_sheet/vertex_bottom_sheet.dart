@@ -1,4 +1,4 @@
-// Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_bottom_sheet.dart
+// Emplacement : lib/features/waypoint/widgets/vertex_bottom_sheet.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +10,6 @@ import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/map/presentation/widgets/buttons/buttons.dart';
 
-// On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;
@@ -24,29 +23,34 @@ class VertexBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(mapStateProvider(tripId).notifier);
+
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey('compact_content'),
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: Text(
-                "Glissez vers le haut pour voir les détails",
-                style: TextStyle(fontSize: 12, color: Colors.grey),
-              ),
-            ),
-          ),
+          // Drag handle visuel pour inciter au glissement
+
+          // Ligne d'actions
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // 1. Action de dessin de segment depuis ce vertex
               DrawSegment(vertexId: vertexId, tripId: tripId),
-              ConfirmButton(
-                label: "Créer une étape ici",
-                onPressed: () =>
-                    notifier.sendUiEvent(VertexButtonCreateWaypoint()),
+
+              const SizedBox(width: 8),
+
+              // 2. Bouton principal d'action : Créer une étape
+              Expanded(
+                child: ConfirmButton(
+                  label: "Créer une étape ici",
+                  onPressed: () =>
+                      notifier.sendUiEvent(VertexButtonCreateWaypoint()),
+                ),
               ),
+
+              const SizedBox(width: 8),
+
+              // 3. Supprimer le vertex
               DeleteButton(
                 onPressed: () =>
                     notifier.sendUiEvent(VertexButtonDeleteTapped()),
