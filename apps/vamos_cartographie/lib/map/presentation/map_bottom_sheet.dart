@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/application/map_state.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
 import 'bottom_sheet/bottom_sheet.dart';
@@ -23,7 +23,7 @@ class MapBottomSheet extends ConsumerWidget {
       mapStateProvider(tripId).select((state) => state.selection),
     );
     switch (modeSelection) {
-      case SketchMode _:
+      case Sketch _:
         return SketchBottomSheet(tripId: tripId);
       case Idle _:
         switch (stateSelection) {

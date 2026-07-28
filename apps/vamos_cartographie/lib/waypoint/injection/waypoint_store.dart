@@ -3,6 +3,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
 import "package:vamos_cartographie/notification/injection/error_logger.dart";
+import "package:vamos_cartographie/topology/injection/providers/graph_store.dart";
 import "package:vamos_cartographie/waypoint/data/waypoint_remote_datasource.dart";
 import "package:vamos_cartographie/waypoint/data/waypoint_repository_impl.dart";
 part "waypoint_store.g.dart";
@@ -23,6 +24,9 @@ class WaypointStoreNotifier extends _$WaypointStoreNotifier
   @override
   WaypointStore build(TripId tripId) => WaypointStore.initial();
 
+  @override
+  StateWriter<GraphStore> get graphStoreWriter =>
+      RiverpodGraphStoreWriter(tripId, ref);
   // Injection des dépendances requises par le mixin TopologyHandler
   @override
   WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);

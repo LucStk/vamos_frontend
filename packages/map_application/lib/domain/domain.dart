@@ -1,7 +1,7 @@
 // export removed: file no longer exists after reorganization
 export "poly_editor_service.dart";
 export "transition_result.dart";
-export "reducers/root_reducer.dart";
-export "map_editor.dart";
 export "map_output_interface.dart";
-export 'map_state.dart';
+export "map_mode.dart";
+export "map_selection.dart";
+export "map_state.dart";

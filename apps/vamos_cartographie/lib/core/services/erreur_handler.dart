@@ -36,10 +36,10 @@ class ErrorHandler implements ErrorLogger {
   void handle(Object error, StackTrace? stackTrace) {
     // On limite par exemple aux 5 premières lignes si la stacktrace existe
     final limitedStackTrace = stackTrace != null
-        ? stackTrace.toString().split('\n').take(5).join('\n')
+        ? stackTrace.toString().split('\n').take(15).join('\n')
         : 'Pas de StackTrace';
 
-    debugPrint('Erreur capturée globalement : $error ->\n$stackTrace');
+    debugPrint('Erreur capturée globalement : $error ->\n$limitedStackTrace');
 
     // 2. Déclenche la notification système via Riverpod
     _container

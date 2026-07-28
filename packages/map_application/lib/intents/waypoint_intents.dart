@@ -5,6 +5,11 @@ class CreateWaypointFromVertex extends MapIntents {
   const CreateWaypointFromVertex(this.vertexId);
 }
 
+class CreateWaypointFromPosition extends MapIntents {
+  final LatLng latLng;
+  const CreateWaypointFromPosition(this.latLng);
+}
+
 class OpenWaypointDialog extends MapIntents {
   final WaypointId waypointId;
   const OpenWaypointDialog(this.waypointId);

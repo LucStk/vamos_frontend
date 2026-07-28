@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
 mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   WaypointRepository get waypointRepo;
+  StateWriter<GraphStore> get graphStoreWriter;
   TripId get tripId;
 
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
@@ -30,6 +32,21 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     );
   }
 
+  Future<Either<Failure, WaypointCreateBlankRes>>
+  createBlankWaypointFromPosition(LatLng latLng) async {
+    return await run(
+      onApply: (gs) => gs,
+      remote: (gs) =>
+          waypointRepo.createBlankWaypointFromPosition(tripId, latLng),
+      onSuccess: (gs, data) {
+        graphStoreWriter.state = graphStoreWriter.state.insertVertex(
+          data.vertex,
+        );
+        return gs.insertWaypoint(data.waypoint);
+      },
+    );
+  }
+
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id) async {
     return await run(
       entityKey: id,
@@ -39,17 +56,3 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     );
   }
 }
-
-// Future<Either<Failure, WaypointCreateBlankRes>>
-// createBlankWaypointFromPosition(LatLng latLng) async {
-//   return await executor.run(
-//     onApply: () {},
-//     remote: () =>
-//         waypointRepo.createBlankWaypointFromPosition(tripId, latLng),
-//     onSuccess: (data) {
-//       waypointStore.upsert(data.waypoint);
-//       graphStore.upsertVertex(data.vertex);
-//     },
-//     onError: (Failure failure) {},
-//   );
-// }

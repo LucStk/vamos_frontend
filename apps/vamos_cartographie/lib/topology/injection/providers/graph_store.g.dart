@@ -344,7 +344,7 @@ final class GraphStoreNotifierProvider
 }
 
 String _$graphStoreNotifierHash() =>
-    r'3af1b73267237651784ecc2905fda5c3376ff801';
+    r'13824820533cd1b7224f8bcaa007398cdb0d9ca0';
 
 final class GraphStoreNotifierFamily extends $Family
     with

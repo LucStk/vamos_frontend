@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 
-mixin OptimisticRunner<S> {
-  S get state;
-  set state(S value);
+mixin OptimisticRunner<S> implements StateWriter<S> {
   ErrorLogger? get errorLogger => null;
   MutationQueue get mutationQueue; // à injecter, comme tripRepo/storedFileRepo
 

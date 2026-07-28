@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/application/map_state.dart';
-import 'package:map_application/input_events/input_events.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import '/map/map.dart';
 

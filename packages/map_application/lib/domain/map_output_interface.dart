@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:map_application/output_events/output_events.dart';
+import 'package:map_application/events/events.dart';
 
 abstract interface class MapOutput {
   void emit(MapOutputEvent event);

@@ -7,7 +7,7 @@ class IntentResolver {
   final GraphEditor graphEditor;
   final WaypointEditor waypointEditor;
   final MapOutput mapOutput;
-  final void Function(MapInputEvent) dispatch;
+  final void Function(MapEvent) dispatch;
   IntentResolver({
     required this.graphEditor,
     required this.waypointEditor,
@@ -24,6 +24,15 @@ class IntentResolver {
       case CreateWaypointFromVertex e:
         await waypointEditor.createBlankWaypointFromVertex(
           VertexId(e.vertexId.value),
+        );
+      case CreateWaypointFromPosition e:
+        final res = await waypointEditor.createBlankWaypointFromPosition(
+          e.latLng,
+        );
+        res.fold(
+          (Failure f) => dispatch(WaypointCreateFailed()),
+          (WaypointCreateBlankRes data) =>
+              dispatch(WaypointCreated(data.waypoint.id)),
         );
       case CreateSegment e:
         final res = await graphEditor.createSegment(
@@ -42,7 +51,7 @@ class IntentResolver {
       case RemoveVertex e:
         await graphEditor.removeVertex(e.vertexId);
       case OpenWaypointDialog e:
-        mapOutput.emit(OpenWaypointDialogEvent(e.waypointId));
+        mapOutput.emit(WaypointOpenDialog(e.waypointId));
 
       case _:
         print("Resolver not found for intent $intent");

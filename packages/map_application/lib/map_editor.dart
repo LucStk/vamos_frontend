@@ -1,8 +1,8 @@
-import 'package:map_application/application/intent_resolver.dart';
-import 'package:map_application/application/map_state.dart';
-import 'package:map_application/application/reducers/root_reducer.dart';
-import 'package:map_application/input_events/input_events.dart';
+import 'package:map_application/domain/map_state.dart';
+import 'package:map_application/intent_resolver.dart';
 import 'package:map_application/intents/intents.dart';
+import 'package:map_application/reducers/root_reducer.dart';
+import 'events/events.dart';
 
 mixin MapEditor {
   MapState get state;
@@ -10,7 +10,7 @@ mixin MapEditor {
 
   IntentResolver get intentResolver;
 
-  void sendUiEvent(MapInputEvent event) {
+  void sendUiEvent(MapEvent event) {
     final result = reduce(state, event);
     state = result.nextState;
     for (final intent in result.intents) {

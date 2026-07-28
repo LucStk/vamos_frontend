@@ -2,27 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
-part 'map_state.freezed.dart';
-
-@freezed
-abstract class MapState with _$MapState {
-  const factory MapState({
-    @Default(Idle()) MapMode mode,
-    @Default(MapSelection.none()) MapSelection selection,
-    @Default(MapOverlayState.hidden()) MapOverlayState overlay,
-  }) = _MapState;
-}
-
-@freezed
-sealed class MapMode with _$MapMode {
-  const factory MapMode.idle() = Idle;
-  const factory MapMode.sketchMode({
-    required VertexId vertexStart,
-    required List<LatLng> itineraire,
-    required MobilityType mobilityType,
-    VertexId? touchedVertex,
-  }) = SketchMode;
-}
+part 'map_selection.freezed.dart';
 
 @freezed
 sealed class MapSelection with _$MapSelection {
@@ -48,17 +28,4 @@ extension MapSelectionX on MapSelection {
     SegmentSelection(:final segmentId) => segmentId,
     _ => null,
   };
-}
-
-@freezed
-abstract class PopUpState with _$PopUpState {
-  const factory PopUpState({required LatLng latLng}) = _PopUpState;
-}
-
-@freezed
-sealed class MapOverlayState with _$MapOverlayState {
-  const factory MapOverlayState.hidden() = OverlayHidden;
-
-  const factory MapOverlayState.popup({required PopUpState popUpState}) =
-      OverlayPopup;
 }

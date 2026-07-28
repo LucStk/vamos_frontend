@@ -1,12 +1,10 @@
-import 'package:map_application/application/map_state.dart';
-import 'package:map_application/input_events/input_events.dart';
+import '/domain/domain.dart';
 import 'package:map_application/intents/intents.dart';
+import "/events/events.dart";
 
-import '/application/transition_result.dart';
-
-TransitionResult reduceSketch(MapState state, MapInputEvent event) {
+TransitionResult reduceSketch(MapState state, MapEvent event) {
   final mode = state.mode;
-  if (mode is! SketchMode) return TransitionResult(nextState: state);
+  if (mode is! Sketch) return TransitionResult(nextState: state);
   switch (event) {
     case SketchDragUpdate e:
       if (e.touchedVertex != null) {

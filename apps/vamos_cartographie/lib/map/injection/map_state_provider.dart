@@ -1,5 +1,4 @@
 import 'package:domain_core/notification/failure.dart';
-import 'package:map_application/application/intent_resolver.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/application/application.dart';

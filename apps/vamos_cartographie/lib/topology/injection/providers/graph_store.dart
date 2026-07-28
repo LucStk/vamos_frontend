@@ -45,6 +45,11 @@ class GraphStoreNotifier extends _$GraphStoreNotifier
   @override
   GraphStore build(TripId tripId) => GraphStore.initial();
 
+  // Méthode publique dédiée à l'écriture externe contrôlée
+  void updateState(GraphStore value) {
+    state = value; // ici, state = est légal car on est DANS la classe Notifier
+  }
+
   // Injection des dépendances requises par le mixin TopologyHandler
   @override
   SegmentRepository get segmentRepo => ref.read(segmentRepositoryProvider);
@@ -67,4 +72,17 @@ GraphCollectionStore<VertexFields> vertexStore(Ref ref, TripId tripId) {
 @riverpod
 GraphCollectionStore<SegmentFields> segmentStore(Ref ref, TripId tripId) {
   return ref.watch(graphStoreProvider(tripId).select((gs) => gs.segmentStore));
+}
+
+class RiverpodGraphStoreWriter implements StateWriter<GraphStore> {
+  final Ref ref;
+  final TripId tripId;
+  RiverpodGraphStoreWriter(this.tripId, this.ref);
+
+  @override
+  GraphStore get state => ref.read(graphStoreProvider(tripId));
+
+  @override
+  set state(GraphStore value) =>
+      ref.read(graphStoreProvider(tripId).notifier).updateState(value);
 }
