@@ -7,63 +7,41 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_application/application/map_state.dart';
 import 'package:map_application/input_events/input_events.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/rendering/helpers/vertex_hit_test.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
 import '/map/map.dart';
 
-class SketchLayer extends ConsumerStatefulWidget {
+class SketchLayer extends ConsumerWidget {
   final Id<Trip> tripId;
-  const SketchLayer({super.key, required this.tripId});
+  final ValueNotifier<LayerHitResult<NotifierHit>?> hitNotifier;
+  const SketchLayer({
+    super.key,
+    required this.tripId,
+    required this.hitNotifier,
+  });
 
   @override
-  ConsumerState<SketchLayer> createState() => _SketchLayerState();
-}
-
-class _SketchLayerState extends ConsumerState<SketchLayer> {
-  late final ValueNotifier<LayerHitResult<SegmentId>?> _polylineHitNotifier;
-
-  @override
-  void initState() {
-    super.initState();
-    _polylineHitNotifier = ValueNotifier<LayerHitResult<SegmentId>?>(null);
-    _polylineHitNotifier.addListener(_onHoverChanged);
-  }
-
-  void _onHoverChanged() {
-    // ref est accessible partout dans le State d'un ConsumerStatefulWidget
-    ref
-        .read(mapStateProvider(widget.tripId).notifier)
-        .sendUiEvent(HoverSketchItineraire());
-  }
-
-  @override
-  void dispose() {
-    _polylineHitNotifier.removeListener(_onHoverChanged);
-    _polylineHitNotifier.dispose(); // Nettoyage propre
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final mapStateNotifier = ref.read(mapStateProvider(widget.tripId).notifier);
-    final mapState = ref.watch(mapStateProvider(widget.tripId));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mapStateNotifier = ref.read(mapStateProvider(tripId).notifier);
+    final mapState = ref.watch(mapStateProvider(tripId));
     switch (mapState.mode) {
       case SketchMode e:
-        final vertex = ref.read(vertexProvider(widget.tripId, e.vertexStart));
+        final vertex = ref.read(vertexProvider(tripId, e.vertexStart));
         final mapController = MapController.of(context);
-        final allVertices = ref.watch(allVertexProvider(widget.tripId));
+        final allVertices = ref.watch(allVertexProvider(tripId));
         final candidateVertices = allVertices
             .where((v) => v.id != e.vertexStart)
             .toList();
         final sketchRoad = [vertex.latLng, ...e.itineraire];
         return Stack(
           children: [
-            PolylineLayer(
+            PolylineLayer<NotifierHit>(
+              hitNotifier: hitNotifier,
               polylines: [
-                Polyline(
+                Polyline<NotifierHit>(
                   points: sketchRoad,
                   color: Colors.lightBlue,
                   strokeWidth: 5,
+                  hitValue: SketchSegmentHit(),
                 ),
               ],
             ),

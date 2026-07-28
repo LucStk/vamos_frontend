@@ -38,3 +38,8 @@ class PencilButtonCreateTapped extends SketchEvent {
 class SketchCancelButtonTapped extends SketchEvent {
   const SketchCancelButtonTapped();
 }
+
+class SketchSegmentTapped extends SketchEvent {
+  final LatLng latLng;
+  const SketchSegmentTapped(this.latLng);
+}

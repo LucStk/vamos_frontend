@@ -22,13 +22,15 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen> {
   late final MapController _mapController;
-  late final ValueNotifier<LayerHitResult<SegmentId>?> _segmentHitNotifier;
+  // 1. Un seul ValueNotifier typé avec NotifierHit
+  late final ValueNotifier<LayerHitResult<NotifierHit>?> _hitNotifier;
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
-    _segmentHitNotifier = ValueNotifier<LayerHitResult<SegmentId>?>(null);
+    _hitNotifier = ValueNotifier<LayerHitResult<NotifierHit>?>(null);
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(mapStateProvider(widget.tripId).notifier).loadTripDetails();
     });
@@ -37,13 +39,35 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   @override
   void dispose() {
     _mapController.dispose();
-    _segmentHitNotifier.dispose();
+    _hitNotifier.dispose();
     super.dispose();
+  }
+
+  void _onTap(LatLng latLng) {
+    // Il est préférable d'utiliser ref.read() dans un callback (onTap) plutôt que watch()
+    final mapState = ref.read(mapStateProvider(widget.tripId).notifier);
+
+    // 2. On récupère le hit via l'extension
+    final topHit = _hitNotifier.topHit;
+
+    // 3. Pattern Matching de Dart 3 🚀
+    switch (topHit) {
+      case SegmentHit(segmentId: final id):
+        mapState.sendUiEvent(SegmentTapped(id));
+        print("Segment tapped: $id");
+
+      case SketchSegmentHit():
+        // Gérer le clic sur le tracé en cours si nécessaire
+        // ex: mapState.sendUiEvent(SketchTapped());
+        print("Sketch segment tapped");
+
+      case NoHit():
+        mapState.sendUiEvent(MapTapped(latLng));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final mapState = ref.watch(mapStateProvider(widget.tripId).notifier);
     return Scaffold(
       body: Stack(
         children: [
@@ -52,28 +76,17 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             options: MapOptions(
               initialCenter: const LatLng(46.8, 2.2),
               initialZoom: 7,
-              onTap: (_, latLng) {
-                final hit = _segmentHitNotifier.value;
-                if (hit != null && hit.hitValues.isNotEmpty) {
-                  mapState.sendUiEvent(SegmentTapped(hit.hitValues.first));
-                  print("segment tapped");
-                } else {
-                  mapState.sendUiEvent(MapTapped(latLng));
-                }
-              },
+              onTap: (_, latLng) => _onTap(latLng),
               interactionOptions: const InteractionOptions(
                 flags: InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
               ),
             ),
             children: [
               MapTileLayer(),
-              SegmentLayer(
-                tripId: widget.tripId,
-                hitNotifier: _segmentHitNotifier,
-              ),
+              SegmentLayer(tripId: widget.tripId, hitNotifier: _hitNotifier),
               VertexLayer(tripId: widget.tripId),
               CursorLayer(tripId: widget.tripId),
-              SketchLayer(tripId: widget.tripId),
+              SketchLayer(tripId: widget.tripId, hitNotifier: _hitNotifier),
               MapControls(mapController: _mapController),
             ],
           ),
