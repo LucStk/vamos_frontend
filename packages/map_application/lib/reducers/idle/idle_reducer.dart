@@ -1,6 +1,7 @@
-import 'package:map_application/reducers/idle/cursor_event_reducer.dart';
-import 'package:map_application/reducers/idle/segment_event_reducer.dart';
-import 'package:map_application/reducers/idle/vertex_event_reducer.dart';
+import 'cursor_event_reducer.dart';
+import 'segment_event_reducer.dart';
+import 'vertex_event_reducer.dart';
+import 'waypoint_event_reducer.dart';
 import '/domain/domain.dart';
 import "/events/events.dart";
 
@@ -12,9 +13,13 @@ TransitionResult reduceIdle(MapState state, MapEvent event) {
       ),
     ),
     CursorInputEvent e => reduceCursorInputEvents(state, e),
+
     SegmentInputEvent e => reduceSegmentInputEvents(state, e),
     SegmentOutputEvent e => reduceSegmentOutputEvents(state, e),
+
     VertexInputEvent e => reduceVertexEvent(state, e),
+
+    WaypointOutputEvent e => reduceWaypointOuputEvents(state, e),
     _ => TransitionResult(nextState: state),
   };
 }

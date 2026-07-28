@@ -32,7 +32,7 @@ class IntentResolver {
         res.fold(
           (Failure f) => dispatch(WaypointCreateFailed()),
           (WaypointCreateBlankRes data) =>
-              dispatch(WaypointCreated(data.waypoint.id)),
+              dispatch(WaypointCreated(data.waypoint.vertexId)),
         );
       case CreateSegment e:
         final res = await graphEditor.createSegment(
