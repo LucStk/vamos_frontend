@@ -125,11 +125,11 @@ return cursor(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexId vertexId)?  vertex,TResult Function( SegmentId segmentId)?  segment,TResult Function( LatLng latLng)?  cursor,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  none,TResult Function( VertexFields vertex)?  vertex,TResult Function( SegmentId segmentId)?  segment,TResult Function( LatLng latLng)?  cursor,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
-return vertex(_that.vertexId);case SegmentSelection() when segment != null:
+return vertex(_that.vertex);case SegmentSelection() when segment != null:
 return segment(_that.segmentId);case CursorSelection() when cursor != null:
 return cursor(_that.latLng);case _:
   return orElse();
@@ -149,11 +149,11 @@ return cursor(_that.latLng);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexId vertexId)  vertex,required TResult Function( SegmentId segmentId)  segment,required TResult Function( LatLng latLng)  cursor,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  none,required TResult Function( VertexFields vertex)  vertex,required TResult Function( SegmentId segmentId)  segment,required TResult Function( LatLng latLng)  cursor,}) {final _that = this;
 switch (_that) {
 case NoSelection():
 return none();case VertexSelection():
-return vertex(_that.vertexId);case SegmentSelection():
+return vertex(_that.vertex);case SegmentSelection():
 return segment(_that.segmentId);case CursorSelection():
 return cursor(_that.latLng);}
 }
@@ -169,11 +169,11 @@ return cursor(_that.latLng);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexId vertexId)?  vertex,TResult? Function( SegmentId segmentId)?  segment,TResult? Function( LatLng latLng)?  cursor,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  none,TResult? Function( VertexFields vertex)?  vertex,TResult? Function( SegmentId segmentId)?  segment,TResult? Function( LatLng latLng)?  cursor,}) {final _that = this;
 switch (_that) {
 case NoSelection() when none != null:
 return none();case VertexSelection() when vertex != null:
-return vertex(_that.vertexId);case SegmentSelection() when segment != null:
+return vertex(_that.vertex);case SegmentSelection() when segment != null:
 return segment(_that.segmentId);case CursorSelection() when cursor != null:
 return cursor(_that.latLng);case _:
   return null;
@@ -219,10 +219,10 @@ String toString() {
 
 
 class VertexSelection implements MapSelection {
-  const VertexSelection({required this.vertexId});
+  const VertexSelection({required this.vertex});
   
 
- final  VertexId vertexId;
+ final  VertexFields vertex;
 
 /// Create a copy of MapSelection
 /// with the given fields replaced by the non-null parameter values.
@@ -234,16 +234,16 @@ $VertexSelectionCopyWith<VertexSelection> get copyWith => _$VertexSelectionCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelection&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelection&&(identical(other.vertex, vertex) || other.vertex == vertex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexId);
+int get hashCode => Object.hash(runtimeType,vertex);
 
 @override
 String toString() {
-  return 'MapSelection.vertex(vertexId: $vertexId)';
+  return 'MapSelection.vertex(vertex: $vertex)';
 }
 
 
@@ -254,7 +254,7 @@ abstract mixin class $VertexSelectionCopyWith<$Res> implements $MapSelectionCopy
   factory $VertexSelectionCopyWith(VertexSelection value, $Res Function(VertexSelection) _then) = _$VertexSelectionCopyWithImpl;
 @useResult
 $Res call({
- VertexId vertexId
+ VertexFields vertex
 });
 
 
@@ -271,10 +271,10 @@ class _$VertexSelectionCopyWithImpl<$Res>
 
 /// Create a copy of MapSelection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? vertexId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? vertex = null,}) {
   return _then(VertexSelection(
-vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as VertexId,
+vertex: null == vertex ? _self.vertex : vertex // ignore: cast_nullable_to_non_nullable
+as VertexFields,
   ));
 }
 

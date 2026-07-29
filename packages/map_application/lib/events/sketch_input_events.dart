@@ -4,17 +4,34 @@ sealed class SketchInputEvent extends MapInputEvent {
   const SketchInputEvent();
 }
 
-class SketchDraggedStart extends SketchInputEvent {}
+class SketchPencilDraggedStart extends SketchInputEvent {}
 
-class SketchDraggedEnd extends SketchInputEvent {
-  final LatLng latLng;
-  const SketchDraggedEnd(this.latLng);
+class SketchModeActivate extends SketchInputEvent {
+  const SketchModeActivate();
 }
 
-class SketchDragUpdate extends SketchInputEvent {
+class SketchModeDeactivate extends SketchInputEvent {
+  const SketchModeDeactivate();
+}
+
+class SketchPencilDraggedEnd extends SketchInputEvent {
+  final LatLng latLng;
+  const SketchPencilDraggedEnd(this.latLng);
+}
+
+class SketchPencilDragUpdate extends SketchInputEvent {
   final LatLng latLng;
   final VertexId? touchedVertex;
-  const SketchDragUpdate({required this.latLng, this.touchedVertex});
+  const SketchPencilDragUpdate({required this.latLng, this.touchedVertex});
+}
+
+class SketchCancelButtonTapped extends SketchInputEvent {
+  const SketchCancelButtonTapped();
+}
+
+class SketchSegmentTapped extends SketchInputEvent {
+  final LatLng latLng;
+  const SketchSegmentTapped(this.latLng);
 }
 
 class PencilTapped extends SketchInputEvent {
@@ -29,13 +46,4 @@ class PencilDoubleTapped extends SketchInputEvent {
 
 class PencilButtonCreateTapped extends SketchInputEvent {
   const PencilButtonCreateTapped();
-}
-
-class SketchCancelButtonTapped extends SketchInputEvent {
-  const SketchCancelButtonTapped();
-}
-
-class SketchSegmentTapped extends SketchInputEvent {
-  final LatLng latLng;
-  const SketchSegmentTapped(this.latLng);
 }

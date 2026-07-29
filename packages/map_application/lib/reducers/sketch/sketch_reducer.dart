@@ -6,7 +6,16 @@ TransitionResult reduceSketch(MapState state, MapEvent event) {
   final mode = state.mode;
   if (mode is! Sketch) return TransitionResult(nextState: state);
   switch (event) {
-    case SketchDragUpdate e:
+    case SketchSegmentTapped e:
+      return TransitionResult(
+        nextState: state.copyWith(
+          mode: mode.copyWith(
+            correction: RouteCorrection(grabPoint: e.latLng, path: [e.latLng]),
+          ),
+        ),
+      );
+    case SketchPencilDragUpdate e:
+      final itineraire = [...mode.itineraire, e.latLng];
       if (e.touchedVertex != null) {
         return TransitionResult(
           nextState: state.copyWith(selection: NoSelection(), mode: Idle()),
@@ -15,17 +24,24 @@ TransitionResult reduceSketch(MapState state, MapEvent event) {
             CreateSegment(
               startVertexId: mode.vertexStart,
               endVertexId: e.touchedVertex!,
-              geometry: mode.itineraire,
+              geometry: itineraire,
               mobilityType: mode.mobilityType,
             ),
           ],
         );
       }
+      if (mode.correction != null) {
+        final correctionPath = [...mode.correction!.path, e.latLng];
+        return TransitionResult(
+          nextState: state.copyWith(
+            mode: mode.copyWith(
+              correction: mode.correction!.copyWith(path: correctionPath),
+            ),
+          ),
+        );
+      }
       return TransitionResult(
-        nextState: state.copyWith(
-          selection: NoSelection(),
-          mode: mode.copyWith(itineraire: [...mode.itineraire, e.latLng]),
-        ),
+        nextState: state.copyWith(mode: mode.copyWith(itineraire: itineraire)),
       );
     case SketchCancelButtonTapped _:
       return TransitionResult(nextState: MapState(mode: Idle()));

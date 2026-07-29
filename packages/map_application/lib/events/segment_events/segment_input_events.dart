@@ -19,21 +19,6 @@ class SegmentMobilityMarkerDoubleTapped extends SegmentInputEvent {
   const SegmentMobilityMarkerDoubleTapped(this.segmentId);
 }
 
-class ConnectionDragStart extends SegmentInputEvent {
-  final VertexId vertexId;
-  const ConnectionDragStart(this.vertexId);
-}
-
-class ConnectionDragUpdate extends SegmentInputEvent {
-  final VertexId vertexId;
-  const ConnectionDragUpdate(this.vertexId);
-}
-
-class ConnectionDragEnd extends SegmentInputEvent {
-  final VertexId vertexId;
-  const ConnectionDragEnd(this.vertexId);
-}
-
 class SegmentTapped extends SegmentInputEvent {
   final SegmentId segId;
   const SegmentTapped(this.segId);

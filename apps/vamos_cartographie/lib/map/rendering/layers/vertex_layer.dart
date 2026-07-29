@@ -36,7 +36,7 @@ class VertexLayer extends ConsumerWidget {
               alignment: Alignment.center,
               children: [
                 GestureDetector(
-                  onTap: () => notifier.sendUiEvent(VertexTapped(vertex.id)),
+                  onTap: () => notifier.sendUiEvent(VertexTapped(vertex)),
                   child: VertexMarker(
                     tripId: tripId,
                     vertexId: vertex.id,

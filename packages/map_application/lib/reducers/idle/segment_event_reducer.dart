@@ -1,7 +1,5 @@
 import 'package:map_application/intents/intents.dart';
 import '/domain/domain.dart';
-import 'package:trip_application/topology/domain/value_objects/mobility_types.dart';
-
 import "/events/events.dart";
 
 TransitionResult reduceSegmentInputEvents(
@@ -19,19 +17,11 @@ TransitionResult reduceSegmentInputEvents(
       ),
       null => TransitionResult(nextState: state),
     },
-    ButtonStartSegment _ => switch (state.selection.vertexIdOrNull) {
-      final vertexId? => TransitionResult(
-        nextState: MapState(
-          mode: MapMode.sketchMode(
-            vertexStart: vertexId,
-            itineraire: [],
-            mobilityType: MobilityType.bike,
-          ),
-        ),
+    SegmentTapped e => TransitionResult(
+      nextState: state.copyWith(
+        selection: SegmentSelection(segmentId: e.segId),
       ),
-      null => TransitionResult(nextState: state),
-    },
-
+    ),
     _ => TransitionResult(nextState: state),
   };
 }

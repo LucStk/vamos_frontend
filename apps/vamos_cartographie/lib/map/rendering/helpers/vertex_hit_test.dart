@@ -7,7 +7,7 @@ VertexFields? findNearbyVertex({
   required LatLng point,
   required List<VertexFields> vertices,
   required MapController mapController,
-  double thresholdPx = 24,
+  double thresholdPx = 10,
 }) {
   final pointPx = mapController.camera.latLngToScreenOffset(point);
 

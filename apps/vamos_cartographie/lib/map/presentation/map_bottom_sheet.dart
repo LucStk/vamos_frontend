@@ -31,7 +31,7 @@ class MapBottomSheet extends ConsumerWidget {
             return CursorBottomSheet(tripId: tripId);
           case VertexSelection e:
             final waypointId = ref.watch(
-              waypointFromVertexProvider(tripId, e.vertexId),
+              waypointFromVertexProvider(tripId, e.vertex.id),
             );
             if (waypointId != null) {
               return WaypointBottomSheet(
@@ -39,12 +39,14 @@ class MapBottomSheet extends ConsumerWidget {
                 waypointId: waypointId,
               );
             }
-            return VertexBottomSheet(tripId: tripId, vertexId: e.vertexId);
+            return VertexBottomSheet(tripId: tripId, vertexId: e.vertex.id);
           case SegmentSelection e:
             return SegmentBottomSheet(tripId: tripId, segmentId: e.segmentId);
           case NoSelection _:
             return const SizedBox.shrink();
         }
+      case _:
+        return SizedBox.shrink();
     }
   }
 }

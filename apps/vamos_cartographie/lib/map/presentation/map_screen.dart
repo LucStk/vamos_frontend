@@ -90,7 +90,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               MapControls(mapController: _mapController),
             ],
           ),
-          PopUpOverlay(tripId: widget.tripId, mapController: _mapController),
+          // PopUpOverlay(tripId: widget.tripId, mapController: _mapController),
           MapTopBar(tripId: widget.tripId),
           MapBottomSheet(tripId: widget.tripId),
         ],

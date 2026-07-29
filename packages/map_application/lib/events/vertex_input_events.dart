@@ -12,13 +12,9 @@ class VertexButtonCreateWaypoint extends VertexInputEvent {
   const VertexButtonCreateWaypoint();
 }
 
-class ButtonStartSegment extends VertexInputEvent {
-  const ButtonStartSegment();
-}
-
 class VertexTapped extends VertexInputEvent {
-  final VertexId vertexId;
-  const VertexTapped(this.vertexId);
+  final VertexFields vertex;
+  const VertexTapped(this.vertex);
 }
 
 class VertexDoubleTapped extends VertexInputEvent {

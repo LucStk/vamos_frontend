@@ -6,5 +6,6 @@ TransitionResult reduce(MapState state, MapEvent event) {
   return switch (state.mode) {
     Idle _ => reduceIdle(state, event),
     Sketch _ => reduceSketch(state, event),
+    _ => TransitionResult(nextState: state),
   };
 }

@@ -5,8 +5,8 @@ sealed class WaypointOutputEvent extends MapOutputEvent {
 }
 
 class WaypointCreated extends WaypointOutputEvent {
-  final VertexId vertexId;
-  const WaypointCreated(this.vertexId);
+  final VertexFields vertex;
+  const WaypointCreated(this.vertex);
 }
 
 class WaypointCreateFailed extends WaypointOutputEvent {

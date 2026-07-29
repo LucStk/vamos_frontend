@@ -7,7 +7,7 @@ part 'map_selection.freezed.dart';
 @freezed
 sealed class MapSelection with _$MapSelection {
   const factory MapSelection.none() = NoSelection;
-  const factory MapSelection.vertex({required VertexId vertexId}) =
+  const factory MapSelection.vertex({required VertexFields vertex}) =
       VertexSelection;
   const factory MapSelection.segment({required SegmentId segmentId}) =
       SegmentSelection;
@@ -20,8 +20,8 @@ extension MapSelectionX on MapSelection {
     _ => null,
   };
 
-  VertexId? get vertexIdOrNull => switch (this) {
-    VertexSelection(:final vertexId) => vertexId,
+  VertexFields? get vertexIdOrNull => switch (this) {
+    VertexSelection(:final vertex) => vertex,
     _ => null,
   };
   SegmentId? get segmentIdOrNull => switch (this) {

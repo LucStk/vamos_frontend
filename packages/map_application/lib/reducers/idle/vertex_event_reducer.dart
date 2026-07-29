@@ -6,24 +6,24 @@ import "/events/events.dart";
 TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
   return switch (event) {
     VertexButtonDeleteTapped _ => switch (state.selection.vertexIdOrNull) {
-      final vertexId? => TransitionResult(
+      final vertex? => TransitionResult(
         nextState: state.copyWith(selection: MapSelection.none()),
-        intents: [RemoveVertex(vertexId)],
+        intents: [RemoveVertex(vertex.id)],
       ),
       null => TransitionResult(nextState: state),
     },
 
     VertexButtonCreateWaypoint _ => switch (state.selection.vertexIdOrNull) {
-      final vertexId? => TransitionResult(
+      final vertex? => TransitionResult(
         nextState: state.copyWith(selection: MapSelection.none()),
-        intents: [CreateWaypointFromVertex(vertexId)],
+        intents: [CreateWaypointFromVertex(vertex.id)],
       ),
       null => TransitionResult(nextState: state),
     },
     VertexTapped e => TransitionResult(
       nextState: state.copyWith(
         mode: MapMode.idle(),
-        selection: MapSelection.vertex(vertexId: e.vertexId),
+        selection: MapSelection.vertex(vertex: e.vertex),
       ),
     ),
     VertexDragEnd e => TransitionResult(

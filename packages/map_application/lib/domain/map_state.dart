@@ -10,7 +10,6 @@ abstract class MapState with _$MapState {
   const factory MapState({
     @Default(Idle()) MapMode mode,
     @Default(MapSelection.none()) MapSelection selection,
-    @Default(MapOverlayState.hidden()) MapOverlayState overlay,
   }) = _MapState;
 }
 

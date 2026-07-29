@@ -1,3 +1,5 @@
+import 'package:map_application/reducers/idle/sketch_reducer.dart';
+
 import 'cursor_event_reducer.dart';
 import 'segment_event_reducer.dart';
 import 'vertex_event_reducer.dart';
@@ -18,8 +20,8 @@ TransitionResult reduceIdle(MapState state, MapEvent event) {
     SegmentOutputEvent e => reduceSegmentOutputEvents(state, e),
 
     VertexInputEvent e => reduceVertexEvent(state, e),
+    SketchInputEvent e => reduceSketchInputEvents(state, e),
 
     WaypointOutputEvent e => reduceWaypointOuputEvents(state, e),
-    _ => TransitionResult(nextState: state),
   };
 }

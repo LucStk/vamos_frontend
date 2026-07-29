@@ -24,30 +24,39 @@ class SketchLayer extends ConsumerWidget {
     final mapState = ref.watch(mapStateProvider(tripId));
     switch (mapState.mode) {
       case Sketch e:
-        final vertex = ref.read(vertexProvider(tripId, e.vertexStart));
         final mapController = MapController.of(context);
         final allVertices = ref.watch(allVertexProvider(tripId));
         final candidateVertices = allVertices
             .where((v) => v.id != e.vertexStart)
             .toList();
-        final sketchRoad = [vertex.latLng, ...e.itineraire];
+
         return Stack(
           children: [
             PolylineLayer<NotifierHit>(
               hitNotifier: hitNotifier,
               polylines: [
+                // Le segment en cours
                 Polyline<NotifierHit>(
-                  points: sketchRoad,
+                  points: e.itineraire,
                   color: Colors.lightBlue,
                   strokeWidth: 5,
                   hitValue: SketchSegmentHit(),
                 ),
+
+                // La modification en direct si elle existe
+                if (e.correction != null)
+                  Polyline<NotifierHit>(
+                    points: e.correction!.path,
+                    color: Colors.lightBlue,
+                    strokeWidth: 5,
+                    hitValue: SketchSegmentHit(),
+                  ),
               ],
             ),
             DragMarkers(
               markers: [
                 DragMarker(
-                  point: sketchRoad.last,
+                  point: e.correction?.path.last ?? e.itineraire.last,
                   size: const Size(26, 26),
 
                   builder: (_, LatLng latLng, isDragging) => GestureDetector(
@@ -69,14 +78,18 @@ class SketchLayer extends ConsumerWidget {
                       mapController: mapController,
                     );
                     mapStateNotifier.sendUiEvent(
-                      SketchDragUpdate(latLng: latLng, touchedVertex: hit?.id),
+                      SketchPencilDragUpdate(
+                        latLng: hit?.latLng ?? latLng,
+                        touchedVertex: hit?.id,
+                      ),
                     );
                   },
                   onDragStart: (_, LatLng latLng) =>
-                      mapStateNotifier.sendUiEvent(SketchDraggedStart()),
+                      mapStateNotifier.sendUiEvent(SketchPencilDraggedStart()),
 
-                  onDragEnd: (_, LatLng latLng) =>
-                      mapStateNotifier.sendUiEvent(SketchDraggedEnd(latLng)),
+                  onDragEnd: (_, LatLng latLng) => mapStateNotifier.sendUiEvent(
+                    SketchPencilDraggedEnd(latLng),
+                  ),
                 ),
               ],
             ),

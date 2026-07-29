@@ -7,7 +7,19 @@ TransitionResult reduceWaypointOuputEvents(
 ) {
   return switch (event) {
     WaypointCreated e => TransitionResult(
-      nextState: MapState(selection: MapSelection.vertex(vertexId: e.vertexId)),
+      nextState: MapState(selection: MapSelection.vertex(vertex: e.vertex)),
+    ),
+    _ => TransitionResult(nextState: state),
+  };
+}
+
+TransitionResult reduceWaypointInputEvents(
+  MapState state,
+  WaypointOutputEvent event,
+) {
+  return switch (event) {
+    WaypointCreated e => TransitionResult(
+      nextState: MapState(selection: MapSelection.vertex(vertex: e.vertex)),
     ),
     _ => TransitionResult(nextState: state),
   };
