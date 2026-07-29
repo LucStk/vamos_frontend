@@ -17,7 +17,7 @@ class SegmentLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hitEngine = ref.read(mapHitEngineProvider);
+    final hitNotifier = ref.watch(hitLayerProvider);
     final segmentIds = ref.watch(segmentStoreProvider(tripId)).getIds();
     final notifier = ref.read(mapStateProvider(tripId).notifier);
 
@@ -72,10 +72,7 @@ class SegmentLayer extends ConsumerWidget {
 
     return Stack(
       children: [
-        PolylineLayer<MapHit>(
-          hitNotifier: hitEngine.polylineHitNotifier,
-          polylines: polylines,
-        ),
+        PolylineLayer<MapHit>(hitNotifier: hitNotifier, polylines: polylines),
         MarkerLayer(markers: segMarkers),
       ],
     );

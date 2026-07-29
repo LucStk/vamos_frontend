@@ -15,7 +15,9 @@ part 'map_state_provider.g.dart';
 class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   @override
   MapState build(TripId tripId) {
-    return const MapState();
+    Future.microtask(() => loadTripDetails());
+
+    return const MapState(); // État initial
   }
 
   @override

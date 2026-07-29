@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import "package:flutter_map_dragmarker/flutter_map_dragmarker.dart";
 import 'package:domain_core/domain_core.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/map/map_engine/map_engine.dart';
-import 'package:vamos_cartographie/topology/topology.dart';
 import '/map/map.dart';
 
 class SketchLayer extends ConsumerWidget {
@@ -17,6 +15,7 @@ class SketchLayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mapState = ref.watch(mapStateProvider(tripId));
+    final hitNotifier = ref.watch(hitLayerProvider);
     switch (mapState.mode) {
       case Sketch e:
         return Stack(

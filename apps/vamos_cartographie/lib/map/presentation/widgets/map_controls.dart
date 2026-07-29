@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import '/map/map.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
-class MapControls extends StatelessWidget {
-  final MapController mapController;
-
-  const MapControls({super.key, required this.mapController});
+class MapControls extends ConsumerWidget {
+  const MapControls({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mapController = ref.watch(mapControllerProvider);
     return Positioned(
       right: 12,
       bottom: 120,

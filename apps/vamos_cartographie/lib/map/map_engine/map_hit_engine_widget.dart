@@ -4,18 +4,17 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
+import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/map/map_engine/hit_notifier_model.dart';
 import 'package:vamos_cartographie/topology/injection/providers/graph_store.dart';
 
 class MapHitEngineWidget extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
-  final ValueNotifier<LayerHitResult<MapHit>?> polylineHitNotifier;
   final Widget child;
 
   const MapHitEngineWidget({
     super.key,
     required this.tripId,
-    required this.polylineHitNotifier,
     required this.child,
   });
 
@@ -33,10 +32,6 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget> {
     super.initState();
     _mapController = MapController();
     _hitNotifier = ValueNotifier<LayerHitResult<MapHit>?>(null);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(mapStateProvider(widget.tripId).notifier).loadTripDetails();
-    });
   }
 
   @override
@@ -45,16 +40,25 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget> {
     _hitNotifier.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      behavior: HitTestBehavior.translucent,
-      onPointerDown: _onPointerDown,
-      onPointerMove: _onPointerMove,
-      onPointerUp: _onPointerUp,
-      child: widget.child,
+    return ProviderScope(
+      overrides: [
+        // Injection des dépendances pour tous les enfants sous ce ProviderScope
+        mapControllerProvider.overrideWithValue(_mapController),
+        hitLayerProvider.overrideWithValue(_hitNotifier),
+      ],
+      child: Listener(
+        behavior: HitTestBehavior.translucent,
+        onPointerDown: _onPointerDown,
+        onPointerMove: _onPointerMove,
+        onPointerUp: _onPointerUp,
+        child: widget.child,
+      ),
     );
   }
+
   void _onPointerDown(PointerDownEvent event) {
     final mapState = ref.read(mapStateProvider(widget.tripId).notifier);
     final touchPos = event.localPosition;
@@ -114,6 +118,4 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget> {
       _draggedVertexId = null;
     }
   }
-
-
 }
