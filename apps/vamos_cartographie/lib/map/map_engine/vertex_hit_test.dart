@@ -2,8 +2,9 @@
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/topology/topology.dart';
+import 'package:vamos_cartographie/map/map_engine/map_engine.dart';
 
-VertexFields? findNearbyVertex({
+VertexHit? findNearbyVertex({
   required LatLng point,
   required List<VertexFields> vertices,
   required MapController mapController,
@@ -22,5 +23,5 @@ VertexFields? findNearbyVertex({
       closestDist = dist;
     }
   }
-  return closest;
+  return (closest != null) ? VertexHit(closest.id) : null;
 }

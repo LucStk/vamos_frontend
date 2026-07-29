@@ -5,25 +5,23 @@ import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
+import 'package:vamos_cartographie/map/map_engine/map_engine.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
 import '/map/map.dart';
 
 class SegmentLayer extends ConsumerWidget {
   final Id<Trip> tripId;
-  final ValueNotifier<LayerHitResult<NotifierHit>?> hitNotifier;
-  const SegmentLayer({
-    super.key,
-    required this.tripId,
-    required this.hitNotifier,
-  });
+  const SegmentLayer({super.key, required this.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final hitEngine = ref.read(mapHitEngineProvider);
     final segmentIds = ref.watch(segmentStoreProvider(tripId)).getIds();
     final notifier = ref.read(mapStateProvider(tripId).notifier);
 
-    final List<Polyline<NotifierHit>> polylines = [];
+    final List<Polyline<MapHit>> polylines = [];
     final List<Marker> segMarkers = [];
     for (SegmentId id in segmentIds) {
       final segment = ref.watch(segmentProvider(tripId, id));
@@ -38,7 +36,7 @@ class SegmentLayer extends ConsumerWidget {
       // 1. Si le segment est sélectionné, on ajoute D'ABORD le halo en arrière-plan
       if (isSelected) {
         polylines.add(
-          Polyline<NotifierHit>(
+          Polyline<MapHit>(
             points: segment.geometry,
             color: baseColor.withValues(alpha: 0.35),
             strokeWidth: 12, // Nettement plus large que la ligne principale
@@ -48,7 +46,7 @@ class SegmentLayer extends ConsumerWidget {
 
       // 2. Polyline principale
       polylines.add(
-        Polyline<NotifierHit>(
+        Polyline<MapHit>(
           points: segment.geometry,
           color: baseColor,
           strokeWidth: isSelected
@@ -74,8 +72,8 @@ class SegmentLayer extends ConsumerWidget {
 
     return Stack(
       children: [
-        PolylineLayer<NotifierHit>(
-          hitNotifier: hitNotifier,
+        PolylineLayer<MapHit>(
+          hitNotifier: hitEngine.polylineHitNotifier,
           polylines: polylines,
         ),
         MarkerLayer(markers: segMarkers),

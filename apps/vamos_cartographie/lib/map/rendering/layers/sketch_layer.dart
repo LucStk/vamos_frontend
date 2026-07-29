@@ -6,37 +6,26 @@ import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/map_engine/map_engine.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
 import '/map/map.dart';
 
 class SketchLayer extends ConsumerWidget {
   final Id<Trip> tripId;
-  final ValueNotifier<LayerHitResult<NotifierHit>?> hitNotifier;
-  const SketchLayer({
-    super.key,
-    required this.tripId,
-    required this.hitNotifier,
-  });
+  const SketchLayer({super.key, required this.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapStateNotifier = ref.read(mapStateProvider(tripId).notifier);
     final mapState = ref.watch(mapStateProvider(tripId));
     switch (mapState.mode) {
       case Sketch e:
-        final mapController = MapController.of(context);
-        final allVertices = ref.watch(allVertexProvider(tripId));
-        final candidateVertices = allVertices
-            .where((v) => v.id != e.vertexStart)
-            .toList();
-
         return Stack(
           children: [
-            PolylineLayer<NotifierHit>(
+            PolylineLayer<MapHit>(
               hitNotifier: hitNotifier,
               polylines: [
                 // Le segment en cours
-                Polyline<NotifierHit>(
+                Polyline<MapHit>(
                   points: e.itineraire,
                   color: Colors.lightBlue,
                   strokeWidth: 5,
@@ -45,7 +34,7 @@ class SketchLayer extends ConsumerWidget {
 
                 // La modification en direct si elle existe
                 if (e.correction != null)
-                  Polyline<NotifierHit>(
+                  Polyline<MapHit>(
                     points: e.correction!.path,
                     color: Colors.lightBlue,
                     strokeWidth: 5,
@@ -53,43 +42,12 @@ class SketchLayer extends ConsumerWidget {
                   ),
               ],
             ),
-            DragMarkers(
+
+            MarkerLayer(
               markers: [
-                DragMarker(
+                Marker(
                   point: e.correction?.path.last ?? e.itineraire.last,
-                  size: const Size(26, 26),
-
-                  builder: (_, LatLng latLng, isDragging) => GestureDetector(
-                    onTap: () =>
-                        mapStateNotifier.sendUiEvent(PencilTapped(latLng)),
-                    onDoubleTap: () => mapStateNotifier.sendUiEvent(
-                      PencilDoubleTapped(latLng),
-                    ),
-                    child: Icon(
-                      Icons.draw_sharp,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                  onDragUpdate: (_, LatLng latLng) {
-                    final hit = findNearbyVertex(
-                      point: latLng,
-                      vertices: candidateVertices,
-                      mapController: mapController,
-                    );
-                    mapStateNotifier.sendUiEvent(
-                      SketchPencilDragUpdate(
-                        latLng: hit?.latLng ?? latLng,
-                        touchedVertex: hit?.id,
-                      ),
-                    );
-                  },
-                  onDragStart: (_, LatLng latLng) =>
-                      mapStateNotifier.sendUiEvent(SketchPencilDraggedStart()),
-
-                  onDragEnd: (_, LatLng latLng) => mapStateNotifier.sendUiEvent(
-                    SketchPencilDraggedEnd(latLng),
-                  ),
+                  child: Icon(Icons.draw_sharp, size: 30, color: Colors.black),
                 ),
               ],
             ),
