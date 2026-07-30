@@ -2,10 +2,10 @@ import 'package:domain_core/id.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_application/hit_engine/hit_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
-import 'package:vamos_cartographie/map/map_engine/hit_notifier_model.dart';
 import 'package:vamos_cartographie/topology/injection/providers/graph_store.dart';
 
 class MapHitEngineWidget extends ConsumerStatefulWidget {
@@ -68,12 +68,10 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget> {
     final hitVertexId = _findHitVertex(
       touchPosition: touchPos,
       vertices: vertices,
-      mapController: widget.mapController,
+      mapController: _mapController,
     );
 
     if (hitVertexId != null) {
-      _draggedVertexId = hitVertexId;
-      mapState.sendUiEvent(VertexGrabStarted(hitVertexId));
       return;
     }
 

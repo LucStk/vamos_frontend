@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:map_application/hit_engine/hit_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/map_engine/map_engine.dart';
 
 part 'map_hit_notifier.g.dart';
 

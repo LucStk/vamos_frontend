@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:map_application/hit_engine/hit_engine.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
-import 'package:vamos_cartographie/map/map_engine/map_engine.dart';
 import '/map/map.dart';
 
 class SketchLayer extends ConsumerWidget {

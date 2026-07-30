@@ -4,7 +4,10 @@ sealed class CursorInputEvent extends MapInputEvent {
   const CursorInputEvent();
 }
 
-class CursorDraggedStart extends CursorInputEvent {}
+class CursorDraggedStart extends CursorInputEvent {
+  final LatLng latLng;
+  const CursorDraggedStart(this.latLng);
+}
 
 class CursorDraggedEnd extends CursorInputEvent {
   final LatLng latLng;
