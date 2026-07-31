@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:map_application/hit_engine/hit_engine.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
@@ -18,6 +17,7 @@ class SketchLayer extends ConsumerWidget {
     final hitNotifier = ref.watch(hitLayerProvider);
     switch (mapState.mode) {
       case Sketch e:
+        final pencilPosition = e.correction?.path.last ?? e.itineraire.last;
         return Stack(
           children: [
             PolylineLayer<MapHit>(
@@ -41,11 +41,22 @@ class SketchLayer extends ConsumerWidget {
                   ),
               ],
             ),
+            CircleLayer<MapHit>(
+              hitNotifier: hitNotifier,
+              circles: [
+                CircleMarker<MapHit>(
+                  point: pencilPosition,
+                  radius: 24,
+                  color: const Color(0x00000000),
+                  hitValue: SketchPencilHit(),
+                ),
+              ],
+            ),
 
             MarkerLayer(
               markers: [
                 Marker(
-                  point: e.correction?.path.last ?? e.itineraire.last,
+                  point: pencilPosition,
                   child: Icon(Icons.draw_sharp, size: 30, color: Colors.black),
                 ),
               ],

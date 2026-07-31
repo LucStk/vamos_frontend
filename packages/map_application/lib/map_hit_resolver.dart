@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/hit_engine/hit_engine.dart';
 import 'package:map_application/map_application.dart';
 
 mixin MapHitResolver {

@@ -9,6 +9,10 @@ class SketchSegmentHit extends MapHit {
   const SketchSegmentHit();
 }
 
+class SketchPencilHit extends MapHit {
+  const SketchPencilHit();
+}
+
 class CursorHit extends MapHit {
   const CursorHit();
 }
