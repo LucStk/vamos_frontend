@@ -26,7 +26,7 @@ TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
         selection: MapSelection.vertex(vertex: e.vertex),
       ),
     ),
-    VertexDragEnd e => TransitionResult(
+    VertexDragEnded e => TransitionResult(
       nextState: state.copyWith(mode: MapMode.idle()),
       intents: [UpdateVertexPosition(e.vertexId, e.latLng)],
     ),
