@@ -27,13 +27,13 @@ class VertexDragStarted extends VertexInputEvent {
   const VertexDragStarted(this.vertexId);
 }
 
-class VertexDragEnd extends VertexInputEvent {
+class VertexDragEnded extends VertexInputEvent {
   final VertexId vertexId;
   final LatLng latLng;
-  const VertexDragEnd(this.vertexId, this.latLng);
+  const VertexDragEnded(this.vertexId, this.latLng);
 }
 
-class VertexDragUpdate extends VertexInputEvent {
+class VertexDragUpdated extends VertexInputEvent {
   final LatLng latLng;
-  const VertexDragUpdate(this.latLng);
+  const VertexDragUpdated(this.latLng);
 }

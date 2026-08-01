@@ -1,4 +1,3 @@
-import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
 sealed class MapHit {
@@ -18,8 +17,8 @@ class CursorHit extends MapHit {
 }
 
 class VertexHit extends MapHit {
-  final VertexId vertexId;
-  const VertexHit(this.vertexId);
+  final VertexFields vertex;
+  const VertexHit(this.vertex);
 }
 
 class NoHit extends MapHit {

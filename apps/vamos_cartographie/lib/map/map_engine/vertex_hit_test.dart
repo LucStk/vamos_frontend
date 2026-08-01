@@ -23,5 +23,5 @@ VertexHit? findNearbyVertex({
       closestDist = dist;
     }
   }
-  return (closest != null) ? VertexHit(closest.id) : null;
+  return (closest != null) ? VertexHit(closest) : null;
 }

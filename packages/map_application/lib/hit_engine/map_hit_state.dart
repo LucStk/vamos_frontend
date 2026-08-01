@@ -1,8 +1,7 @@
 import 'dart:math';
 
+import 'package:map_application/hit_engine/hit_model.dart';
 import 'package:trip_application/trip_application.dart';
-
-part "cursor/cursor_hit_states.dart";
 
 sealed class MapHitState {
   const MapHitState();
@@ -12,21 +11,15 @@ class EmptyState extends MapHitState {
   const EmptyState();
 }
 
-class PointerDown extends MapHitState {
-  final Point downPoint;
-  PointerDown(this.downPoint);
+class Pressed extends MapHitState {
+  final MapHit hit;
+  final Point<double> downPoint;
+  const Pressed(this.hit, this.downPoint);
 }
 
-class VertexPressed extends PointerDown {
-  final VertexId vertexId;
-  VertexPressed(super.downPoint, this.vertexId);
-}
-
-class SegmentPressed extends PointerDown {
-  SegmentId segmentId;
-  SegmentPressed(super.downPoint, this.segmentId);
-}
-
-class SketchSegmentPressed extends PointerDown {
-  SketchSegmentPressed(super.downPoint);
+class Dragging extends MapHitState {
+  final MapHit hit;
+  final VertexId?
+  snapTargetId; // pertinent seulement si hit est VertexHit, sinon null
+  const Dragging(this.hit, {this.snapTargetId});
 }

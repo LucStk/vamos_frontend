@@ -29,7 +29,7 @@ class VertexLayer extends ConsumerWidget {
           point: vertex.latLng,
           radius: 24,
           color: const Color(0x00000000),
-          hitValue: VertexHit(id),
+          hitValue: VertexHit(vertex),
         ),
       );
 

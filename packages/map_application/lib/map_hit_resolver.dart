@@ -2,46 +2,88 @@ import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
+import 'package:trip_application/trip_application.dart';
 
 mixin MapHitResolver {
   MapHitState get state;
   set state(MapHitState value);
 
-  MapEvent? onPointerDown(MapHit hit, Point point) {
-    switch (hit) {
-      case CursorHit():
-        state = CursorPressed(point);
-        return null;
-      case _:
-        return null;
+  MapEvent? onPointerDown({required MapHit hit, required Point<double> point}) {
+    if (hit is NoHit) {
+      state = const EmptyState();
+      return null;
     }
+    state = Pressed(hit, point);
+    return null;
   }
 
-  MapEvent? onPointerMove(MapHit hit, Point point, LatLng latLng) {
+  MapEvent? onPointerMove({
+    required Point<double> point,
+    required LatLng latLng,
+    VertexId? snapTargetId,
+  }) {
     switch (state) {
-      case CursorPressed(:final downPoint):
-        if (point.squaredDistanceTo(downPoint) > 4) {
-          state = CursorDragged();
-          return CursorDraggedStart(latLng);
-        }
-        return null;
-      case CursorDragged():
-        return CursorDragUpdate(latLng);
+      case Pressed(:final hit, :final downPoint):
+        if (point.squaredDistanceTo(downPoint) <= 4) return null;
+        state = Dragging(hit, snapTargetId: snapTargetId);
+        return _dragStartEvent(hit, latLng);
+
+      case Dragging(:final hit):
+        state = Dragging(hit, snapTargetId: snapTargetId);
+        return _dragUpdateEvent(hit, latLng, snapTargetId);
+
       case _:
         return null;
     }
   }
 
-  MapEvent? onPointerUp(MapHit hit, Point point, LatLng latLng) {
+  MapEvent? onPointerUp(LatLng latLng) {
     final lastState = state;
-    state = EmptyState(); // Essentielle pour remettre à zero
+    state = const EmptyState();
+
     switch (lastState) {
-      case CursorDragged():
-        return CursorDraggedEnd(latLng);
-      case CursorPressed():
-        return CursorTapped(latLng);
+      case Pressed(:final hit):
+        return _tapEvent(hit, latLng);
+
+      // case Dragging(hit: VertexHit(:final vertex), :final snapTargetId?):
+      // return VertexMergeRequested(vertex, snapTargetId);
+
+      case Dragging(:final hit):
+        return _dragEndEvent(hit, latLng);
+
       case _:
         return null;
     }
   }
+
+  MapEvent? _tapEvent(MapHit hit, LatLng latLng) => switch (hit) {
+    CursorHit() => CursorTapped(latLng),
+    VertexHit(:final vertex) => VertexTapped(vertex),
+    SegmentHit(:final segmentId) => SegmentTapped(segmentId),
+    SketchSegmentHit() => SketchSegmentTapped(latLng),
+    SketchPencilHit() => null,
+    NoHit() => MapTapped(latLng),
+  };
+
+  MapEvent? _dragStartEvent(MapHit hit, LatLng latLng) => switch (hit) {
+    CursorHit() => CursorDraggedStart(latLng),
+    VertexHit(:final vertex) => VertexDragStarted(vertex.id),
+    _ => null,
+  };
+
+  MapEvent? _dragUpdateEvent(
+    MapHit hit,
+    LatLng latLng,
+    VertexId? snapTargetId,
+  ) => switch (hit) {
+    CursorHit() => CursorDragUpdate(latLng),
+    VertexHit() => VertexDragUpdated(latLng),
+    _ => null,
+  };
+
+  MapEvent? _dragEndEvent(MapHit hit, LatLng latLng) => switch (hit) {
+    CursorHit() => CursorDraggedEnd(latLng),
+    VertexHit(:final vertex) => VertexDragEnded(vertex.id, latLng),
+    _ => null,
+  };
 }
