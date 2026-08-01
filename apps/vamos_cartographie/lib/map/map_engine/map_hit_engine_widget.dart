@@ -31,6 +31,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   late final ValueNotifier<LayerHitResult<MapHit>?> _vertexHitNotifier;
   late final ValueNotifier<LayerHitResult<MapHit>?> _cursorHitNotifier;
   late final ValueNotifier<LayerHitResult<MapHit>?> _segmentHitNotifier;
+  late final ValueNotifier<LayerHitResult<MapHit>?> _sketchHitNotifier;
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
     _vertexHitNotifier = ValueNotifier(null);
     _cursorHitNotifier = ValueNotifier(null);
     _segmentHitNotifier = ValueNotifier(null);
+    _sketchHitNotifier = ValueNotifier(null);
     _shouldPanMapNotifier = ValueNotifier(true);
   }
 
@@ -48,6 +50,8 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
     _vertexHitNotifier.dispose();
     _cursorHitNotifier.dispose();
     _segmentHitNotifier.dispose();
+    _sketchHitNotifier.dispose();
+
     _shouldPanMapNotifier.dispose();
     super.dispose();
   }
@@ -63,6 +67,9 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
     if (_segmentHitNotifier.value?.hitValues.firstOrNull case final hit?) {
       return hit;
     }
+    if (_sketchHitNotifier.value?.hitValues.firstOrNull case final hit?) {
+      return hit;
+    }
     return const NoHit();
   }
 
@@ -75,6 +82,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
         vertexHitLayerProvider.overrideWithValue(_vertexHitNotifier),
         cursorHitLayerProvider.overrideWithValue(_cursorHitNotifier),
         segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
+        sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
       ],
       child: Listener(
         behavior: HitTestBehavior.translucent,
