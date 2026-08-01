@@ -10,7 +10,6 @@ mixin MapHitResolver {
 
   MapEvent? onPointerDown({required MapHit hit, required Point<double> point}) {
     state = Pressed(hit, point);
-    print("pointerDown on $hit at $point");
     return null;
   }
 
@@ -21,7 +20,7 @@ mixin MapHitResolver {
   }) {
     switch (state) {
       case Pressed(:final hit, :final downPoint):
-        if (point.squaredDistanceTo(downPoint) <= 4) return null;
+        // if (point.squaredDistanceTo(downPoint) <= 2) return null;
         // Seuls certains hits déclenchent un VRAI drag métier
         if (!isDraggable(hit)) {
           state =
@@ -45,11 +44,6 @@ mixin MapHitResolver {
     CursorHit() => true,
     _ =>
       false, // NoHit, SegmentHit, SketchSegmentHit... => pan natif de la carte
-  };
-
-  bool get shouldPanMap => switch (state) {
-    Dragging() => false,
-    _ => true,
   };
 
   MapEvent? onPointerUp(LatLng latLng) {

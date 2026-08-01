@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 
 import "package:domain_core/domain_core.dart";
-import 'package:trip_application/trip_application.dart';
 part 'vertex_model.freezed.dart';
 
 sealed class VertexFields implements HasId {

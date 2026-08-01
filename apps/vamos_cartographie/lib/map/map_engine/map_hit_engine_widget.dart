@@ -97,10 +97,9 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   @override
   MapHitState state = const EmptyState();
 
-  void _syncShouldPanMap() {
-    final value = this.shouldPanMap;
-    if (_shouldPanMapNotifier.value != value) {
-      _shouldPanMapNotifier.value = value;
+  set shouldPanMap(bool shouldPanMap) {
+    if (_shouldPanMapNotifier.value != shouldPanMap) {
+      _shouldPanMapNotifier.value = shouldPanMap;
     }
   }
 
@@ -110,16 +109,14 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
       _mapController.camera.screenOffsetToLatLng(offset);
 
   void _dispatch(MapEvent? event) {
-    _syncShouldPanMap();
     if (event == null) return;
-
     // Accès au notifier via ref (StateController / StateNotifier)
     ref.read(mapStateProvider(widget.tripId).notifier).sendUiEvent(event);
   }
 
   void _onPointerDown(PointerDownEvent event) {
     final hit = _currentHit();
-    _shouldPanMapNotifier.value = !isDraggable(hit);
+    shouldPanMap = !isDraggable(hit);
     _dispatch(onPointerDown(hit: hit, point: _toPoint(event.localPosition)));
   }
 
@@ -133,7 +130,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   void _onPointerUp(PointerUpEvent event) {
-    _shouldPanMapNotifier.value = true;
+    shouldPanMap = true;
     _dispatch(onPointerUp(_toLatLng(event.localPosition)));
   }
 }
