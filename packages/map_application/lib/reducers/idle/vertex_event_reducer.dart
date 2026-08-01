@@ -32,7 +32,10 @@ TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
       nextState: state.copyWith(mode: MapMode.idle()),
       effects: [UpdateRemoteVertexPosition(e.vertexId, e.latLng)],
     ),
-    VertexDragUpdated e => TransitionResult(nextState: state, effects: []),
+    VertexDragUpdated e => TransitionResult(
+      nextState: state,
+      effects: [PatchVertexPosition(e.vertexId, e.latLng)],
+    ),
     _ => TransitionResult(nextState: state),
   };
 }

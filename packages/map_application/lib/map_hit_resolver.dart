@@ -92,7 +92,7 @@ mixin MapHitResolver {
     VertexId? snapTargetId,
   ) => switch (hit) {
     CursorHit() => CursorDragUpdate(latLng),
-    VertexHit() => VertexDragUpdated(latLng),
+    VertexHit(:final vertex) => VertexDragUpdated(vertex.id, latLng),
     _ => null,
   };
 

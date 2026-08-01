@@ -34,6 +34,7 @@ class VertexDragEnded extends VertexInputEvent {
 }
 
 class VertexDragUpdated extends VertexInputEvent {
+  final VertexId vertexId;
   final LatLng latLng;
-  const VertexDragUpdated(this.latLng);
+  const VertexDragUpdated(this.vertexId, this.latLng);
 }

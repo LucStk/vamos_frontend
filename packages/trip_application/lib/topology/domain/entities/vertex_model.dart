@@ -37,7 +37,6 @@ abstract class VertexPatchModel
   const factory VertexPatchModel.internal({
     required VertexId id,
     required LatLng latLng,
-    PoiCategory? type,
     required bool recomputing,
     Object? error,
   }) = _VertexPatchModel;
@@ -58,14 +57,12 @@ abstract class VertexPatchModel
   factory VertexPatchModel({
     VertexId? id,
     required LatLng latLng,
-    PoiCategory? type,
     bool recomputing = false,
     Object? error,
   }) {
     return VertexPatchModel.internal(
       id: id ?? VertexId.generate(),
       latLng: latLng,
-      type: type,
       recomputing: recomputing,
       error: error,
     );
