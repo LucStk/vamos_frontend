@@ -19,7 +19,7 @@ mixin MapHitResolver {
     VertexId? snapTargetId,
   }) {
     switch (state) {
-      case Pressed(:final hit, :final downPoint):
+      case Pressed(:final hit): //:final downPoint):
         // if (point.squaredDistanceTo(downPoint) <= 2) return null;
         // Seuls certains hits déclenchent un VRAI drag métier
         if (!isDraggable(hit)) {

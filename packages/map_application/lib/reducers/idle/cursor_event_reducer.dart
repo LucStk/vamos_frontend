@@ -10,7 +10,11 @@ TransitionResult reduceCursorInputEvents(
 ) {
   return switch (event) {
     CursorDraggedStart _ => TransitionResult(nextState: state),
-    CursorDragUpdate _ => TransitionResult(nextState: state),
+    CursorDragUpdate e => TransitionResult(
+      nextState: state.copyWith(
+        selection: MapSelection.cursor(latLng: e.latLng),
+      ),
+    ),
     CursorDoubleTapped _ => TransitionResult(nextState: state),
     CursorDraggedEnd e => TransitionResult(
       nextState: state.copyWith(
