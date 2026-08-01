@@ -14,7 +14,6 @@ import '/map/presentation/widgets/widgets.dart';
 class MapScreen extends StatelessWidget {
   final Id<Trip> tripId;
   final bool isOwner;
-
   const MapScreen({super.key, required this.tripId, this.isOwner = true});
 
   @override
@@ -27,30 +26,40 @@ class MapScreen extends StatelessWidget {
             child: Consumer(
               builder: (context, ref, child) {
                 final mapController = ref.watch(mapControllerProvider);
-                return FlutterMap(
-                  mapController: mapController,
-                  options: MapOptions(
-                    initialCenter: const LatLng(46.8, 2.2),
-                    initialZoom: 7,
-                    interactionOptions: const InteractionOptions(
-                      flags:
-                          InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom,
-                    ),
-                  ),
-                  children: [
-                    MapTileLayer(),
-                    SegmentLayer(tripId: tripId),
-                    VertexLayer(tripId: tripId),
-                    CursorLayer(tripId: tripId),
-                    SketchLayer(tripId: tripId),
-                    MapControls(),
-                  ],
+                final shouldPanMapNotifier = ref.watch(shouldPanMapProvider);
+
+                return ValueListenableBuilder<bool>(
+                  valueListenable: shouldPanMapNotifier,
+                  builder: (context, shouldPanMap, _) {
+                    return FlutterMap(
+                      mapController: mapController,
+                      options: MapOptions(
+                        initialCenter: const LatLng(46.8, 2.2),
+                        initialZoom: 7,
+                        interactionOptions: InteractionOptions(
+                          flags: shouldPanMap
+                              ? InteractiveFlag.all &
+                                    ~InteractiveFlag.doubleTapZoom
+                              : InteractiveFlag.all &
+                                    ~InteractiveFlag.doubleTapZoom &
+                                    ~InteractiveFlag.drag,
+                        ),
+                      ),
+                      children: [
+                        MapTileLayer(),
+                        SegmentLayer(tripId: tripId),
+                        VertexLayer(tripId: tripId),
+                        CursorLayer(tripId: tripId),
+                        SketchLayer(tripId: tripId),
+                        MapControls(),
+                      ],
+                    );
+                  },
                 );
               },
             ),
           ),
           MapTopBar(tripId: tripId),
-          // PopUpOverlay(tripId: widget.tripId, mapController: _mapController),
           MapBottomSheet(tripId: tripId),
         ],
       ),

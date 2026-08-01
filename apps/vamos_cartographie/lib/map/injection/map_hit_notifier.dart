@@ -19,3 +19,11 @@ ValueNotifier<LayerHitResult<MapHit>?> hitLayerNotifier(Ref ref) {
     'hitNotifierProvider doit être surchargé dans ProviderScope',
   );
 }
+
+// map_hit_notifier.dart
+@riverpod
+ValueNotifier<bool> shouldPanMap(Ref ref) {
+  throw UnimplementedError(
+    'shouldPanMapProvider doit être surchargé dans ProviderScope',
+  );
+}

@@ -9,13 +9,14 @@ mixin MapHitResolver {
   set state(MapHitState value);
 
   MapEvent? onPointerDown({required MapHit hit, required Point<double> point}) {
-    if (hit is NoHit) {
-      state = const EmptyState();
-      return null;
-    }
     state = Pressed(hit, point);
     return null;
   }
+
+  bool get shouldPanMap => switch (state) {
+    Dragging() => false,
+    _ => true,
+  };
 
   MapEvent? onPointerMove({
     required Point<double> point,
