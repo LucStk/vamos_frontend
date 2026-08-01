@@ -14,19 +14,21 @@ part 'map_state_provider.g.dart';
 @Riverpod(keepAlive: true)
 class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   @override
+  GraphEditor get graphEditor => ref.read(graphStoreProvider(tripId).notifier);
+
+  @override
+  WaypointEditor get waypointEditor =>
+      ref.read(waypointStoreProvider(tripId).notifier);
+
+  @override
+  MapOutput get mapOutput => ref.read(mapOutputProvider(tripId).notifier);
+
+  @override
   MapState build(TripId tripId) {
     Future.microtask(() => loadTripDetails());
 
     return const MapState(); // État initial
   }
-
-  @override
-  IntentResolver get intentResolver => IntentResolver(
-    graphEditor: ref.read(graphStoreProvider(tripId).notifier),
-    waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
-    mapOutput: ref.read(mapOutputProvider(tripId).notifier),
-    dispatch: sendUiEvent,
-  );
 
   Future<Failure?> loadTripDetails() async {
     final tripRepo = ref.read(tripRepositoryProvider);

@@ -1,5 +1,7 @@
+import 'package:map_application/map_editor.dart';
+import 'package:map_application/map_effects.dart';
+
 import '/domain/domain.dart';
-import 'package:map_application/intents/intents.dart';
 import "/events/events.dart";
 
 TransitionResult reduceSketch(MapState state, MapEvent event) {
@@ -20,7 +22,7 @@ TransitionResult reduceSketch(MapState state, MapEvent event) {
         return TransitionResult(
           nextState: state.copyWith(selection: NoSelection(), mode: Idle()),
 
-          intents: [
+          effects: [
             CreateSegment(
               startVertexId: mode.vertexStart,
               endVertexId: e.touchedVertex!,

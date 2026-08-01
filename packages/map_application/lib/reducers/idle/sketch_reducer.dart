@@ -3,6 +3,8 @@ import 'package:trip_application/topology/domain/value_objects/mobility_types.da
 
 import "/events/events.dart";
 
+import 'package:map_application/map_editor.dart';
+
 TransitionResult reduceSketchInputEvents(
   MapState state,
   SketchInputEvent event,

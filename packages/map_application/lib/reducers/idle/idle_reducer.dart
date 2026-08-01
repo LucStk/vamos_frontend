@@ -1,5 +1,6 @@
 import 'package:map_application/reducers/idle/sketch_reducer.dart';
 
+import 'package:map_application/map_editor.dart';
 import 'cursor_event_reducer.dart';
 import 'segment_event_reducer.dart';
 import 'vertex_event_reducer.dart';

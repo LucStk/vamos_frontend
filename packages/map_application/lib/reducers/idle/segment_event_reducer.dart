@@ -1,6 +1,9 @@
-import 'package:map_application/intents/intents.dart';
+import 'package:map_application/map_effects.dart';
+
 import '/domain/domain.dart';
 import "/events/events.dart";
+
+import 'package:map_application/map_editor.dart';
 
 TransitionResult reduceSegmentInputEvents(
   MapState state,
@@ -13,7 +16,7 @@ TransitionResult reduceSegmentInputEvents(
     SegmentButtonDeleteTapped _ => switch (state.selection.segmentIdOrNull) {
       final segmentId? => TransitionResult(
         nextState: state.copyWith(selection: NoSelection()),
-        intents: [DeleteSegment(segmentId: segmentId)],
+        effects: [DeleteSegment(segmentId)],
       ),
       null => TransitionResult(nextState: state),
     },

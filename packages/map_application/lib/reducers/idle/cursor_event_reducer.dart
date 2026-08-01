@@ -1,4 +1,6 @@
-import 'package:map_application/intents/intents.dart';
+import 'package:map_application/map_editor.dart';
+import 'package:map_application/map_effects.dart';
+
 import '/domain/domain.dart';
 import "/events/events.dart";
 
@@ -27,7 +29,7 @@ TransitionResult reduceCursorInputEvents(
           mode: MapMode.idle(),
           selection: MapSelection.none(),
         ),
-        intents: [CreateWaypointFromPosition(latLng)],
+        effects: [CreateWaypointFromPosition(latLng)],
       ),
       null => TransitionResult(
         nextState: state,

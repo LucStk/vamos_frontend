@@ -1,24 +1,31 @@
 import 'package:map_application/domain/map_state.dart';
-import 'package:map_application/intent_resolver.dart';
-import 'package:map_application/intents/intents.dart';
+import 'package:map_application/map_effects.dart';
 import 'package:map_application/reducers/root_reducer.dart';
 import 'events/events.dart';
 
-mixin MapEditor {
+class TransitionResult {
+  final MapState nextState;
+  final List<MapEffect> effects;
+
+  const TransitionResult({required this.nextState, this.effects = const []});
+}
+
+mixin MapEditor implements MapEffectContext {
   MapState get state;
   set state(MapState value);
 
-  IntentResolver get intentResolver;
-
-  void sendUiEvent(MapEvent event) {
+  @override
+  Future<void> sendUiEvent(MapEvent event) async {
     final result = reduce(state, event);
+
     state = result.nextState;
-    for (final intent in result.intents) {
-      intentResolver.run(intent);
+
+    for (final effect in result.effects) {
+      await effect.run(this);
     }
   }
 
-  void sendIntent(MapIntents intent) {
-    intentResolver.run(intent);
+  Future<void> sendEffect(MapEffect effect) async {
+    await effect.run(this);
   }
 }

@@ -1,6 +1,8 @@
-import 'package:map_application/intents/intents.dart';
+import 'package:map_application/map_effects.dart';
+
 import '/domain/domain.dart';
 
+import 'package:map_application/map_editor.dart';
 import "/events/events.dart";
 
 TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
@@ -8,7 +10,7 @@ TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
     VertexButtonDeleteTapped _ => switch (state.selection.vertexIdOrNull) {
       final vertex? => TransitionResult(
         nextState: state.copyWith(selection: MapSelection.none()),
-        intents: [RemoveVertex(vertex.id)],
+        effects: [RemoveVertex(vertex.id)],
       ),
       null => TransitionResult(nextState: state),
     },
@@ -16,7 +18,7 @@ TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
     VertexButtonCreateWaypoint _ => switch (state.selection.vertexIdOrNull) {
       final vertex? => TransitionResult(
         nextState: state.copyWith(selection: MapSelection.none()),
-        intents: [CreateWaypointFromVertex(vertex.id)],
+        effects: [CreateWaypointFromVertex(vertex.id)],
       ),
       null => TransitionResult(nextState: state),
     },
@@ -28,8 +30,9 @@ TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
     ),
     VertexDragEnded e => TransitionResult(
       nextState: state.copyWith(mode: MapMode.idle()),
-      intents: [UpdateVertexPosition(e.vertexId, e.latLng)],
+      effects: [UpdateRemoteVertexPosition(e.vertexId, e.latLng)],
     ),
+    VertexDragUpdated e => TransitionResult(nextState: state, effects: []),
     _ => TransitionResult(nextState: state),
   };
 }

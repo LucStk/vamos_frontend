@@ -20,7 +20,7 @@ class CreateWaypointButton extends ConsumerWidget {
     final mapStateNotifier = ref.watch(mapStateProvider(tripId).notifier);
     return IconButton(
       onPressed: () =>
-          mapStateNotifier.sendIntent(OpenWaypointDialog(waypointId)),
+          mapStateNotifier.sendEffect(OpenWaypointDialog(waypointId)),
       style: FilledButton.styleFrom(
         iconColor: Colors.white,
         backgroundColor: Colors.lightGreen,

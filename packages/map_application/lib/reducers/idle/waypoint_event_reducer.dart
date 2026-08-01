@@ -1,6 +1,8 @@
 import '/domain/domain.dart';
 import "/events/events.dart";
 
+import 'package:map_application/map_editor.dart';
+
 TransitionResult reduceWaypointOuputEvents(
   MapState state,
   WaypointOutputEvent event,
