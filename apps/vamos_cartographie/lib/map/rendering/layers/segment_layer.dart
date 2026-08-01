@@ -16,7 +16,7 @@ class SegmentLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hitNotifier = ref.watch(hitLayerProvider);
+    final hitNotifier = ref.watch(segmentHitLayerProvider);
     final segmentIds = ref.watch(segmentStoreProvider(tripId)).getIds();
     final notifier = ref.read(mapStateProvider(tripId).notifier);
 

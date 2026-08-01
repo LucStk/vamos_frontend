@@ -14,7 +14,7 @@ class SketchLayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mapState = ref.watch(mapStateProvider(tripId));
-    final hitNotifier = ref.watch(hitLayerProvider);
+    final hitNotifier = ref.watch(sketchHitLayerProvider);
     switch (mapState.mode) {
       case Sketch e:
         final pencilPosition = e.correction?.path.last ?? e.itineraire.last;

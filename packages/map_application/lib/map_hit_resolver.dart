@@ -10,13 +10,9 @@ mixin MapHitResolver {
 
   MapEvent? onPointerDown({required MapHit hit, required Point<double> point}) {
     state = Pressed(hit, point);
+    print("pointerDown on $hit at $point");
     return null;
   }
-
-  bool get shouldPanMap => switch (state) {
-    Dragging() => false,
-    _ => true,
-  };
 
   MapEvent? onPointerMove({
     required Point<double> point,
@@ -26,6 +22,12 @@ mixin MapHitResolver {
     switch (state) {
       case Pressed(:final hit, :final downPoint):
         if (point.squaredDistanceTo(downPoint) <= 4) return null;
+        // Seuls certains hits déclenchent un VRAI drag métier
+        if (!isDraggable(hit)) {
+          state =
+              const EmptyState(); // on laisse flutter_map gérer le pan natif
+          return null;
+        }
         state = Dragging(hit, snapTargetId: snapTargetId);
         return _dragStartEvent(hit, latLng);
 
@@ -37,6 +39,18 @@ mixin MapHitResolver {
         return null;
     }
   }
+
+  bool isDraggable(MapHit hit) => switch (hit) {
+    VertexHit() => true,
+    CursorHit() => true,
+    _ =>
+      false, // NoHit, SegmentHit, SketchSegmentHit... => pan natif de la carte
+  };
+
+  bool get shouldPanMap => switch (state) {
+    Dragging() => false,
+    _ => true,
+  };
 
   MapEvent? onPointerUp(LatLng latLng) {
     final lastState = state;

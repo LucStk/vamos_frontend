@@ -14,7 +14,7 @@ class VertexLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hitNotifier = ref.watch(hitLayerProvider);
+    final hitNotifier = ref.watch(vertexHitLayerProvider);
     final vertexIds = ref.watch(vertexStoreProvider(tripId)).getIds();
 
     final hitCircles = <CircleMarker<MapHit>>[];

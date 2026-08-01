@@ -14,7 +14,7 @@ class CursorLayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mapState = ref.watch(mapStateProvider(tripId));
-    final hitNotifier = ref.watch(hitLayerProvider);
+    final hitNotifier = ref.watch(cursorHitLayerProvider);
 
     switch (mapState.selection) {
       case CursorSelection cursorDrawn:

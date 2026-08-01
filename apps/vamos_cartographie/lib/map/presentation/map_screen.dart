@@ -31,6 +31,7 @@ class MapScreen extends StatelessWidget {
                 return ValueListenableBuilder<bool>(
                   valueListenable: shouldPanMapNotifier,
                   builder: (context, shouldPanMap, _) {
+                    print("FlutterMap rebuild");
                     return FlutterMap(
                       mapController: mapController,
                       options: MapOptions(
@@ -48,8 +49,9 @@ class MapScreen extends StatelessWidget {
                       children: [
                         MapTileLayer(),
                         SegmentLayer(tripId: tripId),
-                        VertexLayer(tripId: tripId),
                         CursorLayer(tripId: tripId),
+
+                        VertexLayer(tripId: tripId),
                         SketchLayer(tripId: tripId),
                         MapControls(),
                       ],

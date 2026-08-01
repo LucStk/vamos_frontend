@@ -13,11 +13,25 @@ MapController mapController(Ref ref) {
   );
 }
 
+// map_hit_notifier.dart
 @riverpod
-ValueNotifier<LayerHitResult<MapHit>?> hitLayerNotifier(Ref ref) {
-  throw UnimplementedError(
-    'hitNotifierProvider doit être surchargé dans ProviderScope',
-  );
+ValueNotifier<LayerHitResult<MapHit>?> vertexHitLayer(Ref ref) {
+  throw UnimplementedError('vertexHitLayerProvider doit être surchargé');
+}
+
+@riverpod
+ValueNotifier<LayerHitResult<MapHit>?> cursorHitLayer(Ref ref) {
+  throw UnimplementedError('cursorHitLayerProvider doit être surchargé');
+}
+
+@riverpod
+ValueNotifier<LayerHitResult<MapHit>?> segmentHitLayer(Ref ref) {
+  throw UnimplementedError('segmentHitLayerProvider doit être surchargé');
+}
+
+@riverpod
+ValueNotifier<LayerHitResult<MapHit>?> sketchHitLayer(Ref ref) {
+  throw UnimplementedError('sketchHitLayerProvider doit être surchargé');
 }
 
 // map_hit_notifier.dart

@@ -27,27 +27,67 @@ class MapHitEngineWidget extends ConsumerStatefulWidget {
 class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
     with MapHitResolver {
   late final MapController _mapController;
-  late final ValueNotifier<LayerHitResult<MapHit>?> _hitNotifier;
   late final ValueNotifier<bool> _shouldPanMapNotifier;
-
-  @override
-  MapHitState state = const EmptyState();
+  late final ValueNotifier<LayerHitResult<MapHit>?> _vertexHitNotifier;
+  late final ValueNotifier<LayerHitResult<MapHit>?> _cursorHitNotifier;
+  late final ValueNotifier<LayerHitResult<MapHit>?> _segmentHitNotifier;
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
-    _hitNotifier = ValueNotifier<LayerHitResult<MapHit>?>(null);
+    _vertexHitNotifier = ValueNotifier(null);
+    _cursorHitNotifier = ValueNotifier(null);
+    _segmentHitNotifier = ValueNotifier(null);
     _shouldPanMapNotifier = ValueNotifier(true);
   }
 
   @override
   void dispose() {
     _mapController.dispose();
-    _hitNotifier.dispose();
+    _vertexHitNotifier.dispose();
+    _cursorHitNotifier.dispose();
+    _segmentHitNotifier.dispose();
     _shouldPanMapNotifier.dispose();
     super.dispose();
   }
+
+  MapHit _currentHit() {
+    // Priorité : vertex > cursor > segment > vide
+    if (_vertexHitNotifier.value?.hitValues.firstOrNull case final hit?) {
+      return hit;
+    }
+    if (_cursorHitNotifier.value?.hitValues.firstOrNull case final hit?) {
+      return hit;
+    }
+    if (_segmentHitNotifier.value?.hitValues.firstOrNull case final hit?) {
+      return hit;
+    }
+    return const NoHit();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      overrides: [
+        mapControllerProvider.overrideWithValue(_mapController),
+        shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
+        vertexHitLayerProvider.overrideWithValue(_vertexHitNotifier),
+        cursorHitLayerProvider.overrideWithValue(_cursorHitNotifier),
+        segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
+      ],
+      child: Listener(
+        behavior: HitTestBehavior.translucent,
+        onPointerDown: _onPointerDown,
+        onPointerMove: _onPointerMove,
+        onPointerUp: _onPointerUp,
+        child: widget.child,
+      ),
+    );
+  }
+
+  @override
+  MapHitState state = const EmptyState();
 
   void _syncShouldPanMap() {
     final value = this.shouldPanMap;
@@ -55,9 +95,6 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
       _shouldPanMapNotifier.value = value;
     }
   }
-
-  MapHit _currentHit() =>
-      _hitNotifier.value?.hitValues.firstOrNull ?? const NoHit();
 
   Point<double> _toPoint(Offset offset) => Point(offset.dx, offset.dy);
 
@@ -73,9 +110,9 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   void _onPointerDown(PointerDownEvent event) {
-    _dispatch(
-      onPointerDown(hit: _currentHit(), point: _toPoint(event.localPosition)),
-    );
+    final hit = _currentHit();
+    _shouldPanMapNotifier.value = !isDraggable(hit);
+    _dispatch(onPointerDown(hit: hit, point: _toPoint(event.localPosition)));
   }
 
   void _onPointerMove(PointerMoveEvent event) {
@@ -88,26 +125,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   void _onPointerUp(PointerUpEvent event) {
+    _shouldPanMapNotifier.value = true;
     _dispatch(onPointerUp(_toLatLng(event.localPosition)));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // Si la récréation du ProviderScope au rebuild pose problème dans votre UI,
-    // entourez ce widget d'un ProviderScope parent ou vérifiez le comportement du cache.
-    return ProviderScope(
-      overrides: [
-        mapControllerProvider.overrideWithValue(_mapController),
-        hitLayerProvider.overrideWithValue(_hitNotifier),
-        shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
-      ],
-      child: Listener(
-        behavior: HitTestBehavior.translucent,
-        onPointerDown: _onPointerDown,
-        onPointerMove: _onPointerMove,
-        onPointerUp: _onPointerUp,
-        child: widget.child,
-      ),
-    );
   }
 }
