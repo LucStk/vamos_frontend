@@ -18,7 +18,8 @@ TransitionResult reduceSketch(MapState state, MapEvent event) {
       );
     case SketchPencilDragUpdate e:
       final itineraire = [...mode.itineraire, e.latLng];
-      if (e.touchedVertex != null) {
+      print("touched vertex ${e.touchedVertex} start ${mode.vertexStart}");
+      if (e.touchedVertex != null && e.touchedVertex != mode.vertexStart) {
         return TransitionResult(
           nextState: state.copyWith(selection: NoSelection(), mode: Idle()),
 

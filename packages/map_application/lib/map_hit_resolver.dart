@@ -90,7 +90,10 @@ mixin MapHitResolver {
   ) => switch (hit) {
     CursorHit() => CursorDragUpdate(latLng),
     VertexHit(:final vertex) => VertexDragUpdated(vertex.id, latLng),
-    SketchPencilHit() => SketchPencilDragUpdate(latLng: latLng),
+    SketchPencilHit(:final vertexTouched) => SketchPencilDragUpdate(
+      latLng: latLng,
+      touchedVertex: vertexTouched,
+    ),
     _ => null,
   };
 

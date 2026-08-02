@@ -9,7 +9,8 @@ class SketchSegmentHit extends MapHit {
 }
 
 class SketchPencilHit extends MapHit {
-  const SketchPencilHit();
+  final VertexId? vertexTouched;
+  const SketchPencilHit(this.vertexTouched);
 }
 
 class CursorHit extends MapHit {
