@@ -66,8 +66,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     LatLng latLng,
   ) async {
     return await run(
-      onApply: (gs) =>
-          gs.insertVertex(VertexPatchModel(id: vid, latLng: latLng)),
+      onApply: (gs) => gs.setVertex(VertexPatchModel(id: vid, latLng: latLng)),
       remote: (_) => vertexRepo.moveVertex(VertexId(vid.value), latLng),
       onSuccess: (gs, VertexRemoteModel serveurValue) =>
           gs.setVertex(serveurValue),

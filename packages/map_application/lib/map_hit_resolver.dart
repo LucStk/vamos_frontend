@@ -10,6 +10,7 @@ mixin MapHitResolver {
 
   MapEvent? onPointerDown({required MapHit hit, required Point<double> point}) {
     state = Pressed(hit, point);
+    print("map hit $hit");
     return null;
   }
 

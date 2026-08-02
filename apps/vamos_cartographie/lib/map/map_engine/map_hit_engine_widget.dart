@@ -28,18 +28,16 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
     with MapHitResolver {
   late final MapController _mapController;
   late final ValueNotifier<bool> _shouldPanMapNotifier;
-  late final ValueNotifier<LayerHitResult<MapHit>?> _vertexHitNotifier;
-  late final ValueNotifier<LayerHitResult<MapHit>?> _cursorHitNotifier;
   late final ValueNotifier<LayerHitResult<MapHit>?> _segmentHitNotifier;
+  late final ValueNotifier<LayerHitResult<MapHit>?> _cursorHitNotifier;
   late final ValueNotifier<LayerHitResult<MapHit>?> _sketchHitNotifier;
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
-    _vertexHitNotifier = ValueNotifier(null);
-    _cursorHitNotifier = ValueNotifier(null);
     _segmentHitNotifier = ValueNotifier(null);
+    _cursorHitNotifier = ValueNotifier(null);
     _sketchHitNotifier = ValueNotifier(null);
     _shouldPanMapNotifier = ValueNotifier(true);
   }
@@ -47,9 +45,8 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   @override
   void dispose() {
     _mapController.dispose();
-    _vertexHitNotifier.dispose();
-    _cursorHitNotifier.dispose();
     _segmentHitNotifier.dispose();
+    _cursorHitNotifier.dispose();
     _sketchHitNotifier.dispose();
 
     _shouldPanMapNotifier.dispose();
@@ -58,9 +55,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
 
   MapHit _currentHit() {
     // Priorité : vertex > cursor > segment > vide
-    if (_vertexHitNotifier.value?.hitValues.firstOrNull case final hit?) {
-      return hit;
-    }
+
     if (_cursorHitNotifier.value?.hitValues.firstOrNull case final hit?) {
       return hit;
     }
@@ -79,8 +74,6 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
       overrides: [
         mapControllerProvider.overrideWithValue(_mapController),
         shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
-        vertexHitLayerProvider.overrideWithValue(_vertexHitNotifier),
-        cursorHitLayerProvider.overrideWithValue(_cursorHitNotifier),
         segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
         sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
       ],
@@ -115,7 +108,9 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   void _onPointerDown(PointerDownEvent event) {
+    print(_cursorHitNotifier.value);
     final hit = _currentHit();
+    print(hit);
     shouldPanMap = !isDraggable(hit);
     _dispatch(onPointerDown(hit: hit, point: _toPoint(event.localPosition)));
   }
