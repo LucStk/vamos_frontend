@@ -9,6 +9,8 @@ import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
+import 'package:vamos_cartographie/map/map_engine/vertex_hit_test.dart';
+import 'package:vamos_cartographie/topology/topology.dart';
 
 class MapHitEngineWidget extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -32,6 +34,8 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   late final ValueNotifier<LayerHitResult<MapHit>?> _cursorHitNotifier;
   late final ValueNotifier<LayerHitResult<MapHit>?> _sketchHitNotifier;
 
+  List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
+
   @override
   void initState() {
     super.initState();
@@ -53,8 +57,17 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
     super.dispose();
   }
 
-  MapHit _currentHit() {
+  MapHit _hitTest(Offset position) {
     // Priorité : vertex > cursor > segment > vide
+
+    final hitVertices = hitTestVertex(
+      point: position,
+      mapController: _mapController,
+      vertices: vertices,
+    );
+    if (hitVertices.isNotEmpty) {
+      return hitVertices[0];
+    }
 
     if (_cursorHitNotifier.value?.hitValues.firstOrNull case final hit?) {
       return hit;
@@ -108,9 +121,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   void _onPointerDown(PointerDownEvent event) {
-    print(_cursorHitNotifier.value);
-    final hit = _currentHit();
-    print(hit);
+    final hit = _hitTest(event.localPosition);
     shouldPanMap = !isDraggable(hit);
     _dispatch(onPointerDown(hit: hit, point: _toPoint(event.localPosition)));
   }
