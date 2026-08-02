@@ -11,12 +11,11 @@ List<VertexHit> hitTestVertex({
   double thresholdPx = 10,
 }) {
   List<VertexHit> hits = [];
-  double closestDist = double.infinity;
 
   for (final v in vertices) {
     final vPx = mapController.camera.latLngToScreenOffset(v.latLng);
     final dist = (point - vPx).distance;
-    if (dist <= thresholdPx && dist < closestDist) {
+    if (dist <= thresholdPx) {
       hits.add(VertexHit(v));
     }
   }

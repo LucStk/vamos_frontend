@@ -31,17 +31,37 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   late final MapController _mapController;
   late final ValueNotifier<bool> _shouldPanMapNotifier;
   late final ValueNotifier<LayerHitResult<MapHit>?> _segmentHitNotifier;
-  late final ValueNotifier<LayerHitResult<MapHit>?> _cursorHitNotifier;
   late final ValueNotifier<LayerHitResult<MapHit>?> _sketchHitNotifier;
 
   List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
+
+  Offset? get cursorPosition {
+    final state = ref.read(mapStateProvider(widget.tripId));
+    final latLng = state.selection.cursorLatLngOrNull;
+    if (latLng == null) return null;
+    return _mapController.camera.latLngToScreenOffset(latLng);
+  }
+
+  Offset? get pencilPosition {
+    final state = ref.read(mapStateProvider(widget.tripId));
+    final LatLng? latLng = state.mode.pencilPositionOrNull;
+    if (latLng == null) return null;
+    return _mapController.camera.latLngToScreenOffset(latLng);
+  }
+
+  // Offset? get pencilSketchPosition {
+  //   final state = ref.read(mapStateProvider(widget.tripId));
+  //   switch (state.mode){
+  //     case Sketch e :
+  //       e.
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
     _segmentHitNotifier = ValueNotifier(null);
-    _cursorHitNotifier = ValueNotifier(null);
     _sketchHitNotifier = ValueNotifier(null);
     _shouldPanMapNotifier = ValueNotifier(true);
   }
@@ -50,31 +70,40 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   void dispose() {
     _mapController.dispose();
     _segmentHitNotifier.dispose();
-    _cursorHitNotifier.dispose();
     _sketchHitNotifier.dispose();
-
     _shouldPanMapNotifier.dispose();
     super.dispose();
   }
 
   MapHit _hitTest(Offset position) {
-    // Priorité : vertex > cursor > segment > vide
-
+    // Priorité : pencil > vertex > cursor > segment > vide
+    if (pencilPosition != null) {
+      const thresholdPx = 10;
+      final dist = (position - pencilPosition!).distance;
+      if (dist <= thresholdPx) {
+        return SketchPencilHit();
+      }
+    }
     final hitVertices = hitTestVertex(
       point: position,
       mapController: _mapController,
       vertices: vertices,
     );
-    if (hitVertices.isNotEmpty) {
-      return hitVertices[0];
+    if (hitVertices.isNotEmpty) return hitVertices[0];
+
+    // TestHit Cursor
+    if (cursorPosition != null) {
+      const thresholdPx = 10;
+      final dist = (position - cursorPosition!).distance;
+      if (dist <= thresholdPx) {
+        return CursorHit();
+      }
     }
 
-    if (_cursorHitNotifier.value?.hitValues.firstOrNull case final hit?) {
-      return hit;
-    }
     if (_segmentHitNotifier.value?.hitValues.firstOrNull case final hit?) {
       return hit;
     }
+
     if (_sketchHitNotifier.value?.hitValues.firstOrNull case final hit?) {
       return hit;
     }
@@ -88,7 +117,6 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
         mapControllerProvider.overrideWithValue(_mapController),
         shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
         segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
-        cursorHitLayerProvider.overrideWithValue(_cursorHitNotifier),
         sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
       ],
       child: Listener(

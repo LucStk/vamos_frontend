@@ -42,6 +42,7 @@ mixin MapHitResolver {
 
   bool isDraggable(MapHit hit) => switch (hit) {
     VertexHit() => true,
+    SketchPencilHit() => true,
     CursorHit() => true,
     _ =>
       false, // NoHit, SegmentHit, SketchSegmentHit... => pan natif de la carte
@@ -78,6 +79,7 @@ mixin MapHitResolver {
   MapEvent? _dragStartEvent(MapHit hit, LatLng latLng) => switch (hit) {
     CursorHit() => CursorDraggedStart(latLng),
     VertexHit(:final vertex) => VertexDragStarted(vertex.id),
+    SketchPencilHit() => SketchPencilDragUpdate(latLng: latLng),
     _ => null,
   };
 
@@ -88,6 +90,7 @@ mixin MapHitResolver {
   ) => switch (hit) {
     CursorHit() => CursorDragUpdate(latLng),
     VertexHit(:final vertex) => VertexDragUpdated(vertex.id, latLng),
+    SketchPencilHit() => SketchPencilDragUpdate(latLng: latLng),
     _ => null,
   };
 

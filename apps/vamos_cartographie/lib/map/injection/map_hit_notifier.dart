@@ -19,11 +19,6 @@ ValueNotifier<LayerHitResult<MapHit>?> segmentHitLayer(Ref ref) {
 }
 
 @riverpod
-ValueNotifier<LayerHitResult<MapHit>?> cursorHitLayer(Ref ref) {
-  throw UnimplementedError('cursorHitLayerProvider doit être surchargé');
-}
-
-@riverpod
 ValueNotifier<LayerHitResult<MapHit>?> sketchHitLayer(Ref ref) {
   throw UnimplementedError('sketchHitLayerProvider doit être surchargé');
 }

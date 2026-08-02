@@ -98,54 +98,6 @@ final class SegmentHitLayerProvider
 
 String _$segmentHitLayerHash() => r'852c15c86d8c9116b78df04b377d390c98ef5715';
 
-@ProviderFor(cursorHitLayer)
-final cursorHitLayerProvider = CursorHitLayerProvider._();
-
-final class CursorHitLayerProvider
-    extends
-        $FunctionalProvider<
-          ValueNotifier<LayerHitResult<MapHit>?>,
-          ValueNotifier<LayerHitResult<MapHit>?>,
-          ValueNotifier<LayerHitResult<MapHit>?>
-        >
-    with $Provider<ValueNotifier<LayerHitResult<MapHit>?>> {
-  CursorHitLayerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'cursorHitLayerProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$cursorHitLayerHash();
-
-  @$internal
-  @override
-  $ProviderElement<ValueNotifier<LayerHitResult<MapHit>?>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ValueNotifier<LayerHitResult<MapHit>?> create(Ref ref) {
-    return cursorHitLayer(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ValueNotifier<LayerHitResult<MapHit>?> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride:
-          $SyncValueProvider<ValueNotifier<LayerHitResult<MapHit>?>>(value),
-    );
-  }
-}
-
-String _$cursorHitLayerHash() => r'bc72584b3660b9d262e4a6d95fde08fa39a95122';
-
 @ProviderFor(sketchHitLayer)
 final sketchHitLayerProvider = SketchHitLayerProvider._();
 

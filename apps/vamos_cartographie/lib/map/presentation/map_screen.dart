@@ -50,7 +50,6 @@ class MapScreen extends StatelessWidget {
                         MapTileLayer(),
                         SegmentLayer(tripId: tripId),
                         CursorLayer(tripId: tripId),
-
                         VertexLayer(tripId: tripId),
                         SketchLayer(tripId: tripId),
                         MapControls(),

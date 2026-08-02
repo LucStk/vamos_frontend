@@ -17,7 +17,10 @@ class SketchLayer extends ConsumerWidget {
     final hitNotifier = ref.watch(sketchHitLayerProvider);
     switch (mapState.mode) {
       case Sketch e:
-        final pencilPosition = e.correction?.path.last ?? e.itineraire.last;
+        final pencilPosition = e.pencilPositionOrNull;
+        if (pencilPosition == null) {
+          return SizedBox.shrink();
+        }
         return Stack(
           children: [
             PolylineLayer<MapHit>(
@@ -41,18 +44,6 @@ class SketchLayer extends ConsumerWidget {
                   ),
               ],
             ),
-            CircleLayer<MapHit>(
-              hitNotifier: hitNotifier,
-              circles: [
-                CircleMarker<MapHit>(
-                  point: pencilPosition,
-                  radius: 24,
-                  color: const Color(0x00000000),
-                  hitValue: SketchPencilHit(),
-                ),
-              ],
-            ),
-
             MarkerLayer(
               markers: [
                 Marker(

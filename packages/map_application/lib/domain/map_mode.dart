@@ -30,3 +30,14 @@ sealed class MapMode with _$MapMode {
     RouteCorrection? correction,
   }) = SegmentEdit;
 }
+
+extension SketchX on MapMode {
+  LatLng? get pencilPositionOrNull {
+    switch (this) {
+      case Sketch e:
+        return e.correction?.path.last ?? e.itineraire.last;
+      case _:
+        return null;
+    }
+  }
+}
