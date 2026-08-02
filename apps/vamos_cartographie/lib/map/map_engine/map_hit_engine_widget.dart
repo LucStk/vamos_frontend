@@ -88,6 +88,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
         mapControllerProvider.overrideWithValue(_mapController),
         shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
         segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
+        cursorHitLayerProvider.overrideWithValue(_cursorHitNotifier),
         sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
       ],
       child: Listener(
