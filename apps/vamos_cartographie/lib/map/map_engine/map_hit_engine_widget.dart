@@ -77,20 +77,22 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
 
   MapHit _hitTest(Offset position) {
     // Priorité : pencil > vertex > cursor > segment > vide
+    // On regarde si le pencil n'a pas rencontré un vertex
+
+    if (pencilPosition != null) {
+      const thresholdPx = 10;
+      final dist = (position - pencilPosition!).distance;
+      if (dist <= thresholdPx) {
+        return SketchPencilHit();
+      }
+    }
 
     final hitVertices = hitTestVertex(
       point: position,
       mapController: _mapController,
       vertices: vertices,
     );
-    // On regarde si le pencil n'a pas rencontré un vertex
-    if (pencilPosition != null) {
-      const thresholdPx = 10;
-      final dist = (position - pencilPosition!).distance;
-      if (dist <= thresholdPx) {
-        return SketchPencilHit(hitVertices[0].vertex.id);
-      }
-    }
+
     if (hitVertices.isNotEmpty) return hitVertices[0];
 
     // TestHit Cursor
@@ -158,8 +160,10 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   void _onPointerMove(PointerMoveEvent event) {
+    final hit = _hitTest(event.localPosition);
     _dispatch(
       onPointerMove(
+        hitx: hit,
         point: _toPoint(event.localPosition),
         latLng: _toLatLng(event.localPosition),
       ),

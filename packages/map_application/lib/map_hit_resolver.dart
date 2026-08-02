@@ -15,9 +15,9 @@ mixin MapHitResolver {
   }
 
   MapEvent? onPointerMove({
+    required MapHit hitx,
     required Point<double> point,
     required LatLng latLng,
-    VertexId? snapTargetId,
   }) {
     switch (state) {
       case Pressed(:final hit): //:final downPoint):
@@ -28,12 +28,12 @@ mixin MapHitResolver {
               const EmptyState(); // on laisse flutter_map gérer le pan natif
           return null;
         }
-        state = Dragging(hit, snapTargetId: snapTargetId);
+        state = Dragging(hit);
         return _dragStartEvent(hit, latLng);
 
       case Dragging(:final hit):
-        state = Dragging(hit, snapTargetId: snapTargetId);
-        return _dragUpdateEvent(hit, latLng, snapTargetId);
+        state = Dragging(hit);
+        return _dragUpdateEvent(hit, latLng);
 
       case _:
         return null;
@@ -90,10 +90,7 @@ mixin MapHitResolver {
   ) => switch (hit) {
     CursorHit() => CursorDragUpdate(latLng),
     VertexHit(:final vertex) => VertexDragUpdated(vertex.id, latLng),
-    SketchPencilHit(:final vertexTouched) => SketchPencilDragUpdate(
-      latLng: latLng,
-      touchedVertex: vertexTouched,
-    ),
+    SketchPencilHit() => SketchPencilDragUpdate(latLng: latLng),
     _ => null,
   };
 

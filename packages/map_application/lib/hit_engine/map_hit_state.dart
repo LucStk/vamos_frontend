@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:map_application/hit_engine/hit_model.dart';
-import 'package:trip_application/trip_application.dart';
 
 sealed class MapHitState {
   const MapHitState();
@@ -18,8 +17,7 @@ class Pressed extends MapHitState {
 }
 
 class Dragging extends MapHitState {
-  final MapHit hit;
-  final VertexId?
-  snapTargetId; // pertinent seulement si hit est VertexHit, sinon null
-  const Dragging(this.hit, {this.snapTargetId});
+  final MapHit draggedHit;
+  final MapHit? hit;
+  const Dragging({required this.draggedHit, this.hit});
 }
