@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'map_hit_notifier.g.dart';
 
-// Providers scopés : ils lèvent une erreur si consultés hors d'un MapHitEngineWidget
+// Providers scopés : ils lèvent une erreur si consultés hors d'un MapElementEngineWidget
 @riverpod
 MapController mapController(Ref ref) {
   throw UnimplementedError(
@@ -14,12 +14,12 @@ MapController mapController(Ref ref) {
 }
 
 @riverpod
-ValueNotifier<LayerHitResult<MapHit>?> segmentHitLayer(Ref ref) {
+ValueNotifier<LayerHitResult<MapElement>?> segmentHitLayer(Ref ref) {
   throw UnimplementedError('segmentHitLayerProvider doit être surchargé');
 }
 
 @riverpod
-ValueNotifier<LayerHitResult<MapHit>?> sketchHitLayer(Ref ref) {
+ValueNotifier<LayerHitResult<MapElement>?> sketchHitLayer(Ref ref) {
   throw UnimplementedError('sketchHitLayerProvider doit être surchargé');
 }
 

@@ -21,7 +21,7 @@ class MapScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          MapHitEngineWidget(
+          MapElementEngineWidget(
             tripId: tripId,
             child: Consumer(
               builder: (context, ref, child) {

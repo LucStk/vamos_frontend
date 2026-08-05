@@ -23,24 +23,24 @@ class SketchLayer extends ConsumerWidget {
         }
         return Stack(
           children: [
-            PolylineLayer<MapHit>(
+            PolylineLayer<MapElement>(
               hitNotifier: hitNotifier,
               polylines: [
                 // Le segment en cours
-                Polyline<MapHit>(
+                Polyline<MapElement>(
                   points: e.itineraire,
                   color: Colors.lightBlue,
                   strokeWidth: 5,
-                  hitValue: SketchSegmentHit(),
+                  hitValue: MapSketchSegment(),
                 ),
 
                 // La modification en direct si elle existe
                 if (e.correction != null)
-                  Polyline<MapHit>(
+                  Polyline<MapElement>(
                     points: e.correction!.path,
                     color: Colors.lightBlue,
                     strokeWidth: 5,
-                    hitValue: SketchSegmentHit(),
+                    hitValue: MapSketchSegment(),
                   ),
               ],
             ),

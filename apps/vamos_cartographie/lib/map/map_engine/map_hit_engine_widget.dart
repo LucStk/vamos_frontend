@@ -9,31 +9,40 @@ import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
-import 'package:vamos_cartographie/map/map_engine/vertex_hit_test.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
 
-class MapHitEngineWidget extends ConsumerStatefulWidget {
+class MapElementEngineWidget extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
   final Widget child;
 
-  const MapHitEngineWidget({
+  const MapElementEngineWidget({
     super.key,
     required this.tripId,
     required this.child,
   });
 
   @override
-  ConsumerState<MapHitEngineWidget> createState() => _MapHitEngineWidgetState();
+  ConsumerState<MapElementEngineWidget> createState() =>
+      _MapElementEngineWidgetState();
 }
 
-class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
-    with MapHitResolver {
+class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
+    with MapElementResolver {
   late final MapController _mapController;
   late final ValueNotifier<bool> _shouldPanMapNotifier;
-  late final ValueNotifier<LayerHitResult<MapHit>?> _segmentHitNotifier;
-  late final ValueNotifier<LayerHitResult<MapHit>?> _sketchHitNotifier;
+  late final ValueNotifier<LayerHitResult<MapElement>?> _segmentHitNotifier;
+  late final ValueNotifier<LayerHitResult<MapElement>?> _sketchHitNotifier;
 
   List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
+
+  MapState get mapState => ref.read(mapStateProvider(widget.tripId));
+  final _hitTester = const MapElementTester();
+
+  // Seul point de contact avec flutter_map : la conversion LatLng -> écran
+  Point<double> _project(LatLng latLng) {
+    final offset = _mapController.camera.latLngToScreenOffset(latLng);
+    return Point(offset.dx, offset.dy);
+  }
 
   Offset? get cursorPosition {
     final state = ref.read(mapStateProvider(widget.tripId));
@@ -75,45 +84,6 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
     super.dispose();
   }
 
-  MapHit _hitTest(Offset position) {
-    // Priorité : pencil > vertex > cursor > segment > vide
-    // On regarde si le pencil n'a pas rencontré un vertex
-
-    if (pencilPosition != null) {
-      const thresholdPx = 10;
-      final dist = (position - pencilPosition!).distance;
-      if (dist <= thresholdPx) {
-        return SketchPencilHit();
-      }
-    }
-
-    final hitVertices = hitTestVertex(
-      point: position,
-      mapController: _mapController,
-      vertices: vertices,
-    );
-
-    if (hitVertices.isNotEmpty) return hitVertices[0];
-
-    // TestHit Cursor
-    if (cursorPosition != null) {
-      const thresholdPx = 10;
-      final dist = (position - cursorPosition!).distance;
-      if (dist <= thresholdPx) {
-        return CursorHit();
-      }
-    }
-
-    if (_segmentHitNotifier.value?.hitValues.firstOrNull case final hit?) {
-      return hit;
-    }
-
-    if (_sketchHitNotifier.value?.hitValues.firstOrNull case final hit?) {
-      return hit;
-    }
-    return const NoHit();
-  }
-
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -134,7 +104,7 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   @override
-  MapHitState state = const EmptyState();
+  MapElementState state = const EmptyState();
 
   set shouldPanMap(bool shouldPanMap) {
     if (_shouldPanMapNotifier.value != shouldPanMap) {
@@ -160,13 +130,36 @@ class _MapHitEngineWidgetState extends ConsumerState<MapHitEngineWidget>
   }
 
   void _onPointerMove(PointerMoveEvent event) {
-    final hit = _hitTest(event.localPosition);
     _dispatch(
       onPointerMove(
-        hitx: hit,
         point: _toPoint(event.localPosition),
         latLng: _toLatLng(event.localPosition),
+        hitTest: (exclude) => _hitTest(event.localPosition, exclude: exclude),
       ),
+    );
+  }
+
+  MapElement _hitTest(Offset position, {MapElement? exclude}) {
+    var filteredVertices = vertices;
+
+    if (exclude is MapSketchPencil) {
+      final mode = mapState.mode;
+      if (mode is Sketch) {
+        filteredVertices = vertices
+            .where((v) => v.id != mode.vertexStart)
+            .toList();
+      }
+    }
+
+    return _hitTester.resolve(
+      position: Point(position.dx, position.dy),
+      project: _project,
+      vertices: filteredVertices, // ← vertex de départ absent
+      cursorLatLng: mapState.selection.cursorLatLngOrNull,
+      pencilLatLng: mapState.mode.pencilPositionOrNull,
+      segmentHit: _segmentHitNotifier.value?.hitValues.firstOrNull,
+      sketchHit: _sketchHitNotifier.value?.hitValues.firstOrNull,
+      elementExclude: exclude,
     );
   }
 

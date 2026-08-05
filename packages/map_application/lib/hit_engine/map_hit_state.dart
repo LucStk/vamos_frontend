@@ -2,22 +2,21 @@ import 'dart:math';
 
 import 'package:map_application/hit_engine/hit_model.dart';
 
-sealed class MapHitState {
-  const MapHitState();
+sealed class MapElementState {
+  const MapElementState();
 }
 
-class EmptyState extends MapHitState {
+class EmptyState extends MapElementState {
   const EmptyState();
 }
 
-class Pressed extends MapHitState {
-  final MapHit hit;
+class Pressed extends MapElementState {
+  final MapElement element;
   final Point<double> downPoint;
-  const Pressed(this.hit, this.downPoint);
+  const Pressed(this.element, this.downPoint);
 }
 
-class Dragging extends MapHitState {
-  final MapHit draggedHit;
-  final MapHit? hit;
-  const Dragging({required this.draggedHit, this.hit});
+class Dragging extends MapElementState {
+  final MapElement element;
+  const Dragging({required this.element});
 }

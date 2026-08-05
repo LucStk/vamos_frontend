@@ -1,31 +1,42 @@
 import 'package:trip_application/trip_application.dart';
 
-sealed class MapHit {
-  const MapHit();
+sealed class MapElement {
+  const MapElement();
 }
 
-class SketchSegmentHit extends MapHit {
-  const SketchSegmentHit();
+class MapSketchSegment extends MapElement {
+  const MapSketchSegment();
 }
 
-class SketchPencilHit extends MapHit {
-  const SketchPencilHit();
+class MapSketchPencil extends MapElement {
+  const MapSketchPencil();
 }
 
-class CursorHit extends MapHit {
-  const CursorHit();
+class MapCursor extends MapElement {
+  const MapCursor();
 }
 
-class VertexHit extends MapHit {
+class MapVertex extends MapElement {
   final VertexFields vertex;
-  const VertexHit(this.vertex);
+  const MapVertex(this.vertex);
 }
 
-class NoHit extends MapHit {
-  const NoHit();
+class NoMapElement extends MapElement {
+  const NoMapElement();
 }
 
-class SegmentHit extends MapHit {
+class MapSegment extends MapElement {
   final SegmentId segmentId;
-  const SegmentHit(this.segmentId);
+  const MapSegment(this.segmentId);
 }
+
+/// Deux hits désignent-ils le même objet métier ?
+/// Utilisé pour exclure l'objet en cours de manipulation
+/// de sa propre détection de hit.
+bool isSameHitTarget(MapElement a, MapElement b) => switch ((a, b)) {
+  (MapVertex(vertex: final va), MapVertex(vertex: final vb)) => va.id == vb.id,
+  (MapCursor(), MapCursor()) => true,
+  (MapSegment(segmentId: final sa), MapSegment(segmentId: final sb)) =>
+    sa == sb,
+  _ => false,
+};

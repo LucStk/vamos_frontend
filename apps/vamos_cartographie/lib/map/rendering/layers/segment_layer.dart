@@ -20,7 +20,7 @@ class SegmentLayer extends ConsumerWidget {
     final segmentIds = ref.watch(segmentStoreProvider(tripId)).getIds();
     final notifier = ref.read(mapStateProvider(tripId).notifier);
 
-    final List<Polyline<MapHit>> polylines = [];
+    final List<Polyline<MapElement>> polylines = [];
     final List<Marker> segMarkers = [];
     for (SegmentId id in segmentIds) {
       final segment = ref.watch(segmentProvider(tripId, id));
@@ -35,7 +35,7 @@ class SegmentLayer extends ConsumerWidget {
       // 1. Si le segment est sélectionné, on ajoute D'ABORD le halo en arrière-plan
       if (isSelected) {
         polylines.add(
-          Polyline<MapHit>(
+          Polyline<MapElement>(
             points: segment.geometry,
             color: baseColor.withValues(alpha: 0.35),
             strokeWidth: 12, // Nettement plus large que la ligne principale
@@ -45,13 +45,13 @@ class SegmentLayer extends ConsumerWidget {
 
       // 2. Polyline principale
       polylines.add(
-        Polyline<MapHit>(
+        Polyline<MapElement>(
           points: segment.geometry,
           color: baseColor,
           strokeWidth: isSelected
               ? 5
               : 3, // Légèrement plus épais quand sélectionné
-          hitValue: SegmentHit(segment.id),
+          hitValue: MapSegment(segment.id),
           pattern: segment.mobilityTypeDisplay.isDashed
               ? StrokePattern.dashed(segments: const [12, 8])
               : const StrokePattern.solid(),
@@ -71,7 +71,10 @@ class SegmentLayer extends ConsumerWidget {
 
     return Stack(
       children: [
-        PolylineLayer<MapHit>(hitNotifier: hitNotifier, polylines: polylines),
+        PolylineLayer<MapElement>(
+          hitNotifier: hitNotifier,
+          polylines: polylines,
+        ),
         MarkerLayer(markers: segMarkers),
       ],
     );

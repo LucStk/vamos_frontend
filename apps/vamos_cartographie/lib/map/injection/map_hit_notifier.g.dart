@@ -56,11 +56,11 @@ final segmentHitLayerProvider = SegmentHitLayerProvider._();
 final class SegmentHitLayerProvider
     extends
         $FunctionalProvider<
-          ValueNotifier<LayerHitResult<MapHit>?>,
-          ValueNotifier<LayerHitResult<MapHit>?>,
-          ValueNotifier<LayerHitResult<MapHit>?>
+          ValueNotifier<LayerHitResult<MapElement>?>,
+          ValueNotifier<LayerHitResult<MapElement>?>,
+          ValueNotifier<LayerHitResult<MapElement>?>
         >
-    with $Provider<ValueNotifier<LayerHitResult<MapHit>?>> {
+    with $Provider<ValueNotifier<LayerHitResult<MapElement>?>> {
   SegmentHitLayerProvider._()
     : super(
         from: null,
@@ -77,21 +77,21 @@ final class SegmentHitLayerProvider
 
   @$internal
   @override
-  $ProviderElement<ValueNotifier<LayerHitResult<MapHit>?>> $createElement(
+  $ProviderElement<ValueNotifier<LayerHitResult<MapElement>?>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  ValueNotifier<LayerHitResult<MapHit>?> create(Ref ref) {
+  ValueNotifier<LayerHitResult<MapElement>?> create(Ref ref) {
     return segmentHitLayer(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ValueNotifier<LayerHitResult<MapHit>?> value) {
+  Override overrideWithValue(ValueNotifier<LayerHitResult<MapElement>?> value) {
     return $ProviderOverride(
       origin: this,
       providerOverride:
-          $SyncValueProvider<ValueNotifier<LayerHitResult<MapHit>?>>(value),
+          $SyncValueProvider<ValueNotifier<LayerHitResult<MapElement>?>>(value),
     );
   }
 }
@@ -104,11 +104,11 @@ final sketchHitLayerProvider = SketchHitLayerProvider._();
 final class SketchHitLayerProvider
     extends
         $FunctionalProvider<
-          ValueNotifier<LayerHitResult<MapHit>?>,
-          ValueNotifier<LayerHitResult<MapHit>?>,
-          ValueNotifier<LayerHitResult<MapHit>?>
+          ValueNotifier<LayerHitResult<MapElement>?>,
+          ValueNotifier<LayerHitResult<MapElement>?>,
+          ValueNotifier<LayerHitResult<MapElement>?>
         >
-    with $Provider<ValueNotifier<LayerHitResult<MapHit>?>> {
+    with $Provider<ValueNotifier<LayerHitResult<MapElement>?>> {
   SketchHitLayerProvider._()
     : super(
         from: null,
@@ -125,21 +125,21 @@ final class SketchHitLayerProvider
 
   @$internal
   @override
-  $ProviderElement<ValueNotifier<LayerHitResult<MapHit>?>> $createElement(
+  $ProviderElement<ValueNotifier<LayerHitResult<MapElement>?>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  ValueNotifier<LayerHitResult<MapHit>?> create(Ref ref) {
+  ValueNotifier<LayerHitResult<MapElement>?> create(Ref ref) {
     return sketchHitLayer(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ValueNotifier<LayerHitResult<MapHit>?> value) {
+  Override overrideWithValue(ValueNotifier<LayerHitResult<MapElement>?> value) {
     return $ProviderOverride(
       origin: this,
       providerOverride:
-          $SyncValueProvider<ValueNotifier<LayerHitResult<MapHit>?>>(value),
+          $SyncValueProvider<ValueNotifier<LayerHitResult<MapElement>?>>(value),
     );
   }
 }
