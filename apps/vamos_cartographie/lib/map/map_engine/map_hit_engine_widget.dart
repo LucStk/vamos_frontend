@@ -58,14 +58,6 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     return _mapController.camera.latLngToScreenOffset(latLng);
   }
 
-  // Offset? get pencilSketchPosition {
-  //   final state = ref.read(mapStateProvider(widget.tripId));
-  //   switch (state.mode){
-  //     case Sketch e :
-  //       e.
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
