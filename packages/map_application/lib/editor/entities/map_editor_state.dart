@@ -3,14 +3,14 @@ import 'package:latlong2/latlong.dart';
 import 'map_mode.dart';
 import 'map_selection.dart';
 
-part 'map_state.freezed.dart';
+part 'map_editor_state.freezed.dart';
 
 @freezed
-abstract class MapState with _$MapState {
-  const factory MapState({
+abstract class MapEditorState with _$MapEditorState {
+  const factory MapEditorState({
     @Default(Idle()) MapMode mode,
     @Default(MapSelection.none()) MapSelection selection,
-  }) = _MapState;
+  }) = _MapEditorState;
 }
 
 @freezed

@@ -1,15 +1,5 @@
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/hit_engine/hit_model.dart';
-import 'package:trip_application/topology/topology.dart';
-import 'package:trip_application/waypoint/domain/waypoint_model.dart';
-
-part "segment_events/segment_input_events.dart";
-part "segment_events/segment_output_events.dart";
-
-part "waypoint_events/waypoint_output_events.dart";
-part "cursor_input_events.dart";
-part "vertex_input_events.dart";
-part "sketch_input_events.dart";
 
 sealed class MapEvent {
   const MapEvent();

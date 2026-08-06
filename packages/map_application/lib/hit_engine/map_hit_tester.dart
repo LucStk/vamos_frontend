@@ -1,6 +1,5 @@
 // map_application/lib/hit_engine/hit_tester.dart
 
-import 'dart:convert';
 import 'dart:math';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/hit_engine/hit_candidate.dart';

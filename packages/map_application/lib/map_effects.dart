@@ -1,19 +1,12 @@
 // L'EffectRunner connaît le store, pas le reducer.
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_application/editor/editor.dart';
 import 'package:trip_application/trip_application.dart';
-
-abstract interface class MapEffectContext {
-  GraphEditor get graphEditor;
-  WaypointEditor get waypointEditor;
-  MapOutput get mapOutput;
-  Future<void> sendUiEvent(MapEvent event);
-}
 
 sealed class MapEffect {
   const MapEffect();
 
-  Future<void> run(MapEffectContext context);
+  Future<void> run(MapEditor context);
 }
 
 final class CreateSimpleVertex extends MapEffect {
@@ -22,7 +15,7 @@ final class CreateSimpleVertex extends MapEffect {
   const CreateSimpleVertex(this.position);
 
   @override
-  Future<void> run(MapEffectContext context) {
+  Future<void> run(MapEditor context) {
     return context.graphEditor.createSimpleVertex(position);
   }
 }
@@ -34,7 +27,7 @@ final class UpdateRemoteVertexPosition extends MapEffect {
   const UpdateRemoteVertexPosition(this.vertexId, this.position);
 
   @override
-  Future<void> run(MapEffectContext context) {
+  Future<void> run(MapEditor context) {
     return context.graphEditor.moveVertex(vertexId, position);
   }
 }
@@ -46,7 +39,7 @@ final class PatchVertexPosition extends MapEffect {
   const PatchVertexPosition(this.vertexId, this.position);
 
   @override
-  Future<void> run(MapEffectContext context) async {
+  Future<void> run(MapEditor context) async {
     final patchVertex = VertexPatchModel(id: vertexId, latLng: position);
     context.graphEditor.state = context.graphEditor.state.setVertex(
       patchVertex,
@@ -60,7 +53,7 @@ final class CreateWaypointFromVertex extends MapEffect {
   const CreateWaypointFromVertex(this.vertexId);
 
   @override
-  Future<void> run(MapEffectContext context) {
+  Future<void> run(MapEditor context) {
     return context.waypointEditor.createBlankWaypointFromVertex(vertexId);
   }
 }
@@ -71,7 +64,7 @@ final class CreateWaypointFromPosition extends MapEffect {
   const CreateWaypointFromPosition(this.position);
 
   @override
-  Future<void> run(MapEffectContext context) async {
+  Future<void> run(MapEditor context) async {
     final res = await context.waypointEditor.createBlankWaypointFromPosition(
       position,
     );
@@ -97,7 +90,7 @@ final class CreateSegment extends MapEffect {
   });
 
   @override
-  Future<void> run(MapEffectContext context) async {
+  Future<void> run(MapEditor context) async {
     final res = await context.graphEditor.createSegment(
       startVertexId: startVertexId,
       endVertexId: endVertexId,
@@ -118,7 +111,7 @@ final class DeleteSegment extends MapEffect {
   const DeleteSegment(this.segmentId);
 
   @override
-  Future<void> run(MapEffectContext context) {
+  Future<void> run(MapEditor context) {
     return context.graphEditor.deleteSegment(segmentId);
   }
 }
@@ -129,7 +122,7 @@ final class RemoveVertex extends MapEffect {
   const RemoveVertex(this.vertexId);
 
   @override
-  Future<void> run(MapEffectContext context) {
+  Future<void> run(MapEditor context) {
     return context.graphEditor.removeVertex(vertexId);
   }
 }
@@ -140,7 +133,7 @@ final class OpenWaypointDialog extends MapEffect {
   const OpenWaypointDialog(this.waypointId);
 
   @override
-  Future<void> run(MapEffectContext context) async {
+  Future<void> run(MapEditor context) async {
     context.mapOutput.emit(WaypointOpenDialog(waypointId));
   }
 }
