@@ -13,7 +13,7 @@ part of 'map_state_provider.dart';
 final mapStateProvider = MapStateNotifierFamily._();
 
 final class MapStateNotifierProvider
-    extends $NotifierProvider<MapStateNotifier, MapState> {
+    extends $NotifierProvider<MapStateNotifier, MapEditorState> {
   MapStateNotifierProvider._({
     required MapStateNotifierFamily super.from,
     required TripId super.argument,
@@ -40,10 +40,10 @@ final class MapStateNotifierProvider
   MapStateNotifier create() => MapStateNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapState value) {
+  Override overrideWithValue(MapEditorState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapState>(value),
+      providerOverride: $SyncValueProvider<MapEditorState>(value),
     );
   }
 
@@ -58,15 +58,15 @@ final class MapStateNotifierProvider
   }
 }
 
-String _$mapStateNotifierHash() => r'e8800a8d7b7d6180244b5fda7d96e375d7720339';
+String _$mapStateNotifierHash() => r'175f8fc847604337a466042ae5c311bc0d032c14';
 
 final class MapStateNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           MapStateNotifier,
-          MapState,
-          MapState,
-          MapState,
+          MapEditorState,
+          MapEditorState,
+          MapEditorState,
           TripId
         > {
   MapStateNotifierFamily._()
@@ -85,20 +85,20 @@ final class MapStateNotifierFamily extends $Family
   String toString() => r'mapStateProvider';
 }
 
-abstract class _$MapStateNotifier extends $Notifier<MapState> {
+abstract class _$MapStateNotifier extends $Notifier<MapEditorState> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  MapState build(TripId tripId);
+  MapEditorState build(TripId tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<MapState, MapState>;
+    final ref = this.ref as $Ref<MapEditorState, MapEditorState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MapState, MapState>,
-              MapState,
+              AnyNotifier<MapEditorState, MapEditorState>,
+              MapEditorState,
               Object?,
               Object?
             >;

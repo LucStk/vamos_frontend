@@ -35,7 +35,9 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
 
   List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
 
-  MapState get mapState => ref.read(mapStateProvider(widget.tripId));
+  MapStateNotifier get mapEditor =>
+      ref.read(mapStateProvider(widget.tripId).notifier);
+
   @override
   MapElementState state = const EmptyState();
 
@@ -58,20 +60,13 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   LatLng _toLatLng(Offset offset) =>
       _mapController.camera.screenOffsetToLatLng(offset);
 
-  void _dispatch(MapEvent? event) {
-    if (event == null) return;
-    // Accès au notifier via ref (StateController / StateNotifier)
-    ref.read(mapStateProvider(widget.tripId).notifier).sendUiEvent(event);
-  }
-
   void _onPointerDown(PointerDownEvent event) {
     final hit = _hitTest(event.localPosition);
     shouldPanMap = !isDraggable(hit);
-    _dispatch(onPointerDown(hit: hit, point: _toPoint(event.localPosition)));
   }
 
   void _onPointerMove(PointerMoveEvent event) {
-    _dispatch(
+    mapEditor.handle(
       onPointerMove(
         point: _toPoint(event.localPosition),
         latLng: _toLatLng(event.localPosition),
@@ -84,7 +79,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     var filteredVertices = vertices;
 
     if (exclude is MapSketchPencil) {
-      final mode = mapState.mode;
+      final mode = mapEditor.mode;
       if (mode is Sketch) {
         filteredVertices = vertices
             .where((v) => v.id != mode.vertexStart)
@@ -96,8 +91,8 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
       position: Point(position.dx, position.dy),
       project: _project,
       vertices: filteredVertices, // ← vertex de départ absent
-      cursorLatLng: mapState.selection.cursorLatLngOrNull,
-      pencilLatLng: mapState.mode.pencilPositionOrNull,
+      cursorLatLng: mapEditor.selection.cursorLatLngOrNull,
+      pencilLatLng: mapEditor.mode.pencilPositionOrNull,
       segmentHit: _segmentHitNotifier.value?.hitValues.firstOrNull,
       sketchHit: _sketchHitNotifier.value?.hitValues.firstOrNull,
       elementExclude: exclude,
@@ -106,7 +101,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
 
   void _onPointerUp(PointerUpEvent event) {
     shouldPanMap = true;
-    _dispatch(onPointerUp(_toLatLng(event.localPosition)));
+    mapEditor.handle(onPointerUp(_toLatLng(event.localPosition)));
   }
 
   @override

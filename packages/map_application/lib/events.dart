@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/hit_engine/hit_model.dart';
+import 'package:map_application/domain/domain.dart';
 
 sealed class MapEvent {
   const MapEvent();

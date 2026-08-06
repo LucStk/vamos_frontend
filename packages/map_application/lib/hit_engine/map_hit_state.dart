@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:map_application/hit_engine/hit_model.dart';
+import 'package:map_application/domain/map_elements.dart';
 
 sealed class MapElementState {
   const MapElementState();

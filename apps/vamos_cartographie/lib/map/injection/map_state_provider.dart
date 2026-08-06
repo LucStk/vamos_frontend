@@ -13,21 +13,29 @@ part 'map_state_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class MapStateNotifier extends _$MapStateNotifier with MapEditor {
+  // Les getters/setters branchés sur le state Riverpod
+  @override
+  MapMode get mode => state.mode;
+  @override
+  set mode(MapMode value) => state = state.copyWith(mode: value);
+
+  @override
+  MapSelection get selection => state.selection;
+  @override
+  set selection(MapSelection value) => state = state.copyWith(selection: value);
+
   @override
   GraphEditor get graphEditor => ref.read(graphStoreProvider(tripId).notifier);
-
   @override
   WaypointEditor get waypointEditor =>
       ref.read(waypointStoreProvider(tripId).notifier);
-
   @override
   MapOutput get mapOutput => ref.read(mapOutputProvider(tripId).notifier);
 
   @override
-  MapState build(TripId tripId) {
+  MapEditorState build(TripId tripId) {
     Future.microtask(() => loadTripDetails());
-
-    return const MapState(); // État initial
+    return const MapEditorState(mode: MapMode.idle(), selection: NoSelection());
   }
 
   Future<Failure?> loadTripDetails() async {

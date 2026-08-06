@@ -1,7 +1,6 @@
 // lib/editor/segment_editor.dart
 import 'package:map_application/map_application.dart';
-import 'entities/entities.dart';
-import 'map_editor.dart';
+import 'package:trip_application/topology/domain/domain.dart';
 
 extension WaypointEditor on MapEditor {
   Future<void> createWaypointAtCursor() async {
@@ -9,5 +8,9 @@ extension WaypointEditor on MapEditor {
       selection = NoSelection();
       await runEffect(CreateWaypointFromPosition(latLng));
     }
+  }
+
+  Future<void> waypointCreated(VertexFields vertex) async {
+    selection = VertexSelection(vertex: vertex);
   }
 }

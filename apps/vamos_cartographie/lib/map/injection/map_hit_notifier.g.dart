@@ -96,7 +96,7 @@ final class SegmentHitLayerProvider
   }
 }
 
-String _$segmentHitLayerHash() => r'852c15c86d8c9116b78df04b377d390c98ef5715';
+String _$segmentHitLayerHash() => r'f3393b6fc3c03ecef298578c5555912cfb178333';
 
 @ProviderFor(sketchHitLayer)
 final sketchHitLayerProvider = SketchHitLayerProvider._();
@@ -144,7 +144,7 @@ final class SketchHitLayerProvider
   }
 }
 
-String _$sketchHitLayerHash() => r'2ea2e633da4754f81b591ea49f18765df4071a2a';
+String _$sketchHitLayerHash() => r'1de04bdaff4eacc335653d49467b50f7261b4762';
 
 @ProviderFor(shouldPanMap)
 final shouldPanMapProvider = ShouldPanMapProvider._();

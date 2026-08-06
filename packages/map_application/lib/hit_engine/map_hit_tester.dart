@@ -2,9 +2,9 @@
 
 import 'dart:math';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/hit_engine/hit_candidate.dart';
 import 'package:trip_application/trip_application.dart';
-import 'hit_model.dart';
 import 'hit_projector.dart';
 
 class HitTestThresholds {

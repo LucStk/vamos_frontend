@@ -1,6 +1,8 @@
 // L'EffectRunner connaît le store, pas le reducer.
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/editor/editor.dart';
+import 'package:map_application/editor/segment_editor.dart';
+import 'package:map_application/editor/waypoint_editor.dart';
 import 'package:trip_application/trip_application.dart';
 
 sealed class MapEffect {
@@ -69,10 +71,7 @@ final class CreateWaypointFromPosition extends MapEffect {
       position,
     );
 
-    res.fold(
-      (_) => context.sendUiEvent(WaypointCreateFailed()),
-      (data) => context.sendUiEvent(WaypointCreated(data.vertex)),
-    );
+    res.fold((_) {}, (data) => context.waypointCreated(data.vertex));
   }
 }
 
@@ -98,10 +97,7 @@ final class CreateSegment extends MapEffect {
       mobilityType: mobilityType,
     );
 
-    res.fold(
-      (_) => context.sendUiEvent(SegmentCreateFailed()),
-      (segment) => context.sendUiEvent(SegmentCreated(segment.id)),
-    );
+    res.fold((_) {}, (segment) => context.segmentCreated(segment.id));
   }
 }
 

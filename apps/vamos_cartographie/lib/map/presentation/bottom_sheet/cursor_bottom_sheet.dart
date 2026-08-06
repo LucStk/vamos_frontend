@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_application/editor/waypoint_editor.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/confirm_button.dart';
 import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
@@ -38,8 +38,7 @@ class CursorBottomSheet extends ConsumerWidget {
             children: [
               ConfirmButton(
                 label: "Create Vertex",
-                onPressed: () =>
-                    notifier.sendUiEvent(CursorButtonCreateTapped()),
+                onPressed: () => notifier.createWaypointAtCursor(),
               ),
             ],
           ),

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_application/editor/vertex_editor.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
@@ -43,18 +43,14 @@ class VertexBottomSheet extends ConsumerWidget {
               Expanded(
                 child: ConfirmButton(
                   label: "Créer une étape ici",
-                  onPressed: () =>
-                      notifier.sendUiEvent(VertexButtonCreateWaypoint()),
+                  onPressed: () => notifier.createWaypointFromSelectedVertex(),
                 ),
               ),
 
               const SizedBox(width: 8),
 
               // 3. Supprimer le vertex
-              DeleteButton(
-                onPressed: () =>
-                    notifier.sendUiEvent(VertexButtonDeleteTapped()),
-              ),
+              DeleteButton(onPressed: () => notifier.deleteSelectedVertex()),
             ],
           ),
         ],

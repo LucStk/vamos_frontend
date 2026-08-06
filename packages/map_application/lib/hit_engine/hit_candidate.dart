@@ -1,7 +1,7 @@
 // hit_candidate.dart
 import 'dart:math';
 
-import 'package:map_application/hit_engine/hit_model.dart';
+import 'package:map_application/domain/domain.dart';
 
 sealed class HitCandidate {
   const HitCandidate();

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_application/editor/segment_editor.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
@@ -45,9 +45,7 @@ class SegmentBottomSheet extends ConsumerWidget {
                   values: MobilityTypeStyle.values,
                   selectedType: currentStyle,
                   onTypeChanged: (newType) {
-                    notifier.sendUiEvent(
-                      SegmentMobilityTypeChanged(newType.type),
-                    );
+                    notifier.changeSegmentType(newType.type);
                   },
                 ),
               ),
@@ -56,8 +54,7 @@ class SegmentBottomSheet extends ConsumerWidget {
 
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(
-                onPressed: () =>
-                    notifier.sendUiEvent(SegmentRedrawButtonTapped(segmentId)),
+                onPressed: () => notifier.redrawSegment(segmentId),
                 icon: const Icon(Icons.edit_road_rounded, size: 20),
                 tooltip: "Redessiner le segment",
                 style: IconButton.styleFrom(
@@ -73,10 +70,7 @@ class SegmentBottomSheet extends ConsumerWidget {
               const SizedBox(width: 4),
 
               // 3. Bouton "Supprimer" le segment
-              DeleteButton(
-                onPressed: () =>
-                    notifier.sendUiEvent(SegmentButtonDeleteTapped()),
-              ),
+              DeleteButton(onPressed: () => notifier.deleteSelectedSegment()),
             ],
           ),
         ],
