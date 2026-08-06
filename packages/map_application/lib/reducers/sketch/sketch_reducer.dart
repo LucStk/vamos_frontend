@@ -1,40 +1,24 @@
-import 'package:map_application/map_editor.dart';
-import 'package:map_application/map_effects.dart';
-
-import '/domain/domain.dart';
-import "/events/events.dart";
+import 'package:map_application/map_application.dart';
+import 'package:latlong2/latlong.dart';
 
 TransitionResult reduceSketch(MapState state, MapEvent event) {
   final mode = state.mode;
   if (mode is! Sketch) return TransitionResult(nextState: state);
   switch (event) {
-    case SketchSegmentTapped e:
+    case TapEvent(:final MapSketchSegment tappedElement, :final LatLng latLng):
       return TransitionResult(
         nextState: state.copyWith(
           mode: mode.copyWith(
-            correction: RouteCorrection(grabPoint: e.latLng, path: [e.latLng]),
+            correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
           ),
         ),
       );
-    case SketchPencilDragUpdate e:
-      final itineraire = [...mode.itineraire, e.latLng];
-      print("touched vertex ${e.touchedVertex} start ${mode.vertexStart}");
-      if (e.touchedVertex != null && e.touchedVertex != mode.vertexStart) {
-        return TransitionResult(
-          nextState: state.copyWith(selection: NoSelection(), mode: Idle()),
-
-          effects: [
-            CreateSegment(
-              startVertexId: mode.vertexStart,
-              endVertexId: e.touchedVertex!,
-              geometry: itineraire,
-              mobilityType: mode.mobilityType,
-            ),
-          ],
-        );
-      }
+    case DragUpdateEvent(
+      :final MapSketchPencil dragElement,
+      :final LatLng latLng,
+    ):
       if (mode.correction != null) {
-        final correctionPath = [...mode.correction!.path, e.latLng];
+        final correctionPath = [...mode.correction!.path, latLng];
         return TransitionResult(
           nextState: state.copyWith(
             mode: mode.copyWith(
@@ -43,6 +27,7 @@ TransitionResult reduceSketch(MapState state, MapEvent event) {
           ),
         );
       }
+      final itineraire = [...mode.itineraire, latLng];
       return TransitionResult(
         nextState: state.copyWith(mode: mode.copyWith(itineraire: itineraire)),
       );

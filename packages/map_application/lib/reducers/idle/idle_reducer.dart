@@ -5,6 +5,8 @@ import 'cursor_event_reducer.dart';
 import 'segment_event_reducer.dart';
 import 'vertex_event_reducer.dart';
 import 'waypoint_event_reducer.dart';
+import 'taps_event_reducer.dart';
+import 'drag_reducer.dart';
 import '/domain/domain.dart';
 import "/events/events.dart";
 
@@ -16,7 +18,10 @@ TransitionResult reduceIdle(MapState state, MapEvent event) {
       ),
     ),
     CursorInputEvent e => reduceCursorInputEvents(state, e),
-
+    TapEvent e => reduceTapInputEvents(state, e),
+    DragStartEvent e => reduceDragStartInputEvents(state, e),
+    DragEndEvent e => reduceDragEndInputEvents(state, e),
+    DragUpdateEvent e => reduceDragUpdateInputEvents(state, e),
     SegmentInputEvent e => reduceSegmentInputEvents(state, e),
     SegmentOutputEvent e => reduceSegmentOutputEvents(state, e),
 

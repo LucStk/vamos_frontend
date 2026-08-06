@@ -18,7 +18,6 @@ class SegmentLayer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final hitNotifier = ref.watch(segmentHitLayerProvider);
     final segmentIds = ref.watch(segmentStoreProvider(tripId)).getIds();
-    final notifier = ref.read(mapStateProvider(tripId).notifier);
 
     final List<Polyline<MapElement>> polylines = [];
     final List<Marker> segMarkers = [];
@@ -61,10 +60,7 @@ class SegmentLayer extends ConsumerWidget {
       segMarkers.add(
         Marker(
           point: calculMobilyMarkerPosition(segment),
-          child: GestureDetector(
-            onTap: () => notifier.sendUiEvent(SegmentMobilityMarkerTapped(id)),
-            child: MobilityMarker(tripId: tripId, segId: id),
-          ),
+          child: MobilityMarker(tripId: tripId, segId: id),
         ),
       );
     }

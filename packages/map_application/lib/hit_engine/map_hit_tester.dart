@@ -1,5 +1,6 @@
 // map_application/lib/hit_engine/hit_tester.dart
 
+import 'dart:convert';
 import 'dart:math';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/hit_engine/hit_candidate.dart';
@@ -77,7 +78,7 @@ class MapElementTester {
         PointCandidate(
           point: project(pencilLatLng),
           radiusPx: thresholds.pencilRadiusPx,
-          element: MapSketchPencil(),
+          element: MapSketchPencil(pencilLatLng),
         ),
       );
     }

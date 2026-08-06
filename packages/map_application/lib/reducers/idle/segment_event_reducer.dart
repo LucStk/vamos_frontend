@@ -20,11 +20,6 @@ TransitionResult reduceSegmentInputEvents(
       ),
       null => TransitionResult(nextState: state),
     },
-    SegmentTapped e => TransitionResult(
-      nextState: state.copyWith(
-        selection: SegmentSelection(segmentId: e.segId),
-      ),
-    ),
     _ => TransitionResult(nextState: state),
   };
 }

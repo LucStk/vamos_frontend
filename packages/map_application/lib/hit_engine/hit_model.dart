@@ -1,3 +1,4 @@
+import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
 sealed class MapElement {
@@ -9,20 +10,21 @@ class MapSketchSegment extends MapElement {
 }
 
 class MapSketchPencil extends MapElement {
-  const MapSketchPencil();
+  final LatLng latLng;
+  const MapSketchPencil(this.latLng);
 }
 
 class MapCursor extends MapElement {
   const MapCursor();
 }
 
+class NoMapElement extends MapElement {
+  const NoMapElement();
+}
+
 class MapVertex extends MapElement {
   final VertexFields vertex;
   const MapVertex(this.vertex);
-}
-
-class NoMapElement extends MapElement {
-  const NoMapElement();
 }
 
 class MapSegment extends MapElement {

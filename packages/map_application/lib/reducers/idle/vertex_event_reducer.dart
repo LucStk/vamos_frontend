@@ -22,20 +22,7 @@ TransitionResult reduceVertexEvent(MapState state, VertexInputEvent event) {
       ),
       null => TransitionResult(nextState: state),
     },
-    VertexTapped e => TransitionResult(
-      nextState: state.copyWith(
-        mode: MapMode.idle(),
-        selection: MapSelection.vertex(vertex: e.vertex),
-      ),
-    ),
-    VertexDragEnded e => TransitionResult(
-      nextState: state.copyWith(mode: MapMode.idle()),
-      effects: [UpdateRemoteVertexPosition(e.vertexId, e.latLng)],
-    ),
-    VertexDragUpdated e => TransitionResult(
-      nextState: state,
-      effects: [PatchVertexPosition(e.vertexId, e.latLng)],
-    ),
+
     _ => TransitionResult(nextState: state),
   };
 }

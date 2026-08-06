@@ -36,6 +36,9 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
 
   MapState get mapState => ref.read(mapStateProvider(widget.tripId));
+  @override
+  MapElementState state = const EmptyState();
+
   final _hitTester = const MapElementTester();
 
   // Seul point de contact avec flutter_map : la conversion LatLng -> écran
@@ -43,60 +46,6 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     final offset = _mapController.camera.latLngToScreenOffset(latLng);
     return Point(offset.dx, offset.dy);
   }
-
-  Offset? get cursorPosition {
-    final state = ref.read(mapStateProvider(widget.tripId));
-    final latLng = state.selection.cursorLatLngOrNull;
-    if (latLng == null) return null;
-    return _mapController.camera.latLngToScreenOffset(latLng);
-  }
-
-  Offset? get pencilPosition {
-    final state = ref.read(mapStateProvider(widget.tripId));
-    final LatLng? latLng = state.mode.pencilPositionOrNull;
-    if (latLng == null) return null;
-    return _mapController.camera.latLngToScreenOffset(latLng);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _mapController = MapController();
-    _segmentHitNotifier = ValueNotifier(null);
-    _sketchHitNotifier = ValueNotifier(null);
-    _shouldPanMapNotifier = ValueNotifier(true);
-  }
-
-  @override
-  void dispose() {
-    _mapController.dispose();
-    _segmentHitNotifier.dispose();
-    _sketchHitNotifier.dispose();
-    _shouldPanMapNotifier.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      overrides: [
-        mapControllerProvider.overrideWithValue(_mapController),
-        shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
-        segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
-        sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
-      ],
-      child: Listener(
-        behavior: HitTestBehavior.translucent,
-        onPointerDown: _onPointerDown,
-        onPointerMove: _onPointerMove,
-        onPointerUp: _onPointerUp,
-        child: widget.child,
-      ),
-    );
-  }
-
-  @override
-  MapElementState state = const EmptyState();
 
   set shouldPanMap(bool shouldPanMap) {
     if (_shouldPanMapNotifier.value != shouldPanMap) {
@@ -158,5 +107,42 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   void _onPointerUp(PointerUpEvent event) {
     shouldPanMap = true;
     _dispatch(onPointerUp(_toLatLng(event.localPosition)));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _mapController = MapController();
+    _segmentHitNotifier = ValueNotifier(null);
+    _sketchHitNotifier = ValueNotifier(null);
+    _shouldPanMapNotifier = ValueNotifier(true);
+  }
+
+  @override
+  void dispose() {
+    _mapController.dispose();
+    _segmentHitNotifier.dispose();
+    _sketchHitNotifier.dispose();
+    _shouldPanMapNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      overrides: [
+        mapControllerProvider.overrideWithValue(_mapController),
+        shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
+        segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
+        sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
+      ],
+      child: Listener(
+        behavior: HitTestBehavior.translucent,
+        onPointerDown: _onPointerDown,
+        onPointerMove: _onPointerMove,
+        onPointerUp: _onPointerUp,
+        child: widget.child,
+      ),
+    );
   }
 }
