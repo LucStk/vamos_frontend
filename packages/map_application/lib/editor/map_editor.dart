@@ -1,5 +1,4 @@
 // lib/editor/map_editor.dart
-import 'package:map_application/domain/map_output_interface.dart';
 import 'package:map_application/events.dart';
 import 'package:map_application/map_effects.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
@@ -12,7 +11,6 @@ import 'entities/entities.dart';
 mixin MapEditor {
   GraphEditor get graphEditor;
   WaypointEditor get waypointEditor;
-  MapOutput get mapOutput;
   MapMode get mode;
   set mode(MapMode value);
 

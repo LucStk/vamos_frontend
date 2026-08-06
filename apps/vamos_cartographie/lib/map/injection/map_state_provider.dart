@@ -3,7 +3,6 @@ import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/application/application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/injection/map_output_notifier.dart';
 import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/trip/injection/trip_store.dart';
@@ -29,8 +28,6 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   @override
   WaypointEditor get waypointEditor =>
       ref.read(waypointStoreProvider(tripId).notifier);
-  @override
-  MapOutput get mapOutput => ref.read(mapOutputProvider(tripId).notifier);
 
   @override
   MapEditorState build(TripId tripId) {

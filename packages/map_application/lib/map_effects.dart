@@ -123,13 +123,13 @@ final class RemoveVertex extends MapEffect {
   }
 }
 
-final class OpenWaypointDialog extends MapEffect {
-  final WaypointId waypointId;
+// final class OpenWaypointDialog extends MapEffect {
+//   final WaypointId waypointId;
 
-  const OpenWaypointDialog(this.waypointId);
+//   const OpenWaypointDialog(this.waypointId);
 
-  @override
-  Future<void> run(MapEditor context) async {
-    context.mapOutput.emit(WaypointOpenDialog(waypointId));
-  }
-}
+//   @override
+//   Future<void> run(MapEditor context) async {
+//     context.mapOutput.emit(WaypointOpenDialog(waypointId));
+//   }
+// }
