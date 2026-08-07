@@ -27,90 +27,46 @@ class MapElementEngineWidget extends ConsumerStatefulWidget {
 }
 
 class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
-    with MapElementResolver {
-  late final MapController _mapController;
-  late final ValueNotifier<bool> _shouldPanMapNotifier;
-  late final ValueNotifier<LayerHitResult<MapElement>?> _segmentHitNotifier;
-  late final ValueNotifier<LayerHitResult<MapElement>?> _sketchHitNotifier;
+    with MapElementResolver, MapHitTester {
+  final _mapController = MapController();
+  final _segmentHitNotifier = ValueNotifier<LayerHitResult<MapElement>?>(null);
+  final _sketchHitNotifier = ValueNotifier<LayerHitResult<MapElement>?>(null);
+  final _shouldPanMapNotifier = ValueNotifier(true);
 
-  List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
+  // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
+  @override
+  MapMode get hitMode => mapEditor.mode;
+  @override
+  MapSelection get hitSelection => mapEditor.selection;
+  @override
+  List<VertexFields> get hitVertices =>
+      ref.read(allVertexProvider(widget.tripId));
+  @override
+  MapElement? get segmentHit =>
+      _segmentHitNotifier.value?.hitValues.firstOrNull;
+  @override
+  MapElement? get sketchHit => _sketchHitNotifier.value?.hitValues.firstOrNull;
+  @override
+  Point<double> Function(LatLng) get project => (latLng) {
+    final offset = _mapController.camera.latLngToScreenOffset(latLng);
+    return Point(offset.dx, offset.dy);
+  };
 
-  MapStateNotifier get mapEditor =>
-      ref.read(mapStateProvider(widget.tripId).notifier);
-
+  // Contrat MapElementResolver
+  @override
+  MapEditor get mapEditor => ref.read(mapStateProvider(widget.tripId).notifier);
   @override
   MapElementState state = const EmptyState();
 
-  final _hitTester = const MapElementTester();
-
-  // Seul point de contact avec flutter_map : la conversion LatLng -> écran
-  Point<double> _project(LatLng latLng) {
-    final offset = _mapController.camera.latLngToScreenOffset(latLng);
-    return Point(offset.dx, offset.dy);
-  }
-
-  set shouldPanMap(bool shouldPanMap) {
-    if (_shouldPanMapNotifier.value != shouldPanMap) {
-      _shouldPanMapNotifier.value = shouldPanMap;
-    }
-  }
-
-  Point<double> _toPoint(Offset offset) => Point(offset.dx, offset.dy);
-
+  // Conversion Offset → types domaine (seul endroit Flutter dans la logique)
   LatLng _toLatLng(Offset offset) =>
       _mapController.camera.screenOffsetToLatLng(offset);
+  Point<double> _toPoint(Offset offset) => Point(offset.dx, offset.dy);
 
-  void _onPointerDown(PointerDownEvent event) {
-    final hit = _hitTest(event.localPosition);
-    shouldPanMap = !isDraggable(hit);
-  }
-
-  void _onPointerMove(PointerMoveEvent event) {
-    mapEditor.handle(
-      onPointerMove(
-        point: _toPoint(event.localPosition),
-        latLng: _toLatLng(event.localPosition),
-        hitTest: (exclude) => _hitTest(event.localPosition, exclude: exclude),
-      ),
-    );
-  }
-
-  MapElement _hitTest(Offset position, {MapElement? exclude}) {
-    var filteredVertices = vertices;
-
-    if (exclude is MapSketchPencil) {
-      final mode = mapEditor.mode;
-      if (mode is Sketch) {
-        filteredVertices = vertices
-            .where((v) => v.id != mode.vertexStart)
-            .toList();
-      }
+  set shouldPanMap(bool value) {
+    if (_shouldPanMapNotifier.value != value) {
+      _shouldPanMapNotifier.value = value;
     }
-
-    return _hitTester.resolve(
-      position: Point(position.dx, position.dy),
-      project: _project,
-      vertices: filteredVertices, // ← vertex de départ absent
-      cursorLatLng: mapEditor.selection.cursorLatLngOrNull,
-      pencilLatLng: mapEditor.mode.pencilPositionOrNull,
-      segmentHit: _segmentHitNotifier.value?.hitValues.firstOrNull,
-      sketchHit: _sketchHitNotifier.value?.hitValues.firstOrNull,
-      elementExclude: exclude,
-    );
-  }
-
-  void _onPointerUp(PointerUpEvent event) {
-    shouldPanMap = true;
-    mapEditor.handle(onPointerUp(_toLatLng(event.localPosition)));
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _mapController = MapController();
-    _segmentHitNotifier = ValueNotifier(null);
-    _sketchHitNotifier = ValueNotifier(null);
-    _shouldPanMapNotifier = ValueNotifier(true);
   }
 
   @override
@@ -133,9 +89,21 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
       ],
       child: Listener(
         behavior: HitTestBehavior.translucent,
-        onPointerDown: _onPointerDown,
-        onPointerMove: _onPointerMove,
-        onPointerUp: _onPointerUp,
+        onPointerDown: (event) {
+          final hit = hitTest(_toPoint(event.localPosition));
+          shouldPanMap = !isDraggable(hit);
+          onPointerDown(hit: hit, point: _toPoint(event.localPosition));
+        },
+        onPointerMove: (event) => onPointerMove(
+          point: _toPoint(event.localPosition),
+          latLng: _toLatLng(event.localPosition),
+          hitTest: (exclude) =>
+              hitTest(_toPoint(event.localPosition), exclude: exclude),
+        ),
+        onPointerUp: (event) {
+          shouldPanMap = true;
+          onPointerUp(_toLatLng(event.localPosition));
+        },
         child: widget.child,
       ),
     );

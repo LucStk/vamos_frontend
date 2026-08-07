@@ -1,10 +1,9 @@
 // lib/editor/map_editor.dart
-import 'package:map_application/events.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/map_effects.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
-import 'drag_editor.dart';
-import 'tap_editor.dart';
 import 'entities/entities.dart';
 
 // lib/editor/map_editor.dart
@@ -17,20 +16,15 @@ mixin MapEditor {
   MapSelection get selection;
   set selection(MapSelection value);
 
-  Future<void> handle(MapEvent? event) async {
-    if (event == null) return;
-    switch (event) {
-      case MapTapped e:
-        selection = MapSelection.cursor(latLng: e.latLng);
-      case TapEvent e:
-        await onTapped(e.tappedElement, e.latLng);
-      case DragStartEvent e:
-        await onDragStart(e.dragElement);
-      case DragUpdateEvent e:
-        await onDragUpdate(e.dragElement, e.latLng);
-      case DragEndEvent e:
-        await onDragEnd(e.dragElement, e.latLng);
-    }
+  bool isColliding({
+    required MapElement dragged,
+    required MapElement target,
+    required LatLng latLng,
+  }) {
+    return switch ((dragged, target)) {
+      ((MapSketchPencil _, MapVertex _)) => true,
+      _ => false,
+    };
   }
 
   // Raccourci pratique — évite le .run(this) partout dans les extensions

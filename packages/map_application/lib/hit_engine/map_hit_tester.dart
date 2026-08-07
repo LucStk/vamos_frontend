@@ -1,11 +1,11 @@
-// map_application/lib/hit_engine/hit_tester.dart
-
+// lib/hit_engine/map_hit_tester.dart
 import 'dart:math';
+
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/domain/map_elements.dart';
+import 'package:map_application/editor/editor.dart';
 import 'package:map_application/hit_engine/hit_candidate.dart';
 import 'package:trip_application/trip_application.dart';
-import 'hit_projector.dart';
 
 class HitTestThresholds {
   final double vertexRadiusPx;
@@ -19,59 +19,48 @@ class HitTestThresholds {
   });
 }
 
-// map_application/lib/hit_engine/hit_tester.dart
+mixin MapHitTester {
+  // Abstractions pures — pas de Flutter, pas de Riverpod
+  MapMode get hitMode;
+  MapSelection get hitSelection;
+  List<VertexFields> get hitVertices;
+  MapElement? get segmentHit;
+  MapElement? get sketchHit;
+  Point<double> Function(LatLng) get project;
 
-class MapElementTester {
-  final HitTestThresholds thresholds;
+  HitTestThresholds get thresholds => const HitTestThresholds();
 
-  const MapElementTester({this.thresholds = const HitTestThresholds()});
-
-  MapElement resolve({
-    required Point<double> position,
-    required LatLngProjector project,
-    required List<VertexFields> vertices,
-    LatLng? cursorLatLng,
-    LatLng? pencilLatLng,
-    MapElement? segmentHit,
-    MapElement? sketchHit,
-    MapElement? elementExclude,
-  }) {
-    // dans MapElementTester
-    final candidates = _buildCandidates(
-      position: position,
-      project: project,
-      vertices: vertices,
-      cursorLatLng: cursorLatLng,
-      pencilLatLng: pencilLatLng,
-      segmentHit: segmentHit,
-      sketchHit: sketchHit,
-    );
+  MapElement hitTest(Point<double> position, {MapElement? exclude}) {
+    final filteredVertices = _filterVertices();
+    final candidates = _buildCandidates(position, filteredVertices);
 
     for (final candidate in candidates) {
-      if (elementExclude != null &&
-          isSameHitTarget(elementExclude, candidate.element)) {
+      if (exclude != null && isSameHitTarget(exclude, candidate.element)) {
         continue;
       }
       if (candidate.distanceTo(position) <= _radius(candidate)) {
         return candidate.element;
       }
     }
-
     return const NoMapElement();
   }
 
-  List<HitCandidate> _buildCandidates({
-    required Point<double> position,
-    required LatLngProjector project,
-    required List<VertexFields> vertices,
-    LatLng? cursorLatLng,
-    LatLng? pencilLatLng,
-    MapElement? segmentHit,
-    MapElement? sketchHit,
-  }) {
-    final result = <HitCandidate>[];
+  List<VertexFields> _filterVertices() {
+    final mode = hitMode;
+    if (mode is Sketch) {
+      return hitVertices.where((v) => v.id != mode.vertexStart).toList();
+    }
+    return hitVertices;
+  }
 
-    // 1. Pencil (priorité max)
+  List<HitCandidate> _buildCandidates(
+    Point<double> position,
+    List<VertexFields> vertices,
+  ) {
+    final result = <HitCandidate>[];
+    final pencilLatLng = hitMode.pencilPositionOrNull;
+    final cursorLatLng = hitSelection.cursorLatLngOrNull;
+
     if (pencilLatLng != null) {
       result.add(
         PointCandidate(
@@ -82,7 +71,6 @@ class MapElementTester {
       );
     }
 
-    // 2. Vertices (triés par distance)
     final vertexCandidates =
         vertices
             .map(
@@ -99,7 +87,6 @@ class MapElementTester {
           );
     result.addAll(vertexCandidates);
 
-    // 3. Cursor
     if (cursorLatLng != null) {
       result.add(
         PointCandidate(
@@ -110,9 +97,8 @@ class MapElementTester {
       );
     }
 
-    // 4. Segments (layer hit, pas de rayon)
-    if (segmentHit != null) result.add(LayerCandidate(segmentHit));
-    if (sketchHit != null) result.add(LayerCandidate(sketchHit));
+    if (segmentHit != null) result.add(LayerCandidate(segmentHit!));
+    if (sketchHit != null) result.add(LayerCandidate(sketchHit!));
 
     return result;
   }

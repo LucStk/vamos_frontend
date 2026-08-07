@@ -34,21 +34,6 @@ final class UpdateRemoteVertexPosition extends MapEffect {
   }
 }
 
-final class PatchVertexPosition extends MapEffect {
-  final VertexId vertexId;
-  final LatLng position;
-
-  const PatchVertexPosition(this.vertexId, this.position);
-
-  @override
-  Future<void> run(MapEditor context) async {
-    final patchVertex = VertexPatchModel(id: vertexId, latLng: position);
-    context.graphEditor.state = context.graphEditor.state.setVertex(
-      patchVertex,
-    );
-  }
-}
-
 final class CreateWaypointFromVertex extends MapEffect {
   final VertexId vertexId;
 

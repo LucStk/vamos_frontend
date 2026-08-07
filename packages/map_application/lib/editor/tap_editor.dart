@@ -5,20 +5,18 @@ import 'entities/entities.dart';
 
 extension TapEditor on MapEditor {
   Future<void> onTapped(MapElement element, LatLng latLng) async {
-    switch (element) {
-      case MapCursor _:
+    switch ((mode, element)) {
+      case (Idle _, MapCursor _):
         mode = MapMode.idle();
         selection = MapSelection.none();
 
-      case MapSegment e:
+      case (Idle _, MapSegment e):
         selection = SegmentSelection(segmentId: e.segmentId);
-      case MapVertex e:
-        mode = MapMode.idle();
+
+      case (Idle _, MapVertex e):
         selection = MapSelection.vertex(vertex: e.vertex);
 
-      case MapSketchSegment e:
-        if (mode is! Sketch) return;
-        final m = (mode as Sketch);
+      case (Sketch m, MapSketchSegment _):
         mode = m.copyWith(
           correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
         );
