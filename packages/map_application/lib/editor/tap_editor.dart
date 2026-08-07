@@ -6,6 +6,8 @@ import 'entities/entities.dart';
 extension TapEditor on MapEditor {
   Future<void> onTapped(MapElement element, LatLng latLng) async {
     switch ((mode, element)) {
+      case (Idle _, NoMapElement _):
+        selection = MapSelection.cursor(latLng: latLng);
       case (Idle _, MapCursor _):
         mode = MapMode.idle();
         selection = MapSelection.none();
