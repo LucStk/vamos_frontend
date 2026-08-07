@@ -28,24 +28,37 @@ class MapElementEngineWidget extends ConsumerStatefulWidget {
 
 class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     with MapElementResolver, MapHitTester {
-  final _mapController = MapController();
-  final _segmentHitNotifier = ValueNotifier<LayerHitResult<MapElement>?>(null);
-  final _sketchHitNotifier = ValueNotifier<LayerHitResult<MapElement>?>(null);
-  final _shouldPanMapNotifier = ValueNotifier(true);
+  late final MapController _mapController;
+  late final ValueNotifier<LayerHitResult<MapElement>?> _segmentHitNotifier;
+  late final ValueNotifier<LayerHitResult<MapElement>?> _sketchHitNotifier;
+  late final ValueNotifier<bool> _shouldPanMapNotifier;
 
-  // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
+  @override
+  void initState() {
+    super.initState();
+    _mapController = MapController();
+    _segmentHitNotifier = ValueNotifier(null);
+    _sketchHitNotifier = ValueNotifier(null);
+    _shouldPanMapNotifier = ValueNotifier(true);
+  } // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
+
   @override
   MapMode get hitMode => mapEditor.mode;
+
   @override
   MapSelection get hitSelection => mapEditor.selection;
+
   @override
   List<VertexFields> get hitVertices =>
       ref.read(allVertexProvider(widget.tripId));
+
   @override
   MapElement? get segmentHit =>
       _segmentHitNotifier.value?.hitValues.firstOrNull;
+
   @override
   MapElement? get sketchHit => _sketchHitNotifier.value?.hitValues.firstOrNull;
+
   @override
   Point<double> Function(LatLng) get project => (latLng) {
     final offset = _mapController.camera.latLngToScreenOffset(latLng);
