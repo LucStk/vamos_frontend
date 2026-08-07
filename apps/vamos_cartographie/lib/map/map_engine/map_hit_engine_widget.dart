@@ -31,7 +31,6 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   late final MapController _mapController;
   late final ValueNotifier<LayerHitResult<MapElement>?> _segmentHitNotifier;
   late final ValueNotifier<LayerHitResult<MapElement>?> _sketchHitNotifier;
-  late final ValueNotifier<bool> _shouldPanMapNotifier;
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     _mapController = MapController();
     _segmentHitNotifier = ValueNotifier(null);
     _sketchHitNotifier = ValueNotifier(null);
-    _shouldPanMapNotifier = ValueNotifier(true);
   } // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
 
   @override
@@ -76,18 +74,14 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
       _mapController.camera.screenOffsetToLatLng(offset);
   Point<double> _toPoint(Offset offset) => Point(offset.dx, offset.dy);
 
-  set shouldPanMap(bool value) {
-    if (_shouldPanMapNotifier.value != value) {
-      _shouldPanMapNotifier.value = value;
-    }
-  }
+  PanMapController get panMapController =>
+      ref.read(panMapControllerProvider.notifier);
 
   @override
   void dispose() {
     _mapController.dispose();
     _segmentHitNotifier.dispose();
     _sketchHitNotifier.dispose();
-    _shouldPanMapNotifier.dispose();
     super.dispose();
   }
 
@@ -96,7 +90,6 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     return ProviderScope(
       overrides: [
         mapControllerProvider.overrideWithValue(_mapController),
-        shouldPanMapProvider.overrideWithValue(_shouldPanMapNotifier),
         segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
         sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
       ],
@@ -104,7 +97,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
         behavior: HitTestBehavior.translucent,
         onPointerDown: (event) {
           final hit = hitTest(_toPoint(event.localPosition));
-          shouldPanMap = !isDraggable(hit);
+          if (isDraggable(hit)) panMapController.block();
           onPointerDown(hit: hit, point: _toPoint(event.localPosition));
         },
         onPointerMove: (event) => onPointerMove(
@@ -114,7 +107,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
               hitTest(_toPoint(event.localPosition), exclude: exclude),
         ),
         onPointerUp: (event) {
-          shouldPanMap = true;
+          panMapController.allow();
           onPointerUp(_toLatLng(event.localPosition));
         },
         child: widget.child,

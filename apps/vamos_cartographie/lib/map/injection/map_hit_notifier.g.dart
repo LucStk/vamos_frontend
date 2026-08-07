@@ -146,49 +146,54 @@ final class SketchHitLayerProvider
 
 String _$sketchHitLayerHash() => r'1de04bdaff4eacc335653d49467b50f7261b4762';
 
-@ProviderFor(shouldPanMap)
-final shouldPanMapProvider = ShouldPanMapProvider._();
+@ProviderFor(PanMapController)
+final panMapControllerProvider = PanMapControllerProvider._();
 
-final class ShouldPanMapProvider
-    extends
-        $FunctionalProvider<
-          ValueNotifier<bool>,
-          ValueNotifier<bool>,
-          ValueNotifier<bool>
-        >
-    with $Provider<ValueNotifier<bool>> {
-  ShouldPanMapProvider._()
+final class PanMapControllerProvider
+    extends $NotifierProvider<PanMapController, bool> {
+  PanMapControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'shouldPanMapProvider',
+        name: r'panMapControllerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$shouldPanMapHash();
+  String debugGetCreateSourceHash() => _$panMapControllerHash();
 
   @$internal
   @override
-  $ProviderElement<ValueNotifier<bool>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ValueNotifier<bool> create(Ref ref) {
-    return shouldPanMap(ref);
-  }
+  PanMapController create() => PanMapController();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ValueNotifier<bool> value) {
+  Override overrideWithValue(bool value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ValueNotifier<bool>>(value),
+      providerOverride: $SyncValueProvider<bool>(value),
     );
   }
 }
 
-String _$shouldPanMapHash() => r'136039611a72a45e4e52c10dcfa0f3f7655379f2';
+String _$panMapControllerHash() => r'0fb8165de125bcefd8376999411bb75487972a6c';
+
+abstract class _$PanMapController extends $Notifier<bool> {
+  bool build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<bool, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

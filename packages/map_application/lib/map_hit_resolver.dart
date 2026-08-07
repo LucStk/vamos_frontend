@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/editor/collision_editor.dart';
 import 'package:map_application/editor/drag_editor.dart';
 import 'package:map_application/editor/tap_editor.dart';
 import 'package:map_application/map_application.dart';
@@ -41,7 +42,11 @@ mixin MapElementResolver {
           target: hit,
           latLng: latLng,
         );
-        if (b) {}
+        if (b) {
+          mapEditor.onCollision(element, hit);
+          state = const EmptyState();
+          return;
+        }
         mapEditor.onDragUpdate(element, latLng);
       case _:
         return;

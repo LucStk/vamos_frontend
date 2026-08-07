@@ -14,7 +14,11 @@ extension CollisionEditor on MapEditor {
           mobilityType: MobilityType.bike,
         );
 
-        res.fold((_) {}, (segment) => segmentCreated(segment.id));
+        res.fold((_) {}, (segment) {
+          segmentCreated(segment.id);
+          mode = Idle();
+          selection = SegmentSelection(segmentId: segment.id);
+        });
 
       case _:
     }

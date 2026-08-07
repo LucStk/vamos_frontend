@@ -25,8 +25,10 @@ ValueNotifier<LayerHitResult<MapElement>?> sketchHitLayer(Ref ref) {
 
 // map_hit_notifier.dart
 @riverpod
-ValueNotifier<bool> shouldPanMap(Ref ref) {
-  throw UnimplementedError(
-    'shouldPanMapProvider doit être surchargé dans ProviderScope',
-  );
+class PanMapController extends _$PanMapController {
+  @override
+  bool build() => true;
+
+  void allow() => state = true;
+  void block() => state = false;
 }

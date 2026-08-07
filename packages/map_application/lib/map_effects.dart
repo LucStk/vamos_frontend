@@ -60,32 +60,6 @@ final class CreateWaypointFromPosition extends MapEffect {
   }
 }
 
-final class CreateSegment extends MapEffect {
-  final VertexId startVertexId;
-  final VertexId endVertexId;
-  final List<LatLng> geometry;
-  final MobilityType mobilityType;
-
-  const CreateSegment({
-    required this.startVertexId,
-    required this.endVertexId,
-    required this.geometry,
-    required this.mobilityType,
-  });
-
-  @override
-  Future<void> run(MapEditor context) async {
-    final res = await context.graphEditor.createSegment(
-      startVertexId: startVertexId,
-      endVertexId: endVertexId,
-      geometry: geometry,
-      mobilityType: mobilityType,
-    );
-
-    res.fold((_) {}, (segment) => context.segmentCreated(segment.id));
-  }
-}
-
 final class DeleteSegment extends MapEffect {
   final SegmentId segmentId;
 
