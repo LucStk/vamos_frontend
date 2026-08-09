@@ -178,7 +178,7 @@ final class PanMapControllerProvider
   }
 }
 
-String _$panMapControllerHash() => r'0fb8165de125bcefd8376999411bb75487972a6c';
+String _$panMapControllerHash() => r'bedcfb670690b29ce942fefad7c3db849ffec4dc';
 
 abstract class _$PanMapController extends $Notifier<bool> {
   bool build();

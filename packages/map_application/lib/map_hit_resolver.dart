@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/editor/collision_editor.dart';
 import 'package:map_application/editor/drag_editor.dart';
+import 'package:map_application/editor/pointer_down_editor.dart';
 import 'package:map_application/editor/tap_editor.dart';
 import 'package:map_application/map_application.dart';
 
@@ -10,7 +9,7 @@ mixin MapElementResolver {
   MapElementState get state;
   set state(MapElementState value);
   MapEditor get mapEditor;
-
+  void setPanBlocked(bool blocked);
   bool isDraggable(MapElement hit) => switch (hit) {
     MapVertex() => true,
     MapSketchPencil() => true,
@@ -18,13 +17,14 @@ mixin MapElementResolver {
     _ => false,
   };
 
-  void onPointerDown({required MapElement hit, required Point<double> point}) {
-    state = Pressed(hit, point);
+  void onPointerDown({required MapElement element, required LatLng latLng}) {
+    final pressedElement = mapEditor.onPointerDown(element, latLng);
+    state = Pressed(pressedElement);
+    setPanBlocked(isDraggable(pressedElement));
   }
 
   // Dans MapElementResolver
   void onPointerMove({
-    required Point<double> point,
     required LatLng latLng,
     required MapElement Function(MapElement? exclude) hitTest, // ← injecté
   }) {
@@ -55,6 +55,7 @@ mixin MapElementResolver {
 
   void onPointerUp(LatLng latLng) {
     final lastState = state;
+    setPanBlocked(false);
     state = const EmptyState();
     switch (lastState) {
       case Pressed(:final element):

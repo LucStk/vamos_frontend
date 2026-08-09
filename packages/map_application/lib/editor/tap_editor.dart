@@ -8,6 +8,7 @@ extension TapEditor on MapEditor {
     switch ((mode, element)) {
       case (Idle _, NoMapElement _):
         selection = MapSelection.cursor(latLng: latLng);
+
       case (Idle _, MapCursor _):
         mode = MapMode.idle();
         selection = MapSelection.none();
@@ -17,11 +18,6 @@ extension TapEditor on MapEditor {
 
       case (Idle _, MapVertex e):
         selection = MapSelection.vertex(vertex: e.vertex);
-
-      case (Sketch m, MapSketchSegment _):
-        mode = m.copyWith(
-          correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
-        );
 
       case _:
     }

@@ -20,11 +20,10 @@ extension DragEditor on MapEditor {
           mode = m.copyWith(
             correction: m.correction!.copyWith(path: correctionPath),
           );
+        } else {
+          final itineraire = [...m.itineraire, latLng];
+          mode = m.copyWith(itineraire: itineraire);
         }
-        final itineraire = [...m.itineraire, latLng];
-
-        mode = m.copyWith(itineraire: itineraire);
-
       case _:
     }
   }

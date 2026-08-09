@@ -41,6 +41,15 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   } // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
 
   @override
+  void setPanBlocked(bool blocked) {
+    if (blocked) {
+      panMapController.block();
+    } else {
+      panMapController.allow();
+    }
+  }
+
+  @override
   MapMode get hitMode => mapEditor.mode;
 
   @override
@@ -97,11 +106,9 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
         behavior: HitTestBehavior.translucent,
         onPointerDown: (event) {
           final hit = hitTest(_toPoint(event.localPosition));
-          if (isDraggable(hit)) panMapController.block();
-          onPointerDown(hit: hit, point: _toPoint(event.localPosition));
+          onPointerDown(element: hit, latLng: _toLatLng(event.localPosition));
         },
         onPointerMove: (event) => onPointerMove(
-          point: _toPoint(event.localPosition),
           latLng: _toLatLng(event.localPosition),
           hitTest: (exclude) =>
               hitTest(_toPoint(event.localPosition), exclude: exclude),

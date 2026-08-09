@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:map_application/domain/map_elements.dart';
 
 sealed class MapElementState {
@@ -12,8 +10,7 @@ class EmptyState extends MapElementState {
 
 class Pressed extends MapElementState {
   final MapElement element;
-  final Point<double> downPoint;
-  const Pressed(this.element, this.downPoint);
+  const Pressed(this.element);
 }
 
 class Dragging extends MapElementState {

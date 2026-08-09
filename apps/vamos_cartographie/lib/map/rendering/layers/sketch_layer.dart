@@ -38,7 +38,7 @@ class SketchLayer extends ConsumerWidget {
                 if (e.correction != null)
                   Polyline<MapElement>(
                     points: e.correction!.path,
-                    color: Colors.lightBlue,
+                    color: Colors.green,
                     strokeWidth: 5,
                     hitValue: MapSketchSegment(),
                   ),
