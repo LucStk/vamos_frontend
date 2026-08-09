@@ -9,7 +9,9 @@ mixin MapElementResolver {
   MapElementState get state;
   set state(MapElementState value);
   MapEditor get mapEditor;
+
   void setPanBlocked(bool blocked);
+
   bool isDraggable(MapElement hit) => switch (hit) {
     MapVertex() => true,
     MapSketchPencil() => true,
@@ -37,13 +39,9 @@ mixin MapElementResolver {
       case Dragging(:final element):
         final hit = hitTest(element); // exclude l'élément dragué
         state = Dragging(element: element);
-        final b = mapEditor.isColliding(
-          dragged: element,
-          target: hit,
-          latLng: latLng,
-        );
-        if (b) {
-          mapEditor.onCollision(element, hit);
+        final collided = mapEditor.onCollision(element, hit);
+
+        if (collided) {
           state = const EmptyState();
           return;
         }

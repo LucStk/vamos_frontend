@@ -16,17 +16,6 @@ mixin MapEditor {
   MapSelection get selection;
   set selection(MapSelection value);
 
-  bool isColliding({
-    required MapElement dragged,
-    required MapElement target,
-    required LatLng latLng,
-  }) {
-    return switch ((dragged, target)) {
-      ((MapSketchPencil _, MapVertex _)) => true,
-      _ => false,
-    };
-  }
-
   // Raccourci pratique — évite le .run(this) partout dans les extensions
   Future<void> runEffect(MapEffect effect) => effect.run(this);
 }

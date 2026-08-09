@@ -16,7 +16,7 @@ mixin _$RouteCorrection {
 
  LatLng get grabPoint;// point sur le tracé où le grab a commencé
  List<LatLng> get path;// tracé en cours de la correction
- VertexId? get rejoinedVertex;
+ bool get armed; VertexId? get rejoinedVertex;
 /// Create a copy of RouteCorrection
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,16 +27,16 @@ $RouteCorrectionCopyWith<RouteCorrection> get copyWith => _$RouteCorrectionCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteCorrection&&(identical(other.grabPoint, grabPoint) || other.grabPoint == grabPoint)&&const DeepCollectionEquality().equals(other.path, path)&&(identical(other.rejoinedVertex, rejoinedVertex) || other.rejoinedVertex == rejoinedVertex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteCorrection&&(identical(other.grabPoint, grabPoint) || other.grabPoint == grabPoint)&&const DeepCollectionEquality().equals(other.path, path)&&(identical(other.armed, armed) || other.armed == armed)&&(identical(other.rejoinedVertex, rejoinedVertex) || other.rejoinedVertex == rejoinedVertex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,grabPoint,const DeepCollectionEquality().hash(path),rejoinedVertex);
+int get hashCode => Object.hash(runtimeType,grabPoint,const DeepCollectionEquality().hash(path),armed,rejoinedVertex);
 
 @override
 String toString() {
-  return 'RouteCorrection(grabPoint: $grabPoint, path: $path, rejoinedVertex: $rejoinedVertex)';
+  return 'RouteCorrection(grabPoint: $grabPoint, path: $path, armed: $armed, rejoinedVertex: $rejoinedVertex)';
 }
 
 
@@ -47,7 +47,7 @@ abstract mixin class $RouteCorrectionCopyWith<$Res>  {
   factory $RouteCorrectionCopyWith(RouteCorrection value, $Res Function(RouteCorrection) _then) = _$RouteCorrectionCopyWithImpl;
 @useResult
 $Res call({
- LatLng grabPoint, List<LatLng> path, VertexId? rejoinedVertex
+ LatLng grabPoint, List<LatLng> path, bool armed, VertexId? rejoinedVertex
 });
 
 
@@ -64,11 +64,12 @@ class _$RouteCorrectionCopyWithImpl<$Res>
 
 /// Create a copy of RouteCorrection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? grabPoint = null,Object? path = null,Object? rejoinedVertex = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? grabPoint = null,Object? path = null,Object? armed = null,Object? rejoinedVertex = freezed,}) {
   return _then(_self.copyWith(
 grabPoint: null == grabPoint ? _self.grabPoint : grabPoint // ignore: cast_nullable_to_non_nullable
 as LatLng,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
-as List<LatLng>,rejoinedVertex: freezed == rejoinedVertex ? _self.rejoinedVertex : rejoinedVertex // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,armed: null == armed ? _self.armed : armed // ignore: cast_nullable_to_non_nullable
+as bool,rejoinedVertex: freezed == rejoinedVertex ? _self.rejoinedVertex : rejoinedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,
   ));
 }
@@ -116,7 +117,10 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _RouteCorrection():
-return $default(_that);}
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -151,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng grabPoint,  List<LatLng> path,  VertexId? rejoinedVertex)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LatLng grabPoint,  List<LatLng> path,  bool armed,  VertexId? rejoinedVertex)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RouteCorrection() when $default != null:
-return $default(_that.grabPoint,_that.path,_that.rejoinedVertex);case _:
+return $default(_that.grabPoint,_that.path,_that.armed,_that.rejoinedVertex);case _:
   return orElse();
 
 }
@@ -172,10 +176,13 @@ return $default(_that.grabPoint,_that.path,_that.rejoinedVertex);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng grabPoint,  List<LatLng> path,  VertexId? rejoinedVertex)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LatLng grabPoint,  List<LatLng> path,  bool armed,  VertexId? rejoinedVertex)  $default,) {final _that = this;
 switch (_that) {
 case _RouteCorrection():
-return $default(_that.grabPoint,_that.path,_that.rejoinedVertex);}
+return $default(_that.grabPoint,_that.path,_that.armed,_that.rejoinedVertex);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -189,10 +196,10 @@ return $default(_that.grabPoint,_that.path,_that.rejoinedVertex);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng grabPoint,  List<LatLng> path,  VertexId? rejoinedVertex)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LatLng grabPoint,  List<LatLng> path,  bool armed,  VertexId? rejoinedVertex)?  $default,) {final _that = this;
 switch (_that) {
 case _RouteCorrection() when $default != null:
-return $default(_that.grabPoint,_that.path,_that.rejoinedVertex);case _:
+return $default(_that.grabPoint,_that.path,_that.armed,_that.rejoinedVertex);case _:
   return null;
 
 }
@@ -204,7 +211,7 @@ return $default(_that.grabPoint,_that.path,_that.rejoinedVertex);case _:
 
 
 class _RouteCorrection implements RouteCorrection {
-  const _RouteCorrection({required this.grabPoint, required final  List<LatLng> path, this.rejoinedVertex}): _path = path;
+  const _RouteCorrection({required this.grabPoint, required final  List<LatLng> path, this.armed = false, this.rejoinedVertex}): _path = path;
   
 
 @override final  LatLng grabPoint;
@@ -218,6 +225,7 @@ class _RouteCorrection implements RouteCorrection {
 }
 
 // tracé en cours de la correction
+@override@JsonKey() final  bool armed;
 @override final  VertexId? rejoinedVertex;
 
 /// Create a copy of RouteCorrection
@@ -230,16 +238,16 @@ _$RouteCorrectionCopyWith<_RouteCorrection> get copyWith => __$RouteCorrectionCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteCorrection&&(identical(other.grabPoint, grabPoint) || other.grabPoint == grabPoint)&&const DeepCollectionEquality().equals(other._path, _path)&&(identical(other.rejoinedVertex, rejoinedVertex) || other.rejoinedVertex == rejoinedVertex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteCorrection&&(identical(other.grabPoint, grabPoint) || other.grabPoint == grabPoint)&&const DeepCollectionEquality().equals(other._path, _path)&&(identical(other.armed, armed) || other.armed == armed)&&(identical(other.rejoinedVertex, rejoinedVertex) || other.rejoinedVertex == rejoinedVertex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,grabPoint,const DeepCollectionEquality().hash(_path),rejoinedVertex);
+int get hashCode => Object.hash(runtimeType,grabPoint,const DeepCollectionEquality().hash(_path),armed,rejoinedVertex);
 
 @override
 String toString() {
-  return 'RouteCorrection(grabPoint: $grabPoint, path: $path, rejoinedVertex: $rejoinedVertex)';
+  return 'RouteCorrection(grabPoint: $grabPoint, path: $path, armed: $armed, rejoinedVertex: $rejoinedVertex)';
 }
 
 
@@ -250,7 +258,7 @@ abstract mixin class _$RouteCorrectionCopyWith<$Res> implements $RouteCorrection
   factory _$RouteCorrectionCopyWith(_RouteCorrection value, $Res Function(_RouteCorrection) _then) = __$RouteCorrectionCopyWithImpl;
 @override @useResult
 $Res call({
- LatLng grabPoint, List<LatLng> path, VertexId? rejoinedVertex
+ LatLng grabPoint, List<LatLng> path, bool armed, VertexId? rejoinedVertex
 });
 
 
@@ -267,11 +275,12 @@ class __$RouteCorrectionCopyWithImpl<$Res>
 
 /// Create a copy of RouteCorrection
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? grabPoint = null,Object? path = null,Object? rejoinedVertex = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? grabPoint = null,Object? path = null,Object? armed = null,Object? rejoinedVertex = freezed,}) {
   return _then(_RouteCorrection(
 grabPoint: null == grabPoint ? _self.grabPoint : grabPoint // ignore: cast_nullable_to_non_nullable
 as LatLng,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
-as List<LatLng>,rejoinedVertex: freezed == rejoinedVertex ? _self.rejoinedVertex : rejoinedVertex // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,armed: null == armed ? _self.armed : armed // ignore: cast_nullable_to_non_nullable
+as bool,rejoinedVertex: freezed == rejoinedVertex ? _self.rejoinedVertex : rejoinedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,
   ));
 }

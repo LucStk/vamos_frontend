@@ -1,26 +1,42 @@
-import 'package:map_application/domain/map_elements.dart';
-import 'package:map_application/editor/editor.dart';
-import 'package:map_application/editor/segment_editor.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
+import "dart:async";
 
 extension CollisionEditor on MapEditor {
-  Future<void> onCollision(MapElement dragged, MapElement target) async {
+  bool onCollision(MapElement dragged, MapElement target) {
     switch ((mode, dragged, target)) {
       case (Sketch m, MapSketchPencil _, MapVertex v):
-        final res = await graphEditor.createSegment(
-          startVertexId: m.vertexStart,
-          endVertexId: v.vertex.id,
-          geometry: m.itineraire,
-          mobilityType: MobilityType.bike,
+        unawaited(
+          runEffect(
+            CreateSegmentFromSketch(
+              startVertexId: m.vertexStart,
+              endVertexId: v.vertex.id,
+              geometry: m.itineraire,
+              mobilityType: MobilityType.bike,
+            ),
+          ),
         );
+        return true;
 
-        res.fold((_) {}, (segment) {
-          segmentCreated(segment.id);
-          mode = Idle();
-          selection = SegmentSelection(segmentId: segment.id);
-        });
+      case (Sketch m, MapSketchPencil _, MapElement s)
+          when m.correction != null:
+        final correction = m.correction!;
+
+        print("pencil in colision wth $s ");
+        if (!correction.armed) {
+          if (s is! MapSketchSegment) {
+            mode = m.copyWith(correction: correction.copyWith(armed: true));
+          }
+          return false;
+        }
+        if (s is MapSketchSegment) {
+          return true;
+        }
+
+        return false;
 
       case _:
+        return false;
     }
   }
 }

@@ -38,7 +38,8 @@ class MapSegment extends MapElement {
 bool isSameHitTarget(MapElement a, MapElement b) => switch ((a, b)) {
   (MapVertex(vertex: final va), MapVertex(vertex: final vb)) => va.id == vb.id,
   (MapCursor(), MapCursor()) => true,
-  (MapSketchPencil(), MapSketchPencil()) => true,
+  (MapSketchPencil _, MapSketchPencil _) => true,
+  (MapSketchSegment _, MapSketchSegment _) => true,
   (MapSegment(segmentId: final sa), MapSegment(segmentId: final sb)) =>
     sa == sb,
   _ => false,

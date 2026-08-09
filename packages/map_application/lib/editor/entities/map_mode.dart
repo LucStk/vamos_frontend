@@ -5,10 +5,11 @@ import 'package:trip_application/topology/domain/domain.dart';
 part 'map_mode.freezed.dart';
 
 @freezed
-sealed class RouteCorrection with _$RouteCorrection {
+abstract class RouteCorrection with _$RouteCorrection {
   const factory RouteCorrection({
     required LatLng grabPoint, // point sur le tracé où le grab a commencé
     required List<LatLng> path, // tracé en cours de la correction
+    @Default(false) bool armed,
     VertexId?
     rejoinedVertex, // renseigné si la correction a rejoint l'itinéraire original
   }) = _RouteCorrection;

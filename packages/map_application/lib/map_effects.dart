@@ -1,6 +1,7 @@
 // L'EffectRunner connaît le store, pas le reducer.
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/editor/editor.dart';
+import 'package:map_application/editor/segment_editor.dart';
 import 'package:map_application/editor/waypoint_editor.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -81,6 +82,36 @@ final class RemoveVertex extends MapEffect {
   }
 }
 
+final class CreateSegmentFromSketch extends MapEffect {
+  final VertexId startVertexId;
+  final VertexId endVertexId;
+  final List<LatLng> geometry;
+  final MobilityType mobilityType;
+
+  const CreateSegmentFromSketch({
+    required this.startVertexId,
+    required this.endVertexId,
+    required this.geometry,
+    required this.mobilityType,
+  });
+
+  @override
+  Future<void> run(MapEditor context) async {
+    final res = await context.graphEditor.createSegment(
+      startVertexId: startVertexId,
+      endVertexId: endVertexId,
+      geometry: geometry,
+      mobilityType: mobilityType,
+    );
+    res.fold((_) {}, (segment) {
+      context.segmentCreated(segment.id);
+      context.mode = MapMode.idle();
+      context.selection = SegmentSelection(segmentId: segment.id);
+    });
+  }
+}
+
+// final class ApplyRouteCorrection extends MapEffect {
 // final class OpenWaypointDialog extends MapEffect {
 //   final WaypointId waypointId;
 
@@ -89,5 +120,21 @@ final class RemoveVertex extends MapEffect {
 //   @override
 //   Future<void> run(MapEditor context) async {
 //     context.mapOutput.emit(WaypointOpenDialog(waypointId));
+//   }
+// }
+//   final SegmentId segmentId;
+//   final List<LatLng> path;
+
+//   const ApplyRouteCorrection({required this.segmentId, required this.path});
+
+//   @override
+//   Future<void> run(MapEditor context) async {
+//     await context.graphEditor.updateSegmentGeometry(
+//       segmentId: segmentId,
+//       path: path,
+//     );
+//     if (context.mode case Sketch m) {
+//       context.mode = m.copyWith(correction: null);
+//     }
 //   }
 // }
