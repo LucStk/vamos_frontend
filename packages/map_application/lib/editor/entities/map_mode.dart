@@ -1,6 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/editor/utiles/polyline_dist.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
 part 'map_mode.freezed.dart';
@@ -65,5 +66,32 @@ extension SketchX on MapMode {
       case _:
         return null;
     }
+  }
+}
+
+const _kRejoinThresholdMeters = 8.0;
+
+extension SketchCreationX on SketchCreation {
+  SketchCreation mergeCorrection() {
+    if (correction == null) return this;
+    if (correction!.path.length < 3) return this;
+
+    final grab = closestPointOnPolyline(correction!.grabPoint, itineraire);
+    final rejoin = closestPointOnPolyline(correction!.path.last, itineraire);
+
+    if (rejoin.distanceMeters > _kRejoinThresholdMeters) return this;
+    if (rejoin.segmentIndex <= grab.segmentIndex) {
+      return this; // pas "après" le grab
+    }
+    return copyWith(
+      itineraire: [
+        ...itineraire.sublist(0, grab.segmentIndex + 1),
+        grab.point,
+        ...correction!.path,
+        rejoin.point,
+        ...itineraire.sublist(rejoin.segmentIndex + 1),
+      ],
+      correction: null,
+    );
   }
 }

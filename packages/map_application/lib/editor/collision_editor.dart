@@ -19,7 +19,7 @@ extension CollisionEditor on MapEditor {
         );
         return true;
 
-      case (SketchMode m, MapSketchPencil _, MapElement s)
+      case (SketchCreation m, MapSketchPencil _, MapElement s)
           when m.correction != null:
         final correction = m.correction!;
 
@@ -30,6 +30,7 @@ extension CollisionEditor on MapEditor {
           return false;
         }
         if (s is MapSketchSegment) {
+          mode = m.mergeCorrection();
           return true;
         }
 

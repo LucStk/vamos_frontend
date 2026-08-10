@@ -38,18 +38,17 @@ mixin MapElementResolver on MapHitTester {
         mapEditor.onDragStart(element);
 
       case Dragging(:final element) when element is! NoMapElement:
+        mapEditor.onDragUpdate(element, latLng);
         final hit = hitTest(
           latLng,
           exclude: element,
         ); // exclude l'élément dragué
         state = Dragging(element: element);
         final collided = mapEditor.onCollision(element, hit);
-
         if (collided) {
           state = const EmptyState();
           return;
         }
-        mapEditor.onDragUpdate(element, latLng);
       case _:
         return;
     }

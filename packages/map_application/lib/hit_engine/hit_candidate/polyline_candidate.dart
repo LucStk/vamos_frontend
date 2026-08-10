@@ -41,16 +41,16 @@ class PolylineCandidate extends HitCandidate {
     Point<double> b,
     Point<double> p,
   ) {
-    final dx = b.x - a.x;
-    final dy = b.y - a.y;
-    final lengthSq = dx * dx + dy * dy;
-    if (lengthSq == 0) return _distanceToPoint(a, p);
-
-    var t = ((p.x - a.x) * dx + (p.y - a.y) * dy) / lengthSq;
-    t = t.clamp(0.0, 1.0);
-
-    final projX = a.x + t * dx;
-    final projY = a.y + t * dy;
+    final t = projectScalarOnSegment(
+      px: p.x,
+      py: p.y,
+      ax: a.x,
+      ay: a.y,
+      bx: b.x,
+      by: b.y,
+    );
+    final projX = a.x + t * (b.x - a.x);
+    final projY = a.y + t * (b.y - a.y);
     return _distanceToPoint(Point(projX, projY), p);
   }
 }

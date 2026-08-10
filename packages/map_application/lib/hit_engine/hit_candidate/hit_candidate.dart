@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:map_application/domain/domain.dart';
+import 'package:map_application/editor/utiles/polyline_dist.dart';
 part "polyline_candidate.dart";
 
 sealed class HitCandidate {
