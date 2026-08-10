@@ -67,3 +67,46 @@ ClosestPointResult closestPointOnPolyline(
   }
   return best;
 }
+
+List<LatLng> simplifyDouglasPeucker(
+  List<LatLng> points,
+  double toleranceMeters,
+) {
+  if (points.length < 3) return points;
+
+  const distance = Distance();
+
+  double perpendicularDistance(LatLng p, LatLng a, LatLng b) {
+    // Distance approx en mètres du point p à la droite (a,b)
+    final projected = projectOnSegment(
+      p,
+      a,
+      b,
+    ); // celle qu'on a écrite plus tôt
+    return distance.distance(p, projected);
+  }
+
+  double maxDist = 0;
+  var index = 0;
+  for (var i = 1; i < points.length - 1; i++) {
+    final d = perpendicularDistance(points[i], points.first, points.last);
+    if (d > maxDist) {
+      maxDist = d;
+      index = i;
+    }
+  }
+
+  if (maxDist > toleranceMeters) {
+    final left = simplifyDouglasPeucker(
+      points.sublist(0, index + 1),
+      toleranceMeters,
+    );
+    final right = simplifyDouglasPeucker(
+      points.sublist(index),
+      toleranceMeters,
+    );
+    return [...left.sublist(0, left.length - 1), ...right];
+  } else {
+    return [points.first, points.last];
+  }
+}
