@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:map_application/domain/domain.dart';
+part "polyline_candidate.dart";
 
 sealed class HitCandidate {
   const HitCandidate();
@@ -23,14 +24,4 @@ class PointCandidate extends HitCandidate {
 
   @override
   double distanceTo(Point<double> position) => position.distanceTo(point);
-}
-
-class LayerCandidate extends HitCandidate {
-  @override
-  final MapElement element;
-
-  const LayerCandidate(this.element);
-
-  @override
-  double distanceTo(Point<double> position) => 0; // toujours "touché"
 }

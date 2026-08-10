@@ -4,75 +4,103 @@ import 'dart:math';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/editor/editor.dart';
-import 'package:map_application/hit_engine/hit_candidate.dart';
+import 'package:map_application/hit_engine/hit_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
 class HitTestThresholds {
   final double vertexRadiusPx;
   final double cursorRadiusPx;
   final double pencilRadiusPx;
+  final double segmentRadiusPx;
 
   const HitTestThresholds({
     this.vertexRadiusPx = 24,
     this.cursorRadiusPx = 10,
     this.pencilRadiusPx = 10,
+    this.segmentRadiusPx = 10,
   });
 }
 
 mixin MapHitTester {
-  // Abstractions pures — pas de Flutter, pas de Riverpod
+  // ---------------------------------------------------------------------
+  // Contrats à fournir par l'implémentation (pas de Flutter, pas de Riverpod)
+  // ---------------------------------------------------------------------
   MapMode get hitMode;
   MapSelection get hitSelection;
-  List<VertexFields> get hitVertices;
-  MapElement? get segmentHit;
-  MapElement? get sketchHit;
+  List<VertexFields> get vertices;
+  List<SegmentFields> get segments;
   Point<double> Function(LatLng) get project;
-
   HitTestThresholds get thresholds => const HitTestThresholds();
 
-  MapElement hitTest(Point<double> position, {MapElement? exclude}) {
-    final filteredVertices = _filterVertices();
-    final candidates = _buildCandidates(position, filteredVertices);
+  // ---------------------------------------------------------------------
+  // API publique
+  // ---------------------------------------------------------------------
 
+  /// Renvoie le premier élément touché à [position], en respectant
+  /// l'ordre de priorité défini par [_buildCandidates].
+  /// [exclude] permet d'ignorer un élément précis (ex: l'élément en
+  /// cours de drag) — la comparaison logique est déléguée à
+  /// [isSameHitTarget], jamais à une égalité de valeur complète.
+  MapElement hitTest(LatLng latLng, {MapElement? exclude}) {
+    final position = project(latLng);
+    final candidates = _buildCandidates(position);
+    final match = _firstMatch(candidates, position, exclude: exclude);
+    return match ?? const NoMapElement();
+  }
+
+  // ---------------------------------------------------------------------
+  // Matching
+  // ---------------------------------------------------------------------
+
+  MapElement? _firstMatch(
+    List<HitCandidate> candidates,
+    Point<double> position, {
+    MapElement? exclude,
+  }) {
     for (final candidate in candidates) {
-      if (exclude != null && isSameHitTarget(exclude, candidate.element)) {
-        continue;
-      }
-      if (candidate.distanceTo(position) <= _radius(candidate)) {
-        return candidate.element;
-      }
+      if (_isExcluded(candidate, exclude)) continue;
+      if (_isWithinRange(candidate, position)) return candidate.element;
     }
-    return const NoMapElement();
+    return null;
   }
 
-  List<VertexFields> _filterVertices() {
-    final mode = hitMode;
-    if (mode is Sketch) {
-      return hitVertices.where((v) => v.id != mode.vertexStart).toList();
-    }
-    return hitVertices;
-  }
+  bool _isExcluded(HitCandidate candidate, MapElement? exclude) =>
+      exclude != null && isSameHitTarget(exclude, candidate.element);
 
-  List<HitCandidate> _buildCandidates(
-    Point<double> position,
-    List<VertexFields> vertices,
-  ) {
-    final result = <HitCandidate>[];
+  bool _isWithinRange(HitCandidate candidate, Point<double> position) =>
+      candidate.distanceTo(position) <= _radius(candidate);
+
+  double _radius(HitCandidate c) => switch (c) {
+    PointCandidate(:final radiusPx) => radiusPx,
+    PolylineCandidate(:final radiusPx) => radiusPx,
+  };
+
+  // ---------------------------------------------------------------------
+  // Construction des candidats — un point d'entrée par source, dans
+  // l'ordre de priorité voulu (le premier match gagne).
+  // ---------------------------------------------------------------------
+
+  List<HitCandidate> _buildCandidates(Point<double> position) => [
+    ..._pencilCandidate(),
+    ..._vertexCandidates(position),
+    ..._cursorCandidate(),
+    ..._polylineCandidates(position),
+    ..._sketchPolylineCandidates(),
+  ];
+
+  Iterable<HitCandidate> _pencilCandidate() sync* {
     final pencilLatLng = hitMode.pencilPositionOrNull;
-    final cursorLatLng = hitSelection.cursorLatLngOrNull;
+    if (pencilLatLng == null) return;
+    yield PointCandidate(
+      point: project(pencilLatLng),
+      radiusPx: thresholds.pencilRadiusPx,
+      element: MapSketchPencil(pencilLatLng),
+    );
+  }
 
-    if (pencilLatLng != null) {
-      result.add(
-        PointCandidate(
-          point: project(pencilLatLng),
-          radiusPx: thresholds.pencilRadiusPx,
-          element: MapSketchPencil(pencilLatLng),
-        ),
-      );
-    }
-
-    final vertexCandidates =
-        vertices
+  Iterable<HitCandidate> _vertexCandidates(Point<double> position) {
+    final candidates =
+        _visibleVertices()
             .map(
               (v) => PointCandidate(
                 point: project(v.latLng),
@@ -80,31 +108,59 @@ mixin MapHitTester {
                 element: MapVertex(v),
               ),
             )
-            .where((c) => c.distanceTo(position) <= thresholds.vertexRadiusPx)
+            .where((c) => _isWithinRange(c, position))
             .toList()
           ..sort(
             (a, b) => a.distanceTo(position).compareTo(b.distanceTo(position)),
           );
-    result.addAll(vertexCandidates);
-
-    if (cursorLatLng != null) {
-      result.add(
-        PointCandidate(
-          point: project(cursorLatLng),
-          radiusPx: thresholds.cursorRadiusPx,
-          element: MapCursor(),
-        ),
-      );
-    }
-
-    if (segmentHit != null) result.add(LayerCandidate(segmentHit!));
-    if (sketchHit != null) result.add(LayerCandidate(sketchHit!));
-
-    return result;
+    return candidates;
   }
 
-  double _radius(HitCandidate c) => switch (c) {
-    PointCandidate(:final radiusPx) => radiusPx,
-    LayerCandidate() => double.infinity,
-  };
+  Iterable<HitCandidate> _polylineCandidates(Point<double> position) {
+    final candidates =
+        segments
+            .map(
+              (v) => PolylineCandidate(
+                projectedPoints: v.geometry.map((l) => project(l)).toList(),
+                radiusPx: thresholds.segmentRadiusPx,
+                element: MapSegment(v.id),
+              ),
+            )
+            .where((c) => _isWithinRange(c, position))
+            .toList()
+          ..sort(
+            (a, b) => a.distanceTo(position).compareTo(b.distanceTo(position)),
+          );
+    return candidates;
+  }
+
+  Iterable<HitCandidate> _sketchPolylineCandidates() sync* {
+    final sketchSegment = hitMode.sketchSegmentGeometryOrNull;
+    if (sketchSegment == null) return;
+    yield PolylineCandidate(
+      projectedPoints: sketchSegment.map((l) => project(l)).toList(),
+      radiusPx: thresholds.segmentRadiusPx,
+      element: MapSketchSegment(),
+    );
+  }
+
+  Iterable<HitCandidate> _cursorCandidate() sync* {
+    final cursorLatLng = hitSelection.cursorLatLngOrNull;
+    if (cursorLatLng == null) return;
+    yield PointCandidate(
+      point: project(cursorLatLng),
+      radiusPx: thresholds.cursorRadiusPx,
+      element: MapCursor(),
+    );
+  }
+
+  /// Les vertex du mode Sketch excluent le vertex de départ du tracé
+  /// (on ne peut pas re-cliquer sur son propre point d'origine).
+  List<VertexFields> _visibleVertices() {
+    final mode = hitMode;
+    if (mode is Sketch) {
+      return vertices.where((v) => v.id != mode.vertexStart).toList();
+    }
+    return vertices;
+  }
 }

@@ -27,7 +27,7 @@ class MapElementEngineWidget extends ConsumerStatefulWidget {
 }
 
 class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
-    with MapElementResolver, MapHitTester {
+    with MapHitTester, MapElementResolver {
   late final MapController _mapController;
   late final ValueNotifier<LayerHitResult<MapElement>?> _segmentHitNotifier;
   late final ValueNotifier<LayerHitResult<MapElement>?> _sketchHitNotifier;
@@ -56,15 +56,11 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   MapSelection get hitSelection => mapEditor.selection;
 
   @override
-  List<VertexFields> get hitVertices =>
-      ref.read(allVertexProvider(widget.tripId));
+  List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
 
   @override
-  MapElement? get segmentHit =>
-      _segmentHitNotifier.value?.hitValues.firstOrNull;
-
-  @override
-  MapElement? get sketchHit => _sketchHitNotifier.value?.hitValues.firstOrNull;
+  List<SegmentFields> get segments =>
+      ref.read(allSegmentsProvider(widget.tripId));
 
   @override
   Point<double> Function(LatLng) get project => (latLng) {
@@ -75,13 +71,13 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   // Contrat MapElementResolver
   @override
   MapEditor get mapEditor => ref.read(mapStateProvider(widget.tripId).notifier);
+
   @override
   MapElementState state = const EmptyState();
 
   // Conversion Offset → types domaine (seul endroit Flutter dans la logique)
   LatLng _toLatLng(Offset offset) =>
       _mapController.camera.screenOffsetToLatLng(offset);
-  Point<double> _toPoint(Offset offset) => Point(offset.dx, offset.dy);
 
   PanMapController get panMapController =>
       ref.read(panMapControllerProvider.notifier);
@@ -105,14 +101,10 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
       child: Listener(
         behavior: HitTestBehavior.translucent,
         onPointerDown: (event) {
-          final hit = hitTest(_toPoint(event.localPosition));
-          onPointerDown(element: hit, latLng: _toLatLng(event.localPosition));
+          onPointerDown(latLng: _toLatLng(event.localPosition));
         },
-        onPointerMove: (event) => onPointerMove(
-          latLng: _toLatLng(event.localPosition),
-          hitTest: (exclude) =>
-              hitTest(_toPoint(event.localPosition), exclude: exclude),
-        ),
+        onPointerMove: (event) =>
+            onPointerMove(latLng: _toLatLng(event.localPosition)),
         onPointerUp: (event) {
           panMapController.allow();
           onPointerUp(_toLatLng(event.localPosition));

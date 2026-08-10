@@ -173,6 +173,89 @@ final class SegmentFamily extends $Family
   String toString() => r'segmentProvider';
 }
 
+@ProviderFor(allSegments)
+final allSegmentsProvider = AllSegmentsFamily._();
+
+final class AllSegmentsProvider
+    extends
+        $FunctionalProvider<
+          List<SegmentFields>,
+          List<SegmentFields>,
+          List<SegmentFields>
+        >
+    with $Provider<List<SegmentFields>> {
+  AllSegmentsProvider._({
+    required AllSegmentsFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'allSegmentsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$allSegmentsHash();
+
+  @override
+  String toString() {
+    return r'allSegmentsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<SegmentFields>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  List<SegmentFields> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return allSegments(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<SegmentFields> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<SegmentFields>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllSegmentsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$allSegmentsHash() => r'ffc94df64d42d429d600dc5e90e796df30d40a72';
+
+final class AllSegmentsFamily extends $Family
+    with $FunctionalFamilyOverride<List<SegmentFields>, TripId> {
+  AllSegmentsFamily._()
+    : super(
+        retry: null,
+        name: r'allSegmentsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  AllSegmentsProvider call(TripId tripId) =>
+      AllSegmentsProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'allSegmentsProvider';
+}
+
 @ProviderFor(isSegmentSelected)
 final isSegmentSelectedProvider = IsSegmentSelectedFamily._();
 

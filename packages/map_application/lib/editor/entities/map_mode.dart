@@ -41,4 +41,13 @@ extension SketchX on MapMode {
         return null;
     }
   }
+
+  List<LatLng>? get sketchSegmentGeometryOrNull {
+    switch (this) {
+      case Sketch e:
+        return e.itineraire;
+      case _:
+        return null;
+    }
+  }
 }

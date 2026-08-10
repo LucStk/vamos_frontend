@@ -6,6 +6,7 @@ extension CollisionEditor on MapEditor {
   bool onCollision(MapElement dragged, MapElement target) {
     switch ((mode, dragged, target)) {
       case (Sketch m, MapSketchPencil _, MapVertex v):
+        print("collision with vertex");
         unawaited(
           runEffect(
             CreateSegmentFromSketch(
@@ -22,7 +23,6 @@ extension CollisionEditor on MapEditor {
           when m.correction != null:
         final correction = m.correction!;
 
-        print("pencil in colision wth $s ");
         if (!correction.armed) {
           if (s is! MapSketchSegment) {
             mode = m.copyWith(correction: correction.copyWith(armed: true));

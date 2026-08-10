@@ -30,6 +30,12 @@ SegmentFields? segment(Ref ref, TripId tripId, SegmentId id) {
 }
 
 @riverpod
+List<SegmentFields> allSegments(Ref ref, TripId tripId) {
+  final store = ref.watch(segmentStoreProvider(tripId));
+  return store.store.values.map((s) => s.current).toList();
+}
+
+@riverpod
 bool isSegmentSelected(Ref ref, TripId tripId, SegmentId segId) {
   return ref.watch(
     mapStateProvider(tripId).select((s) {

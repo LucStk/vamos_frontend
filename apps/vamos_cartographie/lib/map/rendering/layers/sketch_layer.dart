@@ -40,7 +40,6 @@ class SketchLayer extends ConsumerWidget {
                     points: e.correction!.path,
                     color: Colors.green,
                     strokeWidth: 5,
-                    hitValue: MapSketchSegment(),
                   ),
               ],
             ),

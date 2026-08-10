@@ -110,31 +110,3 @@ final class CreateSegmentFromSketch extends MapEffect {
     });
   }
 }
-
-// final class ApplyRouteCorrection extends MapEffect {
-// final class OpenWaypointDialog extends MapEffect {
-//   final WaypointId waypointId;
-
-//   const OpenWaypointDialog(this.waypointId);
-
-//   @override
-//   Future<void> run(MapEditor context) async {
-//     context.mapOutput.emit(WaypointOpenDialog(waypointId));
-//   }
-// }
-//   final SegmentId segmentId;
-//   final List<LatLng> path;
-
-//   const ApplyRouteCorrection({required this.segmentId, required this.path});
-
-//   @override
-//   Future<void> run(MapEditor context) async {
-//     await context.graphEditor.updateSegmentGeometry(
-//       segmentId: segmentId,
-//       path: path,
-//     );
-//     if (context.mode case Sketch m) {
-//       context.mode = m.copyWith(correction: null);
-//     }
-//   }
-// }

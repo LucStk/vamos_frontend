@@ -5,7 +5,7 @@ import 'package:map_application/editor/pointer_down_editor.dart';
 import 'package:map_application/editor/tap_editor.dart';
 import 'package:map_application/map_application.dart';
 
-mixin MapElementResolver {
+mixin MapElementResolver on MapHitTester {
   MapElementState get state;
   set state(MapElementState value);
   MapEditor get mapEditor;
@@ -19,17 +19,15 @@ mixin MapElementResolver {
     _ => false,
   };
 
-  void onPointerDown({required MapElement element, required LatLng latLng}) {
+  void onPointerDown({required LatLng latLng}) {
+    final element = hitTest(latLng);
     final pressedElement = mapEditor.onPointerDown(element, latLng);
     state = Pressed(pressedElement);
     setPanBlocked(isDraggable(pressedElement));
   }
 
   // Dans MapElementResolver
-  void onPointerMove({
-    required LatLng latLng,
-    required MapElement Function(MapElement? exclude) hitTest, // ← injecté
-  }) {
+  void onPointerMove({required LatLng latLng}) {
     switch (state) {
       case Pressed(:final element):
         if (!isDraggable(element)) return;
@@ -37,8 +35,12 @@ mixin MapElementResolver {
         mapEditor.onDragStart(element);
 
       case Dragging(:final element):
-        final hit = hitTest(element); // exclude l'élément dragué
+        final hit = hitTest(
+          latLng,
+          exclude: element,
+        ); // exclude l'élément dragué
         state = Dragging(element: element);
+        print("hit test $hit");
         final collided = mapEditor.onCollision(element, hit);
 
         if (collided) {
