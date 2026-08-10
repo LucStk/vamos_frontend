@@ -7,7 +7,7 @@ import 'entities/entities.dart';
 extension SketchEditor on MapEditor {
   Future<void> activateSketchMode() async {
     if (selection.vertexIdOrNull case final vertex?) {
-      mode = MapMode.sketchMode(
+      mode = SketchCreation(
         vertexStart: vertex.id,
         itineraire: [vertex.latLng],
         mobilityType: MobilityType.bike,

@@ -6,7 +6,7 @@ import 'entities/entities.dart';
 extension PointerDownEditor on MapEditor {
   MapElement onPointerDown(MapElement element, LatLng latLng) {
     switch ((mode, element)) {
-      case (Sketch m, MapSketchSegment _):
+      case (SketchCreation m, MapSketchSegment _):
         mode = m.copyWith(
           correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
         );

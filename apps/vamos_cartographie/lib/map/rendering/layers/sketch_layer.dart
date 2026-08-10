@@ -16,7 +16,7 @@ class SketchLayer extends ConsumerWidget {
     final mapState = ref.watch(mapStateProvider(tripId));
     final hitNotifier = ref.watch(sketchHitLayerProvider);
     switch (mapState.mode) {
-      case Sketch e:
+      case SketchCreation e:
         final pencilPosition = e.pencilPositionOrNull;
         if (pencilPosition == null) {
           return SizedBox.shrink();

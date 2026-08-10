@@ -22,6 +22,10 @@ class NoMapElement extends MapElement {
   const NoMapElement();
 }
 
+class MapSpace extends MapElement {
+  const MapSpace();
+}
+
 class MapVertex extends MapElement {
   final VertexFields vertex;
   const MapVertex(this.vertex);

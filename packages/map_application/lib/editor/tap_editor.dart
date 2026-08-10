@@ -10,7 +10,7 @@ extension TapEditor on MapEditor {
         selection = MapSelection.cursor(latLng: latLng);
 
       case (Idle _, MapCursor _):
-        mode = MapMode.idle();
+        mode = Idle();
         selection = MapSelection.none();
 
       case (Idle _, MapSegment e):

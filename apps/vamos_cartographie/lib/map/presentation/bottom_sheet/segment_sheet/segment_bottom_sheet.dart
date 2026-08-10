@@ -54,7 +54,7 @@ class SegmentBottomSheet extends ConsumerWidget {
 
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(
-                onPressed: () => notifier.redrawSegment(segmentId),
+                onPressed: () => notifier.activateSegmentEditMode(),
                 icon: const Icon(Icons.edit_road_rounded, size: 20),
                 tooltip: "Redessiner le segment",
                 style: IconButton.styleFrom(

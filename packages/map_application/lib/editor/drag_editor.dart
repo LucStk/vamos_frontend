@@ -14,7 +14,7 @@ extension DragEditor on MapEditor {
       case (Idle _, MapCursor _):
         selection = MapSelection.cursor(latLng: latLng);
 
-      case (Sketch m, MapSketchPencil _):
+      case (SketchCreation m, MapSketchPencil _):
         if (m.correction != null) {
           final correctionPath = [...m.correction!.path, latLng];
           mode = m.copyWith(
@@ -31,7 +31,7 @@ extension DragEditor on MapEditor {
   Future<void> onDragEnd(MapElement element, LatLng latLng) async {
     switch ((mode, element)) {
       case (Idle _, MapVertex e):
-        mode = MapMode.idle();
+        mode = Idle();
         await graphEditor.moveVertex(e.vertex.id, latLng);
       case (Idle _, MapCursor _):
         selection = MapSelection.cursor(latLng: latLng);

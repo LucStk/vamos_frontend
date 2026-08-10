@@ -29,18 +29,20 @@ mixin MapElementResolver on MapHitTester {
   // Dans MapElementResolver
   void onPointerMove({required LatLng latLng}) {
     switch (state) {
+      case Pressed(:final NoMapElement element):
+        state = Dragging(element: NoMapElement());
+
       case Pressed(:final element):
         if (!isDraggable(element)) return;
         state = Dragging(element: element);
         mapEditor.onDragStart(element);
 
-      case Dragging(:final element):
+      case Dragging(:final element) when element is! NoMapElement:
         final hit = hitTest(
           latLng,
           exclude: element,
         ); // exclude l'élément dragué
         state = Dragging(element: element);
-        print("hit test $hit");
         final collided = mapEditor.onCollision(element, hit);
 
         if (collided) {

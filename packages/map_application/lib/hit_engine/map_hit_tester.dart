@@ -158,7 +158,7 @@ mixin MapHitTester {
   /// (on ne peut pas re-cliquer sur son propre point d'origine).
   List<VertexFields> _visibleVertices() {
     final mode = hitMode;
-    if (mode is Sketch) {
+    if (mode is SketchCreation) {
       return vertices.where((v) => v.id != mode.vertexStart).toList();
     }
     return vertices;

@@ -25,7 +25,7 @@ class MapBottomSheet extends ConsumerWidget {
       mapStateProvider(tripId).select((state) => state.selection),
     );
     switch (modeSelection) {
-      case Sketch _:
+      case SketchMode _:
         return SketchBottomSheet(tripId: tripId);
       case Idle _:
         switch (stateSelection) {

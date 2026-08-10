@@ -32,7 +32,7 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   @override
   MapEditorState build(TripId tripId) {
     Future.microtask(() => loadTripDetails());
-    return const MapEditorState(mode: MapMode.idle(), selection: NoSelection());
+    return const MapEditorState(mode: Idle(), selection: NoSelection());
   }
 
   Future<Failure?> loadTripDetails() async {

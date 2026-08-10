@@ -49,7 +49,7 @@ $Res call({
 });
 
 
-$MapModeCopyWith<$Res> get mode;$MapSelectionCopyWith<$Res> get selection;
+$MapSelectionCopyWith<$Res> get selection;
 
 }
 /// @nodoc
@@ -70,15 +70,6 @@ as MapSelection,
   ));
 }
 /// Create a copy of MapEditorState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$MapModeCopyWith<$Res> get mode {
-  
-  return $MapModeCopyWith<$Res>(_self.mode, (value) {
-    return _then(_self.copyWith(mode: value));
-  });
-}/// Create a copy of MapEditorState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -265,7 +256,7 @@ $Res call({
 });
 
 
-@override $MapModeCopyWith<$Res> get mode;@override $MapSelectionCopyWith<$Res> get selection;
+@override $MapSelectionCopyWith<$Res> get selection;
 
 }
 /// @nodoc
@@ -287,15 +278,6 @@ as MapSelection,
 }
 
 /// Create a copy of MapEditorState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$MapModeCopyWith<$Res> get mode {
-  
-  return $MapModeCopyWith<$Res>(_self.mode, (value) {
-    return _then(_self.copyWith(mode: value));
-  });
-}/// Create a copy of MapEditorState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')

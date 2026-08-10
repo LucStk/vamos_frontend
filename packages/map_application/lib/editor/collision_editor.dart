@@ -5,7 +5,7 @@ import "dart:async";
 extension CollisionEditor on MapEditor {
   bool onCollision(MapElement dragged, MapElement target) {
     switch ((mode, dragged, target)) {
-      case (Sketch m, MapSketchPencil _, MapVertex v):
+      case (SketchCreation m, MapSketchPencil _, MapVertex v):
         print("collision with vertex");
         unawaited(
           runEffect(
@@ -19,7 +19,7 @@ extension CollisionEditor on MapEditor {
         );
         return true;
 
-      case (Sketch m, MapSketchPencil _, MapElement s)
+      case (SketchMode m, MapSketchPencil _, MapElement s)
           when m.correction != null:
         final correction = m.correction!;
 

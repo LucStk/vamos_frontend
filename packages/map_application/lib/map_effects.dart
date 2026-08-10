@@ -105,7 +105,7 @@ final class CreateSegmentFromSketch extends MapEffect {
     );
     res.fold((_) {}, (segment) {
       context.segmentCreated(segment.id);
-      context.mode = MapMode.idle();
+      context.mode = Idle();
       context.selection = SegmentSelection(segmentId: segment.id);
     });
   }

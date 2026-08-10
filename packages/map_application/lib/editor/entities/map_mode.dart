@@ -1,3 +1,4 @@
+import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/topology/domain/domain.dart';
@@ -15,27 +16,42 @@ abstract class RouteCorrection with _$RouteCorrection {
   }) = _RouteCorrection;
 }
 
+// 2. Définition de l'Union MapMode
+sealed class MapMode {
+  const MapMode();
+}
+
+class Idle extends MapMode {
+  const Idle();
+}
+
+// 2. Union Freezed imbriquée
 @freezed
-sealed class MapMode with _$MapMode {
-  const factory MapMode.idle() = Idle;
-  const factory MapMode.sketchMode({
+sealed class SketchMode extends MapMode with _$SketchMode {
+  // Constructeur privé requis par Freezed pour pouvoir hériter d'une classe parent
+  const SketchMode._() : super();
+
+  const factory SketchMode.creation({
     required VertexId vertexStart,
     required List<LatLng> itineraire,
     required MobilityType mobilityType,
     VertexId? touchedVertex,
-    RouteCorrection? correction, // null = pas de grab en cours
-  }) = Sketch;
-  const factory MapMode.segmentEditMode({
-    required SegmentId segmentId,
-    required List<LatLng> originalItineraire,
     RouteCorrection? correction,
-  }) = SegmentEdit;
+  }) = SketchCreation;
+
+  const factory SketchMode.edition({
+    required SegmentId segmentId,
+    required List<LatLng> itineraire,
+    required MobilityType mobilityType,
+    VertexId? touchedVertex,
+    RouteCorrection? correction,
+  }) = SketchEdition;
 }
 
 extension SketchX on MapMode {
   LatLng? get pencilPositionOrNull {
     switch (this) {
-      case Sketch e:
+      case SketchMode e:
         return e.correction?.path.last ?? e.itineraire.last;
       case _:
         return null;
@@ -44,7 +60,7 @@ extension SketchX on MapMode {
 
   List<LatLng>? get sketchSegmentGeometryOrNull {
     switch (this) {
-      case Sketch e:
+      case SketchMode e:
         return e.itineraire;
       case _:
         return null;

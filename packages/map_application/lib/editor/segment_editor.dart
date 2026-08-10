@@ -22,7 +22,13 @@ extension SegmentEditor on MapEditor {
     }
   }
 
-  Future<void> redrawSegment(SegmentId segmentId) async {
+  Future<void> activateSegmentEditMode() async {
+    // if (selection.segmentIdOrNull case final segmentId?) {
+    //   mode = SketchEdition(segmentId: segmentId);
+    // }
+  }
+
+  Future<void> deactivateSegmentEditMode() async {
     // await runEffect(redrawSegment(segmentId));
   }
   Future<void> segmentCreated(SegmentId segmentId) async {
