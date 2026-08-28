@@ -7,12 +7,13 @@ extension CollisionEditor on MapEditor {
     switch ((mode, dragged, target)) {
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         print("collision with vertex");
+        SketchCreation new_mode = m.mergeCorrection();
         unawaited(
           runEffect(
             CreateSegmentFromSketch(
-              startVertexId: m.vertexStart,
+              startVertexId: new_mode.vertexStart,
               endVertexId: v.vertex.id,
-              geometry: m.itineraire,
+              geometry: new_mode.itineraire,
               mobilityType: MobilityType.bike,
             ),
           ),
@@ -30,6 +31,7 @@ extension CollisionEditor on MapEditor {
           return false;
         }
         if (s is MapSketchSegment) {
+          print("sketch pencil collision with SegmentSketch");
           mode = m.mergeCorrection();
           return true;
         }

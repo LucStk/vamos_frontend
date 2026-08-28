@@ -69,7 +69,7 @@ extension SketchX on MapMode {
   }
 }
 
-const _kRejoinThresholdMeters = 8.0;
+const _kRejoinThresholdMeters = 3.0;
 
 extension SketchCreationX on SketchCreation {
   SketchCreation mergeCorrection() {
@@ -78,11 +78,12 @@ extension SketchCreationX on SketchCreation {
 
     final grab = closestPointOnPolyline(correction!.grabPoint, itineraire);
     final rejoin = closestPointOnPolyline(correction!.path.last, itineraire);
-
-    if (rejoin.distanceMeters > _kRejoinThresholdMeters) return this;
-    if (rejoin.segmentIndex <= grab.segmentIndex) {
-      return this; // pas "après" le grab
-    }
+    print("merge correction $grab $rejoin");
+    // if (rejoin.distanceMeters > _kRejoinThresholdMeters) return this;
+    // if (rejoin.segmentIndex <= grab.segmentIndex) {
+    //   return this; // pas "après" le grab
+    // }
+    print("copy correction in");
     return copyWith(
       itineraire: [
         ...itineraire.sublist(0, grab.segmentIndex + 1),
