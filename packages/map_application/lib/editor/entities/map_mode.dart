@@ -71,8 +71,8 @@ extension SketchX on MapMode {
 
 const _kRejoinThresholdMeters = 3.0;
 
-extension SketchCreationX on SketchCreation {
-  SketchCreation mergeCorrection() {
+extension SketchModeX on SketchMode {
+  SketchMode mergeCorrection() {
     if (correction == null) return this;
     if (correction!.path.length < 3) return this;
 

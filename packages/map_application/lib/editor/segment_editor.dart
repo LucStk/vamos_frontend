@@ -23,9 +23,15 @@ extension SegmentEditor on MapEditor {
   }
 
   Future<void> activateSegmentEditMode() async {
-    // if (selection.segmentIdOrNull case final segmentId?) {
-    //   mode = SketchEdition(segmentId: segmentId);
-    // }
+    if (selection.segmentIdOrNull case final segmentId?) {
+      final newSeg = graphEditor.state.segmentStore.get(segmentId)?.current;
+      if (newSeg == null) return;
+      mode = SketchEdition(
+        segmentId: segmentId,
+        itineraire: newSeg.geometry,
+        mobilityType: newSeg.mobilityType,
+      );
+    }
   }
 
   Future<void> deactivateSegmentEditMode() async {
