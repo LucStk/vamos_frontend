@@ -26,6 +26,16 @@ extension CollisionEditor on MapEditor {
         // On est en train d'éditer un segment
         // On vient de rencontrer un nouveau vertex
         // On met à jour le vertex de fin et l'itinéraire si possible
+        print("collision with vertex");
+
+        SketchMode newMode = m.mergeCorrection();
+        unawaited(
+          runEffect(
+            EditeSegmentFromSketch(
+             patch: 
+            ),
+          ),
+        );
         return true;
 
       case (SketchCreation m, MapSketchPencil _, MapElement s)
@@ -36,6 +46,7 @@ extension CollisionEditor on MapEditor {
           mode = m.copyWith(correction: correction.copyWith(armed: true));
         }
         return false;
+
       case (SketchEdition m, MapSketchPencil _, MapElement s)
           when m.correction != null && !m.correction!.armed:
         // Arme la correction
@@ -45,18 +56,13 @@ extension CollisionEditor on MapEditor {
         }
         return false;
 
-      case (SketchMode m, MapSketchPencil _, MapSketchSegment _)
+      case (SketchMode m, MapSketchPencil _, MapElement _)
           when m.correction != null && m.correction!.armed:
         //Collision avec le sketchSegment
         print("sketch pencil collision with SegmentSketch");
         mode = m.mergeCorrection();
         return true;
 
-      case (SketchMode m, MapSketchPencil _, MapSegment s)
-          when m.correction != null && m.correction!.armed:
-        //Collision avec le sketchSegment
-        print("sketch pencil collision with segment $s");
-        return true;
       case _:
         return false;
     }

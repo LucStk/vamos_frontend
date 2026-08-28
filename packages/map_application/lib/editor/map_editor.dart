@@ -1,5 +1,5 @@
 // lib/editor/map_editor.dart
-import 'package:map_application/map_effects.dart';
+import 'package:map_application/effects/map_effects.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
 import 'entities/entities.dart';

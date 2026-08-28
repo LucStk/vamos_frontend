@@ -212,7 +212,7 @@ return $default(_that.grabPoint,_that.path,_that.armed,_that.rejoinedVertex);cas
 
 class _RouteCorrection implements RouteCorrection {
   const _RouteCorrection({required this.grabPoint, required final  List<LatLng> path, this.armed = false, this.rejoinedVertex}): _path = path;
-
+  
 
 @override final  LatLng grabPoint;
 // point sur le tracé où le grab a commencé
@@ -442,11 +442,11 @@ return edition(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  creation,TResult Function( SegmentId segmentId,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  edition,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  creation,TResult Function( SegmentFields segment,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  edition,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SketchCreation() when creation != null:
 return creation(_that.vertexStart,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);case SketchEdition() when edition != null:
-return edition(_that.segmentId,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);case _:
+return edition(_that.segment,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);case _:
   return orElse();
 
 }
@@ -464,11 +464,11 @@ return edition(_that.segmentId,_that.itineraire,_that.mobilityType,_that.touched
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)  creation,required TResult Function( SegmentId segmentId,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)  edition,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)  creation,required TResult Function( SegmentFields segment,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)  edition,}) {final _that = this;
 switch (_that) {
 case SketchCreation():
 return creation(_that.vertexStart,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);case SketchEdition():
-return edition(_that.segmentId,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);}
+return edition(_that.segment,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -482,11 +482,11 @@ return edition(_that.segmentId,_that.itineraire,_that.mobilityType,_that.touched
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  creation,TResult? Function( SegmentId segmentId,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  edition,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( VertexId vertexStart,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  creation,TResult? Function( SegmentFields segment,  List<LatLng> itineraire,  MobilityType mobilityType,  VertexId? touchedVertex,  RouteCorrection? correction)?  edition,}) {final _that = this;
 switch (_that) {
 case SketchCreation() when creation != null:
 return creation(_that.vertexStart,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);case SketchEdition() when edition != null:
-return edition(_that.segmentId,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);case _:
+return edition(_that.segment,_that.itineraire,_that.mobilityType,_that.touchedVertex,_that.correction);case _:
   return null;
 
 }
@@ -499,7 +499,7 @@ return edition(_that.segmentId,_that.itineraire,_that.mobilityType,_that.touched
 
 class SketchCreation extends SketchMode {
   const SketchCreation({required this.vertexStart, required final  List<LatLng> itineraire, required this.mobilityType, this.touchedVertex, this.correction}): _itineraire = itineraire,super._();
-
+  
 
  final  VertexId vertexStart;
  final  List<LatLng> _itineraire;
@@ -590,10 +590,10 @@ $RouteCorrectionCopyWith<$Res>? get correction {
 
 
 class SketchEdition extends SketchMode {
-  const SketchEdition({required this.segmentId, required final  List<LatLng> itineraire, required this.mobilityType, this.touchedVertex, this.correction}): _itineraire = itineraire,super._();
+  const SketchEdition({required this.segment, required final  List<LatLng> itineraire, required this.mobilityType, this.touchedVertex, this.correction}): _itineraire = itineraire,super._();
+  
 
-
- final  SegmentId segmentId;
+ final  SegmentFields segment;
  final  List<LatLng> _itineraire;
 @override List<LatLng> get itineraire {
   if (_itineraire is EqualUnmodifiableListView) return _itineraire;
@@ -615,16 +615,16 @@ $SketchEditionCopyWith<SketchEdition> get copyWith => _$SketchEditionCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId)&&const DeepCollectionEquality().equals(other._itineraire, _itineraire)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.correction, correction) || other.correction == correction));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segment, segment) || other.segment == segment)&&const DeepCollectionEquality().equals(other._itineraire, _itineraire)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.correction, correction) || other.correction == correction));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,segmentId,const DeepCollectionEquality().hash(_itineraire),mobilityType,touchedVertex,correction);
+int get hashCode => Object.hash(runtimeType,segment,const DeepCollectionEquality().hash(_itineraire),mobilityType,touchedVertex,correction);
 
 @override
 String toString() {
-  return 'SketchMode.edition(segmentId: $segmentId, itineraire: $itineraire, mobilityType: $mobilityType, touchedVertex: $touchedVertex, correction: $correction)';
+  return 'SketchMode.edition(segment: $segment, itineraire: $itineraire, mobilityType: $mobilityType, touchedVertex: $touchedVertex, correction: $correction)';
 }
 
 
@@ -635,7 +635,7 @@ abstract mixin class $SketchEditionCopyWith<$Res> implements $SketchModeCopyWith
   factory $SketchEditionCopyWith(SketchEdition value, $Res Function(SketchEdition) _then) = _$SketchEditionCopyWithImpl;
 @override @useResult
 $Res call({
- SegmentId segmentId, List<LatLng> itineraire, MobilityType mobilityType, VertexId? touchedVertex, RouteCorrection? correction
+ SegmentFields segment, List<LatLng> itineraire, MobilityType mobilityType, VertexId? touchedVertex, RouteCorrection? correction
 });
 
 
@@ -652,10 +652,10 @@ class _$SketchEditionCopyWithImpl<$Res>
 
 /// Create a copy of SketchMode
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? segmentId = null,Object? itineraire = null,Object? mobilityType = null,Object? touchedVertex = freezed,Object? correction = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? segment = null,Object? itineraire = null,Object? mobilityType = null,Object? touchedVertex = freezed,Object? correction = freezed,}) {
   return _then(SketchEdition(
-segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
-as SegmentId,itineraire: null == itineraire ? _self._itineraire : itineraire // ignore: cast_nullable_to_non_nullable
+segment: null == segment ? _self.segment : segment // ignore: cast_nullable_to_non_nullable
+as SegmentFields,itineraire: null == itineraire ? _self._itineraire : itineraire // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,correction: freezed == correction ? _self.correction : correction // ignore: cast_nullable_to_non_nullable

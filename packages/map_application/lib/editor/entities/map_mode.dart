@@ -41,7 +41,7 @@ sealed class SketchMode extends MapMode with _$SketchMode {
   }) = SketchCreation;
 
   const factory SketchMode.edition({
-    required SegmentId segmentId,
+    required SegmentFields segment,
     required List<LatLng> itineraire,
     required MobilityType mobilityType,
     VertexId? touchedVertex,
