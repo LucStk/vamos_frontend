@@ -52,8 +52,10 @@ sealed class SketchMode extends MapMode with _$SketchMode {
 extension SketchX on MapMode {
   LatLng? get pencilPositionOrNull {
     switch (this) {
-      case SketchMode e:
+      case SketchCreation e:
         return e.correction?.path.last ?? e.itineraire.last;
+      case SketchEdition e:
+        return e.correction?.path.last;
       case _:
         return null;
     }

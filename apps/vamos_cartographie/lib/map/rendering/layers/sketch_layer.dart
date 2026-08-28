@@ -16,32 +16,38 @@ class SketchLayer extends ConsumerWidget {
     final mapState = ref.watch(mapStateProvider(tripId));
     final hitNotifier = ref.watch(sketchHitLayerProvider);
     switch (mapState.mode) {
-      case SketchCreation e:
+      case SketchMode e:
         final pencilPosition = e.pencilPositionOrNull;
         if (pencilPosition == null) {
           return SizedBox.shrink();
+        }
+        // final List<Widget> children = [];
+        final List<Polyline<MapElement>> polylineLayer = [];
+
+        if (e.correction != null) {
+          polylineLayer.add(
+            Polyline<MapElement>(
+              points: e.correction!.path,
+              color: Colors.green,
+              strokeWidth: 5,
+            ),
+          );
+        }
+        if (e is SketchCreation) {
+          polylineLayer.add(
+            Polyline<MapElement>(
+              points: e.itineraire,
+              color: Colors.lightBlue,
+              strokeWidth: 5,
+              hitValue: MapSketchSegment(),
+            ),
+          );
         }
         return Stack(
           children: [
             PolylineLayer<MapElement>(
               hitNotifier: hitNotifier,
-              polylines: [
-                // Le segment en cours
-                Polyline<MapElement>(
-                  points: e.itineraire,
-                  color: Colors.lightBlue,
-                  strokeWidth: 5,
-                  hitValue: MapSketchSegment(),
-                ),
-
-                // La modification en direct si elle existe
-                if (e.correction != null)
-                  Polyline<MapElement>(
-                    points: e.correction!.path,
-                    color: Colors.green,
-                    strokeWidth: 5,
-                  ),
-              ],
+              polylines: polylineLayer,
             ),
             MarkerLayer(
               markers: [
@@ -53,6 +59,7 @@ class SketchLayer extends ConsumerWidget {
             ),
           ],
         );
+
       case _:
         return SizedBox.shrink();
     }

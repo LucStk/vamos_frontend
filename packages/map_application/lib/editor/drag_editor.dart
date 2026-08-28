@@ -14,7 +14,7 @@ extension DragEditor on MapEditor {
       case (Idle _, MapCursor _):
         selection = MapSelection.cursor(latLng: latLng);
 
-      case (SketchCreation m, MapSketchPencil _):
+      case (SketchMode m, MapSketchPencil _):
         if (m.correction != null) {
           final correctionPath = [...m.correction!.path, latLng];
           mode = m.copyWith(

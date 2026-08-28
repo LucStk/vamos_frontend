@@ -11,6 +11,14 @@ extension PointerDownEditor on MapEditor {
           correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
         );
         return MapSketchPencil(latLng);
+      case (SketchEdition m, MapSegment s):
+        if (s.segmentId == m.segmentId) {
+          mode = m.copyWith(
+            correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
+          );
+          return MapSketchPencil(latLng);
+        }
+        return element;
 
       case _:
         return element;
