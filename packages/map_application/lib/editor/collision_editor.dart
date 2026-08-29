@@ -7,7 +7,7 @@ import "dart:async";
 extension CollisionEditor on MapEditor {
   bool onCollision(MapElement dragged, MapElement target) {
     switch ((mode, dragged, target)) {
-      case (SketchCreation m, MapSketchPencil _, MapElement _)
+      case (SketchCreation m, MapSketchPencil _, MapSketchSegment _)
           when m.correction != null && m.correction!.armed:
         //Collision avec le sketchSegment en mode Creation
 
@@ -16,7 +16,7 @@ extension CollisionEditor on MapEditor {
           m.correction!.path,
           m.itineraire,
         );
-        mode = m.copyWith(itineraire: path);
+        mode = m.copyWith(itineraire: path, correction: null);
         return true;
 
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
@@ -61,6 +61,7 @@ extension CollisionEditor on MapEditor {
         // Arme la correction
         final correction = m.correction!;
         if (s is! MapSketchSegment) {
+          print("correction armed with $s");
           mode = m.copyWith(correction: correction.copyWith(armed: true));
         }
         return false;
