@@ -22,4 +22,14 @@ extension TapEditor on MapEditor {
       case _:
     }
   }
+
+  Future<void> onDoubleTapped(MapElement element, LatLng latLng) async {
+    switch (element) {
+      case MapVertex e:
+      // ex: ouvrir un menu contextuel, supprimer le vertex, etc.
+      case MapSegment s:
+      // ex: insérer un point sur le segment
+      case _:
+    }
+  }
 }

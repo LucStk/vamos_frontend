@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/editor/collision_editor.dart';
 import 'package:map_application/editor/drag_editor.dart';
@@ -9,8 +11,17 @@ mixin MapElementResolver on MapHitTester {
   MapElementState get state;
   set state(MapElementState value);
   MapEditor get mapEditor;
-
   void setPanBlocked(bool blocked);
+
+  // ---------------------------------------------------------------------
+  // Double tap — réglages ajustables par l'implémentation
+  // ---------------------------------------------------------------------
+  Duration get doubleTapTimeout => const Duration(milliseconds: 300);
+  double get doubleTapMaxDistancePx => 24;
+
+  DateTime? _lastTapTime;
+  Point<double>? _lastTapPoint;
+  MapElement? _lastTapElement;
 
   bool isDraggable(MapElement hit) => switch (hit) {
     MapVertex() => true,
@@ -31,12 +42,10 @@ mixin MapElementResolver on MapHitTester {
     switch (state) {
       case Pressed(:final NoMapElement element):
         state = Dragging(element: NoMapElement());
-
       case Pressed(:final element):
         if (!isDraggable(element)) return;
         state = Dragging(element: element);
         mapEditor.onDragStart(element);
-
       case Dragging(:final element) when element is! NoMapElement:
         mapEditor.onDragUpdate(element, latLng);
         final hit = hitTest(
@@ -60,10 +69,54 @@ mixin MapElementResolver on MapHitTester {
     state = const EmptyState();
     switch (lastState) {
       case Pressed(:final element):
-        mapEditor.onTapped(element, latLng);
+        if (_registerTapAndCheckDouble(element, latLng)) {
+          mapEditor.onDoubleTapped(element, latLng);
+        } else {
+          mapEditor.onTapped(element, latLng);
+        }
       case Dragging(:final element):
+        _resetTapTracking();
         mapEditor.onDragEnd(element, latLng);
       case _:
     }
   }
+
+  // ---------------------------------------------------------------------
+  // Détection double tap
+  // ---------------------------------------------------------------------
+
+  /// Enregistre le tap courant et renvoie true s'il complète un double tap
+  /// avec le tap précédent (même élément logique, dans la fenêtre de temps
+  /// et de distance autorisée).
+  bool _registerTapAndCheckDouble(MapElement element, LatLng latLng) {
+    final now = DateTime.now();
+    final point = project(latLng);
+
+    final isDouble =
+        _lastTapTime != null &&
+        _lastTapElement != null &&
+        isSameHitTarget(_lastTapElement!, element) &&
+        now.difference(_lastTapTime!) <= doubleTapTimeout &&
+        _distancePx(_lastTapPoint!, point) <= doubleTapMaxDistancePx;
+
+    if (isDouble) {
+      // Un 3e tap rapproché ne doit pas être vu comme un nouveau double tap
+      _resetTapTracking();
+    } else {
+      _lastTapTime = now;
+      _lastTapPoint = point;
+      _lastTapElement = element;
+    }
+
+    return isDouble;
+  }
+
+  void _resetTapTracking() {
+    _lastTapTime = null;
+    _lastTapPoint = null;
+    _lastTapElement = null;
+  }
+
+  double _distancePx(Point<double> a, Point<double> b) =>
+      sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }

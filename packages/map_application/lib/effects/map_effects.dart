@@ -6,6 +6,7 @@ import 'package:map_application/editor/waypoint_editor.dart';
 import 'package:trip_application/trip_application.dart';
 part "segment_effects.dart";
 part "vertex_effects.dart";
+part "camera_effects.dart";
 
 sealed class MapEffect {
   const MapEffect();
