@@ -58,7 +58,7 @@ final class MapStateNotifierProvider
   }
 }
 
-String _$mapStateNotifierHash() => r'04ecd74fe8da4ca24b460ddbc9fb93f4caec3cd7';
+String _$mapStateNotifierHash() => r'70d0671a8fb242f549bd9d016d34e7c77704348b';
 
 final class MapStateNotifierFamily extends $Family
     with

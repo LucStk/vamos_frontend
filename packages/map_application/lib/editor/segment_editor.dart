@@ -36,4 +36,8 @@ extension SegmentEditor on MapEditor {
   Future<void> segmentCreated(SegmentId segmentId) async {
     selection = SegmentSelection(segmentId: segmentId);
   }
+
+  Future<void> segmentEdited(SegmentId segmentId) async {
+    selection = SegmentSelection(segmentId: segmentId);
+  }
 }

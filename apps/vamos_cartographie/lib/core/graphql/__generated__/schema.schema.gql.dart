@@ -425,6 +425,7 @@ class GSegmentCreateInput {
 
 class GSegmentUpdateInput {
   const GSegmentUpdateInput({
+    required this.geometry,
     this.mobilityType = const Value.absent(),
     this.startVertexId = const Value.absent(),
     this.endVertexId = const Value.absent(),
@@ -432,6 +433,9 @@ class GSegmentUpdateInput {
 
   factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
     return GSegmentUpdateInput(
+      geometry: (json['geometry'] as List<dynamic>)
+          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
       mobilityType: json.containsKey('mobilityType')
           ? Value.present(json['mobilityType'] == null
               ? null
@@ -450,6 +454,8 @@ class GSegmentUpdateInput {
     );
   }
 
+  final List<GLatLngInput> geometry;
+
   final Value<GMobilityType> mobilityType;
 
   final Value<String> startVertexId;
@@ -458,6 +464,8 @@ class GSegmentUpdateInput {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
+    final _$geometryValue = this.geometry;
+    _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
     final _$mobilityTypeValue = this.mobilityType;
     if (_$mobilityTypeValue.isPresent) {
       final _$mobilityTypeRequired = _$mobilityTypeValue.requireValue;
@@ -481,11 +489,13 @@ class GSegmentUpdateInput {
   }
 
   GSegmentUpdateInput copyWith({
+    List<GLatLngInput>? geometry,
     Value<GMobilityType>? mobilityType,
     Value<String>? startVertexId,
     Value<String>? endVertexId,
   }) {
     return GSegmentUpdateInput(
+      geometry: geometry ?? this.geometry,
       mobilityType: mobilityType ?? this.mobilityType,
       startVertexId: startVertexId ?? this.startVertexId,
       endVertexId: endVertexId ?? this.endVertexId,
@@ -506,7 +516,7 @@ class GSegmentUpdateInput {
 
   @override
   String toString() {
-    return 'GSegmentUpdateInput(mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
+    return 'GSegmentUpdateInput(geometry: $geometry, mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
   }
 }
 

@@ -119,6 +119,7 @@ type SegmentType {
 }
 
 input SegmentUpdateInput {
+  geometry: [LatLngInput!]!
   mobilityType: MobilityType
   startVertexId: UUID
   endVertexId: UUID

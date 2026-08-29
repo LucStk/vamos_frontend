@@ -31,14 +31,13 @@ final class CreateSegmentFromSketch extends MapEffect {
 
 final class EditeSegmentFromSketch extends MapEffect {
   final SegmentPatchModel patch;
-
   const EditeSegmentFromSketch({required this.patch});
 
   @override
   Future<void> run(MapEditor context) async {
     final res = await context.graphEditor.updateSegment(patch);
     res.fold((_) {}, (segment) {
-      context.segmentCreated(segment.id);
+      context.segmentEdited(segment.id);
       context.mode = Idle();
       context.selection = SegmentSelection(segmentId: segment.id);
     });

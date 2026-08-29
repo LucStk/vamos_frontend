@@ -40,16 +40,18 @@ extension CollisionEditor on MapEditor {
         return true;
 
       case (SketchEdition m, MapSketchPencil _, MapSegment s)
-          when s.segmentId == m.segment.id:
+          when m.correction != null &&
+              m.correction!.armed &&
+              s.segmentId == m.segment.id:
         // On est en train d'éditer un segment
         // On vient de rencontrer le même segment
         // L'utilisateur demande donc une correction de l'itineraire
         print("collision with segment");
 
-        List<LatLng> itineraire = m.segment.geometry;
-        if (m.correction != null) {
-          itineraire = mergeCorrection(m.correction!.path, itineraire);
-        }
+        List<LatLng> itineraire = mergeCorrection(
+          m.correction!.path,
+          m.segment.geometry,
+        );
         final patch = SegmentPatchModel.fromFields(
           m.segment,
         ).copyWith(geometry: itineraire);

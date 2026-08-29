@@ -18,6 +18,7 @@ extension GSegmentFieldsMapper on GSegmentFields {
 extension SegmentFieldsMapper on SegmentFields {
   GSegmentUpdateInput toGQLUpdateInput() {
     return GSegmentUpdateInput(
+      geometry: geometry.map((m) => m.toGQLInput()).toList(),
       mobilityType: Value.present(mobilityType.toGQL()),
     );
   }
