@@ -1,7 +1,6 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/editor/utiles/polyline_dist.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
 part 'map_mode.freezed.dart';
@@ -9,7 +8,6 @@ part 'map_mode.freezed.dart';
 @freezed
 abstract class RouteCorrection with _$RouteCorrection {
   const factory RouteCorrection({
-    required LatLng grabPoint, // point sur le tracé où le grab a commencé
     required List<LatLng> path, // tracé en cours de la correction
     @Default(false) bool armed,
     VertexId?
@@ -42,8 +40,6 @@ sealed class SketchMode extends MapMode with _$SketchMode {
 
   const factory SketchMode.edition({
     required SegmentFields segment,
-    required List<LatLng> itineraire,
-    required MobilityType mobilityType,
     VertexId? touchedVertex,
     RouteCorrection? correction,
   }) = SketchEdition;
@@ -63,38 +59,12 @@ extension SketchX on MapMode {
 
   List<LatLng>? get sketchSegmentGeometryOrNull {
     switch (this) {
-      case SketchMode e:
+      case SketchCreation e:
         return e.itineraire;
+      case SketchEdition e:
+        return e.segment.geometry;
       case _:
         return null;
     }
-  }
-}
-
-const _kRejoinThresholdMeters = 3.0;
-
-extension SketchModeX on SketchMode {
-  SketchMode mergeCorrection() {
-    if (correction == null) return this;
-    if (correction!.path.length < 3) return this;
-
-    final grab = closestPointOnPolyline(correction!.grabPoint, itineraire);
-    final rejoin = closestPointOnPolyline(correction!.path.last, itineraire);
-    print("merge correction $grab $rejoin");
-    // if (rejoin.distanceMeters > _kRejoinThresholdMeters) return this;
-    // if (rejoin.segmentIndex <= grab.segmentIndex) {
-    //   return this; // pas "après" le grab
-    // }
-    print("copy correction in");
-    return copyWith(
-      itineraire: [
-        ...itineraire.sublist(0, grab.segmentIndex + 1),
-        grab.point,
-        ...correction!.path,
-        rejoin.point,
-        ...itineraire.sublist(rejoin.segmentIndex + 1),
-      ],
-      correction: null,
-    );
   }
 }

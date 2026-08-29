@@ -14,16 +14,14 @@ extension DragEditor on MapEditor {
       case (Idle _, MapCursor _):
         selection = MapSelection.cursor(latLng: latLng);
 
-      case (SketchMode m, MapSketchPencil _):
-        if (m.correction != null) {
-          final correctionPath = [...m.correction!.path, latLng];
-          mode = m.copyWith(
-            correction: m.correction!.copyWith(path: correctionPath),
-          );
-        } else {
-          final itineraire = [...m.itineraire, latLng];
-          mode = m.copyWith(itineraire: itineraire);
-        }
+      case (SketchMode m, MapSketchPencil _) when m.correction != null:
+        final correctionPath = [...m.correction!.path, latLng];
+        mode = m.copyWith(
+          correction: m.correction!.copyWith(path: correctionPath),
+        );
+      case (SketchCreation m, MapSketchPencil _):
+        final itineraire = [...m.itineraire, latLng];
+        mode = m.copyWith(itineraire: itineraire);
       case _:
     }
   }

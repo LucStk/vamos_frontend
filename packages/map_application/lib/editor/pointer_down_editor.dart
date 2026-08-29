@@ -7,18 +7,12 @@ extension PointerDownEditor on MapEditor {
   MapElement onPointerDown(MapElement element, LatLng latLng) {
     switch ((mode, element)) {
       case (SketchCreation m, MapSketchSegment _):
-        mode = m.copyWith(
-          correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
-        );
+        mode = m.copyWith(correction: RouteCorrection(path: [latLng]));
         return MapSketchPencil(latLng);
-      case (SketchEdition m, MapSegment s):
-        if (s.segmentId == m.segmentId) {
-          mode = m.copyWith(
-            correction: RouteCorrection(grabPoint: latLng, path: [latLng]),
-          );
-          return MapSketchPencil(latLng);
-        }
-        return element;
+
+      case (SketchEdition m, MapSegment s) when s.segmentId == m.segment.id:
+        mode = m.copyWith(correction: RouteCorrection(path: [latLng]));
+        return MapSketchPencil(latLng);
 
       case _:
         return element;
