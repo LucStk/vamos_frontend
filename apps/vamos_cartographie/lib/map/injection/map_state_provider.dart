@@ -1,8 +1,12 @@
+import 'dart:math';
 import 'package:domain_core/notification/failure.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/application/application.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/injection/injection.dart';
+import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/trip/injection/trip_store.dart';
@@ -30,6 +34,9 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       ref.read(waypointStoreProvider(tripId).notifier);
 
   @override
+  MapCameraController get camera => _RiverpodMapCameraController(ref);
+
+  @override
   MapEditorState build(TripId tripId) {
     Future.microtask(() => loadTripDetails());
     return const MapEditorState(mode: Idle(), selection: NoSelection());
@@ -42,7 +49,6 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       var newWaypointStore = WaypointStore.initial();
       var newGraphStore = GraphStore.initial();
       var newMediaStore = StoredFileStore.initial();
-
       for (final v in data.vertices) {
         newGraphStore = newGraphStore.insertVertex(v);
       }
@@ -57,13 +63,27 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       }
       final waypointStore = ref.read(waypointStoreProvider(tripId).notifier);
       waypointStore.state = newWaypointStore;
-
       final graphStore = ref.read(graphStoreProvider(tripId).notifier);
       graphStore.state = newGraphStore;
-
       final mediaStore = ref.read(storedFileStoreProvider.notifier);
       mediaStore.state = newMediaStore;
       return null;
     });
+  }
+}
+
+/// Seul point de contact Flutter pour le zoom — branché sur le
+/// mapControllerProvider déjà overridé avec le vrai MapController
+/// dans MapElementEngineWidget.
+class _RiverpodMapCameraController implements MapCameraController {
+  final Ref ref;
+  _RiverpodMapCameraController(this.ref);
+
+  @override
+  void zoomTo(LatLng latLng, {double deltaZoom = 1}) {
+    final controller = ref.read(mapControllerProvider);
+    final camera = controller.camera;
+    final targetZoom = min(camera.zoom + deltaZoom, camera.maxZoom ?? 0);
+    controller.move(latLng, targetZoom);
   }
 }

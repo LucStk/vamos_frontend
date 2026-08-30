@@ -1,6 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/editor/map_editor.dart';
+import 'package:map_application/effects/map_effects.dart';
 import 'entities/entities.dart';
 
 extension TapEditor on MapEditor {
@@ -25,10 +26,9 @@ extension TapEditor on MapEditor {
 
   Future<void> onDoubleTapped(MapElement element, LatLng latLng) async {
     switch (element) {
-      case MapVertex e:
-      // ex: ouvrir un menu contextuel, supprimer le vertex, etc.
-      case MapSegment s:
-      // ex: insérer un point sur le segment
+      case NoMapElement _:
+        await runEffect(ZoomOnPoint(latLng));
+
       case _:
     }
   }
