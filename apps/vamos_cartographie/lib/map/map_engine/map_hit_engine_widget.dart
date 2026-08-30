@@ -27,7 +27,7 @@ class MapElementEngineWidget extends ConsumerStatefulWidget {
 }
 
 class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
-    with MapHitTester, MapElementResolver {
+    with MapHitTester, PointerGestureController {
   late final MapController _mapController;
   late final ValueNotifier<LayerHitResult<MapElement>?> _segmentHitNotifier;
   late final ValueNotifier<LayerHitResult<MapElement>?> _sketchHitNotifier;
@@ -38,8 +38,13 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     _mapController = MapController();
     _segmentHitNotifier = ValueNotifier(null);
     _sketchHitNotifier = ValueNotifier(null);
-  } // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
 
+    // Injection directe — court-circuite Riverpod pour éviter le piège
+    // de portée du ProviderScope local (voir plus bas).
+    mapEditor.attachCamera(_FlutterMapCameraController(_mapController));
+  }
+
+  // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
   @override
   void setPanBlocked(bool blocked) {
     if (blocked) {
@@ -51,31 +56,25 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
 
   @override
   MapMode get hitMode => mapEditor.mode;
-
   @override
   MapSelection get hitSelection => mapEditor.selection;
-
   @override
   List<VertexFields> get vertices => ref.read(allVertexProvider(widget.tripId));
-
   @override
   List<SegmentFields> get segments =>
       ref.read(allSegmentsProvider(widget.tripId));
-
   @override
   Point<double> Function(LatLng) get project => (latLng) {
     final offset = _mapController.camera.latLngToScreenOffset(latLng);
     return Point(offset.dx, offset.dy);
   };
 
-  // Contrat MapElementResolver
+  // Contrat PointerGestureController
   @override
   MapEditor get mapEditor => ref.read(mapStateProvider(widget.tripId).notifier);
-
   @override
-  MapElementState state = const EmptyState();
+  GestureState state = const EmptyState();
 
-  // Conversion Offset → types domaine (seul endroit Flutter dans la logique)
   LatLng _toLatLng(Offset offset) =>
       _mapController.camera.screenOffsetToLatLng(offset);
 
@@ -84,6 +83,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
 
   @override
   void dispose() {
+    cancelPendingTap();
     _mapController.dispose();
     _segmentHitNotifier.dispose();
     _sketchHitNotifier.dispose();
@@ -112,5 +112,19 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
         child: widget.child,
       ),
     );
+  }
+}
+
+/// Seul point de contact Flutter pour le zoom — reçoit directement
+/// l'instance de MapController du widget, sans passer par Riverpod.
+class _FlutterMapCameraController implements MapCameraController {
+  final MapController mapController;
+  _FlutterMapCameraController(this.mapController);
+
+  @override
+  void zoomTo(LatLng latLng, {double deltaZoom = 1}) {
+    final camera = mapController.camera;
+    final targetZoom = min(camera.zoom + deltaZoom, camera.maxZoom ?? 20);
+    mapController.move(latLng, targetZoom);
   }
 }

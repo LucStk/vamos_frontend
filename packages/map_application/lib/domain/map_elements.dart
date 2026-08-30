@@ -40,6 +40,7 @@ class MapSegment extends MapElement {
 /// Utilisé pour exclure l'objet en cours de manipulation
 /// de sa propre détection de hit.
 bool isSameHitTarget(MapElement a, MapElement b) => switch ((a, b)) {
+  (NoMapElement(), NoMapElement()) => true,
   (MapVertex(vertex: final va), MapVertex(vertex: final vb)) => va.id == vb.id,
   (MapCursor(), MapCursor()) => true,
   (MapSketchPencil _, MapSketchPencil _) => true,

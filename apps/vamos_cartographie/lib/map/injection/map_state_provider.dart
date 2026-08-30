@@ -16,7 +16,6 @@ part 'map_state_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class MapStateNotifier extends _$MapStateNotifier with MapEditor {
-  // Les getters/setters branchés sur le state Riverpod
   @override
   MapMode get mode => state.mode;
   @override
@@ -33,8 +32,8 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   WaypointEditor get waypointEditor =>
       ref.read(waypointStoreProvider(tripId).notifier);
 
-  @override
-  MapCameraController get camera => _RiverpodMapCameraController(ref);
+  // Plus de getter camera ici : `attachCamera()` (fourni par le mixin
+  // MapEditor) est appelé une fois depuis le widget hôte, dans initState.
 
   @override
   MapEditorState build(TripId tripId) {
@@ -69,21 +68,5 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       mediaStore.state = newMediaStore;
       return null;
     });
-  }
-}
-
-/// Seul point de contact Flutter pour le zoom — branché sur le
-/// mapControllerProvider déjà overridé avec le vrai MapController
-/// dans MapElementEngineWidget.
-class _RiverpodMapCameraController implements MapCameraController {
-  final Ref ref;
-  _RiverpodMapCameraController(this.ref);
-
-  @override
-  void zoomTo(LatLng latLng, {double deltaZoom = 1}) {
-    final controller = ref.read(mapControllerProvider);
-    final camera = controller.camera;
-    final targetZoom = min(camera.zoom + deltaZoom, camera.maxZoom ?? 0);
-    controller.move(latLng, targetZoom);
   }
 }

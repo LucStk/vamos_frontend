@@ -1,19 +1,19 @@
 import 'package:map_application/domain/map_elements.dart';
 
-sealed class MapElementState {
-  const MapElementState();
+sealed class GestureState {
+  const GestureState();
 }
 
-class EmptyState extends MapElementState {
+class EmptyState extends GestureState {
   const EmptyState();
 }
 
-class Pressed extends MapElementState {
+class Pressed extends GestureState {
   final MapElement element;
   const Pressed(this.element);
 }
 
-class Dragging extends MapElementState {
+class Dragging extends GestureState {
   final MapElement element;
   const Dragging({required this.element});
 }
