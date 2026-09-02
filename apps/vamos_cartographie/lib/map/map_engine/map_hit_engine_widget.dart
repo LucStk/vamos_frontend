@@ -30,12 +30,13 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     with TickerProviderStateMixin {
   late final MapController _mapController;
   late final AnimatedMapController _animatedMapController;
-  late final ValueNotifier<GestureState> _gestureStateNotifier;
   late final MapHitTester _hitTester;
   late final PointerGestureController _gestureController;
 
   MapEditor get _mapEditor =>
       ref.read(mapStateProvider(widget.tripId).notifier);
+  GestureStateNotifier get _gestureState =>
+      ref.read(gestureStateProvider(widget.tripId).notifier);
 
   @override
   void initState() {
@@ -47,8 +48,6 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOutCubic,
     );
-    _gestureStateNotifier = ValueNotifier(const EmptyState());
-
     _hitTester = MapHitTester(
       hitMode: () => _mapEditor.mode,
       hitSelection: () => _mapEditor.selection,
@@ -83,10 +82,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   void _dispatch(MapPointerEvent Function(LatLng) buildEvent, Offset offset) {
     final latLng = _toLatLng(offset);
     final event = buildEvent(latLng);
-    _gestureStateNotifier.value = _gestureController.handle(
-      _gestureStateNotifier.value,
-      event,
-    );
+    _gestureState.dispatch(_gestureController, event);
   }
 
   @override
@@ -94,7 +90,6 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     _gestureController.dispose();
     _animatedMapController.dispose();
     _mapController.dispose();
-    _gestureStateNotifier.dispose();
     super.dispose();
   }
 
