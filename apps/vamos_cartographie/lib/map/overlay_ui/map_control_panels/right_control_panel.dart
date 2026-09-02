@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/features/network_overlay_type.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/map/injection/network_overlay_provider.dart';
+import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 import '/map/map.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
@@ -14,7 +15,7 @@ class MapControls extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final animatedController = ref.watch(animatedMapControllerProvider);
-
+    final userLocation = ref.watch(userLocationProvider);
     final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
     return Positioned(
       right: 12,
@@ -46,6 +47,11 @@ class MapControls extends ConsumerWidget {
                 onPressed: () => animatedController.animatedRotateTo(0),
               );
             },
+          ),
+          IconButton(
+            icon: Icon(userLocation.status.icon),
+            color: userLocation.status.color,
+            onPressed: () => ref.read(userLocationProvider.notifier).start(),
           ),
           _OverlayToggle(
             type: NetworkOverlayType.cycling,
@@ -89,5 +95,33 @@ class _OverlayToggle extends ConsumerWidget {
       onPressed: () =>
           ref.read(activeNetworkOverlaysProvider.notifier).toggle(type),
     );
+  }
+}
+
+extension UserLocationStatusExtension on UserLocationStatus {
+  IconData get icon {
+    switch (this) {
+      case UserLocationStatus.inactive:
+        return Icons.location_off;
+
+      case UserLocationStatus.active:
+        return Icons.location_on;
+
+      case UserLocationStatus.unavailable:
+        return Icons.location_disabled;
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case UserLocationStatus.inactive:
+        return CupertinoColors.inactiveGray;
+
+      case UserLocationStatus.active:
+        return CupertinoColors.activeBlue;
+
+      case UserLocationStatus.unavailable:
+        return CupertinoColors.systemRed;
+    }
   }
 }

@@ -13,7 +13,7 @@ part of 'user_location_provider.dart';
 final userLocationProvider = UserLocationNotifierProvider._();
 
 final class UserLocationNotifierProvider
-    extends $NotifierProvider<UserLocationNotifier, UserLocation?> {
+    extends $NotifierProvider<UserLocationNotifier, UserLocationState> {
   UserLocationNotifierProvider._()
     : super(
         from: null,
@@ -33,28 +33,28 @@ final class UserLocationNotifierProvider
   UserLocationNotifier create() => UserLocationNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(UserLocation? value) {
+  Override overrideWithValue(UserLocationState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<UserLocation?>(value),
+      providerOverride: $SyncValueProvider<UserLocationState>(value),
     );
   }
 }
 
 String _$userLocationNotifierHash() =>
-    r'3225c96816aa19ad803045ec4d3e091894dd36ff';
+    r'9a271d5c0cd0814a529d0bf41c7fa7de9ae72406';
 
-abstract class _$UserLocationNotifier extends $Notifier<UserLocation?> {
-  UserLocation? build();
+abstract class _$UserLocationNotifier extends $Notifier<UserLocationState> {
+  UserLocationState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<UserLocation?, UserLocation?>;
+    final ref = this.ref as $Ref<UserLocationState, UserLocationState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<UserLocation?, UserLocation?>,
-              UserLocation?,
+              AnyNotifier<UserLocationState, UserLocationState>,
+              UserLocationState,
               Object?,
               Object?
             >;

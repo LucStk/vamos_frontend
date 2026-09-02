@@ -28,7 +28,7 @@ class SegmentBottomSheet extends ConsumerWidget {
     final notifier = ref.watch(mapStateProvider(tripId).notifier);
 
     // Récupération de la valeur enum courante du segment pour présélectionner le bon TypeSelector
-    final currentStyle = segment.mobilityTypeDisplay;
+    // final currentStyle = segment.mobilityTypeDisplay;
 
     return SimpleBottomSheetShell(
       content: Column(
