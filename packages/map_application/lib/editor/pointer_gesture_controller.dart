@@ -4,6 +4,35 @@ import 'dart:math';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 
+double distancePx(Point<double> a, Point<double> b) =>
+    sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+
+class PendingTap {
+  /// État interne de détection du double tap.
+  final Timer pendingTapTimer;
+  final Point<double> pendingTapPoint;
+  final MapElement pendingTapElement;
+  final Duration doubleTapTimeout;
+  final double doubleTapMaxDistancePx;
+
+  PendingTap({
+    required this.pendingTapElement,
+    required this.pendingTapPoint,
+    required void Function() onTap,
+    this.doubleTapMaxDistancePx = 24,
+    this.doubleTapTimeout = const Duration(milliseconds: 300),
+  }) : pendingTapTimer = Timer(doubleTapTimeout, onTap);
+
+  void cancel() {
+    pendingTapTimer.cancel();
+  }
+
+  bool compare(MapElement element, Point<double> point) {
+    return isSameHitTarget(pendingTapElement, element) &&
+        distancePx(pendingTapPoint, point) <= doubleTapMaxDistancePx;
+  }
+}
+
 /// Orchestre le cycle de vie d'un geste pointeur (down → move → up),
 /// décide tap/double-tap/drag, et dispatche vers MapEditor.
 /// Pure côté état applicatif : ne possède aucun GestureState — le
@@ -17,29 +46,20 @@ class PointerGestureController {
   final MapEditor mapEditor;
   final void Function(bool blocked) setPanBlocked;
   final double tapSlopPx;
-  final Duration doubleTapTimeout;
-  final double doubleTapMaxDistancePx;
 
   PointerGestureController({
     required this.hitTester,
     required this.mapEditor,
     required this.setPanBlocked,
     this.tapSlopPx = 8,
-    this.doubleTapTimeout = const Duration(milliseconds: 300),
-    this.doubleTapMaxDistancePx = 24,
   });
 
   /// Point de pression initial — détail de reconnaissance du drag (slop).
   Point<double>? _pressPoint;
-
-  /// État interne de détection du double tap.
-  Timer? _pendingTapTimer;
-  Point<double>? _pendingTapPoint;
-  MapElement? _pendingTapElement;
+  PendingTap? _pendingTap;
 
   /// Point d'entrée unique pour les trois gestes primaires.
   /// [state] est l'état courant ; la valeur retournée est le nouvel
-  /// état à conserver par l'appelant (ex: ValueNotifier<GestureState>).
   GestureState handle(GestureState state, MapPointerEvent event) {
     return switch (event) {
       MapPointerDown(:final latLng) => _handleDown(latLng),
@@ -61,7 +81,7 @@ class PointerGestureController {
     switch (state) {
       case Pressed(element: NoMapElement()):
         if (_pressPoint != null &&
-            _distancePx(_pressPoint!, position) < tapSlopPx) {
+            distancePx(_pressPoint!, position) < tapSlopPx) {
           return state; // encore potentiellement un tap, pas un drag
         }
         return Dragging(element: NoMapElement());
@@ -116,38 +136,27 @@ class PointerGestureController {
 
     final point = hitTester.project(latLng);
 
-    final isDouble =
-        _pendingTapTimer != null &&
-        _pendingTapElement != null &&
-        isSameHitTarget(_pendingTapElement!, element) &&
-        _distancePx(_pendingTapPoint!, point) <= doubleTapMaxDistancePx;
-
-    if (isDouble) {
+    if (_pendingTap != null && _pendingTap!.compare(element, point)) {
       cancelPendingTap();
       mapEditor.onDoubleTapped(element, latLng);
       return;
     }
 
-    cancelPendingTap();
-    _pendingTapPoint = point;
-    _pendingTapElement = element;
-    _pendingTapTimer = Timer(doubleTapTimeout, () {
-      mapEditor.onTapped(element, latLng);
-      _pendingTapTimer = null;
-      _pendingTapPoint = null;
-      _pendingTapElement = null;
-    });
+    _pendingTap?.cancel();
+    _pendingTap = PendingTap(
+      pendingTapPoint: point,
+      pendingTapElement: element,
+      onTap: () {
+        mapEditor.onTapped(element, latLng);
+        _pendingTap = null;
+      },
+    );
   }
 
   void cancelPendingTap() {
-    _pendingTapTimer?.cancel();
-    _pendingTapTimer = null;
-    _pendingTapPoint = null;
-    _pendingTapElement = null;
+    _pendingTap?.cancel();
+    _pendingTap = null;
   }
 
   void dispose() => cancelPendingTap();
-
-  double _distancePx(Point<double> a, Point<double> b) =>
-      sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }
