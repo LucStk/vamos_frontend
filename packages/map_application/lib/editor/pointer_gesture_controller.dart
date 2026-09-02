@@ -59,7 +59,7 @@ class PointerGestureController {
   GestureState _handleMove(GestureState state, LatLng latLng) {
     final position = hitTester.project(latLng);
     switch (state) {
-      case Pressed(:final NoMapElement element):
+      case Pressed(element: NoMapElement()):
         if (_pressPoint != null &&
             _distancePx(_pressPoint!, position) < tapSlopPx) {
           return state; // encore potentiellement un tap, pas un drag
