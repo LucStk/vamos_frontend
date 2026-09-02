@@ -1,12 +1,8 @@
-import 'dart:math';
 import 'package:domain_core/notification/failure.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/application/application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/injection/injection.dart';
-import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/trip/injection/trip_store.dart';

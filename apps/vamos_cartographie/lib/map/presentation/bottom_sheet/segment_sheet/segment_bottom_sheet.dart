@@ -6,7 +6,6 @@ import 'package:map_application/editor/segment_editor.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
-import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
@@ -40,17 +39,17 @@ class SegmentBottomSheet extends ConsumerWidget {
           Row(
             children: [
               // 1. Sélecteur de modalité défilable dans l'espace disponible
-              Expanded(
-                child: TypeSelector(
-                  values: MobilityTypeStyle.values,
-                  selectedType: currentStyle,
-                  onTypeChanged: (newType) {
-                    notifier.changeSegmentType(newType.type);
-                  },
-                ),
-              ),
+              // Expanded(
+              //   child: TypeSelector(
+              //     values: MobilityTypeStyle.values,
+              //     selectedType: currentStyle,
+              //     onTypeChanged: (newType) {
+              //       notifier.changeSegmentType(newType.type);
+              //     },
+              //   ),
+              // ),
 
-              const SizedBox(width: 8),
+              // const SizedBox(width: 8),
 
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(

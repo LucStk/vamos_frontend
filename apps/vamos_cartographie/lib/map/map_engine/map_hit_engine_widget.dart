@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:domain_core/id.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart' hide MapEvent;
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
@@ -27,8 +28,9 @@ class MapElementEngineWidget extends ConsumerStatefulWidget {
 }
 
 class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
-    with MapHitTester, PointerGestureController {
+    with MapHitTester, PointerGestureController, TickerProviderStateMixin {
   late final MapController _mapController;
+  late final AnimatedMapController _animatedMapController;
   late final ValueNotifier<LayerHitResult<MapElement>?> _segmentHitNotifier;
   late final ValueNotifier<LayerHitResult<MapElement>?> _sketchHitNotifier;
 
@@ -36,12 +38,16 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   void initState() {
     super.initState();
     _mapController = MapController();
+    _animatedMapController = AnimatedMapController(
+      vsync: this,
+      mapController: _mapController, // même instance sous-jacente
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOutCubic,
+    );
     _segmentHitNotifier = ValueNotifier(null);
     _sketchHitNotifier = ValueNotifier(null);
 
-    // Injection directe — court-circuite Riverpod pour éviter le piège
-    // de portée du ProviderScope local (voir plus bas).
-    mapEditor.attachCamera(_FlutterMapCameraController(_mapController));
+    mapEditor.attachCamera(_FlutterMapCameraController(_animatedMapController));
   }
 
   // Contrats MapHitTester — branchement Flutter/Riverpod ici uniquement
@@ -84,6 +90,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   @override
   void dispose() {
     cancelPendingTap();
+    _animatedMapController.dispose();
     _mapController.dispose();
     _segmentHitNotifier.dispose();
     _sketchHitNotifier.dispose();
@@ -95,6 +102,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     return ProviderScope(
       overrides: [
         mapControllerProvider.overrideWithValue(_mapController),
+        animatedMapControllerProvider.overrideWithValue(_animatedMapController),
         segmentHitLayerProvider.overrideWithValue(_segmentHitNotifier),
         sketchHitLayerProvider.overrideWithValue(_sketchHitNotifier),
       ],
@@ -118,13 +126,13 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
 /// Seul point de contact Flutter pour le zoom — reçoit directement
 /// l'instance de MapController du widget, sans passer par Riverpod.
 class _FlutterMapCameraController implements MapCameraController {
-  final MapController mapController;
-  _FlutterMapCameraController(this.mapController);
+  final AnimatedMapController animatedController;
+  _FlutterMapCameraController(this.animatedController);
 
   @override
   void zoomTo(LatLng latLng, {double deltaZoom = 1}) {
-    final camera = mapController.camera;
+    final camera = animatedController.mapController.camera;
     final targetZoom = min(camera.zoom + deltaZoom, camera.maxZoom ?? 20);
-    mapController.move(latLng, targetZoom);
+    animatedController.animateTo(dest: latLng, zoom: targetZoom);
   }
 }

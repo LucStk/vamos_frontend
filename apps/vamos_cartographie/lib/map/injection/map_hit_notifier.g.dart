@@ -50,6 +50,54 @@ final class MapControllerProvider
 
 String _$mapControllerHash() => r'01091ae14b2433a24e4f7bb7fa96482892ee07d1';
 
+@ProviderFor(animatedMapController)
+final animatedMapControllerProvider = AnimatedMapControllerProvider._();
+
+final class AnimatedMapControllerProvider
+    extends
+        $FunctionalProvider<
+          AnimatedMapController,
+          AnimatedMapController,
+          AnimatedMapController
+        >
+    with $Provider<AnimatedMapController> {
+  AnimatedMapControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'animatedMapControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$animatedMapControllerHash();
+
+  @$internal
+  @override
+  $ProviderElement<AnimatedMapController> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AnimatedMapController create(Ref ref) {
+    return animatedMapController(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AnimatedMapController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AnimatedMapController>(value),
+    );
+  }
+}
+
+String _$animatedMapControllerHash() =>
+    r'84bcad3bf1cd599ae4e9356b1a841d00c9c08eba';
+
 @ProviderFor(segmentHitLayer)
 final segmentHitLayerProvider = SegmentHitLayerProvider._();
 

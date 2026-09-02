@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/map_application.dart'; // MapElement
+import 'package:map_application/map_application.dart';
 
 /// Détecte les taps simples et doubles, indépendamment de Flutter,
 /// de MapHitTester et de MapEditor. Ne connaît que ce qu'on lui injecte.
@@ -13,12 +13,19 @@ class TapEngine {
   final Duration doubleTapTimeout;
   final double doubleTapMaxDistancePx;
 
+  /// Détermine si un élément doit attendre le délai de double tap
+  /// avant de déclencher onTap. Par défaut, tous les éléments attendent
+  /// (comportement historique). Retourner `false` pour un élément fait
+  /// déclencher onTap immédiatement, sans attendre un éventuel second tap.
+  final bool Function(MapElement element) awaitsDoubleTap;
+
   TapEngine({
     required this.project,
     required this.onTap,
     required this.onDoubleTap,
     this.doubleTapTimeout = const Duration(milliseconds: 300),
     this.doubleTapMaxDistancePx = 24,
+    required this.awaitsDoubleTap,
   });
 
   Timer? _pendingTapTimer;
@@ -26,6 +33,16 @@ class TapEngine {
   MapElement? _pendingTapElement;
 
   void handleTap(MapElement element, LatLng latLng) {
+    if (!awaitsDoubleTap(element)) {
+      // Élément exempté du double tap : on annule tout tap en attente
+      // sur un autre élément (pour ne pas laisser un double tap fantôme
+      // se déclencher plus tard sur cet ancien élément) et on déclenche
+      // immédiatement, sans latence.
+      cancelPendingTap();
+      onTap(element, latLng);
+      return;
+    }
+
     final point = project(latLng);
 
     final isDouble =
@@ -40,8 +57,6 @@ class TapEngine {
       return;
     }
 
-    // Pas de double tap en attente compatible : on arme un nouveau tap
-    // simple différé, annulé si un second tap valide arrive à temps.
     cancelPendingTap();
     _pendingTapPoint = point;
     _pendingTapElement = element;
@@ -60,7 +75,6 @@ class TapEngine {
     _pendingTapElement = null;
   }
 
-  /// À appeler depuis le dispose() du widget hôte.
   void dispose() => cancelPendingTap();
 
   double _distancePx(Point<double> a, Point<double> b) =>

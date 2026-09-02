@@ -1,15 +1,15 @@
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
-import 'package:trip_application/trip_application.dart';
 
 extension DragEditor on MapEditor {
   Future<void> onDragStart(MapElement element) async {}
 
   Future<void> onDragUpdate(MapElement element, LatLng latLng) async {
     switch ((mode, element)) {
-      case (Idle _, MapVertex e):
-        final patch = VertexPatchModel(id: e.vertex.id, latLng: latLng);
-        graphEditor.state = graphEditor.state.setVertex(patch);
+      // Permet de faire bouger le vertex visuellement
+      // case (Idle _, MapVertex e):
+      //   final patch = VertexPatchModel(id: e.vertex.id, latLng: latLng);
+      //   graphEditor.state = graphEditor.state.setVertex(patch);
 
       case (Idle _, MapCursor _):
         selection = MapSelection.cursor(latLng: latLng);
@@ -28,9 +28,10 @@ extension DragEditor on MapEditor {
 
   Future<void> onDragEnd(MapElement element, LatLng latLng) async {
     switch ((mode, element)) {
-      case (Idle _, MapVertex e):
-        mode = Idle();
-        await graphEditor.moveVertex(e.vertex.id, latLng);
+      // Permet de valider la nouvelle position du vertex sur le serveur
+      // case (Idle _, MapVertex e):
+      //   mode = Idle();
+      //   await graphEditor.moveVertex(e.vertex.id, latLng);
       case (Idle _, MapCursor _):
         selection = MapSelection.cursor(latLng: latLng);
       case _:

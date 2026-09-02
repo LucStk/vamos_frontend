@@ -6,7 +6,6 @@ import 'package:map_application/map_application.dart';
 mixin PointerGestureController on MapHitTester {
   GestureState get state;
   set state(GestureState value);
-
   MapEditor get mapEditor;
   void setPanBlocked(bool blocked);
 
@@ -17,15 +16,18 @@ mixin PointerGestureController on MapHitTester {
   Duration get doubleTapTimeout => const Duration(milliseconds: 300);
   double get doubleTapMaxDistancePx => 24;
 
-  /// Construit paresseusement, une fois que `project`/`mapEditor` (fournis
-  /// par les mixins/classe hôte) sont accessibles.
+  /// Éléments pour lesquels le tap se déclenche immédiatement, sans
+  /// attendre un éventuel second tap. Par défaut, aucun élément n'est
+  /// exempté (comportement historique) — à surcharger dans l'hôte.
   late final TapEngine _tapEngine = TapEngine(
     project: project,
     onTap: (element, latLng) => mapEditor.onTapped(element, latLng),
     onDoubleTap: (element, latLng) => mapEditor.onDoubleTapped(element, latLng),
     doubleTapTimeout: doubleTapTimeout,
     doubleTapMaxDistancePx: doubleTapMaxDistancePx,
+    awaitsDoubleTap: (element) => mapEditor.awaitsDoubleTap(element),
   );
+
   void cancelPendingTap() {
     _tapEngine.cancelPendingTap();
   }
@@ -53,7 +55,7 @@ mixin PointerGestureController on MapHitTester {
       case Pressed(:final NoMapElement element):
         if (_pressPoint != null &&
             _distancePx(_pressPoint!, position) < tapSlopPx) {
-          return; // encore potentiellement un tap, pas un drag
+          return;
         }
         state = Dragging(element: NoMapElement());
       case Pressed(:final element):
@@ -90,9 +92,8 @@ mixin PointerGestureController on MapHitTester {
     }
   }
 
-  /// À appeler depuis le dispose() du widget hôte, pour éviter un
-  /// callback de timer sur un état démonté.
   void disposeTapTracking() => _tapEngine.dispose();
+
   double _distancePx(Point<double> a, Point<double> b) =>
       sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }

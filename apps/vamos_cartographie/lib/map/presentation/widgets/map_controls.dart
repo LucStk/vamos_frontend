@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import '/map/map.dart';
@@ -9,34 +11,37 @@ class MapControls extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapController = ref.watch(mapControllerProvider);
+    final animatedController = ref.watch(animatedMapControllerProvider);
     return Positioned(
       right: 12,
       bottom: 120,
       child: Column(
         children: [
           MapControlButton(
-            icon: Icons.add,
+            icon: CupertinoIcons.add,
             tooltip: 'Zoom avant',
-            onPressed: () => mapController.move(
-              mapController.camera.center,
-              mapController.camera.zoom + 1,
-            ),
+            onPressed: () => animatedController.animatedZoomIn(),
           ),
           const SizedBox(height: 6),
           MapControlButton(
-            icon: Icons.remove,
+            icon: CupertinoIcons.minus,
             tooltip: 'Zoom arrière',
-            onPressed: () => mapController.move(
-              mapController.camera.center,
-              mapController.camera.zoom - 1,
-            ),
+            onPressed: () => animatedController.animatedZoomOut(),
           ),
           const SizedBox(height: 6),
-          MapControlButton(
-            icon: Icons.explore,
-            tooltip: 'Remettre au nord',
-            onPressed: () => mapController.rotate(0),
+          StreamBuilder<MapEvent>(
+            stream: animatedController.mapController.mapEventStream,
+            builder: (context, _) {
+              final rotation = animatedController.mapController.camera.rotation;
+              if (rotation == 0) return const SizedBox.shrink();
+              return IconButton(
+                icon: Transform.rotate(
+                  angle: rotation * (3.14159 / 180),
+                  child: const Icon(CupertinoIcons.location_north_fill),
+                ),
+                onPressed: () => animatedController.animatedRotateTo(0),
+              );
+            },
           ),
         ],
       ),
