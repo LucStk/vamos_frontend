@@ -10,6 +10,18 @@ import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
 part 'map_state_provider.g.dart';
 
+@riverpod
+class GestureStateNotifier extends _$GestureStateNotifier {
+  @override
+  GestureState build(TripId tripId) {
+    return const EmptyState();
+  }
+
+  void dispatch(PointerGestureController controller, MapPointerEvent event) {
+    state = controller.handle(state, event);
+  }
+} // Nouveau — expose le wrapper animé, distinct du MapController brut
+
 @Riverpod(keepAlive: true)
 class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   @override

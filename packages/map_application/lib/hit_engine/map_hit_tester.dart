@@ -21,16 +21,34 @@ class HitTestThresholds {
   });
 }
 
-mixin MapHitTester {
-  // ---------------------------------------------------------------------
-  // Contrats à fournir par l'implémentation (pas de Flutter, pas de Riverpod)
-  // ---------------------------------------------------------------------
-  MapMode get hitMode;
-  MapSelection get hitSelection;
-  List<VertexFields> get vertices;
-  List<SegmentFields> get segments;
-  Point<double> Function(LatLng) get project;
-  HitTestThresholds get thresholds => const HitTestThresholds();
+/// Résout l'élément touché à une position donnée, en respectant un ordre
+/// de priorité entre sources (pencil, vertices, cursor, segments, sketch).
+/// Ne connaît ni Flutter ni Riverpod — reçoit ses dépendances par
+/// injection plutôt que par contrat d'héritage.
+class MapHitTester {
+  final MapMode Function() _hitMode;
+  final MapSelection Function() _hitSelection;
+  final List<VertexFields> Function() _vertices;
+  final List<SegmentFields> Function() _segments;
+  final Point<double> Function(LatLng) project;
+  final HitTestThresholds thresholds;
+
+  MapHitTester({
+    required MapMode Function() hitMode,
+    required MapSelection Function() hitSelection,
+    required List<VertexFields> Function() vertices,
+    required List<SegmentFields> Function() segments,
+    required this.project,
+    this.thresholds = const HitTestThresholds(),
+  }) : _hitMode = hitMode,
+       _hitSelection = hitSelection,
+       _vertices = vertices,
+       _segments = segments;
+
+  MapMode get hitMode => _hitMode();
+  MapSelection get hitSelection => _hitSelection();
+  List<VertexFields> get vertices => _vertices();
+  List<SegmentFields> get segments => _segments();
 
   // ---------------------------------------------------------------------
   // API publique

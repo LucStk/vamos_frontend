@@ -1,98 +1,152 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 
-mixin PointerGestureController on MapHitTester {
-  GestureState get state;
-  set state(GestureState value);
-  MapEditor get mapEditor;
-  void setPanBlocked(bool blocked);
+/// Orchestre le cycle de vie d'un geste pointeur (down → move → up),
+/// décide tap/double-tap/drag, et dispatche vers MapEditor.
+/// Pure côté état applicatif : ne possède aucun GestureState — le
+/// reçoit en entrée de [handle] et retourne le nouvel état, à charge
+/// de l'appelant de le conserver. Conserve en interne uniquement des
+/// détails de reconnaissance de geste (slop, timer de double tap) qui
+/// n'ont pas vocation à être exposés/persistés ailleurs.
+/// Ne connaît MapHitTester et MapEditor que comme dépendances injectées.
+class PointerGestureController {
+  final MapHitTester hitTester;
+  final MapEditor mapEditor;
+  final void Function(bool blocked) setPanBlocked;
+  final double tapSlopPx;
+  final Duration doubleTapTimeout;
+  final double doubleTapMaxDistancePx;
 
-  // ---------------------------------------------------------------------
-  // Réglages ajustables par l'implémentation
-  // ---------------------------------------------------------------------
-  double get tapSlopPx => 8;
-  Duration get doubleTapTimeout => const Duration(milliseconds: 300);
-  double get doubleTapMaxDistancePx => 24;
+  PointerGestureController({
+    required this.hitTester,
+    required this.mapEditor,
+    required this.setPanBlocked,
+    this.tapSlopPx = 8,
+    this.doubleTapTimeout = const Duration(milliseconds: 300),
+    this.doubleTapMaxDistancePx = 24,
+  });
 
-  /// Éléments pour lesquels le tap se déclenche immédiatement, sans
-  /// attendre un éventuel second tap. Par défaut, aucun élément n'est
-  /// exempté (comportement historique) — à surcharger dans l'hôte.
-  late final TapEngine _tapEngine = TapEngine(
-    project: project,
-    onTap: (element, latLng) => mapEditor.onTapped(element, latLng),
-    onDoubleTap: (element, latLng) => mapEditor.onDoubleTapped(element, latLng),
-    doubleTapTimeout: doubleTapTimeout,
-    doubleTapMaxDistancePx: doubleTapMaxDistancePx,
-    awaitsDoubleTap: (element) => mapEditor.awaitsDoubleTap(element),
-  );
-
-  void cancelPendingTap() {
-    _tapEngine.cancelPendingTap();
-  }
-
+  /// Point de pression initial — détail de reconnaissance du drag (slop).
   Point<double>? _pressPoint;
 
-  bool isDraggable(MapElement hit) => switch (hit) {
-    MapVertex() => true,
-    MapSketchPencil() => true,
-    MapCursor() => true,
-    _ => false,
-  };
+  /// État interne de détection du double tap.
+  Timer? _pendingTapTimer;
+  Point<double>? _pendingTapPoint;
+  MapElement? _pendingTapElement;
 
-  void onPointerDown({required LatLng latLng}) {
-    final element = hitTest(latLng);
-    final pressedElement = mapEditor.onPointerDown(element, latLng);
-    state = Pressed(pressedElement);
-    _pressPoint = project(latLng);
-    setPanBlocked(isDraggable(pressedElement));
+  /// Point d'entrée unique pour les trois gestes primaires.
+  /// [state] est l'état courant ; la valeur retournée est le nouvel
+  /// état à conserver par l'appelant (ex: ValueNotifier<GestureState>).
+  GestureState handle(GestureState state, MapPointerEvent event) {
+    return switch (event) {
+      MapPointerDown(:final latLng) => _handleDown(latLng),
+      MapPointerMove(:final latLng) => _handleMove(state, latLng),
+      MapPointerUp(:final latLng) => _handleUp(state, latLng),
+    };
   }
 
-  void onPointerMove({required LatLng latLng}) {
-    final position = project(latLng);
+  GestureState _handleDown(LatLng latLng) {
+    final element = hitTester.hitTest(latLng);
+    final pressedElement = mapEditor.onPointerDown(element, latLng);
+    _pressPoint = hitTester.project(latLng);
+    setPanBlocked(pressedElement.isDraggable);
+    return Pressed(pressedElement);
+  }
+
+  GestureState _handleMove(GestureState state, LatLng latLng) {
+    final position = hitTester.project(latLng);
     switch (state) {
       case Pressed(:final NoMapElement element):
         if (_pressPoint != null &&
             _distancePx(_pressPoint!, position) < tapSlopPx) {
-          return;
+          return state; // encore potentiellement un tap, pas un drag
         }
-        state = Dragging(element: NoMapElement());
+        return Dragging(element: NoMapElement());
+
       case Pressed(:final element):
-        if (!isDraggable(element)) return;
-        state = Dragging(element: element);
+        if (!element.isDraggable) return state;
         mapEditor.onDragStart(element);
+        return Dragging(element: element);
+
       case Dragging(:final element) when element is! NoMapElement:
         mapEditor.onDragUpdate(element, latLng);
-        final hit = hitTest(latLng, exclude: element);
-        state = Dragging(element: element);
+        final hit = hitTester.hitTest(latLng, exclude: element);
         final collided = mapEditor.onCollision(element, hit);
-        if (collided) {
-          state = const EmptyState();
-          return;
-        }
+        if (collided) return const EmptyState();
+        return Dragging(element: element);
+
       case _:
-        return;
+        return state;
     }
   }
 
-  void onPointerUp(LatLng latLng) {
-    final lastState = state;
+  GestureState _handleUp(GestureState state, LatLng latLng) {
     setPanBlocked(false);
-    state = const EmptyState();
     _pressPoint = null;
 
-    switch (lastState) {
+    switch (state) {
       case Pressed(:final element):
-        _tapEngine.handleTap(element, latLng);
+        _handleTap(element, latLng);
       case Dragging(:final element):
-        _tapEngine.cancelPendingTap();
+        cancelPendingTap();
         mapEditor.onDragEnd(element, latLng);
       case _:
     }
+
+    return const EmptyState();
   }
 
-  void disposeTapTracking() => _tapEngine.dispose();
+  // ---------------------------------------------------------------------
+  // Détection tap simple / double tap
+  // ---------------------------------------------------------------------
+
+  void _handleTap(MapElement element, LatLng latLng) {
+    if (!element.awaitsDoubleTap) {
+      // Élément exempté du double tap : on annule tout tap en attente
+      // sur un autre élément (pour ne pas laisser un double tap fantôme
+      // se déclencher plus tard sur cet ancien élément) et on déclenche
+      // immédiatement, sans latence.
+      cancelPendingTap();
+      mapEditor.onTapped(element, latLng);
+      return;
+    }
+
+    final point = hitTester.project(latLng);
+
+    final isDouble =
+        _pendingTapTimer != null &&
+        _pendingTapElement != null &&
+        isSameHitTarget(_pendingTapElement!, element) &&
+        _distancePx(_pendingTapPoint!, point) <= doubleTapMaxDistancePx;
+
+    if (isDouble) {
+      cancelPendingTap();
+      mapEditor.onDoubleTapped(element, latLng);
+      return;
+    }
+
+    cancelPendingTap();
+    _pendingTapPoint = point;
+    _pendingTapElement = element;
+    _pendingTapTimer = Timer(doubleTapTimeout, () {
+      mapEditor.onTapped(element, latLng);
+      _pendingTapTimer = null;
+      _pendingTapPoint = null;
+      _pendingTapElement = null;
+    });
+  }
+
+  void cancelPendingTap() {
+    _pendingTapTimer?.cancel();
+    _pendingTapTimer = null;
+    _pendingTapPoint = null;
+    _pendingTapElement = null;
+  }
+
+  void dispose() => cancelPendingTap();
 
   double _distancePx(Point<double> a, Point<double> b) =>
       sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));

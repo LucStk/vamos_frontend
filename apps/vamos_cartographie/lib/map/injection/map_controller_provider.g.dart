@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'map_hit_notifier.dart';
+part of 'map_controller_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -97,102 +97,6 @@ final class AnimatedMapControllerProvider
 
 String _$animatedMapControllerHash() =>
     r'84bcad3bf1cd599ae4e9356b1a841d00c9c08eba';
-
-@ProviderFor(segmentHitLayer)
-final segmentHitLayerProvider = SegmentHitLayerProvider._();
-
-final class SegmentHitLayerProvider
-    extends
-        $FunctionalProvider<
-          ValueNotifier<LayerHitResult<MapElement>?>,
-          ValueNotifier<LayerHitResult<MapElement>?>,
-          ValueNotifier<LayerHitResult<MapElement>?>
-        >
-    with $Provider<ValueNotifier<LayerHitResult<MapElement>?>> {
-  SegmentHitLayerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'segmentHitLayerProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$segmentHitLayerHash();
-
-  @$internal
-  @override
-  $ProviderElement<ValueNotifier<LayerHitResult<MapElement>?>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ValueNotifier<LayerHitResult<MapElement>?> create(Ref ref) {
-    return segmentHitLayer(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ValueNotifier<LayerHitResult<MapElement>?> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride:
-          $SyncValueProvider<ValueNotifier<LayerHitResult<MapElement>?>>(value),
-    );
-  }
-}
-
-String _$segmentHitLayerHash() => r'f3393b6fc3c03ecef298578c5555912cfb178333';
-
-@ProviderFor(sketchHitLayer)
-final sketchHitLayerProvider = SketchHitLayerProvider._();
-
-final class SketchHitLayerProvider
-    extends
-        $FunctionalProvider<
-          ValueNotifier<LayerHitResult<MapElement>?>,
-          ValueNotifier<LayerHitResult<MapElement>?>,
-          ValueNotifier<LayerHitResult<MapElement>?>
-        >
-    with $Provider<ValueNotifier<LayerHitResult<MapElement>?>> {
-  SketchHitLayerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'sketchHitLayerProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$sketchHitLayerHash();
-
-  @$internal
-  @override
-  $ProviderElement<ValueNotifier<LayerHitResult<MapElement>?>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ValueNotifier<LayerHitResult<MapElement>?> create(Ref ref) {
-    return sketchHitLayer(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ValueNotifier<LayerHitResult<MapElement>?> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride:
-          $SyncValueProvider<ValueNotifier<LayerHitResult<MapElement>?>>(value),
-    );
-  }
-}
-
-String _$sketchHitLayerHash() => r'1de04bdaff4eacc335653d49467b50f7261b4762';
 
 @ProviderFor(PanMapController)
 final panMapControllerProvider = PanMapControllerProvider._();

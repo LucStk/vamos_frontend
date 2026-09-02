@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/canvas/layers/layers.dart';
 import 'package:vamos_cartographie/map/canvas/layers/user_location_layer.dart';
-import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 class MapWithControls extends ConsumerStatefulWidget {

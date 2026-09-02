@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/features/network_overlay_type.dart';
-import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/map/injection/network_overlay_provider.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 import '/map/map.dart';

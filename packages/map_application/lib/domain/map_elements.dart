@@ -3,6 +3,8 @@ import 'package:trip_application/trip_application.dart';
 
 sealed class MapElement {
   const MapElement();
+  bool get isDraggable => false;
+  bool get awaitsDoubleTap => false;
 }
 
 class MapSketchSegment extends MapElement {
@@ -12,14 +14,20 @@ class MapSketchSegment extends MapElement {
 class MapSketchPencil extends MapElement {
   final LatLng latLng;
   const MapSketchPencil(this.latLng);
+  @override
+  bool get isDraggable => true;
 }
 
 class MapCursor extends MapElement {
   const MapCursor();
+  @override
+  bool get isDraggable => true;
 }
 
 class NoMapElement extends MapElement {
   const NoMapElement();
+  @override
+  bool get awaitsDoubleTap => true;
 }
 
 class MapSpace extends MapElement {
@@ -29,6 +37,8 @@ class MapSpace extends MapElement {
 class MapVertex extends MapElement {
   final VertexFields vertex;
   const MapVertex(this.vertex);
+  @override
+  bool get isDraggable => true;
 }
 
 class MapSegment extends MapElement {
