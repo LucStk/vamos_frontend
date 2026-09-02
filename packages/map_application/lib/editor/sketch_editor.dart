@@ -12,6 +12,7 @@ extension SketchEditor on MapEditor {
         itineraire: [vertex.latLng],
         mobilityType: MobilityType.bike,
       );
+      selection = NoSelection();
     }
   }
 

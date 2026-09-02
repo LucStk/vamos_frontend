@@ -26,8 +26,9 @@ class _MapWithControlsState extends ConsumerState<MapWithControls> {
       const NetworkOverlayLayer(), // instance unique, stable, auto-réactive
       SegmentLayer(tripId: widget.tripId),
       CursorLayer(tripId: widget.tripId),
+      SegmentSketchLayer(tripId: widget.tripId),
       VertexLayer(tripId: widget.tripId),
-      SketchLayer(tripId: widget.tripId),
+      PencilSketchLayer(tripId: widget.tripId),
       UserLocationLayer(),
       MapControls(),
     ];
