@@ -7,7 +7,7 @@ import 'package:map_application/editor/sketch_editor.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
-import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/overlay_ui/bottom_sheet/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
 
 class SketchBottomSheet extends ConsumerWidget {

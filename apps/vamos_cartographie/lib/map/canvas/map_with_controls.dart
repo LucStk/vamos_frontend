@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/canvas/layers/layers.dart';
 import 'package:vamos_cartographie/map/injection/map_hit_notifier.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
@@ -14,7 +15,6 @@ class MapWithControls extends ConsumerStatefulWidget {
 }
 
 class _MapWithControlsState extends ConsumerState<MapWithControls> {
-  // Les children sont stables : créés une seule fois
   late final List<Widget> _mapChildren;
 
   @override
@@ -22,6 +22,7 @@ class _MapWithControlsState extends ConsumerState<MapWithControls> {
     super.initState();
     _mapChildren = [
       MapTileLayer(),
+      const NetworkOverlayLayer(), // instance unique, stable, auto-réactive
       SegmentLayer(tripId: widget.tripId),
       CursorLayer(tripId: widget.tripId),
       VertexLayer(tripId: widget.tripId),
@@ -48,7 +49,7 @@ class _MapWithControlsState extends ConsumerState<MapWithControls> {
                     ~InteractiveFlag.drag,
         ),
       ),
-      children: _mapChildren, // ← référence stable, pas de rebuild enfants
+      children: _mapChildren, // référence stable retrouvée
     );
   }
 }

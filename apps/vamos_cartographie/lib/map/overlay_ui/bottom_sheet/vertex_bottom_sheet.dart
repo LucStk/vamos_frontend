@@ -7,8 +7,8 @@ import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
-import 'package:vamos_cartographie/map/presentation/bottom_sheet/simple_bottom_sheet_shell.dart';
-import 'package:vamos_cartographie/map/presentation/widgets/buttons/buttons.dart';
+import 'package:vamos_cartographie/map/overlay_ui/bottom_sheet/simple_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;

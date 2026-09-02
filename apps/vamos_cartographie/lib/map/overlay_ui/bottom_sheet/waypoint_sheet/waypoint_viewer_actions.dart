@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 import 'waypoint_sheet.dart';
-import 'package:vamos_cartographie/map/presentation/widgets/buttons/buttons.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
 /// Confirme puis supprime le waypoint, et ferme la vue courante

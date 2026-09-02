@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/presentation/bottom_sheet/drag_hint_header.dart';
+import 'package:vamos_cartographie/map/overlay_ui/bottom_sheet/drag_hint_header.dart';
 import 'package:vamos_cartographie/waypoint/presentation/poi_ui.dart';
 import 'waypoint_header.dart';
 import 'waypoint_viewer_actions.dart';
