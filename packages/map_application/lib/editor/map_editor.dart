@@ -1,6 +1,7 @@
 // lib/editor/map_editor.dart
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/domain/map_elements.dart';
+import 'package:map_application/editor/map_camera_controller.dart';
 import 'package:map_application/effects/map_effects.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
@@ -30,8 +31,4 @@ mixin MapEditor {
       ));
 
   Future<void> runEffect(MapEffect effect) => effect.run(this);
-}
-
-abstract class MapCameraController {
-  void zoomTo(LatLng latLng, {double deltaZoom});
 }

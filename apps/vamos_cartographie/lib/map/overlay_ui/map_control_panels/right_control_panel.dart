@@ -9,8 +9,10 @@ import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 import '/map/map.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
+
 class MapControls extends ConsumerWidget {
   const MapControls({super.key, required this.tripId});
+
   final TripId tripId;
 
   @override
@@ -18,6 +20,7 @@ class MapControls extends ConsumerWidget {
     final editor = ref.read(mapStateProvider(tripId).notifier);
     final userLocation = ref.watch(userLocationProvider);
     final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
+
     return Positioned(
       right: 12,
       bottom: 120,
@@ -26,26 +29,27 @@ class MapControls extends ConsumerWidget {
           MapControlButton(
             icon: CupertinoIcons.add,
             tooltip: 'Zoom avant',
-            onPressed: () => animatedController.animatedZoomIn(),
+            onPressed: () => editor.camera.zoomIn(),
           ),
           const SizedBox(height: 6),
           MapControlButton(
             icon: CupertinoIcons.minus,
             tooltip: 'Zoom arrière',
-            onPressed: () => animatedController.animatedZoomOut(),
+            onPressed: () => editor.camera.zoomOut(),
           ),
           const SizedBox(height: 6),
-          StreamBuilder<MapEvent>(
-            stream: animatedController.mapController.mapEventStream,
-            builder: (context, _) {
-              final rotation = animatedController.mapController.camera.rotation;
+          StreamBuilder<double>(
+            stream: editor.camera.rotationStream,
+            initialData: editor.camera.rotation,
+            builder: (context, snapshot) {
+              final rotation = snapshot.data ?? 0;
               if (rotation == 0) return const SizedBox.shrink();
               return IconButton(
                 icon: Transform.rotate(
                   angle: rotation * (3.14159 / 180),
                   child: const Icon(CupertinoIcons.location_north_fill),
                 ),
-                onPressed: () => animatedController.animatedRotateTo(0),
+                onPressed: () => editor.camera.rotateTo(0),
               );
             },
           ),

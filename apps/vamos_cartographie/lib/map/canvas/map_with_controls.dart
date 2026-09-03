@@ -40,7 +40,7 @@ class _MapWithControlsState extends ConsumerState<MapWithControls> {
       VertexLayer(tripId: widget.tripId),
       PencilSketchLayer(tripId: widget.tripId),
       UserLocationLayer(),
-      MapControls(),
+      MapControls(tripId: widget.tripId),
     ];
   }
 
