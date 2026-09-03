@@ -19,16 +19,18 @@ extension DragEditor on MapEditor {
       //   final patch = VertexPatchModel(id: e.vertex.id, latLng: latLng);
       //   graphEditor.state = graphEditor.state.setVertex(patch);
 
-      case (SketchMode m, MapSketchPencil _, MapElement _)
+      case (SketchMode m, MapSketchPencil _, MapElement e)
           when m.correction != null:
         final correctionPath = [...m.correction!.path, latLng];
         mode = m.copyWith(
           correction: m.correction!.copyWith(path: correctionPath),
         );
+        selection = e;
 
-      case (SketchCreation m, MapSketchPencil _, MapElement _):
+      case (SketchCreation m, MapSketchPencil _, MapElement e):
         final itineraire = [...m.itineraire, latLng];
         mode = m.copyWith(itineraire: itineraire);
+        selection = e;
       case _:
     }
   }
