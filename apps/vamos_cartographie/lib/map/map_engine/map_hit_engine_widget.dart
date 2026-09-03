@@ -31,16 +31,17 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   late final PointerGestureController _gestureController;
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
+  late GestureState _gestureState;
+
   MapEditor get _mapEditor =>
       ref.read(mapStateProvider(widget.tripId).notifier);
-
-  GestureStateNotifier get _gestureState =>
-      ref.read(gestureStateProvider(widget.tripId).notifier);
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
+
+    _gestureState = const EmptyState();
     _animatedMapController = AnimatedMapController(
       vsync: this,
       mapController: _mapController, // même instance sous-jacente
@@ -73,10 +74,11 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   /// Point d'entrée unique côté widget : traduit un Offset écran en LatLng,
   /// construit l'événement, applique la transition via le contrôleur pur,
   /// et persiste le nouvel état dans le notifier.
+
   void _dispatch(MapPointerEvent Function(LatLng) buildEvent, Offset offset) {
-    final latLng = _toLatLng(offset);
+    final latLng = _mapController.camera.screenOffsetToLatLng(offset);
     final event = buildEvent(latLng);
-    _gestureState.dispatch(_gestureController, event);
+    _gestureState = _gestureController.handle(_gestureState, event);
   }
 
   @override

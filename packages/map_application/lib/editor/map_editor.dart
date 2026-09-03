@@ -1,5 +1,4 @@
 // lib/editor/map_editor.dart
-import 'package:latlong2/latlong.dart';
 import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/editor/map_camera_controller.dart';
 import 'package:map_application/effects/map_effects.dart';

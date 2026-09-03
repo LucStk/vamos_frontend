@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import '/map/canvas/map_with_controls.dart';
 import '/map/map_engine/map_hit_engine_widget.dart';
 import '/map/overlay_ui/overlay_ui.dart';
 
