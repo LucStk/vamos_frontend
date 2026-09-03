@@ -9,7 +9,6 @@ part 'map_mode.freezed.dart';
 abstract class RouteCorrection with _$RouteCorrection {
   const factory RouteCorrection({
     required List<LatLng> path, // tracé en cours de la correction
-    @Default(false) bool armed,
     VertexId?
     rejoinedVertex, // renseigné si la correction a rejoint l'itinéraire original
   }) = _RouteCorrection;

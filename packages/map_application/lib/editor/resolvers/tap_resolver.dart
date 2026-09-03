@@ -19,7 +19,9 @@ extension TapEditor on MapEditor {
 
       case (Idle _, MapVertex e):
         selection = e;
-
+      case (SketchMode m, MapSketchPencil p):
+        print("mapSketchPencil tap");
+        
       case _:
     }
   }

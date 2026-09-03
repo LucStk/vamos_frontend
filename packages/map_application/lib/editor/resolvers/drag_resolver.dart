@@ -46,7 +46,7 @@ extension DragEditor on MapEditor {
       //   mode = Idle();
       //   await graphEditor.moveVertex(e.vertex.id, latLng);
       case (SketchCreation m, MapSketchPencil _, MapSketchSegment _)
-          when m.correction != null && m.correction!.armed:
+          when m.hasCorrection:
         //Collision avec le sketchSegment en mode Creation
         final List<LatLng> path = mergeCorrection(
           m.correction!.path,

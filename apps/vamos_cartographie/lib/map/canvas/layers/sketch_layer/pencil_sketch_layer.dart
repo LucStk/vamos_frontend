@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/canvas/layers/widgets/markers/pencil_marker.dart';
 import '/map/map.dart';
 
 class PencilSketchLayer extends ConsumerWidget {
@@ -24,12 +25,7 @@ class PencilSketchLayer extends ConsumerWidget {
           return SizedBox.shrink();
         }
         return MarkerLayer(
-          markers: [
-            Marker(
-              point: pencilPosition,
-              child: Icon(Icons.draw_sharp, size: 30, color: Colors.black),
-            ),
-          ],
+          markers: [Marker(point: pencilPosition, child: PencilMarker())],
         );
 
       case _:
