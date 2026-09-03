@@ -27,6 +27,7 @@ extension SegmentEditor on MapEditor {
       final newSeg = graphEditor.state.segmentStore.get(segmentId)?.current;
       if (newSeg == null) return;
       mode = SketchEdition(segment: newSeg);
+      selection = NoSelection();
     }
   }
 
@@ -38,6 +39,6 @@ extension SegmentEditor on MapEditor {
   }
 
   Future<void> segmentEdited(SegmentId segmentId) async {
-    selection = SegmentSelection(segmentId: segmentId);
+    // selection = SegmentSelection(segmentId: segmentId);
   }
 }

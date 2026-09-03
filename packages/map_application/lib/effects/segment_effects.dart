@@ -38,8 +38,13 @@ final class EditeSegmentFromSketch extends MapEffect {
     final res = await context.graphEditor.updateSegment(patch);
     res.fold((_) {}, (segment) {
       context.segmentEdited(segment.id);
-      context.mode = Idle();
-      context.selection = SegmentSelection(segmentId: segment.id);
+      switch (context.mode) {
+        case SketchEdition e:
+          context.mode = e.copyWith(correction: null);
+        case _:
+      }
+      // context.mode = Idle();
+      // context.selection = SegmentSelection(segmentId: segment.id);
     });
   }
 }

@@ -16,22 +16,12 @@ class SegmentSketchLayer extends ConsumerWidget {
     switch (mapState.mode) {
       case SketchMode e:
         final List<Polyline<MapElement>> polylineLayer = [];
-
-        if (e.correction != null) {
-          polylineLayer.add(
-            Polyline<MapElement>(
-              points: e.correction!.path,
-              color: Colors.green,
-              strokeWidth: 5,
-            ),
-          );
-        }
         if (e is SketchCreation) {
           polylineLayer.add(
             Polyline<MapElement>(
               points: e.itineraire,
-              color: Colors.lightBlue,
-              strokeWidth: 5,
+              color: e.hasCorrection ? Colors.blueGrey : Colors.lightBlue,
+              strokeWidth: e.hasCorrection ? 3 : 3.8,
               hitValue: MapSketchSegment(),
             ),
           );

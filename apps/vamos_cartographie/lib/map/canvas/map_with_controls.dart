@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/canvas/layers/layers.dart';
+import 'package:vamos_cartographie/map/canvas/layers/sketch_layer/correction_sketch_layer.dart';
 import 'package:vamos_cartographie/map/canvas/layers/user_location_layer.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
@@ -25,6 +26,7 @@ class _MapWithControlsState extends ConsumerState<MapWithControls> {
       const NetworkOverlayLayer(), // instance unique, stable, auto-réactive
       SegmentLayer(tripId: widget.tripId),
       CursorLayer(tripId: widget.tripId),
+      CorrectionSketchLayer(tripId: widget.tripId),
       SegmentSketchLayer(tripId: widget.tripId),
       VertexLayer(tripId: widget.tripId),
       PencilSketchLayer(tripId: widget.tripId),

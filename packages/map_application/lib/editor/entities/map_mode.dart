@@ -43,6 +43,10 @@ sealed class SketchMode extends MapMode with _$SketchMode {
     VertexId? touchedVertex,
     RouteCorrection? correction,
   }) = SketchEdition;
+
+  bool get hasCorrection {
+    return correction != null;
+  }
 }
 
 extension SketchX on MapMode {
