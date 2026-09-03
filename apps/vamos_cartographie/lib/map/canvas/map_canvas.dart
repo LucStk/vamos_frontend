@@ -9,22 +9,22 @@ import 'package:vamos_cartographie/map/canvas/layers/sketch_layer/correction_ske
 import 'package:vamos_cartographie/map/canvas/layers/user_location_layer.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-class MapWithControls extends ConsumerStatefulWidget {
+class MapCanvas extends ConsumerStatefulWidget {
   final TripId tripId;
   final MapController mapController;
   final ValueListenable<bool> panAllowed;
 
-  const MapWithControls({
+  const MapCanvas({
     super.key,
     required this.tripId,
     required this.mapController,
     required this.panAllowed,
   });
   @override
-  ConsumerState<MapWithControls> createState() => _MapWithControlsState();
+  ConsumerState<MapCanvas> createState() => _MapCanavsState();
 }
 
-class _MapWithControlsState extends ConsumerState<MapWithControls> {
+class _MapCanavsState extends ConsumerState<MapCanvas> {
   late final List<Widget> _mapChildren;
 
   @override

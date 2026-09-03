@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import '/map/map_engine/map_hit_engine_widget.dart';
+import 'package:vamos_cartographie/map/map_input/map_gesture_bridge.dart';
 import '/map/overlay_ui/overlay_ui.dart';
 
 class MapScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class MapScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          MapElementEngineWidget(tripId: tripId),
+          MapGestureBridge(tripId: tripId),
           MapTopBar(tripId: tripId),
           MapBottomSheet(tripId: tripId),
         ],
