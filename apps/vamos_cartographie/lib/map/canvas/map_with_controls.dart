@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
@@ -10,7 +11,15 @@ import 'package:vamos_cartographie/map/map.dart';
 
 class MapWithControls extends ConsumerStatefulWidget {
   final TripId tripId;
-  const MapWithControls({super.key, required this.tripId});
+  final MapController mapController;
+  final ValueListenable<bool> panAllowed;
+
+  const MapWithControls({
+    super.key,
+    required this.tripId,
+    required this.mapController,
+    required this.panAllowed,
+  });
   @override
   ConsumerState<MapWithControls> createState() => _MapWithControlsState();
 }
@@ -37,23 +46,24 @@ class _MapWithControlsState extends ConsumerState<MapWithControls> {
 
   @override
   Widget build(BuildContext context) {
-    final panController = ref.watch(panMapControllerProvider);
-    final mapController = ref.watch(mapControllerProvider);
-
-    return FlutterMap(
-      mapController: mapController,
-      options: MapOptions(
-        initialCenter: const LatLng(46.8, 2.2),
-        initialZoom: 7,
-        interactionOptions: InteractionOptions(
-          flags: panController
-              ? InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom
-              : InteractiveFlag.all &
-                    ~InteractiveFlag.doubleTapZoom &
-                    ~InteractiveFlag.drag,
+    print("map_canvas rebuild");
+    return ValueListenableBuilder<bool>(
+      valueListenable: widget.panAllowed,
+      builder: (context, panAllowed, _) => FlutterMap(
+        mapController: widget.mapController,
+        options: MapOptions(
+          initialCenter: const LatLng(46.8, 2.2),
+          initialZoom: 7,
+          interactionOptions: InteractionOptions(
+            flags: panAllowed
+                ? InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom
+                : InteractiveFlag.all &
+                      ~InteractiveFlag.doubleTapZoom &
+                      ~InteractiveFlag.drag,
+          ),
         ),
+        children: _mapChildren, // référence stable, capturée par la closure
       ),
-      children: _mapChildren, // référence stable retrouvée
     );
   }
 }

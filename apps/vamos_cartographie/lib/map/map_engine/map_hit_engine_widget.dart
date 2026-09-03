@@ -8,18 +8,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/canvas/map_with_controls.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
 
 class MapElementEngineWidget extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
-  final Widget child;
 
-  const MapElementEngineWidget({
-    super.key,
-    required this.tripId,
-    required this.child,
-  });
+  const MapElementEngineWidget({super.key, required this.tripId});
 
   @override
   ConsumerState<MapElementEngineWidget> createState() =>
@@ -32,9 +28,11 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
   late final AnimatedMapController _animatedMapController;
   late final MapHitTester _hitTester;
   late final PointerGestureController _gestureController;
+  final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
   MapEditor get _mapEditor =>
       ref.read(mapStateProvider(widget.tripId).notifier);
+
   GestureStateNotifier get _gestureState =>
       ref.read(gestureStateProvider(widget.tripId).notifier);
 
@@ -62,10 +60,7 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
     _gestureController = PointerGestureController(
       hitTester: _hitTester,
       mapEditor: _mapEditor,
-      setPanBlocked: (blocked) {
-        final panController = ref.read(panMapControllerProvider.notifier);
-        blocked ? panController.block() : panController.allow();
-      },
+      setPanBlocked: (blocked) => _panAllowed.value = !blocked,
     );
 
     _mapEditor.attachCamera(
@@ -101,20 +96,17 @@ class _MapElementEngineWidgetState extends ConsumerState<MapElementEngineWidget>
       _FlutterMapCameraController(_animatedMapController),
     );
 
-    return ProviderScope(
-      overrides: [
-        mapControllerProvider.overrideWithValue(_mapController),
-        animatedMapControllerProvider.overrideWithValue(_animatedMapController),
-      ],
-      child: Listener(
-        behavior: HitTestBehavior.translucent,
-        onPointerDown: (event) =>
-            _dispatch(MapPointerDown.new, event.localPosition),
-        onPointerMove: (event) =>
-            _dispatch(MapPointerMove.new, event.localPosition),
-        onPointerUp: (event) =>
-            _dispatch(MapPointerUp.new, event.localPosition),
-        child: widget.child,
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) =>
+          _dispatch(MapPointerDown.new, event.localPosition),
+      onPointerMove: (event) =>
+          _dispatch(MapPointerMove.new, event.localPosition),
+      onPointerUp: (event) => _dispatch(MapPointerUp.new, event.localPosition),
+      child: MapWithControls(
+        tripId: widget.tripId,
+        panAllowed: _panAllowed,
+        mapController: _mapController,
       ),
     );
   }

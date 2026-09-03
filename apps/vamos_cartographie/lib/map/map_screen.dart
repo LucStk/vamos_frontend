@@ -16,10 +16,7 @@ class MapScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          MapElementEngineWidget(
-            tripId: tripId,
-            child: MapWithControls(tripId: tripId),
-          ),
+          MapElementEngineWidget(tripId: tripId),
           MapTopBar(tripId: tripId),
           MapBottomSheet(tripId: tripId),
         ],

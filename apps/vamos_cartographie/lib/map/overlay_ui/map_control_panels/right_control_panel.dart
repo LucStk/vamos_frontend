@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/map/features/network_overlay_type.dart';
 import 'package:vamos_cartographie/map/injection/network_overlay_provider.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
@@ -9,11 +10,12 @@ import '/map/map.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
 class MapControls extends ConsumerWidget {
-  const MapControls({super.key});
+  const MapControls({super.key, required this.tripId});
+  final TripId tripId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final animatedController = ref.watch(animatedMapControllerProvider);
+    final editor = ref.read(mapStateProvider(tripId).notifier);
     final userLocation = ref.watch(userLocationProvider);
     final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
     return Positioned(

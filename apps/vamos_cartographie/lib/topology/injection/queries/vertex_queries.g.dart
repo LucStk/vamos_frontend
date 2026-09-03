@@ -388,7 +388,7 @@ final class IsVertexSelectedProvider
   }
 }
 
-String _$isVertexSelectedHash() => r'bf247d04878b9893a9c9329339ce5b940a190e19';
+String _$isVertexSelectedHash() => r'fe3db0414a05a0c7eaa5675805d87547e4be5e28';
 
 final class IsVertexSelectedFamily extends $Family
     with $FunctionalFamilyOverride<bool, (TripId, VertexId)> {
