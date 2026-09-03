@@ -84,19 +84,17 @@ class PointerGestureController {
             distancePx(_pressPoint!, position) < tapSlopPx) {
           return state; // encore potentiellement un tap, pas un drag
         }
-        return Dragging(element: NoMapElement());
+        return Dragging(dragged: NoMapElement());
 
       case Pressed(:final element):
         if (!element.isDraggable) return state;
         mapEditor.onDragStart(element);
-        return Dragging(element: element);
+        return Dragging(dragged: element);
 
-      case Dragging(:final element) when element is! NoMapElement:
-        mapEditor.onDragUpdate(element, latLng);
-        final hit = hitTester.hitTest(latLng, exclude: element);
-        final collided = mapEditor.onCollision(element, hit);
-        if (collided) return const EmptyState();
-        return Dragging(element: element);
+      case Dragging(:final dragged) when dragged is! NoMapElement:
+        final target = hitTester.hitTest(latLng, exclude: dragged);
+        mapEditor.onDragUpdate(dragged, target, latLng);
+        return Dragging(dragged: dragged, target: target);
 
       case _:
         return state;
@@ -110,9 +108,9 @@ class PointerGestureController {
     switch (state) {
       case Pressed(:final element):
         _handleTap(element, latLng);
-      case Dragging(:final element):
+      case Dragging(:final dragged, :final target):
         cancelPendingTap();
-        mapEditor.onDragEnd(element, latLng);
+        mapEditor.onDragEnd(dragged, target, latLng);
       case _:
     }
 

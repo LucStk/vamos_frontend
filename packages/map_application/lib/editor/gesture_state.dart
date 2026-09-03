@@ -14,6 +14,7 @@ class Pressed extends GestureState {
 }
 
 class Dragging extends GestureState {
-  final MapElement element;
-  const Dragging({required this.element});
+  final MapElement dragged;
+  final MapElement? target;
+  const Dragging({required this.dragged, this.target});
 }
