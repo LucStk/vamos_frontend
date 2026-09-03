@@ -73,7 +73,7 @@ extension DragEditor on MapEditor {
           ),
         );
       case (SketchCreation m, MapSketchPencil _, MapSketchSegment _)
-          when m.correction != null && m.correction!.armed:
+          when m.hasCorrection:
         //Collision avec le sketchSegment en mode Creation
 
         print("sketch pencil collision with SegmentSketch");
@@ -84,9 +84,7 @@ extension DragEditor on MapEditor {
         mode = m.copyWith(itineraire: path, correction: null);
 
       case (SketchEdition m, MapSketchPencil _, MapSegment s)
-          when m.correction != null &&
-              m.correction!.armed &&
-              s.segmentId == m.segment.id:
+          when m.hasCorrection && s.segmentId == m.segment.id:
         // On est en train d'éditer un segment
         // On vient de rencontrer le même segment
         // L'utilisateur demande donc une correction de l'itineraire
@@ -102,7 +100,7 @@ extension DragEditor on MapEditor {
         unawaited(runEffect(EditeSegmentFromSketch(patch: patch)));
 
       case (SketchEdition m, MapSketchPencil _, MapVertex v)
-          when m.correction != null && m.correction!.armed:
+          when m.hasCorrection:
         // On est en train d'éditer un segment
         // On vient de rencontrer un vertex
         // L'utilisateur demande donc une correction de l'itineraire
@@ -119,22 +117,6 @@ extension DragEditor on MapEditor {
 
         unawaited(runEffect(EditeSegmentFromSketch(patch: patch)));
 
-      case (SketchCreation m, MapSketchPencil _, MapElement s)
-          when m.correction != null && !m.correction!.armed:
-        // Arme la correction
-        final correction = m.correction!;
-        if (s is! MapSketchSegment) {
-          print("correction armed with $s");
-          mode = m.copyWith(correction: correction.copyWith(armed: true));
-        }
-
-      case (SketchEdition m, MapSketchPencil _, MapElement s)
-          when m.correction != null && !m.correction!.armed:
-        // Arme la correction
-        final correction = m.correction!;
-        if (s is! MapSegment) {
-          mode = m.copyWith(correction: correction.copyWith(armed: true));
-        }
       case _:
     }
   }
