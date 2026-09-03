@@ -19,7 +19,8 @@ class MapSketchPencil extends MapElement {
 }
 
 class MapCursor extends MapElement {
-  const MapCursor();
+  final LatLng latLng;
+  const MapCursor(this.latLng);
   @override
   bool get isDraggable => true;
 }

@@ -27,7 +27,7 @@ class HitTestThresholds {
 /// injection plutôt que par contrat d'héritage.
 class MapHitTester {
   final MapMode Function() _hitMode;
-  final MapSelection Function() _hitSelection;
+  final MapElement Function() _hitSelection;
   final List<VertexFields> Function() _vertices;
   final List<SegmentFields> Function() _segments;
   final Point<double> Function(LatLng) project;
@@ -35,7 +35,7 @@ class MapHitTester {
 
   MapHitTester({
     required MapMode Function() hitMode,
-    required MapSelection Function() hitSelection,
+    required MapElement Function() hitSelection,
     required List<VertexFields> Function() vertices,
     required List<SegmentFields> Function() segments,
     required this.project,
@@ -46,7 +46,7 @@ class MapHitTester {
        _segments = segments;
 
   MapMode get hitMode => _hitMode();
-  MapSelection get hitSelection => _hitSelection();
+  MapElement get hitSelection => _hitSelection();
   List<VertexFields> get vertices => _vertices();
   List<SegmentFields> get segments => _segments();
 
@@ -163,13 +163,13 @@ class MapHitTester {
   }
 
   Iterable<HitCandidate> _cursorCandidate() sync* {
-    final cursorLatLng = hitSelection.cursorLatLngOrNull;
-    if (cursorLatLng == null) return;
-    yield PointCandidate(
-      point: project(cursorLatLng),
-      radiusPx: thresholds.cursorRadiusPx,
-      element: MapCursor(),
-    );
+    if (hitSelection case MapCursor(:final latLng)) {
+      yield PointCandidate(
+        point: project(latLng),
+        radiusPx: thresholds.cursorRadiusPx,
+        element: MapCursor(latLng),
+      );
+    }
   }
 
   /// Les vertex du mode Sketch excluent le vertex de départ du tracé

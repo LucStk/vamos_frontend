@@ -19,9 +19,6 @@ extension DragEditor on MapEditor {
       //   final patch = VertexPatchModel(id: e.vertex.id, latLng: latLng);
       //   graphEditor.state = graphEditor.state.setVertex(patch);
 
-      case (Idle _, MapCursor _, MapElement _):
-        selection = MapSelection.cursor(latLng: latLng);
-
       case (SketchMode m, MapSketchPencil _, MapElement _)
           when m.correction != null:
         final correctionPath = [...m.correction!.path, latLng];

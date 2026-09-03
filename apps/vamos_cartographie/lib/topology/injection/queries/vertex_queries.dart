@@ -44,7 +44,7 @@ bool isVertexSelected(Ref ref, TripId tripId, VertexId vertexId) {
   return ref.watch(
     mapStateProvider(tripId).select((s) {
       return switch (s.selection) {
-        VertexSelection e => (vertexId == e.vertex.id),
+        MapVertex e => (vertexId == e.vertex.id),
         _ => false,
       };
     }),

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/domain/map_elements.dart';
 import 'map_mode.dart';
-import 'map_selection.dart';
 
 part 'map_editor_state.freezed.dart';
 
@@ -9,7 +9,7 @@ part 'map_editor_state.freezed.dart';
 abstract class MapEditorState with _$MapEditorState {
   const factory MapEditorState({
     @Default(Idle()) MapMode mode,
-    @Default(MapSelection.none()) MapSelection selection,
+    @Default(NoMapElement()) MapElement selection,
   }) = _MapEditorState;
 }
 

@@ -1,5 +1,6 @@
 // lib/editor/map_editor.dart
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/effects/map_effects.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
@@ -12,8 +13,8 @@ mixin MapEditor {
   WaypointEditor get waypointEditor;
   MapMode get mode;
   set mode(MapMode value);
-  MapSelection get selection;
-  set selection(MapSelection value);
+  MapElement get selection;
+  set selection(MapElement value);
 
   MapCameraController? _cameraController;
 

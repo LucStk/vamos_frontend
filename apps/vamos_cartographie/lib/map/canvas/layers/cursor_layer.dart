@@ -15,7 +15,7 @@ class CursorLayer extends ConsumerWidget {
     final mapState = ref.watch(mapStateProvider(tripId));
 
     switch (mapState.selection) {
-      case CursorSelection cursorDrawn:
+      case MapCursor cursorDrawn:
         return MarkerLayer(
           markers: [
             Marker(

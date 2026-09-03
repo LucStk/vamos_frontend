@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MapEditorState {
 
- MapMode get mode; MapSelection get selection;
+ MapMode get mode; MapElement get selection;
 /// Create a copy of MapEditorState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,11 +45,11 @@ abstract mixin class $MapEditorStateCopyWith<$Res>  {
   factory $MapEditorStateCopyWith(MapEditorState value, $Res Function(MapEditorState) _then) = _$MapEditorStateCopyWithImpl;
 @useResult
 $Res call({
- MapMode mode, MapSelection selection
+ MapMode mode, MapElement selection
 });
 
 
-$MapSelectionCopyWith<$Res> get selection;
+
 
 }
 /// @nodoc
@@ -66,19 +66,10 @@ class _$MapEditorStateCopyWithImpl<$Res>
   return _then(_self.copyWith(
 mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as MapMode,selection: null == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapSelection,
+as MapElement,
   ));
 }
-/// Create a copy of MapEditorState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$MapSelectionCopyWith<$Res> get selection {
-  
-  return $MapSelectionCopyWith<$Res>(_self.selection, (value) {
-    return _then(_self.copyWith(selection: value));
-  });
-}
+
 }
 
 
@@ -160,7 +151,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MapMode mode,  MapSelection selection)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MapMode mode,  MapElement selection)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MapEditorState() when $default != null:
 return $default(_that.mode,_that.selection);case _:
@@ -181,7 +172,7 @@ return $default(_that.mode,_that.selection);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MapMode mode,  MapSelection selection)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MapMode mode,  MapElement selection)  $default,) {final _that = this;
 switch (_that) {
 case _MapEditorState():
 return $default(_that.mode,_that.selection);case _:
@@ -201,7 +192,7 @@ return $default(_that.mode,_that.selection);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MapMode mode,  MapSelection selection)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MapMode mode,  MapElement selection)?  $default,) {final _that = this;
 switch (_that) {
 case _MapEditorState() when $default != null:
 return $default(_that.mode,_that.selection);case _:
@@ -216,11 +207,11 @@ return $default(_that.mode,_that.selection);case _:
 
 
 class _MapEditorState implements MapEditorState {
-  const _MapEditorState({this.mode = const Idle(), this.selection = const MapSelection.none()});
+  const _MapEditorState({this.mode = const Idle(), this.selection = const NoMapElement()});
   
 
 @override@JsonKey() final  MapMode mode;
-@override@JsonKey() final  MapSelection selection;
+@override@JsonKey() final  MapElement selection;
 
 /// Create a copy of MapEditorState
 /// with the given fields replaced by the non-null parameter values.
@@ -252,11 +243,11 @@ abstract mixin class _$MapEditorStateCopyWith<$Res> implements $MapEditorStateCo
   factory _$MapEditorStateCopyWith(_MapEditorState value, $Res Function(_MapEditorState) _then) = __$MapEditorStateCopyWithImpl;
 @override @useResult
 $Res call({
- MapMode mode, MapSelection selection
+ MapMode mode, MapElement selection
 });
 
 
-@override $MapSelectionCopyWith<$Res> get selection;
+
 
 }
 /// @nodoc
@@ -273,20 +264,11 @@ class __$MapEditorStateCopyWithImpl<$Res>
   return _then(_MapEditorState(
 mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as MapMode,selection: null == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapSelection,
+as MapElement,
   ));
 }
 
-/// Create a copy of MapEditorState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$MapSelectionCopyWith<$Res> get selection {
-  
-  return $MapSelectionCopyWith<$Res>(_self.selection, (value) {
-    return _then(_self.copyWith(selection: value));
-  });
-}
+
 }
 
 /// @nodoc

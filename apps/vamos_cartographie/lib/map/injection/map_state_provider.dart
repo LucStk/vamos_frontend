@@ -30,9 +30,10 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   set mode(MapMode value) => state = state.copyWith(mode: value);
 
   @override
-  MapSelection get selection => state.selection;
+  MapElement get selection => state.selection;
+
   @override
-  set selection(MapSelection value) => state = state.copyWith(selection: value);
+  set selection(MapElement value) => state = state.copyWith(selection: value);
 
   @override
   GraphEditor get graphEditor => ref.read(graphStoreProvider(tripId).notifier);
@@ -46,7 +47,7 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
   @override
   MapEditorState build(TripId tripId) {
     Future.microtask(() => loadTripDetails());
-    return const MapEditorState(mode: Idle(), selection: NoSelection());
+    return const MapEditorState(mode: Idle(), selection: NoMapElement());
   }
 
   Future<Failure?> loadTripDetails() async {

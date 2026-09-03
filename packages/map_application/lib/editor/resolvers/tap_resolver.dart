@@ -8,17 +8,17 @@ extension TapEditor on MapEditor {
   Future<void> onTapped(MapElement element, LatLng latLng) async {
     switch ((mode, element)) {
       case (Idle _, NoMapElement _):
-        selection = MapSelection.none();
+        selection = NoMapElement();
 
       case (Idle _, MapCursor _):
         mode = Idle();
-        selection = MapSelection.none();
+        selection = NoMapElement();
 
       case (Idle _, MapSegment e):
-        selection = SegmentSelection(segmentId: e.segmentId);
+        selection = e;
 
       case (Idle _, MapVertex e):
-        selection = MapSelection.vertex(vertex: e.vertex);
+        selection = e;
 
       case _:
     }

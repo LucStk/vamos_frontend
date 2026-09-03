@@ -4,13 +4,13 @@ import 'package:trip_application/topology/domain/domain.dart';
 
 extension WaypointEditor on MapEditor {
   Future<void> createWaypointAtCursor() async {
-    if (selection.cursorLatLngOrNull case final latLng?) {
-      selection = NoSelection();
+    if (selection case MapCursor(:final latLng)) {
+      selection = NoMapElement();
       await runEffect(CreateWaypointFromPosition(latLng));
     }
   }
 
   Future<void> waypointCreated(VertexFields vertex) async {
-    selection = VertexSelection(vertex: vertex);
+    selection = MapVertex(vertex);
   }
 }
