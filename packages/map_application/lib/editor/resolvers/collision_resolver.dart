@@ -58,6 +58,25 @@ extension CollisionEditor on MapEditor {
         unawaited(runEffect(EditeSegmentFromSketch(patch: patch)));
         return true;
 
+      case (SketchEdition m, MapSketchPencil _, MapVertex v)
+          when m.correction != null && m.correction!.armed:
+        // On est en train d'éditer un segment
+        // On vient de rencontrer un vertex
+        // L'utilisateur demande donc une correction de l'itineraire
+        print("collision with segment");
+
+        List<LatLng> itineraire = addCorrection(
+          m.correction!.path,
+          m.segment.geometry,
+        );
+
+        final patch = SegmentPatchModel.fromFields(
+          m.segment,
+        ).copyWith(geometry: itineraire, endVertexId: v.vertex.id);
+
+        unawaited(runEffect(EditeSegmentFromSketch(patch: patch)));
+        return true;
+
       case (SketchCreation m, MapSketchPencil _, MapElement s)
           when m.correction != null && !m.correction!.armed:
         // Arme la correction
