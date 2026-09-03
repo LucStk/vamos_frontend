@@ -14,10 +14,10 @@ class PencilSketchLayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mapState = ref.watch(mapStateProvider(tripId));
-    final gestureState = ref.watch(gestureStateProvider(tripId));
-    if (gestureState is Dragging) {
-      return const SizedBox.shrink();
-    }
+    // final gestureState = ref.watch(gestureStateProvider(tripId));
+    // if (gestureState is Dragging) {
+    //   return const SizedBox.shrink();
+    // }
     switch (mapState.mode) {
       case SketchMode e:
         final pencilPosition = e.pencilPositionOrNull;
