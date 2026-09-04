@@ -20,7 +20,7 @@ final class GestureStateNotifierProvider
   }) : super(
          retry: null,
          name: r'gestureStateProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -59,7 +59,7 @@ final class GestureStateNotifierProvider
 }
 
 String _$gestureStateNotifierHash() =>
-    r'4f8d6245d8e73aad7946f0f92c8b766638bbd2b6';
+    r'54015241f801b386751ee026674d77b384c5e98d';
 
 final class GestureStateNotifierFamily extends $Family
     with
@@ -76,7 +76,7 @@ final class GestureStateNotifierFamily extends $Family
         name: r'gestureStateProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   GestureStateNotifierProvider call(TripId tripId) =>

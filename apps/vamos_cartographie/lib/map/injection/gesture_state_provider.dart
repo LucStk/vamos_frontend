@@ -5,7 +5,8 @@ import 'package:trip_application/trip_application.dart';
 part 'gesture_state_provider.g.dart';
 
 // lib/map/injection/gesture_state_provider.dart
-@riverpod
+
+@Riverpod(keepAlive: true)
 class GestureStateNotifier extends _$GestureStateNotifier {
   @override
   GestureState build(TripId tripId) => const EmptyState();
