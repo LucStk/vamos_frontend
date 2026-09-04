@@ -113,6 +113,60 @@ class GCreateSegmentData {
   }
 }
 
+class GCorrectSegmentData {
+  const GCorrectSegmentData({
+    required this.correctSegment,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GCorrectSegmentData.fromJson(Map<String, dynamic> json) {
+    return GCorrectSegmentData(
+      correctSegment: _i1.GSegmentFieldsData.fromJson(
+          (json['correctSegment'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GSegmentFieldsData correctSegment;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['correctSegment'] = this.correctSegment.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GCorrectSegmentData copyWith({
+    _i1.GSegmentFieldsData? correctSegment,
+    String? G__typename,
+  }) {
+    return GCorrectSegmentData(
+      correctSegment: correctSegment ?? this.correctSegment,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCorrectSegmentData &&
+            correctSegment == other.correctSegment &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, correctSegment, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GCorrectSegmentData(correctSegment: $correctSegment, G__typename: $G__typename)';
+  }
+}
+
 class GDeleteSegmentData {
   const GDeleteSegmentData({
     required this.deleteSegment,

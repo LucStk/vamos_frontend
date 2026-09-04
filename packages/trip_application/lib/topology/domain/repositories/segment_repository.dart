@@ -8,6 +8,10 @@ abstract class SegmentRepository {
   Future<Either<Failure, SegmentRemoteModel>> updateSegment(
     SegmentFields segment,
   );
+  Future<Either<Failure, SegmentRemoteModel>> correctSegment(
+    SegmentId segmentId,
+    List<LatLng> correction,
+  );
 
   Future<Either<Failure, SegmentRemoteModel>> createSegment({
     required Id<Trip> tripId,

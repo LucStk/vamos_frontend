@@ -155,31 +155,6 @@ const ImageUploadRequest = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const InsertVertexToSegmentPayload = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'InsertVertexToSegmentPayload'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'segmentLeft'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'segmentRight'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
 const LatLngInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'LatLngInput'),
   directives: [],
@@ -420,34 +395,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'insertVertexToSegment'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'vertexId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'segmentId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'InsertVertexToSegmentPayload'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'updateSegment'),
       directives: [],
       args: [
@@ -519,6 +466,34 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'correctSegment'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'SegmentCorrectionInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
         isNonNull: true,
       ),
     ),
@@ -764,6 +739,24 @@ const Query = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+  ],
+);
+const SegmentCorrectionInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SegmentCorrectionInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'correction'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    )
   ],
 );
 const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
@@ -1289,7 +1282,6 @@ const document = _i1.DocumentNode(definitions: [
   Date,
   FileAttachmentType,
   ImageUploadRequest,
-  InsertVertexToSegmentPayload,
   LatLngInput,
   LatLngType,
   MobilityType,
@@ -1297,6 +1289,7 @@ const document = _i1.DocumentNode(definitions: [
   OwnerTypeEnum,
   PoiCategory,
   Query,
+  SegmentCorrectionInput,
   SegmentCreateInput,
   SegmentType,
   SegmentUpdateInput,

@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/graphql/graphql.dart';
+import 'package:vamos_cartographie/core/mappers/geometry_mapper.dart';
 
 import 'package:vamos_cartographie/core/services/erreur_handler.dart';
 import 'package:domain_core/domain_core.dart';
@@ -50,6 +52,22 @@ class SegmentRepositoryImpl extends SegmentRepository {
       final gqlResult = await remote.updateSegment(
         id: segment.id,
         input: segment.toGQLUpdateInput(),
+      );
+      return gqlResult.toSegmentRemoteModel();
+    });
+  }
+
+  @override
+  Future<Either<Failure, SegmentRemoteModel>> correctSegment(
+    SegmentId segmentId,
+    List<LatLng> correction,
+  ) async {
+    return guard(() async {
+      final gqlResult = await remote.correctSegment(
+        id: segmentId,
+        input: GSegmentCorrectionInput(
+          correction: correction.map((m) => m.toGQLInput()).toList(),
+        ),
       );
       return gqlResult.toSegmentRemoteModel();
     });

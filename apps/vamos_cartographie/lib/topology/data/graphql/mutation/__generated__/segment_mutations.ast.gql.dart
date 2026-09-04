@@ -134,6 +134,68 @@ const CreateSegment = _i1.OperationDefinitionNode(
     ),
   ]),
 );
+const CorrectSegment = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'CorrectSegment'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'segmentId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'correction')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentCorrectionInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'correctSegment'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'segmentId')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'correction')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'SegmentFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
 const DeleteSegment = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
   name: _i1.NameNode(value: 'DeleteSegment'),
@@ -174,6 +236,7 @@ const DeleteSegment = _i1.OperationDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   UpdateSegment,
   CreateSegment,
+  CorrectSegment,
   DeleteSegment,
   _i2.SegmentFields,
   _i3.VertexFields,

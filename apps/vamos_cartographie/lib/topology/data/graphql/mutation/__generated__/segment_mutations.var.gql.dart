@@ -117,6 +117,61 @@ class GCreateSegmentVars {
   }
 }
 
+class GCorrectSegmentVars {
+  const GCorrectSegmentVars({
+    required this.segmentId,
+    required this.correction,
+  });
+
+  factory GCorrectSegmentVars.fromJson(Map<String, dynamic> json) {
+    return GCorrectSegmentVars(
+      segmentId: (json['segmentId'] as String),
+      correction: _i1.GSegmentCorrectionInput.fromJson(
+          (json['correction'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String segmentId;
+
+  final _i1.GSegmentCorrectionInput correction;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$segmentIdValue = this.segmentId;
+    _$result['segmentId'] = _$segmentIdValue;
+    final _$correctionValue = this.correction;
+    _$result['correction'] = _$correctionValue.toJson();
+    return _$result;
+  }
+
+  GCorrectSegmentVars copyWith({
+    String? segmentId,
+    _i1.GSegmentCorrectionInput? correction,
+  }) {
+    return GCorrectSegmentVars(
+      segmentId: segmentId ?? this.segmentId,
+      correction: correction ?? this.correction,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCorrectSegmentVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GCorrectSegmentVars(segmentId: $segmentId, correction: $correction)';
+  }
+}
+
 class GDeleteSegmentVars {
   const GDeleteSegmentVars({required this.segmentId});
 

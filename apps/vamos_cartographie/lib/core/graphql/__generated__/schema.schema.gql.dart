@@ -338,6 +338,48 @@ enum GPoiCategory {
   }
 }
 
+class GSegmentCorrectionInput {
+  const GSegmentCorrectionInput({required this.correction});
+
+  factory GSegmentCorrectionInput.fromJson(Map<String, dynamic> json) {
+    return GSegmentCorrectionInput(
+        correction: (json['correction'] as List<dynamic>)
+            .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+            .toList());
+  }
+
+  final List<GLatLngInput> correction;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$correctionValue = this.correction;
+    _$result['correction'] =
+        _$correctionValue.map((_$e) => _$e.toJson()).toList();
+    return _$result;
+  }
+
+  GSegmentCorrectionInput copyWith({List<GLatLngInput>? correction}) {
+    return GSegmentCorrectionInput(correction: correction ?? this.correction);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSegmentCorrectionInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSegmentCorrectionInput(correction: $correction)';
+  }
+}
+
 class GSegmentCreateInput {
   const GSegmentCreateInput({
     this.id = const Value.absent(),

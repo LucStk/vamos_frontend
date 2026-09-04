@@ -11,6 +11,14 @@ mutation CreateSegment($tripId: UUID!, $segment: SegmentCreateInput!) {
         ...SegmentFields
     }
 }
+mutation CorrectSegment(
+    $segmentId: UUID!
+    $correction: SegmentCorrectionInput!
+) {
+    correctSegment(id: $segmentId, input: $correction) {
+        ...SegmentFields
+    }
+}
 
 mutation DeleteSegment($segmentId: UUID!) {
     deleteSegment(id: $segmentId)
