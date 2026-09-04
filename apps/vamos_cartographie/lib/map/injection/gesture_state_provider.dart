@@ -13,3 +13,9 @@ class GestureStateNotifier extends _$GestureStateNotifier {
 
   void update(GestureState newState) => state = newState;
 }
+
+@riverpod
+bool isDragInProgress(Ref ref, TripId tripId) {
+  final gestureState = ref.watch(gestureStateProvider(tripId));
+  return gestureState is Dragging;
+}

@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/canvas/layers/markers/markers.dart';
+import 'package:vamos_cartographie/map/canvas//markers/markers.dart';
+import 'package:vamos_cartographie/map/injection/gesture_state_provider.dart';
 import '/map/map.dart';
 
 class PencilSketchLayer extends ConsumerWidget {
@@ -13,23 +14,20 @@ class PencilSketchLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapState = ref.watch(mapStateProvider(tripId));
-    // final gestureState = ref.watch(gestureStateProvider(tripId));
-    // if (gestureState is Dragging) {
-    //   return const SizedBox.shrink();
-    // }
-    switch (mapState.mode) {
+    final isDragging = ref.watch(isDragInProgressProvider(tripId));
+    if (isDragging) return const SizedBox.shrink();
+
+    final mode = ref.watch(mapStateProvider(tripId).select((s) => s.mode));
+
+    switch (mode) {
       case SketchMode e:
         final pencilPosition = e.pencilPositionOrNull;
-        if (pencilPosition == null) {
-          return SizedBox.shrink();
-        }
+        if (pencilPosition == null) return const SizedBox.shrink();
         return MarkerLayer(
-          markers: [Marker(point: pencilPosition, child: PencilMarker())],
+          markers: [Marker(point: pencilPosition, child: const PencilMarker())],
         );
-
       case _:
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
     }
   }
 }
