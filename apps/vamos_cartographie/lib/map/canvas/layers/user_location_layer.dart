@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/canvas/layers/widgets/markers/user_location_marker.dart';
+import 'package:vamos_cartographie/map/canvas/layers/markers/user_location_marker.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 
 class UserLocationLayer extends ConsumerWidget {

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/canvas/layers/widgets/markers/pencil_marker.dart';
+import 'package:vamos_cartographie/map/canvas/layers/markers/markers.dart';
 import '/map/map.dart';
 
 class PencilSketchLayer extends ConsumerWidget {
