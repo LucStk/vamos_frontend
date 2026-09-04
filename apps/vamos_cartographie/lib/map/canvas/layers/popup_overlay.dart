@@ -18,12 +18,10 @@
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
-//     final MapState mapCtrl = ref.watch(mapStateProvider(tripId));
-
 //     switch (mapCtrl.overlay) {
-//       case OverlayHidden():
-//         return const SizedBox.shrink();
-//       case OverlayPopup overlayPopup:
+//       case overlayhidden():
+//         return const sizedbox.shrink();
+//       case overlaypopup overlaypopup:
 //         return StreamBuilder(
 //           stream: mapController.mapEventStream,
 //           builder: (context, snapshot) {
