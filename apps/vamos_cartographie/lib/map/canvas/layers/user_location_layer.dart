@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/canvas/layers/markers/user_location_marker.dart';
+import 'package:vamos_cartographie/map/canvas//markers/user_location_marker.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 
 class UserLocationLayer extends ConsumerWidget {
@@ -9,16 +9,16 @@ class UserLocationLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final location = ref.watch(userLocationProvider);
+    final position = ref.watch(userLocationProvider.select((m) => m.position));
 
-    if (location.position == null) {
+    if (position == null) {
       return const SizedBox.shrink();
     }
 
     return MarkerLayer(
       markers: [
         Marker(
-          point: location.position!,
+          point: position,
           width: 40,
           height: 40,
           child: const UserLocationMarker(),

@@ -12,8 +12,8 @@ class SegmentSketchLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapState = ref.watch(mapStateProvider(tripId));
-    switch (mapState.mode) {
+    final mode = ref.watch(mapStateProvider(tripId).select((m) => m.mode));
+    switch (mode) {
       case SketchMode e:
         final List<Polyline<MapElement>> polylineLayer = [];
         if (e is SketchCreation) {

@@ -12,9 +12,11 @@ class CursorLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapState = ref.watch(mapStateProvider(tripId));
+    final selection = ref.watch(
+      mapStateProvider(tripId).select((m) => m.selection),
+    );
 
-    switch (mapState.selection) {
+    switch (selection) {
       case MapCursor cursorDrawn:
         return MarkerLayer(
           markers: [
