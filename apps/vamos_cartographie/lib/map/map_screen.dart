@@ -17,6 +17,8 @@ class MapScreen extends StatelessWidget {
         children: [
           MapGestureBridge(tripId: tripId),
           MapTopBar(tripId: tripId),
+
+          PopUpOverlay(tripId: tripId),
           MapBottomSheet(tripId: tripId),
         ],
       ),

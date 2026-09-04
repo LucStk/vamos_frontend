@@ -25,6 +25,7 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
 
   @override
   GraphEditor get graphEditor => ref.read(graphStoreProvider(tripId).notifier);
+
   @override
   WaypointEditor get waypointEditor =>
       ref.read(waypointStoreProvider(tripId).notifier);
