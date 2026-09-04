@@ -97,7 +97,14 @@ extension DragEditor on MapEditor {
         final patch = SegmentPatchModel.fromFields(
           m.segment,
         ).copyWith(geometry: itineraire);
-        unawaited(runEffect(EditeSegmentFromSketch(patch: patch)));
+        unawaited(
+          runEffect(
+            CorrectSegmentFromSketch(
+              patchSegment: patch,
+              correction: m.correction!.path,
+            ),
+          ),
+        );
 
       case (SketchEdition m, MapSketchPencil _, MapVertex v)
           when m.hasCorrection:

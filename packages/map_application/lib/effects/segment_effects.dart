@@ -49,6 +49,33 @@ final class EditeSegmentFromSketch extends MapEffect {
   }
 }
 
+final class CorrectSegmentFromSketch extends MapEffect {
+  final SegmentPatchModel patchSegment;
+  final List<LatLng> correction;
+  const CorrectSegmentFromSketch({
+    required this.patchSegment,
+    required this.correction,
+  });
+
+  @override
+  Future<void> run(MapEditor context) async {
+    final res = await context.graphEditor.correctSegment(
+      patchSegment,
+      correction,
+    );
+    res.fold((_) {}, (segment) {
+      context.segmentEdited(segment.id);
+      switch (context.mode) {
+        case SketchEdition e:
+          context.mode = e.copyWith(correction: null);
+        case _:
+      }
+      // context.mode = Idle();
+      // context.selection = SegmentSelection(segmentId: segment.id);
+    });
+  }
+}
+
 final class DeleteSegment extends MapEffect {
   final SegmentId segmentId;
 

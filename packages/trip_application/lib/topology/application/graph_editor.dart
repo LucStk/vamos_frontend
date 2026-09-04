@@ -42,6 +42,18 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     );
   }
 
+  Future<Either<Failure, SegmentRemoteModel>> correctSegment(
+    SegmentPatchModel patchSegment,
+    List<LatLng> correction,
+  ) async {
+    return await run(
+      onApply: (gs) => gs.setSegment(patchSegment),
+      remote: (_) => segmentRepo.correctSegment(patchSegment.id, correction),
+      onSuccess: (gs, serveurValue) => gs.setSegment(serveurValue),
+      onError: (gs, Failure failure) => gs.rollbackSegment(patchSegment.id),
+    );
+  }
+
   Future<Either<Failure, void>> deleteSegment(SegmentId segId) async {
     return await run(
       onApply: (gs) => gs,
