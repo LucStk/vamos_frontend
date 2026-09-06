@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/graphql/graphql.dart';
@@ -74,6 +75,47 @@ class SegmentRepositoryImpl extends SegmentRepository {
         ),
       );
       return gqlResult.toSegmentRemoteModel();
+    });
+  }
+
+  @override
+  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> mergeSegments({
+    required TripId tripId,
+    required List<LatLng> correction,
+    required MobilityType mobilityType,
+    SegmentId? startSegmentId,
+    SegmentId? endSegmentId,
+    VertexId? startVertexId,
+    VertexId? endVertexId,
+  }) async {
+    return guard(() async {
+      final gqlResult = await remote.mergeSegments(
+        tripId: tripId,
+        input: GSegmentMergeInput(
+          startPoint: GSegmentReferenceInput(
+            segmentId: (startSegmentId != null)
+                ? Value.present(startSegmentId.toString())
+                : Value.absent(),
+            vertexId: (startVertexId != null)
+                ? Value.present(startVertexId.toString())
+                : Value.absent(),
+          ),
+          endPoint: GSegmentReferenceInput(
+            segmentId: (endSegmentId != null)
+                ? Value.present(endSegmentId.toString())
+                : Value.absent(),
+            vertexId: (endVertexId != null)
+                ? Value.present(endVertexId.toString())
+                : Value.absent(),
+          ),
+          correction: correction.map((m) => m.toGQLInput()).toList(),
+          mobilityType: mobilityType.toGQL(),
+        ),
+      );
+      return (
+        gqlResult.deletedSegmentIds.map((i) => SegmentId(i)).toList(),
+        gqlResult.segment.toSegmentRemoteModel(),
+      );
     });
   }
 

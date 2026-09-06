@@ -61,6 +61,37 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     );
   }
 
+  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> mergeSegments({
+    required List<LatLng> correction,
+    required MobilityType mobilityType,
+    VertexId? startVertexId,
+    VertexId? endVertexId,
+    SegmentId? startSegmentId,
+    SegmentId? endSegmentId,
+  }) async {
+    return await run(
+      onApply: (gs) => gs, //.setSegment(patchSegment),
+      remote: (_) => segmentRepo.mergeSegments(
+        tripId: tripId,
+        correction: correction,
+        mobilityType: mobilityType,
+        startSegmentId: startSegmentId,
+        endSegmentId: endSegmentId,
+        startVertexId: startVertexId,
+        endVertexId: endVertexId,
+      ),
+      onSuccess: (gs, serveurValue) {
+        final (listSegmentId, segment) = serveurValue;
+        gs = gs.setSegment(segment);
+        for (SegmentId i in listSegmentId) {
+          gs = gs.removeSegment(i);
+        }
+        return gs;
+      },
+      onError: (gs, Failure failure) => gs, //.rollbackSegment(patchSegment.id),
+    );
+  }
+
   Future<Either<Failure, void>> deleteSegment(SegmentId segId) async {
     return await run(
       onApply: (gs) => gs,

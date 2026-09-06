@@ -21,6 +21,15 @@ abstract class SegmentRepository {
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   });
+  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> mergeSegments({
+    required TripId tripId,
+    required List<LatLng> correction,
+    required MobilityType mobilityType,
+    SegmentId? startSegmentId,
+    SegmentId? endSegmentId,
+    VertexId? startVertexId,
+    VertexId? endVertexId,
+  });
   Future<Either<Failure, void>> deleteSegment(SegmentId id);
   Future<Either<Failure, List<SegmentRemoteModel>>> getSegments(TripId tripId);
 }
