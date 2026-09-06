@@ -2,13 +2,13 @@ part of 'map_effects.dart';
 
 final class CreateSegmentFromSketch extends MapEffect {
   final VertexId startVertexId;
-  final VertexId endVertexId;
+  final VertexId? endVertexId;
   final List<LatLng> geometry;
   final MobilityType mobilityType;
 
   const CreateSegmentFromSketch({
     required this.startVertexId,
-    required this.endVertexId,
+    this.endVertexId,
     required this.geometry,
     required this.mobilityType,
   });
@@ -21,10 +21,11 @@ final class CreateSegmentFromSketch extends MapEffect {
       geometry: geometry,
       mobilityType: mobilityType,
     );
-    res.fold((_) {}, (segment) {
-      context.segmentCreated(segment.id);
+    res.fold((_) {}, (data) {
+      final (segment, _) = data;
+      context.segmentCreated(segment);
       context.mode = Idle();
-      context.selection = MapSegment(segment.id);
+      context.selection = MapSegment(segment);
     });
   }
 }
@@ -37,7 +38,7 @@ final class EditeSegmentFromSketch extends MapEffect {
   Future<void> run(MapEditor context) async {
     final res = await context.graphEditor.updateSegment(patch);
     res.fold((_) {}, (segment) {
-      context.segmentEdited(segment.id);
+      context.segmentEdited(segment);
       switch (context.mode) {
         case SketchEdition e:
           context.mode = e.copyWith(correction: null);
@@ -64,7 +65,7 @@ final class CorrectSegmentFromSketch extends MapEffect {
       correction,
     );
     res.fold((_) {}, (segment) {
-      context.segmentEdited(segment.id);
+      context.segmentEdited(segment);
       switch (context.mode) {
         case SketchEdition e:
           context.mode = e.copyWith(correction: null);

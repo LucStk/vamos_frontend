@@ -13,10 +13,11 @@ abstract class SegmentRepository {
     List<LatLng> correction,
   );
 
-  Future<Either<Failure, SegmentRemoteModel>> createSegment({
+  Future<Either<Failure, (SegmentRemoteModel, VertexRemoteModel)>>
+  createSegment({
     required Id<Trip> tripId,
     required VertexId startVertexId,
-    required VertexId endVertexId,
+    VertexId? endVertexId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   });

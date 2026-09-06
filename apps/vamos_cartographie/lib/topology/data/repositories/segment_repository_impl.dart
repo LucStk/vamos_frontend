@@ -25,12 +25,13 @@ class SegmentRepositoryImpl extends SegmentRepository {
   }
 
   @override
-  Future<Either<Failure, SegmentRemoteModel>> createSegment({
+  Future<Either<Failure, (SegmentRemoteModel, VertexRemoteModel)>>
+  createSegment({
     required Id<Trip> tripId,
     required VertexId startVertexId,
-    required VertexId endVertexId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
+    VertexId? endVertexId,
   }) async {
     return guard(() async {
       final gqlResult = await remote.createSegment(
@@ -40,7 +41,10 @@ class SegmentRepositoryImpl extends SegmentRepository {
         mobilityType: mobilityType,
         geometry: geometry,
       );
-      return gqlResult.toSegmentRemoteModel();
+      return (
+        gqlResult.toSegmentRemoteModel(),
+        gqlResult.toEndVertexRemoteModel(),
+      );
     });
   }
 

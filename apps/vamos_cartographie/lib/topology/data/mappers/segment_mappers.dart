@@ -1,8 +1,8 @@
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/mappers/mappers.dart';
+import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 import '/core/graphql/graphql.dart';
 import "/topology/data/graphql/graphql.dart";
-import "mobility_type_mapper.dart";
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 
 extension GSegmentFieldsMapper on GSegmentFields {
@@ -13,6 +13,7 @@ extension GSegmentFieldsMapper on GSegmentFields {
     startVertexId: VertexId(startVertex.id),
     endVertexId: VertexId(endVertex.id),
   );
+  VertexRemoteModel toEndVertexRemoteModel() => endVertex.toVertexRemoteModel();
 }
 
 extension SegmentFieldsMapper on SegmentFields {
@@ -27,7 +28,7 @@ extension SegmentFieldsMapper on SegmentFields {
     return GSegmentCreateInput(
       mobilityType: mobilityType.toGQL(),
       startVertexId: startVertexId.value,
-      endVertexId: endVertexId.value,
+      endVertexId: Value.present(endVertexId.value),
       geometry: geometry.map((m) => m.toGQLInput()).toList(),
     );
   }

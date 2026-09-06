@@ -172,6 +172,61 @@ class GCorrectSegmentVars {
   }
 }
 
+class GmergeSegmentsVars {
+  const GmergeSegmentsVars({
+    required this.tripId,
+    required this.input,
+  });
+
+  factory GmergeSegmentsVars.fromJson(Map<String, dynamic> json) {
+    return GmergeSegmentsVars(
+      tripId: (json['tripId'] as String),
+      input: _i1.GSegmentMergeInput.fromJson(
+          (json['input'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String tripId;
+
+  final _i1.GSegmentMergeInput input;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$inputValue = this.input;
+    _$result['input'] = _$inputValue.toJson();
+    return _$result;
+  }
+
+  GmergeSegmentsVars copyWith({
+    String? tripId,
+    _i1.GSegmentMergeInput? input,
+  }) {
+    return GmergeSegmentsVars(
+      tripId: tripId ?? this.tripId,
+      input: input ?? this.input,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GmergeSegmentsVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GmergeSegmentsVars(tripId: $tripId, input: $input)';
+  }
+}
+
 class GDeleteSegmentVars {
   const GDeleteSegmentVars({required this.segmentId});
 

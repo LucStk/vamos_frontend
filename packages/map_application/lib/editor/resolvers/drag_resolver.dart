@@ -41,19 +41,6 @@ extension DragEditor on MapEditor {
     LatLng latLng,
   ) async {
     switch ((mode, dragged, target)) {
-      // Permet de valider la nouvelle position du vertex sur le serveur
-      // case (Idle _, MapVertex e):
-      //   mode = Idle();
-      //   await graphEditor.moveVertex(e.vertex.id, latLng);
-      case (SketchCreation m, MapSketchPencil _, MapSketchSegment _)
-          when m.hasCorrection:
-        //Collision avec le sketchSegment en mode Creation
-        final List<LatLng> path = mergeCorrection(
-          m.correction!.path,
-          m.itineraire,
-        );
-        mode = m.copyWith(itineraire: path, correction: null);
-
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         // Le segment en cours de création viens de rencontrer un Vertex
 
@@ -68,10 +55,23 @@ extension DragEditor on MapEditor {
               startVertexId: m.vertexStart,
               endVertexId: v.vertex.id,
               geometry: itineraire,
-              mobilityType: MobilityType.bike,
+              mobilityType: m.mobilityType,
             ),
           ),
         );
+      case (SketchCreation m, MapSketchPencil _, MapSegment s):
+        final path = addPathToSegment(m.itineraire, s.segment.geometry);
+        unawaited(
+          runEffect(
+            CreateSegmentFromSketch(
+              startVertexId: m.vertexStart,
+              endVertexId: s.segment.endVertexId,
+              geometry: path,
+              mobilityType: m.mobilityType,
+            ),
+          ),
+        );
+
       case (SketchCreation m, MapSketchPencil _, MapSketchSegment _)
           when m.hasCorrection:
         //Collision avec le sketchSegment en mode Creation
@@ -84,7 +84,7 @@ extension DragEditor on MapEditor {
         mode = m.copyWith(itineraire: path, correction: null);
 
       case (SketchEdition m, MapSketchPencil _, MapSegment s)
-          when m.hasCorrection && s.segmentId == m.segment.id:
+          when m.hasCorrection && s.segment.id == m.segment.id:
         // On est en train d'éditer un segment
         // On vient de rencontrer le même segment
         // L'utilisateur demande donc une correction de l'itineraire

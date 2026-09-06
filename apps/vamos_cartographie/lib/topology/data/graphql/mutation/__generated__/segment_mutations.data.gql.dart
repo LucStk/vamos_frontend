@@ -167,6 +167,60 @@ class GCorrectSegmentData {
   }
 }
 
+class GmergeSegmentsData {
+  const GmergeSegmentsData({
+    required this.mergeSegments,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GmergeSegmentsData.fromJson(Map<String, dynamic> json) {
+    return GmergeSegmentsData(
+      mergeSegments: _i1.GSegmentMergePayloadFragmentData.fromJson(
+          (json['mergeSegments'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GSegmentMergePayloadFragmentData mergeSegments;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['mergeSegments'] = this.mergeSegments.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GmergeSegmentsData copyWith({
+    _i1.GSegmentMergePayloadFragmentData? mergeSegments,
+    String? G__typename,
+  }) {
+    return GmergeSegmentsData(
+      mergeSegments: mergeSegments ?? this.mergeSegments,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GmergeSegmentsData &&
+            mergeSegments == other.mergeSegments &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, mergeSegments, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GmergeSegmentsData(mergeSegments: $mergeSegments, G__typename: $G__typename)';
+  }
+}
+
 class GDeleteSegmentData {
   const GDeleteSegmentData({
     required this.deleteSegment,

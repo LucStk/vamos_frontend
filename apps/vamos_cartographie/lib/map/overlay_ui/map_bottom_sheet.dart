@@ -41,7 +41,7 @@ class MapBottomSheet extends ConsumerWidget {
             }
             return VertexBottomSheet(tripId: tripId, vertexId: e.vertex.id);
           case MapSegment e:
-            return SegmentBottomSheet(tripId: tripId, segmentId: e.segmentId);
+            return SegmentBottomSheet(tripId: tripId, segmentId: e.segment.id);
           case _:
             return const SizedBox.shrink();
         }

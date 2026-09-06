@@ -225,6 +225,8 @@ const document = _i1.DocumentNode(definitions: [
   GetTrip,
   GetTripDetails,
   _i2.SegmentFields,
+  _i2.SegmentMergePayloadFragment,
+  _i2.MergeSegment,
   _i3.VertexFields,
   _i4.LatLngFields,
   _i5.TripFields,

@@ -43,8 +43,8 @@ class MapVertex extends MapElement {
 }
 
 class MapSegment extends MapElement {
-  final SegmentId segmentId;
-  const MapSegment(this.segmentId);
+  final SegmentFields segment;
+  const MapSegment(this.segment);
 }
 
 /// Deux hits désignent-ils le même objet métier ?
@@ -56,7 +56,7 @@ bool isSameHitTarget(MapElement a, MapElement b) => switch ((a, b)) {
   (MapCursor(), MapCursor()) => true,
   (MapSketchPencil _, MapSketchPencil _) => true,
   (MapSketchSegment _, MapSketchSegment _) => true,
-  (MapSegment(segmentId: final sa), MapSegment(segmentId: final sb)) =>
-    sa == sb,
+  (MapSegment(segment: final sa), MapSegment(segment: final sb)) =>
+    sa.id == sb.id,
   _ => false,
 };

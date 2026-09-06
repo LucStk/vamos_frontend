@@ -107,13 +107,15 @@ class MapHitTester {
   ];
 
   Iterable<HitCandidate> _pencilCandidate() sync* {
-    final pencilLatLng = hitMode.pencilPositionOrNull;
-    if (pencilLatLng == null) return;
-    yield PointCandidate(
-      point: project(pencilLatLng),
-      radiusPx: thresholds.pencilRadiusPx,
-      element: MapSketchPencil(pencilLatLng),
-    );
+    if (hitMode case SketchMode()) {
+      final pencilLatLng = (hitMode as SketchMode).pencilPositionOrNull;
+      if (pencilLatLng == null) return;
+      yield PointCandidate(
+        point: project(pencilLatLng),
+        radiusPx: thresholds.pencilRadiusPx,
+        element: MapSketchPencil(pencilLatLng),
+      );
+    }
   }
 
   Iterable<HitCandidate> _vertexCandidates(Point<double> position) {
@@ -141,7 +143,7 @@ class MapHitTester {
               (v) => PolylineCandidate(
                 projectedPoints: v.geometry.map((l) => project(l)).toList(),
                 radiusPx: thresholds.segmentRadiusPx,
-                element: MapSegment(v.id),
+                element: MapSegment(v),
               ),
             )
             .where((c) => _isWithinRange(c, position))
@@ -153,13 +155,15 @@ class MapHitTester {
   }
 
   Iterable<HitCandidate> _sketchPolylineCandidates() sync* {
-    final sketchSegment = hitMode.sketchSegmentGeometryOrNull;
-    if (sketchSegment == null) return;
-    yield PolylineCandidate(
-      projectedPoints: sketchSegment.map((l) => project(l)).toList(),
-      radiusPx: thresholds.segmentRadiusPx,
-      element: MapSketchSegment(),
-    );
+    if (hitMode case SketchMode()) {
+      final sketchSegment = (hitMode as SketchMode).sketchSegmentGeometryOrNull;
+      if (sketchSegment == null) return;
+      yield PolylineCandidate(
+        projectedPoints: sketchSegment.map((l) => project(l)).toList(),
+        radiusPx: thresholds.segmentRadiusPx,
+        element: MapSketchSegment(),
+      );
+    }
   }
 
   Iterable<HitCandidate> _cursorCandidate() sync* {

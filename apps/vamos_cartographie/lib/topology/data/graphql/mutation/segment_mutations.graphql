@@ -15,8 +15,13 @@ mutation CorrectSegment(
     $segmentId: UUID!
     $correction: SegmentCorrectionInput!
 ) {
-    correctSegment(id: $segmentId, input: $correction) {
+    correctSegment(segmentId: $segmentId, input: $correction) {
         ...SegmentFields
+    }
+}
+mutation mergeSegments($tripId: UUID!, $input: SegmentMergeInput!) {
+    mergeSegments(tripId: $tripId, input: $input) {
+        ...SegmentMergePayloadFragment
     }
 }
 

@@ -313,7 +313,7 @@ final class IsSegmentSelectedProvider
   }
 }
 
-String _$isSegmentSelectedHash() => r'3ed85c10f39bf526ec5884bdf3bbb0658b66cb60';
+String _$isSegmentSelectedHash() => r'd6eafb9e0a013dde2c164c1fbeff67093da058e8';
 
 final class IsSegmentSelectedFamily extends $Family
     with $FunctionalFamilyOverride<bool, (TripId, SegmentId)> {

@@ -339,27 +339,50 @@ enum GPoiCategory {
 }
 
 class GSegmentCorrectionInput {
-  const GSegmentCorrectionInput({required this.correction});
+  const GSegmentCorrectionInput({
+    required this.correction,
+    this.endVertexId = const Value.absent(),
+  });
 
   factory GSegmentCorrectionInput.fromJson(Map<String, dynamic> json) {
     return GSegmentCorrectionInput(
-        correction: (json['correction'] as List<dynamic>)
-            .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-            .toList());
+      correction: (json['correction'] as List<dynamic>)
+          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      endVertexId: json.containsKey('endVertexId')
+          ? Value.present(json['endVertexId'] == null
+              ? null
+              : (json['endVertexId'] as String))
+          : Value.absent(),
+    );
   }
 
   final List<GLatLngInput> correction;
+
+  final Value<String> endVertexId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     final _$correctionValue = this.correction;
     _$result['correction'] =
         _$correctionValue.map((_$e) => _$e.toJson()).toList();
+    final _$endVertexIdValue = this.endVertexId;
+    if (_$endVertexIdValue.isPresent) {
+      final _$endVertexIdRequired = _$endVertexIdValue.requireValue;
+      _$result['endVertexId'] =
+          _$endVertexIdRequired == null ? null : _$endVertexIdRequired;
+    }
     return _$result;
   }
 
-  GSegmentCorrectionInput copyWith({List<GLatLngInput>? correction}) {
-    return GSegmentCorrectionInput(correction: correction ?? this.correction);
+  GSegmentCorrectionInput copyWith({
+    List<GLatLngInput>? correction,
+    Value<String>? endVertexId,
+  }) {
+    return GSegmentCorrectionInput(
+      correction: correction ?? this.correction,
+      endVertexId: endVertexId ?? this.endVertexId,
+    );
   }
 
   @override
@@ -376,7 +399,7 @@ class GSegmentCorrectionInput {
 
   @override
   String toString() {
-    return 'GSegmentCorrectionInput(correction: $correction)';
+    return 'GSegmentCorrectionInput(correction: $correction, endVertexId: $endVertexId)';
   }
 }
 
@@ -385,7 +408,7 @@ class GSegmentCreateInput {
     this.id = const Value.absent(),
     required this.mobilityType,
     required this.startVertexId,
-    required this.endVertexId,
+    this.endVertexId = const Value.absent(),
     required this.geometry,
   });
 
@@ -396,7 +419,11 @@ class GSegmentCreateInput {
           : Value.absent(),
       mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
       startVertexId: (json['startVertexId'] as String),
-      endVertexId: (json['endVertexId'] as String),
+      endVertexId: json.containsKey('endVertexId')
+          ? Value.present(json['endVertexId'] == null
+              ? null
+              : (json['endVertexId'] as String))
+          : Value.absent(),
       geometry: (json['geometry'] as List<dynamic>)
           .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
@@ -409,7 +436,7 @@ class GSegmentCreateInput {
 
   final String startVertexId;
 
-  final String endVertexId;
+  final Value<String> endVertexId;
 
   final List<GLatLngInput> geometry;
 
@@ -425,7 +452,11 @@ class GSegmentCreateInput {
     final _$startVertexIdValue = this.startVertexId;
     _$result['startVertexId'] = _$startVertexIdValue;
     final _$endVertexIdValue = this.endVertexId;
-    _$result['endVertexId'] = _$endVertexIdValue;
+    if (_$endVertexIdValue.isPresent) {
+      final _$endVertexIdRequired = _$endVertexIdValue.requireValue;
+      _$result['endVertexId'] =
+          _$endVertexIdRequired == null ? null : _$endVertexIdRequired;
+    }
     final _$geometryValue = this.geometry;
     _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
     return _$result;
@@ -435,7 +466,7 @@ class GSegmentCreateInput {
     Value<String>? id,
     GMobilityType? mobilityType,
     String? startVertexId,
-    String? endVertexId,
+    Value<String>? endVertexId,
     List<GLatLngInput>? geometry,
   }) {
     return GSegmentCreateInput(
@@ -465,12 +496,153 @@ class GSegmentCreateInput {
   }
 }
 
+class GSegmentMergeInput {
+  const GSegmentMergeInput({
+    required this.startPoint,
+    required this.endPoint,
+    required this.correction,
+    required this.mobilityType,
+  });
+
+  factory GSegmentMergeInput.fromJson(Map<String, dynamic> json) {
+    return GSegmentMergeInput(
+      startPoint: GSegmentReferenceInput.fromJson(
+          (json['startPoint'] as Map<String, dynamic>)),
+      endPoint: GSegmentReferenceInput.fromJson(
+          (json['endPoint'] as Map<String, dynamic>)),
+      correction: (json['correction'] as List<dynamic>)
+          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
+    );
+  }
+
+  final GSegmentReferenceInput startPoint;
+
+  final GSegmentReferenceInput endPoint;
+
+  final List<GLatLngInput> correction;
+
+  final GMobilityType mobilityType;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$startPointValue = this.startPoint;
+    _$result['startPoint'] = _$startPointValue.toJson();
+    final _$endPointValue = this.endPoint;
+    _$result['endPoint'] = _$endPointValue.toJson();
+    final _$correctionValue = this.correction;
+    _$result['correction'] =
+        _$correctionValue.map((_$e) => _$e.toJson()).toList();
+    final _$mobilityTypeValue = this.mobilityType;
+    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
+    return _$result;
+  }
+
+  GSegmentMergeInput copyWith({
+    GSegmentReferenceInput? startPoint,
+    GSegmentReferenceInput? endPoint,
+    List<GLatLngInput>? correction,
+    GMobilityType? mobilityType,
+  }) {
+    return GSegmentMergeInput(
+      startPoint: startPoint ?? this.startPoint,
+      endPoint: endPoint ?? this.endPoint,
+      correction: correction ?? this.correction,
+      mobilityType: mobilityType ?? this.mobilityType,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSegmentMergeInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSegmentMergeInput(startPoint: $startPoint, endPoint: $endPoint, correction: $correction, mobilityType: $mobilityType)';
+  }
+}
+
+class GSegmentReferenceInput {
+  const GSegmentReferenceInput({
+    this.segmentId = const Value.absent(),
+    this.vertexId = const Value.absent(),
+  });
+
+  factory GSegmentReferenceInput.fromJson(Map<String, dynamic> json) {
+    return GSegmentReferenceInput(
+      segmentId: json.containsKey('segmentId')
+          ? Value.present(
+              json['segmentId'] == null ? null : (json['segmentId'] as String))
+          : Value.absent(),
+      vertexId: json.containsKey('vertexId')
+          ? Value.present(
+              json['vertexId'] == null ? null : (json['vertexId'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final Value<String> segmentId;
+
+  final Value<String> vertexId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$segmentIdValue = this.segmentId;
+    if (_$segmentIdValue.isPresent) {
+      final _$segmentIdRequired = _$segmentIdValue.requireValue;
+      _$result['segmentId'] =
+          _$segmentIdRequired == null ? null : _$segmentIdRequired;
+    }
+    final _$vertexIdValue = this.vertexId;
+    if (_$vertexIdValue.isPresent) {
+      final _$vertexIdRequired = _$vertexIdValue.requireValue;
+      _$result['vertexId'] =
+          _$vertexIdRequired == null ? null : _$vertexIdRequired;
+    }
+    return _$result;
+  }
+
+  GSegmentReferenceInput copyWith({
+    Value<String>? segmentId,
+    Value<String>? vertexId,
+  }) {
+    return GSegmentReferenceInput(
+      segmentId: segmentId ?? this.segmentId,
+      vertexId: vertexId ?? this.vertexId,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSegmentReferenceInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSegmentReferenceInput(segmentId: $segmentId, vertexId: $vertexId)';
+  }
+}
+
 class GSegmentUpdateInput {
   const GSegmentUpdateInput({
     required this.geometry,
     this.mobilityType = const Value.absent(),
-    this.startVertexId = const Value.absent(),
-    this.endVertexId = const Value.absent(),
   });
 
   factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
@@ -483,26 +655,12 @@ class GSegmentUpdateInput {
               ? null
               : GMobilityType.fromJson((json['mobilityType'] as String)))
           : Value.absent(),
-      startVertexId: json.containsKey('startVertexId')
-          ? Value.present(json['startVertexId'] == null
-              ? null
-              : (json['startVertexId'] as String))
-          : Value.absent(),
-      endVertexId: json.containsKey('endVertexId')
-          ? Value.present(json['endVertexId'] == null
-              ? null
-              : (json['endVertexId'] as String))
-          : Value.absent(),
     );
   }
 
   final List<GLatLngInput> geometry;
 
   final Value<GMobilityType> mobilityType;
-
-  final Value<String> startVertexId;
-
-  final Value<String> endVertexId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -515,32 +673,16 @@ class GSegmentUpdateInput {
           ? null
           : _$mobilityTypeRequired.toJson();
     }
-    final _$startVertexIdValue = this.startVertexId;
-    if (_$startVertexIdValue.isPresent) {
-      final _$startVertexIdRequired = _$startVertexIdValue.requireValue;
-      _$result['startVertexId'] =
-          _$startVertexIdRequired == null ? null : _$startVertexIdRequired;
-    }
-    final _$endVertexIdValue = this.endVertexId;
-    if (_$endVertexIdValue.isPresent) {
-      final _$endVertexIdRequired = _$endVertexIdValue.requireValue;
-      _$result['endVertexId'] =
-          _$endVertexIdRequired == null ? null : _$endVertexIdRequired;
-    }
     return _$result;
   }
 
   GSegmentUpdateInput copyWith({
     List<GLatLngInput>? geometry,
     Value<GMobilityType>? mobilityType,
-    Value<String>? startVertexId,
-    Value<String>? endVertexId,
   }) {
     return GSegmentUpdateInput(
       geometry: geometry ?? this.geometry,
       mobilityType: mobilityType ?? this.mobilityType,
-      startVertexId: startVertexId ?? this.startVertexId,
-      endVertexId: endVertexId ?? this.endVertexId,
     );
   }
 
@@ -558,7 +700,7 @@ class GSegmentUpdateInput {
 
   @override
   String toString() {
-    return 'GSegmentUpdateInput(geometry: $geometry, mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId)';
+    return 'GSegmentUpdateInput(geometry: $geometry, mobilityType: $mobilityType)';
   }
 }
 

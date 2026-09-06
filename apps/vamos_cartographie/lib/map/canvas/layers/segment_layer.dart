@@ -48,7 +48,7 @@ class SegmentLayer extends ConsumerWidget {
           strokeWidth: isSelected
               ? 5
               : 3, // Légèrement plus épais quand sélectionné
-          hitValue: MapSegment(segment.id),
+          hitValue: MapSegment(segment),
           pattern: segment.mobilityTypeDisplay.isDashed
               ? StrokePattern.dashed(segments: const [12, 8])
               : const StrokePattern.solid(),

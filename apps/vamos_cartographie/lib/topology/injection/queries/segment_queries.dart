@@ -40,7 +40,7 @@ bool isSegmentSelected(Ref ref, TripId tripId, SegmentId segId) {
   return ref.watch(
     mapStateProvider(tripId).select((s) {
       return switch (s.selection) {
-        MapSegment e => (segId == e.segmentId),
+        MapSegment e => (segId == e.segment.id),
         _ => false,
       };
     }),

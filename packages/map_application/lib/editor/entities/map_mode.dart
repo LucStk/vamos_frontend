@@ -1,6 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/editor/utiles/merge_polyline.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
 part 'map_mode.freezed.dart';
@@ -48,15 +49,26 @@ sealed class SketchMode extends MapMode with _$SketchMode {
   }
 }
 
-extension SketchX on MapMode {
+extension SketchX on SketchMode {
+  List<LatLng>? get rawGeometry {
+    switch (this) {
+      case SketchCreation e:
+        List<LatLng> itineraire = e.itineraire;
+        if (e.correction != null) {
+          itineraire = addCorrection(e.correction!.path, itineraire);
+        }
+        return itineraire;
+      case SketchEdition e:
+        return e.correction?.path;
+    }
+  }
+
   LatLng? get pencilPositionOrNull {
     switch (this) {
       case SketchCreation e:
         return e.correction?.path.last ?? e.itineraire.last;
       case SketchEdition e:
         return e.correction?.path.last;
-      case _:
-        return null;
     }
   }
 
@@ -66,8 +78,6 @@ extension SketchX on MapMode {
         return e.itineraire;
       case SketchEdition e:
         return e.segment.geometry;
-      case _:
-        return null;
     }
   }
 }

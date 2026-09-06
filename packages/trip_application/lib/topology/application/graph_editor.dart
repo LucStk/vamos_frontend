@@ -12,9 +12,10 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   SegmentRepository get segmentRepo;
   VertexRepository get vertexRepo;
 
-  Future<Either<Failure, SegmentRemoteModel>> createSegment({
+  Future<Either<Failure, (SegmentRemoteModel, VertexRemoteModel)>>
+  createSegment({
     required VertexId startVertexId,
-    required VertexId endVertexId,
+    VertexId? endVertexId,
     required List<LatLng> geometry,
     required MobilityType mobilityType,
   }) async {
@@ -27,7 +28,13 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
         mobilityType: mobilityType,
         geometry: geometry,
       ),
-      onSuccess: (gs, serveurValue) => gs.insertSegment(serveurValue),
+      onSuccess: (gs, serveurValue) {
+        final (segment, vertex) = serveurValue;
+        gs.insertSegment(segment);
+        if (endVertexId == null) {
+          gs.insertVertex(vertex);
+        }
+      },
     );
   }
 

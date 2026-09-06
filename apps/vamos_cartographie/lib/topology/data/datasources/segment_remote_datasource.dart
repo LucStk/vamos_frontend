@@ -1,3 +1,4 @@
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/mappers/mappers.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
@@ -32,7 +33,7 @@ class SegmentRemoteDatasource {
   Future<GSegmentFields> createSegment({
     required Id<Trip> tripId,
     required VertexId startVertexId,
-    required VertexId endVertexId,
+    VertexId? endVertexId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   }) async {
@@ -42,7 +43,9 @@ class SegmentRemoteDatasource {
           tripId: tripId.value,
           segment: GSegmentCreateInput(
             startVertexId: startVertexId.value,
-            endVertexId: endVertexId.value,
+            endVertexId: (endVertexId != null)
+                ? Value.present(endVertexId.value)
+                : Value.absent(),
             mobilityType: mobilityType.toGQL(),
             geometry: geometry.map((m) => m.toGQLInput()).toList(),
           ),

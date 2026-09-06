@@ -62,7 +62,8 @@ type Mutation {
   updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: UUID!, input: SegmentCreateInput!): SegmentType!
   deleteSegment(id: UUID!): Boolean!
-  correctSegment(id: UUID!, input: SegmentCorrectionInput!): SegmentType!
+  correctSegment(segmentId: UUID!, input: SegmentCorrectionInput!): SegmentType!
+  mergeSegments(tripId: UUID!, input: SegmentMergeInput!): SegmentMergePayload!
   moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
   createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: UUID!): Boolean!
@@ -99,14 +100,32 @@ type Query {
 
 input SegmentCorrectionInput {
   correction: [LatLngInput!]!
+  endVertexId: UUID
 }
 
 input SegmentCreateInput {
   id: UUID
   mobilityType: MobilityType!
   startVertexId: UUID!
-  endVertexId: UUID!
+  endVertexId: UUID
   geometry: [LatLngInput!]!
+}
+
+input SegmentMergeInput {
+  startPoint: SegmentReferenceInput!
+  endPoint: SegmentReferenceInput!
+  correction: [LatLngInput!]!
+  mobilityType: MobilityType!
+}
+
+type SegmentMergePayload {
+  segment: SegmentType!
+  deletedSegmentIds: [UUID!]!
+}
+
+input SegmentReferenceInput {
+  segmentId: UUID = null
+  vertexId: UUID = null
 }
 
 type SegmentType {
@@ -120,8 +139,6 @@ type SegmentType {
 input SegmentUpdateInput {
   geometry: [LatLngInput!]!
   mobilityType: MobilityType
-  startVertexId: UUID
-  endVertexId: UUID
 }
 
 type StoredFileType {
