@@ -63,10 +63,10 @@ extension DragEditor on MapEditor {
         final path = addPathToSegment(m.itineraire, s.segment.geometry);
         unawaited(
           runEffect(
-            CreateSegmentFromSketch(
+            SpliceSegment(
               startVertexId: m.vertexStart,
-              endVertexId: s.segment.endVertexId,
-              geometry: path,
+              endSegmentId: s.segment.id,
+              correction: m.itineraire,
               mobilityType: m.mobilityType,
             ),
           ),
@@ -88,7 +88,6 @@ extension DragEditor on MapEditor {
         // On est en train d'éditer un segment
         // On vient de rencontrer le même segment
         // L'utilisateur demande donc une correction de l'itineraire
-        print("collision with segment");
 
         List<LatLng> itineraire = mergeCorrection(
           m.correction!.path,
@@ -97,6 +96,7 @@ extension DragEditor on MapEditor {
         final patch = SegmentPatchModel.fromFields(
           m.segment,
         ).copyWith(geometry: itineraire);
+
         unawaited(
           runEffect(
             CorrectSegmentFromSketch(
@@ -111,19 +111,32 @@ extension DragEditor on MapEditor {
         // On est en train d'éditer un segment
         // On vient de rencontrer un vertex
         // L'utilisateur demande donc une correction de l'itineraire
-        print("collision with segment");
-
-        List<LatLng> itineraire = addCorrection(
-          m.correction!.path,
-          m.segment.geometry,
+        unawaited(
+          runEffect(
+            SpliceSegment(
+              startSegmentId: m.segment.id,
+              endVertexId: v.vertex.id,
+              correction: m.correction!.path,
+              mobilityType: m.segment.mobilityType,
+            ),
+          ),
         );
+      case (SketchEdition m, MapSketchPencil _, MapSegment s)
+          when m.hasCorrection && s.segment.id != m.segment.id:
+        // On est en train d'éditer un segment
+        // On vient de rencontrer un autre segment
+        // L'utilisateur demande donc une correction de l'itineraire
 
-        final patch = SegmentPatchModel.fromFields(
-          m.segment,
-        ).copyWith(geometry: itineraire, endVertexId: v.vertex.id);
-
-        unawaited(runEffect(EditeSegmentFromSketch(patch: patch)));
-
+        unawaited(
+          runEffect(
+            SpliceSegment(
+              startSegmentId: m.segment.id,
+              endSegmentId: s.segment.id,
+              correction: m.correction!.path,
+              mobilityType: m.segment.mobilityType,
+            ),
+          ),
+        );
       case _:
     }
   }

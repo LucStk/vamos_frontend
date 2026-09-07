@@ -65,7 +65,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
     );
   }
 
-  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> mergeSegments({
+  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> spliceSegment({
     required List<LatLng> correction,
     required MobilityType mobilityType,
     VertexId? startVertexId,

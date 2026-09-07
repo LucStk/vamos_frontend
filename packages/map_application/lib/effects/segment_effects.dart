@@ -30,6 +30,48 @@ final class CreateSegmentFromSketch extends MapEffect {
   }
 }
 
+final class SpliceSegment extends MapEffect {
+  final List<LatLng> correction;
+  final MobilityType mobilityType;
+  final VertexId? startVertexId;
+  final VertexId? endVertexId;
+  final SegmentId? startSegmentId;
+  final SegmentId? endSegmentId;
+
+  const SpliceSegment({
+    required this.correction,
+    required this.mobilityType,
+    this.startVertexId,
+    this.endVertexId,
+    this.startSegmentId,
+    this.endSegmentId,
+  });
+
+  @override
+  Future<void> run(MapEditor context) async {
+    final res = await context.graphEditor.spliceSegment(
+      correction: correction,
+      mobilityType: mobilityType,
+      startVertexId: startVertexId,
+      endVertexId: endVertexId,
+      startSegmentId: startSegmentId,
+      endSegmentId: endSegmentId,
+    );
+
+    res.fold((_) {}, (data) {
+      final (_, segment) = data;
+      context.segmentEdited(segment);
+      switch (context.mode) {
+        case SketchEdition e:
+          context.mode = e.copyWith(correction: null);
+        case _:
+      }
+      // context.mode = Idle();
+      // context.selection = SegmentSelection(segmentId: segment.id);
+    });
+  }
+}
+
 final class EditeSegmentFromSketch extends MapEffect {
   final SegmentPatchModel patch;
   const EditeSegmentFromSketch({required this.patch});
