@@ -40,11 +40,11 @@ extension SpliceAnchorMapper on SpliceAnchor {
       case VertexAnchor v:
         return GSegmentAnchorInput(
           segmentId: Value.absent(),
-          vertexId: Value.present(v.id.toString()),
+          vertexId: Value.present(v.id.value),
         );
       case SegmentAnchor s:
         return GSegmentAnchorInput(
-          segmentId: Value.present(s.id.toString()),
+          segmentId: Value.present(s.id.value),
           vertexId: Value.absent(),
         );
     }

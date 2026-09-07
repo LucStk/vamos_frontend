@@ -2,12 +2,7 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/mappers/mappers.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/graphql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/segment_mutations.req.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/segment_mutations.var.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/segment_queries.req.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/segment_queries.var.gql.dart';
 import 'package:vamos_cartographie/topology/data/mappers/mobility_type_mapper.dart';
 
 import '/core/graphql/graphql.dart';

@@ -780,7 +780,7 @@ const SegmentAnchorInput = _i1.InputObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'UUID'),
         isNonNull: false,
       ),
-      defaultValue: _i1.NullValueNode(),
+      defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'vertexId'),
@@ -789,7 +789,7 @@ const SegmentAnchorInput = _i1.InputObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'UUID'),
         isNonNull: false,
       ),
-      defaultValue: _i1.NullValueNode(),
+      defaultValue: null,
     ),
   ],
 );
