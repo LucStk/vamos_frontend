@@ -19,9 +19,9 @@ mutation CorrectSegment(
         ...SegmentFields
     }
 }
-mutation mergeSegments($tripId: UUID!, $input: SegmentMergeInput!) {
-    mergeSegments(tripId: $tripId, input: $input) {
-        ...SegmentMergePayloadFragment
+mutation spliceSegment($tripId: UUID!, $input: SpliceSegmentInput!) {
+    spliceSegment(tripId: $tripId, input: $input) {
+        ...SegmentSplicePayloadFragment
     }
 }
 

@@ -30,10 +30,14 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
       ),
       onSuccess: (gs, serveurValue) {
         final (segment, vertex) = serveurValue;
-        gs.insertSegment(segment);
+        gs = gs.insertSegment(segment);
         if (endVertexId == null) {
-          gs.insertVertex(vertex);
+          return gs.insertVertex(vertex);
         }
+        return gs;
+      },
+      onError: (gs, Failure failure) {
+        print("error create segment $failure");
       },
     );
   }

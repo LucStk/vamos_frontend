@@ -525,10 +525,10 @@ class GCorrectSegmentReq
   }
 }
 
-class GmergeSegmentsReq
+class GspliceSegmentReq
     implements
-        _i1.OperationRequest<_i2.GmergeSegmentsData, _i3.GmergeSegmentsVars> {
-  GmergeSegmentsReq({
+        _i1.OperationRequest<_i2.GspliceSegmentData, _i3.GspliceSegmentVars> {
+  GspliceSegmentReq({
     required this.vars,
     _i4.Operation? operation,
     this.requestId,
@@ -541,18 +541,18 @@ class GmergeSegmentsReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i3.GmergeSegmentsVars vars;
+  final _i3.GspliceSegmentVars vars;
 
   final _i4.Operation operation;
 
   final String? requestId;
 
-  final _i2.GmergeSegmentsData? Function(
-    _i2.GmergeSegmentsData?,
-    _i2.GmergeSegmentsData?,
+  final _i2.GspliceSegmentData? Function(
+    _i2.GspliceSegmentData?,
+    _i2.GspliceSegmentData?,
   )? updateResult;
 
-  final _i2.GmergeSegmentsData? optimisticResponse;
+  final _i2.GspliceSegmentData? optimisticResponse;
 
   final String? updateCacheHandlerKey;
 
@@ -565,16 +565,16 @@ class GmergeSegmentsReq
   final _i4.Context? context;
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.mergeSegments,
+    _i6.spliceSegment,
     _i7.SegmentFields,
-    _i7.SegmentMergePayloadFragment,
+    _i7.SegmentSplicePayloadFragment,
     _i8.VertexFields,
     _i9.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,
-    operationName: 'mergeSegments',
+    operationName: 'spliceSegment',
   );
 
   _i4.Request get execRequest => _i4.Request(
@@ -583,16 +583,16 @@ class GmergeSegmentsReq
         context: context ?? const _i4.Context(),
       );
 
-  _i2.GmergeSegmentsData? parseData(Map<String, dynamic> json) =>
-      _i2.GmergeSegmentsData.fromJson(json);
+  _i2.GspliceSegmentData? parseData(Map<String, dynamic> json) =>
+      _i2.GspliceSegmentData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => vars.toJson();
 
-  Map<String, dynamic> dataToJson(_i2.GmergeSegmentsData data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GspliceSegmentData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GmergeSegmentsData, _i3.GmergeSegmentsVars>
+  _i1.OperationRequest<_i2.GspliceSegmentData, _i3.GspliceSegmentVars>
       transformOperation(_i4.Operation Function(_i4.Operation) transform) {
-    return GmergeSegmentsReq(
+    return GspliceSegmentReq(
       vars: vars,
       operation: transform(operation),
       requestId: requestId,
@@ -606,17 +606,17 @@ class GmergeSegmentsReq
     );
   }
 
-  GmergeSegmentsReq copyWith({
-    _i3.GmergeSegmentsVars? vars,
+  GspliceSegmentReq copyWith({
+    _i3.GspliceSegmentVars? vars,
     _i4.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GmergeSegmentsData? Function(
-      _i2.GmergeSegmentsData?,
-      _i2.GmergeSegmentsData?,
+    _i2.GspliceSegmentData? Function(
+      _i2.GspliceSegmentData?,
+      _i2.GspliceSegmentData?,
     )? updateResult,
     bool updateResultIsSet = false,
-    _i2.GmergeSegmentsData? optimisticResponse,
+    _i2.GspliceSegmentData? optimisticResponse,
     bool optimisticResponseIsSet = false,
     String? updateCacheHandlerKey,
     bool updateCacheHandlerKeyIsSet = false,
@@ -628,7 +628,7 @@ class GmergeSegmentsReq
     _i4.Context? context,
     bool contextIsSet = false,
   }) {
-    return GmergeSegmentsReq(
+    return GspliceSegmentReq(
       vars: vars ?? this.vars,
       operation: operation ?? this.operation,
       requestId:
@@ -658,7 +658,7 @@ class GmergeSegmentsReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GmergeSegmentsReq &&
+        (other is GspliceSegmentReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             operation == other.operation &&
             requestId == other.requestId &&
@@ -690,7 +690,7 @@ class GmergeSegmentsReq
 
   @override
   String toString() {
-    return 'GmergeSegmentsReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+    return 'GspliceSegmentReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
   }
 }
 

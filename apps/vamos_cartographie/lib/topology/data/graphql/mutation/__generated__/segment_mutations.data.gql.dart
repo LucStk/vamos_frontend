@@ -167,37 +167,37 @@ class GCorrectSegmentData {
   }
 }
 
-class GmergeSegmentsData {
-  const GmergeSegmentsData({
-    required this.mergeSegments,
+class GspliceSegmentData {
+  const GspliceSegmentData({
+    required this.spliceSegment,
     this.G__typename = 'Mutation',
   });
 
-  factory GmergeSegmentsData.fromJson(Map<String, dynamic> json) {
-    return GmergeSegmentsData(
-      mergeSegments: _i1.GSegmentMergePayloadFragmentData.fromJson(
-          (json['mergeSegments'] as Map<String, dynamic>)),
+  factory GspliceSegmentData.fromJson(Map<String, dynamic> json) {
+    return GspliceSegmentData(
+      spliceSegment: _i1.GSegmentSplicePayloadFragmentData.fromJson(
+          (json['spliceSegment'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GSegmentMergePayloadFragmentData mergeSegments;
+  final _i1.GSegmentSplicePayloadFragmentData spliceSegment;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['mergeSegments'] = this.mergeSegments.toJson();
+    _$result['spliceSegment'] = this.spliceSegment.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
-  GmergeSegmentsData copyWith({
-    _i1.GSegmentMergePayloadFragmentData? mergeSegments,
+  GspliceSegmentData copyWith({
+    _i1.GSegmentSplicePayloadFragmentData? spliceSegment,
     String? G__typename,
   }) {
-    return GmergeSegmentsData(
-      mergeSegments: mergeSegments ?? this.mergeSegments,
+    return GspliceSegmentData(
+      spliceSegment: spliceSegment ?? this.spliceSegment,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -205,19 +205,19 @@ class GmergeSegmentsData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GmergeSegmentsData &&
-            mergeSegments == other.mergeSegments &&
+        (other is GspliceSegmentData &&
+            spliceSegment == other.spliceSegment &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, mergeSegments, G__typename);
+    return Object.hash(runtimeType, spliceSegment, G__typename);
   }
 
   @override
   String toString() {
-    return 'GmergeSegmentsData(mergeSegments: $mergeSegments, G__typename: $G__typename)';
+    return 'GspliceSegmentData(spliceSegment: $spliceSegment, G__typename: $G__typename)';
   }
 }
 

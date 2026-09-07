@@ -3,7 +3,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/mappers/mappers.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
 import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.var.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/graphql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/segment_mutations.req.gql.dart';
 import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/segment_mutations.var.gql.dart';
@@ -81,16 +80,16 @@ class SegmentRemoteDatasource {
     return data.correctSegment;
   }
 
-  Future<GSegmentMergePayloadFragment> mergeSegments({
+  Future<GSegmentSplicePayloadFragment> spliceSegment({
     required TripId tripId,
-    required GSegmentMergeInput input,
+    required GSpliceSegmentInput input,
   }) async {
     final data = await ferryClient.execute(
-      GMergeSegmentReq(
-        vars: GMergeSegmentVars(tripId: tripId.value, input: input),
+      GspliceSegmentReq(
+        vars: GspliceSegmentVars(tripId: tripId.value, input: input),
       ),
     );
-    return data.mergeSegments;
+    return data.spliceSegment;
   }
 
   Future<void> deleteSegment({required SegmentId id}) async {

@@ -172,23 +172,23 @@ class GCorrectSegmentVars {
   }
 }
 
-class GmergeSegmentsVars {
-  const GmergeSegmentsVars({
+class GspliceSegmentVars {
+  const GspliceSegmentVars({
     required this.tripId,
     required this.input,
   });
 
-  factory GmergeSegmentsVars.fromJson(Map<String, dynamic> json) {
-    return GmergeSegmentsVars(
+  factory GspliceSegmentVars.fromJson(Map<String, dynamic> json) {
+    return GspliceSegmentVars(
       tripId: (json['tripId'] as String),
-      input: _i1.GSegmentMergeInput.fromJson(
+      input: _i1.GSpliceSegmentInput.fromJson(
           (json['input'] as Map<String, dynamic>)),
     );
   }
 
   final String tripId;
 
-  final _i1.GSegmentMergeInput input;
+  final _i1.GSpliceSegmentInput input;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -199,11 +199,11 @@ class GmergeSegmentsVars {
     return _$result;
   }
 
-  GmergeSegmentsVars copyWith({
+  GspliceSegmentVars copyWith({
     String? tripId,
-    _i1.GSegmentMergeInput? input,
+    _i1.GSpliceSegmentInput? input,
   }) {
-    return GmergeSegmentsVars(
+    return GspliceSegmentVars(
       tripId: tripId ?? this.tripId,
       input: input ?? this.input,
     );
@@ -212,7 +212,7 @@ class GmergeSegmentsVars {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GmergeSegmentsVars &&
+        (other is GspliceSegmentVars &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -223,7 +223,7 @@ class GmergeSegmentsVars {
 
   @override
   String toString() {
-    return 'GmergeSegmentsVars(tripId: $tripId, input: $input)';
+    return 'GspliceSegmentVars(tripId: $tripId, input: $input)';
   }
 }
 

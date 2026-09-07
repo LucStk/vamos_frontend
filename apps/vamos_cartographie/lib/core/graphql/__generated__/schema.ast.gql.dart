@@ -395,34 +395,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'updateSegment'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'SegmentUpdateInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'createSegment'),
       directives: [],
       args: [
@@ -470,6 +442,34 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateSegment'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'SegmentUpdateInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'correctSegment'),
       directives: [],
       args: [
@@ -498,7 +498,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'mergeSegments'),
+      name: _i1.NameNode(value: 'spliceSegment'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -514,14 +514,14 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'SegmentMergeInput'),
+            name: _i1.NameNode(value: 'SpliceSegmentInput'),
             isNonNull: true,
           ),
           defaultValue: null,
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentMergePayload'),
+        name: _i1.NameNode(value: 'SegmentSplicePayload'),
         isNonNull: true,
       ),
     ),
@@ -769,6 +769,30 @@ const Query = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const SegmentAnchorInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SegmentAnchorInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'segmentId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'vertexId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+  ],
+);
 const SegmentCorrectionInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'SegmentCorrectionInput'),
   directives: [],
@@ -784,16 +808,7 @@ const SegmentCorrectionInput = _i1.InputObjectTypeDefinitionNode(
         isNonNull: true,
       ),
       defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'endVertexId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
+    )
   ],
 );
 const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
@@ -850,53 +865,8 @@ const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const SegmentMergeInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentMergeInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'startPoint'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentReferenceInput'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'endPoint'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentReferenceInput'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'correction'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
-const SegmentMergePayload = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentMergePayload'),
+const SegmentSplicePayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SegmentSplicePayload'),
   directives: [],
   interfaces: [],
   fields: [
@@ -920,30 +890,6 @@ const SegmentMergePayload = _i1.ObjectTypeDefinitionNode(
         ),
         isNonNull: true,
       ),
-    ),
-  ],
-);
-const SegmentReferenceInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentReferenceInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'segmentId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'vertexId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
     ),
   ],
 );
@@ -1024,6 +970,51 @@ const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'MobilityType'),
         isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
+const SpliceSegmentInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SpliceSegmentInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'startAnchor'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentAnchorInput'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'endAnchor'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentAnchorInput'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'correction'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: true,
       ),
       defaultValue: null,
     ),
@@ -1405,13 +1396,13 @@ const document = _i1.DocumentNode(definitions: [
   OwnerTypeEnum,
   PoiCategory,
   Query,
+  SegmentAnchorInput,
   SegmentCorrectionInput,
   SegmentCreateInput,
-  SegmentMergeInput,
-  SegmentMergePayload,
-  SegmentReferenceInput,
+  SegmentSplicePayload,
   SegmentType,
   SegmentUpdateInput,
+  SpliceSegmentInput,
   StoredFileType,
   TopologyType,
   TripType,

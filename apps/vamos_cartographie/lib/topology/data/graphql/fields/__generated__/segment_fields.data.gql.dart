@@ -112,21 +112,23 @@ class GSegmentFieldsData implements GSegmentFields {
   }
 }
 
-abstract class GSegmentMergePayloadFragment {
+abstract class GSegmentSplicePayloadFragment {
   List<String> get deletedSegmentIds;
   GSegmentFields get segment;
   String get G__typename;
 }
 
-class GSegmentMergePayloadFragmentData implements GSegmentMergePayloadFragment {
-  const GSegmentMergePayloadFragmentData({
+class GSegmentSplicePayloadFragmentData
+    implements GSegmentSplicePayloadFragment {
+  const GSegmentSplicePayloadFragmentData({
     required this.deletedSegmentIds,
     required this.segment,
-    this.G__typename = 'SegmentMergePayload',
+    this.G__typename = 'SegmentSplicePayload',
   });
 
-  factory GSegmentMergePayloadFragmentData.fromJson(Map<String, dynamic> json) {
-    return GSegmentMergePayloadFragmentData(
+  factory GSegmentSplicePayloadFragmentData.fromJson(
+      Map<String, dynamic> json) {
+    return GSegmentSplicePayloadFragmentData(
       deletedSegmentIds:
           List<String>.from((json['deletedSegmentIds'] as List<dynamic>)),
       segment: GSegmentFieldsData.fromJson(
@@ -150,12 +152,12 @@ class GSegmentMergePayloadFragmentData implements GSegmentMergePayloadFragment {
     return _$result;
   }
 
-  GSegmentMergePayloadFragmentData copyWith({
+  GSegmentSplicePayloadFragmentData copyWith({
     List<String>? deletedSegmentIds,
     GSegmentFieldsData? segment,
     String? G__typename,
   }) {
-    return GSegmentMergePayloadFragmentData(
+    return GSegmentSplicePayloadFragmentData(
       deletedSegmentIds: deletedSegmentIds ?? this.deletedSegmentIds,
       segment: segment ?? this.segment,
       G__typename: G__typename ?? this.G__typename,
@@ -165,7 +167,7 @@ class GSegmentMergePayloadFragmentData implements GSegmentMergePayloadFragment {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GSegmentMergePayloadFragmentData &&
+        (other is GSegmentSplicePayloadFragmentData &&
             _gqlUtils.listEquals(deletedSegmentIds, other.deletedSegmentIds) &&
             segment == other.segment &&
             G__typename == other.G__typename);
@@ -179,60 +181,6 @@ class GSegmentMergePayloadFragmentData implements GSegmentMergePayloadFragment {
 
   @override
   String toString() {
-    return 'GSegmentMergePayloadFragmentData(deletedSegmentIds: $deletedSegmentIds, segment: $segment, G__typename: $G__typename)';
-  }
-}
-
-class GMergeSegmentData {
-  const GMergeSegmentData({
-    required this.mergeSegments,
-    this.G__typename = 'Mutation',
-  });
-
-  factory GMergeSegmentData.fromJson(Map<String, dynamic> json) {
-    return GMergeSegmentData(
-      mergeSegments: GSegmentMergePayloadFragmentData.fromJson(
-          (json['mergeSegments'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final GSegmentMergePayloadFragmentData mergeSegments;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['mergeSegments'] = this.mergeSegments.toJson();
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GMergeSegmentData copyWith({
-    GSegmentMergePayloadFragmentData? mergeSegments,
-    String? G__typename,
-  }) {
-    return GMergeSegmentData(
-      mergeSegments: mergeSegments ?? this.mergeSegments,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GMergeSegmentData &&
-            mergeSegments == other.mergeSegments &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, mergeSegments, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GMergeSegmentData(mergeSegments: $mergeSegments, G__typename: $G__typename)';
+    return 'GSegmentSplicePayloadFragmentData(deletedSegmentIds: $deletedSegmentIds, segment: $segment, G__typename: $G__typename)';
   }
 }

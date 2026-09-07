@@ -63,7 +63,7 @@ type Mutation {
   deleteSegment(id: UUID!): Boolean!
   updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   correctSegment(segmentId: UUID!, input: SegmentCorrectionInput!): SegmentType!
-  spliceSegment(tripId: UUID!, input: SpliceSegmentInput!): SegmentMergePayload!
+  spliceSegment(tripId: UUID!, input: SpliceSegmentInput!): SegmentSplicePayload!
   moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
   createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: UUID!): Boolean!
@@ -115,7 +115,7 @@ input SegmentCreateInput {
   geometry: [LatLngInput!]!
 }
 
-type SegmentMergePayload {
+type SegmentSplicePayload {
   segment: SegmentType!
   deletedSegmentIds: [UUID!]!
 }

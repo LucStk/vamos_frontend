@@ -92,8 +92,7 @@ const GetSegments = _i1.OperationDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   GetSegments,
   _i2.SegmentFields,
-  _i2.SegmentMergePayloadFragment,
-  _i2.MergeSegment,
+  _i2.SegmentSplicePayloadFragment,
   _i3.VertexFields,
   _i4.LatLngFields,
 ]);

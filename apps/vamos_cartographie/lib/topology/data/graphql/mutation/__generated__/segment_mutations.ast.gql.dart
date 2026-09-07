@@ -196,9 +196,9 @@ const CorrectSegment = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const mergeSegments = _i1.OperationDefinitionNode(
+const spliceSegment = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'mergeSegments'),
+  name: _i1.NameNode(value: 'spliceSegment'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
@@ -212,7 +212,7 @@ const mergeSegments = _i1.OperationDefinitionNode(
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentMergeInput'),
+        name: _i1.NameNode(value: 'SpliceSegmentInput'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -222,7 +222,7 @@ const mergeSegments = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'mergeSegments'),
+      name: _i1.NameNode(value: 'spliceSegment'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
@@ -237,7 +237,7 @@ const mergeSegments = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'SegmentMergePayloadFragment'),
+          name: _i1.NameNode(value: 'SegmentSplicePayloadFragment'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -299,11 +299,10 @@ const document = _i1.DocumentNode(definitions: [
   UpdateSegment,
   CreateSegment,
   CorrectSegment,
-  mergeSegments,
+  spliceSegment,
   DeleteSegment,
   _i2.SegmentFields,
-  _i2.SegmentMergePayloadFragment,
-  _i2.MergeSegment,
+  _i2.SegmentSplicePayloadFragment,
   _i3.VertexFields,
   _i4.LatLngFields,
 ]);

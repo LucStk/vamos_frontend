@@ -89,10 +89,10 @@ class SegmentRepositoryImpl extends SegmentRepository {
     VertexId? endVertexId,
   }) async {
     return guard(() async {
-      final gqlResult = await remote.mergeSegments(
+      final gqlResult = await remote.spliceSegment(
         tripId: tripId,
-        input: GSegmentMergeInput(
-          startPoint: GSegmentReferenceInput(
+        input: GSpliceSegmentInput(
+          startAnchor: GSegmentAnchorInput(
             segmentId: (startSegmentId != null)
                 ? Value.present(startSegmentId.toString())
                 : Value.absent(),
@@ -100,7 +100,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
                 ? Value.present(startVertexId.toString())
                 : Value.absent(),
           ),
-          endPoint: GSegmentReferenceInput(
+          endAnchor: GSegmentAnchorInput(
             segmentId: (endSegmentId != null)
                 ? Value.present(endSegmentId.toString())
                 : Value.absent(),

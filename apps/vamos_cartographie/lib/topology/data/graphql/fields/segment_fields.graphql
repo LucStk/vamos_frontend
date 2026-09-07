@@ -13,15 +13,9 @@ fragment SegmentFields on SegmentType {
         ...LatLngFields
     }
 }
-fragment SegmentMergePayloadFragment on SegmentMergePayload {
+fragment SegmentSplicePayloadFragment on SegmentSplicePayload {
     deletedSegmentIds
     segment {
         ...SegmentFields
-    }
-}
-
-mutation MergeSegment($tripId: UUID!, $input: SegmentMergeInput!) {
-    mergeSegments(tripId: $tripId, input: $input) {
-        ...SegmentMergePayloadFragment
     }
 }
