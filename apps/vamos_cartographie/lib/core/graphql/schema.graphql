@@ -59,11 +59,11 @@ type Mutation {
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): CreateWaypointPayload!
   createBlankWaypointFromVertex(tripId: UUID!, vertexId: UUID!): CreateWaypointPayload!
   deleteWaypoint(id: UUID!): Boolean!
-  updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   createSegment(tripId: UUID!, input: SegmentCreateInput!): SegmentType!
   deleteSegment(id: UUID!): Boolean!
+  updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   correctSegment(segmentId: UUID!, input: SegmentCorrectionInput!): SegmentType!
-  mergeSegments(tripId: UUID!, input: SegmentMergeInput!): SegmentMergePayload!
+  spliceSegment(tripId: UUID!, input: SpliceSegmentInput!): SegmentMergePayload!
   moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
   createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
   deleteVertex(id: UUID!): Boolean!
@@ -98,9 +98,13 @@ type Query {
   trips: [TripType!]!
 }
 
+input SegmentAnchorInput {
+  segmentId: UUID = null
+  vertexId: UUID = null
+}
+
 input SegmentCorrectionInput {
   correction: [LatLngInput!]!
-  endVertexId: UUID
 }
 
 input SegmentCreateInput {
@@ -111,21 +115,9 @@ input SegmentCreateInput {
   geometry: [LatLngInput!]!
 }
 
-input SegmentMergeInput {
-  startPoint: SegmentReferenceInput!
-  endPoint: SegmentReferenceInput!
-  correction: [LatLngInput!]!
-  mobilityType: MobilityType!
-}
-
 type SegmentMergePayload {
   segment: SegmentType!
   deletedSegmentIds: [UUID!]!
-}
-
-input SegmentReferenceInput {
-  segmentId: UUID = null
-  vertexId: UUID = null
 }
 
 type SegmentType {
@@ -139,6 +131,13 @@ type SegmentType {
 input SegmentUpdateInput {
   geometry: [LatLngInput!]!
   mobilityType: MobilityType
+}
+
+input SpliceSegmentInput {
+  startAnchor: SegmentAnchorInput!
+  endAnchor: SegmentAnchorInput!
+  correction: [LatLngInput!]!
+  mobilityType: MobilityType!
 }
 
 type StoredFileType {
