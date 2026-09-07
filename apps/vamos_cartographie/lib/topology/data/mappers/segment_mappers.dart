@@ -33,3 +33,20 @@ extension SegmentFieldsMapper on SegmentFields {
     );
   }
 }
+
+extension SpliceAnchorMapper on SpliceAnchor {
+  GSegmentAnchorInput toGQLSegmentAnchorInput() {
+    switch (this) {
+      case VertexAnchor v:
+        return GSegmentAnchorInput(
+          segmentId: Value.absent(),
+          vertexId: Value.present(v.id.toString()),
+        );
+      case SegmentAnchor s:
+        return GSegmentAnchorInput(
+          segmentId: Value.present(s.id.toString()),
+          vertexId: Value.absent(),
+        );
+    }
+  }
+}

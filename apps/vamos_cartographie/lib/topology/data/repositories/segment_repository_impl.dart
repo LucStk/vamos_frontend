@@ -79,35 +79,19 @@ class SegmentRepositoryImpl extends SegmentRepository {
   }
 
   @override
-  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> mergeSegments({
+  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> spliceSegment({
     required TripId tripId,
     required List<LatLng> correction,
     required MobilityType mobilityType,
-    SegmentId? startSegmentId,
-    SegmentId? endSegmentId,
-    VertexId? startVertexId,
-    VertexId? endVertexId,
+    required SpliceAnchor startAnchor,
+    required SpliceAnchor endAnchor,
   }) async {
     return guard(() async {
       final gqlResult = await remote.spliceSegment(
         tripId: tripId,
         input: GSpliceSegmentInput(
-          startAnchor: GSegmentAnchorInput(
-            segmentId: (startSegmentId != null)
-                ? Value.present(startSegmentId.toString())
-                : Value.absent(),
-            vertexId: (startVertexId != null)
-                ? Value.present(startVertexId.toString())
-                : Value.absent(),
-          ),
-          endAnchor: GSegmentAnchorInput(
-            segmentId: (endSegmentId != null)
-                ? Value.present(endSegmentId.toString())
-                : Value.absent(),
-            vertexId: (endVertexId != null)
-                ? Value.present(endVertexId.toString())
-                : Value.absent(),
-          ),
+          startAnchor: startAnchor.toGQLSegmentAnchorInput(),
+          endAnchor: endAnchor.toGQLSegmentAnchorInput(),
           correction: correction.map((m) => m.toGQLInput()).toList(),
           mobilityType: mobilityType.toGQL(),
         ),

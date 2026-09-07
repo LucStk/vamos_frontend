@@ -60,12 +60,11 @@ extension DragEditor on MapEditor {
           ),
         );
       case (SketchCreation m, MapSketchPencil _, MapSegment s):
-        final path = addPathToSegment(m.itineraire, s.segment.geometry);
         unawaited(
           runEffect(
             SpliceSegment(
-              startVertexId: m.vertexStart,
-              endSegmentId: s.segment.id,
+              startAnchor: VertexAnchor(m.vertexStart),
+              endAnchor: SegmentAnchor(s.segment.id),
               correction: m.itineraire,
               mobilityType: m.mobilityType,
             ),
@@ -114,8 +113,8 @@ extension DragEditor on MapEditor {
         unawaited(
           runEffect(
             SpliceSegment(
-              startSegmentId: m.segment.id,
-              endVertexId: v.vertex.id,
+              startAnchor: SegmentAnchor(m.segment.id),
+              endAnchor: VertexAnchor(v.vertex.id),
               correction: m.correction!.path,
               mobilityType: m.segment.mobilityType,
             ),
@@ -130,8 +129,8 @@ extension DragEditor on MapEditor {
         unawaited(
           runEffect(
             SpliceSegment(
-              startSegmentId: m.segment.id,
-              endSegmentId: s.segment.id,
+              startAnchor: SegmentAnchor(m.segment.id),
+              endAnchor: SegmentAnchor(s.segment.id),
               correction: m.correction!.path,
               mobilityType: m.segment.mobilityType,
             ),

@@ -33,18 +33,14 @@ final class CreateSegmentFromSketch extends MapEffect {
 final class SpliceSegment extends MapEffect {
   final List<LatLng> correction;
   final MobilityType mobilityType;
-  final VertexId? startVertexId;
-  final VertexId? endVertexId;
-  final SegmentId? startSegmentId;
-  final SegmentId? endSegmentId;
+  final SpliceAnchor startAnchor;
+  final SpliceAnchor endAnchor;
 
   const SpliceSegment({
     required this.correction,
     required this.mobilityType,
-    this.startVertexId,
-    this.endVertexId,
-    this.startSegmentId,
-    this.endSegmentId,
+    required this.startAnchor,
+    required this.endAnchor,
   });
 
   @override
@@ -52,10 +48,8 @@ final class SpliceSegment extends MapEffect {
     final res = await context.graphEditor.spliceSegment(
       correction: correction,
       mobilityType: mobilityType,
-      startVertexId: startVertexId,
-      endVertexId: endVertexId,
-      startSegmentId: startSegmentId,
-      endSegmentId: endSegmentId,
+      startAnchor: startAnchor,
+      endAnchor: endAnchor,
     );
 
     res.fold((_) {}, (data) {

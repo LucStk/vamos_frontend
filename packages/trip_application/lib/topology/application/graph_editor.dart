@@ -68,21 +68,17 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> spliceSegment({
     required List<LatLng> correction,
     required MobilityType mobilityType,
-    VertexId? startVertexId,
-    VertexId? endVertexId,
-    SegmentId? startSegmentId,
-    SegmentId? endSegmentId,
+    required SpliceAnchor startAnchor,
+    required SpliceAnchor endAnchor,
   }) async {
     return await run(
       onApply: (gs) => gs, //.setSegment(patchSegment),
-      remote: (_) => segmentRepo.mergeSegments(
+      remote: (_) => segmentRepo.spliceSegment(
         tripId: tripId,
         correction: correction,
         mobilityType: mobilityType,
-        startSegmentId: startSegmentId,
-        endSegmentId: endSegmentId,
-        startVertexId: startVertexId,
-        endVertexId: endVertexId,
+        startAnchor: startAnchor,
+        endAnchor: endAnchor,
       ),
       onSuccess: (gs, serveurValue) {
         final (listSegmentId, segment) = serveurValue;
