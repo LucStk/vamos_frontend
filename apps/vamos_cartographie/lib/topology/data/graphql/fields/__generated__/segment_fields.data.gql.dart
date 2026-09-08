@@ -184,3 +184,187 @@ class GSegmentSplicePayloadFragmentData
     return 'GSegmentSplicePayloadFragmentData(deletedSegmentIds: $deletedSegmentIds, segment: $segment, G__typename: $G__typename)';
   }
 }
+
+abstract class GCreateSegmentPayloadFragment {
+  GSegmentFields get segment;
+  _i2.GVertexFields get vertex;
+  bool get refinementFailed;
+  String? get errorMessage;
+  String get G__typename;
+}
+
+class GCreateSegmentPayloadFragmentData
+    implements GCreateSegmentPayloadFragment {
+  const GCreateSegmentPayloadFragmentData({
+    required this.segment,
+    required this.vertex,
+    required this.refinementFailed,
+    this.errorMessage,
+    this.G__typename = 'CreateSegmentPayload',
+  });
+
+  factory GCreateSegmentPayloadFragmentData.fromJson(
+      Map<String, dynamic> json) {
+    return GCreateSegmentPayloadFragmentData(
+      segment: GSegmentFieldsData.fromJson(
+          (json['segment'] as Map<String, dynamic>)),
+      vertex: _i2.GVertexFieldsData.fromJson(
+          (json['vertex'] as Map<String, dynamic>)),
+      refinementFailed: (json['refinementFailed'] as bool),
+      errorMessage: json['errorMessage'] == null
+          ? null
+          : (json['errorMessage'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GSegmentFieldsData segment;
+
+  final _i2.GVertexFieldsData vertex;
+
+  final bool refinementFailed;
+
+  final String? errorMessage;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['segment'] = this.segment.toJson();
+    _$result['vertex'] = this.vertex.toJson();
+    _$result['refinementFailed'] = this.refinementFailed;
+    final _$errorMessageValue = this.errorMessage;
+    _$result['errorMessage'] =
+        _$errorMessageValue == null ? null : _$errorMessageValue;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GCreateSegmentPayloadFragmentData copyWith({
+    GSegmentFieldsData? segment,
+    _i2.GVertexFieldsData? vertex,
+    bool? refinementFailed,
+    String? errorMessage,
+    bool errorMessageIsSet = false,
+    String? G__typename,
+  }) {
+    return GCreateSegmentPayloadFragmentData(
+      segment: segment ?? this.segment,
+      vertex: vertex ?? this.vertex,
+      refinementFailed: refinementFailed ?? this.refinementFailed,
+      errorMessage: errorMessage != null || errorMessageIsSet
+          ? errorMessage
+          : this.errorMessage,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateSegmentPayloadFragmentData &&
+            segment == other.segment &&
+            vertex == other.vertex &&
+            refinementFailed == other.refinementFailed &&
+            errorMessage == other.errorMessage &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, segment, vertex, refinementFailed,
+        errorMessage, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GCreateSegmentPayloadFragmentData(segment: $segment, vertex: $vertex, refinementFailed: $refinementFailed, errorMessage: $errorMessage, G__typename: $G__typename)';
+  }
+}
+
+abstract class GRefineSegmentPayloadFragment {
+  GSegmentFields get segment;
+  bool get refinementFailed;
+  String? get errorMessage;
+  String get G__typename;
+}
+
+class GRefineSegmentPayloadFragmentData
+    implements GRefineSegmentPayloadFragment {
+  const GRefineSegmentPayloadFragmentData({
+    required this.segment,
+    required this.refinementFailed,
+    this.errorMessage,
+    this.G__typename = 'RefineSegmentPayload',
+  });
+
+  factory GRefineSegmentPayloadFragmentData.fromJson(
+      Map<String, dynamic> json) {
+    return GRefineSegmentPayloadFragmentData(
+      segment: GSegmentFieldsData.fromJson(
+          (json['segment'] as Map<String, dynamic>)),
+      refinementFailed: (json['refinementFailed'] as bool),
+      errorMessage: json['errorMessage'] == null
+          ? null
+          : (json['errorMessage'] as String),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final GSegmentFieldsData segment;
+
+  final bool refinementFailed;
+
+  final String? errorMessage;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['segment'] = this.segment.toJson();
+    _$result['refinementFailed'] = this.refinementFailed;
+    final _$errorMessageValue = this.errorMessage;
+    _$result['errorMessage'] =
+        _$errorMessageValue == null ? null : _$errorMessageValue;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GRefineSegmentPayloadFragmentData copyWith({
+    GSegmentFieldsData? segment,
+    bool? refinementFailed,
+    String? errorMessage,
+    bool errorMessageIsSet = false,
+    String? G__typename,
+  }) {
+    return GRefineSegmentPayloadFragmentData(
+      segment: segment ?? this.segment,
+      refinementFailed: refinementFailed ?? this.refinementFailed,
+      errorMessage: errorMessage != null || errorMessageIsSet
+          ? errorMessage
+          : this.errorMessage,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRefineSegmentPayloadFragmentData &&
+            segment == other.segment &&
+            refinementFailed == other.refinementFailed &&
+            errorMessage == other.errorMessage &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType, segment, refinementFailed, errorMessage, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GRefineSegmentPayloadFragmentData(segment: $segment, refinementFailed: $refinementFailed, errorMessage: $errorMessage, G__typename: $G__typename)';
+  }
+}

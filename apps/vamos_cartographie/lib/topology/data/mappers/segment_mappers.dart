@@ -16,6 +16,23 @@ extension GSegmentFieldsMapper on GSegmentFields {
   VertexRemoteModel toEndVertexRemoteModel() => endVertex.toVertexRemoteModel();
 }
 
+extension GCreateSegmentPayloadFragmentMapper on GCreateSegmentPayloadFragment {
+  CreateSegmentPayload toCreateSegmentPayload() => CreateSegmentPayload(
+    rafinementFailed: refinementFailed,
+    segment: segment.toSegmentRemoteModel(),
+    vertex: vertex.toVertexRemoteModel(),
+    errorMessage: errorMessage,
+  );
+}
+
+extension GRefineSegmentPayloadMapper on GRefineSegmentPayloadFragment {
+  RefineSegmentPayload toRefinePayload() => RefineSegmentPayload(
+    rafinementFailed: refinementFailed,
+    segment: segment.toSegmentRemoteModel(),
+    errorMessage: errorMessage,
+  );
+}
+
 extension SegmentFieldsMapper on SegmentFields {
   GSegmentUpdateInput toGQLUpdateInput() {
     return GSegmentUpdateInput(

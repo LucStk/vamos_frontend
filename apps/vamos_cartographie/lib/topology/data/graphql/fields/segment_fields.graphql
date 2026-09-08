@@ -13,9 +13,28 @@ fragment SegmentFields on SegmentType {
         ...LatLngFields
     }
 }
+
 fragment SegmentSplicePayloadFragment on SegmentSplicePayload {
     deletedSegmentIds
     segment {
         ...SegmentFields
     }
+}
+
+fragment CreateSegmentPayloadFragment on CreateSegmentPayload {
+    segment {
+        ...SegmentFields
+    }
+    vertex {
+        ...VertexFields
+    }
+    refinementFailed
+    errorMessage
+}
+fragment RefineSegmentPayloadFragment on RefineSegmentPayload {
+    segment {
+        ...SegmentFields
+    }
+    refinementFailed
+    errorMessage
 }

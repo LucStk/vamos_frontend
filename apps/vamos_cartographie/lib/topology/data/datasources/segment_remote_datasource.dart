@@ -26,7 +26,7 @@ class SegmentRemoteDatasource {
     return data.trip.topology.segments;
   }
 
-  Future<GSegmentFields> createSegment({
+  Future<GCreateSegmentPayloadFragment> createSegment({
     required Id<Trip> tripId,
     required VertexId startVertexId,
     VertexId? endVertexId,
@@ -49,6 +49,15 @@ class SegmentRemoteDatasource {
       ),
     );
     return data.createSegment;
+  }
+
+  Future<GRefineSegmentPayloadFragment> refineSegment(SegmentId id) async {
+    final data = await ferryClient.execute(
+      GRefineSegmentGeometryReq(
+        vars: GRefineSegmentGeometryVars(segmentId: id.value),
+      ),
+    );
+    return data.refineSegmentGeometry;
   }
 
   Future<GSegmentFields> updateSegment({

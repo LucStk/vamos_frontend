@@ -59,6 +59,49 @@ const AttachFileInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const CreateSegmentPayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateSegmentPayload'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'vertex'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'VertexType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'segment'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'refinementFailed'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'errorMessage'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+    ),
+  ],
+);
 const CreateWaypointPayload = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateWaypointPayload'),
   directives: [],
@@ -418,7 +461,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
+        name: _i1.NameNode(value: 'CreateSegmentPayload'),
         isNonNull: true,
       ),
     ),
@@ -438,6 +481,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'refineSegmentGeometry'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'segmentId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RefineSegmentPayload'),
         isNonNull: true,
       ),
     ),
@@ -765,6 +827,40 @@ const Query = _i1.ObjectTypeDefinitionNode(
           isNonNull: true,
         ),
         isNonNull: true,
+      ),
+    ),
+  ],
+);
+const RefineSegmentPayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RefineSegmentPayload'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'segment'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SegmentType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'refinementFailed'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'errorMessage'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
       ),
     ),
   ],
@@ -1385,6 +1481,7 @@ const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
   AttachFileInput,
+  CreateSegmentPayload,
   CreateWaypointPayload,
   Date,
   FileAttachmentType,
@@ -1396,6 +1493,7 @@ const document = _i1.DocumentNode(definitions: [
   OwnerTypeEnum,
   PoiCategory,
   Query,
+  RefineSegmentPayload,
   SegmentAnchorInput,
   SegmentCorrectionInput,
   SegmentCreateInput,

@@ -93,6 +93,8 @@ const document = _i1.DocumentNode(definitions: [
   GetSegments,
   _i2.SegmentFields,
   _i2.SegmentSplicePayloadFragment,
+  _i2.CreateSegmentPayloadFragment,
+  _i2.RefineSegmentPayloadFragment,
   _i3.VertexFields,
   _i4.LatLngFields,
 ]);

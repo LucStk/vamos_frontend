@@ -141,9 +141,132 @@ const SegmentSplicePayloadFragment = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
+const CreateSegmentPayloadFragment = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'CreateSegmentPayloadFragment'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'CreateSegmentPayload'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'segment'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'SegmentFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'vertex'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'VertexFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'refinementFailed'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'errorMessage'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const RefineSegmentPayloadFragment = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'RefineSegmentPayloadFragment'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'RefineSegmentPayload'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'segment'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'SegmentFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'refinementFailed'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'errorMessage'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
 const document = _i1.DocumentNode(definitions: [
   SegmentFields,
   SegmentSplicePayloadFragment,
+  CreateSegmentPayloadFragment,
+  RefineSegmentPayloadFragment,
   _i2.VertexFields,
   _i3.LatLngFields,
 ]);

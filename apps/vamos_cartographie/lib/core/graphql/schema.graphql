@@ -13,6 +13,13 @@ input AttachFileInput {
   fileId: ID!
 }
 
+type CreateSegmentPayload {
+  vertex: VertexType!
+  segment: SegmentType!
+  refinementFailed: Boolean!
+  errorMessage: String
+}
+
 type CreateWaypointPayload {
   waypoint: WaypointType!
   vertex: VertexType!
@@ -59,8 +66,9 @@ type Mutation {
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): CreateWaypointPayload!
   createBlankWaypointFromVertex(tripId: UUID!, vertexId: UUID!): CreateWaypointPayload!
   deleteWaypoint(id: UUID!): Boolean!
-  createSegment(tripId: UUID!, input: SegmentCreateInput!): SegmentType!
+  createSegment(tripId: UUID!, input: SegmentCreateInput!): CreateSegmentPayload!
   deleteSegment(id: UUID!): Boolean!
+  refineSegmentGeometry(segmentId: UUID!): RefineSegmentPayload!
   updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
   correctSegment(segmentId: UUID!, input: SegmentCorrectionInput!): SegmentType!
   spliceSegment(tripId: UUID!, input: SpliceSegmentInput!): SegmentSplicePayload!
@@ -96,6 +104,12 @@ enum PoiCategory {
 type Query {
   trip(id: UUID!): TripType!
   trips: [TripType!]!
+}
+
+type RefineSegmentPayload {
+  segment: SegmentType!
+  refinementFailed: Boolean!
+  errorMessage: String
 }
 
 input SegmentAnchorInput {

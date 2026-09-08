@@ -35,16 +35,26 @@ class MapSpace extends MapElement {
   const MapSpace();
 }
 
-class MapVertex extends MapElement {
+abstract class MapTopologyElement extends MapElement {
+  const MapTopologyElement();
+  SpliceAnchor get anchor;
+}
+
+class MapVertex extends MapTopologyElement {
   final VertexFields vertex;
   const MapVertex(this.vertex);
   @override
   bool get isDraggable => true;
+  @override
+  SpliceAnchor get anchor => VertexAnchor(vertex.id);
 }
 
-class MapSegment extends MapElement {
+class MapSegment extends MapTopologyElement {
   final SegmentFields segment;
   const MapSegment(this.segment);
+  @override
+  // TODO: implement anchor
+  SpliceAnchor get anchor => SegmentAnchor(segment.id);
 }
 
 /// Deux hits désignent-ils le même objet métier ?

@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/graphql/graphql.dart';
@@ -26,8 +25,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
   }
 
   @override
-  Future<Either<Failure, (SegmentRemoteModel, VertexRemoteModel)>>
-  createSegment({
+  Future<Either<Failure, CreateSegmentPayload>> createSegment({
     required Id<Trip> tripId,
     required VertexId startVertexId,
     required MobilityType mobilityType,
@@ -42,10 +40,17 @@ class SegmentRepositoryImpl extends SegmentRepository {
         mobilityType: mobilityType,
         geometry: geometry,
       );
-      return (
-        gqlResult.toSegmentRemoteModel(),
-        gqlResult.toEndVertexRemoteModel(),
-      );
+      return gqlResult.toCreateSegmentPayload();
+    });
+  }
+
+  @override
+  Future<Either<Failure, RefineSegmentPayload>> refineSegment(
+    SegmentId segmentId,
+  ) async {
+    return guard(() async {
+      final gqlResult = await remote.refineSegment(segmentId);
+      return gqlResult.toRefinePayload();
     });
   }
 

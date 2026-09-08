@@ -22,10 +22,8 @@ final class CreateSegmentFromSketch extends MapEffect {
       mobilityType: mobilityType,
     );
     res.fold((_) {}, (data) {
-      final (segment, _) = data;
-      context.segmentCreated(segment);
       context.mode = Idle();
-      context.selection = MapSegment(segment);
+      context.selection = MapSegment(data.segment);
     });
   }
 }
@@ -54,12 +52,8 @@ final class SpliceSegment extends MapEffect {
 
     res.fold((_) {}, (data) {
       final (_, segment) = data;
-      context.segmentEdited(segment);
-      switch (context.mode) {
-        case SketchEdition e:
-          context.mode = e.copyWith(correction: null);
-        case _:
-      }
+      context.mode = Idle();
+      context.selection = MapSegment(segment);
       // context.mode = Idle();
       // context.selection = SegmentSelection(segmentId: segment.id);
     });
@@ -74,7 +68,6 @@ final class EditeSegmentFromSketch extends MapEffect {
   Future<void> run(MapEditor context) async {
     final res = await context.graphEditor.updateSegment(patch);
     res.fold((_) {}, (segment) {
-      context.segmentEdited(segment);
       switch (context.mode) {
         case SketchEdition e:
           context.mode = e.copyWith(correction: null);
@@ -101,7 +94,6 @@ final class CorrectSegmentFromSketch extends MapEffect {
       correction,
     );
     res.fold((_) {}, (segment) {
-      context.segmentEdited(segment);
       switch (context.mode) {
         case SketchEdition e:
           context.mode = e.copyWith(correction: null);

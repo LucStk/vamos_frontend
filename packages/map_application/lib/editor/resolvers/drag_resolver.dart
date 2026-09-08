@@ -60,6 +60,7 @@ extension DragEditor on MapEditor {
           ),
         );
       case (SketchCreation m, MapSketchPencil _, MapSegment s):
+        print("sektche segment splice with ${s.segment.id}");
         unawaited(
           runEffect(
             SpliceSegment(
@@ -105,32 +106,17 @@ extension DragEditor on MapEditor {
           ),
         );
 
-      case (SketchEdition m, MapSketchPencil _, MapVertex v)
+      case (SketchEdition m, MapSketchPencil _, MapTopologyElement s)
           when m.hasCorrection:
         // On est en train d'éditer un segment
-        // On vient de rencontrer un vertex
-        // L'utilisateur demande donc une correction de l'itineraire
-        unawaited(
-          runEffect(
-            SpliceSegment(
-              startAnchor: SegmentAnchor(m.segment.id),
-              endAnchor: VertexAnchor(v.vertex.id),
-              correction: m.correction!.path,
-              mobilityType: m.segment.mobilityType,
-            ),
-          ),
-        );
-      case (SketchEdition m, MapSketchPencil _, MapSegment s)
-          when m.hasCorrection && s.segment.id != m.segment.id:
-        // On est en train d'éditer un segment
-        // On vient de rencontrer un autre segment
+        // On vient de rencontrer un autre segment/vertex
         // L'utilisateur demande donc une correction de l'itineraire
 
         unawaited(
           runEffect(
             SpliceSegment(
               startAnchor: SegmentAnchor(m.segment.id),
-              endAnchor: SegmentAnchor(s.segment.id),
+              endAnchor: s.anchor,
               correction: m.correction!.path,
               mobilityType: m.segment.mobilityType,
             ),

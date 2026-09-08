@@ -13,14 +13,16 @@ abstract class SegmentRepository {
     List<LatLng> correction,
   );
 
-  Future<Either<Failure, (SegmentRemoteModel, VertexRemoteModel)>>
-  createSegment({
+  Future<Either<Failure, CreateSegmentPayload>> createSegment({
     required Id<Trip> tripId,
     required VertexId startVertexId,
     VertexId? endVertexId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   });
+  Future<Either<Failure, RefineSegmentPayload>> refineSegment(
+    SegmentId segmentId,
+  );
   Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> spliceSegment({
     required TripId tripId,
     required List<LatLng> correction,

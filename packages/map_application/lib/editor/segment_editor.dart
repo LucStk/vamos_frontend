@@ -34,11 +34,4 @@ extension SegmentEditor on MapEditor {
   Future<void> deactivateSegmentEditMode() async {
     // await runEffect(redrawSegment(segmentId));
   }
-  Future<void> segmentCreated(SegmentFields segment) async {
-    selection = MapSegment(segment);
-  }
-
-  Future<void> segmentEdited(SegmentFields segment) async {
-    // selection = SegmentSelection(segmentId: segmentId);
-  }
 }

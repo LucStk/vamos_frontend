@@ -8,7 +8,12 @@ mutation UpdateSegment($id: UUID!, $segment: SegmentUpdateInput!) {
 
 mutation CreateSegment($tripId: UUID!, $segment: SegmentCreateInput!) {
     createSegment(tripId: $tripId, input: $segment) {
-        ...SegmentFields
+        ...CreateSegmentPayloadFragment
+    }
+}
+mutation RefineSegmentGeometry($segmentId: UUID!) {
+    refineSegmentGeometry(segmentId: $segmentId) {
+        ...RefineSegmentPayloadFragment
     }
 }
 mutation CorrectSegment(

@@ -12,8 +12,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   SegmentRepository get segmentRepo;
   VertexRepository get vertexRepo;
 
-  Future<Either<Failure, (SegmentRemoteModel, VertexRemoteModel)>>
-  createSegment({
+  Future<Either<Failure, CreateSegmentPayload>> createSegment({
     required VertexId startVertexId,
     VertexId? endVertexId,
     required List<LatLng> geometry,
@@ -29,15 +28,15 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
         geometry: geometry,
       ),
       onSuccess: (gs, serveurValue) {
-        final (segment, vertex) = serveurValue;
-        gs = gs.insertSegment(segment);
+        gs = gs.insertSegment(serveurValue.segment);
         if (endVertexId == null) {
-          return gs.insertVertex(vertex);
+          return gs.insertVertex(serveurValue.vertex);
         }
         return gs;
       },
       onError: (gs, Failure failure) {
         print("error create segment $failure");
+        return gs;
       },
     );
   }
@@ -82,7 +81,7 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
       ),
       onSuccess: (gs, serveurValue) {
         final (listSegmentId, segment) = serveurValue;
-        gs = gs.setSegment(segment);
+        gs = gs.insertSegment(segment);
         for (SegmentId i in listSegmentId) {
           gs = gs.removeSegment(i);
         }

@@ -67,13 +67,13 @@ class GCreateSegmentData {
 
   factory GCreateSegmentData.fromJson(Map<String, dynamic> json) {
     return GCreateSegmentData(
-      createSegment: _i1.GSegmentFieldsData.fromJson(
+      createSegment: _i1.GCreateSegmentPayloadFragmentData.fromJson(
           (json['createSegment'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GSegmentFieldsData createSegment;
+  final _i1.GCreateSegmentPayloadFragmentData createSegment;
 
   final String G__typename;
 
@@ -85,7 +85,7 @@ class GCreateSegmentData {
   }
 
   GCreateSegmentData copyWith({
-    _i1.GSegmentFieldsData? createSegment,
+    _i1.GCreateSegmentPayloadFragmentData? createSegment,
     String? G__typename,
   }) {
     return GCreateSegmentData(
@@ -110,6 +110,61 @@ class GCreateSegmentData {
   @override
   String toString() {
     return 'GCreateSegmentData(createSegment: $createSegment, G__typename: $G__typename)';
+  }
+}
+
+class GRefineSegmentGeometryData {
+  const GRefineSegmentGeometryData({
+    required this.refineSegmentGeometry,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GRefineSegmentGeometryData.fromJson(Map<String, dynamic> json) {
+    return GRefineSegmentGeometryData(
+      refineSegmentGeometry: _i1.GRefineSegmentPayloadFragmentData.fromJson(
+          (json['refineSegmentGeometry'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GRefineSegmentPayloadFragmentData refineSegmentGeometry;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['refineSegmentGeometry'] = this.refineSegmentGeometry.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GRefineSegmentGeometryData copyWith({
+    _i1.GRefineSegmentPayloadFragmentData? refineSegmentGeometry,
+    String? G__typename,
+  }) {
+    return GRefineSegmentGeometryData(
+      refineSegmentGeometry:
+          refineSegmentGeometry ?? this.refineSegmentGeometry,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRefineSegmentGeometryData &&
+            refineSegmentGeometry == other.refineSegmentGeometry &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, refineSegmentGeometry, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GRefineSegmentGeometryData(refineSegmentGeometry: $refineSegmentGeometry, G__typename: $G__typename)';
   }
 }
 

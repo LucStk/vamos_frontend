@@ -117,6 +117,44 @@ class GCreateSegmentVars {
   }
 }
 
+class GRefineSegmentGeometryVars {
+  const GRefineSegmentGeometryVars({required this.segmentId});
+
+  factory GRefineSegmentGeometryVars.fromJson(Map<String, dynamic> json) {
+    return GRefineSegmentGeometryVars(segmentId: (json['segmentId'] as String));
+  }
+
+  final String segmentId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$segmentIdValue = this.segmentId;
+    _$result['segmentId'] = _$segmentIdValue;
+    return _$result;
+  }
+
+  GRefineSegmentGeometryVars copyWith({String? segmentId}) {
+    return GRefineSegmentGeometryVars(segmentId: segmentId ?? this.segmentId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRefineSegmentGeometryVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GRefineSegmentGeometryVars(segmentId: $segmentId)';
+  }
+}
+
 class GCorrectSegmentVars {
   const GCorrectSegmentVars({
     required this.segmentId,
