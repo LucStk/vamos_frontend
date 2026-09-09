@@ -1,12 +1,19 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/editor/utiles/merge_polyline.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 
 extension DragEditor on MapEditor {
-  Future<void> onDragStart(MapElement element) async {}
+  Future<void> onDragStart(MapElement element) async {
+    switch ((mode, element)) {
+      case (SketchMode m, NoMapElement e) when selection is MapSketchPencil:
+        selection = NoMapElement();
+      case _:
+    }
+  }
 
   Future<void> onDragUpdate(
     MapElement dragged,

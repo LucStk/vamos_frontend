@@ -84,6 +84,7 @@ class PointerGestureController {
             distancePx(_pressPoint!, position) < tapSlopPx) {
           return state; // encore potentiellement un tap, pas un drag
         }
+        mapEditor.onDragStart(NoMapElement());
         return Dragging(dragged: NoMapElement());
 
       case Pressed(:final element):
