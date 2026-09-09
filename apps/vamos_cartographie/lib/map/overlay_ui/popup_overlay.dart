@@ -56,7 +56,7 @@ class _PencilPopup extends StatelessWidget {
             child: TextButton.icon(
               onPressed: onCreateStep,
               icon: const Icon(Icons.add, size: 18),
-              label: const Text('Créer étape'),
+              label: const Text('Créer étape ici'),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 14,

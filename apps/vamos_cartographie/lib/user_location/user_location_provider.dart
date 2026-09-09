@@ -7,37 +7,32 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_location_provider.g.dart';
 
-enum UserLocationStatus { inactive, active, unavailable }
+sealed class UserLocationState {
+  const UserLocationState();
+}
 
-class UserLocationState {
-  const UserLocationState({
-    required this.status,
-    this.position,
-    this.accuracy,
-    this.heading,
+class UserPositionActive extends UserLocationState {
+  final LatLng position;
+  final double accuracy;
+  final double heading;
+
+  const UserPositionActive({
+    required this.position,
+    required this.accuracy,
+    required this.heading,
   });
+}
 
-  const UserLocationState.inactive()
-    : status = UserLocationStatus.inactive,
-      position = null,
-      accuracy = null,
-      heading = null;
+class UserPositionInactive extends UserLocationState {
+  const UserPositionInactive();
+}
 
-  const UserLocationState.unavailable()
-    : status = UserLocationStatus.unavailable,
-      position = null,
-      accuracy = null,
-      heading = null;
+class UserPositionUnavailable extends UserLocationState {
+  const UserPositionUnavailable();
+}
 
-  final UserLocationStatus status;
-
-  final LatLng? position;
-  final double? accuracy;
-  final double? heading;
-
-  bool get isActive => status == UserLocationStatus.active;
-  bool get isInactive => status == UserLocationStatus.inactive;
-  bool get isUnavailable => status == UserLocationStatus.unavailable;
+class UserPositionLoading extends UserLocationState {
+  const UserPositionLoading();
 }
 
 @riverpod
@@ -50,14 +45,16 @@ class UserLocationNotifier extends _$UserLocationNotifier {
       _subscription?.cancel();
     });
 
-    return const UserLocationState.inactive();
+    return const UserPositionInactive();
   }
 
   Future<void> start() async {
+    state = const UserPositionLoading();
+
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) {
-      state = const UserLocationState.unavailable();
+      state = const UserPositionUnavailable();
       return;
     }
 
@@ -69,7 +66,7 @@ class UserLocationNotifier extends _$UserLocationNotifier {
 
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
-      state = const UserLocationState.unavailable();
+      state = const UserPositionUnavailable();
       return;
     }
 
@@ -89,13 +86,12 @@ class UserLocationNotifier extends _$UserLocationNotifier {
     } catch (error) {
       debugPrint('Unable to get user location: $error');
 
-      state = const UserLocationState.unavailable();
+      state = const UserPositionUnavailable();
     }
   }
 
   void _update(Position position) {
-    state = UserLocationState(
-      status: UserLocationStatus.active,
+    state = UserPositionActive(
       position: LatLng(position.latitude, position.longitude),
       accuracy: position.accuracy,
       heading: position.heading,
@@ -106,6 +102,6 @@ class UserLocationNotifier extends _$UserLocationNotifier {
     await _subscription?.cancel();
     _subscription = null;
 
-    state = const UserLocationState.inactive();
+    state = const UserPositionInactive();
   }
 }

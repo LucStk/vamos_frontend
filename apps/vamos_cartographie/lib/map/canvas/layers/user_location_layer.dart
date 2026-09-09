@@ -9,8 +9,14 @@ class UserLocationLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final position = ref.watch(userLocationProvider.select((m) => m.position));
-
+    final position = ref.watch(
+      userLocationProvider.select(
+        (state) => switch (state) {
+          UserPositionActive(:final position) => position,
+          _ => null,
+        },
+      ),
+    );
     if (position == null) {
       return const SizedBox.shrink();
     }

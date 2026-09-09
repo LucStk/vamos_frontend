@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/map/features/network_overlay_type.dart';
 import 'package:vamos_cartographie/map/injection/network_overlay_provider.dart';
+import 'package:vamos_cartographie/map/overlay_ui/map_control_panels/widgets/user_location_icons.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 import '/map/map.dart';
 
@@ -53,8 +54,8 @@ class MapControls extends ConsumerWidget {
             },
           ),
           IconButton(
-            icon: Icon(userLocation.status.icon),
-            color: userLocation.status.color,
+            icon: userLocation.iconWidget,
+            color: userLocation.color,
             onPressed: () => ref.read(userLocationProvider.notifier).start(),
           ),
           _OverlayToggle(
@@ -99,33 +100,5 @@ class _OverlayToggle extends ConsumerWidget {
       onPressed: () =>
           ref.read(activeNetworkOverlaysProvider.notifier).toggle(type),
     );
-  }
-}
-
-extension UserLocationStatusExtension on UserLocationStatus {
-  IconData get icon {
-    switch (this) {
-      case UserLocationStatus.inactive:
-        return Icons.location_off;
-
-      case UserLocationStatus.active:
-        return Icons.location_on;
-
-      case UserLocationStatus.unavailable:
-        return Icons.location_disabled;
-    }
-  }
-
-  Color get color {
-    switch (this) {
-      case UserLocationStatus.inactive:
-        return CupertinoColors.inactiveGray;
-
-      case UserLocationStatus.active:
-        return CupertinoColors.activeBlue;
-
-      case UserLocationStatus.unavailable:
-        return CupertinoColors.systemRed;
-    }
   }
 }
