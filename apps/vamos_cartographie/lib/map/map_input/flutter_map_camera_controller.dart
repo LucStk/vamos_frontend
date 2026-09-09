@@ -9,6 +9,7 @@ import 'package:map_application/editor/map_camera_controller.dart';
 
 class FlutterMapCameraController implements MapCameraController {
   final AnimatedMapController animatedController;
+
   FlutterMapCameraController(this.animatedController);
 
   MapCamera get _camera => animatedController.mapController.camera;
@@ -16,6 +17,7 @@ class FlutterMapCameraController implements MapCameraController {
   @override
   void zoomTo(LatLng latLng, {double deltaZoom = 1}) {
     final targetZoom = min(_camera.zoom + deltaZoom, _camera.maxZoom ?? 20);
+
     animatedController.animateTo(dest: latLng, zoom: targetZoom);
   }
 
@@ -44,18 +46,18 @@ class FlutterMapCameraController implements MapCameraController {
       .map((_) => _camera.rotation);
 
   @override
+  Stream<void> get cameraStream =>
+      animatedController.mapController.mapEventStream.map((_) {});
+
+  @override
   Point<double> latLngToPoint(LatLng latLng) {
-    final offset = animatedController.mapController.camera.latLngToScreenOffset(
-      latLng,
-    );
+    final offset = _camera.latLngToScreenOffset(latLng);
+
     return Point(offset.dx, offset.dy);
   }
 
   @override
   LatLng pointToLatLng(Point<double> point) {
-    final latLng = animatedController.mapController.camera.screenOffsetToLatLng(
-      Offset(point.x, point.y),
-    );
-    return latLng;
+    return _camera.screenOffsetToLatLng(Offset(point.x, point.y));
   }
 }

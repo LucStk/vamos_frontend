@@ -184,29 +184,119 @@ final class IsDragInProgressFamily extends $Family
   String toString() => r'isDragInProgressProvider';
 }
 
-@ProviderFor(pencilePosition)
-final pencilePositionProvider = PencilePositionFamily._();
+@ProviderFor(CameraRevision)
+final cameraRevisionProvider = CameraRevisionFamily._();
 
-final class PencilePositionProvider
-    extends $FunctionalProvider<Point<double>?, Point<double>?, Point<double>?>
-    with $Provider<Point<double>?> {
-  PencilePositionProvider._({
-    required PencilePositionFamily super.from,
+final class CameraRevisionProvider
+    extends $NotifierProvider<CameraRevision, int> {
+  CameraRevisionProvider._({
+    required CameraRevisionFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'pencilePositionProvider',
+         name: r'cameraRevisionProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$cameraRevisionHash();
+
+  @override
+  String toString() {
+    return r'cameraRevisionProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  CameraRevision create() => CameraRevision();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(int value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<int>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CameraRevisionProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$cameraRevisionHash() => r'e2ce064bc78dc6c1e30cf4c77623720b7f535682';
+
+final class CameraRevisionFamily extends $Family
+    with $ClassFamilyOverride<CameraRevision, int, int, int, TripId> {
+  CameraRevisionFamily._()
+    : super(
+        retry: null,
+        name: r'cameraRevisionProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  CameraRevisionProvider call(TripId tripId) =>
+      CameraRevisionProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'cameraRevisionProvider';
+}
+
+abstract class _$CameraRevision extends $Notifier<int> {
+  late final _$args = ref.$arg as TripId;
+  TripId get tripId => _$args;
+
+  int build(TripId tripId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<int, int>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<int, int>,
+              int,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
+}
+
+@ProviderFor(pencilScreenPosition)
+final pencilScreenPositionProvider = PencilScreenPositionFamily._();
+
+final class PencilScreenPositionProvider
+    extends $FunctionalProvider<Point<double>?, Point<double>?, Point<double>?>
+    with $Provider<Point<double>?> {
+  PencilScreenPositionProvider._({
+    required PencilScreenPositionFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'pencilScreenPositionProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$pencilePositionHash();
+  String debugGetCreateSourceHash() => _$pencilScreenPositionHash();
 
   @override
   String toString() {
-    return r'pencilePositionProvider'
+    return r'pencilScreenPositionProvider'
         ''
         '($argument)';
   }
@@ -219,7 +309,7 @@ final class PencilePositionProvider
   @override
   Point<double>? create(Ref ref) {
     final argument = this.argument as TripId;
-    return pencilePosition(ref, argument);
+    return pencilScreenPosition(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -232,7 +322,7 @@ final class PencilePositionProvider
 
   @override
   bool operator ==(Object other) {
-    return other is PencilePositionProvider && other.argument == argument;
+    return other is PencilScreenPositionProvider && other.argument == argument;
   }
 
   @override
@@ -241,22 +331,23 @@ final class PencilePositionProvider
   }
 }
 
-String _$pencilePositionHash() => r'68e3cdc8fd3f9fa24dcc040453000908a88a04be';
+String _$pencilScreenPositionHash() =>
+    r'839628fcf1d93ffa04421bc8c2948b52b2992036';
 
-final class PencilePositionFamily extends $Family
+final class PencilScreenPositionFamily extends $Family
     with $FunctionalFamilyOverride<Point<double>?, TripId> {
-  PencilePositionFamily._()
+  PencilScreenPositionFamily._()
     : super(
         retry: null,
-        name: r'pencilePositionProvider',
+        name: r'pencilScreenPositionProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  PencilePositionProvider call(TripId tripId) =>
-      PencilePositionProvider._(argument: tripId, from: this);
+  PencilScreenPositionProvider call(TripId tripId) =>
+      PencilScreenPositionProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'pencilePositionProvider';
+  String toString() => r'pencilScreenPositionProvider';
 }
