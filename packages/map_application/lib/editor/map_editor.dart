@@ -8,7 +8,7 @@ import 'entities/entities.dart';
 
 // lib/editor/map_editor.dart
 
-mixin MapEditor {
+mixin MapContext {
   GraphEditor get graphEditor;
   WaypointEditor get waypointEditor;
   MapMode get mode;

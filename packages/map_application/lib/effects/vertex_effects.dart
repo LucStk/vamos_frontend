@@ -6,7 +6,7 @@ final class CreateSimpleVertex extends MapEffect {
   const CreateSimpleVertex(this.position);
 
   @override
-  Future<void> run(MapEditor context) {
+  Future<void> run(MapContext context) {
     return context.graphEditor.createSimpleVertex(position);
   }
 }
@@ -18,7 +18,7 @@ final class UpdateRemoteVertexPosition extends MapEffect {
   const UpdateRemoteVertexPosition(this.vertexId, this.position);
 
   @override
-  Future<void> run(MapEditor context) {
+  Future<void> run(MapContext context) {
     return context.graphEditor.moveVertex(vertexId, position);
   }
 }
@@ -29,7 +29,7 @@ final class CreateWaypointFromVertex extends MapEffect {
   const CreateWaypointFromVertex(this.vertexId);
 
   @override
-  Future<void> run(MapEditor context) {
+  Future<void> run(MapContext context) {
     return context.waypointEditor.createBlankWaypointFromVertex(vertexId);
   }
 }
@@ -40,7 +40,7 @@ final class CreateWaypointFromPosition extends MapEffect {
   const CreateWaypointFromPosition(this.position);
 
   @override
-  Future<void> run(MapEditor context) async {
+  Future<void> run(MapContext context) async {
     final res = await context.waypointEditor.createBlankWaypointFromPosition(
       position,
     );
@@ -55,7 +55,7 @@ final class RemoveVertex extends MapEffect {
   const RemoveVertex(this.vertexId);
 
   @override
-  Future<void> run(MapEditor context) {
+  Future<void> run(MapContext context) {
     return context.graphEditor.removeVertex(vertexId);
   }
 }

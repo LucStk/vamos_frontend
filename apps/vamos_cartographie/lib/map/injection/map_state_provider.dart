@@ -11,7 +11,7 @@ import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 part 'map_state_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-class MapStateNotifier extends _$MapStateNotifier with MapEditor {
+class MapStateNotifier extends _$MapStateNotifier with MapContext {
   @override
   MapMode get mode => state.mode;
   @override
@@ -31,12 +31,12 @@ class MapStateNotifier extends _$MapStateNotifier with MapEditor {
       ref.read(waypointStoreProvider(tripId).notifier);
 
   // Plus de getter camera ici : `attachCamera()` (fourni par le mixin
-  // MapEditor) est appelé une fois depuis le widget hôte, dans initState.
+  // MapContext) est appelé une fois depuis le widget hôte, dans initState.
 
   @override
-  MapEditorState build(TripId tripId) {
+  MapContextState build(TripId tripId) {
     Future.microtask(() => loadTripDetails());
-    return const MapEditorState(mode: Idle(), selection: NoMapElement());
+    return const MapContextState(mode: Idle(), selection: NoMapElement());
   }
 
   Future<Failure?> loadTripDetails() async {

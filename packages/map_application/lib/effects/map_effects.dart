@@ -11,5 +11,5 @@ part "camera_effects.dart";
 sealed class MapEffect {
   const MapEffect();
 
-  Future<void> run(MapEditor context);
+  Future<void> run(MapContext context);
 }

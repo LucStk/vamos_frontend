@@ -2,7 +2,7 @@
 import 'package:map_application/map_application.dart';
 
 // lib/editor/vertex_editor.dart
-extension VertexEditor on MapEditor {
+extension VertexEditor on MapContext {
   Future<void> deleteSelectedVertex() async {
     if (selection case MapVertex(:final vertex)) {
       selection = NoMapElement();

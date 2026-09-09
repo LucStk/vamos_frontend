@@ -13,7 +13,7 @@ part of 'map_state_provider.dart';
 final mapStateProvider = MapStateNotifierFamily._();
 
 final class MapStateNotifierProvider
-    extends $NotifierProvider<MapStateNotifier, MapEditorState> {
+    extends $NotifierProvider<MapStateNotifier, MapContextState> {
   MapStateNotifierProvider._({
     required MapStateNotifierFamily super.from,
     required TripId super.argument,
@@ -40,10 +40,10 @@ final class MapStateNotifierProvider
   MapStateNotifier create() => MapStateNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapEditorState value) {
+  Override overrideWithValue(MapContextState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapEditorState>(value),
+      providerOverride: $SyncValueProvider<MapContextState>(value),
     );
   }
 
@@ -58,15 +58,15 @@ final class MapStateNotifierProvider
   }
 }
 
-String _$mapStateNotifierHash() => r'5552c2bb5a1bcf5d760fdef83f105d07d2f133f8';
+String _$mapStateNotifierHash() => r'9e8e962f5a4cea89ec6c7ac03fdb9875e2991d35';
 
 final class MapStateNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           MapStateNotifier,
-          MapEditorState,
-          MapEditorState,
-          MapEditorState,
+          MapContextState,
+          MapContextState,
+          MapContextState,
           TripId
         > {
   MapStateNotifierFamily._()
@@ -85,20 +85,20 @@ final class MapStateNotifierFamily extends $Family
   String toString() => r'mapStateProvider';
 }
 
-abstract class _$MapStateNotifier extends $Notifier<MapEditorState> {
+abstract class _$MapStateNotifier extends $Notifier<MapContextState> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  MapEditorState build(TripId tripId);
+  MapContextState build(TripId tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<MapEditorState, MapEditorState>;
+    final ref = this.ref as $Ref<MapContextState, MapContextState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MapEditorState, MapEditorState>,
-              MapEditorState,
+              AnyNotifier<MapContextState, MapContextState>,
+              MapContextState,
               Object?,
               Object?
             >;

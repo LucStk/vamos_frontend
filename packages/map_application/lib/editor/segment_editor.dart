@@ -3,7 +3,7 @@ import 'package:domain_core/domain/collection_store.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 
-extension SegmentEditor on MapEditor {
+extension SegmentEditor on MapContext {
   Future<void> deleteSelectedSegment() async {
     if (selection case MapSegment(:final segment)) {
       await runEffect(DeleteSegment(segment.id));

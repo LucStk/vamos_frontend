@@ -12,20 +12,20 @@ part of 'map_editor_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MapEditorState {
+mixin _$MapContextState {
 
  MapMode get mode; MapElement get selection;
-/// Create a copy of MapEditorState
+/// Create a copy of MapContextState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$MapEditorStateCopyWith<MapEditorState> get copyWith => _$MapEditorStateCopyWithImpl<MapEditorState>(this as MapEditorState, _$identity);
+$MapContextStateCopyWith<MapContextState> get copyWith => _$MapContextStateCopyWithImpl<MapContextState>(this as MapContextState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapEditorState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.selection, selection) || other.selection == selection));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MapContextState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.selection, selection) || other.selection == selection));
 }
 
 
@@ -34,15 +34,15 @@ int get hashCode => Object.hash(runtimeType,mode,selection);
 
 @override
 String toString() {
-  return 'MapEditorState(mode: $mode, selection: $selection)';
+  return 'MapContextState(mode: $mode, selection: $selection)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $MapEditorStateCopyWith<$Res>  {
-  factory $MapEditorStateCopyWith(MapEditorState value, $Res Function(MapEditorState) _then) = _$MapEditorStateCopyWithImpl;
+abstract mixin class $MapContextStateCopyWith<$Res>  {
+  factory $MapContextStateCopyWith(MapContextState value, $Res Function(MapContextState) _then) = _$MapContextStateCopyWithImpl;
 @useResult
 $Res call({
  MapMode mode, MapElement selection
@@ -53,14 +53,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$MapEditorStateCopyWithImpl<$Res>
-    implements $MapEditorStateCopyWith<$Res> {
-  _$MapEditorStateCopyWithImpl(this._self, this._then);
+class _$MapContextStateCopyWithImpl<$Res>
+    implements $MapContextStateCopyWith<$Res> {
+  _$MapContextStateCopyWithImpl(this._self, this._then);
 
-  final MapEditorState _self;
-  final $Res Function(MapEditorState) _then;
+  final MapContextState _self;
+  final $Res Function(MapContextState) _then;
 
-/// Create a copy of MapEditorState
+/// Create a copy of MapContextState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? mode = null,Object? selection = null,}) {
   return _then(_self.copyWith(
@@ -73,8 +73,8 @@ as MapElement,
 }
 
 
-/// Adds pattern-matching-related methods to [MapEditorState].
-extension MapEditorStatePatterns on MapEditorState {
+/// Adds pattern-matching-related methods to [MapContextState].
+extension MapContextStatePatterns on MapContextState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -87,10 +87,10 @@ extension MapEditorStatePatterns on MapEditorState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MapEditorState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MapContextState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _MapEditorState() when $default != null:
+case _MapContextState() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -109,10 +109,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MapEditorState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MapContextState value)  $default,){
 final _that = this;
 switch (_that) {
-case _MapEditorState():
+case _MapContextState():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -130,10 +130,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MapEditorState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MapContextState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _MapEditorState() when $default != null:
+case _MapContextState() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -153,7 +153,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MapMode mode,  MapElement selection)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _MapEditorState() when $default != null:
+case _MapContextState() when $default != null:
 return $default(_that.mode,_that.selection);case _:
   return orElse();
 
@@ -174,7 +174,7 @@ return $default(_that.mode,_that.selection);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MapMode mode,  MapElement selection)  $default,) {final _that = this;
 switch (_that) {
-case _MapEditorState():
+case _MapContextState():
 return $default(_that.mode,_that.selection);case _:
   throw StateError('Unexpected subclass');
 
@@ -194,7 +194,7 @@ return $default(_that.mode,_that.selection);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MapMode mode,  MapElement selection)?  $default,) {final _that = this;
 switch (_that) {
-case _MapEditorState() when $default != null:
+case _MapContextState() when $default != null:
 return $default(_that.mode,_that.selection);case _:
   return null;
 
@@ -206,24 +206,24 @@ return $default(_that.mode,_that.selection);case _:
 /// @nodoc
 
 
-class _MapEditorState implements MapEditorState {
-  const _MapEditorState({this.mode = const Idle(), this.selection = const NoMapElement()});
+class _MapContextState implements MapContextState {
+  const _MapContextState({this.mode = const Idle(), this.selection = const NoMapElement()});
   
 
 @override@JsonKey() final  MapMode mode;
 @override@JsonKey() final  MapElement selection;
 
-/// Create a copy of MapEditorState
+/// Create a copy of MapContextState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$MapEditorStateCopyWith<_MapEditorState> get copyWith => __$MapEditorStateCopyWithImpl<_MapEditorState>(this, _$identity);
+_$MapContextStateCopyWith<_MapContextState> get copyWith => __$MapContextStateCopyWithImpl<_MapContextState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapEditorState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.selection, selection) || other.selection == selection));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MapContextState&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.selection, selection) || other.selection == selection));
 }
 
 
@@ -232,15 +232,15 @@ int get hashCode => Object.hash(runtimeType,mode,selection);
 
 @override
 String toString() {
-  return 'MapEditorState(mode: $mode, selection: $selection)';
+  return 'MapContextState(mode: $mode, selection: $selection)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$MapEditorStateCopyWith<$Res> implements $MapEditorStateCopyWith<$Res> {
-  factory _$MapEditorStateCopyWith(_MapEditorState value, $Res Function(_MapEditorState) _then) = __$MapEditorStateCopyWithImpl;
+abstract mixin class _$MapContextStateCopyWith<$Res> implements $MapContextStateCopyWith<$Res> {
+  factory _$MapContextStateCopyWith(_MapContextState value, $Res Function(_MapContextState) _then) = __$MapContextStateCopyWithImpl;
 @override @useResult
 $Res call({
  MapMode mode, MapElement selection
@@ -251,17 +251,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$MapEditorStateCopyWithImpl<$Res>
-    implements _$MapEditorStateCopyWith<$Res> {
-  __$MapEditorStateCopyWithImpl(this._self, this._then);
+class __$MapContextStateCopyWithImpl<$Res>
+    implements _$MapContextStateCopyWith<$Res> {
+  __$MapContextStateCopyWithImpl(this._self, this._then);
 
-  final _MapEditorState _self;
-  final $Res Function(_MapEditorState) _then;
+  final _MapContextState _self;
+  final $Res Function(_MapContextState) _then;
 
-/// Create a copy of MapEditorState
+/// Create a copy of MapContextState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? mode = null,Object? selection = null,}) {
-  return _then(_MapEditorState(
+  return _then(_MapContextState(
 mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
 as MapMode,selection: null == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
 as MapElement,

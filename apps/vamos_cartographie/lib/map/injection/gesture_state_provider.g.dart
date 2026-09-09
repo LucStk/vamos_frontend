@@ -332,7 +332,7 @@ final class PencilScreenPositionProvider
 }
 
 String _$pencilScreenPositionHash() =>
-    r'839628fcf1d93ffa04421bc8c2948b52b2992036';
+    r'68b832b4949ade52ac4e8f16efb22f2bc00c21d0';
 
 final class PencilScreenPositionFamily extends $Family
     with $FunctionalFamilyOverride<Point<double>?, TripId> {

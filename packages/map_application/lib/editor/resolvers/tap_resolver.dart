@@ -4,7 +4,7 @@ import 'package:map_application/editor/map_editor.dart';
 import 'package:map_application/effects/map_effects.dart';
 import '/editor/entities/entities.dart';
 
-extension TapEditor on MapEditor {
+extension TapEditor on MapContext {
   Future<void> onTapped(MapElement element, LatLng latLng) async {
     switch ((mode, element)) {
       case (Idle _, NoMapElement _):

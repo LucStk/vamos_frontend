@@ -5,11 +5,11 @@ import 'map_mode.dart';
 part 'map_editor_state.freezed.dart';
 
 @freezed
-abstract class MapEditorState with _$MapEditorState {
-  const factory MapEditorState({
+abstract class MapContextState with _$MapContextState {
+  const factory MapContextState({
     @Default(Idle()) MapMode mode,
     @Default(NoMapElement()) MapElement selection,
-  }) = _MapEditorState;
+  }) = _MapContextState;
 }
 
 // @freezed

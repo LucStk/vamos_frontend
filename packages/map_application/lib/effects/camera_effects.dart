@@ -7,7 +7,7 @@ class ZoomOnPoint extends MapEffect {
   ZoomOnPoint(this.latLng, {this.deltaZoom = 1});
 
   @override
-  Future<void> run(MapEditor editor) async {
+  Future<void> run(MapContext editor) async {
     editor.camera.zoomTo(latLng, deltaZoom: deltaZoom);
   }
 }

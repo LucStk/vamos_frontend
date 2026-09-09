@@ -3,7 +3,7 @@ import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/editor/map_editor.dart';
 import '/editor/entities/entities.dart';
 
-extension PointerDownEditor on MapEditor {
+extension PointerDownEditor on MapContext {
   MapElement onPointerDown(MapElement element, LatLng latLng) {
     switch ((mode, element)) {
       case (SketchCreation m, MapSketchSegment _):

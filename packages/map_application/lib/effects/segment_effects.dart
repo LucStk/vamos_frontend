@@ -14,7 +14,7 @@ final class CreateSegmentFromSketch extends MapEffect {
   });
 
   @override
-  Future<void> run(MapEditor context) async {
+  Future<void> run(MapContext context) async {
     final res = await context.graphEditor.createSegment(
       startVertexId: startVertexId,
       endVertexId: endVertexId,
@@ -42,7 +42,7 @@ final class SpliceSegment extends MapEffect {
   });
 
   @override
-  Future<void> run(MapEditor context) async {
+  Future<void> run(MapContext context) async {
     final res = await context.graphEditor.spliceSegment(
       correction: correction,
       mobilityType: mobilityType,
@@ -65,7 +65,7 @@ final class EditeSegmentFromSketch extends MapEffect {
   const EditeSegmentFromSketch({required this.patch});
 
   @override
-  Future<void> run(MapEditor context) async {
+  Future<void> run(MapContext context) async {
     final res = await context.graphEditor.updateSegment(patch);
     res.fold((_) {}, (segment) {
       switch (context.mode) {
@@ -88,7 +88,7 @@ final class CorrectSegmentFromSketch extends MapEffect {
   });
 
   @override
-  Future<void> run(MapEditor context) async {
+  Future<void> run(MapContext context) async {
     final res = await context.graphEditor.correctSegment(
       patchSegment,
       correction,
@@ -111,7 +111,7 @@ final class DeleteSegment extends MapEffect {
   const DeleteSegment(this.segmentId);
 
   @override
-  Future<void> run(MapEditor context) {
+  Future<void> run(MapContext context) {
     return context.graphEditor.deleteSegment(segmentId);
   }
 }

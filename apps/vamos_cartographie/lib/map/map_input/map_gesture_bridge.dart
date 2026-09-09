@@ -34,7 +34,7 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
   GestureStateNotifier get _gestureState =>
       ref.read(gestureStateProvider(widget.tripId).notifier);
 
-  MapEditor get _mapEditor =>
+  MapContext get _mapContext =>
       ref.read(mapStateProvider(widget.tripId).notifier);
 
   @override
@@ -49,8 +49,8 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
       curve: Curves.easeInOutCubic,
     );
     _hitTester = MapHitTester(
-      hitMode: () => _mapEditor.mode,
-      hitSelection: () => _mapEditor.selection,
+      hitMode: () => _mapContext.mode,
+      hitSelection: () => _mapContext.selection,
       vertices: () => ref.read(allVertexProvider(widget.tripId)),
       segments: () => ref.read(allSegmentsProvider(widget.tripId)),
       project: (latLng) {
@@ -61,11 +61,13 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
 
     _gestureController = PointerGestureController(
       hitTester: _hitTester,
-      mapEditor: _mapEditor,
+      mapContext: _mapContext,
       setPanBlocked: (blocked) => _panAllowed.value = !blocked,
     );
 
-    _mapEditor.attachCamera(FlutterMapCameraController(_animatedMapController));
+    _mapContext.attachCamera(
+      FlutterMapCameraController(_animatedMapController),
+    );
   }
 
   /// Point d'entrée unique côté widget : traduit un Offset écran en LatLng,
@@ -91,7 +93,9 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
   Widget build(BuildContext context) {
     // Réattache à chaque build — survit au hot reload, voir discussion
     // sur le champ _cameraController réinitialisé à null par le reload.
-    _mapEditor.attachCamera(FlutterMapCameraController(_animatedMapController));
+    _mapContext.attachCamera(
+      FlutterMapCameraController(_animatedMapController),
+    );
 
     return Listener(
       behavior: HitTestBehavior.translucent,

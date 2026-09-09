@@ -34,22 +34,22 @@ class PendingTap {
 }
 
 /// Orchestre le cycle de vie d'un geste pointeur (down → move → up),
-/// décide tap/double-tap/drag, et dispatche vers MapEditor.
+/// décide tap/double-tap/drag, et dispatche vers MapContext.
 /// Pure côté état applicatif : ne possède aucun GestureState — le
 /// reçoit en entrée de [handle] et retourne le nouvel état, à charge
 /// de l'appelant de le conserver. Conserve en interne uniquement des
 /// détails de reconnaissance de geste (slop, timer de double tap) qui
 /// n'ont pas vocation à être exposés/persistés ailleurs.
-/// Ne connaît MapHitTester et MapEditor que comme dépendances injectées.
+/// Ne connaît MapHitTester et MapContext que comme dépendances injectées.
 class PointerGestureController {
   final MapHitTester hitTester;
-  final MapEditor mapEditor;
+  final MapContext mapContext;
   final void Function(bool blocked) setPanBlocked;
   final double tapSlopPx;
 
   PointerGestureController({
     required this.hitTester,
-    required this.mapEditor,
+    required this.mapContext,
     required this.setPanBlocked,
     this.tapSlopPx = 8,
   });
@@ -70,7 +70,7 @@ class PointerGestureController {
 
   GestureState _handleDown(LatLng latLng) {
     final element = hitTester.hitTest(latLng);
-    final pressedElement = mapEditor.onPointerDown(element, latLng);
+    final pressedElement = mapContext.onPointerDown(element, latLng);
     _pressPoint = hitTester.project(latLng);
     setPanBlocked(pressedElement.isDraggable);
     return Pressed(pressedElement);
@@ -84,17 +84,17 @@ class PointerGestureController {
             distancePx(_pressPoint!, position) < tapSlopPx) {
           return state; // encore potentiellement un tap, pas un drag
         }
-        mapEditor.onDragStart(NoMapElement());
+        mapContext.onDragStart(NoMapElement());
         return Dragging(dragged: NoMapElement());
 
       case Pressed(:final element):
         if (!element.isDraggable) return state;
-        mapEditor.onDragStart(element);
+        mapContext.onDragStart(element);
         return Dragging(dragged: element);
 
       case Dragging(:final dragged) when dragged is! NoMapElement:
         final target = hitTester.hitTest(latLng, exclude: dragged);
-        mapEditor.onDragUpdate(dragged, target, latLng);
+        mapContext.onDragUpdate(dragged, target, latLng);
         return Dragging(dragged: dragged, target: target);
 
       case _:
@@ -111,7 +111,7 @@ class PointerGestureController {
         _handleTap(element, latLng);
       case Dragging(:final dragged, :final target):
         cancelPendingTap();
-        mapEditor.onDragEnd(dragged, target, latLng);
+        mapContext.onDragEnd(dragged, target, latLng);
       case _:
     }
 
@@ -129,7 +129,7 @@ class PointerGestureController {
       // se déclencher plus tard sur cet ancien élément) et on déclenche
       // immédiatement, sans latence.
       cancelPendingTap();
-      mapEditor.onTapped(element, latLng);
+      mapContext.onTapped(element, latLng);
       return;
     }
 
@@ -137,7 +137,7 @@ class PointerGestureController {
 
     if (_pendingTap != null && _pendingTap!.compare(element, point)) {
       cancelPendingTap();
-      mapEditor.onDoubleTapped(element, latLng);
+      mapContext.onDoubleTapped(element, latLng);
       return;
     }
 
@@ -146,7 +146,7 @@ class PointerGestureController {
       pendingTapPoint: point,
       pendingTapElement: element,
       onTap: () {
-        mapEditor.onTapped(element, latLng);
+        mapContext.onTapped(element, latLng);
         _pendingTap = null;
       },
     );
