@@ -36,3 +36,9 @@ vamos_cartographie/.direnv/bin/nix-direnv-reload
 flake.lock
 .direnv/
 vamos_cartographie/lib/features/map/.legacy/
+apps/auth_test/windows/*
+apps/auth_test/android/*
+apps/auth_test/macos/*
+apps/auth_test/linux/*
+apps/auth_test/web/*
+apps/auth_test/ios/*
