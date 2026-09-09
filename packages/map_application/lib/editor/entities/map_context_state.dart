@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_application/domain/map_elements.dart';
 import 'map_mode.dart';
 
-part 'map_editor_state.freezed.dart';
+part 'map_context_state.freezed.dart';
 
 @freezed
 abstract class MapContextState with _$MapContextState {

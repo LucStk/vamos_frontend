@@ -1,4 +1,4 @@
-// lib/editor/map_editor.dart
+// lib/editor/map_context.dart
 import 'package:map_application/domain/map_elements.dart';
 import 'package:map_application/editor/map_camera_controller.dart';
 import 'package:map_application/effects/map_effects.dart';
@@ -6,7 +6,7 @@ import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
 import 'entities/entities.dart';
 
-// lib/editor/map_editor.dart
+// lib/editor/map_context.dart
 
 mixin MapContext {
   GraphEditor get graphEditor;
