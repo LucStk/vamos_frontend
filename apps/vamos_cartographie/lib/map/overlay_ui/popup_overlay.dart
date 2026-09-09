@@ -23,15 +23,83 @@ class PopUpOverlay extends ConsumerWidget {
       left: point.x,
       top: point.y,
       child: FractionalTranslation(
-        // -0.5 décale le menu de 50% de sa propre largeur vers la gauche (centrage horizontal)
-        // -1.0 place le bas du menu pile sur le point d'ancrage
-        translation: const Offset(-0.5, -1.0),
-        child: Padding(
-          // On ajoute une marge uniquement en bas pour "pousser" le menu de 8px vers le haut
-          padding: const EdgeInsets.only(bottom: 20.0),
-          child: Container(width: 12, height: 12, color: Colors.red),
+        translation: const Offset(-0.5, -1.5),
+        child: _PencilPopup(
+          onCreateStep: () {
+            // TODO: déclencher la création de l'étape
+          },
         ),
       ),
     );
+  }
+}
+
+class _PencilPopup extends StatelessWidget {
+  const _PencilPopup({required this.onCreateStep});
+
+  final VoidCallback onCreateStep;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Material(
+          elevation: 6,
+          borderRadius: BorderRadius.circular(12),
+          color: theme.colorScheme.surface,
+          clipBehavior: Clip.antiAlias,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: TextButton.icon(
+              onPressed: onCreateStep,
+              icon: const Icon(Icons.add, size: 18),
+              label: const Text('Créer étape'),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        // Petite pointe qui indique le point géographique.
+        CustomPaint(
+          size: const Size(18, 9),
+          painter: _PopupArrowPainter(color: theme.colorScheme.surface),
+        ),
+      ],
+    );
+  }
+}
+
+class _PopupArrowPainter extends CustomPainter {
+  const _PopupArrowPainter({required this.color});
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, size.height)
+      ..lineTo(size.width, 0)
+      ..close();
+
+    canvas.drawPath(path, Paint()..color = color);
+  }
+
+  @override
+  bool shouldRepaint(_PopupArrowPainter oldDelegate) {
+    return oldDelegate.color != color;
   }
 }
