@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 class DrawSegment extends ConsumerWidget {
@@ -10,9 +11,9 @@ class DrawSegment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapStateNotifier = ref.watch(mapStateProvider(tripId).notifier);
+    final mapStateNotifier = ref.watch(mapEditorStateProvider(tripId).notifier);
     return OutlinedButton.icon(
-      onPressed: () => mapStateNotifier.activateSketchMode(),
+      onPressed: () => {}, // mapStateNotifier.activateSketchMode(),
 
       icon: const Icon(Icons.draw_outlined, size: 16),
       label: const Text("Draw road"),

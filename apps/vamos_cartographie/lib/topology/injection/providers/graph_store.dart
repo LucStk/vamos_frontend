@@ -62,6 +62,10 @@ class GraphStoreNotifier extends _$GraphStoreNotifier
 
   @override
   ErrorLogger? get errorLogger => ref.read(errorLoggerProvider);
+
+  void emit(GraphStore newGraphStore) {
+    state = newGraphStore;
+  }
 }
 
 @riverpod

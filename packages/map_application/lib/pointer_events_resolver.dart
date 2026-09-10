@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/gestures_resolver/gestures_resolver.dart';
 import 'package:map_application/map_application.dart';
 
-double distancePx(Point<double> a, Point<double> b) =>
-    sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+double distanceTo(Offset p1, Offset p2) => (p1 - p2).distance;
 
 class PendingTap {
   /// État interne de détection du double tap.
   final Timer pendingTapTimer;
-  final Point<double> pendingTapPoint;
+  final Offset pendingTapPoint;
   final MapObject? pendingTapElement;
   final Duration doubleTapTimeout;
   final double doubleTapMaxDistancePx;
@@ -28,10 +28,10 @@ class PendingTap {
     pendingTapTimer.cancel();
   }
 
-  bool compare(MapObject? element, Point<double> point) {
+  bool compare(MapObject? element, Offset point) {
     if (element == null || pendingTapElement == null) return false;
     return pendingTapElement!.isSameAs(element) &&
-        distancePx(pendingTapPoint, point) <= doubleTapMaxDistancePx;
+        distanceTo(pendingTapPoint, point) <= doubleTapMaxDistancePx;
   }
 }
 
@@ -53,7 +53,7 @@ abstract class PointerGestureController {
   set setPanBlocked(bool blocked);
 
   /// Point de pression initial — détail de reconnaissance du drag (slop).
-  Point<double>? _pressPoint;
+  Offset? _pressPoint;
   PendingTap? _pendingTap;
 
   /// Point d'entrée unique pour les trois gestes primaires.
@@ -61,18 +61,18 @@ abstract class PointerGestureController {
   void handle(GestureState state, MapPointerEvent event) {
     switch (event) {
       case MapPointerDown(:final latLng):
-        final element = hitTester.hitTest(latLng);
-        _pressPoint = camera.latLngToPoint(latLng);
+        _pressPoint = camera.latLngToScreenOffset(latLng);
+        final element = hitTester.hitTest(_pressPoint!);
         setPanBlocked = (element != null ? element.isDraggable : false);
         gesturesResolver.onPointerDown(element, latLng);
         gestureState = Pressed(element);
 
       case MapPointerMove(:final latLng):
-        final position = camera.latLngToPoint(latLng);
+        final position = camera.latLngToScreenOffset(latLng);
         switch (state) {
           case Pressed(element: null):
             if (_pressPoint != null &&
-                distancePx(_pressPoint!, position) < tapSlopPx) {
+                distanceTo(_pressPoint!, position) < tapSlopPx) {
               return; // encore potentiellement un tap, pas un drag
             }
             gesturesResolver.onDragStart();
@@ -84,7 +84,7 @@ abstract class PointerGestureController {
             gestureState = Dragging(dragged: element);
 
           case Dragging(:final dragged) when dragged != null:
-            final target = hitTester.hitTest(latLng, exclude: dragged);
+            final target = hitTester.hitTest(position, exclude: dragged);
             gesturesResolver.onDragUpdate(
               dragged: dragged,
               target: target,
@@ -130,7 +130,7 @@ abstract class PointerGestureController {
       return;
     }
 
-    final point = camera.latLngToPoint(latLng);
+    final point = camera.latLngToScreenOffset(latLng);
 
     if (_pendingTap != null && _pendingTap!.compare(element, point)) {
       cancelPendingTap();

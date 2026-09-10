@@ -7,15 +7,10 @@ import 'package:trip_application/trip_application.dart';
 part "segment_effects.dart";
 part "vertex_effects.dart";
 
-abstract class MapEffects {
-  final WaypointEditor waypointEditor;
-  final GraphEditor graphEditor;
-  final MapCameraController cameraController;
-  const MapEffects({
-    required this.graphEditor,
-    required this.waypointEditor,
-    required this.cameraController,
-  });
+mixin MapEffects {
+  WaypointEditor get waypointEditor;
+  GraphEditor get graphEditor;
+  MapCameraController get cameraController;
   MapEditorState get mapState;
   set mapState(MapEditorState value);
 }

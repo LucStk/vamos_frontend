@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/editor/segment_editor.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
-import 'package:vamos_cartographie/map/injection/injection.dart';
+import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
 import 'package:vamos_cartographie/map/overlay_ui/bottom_sheet/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
 
@@ -25,7 +24,7 @@ class SegmentBottomSheet extends ConsumerWidget {
     final segment = ref.watch(segmentProvider(tripId, segmentId));
     if (segment == null) return const SizedBox.shrink();
 
-    final notifier = ref.watch(mapStateProvider(tripId).notifier);
+    final notifier = ref.watch(mapEditorStateProvider(tripId).notifier);
 
     // Récupération de la valeur enum courante du segment pour présélectionner le bon TypeSelector
     // final currentStyle = segment.mobilityTypeDisplay;
@@ -53,7 +52,7 @@ class SegmentBottomSheet extends ConsumerWidget {
 
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(
-                onPressed: () => notifier.activateSegmentEditMode(),
+                onPressed: () {}, //notifier.activateSegmentEditMode(),
                 icon: const Icon(Icons.edit_road_rounded, size: 20),
                 tooltip: "Redessiner le segment",
                 style: IconButton.styleFrom(
@@ -69,7 +68,9 @@ class SegmentBottomSheet extends ConsumerWidget {
               const SizedBox(width: 4),
 
               // 3. Bouton "Supprimer" le segment
-              DeleteButton(onPressed: () => notifier.deleteSelectedSegment()),
+              DeleteButton(
+                onPressed: () {},
+              ), // => notifier.deleteSelectedSegment()),
             ],
           ),
         ],

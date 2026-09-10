@@ -1,7 +1,13 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:latlong2/latlong.dart';
 
-abstract class MapCameraController {
+abstract class Camera {
+  Offset latLngToScreenOffset(LatLng latLng);
+  LatLng screenOffsetToLatLng(Offset point);
+}
+
+abstract class MapCameraController extends Camera {
   void zoomTo(LatLng latLng, {double deltaZoom});
   void zoomIn();
   void zoomOut();
@@ -11,7 +17,4 @@ abstract class MapCameraController {
 
   Stream<double> get rotationStream;
   Stream<void> get cameraStream;
-
-  Point<double> latLngToPoint(LatLng latLng);
-  LatLng pointToLatLng(Point<double> point);
 }

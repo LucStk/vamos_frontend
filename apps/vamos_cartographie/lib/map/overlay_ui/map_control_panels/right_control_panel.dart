@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/map/features/network_overlay_type.dart';
+import 'package:vamos_cartographie/map/injection/map_camera_controller_provider.dart';
 import 'package:vamos_cartographie/map/injection/network_overlay_provider.dart';
 import 'package:vamos_cartographie/map/overlay_ui/map_control_panels/widgets/user_location_icons.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
@@ -17,7 +18,7 @@ class MapControls extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final editor = ref.read(mapStateProvider(tripId).notifier);
+    final camera = ref.read(mapCameraControllerProvider);
     final userLocation = ref.watch(userLocationProvider);
     final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
 
@@ -29,18 +30,18 @@ class MapControls extends ConsumerWidget {
           MapControlButton(
             icon: CupertinoIcons.add,
             tooltip: 'Zoom avant',
-            onPressed: () => editor.camera.zoomIn(),
+            onPressed: () => camera.zoomIn(),
           ),
           const SizedBox(height: 6),
           MapControlButton(
             icon: CupertinoIcons.minus,
             tooltip: 'Zoom arrière',
-            onPressed: () => editor.camera.zoomOut(),
+            onPressed: () => camera.zoomOut(),
           ),
           const SizedBox(height: 6),
           StreamBuilder<double>(
-            stream: editor.camera.rotationStream,
-            initialData: editor.camera.rotation,
+            stream: camera.rotationStream,
+            initialData: camera.rotation,
             builder: (context, snapshot) {
               final rotation = snapshot.data ?? 0;
               if (rotation == 0) return const SizedBox.shrink();
@@ -49,7 +50,7 @@ class MapControls extends ConsumerWidget {
                   angle: rotation * (3.14159 / 180),
                   child: const Icon(CupertinoIcons.location_north_fill),
                 ),
-                onPressed: () => editor.camera.rotateTo(0),
+                onPressed: () => camera.rotateTo(0),
               );
             },
           ),

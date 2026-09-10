@@ -44,4 +44,8 @@ class StoredFileStoreNotifier extends _$StoredFileStoreNotifier
   UploadService get uploadService => ref.read(uploadServiceProvider);
   @override
   ErrorLogger? get errorLogger => ref.read(errorLoggerProvider);
+
+  void emit(StoredFileStore newStoredFileStore) {
+    state = newStoredFileStore;
+  }
 }

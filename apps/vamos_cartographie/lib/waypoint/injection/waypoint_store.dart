@@ -36,4 +36,8 @@ class WaypointStoreNotifier extends _$WaypointStoreNotifier
 
   @override
   ErrorLogger? get errorLogger => ref.read(errorLoggerProvider);
+
+  void emit(WaypointStore newStore) {
+    state = newStore;
+  }
 }

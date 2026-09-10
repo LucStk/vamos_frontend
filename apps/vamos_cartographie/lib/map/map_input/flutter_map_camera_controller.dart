@@ -44,14 +44,10 @@ class FlutterMapCameraController implements MapCameraController {
       animatedController.mapController.mapEventStream.map((_) {});
 
   @override
-  Point<double> latLngToPoint(LatLng latLng) {
-    final offset = _camera.latLngToScreenOffset(latLng);
-
-    return Point(offset.dx, offset.dy);
-  }
+  Offset latLngToScreenOffset(LatLng latLng) =>
+      _camera.latLngToScreenOffset(latLng);
 
   @override
-  LatLng pointToLatLng(Point<double> point) {
-    return _camera.screenOffsetToLatLng(Offset(point.x, point.y));
-  }
+  LatLng screenOffsetToLatLng(Offset point) =>
+      _camera.screenOffsetToLatLng(point);
 }

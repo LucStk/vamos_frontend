@@ -11,6 +11,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/injection/gesture_state_provider.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
+import 'package:vamos_cartographie/map/injection/map_camera_controller_provider.dart';
 import 'package:vamos_cartographie/map/map_input/flutter_map_camera_controller.dart';
 import 'package:vamos_cartographie/topology/topology.dart';
 
@@ -34,9 +35,6 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
   GestureStateNotifier get _gestureState =>
       ref.read(gestureStateProvider(widget.tripId).notifier);
 
-  MapContext get _mapContext =>
-      ref.read(mapStateProvider(widget.tripId).notifier);
-
   @override
   void initState() {
     super.initState();
@@ -48,25 +46,12 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOutCubic,
     );
-    _hitTester = MapHitTester(
-      hitMode: () => _mapContext.mode,
-      hitSelection: () => _mapContext.selection,
-      vertices: () => ref.read(allVertexProvider(widget.tripId)),
-      segments: () => ref.read(allSegmentsProvider(widget.tripId)),
-      project: (latLng) {
-        final offset = _mapController.camera.latLngToScreenOffset(latLng);
-        return Point(offset.dx, offset.dy);
-      },
-    );
+    _hitTester = MapHitTester(builtScene);
 
     _gestureController = PointerGestureController(
       hitTester: _hitTester,
       mapContext: _mapContext,
       setPanBlocked: (blocked) => _panAllowed.value = !blocked,
-    );
-
-    _mapContext.attachCamera(
-      FlutterMapCameraController(_animatedMapController),
     );
   }
 
@@ -93,21 +78,25 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
   Widget build(BuildContext context) {
     // Réattache à chaque build — survit au hot reload, voir discussion
     // sur le champ _cameraController réinitialisé à null par le reload.
-    _mapContext.attachCamera(
-      FlutterMapCameraController(_animatedMapController),
-    );
-
-    return Listener(
-      behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) =>
-          _dispatch(MapPointerDown.new, event.localPosition),
-      onPointerMove: (event) =>
-          _dispatch(MapPointerMove.new, event.localPosition),
-      onPointerUp: (event) => _dispatch(MapPointerUp.new, event.localPosition),
-      child: MapCanvas(
-        tripId: widget.tripId,
-        panAllowed: _panAllowed,
-        mapController: _mapController,
+    return ProviderScope(
+      overrides: [
+        mapCameraControllerProvider.overrideWithValue(
+          FlutterMapCameraController(_animatedMapController),
+        ),
+      ],
+      child: Listener(
+        behavior: HitTestBehavior.translucent,
+        onPointerDown: (event) =>
+            _dispatch(MapPointerDown.new, event.localPosition),
+        onPointerMove: (event) =>
+            _dispatch(MapPointerMove.new, event.localPosition),
+        onPointerUp: (event) =>
+            _dispatch(MapPointerUp.new, event.localPosition),
+        child: MapCanvas(
+          tripId: widget.tripId,
+          panAllowed: _panAllowed,
+          mapController: _mapController,
+        ),
       ),
     );
   }

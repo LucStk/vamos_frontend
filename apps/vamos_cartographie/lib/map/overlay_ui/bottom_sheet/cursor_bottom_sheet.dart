@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/confirm_button.dart';
+import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
 import 'package:vamos_cartographie/map/overlay_ui/bottom_sheet/simple_bottom_sheet_shell.dart';
 
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
@@ -14,7 +15,7 @@ class CursorBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(mapStateProvider(tripId).notifier);
+    final notifier = ref.watch(mapEditorStateProvider(tripId).notifier);
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey(
@@ -36,7 +37,7 @@ class CursorBottomSheet extends ConsumerWidget {
             children: [
               ConfirmButton(
                 label: "Create Vertex",
-                onPressed: () => notifier.createWaypointAtCursor(),
+                onPressed: () {}, //=> notifier.createWaypointAtCursor(),
               ),
             ],
           ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/injection/map_state_provider.dart';
+import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
 import 'bottom_sheet/bottom_sheet.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 
@@ -16,22 +16,16 @@ class MapBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final modeSelection = ref.watch(
-      mapStateProvider(tripId).select((mode) => mode.mode),
-    );
-    final stateSelection = ref.watch(
-      mapStateProvider(tripId).select((state) => state.selection),
-    );
-    switch (modeSelection) {
+    final editorState = ref.watch(mapEditorStateProvider(tripId));
+
+    switch (editorState) {
       case SketchMode _:
         return SketchBottomSheet(tripId: tripId);
       case Idle _:
-        switch (stateSelection) {
-          case MapCursor _:
-            return CursorBottomSheet(tripId: tripId);
+        switch (editorState.selection) {
           case MapVertex e:
             final waypointId = ref.watch(
-              waypointFromVertexProvider(tripId, e.vertex.id),
+              waypointFromVertexProvider(tripId, e.id),
             );
             if (waypointId != null) {
               return WaypointBottomSheet(
@@ -39,9 +33,9 @@ class MapBottomSheet extends ConsumerWidget {
                 waypointId: waypointId,
               );
             }
-            return VertexBottomSheet(tripId: tripId, vertexId: e.vertex.id);
+            return VertexBottomSheet(tripId: tripId, vertexId: e.id);
           case MapSegment e:
-            return SegmentBottomSheet(tripId: tripId, segmentId: e.segment.id);
+            return SegmentBottomSheet(tripId: tripId, segmentId: e.id);
           case _:
             return const SizedBox.shrink();
         }
