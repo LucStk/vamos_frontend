@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
-import 'package:vamos_cartographie/map/map.dart';
 
 class DrawSegment extends ConsumerWidget {
   final VertexId vertexId;

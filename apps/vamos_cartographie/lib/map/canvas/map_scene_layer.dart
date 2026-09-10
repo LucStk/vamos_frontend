@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:map_application/map_application.dart';
+import "map_scene_painter.dart";
 
 class MapSceneLayer extends StatelessWidget {
   const MapSceneLayer({super.key, required this.scene});
@@ -11,9 +12,6 @@ class MapSceneLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final camera = MapCamera.of(context);
 
-    return CustomPaint(
-      painter: MapScenePainter(scene: scene, camera: camera),
-      size: Size.infinite,
-    );
+    return CustomPaint(painter: MapScenePainter(), size: Size.infinite);
   }
 }

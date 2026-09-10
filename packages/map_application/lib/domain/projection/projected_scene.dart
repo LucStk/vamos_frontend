@@ -1,11 +1,7 @@
 import 'dart:ui';
-import 'package:map_application/domain/map_objects.dart';
 
-abstract class ProjectedObject {
-  final MapObject object;
-  const ProjectedObject(this.object);
-  bool isHitAt(Offset point);
-}
+import 'package:map_application/domain/map_objects.dart';
+import 'package:map_application/domain/projection/projected_object.dart';
 
 class ProjectedScene {
   final List<ProjectedObject> objects;

@@ -89,13 +89,12 @@ ProjectedScene projectedScene(Ref ref, TripId tripId) {
   final userLocation = ref.watch(projectUserLocationProvider);
 
   final objects = <ProjectedObject>[
-    ...ref.watch(projectVertexProvider(tripId)),
-    ...ref.watch(projectSegmentProvider(tripId)),
-    if (sketchSegment != null) sketchSegment,
-    if (sketchPencil != null) sketchPencil,
-    if (userLocation != null) userLocation,
+    ...?ref.watch(projectVertexProvider(tripId)),
+    ...?ref.watch(projectSegmentProvider(tripId)),
+    if (sketchSegment case final segment?) segment,
+    if (sketchPencil case final pencil?) pencil,
+    if (userLocation case final location?) location,
   ];
-
   objects.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
   return ProjectedScene(objects);
 }
