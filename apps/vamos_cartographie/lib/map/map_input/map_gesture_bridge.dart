@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:domain_core/id.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart' hide MapEvent;
@@ -10,10 +8,9 @@ import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/injection/gesture_state_provider.dart';
-import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/injection/map_camera_controller_provider.dart';
 import 'package:vamos_cartographie/map/map_input/flutter_map_camera_controller.dart';
-import 'package:vamos_cartographie/topology/topology.dart';
+import 'package:vamos_cartographie/map/map_input/pointer_gesture_controller_impl.dart';
 
 class MapGestureBridge extends ConsumerStatefulWidget {
   final Id<Trip> tripId;
@@ -28,12 +25,8 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
     with TickerProviderStateMixin {
   late final MapController _mapController;
   late final AnimatedMapController _animatedMapController;
-  late final MapHitTester _hitTester;
   late final PointerGestureController _gestureController;
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
-
-  GestureStateNotifier get _gestureState =>
-      ref.read(gestureStateProvider(widget.tripId).notifier);
 
   @override
   void initState() {
@@ -46,12 +39,11 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOutCubic,
     );
-    _hitTester = MapHitTester(builtScene);
 
-    _gestureController = PointerGestureController(
-      hitTester: _hitTester,
-      mapContext: _mapContext,
-      setPanBlocked: (blocked) => _panAllowed.value = !blocked,
+    _gestureController = PointerGestureControllerImpl(
+      ref: ref,
+      tripId: widget.tripId,
+      onPanBlockedChanged: (blocked) => _panAllowed.value = !blocked,
     );
   }
 
@@ -63,7 +55,7 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
     final latLng = _mapController.camera.screenOffsetToLatLng(offset);
     final event = buildEvent(latLng);
     final currentState = ref.read(gestureStateProvider(widget.tripId));
-    _gestureState.update(_gestureController.handle(currentState, event));
+    _gestureController.handle(currentState, event);
   }
 
   @override

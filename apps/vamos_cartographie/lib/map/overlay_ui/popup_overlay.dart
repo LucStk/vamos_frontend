@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/injection/gesture_state_provider.dart';
-import '/map/map.dart';
+import 'package:vamos_cartographie/map/injection/map_scene_provider.dart';
 
 class PopUpOverlay extends ConsumerWidget {
   const PopUpOverlay({super.key, required this.tripId});
@@ -13,15 +11,15 @@ class PopUpOverlay extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final point = ref.watch(pencilScreenPositionProvider(tripId));
+    final point = ref.watch(projectSketchPencilProvider(tripId));
 
     if (point == null) {
       return const SizedBox.shrink();
     }
 
     return Positioned(
-      left: point.x,
-      top: point.y,
+      left: point.projectedPosition.dx,
+      top: point.projectedPosition.dy,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -1.5),
         child: _PencilPopup(

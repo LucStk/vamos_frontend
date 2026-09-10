@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:latlong2/latlong.dart';
@@ -48,7 +47,7 @@ abstract class PointerGestureController {
   GestureState gestureState = EmptyState();
   GesturesResolver get gesturesResolver;
   MapCameraController get camera;
-  MapHitTester get hitTester;
+  ProjectedScene get scene;
 
   set setPanBlocked(bool blocked);
 
@@ -62,7 +61,7 @@ abstract class PointerGestureController {
     switch (event) {
       case MapPointerDown(:final latLng):
         _pressPoint = camera.latLngToScreenOffset(latLng);
-        final element = hitTester.hitTest(_pressPoint!);
+        final element = scene.hitTest(_pressPoint!);
         setPanBlocked = (element != null ? element.isDraggable : false);
         gesturesResolver.onPointerDown(element, latLng);
         gestureState = Pressed(element);
@@ -84,7 +83,7 @@ abstract class PointerGestureController {
             gestureState = Dragging(dragged: element);
 
           case Dragging(:final dragged) when dragged != null:
-            final target = hitTester.hitTest(position, exclude: dragged);
+            final target = scene.hitTest(position, exclude: dragged);
             gesturesResolver.onDragUpdate(
               dragged: dragged,
               target: target,

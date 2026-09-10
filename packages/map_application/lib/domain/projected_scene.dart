@@ -1,10 +1,5 @@
 import 'dart:ui';
-
 import 'package:map_application/domain/map_objects.dart';
-import 'package:map_application/domain/map_scene.dart';
-import 'package:map_application/domain/projected_line.dart';
-import 'package:map_application/domain/projected_point.dart';
-import 'package:map_application/map_camera_controller.dart';
 
 abstract class ProjectedObject {
   final MapObject object;
@@ -16,19 +11,18 @@ class ProjectedScene {
   final List<ProjectedObject> objects;
 
   ProjectedScene(this.objects);
-}
 
-ProjectedScene buildProjectedScene(MapScene scene, Camera camera) {
-  final objects = [
-    ...scene.points.map(
-      (object) => ProjectedPoint(object: object, camera: camera),
-    ),
-    ...scene.lines.map(
-      (object) => ProjectedLine(object: object, camera: camera),
-    ),
-  ];
+  MapObject? hitTest(Offset point, {MapObject? exclude}) {
+    for (final candidate in objects) {
+      if (exclude != null && exclude.isSameAs(candidate.object)) {
+        continue;
+      }
 
-  objects.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
+      if (candidate.isHitAt(point)) {
+        return candidate.object;
+      }
+    }
 
-  return ProjectedScene(objects);
+    return null;
+  }
 }

@@ -4,36 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
+import "user_location_domain.dart";
 part 'user_location_provider.g.dart';
-
-sealed class UserLocationState {
-  const UserLocationState();
-}
-
-class UserPositionActive extends UserLocationState {
-  final LatLng position;
-  final double accuracy;
-  final double heading;
-
-  const UserPositionActive({
-    required this.position,
-    required this.accuracy,
-    required this.heading,
-  });
-}
-
-class UserPositionInactive extends UserLocationState {
-  const UserPositionInactive();
-}
-
-class UserPositionUnavailable extends UserLocationState {
-  const UserPositionUnavailable();
-}
-
-class UserPositionLoading extends UserLocationState {
-  const UserPositionLoading();
-}
 
 @riverpod
 class UserLocationNotifier extends _$UserLocationNotifier {
