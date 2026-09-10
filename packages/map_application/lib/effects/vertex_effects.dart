@@ -1,61 +1,26 @@
 part of 'map_effects.dart';
 
-final class CreateSimpleVertex extends MapEffect {
-  final LatLng position;
-
-  const CreateSimpleVertex(this.position);
-
-  @override
-  Future<void> run(MapContext context) {
-    return context.graphEditor.createSimpleVertex(position);
+extension VertexMapEffects on MapEffects {
+  Future<void> createSimpleVertex(LatLng position) {
+    return graphEditor.createSimpleVertex(position);
   }
-}
 
-final class UpdateRemoteVertexPosition extends MapEffect {
-  final VertexId vertexId;
-  final LatLng position;
-
-  const UpdateRemoteVertexPosition(this.vertexId, this.position);
-
-  @override
-  Future<void> run(MapContext context) {
-    return context.graphEditor.moveVertex(vertexId, position);
+  Future<void> updateRemoteVertexPosition({
+    required VertexId vertexId,
+    required LatLng position,
+  }) {
+    return graphEditor.moveVertex(vertexId, position);
   }
-}
 
-final class CreateWaypointFromVertex extends MapEffect {
-  final VertexId vertexId;
-
-  const CreateWaypointFromVertex(this.vertexId);
-
-  @override
-  Future<void> run(MapContext context) {
-    return context.waypointEditor.createBlankWaypointFromVertex(vertexId);
+  Future<void> createWaypointFromVertex(VertexId vertexId) {
+    return waypointEditor.createBlankWaypointFromVertex(vertexId);
   }
-}
 
-final class CreateWaypointFromPosition extends MapEffect {
-  final LatLng position;
-
-  const CreateWaypointFromPosition(this.position);
-
-  @override
-  Future<void> run(MapContext context) async {
-    final res = await context.waypointEditor.createBlankWaypointFromPosition(
-      position,
-    );
-
-    res.fold((_) {}, (data) => context.waypointCreated(data.vertex));
+  Future<void> createWaypointFromPosition(LatLng position) async {
+    await waypointEditor.createBlankWaypointFromPosition(position);
   }
-}
 
-final class RemoveVertex extends MapEffect {
-  final VertexId vertexId;
-
-  const RemoveVertex(this.vertexId);
-
-  @override
-  Future<void> run(MapContext context) {
-    return context.graphEditor.removeVertex(vertexId);
+  Future<void> removeVertex(VertexId vertexId) {
+    return graphEditor.removeVertex(vertexId);
   }
 }

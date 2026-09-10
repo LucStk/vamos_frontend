@@ -1,50 +1,96 @@
-import 'dart:ui';
-
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
 sealed class MapObject {
   const MapObject();
 
-  bool get isHitTestable;
+  bool get isDraggable => false;
+  bool get awaitsDoubleTap => false;
+  bool get isHitTestable => true;
+
+  int get hitPriority => 0;
+
+  bool isSameAs(MapObject other);
+}
+
+abstract interface class TopologyObject {
+  SpliceAnchor get anchor;
 }
 
 sealed class MapPoint extends MapObject {
-  const MapPoint();
-  LatLng get position;
+  final LatLng position;
+  const MapPoint(this.position);
   double get radius;
 }
 
 sealed class MapLine extends MapObject {
-  const MapLine();
-  List<LatLng> get geometry;
+  final List<LatLng> geometry;
+  const MapLine(this.geometry);
   double get radius;
 }
 
-class MapVertex extends MapPoint {
-  final VertexId vertexId;
-  @override
-  final LatLng position;
+final class MapVertex extends MapPoint implements TopologyObject {
+  final VertexId id;
+  const MapVertex(this.id, super.position);
 
   @override
-  final radius = 24;
+  SpliceAnchor get anchor => VertexAnchor(id);
 
   @override
-  final isHitTestable = true;
+  double get radius => 24;
 
-  MapVertex({required this.vertexId, required this.position});
+  @override
+  bool get isDraggable => true;
+
+  @override
+  int get hitPriority => 100;
+
+  @override
+  bool isSameAs(MapObject other) => other is MapVertex && other.id == id;
 }
 
-class MapSegment extends MapLine {
-  final SegmentId segmentId;
-  @override
-  final List<LatLng> geometry;
-
-  const MapSegment({required this.segmentId, required this.geometry});
+final class MapSegment extends MapLine implements TopologyObject {
+  final SegmentId id;
+  const MapSegment(this.id, super.geometry);
 
   @override
-  final double radius = 10;
+  SpliceAnchor get anchor => SegmentAnchor(id);
 
   @override
-  final bool isHitTestable = true;
+  double get radius => 10;
+
+  @override
+  int get hitPriority => 50;
+
+  @override
+  bool isSameAs(MapObject other) => other is MapSegment && other.id == id;
+}
+
+final class MapSketchSegment extends MapLine {
+  const MapSketchSegment(super.geometry);
+
+  @override
+  double get radius => 10;
+
+  @override
+  int get hitPriority => 50;
+
+  @override
+  bool isSameAs(MapObject other) => other is MapSketchSegment;
+}
+
+final class MapSketchPencil extends MapPoint {
+  const MapSketchPencil(super.position);
+
+  @override
+  double get radius => 10;
+
+  @override
+  bool get isDraggable => true;
+
+  @override
+  int get hitPriority => 200;
+
+  @override
+  bool isSameAs(MapObject other) => other is MapSketchPencil;
 }

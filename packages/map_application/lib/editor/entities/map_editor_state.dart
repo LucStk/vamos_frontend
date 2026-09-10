@@ -1,10 +1,11 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/domain/map_objects.dart';
 import 'package:map_application/editor/utiles/merge_polyline.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
-part 'map_mode.freezed.dart';
+part 'map_editor_state.freezed.dart';
 
 @freezed
 abstract class RouteCorrection with _$RouteCorrection {
@@ -16,19 +17,20 @@ abstract class RouteCorrection with _$RouteCorrection {
 }
 
 // 2. Définition de l'Union MapMode
-sealed class MapMode {
-  const MapMode();
+sealed class MapEditorState {
+  const MapEditorState();
+  MapObject? get selection;
 }
 
-class Idle extends MapMode {
-  const Idle();
+final class Idle extends MapEditorState {
+  const Idle({this.selection});
+  @override
+  final MapObject? selection;
 }
 
-// 2. Union Freezed imbriquée
 @freezed
-sealed class SketchMode extends MapMode with _$SketchMode {
-  // Constructeur privé requis par Freezed pour pouvoir hériter d'une classe parent
-  const SketchMode._() : super();
+sealed class SketchMode extends MapEditorState with _$SketchMode {
+  const SketchMode._();
 
   const factory SketchMode.creation({
     required VertexId vertexStart,
@@ -36,17 +38,17 @@ sealed class SketchMode extends MapMode with _$SketchMode {
     required MobilityType mobilityType,
     VertexId? touchedVertex,
     RouteCorrection? correction,
+    MapObject? selection,
   }) = SketchCreation;
 
   const factory SketchMode.edition({
     required SegmentFields segment,
     VertexId? touchedVertex,
     RouteCorrection? correction,
+    MapObject? selection,
   }) = SketchEdition;
 
-  bool get hasCorrection {
-    return correction != null;
-  }
+  bool get hasCorrection => correction != null;
 }
 
 extension SketchX on SketchMode {

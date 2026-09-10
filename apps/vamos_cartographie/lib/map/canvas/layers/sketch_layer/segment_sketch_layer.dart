@@ -15,10 +15,10 @@ class SegmentSketchLayer extends ConsumerWidget {
     final mode = ref.watch(mapStateProvider(tripId).select((m) => m.mode));
     switch (mode) {
       case SketchMode e:
-        final List<Polyline<MapElement>> polylineLayer = [];
+        final List<Polyline<MapObject>> polylineLayer = [];
         if (e is SketchCreation) {
           polylineLayer.add(
-            Polyline<MapElement>(
+            Polyline<MapObject>(
               points: e.itineraire,
               color: e.hasCorrection ? Colors.blueGrey : Colors.lightBlue,
               strokeWidth: e.hasCorrection ? 3 : 3.8,
@@ -26,7 +26,7 @@ class SegmentSketchLayer extends ConsumerWidget {
             ),
           );
         }
-        return PolylineLayer<MapElement>(polylines: polylineLayer);
+        return PolylineLayer<MapObject>(polylines: polylineLayer);
 
       case _:
         return SizedBox.shrink();

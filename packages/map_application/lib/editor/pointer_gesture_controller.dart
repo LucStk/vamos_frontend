@@ -11,7 +11,7 @@ class PendingTap {
   /// État interne de détection du double tap.
   final Timer pendingTapTimer;
   final Point<double> pendingTapPoint;
-  final MapElement pendingTapElement;
+  final MapObject? pendingTapElement;
   final Duration doubleTapTimeout;
   final double doubleTapMaxDistancePx;
 
@@ -27,8 +27,9 @@ class PendingTap {
     pendingTapTimer.cancel();
   }
 
-  bool compare(MapElement element, Point<double> point) {
-    return isSameHitTarget(pendingTapElement, element) &&
+  bool compare(MapObject? element, Point<double> point) {
+    if (element == null || pendingTapElement == null) return false;
+    return pendingTapElement!.isSameAs(element) &&
         distancePx(pendingTapPoint, point) <= doubleTapMaxDistancePx;
   }
 }
@@ -43,13 +44,11 @@ class PendingTap {
 /// Ne connaît MapHitTester et MapContext que comme dépendances injectées.
 class PointerGestureController {
   final MapHitTester hitTester;
-  final MapContext mapContext;
   final void Function(bool blocked) setPanBlocked;
   final double tapSlopPx;
 
   PointerGestureController({
     required this.hitTester,
-    required this.mapContext,
     required this.setPanBlocked,
     this.tapSlopPx = 8,
   });
@@ -61,40 +60,46 @@ class PointerGestureController {
   /// Point d'entrée unique pour les trois gestes primaires.
   /// [state] est l'état courant ; la valeur retournée est le nouvel
   GestureState handle(GestureState state, MapPointerEvent event) {
-    return switch (event) {
-      MapPointerDown(:final latLng) => _handleDown(latLng),
-      MapPointerMove(:final latLng) => _handleMove(state, latLng),
-      MapPointerUp(:final latLng) => _handleUp(state, latLng),
+     switch (event) {
+      case MapPointerDown(:final latLng) :
+        final element = hitTester.hitTest(latLng);
+        final pressedElement = mapContext.onPointerDown(element, latLng);
+        _pressPoint = hitTester.project(latLng);
+        setPanBlocked(pressedElement.isDraggable);
+        return Pressed(pressedElement);
+
+      case MapPointerMove(:final latLng) :,
+      case MapPointerUp(:final latLng) :,
     };
   }
 
   GestureState _handleDown(LatLng latLng) {
-    final element = hitTester.hitTest(latLng);
-    final pressedElement = mapContext.onPointerDown(element, latLng);
-    _pressPoint = hitTester.project(latLng);
-    setPanBlocked(pressedElement.isDraggable);
-    return Pressed(pressedElement);
+
   }
 
   GestureState _handleMove(GestureState state, LatLng latLng) {
     final position = hitTester.project(latLng);
     switch (state) {
-      case Pressed(element: NoMapElement()):
+      case Pressed(element: null):
         if (_pressPoint != null &&
             distancePx(_pressPoint!, position) < tapSlopPx) {
           return state; // encore potentiellement un tap, pas un drag
         }
-        mapContext.onDragStart(NoMapElement());
-        return Dragging(dragged: NoMapElement());
+        mapContext.onDragStart();
+        return Dragging();
 
       case Pressed(:final element):
-        if (!element.isDraggable) return state;
-        mapContext.onDragStart(element);
+        if (element != null && !element.isDraggable) return state;
+        mapContext.onDragStart(element: element);
         return Dragging(dragged: element);
 
-      case Dragging(:final dragged) when dragged is! NoMapElement:
+      case Dragging(:final dragged) when dragged != null:
         final target = hitTester.hitTest(latLng, exclude: dragged);
-        mapContext.onDragUpdate(dragged, target, latLng);
+        mapContext.onDragUpdate(
+          dragged: dragged,
+          target: target,
+          latLng: latLng,
+        );
         return Dragging(dragged: dragged, target: target);
 
       case _:
@@ -111,7 +116,7 @@ class PointerGestureController {
         _handleTap(element, latLng);
       case Dragging(:final dragged, :final target):
         cancelPendingTap();
-        mapContext.onDragEnd(dragged, target, latLng);
+        mapContext.onDragEnd(dragged: dragged, target: target, latLng: latLng);
       case _:
     }
 
@@ -122,8 +127,8 @@ class PointerGestureController {
   // Détection tap simple / double tap
   // ---------------------------------------------------------------------
 
-  void _handleTap(MapElement element, LatLng latLng) {
-    if (!element.awaitsDoubleTap) {
+  void _handleTap(MapObject? element, LatLng latLng) {
+    if (element != null && !element.awaitsDoubleTap) {
       // Élément exempté du double tap : on annule tout tap en attente
       // sur un autre élément (pour ne pas laisser un double tap fantôme
       // se déclencher plus tard sur cet ancien élément) et on déclenche

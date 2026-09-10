@@ -6,7 +6,7 @@ class PolylineCandidate extends HitCandidate {
   final List<Point<double>> projectedPoints; // déjà projetés en écran
   final double radiusPx;
   @override
-  final MapElement element;
+  final MapObject element;
 
   const PolylineCandidate({
     required this.projectedPoints,

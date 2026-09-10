@@ -1,4 +1,4 @@
-import 'package:map_application/domain/map_elements.dart';
+import 'package:map_application/domain/map_objects.dart';
 
 sealed class GestureState {
   const GestureState();
@@ -9,12 +9,12 @@ class EmptyState extends GestureState {
 }
 
 class Pressed extends GestureState {
-  final MapElement element;
+  final MapObject? element;
   const Pressed(this.element);
 }
 
 class Dragging extends GestureState {
-  final MapElement dragged;
-  final MapElement? target;
-  const Dragging({required this.dragged, this.target});
+  final MapObject? dragged;
+  final MapObject? target;
+  const Dragging({this.dragged, this.target});
 }

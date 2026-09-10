@@ -1,49 +1,32 @@
 part of 'map_effects.dart';
 
-final class CreateSegmentFromSketch extends MapEffect {
-  final VertexId startVertexId;
-  final VertexId? endVertexId;
-  final List<LatLng> geometry;
-  final MobilityType mobilityType;
-
-  const CreateSegmentFromSketch({
-    required this.startVertexId,
-    this.endVertexId,
-    required this.geometry,
-    required this.mobilityType,
-  });
-
-  @override
-  Future<void> run(MapContext context) async {
-    final res = await context.graphEditor.createSegment(
+extension SegmentMapEffects on MapEffects {
+  Future<void> createSegmentFromSketch({
+    required VertexId startVertexId,
+    VertexId? endVertexId,
+    required List<LatLng> geometry,
+    required MobilityType mobilityType,
+  }) async {
+    final res = await graphEditor.createSegment(
       startVertexId: startVertexId,
       endVertexId: endVertexId,
       geometry: geometry,
       mobilityType: mobilityType,
     );
     res.fold((_) {}, (data) {
-      context.mode = Idle();
-      context.selection = MapSegment(data.segment);
+      mapState = Idle(
+        selection: MapSegment(data.segment.id, data.segment.geometry),
+      );
     });
   }
-}
 
-final class SpliceSegment extends MapEffect {
-  final List<LatLng> correction;
-  final MobilityType mobilityType;
-  final SpliceAnchor startAnchor;
-  final SpliceAnchor endAnchor;
-
-  const SpliceSegment({
-    required this.correction,
-    required this.mobilityType,
-    required this.startAnchor,
-    required this.endAnchor,
-  });
-
-  @override
-  Future<void> run(MapContext context) async {
-    final res = await context.graphEditor.spliceSegment(
+  Future<void> spliceSegment({
+    required List<LatLng> correction,
+    required MobilityType mobilityType,
+    required SpliceAnchor startAnchor,
+    required SpliceAnchor endAnchor,
+  }) async {
+    final res = await graphEditor.spliceSegment(
       correction: correction,
       mobilityType: mobilityType,
       startAnchor: startAnchor,
@@ -52,66 +35,30 @@ final class SpliceSegment extends MapEffect {
 
     res.fold((_) {}, (data) {
       final (_, segment) = data;
-      context.mode = Idle();
-      context.selection = MapSegment(segment);
-      // context.mode = Idle();
-      // context.selection = SegmentSelection(segmentId: segment.id);
+      mapState = Idle(selection: MapSegment(segment.id, segment.geometry));
     });
   }
-}
 
-final class EditeSegmentFromSketch extends MapEffect {
-  final SegmentPatchModel patch;
-  const EditeSegmentFromSketch({required this.patch});
-
-  @override
-  Future<void> run(MapContext context) async {
-    final res = await context.graphEditor.updateSegment(patch);
-    res.fold((_) {}, (segment) {
-      switch (context.mode) {
-        case SketchEdition e:
-          context.mode = e.copyWith(correction: null);
-        case _:
-      }
-      // context.mode = Idle();
-      // context.selection = SegmentSelection(segmentId: segment.id);
-    });
+  Future<void> editSegmentFromSketch(SegmentPatchModel patch) async {
+    final res = await graphEditor.updateSegment(patch);
+    res.fold((_) {}, (_) => _resetCorrectionIfNeeded());
   }
-}
 
-final class CorrectSegmentFromSketch extends MapEffect {
-  final SegmentPatchModel patchSegment;
-  final List<LatLng> correction;
-  const CorrectSegmentFromSketch({
-    required this.patchSegment,
-    required this.correction,
-  });
-
-  @override
-  Future<void> run(MapContext context) async {
-    final res = await context.graphEditor.correctSegment(
-      patchSegment,
-      correction,
-    );
-    res.fold((_) {}, (segment) {
-      switch (context.mode) {
-        case SketchEdition e:
-          context.mode = e.copyWith(correction: null);
-        case _:
-      }
-      // context.mode = Idle();
-      // context.selection = SegmentSelection(segmentId: segment.id);
-    });
+  Future<void> correctSegmentFromSketch({
+    required SegmentPatchModel patchSegment,
+    required List<LatLng> correction,
+  }) async {
+    final res = await graphEditor.correctSegment(patchSegment, correction);
+    res.fold((_) {}, (_) => _resetCorrectionIfNeeded());
   }
-}
 
-final class DeleteSegment extends MapEffect {
-  final SegmentId segmentId;
+  Future<void> deleteSegment(SegmentId segmentId) {
+    return graphEditor.deleteSegment(segmentId);
+  }
 
-  const DeleteSegment(this.segmentId);
-
-  @override
-  Future<void> run(MapContext context) {
-    return context.graphEditor.deleteSegment(segmentId);
+  void _resetCorrectionIfNeeded() {
+    if (mapState case SketchEdition e) {
+      mapState = e.copyWith(correction: null);
+    }
   }
 }

@@ -1,53 +1,52 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/editor/resolvers/gestures_resolver.dart';
 import 'package:map_application/editor/utiles/merge_polyline.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 
-extension DragEditor on MapContext {
-  Future<void> onDragStart(MapElement element) async {
-    switch ((mode, element)) {
-      case (SketchMode m, NoMapElement e) when selection is MapSketchPencil:
-        selection = NoMapElement();
+extension DragEditor on GesturesResolver {
+  void onDragStart({MapObject? element}) {
+    switch ((editorState, element)) {
+      case (SketchMode s, _) when s.selection is MapSketchPencil:
+        editorState = s.copyWith(selection: null);
       case _:
     }
   }
 
-  Future<void> onDragUpdate(
-    MapElement dragged,
-    MapElement target,
-    LatLng latLng,
-  ) async {
-    switch ((mode, dragged, target)) {
+  void onDragUpdate({
+    MapObject? dragged,
+    MapObject? target,
+    required LatLng latLng,
+  }) {
+    switch ((editorState, dragged, target)) {
       // Permet de faire bouger le vertex visuellement
       // case (Idle _, MapVertex e):
       //   final patch = VertexPatchModel(id: e.vertex.id, latLng: latLng);
       //   graphEditor.state = graphEditor.state.setVertex(patch);
 
-      case (SketchMode m, MapSketchPencil _, MapElement e)
+      case (SketchMode m, MapSketchPencil _, MapObject e)
           when m.correction != null:
         final correctionPath = [...m.correction!.path, latLng];
-        mode = m.copyWith(
+        editorState = m.copyWith(
           correction: m.correction!.copyWith(path: correctionPath),
+          selection: e,
         );
-        selection = e;
 
-      case (SketchCreation m, MapSketchPencil _, MapElement e):
+      case (SketchCreation m, MapSketchPencil _, MapObject e):
         final itineraire = [...m.itineraire, latLng];
-        mode = m.copyWith(itineraire: itineraire);
-        selection = e;
+        editorState = m.copyWith(itineraire: itineraire, selection: e);
       case _:
     }
   }
 
-  Future<void> onDragEnd(
-    MapElement dragged,
-    MapElement? target,
-    LatLng latLng,
-  ) async {
-    switch ((mode, dragged, target)) {
+  void onDragEnd({
+    MapObject? dragged,
+    MapObject? target,
+    required LatLng latLng,
+  }) {
+    switch ((editorState, dragged, target)) {
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         // Le segment en cours de création viens de rencontrer un Vertex
 
@@ -57,27 +56,26 @@ extension DragEditor on MapContext {
         }
 
         unawaited(
-          runEffect(
-            CreateSegmentFromSketch(
-              startVertexId: m.vertexStart,
-              endVertexId: v.vertex.id,
-              geometry: itineraire,
-              mobilityType: m.mobilityType,
-            ),
+          mapEffects.createSegmentFromSketch(
+            startVertexId: m.vertexStart,
+            endVertexId: v.id,
+            geometry: itineraire,
+            mobilityType: m.mobilityType,
           ),
         );
+        editorState = m;
+
       case (SketchCreation m, MapSketchPencil _, MapSegment s):
-        print("sektche segment splice with ${s.segment.id}");
+        print("sektche segment splice with ${s.id}");
         unawaited(
-          runEffect(
-            SpliceSegment(
-              startAnchor: VertexAnchor(m.vertexStart),
-              endAnchor: SegmentAnchor(s.segment.id),
-              correction: m.itineraire,
-              mobilityType: m.mobilityType,
-            ),
+          mapEffects.spliceSegment(
+            startAnchor: VertexAnchor(m.vertexStart),
+            endAnchor: SegmentAnchor(s.id),
+            correction: m.itineraire,
+            mobilityType: m.mobilityType,
           ),
         );
+        return;
 
       case (SketchCreation m, MapSketchPencil _, MapSketchSegment _)
           when m.hasCorrection:
@@ -88,10 +86,10 @@ extension DragEditor on MapContext {
           m.correction!.path,
           m.itineraire,
         );
-        mode = m.copyWith(itineraire: path, correction: null);
+        editorState = m.copyWith(itineraire: path, correction: null);
 
       case (SketchEdition m, MapSketchPencil _, MapSegment s)
-          when m.hasCorrection && s.segment.id == m.segment.id:
+          when m.hasCorrection && s.id == m.segment.id:
         // On est en train d'éditer un segment
         // On vient de rencontrer le même segment
         // L'utilisateur demande donc une correction de l'itineraire
@@ -105,31 +103,30 @@ extension DragEditor on MapContext {
         ).copyWith(geometry: itineraire);
 
         unawaited(
-          runEffect(
-            CorrectSegmentFromSketch(
-              patchSegment: patch,
-              correction: m.correction!.path,
-            ),
+          mapEffects.correctSegmentFromSketch(
+            patchSegment: patch,
+            correction: m.correction!.path,
           ),
         );
+        editorState = m;
 
-      case (SketchEdition m, MapSketchPencil _, MapTopologyElement s)
+      case (SketchEdition m, MapSketchPencil _, TopologyObject s)
           when m.hasCorrection:
         // On est en train d'éditer un segment
         // On vient de rencontrer un autre segment/vertex
         // L'utilisateur demande donc une correction de l'itineraire
 
         unawaited(
-          runEffect(
-            SpliceSegment(
-              startAnchor: SegmentAnchor(m.segment.id),
-              endAnchor: s.anchor,
-              correction: m.correction!.path,
-              mobilityType: m.segment.mobilityType,
-            ),
+          mapEffects.spliceSegment(
+            startAnchor: SegmentAnchor(m.segment.id),
+            endAnchor: s.anchor,
+            correction: m.correction!.path,
+            mobilityType: m.segment.mobilityType,
           ),
         );
+        return;
       case _:
+        return;
     }
   }
 }

@@ -15,9 +15,9 @@ class CorrectionSketchLayer extends ConsumerWidget {
     final mode = ref.watch(mapStateProvider(tripId).select((m) => m.mode));
     switch (mode) {
       case SketchMode e when e.hasCorrection:
-        return PolylineLayer<MapElement>(
+        return PolylineLayer<MapObject>(
           polylines: [
-            Polyline<MapElement>(
+            Polyline<MapObject>(
               points: e.correction!.path,
               color: Colors.lightGreen,
               strokeWidth: 3.8,

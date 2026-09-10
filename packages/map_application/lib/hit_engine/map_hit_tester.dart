@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/domain/map_elements.dart';
+import 'package:map_application/domain/map_objects.dart';
 import 'package:map_application/editor/editor.dart';
 import 'package:map_application/hit_engine/hit_engine.dart';
 import 'package:trip_application/trip_application.dart';
@@ -27,7 +27,7 @@ class HitTestThresholds {
 /// injection plutôt que par contrat d'héritage.
 class MapHitTester {
   final MapMode Function() _hitMode;
-  final MapElement Function() _hitSelection;
+  final MapObject Function() _hitSelection;
   final List<VertexFields> Function() _vertices;
   final List<SegmentFields> Function() _segments;
   final Point<double> Function(LatLng) project;
@@ -35,7 +35,7 @@ class MapHitTester {
 
   MapHitTester({
     required MapMode Function() hitMode,
-    required MapElement Function() hitSelection,
+    required MapObject Function() hitSelection,
     required List<VertexFields> Function() vertices,
     required List<SegmentFields> Function() segments,
     required this.project,
@@ -46,7 +46,7 @@ class MapHitTester {
        _segments = segments;
 
   MapMode get hitMode => _hitMode();
-  MapElement get hitSelection => _hitSelection();
+  MapObject get hitSelection => _hitSelection();
   List<VertexFields> get vertices => _vertices();
   List<SegmentFields> get segments => _segments();
 
@@ -59,21 +59,21 @@ class MapHitTester {
   /// [exclude] permet d'ignorer un élément précis (ex: l'élément en
   /// cours de drag) — la comparaison logique est déléguée à
   /// [isSameHitTarget], jamais à une égalité de valeur complète.
-  MapElement hitTest(LatLng latLng, {MapElement? exclude}) {
+  MapObject hitTest(LatLng latLng, {MapObject? exclude}) {
     final position = project(latLng);
     final candidates = _buildCandidates(position);
     final match = _firstMatch(candidates, position, exclude: exclude);
-    return match ?? const NoMapElement();
+    return match ?? const NoMapObject();
   }
 
   // ---------------------------------------------------------------------
   // Matching
   // ---------------------------------------------------------------------
 
-  MapElement? _firstMatch(
+  MapObject? _firstMatch(
     List<HitCandidate> candidates,
     Point<double> position, {
-    MapElement? exclude,
+    MapObject? exclude,
   }) {
     for (final candidate in candidates) {
       if (_isExcluded(candidate, exclude)) continue;
@@ -82,7 +82,7 @@ class MapHitTester {
     return null;
   }
 
-  bool _isExcluded(HitCandidate candidate, MapElement? exclude) =>
+  bool _isExcluded(HitCandidate candidate, MapObject? exclude) =>
       exclude != null && isSameHitTarget(exclude, candidate.element);
 
   bool _isWithinRange(HitCandidate candidate, Point<double> position) =>

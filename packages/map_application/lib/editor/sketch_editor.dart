@@ -5,13 +5,13 @@ import 'package:trip_application/topology/domain/domain.dart';
 // lib/editor/vertex_editor.dart
 extension SketchEditor on MapContext {
   Future<void> activateSketchMode() async {
-    if (selection case MapVertex(:final vertex)) {
+    if (selection case MapVertex(:final id, :final position)) {
       mode = SketchCreation(
-        vertexStart: vertex.id,
-        itineraire: [vertex.latLng],
+        vertexStart: id,
+        itineraire: [position],
         mobilityType: MobilityType.bike,
       );
-      selection = NoMapElement();
+      selection = null;
     }
   }
 

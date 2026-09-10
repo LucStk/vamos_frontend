@@ -17,7 +17,7 @@ class SegmentLayer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final segmentIds = ref.watch(segmentStoreProvider(tripId)).getIds();
 
-    final List<Polyline<MapElement>> polylines = [];
+    final List<Polyline<MapObject>> polylines = [];
     final List<Marker> segMarkers = [];
     for (SegmentId id in segmentIds) {
       final segment = ref.watch(segmentProvider(tripId, id));
@@ -32,7 +32,7 @@ class SegmentLayer extends ConsumerWidget {
       // 1. Si le segment est sélectionné, on ajoute D'ABORD le halo en arrière-plan
       if (isSelected) {
         polylines.add(
-          Polyline<MapElement>(
+          Polyline<MapObject>(
             points: segment.geometry,
             color: baseColor.withValues(alpha: 0.35),
             strokeWidth: 12, // Nettement plus large que la ligne principale
@@ -42,7 +42,7 @@ class SegmentLayer extends ConsumerWidget {
 
       // 2. Polyline principale
       polylines.add(
-        Polyline<MapElement>(
+        Polyline<MapObject>(
           points: segment.geometry,
           color: baseColor,
           strokeWidth: isSelected
@@ -65,7 +65,7 @@ class SegmentLayer extends ConsumerWidget {
 
     return Stack(
       children: [
-        PolylineLayer<MapElement>(polylines: polylines),
+        PolylineLayer<MapObject>(polylines: polylines),
         MarkerLayer(markers: segMarkers),
       ],
     );

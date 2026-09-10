@@ -1,21 +1,17 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/domain/map_elements.dart';
-import 'package:map_application/editor/map_context.dart';
+import 'package:map_application/domain/map_objects.dart';
+import 'package:map_application/editor/resolvers/gestures_resolver.dart';
 import '/editor/entities/entities.dart';
 
-extension PointerDownEditor on MapContext {
-  MapElement onPointerDown(MapElement element, LatLng latLng) {
-    switch ((mode, element)) {
+extension PointerDownEditor on GesturesResolver {
+  void onPointerDown(MapObject element, LatLng latLng) {
+    switch ((editorState, element)) {
       case (SketchCreation m, MapSketchSegment _):
-        mode = m.copyWith(correction: RouteCorrection(path: [latLng]));
-        return MapSketchPencil(latLng);
+        editorState = m.copyWith(correction: RouteCorrection(path: [latLng]));
 
-      case (SketchEdition m, MapSegment s) when s.segment.id == m.segment.id:
-        mode = m.copyWith(correction: RouteCorrection(path: [latLng]));
-        return MapSketchPencil(latLng);
-
+      case (SketchEdition m, MapSegment s) when s.id == m.segment.id:
+        editorState = m.copyWith(correction: RouteCorrection(path: [latLng]));
       case _:
-        return element;
     }
   }
 }

@@ -5,15 +5,15 @@ import 'package:trip_application/trip_application.dart';
 
 extension SegmentEditor on MapContext {
   Future<void> deleteSelectedSegment() async {
-    if (selection case MapSegment(:final segment)) {
-      await runEffect(DeleteSegment(segment.id));
-      selection = NoMapElement();
+    if (selection case MapSegment(:final id)) {
+      await runEffect(DeleteSegment(id));
+      selection = null;
     }
   }
 
   Future<void> changeSegmentType(MobilityType type) async {
-    if (selection case MapSegment(:final segment)) {
-      final newSeg = graphEditor.state.segmentStore.get(segment.id)?.current;
+    if (selection case MapSegment(:final id)) {
+      final newSeg = graphEditor.state.segmentStore.get(id)?.current;
       if (newSeg == null) return;
       final draft = SegmentPatchModel.fromFields(
         newSeg,
@@ -23,11 +23,11 @@ extension SegmentEditor on MapContext {
   }
 
   Future<void> activateSegmentEditMode() async {
-    if (selection case MapSegment(:final segment)) {
-      final newSeg = graphEditor.state.segmentStore.get(segment.id)?.current;
+    if (selection case MapSegment(:final id)) {
+      final newSeg = graphEditor.state.segmentStore.get(id)?.current;
       if (newSeg == null) return;
       mode = SketchEdition(segment: newSeg);
-      selection = NoMapElement();
+      selection = null;
     }
   }
 
