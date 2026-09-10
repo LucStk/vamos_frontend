@@ -15,7 +15,7 @@ List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
 
   return [
     for (final vertex in vertices)
-      ProjectedPoint(
+      ProjectedVertex(
         object: MapVertex(vertex.id, vertex.latLng),
         camera: camera,
       ),
@@ -29,7 +29,7 @@ List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
 
   return [
     for (final segment in segments)
-      ProjectedLine(
+      ProjectedSegment(
         object: MapSegment(segment.id, segment.geometry),
         camera: camera,
       ),
@@ -44,7 +44,10 @@ ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
   if (editorState case final SketchMode sketch) {
     final geometry = sketch.sketchSegmentGeometryOrNull;
     if (geometry != null) {
-      return ProjectedLine(object: MapSketchSegment(geometry), camera: camera);
+      return ProjectedSketchSegment(
+        object: MapSketchSegment(geometry),
+        camera: camera,
+      );
     }
   }
   return null;
@@ -58,7 +61,10 @@ ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
   if (editorState case final SketchMode sketch) {
     final position = sketch.pencilPositionOrNull;
     if (position != null) {
-      return ProjectedPoint(object: MapSketchPencil(position), camera: camera);
+      return ProjectedSketchPencil(
+        object: MapSketchPencil(position),
+        camera: camera,
+      );
     }
   }
   return null;
@@ -70,7 +76,7 @@ ProjectedPoint? projectUserLocation(Ref ref) {
   final location = ref.watch(userLocationProvider);
 
   if (location case final UserPositionActive activeLocation) {
-    return ProjectedPoint(
+    return ProjectedUserLocation(
       object: MapUserLocation(
         activeLocation.position,
         accuracy: activeLocation.accuracy,

@@ -17,7 +17,7 @@ class MapScenePainter extends CustomPainter {
   }
 
   MapObjectVisualState _visualState(MapObject object) {
-    if (selection != null && selection.isSameAs(object)) {
+    if (selection != null && selection!.isSameAs(object)) {
       return MapObjectVisualState.selected;
     }
 

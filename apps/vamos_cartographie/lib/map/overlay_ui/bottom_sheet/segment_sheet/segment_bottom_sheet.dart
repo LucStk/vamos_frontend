@@ -22,8 +22,6 @@ class SegmentBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final segment = ref.watch(segmentProvider(tripId, segmentId));
-    if (segment == null) return const SizedBox.shrink();
-
     final notifier = ref.watch(mapEditorStateProvider(tripId).notifier);
 
     // Récupération de la valeur enum courante du segment pour présélectionner le bon TypeSelector
