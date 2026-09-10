@@ -1,7 +1,6 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/domain/map_objects.dart';
-import 'package:map_application/editor/resolvers/gestures_resolver.dart';
-import '/editor/entities/entities.dart';
+import 'package:map_application/gestures_resolver/gestures_resolver.dart';
+import 'package:map_application/map_application.dart';
 
 extension TapEditor on GesturesResolver {
   void onTapped(MapObject? element, LatLng latLng) {

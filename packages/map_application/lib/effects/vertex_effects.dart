@@ -23,4 +23,11 @@ extension VertexMapEffects on MapEffects {
   Future<void> removeVertex(VertexId vertexId) {
     return graphEditor.removeVertex(vertexId);
   }
+
+  Future<void> deleteSelectedVertex() async {
+    if (mapState.selection case MapVertex(:final id)) {
+      mapState = mapState.withSelection(null);
+      await graphEditor.removeVertex(id);
+    }
+  }
 }

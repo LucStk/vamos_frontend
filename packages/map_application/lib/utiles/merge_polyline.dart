@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/editor/utiles/polyline_dist.dart';
+import 'polyline_dist.dart';
 
 // const _kRejoinThresholdMeters = 3.0;
 

@@ -1,20 +1,28 @@
-// hit_candidate.dart
+import 'dart:math';
 
-part of "hit_candidate.dart";
+import 'package:map_application/domain/domain.dart';
+import 'package:map_application/hit_engine/hit_tester.dart';
+import 'package:map_application/map_camera_controller.dart';
+import 'package:map_application/utiles/polyline_dist.dart';
 
-class PolylineCandidate extends HitCandidate {
-  final List<Point<double>> projectedPoints; // déjà projetés en écran
-  final double radiusPx;
+class ProjectedLine extends ProjectedObject {
+  final List<Point<double>> projectedPoints;
+
+  ProjectedLine({required MapLine object, required MapCameraController camera})
+    : projectedPoints = object.geometry
+          .map((latLng) => camera.latLngToPoint(latLng))
+          .toList(),
+      super(object);
+
   @override
-  final MapObject element;
+  bool isHitAt(Point<double> point) {
+    final d = distanceTo(point);
+    if (d < object.radius) {
+      return true;
+    }
+    return false;
+  }
 
-  const PolylineCandidate({
-    required this.projectedPoints,
-    required this.radiusPx,
-    required this.element,
-  });
-
-  @override
   double distanceTo(Point<double> position) {
     if (projectedPoints.length < 2) {
       return projectedPoints.isEmpty

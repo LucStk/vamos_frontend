@@ -2,7 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/domain/map_objects.dart';
-import 'package:map_application/editor/utiles/merge_polyline.dart';
+import 'package:map_application/utiles/merge_polyline.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
 part 'map_editor_state.freezed.dart';
@@ -20,12 +20,17 @@ abstract class RouteCorrection with _$RouteCorrection {
 sealed class MapEditorState {
   const MapEditorState();
   MapObject? get selection;
+
+  MapEditorState withSelection(MapObject? selection);
 }
 
 final class Idle extends MapEditorState {
   const Idle({this.selection});
   @override
   final MapObject? selection;
+
+  @override
+  Idle withSelection(MapObject? selection) => Idle(selection: selection);
 }
 
 @freezed
@@ -49,6 +54,12 @@ sealed class SketchMode extends MapEditorState with _$SketchMode {
   }) = SketchEdition;
 
   bool get hasCorrection => correction != null;
+
+  @override
+  SketchMode withSelection(MapObject? selection) => switch (this) {
+    SketchCreation s => s.copyWith(selection: selection),
+    SketchEdition s => s.copyWith(selection: selection),
+  };
 }
 
 extension SketchX on SketchMode {
@@ -80,6 +91,18 @@ extension SketchX on SketchMode {
         return e.itineraire;
       case SketchEdition e:
         return e.segment.geometry;
+    }
+  }
+}
+
+extension SketchEditor on MapEditorState {
+  Future<void> activateSketchMode() async {
+    if (selection case MapVertex(:final id, :final position)) {
+      SketchCreation(
+        vertexStart: id,
+        itineraire: [position],
+        mobilityType: MobilityType.bike,
+      );
     }
   }
 }

@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/gestures_resolver/gestures_resolver.dart';
+import 'package:map_application/gestures_resolver/resolvers.dart';
 import 'package:map_application/map_application.dart';
+import 'package:map_application/map_camera_controller.dart';
 
 double distancePx(Point<double> a, Point<double> b) =>
     sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
@@ -42,16 +45,14 @@ class PendingTap {
 /// détails de reconnaissance de geste (slop, timer de double tap) qui
 /// n'ont pas vocation à être exposés/persistés ailleurs.
 /// Ne connaît MapHitTester et MapContext que comme dépendances injectées.
-class PointerGestureController {
-  final MapHitTester hitTester;
-  final void Function(bool blocked) setPanBlocked;
-  final double tapSlopPx;
+abstract class PointerGestureController {
+  final double tapSlopPx = 8;
+  GestureState gestureState = EmptyState();
+  GesturesResolver get gesturesResolver;
+  MapCameraController get camera;
+  MapHitTester get hitTester;
 
-  PointerGestureController({
-    required this.hitTester,
-    required this.setPanBlocked,
-    this.tapSlopPx = 8,
-  });
+  set setPanBlocked(bool blocked);
 
   /// Point de pression initial — détail de reconnaissance du drag (slop).
   Point<double>? _pressPoint;
@@ -59,68 +60,61 @@ class PointerGestureController {
 
   /// Point d'entrée unique pour les trois gestes primaires.
   /// [state] est l'état courant ; la valeur retournée est le nouvel
-  GestureState handle(GestureState state, MapPointerEvent event) {
-     switch (event) {
-      case MapPointerDown(:final latLng) :
+  void handle(GestureState state, MapPointerEvent event) {
+    switch (event) {
+      case MapPointerDown(:final latLng):
         final element = hitTester.hitTest(latLng);
-        final pressedElement = mapContext.onPointerDown(element, latLng);
-        _pressPoint = hitTester.project(latLng);
-        setPanBlocked(pressedElement.isDraggable);
-        return Pressed(pressedElement);
+        _pressPoint = camera.latLngToPoint(latLng);
+        setPanBlocked = (element != null ? element.isDraggable : false);
+        gesturesResolver.onPointerDown(element, latLng);
+        gestureState = Pressed(element);
 
-      case MapPointerMove(:final latLng) :,
-      case MapPointerUp(:final latLng) :,
-    };
-  }
+      case MapPointerMove(:final latLng):
+        final position = camera.latLngToPoint(latLng);
+        switch (state) {
+          case Pressed(element: null):
+            if (_pressPoint != null &&
+                distancePx(_pressPoint!, position) < tapSlopPx) {
+              return; // encore potentiellement un tap, pas un drag
+            }
+            gesturesResolver.onDragStart();
+            gestureState = Dragging();
 
-  GestureState _handleDown(LatLng latLng) {
+          case Pressed(:final element):
+            if (element != null && !element.isDraggable) return;
+            gesturesResolver.onDragStart(element: element);
+            gestureState = Dragging(dragged: element);
 
-  }
-
-  GestureState _handleMove(GestureState state, LatLng latLng) {
-    final position = hitTester.project(latLng);
-    switch (state) {
-      case Pressed(element: null):
-        if (_pressPoint != null &&
-            distancePx(_pressPoint!, position) < tapSlopPx) {
-          return state; // encore potentiellement un tap, pas un drag
+          case Dragging(:final dragged) when dragged != null:
+            final target = hitTester.hitTest(latLng, exclude: dragged);
+            gesturesResolver.onDragUpdate(
+              dragged: dragged,
+              target: target,
+              latLng: latLng,
+            );
+            gestureState = Dragging(dragged: dragged, target: target);
+          case _:
         }
-        mapContext.onDragStart();
-        return Dragging();
+      case MapPointerUp(:final latLng):
+        setPanBlocked = false;
+        _pressPoint = null;
 
-      case Pressed(:final element):
-        if (element != null && !element.isDraggable) return state;
-        mapContext.onDragStart(element: element);
-        return Dragging(dragged: element);
+        switch (state) {
+          case Pressed(:final element):
+            _handleTap(element, latLng);
+          case Dragging(:final dragged, :final target):
+            cancelPendingTap();
+            gesturesResolver.onDragEnd(
+              dragged: dragged,
+              target: target,
+              latLng: latLng,
+            );
+          case _:
+        }
 
-      case Dragging(:final dragged) when dragged != null:
-        final target = hitTester.hitTest(latLng, exclude: dragged);
-        mapContext.onDragUpdate(
-          dragged: dragged,
-          target: target,
-          latLng: latLng,
-        );
-        return Dragging(dragged: dragged, target: target);
-
-      case _:
-        return state;
+        gestureState = const EmptyState();
     }
-  }
-
-  GestureState _handleUp(GestureState state, LatLng latLng) {
-    setPanBlocked(false);
-    _pressPoint = null;
-
-    switch (state) {
-      case Pressed(:final element):
-        _handleTap(element, latLng);
-      case Dragging(:final dragged, :final target):
-        cancelPendingTap();
-        mapContext.onDragEnd(dragged: dragged, target: target, latLng: latLng);
-      case _:
-    }
-
-    return const EmptyState();
+    ;
   }
 
   // ---------------------------------------------------------------------
@@ -134,15 +128,15 @@ class PointerGestureController {
       // se déclencher plus tard sur cet ancien élément) et on déclenche
       // immédiatement, sans latence.
       cancelPendingTap();
-      mapContext.onTapped(element, latLng);
+      gesturesResolver.onTapped(element, latLng);
       return;
     }
 
-    final point = hitTester.project(latLng);
+    final point = camera.latLngToPoint(latLng);
 
     if (_pendingTap != null && _pendingTap!.compare(element, point)) {
       cancelPendingTap();
-      mapContext.onDoubleTapped(element, latLng);
+      gesturesResolver.onDoubleTapped(element, latLng);
       return;
     }
 
@@ -151,7 +145,7 @@ class PointerGestureController {
       pendingTapPoint: point,
       pendingTapElement: element,
       onTap: () {
-        mapContext.onTapped(element, latLng);
+        gesturesResolver.onTapped(element, latLng);
         _pendingTap = null;
       },
     );

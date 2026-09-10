@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/editor/resolvers/gestures_resolver.dart';
-import 'package:map_application/editor/utiles/merge_polyline.dart';
+import 'package:map_application/gestures_resolver/gestures_resolver.dart';
 import 'package:map_application/map_application.dart';
+import 'package:map_application/utiles/merge_polyline.dart';
 import 'package:trip_application/trip_application.dart';
 
 extension DragEditor on GesturesResolver {

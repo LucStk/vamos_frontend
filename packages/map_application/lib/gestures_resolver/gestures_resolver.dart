@@ -1,5 +1,5 @@
-import 'package:map_application/effects/map_camera_controller.dart';
 import 'package:map_application/map_application.dart';
+import 'package:map_application/map_camera_controller.dart';
 
 abstract class GesturesResolver {
   const GesturesResolver();

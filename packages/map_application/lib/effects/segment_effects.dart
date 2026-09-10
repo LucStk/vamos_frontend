@@ -44,6 +44,17 @@ extension SegmentMapEffects on MapEffects {
     res.fold((_) {}, (_) => _resetCorrectionIfNeeded());
   }
 
+  Future<void> changeSegmentType(MobilityType type) async {
+    if (mapState.selection case MapSegment(:final id)) {
+      final newSeg = graphEditor.state.segmentStore.get(id)?.current;
+      if (newSeg == null) return;
+      final draft = SegmentPatchModel.fromFields(
+        newSeg,
+      ).copyWith(mobilityType: type);
+      await graphEditor.updateSegment(draft);
+    }
+  }
+
   Future<void> correctSegmentFromSketch({
     required SegmentPatchModel patchSegment,
     required List<LatLng> correction,
@@ -52,13 +63,24 @@ extension SegmentMapEffects on MapEffects {
     res.fold((_) {}, (_) => _resetCorrectionIfNeeded());
   }
 
-  Future<void> deleteSegment(SegmentId segmentId) {
-    return graphEditor.deleteSegment(segmentId);
+  Future<void> deleteSegment(SegmentId segmentId) async {
+    final res = await graphEditor.deleteSegment(segmentId);
+    res.fold((_) {}, (_) {
+      mapState = mapState.withSelection(null);
+    });
   }
 
   void _resetCorrectionIfNeeded() {
     if (mapState case SketchEdition e) {
       mapState = e.copyWith(correction: null);
+    }
+  }
+
+  Future<void> activateSegmentEditMode() async {
+    if (mapState.selection case MapSegment(:final id)) {
+      final newSeg = graphEditor.state.segmentStore.get(id)?.current;
+      if (newSeg == null) return;
+      mapState = SketchEdition(segment: newSeg);
     }
   }
 }

@@ -7,6 +7,7 @@ sealed class MapObject {
   bool get isDraggable => false;
   bool get awaitsDoubleTap => false;
   bool get isHitTestable => true;
+  double get radius;
 
   int get hitPriority => 0;
 
@@ -20,13 +21,11 @@ abstract interface class TopologyObject {
 sealed class MapPoint extends MapObject {
   final LatLng position;
   const MapPoint(this.position);
-  double get radius;
 }
 
 sealed class MapLine extends MapObject {
   final List<LatLng> geometry;
   const MapLine(this.geometry);
-  double get radius;
 }
 
 final class MapVertex extends MapPoint implements TopologyObject {
