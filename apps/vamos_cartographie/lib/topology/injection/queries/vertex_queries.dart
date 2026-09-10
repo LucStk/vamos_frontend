@@ -1,10 +1,8 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:map_application/map_application.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/waypoint/waypoint.dart';
-import '/map/map.dart';
 import '/topology/injection/injection.dart';
 
 part 'vertex_queries.g.dart';
@@ -39,14 +37,14 @@ WaypointId? waypointFromVertex(Ref ref, TripId tripId, VertexId vertexId) {
   );
 }
 
-@riverpod
-bool isVertexSelected(Ref ref, TripId tripId, VertexId vertexId) {
-  return ref.watch(
-    mapStateProvider(tripId).select((s) {
-      return switch (s.selection) {
-        MapVertex e => (vertexId == e.vertex.id),
-        _ => false,
-      };
-    }),
-  );
-}
+// @riverpod
+// bool isVertexSelected(Ref ref, TripId tripId, VertexId vertexId) {
+//   return ref.watch(
+//     mapStateProvider(tripId).select((s) {
+//       return switch (s.selection) {
+//         MapVertex e => (vertexId == e.vertex.id),
+//         _ => false,
+//       };
+//     }),
+//   );
+// }

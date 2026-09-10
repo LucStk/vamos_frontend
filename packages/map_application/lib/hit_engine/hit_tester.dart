@@ -1,11 +1,9 @@
 import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/domain/domain.dart';
 import 'package:map_application/hit_engine/projected_line.dart';
 import 'package:map_application/hit_engine/projected_point.dart';
 import 'package:map_application/map_application.dart';
-import 'package:map_application/map_camera_controller.dart';
 
 abstract class ProjectedObject {
   final MapObject object;

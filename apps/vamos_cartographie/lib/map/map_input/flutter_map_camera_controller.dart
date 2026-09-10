@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/map_application.dart';
 
 class FlutterMapCameraController implements MapCameraController {
   final AnimatedMapController animatedController;
@@ -18,12 +19,6 @@ class FlutterMapCameraController implements MapCameraController {
     final targetZoom = min(_camera.zoom + deltaZoom, _camera.maxZoom ?? 20);
 
     animatedController.animateTo(dest: latLng, zoom: targetZoom);
-  }
-
-  @override
-  Point<double> project(LatLng latLng) {
-    final offset = _camera.latLngToScreenOffset(latLng);
-    return Point(offset.dx, offset.dy);
   }
 
   @override

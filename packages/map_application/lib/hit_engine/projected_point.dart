@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:map_application/map_application.dart';
-import 'package:map_application/map_camera_controller.dart';
 
 class ProjectedPoint extends ProjectedObject {
   final Point<double> projectedPosition;
