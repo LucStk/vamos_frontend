@@ -2,43 +2,30 @@ import 'package:flutter/rendering.dart';
 import 'package:map_application/map_application.dart';
 
 class MapScenePainter extends CustomPainter {
-  const MapScenePainter({required this.scene});
+  const MapScenePainter({required this.scene, required this.selection});
 
   final ProjectedScene scene;
+  final MapObject? selection;
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (final object in scene.objects) {
-      _paintObject(canvas, object);
+    for (final projected in scene.objects) {
+      final state = _visualState(projected.object);
+
+      projected.paint(canvas, context: MapPaintContext(state: state));
     }
   }
 
-  void _paintObject(Canvas canvas, ProjectedObject object) {
-    final paint = Paint()..style = PaintingStyle.fill;
-
-    switch (object) {
-      case ProjectedPoint point:
-        canvas.drawCircle(point.projectedPosition, point.object.radius, paint);
-
-      case ProjectedLine line:
-        final path = Path();
-
-        for (var i = 0; i < line.projectedPoints.length; i++) {
-          final point = line.projectedPoints[i];
-
-          if (i == 0) {
-            path.moveTo(point.dx, point.dy);
-          } else {
-            path.lineTo(point.dx, point.dy);
-          }
-        }
-
-        canvas.drawPath(path, paint);
+  MapObjectVisualState _visualState(MapObject object) {
+    if (selection != null && selection.isSameAs(object)) {
+      return MapObjectVisualState.selected;
     }
+
+    return MapObjectVisualState.normal;
   }
 
   @override
   bool shouldRepaint(MapScenePainter oldDelegate) {
-    return scene != oldDelegate.scene;
+    return scene != oldDelegate.scene || selection != oldDelegate.selection;
   }
 }
