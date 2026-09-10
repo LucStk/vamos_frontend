@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/canvas/layers/layers.dart';
-import 'package:vamos_cartographie/map/canvas/layers/sketch_layer/correction_sketch_layer.dart';
-import 'package:vamos_cartographie/map/canvas/layers/user_location_layer.dart';
+import 'package:vamos_cartographie/map/canvas/markers/markers.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 class MapCanvas extends ConsumerStatefulWidget {
@@ -21,10 +21,10 @@ class MapCanvas extends ConsumerStatefulWidget {
     required this.panAllowed,
   });
   @override
-  ConsumerState<MapCanvas> createState() => _MapCanavsState();
+  ConsumerState<MapCanvas> createState() => _MapCanvasState();
 }
 
-class _MapCanavsState extends ConsumerState<MapCanvas> {
+class _MapCanvasState extends ConsumerState<MapCanvas> {
   late final List<Widget> _mapChildren;
 
   @override
@@ -33,20 +33,62 @@ class _MapCanavsState extends ConsumerState<MapCanvas> {
     _mapChildren = [
       MapTileLayer(),
       const NetworkOverlayLayer(), // instance unique, stable, auto-réactive
-      SegmentLayer(tripId: widget.tripId),
-      CursorLayer(tripId: widget.tripId),
-      CorrectionSketchLayer(tripId: widget.tripId),
-      SegmentSketchLayer(tripId: widget.tripId),
-      VertexLayer(tripId: widget.tripId),
-      PencilSketchLayer(tripId: widget.tripId),
-      UserLocationLayer(),
       MapControls(tripId: widget.tripId),
     ];
   }
 
+  List<Widget> buildScene(MapScene scene) {
+    final List<Marker> markers = [];
+    final List<Polyline> polylines = [];
+    for (MapPoint p in scene.points) {
+      final m = Marker(
+        point: p.position,
+        width: p.radius,
+        height: p.radius,
+        child: mapPointToWidget(p),
+      );
+      markers.add(m);
+    }
+    for (MapLine p in scene.lines) {
+      final m = Marker(
+        point: p.position,
+        width: p.radius,
+        height: p.radius,
+        child: mapPointToWidget(p),
+      );
+      markers.add(m);
+    }
+    return [MarkerLayer(markers: markers)];
+  }
+
+  Widget mapPointToMarker(MapPoint p) {
+    switch (p) {
+      case MapVertex v:
+        return VertexMarker(
+          tripId: widget.tripId,
+          vertexId: v.id,
+          isDragging: false,
+        );
+      default:
+        return SizedBox.shrink();
+    }
+  }
+
+  Widget mapLineToPolyline(MapLine p) {
+    switch (p) {
+      case MapSegment v:
+        return VertexMarker(
+          tripId: widget.tripId,
+          vertexId: v.id,
+          isDragging: false,
+        );
+      default:
+        return SizedBox.shrink();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("map_canvas rebuild");
     return ValueListenableBuilder<bool>(
       valueListenable: widget.panAllowed,
       builder: (context, panAllowed, _) => FlutterMap(

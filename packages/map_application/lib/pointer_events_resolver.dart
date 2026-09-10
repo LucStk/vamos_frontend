@@ -3,9 +3,7 @@ import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/gestures_resolver/gestures_resolver.dart';
-import 'package:map_application/gestures_resolver/resolvers.dart';
 import 'package:map_application/map_application.dart';
-import 'package:map_application/map_camera_controller.dart';
 
 double distancePx(Point<double> a, Point<double> b) =>
     sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
