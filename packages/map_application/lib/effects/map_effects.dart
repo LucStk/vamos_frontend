@@ -10,7 +10,7 @@ part "vertex_effects.dart";
 mixin MapEffects {
   WaypointEditor get waypointEditor;
   GraphEditor get graphEditor;
-  MapCameraController get cameraController;
+  MapCameraController? get cameraController;
   MapEditorState get mapState;
   set mapState(MapEditorState value);
 }

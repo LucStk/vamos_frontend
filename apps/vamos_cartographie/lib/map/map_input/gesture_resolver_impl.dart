@@ -5,9 +5,7 @@ import 'package:map_application/effects/map_effects.dart';
 import 'package:map_application/gestures_resolver/gestures_resolver.dart';
 import 'package:map_application/map_camera_controller.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/injection/map_camera_controller_provider.dart';
-import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
-import 'package:vamos_cartographie/map/injection/map_effects.dart';
+import 'package:vamos_cartographie/map/map.dart';
 
 class GesturesResolverImpl extends GesturesResolver {
   final WidgetRef _ref;
@@ -21,7 +19,7 @@ class GesturesResolverImpl extends GesturesResolver {
   MapEffects get mapEffects => _ref.read(mapEffectsProvider(_tripId).notifier);
 
   @override
-  MapCameraController get camera => _ref.read(mapCameraControllerProvider);
+  MapCameraReader get camera => _ref.read(mapCameraReaderProvider);
 
   @override
   MapEditorState get editorState => _ref.read(mapEditorStateProvider(_tripId));

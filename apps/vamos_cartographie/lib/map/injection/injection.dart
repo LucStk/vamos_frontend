@@ -1,5 +1,5 @@
 export 'gesture_state_provider.dart';
-export 'map_camera_controller_provider.dart';
+export 'map_camera_provider.dart';
 export 'map_data_loader.dart';
 export 'map_editor_state.dart';
 export 'map_effects.dart';

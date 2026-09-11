@@ -3,7 +3,7 @@ part of 'projected_object.dart';
 abstract class ProjectedPoint<T extends MapPoint> extends ProjectedObject {
   final Offset projectedPosition;
 
-  ProjectedPoint({required T object, required Camera camera})
+  ProjectedPoint({required T object, required MapCameraReader camera})
     : projectedPosition = camera.latLngToScreenOffset(object.position),
       super(object);
 

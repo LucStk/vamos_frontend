@@ -19,8 +19,8 @@ extension TapEditor on GesturesResolver {
   }
 
   void onDoubleTapped(MapObject? element, LatLng latLng) {
-    if (element == null) {
-      camera.zoomTo(latLng);
-    }
+    // if (element == null) {
+    //   camera.zoomTo(latLng);
+    // }
   }
 }

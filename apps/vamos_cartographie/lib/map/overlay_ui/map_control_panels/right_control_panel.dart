@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/map/features/network_overlay_type.dart';
-import 'package:vamos_cartographie/map/injection/map_camera_controller_provider.dart';
-import 'package:vamos_cartographie/map/injection/network_overlay_provider.dart';
 import 'package:vamos_cartographie/map/overlay_ui/map_control_panels/widgets/user_location_icons.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 import '/map/map.dart';
@@ -18,7 +16,8 @@ class MapControls extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.read(mapCameraControllerProvider);
+    final camera = ref.read(mapCameraControllerOrNullProvider);
+
     final userLocation = ref.watch(userLocationProvider);
     final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
 
@@ -27,33 +26,35 @@ class MapControls extends ConsumerWidget {
       bottom: 120,
       child: Column(
         children: [
-          MapControlButton(
-            icon: CupertinoIcons.add,
-            tooltip: 'Zoom avant',
-            onPressed: () => camera.zoomIn(),
-          ),
-          const SizedBox(height: 6),
-          MapControlButton(
-            icon: CupertinoIcons.minus,
-            tooltip: 'Zoom arrière',
-            onPressed: () => camera.zoomOut(),
-          ),
-          const SizedBox(height: 6),
-          StreamBuilder<double>(
-            stream: camera.rotationStream,
-            initialData: camera.rotation,
-            builder: (context, snapshot) {
-              final rotation = snapshot.data ?? 0;
-              if (rotation == 0) return const SizedBox.shrink();
-              return IconButton(
-                icon: Transform.rotate(
-                  angle: rotation * (3.14159 / 180),
-                  child: const Icon(CupertinoIcons.location_north_fill),
-                ),
-                onPressed: () => camera.rotateTo(0),
-              );
-            },
-          ),
+          if (camera != null) ...[
+            MapControlButton(
+              icon: CupertinoIcons.add,
+              tooltip: 'Zoom avant',
+              onPressed: () => camera.zoomIn(),
+            ),
+            const SizedBox(height: 6),
+            MapControlButton(
+              icon: CupertinoIcons.minus,
+              tooltip: 'Zoom arrière',
+              onPressed: () => camera.zoomOut(),
+            ),
+            const SizedBox(height: 6),
+            StreamBuilder<double>(
+              stream: camera.rotationStream,
+              initialData: camera.rotation,
+              builder: (context, snapshot) {
+                final rotation = snapshot.data ?? 0;
+                if (rotation == 0) return const SizedBox.shrink();
+                return IconButton(
+                  icon: Transform.rotate(
+                    angle: rotation * (3.14159 / 180),
+                    child: const Icon(CupertinoIcons.location_north_fill),
+                  ),
+                  onPressed: () => camera.rotateTo(0),
+                );
+              },
+            ),
+          ],
           IconButton(
             icon: userLocation.iconWidget,
             color: userLocation.color,

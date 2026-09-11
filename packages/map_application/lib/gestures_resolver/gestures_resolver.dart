@@ -6,7 +6,7 @@ import 'package:map_application/map_application.dart';
 abstract class GesturesResolver {
   const GesturesResolver();
   MapEffects get mapEffects;
-  MapCameraController get camera;
+  MapCameraReader get camera;
 
   MapEditorState get editorState;
   set editorState(MapEditorState value);

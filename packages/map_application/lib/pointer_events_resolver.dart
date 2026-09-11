@@ -46,7 +46,7 @@ abstract class PointerGestureController {
   final double tapSlopPx = 8;
   GestureState gestureState = EmptyState();
   GesturesResolver get gesturesResolver;
-  MapCameraController get camera;
+  MapCameraReader get camera;
   ProjectedScene get scene;
 
   set setPanBlocked(bool blocked);

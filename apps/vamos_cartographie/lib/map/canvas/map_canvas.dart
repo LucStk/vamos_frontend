@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/canvas/map_scene_layer.dart';
 import 'package:vamos_cartographie/map/canvas/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/canvas/network_overlay_layer.dart';
 import 'package:vamos_cartographie/map/map.dart';
@@ -32,6 +33,7 @@ class _MapCanvasState extends ConsumerState<MapCanvas> {
     _mapChildren = [
       MapTileLayer(),
       const NetworkOverlayLayer(), // instance unique, stable, auto-réactive
+      MapSceneLayer(tripId: widget.tripId),
       MapControls(tripId: widget.tripId),
     ];
   }

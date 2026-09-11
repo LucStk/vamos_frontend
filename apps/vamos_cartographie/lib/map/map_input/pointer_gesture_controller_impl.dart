@@ -4,7 +4,7 @@ import 'package:map_application/gestures_resolver/gestures_resolver.dart';
 import 'package:map_application/map_camera_controller.dart';
 import 'package:map_application/pointer_events_resolver.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/map/injection/map_camera_controller_provider.dart';
+import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/injection/map_scene_provider.dart';
 import 'package:vamos_cartographie/map/map_input/gesture_resolver_impl.dart';
 
@@ -26,7 +26,7 @@ class PointerGestureControllerImpl extends PointerGestureController {
       GesturesResolverImpl(ref: _ref, tripId: _tripId);
 
   @override
-  MapCameraController get camera => _ref.read(mapCameraControllerProvider);
+  MapCameraReader get camera => _ref.read(mapCameraReaderProvider);
 
   @override
   ProjectedScene get scene => _ref.read(projectedSceneProvider(_tripId));

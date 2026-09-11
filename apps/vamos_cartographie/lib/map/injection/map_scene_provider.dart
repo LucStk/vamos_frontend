@@ -1,7 +1,7 @@
 import 'package:map_application/domain/domain.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/map/injection/map_camera_controller_provider.dart';
+import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/user_location/user_location.dart';
@@ -10,7 +10,7 @@ part 'map_scene_provider.g.dart';
 
 @riverpod
 List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraControllerProvider);
+  final camera = ref.watch(mapCameraReaderProvider);
   final vertices = ref.watch(allVertexProvider(tripId));
 
   return [
@@ -24,7 +24,7 @@ List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
 
 @riverpod
 List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraControllerProvider);
+  final camera = ref.watch(mapCameraReaderProvider);
   final segments = ref.watch(allSegmentsProvider(tripId));
 
   return [
@@ -38,7 +38,7 @@ List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
 
 @riverpod
 ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraControllerProvider);
+  final camera = ref.watch(mapCameraReaderProvider);
   final editorState = ref.watch(mapEditorStateProvider(tripId));
 
   if (editorState case final SketchMode sketch) {
@@ -55,7 +55,7 @@ ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
 
 @riverpod
 ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraControllerProvider);
+  final camera = ref.watch(mapCameraReaderProvider);
   final editorState = ref.watch(mapEditorStateProvider(tripId));
 
   if (editorState case final SketchMode sketch) {
@@ -72,7 +72,7 @@ ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
 
 @riverpod
 ProjectedPoint? projectUserLocation(Ref ref) {
-  final camera = ref.watch(mapCameraControllerProvider);
+  final camera = ref.watch(mapCameraReaderProvider);
   final location = ref.watch(userLocationProvider);
 
   if (location case final UserPositionActive activeLocation) {
