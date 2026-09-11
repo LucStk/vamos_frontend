@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:map_application/gestures_resolver/gestures_resolver.dart';
 import 'package:map_application/map_application.dart';
+import 'package:map_application/transitions/camera_transitions.dart';
 
 extension TapEditor on GesturesResolver {
   void onTapped(MapObject? element, Offset offset) {
@@ -19,8 +20,8 @@ extension TapEditor on GesturesResolver {
   }
 
   void onDoubleTapped(MapObject? element, Offset offset) {
-    // if (element == null) {
-    //   camera.zoomTo(latLng);
-    // }
+    if (element == null) {
+      mapTransitions.zoomTo(offset);
+    }
   }
 }
