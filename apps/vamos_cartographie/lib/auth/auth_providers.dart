@@ -1,5 +1,4 @@
 import 'package:auth/auth.dart';
-import 'package:auth/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -11,26 +10,16 @@ AuthRepository authRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-Stream<AuthState> authState(Ref ref) {
+Stream<User?> authState(Ref ref) {
   return ref.watch(authRepositoryProvider).authStateChanges;
 }
 
 @Riverpod(keepAlive: true)
 User? currentUser(Ref ref) {
-  final state = ref.watch(authStateProvider).valueOrNull;
-
-  return switch (state) {
-    AuthAuthenticated(:final user) => user,
-    _ => null,
-  };
+  return ref.watch(authStateProvider).value;
 }
 
 @Riverpod(keepAlive: true)
 String? accessToken(Ref ref) {
-  final state = ref.watch(authStateProvider).valueOrNull;
-
-  return switch (state) {
-    AuthAuthenticated(:final accessToken) => accessToken,
-    _ => null,
-  };
+  return ref.watch(authRepositoryProvider).accessToken;
 }

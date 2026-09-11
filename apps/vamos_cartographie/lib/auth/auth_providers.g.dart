@@ -54,9 +54,8 @@ String _$authRepositoryHash() => r'7f0c93eda0d69219968b650d119f2811306333ad';
 final authStateProvider = AuthStateProvider._();
 
 final class AuthStateProvider
-    extends
-        $FunctionalProvider<AsyncValue<AuthState>, AuthState, Stream<AuthState>>
-    with $FutureModifier<AuthState>, $StreamProvider<AuthState> {
+    extends $FunctionalProvider<AsyncValue<User?>, User?, Stream<User?>>
+    with $FutureModifier<User?>, $StreamProvider<User?> {
   AuthStateProvider._()
     : super(
         from: null,
@@ -73,16 +72,16 @@ final class AuthStateProvider
 
   @$internal
   @override
-  $StreamProviderElement<AuthState> $createElement($ProviderPointer pointer) =>
+  $StreamProviderElement<User?> $createElement($ProviderPointer pointer) =>
       $StreamProviderElement(pointer);
 
   @override
-  Stream<AuthState> create(Ref ref) {
+  Stream<User?> create(Ref ref) {
     return authState(ref);
   }
 }
 
-String _$authStateHash() => r'ebf8e79f36ad3e615d407720e5fa9e232784ef8a';
+String _$authStateHash() => r'0b10eaefd3623136d0dc5bdbd92d6949d7f2649f';
 
 @ProviderFor(currentUser)
 final currentUserProvider = CurrentUserProvider._();
@@ -122,7 +121,7 @@ final class CurrentUserProvider extends $FunctionalProvider<User?, User?, User?>
   }
 }
 
-String _$currentUserHash() => r'f46dfe0b6f213649952b5f9e00467979abea6b06';
+String _$currentUserHash() => r'48fc7ba2a7ab6a042f27fd23c6850adf1f9a65bd';
 
 @ProviderFor(accessToken)
 final accessTokenProvider = AccessTokenProvider._();
@@ -163,4 +162,4 @@ final class AccessTokenProvider
   }
 }
 
-String _$accessTokenHash() => r'0b11fb0418c2f392356deefc6ffe8fcf8902dc7b';
+String _$accessTokenHash() => r'a3d6dc68660f84234d53aa7f12e9a9abdfe29963';
