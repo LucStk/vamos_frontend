@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/config/supabase.dart';
 import '/core/services/erreur_handler.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
 void main() {
   runZonedGuarded(
-    () {
+    () async {
       WidgetsFlutterBinding.ensureInitialized();
 
       final container = ProviderContainer();
@@ -17,6 +18,7 @@ void main() {
       FlutterError.onError = (FlutterErrorDetails details) {
         ErrorHandler.instance.handle(details.exception, details.stack);
       };
+      await SupabaseService.initialize();
 
       runApp(
         UncontrolledProviderScope(

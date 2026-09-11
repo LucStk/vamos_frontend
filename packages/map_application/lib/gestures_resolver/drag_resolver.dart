@@ -39,7 +39,7 @@ extension DragEditor on GesturesResolver {
     MapObject? target,
     required Offset offset,
   }) {
-    final latLng = camera.screenOffsetToLatLng(offset);
+    // final latLng = camera.screenOffsetToLatLng(offset);
     switch ((editorState, dragged, target)) {
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         // Le segment en cours de création viens de rencontrer un Vertex
