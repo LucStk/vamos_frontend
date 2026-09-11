@@ -1,18 +1,18 @@
-import 'package:latlong2/latlong.dart';
+import 'dart:ui';
 
 sealed class MapPointerEvent {
-  final LatLng latLng;
-  const MapPointerEvent(this.latLng);
+  final Offset offset;
+  const MapPointerEvent(this.offset);
 }
 
 class MapPointerDown extends MapPointerEvent {
-  const MapPointerDown(super.latLng);
+  const MapPointerDown(super.offset);
 }
 
 class MapPointerMove extends MapPointerEvent {
-  const MapPointerMove(super.latLng);
+  const MapPointerMove(super.offset);
 }
 
 class MapPointerUp extends MapPointerEvent {
-  const MapPointerUp(super.latLng);
+  const MapPointerUp(super.offset);
 }

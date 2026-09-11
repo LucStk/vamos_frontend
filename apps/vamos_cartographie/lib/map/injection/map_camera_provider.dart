@@ -5,8 +5,7 @@ import 'package:vamos_cartographie/map/map_input/flutter_map_camera_reader.dart'
 
 part 'map_camera_provider.g.dart';
 
-// map_camera_controller_provider.dart
-@Riverpod(keepAlive: true)
+@riverpod
 MapController mapController(Ref ref) {
   final controller = MapController();
   ref.onDispose(controller.dispose);
@@ -38,7 +37,7 @@ class MapCameraChanges extends _$MapCameraChanges {
   }
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 class MapCameraControllerHolder extends _$MapCameraControllerHolder {
   @override
   MapCameraController? build() => null;

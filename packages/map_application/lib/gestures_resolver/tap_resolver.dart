@@ -1,9 +1,9 @@
-import 'package:latlong2/latlong.dart';
+import 'dart:ui';
 import 'package:map_application/gestures_resolver/gestures_resolver.dart';
 import 'package:map_application/map_application.dart';
 
 extension TapEditor on GesturesResolver {
-  void onTapped(MapObject? element, LatLng latLng) {
+  void onTapped(MapObject? element, Offset offset) {
     switch ((editorState, element)) {
       case (Idle _, MapObject e) when e is TopologyObject:
         editorState = Idle(selection: e);
@@ -18,7 +18,7 @@ extension TapEditor on GesturesResolver {
     }
   }
 
-  void onDoubleTapped(MapObject? element, LatLng latLng) {
+  void onDoubleTapped(MapObject? element, Offset offset) {
     // if (element == null) {
     //   camera.zoomTo(latLng);
     // }

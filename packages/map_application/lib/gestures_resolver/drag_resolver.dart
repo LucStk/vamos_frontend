@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/gestures_resolver/gestures_resolver.dart';
@@ -18,8 +19,9 @@ extension DragEditor on GesturesResolver {
   void onDragUpdate({
     MapObject? dragged,
     MapObject? target,
-    required LatLng latLng,
+    required Offset offset,
   }) {
+    final latLng = camera.screenOffsetToLatLng(offset);
     switch ((editorState, dragged, target)) {
       // Permet de faire bouger le vertex visuellement
       // case (Idle _, MapVertex e):
@@ -44,8 +46,9 @@ extension DragEditor on GesturesResolver {
   void onDragEnd({
     MapObject? dragged,
     MapObject? target,
-    required LatLng latLng,
+    required Offset offset,
   }) {
+    final latLng = camera.screenOffsetToLatLng(offset);
     switch ((editorState, dragged, target)) {
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         // Le segment en cours de création viens de rencontrer un Vertex

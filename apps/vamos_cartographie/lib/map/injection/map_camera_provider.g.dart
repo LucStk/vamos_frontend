@@ -21,7 +21,7 @@ final class MapControllerProvider
         argument: null,
         retry: null,
         name: r'mapControllerProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,7 +48,7 @@ final class MapControllerProvider
   }
 }
 
-String _$mapControllerHash() => r'57a5965305d052b2d10a7d48f30ad5154d5adb26';
+String _$mapControllerHash() => r'f9441949c3553732ffe508de7ab3d2671af22822';
 
 @ProviderFor(mapCameraReader)
 final mapCameraReaderProvider = MapCameraReaderProvider._();
@@ -90,7 +90,7 @@ final class MapCameraReaderProvider
   }
 }
 
-String _$mapCameraReaderHash() => r'f48b2a86c7ce992fb986287effd31cab954c75ee';
+String _$mapCameraReaderHash() => r'c13d4065090ec7b00849c7f0779db9b13d4a48b0';
 
 @ProviderFor(MapCameraChanges)
 final mapCameraChangesProvider = MapCameraChangesProvider._();
@@ -155,7 +155,7 @@ final class MapCameraControllerHolderProvider
         argument: null,
         retry: null,
         name: r'mapCameraControllerHolderProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -177,7 +177,7 @@ final class MapCameraControllerHolderProvider
 }
 
 String _$mapCameraControllerHolderHash() =>
-    r'b6859b39d4663f4d2caff406a1e30544055ed40d';
+    r'd897b57e32b94c38e22753d0c4a3e76ee8d58477';
 
 abstract class _$MapCameraControllerHolder
     extends $Notifier<MapCameraController?> {
