@@ -58,16 +58,13 @@ abstract class PointerEventsResolver {
   void handle(MapPointerEvent event) {
     switch (event) {
       case MapPointerDown(:final offset):
-        print("pointer down");
         _pressPoint = offset;
         final element = scene.hitTest(_pressPoint!);
-        print("element hit ? $element ");
         setPanBlocked = (element != null ? element.isDraggable : false);
         gesturesResolver.onPointerDown(element, offset);
         currentState = Pressed(element);
 
       case MapPointerMove(:final offset):
-        print("pointer move");
         switch (currentState) {
           case Pressed(element: null):
             if (_pressPoint != null &&
@@ -95,7 +92,6 @@ abstract class PointerEventsResolver {
       case MapPointerUp(:final offset):
         setPanBlocked = false;
         _pressPoint = null;
-        print("pointer up $currentState");
 
         switch (currentState) {
           case Pressed(:final element):
@@ -111,7 +107,6 @@ abstract class PointerEventsResolver {
         }
         currentState = const EmptyState();
     }
-    ;
   }
 
   // ---------------------------------------------------------------------

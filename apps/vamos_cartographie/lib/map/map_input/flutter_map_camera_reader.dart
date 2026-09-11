@@ -10,16 +10,6 @@ class FlutterMapCameraReader implements MapCameraReader {
   MapCamera get _camera => controller.camera;
 
   @override
-  double get rotation => _camera.rotation;
-
-  @override
-  Stream<double> get rotationStream =>
-      controller.mapEventStream.map((_) => _camera.rotation);
-
-  @override
-  Stream<void> get cameraStream => controller.mapEventStream.map((_) {});
-
-  @override
   Offset latLngToScreenOffset(LatLng latLng) =>
       _camera.latLngToScreenOffset(latLng);
 
