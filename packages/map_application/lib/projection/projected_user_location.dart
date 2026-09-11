@@ -8,8 +8,8 @@ final class ProjectedUserLocation extends ProjectedPoint<MapUserLocation> {
     Canvas canvas, {
     MapPaintContext context = const MapPaintContext(),
   }) {
-    final accuracyPaint = Paint()..style = PaintingStyle.fill;
-    canvas.drawCircle(projectedPosition, point.accuracy, accuracyPaint);
+    // final accuracyPaint = Paint()..style = PaintingStyle.fill;
+    // canvas.drawCircle(projectedPosition, point.accuracy, accuracyPaint);
     final positionPaint = Paint()..style = PaintingStyle.fill;
     canvas.drawCircle(projectedPosition, 8, positionPaint);
   }

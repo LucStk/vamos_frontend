@@ -241,7 +241,7 @@ final class ProjectSketchSegmentProvider
 }
 
 String _$projectSketchSegmentHash() =>
-    r'fe4511b8cae6a424dc6e65d8c2ea226c786696c1';
+    r'72b410176f2cc064bec31c6f9abee63ceb26b008';
 
 final class ProjectSketchSegmentFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedLine<MapLine>?, TripId> {

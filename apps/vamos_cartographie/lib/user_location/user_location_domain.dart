@@ -4,26 +4,26 @@ sealed class UserLocationState {
   const UserLocationState();
 }
 
-class UserPositionActive extends UserLocationState {
-  final LatLng position;
-  final double accuracy;
-  final double heading;
+final class UserPositionInactive extends UserLocationState {
+  const UserPositionInactive();
+}
 
+final class UserPositionLoading extends UserLocationState {
+  const UserPositionLoading();
+}
+
+final class UserPositionActive extends UserLocationState {
   const UserPositionActive({
     required this.position,
     required this.accuracy,
     required this.heading,
   });
+
+  final LatLng position;
+  final double accuracy;
+  final double heading;
 }
 
-class UserPositionInactive extends UserLocationState {
-  const UserPositionInactive();
-}
-
-class UserPositionUnavailable extends UserLocationState {
+final class UserPositionUnavailable extends UserLocationState {
   const UserPositionUnavailable();
-}
-
-class UserPositionLoading extends UserLocationState {
-  const UserPositionLoading();
 }

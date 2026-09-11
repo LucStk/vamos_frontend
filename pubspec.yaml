@@ -10,6 +10,7 @@ workspace:
   - packages/map_application
   - packages/stored_file_application
   - packages/trip_application
+  - packages/auth
 
 dev_dependencies:
   melos: ^7.0.0
