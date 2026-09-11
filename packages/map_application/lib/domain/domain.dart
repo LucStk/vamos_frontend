@@ -4,4 +4,4 @@ export 'map_editor_state.dart';
 export "pointer_gesture_event.dart";
 export 'gesture_state.dart';
 export 'map_scene.dart';
-export "projection/projection.dart";
+export 'projected_scene.dart';

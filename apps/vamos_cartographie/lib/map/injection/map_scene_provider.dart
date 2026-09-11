@@ -1,4 +1,4 @@
-import 'package:map_application/domain/domain.dart';
+import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
