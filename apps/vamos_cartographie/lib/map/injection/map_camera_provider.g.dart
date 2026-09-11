@@ -90,7 +90,59 @@ final class MapCameraReaderProvider
   }
 }
 
-String _$mapCameraReaderHash() => r'55992631ba86a20628cc89fc54af84d0b6446883';
+String _$mapCameraReaderHash() => r'f48b2a86c7ce992fb986287effd31cab954c75ee';
+
+@ProviderFor(MapCameraChanges)
+final mapCameraChangesProvider = MapCameraChangesProvider._();
+
+final class MapCameraChangesProvider
+    extends $NotifierProvider<MapCameraChanges, int> {
+  MapCameraChangesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mapCameraChangesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$mapCameraChangesHash();
+
+  @$internal
+  @override
+  MapCameraChanges create() => MapCameraChanges();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(int value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<int>(value),
+    );
+  }
+}
+
+String _$mapCameraChangesHash() => r'33cc1e90ab6d8dd1c7c98ed2a5018010ff9a89d5';
+
+abstract class _$MapCameraChanges extends $Notifier<int> {
+  int build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<int, int>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<int, int>,
+              int,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
 @ProviderFor(MapCameraControllerHolder)
 final mapCameraControllerHolderProvider = MapCameraControllerHolderProvider._();

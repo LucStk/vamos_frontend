@@ -74,7 +74,7 @@ final class ProjectVertexProvider
   }
 }
 
-String _$projectVertexHash() => r'47a1b714520743d9b5372202f6412ba3a92b31d5';
+String _$projectVertexHash() => r'a340de3c27e4c1692a3a276de4f99dfc6027f455';
 
 final class ProjectVertexFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
@@ -450,7 +450,7 @@ final class ProjectedSceneProvider
   }
 }
 
-String _$projectedSceneHash() => r'd35b74f08b12501b711073be6fcf9cae59643cbb';
+String _$projectedSceneHash() => r'4b7eaf96eddf21bdd8b295fb96ff6c5d71c29bf1';
 
 final class ProjectedSceneFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedScene, TripId> {

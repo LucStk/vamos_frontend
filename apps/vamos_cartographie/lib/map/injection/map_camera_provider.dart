@@ -15,13 +15,29 @@ MapController mapController(Ref ref) {
 
 @riverpod
 MapCameraReader mapCameraReader(Ref ref) {
+  ref.watch(mapCameraChangesProvider);
   final controller = ref.watch(mapControllerProvider);
   return FlutterMapCameraReader(
     controller,
   ); // implémentation basée sur MapController seul
 }
 
-// map_camera_controller_provider.dart
+@riverpod
+class MapCameraChanges extends _$MapCameraChanges {
+  @override
+  int build() {
+    final controller = ref.watch(mapControllerProvider);
+
+    final subscription = controller.mapEventStream.listen((_) {
+      state++;
+    });
+
+    ref.onDispose(subscription.cancel);
+
+    return 0;
+  }
+}
+
 @Riverpod(keepAlive: true)
 class MapCameraControllerHolder extends _$MapCameraControllerHolder {
   @override
@@ -34,7 +50,5 @@ class MapCameraControllerHolder extends _$MapCameraControllerHolder {
 // mais expose maintenant explicitement le cas "pas encore prêt"
 @riverpod
 MapCameraController? mapCameraControllerOrNull(Ref ref) {
-  final state = ref.watch(mapCameraControllerHolderProvider);
-  print("mapcontroller is $state ");
-  return state;
+  return ref.watch(mapCameraControllerHolderProvider);
 }

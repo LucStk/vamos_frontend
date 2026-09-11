@@ -59,7 +59,7 @@ final class MapEffectsNotifierProvider
 }
 
 String _$mapEffectsNotifierHash() =>
-    r'e01000d5dd5c0a589522fe5cdfc13765cc1b5158';
+    r'a0edddd8dc2850fbeba33e972d28fa5e264c6e62';
 
 final class MapEffectsNotifierFamily extends $Family
     with $ClassFamilyOverride<MapEffectsNotifier, void, void, void, TripId> {
