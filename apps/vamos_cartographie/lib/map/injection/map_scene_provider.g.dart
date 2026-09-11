@@ -74,7 +74,7 @@ final class ProjectVertexProvider
   }
 }
 
-String _$projectVertexHash() => r'47a1b714520743d9b5372202f6412ba3a92b31d5';
+String _$projectVertexHash() => r'aaf006b96b5f0e3f3625f4db5956958e094dd009';
 
 final class ProjectVertexFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {

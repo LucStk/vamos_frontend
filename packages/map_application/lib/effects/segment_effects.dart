@@ -22,13 +22,15 @@ extension SegmentMapEffects on MapEffects {
 
   Future<void> spliceSegment({
     required List<LatLng> correction,
-    required MobilityType mobilityType,
+    required SegmentId segmentId,
     required SpliceAnchor startAnchor,
     required SpliceAnchor endAnchor,
   }) async {
+    final newSeg = graphEditor.state.segmentStore.get(segmentId)?.current;
+    if (newSeg == null) return;
     final res = await graphEditor.spliceSegment(
       correction: correction,
-      mobilityType: mobilityType,
+      mobilityType: newSeg.mobilityType,
       startAnchor: startAnchor,
       endAnchor: endAnchor,
     );
@@ -56,10 +58,16 @@ extension SegmentMapEffects on MapEffects {
   }
 
   Future<void> correctSegmentFromSketch({
-    required SegmentPatchModel patchSegment,
+    required SegmentId segmentId,
     required List<LatLng> correction,
   }) async {
-    final res = await graphEditor.correctSegment(patchSegment, correction);
+    final seg = graphEditor.state.segmentStore.get(segmentId)?.current;
+    if (seg == null) return;
+    List<LatLng> itineraire = mergeCorrection(correction, seg.geometry);
+    final patch = SegmentPatchModel.fromFields(
+      seg,
+    ).copyWith(geometry: itineraire);
+    final res = await graphEditor.correctSegment(patch, correction);
     res.fold((_) {}, (_) => _resetCorrectionIfNeeded());
   }
 
@@ -72,15 +80,7 @@ extension SegmentMapEffects on MapEffects {
 
   void _resetCorrectionIfNeeded() {
     if (mapState case SketchEdition e) {
-      mapState = e.copyWith(correction: null);
-    }
-  }
-
-  Future<void> activateSegmentEditMode() async {
-    if (mapState.selection case MapSegment(:final id)) {
-      final newSeg = graphEditor.state.segmentStore.get(id)?.current;
-      if (newSeg == null) return;
-      mapState = SketchEdition(segment: newSeg);
+      mapState = e.copyWith(path: []);
     }
   }
 }

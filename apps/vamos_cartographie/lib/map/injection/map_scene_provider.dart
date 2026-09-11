@@ -62,13 +62,10 @@ ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
   final editorState = ref.watch(mapEditorStateProvider(tripId));
 
   if (editorState case final SketchMode sketch) {
-    final geometry = sketch.sketchSegmentGeometryOrNull;
-    if (geometry != null) {
-      return ProjectedSketchSegment(
-        object: MapSketchSegment(geometry),
-        camera: camera,
-      );
-    }
+    return ProjectedSketchSegment(
+      object: MapSketchSegment(sketch.path),
+      camera: camera,
+    );
   }
   return null;
 }
