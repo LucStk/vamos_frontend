@@ -10,7 +10,6 @@ extension TapEditor on GesturesResolver {
         editorState = Idle(selection: e);
 
       case (SketchMode m, MapSketchPencil p):
-        print("mapSketchPencil tap");
         editorState = m.copyWith(selection: p);
 
       case (Idle _, null):
@@ -20,6 +19,7 @@ extension TapEditor on GesturesResolver {
   }
 
   void onDoubleTapped(MapObject? element, Offset offset) {
+    print("double tapped $element");
     if (element == null) {
       mapTransitions.zoomTo(offset);
     }
