@@ -10,7 +10,6 @@ import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/map/injection/map_transitions.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:vamos_cartographie/map/overlay_ui/bottom_sheet/simple_bottom_sheet_shell.dart';
-import 'package:vamos_cartographie/topology/topology.dart';
 
 class SegmentBottomSheet extends ConsumerWidget {
   final TripId tripId;
