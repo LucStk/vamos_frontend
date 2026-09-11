@@ -57,6 +57,7 @@ sealed class SketchMode extends MapEditorState with _$SketchMode {
 
 extension SketchX on SketchMode {
   LatLng? get pencilPositionOrNull {
+    if (path.isEmpty) return null;
     return path.last;
   }
 }

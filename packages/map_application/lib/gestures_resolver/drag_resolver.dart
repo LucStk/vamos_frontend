@@ -26,7 +26,7 @@ extension DragEditor on GesturesResolver {
       //   final patch = VertexPatchModel(id: e.vertex.id, latLng: latLng);
       //   graphEditor.state = graphEditor.state.setVertex(patch);
 
-      case (SketchMode m, MapSketchPencil _, MapObject e):
+      case (SketchMode m, MapSketchPencil _, MapObject? e):
         final itineraire = [...m.path, latLng];
         editorState = m.copyWith(path: itineraire, selection: e);
 
