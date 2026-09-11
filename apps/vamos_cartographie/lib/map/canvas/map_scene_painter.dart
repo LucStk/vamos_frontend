@@ -9,7 +9,8 @@ class MapScenePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (final projected in scene.objects) {
+    for (final projected in scene.objects.reversed) {
+      //On reverse pour avoir les objets les plus clicable au premier plan
       final state = _visualState(projected.object);
 
       projected.paint(canvas, context: MapPaintContext(state: state));

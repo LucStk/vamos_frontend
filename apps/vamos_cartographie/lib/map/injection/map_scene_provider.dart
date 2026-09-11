@@ -1,25 +1,45 @@
 import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
+import 'package:trip_application/waypoint/waypoint.dart';
 import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/injection/map_editor_state.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/user_location/user_location.dart';
+import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
 
 part 'map_scene_provider.g.dart';
+
+VertexVisualKind _visualKind(WaypointFields? waypoint) {
+  if (waypoint == null) {
+    return VertexVisualKind.normal;
+  }
+
+  return switch (waypoint.poiCategory) {
+    PoiCategory.start => VertexVisualKind.start,
+    PoiCategory.end => VertexVisualKind.end,
+    _ => VertexVisualKind.normal,
+  };
+}
 
 @riverpod
 List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
   final camera = ref.watch(mapCameraReaderProvider);
   final vertices = ref.watch(allVertexProvider(tripId));
 
-  return [
-    for (final vertex in vertices)
+  final List<ProjectedPoint> ret = [];
+  for (final vertex in vertices) {
+    final wId = ref.watch(waypointFromVertexProvider(tripId, vertex.id));
+    final w = (wId != null) ? ref.watch(waypointProvider(tripId, wId)) : null;
+    ret.add(
       ProjectedVertex(
         object: MapVertex(vertex.id, vertex.latLng),
         camera: camera,
+        visualKind: _visualKind(w),
       ),
-  ];
+    );
+  }
+  return ret;
 }
 
 @riverpod
