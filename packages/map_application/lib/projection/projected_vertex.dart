@@ -8,6 +8,9 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
     Canvas canvas, {
     MapPaintContext context = const MapPaintContext(),
   }) {
+    switch (point){
+      case
+    }
     switch (context.state) {
       case MapObjectVisualState.selected:
         final selectionPaint = Paint()
