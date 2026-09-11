@@ -16,7 +16,7 @@ class MapControls extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.read(mapCameraControllerOrNullProvider);
+    final camera = ref.watch(mapCameraControllerOrNullProvider);
 
     final userLocation = ref.watch(userLocationProvider);
     final activeOverlays = ref.watch(activeNetworkOverlaysProvider);

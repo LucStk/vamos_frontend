@@ -50,6 +50,7 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
     // Différé après la fin du build en cours
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      print("_animatedMapController set");
       ref
           .read(mapCameraControllerHolderProvider.notifier)
           .set(FlutterMapCameraController(_animatedMapController));

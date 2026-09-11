@@ -34,5 +34,7 @@ class MapCameraControllerHolder extends _$MapCameraControllerHolder {
 // mais expose maintenant explicitement le cas "pas encore prêt"
 @riverpod
 MapCameraController? mapCameraControllerOrNull(Ref ref) {
-  return ref.watch(mapCameraControllerHolderProvider);
+  final state = ref.watch(mapCameraControllerHolderProvider);
+  print("mapcontroller is $state ");
+  return state;
 }
