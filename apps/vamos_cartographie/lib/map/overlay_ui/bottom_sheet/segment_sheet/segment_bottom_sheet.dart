@@ -24,7 +24,7 @@ class SegmentBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final segment = ref.watch(segmentProvider(tripId, segmentId));
+    // final segment = ref.watch(segmentProvider(tripId, segmentId));
     final transitions = ref.watch(
       mapEditorStateTransitionsProvider(tripId).notifier,
     );
