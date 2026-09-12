@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/config/supabase.dart';
+import 'package:vamos_cartographie/core/config/supabase_config.dart';
 import '/core/services/erreur_handler.dart';
 
 // Imports de tes pages d'auth (ajuste les chemins si besoin)
@@ -14,15 +16,19 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      final container = ProviderContainer();
+      // Charger le fichier .env en premier
+      await dotenv.load(fileName: ".env");
 
+      // Valider la config et initialiser Supabase
+      SupabaseConfig.validate();
+      await SupabaseService.initialize();
+
+      final container = ProviderContainer();
       ErrorHandler.instance.init(container);
 
       FlutterError.onError = (FlutterErrorDetails details) {
         ErrorHandler.instance.handle(details.exception, details.stack);
       };
-
-      await SupabaseService.initialize();
 
       runApp(
         UncontrolledProviderScope(

@@ -1,4 +1,5 @@
 import 'package:auth/auth.dart';
+import 'package:flutter/rendering.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth_providers.dart';
@@ -34,6 +35,7 @@ class AuthController extends _$AuthController {
 
       state = const AsyncData(null);
     } catch (error, stackTrace) {
+      debugPrint("sigup error $error");
       state = AsyncError(error, stackTrace);
     }
   }

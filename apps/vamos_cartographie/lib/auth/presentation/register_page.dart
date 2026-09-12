@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/auth/auth_controller.dart';
+import 'package:vamos_cartographie/auth/presentation/register_success_page.dart';
 
 // Imports des nouveaux widgets
 import 'widgets/widgets.dart';
@@ -22,22 +23,21 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   @override
   void initState() {
     super.initState();
-
     ref.listenManual(authControllerProvider, (previous, next) {
+      if (next.hasValue && previous?.isLoading == true) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) =>
+                RegisterSuccessPage(email: _emailController.text.trim()),
+          ),
+        );
+      }
+
       next.whenOrNull(
         error: (error, stackTrace) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(content: Text(_errorMessage(error))));
-        },
-        data: (_) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              const SnackBar(
-                content: Text('Compte créé. Vérifiez votre adresse e-mail.'),
-              ),
-            );
         },
       );
     });
