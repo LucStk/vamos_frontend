@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_s
     as _i1;
 
 abstract class GUserProfileFields {
+  String get userId;
   String get profileName;
   _i1.GStoredFile? get profilPicture;
   String get bio;
@@ -15,6 +16,7 @@ abstract class GUserProfileFields {
 
 class GUserProfileFieldsData implements GUserProfileFields {
   const GUserProfileFieldsData({
+    required this.userId,
     required this.profileName,
     this.profilPicture,
     required this.bio,
@@ -24,6 +26,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
 
   factory GUserProfileFieldsData.fromJson(Map<String, dynamic> json) {
     return GUserProfileFieldsData(
+      userId: (json['userId'] as String),
       profileName: (json['profileName'] as String),
       profilPicture: json['profilPicture'] == null
           ? null
@@ -34,6 +37,8 @@ class GUserProfileFieldsData implements GUserProfileFields {
       G__typename: (json['__typename'] as String),
     );
   }
+
+  final String userId;
 
   final String profileName;
 
@@ -47,6 +52,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
+    _$result['userId'] = this.userId;
     _$result['profileName'] = this.profileName;
     final _$profilPictureValue = this.profilPicture;
     _$result['profilPicture'] =
@@ -58,6 +64,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
   }
 
   GUserProfileFieldsData copyWith({
+    String? userId,
     String? profileName,
     _i1.GStoredFileData? profilPicture,
     bool profilPictureIsSet = false,
@@ -66,6 +73,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
     String? G__typename,
   }) {
     return GUserProfileFieldsData(
+      userId: userId ?? this.userId,
       profileName: profileName ?? this.profileName,
       profilPicture: profilPicture != null || profilPictureIsSet
           ? profilPicture
@@ -80,6 +88,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is GUserProfileFieldsData &&
+            userId == other.userId &&
             profileName == other.profileName &&
             profilPicture == other.profilPicture &&
             bio == other.bio &&
@@ -89,12 +98,12 @@ class GUserProfileFieldsData implements GUserProfileFields {
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, profileName, profilPicture, bio, country, G__typename);
+    return Object.hash(runtimeType, userId, profileName, profilPicture, bio,
+        country, G__typename);
   }
 
   @override
   String toString() {
-    return 'GUserProfileFieldsData(profileName: $profileName, profilPicture: $profilPicture, bio: $bio, country: $country, G__typename: $G__typename)';
+    return 'GUserProfileFieldsData(userId: $userId, profileName: $profileName, profilPicture: $profilPicture, bio: $bio, country: $country, G__typename: $G__typename)';
   }
 }
