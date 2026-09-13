@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/features/buttons/primary_button.dart';
 
 // Imports des widgets partagés
 import 'widgets/auth_layout.dart';
-import 'widgets/primary_button.dart';
 
 class RegisterSuccessPage extends StatelessWidget {
   const RegisterSuccessPage({super.key, required this.email});

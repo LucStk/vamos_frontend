@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-// Imports des widgets partagés
-import 'widgets/auth_layout.dart';
-import 'widgets/display_name_field.dart';
-import 'widgets/primary_button.dart';
+import 'package:vamos_cartographie/auth/presentation/widgets/auth_layout.dart';
+import 'package:vamos_cartographie/features/features.dart';
 
 class CreateProfilePage extends ConsumerStatefulWidget {
   const CreateProfilePage({super.key});

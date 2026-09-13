@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/auth/auth_controller.dart';
+import 'package:vamos_cartographie/features/buttons/primary_button.dart';
+import 'package:vamos_cartographie/features/fields/fields.dart';
 
 // Imports des nouveaux widgets
 import 'widgets/auth_layout.dart';
-import 'widgets/email_field.dart';
-import 'widgets/password_field.dart';
-import 'widgets/primary_button.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});

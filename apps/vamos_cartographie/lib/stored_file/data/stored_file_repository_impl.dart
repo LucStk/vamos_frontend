@@ -24,7 +24,7 @@ class StoredFileRepositoryImpl extends StoredFileRepository {
   @override
   Future<Either<Failure, StoredFileRemoteModel>> attachFile(
     Id ownerId,
-    OwnerType ownerType,
+    TargetType ownerType,
     StoredFileId fileId,
   ) {
     return guard(() async {

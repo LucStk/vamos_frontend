@@ -19,17 +19,17 @@ extension GFileAttachmentX on GFileAttachment {
   }
 }
 
-extension OwnerTypeMapper on OwnerType {
-  GOwnerTypeEnum toGql() => switch (this) {
-    OwnerType.trip => GOwnerTypeEnum.TRIP,
-    OwnerType.waypoint => GOwnerTypeEnum.WAYPOINT,
+extension TargetTypeMapper on TargetType {
+  GFileTargetTypeEnum toGql() => switch (this) {
+    TargetType.trip => GFileTargetTypeEnum.TRIP,
+    TargetType.waypoint => GFileTargetTypeEnum.WAYPOINT,
   };
 }
 
-extension GOwnerTypeMapper on GOwnerTypeEnum {
-  OwnerType toModel() => switch (this) {
-    GOwnerTypeEnum.TRIP => OwnerType.trip,
-    GOwnerTypeEnum.WAYPOINT => OwnerType.waypoint,
+extension GTargetTypeEnumMapper on GFileTargetTypeEnum {
+  TargetType toModel() => switch (this) {
+    GFileTargetTypeEnum.TRIP => TargetType.trip,
+    GFileTargetTypeEnum.WAYPOINT => TargetType.waypoint,
     _ => throw Exception(
       NotFoundFailure(resourceType: "OwnerType", resourceId: "$this"),
     ),

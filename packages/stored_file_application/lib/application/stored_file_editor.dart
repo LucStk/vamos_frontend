@@ -21,7 +21,7 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
 
   Future<Failure?> attachFile({
     required Id ownerId,
-    required OwnerType ownerType,
+    required TargetType ownerType,
     required StoredFileId fileId,
   }) async {
     final res = await storedFileRepo.attachFile(ownerId, ownerType, fileId);
@@ -45,7 +45,7 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
 
   Future<Failure?> uploadFile<T>({
     required Id ownerId,
-    required OwnerType ownerType,
+    required TargetType ownerType,
     required File file,
   }) async {
     final uploadConf = await uploadService.requestSignedUrl(file);

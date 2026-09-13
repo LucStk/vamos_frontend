@@ -91,7 +91,7 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
               widthFactor: 0.9,
               child: ImageCarouselPicker(
                 id: widget.initialTrip.id,
-                ownerType: OwnerType.trip,
+                ownerType: TargetType.trip,
               ),
             ),
           ),

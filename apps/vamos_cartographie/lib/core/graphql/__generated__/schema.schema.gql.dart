@@ -8,44 +8,44 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
 
 class GAttachFileInput {
   const GAttachFileInput({
-    required this.ownerType,
-    required this.ownerId,
+    required this.targetType,
+    required this.targetId,
     required this.fileId,
   });
 
   factory GAttachFileInput.fromJson(Map<String, dynamic> json) {
     return GAttachFileInput(
-      ownerType: GOwnerTypeEnum.fromJson((json['ownerType'] as String)),
-      ownerId: (json['ownerId'] as String),
+      targetType: GFileTargetTypeEnum.fromJson((json['targetType'] as String)),
+      targetId: (json['targetId'] as String),
       fileId: (json['fileId'] as String),
     );
   }
 
-  final GOwnerTypeEnum ownerType;
+  final GFileTargetTypeEnum targetType;
 
-  final String ownerId;
+  final String targetId;
 
   final String fileId;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$ownerTypeValue = this.ownerType;
-    _$result['ownerType'] = _$ownerTypeValue.toJson();
-    final _$ownerIdValue = this.ownerId;
-    _$result['ownerId'] = _$ownerIdValue;
+    final _$targetTypeValue = this.targetType;
+    _$result['targetType'] = _$targetTypeValue.toJson();
+    final _$targetIdValue = this.targetId;
+    _$result['targetId'] = _$targetIdValue;
     final _$fileIdValue = this.fileId;
     _$result['fileId'] = _$fileIdValue;
     return _$result;
   }
 
   GAttachFileInput copyWith({
-    GOwnerTypeEnum? ownerType,
-    String? ownerId,
+    GFileTargetTypeEnum? targetType,
+    String? targetId,
     String? fileId,
   }) {
     return GAttachFileInput(
-      ownerType: ownerType ?? this.ownerType,
-      ownerId: ownerId ?? this.ownerId,
+      targetType: targetType ?? this.targetType,
+      targetId: targetId ?? this.targetId,
       fileId: fileId ?? this.fileId,
     );
   }
@@ -64,7 +64,35 @@ class GAttachFileInput {
 
   @override
   String toString() {
-    return 'GAttachFileInput(ownerType: $ownerType, ownerId: $ownerId, fileId: $fileId)';
+    return 'GAttachFileInput(targetType: $targetType, targetId: $targetId, fileId: $fileId)';
+  }
+}
+
+enum GFileTargetTypeEnum {
+  TRIP,
+  WAYPOINT,
+  gUnknownEnumValue;
+
+  static GFileTargetTypeEnum fromJson(String value) {
+    switch (value) {
+      case r'TRIP':
+        return GFileTargetTypeEnum.TRIP;
+      case r'WAYPOINT':
+        return GFileTargetTypeEnum.WAYPOINT;
+      default:
+        return GFileTargetTypeEnum.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GFileTargetTypeEnum.TRIP:
+        return r'TRIP';
+      case GFileTargetTypeEnum.WAYPOINT:
+        return r'WAYPOINT';
+      case GFileTargetTypeEnum.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
   }
 }
 
@@ -222,34 +250,6 @@ enum GMobilityType {
       case GMobilityType.TRAIN:
         return r'TRAIN';
       case GMobilityType.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
-  }
-}
-
-enum GOwnerTypeEnum {
-  TRIP,
-  WAYPOINT,
-  gUnknownEnumValue;
-
-  static GOwnerTypeEnum fromJson(String value) {
-    switch (value) {
-      case r'TRIP':
-        return GOwnerTypeEnum.TRIP;
-      case r'WAYPOINT':
-        return GOwnerTypeEnum.WAYPOINT;
-      default:
-        return GOwnerTypeEnum.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GOwnerTypeEnum.TRIP:
-        return r'TRIP';
-      case GOwnerTypeEnum.WAYPOINT:
-        return r'WAYPOINT';
-      case GOwnerTypeEnum.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
   }

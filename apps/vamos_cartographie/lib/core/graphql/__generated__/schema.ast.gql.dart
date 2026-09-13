@@ -31,16 +31,16 @@ const AttachFileInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'ownerType'),
+      name: _i1.NameNode(value: 'targetType'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'OwnerTypeEnum'),
+        name: _i1.NameNode(value: 'FileTargetTypeEnum'),
         isNonNull: true,
       ),
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'ownerId'),
+      name: _i1.NameNode(value: 'targetId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'ID'),
@@ -162,6 +162,20 @@ const FileAttachmentType = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'StoredFileType'),
         isNonNull: true,
       ),
+    ),
+  ],
+);
+const FileTargetTypeEnum = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'FileTargetTypeEnum'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'TRIP'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'WAYPOINT'),
+      directives: [],
     ),
   ],
 );
@@ -721,20 +735,6 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const OwnerTypeEnum = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'OwnerTypeEnum'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'TRIP'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WAYPOINT'),
-      directives: [],
-    ),
-  ],
-);
 const PoiCategory = _i1.EnumTypeDefinitionNode(
   name: _i1.NameNode(value: 'PoiCategory'),
   directives: [],
@@ -827,6 +827,15 @@ const Query = _i1.ObjectTypeDefinitionNode(
           isNonNull: true,
         ),
         isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'me'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserProfileType'),
+        isNonNull: false,
       ),
     ),
   ],
@@ -1342,6 +1351,58 @@ const UploadConfigType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const UserProfileType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UserProfileType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'userId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'profileName'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'profilPicture'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StoredFileType'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'bio'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'country'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const UUID = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'UUID'),
   directives: [],
@@ -1485,12 +1546,12 @@ const document = _i1.DocumentNode(definitions: [
   CreateWaypointPayload,
   Date,
   FileAttachmentType,
+  FileTargetTypeEnum,
   ImageUploadRequest,
   LatLngInput,
   LatLngType,
   MobilityType,
   Mutation,
-  OwnerTypeEnum,
   PoiCategory,
   Query,
   RefineSegmentPayload,
@@ -1506,6 +1567,7 @@ const document = _i1.DocumentNode(definitions: [
   TripType,
   TripUpdateInput,
   UploadConfigType,
+  UserProfileType,
   UUID,
   VertexType,
   WaypointType,

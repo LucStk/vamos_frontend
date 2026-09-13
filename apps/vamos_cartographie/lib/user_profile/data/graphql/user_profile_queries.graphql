@@ -1,0 +1,6 @@
+# import "user_profile_fields.graphql"
+query GetMe {
+    me {
+        ...UserProfileFields
+    }
+}

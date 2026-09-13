@@ -65,7 +65,7 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
           // ── Images ─────────────────────────────
           ImageCarouselPicker(
             id: widget.initialWaypoint.id,
-            ownerType: OwnerType.waypoint,
+            ownerType: TargetType.waypoint,
           ),
 
           const SizedBox(height: 16),

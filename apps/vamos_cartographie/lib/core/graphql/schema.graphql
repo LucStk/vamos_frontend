@@ -8,8 +8,8 @@ directive @specifiedBy(
 directive @oneOf on INPUT_OBJECT
 
 input AttachFileInput {
-  ownerType: OwnerTypeEnum!
-  ownerId: ID!
+  targetType: FileTargetTypeEnum!
+  targetId: ID!
   fileId: ID!
 }
 
@@ -32,6 +32,11 @@ type FileAttachmentType {
   order: Int!
   isCover: Boolean!
   file: StoredFileType!
+}
+
+enum FileTargetTypeEnum {
+  TRIP
+  WAYPOINT
 }
 
 input ImageUploadRequest {
@@ -80,11 +85,6 @@ type Mutation {
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
 }
 
-enum OwnerTypeEnum {
-  TRIP
-  WAYPOINT
-}
-
 enum PoiCategory {
   START
   END
@@ -104,6 +104,7 @@ enum PoiCategory {
 type Query {
   trip(id: UUID!): TripType!
   trips: [TripType!]!
+  me: UserProfileType
 }
 
 type RefineSegmentPayload {
@@ -187,6 +188,14 @@ type UploadConfigType {
   uploadUrl: String!
   fileKey: String!
   contentType: String!
+}
+
+type UserProfileType {
+  userId: UUID!
+  profileName: String!
+  profilPicture: StoredFileType
+  bio: String!
+  country: String!
 }
 
 scalar UUID

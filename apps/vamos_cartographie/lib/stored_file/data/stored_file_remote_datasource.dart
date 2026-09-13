@@ -17,15 +17,15 @@ class StoredFileRemoteDatasource {
 
   Future<GAttachFileData> attachFile(
     Id ownerId,
-    OwnerType ownerType,
+    TargetType ownerType,
     StoredFileId fileId,
   ) async {
     final data = await ferryClient.execute(
       GAttachFileReq(
         vars: GAttachFileVars(
           input: GAttachFileInput(
-            ownerId: ownerId.value,
-            ownerType: ownerType.toGql(),
+            targetId: ownerId.value,
+            targetType: ownerType.toGql(),
             fileId: fileId.value,
           ),
         ),

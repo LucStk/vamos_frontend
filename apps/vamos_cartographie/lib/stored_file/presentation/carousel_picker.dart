@@ -9,7 +9,7 @@ import "thumbnail_picker.dart";
 
 class ImageCarouselPicker<T> extends ConsumerWidget {
   final Id<T> id;
-  final OwnerType ownerType;
+  final TargetType ownerType;
   final double thumbSize = 80;
   const ImageCarouselPicker({
     super.key,
