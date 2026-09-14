@@ -763,6 +763,60 @@ class GTripUpdateInput {
   }
 }
 
+class GUpdateUserProfileInput {
+  const GUpdateUserProfileInput({
+    required this.profilePicture,
+    required this.bio,
+  });
+
+  factory GUpdateUserProfileInput.fromJson(Map<String, dynamic> json) {
+    return GUpdateUserProfileInput(
+      profilePicture: (json['profilePicture'] as String),
+      bio: (json['bio'] as String),
+    );
+  }
+
+  final String profilePicture;
+
+  final String bio;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$profilePictureValue = this.profilePicture;
+    _$result['profilePicture'] = _$profilePictureValue;
+    final _$bioValue = this.bio;
+    _$result['bio'] = _$bioValue;
+    return _$result;
+  }
+
+  GUpdateUserProfileInput copyWith({
+    String? profilePicture,
+    String? bio,
+  }) {
+    return GUpdateUserProfileInput(
+      profilePicture: profilePicture ?? this.profilePicture,
+      bio: bio ?? this.bio,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUpdateUserProfileInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GUpdateUserProfileInput(profilePicture: $profilePicture, bio: $bio)';
+  }
+}
+
 class GWaypointUpdateInput {
   const GWaypointUpdateInput({
     this.title = const Value.absent(),
@@ -862,4 +916,10 @@ class GWaypointUpdateInput {
   }
 }
 
-const Map<String, Set<String>> possibleTypesMap = {};
+const Map<String, Set<String>> possibleTypesMap = {
+  'CreateProfileResult': {
+    'CreateProfileSuccess',
+    'UsernameAlreadyTaken',
+    'InvalidUsername',
+  }
+};

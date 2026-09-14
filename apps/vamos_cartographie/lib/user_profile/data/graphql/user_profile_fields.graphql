@@ -6,5 +6,4 @@ fragment UserProfileFields on UserProfileType {
         ...StoredFile
     }
     bio
-    country
 }

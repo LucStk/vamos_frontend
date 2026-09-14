@@ -12,7 +12,6 @@ extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
       profileName: profileName,
       profilePictureUrl: profilPictureModel,
       bio: bio,
-      country: country,
     );
   }
 }

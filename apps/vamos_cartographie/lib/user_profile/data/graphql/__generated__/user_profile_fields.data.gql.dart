@@ -10,7 +10,6 @@ abstract class GUserProfileFields {
   String get profileName;
   _i1.GStoredFile? get profilPicture;
   String get bio;
-  String get country;
   String get G__typename;
 }
 
@@ -20,7 +19,6 @@ class GUserProfileFieldsData implements GUserProfileFields {
     required this.profileName,
     this.profilPicture,
     required this.bio,
-    required this.country,
     this.G__typename = 'UserProfileType',
   });
 
@@ -33,7 +31,6 @@ class GUserProfileFieldsData implements GUserProfileFields {
           : _i1.GStoredFileData.fromJson(
               (json['profilPicture'] as Map<String, dynamic>)),
       bio: (json['bio'] as String),
-      country: (json['country'] as String),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -46,8 +43,6 @@ class GUserProfileFieldsData implements GUserProfileFields {
 
   final String bio;
 
-  final String country;
-
   final String G__typename;
 
   Map<String, dynamic> toJson() {
@@ -58,7 +53,6 @@ class GUserProfileFieldsData implements GUserProfileFields {
     _$result['profilPicture'] =
         _$profilPictureValue == null ? null : _$profilPictureValue.toJson();
     _$result['bio'] = this.bio;
-    _$result['country'] = this.country;
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -69,7 +63,6 @@ class GUserProfileFieldsData implements GUserProfileFields {
     _i1.GStoredFileData? profilPicture,
     bool profilPictureIsSet = false,
     String? bio,
-    String? country,
     String? G__typename,
   }) {
     return GUserProfileFieldsData(
@@ -79,7 +72,6 @@ class GUserProfileFieldsData implements GUserProfileFields {
           ? profilPicture
           : this.profilPicture,
       bio: bio ?? this.bio,
-      country: country ?? this.country,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -92,18 +84,17 @@ class GUserProfileFieldsData implements GUserProfileFields {
             profileName == other.profileName &&
             profilPicture == other.profilPicture &&
             bio == other.bio &&
-            country == other.country &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, userId, profileName, profilPicture, bio,
-        country, G__typename);
+    return Object.hash(
+        runtimeType, userId, profileName, profilPicture, bio, G__typename);
   }
 
   @override
   String toString() {
-    return 'GUserProfileFieldsData(userId: $userId, profileName: $profileName, profilPicture: $profilPicture, bio: $bio, country: $country, G__typename: $G__typename)';
+    return 'GUserProfileFieldsData(userId: $userId, profileName: $profileName, profilPicture: $profilPicture, bio: $bio, G__typename: $G__typename)';
   }
 }

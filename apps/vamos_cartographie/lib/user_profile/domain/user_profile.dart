@@ -14,6 +14,5 @@ abstract class UserProfile with _$UserProfile {
     required String profileName,
     String? profilePictureUrl,
     required String bio,
-    required String country,
   }) = _UserProfile;
 }

@@ -1,0 +1,18 @@
+mutation createProfile($profileName: String!) {
+    createProfile(profileName: $profileName) {
+        ... on CreateProfileSuccess {
+            __typename
+            profile {
+                bio
+            }
+        }
+        ... on UsernameAlreadyTaken {
+            __typename
+            message
+        }
+        ... on InvalidUsername {
+            __typename
+            message
+        }
+    }
+}

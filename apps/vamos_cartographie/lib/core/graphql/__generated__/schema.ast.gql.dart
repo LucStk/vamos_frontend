@@ -59,6 +59,40 @@ const AttachFileInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const CreateProfileResult = _i1.UnionTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateProfileResult'),
+  directives: [],
+  types: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'CreateProfileSuccess'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'UsernameAlreadyTaken'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'InvalidUsername'),
+      isNonNull: false,
+    ),
+  ],
+);
+const CreateProfileSuccess = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateProfileSuccess'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'profile'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserProfileType'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
 const CreateSegmentPayload = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateSegmentPayload'),
   directives: [],
@@ -237,6 +271,22 @@ const ImageUploadRequest = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const InvalidUsername = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'InvalidUsername'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'message'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
 const LatLngInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'LatLngInput'),
   directives: [],
@@ -317,6 +367,44 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
   directives: [],
   interfaces: [],
   fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createProfile'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'profileName'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateProfileResult'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateProfile'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UpdateUserProfileInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UpdateProfilePayload'),
+        isNonNull: true,
+      ),
+    ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'updateTrip'),
       directives: [],
@@ -1333,6 +1421,46 @@ const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const UpdateProfilePayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateProfilePayload'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'profile'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserProfileType'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
+const UpdateUserProfileInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateUserProfileInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'profilePicture'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'bio'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
 const UploadConfigType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UploadConfigType'),
   directives: [],
@@ -1376,6 +1504,22 @@ const UploadConfigType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const UsernameAlreadyTaken = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UsernameAlreadyTaken'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'message'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
 const UserProfileType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UserProfileType'),
   directives: [],
@@ -1410,15 +1554,6 @@ const UserProfileType = _i1.ObjectTypeDefinitionNode(
     ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'bio'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'country'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
@@ -1567,6 +1702,8 @@ const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
   AttachFileInput,
+  CreateProfileResult,
+  CreateProfileSuccess,
   CreateSegmentPayload,
   CreateWaypointPayload,
   Date,
@@ -1574,6 +1711,7 @@ const document = _i1.DocumentNode(definitions: [
   FileTargetTypeEnum,
   GetMePayload,
   ImageUploadRequest,
+  InvalidUsername,
   LatLngInput,
   LatLngType,
   MobilityType,
@@ -1592,7 +1730,10 @@ const document = _i1.DocumentNode(definitions: [
   TopologyType,
   TripType,
   TripUpdateInput,
+  UpdateProfilePayload,
+  UpdateUserProfileInput,
   UploadConfigType,
+  UsernameAlreadyTaken,
   UserProfileType,
   UUID,
   VertexType,

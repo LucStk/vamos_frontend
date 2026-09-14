@@ -13,6 +13,12 @@ input AttachFileInput {
   fileId: ID!
 }
 
+union CreateProfileResult = CreateProfileSuccess | UsernameAlreadyTaken | InvalidUsername
+
+type CreateProfileSuccess {
+  profile: UserProfileType!
+}
+
 type CreateSegmentPayload {
   vertex: VertexType!
   segment: SegmentType!
@@ -50,6 +56,10 @@ input ImageUploadRequest {
   size: Int!
 }
 
+type InvalidUsername {
+  message: String!
+}
+
 input LatLngInput {
   lat: Float!
   lng: Float!
@@ -69,6 +79,8 @@ enum MobilityType {
 }
 
 type Mutation {
+  createProfile(profileName: String!): CreateProfileResult!
+  updateProfile(input: UpdateUserProfileInput!): UpdateProfilePayload!
   updateTrip(id: UUID!, trip: TripUpdateInput!): TripType!
   deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
@@ -188,6 +200,15 @@ input TripUpdateInput {
   date: Date
 }
 
+type UpdateProfilePayload {
+  profile: UserProfileType!
+}
+
+input UpdateUserProfileInput {
+  profilePicture: String!
+  bio: String!
+}
+
 type UploadConfigType {
   file: StoredFileType!
   uploadUrl: String!
@@ -195,12 +216,15 @@ type UploadConfigType {
   contentType: String!
 }
 
+type UsernameAlreadyTaken {
+  message: String!
+}
+
 type UserProfileType {
   userId: UUID!
   profileName: String!
   profilPicture: StoredFileType
   bio: String!
-  country: String!
 }
 
 scalar UUID
