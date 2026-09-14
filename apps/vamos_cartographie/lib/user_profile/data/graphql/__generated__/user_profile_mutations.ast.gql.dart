@@ -44,24 +44,14 @@ const CreateProfile = _i1.OperationDefinitionNode(
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
               name: _i1.NameNode(value: 'profile'),
               alias: null,
               arguments: [],
               directives: [],
               selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'bio'),
-                  alias: null,
-                  arguments: [],
+                _i1.FragmentSpreadNode(
+                  name: _i1.NameNode(value: 'UserProfileFields'),
                   directives: [],
-                  selectionSet: null,
                 ),
                 _i1.FieldNode(
                   name: _i1.NameNode(value: '__typename'),
@@ -72,25 +62,8 @@ const CreateProfile = _i1.OperationDefinitionNode(
                 ),
               ]),
             ),
-          ]),
-        ),
-        _i1.InlineFragmentNode(
-          typeCondition: _i1.TypeConditionNode(
-              on: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UsernameAlreadyTaken'),
-            isNonNull: false,
-          )),
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'message'),
               alias: null,
               arguments: [],
               directives: [],
@@ -101,20 +74,20 @@ const CreateProfile = _i1.OperationDefinitionNode(
         _i1.InlineFragmentNode(
           typeCondition: _i1.TypeConditionNode(
               on: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'InvalidUsername'),
+            name: _i1.NameNode(value: 'CreateProfileError'),
             isNonNull: false,
           )),
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
+              name: _i1.NameNode(value: 'code'),
               alias: null,
               arguments: [],
               directives: [],
               selectionSet: null,
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'message'),
+              name: _i1.NameNode(value: '__typename'),
               alias: null,
               arguments: [],
               directives: [],

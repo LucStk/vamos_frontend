@@ -14,6 +14,10 @@ extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
       bio: bio,
     );
   }
+
+  Me toMeProfileModel() {
+    return Me(userId: userId, profile: toUserProfileModel());
+  }
 }
 
 extension GGetMeMapper on GGetMeData_me {

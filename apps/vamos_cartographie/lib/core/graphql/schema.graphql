@@ -13,7 +13,16 @@ input AttachFileInput {
   fileId: ID!
 }
 
-union CreateProfileResult = CreateProfileSuccess | UsernameAlreadyTaken | InvalidUsername
+type CreateProfileError {
+  code: CreateProfileErrorCode!
+}
+
+enum CreateProfileErrorCode {
+  USERNAME_ALREADY_TAKEN
+  INVALID_USERNAME
+}
+
+union CreateProfileResult = CreateProfileSuccess | CreateProfileError
 
 type CreateProfileSuccess {
   profile: UserProfileType!
@@ -54,10 +63,6 @@ input ImageUploadRequest {
   filename: String!
   mimeType: String!
   size: Int!
-}
-
-type InvalidUsername {
-  message: String!
 }
 
 input LatLngInput {
@@ -210,10 +215,6 @@ type UploadConfigType {
   uploadUrl: String!
   fileKey: String!
   contentType: String!
-}
-
-type UsernameAlreadyTaken {
-  message: String!
 }
 
 type UserProfileType {

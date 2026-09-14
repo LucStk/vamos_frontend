@@ -57,8 +57,11 @@ class GCreateProfileReq
 
   final _i4.Context? context;
 
-  static const _i5.DocumentNode _document =
-      _i5.DocumentNode(definitions: [_i6.CreateProfile]);
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.CreateProfile,
+    _i7.UserProfileFields,
+    _i8.StoredFile,
+  ]);
 
   static const _i4.Operation _operation = _i4.Operation(
     document: _document,

@@ -68,6 +68,34 @@ class GAttachFileInput {
   }
 }
 
+enum GCreateProfileErrorCode {
+  USERNAME_ALREADY_TAKEN,
+  INVALID_USERNAME,
+  gUnknownEnumValue;
+
+  static GCreateProfileErrorCode fromJson(String value) {
+    switch (value) {
+      case r'USERNAME_ALREADY_TAKEN':
+        return GCreateProfileErrorCode.USERNAME_ALREADY_TAKEN;
+      case r'INVALID_USERNAME':
+        return GCreateProfileErrorCode.INVALID_USERNAME;
+      default:
+        return GCreateProfileErrorCode.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GCreateProfileErrorCode.USERNAME_ALREADY_TAKEN:
+        return r'USERNAME_ALREADY_TAKEN';
+      case GCreateProfileErrorCode.INVALID_USERNAME:
+        return r'INVALID_USERNAME';
+      case GCreateProfileErrorCode.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 enum GFileTargetTypeEnum {
   TRIP,
   WAYPOINT,
@@ -932,7 +960,6 @@ class GWaypointUpdateInput {
 const Map<String, Set<String>> possibleTypesMap = {
   'CreateProfileResult': {
     'CreateProfileSuccess',
-    'UsernameAlreadyTaken',
-    'InvalidUsername',
+    'CreateProfileError',
   }
 };

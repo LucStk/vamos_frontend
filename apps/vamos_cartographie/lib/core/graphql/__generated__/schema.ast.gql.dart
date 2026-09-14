@@ -59,6 +59,36 @@ const AttachFileInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const CreateProfileError = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateProfileError'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'code'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateProfileErrorCode'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
+const CreateProfileErrorCode = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateProfileErrorCode'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'USERNAME_ALREADY_TAKEN'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'INVALID_USERNAME'),
+      directives: [],
+    ),
+  ],
+);
 const CreateProfileResult = _i1.UnionTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateProfileResult'),
   directives: [],
@@ -68,11 +98,7 @@ const CreateProfileResult = _i1.UnionTypeDefinitionNode(
       isNonNull: false,
     ),
     _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'UsernameAlreadyTaken'),
-      isNonNull: false,
-    ),
-    _i1.NamedTypeNode(
-      name: _i1.NameNode(value: 'InvalidUsername'),
+      name: _i1.NameNode(value: 'CreateProfileError'),
       isNonNull: false,
     ),
   ],
@@ -269,22 +295,6 @@ const ImageUploadRequest = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
-  ],
-);
-const InvalidUsername = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'InvalidUsername'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'message'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    )
   ],
 );
 const LatLngInput = _i1.InputObjectTypeDefinitionNode(
@@ -1488,22 +1498,6 @@ const UploadConfigType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const UsernameAlreadyTaken = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'UsernameAlreadyTaken'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'message'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    )
-  ],
-);
 const UserProfileType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UserProfileType'),
   directives: [],
@@ -1686,6 +1680,8 @@ const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
   AttachFileInput,
+  CreateProfileError,
+  CreateProfileErrorCode,
   CreateProfileResult,
   CreateProfileSuccess,
   CreateSegmentPayload,
@@ -1695,7 +1691,6 @@ const document = _i1.DocumentNode(definitions: [
   FileTargetTypeEnum,
   GetMePayload,
   ImageUploadRequest,
-  InvalidUsername,
   LatLngInput,
   LatLngType,
   MobilityType,
@@ -1716,7 +1711,6 @@ const document = _i1.DocumentNode(definitions: [
   TripUpdateInput,
   UpdateUserProfileInput,
   UploadConfigType,
-  UsernameAlreadyTaken,
   UserProfileType,
   UUID,
   VertexType,
