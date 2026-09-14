@@ -6,7 +6,7 @@ class UserProfileDatasource {
   final Client ferryClient;
 
   UserProfileDatasource(this.ferryClient);
-  Future<GUserProfileFieldsData?> getMe() async {
+  Future<GGetMeData_me> getMe() async {
     final data = await ferryClient.execute(GGetMeReq());
     return data.me;
   }

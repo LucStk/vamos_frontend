@@ -179,6 +179,31 @@ const FileTargetTypeEnum = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const GetMePayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'GetMePayload'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'userId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'profile'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserProfileType'),
+        isNonNull: false,
+      ),
+    ),
+  ],
+);
 const ImageUploadRequest = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'ImageUploadRequest'),
   directives: [],
@@ -834,8 +859,8 @@ const Query = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UserProfileType'),
-        isNonNull: false,
+        name: _i1.NameNode(value: 'GetMePayload'),
+        isNonNull: true,
       ),
     ),
   ],
@@ -1547,6 +1572,7 @@ const document = _i1.DocumentNode(definitions: [
   Date,
   FileAttachmentType,
   FileTargetTypeEnum,
+  GetMePayload,
   ImageUploadRequest,
   LatLngInput,
   LatLngType,

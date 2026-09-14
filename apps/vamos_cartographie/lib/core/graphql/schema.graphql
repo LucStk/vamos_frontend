@@ -39,6 +39,11 @@ enum FileTargetTypeEnum {
   WAYPOINT
 }
 
+type GetMePayload {
+  userId: UUID!
+  profile: UserProfileType
+}
+
 input ImageUploadRequest {
   filename: String!
   mimeType: String!
@@ -104,7 +109,7 @@ enum PoiCategory {
 type Query {
   trip(id: UUID!): TripType!
   trips: [TripType!]!
-  me: UserProfileType
+  me: GetMePayload!
 }
 
 type RefineSegmentPayload {

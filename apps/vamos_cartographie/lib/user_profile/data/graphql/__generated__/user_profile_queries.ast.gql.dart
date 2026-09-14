@@ -20,9 +20,31 @@ const GetMe = _i1.OperationDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'UserProfileFields'),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'userId'),
+          alias: null,
+          arguments: [],
           directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'profile'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'UserProfileFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
         ),
         _i1.FieldNode(
           name: _i1.NameNode(value: '__typename'),

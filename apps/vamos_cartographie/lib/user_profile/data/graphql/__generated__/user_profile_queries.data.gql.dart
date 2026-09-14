@@ -7,39 +7,34 @@ import 'package:vamos_cartographie/user_profile/data/graphql/__generated__/user_
 
 class GGetMeData {
   const GGetMeData({
-    this.me,
+    required this.me,
     this.G__typename = 'Query',
   });
 
   factory GGetMeData.fromJson(Map<String, dynamic> json) {
     return GGetMeData(
-      me: json['me'] == null
-          ? null
-          : _i1.GUserProfileFieldsData.fromJson(
-              (json['me'] as Map<String, dynamic>)),
+      me: GGetMeData_me.fromJson((json['me'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GUserProfileFieldsData? me;
+  final GGetMeData_me me;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$meValue = this.me;
-    _$result['me'] = _$meValue == null ? null : _$meValue.toJson();
+    _$result['me'] = this.me.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
   GGetMeData copyWith({
-    _i1.GUserProfileFieldsData? me,
-    bool meIsSet = false,
+    GGetMeData_me? me,
     String? G__typename,
   }) {
     return GGetMeData(
-      me: me != null || meIsSet ? me : this.me,
+      me: me ?? this.me,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -60,5 +55,72 @@ class GGetMeData {
   @override
   String toString() {
     return 'GGetMeData(me: $me, G__typename: $G__typename)';
+  }
+}
+
+class GGetMeData_me {
+  const GGetMeData_me({
+    required this.userId,
+    this.profile,
+    this.G__typename = 'GetMePayload',
+  });
+
+  factory GGetMeData_me.fromJson(Map<String, dynamic> json) {
+    return GGetMeData_me(
+      userId: (json['userId'] as String),
+      profile: json['profile'] == null
+          ? null
+          : _i1.GUserProfileFieldsData.fromJson(
+              (json['profile'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String userId;
+
+  final _i1.GUserProfileFieldsData? profile;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['userId'] = this.userId;
+    final _$profileValue = this.profile;
+    _$result['profile'] =
+        _$profileValue == null ? null : _$profileValue.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetMeData_me copyWith({
+    String? userId,
+    _i1.GUserProfileFieldsData? profile,
+    bool profileIsSet = false,
+    String? G__typename,
+  }) {
+    return GGetMeData_me(
+      userId: userId ?? this.userId,
+      profile: profile != null || profileIsSet ? profile : this.profile,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetMeData_me &&
+            userId == other.userId &&
+            profile == other.profile &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, userId, profile, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetMeData_me(userId: $userId, profile: $profile, G__typename: $G__typename)';
   }
 }
