@@ -80,7 +80,7 @@ enum MobilityType {
 
 type Mutation {
   createProfile(profileName: String!): CreateProfileResult!
-  updateProfile(input: UpdateUserProfileInput!): UpdateProfilePayload!
+  updateProfile(input: UpdateUserProfileInput!): UserProfileType!
   updateTrip(id: UUID!, trip: TripUpdateInput!): TripType!
   deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
@@ -200,13 +200,9 @@ input TripUpdateInput {
   date: Date
 }
 
-type UpdateProfilePayload {
-  profile: UserProfileType!
-}
-
 input UpdateUserProfileInput {
-  profilePicture: String!
-  bio: String!
+  profilePicture: String
+  bio: String
 }
 
 type UploadConfigType {

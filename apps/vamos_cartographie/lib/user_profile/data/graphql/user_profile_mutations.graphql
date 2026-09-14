@@ -1,4 +1,5 @@
-mutation createProfile($profileName: String!) {
+#import "user_profile_fields.graphql"
+mutation CreateProfile($profileName: String!) {
     createProfile(profileName: $profileName) {
         ... on CreateProfileSuccess {
             __typename
@@ -14,5 +15,10 @@ mutation createProfile($profileName: String!) {
             __typename
             message
         }
+    }
+}
+mutation UpdateProfile($input: UpdateUserProfileInput!) {
+    updateProfile(input: $input) {
+        ...UserProfileFields
     }
 }

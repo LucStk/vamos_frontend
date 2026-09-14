@@ -1,21 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 
-class GcreateProfileData {
-  const GcreateProfileData({
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:vamos_cartographie/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
+    as _i1;
+
+class GCreateProfileData {
+  const GCreateProfileData({
     required this.createProfile,
     this.G__typename = 'Mutation',
   });
 
-  factory GcreateProfileData.fromJson(Map<String, dynamic> json) {
-    return GcreateProfileData(
-      createProfile: GcreateProfileData_createProfile.fromJson(
+  factory GCreateProfileData.fromJson(Map<String, dynamic> json) {
+    return GCreateProfileData(
+      createProfile: GCreateProfileData_createProfile.fromJson(
           (json['createProfile'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final GcreateProfileData_createProfile createProfile;
+  final GCreateProfileData_createProfile createProfile;
 
   final String G__typename;
 
@@ -26,11 +30,11 @@ class GcreateProfileData {
     return _$result;
   }
 
-  GcreateProfileData copyWith({
-    GcreateProfileData_createProfile? createProfile,
+  GCreateProfileData copyWith({
+    GCreateProfileData_createProfile? createProfile,
     String? G__typename,
   }) {
-    return GcreateProfileData(
+    return GCreateProfileData(
       createProfile: createProfile ?? this.createProfile,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -39,7 +43,7 @@ class GcreateProfileData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GcreateProfileData &&
+        (other is GCreateProfileData &&
             createProfile == other.createProfile &&
             G__typename == other.G__typename);
   }
@@ -51,26 +55,26 @@ class GcreateProfileData {
 
   @override
   String toString() {
-    return 'GcreateProfileData(createProfile: $createProfile, G__typename: $G__typename)';
+    return 'GCreateProfileData(createProfile: $createProfile, G__typename: $G__typename)';
   }
 }
 
-sealed class GcreateProfileData_createProfile {
-  const GcreateProfileData_createProfile({required this.G__typename});
+sealed class GCreateProfileData_createProfile {
+  const GCreateProfileData_createProfile({required this.G__typename});
 
-  factory GcreateProfileData_createProfile.fromJson(Map<String, dynamic> json) {
+  factory GCreateProfileData_createProfile.fromJson(Map<String, dynamic> json) {
     switch (json['__typename'] as String) {
       case 'CreateProfileSuccess':
-        return GcreateProfileData_createProfile__asCreateProfileSuccess
+        return GCreateProfileData_createProfile__asCreateProfileSuccess
             .fromJson(json);
       case 'UsernameAlreadyTaken':
-        return GcreateProfileData_createProfile__asUsernameAlreadyTaken
+        return GCreateProfileData_createProfile__asUsernameAlreadyTaken
             .fromJson(json);
       case 'InvalidUsername':
-        return GcreateProfileData_createProfile__asInvalidUsername.fromJson(
+        return GCreateProfileData_createProfile__asInvalidUsername.fromJson(
             json);
       default:
-        return GcreateProfileData_createProfile__unknown.fromJson(json);
+        return GCreateProfileData_createProfile__unknown.fromJson(json);
     }
   }
 
@@ -83,40 +87,40 @@ sealed class GcreateProfileData_createProfile {
   }
 }
 
-extension GcreateProfileData_createProfileWhenExtension
-    on GcreateProfileData_createProfile {
+extension GCreateProfileData_createProfileWhenExtension
+    on GCreateProfileData_createProfile {
   _T when<_T>({
     required _T Function(
-            GcreateProfileData_createProfile__asCreateProfileSuccess)
+            GCreateProfileData_createProfile__asCreateProfileSuccess)
         createProfileSuccess,
     required _T Function(
-            GcreateProfileData_createProfile__asUsernameAlreadyTaken)
+            GCreateProfileData_createProfile__asUsernameAlreadyTaken)
         usernameAlreadyTaken,
-    required _T Function(GcreateProfileData_createProfile__asInvalidUsername)
+    required _T Function(GCreateProfileData_createProfile__asInvalidUsername)
         invalidUsername,
     required _T Function() orElse,
   }) {
     switch (G__typename) {
       case 'CreateProfileSuccess':
         return createProfileSuccess(
-            this as GcreateProfileData_createProfile__asCreateProfileSuccess);
+            this as GCreateProfileData_createProfile__asCreateProfileSuccess);
       case 'UsernameAlreadyTaken':
         return usernameAlreadyTaken(
-            this as GcreateProfileData_createProfile__asUsernameAlreadyTaken);
+            this as GCreateProfileData_createProfile__asUsernameAlreadyTaken);
       case 'InvalidUsername':
         return invalidUsername(
-            this as GcreateProfileData_createProfile__asInvalidUsername);
+            this as GCreateProfileData_createProfile__asInvalidUsername);
       default:
         return orElse();
     }
   }
 
   _T maybeWhen<_T>({
-    _T Function(GcreateProfileData_createProfile__asCreateProfileSuccess)?
+    _T Function(GCreateProfileData_createProfile__asCreateProfileSuccess)?
         createProfileSuccess,
-    _T Function(GcreateProfileData_createProfile__asUsernameAlreadyTaken)?
+    _T Function(GCreateProfileData_createProfile__asUsernameAlreadyTaken)?
         usernameAlreadyTaken,
-    _T Function(GcreateProfileData_createProfile__asInvalidUsername)?
+    _T Function(GCreateProfileData_createProfile__asInvalidUsername)?
         invalidUsername,
     required _T Function() orElse,
   }) {
@@ -125,40 +129,40 @@ extension GcreateProfileData_createProfileWhenExtension
         return createProfileSuccess == null
             ? orElse()
             : createProfileSuccess(this
-                as GcreateProfileData_createProfile__asCreateProfileSuccess);
+                as GCreateProfileData_createProfile__asCreateProfileSuccess);
       case 'UsernameAlreadyTaken':
         return usernameAlreadyTaken == null
             ? orElse()
             : usernameAlreadyTaken(this
-                as GcreateProfileData_createProfile__asUsernameAlreadyTaken);
+                as GCreateProfileData_createProfile__asUsernameAlreadyTaken);
       case 'InvalidUsername':
         return invalidUsername == null
             ? orElse()
             : invalidUsername(
-                this as GcreateProfileData_createProfile__asInvalidUsername);
+                this as GCreateProfileData_createProfile__asInvalidUsername);
       default:
         return orElse();
     }
   }
 }
 
-class GcreateProfileData_createProfile__asCreateProfileSuccess
-    extends GcreateProfileData_createProfile {
-  GcreateProfileData_createProfile__asCreateProfileSuccess({
+class GCreateProfileData_createProfile__asCreateProfileSuccess
+    extends GCreateProfileData_createProfile {
+  GCreateProfileData_createProfile__asCreateProfileSuccess({
     String G__typename = 'CreateProfileSuccess',
     required this.profile,
   }) : super(G__typename: G__typename);
 
-  factory GcreateProfileData_createProfile__asCreateProfileSuccess.fromJson(
+  factory GCreateProfileData_createProfile__asCreateProfileSuccess.fromJson(
       Map<String, dynamic> json) {
-    return GcreateProfileData_createProfile__asCreateProfileSuccess(
+    return GCreateProfileData_createProfile__asCreateProfileSuccess(
       G__typename: (json['__typename'] as String),
-      profile: GcreateProfileData_createProfile__asCreateProfileSuccess_profile
+      profile: GCreateProfileData_createProfile__asCreateProfileSuccess_profile
           .fromJson((json['profile'] as Map<String, dynamic>)),
     );
   }
 
-  final GcreateProfileData_createProfile__asCreateProfileSuccess_profile
+  final GCreateProfileData_createProfile__asCreateProfileSuccess_profile
       profile;
 
   Map<String, dynamic> toJson() {
@@ -167,11 +171,11 @@ class GcreateProfileData_createProfile__asCreateProfileSuccess
     return _$result;
   }
 
-  GcreateProfileData_createProfile__asCreateProfileSuccess copyWith({
+  GCreateProfileData_createProfile__asCreateProfileSuccess copyWith({
     String? G__typename,
-    GcreateProfileData_createProfile__asCreateProfileSuccess_profile? profile,
+    GCreateProfileData_createProfile__asCreateProfileSuccess_profile? profile,
   }) {
-    return GcreateProfileData_createProfile__asCreateProfileSuccess(
+    return GCreateProfileData_createProfile__asCreateProfileSuccess(
       G__typename: G__typename ?? this.G__typename,
       profile: profile ?? this.profile,
     );
@@ -180,7 +184,7 @@ class GcreateProfileData_createProfile__asCreateProfileSuccess
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GcreateProfileData_createProfile__asCreateProfileSuccess &&
+        (other is GCreateProfileData_createProfile__asCreateProfileSuccess &&
             G__typename == other.G__typename &&
             profile == other.profile);
   }
@@ -192,19 +196,19 @@ class GcreateProfileData_createProfile__asCreateProfileSuccess
 
   @override
   String toString() {
-    return 'GcreateProfileData_createProfile__asCreateProfileSuccess(G__typename: $G__typename, profile: $profile)';
+    return 'GCreateProfileData_createProfile__asCreateProfileSuccess(G__typename: $G__typename, profile: $profile)';
   }
 }
 
-class GcreateProfileData_createProfile__asCreateProfileSuccess_profile {
-  const GcreateProfileData_createProfile__asCreateProfileSuccess_profile({
+class GCreateProfileData_createProfile__asCreateProfileSuccess_profile {
+  const GCreateProfileData_createProfile__asCreateProfileSuccess_profile({
     required this.bio,
     this.G__typename = 'UserProfileType',
   });
 
-  factory GcreateProfileData_createProfile__asCreateProfileSuccess_profile.fromJson(
+  factory GCreateProfileData_createProfile__asCreateProfileSuccess_profile.fromJson(
       Map<String, dynamic> json) {
-    return GcreateProfileData_createProfile__asCreateProfileSuccess_profile(
+    return GCreateProfileData_createProfile__asCreateProfileSuccess_profile(
       bio: (json['bio'] as String),
       G__typename: (json['__typename'] as String),
     );
@@ -221,11 +225,11 @@ class GcreateProfileData_createProfile__asCreateProfileSuccess_profile {
     return _$result;
   }
 
-  GcreateProfileData_createProfile__asCreateProfileSuccess_profile copyWith({
+  GCreateProfileData_createProfile__asCreateProfileSuccess_profile copyWith({
     String? bio,
     String? G__typename,
   }) {
-    return GcreateProfileData_createProfile__asCreateProfileSuccess_profile(
+    return GCreateProfileData_createProfile__asCreateProfileSuccess_profile(
       bio: bio ?? this.bio,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -234,7 +238,7 @@ class GcreateProfileData_createProfile__asCreateProfileSuccess_profile {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GcreateProfileData_createProfile__asCreateProfileSuccess_profile &&
+        (other is GCreateProfileData_createProfile__asCreateProfileSuccess_profile &&
             bio == other.bio &&
             G__typename == other.G__typename);
   }
@@ -246,20 +250,20 @@ class GcreateProfileData_createProfile__asCreateProfileSuccess_profile {
 
   @override
   String toString() {
-    return 'GcreateProfileData_createProfile__asCreateProfileSuccess_profile(bio: $bio, G__typename: $G__typename)';
+    return 'GCreateProfileData_createProfile__asCreateProfileSuccess_profile(bio: $bio, G__typename: $G__typename)';
   }
 }
 
-class GcreateProfileData_createProfile__asUsernameAlreadyTaken
-    extends GcreateProfileData_createProfile {
-  GcreateProfileData_createProfile__asUsernameAlreadyTaken({
+class GCreateProfileData_createProfile__asUsernameAlreadyTaken
+    extends GCreateProfileData_createProfile {
+  GCreateProfileData_createProfile__asUsernameAlreadyTaken({
     String G__typename = 'UsernameAlreadyTaken',
     required this.message,
   }) : super(G__typename: G__typename);
 
-  factory GcreateProfileData_createProfile__asUsernameAlreadyTaken.fromJson(
+  factory GCreateProfileData_createProfile__asUsernameAlreadyTaken.fromJson(
       Map<String, dynamic> json) {
-    return GcreateProfileData_createProfile__asUsernameAlreadyTaken(
+    return GCreateProfileData_createProfile__asUsernameAlreadyTaken(
       G__typename: (json['__typename'] as String),
       message: (json['message'] as String),
     );
@@ -273,11 +277,11 @@ class GcreateProfileData_createProfile__asUsernameAlreadyTaken
     return _$result;
   }
 
-  GcreateProfileData_createProfile__asUsernameAlreadyTaken copyWith({
+  GCreateProfileData_createProfile__asUsernameAlreadyTaken copyWith({
     String? G__typename,
     String? message,
   }) {
-    return GcreateProfileData_createProfile__asUsernameAlreadyTaken(
+    return GCreateProfileData_createProfile__asUsernameAlreadyTaken(
       G__typename: G__typename ?? this.G__typename,
       message: message ?? this.message,
     );
@@ -286,7 +290,7 @@ class GcreateProfileData_createProfile__asUsernameAlreadyTaken
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GcreateProfileData_createProfile__asUsernameAlreadyTaken &&
+        (other is GCreateProfileData_createProfile__asUsernameAlreadyTaken &&
             G__typename == other.G__typename &&
             message == other.message);
   }
@@ -298,20 +302,20 @@ class GcreateProfileData_createProfile__asUsernameAlreadyTaken
 
   @override
   String toString() {
-    return 'GcreateProfileData_createProfile__asUsernameAlreadyTaken(G__typename: $G__typename, message: $message)';
+    return 'GCreateProfileData_createProfile__asUsernameAlreadyTaken(G__typename: $G__typename, message: $message)';
   }
 }
 
-class GcreateProfileData_createProfile__asInvalidUsername
-    extends GcreateProfileData_createProfile {
-  GcreateProfileData_createProfile__asInvalidUsername({
+class GCreateProfileData_createProfile__asInvalidUsername
+    extends GCreateProfileData_createProfile {
+  GCreateProfileData_createProfile__asInvalidUsername({
     String G__typename = 'InvalidUsername',
     required this.message,
   }) : super(G__typename: G__typename);
 
-  factory GcreateProfileData_createProfile__asInvalidUsername.fromJson(
+  factory GCreateProfileData_createProfile__asInvalidUsername.fromJson(
       Map<String, dynamic> json) {
-    return GcreateProfileData_createProfile__asInvalidUsername(
+    return GCreateProfileData_createProfile__asInvalidUsername(
       G__typename: (json['__typename'] as String),
       message: (json['message'] as String),
     );
@@ -325,11 +329,11 @@ class GcreateProfileData_createProfile__asInvalidUsername
     return _$result;
   }
 
-  GcreateProfileData_createProfile__asInvalidUsername copyWith({
+  GCreateProfileData_createProfile__asInvalidUsername copyWith({
     String? G__typename,
     String? message,
   }) {
-    return GcreateProfileData_createProfile__asInvalidUsername(
+    return GCreateProfileData_createProfile__asInvalidUsername(
       G__typename: G__typename ?? this.G__typename,
       message: message ?? this.message,
     );
@@ -338,7 +342,7 @@ class GcreateProfileData_createProfile__asInvalidUsername
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GcreateProfileData_createProfile__asInvalidUsername &&
+        (other is GCreateProfileData_createProfile__asInvalidUsername &&
             G__typename == other.G__typename &&
             message == other.message);
   }
@@ -350,18 +354,18 @@ class GcreateProfileData_createProfile__asInvalidUsername
 
   @override
   String toString() {
-    return 'GcreateProfileData_createProfile__asInvalidUsername(G__typename: $G__typename, message: $message)';
+    return 'GCreateProfileData_createProfile__asInvalidUsername(G__typename: $G__typename, message: $message)';
   }
 }
 
-class GcreateProfileData_createProfile__unknown
-    extends GcreateProfileData_createProfile {
-  GcreateProfileData_createProfile__unknown({required String G__typename})
+class GCreateProfileData_createProfile__unknown
+    extends GCreateProfileData_createProfile {
+  GCreateProfileData_createProfile__unknown({required String G__typename})
       : super(G__typename: G__typename);
 
-  factory GcreateProfileData_createProfile__unknown.fromJson(
+  factory GCreateProfileData_createProfile__unknown.fromJson(
       Map<String, dynamic> json) {
-    return GcreateProfileData_createProfile__unknown(
+    return GCreateProfileData_createProfile__unknown(
         G__typename: (json['__typename'] as String));
   }
 
@@ -370,15 +374,15 @@ class GcreateProfileData_createProfile__unknown
     return _$result;
   }
 
-  GcreateProfileData_createProfile__unknown copyWith({String? G__typename}) {
-    return GcreateProfileData_createProfile__unknown(
+  GCreateProfileData_createProfile__unknown copyWith({String? G__typename}) {
+    return GCreateProfileData_createProfile__unknown(
         G__typename: G__typename ?? this.G__typename);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GcreateProfileData_createProfile__unknown &&
+        (other is GCreateProfileData_createProfile__unknown &&
             G__typename == other.G__typename);
   }
 
@@ -389,6 +393,60 @@ class GcreateProfileData_createProfile__unknown
 
   @override
   String toString() {
-    return 'GcreateProfileData_createProfile__unknown(G__typename: $G__typename)';
+    return 'GCreateProfileData_createProfile__unknown(G__typename: $G__typename)';
+  }
+}
+
+class GUpdateProfileData {
+  const GUpdateProfileData({
+    required this.updateProfile,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GUpdateProfileData.fromJson(Map<String, dynamic> json) {
+    return GUpdateProfileData(
+      updateProfile: _i1.GUserProfileFieldsData.fromJson(
+          (json['updateProfile'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GUserProfileFieldsData updateProfile;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['updateProfile'] = this.updateProfile.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GUpdateProfileData copyWith({
+    _i1.GUserProfileFieldsData? updateProfile,
+    String? G__typename,
+  }) {
+    return GUpdateProfileData(
+      updateProfile: updateProfile ?? this.updateProfile,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUpdateProfileData &&
+            updateProfile == other.updateProfile &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, updateProfile, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GUpdateProfileData(updateProfile: $updateProfile, G__typename: $G__typename)';
   }
 }

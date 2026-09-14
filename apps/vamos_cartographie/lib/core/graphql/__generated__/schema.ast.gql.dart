@@ -401,7 +401,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         )
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UpdateProfilePayload'),
+        name: _i1.NameNode(value: 'UserProfileType'),
         isNonNull: true,
       ),
     ),
@@ -1421,22 +1421,6 @@ const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const UpdateProfilePayload = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'UpdateProfilePayload'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'profile'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UserProfileType'),
-        isNonNull: true,
-      ),
-    )
-  ],
-);
 const UpdateUserProfileInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'UpdateUserProfileInput'),
   directives: [],
@@ -1446,7 +1430,7 @@ const UpdateUserProfileInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
+        isNonNull: false,
       ),
       defaultValue: null,
     ),
@@ -1455,7 +1439,7 @@ const UpdateUserProfileInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
+        isNonNull: false,
       ),
       defaultValue: null,
     ),
@@ -1730,7 +1714,6 @@ const document = _i1.DocumentNode(definitions: [
   TopologyType,
   TripType,
   TripUpdateInput,
-  UpdateProfilePayload,
   UpdateUserProfileInput,
   UploadConfigType,
   UsernameAlreadyTaken,

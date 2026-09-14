@@ -765,33 +765,46 @@ class GTripUpdateInput {
 
 class GUpdateUserProfileInput {
   const GUpdateUserProfileInput({
-    required this.profilePicture,
-    required this.bio,
+    this.profilePicture = const Value.absent(),
+    this.bio = const Value.absent(),
   });
 
   factory GUpdateUserProfileInput.fromJson(Map<String, dynamic> json) {
     return GUpdateUserProfileInput(
-      profilePicture: (json['profilePicture'] as String),
-      bio: (json['bio'] as String),
+      profilePicture: json.containsKey('profilePicture')
+          ? Value.present(json['profilePicture'] == null
+              ? null
+              : (json['profilePicture'] as String))
+          : Value.absent(),
+      bio: json.containsKey('bio')
+          ? Value.present(json['bio'] == null ? null : (json['bio'] as String))
+          : Value.absent(),
     );
   }
 
-  final String profilePicture;
+  final Value<String> profilePicture;
 
-  final String bio;
+  final Value<String> bio;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     final _$profilePictureValue = this.profilePicture;
-    _$result['profilePicture'] = _$profilePictureValue;
+    if (_$profilePictureValue.isPresent) {
+      final _$profilePictureRequired = _$profilePictureValue.requireValue;
+      _$result['profilePicture'] =
+          _$profilePictureRequired == null ? null : _$profilePictureRequired;
+    }
     final _$bioValue = this.bio;
-    _$result['bio'] = _$bioValue;
+    if (_$bioValue.isPresent) {
+      final _$bioRequired = _$bioValue.requireValue;
+      _$result['bio'] = _$bioRequired == null ? null : _$bioRequired;
+    }
     return _$result;
   }
 
   GUpdateUserProfileInput copyWith({
-    String? profilePicture,
-    String? bio,
+    Value<String>? profilePicture,
+    Value<String>? bio,
   }) {
     return GUpdateUserProfileInput(
       profilePicture: profilePicture ?? this.profilePicture,
