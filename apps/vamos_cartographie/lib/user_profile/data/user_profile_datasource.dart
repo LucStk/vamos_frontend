@@ -1,7 +1,6 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:stored_file_application/domain/stored_file_model.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
-import 'package:vamos_cartographie/user_profile/data/user_profile_exception.dart';
 
 import "graphql/graphql.dart";
 import 'package:ferry/ferry.dart';
@@ -16,22 +15,14 @@ class UserProfileDatasource {
     return data.me;
   }
 
-  Future<GCreateProfileData_createProfile> createProfile(
-    String profileName,
-  ) async {
+  Future<GCreateProfileData?> createProfile(String profileName) async {
     final response = await ferryClient
         .request(
           GCreateProfileReq(vars: GCreateProfileVars(profileName: profileName)),
         )
         .first;
 
-    final result = response.data?.createProfile;
-
-    if (result == null) {
-      throw const ProfileCreationFailed();
-    }
-
-    return result;
+    return response.data;
   }
 
   Future<GUpdateProfileData> updateProfile({

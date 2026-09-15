@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:domain_core/notification/failure.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/domain/upload_config_model.dart';
 
 abstract class UploadService {

@@ -1,13 +1,11 @@
-// lib/infrastructure/core/exception_mapper.dart
+import 'package:dio/dio.dart';
 import 'package:ferry/ferry.dart';
+import 'package:flutter/foundation.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_link/gql_link.dart';
 
 import 'package:domain_core/domain_core.dart';
-import 'package:dio/dio.dart';
-import 'package:gql_exec/gql_exec.dart' show GraphQLError;
-import 'package:gql_link/gql_link.dart' show LinkException, ServerException;
-import 'package:flutter/foundation.dart';
+
 import '../network/graphql_request_exception.dart';
 
 class ExceptionMapper {
@@ -18,88 +16,114 @@ class ExceptionMapper {
         linkException: e.linkException,
         graphqlErrors: e.graphqlErrors,
       ),
-      LinkException _ => const ConnectionFailure(),
 
-      // --- Dio (upload d'images) ---
+      LinkException e => _fromLinkException(e),
+
+      // --- Dio ---
       DioException e => _fromDioException(e),
 
-      // --- Bugs de code : ne jamais déguiser en erreur réseau ---
+      // --- Bugs de code ---
       TypeError e => _unexpected(e, stackTrace),
       Error e => _unexpected(e, stackTrace),
 
-      // --- Exceptions Dart génériques restantes ---
-      Exception ex => ServerFailure(ex.toString()),
+      // --- Exceptions Dart génériques ---
+      Exception e => ServerFailure(e.toString()),
 
       _ => _unexpected(error, stackTrace),
     };
   }
 
-  static Failure _unexpected(Object error, StackTrace? stackTrace) {
-    final info = '${error.runtimeType}: $error';
-    if (kDebugMode) {
-      debugPrint('🐛 BUG NON GÉRÉ ── $info');
-      if (stackTrace != null) {
-        debugPrintStack(stackTrace: stackTrace, label: '🐛 Stacktrace');
-      }
-    } else {
-      // En prod : log silencieux vers un service de crash reporting
-      // ex: Sentry.captureException(error, stackTrace: stackTrace);
-    }
-    return UnexpectedFailure(debugInfo: info);
+  static Failure _fromLinkException(LinkException error) {
+    return switch (error) {
+      ServerException(:final statusCode) => ServerFailure(
+        'Erreur serveur',
+        statusCode: statusCode,
+      ),
+
+      ResponseFormatException(:final originalException) =>
+        InvalidServerResponseFailure(
+          message: 'Réponse invalide du serveur: $originalException',
+        ),
+
+      _ => const ConnectionFailure(),
+    };
   }
 
   static Failure _fromDioException(DioException e) {
-    switch (e.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-      case DioExceptionType.connectionError:
-      case DioExceptionType.transformTimeout: // 👈 Ajouté ici
-        return ConnectionFailure(message: e.message);
+    return switch (e.type) {
+      DioExceptionType.connectionTimeout ||
+      DioExceptionType.sendTimeout ||
+      DioExceptionType.receiveTimeout ||
+      DioExceptionType.connectionError ||
+      DioExceptionType.transformTimeout => ConnectionFailure(
+        message: e.message,
+      ),
 
-      case DioExceptionType.badResponse:
-        final code = e.response?.statusCode;
-        if (code == 404) {
-          return const NotFoundFailure();
-        }
-        return ServerFailure(
-          e.response?.statusMessage ?? 'Erreur serveur',
-          statusCode: code,
-        );
+      DioExceptionType.badResponse => _fromDioResponse(e),
 
-      case DioExceptionType.cancel:
-        return ServerFailure('Requête annulée');
+      DioExceptionType.cancel => const ServerFailure('Requête annulée'),
 
-      case DioExceptionType.unknown:
-      case DioExceptionType.badCertificate:
-        return const ConnectionFailure();
-    }
+      DioExceptionType.unknown ||
+      DioExceptionType.badCertificate => const ConnectionFailure(),
+    };
   }
 
-  static bool _isNotFound(GraphQLError error) {
-    return error.extensions?['code'] == 'NOT_FOUND';
+  static Failure _fromDioResponse(DioException e) {
+    final code = e.response?.statusCode;
+
+    if (code == 404) {
+      return const NotFoundFailure();
+    }
+
+    return ServerFailure(
+      e.response?.statusMessage ?? 'Erreur serveur',
+      statusCode: code,
+    );
   }
 
   static Failure fromResponse({
     LinkException? linkException,
     List<GraphQLError> graphqlErrors = const [],
   }) {
+    // Erreur au niveau HTTP / transport.
     if (linkException != null) {
-      // ServerException = erreur HTTP côté link (ex: 500), pas juste "pas de réseau"
-      if (linkException is ServerException) {
-        return ServerFailure(
-          'Erreur serveur',
-          statusCode: linkException.statusCode,
-        );
-      }
-      return const ConnectionFailure();
+      return _fromLinkException(linkException);
     }
-    if (graphqlErrors.any(_isNotFound)) {
-      return const NotFoundFailure();
-    }
+
+    // Erreur GraphQL.
     if (graphqlErrors.isNotEmpty) {
-      return ServerFailure(graphqlErrors.first.message);
+      return _fromGraphQLErrors(graphqlErrors);
     }
+
     return const UnexpectedFailure();
+  }
+
+  static Failure _fromGraphQLErrors(List<GraphQLError> errors) {
+    final error = errors.first;
+    final code = error.extensions?['code'];
+
+    return switch (code) {
+      'AUTHENTICATION_REQUIRED' ||
+      'INVALID_TOKEN' ||
+      'TOKEN_EXPIRED' => AuthenticationFailure(message: error.message),
+
+      'NOT_FOUND' => const NotFoundFailure(),
+
+      _ => ServerFailure(error.message),
+    };
+  }
+
+  static Failure _unexpected(Object error, StackTrace? stackTrace) {
+    final info = '${error.runtimeType}: $error';
+
+    if (kDebugMode) {
+      debugPrint('🐛 BUG NON GÉRÉ ── $info');
+
+      if (stackTrace != null) {
+        debugPrintStack(stackTrace: stackTrace, label: '🐛 Stacktrace');
+      }
+    }
+
+    return UnexpectedFailure(debugInfo: info);
   }
 }

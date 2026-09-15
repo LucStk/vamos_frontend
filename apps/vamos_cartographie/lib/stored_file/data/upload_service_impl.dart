@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:domain_core/notification/failure.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 
 import 'package:mime/mime.dart'; // Packge utile pour le mimeType
