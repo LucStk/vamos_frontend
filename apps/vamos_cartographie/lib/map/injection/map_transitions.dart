@@ -4,6 +4,7 @@ import 'package:map_application/transitions/map_editor_state_transitions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/map.dart';
+import 'package:vamos_cartographie/map_canvas/injections/injections.dart';
 
 // Généré automatiquement par riverpod_generator
 part 'map_transitions.g.dart';

@@ -5,14 +5,13 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/canvas/map_canvas.dart';
-import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
-import 'package:vamos_cartographie/map/map_input/flutter_map_camera_controller.dart';
 import 'package:vamos_cartographie/map/map_input/pointer_event_resolver_impl.dart';
 import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
+import 'package:vamos_cartographie/map_canvas/flutter_map_camera_controller.dart';
+import 'package:vamos_cartographie/map_canvas/map_canvas.dart';
+import 'package:vamos_cartographie/map_canvas/map_canvas_view.dart';
 
 class MapGestureBridge extends ConsumerStatefulWidget {
-  final Id<Trip> tripId;
 
   const MapGestureBridge({super.key, required this.tripId});
 
@@ -63,8 +62,7 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
+    return
         Listener(
           behavior: HitTestBehavior.translucent,
           onPointerDown: (event) => _pointerEventsResolver.handle(
@@ -76,16 +74,10 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
           onPointerUp: (event) =>
               _pointerEventsResolver.handle(MapPointerUp(event.localPosition)),
           child: MapCanvas(
-            tripId: widget.tripId,
+            painter: ,
             panAllowed: _panAllowed,
             mapController: _mapController,
           ),
-        ),
-
-        MapTopBar(tripId: widget.tripId),
-        // PopUpOverlay(tripId: widget.tripId),
-        MapBottomSheet(tripId: widget.tripId),
-      ],
     );
   }
 }

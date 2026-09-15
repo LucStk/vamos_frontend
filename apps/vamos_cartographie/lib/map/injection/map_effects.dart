@@ -6,6 +6,7 @@ import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
 import 'package:vamos_cartographie/map/map.dart';
+import 'package:vamos_cartographie/map_canvas/injections/injections.dart';
 import 'package:vamos_cartographie/topology/injection/providers/providers.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 

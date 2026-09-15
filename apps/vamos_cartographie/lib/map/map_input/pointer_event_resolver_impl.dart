@@ -6,9 +6,13 @@ import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/injection/map_scene_provider.dart';
 import 'package:vamos_cartographie/map/map_input/gesture_resolver_impl.dart';
 
+abstract class ProjectedSceneReader {
+  ProjectedScene get scene;
+}
+
 class PointerEventsResolverImpl extends PointerEventsResolver {
   final WidgetRef _ref;
-  final TripId _tripId;
+  final ProjectedSceneReader scene;
   final void Function(bool blocked) _onPanBlockedChanged;
 
   PointerEventsResolverImpl({
