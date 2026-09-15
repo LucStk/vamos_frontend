@@ -10,7 +10,7 @@ import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
 
 class UserProfileRepository {
   final UserProfileDatasource remote;
-  UserProfileRepository({required this.remote});
+  UserProfileRepository(this.remote);
 
   Future<Either<Failure, Me>> getMeProfile() async {
     return guard(() async {

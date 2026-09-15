@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/auth/presentation/login_page.dart';
 import 'package:vamos_cartographie/auth/presentation/register_success_page.dart';
 import 'package:vamos_cartographie/auth/providers/providers.dart';
 import 'package:vamos_cartographie/features/features.dart';
@@ -114,9 +115,16 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           isLoading: isLoading,
           onPressed: _signUp,
         ),
+
         const SizedBox(height: 16),
         TextButton(
-          onPressed: isLoading ? null : () => Navigator.of(context).pop(),
+          onPressed: isLoading
+              ? null
+              : () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => const LoginPage()),
+                  );
+                },
           child: const Text('J’ai déjà un compte'),
         ),
       ],

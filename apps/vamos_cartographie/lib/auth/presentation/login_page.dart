@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/auth/presentation/register_page.dart';
 import 'package:vamos_cartographie/auth/providers/auth_controller.dart';
 import 'package:vamos_cartographie/features/buttons/primary_button.dart';
 import 'package:vamos_cartographie/features/fields/fields.dart';
@@ -77,6 +78,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           label: 'Se connecter',
           isLoading: isLoading,
           onPressed: _signIn,
+        ),
+
+        const SizedBox(height: 16),
+        TextButton(
+          onPressed: isLoading
+              ? null
+              : () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => const RegisterPage()),
+                  );
+                },
+          child: const Text('Créer un compte'),
         ),
       ],
     );

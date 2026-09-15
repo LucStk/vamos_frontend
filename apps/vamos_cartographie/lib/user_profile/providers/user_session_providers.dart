@@ -1,0 +1,42 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/core/injection/injection.dart';
+import 'package:vamos_cartographie/user_profile/data/user_profile_datasource.dart';
+import 'package:vamos_cartographie/user_profile/data/user_profile_repository.dart';
+import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
+
+part "user_session_providers.g.dart";
+
+@riverpod
+UserProfileDatasource userRemoteDatasource(Ref ref) {
+  return UserProfileDatasource(ref.watch(clientProvider));
+}
+
+@riverpod
+UserProfileRepository userProfileRepository(Ref ref) {
+  return UserProfileRepository(ref.watch(userRemoteDatasourceProvider));
+}
+
+@riverpod
+class MeNotifier extends _$MeNotifier {
+  @override
+  Future<Me> build() async {
+    final result = await ref.read(userProfileRepositoryProvider).getMeProfile();
+
+    return result.fold((failure) => throw failure, (me) => me);
+  }
+
+  Future<void> createProfile(String profileName) async {
+    final result = await ref
+        .read(userProfileRepositoryProvider)
+        .createProfile(profileName);
+
+    result.fold(
+      (failure) {
+        // gérer l'erreur
+      },
+      (me) {
+        state = AsyncData(me);
+      },
+    );
+  }
+}

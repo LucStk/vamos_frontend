@@ -4,3 +4,4 @@ export "dialogs/dialogs.dart";
 export "buttons/buttons.dart";
 export "date/date.dart";
 export 'fields/fields.dart';
+export 'views/views.dart';

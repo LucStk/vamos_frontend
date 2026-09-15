@@ -11,15 +11,16 @@ AuthRepository authRepository(Ref ref) {
 
 @Riverpod(keepAlive: true)
 Stream<User?> authState(Ref ref) {
+  // Permet de réagir aux changements de session
   return ref.watch(authRepositoryProvider).authStateChanges;
 }
 
-@Riverpod(keepAlive: true)
-User? currentUser(Ref ref) {
-  return ref.watch(authStateProvider).value;
-}
+// @Riverpod(keepAlive: true)
+// User? currentUser(Ref ref) {
+//   return ref.watch(authStateProvider).value;
+// }
 
-@Riverpod(keepAlive: true)
-String? accessToken(Ref ref) {
-  return ref.watch(authRepositoryProvider).accessToken;
-}
+// @Riverpod(keepAlive: true)
+// String? accessToken(Ref ref) {
+//   return ref.watch(authRepositoryProvider).accessToken;
+// }
