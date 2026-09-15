@@ -1,9 +1,5 @@
-import 'dart:ui';
-
 import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
-
-import 'pending_tap.dart';
 
 class PointerEventsResolverInput {
   const PointerEventsResolverInput({

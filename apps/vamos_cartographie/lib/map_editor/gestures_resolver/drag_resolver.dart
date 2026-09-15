@@ -2,27 +2,29 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/pointer_events_resolver/pointer_events_resolver_output.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map_editor/domain/domain.dart';
 import 'package:vamos_cartographie/map_editor/effects/map_effects.dart';
+import 'package:vamos_cartographie/map_editor/gestures_resolver/gestures_resolver_input.dart';
+import 'package:vamos_cartographie/map_editor/gestures_resolver/gestures_resolver_output.dart';
 import 'gestures_resolver.dart';
 
-extension DragEditor on GesturesResolver {
-  void onDragStart({MapObject? element}) {
-    switch ((editorState, element)) {
+extension PointerDragStartEditor on DragStartAction {
+  GesturesResolverOutput resolve(GesturesResolverInput input) {
+    switch ((input.editorState, element)) {
       case (SketchMode s, _) when s.selection is MapSketchPencil:
-        editorState = s.copyWith(selection: null);
+        return GesturesResolverOutput(editorState: s.copyWith(selection: null));
       case _:
+        return GesturesResolverOutput(editorState: input.editorState);
     }
   }
+}
 
-  void onDragUpdate({
-    MapObject? dragged,
-    MapObject? target,
-    required Offset offset,
-  }) {
-    final latLng = camera.screenOffsetToLatLng(offset);
-    switch ((editorState, dragged, target)) {
+extension PointerDragUpdateEditor on DragUpdateAction {
+  GesturesResolverOutput resolve(GesturesResolverInput input) {
+    final latLng = input.camera.screenOffsetToLatLng(offset);
+    switch ((input.editorState, dragged, target)) {
       // Permet de faire bouger le vertex visuellement
       // case (Idle _, MapVertex e):
       //   final patch = VertexPatchModel(id: e.vertex.id, latLng: latLng);
@@ -30,19 +32,20 @@ extension DragEditor on GesturesResolver {
 
       case (SketchMode m, MapSketchPencil _, MapObject? e):
         final itineraire = [...m.path, latLng];
-        editorState = m.copyWith(path: itineraire, selection: e);
+        return GesturesResolverOutput(
+          editorState: m.copyWith(path: itineraire, selection: e),
+        );
 
       case _:
+        return GesturesResolverOutput(editorState: input.editorState);
     }
   }
+}
 
-  void onDragEnd({
-    MapObject? dragged,
-    MapObject? target,
-    required Offset offset,
-  }) {
+extension PointerDragEndEditor on DragEndAction {
+  GesturesResolverOutput resolve(GesturesResolverInput input) {
     // final latLng = camera.screenOffsetToLatLng(offset);
-    switch ((editorState, dragged, target)) {
+    switch ((input.editorState, dragged, target)) {
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         // Le segment en cours de création viens de rencontrer un Vertex
         unawaited(
@@ -98,4 +101,3 @@ extension DragEditor on GesturesResolver {
         return;
     }
   }
-}
