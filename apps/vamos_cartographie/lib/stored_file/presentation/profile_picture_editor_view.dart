@@ -1,12 +1,5 @@
-import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stored_file_application/application/upload_service.dart';
-import 'package:vamos_cartographie/stored_file/services/services.dart';
-import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 
 class ProfilePictureEditor extends StatelessWidget {
   const ProfilePictureEditor({

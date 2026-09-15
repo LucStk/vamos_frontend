@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 
-import 'package:vamos_cartographie/stored_file/presentation/profile_picture_editor_view.dart';
 import 'package:vamos_cartographie/stored_file/services/services.dart';
 import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/user_profile/providers/user_session_providers.dart';
