@@ -35,8 +35,8 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
             for (final file in listFile) {
               notifier.uploadFile(
                 file: file,
-                ownerId: id,
-                ownerType: ownerType,
+                targetId: id,
+                targetType: ownerType,
               );
             }
           },

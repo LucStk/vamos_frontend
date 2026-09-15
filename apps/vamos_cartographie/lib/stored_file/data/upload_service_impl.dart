@@ -53,4 +53,28 @@ class UploadServiceImpl implements UploadService {
 
     return null;
   }
+
+  @override
+  Future<Either<Failure, StoredFileId>> upload(
+    File file, {
+    void Function(int sent, int total)? onProgress,
+    CancelToken? cancelToken,
+  }) async {
+    final configResult = await requestSignedUrl(file);
+
+    return configResult.fold(Left.new, (config) async {
+      final failure = await putFile(
+        file,
+        config,
+        onProgress: onProgress,
+        cancelToken: cancelToken,
+      );
+
+      if (failure != null) {
+        return Left(failure);
+      }
+
+      return Right(config.file.id);
+    });
+  }
 }

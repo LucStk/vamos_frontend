@@ -20,11 +20,11 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
   }
 
   Future<Failure?> attachFile({
-    required Id ownerId,
-    required TargetType ownerType,
+    required Id targetId,
+    required TargetType targetType,
     required StoredFileId fileId,
   }) async {
-    final res = await storedFileRepo.attachFile(ownerId, ownerType, fileId);
+    final res = await storedFileRepo.attachFile(targetId, targetType, fileId);
     return res.fold(
       (Failure f) {
         errorLogger?.logError(f, StackTrace.current);
@@ -34,7 +34,7 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
         final node = state.get(fileId);
         print("attachFile $node");
         if (node == null) {
-          state = state.insertStoredFile(ownerId, data);
+          state = state.insertStoredFile(targetId, data);
         } else {
           state = state.setNode(data);
         }
@@ -44,8 +44,8 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
   }
 
   Future<Failure?> uploadFile<T>({
-    required Id ownerId,
-    required TargetType ownerType,
+    required Id targetId,
+    required TargetType targetType,
     required File file,
   }) async {
     final uploadConf = await uploadService.requestSignedUrl(file);
@@ -57,7 +57,7 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
       },
       (config) async {
         final patch = StoredFilePatchModel(id: config.file.id, file: file);
-        state = state.insertStoredFile(ownerId, patch);
+        state = state.insertStoredFile(targetId, patch);
         final putRes = await uploadService.putFile(
           file,
           config,
@@ -75,8 +75,8 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
         }
 
         return await attachFile(
-          ownerId: ownerId,
-          ownerType: ownerType,
+          targetId: targetId,
+          targetType: targetType,
           fileId: config.file.id,
         );
       },

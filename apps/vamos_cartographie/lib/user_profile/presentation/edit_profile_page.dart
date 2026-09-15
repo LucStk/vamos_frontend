@@ -1,5 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stored_file_application/stored_file_application.dart';
+
+import 'package:vamos_cartographie/stored_file/presentation/profile_picture_editor_view.dart';
+import 'package:vamos_cartographie/stored_file/services/services.dart';
+import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/user_profile/providers/user_session_providers.dart';
 
 class EditProfilePage extends ConsumerStatefulWidget {
@@ -15,7 +22,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   late final TextEditingController _profileNameController;
   late final TextEditingController _bioController;
 
-  bool _isLoading = false;
+  File? _selectedProfilePicture;
+
+  bool _isSaving = false;
   String? _errorMessage;
 
   @override
@@ -27,6 +36,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     _profileNameController = TextEditingController(
       text: profile?.profileName ?? '',
     );
+
     _bioController = TextEditingController(text: profile?.bio ?? '');
 
     _bioController.addListener(_clearErrorOnType);
@@ -48,6 +58,19 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     super.dispose();
   }
 
+  Future<void> _pickProfilePicture() async {
+    final file = await pickImage();
+
+    if (file == null || !mounted) {
+      return;
+    }
+
+    setState(() {
+      _selectedProfilePicture = file;
+      _errorMessage = null;
+    });
+  }
+
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -56,13 +79,50 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     FocusScope.of(context).unfocus();
 
     setState(() {
-      _isLoading = true;
+      _isSaving = true;
       _errorMessage = null;
     });
 
+    StoredFileId? profilePictureId;
+
+    /*
+     * 1. Upload de la nouvelle photo si l'utilisateur en a sélectionné une.
+     */
+    if (_selectedProfilePicture != null) {
+      final uploadResult = await ref
+          .read(uploadServiceProvider)
+          .upload(_selectedProfilePicture!);
+
+      if (!mounted) {
+        return;
+      }
+
+      final uploadFailure = uploadResult.fold((failure) => failure, (fileId) {
+        profilePictureId = fileId;
+        return null;
+      });
+
+      if (uploadFailure != null) {
+        setState(() {
+          _isSaving = false;
+          _errorMessage = uploadFailure.message;
+        });
+
+        return;
+      }
+    }
+
+    /*
+     * 2. Mise à jour du profil.
+     *
+     * MeNotifier met ensuite à jour meProvider avec le nouveau Me.
+     */
     final failure = await ref
         .read(meProvider.notifier)
-        .updateProfile(bio: _bioController.text.trim());
+        .updateProfile(
+          bio: _bioController.text.trim(),
+          fileId: profilePictureId,
+        );
 
     if (!mounted) {
       return;
@@ -70,19 +130,20 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
 
     if (failure != null) {
       setState(() {
-        _isLoading = false;
+        _isSaving = false;
         _errorMessage = failure.message;
       });
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pop();
+
+      return;
     }
+
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    final profile = ref.watch(meProvider).value?.profile;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Modifier mon profil')),
       body: Form(
@@ -91,13 +152,21 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           padding: const EdgeInsets.all(24),
           children: [
             Center(
-              child: _ProfilePictureEditor(
-                imageUrl: ref
-                    .watch(meProvider)
-                    .value
-                    ?.profile
-                    ?.profilePictureUrl,
+              child: ProfilePictureEditor(
+                imageUrl: profile?.profilePictureUrl,
+                previewFile: _selectedProfilePicture,
+                isLoading: _isSaving,
+                errorMessage: _errorMessage,
+                onPickImage: _pickProfilePicture,
               ),
+            ),
+
+            const SizedBox(height: 32),
+
+            TextFormField(
+              controller: _profileNameController,
+              enabled: !_isSaving,
+              decoration: const InputDecoration(labelText: 'Nom du profil'),
             ),
 
             const SizedBox(height: 16),
@@ -106,7 +175,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
               controller: _bioController,
               maxLines: 5,
               maxLength: 500,
-              enabled: !_isLoading,
+              enabled: !_isSaving,
               decoration: const InputDecoration(
                 labelText: 'Biographie',
                 hintText: 'Présentez-vous...',
@@ -116,35 +185,14 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
 
             if (_errorMessage != null) ...[
               const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 16,
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        _errorMessage!,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.error,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _ErrorMessage(message: _errorMessage!),
             ],
 
             const SizedBox(height: 24),
 
             FilledButton(
-              onPressed: _isLoading ? null : _save,
-              child: _isLoading
+              onPressed: _isSaving ? null : _save,
+              child: _isSaving
                   ? const SizedBox(
                       height: 20,
                       width: 20,
@@ -162,32 +210,22 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   }
 }
 
-class _ProfilePictureEditor extends StatelessWidget {
-  const _ProfilePictureEditor({required this.imageUrl});
+class _ErrorMessage extends StatelessWidget {
+  const _ErrorMessage({required this.message});
 
-  final String? imageUrl;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    final color = Theme.of(context).colorScheme.error;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
-          radius: 60,
-          backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
-          child: imageUrl == null
-              ? const Icon(Icons.person_outline, size: 60)
-              : null,
-        ),
-        Positioned(
-          right: 0,
-          bottom: 0,
-          child: IconButton.filled(
-            tooltip: 'Modifier la photo',
-            onPressed: () {
-              // TODO: sélection et upload de la photo avec fileId.
-            },
-            icon: const Icon(Icons.camera_alt_outlined),
-          ),
+        Icon(Icons.error_outline, size: 16, color: color),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(message, style: TextStyle(color: color, fontSize: 13)),
         ),
       ],
     );

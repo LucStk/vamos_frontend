@@ -19,3 +19,20 @@ Future<List<File>> pickImages() async {
   }
   return picked;
 }
+
+Future<File?> pickImage() async {
+  if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
+    const typeGroup = XTypeGroup(
+      label: 'Images',
+      extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+    );
+    final file = await openFile(acceptedTypeGroups: [typeGroup]);
+    if (file == null) return null;
+    return File(file.path);
+  } else {
+    final picker = ImagePicker();
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image == null) return null;
+    return File(image.path);
+  }
+}

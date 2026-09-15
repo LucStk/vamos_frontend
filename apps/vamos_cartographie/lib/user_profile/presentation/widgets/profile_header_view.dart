@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -10,15 +11,7 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 56,
-          backgroundImage: profile.profilePictureUrl != null
-              ? NetworkImage(profile.profilePictureUrl!)
-              : null,
-          child: profile.profilePictureUrl == null
-              ? const Icon(Icons.person_outline, size: 56)
-              : null,
-        ),
+        ProfilePicture(imageUrl: profile.profilePictureUrl),
         const SizedBox(height: 16),
 
         Text(
