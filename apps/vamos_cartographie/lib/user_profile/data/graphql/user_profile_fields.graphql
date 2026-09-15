@@ -2,7 +2,7 @@
 fragment UserProfileFields on UserProfileType {
     userId
     profileName
-    profilPicture {
+    profilePicture {
         ...StoredFile
     }
     bio

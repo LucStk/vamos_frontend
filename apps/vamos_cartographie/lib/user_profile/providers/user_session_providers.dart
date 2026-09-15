@@ -3,6 +3,7 @@ import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_datasource.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_repository.dart';
 import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
+import "package:domain_core/domain_core.dart";
 
 part "user_session_providers.g.dart";
 
@@ -24,17 +25,18 @@ class MeNotifier extends _$MeNotifier {
     return result.fold((failure) => throw failure, (me) => me);
   }
 
-  Future<void> createProfile(String profileName) async {
+  Future<Failure?> createProfile(String profileName) async {
     final result = await ref
         .read(userProfileRepositoryProvider)
         .createProfile(profileName);
 
-    result.fold(
+    return result.fold(
       (failure) {
-        // gérer l'erreur
+        return failure;
       },
       (me) {
         state = AsyncData(me);
+        return;
       },
     );
   }

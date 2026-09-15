@@ -4,17 +4,20 @@ class DisplayNameField extends StatelessWidget {
   final TextEditingController controller;
   final bool enabled;
   final ValueChanged<String>? onFieldSubmitted;
+  final ValueChanged<String>? onChanged;
 
   const DisplayNameField({
     super.key,
     required this.controller,
     this.enabled = true,
     this.onFieldSubmitted,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       controller: controller,
       enabled: enabled,
       textInputAction: TextInputAction.done,

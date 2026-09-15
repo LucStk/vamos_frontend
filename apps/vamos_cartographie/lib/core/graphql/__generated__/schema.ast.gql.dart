@@ -1522,7 +1522,7 @@ const UserProfileType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'profilPicture'),
+      name: _i1.NameNode(value: 'profilePicture'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(

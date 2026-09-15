@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_s
 abstract class GUserProfileFields {
   String get userId;
   String get profileName;
-  _i1.GStoredFile? get profilPicture;
+  _i1.GStoredFile? get profilePicture;
   String get bio;
   String get G__typename;
 }
@@ -17,7 +17,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
   const GUserProfileFieldsData({
     required this.userId,
     required this.profileName,
-    this.profilPicture,
+    this.profilePicture,
     required this.bio,
     this.G__typename = 'UserProfileType',
   });
@@ -26,10 +26,10 @@ class GUserProfileFieldsData implements GUserProfileFields {
     return GUserProfileFieldsData(
       userId: (json['userId'] as String),
       profileName: (json['profileName'] as String),
-      profilPicture: json['profilPicture'] == null
+      profilePicture: json['profilePicture'] == null
           ? null
           : _i1.GStoredFileData.fromJson(
-              (json['profilPicture'] as Map<String, dynamic>)),
+              (json['profilePicture'] as Map<String, dynamic>)),
       bio: (json['bio'] as String),
       G__typename: (json['__typename'] as String),
     );
@@ -39,7 +39,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
 
   final String profileName;
 
-  final _i1.GStoredFileData? profilPicture;
+  final _i1.GStoredFileData? profilePicture;
 
   final String bio;
 
@@ -49,9 +49,9 @@ class GUserProfileFieldsData implements GUserProfileFields {
     final _$result = <String, dynamic>{};
     _$result['userId'] = this.userId;
     _$result['profileName'] = this.profileName;
-    final _$profilPictureValue = this.profilPicture;
-    _$result['profilPicture'] =
-        _$profilPictureValue == null ? null : _$profilPictureValue.toJson();
+    final _$profilePictureValue = this.profilePicture;
+    _$result['profilePicture'] =
+        _$profilePictureValue == null ? null : _$profilePictureValue.toJson();
     _$result['bio'] = this.bio;
     _$result['__typename'] = this.G__typename;
     return _$result;
@@ -60,17 +60,17 @@ class GUserProfileFieldsData implements GUserProfileFields {
   GUserProfileFieldsData copyWith({
     String? userId,
     String? profileName,
-    _i1.GStoredFileData? profilPicture,
-    bool profilPictureIsSet = false,
+    _i1.GStoredFileData? profilePicture,
+    bool profilePictureIsSet = false,
     String? bio,
     String? G__typename,
   }) {
     return GUserProfileFieldsData(
       userId: userId ?? this.userId,
       profileName: profileName ?? this.profileName,
-      profilPicture: profilPicture != null || profilPictureIsSet
-          ? profilPicture
-          : this.profilPicture,
+      profilePicture: profilePicture != null || profilePictureIsSet
+          ? profilePicture
+          : this.profilePicture,
       bio: bio ?? this.bio,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -82,7 +82,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
         (other is GUserProfileFieldsData &&
             userId == other.userId &&
             profileName == other.profileName &&
-            profilPicture == other.profilPicture &&
+            profilePicture == other.profilePicture &&
             bio == other.bio &&
             G__typename == other.G__typename);
   }
@@ -90,11 +90,11 @@ class GUserProfileFieldsData implements GUserProfileFields {
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType, userId, profileName, profilPicture, bio, G__typename);
+        runtimeType, userId, profileName, profilePicture, bio, G__typename);
   }
 
   @override
   String toString() {
-    return 'GUserProfileFieldsData(userId: $userId, profileName: $profileName, profilPicture: $profilPicture, bio: $bio, G__typename: $G__typename)';
+    return 'GUserProfileFieldsData(userId: $userId, profileName: $profileName, profilePicture: $profilePicture, bio: $bio, G__typename: $G__typename)';
   }
 }

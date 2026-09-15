@@ -1,7 +1,9 @@
+import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/auth/presentation/widgets/auth_layout.dart';
 import 'package:vamos_cartographie/features/features.dart';
+import 'package:vamos_cartographie/user_profile/user_profile.dart';
 
 class CreateProfilePage extends ConsumerStatefulWidget {
   const CreateProfilePage({super.key});
@@ -13,6 +15,9 @@ class CreateProfilePage extends ConsumerStatefulWidget {
 class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
   final _formKey = GlobalKey<FormState>();
   final _displayNameController = TextEditingController();
+
+  String? _errorMessage;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -27,15 +32,34 @@ class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
 
     FocusScope.of(context).unfocus();
 
-    // TODO: Enregistrer le profil auprès de Django.
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
 
-    if (!mounted) {
-      return;
+    // Appel de la méthode sur le Notifier
+    final failure = await ref
+        .read(meProvider.notifier)
+        .createProfile(_displayNameController.text);
+
+    if (!mounted) return;
+
+    if (failure != null) {
+      // Cas d'erreur : un Failure a été retourné
+      setState(() {
+        _isLoading = false;
+        _errorMessage = failure.message;
+      });
+    } else {
+      // Cas de succès : failure est null, le state Riverpod est déjà à jour (AsyncData)
+      setState(() {
+        _isLoading = false;
+      });
+
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const ProfilePage()));
     }
-
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => const Placeholder()));
   }
 
   @override
@@ -56,9 +80,44 @@ class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
         DisplayNameField(
           controller: _displayNameController,
           onFieldSubmitted: (_) => _createProfile(),
+          onChanged: (_) {
+            if (_errorMessage != null) {
+              setState(() {
+                _errorMessage = null;
+              });
+            }
+          },
         ),
+        if (_errorMessage != null) ...[
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    _errorMessage!,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
         const SizedBox(height: 24),
-        PrimaryButton(label: 'Continuer', onPressed: _createProfile),
+        PrimaryButton(
+          label: _isLoading ? 'Création en cours...' : 'Continuer',
+          onPressed: _isLoading ? null : _createProfile,
+        ),
       ],
     );
   }

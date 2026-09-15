@@ -4,13 +4,13 @@ import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
 
 extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
   UserProfile toUserProfileModel() {
-    final profilPictureModel = (profilPicture == null)
+    final profilePictureModel = (profilePicture == null)
         ? null
-        : profilPicture!.toRemoteModel().url;
+        : profilePicture!.toRemoteModel().url;
     return UserProfile(
       userId: userId,
       profileName: profileName,
-      profilePictureUrl: profilPictureModel,
+      profilePictureUrl: profilePictureModel,
       bio: bio,
     );
   }

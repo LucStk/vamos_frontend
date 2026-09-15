@@ -47,4 +47,4 @@ final class ClientProvider extends $FunctionalProvider<Client, Client, Client>
   }
 }
 
-String _$clientHash() => r'eb7bcc1dabf8503b8fc1f22cbe43b75fe8ffd9f0';
+String _$clientHash() => r'f05cbf019641af5ee27ccf0747d8a3b4c9ede71e';

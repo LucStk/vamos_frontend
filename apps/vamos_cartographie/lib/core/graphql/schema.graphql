@@ -220,7 +220,7 @@ type UploadConfigType {
 type UserProfileType {
   userId: UUID!
   profileName: String!
-  profilPicture: StoredFileType
+  profilePicture: StoredFileType
   bio: String!
 }
 
