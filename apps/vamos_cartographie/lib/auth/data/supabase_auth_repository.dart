@@ -1,4 +1,4 @@
-import 'package:auth/auth_repository.dart';
+import 'auth_repository.dart';
 import "package:supabase_flutter/supabase_flutter.dart";
 
 final class SupabaseAuthRepository implements AuthRepository {

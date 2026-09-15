@@ -2,8 +2,6 @@ import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:stored_file_application/domain/stored_file_model.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_exception.dart';
-import 'package:vamos_cartographie/user_profile/data/user_profile_mappers.dart';
-import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
 
 import "graphql/graphql.dart";
 import 'package:ferry/ferry.dart';

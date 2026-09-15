@@ -1,4 +1,4 @@
-import 'package:auth/auth.dart';
+import "/auth/data/data.dart";
 import 'package:flutter/rendering.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

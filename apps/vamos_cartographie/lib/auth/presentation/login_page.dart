@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/auth/auth_controller.dart';
+import 'package:vamos_cartographie/auth/providers/auth_controller.dart';
 import 'package:vamos_cartographie/features/buttons/primary_button.dart';
 import 'package:vamos_cartographie/features/fields/fields.dart';
 
