@@ -50,7 +50,7 @@ class ExceptionMapper {
       return graphqlExceptionsMappers(graphqlErrors);
     }
 
-    return const UnexpectedFailure();
+    return UnexpectedFailure();
   }
 
   static Failure _unexpected(Object error, StackTrace? stackTrace) {
@@ -64,6 +64,6 @@ class ExceptionMapper {
       }
     }
 
-    return UnexpectedFailure(debugInfo: info);
+    return UnexpectedFailure(message: info);
   }
 }

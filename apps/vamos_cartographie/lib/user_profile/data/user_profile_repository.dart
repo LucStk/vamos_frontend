@@ -35,9 +35,9 @@ class UserProfileRepository {
           GCreateProfileErrorCode.INVALID_USERNAME => Left(
             InvalidUsernameFailure(),
           ),
-          _ => Left(const ProfileCreationFailed()),
+          _ => Left(ProfileCreationFailed()),
         },
-        _ => Left(const ProfileCreationFailed()),
+        _ => Left(ProfileCreationFailed()),
       };
     });
   }

@@ -5,7 +5,7 @@ import 'package:trip_application/trip_application.dart';
 import 'trip_remote_datasource.dart';
 import 'trip_mappers.dart';
 
-import 'package:vamos_cartographie/core/services/erreur_handler.dart';
+import 'package:vamos_cartographie/core/core.dart';
 
 class TripRepositoryImpl extends TripRepository {
   final TripRemoteDatasource remote;

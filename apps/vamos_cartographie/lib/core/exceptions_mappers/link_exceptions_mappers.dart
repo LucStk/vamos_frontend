@@ -13,6 +13,6 @@ Failure linkExceptionsMappers(LinkException error) {
         message: 'Réponse invalide du serveur: $originalException',
       ),
 
-    _ => const ConnectionFailure(),
+    _ => ConnectionFailure(),
   };
 }

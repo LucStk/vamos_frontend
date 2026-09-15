@@ -3,17 +3,18 @@ part of 'failures.dart';
 final class ServerFailure extends Failure {
   final int? statusCode;
 
-  const ServerFailure(super.message, {this.statusCode});
+  ServerFailure(super.message, {this.statusCode, super.timestamp});
 
   @override
   List<Object?> get props => [...super.props, statusCode];
 }
 
 final class ConnectionFailure extends Failure {
-  const ConnectionFailure({String? message}) : super("Erreur réseau $message");
+  ConnectionFailure({String? message, super.timestamp})
+    : super(message != null ? 'Erreur réseau : $message' : 'Erreur réseau');
 }
 
 final class InvalidServerResponseFailure extends Failure {
-  const InvalidServerResponseFailure({String? message})
-    : super('Réponse invalide du serveur.');
+  InvalidServerResponseFailure({String? message, super.timestamp})
+    : super(message ?? 'Réponse invalide du serveur');
 }

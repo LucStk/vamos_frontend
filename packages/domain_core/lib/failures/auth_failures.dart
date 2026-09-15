@@ -1,6 +1,6 @@
 part of 'failures.dart';
 
 final class AuthenticationFailure extends Failure {
-  const AuthenticationFailure({String? message})
-    : super('Authentification requise.');
+  AuthenticationFailure({String? message, super.timestamp})
+    : super(message ?? 'Authentification requise');
 }

@@ -11,8 +11,11 @@ Future<Either<Failure, T>> guard<T>(Future<T> Function() action) async {
   try {
     return Right(await action());
   } catch (e, s) {
-    print("guarde keep $e");
-    return Left(ExceptionMapper.fromException(e, s));
+    // print("guarde keep $e");
+    final failure = ExceptionMapper.fromException(e, s);
+
+    print("guarde keep $failure");
+    return Left(failure);
   }
 }
 

@@ -9,7 +9,7 @@ Failure graphqlExceptionsMappers(List<GraphQLError> errors) {
     'AUTHENTICATION_REQUIRED' ||
     'INVALID_TOKEN' ||
     'TOKEN_EXPIRED' => AuthenticationFailure(message: error.message),
-    'NOT_FOUND' => const NotFoundFailure(),
+    'NOT_FOUND' => NotFoundFailure(),
     _ => ServerFailure(error.message),
   };
 }

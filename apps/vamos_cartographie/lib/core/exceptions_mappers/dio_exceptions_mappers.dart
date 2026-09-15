@@ -11,10 +11,10 @@ Failure dioExceptionsMappers(DioException e) {
 
     DioExceptionType.badResponse => _fromDioResponse(e),
 
-    DioExceptionType.cancel => const ServerFailure('Requête annulée'),
+    DioExceptionType.cancel => ServerFailure('Requête annulée'),
 
     DioExceptionType.unknown ||
-    DioExceptionType.badCertificate => const ConnectionFailure(),
+    DioExceptionType.badCertificate => ConnectionFailure(),
   };
 }
 
@@ -22,7 +22,7 @@ Failure _fromDioResponse(DioException e) {
   final code = e.response?.statusCode;
 
   if (code == 404) {
-    return const NotFoundFailure();
+    return NotFoundFailure();
   }
 
   return ServerFailure(
