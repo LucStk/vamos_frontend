@@ -4,7 +4,7 @@ import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/stored_file/stored_file.dart';
-import '/trip/presentation/widgets/trip_section_label.dart';
+import 'package:vamos_cartographie/trip/presentation/trip_section_label.dart';
 import 'package:vamos_cartographie/trip/trip.dart';
 
 class TripFormDialog extends ConsumerStatefulWidget {

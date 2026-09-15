@@ -1,2 +1,3 @@
-export 'screens/explorer_page.dart';
-export 'widgets/widgets.dart';
+export 'trip_card/trip_card_view.dart';
+export "dialogs/trip_form_dialog.dart";
+export "dialogs/trip_viewer_dialog.dart";
