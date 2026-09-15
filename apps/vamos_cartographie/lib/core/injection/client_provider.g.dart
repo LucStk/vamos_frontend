@@ -9,25 +9,24 @@ part of 'client_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(clientNotifier)
-final clientProvider = ClientNotifierProvider._();
+@ProviderFor(client)
+final clientProvider = ClientProvider._();
 
-final class ClientNotifierProvider
-    extends $FunctionalProvider<Client, Client, Client>
+final class ClientProvider extends $FunctionalProvider<Client, Client, Client>
     with $Provider<Client> {
-  ClientNotifierProvider._()
+  ClientProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'clientProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$clientNotifierHash();
+  String debugGetCreateSourceHash() => _$clientHash();
 
   @$internal
   @override
@@ -36,7 +35,7 @@ final class ClientNotifierProvider
 
   @override
   Client create(Ref ref) {
-    return clientNotifier(ref);
+    return client(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -48,4 +47,4 @@ final class ClientNotifierProvider
   }
 }
 
-String _$clientNotifierHash() => r'8d4e7e0da17d11c5c53aa38fe730ad713db662c7';
+String _$clientHash() => r'eb7bcc1dabf8503b8fc1f22cbe43b75fe8ffd9f0';

@@ -12,6 +12,7 @@ AuthRepository authRepository(Ref ref) {
 @Riverpod(keepAlive: true)
 Stream<User?> authState(Ref ref) {
   // Permet de réagir aux changements de session
+  print("authState refresh");
   return ref.watch(authRepositoryProvider).authStateChanges;
 }
 

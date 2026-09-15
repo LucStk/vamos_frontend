@@ -16,12 +16,11 @@ UserProfileRepository userProfileRepository(Ref ref) {
   return UserProfileRepository(ref.watch(userRemoteDatasourceProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class MeNotifier extends _$MeNotifier {
   @override
   Future<Me> build() async {
     final result = await ref.read(userProfileRepositoryProvider).getMeProfile();
-
     return result.fold((failure) => throw failure, (me) => me);
   }
 

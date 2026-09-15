@@ -55,7 +55,7 @@ final class UserRemoteDatasourceProvider
 }
 
 String _$userRemoteDatasourceHash() =>
-    r'9026490e9077e4fdb6b2834b31e10badb8fe32fc';
+    r'608064137bb455065d2b415a74b527a1ca580785';
 
 @ProviderFor(userProfileRepository)
 final userProfileRepositoryProvider = UserProfileRepositoryProvider._();
@@ -103,7 +103,7 @@ final class UserProfileRepositoryProvider
 }
 
 String _$userProfileRepositoryHash() =>
-    r'a3d2b859433e5c4d0d89d2e99dc358f14cb7d311';
+    r'ded6134b92d32f947b6ef4f3b907638f226379f4';
 
 @ProviderFor(MeNotifier)
 final meProvider = MeNotifierProvider._();
@@ -115,7 +115,7 @@ final class MeNotifierProvider extends $AsyncNotifierProvider<MeNotifier, Me> {
         argument: null,
         retry: null,
         name: r'meProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -128,7 +128,7 @@ final class MeNotifierProvider extends $AsyncNotifierProvider<MeNotifier, Me> {
   MeNotifier create() => MeNotifier();
 }
 
-String _$meNotifierHash() => r'75785b61962084a77246746a2d0a89f71e7c3f63';
+String _$meNotifierHash() => r'0d9bb2f2cbca13a2d0ca531ce78a25211329919f';
 
 abstract class _$MeNotifier extends $AsyncNotifier<Me> {
   FutureOr<Me> build();
