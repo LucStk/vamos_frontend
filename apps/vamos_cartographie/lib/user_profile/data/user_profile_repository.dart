@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/user_profile/data/graphql/graphql.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_datasource.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_mappers.dart';
@@ -40,5 +41,25 @@ class UserProfileRepository {
         _ => Left(ProfileCreationFailed()),
       };
     });
+  }
+
+  Future<Either<Failure, Me>> updateProfile({
+    String? bio,
+    StoredFileId? fileId,
+  }) async {
+    return await guard(() async {
+      final d = await remote.updateProfile(bio: bio, fileId: fileId);
+      return d.updateProfile.toMeProfileModel();
+    });
+    // return switch (data) {
+    //   CreateProfileSuccessData(:final profile) => Right(
+    //     profile.toMeProfileModel(),
+    //   ),
+    //   CreateProfileErrorData(:final code) => switch (code) {
+    //     _ => Left(ProfileUpdateFailed()),
+    //   },
+    //   _ => Left(ProfileUpdateFailed()),
+    // };
+    // });
   }
 }

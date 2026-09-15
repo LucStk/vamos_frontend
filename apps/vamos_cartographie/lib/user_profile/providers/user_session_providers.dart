@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/core/injection/injection.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_datasource.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_repository.dart';
@@ -19,17 +20,31 @@ UserProfileRepository userProfileRepository(Ref ref) {
 
 @Riverpod(keepAlive: true)
 class MeNotifier extends _$MeNotifier {
+  UserProfileRepository get repository =>
+      ref.read(userProfileRepositoryProvider);
+
   @override
   Future<Me> build() async {
-    final result = await ref.read(userProfileRepositoryProvider).getMeProfile();
+    final result = await repository.getMeProfile();
     return result.fold((failure) => throw failure, (me) => me);
   }
 
   Future<Failure?> createProfile(String profileName) async {
-    final result = await ref
-        .read(userProfileRepositoryProvider)
-        .createProfile(profileName);
+    final result = await repository.createProfile(profileName);
 
+    return result.fold(
+      (failure) {
+        return failure;
+      },
+      (me) {
+        state = AsyncData(me);
+        return;
+      },
+    );
+  }
+
+  Future<Failure?> updateProfile({String? bio, StoredFileId? fileId}) async {
+    final result = await repository.updateProfile(bio: bio, fileId: fileId);
     return result.fold(
       (failure) {
         return failure;

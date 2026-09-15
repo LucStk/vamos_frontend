@@ -17,3 +17,12 @@ class InvalidUsernameFailure extends CreateProfileFailure {
 class ProfileCreationFailed extends CreateProfileFailure {
   ProfileCreationFailed() : super(message: "Impossible de créer le compte");
 }
+
+sealed class UpdateProfileFailure extends Failure {
+  UpdateProfileFailure({String? message})
+    : super(message ?? "Erreur dans la mise à jour du profile");
+}
+
+class ProfileUpdateFailed extends UpdateProfileFailure {
+  ProfileUpdateFailed() : super(message: "Impossible de modifier le compte");
+}
