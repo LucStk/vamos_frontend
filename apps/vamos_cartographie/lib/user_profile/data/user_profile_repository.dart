@@ -1,11 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
-import 'package:vamos_cartographie/core/services/services.dart';
 import 'package:vamos_cartographie/user_profile/data/graphql/graphql.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_datasource.dart';
 import 'package:vamos_cartographie/user_profile/data/user_profile_mappers.dart';
 import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
 
+import 'package:vamos_cartographie/core/core.dart';
 import 'package:domain_core/domain_core.dart';
 
 class UserProfileRepository {

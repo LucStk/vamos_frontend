@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/auth/app_entry_view.dart';
 import 'package:vamos_cartographie/core/config/supabase.dart';
 import 'package:vamos_cartographie/core/config/supabase_config.dart';
-import '/core/services/erreur_handler.dart';
+import '/core/core.dart';
 
 void main() {
   runZonedGuarded(

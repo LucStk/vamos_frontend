@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import "package:domain_core/domain_core.dart";
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/services/services.dart';
+import 'package:vamos_cartographie/core/exceptions_mappers/exceptions_mappers.dart';
 import 'package:vamos_cartographie/notification/notification.dart';
 
 // core/erreur_handler.dart
