@@ -3,20 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/auth/app_entry_view.dart';
 import 'package:vamos_cartographie/core/config/supabase.dart';
 import 'package:vamos_cartographie/core/config/supabase_config.dart';
 import '/core/services/erreur_handler.dart';
-
-// Imports de tes pages d'auth (ajuste les chemins si besoin)
-import 'presentation/login_page.dart';
-import 'presentation/register_page.dart';
 
 void main() {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      // Charger le fichier .env en premier
+      // Charger le fichier .env
       await dotenv.load(fileName: ".env");
 
       // Valider la config et initialiser Supabase
@@ -31,10 +28,7 @@ void main() {
       };
 
       runApp(
-        UncontrolledProviderScope(
-          container: container,
-          child: const AuthTestApp(),
-        ),
+        UncontrolledProviderScope(container: container, child: const MyApp()),
       );
     },
     (error, stackTrace) {
@@ -43,52 +37,67 @@ void main() {
   );
 }
 
-class AuthTestApp extends StatelessWidget {
-  const AuthTestApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Auth Test App',
+      title: 'Vamos Cartographie',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => const LoginPageWrapper(),
-        '/register': (context) => const RegisterPage(),
-      },
+      home: const AppEntryView(),
     );
   }
-}
+} // class AuthTestApp extends StatelessWidget {
+//   const AuthTestApp({super.key});
 
-/// Wrapper pour afficher la LoginPage tout en ajoutant un lien vers la création de compte
-class LoginPageWrapper extends StatelessWidget {
-  const LoginPageWrapper({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Auth Test App',
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData(
+//         useMaterial3: true,
+//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+//       ),
+//       initialRoute: '/login',
+//       routes: {
+//         '/login': (context) => const LoginPageWrapper(),
+//         '/register': (context) => const RegisterPage(),
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const LoginPage(),
-          Positioned(
-            bottom: 16,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/register');
-                },
-                child: const Text("Pas encore de compte ? S'inscrire"),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// /// Wrapper pour afficher la LoginPage tout en ajoutant un lien vers la création de compte
+// class LoginPageWrapper extends StatelessWidget {
+//   const LoginPageWrapper({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           const LoginPage(),
+//           Positioned(
+//             bottom: 16,
+//             left: 0,
+//             right: 0,
+//             child: Center(
+//               child: TextButton(
+//                 onPressed: () {
+//                   Navigator.of(context).pushNamed('/register');
+//                 },
+//                 child: const Text("Pas encore de compte ? S'inscrire"),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
