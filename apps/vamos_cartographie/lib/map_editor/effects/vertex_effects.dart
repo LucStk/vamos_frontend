@@ -1,33 +1,79 @@
 part of 'map_effects.dart';
 
-extension VertexMapEffects on MapEffects {
-  Future<void> createSimpleVertex(LatLng position) {
-    return graphEditor.createSimpleVertex(position);
-  }
+class CreateSimpleVertexEffect extends MapEffect {
+  const CreateSimpleVertexEffect({required this.position});
 
-  Future<void> updateRemoteVertexPosition({
-    required VertexId vertexId,
-    required LatLng position,
-  }) {
-    return graphEditor.moveVertex(vertexId, position);
-  }
+  final LatLng position;
 
-  Future<void> createWaypointFromVertex(VertexId vertexId) {
-    return waypointEditor.createBlankWaypointFromVertex(vertexId);
+  @override
+  Future<MapEditorState?> resolver(MapEffectContext context) async {
+    await context.graphEditor.createSimpleVertex(position);
+    return null;
   }
+}
 
-  Future<void> createWaypointFromPosition(LatLng position) async {
-    await waypointEditor.createBlankWaypointFromPosition(position);
+class UpdateRemoteVertexPositionEffect extends MapEffect {
+  const UpdateRemoteVertexPositionEffect({
+    required this.vertexId,
+    required this.position,
+  });
+
+  final VertexId vertexId;
+  final LatLng position;
+
+  @override
+  Future<MapEditorState?> resolver(MapEffectContext context) async {
+    await context.graphEditor.moveVertex(vertexId, position);
+    return null;
   }
+}
 
-  Future<void> removeVertex(VertexId vertexId) {
-    return graphEditor.removeVertex(vertexId);
+class CreateWaypointFromVertexEffect extends MapEffect {
+  const CreateWaypointFromVertexEffect({required this.vertexId});
+
+  final VertexId vertexId;
+
+  @override
+  Future<MapEditorState?> resolver(MapEffectContext context) async {
+    await context.waypointEditor.createBlankWaypointFromVertex(vertexId);
+    return null;
   }
+}
 
-  Future<void> deleteSelectedVertex() async {
-    if (mapState.selection case MapVertex(:final id)) {
-      mapState = mapState.withSelection(null);
-      await graphEditor.removeVertex(id);
+class CreateWaypointFromPositionEffect extends MapEffect {
+  const CreateWaypointFromPositionEffect({required this.position});
+
+  final LatLng position;
+
+  @override
+  Future<MapEditorState?> resolver(MapEffectContext context) async {
+    await context.waypointEditor.createBlankWaypointFromPosition(position);
+    return null;
+  }
+}
+
+class RemoveVertexEffect extends MapEffect {
+  const RemoveVertexEffect({required this.vertexId});
+
+  final VertexId vertexId;
+
+  @override
+  Future<MapEditorState?> resolver(MapEffectContext context) async {
+    await context.graphEditor.removeVertex(vertexId);
+    return null;
+  }
+}
+
+class DeleteSelectedVertexEffect extends MapEffect {
+  const DeleteSelectedVertexEffect();
+
+  @override
+  Future<MapEditorState?> resolver(MapEffectContext context) async {
+    if (context.mapState.selection case MapVertex(:final id)) {
+      await context.graphEditor.removeVertex(id);
+      return context.mapState.withSelection(null);
     }
+
+    return null;
   }
 }

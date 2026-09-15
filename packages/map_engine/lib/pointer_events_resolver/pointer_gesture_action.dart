@@ -1,16 +1,6 @@
 import 'dart:ui';
 
-import 'package:map_engine/domain/pointer_gesture_state.dart';
-import 'package:map_engine/map_engine.dart';
-
-class PointerEventsResolverOutput {
-  const PointerEventsResolverOutput({required this.state, this.action});
-
-  final PointerGestureState state;
-
-  /// Action reconnue à transmettre au GesturesResolver.
-  final PointerGestureAction? action;
-}
+import 'package:map_engine/domain/domain.dart';
 
 sealed class PointerGestureAction {
   const PointerGestureAction();

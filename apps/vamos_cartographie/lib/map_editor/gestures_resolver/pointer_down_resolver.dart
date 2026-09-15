@@ -1,23 +1,22 @@
 import 'package:map_engine/map_engine.dart';
-import 'package:map_engine/pointer_events_resolver/pointer_events_resolver_output.dart';
+import 'package:map_engine/pointer_events_resolver/pointer_gesture_action.dart';
 import 'package:map_engine/utiles/polyline_dist.dart';
 import 'package:vamos_cartographie/map_editor/domain/domain.dart';
-import 'package:vamos_cartographie/map_editor/gestures_resolver/gestures_resolver_input.dart';
-import 'package:vamos_cartographie/map_editor/gestures_resolver/gestures_resolver_output.dart';
+import 'package:vamos_cartographie/map_editor/gestures_resolver/gestures_resolver.dart';
 
 extension PointerDownEditor on PointerDownAction {
-  GesturesResolverOutput resolve(GesturesResolverInput input) {
-    final latLng = input.camera.screenOffsetToLatLng(offset);
-    switch ((input.editorState, element)) {
+  GestureResolution resolve(GesturesResolverContext context) {
+    final latLng = context.camera.screenOffsetToLatLng(offset);
+    switch ((context.editorState, element)) {
       case (SketchCreation m, MapSketchSegment _):
         final grab = closestPointOnPolyline(latLng, m.path);
-        return GesturesResolverOutput(
+        return GestureResolution(
           editorState: m.copyWith(path: m.path.sublist(0, grab.segmentIndex)),
         );
       case (SketchEdition m, MapSegment s) when s.id == m.segmentId:
-        return GesturesResolverOutput(editorState: m.copyWith(path: [latLng]));
+        return GestureResolution(editorState: m.copyWith(path: [latLng]));
       case _:
-        return GesturesResolverOutput(editorState: input.editorState);
+        return GestureResolution(editorState: context.editorState);
     }
   }
 }

@@ -1,29 +1,37 @@
-import 'dart:ui';
+import 'package:map_engine/pointer_events_resolver/pointer_gesture_action.dart';
 import 'package:vamos_cartographie/map_editor/domain/domain.dart';
-import 'package:vamos_cartographie/map_editor/transitions/camera_transitions.dart';
+import 'package:vamos_cartographie/map_editor/effects/map_effects.dart';
 
 import 'gestures_resolver.dart';
 import 'package:map_engine/map_engine.dart';
 
-extension TapEditor on GesturesResolver {
-  void onTapped(MapObject? element, Offset offset) {
-    switch ((editorState, element)) {
+extension TapEditor on TapAction {
+  GestureResolution resolve(GesturesResolverContext context) {
+    switch ((context.editorState, element)) {
       case (Idle _, MapObject e) when e is TopologyObject:
-        editorState = Idle(selection: e);
+        return GestureResolution(editorState: Idle(selection: e));
 
       case (SketchMode m, MapSketchPencil p):
-        editorState = m.copyWith(selection: p);
+        return GestureResolution(editorState: m.copyWith(selection: p));
 
       case (Idle _, null):
-        editorState = Idle();
+        return GestureResolution(editorState: Idle());
+
       case _:
+        return GestureResolution(editorState: context.editorState);
     }
   }
+}
 
-  void onDoubleTapped(MapObject? element, Offset offset) {
-    print("double tapped $element");
+extension DoubleTapEditor on DoubleTapAction {
+  GestureResolution resolve(GesturesResolverContext context) {
     if (element == null) {
-      mapTransitions.zoomTo(offset);
+      return GestureResolution(
+        editorState: context.editorState,
+        effects: [ZoomToEffect(offset: offset)],
+      );
     }
+
+    return GestureResolution(editorState: context.editorState);
   }
 }

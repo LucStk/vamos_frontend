@@ -4,17 +4,27 @@ import 'package:flutter_map/flutter_map.dart' hide MapEvent;
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/pointer_events_resolver/pointer_gesture_event.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map_canvas/flutter_map_camera_controller.dart';
 import 'package:vamos_cartographie/map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map_canvas/map_canvas_view.dart';
 
-class MapGestureBridge extends ConsumerStatefulWidget {
+abstract interface class GestureSceneReader {
+  ProjectedScene get scene;
+}
 
-  const MapGestureBridge({super.key});
+class MapGestureBridge extends ConsumerStatefulWidget {
+  const MapGestureBridge({
+    required this.sceneReader,
+    super.key,
+  });
+
+  final GestureSceneReader sceneReader;
 
   @override
-  ConsumerState<MapGestureBridge> createState() => _MapGestureBridgeState();
+  ConsumerState<MapGestureBridge> createState() =>
+      _MapGestureBridgeState();
 }
 
 class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
@@ -72,6 +82,3 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
     );
   }
 }
-
-/// Seul point de contact Flutter pour le zoom — reçoit directement
-/// l'AnimatedMapController du widget, sans passer par Riverpod.
