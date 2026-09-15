@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:map_application/gestures_resolver/gestures_resolver.dart';
-import 'package:map_application/map_application.dart';
-import 'package:map_application/utiles/polyline_dist.dart';
+import 'package:map_engine/gestures_resolver/gestures_resolver.dart';
+import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/utiles/polyline_dist.dart';
 
 extension PointerDownEditor on GesturesResolver {
   void onPointerDown(MapObject? element, Offset offset) {

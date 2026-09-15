@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:map_application/transitions/map_editor_state_transitions.dart';
+import 'package:map_engine/transitions/map_editor_state_transitions.dart';
 
 extension CameraTransitions on MapEditorStateTransitions {
   void zoomTo(Offset offset) {

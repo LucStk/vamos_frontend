@@ -1,7 +1,7 @@
 import 'dart:ui';
-import 'package:map_application/gestures_resolver/gestures_resolver.dart';
-import 'package:map_application/map_application.dart';
-import 'package:map_application/transitions/camera_transitions.dart';
+import 'package:map_engine/gestures_resolver/gestures_resolver.dart';
+import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/transitions/camera_transitions.dart';
 
 extension TapEditor on GesturesResolver {
   void onTapped(MapObject? element, Offset offset) {

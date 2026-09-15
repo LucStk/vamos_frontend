@@ -1,8 +1,8 @@
 export 'drag_resolver.dart';
 export 'pointer_down_resolver.dart';
 export 'tap_resolver.dart';
-import 'package:map_application/map_application.dart';
-import 'package:map_application/transitions/map_editor_state_transitions.dart';
+import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/transitions/map_editor_state_transitions.dart';
 
 abstract class GesturesResolver {
   const GesturesResolver();

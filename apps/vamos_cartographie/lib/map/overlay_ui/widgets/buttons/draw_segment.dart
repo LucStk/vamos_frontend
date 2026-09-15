@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/transitions/sketch_transitions.dart';
+import 'package:map_engine/transitions/sketch_transitions.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/injection/map_transitions.dart';
 

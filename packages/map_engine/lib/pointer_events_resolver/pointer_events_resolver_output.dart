@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:map_application/map_application.dart';
-import 'package:map_application/pointer_events_resolver/pending_tap.dart';
+import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/pointer_events_resolver/pending_tap.dart';
 
 class PointerEventsResolverOutput {
   const PointerEventsResolverOutput({

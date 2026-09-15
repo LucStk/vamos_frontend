@@ -1,5 +1,5 @@
 import 'package:flutter/rendering.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_engine/map_engine.dart';
 
 class MapScenePainter extends CustomPainter {
   const MapScenePainter({required this.scene, required this.selection});

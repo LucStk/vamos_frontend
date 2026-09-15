@@ -1,6 +1,6 @@
-import 'package:map_application/domain/map_editor_state.dart';
-import 'package:map_application/effects/map_effects.dart';
-import 'package:map_application/map_camera_controller.dart';
+import 'package:map_engine/domain/map_editor_state.dart';
+import 'package:map_engine/effects/map_effects.dart';
+import 'package:map_engine/map_camera_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/trip/trip.dart';

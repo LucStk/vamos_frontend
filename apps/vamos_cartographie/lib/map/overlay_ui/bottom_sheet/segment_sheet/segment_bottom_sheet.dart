@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/effects/map_effects.dart';
-import 'package:map_application/transitions/sketch_transitions.dart';
+import 'package:map_engine/effects/map_effects.dart';
+import 'package:map_engine/transitions/sketch_transitions.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:map_application/domain/map_objects.dart';
-import 'package:map_application/projection/projection.dart';
+import 'package:map_engine/domain/map_objects.dart';
+import 'package:map_engine/projection/projection.dart';
 
 class ProjectedScene {
   final List<ProjectedObject> objects;

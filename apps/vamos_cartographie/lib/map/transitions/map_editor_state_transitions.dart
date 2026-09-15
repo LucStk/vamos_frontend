@@ -1,4 +1,4 @@
-import 'package:map_application/map_application.dart';
+import 'package:map_engine/map_engine.dart';
 
 abstract class MapEditorStateTransitions {
   const MapEditorStateTransitions();

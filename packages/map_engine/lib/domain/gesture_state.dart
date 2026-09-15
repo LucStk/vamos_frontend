@@ -1,4 +1,4 @@
-import 'package:map_application/domain/map_objects.dart';
+import 'package:map_engine/domain/map_objects.dart';
 
 sealed class GestureState {
   const GestureState();

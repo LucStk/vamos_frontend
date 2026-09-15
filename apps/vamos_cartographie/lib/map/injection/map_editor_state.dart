@@ -1,4 +1,4 @@
-import 'package:map_application/domain/map_editor_state.dart';
+import 'package:map_engine/domain/map_editor_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 

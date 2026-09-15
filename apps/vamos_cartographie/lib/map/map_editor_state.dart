@@ -1,7 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/domain/map_objects.dart';
+import 'package:map_engine/domain/map_objects.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
 part 'map_editor_state.freezed.dart';

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:map_application/map_application.dart';
+import 'package:map_engine/map_engine.dart';
 
 class PendingTap {
   const PendingTap({

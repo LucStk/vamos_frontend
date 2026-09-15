@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_engine/map_engine.dart';
 
 class FlutterMapCameraController implements MapCameraController {
   final AnimatedMapController animatedController;

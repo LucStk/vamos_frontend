@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:map_application/domain/domain.dart';
-import 'package:map_application/map_camera_controller.dart';
-import 'package:map_application/projection/projection.dart';
-import 'package:map_application/utiles/segment_hit_helpers.dart';
+import 'package:map_engine/domain/domain.dart';
+import 'package:map_engine/map_camera_controller.dart';
+import 'package:map_engine/projection/projection.dart';
+import 'package:map_engine/utiles/segment_hit_helpers.dart';
 
 part "projected_line.dart";
 part "projected_point.dart";

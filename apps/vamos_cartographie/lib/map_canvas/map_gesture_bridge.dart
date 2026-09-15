@@ -3,9 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart' hide MapEvent;
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/map_input/pointer_event_resolver_impl.dart';
 import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 import 'package:vamos_cartographie/map_canvas/flutter_map_camera_controller.dart';
 import 'package:vamos_cartographie/map_canvas/map_canvas.dart';
@@ -13,7 +12,7 @@ import 'package:vamos_cartographie/map_canvas/map_canvas_view.dart';
 
 class MapGestureBridge extends ConsumerStatefulWidget {
 
-  const MapGestureBridge({super.key, required this.tripId});
+  const MapGestureBridge({super.key});
 
   @override
   ConsumerState<MapGestureBridge> createState() => _MapGestureBridgeState();
@@ -23,7 +22,6 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
     with TickerProviderStateMixin {
   late final MapController _mapController;
   late final AnimatedMapController _animatedMapController;
-  late final PointerEventsResolverImpl _pointerEventsResolver;
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
   @override
@@ -38,12 +36,6 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
       curve: Curves.easeInOutCubic,
     );
 
-    _pointerEventsResolver = PointerEventsResolverImpl(
-      ref: ref,
-      tripId: widget.tripId,
-      onPanBlockedChanged: (blocked) => _panAllowed.value = !blocked,
-    );
-
     // Différé après la fin du build en cours
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -55,7 +47,6 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
 
   @override
   void dispose() {
-    _pointerEventsResolver.dispose();
     _animatedMapController.dispose();
     super.dispose();
   }

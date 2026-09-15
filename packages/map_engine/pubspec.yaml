@@ -1,5 +1,5 @@
-name: map_application
-description: "Map Application for vamos cartography"
+name: map_engine
+description: "Map Engine for vamos cartography"
 publish_to: "none"
 
 version: 1.0.0+1
