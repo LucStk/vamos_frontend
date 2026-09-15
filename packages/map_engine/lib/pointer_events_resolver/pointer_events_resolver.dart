@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/pointer_events_resolver/pointer_events_resolver_input.dart';
 import 'package:map_engine/pointer_events_resolver/pointer_events_resolver_output.dart';
@@ -31,92 +32,61 @@ PointerEventsResolverOutput _resolvePointerDown(
   final element = input.scene.hitTest(event.offset);
 
   return PointerEventsResolverOutput(
-    state: Pressed(element),
-    panBlocked: element?.isDraggable ?? false,
+    state: input.state.copyWith(
+      gesture: Pressed(element: element, pressPoint: event.offset),
+    ),
     action: PointerDownAction(element: element, offset: event.offset),
-    pendingTap: input.pendingTap,
-    pressPoint: event.offset,
   );
 }
 
 PointerEventsResolverOutput _resolvePointerMove(
   PointerEventsResolverInput input,
 ) {
-  final state = input.state;
-  final pressPoint = input.pressPoint;
+  final gesture = input.state.gesture;
   final event = input.event;
-  final pendingTap = input.pendingTap;
   final scene = input.scene;
 
-  switch (state) {
-    case Pressed(element: null):
-      if (pressPoint != null &&
-          distanceTo(pressPoint, event.offset) < pointerTapSlopPx) {
-        return PointerEventsResolverOutput(
-          state: state,
-          panBlocked: false,
-          pendingTap: pendingTap,
-          pressPoint: pressPoint,
-        );
-      }
+  switch (gesture) {
+    //Permet de donner un sensibilité au drag
+    //On valide automatiquement si element n'est pas draggable
+    case Pressed(:final element, :final pressPoint)
+        when (element != null && !element.isDraggable) ||
+            (distanceTo(pressPoint, event.offset) < pointerTapSlopPx):
+      return PointerEventsResolverOutput(state: input.state);
 
-      return PointerEventsResolverOutput(
-        state: const Dragging(),
-        panBlocked: false,
-        action: const DragStartAction(),
-        pendingTap: pendingTap,
-        pressPoint: pressPoint,
-      );
-
+    //begin drag si possible (element.isDraggable ou element == null)
     case Pressed(:final element):
-      if (element != null && !element.isDraggable) {
-        return PointerEventsResolverOutput(
-          state: state,
-          panBlocked: false,
-          pendingTap: pendingTap,
-          pressPoint: pressPoint,
-        );
-      }
-
       return PointerEventsResolverOutput(
-        state: Dragging(dragged: element),
-        panBlocked: element != null,
+        state: PointerGestureState(gesture: Dragging(dragged: element)),
         action: DragStartAction(element: element),
-        pendingTap: pendingTap,
-        pressPoint: pressPoint,
       );
 
+    //On vérifie qu'il n'y a pas de collision
     case Dragging(:final dragged) when dragged != null:
       final target = scene.hitTest(event.offset, exclude: dragged);
 
       return PointerEventsResolverOutput(
-        state: Dragging(dragged: dragged, target: target),
-        panBlocked: true,
+        state: PointerGestureState(
+          gesture: Dragging(dragged: dragged, target: target),
+        ),
         action: DragUpdateAction(
           dragged: dragged,
           target: target,
           offset: event.offset,
         ),
-        pendingTap: pendingTap,
-        pressPoint: pressPoint,
       );
 
     case _:
-      return PointerEventsResolverOutput(
-        state: state,
-        panBlocked: false,
-        pendingTap: pendingTap,
-        pressPoint: pressPoint,
-      );
+      return PointerEventsResolverOutput(state: input.state);
   }
 }
 
 PointerEventsResolverOutput _resolvePointerUp(
   PointerEventsResolverInput input,
 ) {
-  final state = input.state;
+  final state = input.state.gesture;
   final event = input.event;
-  final pendingTap = input.pendingTap;
+  final pendingTap = input.state.pendingTap;
 
   switch (state) {
     case Pressed(:final element):
@@ -128,23 +98,23 @@ PointerEventsResolverOutput _resolvePointerUp(
 
     case Dragging(:final dragged, :final target):
       return PointerEventsResolverOutput(
-        state: const EmptyState(),
-        panBlocked: false,
+        state: PointerGestureState(
+          gesture: const EmptyState(),
+          pendingTap: null,
+        ),
         action: DragEndAction(
           dragged: dragged,
           target: target,
           offset: event.offset,
         ),
-        pendingTap: null,
-        pressPoint: null,
       );
 
     case _:
       return PointerEventsResolverOutput(
-        state: const EmptyState(),
-        panBlocked: false,
-        pendingTap: pendingTap,
-        pressPoint: null,
+        state: PointerGestureState(
+          gesture: const EmptyState(),
+          pendingTap: null,
+        ),
       );
   }
 }
@@ -157,31 +127,26 @@ PointerEventsResolverOutput _resolveTap({
   // Élément sans double-tap : tap immédiat.
   if (element != null && !element.awaitsDoubleTap) {
     return PointerEventsResolverOutput(
-      state: const EmptyState(),
-      panBlocked: false,
+      state: PointerGestureState(gesture: const EmptyState(), pendingTap: null),
       action: TapAction(element: element, offset: offset),
-      pendingTap: null,
-      pressPoint: null,
     );
   }
 
   // Deuxième tap compatible.
   if (pendingTap != null && pendingTap.compare(element, offset)) {
     return PointerEventsResolverOutput(
-      state: const EmptyState(),
-      panBlocked: false,
+      state: PointerGestureState(gesture: const EmptyState(), pendingTap: null),
+
       action: DoubleTapAction(element: element, offset: offset),
-      pendingTap: null,
-      pressPoint: null,
     );
   }
 
   // Premier tap : il faut attendre pour savoir s'il devient
   // un tap simple ou le premier tap d'un double-tap.
   return PointerEventsResolverOutput(
-    state: const EmptyState(),
-    panBlocked: false,
-    pendingTap: PendingTap(element: element, point: offset),
-    pressPoint: null,
+    state: PointerGestureState(
+      gesture: const EmptyState(),
+      pendingTap: PendingTap(element: element, point: offset),
+    ),
   );
 }

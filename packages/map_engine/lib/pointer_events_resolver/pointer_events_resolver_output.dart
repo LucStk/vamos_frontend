@@ -1,30 +1,15 @@
 import 'dart:ui';
 
+import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:map_engine/pointer_events_resolver/pending_tap.dart';
 
 class PointerEventsResolverOutput {
-  const PointerEventsResolverOutput({
-    required this.state,
-    required this.panBlocked,
-    this.action,
-    this.pendingTap,
-    this.pressPoint,
-  });
+  const PointerEventsResolverOutput({required this.state, this.action});
 
-  final GestureState state;
-
-  /// Indique à la couche UI si le pan de FlutterMap doit être bloqué.
-  final bool panBlocked;
+  final PointerGestureState state;
 
   /// Action reconnue à transmettre au GesturesResolver.
   final PointerGestureAction? action;
-
-  /// Nouvel état de reconnaissance du double-tap.
-  final PendingTap? pendingTap;
-
-  /// Point de départ du geste courant.
-  final Offset? pressPoint;
 }
 
 sealed class PointerGestureAction {

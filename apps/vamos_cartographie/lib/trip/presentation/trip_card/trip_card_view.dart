@@ -6,7 +6,6 @@ import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/trip/presentation/dialogs/trip_viewer_dialog.dart';
 import 'package:vamos_cartographie/trip/presentation/trip_card/trip_card_content.dart';
 import 'package:vamos_cartographie/trip/presentation/trip_card/trip_card_icon.dart';
-import '/map/map.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class TripCardView extends ConsumerWidget {

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'pending_tap.dart';
@@ -9,8 +10,6 @@ class PointerEventsResolverInput {
     required this.event,
     required this.scene,
     required this.state,
-    this.pressPoint,
-    this.pendingTap,
   });
 
   /// Événement pointeur à résoudre.
@@ -20,11 +19,5 @@ class PointerEventsResolverInput {
   final ProjectedScene scene;
 
   /// État courant du gesture resolver.
-  final GestureState state;
-
-  /// Point de départ du geste courant.
-  final Offset? pressPoint;
-
-  /// Tap en attente d'une éventuelle confirmation en double-tap.
-  final PendingTap? pendingTap;
+  final PointerGestureState state;
 }

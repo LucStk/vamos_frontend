@@ -5,7 +5,6 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 import 'package:vamos_cartographie/map_canvas/flutter_map_camera_controller.dart';
 import 'package:vamos_cartographie/map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map_canvas/map_canvas_view.dart';
@@ -56,8 +55,9 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
     return
         Listener(
           behavior: HitTestBehavior.translucent,
-          onPointerDown: (event) => _pointerEventsResolver.handle(
-            MapPointerDown(event.localPosition),
+          onPointerDown: (event){
+            final input = MapPointerDown(event.localPosition);
+          }
           ),
           onPointerMove: (event) => _pointerEventsResolver.handle(
             MapPointerMove(event.localPosition),
