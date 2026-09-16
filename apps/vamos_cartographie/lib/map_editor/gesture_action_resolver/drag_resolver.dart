@@ -1,5 +1,4 @@
 import 'package:map_engine/map_engine.dart';
-import 'package:map_engine/pointer_events_resolver/pointer_gesture_action.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map_editor/domain/domain.dart';
 import 'package:vamos_cartographie/map_editor/effects/map_effects.dart';

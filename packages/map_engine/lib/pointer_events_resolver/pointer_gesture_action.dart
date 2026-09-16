@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:map_engine/domain/domain.dart';
 
-sealed class PointerGestureAction {
+abstract class PointerGestureAction {
   const PointerGestureAction();
 }
 

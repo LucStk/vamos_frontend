@@ -27,6 +27,5 @@ class MapEffectContext {
 
 sealed class MapEffect {
   const MapEffect();
-
   Future<MapEditorState?> resolver(MapEffectContext context);
 }

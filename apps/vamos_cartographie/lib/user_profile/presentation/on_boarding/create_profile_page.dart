@@ -1,4 +1,3 @@
-import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/auth/presentation/widgets/auth_layout.dart';

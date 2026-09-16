@@ -1,84 +1,61 @@
-import 'package:domain_core/id.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_map/flutter_map.dart' hide MapEvent;
-import 'package:flutter_map_animations/flutter_map_animations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:map_engine/pointer_events_resolver/pointer_gesture_event.dart';
-import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map_canvas/flutter_map_camera_controller.dart';
-import 'package:vamos_cartographie/map_canvas/map_canvas.dart';
-import 'package:vamos_cartographie/map_canvas/map_canvas_view.dart';
+import 'package:vamos_cartographie/map_canvas/gesture_resolver_type.dart';
 
 abstract interface class GestureSceneReader {
   ProjectedScene get scene;
 }
 
-class MapGestureBridge extends ConsumerStatefulWidget {
+class MapGestureBridge extends StatefulWidget {
   const MapGestureBridge({
     required this.sceneReader,
+    required this.actionResolver,
+    required this.panAllowed,
+    required this.child,
     super.key,
   });
 
   final GestureSceneReader sceneReader;
+  final GestureActionResolver actionResolver;
+  final ValueNotifier<bool> panAllowed;
+  final Widget child;
 
   @override
-  ConsumerState<MapGestureBridge> createState() =>
-      _MapGestureBridgeState();
+  State<MapGestureBridge> createState() => _MapGestureBridgeState();
 }
 
-class _MapGestureBridgeState extends ConsumerState<MapGestureBridge>
-    with TickerProviderStateMixin {
-  late final MapController _mapController;
-  late final AnimatedMapController _animatedMapController;
-  final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
+class _MapGestureBridgeState extends State<MapGestureBridge> {
+  PointerGestureState currentState = PointerGestureState(gesture: EmptyState());
 
-  @override
-  void initState() {
-    super.initState();
-    _mapController = ref.read(mapControllerProvider);
-
-    _animatedMapController = AnimatedMapController(
-      vsync: this,
-      mapController: _mapController,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOutCubic,
+  void _resolvePointerGesture(MapPointerEvent pointerEvent) {
+    final resolution = pointerEvent.resolve(
+      PointerEventsResolverContext(
+        state: currentState,
+        scene: widget.sceneReader.scene,
+      ),
     );
+    currentState = resolution.state;
 
-    // Différé après la fin du build en cours
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      ref
-          .read(mapCameraControllerHolderProvider.notifier)
-          .set(FlutterMapCameraController(_animatedMapController));
-    });
-  }
+    widget.panAllowed.value = switch (currentState.gesture) {
+      Dragging(:final dragged) => dragged == null,
+      _ => true,
+    };
 
-  @override
-  void dispose() {
-    _animatedMapController.dispose();
-    super.dispose();
+    widget.actionResolver.resolve(resolution.action);
   }
 
   @override
   Widget build(BuildContext context) {
-    return
-        Listener(
-          behavior: HitTestBehavior.translucent,
-          onPointerDown: (event){
-            final input = MapPointerDown(event.localPosition);
-          }
-          ),
-          onPointerMove: (event) => _pointerEventsResolver.handle(
-            MapPointerMove(event.localPosition),
-          ),
-          onPointerUp: (event) =>
-              _pointerEventsResolver.handle(MapPointerUp(event.localPosition)),
-          child: MapCanvas(
-            painter: ,
-            panAllowed: _panAllowed,
-            mapController: _mapController,
-          ),
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) =>
+          _resolvePointerGesture(MapPointerDown(event.localPosition)),
+      onPointerMove: (event) =>
+          _resolvePointerGesture(MapPointerMove(event.localPosition)),
+      onPointerUp: (event) =>
+          _resolvePointerGesture(MapPointerUp(event.localPosition)),
+      child: widget.child,
     );
   }
 }

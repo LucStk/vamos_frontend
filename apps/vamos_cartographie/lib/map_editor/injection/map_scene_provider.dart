@@ -105,7 +105,7 @@ ProjectedPoint? projectUserLocation(Ref ref) {
   return null;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 ProjectedScene projectedScene(Ref ref, TripId tripId) {
   final sketchSegment = ref.watch(projectSketchSegmentProvider(tripId));
   final sketchPencil = ref.watch(projectSketchPencilProvider(tripId));
