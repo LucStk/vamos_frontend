@@ -2,9 +2,11 @@ import 'dart:ui';
 import 'package:latlong2/latlong.dart';
 
 // map_camera_reader.dart (nouveau, lecture seule)
-abstract class MapCameraReader {
-  Offset latLngToScreenOffset(LatLng latLng);
-  LatLng screenOffsetToLatLng(Offset point);
+abstract interface class MapCameraReader {
+  Offset projectAtZoom(LatLng position, double zoom);
+  double getZoomScale();
+  Offset latLngToScreenOffset(LatLng position);
+  LatLng screenOffsetToLatLng(Offset position);
 }
 
 abstract class MapCameraController extends MapCameraReader {

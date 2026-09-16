@@ -4,14 +4,14 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/waypoint.dart';
+import 'package:vamos_cartographie/map_editor/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map_editor/map_editor.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/user_location/user_location.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
-import 'package:flutter_map/flutter_map.dart';
 part 'map_scene_provider.g.dart';
 
-final projection = const Epsg3857().projection;
+// final projection = const Epsg3857().projection;
 
 @Riverpod(keepAlive: true)
 ProjectedScene projectedScene(Ref ref, TripId tripId) {
@@ -54,14 +54,14 @@ VertexVisualKind _visualKind(WaypointFields? waypoint) {
 @riverpod
 List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
   final vertices = ref.watch(allVertexProvider(tripId));
-
+  final cameraReader = ref.read(mapCameraReaderProvider);
   final List<ProjectedPoint> ret = [];
   for (final vertex in vertices) {
     final wId = ref.watch(waypointFromVertexProvider(tripId, vertex.id));
     final w = (wId != null) ? ref.watch(waypointProvider(tripId, wId)) : null;
     ret.add(
       ProjectedVertex(
-        projectedPosition: projection.project(vertex.latLng),
+        projectedPosition: cameraReader.projectAtZoom(vertex.latLng, 0),
         object: MapVertex(vertex.id, vertex.latLng),
         visualKind: _visualKind(w),
       ),
@@ -73,12 +73,12 @@ List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
 @riverpod
 List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
   final segments = ref.watch(allSegmentsProvider(tripId));
-
+  final cameraReader = ref.read(mapCameraReaderProvider);
   return [
     for (final segment in segments)
       ProjectedSegment(
         projectedPoints: segment.geometry
-            .map((p) => projection.project(p))
+            .map((p) => cameraReader.projectAtZoom(p, 0))
             .toList(),
         object: MapSegment(segment.id, segment.geometry),
       ),
@@ -89,10 +89,13 @@ List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
 ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
   final editorState = ref.watch(mapEditorStateProvider(tripId));
 
+  final cameraReader = ref.read(mapCameraReaderProvider);
   if (editorState case final SketchMode sketch) {
     return ProjectedSketchSegment(
       object: MapSketchSegment(sketch.path),
-      projectedPoints: sketch.path.map((p) => projection.project(p)).toList(),
+      projectedPoints: sketch.path
+          .map((p) => cameraReader.projectAtZoom(p, 0))
+          .toList(),
     );
   }
   return null;
@@ -102,12 +105,13 @@ ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
 ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
   final editorState = ref.watch(mapEditorStateProvider(tripId));
 
+  final cameraReader = ref.read(mapCameraReaderProvider);
   if (editorState case final SketchMode sketch) {
     final position = sketch.pencilPositionOrNull;
     if (position != null) {
       return ProjectedSketchPencil(
         object: MapSketchPencil(position),
-        projectedPosition: projection.project(position),
+        projectedPosition: cameraReader.projectAtZoom(position, 0),
       );
     }
   }
@@ -117,6 +121,7 @@ ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
 @riverpod
 ProjectedPoint? projectUserLocation(Ref ref) {
   final location = ref.watch(userLocationProvider);
+  final cameraReader = ref.read(mapCameraReaderProvider);
 
   if (location case final UserPositionActive activeLocation) {
     return ProjectedUserLocation(
@@ -125,7 +130,7 @@ ProjectedPoint? projectUserLocation(Ref ref) {
         accuracy: activeLocation.accuracy,
         heading: activeLocation.heading,
       ),
-      projectedPosition: projection.project(activeLocation.position),
+      projectedPosition: cameraReader.projectAtZoom(activeLocation.position, 0),
     );
   }
   return null;

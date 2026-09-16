@@ -1,10 +1,6 @@
 import 'dart:ui';
-
 import 'package:map_engine/domain/pointer_gesture_state.dart';
-import 'package:map_engine/domain/projected_scene.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:map_engine/pointer_events_resolver/pointer_gesture_action.dart';
-import 'pending_tap.dart';
 
 const double pointerTapSlopPx = 8;
 
@@ -12,17 +8,18 @@ double distanceTo(Offset p1, Offset p2) => (p1 - p2).distance;
 
 sealed class MapPointerEvent {
   final Offset offset;
-  const MapPointerEvent(this.offset);
+  final double scale;
+  const MapPointerEvent(this.offset, this.scale);
 
   PointerEventResolution resolve(PointerEventsResolverContext context);
 }
 
 class MapPointerDown extends MapPointerEvent {
-  const MapPointerDown(super.offset);
+  const MapPointerDown(super.offset, super.scale);
 
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {
-    final element = context.scene.hitTest(offset);
+    final element = context.scene.hitTest(offset, scale);
 
     return PointerEventResolution(
       state: context.state.copyWith(
@@ -34,7 +31,7 @@ class MapPointerDown extends MapPointerEvent {
 }
 
 class MapPointerMove extends MapPointerEvent {
-  const MapPointerMove(super.offset);
+  const MapPointerMove(super.offset, super.scale);
 
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {
@@ -58,7 +55,7 @@ class MapPointerMove extends MapPointerEvent {
 
       //On vérifie qu'il n'y a pas de collision
       case Dragging(:final dragged) when dragged != null:
-        final target = scene.hitTest(offset, exclude: dragged);
+        final target = scene.hitTest(offset, scale, exclude: dragged);
 
         return PointerEventResolution(
           state: PointerGestureState(
@@ -78,7 +75,7 @@ class MapPointerMove extends MapPointerEvent {
 }
 
 class MapPointerUp extends MapPointerEvent {
-  const MapPointerUp(super.offset);
+  const MapPointerUp(super.offset, super.scale);
 
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {

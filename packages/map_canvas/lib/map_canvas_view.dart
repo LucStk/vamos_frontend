@@ -5,7 +5,6 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_camera_controller.dart';
-import '/flutter_map_camera_controller.dart';
 import '/map_canvas.dart';
 
 class MapCanvas extends StatefulWidget {

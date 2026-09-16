@@ -54,6 +54,7 @@ class _MapEditorScreenState extends ConsumerState<MapEditorScreen> {
       body: Stack(
         children: [
           MapScreen(
+            mapCameraReader: ref.read(mapCameraReaderProvider),
             mapController: ref.read(mapControllerProvider),
             sceneReader: RiverpodGestureSceneReader(ref, widget.tripId),
             sceneProvider: mapSceneProvider(widget.tripId),

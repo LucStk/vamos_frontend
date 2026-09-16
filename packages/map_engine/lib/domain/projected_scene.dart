@@ -9,13 +9,13 @@ class ProjectedScene {
 
   ProjectedScene(this.objects);
 
-  MapObject? hitTest(Offset point, {MapObject? exclude}) {
+  MapObject? hitTest(Offset point, double scale, {MapObject? exclude}) {
     for (final candidate in objects) {
       if (exclude != null && exclude.isSameAs(candidate.object)) {
         continue;
       }
 
-      if (candidate.isHitAt(point)) {
+      if (candidate.isHitAt(point, scale)) {
         return candidate.object;
       }
     }

@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:map_engine/domain/domain.dart';
 import 'package:map_engine/draw_command/draw_command.dart';
-import 'package:map_engine/map_camera_controller.dart';
 import 'package:map_engine/projection/projection.dart';
 import 'package:map_engine/utiles/segment_hit_helpers.dart';
 
@@ -19,7 +18,7 @@ abstract class ProjectedObject {
 
   const ProjectedObject(this.object);
 
-  bool isHitAt(Offset point);
+  bool isHitAt(Offset point, double scale);
 
   List<MapDrawCommand> describe({
     MapPaintContext context = const MapPaintContext(),

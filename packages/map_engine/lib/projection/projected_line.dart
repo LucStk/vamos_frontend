@@ -11,12 +11,13 @@ abstract class ProjectedLine<T extends MapLine> extends ProjectedObject {
   T get line => object as T;
 
   @override
-  bool isHitAt(Offset position) {
+  bool isHitAt(Offset position, double scale) {
     if (!bounds.inflate(line.radius).contains(position)) {
       return false;
     }
 
-    return distanceToPolyline(position, projectedPoints) <= line.radius;
+    return distanceToPolyline(position, projectedPoints) <=
+        (line.radius / scale);
   }
 
   Path? get path {

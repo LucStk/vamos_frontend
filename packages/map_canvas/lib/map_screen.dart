@@ -6,6 +6,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/misc.dart';
 
 class MapScreen extends StatefulWidget {
+  final MapCameraReader mapCameraReader;
   final MapController mapController;
   final GestureActionResolver actionResolver;
   final GestureSceneReader sceneReader;
@@ -15,6 +16,7 @@ class MapScreen extends StatefulWidget {
 
   const MapScreen({
     super.key,
+    required this.mapCameraReader,
     required this.mapController,
     required this.actionResolver,
     required this.sceneReader,
@@ -42,6 +44,7 @@ class _MapScreenState extends State<MapScreen> {
       sceneReader: widget.sceneReader,
       actionResolver: widget.actionResolver,
       panAllowed: _panAllowed,
+      mapCameraReader: widget.mapCameraReader,
       child: MapCanvas(
         mapController: widget.mapController,
         panAllowed: _panAllowed,

@@ -13,7 +13,7 @@ abstract class ProjectedPoint<T extends MapPoint> extends ProjectedObject {
   }
 
   @override
-  bool isHitAt(Offset position) {
-    return distanceTo(position) <= point.radius;
+  bool isHitAt(Offset position, double scale) {
+    return distanceTo(position) <= (point.radius / scale);
   }
 }

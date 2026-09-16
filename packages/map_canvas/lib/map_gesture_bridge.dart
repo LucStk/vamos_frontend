@@ -13,9 +13,11 @@ class MapGestureBridge extends StatefulWidget {
     required this.actionResolver,
     required this.panAllowed,
     required this.child,
+    required this.mapCameraReader,
     super.key,
   });
 
+  final MapCameraReader mapCameraReader;
   final GestureSceneReader sceneReader;
   final GestureActionResolver actionResolver;
   final ValueNotifier<bool> panAllowed;
@@ -49,12 +51,24 @@ class _MapGestureBridgeState extends State<MapGestureBridge> {
   Widget build(BuildContext context) {
     return Listener(
       behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) =>
-          _resolvePointerGesture(MapPointerDown(event.localPosition)),
-      onPointerMove: (event) =>
-          _resolvePointerGesture(MapPointerMove(event.localPosition)),
-      onPointerUp: (event) =>
-          _resolvePointerGesture(MapPointerUp(event.localPosition)),
+      onPointerDown: (event) => _resolvePointerGesture(
+        MapPointerDown(
+          event.localPosition,
+          widget.mapCameraReader.getZoomScale(),
+        ),
+      ),
+      onPointerMove: (event) => _resolvePointerGesture(
+        MapPointerMove(
+          event.localPosition,
+          widget.mapCameraReader.getZoomScale(),
+        ),
+      ),
+      onPointerUp: (event) => _resolvePointerGesture(
+        MapPointerUp(
+          event.localPosition,
+          widget.mapCameraReader.getZoomScale(),
+        ),
+      ),
       child: widget.child,
     );
   }
