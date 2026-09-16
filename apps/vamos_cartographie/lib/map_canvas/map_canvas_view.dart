@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map_canvas/flutter_map_camera_controller.dart';
 import 'package:vamos_cartographie/map_canvas/injections/map_camera_provider.dart';
 import 'package:vamos_cartographie/map_canvas/layers/map_tile_layer.dart';
@@ -13,13 +14,13 @@ import 'package:vamos_cartographie/map_canvas/overlay_ui/right_control_panel.dar
 class MapCanvas extends ConsumerStatefulWidget {
   final MapController mapController;
   final ValueListenable<bool> panAllowed;
-  final CustomPainter painter;
+  final ProviderListenable<CustomPainter> painterProvider;
 
   const MapCanvas({
     super.key,
     required this.mapController,
     required this.panAllowed,
-    required this.painter,
+    required this.painterProvider,
   });
 
   @override
@@ -75,7 +76,12 @@ class _MapCanvasState extends ConsumerState<MapCanvas>
           const MapTileLayer(),
           const NetworkOverlayLayer(),
           const MapControls(),
-          CustomPaint(painter: widget.painter),
+          Consumer(
+            builder: (context, ref, _) {
+              final painter = ref.watch(widget.painterProvider);
+              return CustomPaint(painter: painter);
+            },
+          ),
         ],
       ),
     );
