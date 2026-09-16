@@ -1,8 +1,7 @@
 import 'package:map_engine/map_engine.dart';
-import 'package:map_engine/pointer_events_resolver/pointer_gesture_action.dart';
 import 'package:map_engine/utiles/polyline_dist.dart';
 import 'package:vamos_cartographie/map_editor/domain/domain.dart';
-import 'package:vamos_cartographie/map_editor/gestures_resolver/gestures_resolver.dart';
+import 'package:vamos_cartographie/map_editor/gesture_action_resolver/gestures_resolver.dart';
 
 extension PointerDownEditor on PointerDownAction {
   GestureResolution resolve(GesturesResolverContext context) {

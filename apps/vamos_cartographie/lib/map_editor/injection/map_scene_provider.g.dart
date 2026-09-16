@@ -9,6 +9,160 @@ part of 'map_scene_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(projectedScene)
+final projectedSceneProvider = ProjectedSceneFamily._();
+
+final class ProjectedSceneProvider
+    extends $FunctionalProvider<ProjectedScene, ProjectedScene, ProjectedScene>
+    with $Provider<ProjectedScene> {
+  ProjectedSceneProvider._({
+    required ProjectedSceneFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'projectedSceneProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$projectedSceneHash();
+
+  @override
+  String toString() {
+    return r'projectedSceneProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<ProjectedScene> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ProjectedScene create(Ref ref) {
+    final argument = this.argument as TripId;
+    return projectedScene(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ProjectedScene value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ProjectedScene>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ProjectedSceneProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$projectedSceneHash() => r'550f84f4ac45f198b587b8c89f4984ada73e81e2';
+
+final class ProjectedSceneFamily extends $Family
+    with $FunctionalFamilyOverride<ProjectedScene, TripId> {
+  ProjectedSceneFamily._()
+    : super(
+        retry: null,
+        name: r'projectedSceneProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  ProjectedSceneProvider call(TripId tripId) =>
+      ProjectedSceneProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'projectedSceneProvider';
+}
+
+@ProviderFor(mapScene)
+final mapSceneProvider = MapSceneFamily._();
+
+final class MapSceneProvider
+    extends $FunctionalProvider<MapScene, MapScene, MapScene>
+    with $Provider<MapScene> {
+  MapSceneProvider._({
+    required MapSceneFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'mapSceneProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$mapSceneHash();
+
+  @override
+  String toString() {
+    return r'mapSceneProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<MapScene> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  MapScene create(Ref ref) {
+    final argument = this.argument as TripId;
+    return mapScene(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MapScene value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MapScene>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MapSceneProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$mapSceneHash() => r'cda2c6991a6d996c561aa2d52ac1675a3f1e2484';
+
+final class MapSceneFamily extends $Family
+    with $FunctionalFamilyOverride<MapScene, TripId> {
+  MapSceneFamily._()
+    : super(
+        retry: null,
+        name: r'mapSceneProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  MapSceneProvider call(TripId tripId) =>
+      MapSceneProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'mapSceneProvider';
+}
+
 @ProviderFor(projectVertex)
 final projectVertexProvider = ProjectVertexFamily._();
 
@@ -392,80 +546,3 @@ final class ProjectUserLocationProvider
 
 String _$projectUserLocationHash() =>
     r'ce25698a53fc520713c9429b0c2ca1d75dc0e4be';
-
-@ProviderFor(projectedScene)
-final projectedSceneProvider = ProjectedSceneFamily._();
-
-final class ProjectedSceneProvider
-    extends $FunctionalProvider<ProjectedScene, ProjectedScene, ProjectedScene>
-    with $Provider<ProjectedScene> {
-  ProjectedSceneProvider._({
-    required ProjectedSceneFamily super.from,
-    required TripId super.argument,
-  }) : super(
-         retry: null,
-         name: r'projectedSceneProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$projectedSceneHash();
-
-  @override
-  String toString() {
-    return r'projectedSceneProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<ProjectedScene> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  ProjectedScene create(Ref ref) {
-    final argument = this.argument as TripId;
-    return projectedScene(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ProjectedScene value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ProjectedScene>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is ProjectedSceneProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$projectedSceneHash() => r'd35b74f08b12501b711073be6fcf9cae59643cbb';
-
-final class ProjectedSceneFamily extends $Family
-    with $FunctionalFamilyOverride<ProjectedScene, TripId> {
-  ProjectedSceneFamily._()
-    : super(
-        retry: null,
-        name: r'projectedSceneProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  ProjectedSceneProvider call(TripId tripId) =>
-      ProjectedSceneProvider._(argument: tripId, from: this);
-
-  @override
-  String toString() => r'projectedSceneProvider';
-}

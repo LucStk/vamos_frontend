@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_camera_controller.dart';
 import '/flutter_map_camera_controller.dart';
@@ -10,7 +11,7 @@ import '/map_canvas.dart';
 class MapCanvas extends StatefulWidget {
   final MapController mapController;
   final ValueListenable<bool> panAllowed;
-  final ValueListenable<MapScenePainter> scenePainter;
+  final ProviderListenable<MapScene> sceneProvider;
   final ValueChanged<MapCameraController>? onCameraControllerReady;
   final List<Widget> layers;
 
@@ -18,7 +19,7 @@ class MapCanvas extends StatefulWidget {
     super.key,
     required this.mapController,
     required this.panAllowed,
-    required this.scenePainter,
+    required this.sceneProvider,
     this.layers = const [],
     this.onCameraControllerReady,
   });
@@ -76,12 +77,7 @@ class _MapCanvasState extends State<MapCanvas> with TickerProviderStateMixin {
           ),
           children: [
             ...widget.layers,
-            ValueListenableBuilder<MapScenePainter>(
-              valueListenable: widget.scenePainter,
-              builder: (context, painter, _) {
-                return CustomPaint(painter: painter);
-              },
-            ),
+            MapScenePaint(sceneProvider: widget.sceneProvider),
           ],
         );
       },

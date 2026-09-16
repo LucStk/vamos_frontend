@@ -1,14 +1,42 @@
+import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/waypoint.dart';
-import 'package:vamos_cartographie/map_canvas/injections/injections.dart';
+import 'package:vamos_cartographie/map_editor/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map_editor/map_editor.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/user_location/user_location.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
 
 part 'map_scene_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+ProjectedScene projectedScene(Ref ref, TripId tripId) {
+  final sketchSegment = ref.watch(projectSketchSegmentProvider(tripId));
+  final sketchPencil = ref.watch(projectSketchPencilProvider(tripId));
+  final userLocation = ref.watch(projectUserLocationProvider);
+
+  final objects = <ProjectedObject>[
+    ...?ref.watch(projectVertexProvider(tripId)),
+    ...?ref.watch(projectSegmentProvider(tripId)),
+    if (sketchSegment case final segment?) segment,
+    if (sketchPencil case final pencil?) pencil,
+    if (userLocation case final location?) location,
+  ];
+  objects.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
+  return ProjectedScene(objects);
+}
+
+@riverpod
+MapScene mapScene(Ref ref, TripId tripId) {
+  final projectedScene = ref.watch(projectedSceneProvider(tripId));
+  final selection = ref.watch(
+    mapEditorStateProvider(tripId).select((m) => m.selection),
+  );
+  return MapScene(projectedScene: projectedScene, selection: selection);
+}
 
 VertexVisualKind _visualKind(WaypointFields? waypoint) {
   if (waypoint == null) {
@@ -103,21 +131,4 @@ ProjectedPoint? projectUserLocation(Ref ref) {
     );
   }
   return null;
-}
-
-@Riverpod(keepAlive: true)
-ProjectedScene projectedScene(Ref ref, TripId tripId) {
-  final sketchSegment = ref.watch(projectSketchSegmentProvider(tripId));
-  final sketchPencil = ref.watch(projectSketchPencilProvider(tripId));
-  final userLocation = ref.watch(projectUserLocationProvider);
-
-  final objects = <ProjectedObject>[
-    ...?ref.watch(projectVertexProvider(tripId)),
-    ...?ref.watch(projectSegmentProvider(tripId)),
-    if (sketchSegment case final segment?) segment,
-    if (sketchPencil case final pencil?) pencil,
-    if (userLocation case final location?) location,
-  ];
-  objects.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
-  return ProjectedScene(objects);
 }

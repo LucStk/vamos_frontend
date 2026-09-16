@@ -1,8 +1,8 @@
 import 'package:map_engine/map_camera_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/map_canvas/injections/injections.dart';
 import 'package:vamos_cartographie/map_editor/domain/domain.dart';
+import 'package:vamos_cartographie/map_editor/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map_editor/map_editor.dart';
 import 'package:vamos_cartographie/map_editor/transitions/map_editor_state_transitions.dart';
 
