@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:map_engine/domain/map_objects.dart';
+import 'package:map_engine/draw_command/draw_command.dart';
 import 'package:map_engine/projection/projection.dart';
 
 class ProjectedScene {
@@ -20,5 +21,14 @@ class ProjectedScene {
     }
 
     return null;
+  }
+
+  List<MapDrawCommand> describe({
+    MapPaintContext context = const MapPaintContext(),
+  }) {
+    final l = [
+      for (final object in objects) ...object.describe(context: context),
+    ];
+    return l.reversed.toList();
   }
 }
