@@ -22,8 +22,8 @@ abstract class ProjectedLine<T extends MapLine> extends ProjectedObject {
     return distanceToPolyline(position, projectedPoints) <= line.radius;
   }
 
-  void paintPath(Canvas canvas, Paint paint) {
-    if (projectedPoints.length < 2) return;
+  Path? get path {
+    if (projectedPoints.length < 2) return null;
 
     final path = Path()
       ..moveTo(projectedPoints.first.dx, projectedPoints.first.dy);
@@ -31,7 +31,6 @@ abstract class ProjectedLine<T extends MapLine> extends ProjectedObject {
     for (final point in projectedPoints.skip(1)) {
       path.lineTo(point.dx, point.dy);
     }
-
-    canvas.drawPath(path, paint);
+    return path;
   }
 }

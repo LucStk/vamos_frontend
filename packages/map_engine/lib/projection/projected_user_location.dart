@@ -4,13 +4,14 @@ final class ProjectedUserLocation extends ProjectedPoint<MapUserLocation> {
   ProjectedUserLocation({required super.object, required super.camera});
 
   @override
-  void paint(
-    Canvas canvas, {
+  List<MapDrawCommand> describe({
     MapPaintContext context = const MapPaintContext(),
   }) {
     // final accuracyPaint = Paint()..style = PaintingStyle.fill;
     // canvas.drawCircle(projectedPosition, point.accuracy, accuracyPaint);
     final positionPaint = Paint()..style = PaintingStyle.fill;
-    canvas.drawCircle(projectedPosition, 8, positionPaint);
+    return [
+      DrawCircle(center: projectedPosition, radius: 8, paint: positionPaint),
+    ];
   }
 }

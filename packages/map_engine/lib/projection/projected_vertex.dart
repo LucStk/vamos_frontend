@@ -11,41 +11,22 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
   final VertexVisualKind visualKind;
 
   @override
-  void paint(
-    Canvas canvas, {
+  List<MapDrawCommand> describe({
     MapPaintContext context = const MapPaintContext(),
   }) {
-    // 1. Déterminer le facteur d'échelle selon la sélection
     final isSelected = context.state == MapObjectVisualState.selected;
-    final scale = isSelected
-        ? 1.5
-        : 1.0; // Augmente la taille de 50% si sélectionné
 
-    canvas.save();
-
-    // 2. Translater vers la position puis appliquer le scale
-    canvas.translate(projectedPosition.dx, projectedPosition.dy);
-    canvas.scale(scale);
-
-    // 3. Dessiner le point unique au centre (0,0)
-    final paint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = isSelected
-          ? const Color(0xFF2196F3)
-          : const Color(0xFF219903); // Optionnel : changer la couleur
-
-    canvas.drawCircle(Offset.zero, 8, paint);
-
-    // 4. Si sélectionné, ajouter une bordure de sélection (Optionnel)
-    if (isSelected) {
-      final selectionPaint = Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = const Color(0xFFAA1238);
-
-      canvas.drawCircle(Offset.zero, 8, selectionPaint);
-    }
-
-    canvas.restore();
+    return <MapDrawCommand>[
+      DrawCircle(
+        center: projectedPosition,
+        radius: 8,
+        transform: DrawTransform(scale: isSelected ? 1.5 : 1.0),
+        paint: Paint()
+          ..style = PaintingStyle.fill
+          ..color = isSelected
+              ? const Color(0xFF2196F3)
+              : const Color(0xFF219903),
+      ),
+    ];
   }
 }

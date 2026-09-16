@@ -4,12 +4,11 @@ final class ProjectedSketchPencil extends ProjectedPoint<MapSketchPencil> {
   ProjectedSketchPencil({required super.object, required super.camera});
 
   @override
-  void paint(
-    Canvas canvas, {
+  List<MapDrawCommand> describe({
     MapPaintContext context = const MapPaintContext(),
   }) {
     final paint = Paint()..style = PaintingStyle.fill;
 
-    canvas.drawCircle(projectedPosition, 8, paint);
+    return [DrawCircle(center: projectedPosition, radius: 8, paint: paint)];
   }
 }
