@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/trip/presentation/dialogs/trip_viewer_dialog.dart';
 import 'package:vamos_cartographie/trip/presentation/trip_card/trip_card_content.dart';
 import 'package:vamos_cartographie/trip/presentation/trip_card/trip_card_icon.dart';
+import 'package:vamos_cartographie/trip_map/trip_map.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class TripCardView extends ConsumerWidget {
@@ -24,7 +25,7 @@ class TripCardView extends ConsumerWidget {
   void _explore(BuildContext context) async {
     await Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (_) => MapScreen(tripId: tripId)));
+    ).push(MaterialPageRoute(builder: (_) => TripMapScreen(tripId: tripId)));
   }
 
   @override

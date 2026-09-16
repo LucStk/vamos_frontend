@@ -1,10 +1,10 @@
 import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/utiles/polyline_dist.dart';
 import 'package:vamos_cartographie/trip_map/domain/domain.dart';
-import 'package:vamos_cartographie/trip_map/gesture_action_resolver/gestures_resolver.dart';
+import 'gestures_resolver.dart';
 
 extension PointerDownEditor on PointerDownAction {
-  GestureResolution resolve(GesturesResolverContext context) {
+  GestureResolution resolve(GestureResolutionContext context) {
     final latLng = context.camera.screenOffsetToLatLng(offset);
     switch ((context.editorState, element)) {
       case (SketchCreation m, MapSketchSegment _):

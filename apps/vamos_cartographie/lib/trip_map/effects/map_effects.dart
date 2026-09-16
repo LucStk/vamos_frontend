@@ -2,6 +2,7 @@
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:flutter/painting.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_canvas/domain/gesture_resolver_type.dart';
 import 'package:map_engine/domain/domain.dart';
 import 'package:map_engine/map_camera_controller.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';
@@ -25,7 +26,7 @@ class MapEffectContext {
   final MapCameraController camera;
 }
 
-sealed class MapEffect {
-  const MapEffect();
-  Future<TripMapState?> resolver(MapEffectContext context);
+sealed class MapEffectImpl implements MapEffect {
+  const MapEffectImpl();
+  Future<TripMapState?> resolve(MapEffectContext context);
 }

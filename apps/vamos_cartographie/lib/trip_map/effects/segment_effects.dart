@@ -1,6 +1,6 @@
 part of 'map_effects.dart';
 
-class CreateSegmentFromSketchEffect extends MapEffect {
+class CreateSegmentFromSketchEffect extends MapEffectImpl {
   const CreateSegmentFromSketchEffect({
     required this.startVertexId,
     required this.geometry,
@@ -14,7 +14,7 @@ class CreateSegmentFromSketchEffect extends MapEffect {
   final MobilityType mobilityType;
 
   @override
-  Future<TripMapState?> resolver(MapEffectContext context) async {
+  Future<TripMapState?> resolve(MapEffectContext context) async {
     final res = await context.graphEditor.createSegment(
       startVertexId: startVertexId,
       endVertexId: endVertexId,
@@ -30,7 +30,7 @@ class CreateSegmentFromSketchEffect extends MapEffect {
   }
 }
 
-class SpliceSegmentEffect extends MapEffect {
+class SpliceSegmentEffect extends MapEffectImpl {
   const SpliceSegmentEffect({
     required this.correction,
     required this.segmentId,
@@ -44,7 +44,7 @@ class SpliceSegmentEffect extends MapEffect {
   final SpliceAnchor endAnchor;
 
   @override
-  Future<TripMapState?> resolver(MapEffectContext context) async {
+  Future<TripMapState?> resolve(MapEffectContext context) async {
     final segment = context.graphEditor.state.segmentStore
         .get(segmentId)
         ?.current;
@@ -68,13 +68,13 @@ class SpliceSegmentEffect extends MapEffect {
   }
 }
 
-class EditSegmentFromSketchEffect extends MapEffect {
+class EditSegmentFromSketchEffect extends MapEffectImpl {
   const EditSegmentFromSketchEffect({required this.patch});
 
   final SegmentPatchModel patch;
 
   @override
-  Future<TripMapState?> resolver(MapEffectContext context) async {
+  Future<TripMapState?> resolve(MapEffectContext context) async {
     final res = await context.graphEditor.updateSegment(patch);
 
     return res.fold((_) => null, (_) {
@@ -87,14 +87,14 @@ class EditSegmentFromSketchEffect extends MapEffect {
   }
 }
 
-class ChangeSegmentTypeEffect extends MapEffect {
+class ChangeSegmentTypeEffect extends MapEffectImpl {
   const ChangeSegmentTypeEffect({required this.segmentId, required this.type});
 
   final SegmentId segmentId;
   final MobilityType type;
 
   @override
-  Future<TripMapState?> resolver(MapEffectContext context) async {
+  Future<TripMapState?> resolve(MapEffectContext context) async {
     final segment = context.graphEditor.state.segmentStore
         .get(segmentId)
         ?.current;
@@ -113,7 +113,7 @@ class ChangeSegmentTypeEffect extends MapEffect {
   }
 }
 
-class CorrectSegmentFromSketchEffect extends MapEffect {
+class CorrectSegmentFromSketchEffect extends MapEffectImpl {
   const CorrectSegmentFromSketchEffect({
     required this.segmentId,
     required this.correction,
@@ -123,7 +123,7 @@ class CorrectSegmentFromSketchEffect extends MapEffect {
   final List<LatLng> correction;
 
   @override
-  Future<TripMapState?> resolver(MapEffectContext context) async {
+  Future<TripMapState?> resolve(MapEffectContext context) async {
     final segment = context.graphEditor.state.segmentStore
         .get(segmentId)
         ?.current;
@@ -150,13 +150,13 @@ class CorrectSegmentFromSketchEffect extends MapEffect {
   }
 }
 
-class DeleteSegmentEffect extends MapEffect {
+class DeleteSegmentEffect extends MapEffectImpl {
   const DeleteSegmentEffect({required this.segmentId});
 
   final SegmentId segmentId;
 
   @override
-  Future<TripMapState?> resolver(MapEffectContext context) async {
+  Future<TripMapState?> resolve(MapEffectContext context) async {
     final res = await context.graphEditor.deleteSegment(segmentId);
 
     return res.fold((_) => null, (_) => context.mapState.withSelection(null));

@@ -5,5 +5,5 @@ abstract class MapEffect {
 }
 
 abstract interface class GestureActionResolver {
-  List<MapEffect> resolve(PointerGestureAction? action);
+  void resolve(PointerGestureAction? action);
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:map_canvas/domain/gesture_resolver_type.dart';
 import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
-import 'gesture_resolver_type.dart';
 
 abstract interface class GestureSceneReader {
   ProjectedScene get scene;

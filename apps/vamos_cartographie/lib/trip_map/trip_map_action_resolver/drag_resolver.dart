@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
 import 'gestures_resolver.dart';
 
 extension PointerDragStartEditor on DragStartAction {
-  GestureResolution resolve(GesturesResolverContext context) {
+  GestureResolution resolve(GestureResolutionContext context) {
     switch (context.editorState) {
       case SketchMode s when s.selection is MapSketchPencil:
         return GestureResolution(editorState: s.copyWith(selection: null));
@@ -17,7 +17,7 @@ extension PointerDragStartEditor on DragStartAction {
 }
 
 extension PointerDragUpdateEditor on DragUpdateAction {
-  GestureResolution resolve(GesturesResolverContext context) {
+  GestureResolution resolve(GestureResolutionContext context) {
     final latLng = context.camera.screenOffsetToLatLng(offset);
 
     switch ((context.editorState, dragged, target)) {
@@ -33,7 +33,7 @@ extension PointerDragUpdateEditor on DragUpdateAction {
 }
 
 extension PointerDragEndEditor on DragEndAction {
-  GestureResolution resolve(GesturesResolverContext context) {
+  GestureResolution resolve(GestureResolutionContext context) {
     switch ((context.editorState, dragged, target)) {
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         return GestureResolution(
