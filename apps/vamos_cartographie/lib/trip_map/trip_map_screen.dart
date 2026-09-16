@@ -7,7 +7,9 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/trip_map/injection/map_camera_provider.dart';
+import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
+import 'package:vamos_cartographie/trip_map/trip_map_action_resolver/gestures_resolver.dart';
 import 'package:vamos_cartographie/trip_map/trip_map_action_resolver/trip_map_action_resolver.dart';
 
 class RiverpodGestureSceneReader implements GestureSceneReader {
@@ -55,7 +57,15 @@ class _TripMapScreenState extends ConsumerState<TripMapScreen> {
       body: Stack(
         children: [
           MapScreen(
-            actionResolver: TripMapGestureActionResolver(),
+            actionResolver: TripMapGestureActionResolver(
+              context: GestureResolutionContext(
+                camera: ref.read(mapCameraReaderProvider),
+                mapTransitions: ref.read(mapEditorStateTransitionsProvider),
+              ),
+              onResolution: (GestureResolution e) {
+                e.effects;
+              },
+            ),
             mapCameraReader: ref.read(mapCameraReaderProvider),
             mapController: ref.read(mapControllerProvider),
             sceneReader: RiverpodGestureSceneReader(ref, widget.tripId),
