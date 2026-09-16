@@ -1,29 +1,33 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:map_engine/map_camera_controller.dart';
 import 'package:vamos_cartographie/map_canvas/gesture_resolver_type.dart';
-import 'package:vamos_cartographie/map_canvas/injections/map_camera_provider.dart';
 import 'package:vamos_cartographie/map_canvas/map_canvas_view.dart';
 import 'package:vamos_cartographie/map_canvas/map_gesture_bridge.dart';
 
-class MapScreen extends ConsumerStatefulWidget {
+import 'package:flutter_map/flutter_map.dart';
+
+class MapScreen extends StatefulWidget {
+  final MapController mapController;
   final GestureActionResolver actionResolver;
   final GestureSceneReader sceneReader;
-  final ProviderListenable<CustomPainter> painterProvider;
+  final Widget child;
+  final ValueChanged<MapCameraController>? onCameraControllerReady;
 
   const MapScreen({
     super.key,
+    required this.mapController,
     required this.actionResolver,
     required this.sceneReader,
-    required this.painterProvider,
+    required this.child,
+    this.onCameraControllerReady,
   });
 
   @override
-  ConsumerState<MapScreen> createState() => _MapEditorScreenState();
+  State<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapEditorScreenState extends ConsumerState<MapScreen> {
+class _MapScreenState extends State<MapScreen> {
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
   @override
@@ -39,9 +43,10 @@ class _MapEditorScreenState extends ConsumerState<MapScreen> {
       actionResolver: widget.actionResolver,
       panAllowed: _panAllowed,
       child: MapCanvas(
-        mapController: ref.read(mapControllerProvider),
+        mapController: widget.mapController,
         panAllowed: _panAllowed,
-        painterProvider: widget.painterProvider,
+        onCameraControllerReady: widget.onCameraControllerReady,
+        child: widget.child,
       ),
     );
   }
