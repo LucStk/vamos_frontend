@@ -61,7 +61,7 @@ final class TripMapStateTransitionsNotifierProvider
 }
 
 String _$tripMapStateTransitionsNotifierHash() =>
-    r'9a5ae425a406d2659b8dad487c7217b1c5938910';
+    r'dd428b0ef9025212fbb74b3c583a92fa132107bb';
 
 final class TripMapStateTransitionsNotifierFamily extends $Family
     with

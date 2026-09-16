@@ -143,7 +143,7 @@ final class MapSceneProvider
   }
 }
 
-String _$mapSceneHash() => r'cda2c6991a6d996c561aa2d52ac1675a3f1e2484';
+String _$mapSceneHash() => r'ef9582845dc120f84b5b66d9ba6e7c9568b08f43';
 
 final class MapSceneFamily extends $Family
     with $FunctionalFamilyOverride<MapScene, TripId> {
@@ -395,7 +395,7 @@ final class ProjectSketchSegmentProvider
 }
 
 String _$projectSketchSegmentHash() =>
-    r'3dd839c0d75999c58fe0a85f5472a52d799e7a76';
+    r'81e334510d93f89343c058709958db781e7a1ece';
 
 final class ProjectSketchSegmentFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedLine<MapLine>?, TripId> {
@@ -479,7 +479,7 @@ final class ProjectSketchPencilProvider
 }
 
 String _$projectSketchPencilHash() =>
-    r'f3abd5194c4589543dfc8fa96485c42a00dc9fa9';
+    r'087a637ea0b8c1cfc446ac1ce90c19e969028132';
 
 final class ProjectSketchPencilFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedPoint<MapPoint>?, TripId> {
