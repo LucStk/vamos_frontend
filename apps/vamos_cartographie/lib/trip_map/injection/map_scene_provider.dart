@@ -34,7 +34,7 @@ ProjectedScene projectedScene(Ref ref, TripId tripId) {
 MapScene mapScene(Ref ref, TripId tripId) {
   final projectedScene = ref.watch(projectedSceneProvider(tripId));
   final selection = ref.watch(
-    mapEditorStateProvider(tripId).select((m) => m.selection),
+    tripMapStateProvider(tripId).select((m) => m.selection),
   );
   return MapScene(projectedScene: projectedScene, selection: selection);
 }
@@ -87,7 +87,7 @@ List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
 
 @riverpod
 ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
-  final editorState = ref.watch(mapEditorStateProvider(tripId));
+  final editorState = ref.watch(tripMapStateProvider(tripId));
 
   final cameraReader = ref.read(mapCameraReaderProvider);
   if (editorState case final SketchMode sketch) {
@@ -103,7 +103,7 @@ ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
 
 @riverpod
 ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
-  final editorState = ref.watch(mapEditorStateProvider(tripId));
+  final editorState = ref.watch(tripMapStateProvider(tripId));
 
   final cameraReader = ref.read(mapCameraReaderProvider);
   if (editorState case final SketchMode sketch) {

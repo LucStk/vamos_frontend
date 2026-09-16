@@ -6,7 +6,7 @@ import 'package:map_canvas/map_screen.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:map_canvas/map_canvas.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_camera_provider.dart';
+import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 import 'package:vamos_cartographie/trip_map/trip_map_action_resolver/gestures_resolver.dart';
@@ -59,8 +59,11 @@ class _TripMapScreenState extends ConsumerState<TripMapScreen> {
           MapScreen(
             actionResolver: TripMapGestureActionResolver(
               context: GestureResolutionContext(
+                editorState: ref.read(tripMapStateProvider(widget.tripId)),
                 camera: ref.read(mapCameraReaderProvider),
-                mapTransitions: ref.read(mapEditorStateTransitionsProvider),
+                mapTransitions: ref.read(
+                  tripMapStateTransitionsProvider(widget.tripId).notifier,
+                ),
               ),
               onResolution: (GestureResolution e) {
                 e.effects;

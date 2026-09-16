@@ -3,40 +3,51 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
-import 'package:vamos_cartographie/trip_map/domain/domain.dart';
+import 'package:vamos_cartographie/map/injection/injection.dart';
+import 'package:vamos_cartographie/trip_map/effects/map_effect_resolver.dart';
 import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 import 'package:vamos_cartographie/topology/injection/providers/providers.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
-// Généré automatiquement par riverpod_generator
-// part 'map_effects.g.dart';
+part 'map_effects.g.dart';
 
-// @Riverpod(keepAlive: true)
-// class MapEffectsNotifier extends _$MapEffectsNotifier implements MapEffects {
-//   @override
-//   void build(TripId tripId) {
-//     _tripId = tripId;
-//   }
+@riverpod
+MapEffectContext? mapEffectContext(Ref ref, TripId tripId) {
+  final MapCameraController? cameraController = ref.read(
+    mapCameraControllerOrNullProvider,
+  );
+  if (cameraController == null) return null;
 
-//   late final TripId _tripId;
+  final GraphEditor graphEditor = ref.read(graphStoreProvider(tripId).notifier);
+  final WaypointEditor waypointEditor = ref.read(
+    waypointStoreProvider(tripId).notifier,
+  );
 
-//   @override
-//   WaypointEditor get waypointEditor =>
-//       ref.read(waypointStoreProvider(_tripId).notifier);
+  final TripMapState mapState = ref.read(tripMapStateProvider(tripId));
+  return MapEffectContext(
+    graphEditor: graphEditor,
+    mapState: mapState,
+    camera: cameraController,
+    waypointEditor: waypointEditor,
+  );
+}
 
-//   @override
-//   GraphEditor get graphEditor => ref.read(graphStoreProvider(_tripId).notifier);
+@Riverpod(keepAlive: true)
+class MapEffectResolverNotifier extends _$MapEffectResolverNotifier {
+  @override
+  void build(TripId tripId) {
+    _tripId = tripId;
+  }
 
-//   @override
-//   MapCameraController? get cameraController =>
-//       ref.read(mapCameraControllerOrNullProvider);
+  late final TripId _tripId;
 
-//   @override
-//   TripMapState get mapState => ref.read(mapEditorStateProvider(_tripId));
-
-//   @override
-//   set mapState(TripMapState value) {
-//     ref.read(mapEditorStateProvider(_tripId).notifier).state = value;
-//   }
-// }
+  void resolve(MapEffectImpl effect) async {
+    final context = ref.read(mapEffectContextProvider(_tripId));
+    if (context == null) return null;
+    final tripMapState = await MapEffectResolver.resolve(effect, context);
+    if (tripMapState != null) {
+      ref.read(tripMapStateProvider(_tripId).notifier).emit(tripMapState);
+    }
+  }
+}

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/confirm_button.dart';
-import 'package:vamos_cartographie/trip_map/trip_map.dart';
 import 'package:vamos_cartographie/map/overlay_ui/simple_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/trip_map/injection/trip_map_state.dart';
 
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
 class CursorBottomSheet extends ConsumerWidget {
@@ -15,7 +15,7 @@ class CursorBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(mapEditorStateProvider(tripId).notifier);
+    final notifier = ref.watch(tripMapStateProvider(tripId).notifier);
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey(

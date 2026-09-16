@@ -6,6 +6,7 @@ import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
+import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 
 class VertexBottomSheet extends ConsumerWidget {
@@ -20,7 +21,7 @@ class VertexBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(mapEffectsProvider(tripId).notifier);
+    final notifier = ref.watch(mapEffectResolverProvider(tripId).notifier);
 
     return SimpleBottomSheetShell(
       content: Column(
@@ -49,7 +50,9 @@ class VertexBottomSheet extends ConsumerWidget {
               const SizedBox(width: 8),
 
               // 3. Supprimer le vertex
-              DeleteButton(onPressed: () => notifier.deleteSelectedVertex()),
+              DeleteButton(
+                onPressed: () => notifier.resolve(DeleteSelectedVertexEffect()),
+              ),
             ],
           ),
         ],

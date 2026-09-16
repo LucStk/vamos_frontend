@@ -209,7 +209,7 @@ return edition(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);c
 
 class SketchCreation extends SketchMode {
   const SketchCreation({required this.vertexStart, required final  List<LatLng> path, required this.mobilityType, this.touchedVertex, this.selection}): _path = path,super._();
-
+  
 
  final  VertexId vertexStart;
  final  List<LatLng> _path;
@@ -289,7 +289,7 @@ as MapObject?,
 
 class SketchEdition extends SketchMode {
   const SketchEdition({required this.segmentId, required final  List<LatLng> path, this.touchedVertex, this.selection}): _path = path,super._();
-
+  
 
  final  SegmentId segmentId;
  final  List<LatLng> _path;

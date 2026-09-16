@@ -2,9 +2,7 @@ import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 
 class MapEffectResolver {
-  const MapEffectResolver();
-
-  Future<TripMapState?> resolve(
+  static Future<TripMapState?> resolve(
     MapEffectImpl effect,
     MapEffectContext context,
   ) {
@@ -13,7 +11,7 @@ class MapEffectResolver {
       CreateSegmentFromSketchEffect e => e.resolve(context),
       SpliceSegmentEffect e => e.resolve(context),
       EditSegmentFromSketchEffect e => e.resolve(context),
-      ChangeSegmentTypeEffect e => e.resolve(context),
+      ChangeSegmentSelectedTypeEffect e => e.resolve(context),
       CorrectSegmentFromSketchEffect e => e.resolve(context),
       DeleteSegmentEffect e => e.resolve(context),
       CreateSimpleVertexEffect e => e.resolve(context),

@@ -10,7 +10,7 @@ part of 'trip_map_state.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(TripMapStateNotifier)
-final mapEditorStateProvider = TripMapStateNotifierFamily._();
+final tripMapStateProvider = TripMapStateNotifierFamily._();
 
 final class TripMapStateNotifierProvider
     extends $NotifierProvider<TripMapStateNotifier, TripMapState> {
@@ -19,18 +19,18 @@ final class TripMapStateNotifierProvider
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'mapEditorStateProvider',
+         name: r'tripMapStateProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$mapEditorStateNotifierHash();
+  String debugGetCreateSourceHash() => _$tripMapStateNotifierHash();
 
   @override
   String toString() {
-    return r'mapEditorStateProvider'
+    return r'tripMapStateProvider'
         ''
         '($argument)';
   }
@@ -58,8 +58,8 @@ final class TripMapStateNotifierProvider
   }
 }
 
-String _$mapEditorStateNotifierHash() =>
-    r'109ec436d7ee12770b22af84a7a87b8371ac15e7';
+String _$tripMapStateNotifierHash() =>
+    r'bab244b423341b1d400a773db3f0eebce8b93fc7';
 
 final class TripMapStateNotifierFamily extends $Family
     with
@@ -73,7 +73,7 @@ final class TripMapStateNotifierFamily extends $Family
   TripMapStateNotifierFamily._()
     : super(
         retry: null,
-        name: r'mapEditorStateProvider',
+        name: r'tripMapStateProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
@@ -83,7 +83,7 @@ final class TripMapStateNotifierFamily extends $Family
       TripMapStateNotifierProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'mapEditorStateProvider';
+  String toString() => r'tripMapStateProvider';
 }
 
 abstract class _$TripMapStateNotifier extends $Notifier<TripMapState> {

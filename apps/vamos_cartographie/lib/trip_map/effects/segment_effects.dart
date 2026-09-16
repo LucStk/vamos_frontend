@@ -87,29 +87,29 @@ class EditSegmentFromSketchEffect extends MapEffectImpl {
   }
 }
 
-class ChangeSegmentTypeEffect extends MapEffectImpl {
-  const ChangeSegmentTypeEffect({required this.segmentId, required this.type});
+class ChangeSegmentSelectedTypeEffect extends MapEffectImpl {
+  const ChangeSegmentSelectedTypeEffect({required this.type});
 
-  final SegmentId segmentId;
   final MobilityType type;
 
   @override
   Future<TripMapState?> resolve(MapEffectContext context) async {
-    final segment = context.graphEditor.state.segmentStore
-        .get(segmentId)
-        ?.current;
+    if (context.mapState.selection case MapSegment(:final id)) {
+      final segment = context.graphEditor.state.segmentStore.get(id)?.current;
 
-    if (segment == null) {
-      return null;
+      if (segment == null) {
+        return null;
+      }
+
+      final patch = SegmentPatchModel.fromFields(
+        segment,
+      ).copyWith(mobilityType: type);
+
+      final res = await context.graphEditor.updateSegment(patch);
+
+      return res.fold((_) => null, (_) => null);
     }
-
-    final patch = SegmentPatchModel.fromFields(
-      segment,
-    ).copyWith(mobilityType: type);
-
-    final res = await context.graphEditor.updateSegment(patch);
-
-    return res.fold((_) => null, (_) => null);
+    return null;
   }
 }
 

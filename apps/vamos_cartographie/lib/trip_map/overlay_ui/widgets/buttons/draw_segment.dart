@@ -12,7 +12,7 @@ class DrawSegment extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mapTransitions = ref.watch(
-      mapEditorStateTransitionsProvider(tripId).notifier,
+      tripMapStateTransitionsProvider(tripId).notifier,
     );
     return OutlinedButton.icon(
       onPressed: () => mapTransitions.activateSketchMode(),

@@ -10,7 +10,7 @@ part of 'map_transitions.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(TripMapStateTransitionsNotifier)
-final mapEditorStateTransitionsProvider =
+final tripMapStateTransitionsProvider =
     TripMapStateTransitionsNotifierFamily._();
 
 final class TripMapStateTransitionsNotifierProvider
@@ -20,19 +20,18 @@ final class TripMapStateTransitionsNotifierProvider
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'mapEditorStateTransitionsProvider',
+         name: r'tripMapStateTransitionsProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() =>
-      _$mapEditorStateTransitionsNotifierHash();
+  String debugGetCreateSourceHash() => _$tripMapStateTransitionsNotifierHash();
 
   @override
   String toString() {
-    return r'mapEditorStateTransitionsProvider'
+    return r'tripMapStateTransitionsProvider'
         ''
         '($argument)';
   }
@@ -61,8 +60,8 @@ final class TripMapStateTransitionsNotifierProvider
   }
 }
 
-String _$mapEditorStateTransitionsNotifierHash() =>
-    r'eecadb3535c69df57ca643552c469239bd9a3834';
+String _$tripMapStateTransitionsNotifierHash() =>
+    r'9a5ae425a406d2659b8dad487c7217b1c5938910';
 
 final class TripMapStateTransitionsNotifierFamily extends $Family
     with
@@ -76,7 +75,7 @@ final class TripMapStateTransitionsNotifierFamily extends $Family
   TripMapStateTransitionsNotifierFamily._()
     : super(
         retry: null,
-        name: r'mapEditorStateTransitionsProvider',
+        name: r'tripMapStateTransitionsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
@@ -86,7 +85,7 @@ final class TripMapStateTransitionsNotifierFamily extends $Family
       TripMapStateTransitionsNotifierProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'mapEditorStateTransitionsProvider';
+  String toString() => r'tripMapStateTransitionsProvider';
 }
 
 abstract class _$TripMapStateTransitionsNotifier extends $Notifier<void> {
