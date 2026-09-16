@@ -5,7 +5,7 @@ enum VertexVisualKind { normal, start, end }
 final class ProjectedVertex extends ProjectedPoint<MapVertex> {
   ProjectedVertex({
     required super.object,
-    required super.camera,
+    required super.projectedPosition,
     this.visualKind = VertexVisualKind.normal,
   });
   final VertexVisualKind visualKind;

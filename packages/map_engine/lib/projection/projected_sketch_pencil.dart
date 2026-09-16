@@ -1,7 +1,10 @@
 part of 'projected_object.dart';
 
 final class ProjectedSketchPencil extends ProjectedPoint<MapSketchPencil> {
-  ProjectedSketchPencil({required super.object, required super.camera});
+  ProjectedSketchPencil({
+    required super.object,
+    required super.projectedPosition,
+  });
 
   @override
   List<MapDrawCommand> describe({

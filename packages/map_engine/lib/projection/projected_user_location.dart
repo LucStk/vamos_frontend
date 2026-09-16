@@ -1,7 +1,10 @@
 part of 'projected_object.dart';
 
 final class ProjectedUserLocation extends ProjectedPoint<MapUserLocation> {
-  ProjectedUserLocation({required super.object, required super.camera});
+  ProjectedUserLocation({
+    required super.object,
+    required super.projectedPosition,
+  });
 
   @override
   List<MapDrawCommand> describe({

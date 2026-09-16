@@ -11,7 +11,7 @@ import 'package:vamos_cartographie/topology/injection/providers/providers.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
 // Généré automatiquement par riverpod_generator
-part 'map_effects.g.dart';
+// part 'map_effects.g.dart';
 
 // @Riverpod(keepAlive: true)
 // class MapEffectsNotifier extends _$MapEffectsNotifier implements MapEffects {

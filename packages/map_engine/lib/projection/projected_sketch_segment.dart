@@ -1,7 +1,10 @@
 part of 'projected_object.dart';
 
 final class ProjectedSketchSegment extends ProjectedLine<MapSketchSegment> {
-  ProjectedSketchSegment({required super.object, required super.camera});
+  ProjectedSketchSegment({
+    required super.object,
+    required super.projectedPoints,
+  });
 
   @override
   List<MapDrawCommand> describe({

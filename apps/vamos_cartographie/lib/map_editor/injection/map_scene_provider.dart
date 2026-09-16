@@ -4,13 +4,14 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/waypoint.dart';
-import 'package:vamos_cartographie/map_editor/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map_editor/map_editor.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/user_location/user_location.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
-
+import 'package:flutter_map/flutter_map.dart';
 part 'map_scene_provider.g.dart';
+
+final projection = const Epsg3857().projection;
 
 @Riverpod(keepAlive: true)
 ProjectedScene projectedScene(Ref ref, TripId tripId) {
@@ -52,7 +53,6 @@ VertexVisualKind _visualKind(WaypointFields? waypoint) {
 
 @riverpod
 List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraReaderProvider);
   final vertices = ref.watch(allVertexProvider(tripId));
 
   final List<ProjectedPoint> ret = [];
@@ -61,8 +61,8 @@ List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
     final w = (wId != null) ? ref.watch(waypointProvider(tripId, wId)) : null;
     ret.add(
       ProjectedVertex(
+        projectedPosition: projection.project(vertex.latLng),
         object: MapVertex(vertex.id, vertex.latLng),
-        camera: camera,
         visualKind: _visualKind(w),
       ),
     );
@@ -72,27 +72,27 @@ List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
 
 @riverpod
 List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraReaderProvider);
   final segments = ref.watch(allSegmentsProvider(tripId));
 
   return [
     for (final segment in segments)
       ProjectedSegment(
+        projectedPoints: segment.geometry
+            .map((p) => projection.project(p))
+            .toList(),
         object: MapSegment(segment.id, segment.geometry),
-        camera: camera,
       ),
   ];
 }
 
 @riverpod
 ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraReaderProvider);
   final editorState = ref.watch(mapEditorStateProvider(tripId));
 
   if (editorState case final SketchMode sketch) {
     return ProjectedSketchSegment(
       object: MapSketchSegment(sketch.path),
-      camera: camera,
+      projectedPoints: sketch.path.map((p) => projection.project(p)).toList(),
     );
   }
   return null;
@@ -100,7 +100,6 @@ ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
 
 @riverpod
 ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
-  final camera = ref.watch(mapCameraReaderProvider);
   final editorState = ref.watch(mapEditorStateProvider(tripId));
 
   if (editorState case final SketchMode sketch) {
@@ -108,7 +107,7 @@ ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
     if (position != null) {
       return ProjectedSketchPencil(
         object: MapSketchPencil(position),
-        camera: camera,
+        projectedPosition: projection.project(position),
       );
     }
   }
@@ -117,7 +116,6 @@ ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
 
 @riverpod
 ProjectedPoint? projectUserLocation(Ref ref) {
-  final camera = ref.watch(mapCameraReaderProvider);
   final location = ref.watch(userLocationProvider);
 
   if (location case final UserPositionActive activeLocation) {
@@ -127,7 +125,7 @@ ProjectedPoint? projectUserLocation(Ref ref) {
         accuracy: activeLocation.accuracy,
         heading: activeLocation.heading,
       ),
-      camera: camera,
+      projectedPosition: projection.project(activeLocation.position),
     );
   }
   return null;

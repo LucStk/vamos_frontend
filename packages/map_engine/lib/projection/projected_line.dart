@@ -4,11 +4,8 @@ abstract class ProjectedLine<T extends MapLine> extends ProjectedObject {
   final List<Offset> projectedPoints;
   final Rect bounds;
 
-  ProjectedLine({required T object, required MapCameraReader camera})
-    : projectedPoints = object.geometry
-          .map(camera.latLngToScreenOffset)
-          .toList(),
-      bounds = computeBounds(object.geometry.map(camera.latLngToScreenOffset)),
+  ProjectedLine({required T object, required this.projectedPoints})
+    : bounds = computeBounds(projectedPoints),
       super(object);
 
   T get line => object as T;
