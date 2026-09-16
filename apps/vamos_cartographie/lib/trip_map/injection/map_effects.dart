@@ -5,7 +5,6 @@ import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
 import 'package:vamos_cartographie/trip_map/domain/domain.dart';
 import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 import 'package:vamos_cartographie/topology/injection/providers/providers.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';

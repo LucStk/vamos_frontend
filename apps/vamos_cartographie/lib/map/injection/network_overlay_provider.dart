@@ -1,6 +1,6 @@
 // lib/injection/network_overlay_provider.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/trip_map/layers/layers.dart';
+import 'package:vamos_cartographie/map/layers/network_overlay_type.dart';
 
 part 'network_overlay_provider.g.dart';
 

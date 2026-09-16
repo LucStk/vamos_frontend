@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
+import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
-import 'package:vamos_cartographie/trip_map/overlay_ui/bottom_sheet/simple_bottom_sheet_shell.dart';
 
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;

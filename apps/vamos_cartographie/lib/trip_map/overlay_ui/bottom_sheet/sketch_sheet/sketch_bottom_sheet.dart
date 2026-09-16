@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
-import 'package:vamos_cartographie/trip_map/overlay_ui/bottom_sheet/simple_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/map.dart';
 import 'package:vamos_cartographie/trip_map/transitions/sketch_transitions.dart';
 import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
 

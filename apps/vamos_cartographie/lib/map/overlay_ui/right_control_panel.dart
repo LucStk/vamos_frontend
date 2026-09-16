@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_camera_provider.dart';
-import 'package:vamos_cartographie/trip_map/injection/network_overlay_provider.dart';
-import 'package:vamos_cartographie/trip_map/layers/layers.dart';
-import 'package:vamos_cartographie/trip_map/overlay_ui/user_location_icons.dart';
-import 'package:vamos_cartographie/trip_map/overlay_ui/widgets/buttons/map_control_button_shell.dart';
+import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
+import 'package:vamos_cartographie/map/injection/network_overlay_provider.dart';
+import 'package:vamos_cartographie/map/layers/network_overlay_type.dart';
+import 'package:vamos_cartographie/map/overlay_ui/user_location_icons.dart';
+import 'package:vamos_cartographie/map/overlay_ui/widgets/map_control_button_shell.dart';
 import 'package:vamos_cartographie/user_location/user_location_provider.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.

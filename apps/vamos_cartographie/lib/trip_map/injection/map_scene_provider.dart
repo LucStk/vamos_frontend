@@ -4,7 +4,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/waypoint.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_camera_provider.dart';
+import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/user_location/user_location.dart';

@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/trip_map/domain/domain.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
-import 'bottom_sheet/bottom_sheet.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
 
 class MapBottomSheet extends ConsumerWidget {

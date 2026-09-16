@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart'; // Remplacé cupertino par material pour SizedBox et ListView standard
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/trip_map/overlay_ui/bottom_sheet/draggable_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/map.dart';
 import '/waypoint/waypoint.dart';
 import "waypoint_compact_content.dart";
 import "waypoint_viewer_content.dart";
