@@ -7,6 +7,7 @@ environment:
 workspace:
   - apps/vamos_cartographie
   - packages/domain_core
+  - packages/map_canvas
   - packages/map_engine
   - packages/stored_file_application
   - packages/trip_application

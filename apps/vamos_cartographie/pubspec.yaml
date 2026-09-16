@@ -18,6 +18,8 @@ dependencies:
     sdk: flutter
   stored_file_application:
     path: ../../packages/stored_file_application
+  map_canvas:
+    path: ../../packages/map_canvas
   map_engine:
     path: ../../packages/map_engine
   domain_core:

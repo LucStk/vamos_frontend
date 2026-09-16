@@ -4,22 +4,22 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_camera_controller.dart';
-import 'package:vamos_cartographie/map_canvas/flutter_map_camera_controller.dart';
-import 'package:vamos_cartographie/map_canvas/layers/map_tile_layer.dart';
-import 'package:vamos_cartographie/map_canvas/layers/network_overlay_layer.dart';
-import 'package:vamos_cartographie/map_canvas/overlay_ui/right_control_panel.dart';
+import '/flutter_map_camera_controller.dart';
+import '/map_canvas.dart';
 
 class MapCanvas extends StatefulWidget {
   final MapController mapController;
   final ValueListenable<bool> panAllowed;
-  final Widget child;
+  final ValueListenable<MapScenePainter> scenePainter;
   final ValueChanged<MapCameraController>? onCameraControllerReady;
+  final List<Widget> layers;
 
   const MapCanvas({
     super.key,
     required this.mapController,
     required this.panAllowed,
-    required this.child,
+    required this.scenePainter,
+    this.layers = const [],
     this.onCameraControllerReady,
   });
 
@@ -75,10 +75,13 @@ class _MapCanvasState extends State<MapCanvas> with TickerProviderStateMixin {
             ),
           ),
           children: [
-            const MapTileLayer(),
-            const NetworkOverlayLayer(),
-            const MapControls(),
-            widget.child,
+            ...widget.layers,
+            ValueListenableBuilder<MapScenePainter>(
+              valueListenable: widget.scenePainter,
+              builder: (context, painter, _) {
+                return CustomPaint(painter: painter);
+              },
+            ),
           ],
         );
       },

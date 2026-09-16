@@ -1,9 +1,8 @@
 // features/map/presentation/screens/map_page.dart
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_camera_controller.dart';
-import 'package:vamos_cartographie/map_canvas/gesture_resolver_type.dart';
-import 'package:vamos_cartographie/map_canvas/map_canvas_view.dart';
-import 'package:vamos_cartographie/map_canvas/map_gesture_bridge.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 
@@ -11,7 +10,8 @@ class MapScreen extends StatefulWidget {
   final MapController mapController;
   final GestureActionResolver actionResolver;
   final GestureSceneReader sceneReader;
-  final Widget child;
+  final ValueListenable<MapScenePainter> scenePainter;
+  final List<Widget> layers;
   final ValueChanged<MapCameraController>? onCameraControllerReady;
 
   const MapScreen({
@@ -19,7 +19,8 @@ class MapScreen extends StatefulWidget {
     required this.mapController,
     required this.actionResolver,
     required this.sceneReader,
-    required this.child,
+    required this.scenePainter,
+    this.layers = const [],
     this.onCameraControllerReady,
   });
 
@@ -46,7 +47,8 @@ class _MapScreenState extends State<MapScreen> {
         mapController: widget.mapController,
         panAllowed: _panAllowed,
         onCameraControllerReady: widget.onCameraControllerReady,
-        child: widget.child,
+        scenePainter: widget.scenePainter,
+        layers: widget.layers,
       ),
     );
   }

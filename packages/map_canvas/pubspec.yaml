@@ -1,0 +1,30 @@
+name: map_canvas
+description: "Map Canvas for vamos cartography"
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.4
+
+resolution: workspace
+
+dependencies:
+  latlong2: ^0.9.1
+  dartz: ^0.10.1
+  freezed_annotation: ^3.1.0
+  domain_core:
+    path: ../domain_core
+  trip_application:
+    path: ../trip_application
+  map_engine:
+    path:  ../map_engine
+  uuid: ^4.5.3
+  flutter:
+    sdk: flutter
+  flutter_map: ^8.3.2
+  flutter_map_animations: ^0.10.0
+
+dev_dependencies:
+  build_runner: ^2.15.0
+  freezed: ^3.2.5
