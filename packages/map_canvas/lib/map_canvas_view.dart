@@ -10,7 +10,6 @@ class MapCanvas extends StatelessWidget {
   final MapController mapController;
   final ValueListenable<bool> panAllowed;
   final ProviderListenable<MapScene> sceneProvider;
-  final ValueChanged<MapCameraController>? onCameraControllerReady;
   final List<Widget> layers;
 
   const MapCanvas({
@@ -19,7 +18,6 @@ class MapCanvas extends StatelessWidget {
     required this.panAllowed,
     required this.sceneProvider,
     this.layers = const [],
-    this.onCameraControllerReady,
   });
 
   @override
@@ -42,7 +40,6 @@ class MapCanvas extends StatelessWidget {
           ),
           children: [
             ...layers,
-            // TestLayer(),
             MapScenePaint(sceneProvider: sceneProvider),
           ],
         );

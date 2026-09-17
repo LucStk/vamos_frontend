@@ -1,20 +1,20 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_engine/domain/map_objects.dart';
+import 'package:map_engine/visual/visual.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
-part 'trip_map_state.freezed.dart';
+part 'map_editor_mode.freezed.dart';
 
 // 2. Définition de l'Union MapMode
-sealed class TripMapState {
-  const TripMapState();
+sealed class MapEditorMode {
+  const MapEditorMode();
   MapObject? get selection;
 
-  TripMapState withSelection(MapObject? selection);
+  MapEditorMode withSelection(MapObject? selection);
 }
 
-final class Idle extends TripMapState {
+final class Idle extends MapEditorMode {
   const Idle({this.selection});
   @override
   final MapObject? selection;
@@ -24,7 +24,7 @@ final class Idle extends TripMapState {
 }
 
 @freezed
-sealed class SketchMode extends TripMapState with _$SketchMode {
+sealed class SketchMode extends MapEditorMode with _$SketchMode {
   const SketchMode._();
 
   const factory SketchMode.creation({

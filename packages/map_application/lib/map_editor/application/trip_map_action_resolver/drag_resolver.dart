@@ -1,7 +1,5 @@
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/trip_map/domain/domain.dart';
-import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
 import 'gestures_resolver.dart';
 
 extension PointerDragStartEditor on DragStartAction {

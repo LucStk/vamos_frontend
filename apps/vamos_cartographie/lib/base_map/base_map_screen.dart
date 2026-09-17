@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/map_screen.dart';
-import 'package:map_engine/domain/domain.dart';
+import 'package:map_engine/visual/domain/map_scene.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/base_map/injection/map_camera_provider.dart';
@@ -67,7 +67,7 @@ class _BaseMapState extends ConsumerState<BaseMap>
       body: Stack(
         children: [
           MapScreen(
-            actionResolver: widget.actionResolver,
+            onGesture: widget.actionResolver,
             mapCameraReader: ref.read(mapCameraReaderProvider),
             mapController: ref.read(mapControllerProvider),
             sceneReader: widget.sceneReader,

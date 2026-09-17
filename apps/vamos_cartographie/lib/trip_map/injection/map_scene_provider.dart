@@ -1,4 +1,3 @@
-import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

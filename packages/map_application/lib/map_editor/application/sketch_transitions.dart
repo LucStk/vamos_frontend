@@ -1,9 +1,8 @@
-import 'package:map_engine/domain/domain.dart';
+import 'package:map_application/map_application.dart';
+import 'package:map_engine/visual/domain/map_objects.dart';
 import 'package:trip_application/topology/topology.dart';
-import 'package:vamos_cartographie/trip_map/domain/domain.dart';
-import 'package:vamos_cartographie/trip_map/transitions/trip_map_state_transitions.dart';
 
-extension SketchTransitions on TripMapStateTransitions {
+extension SketchTransitions on MapEditorController {
   void activateSketchMode() {
     if (mapState.selection case MapVertex(:final id, :final position)) {
       mapState = SketchCreation(

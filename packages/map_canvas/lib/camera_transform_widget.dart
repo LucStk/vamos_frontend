@@ -4,6 +4,7 @@ import 'package:map_canvas/services/camera_to_matrix4.dart';
 
 class CameraTransform extends StatelessWidget {
   const CameraTransform({super.key, required this.camera, required this.child});
+  // Permet de déplacer le canvas en restant sync avec la camera
 
   final MapCamera camera;
   final Widget child;

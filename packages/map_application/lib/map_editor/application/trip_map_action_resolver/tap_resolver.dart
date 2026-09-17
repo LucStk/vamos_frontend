@@ -1,12 +1,11 @@
-import 'package:vamos_cartographie/trip_map/domain/domain.dart';
-import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
+import 'package:map_application/map_application.dart';
 
 import 'gestures_resolver.dart';
 import 'package:map_engine/map_engine.dart';
 
-extension TapEditor on TapAction {
-  GestureResolution resolve(GestureResolutionContext context) {
-    switch ((context.editorState, element)) {
+extension TapEditor on MapEditorController {
+  GestureResolution resolve(MapObject? element) {
+    switch ((mapState, element)) {
       case (Idle _, MapObject e) when e is TopologyObject:
         return GestureResolution(editorState: Idle(selection: e));
 
@@ -17,7 +16,7 @@ extension TapEditor on TapAction {
         return GestureResolution(editorState: Idle());
 
       case _:
-        return GestureResolution(editorState: context.editorState);
+        return GestureResolution(editorState: mapState);
     }
   }
 }

@@ -177,7 +177,7 @@ final class MapCameraControllerHolderProvider
 }
 
 String _$mapCameraControllerHolderHash() =>
-    r'b6859b39d4663f4d2caff406a1e30544055ed40d';
+    r'68a321702617dfdcc35fc5f49a52e4a3cfb2fbab';
 
 abstract class _$MapCameraControllerHolder
     extends $Notifier<MapCameraController?> {

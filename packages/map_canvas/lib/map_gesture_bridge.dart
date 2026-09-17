@@ -1,6 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:map_engine/controller/application/map_gesture_handler.dart';
-import 'package:map_engine/controller/application/pointer_gesture_resolver.dart';
 import 'package:map_engine/map_engine.dart';
 
 class MapGestureBridge extends StatefulWidget {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:map_engine/controller/application/map_gesture_handler.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/misc.dart';
 
@@ -58,7 +57,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
       child: MapCanvas(
         mapController: widget.mapController,
         panAllowed: _panAllowed,
-        onCameraControllerReady: widget.onCameraControllerReady,
         sceneProvider: widget.sceneProvider,
         layers: widget.layers,
       ),
