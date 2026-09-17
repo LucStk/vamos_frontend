@@ -1,67 +1,47 @@
-import 'package:flutter/foundation.dart';
-import 'package:map_canvas/pending_tap_timer.dart';
-import 'package:map_engine/controller/application/application.dart';
+import 'package:map_engine/controller/application/pending_tap_timer.dart';
+import 'package:map_engine/controller/application/pointer_gesture_resolver.dart';
 import 'package:map_engine/controller/domain/domain.dart';
-import 'package:map_engine/visual/domain/map_scene.dart';
+import 'package:map_engine/visual/domain/offset_type.dart';
 
 class MapGestureHandler {
-  MapGestureHandler({
-    required this.gestureResolver,
-    required this.actionResolver,
-    required this.sceneReader,
-    required this.panAllowed,
-  });
+  MapGestureHandler({required HitTest hitTest, required this.onGesture})
+    : gestureResolver = PointerGestureResolver(hitTest: hitTest) {
+    _pendingTapTimer = PendingTapTimer(onTimeout: _onTapTimeout);
+  }
 
   final PointerGestureResolver gestureResolver;
-  final GestureActionHandler actionResolver;
-  final GestureSceneReader sceneReader;
-  final ValueNotifier<bool> panAllowed;
 
-  PointerGestureState currentState = const PointerGestureState(
-    gesture: EmptyState(),
-  );
+  /// Point de sortie unique, que le geste vienne d'un event pointeur
+  /// synchrone ou de l'expiration du timer de double-tap.
+  final void Function(MapGesture gesture) onGesture;
 
-  late final PendingTapTimer _pendingTapTimer = PendingTapTimer(
-    onTimeout: _resolvePendingTap,
-  );
+  late final PendingTapTimer _pendingTapTimer;
 
-  void handle(MapPointerEvent event) {
-    final element = sceneReader.scene.hitTest(event.offset, event.scale);
+  void resolve(PointerEventType event, WorldOffset offset) {
+    final gesture = gestureResolver.resolve(event, offset);
 
-    final resolution = gestureResolver.resolve(
-      event,
-      element: element,
-      state: currentState,
-    );
-
-    currentState = resolution.state;
-
-    _pendingTapTimer.update(currentState.pendingTap);
-
-    final gesture = resolution.gesture;
-    if (gesture == null) {
-      return;
+    if (gesture != null) {
+      onGesture(gesture);
     }
 
-    final action = actionResolver.resolve(
-      gesture,
-      MapGestureActionContext(scene: sceneReader.scene),
-    );
-
-    if (action != null) {
-      actionResolver.emit(action);
+    // Après CHAQUE event, on resynchronise le timer sur l'état réel
+    // du resolver — plutôt que d'essayer de deviner depuis `gesture`.
+    final state = gestureResolver.state;
+    if (state is PendingTap) {
+      _pendingTapTimer.update(state);
+    } else {
+      _pendingTapTimer.cancel();
     }
   }
 
-  void _resolvePendingTap() {
-    final pendingTap = currentState.pendingTap;
-    if (pendingTap == null) {
-      return;
-    }
-
-    handle(
-      MapPointerTapTimeout(offset: pendingTap.point, scale: pendingTap.scale),
+  void _onTapTimeout(PendingTap pending) {
+    final gesture = gestureResolver.resolve(
+      PointerEventType.tapTimeout,
+      pending.offset,
     );
+    if (gesture != null) {
+      onGesture(gesture);
+    }
   }
 
   void dispose() {

@@ -9,7 +9,7 @@ class PendingTapTimer {
   });
 
   final Duration timeout;
-  final void Function() onTimeout;
+  final void Function(PendingTap pendingTap) onTimeout;
 
   Timer? _timer;
   PendingTap? _pendingTap;
@@ -28,9 +28,10 @@ class PendingTapTimer {
 
     _timer?.cancel();
     _timer = Timer(timeout, () {
+      final tap = _pendingTap;
       _timer = null;
       _pendingTap = null;
-      onTimeout();
+      if (tap != null) onTimeout(tap);
     });
   }
 
