@@ -228,7 +228,7 @@ final class ProjectVertexProvider
   }
 }
 
-String _$projectVertexHash() => r'8b953d40a383cb99555f2d72104e5e2030116a43';
+String _$projectVertexHash() => r'cd1b70f1919423843fcdbb201188710322f62148';
 
 final class ProjectVertexFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
@@ -311,7 +311,7 @@ final class ProjectSegmentProvider
   }
 }
 
-String _$projectSegmentHash() => r'646a9f094afaad588fe141865003f1805984c3e1';
+String _$projectSegmentHash() => r'33dcfccbb3f314fce6e08ccb3e15d1d27d73ba82';
 
 final class ProjectSegmentFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {
@@ -395,7 +395,7 @@ final class ProjectSketchSegmentProvider
 }
 
 String _$projectSketchSegmentHash() =>
-    r'81e334510d93f89343c058709958db781e7a1ece';
+    r'3dcf452108e59f01fc3ec3afcdce29297d6a29e6';
 
 final class ProjectSketchSegmentFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedLine<MapLine>?, TripId> {
@@ -479,7 +479,7 @@ final class ProjectSketchPencilProvider
 }
 
 String _$projectSketchPencilHash() =>
-    r'087a637ea0b8c1cfc446ac1ce90c19e969028132';
+    r'342f393a410340ea0f84ce80cddffec09eb49801';
 
 final class ProjectSketchPencilFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedPoint<MapPoint>?, TripId> {
@@ -545,4 +545,4 @@ final class ProjectUserLocationProvider
 }
 
 String _$projectUserLocationHash() =>
-    r'd40407a65bc545d3e5b3b3328ddcbb1918449050';
+    r'c2a6754fe7556bfaa43487feec19aac998458fcb';

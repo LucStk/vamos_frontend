@@ -155,7 +155,7 @@ final class MapCameraControllerHolderProvider
         argument: null,
         retry: null,
         name: r'mapCameraControllerHolderProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -177,7 +177,7 @@ final class MapCameraControllerHolderProvider
 }
 
 String _$mapCameraControllerHolderHash() =>
-    r'd897b57e32b94c38e22753d0c4a3e76ee8d58477';
+    r'b6859b39d4663f4d2caff406a1e30544055ed40d';
 
 abstract class _$MapCameraControllerHolder
     extends $Notifier<MapCameraController?> {

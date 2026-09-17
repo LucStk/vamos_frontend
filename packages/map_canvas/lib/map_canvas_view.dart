@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_engine.dart';
 import '/map_canvas.dart';
 
-class MapCanvas extends StatefulWidget {
+class MapCanvas extends StatelessWidget {
   final MapController mapController;
   final ValueListenable<bool> panAllowed;
   final ProviderListenable<MapScene> sceneProvider;
@@ -24,45 +23,12 @@ class MapCanvas extends StatefulWidget {
   });
 
   @override
-  State<MapCanvas> createState() => _MapCanvasState();
-}
-
-class _MapCanvasState extends State<MapCanvas> with TickerProviderStateMixin {
-  late final AnimatedMapController _animatedMapController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _animatedMapController = AnimatedMapController(
-      vsync: this,
-      mapController: widget.mapController,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOutCubic,
-    );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-
-      widget.onCameraControllerReady?.call(
-        FlutterMapCameraController(_animatedMapController),
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    _animatedMapController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: widget.panAllowed,
+      valueListenable: panAllowed,
       builder: (context, panAllowed, _) {
         return FlutterMap(
-          mapController: widget.mapController,
+          mapController: mapController,
           options: MapOptions(
             initialCenter: const LatLng(46.8, 2.2),
             initialZoom: 7,
@@ -75,9 +41,9 @@ class _MapCanvasState extends State<MapCanvas> with TickerProviderStateMixin {
             ),
           ),
           children: [
-            ...widget.layers,
+            ...layers,
             // TestLayer(),
-            MapScenePaint(sceneProvider: widget.sceneProvider),
+            MapScenePaint(sceneProvider: sceneProvider),
           ],
         );
       },

@@ -37,12 +37,15 @@ class MapCameraChanges extends _$MapCameraChanges {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class MapCameraControllerHolder extends _$MapCameraControllerHolder {
   @override
   MapCameraController? build() => null;
 
   void set(MapCameraController controller) => state = controller;
+  void clear() {
+    state = null;
+  }
 }
 
 // Le provider dérivé reste utilisable tel quel par le reste du code,

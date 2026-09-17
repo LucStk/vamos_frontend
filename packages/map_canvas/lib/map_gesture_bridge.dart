@@ -105,12 +105,12 @@ class _MapGestureBridgeState extends State<MapGestureBridge> {
       onPointerDown: (event) {
         final screenOffset = ScreenOffset(event.localPosition);
         final worldOffset = widget.mapCameraReader.screenToWorld(screenOffset);
-        final reconstruction = widget.mapCameraReader.worldToScreen(
-          worldOffset,
-        );
-        print(
-          "screenOffset ${screenOffset.value} reconstruction ${reconstruction.value}",
-        );
+        // final reconstruction = widget.mapCameraReader.worldToScreen(
+        //   worldOffset,
+        // );
+        // print(
+        //   "screenOffset ${screenOffset.value} reconstruction ${reconstruction.value}",
+        // );
         _resolvePointerGesture(
           MapPointerDown(worldOffset, widget.mapCameraReader.getZoomScale()),
         );
