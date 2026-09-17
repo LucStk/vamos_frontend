@@ -1,4 +1,4 @@
-import 'package:map_engine/map_camera_controller.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/trip/trip.dart';

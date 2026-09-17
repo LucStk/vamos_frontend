@@ -1,6 +1,6 @@
 import 'package:flutter_map/flutter_map.dart';
 import 'package:map_canvas/map_canvas.dart';
-import 'package:map_engine/map_camera_controller.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'map_camera_provider.g.dart';

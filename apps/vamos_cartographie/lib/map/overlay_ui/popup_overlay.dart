@@ -18,8 +18,8 @@ class PopUpOverlay extends ConsumerWidget {
     }
 
     return Positioned(
-      left: point.projectedPosition.dx,
-      top: point.projectedPosition.dy,
+      left: point.worldPosition.dx,
+      top: point.worldPosition.dy,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -1.5),
         child: _PencilPopup(

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:map_engine/domain/domain.dart';
 
 sealed class PointerGestureAction {
@@ -10,21 +8,21 @@ class PointerDownAction extends PointerGestureAction {
   const PointerDownAction({required this.element, required this.offset});
 
   final MapObject? element;
-  final Offset offset;
+  final WorldOffset offset;
 }
 
 class TapAction extends PointerGestureAction {
   const TapAction({required this.element, required this.offset});
 
   final MapObject? element;
-  final Offset offset;
+  final WorldOffset offset;
 }
 
 class DoubleTapAction extends PointerGestureAction {
   const DoubleTapAction({required this.element, required this.offset});
 
   final MapObject? element;
-  final Offset offset;
+  final WorldOffset offset;
 }
 
 class DragStartAction extends PointerGestureAction {
@@ -42,7 +40,7 @@ class DragUpdateAction extends PointerGestureAction {
 
   final MapObject dragged;
   final MapObject? target;
-  final Offset offset;
+  final WorldOffset offset;
 }
 
 class DragEndAction extends PointerGestureAction {
@@ -54,5 +52,5 @@ class DragEndAction extends PointerGestureAction {
 
   final MapObject? dragged;
   final MapObject? target;
-  final Offset offset;
+  final WorldOffset offset;
 }

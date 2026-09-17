@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:map_engine/map_engine.dart';
+
 abstract class MapDrawCommand {
   const MapDrawCommand();
 }
@@ -15,12 +17,13 @@ final class DrawTransformData {
     this.scale = 1.0,
     this.translation = Offset.zero,
     this.rotation = 0.0,
-    this.origin = Offset.zero,
+    this.origin = const WorldOffset(Offset.zero), // <--- Ajouter 'const' ici
   });
+
   final double scale;
   final Offset translation;
   final double rotation;
-  final Offset origin;
+  final WorldOffset origin;
 }
 
 final class DrawCircle extends MapDrawCommand {
@@ -29,7 +32,7 @@ final class DrawCircle extends MapDrawCommand {
     required this.radius,
     required this.paint,
   });
-  final Offset center;
+  final WorldOffset center;
   final double radius;
   final Paint paint;
 }

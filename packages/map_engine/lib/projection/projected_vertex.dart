@@ -5,7 +5,7 @@ enum VertexVisualKind { normal, start, end }
 final class ProjectedVertex extends ProjectedPoint<MapVertex> {
   ProjectedVertex({
     required super.object,
-    required super.projectedPosition,
+    required super.worldPosition,
     this.visualKind = VertexVisualKind.normal,
   });
   final VertexVisualKind visualKind;
@@ -25,13 +25,13 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
       DrawTransform(
         transform: DrawTransformData(
           scale: isSelected ? 1.5 : 1.0,
-          origin: projectedPosition,
+          origin: worldPosition,
         ),
         commands: [
-          DrawCircle(center: projectedPosition, radius: 0.03, paint: paint),
+          DrawCircle(center: worldPosition, radius: 0.03, paint: paint),
           if (isSelected)
             DrawCircle(
-              center: projectedPosition,
+              center: worldPosition,
               radius: 0.03,
               paint: selectionPaint,
             ),

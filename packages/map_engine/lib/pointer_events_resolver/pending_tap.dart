@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:map_engine/map_engine.dart';
 
 class PendingTap {
@@ -10,12 +8,12 @@ class PendingTap {
   });
 
   final MapObject? element;
-  final Offset point;
+  final WorldOffset point;
 
   final double doubleTapMaxDistancePx;
 
-  bool compare(MapObject? otherElement, Offset otherPoint) {
-    if ((point - otherPoint).distance > doubleTapMaxDistancePx) {
+  bool compare(MapObject? otherElement, WorldOffset otherPoint) {
+    if ((point.value - otherPoint.value).distance > doubleTapMaxDistancePx) {
       return false;
     }
 

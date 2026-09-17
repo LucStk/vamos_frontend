@@ -1,7 +1,7 @@
 part of 'projected_object.dart';
 
 final class ProjectedSegment extends ProjectedLine<MapSegment> {
-  ProjectedSegment({required super.object, required super.projectedPoints});
+  ProjectedSegment({required super.object, required super.worldPoints});
 
   @override
   List<MapDrawCommand> describe({

@@ -1,21 +1,21 @@
-import 'dart:ui';
-
-import 'package:map_engine/domain/map_objects.dart';
-import 'package:map_engine/draw_command/draw_command.dart';
-import 'package:map_engine/projection/projection.dart';
+import 'package:map_engine/map_engine.dart';
 
 class ProjectedScene {
   final List<ProjectedObject> objects;
 
   ProjectedScene(this.objects);
 
-  MapObject? hitTest(Offset point, double scale, {MapObject? exclude}) {
+  MapObject? hitTest(
+    WorldOffset screenPosition,
+    double scale, {
+    MapObject? exclude,
+  }) {
     for (final candidate in objects) {
       if (exclude != null && exclude.isSameAs(candidate.object)) {
         continue;
       }
 
-      if (candidate.isHitAt(point, scale)) {
+      if (candidate.isHitAt(screenPosition, scale)) {
         return candidate.object;
       }
     }

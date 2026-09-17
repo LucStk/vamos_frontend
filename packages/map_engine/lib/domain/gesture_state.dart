@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:map_engine/domain/map_objects.dart';
+import 'package:map_engine/map_engine.dart';
 
 sealed class GestureState {
   const GestureState();
@@ -14,7 +12,7 @@ class Pressed extends GestureState {
   const Pressed({required this.element, required this.pressPoint});
 
   final MapObject? element;
-  final Offset pressPoint;
+  final WorldOffset pressPoint;
 }
 
 class Dragging extends GestureState {

@@ -61,7 +61,8 @@ List<ProjectedPoint> projectVertex(Ref ref, TripId tripId) {
     final w = (wId != null) ? ref.watch(waypointProvider(tripId, wId)) : null;
     ret.add(
       ProjectedVertex(
-        projectedPosition: cameraReader.projectAtZoom(vertex.latLng, 0),
+        worldPosition: cameraReader.latLngToWorldOffset(vertex.latLng),
+
         object: MapVertex(vertex.id, vertex.latLng),
         visualKind: _visualKind(w),
       ),
@@ -77,8 +78,8 @@ List<ProjectedLine> projectSegment(Ref ref, TripId tripId) {
   return [
     for (final segment in segments)
       ProjectedSegment(
-        projectedPoints: segment.geometry
-            .map((p) => cameraReader.projectAtZoom(p, 0))
+        worldPoints: segment.geometry
+            .map((p) => cameraReader.latLngToWorldOffset(p))
             .toList(),
         object: MapSegment(segment.id, segment.geometry),
       ),
@@ -93,8 +94,8 @@ ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
   if (editorState case final SketchMode sketch) {
     return ProjectedSketchSegment(
       object: MapSketchSegment(sketch.path),
-      projectedPoints: sketch.path
-          .map((p) => cameraReader.projectAtZoom(p, 0))
+      worldPoints: sketch.path
+          .map((p) => cameraReader.latLngToWorldOffset(p))
           .toList(),
     );
   }
@@ -111,7 +112,7 @@ ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
     if (position != null) {
       return ProjectedSketchPencil(
         object: MapSketchPencil(position),
-        projectedPosition: cameraReader.projectAtZoom(position, 0),
+        worldPosition: cameraReader.latLngToWorldOffset(position),
       );
     }
   }
@@ -130,7 +131,7 @@ ProjectedPoint? projectUserLocation(Ref ref) {
         accuracy: activeLocation.accuracy,
         heading: activeLocation.heading,
       ),
-      projectedPosition: cameraReader.projectAtZoom(activeLocation.position, 0),
+      worldPosition: cameraReader.latLngToWorldOffset(activeLocation.position),
     );
   }
   return null;

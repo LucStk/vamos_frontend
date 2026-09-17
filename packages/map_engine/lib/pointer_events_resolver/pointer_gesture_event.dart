@@ -7,7 +7,7 @@ const double pointerTapSlopPx = 8;
 double distanceTo(Offset p1, Offset p2) => (p1 - p2).distance;
 
 sealed class MapPointerEvent {
-  final Offset offset;
+  final WorldOffset offset;
   final double scale;
   const MapPointerEvent(this.offset, this.scale);
 
@@ -20,6 +20,7 @@ class MapPointerDown extends MapPointerEvent {
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {
     final element = context.scene.hitTest(offset, scale);
+    print("mapPointerdown $element");
 
     return PointerEventResolution(
       state: context.state.copyWith(
@@ -43,7 +44,7 @@ class MapPointerMove extends MapPointerEvent {
       //On valide automatiquement si element n'est pas draggable
       case Pressed(:final element, :final pressPoint)
           when (element != null && !element.isDraggable) ||
-              (distanceTo(pressPoint, offset) < pointerTapSlopPx):
+              (distanceTo(pressPoint.value, offset.value) < pointerTapSlopPx):
         return PointerEventResolution(state: context.state);
 
       //begin drag si possible (element.isDraggable ou element == null)
@@ -116,7 +117,7 @@ class MapPointerUp extends MapPointerEvent {
 
 PointerEventResolution _resolveTap({
   required MapObject? element,
-  required Offset offset,
+  required WorldOffset offset,
   required PendingTap? pendingTap,
 }) {
   // Élément sans double-tap : tap immédiat.

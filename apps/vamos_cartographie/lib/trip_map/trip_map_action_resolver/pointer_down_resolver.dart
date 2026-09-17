@@ -5,7 +5,7 @@ import 'gestures_resolver.dart';
 
 extension PointerDownEditor on PointerDownAction {
   GestureResolution resolve(GestureResolutionContext context) {
-    final latLng = context.camera.screenOffsetToLatLng(offset);
+    final latLng = context.camera.worldOffsetToLatLng(offset);
     switch ((context.editorState, element)) {
       case (SketchCreation m, MapSketchSegment _):
         final grab = closestPointOnPolyline(latLng, m.path);

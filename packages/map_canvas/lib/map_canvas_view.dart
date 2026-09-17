@@ -4,8 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_canvas/map_test_painter.dart';
-import 'package:map_engine/map_camera_controller.dart';
+import 'package:map_engine/map_engine.dart';
 import '/map_canvas.dart';
 
 class MapCanvas extends StatefulWidget {

@@ -27,7 +27,7 @@ final class MapDrawCommandPainter {
   }
 
   static void _paintCircle(Canvas canvas, DrawCircle command) {
-    canvas.drawCircle(command.center, command.radius, command.paint);
+    canvas.drawCircle(command.center.value, command.radius, command.paint);
   }
 
   static void _paintPath(Canvas canvas, DrawPath command) {

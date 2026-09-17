@@ -30,6 +30,7 @@ class GestureResolution {
     PointerGestureAction? action,
     GestureResolutionContext context,
   ) {
+    // print("action $action");
     return switch (action) {
       PointerDownAction action => action.resolve(context),
       TapAction action => action.resolve(context),

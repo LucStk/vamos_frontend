@@ -1,10 +1,7 @@
 part of 'projected_object.dart';
 
 final class ProjectedUserLocation extends ProjectedPoint<MapUserLocation> {
-  ProjectedUserLocation({
-    required super.object,
-    required super.projectedPosition,
-  });
+  ProjectedUserLocation({required super.object, required super.worldPosition});
 
   @override
   List<MapDrawCommand> describe({
@@ -13,8 +10,6 @@ final class ProjectedUserLocation extends ProjectedPoint<MapUserLocation> {
     // final accuracyPaint = Paint()..style = PaintingStyle.fill;
     // canvas.drawCircle(projectedPosition, point.accuracy, accuracyPaint);
     final positionPaint = Paint()..style = PaintingStyle.fill;
-    return [
-      DrawCircle(center: projectedPosition, radius: 8, paint: positionPaint),
-    ];
+    return [DrawCircle(center: worldPosition, radius: 8, paint: positionPaint)];
   }
 }

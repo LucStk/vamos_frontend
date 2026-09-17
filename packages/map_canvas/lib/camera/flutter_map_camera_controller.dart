@@ -1,16 +1,18 @@
 // map_camera_controller.dart
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 
-class FlutterMapCameraController implements MapCameraController {
+class FlutterMapCameraController extends FlutterMapCameraReader
+    implements MapCameraController {
   final AnimatedMapController animatedController;
 
-  FlutterMapCameraController(this.animatedController);
+  FlutterMapCameraController(this.animatedController)
+    : super(animatedController.mapController); // <-- Ajout du 'super' ici
 
   MapCamera get _camera => animatedController.mapController.camera;
 
@@ -44,22 +46,7 @@ class FlutterMapCameraController implements MapCameraController {
       animatedController.mapController.mapEventStream.map((_) {});
 
   @override
-  Offset projectAtZoom(LatLng position, double zoom) {
-    return _camera.projectAtZoom(position, zoom);
-  }
-
-  @override
   double getZoomScale() {
     return _camera.getZoomScale(_camera.zoom, 0);
-  }
-
-  @override
-  Offset latLngToScreenOffset(LatLng position) {
-    return _camera.getOffsetFromOrigin(position);
-  }
-
-  @override
-  LatLng screenOffsetToLatLng(Offset offset) {
-    return _camera.offsetToCrs(offset);
   }
 }

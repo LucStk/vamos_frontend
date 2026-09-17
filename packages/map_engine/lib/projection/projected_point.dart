@@ -1,19 +1,20 @@
 part of 'projected_object.dart';
 
 abstract class ProjectedPoint<T extends MapPoint> extends ProjectedObject {
-  final Offset projectedPosition;
+  final WorldOffset worldPosition;
 
-  ProjectedPoint({required T object, required this.projectedPosition})
+  ProjectedPoint({required T object, required this.worldPosition})
     : super(object);
 
   T get point => object as T;
 
-  double distanceTo(Offset position) {
-    return (position - projectedPosition).distance;
+  double distanceTo(WorldOffset position) {
+    return (position.value - worldPosition.value).distance;
   }
 
   @override
-  bool isHitAt(Offset position, double scale) {
+  bool isHitAt(WorldOffset position, double scale) {
+    print("test hit $position");
     return distanceTo(position) <= (point.radius / scale);
   }
 }

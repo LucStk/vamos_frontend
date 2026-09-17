@@ -18,7 +18,7 @@ abstract class ProjectedObject {
 
   const ProjectedObject(this.object);
 
-  bool isHitAt(Offset point, double scale);
+  bool isHitAt(WorldOffset point, double scale);
 
   List<MapDrawCommand> describe({
     MapPaintContext context = const MapPaintContext(),

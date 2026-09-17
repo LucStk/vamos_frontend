@@ -1,10 +1,7 @@
 part of 'projected_object.dart';
 
 final class ProjectedSketchPencil extends ProjectedPoint<MapSketchPencil> {
-  ProjectedSketchPencil({
-    required super.object,
-    required super.projectedPosition,
-  });
+  ProjectedSketchPencil({required super.object, required super.worldPosition});
 
   @override
   List<MapDrawCommand> describe({
@@ -12,6 +9,6 @@ final class ProjectedSketchPencil extends ProjectedPoint<MapSketchPencil> {
   }) {
     final paint = Paint()..style = PaintingStyle.fill;
 
-    return [DrawCircle(center: projectedPosition, radius: 8, paint: paint)];
+    return [DrawCircle(center: worldPosition, radius: 8, paint: paint)];
   }
 }
