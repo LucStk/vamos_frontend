@@ -77,8 +77,8 @@ class _MapCanvasState extends State<MapCanvas> with TickerProviderStateMixin {
           ),
           children: [
             ...widget.layers,
-            TestLayer(),
-            // MapScenePaint(sceneProvider: widget.sceneProvider),
+            // TestLayer(),
+            MapScenePaint(sceneProvider: widget.sceneProvider),
           ],
         );
       },

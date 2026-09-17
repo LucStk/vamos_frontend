@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_canvas/camera_transform_widget.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:flutter_riverpod/misc.dart';
@@ -13,10 +14,12 @@ class MapScenePaint extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scene = ref.watch(sceneProvider);
-    return MobileLayerTransformer(
-      child: CustomPaint(painter: MapScenePainter(scene), size: Size.infinite),
+    final camera = MapCamera.of(context);
+
+    return CameraTransform(
+      camera: camera,
+      child: CustomPaint(size: camera.size, painter: MapScenePainter(scene)),
     );
-    // return CustomPaint(painter: MapScenePainter(scene), size: Size.infinite);
   }
 }
 

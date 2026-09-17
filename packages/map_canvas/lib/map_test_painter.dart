@@ -22,7 +22,7 @@ class TestPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Colors.red;
 
-    canvas.drawCircle(const Offset(100, 100), 20, paint);
+    canvas.drawCircle(const Offset(100, 100), 3, paint);
   }
 
   @override

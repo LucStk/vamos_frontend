@@ -18,7 +18,7 @@ final class ProjectedSegment extends ProjectedLine<MapSegment> {
             path: path,
             paint: Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth = 7
+              ..strokeWidth = 0.01
               ..strokeCap = StrokeCap.round
               ..strokeJoin = StrokeJoin.round,
           ),
@@ -28,7 +28,7 @@ final class ProjectedSegment extends ProjectedLine<MapSegment> {
           DrawPath(
             paint: Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth = 5
+              ..strokeWidth = 0.01
               ..strokeCap = StrokeCap.round
               ..strokeJoin = StrokeJoin.round,
             path: path,

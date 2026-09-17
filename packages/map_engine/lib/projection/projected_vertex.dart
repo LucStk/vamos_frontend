@@ -28,11 +28,11 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
           origin: projectedPosition,
         ),
         commands: [
-          DrawCircle(center: projectedPosition, radius: 8, paint: paint),
+          DrawCircle(center: projectedPosition, radius: 0.03, paint: paint),
           if (isSelected)
             DrawCircle(
               center: projectedPosition,
-              radius: 8,
+              radius: 0.03,
               paint: selectionPaint,
             ),
         ],
