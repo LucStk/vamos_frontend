@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
 import 'package:vamos_cartographie/trip_map/injection/map_effects.dart';
 import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
-import 'package:vamos_cartographie/map/map.dart';
+import 'package:vamos_cartographie/base_map/base_map.dart';
 import 'package:vamos_cartographie/trip_map/transitions/sketch_transitions.dart';
 
 class SegmentBottomSheet extends ConsumerWidget {

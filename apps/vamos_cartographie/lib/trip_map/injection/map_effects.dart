@@ -3,13 +3,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
-import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/trip_map/effects/map_effect_resolver.dart';
 import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 import 'package:vamos_cartographie/topology/injection/providers/providers.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
+import 'package:vamos_cartographie/base_map/base_map.dart';
 part 'map_effects.g.dart';
 
 @riverpod
