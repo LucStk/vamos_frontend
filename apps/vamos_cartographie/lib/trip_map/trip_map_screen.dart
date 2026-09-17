@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_canvas/map_screen.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:map_canvas/map_canvas.dart';
+import 'package:vamos_cartographie/map/base_map_screen.dart';
 import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
@@ -32,53 +32,36 @@ class RiverpodGestureScenePainter implements GestureSceneReader {
   ProjectedScene get scene => ref.read(projectedSceneProvider(tripId));
 }
 
-class TripMapScreen extends ConsumerStatefulWidget {
+class TripMapScreen extends ConsumerWidget {
   final Id<Trip> tripId;
   final bool isOwner;
 
   const TripMapScreen({super.key, required this.tripId, this.isOwner = true});
 
   @override
-  ConsumerState<TripMapScreen> createState() => _TripMapScreenState();
-}
-
-class _TripMapScreenState extends ConsumerState<TripMapScreen> {
-  final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
-
-  @override
-  void dispose() {
-    _panAllowed.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Stack(
         children: [
-          MapScreen(
+          BaseMap(
             actionResolver: TripMapGestureActionResolver(
               context: GestureResolutionContext(
-                editorState: ref.read(tripMapStateProvider(widget.tripId)),
+                editorState: ref.read(tripMapStateProvider(tripId)),
                 camera: ref.read(mapCameraReaderProvider),
                 mapTransitions: ref.read(
-                  tripMapStateTransitionsProvider(widget.tripId).notifier,
+                  tripMapStateTransitionsProvider(tripId).notifier,
                 ),
               ),
               onResolution: (GestureResolution e) {
                 e.effects;
               },
             ),
-            mapCameraReader: ref.read(mapCameraReaderProvider),
-            mapController: ref.read(mapControllerProvider),
-            sceneReader: RiverpodGestureSceneReader(ref, widget.tripId),
-            sceneProvider: mapSceneProvider(widget.tripId),
+            sceneReader: RiverpodGestureSceneReader(ref, tripId),
+            sceneProvider: mapSceneProvider(tripId),
           ),
           Consumer(
             builder: (context, ref, _) {
-              final loader = ref.watch(
-                tripDetailsLoaderProvider(widget.tripId),
-              );
+              final loader = ref.watch(tripDetailsLoaderProvider(tripId));
               if (!loader.isLoading) return const SizedBox.shrink();
               return const Positioned(
                 top: 0,

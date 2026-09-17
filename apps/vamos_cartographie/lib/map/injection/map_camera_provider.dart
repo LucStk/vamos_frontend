@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'map_camera_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 MapController mapController(Ref ref) {
   final controller = MapController();
   ref.onDispose(controller.dispose);

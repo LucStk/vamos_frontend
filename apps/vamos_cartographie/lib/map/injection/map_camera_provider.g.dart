@@ -21,7 +21,7 @@ final class MapControllerProvider
         argument: null,
         retry: null,
         name: r'mapControllerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,7 +48,7 @@ final class MapControllerProvider
   }
 }
 
-String _$mapControllerHash() => r'f9441949c3553732ffe508de7ab3d2671af22822';
+String _$mapControllerHash() => r'57a5965305d052b2d10a7d48f30ad5154d5adb26';
 
 @ProviderFor(mapCameraReader)
 final mapCameraReaderProvider = MapCameraReaderProvider._();
