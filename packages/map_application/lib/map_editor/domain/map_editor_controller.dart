@@ -8,9 +8,9 @@ class MapEditorController extends BaseController {
     required this.graphEditor,
     required this.waypointEditor,
     required super.camera,
-  }) : mapState = Idle();
+  }) : editorMode = Idle();
 
   final GraphEditor graphEditor;
   final WaypointEditor waypointEditor;
-  MapEditorMode mapState;
+  MapEditorMode editorMode;
 }

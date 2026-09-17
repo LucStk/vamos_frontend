@@ -56,7 +56,7 @@ extension MapEditorSegments on MapEditorController {
     final res = await graphEditor.updateSegment(patch);
 
     return res.fold((_) => null, (_) {
-      if (mapState case SketchEdition e) {
+      if (editorMode case SketchEdition e) {
         return e.copyWith(path: []);
       }
 
@@ -65,7 +65,7 @@ extension MapEditorSegments on MapEditorController {
   }
 
   Future<MapEditorMode?> changeSelectedSegmentType(MobilityType type) async {
-    if (mapState.selection case MapSegment(:final id)) {
+    if (editorMode.selection case MapSegment(:final id)) {
       final segment = graphEditor.state.segmentStore.get(id)?.current;
 
       if (segment == null) {
@@ -103,7 +103,7 @@ extension MapEditorSegments on MapEditorController {
     final res = await graphEditor.correctSegment(patch, correction);
 
     return res.fold((_) => null, (_) {
-      if (mapState case SketchEdition e) {
+      if (editorMode case SketchEdition e) {
         return e.copyWith(path: []);
       }
 
@@ -114,6 +114,6 @@ extension MapEditorSegments on MapEditorController {
   Future<MapEditorMode?> deleteSegment(SegmentId segmentId) async {
     final res = await graphEditor.deleteSegment(segmentId);
 
-    return res.fold((_) => null, (_) => mapState.withSelection(null));
+    return res.fold((_) => null, (_) => editorMode.withSelection(null));
   }
 }
