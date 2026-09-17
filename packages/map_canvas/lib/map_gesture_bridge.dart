@@ -102,14 +102,19 @@ class _MapGestureBridgeState extends State<MapGestureBridge> {
     return Listener(
       behavior: HitTestBehavior.translucent,
 
-      onPointerDown: (event) => _resolvePointerGesture(
-        MapPointerDown(
-          widget.mapCameraReader.screenToWorld(
-            ScreenOffset(event.localPosition),
-          ),
-          widget.mapCameraReader.getZoomScale(),
-        ),
-      ),
+      onPointerDown: (event) {
+        final screenOffset = ScreenOffset(event.localPosition);
+        final worldOffset = widget.mapCameraReader.screenToWorld(screenOffset);
+        final reconstruction = widget.mapCameraReader.worldToScreen(
+          worldOffset,
+        );
+        print(
+          "screenOffset ${screenOffset.value} reconstruction ${reconstruction.value}",
+        );
+        _resolvePointerGesture(
+          MapPointerDown(worldOffset, widget.mapCameraReader.getZoomScale()),
+        );
+      },
 
       onPointerMove: (event) => _resolvePointerGesture(
         MapPointerMove(

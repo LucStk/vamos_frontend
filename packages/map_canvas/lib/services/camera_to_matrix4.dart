@@ -5,13 +5,12 @@ import 'package:vector_math/vector_math_64.dart'; // Nécessaire pour Vector2
 Matrix4 buildCameraTransform(MapCamera camera) {
   final scale = camera.getZoomScale(camera.zoom, 0);
 
-  final center = camera.size.center(Offset.zero);
-  final origin = camera.pixelOrigin;
+  final screenCenter = camera.nonRotatedSize.center(Offset.zero);
+  final worldCenter = camera.projectAtZoom(camera.center, 0);
 
   return Matrix4.identity()
-    ..translateByVector2(Vector2(center.dx, center.dy))
+    ..translateByVector2(Vector2(screenCenter.dx, screenCenter.dy))
     ..rotateZ(camera.rotationRad)
-    ..translateByVector2(Vector2(-center.dx, -center.dy))
-    ..translateByVector2(Vector2(-origin.dx, -origin.dy))
-    ..scaleByDouble(scale, scale, 1.0, 1.0);
+    ..scaleByDouble(scale, scale, 1.0, 1.0)
+    ..translateByVector2(Vector2(-worldCenter.dx, -worldCenter.dy));
 }

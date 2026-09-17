@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/layers/layers.dart';
+import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 
 class BaseMap extends ConsumerWidget {
   final GestureActionResolver actionResolver;
@@ -31,6 +32,7 @@ class BaseMap extends ConsumerWidget {
             sceneProvider: sceneProvider,
             layers: [MapTileLayer()],
           ),
+          MapControls(),
         ],
       ),
     );
