@@ -1,14 +1,16 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:map_engine/controller/application/map_gesture_handler.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/misc.dart';
 
-class MapScreen extends StatefulWidget {
+class MapScreen extends ConsumerStatefulWidget {
   final MapCameraReader mapCameraReader;
   final MapController mapController;
-  final GestureActionHandler actionResolver;
+  final OnGesture onGesture;
   final GestureSceneReader sceneReader;
   final ProviderListenable<MapScene> sceneProvider;
   final List<Widget> layers;
@@ -18,7 +20,7 @@ class MapScreen extends StatefulWidget {
     super.key,
     required this.mapCameraReader,
     required this.mapController,
-    required this.actionResolver,
+    required this.onGesture,
     required this.sceneReader,
     required this.sceneProvider,
     this.layers = const [],
@@ -26,10 +28,10 @@ class MapScreen extends StatefulWidget {
   });
 
   @override
-  State<MapScreen> createState() => _MapScreenState();
+  ConsumerState<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends ConsumerState<MapScreen> {
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
   @override
@@ -38,11 +40,19 @@ class _MapScreenState extends State<MapScreen> {
     super.dispose();
   }
 
+  MapObject? _hitTest({required WorldOffset offset, MapObject? exclude}) {
+    // ref.read lit la scène instantanée au moment de l'interaction
+    // sans enregistrer de listener -> aucun rebuild du widget.
+    final scene = ref.read(widget.sceneProvider);
+    final scale = widget.mapCameraReader.getZoomScale();
+    return scene.projectedScene.hitTest(offset, scale, exclude: exclude);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MapGestureBridge(
-      sceneReader: widget.sceneReader,
-      actionResolver: widget.actionResolver,
+      onGesture: widget.onGesture,
+      hitTest: _hitTest,
       panAllowed: _panAllowed,
       mapCameraReader: widget.mapCameraReader,
       child: MapCanvas(

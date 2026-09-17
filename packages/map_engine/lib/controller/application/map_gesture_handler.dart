@@ -3,17 +3,25 @@ import 'package:map_engine/controller/application/pointer_gesture_resolver.dart'
 import 'package:map_engine/controller/domain/domain.dart';
 import 'package:map_engine/visual/domain/offset_type.dart';
 
+typedef OnGesture = void Function(MapGesture gesture);
+
 class MapGestureHandler {
   MapGestureHandler({required HitTest hitTest, required this.onGesture})
     : gestureResolver = PointerGestureResolver(hitTest: hitTest) {
     _pendingTapTimer = PendingTapTimer(onTimeout: _onTapTimeout);
+  }
+  bool get panAllowed {
+    return switch (gestureResolver.state) {
+      DraggingState(:final element) => element == null,
+      _ => true,
+    };
   }
 
   final PointerGestureResolver gestureResolver;
 
   /// Point de sortie unique, que le geste vienne d'un event pointeur
   /// synchrone ou de l'expiration du timer de double-tap.
-  final void Function(MapGesture gesture) onGesture;
+  final OnGesture onGesture;
 
   late final PendingTapTimer _pendingTapTimer;
 

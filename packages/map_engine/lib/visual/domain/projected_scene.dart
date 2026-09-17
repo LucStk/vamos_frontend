@@ -6,7 +6,7 @@ class ProjectedScene {
   ProjectedScene(this.objects);
 
   MapObject? hitTest(
-    WorldOffset screenPosition,
+    WorldOffset worldPosition,
     double scale, {
     MapObject? exclude,
   }) {
@@ -15,7 +15,7 @@ class ProjectedScene {
         continue;
       }
 
-      if (candidate.isHitAt(screenPosition, scale)) {
+      if (candidate.isHitAt(worldPosition, scale)) {
         return candidate.object;
       }
     }
