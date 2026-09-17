@@ -1,3 +1,3 @@
-export 'pointer_gesture_action.dart';
-export 'pointer_gesture_event.dart';
+export 'pointer_up_event.dart';
 export 'pending_tap.dart';
+export 'pointer_down_event.dart';
