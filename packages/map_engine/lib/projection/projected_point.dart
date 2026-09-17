@@ -14,7 +14,6 @@ abstract class ProjectedPoint<T extends MapPoint> extends ProjectedObject {
 
   @override
   bool isHitAt(WorldOffset position, double scale) {
-    print("test hit $position");
     return distanceTo(position) <= (point.radius / scale);
   }
 }
