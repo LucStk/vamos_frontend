@@ -1,8 +1,9 @@
-import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
 
 class MapPointerUp extends MapPointerEvent {
-  const MapPointerUp(super.offset, super.scale);
+  final WorldOffset offset;
+  final double scale;
+  const MapPointerUp(this.offset, this.scale);
 
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {

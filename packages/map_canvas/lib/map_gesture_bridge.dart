@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:map_canvas/domain/gesture_resolver_type.dart';
-import 'package:map_engine/domain/pointer_gesture_state.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/pointer_events_resolver/pointer_tap_timeout.dart';
 
 abstract interface class GestureSceneReader {
   ProjectedScene get scene;
@@ -28,15 +30,22 @@ class MapGestureBridge extends StatefulWidget {
 }
 
 class _MapGestureBridgeState extends State<MapGestureBridge> {
+  static const double doubleTapTimeoutMs = 300;
+
   PointerGestureState currentState = PointerGestureState(gesture: EmptyState());
 
+  Timer? _pendingTapTimer;
+
   void _resolvePointerGesture(MapPointerEvent pointerEvent) {
+    final previousPendingTap = currentState.pendingTap;
+
     final resolution = pointerEvent.resolve(
       PointerEventsResolverContext(
         state: currentState,
         scene: widget.sceneReader.scene,
       ),
     );
+
     currentState = resolution.state;
 
     widget.panAllowed.value = switch (currentState.gesture) {
@@ -45,12 +54,54 @@ class _MapGestureBridgeState extends State<MapGestureBridge> {
     };
 
     widget.actionResolver.resolve(resolution.action);
+
+    _updatePendingTapTimer(previousPendingTap: previousPendingTap);
+  }
+
+  void _updatePendingTapTimer({required PendingTap? previousPendingTap}) {
+    final pendingTap = currentState.pendingTap;
+
+    // Aucun tap en attente.
+    if (pendingTap == null) {
+      _pendingTapTimer?.cancel();
+      _pendingTapTimer = null;
+      return;
+    }
+
+    // Un PendingTap existe déjà : on ne recrée pas le timer.
+    if (previousPendingTap != null) {
+      return;
+    }
+
+    _pendingTapTimer?.cancel();
+
+    _pendingTapTimer = Timer(
+      Duration(milliseconds: doubleTapTimeoutMs.toInt()),
+      _resolvePendingTap,
+    );
+  }
+
+  void _resolvePendingTap() {
+    _pendingTapTimer = null;
+
+    if (currentState.pendingTap == null) {
+      return;
+    }
+
+    _resolvePointerGesture(MapPointerTapTimeout());
+  }
+
+  @override
+  void dispose() {
+    _pendingTapTimer?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Listener(
       behavior: HitTestBehavior.translucent,
+
       onPointerDown: (event) => _resolvePointerGesture(
         MapPointerDown(
           widget.mapCameraReader.screenToWorld(
@@ -59,6 +110,7 @@ class _MapGestureBridgeState extends State<MapGestureBridge> {
           widget.mapCameraReader.getZoomScale(),
         ),
       ),
+
       onPointerMove: (event) => _resolvePointerGesture(
         MapPointerMove(
           widget.mapCameraReader.screenToWorld(
@@ -67,6 +119,7 @@ class _MapGestureBridgeState extends State<MapGestureBridge> {
           widget.mapCameraReader.getZoomScale(),
         ),
       ),
+
       onPointerUp: (event) => _resolvePointerGesture(
         MapPointerUp(
           widget.mapCameraReader.screenToWorld(
@@ -75,6 +128,7 @@ class _MapGestureBridgeState extends State<MapGestureBridge> {
           widget.mapCameraReader.getZoomScale(),
         ),
       ),
+
       child: widget.child,
     );
   }

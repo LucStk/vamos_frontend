@@ -1,15 +1,9 @@
 import 'dart:ui';
 
-import 'package:map_engine/domain/offset_type.dart';
-import 'package:map_engine/domain/pointer_gesture_action.dart';
-import 'package:map_engine/domain/pointer_gesture_state.dart';
-import 'package:map_engine/domain/projected_scene.dart';
-import 'package:map_engine/pointer_events_resolver/pointer_events_resolver.dart';
+import 'package:map_engine/domain/domain.dart';
 
 abstract class MapPointerEvent {
-  final WorldOffset offset;
-  final double scale;
-  const MapPointerEvent(this.offset, this.scale);
+  const MapPointerEvent();
 
   final double pointerTapSlopPx = 8;
 

@@ -1,7 +1,7 @@
 import "package:map_engine/domain/domain.dart";
 
 class MapPointerTapTimeout extends MapPointerEvent {
-  const MapPointerTapTimeout(super.offset, super.scale);
+  const MapPointerTapTimeout();
 
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {

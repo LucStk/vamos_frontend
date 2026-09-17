@@ -1,7 +1,9 @@
 import 'package:map_engine/domain/domain.dart';
 
 class MapPointerMove extends MapPointerEvent {
-  const MapPointerMove(super.offset, super.scale);
+  final WorldOffset offset;
+  final double scale;
+  const MapPointerMove(this.offset, this.scale);
 
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {

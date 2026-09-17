@@ -1,7 +1,9 @@
 import 'package:map_engine/map_engine.dart';
 
 class MapPointerDown extends MapPointerEvent {
-  const MapPointerDown(super.offset, super.scale);
+  final WorldOffset offset;
+  final double scale;
+  const MapPointerDown(this.offset, this.scale);
 
   @override
   PointerEventResolution resolve(PointerEventsResolverContext context) {
