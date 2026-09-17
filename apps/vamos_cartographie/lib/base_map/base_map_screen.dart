@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/map_screen.dart';
+import 'package:map_engine/domain/domain.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/base_map/injection/map_camera_provider.dart';

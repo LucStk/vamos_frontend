@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_engine/domain/offset_type.dart';
+import 'package:map_engine/visual/domain/offset_type.dart';
 
 // map_camera_reader.dart (nouveau, lecture seule)
 abstract interface class MapCameraReader {

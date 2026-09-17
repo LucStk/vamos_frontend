@@ -1,5 +1,6 @@
 import 'dart:ui';
-import 'package:map_engine/draw_command/draw_command.dart';
+
+import 'package:map_engine/visual/visual.dart';
 
 final class MapDrawCommandPainter {
   static void paint(Canvas canvas, MapDrawCommand command) {

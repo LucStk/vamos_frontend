@@ -1,4 +1,4 @@
-import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/visual/visual.dart';
 
 class ProjectedScene {
   final List<ProjectedObject> objects;

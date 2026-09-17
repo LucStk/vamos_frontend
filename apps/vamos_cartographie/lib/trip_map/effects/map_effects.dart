@@ -1,7 +1,6 @@
 // L'EffectRunner connaît le store, pas le reducer.
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_canvas/domain/gesture_resolver_type.dart';
 import 'package:map_engine/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';

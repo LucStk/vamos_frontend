@@ -8,7 +8,7 @@ import 'package:riverpod/misc.dart';
 class MapScreen extends StatefulWidget {
   final MapCameraReader mapCameraReader;
   final MapController mapController;
-  final GestureActionResolver actionResolver;
+  final GestureActionHandler actionResolver;
   final GestureSceneReader sceneReader;
   final ProviderListenable<MapScene> sceneProvider;
   final List<Widget> layers;

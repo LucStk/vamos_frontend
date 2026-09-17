@@ -1,4 +1,3 @@
-import 'package:map_canvas/domain/gesture_resolver_type.dart';
 import 'package:map_engine/map_engine.dart';
 import 'gestures_resolver.dart';
 

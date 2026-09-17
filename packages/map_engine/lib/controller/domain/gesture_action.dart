@@ -1,4 +1,4 @@
-import 'package:map_engine/domain/domain.dart';
+import 'package:map_engine/visual/visual.dart';
 
 sealed class PointerGestureAction {
   const PointerGestureAction();
