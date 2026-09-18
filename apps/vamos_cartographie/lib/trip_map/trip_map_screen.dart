@@ -2,29 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/base_map/base_map_screen.dart';
-
-class RiverpodGestureSceneReader implements GestureSceneReader {
-  const RiverpodGestureSceneReader(this.ref, this.tripId);
-
-  final WidgetRef ref;
-  final TripId tripId;
-
-  @override
-  ProjectedScene get scene => ref.read(projectedSceneProvider(tripId));
-}
-
-class RiverpodGestureScenePainter implements GestureSceneReader {
-  const RiverpodGestureScenePainter(this.ref, this.tripId);
-
-  final WidgetRef ref;
-  final TripId tripId;
-
-  @override
-  ProjectedScene get scene => ref.read(projectedSceneProvider(tripId));
-}
+import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
+import 'package:vamos_cartographie/trip_map/editor/injection/trip_editor_scene.dart';
+import 'package:vamos_cartographie/trip_map/injection/injection.dart';
 
 class TripMapScreen extends ConsumerWidget {
   final Id<Trip> tripId;
@@ -34,13 +16,13 @@ class TripMapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.read(mapEditorControllerProvider(tripId));
     return Scaffold(
       body: Stack(
         children: [
           BaseMap(
-            onGesture: ,
-            sceneReader: RiverpodGestureSceneReader(ref, tripId),
-            sceneProvider: mapSceneProvider(tripId),
+            controller: controller,
+            sceneProvider: tripEditorSceneProvider(tripId),
           ),
           Consumer(
             builder: (context, ref, _) {

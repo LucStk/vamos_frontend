@@ -32,6 +32,7 @@ class MapEditorController extends BaseController {
     _effectQueue.add(effect);
   }
 
+  @override
   void dispatchGesture(MapGesture gesture) {
     switch (gesture) {
       case PointerDownGesture():

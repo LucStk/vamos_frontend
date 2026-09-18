@@ -10,8 +10,8 @@ import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_p
 import 'package:vamos_cartographie/trip_map/editor/overlay_editor/sketch_sheet/sketch_sheet.dart';
 import 'package:vamos_cartographie/trip_map/editor/overlay_editor/vertex_bottom_sheet.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
-import 'package:vamos_cartographie/trip_map/viewer/overlay_viewer/segment_bottom_sheet_view.dart';
-import 'package:vamos_cartographie/trip_map/viewer/overlay_viewer/waypoint_sheet/waypoint_bottom_sheet.dart';
+import 'package:vamos_cartographie/trip_map/presentation/overlay_viewer/segment_bottom_sheet_view.dart';
+import 'package:vamos_cartographie/trip_map/presentation/overlay_viewer/waypoint_sheet/waypoint_bottom_sheet.dart';
 
 class MapBottomSheet extends ConsumerWidget {
   final TripId tripId;

@@ -1,2 +1,2 @@
 export 'domain/domain.dart';
-export 'application/appliction.dart';
+export 'application/application.dart';

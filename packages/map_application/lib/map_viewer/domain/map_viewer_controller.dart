@@ -8,6 +8,7 @@ class MapViewerController extends BaseController {
 
   MapViewerMode viewerMode;
 
+  @override
   void dispatchGesture(MapGesture gesture) {
     switch (gesture) {
       case TapGesture():

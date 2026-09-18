@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'map_scene_provider.dart';
+part of 'topology_projecter.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,10 +9,10 @@ part of 'map_scene_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(projectVertex)
-final projectVertexProvider = ProjectVertexFamily._();
+@ProviderFor(allVertexProjection)
+final allVertexProjectionProvider = AllVertexProjectionFamily._();
 
-final class ProjectVertexProvider
+final class AllVertexProjectionProvider
     extends
         $FunctionalProvider<
           List<ProjectedPoint<MapPoint>>,
@@ -20,23 +20,23 @@ final class ProjectVertexProvider
           List<ProjectedPoint<MapPoint>>
         >
     with $Provider<List<ProjectedPoint<MapPoint>>> {
-  ProjectVertexProvider._({
-    required ProjectVertexFamily super.from,
+  AllVertexProjectionProvider._({
+    required AllVertexProjectionFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'projectVertexProvider',
+         name: r'allVertexProjectionProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$projectVertexHash();
+  String debugGetCreateSourceHash() => _$allVertexProjectionHash();
 
   @override
   String toString() {
-    return r'projectVertexProvider'
+    return r'allVertexProjectionProvider'
         ''
         '($argument)';
   }
@@ -50,7 +50,7 @@ final class ProjectVertexProvider
   @override
   List<ProjectedPoint<MapPoint>> create(Ref ref) {
     final argument = this.argument as TripId;
-    return projectVertex(ref, argument);
+    return allVertexProjection(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -65,7 +65,7 @@ final class ProjectVertexProvider
 
   @override
   bool operator ==(Object other) {
-    return other is ProjectVertexProvider && other.argument == argument;
+    return other is AllVertexProjectionProvider && other.argument == argument;
   }
 
   @override
@@ -74,30 +74,31 @@ final class ProjectVertexProvider
   }
 }
 
-String _$projectVertexHash() => r'0ff02441f7b92d5a4b20ac4385ef6e271ca06056';
+String _$allVertexProjectionHash() =>
+    r'57dface2b1ce8cd381b1d5a13ef46ae78d431208';
 
-final class ProjectVertexFamily extends $Family
+final class AllVertexProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
-  ProjectVertexFamily._()
+  AllVertexProjectionFamily._()
     : super(
         retry: null,
-        name: r'projectVertexProvider',
+        name: r'allVertexProjectionProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  ProjectVertexProvider call(TripId tripId) =>
-      ProjectVertexProvider._(argument: tripId, from: this);
+  AllVertexProjectionProvider call(TripId tripId) =>
+      AllVertexProjectionProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'projectVertexProvider';
+  String toString() => r'allVertexProjectionProvider';
 }
 
-@ProviderFor(projectSegment)
-final projectSegmentProvider = ProjectSegmentFamily._();
+@ProviderFor(allSegmentProjection)
+final allSegmentProjectionProvider = AllSegmentProjectionFamily._();
 
-final class ProjectSegmentProvider
+final class AllSegmentProjectionProvider
     extends
         $FunctionalProvider<
           List<ProjectedLine<MapLine>>,
@@ -105,23 +106,23 @@ final class ProjectSegmentProvider
           List<ProjectedLine<MapLine>>
         >
     with $Provider<List<ProjectedLine<MapLine>>> {
-  ProjectSegmentProvider._({
-    required ProjectSegmentFamily super.from,
+  AllSegmentProjectionProvider._({
+    required AllSegmentProjectionFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'projectSegmentProvider',
+         name: r'allSegmentProjectionProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$projectSegmentHash();
+  String debugGetCreateSourceHash() => _$allSegmentProjectionHash();
 
   @override
   String toString() {
-    return r'projectSegmentProvider'
+    return r'allSegmentProjectionProvider'
         ''
         '($argument)';
   }
@@ -135,7 +136,7 @@ final class ProjectSegmentProvider
   @override
   List<ProjectedLine<MapLine>> create(Ref ref) {
     final argument = this.argument as TripId;
-    return projectSegment(ref, argument);
+    return allSegmentProjection(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -148,7 +149,7 @@ final class ProjectSegmentProvider
 
   @override
   bool operator ==(Object other) {
-    return other is ProjectSegmentProvider && other.argument == argument;
+    return other is AllSegmentProjectionProvider && other.argument == argument;
   }
 
   @override
@@ -157,22 +158,23 @@ final class ProjectSegmentProvider
   }
 }
 
-String _$projectSegmentHash() => r'ad2fbf343e9917a5b424e7dbff7e76f6818ecee8';
+String _$allSegmentProjectionHash() =>
+    r'4a86f57808b7b88c6ec4da1ca60f066c3171f376';
 
-final class ProjectSegmentFamily extends $Family
+final class AllSegmentProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {
-  ProjectSegmentFamily._()
+  AllSegmentProjectionFamily._()
     : super(
         retry: null,
-        name: r'projectSegmentProvider',
+        name: r'allSegmentProjectionProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  ProjectSegmentProvider call(TripId tripId) =>
-      ProjectSegmentProvider._(argument: tripId, from: this);
+  AllSegmentProjectionProvider call(TripId tripId) =>
+      AllSegmentProjectionProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'projectSegmentProvider';
+  String toString() => r'allSegmentProjectionProvider';
 }

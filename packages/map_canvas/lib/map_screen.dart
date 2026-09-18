@@ -10,7 +10,6 @@ class MapScreen extends ConsumerStatefulWidget {
   final MapCameraReader mapCameraReader;
   final MapController mapController;
   final OnGesture onGesture;
-  final GestureSceneReader sceneReader;
   final ProviderListenable<MapScene> sceneProvider;
   final List<Widget> layers;
   final ValueChanged<MapCameraController>? onCameraControllerReady;
@@ -20,7 +19,6 @@ class MapScreen extends ConsumerStatefulWidget {
     required this.mapCameraReader,
     required this.mapController,
     required this.onGesture,
-    required this.sceneReader,
     required this.sceneProvider,
     this.layers = const [],
     this.onCameraControllerReady,

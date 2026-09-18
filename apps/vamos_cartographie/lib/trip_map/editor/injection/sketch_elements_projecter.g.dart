@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'editor_scene_provider.dart';
+part of 'sketch_elements_projecter.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,10 +9,10 @@ part of 'editor_scene_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(editorProjectedScene)
-final editorProjectedSceneProvider = EditorProjectedSceneFamily._();
+@ProviderFor(sketchElementProjection)
+final sketchElementProjectionProvider = SketchElementProjectionFamily._();
 
-final class EditorProjectedSceneProvider
+final class SketchElementProjectionProvider
     extends
         $FunctionalProvider<
           List<ProjectedObject>,
@@ -20,23 +20,23 @@ final class EditorProjectedSceneProvider
           List<ProjectedObject>
         >
     with $Provider<List<ProjectedObject>> {
-  EditorProjectedSceneProvider._({
-    required EditorProjectedSceneFamily super.from,
+  SketchElementProjectionProvider._({
+    required SketchElementProjectionFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'editorProjectedSceneProvider',
+         name: r'sketchElementProjectionProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$editorProjectedSceneHash();
+  String debugGetCreateSourceHash() => _$sketchElementProjectionHash();
 
   @override
   String toString() {
-    return r'editorProjectedSceneProvider'
+    return r'sketchElementProjectionProvider'
         ''
         '($argument)';
   }
@@ -50,7 +50,7 @@ final class EditorProjectedSceneProvider
   @override
   List<ProjectedObject> create(Ref ref) {
     final argument = this.argument as TripId;
-    return editorProjectedScene(ref, argument);
+    return sketchElementProjection(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -63,7 +63,8 @@ final class EditorProjectedSceneProvider
 
   @override
   bool operator ==(Object other) {
-    return other is EditorProjectedSceneProvider && other.argument == argument;
+    return other is SketchElementProjectionProvider &&
+        other.argument == argument;
   }
 
   @override
@@ -72,23 +73,23 @@ final class EditorProjectedSceneProvider
   }
 }
 
-String _$editorProjectedSceneHash() =>
-    r'd6f5e1a3cc92bf63547c188690f6dda9c7ae6abf';
+String _$sketchElementProjectionHash() =>
+    r'ab39cc0c4d911ea60c3561d0a8aad0c96ee10ea2';
 
-final class EditorProjectedSceneFamily extends $Family
+final class SketchElementProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedObject>, TripId> {
-  EditorProjectedSceneFamily._()
+  SketchElementProjectionFamily._()
     : super(
         retry: null,
-        name: r'editorProjectedSceneProvider',
+        name: r'sketchElementProjectionProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  EditorProjectedSceneProvider call(TripId tripId) =>
-      EditorProjectedSceneProvider._(argument: tripId, from: this);
+  SketchElementProjectionProvider call(TripId tripId) =>
+      SketchElementProjectionProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'editorProjectedSceneProvider';
+  String toString() => r'sketchElementProjectionProvider';
 }

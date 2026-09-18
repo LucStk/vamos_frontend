@@ -5,12 +5,12 @@ import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_p
 import "package:map_application/map_application.dart";
 
 import 'package:vamos_cartographie/base_map/base_map.dart';
-part 'editor_scene_provider.g.dart';
+part 'sketch_elements_projecter.g.dart';
 
 // final projection = const Epsg3857().projection;
 
 @riverpod
-List<ProjectedObject> editorProjectedScene(Ref ref, TripId tripId) {
+List<ProjectedObject> sketchElementProjection(Ref ref, TripId tripId) {
   final List<ProjectedObject> ret = [];
 
   final editorMode = ref.watch(editorModeProvider(tripId));
