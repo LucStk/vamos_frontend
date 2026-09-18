@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/trip_map/trip_map.dart';
 import 'waypoint_sheet.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 

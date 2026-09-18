@@ -225,3 +225,44 @@ final class TripFamily extends $Family
   @override
   String toString() => r'tripProvider';
 }
+
+@ProviderFor(tripIds)
+final tripIdsProvider = TripIdsProvider._();
+
+final class TripIdsProvider
+    extends $FunctionalProvider<List<TripId>, List<TripId>, List<TripId>>
+    with $Provider<List<TripId>> {
+  TripIdsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'tripIdsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$tripIdsHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<TripId>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<TripId> create(Ref ref) {
+    return tripIds(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<TripId> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<TripId>>(value),
+    );
+  }
+}
+
+String _$tripIdsHash() => r'd0a50120d8766e9cff6865a2d85e1d9a712b2108';

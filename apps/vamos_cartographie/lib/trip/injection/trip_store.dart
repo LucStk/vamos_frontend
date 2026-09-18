@@ -39,3 +39,9 @@ class TripStoreNotifier extends _$TripStoreNotifier
 Trip? trip(Ref ref, TripId tripId) {
   return ref.watch(tripStoreProvider).tripStore.get(tripId);
 }
+
+@riverpod
+List<TripId> tripIds(Ref ref) {
+  final store = ref.watch(tripStoreProvider);
+  return store.tripStore.getIds();
+}

@@ -5,7 +5,7 @@ import 'package:trip_application/trip_application.dart';
 
 mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   WaypointRepository get waypointRepo;
-  StateWriter<GraphStore> get graphStoreWriter;
+  GraphStore get graphStore;
   TripId get tripId;
 
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
@@ -39,9 +39,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
       remote: (gs) =>
           waypointRepo.createBlankWaypointFromPosition(tripId, latLng),
       onSuccess: (gs, data) {
-        graphStoreWriter.state = graphStoreWriter.state.insertVertex(
-          data.vertex,
-        );
+        graphStore.insertVertex(data.vertex);
         return gs.insertWaypoint(data.waypoint);
       },
     );

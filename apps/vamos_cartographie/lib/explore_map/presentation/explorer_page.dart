@@ -15,7 +15,7 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(tripStoreProvider.notifier).loadTrips();
+      ref.read(loadTripsProvider);
     });
   }
 
@@ -50,7 +50,7 @@ class _ExplorerPageState extends ConsumerState<ExplorerPage> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              ref.read(tripStoreProvider.notifier).loadTrips();
+              ref.read(loadTripsProvider);
             },
           ),
         ],

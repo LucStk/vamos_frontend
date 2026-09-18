@@ -155,7 +155,7 @@ final class WaypointStoreNotifierProvider
 }
 
 String _$waypointStoreNotifierHash() =>
-    r'8d20ffb2a51128f35930bb3c19a434e487bc20cc';
+    r'87976358e5ae754baebcf21d45287750b6e168b6';
 
 final class WaypointStoreNotifierFamily extends $Family
     with

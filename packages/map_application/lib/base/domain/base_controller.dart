@@ -6,7 +6,7 @@ class BaseMode {
   final MapObject? selection;
 }
 
-abstract class BaseController<TMode extends BaseMode> {
+class BaseController<TMode extends BaseMode> {
   BaseController({
     required this.camera,
     required TMode initialMode,

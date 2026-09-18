@@ -1,7 +1,6 @@
 import "package:domain_core/domain_core.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
-
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/core.dart";
 import "package:vamos_cartographie/core/injection/mutation_queue_provider.dart";
@@ -76,17 +75,4 @@ GraphCollectionStore<VertexFields> vertexStore(Ref ref, TripId tripId) {
 @riverpod
 GraphCollectionStore<SegmentFields> segmentStore(Ref ref, TripId tripId) {
   return ref.watch(graphStoreProvider(tripId).select((gs) => gs.segmentStore));
-}
-
-class RiverpodGraphStoreWriter implements StateWriter<GraphStore> {
-  final Ref ref;
-  final TripId tripId;
-  RiverpodGraphStoreWriter(this.tripId, this.ref);
-
-  @override
-  GraphStore get state => ref.read(graphStoreProvider(tripId));
-
-  @override
-  set state(GraphStore value) =>
-      ref.read(graphStoreProvider(tripId).notifier).updateState(value);
 }

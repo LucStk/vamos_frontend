@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-part 'map_data_loader.g.dart';
+part 'trip_data_loader.g.dart';
 
 @riverpod
 Future<void> tripDetailsLoader(Ref ref, TripId tripId) async {
@@ -42,8 +42,8 @@ Future<void> tripDetailsLoader(Ref ref, TripId tripId) async {
   );
 }
 
-@override
-Future<Failure?> loadTrips(Ref ref) async {
+@riverpod
+Future<Failure?> loadTripsNotifier(Ref ref) async {
   final tripRepo = ref.watch(tripRepositoryProvider);
   final res = await tripRepo.getAllTrips();
 
@@ -51,10 +51,18 @@ Future<Failure?> loadTrips(Ref ref) async {
     var newStore = TripStore.initial();
     var newFileStore = StoredFileStore.initial();
     for (final (trip, listImages, topology) in data) {
+      var newGraphStore = GraphStore.initial();
       newStore = newStore.insertTrip(trip);
       for (final i in listImages) {
         newFileStore = newFileStore.insertStoredFile(trip.id, i);
       }
+      for (final s in topology.segments) {
+        newGraphStore = newGraphStore.insertSegment(s);
+      }
+      for (final v in topology.vertices) {
+        newGraphStore = newGraphStore.insertVertex(v);
+      }
+      ref.read(graphStoreProvider(trip.id).notifier).emit(newGraphStore);
     }
     ref.read(tripStoreProvider.notifier).emit(newStore);
     ref.read(storedFileStoreProvider.notifier).emit(newFileStore);

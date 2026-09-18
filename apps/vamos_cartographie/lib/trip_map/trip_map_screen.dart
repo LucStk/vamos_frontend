@@ -4,10 +4,10 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/base_map/base_map_screen.dart';
+import 'package:vamos_cartographie/trip/injection/trip_data_loader.dart';
 import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
 import 'package:vamos_cartographie/trip_map/editor/injection/trip_editor_scene.dart';
 import 'package:vamos_cartographie/trip_map/editor/overlay_editor/map_bottom_sheet.dart';
-import 'package:vamos_cartographie/trip_map/injection/injection.dart';
 
 class TripMapScreen extends ConsumerWidget {
   final Id<Trip> tripId;

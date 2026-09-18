@@ -25,8 +25,7 @@ class WaypointStoreNotifier extends _$WaypointStoreNotifier
   WaypointStore build(TripId tripId) => WaypointStore.initial();
 
   @override
-  StateWriter<GraphStore> get graphStoreWriter =>
-      RiverpodGraphStoreWriter(tripId, ref);
+  GraphStore get graphStore => ref.read(graphStoreProvider(tripId));
   // Injection des dépendances requises par le mixin TopologyHandler
   @override
   WaypointRepository get waypointRepo => ref.read(waypointRepositoryProvider);

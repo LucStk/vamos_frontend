@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'map_data_loader.dart';
+part of 'trip_data_loader.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -77,3 +77,37 @@ final class TripDetailsLoaderFamily extends $Family
   @override
   String toString() => r'tripDetailsLoaderProvider';
 }
+
+@ProviderFor(loadTripsNotifier)
+final loadTripsProvider = LoadTripsNotifierProvider._();
+
+final class LoadTripsNotifierProvider
+    extends
+        $FunctionalProvider<AsyncValue<Failure?>, Failure?, FutureOr<Failure?>>
+    with $FutureModifier<Failure?>, $FutureProvider<Failure?> {
+  LoadTripsNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loadTripsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadTripsNotifierHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<Failure?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Failure?> create(Ref ref) {
+    return loadTripsNotifier(ref);
+  }
+}
+
+String _$loadTripsNotifierHash() => r'66782028c33f49475d676741cb4b17413cb60424';
