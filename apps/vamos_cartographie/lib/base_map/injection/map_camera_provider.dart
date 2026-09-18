@@ -1,4 +1,5 @@
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -12,45 +13,32 @@ MapController mapController(Ref ref) {
   return controller;
 }
 
-@riverpod
-MapCameraReader mapCameraReader(Ref ref) {
-  ref.watch(mapCameraChangesProvider);
-  final controller = ref.watch(mapControllerProvider);
-  return FlutterMapCameraReader(
-    controller,
-  ); // implémentation basée sur MapController seul
+@Riverpod(keepAlive: true)
+class MapCameraHolder extends _$MapCameraHolder {
+  @override
+  MapCameraController build() {
+    return FlutterMapCamera(ref.watch(mapControllerProvider));
+  }
+
+  void attachAnimatedController(AnimatedMapController controller) {
+    (state as FlutterMapCamera).attachAnimatedController(controller);
+  }
+
+  void detachAnimatedController() {
+    (state as FlutterMapCamera).detachAnimatedController();
+  }
 }
 
+/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
+/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
+/// que l'animation soit attachée ou non.
 @riverpod
 class MapCameraChanges extends _$MapCameraChanges {
   @override
   int build() {
     final controller = ref.watch(mapControllerProvider);
-
-    final subscription = controller.mapEventStream.listen((_) {
-      state++;
-    });
-
+    final subscription = controller.mapEventStream.listen((_) => state++);
     ref.onDispose(subscription.cancel);
-
     return 0;
   }
-}
-
-@Riverpod(keepAlive: true)
-class MapCameraControllerHolder extends _$MapCameraControllerHolder {
-  @override
-  MapCameraController? build() => null;
-
-  void set(MapCameraController controller) => state = controller;
-  void clear() {
-    state = null;
-  }
-}
-
-// Le provider dérivé reste utilisable tel quel par le reste du code,
-// mais expose maintenant explicitement le cas "pas encore prêt"
-@riverpod
-MapCameraController? mapCameraControllerOrNull(Ref ref) {
-  return ref.watch(mapCameraControllerHolderProvider);
 }

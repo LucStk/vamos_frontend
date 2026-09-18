@@ -51,8 +51,7 @@ class WaypointViewerButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
-        DrawSegment(vertexId: waypoint.vertexId, tripId: tripId),
-
+        // DrawSegment(vertexId: waypoint.vertexId, tripId: tripId),
         const SizedBox(width: 8),
         ModifierButton(
           onPressed: () {

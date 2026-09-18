@@ -25,27 +25,6 @@ ProjectedScene editorProjectedScene(Ref ref, TripId tripId) {
 }
 
 @riverpod
-MapScene mapScene(Ref ref, TripId tripId) {
-  final projectedScene = ref.watch(projectedSceneProvider(tripId));
-  final selection = ref.watch(
-    tripMapStateProvider(tripId).select((m) => m.selection),
-  );
-  return MapScene(projectedScene: projectedScene, selection: selection);
-}
-
-VertexVisualKind _visualKind(WaypointFields? waypoint) {
-  if (waypoint == null) {
-    return VertexVisualKind.normal;
-  }
-
-  return switch (waypoint.poiCategory) {
-    PoiCategory.start => VertexVisualKind.start,
-    PoiCategory.end => VertexVisualKind.end,
-    _ => VertexVisualKind.normal,
-  };
-}
-
-@riverpod
 ProjectedLine? projectSketchSegment(Ref ref, TripId tripId) {
   final editorState = ref.watch(tripMapStateProvider(tripId));
 

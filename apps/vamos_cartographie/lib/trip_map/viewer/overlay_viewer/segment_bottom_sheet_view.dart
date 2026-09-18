@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 
 class SegmentBottomSheet extends ConsumerWidget {
@@ -20,15 +19,6 @@ class SegmentBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final segment = ref.watch(segmentProvider(tripId, segmentId));
-    final transitions = ref.watch(
-      tripMapStateTransitionsProvider(tripId).notifier,
-    );
-    final effects = ref.watch(mapEffectResolverProvider(tripId).notifier);
-
-    // Récupération de la valeur enum courante du segment pour présélectionner le bon TypeSelector
-    // final currentStyle = segment.mobilityTypeDisplay;
-
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey('compact_content'),
@@ -52,7 +42,7 @@ class SegmentBottomSheet extends ConsumerWidget {
 
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(
-                onPressed: () => transitions.activateSegmentEditMode(),
+                onPressed: () => {}, // transitions.activateSegmentEditMode(),
                 icon: const Icon(Icons.edit_road_rounded, size: 20),
                 tooltip: "Redessiner le segment",
                 style: IconButton.styleFrom(
@@ -69,8 +59,8 @@ class SegmentBottomSheet extends ConsumerWidget {
 
               // 3. Bouton "Supprimer" le segment
               DeleteButton(
-                onPressed: () =>
-                    effects.resolve(DeleteSegmentEffect(segmentId: segmentId)),
+                onPressed: () {}, // =>
+                //effects.resolve(DeleteSegmentEffect(segmentId: segmentId)),
               ),
             ],
           ),

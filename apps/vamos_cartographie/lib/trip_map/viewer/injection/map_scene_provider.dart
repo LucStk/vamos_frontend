@@ -118,21 +118,3 @@ ProjectedPoint? projectSketchPencil(Ref ref, TripId tripId) {
   }
   return null;
 }
-
-@riverpod
-ProjectedPoint? projectUserLocation(Ref ref) {
-  final location = ref.watch(userLocationProvider);
-  final cameraReader = ref.read(mapCameraReaderProvider);
-
-  if (location case final UserPositionActive activeLocation) {
-    return ProjectedUserLocation(
-      object: MapUserLocation(
-        activeLocation.position,
-        accuracy: activeLocation.accuracy,
-        heading: activeLocation.heading,
-      ),
-      worldPosition: cameraReader.latLngToWorldOffset(activeLocation.position),
-    );
-  }
-  return null;
-}

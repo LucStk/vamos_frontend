@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/trip_map/trip_map.dart';
+import 'package:vamos_cartographie/trip_map/viewer/injection/injection.dart';
 
 class PopUpOverlay extends ConsumerWidget {
   const PopUpOverlay({super.key, required this.tripId});

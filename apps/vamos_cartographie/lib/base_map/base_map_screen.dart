@@ -48,8 +48,8 @@ class _BaseMapState extends ConsumerState<BaseMap>
       if (!mounted) return;
 
       ref
-          .read(mapCameraControllerHolderProvider.notifier)
-          .set(FlutterMapCameraController(_animatedMapController));
+          .read(mapCameraHolderProvider.notifier)
+          .attachAnimatedController(_animatedMapController);
     });
   }
 
@@ -57,7 +57,7 @@ class _BaseMapState extends ConsumerState<BaseMap>
   void dispose() {
     // Évite que le provider conserve une référence vers un contrôleur
     // qui vient d'être détruit.
-    ref.read(mapCameraControllerHolderProvider.notifier).clear();
+    ref.read(mapCameraHolderProvider.notifier).detachAnimatedController();
     _animatedMapController.dispose();
     super.dispose();
   }
@@ -69,7 +69,7 @@ class _BaseMapState extends ConsumerState<BaseMap>
         children: [
           MapScreen(
             onGesture: widget.onGesture,
-            mapCameraReader: ref.read(mapCameraReaderProvider),
+            mapCameraReader: ref.read(mapCameraHolderProvider),
             mapController: ref.read(mapControllerProvider),
             sceneReader: widget.sceneReader,
             sceneProvider: widget.sceneProvider,

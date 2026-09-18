@@ -50,53 +50,73 @@ final class MapControllerProvider
 
 String _$mapControllerHash() => r'57a5965305d052b2d10a7d48f30ad5154d5adb26';
 
-@ProviderFor(mapCameraReader)
-final mapCameraReaderProvider = MapCameraReaderProvider._();
+@ProviderFor(MapCameraHolder)
+final mapCameraHolderProvider = MapCameraHolderProvider._();
 
-final class MapCameraReaderProvider
-    extends
-        $FunctionalProvider<MapCameraReader, MapCameraReader, MapCameraReader>
-    with $Provider<MapCameraReader> {
-  MapCameraReaderProvider._()
+final class MapCameraHolderProvider
+    extends $NotifierProvider<MapCameraHolder, MapCameraController> {
+  MapCameraHolderProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'mapCameraReaderProvider',
-        isAutoDispose: true,
+        name: r'mapCameraHolderProvider',
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$mapCameraReaderHash();
+  String debugGetCreateSourceHash() => _$mapCameraHolderHash();
 
   @$internal
   @override
-  $ProviderElement<MapCameraReader> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  MapCameraReader create(Ref ref) {
-    return mapCameraReader(ref);
-  }
+  MapCameraHolder create() => MapCameraHolder();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapCameraReader value) {
+  Override overrideWithValue(MapCameraController value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapCameraReader>(value),
+      providerOverride: $SyncValueProvider<MapCameraController>(value),
     );
   }
 }
 
-String _$mapCameraReaderHash() => r'c13d4065090ec7b00849c7f0779db9b13d4a48b0';
+String _$mapCameraHolderHash() => r'e380e4d2f3a7bd938dd90c4cca0ce72fdbbb2b41';
+
+abstract class _$MapCameraHolder extends $Notifier<MapCameraController> {
+  MapCameraController build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<MapCameraController, MapCameraController>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<MapCameraController, MapCameraController>,
+              MapCameraController,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
+/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
+/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
+/// que l'animation soit attachée ou non.
 
 @ProviderFor(MapCameraChanges)
 final mapCameraChangesProvider = MapCameraChangesProvider._();
 
+/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
+/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
+/// que l'animation soit attachée ou non.
 final class MapCameraChangesProvider
     extends $NotifierProvider<MapCameraChanges, int> {
+  /// Toujours utile si un widget doit se reconstruire quand la caméra bouge
+  /// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
+  /// que l'animation soit attachée ou non.
   MapCameraChangesProvider._()
     : super(
         from: null,
@@ -124,7 +144,11 @@ final class MapCameraChangesProvider
   }
 }
 
-String _$mapCameraChangesHash() => r'33cc1e90ab6d8dd1c7c98ed2a5018010ff9a89d5';
+String _$mapCameraChangesHash() => r'c9e9d6e6a577a0dcfe1276ba34fa59939d92bdc6';
+
+/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
+/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
+/// que l'animation soit attachée ou non.
 
 abstract class _$MapCameraChanges extends $Notifier<int> {
   int build();
@@ -143,105 +167,3 @@ abstract class _$MapCameraChanges extends $Notifier<int> {
     element.handleCreate(ref, build);
   }
 }
-
-@ProviderFor(MapCameraControllerHolder)
-final mapCameraControllerHolderProvider = MapCameraControllerHolderProvider._();
-
-final class MapCameraControllerHolderProvider
-    extends $NotifierProvider<MapCameraControllerHolder, MapCameraController?> {
-  MapCameraControllerHolderProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'mapCameraControllerHolderProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$mapCameraControllerHolderHash();
-
-  @$internal
-  @override
-  MapCameraControllerHolder create() => MapCameraControllerHolder();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapCameraController? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MapCameraController?>(value),
-    );
-  }
-}
-
-String _$mapCameraControllerHolderHash() =>
-    r'68a321702617dfdcc35fc5f49a52e4a3cfb2fbab';
-
-abstract class _$MapCameraControllerHolder
-    extends $Notifier<MapCameraController?> {
-  MapCameraController? build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final ref = this.ref as $Ref<MapCameraController?, MapCameraController?>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<MapCameraController?, MapCameraController?>,
-              MapCameraController?,
-              Object?,
-              Object?
-            >;
-    element.handleCreate(ref, build);
-  }
-}
-
-@ProviderFor(mapCameraControllerOrNull)
-final mapCameraControllerOrNullProvider = MapCameraControllerOrNullProvider._();
-
-final class MapCameraControllerOrNullProvider
-    extends
-        $FunctionalProvider<
-          MapCameraController?,
-          MapCameraController?,
-          MapCameraController?
-        >
-    with $Provider<MapCameraController?> {
-  MapCameraControllerOrNullProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'mapCameraControllerOrNullProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$mapCameraControllerOrNullHash();
-
-  @$internal
-  @override
-  $ProviderElement<MapCameraController?> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  MapCameraController? create(Ref ref) {
-    return mapCameraControllerOrNull(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapCameraController? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MapCameraController?>(value),
-    );
-  }
-}
-
-String _$mapCameraControllerOrNullHash() =>
-    r'7b8bdbdc2342fa7f2fd59ad31f4c5dd2a38eff2b';
