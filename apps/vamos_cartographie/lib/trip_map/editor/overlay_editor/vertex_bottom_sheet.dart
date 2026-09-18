@@ -2,32 +2,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_application/map_editor/application/effect/vertex_effects.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/base_map/overlay_ui/overlay_ui.dart';
+import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
+import 'package:vamos_cartographie/trip_map/editor/overlay_editor/draw_segment.dart';
 
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;
+  final Widget? child;
 
   const VertexBottomSheet({
     super.key,
     required this.tripId,
     required this.vertexId,
+    this.child,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(mapEffectResolverProvider(tripId).notifier);
+    final notifier = ref.watch(mapEditorControllerProvider(tripId));
 
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey('compact_content'),
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Drag handle visuel pour inciter au glissement
-
           // Ligne d'actions
           Row(
             children: [
@@ -48,9 +51,7 @@ class VertexBottomSheet extends ConsumerWidget {
               const SizedBox(width: 8),
 
               // 3. Supprimer le vertex
-              DeleteButton(
-                onPressed: () => notifier.resolve(DeleteSelectedVertexEffect()),
-              ),
+              DeleteButton(onPressed: () => notifier.deleteSelectedVertex()),
             ],
           ),
         ],

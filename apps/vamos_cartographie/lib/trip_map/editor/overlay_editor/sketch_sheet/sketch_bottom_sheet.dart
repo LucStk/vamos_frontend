@@ -2,10 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_application/map_editor/application/effect/segment_effects.dart';
+import 'package:map_application/map_editor/application/effect/sketch_transitions.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
+import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
 
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;
@@ -14,10 +17,7 @@ class SketchBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapEffects = ref.watch(mapEffectResolverProvider(tripId).notifier);
-    final mapTransitions = ref.watch(
-      tripMapStateTransitionsProvider(tripId).notifier,
-    );
+    final mapController = ref.watch(mapEditorControllerProvider(tripId));
 
     // On écoute aussi l'état courant pour mettre à jour la sélection visuelle !
     // (À adapter selon ton provider exact, ex: final currentType = ref.watch(...))
@@ -36,15 +36,13 @@ class SketchBottomSheet extends ConsumerWidget {
                   selectedType:
                       MobilityTypeStyle.bike, // idéalement issu d'un ref.watch
                   onTypeChanged: (newType) {
-                    mapEffects.resolve(
-                      (ChangeSegmentSelectedTypeEffect(type: newType.type)),
-                    );
+                    mapController.changeSelectedSegmentType(newType.type);
                   },
                 ),
               ),
               const SizedBox(width: 12),
               IconButton.filled(
-                onPressed: () => mapTransitions.deactivateSketchMode(),
+                onPressed: () => mapController.deactivateSketchMode(),
                 icon: const Icon(Icons.close, size: 20),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.red.shade50,

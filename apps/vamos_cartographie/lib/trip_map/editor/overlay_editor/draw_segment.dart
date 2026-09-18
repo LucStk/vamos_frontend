@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_application/map_editor/application/effect/sketch_transitions.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
 
 class DrawSegment extends ConsumerWidget {
   final VertexId vertexId;
@@ -9,9 +11,7 @@ class DrawSegment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapTransitions = ref.watch(
-      tripMapStateTransitionsProvider(tripId).notifier,
-    );
+    final mapTransitions = ref.watch(mapEditorControllerProvider(tripId));
     return OutlinedButton.icon(
       onPressed: () => mapTransitions.activateSketchMode(),
 

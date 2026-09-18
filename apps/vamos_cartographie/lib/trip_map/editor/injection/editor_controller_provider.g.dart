@@ -73,7 +73,7 @@ final class MapEditorControllerProvider
 }
 
 String _$mapEditorControllerHash() =>
-    r'88a015b2387cfc4b90d4914b378fab7bbec2d670';
+    r'a3e0dfc0515e66a7312c1d7a6bd6354ef7893920';
 
 final class MapEditorControllerFamily extends $Family
     with $FunctionalFamilyOverride<MapEditorController, TripId> {
@@ -94,23 +94,30 @@ final class MapEditorControllerFamily extends $Family
 }
 
 @ProviderFor(EditorModeNotifier)
-final editorModeProvider = EditorModeNotifierProvider._();
+final editorModeProvider = EditorModeNotifierFamily._();
 
 final class EditorModeNotifierProvider
     extends $NotifierProvider<EditorModeNotifier, MapViewerMode> {
-  EditorModeNotifierProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'editorModeProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  EditorModeNotifierProvider._({
+    required EditorModeNotifierFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'editorModeProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$editorModeNotifierHash();
+
+  @override
+  String toString() {
+    return r'editorModeProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -123,13 +130,51 @@ final class EditorModeNotifierProvider
       providerOverride: $SyncValueProvider<MapViewerMode>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is EditorModeNotifierProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$editorModeNotifierHash() =>
-    r'b092d7ae0545115c1a12049d100c3dcf4e915d9e';
+    r'bb7f3f8ad55e5396dec4c80578b15ef3c9de3fac';
+
+final class EditorModeNotifierFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          EditorModeNotifier,
+          MapViewerMode,
+          MapViewerMode,
+          MapViewerMode,
+          TripId
+        > {
+  EditorModeNotifierFamily._()
+    : super(
+        retry: null,
+        name: r'editorModeProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  EditorModeNotifierProvider call(TripId tripId) =>
+      EditorModeNotifierProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'editorModeProvider';
+}
 
 abstract class _$EditorModeNotifier extends $Notifier<MapViewerMode> {
-  MapViewerMode build();
+  late final _$args = ref.$arg as TripId;
+  TripId get tripId => _$args;
+
+  MapViewerMode build(TripId tripId);
   @$mustCallSuper
   @override
   void runBuild() {
@@ -142,6 +187,6 @@ abstract class _$EditorModeNotifier extends $Notifier<MapViewerMode> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

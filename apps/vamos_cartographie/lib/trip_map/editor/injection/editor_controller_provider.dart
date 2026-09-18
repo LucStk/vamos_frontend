@@ -1,11 +1,8 @@
 import 'package:map_application/map_editor/domain/domain.dart';
 import 'package:map_application/map_viewer/domain/map_viewer_mode.dart';
-import 'package:stored_file_application/application/stored_file_store.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
-import 'package:vamos_cartographie/stored_file/stored_file.dart';
 import 'package:vamos_cartographie/topology/injection/providers/graph_store.dart';
-import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,15 +13,15 @@ MapEditorController mapEditorController(Ref ref, TripId tripId) {
   return MapEditorController(
     graphEditor: ref.watch(graphStoreProvider(tripId).notifier),
     waypointEditor: ref.watch(waypointStoreProvider(tripId).notifier),
-    camera: ref.watch(mapCameraControllerOrNull),
+    camera: ref.watch(mapCameraHolderProvider),
     onModeChanged: (mode) =>
-        ref.read(editorModeProvider.notifier).setState = mode,
+        ref.read(editorModeProvider(tripId).notifier).setState = mode,
   );
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class EditorModeNotifier extends _$EditorModeNotifier {
   @override
-  MapViewerMode build() => const Idle();
+  MapViewerMode build(TripId tripId) => const Idle();
   set setState(MapViewerMode m) => state = m;
 }

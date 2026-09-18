@@ -2,10 +2,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_application/map_editor/domain/map_editor_mode.dart';
+import 'package:map_application/map_viewer/domain/map_viewer_mode.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/trip_map/trip_map.dart';
+import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
+import 'package:vamos_cartographie/trip_map/editor/overlay_editor/sketch_sheet/sketch_sheet.dart';
+import 'package:vamos_cartographie/trip_map/editor/overlay_editor/vertex_bottom_sheet.dart';
 import 'package:vamos_cartographie/topology/injection/injection.dart';
+import 'package:vamos_cartographie/trip_map/viewer/overlay_viewer/segment_bottom_sheet_view.dart';
+import 'package:vamos_cartographie/trip_map/viewer/overlay_viewer/waypoint_sheet/waypoint_bottom_sheet.dart';
 
 class MapBottomSheet extends ConsumerWidget {
   final TripId tripId;
@@ -15,13 +21,13 @@ class MapBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final editorState = ref.watch(tripMapStateProvider(tripId));
+    final editorMode = ref.watch(editorModeProvider(tripId));
 
-    switch (editorState) {
+    switch (editorMode) {
       case SketchMode _:
         return SketchBottomSheet(tripId: tripId);
       case Idle _:
-        switch (editorState.selection) {
+        switch (editorMode.selection) {
           case MapVertex e:
             final waypointId = ref.watch(
               waypointFromVertexProvider(tripId, e.id),
@@ -39,5 +45,7 @@ class MapBottomSheet extends ConsumerWidget {
             return const SizedBox.shrink();
         }
     }
+
+    return const SizedBox.shrink();
   }
 }

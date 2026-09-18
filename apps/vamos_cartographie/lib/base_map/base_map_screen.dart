@@ -6,7 +6,6 @@ import 'package:map_canvas/map_screen.dart';
 import 'package:map_engine/controller/application/map_gesture_handler.dart';
 import 'package:map_engine/visual/domain/map_scene.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/base_map/injection/map_camera_provider.dart';
 import 'package:vamos_cartographie/base_map/layers/layers.dart';
 import 'package:vamos_cartographie/base_map/overlay_ui/right_control_panel.dart';

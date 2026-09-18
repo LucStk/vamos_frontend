@@ -15,7 +15,7 @@ class MapControls extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.watch(mapCameraControllerOrNullProvider);
+    final camera = ref.watch(mapCameraHolderProvider);
     print("mapControl rebuild");
 
     final userLocation = ref.watch(userLocationProvider);
@@ -26,7 +26,7 @@ class MapControls extends ConsumerWidget {
       bottom: 120,
       child: Column(
         children: [
-          if (camera != null) ...[
+          ...[
             MapControlButton(
               icon: CupertinoIcons.add,
               tooltip: 'Zoom avant',
