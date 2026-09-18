@@ -13,10 +13,10 @@ import 'package:vamos_cartographie/topology/injection/injection.dart';
 import 'package:vamos_cartographie/trip_map/presentation/overlay_viewer/segment_bottom_sheet_view.dart';
 import 'package:vamos_cartographie/trip_map/presentation/overlay_viewer/waypoint_sheet/waypoint_bottom_sheet.dart';
 
-class MapBottomSheet extends ConsumerWidget {
+class MapEditorBottomSheet extends ConsumerWidget {
   final TripId tripId;
 
-  const MapBottomSheet({super.key, required this.tripId});
+  const MapEditorBottomSheet({super.key, required this.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

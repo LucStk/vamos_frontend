@@ -15,10 +15,12 @@ class BaseMap extends ConsumerStatefulWidget {
     super.key,
     required this.controller,
     required this.sceneProvider,
+    required this.overlayChildren,
   });
 
   final BaseController controller;
   final ProviderListenable<MapScene> sceneProvider;
+  final List<Widget> overlayChildren;
 
   @override
   ConsumerState<BaseMap> createState() => _BaseMapState();
@@ -72,6 +74,7 @@ class _BaseMapState extends ConsumerState<BaseMap>
             layers: const [MapTileLayer()],
           ),
           const MapControls(),
+          ...widget.overlayChildren,
         ],
       ),
     );
