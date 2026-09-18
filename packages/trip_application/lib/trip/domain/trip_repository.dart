@@ -5,7 +5,9 @@ import 'package:trip_application/trip/domain/domain.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 
 abstract class TripRepository {
-  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
+  Future<
+    Either<Failure, List<(Trip, List<StoredFileRemoteModel>, TopologyRes)>>
+  >
   getAllTrips();
   Future<Either<Failure, (Trip, List<StoredFileRemoteModel>)>> getTrip(
     TripId id,

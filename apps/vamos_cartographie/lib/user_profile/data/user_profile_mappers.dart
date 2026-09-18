@@ -6,7 +6,7 @@ extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
   UserProfile toUserProfileModel() {
     final profilePictureModel = (profilePicture == null)
         ? null
-        : profilePicture!.toRemoteModel().url;
+        : profilePicture!.toDomain().url;
     return UserProfile(
       userId: userId,
       profileName: profileName,

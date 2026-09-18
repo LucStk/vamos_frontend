@@ -29,7 +29,7 @@ class StoredFileRepositoryImpl extends StoredFileRepository {
   ) {
     return guard(() async {
       final res = await remote.attachFile(ownerId, ownerType, fileId);
-      return res.attachFile.toRemoteModel();
+      return res.attachFile.toDomain();
     });
   }
 

@@ -10,13 +10,13 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
 import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i8;
 import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i11;
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i10;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
+    as _i9;
 import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i7;
 import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i9;
+    as _i11;
 import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_queries.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_queries.data.gql.dart'
@@ -68,9 +68,9 @@ class GGetWaypointsReq
     _i7.TripFields,
     _i8.StoredFile,
     _i8.FileAttachment,
-    _i9.WaypointFields,
-    _i10.VertexFields,
-    _i11.LatLngFields,
+    _i9.VertexFields,
+    _i10.LatLngFields,
+    _i11.WaypointFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

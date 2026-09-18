@@ -5,25 +5,22 @@ import '/core/graphql/graphql.dart';
 
 import 'package:trip_application/trip_application.dart';
 
-class WaypointMapper {
-  /// Convertit un [GWaypointFieldsData] (fragment GQL) en [Waypoint] domaine.
-  static WaypointRemoteModel fromGQL(GWaypointFields data) =>
-      WaypointRemoteModel(
-        id: WaypointId(data.id),
-        vertexId: VertexId(data.vertex.id),
-        poiCategory: data.poiCategory.toDomain(),
-        title: data.title,
-        description: data.description,
-      );
+extension GWaypointFieldsMapper on GWaypointFields {
+  WaypointRemoteModel toDomain() => WaypointRemoteModel(
+    id: WaypointId(id),
+    vertexId: VertexId(vertex.id),
+    poiCategory: poiCategory.toDomain(),
+    title: title,
+    description: description,
+  );
+}
 
-  static GWaypointUpdateInput toGQLUpdateInput(WaypointFields waypointDraft) =>
-      GWaypointUpdateInput(
-        poiCategory: Value.present(waypointDraft.poiCategory.toGQL()),
-        description: waypointDraft.description.isNotEmpty
-            ? Value.present(waypointDraft.description)
-            : const Value.absent(),
-        title: waypointDraft.title.isNotEmpty
-            ? Value.present(waypointDraft.title)
-            : const Value.absent(),
-      );
+extension WaypointFieldsMappers on WaypointFields {
+  GWaypointUpdateInput toGQLUpdateInput() => GWaypointUpdateInput(
+    poiCategory: Value.present(poiCategory.toGQL()),
+    description: description.isNotEmpty
+        ? Value.present(description)
+        : const Value.absent(),
+    title: title.isNotEmpty ? Value.present(title) : const Value.absent(),
+  );
 }

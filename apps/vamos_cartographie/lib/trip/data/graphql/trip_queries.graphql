@@ -6,6 +6,9 @@
 query GetAllTrips {
     trips {
         ...TripFields
+        topology {
+            ...TopologyFields
+        }
     }
 }
 
@@ -22,12 +25,7 @@ query GetTripDetails($id: UUID!) {
             ...WaypointFields
         }
         topology {
-            vertices {
-                ...VertexFields
-            }
-            segments {
-                ...SegmentFields
-            }
+            ...TopologyFields
         }
     }
 }

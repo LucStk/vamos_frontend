@@ -5,6 +5,12 @@
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i2;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
+    as _i6;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
+    as _i4;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
+    as _i5;
 import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i3;
 
@@ -149,4 +155,11 @@ const document = _i1.DocumentNode(definitions: [
   _i2.FileAttachment,
   _i2.UploadConfigFields,
   _i3.TripFields,
+  _i3.TopologyFields,
+  _i4.SegmentFields,
+  _i4.SegmentSplicePayloadFragment,
+  _i4.CreateSegmentPayloadFragment,
+  _i4.RefineSegmentPayloadFragment,
+  _i5.VertexFields,
+  _i6.LatLngFields,
 ]);

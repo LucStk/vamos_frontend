@@ -33,6 +33,25 @@ const GetAllTrips = _i1.OperationDefinitionNode(
           directives: [],
         ),
         _i1.FieldNode(
+          name: _i1.NameNode(value: 'topology'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'TopologyFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
           name: _i1.NameNode(value: '__typename'),
           alias: null,
           arguments: [],
@@ -155,43 +174,9 @@ const GetTripDetails = _i1.OperationDefinitionNode(
           arguments: [],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'vertices'),
-              alias: null,
-              arguments: [],
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'TopologyFields'),
               directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FragmentSpreadNode(
-                  name: _i1.NameNode(value: 'VertexFields'),
-                  directives: [],
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'segments'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FragmentSpreadNode(
-                  name: _i1.NameNode(value: 'SegmentFields'),
-                  directives: [],
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
@@ -231,6 +216,7 @@ const document = _i1.DocumentNode(definitions: [
   _i3.VertexFields,
   _i4.LatLngFields,
   _i5.TripFields,
+  _i5.TopologyFields,
   _i6.StoredFile,
   _i6.FileAttachment,
   _i6.UploadConfigFields,

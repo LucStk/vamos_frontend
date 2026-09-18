@@ -7,12 +7,14 @@ import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_s
     as _i3;
 import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
     as _i6;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
+    as _i4;
 import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i5;
 import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i4;
+    as _i7;
 
 const GetWaypoints = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
@@ -85,11 +87,16 @@ const GetWaypoints = _i1.OperationDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   GetWaypoints,
   _i2.TripFields,
+  _i2.TopologyFields,
   _i3.StoredFile,
   _i3.FileAttachment,
   _i3.UploadConfigFields,
-  _i4.WaypointFields,
-  _i4.CreateWaypointPayloadFields,
+  _i4.SegmentFields,
+  _i4.SegmentSplicePayloadFragment,
+  _i4.CreateSegmentPayloadFragment,
+  _i4.RefineSegmentPayloadFragment,
   _i5.VertexFields,
   _i6.LatLngFields,
+  _i7.WaypointFields,
+  _i7.CreateWaypointPayloadFields,
 ]);

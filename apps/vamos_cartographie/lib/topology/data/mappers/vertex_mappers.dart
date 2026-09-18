@@ -8,6 +8,6 @@ class VertexMapper {
 }
 
 extension GVertexFieldsMapper on GVertexFields {
-  VertexRemoteModel toVertexRemoteModel() =>
+  VertexRemoteModel toDomain() =>
       VertexRemoteModel(id: VertexId(id), latLng: latLng.toLatLng());
 }

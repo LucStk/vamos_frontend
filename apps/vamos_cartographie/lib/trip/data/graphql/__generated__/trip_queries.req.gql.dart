@@ -8,21 +8,21 @@ import 'package:gql_exec/gql_exec.dart' as _i3;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
-    as _i7;
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i11;
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
-    as _i9;
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i10;
-import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
+    as _i8;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i6;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
+    as _i7;
+import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
+    as _i9;
 import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_queries.ast.gql.dart'
     as _i5;
 import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_queries.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_queries.var.gql.dart'
-    as _i8;
+    as _i11;
 import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i12;
 
@@ -65,9 +65,13 @@ class GGetAllTripsReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetAllTrips,
-    _i6.TripFields,
-    _i7.StoredFile,
-    _i7.FileAttachment,
+    _i6.SegmentFields,
+    _i7.VertexFields,
+    _i8.LatLngFields,
+    _i9.TripFields,
+    _i9.TopologyFields,
+    _i10.StoredFile,
+    _i10.FileAttachment,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -190,7 +194,7 @@ class GGetAllTripsReq
 }
 
 class GGetTripReq
-    implements _i1.OperationRequest<_i2.GGetTripData, _i8.GGetTripVars> {
+    implements _i1.OperationRequest<_i2.GGetTripData, _i11.GGetTripVars> {
   GGetTripReq({
     required this.vars,
     _i3.Operation? operation,
@@ -204,7 +208,7 @@ class GGetTripReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i8.GGetTripVars vars;
+  final _i11.GGetTripVars vars;
 
   final _i3.Operation operation;
 
@@ -229,9 +233,9 @@ class GGetTripReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetTrip,
-    _i6.TripFields,
-    _i7.StoredFile,
-    _i7.FileAttachment,
+    _i9.TripFields,
+    _i10.StoredFile,
+    _i10.FileAttachment,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -252,7 +256,7 @@ class GGetTripReq
 
   Map<String, dynamic> dataToJson(_i2.GGetTripData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GGetTripData, _i8.GGetTripVars> transformOperation(
+  _i1.OperationRequest<_i2.GGetTripData, _i11.GGetTripVars> transformOperation(
       _i3.Operation Function(_i3.Operation) transform) {
     return GGetTripReq(
       vars: vars,
@@ -269,7 +273,7 @@ class GGetTripReq
   }
 
   GGetTripReq copyWith({
-    _i8.GGetTripVars? vars,
+    _i11.GGetTripVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
@@ -358,7 +362,8 @@ class GGetTripReq
 
 class GGetTripDetailsReq
     implements
-        _i1.OperationRequest<_i2.GGetTripDetailsData, _i8.GGetTripDetailsVars> {
+        _i1
+        .OperationRequest<_i2.GGetTripDetailsData, _i11.GGetTripDetailsVars> {
   GGetTripDetailsReq({
     required this.vars,
     _i3.Operation? operation,
@@ -372,7 +377,7 @@ class GGetTripDetailsReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i8.GGetTripDetailsVars vars;
+  final _i11.GGetTripDetailsVars vars;
 
   final _i3.Operation operation;
 
@@ -397,12 +402,13 @@ class GGetTripDetailsReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetTripDetails,
-    _i9.SegmentFields,
-    _i10.VertexFields,
-    _i11.LatLngFields,
-    _i6.TripFields,
-    _i7.StoredFile,
-    _i7.FileAttachment,
+    _i6.SegmentFields,
+    _i7.VertexFields,
+    _i8.LatLngFields,
+    _i9.TripFields,
+    _i9.TopologyFields,
+    _i10.StoredFile,
+    _i10.FileAttachment,
     _i12.WaypointFields,
   ]);
 
@@ -425,7 +431,7 @@ class GGetTripDetailsReq
   Map<String, dynamic> dataToJson(_i2.GGetTripDetailsData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GGetTripDetailsData, _i8.GGetTripDetailsVars>
+  _i1.OperationRequest<_i2.GGetTripDetailsData, _i11.GGetTripDetailsVars>
       transformOperation(_i3.Operation Function(_i3.Operation) transform) {
     return GGetTripDetailsReq(
       vars: vars,
@@ -442,7 +448,7 @@ class GGetTripDetailsReq
   }
 
   GGetTripDetailsReq copyWith({
-    _i8.GGetTripDetailsVars? vars,
+    _i11.GGetTripDetailsVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,

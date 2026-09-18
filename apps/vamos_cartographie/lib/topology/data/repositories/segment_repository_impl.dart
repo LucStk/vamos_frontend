@@ -17,7 +17,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
   ) {
     return guard(() async {
       final segments = await remote.getSegments(tripId: tripId);
-      return segments.map((m) => m.toSegmentRemoteModel()).toList();
+      return segments.map((m) => m.toDomain()).toList();
     });
   }
 
@@ -37,7 +37,12 @@ class SegmentRepositoryImpl extends SegmentRepository {
         mobilityType: mobilityType,
         geometry: geometry,
       );
-      return gqlResult.toCreateSegmentPayload();
+      return CreateSegmentPayload(
+        vertex: gqlResult.vertex.toDomain(),
+        segment: gqlResult.segment.toDomain(),
+        rafinementFailed: gqlResult.refinementFailed,
+        errorMessage: gqlResult.errorMessage,
+      );
     });
   }
 
@@ -47,7 +52,11 @@ class SegmentRepositoryImpl extends SegmentRepository {
   ) async {
     return guard(() async {
       final gqlResult = await remote.refineSegment(segmentId);
-      return gqlResult.toRefinePayload();
+      return RefineSegmentPayload(
+        segment: gqlResult.segment.toDomain(),
+        rafinementFailed: gqlResult.refinementFailed,
+        errorMessage: gqlResult.errorMessage,
+      );
     });
   }
 
@@ -60,7 +69,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
         id: segment.id,
         input: segment.toGQLUpdateInput(),
       );
-      return gqlResult.toSegmentRemoteModel();
+      return gqlResult.toDomain();
     });
   }
 
@@ -76,7 +85,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
           correction: correction.map((m) => m.toGQLInput()).toList(),
         ),
       );
-      return gqlResult.toSegmentRemoteModel();
+      return gqlResult.toDomain();
     });
   }
 
@@ -100,7 +109,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
       );
       return (
         gqlResult.deletedSegmentIds.map((i) => SegmentId(i)).toList(),
-        gqlResult.segment.toSegmentRemoteModel(),
+        gqlResult.segment.toDomain(),
       );
     });
   }

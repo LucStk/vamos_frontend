@@ -4,6 +4,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/base_map/base_map_screen.dart';
+import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
 import 'package:vamos_cartographie/trip_map/editor/injection/trip_editor_scene.dart';
 import 'package:vamos_cartographie/trip_map/editor/overlay_editor/map_bottom_sheet.dart';
@@ -25,7 +26,8 @@ class ExploreMapScreen extends ConsumerWidget {
           ),
           Consumer(
             builder: (context, ref, _) {
-              final loader = ref.watch(tripDetailsLoaderProvider(tripId));
+              final loader = ref.watch(tripStoreProvider.notifier).loadTrips();
+
               if (!loader.isLoading) return const SizedBox.shrink();
               return const Positioned(
                 top: 0,

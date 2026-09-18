@@ -5,7 +5,7 @@ import '/stored_file/data/graphql/graphql.dart';
 import 'package:domain_core/domain_core.dart';
 
 extension GStoredFileX on GStoredFile {
-  StoredFileRemoteModel toRemoteModel() {
+  StoredFileRemoteModel toDomain() {
     return StoredFileRemoteModel(
       id: StoredFileId(id),
       filename: filename,
@@ -14,9 +14,9 @@ extension GStoredFileX on GStoredFile {
   }
 }
 
-extension GFileAttachmentX on GFileAttachment {
-  StoredFileRemoteModel toRemoteModel() {
-    return file.toRemoteModel();
+extension GFileAttachmentX on GFileAttachmentData {
+  StoredFileRemoteModel toDomain() {
+    return file.toDomain();
   }
 }
 

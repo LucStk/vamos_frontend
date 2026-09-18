@@ -6,30 +6,12 @@ import "/topology/data/graphql/graphql.dart";
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 
 extension GSegmentFieldsMapper on GSegmentFields {
-  SegmentRemoteModel toSegmentRemoteModel() => SegmentRemoteModel(
+  SegmentRemoteModel toDomain() => SegmentRemoteModel(
     id: SegmentId(id),
     mobilityType: mobilityType.toDomain(),
     geometry: geometry.map((d) => d.toLatLng()).toList(),
     startVertexId: VertexId(startVertex.id),
     endVertexId: VertexId(endVertex.id),
-  );
-  VertexRemoteModel toEndVertexRemoteModel() => endVertex.toVertexRemoteModel();
-}
-
-extension GCreateSegmentPayloadFragmentMapper on GCreateSegmentPayloadFragment {
-  CreateSegmentPayload toCreateSegmentPayload() => CreateSegmentPayload(
-    rafinementFailed: refinementFailed,
-    segment: segment.toSegmentRemoteModel(),
-    vertex: vertex.toVertexRemoteModel(),
-    errorMessage: errorMessage,
-  );
-}
-
-extension GRefineSegmentPayloadMapper on GRefineSegmentPayloadFragment {
-  RefineSegmentPayload toRefinePayload() => RefineSegmentPayload(
-    rafinementFailed: refinementFailed,
-    segment: segment.toSegmentRemoteModel(),
-    errorMessage: errorMessage,
   );
 }
 

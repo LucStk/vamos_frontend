@@ -6,6 +6,10 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
     as _gqlUtils;
 import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
     as _i1;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart'
+    as _i3;
+import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart'
+    as _i2;
 
 abstract class GTripFields {
   String get id;
@@ -104,5 +108,79 @@ class GTripFieldsData implements GTripFields {
   @override
   String toString() {
     return 'GTripFieldsData(id: $id, title: $title, date: $date, description: $description, files: $files, G__typename: $G__typename)';
+  }
+}
+
+abstract class GTopologyFields {
+  List<_i2.GVertexFields> get vertices;
+  List<_i3.GSegmentFields> get segments;
+  String get G__typename;
+}
+
+class GTopologyFieldsData implements GTopologyFields {
+  const GTopologyFieldsData({
+    required this.vertices,
+    required this.segments,
+    this.G__typename = 'TopologyType',
+  });
+
+  factory GTopologyFieldsData.fromJson(Map<String, dynamic> json) {
+    return GTopologyFieldsData(
+      vertices: (json['vertices'] as List<dynamic>)
+          .map((_$e) =>
+              _i2.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      segments: (json['segments'] as List<dynamic>)
+          .map((_$e) =>
+              _i3.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<_i2.GVertexFieldsData> vertices;
+
+  final List<_i3.GSegmentFieldsData> segments;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['vertices'] = this.vertices.map((_$e) => _$e.toJson()).toList();
+    _$result['segments'] = this.segments.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GTopologyFieldsData copyWith({
+    List<_i2.GVertexFieldsData>? vertices,
+    List<_i3.GSegmentFieldsData>? segments,
+    String? G__typename,
+  }) {
+    return GTopologyFieldsData(
+      vertices: vertices ?? this.vertices,
+      segments: segments ?? this.segments,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTopologyFieldsData &&
+            _gqlUtils.listEquals(vertices, other.vertices) &&
+            _gqlUtils.listEquals(segments, other.segments) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.listHash(vertices),
+        _gqlUtils.listHash(segments), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GTopologyFieldsData(vertices: $vertices, segments: $segments, G__typename: $G__typename)';
   }
 }

@@ -1,3 +1,4 @@
+import 'package:domain_core/failures/failures.dart';
 import 'package:stored_file_application/application/stored_file_store.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/stored_file/stored_file.dart';
@@ -39,4 +40,24 @@ Future<void> tripDetailsLoader(Ref ref, TripId tripId) async {
       ref.read(storedFileStoreProvider.notifier).emit(newMediaStore);
     },
   );
+}
+
+@override
+Future<Failure?> loadTrips(Ref ref) async {
+  final tripRepo = ref.watch(tripRepositoryProvider);
+  final res = await tripRepo.getAllTrips();
+
+  return res.fold((Failure f) => f, (data) {
+    var newStore = TripStore.initial();
+    var newFileStore = StoredFileStore.initial();
+    for (final (trip, listImages, topology) in data) {
+      newStore = newStore.insertTrip(trip);
+      for (final i in listImages) {
+        newFileStore = newFileStore.insertStoredFile(trip.id, i);
+      }
+    }
+    ref.read(tripStoreProvider.notifier).emit(newStore);
+    ref.read(storedFileStoreProvider.notifier).emit(newFileStore);
+    return null;
+  });
 }

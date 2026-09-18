@@ -19,7 +19,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
   ) {
     return guard(() async {
       final waypoints = await remote.getWaypoints(tripId: tripId);
-      return waypoints.map((w) => WaypointMapper.fromGQL(w)).toList();
+      return waypoints.map((w) => w.toDomain()).toList();
     });
   }
 
@@ -31,8 +31,8 @@ class WaypointRepositoryImpl extends WaypointRepository {
         tripId: tripId,
         latLng: latLng,
       );
-      final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
-      final waypointVertex = gqlResult.vertex.toVertexRemoteModel();
+      final createWaypoint = gqlResult.waypoint.toDomain();
+      final waypointVertex = gqlResult.vertex.toDomain();
       return WaypointCreateBlankRes(createWaypoint, waypointVertex);
     });
   }
@@ -47,8 +47,8 @@ class WaypointRepositoryImpl extends WaypointRepository {
         tripId: tripId,
         vertexId: vertexId,
       );
-      final createWaypoint = WaypointMapper.fromGQL(gqlResult.waypoint);
-      final waypointVertex = gqlResult.vertex.toVertexRemoteModel();
+      final createWaypoint = gqlResult.waypoint.toDomain();
+      final waypointVertex = gqlResult.vertex.toDomain();
       return WaypointCreateBlankRes(createWaypoint, waypointVertex);
     });
   }
@@ -58,12 +58,12 @@ class WaypointRepositoryImpl extends WaypointRepository {
     WaypointFields waypoint,
   ) {
     return guard(() async {
-      final input = WaypointMapper.toGQLUpdateInput(waypoint);
+      final input = waypoint.toGQLUpdateInput();
       final gqlResult = await remote.updateWaypoint(
         id: waypoint.id,
         input: input,
       );
-      return WaypointMapper.fromGQL(gqlResult);
+      return gqlResult.toDomain();
     });
   }
 

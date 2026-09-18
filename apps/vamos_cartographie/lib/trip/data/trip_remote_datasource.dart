@@ -22,12 +22,12 @@ class TripRemoteDatasource {
 
   /// Récupère la liste de tous les trips (champs de base uniquement,
   /// sans waypoints ni segments).
-  Future<List<GTripFieldsData>> getAllTrips() async {
+  Future<GGetAllTripsData> getAllTrips() async {
     final data = await ferryClient.execute(
       GGetAllTripsReq(fetchPolicy: FetchPolicy.NetworkOnly),
     );
 
-    return data.trips;
+    return data;
   }
 
   /// Récupère un trip complet (avec waypoints et segments) par son [id].

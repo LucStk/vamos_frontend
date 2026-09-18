@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.
 extension GUploadConfigFieldsX on GUploadConfigFields {
   UploadConfigModel toModel() {
     return UploadConfigModel(
-      file: file.toRemoteModel(),
+      file: file.toDomain(),
       uploadUrl: uploadUrl,
       fileKey: fileKey,
       contentType: contentType,

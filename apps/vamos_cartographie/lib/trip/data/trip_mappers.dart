@@ -1,80 +1,43 @@
-import 'package:gql_tristate_value/gql_tristate_value.dart';
-import 'package:stored_file_application/stored_file_application.dart';
-import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
-import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
-import 'package:vamos_cartographie/waypoint/data/mappers/mappers.dart';
-import '/core/graphql/graphql.dart';
 import 'package:domain_core/domain_core.dart';
-import "/trip/data/graphql/graphql.dart";
+import 'package:gql_tristate_value/gql_tristate_value.dart';
+import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
 
-/// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
-class TripMapper {
-  /// segments) en [Trip] domaine. Utilisé pour la liste de trips.
-  static Trip fromGQLFields(GTripFieldsData data) => Trip(
-    id: Id<Trip>(data.id),
-    title: data.title,
-    description: data.description,
-    date: data.date != null ? DateTime.parse(data.date!) : null,
+import '/core/graphql/graphql.dart';
+import '/trip/data/graphql/graphql.dart';
+
+/// ---------------------------------------------------------------------------
+/// GraphQL -> Domain
+/// ---------------------------------------------------------------------------
+
+extension GTripFieldsMapper on GTripFields {
+  Trip toDomain() => Trip(
+    id: Id<Trip>(id),
+    title: title,
+    description: description,
+    date: date == null ? null : DateTime.parse(date!),
   );
+}
 
-  /// Convertit un [GGetTripData_trip] (query détaillée, avec waypoints et
-  /// segments) en [Trip] domaine.
-  static (Trip, List<StoredFileRemoteModel>) fromGQLDetail(
-    GTripFieldsData data,
-  ) {
-    final trip = Trip(
-      id: Id<Trip>(data.id),
-      title: data.title,
-      description: data.description,
-      date: data.date != null ? DateTime.parse(data.date!) : null,
-    );
-    final images = data.files.map((i) => i.file.toRemoteModel()).toList();
-    return (trip, images);
-  }
-
-  static TripDetailsRes fromGQLDetails(GGetTripDetailsData_trip data) {
-    final lV = data.topology.vertices
-        .map((m) => m.toVertexRemoteModel())
-        .toList();
-    final lS = data.topology.segments
-        .map((m) => m.toSegmentRemoteModel())
-        .toList();
-
-    final lW = data.waypoints
-        .map(
-          (m) => (
-            WaypointMapper.fromGQL(m),
-            m.files.map((i) => i.file.toRemoteModel()).toList(),
-          ),
-        )
-        .toList();
-    return TripDetailsRes(lV, lS, lW);
-  }
-
-  /// Convertit le résultat de la mutation createTrip en [Trip] domaine.
-  static Trip fromGQLCreateResult(GTripFields data) => Trip(
-    id: Id<Trip>(data.id),
-    title: data.title,
-    description: data.description,
-    date: data.date != null ? DateTime.parse(data.date!) : null,
+extension GTopologyFieldsMapper on GTopologyFields {
+  TopologyRes toDomain() => TopologyRes(
+    vertices.map((vertex) => vertex.toDomain()).toList(),
+    segments.map((segment) => segment.toDomain()).toList(),
   );
+}
 
-  /// Convertit le résultat de la mutation updateTrip en [Trip] domaine.
-  static Trip fromGQLUpdateResult(GTripFields data) => Trip(
-    id: Id<Trip>(data.id),
-    title: data.title,
-    description: data.description,
-    date: data.date != null ? DateTime.parse(data.date!) : null,
-  );
+/// ---------------------------------------------------------------------------
+/// Domain -> GraphQL
+/// ---------------------------------------------------------------------------
 
-  static GTripUpdateInput toGQLUpdateInput(Trip trip) => GTripUpdateInput(
-    title: Value.present(trip.title),
-    description: trip.description.isNotEmpty
-        ? Value.present(trip.description)
-        : const Value.absent(), // ne pas envoyer si vide
-    date: trip.date != null
-        ? Value.present(trip.date!.toIso8601String().substring(0, 10))
-        : const Value.absent(),
+extension TripToGQLMapper on Trip {
+  GTripUpdateInput toGQLUpdateInput() => GTripUpdateInput(
+    title: Value.present(title),
+    description: description.isEmpty
+        ? const Value.absent()
+        : Value.present(description),
+    date: date == null
+        ? const Value.absent()
+        : Value.present(date!.toIso8601String().substring(0, 10)),
   );
 }

@@ -16,7 +16,7 @@ class VertexRepositoryImpl extends VertexRepository {
   ) {
     return guard(() async {
       final segments = await remote.getVertices(tripId: tripId);
-      return segments.map((m) => m.toVertexRemoteModel()).toList();
+      return segments.map((m) => m.toDomain()).toList();
     });
   }
 
@@ -30,7 +30,7 @@ class VertexRepositoryImpl extends VertexRepository {
         tripId: tripId,
         latLng: latLng.toGQLInput(),
       );
-      return gqlResult.toVertexRemoteModel();
+      return gqlResult.toDomain();
     });
   }
 
@@ -44,7 +44,7 @@ class VertexRepositoryImpl extends VertexRepository {
         id: vertexId,
         latLng: latLng.toGQLInput(),
       );
-      return gqlResult.toVertexRemoteModel();
+      return gqlResult.toDomain();
     });
   }
 
