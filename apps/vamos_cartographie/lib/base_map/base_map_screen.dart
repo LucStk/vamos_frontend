@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/map_screen.dart';
+import 'package:map_engine/controller/application/map_gesture_handler.dart';
 import 'package:map_engine/visual/domain/map_scene.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:map_canvas/map_canvas.dart';
@@ -13,12 +14,12 @@ import 'package:vamos_cartographie/base_map/overlay_ui/right_control_panel.dart'
 class BaseMap extends ConsumerStatefulWidget {
   const BaseMap({
     super.key,
-    required this.actionResolver,
+    required this.onGesture,
     required this.sceneProvider,
     required this.sceneReader,
   });
 
-  final GestureActionResolver actionResolver;
+  final OnGesture onGesture;
   final GestureSceneReader sceneReader;
   final ProviderListenable<MapScene> sceneProvider;
 
@@ -67,7 +68,7 @@ class _BaseMapState extends ConsumerState<BaseMap>
       body: Stack(
         children: [
           MapScreen(
-            onGesture: widget.actionResolver,
+            onGesture: widget.onGesture,
             mapCameraReader: ref.read(mapCameraReaderProvider),
             mapController: ref.read(mapControllerProvider),
             sceneReader: widget.sceneReader,

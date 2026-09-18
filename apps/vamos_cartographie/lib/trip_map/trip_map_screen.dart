@@ -4,13 +4,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/base_map/base_map_screen.dart';
-import 'package:vamos_cartographie/base_map/injection/map_camera_provider.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
-import 'package:vamos_cartographie/trip_map/trip_map.dart';
-import 'package:vamos_cartographie/trip_map/trip_map_action_resolver/gestures_resolver.dart';
-import 'package:vamos_cartographie/trip_map/trip_map_action_resolver/trip_map_action_resolver.dart';
 
 class RiverpodGestureSceneReader implements GestureSceneReader {
   const RiverpodGestureSceneReader(this.ref, this.tripId);
@@ -44,18 +38,7 @@ class TripMapScreen extends ConsumerWidget {
       body: Stack(
         children: [
           BaseMap(
-            actionResolver: TripMapGestureActionResolver(
-              context: GestureResolutionContext(
-                editorState: ref.read(tripMapStateProvider(tripId)),
-                camera: ref.read(mapCameraReaderProvider),
-                mapTransitions: ref.read(
-                  tripMapStateTransitionsProvider(tripId).notifier,
-                ),
-              ),
-              onResolution: (GestureResolution e) {
-                e.effects;
-              },
-            ),
+            onGesture: ,
             sceneReader: RiverpodGestureSceneReader(ref, tripId),
             sceneProvider: mapSceneProvider(tripId),
           ),

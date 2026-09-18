@@ -1,4 +1,5 @@
 import 'package:map_application/map_editor/application/application.dart';
+import 'package:map_application/map_editor/application/effect/effect.dart';
 import 'package:map_application/map_editor/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';

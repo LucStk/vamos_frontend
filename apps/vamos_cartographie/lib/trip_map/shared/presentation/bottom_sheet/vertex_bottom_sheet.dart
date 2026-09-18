@@ -6,8 +6,6 @@ import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/base_map/overlay_ui/overlay_ui.dart';
-import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
-import 'package:vamos_cartographie/trip_map/trip_map.dart';
 
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;

@@ -3,24 +3,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/visual/visual.dart';
 import 'package:trip_application/topology/domain/domain.dart';
+import 'package:map_application/map_viewer/map_viewer.dart';
 
 part 'map_editor_mode.freezed.dart';
 
 // 2. Définition de l'Union MapMode
-sealed class MapEditorMode {
+abstract class MapEditorMode extends MapViewerMode {
   const MapEditorMode();
-  MapObject? get selection;
-
-  MapEditorMode withSelection(MapObject? selection);
-}
-
-final class Idle extends MapEditorMode {
-  const Idle({this.selection});
-  @override
-  final MapObject? selection;
-
-  @override
-  Idle withSelection(MapObject? selection) => Idle(selection: selection);
 }
 
 @freezed

@@ -6,10 +6,6 @@ import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 import 'package:vamos_cartographie/topology/presentation/mobility_type_display.dart';
-import 'package:vamos_cartographie/trip_map/effects/map_effects.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_effects.dart';
-import 'package:vamos_cartographie/trip_map/injection/map_transitions.dart';
-import 'package:vamos_cartographie/trip_map/transitions/sketch_transitions.dart';
 
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;

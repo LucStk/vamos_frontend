@@ -5,6 +5,7 @@ import 'package:map_application/map_editor/domain/effect_queue.dart';
 import 'package:map_engine/controller/domain/map_gesture.dart';
 import 'package:trip_application/topology/application/graph_editor.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
+import 'package:map_application/map_viewer/map_viewer.dart';
 
 class MapEditorController extends BaseController {
   MapEditorController({
@@ -16,7 +17,7 @@ class MapEditorController extends BaseController {
   final GraphEditor graphEditor;
   final WaypointEditor waypointEditor;
 
-  MapEditorMode editorMode;
+  MapViewerMode editorMode;
 
   final MapEffectQueue _effectQueue = MapEffectQueue();
 
