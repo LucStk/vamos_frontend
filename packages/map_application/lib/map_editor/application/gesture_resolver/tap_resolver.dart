@@ -3,17 +3,17 @@ import 'package:map_engine/map_engine.dart';
 
 extension TapEditor on MapEditorController {
   void tapResolve(TapGesture gesture) {
-    switch ((editorMode, gesture.element)) {
-      case (Idle _, MapObject e) when e is TopologyObject:
-        editorMode = Idle(selection: e);
+    switch ((mode, gesture.element)) {
+      case (SketchMode m, MapSketchPencil p):
+        mode = m.copyWith(selection: p);
         return;
 
-      case (SketchMode m, MapSketchPencil p):
-        editorMode = m.copyWith(selection: p);
+      case (Idle _, MapObject e) when e is TopologyObject:
+        mode = Idle(selection: e);
         return;
 
       case (Idle _, null):
-        editorMode = Idle();
+        mode = Idle();
         return;
       case _:
     }

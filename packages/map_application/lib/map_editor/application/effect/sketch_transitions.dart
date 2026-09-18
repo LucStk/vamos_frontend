@@ -4,8 +4,8 @@ import 'package:trip_application/topology/topology.dart';
 
 extension SketchTransitions on MapEditorController {
   void activateSketchMode() {
-    if (editorMode.selection case MapVertex(:final id, :final position)) {
-      editorMode = SketchCreation(
+    if (mode.selection case MapVertex(:final id, :final position)) {
+      mode = SketchCreation(
         vertexStart: id,
         path: [position],
         mobilityType: MobilityType.bike,
@@ -14,12 +14,12 @@ extension SketchTransitions on MapEditorController {
   }
 
   void activateSegmentEditMode() {
-    if (editorMode.selection case MapSegment(:final id)) {
-      editorMode = SketchEdition(segmentId: id, path: []);
+    if (mode.selection case MapSegment(:final id)) {
+      mode = SketchEdition(segmentId: id, path: []);
     }
   }
 
   void deactivateSketchMode() {
-    editorMode = Idle();
+    mode = Idle();
   }
 }

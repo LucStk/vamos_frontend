@@ -1,15 +1,28 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/base/domain/base_controller.dart';
 import 'package:map_engine/visual/visual.dart';
 import 'package:trip_application/topology/domain/domain.dart';
-import 'package:map_application/map_viewer/map_viewer.dart';
 
 part 'map_editor_mode.freezed.dart';
 
-// 2. Définition de l'Union MapMode
-abstract class MapEditorMode extends MapViewerMode {
+sealed class MapEditorMode extends BaseMode {
   const MapEditorMode();
+
+  @override
+  MapObject? get selection;
+
+  MapEditorMode withSelection(MapObject? selection);
+}
+
+class Idle extends MapEditorMode {
+  const Idle({MapObject? selection});
+
+  @override
+  Idle withSelection(MapObject? selection) {
+    return Idle(selection: selection);
+  }
 }
 
 @freezed
@@ -39,8 +52,8 @@ sealed class SketchMode extends MapEditorMode with _$SketchMode {
 
   @override
   SketchMode withSelection(MapObject? selection) => switch (this) {
-    SketchCreation s => s.copyWith(selection: selection),
-    SketchEdition s => s.copyWith(selection: selection),
+    SketchCreation mode => mode.copyWith(selection: selection),
+    SketchEdition mode => mode.copyWith(selection: selection),
   };
 }
 

@@ -20,12 +20,12 @@ extension VertexEffects on MapEditorController {
   }
 
   Future<void> deleteSelectedVertex() async {
-    if (editorMode.selection case MapVertex(:final id)) {
-      final initialSelection = editorMode.selection;
+    if (mode.selection case MapVertex(:final id)) {
+      final initialSelection = mode.selection;
       await graphEditor.removeVertex(id);
       // On vérifie que la selection n'as pas évolue entre temps
-      if (editorMode.selection == initialSelection) {
-        editorMode = editorMode.withSelection(null);
+      if (mode.selection == initialSelection) {
+        mode = mode.withSelection(null);
       }
     }
   }

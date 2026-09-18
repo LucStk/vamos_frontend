@@ -6,14 +6,14 @@ import 'package:map_engine/utiles/polyline_dist.dart';
 extension PointerDownEditor on MapEditorController {
   void pointerDownResolve(PointerDownGesture gesture) {
     final latLng = camera.worldOffsetToLatLng(gesture.offset);
-    switch ((editorMode, gesture.element)) {
+    switch ((mode, gesture.element)) {
       case (SketchCreation m, MapSketchSegment _):
         final grab = closestPointOnPolyline(latLng, m.path);
-        editorMode = m.copyWith(path: m.path.sublist(0, grab.segmentIndex));
+        mode = m.copyWith(path: m.path.sublist(0, grab.segmentIndex));
         return;
 
       case (SketchEdition m, MapSegment s) when s.id == m.segmentId:
-        editorMode = m.copyWith(path: [latLng]);
+        mode = m.copyWith(path: [latLng]);
         return;
       case _:
     }

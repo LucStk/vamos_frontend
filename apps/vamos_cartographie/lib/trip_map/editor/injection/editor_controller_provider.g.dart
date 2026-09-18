@@ -26,7 +26,7 @@ final class MapEditorControllerProvider
   }) : super(
          retry: null,
          name: r'mapEditorControllerProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -73,7 +73,7 @@ final class MapEditorControllerProvider
 }
 
 String _$mapEditorControllerHash() =>
-    r'a3e0dfc0515e66a7312c1d7a6bd6354ef7893920';
+    r'24e679495111299c1fe3ff8dffa68c378c7e6e52';
 
 final class MapEditorControllerFamily extends $Family
     with $FunctionalFamilyOverride<MapEditorController, TripId> {
@@ -83,7 +83,7 @@ final class MapEditorControllerFamily extends $Family
         name: r'mapEditorControllerProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   MapEditorControllerProvider call(TripId tripId) =>
@@ -97,7 +97,7 @@ final class MapEditorControllerFamily extends $Family
 final editorModeProvider = EditorModeNotifierFamily._();
 
 final class EditorModeNotifierProvider
-    extends $NotifierProvider<EditorModeNotifier, MapViewerMode> {
+    extends $NotifierProvider<EditorModeNotifier, BaseMode> {
   EditorModeNotifierProvider._({
     required EditorModeNotifierFamily super.from,
     required TripId super.argument,
@@ -124,10 +124,10 @@ final class EditorModeNotifierProvider
   EditorModeNotifier create() => EditorModeNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapViewerMode value) {
+  Override overrideWithValue(BaseMode value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapViewerMode>(value),
+      providerOverride: $SyncValueProvider<BaseMode>(value),
     );
   }
 
@@ -143,15 +143,15 @@ final class EditorModeNotifierProvider
 }
 
 String _$editorModeNotifierHash() =>
-    r'bb7f3f8ad55e5396dec4c80578b15ef3c9de3fac';
+    r'a9d57c83f0b7b3af479524c1708720909efafb08';
 
 final class EditorModeNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           EditorModeNotifier,
-          MapViewerMode,
-          MapViewerMode,
-          MapViewerMode,
+          BaseMode,
+          BaseMode,
+          BaseMode,
           TripId
         > {
   EditorModeNotifierFamily._()
@@ -170,20 +170,20 @@ final class EditorModeNotifierFamily extends $Family
   String toString() => r'editorModeProvider';
 }
 
-abstract class _$EditorModeNotifier extends $Notifier<MapViewerMode> {
+abstract class _$EditorModeNotifier extends $Notifier<BaseMode> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  MapViewerMode build(TripId tripId);
+  BaseMode build(TripId tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<MapViewerMode, MapViewerMode>;
+    final ref = this.ref as $Ref<BaseMode, BaseMode>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MapViewerMode, MapViewerMode>,
-              MapViewerMode,
+              AnyNotifier<BaseMode, BaseMode>,
+              BaseMode,
               Object?,
               Object?
             >;

@@ -6,9 +6,9 @@ import 'package:trip_application/trip_application.dart';
 
 extension MapEditorControllerGestures on MapEditorController {
   void dragStartResolve(DragStartGesture gesture) {
-    switch ((editorMode, gesture.dragged)) {
+    switch ((mode, gesture.dragged)) {
       case (SketchMode s, _) when s.selection is MapSketchPencil:
-        editorMode = s.copyWith(selection: null);
+        mode = s.copyWith(selection: null);
 
       case _:
     }
@@ -17,19 +17,16 @@ extension MapEditorControllerGestures on MapEditorController {
   void dragUpdateResolve(DraggingGesture gesture) {
     final latLng = camera.worldOffsetToLatLng(gesture.offset);
 
-    switch ((editorMode, gesture.dragged)) {
+    switch ((mode, gesture.dragged)) {
       case (SketchMode m, MapSketchPencil _):
-        editorMode = m.copyWith(
-          path: [...m.path, latLng],
-          selection: gesture.target,
-        );
+        mode = m.copyWith(path: [...m.path, latLng], selection: gesture.target);
 
       case _:
     }
   }
 
   void dragEndResolve(DragEndGesture gesture) {
-    switch ((editorMode, gesture.dragged, gesture.target)) {
+    switch ((mode, gesture.dragged, gesture.target)) {
       case (SketchCreation m, MapSketchPencil _, MapVertex v):
         executeEffect(
           () => createSegmentFromSketch(

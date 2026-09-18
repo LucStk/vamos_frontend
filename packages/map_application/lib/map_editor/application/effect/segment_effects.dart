@@ -19,7 +19,7 @@ extension MapEditorSegments on MapEditorController {
       mobilityType: mobilityType,
     );
     return res.fold((_) => null, (data) {
-      editorMode = Idle(
+      mode = Idle(
         selection: MapSegment(data.segment.id, data.segment.geometry),
       );
     });
@@ -47,7 +47,7 @@ extension MapEditorSegments on MapEditorController {
     return res.fold((_) => null, (data) {
       final (_, segment) = data;
 
-      editorMode = Idle(selection: MapSegment(segment.id, segment.geometry));
+      mode = Idle(selection: MapSegment(segment.id, segment.geometry));
     });
   }
 
@@ -55,15 +55,15 @@ extension MapEditorSegments on MapEditorController {
     final res = await graphEditor.updateSegment(patch);
 
     return res.fold((_) => null, (_) {
-      if (editorMode case SketchEdition e) {
-        editorMode = e.copyWith(path: []);
+      if (mode case SketchEdition e) {
+        mode = e.copyWith(path: []);
       }
       return;
     });
   }
 
   Future<void> changeSelectedSegmentType(MobilityType type) async {
-    if (editorMode.selection case MapSegment(:final id)) {
+    if (mode.selection case MapSegment(:final id)) {
       final segment = graphEditor.state.segmentStore.get(id)?.current;
 
       if (segment == null) {
@@ -99,8 +99,8 @@ extension MapEditorSegments on MapEditorController {
     final res = await graphEditor.correctSegment(patch, correction);
 
     return res.fold((_) => null, (_) {
-      if (editorMode case SketchEdition e) {
-        editorMode = e.copyWith(path: []);
+      if (mode case SketchEdition e) {
+        mode = e.copyWith(path: []);
       }
 
       return;
@@ -108,12 +108,12 @@ extension MapEditorSegments on MapEditorController {
   }
 
   Future<void> deleteSegment(SegmentId segmentId) async {
-    final initialSelection = editorMode.selection;
+    final initialSelection = mode.selection;
     final res = await graphEditor.deleteSegment(segmentId);
 
     res.fold((_) => null, (_) {
-      if (editorMode.selection == initialSelection) {
-        editorMode = editorMode.withSelection(null);
+      if (mode.selection == initialSelection) {
+        mode = mode.withSelection(null);
       }
     });
   }
