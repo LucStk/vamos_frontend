@@ -13,13 +13,13 @@ extension SketchTransitions on MapEditorController {
     }
   }
 
-  void activateSegmentEditMode() async {
+  void activateSegmentEditMode() {
     if (editorMode.selection case MapSegment(:final id)) {
       editorMode = SketchEdition(segmentId: id, path: []);
     }
   }
 
-  void deactivateSketchMode() async {
+  void deactivateSketchMode() {
     editorMode = Idle();
   }
 }

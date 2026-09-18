@@ -17,7 +17,7 @@ class PointerGestureResolver {
       case (IdleState(), PointerEventType.down):
         final element = hitTest(offset: offset);
         state = PressedState(element: element, offset: offset);
-        return null;
+        return PointerDownGesture(offset, element: element);
 
       case (PressedState pressed, PointerEventType.move):
         final distance = (pressed.offset.value - offset.value).distance;
@@ -27,15 +27,26 @@ class PointerGestureResolver {
           return null;
         }
         // On commence le drag
-        state = DraggingState(element: pressed.element);
-        return DragStartGesture(pressed.element);
+        state = DraggingState(dragged: pressed.element);
+        return DragStartGesture(offset, dragged: pressed.element);
 
       case (DraggingState dragging, PointerEventType.move):
-        return DraggingGesture(dragging.element);
+        // On fait le testhit pour détecter si on touche un
+        // element autre celui que l'on déplace
+        final target = hitTest(offset: offset, exclude: dragging.dragged);
+        return DraggingGesture(
+          offset,
+          dragged: dragging.dragged,
+          target: target,
+        );
 
       case (DraggingState dragging, PointerEventType.up):
         state = const IdleState();
-        return DragEndGesture(dragging.element);
+        return DragEndGesture(
+          offset,
+          dragged: dragging.dragged,
+          target: dragging.target,
+        );
 
       case (PressedState pressed, PointerEventType.up):
         state = PendingTap(element: pressed.element, offset: offset);
@@ -45,16 +56,16 @@ class PointerGestureResolver {
         final element = hitTest(offset: offset);
         if (pending.compare(element, offset)) {
           state = IdleState();
-          return DoubleTapGesture(element);
+          return DoubleTapGesture(offset, element: element);
         }
         state = PressedState(element: element, offset: offset);
         // Le premier tap était finalement un tap simple.
         // Le nouveau down démarre une nouvelle interaction.
-        return TapGesture(pending.element);
+        return TapGesture(offset, element: pending.element);
 
       case (PendingTap pending, PointerEventType.tapTimeout):
         state = const IdleState();
-        return TapGesture(pending.element);
+        return TapGesture(offset, element: pending.element);
       case _:
     }
     return null;

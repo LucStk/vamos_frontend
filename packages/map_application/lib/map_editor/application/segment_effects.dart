@@ -6,7 +6,7 @@ import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/topology/topology.dart';
 
 extension MapEditorSegments on MapEditorController {
-  Future<MapEditorMode?> createSegmentFromSketch({
+  Future<void> createSegmentFromSketch({
     required VertexId startVertexId,
     required List<LatLng> geometry,
     required MobilityType mobilityType,
@@ -18,15 +18,14 @@ extension MapEditorSegments on MapEditorController {
       geometry: geometry,
       mobilityType: mobilityType,
     );
-
-    return res.fold(
-      (_) => null,
-      (data) =>
-          Idle(selection: MapSegment(data.segment.id, data.segment.geometry)),
-    );
+    return res.fold((_) => null, (data) {
+      editorMode = Idle(
+        selection: MapSegment(data.segment.id, data.segment.geometry),
+      );
+    });
   }
 
-  Future<MapEditorMode?> spliceSegment({
+  Future<void> spliceSegment({
     required List<LatLng> correction,
     required SegmentId segmentId,
     required SpliceAnchor startAnchor,
@@ -35,7 +34,7 @@ extension MapEditorSegments on MapEditorController {
     final segment = graphEditor.state.segmentStore.get(segmentId)?.current;
 
     if (segment == null) {
-      return null;
+      return;
     }
 
     final res = await graphEditor.spliceSegment(
@@ -48,50 +47,47 @@ extension MapEditorSegments on MapEditorController {
     return res.fold((_) => null, (data) {
       final (_, segment) = data;
 
-      return Idle(selection: MapSegment(segment.id, segment.geometry));
+      editorMode = Idle(selection: MapSegment(segment.id, segment.geometry));
     });
   }
 
-  Future<MapEditorMode?> editSegmentFromSketch(SegmentPatchModel patch) async {
+  Future<void> editSegmentFromSketch(SegmentPatchModel patch) async {
     final res = await graphEditor.updateSegment(patch);
 
     return res.fold((_) => null, (_) {
       if (editorMode case SketchEdition e) {
-        return e.copyWith(path: []);
+        editorMode = e.copyWith(path: []);
       }
-
-      return null;
+      return;
     });
   }
 
-  Future<MapEditorMode?> changeSelectedSegmentType(MobilityType type) async {
+  Future<void> changeSelectedSegmentType(MobilityType type) async {
     if (editorMode.selection case MapSegment(:final id)) {
       final segment = graphEditor.state.segmentStore.get(id)?.current;
 
       if (segment == null) {
-        return null;
+        return;
       }
-
       final patch = SegmentPatchModel.fromFields(
         segment,
       ).copyWith(mobilityType: type);
 
       final res = await graphEditor.updateSegment(patch);
-
       return res.fold((_) => null, (_) => null);
     }
 
-    return null;
+    return;
   }
 
-  Future<MapEditorMode?> correctSegmentFromSketch({
+  Future<void> correctSegmentFromSketch({
     required SegmentId segmentId,
     required List<LatLng> correction,
   }) async {
     final segment = graphEditor.state.segmentStore.get(segmentId)?.current;
 
     if (segment == null) {
-      return null;
+      return;
     }
 
     final geometry = mergeCorrection(correction, segment.geometry);
@@ -104,16 +100,21 @@ extension MapEditorSegments on MapEditorController {
 
     return res.fold((_) => null, (_) {
       if (editorMode case SketchEdition e) {
-        return e.copyWith(path: []);
+        editorMode = e.copyWith(path: []);
       }
 
-      return null;
+      return;
     });
   }
 
-  Future<MapEditorMode?> deleteSegment(SegmentId segmentId) async {
+  Future<void> deleteSegment(SegmentId segmentId) async {
+    final initialSelection = editorMode.selection;
     final res = await graphEditor.deleteSegment(segmentId);
 
-    return res.fold((_) => null, (_) => editorMode.withSelection(null));
+    res.fold((_) => null, (_) {
+      if (editorMode.selection == initialSelection) {
+        editorMode = editorMode.withSelection(null);
+      }
+    });
   }
 }

@@ -1,11 +1,8 @@
-import 'package:map_application/base/application/camera_effects.dart';
 import 'package:map_application/map_application.dart';
-
-import 'gestures_resolver.dart';
 import 'package:map_engine/map_engine.dart';
 
 extension TapEditor on MapEditorController {
-  void tapGestureResolve(TapGesture gesture) {
+  void tapResolve(TapGesture gesture) {
     switch ((editorMode, gesture.element)) {
       case (Idle _, MapObject e) when e is TopologyObject:
         editorMode = Idle(selection: e);
@@ -22,4 +19,3 @@ extension TapEditor on MapEditorController {
     }
   }
 }
-

@@ -12,7 +12,7 @@ class MapGestureHandler {
   }
   bool get panAllowed {
     return switch (gestureResolver.state) {
-      DraggingState(:final element) => element == null,
+      DraggingState(:final dragged) => dragged == null,
       _ => true,
     };
   }

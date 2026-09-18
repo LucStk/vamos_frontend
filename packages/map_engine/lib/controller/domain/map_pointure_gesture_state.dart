@@ -44,7 +44,8 @@ class PendingTap extends PointerGestureState {
 }
 
 class DraggingState extends PointerGestureState {
-  const DraggingState({required this.element});
+  const DraggingState({required this.dragged, this.target});
 
-  final MapObject? element;
+  final MapObject? dragged;
+  final MapObject? target;
 }
