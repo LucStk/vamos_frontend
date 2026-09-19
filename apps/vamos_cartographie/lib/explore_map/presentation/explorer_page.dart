@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/explore_map/presentation/dialogs/dialogs.dart';
 import 'package:vamos_cartographie/explore_map/presentation/explorer_empty_view.dart';
+import 'package:vamos_cartographie/explore_map/presentation/trip_card/trip_card.dart';
 import 'package:vamos_cartographie/trip/trip.dart';
 
 class ExplorerPage extends ConsumerStatefulWidget {

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/explore_map/presentation/dialogs/dialogs.dart';
+import 'package:vamos_cartographie/explore_map/presentation/trip_section_label.dart';
 import 'package:vamos_cartographie/features/features.dart';
 import 'package:vamos_cartographie/stored_file/stored_file.dart';
-import 'package:vamos_cartographie/trip/presentation/trip_section_label.dart';
 import 'package:vamos_cartographie/trip/trip.dart';
 
 class TripViewerDialog extends ConsumerWidget {

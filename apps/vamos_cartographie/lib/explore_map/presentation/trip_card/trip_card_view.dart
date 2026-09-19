@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/explore_map/presentation/dialogs/dialogs.dart';
+import 'package:vamos_cartographie/explore_map/presentation/trip_card/trip_card.dart';
 import 'package:vamos_cartographie/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/trip/presentation/dialogs/trip_viewer_dialog.dart';
-import 'package:vamos_cartographie/trip/presentation/trip_card/trip_card_content.dart';
-import 'package:vamos_cartographie/trip/presentation/trip_card/trip_card_icon.dart';
 import 'package:vamos_cartographie/trip_map/trip_map.dart';
 // ── Card ─────────────────────────────────────────────────────────────────────
 
