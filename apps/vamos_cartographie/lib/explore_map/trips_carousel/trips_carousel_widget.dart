@@ -22,7 +22,16 @@ class TripsCarouselWidget extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= _desktopBreakpoint) {
-          return DesktopTripsCarousel(tripIds: tripIds);
+          return Stack(
+            children: [
+              Positioned(
+                left: 16,
+                top: 16,
+                bottom: 16,
+                child: DesktopTripsCarousel(tripIds: tripIds),
+              ),
+            ],
+          );
         }
 
         return MobileTripsCarousel(tripIds: tripIds);

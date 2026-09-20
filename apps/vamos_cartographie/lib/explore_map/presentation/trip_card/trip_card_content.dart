@@ -15,50 +15,48 @@ class TripCardContent extends StatelessWidget {
     final hasDescription = trip.description.trim().isNotEmpty;
 
     // TODO: implement build
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w700,
           ),
-          if (hasDate) ...[
-            const SizedBox(height: 2),
-            Row(
-              children: [
-                Icon(
-                  Icons.calendar_today,
-                  size: 12,
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  dateStr!,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-          ],
-          if (hasDescription) ...[
-            const SizedBox(height: 4),
-            Text(
-              trip.description.trim(),
-              style: theme.textTheme.bodySmall?.copyWith(
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        if (hasDate) ...[
+          const SizedBox(height: 2),
+          Row(
+            children: [
+              Icon(
+                Icons.calendar_today,
+                size: 12,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+              const SizedBox(width: 4),
+              Text(
+                dateStr!,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
         ],
-      ),
+        if (hasDescription) ...[
+          const SizedBox(height: 4),
+          Text(
+            trip.description.trim(),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ],
     );
   }
 }
