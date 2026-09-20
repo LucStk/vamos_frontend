@@ -1,4 +1,4 @@
-import 'package:map_application/map_application.dart';
+import 'package:map_editor_application/map_editor.dart';
 import 'package:map_engine/map_engine.dart';
 
 extension TapEditor on MapEditorController {

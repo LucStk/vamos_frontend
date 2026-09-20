@@ -1,5 +1,4 @@
-import 'package:map_application/map_editor/domain/map_editor_controller.dart';
-import 'package:map_application/map_editor/domain/map_editor_mode.dart';
+import 'package:map_editor_application/map_editor.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/utiles/polyline_dist.dart';
 

@@ -1,4 +1,4 @@
-import 'package:map_application/base/base.dart';
+import 'package:map_application/map_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 part 'base_controller.g.dart';

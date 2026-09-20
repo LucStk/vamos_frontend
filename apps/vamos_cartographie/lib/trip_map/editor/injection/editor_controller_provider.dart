@@ -1,5 +1,5 @@
-import 'package:map_application/base/domain/base_controller.dart';
-import 'package:map_application/map_editor/domain/domain.dart';
+import 'package:map_application/map_application.dart';
+import 'package:map_editor_application/application/map_editor_controller.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 import 'package:vamos_cartographie/topology/injection/providers/graph_store.dart';

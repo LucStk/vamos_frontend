@@ -2,8 +2,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
-import "package:map_application/map_application.dart";
 
+import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 part 'sketch_elements_projecter.g.dart';
 

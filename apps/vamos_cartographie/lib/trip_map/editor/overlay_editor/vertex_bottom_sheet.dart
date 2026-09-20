@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/map_editor/application/effect/vertex_effects.dart';
+import 'package:map_editor_application/application/effect/effect.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
 import 'package:vamos_cartographie/base_map/overlay_ui/overlay_ui.dart';
-import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
+import 'package:vamos_cartographie/trip_map/editor/editor.dart';
 import 'package:vamos_cartographie/trip_map/editor/overlay_editor/draw_segment.dart';
 
 class VertexBottomSheet extends ConsumerWidget {

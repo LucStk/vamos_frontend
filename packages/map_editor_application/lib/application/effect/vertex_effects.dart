@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_editor_application/map_editor.dart';
 import 'package:map_engine/visual/domain/map_objects.dart';
 import 'package:trip_application/topology/topology.dart';
 

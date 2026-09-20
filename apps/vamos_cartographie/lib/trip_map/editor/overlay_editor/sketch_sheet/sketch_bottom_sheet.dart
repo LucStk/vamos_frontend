@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_application/map_editor/application/effect/segment_effects.dart';
-import 'package:map_application/map_editor/application/effect/sketch_transitions.dart';
+import 'package:map_editor_application/application/effect/segment_effects.dart';
+import 'package:map_editor_application/application/effect/sketch_transitions.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';

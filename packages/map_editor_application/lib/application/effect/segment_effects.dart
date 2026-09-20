@@ -1,6 +1,6 @@
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_editor_application/map_editor.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/topology/topology.dart';

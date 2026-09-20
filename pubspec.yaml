@@ -10,6 +10,7 @@ workspace:
   - packages/map_canvas
   - packages/map_engine
   - packages/map_application
+  - packages/map_editor_application
   - packages/stored_file_application
   - packages/trip_application
 
