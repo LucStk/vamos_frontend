@@ -11,29 +11,15 @@ final class ProjectedSegment extends ProjectedLine<MapSegment> {
     if (path == null) {
       return const [];
     }
-    switch (context.state) {
-      case MapObjectVisualState.selected:
-        return [
-          DrawPath(
-            path: path,
-            paint: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 0.01
-              ..strokeCap = StrokeCap.round
-              ..strokeJoin = StrokeJoin.round,
-          ),
-        ];
-      case _:
-        return [
-          DrawPath(
-            paint: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 0.01
-              ..strokeCap = StrokeCap.round
-              ..strokeJoin = StrokeJoin.round,
-            path: path,
-          ),
-        ];
-    }
+
+    final isSelected = context.state == MapObjectVisualState.selected;
+
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = isSelected ? 0.02 : 0.01
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    return <MapDrawCommand>[DrawPath(path: path, paint: paint)];
   }
 }

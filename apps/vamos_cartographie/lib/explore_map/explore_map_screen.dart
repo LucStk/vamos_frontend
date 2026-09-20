@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 import 'package:vamos_cartographie/base_map/base_map_screen.dart';
+import 'package:vamos_cartographie/explore_map/injection/injection.dart';
 import 'package:vamos_cartographie/explore_map/trips_carousel/trips_carousel_widget.dart';
 import 'package:vamos_cartographie/trip/injection/injection.dart';
 

@@ -1,34 +1,37 @@
 import 'package:map_engine/visual/visual.dart';
 
+typedef VisualStateResolver = MapObjectVisualState Function(MapObject);
+typedef MapObjectPredicate = bool Function(MapObject);
+
 class ProjectedScene {
   final List<ProjectedObject> objects;
 
-  ProjectedScene(this.objects);
+  const ProjectedScene(this.objects);
 
   MapObject? hitTest(
     WorldOffset worldPosition,
     double scale, {
-    MapObject? exclude,
+    MapObjectPredicate? ignore,
   }) {
     for (final candidate in objects) {
-      if (exclude != null && exclude.isSameAs(candidate.object)) {
-        continue;
-      }
-
-      if (candidate.isHitAt(worldPosition, scale)) {
-        return candidate.object;
-      }
+      if (ignore?.call(candidate.object) ?? false) continue;
+      if (candidate.isHitAt(worldPosition, scale)) return candidate.object;
     }
-
     return null;
   }
 
   List<MapDrawCommand> describe({
     MapPaintContext context = const MapPaintContext(),
+    VisualStateResolver? stateOf,
   }) {
-    final l = [
-      for (final object in objects) ...object.describe(context: context),
+    final commands = <MapDrawCommand>[
+      for (final object in objects)
+        ...object.describe(
+          context: context.forState(
+            stateOf?.call(object.object) ?? MapObjectVisualState.normal,
+          ),
+        ),
     ];
-    return l.reversed.toList();
+    return commands.reversed.toList();
   }
 }
