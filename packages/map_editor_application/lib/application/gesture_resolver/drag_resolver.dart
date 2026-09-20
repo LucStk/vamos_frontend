@@ -1,9 +1,12 @@
+import 'package:map_application/map_application.dart';
 import 'package:map_editor_application/map_editor.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
-extension MapEditorControllerGestures on MapEditorController {
-  void dragStartResolve(DragStartGesture gesture) {
+base mixin MapEditorDragGestures on BaseController<MapEditorMode> {
+  void executeEffect(Future<void> Function() effect);
+  @override
+  void handleDragStart(DragStartGesture gesture) {
     switch ((mode, gesture.dragged)) {
       case (SketchMode s, _) when s.selection is MapSketchPencil:
         mode = s.copyWith(selection: null);
@@ -12,7 +15,8 @@ extension MapEditorControllerGestures on MapEditorController {
     }
   }
 
-  void dragUpdateResolve(DraggingGesture gesture) {
+  @override
+  void handleDragging(DraggingGesture gesture) {
     final latLng = camera.worldOffsetToLatLng(gesture.offset);
 
     switch ((mode, gesture.dragged)) {

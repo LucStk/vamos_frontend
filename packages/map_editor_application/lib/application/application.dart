@@ -1,3 +1,3 @@
 export 'gesture_resolver/gestures_resolver.dart';
-export 'effect/effect.dart';
+export 'operations/operations.dart';
 export 'map_editor_controller.dart';

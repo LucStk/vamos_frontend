@@ -1,8 +1,10 @@
+import 'package:map_application/map_application.dart';
 import 'package:map_editor_application/map_editor.dart';
 import 'package:map_engine/map_engine.dart';
 
-extension TapEditor on MapEditorController {
-  void tapResolve(TapGesture gesture) {
+base mixin MapEditorTapGesture on BaseController<MapEditorMode> {
+  @override
+  void handleTap(TapGesture gesture) {
     switch ((mode, gesture.element)) {
       case (SketchMode m, MapSketchPencil p):
         mode = m.copyWith(selection: p);

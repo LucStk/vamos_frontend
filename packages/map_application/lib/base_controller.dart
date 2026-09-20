@@ -24,21 +24,34 @@ base class BaseController<TMode extends BaseMode> {
   }
 
   void dispatchGesture(MapGesture gesture) {
-    handleGesture(gesture);
-  }
-
-  void handleGesture(MapGesture gesture) {
     switch (gesture) {
+      case PointerDownGesture():
+        handlePointerDown(gesture);
+
+      case DragStartGesture():
+        handleDragStart(gesture);
+
+      case DraggingGesture():
+        handleDragging(gesture);
+
+      case DragEndGesture():
+        handleDragEnd(gesture);
+
       case TapGesture():
         handleTap(gesture);
 
       case DoubleTapGesture():
         handleDoubleTap(gesture);
-
-      default:
-        handleOtherGesture(gesture);
     }
   }
+
+  void handlePointerDown(PointerDownGesture gesture) {}
+
+  void handleDragStart(DragStartGesture gesture) {}
+
+  void handleDragging(DraggingGesture gesture) {}
+
+  void handleDragEnd(DragEndGesture gesture) {}
 
   void handleTap(TapGesture gesture) {
     switch ((mode, gesture.element)) {

@@ -1,11 +1,13 @@
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_application/base_controller.dart';
 import 'package:map_editor_application/map_editor.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/topology/topology.dart';
 
-extension MapEditorSegments on MapEditorController {
+base mixin MapEditorSegmentOperations on BaseController<MapEditorMode> {
+  GraphEditor get graphEditor;
   Future<void> createSegmentFromSketch({
     required VertexId startVertexId,
     required List<LatLng> geometry,
