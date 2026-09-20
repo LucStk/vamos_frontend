@@ -27,8 +27,8 @@ class ProjectedScene {
     final commands = <MapDrawCommand>[
       for (final object in objects)
         ...object.describe(
-          context: context.forState(
-            stateOf?.call(object.object) ?? MapObjectVisualState.normal,
+          context: MapPaintContext(
+            state: stateOf?.call(object.object) ?? MapObjectVisualState.normal,
           ),
         ),
     ];

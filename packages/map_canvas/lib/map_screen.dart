@@ -42,7 +42,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     // sans enregistrer de listener -> aucun rebuild du widget.
     final scene = ref.read(widget.sceneProvider);
     final scale = widget.mapCameraReader.getZoomScale();
-    return scene.projectedScene.hitTest(offset, scale, exclude: exclude);
+
+    return scene.projectedScene.hitTest(
+      offset,
+      scale,
+      ignore: (o) => exclude != null && o.isSameAs(exclude),
+    );
   }
 
   @override
