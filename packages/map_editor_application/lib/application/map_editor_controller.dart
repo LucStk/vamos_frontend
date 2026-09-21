@@ -3,7 +3,6 @@ import 'package:map_application/domain/domain.dart';
 import 'package:map_editor_application/application/intents.dart';
 import 'package:map_editor_application/application/mode_after.dart';
 import 'package:map_editor_application/domain/domain.dart';
-import 'package:map_editor_application/domain/effect_queue.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:meta/meta.dart';
 import 'package:trip_application/topology/topology.dart';

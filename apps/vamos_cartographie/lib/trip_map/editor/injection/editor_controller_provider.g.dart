@@ -97,7 +97,7 @@ final class MapEditorControllerFamily extends $Family
 final editorModeProvider = EditorModeNotifierFamily._();
 
 final class EditorModeNotifierProvider
-    extends $NotifierProvider<EditorModeNotifier, BaseMode> {
+    extends $NotifierProvider<EditorModeNotifier, BaseMode<BaseMode<dynamic>>> {
   EditorModeNotifierProvider._({
     required EditorModeNotifierFamily super.from,
     required TripId super.argument,
@@ -124,10 +124,10 @@ final class EditorModeNotifierProvider
   EditorModeNotifier create() => EditorModeNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(BaseMode value) {
+  Override overrideWithValue(BaseMode<BaseMode<dynamic>> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<BaseMode>(value),
+      providerOverride: $SyncValueProvider<BaseMode<BaseMode<dynamic>>>(value),
     );
   }
 
@@ -143,15 +143,15 @@ final class EditorModeNotifierProvider
 }
 
 String _$editorModeNotifierHash() =>
-    r'a9d57c83f0b7b3af479524c1708720909efafb08';
+    r'd4f22c9ca334966c954c3572030e8f91e3c5f339';
 
 final class EditorModeNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           EditorModeNotifier,
-          BaseMode,
-          BaseMode,
-          BaseMode,
+          BaseMode<BaseMode<dynamic>>,
+          BaseMode<BaseMode<dynamic>>,
+          BaseMode<BaseMode<dynamic>>,
           TripId
         > {
   EditorModeNotifierFamily._()
@@ -170,20 +170,26 @@ final class EditorModeNotifierFamily extends $Family
   String toString() => r'editorModeProvider';
 }
 
-abstract class _$EditorModeNotifier extends $Notifier<BaseMode> {
+abstract class _$EditorModeNotifier
+    extends $Notifier<BaseMode<BaseMode<dynamic>>> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  BaseMode build(TripId tripId);
+  BaseMode<BaseMode<dynamic>> build(TripId tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<BaseMode, BaseMode>;
+    final ref =
+        this.ref
+            as $Ref<BaseMode<BaseMode<dynamic>>, BaseMode<BaseMode<dynamic>>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<BaseMode, BaseMode>,
-              BaseMode,
+              AnyNotifier<
+                BaseMode<BaseMode<dynamic>>,
+                BaseMode<BaseMode<dynamic>>
+              >,
+              BaseMode<BaseMode<dynamic>>,
               Object?,
               Object?
             >;

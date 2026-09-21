@@ -2,6 +2,7 @@ import 'package:domain_core/domain/collection_store.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/explore_map/injection/explore_controller_provider.dart';
 import 'package:vamos_cartographie/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/trip_map/injection/topology_projecter.dart';
 
@@ -29,7 +30,7 @@ ProjectedScene projectedExploreScene(Ref ref) {
 
 @riverpod
 MapScene exploreScene(Ref ref) {
-  final selection = ref.watch(baseModeProvider.select((m) => m.selection));
+  final selection = ref.watch(exploreModeProvider.select((m) => m.selection));
   final projectScene = ref.watch(projectedExploreSceneProvider);
   return MapScene(selection: selection, projectedScene: projectScene);
 }
