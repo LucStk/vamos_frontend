@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_editor_application/application/effect/sketch_transitions.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/trip_map/editor/editor.dart';
 
@@ -13,7 +12,7 @@ class DrawSegment extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mapTransitions = ref.watch(mapEditorControllerProvider(tripId));
     return OutlinedButton.icon(
-      onPressed: () => mapTransitions.activateSketchMode(),
+      onPressed: () => mapTransitions.startSketch(),
 
       icon: const Icon(Icons.draw_outlined, size: 16),
       label: const Text("Draw road"),

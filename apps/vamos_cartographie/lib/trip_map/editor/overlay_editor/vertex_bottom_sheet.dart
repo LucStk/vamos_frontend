@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_editor_application/application/effect/effect.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/buttons/buttons.dart';
@@ -51,7 +50,7 @@ class VertexBottomSheet extends ConsumerWidget {
               const SizedBox(width: 8),
 
               // 3. Supprimer le vertex
-              DeleteButton(onPressed: () => notifier.deleteSelectedVertex()),
+              DeleteButton(onPressed: () => notifier.deleteSelected()),
             ],
           ),
         ],

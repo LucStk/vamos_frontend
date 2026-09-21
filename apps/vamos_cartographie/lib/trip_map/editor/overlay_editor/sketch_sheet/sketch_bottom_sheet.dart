@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_editor_application/application/effect/segment_effects.dart';
-import 'package:map_editor_application/application/effect/sketch_transitions.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/features/type_selector/type_selector.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
@@ -36,13 +34,13 @@ class SketchBottomSheet extends ConsumerWidget {
                   selectedType:
                       MobilityTypeStyle.bike, // idéalement issu d'un ref.watch
                   onTypeChanged: (newType) {
-                    mapController.changeSelectedSegmentType(newType.type);
+                    mapController.changeSegmentType(newType.type);
                   },
                 ),
               ),
               const SizedBox(width: 12),
               IconButton.filled(
-                onPressed: () => mapController.deactivateSketchMode(),
+                onPressed: () => mapController.stopSketch(),
                 icon: const Icon(Icons.close, size: 20),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.red.shade50,

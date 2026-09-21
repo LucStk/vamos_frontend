@@ -1,7 +1,15 @@
-import 'package:map_application/base_mode.dart';
+import 'package:flutter/foundation.dart';
+
+import 'base_mode_model.dart';
 import 'package:map_engine/map_engine.dart';
 
-base class BaseController<TMode extends BaseMode> {
+// map_application
+abstract interface class ModeHost<T extends BaseMode> {
+  T get mode;
+  set mode(T value);
+}
+
+base class BaseController<TMode extends BaseMode> implements ModeHost<TMode> {
   BaseController({
     required this.camera,
     required TMode initialMode,
@@ -13,9 +21,10 @@ base class BaseController<TMode extends BaseMode> {
   final void Function(TMode) _onModeChanged;
 
   TMode _mode;
-
+  @override
   TMode get mode => _mode;
 
+  @override
   set mode(TMode value) {
     if (_mode == value) return;
 
@@ -45,14 +54,19 @@ base class BaseController<TMode extends BaseMode> {
     }
   }
 
+  @protected
   void handlePointerDown(PointerDownGesture gesture) {}
 
+  @protected
   void handleDragStart(DragStartGesture gesture) {}
 
+  @protected
   void handleDragging(DraggingGesture gesture) {}
 
+  @protected
   void handleDragEnd(DragEndGesture gesture) {}
 
+  @protected
   void handleTap(TapGesture gesture) {
     switch ((mode, gesture.element)) {
       case (BaseMode _, MapObject e):
@@ -60,6 +74,7 @@ base class BaseController<TMode extends BaseMode> {
     }
   }
 
+  @protected
   void handleDoubleTap(DoubleTapGesture gesture) {
     if (gesture.element == null) {
       final latLng = camera.worldOffsetToLatLng(gesture.offset);
