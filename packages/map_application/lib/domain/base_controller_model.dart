@@ -4,33 +4,22 @@ import 'package:map_application/domain/gesture_result_model.dart';
 import 'base_mode_model.dart';
 import 'package:map_engine/map_engine.dart';
 
-// map_application
-abstract interface class ModeHost<T extends BaseMode> {
-  T get mode;
-  set mode(T value);
-}
-
-base class BaseController<TMode extends BaseMode> implements ModeHost<TMode> {
+base class BaseController<M extends BaseMode<M>> {
   BaseController({
     required this.camera,
-    required TMode initialMode,
-    required void Function(TMode) onModeChanged,
+    required M initialMode,
+    required void Function(M) onModeChanged,
   }) : _mode = initialMode,
        _onModeChanged = onModeChanged;
 
   final MapCameraController camera;
-  final void Function(TMode) _onModeChanged;
+  final void Function(M) _onModeChanged;
 
-  ModeGestureHandler<TMode> handlerFor(TMode mode) {
-    return SelectionGestureHandler<TMode>();
-  }
+  M _mode;
+  M get mode => _mode;
 
-  TMode _mode;
-  @override
-  TMode get mode => _mode;
-
-  @override
-  set mode(TMode value) {
+  @protected
+  set mode(M value) {
     if (_mode == value) return;
 
     _mode = value;
@@ -41,51 +30,66 @@ base class BaseController<TMode extends BaseMode> implements ModeHost<TMode> {
     switch (gesture) {
       case PointerDownGesture():
         handlePointerDown(gesture);
-
       case DragStartGesture():
         handleDragStart(gesture);
-
       case DraggingGesture():
         handleDragging(gesture);
-
       case DragEndGesture():
         handleDragEnd(gesture);
-
       case TapGesture():
         handleTap(gesture);
-
       case DoubleTapGesture():
         handleDoubleTap(gesture);
     }
   }
 
-  @protected
-  void handlePointerDown(PointerDownGesture gesture) {}
+  // --- Gestures déléguées au handler du mode courant ---
 
   @protected
-  void handleDragStart(DragStartGesture gesture) {}
-
-  @protected
-  void handleDragging(DraggingGesture gesture) {}
-
-  @protected
-  void handleDragEnd(DragEndGesture gesture) {}
-
-  @protected
-  void handleTap(TapGesture gesture) {
-    switch ((mode, gesture.element)) {
-      case (BaseMode _, MapObject e):
-        mode = BaseMode(selection: e) as TMode;
-    }
+  void handlePointerDown(PointerDownGesture g) {
+    final p = camera.worldOffsetToLatLng(g.offset);
+    apply(mode.handler.onPointerDown(g, p));
   }
 
   @protected
-  void handleDoubleTap(DoubleTapGesture gesture) {
-    if (gesture.element == null) {
-      final latLng = camera.worldOffsetToLatLng(gesture.offset);
-      camera.zoomTo(latLng);
-    }
+  void handleDragStart(DragStartGesture g) =>
+      apply(mode.handler.onDragStart(g));
+
+  @protected
+  void handleDragging(DraggingGesture g) {
+    final p = camera.worldOffsetToLatLng(g.offset);
+    apply(mode.handler.onDragging(g, p));
+  }
+
+  @protected
+  void handleDragEnd(DragEndGesture g) => apply(mode.handler.onDragEnd(g));
+
+  @protected
+  void handleTap(TapGesture g) => apply(mode.handler.onTap(g));
+
+  // --- Comportement natif : zoom au double tap sur une zone vide ---
+
+  @protected
+  void handleDoubleTap(DoubleTapGesture g) {
+    if (g.element != null) return;
+    camera.zoomTo(camera.worldOffsetToLatLng(g.offset));
   }
 
   void handleOtherGesture(MapGesture gesture) {}
+
+  // --- Application d'un résultat ---
+
+  @protected
+  void apply(GestureResult<M> result) {
+    final next = result.mode;
+    if (next != null) mode = next;
+
+    final command = result.command;
+    if (command != null) onCommand(command);
+  }
+
+  /// Par défaut les commandes sont ignorées : un controller sans I/O
+  /// (comme le controller "view") n'a rien à surcharger.
+  @protected
+  void onCommand(MapCommand command) {}
 }

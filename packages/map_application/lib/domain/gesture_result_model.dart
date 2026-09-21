@@ -1,6 +1,3 @@
-import 'package:latlong2/latlong.dart';
-import 'package:map_engine/controller/controller.dart';
-
 import 'base_mode_model.dart';
 
 class MapCommand {
@@ -11,7 +8,7 @@ class ExitMode extends MapCommand {
   const ExitMode();
 }
 
-final class GestureResult<T extends BaseMode> {
+final class GestureResult<T extends BaseMode<T>> {
   const GestureResult({this.mode, this.command});
 
   /// null = le mode ne change pas
@@ -20,10 +17,8 @@ final class GestureResult<T extends BaseMode> {
   /// null = rien à exécuter
   final MapCommand? command;
 
-  factory GestureResult.none() {
-    return GestureResult();
-  }
-  factory GestureResult.exitMode() {
-    return GestureResult(command: ExitMode());
-  }
+  // Constructeurs nommés const au lieu de factories
+  const GestureResult.none() : mode = null, command = null;
+
+  const GestureResult.exitMode() : mode = null, command = const ExitMode();
 }

@@ -1,9 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/domain/base_mode_model.dart';
-import 'package:map_editor_application/application/IdleHandler.dart';
-import 'package:map_editor_application/application/sketch_creation_handler.dart';
-import 'package:map_editor_application/application/sketch_edition_handler.dart';
+import 'package:map_editor_application/application/application.dart';
 import 'package:map_engine/visual/visual.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
