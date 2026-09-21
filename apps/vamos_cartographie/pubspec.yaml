@@ -18,6 +18,8 @@ dependencies:
     sdk: flutter
   stored_file_application:
     path: ../../packages/stored_file_application
+  map_explore_application:
+    path: ../../packages/map_explore_application
   map_editor_application:
     path: ../../packages/map_editor_application
   map_application:

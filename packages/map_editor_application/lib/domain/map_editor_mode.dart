@@ -1,65 +1,88 @@
-import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/domain/domain.dart';
+import 'package:map_application/domain/base_mode_model.dart';
+import 'package:map_editor_application/application/IdleHandler.dart';
+import 'package:map_editor_application/application/sketch_creation_handler.dart';
+import 'package:map_editor_application/application/sketch_edition_handler.dart';
 import 'package:map_engine/visual/visual.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
 part 'map_editor_mode.freezed.dart';
 
-sealed class MapEditorMode extends BaseMode {
+sealed class MapEditorMode extends BaseMode<MapEditorMode> {
   const MapEditorMode();
-
-  @override
-  MapObject? get selection;
-
-  MapEditorMode withSelection(MapObject? selection);
 }
 
-class Idle extends MapEditorMode {
-  const Idle({MapObject? selection});
+final class Idle extends MapEditorMode {
+  const Idle({this.selection});
 
   @override
-  Idle withSelection(MapObject? selection) {
-    return Idle(selection: selection);
-  }
+  final MapObject? selection;
+
+  @override
+  Idle withSelection(MapObject? s) => Idle(selection: s);
+
+  @override
+  ModeGestureHandler<MapEditorMode> get handler => IdleHandler(this);
+}
+
+/// Base commune : contrat partagé par SketchCreation et SketchEdition.
+/// Pas de Freezed ici, donc pas de copyWith : les sous-classes l'implémentent.
+sealed class SketchMode extends MapEditorMode {
+  const SketchMode();
+
+  List<LatLng> get path;
+  VertexId? get touchedVertex;
+
+  @override
+  SketchMode withSelection(MapObject? selection);
+
+  SketchMode withPath(List<LatLng> path);
+
+  LatLng? get pencilPositionOrNull => path.isEmpty ? null : path.last;
 }
 
 @freezed
-sealed class SketchMode extends MapEditorMode with _$SketchMode {
-  const SketchMode._();
+abstract class SketchCreation extends SketchMode with _$SketchCreation {
+  const SketchCreation._();
 
-  const factory SketchMode.creation({
+  const factory SketchCreation({
     required VertexId vertexStart,
     required List<LatLng> path,
     required MobilityType mobilityType,
     VertexId? touchedVertex,
     MapObject? selection,
-  }) = SketchCreation;
+  }) = _SketchCreation;
 
-  const factory SketchMode.edition({
+  @override
+  SketchCreation withSelection(MapObject? selection) =>
+      copyWith(selection: selection);
+
+  @override
+  SketchCreation withPath(List<LatLng> path) => copyWith(path: path);
+
+  @override
+  ModeGestureHandler<MapEditorMode> get handler => SketchCreationHandler(this);
+}
+
+@freezed
+abstract class SketchEdition extends SketchMode with _$SketchEdition {
+  const SketchEdition._();
+
+  const factory SketchEdition({
     required SegmentId segmentId,
     required List<LatLng> path,
     VertexId? touchedVertex,
     MapObject? selection,
-  }) = SketchEdition;
+  }) = _SketchEdition;
 
   @override
-  MapObject? get selection => switch (this) {
-    SketchCreation(:final selection) => selection,
-    SketchEdition(:final selection) => selection,
-  };
+  SketchEdition withSelection(MapObject? selection) =>
+      copyWith(selection: selection);
 
   @override
-  SketchMode withSelection(MapObject? selection) => switch (this) {
-    SketchCreation mode => mode.copyWith(selection: selection),
-    SketchEdition mode => mode.copyWith(selection: selection),
-  };
-}
+  SketchEdition withPath(List<LatLng> path) => copyWith(path: path);
 
-extension SketchX on SketchMode {
-  LatLng? get pencilPositionOrNull {
-    if (path.isEmpty) return null;
-    return path.last;
-  }
+  @override
+  ModeGestureHandler<MapEditorMode> get handler => SketchEditionHandler(this);
 }

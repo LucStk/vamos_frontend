@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:map_application/domain/gesture_result_model.dart';
 
 import 'base_mode_model.dart';
 import 'package:map_engine/map_engine.dart';
@@ -19,6 +20,10 @@ base class BaseController<TMode extends BaseMode> implements ModeHost<TMode> {
 
   final MapCameraController camera;
   final void Function(TMode) _onModeChanged;
+
+  ModeGestureHandler<TMode> handlerFor(TMode mode) {
+    return SelectionGestureHandler<TMode>();
+  }
 
   TMode _mode;
   @override

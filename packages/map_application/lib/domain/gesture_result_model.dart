@@ -1,7 +1,14 @@
+import 'package:latlong2/latlong.dart';
+import 'package:map_engine/controller/controller.dart';
+
 import 'base_mode_model.dart';
 
 class MapCommand {
   const MapCommand();
+}
+
+class ExitMode extends MapCommand {
+  const ExitMode();
 }
 
 final class GestureResult<T extends BaseMode> {
@@ -13,5 +20,10 @@ final class GestureResult<T extends BaseMode> {
   /// null = rien à exécuter
   final MapCommand? command;
 
-  static const none = GestureResult();
+  factory GestureResult.none() {
+    return GestureResult();
+  }
+  factory GestureResult.exitMode() {
+    return GestureResult(command: ExitMode());
+  }
 }
