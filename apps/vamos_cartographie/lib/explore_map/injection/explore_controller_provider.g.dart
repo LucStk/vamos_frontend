@@ -61,8 +61,7 @@ String _$mapExploreControllerHash() =>
 final exploreModeProvider = ExploreModeNotifierProvider._();
 
 final class ExploreModeNotifierProvider
-    extends
-        $NotifierProvider<ExploreModeNotifier, BaseMode<BaseMode<dynamic>>> {
+    extends $NotifierProvider<ExploreModeNotifier, MapExploreMode> {
   ExploreModeNotifierProvider._()
     : super(
         from: null,
@@ -82,34 +81,28 @@ final class ExploreModeNotifierProvider
   ExploreModeNotifier create() => ExploreModeNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(BaseMode<BaseMode<dynamic>> value) {
+  Override overrideWithValue(MapExploreMode value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<BaseMode<BaseMode<dynamic>>>(value),
+      providerOverride: $SyncValueProvider<MapExploreMode>(value),
     );
   }
 }
 
 String _$exploreModeNotifierHash() =>
-    r'59cecd2b6826c97ab51a2cf6acba974ce0412cb4';
+    r'718485e308137ee45e08439e10390055229bf4b2';
 
-abstract class _$ExploreModeNotifier
-    extends $Notifier<BaseMode<BaseMode<dynamic>>> {
-  BaseMode<BaseMode<dynamic>> build();
+abstract class _$ExploreModeNotifier extends $Notifier<MapExploreMode> {
+  MapExploreMode build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref
-            as $Ref<BaseMode<BaseMode<dynamic>>, BaseMode<BaseMode<dynamic>>>;
+    final ref = this.ref as $Ref<MapExploreMode, MapExploreMode>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<
-                BaseMode<BaseMode<dynamic>>,
-                BaseMode<BaseMode<dynamic>>
-              >,
-              BaseMode<BaseMode<dynamic>>,
+              AnyNotifier<MapExploreMode, MapExploreMode>,
+              MapExploreMode,
               Object?,
               Object?
             >;

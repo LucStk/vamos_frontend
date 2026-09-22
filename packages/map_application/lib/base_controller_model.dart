@@ -71,7 +71,7 @@ base class BaseController<M extends BaseMode<M>> {
 
   @protected
   void handleDoubleTap(DoubleTapGesture g) {
-    if (g.element != null) return;
+    // if (g.element != null) return;
     camera.zoomTo(camera.worldOffsetToLatLng(g.offset));
   }
 

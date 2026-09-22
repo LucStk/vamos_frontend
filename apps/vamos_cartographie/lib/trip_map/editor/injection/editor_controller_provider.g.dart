@@ -143,7 +143,7 @@ final class EditorModeNotifierProvider
 }
 
 String _$editorModeNotifierHash() =>
-    r'a2f80d3875fb7071fbeadb101f712ff291ebc000';
+    r'56767efb26f9fe940bf794d62ea84e20def9569e';
 
 final class EditorModeNotifierFamily extends $Family
     with

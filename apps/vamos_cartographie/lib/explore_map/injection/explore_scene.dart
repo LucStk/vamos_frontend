@@ -30,7 +30,7 @@ ProjectedScene projectedExploreScene(Ref ref) {
 
 @riverpod
 MapScene exploreScene(Ref ref) {
-  final selection = ref.watch(exploreModeProvider.select((m) => m.selection));
+  final selection = ref.watch(exploreModeProvider.select((m) => m.tripSelect));
   final projectScene = ref.watch(projectedExploreSceneProvider);
   return MapScene(selection: selection, projectedScene: projectScene);
 }

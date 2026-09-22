@@ -6,13 +6,13 @@ final class IdleHandler extends NoopGestureHandler<MapExploreMode> {
   const IdleHandler(this.mode);
 
   @override
-  final Idle mode;
+  final MapExploreMode mode;
 
   @override
   GestureResult<MapExploreMode> onTap(TapGesture g) {
     switch (g.element) {
       case MapTripObject e:
-        return GestureResult(mode: mode.withSelection(e.id));
+        return GestureResult(mode: mode.withSelection(e));
       case null:
         return GestureResult(mode: mode.withSelection(null));
       case _:

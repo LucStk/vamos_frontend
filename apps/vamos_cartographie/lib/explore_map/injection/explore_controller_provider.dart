@@ -1,4 +1,3 @@
-import 'package:map_application/map_application.dart';
 import 'package:map_explore_application/map_explore_application.dart';
 import 'package:vamos_cartographie/base_map/base_map.dart';
 
@@ -17,6 +16,6 @@ MapExploreController mapExploreController(Ref ref) {
 @Riverpod(keepAlive: true)
 class ExploreModeNotifier extends _$ExploreModeNotifier {
   @override
-  BaseMode build() => const Idle();
-  set setState(BaseMode m) => state = m;
+  MapExploreMode build() => const MapExploreMode();
+  set setState(MapExploreMode m) => state = m;
 }

@@ -1,17 +1,14 @@
 import 'package:map_application/map_application.dart';
+import 'package:map_engine/visual/domain/domain.dart';
 import 'package:map_explore_application/idle_handler.dart';
-import 'package:trip_application/trip/domain/trip.dart';
 
-sealed class MapExploreMode extends BaseMode<MapExploreMode> {
-  const MapExploreMode();
-}
+class MapExploreMode extends BaseMode<MapExploreMode> {
+  const MapExploreMode({this.tripSelect});
 
-final class Idle extends MapExploreMode {
-  const Idle({this.tripSelect});
+  final MapTripObject? tripSelect;
 
-  final TripId? tripSelect;
-
-  Idle withSelection(TripId? s) => Idle(tripSelect: s);
+  MapExploreMode withSelection(MapTripObject? s) =>
+      MapExploreMode(tripSelect: s);
 
   @override
   ModeGestureHandler<MapExploreMode> get handler => IdleHandler(this);
