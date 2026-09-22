@@ -7,7 +7,7 @@ part 'explore_controller_provider.g.dart';
 @Riverpod(keepAlive: true)
 MapExploreController mapExploreController(Ref ref) {
   return MapExploreController(
-    camera: ref.watch(mapCameraHolderProvider),
+    camera: ref.read(mapCameraHolderProvider),
     onModeChanged: (mode) {
       print("mode changed ${mode.tripSelect}");
       ref.read(exploreModeProvider.notifier).setState = mode;

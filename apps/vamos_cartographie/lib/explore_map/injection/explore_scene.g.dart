@@ -66,7 +66,7 @@ final class MapTripObjectProvider
   }
 }
 
-String _$mapTripObjectHash() => r'41893386892c64f4ed4903fe78cde402aaaed6d7';
+String _$mapTripObjectHash() => r'eebcb11f8ed374a612d94580cac17ad1763a649a';
 
 final class MapTripObjectFamily extends $Family
     with $FunctionalFamilyOverride<MapTripObject, TripId> {
@@ -143,7 +143,7 @@ final class ProjectTripProvider
   }
 }
 
-String _$projectTripHash() => r'7dcd6d459aac845646163926437cf377a52ee6dd';
+String _$projectTripHash() => r'3dc37c6135826283786b895ce3441452b8a5ffed';
 
 final class ProjectTripFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedTrip, TripId> {

@@ -55,7 +55,7 @@ final class MapExploreControllerProvider
 }
 
 String _$mapExploreControllerHash() =>
-    r'343b28567ed7831f46efcd57b80afa05f2c4d4d6';
+    r'd46331d36f45b3de1bf74ebbef8ea2c0b42c786f';
 
 @ProviderFor(ExploreModeNotifier)
 final exploreModeProvider = ExploreModeNotifierProvider._();
