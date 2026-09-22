@@ -90,7 +90,7 @@ final class ExploreModeNotifierProvider
 }
 
 String _$exploreModeNotifierHash() =>
-    r'718485e308137ee45e08439e10390055229bf4b2';
+    r'96ad5baf56d2f105d8fb1112e1915e2005731cce';
 
 abstract class _$ExploreModeNotifier extends $Notifier<MapExploreMode> {
   MapExploreMode build();

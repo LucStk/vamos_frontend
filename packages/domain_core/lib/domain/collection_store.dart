@@ -41,6 +41,7 @@ extension CollectionStoreGetters<T, V extends HasId> on CollectionStore<T, V> {
   }
 
   List<Id<T>> getIds() => store.keys.toList();
+  // Pas de getAll, c'est géré par les providers
 }
 
 /// Store "avec état optimiste / patch" — équivalent à l'ancien CollectionStore<T>

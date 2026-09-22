@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_explore_application/map_explore_mode.dart';
+import 'package:trip_application/trip_application.dart';
 
 final class MapExploreController extends BaseController<MapExploreMode> {
   MapExploreController({required super.camera, required super.onModeChanged})
@@ -19,5 +20,8 @@ final class MapExploreController extends BaseController<MapExploreMode> {
     //   // final updated = modeAfter(mode, result);
     //   // if (updated != null) mode = updated;
     // });
+  }
+  void selectTrip(TripId tripId) {
+    mode = MapExploreMode(tripSelect: tripId);
   }
 }

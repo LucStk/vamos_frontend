@@ -1,13 +1,39 @@
 import 'package:domain_core/domain/collection_store.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/explore_map/injection/explore_controller_provider.dart';
+import 'package:vamos_cartographie/topology/topology.dart';
 import 'package:vamos_cartographie/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/trip_map/injection/topology_projecter.dart';
 
 import 'package:vamos_cartographie/base_map/base_map.dart';
 part 'explore_scene.g.dart';
+
+@riverpod
+MapTripObject mapTripObject(Ref ref, TripId tripId) {
+  final trip = ref.watch(tripProvider(tripId));
+  if (trip == null) {
+    throw NotFoundFailure(resourceId: tripId.toString(), resourceType: "Trip");
+  }
+  final tripSegment = ref.watch(allSegmentsProvider(tripId));
+  // Applique la projection et l'aplatissement directement avec expand
+  final tripGeometry = tripSegment.expand((s) => s.geometry).toList();
+  return MapTripObject(trip.id, tripGeometry);
+}
+
+@riverpod
+ProjectedTrip projectTrip(Ref ref, TripId tripId) {
+  final tripObject = ref.watch(mapTripObjectProvider(tripId));
+  final cameraReader = ref.read(mapCameraHolderProvider);
+  return ProjectedTrip(
+    worldPoints: tripObject.geometry
+        .map((p) => cameraReader.latLngToWorldOffset(p))
+        .toList(),
+    object: tripObject,
+  );
+}
 
 @riverpod
 ProjectedScene projectedExploreScene(Ref ref) {
@@ -19,8 +45,7 @@ ProjectedScene projectedExploreScene(Ref ref) {
   final objects = <ProjectedObject>[...userLocation];
 
   for (final tripId in tripsIds) {
-    objects.addAll(ref.watch(allVertexProjectionProvider(tripId)));
-    objects.addAll(ref.watch(allSegmentProjectionProvider(tripId)));
+    objects.add(ref.watch(projectTripProvider(tripId)));
   }
 
   objects.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
@@ -30,7 +55,8 @@ ProjectedScene projectedExploreScene(Ref ref) {
 
 @riverpod
 MapScene exploreScene(Ref ref) {
-  final selection = ref.watch(exploreModeProvider.select((m) => m.tripSelect));
+  final id = ref.watch(exploreModeProvider.select((m) => m.tripSelect));
+  final selection = id == null ? null : ref.watch(mapTripObjectProvider(id));
   final projectScene = ref.watch(projectedExploreSceneProvider);
   return MapScene(selection: selection, projectedScene: projectScene);
 }

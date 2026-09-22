@@ -1,6 +1,6 @@
 part of "map_objects.dart";
 
-sealed class MapTripObject extends MapLine {
+class MapTripObject extends MapLine {
   final TripId id;
   const MapTripObject(this.id, super.geometry);
 

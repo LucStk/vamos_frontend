@@ -9,6 +9,160 @@ part of 'explore_scene.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(mapTripObject)
+final mapTripObjectProvider = MapTripObjectFamily._();
+
+final class MapTripObjectProvider
+    extends $FunctionalProvider<MapTripObject, MapTripObject, MapTripObject>
+    with $Provider<MapTripObject> {
+  MapTripObjectProvider._({
+    required MapTripObjectFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'mapTripObjectProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$mapTripObjectHash();
+
+  @override
+  String toString() {
+    return r'mapTripObjectProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<MapTripObject> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  MapTripObject create(Ref ref) {
+    final argument = this.argument as TripId;
+    return mapTripObject(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MapTripObject value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MapTripObject>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MapTripObjectProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$mapTripObjectHash() => r'41893386892c64f4ed4903fe78cde402aaaed6d7';
+
+final class MapTripObjectFamily extends $Family
+    with $FunctionalFamilyOverride<MapTripObject, TripId> {
+  MapTripObjectFamily._()
+    : super(
+        retry: null,
+        name: r'mapTripObjectProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  MapTripObjectProvider call(TripId tripId) =>
+      MapTripObjectProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'mapTripObjectProvider';
+}
+
+@ProviderFor(projectTrip)
+final projectTripProvider = ProjectTripFamily._();
+
+final class ProjectTripProvider
+    extends $FunctionalProvider<ProjectedTrip, ProjectedTrip, ProjectedTrip>
+    with $Provider<ProjectedTrip> {
+  ProjectTripProvider._({
+    required ProjectTripFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'projectTripProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$projectTripHash();
+
+  @override
+  String toString() {
+    return r'projectTripProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<ProjectedTrip> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ProjectedTrip create(Ref ref) {
+    final argument = this.argument as TripId;
+    return projectTrip(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ProjectedTrip value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ProjectedTrip>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ProjectTripProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$projectTripHash() => r'd219f464ecc40fe5e5f151df3174657cf18bfe70';
+
+final class ProjectTripFamily extends $Family
+    with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
+  ProjectTripFamily._()
+    : super(
+        retry: null,
+        name: r'projectTripProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  ProjectTripProvider call(TripId tripId) =>
+      ProjectTripProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'projectTripProvider';
+}
+
 @ProviderFor(projectedExploreScene)
 final projectedExploreSceneProvider = ProjectedExploreSceneProvider._();
 
@@ -90,4 +244,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'f4627770960ebf440d028964b3b42183a20d788c';
+String _$exploreSceneHash() => r'b2587f0b03039c547887711f769f2cdbcd7ce144';

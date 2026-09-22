@@ -10,6 +10,7 @@ part "projected_vertex.dart";
 part "projected_segment.dart";
 part "projected_sketch_pencil.dart";
 part "projected_sketch_segment.dart";
+part "projected_trip.dart";
 
 abstract class ProjectedObject {
   final MapObject object;
