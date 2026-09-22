@@ -1,4 +1,4 @@
-import 'package:map_engine/visual/domain/map_objects.dart';
+import 'map_objects/map_objects.dart';
 import 'package:map_engine/visual/domain/projected_scene.dart';
 
 class MapScene {

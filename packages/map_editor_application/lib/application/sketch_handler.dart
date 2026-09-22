@@ -2,7 +2,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:map_engine/controller/domain/map_gesture.dart';
-import 'package:map_engine/visual/domain/map_objects.dart';
+import 'package:map_engine/visual/visual.dart';
 
 abstract base class SketchHandler extends NoopGestureHandler<MapEditorMode> {
   const SketchHandler();

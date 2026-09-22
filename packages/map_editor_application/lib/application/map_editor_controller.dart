@@ -1,4 +1,4 @@
-import 'package:map_editor_application/application/commands/map_command_resolver.dart';
+import 'package:map_editor_application/application/map_command_resolver.dart';
 import 'package:map_editor_application/application/intents.dart';
 import 'package:map_editor_application/application/mode_after.dart';
 import 'package:map_editor_application/domain/domain.dart';

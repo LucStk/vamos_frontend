@@ -3,7 +3,7 @@ import 'package:map_editor_application/application/commands/commands.dart';
 import 'package:map_editor_application/application/sketch_handler.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:map_engine/controller/domain/map_gesture.dart';
-import 'package:map_engine/visual/domain/map_objects.dart';
+import 'package:map_engine/visual/visual.dart';
 import 'package:trip_application/topology/topology.dart';
 
 import 'package:map_application/map_application.dart';

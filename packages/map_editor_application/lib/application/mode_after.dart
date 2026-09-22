@@ -1,7 +1,6 @@
+import 'package:map_editor_application/application/commands/command_result.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:map_engine/map_engine.dart';
-
-import 'package:map_application/map_application.dart';
 
 MapEditorMode? modeAfter(MapEditorMode current, CommandResult result) {
   return switch (result) {

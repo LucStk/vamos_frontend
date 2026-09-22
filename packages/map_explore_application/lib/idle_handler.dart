@@ -1,6 +1,5 @@
 import 'package:map_application/map_application.dart';
-import 'package:map_engine/controller/domain/map_gesture.dart';
-import 'package:map_engine/visual/domain/map_objects.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:map_explore_application/map_explore_mode.dart';
 
 final class IdleHandler extends NoopGestureHandler<MapExploreMode> {
@@ -12,8 +11,8 @@ final class IdleHandler extends NoopGestureHandler<MapExploreMode> {
   @override
   GestureResult<MapExploreMode> onTap(TapGesture g) {
     switch (g.element) {
-      case TopologyObject e:
-        return GestureResult(mode: mode.withSelection(e));
+      case MapTripObject e:
+        return GestureResult(mode: mode.withSelection(e.id));
       case null:
         return GestureResult(mode: mode.withSelection(null));
       case _:

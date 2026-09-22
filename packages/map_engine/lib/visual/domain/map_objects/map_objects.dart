@@ -1,5 +1,9 @@
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/topology/domain/domain.dart';
+import 'package:trip_application/trip/trip.dart';
+part "sketch_objects.dart";
+part "user_location_objects.dart";
+part "trip_object.dart";
 
 sealed class MapObject {
   const MapObject();
@@ -63,55 +67,4 @@ final class MapSegment extends MapLine implements TopologyObject {
 
   @override
   bool isSameAs(MapObject other) => other is MapSegment && other.id == id;
-}
-
-final class MapSketchSegment extends MapLine {
-  const MapSketchSegment(super.geometry);
-
-  @override
-  double get radius => 10;
-
-  @override
-  int get hitPriority => 50;
-
-  @override
-  bool isSameAs(MapObject other) => other is MapSketchSegment;
-}
-
-final class MapSketchPencil extends MapPoint {
-  const MapSketchPencil(super.position);
-
-  @override
-  double get radius => 10;
-
-  @override
-  bool get isDraggable => true;
-
-  @override
-  int get hitPriority => 200;
-
-  @override
-  bool isSameAs(MapObject other) => other is MapSketchPencil;
-}
-
-final class MapUserLocation extends MapPoint {
-  final double accuracy;
-  final double heading;
-  const MapUserLocation(
-    super.position, {
-    required this.accuracy,
-    required this.heading,
-  });
-
-  @override
-  double get radius => 10;
-
-  @override
-  bool get isDraggable => true;
-
-  @override
-  int get hitPriority => 200;
-
-  @override
-  bool isSameAs(MapObject other) => other is MapSketchPencil;
 }

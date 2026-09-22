@@ -1,9 +1,8 @@
 import 'package:map_application/map_application.dart';
 import 'package:map_editor_application/application/commands/commands.dart';
 import 'package:map_editor_application/domain/domain.dart';
-import 'package:map_engine/visual/domain/map_objects.dart';
+import 'package:map_engine/visual/visual.dart';
 import 'package:trip_application/topology/topology.dart';
-import 'package:map_application/map_application.dart';
 
 /// Supprime l'objet sélectionné (vertex ou segment).
 GestureResult<MapEditorMode> deleteSelection(MapEditorMode mode) {
