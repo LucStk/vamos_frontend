@@ -8,8 +8,10 @@ part 'explore_controller_provider.g.dart';
 MapExploreController mapExploreController(Ref ref) {
   return MapExploreController(
     camera: ref.watch(mapCameraHolderProvider),
-    onModeChanged: (mode) =>
-        ref.read(exploreModeProvider.notifier).setState = mode,
+    onModeChanged: (mode) {
+      print("mode changed ${mode.tripSelect}");
+      ref.read(exploreModeProvider.notifier).setState = mode;
+    },
   );
 }
 
