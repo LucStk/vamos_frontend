@@ -4,24 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:riverpod/misc.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   final MapCameraReader mapCameraReader;
   final MapController mapController;
   final OnGesture onGesture;
-  final ProviderListenable<MapScene> sceneProvider;
+  final Widget mapScenePaint;
+  final HitTest hitTest;
   final List<Widget> layers;
-  final ValueChanged<MapCameraController>? onCameraControllerReady;
 
   const MapScreen({
     super.key,
+    required this.hitTest,
     required this.mapCameraReader,
     required this.mapController,
     required this.onGesture,
-    required this.sceneProvider,
+    required this.mapScenePaint,
     this.layers = const [],
-    this.onCameraControllerReady,
   });
 
   @override
@@ -37,30 +36,17 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     super.dispose();
   }
 
-  MapObject? _hitTest({required WorldOffset offset, MapObject? exclude}) {
-    // ref.read lit la scène instantanée au moment de l'interaction
-    // sans enregistrer de listener -> aucun rebuild du widget.
-    final scene = ref.read(widget.sceneProvider);
-    final scale = widget.mapCameraReader.getZoomScale();
-
-    return scene.projectedScene.hitTest(
-      offset,
-      scale,
-      ignore: (o) => exclude != null && o.isSameAs(exclude),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MapGestureBridge(
       onGesture: widget.onGesture,
-      hitTest: _hitTest,
+      hitTest: widget.hitTest,
       panAllowed: _panAllowed,
       mapCameraReader: widget.mapCameraReader,
       child: MapCanvas(
         mapController: widget.mapController,
         panAllowed: _panAllowed,
-        sceneProvider: widget.sceneProvider,
+        mapScenePaint: widget.mapScenePaint,
         layers: widget.layers,
       ),
     );

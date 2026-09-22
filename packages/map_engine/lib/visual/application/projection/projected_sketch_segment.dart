@@ -9,11 +9,9 @@ final class ProjectedSketchSegment extends ProjectedLine<MapSketchSegment> {
   ProjectedSketchSegment({required super.object, required super.worldSegments});
 
   @override
-  List<MapDrawCommand> describe({
-    MapPaintContext context = const MapPaintContext(),
-  }) {
+  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final path = this.path;
-    return [
+    return WorldScale([
       DrawPath(
         path: path,
         paint: Paint()
@@ -22,6 +20,6 @@ final class ProjectedSketchSegment extends ProjectedLine<MapSketchSegment> {
           ..strokeCap = StrokeCap.round
           ..strokeJoin = StrokeJoin.round,
       ),
-    ];
+    ]);
   }
 }

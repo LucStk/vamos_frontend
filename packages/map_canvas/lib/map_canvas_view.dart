@@ -1,22 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_riverpod/misc.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_engine/map_engine.dart';
-import '/map_canvas.dart';
 
 class MapCanvas extends StatelessWidget {
   final MapController mapController;
   final ValueListenable<bool> panAllowed;
-  final ProviderListenable<MapScene> sceneProvider;
+  final Widget mapScenePaint;
   final List<Widget> layers;
 
   const MapCanvas({
     super.key,
     required this.mapController,
     required this.panAllowed,
-    required this.sceneProvider,
+    required this.mapScenePaint,
     this.layers = const [],
   });
 
@@ -38,10 +35,7 @@ class MapCanvas extends StatelessWidget {
                         ~InteractiveFlag.drag,
             ),
           ),
-          children: [
-            ...layers,
-            MapScenePaint(sceneProvider: sceneProvider),
-          ],
+          children: [...layers, mapScenePaint],
         );
       },
     );

@@ -7,7 +7,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:flutter/material.dart';
-import 'package:map_canvas/services/camera_to_matrix4.dart';
 
 /// Implémentation unique de [MapCameraController].
 ///
@@ -48,12 +47,12 @@ class FlutterMapCamera implements MapCameraController {
       WorldOffset(_camera.projectAtZoom(position, referenceZoom));
 
   @override
-  double getZoomScale() => _camera.getZoomScale(_camera.zoom, referenceZoom);
+  double get zoomScale => _camera.getZoomScale(_camera.zoom, referenceZoom);
 
   @override
   ScreenOffset worldToScreen(WorldOffset offset) {
     final result = MatrixUtils.transformPoint(
-      buildCameraTransform(_camera),
+      buildCameraTransform(this),
       offset.value,
     );
     return ScreenOffset(result);
@@ -62,7 +61,7 @@ class FlutterMapCamera implements MapCameraController {
   @override
   WorldOffset screenToWorld(ScreenOffset offset) {
     final result = MatrixUtils.transformPoint(
-      Matrix4.inverted(buildCameraTransform(_camera)),
+      Matrix4.inverted(buildCameraTransform(this)),
       offset.value,
     );
     return WorldOffset(result);
@@ -85,6 +84,18 @@ class FlutterMapCamera implements MapCameraController {
   @override
   double get rotation => _camera.rotation;
 
+  @override
+  double get rotationRad => _camera.rotationRad;
+
+  @override
+  Size get size => _camera.size;
+
+  @override
+  ScreenOffset get screenCenter =>
+      ScreenOffset(_camera.nonRotatedSize.center(Offset.zero));
+  @override
+  WorldOffset get worldCenter =>
+      WorldOffset(_camera.projectAtZoom(_camera.center, 0));
   @override
   Stream<double> get rotationStream =>
       _mapController.mapEventStream.map((_) => _camera.rotation);

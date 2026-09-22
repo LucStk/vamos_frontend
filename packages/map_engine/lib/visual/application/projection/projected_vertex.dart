@@ -16,9 +16,7 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
   final VertexVisualKind visualKind;
 
   @override
-  List<MapDrawCommand> describe({
-    MapPaintContext context = const MapPaintContext(),
-  }) {
+  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final isSelected = context.state == MapObjectVisualState.selected;
     final paint = Paint()
       ..style = PaintingStyle.fill
@@ -26,8 +24,8 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
     final selectionPaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = isSelected ? const Color(0xFF2196F3) : const Color(0xFF219903);
-    return <MapDrawCommand>[
-      DrawTransform(
+    return ScreenScale([
+      Transform(
         transform: DrawTransformData(
           scale: isSelected ? 1.5 : 1.0,
           origin: worldPosition,
@@ -42,6 +40,6 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
             ),
         ],
       ),
-    ];
+    ]);
   }
 }
