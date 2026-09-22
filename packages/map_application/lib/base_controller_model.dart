@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:map_application/domain/gesture_result_model.dart';
+import 'package:map_application/gesture_result_model.dart';
 
 import 'base_mode_model.dart';
 import 'package:map_engine/map_engine.dart';

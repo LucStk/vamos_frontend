@@ -1,5 +1,4 @@
-import 'package:map_application/application/map_command_resolver.dart';
-import 'package:map_application/domain/domain.dart';
+import 'package:map_editor_application/application/commands/map_command_resolver.dart';
 import 'package:map_editor_application/application/intents.dart';
 import 'package:map_editor_application/application/mode_after.dart';
 import 'package:map_editor_application/domain/domain.dart';
@@ -7,6 +6,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:meta/meta.dart';
 import 'package:trip_application/topology/topology.dart';
 import 'package:trip_application/waypoint/application/waypoint_editor.dart';
+
+import 'package:map_application/map_application.dart';
 
 final class MapEditorController extends BaseController<MapEditorMode> {
   MapEditorController({

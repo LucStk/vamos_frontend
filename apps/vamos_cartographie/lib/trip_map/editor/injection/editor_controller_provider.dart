@@ -1,4 +1,3 @@
-import 'package:map_application/map_application.dart';
 import 'package:map_editor_application/application/map_editor_controller.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:trip_application/trip_application.dart';
@@ -23,6 +22,6 @@ MapEditorController mapEditorController(Ref ref, TripId tripId) {
 @Riverpod(keepAlive: true)
 class EditorModeNotifier extends _$EditorModeNotifier {
   @override
-  BaseMode build(TripId tripId) => const Idle();
-  set setState(BaseMode m) => state = m;
+  MapEditorMode build(TripId tripId) => const Idle();
+  set setState(MapEditorMode m) => state = m;
 }

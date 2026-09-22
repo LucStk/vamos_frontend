@@ -97,7 +97,7 @@ final class MapEditorControllerFamily extends $Family
 final editorModeProvider = EditorModeNotifierFamily._();
 
 final class EditorModeNotifierProvider
-    extends $NotifierProvider<EditorModeNotifier, BaseMode<BaseMode<dynamic>>> {
+    extends $NotifierProvider<EditorModeNotifier, MapEditorMode> {
   EditorModeNotifierProvider._({
     required EditorModeNotifierFamily super.from,
     required TripId super.argument,
@@ -124,10 +124,10 @@ final class EditorModeNotifierProvider
   EditorModeNotifier create() => EditorModeNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(BaseMode<BaseMode<dynamic>> value) {
+  Override overrideWithValue(MapEditorMode value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<BaseMode<BaseMode<dynamic>>>(value),
+      providerOverride: $SyncValueProvider<MapEditorMode>(value),
     );
   }
 
@@ -143,15 +143,15 @@ final class EditorModeNotifierProvider
 }
 
 String _$editorModeNotifierHash() =>
-    r'd4f22c9ca334966c954c3572030e8f91e3c5f339';
+    r'a2f80d3875fb7071fbeadb101f712ff291ebc000';
 
 final class EditorModeNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           EditorModeNotifier,
-          BaseMode<BaseMode<dynamic>>,
-          BaseMode<BaseMode<dynamic>>,
-          BaseMode<BaseMode<dynamic>>,
+          MapEditorMode,
+          MapEditorMode,
+          MapEditorMode,
           TripId
         > {
   EditorModeNotifierFamily._()
@@ -170,26 +170,20 @@ final class EditorModeNotifierFamily extends $Family
   String toString() => r'editorModeProvider';
 }
 
-abstract class _$EditorModeNotifier
-    extends $Notifier<BaseMode<BaseMode<dynamic>>> {
+abstract class _$EditorModeNotifier extends $Notifier<MapEditorMode> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  BaseMode<BaseMode<dynamic>> build(TripId tripId);
+  MapEditorMode build(TripId tripId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref
-            as $Ref<BaseMode<BaseMode<dynamic>>, BaseMode<BaseMode<dynamic>>>;
+    final ref = this.ref as $Ref<MapEditorMode, MapEditorMode>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<
-                BaseMode<BaseMode<dynamic>>,
-                BaseMode<BaseMode<dynamic>>
-              >,
-              BaseMode<BaseMode<dynamic>>,
+              AnyNotifier<MapEditorMode, MapEditorMode>,
+              MapEditorMode,
               Object?,
               Object?
             >;

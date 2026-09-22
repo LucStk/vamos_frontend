@@ -1,7 +1,6 @@
 import 'package:domain_core/domain/collection_store.dart';
-import 'package:map_application/application/application.dart';
-import 'package:map_application/domain/command_result.dart';
-import 'package:map_application/domain/gesture_result_model.dart';
+import 'package:map_application/map_application.dart';
+import 'package:map_editor_application/application/commands/commands.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/trip_application.dart';
 

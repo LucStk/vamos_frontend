@@ -1,13 +1,10 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_application/domain/gesture_result_model.dart';
+import 'package:map_application/gesture_result_model.dart';
 import 'package:map_engine/controller/controller.dart';
-import 'package:map_engine/visual/domain/map_objects.dart';
 
 abstract class BaseMode<Self extends BaseMode<Self>> {
   const BaseMode();
 
-  MapObject? get selection;
-  Self withSelection(MapObject? element);
   ModeGestureHandler<Self> get handler;
 }
 
@@ -38,16 +35,4 @@ abstract base class NoopGestureHandler<M extends BaseMode<M>>
   GestureResult<M> onDragEnd(DragEndGesture g) => GestureResult.none();
   @override
   GestureResult<M> onTap(TapGesture g) => GestureResult.none();
-}
-
-final class SelectionGestureHandler<M extends BaseMode<M>>
-    extends NoopGestureHandler<M> {
-  const SelectionGestureHandler(this.mode);
-
-  @override
-  final M mode;
-
-  @override
-  GestureResult<M> onTap(TapGesture g) =>
-      GestureResult(mode: mode.withSelection(g.element));
 }

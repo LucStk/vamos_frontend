@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:map_application/domain/domain.dart';
+import 'package:map_application/map_application.dart';
 import 'package:map_explore_application/map_explore_mode.dart';
 
 final class MapExploreController extends BaseController<MapExploreMode> {

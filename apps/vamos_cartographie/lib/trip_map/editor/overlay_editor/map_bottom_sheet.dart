@@ -44,7 +44,5 @@ class MapEditorBottomSheet extends ConsumerWidget {
             return const SizedBox.shrink();
         }
     }
-
-    return const SizedBox.shrink();
   }
 }
