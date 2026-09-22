@@ -2,6 +2,7 @@ import 'package:domain_core/domain/collection_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/trip.dart';
+import 'package:vamos_cartographie/explore_map/injection/explore_controller_provider.dart';
 import 'package:vamos_cartographie/explore_map/presentation/trip_card/trip_card.dart';
 import 'package:vamos_cartographie/trip/trip.dart';
 
@@ -26,7 +27,7 @@ class TripCard extends ConsumerWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          // TODO: sélectionner/centrer le trip
+          ref.read(mapExploreControllerProvider).selectTrip(trip.id);
         },
         child: Padding(
           padding: const EdgeInsets.all(16),

@@ -1,3 +1,4 @@
+import 'package:map_engine/visual/application/projection/base_objects/projected_object.dart';
 import 'package:map_engine/visual/visual.dart';
 
 typedef VisualStateResolver = MapObjectVisualState Function(MapObject);

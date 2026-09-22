@@ -44,12 +44,14 @@ List<ProjectedPoint> allVertexProjection(Ref ref, TripId tripId) {
 List<ProjectedLine> allSegmentProjection(Ref ref, TripId tripId) {
   final segments = ref.watch(allSegmentsProvider(tripId));
   final cameraReader = ref.read(mapCameraHolderProvider);
+
   return [
     for (final segment in segments)
       ProjectedSegment(
-        worldPoints: segment.geometry
-            .map((p) => cameraReader.latLngToWorldOffset(p))
-            .toList(),
+        worldSegments: projectLine(
+          segment.geometry,
+          cameraReader.latLngToWorldOffset,
+        ),
         object: MapSegment(segment.id, segment.geometry),
       ),
   ];

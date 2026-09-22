@@ -32,6 +32,11 @@ sealed class MapLine extends MapObject {
   const MapLine(this.geometry);
 }
 
+sealed class MapPolyline extends MapObject {
+  final List<List<LatLng>> lines;
+  const MapPolyline(this.lines);
+}
+
 final class MapVertex extends MapPoint implements TopologyObject {
   final VertexId id;
   const MapVertex(this.id, super.position);

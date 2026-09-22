@@ -1,4 +1,3 @@
-import 'package:domain_core/domain/collection_store.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
@@ -19,7 +18,7 @@ MapTripObject mapTripObject(Ref ref, TripId tripId) {
   }
   final tripSegment = ref.watch(allSegmentsProvider(tripId));
   // Applique la projection et l'aplatissement directement avec expand
-  final tripGeometry = tripSegment.expand((s) => s.geometry).toList();
+  final tripGeometry = tripSegment.map((s) => s.geometry).toList();
   return MapTripObject(trip.id, tripGeometry);
 }
 
@@ -28,9 +27,10 @@ ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   final tripObject = ref.watch(mapTripObjectProvider(tripId));
   final cameraReader = ref.read(mapCameraHolderProvider);
   return ProjectedTrip(
-    worldPoints: tripObject.geometry
-        .map((p) => cameraReader.latLngToWorldOffset(p))
-        .toList(),
+    worldSegments: projectPolyline(
+      tripObject.lines,
+      cameraReader.latLngToWorldOffset,
+    ),
     object: tripObject,
   );
 }

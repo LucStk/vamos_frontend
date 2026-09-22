@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'dart:math' as math;
 
+import 'package:map_engine/visual/domain/world_segment.dart';
+
 Rect computeBounds(Iterable<Offset> points) {
   final pointsList = points.toList();
 
@@ -23,17 +25,15 @@ Rect computeBounds(Iterable<Offset> points) {
   return Rect.fromLTRB(minX, minY, maxX, maxY);
 }
 
-double distanceToPolyline(Offset point, List<Offset> points) {
-  if (points.length < 2) {
-    return double.infinity;
-  }
-
+double distanceToPolyline(Offset position, Iterable<WorldSegment> segments) {
   var minDistance = double.infinity;
 
-  for (var i = 0; i < points.length - 1; i++) {
-    final distance = _distanceToSegment(point, points[i], points[i + 1]);
+  for (final (start, end) in segments) {
+    final distance = _distanceToSegment(position, start.value, end.value);
 
-    minDistance = math.min(minDistance, distance);
+    if (distance < minDistance) {
+      minDistance = distance;
+    }
   }
 
   return minDistance;

@@ -28,9 +28,10 @@ List<ProjectedObject> sketchElementProjection(Ref ref, TripId tripId) {
       ret.add(
         ProjectedSketchSegment(
           object: MapSketchSegment(sketch.path),
-          worldPoints: sketch.path
-              .map((p) => cameraReader.latLngToWorldOffset(p))
-              .toList(),
+          worldSegments: projectLine(
+            sketch.path,
+            cameraReader.latLngToWorldOffset,
+          ),
         ),
       );
     }

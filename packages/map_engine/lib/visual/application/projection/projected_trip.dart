@@ -1,19 +1,19 @@
-part of 'projected_object.dart';
+import 'dart:ui';
 
-final class ProjectedTrip extends ProjectedLine<MapTripObject> {
-  ProjectedTrip({required super.object, required super.worldPoints});
+import 'package:map_engine/visual/application/draw_command/draw_command_domain.dart';
+import 'package:map_engine/visual/application/projection/base_objects/projected_object.dart';
+import 'package:map_engine/visual/application/projection/map_paint_context.dart';
+import 'package:map_engine/visual/domain/domain.dart';
+
+final class ProjectedTrip extends ProjectedPolyline<MapTripObject> {
+  ProjectedTrip({required super.object, required super.worldSegments});
 
   @override
   List<MapDrawCommand> describe({
     MapPaintContext context = const MapPaintContext(),
   }) {
     final path = this.path;
-    if (path == null) {
-      return const [];
-    }
-
     final isSelected = context.state == MapObjectVisualState.selected;
-
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = isSelected ? 0.02 : 0.01

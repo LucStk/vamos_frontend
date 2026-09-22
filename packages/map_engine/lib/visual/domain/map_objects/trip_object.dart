@@ -1,8 +1,8 @@
 part of "map_objects.dart";
 
-class MapTripObject extends MapLine {
+class MapTripObject extends MapPolyline {
   final TripId id;
-  const MapTripObject(this.id, super.geometry);
+  const MapTripObject(this.id, super.lines);
 
   @override
   double get radius => 24;

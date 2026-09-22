@@ -143,7 +143,7 @@ final class ProjectTripProvider
   }
 }
 
-String _$projectTripHash() => r'd219f464ecc40fe5e5f151df3174657cf18bfe70';
+String _$projectTripHash() => r'7dcd6d459aac845646163926437cf377a52ee6dd';
 
 final class ProjectTripFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
@@ -203,7 +203,7 @@ final class ProjectedExploreSceneProvider
 }
 
 String _$projectedExploreSceneHash() =>
-    r'b6186f8fbdd65410e290eaa575a04289761ab262';
+    r'a354c160b812d9b46df8cc67f324105621af9705';
 
 @ProviderFor(exploreScene)
 final exploreSceneProvider = ExploreSceneProvider._();
@@ -244,4 +244,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'b2587f0b03039c547887711f769f2cdbcd7ce144';
+String _$exploreSceneHash() => r'09a18adcf46b1936aa2cac42b9dfd8515739e75c';

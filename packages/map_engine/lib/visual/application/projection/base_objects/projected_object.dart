@@ -5,12 +5,7 @@ import 'package:map_engine/visual/visual.dart';
 
 part "projected_line.dart";
 part "projected_point.dart";
-part "projected_user_location.dart";
-part "projected_vertex.dart";
-part "projected_segment.dart";
-part "projected_sketch_pencil.dart";
-part "projected_sketch_segment.dart";
-part "projected_trip.dart";
+part "projected_polyline.dart";
 
 abstract class ProjectedObject {
   final MapObject object;

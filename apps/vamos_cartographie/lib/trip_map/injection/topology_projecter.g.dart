@@ -159,7 +159,7 @@ final class AllSegmentProjectionProvider
 }
 
 String _$allSegmentProjectionHash() =>
-    r'4a86f57808b7b88c6ec4da1ca60f066c3171f376';
+    r'fe9bec724f944ee8ab1d84185edf78dde6bcc169';
 
 final class AllSegmentProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {
