@@ -1,7 +1,6 @@
 import 'dart:ui';
-
-import 'package:map_engine/utiles/segment_hit_helpers.dart';
-import 'package:map_engine/visual/visual.dart';
+import 'package:map_canvas/domain/domain.dart';
+import 'package:map_engine/map_engine.dart';
 
 part "projected_line.dart";
 part "projected_point.dart";

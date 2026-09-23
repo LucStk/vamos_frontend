@@ -1,10 +1,8 @@
 import 'dart:ui';
 
-import 'package:map_engine/visual/application/draw_command/draw_command_domain.dart';
-import 'package:map_engine/visual/application/projection/base_objects/projected_object.dart';
-import 'package:map_engine/visual/application/projection/map_paint_context.dart';
-import 'package:map_engine/visual/domain/domain.dart';
+import 'package:map_canvas/domain/domain.dart';
 
+import 'package:map_engine/map_engine.dart';
 final class ProjectedUserLocation extends ProjectedPoint<MapUserLocation> {
   ProjectedUserLocation({required super.object, required super.worldPosition});
 

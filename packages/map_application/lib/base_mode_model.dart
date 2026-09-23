@@ -1,6 +1,6 @@
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/gesture_result_model.dart';
-import 'package:map_engine/controller/controller.dart';
+import 'package:map_engine/map_engine.dart';
 
 abstract class BaseMode<Self extends BaseMode<Self>> {
   const BaseMode();

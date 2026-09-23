@@ -1,4 +1,4 @@
-import 'package:map_engine/visual/visual.dart';
+import 'domain.dart';
 
 sealed class MapGesture {
   const MapGesture(this.offset);

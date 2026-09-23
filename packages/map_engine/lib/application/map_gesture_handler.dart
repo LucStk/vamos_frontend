@@ -1,7 +1,5 @@
-import 'package:map_engine/controller/application/pending_tap_timer.dart';
-import 'package:map_engine/controller/application/pointer_gesture_resolver.dart';
-import 'package:map_engine/controller/domain/domain.dart';
-import 'package:map_engine/visual/domain/offset_type.dart';
+import '/domain/domain.dart';
+import "application.dart";
 
 typedef OnGesture = void Function(MapGesture gesture);
 

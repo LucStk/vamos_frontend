@@ -167,8 +167,13 @@ final class ProjectTripFamily extends $Family
 final projectedExploreSceneProvider = ProjectedExploreSceneProvider._();
 
 final class ProjectedExploreSceneProvider
-    extends $FunctionalProvider<ProjectedScene, ProjectedScene, ProjectedScene>
-    with $Provider<ProjectedScene> {
+    extends
+        $FunctionalProvider<
+          List<ProjectedObject>,
+          List<ProjectedObject>,
+          List<ProjectedObject>
+        >
+    with $Provider<List<ProjectedObject>> {
   ProjectedExploreSceneProvider._()
     : super(
         from: null,
@@ -185,25 +190,26 @@ final class ProjectedExploreSceneProvider
 
   @$internal
   @override
-  $ProviderElement<ProjectedScene> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<List<ProjectedObject>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  ProjectedScene create(Ref ref) {
+  List<ProjectedObject> create(Ref ref) {
     return projectedExploreScene(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ProjectedScene value) {
+  Override overrideWithValue(List<ProjectedObject> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ProjectedScene>(value),
+      providerOverride: $SyncValueProvider<List<ProjectedObject>>(value),
     );
   }
 }
 
 String _$projectedExploreSceneHash() =>
-    r'a354c160b812d9b46df8cc67f324105621af9705';
+    r'90c1f63c4929279e85e2aadff65d2250013922f6';
 
 @ProviderFor(exploreScene)
 final exploreSceneProvider = ExploreSceneProvider._();
@@ -244,4 +250,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'09a18adcf46b1936aa2cac42b9dfd8515739e75c';
+String _$exploreSceneHash() => r'a75cb386cf1a9cbd7355fce0f6c68628646801ae';

@@ -1,4 +1,4 @@
-import 'package:map_engine/visual/visual.dart';
+import '/domain/domain.dart';
 import 'package:vector_math/vector_math_64.dart'; // Nécessaire pour Vector2
 
 Matrix4 buildCameraTransform(MapCameraReader camera) {

@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:map_engine/controller/domain/domain.dart';
+import '/domain/domain.dart';
 
 class PendingTapTimer {
   PendingTapTimer({

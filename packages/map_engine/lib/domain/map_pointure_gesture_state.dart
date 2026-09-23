@@ -1,4 +1,4 @@
-import 'package:map_engine/visual/visual.dart';
+import '/domain/domain.dart';
 
 sealed class PointerGestureState {
   const PointerGestureState();

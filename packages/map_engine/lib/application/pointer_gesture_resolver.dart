@@ -1,5 +1,4 @@
-import 'package:map_engine/controller/domain/domain.dart';
-import 'package:map_engine/visual/visual.dart';
+import '/domain/domain.dart';
 
 typedef GestureResolution = ({PointerGestureState state, MapGesture? gesture});
 typedef HitTest =

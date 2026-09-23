@@ -13,8 +13,13 @@ part of 'trip_editor_scene.dart';
 final projectedTripEditorSceneProvider = ProjectedTripEditorSceneFamily._();
 
 final class ProjectedTripEditorSceneProvider
-    extends $FunctionalProvider<ProjectedScene, ProjectedScene, ProjectedScene>
-    with $Provider<ProjectedScene> {
+    extends
+        $FunctionalProvider<
+          List<ProjectedObject>,
+          List<ProjectedObject>,
+          List<ProjectedObject>
+        >
+    with $Provider<List<ProjectedObject>> {
   ProjectedTripEditorSceneProvider._({
     required ProjectedTripEditorSceneFamily super.from,
     required TripId super.argument,
@@ -38,20 +43,21 @@ final class ProjectedTripEditorSceneProvider
 
   @$internal
   @override
-  $ProviderElement<ProjectedScene> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<List<ProjectedObject>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  ProjectedScene create(Ref ref) {
+  List<ProjectedObject> create(Ref ref) {
     final argument = this.argument as TripId;
     return projectedTripEditorScene(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ProjectedScene value) {
+  Override overrideWithValue(List<ProjectedObject> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ProjectedScene>(value),
+      providerOverride: $SyncValueProvider<List<ProjectedObject>>(value),
     );
   }
 
@@ -68,10 +74,10 @@ final class ProjectedTripEditorSceneProvider
 }
 
 String _$projectedTripEditorSceneHash() =>
-    r'acfc742c7af7aa981e0839ce4be35ab30451c0bf';
+    r'3ca9d1002088230351aabb654f3beed4e9c5760a';
 
 final class ProjectedTripEditorSceneFamily extends $Family
-    with $FunctionalFamilyOverride<ProjectedScene, TripId> {
+    with $FunctionalFamilyOverride<List<ProjectedObject>, TripId> {
   ProjectedTripEditorSceneFamily._()
     : super(
         retry: null,
@@ -145,7 +151,7 @@ final class TripEditorSceneProvider
   }
 }
 
-String _$tripEditorSceneHash() => r'86665c47cd7d3d78cff645467877ddc19add8a26';
+String _$tripEditorSceneHash() => r'6068c07828e9096f1866d8780730fd894eb95e10';
 
 final class TripEditorSceneFamily extends $Family
     with $FunctionalFamilyOverride<MapScene, TripId> {

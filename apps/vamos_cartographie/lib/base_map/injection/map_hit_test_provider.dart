@@ -11,7 +11,7 @@ HitTest mapHitTest(Ref ref, ProviderListenable<MapScene> sceneProvider) {
   final scale = ref.watch(mapCameraHolderProvider).zoomScale;
 
   return ({required WorldOffset offset, MapObject? exclude}) {
-    return scene.projectedScene.hitTest(
+    return scene.hitTest(
       offset,
       scale,
       ignore: (o) => exclude != null && o.isSameAs(exclude),

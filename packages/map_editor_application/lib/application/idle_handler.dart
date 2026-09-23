@@ -1,7 +1,6 @@
 import 'package:map_application/map_application.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
-import 'package:map_engine/controller/domain/map_gesture.dart';
-import 'package:map_engine/visual/visual.dart';
+import 'package:map_engine/map_engine.dart';
 
 final class IdleHandler extends NoopGestureHandler<MapEditorMode> {
   const IdleHandler(this.mode);

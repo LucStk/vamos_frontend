@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:map_engine/visual/visual.dart';
+import 'package:map_canvas/domain/domain.dart';
+import 'package:map_engine/map_engine.dart';
 
 final class ProjectedSketchPencil extends ProjectedPoint<MapSketchPencil> {
   ProjectedSketchPencil({required super.object, required super.worldPosition});

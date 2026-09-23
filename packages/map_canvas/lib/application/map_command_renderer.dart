@@ -1,7 +1,8 @@
 import 'dart:ui';
+import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 
-enum _RenderSpace { world, screen }
+enum MapRenderSpace { world, screen }
 
 final class MapCommandRenderer {
   const MapCommandRenderer({required this.canvas, this.camera});
@@ -13,7 +14,7 @@ final class MapCommandRenderer {
 
   void paintAll(
     Iterable<MapDrawCommand> commands, {
-    _RenderSpace space = _RenderSpace.world,
+    MapRenderSpace space = MapRenderSpace.world,
   }) {
     for (final command in commands) {
       paint(command, space: space);
@@ -22,14 +23,14 @@ final class MapCommandRenderer {
 
   void paint(
     MapDrawCommand command, {
-    _RenderSpace space = _RenderSpace.world,
+    MapRenderSpace space = MapRenderSpace.world,
   }) {
     switch (command) {
       case WorldScale():
-        paintAll(command.commands, space: _RenderSpace.world);
+        paintAll(command.commands, space: MapRenderSpace.world);
 
       case ScreenScale():
-        paintAll(command.commands, space: _RenderSpace.screen);
+        paintAll(command.commands, space: MapRenderSpace.screen);
 
       case Transform():
         _paintTransform(command, space: space);
@@ -42,8 +43,8 @@ final class MapCommandRenderer {
     }
   }
 
-  void _paintCircle(DrawCircle command, {required _RenderSpace space}) {
-    if (space == _RenderSpace.world || camera == null) {
+  void _paintCircle(DrawCircle command, {required MapRenderSpace space}) {
+    if (space == MapRenderSpace.world || camera == null) {
       canvas.drawCircle(command.center.value, command.radius, command.paint);
       return;
     }
@@ -61,8 +62,8 @@ final class MapCommandRenderer {
     canvas.restore();
   }
 
-  void _paintPath(DrawPath command, {required _RenderSpace space}) {
-    if (space == _RenderSpace.world || camera == null) {
+  void _paintPath(DrawPath command, {required MapRenderSpace space}) {
+    if (space == MapRenderSpace.world || camera == null) {
       canvas.drawPath(command.path, command.paint);
       return;
     }
@@ -80,7 +81,7 @@ final class MapCommandRenderer {
     canvas.drawPath(command.path, paint);
   }
 
-  void _paintTransform(Transform command, {required _RenderSpace space}) {
+  void _paintTransform(Transform command, {required MapRenderSpace space}) {
     final transform = command.transform;
 
     canvas.save();

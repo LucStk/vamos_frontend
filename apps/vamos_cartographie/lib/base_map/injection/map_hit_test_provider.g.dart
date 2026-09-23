@@ -66,7 +66,7 @@ final class MapHitTestProvider
   }
 }
 
-String _$mapHitTestHash() => r'9cdff5f7db10bc42b85171c3d91a36a8a84de375';
+String _$mapHitTestHash() => r'38d6b63190edf2775a4bfe992d9d5b1f2ec514c2';
 
 final class MapHitTestFamily extends $Family
     with $FunctionalFamilyOverride<HitTest, ProviderListenable<MapScene>> {

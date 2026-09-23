@@ -36,7 +36,7 @@ ProjectedTrip projectTrip(Ref ref, TripId tripId) {
 }
 
 @riverpod
-ProjectedScene projectedExploreScene(Ref ref) {
+List<ProjectedObject> projectedExploreScene(Ref ref) {
   final userLocation = ref.watch(userLocationProjectionProvider);
   final tripsIds = ref.watch(
     tripStoreProvider.select((t) => t.tripStore.getIds()),
@@ -50,7 +50,7 @@ ProjectedScene projectedExploreScene(Ref ref) {
 
   objects.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
 
-  return ProjectedScene(objects);
+  return objects;
 }
 
 @riverpod
@@ -58,5 +58,5 @@ MapScene exploreScene(Ref ref) {
   final id = ref.watch(exploreModeProvider.select((m) => m.tripSelect));
   final selection = id == null ? null : ref.watch(mapTripObjectProvider(id));
   final projectScene = ref.watch(projectedExploreSceneProvider);
-  return MapScene(selection: selection, projectedScene: projectScene);
+  return MapScene(selection: selection, objects: projectScene);
 }
