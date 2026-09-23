@@ -29,18 +29,18 @@ class MapScene {
     return null;
   }
 
-  Iterable<MapDrawCommand> commands() sync* {
-    for (final object in objects.reversed) {
-      final isSelected =
-          selection != null && object.object.isSameAs(selection!);
+  // Iterable<MapDrawCommand> commands() sync* {
+  //   for (final object in objects.reversed) {
+  //     final isSelected =
+  //         selection != null && object.object.isSameAs(selection!);
 
-      yield object.describe(
-        context: MapPaintContext(
-          state: isSelected
-              ? MapObjectVisualState.selected
-              : MapObjectVisualState.normal,
-        ),
-      );
-    }
-  }
+  //     yield object.describe(
+  //       context: MapPaintContext(
+  //         state: isSelected
+  //             ? MapObjectVisualState.selected
+  //             : MapObjectVisualState.normal,
+  //       ),
+  //     );
+  //   }
+  // }
 }

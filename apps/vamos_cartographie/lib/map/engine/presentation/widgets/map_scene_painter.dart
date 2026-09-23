@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/application/application.dart';
-import 'package:map_canvas/camera_transform_widget.dart';
+import 'camera_transform_widget.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:flutter_riverpod/misc.dart';

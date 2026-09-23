@@ -4,13 +4,8 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_canvas/map_canvas.dart';
-import 'package:map_canvas/map_screen.dart';
-import 'package:map_engine/visual/domain/map_scene.dart';
+import 'map_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/base_map/injection/map_camera_provider.dart';
-import 'package:vamos_cartographie/base_map/injection/map_hit_test_provider.dart';
-import 'package:vamos_cartographie/base_map/layers/layers.dart';
-import 'package:vamos_cartographie/base_map/overlay_ui/right_control_panel.dart';
 
 class BaseMap extends ConsumerStatefulWidget {
   const BaseMap({
