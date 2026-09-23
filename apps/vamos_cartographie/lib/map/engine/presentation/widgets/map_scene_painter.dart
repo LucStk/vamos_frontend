@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/application/application.dart';
 import 'package:vamos_cartographie/map/engine/injection/injection.dart';
 import 'package:vamos_cartographie/map/engine/injection/map_commands_provider.dart';
+import 'package:vamos_cartographie/map/engine/presentation/widgets/test_point_painter.dart';
 import 'camera_transform_widget.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
@@ -13,34 +14,66 @@ class MapScenePaint extends ConsumerWidget {
 
   final ProviderListenable<MapScene> sceneProvider;
 
+  //   @override
+  //   Widget build(BuildContext context, WidgetRef ref) {
+  //     final drawCommands = ref.watch(mapCommandsProvider(sceneProvider));
+  //     final camera = ref.watch(mapCameraHolderProvider);
+
+  //     return Stack(
+  //       children: [
+  //         // World layer :
+  //         // la caméra transforme le canvas, la scène n'est pas repeinte
+  //         // pendant les changements de caméra.
+  //         CameraTransform(
+  //           camera: camera,
+  //           child: RepaintBoundary(
+  //             child: CustomPaint(
+  //               size: camera.size,
+  //               painter: MapScenePainter(drawCommands),
+  //             ),
+  //           ),
+  //         ),
+
+  //         // Screen layer :
+  //         // repeint lorsque la caméra change.
+  //         RepaintBoundary(
+  //           child: CustomPaint(
+  //             size: camera.size,
+  //             painter: ScreenSpacePainter(drawCommands, camera),
+  //           ),
+  //         ),
+  //       ],
+  //     );
+  //   }
+  // }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final drawCommands = ref.watch(mapCommandsProvider(sceneProvider));
-    final camera = ref.watch(mapCameraHolderProvider);
+    final cameraSize = ref.watch(mapCameraHolderProvider.select((c) => c.size));
+    print("mapScene rebuild");
 
     return Stack(
       children: [
-        // World layer :
-        // la caméra transforme le canvas, la scène n'est pas repeinte
-        // pendant les changements de caméra.
+        // 1. WORLD LAYER : Le rond subit la caméra (zoom/pan/rotation)
         RepaintBoundary(
           child: CameraTransform(
-            camera: camera,
             child: CustomPaint(
-              size: camera.size,
-              painter: MapScenePainter(drawCommands),
+              size: cameraSize,
+              painter: const TestPointPainter(
+                color: Colors.red,
+                offset: Offset(100, 100),
+              ), // Rond ROUGE
             ),
           ),
         ),
 
-        // Screen layer :
-        // repeint lorsque la caméra change.
-        RepaintBoundary(
-          child: CustomPaint(
-            size: camera.size,
-            painter: ScreenSpacePainter(drawCommands, camera),
-          ),
-        ),
+        // 2. SCREEN LAYER : Le rond reste fixe à l'écran
+        // RepaintBoundary(
+        //   child: CustomPaint(
+        //     size: camera.size,
+        //     painter: const TestPointPainter(color: Colors.blue), // Rond BLEU
+        //   ),
+        // ),
       ],
     );
   }
