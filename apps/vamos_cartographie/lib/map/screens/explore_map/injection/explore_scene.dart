@@ -8,7 +8,6 @@ import 'explore_controller_provider.dart';
 
 import '/domain_features/domain_features.dart';
 import '/map/engine/engine.dart';
-import '/domain_features/domain_features.dart';
 part 'explore_scene.g.dart';
 
 @riverpod

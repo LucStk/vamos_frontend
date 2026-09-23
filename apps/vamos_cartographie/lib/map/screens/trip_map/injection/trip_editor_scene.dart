@@ -1,9 +1,9 @@
-import 'package:map_canvas/domain/projected_base_object/projected_object.dart';
-import 'package:map_engine/map_engine.dart';
+import 'package:map_canvas/map_canvas.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/injection/editor_controller_provider.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
 

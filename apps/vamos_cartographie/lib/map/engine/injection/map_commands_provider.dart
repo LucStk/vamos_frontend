@@ -1,6 +1,8 @@
 import "package:map_canvas/domain/domain.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+part 'map_commands_provider.g.dart';
+
 @riverpod
 List<MapDrawCommand> mapCommands(
   Ref ref,
@@ -12,7 +14,9 @@ List<MapDrawCommand> mapCommands(
     for (final object in scene.objects.reversed)
       object.describe(
         context: MapPaintContext(
-          state: object.object.isSameAs(scene.selection)
+          state:
+              (scene.selection != null) &&
+                  scene.selection!.isSameAs(object.object)
               ? MapObjectVisualState.selected
               : MapObjectVisualState.normal,
         ),
