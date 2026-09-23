@@ -53,7 +53,7 @@ List<ProjectedObject> projectedExploreScene(Ref ref) {
   return objects;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 MapScene exploreScene(Ref ref) {
   final id = ref.watch(exploreModeProvider.select((m) => m.tripSelect));
   final selection = id == null ? null : ref.watch(mapTripObjectProvider(id));

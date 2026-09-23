@@ -19,6 +19,8 @@ void main() {
       FlutterError.onError = (FlutterErrorDetails details) {
         ErrorHandler.instance.handle(details.exception, details.stack);
       };
+
+      SupabaseConfig.validate();
       await SupabaseService.initialize();
 
       runApp(
