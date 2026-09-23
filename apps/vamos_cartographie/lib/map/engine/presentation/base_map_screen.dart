@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
-import 'package:vamos_cartographie/map/engine/injection/map_hit_test_provider.dart';
+import 'package:vamos_cartographie/map/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -65,11 +65,10 @@ class _BaseMapState extends ConsumerState<BaseMap>
     return Scaffold(
       body: Stack(
         children: [
-          MapScreen(
-            onGesture: widget.controller.dispatchGesture,
-            mapCameraReader: ref.read(mapCameraHolderProvider),
-            hitTest: ref.read(mapHitTestProvider(widget.sceneProvider)),
-            mapCanvas: ,
+          MapGestureBridge(
+            controller: widget.controller,
+            sceneProvider: widget.sceneProvider,
+            mapLayers: [MapTileLayer()],
           ),
           const MapControls(),
           ...widget.overlayChildren,

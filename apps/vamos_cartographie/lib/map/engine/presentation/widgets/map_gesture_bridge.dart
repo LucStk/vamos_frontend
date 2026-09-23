@@ -2,8 +2,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_application/base_controller_model.dart';
+import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:vamos_cartographie/map/engine/injection/injection.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/map/engine/engine.dart';
 
 /// Expose l'état "pan autorisé ou non" aux descendants sans obliger
 /// chaque widget intermédiaire à le recevoir en paramètre de constructeur.
@@ -25,13 +28,16 @@ class PanLock extends InheritedNotifier<ValueNotifier<bool>> {
 }
 
 class MapGestureBridge extends ConsumerStatefulWidget {
-  MapGestureBridge({required OnGesture onGesture, super.key})
-    : gestureHandler = MapGestureHandler(
-        hitTest: hitTest,
-        onGesture: onGesture,
-      );
+  final BaseController controller;
+  final ProviderListenable<MapScene> sceneProvider;
+  final List<Widget> mapLayers;
 
-  final MapGestureHandler gestureHandler;
+  const MapGestureBridge({
+    required this.controller,
+    required this.sceneProvider,
+    required this.mapLayers,
+    super.key,
+  });
 
   @override
   ConsumerState<MapGestureBridge> createState() => _MapGestureBridgeState();
@@ -40,17 +46,21 @@ class MapGestureBridge extends ConsumerStatefulWidget {
 class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
+  MapGestureHandler get gestureHandler => ref.read(
+    mapGestureHandlerProvider(widget.sceneProvider, widget.controller),
+  );
+
   void _resolve(PointerEventType type, PointerEvent event) {
     final offset = ref
         .read(mapCameraHolderProvider)
         .screenToWorld(ScreenOffset(event.localPosition));
-    widget.gestureHandler.resolve(type, offset);
-    _panAllowed.value = widget.gestureHandler.panAllowed;
+    gestureHandler.resolve(type, offset);
+    _panAllowed.value = gestureHandler.panAllowed;
   }
 
   @override
   void dispose() {
-    widget.gestureHandler.dispose();
+    gestureHandler.dispose();
     _panAllowed.dispose();
     super.dispose();
   }
@@ -62,7 +72,13 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
       onPointerDown: (event) => _resolve(PointerEventType.down, event),
       onPointerMove: (event) => _resolve(PointerEventType.move, event),
       onPointerUp: (event) => _resolve(PointerEventType.up, event),
-      child: PanLock(notifier: _panAllowed, child: widget.child),
+      child: PanLock(
+        notifier: _panAllowed,
+        child: MapCanvas(
+          sceneProvider: widget.sceneProvider,
+          layers: widget.mapLayers,
+        ),
+      ),
     );
   }
 }
