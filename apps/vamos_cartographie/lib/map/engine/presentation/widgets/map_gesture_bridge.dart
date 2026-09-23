@@ -1,7 +1,9 @@
 // features/map/presentation/widgets/map_gesture_bridge.dart
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:vamos_cartographie/map/engine/injection/injection.dart';
 
 /// Expose l'état "pan autorisé ou non" aux descendants sans obliger
 /// chaque widget intermédiaire à le recevoir en paramètre de constructeur.
@@ -22,33 +24,26 @@ class PanLock extends InheritedNotifier<ValueNotifier<bool>> {
   }
 }
 
-class MapGestureBridge extends StatefulWidget {
-  MapGestureBridge({
-    required OnGesture onGesture,
-    required HitTest hitTest,
-    required this.child,
-    required this.mapCameraReader,
-    super.key,
-  }) : gestureHandler = MapGestureHandler(
-         hitTest: hitTest,
-         onGesture: onGesture,
-       );
+class MapGestureBridge extends ConsumerStatefulWidget {
+  MapGestureBridge({required OnGesture onGesture, super.key})
+    : gestureHandler = MapGestureHandler(
+        hitTest: hitTest,
+        onGesture: onGesture,
+      );
 
   final MapGestureHandler gestureHandler;
-  final MapCameraReader mapCameraReader;
-  final Widget child;
 
   @override
-  State<MapGestureBridge> createState() => _MapGestureBridgeState();
+  ConsumerState<MapGestureBridge> createState() => _MapGestureBridgeState();
 }
 
-class _MapGestureBridgeState extends State<MapGestureBridge> {
+class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
   void _resolve(PointerEventType type, PointerEvent event) {
-    final offset = widget.mapCameraReader.screenToWorld(
-      ScreenOffset(event.localPosition),
-    );
+    final offset = ref
+        .read(mapCameraHolderProvider)
+        .screenToWorld(ScreenOffset(event.localPosition));
     widget.gestureHandler.resolve(type, offset);
     _panAllowed.value = widget.gestureHandler.panAllowed;
   }

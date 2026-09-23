@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
-import 'map_screen.dart';
+import 'package:vamos_cartographie/map/engine/injection/map_hit_test_provider.dart';
+import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class BaseMap extends ConsumerStatefulWidget {
@@ -67,14 +68,8 @@ class _BaseMapState extends ConsumerState<BaseMap>
           MapScreen(
             onGesture: widget.controller.dispatchGesture,
             mapCameraReader: ref.read(mapCameraHolderProvider),
-            mapController: ref.read(mapControllerProvider),
             hitTest: ref.read(mapHitTestProvider(widget.sceneProvider)),
-            mapScenePaint: MapScenePaint(
-              sceneProvider: widget.sceneProvider,
-              mapCameraReader: ref.read(mapCameraHolderProvider),
-            ),
-
-            layers: const [MapTileLayer()],
+            mapCanvas: ,
           ),
           const MapControls(),
           ...widget.overlayChildren,

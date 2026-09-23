@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/application/application.dart';
+import 'package:vamos_cartographie/map/engine/injection/injection.dart';
+import 'package:vamos_cartographie/map/engine/injection/map_commands_provider.dart';
 import 'camera_transform_widget.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:flutter_riverpod/misc.dart';
 
 class MapScenePaint extends ConsumerWidget {
-  const MapScenePaint({
-    super.key,
-    required this.sceneProvider,
-    required this.mapCameraReader,
-  });
+  const MapScenePaint({super.key, required this.sceneProvider});
 
   final ProviderListenable<MapScene> sceneProvider;
-  final MapCameraReader mapCameraReader;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final MapScene scene = ref.watch(sceneProvider);
+    final drawCommands = ref.watch(mapCommandsProvider(sceneProvider));
+    final camera = ref.watch(mapCameraHolderProvider);
 
     return Stack(
       children: [
@@ -27,10 +25,10 @@ class MapScenePaint extends ConsumerWidget {
         // pendant les changements de caméra.
         RepaintBoundary(
           child: CameraTransform(
-            camera: mapCameraReader,
+            camera: camera,
             child: CustomPaint(
-              size: mapCameraReader.size,
-              painter: MapScenePainter(scene.commands()),
+              size: camera.size,
+              painter: MapScenePainter(drawCommands),
             ),
           ),
         ),
@@ -39,8 +37,8 @@ class MapScenePaint extends ConsumerWidget {
         // repeint lorsque la caméra change.
         RepaintBoundary(
           child: CustomPaint(
-            size: mapCameraReader.size,
-            painter: ScreenSpacePainter(scene.commands(), mapCameraReader),
+            size: camera.size,
+            painter: ScreenSpacePainter(drawCommands, camera),
           ),
         ),
       ],
