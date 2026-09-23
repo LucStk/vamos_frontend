@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'waypoint_header.dart';
-import 'package:vamos_cartographie/stored_file/stored_file.dart';
-import 'package:vamos_cartographie/waypoint/presentation/presentation.dart';
+import "/domain_features/domain_features.dart";
 
 class WaypointViewerContent extends StatelessWidget {
   final WaypointFields waypoint;

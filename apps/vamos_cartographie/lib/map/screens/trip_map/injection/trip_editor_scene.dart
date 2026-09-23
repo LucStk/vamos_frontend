@@ -1,11 +1,12 @@
+import 'package:map_canvas/domain/projected_base_object/projected_object.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/trip_map/editor/injection/injection.dart';
-import 'package:vamos_cartographie/trip_map/injection/topology_projecter.dart';
+import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'topology_projecter.dart';
+import 'sketch_elements_projecter.dart';
 
-import 'package:vamos_cartographie/base_map/base_map.dart';
 part 'trip_editor_scene.g.dart';
 
 @riverpod

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'presentation/login_page.dart';
-import 'providers/auth_providers.dart';
 import 'presentation/presentation.dart';
+import 'providers/auth_providers.dart';
 import '/ui_kit/ui_kit.dart';
+import '/domain_features/user_profile/user_profile.dart';
 
 class AppEntryView extends ConsumerWidget {
   const AppEntryView({super.key});

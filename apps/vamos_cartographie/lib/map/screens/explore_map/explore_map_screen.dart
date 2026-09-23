@@ -1,11 +1,11 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/base_map/base_map_screen.dart';
-import 'package:vamos_cartographie/explore_map/injection/explore_controller_provider.dart';
-import 'package:vamos_cartographie/explore_map/injection/injection.dart';
-import 'package:vamos_cartographie/explore_map/trips_carousel/trips_carousel_widget.dart';
-import 'package:vamos_cartographie/trip/injection/injection.dart';
+import 'package:vamos_cartographie/map/engine/presentation/base_map_screen.dart';
+import '/map/engine/engine.dart';
+import '/domain_features/domain_features.dart';
+import 'injection/injection.dart';
+import 'trips_carousel/trips_carousel_widget.dart';
 
 class ExploreMapScreen extends ConsumerWidget {
   const ExploreMapScreen({super.key});

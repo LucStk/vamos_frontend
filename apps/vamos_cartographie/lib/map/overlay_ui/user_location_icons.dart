@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/user_location/user_location.dart';
+import '/app_services/app_services.dart';
 
 extension UserLocationStateExtension on UserLocationState {
   Color get color => switch (this) {

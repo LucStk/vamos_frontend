@@ -5,12 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
-import 'package:vamos_cartographie/trip_map/editor/overlay_editor/sketch_sheet/sketch_sheet.dart';
-import 'package:vamos_cartographie/trip_map/editor/overlay_editor/vertex_bottom_sheet.dart';
-import 'package:vamos_cartographie/topology/injection/injection.dart';
-import 'package:vamos_cartographie/trip_map/presentation/overlay_viewer/segment_bottom_sheet_view.dart';
-import 'package:vamos_cartographie/trip_map/presentation/overlay_viewer/waypoint_sheet/waypoint_bottom_sheet.dart';
+import 'package:vamos_cartographie/domain_features/topology/injection/queries/vertex_queries.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/injection/editor_controller_provider.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/presentation/overlay_viewer/segment_bottom_sheet_view.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/presentation/overlay_viewer/waypoint_sheet/waypoint_sheet.dart';
+import 'sketch_sheet/sketch_sheet.dart';
+import 'vertex_bottom_sheet.dart';
+import '/domain_features/domain_features.dart';
+import '/ui_kit/ui_kit.dart';
 
 class MapEditorBottomSheet extends ConsumerWidget {
   final TripId tripId;

@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/config/supabase.dart';
 import 'package:vamos_cartographie/core/config/supabase_config.dart';
-import 'package:vamos_cartographie/explore_map/explore_map_screen.dart';
+import 'package:vamos_cartographie/core/core.dart';
+import 'package:vamos_cartographie/map/screens/explore_map/explore_map_screen.dart';
 import '/core/core.dart';
 
 void main() {

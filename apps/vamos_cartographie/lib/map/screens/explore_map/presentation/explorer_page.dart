@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/explore_map/presentation/dialogs/dialogs.dart';
-import 'package:vamos_cartographie/explore_map/presentation/explorer_empty_view.dart';
-import 'package:vamos_cartographie/explore_map/presentation/trip_card/trip_card.dart';
-import 'package:vamos_cartographie/trip/trip.dart';
+import 'package:vamos_cartographie/map/screens/explore_map/explore_map.dart';
+import '/domain_features/domain_features.dart';
 
 class ExplorerPage extends ConsumerStatefulWidget {
   const ExplorerPage({super.key});

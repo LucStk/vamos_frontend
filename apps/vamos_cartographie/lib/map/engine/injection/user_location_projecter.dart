@@ -1,7 +1,10 @@
+import 'package:map_canvas/application/projection/projected_user_location.dart';
+import 'package:map_canvas/domain/projected_base_object/projected_object.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/base_map/injection/injection.dart';
-import 'package:vamos_cartographie/user_location/user_location.dart';
 import 'package:map_engine/map_engine.dart';
+import '/app_services/app_services.dart';
+import 'map_camera_provider.dart';
+
 part "user_location_projecter.g.dart";
 
 @riverpod

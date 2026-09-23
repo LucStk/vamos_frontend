@@ -1,10 +1,13 @@
+import 'package:map_canvas/application/projection/projected_sketch_pencil.dart';
+import 'package:map_canvas/application/projection/projected_sketch_segment.dart';
+import 'package:map_canvas/domain/projected_base_object/projected_object.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/trip_map/editor/injection/editor_controller_provider.dart';
 
-import 'package:map_editor_application/domain/map_editor_mode.dart';
-import 'package:vamos_cartographie/base_map/base_map.dart';
+import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:map_editor_application/map_editor.dart';
+import 'editor_controller_provider.dart';
 part 'sketch_elements_projecter.g.dart';
 
 // final projection = const Epsg3857().projection;

@@ -1,9 +1,9 @@
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/explore_map/trips_carousel/desktop_trips_carousel.dart';
-import 'package:vamos_cartographie/explore_map/trips_carousel/mobile_trips_carousel.dart';
-import 'package:vamos_cartographie/trip/trip.dart';
+import '/domain_features/domain_features.dart';
+import 'desktop_trips_carousel.dart';
+import 'mobile_trips_carousel.dart';
 
 class TripsCarouselWidget extends ConsumerWidget {
   const TripsCarouselWidget({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/explore_map/trips_carousel/trip_card.dart';
+import 'trip_card.dart';
 
 class DesktopTripsCarousel extends StatelessWidget {
   const DesktopTripsCarousel({super.key, required this.tripIds});

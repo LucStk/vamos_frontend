@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/explore_map/presentation/dialogs/dialogs.dart';
-import 'package:vamos_cartographie/explore_map/presentation/trip_card/trip_card.dart';
-import 'package:vamos_cartographie/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/trip_map/trip_map.dart';
+import 'package:vamos_cartographie/map/screens/explore_map/explore_map.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
+import '/domain_features/domain_features.dart';
+
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 class TripCardView extends ConsumerWidget {

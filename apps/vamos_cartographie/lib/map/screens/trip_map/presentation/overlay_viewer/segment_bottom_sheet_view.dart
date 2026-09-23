@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
-import 'package:vamos_cartographie/features/buttons/buttons.dart';
-import 'package:vamos_cartographie/base_map/base_map.dart';
+import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
+import '/ui_kit/ui_kit.dart';
 
 class SegmentBottomSheet extends ConsumerWidget {
   final TripId tripId;

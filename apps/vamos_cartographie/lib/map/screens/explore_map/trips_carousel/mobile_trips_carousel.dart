@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/explore_map/trips_carousel/trip_card.dart';
+import 'trip_card.dart';
 
 class MobileTripsCarousel extends StatelessWidget {
   const MobileTripsCarousel({super.key, required this.tripIds});

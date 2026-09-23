@@ -1,11 +1,10 @@
 import 'package:map_editor_application/application/map_editor_controller.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/base_map/base_map.dart';
-import 'package:vamos_cartographie/topology/injection/providers/graph_store.dart';
-import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import 'package:vamos_cartographie/map/engine/engine.dart';
 part 'editor_controller_provider.g.dart';
 
 @Riverpod(keepAlive: true)

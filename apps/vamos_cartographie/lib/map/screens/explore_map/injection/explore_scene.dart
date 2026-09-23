@@ -1,13 +1,14 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/explore_map/injection/explore_controller_provider.dart';
-import 'package:vamos_cartographie/topology/topology.dart';
-import 'package:vamos_cartographie/trip/injection/trip_store.dart';
+import 'explore_controller_provider.dart';
 
-import 'package:vamos_cartographie/base_map/base_map.dart';
+import '/domain_features/domain_features.dart';
+import '/map/engine/engine.dart';
+import '/domain_features/domain_features.dart';
 part 'explore_scene.g.dart';
 
 @riverpod

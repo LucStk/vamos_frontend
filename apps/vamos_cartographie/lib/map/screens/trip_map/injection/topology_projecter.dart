@@ -1,11 +1,9 @@
+import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_application/trip/trip.dart';
-import 'package:trip_application/waypoint/waypoint.dart';
-import 'package:vamos_cartographie/topology/injection/injection.dart';
-import 'package:vamos_cartographie/waypoint/injection/waypoint_queries.dart';
-
-import 'package:vamos_cartographie/base_map/base_map.dart';
+import 'package:trip_application/trip_application.dart';
+import '/domain_features/domain_features.dart';
+import '/map/engine/engine.dart';
 part 'topology_projecter.g.dart';
 
 VertexVisualKind _visualKind(WaypointFields? waypoint) {

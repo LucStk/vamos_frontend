@@ -2,9 +2,9 @@ import 'package:domain_core/domain/collection_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/explore_map/injection/explore_controller_provider.dart';
-import 'package:vamos_cartographie/explore_map/presentation/trip_card/trip_card.dart';
-import 'package:vamos_cartographie/trip/trip.dart';
+import '/domain_features/trip/injection/trip_store.dart';
+import '/map/screens/explore_map/explore_map.dart';
+import '/map/screens/explore_map/injection/explore_controller_provider.dart';
 
 class TripCard extends ConsumerWidget {
   const TripCard({super.key, required this.tripId});
