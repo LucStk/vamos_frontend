@@ -6,6 +6,16 @@ sealed class MapDrawCommand {
   const MapDrawCommand();
 }
 
+/// Unité des dimensions (rayon, épaisseur de trait) d'une commande.
+enum DrawUnit {
+  /// Pixels écran : taille constante à l'écran en couche screen,
+  /// et équivalente au zoom de référence en couche world.
+  px,
+
+  /// Unités du monde (mètres) : dimension physique, grandit avec le zoom.
+  world,
+}
+
 final class WorldScale extends MapDrawCommand {
   const WorldScale(this.commands);
 
@@ -23,18 +33,25 @@ final class DrawCircle extends MapDrawCommand {
     required this.center,
     required this.radius,
     required this.paint,
+    this.unit = DrawUnit.px,
   });
 
   final WorldOffset center;
   final double radius;
   final Paint paint;
+  final DrawUnit unit;
 }
 
 final class DrawPath extends MapDrawCommand {
-  const DrawPath({required this.path, required this.paint});
+  const DrawPath({
+    required this.path,
+    required this.paint,
+    this.unit = DrawUnit.px,
+  });
 
   final Path path;
   final Paint paint;
+  final DrawUnit unit;
 }
 
 final class Transform extends MapDrawCommand {
