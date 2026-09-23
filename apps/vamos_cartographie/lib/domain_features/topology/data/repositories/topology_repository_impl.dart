@@ -2,10 +2,8 @@ import 'package:dartz/dartz.dart';
 import "package:domain_core/domain_core.dart";
 import 'package:trip_application/trip_application.dart';
 
-import 'package:vamos_cartographie/topology/data/datasources/topology_remote_datasource.dart';
-import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
-
 import 'package:vamos_cartographie/core/core.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/data.dart';
 
 class TopologyRepositoryImpl extends TopologyRepository {
   final TopologyRemoteDatasource remote;
@@ -16,7 +14,7 @@ class TopologyRepositoryImpl extends TopologyRepository {
   Future<Either<Failure, TopologyRes>> getTopology(TripId tripId) {
     return guard(() async {
       final data = await remote.getTopology(tripId: tripId);
-      return TopologyMappers.fromGQL(data);
+      return data.toDomain();
     });
   }
 }

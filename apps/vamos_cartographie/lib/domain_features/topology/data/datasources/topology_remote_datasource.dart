@@ -1,9 +1,7 @@
 import 'package:ferry/ferry.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/network/network.dart';
-import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/topology_queries.data.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/topology_queries.req.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/topology_queries.var.gql.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/data.dart';
 
 class TopologyRemoteDatasource {
   final Client ferryClient;

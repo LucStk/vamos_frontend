@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/features/buttons/primary_button.dart';
+import '/ui_kit/ui_kit.dart';
 
 // Imports des widgets partagés
 import 'widgets/auth_layout.dart';

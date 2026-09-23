@@ -1,12 +1,12 @@
 import 'package:domain_core/failures/failures.dart';
 import 'package:stored_file_application/application/stored_file_store.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/stored_file/stored_file.dart';
-import 'package:vamos_cartographie/topology/injection/providers/graph_store.dart';
-import 'package:vamos_cartographie/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/waypoint/injection/waypoint_store.dart';
+import 'package:vamos_cartographie/domain_features/stored_file/injection/stored_file_provider.dart';
+import 'package:vamos_cartographie/domain_features/topology/injection/providers/graph_store.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
 part 'trip_data_loader.g.dart';
 
 @riverpod

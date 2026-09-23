@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/stored_file/stored_file.dart';
-import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
+import '/domain_features/stored_file/stored_file.dart';
+import '/domain_features/user_profile/domain/domain.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key, required this.profile});

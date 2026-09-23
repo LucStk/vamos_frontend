@@ -2,8 +2,8 @@ import 'package:domain_core/id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/stored_file/injection/injection.dart';
-import 'package:vamos_cartographie/stored_file/services/services.dart';
+import '/domain_features/stored_file/injection/injection.dart';
+import '/domain_features/stored_file/services/services.dart';
 import 'widgets/widgets.dart';
 import "thumbnail_picker.dart";
 

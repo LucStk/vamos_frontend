@@ -2,7 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/stored_file/injection/stored_file_provider.dart';
+import 'stored_file_provider.dart';
 
 part 'stored_file_queries.g.dart';
 

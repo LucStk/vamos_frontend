@@ -6,17 +6,17 @@ import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
+import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i5;
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
+import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
     as _i8;
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
+import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i6;
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
+import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i7;
-import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
+import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i4;
-import 'package:vamos_cartographie/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
+import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
     as _i2;
 
 class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {

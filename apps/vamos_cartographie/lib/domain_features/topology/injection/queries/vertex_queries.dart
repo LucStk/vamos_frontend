@@ -2,8 +2,8 @@ import 'package:domain_core/domain_core.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/waypoint/waypoint.dart';
-import '/topology/injection/injection.dart';
+import '/domain_features/topology/injection/injection.dart';
+import '/domain_features/waypoint/waypoint.dart';
 
 part 'vertex_queries.g.dart';
 

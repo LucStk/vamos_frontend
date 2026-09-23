@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/auth/presentation/register_page.dart';
-import 'package:vamos_cartographie/auth/providers/auth_controller.dart';
-import 'package:vamos_cartographie/features/buttons/primary_button.dart';
-import 'package:vamos_cartographie/features/fields/fields.dart';
+import 'register_page.dart';
+import '/domain_features/auth/providers/auth_controller.dart';
 
+import '/ui_kit/ui_kit.dart';
 // Imports des nouveaux widgets
 import 'widgets/auth_layout.dart';
 

@@ -1,10 +1,11 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/topology/data/mappers/mappers.dart';
+import 'graphql/graphql.dart';
 
+import '/domain_features/domain_features.dart';
+import '/domain_features/topology/topology.dart';
 import '/core/graphql/graphql.dart';
-import '/trip/data/graphql/graphql.dart';
 
 /// ---------------------------------------------------------------------------
 /// GraphQL -> Domain

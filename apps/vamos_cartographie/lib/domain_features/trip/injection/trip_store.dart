@@ -2,8 +2,8 @@ import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/injection/injection.dart";
-import "package:vamos_cartographie/notification/injection/error_logger.dart";
-import "/trip/data/data.dart";
+import "package:vamos_cartographie/domain_features/trip/data/trip_remote_datasource.dart";
+import "package:vamos_cartographie/domain_features/trip/data/trip_repository_impl.dart";
 part "trip_store.g.dart";
 
 @riverpod

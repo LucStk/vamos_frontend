@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/auth/app_entry_view.dart';
+import 'app_entry_view.dart';
 import 'package:vamos_cartographie/core/config/supabase.dart';
 import 'package:vamos_cartographie/core/config/supabase_config.dart';
 import '/core/core.dart';

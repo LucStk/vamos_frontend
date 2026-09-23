@@ -3,9 +3,9 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/core.dart";
+import "package:vamos_cartographie/core/injection/error_logger.dart";
 import "package:vamos_cartographie/core/injection/mutation_queue_provider.dart";
-import "package:vamos_cartographie/notification/injection/injection.dart";
-import "package:vamos_cartographie/topology/data/topology.dart";
+import "package:vamos_cartographie/domain_features/topology/data/data.dart";
 part "graph_store.g.dart";
 
 @riverpod

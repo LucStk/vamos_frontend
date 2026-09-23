@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/notification/domain/domain.dart';
-import 'package:vamos_cartographie/notification/injection/injection.dart';
+import 'package:vamos_cartographie/core/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/notification_provider.dart';
 import 'notification_card.dart';
 
 class NotificationListenerWidget extends StatelessWidget {

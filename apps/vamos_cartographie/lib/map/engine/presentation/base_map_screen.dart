@@ -4,6 +4,7 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_canvas/map_canvas.dart';
+import 'package:vamos_cartographie/map/engine/engine.dart';
 import 'map_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

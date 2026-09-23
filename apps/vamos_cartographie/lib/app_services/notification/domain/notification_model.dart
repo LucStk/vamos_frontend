@@ -1,4 +1,4 @@
-enum NotificationType { success, error }
+import 'package:vamos_cartographie/core/domain/domain.dart';
 
 class AppNotification {
   final String message;

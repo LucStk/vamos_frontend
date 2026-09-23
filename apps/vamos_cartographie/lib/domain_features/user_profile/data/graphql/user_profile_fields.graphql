@@ -1,4 +1,4 @@
-#import "/stored_file/data/graphql/file_storage_fields.graphql"
+#import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
 fragment UserProfileFields on UserProfileType {
     userId
     profileName

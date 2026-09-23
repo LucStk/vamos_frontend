@@ -2,11 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
-import 'package:vamos_cartographie/topology/data/mappers/segment_mappers.dart';
-import 'package:vamos_cartographie/topology/data/mappers/vertex_mappers.dart';
-import 'package:vamos_cartographie/waypoint/data/data.dart';
-import 'trip_remote_datasource.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import '/domain_features/stored_file/stored_file.dart';
 import 'trip_mappers.dart';
 import 'package:vamos_cartographie/core/core.dart';
 

@@ -1,11 +1,9 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/core/network/network.dart';
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/vertex_mutations.req.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/vertex_mutations.var.gql.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
-import '/waypoint/data/graphql/graphql.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/graphql.dart';
+import '/core/network/network.dart';
+import '/domain_features/topology/data/data.dart';
+import '/vamos_cartographie.dart';
 import 'package:ferry/ferry.dart';
 import 'package:latlong2/latlong.dart';
 

@@ -2,7 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/waypoint/waypoint.dart';
+import 'waypoint_store.dart';
 
 part 'waypoint_queries.g.dart';
 

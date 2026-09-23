@@ -1,7 +1,7 @@
 // mobility_type_ui.dart — vamos_cartographie
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/features/type_selector/map_item_style.dart';
+import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
 extension ExtMobilityTypeStyle on SegmentFields {
   MobilityTypeStyle get mobilityTypeDisplay =>

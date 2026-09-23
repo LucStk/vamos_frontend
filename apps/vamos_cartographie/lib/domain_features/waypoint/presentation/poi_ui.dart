@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:trip_application/trip_application.dart";
-import "package:vamos_cartographie/features/type_selector/map_item_style.dart";
+import "/ui_kit/ui_kit.dart";
 
 // poi_category_ui.dart — vamos_cartographie, tout l'UI ici
 

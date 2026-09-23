@@ -3,7 +3,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
+import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i2;
 
 const GenerateImageUploadUrl = _i1.OperationDefinitionNode(

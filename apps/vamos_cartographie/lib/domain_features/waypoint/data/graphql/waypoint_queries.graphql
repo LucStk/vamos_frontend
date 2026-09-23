@@ -1,4 +1,4 @@
-#import "/trip/data/graphql/trip_fields.graphql"
+#import "/domain_features/trip/data/graphql/trip_fields.graphql"
 #import "waypoint_fields.graphql"
 
 query GetWaypoints($tripId: UUID!) {

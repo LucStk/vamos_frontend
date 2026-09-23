@@ -1,10 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/core/injection/injection.dart';
-import 'package:vamos_cartographie/user_profile/data/user_profile_datasource.dart';
-import 'package:vamos_cartographie/user_profile/data/user_profile_repository.dart';
-import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
 import "package:domain_core/domain_core.dart";
+import '/core/injection/injection.dart';
+import '/domain_features/user_profile/data/data.dart';
+import '/domain_features/user_profile/domain/domain.dart';
 
 part "user_session_providers.g.dart";
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/auth/presentation/widgets/auth_layout.dart';
-import 'package:vamos_cartographie/features/features.dart';
-import 'package:vamos_cartographie/user_profile/user_profile.dart';
+import 'package:vamos_cartographie/domain_features/auth/presentation/widgets/auth_layout.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/user_profile.dart';
+import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
 class CreateProfilePage extends ConsumerStatefulWidget {
   const CreateProfilePage({super.key});

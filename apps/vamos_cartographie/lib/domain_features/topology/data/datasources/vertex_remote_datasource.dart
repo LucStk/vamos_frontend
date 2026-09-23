@@ -1,9 +1,5 @@
 import 'package:vamos_cartographie/core/network/network.dart';
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/vertex_mutations.req.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/mutation/__generated__/vertex_mutations.var.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/vertex_queries.req.gql.dart';
-import 'package:vamos_cartographie/topology/data/graphql/queries/__generated__/vertex_queries.var.gql.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/data.dart';
 
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';

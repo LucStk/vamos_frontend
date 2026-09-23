@@ -1,6 +1,5 @@
 import 'package:trip_application/trip_application.dart';
-import "/core/core.dart";
-import 'package:vamos_cartographie/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart';
+import '/domain_features/topology/data/data.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class VertexMapper {

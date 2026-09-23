@@ -1,12 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/user_profile/data/graphql/graphql.dart';
-import 'package:vamos_cartographie/user_profile/data/user_profile_datasource.dart';
-import 'package:vamos_cartographie/user_profile/data/user_profile_mappers.dart';
-import 'package:vamos_cartographie/user_profile/domain/user_profile.dart';
-
-import 'package:vamos_cartographie/core/core.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:stored_file_application/stored_file_application.dart';
+import '/domain_features/user_profile/data/data.dart';
+import '/domain_features/user_profile/domain/domain.dart';
+import '/core/core.dart';
 
 class UserProfileRepository {
   final UserProfileDatasource remote;

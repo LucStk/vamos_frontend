@@ -5,7 +5,7 @@ import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 
-import "/trip/data/graphql/graphql.dart";
+import 'graphql/graphql.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le ferryClient Ferry (GraphQL).

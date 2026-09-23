@@ -1,6 +1,6 @@
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
-import '/stored_file/data/graphql/graphql.dart';
+import '/domain_features/stored_file/data/graphql/graphql.dart';
 
 import 'package:domain_core/domain_core.dart';
 

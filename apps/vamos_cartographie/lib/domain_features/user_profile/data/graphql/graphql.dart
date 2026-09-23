@@ -1,4 +1,4 @@
-import 'package:vamos_cartographie/user_profile/data/graphql/__generated__/user_profile_mutations.data.gql.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/data/data.dart';
 
 export '__generated__/user_profile_fields.data.gql.dart';
 export '__generated__/user_profile_fields.req.gql.dart';

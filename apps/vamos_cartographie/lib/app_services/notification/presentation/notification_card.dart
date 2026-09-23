@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/notification/injection/injection.dart';
+import 'package:vamos_cartographie/core/injection/notification_provider.dart';
 
 class NotificationCard extends ConsumerWidget {
   final Color backgroundColor;

@@ -1,8 +1,8 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
-import 'package:vamos_cartographie/stored_file/data/mappers/stored_file_mappers.dart';
-import "/stored_file/data/graphql/graphql.dart";
+import "graphql/graphql.dart";
+import "mappers/mappers.dart";
 import 'package:vamos_cartographie/core/network/network.dart';
 import 'package:ferry/ferry.dart';
 

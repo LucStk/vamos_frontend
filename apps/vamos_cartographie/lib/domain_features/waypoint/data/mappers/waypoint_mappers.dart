@@ -1,6 +1,6 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
-import 'package:vamos_cartographie/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart';
-import 'package:vamos_cartographie/waypoint/data/mappers/waypoint_enum_mapper.dart';
+import '/domain_features/waypoint/data/graphql/graphql.dart';
+import '/domain_features/waypoint/data/mappers/waypoint_enum_mapper.dart';
 import '/core/graphql/graphql.dart';
 
 import 'package:trip_application/trip_application.dart';
