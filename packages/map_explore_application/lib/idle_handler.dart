@@ -13,8 +13,8 @@ final class IdleHandler extends NoopGestureHandler<MapExploreMode> {
     switch (g.element) {
       case MapTripObject e when mode.tripSelect != e.id:
         return GestureResult(mode: mode.withSelection(e));
-      case null:
-        return GestureResult(mode: mode.withSelection(null));
+      // case null:
+      //   return GestureResult(mode: mode.withSelection(null));
       case _:
         return GestureResult.none();
     }
