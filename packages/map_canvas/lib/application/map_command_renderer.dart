@@ -1,23 +1,25 @@
 import 'dart:ui';
 import 'package:map_canvas/domain/domain.dart';
-import 'package:map_engine/map_engine.dart';
 
 enum MapRenderSpace { world, screen }
 
 final class MapCommandRenderer {
-  const MapCommandRenderer({required this.canvas, this.camera});
+  const MapCommandRenderer({
+    required this.canvas,
+    required this.layer,
+    this.zoomScale = 1.0,
+  });
 
   final Canvas canvas;
-  final MapCameraReader? camera;
-
-  double get _scale => camera?.zoomScale ?? 1.0;
+  final MapRenderSpace layer; // couche en cours de rendu
+  final double zoomScale;
 
   void paintAll(
     Iterable<MapDrawCommand> commands, {
     MapRenderSpace space = MapRenderSpace.world,
   }) {
-    for (final command in commands) {
-      paint(command, space: space);
+    for (final c in commands) {
+      paint(c, space: space);
     }
   }
 
@@ -28,59 +30,46 @@ final class MapCommandRenderer {
     switch (command) {
       case WorldScale():
         paintAll(command.commands, space: MapRenderSpace.world);
-
       case ScreenScale():
         paintAll(command.commands, space: MapRenderSpace.screen);
-
       case Transform():
         _paintTransform(command, space: space);
-
       case DrawCircle():
-        _paintCircle(command, space: space);
-
+        if (space == layer) _paintCircle(command, space);
       case DrawPath():
-        _paintPath(command, space: space);
+        if (space == layer) _paintPath(command, space);
     }
   }
 
-  void _paintCircle(DrawCircle command, {required MapRenderSpace space}) {
-    if (space == MapRenderSpace.world || camera == null) {
-      canvas.drawCircle(command.center.value, command.radius, command.paint);
+  void _paintCircle(DrawCircle c, MapRenderSpace space) {
+    if (space == MapRenderSpace.world) {
+      canvas.drawCircle(c.center.value, c.radius, c.paint);
       return;
     }
-
     canvas.save();
-
-    canvas.translate(command.center.value.dx, command.center.value.dy);
-
-    // La caméra applique ensuite `scale`.
-    // On l'annule pour conserver un rayon constant à l'écran.
-    canvas.scale(1 / _scale);
-
-    canvas.drawCircle(Offset.zero, command.radius, command.paint);
-
+    canvas.translate(c.center.value.dx, c.center.value.dy);
+    canvas.scale(1 / zoomScale); // annule le scale du Transform
+    canvas.drawCircle(Offset.zero, c.radius, c.paint);
     canvas.restore();
   }
 
-  void _paintPath(DrawPath command, {required MapRenderSpace space}) {
-    if (space == MapRenderSpace.world || camera == null) {
-      canvas.drawPath(command.path, command.paint);
+  void _paintPath(DrawPath c, MapRenderSpace space) {
+    if (space == MapRenderSpace.world) {
+      canvas.drawPath(c.path, c.paint);
       return;
     }
-
-    final paint = command.paint;
-
-    if (paint.style == PaintingStyle.stroke && paint.strokeWidth != 0.0) {
-      final screenPaint = Paint.from(paint)
-        ..strokeWidth = paint.strokeWidth / _scale;
-
-      canvas.drawPath(command.path, screenPaint);
-      return;
+    final p = c.paint;
+    if (p.style == PaintingStyle.stroke && p.strokeWidth != 0.0) {
+      canvas.drawPath(
+        c.path,
+        Paint.from(p)..strokeWidth = p.strokeWidth / zoomScale,
+      );
+    } else {
+      canvas.drawPath(c.path, p);
     }
-
-    canvas.drawPath(command.path, paint);
   }
 
+  // _paintTransform : inchangé
   void _paintTransform(Transform command, {required MapRenderSpace space}) {
     final transform = command.transform;
 
@@ -111,13 +100,13 @@ final class MapCommandRenderer {
     canvas.restore();
   }
 
-  void applyCameraTransform() {
-    final camera = this.camera;
+  // void applyCameraTransform() {
+  //   final camera = this.camera;
 
-    if (camera == null) {
-      return;
-    }
+  //   if (camera == null) {
+  //     return;
+  //   }
 
-    canvas.transform(buildCameraTransform(camera).storage);
-  }
+  //   canvas.transform(buildCameraTransform(camera).storage);
+  // }
 }

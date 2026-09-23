@@ -102,21 +102,11 @@ abstract class _$MapCameraHolder extends $Notifier<MapCameraController> {
   }
 }
 
-/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
-/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
-/// que l'animation soit attachée ou non.
-
 @ProviderFor(MapCameraChanges)
 final mapCameraChangesProvider = MapCameraChangesProvider._();
 
-/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
-/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
-/// que l'animation soit attachée ou non.
 final class MapCameraChangesProvider
     extends $NotifierProvider<MapCameraChanges, int> {
-  /// Toujours utile si un widget doit se reconstruire quand la caméra bouge
-  /// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
-  /// que l'animation soit attachée ou non.
   MapCameraChangesProvider._()
     : super(
         from: null,
@@ -146,10 +136,6 @@ final class MapCameraChangesProvider
 
 String _$mapCameraChangesHash() => r'c9e9d6e6a577a0dcfe1276ba34fa59939d92bdc6';
 
-/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
-/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
-/// que l'animation soit attachée ou non.
-
 abstract class _$MapCameraChanges extends $Notifier<int> {
   int build();
   @$mustCallSuper
@@ -167,3 +153,44 @@ abstract class _$MapCameraChanges extends $Notifier<int> {
     element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(mapCameraSnapshot)
+final mapCameraSnapshotProvider = MapCameraSnapshotProvider._();
+
+final class MapCameraSnapshotProvider
+    extends $FunctionalProvider<CameraSnapshot, CameraSnapshot, CameraSnapshot>
+    with $Provider<CameraSnapshot> {
+  MapCameraSnapshotProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mapCameraSnapshotProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$mapCameraSnapshotHash();
+
+  @$internal
+  @override
+  $ProviderElement<CameraSnapshot> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  CameraSnapshot create(Ref ref) {
+    return mapCameraSnapshot(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(CameraSnapshot value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<CameraSnapshot>(value),
+    );
+  }
+}
+
+String _$mapCameraSnapshotHash() => r'50b64cc693ddcfdfdff093871b28ad8b48b68454';

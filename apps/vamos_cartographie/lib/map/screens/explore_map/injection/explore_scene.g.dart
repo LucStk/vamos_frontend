@@ -223,7 +223,7 @@ final class ExploreSceneProvider
         argument: null,
         retry: null,
         name: r'exploreSceneProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -250,4 +250,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'a75cb386cf1a9cbd7355fce0f6c68628646801ae';
+String _$exploreSceneHash() => r'8dc658e9c1f17e6e8ba1349758473f0b8d7a0a0d';

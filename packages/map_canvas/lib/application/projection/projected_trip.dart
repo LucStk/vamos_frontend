@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:map_canvas/domain/domain.dart';
 
 import 'package:map_engine/map_engine.dart';
+
 final class ProjectedTrip extends ProjectedPolyline<MapTripObject> {
   ProjectedTrip({required super.object, required super.worldSegments});
 
@@ -12,10 +13,10 @@ final class ProjectedTrip extends ProjectedPolyline<MapTripObject> {
     final isSelected = context.state == MapObjectVisualState.selected;
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = isSelected ? 0.02 : 0.01
+      ..strokeWidth = isSelected ? 4 : 2
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
 
-    return WorldScale([DrawPath(path: path, paint: paint)]);
+    return ScreenScale([DrawPath(path: path, paint: paint)]);
   }
 }

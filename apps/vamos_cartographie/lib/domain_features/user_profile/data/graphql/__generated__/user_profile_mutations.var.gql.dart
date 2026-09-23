@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'

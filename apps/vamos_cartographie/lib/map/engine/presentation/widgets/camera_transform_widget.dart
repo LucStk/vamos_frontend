@@ -11,9 +11,14 @@ class CameraTransform extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.watch(mapCameraHolderProvider);
     ref.watch(mapCameraChangesProvider);
-    final transform = buildCameraTransform(camera);
+    final snap = ref.read(mapCameraSnapshotProvider);
+    final transform = buildCameraTransform(
+      scale: snap.zoomScale,
+      screenCenter: snap.screenCenter,
+      worldCenter: snap.worldCenter,
+      rotationRad: snap.rotationRad,
+    );
     return Transform(
       alignment: Alignment.topLeft,
       transform: transform,

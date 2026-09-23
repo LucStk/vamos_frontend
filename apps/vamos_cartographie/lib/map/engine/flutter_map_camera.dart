@@ -1,4 +1,3 @@
-// map_camera_controller.dart
 import 'dart:math';
 
 import 'package:flutter_map/flutter_map.dart';
@@ -49,19 +48,23 @@ class FlutterMapCamera implements MapCameraController {
   @override
   double get zoomScale => _camera.getZoomScale(_camera.zoom, referenceZoom);
 
+  Matrix4 get transformMatrix => buildCameraTransform(
+    scale: zoomScale,
+    screenCenter: screenCenter,
+    worldCenter: worldCenter,
+    rotationRad: rotationRad,
+  );
+
   @override
   ScreenOffset worldToScreen(WorldOffset offset) {
-    final result = MatrixUtils.transformPoint(
-      buildCameraTransform(this),
-      offset.value,
-    );
+    final result = MatrixUtils.transformPoint(transformMatrix, offset.value);
     return ScreenOffset(result);
   }
 
   @override
   WorldOffset screenToWorld(ScreenOffset offset) {
     final result = MatrixUtils.transformPoint(
-      Matrix4.inverted(buildCameraTransform(this)),
+      Matrix4.inverted(transformMatrix),
       offset.value,
     );
     return WorldOffset(result);

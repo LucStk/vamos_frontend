@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:map_engine/map_engine.dart';
@@ -29,9 +30,6 @@ class MapCameraHolder extends _$MapCameraHolder {
   }
 }
 
-/// Toujours utile si un widget doit se reconstruire quand la caméra bouge
-/// (déplacement, zoom via geste utilisateur, etc.) — indépendant du fait
-/// que l'animation soit attachée ou non.
 @riverpod
 class MapCameraChanges extends _$MapCameraChanges {
   @override
@@ -41,4 +39,25 @@ class MapCameraChanges extends _$MapCameraChanges {
     ref.onDispose(subscription.cancel);
     return 0;
   }
+}
+
+typedef CameraSnapshot = ({
+  double zoomScale,
+  double rotationRad,
+  WorldOffset worldCenter,
+  ScreenOffset screenCenter,
+  Size size,
+});
+
+@riverpod
+CameraSnapshot mapCameraSnapshot(Ref ref) {
+  ref.watch(mapCameraChangesProvider);
+  final c = ref.watch(mapCameraHolderProvider);
+  return (
+    zoomScale: c.zoomScale,
+    rotationRad: c.rotationRad,
+    worldCenter: c.worldCenter,
+    screenCenter: c.screenCenter,
+    size: c.size,
+  );
 }
