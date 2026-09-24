@@ -39,6 +39,7 @@ final class CameraDirector {
 
     if (!_flushScheduled) {
       _flushScheduled = true;
+      print("flushScheduld");
       scheduleMicrotask(_flush);
     }
   }
@@ -58,6 +59,7 @@ final class CameraDirector {
 
   void _run(CameraTarget target) {
     final camera = _camera();
+    print("camera run");
     switch (target) {
       case FocusPoint(:final point, :final zoom, :final minZoom):
         camera.zoomTo(point, deltaZoom: max(zoom ?? camera.zoomScale, minZoom));

@@ -1,4 +1,5 @@
 import 'package:latlong2/latlong.dart';
+import 'package:map_engine/domain/domain.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/trip.dart';
 part "sketch_objects.dart";
@@ -29,12 +30,25 @@ sealed class MapPoint extends MapObject {
 
 sealed class MapLine extends MapObject {
   final List<LatLng> geometry;
+
   const MapLine(this.geometry);
+
+  MapLatLngBounds? get bounds {
+    if (geometry.isEmpty) return null;
+    return MapLatLngBounds.fromPoints(geometry);
+  }
 }
 
 sealed class MapPolyline extends MapObject {
   final List<List<LatLng>> lines;
+
   const MapPolyline(this.lines);
+
+  MapLatLngBounds? get bounds {
+    final geometry = lines.expand((line) => line);
+    if (lines.isEmpty) return null;
+    return MapLatLngBounds.fromPoints(geometry);
+  }
 }
 
 final class MapVertex extends MapPoint implements TopologyObject {

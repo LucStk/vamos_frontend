@@ -8,8 +8,9 @@ void userLocationTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 
   ref.listen(userLocationProvider, (previous, next) {
+    print("userLocation reload");
     if (next is! UserPositionActive || previous is UserPositionActive) return;
-
+    print("camera submit");
     director.submit(
       CameraRequest(
         FocusPoint(next.position, zoom: 16, minZoom: 14),

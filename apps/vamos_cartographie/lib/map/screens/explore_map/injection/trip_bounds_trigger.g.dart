@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_location_trigger.dart';
+part of 'trip_bounds_trigger.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,25 +9,25 @@ part of 'user_location_trigger.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(userLocationTrigger)
-final userLocationTriggerProvider = UserLocationTriggerProvider._();
+@ProviderFor(tripBoundsTrigger)
+final tripBoundsTriggerProvider = TripBoundsTriggerProvider._();
 
-final class UserLocationTriggerProvider
+final class TripBoundsTriggerProvider
     extends $FunctionalProvider<void, void, void>
     with $Provider<void> {
-  UserLocationTriggerProvider._()
+  TripBoundsTriggerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'userLocationTriggerProvider',
+        name: r'tripBoundsTriggerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$userLocationTriggerHash();
+  String debugGetCreateSourceHash() => _$tripBoundsTriggerHash();
 
   @$internal
   @override
@@ -36,7 +36,7 @@ final class UserLocationTriggerProvider
 
   @override
   void create(Ref ref) {
-    return userLocationTrigger(ref);
+    return tripBoundsTrigger(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -48,5 +48,4 @@ final class UserLocationTriggerProvider
   }
 }
 
-String _$userLocationTriggerHash() =>
-    r'3ee1f7bd335b074fdbf06edea9b22aefaca530d3';
+String _$tripBoundsTriggerHash() => r'f16ee21d47132e950e50700934e34654a2e7a9f5';
