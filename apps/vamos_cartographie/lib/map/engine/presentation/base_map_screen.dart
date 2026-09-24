@@ -9,25 +9,50 @@ import 'package:vamos_cartographie/map/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class BaseMap extends ConsumerStatefulWidget {
+class BaseMap extends StatelessWidget {
   const BaseMap({
     super.key,
-    required this.controller,
+    required this.controllerProvider,
     required this.sceneProvider,
     required this.overlayChildren,
     this.cameraTriggers = const [],
   });
 
-  final BaseController controller;
+  final ProviderListenable<BaseController> controllerProvider;
   final ProviderListenable<MapScene> sceneProvider;
   final List<ProviderListenable<void>> cameraTriggers;
   final List<Widget> overlayChildren;
 
   @override
-  ConsumerState<BaseMap> createState() => _BaseMapState();
+  Widget build(BuildContext context) => MapScope(
+    child: _BaseMapContent(
+      controllerProvider: controllerProvider,
+      sceneProvider: sceneProvider,
+      cameraTriggers: cameraTriggers,
+      overlayChildren: overlayChildren,
+    ),
+  );
 }
 
-class _BaseMapState extends ConsumerState<BaseMap>
+class _BaseMapContent extends ConsumerStatefulWidget {
+  const _BaseMapContent({
+    super.key,
+    required this.controllerProvider,
+    required this.sceneProvider,
+    required this.overlayChildren,
+    this.cameraTriggers = const [],
+  });
+
+  final ProviderListenable<BaseController> controllerProvider;
+  final ProviderListenable<MapScene> sceneProvider;
+  final List<ProviderListenable<void>> cameraTriggers;
+  final List<Widget> overlayChildren;
+
+  @override
+  ConsumerState<_BaseMapContent> createState() => _BaseMapState();
+}
+
+class _BaseMapState extends ConsumerState<_BaseMapContent>
     with TickerProviderStateMixin {
   late final AnimatedMapController _animatedMapController;
 
@@ -69,11 +94,13 @@ class _BaseMapState extends ConsumerState<BaseMap>
 
   @override
   Widget build(BuildContext context) {
+    final controller = ref.watch(widget.controllerProvider);
+
     return Scaffold(
       body: Stack(
         children: [
           MapGestureBridge(
-            controller: widget.controller,
+            controller: controller,
             sceneProvider: widget.sceneProvider,
             mapLayers: [MapTileLayer()],
           ),

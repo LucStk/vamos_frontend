@@ -6,14 +6,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '/map/engine/camera/camera.dart';
 part 'map_camera_provider.g.dart';
 
-@Riverpod(keepAlive: true)
-MapController mapController(Ref ref) {
-  final controller = MapController();
-  ref.onDispose(controller.dispose);
-  return controller;
-}
+@Riverpod(keepAlive: true, dependencies: [])
+MapController mapController(Ref ref) =>
+    throw StateError('mapControllerProvider doit être fourni par un MapScope');
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [mapController])
 class MapCameraHolder extends _$MapCameraHolder {
   @override
   MapCameraController build() {
@@ -29,7 +26,7 @@ class MapCameraHolder extends _$MapCameraHolder {
   }
 }
 
-@riverpod
+@Riverpod(dependencies: [mapController])
 class MapCameraChanges extends _$MapCameraChanges {
   @override
   int build() {
@@ -48,7 +45,7 @@ typedef CameraSnapshot = ({
   Size size,
 });
 
-@riverpod
+@Riverpod(dependencies: [mapController, MapCameraHolder])
 CameraSnapshot mapCameraSnapshot(Ref ref) {
   ref.watch(mapCameraChangesProvider);
   final c = ref.watch(mapCameraHolderProvider);

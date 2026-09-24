@@ -8,20 +8,19 @@ import 'package:vamos_cartographie/map/engine/engine.dart';
 import 'package:vamos_cartographie/map/screens/trip_map/presentation/overlay_editor/overlay_editor.dart';
 import 'injection/injection.dart';
 
-class TripMapScreen extends ConsumerWidget {
+class TripMapScreen extends StatelessWidget {
   final Id<Trip> tripId;
   final bool isOwner;
 
   const TripMapScreen({super.key, required this.tripId, this.isOwner = true});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(mapEditorControllerProvider(tripId));
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           BaseMap(
-            controller: controller,
+            controllerProvider: mapEditorControllerProvider(tripId),
             sceneProvider: tripEditorSceneProvider(tripId),
             overlayChildren: [MapEditorBottomSheet(tripId: tripId)],
           ),

@@ -6,7 +6,7 @@ import '/app_services/app_services.dart';
 import 'package:vamos_cartographie/map/engine/camera/camera.dart';
 part "user_location_projecter.g.dart";
 
-@riverpod
+@Riverpod(dependencies: [mapController])
 List<ProjectedPoint> userLocationProjection(Ref ref) {
   final location = ref.watch(userLocationProvider);
   final cameraReader = ref.read(mapCameraHolderProvider);

@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/map/engine/camera/camera.dart';
 
 part 'camera_director_provider.g.dart';
 
-@riverpod
+@Riverpod(dependencies: [mapController, MapCameraHolder])
 CameraDirector cameraDirector(Ref ref) {
   final director = CameraDirector(
     camera: () => ref.read(mapCameraHolderProvider),

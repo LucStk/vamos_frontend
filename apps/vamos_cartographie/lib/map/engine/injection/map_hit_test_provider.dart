@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/map/engine/camera/camera.dart';
 
 part 'map_hit_test_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [mapController])
 HitTest mapHitTest(Ref ref, ProviderListenable<MapScene> sceneProvider) {
   final scene = ref.watch(sceneProvider);
   final scale = ref.watch(mapCameraHolderProvider).zoomScale;

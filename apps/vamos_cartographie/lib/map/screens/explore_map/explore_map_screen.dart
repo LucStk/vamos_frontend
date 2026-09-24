@@ -20,7 +20,7 @@ class ExploreMapScreen extends ConsumerWidget {
               userLocationTriggerProvider,
               tripBoundsTriggerProvider,
             ],
-            controller: ref.watch(mapExploreControllerProvider),
+            controllerProvider: mapExploreControllerProvider,
             sceneProvider: exploreSceneProvider,
             overlayChildren: [TripsCarouselWidget()],
           ),
