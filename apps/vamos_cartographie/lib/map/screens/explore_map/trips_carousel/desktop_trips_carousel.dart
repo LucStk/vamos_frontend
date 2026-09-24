@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/trip.dart';
+import 'package:vamos_cartographie/map/screens/explore_map/injection/explore_controller_provider.dart';
+import 'package:vamos_cartographie/map/screens/explore_map/presentation/dialogs/trip_viewer_dialog.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/trip_map_screen.dart';
+
 import 'trip_card.dart';
 
-class DesktopTripsCarousel extends StatelessWidget {
+class DesktopTripsCarousel extends ConsumerWidget {
   const DesktopTripsCarousel({super.key, required this.tripIds});
 
   final List<TripId> tripIds;
 
+  void _explore(BuildContext context, TripId tripId) async {
+    await Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => TripMapScreen(tripId: tripId)));
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: SizedBox(
         width: 320,
@@ -22,7 +33,20 @@ class DesktopTripsCarousel extends StatelessWidget {
             itemCount: tripIds.length,
             separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
-              return TripCard(tripId: tripIds[index]);
+              final tripId = tripIds[index];
+
+              return InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  ref.read(mapExploreControllerProvider).selectTrip(tripId);
+                  TripViewerDialog.show(
+                    context: context,
+                    tripId: tripId,
+                    onExplore: () => _explore(context, tripId),
+                  );
+                },
+                child: TripCard(tripId: tripId),
+              );
             },
           ),
         ),
