@@ -24,11 +24,38 @@ class ExploreMapScreen extends ConsumerWidget {
             sceneProvider: exploreSceneProvider,
             overlayChildren: [TripsCarouselWidget()],
           ),
+
+          Positioned(
+            top: 16,
+            right: 16,
+            child: Material(
+              elevation: 4,
+              color: Theme.of(context).colorScheme.surface,
+              shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
+              child: ProfileButton(
+                onLogin: () {
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (_) => const LoginPage()));
+                },
+                onProfile: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const ProfilePage()),
+                  );
+                },
+              ),
+            ),
+          ),
+
           Consumer(
             builder: (context, ref, _) {
               final loader = ref.watch(loadTripsProvider);
 
-              if (!loader.isLoading) return const SizedBox.shrink();
+              if (!loader.isLoading) {
+                return const SizedBox.shrink();
+              }
+
               return const Positioned(
                 top: 0,
                 left: 0,

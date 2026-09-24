@@ -40,6 +40,16 @@ class AuthLayout extends StatelessWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          tooltip: 'Retour à la carte',
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: const Text('Connexion'),
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
