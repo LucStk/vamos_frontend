@@ -10,7 +10,7 @@ final class ProjectedSketchPencil extends ProjectedPoint<MapSketchPencil> {
   MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final paint = Paint()..style = PaintingStyle.fill;
 
-    return WorldScale([
+    return ScreenScale([
       DrawCircle(center: worldPosition, radius: 8, paint: paint),
     ]);
   }

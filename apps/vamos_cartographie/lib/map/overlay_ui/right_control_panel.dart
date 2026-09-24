@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:vamos_cartographie/map/engine/engine.dart';
 import '/map/layers/layers.dart';
-import 'user_location_icons.dart';
-import 'widgets/widgets.dart';
 import '/app_services/app_services.dart';
-import '/map/engine/engine.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
 
@@ -14,10 +13,6 @@ class MapControls extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.watch(mapCameraHolderProvider);
-    print("mapControl rebuild");
-
-    final userLocation = ref.watch(userLocationProvider);
     final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
 
     return Positioned(
@@ -25,40 +20,8 @@ class MapControls extends ConsumerWidget {
       bottom: 120,
       child: Column(
         children: [
-          ...[
-            MapControlButton(
-              icon: CupertinoIcons.add,
-              tooltip: 'Zoom avant',
-              onPressed: () => camera.zoomIn(),
-            ),
-            const SizedBox(height: 6),
-            MapControlButton(
-              icon: CupertinoIcons.minus,
-              tooltip: 'Zoom arrière',
-              onPressed: () => camera.zoomOut(),
-            ),
-            const SizedBox(height: 6),
-            StreamBuilder<double>(
-              stream: camera.rotationStream,
-              initialData: camera.rotation,
-              builder: (context, snapshot) {
-                final rotation = snapshot.data ?? 0;
-                if (rotation == 0) return const SizedBox.shrink();
-                return IconButton(
-                  icon: Transform.rotate(
-                    angle: rotation * (3.14159 / 180),
-                    child: const Icon(CupertinoIcons.location_north_fill),
-                  ),
-                  onPressed: () => camera.rotateTo(0),
-                );
-              },
-            ),
-          ],
-          IconButton(
-            icon: userLocation.iconWidget,
-            color: userLocation.color,
-            onPressed: () => ref.read(userLocationProvider.notifier).start(),
-          ),
+          CameraButtonsControl(),
+          UserLocationButton(),
           _OverlayToggle(
             type: NetworkOverlayType.cycling,
             icon: Icons.pedal_bike,

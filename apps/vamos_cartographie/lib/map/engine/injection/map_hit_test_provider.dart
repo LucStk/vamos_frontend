@@ -2,7 +2,7 @@ import 'package:map_canvas/domain/map_scene.dart';
 import 'package:map_engine/application/application.dart';
 import 'package:map_engine/domain/domain.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'map_camera_provider.dart';
+import 'package:vamos_cartographie/map/engine/camera/camera.dart';
 
 part 'map_hit_test_provider.g.dart';
 

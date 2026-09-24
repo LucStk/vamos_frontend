@@ -5,6 +5,7 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_engine.dart';
 
+import '/map/engine/camera/camera.dart';
 import 'package:flutter/material.dart';
 
 /// Implémentation unique de [MapCameraController].
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 /// bénéficier des animations. Tant qu'il n'est pas attaché (ou après un
 /// détachement), elles retombent sur le [MapController] brut, de façon
 /// instantanée.
+//
 class FlutterMapCamera implements MapCameraController {
   FlutterMapCamera(this._mapController);
 
@@ -147,6 +149,35 @@ class FlutterMapCamera implements MapCameraController {
       _animatedController!.animatedRotateTo(degrees);
     } else {
       _mapController.rotate(degrees);
+    }
+  }
+
+  // FlutterMapCamera
+  @override
+  // Signature avec un Record Dart :
+  void fitBounds(
+    MapLatLngBounds bounds, {
+    MapEdgeInsets padding = MapEdgeInsets.zero,
+    double? maxZoom,
+  }) {
+    final fit = CameraFit.bounds(
+      bounds: bounds.toFlutterMap(),
+      padding: EdgeInsets.fromLTRB(
+        padding.left,
+        padding.top,
+        padding.right,
+        padding.bottom,
+      ),
+      maxZoom: maxZoom,
+    );
+    // ...
+
+    final animated =
+        _animatedController; // ton champ attaché via attachAnimatedController
+    if (animated != null) {
+      animated.animatedFitCamera(cameraFit: fit);
+    } else {
+      _mapController.fitCamera(fit);
     }
   }
 }

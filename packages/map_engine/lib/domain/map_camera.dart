@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:latlong2/latlong.dart';
+import 'package:map_engine/domain/map_geo_bounds.dart';
 import 'offset_type.dart';
 
 // map_camera_reader.dart (nouveau, lecture seule)
@@ -26,4 +27,9 @@ abstract class MapCameraController extends MapCameraReader {
   void zoomIn();
   void zoomOut();
   void rotateTo(double degrees);
+  void fitBounds(
+    MapLatLngBounds bounds, {
+    MapEdgeInsets padding = MapEdgeInsets.zero,
+    double? maxZoom,
+  });
 }

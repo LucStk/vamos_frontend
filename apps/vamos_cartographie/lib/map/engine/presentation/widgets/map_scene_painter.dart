@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/application/application.dart';
-import 'package:vamos_cartographie/map/engine/injection/injection.dart';
-import 'package:vamos_cartographie/map/engine/injection/map_commands_provider.dart';
-import 'camera_transform_widget.dart';
+import 'package:vamos_cartographie/map/engine/engine.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:flutter_riverpod/misc.dart';
 
