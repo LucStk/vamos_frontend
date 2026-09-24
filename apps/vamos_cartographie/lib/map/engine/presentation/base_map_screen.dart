@@ -15,10 +15,12 @@ class BaseMap extends ConsumerStatefulWidget {
     required this.controller,
     required this.sceneProvider,
     required this.overlayChildren,
+    this.cameraTriggers = const [],
   });
 
   final BaseController controller;
   final ProviderListenable<MapScene> sceneProvider;
+  final List<ProviderListenable<void>> cameraTriggers;
   final List<Widget> overlayChildren;
 
   @override
@@ -49,6 +51,11 @@ class _BaseMapState extends ConsumerState<BaseMap>
           .read(mapCameraHolderProvider.notifier)
           .attachAnimatedController(_animatedMapController);
     });
+    ref.listenManual(cameraDirectorProvider, (_, _) {});
+
+    for (final trigger in widget.cameraTriggers) {
+      ref.listenManual(trigger, (_, _) {});
+    }
   }
 
   @override

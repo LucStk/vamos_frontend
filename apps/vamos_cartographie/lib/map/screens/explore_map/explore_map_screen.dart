@@ -1,7 +1,6 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/engine/presentation/base_map_screen.dart';
 import '/map/engine/engine.dart';
 import '/domain_features/domain_features.dart';
 import 'injection/injection.dart';
@@ -16,6 +15,7 @@ class ExploreMapScreen extends ConsumerWidget {
       body: Stack(
         children: [
           BaseMap(
+            cameraTriggers: [userLocationProjectionProvider],
             controller: ref.watch(mapExploreControllerProvider),
             sceneProvider: exploreSceneProvider,
             overlayChildren: [TripsCarouselWidget()],

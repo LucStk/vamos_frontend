@@ -16,6 +16,10 @@ final class CameraDirector {
   CameraRequest? _pending;
   bool _flushScheduled = false;
 
+  bool _disposed = false;
+
+  void dispose() => _disposed = true;
+
   /// Un geste utilisateur bloque les demandes ambient.
   void onUserGesture() {
     if (_floor.index < CameraPriority.content.index) {
@@ -41,6 +45,7 @@ final class CameraDirector {
 
   void _flush() {
     _flushScheduled = false;
+    if (_disposed) return;
     final request = _pending;
     _pending = null;
     if (request == null) return;

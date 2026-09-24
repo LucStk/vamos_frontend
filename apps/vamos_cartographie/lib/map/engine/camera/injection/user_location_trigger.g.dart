@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_location_camera_focus.dart';
+part of 'user_location_trigger.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,25 +9,25 @@ part of 'user_location_camera_focus.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(userLocationCameraFocus)
-final userLocationCameraFocusProvider = UserLocationCameraFocusProvider._();
+@ProviderFor(userLocationTrigger)
+final userLocationTriggerProvider = UserLocationTriggerProvider._();
 
-final class UserLocationCameraFocusProvider
+final class UserLocationTriggerProvider
     extends $FunctionalProvider<void, void, void>
     with $Provider<void> {
-  UserLocationCameraFocusProvider._()
+  UserLocationTriggerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'userLocationCameraFocusProvider',
+        name: r'userLocationTriggerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$userLocationCameraFocusHash();
+  String debugGetCreateSourceHash() => _$userLocationTriggerHash();
 
   @$internal
   @override
@@ -36,7 +36,7 @@ final class UserLocationCameraFocusProvider
 
   @override
   void create(Ref ref) {
-    return userLocationCameraFocus(ref);
+    return userLocationTrigger(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -48,5 +48,5 @@ final class UserLocationCameraFocusProvider
   }
 }
 
-String _$userLocationCameraFocusHash() =>
-    r'58cae18f5aff51ddd17e89856ea4c42a63aa5d96';
+String _$userLocationTriggerHash() =>
+    r'df4eea15eb8f44c2ee29a4b968a006d89fb73db3';
