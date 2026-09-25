@@ -11,18 +11,7 @@ part 'app_router.g.dart';
   path: '/explore',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
-@Dependencies([
-  mapController,
-  mapGestureHandler,
-  MapExplore,
-  mapContext,
-  MapEditor,
-  userLocationTrigger,
-  tripBoundsTrigger,
-  cameraDirector,
-  MapCameraChanges,
-  mapCameraSnapshot,
-])
+@Dependencies([tripEditorScene, exploreScene, MapExplore, MapEditor])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 
