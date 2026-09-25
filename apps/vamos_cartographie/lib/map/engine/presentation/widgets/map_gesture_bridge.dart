@@ -36,7 +36,7 @@ class PanLock extends InheritedNotifier<ValueNotifier<bool>> {
   mapCameraSnapshot,
 ])
 class MapGestureBridge extends ConsumerStatefulWidget {
-  final BaseController controller;
+  final ProviderListenable<BaseController> controller;
   final ProviderListenable<MapScene> sceneProvider;
   final List<Widget> mapLayers;
 

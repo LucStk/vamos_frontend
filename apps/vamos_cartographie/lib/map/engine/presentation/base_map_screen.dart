@@ -110,13 +110,11 @@ class _BaseMapState extends ConsumerState<_BaseMapContent>
 
   @override
   Widget build(BuildContext context) {
-    final controller = ref.watch(widget.controllerProvider);
-
     return Scaffold(
       body: Stack(
         children: [
           MapGestureBridge(
-            controller: controller,
+            controller: widget.controllerProvider,
             sceneProvider: widget.sceneProvider,
             mapLayers: [MapTileLayer()],
           ),

@@ -10,12 +10,12 @@ part 'gesture_handler_provider.g.dart';
 MapGestureHandler mapGestureHandler(
   Ref ref,
   ProviderListenable<MapScene> scene,
-  BaseController controller,
+  ProviderListenable<BaseController> controller,
 ) {
   final hitTest = ref.watch(mapHitTestProvider(scene));
 
   return MapGestureHandler(
     hitTest: hitTest,
-    onGesture: controller.dispatchGesture,
+    onGesture: ref.read(controller).dispatchGesture,
   );
 }

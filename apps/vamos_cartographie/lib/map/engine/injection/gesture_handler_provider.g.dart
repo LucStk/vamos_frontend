@@ -22,7 +22,10 @@ final class MapGestureHandlerProvider
     with $Provider<MapGestureHandler> {
   MapGestureHandlerProvider._({
     required MapGestureHandlerFamily super.from,
-    required (ProviderListenable<MapScene>, BaseController<BaseMode<dynamic>>)
+    required (
+      ProviderListenable<MapScene>,
+      ProviderListenable<BaseController<BaseMode<dynamic>>>,
+    )
     super.argument,
   }) : super(
          retry: null,
@@ -60,7 +63,7 @@ final class MapGestureHandlerProvider
         this.argument
             as (
               ProviderListenable<MapScene>,
-              BaseController<BaseMode<dynamic>>,
+              ProviderListenable<BaseController<BaseMode<dynamic>>>,
             );
     return mapGestureHandler(ref, argument.$1, argument.$2);
   }
@@ -84,13 +87,16 @@ final class MapGestureHandlerProvider
   }
 }
 
-String _$mapGestureHandlerHash() => r'2d478585f6ad93276acf45b3b92e375b07365eb3';
+String _$mapGestureHandlerHash() => r'2f97e62af1b7963613969da2f550fb9cd3a3304f';
 
 final class MapGestureHandlerFamily extends $Family
     with
         $FunctionalFamilyOverride<
           MapGestureHandler,
-          (ProviderListenable<MapScene>, BaseController<BaseMode<dynamic>>)
+          (
+            ProviderListenable<MapScene>,
+            ProviderListenable<BaseController<BaseMode<dynamic>>>,
+          )
         > {
   MapGestureHandlerFamily._()
     : super(
@@ -107,7 +113,7 @@ final class MapGestureHandlerFamily extends $Family
 
   MapGestureHandlerProvider call(
     ProviderListenable<MapScene> scene,
-    BaseController<BaseMode<dynamic>> controller,
+    ProviderListenable<BaseController<BaseMode<dynamic>>> controller,
   ) => MapGestureHandlerProvider._(argument: (scene, controller), from: this);
 
   @override
