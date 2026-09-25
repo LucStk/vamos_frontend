@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/camera/camera.dart';
+import 'package:vamos_cartographie/map/injection/injection.dart';
 import '/map/layers/layers.dart';
 import '/app_services/app_services.dart';
 

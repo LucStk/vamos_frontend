@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/services/camera_to_matrix4.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/camera/camera.dart';
 
 @Dependencies([MapCameraChanges, mapCameraSnapshot])
 class CameraTransform extends ConsumerWidget {

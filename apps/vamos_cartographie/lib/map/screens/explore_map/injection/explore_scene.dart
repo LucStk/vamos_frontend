@@ -4,10 +4,10 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/camera/injection/injection.dart';
+import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'explore_controller_provider.dart';
-
 import '/domain_features/domain_features.dart';
-import '/map/engine/engine.dart';
 part 'explore_scene.g.dart';
 
 @riverpod

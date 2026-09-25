@@ -5,7 +5,8 @@ import 'package:flutter_map/flutter_map.dart';
 // lib/layers/network_overlay_layer.dart
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/injection/injection.dart';
+import '/map/map.dart';
 import 'network_overlay_type.dart';
 
 /// Seul point de la carte à observer activeNetworkOverlaysProvider —

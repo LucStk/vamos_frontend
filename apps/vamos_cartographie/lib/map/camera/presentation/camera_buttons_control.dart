@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import '/map/engine/camera/camera.dart';
+import '/map/camera/camera.dart';
 import 'package:vamos_cartographie/map/overlay_ui/widgets/map_control_button_shell.dart';
 
 @Dependencies([MapCameraHolder])

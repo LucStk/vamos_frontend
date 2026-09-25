@@ -12,7 +12,7 @@ final class ProjectedSegment extends ProjectedLine<MapSegment> {
     final isSelected = context.state == MapObjectVisualState.selected;
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = isSelected ? 0.02 : 0.01
+      ..strokeWidth = isSelected ? 10 : 20
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
 

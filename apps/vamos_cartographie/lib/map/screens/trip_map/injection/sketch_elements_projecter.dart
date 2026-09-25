@@ -5,7 +5,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 
-import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:map_editor_application/map_editor.dart';
 import 'editor_controller_provider.dart';
 part 'sketch_elements_projecter.g.dart';

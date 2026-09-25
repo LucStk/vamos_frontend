@@ -2,7 +2,7 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/injection/injection.dart';
 import 'package:vamos_cartographie/map/screens/trip_map/injection/editor_controller_provider.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
@@ -25,7 +25,7 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
 
   final objects = [...userLocation, ...sketchElements, ...vertex, ...segments]
     ..sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
-
+  print("object $objects");
   return objects;
 }
 

@@ -5,14 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:vamos_cartographie/map/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
+import "map_scope.dart";
 
 @Dependencies([
   mapController,
-  mapGestureHandler,
   MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,
@@ -31,7 +32,6 @@ class BaseMap extends StatelessWidget {
   final ProviderListenable<MapScene> sceneProvider;
   final List<ProviderListenable<void>> cameraTriggers;
   final List<Widget> overlayChildren;
-
   @override
   Widget build(BuildContext context) => MapScope(
     child: _BaseMapContent(
@@ -46,7 +46,6 @@ class BaseMap extends StatelessWidget {
 @Dependencies([
   cameraDirector,
   mapController,
-  mapGestureHandler,
   MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,

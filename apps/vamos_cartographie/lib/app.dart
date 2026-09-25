@@ -7,15 +7,12 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import '/map/map.dart';
 
 @Dependencies([
-  tripEditorScene,
-  mapEditorController,
   mapExploreController,
   exploreScene,
   userLocationTrigger,
   tripBoundsTrigger,
   cameraDirector,
   mapController,
-  mapGestureHandler,
   MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,

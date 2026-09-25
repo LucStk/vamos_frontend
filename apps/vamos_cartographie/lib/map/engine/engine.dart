@@ -1,3 +1,0 @@
-export 'injection/injection.dart';
-export 'presentation/presentation.dart';
-export 'camera/camera.dart';

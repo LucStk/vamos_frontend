@@ -3,20 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/screens/explore_map/injection/explore_controller_provider.dart';
 import 'package:vamos_cartographie/map/screens/explore_map/presentation/dialogs/trip_viewer_dialog.dart';
+
+import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'trip_card.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
 import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
 
 @Dependencies([
-  tripEditorScene,
   mapEditorController,
   mapExploreController,
-  // userLocationTrigger,
+  tripEditorScene,
   cameraDirector,
   mapController,
-  mapGestureHandler,
   MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,

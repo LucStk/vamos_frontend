@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+
+import 'package:vamos_cartographie/map/camera/camera.dart';
 
 class MapScope extends StatefulWidget {
   const MapScope({super.key, required this.child});

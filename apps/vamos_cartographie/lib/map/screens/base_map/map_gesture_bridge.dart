@@ -6,8 +6,10 @@ import 'package:map_application/base_controller_model.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+
+import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
 
 /// Expose l'état "pan autorisé ou non" aux descendants sans obliger
 /// chaque widget intermédiaire à le recevoir en paramètre de constructeur.
@@ -30,7 +32,6 @@ class PanLock extends InheritedNotifier<ValueNotifier<bool>> {
 
 @Dependencies([
   mapController,
-  mapGestureHandler,
   MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,
@@ -54,21 +55,40 @@ class MapGestureBridge extends ConsumerStatefulWidget {
 class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
 
-  MapGestureHandler get gestureHandler => ref.read(
-    mapGestureHandlerProvider(widget.sceneProvider, widget.controller),
-  );
+  late final MapGestureHandler _gestureHandler;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _gestureHandler = MapGestureHandler(
+      hitTest: ({required WorldOffset offset, MapObject? exclude}) {
+        final scene = ref.read(widget.sceneProvider);
+        final scale = ref.read(mapCameraHolderProvider).zoomScale;
+
+        return scene.hitTest(
+          offset,
+          scale,
+          ignore: (o) => exclude != null && o.isSameAs(exclude),
+        );
+      },
+      onGesture: ref.read(widget.controller).dispatchGesture,
+    );
+  }
 
   void _resolve(PointerEventType type, PointerEvent event) {
     final offset = ref
         .read(mapCameraHolderProvider)
         .screenToWorld(ScreenOffset(event.localPosition));
-    gestureHandler.resolve(type, offset);
-    _panAllowed.value = gestureHandler.panAllowed;
+
+    _gestureHandler.resolve(type, offset);
+
+    _panAllowed.value = _gestureHandler.panAllowed;
   }
 
   @override
   void dispose() {
-    gestureHandler.dispose();
+    _gestureHandler.dispose();
     _panAllowed.dispose();
     super.dispose();
   }

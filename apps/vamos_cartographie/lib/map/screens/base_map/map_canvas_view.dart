@@ -5,7 +5,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+
+import 'package:vamos_cartographie/map/camera/camera.dart';
+import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
+import 'package:vamos_cartographie/map/screens/base_map/map_scene_painter.dart';
 
 @Dependencies([mapController, MapCameraChanges, mapCameraSnapshot])
 class MapCanvas extends ConsumerWidget {

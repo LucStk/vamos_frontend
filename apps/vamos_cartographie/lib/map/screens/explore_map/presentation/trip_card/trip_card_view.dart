@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/screens/explore_map/explore_map.dart';
 import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
 import '/domain_features/domain_features.dart';
 
-import '/map/engine/engine.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/camera/camera.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 @Dependencies([
-  tripEditorScene,
   mapEditorController,
-  // userLocationTrigger,
+  tripEditorScene,
   cameraDirector,
   mapController,
-  mapGestureHandler,
   MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,

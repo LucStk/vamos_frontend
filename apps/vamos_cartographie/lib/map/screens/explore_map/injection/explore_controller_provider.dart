@@ -1,6 +1,6 @@
 import 'package:map_explore_application/map_explore_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/camera/camera.dart';
 part 'explore_controller_provider.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [MapCameraHolder])

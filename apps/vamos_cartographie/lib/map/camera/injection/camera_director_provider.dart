@@ -1,6 +1,6 @@
 import 'package:flutter_map/flutter_map.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/engine/camera/camera.dart';
+import 'package:vamos_cartographie/map/camera/camera.dart';
 
 part 'camera_director_provider.g.dart';
 

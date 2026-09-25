@@ -3,7 +3,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import '/domain_features/domain_features.dart';
-import '/map/engine/engine.dart';
+
+import 'package:vamos_cartographie/map/camera/camera.dart';
 part 'topology_projecter.g.dart';
 
 VertexVisualKind _visualKind(WaypointFields? waypoint) {

@@ -3,7 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '/map/engine/camera/camera.dart';
+
+import 'package:vamos_cartographie/map/camera/camera.dart';
 part 'map_camera_provider.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [])

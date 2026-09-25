@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/application/application.dart';
-import 'package:vamos_cartographie/map/engine/engine.dart';
+
+import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:flutter_riverpod/misc.dart';
+import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
+import 'package:vamos_cartographie/map/screens/base_map/test_point_painter.dart';
 
 @Dependencies([mapCameraSnapshot, MapCameraChanges])
 class MapScenePaint extends ConsumerWidget {
@@ -13,12 +16,35 @@ class MapScenePaint extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final commands = ref.watch(mapCommandsProvider(sceneProvider));
+    final scene = ref.watch(sceneProvider);
+    print("map Scene paint $scene");
+    final commands = [
+      for (final object in scene.objects.reversed)
+        object.describe(
+          context: MapPaintContext(
+            state:
+                (scene.selection != null) &&
+                    scene.selection!.isSameAs(object.object)
+                ? MapObjectVisualState.selected
+                : MapObjectVisualState.normal,
+          ),
+        ),
+    ];
     final size = ref.watch(mapCameraSnapshotProvider.select((c) => c.size));
 
     return CameraTransform(
       child: Stack(
         children: [
+          RepaintBoundary(
+            child: CustomPaint(
+              size: size,
+              painter: TestPointPainter(
+                zoomScale: 100,
+                offset: Offset(100, 100),
+                radiusPx: 100,
+              ),
+            ),
+          ),
           // World : jamais repeinte par la caméra
           RepaintBoundary(
             child: CustomPaint(size: size, painter: MapScenePainter(commands)),
