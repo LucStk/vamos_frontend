@@ -4,7 +4,7 @@ import 'injection.dart';
 
 part "trip_bounds_trigger.g.dart";
 
-@Riverpod(dependencies: [cameraDirector, MapExplore])
+@Riverpod(dependencies: [MapExplore, cameraDirector])
 void tripBoundsTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 

@@ -21,13 +21,13 @@ final class MapExploreProvider
         retry: null,
         name: r'mapExploreProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapContextProvider],
+        dependencies: <ProviderOrFamily>[mapCameraProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           MapExploreProvider.$allTransitiveDependencies0,
         ],
       );
 
-  static final $allTransitiveDependencies0 = mapContextProvider;
+  static final $allTransitiveDependencies0 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapExploreHash();
@@ -45,7 +45,7 @@ final class MapExploreProvider
   }
 }
 
-String _$mapExploreHash() => r'3842ead1212058260ec6bc27c0ef328db3986a80';
+String _$mapExploreHash() => r'9b576e24ebaa54417cebc911e53f77bc378d7827';
 
 abstract class _$MapExplore extends $Notifier<MapExploreMode> {
   MapExploreMode build();

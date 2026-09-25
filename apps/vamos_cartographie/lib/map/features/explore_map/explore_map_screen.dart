@@ -17,9 +17,8 @@ class ExploreMapScreen extends ConsumerWidget {
 
     return ProviderScope(
       overrides: [
-        mapContextProvider.overrideWithValue(
-          MapContext(camera: FlutterMapCamera(MapController()), scene: scene),
-        ),
+        mapCameraProvider.overrideWithValue(FlutterMapCamera(MapController())),
+        mapSceneProvider.overrideWithValue(scene),
         mapControllerProvider.overrideWithValue(controller.controller),
       ],
       child: const _ExploreMapView(),
@@ -28,10 +27,11 @@ class ExploreMapScreen extends ConsumerWidget {
 }
 
 @Dependencies([
+  mapScene,
   mapController,
   mapGestureHandler,
   cameraDirector,
-  mapContext,
+  mapCamera,
   MapCameraChanges,
   mapCameraSnapshot,
   MapExplore,

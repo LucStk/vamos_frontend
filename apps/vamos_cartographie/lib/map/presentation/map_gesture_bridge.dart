@@ -27,9 +27,10 @@ class PanLock extends InheritedNotifier<ValueNotifier<bool>> {
 }
 
 @Dependencies([
+  mapScene,
   mapController,
   mapGestureHandler,
-  mapContext,
+  mapCamera,
   MapCameraChanges,
   mapCameraSnapshot,
 ])
@@ -53,13 +54,11 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
 
   @override
   Widget build(BuildContext context) {
-    final mapContext = ref.read(mapContextProvider);
+    final mapCamera = ref.read(mapCameraProvider);
     final controller = ref.watch(mapControllerProvider);
     final gestureHandler = ref.read(mapGestureHandlerProvider(controller));
     void resolve(PointerEventType type, PointerEvent event) {
-      final offset = mapContext.camera.screenToWorld(
-        ScreenOffset(event.localPosition),
-      );
+      final offset = mapCamera.screenToWorld(ScreenOffset(event.localPosition));
 
       gestureHandler.resolve(type, offset);
 

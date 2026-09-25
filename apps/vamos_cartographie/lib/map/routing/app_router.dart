@@ -11,7 +11,7 @@ part 'app_router.g.dart';
   path: '/explore',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
-@Dependencies([tripEditorScene, exploreScene, MapExplore, MapEditor])
+@Dependencies([tripEditorScene, exploreScene, MapExplore])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 

@@ -2,14 +2,14 @@ import 'package:map_canvas/application/projection/projected_user_location.dart';
 import 'package:map_canvas/domain/projected_base_object/projected_object.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:vamos_cartographie/map/engine/injection/injection.dart';
+import 'package:vamos_cartographie/map/injection/map_context_provider.dart';
 import '/app_services/app_services.dart';
 part "user_location_projecter.g.dart";
 
-@Riverpod(keepAlive: true, dependencies: [mapContext])
+@Riverpod(keepAlive: true, dependencies: [mapCamera])
 List<ProjectedPoint> userLocationProjection(Ref ref) {
   final location = ref.watch(userLocationProvider);
-  final cameraReader = ref.read(mapContextProvider).camera;
+  final cameraReader = ref.read(mapCameraProvider);
 
   if (location case final UserPositionActive activeLocation) {
     return [

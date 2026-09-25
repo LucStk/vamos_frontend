@@ -7,7 +7,7 @@ import '/map/map.dart';
 import '/app_services/app_services.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
-@Dependencies([mapContext])
+@Dependencies([mapCamera])
 class MapControls extends ConsumerWidget {
   const MapControls({super.key});
 

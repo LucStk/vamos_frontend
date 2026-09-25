@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/features/trip_map/injection/editor_contro
 import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapEditor])
+@Dependencies([])
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;
 

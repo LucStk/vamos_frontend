@@ -14,7 +14,7 @@ import '/domain_features/domain_features.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapEditor])
+@Dependencies([])
 class MapEditorBottomSheet extends ConsumerWidget {
   final TripId tripId;
 

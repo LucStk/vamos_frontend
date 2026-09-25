@@ -6,17 +6,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 @Dependencies([
+  mapScene,
   mapController,
   mapGestureHandler,
   cameraDirector,
-  mapContext,
+  mapCamera,
   MapCameraChanges,
   mapCameraSnapshot,
 ])
 class BaseMap extends ConsumerWidget {
   const BaseMap({
     super.key,
-
     required this.overlayChildren,
     this.cameraTriggers = const [],
   });
@@ -27,17 +27,17 @@ class BaseMap extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(cameraDirectorProvider);
+
     for (final trigger in cameraTriggers) {
       ref.watch(trigger);
     }
-    return Scaffold(
-      body: Stack(
-        children: [
-          MapGestureBridge(mapLayers: [MapTileLayer()]),
-          const MapControls(),
-          ...overlayChildren,
-        ],
-      ),
+
+    return Stack(
+      children: [
+        MapGestureBridge(mapLayers: [MapTileLayer()]),
+        const MapControls(),
+        ...overlayChildren,
+      ],
     );
   }
 }

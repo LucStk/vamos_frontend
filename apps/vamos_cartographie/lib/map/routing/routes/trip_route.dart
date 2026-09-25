@@ -7,7 +7,7 @@ import "/map/map.dart";
 part 'trip_route.g.dart';
 
 @TypedGoRoute<TripRoute>(path: '/trip/:tripId')
-@Dependencies([MapEditor, tripEditorScene])
+@Dependencies([tripEditorScene])
 class TripRoute extends GoRouteData with $TripRoute {
   const TripRoute({required this.tripId});
 

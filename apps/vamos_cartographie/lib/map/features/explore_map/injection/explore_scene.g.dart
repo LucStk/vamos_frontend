@@ -103,7 +103,7 @@ final class ProjectTripProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapContextProvider;
+  static final $allTransitiveDependencies0 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectTripHash();
@@ -145,7 +145,7 @@ final class ProjectTripProvider
   }
 }
 
-String _$projectTripHash() => r'b09b27999af139ccc704f0c1c8a0c37180b811ac';
+String _$projectTripHash() => r'6f3828448fea09d1ca932398242cee07a84effd4';
 
 final class ProjectTripFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
@@ -153,7 +153,7 @@ final class ProjectTripFamily extends $Family
     : super(
         retry: null,
         name: r'projectTripProvider',
-        dependencies: <ProviderOrFamily>[mapContextProvider],
+        dependencies: <ProviderOrFamily>[mapCameraProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           ProjectTripProvider.$allTransitiveDependencies0,
         ],

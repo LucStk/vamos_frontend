@@ -9,46 +9,51 @@ part of 'map_context_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(mapContext)
-final mapContextProvider = MapContextProvider._();
+@ProviderFor(mapCamera)
+final mapCameraProvider = MapCameraProvider._();
 
-final class MapContextProvider
-    extends $FunctionalProvider<MapContext, MapContext, MapContext>
-    with $Provider<MapContext> {
-  MapContextProvider._()
+final class MapCameraProvider
+    extends
+        $FunctionalProvider<
+          FlutterMapCamera,
+          FlutterMapCamera,
+          FlutterMapCamera
+        >
+    with $Provider<FlutterMapCamera> {
+  MapCameraProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'mapContextProvider',
+        name: r'mapCameraProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
       );
 
   @override
-  String debugGetCreateSourceHash() => _$mapContextHash();
+  String debugGetCreateSourceHash() => _$mapCameraHash();
 
   @$internal
   @override
-  $ProviderElement<MapContext> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<FlutterMapCamera> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  MapContext create(Ref ref) {
-    return mapContext(ref);
+  FlutterMapCamera create(Ref ref) {
+    return mapCamera(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapContext value) {
+  Override overrideWithValue(FlutterMapCamera value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapContext>(value),
+      providerOverride: $SyncValueProvider<FlutterMapCamera>(value),
     );
   }
 }
 
-String _$mapContextHash() => r'8b6d12d99c21bdce2b0bcb0cf281f1453db166d1';
+String _$mapCameraHash() => r'813cba9e11141ec0f8976aededb1019f982276b6';
 
 @ProviderFor(mapController)
 final mapControllerProvider = MapControllerProvider._();
@@ -100,4 +105,45 @@ final class MapControllerProvider
   }
 }
 
-String _$mapControllerHash() => r'8f36cc9976c4388cc2255767dbb9a4cfdb516350';
+String _$mapControllerHash() => r'89220365b6d2a488d934692d160062fd6f7ac916';
+
+@ProviderFor(mapScene)
+final mapSceneProvider = MapSceneProvider._();
+
+final class MapSceneProvider
+    extends $FunctionalProvider<MapScene, MapScene, MapScene>
+    with $Provider<MapScene> {
+  MapSceneProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mapSceneProvider',
+        isAutoDispose: false,
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$mapSceneHash();
+
+  @$internal
+  @override
+  $ProviderElement<MapScene> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  MapScene create(Ref ref) {
+    return mapScene(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MapScene value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MapScene>(value),
+    );
+  }
+}
+
+String _$mapSceneHash() => r'95a2b6036c0089d85442ea4ff7c781dfb8cbd21d';

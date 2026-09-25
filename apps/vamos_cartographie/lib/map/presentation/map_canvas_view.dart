@@ -7,7 +7,7 @@ import "map_scene_painter.dart";
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([mapContext, MapCameraChanges, mapCameraSnapshot])
+@Dependencies([mapScene, mapCamera, MapCameraChanges, mapCameraSnapshot])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
 
@@ -15,7 +15,7 @@ class MapCanvas extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.watch(mapContextProvider.select((c) => c.camera));
+    final camera = ref.watch(mapCameraProvider);
     final panAllowed = PanLock.of(context);
     return ValueListenableBuilder<bool>(
       valueListenable: panAllowed,

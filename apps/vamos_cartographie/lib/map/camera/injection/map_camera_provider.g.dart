@@ -21,13 +21,13 @@ final class MapCameraChangesProvider
         retry: null,
         name: r'mapCameraChangesProvider',
         isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[mapContextProvider],
+        dependencies: <ProviderOrFamily>[mapCameraProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           MapCameraChangesProvider.$allTransitiveDependencies0,
         ],
       );
 
-  static final $allTransitiveDependencies0 = mapContextProvider;
+  static final $allTransitiveDependencies0 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapCameraChangesHash();
@@ -45,7 +45,7 @@ final class MapCameraChangesProvider
   }
 }
 
-String _$mapCameraChangesHash() => r'2af8a639bfdba67194444da32ec5cf8cc71c605b';
+String _$mapCameraChangesHash() => r'089ba27c8373d0fcdba50fcabb6495fc5595787f';
 
 abstract class _$MapCameraChanges extends $Notifier<int> {
   int build();
@@ -80,7 +80,7 @@ final class MapCameraSnapshotProvider
         isAutoDispose: true,
         dependencies: <ProviderOrFamily>[
           mapCameraChangesProvider,
-          mapContextProvider,
+          mapCameraProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>[
           MapCameraSnapshotProvider.$allTransitiveDependencies0,
@@ -114,4 +114,4 @@ final class MapCameraSnapshotProvider
   }
 }
 
-String _$mapCameraSnapshotHash() => r'aeadb7c65b4a5f2c3ba3922d2eef5eaa932ba6e6';
+String _$mapCameraSnapshotHash() => r'6c9bfa5c30f2d17ed059a81d6868fe0e62586861';

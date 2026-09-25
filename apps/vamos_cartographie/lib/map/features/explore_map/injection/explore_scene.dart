@@ -20,10 +20,10 @@ MapTripObject mapTripObject(Ref ref, TripId tripId) {
   return MapTripObject(trip.id, tripGeometry);
 }
 
-@Riverpod(dependencies: [mapContext])
+@Riverpod(dependencies: [mapCamera])
 ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   final tripObject = ref.watch(mapTripObjectProvider(tripId));
-  final cameraReader = ref.read(mapContextProvider).camera;
+  final cameraReader = ref.read(mapCameraProvider);
   return ProjectedTrip(
     worldSegments: projectPolyline(
       tripObject.lines,
@@ -33,7 +33,7 @@ ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   );
 }
 
-@Riverpod(dependencies: [userLocationProjection, projectTrip])
+@Riverpod(dependencies: [projectTrip])
 List<ProjectedObject> projectedExploreScene(Ref ref) {
   final userLocation = ref.watch(userLocationProjectionProvider);
   final tripsIds = ref.watch(
