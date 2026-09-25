@@ -1,12 +1,27 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/screens/explore_map/injection/trip_bounds_trigger.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 import '/map/engine/engine.dart';
 import '/domain_features/domain_features.dart';
 import 'injection/injection.dart';
 import 'trips_carousel/trips_carousel_widget.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
 
+@Dependencies([
+  tripEditorScene,
+  mapEditorController,
+  mapExploreController,
+  exploreScene,
+  userLocationTrigger,
+  tripBoundsTrigger,
+  cameraDirector,
+  mapController,
+  mapGestureHandler,
+  MapCameraHolder,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class ExploreMapScreen extends ConsumerWidget {
   const ExploreMapScreen({super.key});
 

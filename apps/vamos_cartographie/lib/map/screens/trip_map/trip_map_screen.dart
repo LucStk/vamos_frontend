@@ -6,8 +6,20 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
 import 'package:vamos_cartographie/map/screens/trip_map/presentation/overlay_editor/overlay_editor.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 import 'injection/injection.dart';
 
+@Dependencies([
+  tripEditorScene,
+  mapEditorController,
+  // userLocationTrigger,
+  cameraDirector,
+  mapController,
+  mapGestureHandler,
+  MapCameraHolder,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class TripMapScreen extends StatelessWidget {
   final Id<Trip> tripId;
   final bool isOwner;

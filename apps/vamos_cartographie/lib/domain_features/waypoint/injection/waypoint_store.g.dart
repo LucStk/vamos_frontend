@@ -26,7 +26,7 @@ final class WaypointRemoteDatasourceProvider
         argument: null,
         retry: null,
         name: r'waypointRemoteDatasourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,7 +55,7 @@ final class WaypointRemoteDatasourceProvider
 }
 
 String _$waypointRemoteDatasourceHash() =>
-    r'5813912072cea36c643646f53f8c12521c5f1b34';
+    r'b7972625b6bfe2ad0db9495b143cbbcd23f44695';
 
 @ProviderFor(waypointRepository)
 final waypointRepositoryProvider = WaypointRepositoryProvider._();
@@ -74,7 +74,7 @@ final class WaypointRepositoryProvider
         argument: null,
         retry: null,
         name: r'waypointRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -103,7 +103,7 @@ final class WaypointRepositoryProvider
 }
 
 String _$waypointRepositoryHash() =>
-    r'fc3e46b08f14e0e5a7bdcf4e089cbbb764a095e7';
+    r'9c271beee52a1f48fbf50868c03611fb9a4a03eb';
 
 @ProviderFor(WaypointStoreNotifier)
 final waypointStoreProvider = WaypointStoreNotifierFamily._();

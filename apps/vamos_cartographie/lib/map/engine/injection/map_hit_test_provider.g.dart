@@ -26,6 +26,10 @@ final class MapHitTestProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
+  static final $allTransitiveDependencies1 =
+      MapCameraHolderProvider.$allTransitiveDependencies0;
+
   @override
   String debugGetCreateSourceHash() => _$mapHitTestHash();
 
@@ -66,7 +70,7 @@ final class MapHitTestProvider
   }
 }
 
-String _$mapHitTestHash() => r'38d6b63190edf2775a4bfe992d9d5b1f2ec514c2';
+String _$mapHitTestHash() => r'8624a1b329e635d865224e8adbd7a8a6fa1036da';
 
 final class MapHitTestFamily extends $Family
     with $FunctionalFamilyOverride<HitTest, ProviderListenable<MapScene>> {
@@ -74,8 +78,11 @@ final class MapHitTestFamily extends $Family
     : super(
         retry: null,
         name: r'mapHitTestProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapHitTestProvider.$allTransitiveDependencies0,
+          MapHitTestProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: false,
       );
 

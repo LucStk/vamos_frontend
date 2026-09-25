@@ -9,7 +9,7 @@ import 'user_location_domain.dart';
 
 part 'user_location_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class UserLocationNotifier extends _$UserLocationNotifier {
   StreamSubscription<Position>? _subscription;
 

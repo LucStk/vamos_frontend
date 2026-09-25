@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/core/core.dart';
 
 part 'error_logger.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 ErrorLogger errorLogger(Ref ref) {
   return ErrorHandler.instance;
 }

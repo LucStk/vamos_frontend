@@ -3,9 +3,11 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_canvas/map_canvas.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
 
+@Dependencies([mapController, MapCameraChanges, mapCameraSnapshot])
 class MapCanvas extends ConsumerWidget {
   final ProviderListenable<MapScene> sceneProvider;
   final List<Widget> layers;

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/services/camera_to_matrix4.dart';
-
+import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
 
+@Dependencies([MapCameraChanges, mapCameraSnapshot])
 class CameraTransform extends ConsumerWidget {
   const CameraTransform({super.key, required this.child});
   // Permet de déplacer le canvas en restant sync avec la camera

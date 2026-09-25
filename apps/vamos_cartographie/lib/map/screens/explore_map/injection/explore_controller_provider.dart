@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
 part 'explore_controller_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [MapCameraHolder])
 MapExploreController mapExploreController(Ref ref) {
   return MapExploreController(
     camera: ref.read(mapCameraHolderProvider),

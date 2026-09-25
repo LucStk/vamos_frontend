@@ -27,9 +27,16 @@ final class MapExploreControllerProvider
         retry: null,
         name: r'mapExploreControllerProvider',
         isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapExploreControllerProvider.$allTransitiveDependencies0,
+          MapExploreControllerProvider.$allTransitiveDependencies1,
+        ],
       );
+
+  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
+  static final $allTransitiveDependencies1 =
+      MapCameraHolderProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$mapExploreControllerHash();
@@ -55,7 +62,7 @@ final class MapExploreControllerProvider
 }
 
 String _$mapExploreControllerHash() =>
-    r'd46331d36f45b3de1bf74ebbef8ea2c0b42c786f';
+    r'7e9e99fadbd80a9a7915ad2a5c241530b28aefae';
 
 @ProviderFor(ExploreModeNotifier)
 final exploreModeProvider = ExploreModeNotifierProvider._();

@@ -7,7 +7,9 @@ import 'package:vamos_cartographie/domain_features/topology/presentation/mobilit
 import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 import 'package:vamos_cartographie/map/screens/trip_map/injection/editor_controller_provider.dart';
 import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([mapEditorController])
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;
 

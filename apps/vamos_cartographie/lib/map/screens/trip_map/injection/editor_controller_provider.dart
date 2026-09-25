@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
 part 'editor_controller_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [MapCameraHolder])
 MapEditorController mapEditorController(Ref ref, TripId tripId) {
   return MapEditorController(
     graphEditor: ref.watch(graphStoreProvider(tripId).notifier),

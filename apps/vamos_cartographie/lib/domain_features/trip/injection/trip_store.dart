@@ -6,12 +6,12 @@ import "package:vamos_cartographie/domain_features/trip/data/trip_remote_datasou
 import "package:vamos_cartographie/domain_features/trip/data/trip_repository_impl.dart";
 part "trip_store.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 TripRemoteDatasource tripRemoteDatasource(Ref ref) {
   return TripRemoteDatasource(ref.watch(clientProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 TripRepository tripRepository(Ref ref) {
   return TripRepositoryImpl(ref.watch(tripRemoteDatasourceProvider));
 }

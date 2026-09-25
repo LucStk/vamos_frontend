@@ -6,7 +6,7 @@ import "package:vamos_cartographie/map/engine/injection/map_hit_test_provider.da
 
 part 'gesture_handler_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [mapHitTest])
 MapGestureHandler mapGestureHandler(
   Ref ref,
   ProviderListenable<MapScene> scene,

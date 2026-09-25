@@ -6,12 +6,12 @@ import "package:vamos_cartographie/domain_features/topology/topology.dart";
 import "package:vamos_cartographie/domain_features/waypoint/data/data.dart";
 part "waypoint_store.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 WaypointRemoteDatasource waypointRemoteDatasource(Ref ref) {
   return WaypointRemoteDatasource(ref.watch(clientProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 WaypointRepository waypointRepository(Ref ref) {
   return WaypointRepositoryImpl(ref.watch(waypointRemoteDatasourceProvider));
 }

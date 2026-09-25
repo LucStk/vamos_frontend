@@ -8,18 +8,18 @@ import "package:vamos_cartographie/core/injection/injection.dart";
 import "package:vamos_cartographie/domain_features/stored_file/data/data.dart";
 part "stored_file_provider.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 StoredFileRemoteDatasource storedFileRemoteDatasource(Ref ref) {
   return StoredFileRemoteDatasource(ref.watch(clientProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 StoredFileRepository storedFileRepository(Ref ref) {
   final datasource = ref.watch(storedFileRemoteDatasourceProvider);
   return StoredFileRepositoryImpl(remote: datasource);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 UploadService uploadService(Ref ref) {
   final repo = ref.read(storedFileRepositoryProvider);
   return UploadServiceImpl(dio: Dio(), storedFileRepo: repo);

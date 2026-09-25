@@ -22,7 +22,7 @@ MapTripObject mapTripObject(Ref ref, TripId tripId) {
   return MapTripObject(trip.id, tripGeometry);
 }
 
-@riverpod
+@Riverpod(dependencies: [MapCameraHolder])
 ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   final tripObject = ref.watch(mapTripObjectProvider(tripId));
   final cameraReader = ref.read(mapCameraHolderProvider);
@@ -35,7 +35,7 @@ ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   );
 }
 
-@riverpod
+@Riverpod(dependencies: [userLocationProjection, projectTrip])
 List<ProjectedObject> projectedExploreScene(Ref ref) {
   final userLocation = ref.watch(userLocationProjectionProvider);
   final tripsIds = ref.watch(
@@ -53,7 +53,7 @@ List<ProjectedObject> projectedExploreScene(Ref ref) {
   return objects;
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod(dependencies: [projectedExploreScene])
 MapScene exploreScene(Ref ref) {
   final id = ref.watch(exploreModeProvider.select((m) => m.tripSelect));
   final selection = id == null ? null : ref.watch(mapTripObjectProvider(id));

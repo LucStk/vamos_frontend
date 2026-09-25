@@ -4,11 +4,20 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_application/map_application.dart';
 import 'package:map_canvas/map_canvas.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
 import 'package:vamos_cartographie/map/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+@Dependencies([
+  mapController,
+  mapGestureHandler,
+  MapCameraHolder,
+  MapCameraChanges,
+  mapCameraSnapshot,
+  cameraDirector,
+])
 class BaseMap extends StatelessWidget {
   const BaseMap({
     super.key,
@@ -34,9 +43,16 @@ class BaseMap extends StatelessWidget {
   );
 }
 
+@Dependencies([
+  cameraDirector,
+  mapController,
+  mapGestureHandler,
+  MapCameraHolder,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class _BaseMapContent extends ConsumerStatefulWidget {
   const _BaseMapContent({
-    super.key,
     required this.controllerProvider,
     required this.sceneProvider,
     required this.overlayChildren,
@@ -87,7 +103,7 @@ class _BaseMapState extends ConsumerState<_BaseMapContent>
   void dispose() {
     // Évite que le provider conserve une référence vers un contrôleur
     // qui vient d'être détruit.
-    ref.read(mapCameraHolderProvider.notifier).detachAnimatedController();
+    // ref.read(mapCameraHolderProvider.notifier).detachAnimatedController();
     _animatedMapController.dispose();
     super.dispose();
   }

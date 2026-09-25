@@ -12,6 +12,9 @@ import 'sketch_sheet/sketch_sheet.dart';
 import 'vertex_bottom_sheet.dart';
 import '/domain_features/domain_features.dart';
 
+import 'package:riverpod_annotation/experimental/scope.dart';
+
+@Dependencies([mapEditorController])
 class MapEditorBottomSheet extends ConsumerWidget {
   final TripId tripId;
 

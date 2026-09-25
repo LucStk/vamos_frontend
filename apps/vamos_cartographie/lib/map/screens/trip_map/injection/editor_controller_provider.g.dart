@@ -31,6 +31,10 @@ final class MapEditorControllerProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
+  static final $allTransitiveDependencies1 =
+      MapCameraHolderProvider.$allTransitiveDependencies0;
+
   @override
   String debugGetCreateSourceHash() => _$mapEditorControllerHash();
 
@@ -73,7 +77,7 @@ final class MapEditorControllerProvider
 }
 
 String _$mapEditorControllerHash() =>
-    r'24e679495111299c1fe3ff8dffa68c378c7e6e52';
+    r'7467c704ef632a76490d2027fb9404fe7764be64';
 
 final class MapEditorControllerFamily extends $Family
     with $FunctionalFamilyOverride<MapEditorController, TripId> {
@@ -81,8 +85,11 @@ final class MapEditorControllerFamily extends $Family
     : super(
         retry: null,
         name: r'mapEditorControllerProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapEditorControllerProvider.$allTransitiveDependencies0,
+          MapEditorControllerProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: false,
       );
 

@@ -26,7 +26,7 @@ final class TripRemoteDatasourceProvider
         argument: null,
         retry: null,
         name: r'tripRemoteDatasourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,7 +55,7 @@ final class TripRemoteDatasourceProvider
 }
 
 String _$tripRemoteDatasourceHash() =>
-    r'901b1a49c05698679fe4e901f76731522489b50a';
+    r'142554d89119ba1acf0dbd233bcfd80ce61a747a';
 
 @ProviderFor(tripRepository)
 final tripRepositoryProvider = TripRepositoryProvider._();
@@ -69,7 +69,7 @@ final class TripRepositoryProvider
         argument: null,
         retry: null,
         name: r'tripRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -96,7 +96,7 @@ final class TripRepositoryProvider
   }
 }
 
-String _$tripRepositoryHash() => r'faf61679c894cea032e294dc345fdaf776d938d6';
+String _$tripRepositoryHash() => r'fddc324aff912f0c4fe309bbfd6ebdcd4625453f';
 
 @ProviderFor(TripStoreNotifier)
 final tripStoreProvider = TripStoreNotifierProvider._();

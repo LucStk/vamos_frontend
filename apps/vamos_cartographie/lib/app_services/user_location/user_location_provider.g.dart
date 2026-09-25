@@ -20,7 +20,7 @@ final class UserLocationNotifierProvider
         argument: null,
         retry: null,
         name: r'userLocationProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class UserLocationNotifierProvider
 }
 
 String _$userLocationNotifierHash() =>
-    r'693d0bf1e254779db30b036c231768790bad1a00';
+    r'e695430aeae4f36e48e14f0c53469fbfd767d011';
 
 abstract class _$UserLocationNotifier extends $Notifier<UserLocationState> {
   UserLocationState build();

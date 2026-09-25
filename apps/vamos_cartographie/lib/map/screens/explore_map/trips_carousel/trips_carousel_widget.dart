@@ -4,7 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/domain_features/domain_features.dart';
 import 'desktop_trips_carousel.dart';
 import 'mobile_trips_carousel.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/screens/explore_map/injection/injection.dart';
 
+import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
+
+@Dependencies([
+  tripEditorScene,
+  mapEditorController,
+  mapExploreController,
+  cameraDirector,
+  mapController,
+  mapGestureHandler,
+  MapCameraHolder,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class TripsCarouselWidget extends ConsumerWidget {
   const TripsCarouselWidget({super.key});
 

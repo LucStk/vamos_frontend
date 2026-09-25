@@ -12,7 +12,7 @@ part 'sketch_elements_projecter.g.dart';
 
 // final projection = const Epsg3857().projection;
 
-@riverpod
+@Riverpod(dependencies: [MapCameraHolder])
 List<ProjectedObject> sketchElementProjection(Ref ref, TripId tripId) {
   final List<ProjectedObject> ret = [];
 

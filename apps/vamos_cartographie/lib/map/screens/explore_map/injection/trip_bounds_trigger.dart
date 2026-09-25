@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/map/screens/explore_map/injection/injection.d
 
 part "trip_bounds_trigger.g.dart";
 
-@riverpod
+@Riverpod(dependencies: [cameraDirector])
 void tripBoundsTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 

@@ -27,7 +27,7 @@ final class StoredFileRemoteDatasourceProvider
         argument: null,
         retry: null,
         name: r'storedFileRemoteDatasourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -56,7 +56,7 @@ final class StoredFileRemoteDatasourceProvider
 }
 
 String _$storedFileRemoteDatasourceHash() =>
-    r'5b2a662c24b2f697fbb2aed08a6e62ed75562847';
+    r'69eeb7587f1f9d472c0f606361dfaab3fe47f41f';
 
 @ProviderFor(storedFileRepository)
 final storedFileRepositoryProvider = StoredFileRepositoryProvider._();
@@ -75,7 +75,7 @@ final class StoredFileRepositoryProvider
         argument: null,
         retry: null,
         name: r'storedFileRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -104,7 +104,7 @@ final class StoredFileRepositoryProvider
 }
 
 String _$storedFileRepositoryHash() =>
-    r'9028cd8a1b32fd86c16af8d39a4cc00dd7534c9d';
+    r'8666f1638e8723c36d1b9c0d37784dc3c27ed5c3';
 
 @ProviderFor(uploadService)
 final uploadServiceProvider = UploadServiceProvider._();
@@ -118,7 +118,7 @@ final class UploadServiceProvider
         argument: null,
         retry: null,
         name: r'uploadServiceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -145,7 +145,7 @@ final class UploadServiceProvider
   }
 }
 
-String _$uploadServiceHash() => r'1e538af622aaaba2a7dee9aae81d4f7ffb2a26c4';
+String _$uploadServiceHash() => r'd6d2b8b4e78c5da40cf1ddaf21bb572e5ae53bea';
 
 @ProviderFor(StoredFileStoreNotifier)
 final storedFileStoreProvider = StoredFileStoreNotifierProvider._();

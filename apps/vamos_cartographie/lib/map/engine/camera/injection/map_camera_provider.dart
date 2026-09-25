@@ -45,7 +45,7 @@ typedef CameraSnapshot = ({
   Size size,
 });
 
-@Riverpod(dependencies: [mapController, MapCameraHolder])
+@Riverpod(dependencies: [MapCameraChanges, MapCameraHolder])
 CameraSnapshot mapCameraSnapshot(Ref ref) {
   ref.watch(mapCameraChangesProvider);
   final c = ref.watch(mapCameraHolderProvider);

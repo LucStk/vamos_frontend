@@ -9,7 +9,14 @@ import 'sketch_elements_projecter.dart';
 
 part 'trip_editor_scene.g.dart';
 
-@riverpod
+@Riverpod(
+  dependencies: [
+    userLocationProjection,
+    sketchElementProjection,
+    allVertexProjection,
+    allSegmentProjection,
+  ],
+)
 List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
   final userLocation = ref.watch(userLocationProjectionProvider);
   final sketchElements = ref.watch(sketchElementProjectionProvider(tripId));
@@ -22,7 +29,7 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
   return objects;
 }
 
-@riverpod
+@Riverpod(dependencies: [projectedTripEditorScene])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
   final selection = ref.watch(
     editorModeProvider(tripId).select((m) => m.selection),

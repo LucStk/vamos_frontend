@@ -26,7 +26,7 @@ final class SegmentRemoteDatasourceProvider
         argument: null,
         retry: null,
         name: r'segmentRemoteDatasourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,7 +55,7 @@ final class SegmentRemoteDatasourceProvider
 }
 
 String _$segmentRemoteDatasourceHash() =>
-    r'c453bca3547d179470fdd6aab233c70c5dc92fa3';
+    r'e0087c4a330842634c7f617ea9cf9d1e75dbfc77';
 
 @ProviderFor(segmentRepository)
 final segmentRepositoryProvider = SegmentRepositoryProvider._();
@@ -74,7 +74,7 @@ final class SegmentRepositoryProvider
         argument: null,
         retry: null,
         name: r'segmentRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -102,7 +102,7 @@ final class SegmentRepositoryProvider
   }
 }
 
-String _$segmentRepositoryHash() => r'72087992023f023edd9452392f361924929c08af';
+String _$segmentRepositoryHash() => r'57fe2a3a43f6ccf9a8dc288462f2cdaf92ce57ac';
 
 @ProviderFor(vertexRemoteDatasource)
 final vertexRemoteDatasourceProvider = VertexRemoteDatasourceProvider._();
@@ -121,7 +121,7 @@ final class VertexRemoteDatasourceProvider
         argument: null,
         retry: null,
         name: r'vertexRemoteDatasourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -150,7 +150,7 @@ final class VertexRemoteDatasourceProvider
 }
 
 String _$vertexRemoteDatasourceHash() =>
-    r'06a82eb656f73e16ff72176824f7c2cb28c87374';
+    r'fc9928595b9138acb01ea18c582644e2d88fb84d';
 
 @ProviderFor(vertexRepository)
 final vertexRepositoryProvider = VertexRepositoryProvider._();
@@ -169,7 +169,7 @@ final class VertexRepositoryProvider
         argument: null,
         retry: null,
         name: r'vertexRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -196,7 +196,7 @@ final class VertexRepositoryProvider
   }
 }
 
-String _$vertexRepositoryHash() => r'66dd891c01a4ecc21944f43123c221426aaebe65';
+String _$vertexRepositoryHash() => r'3062c1f66b783bbe98322aa55878b83388e8ec22';
 
 @ProviderFor(topologyRemoteDatasource)
 final topologyRemoteDatasourceProvider = TopologyRemoteDatasourceProvider._();

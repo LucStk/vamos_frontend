@@ -31,6 +31,10 @@ final class AllVertexProjectionProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
+  static final $allTransitiveDependencies1 =
+      MapCameraHolderProvider.$allTransitiveDependencies0;
+
   @override
   String debugGetCreateSourceHash() => _$allVertexProjectionHash();
 
@@ -75,7 +79,7 @@ final class AllVertexProjectionProvider
 }
 
 String _$allVertexProjectionHash() =>
-    r'57dface2b1ce8cd381b1d5a13ef46ae78d431208';
+    r'2054ff2f9b0826a04eaa77b1a408dae6fcaa7ff8';
 
 final class AllVertexProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
@@ -83,8 +87,11 @@ final class AllVertexProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'allVertexProjectionProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          AllVertexProjectionProvider.$allTransitiveDependencies0,
+          AllVertexProjectionProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: true,
       );
 
@@ -116,6 +123,10 @@ final class AllSegmentProjectionProvider
          dependencies: null,
          $allTransitiveDependencies: null,
        );
+
+  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
+  static final $allTransitiveDependencies1 =
+      MapCameraHolderProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$allSegmentProjectionHash();
@@ -159,7 +170,7 @@ final class AllSegmentProjectionProvider
 }
 
 String _$allSegmentProjectionHash() =>
-    r'b6e96bdbf76979047b714722a2921e211c600370';
+    r'41ebd49701233fd87fed6b5b968e2cf98c64e9de';
 
 final class AllSegmentProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {
@@ -167,8 +178,11 @@ final class AllSegmentProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'allSegmentProjectionProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          AllSegmentProjectionProvider.$allTransitiveDependencies0,
+          AllSegmentProjectionProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: true,
       );
 

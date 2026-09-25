@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_canvas/application/application.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:flutter_riverpod/misc.dart';
 
+@Dependencies([mapCameraSnapshot, MapCameraChanges])
 class MapScenePaint extends ConsumerWidget {
   const MapScenePaint({super.key, required this.sceneProvider});
   final ProviderListenable<MapScene> sceneProvider;
@@ -31,6 +33,7 @@ class MapScenePaint extends ConsumerWidget {
   }
 }
 
+@Dependencies([mapCameraSnapshot])
 class _ScreenLayer extends ConsumerWidget {
   const _ScreenLayer({required this.commands, required this.size});
   final Iterable<MapDrawCommand> commands;

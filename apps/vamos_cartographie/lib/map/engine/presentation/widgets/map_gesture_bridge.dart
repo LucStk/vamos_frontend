@@ -7,6 +7,7 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/engine/engine.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
 /// Expose l'état "pan autorisé ou non" aux descendants sans obliger
 /// chaque widget intermédiaire à le recevoir en paramètre de constructeur.
@@ -27,6 +28,13 @@ class PanLock extends InheritedNotifier<ValueNotifier<bool>> {
   }
 }
 
+@Dependencies([
+  mapController,
+  mapGestureHandler,
+  MapCameraHolder,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class MapGestureBridge extends ConsumerStatefulWidget {
   final BaseController controller;
   final ProviderListenable<MapScene> sceneProvider;

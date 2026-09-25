@@ -32,6 +32,12 @@ final class MapGestureHandlerProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapHitTestProvider;
+  static final $allTransitiveDependencies1 =
+      MapHitTestProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      MapHitTestProvider.$allTransitiveDependencies1;
+
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerHash();
 
@@ -78,7 +84,7 @@ final class MapGestureHandlerProvider
   }
 }
 
-String _$mapGestureHandlerHash() => r'a7966ae832ce178f4827c78f5f74398398c2f21f';
+String _$mapGestureHandlerHash() => r'2d478585f6ad93276acf45b3b92e375b07365eb3';
 
 final class MapGestureHandlerFamily extends $Family
     with
@@ -90,8 +96,12 @@ final class MapGestureHandlerFamily extends $Family
     : super(
         retry: null,
         name: r'mapGestureHandlerProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapHitTestProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapGestureHandlerProvider.$allTransitiveDependencies0,
+          MapGestureHandlerProvider.$allTransitiveDependencies1,
+          MapGestureHandlerProvider.$allTransitiveDependencies2,
+        ],
         isAutoDispose: false,
       );
 

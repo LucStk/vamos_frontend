@@ -2,7 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/screens/explore_map/explore_map.dart';
 import '/domain_features/domain_features.dart';
+import '/map/engine/engine.dart';
 
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
+
+@Dependencies([
+  tripEditorScene,
+  mapEditorController,
+  userLocationTrigger,
+  cameraDirector,
+  mapController,
+  mapGestureHandler,
+  MapCameraHolder,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class ExplorerPage extends ConsumerStatefulWidget {
   const ExplorerPage({super.key});
   @override

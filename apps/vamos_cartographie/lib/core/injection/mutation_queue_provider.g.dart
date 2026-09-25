@@ -26,7 +26,7 @@ final class MutationQueueProvider
         argument: null,
         retry: null,
         name: r'mutationQueueProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -54,4 +54,4 @@ final class MutationQueueProvider
   }
 }
 
-String _$mutationQueueHash() => r'b81a3f38628f158281c920c40fa1ce2e9b44ec7e';
+String _$mutationQueueHash() => r'5113eaaf34b2381aab92c9776cceea92e657fbd7';

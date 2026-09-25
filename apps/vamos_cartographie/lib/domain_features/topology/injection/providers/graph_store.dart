@@ -8,22 +8,22 @@ import "package:vamos_cartographie/core/injection/mutation_queue_provider.dart";
 import "package:vamos_cartographie/domain_features/topology/data/data.dart";
 part "graph_store.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 SegmentRemoteDatasource segmentRemoteDatasource(Ref ref) {
   return SegmentRemoteDatasource(ref.watch(clientProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 SegmentRepository segmentRepository(Ref ref) {
   return SegmentRepositoryImpl(ref.watch(segmentRemoteDatasourceProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 VertexRemoteDatasource vertexRemoteDatasource(Ref ref) {
   return VertexRemoteDatasource(ref.watch(clientProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 VertexRepository vertexRepository(Ref ref) {
   return VertexRepositoryImpl(ref.watch(vertexRemoteDatasourceProvider));
 }

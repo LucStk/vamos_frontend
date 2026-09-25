@@ -21,7 +21,7 @@ final class ErrorLoggerProvider
         argument: null,
         retry: null,
         name: r'errorLoggerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,4 +48,4 @@ final class ErrorLoggerProvider
   }
 }
 
-String _$errorLoggerHash() => r'f3c0cb8fdbf4614eb3fc2810869604f4ef02fa81';
+String _$errorLoggerHash() => r'18db1a676a940790c15710ca6e6cbaf8d1b7cc9e';

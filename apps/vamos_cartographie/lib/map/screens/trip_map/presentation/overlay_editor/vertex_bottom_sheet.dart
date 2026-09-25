@@ -8,7 +8,9 @@ import 'package:vamos_cartographie/map/screens/trip_map/injection/injection.dart
 import '/map/overlay_ui/simple_bottom_sheet_shell.dart';
 import 'draw_segment.dart';
 import '/ui_kit/ui_kit.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([mapEditorController])
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;

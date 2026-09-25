@@ -103,6 +103,10 @@ final class ProjectTripProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
+  static final $allTransitiveDependencies1 =
+      MapCameraHolderProvider.$allTransitiveDependencies0;
+
   @override
   String debugGetCreateSourceHash() => _$projectTripHash();
 
@@ -143,7 +147,7 @@ final class ProjectTripProvider
   }
 }
 
-String _$projectTripHash() => r'3dc37c6135826283786b895ce3441452b8a5ffed';
+String _$projectTripHash() => r'1702b46f955d9582eae3b0d9b7d4d612cba06042';
 
 final class ProjectTripFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
@@ -151,8 +155,11 @@ final class ProjectTripFamily extends $Family
     : super(
         retry: null,
         name: r'projectTripProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          ProjectTripProvider.$allTransitiveDependencies0,
+          ProjectTripProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: true,
       );
 
@@ -181,9 +188,24 @@ final class ProjectedExploreSceneProvider
         retry: null,
         name: r'projectedExploreSceneProvider',
         isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[
+          userLocationProjectionProvider,
+          projectTripProvider,
+        ],
+        $allTransitiveDependencies: <ProviderOrFamily>{
+          ProjectedExploreSceneProvider.$allTransitiveDependencies0,
+          ProjectedExploreSceneProvider.$allTransitiveDependencies1,
+          ProjectedExploreSceneProvider.$allTransitiveDependencies2,
+          ProjectedExploreSceneProvider.$allTransitiveDependencies3,
+        },
       );
+
+  static final $allTransitiveDependencies0 = userLocationProjectionProvider;
+  static final $allTransitiveDependencies1 =
+      UserLocationProjectionProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      UserLocationProjectionProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 = projectTripProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectedExploreSceneHash();
@@ -209,7 +231,7 @@ final class ProjectedExploreSceneProvider
 }
 
 String _$projectedExploreSceneHash() =>
-    r'90c1f63c4929279e85e2aadff65d2250013922f6';
+    r'0bf90aaec15efb411af8e1ad2ac5dccb7abb55dd';
 
 @ProviderFor(exploreScene)
 final exploreSceneProvider = ExploreSceneProvider._();
@@ -223,10 +245,26 @@ final class ExploreSceneProvider
         argument: null,
         retry: null,
         name: r'exploreSceneProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+        dependencies: <ProviderOrFamily>[projectedExploreSceneProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>{
+          ExploreSceneProvider.$allTransitiveDependencies0,
+          ExploreSceneProvider.$allTransitiveDependencies1,
+          ExploreSceneProvider.$allTransitiveDependencies2,
+          ExploreSceneProvider.$allTransitiveDependencies3,
+          ExploreSceneProvider.$allTransitiveDependencies4,
+        },
       );
+
+  static final $allTransitiveDependencies0 = projectedExploreSceneProvider;
+  static final $allTransitiveDependencies1 =
+      ProjectedExploreSceneProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      ProjectedExploreSceneProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 =
+      ProjectedExploreSceneProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies4 =
+      ProjectedExploreSceneProvider.$allTransitiveDependencies3;
 
   @override
   String debugGetCreateSourceHash() => _$exploreSceneHash();
@@ -250,4 +288,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'8dc658e9c1f17e6e8ba1349758473f0b8d7a0a0d';
+String _$exploreSceneHash() => r'a8f5e13c931e2240c1808a8a3016e3642a452e32';

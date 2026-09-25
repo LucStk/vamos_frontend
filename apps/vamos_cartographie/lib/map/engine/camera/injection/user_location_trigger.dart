@@ -3,7 +3,7 @@ import '/app_services/app_services.dart';
 import 'package:vamos_cartographie/map/engine/camera/camera.dart';
 part 'user_location_trigger.g.dart';
 
-@Riverpod(dependencies: [mapController])
+@Riverpod(dependencies: [cameraDirector])
 void userLocationTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 

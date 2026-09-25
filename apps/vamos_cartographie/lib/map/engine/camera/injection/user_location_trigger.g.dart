@@ -22,9 +22,19 @@ final class UserLocationTriggerProvider
         retry: null,
         name: r'userLocationTriggerProvider',
         isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[cameraDirectorProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          UserLocationTriggerProvider.$allTransitiveDependencies0,
+          UserLocationTriggerProvider.$allTransitiveDependencies1,
+          UserLocationTriggerProvider.$allTransitiveDependencies2,
+        ],
       );
+
+  static final $allTransitiveDependencies0 = cameraDirectorProvider;
+  static final $allTransitiveDependencies1 =
+      CameraDirectorProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      CameraDirectorProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$userLocationTriggerHash();
@@ -49,4 +59,4 @@ final class UserLocationTriggerProvider
 }
 
 String _$userLocationTriggerHash() =>
-    r'3ee1f7bd335b074fdbf06edea9b22aefaca530d3';
+    r'823692a071c198937f59c675619fe710ed0185b8';
