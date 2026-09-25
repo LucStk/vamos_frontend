@@ -18,8 +18,8 @@ class MapCameraHolder extends _$MapCameraHolder {
     return FlutterMapCamera(ref.watch(mapControllerProvider));
   }
 
-  void attachAnimatedController(AnimatedMapController controller) {
-    (state as FlutterMapCamera).attachAnimatedController(controller);
+  void attachAnimatedController(TickerProvider ticker) {
+    (state as FlutterMapCamera).attachAnimatedController(ticker);
   }
 
   void detachAnimatedController() {

@@ -25,15 +25,17 @@ class FlutterMapCamera implements MapCameraController {
   final MapController _mapController;
   AnimatedMapController? _animatedController;
 
-  void attachAnimatedController(AnimatedMapController controller) {
-    assert(
-      identical(controller.mapController, _mapController),
-      'AnimatedMapController doit envelopper le même MapController',
+  void attachAnimatedController(TickerProvider ticker) {
+    _animatedController = AnimatedMapController(
+      vsync: ticker,
+      mapController: _mapController,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOutCubic,
     );
-    _animatedController = controller;
   }
 
   void detachAnimatedController() {
+    _animatedController?.dispose();
     _animatedController = null;
   }
 
