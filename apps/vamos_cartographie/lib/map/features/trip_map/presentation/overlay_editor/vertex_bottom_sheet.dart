@@ -7,10 +7,10 @@ import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/map/features/trip_map/injection/injection.dart';
 import '/map/overlay_ui/simple_bottom_sheet_shell.dart';
 import 'draw_segment.dart';
-import '/ui_kit/ui_kit.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+import '/ui_kit/ui_kit.dart';
 
-@Dependencies([mapEditorController])
+@Dependencies([MapEditor])
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;
@@ -25,7 +25,7 @@ class VertexBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(mapEditorControllerProvider(tripId));
+    final notifier = ref.read(mapEditorProvider(tripId).notifier).controller;
 
     return SimpleBottomSheetShell(
       content: Column(

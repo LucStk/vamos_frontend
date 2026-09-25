@@ -9,83 +9,32 @@ part of 'explore_controller_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(mapExploreController)
-final mapExploreControllerProvider = MapExploreControllerProvider._();
+@ProviderFor(MapExplore)
+final mapExploreProvider = MapExploreProvider._();
 
-final class MapExploreControllerProvider
-    extends
-        $FunctionalProvider<
-          MapExploreController,
-          MapExploreController,
-          MapExploreController
-        >
-    with $Provider<MapExploreController> {
-  MapExploreControllerProvider._()
+final class MapExploreProvider
+    extends $NotifierProvider<MapExplore, MapExploreMode> {
+  MapExploreProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'mapExploreControllerProvider',
+        name: r'mapExploreProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        dependencies: <ProviderOrFamily>[mapContextProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
-          MapExploreControllerProvider.$allTransitiveDependencies0,
-          MapExploreControllerProvider.$allTransitiveDependencies1,
+          MapExploreProvider.$allTransitiveDependencies0,
         ],
       );
 
-  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
-  static final $allTransitiveDependencies1 =
-      MapCameraHolderProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies0 = mapContextProvider;
 
   @override
-  String debugGetCreateSourceHash() => _$mapExploreControllerHash();
+  String debugGetCreateSourceHash() => _$mapExploreHash();
 
   @$internal
   @override
-  $ProviderElement<MapExploreController> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  MapExploreController create(Ref ref) {
-    return mapExploreController(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapExploreController value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MapExploreController>(value),
-    );
-  }
-}
-
-String _$mapExploreControllerHash() =>
-    r'5c7a21dec7579497cee5926311c478b31604fb83';
-
-@ProviderFor(ExploreModeNotifier)
-final exploreModeProvider = ExploreModeNotifierProvider._();
-
-final class ExploreModeNotifierProvider
-    extends $NotifierProvider<ExploreModeNotifier, MapExploreMode> {
-  ExploreModeNotifierProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'exploreModeProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$exploreModeNotifierHash();
-
-  @$internal
-  @override
-  ExploreModeNotifier create() => ExploreModeNotifier();
+  MapExplore create() => MapExplore();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(MapExploreMode value) {
@@ -96,10 +45,9 @@ final class ExploreModeNotifierProvider
   }
 }
 
-String _$exploreModeNotifierHash() =>
-    r'96ad5baf56d2f105d8fb1112e1915e2005731cce';
+String _$mapExploreHash() => r'3842ead1212058260ec6bc27c0ef328db3986a80';
 
-abstract class _$ExploreModeNotifier extends $Notifier<MapExploreMode> {
+abstract class _$MapExplore extends $Notifier<MapExploreMode> {
   MapExploreMode build();
   @$mustCallSuper
   @override

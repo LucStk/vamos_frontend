@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
-import '/map/layers/layers.dart';
+import '/map/map.dart';
 import '/app_services/app_services.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
-@Dependencies([MapCameraHolder])
+@Dependencies([mapContext])
 class MapControls extends ConsumerWidget {
   const MapControls({super.key});
 

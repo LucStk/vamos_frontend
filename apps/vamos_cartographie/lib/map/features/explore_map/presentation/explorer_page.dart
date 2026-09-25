@@ -5,18 +5,8 @@ import '/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/camera/camera.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/features/trip_map/trip_map.dart';
 
-@Dependencies([
-  tripEditorScene,
-  mapEditorController,
-  userLocationTrigger,
-  cameraDirector,
-  mapController,
-  MapCameraHolder,
-  MapCameraChanges,
-  mapCameraSnapshot,
-])
+@Dependencies([userLocationTrigger, cameraDirector])
 class ExplorerPage extends ConsumerStatefulWidget {
   const ExplorerPage({super.key});
   @override

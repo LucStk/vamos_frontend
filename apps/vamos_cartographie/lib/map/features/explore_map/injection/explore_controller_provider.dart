@@ -1,21 +1,19 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_explore_application/map_explore_application.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/camera/camera.dart';
+import 'package:vamos_cartographie/map/map.dart';
 part 'explore_controller_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [MapCameraHolder])
-MapExploreController mapExploreController(Ref ref) {
-  return MapExploreController(
-    camera: ref.read(mapCameraHolderProvider),
-    onModeChanged: (mode) {
-      ref.read(exploreModeProvider.notifier).setState = mode;
-    },
-  );
-}
+@Riverpod(keepAlive: true, dependencies: [mapContext])
+class MapExplore extends _$MapExplore {
+  late final MapExploreController controller;
 
-@Riverpod(keepAlive: true)
-class ExploreModeNotifier extends _$ExploreModeNotifier {
   @override
-  MapExploreMode build() => const MapExploreMode();
-  set setState(MapExploreMode m) => state = m;
+  MapExploreMode build() {
+    controller = MapExploreController(
+      camera: ref.read(mapContextProvider.select((s) => s.camera)),
+      onModeChanged: (mode) => state = mode,
+    );
+    return const MapExploreMode();
+  }
 }

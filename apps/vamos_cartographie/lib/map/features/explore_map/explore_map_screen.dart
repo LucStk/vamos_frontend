@@ -3,29 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
-import 'package:vamos_cartographie/map/presentation/map_scope.dart';
 import '/domain_features/domain_features.dart';
-import 'trips_carousel/trips_carousel_widget.dart';
 
 @Dependencies([
-  mapEditorController,
-  tripEditorScene,
-  mapExploreController,
-  exploreScene,
-  userLocationTrigger,
-  tripBoundsTrigger,
-  cameraDirector,
   mapController,
-  MapCameraHolder,
+  mapGestureHandler,
+  MapExplore,
   MapCameraChanges,
   mapCameraSnapshot,
+  mapContext,
+  cameraDirector,
+  userLocationTrigger,
+  tripBoundsTrigger,
 ])
 class ExploreMapScreen extends ConsumerWidget {
   const ExploreMapScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MapScope(
+    return ProviderScope(
+      overrides: [],
       child: Scaffold(
         body: Stack(
           children: [
@@ -34,8 +31,6 @@ class ExploreMapScreen extends ConsumerWidget {
                 userLocationTriggerProvider,
                 tripBoundsTriggerProvider,
               ],
-              controllerProvider: mapExploreControllerProvider,
-              sceneProvider: exploreSceneProvider,
               overlayChildren: [TripsCarouselWidget()],
             ),
 

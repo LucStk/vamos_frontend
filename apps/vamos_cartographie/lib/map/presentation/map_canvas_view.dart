@@ -2,34 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_canvas/map_canvas.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'package:vamos_cartographie/map/camera/camera.dart';
+import 'package:vamos_cartographie/map/map.dart';
 import "map_scene_painter.dart";
-import "map_gesture_bridge.dart";
 
-@Dependencies([mapController, MapCameraChanges, mapCameraSnapshot])
+import 'package:riverpod_annotation/experimental/scope.dart';
+
+@Dependencies([mapContext, MapCameraChanges, mapCameraSnapshot])
 class MapCanvas extends ConsumerWidget {
-  final ProviderListenable<MapScene> sceneProvider;
   final List<Widget> layers;
 
-  const MapCanvas({
-    super.key,
-    required this.sceneProvider,
-    this.layers = const [],
-  });
+  const MapCanvas({super.key, this.layers = const []});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapController = ref.watch(mapControllerProvider);
+    final camera = ref.watch(mapContextProvider.select((c) => c.camera));
     final panAllowed = PanLock.of(context);
     return ValueListenableBuilder<bool>(
       valueListenable: panAllowed,
       builder: (context, panAllowed, _) {
         return FlutterMap(
-          mapController: mapController,
+          mapController: camera.mapController,
           options: MapOptions(
             initialCenter: const LatLng(46.8, 2.2),
             initialZoom: 7,
@@ -41,10 +33,7 @@ class MapCanvas extends ConsumerWidget {
                         ~InteractiveFlag.drag,
             ),
           ),
-          children: [
-            ...layers,
-            MapScenePaint(sceneProvider: sceneProvider),
-          ],
+          children: [...layers, MapScenePaint()],
         );
       },
     );

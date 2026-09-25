@@ -5,19 +5,18 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 
-import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:map_editor_application/map_editor.dart';
-import 'editor_controller_provider.dart';
+import 'package:vamos_cartographie/map/map.dart';
 part 'sketch_elements_projecter.g.dart';
 
 // final projection = const Epsg3857().projection;
 
-@Riverpod(dependencies: [MapCameraHolder])
+@Riverpod(dependencies: [mapContext, MapEditor])
 List<ProjectedObject> sketchElementProjection(Ref ref, TripId tripId) {
   final List<ProjectedObject> ret = [];
 
-  final editorMode = ref.watch(editorModeProvider(tripId));
-  final cameraReader = ref.read(mapCameraHolderProvider);
+  final editorMode = ref.watch(mapEditorProvider(tripId));
+  final cameraReader = ref.read(mapContextProvider).camera;
 
   if (editorMode case final SketchMode sketch) {
     final position = sketch.pencilPositionOrNull;

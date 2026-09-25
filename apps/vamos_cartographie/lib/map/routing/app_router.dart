@@ -12,15 +12,14 @@ part 'app_router.g.dart';
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
 @Dependencies([
-  tripEditorScene,
-  mapEditorController,
-  mapExploreController,
-  exploreScene,
+  mapController,
+  mapGestureHandler,
+  MapExplore,
+  mapContext,
+  MapEditor,
   userLocationTrigger,
   tripBoundsTrigger,
   cameraDirector,
-  mapController,
-  MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,
 ])

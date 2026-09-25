@@ -18,17 +18,17 @@ import 'package:flutter/material.dart';
 /// instantanée.
 //
 class FlutterMapCamera implements MapCameraController {
-  FlutterMapCamera(this._mapController);
+  FlutterMapCamera(this.mapController);
 
   static const referenceZoom = 0.0;
 
-  final MapController _mapController;
+  final MapController mapController;
   AnimatedMapController? _animatedController;
 
   void attachAnimatedController(TickerProvider ticker) {
     _animatedController = AnimatedMapController(
       vsync: ticker,
-      mapController: _mapController,
+      mapController: mapController,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOutCubic,
     );
@@ -41,7 +41,7 @@ class FlutterMapCamera implements MapCameraController {
 
   bool get _hasAnimation => _animatedController != null;
 
-  MapCamera get _camera => _mapController.camera;
+  MapCamera get _camera => mapController.camera;
 
   // ---- Lecture : toujours via le MapController brut ----
 
@@ -105,10 +105,10 @@ class FlutterMapCamera implements MapCameraController {
       WorldOffset(_camera.projectAtZoom(_camera.center, 0));
   @override
   Stream<double> get rotationStream =>
-      _mapController.mapEventStream.map((_) => _camera.rotation);
+      mapController.mapEventStream.map((_) => _camera.rotation);
 
   @override
-  Stream<void> get cameraStream => _mapController.mapEventStream.map((_) {});
+  Stream<void> get cameraStream => mapController.mapEventStream.map((_) {});
 
   @override
   void zoomTo(LatLng latLng, {double deltaZoom = 1}) {
@@ -117,7 +117,7 @@ class FlutterMapCamera implements MapCameraController {
     if (_hasAnimation) {
       _animatedController!.animateTo(dest: latLng, zoom: targetZoom);
     } else {
-      _mapController.move(latLng, targetZoom);
+      mapController.move(latLng, targetZoom);
     }
   }
 
@@ -126,7 +126,7 @@ class FlutterMapCamera implements MapCameraController {
     if (_hasAnimation) {
       _animatedController!.animatedZoomIn();
     } else {
-      _mapController.move(
+      mapController.move(
         _camera.center,
         min(_camera.zoom + 1, _camera.maxZoom ?? 20),
       );
@@ -138,7 +138,7 @@ class FlutterMapCamera implements MapCameraController {
     if (_hasAnimation) {
       _animatedController!.animatedZoomOut();
     } else {
-      _mapController.move(
+      mapController.move(
         _camera.center,
         max(_camera.zoom - 1, _camera.minZoom ?? 0),
       );
@@ -150,7 +150,7 @@ class FlutterMapCamera implements MapCameraController {
     if (_hasAnimation) {
       _animatedController!.animatedRotateTo(degrees);
     } else {
-      _mapController.rotate(degrees);
+      mapController.rotate(degrees);
     }
   }
 
@@ -179,7 +179,7 @@ class FlutterMapCamera implements MapCameraController {
     if (animated != null) {
       animated.animatedFitCamera(cameraFit: fit);
     } else {
-      _mapController.fitCamera(fit);
+      mapController.fitCamera(fit);
     }
   }
 }

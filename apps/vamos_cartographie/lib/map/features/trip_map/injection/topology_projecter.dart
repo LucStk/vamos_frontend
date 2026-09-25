@@ -2,9 +2,9 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/engine/injection/injection.dart';
 import '/domain_features/domain_features.dart';
 
-import 'package:vamos_cartographie/map/camera/camera.dart';
 part 'topology_projecter.g.dart';
 
 VertexVisualKind _visualKind(WaypointFields? waypoint) {
@@ -19,10 +19,10 @@ VertexVisualKind _visualKind(WaypointFields? waypoint) {
   };
 }
 
-@Riverpod(dependencies: [MapCameraHolder])
+@Riverpod(dependencies: [mapContext])
 List<ProjectedPoint> allVertexProjection(Ref ref, TripId tripId) {
   final vertices = ref.watch(allVertexProvider(tripId));
-  final cameraReader = ref.read(mapCameraHolderProvider);
+  final cameraReader = ref.read(mapContextProvider).camera;
   final List<ProjectedPoint> ret = [];
   for (final vertex in vertices) {
     final wId = ref.watch(waypointFromVertexProvider(tripId, vertex.id));
@@ -39,10 +39,10 @@ List<ProjectedPoint> allVertexProjection(Ref ref, TripId tripId) {
   return ret;
 }
 
-@Riverpod(dependencies: [MapCameraHolder])
+@Riverpod(dependencies: [mapContext])
 List<ProjectedLine> allSegmentProjection(Ref ref, TripId tripId) {
   final segments = ref.watch(allSegmentsProvider(tripId));
-  final cameraReader = ref.read(mapCameraHolderProvider);
+  final cameraReader = ref.read(mapContextProvider).camera;
 
   return [
     for (final segment in segments)

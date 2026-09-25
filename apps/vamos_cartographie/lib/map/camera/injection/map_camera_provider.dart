@@ -1,37 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:vamos_cartographie/map/camera/camera.dart';
+import 'package:vamos_cartographie/map/map.dart';
 part 'map_camera_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
-MapController mapController(Ref ref) =>
-    throw StateError('mapControllerProvider doit être fourni par un MapScope');
-
-@Riverpod(keepAlive: true, dependencies: [mapController])
-class MapCameraHolder extends _$MapCameraHolder {
-  @override
-  MapCameraController build() {
-    return FlutterMapCamera(ref.watch(mapControllerProvider));
-  }
-
-  void attachAnimatedController(TickerProvider ticker) {
-    (state as FlutterMapCamera).attachAnimatedController(ticker);
-  }
-
-  void detachAnimatedController() {
-    (state as FlutterMapCamera).detachAnimatedController();
-  }
-}
-
-@Riverpod(dependencies: [mapController])
+@Riverpod(dependencies: [mapContext])
 class MapCameraChanges extends _$MapCameraChanges {
   @override
   int build() {
-    final controller = ref.watch(mapControllerProvider);
+    final controller = ref.watch(
+      mapContextProvider.select((c) => c.camera.mapController),
+    );
     final subscription = controller.mapEventStream.listen((_) => state++);
     ref.onDispose(subscription.cancel);
     return 0;
@@ -46,10 +27,10 @@ typedef CameraSnapshot = ({
   Size size,
 });
 
-@Riverpod(dependencies: [MapCameraChanges, MapCameraHolder])
+@Riverpod(dependencies: [MapCameraChanges, mapContext])
 CameraSnapshot mapCameraSnapshot(Ref ref) {
   ref.watch(mapCameraChangesProvider);
-  final c = ref.watch(mapCameraHolderProvider);
+  final c = ref.watch(mapContextProvider.select((c) => c.camera));
   return (
     zoomScale: c.zoomScale,
     rotationRad: c.rotationRad,

@@ -14,7 +14,7 @@ import '/domain_features/domain_features.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([mapEditorController])
+@Dependencies([MapEditor])
 class MapEditorBottomSheet extends ConsumerWidget {
   final TripId tripId;
 
@@ -23,7 +23,7 @@ class MapEditorBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final editorMode = ref.watch(editorModeProvider(tripId));
+    final editorMode = ref.watch(mapEditorProvider(tripId));
 
     switch (editorMode) {
       case SketchMode _:

@@ -31,9 +31,7 @@ final class AllVertexProjectionProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
-  static final $allTransitiveDependencies1 =
-      MapCameraHolderProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies0 = mapContextProvider;
 
   @override
   String debugGetCreateSourceHash() => _$allVertexProjectionHash();
@@ -79,7 +77,7 @@ final class AllVertexProjectionProvider
 }
 
 String _$allVertexProjectionHash() =>
-    r'2054ff2f9b0826a04eaa77b1a408dae6fcaa7ff8';
+    r'287424da83415c8ffceaa1f3c3e5213a80484152';
 
 final class AllVertexProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
@@ -87,10 +85,9 @@ final class AllVertexProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'allVertexProjectionProvider',
-        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        dependencies: <ProviderOrFamily>[mapContextProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           AllVertexProjectionProvider.$allTransitiveDependencies0,
-          AllVertexProjectionProvider.$allTransitiveDependencies1,
         ],
         isAutoDispose: true,
       );
@@ -124,9 +121,7 @@ final class AllSegmentProjectionProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
-  static final $allTransitiveDependencies1 =
-      MapCameraHolderProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies0 = mapContextProvider;
 
   @override
   String debugGetCreateSourceHash() => _$allSegmentProjectionHash();
@@ -170,7 +165,7 @@ final class AllSegmentProjectionProvider
 }
 
 String _$allSegmentProjectionHash() =>
-    r'41ebd49701233fd87fed6b5b968e2cf98c64e9de';
+    r'45ca171b7926dce5d02d8fe341a3c77a9edd3aef';
 
 final class AllSegmentProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {
@@ -178,10 +173,9 @@ final class AllSegmentProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'allSegmentProjectionProvider',
-        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        dependencies: <ProviderOrFamily>[mapContextProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           AllSegmentProjectionProvider.$allTransitiveDependencies0,
-          AllSegmentProjectionProvider.$allTransitiveDependencies1,
         ],
         isAutoDispose: true,
       );

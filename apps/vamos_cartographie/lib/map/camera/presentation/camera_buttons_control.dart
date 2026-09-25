@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import '/map/camera/camera.dart';
+import 'package:vamos_cartographie/map/engine/engine.dart';
 import 'package:vamos_cartographie/map/overlay_ui/widgets/map_control_button_shell.dart';
 
-@Dependencies([MapCameraHolder])
+import 'package:riverpod_annotation/experimental/scope.dart';
+
+@Dependencies([mapContext])
 class CameraButtonsControl extends ConsumerWidget {
   const CameraButtonsControl({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.watch(mapCameraHolderProvider);
+    final camera = ref.watch(mapContextProvider.select((c) => c.camera));
 
     return Column(
       children: [

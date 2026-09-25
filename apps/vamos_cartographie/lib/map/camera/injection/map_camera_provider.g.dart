@@ -9,103 +9,6 @@ part of 'map_camera_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(mapController)
-final mapControllerProvider = MapControllerProvider._();
-
-final class MapControllerProvider
-    extends $FunctionalProvider<MapController, MapController, MapController>
-    with $Provider<MapController> {
-  MapControllerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'mapControllerProvider',
-        isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$mapControllerHash();
-
-  @$internal
-  @override
-  $ProviderElement<MapController> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  MapController create(Ref ref) {
-    return mapController(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapController value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MapController>(value),
-    );
-  }
-}
-
-String _$mapControllerHash() => r'175eaad4ed4925a432171050c6c6d8dc71d5a595';
-
-@ProviderFor(MapCameraHolder)
-final mapCameraHolderProvider = MapCameraHolderProvider._();
-
-final class MapCameraHolderProvider
-    extends $NotifierProvider<MapCameraHolder, MapCameraController> {
-  MapCameraHolderProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'mapCameraHolderProvider',
-        isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapControllerProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapCameraHolderProvider.$allTransitiveDependencies0,
-        ],
-      );
-
-  static final $allTransitiveDependencies0 = mapControllerProvider;
-
-  @override
-  String debugGetCreateSourceHash() => _$mapCameraHolderHash();
-
-  @$internal
-  @override
-  MapCameraHolder create() => MapCameraHolder();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapCameraController value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MapCameraController>(value),
-    );
-  }
-}
-
-String _$mapCameraHolderHash() => r'a2c2769804bc57ee4651c5368c27ce3289da73de';
-
-abstract class _$MapCameraHolder extends $Notifier<MapCameraController> {
-  MapCameraController build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final ref = this.ref as $Ref<MapCameraController, MapCameraController>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<MapCameraController, MapCameraController>,
-              MapCameraController,
-              Object?,
-              Object?
-            >;
-    element.handleCreate(ref, build);
-  }
-}
-
 @ProviderFor(MapCameraChanges)
 final mapCameraChangesProvider = MapCameraChangesProvider._();
 
@@ -118,13 +21,13 @@ final class MapCameraChangesProvider
         retry: null,
         name: r'mapCameraChangesProvider',
         isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[mapControllerProvider],
+        dependencies: <ProviderOrFamily>[mapContextProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           MapCameraChangesProvider.$allTransitiveDependencies0,
         ],
       );
 
-  static final $allTransitiveDependencies0 = mapControllerProvider;
+  static final $allTransitiveDependencies0 = mapContextProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapCameraChangesHash();
@@ -142,7 +45,7 @@ final class MapCameraChangesProvider
   }
 }
 
-String _$mapCameraChangesHash() => r'30c7dee38d2fb973d1d2cad35c6e13b94f7d2179';
+String _$mapCameraChangesHash() => r'2af8a639bfdba67194444da32ec5cf8cc71c605b';
 
 abstract class _$MapCameraChanges extends $Notifier<int> {
   int build();
@@ -177,19 +80,17 @@ final class MapCameraSnapshotProvider
         isAutoDispose: true,
         dependencies: <ProviderOrFamily>[
           mapCameraChangesProvider,
-          mapCameraHolderProvider,
+          mapContextProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>[
           MapCameraSnapshotProvider.$allTransitiveDependencies0,
           MapCameraSnapshotProvider.$allTransitiveDependencies1,
-          MapCameraSnapshotProvider.$allTransitiveDependencies2,
         ],
       );
 
   static final $allTransitiveDependencies0 = mapCameraChangesProvider;
   static final $allTransitiveDependencies1 =
       MapCameraChangesProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 = mapCameraHolderProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapCameraSnapshotHash();
@@ -213,4 +114,4 @@ final class MapCameraSnapshotProvider
   }
 }
 
-String _$mapCameraSnapshotHash() => r'1db560606678d0a9d09ebb2155603c3f6e4ee8a5';
+String _$mapCameraSnapshotHash() => r'aeadb7c65b4a5f2c3ba3922d2eef5eaa932ba6e6';

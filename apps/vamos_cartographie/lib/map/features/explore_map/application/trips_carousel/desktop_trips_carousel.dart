@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'trip_card.dart';
 import 'package:trip_application/trip_application.dart';
 
-@Dependencies([mapExploreController])
+@Dependencies([MapExplore])
 class DesktopTripsCarousel extends ConsumerWidget {
   const DesktopTripsCarousel({super.key, required this.tripIds});
 
@@ -15,7 +15,6 @@ class DesktopTripsCarousel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(mapExploreControllerProvider);
     return SafeArea(
       child: SizedBox(
         width: 320,
@@ -34,7 +33,10 @@ class DesktopTripsCarousel extends ConsumerWidget {
               return InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {
-                  controller.selectTrip(tripId);
+                  ref
+                      .read(mapExploreProvider.notifier)
+                      .controller
+                      .selectTrip(tripId);
                   TripViewerDialog.show(
                     context: context,
                     tripId: tripId,

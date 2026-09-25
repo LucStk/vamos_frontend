@@ -5,7 +5,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/features/trip_map/injection/editor_controller_provider.dart';
 
-@Dependencies([mapEditorController])
+@Dependencies([MapEditor])
 class DrawSegment extends ConsumerWidget {
   final VertexId vertexId;
   final TripId tripId;
@@ -13,7 +13,9 @@ class DrawSegment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapTransitions = ref.watch(mapEditorControllerProvider(tripId));
+    final mapTransitions = ref
+        .watch(mapEditorProvider(tripId).notifier)
+        .controller;
     return OutlinedButton.icon(
       onPressed: () => mapTransitions.startSketch(),
 

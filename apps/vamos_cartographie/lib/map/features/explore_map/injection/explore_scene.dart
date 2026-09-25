@@ -4,9 +4,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/camera/injection/injection.dart';
-import 'package:vamos_cartographie/map/injection/injection.dart';
-import 'explore_controller_provider.dart';
+import 'package:vamos_cartographie/map/map.dart';
 import '/domain_features/domain_features.dart';
 part 'explore_scene.g.dart';
 
@@ -22,10 +20,10 @@ MapTripObject mapTripObject(Ref ref, TripId tripId) {
   return MapTripObject(trip.id, tripGeometry);
 }
 
-@Riverpod(dependencies: [MapCameraHolder])
+@Riverpod(dependencies: [mapContext])
 ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   final tripObject = ref.watch(mapTripObjectProvider(tripId));
-  final cameraReader = ref.read(mapCameraHolderProvider);
+  final cameraReader = ref.read(mapContextProvider).camera;
   return ProjectedTrip(
     worldSegments: projectPolyline(
       tripObject.lines,
@@ -53,9 +51,9 @@ List<ProjectedObject> projectedExploreScene(Ref ref) {
   return objects;
 }
 
-@Riverpod(dependencies: [projectedExploreScene])
+@Riverpod(dependencies: [MapExplore, projectedExploreScene])
 MapScene exploreScene(Ref ref) {
-  final id = ref.watch(exploreModeProvider.select((m) => m.tripSelect));
+  final id = ref.watch(mapExploreProvider.select((m) => m.tripSelect));
   final selection = id == null ? null : ref.watch(mapTripObjectProvider(id));
   final projectScene = ref.watch(projectedExploreSceneProvider);
   return MapScene(selection: selection, objects: projectScene);

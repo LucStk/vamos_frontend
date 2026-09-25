@@ -103,9 +103,7 @@ final class ProjectTripProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
-  static final $allTransitiveDependencies1 =
-      MapCameraHolderProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies0 = mapContextProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectTripHash();
@@ -147,7 +145,7 @@ final class ProjectTripProvider
   }
 }
 
-String _$projectTripHash() => r'1702b46f955d9582eae3b0d9b7d4d612cba06042';
+String _$projectTripHash() => r'b09b27999af139ccc704f0c1c8a0c37180b811ac';
 
 final class ProjectTripFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
@@ -155,10 +153,9 @@ final class ProjectTripFamily extends $Family
     : super(
         retry: null,
         name: r'projectTripProvider',
-        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
+        dependencies: <ProviderOrFamily>[mapContextProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           ProjectTripProvider.$allTransitiveDependencies0,
-          ProjectTripProvider.$allTransitiveDependencies1,
         ],
         isAutoDispose: true,
       );
@@ -192,20 +189,17 @@ final class ProjectedExploreSceneProvider
           userLocationProjectionProvider,
           projectTripProvider,
         ],
-        $allTransitiveDependencies: <ProviderOrFamily>{
+        $allTransitiveDependencies: <ProviderOrFamily>[
           ProjectedExploreSceneProvider.$allTransitiveDependencies0,
           ProjectedExploreSceneProvider.$allTransitiveDependencies1,
           ProjectedExploreSceneProvider.$allTransitiveDependencies2,
-          ProjectedExploreSceneProvider.$allTransitiveDependencies3,
-        },
+        ],
       );
 
   static final $allTransitiveDependencies0 = userLocationProjectionProvider;
   static final $allTransitiveDependencies1 =
       UserLocationProjectionProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 =
-      UserLocationProjectionProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 = projectTripProvider;
+  static final $allTransitiveDependencies2 = projectTripProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectedExploreSceneHash();
@@ -246,7 +240,10 @@ final class ExploreSceneProvider
         retry: null,
         name: r'exploreSceneProvider',
         isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[projectedExploreSceneProvider],
+        dependencies: <ProviderOrFamily>[
+          mapExploreProvider,
+          projectedExploreSceneProvider,
+        ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           ExploreSceneProvider.$allTransitiveDependencies0,
           ExploreSceneProvider.$allTransitiveDependencies1,
@@ -256,15 +253,14 @@ final class ExploreSceneProvider
         },
       );
 
-  static final $allTransitiveDependencies0 = projectedExploreSceneProvider;
+  static final $allTransitiveDependencies0 = mapExploreProvider;
   static final $allTransitiveDependencies1 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies1;
+      MapExploreProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 = projectedExploreSceneProvider;
   static final $allTransitiveDependencies3 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies2;
+      ProjectedExploreSceneProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies4 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies3;
+      ProjectedExploreSceneProvider.$allTransitiveDependencies2;
 
   @override
   String debugGetCreateSourceHash() => _$exploreSceneHash();
@@ -288,4 +284,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'a8f5e13c931e2240c1808a8a3016e3642a452e32';
+String _$exploreSceneHash() => r'267fd3aa2d29efe78fc1735192db463f5ab7649f';

@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/features/trip_map/injection/editor_contro
 import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([mapEditorController])
+@Dependencies([MapEditor])
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;
 
@@ -17,7 +17,9 @@ class SketchBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapController = ref.watch(mapEditorControllerProvider(tripId));
+    final mapController = ref
+        .read(mapEditorProvider(tripId).notifier)
+        .controller;
 
     // On écoute aussi l'état courant pour mettre à jour la sélection visuelle !
     // (À adapter selon ton provider exact, ex: final currentType = ref.watch(...))

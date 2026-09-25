@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapCameraHolder])
+@Dependencies([mapContext])
 class TickerHost extends StatefulWidget {
   const TickerHost({super.key, required this.child});
   final Widget child;
@@ -21,7 +21,7 @@ class _TickerHostState extends State<TickerHost> with TickerProviderStateMixin {
       ProviderScope.containerOf(
         context,
         listen: false,
-      ).read(mapCameraHolderProvider.notifier).attachAnimatedController(this);
+      ).read(mapContextProvider).camera.attachAnimatedController(this);
     });
   }
 

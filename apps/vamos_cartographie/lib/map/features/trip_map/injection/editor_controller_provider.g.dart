@@ -9,126 +9,37 @@ part of 'editor_controller_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(mapEditorController)
-final mapEditorControllerProvider = MapEditorControllerFamily._();
+@ProviderFor(MapEditor)
+final mapEditorProvider = MapEditorFamily._();
 
-final class MapEditorControllerProvider
-    extends
-        $FunctionalProvider<
-          MapEditorController,
-          MapEditorController,
-          MapEditorController
-        >
-    with $Provider<MapEditorController> {
-  MapEditorControllerProvider._({
-    required MapEditorControllerFamily super.from,
+final class MapEditorProvider
+    extends $NotifierProvider<MapEditor, MapEditorMode> {
+  MapEditorProvider._({
+    required MapEditorFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'mapEditorControllerProvider',
+         name: r'mapEditorProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapCameraHolderProvider;
-  static final $allTransitiveDependencies1 =
-      MapCameraHolderProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies0 = mapContextProvider;
 
   @override
-  String debugGetCreateSourceHash() => _$mapEditorControllerHash();
+  String debugGetCreateSourceHash() => _$mapEditorHash();
 
   @override
   String toString() {
-    return r'mapEditorControllerProvider'
+    return r'mapEditorProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<MapEditorController> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  MapEditorController create(Ref ref) {
-    final argument = this.argument as TripId;
-    return mapEditorController(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapEditorController value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MapEditorController>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is MapEditorControllerProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$mapEditorControllerHash() =>
-    r'7467c704ef632a76490d2027fb9404fe7764be64';
-
-final class MapEditorControllerFamily extends $Family
-    with $FunctionalFamilyOverride<MapEditorController, TripId> {
-  MapEditorControllerFamily._()
-    : super(
-        retry: null,
-        name: r'mapEditorControllerProvider',
-        dependencies: <ProviderOrFamily>[mapCameraHolderProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapEditorControllerProvider.$allTransitiveDependencies0,
-          MapEditorControllerProvider.$allTransitiveDependencies1,
-        ],
-        isAutoDispose: false,
-      );
-
-  MapEditorControllerProvider call(TripId tripId) =>
-      MapEditorControllerProvider._(argument: tripId, from: this);
-
-  @override
-  String toString() => r'mapEditorControllerProvider';
-}
-
-@ProviderFor(EditorModeNotifier)
-final editorModeProvider = EditorModeNotifierFamily._();
-
-final class EditorModeNotifierProvider
-    extends $NotifierProvider<EditorModeNotifier, MapEditorMode> {
-  EditorModeNotifierProvider._({
-    required EditorModeNotifierFamily super.from,
-    required TripId super.argument,
-  }) : super(
-         retry: null,
-         name: r'editorModeProvider',
-         isAutoDispose: false,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$editorModeNotifierHash();
-
-  @override
-  String toString() {
-    return r'editorModeProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  EditorModeNotifier create() => EditorModeNotifier();
+  MapEditor create() => MapEditor();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(MapEditorMode value) {
@@ -140,7 +51,7 @@ final class EditorModeNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is EditorModeNotifierProvider && other.argument == argument;
+    return other is MapEditorProvider && other.argument == argument;
   }
 
   @override
@@ -149,35 +60,36 @@ final class EditorModeNotifierProvider
   }
 }
 
-String _$editorModeNotifierHash() =>
-    r'56767efb26f9fe940bf794d62ea84e20def9569e';
+String _$mapEditorHash() => r'c9755804f7a1dbb32a90eca216cad6f98c00786e';
 
-final class EditorModeNotifierFamily extends $Family
+final class MapEditorFamily extends $Family
     with
         $ClassFamilyOverride<
-          EditorModeNotifier,
+          MapEditor,
           MapEditorMode,
           MapEditorMode,
           MapEditorMode,
           TripId
         > {
-  EditorModeNotifierFamily._()
+  MapEditorFamily._()
     : super(
         retry: null,
-        name: r'editorModeProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        name: r'mapEditorProvider',
+        dependencies: <ProviderOrFamily>[mapContextProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapEditorProvider.$allTransitiveDependencies0,
+        ],
         isAutoDispose: false,
       );
 
-  EditorModeNotifierProvider call(TripId tripId) =>
-      EditorModeNotifierProvider._(argument: tripId, from: this);
+  MapEditorProvider call(TripId tripId) =>
+      MapEditorProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'editorModeProvider';
+  String toString() => r'mapEditorProvider';
 }
 
-abstract class _$EditorModeNotifier extends $Notifier<MapEditorMode> {
+abstract class _$MapEditor extends $Notifier<MapEditorMode> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
