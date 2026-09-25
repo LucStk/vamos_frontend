@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/camera.dart';
-import 'package:vamos_cartographie/map/screens/explore_map/injection/injection.dart';
+import 'injection.dart';
 
 part "trip_bounds_trigger.g.dart";
 

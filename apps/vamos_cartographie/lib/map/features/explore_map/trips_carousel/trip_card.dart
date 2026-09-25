@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/trip.dart';
 import '/domain_features/trip/injection/trip_store.dart';
-import '/map/screens/explore_map/explore_map.dart';
+import '/map/features/explore_map/explore_map.dart';
 
 class TripCard extends ConsumerWidget {
   const TripCard({super.key, required this.tripId});

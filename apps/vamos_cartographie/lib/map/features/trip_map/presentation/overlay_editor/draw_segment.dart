@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/screens/trip_map/injection/editor_controller_provider.dart';
+import 'package:vamos_cartographie/map/features/trip_map/injection/editor_controller_provider.dart';
 
 @Dependencies([mapEditorController])
 class DrawSegment extends ConsumerWidget {

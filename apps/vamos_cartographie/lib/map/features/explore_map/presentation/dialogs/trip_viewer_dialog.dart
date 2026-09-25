@@ -4,7 +4,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 import 'trip_form_dialog.dart';
 import '/domain_features/domain_features.dart';
-import '/map/screens/explore_map/presentation/trip_section_label.dart';
+import '/map/features/explore_map/presentation/trip_section_label.dart';
 import '/ui_kit/ui_kit.dart';
 
 class TripViewerDialog extends ConsumerWidget {

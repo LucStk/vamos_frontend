@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
-import 'package:vamos_cartographie/map/screens/trip_map/injection/injection.dart';
+import 'package:vamos_cartographie/map/features/trip_map/injection/injection.dart';
 import '/map/overlay_ui/simple_bottom_sheet_shell.dart';
 import 'draw_segment.dart';
 import '/ui_kit/ui_kit.dart';

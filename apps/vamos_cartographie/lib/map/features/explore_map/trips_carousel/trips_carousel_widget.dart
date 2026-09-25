@@ -7,9 +7,9 @@ import 'mobile_trips_carousel.dart';
 
 import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/screens/explore_map/injection/injection.dart';
+import 'package:vamos_cartographie/map/features/explore_map/injection/injection.dart';
 
-import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
+import 'package:vamos_cartographie/map/features/trip_map/trip_map.dart';
 
 @Dependencies([
   mapEditorController,

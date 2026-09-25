@@ -3,7 +3,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
-import 'package:vamos_cartographie/map/screens/trip_map/injection/editor_controller_provider.dart';
+import 'package:vamos_cartographie/map/features/trip_map/injection/editor_controller_provider.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
 
