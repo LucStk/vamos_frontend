@@ -10,16 +10,15 @@ import 'package:vamos_cartographie/map/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'map_gesture_bridge.dart';
-import "map_scope.dart";
 
 @Dependencies([
+  cameraDirector,
   mapController,
   MapCameraHolder,
   MapCameraChanges,
   mapCameraSnapshot,
-  cameraDirector,
 ])
-class BaseMap extends StatelessWidget {
+class BaseMap extends ConsumerStatefulWidget {
   const BaseMap({
     super.key,
     required this.controllerProvider,
@@ -32,42 +31,12 @@ class BaseMap extends StatelessWidget {
   final ProviderListenable<MapScene> sceneProvider;
   final List<ProviderListenable<void>> cameraTriggers;
   final List<Widget> overlayChildren;
-  @override
-  Widget build(BuildContext context) => MapScope(
-    child: _BaseMapContent(
-      controllerProvider: controllerProvider,
-      sceneProvider: sceneProvider,
-      cameraTriggers: cameraTriggers,
-      overlayChildren: overlayChildren,
-    ),
-  );
-}
-
-@Dependencies([
-  cameraDirector,
-  mapController,
-  MapCameraHolder,
-  MapCameraChanges,
-  mapCameraSnapshot,
-])
-class _BaseMapContent extends ConsumerStatefulWidget {
-  const _BaseMapContent({
-    required this.controllerProvider,
-    required this.sceneProvider,
-    required this.overlayChildren,
-    this.cameraTriggers = const [],
-  });
-
-  final ProviderListenable<BaseController> controllerProvider;
-  final ProviderListenable<MapScene> sceneProvider;
-  final List<ProviderListenable<void>> cameraTriggers;
-  final List<Widget> overlayChildren;
 
   @override
-  ConsumerState<_BaseMapContent> createState() => _BaseMapState();
+  ConsumerState<BaseMap> createState() => _BaseMapState();
 }
 
-class _BaseMapState extends ConsumerState<_BaseMapContent>
+class _BaseMapState extends ConsumerState<BaseMap>
     with TickerProviderStateMixin {
   late final AnimatedMapController _animatedMapController;
 

@@ -3,22 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/map/features/explore_map/explore_map.dart';
-import 'package:vamos_cartographie/map/features/trip_map/trip_map.dart';
 import '/domain_features/domain_features.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/camera/camera.dart';
-
 // ── Card ─────────────────────────────────────────────────────────────────────
-@Dependencies([
-  mapEditorController,
-  tripEditorScene,
-  cameraDirector,
-  mapController,
-  MapCameraHolder,
-  MapCameraChanges,
-  mapCameraSnapshot,
-])
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
 
@@ -28,15 +15,15 @@ class TripCardView extends ConsumerWidget {
     TripViewerDialog.show(
       context: context,
       tripId: tripId,
-      onExplore: () => _explore(context),
+      onExplore: () => {},
     );
   }
 
-  void _explore(BuildContext context) async {
-    await Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => TripMapScreen(tripId: tripId)));
-  }
+  // void _explore(BuildContext context) async {
+  //   await Navigator.of(
+  //     context,
+  //   ).push(MaterialPageRoute(builder: (_) => TripMapScreen(tripId: tripId)));
+  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -7,29 +7,15 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'trip_card.dart';
 import 'package:trip_application/trip_application.dart';
 
-@Dependencies([
-  mapEditorController,
-  mapExploreController,
-  tripEditorScene,
-  cameraDirector,
-  mapController,
-  MapCameraHolder,
-  MapCameraChanges,
-  mapCameraSnapshot,
-])
+@Dependencies([mapExploreController])
 class DesktopTripsCarousel extends ConsumerWidget {
   const DesktopTripsCarousel({super.key, required this.tripIds});
 
   final List<TripId> tripIds;
 
-  void _explore(BuildContext context, TripId tripId) async {
-    await Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => TripMapScreen(tripId: tripId)));
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.read(mapExploreControllerProvider);
     return SafeArea(
       child: SizedBox(
         width: 320,
@@ -48,11 +34,11 @@ class DesktopTripsCarousel extends ConsumerWidget {
               return InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {
-                  ref.read(mapExploreControllerProvider).selectTrip(tripId);
+                  controller.selectTrip(tripId);
                   TripViewerDialog.show(
                     context: context,
                     tripId: tripId,
-                    onExplore: () => _explore(context, tripId),
+                    onExplore: () => {},
                   );
                 },
                 child: TripCard(tripId: tripId),

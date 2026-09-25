@@ -7,8 +7,6 @@ import '/domain_features/domain_features.dart';
 import 'trips_carousel/trips_carousel_widget.dart';
 
 @Dependencies([
-  mapEditorController,
-  tripEditorScene,
   mapExploreController,
   exploreScene,
   userLocationTrigger,

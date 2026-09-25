@@ -83,7 +83,7 @@ final class ProjectedTripEditorSceneProvider
 }
 
 String _$projectedTripEditorSceneHash() =>
-    r'b2d139615926f3342348f03471ccf6e17c31539d';
+    r'645e87374575857320327765515a1e2fb9799758';
 
 final class ProjectedTripEditorSceneFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedObject>, TripId> {
