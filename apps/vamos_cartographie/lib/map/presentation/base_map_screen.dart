@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:vamos_cartographie/map/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/overlay_ui/right_control_panel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
+import 'map_gesture_bridge.dart';
 import "map_scope.dart";
 
 @Dependencies([

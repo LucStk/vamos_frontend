@@ -2,13 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/camera/camera.dart';
-import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
+import 'package:vamos_cartographie/map/map.dart';
 import '/domain_features/domain_features.dart';
-import 'injection/injection.dart';
 import 'trips_carousel/trips_carousel_widget.dart';
-
-import 'package:vamos_cartographie/map/screens/trip_map/trip_map.dart';
 
 @Dependencies([
   mapEditorController,

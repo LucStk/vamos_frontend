@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
+import "map_canvas_view.dart";
 
 /// Expose l'état "pan autorisé ou non" aux descendants sans obliger
 /// chaque widget intermédiaire à le recevoir en paramètre de constructeur.

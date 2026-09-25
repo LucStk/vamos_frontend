@@ -4,11 +4,8 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
-import 'package:vamos_cartographie/map/camera/camera.dart';
-import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
-import 'package:vamos_cartographie/map/screens/trip_map/presentation/overlay_editor/overlay_editor.dart';
+import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'injection/injection.dart';
 
 @Dependencies([
   tripEditorScene,

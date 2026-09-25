@@ -6,8 +6,8 @@ import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:flutter_riverpod/misc.dart';
-import 'package:vamos_cartographie/map/screens/base_map/base_map.dart';
-import 'package:vamos_cartographie/map/screens/base_map/test_point_painter.dart';
+import "camera_transform_widget.dart";
+import "test_point_painter.dart";
 
 @Dependencies([mapCameraSnapshot, MapCameraChanges])
 class MapScenePaint extends ConsumerWidget {
@@ -17,7 +17,6 @@ class MapScenePaint extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scene = ref.watch(sceneProvider);
-    print("map Scene paint $scene");
     final commands = [
       for (final object in scene.objects.reversed)
         object.describe(
