@@ -34,7 +34,11 @@ class TripCardView extends ConsumerWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () => TripRoute(tripId: tripId.value).go(context),
+        onTap: () {
+          print("yo go $tripId");
+
+          TripRoute(tripId: tripId.value).push(context);
+        },
 
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 14, 4, 14),

@@ -2,11 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import 'trip_form_dialog.dart';
+import 'package:vamos_cartographie/routing/routes/trip_route.dart';
 import '/domain_features/domain_features.dart';
-import '/map/features/explore_map/presentation/trip_section_label.dart';
+
+import 'package:riverpod_annotation/experimental/scope.dart';
+import '/map/map.dart';
 import '/ui_kit/ui_kit.dart';
 
+@Dependencies([
+  mapGestureHandler,
+  MapEditor,
+  tripEditorScene,
+  cameraDirector,
+  mapCamera,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class TripViewerDialog extends ConsumerWidget {
   final Id<Trip> tripId;
   final VoidCallback onExplore;
@@ -121,7 +132,9 @@ class TripViewerDialog extends ConsumerWidget {
         ExploreButton(
           onPressed: () {
             Navigator.of(context).pop();
-            onExplore();
+            print("yo go $tripId");
+
+            TripRoute(tripId: tripId.value).push(context);
           },
         ),
         const SizedBox(width: 8),

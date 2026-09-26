@@ -4,9 +4,8 @@ import 'package:trip_application/trip/domain/trip.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip/trip.dart';
 import "/map/map.dart";
-part 'trip_route.g.dart';
+import "/routing/app_router.dart";
 
-@TypedGoRoute<TripRoute>(path: '/trip/:tripId')
 @Dependencies([
   mapGestureHandler,
   MapEditor,
@@ -23,6 +22,7 @@ class TripRoute extends GoRouteData with $TripRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
+    print("go_toTripMap");
     return TripMapScreen(tripId: TripId(tripId));
   }
 }

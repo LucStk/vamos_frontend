@@ -16,10 +16,6 @@ part 'app_router.g.dart';
   mapGestureHandler,
   MapEditor,
   tripEditorScene,
-  cameraDirector,
-  mapCamera,
-  MapCameraChanges,
-  mapCameraSnapshot,
   exploreScene,
   MapExplore,
   userLocationTrigger,
@@ -40,9 +36,5 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
 
 final appRouter = GoRouter(
   initialLocation: '/explore',
-  routes: [
-    ...$appRoutes, // vient de app_router.g.dart : ExploreRoute (+ TripRoute imbriqué)
-    ...auth
-        .$appRoutes, // vient de auth_routes.g.dart : LoginRoute, ProfileRoute
-  ],
+  routes: [...$appRoutes, ...auth.$appRoutes],
 );
