@@ -7,8 +7,9 @@ import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
 @Dependencies([
+  MapEditor,
+  tripEditorScene,
   mapGestureHandler,
-  exploreScene,
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
@@ -28,7 +29,8 @@ class ExploreMapScreen extends ConsumerWidget {
 }
 
 @Dependencies([
-  exploreScene,
+  MapEditor,
+  tripEditorScene,
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
@@ -43,22 +45,31 @@ class _ExploreSceneResolver extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ✅ ici, mapCameraProvider est déjà override dans ce sous-arbre,
-    // donc projectTripProvider -> exploreSceneProvider se résolvent correctement
-    final scene = ref.watch(exploreSceneProvider);
+    return MapCameraScope(
+      child: Consumer(
+        builder: (context, ref, _) {
+          // ✅ ici, mapCameraProvider est déjà override dans ce sous-arbre,
+          // donc projectTripProvider -> exploreSceneProvider se résolvent correctement
 
-    final controller = ref.watch(mapExploreProvider.notifier);
-    return ProviderScope(
-      overrides: [
-        mapSceneProvider.overrideWithValue(scene),
-        mapControllerProvider.overrideWithValue(controller.controller),
-      ],
-      child: const _ExploreMapView(),
+          final controller = ref.watch(mapExploreProvider.notifier);
+          return ProviderScope(
+            overrides: [
+              mapSceneProvider.overrideWith(
+                (ref) => ref.watch(exploreSceneProvider),
+              ),
+              mapControllerProvider.overrideWithValue(controller.controller),
+            ],
+            child: const _ExploreMapView(),
+          );
+        },
+      ),
     );
   }
 }
 
 @Dependencies([
+  MapEditor,
+  tripEditorScene,
   mapScene,
   mapController,
   mapGestureHandler,

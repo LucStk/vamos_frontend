@@ -44,7 +44,10 @@ class _MapCameraScopeState extends State<MapCameraScope>
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      overrides: [mapCameraProvider.overrideWithValue(_camera)],
+      overrides: [
+        mapCameraProvider.overrideWithValue(_camera),
+        cameraOrNullProvider.overrideWith(CameraOrNull.new),
+      ],
       child: widget.child,
     );
   }

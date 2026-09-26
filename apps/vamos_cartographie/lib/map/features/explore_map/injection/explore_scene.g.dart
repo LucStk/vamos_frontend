@@ -189,17 +189,20 @@ final class ProjectedExploreSceneProvider
           projectTripProvider,
           userLocationProjectionProvider,
         ],
-        $allTransitiveDependencies: <ProviderOrFamily>[
+        $allTransitiveDependencies: <ProviderOrFamily>{
           ProjectedExploreSceneProvider.$allTransitiveDependencies0,
           ProjectedExploreSceneProvider.$allTransitiveDependencies1,
           ProjectedExploreSceneProvider.$allTransitiveDependencies2,
-        ],
+          ProjectedExploreSceneProvider.$allTransitiveDependencies3,
+        },
       );
 
   static final $allTransitiveDependencies0 = projectTripProvider;
   static final $allTransitiveDependencies1 =
       ProjectTripProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 = userLocationProjectionProvider;
+  static final $allTransitiveDependencies3 =
+      UserLocationProjectionProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$projectedExploreSceneHash();
@@ -250,6 +253,7 @@ final class ExploreSceneProvider
           ExploreSceneProvider.$allTransitiveDependencies2,
           ExploreSceneProvider.$allTransitiveDependencies3,
           ExploreSceneProvider.$allTransitiveDependencies4,
+          ExploreSceneProvider.$allTransitiveDependencies5,
         },
       );
 
@@ -261,6 +265,8 @@ final class ExploreSceneProvider
       ProjectedExploreSceneProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies4 =
       ProjectedExploreSceneProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies5 =
+      ProjectedExploreSceneProvider.$allTransitiveDependencies3;
 
   @override
   String debugGetCreateSourceHash() => _$exploreSceneHash();

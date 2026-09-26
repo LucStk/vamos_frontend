@@ -8,7 +8,6 @@ import 'package:vamos_cartographie/map/map.dart';
 
 @Dependencies([
   MapEditor,
-  tripEditorScene,
   mapGestureHandler,
   // userLocationTrigger,
   // tripBoundsTrigger,
@@ -27,38 +26,20 @@ class TripMapScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MapCameraScope(
-      child: _TripEditorSceneResolver(tripId: tripId, isOwner: isOwner),
-    );
-  }
-}
-
-@Dependencies([
-  MapEditor,
-  tripEditorScene,
-  mapGestureHandler,
-  cameraDirector,
-  mapCamera,
-  MapCameraChanges,
-  mapCameraSnapshot,
-])
-class _TripEditorSceneResolver extends ConsumerWidget {
-  final Id<Trip> tripId;
-  final bool isOwner;
-
-  const _TripEditorSceneResolver({required this.tripId, required this.isOwner});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // ✅ ici mapCameraProvider est déjà override dans ce sous-arbre
-    final scene = ref.watch(tripEditorSceneProvider(tripId));
-    final controller = ref.watch(mapEditorProvider(tripId).notifier);
-    return ProviderScope(
-      overrides: [
-        mapSceneProvider.overrideWithValue(scene),
-
-        mapControllerProvider.overrideWithValue(controller.controller),
-      ],
-      child: _TripMapView(tripId: tripId, isOwner: isOwner),
+      child: Consumer(
+        builder: (context, ref, _) {
+          final controller = ref.watch(mapEditorProvider(tripId).notifier);
+          return ProviderScope(
+            overrides: [
+              mapSceneProvider.overrideWith(
+                (ref) => ref.watch(tripEditorSceneProvider(tripId)),
+              ),
+              mapControllerProvider.overrideWithValue(controller.controller),
+            ],
+            child: _TripMapView(tripId: tripId, isOwner: isOwner),
+          );
+        },
+      ),
     );
   }
 }

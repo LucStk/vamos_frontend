@@ -37,8 +37,10 @@ final class ProjectedTripEditorSceneProvider
   static final $allTransitiveDependencies2 =
       SketchElementProjectionProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies3 = userLocationProjectionProvider;
-  static final $allTransitiveDependencies4 = allVertexProjectionProvider;
-  static final $allTransitiveDependencies5 = allSegmentProjectionProvider;
+  static final $allTransitiveDependencies4 =
+      UserLocationProjectionProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies5 = allVertexProjectionProvider;
+  static final $allTransitiveDependencies6 = allSegmentProjectionProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectedTripEditorSceneHash();
@@ -83,7 +85,7 @@ final class ProjectedTripEditorSceneProvider
 }
 
 String _$projectedTripEditorSceneHash() =>
-    r'0a210671a2727d1af40ab18f3ebc1ce4e63d89ec';
+    r'c0bb7891786a2b61b74d5c5cc14d666f4fc27f2f';
 
 final class ProjectedTripEditorSceneFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedObject>, TripId> {
@@ -104,6 +106,7 @@ final class ProjectedTripEditorSceneFamily extends $Family
           ProjectedTripEditorSceneProvider.$allTransitiveDependencies3,
           ProjectedTripEditorSceneProvider.$allTransitiveDependencies4,
           ProjectedTripEditorSceneProvider.$allTransitiveDependencies5,
+          ProjectedTripEditorSceneProvider.$allTransitiveDependencies6,
         },
         isAutoDispose: true,
       );
@@ -145,6 +148,8 @@ final class TripEditorSceneProvider
       ProjectedTripEditorSceneProvider.$allTransitiveDependencies4;
   static final $allTransitiveDependencies6 =
       ProjectedTripEditorSceneProvider.$allTransitiveDependencies5;
+  static final $allTransitiveDependencies7 =
+      ProjectedTripEditorSceneProvider.$allTransitiveDependencies6;
 
   @override
   String debugGetCreateSourceHash() => _$tripEditorSceneHash();
@@ -206,6 +211,7 @@ final class TripEditorSceneFamily extends $Family
           TripEditorSceneProvider.$allTransitiveDependencies4,
           TripEditorSceneProvider.$allTransitiveDependencies5,
           TripEditorSceneProvider.$allTransitiveDependencies6,
+          TripEditorSceneProvider.$allTransitiveDependencies7,
         },
         isAutoDispose: true,
       );

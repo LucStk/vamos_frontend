@@ -132,8 +132,6 @@ class TripViewerDialog extends ConsumerWidget {
         ExploreButton(
           onPressed: () {
             Navigator.of(context).pop();
-            print("yo go $tripId");
-
             TripRoute(tripId: tripId.value).push(context);
           },
         ),

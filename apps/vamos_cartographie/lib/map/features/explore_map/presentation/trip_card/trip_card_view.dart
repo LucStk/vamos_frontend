@@ -35,8 +35,6 @@ class TripCardView extends ConsumerWidget {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
-          print("yo go $tripId");
-
           TripRoute(tripId: tripId.value).push(context);
         },
 

@@ -22,7 +22,6 @@ class TripRoute extends GoRouteData with $TripRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("go_toTripMap");
     return TripMapScreen(tripId: TripId(tripId));
   }
 }

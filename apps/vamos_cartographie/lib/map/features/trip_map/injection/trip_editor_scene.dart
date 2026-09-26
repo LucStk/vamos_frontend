@@ -25,7 +25,6 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
 
   final objects = [...userLocation, ...sketchElements, ...vertex, ...segments]
     ..sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
-  print("object $objects");
   return objects;
 }
 

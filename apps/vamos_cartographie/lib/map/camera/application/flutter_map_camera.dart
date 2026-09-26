@@ -24,7 +24,9 @@ class FlutterMapCamera implements MapCameraController {
 
   final MapController mapController;
   AnimatedMapController? _animatedController;
+  final ValueNotifier<bool> ready = ValueNotifier(false);
 
+  void markReady() => ready.value = true;
   void attachAnimatedController(TickerProvider ticker) {
     _animatedController = AnimatedMapController(
       vsync: ticker,

@@ -3,22 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 
-/// Barre supérieure de la MapPage.
-/// Contient un bouton retour en capsule et un titre centré et ajusté.
+import 'package:go_router/go_router.dart';
+
+/// Contient un bouton retour en capsule et un titre centré.
 class MapTopBar extends ConsumerWidget {
   final Id<Trip> tripId;
-  const MapTopBar({super.key, required this.tripId});
 
-  void _onBack(BuildContext context) {
-    Navigator.pop(context);
-  }
+  const MapTopBar({super.key, required this.tripId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final title = "test title"; //mapState.currentTrip.title;
+    final title = 'test title';
 
-    // Style commun pour les ombres des capsules flottantes
     final boxShadow = [
       BoxShadow(
         color: Colors.black.withOpacity(0.15),
@@ -33,18 +30,17 @@ class MapTopBar extends ConsumerWidget {
       right: 0,
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
           child: SizedBox(
-            height: 48, // Hauteur fixe pour aligner le bouton et le titre
+            height: 48,
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // ── BOUTON RETOUR (Capsule blanche à gauche) ──
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white, // Capsule blanche forcée
+                      color: Colors.white,
                       shape: BoxShape.circle,
                       boxShadow: boxShadow,
                     ),
@@ -54,27 +50,20 @@ class MapTopBar extends ConsumerWidget {
                         color: theme.colorScheme.onSurface,
                       ),
                       tooltip: 'Retour aux voyages',
-                      onPressed: () => _onBack(context),
+                      onPressed: () => context.pop(),
                     ),
                   ),
                 ),
 
-                // ── TITRE (Conteneur ajusté au centre) ──
-                // En utilisant un Container sans contrainte de largeur dans un Stack centré,
-                // il va s'ajuster au pixel près à la taille du texte.
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 9,
                   ),
-                  constraints: const BoxConstraints(
-                    maxWidth: 1020,
-                  ), // Sécurité pour les longs titres
+                  constraints: const BoxConstraints(maxWidth: 1020),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.95),
-                    borderRadius: BorderRadius.circular(
-                      24,
-                    ), // Effet pilule / capsule
+                    borderRadius: BorderRadius.circular(24),
                     boxShadow: boxShadow,
                   ),
                   child: Text(

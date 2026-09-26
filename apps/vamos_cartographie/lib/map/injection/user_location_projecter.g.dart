@@ -27,13 +27,18 @@ final class UserLocationProjectionProvider
         retry: null,
         name: r'userLocationProjectionProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        dependencies: <ProviderOrFamily>[
+          mapCameraProvider,
+          cameraOrNullProvider,
+        ],
         $allTransitiveDependencies: <ProviderOrFamily>[
           UserLocationProjectionProvider.$allTransitiveDependencies0,
+          UserLocationProjectionProvider.$allTransitiveDependencies1,
         ],
       );
 
   static final $allTransitiveDependencies0 = mapCameraProvider;
+  static final $allTransitiveDependencies1 = cameraOrNullProvider;
 
   @override
   String debugGetCreateSourceHash() => _$userLocationProjectionHash();
@@ -61,4 +66,4 @@ final class UserLocationProjectionProvider
 }
 
 String _$userLocationProjectionHash() =>
-    r'1c455f83e3689b3f20eb65b7de9f6a2f6ec23f0e';
+    r'd5ff9feba5c0e867baef9376b1e29b555d1f1cf7';

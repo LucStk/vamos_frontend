@@ -59,7 +59,6 @@ final class CameraDirector {
 
   void _run(CameraTarget target) {
     final camera = _camera();
-    print("camera run");
     switch (target) {
       case FocusPoint(:final point, :final zoom, :final minZoom):
         camera.zoomTo(point, deltaZoom: max(zoom ?? camera.zoomScale, minZoom));
