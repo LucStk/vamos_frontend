@@ -1,25 +1,29 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
-@Dependencies([mapGestureHandler])
+@Dependencies([
+  mapGestureHandler,
+  exploreScene,
+  MapExplore,
+  userLocationTrigger,
+  tripBoundsTrigger,
+  mapGestureHandler,
+  cameraDirector,
+  mapCamera,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class ExploreMapScreen extends ConsumerWidget {
   const ExploreMapScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ProviderScope(
-      overrides: [
-        mapCameraProvider.overrideWithValue(FlutterMapCamera(MapController())),
-      ],
-      // ⬇️ exploreSceneProvider est lu plus bas, DANS ce scope
-      child: const _ExploreSceneResolver(),
-    );
+    return const MapCameraScope(child: _ExploreSceneResolver());
   }
 }
 

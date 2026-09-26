@@ -1,13 +1,23 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-@Dependencies([mapGestureHandler])
+@Dependencies([
+  MapEditor,
+  tripEditorScene,
+  mapGestureHandler,
+  // userLocationTrigger,
+  // tripBoundsTrigger,
+  mapGestureHandler,
+  cameraDirector,
+  mapCamera,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class TripMapScreen extends ConsumerWidget {
   final Id<Trip> tripId;
   final bool isOwner;
@@ -16,11 +26,7 @@ class TripMapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ProviderScope(
-      overrides: [
-        mapCameraProvider.overrideWithValue(FlutterMapCamera(MapController())),
-      ],
-      // ⬇️ tripEditorSceneProvider sera lu PLUS BAS, dans ce scope
+    return MapCameraScope(
       child: _TripEditorSceneResolver(tripId: tripId, isOwner: isOwner),
     );
   }

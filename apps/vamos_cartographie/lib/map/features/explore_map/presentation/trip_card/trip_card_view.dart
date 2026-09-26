@@ -9,7 +9,15 @@ import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
-@Dependencies([mapGestureHandler])
+@Dependencies([
+  mapGestureHandler,
+  MapEditor,
+  tripEditorScene,
+  cameraDirector,
+  mapCamera,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
 

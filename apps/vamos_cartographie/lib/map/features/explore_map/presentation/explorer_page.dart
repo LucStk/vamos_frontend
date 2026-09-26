@@ -11,6 +11,9 @@ import 'package:riverpod_annotation/experimental/scope.dart';
   cameraDirector,
   tripEditorScene,
   MapEditor,
+  mapCamera,
+  MapCameraChanges,
+  mapCameraSnapshot,
 ])
 class ExplorerPage extends ConsumerStatefulWidget {
   const ExplorerPage({super.key});
