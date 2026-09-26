@@ -5,11 +5,11 @@ import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/routing/routes/trip_route.dart';
+import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
-@Dependencies([mapGestureHandler, MapEditor])
+@Dependencies([mapGestureHandler])
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
 

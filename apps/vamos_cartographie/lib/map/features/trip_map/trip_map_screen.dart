@@ -7,7 +7,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-@Dependencies([MapEditor, mapGestureHandler])
+@Dependencies([mapGestureHandler])
 class TripMapScreen extends ConsumerWidget {
   final Id<Trip> tripId;
   final bool isOwner;
@@ -16,12 +16,9 @@ class TripMapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(mapEditorProvider(tripId).notifier);
-
     return ProviderScope(
       overrides: [
         mapCameraProvider.overrideWithValue(FlutterMapCamera(MapController())),
-        mapControllerProvider.overrideWithValue(controller.controller),
       ],
       // ⬇️ tripEditorSceneProvider sera lu PLUS BAS, dans ce scope
       child: _TripEditorSceneResolver(tripId: tripId, isOwner: isOwner),
@@ -32,7 +29,6 @@ class TripMapScreen extends ConsumerWidget {
 @Dependencies([
   MapEditor,
   tripEditorScene,
-  mapController,
   mapGestureHandler,
   cameraDirector,
   mapCamera,
@@ -49,9 +45,13 @@ class _TripEditorSceneResolver extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // ✅ ici mapCameraProvider est déjà override dans ce sous-arbre
     final scene = ref.watch(tripEditorSceneProvider(tripId));
-
+    final controller = ref.watch(mapEditorProvider(tripId).notifier);
     return ProviderScope(
-      overrides: [mapSceneProvider.overrideWithValue(scene)],
+      overrides: [
+        mapSceneProvider.overrideWithValue(scene),
+
+        mapControllerProvider.overrideWithValue(controller.controller),
+      ],
       child: _TripMapView(tripId: tripId, isOwner: isOwner),
     );
   }

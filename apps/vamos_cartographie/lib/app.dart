@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/app_services/notification/presentation/notification_view.dart';
-import '/map/map.dart';
+import "routing/routing.dart";
 
 class CartographieApp extends StatelessWidget {
   const CartographieApp({super.key});

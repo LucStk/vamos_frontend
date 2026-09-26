@@ -4,21 +4,18 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
-import 'package:vamos_cartographie/map/routing/routes/auth_routes.dart';
+import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
-@Dependencies([MapExplore, mapGestureHandler])
+@Dependencies([mapGestureHandler])
 class ExploreMapScreen extends ConsumerWidget {
   const ExploreMapScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(mapExploreProvider.notifier);
-
     return ProviderScope(
       overrides: [
         mapCameraProvider.overrideWithValue(FlutterMapCamera(MapController())),
-        mapControllerProvider.overrideWithValue(controller.controller),
       ],
       // ⬇️ exploreSceneProvider est lu plus bas, DANS ce scope
       child: const _ExploreSceneResolver(),
@@ -31,7 +28,6 @@ class ExploreMapScreen extends ConsumerWidget {
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
-  mapController,
   mapGestureHandler,
   cameraDirector,
   mapCamera,
@@ -47,8 +43,12 @@ class _ExploreSceneResolver extends ConsumerWidget {
     // donc projectTripProvider -> exploreSceneProvider se résolvent correctement
     final scene = ref.watch(exploreSceneProvider);
 
+    final controller = ref.watch(mapExploreProvider.notifier);
     return ProviderScope(
-      overrides: [mapSceneProvider.overrideWithValue(scene)],
+      overrides: [
+        mapSceneProvider.overrideWithValue(scene),
+        mapControllerProvider.overrideWithValue(controller.controller),
+      ],
       child: const _ExploreMapView(),
     );
   }
@@ -94,10 +94,10 @@ class _ExploreMapView extends ConsumerWidget {
               clipBehavior: Clip.antiAlias,
               child: ProfileButton(
                 onLogin: () {
-                  const LoginRoute().go(context);
+                  const LoginRoute().push(context);
                 },
                 onProfile: () {
-                  const ProfileRoute().go(context);
+                  const ProfileRoute().push(context);
                 },
               ),
             ),

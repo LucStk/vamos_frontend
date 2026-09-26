@@ -10,7 +10,7 @@ part of 'map_gesture_handler_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(mapGestureHandler)
-final mapGestureHandlerProvider = MapGestureHandlerFamily._();
+final mapGestureHandlerProvider = MapGestureHandlerProvider._();
 
 final class MapGestureHandlerProvider
     extends
@@ -20,29 +20,31 @@ final class MapGestureHandlerProvider
           MapGestureHandler
         >
     with $Provider<MapGestureHandler> {
-  MapGestureHandlerProvider._({
-    required MapGestureHandlerFamily super.from,
-    required BaseController<BaseMode<BaseMode<dynamic>>> super.argument,
-  }) : super(
-         retry: null,
-         name: r'mapGestureHandlerProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
+  MapGestureHandlerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mapGestureHandlerProvider',
+        isAutoDispose: false,
+        dependencies: <ProviderOrFamily>[
+          mapControllerProvider,
+          mapSceneProvider,
+          mapCameraProvider,
+        ],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapGestureHandlerProvider.$allTransitiveDependencies0,
+          MapGestureHandlerProvider.$allTransitiveDependencies1,
+          MapGestureHandlerProvider.$allTransitiveDependencies2,
+        ],
+      );
 
-  static final $allTransitiveDependencies0 = mapSceneProvider;
-  static final $allTransitiveDependencies1 = mapCameraProvider;
+  static final $allTransitiveDependencies0 = mapControllerProvider;
+  static final $allTransitiveDependencies1 = mapSceneProvider;
+  static final $allTransitiveDependencies2 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerHash();
-
-  @override
-  String toString() {
-    return r'mapGestureHandlerProvider'
-        ''
-        '($argument)';
-  }
 
   @$internal
   @override
@@ -52,9 +54,7 @@ final class MapGestureHandlerProvider
 
   @override
   MapGestureHandler create(Ref ref) {
-    final argument =
-        this.argument as BaseController<BaseMode<BaseMode<dynamic>>>;
-    return mapGestureHandler(ref, argument);
+    return mapGestureHandler(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -64,42 +64,6 @@ final class MapGestureHandlerProvider
       providerOverride: $SyncValueProvider<MapGestureHandler>(value),
     );
   }
-
-  @override
-  bool operator ==(Object other) {
-    return other is MapGestureHandlerProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
 }
 
-String _$mapGestureHandlerHash() => r'f098678c35495e046d4a5efa2e9265aacda7ffe7';
-
-final class MapGestureHandlerFamily extends $Family
-    with
-        $FunctionalFamilyOverride<
-          MapGestureHandler,
-          BaseController<BaseMode<BaseMode<dynamic>>>
-        > {
-  MapGestureHandlerFamily._()
-    : super(
-        retry: null,
-        name: r'mapGestureHandlerProvider',
-        dependencies: <ProviderOrFamily>[mapSceneProvider, mapCameraProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapGestureHandlerProvider.$allTransitiveDependencies0,
-          MapGestureHandlerProvider.$allTransitiveDependencies1,
-        ],
-        isAutoDispose: true,
-      );
-
-  MapGestureHandlerProvider call(
-    BaseController<BaseMode<BaseMode<dynamic>>> controller,
-  ) => MapGestureHandlerProvider._(argument: controller, from: this);
-
-  @override
-  String toString() => r'mapGestureHandlerProvider';
-}
+String _$mapGestureHandlerHash() => r'2b64d4bd4f49c2ccde4152f2424aaefc97041f12';

@@ -55,8 +55,7 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
   @override
   Widget build(BuildContext context) {
     final mapCamera = ref.read(mapCameraProvider);
-    final controller = ref.watch(mapControllerProvider);
-    final gestureHandler = ref.read(mapGestureHandlerProvider(controller));
+    final gestureHandler = ref.read(mapGestureHandlerProvider);
     void resolve(PointerEventType type, PointerEvent event) {
       final offset = mapCamera.screenToWorld(ScreenOffset(event.localPosition));
 

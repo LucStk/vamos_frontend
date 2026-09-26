@@ -3,9 +3,8 @@ import 'package:vamos_cartographie/map/map.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-import 'package:vamos_cartographie/map/routing/routes/trip_route.dart'
-    hide $appRoutes;
-import 'package:vamos_cartographie/map/routing/routes/auth_routes.dart' as auth;
+import 'routes/routes.dart';
+import 'routes/auth_routes.dart' as auth;
 
 part 'app_router.g.dart';
 
@@ -13,7 +12,7 @@ part 'app_router.g.dart';
   path: '/explore',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
-@Dependencies([mapGestureHandler, MapExplore, MapEditor])
+@Dependencies([mapGestureHandler])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 

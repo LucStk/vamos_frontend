@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthLayout extends StatelessWidget {
   final IconData icon;
@@ -45,7 +46,7 @@ class AuthLayout extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           tooltip: 'Retour à la carte',
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pop();
           },
         ),
         title: const Text('Connexion'),
