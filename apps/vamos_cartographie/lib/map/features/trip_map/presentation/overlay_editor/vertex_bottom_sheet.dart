@@ -10,7 +10,7 @@ import 'draw_segment.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import '/ui_kit/ui_kit.dart';
 
-@Dependencies([])
+@Dependencies([MapEditor])
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;

@@ -1,17 +1,19 @@
-import "package:go_router/go_router.dart";
-import "package:vamos_cartographie/map/map.dart";
-
+import 'package:go_router/go_router.dart';
+import 'package:vamos_cartographie/map/map.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/routing/routes/routes.dart';
-
 import 'package:riverpod_annotation/experimental/scope.dart';
+
+import 'package:vamos_cartographie/map/routing/routes/trip_route.dart'
+    hide $appRoutes;
+import 'package:vamos_cartographie/map/routing/routes/auth_routes.dart' as auth;
+
 part 'app_router.g.dart';
 
 @TypedGoRoute<ExploreRoute>(
   path: '/explore',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
-@Dependencies([tripEditorScene, exploreScene, MapExplore])
+@Dependencies([mapGestureHandler, MapExplore, MapEditor])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 
@@ -21,4 +23,11 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
   }
 }
 
-final appRouter = GoRouter(routes: $appRoutes);
+final appRouter = GoRouter(
+  initialLocation: '/explore',
+  routes: [
+    ...$appRoutes, // vient de app_router.g.dart : ExploreRoute (+ TripRoute imbriqué)
+    ...auth
+        .$appRoutes, // vient de auth_routes.g.dart : LoginRoute, ProfileRoute
+  ],
+);

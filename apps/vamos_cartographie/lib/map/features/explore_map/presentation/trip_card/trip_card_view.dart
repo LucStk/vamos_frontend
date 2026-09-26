@@ -2,28 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/map/features/explore_map/explore_map.dart';
+import 'package:vamos_cartographie/map/map.dart';
+
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/routing/routes/trip_route.dart';
 import '/domain_features/domain_features.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
+@Dependencies([mapGestureHandler, MapEditor])
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
 
   const TripCardView({super.key, required this.tripId});
-
-  void _openTrip(BuildContext context) {
-    TripViewerDialog.show(
-      context: context,
-      tripId: tripId,
-      onExplore: () => {},
-    );
-  }
-
-  // void _explore(BuildContext context) async {
-  //   await Navigator.of(
-  //     context,
-  //   ).push(MaterialPageRoute(builder: (_) => TripMapScreen(tripId: tripId)));
-  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +26,7 @@ class TripCardView extends ConsumerWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () => _openTrip(context),
+        onTap: () => TripRoute(tripId: tripId.value).go(context),
 
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 14, 4, 14),

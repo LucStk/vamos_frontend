@@ -31,6 +31,9 @@ final class MapGestureHandlerProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapSceneProvider;
+  static final $allTransitiveDependencies1 = mapCameraProvider;
+
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerHash();
 
@@ -73,7 +76,7 @@ final class MapGestureHandlerProvider
   }
 }
 
-String _$mapGestureHandlerHash() => r'8928bc2b93233bae439cba443f922d7a637d8569';
+String _$mapGestureHandlerHash() => r'f098678c35495e046d4a5efa2e9265aacda7ffe7';
 
 final class MapGestureHandlerFamily extends $Family
     with
@@ -85,8 +88,11 @@ final class MapGestureHandlerFamily extends $Family
     : super(
         retry: null,
         name: r'mapGestureHandlerProvider',
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: <ProviderOrFamily>[mapSceneProvider, mapCameraProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapGestureHandlerProvider.$allTransitiveDependencies0,
+          MapGestureHandlerProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: true,
       );
 

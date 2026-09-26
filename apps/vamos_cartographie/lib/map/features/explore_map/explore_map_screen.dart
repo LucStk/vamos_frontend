@@ -4,23 +4,51 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
+import 'package:vamos_cartographie/map/routing/routes/auth_routes.dart';
 import '/domain_features/domain_features.dart';
 
-@Dependencies([MapExplore, exploreScene])
+@Dependencies([MapExplore, mapGestureHandler])
 class ExploreMapScreen extends ConsumerWidget {
   const ExploreMapScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scene = ref.watch(exploreSceneProvider);
     final controller = ref.watch(mapExploreProvider.notifier);
 
     return ProviderScope(
       overrides: [
         mapCameraProvider.overrideWithValue(FlutterMapCamera(MapController())),
-        mapSceneProvider.overrideWithValue(scene),
         mapControllerProvider.overrideWithValue(controller.controller),
       ],
+      // ⬇️ exploreSceneProvider est lu plus bas, DANS ce scope
+      child: const _ExploreSceneResolver(),
+    );
+  }
+}
+
+@Dependencies([
+  exploreScene,
+  MapExplore,
+  userLocationTrigger,
+  tripBoundsTrigger,
+  mapController,
+  mapGestureHandler,
+  cameraDirector,
+  mapCamera,
+  MapCameraChanges,
+  mapCameraSnapshot,
+])
+class _ExploreSceneResolver extends ConsumerWidget {
+  const _ExploreSceneResolver();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // ✅ ici, mapCameraProvider est déjà override dans ce sous-arbre,
+    // donc projectTripProvider -> exploreSceneProvider se résolvent correctement
+    final scene = ref.watch(exploreSceneProvider);
+
+    return ProviderScope(
+      overrides: [mapSceneProvider.overrideWithValue(scene)],
       child: const _ExploreMapView(),
     );
   }
@@ -66,14 +94,10 @@ class _ExploreMapView extends ConsumerWidget {
               clipBehavior: Clip.antiAlias,
               child: ProfileButton(
                 onLogin: () {
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (_) => const LoginPage()));
+                  const LoginRoute().go(context);
                 },
                 onProfile: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const ProfilePage()),
-                  );
+                  const ProfileRoute().go(context);
                 },
               ),
             ),

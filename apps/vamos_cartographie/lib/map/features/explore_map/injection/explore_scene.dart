@@ -33,7 +33,7 @@ ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   );
 }
 
-@Riverpod(dependencies: [projectTrip])
+@Riverpod(dependencies: [projectTrip, userLocationProjection])
 List<ProjectedObject> projectedExploreScene(Ref ref) {
   final userLocation = ref.watch(userLocationProjectionProvider);
   final tripsIds = ref.watch(

@@ -186,8 +186,8 @@ final class ProjectedExploreSceneProvider
         name: r'projectedExploreSceneProvider',
         isAutoDispose: true,
         dependencies: <ProviderOrFamily>[
-          userLocationProjectionProvider,
           projectTripProvider,
+          userLocationProjectionProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>[
           ProjectedExploreSceneProvider.$allTransitiveDependencies0,
@@ -196,10 +196,10 @@ final class ProjectedExploreSceneProvider
         ],
       );
 
-  static final $allTransitiveDependencies0 = userLocationProjectionProvider;
+  static final $allTransitiveDependencies0 = projectTripProvider;
   static final $allTransitiveDependencies1 =
-      UserLocationProjectionProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 = projectTripProvider;
+      ProjectTripProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 = userLocationProjectionProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectedExploreSceneHash();
@@ -225,7 +225,7 @@ final class ProjectedExploreSceneProvider
 }
 
 String _$projectedExploreSceneHash() =>
-    r'0bf90aaec15efb411af8e1ad2ac5dccb7abb55dd';
+    r'646d4b0595b300b917863b80865f6b74d85ea860';
 
 @ProviderFor(exploreScene)
 final exploreSceneProvider = ExploreSceneProvider._();
