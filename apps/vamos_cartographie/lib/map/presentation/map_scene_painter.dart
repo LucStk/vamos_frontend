@@ -7,38 +7,63 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:map_canvas/domain/domain.dart';
 
 @Dependencies([mapScene, mapCameraSnapshot])
-class MapScenePaint extends ConsumerWidget {
+class MapScenePaint extends ConsumerStatefulWidget {
   const MapScenePaint({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final scene = ref.watch(mapSceneProvider);
-    final commands = [
-      for (final object in scene.objects.reversed)
-        object.describe(
-          context: MapPaintContext(
-            state:
-                (scene.selection != null) &&
-                    scene.selection!.isSameAs(object.object)
-                ? MapObjectVisualState.selected
-                : MapObjectVisualState.normal,
-          ),
-        ),
-    ];
+  ConsumerState<MapScenePaint> createState() => _MapScenePaintState();
+}
 
+class _MapScenePaintState extends ConsumerState<MapScenePaint>
+    with SingleTickerProviderStateMixin {
+  late final _selectionAnim = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 180),
+  );
+
+  Object? _previousSelection;
+
+  @override
+  void dispose() {
+    _selectionAnim.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(mapSceneProvider.select((s) => s.selection), (prev, next) {
+      _previousSelection = prev;
+      _selectionAnim.forward(from: 0);
+    });
+
+    final scene = ref.watch(mapSceneProvider);
     final size = ref.watch(mapCameraSnapshotProvider.select((c) => c.size));
+
     return CameraTransform(
       child: Stack(
         children: [
           RepaintBoundary(child: CustomPaint(size: size)),
 
-          // World : jamais repeinte par la caméra
+          // World : pas concerné par l'anim de sélection (ProjectedVertex dessine en ScreenScale)
           RepaintBoundary(
-            child: CustomPaint(size: size, painter: MapScenePainter(commands)),
+            child: CustomPaint(
+              size: size,
+              painter: MapScenePainter(
+                objects: scene.objects,
+                selection: scene.selection,
+              ),
+            ),
           ),
-          // Screen : repeinte uniquement quand le zoom change
+
+          // Screen : repaint au zoom (via ref.watch) ET à chaque tick de l'anim (via repaint:)
           RepaintBoundary(
-            child: _ScreenLayer(commands: commands, size: size),
+            child: _ScreenLayer(
+              objects: scene.objects,
+              selection: scene.selection,
+              previousSelection: _previousSelection,
+              selectionAnim: _selectionAnim,
+              size: size,
+            ),
           ),
         ],
       ),
@@ -48,42 +73,73 @@ class MapScenePaint extends ConsumerWidget {
 
 @Dependencies([mapCameraSnapshot])
 class _ScreenLayer extends ConsumerWidget {
-  const _ScreenLayer({required this.commands, required this.size});
-  final Iterable<MapDrawCommand> commands;
+  const _ScreenLayer({
+    required this.objects,
+    required this.selection,
+    required this.previousSelection,
+    required this.selectionAnim,
+    required this.size,
+  });
+
+  final Iterable<ProjectedObject> objects;
+  final Object? selection;
+  final Object? previousSelection;
+  final Animation<double>
+  selectionAnim; // AnimationController EST un Animation<double>
   final Size size;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final zoom = ref.watch(
       mapCameraSnapshotProvider.select((c) => c.zoomScale),
-    ); // ne change pas au pan
-    return CustomPaint(size: size, painter: ScreenSpacePainter(commands, zoom));
+    );
+    return CustomPaint(
+      size: size,
+      painter: ScreenSpacePainter(
+        objects: objects,
+        selection: selection,
+        previousSelection: previousSelection,
+        zoomScale: zoom,
+        selectionAnim: selectionAnim,
+      ),
+    );
   }
-}
-
-class MapScenePainter extends CustomPainter {
-  const MapScenePainter(this.commands);
-  final Iterable<MapDrawCommand> commands;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    MapCommandRenderer(
-      canvas: canvas,
-      layer: MapRenderSpace.world,
-    ).paintAll(commands);
-  }
-
-  @override
-  bool shouldRepaint(MapScenePainter old) => !identical(commands, old.commands);
 }
 
 class ScreenSpacePainter extends CustomPainter {
-  const ScreenSpacePainter(this.commands, this.zoomScale);
-  final Iterable<MapDrawCommand> commands;
+  ScreenSpacePainter({
+    required this.objects,
+    required this.selection,
+    required this.previousSelection,
+    required this.zoomScale,
+    required this.selectionAnim,
+  }) : super(
+         repaint: selectionAnim,
+       ); // <-- la clé : mêmes instance, repaint direct
+
+  final Iterable<ProjectedObject> objects;
+  final Object? selection;
+  final Object? previousSelection;
   final double zoomScale;
+  final Animation<double> selectionAnim;
 
   @override
   void paint(Canvas canvas, Size size) {
+    final t =
+        selectionAnim.value; // <-- lu à CHAQUE paint(), c'est ça qui anime
+    final commands = [
+      for (final object in objects.toList().reversed)
+        object.describe(
+          context: MapPaintContext(
+            selection: selection != null && selection!.isSameAs(object.object)
+                ? t
+                : previousSelection != null &&
+                      previousSelection!.isSameAs(object.object)
+                ? 1 - t
+                : 0.0,
+          ),
+        ),
+    ];
     MapCommandRenderer(
       canvas: canvas,
       layer: MapRenderSpace.screen,
@@ -93,5 +149,38 @@ class ScreenSpacePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ScreenSpacePainter old) =>
-      !identical(commands, old.commands) || zoomScale != old.zoomScale;
+      !identical(objects, old.objects) ||
+      selection != old.selection ||
+      previousSelection != old.previousSelection ||
+      zoomScale != old.zoomScale;
+}
+
+class MapScenePainter extends CustomPainter {
+  MapScenePainter({required this.objects, required this.selection});
+
+  final Iterable<ProjectedObject>
+  objects; // adapte au vrai type de scene.objects
+  final Object? selection;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final commands = [
+      for (final object in objects.toList().reversed)
+        object.describe(
+          context: MapPaintContext(
+            state: (selection != null && selection!.isSameAs(object.object))
+                ? MapObjectVisualState.selected
+                : MapObjectVisualState.normal,
+          ),
+        ),
+    ];
+    MapCommandRenderer(
+      canvas: canvas,
+      layer: MapRenderSpace.world,
+    ).paintAll(commands);
+  }
+
+  @override
+  bool shouldRepaint(MapScenePainter old) =>
+      !identical(objects, old.objects) || selection != old.selection;
 }

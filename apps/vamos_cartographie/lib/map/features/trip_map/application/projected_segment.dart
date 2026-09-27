@@ -6,13 +6,24 @@ import "package:map_engine/map_engine.dart";
 final class ProjectedSegment extends ProjectedLine<MapSegment> {
   ProjectedSegment({required super.object, required super.worldSegments});
 
+  static const _strokeWidths = <MapObjectVisualState, double>{
+    MapObjectVisualState.normal: 4,
+    MapObjectVisualState.selected: 10,
+    MapObjectVisualState.hovered: 6,
+    MapObjectVisualState.dragging: 12,
+  };
+
   @override
   MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
-    final path = this.path;
-    final isSelected = context.state == MapObjectVisualState.selected;
+    final width = lerpDouble(
+      _strokeWidths[context.from]!,
+      _strokeWidths[context.state]!,
+      context.t,
+    )!;
+
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = isSelected ? 10 : 20
+      ..strokeWidth = width
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
 

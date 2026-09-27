@@ -12,29 +12,56 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
   });
   final VertexVisualKind visualKind;
 
+  static const _colors = <MapObjectVisualState, Color>{
+    MapObjectVisualState.normal: Color(0xFF219903),
+    MapObjectVisualState.selected: Color(0xFF2196F3),
+    MapObjectVisualState.hovered: Color(0xFFFFC107),
+    MapObjectVisualState.dragging: Color(0xFFFF5722),
+  };
+  static const _scales = <MapObjectVisualState, double>{
+    MapObjectVisualState.normal: 1.0,
+    MapObjectVisualState.selected: 1.3,
+    MapObjectVisualState.hovered: 1.15,
+    MapObjectVisualState.dragging: 1.4,
+  };
+  static const _haloOpacity = <MapObjectVisualState, double>{
+    MapObjectVisualState.normal: 0.0,
+    MapObjectVisualState.selected: 1.0,
+    MapObjectVisualState.hovered: 0.4,
+    MapObjectVisualState.dragging: 1.0,
+  };
+
   @override
   MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
-    final isSelected = context.state == MapObjectVisualState.selected;
+    final color = Color.lerp(
+      _colors[context.from],
+      _colors[context.state],
+      context.t,
+    )!;
+    final scale = lerpDouble(
+      _scales[context.from]!,
+      _scales[context.state]!,
+      context.t,
+    )!;
+    final haloOpacity = lerpDouble(
+      _haloOpacity[context.from]!,
+      _haloOpacity[context.state]!,
+      context.t,
+    )!;
+
     final paint = Paint()
       ..style = PaintingStyle.fill
-      ..color = isSelected ? const Color(0xFF2196F3) : const Color(0xFF219903);
+      ..color = color;
     final selectionPaint = Paint()
       ..style = PaintingStyle.stroke
-      ..color = isSelected ? const Color(0xFF2196F3) : const Color(0xFF219903);
+      ..color = color.withOpacity(haloOpacity);
+
     return ScreenScale([
       Transform(
-        transform: DrawTransformData(
-          scale: isSelected ? 1.5 : 1.0,
-          origin: worldPosition,
-        ),
+        transform: DrawTransformData(scale: scale, origin: worldPosition),
         commands: [
-          DrawCircle(center: worldPosition, radius: 0.03, paint: paint),
-          if (isSelected)
-            DrawCircle(
-              center: worldPosition,
-              radius: 0.03,
-              paint: selectionPaint,
-            ),
+          DrawCircle(center: worldPosition, radius: 7, paint: paint),
+          DrawCircle(center: worldPosition, radius: 9, paint: selectionPaint),
         ],
       ),
     ]);
