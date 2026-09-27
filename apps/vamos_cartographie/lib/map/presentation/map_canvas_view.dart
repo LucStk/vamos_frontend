@@ -32,7 +32,6 @@ class MapCanvas extends ConsumerWidget {
     this.layers = const [],
     required this.panAllowed,
   });
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final camera = ref.watch(mapCameraProvider);
@@ -44,6 +43,8 @@ class MapCanvas extends ConsumerWidget {
           options: MapOptions(
             onMapReady: () =>
                 ref.read(cameraOrNullProvider.notifier).markReady(camera),
+            initialCameraFit:
+                camera.initialCameraFit, // null → fallback ci-dessous
             initialCenter: const LatLng(46.8, 2.2),
             initialZoom: 7,
             interactionOptions: InteractionOptions(
@@ -54,6 +55,7 @@ class MapCanvas extends ConsumerWidget {
                         ~InteractiveFlag.drag,
             ),
           ),
+
           children: [
             ...layers,
             ProviderScope(

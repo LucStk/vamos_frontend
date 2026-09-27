@@ -18,7 +18,14 @@ import 'package:flutter/material.dart';
 /// instantanée.
 //
 class FlutterMapCamera implements MapCameraController {
-  FlutterMapCamera(this.mapController);
+  FlutterMapCamera(this.mapController, {CameraVision? initialVision})
+    : initialCameraFit = initialVision == null
+          ? null
+          : CameraFit.bounds(bounds: initialVision.bounds.toFlutterMap());
+
+  /// null si aucune vision initiale n'a été demandée : MapOptions retombera
+  /// alors sur son initialCenter/initialZoom par défaut.
+  final CameraFit? initialCameraFit;
 
   static const referenceZoom = 0.0;
 
