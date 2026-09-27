@@ -69,7 +69,12 @@ class _TripMapView extends ConsumerWidget {
     return Scaffold(
       body: Stack(
         children: [
-          BaseMap(overlayChildren: [MapEditorBottomSheet(tripId: tripId)]),
+          BaseMap(
+            overlayChildren: [
+              MapTopBar(tripId: tripId),
+              MapEditorBottomSheet(tripId: tripId),
+            ],
+          ),
 
           if (loader.isLoading)
             const Positioned(
