@@ -6,10 +6,8 @@ part of 'app_router.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-@Dependencies([mapScene, MapEditor, MapExplore])
 List<RouteBase> get $appRoutes => [$exploreRoute];
 
-@Dependencies([mapScene, MapEditor, MapExplore])
 RouteBase get $exploreRoute => GoRouteData.$route(
   path: '/explore',
   hasOverriddenOnExit: false,
@@ -23,7 +21,6 @@ RouteBase get $exploreRoute => GoRouteData.$route(
   ],
 );
 
-@Dependencies([mapScene, MapEditor, MapExplore])
 mixin $ExploreRoute on GoRouteData {
   static ExploreRoute _fromState(GoRouterState state) => const ExploreRoute();
 
@@ -44,10 +41,11 @@ mixin $ExploreRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-@Dependencies([mapScene, MapEditor])
 mixin $TripRoute on GoRouteData {
-  static TripRoute _fromState(GoRouterState state) =>
-      TripRoute(tripId: state.pathParameters['tripId']!);
+  static TripRoute _fromState(GoRouterState state) => TripRoute(
+    tripId: state.pathParameters['tripId']!,
+    $extra: state.extra as CameraVision?,
+  );
 
   TripRoute get _self => this as TripRoute;
 
@@ -57,15 +55,17 @@ mixin $TripRoute on GoRouteData {
   );
 
   @override
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: _self.$extra);
 
   @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: _self.$extra);
 
   @override
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: _self.$extra);
 
   @override
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: _self.$extra);
 }

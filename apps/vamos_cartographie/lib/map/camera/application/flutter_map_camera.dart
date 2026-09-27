@@ -98,6 +98,7 @@ class FlutterMapCamera implements MapCameraController {
 
   @override
   Size get size => _camera.size;
+  MapLatLngBounds get visibleBounds => _camera.visibleBounds.toMapEngine();
 
   @override
   ScreenOffset get screenCenter =>

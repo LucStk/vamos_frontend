@@ -5,8 +5,9 @@ import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/routing/routes/trip_route.dart';
 
-@Dependencies([mapScene, MapExplore, MapEditor])
+@Dependencies([mapScene, MapExplore, MapEditor, mapCamera])
 class DesktopTripsCarousel extends ConsumerWidget {
   const DesktopTripsCarousel({super.key, required this.tripIds});
 
@@ -39,7 +40,18 @@ class DesktopTripsCarousel extends ConsumerWidget {
                   TripViewerDialog.show(
                     context: context,
                     tripId: tripId,
-                    onExplore: () => {},
+                    onExplore: () {
+                      final vision = CameraVision(
+                        bounds: ref
+                            .read(mapCameraProvider)
+                            .visibleBounds, // ⚠️ adapte le nom du getter
+                      );
+
+                      TripRoute(
+                        tripId: tripId.value,
+                        $extra: vision,
+                      ).push(context);
+                    },
                   );
                 },
                 child: TripCard(tripId: tripId),

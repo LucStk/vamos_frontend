@@ -8,12 +8,13 @@ import "/routing/app_router.dart";
 
 @Dependencies([mapScene, MapEditor])
 class TripRoute extends GoRouteData with $TripRoute {
-  const TripRoute({required this.tripId});
+  TripRoute({required this.tripId, this.$extra});
 
   final String tripId;
+  CameraVision? $extra;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return TripMapScreen(tripId: TripId(tripId));
+    return TripMapScreen(tripId: TripId(tripId), initialVision: $extra);
   }
 }

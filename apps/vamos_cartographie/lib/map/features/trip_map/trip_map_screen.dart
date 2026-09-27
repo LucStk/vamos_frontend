@@ -8,8 +8,9 @@ import 'package:vamos_cartographie/map/map.dart';
 
 @Dependencies([MapEditor, mapScene])
 class TripMapScreen extends StatefulWidget {
-  const TripMapScreen({super.key, required this.tripId});
+  const TripMapScreen({super.key, required this.tripId, this.initialVision});
   final TripId tripId;
+  final CameraVision? initialVision;
 
   @override
   State<TripMapScreen> createState() => _TripMapScreenState();
@@ -17,6 +18,9 @@ class TripMapScreen extends StatefulWidget {
 
 class _TripMapScreenState extends State<TripMapScreen>
     with TickerProviderStateMixin, MapCameraLifecycle {
+  @override
+  CameraVision? get initialVision => widget.initialVision;
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -29,7 +33,13 @@ class _TripMapScreenState extends State<TripMapScreen>
   }
 }
 
-@Dependencies([CameraOrNull, MapEditor, cameraDirector, mapCamera])
+@Dependencies([
+  CameraOrNull,
+  MapEditor,
+  cameraDirector,
+  mapCamera,
+  userLocationTrigger,
+])
 class _TripMapResolver extends ConsumerWidget {
   const _TripMapResolver({required this.tripId});
   final TripId tripId;
@@ -58,6 +68,7 @@ class _TripMapResolver extends ConsumerWidget {
   mapController,
   cameraDirector,
   mapCamera,
+  userLocationTrigger,
 ])
 class _TripMapView extends ConsumerWidget {
   final Id<Trip> tripId;
@@ -73,6 +84,7 @@ class _TripMapView extends ConsumerWidget {
       body: Stack(
         children: [
           BaseMap(
+            cameraTriggers: [userLocationTriggerProvider],
             overlayChildren: [
               MapTopBar(tripId: tripId),
               MapEditorBottomSheet(tripId: tripId),
