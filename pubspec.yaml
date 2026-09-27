@@ -16,8 +16,8 @@ workspace:
   - packages/trip_application
 
 dev_dependencies:
-  melos: ^7.0.0
-  riverpod_lint: ^3.1.3
+  melos: ^8.6.0
+  riverpod_lint: ^3.1.9
 
 
 melos:

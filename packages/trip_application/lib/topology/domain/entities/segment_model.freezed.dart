@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'segment_model.dart';
@@ -9,6 +9,7 @@ part of 'segment_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $SegmentRemoteModelCopyWith<SegmentRemoteModel> get copyWith => _$SegmentRemoteM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
+  final _this = this as SegmentRemoteModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.startVertexId, _this.startVertexId) || other.startVertexId == _this.startVertexId)&&(identical(other.endVertexId, _this.endVertexId) || other.endVertexId == _this.endVertexId)&&const DeepCollectionEquality().equals(other.geometry, _this.geometry)&&(identical(other.mobilityType, _this.mobilityType) || other.mobilityType == _this.mobilityType));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(geometry),mobilityType);
+int get hashCode {
+  final _this = this as SegmentRemoteModel;
+  return Object.hash(runtimeType,_this.id,_this.startVertexId,_this.endVertexId,const DeepCollectionEquality().hash(_this.geometry),_this.mobilityType);
+}
 
 @override
 String toString() {
-  return 'SegmentRemoteModel(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType)';
+  final _this = this as SegmentRemoteModel;
+  return 'SegmentRemoteModel(id: ${_this.id}, startVertexId: ${_this.startVertexId}, endVertexId: ${_this.endVertexId}, geometry: ${_this.geometry}, mobilityType: ${_this.mobilityType})';
 }
 
 
@@ -63,7 +69,7 @@ class _$SegmentRemoteModelCopyWithImpl<$Res>
 /// Create a copy of SegmentRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometry = null,Object? mobilityType = null,}) {
-  return _then(_self.copyWith(
+  return _then(SegmentRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as SegmentId,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
@@ -210,7 +216,7 @@ return $default(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 
 
 class _SegmentRemoteModel extends SegmentRemoteModel {
-  const _SegmentRemoteModel({required this.id, required this.startVertexId, required this.endVertexId, required final  Geometry geometry, this.mobilityType = MobilityType.bike}): _geometry = geometry,super._();
+  const _SegmentRemoteModel({required this.id, required this.startVertexId, required this.endVertexId, required  Geometry geometry, this.mobilityType = MobilityType.bike}): _geometry = geometry,super._();
   
 
 @override final  SegmentId id;
@@ -235,16 +241,18 @@ _$SegmentRemoteModelCopyWith<_SegmentRemoteModel> get copyWith => __$SegmentRemo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(_geometry),mobilityType);
+int get hashCode {
+    return Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(_geometry),mobilityType);
+}
 
 @override
 String toString() {
-  return 'SegmentRemoteModel(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType)';
+    return 'SegmentRemoteModel(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType)';
 }
 
 
@@ -300,16 +308,21 @@ $SegmentPatchModelCopyWith<SegmentPatchModel> get copyWith => _$SegmentPatchMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometry, geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  final _this = this as SegmentPatchModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentPatchModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.startVertexId, _this.startVertexId) || other.startVertexId == _this.startVertexId)&&(identical(other.endVertexId, _this.endVertexId) || other.endVertexId == _this.endVertexId)&&const DeepCollectionEquality().equals(other.geometry, _this.geometry)&&(identical(other.mobilityType, _this.mobilityType) || other.mobilityType == _this.mobilityType)&&(identical(other.recomputing, _this.recomputing) || other.recomputing == _this.recomputing)&&const DeepCollectionEquality().equals(other.error, _this.error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(geometry),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode {
+  final _this = this as SegmentPatchModel;
+  return Object.hash(runtimeType,_this.id,_this.startVertexId,_this.endVertexId,const DeepCollectionEquality().hash(_this.geometry),_this.mobilityType,_this.recomputing,const DeepCollectionEquality().hash(_this.error));
+}
 
 @override
 String toString() {
-  return 'SegmentPatchModel(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
+  final _this = this as SegmentPatchModel;
+  return 'SegmentPatchModel(id: ${_this.id}, startVertexId: ${_this.startVertexId}, endVertexId: ${_this.endVertexId}, geometry: ${_this.geometry}, mobilityType: ${_this.mobilityType}, recomputing: ${_this.recomputing}, error: ${_this.error})';
 }
 
 
@@ -338,14 +351,14 @@ class _$SegmentPatchModelCopyWithImpl<$Res>
 /// Create a copy of SegmentPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startVertexId = null,Object? endVertexId = null,Object? geometry = null,Object? mobilityType = null,Object? recomputing = null,Object? error = freezed,}) {
-  return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as SegmentId,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
-as VertexId,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
+  return _then(SegmentPatchModel(
+id: freezed == id ? _self.id! : id // ignore: cast_nullable_to_non_nullable
+as SegmentId?,startVertexId: null == startVertexId ? _self.startVertexId : startVertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
-as Geometry,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
-as MobilityType,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
-as bool,error: freezed == error ? _self.error : error ,
+as Geometry,endVertexId: null == endVertexId ? _self.endVertexId : endVertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+as bool,error: freezed == error ? _self.error : error ,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as MobilityType,
   ));
 }
 
@@ -486,7 +499,7 @@ return internal(_that.id,_that.startVertexId,_that.endVertexId,_that.geometry,_t
 
 
 class _SegmentPatchModel extends SegmentPatchModel implements Patch<SegmentRemoteModel> {
-  const _SegmentPatchModel({required this.id, required this.startVertexId, required this.endVertexId, required final  Geometry geometry, this.mobilityType = MobilityType.bike, this.recomputing = false, this.error}): _geometry = geometry,super._();
+  const _SegmentPatchModel({required this.id, required this.startVertexId, required this.endVertexId, required  Geometry geometry, this.mobilityType = MobilityType.bike, this.recomputing = false, this.error}): _geometry = geometry,super._();
   
 
 @override final  SegmentId id;
@@ -513,16 +526,18 @@ _$SegmentPatchModelCopyWith<_SegmentPatchModel> get copyWith => __$SegmentPatchM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other._geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SegmentPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.startVertexId, startVertexId) || other.startVertexId == startVertexId)&&(identical(other.endVertexId, endVertexId) || other.endVertexId == endVertexId)&&const DeepCollectionEquality().equals(other.geometry, _geometry)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(_geometry),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,id,startVertexId,endVertexId,const DeepCollectionEquality().hash(_geometry),mobilityType,recomputing,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'SegmentPatchModel.internal(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
+    return 'SegmentPatchModel.internal(id: $id, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry, mobilityType: $mobilityType, recomputing: $recomputing, error: $error)';
 }
 
 

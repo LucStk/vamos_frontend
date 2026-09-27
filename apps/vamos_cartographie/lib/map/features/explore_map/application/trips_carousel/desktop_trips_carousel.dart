@@ -7,13 +7,11 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
 
 @Dependencies([
-  CameraOrNull,
+  mapScene,
   MapExplore,
   mapGestureHandler,
   MapEditor,
   // tripEditorScene,
-  cameraDirector,
-  mapCamera,
 ])
 class DesktopTripsCarousel extends ConsumerWidget {
   const DesktopTripsCarousel({super.key, required this.tripIds});

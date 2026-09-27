@@ -10,12 +10,10 @@ import '/domain_features/domain_features.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 @Dependencies([
-  CameraOrNull,
+  mapScene,
   mapGestureHandler,
   MapEditor,
   // tripEditorScene,
-  cameraDirector,
-  mapCamera,
 ])
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;

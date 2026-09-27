@@ -49,7 +49,7 @@ abstract class _$ActiveNetworkOverlays
   Set<NetworkOverlayType> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref as $Ref<Set<NetworkOverlayType>, Set<NetworkOverlayType>>;
     final element =
@@ -60,6 +60,6 @@ abstract class _$ActiveNetworkOverlays
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

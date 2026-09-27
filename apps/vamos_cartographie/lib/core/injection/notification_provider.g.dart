@@ -47,7 +47,7 @@ abstract class _$NotificationQueue extends $Notifier<AppNotification?> {
   AppNotification? build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AppNotification?, AppNotification?>;
     final element =
         ref.element
@@ -57,6 +57,6 @@ abstract class _$NotificationQueue extends $Notifier<AppNotification?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'collection_store.dart';
@@ -9,6 +9,7 @@ part of 'collection_store.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $CollectionStoreCopyWith<T, V, CollectionStore<T, V>> get copyWith => _$Collecti
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CollectionStore<T, V>&&const DeepCollectionEquality().equals(other.store, store));
+  final _this = this as CollectionStore<T, V>;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CollectionStore<T, V>&&const DeepCollectionEquality().equals(other.store, _this.store));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(store));
+int get hashCode {
+  final _this = this as CollectionStore<T, V>;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.store));
+}
 
 @override
 String toString() {
-  return 'CollectionStore<$T, $V>(store: $store)';
+  final _this = this as CollectionStore<T, V>;
+  return 'CollectionStore<$T, $V>(store: ${_this.store})';
 }
 
 
@@ -63,7 +69,7 @@ class _$CollectionStoreCopyWithImpl<T,V extends HasId,$Res>
 /// Create a copy of CollectionStore
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? store = null,}) {
-  return _then(_self.copyWith(
+  return _then(CollectionStore(
 store: null == store ? _self.store : store // ignore: cast_nullable_to_non_nullable
 as Map<Id<T>, V>,
   ));
@@ -206,7 +212,7 @@ return $default(_that.store);case _:
 
 
 class _CollectionStore<T,V extends HasId> extends CollectionStore<T, V> {
-  const _CollectionStore({final  Map<Id<T>, V> store = const {}}): _store = store,super._();
+  const _CollectionStore({ Map<Id<T>, V> store = const {}}): _store = store,super._();
   
 
  final  Map<Id<T>, V> _store;
@@ -227,16 +233,18 @@ _$CollectionStoreCopyWith<T, V, _CollectionStore<T, V>> get copyWith => __$Colle
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CollectionStore<T, V>&&const DeepCollectionEquality().equals(other._store, _store));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CollectionStore<T, V>&&const DeepCollectionEquality().equals(other.store, _store));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_store));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_store));
+}
 
 @override
 String toString() {
-  return 'CollectionStore<$T, $V>(store: $store)';
+    return 'CollectionStore<$T, $V>(store: $store)';
 }
 
 

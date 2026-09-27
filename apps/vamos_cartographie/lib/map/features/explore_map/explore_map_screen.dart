@@ -1,35 +1,51 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
-@Dependencies([
-  CameraOrNull,
-  MapEditor,
-  // tripEditorScene,
-  mapGestureHandler,
-  MapExplore,
-  userLocationTrigger,
-  tripBoundsTrigger,
-  cameraDirector,
-  mapCamera,
-])
-class ExploreMapScreen extends ConsumerWidget {
+@Dependencies([MapEditor, mapGestureHandler, MapExplore])
+class ExploreMapScreen extends StatefulWidget {
   const ExploreMapScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const MapCameraScope(child: _ExploreSceneResolver());
+  State<ExploreMapScreen> createState() => _MapExploreScreenState();
+}
+
+class _MapExploreScreenState extends State<ExploreMapScreen>
+    with TickerProviderStateMixin {
+  late final _camera = FlutterMapCamera(MapController());
+
+  @override
+  void initState() {
+    super.initState();
+    _camera.attachAnimatedController(this);
+  }
+
+  @override
+  void dispose() {
+    _camera.detachAnimatedController();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      overrides: [
+        mapCameraProvider.overrideWithValue(_camera),
+        cameraOrNullProvider.overrideWith(CameraOrNull.new),
+      ],
+      child: _ExploreSceneResolver(),
+    );
   }
 }
 
 @Dependencies([
   CameraOrNull,
   MapEditor,
-  // tripEditorScene,
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
@@ -42,24 +58,16 @@ class _ExploreSceneResolver extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MapCameraScope(
-      child: Consumer(
-        builder: (context, ref, _) {
-          // ✅ ici, mapCameraProvider est déjà override dans ce sous-arbre,
-          // donc projectTripProvider -> exploreSceneProvider se résolvent correctement
-
-          final controller = ref.watch(mapExploreProvider.notifier);
-          return ProviderScope(
-            overrides: [
-              mapSceneProvider.overrideWith(
-                (ref) => ref.watch(exploreSceneProvider),
-              ),
-              mapControllerProvider.overrideWithValue(controller.controller),
-            ],
-            child: const _ExploreMapView(),
-          );
-        },
-      ),
+    // ✅ mapCameraProvider et cameraOrNullProvider déjà overridés
+    // par le MapCameraScope parent (dans ExploreMapScreen), pas besoin
+    // d'un second scope ici.
+    final controller = ref.watch(mapExploreProvider.notifier);
+    return ProviderScope(
+      overrides: [
+        mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
+        mapControllerProvider.overrideWithValue(controller.controller),
+      ],
+      child: const _ExploreMapView(),
     );
   }
 }

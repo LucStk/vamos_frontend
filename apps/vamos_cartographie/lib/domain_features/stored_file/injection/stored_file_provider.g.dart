@@ -186,7 +186,7 @@ abstract class _$StoredFileStoreNotifier extends $Notifier<StoredFileStore> {
   StoredFileStore build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<StoredFileStore, StoredFileStore>;
     final element =
         ref.element
@@ -196,6 +196,6 @@ abstract class _$StoredFileStoreNotifier extends $Notifier<StoredFileStore> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

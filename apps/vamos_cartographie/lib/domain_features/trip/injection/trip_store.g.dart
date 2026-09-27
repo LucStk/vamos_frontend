@@ -136,7 +136,7 @@ abstract class _$TripStoreNotifier extends $Notifier<TripStore> {
   TripStore build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<TripStore, TripStore>;
     final element =
         ref.element
@@ -146,7 +146,7 @@ abstract class _$TripStoreNotifier extends $Notifier<TripStore> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'vertex_model.dart';
@@ -9,6 +9,7 @@ part of 'vertex_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $VertexRemoteModelCopyWith<VertexRemoteModel> get copyWith => _$VertexRemoteMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng));
+  final _this = this as VertexRemoteModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.latLng, _this.latLng) || other.latLng == _this.latLng));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,latLng);
+int get hashCode {
+  final _this = this as VertexRemoteModel;
+  return Object.hash(runtimeType,_this.id,_this.latLng);
+}
 
 @override
 String toString() {
-  return 'VertexRemoteModel(id: $id, latLng: $latLng)';
+  final _this = this as VertexRemoteModel;
+  return 'VertexRemoteModel(id: ${_this.id}, latLng: ${_this.latLng})';
 }
 
 
@@ -63,7 +69,7 @@ class _$VertexRemoteModelCopyWithImpl<$Res>
 /// Create a copy of VertexRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? latLng = null,}) {
-  return _then(_self.copyWith(
+  return _then(VertexRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as VertexId,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
 as LatLng,
@@ -223,16 +229,18 @@ _$VertexRemoteModelCopyWith<_VertexRemoteModel> get copyWith => __$VertexRemoteM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,latLng);
+int get hashCode {
+    return Object.hash(runtimeType,id,latLng);
+}
 
 @override
 String toString() {
-  return 'VertexRemoteModel(id: $id, latLng: $latLng)';
+    return 'VertexRemoteModel(id: $id, latLng: $latLng)';
 }
 
 
@@ -285,16 +293,21 @@ $VertexPatchModelCopyWith<VertexPatchModel> get copyWith => _$VertexPatchModelCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  final _this = this as VertexPatchModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexPatchModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.latLng, _this.latLng) || other.latLng == _this.latLng)&&(identical(other.recomputing, _this.recomputing) || other.recomputing == _this.recomputing)&&const DeepCollectionEquality().equals(other.error, _this.error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,latLng,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode {
+  final _this = this as VertexPatchModel;
+  return Object.hash(runtimeType,_this.id,_this.latLng,_this.recomputing,const DeepCollectionEquality().hash(_this.error));
+}
 
 @override
 String toString() {
-  return 'VertexPatchModel(id: $id, latLng: $latLng, recomputing: $recomputing, error: $error)';
+  final _this = this as VertexPatchModel;
+  return 'VertexPatchModel(id: ${_this.id}, latLng: ${_this.latLng}, recomputing: ${_this.recomputing}, error: ${_this.error})';
 }
 
 
@@ -323,9 +336,9 @@ class _$VertexPatchModelCopyWithImpl<$Res>
 /// Create a copy of VertexPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? latLng = null,Object? recomputing = null,Object? error = freezed,}) {
-  return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as VertexId,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
+  return _then(VertexPatchModel(
+id: freezed == id ? _self.id! : id // ignore: cast_nullable_to_non_nullable
+as VertexId?,latLng: null == latLng ? _self.latLng : latLng // ignore: cast_nullable_to_non_nullable
 as LatLng,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
@@ -486,16 +499,18 @@ _$VertexPatchModelCopyWith<_VertexPatchModel> get copyWith => __$VertexPatchMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _VertexPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.latLng, latLng) || other.latLng == latLng)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,latLng,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,id,latLng,recomputing,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'VertexPatchModel.internal(id: $id, latLng: $latLng, recomputing: $recomputing, error: $error)';
+    return 'VertexPatchModel.internal(id: $id, latLng: $latLng, recomputing: $recomputing, error: $error)';
 }
 
 

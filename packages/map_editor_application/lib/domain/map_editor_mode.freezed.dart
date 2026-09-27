@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'map_editor_mode.dart';
@@ -9,6 +9,7 @@ part of 'map_editor_mode.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $SketchCreationCopyWith<SketchCreation> get copyWith => _$SketchCreationCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchCreation&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other.path, path)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
+  final _this = this as SketchCreation;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchCreation&&(identical(other.vertexStart, _this.vertexStart) || other.vertexStart == _this.vertexStart)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.mobilityType, _this.mobilityType) || other.mobilityType == _this.mobilityType)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(path),mobilityType,touchedVertex,selection);
+int get hashCode {
+  final _this = this as SketchCreation;
+  return Object.hash(runtimeType,_this.vertexStart,const DeepCollectionEquality().hash(_this.path),_this.mobilityType,_this.touchedVertex,_this.selection);
+}
 
 @override
 String toString() {
-  return 'SketchCreation(vertexStart: $vertexStart, path: $path, mobilityType: $mobilityType, touchedVertex: $touchedVertex, selection: $selection)';
+  final _this = this as SketchCreation;
+  return 'SketchCreation(vertexStart: ${_this.vertexStart}, path: ${_this.path}, mobilityType: ${_this.mobilityType}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection})';
 }
 
 
@@ -63,7 +69,7 @@ class _$SketchCreationCopyWithImpl<$Res>
 /// Create a copy of SketchCreation
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? vertexStart = null,Object? path = null,Object? mobilityType = null,Object? touchedVertex = freezed,Object? selection = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SketchCreation(
 vertexStart: null == vertexStart ? _self.vertexStart : vertexStart // ignore: cast_nullable_to_non_nullable
 as VertexId,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
@@ -210,7 +216,7 @@ return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVer
 
 
 class _SketchCreation extends SketchCreation {
-  const _SketchCreation({required this.vertexStart, required final  List<LatLng> path, required this.mobilityType, this.touchedVertex, this.selection}): _path = path,super._();
+  const _SketchCreation({required this.vertexStart, required  List<LatLng> path, required this.mobilityType, this.touchedVertex, this.selection}): _path = path,super._();
   
 
 @override final  VertexId vertexStart;
@@ -235,16 +241,18 @@ _$SketchCreationCopyWith<_SketchCreation> get copyWith => __$SketchCreationCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchCreation&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other._path, _path)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchCreation&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(_path),mobilityType,touchedVertex,selection);
+int get hashCode {
+    return Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(_path),mobilityType,touchedVertex,selection);
+}
 
 @override
 String toString() {
-  return 'SketchCreation(vertexStart: $vertexStart, path: $path, mobilityType: $mobilityType, touchedVertex: $touchedVertex, selection: $selection)';
+    return 'SketchCreation(vertexStart: $vertexStart, path: $path, mobilityType: $mobilityType, touchedVertex: $touchedVertex, selection: $selection)';
 }
 
 
@@ -300,16 +308,21 @@ $SketchEditionCopyWith<SketchEdition> get copyWith => _$SketchEditionCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId)&&const DeepCollectionEquality().equals(other.path, path)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
+  final _this = this as SketchEdition;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segmentId, _this.segmentId) || other.segmentId == _this.segmentId)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,segmentId,const DeepCollectionEquality().hash(path),touchedVertex,selection);
+int get hashCode {
+  final _this = this as SketchEdition;
+  return Object.hash(runtimeType,_this.segmentId,const DeepCollectionEquality().hash(_this.path),_this.touchedVertex,_this.selection);
+}
 
 @override
 String toString() {
-  return 'SketchEdition(segmentId: $segmentId, path: $path, touchedVertex: $touchedVertex, selection: $selection)';
+  final _this = this as SketchEdition;
+  return 'SketchEdition(segmentId: ${_this.segmentId}, path: ${_this.path}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection})';
 }
 
 
@@ -338,7 +351,7 @@ class _$SketchEditionCopyWithImpl<$Res>
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? segmentId = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SketchEdition(
 segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
 as SegmentId,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
@@ -484,7 +497,7 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);
 
 
 class _SketchEdition extends SketchEdition {
-  const _SketchEdition({required this.segmentId, required final  List<LatLng> path, this.touchedVertex, this.selection}): _path = path,super._();
+  const _SketchEdition({required this.segmentId, required  List<LatLng> path, this.touchedVertex, this.selection}): _path = path,super._();
   
 
 @override final  SegmentId segmentId;
@@ -508,16 +521,18 @@ _$SketchEditionCopyWith<_SketchEdition> get copyWith => __$SketchEditionCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchEdition&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId)&&const DeepCollectionEquality().equals(other._path, _path)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchEdition&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,segmentId,const DeepCollectionEquality().hash(_path),touchedVertex,selection);
+int get hashCode {
+    return Object.hash(runtimeType,segmentId,const DeepCollectionEquality().hash(_path),touchedVertex,selection);
+}
 
 @override
 String toString() {
-  return 'SketchEdition(segmentId: $segmentId, path: $path, touchedVertex: $touchedVertex, selection: $selection)';
+    return 'SketchEdition(segmentId: $segmentId, path: $path, touchedVertex: $touchedVertex, selection: $selection)';
 }
 
 

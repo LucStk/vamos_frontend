@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'waypoint_model.dart';
@@ -9,6 +9,7 @@ part of 'waypoint_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $WaypointRemoteModelCopyWith<WaypointRemoteModel> get copyWith => _$WaypointRemo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
+  final _this = this as WaypointRemoteModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.vertexId, _this.vertexId) || other.vertexId == _this.vertexId)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.poiCategory, _this.poiCategory) || other.poiCategory == _this.poiCategory)&&(identical(other.description, _this.description) || other.description == _this.description));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description);
+int get hashCode {
+  final _this = this as WaypointRemoteModel;
+  return Object.hash(runtimeType,_this.id,_this.vertexId,_this.title,_this.poiCategory,_this.description);
+}
 
 @override
 String toString() {
-  return 'WaypointRemoteModel(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
+  final _this = this as WaypointRemoteModel;
+  return 'WaypointRemoteModel(id: ${_this.id}, vertexId: ${_this.vertexId}, title: ${_this.title}, poiCategory: ${_this.poiCategory}, description: ${_this.description})';
 }
 
 
@@ -63,7 +69,7 @@ class _$WaypointRemoteModelCopyWithImpl<$Res>
 /// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,}) {
-  return _then(_self.copyWith(
+  return _then(WaypointRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
 as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -229,16 +235,18 @@ _$WaypointRemoteModelCopyWith<_WaypointRemoteModel> get copyWith => __$WaypointR
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description);
+int get hashCode {
+    return Object.hash(runtimeType,id,vertexId,title,poiCategory,description);
+}
 
 @override
 String toString() {
-  return 'WaypointRemoteModel(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
+    return 'WaypointRemoteModel(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description)';
 }
 
 
@@ -294,16 +302,21 @@ $WaypointPatchModelCopyWith<WaypointPatchModel> get copyWith => _$WaypointPatchM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+  final _this = this as WaypointPatchModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointPatchModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.vertexId, _this.vertexId) || other.vertexId == _this.vertexId)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.poiCategory, _this.poiCategory) || other.poiCategory == _this.poiCategory)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.recomputing, _this.recomputing) || other.recomputing == _this.recomputing)&&const DeepCollectionEquality().equals(other.error, _this.error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode {
+  final _this = this as WaypointPatchModel;
+  return Object.hash(runtimeType,_this.id,_this.vertexId,_this.title,_this.poiCategory,_this.description,_this.recomputing,const DeepCollectionEquality().hash(_this.error));
+}
 
 @override
 String toString() {
-  return 'WaypointPatchModel(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
+  final _this = this as WaypointPatchModel;
+  return 'WaypointPatchModel(id: ${_this.id}, vertexId: ${_this.vertexId}, title: ${_this.title}, poiCategory: ${_this.poiCategory}, description: ${_this.description}, recomputing: ${_this.recomputing}, error: ${_this.error})';
 }
 
 
@@ -332,13 +345,13 @@ class _$WaypointPatchModelCopyWithImpl<$Res>
 /// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? vertexId = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? recomputing = null,Object? error = freezed,}) {
-  return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as WaypointId,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
-as VertexId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
-as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
+  return _then(WaypointPatchModel(
+id: freezed == id ? _self.id! : id // ignore: cast_nullable_to_non_nullable
+as WaypointId?,vertexId: null == vertexId ? _self.vertexId : vertexId // ignore: cast_nullable_to_non_nullable
+as VertexId,title: freezed == title ? _self.title! : title // ignore: cast_nullable_to_non_nullable
+as String?,poiCategory: freezed == poiCategory ? _self.poiCategory! : poiCategory // ignore: cast_nullable_to_non_nullable
+as PoiCategory?,description: freezed == description ? _self.description! : description // ignore: cast_nullable_to_non_nullable
+as String?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
 }
@@ -501,16 +514,18 @@ _$WaypointPatchModelCopyWith<_WaypointPatchModel> get copyWith => __$WaypointPat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.vertexId, vertexId) || other.vertexId == vertexId)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,vertexId,title,poiCategory,description,recomputing,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,id,vertexId,title,poiCategory,description,recomputing,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'WaypointPatchModel.internal(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
+    return 'WaypointPatchModel.internal(id: $id, vertexId: $vertexId, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
 }
 
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'stored_file_model.dart';
@@ -9,6 +9,7 @@ part of 'stored_file_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $StoredFileRemoteModelCopyWith<StoredFileRemoteModel> get copyWith => _$StoredFi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFileRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url));
+  final _this = this as StoredFileRemoteModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFileRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.filename, _this.filename) || other.filename == _this.filename)&&(identical(other.url, _this.url) || other.url == _this.url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,filename,url);
+int get hashCode {
+  final _this = this as StoredFileRemoteModel;
+  return Object.hash(runtimeType,_this.id,_this.filename,_this.url);
+}
 
 @override
 String toString() {
-  return 'StoredFileRemoteModel(id: $id, filename: $filename, url: $url)';
+  final _this = this as StoredFileRemoteModel;
+  return 'StoredFileRemoteModel(id: ${_this.id}, filename: ${_this.filename}, url: ${_this.url})';
 }
 
 
@@ -63,7 +69,7 @@ class _$StoredFileRemoteModelCopyWithImpl<$Res>
 /// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? filename = null,Object? url = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoredFileRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as StoredFileId,filename: null == filename ? _self.filename : filename // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
@@ -225,16 +231,18 @@ _$StoredFileRemoteModelCopyWith<_StoredFileRemoteModel> get copyWith => __$Store
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFileRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFileRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,filename,url);
+int get hashCode {
+    return Object.hash(runtimeType,id,filename,url);
+}
 
 @override
 String toString() {
-  return 'StoredFileRemoteModel(id: $id, filename: $filename, url: $url)';
+    return 'StoredFileRemoteModel(id: $id, filename: $filename, url: $url)';
 }
 
 
@@ -288,16 +296,21 @@ $StoredFilePatchModelCopyWith<StoredFilePatchModel> get copyWith => _$StoredFile
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFilePatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
+  final _this = this as StoredFilePatchModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFilePatchModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.file, _this.file) || other.file == _this.file)&&(identical(other.recomputing, _this.recomputing) || other.recomputing == _this.recomputing)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.sent, _this.sent) || other.sent == _this.sent)&&(identical(other.total, _this.total) || other.total == _this.total)&&(identical(other.error, _this.error) || other.error == _this.error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,file,recomputing,status,sent,total,error);
+int get hashCode {
+  final _this = this as StoredFilePatchModel;
+  return Object.hash(runtimeType,_this.id,_this.file,_this.recomputing,_this.status,_this.sent,_this.total,_this.error);
+}
 
 @override
 String toString() {
-  return 'StoredFilePatchModel(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error)';
+  final _this = this as StoredFilePatchModel;
+  return 'StoredFilePatchModel(id: ${_this.id}, file: ${_this.file}, recomputing: ${_this.recomputing}, status: ${_this.status}, sent: ${_this.sent}, total: ${_this.total}, error: ${_this.error})';
 }
 
 
@@ -326,15 +339,11 @@ class _$StoredFilePatchModelCopyWithImpl<$Res>
 /// Create a copy of StoredFilePatchModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? file = null,Object? recomputing = null,Object? status = null,Object? sent = null,Object? total = null,Object? error = freezed,}) {
-  return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as StoredFileId,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+  return _then(StoredFilePatchModel(
+id: freezed == id ? _self.id! : id // ignore: cast_nullable_to_non_nullable
+as StoredFileId?,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
 as File,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
-as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as UploadStatus,sent: null == sent ? _self.sent : sent // ignore: cast_nullable_to_non_nullable
-as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as int,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
+as bool,error: freezed == error ? _self.error! : error ,
   ));
 }
 
@@ -496,16 +505,18 @@ _$StoredFilePatchModelCopyWith<_StoredFilePatchModel> get copyWith => __$StoredF
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFilePatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFilePatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.file, file) || other.file == file)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&(identical(other.status, status) || other.status == status)&&(identical(other.sent, sent) || other.sent == sent)&&(identical(other.total, total) || other.total == total)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,file,recomputing,status,sent,total,error);
+int get hashCode {
+    return Object.hash(runtimeType,id,file,recomputing,status,sent,total,error);
+}
 
 @override
 String toString() {
-  return 'StoredFilePatchModel.internal(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error)';
+    return 'StoredFilePatchModel.internal(id: $id, file: $file, recomputing: $recomputing, status: $status, sent: $sent, total: $total, error: $error)';
 }
 
 

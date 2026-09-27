@@ -51,7 +51,7 @@ abstract class _$MapExplore extends $Notifier<MapExploreMode> {
   MapExploreMode build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<MapExploreMode, MapExploreMode>;
     final element =
         ref.element
@@ -61,6 +61,6 @@ abstract class _$MapExplore extends $Notifier<MapExploreMode> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

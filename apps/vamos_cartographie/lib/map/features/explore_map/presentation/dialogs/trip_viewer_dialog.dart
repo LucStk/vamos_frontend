@@ -10,12 +10,10 @@ import '/map/map.dart';
 import '/ui_kit/ui_kit.dart';
 
 @Dependencies([
-  CameraOrNull,
+  mapScene,
   mapGestureHandler,
   MapEditor,
   // tripEditorScene,
-  cameraDirector,
-  mapCamera,
 ])
 class TripViewerDialog extends ConsumerWidget {
   final Id<Trip> tripId;

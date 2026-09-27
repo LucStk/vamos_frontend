@@ -3,12 +3,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
-
-@Dependencies([mapGestureHandler, cameraDirector, mapCamera])
 class MapCameraScope extends StatefulWidget {
   const MapCameraScope({super.key, required this.child});
-  final Widget child;
+  final WidgetBuilder child;
 
   @override
   State<MapCameraScope> createState() => _MapCameraScopeState();
@@ -37,7 +34,7 @@ class _MapCameraScopeState extends State<MapCameraScope>
         mapCameraProvider.overrideWithValue(_camera),
         cameraOrNullProvider.overrideWith(CameraOrNull.new),
       ],
-      child: widget.child,
+      child: Builder(builder: widget.child),
     );
   }
 }

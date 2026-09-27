@@ -6,14 +6,7 @@ import 'package:trip_application/trip/trip.dart';
 import "/map/map.dart";
 import "/routing/app_router.dart";
 
-@Dependencies([
-  CameraOrNull,
-  mapGestureHandler,
-  MapEditor,
-  // tripEditorScene,
-  cameraDirector,
-  mapCamera,
-])
+@Dependencies([mapScene, mapGestureHandler, MapEditor])
 class TripRoute extends GoRouteData with $TripRoute {
   const TripRoute({required this.tripId});
 
