@@ -79,7 +79,7 @@ final class SketchElementProjectionProvider
 }
 
 String _$sketchElementProjectionHash() =>
-    r'987a6cccddd2b79e95057bc708af5c37a9f4b3b9';
+    r'0af92cb1de457c2b202fb78c99f186ebbfbcd0a9';
 
 final class SketchElementProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedObject>, TripId> {

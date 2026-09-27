@@ -23,7 +23,7 @@ MapTripObject mapTripObject(Ref ref, TripId tripId) {
 @Riverpod(dependencies: [CameraOrNull])
 ProjectedTrip projectTrip(Ref ref, TripId tripId) {
   final tripObject = ref.watch(mapTripObjectProvider(tripId));
-  final cameraReader = ref.read(cameraOrNullProvider);
+  final cameraReader = ref.watch(cameraOrNullProvider);
   if (cameraReader == null) {
     return ProjectedTrip(worldSegments: [], object: tripObject);
   }

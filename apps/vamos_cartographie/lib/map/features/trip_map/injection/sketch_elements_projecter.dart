@@ -14,7 +14,7 @@ List<ProjectedObject> sketchElementProjection(Ref ref, TripId tripId) {
   final List<ProjectedObject> ret = [];
 
   final editorMode = ref.watch(mapEditorProvider(tripId));
-  final cameraReader = ref.read(cameraOrNullProvider);
+  final cameraReader = ref.watch(cameraOrNullProvider);
   if (cameraReader == null) {
     return [];
   }

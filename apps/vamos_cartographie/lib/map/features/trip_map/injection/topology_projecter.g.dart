@@ -77,7 +77,7 @@ final class AllVertexProjectionProvider
 }
 
 String _$allVertexProjectionHash() =>
-    r'7f599ea6eb67646b00f2c232e7b42bbbf087ed6e';
+    r'1283c6dd0cec88456eb465d45156213f60a9e6aa';
 
 final class AllVertexProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
@@ -165,7 +165,7 @@ final class AllSegmentProjectionProvider
 }
 
 String _$allSegmentProjectionHash() =>
-    r'a100d0402dba0e326ee4a4b7ffca6199b64ee2db';
+    r'9b078cda579b180cc4f6fbbfe0904bed2e9bc57b';
 
 final class AllSegmentProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {

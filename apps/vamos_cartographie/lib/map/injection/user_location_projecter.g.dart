@@ -61,4 +61,4 @@ final class UserLocationProjectionProvider
 }
 
 String _$userLocationProjectionHash() =>
-    r'db5c4d6c127d69020a32f2854840731d911e350d';
+    r'fe749ee784e4f1d3ee236bdf0585332762336337';

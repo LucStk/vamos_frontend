@@ -8,7 +8,7 @@ part "user_location_projecter.g.dart";
 @Riverpod(keepAlive: true, dependencies: [CameraOrNull])
 List<ProjectedPoint> userLocationProjection(Ref ref) {
   final location = ref.watch(userLocationProvider);
-  final cameraReader = ref.read(cameraOrNullProvider);
+  final cameraReader = ref.watch(cameraOrNullProvider);
   if (cameraReader == null) {
     return [];
   }

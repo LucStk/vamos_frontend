@@ -44,7 +44,7 @@ class _TripMapScreenState extends State<TripMapScreen>
   }
 }
 
-@Dependencies([CameraOrNull, MapEditor, MapExplore, cameraDirector, mapCamera])
+@Dependencies([CameraOrNull, MapEditor, cameraDirector, mapCamera])
 class _TripMapResolver extends ConsumerWidget {
   const _TripMapResolver({required this.tripId});
   final TripId tripId;
@@ -53,10 +53,12 @@ class _TripMapResolver extends ConsumerWidget {
     // ✅ mapCameraProvider et cameraOrNullProvider déjà overridés
     // par le MapCameraScope parent (dans ExploreMapScreen), pas besoin
     // d'un second scope ici.
-    final controller = ref.watch(mapExploreProvider.notifier);
+    final controller = ref.watch(mapEditorProvider(tripId).notifier);
     return ProviderScope(
       overrides: [
-        mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
+        mapSceneProvider.overrideWith(
+          (ref) => ref.watch(tripEditorSceneProvider(tripId)),
+        ),
         mapControllerProvider.overrideWithValue(controller.controller),
       ],
       child: _TripMapView(tripId: tripId, isOwner: true),

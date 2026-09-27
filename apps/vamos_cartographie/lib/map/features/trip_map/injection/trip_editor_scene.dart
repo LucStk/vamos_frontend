@@ -34,5 +34,6 @@ MapScene tripEditorScene(Ref ref, TripId tripId) {
     mapEditorProvider(tripId).select((m) => m.selection),
   );
   final projObjects = ref.watch(projectedTripEditorSceneProvider(tripId));
+
   return MapScene(selection: selection, objects: projObjects);
 }

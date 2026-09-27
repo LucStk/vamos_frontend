@@ -145,7 +145,7 @@ final class ProjectTripProvider
   }
 }
 
-String _$projectTripHash() => r'f8250bb98e51f85bec0e39dddbd7cd61c16cdb56';
+String _$projectTripHash() => r'f0e3c33d2efe37670ae2ba26826ab8d1e9c6aa7f';
 
 final class ProjectTripFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
