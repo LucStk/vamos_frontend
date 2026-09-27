@@ -23,7 +23,6 @@ part 'app_router.g.dart';
   tripBoundsTrigger,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class ExploreRoute extends GoRouteData with $ExploreRoute {

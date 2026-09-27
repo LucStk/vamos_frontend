@@ -1,3 +1,4 @@
+import 'package:map_canvas/application/application.dart';
 import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
 

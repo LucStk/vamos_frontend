@@ -14,7 +14,6 @@ import 'package:trip_application/trip_application.dart';
   // tripEditorScene,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class DesktopTripsCarousel extends ConsumerWidget {

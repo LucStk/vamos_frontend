@@ -5,17 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/map.dart';
 part 'map_camera_provider.g.dart';
 
-@Riverpod(dependencies: [mapCamera])
-class MapCameraChanges extends _$MapCameraChanges {
-  @override
-  int build() {
-    final controller = ref.watch(mapCameraProvider).mapController;
-    final subscription = controller.mapEventStream.listen((_) => state++);
-    ref.onDispose(subscription.cancel);
-    return 0;
-  }
-}
-
 typedef CameraSnapshot = ({
   double zoomScale,
   double rotationRad,
@@ -24,15 +13,20 @@ typedef CameraSnapshot = ({
   Size size,
 });
 
-@Riverpod(dependencies: [MapCameraChanges, mapCamera])
+@Riverpod(dependencies: [mapCamera])
 CameraSnapshot mapCameraSnapshot(Ref ref) {
-  ref.watch(mapCameraChangesProvider);
-  final c = ref.watch(mapCameraProvider);
+  final camera = ref.watch(mapCameraProvider);
+
+  final subscription = camera.mapController.mapEventStream.listen(
+    (_) => ref.invalidateSelf(),
+  );
+  ref.onDispose(subscription.cancel);
+
   return (
-    zoomScale: c.zoomScale,
-    rotationRad: c.rotationRad,
-    worldCenter: c.worldCenter,
-    screenCenter: c.screenCenter,
-    size: c.size,
+    zoomScale: camera.zoomScale,
+    rotationRad: camera.rotationRad,
+    worldCenter: camera.worldCenter,
+    screenCenter: camera.screenCenter,
+    size: camera.size,
   );
 }

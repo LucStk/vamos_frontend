@@ -15,7 +15,6 @@ import 'package:vamos_cartographie/map/map.dart';
   mapGestureHandler,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class TripMapScreen extends ConsumerWidget {
@@ -53,7 +52,6 @@ class TripMapScreen extends ConsumerWidget {
   mapGestureHandler,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class _TripMapView extends ConsumerWidget {

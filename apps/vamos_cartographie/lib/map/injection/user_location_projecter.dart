@@ -1,6 +1,5 @@
-import 'package:map_canvas/application/projection/projected_user_location.dart';
-import 'package:map_canvas/domain/projected_base_object/projected_object.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import '/app_services/app_services.dart';

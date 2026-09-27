@@ -12,7 +12,6 @@ import 'package:riverpod_annotation/experimental/scope.dart';
   mapController,
   mapGestureHandler,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class MapGestureBridge extends ConsumerStatefulWidget {

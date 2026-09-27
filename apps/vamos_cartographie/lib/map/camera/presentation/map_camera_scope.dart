@@ -3,20 +3,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-// import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
-// @Dependencies([
-//   mapGestureHandler,
-//   exploreScene,
-//   MapExplore,
-//   userLocationTrigger,
-//   tripBoundsTrigger,
-//   mapGestureHandler,
-//   cameraDirector,
-//   mapCamera,
-//   MapCameraChanges,
-//   mapCameraSnapshot,
-// ])
+@Dependencies([mapGestureHandler, cameraDirector, mapCamera])
 class MapCameraScope extends StatefulWidget {
   const MapCameraScope({super.key, required this.child});
   final Widget child;

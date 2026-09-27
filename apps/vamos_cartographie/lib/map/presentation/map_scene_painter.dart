@@ -5,9 +5,8 @@ import 'package:map_canvas/application/application.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:map_canvas/domain/domain.dart';
-import "test_point_painter.dart";
 
-@Dependencies([mapScene, mapCameraSnapshot, MapCameraChanges])
+@Dependencies([mapScene, mapCameraSnapshot])
 class MapScenePaint extends ConsumerWidget {
   const MapScenePaint({super.key});
 
@@ -26,21 +25,13 @@ class MapScenePaint extends ConsumerWidget {
           ),
         ),
     ];
-    final size = ref.watch(mapCameraSnapshotProvider.select((c) => c.size));
 
+    final size = ref.watch(mapCameraSnapshotProvider.select((c) => c.size));
     return CameraTransform(
       child: Stack(
         children: [
-          RepaintBoundary(
-            child: CustomPaint(
-              size: size,
-              painter: TestPointPainter(
-                zoomScale: 100,
-                offset: Offset(100, 100),
-                radiusPx: 100,
-              ),
-            ),
-          ),
+          RepaintBoundary(child: CustomPaint(size: size)),
+
           // World : jamais repeinte par la caméra
           RepaintBoundary(
             child: CustomPaint(size: size, painter: MapScenePainter(commands)),

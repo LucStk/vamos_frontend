@@ -13,7 +13,6 @@ import "/routing/app_router.dart";
   // tripEditorScene,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class TripRoute extends GoRouteData with $TripRoute {

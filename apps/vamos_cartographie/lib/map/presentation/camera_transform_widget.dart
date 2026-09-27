@@ -4,7 +4,7 @@ import 'package:map_engine/services/camera_to_matrix4.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/camera.dart';
 
-@Dependencies([MapCameraChanges, mapCameraSnapshot])
+@Dependencies([mapCameraSnapshot])
 class CameraTransform extends ConsumerWidget {
   const CameraTransform({super.key, required this.child});
   // Permet de déplacer le canvas en restant sync avec la camera
@@ -13,8 +13,7 @@ class CameraTransform extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(mapCameraChangesProvider);
-    final snap = ref.read(mapCameraSnapshotProvider);
+    final snap = ref.watch(mapCameraSnapshotProvider);
     final transform = buildCameraTransform(
       scale: snap.zoomScale,
       screenCenter: snap.screenCenter,

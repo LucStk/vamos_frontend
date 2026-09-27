@@ -16,7 +16,6 @@ import '/domain_features/domain_features.dart';
   // tripEditorScene,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class TripCardView extends ConsumerWidget {

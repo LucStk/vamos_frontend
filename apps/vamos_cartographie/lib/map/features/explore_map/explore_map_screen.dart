@@ -14,10 +14,8 @@ import '/domain_features/domain_features.dart';
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
-  mapGestureHandler,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class ExploreMapScreen extends ConsumerWidget {
@@ -39,7 +37,6 @@ class ExploreMapScreen extends ConsumerWidget {
   mapGestureHandler,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
 ])
 class _ExploreSceneResolver extends ConsumerWidget {
@@ -78,7 +75,6 @@ class _ExploreSceneResolver extends ConsumerWidget {
   mapGestureHandler,
   cameraDirector,
   mapCamera,
-  MapCameraChanges,
   mapCameraSnapshot,
   MapExplore,
   userLocationTrigger,
@@ -101,7 +97,6 @@ class _ExploreMapView extends ConsumerWidget {
             ],
             overlayChildren: [TripsCarouselWidget()],
           ),
-
           Positioned(
             top: 16,
             right: 16,

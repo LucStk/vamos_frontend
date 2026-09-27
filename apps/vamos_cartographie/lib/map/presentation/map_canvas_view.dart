@@ -8,13 +8,7 @@ import "map_scene_painter.dart";
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([
-  mapScene,
-  CameraOrNull,
-  mapCamera,
-  MapCameraChanges,
-  mapCameraSnapshot,
-])
+@Dependencies([mapScene, CameraOrNull, mapCamera, mapCameraSnapshot])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
   final ValueListenable<bool> panAllowed;
