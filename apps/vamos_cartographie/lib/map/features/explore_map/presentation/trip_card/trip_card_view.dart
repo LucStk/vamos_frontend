@@ -10,9 +10,10 @@ import '/domain_features/domain_features.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 @Dependencies([
+  CameraOrNull,
   mapGestureHandler,
   MapEditor,
-  tripEditorScene,
+  // tripEditorScene,
   cameraDirector,
   mapCamera,
   MapCameraChanges,

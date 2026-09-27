@@ -7,9 +7,10 @@ import "/map/map.dart";
 import "/routing/app_router.dart";
 
 @Dependencies([
+  CameraOrNull,
   mapGestureHandler,
   MapEditor,
-  tripEditorScene,
+  // tripEditorScene,
   cameraDirector,
   mapCamera,
   MapCameraChanges,

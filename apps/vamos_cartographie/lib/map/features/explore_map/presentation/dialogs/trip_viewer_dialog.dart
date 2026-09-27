@@ -10,9 +10,10 @@ import '/map/map.dart';
 import '/ui_kit/ui_kit.dart';
 
 @Dependencies([
+  CameraOrNull,
   mapGestureHandler,
   MapEditor,
-  tripEditorScene,
+  // tripEditorScene,
   cameraDirector,
   mapCamera,
   MapCameraChanges,

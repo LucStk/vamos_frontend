@@ -36,9 +36,9 @@ final class ProjectedTripEditorSceneProvider
       SketchElementProjectionProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 =
       SketchElementProjectionProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 = userLocationProjectionProvider;
-  static final $allTransitiveDependencies4 =
-      UserLocationProjectionProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 =
+      SketchElementProjectionProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies4 = userLocationProjectionProvider;
   static final $allTransitiveDependencies5 = allVertexProjectionProvider;
   static final $allTransitiveDependencies6 = allSegmentProjectionProvider;
 

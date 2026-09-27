@@ -20,7 +20,7 @@ final class CameraOrNullProvider
         argument: null,
         retry: null,
         name: r'cameraOrNullProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
       );
@@ -41,7 +41,7 @@ final class CameraOrNullProvider
   }
 }
 
-String _$cameraOrNullHash() => r'e4e7b36214757a51c3cf4f92e37dadfc220beb51';
+String _$cameraOrNullHash() => r'42423607de78065c636c5f25f86859ffaea17444';
 
 abstract class _$CameraOrNull extends $Notifier<MapCameraController?> {
   MapCameraController? build();

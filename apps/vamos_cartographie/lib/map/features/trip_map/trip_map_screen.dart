@@ -7,6 +7,7 @@ import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 @Dependencies([
+  CameraOrNull,
   MapEditor,
   mapGestureHandler,
   // userLocationTrigger,
@@ -45,6 +46,7 @@ class TripMapScreen extends ConsumerWidget {
 }
 
 @Dependencies([
+  CameraOrNull,
   MapEditor,
   mapScene,
   mapController,

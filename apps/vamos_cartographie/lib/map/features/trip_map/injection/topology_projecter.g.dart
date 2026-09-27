@@ -31,7 +31,7 @@ final class AllVertexProjectionProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapCameraProvider;
+  static final $allTransitiveDependencies0 = cameraOrNullProvider;
 
   @override
   String debugGetCreateSourceHash() => _$allVertexProjectionHash();
@@ -77,7 +77,7 @@ final class AllVertexProjectionProvider
 }
 
 String _$allVertexProjectionHash() =>
-    r'818d7d7330c29af0e052353e5d785483409efc03';
+    r'7f599ea6eb67646b00f2c232e7b42bbbf087ed6e';
 
 final class AllVertexProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
@@ -85,7 +85,7 @@ final class AllVertexProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'allVertexProjectionProvider',
-        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        dependencies: <ProviderOrFamily>[cameraOrNullProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           AllVertexProjectionProvider.$allTransitiveDependencies0,
         ],
@@ -121,7 +121,7 @@ final class AllSegmentProjectionProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapCameraProvider;
+  static final $allTransitiveDependencies0 = cameraOrNullProvider;
 
   @override
   String debugGetCreateSourceHash() => _$allSegmentProjectionHash();
@@ -165,7 +165,7 @@ final class AllSegmentProjectionProvider
 }
 
 String _$allSegmentProjectionHash() =>
-    r'a9a1dd56a05b0068ee695cac004db445977e9f0e';
+    r'a100d0402dba0e326ee4a4b7ffca6199b64ee2db';
 
 final class AllSegmentProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {
@@ -173,7 +173,7 @@ final class AllSegmentProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'allSegmentProjectionProvider',
-        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        dependencies: <ProviderOrFamily>[cameraOrNullProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           AllSegmentProjectionProvider.$allTransitiveDependencies0,
         ],

@@ -103,7 +103,7 @@ final class ProjectTripProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapCameraProvider;
+  static final $allTransitiveDependencies0 = cameraOrNullProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectTripHash();
@@ -145,7 +145,7 @@ final class ProjectTripProvider
   }
 }
 
-String _$projectTripHash() => r'6f3828448fea09d1ca932398242cee07a84effd4';
+String _$projectTripHash() => r'f8250bb98e51f85bec0e39dddbd7cd61c16cdb56';
 
 final class ProjectTripFamily extends $Family
     with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
@@ -153,7 +153,7 @@ final class ProjectTripFamily extends $Family
     : super(
         retry: null,
         name: r'projectTripProvider',
-        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        dependencies: <ProviderOrFamily>[cameraOrNullProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           ProjectTripProvider.$allTransitiveDependencies0,
         ],
@@ -189,20 +189,17 @@ final class ProjectedExploreSceneProvider
           projectTripProvider,
           userLocationProjectionProvider,
         ],
-        $allTransitiveDependencies: <ProviderOrFamily>{
+        $allTransitiveDependencies: <ProviderOrFamily>[
           ProjectedExploreSceneProvider.$allTransitiveDependencies0,
           ProjectedExploreSceneProvider.$allTransitiveDependencies1,
           ProjectedExploreSceneProvider.$allTransitiveDependencies2,
-          ProjectedExploreSceneProvider.$allTransitiveDependencies3,
-        },
+        ],
       );
 
   static final $allTransitiveDependencies0 = projectTripProvider;
   static final $allTransitiveDependencies1 =
       ProjectTripProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 = userLocationProjectionProvider;
-  static final $allTransitiveDependencies3 =
-      UserLocationProjectionProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$projectedExploreSceneHash();
@@ -264,9 +261,9 @@ final class ExploreSceneProvider
   static final $allTransitiveDependencies3 =
       ProjectedExploreSceneProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies4 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies2;
+      ProjectedExploreSceneProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies5 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies3;
+      ProjectedExploreSceneProvider.$allTransitiveDependencies2;
 
   @override
   String debugGetCreateSourceHash() => _$exploreSceneHash();

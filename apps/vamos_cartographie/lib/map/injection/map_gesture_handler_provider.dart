@@ -7,10 +7,10 @@ part 'map_gesture_handler_provider.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [mapController, mapScene, mapCamera])
 MapGestureHandler mapGestureHandler(Ref ref) {
+  final camera = ref.watch(mapCameraProvider);
   final handler = MapGestureHandler(
     hitTest: ({required WorldOffset offset, MapObject? exclude}) {
       final scene = ref.read(mapSceneProvider);
-      final camera = ref.watch(mapCameraProvider);
       return scene.hitTest(
         offset,
         camera.zoomScale,

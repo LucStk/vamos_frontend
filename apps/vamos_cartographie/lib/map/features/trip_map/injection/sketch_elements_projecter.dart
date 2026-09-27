@@ -11,12 +11,15 @@ part 'sketch_elements_projecter.g.dart';
 
 // final projection = const Epsg3857().projection;
 
-@Riverpod(dependencies: [mapCamera, MapEditor])
+@Riverpod(dependencies: [CameraOrNull, MapEditor])
 List<ProjectedObject> sketchElementProjection(Ref ref, TripId tripId) {
   final List<ProjectedObject> ret = [];
 
   final editorMode = ref.watch(mapEditorProvider(tripId));
-  final cameraReader = ref.read(mapCameraProvider);
+  final cameraReader = ref.read(cameraOrNullProvider);
+  if (cameraReader == null) {
+    return [];
+  }
 
   if (editorMode case final SketchMode sketch) {
     final position = sketch.pencilPositionOrNull;

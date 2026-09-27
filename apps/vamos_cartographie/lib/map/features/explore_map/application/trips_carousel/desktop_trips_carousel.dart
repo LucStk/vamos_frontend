@@ -7,10 +7,11 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
 
 @Dependencies([
+  CameraOrNull,
   MapExplore,
   mapGestureHandler,
   MapEditor,
-  tripEditorScene,
+  // tripEditorScene,
   cameraDirector,
   mapCamera,
   MapCameraChanges,

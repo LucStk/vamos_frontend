@@ -7,8 +7,9 @@ import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
 @Dependencies([
+  CameraOrNull,
   MapEditor,
-  tripEditorScene,
+  // tripEditorScene,
   mapGestureHandler,
   MapExplore,
   userLocationTrigger,
@@ -29,8 +30,9 @@ class ExploreMapScreen extends ConsumerWidget {
 }
 
 @Dependencies([
+  CameraOrNull,
   MapEditor,
-  tripEditorScene,
+  // tripEditorScene,
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
@@ -68,8 +70,9 @@ class _ExploreSceneResolver extends ConsumerWidget {
 }
 
 @Dependencies([
+  CameraOrNull,
   MapEditor,
-  tripEditorScene,
+  // tripEditorScene,
   mapScene,
   mapController,
   mapGestureHandler,

@@ -66,4 +66,4 @@ final class MapGestureHandlerProvider
   }
 }
 
-String _$mapGestureHandlerHash() => r'2b64d4bd4f49c2ccde4152f2424aaefc97041f12';
+String _$mapGestureHandlerHash() => r'c4e4731c292407cc35adc843d6908b2a4dd821d9';
