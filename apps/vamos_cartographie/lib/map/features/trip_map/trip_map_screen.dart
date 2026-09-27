@@ -1,6 +1,5 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
@@ -17,26 +16,12 @@ class TripMapScreen extends StatefulWidget {
 }
 
 class _TripMapScreenState extends State<TripMapScreen>
-    with TickerProviderStateMixin {
-  late final _camera = FlutterMapCamera(MapController());
-
-  @override
-  void initState() {
-    super.initState();
-    _camera.attachAnimatedController(this);
-  }
-
-  @override
-  void dispose() {
-    _camera.detachAnimatedController();
-    super.dispose();
-  }
-
+    with TickerProviderStateMixin, MapCameraLifecycle {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
       overrides: [
-        mapCameraProvider.overrideWithValue(_camera),
+        mapCameraProvider.overrideWithValue(camera),
         cameraOrNullProvider.overrideWith(CameraOrNull.new),
       ],
       child: _TripMapResolver(tripId: widget.tripId),

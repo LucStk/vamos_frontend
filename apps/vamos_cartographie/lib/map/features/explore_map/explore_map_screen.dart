@@ -1,6 +1,5 @@
 // features/map/presentation/screens/map_page.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
@@ -16,26 +15,12 @@ class ExploreMapScreen extends StatefulWidget {
 }
 
 class _MapExploreScreenState extends State<ExploreMapScreen>
-    with TickerProviderStateMixin {
-  late final _camera = FlutterMapCamera(MapController());
-
-  @override
-  void initState() {
-    super.initState();
-    _camera.attachAnimatedController(this);
-  }
-
-  @override
-  void dispose() {
-    _camera.detachAnimatedController();
-    super.dispose();
-  }
-
+    with TickerProviderStateMixin, MapCameraLifecycle {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
       overrides: [
-        mapCameraProvider.overrideWithValue(_camera),
+        mapCameraProvider.overrideWithValue(camera),
         cameraOrNullProvider.overrideWith(CameraOrNull.new),
       ],
       child: _ExploreSceneResolver(),
