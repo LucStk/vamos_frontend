@@ -16,7 +16,6 @@ import '/domain_features/domain_features.dart';
   tripBoundsTrigger,
   cameraDirector,
   mapCamera,
-  mapCameraSnapshot,
 ])
 class ExploreMapScreen extends ConsumerWidget {
   const ExploreMapScreen({super.key});
@@ -37,7 +36,6 @@ class ExploreMapScreen extends ConsumerWidget {
   mapGestureHandler,
   cameraDirector,
   mapCamera,
-  mapCameraSnapshot,
 ])
 class _ExploreSceneResolver extends ConsumerWidget {
   const _ExploreSceneResolver();
@@ -75,7 +73,6 @@ class _ExploreSceneResolver extends ConsumerWidget {
   mapGestureHandler,
   cameraDirector,
   mapCamera,
-  mapCameraSnapshot,
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,

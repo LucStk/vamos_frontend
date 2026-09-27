@@ -16,7 +16,6 @@ import '/ui_kit/ui_kit.dart';
   // tripEditorScene,
   cameraDirector,
   mapCamera,
-  mapCameraSnapshot,
 ])
 class TripViewerDialog extends ConsumerWidget {
   final Id<Trip> tripId;

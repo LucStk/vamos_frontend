@@ -8,7 +8,21 @@ import "map_scene_painter.dart";
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([mapScene, CameraOrNull, mapCamera, mapCameraSnapshot])
+@Dependencies([])
+class CameraSnapshotScope extends StatelessWidget {
+  const CameraSnapshotScope({super.key, required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      overrides: [mapCameraSnapshotProvider.overrideWith(mapCameraSnapshot)],
+      child: child,
+    );
+  }
+}
+
+@Dependencies([mapScene, CameraOrNull, mapCamera])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
   final ValueListenable<bool> panAllowed;
@@ -40,7 +54,16 @@ class MapCanvas extends ConsumerWidget {
                         ~InteractiveFlag.drag,
             ),
           ),
-          children: [...layers, MapScenePaint()],
+          children: [
+            ...layers,
+            ProviderScope(
+              overrides: [
+                mapCameraSnapshotProvider.overrideWith(mapCameraSnapshot),
+              ],
+              child: MapScenePaint(),
+            ),
+            // CameraSnapshotScope(child: MapScenePaint()),
+          ],
         );
       },
     );

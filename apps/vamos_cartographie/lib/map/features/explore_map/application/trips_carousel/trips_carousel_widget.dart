@@ -14,7 +14,6 @@ import 'package:riverpod_annotation/experimental/scope.dart';
   // tripEditorScene,
   cameraDirector,
   mapCamera,
-  mapCameraSnapshot,
 ])
 class TripsCarouselWidget extends ConsumerWidget {
   const TripsCarouselWidget({super.key});

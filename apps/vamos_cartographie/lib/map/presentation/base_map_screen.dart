@@ -12,7 +12,6 @@ import 'package:vamos_cartographie/map/map.dart';
   mapGestureHandler,
   cameraDirector,
   mapCamera,
-  mapCameraSnapshot,
 ])
 class BaseMap extends ConsumerWidget {
   const BaseMap({
