@@ -11,7 +11,6 @@ import '/ui_kit/ui_kit.dart';
 
 @Dependencies([
   mapScene,
-  mapGestureHandler,
   MapEditor,
   // tripEditorScene,
 ])

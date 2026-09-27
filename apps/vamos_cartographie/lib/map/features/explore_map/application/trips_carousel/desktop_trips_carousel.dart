@@ -6,13 +6,7 @@ import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
 
-@Dependencies([
-  mapScene,
-  MapExplore,
-  mapGestureHandler,
-  MapEditor,
-  // tripEditorScene,
-])
+@Dependencies([mapScene, MapExplore, MapEditor])
 class DesktopTripsCarousel extends ConsumerWidget {
   const DesktopTripsCarousel({super.key, required this.tripIds});
 

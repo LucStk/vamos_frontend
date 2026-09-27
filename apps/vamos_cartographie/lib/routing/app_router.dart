@@ -12,7 +12,7 @@ part 'app_router.g.dart';
   path: '/explore',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
-@Dependencies([mapScene, mapGestureHandler, MapEditor, MapExplore])
+@Dependencies([mapScene, MapEditor, MapExplore])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 
@@ -22,6 +22,7 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
   }
 }
 
+@Dependencies([mapScene, MapEditor, MapExplore])
 final appRouter = GoRouter(
   initialLocation: '/explore',
   routes: [...$appRoutes, ...auth.$appRoutes],

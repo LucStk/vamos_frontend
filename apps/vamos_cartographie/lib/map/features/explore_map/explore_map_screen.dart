@@ -4,10 +4,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
-import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
-@Dependencies([MapEditor, mapGestureHandler, MapExplore])
+@Dependencies([MapEditor, MapExplore])
 class ExploreMapScreen extends StatefulWidget {
   const ExploreMapScreen({super.key});
 
@@ -45,11 +44,9 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
 
 @Dependencies([
   CameraOrNull,
-  MapEditor,
   MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
-  mapGestureHandler,
   cameraDirector,
   mapCamera,
 ])
@@ -74,14 +71,10 @@ class _ExploreSceneResolver extends ConsumerWidget {
 
 @Dependencies([
   CameraOrNull,
-  MapEditor,
-  // tripEditorScene,
   mapScene,
   mapController,
-  mapGestureHandler,
   cameraDirector,
   mapCamera,
-  MapExplore,
   userLocationTrigger,
   tripBoundsTrigger,
 ])
@@ -100,8 +93,9 @@ class _ExploreMapView extends ConsumerWidget {
               userLocationTriggerProvider,
               tripBoundsTriggerProvider,
             ],
-            overlayChildren: [TripsCarouselWidget()],
+            overlayChildren: [],
           ),
+
           Positioned(
             top: 16,
             right: 16,
@@ -112,15 +106,14 @@ class _ExploreMapView extends ConsumerWidget {
               clipBehavior: Clip.antiAlias,
               child: ProfileButton(
                 onLogin: () {
-                  const LoginRoute().push(context);
+                  // const LoginRoute().push(context);
                 },
                 onProfile: () {
-                  const ProfileRoute().push(context);
+                  // const ProfileRoute().push(context);
                 },
               ),
             ),
           ),
-
           if (loader.isLoading)
             const Positioned(
               top: 0,

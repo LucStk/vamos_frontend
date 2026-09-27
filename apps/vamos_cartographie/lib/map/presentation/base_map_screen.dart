@@ -9,7 +9,6 @@ import 'package:vamos_cartographie/map/map.dart';
   CameraOrNull,
   mapScene,
   mapController,
-  mapGestureHandler,
   cameraDirector,
   mapCamera,
 ])

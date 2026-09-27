@@ -5,15 +5,14 @@ import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/routing/routing.dart';
+// import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 @Dependencies([
-  mapScene,
-  mapGestureHandler,
-  MapEditor,
-  // tripEditorScene,
+  // mapScene,
+  // MapEditor,
+  // // tripEditorScene,
 ])
 class TripCardView extends ConsumerWidget {
   final Id<Trip> tripId;
@@ -32,7 +31,7 @@ class TripCardView extends ConsumerWidget {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
-          TripRoute(tripId: tripId.value).push(context);
+          // TripRoute(tripId: tripId.value).push(context);
         },
 
         child: Padding(

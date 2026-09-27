@@ -6,13 +6,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([
-  CameraOrNull,
-  mapScene,
-  mapController,
-  mapGestureHandler,
-  mapCamera,
-])
+@Dependencies([CameraOrNull, mapScene, mapCamera, mapController])
 class MapGestureBridge extends ConsumerStatefulWidget {
   final List<Widget> mapLayers;
   const MapGestureBridge({required this.mapLayers, super.key});
@@ -23,22 +17,41 @@ class MapGestureBridge extends ConsumerStatefulWidget {
 
 class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
+  late final MapGestureHandler _gestureHandler;
+
+  @override
+  void initState() {
+    super.initState();
+    _gestureHandler = MapGestureHandler(
+      hitTest: ({required WorldOffset offset, MapObject? exclude}) {
+        final scene = ref.read(mapSceneProvider);
+        final camera = ref.read(mapCameraProvider);
+        return scene.hitTest(
+          offset,
+          camera.zoomScale,
+          ignore: (o) => exclude != null && o.isSameAs(exclude),
+        );
+      },
+      onGesture: (gesture) =>
+          ref.read(mapControllerProvider).dispatchGesture(gesture),
+    );
+  }
 
   @override
   void dispose() {
     _panAllowed.dispose();
+    _gestureHandler.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final mapCamera = ref.read(mapCameraProvider);
-    final gestureHandler = ref.read(mapGestureHandlerProvider);
 
     void resolve(PointerEventType type, PointerEvent event) {
       final offset = mapCamera.screenToWorld(ScreenOffset(event.localPosition));
-      gestureHandler.resolve(type, offset);
-      _panAllowed.value = gestureHandler.panAllowed;
+      _gestureHandler.resolve(type, offset);
+      _panAllowed.value = _gestureHandler.panAllowed;
     }
 
     return Listener(
@@ -46,10 +59,7 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
       onPointerDown: (event) => resolve(PointerEventType.down, event),
       onPointerMove: (event) => resolve(PointerEventType.move, event),
       onPointerUp: (event) => resolve(PointerEventType.up, event),
-      child: MapCanvas(
-        layers: widget.mapLayers,
-        panAllowed: _panAllowed,
-      ), // ⬅️ passé directement
+      child: MapCanvas(layers: widget.mapLayers, panAllowed: _panAllowed),
     );
   }
 }
