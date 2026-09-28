@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_editor_application/application/map_editor_controller.dart';
 import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:trip_application/trip_application.dart';
