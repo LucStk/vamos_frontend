@@ -47,6 +47,12 @@ class PointerGestureResolver {
         );
 
       case (PressedState pressed, PointerEventType.up):
+        //Dans le cas où l'élément ne peut pas avoir de doubleTap, on envoie directement le tap
+        if (pressed.element != null && !pressed.element!.awaitsDoubleTap) {
+          state = const IdleState();
+
+          return TapGesture(offset, element: pressed.element);
+        }
         state = PendingTap(element: pressed.element, offset: offset);
         return null;
 

@@ -128,10 +128,15 @@ class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
 
                     Positioned(
                       top: 16,
+                      right: 72,
+                      child: _buildCreateTripButton(context),
+                    ),
+
+                    Positioned(
+                      top: 16,
                       right: 16,
                       child: _buildProfileButton(context),
                     ),
-
                     if (loader.isLoading)
                       const Positioned(
                         top: 0,
@@ -165,4 +170,40 @@ class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
       ),
     );
   }
+}
+
+Widget _buildCreateTripButton(BuildContext context) {
+  return Material(
+    elevation: 4,
+    color: Theme.of(context).colorScheme.surface,
+    shape: const CircleBorder(),
+    clipBehavior: Clip.antiAlias,
+    child: IconButton(
+      icon: const Icon(Icons.add),
+      tooltip: 'Créer un voyage',
+      onPressed: () {
+        // _createAndOpenTrip();
+      },
+    ),
+  );
+}
+
+Future<void> _createAndOpenTrip(BuildContext context, WidgetRef ref) async {
+  final result = await ref.read(tripStoreProvider.notifier).createBlankTrip();
+
+  result.fold(
+    (failure) {
+      // rien à faire ici : ErrorHandler/notificationQueueProvider
+      // a déjà affiché la notification globale via OptimisticExecutor
+    },
+    (trip) {
+      if (!context.mounted) return;
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) =>
+            TripFormDialog(initialTrip: trip, successMessage: 'Voyage créé'),
+      );
+    },
+  );
 }
