@@ -2,7 +2,7 @@ import '/domain/domain.dart';
 
 typedef GestureResolution = ({PointerGestureState state, MapGesture? gesture});
 typedef HitTest =
-    MapObject? Function({required WorldOffset offset, MapObject? exclude});
+    MapObject? Function({required ScreenOffset offset, MapObject? exclude});
 
 class PointerGestureResolver {
   static const double dragStartThreshold = 8;
@@ -10,21 +10,25 @@ class PointerGestureResolver {
   final HitTest hitTest;
   PointerGestureResolver({required this.hitTest}) : state = IdleState();
 
-  MapGesture? resolve(PointerEventType eventType, WorldOffset offset) {
+  MapGesture? resolve(PointerEventType eventType, ScreenOffset offset) {
     switch ((state, eventType)) {
       case (IdleState(), PointerEventType.down):
         final element = hitTest(offset: offset);
         state = PressedState(element: element, offset: offset);
+        print("pointerdown $element");
         return PointerDownGesture(offset, element: element);
 
       case (PressedState pressed, PointerEventType.move):
         final distance = (pressed.offset.value - offset.value).distance;
+
+        print("pointermove ${pressed.element} distance $distance");
 
         if (distance < dragStartThreshold) {
           // Le move peut être un accident
           return null;
         }
         // On commence le drag
+        print("drag start");
         state = DraggingState(dragged: pressed.element);
         return DragStartGesture(offset, dragged: pressed.element);
 

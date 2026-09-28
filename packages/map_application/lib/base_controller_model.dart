@@ -47,7 +47,7 @@ base class BaseController<M extends BaseMode<M>> {
 
   @protected
   void handlePointerDown(PointerDownGesture g) {
-    final p = camera.worldOffsetToLatLng(g.offset);
+    final p = camera.screenOffsetToLatLng(g.offset);
     apply(mode.handler.onPointerDown(g, p));
   }
 
@@ -57,7 +57,7 @@ base class BaseController<M extends BaseMode<M>> {
 
   @protected
   void handleDragging(DraggingGesture g) {
-    final p = camera.worldOffsetToLatLng(g.offset);
+    final p = camera.screenOffsetToLatLng(g.offset);
     apply(mode.handler.onDragging(g, p));
   }
 
@@ -72,7 +72,7 @@ base class BaseController<M extends BaseMode<M>> {
   @protected
   void handleDoubleTap(DoubleTapGesture g) {
     // if (g.element != null) return;
-    camera.zoomTo(camera.worldOffsetToLatLng(g.offset));
+    camera.zoomTo(camera.screenOffsetToLatLng(g.offset));
   }
 
   void handleOtherGesture(MapGesture gesture) {}

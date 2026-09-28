@@ -2,7 +2,7 @@ import 'domain.dart';
 
 sealed class MapGesture {
   const MapGesture(this.offset);
-  final WorldOffset offset;
+  final ScreenOffset offset;
 }
 
 class PointerDownGesture extends MapGesture {

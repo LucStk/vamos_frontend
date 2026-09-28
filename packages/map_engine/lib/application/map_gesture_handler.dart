@@ -23,7 +23,7 @@ class MapGestureHandler {
 
   late final PendingTapTimer _pendingTapTimer;
 
-  void resolve(PointerEventType event, WorldOffset offset) {
+  void resolve(PointerEventType event, ScreenOffset offset) {
     final gesture = gestureResolver.resolve(event, offset);
 
     if (gesture != null) {

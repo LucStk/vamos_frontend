@@ -23,11 +23,11 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
   void initState() {
     super.initState();
     _gestureHandler = MapGestureHandler(
-      hitTest: ({required WorldOffset offset, MapObject? exclude}) {
+      hitTest: ({required ScreenOffset offset, MapObject? exclude}) {
         final scene = ref.read(mapSceneProvider);
         final camera = ref.read(mapCameraProvider);
         return scene.hitTest(
-          offset,
+          camera.screenToWorld(offset),
           camera.zoomScale,
           ignore: (o) => exclude != null && o.isSameAs(exclude),
         );
@@ -46,10 +46,8 @@ class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
 
   @override
   Widget build(BuildContext context) {
-    final mapCamera = ref.read(mapCameraProvider);
-
     void resolve(PointerEventType type, PointerEvent event) {
-      final offset = mapCamera.screenToWorld(ScreenOffset(event.localPosition));
+      final offset = ScreenOffset(event.localPosition);
       _gestureHandler.resolve(type, offset);
       _panAllowed.value = _gestureHandler.panAllowed;
     }

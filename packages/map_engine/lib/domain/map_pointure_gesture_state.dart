@@ -12,7 +12,7 @@ class PressedState extends PointerGestureState {
   const PressedState({required this.element, required this.offset});
 
   final MapObject? element;
-  final WorldOffset offset;
+  final ScreenOffset offset;
 }
 
 class PendingTap extends PointerGestureState {
@@ -23,10 +23,10 @@ class PendingTap extends PointerGestureState {
   });
 
   final MapObject? element;
-  final WorldOffset offset;
+  final ScreenOffset offset;
   final double doubleTapMaxDistancePx;
 
-  bool compare(MapObject? otherElement, WorldOffset otherOffset) {
+  bool compare(MapObject? otherElement, ScreenOffset otherOffset) {
     if ((offset.value - otherOffset.value).distance > doubleTapMaxDistancePx) {
       return false;
     }
