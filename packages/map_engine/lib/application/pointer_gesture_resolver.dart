@@ -15,7 +15,6 @@ class PointerGestureResolver {
       case (IdleState(), PointerEventType.down):
         final element = hitTest(offset: offset);
         state = PressedState(element: element, offset: offset);
-        print("pointerdown $element");
         return PointerDownGesture(offset, element: element);
 
       case (PressedState pressed, PointerEventType.move):

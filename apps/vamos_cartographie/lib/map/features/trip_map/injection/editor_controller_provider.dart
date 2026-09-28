@@ -18,7 +18,6 @@ class MapEditor extends _$MapEditor {
       waypointEditor: ref.watch(waypointStoreProvider(tripId).notifier),
       camera: ref.watch(mapCameraProvider),
       onModeChanged: (mode) {
-        print("mode change ${mode.popUpPosition?.value}");
         state = mode;
       },
     );

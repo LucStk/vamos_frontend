@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/features/explore_map/presentation/explore_bottom_sheet.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import '/domain_features/domain_features.dart';
@@ -73,84 +74,34 @@ class _ExploreMapView extends ConsumerStatefulWidget {
 }
 
 class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
-  static const double _desktopBreakpoint = 700.0;
-
   @override
   Widget build(BuildContext context) {
     final loader = ref.watch(loadTripsProvider);
 
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final isDesktop = constraints.maxWidth >= _desktopBreakpoint;
-
-          if (!isDesktop) {
-            return Stack(
-              children: [
-                BaseMap(
-                  cameraTriggers: [
-                    userLocationTriggerProvider,
-                    tripBoundsTriggerProvider,
-                  ],
-                  overlayChildren: const [TripsCarouselWidget()],
-                ),
-
-                Positioned(
-                  top: 16,
-                  right: 16,
-                  child: _buildProfileButton(context),
-                ),
-
-                if (loader.isLoading)
-                  const Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: LinearProgressIndicator(),
-                  ),
-              ],
-            );
-          }
-
-          return Row(
-            children: [
-              const PanelLateral(child: TripsCarouselWidget()),
-
-              Expanded(
-                child: Stack(
-                  children: [
-                    BaseMap(
-                      cameraTriggers: [
-                        userLocationTriggerProvider,
-                        tripBoundsTriggerProvider,
-                      ],
-                      overlayChildren: const [],
-                    ),
-
-                    Positioned(
-                      top: 16,
-                      right: 72,
-                      child: _buildCreateTripButton(context),
-                    ),
-
-                    Positioned(
-                      top: 16,
-                      right: 16,
-                      child: _buildProfileButton(context),
-                    ),
-                    if (loader.isLoading)
-                      const Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: LinearProgressIndicator(),
-                      ),
-                  ],
-                ),
-              ),
+      body: Stack(
+        children: [
+          BaseMap(
+            cameraTriggers: [
+              userLocationTriggerProvider,
+              tripBoundsTriggerProvider,
             ],
-          );
-        },
+            overlayChildren: const [
+              TripsCarouselWidget(),
+              ExploreBottomSheet(),
+            ],
+          ),
+
+          Positioned(top: 16, right: 16, child: _buildProfileButton(context)),
+
+          if (loader.isLoading)
+            const Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: LinearProgressIndicator(),
+            ),
+        ],
       ),
     );
   }

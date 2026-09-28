@@ -11,7 +11,6 @@ final class IdleHandler extends NoopGestureHandler<MapEditorMode> {
   @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
     MapUserLocation _ => () {
-      print("tap userLocation");
       return GestureResult(mode: mode.withPopupPosition(g.offset));
     }(),
     TopologyObject e => GestureResult(mode: mode.withSelection(e as MapObject)),
