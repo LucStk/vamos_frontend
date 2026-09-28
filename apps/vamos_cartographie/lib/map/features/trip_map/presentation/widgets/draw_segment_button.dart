@@ -6,10 +6,14 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/features/trip_map/injection/editor_controller_provider.dart';
 
 @Dependencies([MapEditor])
-class DrawSegment extends ConsumerWidget {
+class DrawSegmentButton extends ConsumerWidget {
   final VertexId vertexId;
   final TripId tripId;
-  const DrawSegment({super.key, required this.tripId, required this.vertexId});
+  const DrawSegmentButton({
+    super.key,
+    required this.tripId,
+    required this.vertexId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

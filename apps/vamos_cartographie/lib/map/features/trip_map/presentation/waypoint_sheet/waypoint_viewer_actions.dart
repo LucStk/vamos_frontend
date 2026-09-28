@@ -37,40 +37,40 @@ Future<void> deleteWaypointWithConfirmation({
   }
 }
 
-class WaypointViewerButtons extends ConsumerWidget {
-  final TripId tripId;
-  final WaypointFields waypoint;
-  const WaypointViewerButtons({
-    super.key,
-    required this.tripId,
-    required this.waypoint,
-  });
+// class WaypointViewerButtons extends ConsumerWidget {
+//   final TripId tripId;
+//   final WaypointFields waypoint;
+//   const WaypointViewerButtons({
+//     super.key,
+//     required this.tripId,
+//     required this.waypoint,
+//   });
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Row(
-      children: [
-        // DrawSegment(vertexId: waypoint.vertexId, tripId: tripId),
-        const SizedBox(width: 8),
-        ModifierButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (ctx) =>
-                  WaypointFormDialog(tripId: tripId, initialWaypoint: waypoint),
-            );
-          },
-        ),
-        const SizedBox(width: 8),
-        DeleteButton(
-          onPressed: () => deleteWaypointWithConfirmation(
-            context: context,
-            ref: ref,
-            tripId: tripId,
-            waypointId: waypoint.id,
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Row(
+//       children: [
+//         // DrawSegment(vertexId: waypoint.vertexId, tripId: tripId),
+//         const SizedBox(width: 8),
+//         ModifierButton(
+//           onPressed: () {
+//             showDialog(
+//               context: context,
+//               builder: (ctx) =>
+//                   WaypointFormDialog(tripId: tripId, initialWaypoint: waypoint),
+//             );
+//           },
+//         ),
+//         const SizedBox(width: 8),
+//         DeleteButton(
+//           onPressed: () => deleteWaypointWithConfirmation(
+//             context: context,
+//             ref: ref,
+//             tripId: tripId,
+//             waypointId: waypoint.id,
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
