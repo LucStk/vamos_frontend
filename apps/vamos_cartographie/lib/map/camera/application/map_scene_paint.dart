@@ -22,7 +22,7 @@ class MapScenePaint extends ConsumerStatefulWidget {
 class _MapScenePaintState extends ConsumerState<MapScenePaint>
     with TickerProviderStateMixin {
   // TickerProviderStateMixin (pas Single) : plusieurs controllers en //.
-  static const _transitionDuration = Duration(milliseconds: 150);
+  static const _transitionDuration = Duration(milliseconds: 50);
 
   final _repaintHub = TransitionHub();
   final Map<Object, VisualState> _visuals = {};

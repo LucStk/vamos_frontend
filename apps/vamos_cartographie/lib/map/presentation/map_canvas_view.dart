@@ -4,7 +4,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/map/map.dart';
-import "map_scene_painter.dart";
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 // Ne fonctionne pas avec la version riverpod aujourd'hui
