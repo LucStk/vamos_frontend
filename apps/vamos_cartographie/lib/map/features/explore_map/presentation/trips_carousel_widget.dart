@@ -38,10 +38,11 @@ class TripsCarouselWidget extends ConsumerWidget {
               return InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {
+                  final trip = ref.read(mapTripObjectProvider(tripId));
                   ref
                       .read(mapExploreProvider.notifier)
                       .controller
-                      .selectTrip(tripId);
+                      .selectTrip(trip);
                   TripViewerDialog.show(
                     context: context,
                     tripId: tripId,

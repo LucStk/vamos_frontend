@@ -14,5 +14,5 @@ class MapTripObject extends MapPolyline {
   int get hitPriority => 100;
 
   @override
-  bool isSameAs(MapObject other) => other is MapTripObject && other.id == id;
+  bool isSameAs(MapObject? other) => other is MapTripObject && other.id == id;
 }

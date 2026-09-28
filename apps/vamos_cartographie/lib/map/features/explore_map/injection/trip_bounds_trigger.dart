@@ -9,10 +9,11 @@ void tripBoundsTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 
   ref.listen(mapExploreProvider, (previous, next) {
-    if (next.tripSelect == null || previous?.tripSelect == next.tripSelect) {
+    if (next.selection == null ||
+        next.selection!.isSameAs(previous?.selection)) {
       return;
     }
-    final bounds = ref.read(mapTripObjectProvider(next.tripSelect!)).bounds;
+    final bounds = ref.read(mapTripObjectProvider(next.selection!.id)).bounds;
     if (bounds == null) {
       return;
     }

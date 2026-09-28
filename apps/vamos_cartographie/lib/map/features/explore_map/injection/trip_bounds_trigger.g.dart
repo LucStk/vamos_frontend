@@ -60,4 +60,4 @@ final class TripBoundsTriggerProvider
   }
 }
 
-String _$tripBoundsTriggerHash() => r'0ba2817891d9b7719b9aaf127343b4d51dfa04c6';
+String _$tripBoundsTriggerHash() => r'b5befd3c9b800a59287d2701427cd1e3ad532e02';

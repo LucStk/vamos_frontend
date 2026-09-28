@@ -5,7 +5,7 @@ typedef HitTest =
     MapObject? Function({required ScreenOffset offset, MapObject? exclude});
 
 class PointerGestureResolver {
-  static const double dragStartThreshold = 8;
+  static const double dragStartThreshold = 2;
   PointerGestureState state;
   final HitTest hitTest;
   PointerGestureResolver({required this.hitTest}) : state = IdleState();
@@ -21,14 +21,11 @@ class PointerGestureResolver {
       case (PressedState pressed, PointerEventType.move):
         final distance = (pressed.offset.value - offset.value).distance;
 
-        print("pointermove ${pressed.element} distance $distance");
-
         if (distance < dragStartThreshold) {
           // Le move peut être un accident
           return null;
         }
         // On commence le drag
-        print("drag start");
         state = DraggingState(dragged: pressed.element);
         return DragStartGesture(offset, dragged: pressed.element);
 

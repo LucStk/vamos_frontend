@@ -2,10 +2,14 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_application/gesture_result_model.dart';
 import 'package:map_engine/map_engine.dart';
 
+typedef PopUpPositionType = ScreenOffset?;
+
 abstract class BaseMode<Self extends BaseMode<Self>> {
   const BaseMode();
 
   ModeGestureHandler<Self> get handler;
+  PopUpPositionType get popUpPosition;
+  MapObject? get selection;
 }
 
 abstract interface class ModeGestureHandler<M extends BaseMode<M>> {

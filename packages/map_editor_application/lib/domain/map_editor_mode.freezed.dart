@@ -13,9 +13,200 @@ part of 'map_editor_mode.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
+mixin _$Idle {
+
+
+/// Create a copy of Idle
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$IdleCopyWith<Idle> get copyWith => _$IdleCopyWithImpl<Idle>(this as Idle, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as Idle;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Idle&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as Idle;
+  return Object.hash(runtimeType,_this.popUpPosition,_this.selection);
+}
+
+@override
+String toString() {
+  final _this = this as Idle;
+  return 'Idle(popUpPosition: ${_this.popUpPosition}, selection: ${_this.selection})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $IdleCopyWith<$Res>  {
+  factory $IdleCopyWith(Idle value, $Res Function(Idle) _then) = _$IdleCopyWithImpl;
+@useResult
+$Res call({
+ MapObject? selection, PopUpPositionType? popUpPosition
+});
+
+
+
+
+}
+/// @nodoc
+class _$IdleCopyWithImpl<$Res>
+    implements $IdleCopyWith<$Res> {
+  _$IdleCopyWithImpl(this._self, this._then);
+
+  final Idle _self;
+  final $Res Function(Idle) _then;
+
+/// Create a copy of Idle
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? selection = freezed,Object? popUpPosition = freezed,}) {
+  return _then(Idle(
+selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
+as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [Idle].
+extension IdlePatterns on Idle {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
 mixin _$SketchCreation {
 
- VertexId get vertexStart; List<LatLng> get path; MobilityType get mobilityType; VertexId? get touchedVertex; MapObject? get selection;
+ VertexId get vertexStart; List<LatLng> get path; MobilityType get mobilityType; VertexId? get touchedVertex; MapObject? get selection; PopUpPositionType? get popUpPosition;
 /// Create a copy of SketchCreation
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +218,20 @@ $SketchCreationCopyWith<SketchCreation> get copyWith => _$SketchCreationCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as SketchCreation;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchCreation&&(identical(other.vertexStart, _this.vertexStart) || other.vertexStart == _this.vertexStart)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.mobilityType, _this.mobilityType) || other.mobilityType == _this.mobilityType)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchCreation&&(identical(other.vertexStart, _this.vertexStart) || other.vertexStart == _this.vertexStart)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.mobilityType, _this.mobilityType) || other.mobilityType == _this.mobilityType)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SketchCreation;
-  return Object.hash(runtimeType,_this.vertexStart,const DeepCollectionEquality().hash(_this.path),_this.mobilityType,_this.touchedVertex,_this.selection);
+  return Object.hash(runtimeType,_this.vertexStart,const DeepCollectionEquality().hash(_this.path),_this.mobilityType,_this.touchedVertex,_this.selection,_this.popUpPosition);
 }
 
 @override
 String toString() {
   final _this = this as SketchCreation;
-  return 'SketchCreation(vertexStart: ${_this.vertexStart}, path: ${_this.path}, mobilityType: ${_this.mobilityType}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection})';
+  return 'SketchCreation(vertexStart: ${_this.vertexStart}, path: ${_this.path}, mobilityType: ${_this.mobilityType}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection}, popUpPosition: ${_this.popUpPosition})';
 }
 
 
@@ -51,7 +242,7 @@ abstract mixin class $SketchCreationCopyWith<$Res>  {
   factory $SketchCreationCopyWith(SketchCreation value, $Res Function(SketchCreation) _then) = _$SketchCreationCopyWithImpl;
 @useResult
 $Res call({
- VertexId vertexStart, List<LatLng> path, MobilityType mobilityType, VertexId? touchedVertex, MapObject? selection
+ VertexId vertexStart, List<LatLng> path, MobilityType mobilityType, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
 });
 
 
@@ -68,14 +259,15 @@ class _$SketchCreationCopyWithImpl<$Res>
 
 /// Create a copy of SketchCreation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? vertexStart = null,Object? path = null,Object? mobilityType = null,Object? touchedVertex = freezed,Object? selection = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? vertexStart = null,Object? path = null,Object? mobilityType = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
   return _then(SketchCreation(
 vertexStart: null == vertexStart ? _self.vertexStart : vertexStart // ignore: cast_nullable_to_non_nullable
 as VertexId,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapObject?,
+as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
   ));
 }
 
@@ -160,10 +352,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( VertexId vertexStart,  List<LatLng> path,  MobilityType mobilityType,  VertexId? touchedVertex,  MapObject? selection)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( VertexId vertexStart,  List<LatLng> path,  MobilityType mobilityType,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SketchCreation() when $default != null:
-return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVertex,_that.selection);case _:
+return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   return orElse();
 
 }
@@ -181,10 +373,10 @@ return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVer
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( VertexId vertexStart,  List<LatLng> path,  MobilityType mobilityType,  VertexId? touchedVertex,  MapObject? selection)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( VertexId vertexStart,  List<LatLng> path,  MobilityType mobilityType,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)  $default,) {final _that = this;
 switch (_that) {
 case _SketchCreation():
-return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVertex,_that.selection);case _:
+return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +393,10 @@ return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVer
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( VertexId vertexStart,  List<LatLng> path,  MobilityType mobilityType,  VertexId? touchedVertex,  MapObject? selection)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( VertexId vertexStart,  List<LatLng> path,  MobilityType mobilityType,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,) {final _that = this;
 switch (_that) {
 case _SketchCreation() when $default != null:
-return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVertex,_that.selection);case _:
+return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   return null;
 
 }
@@ -216,7 +408,7 @@ return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVer
 
 
 class _SketchCreation extends SketchCreation {
-  const _SketchCreation({required this.vertexStart, required  List<LatLng> path, required this.mobilityType, this.touchedVertex, this.selection}): _path = path,super._();
+  const _SketchCreation({required this.vertexStart, required  List<LatLng> path, required this.mobilityType, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
   
 
 @override final  VertexId vertexStart;
@@ -230,6 +422,7 @@ class _SketchCreation extends SketchCreation {
 @override final  MobilityType mobilityType;
 @override final  VertexId? touchedVertex;
 @override final  MapObject? selection;
+@override final  PopUpPositionType? popUpPosition;
 
 /// Create a copy of SketchCreation
 /// with the given fields replaced by the non-null parameter values.
@@ -241,18 +434,18 @@ _$SketchCreationCopyWith<_SketchCreation> get copyWith => __$SketchCreationCopyW
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchCreation&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchCreation&&(identical(other.vertexStart, vertexStart) || other.vertexStart == vertexStart)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.popUpPosition, popUpPosition) || other.popUpPosition == popUpPosition));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(_path),mobilityType,touchedVertex,selection);
+    return Object.hash(runtimeType,vertexStart,const DeepCollectionEquality().hash(_path),mobilityType,touchedVertex,selection,popUpPosition);
 }
 
 @override
 String toString() {
-    return 'SketchCreation(vertexStart: $vertexStart, path: $path, mobilityType: $mobilityType, touchedVertex: $touchedVertex, selection: $selection)';
+    return 'SketchCreation(vertexStart: $vertexStart, path: $path, mobilityType: $mobilityType, touchedVertex: $touchedVertex, selection: $selection, popUpPosition: $popUpPosition)';
 }
 
 
@@ -263,7 +456,7 @@ abstract mixin class _$SketchCreationCopyWith<$Res> implements $SketchCreationCo
   factory _$SketchCreationCopyWith(_SketchCreation value, $Res Function(_SketchCreation) _then) = __$SketchCreationCopyWithImpl;
 @override @useResult
 $Res call({
- VertexId vertexStart, List<LatLng> path, MobilityType mobilityType, VertexId? touchedVertex, MapObject? selection
+ VertexId vertexStart, List<LatLng> path, MobilityType mobilityType, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
 });
 
 
@@ -280,14 +473,15 @@ class __$SketchCreationCopyWithImpl<$Res>
 
 /// Create a copy of SketchCreation
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? vertexStart = null,Object? path = null,Object? mobilityType = null,Object? touchedVertex = freezed,Object? selection = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? vertexStart = null,Object? path = null,Object? mobilityType = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
   return _then(_SketchCreation(
 vertexStart: null == vertexStart ? _self.vertexStart : vertexStart // ignore: cast_nullable_to_non_nullable
 as VertexId,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,mobilityType: null == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
 as MobilityType,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapObject?,
+as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
   ));
 }
 
@@ -297,7 +491,7 @@ as MapObject?,
 /// @nodoc
 mixin _$SketchEdition {
 
- SegmentId get segmentId; List<LatLng> get path; VertexId? get touchedVertex; MapObject? get selection;
+ SegmentId get segmentId; List<LatLng> get path; VertexId? get touchedVertex; MapObject? get selection; PopUpPositionType? get popUpPosition;
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -309,20 +503,20 @@ $SketchEditionCopyWith<SketchEdition> get copyWith => _$SketchEditionCopyWithImp
 @override
 bool operator ==(Object other) {
   final _this = this as SketchEdition;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segmentId, _this.segmentId) || other.segmentId == _this.segmentId)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segmentId, _this.segmentId) || other.segmentId == _this.segmentId)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SketchEdition;
-  return Object.hash(runtimeType,_this.segmentId,const DeepCollectionEquality().hash(_this.path),_this.touchedVertex,_this.selection);
+  return Object.hash(runtimeType,_this.segmentId,const DeepCollectionEquality().hash(_this.path),_this.touchedVertex,_this.selection,_this.popUpPosition);
 }
 
 @override
 String toString() {
   final _this = this as SketchEdition;
-  return 'SketchEdition(segmentId: ${_this.segmentId}, path: ${_this.path}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection})';
+  return 'SketchEdition(segmentId: ${_this.segmentId}, path: ${_this.path}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection}, popUpPosition: ${_this.popUpPosition})';
 }
 
 
@@ -333,7 +527,7 @@ abstract mixin class $SketchEditionCopyWith<$Res>  {
   factory $SketchEditionCopyWith(SketchEdition value, $Res Function(SketchEdition) _then) = _$SketchEditionCopyWithImpl;
 @useResult
 $Res call({
- SegmentId segmentId, List<LatLng> path, VertexId? touchedVertex, MapObject? selection
+ SegmentId segmentId, List<LatLng> path, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
 });
 
 
@@ -350,13 +544,14 @@ class _$SketchEditionCopyWithImpl<$Res>
 
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? segmentId = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? segmentId = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
   return _then(SketchEdition(
 segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
 as SegmentId,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapObject?,
+as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
   ));
 }
 
@@ -441,10 +636,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SketchEdition() when $default != null:
-return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);case _:
+return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   return orElse();
 
 }
@@ -462,10 +657,10 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)  $default,) {final _that = this;
 switch (_that) {
 case _SketchEdition():
-return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);case _:
+return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -482,10 +677,10 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,) {final _that = this;
 switch (_that) {
 case _SketchEdition() when $default != null:
-return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);case _:
+return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   return null;
 
 }
@@ -497,7 +692,7 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection);
 
 
 class _SketchEdition extends SketchEdition {
-  const _SketchEdition({required this.segmentId, required  List<LatLng> path, this.touchedVertex, this.selection}): _path = path,super._();
+  const _SketchEdition({required this.segmentId, required  List<LatLng> path, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
   
 
 @override final  SegmentId segmentId;
@@ -510,6 +705,7 @@ class _SketchEdition extends SketchEdition {
 
 @override final  VertexId? touchedVertex;
 @override final  MapObject? selection;
+@override final  PopUpPositionType? popUpPosition;
 
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
@@ -521,18 +717,18 @@ _$SketchEditionCopyWith<_SketchEdition> get copyWith => __$SketchEditionCopyWith
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchEdition&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchEdition&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.popUpPosition, popUpPosition) || other.popUpPosition == popUpPosition));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,segmentId,const DeepCollectionEquality().hash(_path),touchedVertex,selection);
+    return Object.hash(runtimeType,segmentId,const DeepCollectionEquality().hash(_path),touchedVertex,selection,popUpPosition);
 }
 
 @override
 String toString() {
-    return 'SketchEdition(segmentId: $segmentId, path: $path, touchedVertex: $touchedVertex, selection: $selection)';
+    return 'SketchEdition(segmentId: $segmentId, path: $path, touchedVertex: $touchedVertex, selection: $selection, popUpPosition: $popUpPosition)';
 }
 
 
@@ -543,7 +739,7 @@ abstract mixin class _$SketchEditionCopyWith<$Res> implements $SketchEditionCopy
   factory _$SketchEditionCopyWith(_SketchEdition value, $Res Function(_SketchEdition) _then) = __$SketchEditionCopyWithImpl;
 @override @useResult
 $Res call({
- SegmentId segmentId, List<LatLng> path, VertexId? touchedVertex, MapObject? selection
+ SegmentId segmentId, List<LatLng> path, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
 });
 
 
@@ -560,13 +756,14 @@ class __$SketchEditionCopyWithImpl<$Res>
 
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? segmentId = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? segmentId = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
   return _then(_SketchEdition(
 segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
 as SegmentId,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapObject?,
+as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
   ));
 }
 

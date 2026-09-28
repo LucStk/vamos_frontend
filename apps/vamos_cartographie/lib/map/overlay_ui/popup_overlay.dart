@@ -1,102 +1,96 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:domain_core/domain_core.dart';
-// import 'package:trip_application/trip_application.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/map/map.dart';
 
-// class PopUpOverlay extends ConsumerWidget {
-//   const PopUpOverlay({super.key, required this.tripId});
+class PopupOverlay extends ConsumerWidget {
+  const PopupOverlay({super.key});
 
-//   final Id<Trip> tripId;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pos = ref.watch(popupScreenPositionProvider);
+    if (pos == null) return const SizedBox.shrink();
 
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final point = ref.watch(projectSketchPencilProvider(tripId));
+    return Positioned(
+      left: pos.dx,
+      top: pos.dy,
+      child: FractionalTranslation(
+        translation: const Offset(-0.5, -1.5),
+        child: _PencilPopup(
+          onCreateStep: () {
+            // TODO: déclencher la création de l'étape
+          },
+        ),
+      ),
+    );
+  }
+}
 
-//     if (point == null) {
-//       return const SizedBox.shrink();
-//     }
+class _PencilPopup extends StatelessWidget {
+  const _PencilPopup({required this.onCreateStep});
 
-//     return Positioned(
-//       left: point.worldPosition.dx,
-//       top: point.worldPosition.dy,
-//       child: FractionalTranslation(
-//         translation: const Offset(-0.5, -1.5),
-//         child: _PencilPopup(
-//           onCreateStep: () {
-//             // TODO: déclencher la création de l'étape
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
+  final VoidCallback onCreateStep;
 
-// class _PencilPopup extends StatelessWidget {
-//   const _PencilPopup({required this.onCreateStep});
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
 
-//   final VoidCallback onCreateStep;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Material(
+          elevation: 6,
+          borderRadius: BorderRadius.circular(12),
+          color: theme.colorScheme.surface,
+          clipBehavior: Clip.antiAlias,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: TextButton.icon(
+              onPressed: onCreateStep,
+              icon: const Icon(Icons.add, size: 18),
+              label: const Text('Créer étape ici'),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+        ),
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final theme = Theme.of(context);
+        // Petite pointe qui indique le point géographique.
+        CustomPaint(
+          size: const Size(18, 9),
+          painter: _PopupArrowPainter(color: theme.colorScheme.surface),
+        ),
+      ],
+    );
+  }
+}
 
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         Material(
-//           elevation: 6,
-//           borderRadius: BorderRadius.circular(12),
-//           color: theme.colorScheme.surface,
-//           clipBehavior: Clip.antiAlias,
-//           child: Padding(
-//             padding: const EdgeInsets.all(6),
-//             child: TextButton.icon(
-//               onPressed: onCreateStep,
-//               icon: const Icon(Icons.add, size: 18),
-//               label: const Text('Créer étape ici'),
-//               style: TextButton.styleFrom(
-//                 padding: const EdgeInsets.symmetric(
-//                   horizontal: 14,
-//                   vertical: 10,
-//                 ),
-//                 minimumSize: Size.zero,
-//                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ),
+class _PopupArrowPainter extends CustomPainter {
+  const _PopupArrowPainter({required this.color});
 
-//         // Petite pointe qui indique le point géographique.
-//         CustomPaint(
-//           size: const Size(18, 9),
-//           painter: _PopupArrowPainter(color: theme.colorScheme.surface),
-//         ),
-//       ],
-//     );
-//   }
-// }
+  final Color color;
 
-// class _PopupArrowPainter extends CustomPainter {
-//   const _PopupArrowPainter({required this.color});
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, size.height)
+      ..lineTo(size.width, 0)
+      ..close();
 
-//   final Color color;
+    canvas.drawPath(path, Paint()..color = color);
+  }
 
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final path = Path()
-//       ..moveTo(0, 0)
-//       ..lineTo(size.width / 2, size.height)
-//       ..lineTo(size.width, 0)
-//       ..close();
-
-//     canvas.drawPath(path, Paint()..color = color);
-//   }
-
-//   @override
-//   bool shouldRepaint(_PopupArrowPainter oldDelegate) {
-//     return oldDelegate.color != color;
-//   }
-// }
+  @override
+  bool shouldRepaint(_PopupArrowPainter oldDelegate) {
+    return oldDelegate.color != color;
+  }
+}

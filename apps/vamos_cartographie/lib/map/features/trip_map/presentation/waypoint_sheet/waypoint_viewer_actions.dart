@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import '/ui_kit/ui_kit.dart';
-import 'waypoint_sheet.dart';
 import "/domain_features/domain_features.dart";
 
 /// Confirme puis supprime le waypoint, et ferme la vue courante
