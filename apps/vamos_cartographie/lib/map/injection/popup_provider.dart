@@ -1,6 +1,5 @@
 import 'package:flutter/animation.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'dart:math' as math;
@@ -9,20 +8,23 @@ part 'popup_provider.g.dart';
 // final projection = const Epsg3857().projection;
 
 /// Position écran du popup, recalculée à chaque mouvement de la carte.
-@Riverpod(dependencies: [mapCamera])
+@Riverpod(keepAlive: true, dependencies: [mapCamera, mapMode])
 WorldOffset? popupWorldPosition(Ref ref) {
-  final position = ref.watch(
-    mapControllerProvider.select((s) => s.mode.popUpPosition),
-  );
+  final position = ref.watch(mapModeProvider).popUpPosition;
+  print("popup position reload $position");
   if (position == null) return null;
   final camera = ref.read(mapCameraProvider);
   return camera.screenToWorld(position);
 }
 
-@Riverpod(dependencies: [mapCameraSnapshot])
+@Riverpod(
+  keepAlive: true,
+  dependencies: [mapCameraSnapshot, popupWorldPosition],
+)
 ScreenOffset? popupScreenPosition(Ref ref) {
   final world = ref.watch(popupWorldPositionProvider);
   if (world == null) return null;
+  print("popupScreenPosition activate");
 
   final cam = ref.watch(mapCameraSnapshotProvider);
 

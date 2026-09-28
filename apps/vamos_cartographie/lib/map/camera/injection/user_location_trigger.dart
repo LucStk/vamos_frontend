@@ -14,7 +14,9 @@ void userLocationTrigger(Ref ref) {
     print("camera submit");
     director.submit(
       CameraRequest(
-        FocusPoint(next.position, zoom: 16, minZoom: 14),
+        FocusPoint(
+          next.position,
+        ), //remove zoom mais on peut le rajouter (a ajuster)
         priority: CameraPriority.ambient,
       ),
     );

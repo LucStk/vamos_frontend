@@ -54,6 +54,9 @@ class _TripMapResolver extends ConsumerWidget {
         mapSceneProvider.overrideWith(
           (ref) => ref.watch(tripEditorSceneProvider(tripId)),
         ),
+        mapModeProvider.overrideWith(
+          (ref) => ref.watch(mapEditorProvider(tripId)),
+        ),
         mapControllerProvider.overrideWithValue(controller.controller),
       ],
       child: _TripMapView(tripId: tripId, isOwner: true),

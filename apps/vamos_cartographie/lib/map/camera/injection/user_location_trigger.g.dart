@@ -56,4 +56,4 @@ final class UserLocationTriggerProvider
 }
 
 String _$userLocationTriggerHash() =>
-    r'823692a071c198937f59c675619fe710ed0185b8';
+    r'632a207785e57fa0a25bf3c27c44e6f1e4a7b468';

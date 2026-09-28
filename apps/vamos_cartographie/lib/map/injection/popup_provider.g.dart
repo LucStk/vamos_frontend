@@ -25,14 +25,16 @@ final class PopupWorldPositionProvider
         argument: null,
         retry: null,
         name: r'popupWorldPositionProvider',
-        isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        isAutoDispose: false,
+        dependencies: <ProviderOrFamily>[mapCameraProvider, mapModeProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           PopupWorldPositionProvider.$allTransitiveDependencies0,
+          PopupWorldPositionProvider.$allTransitiveDependencies1,
         ],
       );
 
   static final $allTransitiveDependencies0 = mapCameraProvider;
+  static final $allTransitiveDependencies1 = mapModeProvider;
 
   @override
   String debugGetCreateSourceHash() => _$popupWorldPositionHash();
@@ -57,7 +59,7 @@ final class PopupWorldPositionProvider
 }
 
 String _$popupWorldPositionHash() =>
-    r'9f3ce11494e31e3ccd031272f5fd3514554f1567';
+    r'75efb0f8f709f6a3c7c229c61a49dac4a6d5f93c';
 
 @ProviderFor(popupScreenPosition)
 final popupScreenPositionProvider = PopupScreenPositionProvider._();
@@ -71,17 +73,25 @@ final class PopupScreenPositionProvider
         argument: null,
         retry: null,
         name: r'popupScreenPositionProvider',
-        isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[mapCameraSnapshotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
+        isAutoDispose: false,
+        dependencies: <ProviderOrFamily>[
+          mapCameraSnapshotProvider,
+          popupWorldPositionProvider,
+        ],
+        $allTransitiveDependencies: <ProviderOrFamily>{
           PopupScreenPositionProvider.$allTransitiveDependencies0,
           PopupScreenPositionProvider.$allTransitiveDependencies1,
-        ],
+          PopupScreenPositionProvider.$allTransitiveDependencies2,
+          PopupScreenPositionProvider.$allTransitiveDependencies3,
+        },
       );
 
   static final $allTransitiveDependencies0 = mapCameraSnapshotProvider;
   static final $allTransitiveDependencies1 =
       MapCameraSnapshotProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 = popupWorldPositionProvider;
+  static final $allTransitiveDependencies3 =
+      PopupWorldPositionProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$popupScreenPositionHash();
@@ -106,4 +116,4 @@ final class PopupScreenPositionProvider
 }
 
 String _$popupScreenPositionHash() =>
-    r'3c01ea8c8e45085e976dea70bd826a7fb1e553f4';
+    r'ebbe6ef8f3fcfe344ced1bb21ea88e6baeb50d11';

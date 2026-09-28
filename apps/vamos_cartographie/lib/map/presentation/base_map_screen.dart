@@ -34,6 +34,7 @@ class BaseMap extends ConsumerWidget {
       children: [
         MapGestureBridge(mapLayers: [MapTileLayer()]),
         const MapControls(),
+        const PopupOverlay(),
         ...overlayChildren,
       ],
     );

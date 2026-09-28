@@ -15,3 +15,7 @@ BaseController<BaseMode> mapController(Ref ref) =>
 @Riverpod(keepAlive: true, dependencies: [])
 MapScene mapScene(Ref ref) =>
     throw StateError('mapCamera doit être fourni par un MapScope');
+
+@Riverpod(keepAlive: true, dependencies: [])
+BaseMode mapMode(Ref ref) =>
+    throw StateError('mapMode doit être fourni par un MapScope');

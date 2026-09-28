@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_editor_application/map_editor.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/domain_features/topology/presentation/mobility_type_display.dart';
+import 'package:vamos_cartographie/map/injection/map_context_provider.dart';
 import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 import 'package:vamos_cartographie/map/features/trip_map/injection/editor_controller_provider.dart';
 import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
@@ -17,9 +19,8 @@ class SketchBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapController = ref
-        .read(mapEditorProvider(tripId).notifier)
-        .controller;
+    final mapController =
+        ref.read(mapControllerProvider) as MapEditorController;
 
     // On écoute aussi l'état courant pour mettre à jour la sélection visuelle !
     // (À adapter selon ton provider exact, ex: final currentType = ref.watch(...))

@@ -46,6 +46,7 @@ class _ExploreSceneResolver extends ConsumerWidget {
     return ProviderScope(
       overrides: [
         mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
+        mapModeProvider.overrideWith((ref) => ref.watch(mapExploreProvider)),
         mapControllerProvider.overrideWithValue(controller.controller),
       ],
       child: const _ExploreMapView(),
