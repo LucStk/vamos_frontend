@@ -1,20 +1,25 @@
+import 'package:domain_core/domain/collection_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trip_application/trip/trip.dart';
-
+import 'package:vamos_cartographie/map/features/explore_map/presentation/trip_card.dart';
+import '/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
+import "package:vamos_cartographie/routing/routing.dart";
+
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/routing/routes/trip_route.dart';
 
-@Dependencies([mapScene, MapExplore, MapEditor, mapCamera])
-class DesktopTripsCarousel extends ConsumerWidget {
-  const DesktopTripsCarousel({super.key, required this.tripIds});
-
-  final List<TripId> tripIds;
+@Dependencies([MapExplore, mapScene, MapEditor, mapCamera])
+class TripsCarouselWidget extends ConsumerWidget {
+  const TripsCarouselWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tripStore = ref.watch(tripStoreProvider).tripStore;
+    final tripIds = tripStore.getIds();
+
+    if (tripIds.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return SafeArea(
       child: SizedBox(
         width: 320,

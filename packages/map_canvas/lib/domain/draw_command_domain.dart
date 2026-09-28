@@ -46,9 +46,10 @@ final class DrawPath extends MapDrawCommand {
   const DrawPath({
     required this.path,
     required this.paint,
+    this.dash,
     this.unit = DrawUnit.px,
   });
-
+  final List<double>? dash;
   final Path path;
   final Paint paint;
   final DrawUnit unit;

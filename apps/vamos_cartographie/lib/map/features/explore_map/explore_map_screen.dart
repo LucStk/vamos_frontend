@@ -23,7 +23,7 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
         mapCameraProvider.overrideWithValue(camera),
         cameraOrNullProvider.overrideWith(CameraOrNull.new),
       ],
-      child: _ExploreSceneResolver(),
+      child: const _ExploreSceneResolver(),
     );
   }
 }
@@ -42,9 +42,6 @@ class _ExploreSceneResolver extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ✅ mapCameraProvider et cameraOrNullProvider déjà overridés
-    // par le MapCameraScope parent (dans ExploreMapScreen), pas besoin
-    // d'un second scope ici.
     final controller = ref.watch(mapExploreProvider.notifier);
     return ProviderScope(
       overrides: [
@@ -67,50 +64,104 @@ class _ExploreSceneResolver extends ConsumerWidget {
   userLocationTrigger,
   tripBoundsTrigger,
 ])
-class _ExploreMapView extends ConsumerWidget {
+class _ExploreMapView extends ConsumerStatefulWidget {
   const _ExploreMapView();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_ExploreMapView> createState() => _ExploreMapViewState();
+}
+
+class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
+  static const double _desktopBreakpoint = 700.0;
+
+  @override
+  Widget build(BuildContext context) {
     final loader = ref.watch(loadTripsProvider);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          BaseMap(
-            cameraTriggers: [
-              userLocationTriggerProvider,
-              tripBoundsTriggerProvider,
-            ],
-            overlayChildren: [TripsCarouselWidget()],
-          ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= _desktopBreakpoint;
 
-          Positioned(
-            top: 16,
-            right: 16,
-            child: Material(
-              elevation: 4,
-              color: Theme.of(context).colorScheme.surface,
-              shape: const CircleBorder(),
-              clipBehavior: Clip.antiAlias,
-              child: ProfileButton(
-                onLogin: () {
-                  const LoginRoute().push(context);
-                },
-                onProfile: () {
-                  const ProfileRoute().push(context);
-                },
+          if (!isDesktop) {
+            return Stack(
+              children: [
+                BaseMap(
+                  cameraTriggers: [
+                    userLocationTriggerProvider,
+                    tripBoundsTriggerProvider,
+                  ],
+                  overlayChildren: const [TripsCarouselWidget()],
+                ),
+
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: _buildProfileButton(context),
+                ),
+
+                if (loader.isLoading)
+                  const Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: LinearProgressIndicator(),
+                  ),
+              ],
+            );
+          }
+
+          return Row(
+            children: [
+              const PanelLateral(child: TripsCarouselWidget()),
+
+              Expanded(
+                child: Stack(
+                  children: [
+                    BaseMap(
+                      cameraTriggers: [
+                        userLocationTriggerProvider,
+                        tripBoundsTriggerProvider,
+                      ],
+                      overlayChildren: const [],
+                    ),
+
+                    Positioned(
+                      top: 16,
+                      right: 16,
+                      child: _buildProfileButton(context),
+                    ),
+
+                    if (loader.isLoading)
+                      const Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: LinearProgressIndicator(),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ),
-          if (loader.isLoading)
-            const Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: LinearProgressIndicator(),
-            ),
-        ],
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildProfileButton(BuildContext context) {
+    return Material(
+      elevation: 4,
+      color: Theme.of(context).colorScheme.surface,
+      shape: const CircleBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: ProfileButton(
+        onLogin: () {
+          const LoginRoute().push(context);
+        },
+        onProfile: () {
+          const ProfileRoute().push(context);
+        },
       ),
     );
   }

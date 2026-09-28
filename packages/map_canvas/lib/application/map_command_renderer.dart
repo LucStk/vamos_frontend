@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:map_canvas/domain/domain.dart';
 
@@ -75,11 +76,37 @@ final class MapCommandRenderer {
     final k = _pxToWorld(c.unit, space);
     final p = c.paint;
 
-    if (k != 1.0 && p.style == PaintingStyle.stroke && p.strokeWidth != 0.0) {
-      canvas.drawPath(c.path, Paint.from(p)..strokeWidth = p.strokeWidth * k);
-    } else {
-      canvas.drawPath(c.path, p);
+    var path = c.path;
+    final dash = c.dash;
+    if (dash != null && dash.isNotEmpty) {
+      path = _dashed(path, [for (final d in dash) d * k]);
     }
+
+    if (k != 1.0 && p.style == PaintingStyle.stroke && p.strokeWidth != 0.0) {
+      canvas.drawPath(path, Paint.from(p)..strokeWidth = p.strokeWidth * k);
+    } else {
+      canvas.drawPath(path, p);
+    }
+  }
+
+  static Path _dashed(Path source, List<double> pattern) {
+    final out = Path();
+    for (final metric in source.computeMetrics()) {
+      var distance = 0.0;
+      var i = 0;
+      while (distance < metric.length) {
+        final len = pattern[i % pattern.length];
+        if (i.isEven) {
+          out.addPath(
+            metric.extractPath(distance, min(distance + len, metric.length)),
+            Offset.zero,
+          );
+        }
+        distance += len;
+        i++;
+      }
+    }
+    return out;
   }
 
   void _paintTransform(Transform command, {required MapRenderSpace space}) {
