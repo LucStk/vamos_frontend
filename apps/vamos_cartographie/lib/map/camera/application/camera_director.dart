@@ -39,7 +39,6 @@ final class CameraDirector {
 
     if (!_flushScheduled) {
       _flushScheduled = true;
-      print("flushScheduld");
       scheduleMicrotask(_flush);
     }
   }

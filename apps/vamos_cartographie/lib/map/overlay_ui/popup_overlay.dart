@@ -8,7 +8,6 @@ class PopupOverlay extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pos = ref.watch(popupScreenPositionProvider);
-    print("popup widget deployed");
     if (pos == null) return const SizedBox.shrink();
 
     return Positioned(

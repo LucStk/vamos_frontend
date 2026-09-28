@@ -1,3 +1,4 @@
+import 'package:flutter/painting.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/camera.dart';
 import 'injection.dart';
@@ -19,7 +20,10 @@ void tripBoundsTrigger(Ref ref) {
     }
     director.submit(
       CameraRequest(
-        FitBounds(bounds.toFlutterMap()),
+        FitBounds(
+          bounds.toFlutterMap(),
+          padding: const EdgeInsets.only(bottom: 20),
+        ),
         priority: CameraPriority.content,
       ),
     );

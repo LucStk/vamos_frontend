@@ -11,7 +11,6 @@ part 'popup_provider.g.dart';
 @Riverpod(keepAlive: true, dependencies: [mapCamera, mapMode])
 WorldOffset? popupWorldPosition(Ref ref) {
   final position = ref.watch(mapModeProvider).popUpPosition;
-  print("popup position reload $position");
   if (position == null) return null;
   final camera = ref.read(mapCameraProvider);
   return camera.screenToWorld(position);
@@ -24,7 +23,6 @@ WorldOffset? popupWorldPosition(Ref ref) {
 ScreenOffset? popupScreenPosition(Ref ref) {
   final world = ref.watch(popupWorldPositionProvider);
   if (world == null) return null;
-  print("popupScreenPosition activate");
 
   final cam = ref.watch(mapCameraSnapshotProvider);
 
