@@ -6,7 +6,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 @Dependencies([
-  popupScreenPosition,
   CameraOrNull,
   mapScene,
   mapController,

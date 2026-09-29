@@ -21,7 +21,7 @@ final class MapCameraSnapshotProvider
         argument: null,
         retry: null,
         name: r'mapCameraSnapshotProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: <ProviderOrFamily>[mapCameraProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           MapCameraSnapshotProvider.$allTransitiveDependencies0,
@@ -52,4 +52,4 @@ final class MapCameraSnapshotProvider
   }
 }
 
-String _$mapCameraSnapshotHash() => r'cf872b1d3c3512cabd12196d10405e60e0c1062c';
+String _$mapCameraSnapshotHash() => r'010b56a95562a8ed1ce2a8407d31bb365c107e8f';

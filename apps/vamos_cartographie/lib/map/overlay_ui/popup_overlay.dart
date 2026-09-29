@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-@Dependencies([popupScreenPosition])
+@Dependencies([])
 class PopupOverlay extends ConsumerWidget {
   const PopupOverlay({super.key});
 

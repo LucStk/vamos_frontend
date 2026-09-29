@@ -15,11 +15,14 @@ class DraggableBottomSheetShell extends StatefulWidget {
   })
   builder;
 
+  final double maxChildSize;
+
   const DraggableBottomSheetShell({
     super.key,
     required this.tripId,
     required this.compactContent,
     required this.builder,
+    this.maxChildSize = 0.90,
   });
 
   @override
@@ -29,8 +32,6 @@ class DraggableBottomSheetShell extends StatefulWidget {
 
 class _DraggableBottomSheetState extends State<DraggableBottomSheetShell> {
   static const double _maxWidth = 600;
-  static const double _maxChildSize = 0.90;
-
   final GlobalKey _measureKey = GlobalKey();
   double? _compactHeight;
   bool _isAtMin = true;
@@ -91,7 +92,10 @@ class _DraggableBottomSheetState extends State<DraggableBottomSheetShell> {
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: _maxWidth),
                   child: _buildSheet(
-                    (compactHeight / available).clamp(0.02, _maxChildSize),
+                    (compactHeight / available).clamp(
+                      0.02,
+                      widget.maxChildSize,
+                    ),
                   ),
                 ),
               ),
@@ -103,11 +107,10 @@ class _DraggableBottomSheetState extends State<DraggableBottomSheetShell> {
 
   Widget _buildSheet(double minSize) {
     return DraggableScrollableSheet(
-      // La clé recrée la sheet si la taille compacte change
-      key: ValueKey(minSize),
+      key: ValueKey('$minSize/${widget.maxChildSize}'),
       initialChildSize: minSize,
       minChildSize: minSize,
-      maxChildSize: _maxChildSize,
+      maxChildSize: widget.maxChildSize,
       expand: false,
       builder: (context, scrollController) {
         return Material(
