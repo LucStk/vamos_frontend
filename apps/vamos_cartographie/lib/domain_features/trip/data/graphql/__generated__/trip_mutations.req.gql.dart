@@ -17,6 +17,8 @@ import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.var.gql.dart'
+    as _i9;
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
     as _i8;
 
 class GCreateBlankTripReq
@@ -61,6 +63,7 @@ class GCreateBlankTripReq
     _i6.StoredFile,
     _i6.FileAttachment,
     _i7.TripFields,
+    _i8.UserProfileFields,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -184,7 +187,7 @@ class GCreateBlankTripReq
 }
 
 class GUpdateTripReq
-    implements _i1.OperationRequest<_i2.GUpdateTripData, _i8.GUpdateTripVars> {
+    implements _i1.OperationRequest<_i2.GUpdateTripData, _i9.GUpdateTripVars> {
   GUpdateTripReq({
     required this.vars,
     _i3.Operation? operation,
@@ -198,7 +201,7 @@ class GUpdateTripReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i8.GUpdateTripVars vars;
+  final _i9.GUpdateTripVars vars;
 
   final _i3.Operation operation;
 
@@ -226,6 +229,7 @@ class GUpdateTripReq
     _i6.StoredFile,
     _i6.FileAttachment,
     _i7.TripFields,
+    _i8.UserProfileFields,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -246,7 +250,7 @@ class GUpdateTripReq
 
   Map<String, dynamic> dataToJson(_i2.GUpdateTripData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GUpdateTripData, _i8.GUpdateTripVars>
+  _i1.OperationRequest<_i2.GUpdateTripData, _i9.GUpdateTripVars>
       transformOperation(_i3.Operation Function(_i3.Operation) transform) {
     return GUpdateTripReq(
       vars: vars,
@@ -263,7 +267,7 @@ class GUpdateTripReq
   }
 
   GUpdateTripReq copyWith({
-    _i8.GUpdateTripVars? vars,
+    _i9.GUpdateTripVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
@@ -351,7 +355,7 @@ class GUpdateTripReq
 }
 
 class GDeleteTripReq
-    implements _i1.OperationRequest<_i2.GDeleteTripData, _i8.GDeleteTripVars> {
+    implements _i1.OperationRequest<_i2.GDeleteTripData, _i9.GDeleteTripVars> {
   GDeleteTripReq({
     required this.vars,
     _i3.Operation? operation,
@@ -365,7 +369,7 @@ class GDeleteTripReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i8.GDeleteTripVars vars;
+  final _i9.GDeleteTripVars vars;
 
   final _i3.Operation operation;
 
@@ -409,7 +413,7 @@ class GDeleteTripReq
 
   Map<String, dynamic> dataToJson(_i2.GDeleteTripData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GDeleteTripData, _i8.GDeleteTripVars>
+  _i1.OperationRequest<_i2.GDeleteTripData, _i9.GDeleteTripVars>
       transformOperation(_i3.Operation Function(_i3.Operation) transform) {
     return GDeleteTripReq(
       vars: vars,
@@ -426,7 +430,7 @@ class GDeleteTripReq
   }
 
   GDeleteTripReq copyWith({
-    _i8.GDeleteTripVars? vars,
+    _i9.GDeleteTripVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,

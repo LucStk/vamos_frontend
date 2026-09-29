@@ -23,9 +23,11 @@ import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_queries.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_queries.var.gql.dart'
+    as _i12;
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
     as _i11;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i12;
+    as _i13;
 
 class GGetAllTripsReq
     implements _i1.OperationRequest<_i2.GGetAllTripsData, Null> {
@@ -73,6 +75,7 @@ class GGetAllTripsReq
     _i9.TopologyFields,
     _i10.StoredFile,
     _i10.FileAttachment,
+    _i11.UserProfileFields,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -195,7 +198,7 @@ class GGetAllTripsReq
 }
 
 class GGetTripReq
-    implements _i1.OperationRequest<_i2.GGetTripData, _i11.GGetTripVars> {
+    implements _i1.OperationRequest<_i2.GGetTripData, _i12.GGetTripVars> {
   GGetTripReq({
     required this.vars,
     _i3.Operation? operation,
@@ -209,7 +212,7 @@ class GGetTripReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i11.GGetTripVars vars;
+  final _i12.GGetTripVars vars;
 
   final _i3.Operation operation;
 
@@ -237,6 +240,7 @@ class GGetTripReq
     _i9.TripFields,
     _i10.StoredFile,
     _i10.FileAttachment,
+    _i11.UserProfileFields,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -257,7 +261,7 @@ class GGetTripReq
 
   Map<String, dynamic> dataToJson(_i2.GGetTripData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GGetTripData, _i11.GGetTripVars> transformOperation(
+  _i1.OperationRequest<_i2.GGetTripData, _i12.GGetTripVars> transformOperation(
       _i3.Operation Function(_i3.Operation) transform) {
     return GGetTripReq(
       vars: vars,
@@ -274,7 +278,7 @@ class GGetTripReq
   }
 
   GGetTripReq copyWith({
-    _i11.GGetTripVars? vars,
+    _i12.GGetTripVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
@@ -364,7 +368,7 @@ class GGetTripReq
 class GGetTripDetailsReq
     implements
         _i1
-        .OperationRequest<_i2.GGetTripDetailsData, _i11.GGetTripDetailsVars> {
+        .OperationRequest<_i2.GGetTripDetailsData, _i12.GGetTripDetailsVars> {
   GGetTripDetailsReq({
     required this.vars,
     _i3.Operation? operation,
@@ -378,7 +382,7 @@ class GGetTripDetailsReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i11.GGetTripDetailsVars vars;
+  final _i12.GGetTripDetailsVars vars;
 
   final _i3.Operation operation;
 
@@ -410,7 +414,8 @@ class GGetTripDetailsReq
     _i9.TopologyFields,
     _i10.StoredFile,
     _i10.FileAttachment,
-    _i12.WaypointFields,
+    _i11.UserProfileFields,
+    _i13.WaypointFields,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(
@@ -432,7 +437,7 @@ class GGetTripDetailsReq
   Map<String, dynamic> dataToJson(_i2.GGetTripDetailsData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GGetTripDetailsData, _i11.GGetTripDetailsVars>
+  _i1.OperationRequest<_i2.GGetTripDetailsData, _i12.GGetTripDetailsVars>
       transformOperation(_i3.Operation Function(_i3.Operation) transform) {
     return GGetTripDetailsReq(
       vars: vars,
@@ -449,7 +454,7 @@ class GGetTripDetailsReq
   }
 
   GGetTripDetailsReq copyWith({
-    _i11.GGetTripDetailsVars? vars,
+    _i12.GGetTripDetailsVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,

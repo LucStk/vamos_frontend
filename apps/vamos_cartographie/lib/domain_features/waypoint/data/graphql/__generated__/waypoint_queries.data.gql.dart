@@ -9,8 +9,10 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__ge
     as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
     as _i1;
-import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
     as _i3;
+import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
+    as _i4;
 
 class GGetWaypointsData {
   const GGetWaypointsData({
@@ -73,6 +75,7 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
     this.date,
     required this.description,
     required this.files,
+    required this.owner,
     this.G__typename = 'TripType',
     required this.waypoints,
   });
@@ -87,10 +90,12 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
           .map((_$e) =>
               _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
+      owner: _i3.GUserProfileFieldsData.fromJson(
+          (json['owner'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
-              _i3.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i4.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -105,9 +110,11 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
 
   final List<_i2.GFileAttachmentData> files;
 
+  final _i3.GUserProfileFieldsData owner;
+
   final String G__typename;
 
-  final List<_i3.GWaypointFieldsData> waypoints;
+  final List<_i4.GWaypointFieldsData> waypoints;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -117,6 +124,7 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
     _$result['files'] = this.files.map((_$e) => _$e.toJson()).toList();
+    _$result['owner'] = this.owner.toJson();
     _$result['__typename'] = this.G__typename;
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     return _$result;
@@ -129,8 +137,9 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
     bool dateIsSet = false,
     String? description,
     List<_i2.GFileAttachmentData>? files,
+    _i3.GUserProfileFieldsData? owner,
     String? G__typename,
-    List<_i3.GWaypointFieldsData>? waypoints,
+    List<_i4.GWaypointFieldsData>? waypoints,
   }) {
     return GGetWaypointsData_trip(
       id: id ?? this.id,
@@ -138,6 +147,7 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
       date: date != null || dateIsSet ? date : this.date,
       description: description ?? this.description,
       files: files ?? this.files,
+      owner: owner ?? this.owner,
       G__typename: G__typename ?? this.G__typename,
       waypoints: waypoints ?? this.waypoints,
     );
@@ -152,18 +162,27 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
             date == other.date &&
             description == other.description &&
             _gqlUtils.listEquals(files, other.files) &&
+            owner == other.owner &&
             G__typename == other.G__typename &&
             _gqlUtils.listEquals(waypoints, other.waypoints));
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, title, date, description,
-        _gqlUtils.listHash(files), G__typename, _gqlUtils.listHash(waypoints));
+    return Object.hash(
+        runtimeType,
+        id,
+        title,
+        date,
+        description,
+        _gqlUtils.listHash(files),
+        owner,
+        G__typename,
+        _gqlUtils.listHash(waypoints));
   }
 
   @override
   String toString() {
-    return 'GGetWaypointsData_trip(id: $id, title: $title, date: $date, description: $description, files: $files, G__typename: $G__typename, waypoints: $waypoints)';
+    return 'GGetWaypointsData_trip(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, waypoints: $waypoints)';
   }
 }

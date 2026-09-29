@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/features/explore_map/presentation/bottom_sheet/bottom_sheet.dart';
 
 class TripInfoBar extends StatelessWidget {
   final Trip trip;
@@ -8,6 +9,7 @@ class TripInfoBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -25,12 +27,11 @@ class TripInfoBar extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.titleMedium,
                 ),
-                // Text(
-                //   trip.authorName,
-                //   maxLines: 1,
-                //   overflow: TextOverflow.ellipsis,
-                //   style: textTheme.bodySmall,
-                // ),
+                const SizedBox(
+                  height: 4,
+                ), // Petit espace entre le titre et la capsule
+                // Création de la capsule
+                ProfileCapsule(userId: trip.ownerId),
               ],
             ),
           ),

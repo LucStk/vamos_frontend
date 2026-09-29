@@ -10,15 +10,17 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i5;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i8;
+    as _i9;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
-    as _i6;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i7;
+import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
+    as _i8;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i4;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
     as _i2;
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
+    as _i6;
 
 class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
   GTripFieldsReq({
@@ -39,6 +41,7 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
     _i4.TripFields,
     _i5.StoredFile,
     _i5.FileAttachment,
+    _i6.UserProfileFields,
   ]);
 
   _i2.GTripFieldsData? parseData(Map<String, dynamic> json) =>
@@ -103,9 +106,9 @@ class GTopologyFieldsReq
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.TopologyFields,
-    _i6.SegmentFields,
-    _i7.VertexFields,
-    _i8.LatLngFields,
+    _i7.SegmentFields,
+    _i8.VertexFields,
+    _i9.LatLngFields,
   ]);
 
   _i2.GTopologyFieldsData? parseData(Map<String, dynamic> json) =>

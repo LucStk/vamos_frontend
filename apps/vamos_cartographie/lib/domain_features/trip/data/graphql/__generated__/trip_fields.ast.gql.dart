@@ -12,6 +12,8 @@ import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/
     as _i3;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i4;
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
+    as _i6;
 
 const TripFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'TripFields'),
@@ -58,6 +60,25 @@ const TripFields = _i1.FragmentDefinitionNode(
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
           name: _i1.NameNode(value: 'FileAttachment'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'owner'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'UserProfileFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -146,4 +167,5 @@ const document = _i1.DocumentNode(definitions: [
   _i3.RefineSegmentPayloadFragment,
   _i4.VertexFields,
   _i5.LatLngFields,
+  _i6.UserProfileFields,
 ]);

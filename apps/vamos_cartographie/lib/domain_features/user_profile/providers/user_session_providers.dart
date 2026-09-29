@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import "package:domain_core/domain_core.dart";
+import 'package:user_profile_application/domain/domain.dart';
 import '/core/injection/injection.dart';
 import '/domain_features/user_profile/data/data.dart';
-import '/domain_features/user_profile/domain/domain.dart';
 
 part "user_session_providers.g.dart";
 

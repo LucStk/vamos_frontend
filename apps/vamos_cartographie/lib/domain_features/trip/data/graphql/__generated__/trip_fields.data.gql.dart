@@ -8,8 +8,10 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart'
-    as _i3;
+    as _i4;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart'
+    as _i3;
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
     as _i2;
 
 abstract class GTripFields {
@@ -18,6 +20,7 @@ abstract class GTripFields {
   String? get date;
   String get description;
   List<_i1.GFileAttachment> get files;
+  _i2.GUserProfileFields get owner;
   String get G__typename;
 }
 
@@ -28,6 +31,7 @@ class GTripFieldsData implements GTripFields {
     this.date,
     required this.description,
     required this.files,
+    required this.owner,
     this.G__typename = 'TripType',
   });
 
@@ -41,6 +45,8 @@ class GTripFieldsData implements GTripFields {
           .map((_$e) =>
               _i1.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
+      owner: _i2.GUserProfileFieldsData.fromJson(
+          (json['owner'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -55,6 +61,8 @@ class GTripFieldsData implements GTripFields {
 
   final List<_i1.GFileAttachmentData> files;
 
+  final _i2.GUserProfileFieldsData owner;
+
   final String G__typename;
 
   Map<String, dynamic> toJson() {
@@ -65,6 +73,7 @@ class GTripFieldsData implements GTripFields {
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
     _$result['files'] = this.files.map((_$e) => _$e.toJson()).toList();
+    _$result['owner'] = this.owner.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -76,6 +85,7 @@ class GTripFieldsData implements GTripFields {
     bool dateIsSet = false,
     String? description,
     List<_i1.GFileAttachmentData>? files,
+    _i2.GUserProfileFieldsData? owner,
     String? G__typename,
   }) {
     return GTripFieldsData(
@@ -84,6 +94,7 @@ class GTripFieldsData implements GTripFields {
       date: date != null || dateIsSet ? date : this.date,
       description: description ?? this.description,
       files: files ?? this.files,
+      owner: owner ?? this.owner,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -97,24 +108,25 @@ class GTripFieldsData implements GTripFields {
             date == other.date &&
             description == other.description &&
             _gqlUtils.listEquals(files, other.files) &&
+            owner == other.owner &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
     return Object.hash(runtimeType, id, title, date, description,
-        _gqlUtils.listHash(files), G__typename);
+        _gqlUtils.listHash(files), owner, G__typename);
   }
 
   @override
   String toString() {
-    return 'GTripFieldsData(id: $id, title: $title, date: $date, description: $description, files: $files, G__typename: $G__typename)';
+    return 'GTripFieldsData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename)';
   }
 }
 
 abstract class GTopologyFields {
-  List<_i2.GVertexFields> get vertices;
-  List<_i3.GSegmentFields> get segments;
+  List<_i3.GVertexFields> get vertices;
+  List<_i4.GSegmentFields> get segments;
   String get G__typename;
 }
 
@@ -129,19 +141,19 @@ class GTopologyFieldsData implements GTopologyFields {
     return GTopologyFieldsData(
       vertices: (json['vertices'] as List<dynamic>)
           .map((_$e) =>
-              _i2.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i3.GVertexFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       segments: (json['segments'] as List<dynamic>)
           .map((_$e) =>
-              _i3.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i4.GSegmentFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final List<_i2.GVertexFieldsData> vertices;
+  final List<_i3.GVertexFieldsData> vertices;
 
-  final List<_i3.GSegmentFieldsData> segments;
+  final List<_i4.GSegmentFieldsData> segments;
 
   final String G__typename;
 
@@ -154,8 +166,8 @@ class GTopologyFieldsData implements GTopologyFields {
   }
 
   GTopologyFieldsData copyWith({
-    List<_i2.GVertexFieldsData>? vertices,
-    List<_i3.GSegmentFieldsData>? segments,
+    List<_i3.GVertexFieldsData>? vertices,
+    List<_i4.GSegmentFieldsData>? segments,
     String? G__typename,
   }) {
     return GTopologyFieldsData(

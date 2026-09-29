@@ -14,8 +14,10 @@ import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/
     as _i3;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i5;
-import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
     as _i7;
+import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
+    as _i8;
 
 const GetAllTrips = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
@@ -221,6 +223,7 @@ const document = _i1.DocumentNode(definitions: [
   _i6.StoredFile,
   _i6.FileAttachment,
   _i6.UploadConfigFields,
-  _i7.WaypointFields,
-  _i7.CreateWaypointPayloadFields,
+  _i7.UserProfileFields,
+  _i8.WaypointFields,
+  _i8.CreateWaypointPayloadFields,
 ]);

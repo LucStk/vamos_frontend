@@ -5,8 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_view.dart';
 
-import 'package:vamos_cartographie/map/map.dart';
-
 class TripCompactContent extends ConsumerWidget {
   final Trip trip;
   const TripCompactContent({super.key, required this.trip});
@@ -25,7 +23,6 @@ class TripCompactContent extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(child: TripHeader(title: trip.title)),
               Row(children: [ImageCarouselView(id: trip.id)]),
             ],
           ),

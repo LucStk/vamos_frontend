@@ -14,6 +14,7 @@ workspace:
   - packages/map_explore_application
   - packages/stored_file_application
   - packages/trip_application
+  - packages/user_profile_application
 
 dev_dependencies:
   melos: ^8.6.0

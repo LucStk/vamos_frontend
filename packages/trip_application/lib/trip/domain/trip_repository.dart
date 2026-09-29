@@ -3,10 +3,14 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/topology/domain/types/types.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:stored_file_application/stored_file_application.dart';
+import 'package:user_profile_application/domain/domain.dart';
 
 abstract class TripRepository {
   Future<
-    Either<Failure, List<(Trip, List<StoredFileRemoteModel>, TopologyRes)>>
+    Either<
+      Failure,
+      List<(Trip, UserProfile, List<StoredFileRemoteModel>, TopologyRes)>
+    >
   >
   getAllTrips();
   Future<Either<Failure, (Trip, List<StoredFileRemoteModel>)>> getTrip(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:user_profile_application/domain/user_profile_model.dart';
 import '/domain_features/auth/providers/providers.dart';
-import '/domain_features/user_profile/domain/domain.dart';
 import '/domain_features/user_profile/presentation/edit_profile_page.dart';
 import 'profile_header_view.dart';
 

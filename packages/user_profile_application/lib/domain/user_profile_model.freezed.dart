@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_profile.dart';
+part of 'user_profile_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Me {
 
- String get userId; UserProfile? get profile;
+ UserId get id; UserProfile? get profile;
 /// Create a copy of Me
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $MeCopyWith<Me> get copyWith => _$MeCopyWithImpl<Me>(this as Me, _$identity);
 @override
 bool operator ==(Object other) {
   final _this = this as Me;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Me&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.profile, _this.profile) || other.profile == _this.profile));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Me&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.profile, _this.profile) || other.profile == _this.profile));
 }
 
 
 @override
 int get hashCode {
   final _this = this as Me;
-  return Object.hash(runtimeType,_this.userId,_this.profile);
+  return Object.hash(runtimeType,_this.id,_this.profile);
 }
 
 @override
 String toString() {
   final _this = this as Me;
-  return 'Me(userId: ${_this.userId}, profile: ${_this.profile})';
+  return 'Me(id: ${_this.id}, profile: ${_this.profile})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $MeCopyWith<$Res>  {
   factory $MeCopyWith(Me value, $Res Function(Me) _then) = _$MeCopyWithImpl;
 @useResult
 $Res call({
- String userId, UserProfile? profile
+ UserId id, UserProfile? profile
 });
 
 
@@ -68,10 +68,10 @@ class _$MeCopyWithImpl<$Res>
 
 /// Create a copy of Me
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? profile = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? profile = freezed,}) {
   return _then(Me(
-userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as UserId,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as UserProfile?,
   ));
 }
@@ -169,10 +169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String userId,  UserProfile? profile)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UserId id,  UserProfile? profile)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Me() when $default != null:
-return $default(_that.userId,_that.profile);case _:
+return $default(_that.id,_that.profile);case _:
   return orElse();
 
 }
@@ -190,10 +190,10 @@ return $default(_that.userId,_that.profile);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String userId,  UserProfile? profile)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UserId id,  UserProfile? profile)  $default,) {final _that = this;
 switch (_that) {
 case _Me():
-return $default(_that.userId,_that.profile);case _:
+return $default(_that.id,_that.profile);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -210,10 +210,10 @@ return $default(_that.userId,_that.profile);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String userId,  UserProfile? profile)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UserId id,  UserProfile? profile)?  $default,) {final _that = this;
 switch (_that) {
 case _Me() when $default != null:
-return $default(_that.userId,_that.profile);case _:
+return $default(_that.id,_that.profile);case _:
   return null;
 
 }
@@ -225,10 +225,10 @@ return $default(_that.userId,_that.profile);case _:
 
 
 class _Me implements Me {
-  const _Me({required this.userId, required this.profile});
+  const _Me({required this.id, required this.profile});
   
 
-@override final  String userId;
+@override final  UserId id;
 @override final  UserProfile? profile;
 
 /// Create a copy of Me
@@ -241,18 +241,18 @@ _$MeCopyWith<_Me> get copyWith => __$MeCopyWithImpl<_Me>(this, _$identity);
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Me&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.profile, profile) || other.profile == profile));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Me&&(identical(other.id, id) || other.id == id)&&(identical(other.profile, profile) || other.profile == profile));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,userId,profile);
+    return Object.hash(runtimeType,id,profile);
 }
 
 @override
 String toString() {
-    return 'Me(userId: $userId, profile: $profile)';
+    return 'Me(id: $id, profile: $profile)';
 }
 
 
@@ -263,7 +263,7 @@ abstract mixin class _$MeCopyWith<$Res> implements $MeCopyWith<$Res> {
   factory _$MeCopyWith(_Me value, $Res Function(_Me) _then) = __$MeCopyWithImpl;
 @override @useResult
 $Res call({
- String userId, UserProfile? profile
+ UserId id, UserProfile? profile
 });
 
 
@@ -280,10 +280,10 @@ class __$MeCopyWithImpl<$Res>
 
 /// Create a copy of Me
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? profile = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? profile = freezed,}) {
   return _then(_Me(
-userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as UserId,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as UserProfile?,
   ));
 }
@@ -306,7 +306,7 @@ $UserProfileCopyWith<$Res>? get profile {
 /// @nodoc
 mixin _$UserProfile {
 
- String get userId; String get profileName; String? get profilePictureUrl; String get bio;
+ UserId get id; String get profileName; String? get profilePictureUrl; String get bio;
 /// Create a copy of UserProfile
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -318,20 +318,20 @@ $UserProfileCopyWith<UserProfile> get copyWith => _$UserProfileCopyWithImpl<User
 @override
 bool operator ==(Object other) {
   final _this = this as UserProfile;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserProfile&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.profileName, _this.profileName) || other.profileName == _this.profileName)&&(identical(other.profilePictureUrl, _this.profilePictureUrl) || other.profilePictureUrl == _this.profilePictureUrl)&&(identical(other.bio, _this.bio) || other.bio == _this.bio));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserProfile&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.profileName, _this.profileName) || other.profileName == _this.profileName)&&(identical(other.profilePictureUrl, _this.profilePictureUrl) || other.profilePictureUrl == _this.profilePictureUrl)&&(identical(other.bio, _this.bio) || other.bio == _this.bio));
 }
 
 
 @override
 int get hashCode {
   final _this = this as UserProfile;
-  return Object.hash(runtimeType,_this.userId,_this.profileName,_this.profilePictureUrl,_this.bio);
+  return Object.hash(runtimeType,_this.id,_this.profileName,_this.profilePictureUrl,_this.bio);
 }
 
 @override
 String toString() {
   final _this = this as UserProfile;
-  return 'UserProfile(userId: ${_this.userId}, profileName: ${_this.profileName}, profilePictureUrl: ${_this.profilePictureUrl}, bio: ${_this.bio})';
+  return 'UserProfile(id: ${_this.id}, profileName: ${_this.profileName}, profilePictureUrl: ${_this.profilePictureUrl}, bio: ${_this.bio})';
 }
 
 
@@ -342,7 +342,7 @@ abstract mixin class $UserProfileCopyWith<$Res>  {
   factory $UserProfileCopyWith(UserProfile value, $Res Function(UserProfile) _then) = _$UserProfileCopyWithImpl;
 @useResult
 $Res call({
- String userId, String profileName, String? profilePictureUrl, String bio
+ UserId id, String profileName, String? profilePictureUrl, String bio
 });
 
 
@@ -359,10 +359,10 @@ class _$UserProfileCopyWithImpl<$Res>
 
 /// Create a copy of UserProfile
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? profileName = null,Object? profilePictureUrl = freezed,Object? bio = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? profileName = null,Object? profilePictureUrl = freezed,Object? bio = null,}) {
   return _then(UserProfile(
-userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,profileName: null == profileName ? _self.profileName : profileName // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as UserId,profileName: null == profileName ? _self.profileName : profileName // ignore: cast_nullable_to_non_nullable
 as String,profilePictureUrl: freezed == profilePictureUrl ? _self.profilePictureUrl : profilePictureUrl // ignore: cast_nullable_to_non_nullable
 as String?,bio: null == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
 as String,
@@ -450,10 +450,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String userId,  String profileName,  String? profilePictureUrl,  String bio)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UserId id,  String profileName,  String? profilePictureUrl,  String bio)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserProfile() when $default != null:
-return $default(_that.userId,_that.profileName,_that.profilePictureUrl,_that.bio);case _:
+return $default(_that.id,_that.profileName,_that.profilePictureUrl,_that.bio);case _:
   return orElse();
 
 }
@@ -471,10 +471,10 @@ return $default(_that.userId,_that.profileName,_that.profilePictureUrl,_that.bio
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String userId,  String profileName,  String? profilePictureUrl,  String bio)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UserId id,  String profileName,  String? profilePictureUrl,  String bio)  $default,) {final _that = this;
 switch (_that) {
 case _UserProfile():
-return $default(_that.userId,_that.profileName,_that.profilePictureUrl,_that.bio);case _:
+return $default(_that.id,_that.profileName,_that.profilePictureUrl,_that.bio);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -491,10 +491,10 @@ return $default(_that.userId,_that.profileName,_that.profilePictureUrl,_that.bio
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String userId,  String profileName,  String? profilePictureUrl,  String bio)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UserId id,  String profileName,  String? profilePictureUrl,  String bio)?  $default,) {final _that = this;
 switch (_that) {
 case _UserProfile() when $default != null:
-return $default(_that.userId,_that.profileName,_that.profilePictureUrl,_that.bio);case _:
+return $default(_that.id,_that.profileName,_that.profilePictureUrl,_that.bio);case _:
   return null;
 
 }
@@ -506,10 +506,10 @@ return $default(_that.userId,_that.profileName,_that.profilePictureUrl,_that.bio
 
 
 class _UserProfile implements UserProfile {
-  const _UserProfile({required this.userId, required this.profileName, this.profilePictureUrl, required this.bio});
+  const _UserProfile({required this.id, required this.profileName, this.profilePictureUrl, required this.bio});
   
 
-@override final  String userId;
+@override final  UserId id;
 @override final  String profileName;
 @override final  String? profilePictureUrl;
 @override final  String bio;
@@ -524,18 +524,18 @@ _$UserProfileCopyWith<_UserProfile> get copyWith => __$UserProfileCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserProfile&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.profileName, profileName) || other.profileName == profileName)&&(identical(other.profilePictureUrl, profilePictureUrl) || other.profilePictureUrl == profilePictureUrl)&&(identical(other.bio, bio) || other.bio == bio));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserProfile&&(identical(other.id, id) || other.id == id)&&(identical(other.profileName, profileName) || other.profileName == profileName)&&(identical(other.profilePictureUrl, profilePictureUrl) || other.profilePictureUrl == profilePictureUrl)&&(identical(other.bio, bio) || other.bio == bio));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,userId,profileName,profilePictureUrl,bio);
+    return Object.hash(runtimeType,id,profileName,profilePictureUrl,bio);
 }
 
 @override
 String toString() {
-    return 'UserProfile(userId: $userId, profileName: $profileName, profilePictureUrl: $profilePictureUrl, bio: $bio)';
+    return 'UserProfile(id: $id, profileName: $profileName, profilePictureUrl: $profilePictureUrl, bio: $bio)';
 }
 
 
@@ -546,7 +546,7 @@ abstract mixin class _$UserProfileCopyWith<$Res> implements $UserProfileCopyWith
   factory _$UserProfileCopyWith(_UserProfile value, $Res Function(_UserProfile) _then) = __$UserProfileCopyWithImpl;
 @override @useResult
 $Res call({
- String userId, String profileName, String? profilePictureUrl, String bio
+ UserId id, String profileName, String? profilePictureUrl, String bio
 });
 
 
@@ -563,10 +563,10 @@ class __$UserProfileCopyWithImpl<$Res>
 
 /// Create a copy of UserProfile
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? profileName = null,Object? profilePictureUrl = freezed,Object? bio = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? profileName = null,Object? profilePictureUrl = freezed,Object? bio = null,}) {
   return _then(_UserProfile(
-userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,profileName: null == profileName ? _self.profileName : profileName // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as UserId,profileName: null == profileName ? _self.profileName : profileName // ignore: cast_nullable_to_non_nullable
 as String,profilePictureUrl: freezed == profilePictureUrl ? _self.profilePictureUrl : profilePictureUrl // ignore: cast_nullable_to_non_nullable
 as String?,bio: null == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
 as String,

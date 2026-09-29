@@ -1,11 +1,13 @@
 import 'package:domain_core/failures/failures.dart';
 import 'package:stored_file_application/application/stored_file_store.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:user_profile_application/application/application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/injection/stored_file_provider.dart';
 import 'package:vamos_cartographie/domain_features/topology/injection/providers/graph_store.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/providers/profile_store.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
 part 'trip_data_loader.g.dart';
 
@@ -48,9 +50,11 @@ Future<Failure?> loadTripsNotifier(Ref ref) async {
   final res = await tripRepo.getAllTrips();
 
   return res.fold((Failure f) => f, (data) {
+    var newProfileStore = ProfileStore.initial();
     var newStore = TripStore.initial();
     var newFileStore = StoredFileStore.initial();
-    for (final (trip, listImages, topology) in data) {
+    for (final (trip, user, listImages, topology) in data) {
+      newProfileStore.insertProfile(user);
       var newGraphStore = GraphStore.initial();
       newStore = newStore.insertTrip(trip);
       for (final i in listImages) {
@@ -66,6 +70,7 @@ Future<Failure?> loadTripsNotifier(Ref ref) async {
     }
     ref.read(tripStoreProvider.notifier).emit(newStore);
     ref.read(storedFileStoreProvider.notifier).emit(newFileStore);
+    ref.read(profileStoreProvider.notifier).emit(newProfileStore);
     return null;
   });
 }

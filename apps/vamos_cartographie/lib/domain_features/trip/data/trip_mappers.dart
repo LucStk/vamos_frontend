@@ -1,6 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:user_profile_application/domain/domain.dart';
 import 'graphql/graphql.dart';
 
 import '/domain_features/domain_features.dart';
@@ -14,6 +15,7 @@ import '/core/graphql/graphql.dart';
 extension GTripFieldsMapper on GTripFields {
   Trip toDomain() => Trip(
     id: Id<Trip>(id),
+    ownerId: UserId(owner.userId),
     title: title,
     description: description,
     date: date == null ? null : DateTime.parse(date!),

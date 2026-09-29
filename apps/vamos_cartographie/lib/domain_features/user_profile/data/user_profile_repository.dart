@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
+import 'package:user_profile_application/user_profile_application.dart';
 import '/domain_features/user_profile/data/data.dart';
-import '/domain_features/user_profile/domain/domain.dart';
 import '/core/core.dart';
 
 class UserProfileRepository {

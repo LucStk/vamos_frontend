@@ -195,6 +195,7 @@ type TripType {
   description: String!
   date: Date
   waypoints: [WaypointType!]!
+  owner: UserProfileType!
   files: [FileAttachmentType!]!
   topology: TopologyType!
 }
