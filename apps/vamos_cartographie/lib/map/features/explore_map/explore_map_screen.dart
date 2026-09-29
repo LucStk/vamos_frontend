@@ -49,6 +49,9 @@ class _ExploreSceneResolver extends ConsumerWidget {
         mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
         mapModeProvider.overrideWith((ref) => ref.watch(mapExploreProvider)),
         mapControllerProvider.overrideWithValue(controller.controller),
+        popupScreenPositionProvider.overrideWith(
+          (ref) => ref.watch(popupScreenPositionProvider),
+        ),
       ],
       child: const _ExploreMapView(),
     );
@@ -56,6 +59,7 @@ class _ExploreSceneResolver extends ConsumerWidget {
 }
 
 @Dependencies([
+  popupScreenPosition,
   MapExplore,
   MapEditor,
   CameraOrNull,

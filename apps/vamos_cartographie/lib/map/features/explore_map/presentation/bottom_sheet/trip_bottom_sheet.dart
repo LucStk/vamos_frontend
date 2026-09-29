@@ -19,36 +19,14 @@ class TripBottomSheet extends ConsumerWidget {
     }
 
     return DraggableBottomSheetShell(
-      tripId:
-          tripId, // 1. Ne pas oublier de passer le tripId requis par le Shell
+      tripId: tripId,
+      compactContent: TripCompactContent(trip: trip),
       builder: ({isAtmin = true, required scrollController}) {
-        // 2. Correction de la syntaxe des arguments nommés
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ListView(
-            controller: scrollController,
-            // Empêche le rebond du scroll pour ne pas interférer avec le drag de la sheet
-            physics: const ClampingScrollPhysics(),
-            children: [
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child:
-                    isAtmin // Attention à la casse "isAtmin" définie dans ton Shell
-                    ? TripCompactContent(
-                        key: const ValueKey(
-                          'compact',
-                        ), // Crucial pour l'AnimatedSwitcher
-                        trip: trip,
-                      )
-                    : TripViewerContent(
-                        key: const ValueKey(
-                          'expanded',
-                        ), // Crucial pour l'AnimatedSwitcher
-                        trip: trip,
-                      ),
-              ),
-            ],
-          ),
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          child: isAtmin
+              ? TripCompactContent(key: const ValueKey('compact'), trip: trip)
+              : TripViewerContent(key: const ValueKey('expanded'), trip: trip),
         );
       },
     );

@@ -58,6 +58,10 @@ class _TripMapResolver extends ConsumerWidget {
           (ref) => ref.watch(mapEditorProvider(tripId)),
         ),
         mapControllerProvider.overrideWithValue(controller.controller),
+
+        popupScreenPositionProvider.overrideWith(
+          (ref) => ref.watch(popupScreenPositionProvider),
+        ),
       ],
       child: _TripMapView(tripId: tripId, isOwner: true),
     );
@@ -65,6 +69,7 @@ class _TripMapResolver extends ConsumerWidget {
 }
 
 @Dependencies([
+  popupScreenPosition,
   CameraOrNull,
   MapEditor,
   mapScene,

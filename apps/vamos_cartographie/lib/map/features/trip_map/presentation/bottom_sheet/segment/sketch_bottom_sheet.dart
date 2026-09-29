@@ -5,13 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_editor_application/map_editor.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/domain_features/topology/presentation/mobility_type_display.dart';
-import 'package:vamos_cartographie/map/injection/map_context_provider.dart';
-import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
-import 'package:vamos_cartographie/map/features/trip_map/injection/editor_controller_provider.dart';
-import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
+import 'package:vamos_cartographie/map/map.dart';
+import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapEditor])
+@Dependencies([mapController])
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;
 

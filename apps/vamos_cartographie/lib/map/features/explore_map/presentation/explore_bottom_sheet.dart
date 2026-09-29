@@ -3,13 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/features/explore_map/presentation/bottom_sheet/bottom_sheet.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapEditor])
+@Dependencies([MapExplore])
 class ExploreBottomSheet extends ConsumerWidget {
   const ExploreBottomSheet({super.key});
 
