@@ -14,18 +14,17 @@
           config.allowUnfree = true;
         };
 
-        # On garde ton patch pour flutter_tester
         flutterFixed = pkgs.flutter.overrideAttrs (old: {
           postInstall = (old.postInstall or "") + ''
-            find $out/bin/cache/artifacts/engine -type f \( -name "flutter_tester" -o -name "*.so" \) \
+            find $out/bin/cache/artifacts/engine \
+              -type f \( -name "flutter_tester" -o -name "*.so" \) \
               -exec chmod +x {} \; 2>/dev/null || true
           '';
         });
 
-        # Liste des bibliothèques nécessaires pour Flutter et la Géo
         runtimeLibs = with pkgs; [
           melos
-          # UI & GTK
+
           gtk3
           glib
           libunwind
@@ -39,7 +38,7 @@
           harfbuzz
           fontconfig
           libGL
-          # X11
+
           dbus
           libX11
           libXext
@@ -51,7 +50,7 @@
           libXfixes
           libXtst
           libxcb
-          # Géo & Systèmes
+
           gdal
           geos
           proj
@@ -59,8 +58,7 @@
           zlib
         ];
 
-      in
-      {
+      in {
         devShells.default = pkgs.mkShell {
           name = "flutter-env";
 
