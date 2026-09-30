@@ -16,7 +16,6 @@ class EditProfilePage extends ConsumerStatefulWidget {
 class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
 
-  late final TextEditingController _profileNameController;
   late final TextEditingController _bioController;
 
   File? _selectedProfilePicture;
@@ -29,10 +28,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     super.initState();
 
     final profile = ref.read(meProvider).value?.profile;
-
-    _profileNameController = TextEditingController(
-      text: profile?.profileName ?? '',
-    );
 
     _bioController = TextEditingController(text: profile?.bio ?? '');
 
@@ -50,7 +45,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   @override
   void dispose() {
     _bioController.removeListener(_clearErrorOnType);
-    _profileNameController.dispose();
     _bioController.dispose();
     super.dispose();
   }
@@ -158,14 +152,13 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
               ),
             ),
 
-            const SizedBox(height: 32),
+            // const SizedBox(height: 32),
 
-            TextFormField(
-              controller: _profileNameController,
-              enabled: !_isSaving,
-              decoration: const InputDecoration(labelText: 'Nom du profil'),
-            ),
-
+            // TextFormField(
+            //   controller: _profileNameController,
+            //   enabled: !_isSaving,
+            //   decoration: const InputDecoration(labelText: 'Nom du profil'),
+            // ),
             const SizedBox(height: 16),
 
             TextFormField(

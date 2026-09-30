@@ -4,3 +4,4 @@ export 'trip_viewer_content.dart';
 export "trip_header.dart";
 export "trip_info_bar.dart";
 export 'profile_capsule.dart';
+export "create_trip_bottom_sheet.dart";

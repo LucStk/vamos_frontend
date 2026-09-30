@@ -21,7 +21,7 @@ class ExploreBottomSheet extends ConsumerWidget {
         return TripBottomSheet(tripId: e.id);
 
       case null:
-        return SizedBox.shrink();
+        return CreateTripBottomSheet();
     }
   }
 }

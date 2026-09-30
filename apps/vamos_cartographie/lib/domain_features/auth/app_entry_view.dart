@@ -4,7 +4,10 @@ import 'presentation/presentation.dart';
 import 'providers/auth_providers.dart';
 import '/ui_kit/ui_kit.dart';
 import '/domain_features/user_profile/user_profile.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import "/map/map.dart";
 
+@Dependencies([mapScene, MapEditor, MapExplore])
 class AppEntryView extends ConsumerWidget {
   const AppEntryView({super.key});
 

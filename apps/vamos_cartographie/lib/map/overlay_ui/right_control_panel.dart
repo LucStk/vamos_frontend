@@ -13,7 +13,7 @@ class MapControls extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
+    // final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
 
     return Positioned(
       right: 12,
@@ -22,47 +22,47 @@ class MapControls extends ConsumerWidget {
         children: [
           CameraButtonsControl(),
           UserLocationButton(),
-          _OverlayToggle(
-            type: NetworkOverlayType.cycling,
-            icon: Icons.pedal_bike,
-            isActive: activeOverlays.contains(NetworkOverlayType.cycling),
-          ),
-          _OverlayToggle(
-            type: NetworkOverlayType.hiking,
-            icon: CupertinoIcons.person_alt,
-            isActive: activeOverlays.contains(NetworkOverlayType.hiking),
-          ),
-          _OverlayToggle(
-            type: NetworkOverlayType.rail,
-            icon: CupertinoIcons.train_style_one,
-            isActive: activeOverlays.contains(NetworkOverlayType.rail),
-          ),
+          // _OverlayToggle(
+          //   type: NetworkOverlayType.cycling,
+          //   icon: Icons.pedal_bike,
+          //   isActive: activeOverlays.contains(NetworkOverlayType.cycling),
+          // ),
+          // _OverlayToggle(
+          //   type: NetworkOverlayType.hiking,
+          //   icon: CupertinoIcons.person_alt,
+          //   isActive: activeOverlays.contains(NetworkOverlayType.hiking),
+          // ),
+          // _OverlayToggle(
+          //   type: NetworkOverlayType.rail,
+          //   icon: CupertinoIcons.train_style_one,
+          //   isActive: activeOverlays.contains(NetworkOverlayType.rail),
+          // ),
         ],
       ),
     );
   }
 }
 
-class _OverlayToggle extends ConsumerWidget {
-  final NetworkOverlayType type;
-  final IconData icon;
-  final bool isActive;
+// class _OverlayToggle extends ConsumerWidget {
+//   final NetworkOverlayType type;
+//   final IconData icon;
+//   final bool isActive;
 
-  const _OverlayToggle({
-    required this.type,
-    required this.icon,
-    required this.isActive,
-  });
+//   const _OverlayToggle({
+//     required this.type,
+//     required this.icon,
+//     required this.isActive,
+//   });
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return IconButton(
-      icon: Icon(icon),
-      color: isActive
-          ? CupertinoColors.activeBlue
-          : CupertinoColors.inactiveGray,
-      onPressed: () =>
-          ref.read(activeNetworkOverlaysProvider.notifier).toggle(type),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return IconButton(
+//       icon: Icon(icon),
+//       color: isActive
+//           ? CupertinoColors.activeBlue
+//           : CupertinoColors.inactiveGray,
+//       onPressed: () =>
+//           ref.read(activeNetworkOverlaysProvider.notifier).toggle(type),
+//     );
+//   }
+// }

@@ -22,7 +22,7 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
   }
 }
 
-@Dependencies([mapScene, MapEditor, MapExplore])
+@Dependencies([])
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [...$appRoutes, ...auth.$appRoutes],

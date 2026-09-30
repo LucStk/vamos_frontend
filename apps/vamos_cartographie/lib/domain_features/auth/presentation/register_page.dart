@@ -7,7 +7,10 @@ import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
 // Imports des nouveaux widgets
 import 'widgets/auth_layout.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import "/map/map.dart";
 
+@Dependencies([mapScene, MapEditor, MapExplore])
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
 
