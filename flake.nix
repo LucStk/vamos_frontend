@@ -47,6 +47,9 @@
           buildInputs = runtimeLibs;
 
           shellHook = ''
+            unset LD_LIBRARY_PATH
+            export NO_AT_BRIDGE=1
+            export XCURSOR_PATH="${pkgs.adwaita-icon-theme}/share/icons"
             export PKG_CONFIG_PATH="${pkgs.lib.makeSearchPath "lib/pkgconfig" runtimeLibs}"
             export PATH="$HOME/.pub-cache/bin:$PATH"
           '';
