@@ -23,52 +23,25 @@
         });
 
         runtimeLibs = with pkgs; [
-          melos
-
-          gtk3
-          glib
-          libunwind
-          orc
-          tree
-          libepoxy
-          gsettings-desktop-schemas
-          at-spi2-atk
-          pango
-          cairo
-          harfbuzz
-          fontconfig
-          libGL
-
-          dbus
-          libX11
-          libXext
-          libXrender
-          libXinerama
-          libXi
-          libXcursor
-          libXdamage
-          libXfixes
-          libXtst
-          libxcb
-
-          gdal
-          geos
-          proj
-          libspatialite
-          zlib
+          gtk3 glib libunwind orc libepoxy gsettings-desktop-schemas
+          at-spi2-atk pango cairo harfbuzz fontconfig libGL
+          dbus libX11 libXext libXrender libXinerama libXi libXcursor
+          libXdamage libXfixes libXtst libxcb
+          gdal geos proj libspatialite zlib
         ];
-
       in {
-        devShells.default = pkgs.mkShell {
+        devShells.default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
           name = "flutter-env";
 
           nativeBuildInputs = with pkgs; [
-            flutterFixed
             cmake
             ninja
             pkg-config
             nixd
             alejandra
+            flutterFixed
+            melos
+            tree
           ];
 
           buildInputs = runtimeLibs;
