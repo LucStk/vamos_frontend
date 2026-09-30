@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/map.dart';
-import 'package:vamos_cartographie/map/overlay_ui/widgets/map_control_button_shell.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
@@ -17,13 +16,13 @@ class CameraButtonsControl extends ConsumerWidget {
     return Column(
       children: [
         MapControlButton(
-          icon: CupertinoIcons.add,
+          icon: ControlIcon(icon: CupertinoIcons.add),
           tooltip: 'Zoom avant',
           onPressed: () => camera.zoomIn(),
         ),
         const SizedBox(height: 6),
         MapControlButton(
-          icon: CupertinoIcons.minus,
+          icon: ControlIcon(icon: CupertinoIcons.minus),
           tooltip: 'Zoom arrière',
           onPressed: () => camera.zoomOut(),
         ),

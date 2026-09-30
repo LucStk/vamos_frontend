@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MapControlButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String tooltip;
   final VoidCallback onPressed;
 
@@ -19,16 +19,12 @@ class MapControlButton extends StatelessWidget {
       message: tooltip,
       child: Material(
         elevation: 2,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(13),
         color: theme.colorScheme.surface.withOpacity(0.95),
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: onPressed,
-          child: SizedBox(
-            width: 36,
-            height: 36,
-            child: Icon(icon, size: 20, color: theme.colorScheme.onSurface),
-          ),
+          child: SizedBox(width: 36, height: 36, child: icon),
         ),
       ),
     );
