@@ -1,5 +1,7 @@
+import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import 'register_page.dart';
 import '/domain_features/auth/providers/auth_controller.dart';
 
@@ -22,12 +24,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   void initState() {
     super.initState();
+
     ref.listenManual(authControllerProvider, (previous, next) {
+      if (next.hasValue && previous?.isLoading == true) {
+        const ProfileRoute().go(context);
+        return;
+      }
+
       next.whenOrNull(
         error: (error, stackTrace) {
+          final message = error is Failure
+              ? error.message
+              : 'Impossible de se connecter. Veuillez réessayer.';
+
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(_errorMessage(error))));
+            ..showSnackBar(SnackBar(content: Text(message)));
         },
       );
     });
@@ -78,7 +90,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           isLoading: isLoading,
           onPressed: _signIn,
         ),
-
         const SizedBox(height: 16),
         TextButton(
           onPressed: isLoading
@@ -92,16 +103,5 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ],
     );
-  }
-
-  String _errorMessage(Object error) {
-    final message = error.toString();
-    if (message.contains('Invalid login credentials')) {
-      return 'Adresse e-mail ou mot de passe incorrect.';
-    }
-    if (message.contains('Email not confirmed')) {
-      return 'Veuillez confirmer votre adresse e-mail avant de vous connecter.';
-    }
-    return 'Impossible de se connecter. Veuillez réessayer.';
   }
 }

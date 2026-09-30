@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
+import 'package:vamos_cartographie/routing/app_router.dart';
+import 'package:vamos_cartographie/ui_kit/layouts/layouts.dart';
 import '/domain_features/auth/providers/providers.dart';
 import '/domain_features/user_profile/presentation/edit_profile_page.dart';
 import 'profile_header_view.dart';
+import "/map/map.dart";
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([MapEditor, MapExplore, mapScene])
 class ProfileContent extends ConsumerWidget {
   const ProfileContent({super.key, required this.profile});
 
@@ -14,32 +19,27 @@ class ProfileContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mon profil'),
-        actions: [
-          IconButton(
-            tooltip: 'Modifier',
-            icon: const Icon(Icons.edit_outlined),
-            onPressed: authState.isLoading
-                ? null
-                : () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const EditProfilePage(),
-                      ),
-                    );
-                  },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
+    return AppPageScaffold(
+      title: 'Mon profil',
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ProfileHeader(profile: profile),
-
+            IconButton(
+              tooltip: 'Modifier',
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: authState.isLoading
+                  ? null
+                  : () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const EditProfilePage(),
+                        ),
+                      );
+                    },
+            ),
             const SizedBox(height: 32),
 
             Text('À propos', style: Theme.of(context).textTheme.titleMedium),
@@ -89,5 +89,6 @@ class ProfileContent extends ConsumerWidget {
         ),
       );
     }
+    const ExploreRoute().go(context);
   }
 }

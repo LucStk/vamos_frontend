@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
 class AuthLayout extends StatelessWidget {
   final IconData icon;
@@ -40,30 +40,9 @@ class AuthLayout extends StatelessWidget {
       ],
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          tooltip: 'Retour à la carte',
-          onPressed: () {
-            context.pop();
-          },
-        ),
-        title: const Text('Connexion'),
-      ),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: formKey != null
-                  ? Form(key: formKey, child: content)
-                  : content,
-            ),
-          ),
-        ),
-      ),
+    return AppPageScaffold(
+      title: title,
+      child: formKey != null ? Form(key: formKey, child: content) : content,
     );
   }
 }

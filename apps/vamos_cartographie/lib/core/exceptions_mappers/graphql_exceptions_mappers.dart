@@ -8,7 +8,7 @@ Failure graphqlExceptionsMappers(List<GraphQLError> errors) {
   return switch (code) {
     'AUTHENTICATION_REQUIRED' ||
     'INVALID_TOKEN' ||
-    'TOKEN_EXPIRED' => AuthenticationFailure(message: error.message),
+    'TOKEN_EXPIRED' => RessourceNeedAuth(message: error.message),
     'NOT_FOUND' => NotFoundFailure(),
     _ => ServerFailure(error.message),
   };

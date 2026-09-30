@@ -1,5 +1,4 @@
 import "/domain_features/auth/data/data.dart";
-import 'package:flutter/rendering.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth_providers.dart';
@@ -19,9 +18,19 @@ class AuthController extends _$AuthController {
     state = const AsyncLoading();
 
     try {
-      await _repository.signIn(email: email, password: password);
+      final result = await _repository.signInWithPassword(
+        email: email,
+        password: password,
+      );
 
-      state = const AsyncData(null);
+      result.fold(
+        (failure) {
+          state = AsyncError(failure, StackTrace.current);
+        },
+        (_) {
+          state = const AsyncData(null);
+        },
+      );
     } catch (error, stackTrace) {
       state = AsyncError(error, stackTrace);
     }
@@ -31,11 +40,17 @@ class AuthController extends _$AuthController {
     state = const AsyncLoading();
 
     try {
-      await _repository.signUp(email: email, password: password);
+      final result = await _repository.signUp(email: email, password: password);
 
-      state = const AsyncData(null);
+      result.fold(
+        (failure) {
+          state = AsyncError(failure, StackTrace.current);
+        },
+        (_) {
+          state = const AsyncData(null);
+        },
+      );
     } catch (error, stackTrace) {
-      debugPrint("sigup error $error");
       state = AsyncError(error, stackTrace);
     }
   }
@@ -44,9 +59,16 @@ class AuthController extends _$AuthController {
     state = const AsyncLoading();
 
     try {
-      await _repository.signOut();
+      final result = await _repository.signOut();
 
-      state = const AsyncData(null);
+      result.fold(
+        (failure) {
+          state = AsyncError(failure, StackTrace.current);
+        },
+        (_) {
+          state = const AsyncData(null);
+        },
+      );
     } catch (error, stackTrace) {
       state = AsyncError(error, stackTrace);
     }

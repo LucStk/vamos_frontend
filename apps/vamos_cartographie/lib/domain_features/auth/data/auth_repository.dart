@@ -1,3 +1,5 @@
+import "package:dartz/dartz.dart";
+import "package:domain_core/failures/failures.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 
 abstract interface class AuthRepository {
@@ -7,9 +9,15 @@ abstract interface class AuthRepository {
 
   Stream<User?> get authStateChanges;
 
-  Future<User> signIn({required String email, required String password});
+  Future<Either<Failure, User>> signInWithPassword({
+    required String email,
+    required String password,
+  });
 
-  Future<User?> signUp({required String email, required String password});
+  Future<Either<Failure, void>> signUp({
+    required String email,
+    required String password,
+  });
 
-  Future<void> signOut();
+  Future<Either<Failure, void>> signOut();
 }

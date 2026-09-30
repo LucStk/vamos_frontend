@@ -9,7 +9,7 @@ part of 'app_router.dart';
 List<RouteBase> get $appRoutes => [$exploreRoute];
 
 RouteBase get $exploreRoute => GoRouteData.$route(
-  path: '/explore',
+  path: '/',
   hasOverriddenOnExit: false,
   factory: $ExploreRoute._fromState,
   routes: [
@@ -25,7 +25,7 @@ mixin $ExploreRoute on GoRouteData {
   static ExploreRoute _fromState(GoRouterState state) => const ExploreRoute();
 
   @override
-  String get location => GoRouteData.$location('/explore');
+  String get location => GoRouteData.$location('/');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -50,9 +50,8 @@ mixin $TripRoute on GoRouteData {
   TripRoute get _self => this as TripRoute;
 
   @override
-  String get location => GoRouteData.$location(
-    '/explore/trip/${Uri.encodeComponent(_self.tripId)}',
-  );
+  String get location =>
+      GoRouteData.$location('/trip/${Uri.encodeComponent(_self.tripId)}');
 
   @override
   void go(BuildContext context) => context.go(location, extra: _self.$extra);
