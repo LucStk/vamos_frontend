@@ -69,6 +69,10 @@
             flutterFixed
             dart
             pkg-config
+            clang
+            llvm
+            cmake
+            ninja
             # LSPs pour Zed
             nixd
             alejandra # Formateur de code Nix
@@ -98,8 +102,12 @@
 
             # --- LD_LIBRARY_PATH (Crucial pour Flutter hors FHS) ---
             # Cela permet aux binaires de trouver les .so sans FHS
-            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath runtimeLibs}:$LD_LIBRARY_PATH"
+            # export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath runtimeLibs}:$LD_LIBRARY_PATH"
+            export CC="${pkgs.gcc}/bin/gcc"
+            export CXX="${pkgs.clang}/bin/clang++"
 
+            export NIX_LDFLAGS="-L${pkgs.glibc}/lib $NIX_LDFLAGS"
+            export LIBRARY_PATH="${pkgs.glibc}/lib:$LIBRARY_PATH"
             # --- Fontconfig ---
             export XDG_CACHE_HOME="$HOME/.cache"
             export FONTCONFIG_FILE=${pkgs.makeFontsConf { fontDirectories = [ pkgs.freefont_ttf ]; }}
