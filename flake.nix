@@ -61,7 +61,7 @@
 
       in
       {
-        devShells.default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
+        devShells.default = pkgs.mkShell {
           name = "flutter-env";
 
           nativeBuildInputs = with pkgs; [
@@ -78,9 +78,6 @@
           shellHook = ''
             export PKG_CONFIG_PATH="${pkgs.lib.makeSearchPath "lib/pkgconfig" runtimeLibs}"
             export PATH="$HOME/.pub-cache/bin:$PATH"
-            # ... tes exports GDAL/GEOS/XDG/fontconfig/flutter_tester inchangés
-             export LDFLAGS="-Wl,-rpath-link,${pkgs.glibc}/lib"
-            # SANS CC, CXX ni LDFLAGS
           '';
         };
       }
