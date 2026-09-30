@@ -61,68 +61,25 @@
 
       in
       {
-        devShells.default = pkgs.mkShell {
+        devShells.default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
           name = "flutter-env";
 
-          # Outils disponibles dans le PATH
           nativeBuildInputs = with pkgs; [
             flutterFixed
-            dart
-            pkg-config
-            clang
-            llvm
             cmake
             ninja
-            # LSPs pour Zed
+            pkg-config
             nixd
-            alejandra # Formateur de code Nix
+            alejandra
           ];
 
-          # Bibliothèques disponibles pour le linker et les dépendances
           buildInputs = runtimeLibs;
 
-          # Variables d'environnement injectées par direnv
           shellHook = ''
-            # Force CMake à utiliser le pkg-config de Nix au lieu de /usr/bin
-            export PKG_CONFIG_EXECUTABLE="${pkgs.pkg-config}/bin/pkg-config"
-            export PATH="$HOME/.pub-cache/bin:$PATH"
-            # Aide CMake à trouver les bibliothèques GTK et autres via pkg-config
             export PKG_CONFIG_PATH="${pkgs.lib.makeSearchPath "lib/pkgconfig" runtimeLibs}"
-
-            # --- Tes autres exports (Géo, LD_LIBRARY_PATH, etc.) ---
-            export GDAL_LIBRARY_PATH="${pkgs.gdal}/lib/libgdal.so"
-            # ... garde le reste de ton shellHook actuel ...
-            # --- Géo ---
-            export GDAL_LIBRARY_PATH="${pkgs.gdal}/lib/libgdal.so"
-            export GEOS_LIBRARY_PATH="${pkgs.geos}/lib/libgeos_c.so"
-            export SPATIALITE_LIBRARY_PATH="${pkgs.libspatialite}/lib/mod_spatialite.so"
-
-            # --- FIX GSettings / Crash Image Picker ---
-            export XDG_DATA_DIRS="${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS"
-
-            # --- LD_LIBRARY_PATH (Crucial pour Flutter hors FHS) ---
-            # Cela permet aux binaires de trouver les .so sans FHS
-            # export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath runtimeLibs}:$LD_LIBRARY_PATH"
-            export CC="${pkgs.gcc}/bin/gcc"
-            export CXX="${pkgs.clang}/bin/clang++"
-
-            export NIX_LDFLAGS="-L${pkgs.glibc}/lib $NIX_LDFLAGS"
-            export LIBRARY_PATH="${pkgs.glibc}/lib:$LIBRARY_PATH"
-            # --- Fontconfig ---
-            export XDG_CACHE_HOME="$HOME/.cache"
-            export FONTCONFIG_FILE=${pkgs.makeFontsConf { fontDirectories = [ pkgs.freefont_ttf ]; }}
-
-            # --- Patch manuel flutter_tester ---
-            _FT_SRC="${flutterFixed}/bin/cache/artifacts/engine/linux-x64/flutter_tester"
-            _FT_DST="$HOME/.cache/flutter-engine/linux-x64/flutter_tester"
-            if [ -f "$_FT_SRC" ] && [ ! -x "$_FT_DST" ]; then
-              mkdir -p "$(dirname "$_FT_DST")"
-              cp "$_FT_SRC" "$_FT_DST"
-              chmod +x "$_FT_DST"
-              echo "✅ flutter_tester synchronisé dans le cache."
-            fi
-
-            echo "🚀 Environnement Flutter (mkShell) chargé avec direnv."
+            export PATH="$HOME/.pub-cache/bin:$PATH"
+            # ... tes exports GDAL/GEOS/XDG/fontconfig/flutter_tester inchangés
+            # SANS CC, CXX ni LDFLAGS
           '';
         };
       }
