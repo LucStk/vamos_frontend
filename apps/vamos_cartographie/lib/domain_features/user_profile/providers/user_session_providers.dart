@@ -2,7 +2,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import "package:domain_core/domain_core.dart";
 import 'package:user_profile_application/domain/domain.dart';
-import '/core/injection/injection.dart';
+import 'package:vamos_cartographie/domain_features/auth/providers/providers.dart';
+import '/core/core.dart';
 import '/domain_features/user_profile/data/data.dart';
 
 part "user_session_providers.g.dart";
@@ -21,6 +22,14 @@ UserProfileRepository userProfileRepository(Ref ref) {
 class MeNotifier extends _$MeNotifier {
   @override
   Future<Me> build() async {
+    // Se reconstruit quand l'id change (login / logout / autre compte),
+    // mais pas à chaque refresh de token grâce au select.
+    final userId = ref.watch(currentUserIdProvider);
+
+    if (userId == null) {
+      throw NotAuthFailure();
+    }
+
     final result = await _repository.getMeProfile();
     return result.fold((failure) => throw failure, (me) => me);
   }

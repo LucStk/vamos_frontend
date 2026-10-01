@@ -128,7 +128,7 @@ final class MeNotifierProvider extends $AsyncNotifierProvider<MeNotifier, Me> {
   MeNotifier create() => MeNotifier();
 }
 
-String _$meNotifierHash() => r'3d52d81d16bcdb1bc5453fdd2c5ee0f9b0d630d4';
+String _$meNotifierHash() => r'd6536d12c140869ad0ff54c92ae842ec0727e168';
 
 abstract class _$MeNotifier extends $AsyncNotifier<Me> {
   FutureOr<Me> build();

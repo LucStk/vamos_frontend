@@ -4,6 +4,11 @@ sealed class AuthFailure extends Failure {
   AuthFailure(super.message, {super.timestamp});
 }
 
+final class NotAuthFailure extends AuthFailure {
+  NotAuthFailure({String? message, super.timestamp})
+    : super(message ?? 'Authentification requise');
+}
+
 final class RessourceNeedAuth extends AuthFailure {
   RessourceNeedAuth({String? message, super.timestamp})
     : super(message ?? 'Authentification requise');

@@ -49,7 +49,6 @@ class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
 
     if (failure != null) {
       // Cas d'erreur : un Failure a été retourné
-      print("failure : $failure");
       setState(() {
         _isLoading = false;
         _errorMessage = failure.message;
@@ -60,7 +59,7 @@ class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
         _isLoading = false;
       });
 
-      const LoginRoute().push(context);
+      const ProfileRoute().push(context);
     }
   }
 
