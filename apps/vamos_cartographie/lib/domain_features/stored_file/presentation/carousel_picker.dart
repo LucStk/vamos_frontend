@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import '/domain_features/stored_file/injection/injection.dart';
-import '/domain_features/stored_file/services/services.dart';
+import 'package:vamos_cartographie/app_services/app_services.dart';
 import 'widgets/widgets.dart';
 import "thumbnail_picker.dart";
 
