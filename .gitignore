@@ -33,7 +33,7 @@ vamos_cartographie/flake.lock
 vamos_cartographie/.direnv/
 vamos_cartographie/.direnv/bin/nix-direnv-reload
 .direnv/bin/nix-direnv-reload
-flake.lock
+# flake.lock
 .direnv/
 vamos_cartographie/lib/features/map/.legacy/
 apps/auth_test/windows/*
