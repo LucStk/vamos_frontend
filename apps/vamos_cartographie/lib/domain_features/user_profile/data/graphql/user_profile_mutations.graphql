@@ -1,14 +1,7 @@
 #import "user_profile_fields.graphql"
 mutation CreateProfile($profileName: String!) {
     createProfile(profileName: $profileName) {
-        ... on CreateProfileSuccess {
-            profile {
-                ...UserProfileFields
-            }
-        }
-        ... on CreateProfileError {
-            code
-        }
+        ...CreateProfilePayload
     }
 }
 mutation UpdateProfile($input: UpdateUserProfileInput!) {

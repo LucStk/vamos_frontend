@@ -61,6 +61,7 @@ class GCreateProfileReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateProfile,
     _i7.UserProfileFields,
+    _i7.CreateProfilePayload,
     _i8.StoredFile,
   ]);
 

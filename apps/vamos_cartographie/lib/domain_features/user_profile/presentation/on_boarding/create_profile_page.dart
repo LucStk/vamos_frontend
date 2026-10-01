@@ -49,6 +49,7 @@ class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
 
     if (failure != null) {
       // Cas d'erreur : un Failure a été retourné
+      print("failure : $failure");
       setState(() {
         _isLoading = false;
         _errorMessage = failure.message;

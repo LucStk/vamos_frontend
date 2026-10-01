@@ -36,65 +36,9 @@ const CreateProfile = _i1.OperationDefinitionNode(
       ],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.InlineFragmentNode(
-          typeCondition: _i1.TypeConditionNode(
-              on: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreateProfileSuccess'),
-            isNonNull: false,
-          )),
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'CreateProfilePayload'),
           directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'profile'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FragmentSpreadNode(
-                  name: _i1.NameNode(value: 'UserProfileFields'),
-                  directives: [],
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        ),
-        _i1.InlineFragmentNode(
-          typeCondition: _i1.TypeConditionNode(
-              on: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'CreateProfileError'),
-            isNonNull: false,
-          )),
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'code'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
         ),
         _i1.FieldNode(
           name: _i1.NameNode(value: '__typename'),
@@ -167,6 +111,7 @@ const document = _i1.DocumentNode(definitions: [
   CreateProfile,
   UpdateProfile,
   _i2.UserProfileFields,
+  _i2.CreateProfilePayload,
   _i3.StoredFile,
   _i3.FileAttachment,
   _i3.UploadConfigFields,

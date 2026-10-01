@@ -224,6 +224,7 @@ const document = _i1.DocumentNode(definitions: [
   _i6.FileAttachment,
   _i6.UploadConfigFields,
   _i7.UserProfileFields,
+  _i7.CreateProfilePayload,
   _i8.WaypointFields,
   _i8.CreateWaypointPayloadFields,
 ]);

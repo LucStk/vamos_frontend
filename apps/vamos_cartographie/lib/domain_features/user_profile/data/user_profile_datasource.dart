@@ -15,17 +15,15 @@ class UserProfileDatasource {
     return data.me;
   }
 
-  Future<GCreateProfileData?> createProfile(String profileName) async {
-    final response = await ferryClient
-        .request(
-          GCreateProfileReq(vars: GCreateProfileVars(profileName: profileName)),
-        )
-        .first;
+  Future<GCreateProfilePayload> createProfile(String profileName) async {
+    final response = await ferryClient.execute(
+      GCreateProfileReq(vars: GCreateProfileVars(profileName: profileName)),
+    );
 
-    return response.data;
+    return response.createProfile;
   }
 
-  Future<GUpdateProfileData> updateProfile({
+  Future<GUserProfileFieldsData> updateProfile({
     String? bio,
     StoredFileId? fileId,
   }) async {
@@ -41,6 +39,6 @@ class UserProfileDatasource {
         ),
       ),
     );
-    return data;
+    return data.updateProfile;
   }
 }

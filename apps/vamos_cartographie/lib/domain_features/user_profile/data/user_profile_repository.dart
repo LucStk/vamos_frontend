@@ -4,6 +4,7 @@ import 'package:stored_file_application/stored_file_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
 import '/domain_features/user_profile/data/data.dart';
 import '/core/core.dart';
+import "user_profile_mappers.dart";
 
 class UserProfileRepository {
   final UserProfileDatasource remote;
@@ -21,11 +22,10 @@ class UserProfileRepository {
       return await remote.createProfile(profileName);
     });
 
-    return res.fold((Failure f) => Left(f), (data) {
+    return res.fold((f) => Left(f), (data) {
       return switch (data) {
-        CreateProfileSuccessData(:final profile) => Right(
-          profile.toMeProfileModel(),
-        ),
+        CreateProfileSuccessData(:final GUserProfileFieldsData profile) =>
+          Right(profile.toMeProfileModel()),
         CreateProfileErrorData(:final code) => switch (code) {
           GCreateProfileErrorCode.USERNAME_ALREADY_TAKEN => Left(
             UsernameAlreadyTakenFailure(),
@@ -46,7 +46,7 @@ class UserProfileRepository {
   }) async {
     return await guard(() async {
       final d = await remote.updateProfile(bio: bio, fileId: fileId);
-      return d.updateProfile.toMeProfileModel();
+      return d.toMeProfileModel();
     });
     // return switch (data) {
     //   CreateProfileSuccessData(:final profile) => Right(

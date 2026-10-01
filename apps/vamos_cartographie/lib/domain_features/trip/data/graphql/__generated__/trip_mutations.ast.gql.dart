@@ -166,4 +166,5 @@ const document = _i1.DocumentNode(definitions: [
   _i5.VertexFields,
   _i6.LatLngFields,
   _i7.UserProfileFields,
+  _i7.CreateProfilePayload,
 ]);

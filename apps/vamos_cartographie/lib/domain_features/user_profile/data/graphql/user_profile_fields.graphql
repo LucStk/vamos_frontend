@@ -7,3 +7,13 @@ fragment UserProfileFields on UserProfileType {
     }
     bio
 }
+fragment CreateProfilePayload on CreateProfileResult {
+    ... on CreateProfileSuccess {
+        profile {
+            ...UserProfileFields
+        }
+    }
+    ... on CreateProfileError {
+        code
+    }
+}
