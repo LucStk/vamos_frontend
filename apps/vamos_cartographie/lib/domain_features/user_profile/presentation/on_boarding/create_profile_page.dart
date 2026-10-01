@@ -58,9 +58,7 @@ class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
         _isLoading = false;
       });
 
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const ProfilePage()));
+      const LoginRoute().push(context);
     }
   }
 
