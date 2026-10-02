@@ -20,14 +20,13 @@ class DragHintHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(2),
           ),
         ),
-        const SizedBox(height: 6),
-        Text(
-          "Glissez vers le haut pour voir les détails",
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-            fontSize: 11,
-          ),
-        ),
+        // Text(
+        //   "Glissez vers le haut pour voir les détails",
+        //   style: theme.textTheme.labelSmall?.copyWith(
+        //     color: theme.colorScheme.onSurfaceVariant,
+        //     fontSize: 11,
+        //   ),
+        // ),
       ],
     );
   }

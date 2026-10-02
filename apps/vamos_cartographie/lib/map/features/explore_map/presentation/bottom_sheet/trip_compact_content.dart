@@ -1,30 +1,26 @@
 // Emplacement : lib/features/waypoint/widgets/waypoint_viewer_content.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_view.dart';
+import 'package:vamos_cartographie/vamos_cartographie.dart';
 
-class TripCompactContent extends ConsumerWidget {
+class TripCompactContent extends StatelessWidget {
   final Trip trip;
   const TripCompactContent({super.key, required this.trip});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Ce widget agit ici comme un parfait "overflow: hidden" CSS
-    // Il coupe le visuel excédentaire sans jamais permettre de scroller
+  Widget build(BuildContext context) {
+    // Coupe l'excédent visuel sans jamais permettre de scroller.
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
-      child: Column(
-        key: const ValueKey('compact_content'),
-        mainAxisSize: MainAxisSize.min,
+      child: Row(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(children: [ImageCarouselView(id: trip.id)]),
-            ],
+          ImageCarouselView(id: trip.id),
+          const Spacer(),
+          FilledButton.icon(
+            onPressed: () {},
+            icon: const Icon(Icons.map_sharp, size: 16),
+            label: const Text('Ouvrir'),
           ),
         ],
       ),

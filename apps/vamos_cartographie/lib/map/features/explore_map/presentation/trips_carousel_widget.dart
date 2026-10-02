@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/features/explore_map/presentation/trip_card.dart';
 import '/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
-import "package:vamos_cartographie/routing/routing.dart";
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
@@ -43,22 +42,22 @@ class TripsCarouselWidget extends ConsumerWidget {
                       .read(mapExploreProvider.notifier)
                       .controller
                       .selectTrip(trip);
-                  TripViewerDialog.show(
-                    context: context,
-                    tripId: tripId,
-                    onExplore: () {
-                      final vision = CameraVision(
-                        bounds: ref
-                            .read(mapCameraProvider)
-                            .visibleBounds, // ⚠️ adapte le nom du getter
-                      );
-
-                      TripRoute(
-                        tripId: tripId.value,
-                        $extra: vision,
-                      ).push(context);
-                    },
-                  );
+                  //                   TripViewerDialog.show(
+                  //                     context: context,
+                  //                     tripId: tripId,
+                  //                     onExplore: () {
+                  //                       final vision = CameraVision(
+                  //                         bounds: ref
+                  //                             .read(mapCameraProvider)
+                  //                             .visibleBounds, // ⚠️ adapte le nom du getter
+                  //                       );
+                  //
+                  //                       TripRoute(
+                  //                         tripId: tripId.value,
+                  //                         $extra: vision,
+                  //                       ).push(context);
+                  //                     },
+                  //                   );
                 },
                 child: TripCard(tripId: tripId),
               );

@@ -54,7 +54,7 @@ Future<Failure?> loadTripsNotifier(Ref ref) async {
     var newStore = TripStore.initial();
     var newFileStore = StoredFileStore.initial();
     for (final (trip, user, listImages, topology) in data) {
-      newProfileStore.insertProfile(user);
+      newProfileStore = newProfileStore.insertProfile(user);
       var newGraphStore = GraphStore.initial();
       newStore = newStore.insertTrip(trip);
       for (final i in listImages) {
