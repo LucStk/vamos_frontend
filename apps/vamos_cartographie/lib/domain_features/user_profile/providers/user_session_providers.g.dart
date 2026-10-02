@@ -108,7 +108,7 @@ String _$userProfileRepositoryHash() =>
 @ProviderFor(MeNotifier)
 final meProvider = MeNotifierProvider._();
 
-final class MeNotifierProvider extends $AsyncNotifierProvider<MeNotifier, Me> {
+final class MeNotifierProvider extends $AsyncNotifierProvider<MeNotifier, Me?> {
   MeNotifierProvider._()
     : super(
         from: null,
@@ -128,19 +128,19 @@ final class MeNotifierProvider extends $AsyncNotifierProvider<MeNotifier, Me> {
   MeNotifier create() => MeNotifier();
 }
 
-String _$meNotifierHash() => r'd6536d12c140869ad0ff54c92ae842ec0727e168';
+String _$meNotifierHash() => r'23b95d860473d3242af9c81c178546502227f654';
 
-abstract class _$MeNotifier extends $AsyncNotifier<Me> {
-  FutureOr<Me> build();
+abstract class _$MeNotifier extends $AsyncNotifier<Me?> {
+  FutureOr<Me?> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<Me>, Me>;
+    final ref = this.ref as $Ref<AsyncValue<Me?>, Me?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<Me>, Me>,
-              AsyncValue<Me>,
+              AnyNotifier<AsyncValue<Me?>, Me?>,
+              AsyncValue<Me?>,
               Object?,
               Object?
             >;

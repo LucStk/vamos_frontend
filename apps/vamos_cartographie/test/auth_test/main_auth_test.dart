@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_entry_view.dart';
-import '/core/core.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
-import "/map/map.dart";
+import "package:vamos_cartographie/vamos_cartographie.dart";
 
-@Dependencies([mapScene, MapEditor, MapExplore])
 void main() {
   runZonedGuarded(
     () async {
@@ -39,7 +36,6 @@ void main() {
   );
 }
 
-@Dependencies([mapScene, MapEditor, MapExplore])
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

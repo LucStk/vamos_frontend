@@ -21,13 +21,13 @@ UserProfileRepository userProfileRepository(Ref ref) {
 @Riverpod(keepAlive: true)
 class MeNotifier extends _$MeNotifier {
   @override
-  Future<Me> build() async {
+  Future<Me?> build() async {
     // Se reconstruit quand l'id change (login / logout / autre compte),
     // mais pas à chaque refresh de token grâce au select.
     final userId = ref.watch(currentUserIdProvider);
 
     if (userId == null) {
-      throw NotAuthFailure();
+      return null;
     }
 
     final result = await _repository.getMeProfile();

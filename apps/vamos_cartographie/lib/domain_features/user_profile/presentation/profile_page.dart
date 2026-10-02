@@ -24,10 +24,11 @@ class ProfilePage extends ConsumerWidget {
         stackTrace: stackTrace,
       ),
 
-      AsyncData(value: final me) when me.profile == null =>
+      AsyncData(value: null) => const SizedBox.shrink(),
+      AsyncData(value: final me) when me!.profile == null =>
         const CreateProfilePage(),
 
-      AsyncData(value: final me) => ProfileContent(profile: me.profile!),
+      AsyncData(value: final me) => ProfileContent(profile: me!.profile!),
     };
   }
 }

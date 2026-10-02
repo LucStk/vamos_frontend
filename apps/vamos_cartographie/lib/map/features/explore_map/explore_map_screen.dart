@@ -91,7 +91,7 @@ class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
             ],
           ),
 
-          Positioned(top: 16, right: 16, child: ProfileIcon()),
+          Positioned(top: 16, right: 16, child: AccountButton()),
 
           if (loader.isLoading)
             const Positioned(

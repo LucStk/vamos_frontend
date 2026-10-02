@@ -5,7 +5,7 @@ import 'auth_providers.dart';
 
 part 'auth_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AuthController extends _$AuthController {
   late final AuthRepository _repository;
 
@@ -60,6 +60,7 @@ class AuthController extends _$AuthController {
 
     try {
       final result = await _repository.signOut();
+      if (!ref.mounted) return; // le notifier a pu être détruit entre-temps
 
       result.fold(
         (failure) {

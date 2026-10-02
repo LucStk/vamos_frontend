@@ -1,4 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:riverpod/riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
@@ -22,8 +25,24 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
   }
 }
 
-@Dependencies([])
-final appRouter = GoRouter(
-  initialLocation: '/',
-  routes: [...$appRoutes, ...auth.$appRoutes],
-);
+@Riverpod(keepAlive: true)
+GoRouter router(Ref ref) {
+  final refresh = ValueNotifier<int>(0);
+  ref.listen(currentUserIdProvider, (_, __) => refresh.value++);
+  ref.onDispose(refresh.dispose);
+
+  final router = GoRouter(
+    initialLocation: '/',
+    refreshListenable: refresh,
+    redirect: (context, state) {
+      final loggedIn = ref.read(authRepositoryProvider).currentUser != null;
+      final needsAuth = state.matchedLocation.startsWith('/profile');
+      print("redirection $loggedIn and $needsAuth");
+      if (!loggedIn && needsAuth) return '/login';
+      return null;
+    },
+    routes: [...$appRoutes, ...auth.$appRoutes],
+  );
+  ref.onDispose(router.dispose);
+  return router;
+}

@@ -59,7 +59,7 @@ class _CreateProfilePageState extends ConsumerState<CreateProfilePage> {
         _isLoading = false;
       });
 
-      const ProfileRoute().push(context);
+      const ProfileRoute().go(context);
     }
   }
 
