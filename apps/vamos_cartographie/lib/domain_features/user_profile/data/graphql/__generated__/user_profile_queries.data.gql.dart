@@ -61,14 +61,14 @@ class GGetMeData {
 
 class GGetMeData_me {
   const GGetMeData_me({
-    required this.userId,
+    required this.id,
     this.profile,
     this.G__typename = 'GetMePayload',
   });
 
   factory GGetMeData_me.fromJson(Map<String, dynamic> json) {
     return GGetMeData_me(
-      userId: (json['userId'] as String),
+      id: (json['id'] as String),
       profile: json['profile'] == null
           ? null
           : _i1.GUserProfileFieldsData.fromJson(
@@ -77,7 +77,7 @@ class GGetMeData_me {
     );
   }
 
-  final String userId;
+  final String id;
 
   final _i1.GUserProfileFieldsData? profile;
 
@@ -85,7 +85,7 @@ class GGetMeData_me {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['userId'] = this.userId;
+    _$result['id'] = this.id;
     final _$profileValue = this.profile;
     _$result['profile'] =
         _$profileValue == null ? null : _$profileValue.toJson();
@@ -94,13 +94,13 @@ class GGetMeData_me {
   }
 
   GGetMeData_me copyWith({
-    String? userId,
+    String? id,
     _i1.GUserProfileFieldsData? profile,
     bool profileIsSet = false,
     String? G__typename,
   }) {
     return GGetMeData_me(
-      userId: userId ?? this.userId,
+      id: id ?? this.id,
       profile: profile != null || profileIsSet ? profile : this.profile,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -110,18 +110,18 @@ class GGetMeData_me {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is GGetMeData_me &&
-            userId == other.userId &&
+            id == other.id &&
             profile == other.profile &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, userId, profile, G__typename);
+    return Object.hash(runtimeType, id, profile, G__typename);
   }
 
   @override
   String toString() {
-    return 'GGetMeData_me(userId: $userId, profile: $profile, G__typename: $G__typename)';
+    return 'GGetMeData_me(id: $id, profile: $profile, G__typename: $G__typename)';
   }
 }

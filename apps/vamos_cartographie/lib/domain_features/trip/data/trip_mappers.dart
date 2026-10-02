@@ -15,7 +15,7 @@ import '/core/graphql/graphql.dart';
 extension GTripFieldsMapper on GTripFields {
   Trip toDomain() => Trip(
     id: Id<Trip>(id),
-    ownerId: UserId(owner.userId),
+    ownerId: UserId(owner.id),
     title: title,
     description: description,
     date: date == null ? null : DateTime.parse(date!),

@@ -30,7 +30,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     ref.listenManual(authControllerProvider, (previous, next) {
       if (next.hasValue && previous?.isLoading == true) {
-        print("redirection vers profile");
         const ProfileRoute().go(context);
         return;
       }

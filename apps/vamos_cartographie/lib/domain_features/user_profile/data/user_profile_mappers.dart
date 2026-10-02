@@ -10,7 +10,7 @@ extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
         ? null
         : profilePicture!.toDomain().url;
     return UserProfile(
-      id: UserId(userId),
+      id: UserId(id),
       profileName: profileName,
       profilePictureUrl: profilePictureModel,
       bio: bio,
@@ -18,13 +18,13 @@ extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
   }
 
   Me toMeProfileModel() {
-    return Me(id: UserId(userId), profile: toUserProfileModel());
+    return Me(id: UserId(id), profile: toUserProfileModel());
   }
 }
 
 extension GGetMeMapper on GGetMeData_me {
   Me toMeProfileModel() {
     final p = (profile == null) ? null : profile!.toUserProfileModel();
-    return Me(id: UserId(userId), profile: p);
+    return Me(id: UserId(id), profile: p);
   }
 }

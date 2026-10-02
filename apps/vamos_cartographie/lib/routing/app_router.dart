@@ -37,7 +37,6 @@ GoRouter router(Ref ref) {
     redirect: (context, state) {
       final loggedIn = ref.read(authRepositoryProvider).currentUser != null;
       final needsAuth = state.matchedLocation.startsWith('/profile');
-      print("redirection $loggedIn and $needsAuth");
       if (!loggedIn && needsAuth) return '/login';
       return null;
     },

@@ -246,7 +246,7 @@ const GetMePayload = _i1.ObjectTypeDefinitionNode(
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'userId'),
+      name: _i1.NameNode(value: 'id'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
@@ -1514,7 +1514,7 @@ const UserProfileType = _i1.ObjectTypeDefinitionNode(
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'userId'),
+      name: _i1.NameNode(value: 'id'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
