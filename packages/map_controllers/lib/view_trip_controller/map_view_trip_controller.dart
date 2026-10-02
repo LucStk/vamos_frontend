@@ -1,11 +1,11 @@
+import 'package:map_controllers/view_trip_controller/view_trip_mode.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_application/map_application.dart';
-import 'package:map_engine/domain/map_objects/map_objects.dart';
-import 'package:map_explore_application/map_explore_mode.dart';
 
-final class MapExploreController extends BaseController<MapExploreMode> {
-  MapExploreController({required super.camera, required super.onModeChanged})
-    : super(initialMode: const MapExploreMode());
+final class ViewTripController extends BaseController<ViewTripMode> {
+  ViewTripController({required super.camera, required super.onModeChanged})
+    : super(initialMode: const ViewTripMode());
 
   // final MapEffectQueue _effectQueue = MapEffectQueue();
 
@@ -20,8 +20,5 @@ final class MapExploreController extends BaseController<MapExploreMode> {
     //   // final updated = modeAfter(mode, result);
     //   // if (updated != null) mode = updated;
     // });
-  }
-  void selectTrip(MapTripObject trip) {
-    mode = MapExploreMode(selection: trip);
   }
 }

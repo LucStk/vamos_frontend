@@ -13,42 +13,42 @@ part of 'map_editor_mode.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Idle {
+mixin _$IdleEditor {
 
 
-/// Create a copy of Idle
+/// Create a copy of IdleEditor
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$IdleCopyWith<Idle> get copyWith => _$IdleCopyWithImpl<Idle>(this as Idle, _$identity);
+$IdleEditorCopyWith<IdleEditor> get copyWith => _$IdleEditorCopyWithImpl<IdleEditor>(this as IdleEditor, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  final _this = this as Idle;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Idle&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
+  final _this = this as IdleEditor;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleEditor&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
 }
 
 
 @override
 int get hashCode {
-  final _this = this as Idle;
+  final _this = this as IdleEditor;
   return Object.hash(runtimeType,_this.popUpPosition,_this.selection);
 }
 
 @override
 String toString() {
-  final _this = this as Idle;
-  return 'Idle(popUpPosition: ${_this.popUpPosition}, selection: ${_this.selection})';
+  final _this = this as IdleEditor;
+  return 'IdleEditor(popUpPosition: ${_this.popUpPosition}, selection: ${_this.selection})';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $IdleCopyWith<$Res>  {
-  factory $IdleCopyWith(Idle value, $Res Function(Idle) _then) = _$IdleCopyWithImpl;
+abstract mixin class $IdleEditorCopyWith<$Res>  {
+  factory $IdleEditorCopyWith(IdleEditor value, $Res Function(IdleEditor) _then) = _$IdleEditorCopyWithImpl;
 @useResult
 $Res call({
  MapObject? selection, PopUpPositionType? popUpPosition
@@ -59,17 +59,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$IdleCopyWithImpl<$Res>
-    implements $IdleCopyWith<$Res> {
-  _$IdleCopyWithImpl(this._self, this._then);
+class _$IdleEditorCopyWithImpl<$Res>
+    implements $IdleEditorCopyWith<$Res> {
+  _$IdleEditorCopyWithImpl(this._self, this._then);
 
-  final Idle _self;
-  final $Res Function(Idle) _then;
+  final IdleEditor _self;
+  final $Res Function(IdleEditor) _then;
 
-/// Create a copy of Idle
+/// Create a copy of IdleEditor
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? selection = freezed,Object? popUpPosition = freezed,}) {
-  return _then(Idle(
+  return _then(IdleEditor(
 selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
 as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
 as PopUpPositionType?,
@@ -79,8 +79,8 @@ as PopUpPositionType?,
 }
 
 
-/// Adds pattern-matching-related methods to [Idle].
-extension IdlePatterns on Idle {
+/// Adds pattern-matching-related methods to [IdleEditor].
+extension IdleEditorPatterns on IdleEditor {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:

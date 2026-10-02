@@ -40,3 +40,11 @@ abstract base class NoopGestureHandler<M extends BaseMode<M>>
   @override
   GestureResult<M> onTap(TapGesture g) => GestureResult.none();
 }
+
+abstract base class IdleHandler<M extends BaseMode<M>>
+    extends NoopGestureHandler<M> {
+  const IdleHandler(this.mode);
+
+  @override
+  final M mode;
+}

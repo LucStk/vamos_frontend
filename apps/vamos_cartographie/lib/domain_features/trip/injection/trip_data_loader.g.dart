@@ -110,4 +110,4 @@ final class LoadTripsNotifierProvider
   }
 }
 
-String _$loadTripsNotifierHash() => r'b070c18cc25fd29476ee28eb3caccedaa7e68236';
+String _$loadTripsNotifierHash() => r'4b2372248d1a1827ad1c2cfac376af33a3cc2320';

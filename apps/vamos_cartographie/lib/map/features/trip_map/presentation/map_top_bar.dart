@@ -4,6 +4,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/injection.dart';
 
 /// Contient un bouton retour en capsule et un titre centré.
 class MapTopBar extends ConsumerWidget {
@@ -14,7 +15,7 @@ class MapTopBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final title = 'test title';
+    final title = ref.watch(tripProvider(tripId).select((s) => s?.title));
 
     final boxShadow = [
       BoxShadow(
@@ -67,10 +68,10 @@ class MapTopBar extends ConsumerWidget {
                     boxShadow: boxShadow,
                   ),
                   child: Text(
-                    title.isNotEmpty ? title : 'Nouveau voyage',
+                    title ?? 'Nouveau voyage',
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w700,
-                      color: title.isNotEmpty
+                      color: title != null
                           ? theme.colorScheme.onSurface
                           : theme.colorScheme.onSurface.withOpacity(0.4),
                     ),

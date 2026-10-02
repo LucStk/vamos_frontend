@@ -1,7 +1,5 @@
-import 'package:map_editor_application/application/map_command_resolver.dart';
-import 'package:map_editor_application/application/intents.dart';
-import 'package:map_editor_application/application/mode_after.dart';
-import 'package:map_editor_application/domain/domain.dart';
+import 'package:map_controllers/edit_trip_controller/application/mode_after.dart';
+import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:meta/meta.dart';
 import 'package:trip_application/topology/topology.dart';
@@ -19,7 +17,7 @@ final class MapEditorController extends BaseController<MapEditorMode> {
          graphEditor: graphEditor,
          waypointEditor: waypointEditor,
        ),
-       super(initialMode: const Idle());
+       super(initialMode: const IdleEditor());
 
   final MapCommandResolver _commandResolver;
   final MapEffectQueue _effectQueue = MapEffectQueue();
@@ -31,7 +29,7 @@ final class MapEditorController extends BaseController<MapEditorMode> {
   void onCommand(MapCommand command) {
     // Commande purement "mode" : pas d'I/O, donc pas de queue.
     if (command is ExitMode) {
-      mode = const Idle();
+      mode = const IdleEditor();
       return;
     }
 
@@ -66,7 +64,7 @@ final class MapEditorController extends BaseController<MapEditorMode> {
   }
 
   void stopSketch() {
-    mode = const Idle();
+    mode = const IdleEditor();
   }
 
   void deleteSelected() => apply(deleteSelection(mode));

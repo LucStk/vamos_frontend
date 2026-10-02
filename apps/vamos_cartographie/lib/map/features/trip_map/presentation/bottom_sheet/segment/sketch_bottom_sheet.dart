@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_editor_application/map_editor.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:vamos_cartographie/domain_features/topology/presentation/mobility_type_display.dart';
 import 'package:vamos_cartographie/map/map.dart';

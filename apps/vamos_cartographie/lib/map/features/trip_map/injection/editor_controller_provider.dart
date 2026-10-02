@@ -1,5 +1,4 @@
-import 'package:map_editor_application/application/map_editor_controller.dart';
-import 'package:map_editor_application/domain/map_editor_mode.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -22,7 +21,7 @@ class MapEditor extends _$MapEditor {
       },
     );
 
-    return const Idle();
+    return const IdleEditor();
   }
 
   void setMode(MapEditorMode mode) {

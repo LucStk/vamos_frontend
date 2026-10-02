@@ -226,6 +226,82 @@ final class TripFamily extends $Family
   String toString() => r'tripProvider';
 }
 
+@ProviderFor(tripRequired)
+final tripRequiredProvider = TripRequiredFamily._();
+
+final class TripRequiredProvider extends $FunctionalProvider<Trip, Trip, Trip>
+    with $Provider<Trip> {
+  TripRequiredProvider._({
+    required TripRequiredFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'tripRequiredProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$tripRequiredHash();
+
+  @override
+  String toString() {
+    return r'tripRequiredProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<Trip> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Trip create(Ref ref) {
+    final argument = this.argument as TripId;
+    return tripRequired(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Trip value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Trip>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TripRequiredProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$tripRequiredHash() => r'a55d1f20d29befe6f3ceeb45a7e2065debc4608b';
+
+final class TripRequiredFamily extends $Family
+    with $FunctionalFamilyOverride<Trip, TripId> {
+  TripRequiredFamily._()
+    : super(
+        retry: null,
+        name: r'tripRequiredProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  TripRequiredProvider call(TripId tripId) =>
+      TripRequiredProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'tripRequiredProvider';
+}
+
 @ProviderFor(tripIds)
 final tripIdsProvider = TripIdsProvider._();
 

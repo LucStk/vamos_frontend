@@ -48,6 +48,10 @@ class _TripMapResolver extends ConsumerWidget {
     // ✅ mapCameraProvider et cameraOrNullProvider déjà overridés
     // par le MapCameraScope parent (dans ExploreMapScreen), pas besoin
     // d'un second scope ici.
+    final tripOwnerId = ref.watch(
+      tripRequiredProvider(tripId).select((s) => s.ownerId),
+    );
+    final isOwner = ref.watch(currentUserIdProvider) == tripOwnerId.value;
     final controller = ref.watch(mapEditorProvider(tripId).notifier);
     return ProviderScope(
       overrides: [

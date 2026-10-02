@@ -10,8 +10,7 @@ workspace:
   - packages/map_canvas
   - packages/map_engine
   - packages/map_application
-  - packages/map_editor_application
-  - packages/map_explore_application
+  - packages/map_controllers
   - packages/stored_file_application
   - packages/trip_application
   - packages/user_profile_application

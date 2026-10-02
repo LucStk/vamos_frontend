@@ -3,7 +3,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 
-import 'package:map_editor_application/map_editor.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:vamos_cartographie/map/map.dart';
 part 'sketch_elements_projecter.g.dart';
 

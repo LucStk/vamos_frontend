@@ -1,4 +1,4 @@
-name: map_editor_application
+name: map_controllers
 description: "Map Application for vamos cartography"
 publish_to: "none"
 

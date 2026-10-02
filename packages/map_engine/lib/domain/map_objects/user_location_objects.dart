@@ -19,5 +19,5 @@ final class MapUserLocation extends MapPoint {
   int get hitPriority => 200;
 
   @override
-  bool isSameAs(MapObject other) => other is MapSketchPencil;
+  bool isSameAs(MapObject? other) => other is MapSketchPencil;
 }

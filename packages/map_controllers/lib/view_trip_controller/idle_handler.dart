@@ -1,17 +1,14 @@
 import 'package:map_application/map_application.dart';
+import 'package:map_controllers/view_trip_controller/view_trip_mode.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:map_explore_application/map_explore_mode.dart';
 
-final class IdleHandler extends NoopGestureHandler<MapExploreMode> {
-  const IdleHandler(this.mode);
-
-  @override
-  final MapExploreMode mode;
+final class ViewTripIdleHandler extends IdleHandler<ViewTripMode> {
+  const ViewTripIdleHandler(super.mode);
 
   @override
-  GestureResult<MapExploreMode> onTap(TapGesture g) {
+  GestureResult<ViewTripMode> onTap(TapGesture g) {
     switch (g.element) {
-      case MapTripObject e when !e.isSameAs(mode.selection):
+      case MapObject e when !e.isSameAs(mode.selection):
         return GestureResult(mode: mode.withSelection(e));
       // case null:
       //   return GestureResult(mode: mode.withSelection(null));

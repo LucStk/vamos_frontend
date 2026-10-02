@@ -1,7 +1,8 @@
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
-import 'package:map_editor_application/domain/map_editor_mode.dart';
 import 'package:map_engine/map_engine.dart';
+
+import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
 
 abstract base class SketchHandler extends NoopGestureHandler<MapEditorMode> {
   const SketchHandler();

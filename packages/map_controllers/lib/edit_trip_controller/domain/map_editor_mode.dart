@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_application/map_application.dart';
-import 'package:map_editor_application/application/application.dart';
+import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
@@ -13,21 +13,21 @@ sealed class MapEditorMode extends BaseMode<MapEditorMode> {
 
 extension MapEditorModeCopy on MapEditorMode {
   MapEditorMode withPopupPosition(PopUpPositionType position) => switch (this) {
-    Idle m => m.copyWith(popUpPosition: position),
+    IdleEditor m => m.copyWith(popUpPosition: position),
     SketchCreation m => m.copyWith(popUpPosition: position),
     SketchEdition m => m.copyWith(popUpPosition: position),
   };
 
   MapEditorMode withSelection(MapObject? selection) => switch (this) {
-    Idle m => m.copyWith(selection: selection),
+    IdleEditor m => m.copyWith(selection: selection),
     SketchCreation m => m.copyWith(selection: selection),
     SketchEdition m => m.copyWith(selection: selection),
   };
 }
 
 @freezed
-final class Idle extends MapEditorMode with _$Idle {
-  const Idle({this.selection, this.popUpPosition});
+final class IdleEditor extends MapEditorMode with _$IdleEditor {
+  const IdleEditor({this.selection, this.popUpPosition});
 
   @override
   final PopUpPositionType popUpPosition;
@@ -36,7 +36,7 @@ final class Idle extends MapEditorMode with _$Idle {
   final MapObject? selection;
 
   @override
-  ModeGestureHandler<MapEditorMode> get handler => IdleHandler(this);
+  ModeGestureHandler<MapEditorMode> get handler => EditTripIdleHandler(this);
 }
 
 /// Base commune : contrat partagé par SketchCreation et SketchEdition.

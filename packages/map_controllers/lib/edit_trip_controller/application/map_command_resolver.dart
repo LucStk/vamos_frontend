@@ -1,6 +1,7 @@
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:map_application/map_application.dart';
-import 'package:map_editor_application/application/commands/commands.dart';
+
+import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/trip_application.dart';
 

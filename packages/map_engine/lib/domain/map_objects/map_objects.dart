@@ -16,7 +16,7 @@ sealed class MapObject {
 
   int get hitPriority => 0;
 
-  bool isSameAs(MapObject other);
+  bool isSameAs(MapObject? other);
 }
 
 abstract interface class TopologyObject {
@@ -68,7 +68,7 @@ final class MapVertex extends MapPoint implements TopologyObject {
   int get hitPriority => 100;
 
   @override
-  bool isSameAs(MapObject other) => other is MapVertex && other.id == id;
+  bool isSameAs(MapObject? other) => other is MapVertex && other.id == id;
 }
 
 final class MapSegment extends MapLine implements TopologyObject {
@@ -85,5 +85,5 @@ final class MapSegment extends MapLine implements TopologyObject {
   int get hitPriority => 50;
 
   @override
-  bool isSameAs(MapObject other) => other is MapSegment && other.id == id;
+  bool isSameAs(MapObject? other) => other is MapSegment && other.id == id;
 }

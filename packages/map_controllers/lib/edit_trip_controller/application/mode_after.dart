@@ -1,12 +1,10 @@
-import 'package:map_editor_application/application/commands/command_result.dart';
-import 'package:map_editor_application/domain/map_editor_mode.dart';
+import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
 import 'package:map_engine/map_engine.dart';
 
 MapEditorMode? modeAfter(MapEditorMode current, CommandResult result) {
   return switch (result) {
-    SegmentCreated(:final segment) || SegmentSpliced(:final segment) => Idle(
-      selection: MapSegment(segment.id, segment.geometry),
-    ),
+    SegmentCreated(:final segment) || SegmentSpliced(:final segment) =>
+      IdleEditor(selection: MapSegment(segment.id, segment.geometry)),
 
     SegmentCorrected() || SegmentUpdated() => switch (current) {
       SketchEdition e => e.copyWith(path: []),

@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_editor_application/domain/map_editor_mode.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/topology/injection/queries/vertex_queries.dart';
@@ -25,7 +25,7 @@ class MapEditorBottomSheet extends ConsumerWidget {
     switch (editorMode) {
       case SketchMode _:
         return SketchBottomSheet(tripId: tripId);
-      case Idle _:
+      case IdleEditor _:
         switch (editorMode.selection) {
           case MapVertex e:
             final waypointId = ref.watch(

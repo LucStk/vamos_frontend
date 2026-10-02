@@ -10,7 +10,7 @@ final class MapSketchSegment extends MapLine {
   int get hitPriority => 50;
 
   @override
-  bool isSameAs(MapObject other) => other is MapSketchSegment;
+  bool isSameAs(MapObject? other) => other is MapSketchSegment;
 }
 
 final class MapSketchPencil extends MapPoint {
@@ -26,5 +26,5 @@ final class MapSketchPencil extends MapPoint {
   int get hitPriority => 200;
 
   @override
-  bool isSameAs(MapObject other) => other is MapSketchPencil;
+  bool isSameAs(MapObject? other) => other is MapSketchPencil;
 }

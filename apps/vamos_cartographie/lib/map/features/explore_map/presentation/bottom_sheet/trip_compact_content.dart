@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/routing/routes/trip_route.dart';
 import 'package:vamos_cartographie/vamos_cartographie.dart';
 
 class TripCompactContent extends StatelessWidget {
@@ -18,7 +19,9 @@ class TripCompactContent extends StatelessWidget {
           ImageCarouselView(id: trip.id),
           const Spacer(),
           FilledButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              TripRoute(tripId: trip.id.value).go(context);
+            },
             icon: const Icon(Icons.map_sharp, size: 16),
             label: const Text('Ouvrir'),
           ),
