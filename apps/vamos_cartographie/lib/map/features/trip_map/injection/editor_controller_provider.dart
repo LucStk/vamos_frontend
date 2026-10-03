@@ -13,6 +13,7 @@ class MapEditor extends _$MapEditor {
   @override
   MapEditorMode build(TripId tripId) {
     controller = MapEditorController(
+      tripId: tripId,
       graphEditor: ref.watch(graphStoreProvider(tripId).notifier),
       waypointEditor: ref.watch(waypointStoreProvider(tripId).notifier),
       camera: ref.watch(mapCameraProvider),

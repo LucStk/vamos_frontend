@@ -14,12 +14,14 @@ sealed class MapEditorMode extends BaseMode<MapEditorMode> {
 extension MapEditorModeCopy on MapEditorMode {
   MapEditorMode withPopupPosition(PopUpPositionType position) => switch (this) {
     IdleEditor m => m.copyWith(popUpPosition: position),
+    InitTripMode m => m.copyWith(popUpPosition: position),
     SketchCreation m => m.copyWith(popUpPosition: position),
     SketchEdition m => m.copyWith(popUpPosition: position),
   };
 
   MapEditorMode withSelection(MapObject? selection) => switch (this) {
     IdleEditor m => m.copyWith(selection: selection),
+    InitTripMode m => m.copyWith(selection: selection),
     SketchCreation m => m.copyWith(selection: selection),
     SketchEdition m => m.copyWith(selection: selection),
   };
@@ -28,6 +30,20 @@ extension MapEditorModeCopy on MapEditorMode {
 @freezed
 final class IdleEditor extends MapEditorMode with _$IdleEditor {
   const IdleEditor({this.selection, this.popUpPosition});
+
+  @override
+  final PopUpPositionType popUpPosition;
+
+  @override
+  final MapObject? selection;
+
+  @override
+  ModeGestureHandler<MapEditorMode> get handler => EditTripIdleHandler(this);
+}
+
+@freezed
+final class InitTripMode extends MapEditorMode with _$InitTripMode {
+  const InitTripMode({this.selection, this.popUpPosition});
 
   @override
   final PopUpPositionType popUpPosition;
