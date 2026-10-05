@@ -22,21 +22,16 @@ final class TripBoundsTriggerProvider
         retry: null,
         name: r'tripBoundsTriggerProvider',
         isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[
-          mapExploreProvider,
-          cameraDirectorProvider,
-        ],
+        dependencies: <ProviderOrFamily>[cameraDirectorProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           TripBoundsTriggerProvider.$allTransitiveDependencies0,
           TripBoundsTriggerProvider.$allTransitiveDependencies1,
-          TripBoundsTriggerProvider.$allTransitiveDependencies2,
         ],
       );
 
-  static final $allTransitiveDependencies0 = mapExploreProvider;
+  static final $allTransitiveDependencies0 = cameraDirectorProvider;
   static final $allTransitiveDependencies1 =
-      MapExploreProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 = cameraDirectorProvider;
+      CameraDirectorProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$tripBoundsTriggerHash();
@@ -60,4 +55,4 @@ final class TripBoundsTriggerProvider
   }
 }
 
-String _$tripBoundsTriggerHash() => r'07f3247de5bd73f2d89e778e2bfd31399211464f';
+String _$tripBoundsTriggerHash() => r'35f3f5e05b39bc39a27131e4b65fa6ec6fa2b51f';

@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/routing/routing.dart';
 import '/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapEditor, MapExplore, mapScene])
+@Dependencies([mapScene])
 class AccountButton extends ConsumerWidget {
   const AccountButton({super.key});
 

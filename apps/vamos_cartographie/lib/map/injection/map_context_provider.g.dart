@@ -55,58 +55,6 @@ final class MapCameraProvider
 
 String _$mapCameraHash() => r'813cba9e11141ec0f8976aededb1019f982276b6';
 
-@ProviderFor(mapController)
-final mapControllerProvider = MapControllerProvider._();
-
-final class MapControllerProvider
-    extends
-        $FunctionalProvider<
-          BaseController<BaseMode<BaseMode<dynamic>>>,
-          BaseController<BaseMode<BaseMode<dynamic>>>,
-          BaseController<BaseMode<BaseMode<dynamic>>>
-        >
-    with $Provider<BaseController<BaseMode<BaseMode<dynamic>>>> {
-  MapControllerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'mapControllerProvider',
-        isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$mapControllerHash();
-
-  @$internal
-  @override
-  $ProviderElement<BaseController<BaseMode<BaseMode<dynamic>>>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  BaseController<BaseMode<BaseMode<dynamic>>> create(Ref ref) {
-    return mapController(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(
-    BaseController<BaseMode<BaseMode<dynamic>>> value,
-  ) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride:
-          $SyncValueProvider<BaseController<BaseMode<BaseMode<dynamic>>>>(
-            value,
-          ),
-    );
-  }
-}
-
-String _$mapControllerHash() => r'89220365b6d2a488d934692d160062fd6f7ac916';
-
 @ProviderFor(mapScene)
 final mapSceneProvider = MapSceneProvider._();
 
@@ -148,17 +96,11 @@ final class MapSceneProvider
 
 String _$mapSceneHash() => r'95a2b6036c0089d85442ea4ff7c781dfb8cbd21d';
 
-@ProviderFor(mapMode)
+@ProviderFor(MapMode)
 final mapModeProvider = MapModeProvider._();
 
 final class MapModeProvider
-    extends
-        $FunctionalProvider<
-          BaseMode<BaseMode<dynamic>>,
-          BaseMode<BaseMode<dynamic>>,
-          BaseMode<BaseMode<dynamic>>
-        >
-    with $Provider<BaseMode<BaseMode<dynamic>>> {
+    extends $NotifierProvider<MapMode, BaseMode<BaseMode<dynamic>>> {
   MapModeProvider._()
     : super(
         from: null,
@@ -175,14 +117,7 @@ final class MapModeProvider
 
   @$internal
   @override
-  $ProviderElement<BaseMode<BaseMode<dynamic>>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  BaseMode<BaseMode<dynamic>> create(Ref ref) {
-    return mapMode(ref);
-  }
+  MapMode create() => MapMode();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BaseMode<BaseMode<dynamic>> value) {
@@ -193,4 +128,27 @@ final class MapModeProvider
   }
 }
 
-String _$mapModeHash() => r'c4f1831ed9ff98ee06cf1bffe7c397b450fd061f';
+String _$mapModeHash() => r'729003ef7805e04992ae5b8bc461b497483cb2cd';
+
+abstract class _$MapMode extends $Notifier<BaseMode<BaseMode<dynamic>>> {
+  BaseMode<BaseMode<dynamic>> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref =
+        this.ref
+            as $Ref<BaseMode<BaseMode<dynamic>>, BaseMode<BaseMode<dynamic>>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                BaseMode<BaseMode<dynamic>>,
+                BaseMode<BaseMode<dynamic>>
+              >,
+              BaseMode<BaseMode<dynamic>>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}

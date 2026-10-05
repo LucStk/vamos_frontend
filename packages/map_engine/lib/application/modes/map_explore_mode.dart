@@ -1,4 +1,3 @@
-import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 
 class MapExploreMode extends BaseMode<MapExploreMode> {
@@ -8,8 +7,13 @@ class MapExploreMode extends BaseMode<MapExploreMode> {
   @override
   final PopUpPositionType popUpPosition;
 
-  MapExploreMode withSelection(MapTripObject? s) =>
-      MapExploreMode(selection: s);
+  @override
+  MapExploreMode withSelection(MapObject? s) {
+    if (s is MapTripObject) {
+      return MapExploreMode(selection: s);
+    }
+    return this;
+  }
 
   @override
   GestureResult<MapExploreMode> onTap(TapGesture g) {

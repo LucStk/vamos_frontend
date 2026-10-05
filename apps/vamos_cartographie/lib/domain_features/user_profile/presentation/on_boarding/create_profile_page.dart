@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import "/map/map.dart";
 
-@Dependencies([mapScene, MapEditor, MapExplore])
+@Dependencies([mapScene])
 class CreateProfilePage extends ConsumerStatefulWidget {
   const CreateProfilePage({super.key});
 

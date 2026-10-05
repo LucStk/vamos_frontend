@@ -32,9 +32,6 @@ final class SketchElementProjectionProvider
        );
 
   static final $allTransitiveDependencies0 = cameraOrNullProvider;
-  static final $allTransitiveDependencies1 = mapEditorProvider;
-  static final $allTransitiveDependencies2 =
-      MapEditorProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$sketchElementProjectionHash();
@@ -79,7 +76,7 @@ final class SketchElementProjectionProvider
 }
 
 String _$sketchElementProjectionHash() =>
-    r'0af92cb1de457c2b202fb78c99f186ebbfbcd0a9';
+    r'9c6369569f4a193a9e6bdab9fb56deb6d41bb070';
 
 final class SketchElementProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedObject>, TripId> {
@@ -87,14 +84,9 @@ final class SketchElementProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'sketchElementProjectionProvider',
-        dependencies: <ProviderOrFamily>[
-          cameraOrNullProvider,
-          mapEditorProvider,
-        ],
+        dependencies: <ProviderOrFamily>[cameraOrNullProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           SketchElementProjectionProvider.$allTransitiveDependencies0,
-          SketchElementProjectionProvider.$allTransitiveDependencies1,
-          SketchElementProjectionProvider.$allTransitiveDependencies2,
         ],
         isAutoDispose: true,
       );

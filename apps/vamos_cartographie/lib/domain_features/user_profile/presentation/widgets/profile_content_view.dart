@@ -9,7 +9,7 @@ import 'profile_header_view.dart';
 import "/map/map.dart";
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapEditor, MapExplore, mapScene])
+@Dependencies([mapScene])
 class ProfileContent extends ConsumerWidget {
   const ProfileContent({super.key, required this.profile});
 

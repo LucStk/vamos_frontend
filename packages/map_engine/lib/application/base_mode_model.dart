@@ -7,6 +7,8 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
   PopUpPositionType get popUpPosition;
   MapObject? get selection;
 
+  Self withSelection(MapObject? selection);
+
   GestureResult<Self>? dispatchGesture(
     MapGesture gesture,
     ScreenOffset offset,
@@ -28,4 +30,24 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
       GestureResult.none();
   GestureResult<Self> onDragEnd(DragEndGesture g) => GestureResult.none();
   GestureResult<Self> onTap(TapGesture g) => GestureResult.none();
+
+  Self? onCommandResult(CommandResult result) => switch (result) {
+    SegmentDeleted(:final segmentId) => switch (selection) {
+      MapSegment(:final id) when id == segmentId => withSelection(null),
+      _ => null,
+    },
+    VertexRemoved(:final vertexId) => switch (selection) {
+      MapVertex(:final id) when id == vertexId => withSelection(null),
+      _ => null,
+    },
+    // TripSelected(:final trip) => withSelection(MapTripObject(trip.id)),
+    // Listés explicitement plutôt que `_ => null` : l'ajout d'un nouveau
+    // CommandResult cassera la compilation ici, au lieu d'être ignoré.
+    SegmentCreated() ||
+    SegmentSpliced() ||
+    SegmentUpdated() ||
+    SegmentCorrected() ||
+    TripSelected() ||
+    NoResult() => null,
+  };
 }

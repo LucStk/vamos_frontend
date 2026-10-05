@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
@@ -17,13 +16,6 @@ extension MapEditorModeCopy on MapEditorMode {
     SketchCreation m => m.copyWith(popUpPosition: position),
     SketchEdition m => m.copyWith(popUpPosition: position),
   };
-
-  MapEditorMode withSelection(MapObject? selection) => switch (this) {
-    IdleEditor m => m.copyWith(selection: selection),
-    InitTripMode m => m.copyWith(selection: selection),
-    SketchCreation m => m.copyWith(selection: selection),
-    SketchEdition m => m.copyWith(selection: selection),
-  };
 }
 
 @freezed
@@ -35,6 +27,9 @@ final class IdleEditor extends MapEditorMode with _$IdleEditor {
 
   @override
   final MapObject? selection;
+  @override
+  IdleEditor withSelection(MapObject? selection) =>
+      copyWith(selection: selection);
 
   @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
@@ -56,7 +51,9 @@ final class InitTripMode extends MapEditorMode with _$InitTripMode {
 
   @override
   final MapObject? selection;
-
+  @override
+  InitTripMode withSelection(MapObject? selection) =>
+      copyWith(selection: selection);
   @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
     MapUserLocation _ => () {

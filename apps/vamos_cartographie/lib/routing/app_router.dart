@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
@@ -15,7 +14,7 @@ part 'app_router.g.dart';
   path: '/',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
-@Dependencies([mapScene, MapEditor, MapExplore])
+@Dependencies([mapScene])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 

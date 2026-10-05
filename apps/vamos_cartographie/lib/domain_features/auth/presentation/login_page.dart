@@ -11,7 +11,7 @@ import 'widgets/auth_layout.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import "/map/map.dart";
 
-@Dependencies([mapScene, MapEditor, MapExplore])
+@Dependencies([mapScene])
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 

@@ -26,15 +26,13 @@ final class PopupWorldPositionProvider
         retry: null,
         name: r'popupWorldPositionProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapCameraProvider, mapModeProvider],
+        dependencies: <ProviderOrFamily>[mapCameraProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           PopupWorldPositionProvider.$allTransitiveDependencies0,
-          PopupWorldPositionProvider.$allTransitiveDependencies1,
         ],
       );
 
   static final $allTransitiveDependencies0 = mapCameraProvider;
-  static final $allTransitiveDependencies1 = mapModeProvider;
 
   @override
   String debugGetCreateSourceHash() => _$popupWorldPositionHash();
@@ -59,4 +57,4 @@ final class PopupWorldPositionProvider
 }
 
 String _$popupWorldPositionHash() =>
-    r'22ab512de00bfe3900090eb9aff2994a73f17a76';
+    r'fcca65be0fdf6fd48ea8ac8fb1234a5a07751beb';

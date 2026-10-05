@@ -1,8 +1,8 @@
 import 'package:domain_core/domain/collection_store.dart';
-import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/application/gesture_result_model.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/trip_application.dart';
+import "commands/commands.dart";
 
 final class MapCommandResolver {
   const MapCommandResolver({

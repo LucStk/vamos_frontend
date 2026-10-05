@@ -240,29 +240,21 @@ final class ExploreSceneProvider
         retry: null,
         name: r'exploreSceneProvider',
         isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[
-          mapExploreProvider,
-          projectedExploreSceneProvider,
-        ],
+        dependencies: <ProviderOrFamily>[projectedExploreSceneProvider],
         $allTransitiveDependencies: <ProviderOrFamily>{
           ExploreSceneProvider.$allTransitiveDependencies0,
           ExploreSceneProvider.$allTransitiveDependencies1,
           ExploreSceneProvider.$allTransitiveDependencies2,
           ExploreSceneProvider.$allTransitiveDependencies3,
-          ExploreSceneProvider.$allTransitiveDependencies4,
-          ExploreSceneProvider.$allTransitiveDependencies5,
         },
       );
 
-  static final $allTransitiveDependencies0 = mapExploreProvider;
+  static final $allTransitiveDependencies0 = projectedExploreSceneProvider;
   static final $allTransitiveDependencies1 =
-      MapExploreProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 = projectedExploreSceneProvider;
-  static final $allTransitiveDependencies3 =
       ProjectedExploreSceneProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies4 =
+  static final $allTransitiveDependencies2 =
       ProjectedExploreSceneProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies5 =
+  static final $allTransitiveDependencies3 =
       ProjectedExploreSceneProvider.$allTransitiveDependencies2;
 
   @override
@@ -287,4 +279,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'ed0916afe64d3c91eb1bdc5373340a7869fa7eed';
+String _$exploreSceneHash() => r'33052d076f00f7345f306b14df23ff1c615efffd';

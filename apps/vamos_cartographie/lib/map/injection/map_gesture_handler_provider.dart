@@ -1,5 +1,3 @@
-import 'package:map_controllers/map_controllers.dart';
-import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/map.dart';
@@ -7,7 +5,7 @@ part 'map_gesture_handler_provider.g.dart';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).
-@Riverpod(keepAlive: true, dependencies: [mapMode, mapScene, mapCamera])
+@Riverpod(keepAlive: true, dependencies: [mapScene, mapCamera])
 class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
   late final PointerGestureResolver _resolver = PointerGestureResolver(
     hitTest: _hitTest,
@@ -32,13 +30,7 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
     _syncPanAllowed();
 
     if (gesture == null) return;
-
-    // Lecture à la demande : le mode réel du moment, pas celui du build.
-    final mode = ref.read(mapModeProvider);
-    final result = mode.dispatchGesture(gesture, offset);
-    if (result != null) {
-      ref.read(mapModeProvider.notifier).apply(result); // voir plus bas
-    }
+    ref.read(mapModeProvider.notifier).handleGesture(gesture, offset);
   }
 
   void _onTapTimeout(PendingTap pending) =>

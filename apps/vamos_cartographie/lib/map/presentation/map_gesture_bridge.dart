@@ -2,6 +2,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:vamos_cartographie/map/injection/map_gesture_handler_provider.dart';
 
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
@@ -17,39 +18,12 @@ class MapGestureBridge extends ConsumerStatefulWidget {
 
 class _MapGestureBridgeState extends ConsumerState<MapGestureBridge> {
   final ValueNotifier<bool> _panAllowed = ValueNotifier(true);
-  late final MapGestureHandler _gestureHandler;
-
-  @override
-  void initState() {
-    super.initState();
-    _gestureHandler = MapGestureHandler(
-      hitTest: ({required ScreenOffset offset, MapObject? exclude}) {
-        final scene = ref.read(mapSceneProvider);
-        final camera = ref.read(mapCameraProvider);
-        return scene.hitTest(
-          camera.screenToWorld(offset),
-          camera.zoomScale,
-          ignore: (o) => exclude != null && o.isSameAs(exclude),
-        );
-      },
-      onGesture: (gesture) =>
-          ref.read(mapControllerProvider).dispatchGesture(gesture),
-    );
-  }
-
-  @override
-  void dispose() {
-    _panAllowed.dispose();
-    _gestureHandler.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     void resolve(PointerEventType type, PointerEvent event) {
       final offset = ScreenOffset(event.localPosition);
-      _gestureHandler.resolve(type, offset);
-      _panAllowed.value = _gestureHandler.panAllowed;
+      ref.read(mapGestureHandlerProvider.notifier).onPointerEvent(type, offset);
     }
 
     return Listener(

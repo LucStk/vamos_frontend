@@ -16,7 +16,7 @@ class LoginRoute extends GoRouteData with $LoginRoute {
   }
 }
 
-@Dependencies([mapScene, MapEditor, MapExplore])
+@Dependencies([mapScene])
 @TypedGoRoute<ProfileRoute>(path: '/profile')
 class ProfileRoute extends GoRouteData with $ProfileRoute {
   const ProfileRoute();

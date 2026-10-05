@@ -6,7 +6,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-@Dependencies([MapEditor, mapScene])
+@Dependencies([ mapScene])
 class TripMapScreen extends StatefulWidget {
   const TripMapScreen({super.key, required this.tripId, this.initialVision});
   final TripId tripId;
@@ -35,7 +35,6 @@ class _TripMapScreenState extends State<TripMapScreen>
 
 @Dependencies([
   CameraOrNull,
-  MapEditor,
   cameraDirector,
   mapCamera,
   userLocationTrigger,
@@ -71,9 +70,7 @@ class _TripMapResolver extends ConsumerWidget {
 
 @Dependencies([
   CameraOrNull,
-  MapEditor,
   mapScene,
-  mapController,
   cameraDirector,
   mapCamera,
   userLocationTrigger,

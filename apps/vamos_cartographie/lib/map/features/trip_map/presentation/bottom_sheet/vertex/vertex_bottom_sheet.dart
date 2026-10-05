@@ -9,7 +9,7 @@ import '/ui_kit/ui_kit.dart';
 
 import 'package:vamos_cartographie/map/map.dart';
 
-@Dependencies([MapEditor])
+@Dependencies([])
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;

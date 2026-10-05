@@ -18,9 +18,6 @@ dependencies:
     sdk: flutter
   stored_file_application:
     path: ../../packages/stored_file_application
-
-  map_controllers:
-    path: ../../packages/map_controllers
   map_canvas:
     path: ../../packages/map_canvas
   map_engine:

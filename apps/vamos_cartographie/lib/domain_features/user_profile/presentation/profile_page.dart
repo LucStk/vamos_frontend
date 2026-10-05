@@ -8,7 +8,7 @@ import "/map/map.dart";
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([mapScene, MapEditor, MapExplore])
+@Dependencies([mapScene])
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 

@@ -1,4 +1,4 @@
-import 'package:trip_application/topology/domain/domain.dart';
+import 'package:trip_application/trip_application.dart';
 
 sealed class CommandResult {
   const CommandResult();
@@ -7,6 +7,11 @@ sealed class CommandResult {
 /// Rien à répercuter (échec, segment introuvable, vertex créé…)
 final class NoResult extends CommandResult {
   const NoResult();
+}
+
+final class TripSelected extends CommandResult {
+  const TripSelected(this.trip);
+  final Trip trip;
 }
 
 final class SegmentCreated extends CommandResult {

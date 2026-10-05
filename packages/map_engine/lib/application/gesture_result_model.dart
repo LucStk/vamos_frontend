@@ -12,7 +12,7 @@ final class GestureResult<T extends BaseMode<T>> {
   const GestureResult({this.mode, this.command});
 
   /// null = le mode ne change pas
-  final T? mode;
+  final BaseMode<T>? mode;
 
   /// null = rien à exécuter
   final MapCommand? command;

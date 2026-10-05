@@ -34,13 +34,9 @@ final class ProjectedTripEditorSceneProvider
   static final $allTransitiveDependencies0 = sketchElementProjectionProvider;
   static final $allTransitiveDependencies1 =
       SketchElementProjectionProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 =
-      SketchElementProjectionProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 =
-      SketchElementProjectionProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies4 = userLocationProjectionProvider;
-  static final $allTransitiveDependencies5 = allVertexProjectionProvider;
-  static final $allTransitiveDependencies6 = allSegmentProjectionProvider;
+  static final $allTransitiveDependencies2 = userLocationProjectionProvider;
+  static final $allTransitiveDependencies3 = allVertexProjectionProvider;
+  static final $allTransitiveDependencies4 = allSegmentProjectionProvider;
 
   @override
   String debugGetCreateSourceHash() => _$projectedTripEditorSceneHash();
@@ -105,8 +101,6 @@ final class ProjectedTripEditorSceneFamily extends $Family
           ProjectedTripEditorSceneProvider.$allTransitiveDependencies2,
           ProjectedTripEditorSceneProvider.$allTransitiveDependencies3,
           ProjectedTripEditorSceneProvider.$allTransitiveDependencies4,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies5,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies6,
         },
         isAutoDispose: true,
       );
@@ -146,10 +140,6 @@ final class TripEditorSceneProvider
       ProjectedTripEditorSceneProvider.$allTransitiveDependencies3;
   static final $allTransitiveDependencies5 =
       ProjectedTripEditorSceneProvider.$allTransitiveDependencies4;
-  static final $allTransitiveDependencies6 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies5;
-  static final $allTransitiveDependencies7 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies6;
 
   @override
   String debugGetCreateSourceHash() => _$tripEditorSceneHash();
@@ -191,7 +181,7 @@ final class TripEditorSceneProvider
   }
 }
 
-String _$tripEditorSceneHash() => r'fc4109e5ee702df8f3402b947b8962108d041e81';
+String _$tripEditorSceneHash() => r'9e7d640f5f213de882ae5e533b47ded734842a70';
 
 final class TripEditorSceneFamily extends $Family
     with $FunctionalFamilyOverride<MapScene, TripId> {
@@ -199,10 +189,7 @@ final class TripEditorSceneFamily extends $Family
     : super(
         retry: null,
         name: r'tripEditorSceneProvider',
-        dependencies: <ProviderOrFamily>[
-          projectedTripEditorSceneProvider,
-          mapEditorProvider,
-        ],
+        dependencies: <ProviderOrFamily>[projectedTripEditorSceneProvider],
         $allTransitiveDependencies: <ProviderOrFamily>{
           TripEditorSceneProvider.$allTransitiveDependencies0,
           TripEditorSceneProvider.$allTransitiveDependencies1,
@@ -210,8 +197,6 @@ final class TripEditorSceneFamily extends $Family
           TripEditorSceneProvider.$allTransitiveDependencies3,
           TripEditorSceneProvider.$allTransitiveDependencies4,
           TripEditorSceneProvider.$allTransitiveDependencies5,
-          TripEditorSceneProvider.$allTransitiveDependencies6,
-          TripEditorSceneProvider.$allTransitiveDependencies7,
         },
         isAutoDispose: true,
       );

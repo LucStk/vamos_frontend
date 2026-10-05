@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/overlay_ui/overlay_ui.dart';
 import '/ui_kit/ui_kit.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapEditor])
+@Dependencies([])
 class SegmentBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final SegmentId segmentId;

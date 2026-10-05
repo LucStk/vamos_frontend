@@ -3,7 +3,6 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 import 'package:vamos_cartographie/map/injection/injection.dart';
-import 'package:vamos_cartographie/map/features/trip_map/injection/editor_controller_provider.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
 
@@ -28,11 +27,9 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
   return objects;
 }
 
-@Riverpod(dependencies: [projectedTripEditorScene, MapEditor])
+@Riverpod(dependencies: [projectedTripEditorScene])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
-  final selection = ref.watch(
-    mapEditorProvider(tripId).select((m) => m.selection),
-  );
+  final selection = ref.watch(mapModeProvider.select((m) => m.selection));
   final projObjects = ref.watch(projectedTripEditorSceneProvider(tripId));
 
   return MapScene(selection: selection, objects: projObjects);
