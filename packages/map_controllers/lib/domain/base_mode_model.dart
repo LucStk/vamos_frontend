@@ -1,5 +1,4 @@
-import 'package:latlong2/latlong.dart';
-import 'package:map_application/gesture_result_model.dart';
+import 'gesture_result_model.dart';
 import 'package:map_engine/map_engine.dart';
 
 typedef PopUpPositionType = ScreenOffset?;
@@ -10,12 +9,29 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
   ModeGestureHandler<Self> get handler;
   PopUpPositionType get popUpPosition;
   MapObject? get selection;
+
+  void dispatchGesture(MapGesture gesture, ScreenOffset offset) {
+    switch (gesture) {
+      case PointerDownGesture():
+        handler.onPointerDown(gesture, offset);
+      case DragStartGesture():
+        handler.onDragStart(gesture);
+      case DraggingGesture():
+        handler.onDragging(gesture, offset);
+      case DragEndGesture():
+        handler.onDragEnd(gesture);
+      case TapGesture():
+        handler.onTap(gesture);
+      case DoubleTapGesture():
+      // handler.onDoubleTap(gesture);
+    }
+  }
 }
 
 abstract interface class ModeGestureHandler<M extends BaseMode<M>> {
-  GestureResult<M> onPointerDown(PointerDownGesture g, LatLng p);
+  GestureResult<M> onPointerDown(PointerDownGesture g, ScreenOffset p);
   GestureResult<M> onDragStart(DragStartGesture g);
-  GestureResult<M> onDragging(DraggingGesture g, LatLng p);
+  GestureResult<M> onDragging(DraggingGesture g, ScreenOffset p);
   GestureResult<M> onDragEnd(DragEndGesture g);
   GestureResult<M> onTap(TapGesture g);
 }
@@ -28,12 +44,12 @@ abstract base class NoopGestureHandler<M extends BaseMode<M>>
   M get mode;
 
   @override
-  GestureResult<M> onPointerDown(PointerDownGesture g, LatLng p) =>
+  GestureResult<M> onPointerDown(PointerDownGesture g, ScreenOffset p) =>
       GestureResult.none();
   @override
   GestureResult<M> onDragStart(DragStartGesture g) => GestureResult.none();
   @override
-  GestureResult<M> onDragging(DraggingGesture g, LatLng p) =>
+  GestureResult<M> onDragging(DraggingGesture g, ScreenOffset p) =>
       GestureResult.none();
   @override
   GestureResult<M> onDragEnd(DragEndGesture g) => GestureResult.none();

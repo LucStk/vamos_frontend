@@ -1,4 +1,4 @@
-import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 
 MapEditorMode? modeAfter(MapEditorMode current, CommandResult result) {

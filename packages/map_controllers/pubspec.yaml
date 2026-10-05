@@ -13,8 +13,7 @@ dependencies:
   latlong2: ^0.9.1
   dartz: ^0.10.1
   freezed_annotation: ^3.1.0
-  map_application:
-    path: ../map_application
+
   domain_core:
     path: ../domain_core
   trip_application:

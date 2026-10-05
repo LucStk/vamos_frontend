@@ -1,4 +1,4 @@
-import 'package:map_application/map_application.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 import 'map_explore_mode.dart';
 

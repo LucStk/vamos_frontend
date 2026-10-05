@@ -1,10 +1,8 @@
-import 'package:map_application/map_application.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 
-import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
-
-final class EditTripIdleHandler extends IdleHandler<MapEditorMode> {
-  const EditTripIdleHandler(super.mode);
+final class InitTripHandler extends IdleHandler<MapEditorMode> {
+  const InitTripHandler(super.mode);
 
   @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {

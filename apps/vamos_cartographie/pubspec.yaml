@@ -21,8 +21,6 @@ dependencies:
 
   map_controllers:
     path: ../../packages/map_controllers
-  map_application:
-    path: ../../packages/map_application
   map_canvas:
     path: ../../packages/map_canvas
   map_engine:

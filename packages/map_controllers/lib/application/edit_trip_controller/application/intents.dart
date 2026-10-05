@@ -1,6 +1,4 @@
-import 'package:map_application/map_application.dart';
-import 'commands/commands.dart';
-import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:trip_application/topology/topology.dart';
 
 import 'package:map_engine/map_engine.dart';

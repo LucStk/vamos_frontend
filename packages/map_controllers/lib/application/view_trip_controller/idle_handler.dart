@@ -1,5 +1,4 @@
-import 'package:map_application/map_application.dart';
-import 'package:map_controllers/view_trip_controller/view_trip_mode.dart';
+import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 
 final class ViewTripIdleHandler extends IdleHandler<ViewTripMode> {

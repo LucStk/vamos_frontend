@@ -1,9 +1,7 @@
-import 'package:map_controllers/edit_trip_controller/application/mode_after.dart';
-import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:meta/meta.dart';
 import 'package:trip_application/topology/topology.dart';
-import 'package:map_application/map_application.dart';
+import 'package:map_controllers/map_controllers.dart';
 
 final class MapEditorController extends BaseController<MapEditorMode> {
   MapEditorController({
