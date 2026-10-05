@@ -37,7 +37,14 @@ final class IdleEditor extends MapEditorMode with _$IdleEditor {
   final MapObject? selection;
 
   @override
-  ModeGestureHandler<MapEditorMode> get handler => EditTripIdleHandler(this);
+  GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
+    MapUserLocation _ => () {
+      return GestureResult(mode: withPopupPosition(g.offset));
+    }(),
+    TopologyObject e => GestureResult(mode: withSelection(e as MapObject)),
+    null => GestureResult(mode: withPopupPosition(g.offset)),
+    _ => GestureResult.none(),
+  };
 }
 
 @freezed
@@ -51,7 +58,14 @@ final class InitTripMode extends MapEditorMode with _$InitTripMode {
   final MapObject? selection;
 
   @override
-  ModeGestureHandler<MapEditorMode> get handler => EditTripIdleHandler(this);
+  GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
+    MapUserLocation _ => () {
+      return GestureResult(mode: withPopupPosition(g.offset));
+    }(),
+    TopologyObject e => GestureResult(mode: withSelection(e as MapObject)),
+    null => GestureResult(mode: withPopupPosition(g.offset)),
+    _ => GestureResult.none(),
+  };
 }
 
 /// Base commune : contrat partagé par SketchCreation et SketchEdition.
@@ -65,6 +79,23 @@ sealed class SketchMode extends MapEditorMode {
   SketchMode withPath(List<LatLng> path);
 
   LatLng? get pencilPositionOrNull => path.isEmpty ? null : path.last;
+  @override
+  GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
+    MapSketchPencil p => GestureResult(mode: withSelection(p)),
+    _ => GestureResult.none(),
+  };
+
+  @override
+  GestureResult<MapEditorMode> onDragStart(DragStartGesture g) {
+    if (selection is! MapSketchPencil) return GestureResult.none();
+    return GestureResult(mode: withSelection(null));
+  }
+
+  @override
+  GestureResult<MapEditorMode> onDragging(DraggingGesture g, ScreenOffset p) {
+    if (g.dragged is! MapSketchPencil) return GestureResult.none();
+    return GestureResult(mode: withPath([...path, p]).withSelection(g.target));
+  }
 }
 
 @freezed
@@ -84,7 +115,48 @@ abstract class SketchCreation extends SketchMode with _$SketchCreation {
   SketchCreation withPath(List<LatLng> path) => copyWith(path: path);
 
   @override
-  ModeGestureHandler<MapEditorMode> get handler => SketchCreationHandler(this);
+  GestureResult<MapEditorMode> onPointerDown(
+    PointerDownGesture g,
+    ScreenOffset p,
+  ) {
+    if (g.element is! MapSketchSegment) return GestureResult.none();
+    final grab = closestPointOnPolyline(p, path);
+    return GestureResult(
+      mode: copyWith(path: path.sublist(0, grab.segmentIndex)),
+    );
+  }
+
+  @override
+  GestureResult<MapEditorMode> onDragEnd(DragEndGesture g) {
+    if (g.dragged is! MapSketchPencil) return GestureResult.none();
+
+    return switch (g.target) {
+      MapVertex v => GestureResult(
+        command: CreateSegmentFromSketch(
+          startVertexId: vertexStart,
+          endVertexId: v.id,
+          geometry: path,
+          mobilityType: mobilityType,
+        ),
+      ),
+      MapSegment s => GestureResult(
+        command: SpliceSegment(
+          segmentId: s.id,
+          correction: path,
+          startAnchor: VertexAnchor(vertexStart),
+          endAnchor: SegmentAnchor(s.id),
+        ),
+      ),
+      null => GestureResult(
+        command: CreateSegmentFromSketch(
+          startVertexId: vertexStart,
+          geometry: path,
+          mobilityType: mobilityType,
+        ),
+      ),
+      _ => GestureResult.none(),
+    };
+  }
 }
 
 @freezed
@@ -103,5 +175,35 @@ abstract class SketchEdition extends SketchMode with _$SketchEdition {
   SketchEdition withPath(List<LatLng> path) => copyWith(path: path);
 
   @override
-  ModeGestureHandler<MapEditorMode> get handler => SketchEditionHandler(this);
+  GestureResult<MapEditorMode> onPointerDown(
+    PointerDownGesture g,
+    ScreenOffset p,
+  ) => switch (g.element) {
+    MapSegment s when s.id == segmentId => GestureResult(
+      mode: copyWith(path: [p]),
+    ),
+    _ => GestureResult.none(),
+  };
+
+  @override
+  GestureResult<MapEditorMode> onDragEnd(DragEndGesture g) {
+    final correct = GestureResult<MapEditorMode>(
+      command: CorrectSegmentFromSketch(segmentId: segmentId, correction: path),
+    );
+
+    if (g.dragged is MapSketchPencil) return correct;
+
+    return switch (g.target) {
+      MapSegment s when s.id == segmentId => correct,
+      TopologyObject s => GestureResult(
+        command: SpliceSegment(
+          segmentId: segmentId,
+          correction: path,
+          startAnchor: SegmentAnchor(segmentId),
+          endAnchor: s.anchor,
+        ),
+      ),
+      _ => GestureResult.none(),
+    };
+  }
 }

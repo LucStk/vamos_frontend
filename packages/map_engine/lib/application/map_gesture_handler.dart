@@ -4,7 +4,7 @@ import "application.dart";
 typedef OnGesture = void Function(MapGesture gesture);
 
 class MapGestureHandler {
-  MapGestureHandler({required HitTest hitTest, required this.onGesture})
+  MapGestureHandler({required HitTest hitTest, required this.mode})
     : gestureResolver = PointerGestureResolver(hitTest: hitTest) {
     _pendingTapTimer = PendingTapTimer(onTimeout: _onTapTimeout);
   }
@@ -19,15 +19,15 @@ class MapGestureHandler {
 
   /// Point de sortie unique, que le geste vienne d'un event pointeur
   /// synchrone ou de l'expiration du timer de double-tap.
-  final OnGesture onGesture;
+  final BaseMode mode;
 
   late final PendingTapTimer _pendingTapTimer;
 
-  void resolve(PointerEventType event, ScreenOffset offset) {
+  GestureResult? resolve(PointerEventType event, ScreenOffset offset) {
     final gesture = gestureResolver.resolve(event, offset);
 
     if (gesture != null) {
-      onGesture(gesture);
+      return mode.dispatchGesture(gesture, offset);
     }
 
     // Après CHAQUE event, on resynchronise le timer sur l'état réel
@@ -38,6 +38,7 @@ class MapGestureHandler {
     } else {
       _pendingTapTimer.cancel();
     }
+    return null;
   }
 
   void _onTapTimeout(PendingTap pending) {
@@ -46,7 +47,7 @@ class MapGestureHandler {
       pending.offset,
     );
     if (gesture != null) {
-      onGesture(gesture);
+      mode.dispatchGesture(gesture, pending.offset);
     }
   }
 

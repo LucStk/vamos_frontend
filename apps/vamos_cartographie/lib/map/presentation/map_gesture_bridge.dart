@@ -6,7 +6,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([CameraOrNull, mapScene, mapCamera, mapController])
+@Dependencies([CameraOrNull, mapScene, mapCamera])
 class MapGestureBridge extends ConsumerStatefulWidget {
   final List<Widget> mapLayers;
   const MapGestureBridge({required this.mapLayers, super.key});

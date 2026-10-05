@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_controllers/map_controllers.dart';
+import 'package:map_engine/application/gesture_result_model.dart';
 import 'package:trip_application/trip_application.dart';
 
 sealed class VertexCommand extends MapCommand {

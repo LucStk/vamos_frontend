@@ -5,13 +5,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/map.dart';
 
-@Dependencies([
-  CameraOrNull,
-  mapScene,
-  mapController,
-  cameraDirector,
-  mapCamera,
-])
+@Dependencies([CameraOrNull, mapScene, cameraDirector, mapCamera])
 class BaseMap extends ConsumerWidget {
   const BaseMap({
     super.key,

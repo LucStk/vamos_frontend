@@ -1,5 +1,6 @@
 export 'map_gesture_handler.dart';
 export 'pending_tap_timer.dart';
 export 'pointer_gesture_resolver.dart';
-
-// export 'pointer_tap_timeout.dart';
+export "base_mode_model.dart";
+export "effect_queue.dart";
+export "gesture_result_model.dart";

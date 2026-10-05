@@ -1,5 +1,4 @@
 import 'package:map_engine/map_engine.dart';
-import 'package:map_controllers/map_controllers.dart';
 
 class ViewTripMode extends BaseMode<ViewTripMode> {
   const ViewTripMode({this.selection, this.popUpPosition});
@@ -11,5 +10,14 @@ class ViewTripMode extends BaseMode<ViewTripMode> {
   ViewTripMode withSelection(MapObject? s) => ViewTripMode(selection: s);
 
   @override
-  ModeGestureHandler<ViewTripMode> get handler => ViewTripIdleHandler(this);
+  GestureResult<ViewTripMode> onTap(TapGesture g) {
+    switch (g.element) {
+      case MapObject e when !e.isSameAs(selection):
+        return GestureResult(mode: withSelection(e));
+      // case null:
+      //   return GestureResult(mode: mode.withSelection(null));
+      case _:
+        return GestureResult.none();
+    }
+  }
 }

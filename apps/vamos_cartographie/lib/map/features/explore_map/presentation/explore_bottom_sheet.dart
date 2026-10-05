@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapExplore])
+@Dependencies([])
 class ExploreBottomSheet extends ConsumerWidget {
   const ExploreBottomSheet({super.key});
 
