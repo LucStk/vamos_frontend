@@ -6,3 +6,4 @@ export "effect_queue.dart";
 export "gesture_result_model.dart";
 export "commands/commands.dart";
 export 'modes/modes.dart';
+export 'mode_event.dart';

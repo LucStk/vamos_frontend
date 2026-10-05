@@ -6,7 +6,27 @@ import 'package:trip_application/topology/domain/domain.dart';
 part 'map_editor_mode.freezed.dart';
 
 sealed class MapEditorMode extends BaseMode<MapEditorMode> {
-  const MapEditorMode();
+  @override
+  GestureResult<MapEditorMode>? onIntent(ModeIntent intent) => switch ((
+    intent,
+    selection,
+  )) {
+    (StartSketch(), MapVertex(:final id, :final position)) => GestureResult.to(
+      SketchCreation(
+        vertexStart: id,
+        path: [position],
+        mobilityType: MobilityType.bike,
+      ),
+    ),
+    (StopSketch(), _) => GestureResult.to(const IdleEditor()),
+    (StartSegmentEdit(), MapSegment(:final id)) => GestureResult.to(
+        SketchEdition(segmentId: id, path: []),
+    (DeleteSelected(),MapSegment(:final id)) => deleteSelection(this),
+    (ChangeSegmentType(:final type),MapSegment(:final id)) => GestureResult.run(
+        ChangeSelectedSegmentType(id, type),
+      ),
+    _ => null,
+  };
 }
 
 extension MapEditorModeCopy on MapEditorMode {

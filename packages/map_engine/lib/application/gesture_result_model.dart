@@ -8,17 +8,18 @@ class ExitMode extends MapCommand {
   const ExitMode();
 }
 
-final class GestureResult<T extends BaseMode<T>> {
+final class GestureResult<M extends BaseMode<M>> {
   const GestureResult({this.mode, this.command});
 
-  /// null = le mode ne change pas
-  final BaseMode<T>? mode;
+  /// Aucun changement, aucune commande.
+  const GestureResult.none() : this();
 
-  /// null = rien à exécuter
+  /// Transition de mode seule.
+  const GestureResult.to(M mode) : this(mode: mode);
+
+  /// Commande seule, le mode ne change pas.
+  const GestureResult.run(MapCommand command) : this(command: command);
+
+  final M? mode;
   final MapCommand? command;
-
-  // Constructeurs nommés const au lieu de factories
-  const GestureResult.none() : mode = null, command = null;
-
-  const GestureResult.exitMode() : mode = null, command = const ExitMode();
 }
