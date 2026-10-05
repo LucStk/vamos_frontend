@@ -52,7 +52,8 @@ class _TripMapResolver extends ConsumerWidget {
       tripRequiredProvider(tripId).select((s) => s.ownerId),
     );
     final isOwner = ref.watch(currentUserIdProvider) == tripOwnerId.value;
-    final controller = ref.watch(mapEditorProvider(tripId).notifier);
+
+    final controller = isOwner ? ref.watch(mapEditorProvider(tripId).notifier) :
     return ProviderScope(
       overrides: [
         mapSceneProvider.overrideWith(

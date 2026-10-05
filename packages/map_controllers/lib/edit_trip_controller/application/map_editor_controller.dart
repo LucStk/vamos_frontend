@@ -3,32 +3,17 @@ import 'package:map_controllers/edit_trip_controller/edit_trip_controller.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:meta/meta.dart';
 import 'package:trip_application/topology/topology.dart';
-import 'package:trip_application/trip/domain/domain.dart';
-import 'package:trip_application/waypoint/application/waypoint_editor.dart';
-
 import 'package:map_application/map_application.dart';
 
 final class MapEditorController extends BaseController<MapEditorMode> {
   MapEditorController({
-    required TripId tripId,
-    required GraphEditor graphEditor,
-    required WaypointEditor waypointEditor,
+    required this.commandResolver,
     required super.camera,
     required super.onModeChanged,
-  }) : super(initialMode: _initialMode(tripId, graphEditor)) {
-    _commandResolver = MapCommandResolver(
-      graphEditor: graphEditor,
-      waypointEditor: waypointEditor,
-    );
-  }
+    super.initialMode = const IdleEditor(),
+  });
 
-  static MapEditorMode _initialMode(TripId tripId, GraphEditor graphEditor) {
-    // Logique de décision
-    graphEditor.state.segmentStore.
-    return const IdleEditor();
-  }
-
-  late final MapCommandResolver _commandResolver;
+  late final MapCommandResolver commandResolver;
   final MapEffectQueue _effectQueue = MapEffectQueue();
 
   // --- Exécution des commandes émises par les handlers ---
@@ -43,7 +28,7 @@ final class MapEditorController extends BaseController<MapEditorMode> {
     }
 
     _effectQueue.add(() async {
-      final result = await _commandResolver.resolve(command);
+      final result = await commandResolver.resolve(command);
       // `mode` est lu ICI, après l'await : c'est le mode réel du moment.
       final updated = modeAfter(mode, result);
       if (updated != null) mode = updated;

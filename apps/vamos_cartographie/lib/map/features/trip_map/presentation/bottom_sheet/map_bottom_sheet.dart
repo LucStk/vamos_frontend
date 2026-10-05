@@ -6,6 +6,7 @@ import 'package:map_controllers/map_controllers.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/topology/injection/queries/vertex_queries.dart';
+import 'package:vamos_cartographie/map/features/trip_map/presentation/bottom_sheet/create_vertex_bt_sheet.dart';
 import 'package:vamos_cartographie/map/map.dart';
 import '/domain_features/domain_features.dart';
 
@@ -23,6 +24,8 @@ class MapEditorBottomSheet extends ConsumerWidget {
     final editorMode = ref.watch(mapEditorProvider(tripId));
 
     switch (editorMode) {
+      case InitTripMode _:
+        return CreateVertexBottomSheet();
       case SketchMode _:
         return SketchBottomSheet(tripId: tripId);
       case IdleEditor _:

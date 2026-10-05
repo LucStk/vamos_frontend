@@ -1,3 +1,4 @@
+import 'package:domain_core/domain/collection_store.dart';
 import 'package:map_controllers/map_controllers.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -12,17 +13,31 @@ class MapEditor extends _$MapEditor {
 
   @override
   MapEditorMode build(TripId tripId) {
+    print("MapEditor rebuild");
+    final graphEditor = ref.watch(graphStoreProvider(tripId).notifier);
+    final waypointEditor = ref.watch(waypointStoreProvider(tripId).notifier);
+    final camera = ref.watch(mapCameraProvider);
+
+    final MapEditorMode startMode =
+        ref.read(vertexStoreProvider(tripId)).getIds().isEmpty
+        ? const IdleEditor()
+        : const InitTripMode();
+
+    final commandResolver = MapCommandResolver(
+      graphEditor: graphEditor,
+      waypointEditor: waypointEditor,
+    );
+
     controller = MapEditorController(
-      tripId: tripId,
-      graphEditor: ref.watch(graphStoreProvider(tripId).notifier),
-      waypointEditor: ref.watch(waypointStoreProvider(tripId).notifier),
-      camera: ref.watch(mapCameraProvider),
+      commandResolver: commandResolver,
+      camera: camera,
       onModeChanged: (mode) {
         state = mode;
       },
+      initialMode: startMode,
     );
 
-    return const IdleEditor();
+    return startMode;
   }
 
   void setMode(MapEditorMode mode) {
