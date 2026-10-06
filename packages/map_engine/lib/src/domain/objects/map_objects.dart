@@ -1,7 +1,8 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_engine/domain/domain.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/trip.dart';
+
+import '../camera/map_geo_bounds.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
 part "trip_object.dart";

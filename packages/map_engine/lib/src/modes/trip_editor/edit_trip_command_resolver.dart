@@ -1,7 +1,11 @@
 import 'package:domain_core/domain/collection_store.dart';
-import 'package:map_engine/map_engine.dart';
-import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/trip_application.dart';
+
+import '../../geometry/merge_polyline.dart';
+import '../../mode_machine/mode_command.dart';
+import 'edit_trip_mode_command.dart';
+import 'map_editor_mode.dart';
+import 'trip_mode_command_payload.dart';
 
 final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode> {
   const EditTripCommandResolver({
@@ -70,8 +74,6 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode> {
           (_) => SegmentUpdated(c.patch.id),
         );
 
-
-
       case CorrectSegmentFromSketch c:
         final segment = _segment(c.segmentId);
         if (segment == null) return const NoResult();
@@ -83,8 +85,6 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode> {
           (_) => const NoResult(),
           (_) => SegmentCorrected(c.segmentId),
         );
-
-
     }
     return NoResult();
   }

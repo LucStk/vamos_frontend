@@ -1,4 +1,5 @@
-import 'package:map_engine/application/application.dart';
+import 'base_mode_model.dart';
+import 'mode_command.dart';
 
 final class GestureResult<M extends BaseMode<M>> {
   const GestureResult({this.mode, this.command});

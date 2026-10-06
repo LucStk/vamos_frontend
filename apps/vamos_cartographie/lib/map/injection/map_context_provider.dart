@@ -1,5 +1,4 @@
 import 'package:map_canvas/map_canvas.dart';
-import 'package:map_engine/application/base_mode_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/map.dart';
 part 'map_context_provider.g.dart';

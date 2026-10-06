@@ -1,5 +1,5 @@
 // camera_ready.dart
-import 'package:map_engine/domain/map_camera.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'camera_or_null.g.dart';

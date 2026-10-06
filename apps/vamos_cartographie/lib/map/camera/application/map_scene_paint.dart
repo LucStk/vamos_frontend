@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_canvas/application/map_scene.dart';
-import 'package:map_canvas/application/projected_object.dart';
-import 'package:map_canvas/domain/map_paint_context.dart';
-import 'package:vamos_cartographie/map/map.dart';
+import 'package:map_canvas/map_canvas.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+
+import '../../map.dart';
 
 @Dependencies([mapScene, mapCameraSnapshot])
 class MapScenePaint extends ConsumerStatefulWidget {

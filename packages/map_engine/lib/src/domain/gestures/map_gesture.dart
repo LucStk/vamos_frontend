@@ -1,4 +1,5 @@
-import 'domain.dart';
+import '../objects/map_objects.dart';
+import '../space/offset_type.dart';
 
 sealed class MapGesture {
   const MapGesture(this.offset);

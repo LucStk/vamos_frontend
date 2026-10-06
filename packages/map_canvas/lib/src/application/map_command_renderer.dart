@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:map_canvas/domain/domain.dart';
+
+import '../domain/draw_command_domain.dart';
 
 enum MapRenderSpace { world, screen }
 

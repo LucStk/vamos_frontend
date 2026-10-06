@@ -4,8 +4,6 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/domain_features/domain_features.dart';
-import 'package:vamos_cartographie/map/map.dart';
 
 class MapEditorModeNotifier extends MapModeNotifier {
   final _queue = MapEffectQueue();

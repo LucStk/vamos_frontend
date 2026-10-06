@@ -2,7 +2,7 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/map/injection/injection.dart';
+import '../../../injection/user_location_projecter.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
 

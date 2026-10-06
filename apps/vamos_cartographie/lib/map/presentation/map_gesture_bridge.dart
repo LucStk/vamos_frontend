@@ -2,9 +2,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:vamos_cartographie/map/injection/map_gesture_handler_provider.dart';
-
-import 'package:vamos_cartographie/map/map.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
 @Dependencies([CameraOrNull, mapScene, mapCamera])

@@ -1,4 +1,4 @@
-part of "map_editor_mode.dart";
+part of "../../map_editor_mode.dart";
 
 @freezed
 final class VertexSelectMode extends IdleEditor with _$VertexSelectMode {

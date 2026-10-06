@@ -1,4 +1,4 @@
-import 'package:map_engine/map_engine.dart';
+import '../domain/space/offset_type.dart';
 
 typedef MapPointerData = ({WorldOffset offset, double scale});
 

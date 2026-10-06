@@ -1,4 +1,5 @@
-import '/domain/domain.dart';
+import '../domain/objects/map_objects.dart';
+import '../domain/space/offset_type.dart';
 
 sealed class PointerGestureState {
   const PointerGestureState();

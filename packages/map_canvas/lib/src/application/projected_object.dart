@@ -1,6 +1,8 @@
 import 'dart:ui';
-import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
+
+import '../domain/draw_command_domain.dart';
+import '../domain/map_paint_context.dart';
 
 part "projected_line.dart";
 part "projected_point.dart";

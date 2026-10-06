@@ -1,4 +1,4 @@
-part of "map_editor_mode.dart";
+part of "../../map_editor_mode.dart";
 
 sealed class SegmentSelectCommand extends EditorCommand {
   const SegmentSelectCommand();

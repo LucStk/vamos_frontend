@@ -13,388 +13,6 @@ part of 'map_editor_mode.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$IdleEditor {
-
-
-/// Create a copy of IdleEditor
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$IdleEditorCopyWith<IdleEditor> get copyWith => _$IdleEditorCopyWithImpl<IdleEditor>(this as IdleEditor, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  final _this = this as IdleEditor;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleEditor&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
-}
-
-
-@override
-int get hashCode {
-  final _this = this as IdleEditor;
-  return Object.hash(runtimeType,_this.popUpPosition,_this.selection);
-}
-
-@override
-String toString() {
-  final _this = this as IdleEditor;
-  return 'IdleEditor(popUpPosition: ${_this.popUpPosition}, selection: ${_this.selection})';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $IdleEditorCopyWith<$Res>  {
-  factory $IdleEditorCopyWith(IdleEditor value, $Res Function(IdleEditor) _then) = _$IdleEditorCopyWithImpl;
-@useResult
-$Res call({
- MapObject? selection, PopUpPositionType? popUpPosition
-});
-
-
-
-
-}
-/// @nodoc
-class _$IdleEditorCopyWithImpl<$Res>
-    implements $IdleEditorCopyWith<$Res> {
-  _$IdleEditorCopyWithImpl(this._self, this._then);
-
-  final IdleEditor _self;
-  final $Res Function(IdleEditor) _then;
-
-/// Create a copy of IdleEditor
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? selection = freezed,Object? popUpPosition = freezed,}) {
-  return _then(IdleEditor(
-selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [IdleEditor].
-extension IdleEditorPatterns on IdleEditor {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(){
-final _that = this;
-switch (_that) {
-case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
-final _that = this;
-switch (_that) {
-case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
-switch (_that) {
-case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
-switch (_that) {
-case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-mixin _$InitTripMode {
-
-
-/// Create a copy of InitTripMode
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$InitTripModeCopyWith<InitTripMode> get copyWith => _$InitTripModeCopyWithImpl<InitTripMode>(this as InitTripMode, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  final _this = this as InitTripMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitTripMode&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
-}
-
-
-@override
-int get hashCode {
-  final _this = this as InitTripMode;
-  return Object.hash(runtimeType,_this.popUpPosition,_this.selection);
-}
-
-@override
-String toString() {
-  final _this = this as InitTripMode;
-  return 'InitTripMode(popUpPosition: ${_this.popUpPosition}, selection: ${_this.selection})';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $InitTripModeCopyWith<$Res>  {
-  factory $InitTripModeCopyWith(InitTripMode value, $Res Function(InitTripMode) _then) = _$InitTripModeCopyWithImpl;
-@useResult
-$Res call({
- MapObject? selection, PopUpPositionType? popUpPosition
-});
-
-
-
-
-}
-/// @nodoc
-class _$InitTripModeCopyWithImpl<$Res>
-    implements $InitTripModeCopyWith<$Res> {
-  _$InitTripModeCopyWithImpl(this._self, this._then);
-
-  final InitTripMode _self;
-  final $Res Function(InitTripMode) _then;
-
-/// Create a copy of InitTripMode
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? selection = freezed,Object? popUpPosition = freezed,}) {
-  return _then(InitTripMode(
-selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [InitTripMode].
-extension InitTripModePatterns on InitTripMode {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(){
-final _that = this;
-switch (_that) {
-case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
-final _that = this;
-switch (_that) {
-case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
-switch (_that) {
-case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
-switch (_that) {
-case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
 mixin _$SketchCreation {
 
  VertexId get vertexStart; List<LatLng> get path; MobilityType get mobilityType; VertexId? get touchedVertex; MapObject? get selection; PopUpPositionType? get popUpPosition;
@@ -958,6 +576,766 @@ as PopUpPositionType?,
   ));
 }
 
+
+}
+
+/// @nodoc
+mixin _$InitTripMode {
+
+
+/// Create a copy of InitTripMode
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InitTripModeCopyWith<InitTripMode> get copyWith => _$InitTripModeCopyWithImpl<InitTripMode>(this as InitTripMode, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as InitTripMode;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitTripMode&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as InitTripMode;
+  return Object.hash(runtimeType,_this.popUpPosition);
+}
+
+@override
+String toString() {
+  final _this = this as InitTripMode;
+  return 'InitTripMode(popUpPosition: ${_this.popUpPosition})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InitTripModeCopyWith<$Res>  {
+  factory $InitTripModeCopyWith(InitTripMode value, $Res Function(InitTripMode) _then) = _$InitTripModeCopyWithImpl;
+@useResult
+$Res call({
+ PopUpPositionType? popUpPosition
+});
+
+
+
+
+}
+/// @nodoc
+class _$InitTripModeCopyWithImpl<$Res>
+    implements $InitTripModeCopyWith<$Res> {
+  _$InitTripModeCopyWithImpl(this._self, this._then);
+
+  final InitTripMode _self;
+  final $Res Function(InitTripMode) _then;
+
+/// Create a copy of InitTripMode
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? popUpPosition = freezed,}) {
+  return _then(InitTripMode(
+freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [InitTripMode].
+extension InitTripModePatterns on InitTripMode {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+mixin _$IdleEditor {
+
+
+/// Create a copy of IdleEditor
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$IdleEditorCopyWith<IdleEditor> get copyWith => _$IdleEditorCopyWithImpl<IdleEditor>(this as IdleEditor, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as IdleEditor;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleEditor&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as IdleEditor;
+  return Object.hash(runtimeType,_this.popUpPosition);
+}
+
+@override
+String toString() {
+  final _this = this as IdleEditor;
+  return 'IdleEditor(popUpPosition: ${_this.popUpPosition})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $IdleEditorCopyWith<$Res>  {
+  factory $IdleEditorCopyWith(IdleEditor value, $Res Function(IdleEditor) _then) = _$IdleEditorCopyWithImpl;
+@useResult
+$Res call({
+ PopUpPositionType? popUpPosition
+});
+
+
+
+
+}
+/// @nodoc
+class _$IdleEditorCopyWithImpl<$Res>
+    implements $IdleEditorCopyWith<$Res> {
+  _$IdleEditorCopyWithImpl(this._self, this._then);
+
+  final IdleEditor _self;
+  final $Res Function(IdleEditor) _then;
+
+/// Create a copy of IdleEditor
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? popUpPosition = freezed,}) {
+  return _then(IdleEditor(
+popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [IdleEditor].
+extension IdleEditorPatterns on IdleEditor {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+mixin _$VertexSelectMode {
+
+
+/// Create a copy of VertexSelectMode
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VertexSelectModeCopyWith<VertexSelectMode> get copyWith => _$VertexSelectModeCopyWithImpl<VertexSelectMode>(this as VertexSelectMode, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as VertexSelectMode;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelectMode&&(identical(other.vertex, _this.vertex) || other.vertex == _this.vertex));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as VertexSelectMode;
+  return Object.hash(runtimeType,_this.vertex);
+}
+
+@override
+String toString() {
+  final _this = this as VertexSelectMode;
+  return 'VertexSelectMode(vertex: ${_this.vertex})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $VertexSelectModeCopyWith<$Res> implements $IdleEditorCopyWith<$Res> {
+  factory $VertexSelectModeCopyWith(VertexSelectMode value, $Res Function(VertexSelectMode) _then) = _$VertexSelectModeCopyWithImpl;
+@useResult
+$Res call({
+ MapVertex vertex
+});
+
+
+
+
+}
+/// @nodoc
+class _$VertexSelectModeCopyWithImpl<$Res>
+    implements $VertexSelectModeCopyWith<$Res> {
+  _$VertexSelectModeCopyWithImpl(this._self, this._then);
+
+  final VertexSelectMode _self;
+  final $Res Function(VertexSelectMode) _then;
+
+/// Create a copy of VertexSelectMode
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? vertex = null,}) {
+  return _then(VertexSelectMode(
+vertex: null == vertex ? _self.vertex : vertex // ignore: cast_nullable_to_non_nullable
+as MapVertex,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [VertexSelectMode].
+extension VertexSelectModePatterns on VertexSelectMode {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+mixin _$SegmentSelectMode {
+
+
+/// Create a copy of SegmentSelectMode
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SegmentSelectModeCopyWith<SegmentSelectMode> get copyWith => _$SegmentSelectModeCopyWithImpl<SegmentSelectMode>(this as SegmentSelectMode, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as SegmentSelectMode;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelectMode&&(identical(other.segment, _this.segment) || other.segment == _this.segment));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as SegmentSelectMode;
+  return Object.hash(runtimeType,_this.segment);
+}
+
+@override
+String toString() {
+  final _this = this as SegmentSelectMode;
+  return 'SegmentSelectMode(segment: ${_this.segment})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SegmentSelectModeCopyWith<$Res> implements $IdleEditorCopyWith<$Res> {
+  factory $SegmentSelectModeCopyWith(SegmentSelectMode value, $Res Function(SegmentSelectMode) _then) = _$SegmentSelectModeCopyWithImpl;
+@useResult
+$Res call({
+ MapSegment segment
+});
+
+
+
+
+}
+/// @nodoc
+class _$SegmentSelectModeCopyWithImpl<$Res>
+    implements $SegmentSelectModeCopyWith<$Res> {
+  _$SegmentSelectModeCopyWithImpl(this._self, this._then);
+
+  final SegmentSelectMode _self;
+  final $Res Function(SegmentSelectMode) _then;
+
+/// Create a copy of SegmentSelectMode
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,}) {
+  return _then(SegmentSelectMode(
+segment: null == segment ? _self.segment : segment // ignore: cast_nullable_to_non_nullable
+as MapSegment,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SegmentSelectMode].
+extension SegmentSelectModePatterns on SegmentSelectMode {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+switch (_that) {
+case _:
+  return null;
+
+}
+}
 
 }
 

@@ -1,4 +1,7 @@
-import 'package:map_engine/map_engine.dart';
+import '../../domain/gestures/map_gesture.dart';
+import '../../domain/objects/map_objects.dart';
+import '../../mode_machine/base_mode_model.dart';
+import '../../mode_machine/gesture_result_model.dart';
 
 class ViewTripMode extends BaseMode<ViewTripMode> {
   const ViewTripMode({this.selection, this.popUpPosition});

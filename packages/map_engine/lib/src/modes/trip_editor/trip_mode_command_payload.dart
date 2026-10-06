@@ -1,5 +1,7 @@
-import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
+
+import '../../mode_machine/mode_command.dart';
+import 'map_editor_mode.dart';
 
 abstract class EditorModeCommandPayload
     extends ModeCommandPayload<MapEditorMode> {

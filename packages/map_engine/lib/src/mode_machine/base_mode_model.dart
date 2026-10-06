@@ -1,4 +1,6 @@
-import 'package:map_engine/map_engine.dart';
+import '../domain/gestures/map_gesture.dart';
+import '../domain/space/offset_type.dart';
+import 'gesture_result_model.dart';
 
 typedef PopUpPositionType = ScreenOffset?;
 

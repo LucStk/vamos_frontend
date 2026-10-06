@@ -1,6 +1,7 @@
-import 'package:map_canvas/application/application.dart';
-import 'package:map_canvas/domain/domain.dart';
 import 'package:map_engine/map_engine.dart';
+
+import '../domain/map_paint_context.dart';
+import 'projected_object.dart';
 
 typedef VisualStateResolver = MapObjectVisualState Function(MapObject);
 

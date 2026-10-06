@@ -1,4 +1,7 @@
-import 'package:map_engine/map_engine.dart';
+import '../../domain/gestures/map_gesture.dart';
+import '../../domain/objects/map_objects.dart';
+import '../../mode_machine/base_mode_model.dart';
+import '../../mode_machine/gesture_result_model.dart';
 
 class MapExploreMode extends BaseMode<MapExploreMode> {
   const MapExploreMode({this.selection, this.popUpPosition});
@@ -20,8 +23,6 @@ class MapExploreMode extends BaseMode<MapExploreMode> {
     switch (g.element) {
       case MapTripObject e when !e.isSameAs(selection):
         return GestureResult(mode: withSelection(e));
-      // case null:
-      //   return GestureResult(mode: mode.withSelection(null));
       case _:
         return GestureResult.none();
     }

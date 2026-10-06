@@ -1,6 +1,9 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
+
+import '../../domain/space/offset_type.dart';
+import '../../mode_machine/mode_command.dart';
+import 'map_editor_mode.dart';
 
 sealed class EditorModeCommand extends ModeCommand<MapEditorMode> {
   const EditorModeCommand();

@@ -1,14 +1,22 @@
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-part "sketch_creation_mode.dart";
-part "sketch_edition_mode.dart";
-part "init_mode.dart";
-part "idle_editor_mode.dart";
-part "vertex_select_mode.dart";
-part "segment_select_mode.dart";
+
+import '../../domain/gestures/map_gesture.dart';
+import '../../domain/objects/map_objects.dart';
+import '../../domain/space/offset_type.dart';
+import '../../mode_machine/base_mode_model.dart';
+import '../../mode_machine/gesture_result_model.dart';
+import '../../mode_machine/mode_command.dart';
+import 'edit_trip_mode_command.dart';
+import 'trip_mode_command_payload.dart';
+part "modes/sketch/sketch_creation_mode.dart";
+part "modes/sketch/sketch_edition_mode.dart";
+part "modes/init/init_mode.dart";
+part "modes/idle/idle_editor_mode.dart";
+part "modes/vertex_select/vertex_select_mode.dart";
+part "modes/segment_select/segment_select_mode.dart";
 part 'map_editor_mode.freezed.dart';
 
 sealed class EditorCommand extends ModeCommand<MapEditorMode> {
