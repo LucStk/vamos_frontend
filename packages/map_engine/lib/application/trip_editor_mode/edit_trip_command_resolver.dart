@@ -70,14 +70,7 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode> {
           (_) => SegmentUpdated(c.patch.id),
         );
 
-      case ChangeSelectedSegmentType c:
-        final segment = _segment(c.segmentId);
-        if (segment == null) return const NoResult();
-        final patch = SegmentPatchModel.fromFields(
-          segment,
-        ).copyWith(mobilityType: c.mobilityType);
-        await graphEditor.updateSegment(patch);
-        return const NoResult();
+
 
       case CorrectSegmentFromSketch c:
         final segment = _segment(c.segmentId);
@@ -91,9 +84,7 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode> {
           (_) => SegmentCorrected(c.segmentId),
         );
 
-      case DeleteSegment c:
-        await graphEditor.deleteSegment(c.segmentId);
-        return SegmentDeleted(c.segmentId);
+
     }
     return NoResult();
   }

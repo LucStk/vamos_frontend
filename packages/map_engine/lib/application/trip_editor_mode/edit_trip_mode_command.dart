@@ -1,5 +1,4 @@
 import 'package:latlong2/latlong.dart';
-import 'package:map_engine/application/trip_editor_mode/map_editor_mode.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -76,8 +75,8 @@ final class CorrectSegmentFromSketch extends EditorModeCommand {
   final List<LatLng> correction;
 }
 
-final class ChangeSelectedSegmentType extends EditorModeCommand {
-  const ChangeSelectedSegmentType(this.segmentId, this.mobilityType);
+final class ChangeSegmentType extends EditorModeCommand {
+  const ChangeSegmentType(this.segmentId, this.mobilityType);
   final SegmentId segmentId;
   final MobilityType mobilityType;
 }

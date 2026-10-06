@@ -1,7 +1,7 @@
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
-sealed class EditorModeCommandPayload
+abstract class EditorModeCommandPayload
     extends ModeCommandPayload<MapEditorMode> {
   const EditorModeCommandPayload();
 }
@@ -34,14 +34,4 @@ final class SegmentUpdated extends EditorModeCommandPayload {
 final class SegmentCorrected extends EditorModeCommandPayload {
   const SegmentCorrected(this.segmentId);
   final SegmentId segmentId;
-}
-
-final class SegmentDeleted extends EditorModeCommandPayload {
-  const SegmentDeleted(this.segmentId);
-  final SegmentId segmentId;
-}
-
-final class VertexRemoved extends EditorModeCommandPayload {
-  const VertexRemoved(this.vertexId);
-  final VertexId vertexId;
 }
