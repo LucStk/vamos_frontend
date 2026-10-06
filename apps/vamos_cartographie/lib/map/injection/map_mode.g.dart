@@ -41,7 +41,7 @@ final class MapModeProvider
   }
 }
 
-String _$mapModeHash() => r'729003ef7805e04992ae5b8bc461b497483cb2cd';
+String _$mapModeHash() => r'ba6dd95ba817846c7d680b7003260d3c541273a9';
 
 abstract class _$MapMode extends $Notifier<BaseMode<BaseMode<dynamic>>> {
   BaseMode<BaseMode<dynamic>> build();

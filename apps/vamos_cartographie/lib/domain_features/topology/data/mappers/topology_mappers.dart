@@ -1,5 +1,8 @@
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/domain_features.dart';
+
+import '../graphql/graphql.dart';
+import 'segment_mappers.dart';
+import 'vertex_mappers.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 extension GGetTopologyDataTopologyMapper on GGetTopologyData_trip_topology {

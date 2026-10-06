@@ -1,6 +1,7 @@
 import 'package:domain_core/notification/error_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/core/core.dart';
+
+import '../erreur_handler.dart';
 
 part 'error_logger.g.dart';
 

@@ -36,29 +36,6 @@ final class VertexSelectMode extends MapEditorMode
       copyWith(popUpPosition: position);
 }
 
-extension VertexSelectIntents on VertexSelectMode {
-  GestureResult<MapEditorMode> deleteVertex() {
-    final id = vertex.id; // on capture une valeur, jamais `this`
-    return GestureResult.run(
-      RemoveVertex(id),
-      then: (current, _) => switch (current) {
-        VertexSelectMode(:final vertex) when vertex.id == id =>
-          GestureResult.to(IdleEditor()),
-        _ => null, // le mode a changé entre-temps : rien à faire
-      },
-    );
-  }
-
-  GestureResult<MapEditorMode> sketchCreation(LatLng position) =>
-      GestureResult.to(
-        SketchCreation(
-          vertexStart: vertex.id,
-          path: [position],
-          mobilityType: MobilityType.bike,
-        ),
-      );
-}
-
 mixin WaypointReader {
   WaypointEditor get waypointEditor;
 }

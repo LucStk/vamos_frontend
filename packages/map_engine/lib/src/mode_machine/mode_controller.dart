@@ -18,6 +18,12 @@ mixin ModeControllerMixin<M extends BaseMode<M>> {
     apply(mode.dispatchGesture(event, offset));
   }
 
+  /// Exécute l'intent seulement si le mode courant est bien du type T.
+  void act<T extends M>(GestureResult<M>? Function(T mode) intent) {
+    final current = mode;
+    if (current is T) apply(intent(current));
+  }
+
   void apply(GestureResult<M>? result) {
     if (result == null) return;
 

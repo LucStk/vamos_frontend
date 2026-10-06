@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
-import '../../../../vamos_cartographie.dart';
+import '../../../../ui_kit/layouts/app_page_scaffold.dart';
+import '../../../auth/providers/auth_controller.dart';
+import '../edit_profile_page.dart';
 import 'profile_header_view.dart';
 
 class ProfileContent extends ConsumerWidget {

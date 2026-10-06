@@ -3,10 +3,14 @@ import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
-import 'package:vamos_cartographie/domain_features/domain_features.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/data/user_profile_mappers.dart';
+import '/core/erreur_handler.dart';
+import '../../stored_file/data/mappers/stored_file_mappers.dart';
+import '../../topology/data/mappers/segment_mappers.dart';
+import '../../topology/data/mappers/vertex_mappers.dart';
+import '../../user_profile/data/data.dart';
+import '../../waypoint/data/mappers/mappers.dart';
 import 'trip_mappers.dart';
-import 'package:vamos_cartographie/core/core.dart';
+import 'trip_remote_datasource.dart';
 
 class TripRepositoryImpl extends TripRepository {
   TripRepositoryImpl(this.remote);

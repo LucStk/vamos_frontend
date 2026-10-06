@@ -6,10 +6,11 @@ part 'map_mode.g.dart';
 @Riverpod(keepAlive: true, dependencies: [])
 class MapMode extends _$MapMode {
   @override
-  BaseMode build() =>
-      throw StateError('mapMode doit être fourni par un MapScope');
+  BaseMode build() {
+    throw StateError('mapMode doit être fourni par un MapScope');
+  }
 
-  void set(BaseMode m) {
-    state = m;
+  void set(BaseMode mode) {
+    state = mode;
   }
 }

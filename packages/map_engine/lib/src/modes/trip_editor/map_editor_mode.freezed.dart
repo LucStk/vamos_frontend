@@ -300,7 +300,7 @@ as PopUpPositionType?,
 /// @nodoc
 mixin _$SketchEdition {
 
- SegmentId get segmentId; List<LatLng> get path; VertexId? get touchedVertex; MapObject? get selection; PopUpPositionType? get popUpPosition;
+ MapSegment get segment; List<LatLng> get path; VertexId? get touchedVertex; MapObject? get selection; PopUpPositionType? get popUpPosition;
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -312,20 +312,20 @@ $SketchEditionCopyWith<SketchEdition> get copyWith => _$SketchEditionCopyWithImp
 @override
 bool operator ==(Object other) {
   final _this = this as SketchEdition;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segmentId, _this.segmentId) || other.segmentId == _this.segmentId)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchEdition&&(identical(other.segment, _this.segment) || other.segment == _this.segment)&&const DeepCollectionEquality().equals(other.path, _this.path)&&(identical(other.touchedVertex, _this.touchedVertex) || other.touchedVertex == _this.touchedVertex)&&(identical(other.selection, _this.selection) || other.selection == _this.selection)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SketchEdition;
-  return Object.hash(runtimeType,_this.segmentId,const DeepCollectionEquality().hash(_this.path),_this.touchedVertex,_this.selection,_this.popUpPosition);
+  return Object.hash(runtimeType,_this.segment,const DeepCollectionEquality().hash(_this.path),_this.touchedVertex,_this.selection,_this.popUpPosition);
 }
 
 @override
 String toString() {
   final _this = this as SketchEdition;
-  return 'SketchEdition(segmentId: ${_this.segmentId}, path: ${_this.path}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection}, popUpPosition: ${_this.popUpPosition})';
+  return 'SketchEdition(segment: ${_this.segment}, path: ${_this.path}, touchedVertex: ${_this.touchedVertex}, selection: ${_this.selection}, popUpPosition: ${_this.popUpPosition})';
 }
 
 
@@ -336,7 +336,7 @@ abstract mixin class $SketchEditionCopyWith<$Res>  {
   factory $SketchEditionCopyWith(SketchEdition value, $Res Function(SketchEdition) _then) = _$SketchEditionCopyWithImpl;
 @useResult
 $Res call({
- SegmentId segmentId, List<LatLng> path, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
+ MapSegment segment, List<LatLng> path, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
 });
 
 
@@ -353,10 +353,10 @@ class _$SketchEditionCopyWithImpl<$Res>
 
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? segmentId = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
   return _then(SketchEdition(
-segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
-as SegmentId,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+segment: null == segment ? _self.segment : segment // ignore: cast_nullable_to_non_nullable
+as MapSegment,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
 as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
@@ -445,10 +445,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MapSegment segment,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SketchEdition() when $default != null:
-return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
+return $default(_that.segment,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   return orElse();
 
 }
@@ -466,10 +466,10 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MapSegment segment,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)  $default,) {final _that = this;
 switch (_that) {
 case _SketchEdition():
-return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
+return $default(_that.segment,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -486,10 +486,10 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SegmentId segmentId,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MapSegment segment,  List<LatLng> path,  VertexId? touchedVertex,  MapObject? selection,  PopUpPositionType? popUpPosition)?  $default,) {final _that = this;
 switch (_that) {
 case _SketchEdition() when $default != null:
-return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
+return $default(_that.segment,_that.path,_that.touchedVertex,_that.selection,_that.popUpPosition);case _:
   return null;
 
 }
@@ -501,10 +501,10 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_
 
 
 class _SketchEdition extends SketchEdition {
-   _SketchEdition({required this.segmentId, required  List<LatLng> path, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
+   _SketchEdition({required this.segment, required  List<LatLng> path, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
   
 
-@override final  SegmentId segmentId;
+@override final  MapSegment segment;
  final  List<LatLng> _path;
 @override List<LatLng> get path {
   if (_path is EqualUnmodifiableListView) return _path;
@@ -526,18 +526,18 @@ _$SketchEditionCopyWith<_SketchEdition> get copyWith => __$SketchEditionCopyWith
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchEdition&&(identical(other.segmentId, segmentId) || other.segmentId == segmentId)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.popUpPosition, popUpPosition) || other.popUpPosition == popUpPosition));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchEdition&&(identical(other.segment, segment) || other.segment == segment)&&const DeepCollectionEquality().equals(other.path, _path)&&(identical(other.touchedVertex, touchedVertex) || other.touchedVertex == touchedVertex)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.popUpPosition, popUpPosition) || other.popUpPosition == popUpPosition));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,segmentId,const DeepCollectionEquality().hash(_path),touchedVertex,selection,popUpPosition);
+    return Object.hash(runtimeType,segment,const DeepCollectionEquality().hash(_path),touchedVertex,selection,popUpPosition);
 }
 
 @override
 String toString() {
-    return 'SketchEdition(segmentId: $segmentId, path: $path, touchedVertex: $touchedVertex, selection: $selection, popUpPosition: $popUpPosition)';
+    return 'SketchEdition(segment: $segment, path: $path, touchedVertex: $touchedVertex, selection: $selection, popUpPosition: $popUpPosition)';
 }
 
 
@@ -548,7 +548,7 @@ abstract mixin class _$SketchEditionCopyWith<$Res> implements $SketchEditionCopy
   factory _$SketchEditionCopyWith(_SketchEdition value, $Res Function(_SketchEdition) _then) = __$SketchEditionCopyWithImpl;
 @override @useResult
 $Res call({
- SegmentId segmentId, List<LatLng> path, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
+ MapSegment segment, List<LatLng> path, VertexId? touchedVertex, MapObject? selection, PopUpPositionType? popUpPosition
 });
 
 
@@ -565,10 +565,10 @@ class __$SketchEditionCopyWithImpl<$Res>
 
 /// Create a copy of SketchEdition
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? segmentId = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? segment = null,Object? path = null,Object? touchedVertex = freezed,Object? selection = freezed,Object? popUpPosition = freezed,}) {
   return _then(_SketchEdition(
-segmentId: null == segmentId ? _self.segmentId : segmentId // ignore: cast_nullable_to_non_nullable
-as SegmentId,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
+segment: null == segment ? _self.segment : segment // ignore: cast_nullable_to_non_nullable
+as MapSegment,path: null == path ? _self._path : path // ignore: cast_nullable_to_non_nullable
 as List<LatLng>,touchedVertex: freezed == touchedVertex ? _self.touchedVertex : touchedVertex // ignore: cast_nullable_to_non_nullable
 as VertexId?,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
 as MapObject?,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable

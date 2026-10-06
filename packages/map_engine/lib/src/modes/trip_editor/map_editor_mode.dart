@@ -14,7 +14,7 @@ part 'modes/sketch/sketch_mode.dart';
 part "modes/sketch/sketch_creation_mode.dart";
 part "modes/sketch/sketch_edition_mode.dart";
 part "modes/idle/init/init_mode.dart";
-part "modes/idle/idle_editor_mode.dart";
+part "modes/idle/idle/idle_editor_mode.dart";
 part "modes/idle/vertex_select/vertex_select_mode.dart";
 part "modes/idle/segment_select/segment_select_mode.dart";
 part 'map_editor_mode.freezed.dart';

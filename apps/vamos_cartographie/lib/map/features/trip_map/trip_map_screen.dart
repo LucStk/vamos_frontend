@@ -15,6 +15,8 @@ import '../../camera/injection/user_location_trigger.dart';
 import '../../injection/map_mode.dart';
 import '../../injection/map_scene.dart';
 import '../../presentation/base_map_screen.dart';
+import 'injection/map_editor_mode.dart';
+import 'injection/trip_editor_scene.dart';
 import 'presentation/bottom_sheet/map_bottom_sheet.dart';
 import 'presentation/map_top_bar.dart';
 
@@ -60,18 +62,15 @@ class _TripMapResolver extends ConsumerWidget {
     final isOwner = ref.watch(currentUserIdProvider) == tripOwnerId.value;
 
     // final controller = isOwner ? ref.watch(mapEditorProvider(tripId).notifier) :
-    final controller = ref.watch(mapEditorProvider(tripId).notifier);
+    final editorMode = ref.watch(mapEditorProvider(tripId));
     return ProviderScope(
       overrides: [
+        mapModeProvider.overrideWithValue(editorMode),
         mapSceneProvider.overrideWith(
           (ref) => ref.watch(tripEditorSceneProvider(tripId)),
         ),
-        mapModeProvider.overrideWith(
-          (ref) => ref.watch(mapEditorProvider(tripId)),
-        ),
-        mapControllerProvider.overrideWithValue(controller.controller),
       ],
-      child: _TripMapView(tripId: tripId, isOwner: true),
+      child: _TripMapView(tripId: tripId, isOwner: isOwner),
     );
   }
 }

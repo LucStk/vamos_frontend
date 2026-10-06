@@ -1,4 +1,4 @@
-part of "../../map_editor_mode.dart";
+part of "../../../map_editor_mode.dart";
 
 // idle_editor_mode.dart
 mixin IdleBehavior on MapEditorMode {
@@ -37,14 +37,6 @@ final class CreateSimpleVertex extends IdleEditorCommand<Done> {
 final class CreateWaypointFromPosition extends IdleEditorCommand<Done> {
   const CreateWaypointFromPosition(this.position);
   final LatLng position;
-}
-
-extension IdleEditorIntents on IdleEditor {
-  GestureResult<MapEditorMode> createVertex(LatLng position) =>
-      GestureResult.run(CreateSimpleVertex(position));
-
-  GestureResult<MapEditorMode> createWaypoint(LatLng position) =>
-      GestureResult.run(CreateWaypointFromPosition(position));
 }
 
 mixin IdleEditorResolver on GraphReader, WaypointReader {

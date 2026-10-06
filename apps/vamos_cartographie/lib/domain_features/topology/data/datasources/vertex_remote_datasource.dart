@@ -1,6 +1,5 @@
-import 'package:vamos_cartographie/core/network/network.dart';
-import 'package:vamos_cartographie/domain_features/topology/data/data.dart';
-
+import '/core/network/network.dart';
+import '../graphql/graphql.dart';
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';

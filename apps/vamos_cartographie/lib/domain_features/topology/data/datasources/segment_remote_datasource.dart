@@ -1,8 +1,10 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/core/network/network.dart';
-import '/domain_features/topology/data/data.dart';
 
+import '../mappers/geometry_mapper.dart';
+import '../mappers/mobility_type_mapper.dart';
+import '/core/network/network.dart';
+import '../graphql/graphql.dart';
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';

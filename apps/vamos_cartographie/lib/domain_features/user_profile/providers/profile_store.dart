@@ -1,7 +1,9 @@
 import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:user_profile_application/user_profile_application.dart";
-import "package:vamos_cartographie/core/injection/injection.dart";
+
+import "/core/injection/error_logger.dart";
+import "/core/injection/mutation_queue_provider.dart";
 part "profile_store.g.dart";
 
 @Riverpod(keepAlive: true)

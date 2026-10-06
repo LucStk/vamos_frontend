@@ -1,5 +1,7 @@
 import 'package:trip_application/trip_application.dart';
-import '/domain_features/topology/data/data.dart';
+
+import '../graphql/graphql.dart';
+import 'geometry_mapper.dart';
 
 /// Centralise toutes les conversions GQL ↔ Domain pour les entités Trip.
 class VertexMapper {

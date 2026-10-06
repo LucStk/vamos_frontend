@@ -2,14 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
 import '../../../../../../domain_features/topology/presentation/mobility_type_display.dart';
 import '../../../../../../ui_kit/type_selector/type_selector_view.dart';
 import '../../../../../overlay_ui/simple_bottom_sheet_shell.dart';
+import '../../../injection/map_editor_mode.dart';
 
-@Dependencies([mapController])
+@Dependencies([])
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;
 
@@ -17,8 +19,7 @@ class SketchBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapController =
-        ref.read(mapControllerProvider) as MapEditorController;
+    final editor = ref.read(mapEditorProvider(tripId).notifier);
 
     // On écoute aussi l'état courant pour mettre à jour la sélection visuelle !
     // (À adapter selon ton provider exact, ex: final currentType = ref.watch(...))
@@ -36,14 +37,15 @@ class SketchBottomSheet extends ConsumerWidget {
                   values: MobilityTypeStyle.values,
                   selectedType:
                       MobilityTypeStyle.bike, // idéalement issu d'un ref.watch
-                  onTypeChanged: (newType) {
-                    mapController.changeSegmentType(newType.type);
-                  },
+                  onTypeChanged: (newType) => editor.act(
+                    (SketchEdition m) =>
+                        SketchIntents.changeSegmentType(m, newType.type),
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
               IconButton.filled(
-                onPressed: () => mapController.stopSketch(),
+                onPressed: () => editor.act(SketchIntents.stopSketch),
                 icon: const Icon(Icons.close, size: 20),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.red.shade50,

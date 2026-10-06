@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
+import '../../../core/graphql/graphql.dart';
+import '/core/erreur_handler.dart';
 import '/domain_features/user_profile/data/data.dart';
-import '/core/core.dart';
-import "user_profile_mappers.dart";
 
 class UserProfileRepository {
   final UserProfileDatasource remote;

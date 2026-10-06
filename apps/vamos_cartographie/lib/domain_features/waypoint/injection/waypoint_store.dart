@@ -1,9 +1,14 @@
 import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
-import "package:vamos_cartographie/core/injection/injection.dart";
-import "package:vamos_cartographie/domain_features/topology/topology.dart";
-import "package:vamos_cartographie/domain_features/waypoint/data/data.dart";
+
+import "/core/injection/client_provider.dart";
+import "/core/injection/error_logger.dart";
+import "/core/injection/mutation_queue_provider.dart";
+
+import "../../topology/injection/providers/graph_store.dart";
+import "../data/waypoint_repository_impl.dart";
+import "../data/waypoint_remote_datasource.dart";
 part "waypoint_store.g.dart";
 
 @Riverpod(keepAlive: true)

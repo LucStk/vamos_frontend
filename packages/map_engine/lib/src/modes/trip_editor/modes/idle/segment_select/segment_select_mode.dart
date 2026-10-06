@@ -31,26 +31,6 @@ final class ChangeSegmentType extends SegmentSelectCommand<Done> {
   final MobilityType mobilityType;
 }
 
-extension SegmentSelectIntents on SegmentSelectMode {
-  GestureResult<MapEditorMode> deleteSegment() {
-    final id = segment.id; // on capture une valeur, jamais `this`
-    return GestureResult.run(
-      DeleteSegment(id),
-      then: (current, _) => switch (current) {
-        SegmentSelectMode(:final segment) when segment.id == id =>
-          GestureResult.to(IdleEditor()),
-        _ => null, // le mode a changé : rien à faire
-      },
-    );
-  }
-
-  GestureResult<MapEditorMode> changeSegmentType(MobilityType type) =>
-      GestureResult.run(ChangeSegmentType(segment.id, type));
-
-  GestureResult<MapEditorMode> startSegmentEdit() =>
-      GestureResult.to(SketchEdition(segmentId: segment.id, path: []));
-}
-
 mixin SegmentSelectResolver on GraphReader {
   Future<Object?> resolveSegmentSelect(SegmentSelectCommand command) =>
       switch (command) {

@@ -1,11 +1,12 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/graphql.dart';
+import '../../topology/data/graphql/graphql.dart';
+import '/core/graphql/graphql.dart';
 import '/core/network/network.dart';
-import '/domain_features/topology/data/data.dart';
-import '/vamos_cartographie.dart';
 import 'package:ferry/ferry.dart';
 import 'package:latlong2/latlong.dart';
+
+import 'graphql/graphql.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le ferryClient Ferry (GraphQL).

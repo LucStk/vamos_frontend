@@ -2,10 +2,10 @@ import 'package:domain_core/domain_core.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/domain.dart';
+import '../../topology/data/mappers/segment_mappers.dart';
+import '../../topology/data/mappers/vertex_mappers.dart';
 import 'graphql/graphql.dart';
 
-import '/domain_features/domain_features.dart';
-import '/domain_features/topology/topology.dart';
 import '/core/graphql/graphql.dart';
 
 /// ---------------------------------------------------------------------------

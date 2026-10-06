@@ -1,8 +1,7 @@
-import 'package:vamos_cartographie/domain_features/stored_file/stored_file.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/data/data.dart';
 import 'package:user_profile_application/user_profile_application.dart';
 
-export 'graphql/graphql.dart';
+import '../../stored_file/data/mappers/stored_file_mappers.dart';
+import 'graphql/graphql.dart';
 
 extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
   UserProfile toUserProfileModel() {

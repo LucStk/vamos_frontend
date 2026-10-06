@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../routing/routes/auth_routes.dart';
-import '../../../../vamos_cartographie.dart';
+import '../../../../ui_kit/buttons/primary_button.dart';
+import '../../../../ui_kit/fields/display_name_field.dart';
+import '../../../auth/presentation/widgets/widgets.dart';
+import '../../providers/user_session_providers.dart';
 
 class CreateProfilePage extends ConsumerStatefulWidget {
   const CreateProfilePage({super.key});

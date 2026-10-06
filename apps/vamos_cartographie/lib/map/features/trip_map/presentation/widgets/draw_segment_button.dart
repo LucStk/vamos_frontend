@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/map.dart';
+
+import '../../injection/map_editor_mode.dart';
 
 @Dependencies([])
 class DrawSegmentButton extends ConsumerWidget {
@@ -17,12 +19,9 @@ class DrawSegmentButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapTransitions = ref
-        .watch(mapEditorProvider(tripId).notifier)
-        .controller;
+    final editor = ref.watch(mapEditorProvider(tripId).notifier);
     return OutlinedButton.icon(
-      onPressed: () => mapTransitions.startSketch(),
-
+      onPressed: () => editor.act(SegmentSelectIntents.startSegmentEdit),
       icon: const Icon(Icons.draw_outlined, size: 16),
       label: const Text("Draw road"),
     );

@@ -2,8 +2,9 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/app_services/app_services.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
+
+import '../domain/notification_type.dart';
+import '../../app_services/notification/notification.dart';
 
 part 'notification_provider.g.dart';
 

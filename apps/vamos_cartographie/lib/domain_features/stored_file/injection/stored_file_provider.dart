@@ -4,8 +4,11 @@ import "package:domain_core/runtime/mutation_queue.dart";
 import "package:domain_core/runtime/optimitic_runner.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:stored_file_application/stored_file_application.dart";
-import "package:vamos_cartographie/core/injection/injection.dart";
-import "package:vamos_cartographie/domain_features/stored_file/data/data.dart";
+
+import "../../../core/injection/client_provider.dart";
+import "../../../core/injection/error_logger.dart";
+import "../../../core/injection/mutation_queue_provider.dart";
+import "../data/data.dart";
 part "stored_file_provider.g.dart";
 
 @Riverpod(keepAlive: true)

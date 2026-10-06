@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import '../../../../../overlay_ui/simple_bottom_sheet_shell.dart';
+import '../../../injection/map_editor_mode.dart';
 import '/ui_kit/ui_kit.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
@@ -21,7 +23,7 @@ class SegmentBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(mapEditorProvider(tripId).notifier).controller;
+    final editor = ref.read(mapEditorProvider(tripId).notifier);
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey('compact_content'),
@@ -45,7 +47,8 @@ class SegmentBottomSheet extends ConsumerWidget {
 
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(
-                onPressed: () => controller.startSegmentEdit(),
+                onPressed: () =>
+                    editor.act(SegmentSelectIntents.startSegmentEdit),
                 icon: const Icon(Icons.edit_road_rounded, size: 20),
                 tooltip: "Redessiner le segment",
                 style: IconButton.styleFrom(
@@ -61,7 +64,9 @@ class SegmentBottomSheet extends ConsumerWidget {
               const SizedBox(width: 4),
 
               // 3. Bouton "Supprimer" le segment
-              DeleteButton(onPressed: () => controller.deleteSelected()),
+              DeleteButton(
+                onPressed: () => editor.act(SegmentSelectIntents.deleteSegment),
+              ),
             ],
           ),
         ],

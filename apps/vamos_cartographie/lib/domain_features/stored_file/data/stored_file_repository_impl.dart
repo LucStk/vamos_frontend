@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/core/core.dart';
 import "package:stored_file_application/stored_file_application.dart";
-import 'mappers/mappers.dart';
+import '../../../core/erreur_handler.dart';
+import 'mappers/stored_file_mappers.dart';
+import 'mappers/upload_config_mappers.dart';
 import 'stored_file_remote_datasource.dart';
 
 class StoredFileRepositoryImpl extends StoredFileRepository {

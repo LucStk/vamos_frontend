@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
+
+import 'app.dart';
+import 'core/config/config.dart';
+import 'core/erreur_handler.dart';
 
 void main() {
   // debugRepaintRainbowEnabled = true;

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
 
 import '../../../../../overlay_ui/draggable_sheet/draggable_bottom_sheet_shell.dart';
 import '/domain_features/domain_features.dart';
-import '/map/map.dart';
 import 'waypoint_compact_content.dart';
 import 'waypoint_viewer_content.dart';
 
