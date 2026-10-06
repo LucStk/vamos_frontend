@@ -35,3 +35,9 @@ final class GestureResult<M extends BaseMode<M>> {
   final M? mode;
   final PendingRun<M>? pending;
 }
+
+/// Exécute un effet sans donnée de retour.
+Future<Done> done(Future<void> Function() effect) async {
+  await effect();
+  return const Done();
+}

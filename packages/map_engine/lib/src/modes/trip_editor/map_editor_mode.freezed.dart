@@ -618,7 +618,7 @@ abstract mixin class $InitTripModeCopyWith<$Res>  {
   factory $InitTripModeCopyWith(InitTripMode value, $Res Function(InitTripMode) _then) = _$InitTripModeCopyWithImpl;
 @useResult
 $Res call({
- PopUpPositionType? popUpPosition
+ ScreenOffset? popUpPosition
 });
 
 
@@ -637,8 +637,8 @@ class _$InitTripModeCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? popUpPosition = freezed,}) {
   return _then(InitTripMode(
-freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
+popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as ScreenOffset?,
   ));
 }
 
@@ -659,10 +659,11 @@ extension InitTripModePatterns on InitTripMode {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _InitTripMode value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _:
+case _InitTripMode() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -680,13 +681,11 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _InitTripMode value)  $default,){
 final _that = this;
 switch (_that) {
-case _:
-  throw StateError('Unexpected subclass');
-
-}
+case _InitTripMode():
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -700,10 +699,11 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _InitTripMode value)?  $default,){
 final _that = this;
 switch (_that) {
-case _:
+case _InitTripMode() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -720,9 +720,10 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenOffset? popUpPosition)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _:
+case _InitTripMode() when $default != null:
+return $default(_that.popUpPosition);case _:
   return orElse();
 
 }
@@ -740,12 +741,10 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenOffset? popUpPosition)  $default,) {final _that = this;
 switch (_that) {
-case _:
-  throw StateError('Unexpected subclass');
-
-}
+case _InitTripMode():
+return $default(_that.popUpPosition);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -759,13 +758,82 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenOffset? popUpPosition)?  $default,) {final _that = this;
 switch (_that) {
-case _:
+case _InitTripMode() when $default != null:
+return $default(_that.popUpPosition);case _:
   return null;
 
 }
 }
+
+}
+
+/// @nodoc
+
+
+class _InitTripMode extends InitTripMode {
+   _InitTripMode({ ScreenOffset? popUpPosition}): super._(popUpPosition: popUpPosition);
+  
+
+
+
+/// Create a copy of InitTripMode
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InitTripModeCopyWith<_InitTripMode> get copyWith => __$InitTripModeCopyWithImpl<_InitTripMode>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InitTripMode&&(identical(other.popUpPosition, popUpPosition) || other.popUpPosition == popUpPosition));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,popUpPosition);
+}
+
+@override
+String toString() {
+    return 'InitTripMode(popUpPosition: $popUpPosition)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InitTripModeCopyWith<$Res> implements $InitTripModeCopyWith<$Res> {
+  factory _$InitTripModeCopyWith(_InitTripMode value, $Res Function(_InitTripMode) _then) = __$InitTripModeCopyWithImpl;
+@override @useResult
+$Res call({
+ ScreenOffset? popUpPosition
+});
+
+
+
+
+}
+/// @nodoc
+class __$InitTripModeCopyWithImpl<$Res>
+    implements _$InitTripModeCopyWith<$Res> {
+  __$InitTripModeCopyWithImpl(this._self, this._then);
+
+  final _InitTripMode _self;
+  final $Res Function(_InitTripMode) _then;
+
+/// Create a copy of InitTripMode
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? popUpPosition = freezed,}) {
+  return _then(_InitTripMode(
+popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as ScreenOffset?,
+  ));
+}
+
 
 }
 

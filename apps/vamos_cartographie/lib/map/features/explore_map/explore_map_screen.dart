@@ -10,6 +10,8 @@ import '../../injection/map_mode.dart';
 import '../../injection/map_scene.dart';
 import '../../presentation/base_map_screen.dart';
 import '/domain_features/domain_features.dart';
+import 'injection/explore_mode.dart';
+import 'injection/explore_scene.dart';
 import 'injection/trip_bounds_trigger.dart';
 import 'presentation/explore_bottom_sheet.dart';
 import 'presentation/trips_carousel_widget.dart';
@@ -42,12 +44,12 @@ class _ExploreSceneResolver extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(mapExploreProvider.notifier);
+    final exploreMode = ref.watch(mapExploreProvider);
+
     return ProviderScope(
       overrides: [
         mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
-        mapModeProvider.overrideWith((ref) => ref.watch(mapExploreProvider)),
-        mapControllerProvider.overrideWithValue(controller.controller),
+        mapModeProvider.overrideWithValue(exploreMode),
       ],
       child: const _ExploreMapView(),
     );

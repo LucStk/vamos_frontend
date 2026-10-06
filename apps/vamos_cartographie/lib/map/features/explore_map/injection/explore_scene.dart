@@ -8,6 +8,7 @@ import '../../../camera/injection/camera_or_null.dart';
 import '../../../injection/user_location_projecter.dart';
 import '../application/projected_trip.dart';
 import '/domain_features/domain_features.dart';
+import 'explore_mode.dart';
 part 'explore_scene.g.dart';
 
 @riverpod

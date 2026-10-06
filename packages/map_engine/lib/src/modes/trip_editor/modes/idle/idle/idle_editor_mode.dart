@@ -41,10 +41,10 @@ final class CreateWaypointFromPosition extends IdleEditorCommand<Done> {
 
 mixin IdleEditorResolver on GraphReader, WaypointReader {
   Future<Object?> resolveIdle(IdleEditorCommand command) => switch (command) {
-    CreateSimpleVertex(:final position) => _done(
+    CreateSimpleVertex(:final position) => done(
       () => graphEditor.createSimpleVertex(position),
     ),
-    CreateWaypointFromPosition(:final position) => _done(
+    CreateWaypointFromPosition(:final position) => done(
       () => waypointEditor.createBlankWaypointFromPosition(position),
     ),
   };

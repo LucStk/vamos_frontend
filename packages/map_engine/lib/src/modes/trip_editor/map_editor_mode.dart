@@ -33,9 +33,3 @@ mixin GraphReader {
   SegmentFields? segment(SegmentId id) =>
       graphEditor.state.segmentStore.get(id)?.current;
 }
-
-/// Exécute un effet sans donnée de retour.
-Future<Done> _done(Future<void> Function() effect) async {
-  await effect();
-  return const Done();
-}

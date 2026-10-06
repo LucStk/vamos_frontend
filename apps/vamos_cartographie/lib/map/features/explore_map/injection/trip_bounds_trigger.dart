@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../camera/application/map_geo_mappers.dart';
 import '../../../camera/domain/domain.dart';
 import '../../../camera/injection/camera_director_provider.dart';
+import 'explore_mode.dart';
 import 'explore_scene.dart';
 
 part "trip_bounds_trigger.g.dart";

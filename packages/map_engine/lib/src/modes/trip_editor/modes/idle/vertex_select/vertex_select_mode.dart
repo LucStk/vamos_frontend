@@ -43,13 +43,13 @@ mixin WaypointReader {
 mixin VertexSelectResolver on GraphReader, WaypointReader {
   Future<Object?> resolveVertexSelect(VertexSelectCommand command) =>
       switch (command) {
-        RemoveVertex(:final vertexId) => _done(
+        RemoveVertex(:final vertexId) => done(
           () => graphEditor.removeVertex(vertexId),
         ),
-        CreateWaypointFromVertex(:final vertexId) => _done(
+        CreateWaypointFromVertex(:final vertexId) => done(
           () => waypointEditor.createBlankWaypointFromVertex(vertexId),
         ),
-        MoveVertex(:final vertexId, :final position) => _done(
+        MoveVertex(:final vertexId, :final position) => done(
           () => graphEditor.moveVertex(vertexId, position),
         ),
       };

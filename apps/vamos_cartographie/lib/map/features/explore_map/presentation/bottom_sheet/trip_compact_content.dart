@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/routing/routes/trip_route.dart';
-import 'package:vamos_cartographie/vamos_cartographie.dart';
+
+import '../../../../../domain_features/stored_file/presentation/carousel_view.dart';
+import '../../../../../routing/routing.dart';
 
 class TripCompactContent extends StatelessWidget {
   final Trip trip;

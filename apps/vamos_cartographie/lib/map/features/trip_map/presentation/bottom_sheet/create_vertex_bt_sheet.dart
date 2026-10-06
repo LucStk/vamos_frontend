@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../domain_features/trip/injection/trip_store.dart';
+import '/domain_features/trip/injection/trip_store.dart';
 import '../../../../overlay_ui/simple_bottom_sheet_shell.dart';
 import '../../../explore_map/presentation/sheet/trip_form_sheet.dart';
 

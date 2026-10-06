@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/domain_features/auth/auth.dart';
 import 'package:vamos_cartographie/ui_kit/views/loading_view.dart';
+import 'package:vamos_cartographie/ui_kit/views/error_view.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile_page.dart';
 
 class AppEntryView extends ConsumerWidget {
   const AppEntryView({super.key});
