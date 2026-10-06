@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/map.dart';
 
-@Dependencies([CameraOrNull, mapScene, cameraDirector, mapCamera])
+import '../camera/injection/camera_director_provider.dart';
+import '../layers/map_tile_layer.dart';
+import '../overlay_ui/popup_overlay.dart';
+import '../overlay_ui/right_control_panel.dart';
+import 'map_gesture_bridge.dart';
+
+@Dependencies([cameraDirector])
 class BaseMap extends ConsumerWidget {
   const BaseMap({
     super.key,

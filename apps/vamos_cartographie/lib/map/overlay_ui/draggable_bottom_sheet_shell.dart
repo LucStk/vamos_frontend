@@ -1,7 +1,7 @@
 // Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_bottom_sheet.dart
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip/domain/domain.dart';
-import "/map/map.dart";
+import 'drag_hint_header.dart';
 
 class DraggableBottomSheetShell extends StatefulWidget {
   final TripId tripId;

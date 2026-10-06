@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:vamos_cartographie/map/map.dart';
+import '../domain/domain.dart';
+import 'flutter_map_camera.dart';
 
 /// Mutualise la création de la caméra et son cycle de vie d'animation.
 /// Ne touche pas au ProviderScope : chaque écran doit toujours l'écrire

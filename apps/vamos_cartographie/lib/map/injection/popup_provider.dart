@@ -2,10 +2,12 @@ import 'package:flutter/animation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/map.dart';
 import 'dart:math' as math;
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+
+import '../camera/injection/map_camera_provider.dart';
+import '../domain/map_mode_provider.dart';
 part 'popup_provider.g.dart';
 
 // final projection = const Epsg3857().projection;

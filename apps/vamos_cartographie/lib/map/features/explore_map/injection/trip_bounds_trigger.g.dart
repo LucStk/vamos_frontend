@@ -25,13 +25,10 @@ final class TripBoundsTriggerProvider
         dependencies: <ProviderOrFamily>[cameraDirectorProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           TripBoundsTriggerProvider.$allTransitiveDependencies0,
-          TripBoundsTriggerProvider.$allTransitiveDependencies1,
         ],
       );
 
   static final $allTransitiveDependencies0 = cameraDirectorProvider;
-  static final $allTransitiveDependencies1 =
-      CameraDirectorProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$tripBoundsTriggerHash();

@@ -1,13 +1,13 @@
 import 'package:domain_core/domain/collection_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/features/explore_map/presentation/trip_card.dart';
 import '/domain_features/domain_features.dart';
-import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([MapExplore, mapScene, MapEditor, mapCamera])
+import 'trip_card.dart';
+
+@Dependencies([])
 class TripsCarouselWidget extends ConsumerWidget {
   const TripsCarouselWidget({super.key});
 

@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([CameraOrNull, mapScene, mapCamera])
+import '../injection/map_gesture_handler.dart';
+import 'map_canvas_view.dart';
+
+@Dependencies([])
 class MapGestureBridge extends ConsumerStatefulWidget {
   final List<Widget> mapLayers;
   const MapGestureBridge({required this.mapLayers, super.key});

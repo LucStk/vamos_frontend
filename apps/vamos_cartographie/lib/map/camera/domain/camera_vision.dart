@@ -1,5 +1,5 @@
 // domain/camera_vision.dart
-import 'package:map_engine/domain/domain.dart';
+import 'package:map_engine/map_engine.dart';
 
 class CameraVision {
   const CameraVision({required this.bounds});

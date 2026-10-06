@@ -5,9 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+import '../../../../../overlay_ui/simple_bottom_sheet_shell.dart';
+import '../../widgets/draw_segment_button.dart';
 import '/ui_kit/ui_kit.dart';
-
-import 'package:vamos_cartographie/map/map.dart';
 
 @Dependencies([])
 class VertexBottomSheet extends ConsumerWidget {

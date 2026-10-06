@@ -2,11 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/features/explore_map/presentation/explore_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/map.dart';
+import '../../camera/application/map_camera_lifecycle.dart';
+import '../../camera/injection/camera_or_null.dart';
+import '../../camera/injection/map_camera_provider.dart';
+import '../../camera/injection/user_location_trigger.dart';
+import '../../injection/map_mode.dart';
+import '../../injection/map_scene.dart';
+import '../../presentation/base_map_screen.dart';
 import '/domain_features/domain_features.dart';
+import 'injection/trip_bounds_trigger.dart';
+import 'presentation/explore_bottom_sheet.dart';
+import 'presentation/trips_carousel_widget.dart';
 
-@Dependencies([MapEditor, MapExplore])
+@Dependencies([])
 class ExploreMapScreen extends StatefulWidget {
   const ExploreMapScreen({super.key});
 
@@ -28,15 +36,7 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
   }
 }
 
-@Dependencies([
-  CameraOrNull,
-  MapEditor,
-  MapExplore,
-  userLocationTrigger,
-  tripBoundsTrigger,
-  cameraDirector,
-  mapCamera,
-])
+@Dependencies([CameraOrNull, userLocationTrigger, tripBoundsTrigger, mapCamera])
 class _ExploreSceneResolver extends ConsumerWidget {
   const _ExploreSceneResolver();
 
@@ -54,17 +54,7 @@ class _ExploreSceneResolver extends ConsumerWidget {
   }
 }
 
-@Dependencies([
-  MapExplore,
-  MapEditor,
-  CameraOrNull,
-  mapScene,
-  mapController,
-  cameraDirector,
-  mapCamera,
-  userLocationTrigger,
-  tripBoundsTrigger,
-])
+@Dependencies([CameraOrNull, mapCamera, userLocationTrigger, tripBoundsTrigger])
 class _ExploreMapView extends ConsumerStatefulWidget {
   const _ExploreMapView();
 

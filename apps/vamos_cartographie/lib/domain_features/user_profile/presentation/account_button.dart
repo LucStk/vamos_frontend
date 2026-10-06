@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/domain_features/auth/auth.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/user_profile.dart';
-import 'package:vamos_cartographie/routing/routing.dart';
-import '/map/map.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
+import '../../../routing/routes/auth_routes.dart';
+import '../../auth/providers/auth_providers.dart';
+import '../providers/user_session_providers.dart';
 
-@Dependencies([mapScene])
 class AccountButton extends ConsumerWidget {
   const AccountButton({super.key});
 

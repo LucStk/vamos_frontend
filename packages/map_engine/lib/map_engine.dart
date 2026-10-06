@@ -11,8 +11,11 @@ export "src/geometry/world_segment_helper.dart";
 export "src/mode_machine/base_mode_model.dart";
 
 export 'src/mode_machine/effect_queue.dart';
+
 export "src/input/pointer_gesture_resolver.dart";
 export "src/input/pending_tap_timer.dart";
+export 'src/input/map_pointer_event.dart';
+export 'src/input/map_pointure_gesture_state.dart';
 
 export "src/modes/trip_editor/map_editor_mode.dart";
 

@@ -1,17 +1,12 @@
 import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
+import '../../../routing/routes/auth_routes.dart';
 import 'register_page.dart';
 import '/domain_features/auth/providers/auth_controller.dart';
-
 import '/ui_kit/ui_kit.dart';
-// Imports des nouveaux widgets
 import 'widgets/auth_layout.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import "/map/map.dart";
 
-@Dependencies([mapScene])
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 

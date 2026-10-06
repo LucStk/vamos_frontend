@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:math';
-
-import '/map/camera/camera.dart';
+import 'package:map_engine/map_engine.dart';
+import '../domain/domain.dart';
+import 'map_geo_mappers.dart';
 
 final class CameraDirector {
   CameraDirector({required MapCameraController Function() camera})

@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip/domain/domain.dart';
-import 'package:vamos_cartographie/domain_features/topology/presentation/mobility_type_display.dart';
-import 'package:vamos_cartographie/map/map.dart';
-import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+
+import '../../../../../../domain_features/topology/presentation/mobility_type_display.dart';
+import '../../../../../../ui_kit/type_selector/type_selector_view.dart';
+import '../../../../../overlay_ui/simple_bottom_sheet_shell.dart';
 
 @Dependencies([mapController])
 class SketchBottomSheet extends ConsumerWidget {

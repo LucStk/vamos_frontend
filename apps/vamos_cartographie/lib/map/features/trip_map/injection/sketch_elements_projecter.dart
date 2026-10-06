@@ -2,7 +2,11 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import 'package:vamos_cartographie/map/map.dart';
+
+import '../../../camera/injection/camera_or_null.dart';
+import '../../../injection/map_mode.dart';
+import '../application/projected_sketch_pencil.dart';
+import '../application/projected_sketch_segment.dart';
 part 'sketch_elements_projecter.g.dart';
 
 // final projection = const Epsg3857().projection;

@@ -3,8 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/domain_features.dart';
-import 'package:vamos_cartographie/map/map.dart';
+
+import '../../../domain_features/auth/providers/auth_providers.dart';
+import '../../../domain_features/trip/injection/trip_data_loader.dart';
+import '../../../domain_features/trip/injection/trip_store.dart';
+import '../../camera/application/map_camera_lifecycle.dart';
+import '../../camera/domain/camera_vision.dart';
+import '../../camera/injection/camera_or_null.dart';
+import '../../camera/injection/map_camera_provider.dart';
+import '../../camera/injection/user_location_trigger.dart';
+import '../../injection/map_mode.dart';
+import '../../injection/map_scene.dart';
+import '../../presentation/base_map_screen.dart';
+import 'presentation/bottom_sheet/map_bottom_sheet.dart';
+import 'presentation/map_top_bar.dart';
 
 @Dependencies([ mapScene])
 class TripMapScreen extends StatefulWidget {
@@ -35,9 +47,7 @@ class _TripMapScreenState extends State<TripMapScreen>
 
 @Dependencies([
   CameraOrNull,
-  cameraDirector,
   mapCamera,
-  userLocationTrigger,
 ])
 class _TripMapResolver extends ConsumerWidget {
   const _TripMapResolver({required this.tripId});
@@ -71,7 +81,6 @@ class _TripMapResolver extends ConsumerWidget {
 @Dependencies([
   CameraOrNull,
   mapScene,
-  cameraDirector,
   mapCamera,
   userLocationTrigger,
 ])

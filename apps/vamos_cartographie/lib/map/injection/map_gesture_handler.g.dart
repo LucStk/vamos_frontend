@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'map_gesture_handler_provider.dart';
+part of 'map_gesture_handler.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -27,15 +27,9 @@ final class MapGestureHandlerNotifierProvider
         retry: null,
         name: r'mapGestureHandlerProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapSceneProvider, mapCameraProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies0,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
       );
-
-  static final $allTransitiveDependencies0 = mapSceneProvider;
-  static final $allTransitiveDependencies1 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();
@@ -54,7 +48,7 @@ final class MapGestureHandlerNotifierProvider
 }
 
 String _$mapGestureHandlerNotifierHash() =>
-    r'5c9f5aa0a2e3498530985f7fd701a75187c13ef0';
+    r'a397028875eb6a26a0337634c7e276428368f523';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).

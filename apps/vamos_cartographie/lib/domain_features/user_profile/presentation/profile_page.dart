@@ -4,11 +4,7 @@ import 'on_boarding/create_profile_page.dart';
 import '/domain_features/user_profile/providers/providers.dart';
 import '/ui_kit/ui_kit.dart';
 import 'widgets/widgets.dart';
-import "/map/map.dart";
 
-import 'package:riverpod_annotation/experimental/scope.dart';
-
-@Dependencies([mapScene])
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 

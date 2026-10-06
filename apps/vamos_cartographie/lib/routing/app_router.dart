@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/domain_features/domain_features.dart';
-import 'package:vamos_cartographie/map/map.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
+import '../domain_features/auth/providers/auth_providers.dart';
+import '../map/camera/domain/camera_vision.dart';
+import '../map/features/explore_map/explore_map_screen.dart';
 import 'routes/routes.dart';
 import 'routes/auth_routes.dart' as auth;
 
@@ -14,7 +14,6 @@ part 'app_router.g.dart';
   path: '/',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
 )
-@Dependencies([mapScene])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 

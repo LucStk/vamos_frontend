@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+
+import '../../overlay_ui/widgets/control_icon.dart';
+import '../../overlay_ui/widgets/map_control_button_shell.dart';
+import '../injection/map_camera_provider.dart';
 
 @Dependencies([mapCamera])
 class CameraButtonsControl extends ConsumerWidget {

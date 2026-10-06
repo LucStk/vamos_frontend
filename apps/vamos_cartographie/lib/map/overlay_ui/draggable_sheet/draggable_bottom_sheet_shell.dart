@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '/map/map.dart'; // DragHintHeader
+import '../drag_hint_header.dart';
 import 'deferred_notifier.dart';
 import 'sheet_metrics.dart';
 

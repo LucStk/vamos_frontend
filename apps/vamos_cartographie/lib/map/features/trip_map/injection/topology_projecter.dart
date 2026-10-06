@@ -2,6 +2,7 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import '../../../camera/injection/camera_or_null.dart';
 import '/domain_features/domain_features.dart';
 import "/map/map.dart";
 

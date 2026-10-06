@@ -3,9 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+
+import '../camera/application/map_scene_paint.dart';
+import '../camera/injection/camera_or_null.dart';
+import '../camera/injection/map_camera_provider.dart';
+
 // Ne fonctionne pas avec la version riverpod aujourd'hui
 // @Dependencies([])
 // class CameraSnapshotScope extends StatelessWidget {
@@ -21,7 +25,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 //   }
 // }
 
-@Dependencies([mapScene, CameraOrNull, mapCamera])
+@Dependencies([CameraOrNull, mapCamera])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
   final ValueListenable<bool> panAllowed;

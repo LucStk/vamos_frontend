@@ -25,13 +25,10 @@ final class UserLocationTriggerProvider
         dependencies: <ProviderOrFamily>[cameraDirectorProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           UserLocationTriggerProvider.$allTransitiveDependencies0,
-          UserLocationTriggerProvider.$allTransitiveDependencies1,
         ],
       );
 
   static final $allTransitiveDependencies0 = cameraDirectorProvider;
-  static final $allTransitiveDependencies1 =
-      CameraDirectorProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$userLocationTriggerHash();

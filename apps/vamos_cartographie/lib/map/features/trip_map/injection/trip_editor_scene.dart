@@ -1,7 +1,9 @@
 import 'package:map_canvas/map_canvas.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
+import '../../../domain/map_mode_provider.dart';
 import '../../../injection/user_location_projecter.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
@@ -29,7 +31,17 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
 
 @Riverpod(dependencies: [projectedTripEditorScene])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
-  final selection = ref.watch(mapModeProvider.select((m) => m.selection));
+  final selection =
+      ref.watch(
+            mapModeProvider.select(
+              (m) => switch (m) {
+                VertexSelectMode e => e.vertex,
+                SegmentSelectMode e => e.segment,
+                _ => null,
+              },
+            ),
+          )
+          as MapObject?;
   final projObjects = ref.watch(projectedTripEditorSceneProvider(tripId));
 
   return MapScene(selection: selection, objects: projObjects);

@@ -2,11 +2,12 @@ import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/features/explore_map/presentation/bottom_sheet/floating_trip_card.dart';
-
+import '../../../../overlay_ui/draggable_sheet/deferred_notifier.dart';
+import '../../../../overlay_ui/draggable_sheet/draggable_bottom_sheet_shell.dart';
+import '../../../../overlay_ui/draggable_sheet/draggable_sheet.dart';
 import '/domain_features/domain_features.dart';
-import '/map/overlay_ui/overlay_ui.dart';
 import 'bottom_sheet.dart';
+import 'floating_trip_card.dart';
 
 const _cardHeight = 64.0;
 const _cardMargin = 12.0;

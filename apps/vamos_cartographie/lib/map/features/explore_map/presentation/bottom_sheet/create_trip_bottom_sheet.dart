@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/map.dart';
+
+import '../../../../../vamos_cartographie.dart';
+import '../../../../overlay_ui/simple_bottom_sheet_shell.dart';
+import '../sheet/trip_form_sheet.dart';
+
 // + import de tripStoreProvider et de showTripFormSheet
 
 class CreateTripBottomSheet extends ConsumerWidget {

@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trip_application/trip/domain/trip.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip/trip.dart';
-import "/map/map.dart";
+import '../../map/camera/domain/domain.dart';
+import '../../map/features/trip_map/trip_map_screen.dart';
 import "/routing/app_router.dart";
 
-@Dependencies([mapScene])
 class TripRoute extends GoRouteData with $TripRoute {
   TripRoute({required this.tripId, this.$extra});
 

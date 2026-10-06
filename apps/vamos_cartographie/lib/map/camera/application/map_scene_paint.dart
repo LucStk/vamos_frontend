@@ -4,7 +4,11 @@ import 'package:map_canvas/map_canvas.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-import '../../map.dart';
+import '../../injection/map_scene.dart';
+import '../injection/map_camera_provider.dart';
+import '../presentation/presentation.dart';
+import 'map_scene_painter.dart';
+import 'transition_hub.dart';
 
 @Dependencies([mapScene, mapCameraSnapshot])
 class MapScenePaint extends ConsumerStatefulWidget {

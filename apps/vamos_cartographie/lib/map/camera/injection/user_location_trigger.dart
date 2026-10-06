@@ -1,7 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../domain/camera_request.dart';
 import '/app_services/app_services.dart';
+import 'camera_director_provider.dart';
 
-import 'package:vamos_cartographie/map/camera/camera.dart';
 part 'user_location_trigger.g.dart';
 
 @Riverpod(dependencies: [cameraDirector])

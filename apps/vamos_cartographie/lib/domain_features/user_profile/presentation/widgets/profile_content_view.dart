@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/user_profile.dart';
-import 'package:vamos_cartographie/ui_kit/layouts/layouts.dart';
-import '/domain_features/auth/providers/providers.dart';
-import '/domain_features/user_profile/presentation/edit_profile_page.dart';
+import '../../../../vamos_cartographie.dart';
 import 'profile_header_view.dart';
-import "/map/map.dart";
-import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([mapScene])
 class ProfileContent extends ConsumerWidget {
   const ProfileContent({super.key, required this.profile});
 

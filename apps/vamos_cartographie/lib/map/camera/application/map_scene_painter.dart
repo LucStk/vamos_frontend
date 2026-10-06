@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_canvas/map_canvas.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+
+import '../injection/map_camera_provider.dart';
+import 'transition_hub.dart';
 
 class MapScenePainter extends CustomPainter {
   MapScenePainter({required this.objects, required this.visuals});

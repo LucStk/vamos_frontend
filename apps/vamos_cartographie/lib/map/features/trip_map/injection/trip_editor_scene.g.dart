@@ -181,7 +181,7 @@ final class TripEditorSceneProvider
   }
 }
 
-String _$tripEditorSceneHash() => r'9e7d640f5f213de882ae5e533b47ded734842a70';
+String _$tripEditorSceneHash() => r'1a122f591a1df9d2cc938a6422d5f488d90cd209';
 
 final class TripEditorSceneFamily extends $Family
     with $FunctionalFamilyOverride<MapScene, TripId> {

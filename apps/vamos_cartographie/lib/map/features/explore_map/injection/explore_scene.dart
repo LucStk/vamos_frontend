@@ -4,7 +4,9 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/map.dart';
+import '../../../camera/injection/camera_or_null.dart';
+import '../../../injection/user_location_projecter.dart';
+import '../application/projected_trip.dart';
 import '/domain_features/domain_features.dart';
 part 'explore_scene.g.dart';
 
