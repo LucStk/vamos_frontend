@@ -18,7 +18,7 @@ class MapEditorModeNotifier extends MapModeNotifier {
   @override
   BaseMode build() {
     ref.onDispose(() => _disposed = true);
-    return const IdleEditor();
+    return IdleEditor();
   }
 
   @override
@@ -38,9 +38,7 @@ class MapEditorModeNotifier extends MapModeNotifier {
 
   void _run(MapCommand command) {
     _queue.add(() async {
-      final result = await ref
-          .read(mapCommandResolverProvider)
-          .resolve(command);
+      final result = await ref.read(mapCommandResolverProvide).resolve(command);
       if (_disposed) return;
       // Lu après l'await : c'est le mode réel du moment.
       final next = _mode.onCommandResult(result); // remplace modeAfter

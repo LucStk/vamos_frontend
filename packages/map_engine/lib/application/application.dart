@@ -4,6 +4,7 @@ export 'pointer_gesture_resolver.dart';
 export "base_mode_model.dart";
 export "effect_queue.dart";
 export "gesture_result_model.dart";
-export "commands/commands.dart";
 export 'modes/modes.dart';
 export 'mode_event.dart';
+export "mode_command.dart";
+export 'trip_editor_mode/trip_editor_mode.dart';

@@ -599,7 +599,7 @@ return $default(_that.vertexStart,_that.path,_that.mobilityType,_that.touchedVer
 
 
 class _SketchCreation extends SketchCreation {
-  const _SketchCreation({required this.vertexStart, required  List<LatLng> path, required this.mobilityType, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
+   _SketchCreation({required this.vertexStart, required  List<LatLng> path, required this.mobilityType, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
   
 
 @override final  VertexId vertexStart;
@@ -883,7 +883,7 @@ return $default(_that.segmentId,_that.path,_that.touchedVertex,_that.selection,_
 
 
 class _SketchEdition extends SketchEdition {
-  const _SketchEdition({required this.segmentId, required  List<LatLng> path, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
+   _SketchEdition({required this.segmentId, required  List<LatLng> path, this.touchedVertex, this.selection, this.popUpPosition}): _path = path,super._();
   
 
 @override final  SegmentId segmentId;

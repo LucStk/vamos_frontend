@@ -1,11 +1,10 @@
 import 'package:domain_core/domain/collection_store.dart';
-import 'package:map_engine/application/gesture_result_model.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/utiles/merge_polyline.dart';
 import 'package:trip_application/trip_application.dart';
-import "commands/commands.dart";
 
-final class MapCommandResolver {
-  const MapCommandResolver({
+final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode> {
+  const EditTripCommandResolver({
     required this.graphEditor,
     required this.waypointEditor,
   });
@@ -16,7 +15,10 @@ final class MapCommandResolver {
   SegmentFields? _segment(SegmentId id) =>
       graphEditor.state.segmentStore.get(id)?.current;
 
-  Future<CommandResult> resolve(MapCommand command) async {
+  @override
+  Future<ModeCommandPayload<MapEditorMode>> resolve(
+    ModeCommand<MapEditorMode> command,
+  ) async {
     switch (command) {
       case CreateSimpleVertex c:
         await graphEditor.createSimpleVertex(c.position);

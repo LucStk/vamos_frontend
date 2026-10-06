@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_engine/application/trip_editor_mode/edit_trip_intent.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 
@@ -7,7 +8,7 @@ part 'map_editor_mode.freezed.dart';
 
 sealed class MapEditorMode extends BaseMode<MapEditorMode> {
   @override
-  GestureResult<MapEditorMode>? onIntent(ModeIntent intent) => switch ((
+  GestureResult<MapEditorMode>? onIntent(EditorIntent intent) => switch ((
     intent,
     selection,
   )) {
@@ -18,13 +19,18 @@ sealed class MapEditorMode extends BaseMode<MapEditorMode> {
         mobilityType: MobilityType.bike,
       ),
     ),
-    (StopSketch(), _) => GestureResult.to(const IdleEditor()),
+    (StopSketch(), _) => GestureResult.to(IdleEditor()),
     (StartSegmentEdit(), MapSegment(:final id)) => GestureResult.to(
-        SketchEdition(segmentId: id, path: []),
-    (DeleteSelected(),MapSegment(:final id)) => deleteSelection(this),
-    (ChangeSegmentType(:final type),MapSegment(:final id)) => GestureResult.run(
-        ChangeSelectedSegmentType(id, type),
-      ),
+      SketchEdition(segmentId: id, path: []),
+    ),
+    (DeleteSelected(), MapSegment(:final id)) => GestureResult.run(
+      DeleteSegment(id),
+    ),
+    (DeleteSelected(), MapVertex(:final id)) => GestureResult.run(
+      RemoveVertex(id),
+    ),
+    (ChangeSegmentType(:final type), MapSegment(:final id)) =>
+      GestureResult.run(ChangeSelectedSegmentType(id, type)),
     _ => null,
   };
 }
@@ -40,7 +46,7 @@ extension MapEditorModeCopy on MapEditorMode {
 
 @freezed
 final class IdleEditor extends MapEditorMode with _$IdleEditor {
-  const IdleEditor({this.selection, this.popUpPosition});
+  IdleEditor({this.selection, this.popUpPosition});
 
   @override
   final PopUpPositionType popUpPosition;
@@ -64,7 +70,7 @@ final class IdleEditor extends MapEditorMode with _$IdleEditor {
 
 @freezed
 final class InitTripMode extends MapEditorMode with _$InitTripMode {
-  const InitTripMode({this.selection, this.popUpPosition});
+  InitTripMode({this.selection, this.popUpPosition});
 
   @override
   final PopUpPositionType popUpPosition;
@@ -88,7 +94,7 @@ final class InitTripMode extends MapEditorMode with _$InitTripMode {
 /// Base commune : contrat partagé par SketchCreation et SketchEdition.
 /// Pas de Freezed ici, donc pas de copyWith : les sous-classes l'implémentent.
 sealed class SketchMode extends MapEditorMode {
-  const SketchMode();
+  SketchMode();
 
   List<LatLng> get path;
   VertexId? get touchedVertex;
@@ -96,6 +102,7 @@ sealed class SketchMode extends MapEditorMode {
   SketchMode withPath(List<LatLng> path);
 
   LatLng? get pencilPositionOrNull => path.isEmpty ? null : path.last;
+
   @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
     MapSketchPencil p => GestureResult(mode: withSelection(p)),
@@ -111,15 +118,18 @@ sealed class SketchMode extends MapEditorMode {
   @override
   GestureResult<MapEditorMode> onDragging(DraggingGesture g, ScreenOffset p) {
     if (g.dragged is! MapSketchPencil) return GestureResult.none();
-    return GestureResult(mode: withPath([...path, p]).withSelection(g.target));
+    return GestureResult(
+      mode: withSelection(g.target),
+      command: AddPointToSketchSegment(p),
+    );
   }
 }
 
 @freezed
 abstract class SketchCreation extends SketchMode with _$SketchCreation {
-  const SketchCreation._();
+  SketchCreation._();
 
-  const factory SketchCreation({
+  factory SketchCreation({
     required VertexId vertexStart,
     required List<LatLng> path,
     required MobilityType mobilityType,
@@ -132,15 +142,20 @@ abstract class SketchCreation extends SketchMode with _$SketchCreation {
   SketchCreation withPath(List<LatLng> path) => copyWith(path: path);
 
   @override
+  SketchCreation withSelection(MapObject? selection) =>
+      copyWith(selection: selection);
+
+  @override
   GestureResult<MapEditorMode> onPointerDown(
     PointerDownGesture g,
     ScreenOffset p,
   ) {
     if (g.element is! MapSketchSegment) return GestureResult.none();
-    final grab = closestPointOnPolyline(p, path);
-    return GestureResult(
-      mode: copyWith(path: path.sublist(0, grab.segmentIndex)),
-    );
+    // final grab = closestPointOnPolyline(p, path);
+    // return GestureResult(
+    //   mode: copyWith(path: path.sublist(0, grab.segmentIndex)),
+    // );
+    return GestureResult.none();
   }
 
   @override
@@ -178,16 +193,18 @@ abstract class SketchCreation extends SketchMode with _$SketchCreation {
 
 @freezed
 abstract class SketchEdition extends SketchMode with _$SketchEdition {
-  const SketchEdition._();
+  SketchEdition._();
 
-  const factory SketchEdition({
+  factory SketchEdition({
     required SegmentId segmentId,
     required List<LatLng> path,
     VertexId? touchedVertex,
     MapObject? selection,
     PopUpPositionType popUpPosition,
   }) = _SketchEdition;
-
+  @override
+  SketchEdition withSelection(MapObject? selection) =>
+      copyWith(selection: selection);
   @override
   SketchEdition withPath(List<LatLng> path) => copyWith(path: path);
 
@@ -196,8 +213,8 @@ abstract class SketchEdition extends SketchMode with _$SketchEdition {
     PointerDownGesture g,
     ScreenOffset p,
   ) => switch (g.element) {
-    MapSegment s when s.id == segmentId => GestureResult(
-      mode: copyWith(path: [p]),
+    MapSegment s when s.id == segmentId => GestureResult.run(
+      AddPointToSketchSegment(p),
     ),
     _ => GestureResult.none(),
   };
