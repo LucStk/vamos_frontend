@@ -974,31 +974,31 @@ $VertexSelectModeCopyWith<VertexSelectMode> get copyWith => _$VertexSelectModeCo
 @override
 bool operator ==(Object other) {
   final _this = this as VertexSelectMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelectMode&&(identical(other.vertex, _this.vertex) || other.vertex == _this.vertex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelectMode&&(identical(other.vertex, _this.vertex) || other.vertex == _this.vertex)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
 }
 
 
 @override
 int get hashCode {
   final _this = this as VertexSelectMode;
-  return Object.hash(runtimeType,_this.vertex);
+  return Object.hash(runtimeType,_this.vertex,_this.popUpPosition);
 }
 
 @override
 String toString() {
   final _this = this as VertexSelectMode;
-  return 'VertexSelectMode(vertex: ${_this.vertex})';
+  return 'VertexSelectMode(vertex: ${_this.vertex}, popUpPosition: ${_this.popUpPosition})';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $VertexSelectModeCopyWith<$Res> implements $IdleEditorCopyWith<$Res> {
+abstract mixin class $VertexSelectModeCopyWith<$Res>  {
   factory $VertexSelectModeCopyWith(VertexSelectMode value, $Res Function(VertexSelectMode) _then) = _$VertexSelectModeCopyWithImpl;
 @useResult
 $Res call({
- MapVertex vertex
+ MapVertex vertex, PopUpPositionType? popUpPosition
 });
 
 
@@ -1015,10 +1015,11 @@ class _$VertexSelectModeCopyWithImpl<$Res>
 
 /// Create a copy of VertexSelectMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? vertex = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? vertex = null,Object? popUpPosition = freezed,}) {
   return _then(VertexSelectMode(
 vertex: null == vertex ? _self.vertex : vertex // ignore: cast_nullable_to_non_nullable
-as MapVertex,
+as MapVertex,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
   ));
 }
 
@@ -1164,31 +1165,31 @@ $SegmentSelectModeCopyWith<SegmentSelectMode> get copyWith => _$SegmentSelectMod
 @override
 bool operator ==(Object other) {
   final _this = this as SegmentSelectMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelectMode&&(identical(other.segment, _this.segment) || other.segment == _this.segment));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelectMode&&(identical(other.segment, _this.segment) || other.segment == _this.segment)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SegmentSelectMode;
-  return Object.hash(runtimeType,_this.segment);
+  return Object.hash(runtimeType,_this.segment,_this.popUpPosition);
 }
 
 @override
 String toString() {
   final _this = this as SegmentSelectMode;
-  return 'SegmentSelectMode(segment: ${_this.segment})';
+  return 'SegmentSelectMode(segment: ${_this.segment}, popUpPosition: ${_this.popUpPosition})';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SegmentSelectModeCopyWith<$Res> implements $IdleEditorCopyWith<$Res> {
+abstract mixin class $SegmentSelectModeCopyWith<$Res>  {
   factory $SegmentSelectModeCopyWith(SegmentSelectMode value, $Res Function(SegmentSelectMode) _then) = _$SegmentSelectModeCopyWithImpl;
 @useResult
 $Res call({
- MapSegment segment
+ MapSegment segment, PopUpPositionType? popUpPosition
 });
 
 
@@ -1205,10 +1206,11 @@ class _$SegmentSelectModeCopyWithImpl<$Res>
 
 /// Create a copy of SegmentSelectMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,Object? popUpPosition = freezed,}) {
   return _then(SegmentSelectMode(
 segment: null == segment ? _self.segment : segment // ignore: cast_nullable_to_non_nullable
-as MapSegment,
+as MapSegment,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
+as PopUpPositionType?,
   ));
 }
 

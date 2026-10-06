@@ -1,18 +1,17 @@
-import 'base_mode_model.dart';
+// mode_machine/mode_command.dart
 
-abstract class ModeCommand<M extends BaseMode<M>> {
+import '../../map_engine.dart';
+
+/// Une intention d'effet. `R` est la donnée qu'elle produit (`Done` si aucune).
+abstract class ModeCommand<M extends BaseMode<M>, R extends Object> {
   const ModeCommand();
 }
 
-abstract class ModeCommandPayload<M extends BaseMode<M>> {
-  const ModeCommandPayload();
-}
-
+/// Exécute les effets de bord d'une commande.
+/// Retourne `null` si l'effet a échoué ou n'a rien produit : le `then` du
+/// GestureResult n'est alors pas appelé.
 abstract class ModeCommandResolver<M extends BaseMode<M>> {
   const ModeCommandResolver();
-  Future<ModeCommandPayload<M>> resolve(ModeCommand<M> command);
-}
 
-abstract class IntentEvent<M extends BaseMode<M>> {
-  const IntentEvent();
+  Future<R?> resolve<R extends Object>(ModeCommand<M, R> command);
 }

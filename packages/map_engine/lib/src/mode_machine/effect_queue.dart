@@ -5,7 +5,7 @@ class MapEffectQueue {
     _tail = _tail.then((_) async {
       try {
         await effect();
-      } catch (e, s) {
+      } catch (e) {
         // Log / report : la chaîne doit survivre à l'échec d'un effet.
         // FlutterError.reportError(FlutterErrorDetails(exception: e, stack: s));
       }

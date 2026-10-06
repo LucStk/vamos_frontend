@@ -23,29 +23,29 @@ abstract class SketchEdition extends MapEditorMode
     PointerDownGesture g,
     ScreenOffset p,
   ) => switch (g.element) {
-    MapSegment s when s.id == segmentId => GestureResult.run(
-      AddPointToSketchSegment(p),
-    ),
+    MapSegment s when s.id == segmentId => addPoint(p),
     _ => GestureResult.none(),
   };
 
   @override
   GestureResult<MapEditorMode> onDragEnd(DragEndGesture g) {
-    final correct = GestureResult<MapEditorMode>(
-      command: CorrectSegmentFromSketch(segmentId: segmentId, correction: path),
+    final GestureResult<MapEditorMode> correct = GestureResult.run(
+      CorrectSegmentFromSketch(segmentId: segmentId, correction: path),
+      then: leaveSketch,
     );
 
     if (g.dragged is MapSketchPencil) return correct;
 
     return switch (g.target) {
       MapSegment s when s.id == segmentId => correct,
-      TopologyObject s => GestureResult(
-        command: SpliceSegment(
+      TopologyObject s => GestureResult.run(
+        SpliceSegment(
           segmentId: segmentId,
           correction: path,
           startAnchor: SegmentAnchor(segmentId),
           endAnchor: s.anchor,
         ),
+        then: leaveSketch,
       ),
       _ => GestureResult.none(),
     };

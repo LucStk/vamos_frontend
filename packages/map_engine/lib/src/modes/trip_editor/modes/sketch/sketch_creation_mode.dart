@@ -34,33 +34,37 @@ abstract class SketchCreation extends MapEditorMode
     return GestureResult.none();
   }
 
+  // SketchCreation
   @override
   GestureResult<MapEditorMode> onDragEnd(DragEndGesture g) {
     if (g.dragged is! MapSketchPencil) return GestureResult.none();
 
     return switch (g.target) {
-      MapVertex v => GestureResult(
-        command: CreateSegmentFromSketch(
+      MapVertex v => GestureResult.run(
+        CreateSegmentFromSketch(
           startVertexId: vertexStart,
           endVertexId: v.id,
           geometry: path,
           mobilityType: mobilityType,
         ),
+        then: leaveSketch,
       ),
-      MapSegment s => GestureResult(
-        command: SpliceSegment(
+      MapSegment s => GestureResult.run(
+        SpliceSegment(
           segmentId: s.id,
           correction: path,
           startAnchor: VertexAnchor(vertexStart),
           endAnchor: SegmentAnchor(s.id),
         ),
+        then: leaveSketch,
       ),
-      null => GestureResult(
-        command: CreateSegmentFromSketch(
+      null => GestureResult.run(
+        CreateSegmentFromSketch(
           startVertexId: vertexStart,
           geometry: path,
           mobilityType: mobilityType,
         ),
+        then: leaveSketch,
       ),
       _ => GestureResult.none(),
     };
