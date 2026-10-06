@@ -19,4 +19,7 @@ export 'src/input/map_pointure_gesture_state.dart';
 
 export "src/modes/trip_editor/map_editor_mode.dart";
 
+export "src/mode_machine/mode_command.dart";
+export "src/mode_machine/mode_controller.dart";
+
 export 'src/domain/gestures/map_gesture.dart';

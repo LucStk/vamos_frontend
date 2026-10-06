@@ -2,7 +2,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
 import '../../../map_engine.dart';
-import '../../mode_machine/mode_command.dart';
 
 final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
     with

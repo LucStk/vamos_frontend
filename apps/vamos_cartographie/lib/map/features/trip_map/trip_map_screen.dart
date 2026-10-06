@@ -18,7 +18,7 @@ import '../../presentation/base_map_screen.dart';
 import 'presentation/bottom_sheet/map_bottom_sheet.dart';
 import 'presentation/map_top_bar.dart';
 
-@Dependencies([ mapScene])
+@Dependencies([mapScene])
 class TripMapScreen extends StatefulWidget {
   const TripMapScreen({super.key, required this.tripId, this.initialVision});
   final TripId tripId;
@@ -45,10 +45,7 @@ class _TripMapScreenState extends State<TripMapScreen>
   }
 }
 
-@Dependencies([
-  CameraOrNull,
-  mapCamera,
-])
+@Dependencies([CameraOrNull, mapCamera])
 class _TripMapResolver extends ConsumerWidget {
   const _TripMapResolver({required this.tripId});
   final TripId tripId;
@@ -62,7 +59,8 @@ class _TripMapResolver extends ConsumerWidget {
     );
     final isOwner = ref.watch(currentUserIdProvider) == tripOwnerId.value;
 
-    final controller = isOwner ? ref.watch(mapEditorProvider(tripId).notifier) :
+    // final controller = isOwner ? ref.watch(mapEditorProvider(tripId).notifier) :
+    final controller = ref.watch(mapEditorProvider(tripId).notifier);
     return ProviderScope(
       overrides: [
         mapSceneProvider.overrideWith(
@@ -78,12 +76,7 @@ class _TripMapResolver extends ConsumerWidget {
   }
 }
 
-@Dependencies([
-  CameraOrNull,
-  mapScene,
-  mapCamera,
-  userLocationTrigger,
-])
+@Dependencies([CameraOrNull, mapScene, mapCamera, userLocationTrigger])
 class _TripMapView extends ConsumerWidget {
   final Id<Trip> tripId;
   final bool isOwner;
