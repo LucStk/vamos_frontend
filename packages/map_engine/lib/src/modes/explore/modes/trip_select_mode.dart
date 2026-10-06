@@ -11,9 +11,6 @@ final class TripSelectMode extends MapExploreMode
   final PopUpPositionType popUpPosition;
 
   @override
-  MapTripObject get selection => trip;
-
-  @override
   TripSelectMode withPopupPosition(ScreenOffset position) =>
       copyWith(popUpPosition: position);
 

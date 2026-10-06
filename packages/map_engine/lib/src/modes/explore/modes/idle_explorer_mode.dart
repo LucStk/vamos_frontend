@@ -6,9 +6,7 @@ mixin ExploreBehavior on MapExploreMode {
 
   @override
   GestureResult<MapExploreMode> onTap(TapGesture g) => switch (g.element) {
-    MapTripObject e when !e.isSameAs(selection) => GestureResult.to(
-      TripSelectMode(trip: e),
-    ),
+    MapTripObject e => GestureResult.to(TripSelectMode(trip: e)),
     MapUserLocation _ || null => GestureResult.to(withPopupPosition(g.offset)),
     _ => GestureResult.none(),
   };
@@ -21,9 +19,6 @@ final class IdleExplorer extends MapExploreMode
 
   @override
   final PopUpPositionType popUpPosition;
-
-  @override
-  MapTripObject? get selection => null;
 
   @override
   IdleExplorer withPopupPosition(ScreenOffset position) =>

@@ -35,3 +35,6 @@ export "src/modes/explore/idle_explorer_intents.dart";
 
 // export "src/modes/explore/modes/idle_explorer_mode.dart";
 // export "src/modes/explore/modes/trip_select_mode.dart";
+
+export "src/modes/view_trip/view_trip_mode.dart";
+export "src/modes/view_trip/view_trip_command_resolver.dart";

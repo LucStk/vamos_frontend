@@ -1,4 +1,5 @@
 import 'package:flutter/painting.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../camera/application/map_geo_mappers.dart';
@@ -14,11 +15,16 @@ void tripBoundsTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 
   ref.listen(mapExploreProvider, (previous, next) {
-    if (next.selection == null ||
-        next.selection!.isSameAs(previous?.selection)) {
+    if (next is! TripSelectMode) {
       return;
     }
-    final bounds = ref.read(mapTripObjectProvider(next.selection!.id)).bounds;
+    if ((previous, next) case (
+      TripSelectMode m,
+      TripSelectMode t,
+    ) when m.trip.isSameAs(t.trip)) {
+      return;
+    }
+    final bounds = ref.read(mapTripObjectProvider(next.trip.id)).bounds;
     if (bounds == null) {
       return;
     }

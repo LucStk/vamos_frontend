@@ -1,6 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -17,6 +18,7 @@ import '/map/injection/map_scene.dart';
 import '../../presentation/base_map_screen.dart';
 import 'injection/map_editor_mode.dart';
 import 'injection/trip_editor_scene.dart';
+import 'injection/trip_view_mode.dart';
 import 'presentation/bottom_sheet/map_bottom_sheet.dart';
 import 'presentation/map_top_bar.dart';
 
@@ -62,7 +64,9 @@ class _TripMapResolver extends ConsumerWidget {
     final isOwner = ref.watch(currentUserIdProvider) == tripOwnerId.value;
 
     // final controller = isOwner ? ref.watch(mapEditorProvider(tripId).notifier) :
-    final editorMode = ref.watch(mapEditorProvider(tripId));
+    final BaseMode editorMode = isOwner
+        ? ref.watch(mapEditorProvider(tripId))
+        : ref.watch(tripViewerProvider(tripId));
     return ProviderScope(
       overrides: [
         mapModeProvider.overrideWithValue(editorMode),

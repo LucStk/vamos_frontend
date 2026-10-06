@@ -12,7 +12,4 @@ part 'modes/trip_select_mode.dart';
 
 sealed class MapExploreMode extends BaseMode<MapExploreMode> {
   const MapExploreMode();
-
-  /// Redéclaré pour garder le type étroit de l'ancien code.
-  MapTripObject? get selection;
 }

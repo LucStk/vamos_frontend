@@ -1,4 +1,5 @@
-import '../../../map_engine.dart';
+import "../../mode_machine/mode_command.dart";
+import "map_explore_mode.dart";
 
 final class ExploreCommandResolver extends ModeCommandResolver<MapExploreMode> {
   const ExploreCommandResolver();

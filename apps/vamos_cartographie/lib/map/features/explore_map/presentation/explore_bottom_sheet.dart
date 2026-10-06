@@ -19,11 +19,10 @@ class ExploreBottomSheet extends ConsumerWidget {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
     final mode = ref.watch(mapExploreProvider);
 
-    switch (mode.selection) {
-      case MapTripObject e:
-        return TripBottomSheet(tripId: e.id);
-
-      case null:
+    switch (mode) {
+      case TripSelectMode e:
+        return TripBottomSheet(tripId: e.trip.id);
+      case _:
         return CreateTripBottomSheet();
     }
   }
