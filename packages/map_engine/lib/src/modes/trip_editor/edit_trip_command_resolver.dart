@@ -1,21 +1,26 @@
-import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
-import '../../../map_engine.dart';
+import '../../domain/camera/map_camera.dart';
+import '../../mode_machine/base_command.dart';
+import '../../mode_machine/base_command_resolver.dart';
+import '../../mode_machine/mode_command.dart';
+import 'map_editor_command.dart';
+import 'map_editor_mode.dart';
+
+mixin GraphReader {}
 
 final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
     with
-        GraphReader,
         WaypointReader,
-        ScreenProjector,
         IdleEditorResolver,
         VertexSelectResolver,
         SegmentSelectResolver,
-        SketchResolver {
+        SketchResolver,
+        BaseCommandResolver {
   const EditTripCommandResolver({
     required this.graphEditor,
     required this.waypointEditor,
-    required this.screenToLatLng,
+    required this.camera,
   });
 
   @override
@@ -23,12 +28,12 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
   @override
   final WaypointEditor waypointEditor;
   @override
-  final LatLng? Function(ScreenOffset) screenToLatLng;
-
+  final MapCameraController camera;
   @override
   Future<R?> resolve<R extends Object>(
     ModeCommand<MapEditorMode, R> command,
   ) async {
+    if (command is BaseCommand<R>) return resolveBase(command);
     if (command is! EditorCommand<R>) return null;
 
     final Object? result = await switch (command) {

@@ -1,5 +1,6 @@
 import 'package:latlong2/latlong.dart';
 
+import '../../../map_editor_command.dart';
 import '/src/mode_machine/gesture_result.dart';
 import '../../../map_editor_mode.dart';
 

@@ -22,7 +22,7 @@ class MapEditor extends _$MapEditor with ModeControllerMixin<MapEditorMode> {
     resolver = EditTripCommandResolver(
       graphEditor: graphEditor,
       waypointEditor: waypointEditor,
-      screenToLatLng: mapCamera.screenOffsetToLatLng,
+      camera: mapCamera,
     );
     final nbVertex = ref
         .read(graphStoreProvider(tripId))

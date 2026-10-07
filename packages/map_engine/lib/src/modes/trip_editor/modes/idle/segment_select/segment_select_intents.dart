@@ -1,4 +1,5 @@
-import '../../../../../mode_machine/gesture_result.dart';
+import '/src/mode_machine/gesture_result.dart';
+import '../../../map_editor_command.dart';
 import '../../../map_editor_mode.dart';
 
 abstract final class SegmentSelectIntents {

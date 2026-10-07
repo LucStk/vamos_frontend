@@ -24,28 +24,3 @@ final class IdleEditor extends MapEditorMode with IdleBehavior, _$IdleEditor {
   IdleEditor withPopupPosition(ScreenOffset position) =>
       copyWith(popUpPosition: position);
 }
-
-sealed class IdleEditorCommand<R extends Object> extends EditorCommand<R> {
-  const IdleEditorCommand();
-}
-
-final class CreateSimpleVertex extends IdleEditorCommand<Done> {
-  const CreateSimpleVertex(this.position);
-  final LatLng position;
-}
-
-final class CreateWaypointFromPosition extends IdleEditorCommand<Done> {
-  const CreateWaypointFromPosition(this.position);
-  final LatLng position;
-}
-
-mixin IdleEditorResolver on GraphReader, WaypointReader {
-  Future<Object?> resolveIdle(IdleEditorCommand command) => switch (command) {
-    CreateSimpleVertex(:final position) => done(
-      () => graphEditor.createSimpleVertex(position),
-    ),
-    CreateWaypointFromPosition(:final position) => done(
-      () => waypointEditor.createBlankWaypointFromPosition(position),
-    ),
-  };
-}
