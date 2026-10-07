@@ -134,13 +134,15 @@ class FlutterMapCamera implements MapCameraController {
 
   @override
   void zoomIn({LatLng? latLng}) {
+    final zoom = min(_camera.zoom + 1, _camera.maxZoom ?? 20);
+
     if (_hasAnimation) {
-      _animatedController!.animatedZoomIn();
-    } else {
-      mapController.move(
-        latLng ?? _camera.center,
-        min(_camera.zoom + 1, _camera.maxZoom ?? 20),
+      _animatedController!.animateTo(
+        dest: latLng ?? _camera.center,
+        zoom: zoom,
       );
+    } else {
+      mapController.move(latLng ?? _camera.center, zoom);
     }
   }
 

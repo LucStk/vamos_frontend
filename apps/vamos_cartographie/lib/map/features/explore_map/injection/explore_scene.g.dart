@@ -240,12 +240,17 @@ final class ExploreSceneProvider
         retry: null,
         name: r'exploreSceneProvider',
         isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[projectedExploreSceneProvider],
+        dependencies: <ProviderOrFamily>[
+          projectedExploreSceneProvider,
+          mapExploreProvider,
+        ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           ExploreSceneProvider.$allTransitiveDependencies0,
           ExploreSceneProvider.$allTransitiveDependencies1,
           ExploreSceneProvider.$allTransitiveDependencies2,
           ExploreSceneProvider.$allTransitiveDependencies3,
+          ExploreSceneProvider.$allTransitiveDependencies4,
+          ExploreSceneProvider.$allTransitiveDependencies5,
         },
       );
 
@@ -256,6 +261,9 @@ final class ExploreSceneProvider
       ProjectedExploreSceneProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies3 =
       ProjectedExploreSceneProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies4 = mapExploreProvider;
+  static final $allTransitiveDependencies5 =
+      MapExploreProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$exploreSceneHash();
@@ -279,4 +287,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'8b73278af35f7b18a5be40f3134efab1f9b92778';
+String _$exploreSceneHash() => r'45aa5672fa088d6a8f2e5b568a831a163c8d8991';
