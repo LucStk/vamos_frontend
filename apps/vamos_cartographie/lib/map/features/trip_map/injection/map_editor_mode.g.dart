@@ -60,7 +60,7 @@ final class MapEditorProvider
   }
 }
 
-String _$mapEditorHash() => r'57a01792a3ee64993adb0d5cb398613c35bcaded';
+String _$mapEditorHash() => r'051f6de725e24eedee118c04acda6f5fb1a01278';
 
 final class MapEditorFamily extends $Family
     with

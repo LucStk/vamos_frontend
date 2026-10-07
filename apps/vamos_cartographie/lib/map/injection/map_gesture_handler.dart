@@ -17,6 +17,7 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
     hitTest: _hitTest,
   );
   late final PendingTapTimer _tapTimer = PendingTapTimer(
+    timeout: const Duration(milliseconds: 149),
     onTimeout: _onTapTimeout,
   );
 
