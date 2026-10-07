@@ -26,6 +26,11 @@ class LongPressGesture extends MapGesture {
   final MapObject? element;
 }
 
+class SecondaryTapGesture extends MapGesture {
+  const SecondaryTapGesture(super.offset, {required this.element});
+  final MapObject? element;
+}
+
 class DragStartGesture extends MapGesture {
   const DragStartGesture(super.offset, {required this.dragged});
   final MapObject? dragged;

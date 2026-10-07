@@ -49,6 +49,13 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
     }
   }
 
+  void onSecondaryClick(ScreenOffset offset) {
+    final element = _hitTest(offset: offset);
+    ref
+        .read(mapModeControllerProvider)
+        .send(SecondaryTapGesture(offset, element: element), offset);
+  }
+
   /// Point d'entrée unique : events pointeur et expiration du timer.
   void onPointerEvent(PointerEventType event, ScreenOffset offset) {
     final gesture = _resolver.resolve(event, offset);

@@ -21,6 +21,7 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
       TapGesture() => onTap(gesture),
       DoubleTapGesture() => onDoubleTap(gesture),
       LongPressGesture() => onLongPress(gesture),
+      SecondaryTapGesture() => onSecondaryTap(gesture),
     };
   }
 
@@ -34,4 +35,6 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
   GestureResult<Self> onDoubleTap(DoubleTapGesture g) =>
       GestureResult.run(ZoomIn(g.offset));
   GestureResult<Self> onLongPress(LongPressGesture g) => GestureResult.none();
+  GestureResult<Self> onSecondaryTap(SecondaryTapGesture g) =>
+      GestureResult.none();
 }

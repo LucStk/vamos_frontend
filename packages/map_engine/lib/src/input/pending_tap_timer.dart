@@ -1,5 +1,6 @@
-import 'dart:async';
 import 'map_pointure_gesture_state.dart';
+
+import 'dart:async';
 
 class PendingTapTimer {
   PendingTapTimer({
