@@ -16,7 +16,7 @@ mixin IdleBehavior on MapEditorMode {
   @override
   GestureResult<MapEditorMode> onSecondaryTap(SecondaryTapGesture g) =>
       switch (g.element) {
-        _ => GestureResult.none(),
+        _ => GestureResult.decorate(IdleMenu(g.offset)),
       };
 }
 

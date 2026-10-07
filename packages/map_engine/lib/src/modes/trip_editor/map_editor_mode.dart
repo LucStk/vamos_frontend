@@ -2,12 +2,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
-import '../../domain/gestures/map_gesture.dart';
-import '../../domain/objects/map_objects.dart';
-import '../../domain/space/offset_type.dart';
-import '../../mode_machine/base_mode_model.dart';
-import '../../mode_machine/gesture_result.dart';
+import '/src/domain/gestures/map_gesture.dart';
+import '/src/domain/objects/map_objects.dart';
+import '/src/domain/space/offset_type.dart';
+import '/src/mode_machine/base_mode_model.dart';
+import '/src/mode_machine/gesture_result.dart';
 import 'map_editor_command.dart';
+import 'modes/idle/idle/idle_menu.dart';
+
 part 'modes/sketch/sketch_mode.dart';
 part "modes/sketch/sketch_creation_mode.dart";
 part "modes/sketch/sketch_edition_mode.dart";
