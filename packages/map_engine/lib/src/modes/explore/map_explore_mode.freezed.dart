@@ -16,65 +16,29 @@ T _$identity<T>(T value) => value;
 mixin _$IdleExplorer {
 
 
-/// Create a copy of IdleExplorer
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$IdleExplorerCopyWith<IdleExplorer> get copyWith => _$IdleExplorerCopyWithImpl<IdleExplorer>(this as IdleExplorer, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  final _this = this as IdleExplorer;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleExplorer&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleExplorer);
 }
 
 
 @override
-int get hashCode {
-  final _this = this as IdleExplorer;
-  return Object.hash(runtimeType,_this.popUpPosition);
-}
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  final _this = this as IdleExplorer;
-  return 'IdleExplorer(popUpPosition: ${_this.popUpPosition})';
+    return 'IdleExplorer()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $IdleExplorerCopyWith<$Res>  {
-  factory $IdleExplorerCopyWith(IdleExplorer value, $Res Function(IdleExplorer) _then) = _$IdleExplorerCopyWithImpl;
-@useResult
-$Res call({
- PopUpPositionType? popUpPosition
-});
-
-
-
-
-}
-/// @nodoc
-class _$IdleExplorerCopyWithImpl<$Res>
-    implements $IdleExplorerCopyWith<$Res> {
-  _$IdleExplorerCopyWithImpl(this._self, this._then);
-
-  final IdleExplorer _self;
-  final $Res Function(IdleExplorer) _then;
-
-/// Create a copy of IdleExplorer
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? popUpPosition = freezed,}) {
-  return _then(IdleExplorer(
-popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
-  ));
-}
-
+class $IdleExplorerCopyWith<$Res>  {
+$IdleExplorerCopyWith(IdleExplorer _, $Res Function(IdleExplorer) __);
 }
 
 
@@ -217,20 +181,20 @@ $TripSelectModeCopyWith<TripSelectMode> get copyWith => _$TripSelectModeCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as TripSelectMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TripSelectMode&&(identical(other.trip, _this.trip) || other.trip == _this.trip)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TripSelectMode&&(identical(other.trip, _this.trip) || other.trip == _this.trip));
 }
 
 
 @override
 int get hashCode {
   final _this = this as TripSelectMode;
-  return Object.hash(runtimeType,_this.trip,_this.popUpPosition);
+  return Object.hash(runtimeType,_this.trip);
 }
 
 @override
 String toString() {
   final _this = this as TripSelectMode;
-  return 'TripSelectMode(trip: ${_this.trip}, popUpPosition: ${_this.popUpPosition})';
+  return 'TripSelectMode(trip: ${_this.trip})';
 }
 
 
@@ -241,7 +205,7 @@ abstract mixin class $TripSelectModeCopyWith<$Res>  {
   factory $TripSelectModeCopyWith(TripSelectMode value, $Res Function(TripSelectMode) _then) = _$TripSelectModeCopyWithImpl;
 @useResult
 $Res call({
- MapTripObject trip, PopUpPositionType? popUpPosition
+ MapTripObject trip
 });
 
 
@@ -258,11 +222,10 @@ class _$TripSelectModeCopyWithImpl<$Res>
 
 /// Create a copy of TripSelectMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? trip = null,Object? popUpPosition = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? trip = null,}) {
   return _then(TripSelectMode(
 trip: null == trip ? _self.trip : trip // ignore: cast_nullable_to_non_nullable
-as MapTripObject,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
+as MapTripObject,
   ));
 }
 

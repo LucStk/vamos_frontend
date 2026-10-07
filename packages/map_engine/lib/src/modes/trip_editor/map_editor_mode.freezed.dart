@@ -583,65 +583,29 @@ as PopUpPositionType?,
 mixin _$InitTripMode {
 
 
-/// Create a copy of InitTripMode
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$InitTripModeCopyWith<InitTripMode> get copyWith => _$InitTripModeCopyWithImpl<InitTripMode>(this as InitTripMode, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  final _this = this as InitTripMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitTripMode&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is InitTripMode);
 }
 
 
 @override
-int get hashCode {
-  final _this = this as InitTripMode;
-  return Object.hash(runtimeType,_this.popUpPosition);
-}
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  final _this = this as InitTripMode;
-  return 'InitTripMode(popUpPosition: ${_this.popUpPosition})';
+    return 'InitTripMode()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $InitTripModeCopyWith<$Res>  {
-  factory $InitTripModeCopyWith(InitTripMode value, $Res Function(InitTripMode) _then) = _$InitTripModeCopyWithImpl;
-@useResult
-$Res call({
- ScreenOffset? popUpPosition
-});
-
-
-
-
-}
-/// @nodoc
-class _$InitTripModeCopyWithImpl<$Res>
-    implements $InitTripModeCopyWith<$Res> {
-  _$InitTripModeCopyWithImpl(this._self, this._then);
-
-  final InitTripMode _self;
-  final $Res Function(InitTripMode) _then;
-
-/// Create a copy of InitTripMode
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? popUpPosition = freezed,}) {
-  return _then(InitTripMode(
-popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as ScreenOffset?,
-  ));
-}
-
+class $InitTripModeCopyWith<$Res>  {
+$InitTripModeCopyWith(InitTripMode _, $Res Function(InitTripMode) __);
 }
 
 
@@ -720,10 +684,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenOffset? popUpPosition)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function()?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InitTripMode() when $default != null:
-return $default(_that.popUpPosition);case _:
+return $default();case _:
   return orElse();
 
 }
@@ -741,10 +705,10 @@ return $default(_that.popUpPosition);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenOffset? popUpPosition)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function()  $default,) {final _that = this;
 switch (_that) {
 case _InitTripMode():
-return $default(_that.popUpPosition);}
+return $default();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -758,10 +722,10 @@ return $default(_that.popUpPosition);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenOffset? popUpPosition)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function()?  $default,) {final _that = this;
 switch (_that) {
 case _InitTripMode() when $default != null:
-return $default(_that.popUpPosition);case _:
+return $default();case _:
   return null;
 
 }
@@ -773,133 +737,61 @@ return $default(_that.popUpPosition);case _:
 
 
 class _InitTripMode extends InitTripMode {
-   _InitTripMode({ ScreenOffset? popUpPosition}): super._(popUpPosition: popUpPosition);
+   _InitTripMode(): super._();
   
 
 
 
-/// Create a copy of InitTripMode
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$InitTripModeCopyWith<_InitTripMode> get copyWith => __$InitTripModeCopyWithImpl<_InitTripMode>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InitTripMode&&(identical(other.popUpPosition, popUpPosition) || other.popUpPosition == popUpPosition));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InitTripMode);
 }
 
 
 @override
-int get hashCode {
-    return Object.hash(runtimeType,popUpPosition);
-}
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-    return 'InitTripMode(popUpPosition: $popUpPosition)';
+    return 'InitTripMode()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$InitTripModeCopyWith<$Res> implements $InitTripModeCopyWith<$Res> {
-  factory _$InitTripModeCopyWith(_InitTripMode value, $Res Function(_InitTripMode) _then) = __$InitTripModeCopyWithImpl;
-@override @useResult
-$Res call({
- ScreenOffset? popUpPosition
-});
 
 
-
-
-}
-/// @nodoc
-class __$InitTripModeCopyWithImpl<$Res>
-    implements _$InitTripModeCopyWith<$Res> {
-  __$InitTripModeCopyWithImpl(this._self, this._then);
-
-  final _InitTripMode _self;
-  final $Res Function(_InitTripMode) _then;
-
-/// Create a copy of InitTripMode
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? popUpPosition = freezed,}) {
-  return _then(_InitTripMode(
-popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as ScreenOffset?,
-  ));
-}
-
-
-}
 
 /// @nodoc
 mixin _$IdleEditor {
 
 
-/// Create a copy of IdleEditor
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$IdleEditorCopyWith<IdleEditor> get copyWith => _$IdleEditorCopyWithImpl<IdleEditor>(this as IdleEditor, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  final _this = this as IdleEditor;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleEditor&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleEditor);
 }
 
 
 @override
-int get hashCode {
-  final _this = this as IdleEditor;
-  return Object.hash(runtimeType,_this.popUpPosition);
-}
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  final _this = this as IdleEditor;
-  return 'IdleEditor(popUpPosition: ${_this.popUpPosition})';
+    return 'IdleEditor()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $IdleEditorCopyWith<$Res>  {
-  factory $IdleEditorCopyWith(IdleEditor value, $Res Function(IdleEditor) _then) = _$IdleEditorCopyWithImpl;
-@useResult
-$Res call({
- PopUpPositionType? popUpPosition
-});
-
-
-
-
-}
-/// @nodoc
-class _$IdleEditorCopyWithImpl<$Res>
-    implements $IdleEditorCopyWith<$Res> {
-  _$IdleEditorCopyWithImpl(this._self, this._then);
-
-  final IdleEditor _self;
-  final $Res Function(IdleEditor) _then;
-
-/// Create a copy of IdleEditor
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? popUpPosition = freezed,}) {
-  return _then(IdleEditor(
-popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
-  ));
-}
-
+class $IdleEditorCopyWith<$Res>  {
+$IdleEditorCopyWith(IdleEditor _, $Res Function(IdleEditor) __);
 }
 
 
@@ -1042,20 +934,20 @@ $VertexSelectModeCopyWith<VertexSelectMode> get copyWith => _$VertexSelectModeCo
 @override
 bool operator ==(Object other) {
   final _this = this as VertexSelectMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelectMode&&(identical(other.vertex, _this.vertex) || other.vertex == _this.vertex)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelectMode&&(identical(other.vertex, _this.vertex) || other.vertex == _this.vertex));
 }
 
 
 @override
 int get hashCode {
   final _this = this as VertexSelectMode;
-  return Object.hash(runtimeType,_this.vertex,_this.popUpPosition);
+  return Object.hash(runtimeType,_this.vertex);
 }
 
 @override
 String toString() {
   final _this = this as VertexSelectMode;
-  return 'VertexSelectMode(vertex: ${_this.vertex}, popUpPosition: ${_this.popUpPosition})';
+  return 'VertexSelectMode(vertex: ${_this.vertex})';
 }
 
 
@@ -1066,7 +958,7 @@ abstract mixin class $VertexSelectModeCopyWith<$Res>  {
   factory $VertexSelectModeCopyWith(VertexSelectMode value, $Res Function(VertexSelectMode) _then) = _$VertexSelectModeCopyWithImpl;
 @useResult
 $Res call({
- MapVertex vertex, PopUpPositionType? popUpPosition
+ MapVertex vertex
 });
 
 
@@ -1083,11 +975,10 @@ class _$VertexSelectModeCopyWithImpl<$Res>
 
 /// Create a copy of VertexSelectMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? vertex = null,Object? popUpPosition = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? vertex = null,}) {
   return _then(VertexSelectMode(
 vertex: null == vertex ? _self.vertex : vertex // ignore: cast_nullable_to_non_nullable
-as MapVertex,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
+as MapVertex,
   ));
 }
 
@@ -1233,20 +1124,20 @@ $SegmentSelectModeCopyWith<SegmentSelectMode> get copyWith => _$SegmentSelectMod
 @override
 bool operator ==(Object other) {
   final _this = this as SegmentSelectMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelectMode&&(identical(other.segment, _this.segment) || other.segment == _this.segment)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelectMode&&(identical(other.segment, _this.segment) || other.segment == _this.segment));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SegmentSelectMode;
-  return Object.hash(runtimeType,_this.segment,_this.popUpPosition);
+  return Object.hash(runtimeType,_this.segment);
 }
 
 @override
 String toString() {
   final _this = this as SegmentSelectMode;
-  return 'SegmentSelectMode(segment: ${_this.segment}, popUpPosition: ${_this.popUpPosition})';
+  return 'SegmentSelectMode(segment: ${_this.segment})';
 }
 
 
@@ -1257,7 +1148,7 @@ abstract mixin class $SegmentSelectModeCopyWith<$Res>  {
   factory $SegmentSelectModeCopyWith(SegmentSelectMode value, $Res Function(SegmentSelectMode) _then) = _$SegmentSelectModeCopyWithImpl;
 @useResult
 $Res call({
- MapSegment segment, PopUpPositionType? popUpPosition
+ MapSegment segment
 });
 
 
@@ -1274,11 +1165,10 @@ class _$SegmentSelectModeCopyWithImpl<$Res>
 
 /// Create a copy of SegmentSelectMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,Object? popUpPosition = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,}) {
   return _then(SegmentSelectMode(
 segment: null == segment ? _self.segment : segment // ignore: cast_nullable_to_non_nullable
-as MapSegment,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
+as MapSegment,
   ));
 }
 

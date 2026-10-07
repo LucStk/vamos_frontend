@@ -7,7 +7,6 @@ typedef PopUpPositionType = ScreenOffset?;
 
 abstract class BaseMode<Self extends BaseMode<Self>> {
   const BaseMode();
-  PopUpPositionType get popUpPosition;
 
   GestureResult<Self>? dispatchGesture(
     MapGesture gesture,

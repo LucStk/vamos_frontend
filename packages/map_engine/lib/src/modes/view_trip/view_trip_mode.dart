@@ -3,7 +3,6 @@ import '../../domain/objects/map_objects.dart';
 import '../../mode_machine/base_mode_model.dart';
 import '../../mode_machine/gesture_result.dart';
 
-import "/src/domain/space/offset_type.dart";
 import 'package:freezed_annotation/freezed_annotation.dart';
 part "modes/segment_select_mode.dart";
 part "modes/vertex_select_mode.dart";

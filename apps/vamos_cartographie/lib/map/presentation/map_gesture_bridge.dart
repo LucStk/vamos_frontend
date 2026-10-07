@@ -22,19 +22,18 @@ class MapGestureBridge extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final gestureHandler = ref.read(mapGestureHandlerProvider.notifier);
-    @Dependencies([MapGestureHandlerNotifier])
     void resolve(PointerEventType type, PointerEvent event) {
       final offset = ScreenOffset(event.localPosition);
       gestureHandler.onPointerEvent(type, offset);
     }
 
-    bool _secondaryPressed = false;
+    bool secondaryPressed = false;
 
     return Listener(
       behavior: HitTestBehavior.translucent,
       onPointerDown: (event) {
         if (isSecondaryClick(event)) {
-          _secondaryPressed = true;
+          secondaryPressed = true;
 
           final offset = ScreenOffset(event.localPosition);
           gestureHandler.onSecondaryClick(offset);
@@ -43,17 +42,17 @@ class MapGestureBridge extends ConsumerWidget {
         resolve(PointerEventType.down, event);
       },
       onPointerMove: (event) {
-        if (_secondaryPressed) return;
+        if (secondaryPressed) return;
         resolve(PointerEventType.move, event);
       },
       onPointerUp: (event) {
-        if (_secondaryPressed) {
-          _secondaryPressed = false;
+        if (secondaryPressed) {
+          secondaryPressed = false;
           return;
         }
         resolve(PointerEventType.up, event);
       },
-      onPointerCancel: (event) => _secondaryPressed = false,
+      onPointerCancel: (event) => secondaryPressed = false,
       child: MapCanvas(layers: mapLayers),
     );
   }

@@ -27,20 +27,20 @@ $SegmentSelectViewModeCopyWith<SegmentSelectViewMode> get copyWith => _$SegmentS
 @override
 bool operator ==(Object other) {
   final _this = this as SegmentSelectViewMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelectViewMode&&(identical(other.segment, _this.segment) || other.segment == _this.segment)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SegmentSelectViewMode&&(identical(other.segment, _this.segment) || other.segment == _this.segment));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SegmentSelectViewMode;
-  return Object.hash(runtimeType,_this.segment,_this.popUpPosition);
+  return Object.hash(runtimeType,_this.segment);
 }
 
 @override
 String toString() {
   final _this = this as SegmentSelectViewMode;
-  return 'SegmentSelectViewMode(segment: ${_this.segment}, popUpPosition: ${_this.popUpPosition})';
+  return 'SegmentSelectViewMode(segment: ${_this.segment})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $SegmentSelectViewModeCopyWith<$Res>  {
   factory $SegmentSelectViewModeCopyWith(SegmentSelectViewMode value, $Res Function(SegmentSelectViewMode) _then) = _$SegmentSelectViewModeCopyWithImpl;
 @useResult
 $Res call({
- MapSegment segment, PopUpPositionType? popUpPosition
+ MapSegment segment
 });
 
 
@@ -68,11 +68,10 @@ class _$SegmentSelectViewModeCopyWithImpl<$Res>
 
 /// Create a copy of SegmentSelectViewMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,Object? popUpPosition = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? segment = null,}) {
   return _then(SegmentSelectViewMode(
 segment: null == segment ? _self.segment : segment // ignore: cast_nullable_to_non_nullable
-as MapSegment,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
+as MapSegment,
   ));
 }
 
@@ -218,20 +217,20 @@ $VertexSelectViewModeCopyWith<VertexSelectViewMode> get copyWith => _$VertexSele
 @override
 bool operator ==(Object other) {
   final _this = this as VertexSelectViewMode;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelectViewMode&&(identical(other.vertex, _this.vertex) || other.vertex == _this.vertex)&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VertexSelectViewMode&&(identical(other.vertex, _this.vertex) || other.vertex == _this.vertex));
 }
 
 
 @override
 int get hashCode {
   final _this = this as VertexSelectViewMode;
-  return Object.hash(runtimeType,_this.vertex,_this.popUpPosition);
+  return Object.hash(runtimeType,_this.vertex);
 }
 
 @override
 String toString() {
   final _this = this as VertexSelectViewMode;
-  return 'VertexSelectViewMode(vertex: ${_this.vertex}, popUpPosition: ${_this.popUpPosition})';
+  return 'VertexSelectViewMode(vertex: ${_this.vertex})';
 }
 
 
@@ -242,7 +241,7 @@ abstract mixin class $VertexSelectViewModeCopyWith<$Res>  {
   factory $VertexSelectViewModeCopyWith(VertexSelectViewMode value, $Res Function(VertexSelectViewMode) _then) = _$VertexSelectViewModeCopyWithImpl;
 @useResult
 $Res call({
- MapVertex vertex, PopUpPositionType? popUpPosition
+ MapVertex vertex
 });
 
 
@@ -259,11 +258,10 @@ class _$VertexSelectViewModeCopyWithImpl<$Res>
 
 /// Create a copy of VertexSelectViewMode
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? vertex = null,Object? popUpPosition = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? vertex = null,}) {
   return _then(VertexSelectViewMode(
 vertex: null == vertex ? _self.vertex : vertex // ignore: cast_nullable_to_non_nullable
-as MapVertex,popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
+as MapVertex,
   ));
 }
 
@@ -398,65 +396,29 @@ case _:
 mixin _$IdleView {
 
 
-/// Create a copy of IdleView
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$IdleViewCopyWith<IdleView> get copyWith => _$IdleViewCopyWithImpl<IdleView>(this as IdleView, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  final _this = this as IdleView;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleView&&(identical(other.popUpPosition, _this.popUpPosition) || other.popUpPosition == _this.popUpPosition));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IdleView);
 }
 
 
 @override
-int get hashCode {
-  final _this = this as IdleView;
-  return Object.hash(runtimeType,_this.popUpPosition);
-}
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  final _this = this as IdleView;
-  return 'IdleView(popUpPosition: ${_this.popUpPosition})';
+    return 'IdleView()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $IdleViewCopyWith<$Res>  {
-  factory $IdleViewCopyWith(IdleView value, $Res Function(IdleView) _then) = _$IdleViewCopyWithImpl;
-@useResult
-$Res call({
- PopUpPositionType? popUpPosition
-});
-
-
-
-
-}
-/// @nodoc
-class _$IdleViewCopyWithImpl<$Res>
-    implements $IdleViewCopyWith<$Res> {
-  _$IdleViewCopyWithImpl(this._self, this._then);
-
-  final IdleView _self;
-  final $Res Function(IdleView) _then;
-
-/// Create a copy of IdleView
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? popUpPosition = freezed,}) {
-  return _then(IdleView(
-popUpPosition: freezed == popUpPosition ? _self.popUpPosition : popUpPosition // ignore: cast_nullable_to_non_nullable
-as PopUpPositionType?,
-  ));
-}
-
+class $IdleViewCopyWith<$Res>  {
+$IdleViewCopyWith(IdleView _, $Res Function(IdleView) __);
 }
 
 
