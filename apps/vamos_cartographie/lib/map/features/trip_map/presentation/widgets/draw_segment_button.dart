@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 
 import '../../injection/map_editor_mode.dart';
 
-@Dependencies([])
+@Dependencies([MapEditor])
 class DrawSegmentButton extends ConsumerWidget {
   final VertexId vertexId;
   final TripId tripId;

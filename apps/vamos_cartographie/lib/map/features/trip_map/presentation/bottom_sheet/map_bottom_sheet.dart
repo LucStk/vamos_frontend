@@ -15,7 +15,7 @@ import 'segment/sketch_bottom_sheet.dart';
 import 'vertex/vertex_bottom_sheet.dart';
 import 'vertex/waypoint_bottom_sheet.dart';
 
-@Dependencies([])
+@Dependencies([MapEditor])
 class MapEditorBottomSheet extends ConsumerWidget {
   final TripId tripId;
 

@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/rendering.dart';
 import "package:domain_core/domain_core.dart";
 
+import 'package:stack_trace/stack_trace.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'domain/notification_type.dart';
 import 'exceptions_mappers/exceptions_mappers.dart';
@@ -38,13 +39,15 @@ class ErrorHandler implements ErrorLogger {
   }
 
   void handle(Object error, StackTrace? stackTrace) {
-    // On limite par exemple aux 5 premières lignes si la stacktrace existe
-    final limitedStackTrace = stackTrace != null
-        ? stackTrace.toString().split('\n').take(15).join('\n')
-        : 'Pas de StackTrace';
+    if (stackTrace != null) {
+      // Convertit en objet Trace puis prend les 15 premiers frames
+      final trace = Trace.from(stackTrace);
+      final limitedTrace = Trace(trace.frames.take(15));
 
-    debugPrint('Erreur capturée globalement : $error ->\n$limitedStackTrace');
-
+      debugPrint('Erreur capturée : $error ->\n$limitedTrace');
+    } else {
+      debugPrint('Erreur capturée : $error -> Pas de StackTrace');
+    }
     // 2. Déclenche la notification système via Riverpod
     _container
         .read(notificationQueueProvider.notifier)

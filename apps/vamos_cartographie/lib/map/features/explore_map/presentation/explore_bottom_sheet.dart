@@ -9,8 +9,10 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import '../injection/explore_mode.dart';
 import 'bottom_sheet/create_trip_bottom_sheet.dart';
 import 'bottom_sheet/trip_bottom_sheet.dart';
+import '/map/injection/map_scene.dart';
+import "/map/injection/map_gesture_handler.dart";
 
-@Dependencies([])
+@Dependencies([mapScene, MapGestureHandlerNotifier])
 class ExploreBottomSheet extends ConsumerWidget {
   const ExploreBottomSheet({super.key});
 

@@ -4,9 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import '../camera/presentation/presentation.dart';
 import 'widgets/user_location_button.dart';
+import '/map/camera/injection/map_camera_provider.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
-@Dependencies([])
+@Dependencies([mapCamera])
 class MapControls extends ConsumerWidget {
   const MapControls({super.key});
 

@@ -11,7 +11,7 @@ import '../../../../../../ui_kit/type_selector/type_selector_view.dart';
 import '../../../../../overlay_ui/simple_bottom_sheet_shell.dart';
 import '../../../injection/map_editor_mode.dart';
 
-@Dependencies([])
+@Dependencies([MapEditor])
 class SketchBottomSheet extends ConsumerWidget {
   final TripId tripId;
 

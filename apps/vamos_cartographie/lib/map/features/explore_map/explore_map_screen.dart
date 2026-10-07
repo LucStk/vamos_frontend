@@ -2,21 +2,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import '../../camera/application/map_camera_lifecycle.dart';
-import '../../camera/injection/camera_or_null.dart';
-import '../../camera/injection/map_camera_provider.dart';
-import '../../camera/injection/user_location_trigger.dart';
-import '../../injection/map_mode.dart';
-import '../../injection/map_scene.dart';
-import '../../presentation/base_map_screen.dart';
+import '/map/camera/application/map_camera_lifecycle.dart';
+import '/map/camera/injection/camera_or_null.dart';
+import '/map/camera/injection/map_camera_provider.dart';
+import '/map/camera/injection/user_location_trigger.dart';
+import '/map/injection/map_mode.dart';
+import '/map/injection/map_scene.dart';
+import '/map/presentation/base_map_screen.dart';
 import '/domain_features/domain_features.dart';
 import 'injection/explore_mode.dart';
 import 'injection/explore_scene.dart';
 import 'injection/trip_bounds_trigger.dart';
 import 'presentation/explore_bottom_sheet.dart';
 import 'presentation/trips_carousel_widget.dart';
+import "/map/camera/injection/camera_director_provider.dart";
+import "/map/injection/map_gesture_handler.dart";
 
-@Dependencies([])
+@Dependencies([
+  userLocationTrigger,
+  tripBoundsTrigger,
+  MapGestureHandlerNotifier,
+])
 class ExploreMapScreen extends StatefulWidget {
   const ExploreMapScreen({super.key});
 
@@ -38,7 +44,14 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
   }
 }
 
-@Dependencies([CameraOrNull, userLocationTrigger, tripBoundsTrigger, mapCamera])
+@Dependencies([
+  tripBoundsTrigger,
+  CameraOrNull,
+  mapCamera,
+  cameraDirector,
+  userLocationTrigger,
+  MapGestureHandlerNotifier,
+])
 class _ExploreSceneResolver extends ConsumerWidget {
   const _ExploreSceneResolver();
 
@@ -56,7 +69,15 @@ class _ExploreSceneResolver extends ConsumerWidget {
   }
 }
 
-@Dependencies([CameraOrNull, mapCamera, userLocationTrigger, tripBoundsTrigger])
+@Dependencies([
+  mapScene,
+  tripBoundsTrigger,
+  CameraOrNull,
+  mapCamera,
+  cameraDirector,
+  userLocationTrigger,
+  MapGestureHandlerNotifier,
+])
 class _ExploreMapView extends ConsumerStatefulWidget {
   const _ExploreMapView();
 

@@ -10,7 +10,7 @@ import '../../../injection/map_editor_mode.dart';
 import '/ui_kit/ui_kit.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([])
+@Dependencies([MapEditor])
 class SegmentBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final SegmentId segmentId;

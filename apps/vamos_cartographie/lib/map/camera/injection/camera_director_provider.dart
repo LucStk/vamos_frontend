@@ -6,7 +6,7 @@ import 'map_camera_provider.dart';
 
 part 'camera_director_provider.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [mapCamera])
 CameraDirector cameraDirector(Ref ref) {
   final director = CameraDirector(camera: () => ref.read(mapCameraProvider));
 

@@ -6,12 +6,12 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import '../../../../../overlay_ui/simple_bottom_sheet_shell.dart';
+import '/map/overlay_ui/simple_bottom_sheet_shell.dart';
 import '../../../injection/map_editor_mode.dart';
 import '../../widgets/draw_segment_button.dart';
 import '/ui_kit/ui_kit.dart';
 
-@Dependencies([])
+@Dependencies([MapEditor])
 class VertexBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;

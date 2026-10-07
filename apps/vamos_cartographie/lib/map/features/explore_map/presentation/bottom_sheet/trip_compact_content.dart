@@ -3,9 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 
-import '../../../../../domain_features/stored_file/presentation/carousel_view.dart';
-import '../../../../../routing/routing.dart';
+import '/domain_features/stored_file/presentation/carousel_view.dart';
+import '/routing/routing.dart';
+import '/map/injection/map_scene.dart';
+import "/map/injection/map_gesture_handler.dart";
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([mapScene, MapGestureHandlerNotifier])
 class TripCompactContent extends StatelessWidget {
   final Trip trip;
   const TripCompactContent({super.key, required this.trip});

@@ -3,17 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import '../../../../../overlay_ui/drag_hint_header.dart';
+import '/map/overlay_ui/drag_hint_header.dart';
 import '../../waypoint_sheet/waypoint_form_dialog.dart';
 import '../../waypoint_sheet/waypoint_header.dart';
 import '../../waypoint_sheet/waypoint_viewer_actions.dart';
 import '../../widgets/draw_segment_button.dart';
 import '/domain_features/domain_features.dart';
-
+import '../../../injection/map_editor_mode.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import '/ui_kit/ui_kit.dart';
 
-@Dependencies([])
+@Dependencies([MapEditor])
 class WaypointCompactContent extends ConsumerWidget {
   final TripId tripId;
   final WaypointFields waypoint;

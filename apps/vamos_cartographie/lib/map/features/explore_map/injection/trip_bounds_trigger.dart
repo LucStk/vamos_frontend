@@ -2,9 +2,9 @@ import 'package:flutter/painting.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../camera/application/map_geo_mappers.dart';
-import '../../../camera/domain/domain.dart';
-import '../../../camera/injection/camera_director_provider.dart';
+import '/map/camera/application/map_geo_mappers.dart';
+import '/map/camera/domain/domain.dart';
+import '/map/camera/injection/camera_director_provider.dart';
 import 'explore_mode.dart';
 import 'explore_scene.dart';
 

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 
-import '../../../../../overlay_ui/draggable_sheet/draggable_bottom_sheet_shell.dart';
+import '/map/overlay_ui/draggable_sheet/draggable_bottom_sheet_shell.dart';
 import '/domain_features/domain_features.dart';
 import 'waypoint_compact_content.dart';
 import 'waypoint_viewer_content.dart';
 
+import 'package:riverpod_annotation/experimental/scope.dart';
+import '../../../injection/map_editor_mode.dart';
+
+@Dependencies([MapEditor])
 class WaypointBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final WaypointId waypointId;
