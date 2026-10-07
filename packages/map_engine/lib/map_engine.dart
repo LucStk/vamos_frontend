@@ -4,6 +4,7 @@ export "src/domain/space/world_segment.dart";
 
 export "src/domain/camera/map_camera.dart";
 export "src/domain/camera/map_geo_bounds.dart";
+export "src/domain/gestures/gesture_sink.dart";
 
 export "src/geometry/camera_to_matrix4.dart";
 export "src/geometry/segment_hit_helpers.dart";

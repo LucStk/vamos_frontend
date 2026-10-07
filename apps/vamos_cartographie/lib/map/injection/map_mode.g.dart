@@ -8,12 +8,22 @@ part of 'map_mode.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// État courant du mode (lecture seule), fourni par le scope.
 
-@ProviderFor(MapMode)
+@ProviderFor(mapMode)
 final mapModeProvider = MapModeProvider._();
 
+/// État courant du mode (lecture seule), fourni par le scope.
+
 final class MapModeProvider
-    extends $NotifierProvider<MapMode, BaseMode<BaseMode<dynamic>>> {
+    extends
+        $FunctionalProvider<
+          BaseMode<BaseMode<dynamic>>,
+          BaseMode<BaseMode<dynamic>>,
+          BaseMode<BaseMode<dynamic>>
+        >
+    with $Provider<BaseMode<BaseMode<dynamic>>> {
+  /// État courant du mode (lecture seule), fourni par le scope.
   MapModeProvider._()
     : super(
         from: null,
@@ -30,7 +40,14 @@ final class MapModeProvider
 
   @$internal
   @override
-  MapMode create() => MapMode();
+  $ProviderElement<BaseMode<BaseMode<dynamic>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  BaseMode<BaseMode<dynamic>> create(Ref ref) {
+    return mapMode(ref);
+  }
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BaseMode<BaseMode<dynamic>> value) {
@@ -41,27 +58,50 @@ final class MapModeProvider
   }
 }
 
-String _$mapModeHash() => r'ba6dd95ba817846c7d680b7003260d3c541273a9';
+String _$mapModeHash() => r'ca3e096948e878af80084bd932d7d4dc36bd6aa5';
 
-abstract class _$MapMode extends $Notifier<BaseMode<BaseMode<dynamic>>> {
-  BaseMode<BaseMode<dynamic>> build();
-  @$mustCallSuper
+/// Contrôleur du mode actif (reçoit les gestes), fourni par le scope.
+
+@ProviderFor(mapModeController)
+final mapModeControllerProvider = MapModeControllerProvider._();
+
+/// Contrôleur du mode actif (reçoit les gestes), fourni par le scope.
+
+final class MapModeControllerProvider
+    extends $FunctionalProvider<GestureSink, GestureSink, GestureSink>
+    with $Provider<GestureSink> {
+  /// Contrôleur du mode actif (reçoit les gestes), fourni par le scope.
+  MapModeControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mapModeControllerProvider',
+        isAutoDispose: false,
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
+      );
+
   @override
-  WhenComplete runBuild() {
-    final ref =
-        this.ref
-            as $Ref<BaseMode<BaseMode<dynamic>>, BaseMode<BaseMode<dynamic>>>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<
-                BaseMode<BaseMode<dynamic>>,
-                BaseMode<BaseMode<dynamic>>
-              >,
-              BaseMode<BaseMode<dynamic>>,
-              Object?,
-              Object?
-            >;
-    return element.handleCreate(ref, build);
+  String debugGetCreateSourceHash() => _$mapModeControllerHash();
+
+  @$internal
+  @override
+  $ProviderElement<GestureSink> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GestureSink create(Ref ref) {
+    return mapModeController(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GestureSink value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GestureSink>(value),
+    );
   }
 }
+
+String _$mapModeControllerHash() => r'4ea27d260a739e29367ad9cf3814574ce04366cd';

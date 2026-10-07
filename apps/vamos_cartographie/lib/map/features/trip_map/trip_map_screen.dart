@@ -78,12 +78,17 @@ class _TripMapResolver extends ConsumerWidget {
     final BaseMode editorMode = isOwner
         ? ref.watch(mapEditorProvider(tripId))
         : ref.watch(tripViewerProvider(tripId));
+    final editorController = isOwner
+        ? ref.watch(mapEditorProvider(tripId).notifier)
+        : ref.watch(tripViewerProvider(tripId).notifier);
     return ProviderScope(
       overrides: [
         mapModeProvider.overrideWithValue(editorMode),
         mapSceneProvider.overrideWith(
           (ref) => ref.watch(tripEditorSceneProvider(tripId)),
         ),
+
+        mapModeControllerProvider.overrideWithValue(editorController),
       ],
       child: _TripMapView(tripId: tripId, isOwner: isOwner),
     );

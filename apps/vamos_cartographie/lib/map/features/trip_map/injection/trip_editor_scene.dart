@@ -29,7 +29,7 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
   return objects;
 }
 
-@Riverpod(dependencies: [projectedTripEditorScene, MapMode])
+@Riverpod(dependencies: [projectedTripEditorScene, mapMode])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
   final selection =
       ref.watch(

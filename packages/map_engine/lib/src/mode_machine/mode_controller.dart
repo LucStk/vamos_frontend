@@ -1,3 +1,4 @@
+import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
 import '../domain/space/offset_type.dart';
 import 'base_mode_model.dart';
@@ -5,7 +6,7 @@ import 'effect_queue.dart';
 import 'gesture_result.dart';
 import 'mode_command.dart';
 
-mixin ModeControllerMixin<M extends BaseMode<M>> {
+mixin ModeControllerMixin<M extends BaseMode<M>> implements GestureSink {
   M get mode;
 
   void setMode(M mode);

@@ -3,16 +3,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'map_mode.g.dart';
 
+/// État courant du mode (lecture seule), fourni par le scope.
 @Riverpod(keepAlive: true, dependencies: [])
-class MapMode extends _$MapMode {
-  @override
-  BaseMode build() {
-    throw StateError('mapMode doit être fourni par un MapScope');
-  }
+BaseMode mapMode(Ref ref) {
+  throw StateError('mapMode doit être fourni par un MapScope');
+}
 
-  void set(BaseMode mode) {
-    state = mode;
-  }
-
-  void handleGesture(MapGesture gesture, ScreenOffset offset) {}
+/// Contrôleur du mode actif (reçoit les gestes), fourni par le scope.
+@Riverpod(keepAlive: true, dependencies: [])
+GestureSink mapModeController(Ref ref) {
+  throw StateError('mapModeController doit être fourni par un MapScope');
 }

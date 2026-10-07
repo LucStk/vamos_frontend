@@ -35,7 +35,7 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
         mapCameraProvider.overrideWithValue(camera),
         cameraOrNullProvider.overrideWith(CameraOrNull.new),
       ],
-      child: const _ExploreSceneResolver(),
+      child: _ExploreSceneResolver(),
     );
   }
 }
@@ -49,16 +49,16 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
   MapGestureHandlerNotifier,
 ])
 class _ExploreSceneResolver extends ConsumerWidget {
-  const _ExploreSceneResolver();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final exploreMode = ref.watch(mapExploreProvider);
+    final exploreController = ref.watch(mapExploreProvider.notifier);
 
     return ProviderScope(
       overrides: [
         mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
         mapModeProvider.overrideWithValue(exploreMode),
+        mapModeControllerProvider.overrideWithValue(exploreController),
       ],
       child: const _ExploreMapView(),
     );

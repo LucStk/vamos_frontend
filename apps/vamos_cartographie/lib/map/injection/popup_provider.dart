@@ -13,7 +13,7 @@ part 'popup_provider.g.dart';
 // final projection = const Epsg3857().projection;
 
 /// Position écran du popup, recalculée à chaque mouvement de la carte.
-@Riverpod(keepAlive: true, dependencies: [mapCamera, MapMode])
+@Riverpod(keepAlive: true, dependencies: [mapCamera, mapMode])
 WorldOffset? popupWorldPosition(Ref ref) {
   final position = ref.watch(mapModeProvider).popUpPosition;
   if (position == null) return null;
