@@ -7,16 +7,17 @@ import 'dart:math' as math;
 import 'package:riverpod_annotation/experimental/scope.dart';
 
 import '../camera/injection/map_camera_provider.dart';
-import '../domain/map_mode_provider.dart';
+import "map_mode.dart";
 part 'popup_provider.g.dart';
 
 // final projection = const Epsg3857().projection;
 
 /// Position écran du popup, recalculée à chaque mouvement de la carte.
-@Riverpod(keepAlive: true, dependencies: [mapCamera])
+@Riverpod(keepAlive: true, dependencies: [mapCamera, MapMode])
 WorldOffset? popupWorldPosition(Ref ref) {
   final position = ref.watch(mapModeProvider).popUpPosition;
   if (position == null) return null;
+
   final camera = ref.read(mapCameraProvider);
   return camera.screenToWorld(position);
 }

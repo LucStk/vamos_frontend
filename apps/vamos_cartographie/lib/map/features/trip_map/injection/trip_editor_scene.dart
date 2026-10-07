@@ -3,7 +3,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import '../../../domain/map_mode_provider.dart';
+import '../../../injection/map_mode.dart';
 import '../../../injection/user_location_projecter.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
@@ -29,7 +29,7 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
   return objects;
 }
 
-@Riverpod(dependencies: [projectedTripEditorScene])
+@Riverpod(dependencies: [projectedTripEditorScene, MapMode])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
   final selection =
       ref.watch(

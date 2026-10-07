@@ -2,13 +2,13 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../camera/injection/map_camera_provider.dart';
-import '../domain/map_mode_provider.dart';
+import 'map_mode.dart';
 import 'map_scene.dart';
 part 'map_gesture_handler.g.dart';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).
-@Riverpod(keepAlive: true, dependencies: [mapScene, mapCamera])
+@Riverpod(keepAlive: true, dependencies: [mapScene, mapCamera, MapMode])
 class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
   late final PointerGestureResolver _resolver = PointerGestureResolver(
     hitTest: _hitTest,

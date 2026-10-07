@@ -13,4 +13,6 @@ class MapMode extends _$MapMode {
   void set(BaseMode mode) {
     state = mode;
   }
+
+  void handleGesture(MapGesture gesture, ScreenOffset offset) {}
 }

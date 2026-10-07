@@ -25,6 +25,8 @@ final class MapEditorProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapCameraProvider;
+
   @override
   String debugGetCreateSourceHash() => _$mapEditorHash();
 
@@ -58,7 +60,7 @@ final class MapEditorProvider
   }
 }
 
-String _$mapEditorHash() => r'1ddea798a6ff4a5d65afdcd8644c3c1879f54fb2';
+String _$mapEditorHash() => r'57a01792a3ee64993adb0d5cb398613c35bcaded';
 
 final class MapEditorFamily extends $Family
     with
@@ -73,8 +75,10 @@ final class MapEditorFamily extends $Family
     : super(
         retry: null,
         name: r'mapEditorProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          MapEditorProvider.$allTransitiveDependencies0,
+        ],
         isAutoDispose: true,
       );
 
