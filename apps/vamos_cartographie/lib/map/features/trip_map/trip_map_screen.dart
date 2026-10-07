@@ -16,7 +16,6 @@ import '/map/camera/injection/user_location_trigger.dart';
 import "/map/camera/injection/camera_director_provider.dart";
 
 import "/map/injection/map_gesture_handler.dart";
-import "/map/injection/popup_provider.dart";
 import '/map/injection/map_mode.dart';
 import '/map/injection/map_scene.dart';
 import '../../presentation/base_map_screen.dart';
@@ -66,30 +65,30 @@ class _TripMapScreenState extends State<TripMapScreen>
 class _TripMapResolver extends ConsumerWidget {
   const _TripMapResolver({required this.tripId});
   final TripId tripId;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ✅ mapCameraProvider et cameraOrNullProvider déjà overridés
-    // par le MapCameraScope parent (dans ExploreMapScreen), pas besoin
-    // d'un second scope ici.
     final tripOwnerId = ref.watch(
       tripRequiredProvider(tripId).select((s) => s.ownerId),
     );
     final isOwner = ref.watch(currentUserIdProvider) == tripOwnerId.value;
 
-    // final controller = isOwner ? ref.watch(mapEditorProvider(tripId).notifier) :
-    final BaseMode editorMode = isOwner
-        ? ref.watch(mapEditorProvider(tripId).select((m) => m.mode))
-        : ref.watch(tripViewerProvider(tripId).select((m) => m.mode));
-    final editorController = isOwner
+    // State complet : mode + décorateur.
+    final ModeState<BaseMode> modeState = isOwner
+        ? ref.watch(mapEditorProvider(tripId))
+        : ref.watch(tripViewerProvider(tripId));
+
+    final ModeHost editorController = isOwner
         ? ref.watch(mapEditorProvider(tripId).notifier)
         : ref.watch(tripViewerProvider(tripId).notifier);
+
     return ProviderScope(
       overrides: [
-        mapModeProvider.overrideWithValue(editorMode),
+        mapModeProvider.overrideWithValue(modeState.mode),
+        mapDecoratorProvider.overrideWithValue(modeState.decorator),
         mapSceneProvider.overrideWith(
           (ref) => ref.watch(tripEditorSceneProvider(tripId)),
         ),
-
         mapModeControllerProvider.overrideWithValue(editorController),
       ],
       child: _TripMapView(tripId: tripId, isOwner: isOwner),
@@ -98,7 +97,7 @@ class _TripMapResolver extends ConsumerWidget {
 }
 
 @Dependencies([
-  PopUpNotifier,
+  mapDecorator,
   CameraOrNull,
   mapCamera,
   MapEditor,

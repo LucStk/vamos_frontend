@@ -4,3 +4,7 @@ import 'map_gesture.dart';
 abstract interface class GestureSink {
   void send(MapGesture event, ScreenOffset offset);
 }
+
+abstract interface class ModeHost implements GestureSink {
+  void dismissDecorator();
+}

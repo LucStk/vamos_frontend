@@ -5,21 +5,22 @@ import 'package:trip_application/trip_application.dart';
 
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+import '../../../injection/map_mode.dart';
 import '/map/camera/injection/map_camera_provider.dart';
-import '/map/injection/popup_provider.dart';
 import '/map/overlay_ui/popup_overlay.dart';
 import '../injection/map_editor_mode.dart';
 
-@Dependencies([mapCamera, PopUpNotifier])
+@Dependencies([mapCamera, mapDecorator])
 LatLng? popupLatLngPosition(WidgetRef ref, TripId tripId) {
-  final position = ref.watch(popUpProvider);
-  if (position == null) return null;
+  final d = ref.watch(mapDecoratorProvider);
+
+  if (d is! PopupDecorator) return null;
 
   final camera = ref.read(mapCameraProvider);
-  return camera.screenOffsetToLatLng(position);
+  return camera.screenOffsetToLatLng(d.at);
 }
 
-@Dependencies([MapEditor, mapCamera, PopUpNotifier])
+@Dependencies([MapEditor, mapCamera, mapDecorator])
 class PopupCreateVertex extends ConsumerWidget {
   const PopupCreateVertex({super.key, required this.tripId});
   final TripId tripId;

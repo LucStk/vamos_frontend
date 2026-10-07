@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-import '../injection/popup_provider.dart';
+import '../injection/map_mode.dart';
 
-@Dependencies([PopUpNotifier])
+@Dependencies([mapDecorator])
 class PopupOverlayShell extends ConsumerWidget {
   const PopupOverlayShell({super.key, required this.child});
   final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pos = ref.watch(popUpProvider);
-    if (pos == null) return const SizedBox.shrink();
+    final d = ref.watch(mapDecoratorProvider);
+
+    if (d is! PopupDecorator) return const SizedBox.shrink();
 
     return Positioned(
-      left: pos.dx,
-      top: pos.dy,
+      left: d.at.dx,
+      top: d.at.dy,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -1.5),
         child: _PencilPopupContent(child: child),

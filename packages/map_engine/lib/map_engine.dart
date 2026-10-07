@@ -14,6 +14,7 @@ export "src/mode_machine/base_mode_model.dart";
 export 'src/mode_machine/effect_queue.dart';
 export 'src/mode_machine/mode_state.dart';
 export 'src/mode_machine/popup_decorator.dart';
+export 'src/mode_machine/mode_decorator.dart';
 
 export "src/input/pointer_gesture_resolver.dart";
 export "src/input/pending_tap_timer.dart";

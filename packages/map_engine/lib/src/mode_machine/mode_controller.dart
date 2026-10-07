@@ -8,7 +8,7 @@ import 'mode_command.dart';
 import 'mode_decorator.dart';
 import 'mode_state.dart';
 
-mixin ModeControllerMixin<M extends BaseMode<M>> implements GestureSink {
+mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
   ModeState<M> get state;
   void setState(ModeState<M> state);
   M get mode => state.mode;
@@ -27,6 +27,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements GestureSink {
     apply(mode.dispatchGesture(event, offset));
   }
 
+  @override
   void dismissDecorator() {
     if (state.decorator != null) setState(ModeState(mode));
   }
