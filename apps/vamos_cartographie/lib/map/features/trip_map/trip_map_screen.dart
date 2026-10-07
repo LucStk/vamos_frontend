@@ -1,4 +1,3 @@
-import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
@@ -25,6 +24,7 @@ import 'injection/trip_editor_scene.dart';
 import 'injection/trip_view_mode.dart';
 import 'presentation/bottom_sheet/map_bottom_sheet.dart';
 import 'presentation/map_top_bar.dart';
+import 'presentation/popup_create_vertex.dart';
 
 @Dependencies([MapGestureHandlerNotifier])
 class TripMapScreen extends StatefulWidget {
@@ -106,7 +106,7 @@ class _TripMapResolver extends ConsumerWidget {
   MapGestureHandlerNotifier,
 ])
 class _TripMapView extends ConsumerWidget {
-  final Id<Trip> tripId;
+  final TripId tripId;
   final bool isOwner;
 
   const _TripMapView({required this.tripId, required this.isOwner});
@@ -123,6 +123,7 @@ class _TripMapView extends ConsumerWidget {
             overlayChildren: [
               MapTopBar(tripId: tripId),
               MapEditorBottomSheet(tripId: tripId),
+              PopupCreateVertex(tripId: tripId),
             ],
           ),
 

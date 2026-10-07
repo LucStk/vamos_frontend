@@ -15,6 +15,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements GestureSink {
 
   EffectQueue get effectQueue;
 
+  @override
   void send(MapGesture event, ScreenOffset offset) {
     apply(mode.dispatchGesture(event, offset));
   }

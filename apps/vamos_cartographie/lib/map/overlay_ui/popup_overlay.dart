@@ -5,9 +5,9 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import '../injection/popup_provider.dart';
 
 @Dependencies([])
-class PopupOverlay extends ConsumerWidget {
-  const PopupOverlay({super.key});
-
+class PopupOverlayShell extends ConsumerWidget {
+  const PopupOverlayShell({super.key, required this.child});
+  final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pos = ref.watch(popupScreenPositionProvider);
@@ -18,20 +18,16 @@ class PopupOverlay extends ConsumerWidget {
       top: pos.dy,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -1.5),
-        child: _PencilPopup(
-          onCreateStep: () {
-            // TODO: déclencher la création de l'étape
-          },
-        ),
+        child: _PencilPopupContent(child: child),
       ),
     );
   }
 }
 
-class _PencilPopup extends StatelessWidget {
-  const _PencilPopup({required this.onCreateStep});
+class _PencilPopupContent extends StatelessWidget {
+  const _PencilPopupContent({required this.child});
 
-  final VoidCallback onCreateStep;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +41,7 @@ class _PencilPopup extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           color: theme.colorScheme.surface,
           clipBehavior: Clip.antiAlias,
-          child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: TextButton.icon(
-              onPressed: onCreateStep,
-              icon: const Icon(Icons.add, size: 18),
-              label: const Text('Créer étape ici'),
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
-                ),
-                minimumSize: Size.zero,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
+          child: Padding(padding: const EdgeInsets.all(6), child: child),
         ),
 
         // Petite pointe qui indique le point géographique.

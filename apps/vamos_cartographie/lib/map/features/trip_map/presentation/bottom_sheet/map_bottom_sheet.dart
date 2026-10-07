@@ -9,7 +9,6 @@ import '/domain_features/domain_features.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-import 'create_vertex_bt_sheet.dart';
 import 'segment/segment_bottom_sheet_view.dart';
 import 'segment/sketch_bottom_sheet.dart';
 import 'vertex/vertex_bottom_sheet.dart';
@@ -25,10 +24,10 @@ class MapEditorBottomSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
     final editorMode = ref.watch(mapEditorProvider(tripId));
-
     switch (editorMode) {
       case InitTripMode _:
-        return CreateVertexBottomSheet();
+        return SizedBox.shrink();
+      // return CreateVertexBottomSheet();
       case SketchMode _:
         return SketchBottomSheet(tripId: tripId);
       case VertexSelectMode e:

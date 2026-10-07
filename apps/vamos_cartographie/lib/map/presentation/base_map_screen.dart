@@ -9,7 +9,6 @@ import '/map/camera/injection/map_camera_provider.dart';
 
 import '/map/camera/injection/camera_or_null.dart';
 import '/map/layers/map_tile_layer.dart';
-import '/map/overlay_ui/popup_overlay.dart';
 import '/map/overlay_ui/right_control_panel.dart';
 
 import '../injection/map_gesture_handler.dart';
@@ -46,7 +45,6 @@ class BaseMap extends ConsumerWidget {
       children: [
         MapGestureBridge(mapLayers: [MapTileLayer()]),
         const MapControls(),
-        const PopupOverlay(),
         ...overlayChildren,
       ],
     );
