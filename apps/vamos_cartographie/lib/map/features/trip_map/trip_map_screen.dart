@@ -26,7 +26,7 @@ import 'injection/trip_view_mode.dart';
 import 'presentation/bottom_sheet/map_bottom_sheet.dart';
 import 'presentation/map_top_bar.dart';
 
-@Dependencies([mapScene, MapGestureHandlerNotifier])
+@Dependencies([MapGestureHandlerNotifier])
 class TripMapScreen extends StatefulWidget {
   const TripMapScreen({super.key, required this.tripId, this.initialVision});
   final TripId tripId;

@@ -9,21 +9,15 @@ import '/domain_features/auth/providers/auth_providers.dart';
 import 'routes/routes.dart';
 import 'routes/auth_routes.dart' as auth;
 
-import '/map/camera/injection/user_location_trigger.dart';
 import '/map/camera/domain/camera_vision.dart';
 import '/map/features/explore_map/explore_map_screen.dart';
-import '/map/injection/map_scene.dart';
 import "/map/injection/map_gesture_handler.dart";
 
-import '/map/features/explore_map/injection/trip_bounds_trigger.dart';
+// import '/map/camera/injection/user_location_trigger.dart';
+// import '/map/features/explore_map/injection/trip_bounds_trigger.dart';
 part 'app_router.g.dart';
 
-@Dependencies([
-  mapScene,
-  MapGestureHandlerNotifier,
-  userLocationTrigger,
-  tripBoundsTrigger,
-])
+@Dependencies([MapGestureHandlerNotifier])
 @TypedGoRoute<ExploreRoute>(
   path: '/',
   routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],

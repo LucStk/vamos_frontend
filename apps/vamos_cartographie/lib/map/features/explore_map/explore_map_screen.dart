@@ -18,11 +18,7 @@ import 'presentation/trips_carousel_widget.dart';
 import "/map/camera/injection/camera_director_provider.dart";
 import "/map/injection/map_gesture_handler.dart";
 
-@Dependencies([
-  userLocationTrigger,
-  tripBoundsTrigger,
-  MapGestureHandlerNotifier,
-])
+@Dependencies([MapGestureHandlerNotifier])
 class ExploreMapScreen extends StatefulWidget {
   const ExploreMapScreen({super.key});
 

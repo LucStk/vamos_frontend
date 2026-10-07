@@ -6,11 +6,10 @@ import '../../map/camera/domain/domain.dart';
 import '../../map/features/trip_map/trip_map_screen.dart';
 import "/routing/app_router.dart";
 
-import '/map/injection/map_scene.dart';
 import "/map/injection/map_gesture_handler.dart";
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([mapScene, MapGestureHandlerNotifier])
+@Dependencies([MapGestureHandlerNotifier])
 class TripRoute extends GoRouteData with $TripRoute {
   TripRoute({required this.tripId, this.$extra});
 
