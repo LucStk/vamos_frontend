@@ -25,6 +25,8 @@ final class TripViewerProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapCameraProvider;
+
   @override
   String debugGetCreateSourceHash() => _$tripViewerHash();
 
@@ -58,7 +60,7 @@ final class TripViewerProvider
   }
 }
 
-String _$tripViewerHash() => r'e13ec7e64ac739aca7920c11cdb430d1c12eca48';
+String _$tripViewerHash() => r'05803a5eae460914812c3759948236f5c804753c';
 
 final class TripViewerFamily extends $Family
     with
@@ -73,8 +75,10 @@ final class TripViewerFamily extends $Family
     : super(
         retry: null,
         name: r'tripViewerProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          TripViewerProvider.$allTransitiveDependencies0,
+        ],
         isAutoDispose: true,
       );
 

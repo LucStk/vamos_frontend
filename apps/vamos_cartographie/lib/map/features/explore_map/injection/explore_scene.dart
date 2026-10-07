@@ -57,7 +57,7 @@ List<ProjectedObject> projectedExploreScene(Ref ref) {
   return objects;
 }
 
-@Riverpod(dependencies: [projectedExploreScene])
+@Riverpod(dependencies: [projectedExploreScene, MapExplore])
 MapScene exploreScene(Ref ref) {
   final trip = ref.watch(
     mapExploreProvider.select(

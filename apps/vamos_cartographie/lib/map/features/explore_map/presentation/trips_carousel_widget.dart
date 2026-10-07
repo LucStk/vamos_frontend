@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 
 import 'trip_card.dart';
 
-@Dependencies([])
+@Dependencies([MapExplore])
 class TripsCarouselWidget extends ConsumerWidget {
   const TripsCarouselWidget({super.key});
 

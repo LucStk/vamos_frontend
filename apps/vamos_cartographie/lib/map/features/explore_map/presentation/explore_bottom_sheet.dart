@@ -12,7 +12,7 @@ import 'bottom_sheet/trip_bottom_sheet.dart';
 import '/map/injection/map_scene.dart';
 import "/map/injection/map_gesture_handler.dart";
 
-@Dependencies([mapScene, MapGestureHandlerNotifier])
+@Dependencies([mapScene, MapGestureHandlerNotifier, MapExplore])
 class ExploreBottomSheet extends ConsumerWidget {
   const ExploreBottomSheet({super.key});
 

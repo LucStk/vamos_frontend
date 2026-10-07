@@ -1,5 +1,6 @@
 import '../domain/gestures/map_gesture.dart';
 import '../domain/space/offset_type.dart';
+import 'base_command.dart';
 import 'gesture_result.dart';
 
 typedef PopUpPositionType = ScreenOffset?;
@@ -18,7 +19,7 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
       DraggingGesture() => onDragging(gesture, offset),
       DragEndGesture() => onDragEnd(gesture),
       TapGesture() => onTap(gesture),
-      DoubleTapGesture() => null,
+      DoubleTapGesture() => onDoubleTap(gesture),
     };
   }
 
@@ -29,4 +30,6 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
       GestureResult.none();
   GestureResult<Self> onDragEnd(DragEndGesture g) => GestureResult.none();
   GestureResult<Self> onTap(TapGesture g) => GestureResult.none();
+  GestureResult<Self> onDoubleTap(DoubleTapGesture g) =>
+      GestureResult.run(ZoomIn(g.offset));
 }

@@ -24,7 +24,7 @@ abstract class MapCameraController extends MapCameraReader {
   Stream<double> get rotationStream;
   Stream<void> get cameraStream;
   void zoomTo(LatLng latLng, {double deltaZoom});
-  void zoomIn();
+  void zoomIn({LatLng? latLng});
   void zoomOut();
   void rotateTo(double degrees);
   void fitBounds(

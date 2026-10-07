@@ -41,6 +41,7 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
 }
 
 @Dependencies([
+  MapExplore,
   tripBoundsTrigger,
   CameraOrNull,
   mapCamera,
@@ -69,6 +70,7 @@ class _ExploreSceneResolver extends ConsumerWidget {
   mapScene,
   tripBoundsTrigger,
   CameraOrNull,
+  MapExplore,
   mapCamera,
   cameraDirector,
   userLocationTrigger,

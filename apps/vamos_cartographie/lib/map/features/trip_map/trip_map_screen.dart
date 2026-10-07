@@ -54,6 +54,7 @@ class _TripMapScreenState extends State<TripMapScreen>
 }
 
 @Dependencies([
+  TripViewer,
   CameraOrNull,
   mapCamera,
   MapEditor,

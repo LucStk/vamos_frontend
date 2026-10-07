@@ -2,9 +2,11 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../camera/injection/map_camera_provider.dart';
+
 part "explore_mode.g.dart";
 
-@riverpod
+@Riverpod(dependencies: [mapCamera])
 class MapExplore extends _$MapExplore with ModeControllerMixin<MapExploreMode> {
   final _queue = EffectQueue();
   @override
@@ -12,7 +14,8 @@ class MapExplore extends _$MapExplore with ModeControllerMixin<MapExploreMode> {
 
   @override
   MapExploreMode build() {
-    resolver = ExploreCommandResolver();
+    final camera = ref.read(mapCameraProvider);
+    resolver = ExploreCommandResolver(camera);
     return IdleExplorer();
   }
 

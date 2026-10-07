@@ -10,7 +10,7 @@ import 'explore_scene.dart';
 
 part "trip_bounds_trigger.g.dart";
 
-@Riverpod(dependencies: [cameraDirector])
+@Riverpod(dependencies: [cameraDirector, MapExplore])
 void tripBoundsTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 
