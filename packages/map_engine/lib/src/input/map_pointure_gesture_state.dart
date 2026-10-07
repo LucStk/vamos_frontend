@@ -16,6 +16,15 @@ class PressedState extends PointerGestureState {
   final ScreenOffset offset;
 }
 
+/// Le long press a été déclenché, le doigt est toujours posé.
+/// Sert à ne PAS émettre de Tap au relâchement.
+class LongPressedState extends PointerGestureState {
+  const LongPressedState({required this.element, required this.offset});
+
+  final MapObject? element;
+  final ScreenOffset offset;
+}
+
 class PendingTap extends PointerGestureState {
   const PendingTap({
     required this.element,

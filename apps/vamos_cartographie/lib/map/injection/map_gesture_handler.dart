@@ -20,11 +20,33 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
     timeout: const Duration(milliseconds: 149),
     onTimeout: _onTapTimeout,
   );
+  late final LongPressTimer _longPressTimer = LongPressTimer(
+    timeout: const Duration(milliseconds: 500),
+    onTimeout: (pressed) =>
+        onPointerEvent(PointerEventType.longPressTimeout, pressed.offset),
+  );
 
   @override
   bool build() {
-    ref.onDispose(_tapTimer.dispose);
+    ref.onDispose(() {
+      _tapTimer.dispose();
+      _longPressTimer.dispose();
+    });
     return true;
+  }
+
+  void _syncTimer() {
+    switch (_resolver.state) {
+      case final PendingTap pending:
+        _longPressTimer.cancel();
+        _tapTimer.update(pending);
+      case final PressedState pressed:
+        _tapTimer.cancel();
+        _longPressTimer.update(pressed);
+      case _:
+        _tapTimer.cancel();
+        _longPressTimer.cancel();
+    }
   }
 
   /// Point d'entrée unique : events pointeur et expiration du timer.
@@ -42,15 +64,6 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
 
   void _onTapTimeout(PendingTap pending) =>
       onPointerEvent(PointerEventType.tapTimeout, pending.offset);
-
-  void _syncTimer() {
-    switch (_resolver.state) {
-      case final PendingTap pending:
-        _tapTimer.update(pending);
-      case _:
-        _tapTimer.cancel();
-    }
-  }
 
   void _syncPanAllowed() {
     final allowed = switch (_resolver.state) {

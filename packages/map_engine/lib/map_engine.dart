@@ -17,6 +17,7 @@ export "src/input/pointer_gesture_resolver.dart";
 export "src/input/pending_tap_timer.dart";
 export 'src/input/map_pointer_event.dart';
 export 'src/input/map_pointure_gesture_state.dart';
+export 'src/input/long_press_timer.dart';
 
 export "src/mode_machine/mode_command.dart";
 export "src/mode_machine/mode_controller.dart";

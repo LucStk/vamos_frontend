@@ -31,6 +31,34 @@ class PointerGestureResolver {
         // On commence le drag
         state = DraggingState(dragged: pressed.element);
         return DragStartGesture(offset, dragged: pressed.element);
+      case (PressedState pressed, PointerEventType.longPressTimeout):
+        state = LongPressedState(
+          element: pressed.element,
+          offset: pressed.offset,
+        );
+        return LongPressGesture(pressed.offset, element: pressed.element);
+
+      case (PressedState pressed, PointerEventType.up):
+        //Dans le cas où l'élément ne peut pas avoir de doubleTap, on envoie directement le tap
+        if (pressed.element != null && !pressed.element!.awaitsDoubleTap) {
+          state = const IdleState();
+
+          return TapGesture(offset, element: pressed.element);
+        }
+        state = PendingTap(element: pressed.element, offset: offset);
+        return null;
+
+      case (LongPressedState longPressed, PointerEventType.move):
+        final distance = (longPressed.offset.value - offset.value).distance;
+        if (distance < dragStartThreshold) return null;
+        // Variante : long press puis drag (ex. déplacer un objet).
+        // Pour ignorer les moves, remplace ces 2 lignes par `return null;`
+        state = DraggingState(dragged: longPressed.element);
+        return DragStartGesture(offset, dragged: longPressed.element);
+
+      case (LongPressedState _, PointerEventType.up):
+        state = const IdleState();
+        return null; // pas de Tap : le long press a déjà été émis
 
       case (DraggingState dragging, PointerEventType.move):
         // On fait le testhit pour détecter si on touche un
@@ -49,16 +77,6 @@ class PointerGestureResolver {
           dragged: dragging.dragged,
           target: dragging.target,
         );
-
-      case (PressedState pressed, PointerEventType.up):
-        //Dans le cas où l'élément ne peut pas avoir de doubleTap, on envoie directement le tap
-        if (pressed.element != null && !pressed.element!.awaitsDoubleTap) {
-          state = const IdleState();
-
-          return TapGesture(offset, element: pressed.element);
-        }
-        state = PendingTap(element: pressed.element, offset: offset);
-        return null;
 
       case (PendingTap pending, PointerEventType.down):
         final element = hitTest(offset: offset);
