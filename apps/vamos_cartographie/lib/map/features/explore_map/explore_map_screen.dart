@@ -52,7 +52,7 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
 class _ExploreSceneResolver extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final exploreMode = ref.watch(mapExploreProvider);
+    final exploreMode = ref.watch(mapExploreProvider.select((m) => m.mode));
     final exploreController = ref.watch(mapExploreProvider.notifier);
 
     return ProviderScope(

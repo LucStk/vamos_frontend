@@ -61,7 +61,7 @@ List<ProjectedObject> projectedExploreScene(Ref ref) {
 MapScene exploreScene(Ref ref) {
   final trip = ref.watch(
     mapExploreProvider.select(
-      (m) => switch (m) {
+      (m) => switch (m.mode) {
         TripSelectMode m => m.trip,
         _ => null,
       },

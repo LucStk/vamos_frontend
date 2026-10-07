@@ -1,5 +1,6 @@
 import 'base_mode_model.dart';
 import 'mode_command.dart';
+import 'mode_decorator.dart';
 
 /// Résultat typé d'une commande. Remplace `NoResult` pour les commandes sans donnée.
 final class Done {
@@ -13,9 +14,15 @@ final class PendingRun<M extends BaseMode<M>> {
 }
 
 final class GestureResult<M extends BaseMode<M>> {
-  const GestureResult({this.mode, this.pending});
+  const GestureResult({this.mode, this.pending, this.decorator});
   const GestureResult.none() : this();
   const GestureResult.to(M mode) : this(mode: mode);
+  const GestureResult.decorate(ModeDecorator<M> decorator)
+    : this(decorator: decorator);
+
+  final M? mode;
+  final PendingRun<M>? pending;
+  final ModeDecorator<M>? decorator;
 
   /// Lance un effet. `then` est appelé avec le mode COURANT à la fin de l'effet,
   /// et seulement s'il a réussi.
@@ -31,9 +38,6 @@ final class GestureResult<M extends BaseMode<M>> {
       then == null ? null : (m, r) => then(m, r as R),
     ),
   );
-
-  final M? mode;
-  final PendingRun<M>? pending;
 }
 
 /// Exécute un effet sans donnée de retour.

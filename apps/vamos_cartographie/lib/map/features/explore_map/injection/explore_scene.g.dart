@@ -287,4 +287,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'45aa5672fa088d6a8f2e5b568a831a163c8d8991';
+String _$exploreSceneHash() => r'e54bf579570aebaa49e654c7d4ff23c782eeca16';

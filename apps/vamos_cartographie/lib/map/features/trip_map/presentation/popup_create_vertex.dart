@@ -5,9 +5,9 @@ import 'package:trip_application/trip_application.dart';
 
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import '../../../camera/injection/map_camera_provider.dart';
-import '../../../injection/popup_provider.dart';
-import '../../../overlay_ui/popup_overlay.dart';
+import '/map/camera/injection/map_camera_provider.dart';
+import '/map/injection/popup_provider.dart';
+import '/map/overlay_ui/popup_overlay.dart';
 import '../injection/map_editor_mode.dart';
 
 @Dependencies([mapCamera, PopUpNotifier])

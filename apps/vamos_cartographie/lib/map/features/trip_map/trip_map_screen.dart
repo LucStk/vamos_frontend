@@ -78,8 +78,8 @@ class _TripMapResolver extends ConsumerWidget {
 
     // final controller = isOwner ? ref.watch(mapEditorProvider(tripId).notifier) :
     final BaseMode editorMode = isOwner
-        ? ref.watch(mapEditorProvider(tripId))
-        : ref.watch(tripViewerProvider(tripId));
+        ? ref.watch(mapEditorProvider(tripId).select((m) => m.mode))
+        : ref.watch(tripViewerProvider(tripId).select((m) => m.mode));
     final editorController = isOwner
         ? ref.watch(mapEditorProvider(tripId).notifier)
         : ref.watch(tripViewerProvider(tripId).notifier);

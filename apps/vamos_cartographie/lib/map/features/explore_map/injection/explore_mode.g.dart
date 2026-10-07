@@ -13,7 +13,7 @@ part of 'explore_mode.dart';
 final mapExploreProvider = MapExploreProvider._();
 
 final class MapExploreProvider
-    extends $NotifierProvider<MapExplore, MapExploreMode> {
+    extends $NotifierProvider<MapExplore, ModeState<MapExploreMode>> {
   MapExploreProvider._()
     : super(
         from: null,
@@ -37,27 +37,28 @@ final class MapExploreProvider
   MapExplore create() => MapExplore();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapExploreMode value) {
+  Override overrideWithValue(ModeState<MapExploreMode> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapExploreMode>(value),
+      providerOverride: $SyncValueProvider<ModeState<MapExploreMode>>(value),
     );
   }
 }
 
-String _$mapExploreHash() => r'185d074625e2d6ea8fce3339afee26d23aec43fe';
+String _$mapExploreHash() => r'acf6f7b7341fcb54187d1b469b74ae042b1f9756';
 
-abstract class _$MapExplore extends $Notifier<MapExploreMode> {
-  MapExploreMode build();
+abstract class _$MapExplore extends $Notifier<ModeState<MapExploreMode>> {
+  ModeState<MapExploreMode> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<MapExploreMode, MapExploreMode>;
+    final ref =
+        this.ref as $Ref<ModeState<MapExploreMode>, ModeState<MapExploreMode>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MapExploreMode, MapExploreMode>,
-              MapExploreMode,
+              AnyNotifier<ModeState<MapExploreMode>, ModeState<MapExploreMode>>,
+              ModeState<MapExploreMode>,
               Object?,
               Object?
             >;

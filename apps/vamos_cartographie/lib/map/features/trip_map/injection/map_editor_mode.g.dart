@@ -13,7 +13,7 @@ part of 'map_editor_mode.dart';
 final mapEditorProvider = MapEditorFamily._();
 
 final class MapEditorProvider
-    extends $NotifierProvider<MapEditor, MapEditorMode> {
+    extends $NotifierProvider<MapEditor, ModeState<MapEditorMode>> {
   MapEditorProvider._({
     required MapEditorFamily super.from,
     required TripId super.argument,
@@ -42,10 +42,10 @@ final class MapEditorProvider
   MapEditor create() => MapEditor();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapEditorMode value) {
+  Override overrideWithValue(ModeState<MapEditorMode> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapEditorMode>(value),
+      providerOverride: $SyncValueProvider<ModeState<MapEditorMode>>(value),
     );
   }
 
@@ -60,15 +60,15 @@ final class MapEditorProvider
   }
 }
 
-String _$mapEditorHash() => r'051f6de725e24eedee118c04acda6f5fb1a01278';
+String _$mapEditorHash() => r'306c98a6c868fbfe6727540df4f2bd0bbb62a7ab';
 
 final class MapEditorFamily extends $Family
     with
         $ClassFamilyOverride<
           MapEditor,
-          MapEditorMode,
-          MapEditorMode,
-          MapEditorMode,
+          ModeState<MapEditorMode>,
+          ModeState<MapEditorMode>,
+          ModeState<MapEditorMode>,
           TripId
         > {
   MapEditorFamily._()
@@ -89,20 +89,21 @@ final class MapEditorFamily extends $Family
   String toString() => r'mapEditorProvider';
 }
 
-abstract class _$MapEditor extends $Notifier<MapEditorMode> {
+abstract class _$MapEditor extends $Notifier<ModeState<MapEditorMode>> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  MapEditorMode build(TripId tripId);
+  ModeState<MapEditorMode> build(TripId tripId);
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<MapEditorMode, MapEditorMode>;
+    final ref =
+        this.ref as $Ref<ModeState<MapEditorMode>, ModeState<MapEditorMode>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MapEditorMode, MapEditorMode>,
-              MapEditorMode,
+              AnyNotifier<ModeState<MapEditorMode>, ModeState<MapEditorMode>>,
+              ModeState<MapEditorMode>,
               Object?,
               Object?
             >;

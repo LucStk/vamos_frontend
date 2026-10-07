@@ -18,13 +18,15 @@ void tripBoundsTrigger(Ref ref) {
     if (next is! TripSelectMode) {
       return;
     }
-    if ((previous, next) case (
+    if ((previous?.mode, next.mode) case (
       TripSelectMode m,
       TripSelectMode t,
     ) when m.trip.isSameAs(t.trip)) {
       return;
     }
-    final bounds = ref.read(mapTripObjectProvider(next.trip.id)).bounds;
+    final bounds = ref
+        .read(mapTripObjectProvider((next.mode as TripSelectMode).trip.id))
+        .bounds;
     if (bounds == null) {
       return;
     }

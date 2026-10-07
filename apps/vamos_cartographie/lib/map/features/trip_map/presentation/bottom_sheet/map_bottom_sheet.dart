@@ -23,7 +23,9 @@ class MapEditorBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final editorMode = ref.watch(mapEditorProvider(tripId));
+    final editorMode = ref.watch(
+      mapEditorProvider(tripId).select((m) => m.mode),
+    );
     switch (editorMode) {
       case InitTripMode _:
         return SizedBox.shrink();

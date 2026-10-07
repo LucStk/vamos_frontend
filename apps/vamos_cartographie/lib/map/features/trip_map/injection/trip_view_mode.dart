@@ -14,19 +14,14 @@ class TripViewer extends _$TripViewer with ModeControllerMixin<ViewTripMode> {
   late ViewTripCommandResolver resolver;
 
   @override
-  ViewTripMode build(TripId tripId) {
+  ModeState<ViewTripMode> build(TripId tripId) {
     final camera = ref.read(mapCameraProvider);
     resolver = ViewTripCommandResolver(camera);
-    return IdleView();
+    return ModeState(IdleView());
   }
 
   @override
-  ViewTripMode get mode => state;
-
-  @override
-  void setMode(ViewTripMode mode) {
-    state = mode;
-  }
+  void setState(ModeState<ViewTripMode> newState) => state = newState;
 
   @override
   EffectQueue get effectQueue => _queue;

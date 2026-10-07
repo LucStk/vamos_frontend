@@ -13,7 +13,7 @@ part of 'trip_view_mode.dart';
 final tripViewerProvider = TripViewerFamily._();
 
 final class TripViewerProvider
-    extends $NotifierProvider<TripViewer, ViewTripMode> {
+    extends $NotifierProvider<TripViewer, ModeState<ViewTripMode>> {
   TripViewerProvider._({
     required TripViewerFamily super.from,
     required TripId super.argument,
@@ -42,10 +42,10 @@ final class TripViewerProvider
   TripViewer create() => TripViewer();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ViewTripMode value) {
+  Override overrideWithValue(ModeState<ViewTripMode> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ViewTripMode>(value),
+      providerOverride: $SyncValueProvider<ModeState<ViewTripMode>>(value),
     );
   }
 
@@ -60,15 +60,15 @@ final class TripViewerProvider
   }
 }
 
-String _$tripViewerHash() => r'05803a5eae460914812c3759948236f5c804753c';
+String _$tripViewerHash() => r'1e3d8d85ce2be611d6627345ca7264c77f7d44b4';
 
 final class TripViewerFamily extends $Family
     with
         $ClassFamilyOverride<
           TripViewer,
-          ViewTripMode,
-          ViewTripMode,
-          ViewTripMode,
+          ModeState<ViewTripMode>,
+          ModeState<ViewTripMode>,
+          ModeState<ViewTripMode>,
           TripId
         > {
   TripViewerFamily._()
@@ -89,20 +89,21 @@ final class TripViewerFamily extends $Family
   String toString() => r'tripViewerProvider';
 }
 
-abstract class _$TripViewer extends $Notifier<ViewTripMode> {
+abstract class _$TripViewer extends $Notifier<ModeState<ViewTripMode>> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  ViewTripMode build(TripId tripId);
+  ModeState<ViewTripMode> build(TripId tripId);
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<ViewTripMode, ViewTripMode>;
+    final ref =
+        this.ref as $Ref<ModeState<ViewTripMode>, ModeState<ViewTripMode>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<ViewTripMode, ViewTripMode>,
-              ViewTripMode,
+              AnyNotifier<ModeState<ViewTripMode>, ModeState<ViewTripMode>>,
+              ModeState<ViewTripMode>,
               Object?,
               Object?
             >;

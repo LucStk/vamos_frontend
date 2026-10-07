@@ -11,38 +11,33 @@ part "map_editor_mode.g.dart";
 @Riverpod(dependencies: [mapCamera])
 class MapEditor extends _$MapEditor with ModeControllerMixin<MapEditorMode> {
   final _queue = EffectQueue();
+
   @override
   late EditTripCommandResolver resolver;
 
   @override
-  MapEditorMode build(TripId tripId) {
+  ModeState<MapEditorMode> build(TripId tripId) {
     final graphEditor = ref.read(graphStoreProvider(tripId).notifier);
     final waypointEditor = ref.read(waypointStoreProvider(tripId).notifier);
     final mapCamera = ref.read(mapCameraProvider);
+
     resolver = EditTripCommandResolver(
       graphEditor: graphEditor,
       waypointEditor: waypointEditor,
       camera: mapCamera,
     );
+
     final nbVertex = ref
         .read(graphStoreProvider(tripId))
         .vertexStore
         .store
         .length;
-    if (nbVertex == 0) {
-      return InitTripMode();
-    }
 
-    return IdleEditor();
+    return ModeState(nbVertex == 0 ? InitTripMode() : IdleEditor());
   }
 
   @override
-  MapEditorMode get mode => state;
-
-  @override
-  void setMode(MapEditorMode mode) {
-    state = mode;
-  }
+  void setState(ModeState<MapEditorMode> newState) => state = newState;
 
   @override
   EffectQueue get effectQueue => _queue;

@@ -19,7 +19,7 @@ class ExploreBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final mode = ref.watch(mapExploreProvider);
+    final mode = ref.watch(mapExploreProvider.select((m) => m.mode));
 
     switch (mode) {
       case TripSelectMode e:

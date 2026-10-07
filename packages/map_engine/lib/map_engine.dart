@@ -9,9 +9,11 @@ export "src/domain/gestures/gesture_sink.dart";
 export "src/geometry/camera_to_matrix4.dart";
 export "src/geometry/segment_hit_helpers.dart";
 export "src/geometry/world_segment_helper.dart";
-export "src/mode_machine/base_mode_model.dart";
 
+export "src/mode_machine/base_mode_model.dart";
 export 'src/mode_machine/effect_queue.dart';
+export 'src/mode_machine/mode_state.dart';
+export 'src/mode_machine/popup_decorator.dart';
 
 export "src/input/pointer_gesture_resolver.dart";
 export "src/input/pending_tap_timer.dart";
