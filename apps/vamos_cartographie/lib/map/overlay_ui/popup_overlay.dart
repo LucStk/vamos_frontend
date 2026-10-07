@@ -4,13 +4,13 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 
 import '../injection/popup_provider.dart';
 
-@Dependencies([])
+@Dependencies([PopUpNotifier])
 class PopupOverlayShell extends ConsumerWidget {
   const PopupOverlayShell({super.key, required this.child});
   final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pos = ref.watch(popupScreenPositionProvider);
+    final pos = ref.watch(popUpProvider);
     if (pos == null) return const SizedBox.shrink();
 
     return Positioned(

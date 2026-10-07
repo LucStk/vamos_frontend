@@ -4,13 +4,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../camera/injection/map_camera_provider.dart';
 import 'map_mode.dart';
 import 'map_scene.dart';
+import 'popup_provider.dart';
 part 'map_gesture_handler.g.dart';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).
 @Riverpod(
   keepAlive: true,
-  dependencies: [mapScene, mapCamera, mapModeController],
+  dependencies: [mapScene, mapCamera, mapModeController, PopUpNotifier],
 )
 class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
   late final PointerGestureResolver _resolver = PointerGestureResolver(
@@ -51,17 +52,21 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
 
   void onSecondaryClick(ScreenOffset offset) {
     final element = _hitTest(offset: offset);
-    ref
-        .read(mapModeControllerProvider)
-        .send(SecondaryTapGesture(offset, element: element), offset);
+    final gesture = SecondaryTapGesture(offset, element: element);
+
+    // D'abord le mode (qui peut changer et fermer le popup),
+    // ensuite l'ouverture, sinon le popup se fermerait aussitôt.
+    ref.read(mapModeControllerProvider).send(gesture, offset);
+    ref.read(popUpProvider.notifier).open(offset);
   }
 
-  /// Point d'entrée unique : events pointeur et expiration du timer.
   void onPointerEvent(PointerEventType event, ScreenOffset offset) {
-    final gesture = _resolver.resolve(event, offset);
+    // Un appui primaire ferme le popup, comme un clic en dehors d'un menu.
+    if (event == PointerEventType.down) {
+      ref.read(popUpProvider.notifier).close();
+    }
 
-    // Resynchro AVANT le dispatch : l'état du resolver est final,
-    // et les listeners déclenchés par le dispatch voient un panAllowed à jour.
+    final gesture = _resolver.resolve(event, offset);
     _syncTimer();
     _syncPanAllowed();
 

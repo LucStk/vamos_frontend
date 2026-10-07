@@ -8,55 +8,59 @@ part of 'popup_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Position écran du popup, recalculée à chaque mouvement de la carte.
 
-@ProviderFor(popupWorldPosition)
-final popupWorldPositionProvider = PopupWorldPositionProvider._();
+@ProviderFor(PopUpNotifier)
+final popUpProvider = PopUpNotifierProvider._();
 
-/// Position écran du popup, recalculée à chaque mouvement de la carte.
-
-final class PopupWorldPositionProvider
-    extends $FunctionalProvider<WorldOffset?, WorldOffset?, WorldOffset?>
-    with $Provider<WorldOffset?> {
-  /// Position écran du popup, recalculée à chaque mouvement de la carte.
-  PopupWorldPositionProvider._()
+final class PopUpNotifierProvider
+    extends $NotifierProvider<PopUpNotifier, ScreenOffset?> {
+  PopUpNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'popupWorldPositionProvider',
+        name: r'popUpProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapCameraProvider, mapModeProvider],
+        dependencies: <ProviderOrFamily>[mapModeControllerProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
-          PopupWorldPositionProvider.$allTransitiveDependencies0,
-          PopupWorldPositionProvider.$allTransitiveDependencies1,
+          PopUpNotifierProvider.$allTransitiveDependencies0,
         ],
       );
 
-  static final $allTransitiveDependencies0 = mapCameraProvider;
-  static final $allTransitiveDependencies1 = mapModeProvider;
+  static final $allTransitiveDependencies0 = mapModeControllerProvider;
 
   @override
-  String debugGetCreateSourceHash() => _$popupWorldPositionHash();
+  String debugGetCreateSourceHash() => _$popUpNotifierHash();
 
   @$internal
   @override
-  $ProviderElement<WorldOffset?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  WorldOffset? create(Ref ref) {
-    return popupWorldPosition(ref);
-  }
+  PopUpNotifier create() => PopUpNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(WorldOffset? value) {
+  Override overrideWithValue(ScreenOffset? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<WorldOffset?>(value),
+      providerOverride: $SyncValueProvider<ScreenOffset?>(value),
     );
   }
 }
 
-String _$popupWorldPositionHash() =>
-    r'22ab512de00bfe3900090eb9aff2994a73f17a76';
+String _$popUpNotifierHash() => r'3ff8c8b8c4d3efbb5bcf735656c6f1c27055bb82';
+
+abstract class _$PopUpNotifier extends $Notifier<ScreenOffset?> {
+  ScreenOffset? build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<ScreenOffset?, ScreenOffset?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ScreenOffset?, ScreenOffset?>,
+              ScreenOffset?,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}

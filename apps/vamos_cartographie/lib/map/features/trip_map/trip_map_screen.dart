@@ -16,6 +16,7 @@ import '/map/camera/injection/user_location_trigger.dart';
 import "/map/camera/injection/camera_director_provider.dart";
 
 import "/map/injection/map_gesture_handler.dart";
+import "/map/injection/popup_provider.dart";
 import '/map/injection/map_mode.dart';
 import '/map/injection/map_scene.dart';
 import '../../presentation/base_map_screen.dart';
@@ -97,6 +98,7 @@ class _TripMapResolver extends ConsumerWidget {
 }
 
 @Dependencies([
+  PopUpNotifier,
   CameraOrNull,
   mapCamera,
   MapEditor,
