@@ -45,8 +45,8 @@ class VertexBottomSheet extends ConsumerWidget {
               Expanded(
                 child: ConfirmButton(
                   label: "Créer une étape ici",
-                  onPressed:
-                      () {}, //=> notifier.createWaypointFromSelectedVertex(),
+                  onPressed: () =>
+                      editor.act(VertexSelectIntents.createWaypointFromVertex),
                 ),
               ),
 

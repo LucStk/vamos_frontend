@@ -18,6 +18,20 @@ abstract final class VertexSelectIntents {
     );
   }
 
+  static GestureResult<MapEditorMode> createWaypointFromVertex(
+    VertexSelectMode m,
+  ) {
+    final id = m.vertexId; // on capture une valeur, jamais `this`
+    return GestureResult.run(
+      CreateWaypointFromVertex(id),
+      // then: (current, _) => switch (current) {
+      //   VertexSelectMode(:final vertexId) when vertexId == id =>
+      //     GestureResult.to(IdleEditor()),
+      //   _ => null, // le mode a changé entre-temps : rien à faire
+      // },
+    );
+  }
+
   static GestureResult<MapEditorMode> sketchCreation(
     VertexSelectMode m,
     LatLng position,
