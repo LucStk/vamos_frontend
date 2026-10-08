@@ -16,34 +16,47 @@ import 'vertex/waypoint_bottom_sheet.dart';
 
 @Dependencies([MapEditor])
 class MapEditorBottomSheet extends ConsumerWidget {
-  final TripId tripId;
-
   const MapEditorBottomSheet({super.key, required this.tripId});
+  final TripId tripId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final editorMode = ref.watch(
-      mapEditorProvider(tripId).select((m) => m.mode),
+    final isSketch = ref.watch(
+      mapEditorProvider(tripId).select((s) => s.mode is SketchMode),
     );
-    switch (editorMode) {
-      case InitTripMode _:
-        return SizedBox.shrink();
-      // return CreateVertexBottomSheet();
-      case SketchMode _:
-        return SketchBottomSheet(tripId: tripId);
-      case VertexSelectMode e:
-        final waypointId = ref.watch(
-          waypointFromVertexProvider(tripId, e.vertexId),
-        );
-        if (waypointId != null) {
-          return WaypointBottomSheet(tripId: tripId, waypointId: waypointId);
-        }
-        return VertexBottomSheet(tripId: tripId, vertexId: e.vertexId);
-      case SegmentSelectMode e:
-        return SegmentBottomSheet(tripId: tripId, segmentId: e.segmentId);
-      case _:
-        return const SizedBox.shrink();
-    }
+    if (isSketch) return SketchBottomSheet(tripId: tripId);
+
+    final selected = ref.watch(
+      mapEditorProvider(tripId).select((s) => s.context.get(selectionSlot)),
+    );
+
+    return switch (selected) {
+      VertexSelection(:final id) => _VertexSheet(
+        key: ValueKey(id),
+        tripId: tripId,
+        vertexId: id,
+      ),
+      SegmentSelection(:final id) => SegmentBottomSheet(
+        key: ValueKey(id),
+        tripId: tripId,
+        segmentId: id,
+      ),
+      TripSelection() || null => const SizedBox.shrink(),
+    };
+  }
+}
+
+@Dependencies([MapEditor])
+class _VertexSheet extends ConsumerWidget {
+  const _VertexSheet({super.key, required this.tripId, required this.vertexId});
+  final TripId tripId;
+  final VertexId vertexId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final waypointId = ref.watch(waypointFromVertexProvider(tripId, vertexId));
+    return waypointId != null
+        ? WaypointBottomSheet(tripId: tripId, waypointId: waypointId)
+        : VertexBottomSheet(tripId: tripId, vertexId: vertexId);
   }
 }

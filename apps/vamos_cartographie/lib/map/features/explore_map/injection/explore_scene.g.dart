@@ -242,7 +242,7 @@ final class ExploreSceneProvider
         isAutoDispose: true,
         dependencies: <ProviderOrFamily>[
           projectedExploreSceneProvider,
-          mapExploreProvider,
+          modeContextProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           ExploreSceneProvider.$allTransitiveDependencies0,
@@ -250,7 +250,6 @@ final class ExploreSceneProvider
           ExploreSceneProvider.$allTransitiveDependencies2,
           ExploreSceneProvider.$allTransitiveDependencies3,
           ExploreSceneProvider.$allTransitiveDependencies4,
-          ExploreSceneProvider.$allTransitiveDependencies5,
         },
       );
 
@@ -261,9 +260,7 @@ final class ExploreSceneProvider
       ProjectedExploreSceneProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies3 =
       ProjectedExploreSceneProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies4 = mapExploreProvider;
-  static final $allTransitiveDependencies5 =
-      MapExploreProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies4 = modeContextProvider;
 
   @override
   String debugGetCreateSourceHash() => _$exploreSceneHash();
@@ -287,4 +284,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'c8d62d297beb2ded56484116370334ecf486d55e';
+String _$exploreSceneHash() => r'8f859c369af719b433496b652437d9d55efbdd95';

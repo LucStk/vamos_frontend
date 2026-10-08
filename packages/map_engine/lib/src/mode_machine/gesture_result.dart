@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
+import '../domain/slot.dart';
 import 'base_mode_model.dart';
 import 'mode_command.dart';
 import 'mode_decorator.dart';
-import 'slot.dart';
 
 /// Résultat typé d'une commande. Remplace `NoResult` pour les commandes sans donnée.
 final class Done {

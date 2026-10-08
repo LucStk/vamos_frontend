@@ -88,12 +88,17 @@ class _TripMapResolver extends ConsumerWidget {
               ? ref.watch(mapEditorProvider(tripId).select((s) => s.mode))
               : ref.watch(tripViewerProvider(tripId).select((s) => s.mode)),
         ),
-        mapDecoratorProvider.overrideWith(
+        modeDecoratorProvider.overrideWith(
           (ref) => isOwner
               ? ref.watch(mapEditorProvider(tripId).select((s) => s.decorator))
               : ref.watch(
                   tripViewerProvider(tripId).select((s) => s.decorator),
                 ),
+        ),
+        modeContextProvider.overrideWith(
+          (ref) => isOwner
+              ? ref.watch(mapEditorProvider(tripId).select((s) => s.context))
+              : ref.watch(tripViewerProvider(tripId).select((s) => s.context)),
         ),
         mapSceneProvider.overrideWith(
           (ref) => ref.watch(tripEditorSceneProvider(tripId)),
@@ -106,7 +111,7 @@ class _TripMapResolver extends ConsumerWidget {
 }
 
 @Dependencies([
-  mapDecorator,
+  modeDecorator,
   CameraOrNull,
   mapCamera,
   MapEditor,

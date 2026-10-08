@@ -16,7 +16,7 @@ class MapExplore extends _$MapExplore with ModeControllerMixin<MapExploreMode> {
   ModeState<MapExploreMode> build() {
     final camera = ref.read(mapCameraProvider);
     resolver = ExploreCommandResolver(camera);
-    return ModeState(IdleExplorer());
+    return ModeState(MapExploreMode());
   }
 
   @override

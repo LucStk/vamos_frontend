@@ -1,5 +1,6 @@
 import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
+import '../domain/selection.dart';
 import '../domain/space/offset_type.dart';
 import 'base_mode_model.dart';
 import 'effect_queue.dart';
@@ -15,6 +16,12 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
 
   ModeCommandResolver<M> get resolver;
   EffectQueue get effectQueue;
+  // dans la classe MapEditor
+  void actOnSelection<S extends Selection>(
+    GestureResult<M>? Function(S s) action,
+  ) {
+    if (state.context.get(selectionSlot) case final S s) apply(action(s));
+  }
 
   @override
   void send(MapGesture event, ScreenOffset offset) {
@@ -48,7 +55,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
     final nextMode = result.mode ?? mode;
 
     var ctx = state.context;
-    if (!identical(nextMode, mode)) ctx = ctx.afterTransition(mode, nextMode);
+    if (nextMode != mode) ctx = ctx.afterTransition(nextMode);
     for (final (slot, value) in result.slots) {
       ctx = ctx.withSlot(slot, value);
     }

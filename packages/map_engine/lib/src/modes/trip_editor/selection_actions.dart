@@ -2,15 +2,15 @@
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
-import '../../../map_engine.dart';
+import '../../domain/selection.dart';
 import '../../mode_machine/gesture_result.dart';
 import 'map_editor_command.dart';
-import 'slots.dart';
+import 'map_editor_mode.dart';
 
 extension VertexSelectionActions on VertexSelection {
   GestureResult<MapEditorMode> delete() => GestureResult.run(
     RemoveVertex(id),
-    then: (_, _) => GestureResult.set(selection, null),
+    then: (_, _) => GestureResult.set(selectionSlot, null),
   );
 
   GestureResult<MapEditorMode> createWaypoint() =>
@@ -28,7 +28,7 @@ extension VertexSelectionActions on VertexSelection {
 extension SegmentSelectionActions on SegmentSelection {
   GestureResult<MapEditorMode> delete() => GestureResult.run(
     DeleteSegment(id),
-    then: (_, _) => GestureResult.set(selection, null),
+    then: (_, _) => GestureResult.set(selectionSlot, null),
   );
 
   GestureResult<MapEditorMode> startEdit() =>

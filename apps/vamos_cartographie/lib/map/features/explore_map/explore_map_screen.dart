@@ -59,7 +59,8 @@ class _ExploreSceneResolver extends ConsumerWidget {
       overrides: [
         mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
         mapModeProvider.overrideWithValue(modeState.mode),
-        mapDecoratorProvider.overrideWithValue(modeState.decorator),
+        modeDecoratorProvider.overrideWithValue(modeState.decorator),
+        modeContextProvider.overrideWithValue(modeState.context),
         mapModeControllerProvider.overrideWithValue(exploreController),
       ],
       child: const _ExploreMapView(),
@@ -68,6 +69,7 @@ class _ExploreSceneResolver extends ConsumerWidget {
 }
 
 @Dependencies([
+  modeContext,
   mapScene,
   tripBoundsTrigger,
   CameraOrNull,

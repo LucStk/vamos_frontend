@@ -15,17 +15,19 @@ void tripBoundsTrigger(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
 
   ref.listen(mapExploreProvider, (previous, next) {
-    if (next is! TripSelectMode) {
+    if (next.context.get(selectionSlot) is! TripSelection) {
       return;
     }
-    if ((previous?.mode, next.mode) case (
-      TripSelectMode m,
-      TripSelectMode t,
-    ) when m.trip.isSameAs(t.trip)) {
+    if ((previous?.context.get(selectionSlot), next.context.get(selectionSlot))
+        case (TripSelection m, TripSelection t) when m != t) {
       return;
     }
     final bounds = ref
-        .read(mapTripObjectProvider((next.mode as TripSelectMode).trip.id))
+        .read(
+          mapTripObjectProvider(
+            (next.context.get(selectionSlot) as TripSelection).id,
+          ),
+        )
         .bounds;
     if (bounds == null) {
       return;

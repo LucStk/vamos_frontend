@@ -12,6 +12,7 @@ export "src/geometry/segment_hit_helpers.dart";
 export "src/geometry/world_segment_helper.dart";
 
 export "src/mode_machine/base_mode_model.dart";
+export "src/mode_machine/mode_context.dart";
 export 'src/mode_machine/effect_queue.dart';
 export 'src/mode_machine/mode_state.dart';
 export 'src/mode_machine/mode_decorator.dart';

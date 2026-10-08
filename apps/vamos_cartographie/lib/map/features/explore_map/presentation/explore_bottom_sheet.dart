@@ -6,24 +6,24 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-import '../injection/explore_mode.dart';
+import '../../../injection/map_mode.dart';
 import 'bottom_sheet/create_trip_bottom_sheet.dart';
 import 'bottom_sheet/trip_bottom_sheet.dart';
 import '/map/injection/map_scene.dart';
 import "/map/injection/map_gesture_handler.dart";
 
-@Dependencies([mapScene, MapGestureHandlerNotifier, MapExplore])
+@Dependencies([mapScene, MapGestureHandlerNotifier, modeContext])
 class ExploreBottomSheet extends ConsumerWidget {
   const ExploreBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Avec ConsumerState, ref est accessible directement dans toute la classe via "ref"
-    final mode = ref.watch(mapExploreProvider.select((m) => m.mode));
+    final selection = ref.watch(modeContextProvider).get(selectionSlot);
 
-    switch (mode) {
-      case TripSelectMode e:
-        return TripBottomSheet(tripId: e.trip.id);
+    switch (selection) {
+      case TripSelection e:
+        return TripBottomSheet(tripId: e.id);
       case _:
         return CreateTripBottomSheet();
     }

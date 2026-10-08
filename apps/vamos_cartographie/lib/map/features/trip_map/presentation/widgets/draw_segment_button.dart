@@ -22,9 +22,9 @@ class DrawSegmentButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final editor = ref.watch(mapEditorProvider(tripId).notifier);
     return OutlinedButton.icon(
-      onPressed: () => editor.act((VertexSelectMode m) {
-        final v = ref.read(vertexProvider(tripId, vertexId));
-        return VertexSelectIntents.sketchCreation(m, v.latLng);
+      onPressed: () => editor.actOnSelection<VertexSelection>((s) {
+        final v = ref.read(vertexProvider(tripId, s.id));
+        return s.startSketch(v.latLng);
       }),
       icon: const Icon(Icons.draw_outlined, size: 16),
       label: const Text("Draw road"),

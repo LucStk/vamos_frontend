@@ -3,7 +3,6 @@ import 'package:trip_application/trip_application.dart';
 import '/src/domain/selection.dart';
 import '../../map_editor_command.dart';
 import '../../map_editor_mode.dart';
-import '../../slots.dart';
 import '/src/mode_machine/gesture_result.dart';
 
 abstract final class IdleEditorIntents {
@@ -11,7 +10,7 @@ abstract final class IdleEditorIntents {
       GestureResult.run(
         CreateSimpleVertex(position),
         then: (current, VertexId id) => current is IdleEditor
-            ? GestureResult.set(selection, VertexSelection(id))
+            ? GestureResult.set(selectionSlot, VertexSelection(id))
             : null,
       );
   // createWaypoint inchangé

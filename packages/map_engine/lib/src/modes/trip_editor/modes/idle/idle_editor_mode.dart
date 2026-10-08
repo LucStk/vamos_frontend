@@ -3,10 +3,12 @@ part of "../../map_editor_mode.dart";
 // idle_editor_mode.dart
 mixin IdleBehavior on MapEditorMode {
   @override
+  Set<Slot> get retainedSlots => const {selectionSlot};
+  @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
-    MapVertex e => GestureResult.set(selection, VertexSelection(e.id)),
-    MapSegment e => GestureResult.set(selection, SegmentSelection(e.id)),
-    null => GestureResult.set(selection, null),
+    MapVertex e => GestureResult.set(selectionSlot, VertexSelection(e.id)),
+    MapSegment e => GestureResult.set(selectionSlot, SegmentSelection(e.id)),
+    null => GestureResult.set(selectionSlot, null),
     _ => GestureResult.none(),
   };
   @override

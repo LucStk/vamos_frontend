@@ -3,7 +3,6 @@ import '/src/domain/selection.dart';
 import '/src/mode_machine/gesture_result.dart';
 import '../../map_editor_mode.dart';
 import '../../map_editor_command.dart';
-import '../../slots.dart';
 
 abstract final class SketchIntents {
   static GestureResult<MapEditorMode> changeSegmentType(
@@ -14,5 +13,5 @@ abstract final class SketchIntents {
   static GestureResult<MapEditorMode> stopSketch(SketchEdition s) =>
       GestureResult.to(
         IdleEditor(),
-      ).and(selection, SegmentSelection(s.segmentId));
+      ).and(selectionSlot, SegmentSelection(s.segmentId));
 }

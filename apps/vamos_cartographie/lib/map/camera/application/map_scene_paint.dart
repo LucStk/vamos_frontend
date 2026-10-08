@@ -40,7 +40,7 @@ class _MapScenePaintState extends ConsumerState<MapScenePaint>
     if (scene.dragging != null && scene.dragging!.isSameAs(object.object)) {
       return MapObjectVisualState.dragging;
     }
-    if (scene.selection != null && scene.selection!.isSameAs(object.object)) {
+    if (scene.selection != null && scene.selection!.concerns(object.object)) {
       return MapObjectVisualState.selected;
     }
     if (scene.hovered != null && scene.hovered!.isSameAs(object.object)) {

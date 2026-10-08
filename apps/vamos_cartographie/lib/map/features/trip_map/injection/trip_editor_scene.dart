@@ -29,19 +29,13 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
   return objects;
 }
 
-@Riverpod(dependencies: [projectedTripEditorScene, mapMode])
+@Riverpod(dependencies: [projectedTripEditorScene, modeContext])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
-  final selection = ref.watch(
-    mapModeProvider.select(
-      (m) => switch (m) {
-        VertexSelectMode e => VertexSelected(e.vertexId),
-        SegmentSelectMode e => SegmentSelected(e.segmentId),
-        _ => null,
-      },
-    ),
+  final selected = ref.watch(
+    modeContextProvider.select((c) => c.get(selectionSlot)),
   );
 
   final projObjects = ref.watch(projectedTripEditorSceneProvider(tripId));
 
-  return MapScene(selection: selection, objects: projObjects);
+  return MapScene(selection: selected, objects: projObjects);
 }

@@ -1,7 +1,8 @@
 // mode_context.dart
-import 'base_mode_model.dart';
-import 'slot.dart';
+import '../domain/slot.dart';
 import "package:collection/collection.dart";
+
+import 'base_mode_model.dart';
 
 final class ModeContext {
   const ModeContext._(this._values);
@@ -18,11 +19,11 @@ final class ModeContext {
     return ModeContext._(next);
   }
 
-  /// Applique les `clearWhen` lors d'un changement de mode.
-  ModeContext afterTransition(BaseMode from, BaseMode to) {
+  // ModeContext
+  ModeContext afterTransition(BaseMode to) {
     final kept = {
       for (final e in _values.entries)
-        if (!(e.key.clearWhen?.call(from, to) ?? false)) e.key: e.value,
+        if (to.retainedSlots.contains(e.key)) e.key: e.value,
     };
     return kept.length == _values.length ? this : ModeContext._(kept);
   }

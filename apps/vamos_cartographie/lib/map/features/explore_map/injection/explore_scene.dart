@@ -5,10 +5,10 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import '../../../camera/injection/camera_or_null.dart';
+import '../../../injection/map_mode.dart';
 import '../../../injection/user_location_projecter.dart';
 import '../application/projected_trip.dart';
 import '/domain_features/domain_features.dart';
-import 'explore_mode.dart';
 part 'explore_scene.g.dart';
 
 @riverpod
@@ -57,16 +57,11 @@ List<ProjectedObject> projectedExploreScene(Ref ref) {
   return objects;
 }
 
-@Riverpod(dependencies: [projectedExploreScene, MapExplore])
+@Riverpod(dependencies: [projectedExploreScene, modeContext])
 MapScene exploreScene(Ref ref) {
-  final selection = ref.watch(
-    mapExploreProvider.select(
-      (m) => switch (m.mode) {
-        TripSelectMode m => TripSelected(m.trip.id),
-        _ => null,
-      },
-    ),
+  final selected = ref.watch(
+    modeContextProvider.select((c) => c.get(selectionSlot)),
   );
   final projectScene = ref.watch(projectedExploreSceneProvider);
-  return MapScene(selection: selection, objects: projectScene);
+  return MapScene(selection: selected, objects: projectScene);
 }

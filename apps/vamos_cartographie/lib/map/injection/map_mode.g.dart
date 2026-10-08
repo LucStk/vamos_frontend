@@ -56,10 +56,10 @@ final class MapModeProvider
 
 String _$mapModeHash() => r'aca14f8ee1b4ab6ce55cf425cada2c57f29bc517';
 
-@ProviderFor(mapDecorator)
-final mapDecoratorProvider = MapDecoratorProvider._();
+@ProviderFor(modeDecorator)
+final modeDecoratorProvider = ModeDecoratorProvider._();
 
-final class MapDecoratorProvider
+final class ModeDecoratorProvider
     extends
         $FunctionalProvider<
           ModeDecorator<BaseMode<dynamic>>?,
@@ -67,19 +67,19 @@ final class MapDecoratorProvider
           ModeDecorator<BaseMode<dynamic>>?
         >
     with $Provider<ModeDecorator<BaseMode<dynamic>>?> {
-  MapDecoratorProvider._()
+  ModeDecoratorProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'mapDecoratorProvider',
+        name: r'modeDecoratorProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
       );
 
   @override
-  String debugGetCreateSourceHash() => _$mapDecoratorHash();
+  String debugGetCreateSourceHash() => _$modeDecoratorHash();
 
   @$internal
   @override
@@ -89,7 +89,7 @@ final class MapDecoratorProvider
 
   @override
   ModeDecorator<BaseMode<dynamic>>? create(Ref ref) {
-    return mapDecorator(ref);
+    return modeDecorator(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -103,7 +103,48 @@ final class MapDecoratorProvider
   }
 }
 
-String _$mapDecoratorHash() => r'9407199ae768ae48299762ce0d5bf7b780336ab6';
+String _$modeDecoratorHash() => r'3fa7106a0a529181bed84ddb626aeef07fdffead';
+
+@ProviderFor(modeContext)
+final modeContextProvider = ModeContextProvider._();
+
+final class ModeContextProvider
+    extends $FunctionalProvider<ModeContext, ModeContext, ModeContext>
+    with $Provider<ModeContext> {
+  ModeContextProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'modeContextProvider',
+        isAutoDispose: false,
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$modeContextHash();
+
+  @$internal
+  @override
+  $ProviderElement<ModeContext> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ModeContext create(Ref ref) {
+    return modeContext(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ModeContext value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ModeContext>(value),
+    );
+  }
+}
+
+String _$modeContextHash() => r'b8462fbab2c897c113e2330a6ca27fc0a2b19bdb';
 
 @ProviderFor(mapModeController)
 final mapModeControllerProvider = MapModeControllerProvider._();

@@ -1,4 +1,5 @@
 import '../domain/gestures/map_gesture.dart';
+import '../domain/slot.dart';
 import '../domain/space/offset_type.dart';
 import 'base_command.dart';
 import 'gesture_result.dart';
@@ -7,6 +8,10 @@ typedef PopUpPositionType = ScreenOffset?;
 
 abstract class BaseMode<Self extends BaseMode<Self>> {
   const BaseMode();
+
+  /// Slots qui restent vivants tant qu'on est dans ce mode.
+  /// Tout autre slot est vidé à l'entrée. Par défaut : aucun.
+  Set<Slot> get retainedSlots => const {};
 
   GestureResult<Self>? dispatchGesture(
     MapGesture gesture,

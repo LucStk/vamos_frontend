@@ -9,7 +9,7 @@ import '/map/overlay_ui/context_menu/context_menu_shell.dart';
 import '/map/features/trip_map/injection/map_editor_mode.dart';
 import '/map/injection/map_mode.dart';
 
-@Dependencies([MapEditor, mapDecorator])
+@Dependencies([MapEditor, modeDecorator])
 class SketchPencilMenuWidget extends ConsumerWidget {
   const SketchPencilMenuWidget({super.key, required this.tripId});
   final TripId tripId;
