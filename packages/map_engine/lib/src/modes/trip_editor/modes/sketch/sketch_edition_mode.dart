@@ -3,7 +3,7 @@ part of "../../map_editor_mode.dart";
 @freezed
 abstract class SketchEdition extends MapEditorMode
     with SketchMode, _$SketchEdition {
-  SketchEdition._();
+  const SketchEdition._();
 
   factory SketchEdition({
     required SegmentId segmentId,

@@ -3,12 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
+import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import '../../../injection/map_mode.dart';
-import '../../../overlay_ui/context_menu_shell.dart';
-import '../application/context_menu_position.dart';
 import '/map/camera/injection/map_camera_provider.dart';
-import '../injection/map_editor_mode.dart';
 
 @Dependencies([MapEditor, mapCamera, mapDecorator])
 class PopupCreateVertex extends ConsumerWidget {
@@ -19,10 +17,10 @@ class PopupCreateVertex extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final editor = ref.read(mapEditorProvider(tripId).notifier);
 
-    return ContextMenuShell(
+    return PopupOverlayShell(
       child: TextButton.icon(
         onPressed: () => editor.act((m) {
-          final latLng = contextMenuLatLngPosition(ref, tripId);
+          final latLng = popupLatLngPosition(ref, tripId);
           if (latLng == null) return null;
           return IdleEditorIntents.createVertex(latLng);
         }),

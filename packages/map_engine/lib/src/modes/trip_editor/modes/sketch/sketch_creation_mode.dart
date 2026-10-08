@@ -3,7 +3,7 @@ part of '../../map_editor_mode.dart';
 @freezed
 abstract class SketchCreation extends MapEditorMode
     with SketchMode, _$SketchCreation {
-  SketchCreation._();
+  const SketchCreation._();
 
   factory SketchCreation({
     required VertexId vertexStart,
@@ -11,7 +11,6 @@ abstract class SketchCreation extends MapEditorMode
     required MobilityType mobilityType,
     VertexId? touchedVertex,
     MapObject? selection,
-    PopUpPositionType popUpPosition,
   }) = _SketchCreation;
 
   @override
@@ -31,6 +30,16 @@ abstract class SketchCreation extends MapEditorMode
     // return GestureResult(
     //   mode: copyWith(path: path.sublist(0, grab.segmentIndex)),
     // );
+    return GestureResult.none();
+  }
+
+  @override
+  GestureResult<MapEditorMode> onTap(TapGesture g) {
+    switch (g.element) {
+      case MapSketchPencil _:
+        return GestureResult.decorate(SketchPencilMenu(g.offset));
+      case _:
+    }
     return GestureResult.none();
   }
 
@@ -58,14 +67,14 @@ abstract class SketchCreation extends MapEditorMode
         ),
         then: leaveSketch,
       ),
-      null => GestureResult.run(
-        CreateSegmentFromSketch(
-          startVertexId: vertexStart,
-          geometry: path,
-          mobilityType: mobilityType,
-        ),
-        then: leaveSketch,
-      ),
+      // null => GestureResult.run(
+      //   CreateSegmentFromSketch(
+      //     startVertexId: vertexStart,
+      //     geometry: path,
+      //     mobilityType: mobilityType,
+      //   ),
+      //   then: leaveSketch,
+      // ),
       _ => GestureResult.none(),
     };
   }

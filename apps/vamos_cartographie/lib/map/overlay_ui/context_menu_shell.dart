@@ -6,14 +6,14 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import '../injection/map_mode.dart';
 
 @Dependencies([mapDecorator])
-class PopupOverlayShell extends ConsumerWidget {
-  const PopupOverlayShell({super.key, required this.child});
+class ContextMenuShell extends ConsumerWidget {
+  const ContextMenuShell({super.key, required this.child});
   final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final d = ref.watch(mapDecoratorProvider);
 
-    if (d is! PopupDecorator) return const SizedBox.shrink();
+    if (d is! ContextMenuDecorator) return const SizedBox.shrink();
 
     return Positioned(
       left: d.at.dx,

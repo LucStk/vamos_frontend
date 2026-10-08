@@ -9,7 +9,8 @@ import '/src/mode_machine/base_mode_model.dart';
 import '/src/mode_machine/gesture_result.dart';
 import 'map_editor_command.dart';
 
-import 'modes/idle/idle/idle_menu.dart';
+import 'modes/idle/idle/idle_menu_decorator.dart';
+import 'modes/sketch/sketch_pencil_menu_decorator.dart';
 part 'modes/sketch/sketch_mode.dart';
 part "modes/sketch/sketch_creation_mode.dart";
 part "modes/sketch/sketch_edition_mode.dart";

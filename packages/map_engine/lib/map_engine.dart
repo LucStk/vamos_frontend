@@ -13,8 +13,8 @@ export "src/geometry/world_segment_helper.dart";
 export "src/mode_machine/base_mode_model.dart";
 export 'src/mode_machine/effect_queue.dart';
 export 'src/mode_machine/mode_state.dart';
-export 'src/mode_machine/popup_decorator.dart';
 export 'src/mode_machine/mode_decorator.dart';
+export 'src/mode_machine/context_menu_decorator.dart';
 
 export "src/input/pointer_gesture_resolver.dart";
 export "src/input/pending_tap_timer.dart";
@@ -33,6 +33,7 @@ export "src/modes/trip_editor/modes/idle/idle/idle_editor_intents.dart";
 export "src/modes/trip_editor/modes/idle/segment_select/segment_select_intents.dart";
 export "src/modes/trip_editor/modes/idle/vertex_select/vertex_select_intents.dart";
 export "src/modes/trip_editor/modes/sketch/sketch_intents.dart";
+export "src/modes/trip_editor/modes/sketch/sketch_pencil_menu_decorator.dart";
 
 export "src/modes/explore/explore_command_resolver.dart";
 export "src/modes/explore/map_explore_mode.dart";
