@@ -1,6 +1,6 @@
 // mode_machine/mode_command.dart
 
-import '../../map_engine.dart';
+import 'base_mode_model.dart';
 
 /// Une intention d'effet. `R` est la donnée qu'elle produit (`Done` si aucune).
 abstract class ModeCommand<M extends BaseMode<M>, R extends Object> {

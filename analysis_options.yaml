@@ -16,3 +16,4 @@ plugins:
 linter:
   rules:
     - prefer_relative_imports
+    - simple_directive_paths

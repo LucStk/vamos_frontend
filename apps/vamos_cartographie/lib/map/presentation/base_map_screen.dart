@@ -36,6 +36,7 @@ class BaseMap extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(cameraDirectorProvider);
+    print("base_map rebuild");
 
     for (final trigger in cameraTriggers) {
       ref.watch(trigger);

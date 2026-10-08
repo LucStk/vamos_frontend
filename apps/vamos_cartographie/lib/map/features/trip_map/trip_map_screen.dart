@@ -43,6 +43,7 @@ class _TripMapScreenState extends State<TripMapScreen>
 
   @override
   Widget build(BuildContext context) {
+    print("trip_map_screen rebuild");
     return ProviderScope(
       overrides: [
         mapCameraProvider.overrideWithValue(camera),
@@ -73,23 +74,31 @@ class _TripMapResolver extends ConsumerWidget {
     );
     final isOwner = ref.watch(currentUserIdProvider) == tripOwnerId.value;
 
-    // State complet : mode + décorateur.
-    final ModeState<BaseMode> modeState = isOwner
-        ? ref.watch(mapEditorProvider(tripId))
-        : ref.watch(tripViewerProvider(tripId));
-
-    final ModeHost editorController = isOwner
+    // `.notifier` ne notifie jamais : pas de rebuild sur changement d'état.
+    final ModeHost controller = isOwner
         ? ref.watch(mapEditorProvider(tripId).notifier)
         : ref.watch(tripViewerProvider(tripId).notifier);
 
     return ProviderScope(
+      // Un autre controller = un autre scope. isOwner change quasiment jamais.
+      key: ValueKey(isOwner),
       overrides: [
-        mapModeProvider.overrideWithValue(modeState.mode),
-        mapDecoratorProvider.overrideWithValue(modeState.decorator),
+        mapModeProvider.overrideWith(
+          (ref) => isOwner
+              ? ref.watch(mapEditorProvider(tripId).select((s) => s.mode))
+              : ref.watch(tripViewerProvider(tripId).select((s) => s.mode)),
+        ),
+        mapDecoratorProvider.overrideWith(
+          (ref) => isOwner
+              ? ref.watch(mapEditorProvider(tripId).select((s) => s.decorator))
+              : ref.watch(
+                  tripViewerProvider(tripId).select((s) => s.decorator),
+                ),
+        ),
         mapSceneProvider.overrideWith(
           (ref) => ref.watch(tripEditorSceneProvider(tripId)),
         ),
-        mapModeControllerProvider.overrideWithValue(editorController),
+        mapModeControllerProvider.overrideWithValue(controller),
       ],
       child: _TripMapView(tripId: tripId, isOwner: isOwner),
     );
@@ -114,6 +123,7 @@ class _TripMapView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("trip_map_view rebuild");
     final loader = ref.watch(tripDetailsLoaderProvider(tripId));
 
     return Scaffold(
