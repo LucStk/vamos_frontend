@@ -3,6 +3,7 @@ export "src/domain/space/offset_type.dart";
 export "src/domain/space/world_segment.dart";
 
 export "src/domain/camera/map_camera.dart";
+export "src/domain/selection.dart";
 export "src/domain/camera/map_geo_bounds.dart";
 export "src/domain/gestures/gesture_sink.dart";
 

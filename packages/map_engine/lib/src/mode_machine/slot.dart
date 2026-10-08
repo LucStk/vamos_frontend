@@ -12,5 +12,5 @@ final class Slot<T extends Object> {
 }
 
 /// Quelques politiques courantes.
-bool leavesType<T extends BaseMode<T>>(BaseMode from, BaseMode to) =>
+bool leavesType<T extends Object>(BaseMode from, BaseMode to) =>
     from is T && to is! T;
