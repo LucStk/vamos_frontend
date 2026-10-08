@@ -1,5 +1,7 @@
+import 'package:latlong2/latlong.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import '../../../camera/injection/camera_or_null.dart';
@@ -20,27 +22,36 @@ VertexVisualKind _visualKind(WaypointFields? waypoint) {
   };
 }
 
-@Riverpod(dependencies: [CameraOrNull])
-List<ProjectedPoint> allVertexProjection(Ref ref, TripId tripId) {
-  final vertices = ref.watch(allVertexProvider(tripId));
-  final cameraReader = ref.watch(cameraOrNullProvider);
-  if (cameraReader == null) {
-    return [];
-  }
-  final List<ProjectedPoint> ret = [];
-  for (final vertex in vertices) {
-    final wId = ref.watch(waypointFromVertexProvider(tripId, vertex.id));
-    final w = (wId != null) ? ref.watch(waypointProvider(tripId, wId)) : null;
-    ret.add(
-      ProjectedVertex(
-        worldPosition: cameraReader.latLngToWorldOffset(vertex.latLng),
+@Riverpod(dependencies: [])
+({LatLng position, VertexVisualKind kind}) vertexData(
+  Ref ref,
+  TripId tripId,
+  VertexId vertexId,
+) {
+  final wId = ref.watch(waypointFromVertexProvider(tripId, vertexId));
+  final w = wId != null ? ref.watch(waypointProvider(tripId, wId)) : null;
+  final position = ref.watch(
+    vertexProvider(tripId, vertexId).select((v) => v.latLng),
+  );
+  return (position: position, kind: _visualKind(w));
+}
 
-        object: MapVertex(vertex.id, vertex.latLng),
-        visualKind: _visualKind(w),
-      ),
-    );
-  }
-  return ret;
+@Riverpod(dependencies: [CameraOrNull, vertexData])
+List<ProjectedPoint> allVertexProjection(Ref ref, TripId tripId) {
+  final cameraReader = ref.watch(cameraOrNullProvider);
+  if (cameraReader == null) return const [];
+
+  return [
+    for (final id in ref.watch(allVertexIdsProvider(tripId)))
+      () {
+        final d = ref.watch(vertexDataProvider(tripId, id));
+        return ProjectedVertex(
+          worldPosition: cameraReader.latLngToWorldOffset(d.position),
+          object: MapVertex(id, d.position),
+          visualKind: d.kind,
+        );
+      }(),
+  ];
 }
 
 @Riverpod(dependencies: [CameraOrNull])

@@ -4,7 +4,7 @@ part of "../../../map_editor_mode.dart";
 @freezed
 final class VertexSelectMode extends MapEditorMode
     with IdleBehavior, _$VertexSelectMode {
-  VertexSelectMode({required this.vertex});
+  VertexSelectMode({required this.vertexId});
 
-  final MapVertex vertex;
+  final VertexId vertexId;
 }

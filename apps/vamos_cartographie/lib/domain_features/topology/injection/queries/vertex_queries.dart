@@ -31,6 +31,13 @@ List<VertexFields> allVertex(Ref ref, TripId tripId) {
 }
 
 @riverpod
+List<VertexId> allVertexIds(Ref ref, TripId tripId) {
+  // Attention, ne fait pas de watch sur les StateNode<Vertex>
+  final store = ref.watch(vertexStoreProvider(tripId));
+  return store.store.values.map((v) => v.id).toList();
+}
+
+@riverpod
 WaypointId? waypointFromVertex(Ref ref, TripId tripId, VertexId vertexId) {
   return ref.watch(
     waypointStoreProvider(tripId).select((s) => s.getFromVertex(vertexId)),

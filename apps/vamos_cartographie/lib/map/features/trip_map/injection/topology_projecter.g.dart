@@ -9,6 +9,94 @@ part of 'topology_projecter.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(vertexData)
+final vertexDataProvider = VertexDataFamily._();
+
+final class VertexDataProvider
+    extends
+        $FunctionalProvider<
+          ({VertexVisualKind kind, LatLng position}),
+          ({VertexVisualKind kind, LatLng position}),
+          ({VertexVisualKind kind, LatLng position})
+        >
+    with $Provider<({VertexVisualKind kind, LatLng position})> {
+  VertexDataProvider._({
+    required VertexDataFamily super.from,
+    required (TripId, VertexId) super.argument,
+  }) : super(
+         retry: null,
+         name: r'vertexDataProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$vertexDataHash();
+
+  @override
+  String toString() {
+    return r'vertexDataProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<({VertexVisualKind kind, LatLng position})> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ({VertexVisualKind kind, LatLng position}) create(Ref ref) {
+    final argument = this.argument as (TripId, VertexId);
+    return vertexData(ref, argument.$1, argument.$2);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(({VertexVisualKind kind, LatLng position}) value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride:
+          $SyncValueProvider<({VertexVisualKind kind, LatLng position})>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is VertexDataProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$vertexDataHash() => r'3641db2eb9e4b46458349b8b8ecca4bd2cd6902f';
+
+final class VertexDataFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          ({VertexVisualKind kind, LatLng position}),
+          (TripId, VertexId)
+        > {
+  VertexDataFamily._()
+    : super(
+        retry: null,
+        name: r'vertexDataProvider',
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
+        isAutoDispose: true,
+      );
+
+  VertexDataProvider call(TripId tripId, VertexId vertexId) =>
+      VertexDataProvider._(argument: (tripId, vertexId), from: this);
+
+  @override
+  String toString() => r'vertexDataProvider';
+}
+
 @ProviderFor(allVertexProjection)
 final allVertexProjectionProvider = AllVertexProjectionFamily._();
 
@@ -32,6 +120,7 @@ final class AllVertexProjectionProvider
        );
 
   static final $allTransitiveDependencies0 = cameraOrNullProvider;
+  static final $allTransitiveDependencies1 = vertexDataProvider;
 
   @override
   String debugGetCreateSourceHash() => _$allVertexProjectionHash();
@@ -77,7 +166,7 @@ final class AllVertexProjectionProvider
 }
 
 String _$allVertexProjectionHash() =>
-    r'1283c6dd0cec88456eb465d45156213f60a9e6aa';
+    r'd78226f43069e6daa4be2b4c769be17e6b6d110f';
 
 final class AllVertexProjectionFamily extends $Family
     with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
@@ -85,9 +174,13 @@ final class AllVertexProjectionFamily extends $Family
     : super(
         retry: null,
         name: r'allVertexProjectionProvider',
-        dependencies: <ProviderOrFamily>[cameraOrNullProvider],
+        dependencies: <ProviderOrFamily>[
+          cameraOrNullProvider,
+          vertexDataProvider,
+        ],
         $allTransitiveDependencies: <ProviderOrFamily>[
           AllVertexProjectionProvider.$allTransitiveDependencies0,
+          AllVertexProjectionProvider.$allTransitiveDependencies1,
         ],
         isAutoDispose: true,
       );

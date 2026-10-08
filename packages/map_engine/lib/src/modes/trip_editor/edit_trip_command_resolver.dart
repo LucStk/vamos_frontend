@@ -36,12 +36,16 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
     if (command is BaseCommand<R>) return resolveBase(command);
     if (command is! EditorCommand<R>) return null;
 
-    final Object? result = await switch (command) {
+    // On oublie le R précis ici : les resolvers renvoient de toute façon Object?.
+    final EditorCommand<Object> cmd = command;
+
+    final Object? result = await switch (cmd) {
       IdleEditorCommand c => resolveIdle(c),
       VertexSelectCommand c => resolveVertexSelect(c),
       SegmentSelectCommand c => resolveSegmentSelect(c),
       SketchCommand c => resolveSketch(c),
     };
+
     return result as R?;
   }
 }

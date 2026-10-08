@@ -4,7 +4,7 @@ part of "../../../map_editor_mode.dart";
 @freezed
 final class SegmentSelectMode extends MapEditorMode
     with IdleBehavior, _$SegmentSelectMode {
-  SegmentSelectMode({required this.segment});
+  SegmentSelectMode({required this.segmentId});
 
-  final MapSegment segment;
+  final SegmentId segmentId;
 }

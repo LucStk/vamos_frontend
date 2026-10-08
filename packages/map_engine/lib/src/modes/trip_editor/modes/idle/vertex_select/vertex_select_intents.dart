@@ -7,11 +7,11 @@ import '../../../map_editor_mode.dart';
 
 abstract final class VertexSelectIntents {
   static GestureResult<MapEditorMode> deleteVertex(VertexSelectMode m) {
-    final id = m.vertex.id; // on capture une valeur, jamais `this`
+    final id = m.vertexId; // on capture une valeur, jamais `this`
     return GestureResult.run(
       RemoveVertex(id),
       then: (current, _) => switch (current) {
-        VertexSelectMode(:final vertex) when vertex.id == id =>
+        VertexSelectMode(:final vertexId) when vertexId == id =>
           GestureResult.to(IdleEditor()),
         _ => null, // le mode a changé entre-temps : rien à faire
       },
@@ -23,7 +23,7 @@ abstract final class VertexSelectIntents {
     LatLng position,
   ) => GestureResult.to(
     SketchCreation(
-      vertexStart: m.vertex.id,
+      vertexStart: m.vertexId,
       path: [position],
       mobilityType: MobilityType.bike,
     ),

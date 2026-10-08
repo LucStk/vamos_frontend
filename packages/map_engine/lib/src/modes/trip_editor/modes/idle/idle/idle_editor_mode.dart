@@ -4,14 +4,14 @@ part of "../../../map_editor_mode.dart";
 mixin IdleBehavior on MapEditorMode {
   @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
-    MapVertex e => GestureResult.to(VertexSelectMode(vertex: e)),
-    MapSegment e => GestureResult.to(SegmentSelectMode(segment: e)),
+    MapVertex e => GestureResult.to(VertexSelectMode(vertexId: e.id)),
+    MapSegment e => GestureResult.to(SegmentSelectMode(segmentId: e.id)),
     _ => GestureResult.none(),
   };
   @override
   GestureResult<MapEditorMode> onLongPress(LongPressGesture g) =>
       switch (g.element) {
-        _ => GestureResult.none(),
+        _ => GestureResult.decorate(IdleMenu(g.offset)),
       };
   @override
   GestureResult<MapEditorMode> onSecondaryTap(SecondaryTapGesture g) =>

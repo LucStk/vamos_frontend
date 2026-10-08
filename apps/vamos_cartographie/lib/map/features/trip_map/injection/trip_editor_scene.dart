@@ -3,8 +3,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
-import '../../../injection/map_mode.dart';
-import '../../../injection/user_location_projecter.dart';
+import '/map/injection/map_mode.dart';
+import '/map/injection/user_location_projecter.dart';
 import 'topology_projecter.dart';
 import 'sketch_elements_projecter.dart';
 
@@ -31,17 +31,16 @@ List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
 
 @Riverpod(dependencies: [projectedTripEditorScene, mapMode])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
-  final selection =
-      ref.watch(
-            mapModeProvider.select(
-              (m) => switch (m) {
-                VertexSelectMode e => e.vertex,
-                SegmentSelectMode e => e.segment,
-                _ => null,
-              },
-            ),
-          )
-          as MapObject?;
+  final selection = ref.watch(
+    mapModeProvider.select(
+      (m) => switch (m) {
+        VertexSelectMode e => VertexSelected(e.vertexId),
+        SegmentSelectMode e => SegmentSelected(e.segmentId),
+        _ => null,
+      },
+    ),
+  );
+
   final projObjects = ref.watch(projectedTripEditorSceneProvider(tripId));
 
   return MapScene(selection: selection, objects: projObjects);

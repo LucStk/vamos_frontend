@@ -253,6 +253,83 @@ final class AllVertexFamily extends $Family
   String toString() => r'allVertexProvider';
 }
 
+@ProviderFor(allVertexIds)
+final allVertexIdsProvider = AllVertexIdsFamily._();
+
+final class AllVertexIdsProvider
+    extends $FunctionalProvider<List<VertexId>, List<VertexId>, List<VertexId>>
+    with $Provider<List<VertexId>> {
+  AllVertexIdsProvider._({
+    required AllVertexIdsFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'allVertexIdsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$allVertexIdsHash();
+
+  @override
+  String toString() {
+    return r'allVertexIdsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<VertexId>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<VertexId> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return allVertexIds(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<VertexId> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<VertexId>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllVertexIdsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$allVertexIdsHash() => r'561c8c128729684dd2e29c2a6300dca9487b695b';
+
+final class AllVertexIdsFamily extends $Family
+    with $FunctionalFamilyOverride<List<VertexId>, TripId> {
+  AllVertexIdsFamily._()
+    : super(
+        retry: null,
+        name: r'allVertexIdsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  AllVertexIdsProvider call(TripId tripId) =>
+      AllVertexIdsProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'allVertexIdsProvider';
+}
+
 @ProviderFor(waypointFromVertex)
 final waypointFromVertexProvider = WaypointFromVertexFamily._();
 

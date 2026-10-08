@@ -34,14 +34,14 @@ class MapEditorBottomSheet extends ConsumerWidget {
         return SketchBottomSheet(tripId: tripId);
       case VertexSelectMode e:
         final waypointId = ref.watch(
-          waypointFromVertexProvider(tripId, e.vertex.id),
+          waypointFromVertexProvider(tripId, e.vertexId),
         );
         if (waypointId != null) {
           return WaypointBottomSheet(tripId: tripId, waypointId: waypointId);
         }
-        return VertexBottomSheet(tripId: tripId, vertexId: e.vertex.id);
+        return VertexBottomSheet(tripId: tripId, vertexId: e.vertexId);
       case SegmentSelectMode e:
-        return SegmentBottomSheet(tripId: tripId, segmentId: e.segment.id);
+        return SegmentBottomSheet(tripId: tripId, segmentId: e.segmentId);
       case _:
         return const SizedBox.shrink();
     }

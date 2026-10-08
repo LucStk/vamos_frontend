@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import 'base_mode_model.dart';
 import 'mode_command.dart';
 import 'mode_decorator.dart';
@@ -45,3 +47,8 @@ Future<Done> done(Future<void> Function() effect) async {
   await effect();
   return const Done();
 }
+
+/// Exécute un effet qui peut échouer. `null` = échec, donc `then` n'est pas appelé.
+Future<R?> valueOrNull<R extends Object, F>(
+  Future<Either<F, R>> effect,
+) async => (await effect).fold((_) => null, (value) => value);
