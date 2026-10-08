@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:trip_application/topology/domain/types/types.dart';
-import 'package:trip_application/trip/domain/domain.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:user_profile_application/domain/domain.dart';
+import "trip.dart";
+import "../../topology/topology.dart";
 
 abstract class TripRepository {
   Future<

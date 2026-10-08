@@ -25,5 +25,9 @@ Client createClient() {
 
   final link = Link.from([authLink, httpLink]);
 
-  return Client(link: link, cache: Cache());
+  return Client(
+    link: link,
+    cache: Cache(),
+    defaultFetchPolicies: {OperationType.query: FetchPolicy.NetworkOnly},
+  );
 }

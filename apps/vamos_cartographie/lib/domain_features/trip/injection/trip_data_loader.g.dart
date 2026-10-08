@@ -21,7 +21,7 @@ final class TripDetailsLoaderProvider
   }) : super(
          retry: null,
          name: r'tripDetailsLoaderProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -58,7 +58,7 @@ final class TripDetailsLoaderProvider
   }
 }
 
-String _$tripDetailsLoaderHash() => r'06f8c469ef942289b8bc72bcb8909c4946b05351';
+String _$tripDetailsLoaderHash() => r'8801fe72231581a9e364e3567caf58660d07368a';
 
 final class TripDetailsLoaderFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<void>, TripId> {
@@ -68,7 +68,7 @@ final class TripDetailsLoaderFamily extends $Family
         name: r'tripDetailsLoaderProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   TripDetailsLoaderProvider call(TripId tripId) =>

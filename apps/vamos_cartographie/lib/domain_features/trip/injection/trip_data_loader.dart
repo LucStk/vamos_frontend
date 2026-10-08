@@ -2,16 +2,13 @@ import 'package:domain_core/failures/failures.dart';
 import 'package:stored_file_application/application/stored_file_store.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/application/application.dart';
-import 'package:vamos_cartographie/domain_features/stored_file/injection/stored_file_provider.dart';
-import 'package:vamos_cartographie/domain_features/topology/injection/providers/graph_store.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/providers/profile_store.dart';
-import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
+
+import '../../domain_features.dart';
 part 'trip_data_loader.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<void> tripDetailsLoader(Ref ref, TripId tripId) async {
   final tripRepo = ref.watch(tripRepositoryProvider);
   final res = await tripRepo.getTripDetails(tripId);
@@ -36,6 +33,7 @@ Future<void> tripDetailsLoader(Ref ref, TripId tripId) async {
           newMediaStore = newMediaStore.insertStoredFile(w.id, i);
         }
       }
+      if (!ref.mounted) return;
 
       ref.read(waypointStoreProvider(tripId).notifier).emit(newWaypointStore);
       ref.read(graphStoreProvider(tripId).notifier).emit(newGraphStore);
