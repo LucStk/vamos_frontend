@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import '/map/overlay_ui/drag_hint_header.dart';
 import '../../waypoint_sheet/waypoint_form_dialog.dart';
 import '../../waypoint_sheet/waypoint_header.dart';
 import '../../waypoint_sheet/waypoint_viewer_actions.dart';
@@ -30,11 +29,6 @@ class WaypointCompactContent extends ConsumerWidget {
       key: const ValueKey('compact_content'), // CRUCIAL pour AnimatedSwitcher
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Indicateur visuel pour inciter au glissement vers le haut
-        const DragHintHeader(),
-
-        const SizedBox(height: 12),
-
         // Ligne d'en-tête + boutons d'action
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

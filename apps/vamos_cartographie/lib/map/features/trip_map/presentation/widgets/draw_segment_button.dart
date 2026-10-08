@@ -5,6 +5,7 @@ import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
+import '/domain_features/topology/injection/queries/queries.dart';
 import '../../injection/map_editor_mode.dart';
 
 @Dependencies([MapEditor])
@@ -21,7 +22,10 @@ class DrawSegmentButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final editor = ref.watch(mapEditorProvider(tripId).notifier);
     return OutlinedButton.icon(
-      onPressed: () => editor.act(SegmentSelectIntents.startSegmentEdit),
+      onPressed: () => editor.act((VertexSelectMode m) {
+        final v = ref.read(vertexProvider(tripId, vertexId));
+        return VertexSelectIntents.sketchCreation(m, v.latLng);
+      }),
       icon: const Icon(Icons.draw_outlined, size: 16),
       label: const Text("Draw road"),
     );
