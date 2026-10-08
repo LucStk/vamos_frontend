@@ -4,15 +4,15 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import '../../../injection/map_mode.dart';
-import '../../../overlay_ui/context_menu_shell.dart';
-import '../application/context_menu_position.dart';
+import '/map/overlay_ui/context_menu/context_menu_shell.dart';
+import '/map/overlay_ui/context_menu/context_menu_position.dart';
+import '../../injection/map_editor_mode.dart';
+import '/map/injection/map_mode.dart';
 import '/map/camera/injection/map_camera_provider.dart';
-import '../injection/map_editor_mode.dart';
 
 @Dependencies([MapEditor, mapCamera, mapDecorator])
-class PopupCreateVertex extends ConsumerWidget {
-  const PopupCreateVertex({super.key, required this.tripId});
+class PopupCreateVertexWidget extends ConsumerWidget {
+  const PopupCreateVertexWidget({super.key, required this.tripId});
   final TripId tripId;
 
   @override

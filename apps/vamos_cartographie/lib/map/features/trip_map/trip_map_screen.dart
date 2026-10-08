@@ -23,8 +23,8 @@ import 'injection/map_editor_mode.dart';
 import 'injection/trip_editor_scene.dart';
 import 'injection/trip_view_mode.dart';
 import 'presentation/bottom_sheet/map_bottom_sheet.dart';
+import 'presentation/context_menu/context_menu_roundabout.dart';
 import 'presentation/map_top_bar.dart';
-import 'presentation/popup_create_vertex.dart';
 
 @Dependencies([MapGestureHandlerNotifier])
 class TripMapScreen extends StatefulWidget {
@@ -134,7 +134,7 @@ class _TripMapView extends ConsumerWidget {
             overlayChildren: [
               MapTopBar(tripId: tripId),
               MapEditorBottomSheet(tripId: tripId),
-              PopupCreateVertex(tripId: tripId),
+              ContextMenuRoundabout(tripId: tripId),
             ],
           ),
 

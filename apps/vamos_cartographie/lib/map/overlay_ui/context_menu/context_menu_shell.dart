@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-import '../injection/map_mode.dart';
+import '/map/injection/map_mode.dart';
 
 @Dependencies([mapDecorator])
 class ContextMenuShell extends ConsumerWidget {
