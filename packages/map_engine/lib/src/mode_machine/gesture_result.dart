@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'base_mode_model.dart';
 import 'mode_command.dart';
 import 'mode_decorator.dart';
+import 'slot.dart';
 
 /// Résultat typé d'une commande. Remplace `NoResult` pour les commandes sans donnée.
 final class Done {
@@ -15,8 +16,33 @@ final class PendingRun<M extends BaseMode<M>> {
   final GestureResult<M>? Function(M current, Object result)? then;
 }
 
+typedef SlotChange = (Slot slot, Object? value);
+
 final class GestureResult<M extends BaseMode<M>> {
-  const GestureResult({this.mode, this.pending, this.decorator});
+  const GestureResult({
+    this.mode,
+    this.pending,
+    this.decorator,
+    this.slots = const [],
+  });
+
+  /// Ne change que le slot, pas le mode. `null` vide le slot.
+  static GestureResult<M> set<M extends BaseMode<M>, T extends Object>(
+    Slot<T> slot,
+    T? value,
+  ) => GestureResult<M>(slots: [(slot, value)]);
+
+  /// Ajoute un changement de slot : `GestureResult.to(m).and(selection, x)`.
+  GestureResult<M> and<T extends Object>(Slot<T> slot, T? value) =>
+      GestureResult(
+        mode: mode,
+        pending: pending,
+        decorator: decorator,
+        slots: [...slots, (slot, value)],
+      );
+
+  final List<SlotChange> slots;
+
   const GestureResult.none() : this();
   const GestureResult.to(M mode) : this(mode: mode);
   const GestureResult.decorate(ModeDecorator<M> decorator)

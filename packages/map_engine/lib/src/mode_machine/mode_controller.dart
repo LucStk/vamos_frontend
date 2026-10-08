@@ -27,27 +27,40 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
     apply(mode.dispatchGesture(event, offset));
   }
 
-  @override
-  void dismissDecorator() {
-    if (state.decorator != null) setState(ModeState(mode));
-  }
-
   /// Exécute l'intent seulement si le mode courant est bien du type T.
   void act<T extends M>(GestureResult<M>? Function(T mode) intent) {
     final current = mode;
     if (current is T) apply(intent(current));
   }
 
+  @override
+  void dismissDecorator() {
+    if (state.decorator != null) {
+      setState(ModeState(mode, null, state.context));
+    }
+  }
+
   void apply(GestureResult<M>? result, {bool fromEffect = false}) {
     if (result == null) return;
 
     final current = state.decorator;
-    final keep = current != null && (fromEffect || current.survives(result));
-    final nextDecorator = result.decorator ?? (keep ? current : null);
     final nextMode = result.mode ?? mode;
 
-    if (!identical(nextMode, mode) || !identical(nextDecorator, current)) {
-      setState(ModeState(nextMode, nextDecorator));
+    var ctx = state.context;
+    if (!identical(nextMode, mode)) ctx = ctx.afterTransition(mode, nextMode);
+    for (final (slot, value) in result.slots) {
+      ctx = ctx.withSlot(slot, value);
+    }
+
+    final keep =
+        current != null &&
+        (fromEffect ? result.mode == null : current.survives(result));
+    final nextDecorator = result.decorator ?? (keep ? current : null);
+
+    if (!identical(nextMode, mode) ||
+        !identical(nextDecorator, current) ||
+        ctx != state.context) {
+      setState(ModeState(nextMode, nextDecorator, ctx));
     }
 
     final pending = result.pending;
