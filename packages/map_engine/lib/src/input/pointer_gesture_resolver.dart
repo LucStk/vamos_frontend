@@ -64,6 +64,7 @@ class PointerGestureResolver {
         // On fait le testhit pour détecter si on touche un
         // element autre celui que l'on déplace
         final target = hitTest(offset: offset, exclude: dragging.dragged);
+        state = DraggingState(dragged: dragging.dragged, target: target);
         return DraggingGesture(
           offset,
           dragged: dragging.dragged,
