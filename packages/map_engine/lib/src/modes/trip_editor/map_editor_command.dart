@@ -8,9 +8,9 @@ import '../../geometry/merge_polyline.dart';
 import '../../mode_machine/gesture_result.dart';
 import '../../mode_machine/mode_command.dart';
 import 'map_editor_mode.dart';
-part "modes/idle/segment_select/segment_select_command.dart";
-part "modes/idle/vertex_select/vertex_select_command.dart";
-part "modes/idle/idle/idle_editor_command.dart";
+part "modes/idle/segment_select_command.dart";
+part "modes/idle/vertex_select_command.dart";
+part "modes/idle/idle_editor_command.dart";
 part "modes/sketch/sketch_command.dart";
 
 sealed class EditorCommand<R extends Object>

@@ -33,6 +33,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
     if (current is T) apply(intent(current));
   }
 
+  /// Exécute l'action seulement si la sélection courante est de type S.
   @override
   void dismissDecorator() {
     if (state.decorator != null) {

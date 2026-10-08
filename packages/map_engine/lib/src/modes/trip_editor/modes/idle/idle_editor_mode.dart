@@ -1,11 +1,12 @@
-part of "../../../map_editor_mode.dart";
+part of "../../map_editor_mode.dart";
 
 // idle_editor_mode.dart
 mixin IdleBehavior on MapEditorMode {
   @override
   GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
-    MapVertex e => GestureResult.to(VertexSelectMode(vertexId: e.id)),
-    MapSegment e => GestureResult.to(SegmentSelectMode(segmentId: e.id)),
+    MapVertex e => GestureResult.set(selection, VertexSelection(e.id)),
+    MapSegment e => GestureResult.set(selection, SegmentSelection(e.id)),
+    null => GestureResult.set(selection, null),
     _ => GestureResult.none(),
   };
   @override
