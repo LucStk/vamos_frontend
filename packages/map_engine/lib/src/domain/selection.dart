@@ -1,7 +1,7 @@
 import 'package:trip_application/trip_application.dart';
 
+import '../mode_machine/slot.dart';
 import 'objects/map_objects.dart';
-import 'slot.dart';
 
 const selectionSlot = Slot<Selection>('selection');
 

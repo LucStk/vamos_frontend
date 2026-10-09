@@ -18,7 +18,7 @@ class ContextMenuRoundabout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final d = ref.watch(modeDecoratorProvider);
-    if (d is! ContextMenuDecorator) return SizedBox.shrink();
+    if (d is! ContextMenuOverlay) return SizedBox.shrink();
     return switch (d) {
       SketchPencilMenu _ => SketchPencilMenuWidget(tripId: tripId),
       IdleMenu _ => PopupCreateVertexWidget(tripId: tripId),

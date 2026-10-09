@@ -24,7 +24,7 @@ abstract class SketchEdition extends MapEditorMode
     ScreenOffset p,
   ) => switch (g.element) {
     MapSegment s when s.id == segmentId => addPoint(p),
-    _ => Transition.none(),
+    _ => Transition.stay(),
   };
 
   @override
@@ -47,7 +47,7 @@ abstract class SketchEdition extends MapEditorMode
         ),
         then: leaveSketch,
       ),
-      _ => Transition.none(),
+      _ => Transition.stay(),
     };
   }
 }

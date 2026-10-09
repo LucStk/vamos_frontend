@@ -6,7 +6,7 @@ mixin IdleViewBehavior on ViewTripMode {
     // MapUserLocation _ || null => Transition.to(withPopupPosition(g.offset)),
     MapVertex e => Transition.to(VertexSelectViewMode(vertex: e)),
     MapSegment e => Transition.to(SegmentSelectViewMode(segment: e)),
-    _ => Transition.none(),
+    _ => Transition.stay(),
   };
 }
 

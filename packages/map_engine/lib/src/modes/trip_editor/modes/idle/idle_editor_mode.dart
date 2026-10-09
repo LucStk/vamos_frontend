@@ -9,17 +9,17 @@ mixin IdleBehavior on MapEditorMode {
     MapVertex e => Transition.set(selectionSlot, VertexSelection(e.id)),
     MapSegment e => Transition.set(selectionSlot, SegmentSelection(e.id)),
     null => Transition.set(selectionSlot, null),
-    _ => Transition.none(),
+    _ => Transition.stay(),
   };
   @override
   Transition<MapEditorMode> onLongPress(LongPressGesture g) =>
       switch (g.element) {
-        _ => Transition.decorate(IdleMenu(g.offset)),
+        _ => Transition.overlay(IdleMenu(g.offset)),
       };
   @override
   Transition<MapEditorMode> onSecondaryTap(SecondaryTapGesture g) =>
       switch (g.element) {
-        _ => Transition.decorate(IdleMenu(g.offset)),
+        _ => Transition.overlay(IdleMenu(g.offset)),
       };
 }
 

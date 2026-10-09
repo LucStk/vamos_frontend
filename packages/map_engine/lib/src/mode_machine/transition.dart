@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
-import '../domain/slot.dart';
+import 'slot.dart';
 import 'base_mode_model.dart';
 import 'mode_command.dart';
-import 'overlay.dart';
+import 'overlay/overlay.dart';
 
 /// Résultat typé d'une commande. Remplace `NoResult` pour les commandes sans donnée.
 final class Done {
@@ -42,9 +42,9 @@ final class Transition<M extends BaseMode<M>> {
 
   final List<SlotChange> slots;
 
-  const Transition.none() : this();
+  const Transition.stay() : this();
   const Transition.to(M mode) : this(mode: mode);
-  const Transition.decorate(Overlay<M> overlay) : this(overlay: overlay);
+  const Transition.overlay(Overlay<M> overlay) : this(overlay: overlay);
 
   final M? mode;
   final PendingRun<M>? pending;

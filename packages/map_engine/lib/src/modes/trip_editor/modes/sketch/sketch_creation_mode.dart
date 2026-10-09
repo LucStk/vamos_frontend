@@ -25,28 +25,28 @@ abstract class SketchCreation extends MapEditorMode
     PointerDownGesture g,
     ScreenOffset p,
   ) {
-    if (g.element is! MapSketchSegment) return Transition.none();
+    if (g.element is! MapSketchSegment) return Transition.stay();
     // final grab = closestPointOnPolyline(p, path);
     // return Transition(
     //   mode: copyWith(path: path.sublist(0, grab.segmentIndex)),
     // );
-    return Transition.none();
+    return Transition.stay();
   }
 
   @override
   Transition<MapEditorMode> onTap(TapGesture g) {
     switch (g.element) {
       case MapSketchPencil _:
-        return Transition.decorate(SketchPencilMenu(g.offset));
+        return Transition.overlay(SketchPencilMenu(g.offset));
       case _:
     }
-    return Transition.none();
+    return Transition.stay();
   }
 
   // SketchCreation
   @override
   Transition<MapEditorMode> onDragEnd(DragEndGesture g) {
-    if (g.dragged is! MapSketchPencil) return Transition.none();
+    if (g.dragged is! MapSketchPencil) return Transition.stay();
 
     return switch (g.target) {
       MapVertex v => Transition.run(
@@ -75,7 +75,7 @@ abstract class SketchCreation extends MapEditorMode
       //   ),
       //   then: leaveSketch,
       // ),
-      _ => Transition.none(),
+      _ => Transition.stay(),
     };
   }
 }

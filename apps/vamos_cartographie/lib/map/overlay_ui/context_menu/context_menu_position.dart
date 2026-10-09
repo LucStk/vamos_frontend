@@ -10,7 +10,7 @@ import '/map/camera/injection/map_camera_provider.dart';
 @Dependencies([mapCamera, modeDecorator])
 LatLng? contextMenuLatLngPosition(WidgetRef ref, TripId tripId) {
   final d = ref.watch(modeDecoratorProvider);
-  if (d is! ContextMenuDecorator) return null;
+  if (d is! ContextMenuOverlay) return null;
   final camera = ref.read(mapCameraProvider);
   return camera.screenOffsetToLatLng(d.at);
 }

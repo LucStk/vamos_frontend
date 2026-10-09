@@ -1,6 +1,6 @@
 // mode_state.dart
 import 'base_mode_model.dart';
-import 'overlay.dart';
+import 'overlay/overlay.dart';
 import 'mode_context.dart';
 
 final class ModeState<M extends BaseMode<M>> {

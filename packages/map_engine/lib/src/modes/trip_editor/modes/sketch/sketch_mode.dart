@@ -31,18 +31,18 @@ mixin SketchMode on MapEditorMode {
   @override
   Transition<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
     MapSketchPencil p => Transition.to(withSelection(p)),
-    _ => Transition.none(),
+    _ => Transition.stay(),
   };
 
   // @override
   // Transition<MapEditorMode> onDragStart(DragStartGesture g) =>
   //     selection is MapSketchPencil
   //     ? Transition.to(withSelection(null))
-  //     : Transition.none();
+  //     : Transition.stay();
 
   @override
   Transition<MapEditorMode> onDragging(DraggingGesture g, ScreenOffset p) =>
       g.dragged is MapSketchPencil
       ? addPoint(p, mode: withSelection(g.target))
-      : Transition.none();
+      : Transition.stay();
 }

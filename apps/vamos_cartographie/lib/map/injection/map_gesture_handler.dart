@@ -4,6 +4,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../camera/injection/map_camera_provider.dart';
 import 'map_mode.dart';
 import 'map_scene.dart';
+
+/// State : `true` tant que la carte peut être pannée
+/// (`false` pendant le drag d'un objet).
 part 'map_gesture_handler.g.dart';
 
 /// State : `true` tant que la carte peut être pannée
@@ -13,67 +16,24 @@ part 'map_gesture_handler.g.dart';
   dependencies: [mapScene, mapCamera, mapModeController],
 )
 class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
-  late final PointerGestureResolver _resolver = PointerGestureResolver(
-    hitTest: _hitTest,
-  );
-  late final PendingTapTimer _tapTimer = PendingTapTimer(
-    timeout: const Duration(milliseconds: 149),
-    onTimeout: _onTapTimeout,
-  );
-  late final LongPressTimer _longPressTimer = LongPressTimer(
-    timeout: const Duration(milliseconds: 500),
-    onTimeout: (pressed) =>
-        onPointerEvent(PointerEventType.longPressTimeout, pressed.offset),
-  );
+  late MapGestureHandler _handler;
 
   @override
   bool build() {
-    ref.onDispose(() {
-      _tapTimer.dispose();
-      _longPressTimer.dispose();
-    });
+    _handler = MapGestureHandler(
+      sink: () => ref.read(mapModeControllerProvider),
+      hitTest: _hitTest,
+      onPanAllowedChanged: (allowed) => state = allowed,
+    );
+    ref.onDispose(_handler.dispose);
     return true;
   }
 
-  void _syncTimer() {
-    switch (_resolver.state) {
-      case final PendingTap pending:
-        _longPressTimer.cancel();
-        _tapTimer.update(pending);
-      case final PressedState pressed:
-        _tapTimer.cancel();
-        _longPressTimer.update(pressed);
-      case _:
-        _tapTimer.cancel();
-        _longPressTimer.cancel();
-    }
-  }
+  void onPointerEvent(PointerEventType event, ScreenOffset offset) =>
+      _handler.onPointerEvent(event, offset);
 
-  void onSecondaryClick(ScreenOffset offset) {
-    final element = _hitTest(offset: offset);
-    final gesture = SecondaryTapGesture(offset, element: element);
-    ref.read(mapModeControllerProvider).send(gesture, offset);
-  }
-
-  void onPointerEvent(PointerEventType event, ScreenOffset offset) {
-    final gesture = _resolver.resolve(event, offset);
-    _syncTimer();
-    _syncPanAllowed();
-
-    if (gesture == null) return;
-    ref.read(mapModeControllerProvider).send(gesture, offset);
-  }
-
-  void _onTapTimeout(PendingTap pending) =>
-      onPointerEvent(PointerEventType.tapTimeout, pending.offset);
-
-  void _syncPanAllowed() {
-    final allowed = switch (_resolver.state) {
-      DraggingState(:final dragged) => dragged == null,
-      _ => true,
-    };
-    if (allowed != state) state = allowed;
-  }
+  void onSecondaryClick(ScreenOffset offset) =>
+      _handler.onSecondaryClick(offset);
 
   MapObject? _hitTest({required ScreenOffset offset, MapObject? exclude}) {
     final scene = ref.read(mapSceneProvider);

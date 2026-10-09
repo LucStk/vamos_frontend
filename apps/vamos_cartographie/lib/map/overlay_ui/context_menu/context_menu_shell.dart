@@ -13,7 +13,7 @@ class ContextMenuShell extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final d = ref.watch(modeDecoratorProvider);
 
-    if (d is! ContextMenuDecorator) return const SizedBox.shrink();
+    if (d is! ContextMenuOverlay) return const SizedBox.shrink();
 
     return Positioned(
       left: d.at.dx,

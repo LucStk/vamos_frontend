@@ -15,14 +15,11 @@ export "src/mode_machine/base_mode_model.dart";
 export "src/mode_machine/mode_context.dart";
 export 'src/mode_machine/effect_queue.dart';
 export 'src/mode_machine/mode_state.dart';
-export 'src/mode_machine/overlay.dart';
-export 'src/mode_machine/context_menu_overlay.dart';
+export 'src/mode_machine/overlay/overlay.dart';
+export 'src/mode_machine/overlay/context_menu_overlay.dart';
 
-export "src/input/pointer_gesture_resolver.dart";
-export "src/input/pending_tap_timer.dart";
 export 'src/input/map_pointer_event.dart';
-export 'src/input/map_pointure_gesture_state.dart';
-export 'src/input/long_press_timer.dart';
+export 'src/input/map_gesture_handler.dart';
 
 export "src/mode_machine/mode_command.dart";
 export "src/mode_machine/mode_controller.dart";

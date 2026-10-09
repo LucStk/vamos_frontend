@@ -1,5 +1,5 @@
 // mode_context.dart
-import '../domain/slot.dart';
+import 'slot.dart';
 import "package:collection/collection.dart";
 
 import 'base_mode_model.dart';

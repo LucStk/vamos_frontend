@@ -10,6 +10,6 @@ sealed class InitTripMode extends MapEditorMode with _$InitTripMode {
   // Transition<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
   //   MapUserLocation() => Transition(mode: withPopupPosition(g.offset)),
   //   null => Transition(mode: withPopupPosition(g.offset)),
-  //   _ => Transition.none(),
+  //   _ => Transition.stay(),
   // };
 }

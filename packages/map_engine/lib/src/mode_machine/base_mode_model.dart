@@ -1,5 +1,5 @@
 import '../domain/gestures/map_gesture.dart';
-import '../domain/slot.dart';
+import 'slot.dart';
 import '../domain/space/offset_type.dart';
 import 'base_command.dart';
 import 'transition.dart';
@@ -27,14 +27,14 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
   }
 
   Transition<Self> onPointerDown(PointerDownGesture g, ScreenOffset p) =>
-      Transition.none();
-  Transition<Self> onDragStart(DragStartGesture g) => Transition.none();
+      Transition.stay();
+  Transition<Self> onDragStart(DragStartGesture g) => Transition.stay();
   Transition<Self> onDragging(DraggingGesture g, ScreenOffset p) =>
-      Transition.none();
-  Transition<Self> onDragEnd(DragEndGesture g) => Transition.none();
-  Transition<Self> onTap(TapGesture g) => Transition.none();
+      Transition.stay();
+  Transition<Self> onDragEnd(DragEndGesture g) => Transition.stay();
+  Transition<Self> onTap(TapGesture g) => Transition.stay();
   Transition<Self> onDoubleTap(DoubleTapGesture g) =>
       Transition.run(ZoomIn(g.offset));
-  Transition<Self> onLongPress(LongPressGesture g) => Transition.none();
-  Transition<Self> onSecondaryTap(SecondaryTapGesture g) => Transition.none();
+  Transition<Self> onLongPress(LongPressGesture g) => Transition.stay();
+  Transition<Self> onSecondaryTap(SecondaryTapGesture g) => Transition.stay();
 }

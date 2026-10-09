@@ -6,7 +6,7 @@ import 'base_mode_model.dart';
 import 'effect_queue.dart';
 import 'transition.dart';
 import 'mode_command.dart';
-import 'overlay.dart';
+import 'overlay/overlay.dart';
 import 'mode_state.dart';
 
 mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {

@@ -1,8 +1,8 @@
 // overlay.dart
-import '../domain/gestures/map_gesture.dart';
-import '../domain/space/offset_type.dart';
-import 'base_mode_model.dart';
-import 'transition.dart';
+import '../../domain/gestures/map_gesture.dart';
+import '../../domain/space/offset_type.dart';
+import '../base_mode_model.dart';
+import '../transition.dart';
 
 enum Interception { pass, consume, dismiss, dismissAndConsume }
 
