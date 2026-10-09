@@ -9,16 +9,23 @@ class ProfileActionsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authControllerProvider);
+    final isLoading = authState.isLoading;
 
-    return FilledButton.tonal(
-      onPressed: authState.isLoading ? null : () => _signOut(context, ref),
-      child: authState.isLoading
+    return FilledButton.tonalIcon(
+      onPressed: isLoading ? null : () => _signOut(context, ref),
+      style: FilledButton.styleFrom(
+        visualDensity: VisualDensity.compact,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      ),
+      icon: isLoading
           ? const SizedBox(
-              width: 20,
-              height: 20,
+              width: 16,
+              height: 16,
               child: CircularProgressIndicator(strokeWidth: 2),
             )
-          : const Text('Se déconnecter'),
+          : const Icon(Icons.logout, size: 18),
+      label: const Text('Se déconnecter'),
     );
   }
 

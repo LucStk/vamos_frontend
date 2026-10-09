@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
+import '/routing/presentation/app_page_scaffold.dart';
 
 class AuthLayout extends StatelessWidget {
   final IconData icon;

@@ -14,10 +14,14 @@ class TripLibrary extends StatelessWidget {
 
   final List<(Trip, List<StoredFileRemoteModel>)> trips;
   final ValueChanged<Trip> onOpenTrip;
-  final VoidCallback? onCreateTrip;
+  final VoidCallback onCreateTrip;
 
   @override
   Widget build(BuildContext context) {
+    const double cardWidth = 180.0;
+    const double cardAspectRatio = 0.68;
+    const double cardHeight = cardWidth / cardAspectRatio;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -25,7 +29,7 @@ class TripLibrary extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Mes voyages',
+                'Voyages',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -36,42 +40,37 @@ class TripLibrary extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final width = constraints.maxWidth;
-            final columns = width >= 1000
-                ? 4
-                : width >= 650
-                ? 3
-                : width >= 340
-                ? 2
-                : 1;
 
-            return GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: trips.length + 1,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: columns,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 0.78,
-              ),
-              itemBuilder: (context, index) {
-                if (index == trips.length && onCreateTrip != null) {
-                  return CreateTripCard(onTap: onCreateTrip!);
-                }
+        // Align ou Center permet de centrer le bloc entier s'il y a très peu de cartes
+        Align(
+          alignment: Alignment.topCenter,
+          child: Wrap(
+            spacing: 16, // Espacement horizontal entre les cartes
+            runSpacing: 16, // Espacement vertical entre les lignes
+            alignment: WrapAlignment
+                .center, // <-- Centre les cartes sur la dernière ligne
+            children: List.generate(trips.length + 1, (index) {
+              final Widget cardContent;
 
-                final (trip, images) = trips[index];
-
-                return TripCard(
+              if (index == 0) {
+                cardContent = CreateTripCard(onTap: onCreateTrip);
+              } else {
+                final (trip, images) = trips[index - 1];
+                cardContent = TripCard(
                   trip: trip,
                   images: images,
                   onTap: () => onOpenTrip(trip),
                 );
-              },
-            );
-          },
+              }
+
+              // Fixe la taille de chaque carte car Wrap n'impose pas de contraintes de grille
+              return SizedBox(
+                width: cardWidth,
+                height: cardHeight,
+                child: cardContent,
+              );
+            }),
+          ),
         ),
       ],
     );

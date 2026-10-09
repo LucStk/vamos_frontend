@@ -11,12 +11,12 @@ class TripLibrarySection extends ConsumerWidget {
     super.key,
     required this.userId,
     required this.onOpenTrip,
-    this.onCreateTrip,
+    required this.onCreateTrip,
   });
 
   final UserId userId;
   final ValueChanged<Trip> onOpenTrip;
-  final VoidCallback? onCreateTrip;
+  final VoidCallback onCreateTrip;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
