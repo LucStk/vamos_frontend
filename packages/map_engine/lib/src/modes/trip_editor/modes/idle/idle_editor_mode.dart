@@ -23,7 +23,6 @@ mixin IdleBehavior on MapEditorMode {
       };
 }
 
-@freezed
-final class IdleEditor extends MapEditorMode with IdleBehavior, _$IdleEditor {
+final class IdleEditor extends MapEditorMode with IdleBehavior {
   IdleEditor();
 }

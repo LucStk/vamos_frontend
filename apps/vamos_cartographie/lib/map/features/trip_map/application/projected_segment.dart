@@ -55,7 +55,12 @@ final class ProjectedSegment extends ProjectedLine<MapSegment> {
   final SegmentAppearance appearance;
 
   static const _looks = <MapObjectVisualState, _Look>{
-    MapObjectVisualState.normal: _Look(width: 4, casing: 1.5, halo: 0, lift: 0),
+    MapObjectVisualState.normal: _Look(
+      width: 6.5,
+      casing: 1.5,
+      halo: 0,
+      lift: 0,
+    ),
     MapObjectVisualState.hovered: _Look(
       width: 5,
       casing: 1.5,
@@ -63,7 +68,7 @@ final class ProjectedSegment extends ProjectedLine<MapSegment> {
       lift: 0.15,
     ),
     MapObjectVisualState.selected: _Look(
-      width: 6,
+      width: 9,
       casing: 2,
       halo: 12,
       lift: 0,

@@ -20,7 +20,7 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
   };
   static const _scales = <MapObjectVisualState, double>{
     MapObjectVisualState.normal: 1.0,
-    MapObjectVisualState.selected: 1.3,
+    MapObjectVisualState.selected: 1.7,
     MapObjectVisualState.hovered: 1.15,
     MapObjectVisualState.dragging: 1.4,
   };
@@ -60,8 +60,8 @@ final class ProjectedVertex extends ProjectedPoint<MapVertex> {
       Transform(
         transform: DrawTransformData(scale: scale, origin: worldPosition),
         commands: [
-          DrawCircle(center: worldPosition, radius: 7, paint: paint),
-          DrawCircle(center: worldPosition, radius: 9, paint: selectionPaint),
+          DrawCircle(center: worldPosition, radius: 9, paint: paint),
+          DrawCircle(center: worldPosition, radius: 10, paint: selectionPaint),
         ],
       ),
     ]);

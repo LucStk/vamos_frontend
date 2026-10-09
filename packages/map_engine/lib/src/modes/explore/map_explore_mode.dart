@@ -5,16 +5,16 @@ import '../../domain/slot.dart';
 import '../../mode_machine/base_mode_model.dart';
 import '../../mode_machine/gesture_result.dart';
 
-class MapExploreMode extends BaseMode<MapExploreMode> {
+class MapExploreMode extends BaseMode<MapExploreMode> with ExploreIdleBehavior {
   const MapExploreMode();
 }
 
-mixin ExploreIdleBehavior on MapExploreMode {
+mixin ExploreIdleBehavior on BaseMode<MapExploreMode> {
   @override
   Set<Slot> get retainedSlots => const {selectionSlot};
   @override
   GestureResult<MapExploreMode> onTap(TapGesture g) => switch (g.element) {
-    MapTripObject e => GestureResult.set(selectionSlot, e.id),
+    MapTripObject e => GestureResult.set(selectionSlot, TripSelection(e.id)),
     _ => GestureResult.none(),
   };
 }

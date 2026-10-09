@@ -45,7 +45,7 @@ final class MapExploreProvider
   }
 }
 
-String _$mapExploreHash() => r'acf6f7b7341fcb54187d1b469b74ae042b1f9756';
+String _$mapExploreHash() => r'226e436dadc8aa86f608b3f460ec4d1b974e0259';
 
 abstract class _$MapExplore extends $Notifier<ModeState<MapExploreMode>> {
   ModeState<MapExploreMode> build();
