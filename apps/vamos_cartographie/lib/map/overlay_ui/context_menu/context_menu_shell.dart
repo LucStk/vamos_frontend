@@ -5,13 +5,13 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 
 import '/map/injection/map_mode.dart';
 
-@Dependencies([modeDecorator])
+@Dependencies([modeOverlay])
 class ContextMenuShell extends ConsumerWidget {
   const ContextMenuShell({super.key, required this.child});
   final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final d = ref.watch(modeDecoratorProvider);
+    final d = ref.watch(modeOverlayProvider);
 
     if (d is! ContextMenuOverlay) return const SizedBox.shrink();
 

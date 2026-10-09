@@ -6,5 +6,5 @@ abstract interface class GestureSink {
 }
 
 abstract interface class ModeHost implements GestureSink {
-  void dismissDecorator();
+  void dismissOverlay();
 }

@@ -56,10 +56,10 @@ final class MapModeProvider
 
 String _$mapModeHash() => r'115ef6bc2f8d161e934cfa65e96cf2d3f2e54b2e';
 
-@ProviderFor(modeDecorator)
-final modeDecoratorProvider = ModeDecoratorProvider._();
+@ProviderFor(modeOverlay)
+final modeOverlayProvider = ModeOverlayProvider._();
 
-final class ModeDecoratorProvider
+final class ModeOverlayProvider
     extends
         $FunctionalProvider<
           Overlay<Mode<dynamic>>?,
@@ -67,19 +67,19 @@ final class ModeDecoratorProvider
           Overlay<Mode<dynamic>>?
         >
     with $Provider<Overlay<Mode<dynamic>>?> {
-  ModeDecoratorProvider._()
+  ModeOverlayProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'modeDecoratorProvider',
+        name: r'modeOverlayProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
       );
 
   @override
-  String debugGetCreateSourceHash() => _$modeDecoratorHash();
+  String debugGetCreateSourceHash() => _$modeOverlayHash();
 
   @$internal
   @override
@@ -89,7 +89,7 @@ final class ModeDecoratorProvider
 
   @override
   Overlay<Mode<dynamic>>? create(Ref ref) {
-    return modeDecorator(ref);
+    return modeOverlay(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -101,7 +101,7 @@ final class ModeDecoratorProvider
   }
 }
 
-String _$modeDecoratorHash() => r'58c4b1d0bd749359ddb29a0dac53b3af82820788';
+String _$modeOverlayHash() => r'58c4b1d0bd749359ddb29a0dac53b3af82820788';
 
 @ProviderFor(modeContext)
 final modeContextProvider = ModeContextProvider._();

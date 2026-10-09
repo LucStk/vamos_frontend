@@ -10,7 +10,7 @@ import '../../injection/map_editor_mode.dart';
 import '/map/injection/map_mode.dart';
 import '/map/camera/injection/map_camera_provider.dart';
 
-@Dependencies([MapEditor, mapCamera, modeDecorator])
+@Dependencies([MapEditor, mapCamera, modeOverlay])
 class PopupCreateVertexWidget extends ConsumerWidget {
   const PopupCreateVertexWidget({super.key, required this.tripId});
   final TripId tripId;

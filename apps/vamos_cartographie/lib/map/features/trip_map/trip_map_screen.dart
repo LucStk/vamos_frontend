@@ -88,7 +88,7 @@ class _TripMapResolver extends ConsumerWidget {
               ? ref.watch(mapEditorProvider(tripId).select((s) => s.mode))
               : ref.watch(tripViewerProvider(tripId).select((s) => s.mode)),
         ),
-        modeDecoratorProvider.overrideWith(
+        modeOverlayProvider.overrideWith(
           (ref) => isOwner
               ? ref.watch(mapEditorProvider(tripId).select((s) => s.overlay))
               : ref.watch(tripViewerProvider(tripId).select((s) => s.overlay)),
@@ -109,7 +109,7 @@ class _TripMapResolver extends ConsumerWidget {
 }
 
 @Dependencies([
-  modeDecorator,
+  modeOverlay,
   CameraOrNull,
   mapCamera,
   MapEditor,

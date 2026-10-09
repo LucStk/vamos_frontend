@@ -7,9 +7,9 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import '../../injection/map_mode.dart';
 import '/map/camera/injection/map_camera_provider.dart';
 
-@Dependencies([mapCamera, modeDecorator])
+@Dependencies([mapCamera, modeOverlay])
 LatLng? contextMenuLatLngPosition(WidgetRef ref, TripId tripId) {
-  final d = ref.watch(modeDecoratorProvider);
+  final d = ref.watch(modeOverlayProvider);
   if (d is! ContextMenuOverlay) return null;
   final camera = ref.read(mapCameraProvider);
   return camera.screenOffsetToLatLng(d.at);

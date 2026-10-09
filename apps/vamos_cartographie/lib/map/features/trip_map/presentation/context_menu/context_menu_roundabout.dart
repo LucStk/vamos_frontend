@@ -10,14 +10,14 @@ import 'popup_create_vertex.dart';
 import 'sketch_pencil_menu.dart';
 import '/map/camera/injection/map_camera_provider.dart';
 
-@Dependencies([modeDecorator, MapEditor, mapCamera])
+@Dependencies([modeOverlay, MapEditor, mapCamera])
 class ContextMenuRoundabout extends ConsumerWidget {
   const ContextMenuRoundabout({super.key, required this.tripId});
   final TripId tripId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final d = ref.watch(modeDecoratorProvider);
+    final d = ref.watch(modeOverlayProvider);
     if (d is! ContextMenuOverlay) return SizedBox.shrink();
     return switch (d) {
       SketchPencilMenu _ => SketchPencilMenuWidget(tripId: tripId),

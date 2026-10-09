@@ -28,7 +28,7 @@ mixin ModeInterpreter<M extends Mode<M>> implements ModeHost {
     final interception =
         state.overlay?.intercept(event, offset) ?? Interception.pass;
 
-    if (interception.dismisses) dismissDecorator();
+    if (interception.dismisses) dismissOverlay();
     if (interception.consumes) return;
 
     apply(mode.dispatchGesture(event, offset));
@@ -42,7 +42,7 @@ mixin ModeInterpreter<M extends Mode<M>> implements ModeHost {
 
   /// Exécute l'action seulement si la sélection courante est de type S.
   @override
-  void dismissDecorator() {
+  void dismissOverlay() {
     if (state.overlay != null) {
       setState(ModeState(mode, null, state.context));
     }
@@ -63,12 +63,12 @@ mixin ModeInterpreter<M extends Mode<M>> implements ModeHost {
     final keep =
         current != null &&
         (fromEffect ? result.mode == null : current.survives(result));
-    final nextDecorator = result.overlay ?? (keep ? current : null);
+    final nextOverlay = result.overlay ?? (keep ? current : null);
 
     if (!identical(nextMode, mode) ||
-        !identical(nextDecorator, current) ||
+        !identical(nextOverlay, current) ||
         ctx != state.context) {
-      setState(ModeState(nextMode, nextDecorator, ctx));
+      setState(ModeState(nextMode, nextOverlay, ctx));
     }
 
     final pending = result.pending;
