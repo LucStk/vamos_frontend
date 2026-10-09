@@ -6,8 +6,8 @@ sealed class MapGesture {
   final ScreenOffset offset;
 }
 
-class PointerDownGesture extends MapGesture {
-  const PointerDownGesture(super.offset, {required this.element});
+class PressGesture extends MapGesture {
+  const PressGesture(super.offset, {required this.element});
   final MapObject? element;
 }
 
@@ -36,8 +36,8 @@ class DragStartGesture extends MapGesture {
   final MapObject? dragged;
 }
 
-class DraggingGesture extends MapGesture {
-  const DraggingGesture(
+class DragUpdateGesture extends MapGesture {
+  const DragUpdateGesture(
     super.offset, {
     required this.dragged,
     required this.target,

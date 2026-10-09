@@ -1,7 +1,6 @@
 import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
 import '../domain/selection.dart';
-import '../domain/space/offset_type.dart';
 import 'mode.dart';
 import 'effect_queue.dart';
 import 'transition.dart';
@@ -24,14 +23,13 @@ mixin ModeInterpreter<M extends Mode<M>> implements ModeHost {
   }
 
   @override
-  void send(MapGesture event, ScreenOffset offset) {
-    final interception =
-        state.overlay?.intercept(event, offset) ?? Interception.pass;
+  void send(MapGesture event) {
+    final interception = state.overlay?.intercept(event) ?? Interception.pass;
 
     if (interception.dismisses) dismissOverlay();
     if (interception.consumes) return;
 
-    apply(mode.dispatchGesture(event, offset));
+    apply(mode.dispatchGesture(event));
   }
 
   /// Exécute l'intent seulement si le mode courant est bien du type T.

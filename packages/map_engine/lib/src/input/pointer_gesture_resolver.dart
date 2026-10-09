@@ -19,7 +19,7 @@ class PointerGestureResolver {
       case (IdleState(), PointerEventType.down):
         final element = hitTest(offset: offset);
         state = PressedState(element: element, offset: offset);
-        return PointerDownGesture(offset, element: element);
+        return PressGesture(offset, element: element);
 
       case (PressedState pressed, PointerEventType.move):
         final distance = (pressed.offset.value - offset.value).distance;
@@ -65,7 +65,7 @@ class PointerGestureResolver {
         // element autre celui que l'on déplace
         final target = hitTest(offset: offset, exclude: dragging.dragged);
         state = DraggingState(dragged: dragging.dragged, target: target);
-        return DraggingGesture(
+        return DragUpdateGesture(
           offset,
           dragged: dragging.dragged,
           target: target,

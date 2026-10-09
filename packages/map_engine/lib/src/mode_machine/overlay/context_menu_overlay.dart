@@ -9,6 +9,6 @@ abstract class ContextMenuOverlay<M extends Mode<M>> extends Overlay<M> {
   const ContextMenuOverlay(this.at);
 
   @override
-  Interception intercept(MapGesture event, ScreenOffset offset) =>
-      event is PointerDownGesture ? Interception.dismiss : Interception.pass;
+  Interception intercept(MapGesture event) =>
+      event is PressGesture ? Interception.dismiss : Interception.pass;
 }

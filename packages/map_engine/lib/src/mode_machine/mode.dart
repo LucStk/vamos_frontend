@@ -1,6 +1,5 @@
 import '../domain/gestures/map_gesture.dart';
 import 'slot.dart';
-import '../domain/space/offset_type.dart';
 import 'common_command.dart';
 import 'transition.dart';
 
@@ -11,11 +10,11 @@ abstract class Mode<Self extends Mode<Self>> {
   /// Tout autre slot est vidé à l'entrée. Par défaut : aucun.
   Set<Slot> get retainedSlots => const {};
 
-  Transition<Self>? dispatchGesture(MapGesture gesture, ScreenOffset offset) {
+  Transition<Self>? dispatchGesture(MapGesture gesture) {
     return switch (gesture) {
-      PointerDownGesture() => onPointerDown(gesture, offset),
+      PressGesture() => onPointerDown(gesture),
       DragStartGesture() => onDragStart(gesture),
-      DraggingGesture() => onDragging(gesture, offset),
+      DragUpdateGesture() => onDragging(gesture),
       DragEndGesture() => onDragEnd(gesture),
       TapGesture() => onTap(gesture),
       DoubleTapGesture() => onDoubleTap(gesture),
@@ -24,11 +23,9 @@ abstract class Mode<Self extends Mode<Self>> {
     };
   }
 
-  Transition<Self> onPointerDown(PointerDownGesture g, ScreenOffset p) =>
-      Transition.stay();
+  Transition<Self> onPointerDown(PressGesture g) => Transition.stay();
   Transition<Self> onDragStart(DragStartGesture g) => Transition.stay();
-  Transition<Self> onDragging(DraggingGesture g, ScreenOffset p) =>
-      Transition.stay();
+  Transition<Self> onDragging(DragUpdateGesture g) => Transition.stay();
   Transition<Self> onDragEnd(DragEndGesture g) => Transition.stay();
   Transition<Self> onTap(TapGesture g) => Transition.stay();
   Transition<Self> onDoubleTap(DoubleTapGesture g) =>

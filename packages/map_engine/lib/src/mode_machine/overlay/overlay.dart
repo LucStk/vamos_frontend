@@ -1,6 +1,5 @@
 // overlay.dart
 import '../../domain/gestures/map_gesture.dart';
-import '../../domain/space/offset_type.dart';
 import '../mode.dart';
 import '../transition.dart';
 
@@ -18,8 +17,7 @@ abstract class Overlay<M extends Mode<M>> {
   const Overlay();
 
   /// Appelé AVANT le mode. Peut absorber la gesture, ou se retirer.
-  Interception intercept(MapGesture event, ScreenOffset offset) =>
-      Interception.pass;
+  Interception intercept(MapGesture event) => Interception.pass;
 
   /// Le décorateur survit-il à ce résultat du mode ?
   /// Par défaut non : toute réaction du mode le retire.

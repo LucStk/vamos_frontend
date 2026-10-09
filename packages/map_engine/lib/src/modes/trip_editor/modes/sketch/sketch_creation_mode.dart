@@ -21,10 +21,7 @@ abstract class SketchCreation extends MapEditorMode
       copyWith(selection: selection);
 
   @override
-  Transition<MapEditorMode> onPointerDown(
-    PointerDownGesture g,
-    ScreenOffset p,
-  ) {
+  Transition<MapEditorMode> onPointerDown(PressGesture g) {
     if (g.element is! MapSketchSegment) return Transition.stay();
     // final grab = closestPointOnPolyline(p, path);
     // return Transition(

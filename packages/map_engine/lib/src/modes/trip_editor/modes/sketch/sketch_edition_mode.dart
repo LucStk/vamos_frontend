@@ -18,13 +18,11 @@ abstract class SketchEdition extends MapEditorMode
   SketchEdition withPath(List<LatLng> path) => copyWith(path: path);
 
   @override
-  Transition<MapEditorMode> onPointerDown(
-    PointerDownGesture g,
-    ScreenOffset p,
-  ) => switch (g.element) {
-    MapSegment s when s.id == segmentId => addPoint(p),
-    _ => Transition.stay(),
-  };
+  Transition<MapEditorMode> onPointerDown(PressGesture g) =>
+      switch (g.element) {
+        MapSegment s when s.id == segmentId => addPoint(g.offset),
+        _ => Transition.stay(),
+      };
 
   @override
   Transition<MapEditorMode> onDragEnd(DragEndGesture g) {

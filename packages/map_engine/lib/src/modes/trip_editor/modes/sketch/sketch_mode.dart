@@ -41,8 +41,8 @@ mixin SketchMode on MapEditorMode {
   //     : Transition.stay();
 
   @override
-  Transition<MapEditorMode> onDragging(DraggingGesture g, ScreenOffset p) =>
+  Transition<MapEditorMode> onDragging(DragUpdateGesture g) =>
       g.dragged is MapSketchPencil
-      ? addPoint(p, mode: withSelection(g.target))
+      ? addPoint(g.offset, mode: withSelection(g.target))
       : Transition.stay();
 }
