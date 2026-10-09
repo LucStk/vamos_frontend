@@ -9,7 +9,7 @@ abstract class ModeCommand<M extends BaseMode<M>, R extends Object> {
 
 /// Exécute les effets de bord d'une commande.
 /// Retourne `null` si l'effet a échoué ou n'a rien produit : le `then` du
-/// GestureResult n'est alors pas appelé.
+/// Transition n'est alors pas appelé.
 abstract class ModeCommandResolver<M extends BaseMode<M>> {
   const ModeCommandResolver();
 

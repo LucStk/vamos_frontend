@@ -90,10 +90,8 @@ class _TripMapResolver extends ConsumerWidget {
         ),
         modeDecoratorProvider.overrideWith(
           (ref) => isOwner
-              ? ref.watch(mapEditorProvider(tripId).select((s) => s.decorator))
-              : ref.watch(
-                  tripViewerProvider(tripId).select((s) => s.decorator),
-                ),
+              ? ref.watch(mapEditorProvider(tripId).select((s) => s.overlay))
+              : ref.watch(tripViewerProvider(tripId).select((s) => s.overlay)),
         ),
         modeContextProvider.overrideWith(
           (ref) => isOwner

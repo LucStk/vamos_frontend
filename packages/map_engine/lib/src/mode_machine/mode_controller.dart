@@ -4,9 +4,9 @@ import '../domain/selection.dart';
 import '../domain/space/offset_type.dart';
 import 'base_mode_model.dart';
 import 'effect_queue.dart';
-import 'gesture_result.dart';
+import 'transition.dart';
 import 'mode_command.dart';
-import 'mode_decorator.dart';
+import 'overlay.dart';
 import 'mode_state.dart';
 
 mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
@@ -18,7 +18,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
   EffectQueue get effectQueue;
   // dans la classe MapEditor
   void actOnSelection<S extends Selection>(
-    GestureResult<M>? Function(S s) action,
+    Transition<M>? Function(S s) action,
   ) {
     if (state.context.get(selectionSlot) case final S s) apply(action(s));
   }
@@ -26,7 +26,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
   @override
   void send(MapGesture event, ScreenOffset offset) {
     final interception =
-        state.decorator?.intercept(event, offset) ?? Interception.pass;
+        state.overlay?.intercept(event, offset) ?? Interception.pass;
 
     if (interception.dismisses) dismissDecorator();
     if (interception.consumes) return;
@@ -35,7 +35,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
   }
 
   /// Exécute l'intent seulement si le mode courant est bien du type T.
-  void act<T extends M>(GestureResult<M>? Function(T mode) intent) {
+  void act<T extends M>(Transition<M>? Function(T mode) intent) {
     final current = mode;
     if (current is T) apply(intent(current));
   }
@@ -43,15 +43,15 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
   /// Exécute l'action seulement si la sélection courante est de type S.
   @override
   void dismissDecorator() {
-    if (state.decorator != null) {
+    if (state.overlay != null) {
       setState(ModeState(mode, null, state.context));
     }
   }
 
-  void apply(GestureResult<M>? result, {bool fromEffect = false}) {
+  void apply(Transition<M>? result, {bool fromEffect = false}) {
     if (result == null) return;
 
-    final current = state.decorator;
+    final current = state.overlay;
     final nextMode = result.mode ?? mode;
 
     var ctx = state.context;
@@ -63,7 +63,7 @@ mixin ModeControllerMixin<M extends BaseMode<M>> implements ModeHost {
     final keep =
         current != null &&
         (fromEffect ? result.mode == null : current.survives(result));
-    final nextDecorator = result.decorator ?? (keep ? current : null);
+    final nextDecorator = result.overlay ?? (keep ? current : null);
 
     if (!identical(nextMode, mode) ||
         !identical(nextDecorator, current) ||

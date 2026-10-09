@@ -3,20 +3,20 @@ import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
 import '../../domain/selection.dart';
-import '../../mode_machine/gesture_result.dart';
+import '../../mode_machine/transition.dart';
 import 'map_editor_command.dart';
 import 'map_editor_mode.dart';
 
 extension VertexSelectionActions on VertexSelection {
-  GestureResult<MapEditorMode> delete() => GestureResult.run(
+  Transition<MapEditorMode> delete() => Transition.run(
     RemoveVertex(id),
-    then: (_, _) => GestureResult.set(selectionSlot, null),
+    then: (_, _) => Transition.set(selectionSlot, null),
   );
 
-  GestureResult<MapEditorMode> createWaypoint() =>
-      GestureResult.run(CreateWaypointFromVertex(id));
+  Transition<MapEditorMode> createWaypoint() =>
+      Transition.run(CreateWaypointFromVertex(id));
 
-  GestureResult<MapEditorMode> startSketch(LatLng position) => GestureResult.to(
+  Transition<MapEditorMode> startSketch(LatLng position) => Transition.to(
     SketchCreation(
       vertexStart: id,
       path: [position],
@@ -26,11 +26,11 @@ extension VertexSelectionActions on VertexSelection {
 }
 
 extension SegmentSelectionActions on SegmentSelection {
-  GestureResult<MapEditorMode> delete() => GestureResult.run(
+  Transition<MapEditorMode> delete() => Transition.run(
     DeleteSegment(id),
-    then: (_, _) => GestureResult.set(selectionSlot, null),
+    then: (_, _) => Transition.set(selectionSlot, null),
   );
 
-  GestureResult<MapEditorMode> startEdit() =>
-      GestureResult.to(SketchEdition(segmentId: id, path: []));
+  Transition<MapEditorMode> startEdit() =>
+      Transition.to(SketchEdition(segmentId: id, path: []));
 }

@@ -1,7 +1,7 @@
 import '../domain/camera/map_camera.dart';
 import '../domain/space/offset_type.dart';
 import 'base_command.dart';
-import 'gesture_result.dart';
+import 'transition.dart';
 
 mixin BaseCommandResolver {
   MapCameraController get camera;

@@ -15,8 +15,8 @@ export "src/mode_machine/base_mode_model.dart";
 export "src/mode_machine/mode_context.dart";
 export 'src/mode_machine/effect_queue.dart';
 export 'src/mode_machine/mode_state.dart';
-export 'src/mode_machine/mode_decorator.dart';
-export 'src/mode_machine/context_menu_decorator.dart';
+export 'src/mode_machine/overlay.dart';
+export 'src/mode_machine/context_menu_overlay.dart';
 
 export "src/input/pointer_gesture_resolver.dart";
 export "src/input/pending_tap_timer.dart";
@@ -32,10 +32,10 @@ export 'src/domain/gestures/map_gesture.dart';
 export "src/modes/trip_editor/map_editor_mode.dart";
 export "src/modes/trip_editor/edit_trip_command_resolver.dart";
 export "src/modes/trip_editor/modes/idle/idle_editor_intents.dart";
-export "src/modes/trip_editor/modes/idle/idle_menu_decorator.dart";
+export "src/modes/trip_editor/modes/idle/idle_menu_overlay.dart";
 export "src/modes/trip_editor/selection_actions.dart";
 export "src/modes/trip_editor/modes/sketch/sketch_intents.dart";
-export "src/modes/trip_editor/modes/sketch/sketch_pencil_menu_decorator.dart";
+export "src/modes/trip_editor/modes/sketch/sketch_pencil_menu_overlay.dart";
 export "src/modes/trip_editor/modes/sketch/sketch_creation_intent.dart";
 
 export "src/modes/explore/explore_command_resolver.dart";

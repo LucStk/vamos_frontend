@@ -1,7 +1,7 @@
 import '../../domain/gestures/map_gesture.dart';
 import '../../domain/objects/map_objects.dart';
 import '../../mode_machine/base_mode_model.dart';
-import '../../mode_machine/gesture_result.dart';
+import '../../mode_machine/transition.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 part "modes/segment_select_mode.dart";

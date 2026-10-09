@@ -2,11 +2,11 @@ part of '../view_trip_mode.dart';
 
 mixin IdleViewBehavior on ViewTripMode {
   @override
-  GestureResult<ViewTripMode> onTap(TapGesture g) => switch (g.element) {
-    // MapUserLocation _ || null => GestureResult.to(withPopupPosition(g.offset)),
-    MapVertex e => GestureResult.to(VertexSelectViewMode(vertex: e)),
-    MapSegment e => GestureResult.to(SegmentSelectViewMode(segment: e)),
-    _ => GestureResult.none(),
+  Transition<ViewTripMode> onTap(TapGesture g) => switch (g.element) {
+    // MapUserLocation _ || null => Transition.to(withPopupPosition(g.offset)),
+    MapVertex e => Transition.to(VertexSelectViewMode(vertex: e)),
+    MapSegment e => Transition.to(SegmentSelectViewMode(segment: e)),
+    _ => Transition.none(),
   };
 }
 

@@ -57,17 +57,17 @@ final class MapModeProvider
 String _$mapModeHash() => r'aca14f8ee1b4ab6ce55cf425cada2c57f29bc517';
 
 @ProviderFor(modeDecorator)
-final modeDecoratorProvider = ModeDecoratorProvider._();
+final modeDecoratorProvider = OverlayProvider._();
 
-final class ModeDecoratorProvider
+final class OverlayProvider
     extends
         $FunctionalProvider<
-          ModeDecorator<BaseMode<dynamic>>?,
-          ModeDecorator<BaseMode<dynamic>>?,
-          ModeDecorator<BaseMode<dynamic>>?
+          Overlay<BaseMode<dynamic>>?,
+          Overlay<BaseMode<dynamic>>?,
+          Overlay<BaseMode<dynamic>>?
         >
-    with $Provider<ModeDecorator<BaseMode<dynamic>>?> {
-  ModeDecoratorProvider._()
+    with $Provider<Overlay<BaseMode<dynamic>>?> {
+  OverlayProvider._()
     : super(
         from: null,
         argument: null,
@@ -83,22 +83,20 @@ final class ModeDecoratorProvider
 
   @$internal
   @override
-  $ProviderElement<ModeDecorator<BaseMode<dynamic>>?> $createElement(
+  $ProviderElement<Overlay<BaseMode<dynamic>>?> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  ModeDecorator<BaseMode<dynamic>>? create(Ref ref) {
+  Overlay<BaseMode<dynamic>>? create(Ref ref) {
     return modeDecorator(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ModeDecorator<BaseMode<dynamic>>? value) {
+  Override overrideWithValue(Overlay<BaseMode<dynamic>>? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ModeDecorator<BaseMode<dynamic>>?>(
-        value,
-      ),
+      providerOverride: $SyncValueProvider<Overlay<BaseMode<dynamic>>?>(value),
     );
   }
 }

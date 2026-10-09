@@ -7,9 +7,9 @@ sealed class InitTripMode extends MapEditorMode with _$InitTripMode {
   factory InitTripMode() = _InitTripMode;
 
   // @override
-  // GestureResult<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
-  //   MapUserLocation() => GestureResult(mode: withPopupPosition(g.offset)),
-  //   null => GestureResult(mode: withPopupPosition(g.offset)),
-  //   _ => GestureResult.none(),
+  // Transition<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
+  //   MapUserLocation() => Transition(mode: withPopupPosition(g.offset)),
+  //   null => Transition(mode: withPopupPosition(g.offset)),
+  //   _ => Transition.none(),
   // };
 }

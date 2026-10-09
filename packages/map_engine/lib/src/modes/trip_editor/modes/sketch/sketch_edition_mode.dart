@@ -19,17 +19,17 @@ abstract class SketchEdition extends MapEditorMode
   SketchEdition withPath(List<LatLng> path) => copyWith(path: path);
 
   @override
-  GestureResult<MapEditorMode> onPointerDown(
+  Transition<MapEditorMode> onPointerDown(
     PointerDownGesture g,
     ScreenOffset p,
   ) => switch (g.element) {
     MapSegment s when s.id == segmentId => addPoint(p),
-    _ => GestureResult.none(),
+    _ => Transition.none(),
   };
 
   @override
-  GestureResult<MapEditorMode> onDragEnd(DragEndGesture g) {
-    final GestureResult<MapEditorMode> correct = GestureResult.run(
+  Transition<MapEditorMode> onDragEnd(DragEndGesture g) {
+    final Transition<MapEditorMode> correct = Transition.run(
       CorrectSegmentFromSketch(segmentId: segmentId, correction: path),
       then: leaveSketch,
     );
@@ -38,7 +38,7 @@ abstract class SketchEdition extends MapEditorMode
 
     return switch (g.target) {
       MapSegment s when s.id == segmentId => correct,
-      TopologyObject s => GestureResult.run(
+      TopologyObject s => Transition.run(
         SpliceSegment(
           segmentId: segmentId,
           correction: path,
@@ -47,7 +47,7 @@ abstract class SketchEdition extends MapEditorMode
         ),
         then: leaveSketch,
       ),
-      _ => GestureResult.none(),
+      _ => Transition.none(),
     };
   }
 }

@@ -7,7 +7,7 @@ part 'map_mode.g.dart';
 BaseMode mapMode(Ref ref) => throw UnimplementedError();
 
 @Riverpod(keepAlive: true, dependencies: [])
-ModeDecorator? modeDecorator(Ref ref) => throw UnimplementedError();
+Overlay? modeDecorator(Ref ref) => throw UnimplementedError();
 
 @Riverpod(keepAlive: true, dependencies: [])
 ModeContext modeContext(Ref ref) => throw UnimplementedError();

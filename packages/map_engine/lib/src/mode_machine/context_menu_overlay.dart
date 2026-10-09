@@ -1,11 +1,10 @@
-// decorators/popup_decorator.dart
+// overlays/popup_overlay.dart
 import '../domain/gestures/map_gesture.dart';
 import '../domain/space/offset_type.dart';
 import 'base_mode_model.dart';
-import 'mode_decorator.dart';
+import 'overlay.dart';
 
-abstract class ContextMenuDecorator<M extends BaseMode<M>>
-    extends ModeDecorator<M> {
+abstract class ContextMenuDecorator<M extends BaseMode<M>> extends Overlay<M> {
   final ScreenOffset at;
   const ContextMenuDecorator(this.at);
 

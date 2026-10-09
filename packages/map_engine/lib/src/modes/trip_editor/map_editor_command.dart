@@ -5,7 +5,7 @@ import 'package:trip_application/trip_application.dart';
 import '../../domain/camera/map_camera.dart';
 import "/src/domain/space/offset_type.dart";
 import '../../geometry/merge_polyline.dart';
-import '../../mode_machine/gesture_result.dart';
+import '../../mode_machine/transition.dart';
 import '../../mode_machine/mode_command.dart';
 import 'map_editor_mode.dart';
 part "modes/idle/segment_select_command.dart";

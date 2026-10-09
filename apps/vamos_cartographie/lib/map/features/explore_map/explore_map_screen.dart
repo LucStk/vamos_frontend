@@ -59,7 +59,7 @@ class _ExploreSceneResolver extends ConsumerWidget {
       overrides: [
         mapSceneProvider.overrideWith((ref) => ref.watch(exploreSceneProvider)),
         mapModeProvider.overrideWithValue(modeState.mode),
-        modeDecoratorProvider.overrideWithValue(modeState.decorator),
+        modeDecoratorProvider.overrideWithValue(modeState.overlay),
         modeContextProvider.overrideWithValue(modeState.context),
         mapModeControllerProvider.overrideWithValue(exploreController),
       ],

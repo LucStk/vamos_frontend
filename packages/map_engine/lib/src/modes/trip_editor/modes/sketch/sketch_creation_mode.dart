@@ -21,35 +21,35 @@ abstract class SketchCreation extends MapEditorMode
       copyWith(selection: selection);
 
   @override
-  GestureResult<MapEditorMode> onPointerDown(
+  Transition<MapEditorMode> onPointerDown(
     PointerDownGesture g,
     ScreenOffset p,
   ) {
-    if (g.element is! MapSketchSegment) return GestureResult.none();
+    if (g.element is! MapSketchSegment) return Transition.none();
     // final grab = closestPointOnPolyline(p, path);
-    // return GestureResult(
+    // return Transition(
     //   mode: copyWith(path: path.sublist(0, grab.segmentIndex)),
     // );
-    return GestureResult.none();
+    return Transition.none();
   }
 
   @override
-  GestureResult<MapEditorMode> onTap(TapGesture g) {
+  Transition<MapEditorMode> onTap(TapGesture g) {
     switch (g.element) {
       case MapSketchPencil _:
-        return GestureResult.decorate(SketchPencilMenu(g.offset));
+        return Transition.decorate(SketchPencilMenu(g.offset));
       case _:
     }
-    return GestureResult.none();
+    return Transition.none();
   }
 
   // SketchCreation
   @override
-  GestureResult<MapEditorMode> onDragEnd(DragEndGesture g) {
-    if (g.dragged is! MapSketchPencil) return GestureResult.none();
+  Transition<MapEditorMode> onDragEnd(DragEndGesture g) {
+    if (g.dragged is! MapSketchPencil) return Transition.none();
 
     return switch (g.target) {
-      MapVertex v => GestureResult.run(
+      MapVertex v => Transition.run(
         CreateSegmentFromSketch(
           startVertexId: vertexStart,
           endVertexId: v.id,
@@ -58,7 +58,7 @@ abstract class SketchCreation extends MapEditorMode
         ),
         then: leaveSketch,
       ),
-      MapSegment s => GestureResult.run(
+      MapSegment s => Transition.run(
         SpliceSegment(
           segmentId: s.id,
           correction: path,
@@ -67,7 +67,7 @@ abstract class SketchCreation extends MapEditorMode
         ),
         then: leaveSketch,
       ),
-      // null => GestureResult.run(
+      // null => Transition.run(
       //   CreateSegmentFromSketch(
       //     startVertexId: vertexStart,
       //     geometry: path,
@@ -75,7 +75,7 @@ abstract class SketchCreation extends MapEditorMode
       //   ),
       //   then: leaveSketch,
       // ),
-      _ => GestureResult.none(),
+      _ => Transition.none(),
     };
   }
 }

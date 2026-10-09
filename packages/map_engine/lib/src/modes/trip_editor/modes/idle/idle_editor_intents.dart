@@ -3,17 +3,17 @@ import 'package:trip_application/trip_application.dart';
 import '/src/domain/selection.dart';
 import '../../map_editor_command.dart';
 import '../../map_editor_mode.dart';
-import '/src/mode_machine/gesture_result.dart';
+import '/src/mode_machine/transition.dart';
 
 abstract final class IdleEditorIntents {
-  static GestureResult<MapEditorMode> createVertex(LatLng position) =>
-      GestureResult.run(
+  static Transition<MapEditorMode> createVertex(LatLng position) =>
+      Transition.run(
         CreateSimpleVertex(position),
         then: (current, VertexId id) => current is IdleEditor
-            ? GestureResult.set(selectionSlot, VertexSelection(id))
+            ? Transition.set(selectionSlot, VertexSelection(id))
             : null,
       );
   // createWaypoint inchangé
-  static GestureResult<MapEditorMode> createWaypoint(LatLng position) =>
-      GestureResult.run(CreateWaypointFromPosition(position));
+  static Transition<MapEditorMode> createWaypoint(LatLng position) =>
+      Transition.run(CreateWaypointFromPosition(position));
 }

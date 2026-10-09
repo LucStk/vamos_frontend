@@ -8,11 +8,11 @@ import '/src/domain/gestures/map_gesture.dart';
 import '/src/domain/objects/map_objects.dart';
 import '/src/domain/space/offset_type.dart';
 import '/src/mode_machine/base_mode_model.dart';
-import '/src/mode_machine/gesture_result.dart';
+import '/src/mode_machine/transition.dart';
 import 'map_editor_command.dart';
 
-import 'modes/idle/idle_menu_decorator.dart';
-import 'modes/sketch/sketch_pencil_menu_decorator.dart';
+import 'modes/idle/idle_menu_overlay.dart';
+import 'modes/sketch/sketch_pencil_menu_overlay.dart';
 part 'modes/sketch/sketch_mode.dart';
 part "modes/sketch/sketch_creation_mode.dart";
 part "modes/sketch/sketch_edition_mode.dart";
@@ -24,7 +24,7 @@ sealed class MapEditorMode extends BaseMode<MapEditorMode> {
   const MapEditorMode();
 
   // void actOnSelection<S extends Selection>(
-  //   GestureResult<M>? Function(S s) action,
+  //   Transition<M>? Function(S s) action,
   // ) {
   //   if (state.context.get(selection) case final S s) apply(action(s));
   // }

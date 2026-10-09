@@ -1,5 +1,5 @@
 import '../domain/space/offset_type.dart';
-import 'gesture_result.dart';
+import 'transition.dart';
 import 'mode_command.dart';
 
 sealed class BaseCommand<R extends Object> extends ModeCommand<Never, R> {

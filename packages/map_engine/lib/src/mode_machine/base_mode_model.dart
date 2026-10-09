@@ -2,7 +2,7 @@ import '../domain/gestures/map_gesture.dart';
 import '../domain/slot.dart';
 import '../domain/space/offset_type.dart';
 import 'base_command.dart';
-import 'gesture_result.dart';
+import 'transition.dart';
 
 typedef PopUpPositionType = ScreenOffset?;
 
@@ -13,10 +13,7 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
   /// Tout autre slot est vidé à l'entrée. Par défaut : aucun.
   Set<Slot> get retainedSlots => const {};
 
-  GestureResult<Self>? dispatchGesture(
-    MapGesture gesture,
-    ScreenOffset offset,
-  ) {
+  Transition<Self>? dispatchGesture(MapGesture gesture, ScreenOffset offset) {
     return switch (gesture) {
       PointerDownGesture() => onPointerDown(gesture, offset),
       DragStartGesture() => onDragStart(gesture),
@@ -29,16 +26,15 @@ abstract class BaseMode<Self extends BaseMode<Self>> {
     };
   }
 
-  GestureResult<Self> onPointerDown(PointerDownGesture g, ScreenOffset p) =>
-      GestureResult.none();
-  GestureResult<Self> onDragStart(DragStartGesture g) => GestureResult.none();
-  GestureResult<Self> onDragging(DraggingGesture g, ScreenOffset p) =>
-      GestureResult.none();
-  GestureResult<Self> onDragEnd(DragEndGesture g) => GestureResult.none();
-  GestureResult<Self> onTap(TapGesture g) => GestureResult.none();
-  GestureResult<Self> onDoubleTap(DoubleTapGesture g) =>
-      GestureResult.run(ZoomIn(g.offset));
-  GestureResult<Self> onLongPress(LongPressGesture g) => GestureResult.none();
-  GestureResult<Self> onSecondaryTap(SecondaryTapGesture g) =>
-      GestureResult.none();
+  Transition<Self> onPointerDown(PointerDownGesture g, ScreenOffset p) =>
+      Transition.none();
+  Transition<Self> onDragStart(DragStartGesture g) => Transition.none();
+  Transition<Self> onDragging(DraggingGesture g, ScreenOffset p) =>
+      Transition.none();
+  Transition<Self> onDragEnd(DragEndGesture g) => Transition.none();
+  Transition<Self> onTap(TapGesture g) => Transition.none();
+  Transition<Self> onDoubleTap(DoubleTapGesture g) =>
+      Transition.run(ZoomIn(g.offset));
+  Transition<Self> onLongPress(LongPressGesture g) => Transition.none();
+  Transition<Self> onSecondaryTap(SecondaryTapGesture g) => Transition.none();
 }
