@@ -16,6 +16,10 @@ abstract class TripRepository {
   Future<Either<Failure, (Trip, List<StoredFileRemoteModel>)>> getTrip(
     TripId id,
   );
+  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
+  getUserTrips(UserId id);
+  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
+  getMeTrips();
   Future<Either<Failure, TripDetailsRes>> getTripDetails(TripId id);
   Future<Either<Failure, Trip>> updateTrip(Trip trip);
   Future<Either<Failure, void>> deleteTrip(TripId id);

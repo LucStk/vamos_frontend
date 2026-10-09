@@ -365,6 +365,339 @@ class GGetTripReq
   }
 }
 
+class GGetMeTripsReq
+    implements _i1.OperationRequest<_i2.GGetMeTripsData, Null> {
+  GGetMeTripsReq({
+    _i3.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final Null vars = null;
+
+  final _i3.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GGetMeTripsData? Function(
+    _i2.GGetMeTripsData?,
+    _i2.GGetMeTripsData?,
+  )? updateResult;
+
+  final _i2.GGetMeTripsData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i3.Context? context;
+
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetMeTrips,
+    _i9.TripFields,
+    _i10.StoredFile,
+    _i10.FileAttachment,
+    _i11.UserProfileFields,
+  ]);
+
+  static const _i3.Operation _operation = _i3.Operation(
+    document: _document,
+    operationName: 'GetMeTrips',
+  );
+
+  _i3.Request get execRequest => _i3.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
+
+  _i2.GGetMeTripsData? parseData(Map<String, dynamic> json) =>
+      _i2.GGetMeTripsData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
+
+  Map<String, dynamic> dataToJson(_i2.GGetMeTripsData data) => data.toJson();
+
+  _i1.OperationRequest<_i2.GGetMeTripsData, Null> transformOperation(
+      _i3.Operation Function(_i3.Operation) transform) {
+    return GGetMeTripsReq(
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GGetMeTripsReq copyWith({
+    _i3.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GGetMeTripsData? Function(
+      _i2.GGetMeTripsData?,
+      _i2.GGetMeTripsData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GGetMeTripsData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i3.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GGetMeTripsReq(
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetMeTripsReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GGetMeTripsReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GGetUserTripsReq
+    implements
+        _i1.OperationRequest<_i2.GGetUserTripsData, _i12.GGetUserTripsVars> {
+  GGetUserTripsReq({
+    required this.vars,
+    _i3.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i12.GGetUserTripsVars vars;
+
+  final _i3.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GGetUserTripsData? Function(
+    _i2.GGetUserTripsData?,
+    _i2.GGetUserTripsData?,
+  )? updateResult;
+
+  final _i2.GGetUserTripsData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i3.Context? context;
+
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetUserTrips,
+    _i9.TripFields,
+    _i10.StoredFile,
+    _i10.FileAttachment,
+    _i11.UserProfileFields,
+  ]);
+
+  static const _i3.Operation _operation = _i3.Operation(
+    document: _document,
+    operationName: 'GetUserTrips',
+  );
+
+  _i3.Request get execRequest => _i3.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
+
+  _i2.GGetUserTripsData? parseData(Map<String, dynamic> json) =>
+      _i2.GGetUserTripsData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GGetUserTripsData data) => data.toJson();
+
+  _i1.OperationRequest<_i2.GGetUserTripsData, _i12.GGetUserTripsVars>
+      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
+    return GGetUserTripsReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GGetUserTripsReq copyWith({
+    _i12.GGetUserTripsVars? vars,
+    _i3.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GGetUserTripsData? Function(
+      _i2.GGetUserTripsData?,
+      _i2.GGetUserTripsData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GGetUserTripsData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i3.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GGetUserTripsReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetUserTripsReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GGetUserTripsReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
 class GGetTripDetailsReq
     implements
         _i1

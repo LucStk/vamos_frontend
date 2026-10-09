@@ -17,7 +17,16 @@ query GetTrip($id: UUID!) {
         ...TripFields
     }
 }
-
+query GetMeTrips() {
+    meTrips() {
+        ...TripFields
+    }
+}
+query GetUserTrips($id : UUID!) {
+    userTrips(userId :$id) {
+        ...TripFields
+    }
+}
 query GetTripDetails($id: UUID!) {
     trip(id: $id) {
         ...TripFields

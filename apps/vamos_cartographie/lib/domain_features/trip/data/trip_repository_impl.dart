@@ -43,6 +43,32 @@ class TripRepositoryImpl extends TripRepository {
   }
 
   @override
+  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
+  getMeTrips() {
+    return guard(() async {
+      final response = await remote.getMeTrips();
+      return response.meTrips.map((gqlTrip) {
+        final trip = gqlTrip.toDomain();
+        final images = gqlTrip.files.map((file) => file.toDomain()).toList();
+        return (trip, images);
+      }).toList();
+    });
+  }
+
+  @override
+  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
+  getUserTrips(UserId id) {
+    return guard(() async {
+      final response = await remote.getUserTrips(id);
+      return response.userTrips.map((gqlTrip) {
+        final trip = gqlTrip.toDomain();
+        final images = gqlTrip.files.map((file) => file.toDomain()).toList();
+        return (trip, images);
+      }).toList();
+    });
+  }
+
+  @override
   Future<Either<Failure, (Trip, List<StoredFileRemoteModel>)>> getTrip(
     Id<Trip> id,
   ) {

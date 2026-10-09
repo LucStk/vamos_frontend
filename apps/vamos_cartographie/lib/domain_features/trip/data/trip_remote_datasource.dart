@@ -1,5 +1,6 @@
-import 'package:vamos_cartographie/core/network/network.dart';
+import 'package:user_profile_application/user_profile_application.dart';
 
+import '/core/network/ferry_client_x.dart';
 import '/core/graphql/graphql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';
@@ -27,6 +28,20 @@ class TripRemoteDatasource {
       GGetAllTripsReq(fetchPolicy: FetchPolicy.NetworkOnly),
     );
 
+    return data;
+  }
+
+  Future<GGetMeTripsData> getMeTrips() async {
+    final data = await ferryClient.execute(
+      GGetMeTripsReq(fetchPolicy: FetchPolicy.NetworkOnly),
+    );
+    return data;
+  }
+
+  Future<GGetUserTripsData> getUserTrips(UserId id) async {
+    final data = await ferryClient.execute(
+      GGetUserTripsReq(vars: GGetUserTripsVars(id: id.value)),
+    );
     return data;
   }
 

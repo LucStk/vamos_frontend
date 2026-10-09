@@ -44,6 +44,44 @@ class GGetTripVars {
   }
 }
 
+class GGetUserTripsVars {
+  const GGetUserTripsVars({required this.id});
+
+  factory GGetUserTripsVars.fromJson(Map<String, dynamic> json) {
+    return GGetUserTripsVars(id: (json['id'] as String));
+  }
+
+  final String id;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue;
+    return _$result;
+  }
+
+  GGetUserTripsVars copyWith({String? id}) {
+    return GGetUserTripsVars(id: id ?? this.id);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetUserTripsVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GGetUserTripsVars(id: $id)';
+  }
+}
+
 class GGetTripDetailsVars {
   const GGetTripDetailsVars({required this.id});
 

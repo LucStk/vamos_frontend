@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
-import '../../../../ui_kit/layouts/app_page_scaffold.dart';
-import '../../../auth/providers/auth_controller.dart';
-import '../edit_profile_page.dart';
+import '../providers/my_trips_provider.dart';
+import '/ui_kit/layouts/app_page_scaffold.dart';
+import '/domain_features/auth/providers/auth_controller.dart';
+import 'edit_profile_page.dart';
 import 'profile_header_view.dart';
+import 'trip_presentation/trip_library.dart';
 
 class ProfileContent extends ConsumerWidget {
   const ProfileContent({super.key, required this.profile});
@@ -14,6 +16,7 @@ class ProfileContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authControllerProvider);
+    final tripsAsync = ref.watch(myTripsProvider);
 
     return AppPageScaffold(
       title: 'Mon profil',
@@ -22,6 +25,38 @@ class ProfileContent extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Text('Mes voyages', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 16),
+
+            tripsAsync.when(
+              loading: () => const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              error: (error, stackTrace) => Column(
+                children: [
+                  const Text('Impossible de charger tes voyages.'),
+                  TextButton(
+                    onPressed: () => ref.invalidate(myTripsProvider),
+                    child: const Text('Réessayer'),
+                  ),
+                ],
+              ),
+              data: (trips) => TripLibrary(
+                trips: trips,
+                onOpenTrip: (trip) {
+                  // À raccorder à ta route de voyage.
+                },
+                onCreateTrip: () {
+                  // À raccorder à ton parcours de création.
+                },
+              ),
+            ),
+
+            const SizedBox(height: 32),
+
             ProfileHeader(profile: profile),
             IconButton(
               tooltip: 'Modifier',
