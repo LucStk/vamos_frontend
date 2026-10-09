@@ -1,8 +1,8 @@
 import 'package:trip_application/trip_application.dart';
 
 import '../../domain/camera/map_camera.dart';
-import '../../mode_machine/base_command.dart';
-import '../../mode_machine/base_command_resolver.dart';
+import '../../mode_machine/common_command.dart';
+import '../../mode_machine/common_command_resolver.dart';
 import '../../mode_machine/mode_command.dart';
 import 'map_editor_command.dart';
 import 'map_editor_mode.dart';
@@ -16,7 +16,7 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
         VertexSelectResolver,
         SegmentSelectResolver,
         SketchResolver,
-        BaseCommandResolver {
+        CommonCommandResolver {
   const EditTripCommandResolver({
     required this.graphEditor,
     required this.waypointEditor,
@@ -33,7 +33,7 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
   Future<R?> resolve<R extends Object>(
     ModeCommand<MapEditorMode, R> command,
   ) async {
-    if (command is BaseCommand<R>) return resolveBase(command);
+    if (command is CommonCommand<R>) return resolveBase(command);
     if (command is! EditorCommand<R>) return null;
 
     // On oublie le R précis ici : les resolvers renvoient de toute façon Object?.

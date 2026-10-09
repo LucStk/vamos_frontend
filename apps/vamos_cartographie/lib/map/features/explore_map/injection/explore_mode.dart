@@ -7,7 +7,7 @@ import '../../../camera/injection/map_camera_provider.dart';
 part "explore_mode.g.dart";
 
 @Riverpod(dependencies: [mapCamera])
-class MapExplore extends _$MapExplore with ModeControllerMixin<MapExploreMode> {
+class MapExplore extends _$MapExplore with ModeInterpreter<MapExploreMode> {
   final _queue = EffectQueue();
   @override
   late ExploreCommandResolver resolver;

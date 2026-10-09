@@ -11,7 +11,7 @@ export "src/geometry/camera_to_matrix4.dart";
 export "src/geometry/segment_hit_helpers.dart";
 export "src/geometry/world_segment_helper.dart";
 
-export "src/mode_machine/base_mode_model.dart";
+export "src/mode_machine/mode.dart";
 export "src/mode_machine/mode_context.dart";
 export 'src/mode_machine/effect_queue.dart';
 export 'src/mode_machine/mode_state.dart';
@@ -22,7 +22,7 @@ export 'src/input/map_pointer_event.dart';
 export 'src/input/map_gesture_handler.dart';
 
 export "src/mode_machine/mode_command.dart";
-export "src/mode_machine/mode_controller.dart";
+export "src/mode_machine/mode_interpreter.dart";
 
 export 'src/domain/gestures/map_gesture.dart';
 

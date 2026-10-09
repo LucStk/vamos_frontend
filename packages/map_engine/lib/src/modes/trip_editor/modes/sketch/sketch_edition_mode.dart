@@ -10,7 +10,6 @@ abstract class SketchEdition extends MapEditorMode
     required List<LatLng> path,
     VertexId? touchedVertex,
     MapObject? selection,
-    PopUpPositionType popUpPosition,
   }) = _SketchEdition;
   @override
   SketchEdition withSelection(MapObject? selection) =>

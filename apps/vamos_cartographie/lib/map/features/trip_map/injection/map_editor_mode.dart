@@ -9,7 +9,7 @@ import '/map/camera/injection/map_camera_provider.dart';
 part "map_editor_mode.g.dart";
 
 @Riverpod(dependencies: [mapCamera])
-class MapEditor extends _$MapEditor with ModeControllerMixin<MapEditorMode> {
+class MapEditor extends _$MapEditor with ModeInterpreter<MapEditorMode> {
   final _queue = EffectQueue();
 
   @override

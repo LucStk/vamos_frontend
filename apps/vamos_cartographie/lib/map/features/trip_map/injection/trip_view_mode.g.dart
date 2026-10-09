@@ -60,7 +60,7 @@ final class TripViewerProvider
   }
 }
 
-String _$tripViewerHash() => r'1e3d8d85ce2be611d6627345ca7264c77f7d44b4';
+String _$tripViewerHash() => r'fc9270efaf90696d992a53014edb13ed60451124';
 
 final class TripViewerFamily extends $Family
     with

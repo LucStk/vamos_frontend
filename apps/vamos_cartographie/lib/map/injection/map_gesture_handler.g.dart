@@ -60,7 +60,7 @@ final class MapGestureHandlerNotifierProvider
 }
 
 String _$mapGestureHandlerNotifierHash() =>
-    r'72a180132d923afe3a2744a463abc70f4021c3f5';
+    r'7e4ab5f4c4e7b3ef6fa612d77b0a014c7690e8b2';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).

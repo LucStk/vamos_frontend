@@ -1,7 +1,7 @@
 // overlay.dart
 import '../../domain/gestures/map_gesture.dart';
 import '../../domain/space/offset_type.dart';
-import '../base_mode_model.dart';
+import '../mode.dart';
 import '../transition.dart';
 
 enum Interception { pass, consume, dismiss, dismissAndConsume }
@@ -14,7 +14,7 @@ extension InterceptionX on Interception {
 }
 
 /// Surcouche attachée à un mode, sans que le mode en porte l'état.
-abstract class Overlay<M extends BaseMode<M>> {
+abstract class Overlay<M extends Mode<M>> {
   const Overlay();
 
   /// Appelé AVANT le mode. Peut absorber la gesture, ou se retirer.

@@ -1,11 +1,11 @@
 import "../../domain/camera/map_camera.dart";
-import "../../mode_machine/base_command.dart";
-import "../../mode_machine/base_command_resolver.dart";
+import "../../mode_machine/common_command.dart";
+import "../../mode_machine/common_command_resolver.dart";
 import "../../mode_machine/mode_command.dart";
 import "map_explore_mode.dart";
 
 final class ExploreCommandResolver extends ModeCommandResolver<MapExploreMode>
-    with BaseCommandResolver {
+    with CommonCommandResolver {
   @override
   final MapCameraController camera;
   const ExploreCommandResolver(this.camera);
@@ -14,7 +14,7 @@ final class ExploreCommandResolver extends ModeCommandResolver<MapExploreMode>
   Future<R?> resolve<R extends Object>(
     ModeCommand<MapExploreMode, R> command,
   ) async {
-    if (command is BaseCommand<R>) return resolveBase(command);
+    if (command is CommonCommand<R>) return resolveBase(command);
     return null;
   }
 }

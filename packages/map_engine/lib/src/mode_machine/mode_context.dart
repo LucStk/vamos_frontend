@@ -2,7 +2,7 @@
 import 'slot.dart';
 import "package:collection/collection.dart";
 
-import 'base_mode_model.dart';
+import 'mode.dart';
 
 final class ModeContext {
   const ModeContext._(this._values);
@@ -20,7 +20,7 @@ final class ModeContext {
   }
 
   // ModeContext
-  ModeContext afterTransition(BaseMode to) {
+  ModeContext afterTransition(Mode to) {
     final kept = {
       for (final e in _values.entries)
         if (to.retainedSlots.contains(e.key)) e.key: e.value,

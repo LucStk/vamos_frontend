@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'map_mode.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [])
-BaseMode mapMode(Ref ref) => throw UnimplementedError();
+Mode mapMode(Ref ref) => throw UnimplementedError();
 
 @Riverpod(keepAlive: true, dependencies: [])
 Overlay? modeDecorator(Ref ref) => throw UnimplementedError();

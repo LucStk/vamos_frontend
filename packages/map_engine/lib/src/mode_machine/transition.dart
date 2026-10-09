@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'slot.dart';
-import 'base_mode_model.dart';
+import 'mode.dart';
 import 'mode_command.dart';
 import 'overlay/overlay.dart';
 
@@ -10,7 +10,7 @@ final class Done {
   const Done();
 }
 
-final class PendingRun<M extends BaseMode<M>> {
+final class PendingRun<M extends Mode<M>> {
   const PendingRun._(this.command, this.then);
   final ModeCommand<M, Object> command;
   final Transition<M>? Function(M current, Object result)? then;
@@ -18,7 +18,7 @@ final class PendingRun<M extends BaseMode<M>> {
 
 typedef SlotChange = (Slot slot, Object? value);
 
-final class Transition<M extends BaseMode<M>> {
+final class Transition<M extends Mode<M>> {
   const Transition({
     this.mode,
     this.pending,
@@ -27,7 +27,7 @@ final class Transition<M extends BaseMode<M>> {
   });
 
   /// Ne change que le slot, pas le mode. `null` vide le slot.
-  static Transition<M> set<M extends BaseMode<M>, T extends Object>(
+  static Transition<M> set<M extends Mode<M>, T extends Object>(
     Slot<T> slot,
     T? value,
   ) => Transition<M>(slots: [(slot, value)]);
@@ -53,7 +53,7 @@ final class Transition<M extends BaseMode<M>> {
   /// Lance un effet. `then` est appelé avec le mode COURANT à la fin de l'effet,
   /// et seulement s'il a réussi.
   // transition.dart : `run` accepte un mode appliqué avant l'effet
-  static Transition<M> run<M extends BaseMode<M>, R extends Object>(
+  static Transition<M> run<M extends Mode<M>, R extends Object>(
     ModeCommand<M, R> command, {
     M? mode,
     Transition<M>? Function(M current, R result)? then,

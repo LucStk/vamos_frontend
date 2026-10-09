@@ -8,7 +8,7 @@ import '/map/camera/injection/map_camera_provider.dart';
 part "trip_view_mode.g.dart";
 
 @Riverpod(dependencies: [mapCamera])
-class TripViewer extends _$TripViewer with ModeControllerMixin<ViewTripMode> {
+class TripViewer extends _$TripViewer with ModeInterpreter<ViewTripMode> {
   final _queue = EffectQueue();
   @override
   late ViewTripCommandResolver resolver;
