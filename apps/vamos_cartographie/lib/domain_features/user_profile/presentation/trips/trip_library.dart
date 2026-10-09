@@ -14,7 +14,7 @@ class TripLibrary extends StatelessWidget {
 
   final List<(Trip, List<StoredFileRemoteModel>)> trips;
   final ValueChanged<Trip> onOpenTrip;
-  final VoidCallback onCreateTrip;
+  final VoidCallback? onCreateTrip;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +58,8 @@ class TripLibrary extends StatelessWidget {
                 childAspectRatio: 0.78,
               ),
               itemBuilder: (context, index) {
-                if (index == trips.length) {
-                  return CreateTripCard(onTap: onCreateTrip);
+                if (index == trips.length && onCreateTrip != null) {
+                  return CreateTripCard(onTap: onCreateTrip!);
                 }
 
                 final (trip, images) = trips[index];

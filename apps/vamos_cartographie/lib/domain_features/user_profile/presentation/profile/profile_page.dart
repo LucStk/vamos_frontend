@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'on_boarding/create_profile_page.dart';
-import '/domain_features/user_profile/providers/providers.dart';
+import '../on_boarding/create_profile_page.dart';
+import '/domain_features/user_profile/providers/user_session_providers.dart';
 import '/ui_kit/ui_kit.dart';
+import 'edit_profile_page.dart';
 import "profile_content_view.dart";
 
 class ProfilePage extends ConsumerWidget {
@@ -24,7 +25,16 @@ class ProfilePage extends ConsumerWidget {
       AsyncData(value: final me) when me!.profile == null =>
         const CreateProfilePage(),
 
-      AsyncData(value: final me) => ProfileContent(profile: me!.profile!),
+      AsyncData(value: final me) => ProfileContentView(
+        profile: me!.profile!,
+        onCreateTrip: () {},
+        onEditProfile: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const EditProfilePage()),
+          );
+        },
+        onOpenTrip: (trip) {},
+      ),
     };
   }
 }

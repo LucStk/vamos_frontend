@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../domain_features/auth/presentation/login_page.dart';
-import '../../domain_features/user_profile/presentation/profile_page.dart';
+import '../../domain_features/user_profile/user_profile.dart';
 part 'auth_routes.g.dart';
 
 @TypedGoRoute<LoginRoute>(path: '/login')

@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:vamos_cartographie/domain_features/stored_file/stored_file.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
-import "package:vamos_cartographie/app_services/app_services.dart";
+import '/domain_features/stored_file/stored_file.dart';
+import '/domain_features/user_profile/providers/user_session_providers.dart';
+import "/app_services/app_services.dart";
 
 class EditProfilePage extends ConsumerStatefulWidget {
   const EditProfilePage({super.key});

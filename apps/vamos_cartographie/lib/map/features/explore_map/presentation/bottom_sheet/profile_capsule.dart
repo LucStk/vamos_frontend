@@ -2,7 +2,7 @@ import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
-import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import "/domain_features/user_profile/user_profile.dart";
 
 class ProfileCapsule extends ConsumerWidget {
   const ProfileCapsule({super.key, required this.userId});

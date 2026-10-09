@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../routing/routes/auth_routes.dart';
-import '../../auth/providers/auth_providers.dart';
-import '../providers/user_session_providers.dart';
+import '/routing/routes/auth_routes.dart';
+import '/domain_features/auth/providers/auth_providers.dart';
+import '../../providers/user_session_providers.dart';
 
 class AccountButton extends ConsumerWidget {
   const AccountButton({super.key});
