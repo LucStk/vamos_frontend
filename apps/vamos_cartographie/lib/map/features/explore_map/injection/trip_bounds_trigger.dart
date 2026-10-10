@@ -19,7 +19,7 @@ void tripBoundsTrigger(Ref ref) {
       return;
     }
     if ((previous?.context.get(selectionSlot), next.context.get(selectionSlot))
-        case (TripSelection m, TripSelection t) when m != t) {
+        case (TripSelection m, TripSelection t) when m == t) {
       return;
     }
     final bounds = ref
@@ -34,10 +34,7 @@ void tripBoundsTrigger(Ref ref) {
     }
     director.submit(
       CameraRequest(
-        FitBounds(
-          bounds.toFlutterMap(),
-          padding: const EdgeInsets.only(bottom: 20),
-        ),
+        FitBounds(bounds.toFlutterMap(), padding: const EdgeInsets.all(300)),
         priority: CameraPriority.content,
       ),
     );

@@ -13,7 +13,7 @@ class MapGestureHandler {
     required GestureSink Function() sink,
     required HitTest hitTest,
     required void Function(bool allowed) onPanAllowedChanged,
-    Duration tapTimeout = const Duration(milliseconds: 149),
+    Duration tapTimeout = const Duration(milliseconds: 200),
     Duration longPressTimeout = const Duration(milliseconds: 500),
   }) : _sink = sink,
        _hitTest = hitTest,

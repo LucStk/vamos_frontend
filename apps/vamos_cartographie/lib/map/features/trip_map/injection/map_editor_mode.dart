@@ -27,13 +27,15 @@ class MapEditor extends _$MapEditor with ModeInterpreter<MapEditorMode> {
       camera: mapCamera,
     );
 
-    final nbVertex = ref
-        .read(graphStoreProvider(tripId))
-        .vertexStore
-        .store
-        .length;
+    // final nbVertex = ref
+    //     .read(graphStoreProvider(tripId))
+    //     .vertexStore
+    //     .store
+    //     .length;
 
-    return ModeState(nbVertex == 0 ? InitTripMode() : IdleEditor());
+    return ModeState(
+      IdleEditor(),
+    ); //ModeState(nbVertex == 0 ? InitTripMode() : IdleEditor());
   }
 
   @override
