@@ -41,10 +41,10 @@ sealed class MapLine extends MapObject {
   }
 }
 
-sealed class MapPolyline extends MapObject {
+sealed class MapSegmentedLine extends MapObject {
   final List<List<LatLng>> lines;
 
-  const MapPolyline(this.lines);
+  const MapSegmentedLine(this.lines);
 
   MapLatLngBounds? get bounds {
     final geometry = lines.expand((line) => line);

@@ -4,7 +4,7 @@ import 'package:map_canvas/map_canvas.dart';
 
 import 'package:map_engine/map_engine.dart';
 
-final class ProjectedTrip extends ProjectedPolyline<MapTripObject> {
+final class ProjectedTrip extends PolylineItem<MapTripObject> {
   ProjectedTrip({required super.object, required super.worldSegments});
 
   @override

@@ -1,6 +1,6 @@
 part of "map_objects.dart";
 
-class MapTripObject extends MapPolyline {
+class MapTripObject extends MapSegmentedLine {
   final TripId id;
   const MapTripObject(this.id, super.lines);
 

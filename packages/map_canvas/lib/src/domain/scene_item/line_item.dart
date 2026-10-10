@@ -1,10 +1,10 @@
-part of 'projected_object.dart';
+part of 'scene_item.dart';
 
-abstract class ProjectedLine<T extends MapLine> extends SceneItem {
+abstract class LineItem<T extends MapLine> extends SceneItem {
   final List<WorldSegment> worldSegments;
   final Rect bounds;
 
-  ProjectedLine({required T object, required this.worldSegments})
+  LineItem({required T object, required this.worldSegments})
     : bounds = computeBounds(
         worldSegments.expand((segment) => [segment.$1.value, segment.$2.value]),
       ),

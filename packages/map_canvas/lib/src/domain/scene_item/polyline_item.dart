@@ -1,10 +1,10 @@
-part of 'projected_object.dart';
+part of 'scene_item.dart';
 
-abstract class ProjectedPolyline<T extends MapPolyline> extends SceneItem {
+abstract class PolylineItem<T extends MapSegmentedLine> extends SceneItem {
   final List<List<WorldSegment>> worldSegments;
   final Rect bounds;
 
-  ProjectedPolyline({required T object, required this.worldSegments})
+  PolylineItem({required T object, required this.worldSegments})
     : bounds = computeBounds(
         worldSegments.expand(
           (line) =>

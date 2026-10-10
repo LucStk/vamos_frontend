@@ -1,12 +1,12 @@
 import 'dart:ui';
 import 'package:map_engine/map_engine.dart';
 
-import '../domain/draw_command_domain.dart';
-import '../domain/map_paint_context.dart';
+import '../draw_command_domain.dart';
+import '../map_paint_context.dart';
 
-part "projected_line.dart";
-part "projected_point.dart";
-part "projected_polyline.dart";
+part "line_item.dart";
+part "point_item.dart";
+part "polyline_item.dart";
 
 abstract class SceneItem {
   final MapObject object;

@@ -37,7 +37,7 @@ VertexVisualKind _visualKind(WaypointFields? waypoint) {
 }
 
 @Riverpod(dependencies: [CameraOrNull, vertexData])
-List<ProjectedPoint> allVertexProjection(Ref ref, TripId tripId) {
+List<PointItem> allVertexProjection(Ref ref, TripId tripId) {
   final cameraReader = ref.watch(cameraOrNullProvider);
   if (cameraReader == null) return const [];
 
@@ -55,7 +55,7 @@ List<ProjectedPoint> allVertexProjection(Ref ref, TripId tripId) {
 }
 
 @Riverpod(dependencies: [CameraOrNull])
-List<ProjectedLine> allSegmentProjection(Ref ref, TripId tripId) {
+List<LineItem> allSegmentProjection(Ref ref, TripId tripId) {
   final segments = ref.watch(allSegmentsProvider(tripId));
   final cameraReader = ref.watch(cameraOrNullProvider);
   if (cameraReader == null) {

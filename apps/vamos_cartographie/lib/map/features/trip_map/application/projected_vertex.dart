@@ -4,7 +4,7 @@ import 'package:map_canvas/map_canvas.dart';
 
 enum VertexVisualKind { normal, start, end }
 
-final class ProjectedVertex extends ProjectedPoint<MapVertex> {
+final class ProjectedVertex extends PointItem<MapVertex> {
   ProjectedVertex({
     required super.object,
     required super.worldPosition,

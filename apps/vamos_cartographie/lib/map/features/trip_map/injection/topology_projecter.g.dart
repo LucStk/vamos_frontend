@@ -103,11 +103,11 @@ final allVertexProjectionProvider = AllVertexProjectionFamily._();
 final class AllVertexProjectionProvider
     extends
         $FunctionalProvider<
-          List<ProjectedPoint<MapPoint>>,
-          List<ProjectedPoint<MapPoint>>,
-          List<ProjectedPoint<MapPoint>>
+          List<PointItem<MapPoint>>,
+          List<PointItem<MapPoint>>,
+          List<PointItem<MapPoint>>
         >
-    with $Provider<List<ProjectedPoint<MapPoint>>> {
+    with $Provider<List<PointItem<MapPoint>>> {
   AllVertexProjectionProvider._({
     required AllVertexProjectionFamily super.from,
     required TripId super.argument,
@@ -134,23 +134,21 @@ final class AllVertexProjectionProvider
 
   @$internal
   @override
-  $ProviderElement<List<ProjectedPoint<MapPoint>>> $createElement(
+  $ProviderElement<List<PointItem<MapPoint>>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  List<ProjectedPoint<MapPoint>> create(Ref ref) {
+  List<PointItem<MapPoint>> create(Ref ref) {
     final argument = this.argument as TripId;
     return allVertexProjection(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<ProjectedPoint<MapPoint>> value) {
+  Override overrideWithValue(List<PointItem<MapPoint>> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<ProjectedPoint<MapPoint>>>(
-        value,
-      ),
+      providerOverride: $SyncValueProvider<List<PointItem<MapPoint>>>(value),
     );
   }
 
@@ -169,7 +167,7 @@ String _$allVertexProjectionHash() =>
     r'd78226f43069e6daa4be2b4c769be17e6b6d110f';
 
 final class AllVertexProjectionFamily extends $Family
-    with $FunctionalFamilyOverride<List<ProjectedPoint<MapPoint>>, TripId> {
+    with $FunctionalFamilyOverride<List<PointItem<MapPoint>>, TripId> {
   AllVertexProjectionFamily._()
     : super(
         retry: null,
@@ -198,11 +196,11 @@ final allSegmentProjectionProvider = AllSegmentProjectionFamily._();
 final class AllSegmentProjectionProvider
     extends
         $FunctionalProvider<
-          List<ProjectedLine<MapLine>>,
-          List<ProjectedLine<MapLine>>,
-          List<ProjectedLine<MapLine>>
+          List<LineItem<MapLine>>,
+          List<LineItem<MapLine>>,
+          List<LineItem<MapLine>>
         >
-    with $Provider<List<ProjectedLine<MapLine>>> {
+    with $Provider<List<LineItem<MapLine>>> {
   AllSegmentProjectionProvider._({
     required AllSegmentProjectionFamily super.from,
     required TripId super.argument,
@@ -228,21 +226,21 @@ final class AllSegmentProjectionProvider
 
   @$internal
   @override
-  $ProviderElement<List<ProjectedLine<MapLine>>> $createElement(
+  $ProviderElement<List<LineItem<MapLine>>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  List<ProjectedLine<MapLine>> create(Ref ref) {
+  List<LineItem<MapLine>> create(Ref ref) {
     final argument = this.argument as TripId;
     return allSegmentProjection(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<ProjectedLine<MapLine>> value) {
+  Override overrideWithValue(List<LineItem<MapLine>> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<ProjectedLine<MapLine>>>(value),
+      providerOverride: $SyncValueProvider<List<LineItem<MapLine>>>(value),
     );
   }
 
@@ -261,7 +259,7 @@ String _$allSegmentProjectionHash() =>
     r'9b078cda579b180cc4f6fbbfe0904bed2e9bc57b';
 
 final class AllSegmentProjectionFamily extends $Family
-    with $FunctionalFamilyOverride<List<ProjectedLine<MapLine>>, TripId> {
+    with $FunctionalFamilyOverride<List<LineItem<MapLine>>, TripId> {
   AllSegmentProjectionFamily._()
     : super(
         retry: null,

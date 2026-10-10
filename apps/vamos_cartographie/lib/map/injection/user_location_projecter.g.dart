@@ -15,11 +15,11 @@ final userLocationProjectionProvider = UserLocationProjectionProvider._();
 final class UserLocationProjectionProvider
     extends
         $FunctionalProvider<
-          List<ProjectedPoint<MapPoint>>,
-          List<ProjectedPoint<MapPoint>>,
-          List<ProjectedPoint<MapPoint>>
+          List<PointItem<MapPoint>>,
+          List<PointItem<MapPoint>>,
+          List<PointItem<MapPoint>>
         >
-    with $Provider<List<ProjectedPoint<MapPoint>>> {
+    with $Provider<List<PointItem<MapPoint>>> {
   UserLocationProjectionProvider._()
     : super(
         from: null,
@@ -40,22 +40,20 @@ final class UserLocationProjectionProvider
 
   @$internal
   @override
-  $ProviderElement<List<ProjectedPoint<MapPoint>>> $createElement(
+  $ProviderElement<List<PointItem<MapPoint>>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  List<ProjectedPoint<MapPoint>> create(Ref ref) {
+  List<PointItem<MapPoint>> create(Ref ref) {
     return userLocationProjection(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<ProjectedPoint<MapPoint>> value) {
+  Override overrideWithValue(List<PointItem<MapPoint>> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<ProjectedPoint<MapPoint>>>(
-        value,
-      ),
+      providerOverride: $SyncValueProvider<List<PointItem<MapPoint>>>(value),
     );
   }
 }

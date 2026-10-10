@@ -45,7 +45,7 @@ class _Look {
   );
 }
 
-final class ProjectedSegment extends ProjectedLine<MapSegment> {
+final class ProjectedSegment extends LineItem<MapSegment> {
   ProjectedSegment({
     required super.object,
     required super.worldSegments,

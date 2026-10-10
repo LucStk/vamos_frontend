@@ -4,7 +4,7 @@ import 'package:map_canvas/map_canvas.dart';
 
 import 'package:map_engine/map_engine.dart';
 
-final class ProjectedUserLocation extends ProjectedPoint<MapUserLocation> {
+final class ProjectedUserLocation extends PointItem<MapUserLocation> {
   ProjectedUserLocation({required super.object, required super.worldPosition});
 
   @override

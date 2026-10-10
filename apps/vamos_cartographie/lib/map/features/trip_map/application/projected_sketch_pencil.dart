@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 
-final class ProjectedSketchPencil extends ProjectedPoint<MapSketchPencil> {
+final class ProjectedSketchPencil extends PointItem<MapSketchPencil> {
   ProjectedSketchPencil({required super.object, required super.worldPosition});
 
   @override
