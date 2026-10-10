@@ -13,8 +13,9 @@ part of 'sketch_elements_projecter.dart';
 final sketchElementProjectionProvider = SketchElementProjectionFamily._();
 
 final class SketchElementProjectionProvider
-    extends $FunctionalProvider<List<SeneItem>, List<SeneItem>, List<SeneItem>>
-    with $Provider<List<SeneItem>> {
+    extends
+        $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
+    with $Provider<List<SceneItem>> {
   SketchElementProjectionProvider._({
     required SketchElementProjectionFamily super.from,
     required TripId super.argument,
@@ -43,20 +44,20 @@ final class SketchElementProjectionProvider
 
   @$internal
   @override
-  $ProviderElement<List<SeneItem>> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<List<SceneItem>> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  List<SeneItem> create(Ref ref) {
+  List<SceneItem> create(Ref ref) {
     final argument = this.argument as TripId;
     return sketchElementProjection(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<SeneItem> value) {
+  Override overrideWithValue(List<SceneItem> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<SeneItem>>(value),
+      providerOverride: $SyncValueProvider<List<SceneItem>>(value),
     );
   }
 
@@ -76,7 +77,7 @@ String _$sketchElementProjectionHash() =>
     r'b977db91fb54d2b8ad690f62d104721eb7a1f6f5';
 
 final class SketchElementProjectionFamily extends $Family
-    with $FunctionalFamilyOverride<List<SeneItem>, TripId> {
+    with $FunctionalFamilyOverride<List<SceneItem>, TripId> {
   SketchElementProjectionFamily._()
     : super(
         retry: null,

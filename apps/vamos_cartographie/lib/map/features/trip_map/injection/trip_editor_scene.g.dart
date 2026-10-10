@@ -13,8 +13,9 @@ part of 'trip_editor_scene.dart';
 final projectedTripEditorSceneProvider = ProjectedTripEditorSceneFamily._();
 
 final class ProjectedTripEditorSceneProvider
-    extends $FunctionalProvider<List<SeneItem>, List<SeneItem>, List<SeneItem>>
-    with $Provider<List<SeneItem>> {
+    extends
+        $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
+    with $Provider<List<SceneItem>> {
   ProjectedTripEditorSceneProvider._({
     required ProjectedTripEditorSceneFamily super.from,
     required TripId super.argument,
@@ -51,20 +52,20 @@ final class ProjectedTripEditorSceneProvider
 
   @$internal
   @override
-  $ProviderElement<List<SeneItem>> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<List<SceneItem>> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  List<SeneItem> create(Ref ref) {
+  List<SceneItem> create(Ref ref) {
     final argument = this.argument as TripId;
     return projectedTripEditorScene(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<SeneItem> value) {
+  Override overrideWithValue(List<SceneItem> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<SeneItem>>(value),
+      providerOverride: $SyncValueProvider<List<SceneItem>>(value),
     );
   }
 
@@ -84,7 +85,7 @@ String _$projectedTripEditorSceneHash() =>
     r'c0bb7891786a2b61b74d5c5cc14d666f4fc27f2f';
 
 final class ProjectedTripEditorSceneFamily extends $Family
-    with $FunctionalFamilyOverride<List<SeneItem>, TripId> {
+    with $FunctionalFamilyOverride<List<SceneItem>, TripId> {
   ProjectedTripEditorSceneFamily._()
     : super(
         retry: null,

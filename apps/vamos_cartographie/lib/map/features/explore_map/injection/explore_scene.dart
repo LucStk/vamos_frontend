@@ -40,13 +40,13 @@ ProjectedTrip projectTrip(Ref ref, TripId tripId) {
 }
 
 @Riverpod(dependencies: [projectTrip, userLocationProjection])
-List<SeneItem> projectedExploreScene(Ref ref) {
+List<SceneItem> projectedExploreScene(Ref ref) {
   final userLocation = ref.watch(userLocationProjectionProvider);
   final tripsIds = ref.watch(
     tripStoreProvider.select((t) => t.tripStore.getIds()),
   );
 
-  final objects = <SeneItem>[...userLocation];
+  final objects = <SceneItem>[...userLocation];
 
   for (final tripId in tripsIds) {
     objects.add(ref.watch(projectTripProvider(tripId)));

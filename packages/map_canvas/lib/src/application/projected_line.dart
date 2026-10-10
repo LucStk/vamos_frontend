@@ -1,6 +1,6 @@
 part of 'projected_object.dart';
 
-abstract class ProjectedLine<T extends MapLine> extends SeneItem {
+abstract class ProjectedLine<T extends MapLine> extends SceneItem {
   final List<WorldSegment> worldSegments;
   final Rect bounds;
 
