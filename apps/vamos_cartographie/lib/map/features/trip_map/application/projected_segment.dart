@@ -85,7 +85,7 @@ final class ProjectedSegment extends LineItem<MapSegment> {
   static const _white = Color(0xFFFFFFFF);
 
   @override
-  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final path = this.path;
     final look = _Look.lerp(
       _looks[context.from]!,

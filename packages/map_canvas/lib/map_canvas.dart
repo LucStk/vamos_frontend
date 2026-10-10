@@ -1,4 +1,4 @@
-export "src/domain/draw_command_domain.dart";
+export "src/domain/draw_command.dart";
 export "src/domain/map_paint_context.dart";
 
 export 'src/application/map_scene.dart';

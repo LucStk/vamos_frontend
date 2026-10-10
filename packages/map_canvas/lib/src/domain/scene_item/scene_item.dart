@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:map_engine/map_engine.dart';
 
-import '../draw_command_domain.dart';
+import '../draw_command.dart';
 import '../map_paint_context.dart';
 
 part "line_item.dart";
@@ -15,5 +15,5 @@ abstract class SceneItem {
 
   bool isHitAt(WorldOffset point, double scale);
 
-  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()});
+  DrawCommand describe({MapPaintContext context = const MapPaintContext()});
 }

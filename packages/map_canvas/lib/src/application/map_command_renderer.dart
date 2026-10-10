@@ -1,14 +1,13 @@
 import 'dart:math';
 import 'dart:ui';
 
-import '../domain/draw_command_domain.dart';
-
-enum MapRenderSpace { world, screen }
+import '../domain/draw_command.dart';
+import '../domain/draw_space.dart';
 
 final class MapCommandRenderer {
   const MapCommandRenderer({
     required this.canvas,
-    required this.layer,
+    required this.activeSpace,
     this.zoomScale = 1.0,
   });
 
@@ -17,46 +16,38 @@ final class MapCommandRenderer {
   static const referenceZoomScale = 0.5;
 
   final Canvas canvas;
-  final MapRenderSpace layer; // couche en cours de rendu
+  final DrawSpace activeSpace; // couche en cours de rendu
   final double zoomScale; // utilisé uniquement par la couche screen
 
-  void paintAll(
-    Iterable<MapDrawCommand> commands, {
-    MapRenderSpace space = MapRenderSpace.world,
-  }) {
+  void paintAll(Iterable<DrawCommand> commands, {required DrawSpace space}) {
     for (final c in commands) {
       paint(c, space: space);
     }
   }
 
-  void paint(
-    MapDrawCommand command, {
-    MapRenderSpace space = MapRenderSpace.world,
-  }) {
+  void paint(DrawCommand command, {DrawSpace space = DrawSpace.world}) {
     switch (command) {
-      case WorldScale():
-        paintAll(command.commands, space: MapRenderSpace.world);
-      case ScreenScale():
-        paintAll(command.commands, space: MapRenderSpace.screen);
-      case Transform():
+      case DrawGroup(space: final groupSpace, :final commands):
+        paintAll(commands, space: groupSpace ?? space); // hérite si null
+      case DrawTransform():
         _paintTransform(command, space: space);
       case DrawCircle():
-        if (space == layer) _paintCircle(command, space);
+        if (space == activeSpace) _paintCircle(command, space);
       case DrawPath():
-        if (space == layer) _paintPath(command, space);
+        if (space == activeSpace) _paintPath(command, space);
     }
   }
 
   /// Facteur qui convertit une dimension en pixels vers des unités monde.
-  double _pxToWorld(DrawUnit unit, MapRenderSpace space) {
+  double _pxToWorld(DrawUnit unit, DrawSpace space) {
     if (unit == DrawUnit.world) return 1.0;
     return switch (space) {
-      MapRenderSpace.screen => 1 / zoomScale,
-      MapRenderSpace.world => 1 / referenceZoomScale,
+      DrawSpace.screen => 1 / zoomScale,
+      DrawSpace.world => 1 / referenceZoomScale,
     };
   }
 
-  void _paintCircle(DrawCircle c, MapRenderSpace space) {
+  void _paintCircle(DrawCircle c, DrawSpace space) {
     final k = _pxToWorld(c.unit, space);
 
     if (k == 1.0) {
@@ -73,7 +64,7 @@ final class MapCommandRenderer {
     canvas.restore();
   }
 
-  void _paintPath(DrawPath c, MapRenderSpace space) {
+  void _paintPath(DrawPath c, DrawSpace space) {
     final k = _pxToWorld(c.unit, space);
     final p = c.paint;
 
@@ -110,7 +101,7 @@ final class MapCommandRenderer {
     return out;
   }
 
-  void _paintTransform(Transform command, {required MapRenderSpace space}) {
+  void _paintTransform(DrawTransform command, {required DrawSpace space}) {
     final transform = command.transform;
 
     canvas.save();

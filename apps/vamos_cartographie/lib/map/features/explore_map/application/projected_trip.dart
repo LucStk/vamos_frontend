@@ -8,7 +8,7 @@ final class ProjectedTrip extends PolylineItem<MapTripObject> {
   ProjectedTrip({required super.object, required super.worldSegments});
 
   @override
-  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final path = this.path;
     final isSelected = context.state == MapObjectVisualState.selected;
 

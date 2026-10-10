@@ -32,7 +32,7 @@ final class ProjectedVertex extends PointItem<MapVertex> {
   };
 
   @override
-  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final color = Color.lerp(
       _colors[context.from],
       _colors[context.state],

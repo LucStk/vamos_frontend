@@ -8,7 +8,7 @@ final class ProjectedUserLocation extends PointItem<MapUserLocation> {
   ProjectedUserLocation({required super.object, required super.worldPosition});
 
   @override
-  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     // final accuracyPaint = Paint()..style = PaintingStyle.fill;
     // canvas.drawCircle(projectedPosition, point.accuracy, accuracyPaint);
     final positionPaint = Paint()..style = PaintingStyle.fill;

@@ -7,7 +7,7 @@ final class ProjectedSketchPencil extends PointItem<MapSketchPencil> {
   ProjectedSketchPencil({required super.object, required super.worldPosition});
 
   @override
-  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final paint = Paint()..style = PaintingStyle.fill;
 
     return ScreenScale([

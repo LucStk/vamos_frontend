@@ -7,7 +7,7 @@ final class ProjectedSketchSegment extends LineItem<MapSketchSegment> {
   ProjectedSketchSegment({required super.object, required super.worldSegments});
 
   @override
-  MapDrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
     final path = this.path;
     return ScreenScale([
       DrawPath(

@@ -26,7 +26,7 @@ class MapScenePainter extends CustomPainter {
     ];
     MapCommandRenderer(
       canvas: canvas,
-      layer: MapRenderSpace.world,
+      layer: DrawSpace.world,
     ).paintAll(commands);
   }
 
@@ -91,7 +91,7 @@ class ScreenSpacePainter extends CustomPainter {
     ];
     MapCommandRenderer(
       canvas: canvas,
-      layer: MapRenderSpace.screen,
+      layer: DrawSpace.screen,
       zoomScale: zoomScale,
     ).paintAll(commands);
   }
