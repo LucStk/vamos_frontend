@@ -24,10 +24,8 @@ class MapScenePainter extends CustomPainter {
                   .contextFor(),
         ),
     ];
-    MapCommandRenderer(
-      canvas: canvas,
-      layer: DrawSpace.world,
-    ).paintAll(commands);
+    // MapScenePainter.paint
+    MapCommandRenderer.zoomInvariant(canvas).paintAll(commands);
   }
 
   @override
@@ -89,9 +87,9 @@ class ScreenSpacePainter extends CustomPainter {
                   .contextFor(),
         ),
     ];
-    MapCommandRenderer(
-      canvas: canvas,
-      layer: DrawSpace.screen,
+    // ScreenSpacePainter.paint
+    MapCommandRenderer.zoomDependent(
+      canvas,
       zoomScale: zoomScale,
     ).paintAll(commands);
   }

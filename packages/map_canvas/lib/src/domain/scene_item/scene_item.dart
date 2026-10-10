@@ -15,5 +15,7 @@ abstract class SceneItem {
 
   bool isHitAt(WorldOffset point, double scale);
 
-  DrawCommand describe({MapPaintContext context = const MapPaintContext()});
+  DrawCommand toDrawCommand({
+    MapPaintContext context = const MapPaintContext(),
+  });
 }

@@ -2,83 +2,101 @@ import 'dart:math';
 import 'dart:ui';
 
 import '../domain/draw_command.dart';
-import '../domain/draw_space.dart';
+import '../domain/length.dart';
+import '../domain/paint_spec.dart';
 
 final class MapCommandRenderer {
-  const MapCommandRenderer({
-    required this.canvas,
-    required this.activeSpace,
-    this.zoomScale = 1.0,
+  /// Passe invariante au zoom : ne dessine que les commandes en WorldLength.
+  /// Pas de zoomScale, donc impossible de convertir un ScreenLength par erreur.
+  MapCommandRenderer.zoomInvariant(this.canvas) : zoomScale = null;
+
+  /// Passe dépendante du zoom : ne dessine que les commandes contenant un ScreenLength.
+  MapCommandRenderer.zoomDependent(
+    this.canvas, {
+    required double this.zoomScale,
   });
 
-  /// zoomScale (px par unité monde) auquel world et screen ont la même taille.
-  /// À régler : debugPrint(camera.zoomScale) au zoom voulu.
-  static const referenceZoomScale = 0.5;
-
   final Canvas canvas;
-  final DrawSpace activeSpace; // couche en cours de rendu
-  final double zoomScale; // utilisé uniquement par la couche screen
+  final double? zoomScale; // null = passe invariante
+  bool get _dependentPass => zoomScale != null;
+  final Paint _paint = Paint();
 
-  void paintAll(Iterable<DrawCommand> commands, {required DrawSpace space}) {
+  void paintAll(Iterable<DrawCommand> commands) {
     for (final c in commands) {
-      paint(c, space: space);
+      paint(c, inheritedDependent: false);
     }
   }
 
-  void paint(DrawCommand command, {DrawSpace space = DrawSpace.world}) {
-    switch (command) {
-      case DrawGroup(space: final groupSpace, :final commands):
-        paintAll(commands, space: groupSpace ?? space); // hérite si null
+  void paint(DrawCommand c, {required bool inheritedDependent}) {
+    switch (c) {
+      case DrawGroup():
+        for (final child in c.commands) {
+          paint(child, inheritedDependent: inheritedDependent);
+        }
       case DrawTransform():
-        _paintTransform(command, space: space);
+        _paintTransform(c, inheritedDependent: inheritedDependent);
       case DrawCircle():
-        if (space == activeSpace) _paintCircle(command, space);
+        if (_belongs(c.dependsOnZoom || inheritedDependent)) _paintCircle(c);
       case DrawPath():
-        if (space == activeSpace) _paintPath(command, space);
+        if (_belongs(c.dependsOnZoom || inheritedDependent)) _paintPath(c);
     }
   }
 
-  /// Facteur qui convertit une dimension en pixels vers des unités monde.
-  double _pxToWorld(DrawUnit unit, DrawSpace space) {
-    if (unit == DrawUnit.world) return 1.0;
-    return switch (space) {
-      DrawSpace.screen => 1 / zoomScale,
-      DrawSpace.world => 1 / referenceZoomScale,
-    };
-  }
+  bool _belongs(bool dependsOnZoom) => dependsOnZoom == _dependentPass;
 
-  void _paintCircle(DrawCircle c, DrawSpace space) {
-    final k = _pxToWorld(c.unit, space);
+  double _toWorld(Length l) => switch (l) {
+    ScreenLength(:final value) => value / zoomScale!,
+    WorldLength(:final value) => value,
+  };
 
-    if (k == 1.0) {
-      canvas.drawCircle(c.center.value, c.radius, c.paint);
-      return;
-    }
+  void _paintTransform(DrawTransform c, {required bool inheritedDependent}) {
+    // Une translation en px rend tout le sous-arbre dépendant du zoom.
+    final dependent =
+        inheritedDependent || c.transform.translation.dependsOnZoom;
+    if (dependent && !_dependentPass) return; // rien à dessiner ici
 
-    // On dessine en coordonnées locales, mises à l'échelle : le rayon
-    // et l'épaisseur du trait sont convertis ensemble.
+    final t = c.transform;
+    final origin = t.origin.value;
     canvas.save();
-    canvas.translate(c.center.value.dx, c.center.value.dy);
-    canvas.scale(k);
-    canvas.drawCircle(Offset.zero, c.radius, c.paint);
+    canvas.translate(origin.dx, origin.dy);
+    if (t.rotation != 0.0) canvas.rotate(t.rotation);
+    if (t.scale != 1.0) canvas.scale(t.scale);
+    canvas.translate(-origin.dx, -origin.dy);
+    final dx = _toWorld(t.translation.dx), dy = _toWorld(t.translation.dy);
+    if (dx != 0.0 || dy != 0.0) canvas.translate(dx, dy);
+    for (final child in c.commands) {
+      paint(child, inheritedDependent: dependent);
+    }
     canvas.restore();
   }
 
-  void _paintPath(DrawPath c, DrawSpace space) {
-    final k = _pxToWorld(c.unit, space);
-    final p = c.paint;
+  // _paintCircle, _paintPath, _paintOf, _dashed : inchangés
 
+  Paint _paintOf(PaintSpec spec) {
+    _paint.color = spec.color;
+    switch (spec) {
+      case Fill():
+        _paint.style = PaintingStyle.fill;
+      case Stroke(:final width, :final cap, :final join):
+        _paint
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = _toWorld(width)
+          ..strokeCap = cap
+          ..strokeJoin = join;
+    }
+    return _paint;
+  }
+
+  void _paintCircle(DrawCircle c) {
+    canvas.drawCircle(c.center.value, _toWorld(c.radius), _paintOf(c.style));
+  }
+
+  void _paintPath(DrawPath c) {
     var path = c.path;
-    final dash = c.dash;
-    if (dash != null && dash.isNotEmpty) {
-      path = _dashed(path, [for (final d in dash) d * k]);
+    if (c.style case Stroke(:final dash?) when dash.isNotEmpty) {
+      path = _dashed(path, [for (final d in dash) _toWorld(d)]);
     }
-
-    if (k != 1.0 && p.style == PaintingStyle.stroke && p.strokeWidth != 0.0) {
-      canvas.drawPath(path, Paint.from(p)..strokeWidth = p.strokeWidth * k);
-    } else {
-      canvas.drawPath(path, p);
-    }
+    canvas.drawPath(path, _paintOf(c.style));
   }
 
   static Path _dashed(Path source, List<double> pattern) {
@@ -99,35 +117,5 @@ final class MapCommandRenderer {
       }
     }
     return out;
-  }
-
-  void _paintTransform(DrawTransform command, {required DrawSpace space}) {
-    final transform = command.transform;
-
-    canvas.save();
-
-    final origin = transform.origin.value;
-
-    canvas.translate(origin.dx, origin.dy);
-
-    if (transform.rotation != 0.0) {
-      canvas.rotate(transform.rotation);
-    }
-
-    if (transform.scale != 1.0) {
-      canvas.scale(transform.scale);
-    }
-
-    canvas.translate(-origin.dx, -origin.dy);
-
-    if (transform.translation != Offset.zero) {
-      canvas.translate(transform.translation.dx, transform.translation.dy);
-    }
-
-    // Le Transform ne change pas le scope :
-    // ses enfants héritent de World ou Screen.
-    paintAll(command.commands, space: space);
-
-    canvas.restore();
   }
 }

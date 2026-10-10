@@ -3,11 +3,13 @@ import 'dart:ui';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 
-final class ProjectedSketchPencil extends PointItem<MapSketchPencil> {
-  ProjectedSketchPencil({required super.object, required super.worldPosition});
+final class PencilItem extends PointItem<MapSketchPencil> {
+  PencilItem({required super.object, required super.worldPosition});
 
   @override
-  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand toDrawCommand({
+    MapPaintContext context = const MapPaintContext(),
+  }) {
     final paint = Paint()..style = PaintingStyle.fill;
 
     return ScreenScale([

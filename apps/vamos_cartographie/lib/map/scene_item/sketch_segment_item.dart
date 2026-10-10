@@ -3,11 +3,13 @@ import 'dart:ui';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 
-final class ProjectedSketchSegment extends LineItem<MapSketchSegment> {
-  ProjectedSketchSegment({required super.object, required super.worldSegments});
+final class SketchSegmentItem extends LineItem<MapSketchSegment> {
+  SketchSegmentItem({required super.object, required super.worldSegments});
 
   @override
-  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand toDrawCommand({
+    MapPaintContext context = const MapPaintContext(),
+  }) {
     final path = this.path;
     return ScreenScale([
       DrawPath(

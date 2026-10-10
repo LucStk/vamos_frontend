@@ -4,11 +4,13 @@ import 'package:map_canvas/map_canvas.dart';
 
 import 'package:map_engine/map_engine.dart';
 
-final class ProjectedTrip extends PolylineItem<MapTripObject> {
-  ProjectedTrip({required super.object, required super.worldSegments});
+final class TripItem extends PolylineItem<MapTripObject> {
+  TripItem({required super.object, required super.worldSegments});
 
   @override
-  DrawCommand describe({MapPaintContext context = const MapPaintContext()}) {
+  DrawCommand toDrawCommand({
+    MapPaintContext context = const MapPaintContext(),
+  }) {
     final path = this.path;
     final isSelected = context.state == MapObjectVisualState.selected;
 
