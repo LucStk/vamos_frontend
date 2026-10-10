@@ -5,13 +5,20 @@ import 'package:latlong2/latlong.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-import '../camera/application/map_scene_paint.dart';
 import '../camera/injection/camera_or_null.dart';
 import '../camera/injection/map_camera_provider.dart';
+import '../canvas/presentation/map_scene_paint.dart';
+import '../canvas/injection/visual_target.dart';
 import '../injection/map_gesture_handler.dart';
 import '/map/injection/map_scene.dart';
 
-@Dependencies([CameraOrNull, mapCamera, mapScene, MapGestureHandlerNotifier])
+@Dependencies([
+  visualTargets,
+  CameraOrNull,
+  mapCamera,
+  mapScene,
+  MapGestureHandlerNotifier,
+])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
 

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:vamos_cartographie/map/map.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 // import 'package:vamos_cartographie/routing/routing.dart';
 import '/domain_features/domain_features.dart';
+import 'trip_card_content.dart';
+import 'trip_card_icon.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 @Dependencies([

@@ -5,6 +5,9 @@ final class MapSegment extends MapLine implements TopologyObject {
   const MapSegment(this.id, super.geometry);
 
   @override
+  Object get stableId => ("segment", id);
+
+  @override
   SpliceAnchor get anchor => SegmentAnchor(id);
 
   @override
@@ -19,6 +22,9 @@ final class MapSegment extends MapLine implements TopologyObject {
 
 final class MapTripStart extends MapPoint {
   const MapTripStart(super.position);
+
+  @override
+  Object get stableId => "TripStart";
 
   @override
   bool get isDraggable => false;
@@ -36,6 +42,9 @@ final class MapTripStart extends MapPoint {
 final class MapSegmentEndPoint extends MapPoint {
   const MapSegmentEndPoint(this.id, super.position);
   final SegmentId id;
+
+  @override
+  Object get stableId => ("segmentEnd", id);
 
   @override
   double get radius => 10;

@@ -6,7 +6,7 @@ import '/map/camera/application/map_geo_mappers.dart';
 import '/map/camera/domain/domain.dart';
 import '/map/camera/injection/camera_director_provider.dart';
 import 'explore_mode.dart';
-import 'explore_scene.dart';
+import 'map_trip_object.dart';
 
 part "trip_bounds_trigger.g.dart";
 

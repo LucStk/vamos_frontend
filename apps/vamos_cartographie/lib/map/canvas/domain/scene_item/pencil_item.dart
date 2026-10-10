@@ -10,10 +10,10 @@ final class PencilItem extends PointItem<MapSketchPencil> {
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
   }) {
-    final paint = Paint()..style = PaintingStyle.fill;
-
-    return ScreenScale([
-      DrawCircle(center: worldPosition, radius: 8, paint: paint),
-    ]);
+    return DrawCircle(
+      center: worldPosition,
+      radius: 8.px,
+      style: Fill(Color(0xFF000000)),
+    );
   }
 }

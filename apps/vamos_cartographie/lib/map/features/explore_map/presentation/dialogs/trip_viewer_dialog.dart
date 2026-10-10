@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
+import '../trip_section_label.dart';
 import '/domain_features/domain_features.dart';
-import '/map/map.dart';
 import '/ui_kit/ui_kit.dart';
+import 'trip_form_dialog.dart';
 
 class TripViewerDialog extends ConsumerWidget {
   final Id<Trip> tripId;

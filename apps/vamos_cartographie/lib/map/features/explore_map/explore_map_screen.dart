@@ -2,21 +2,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+
 import '/map/camera/application/map_camera_lifecycle.dart';
 import '/map/camera/injection/camera_or_null.dart';
 import '/map/camera/injection/map_camera_provider.dart';
 import '/map/camera/injection/user_location_trigger.dart';
+import "/map/camera/injection/camera_director_provider.dart";
+
+import "/map/injection/map_gesture_handler.dart";
 import '/map/injection/map_mode.dart';
 import '/map/injection/map_scene.dart';
+
 import '/map/presentation/base_map_screen.dart';
+import '/map/canvas/injection/visual_target.dart';
 import '/domain_features/domain_features.dart';
+
 import 'injection/explore_mode.dart';
 import 'injection/explore_scene.dart';
 import 'injection/trip_bounds_trigger.dart';
+
 import 'presentation/explore_bottom_sheet.dart';
 import 'presentation/trips_carousel_widget.dart';
-import "/map/camera/injection/camera_director_provider.dart";
-import "/map/injection/map_gesture_handler.dart";
 
 @Dependencies([MapGestureHandlerNotifier])
 class ExploreMapScreen extends StatefulWidget {
@@ -69,6 +75,7 @@ class _ExploreSceneResolver extends ConsumerWidget {
 }
 
 @Dependencies([
+  visualTargets,
   modeContext,
   mapScene,
   tripBoundsTrigger,

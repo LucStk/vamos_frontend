@@ -10,6 +10,7 @@ part "segment_objects.dart";
 
 sealed class MapObject {
   const MapObject();
+  Object get stableId;
 
   bool get isDraggable => false;
   bool get awaitsDoubleTap => false;
@@ -56,6 +57,8 @@ sealed class MapSegmentedLine extends MapObject {
 final class MapVertex extends MapPoint implements TopologyObject {
   final VertexId id;
   const MapVertex(this.id, super.position);
+  @override
+  Object get stableId => ("vertex", id);
 
   @override
   SpliceAnchor get anchor => VertexAnchor(id);

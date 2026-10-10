@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:map_canvas/map_canvas.dart';
-import 'package:map_engine/map_engine.dart';
 
 /// Apparence de base, indépendante de l'état visuel. Données pures, sans unité.
 final class SegmentAppearance {

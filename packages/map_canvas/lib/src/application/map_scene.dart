@@ -8,13 +8,13 @@ typedef MapObjectPredicate = bool Function(MapObject);
 
 class MapScene {
   const MapScene({
-    required this.objects,
+    required this.items,
     this.selection,
     this.hovered,
     this.dragging,
   });
 
-  final List<SceneItem> objects;
+  final List<SceneItem> items;
   final Selection? selection;
   final MapObject? hovered;
   final MapObject? dragging;
@@ -24,7 +24,7 @@ class MapScene {
     double scale, {
     MapObjectPredicate? ignore,
   }) {
-    for (final candidate in objects) {
+    for (final candidate in items) {
       if (ignore?.call(candidate.object) ?? false) {
         continue;
       }

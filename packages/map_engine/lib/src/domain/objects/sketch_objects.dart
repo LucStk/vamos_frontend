@@ -2,7 +2,8 @@ part of 'map_objects.dart';
 
 final class MapSketchSegment extends MapLine {
   const MapSketchSegment(super.geometry);
-
+  @override
+  Object get stableId => "sketchSegment";
   @override
   double get radius => 10;
 
@@ -15,7 +16,8 @@ final class MapSketchSegment extends MapLine {
 
 final class MapSketchPencil extends MapPoint {
   const MapSketchPencil(super.position);
-
+  @override
+  Object get stableId => "pencil";
   @override
   double get radius => 10;
 

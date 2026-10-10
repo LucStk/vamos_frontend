@@ -9,12 +9,19 @@ import '/map/injection/map_gesture_handler.dart';
 import '/map/injection/map_scene.dart';
 import 'map_canvas_view.dart';
 import 'package:flutter/gestures.dart';
+import '../canvas/injection/visual_target.dart';
 
 bool isSecondaryClick(PointerDownEvent event) =>
     event.kind == PointerDeviceKind.mouse &&
     (event.buttons & kSecondaryMouseButton) != 0;
 
-@Dependencies([CameraOrNull, mapCamera, mapScene, MapGestureHandlerNotifier])
+@Dependencies([
+  visualTargets,
+  CameraOrNull,
+  mapCamera,
+  mapScene,
+  MapGestureHandlerNotifier,
+])
 class MapGestureBridge extends ConsumerWidget {
   final List<Widget> mapLayers;
   const MapGestureBridge({required this.mapLayers, super.key});

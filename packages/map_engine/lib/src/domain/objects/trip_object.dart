@@ -5,6 +5,9 @@ class MapTripObject extends MapSegmentedLine {
   const MapTripObject(this.id, super.lines);
 
   @override
+  Object get stableId => ("trip", id);
+
+  @override
   double get radius => 24;
 
   @override

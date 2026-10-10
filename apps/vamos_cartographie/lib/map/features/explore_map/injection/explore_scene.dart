@@ -3,65 +3,34 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:trip_application/trip_application.dart';
 import '../../../camera/injection/camera_or_null.dart';
+import '../../../injection/localization_item.dart';
 import '../../../injection/map_mode.dart';
-import '../../../injection/user_location_projecter.dart';
-import '../application/projected_trip.dart';
 import '/domain_features/domain_features.dart';
+import 'trip_item.dart';
 part 'explore_scene.g.dart';
 
-@riverpod
-MapTripObject mapTripObject(Ref ref, TripId tripId) {
-  final trip = ref.watch(tripProvider(tripId));
-  if (trip == null) {
-    throw NotFoundFailure(resourceId: tripId.toString(), resourceType: "Trip");
-  }
-  final tripSegment = ref.watch(allSegmentsProvider(tripId));
-  // Applique la projection et l'aplatissement directement avec expand
-  final tripGeometry = tripSegment.map((s) => s.geometry).toList();
-  return MapTripObject(trip.id, tripGeometry);
-}
-
-@Riverpod(dependencies: [CameraOrNull])
-ProjectedTrip projectTrip(Ref ref, TripId tripId) {
-  final tripObject = ref.watch(mapTripObjectProvider(tripId));
-  final cameraReader = ref.watch(cameraOrNullProvider);
-  if (cameraReader == null) {
-    return ProjectedTrip(worldSegments: [], object: tripObject);
-  }
-  return ProjectedTrip(
-    worldSegments: projectPolyline(
-      tripObject.lines,
-      cameraReader.latLngToWorldOffset,
-    ),
-    object: tripObject,
-  );
-}
-
-@Riverpod(dependencies: [projectTrip, userLocationProjection])
-List<SceneItem> projectedExploreScene(Ref ref) {
-  final userLocation = ref.watch(userLocationProjectionProvider);
+@Riverpod(dependencies: [CameraOrNull, localizationItem, tripItem])
+List<SceneItem> exploreSceneItems(Ref ref) {
+  final camera = ref.watch(cameraOrNullProvider);
+  if (camera == null) return [];
+  final userLocation = ref.watch(localizationItemProvider(camera));
+  final List<SceneItem> items = [?userLocation];
   final tripsIds = ref.watch(
     tripStoreProvider.select((t) => t.tripStore.getIds()),
   );
-
-  final objects = <SceneItem>[...userLocation];
-
   for (final tripId in tripsIds) {
-    objects.add(ref.watch(projectTripProvider(tripId)));
+    items.add(ref.watch(tripItemProvider(tripId, camera)));
   }
-
-  objects.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
-
-  return objects;
+  items.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
+  return items;
 }
 
-@Riverpod(dependencies: [projectedExploreScene, modeContext])
+@Riverpod(dependencies: [exploreSceneItems, modeContext])
 MapScene exploreScene(Ref ref) {
   final selected = ref.watch(
     modeContextProvider.select((c) => c.get(selectionSlot)),
   );
-  final projectScene = ref.watch(projectedExploreSceneProvider);
-  return MapScene(selection: selected, objects: projectScene);
+  final projectScene = ref.watch(exploreSceneItemsProvider);
+  return MapScene(selection: selected, items: projectScene);
 }

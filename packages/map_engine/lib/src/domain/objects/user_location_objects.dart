@@ -8,7 +8,8 @@ final class MapUserLocation extends MapPoint {
     required this.accuracy,
     required this.heading,
   });
-
+  @override
+  Object get stableId => "userLocation";
   @override
   double get radius => 10;
 
@@ -19,5 +20,5 @@ final class MapUserLocation extends MapPoint {
   int get hitPriority => 200;
 
   @override
-  bool isSameAs(MapObject? other) => other is MapSketchPencil;
+  bool isSameAs(MapObject? other) => other is MapUserLocation;
 }

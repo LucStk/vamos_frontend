@@ -9,196 +9,38 @@ part of 'explore_scene.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(mapTripObject)
-final mapTripObjectProvider = MapTripObjectFamily._();
+@ProviderFor(exploreSceneItems)
+final exploreSceneItemsProvider = ExploreSceneItemsProvider._();
 
-final class MapTripObjectProvider
-    extends $FunctionalProvider<MapTripObject, MapTripObject, MapTripObject>
-    with $Provider<MapTripObject> {
-  MapTripObjectProvider._({
-    required MapTripObjectFamily super.from,
-    required TripId super.argument,
-  }) : super(
-         retry: null,
-         name: r'mapTripObjectProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$mapTripObjectHash();
-
-  @override
-  String toString() {
-    return r'mapTripObjectProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<MapTripObject> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  MapTripObject create(Ref ref) {
-    final argument = this.argument as TripId;
-    return mapTripObject(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapTripObject value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MapTripObject>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is MapTripObjectProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$mapTripObjectHash() => r'eebcb11f8ed374a612d94580cac17ad1763a649a';
-
-final class MapTripObjectFamily extends $Family
-    with $FunctionalFamilyOverride<MapTripObject, TripId> {
-  MapTripObjectFamily._()
-    : super(
-        retry: null,
-        name: r'mapTripObjectProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
-
-  MapTripObjectProvider call(TripId tripId) =>
-      MapTripObjectProvider._(argument: tripId, from: this);
-
-  @override
-  String toString() => r'mapTripObjectProvider';
-}
-
-@ProviderFor(projectTrip)
-final projectTripProvider = ProjectTripFamily._();
-
-final class ProjectTripProvider
-    extends $FunctionalProvider<ProjectedTrip, ProjectedTrip, ProjectedTrip>
-    with $Provider<ProjectedTrip> {
-  ProjectTripProvider._({
-    required ProjectTripFamily super.from,
-    required TripId super.argument,
-  }) : super(
-         retry: null,
-         name: r'projectTripProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  static final $allTransitiveDependencies0 = cameraOrNullProvider;
-
-  @override
-  String debugGetCreateSourceHash() => _$projectTripHash();
-
-  @override
-  String toString() {
-    return r'projectTripProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<ProjectedTrip> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  ProjectedTrip create(Ref ref) {
-    final argument = this.argument as TripId;
-    return projectTrip(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ProjectedTrip value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ProjectedTrip>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is ProjectTripProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$projectTripHash() => r'f0e3c33d2efe37670ae2ba26826ab8d1e9c6aa7f';
-
-final class ProjectTripFamily extends $Family
-    with $FunctionalFamilyOverride<ProjectedTrip, TripId> {
-  ProjectTripFamily._()
-    : super(
-        retry: null,
-        name: r'projectTripProvider',
-        dependencies: <ProviderOrFamily>[cameraOrNullProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          ProjectTripProvider.$allTransitiveDependencies0,
-        ],
-        isAutoDispose: true,
-      );
-
-  ProjectTripProvider call(TripId tripId) =>
-      ProjectTripProvider._(argument: tripId, from: this);
-
-  @override
-  String toString() => r'projectTripProvider';
-}
-
-@ProviderFor(projectedExploreScene)
-final projectedExploreSceneProvider = ProjectedExploreSceneProvider._();
-
-final class ProjectedExploreSceneProvider
+final class ExploreSceneItemsProvider
     extends
         $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
     with $Provider<List<SceneItem>> {
-  ProjectedExploreSceneProvider._()
+  ExploreSceneItemsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'projectedExploreSceneProvider',
+        name: r'exploreSceneItemsProvider',
         isAutoDispose: true,
         dependencies: <ProviderOrFamily>[
-          projectTripProvider,
-          userLocationProjectionProvider,
+          cameraOrNullProvider,
+          localizationItemProvider,
+          tripItemProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>[
-          ProjectedExploreSceneProvider.$allTransitiveDependencies0,
-          ProjectedExploreSceneProvider.$allTransitiveDependencies1,
-          ProjectedExploreSceneProvider.$allTransitiveDependencies2,
+          ExploreSceneItemsProvider.$allTransitiveDependencies0,
+          ExploreSceneItemsProvider.$allTransitiveDependencies1,
+          ExploreSceneItemsProvider.$allTransitiveDependencies2,
         ],
       );
 
-  static final $allTransitiveDependencies0 = projectTripProvider;
-  static final $allTransitiveDependencies1 =
-      ProjectTripProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 = userLocationProjectionProvider;
+  static final $allTransitiveDependencies0 = cameraOrNullProvider;
+  static final $allTransitiveDependencies1 = localizationItemProvider;
+  static final $allTransitiveDependencies2 = tripItemProvider;
 
   @override
-  String debugGetCreateSourceHash() => _$projectedExploreSceneHash();
+  String debugGetCreateSourceHash() => _$exploreSceneItemsHash();
 
   @$internal
   @override
@@ -207,7 +49,7 @@ final class ProjectedExploreSceneProvider
 
   @override
   List<SceneItem> create(Ref ref) {
-    return projectedExploreScene(ref);
+    return exploreSceneItems(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -219,8 +61,7 @@ final class ProjectedExploreSceneProvider
   }
 }
 
-String _$projectedExploreSceneHash() =>
-    r'646d4b0595b300b917863b80865f6b74d85ea860';
+String _$exploreSceneItemsHash() => r'd02c8613022748db895467bd3c7c3e077efe6337';
 
 @ProviderFor(exploreScene)
 final exploreSceneProvider = ExploreSceneProvider._();
@@ -236,7 +77,7 @@ final class ExploreSceneProvider
         name: r'exploreSceneProvider',
         isAutoDispose: true,
         dependencies: <ProviderOrFamily>[
-          projectedExploreSceneProvider,
+          exploreSceneItemsProvider,
           modeContextProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
@@ -248,13 +89,13 @@ final class ExploreSceneProvider
         },
       );
 
-  static final $allTransitiveDependencies0 = projectedExploreSceneProvider;
+  static final $allTransitiveDependencies0 = exploreSceneItemsProvider;
   static final $allTransitiveDependencies1 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies0;
+      ExploreSceneItemsProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies1;
+      ExploreSceneItemsProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies3 =
-      ProjectedExploreSceneProvider.$allTransitiveDependencies2;
+      ExploreSceneItemsProvider.$allTransitiveDependencies2;
   static final $allTransitiveDependencies4 = modeContextProvider;
 
   @override
@@ -279,4 +120,4 @@ final class ExploreSceneProvider
   }
 }
 
-String _$exploreSceneHash() => r'8f859c369af719b433496b652437d9d55efbdd95';
+String _$exploreSceneHash() => r'dc733810e2ae8bb87e77f154b09621b0761721dc';

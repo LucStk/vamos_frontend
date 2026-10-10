@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../canvas/injection/visual_target.dart';
+
 import '/map/camera/injection/camera_director_provider.dart';
 import '/map/camera/injection/map_camera_provider.dart';
 
@@ -17,6 +19,7 @@ import '/map/injection/map_scene.dart';
 import 'map_gesture_bridge.dart';
 
 @Dependencies([
+  visualTargets,
   CameraOrNull,
   mapScene,
   cameraDirector,

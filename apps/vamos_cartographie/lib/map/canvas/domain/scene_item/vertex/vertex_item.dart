@@ -1,10 +1,7 @@
-import 'dart:ui';
 import 'package:map_engine/map_engine.dart';
 import 'package:map_canvas/map_canvas.dart';
 
 import 'vertex_style.dart';
-
-enum VertexVisualKind { normal, start, end }
 
 final class VertexItem extends PointItem<MapVertex> {
   VertexItem({

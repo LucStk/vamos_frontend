@@ -9,43 +9,231 @@ part of 'trip_editor_scene.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(projectedTripEditorScene)
-final projectedTripEditorSceneProvider = ProjectedTripEditorSceneFamily._();
+@ProviderFor(vertexItems)
+final vertexItemsProvider = VertexItemsFamily._();
 
-final class ProjectedTripEditorSceneProvider
+final class VertexItemsProvider
     extends
-        $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
-    with $Provider<List<SceneItem>> {
-  ProjectedTripEditorSceneProvider._({
-    required ProjectedTripEditorSceneFamily super.from,
-    required TripId super.argument,
+        $FunctionalProvider<
+          List<PointItem<MapPoint>>,
+          List<PointItem<MapPoint>>,
+          List<PointItem<MapPoint>>
+        >
+    with $Provider<List<PointItem<MapPoint>>> {
+  VertexItemsProvider._({
+    required VertexItemsFamily super.from,
+    required (TripId, MapCameraReader) super.argument,
   }) : super(
          retry: null,
-         name: r'projectedTripEditorSceneProvider',
+         name: r'vertexItemsProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = sketchElementProjectionProvider;
+  static final $allTransitiveDependencies0 = vertexItemProvider;
   static final $allTransitiveDependencies1 =
-      SketchElementProjectionProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 =
-      SketchElementProjectionProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 =
-      SketchElementProjectionProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies4 = userLocationProjectionProvider;
-  static final $allTransitiveDependencies5 = allVertexProjectionProvider;
-  static final $allTransitiveDependencies6 =
-      AllVertexProjectionProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies7 = allSegmentProjectionProvider;
+      VertexItemProvider.$allTransitiveDependencies0;
 
   @override
-  String debugGetCreateSourceHash() => _$projectedTripEditorSceneHash();
+  String debugGetCreateSourceHash() => _$vertexItemsHash();
 
   @override
   String toString() {
-    return r'projectedTripEditorSceneProvider'
+    return r'vertexItemsProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<PointItem<MapPoint>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  List<PointItem<MapPoint>> create(Ref ref) {
+    final argument = this.argument as (TripId, MapCameraReader);
+    return vertexItems(ref, argument.$1, argument.$2);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<PointItem<MapPoint>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<PointItem<MapPoint>>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is VertexItemsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$vertexItemsHash() => r'df082fcfbddbcf74ad35730cd3818daeec28ef98';
+
+final class VertexItemsFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          List<PointItem<MapPoint>>,
+          (TripId, MapCameraReader)
+        > {
+  VertexItemsFamily._()
+    : super(
+        retry: null,
+        name: r'vertexItemsProvider',
+        dependencies: <ProviderOrFamily>[vertexItemProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          VertexItemsProvider.$allTransitiveDependencies0,
+          VertexItemsProvider.$allTransitiveDependencies1,
+        ],
+        isAutoDispose: true,
+      );
+
+  VertexItemsProvider call(TripId tripId, MapCameraReader camera) =>
+      VertexItemsProvider._(argument: (tripId, camera), from: this);
+
+  @override
+  String toString() => r'vertexItemsProvider';
+}
+
+@ProviderFor(segmentItems)
+final segmentItemsProvider = SegmentItemsFamily._();
+
+final class SegmentItemsProvider
+    extends
+        $FunctionalProvider<
+          List<LineItem<MapLine>>,
+          List<LineItem<MapLine>>,
+          List<LineItem<MapLine>>
+        >
+    with $Provider<List<LineItem<MapLine>>> {
+  SegmentItemsProvider._({
+    required SegmentItemsFamily super.from,
+    required (TripId, MapCameraReader) super.argument,
+  }) : super(
+         retry: null,
+         name: r'segmentItemsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  static final $allTransitiveDependencies0 = segmentItemProvider;
+
+  @override
+  String debugGetCreateSourceHash() => _$segmentItemsHash();
+
+  @override
+  String toString() {
+    return r'segmentItemsProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<LineItem<MapLine>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  List<LineItem<MapLine>> create(Ref ref) {
+    final argument = this.argument as (TripId, MapCameraReader);
+    return segmentItems(ref, argument.$1, argument.$2);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<LineItem<MapLine>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<LineItem<MapLine>>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SegmentItemsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$segmentItemsHash() => r'f2e5b23da5a4611eef69c4cffbd5f63cda2c4eac';
+
+final class SegmentItemsFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          List<LineItem<MapLine>>,
+          (TripId, MapCameraReader)
+        > {
+  SegmentItemsFamily._()
+    : super(
+        retry: null,
+        name: r'segmentItemsProvider',
+        dependencies: <ProviderOrFamily>[segmentItemProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          SegmentItemsProvider.$allTransitiveDependencies0,
+        ],
+        isAutoDispose: true,
+      );
+
+  SegmentItemsProvider call(TripId tripId, MapCameraReader camera) =>
+      SegmentItemsProvider._(argument: (tripId, camera), from: this);
+
+  @override
+  String toString() => r'segmentItemsProvider';
+}
+
+@ProviderFor(tripEditorSceneItems)
+final tripEditorSceneItemsProvider = TripEditorSceneItemsFamily._();
+
+final class TripEditorSceneItemsProvider
+    extends
+        $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
+    with $Provider<List<SceneItem>> {
+  TripEditorSceneItemsProvider._({
+    required TripEditorSceneItemsFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'tripEditorSceneItemsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  static final $allTransitiveDependencies0 = sketchItemProvider;
+  static final $allTransitiveDependencies1 =
+      SketchItemProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      SketchItemProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 = vertexItemsProvider;
+  static final $allTransitiveDependencies4 =
+      VertexItemsProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies5 =
+      VertexItemsProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies6 = segmentItemsProvider;
+  static final $allTransitiveDependencies7 =
+      SegmentItemsProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies8 = cameraOrNullProvider;
+  static final $allTransitiveDependencies9 = localizationItemProvider;
+
+  @override
+  String debugGetCreateSourceHash() => _$tripEditorSceneItemsHash();
+
+  @override
+  String toString() {
+    return r'tripEditorSceneItemsProvider'
         ''
         '($argument)';
   }
@@ -58,7 +246,7 @@ final class ProjectedTripEditorSceneProvider
   @override
   List<SceneItem> create(Ref ref) {
     final argument = this.argument as TripId;
-    return projectedTripEditorScene(ref, argument);
+    return tripEditorSceneItems(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -71,8 +259,7 @@ final class ProjectedTripEditorSceneProvider
 
   @override
   bool operator ==(Object other) {
-    return other is ProjectedTripEditorSceneProvider &&
-        other.argument == argument;
+    return other is TripEditorSceneItemsProvider && other.argument == argument;
   }
 
   @override
@@ -81,39 +268,42 @@ final class ProjectedTripEditorSceneProvider
   }
 }
 
-String _$projectedTripEditorSceneHash() =>
-    r'c0bb7891786a2b61b74d5c5cc14d666f4fc27f2f';
+String _$tripEditorSceneItemsHash() =>
+    r'69286299c1f415d17619ab405ab1551aa1cda7a2';
 
-final class ProjectedTripEditorSceneFamily extends $Family
+final class TripEditorSceneItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, TripId> {
-  ProjectedTripEditorSceneFamily._()
+  TripEditorSceneItemsFamily._()
     : super(
         retry: null,
-        name: r'projectedTripEditorSceneProvider',
+        name: r'tripEditorSceneItemsProvider',
         dependencies: <ProviderOrFamily>[
-          sketchElementProjectionProvider,
-          userLocationProjectionProvider,
-          allVertexProjectionProvider,
-          allSegmentProjectionProvider,
+          sketchItemProvider,
+          vertexItemsProvider,
+          segmentItemsProvider,
+          cameraOrNullProvider,
+          localizationItemProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies0,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies1,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies2,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies3,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies4,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies5,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies6,
-          ProjectedTripEditorSceneProvider.$allTransitiveDependencies7,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies0,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies1,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies2,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies3,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies4,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies5,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies6,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies7,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies8,
+          TripEditorSceneItemsProvider.$allTransitiveDependencies9,
         },
         isAutoDispose: true,
       );
 
-  ProjectedTripEditorSceneProvider call(TripId tripId) =>
-      ProjectedTripEditorSceneProvider._(argument: tripId, from: this);
+  TripEditorSceneItemsProvider call(TripId tripId) =>
+      TripEditorSceneItemsProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'projectedTripEditorSceneProvider';
+  String toString() => r'tripEditorSceneItemsProvider';
 }
 
 @ProviderFor(tripEditorScene)
@@ -133,24 +323,28 @@ final class TripEditorSceneProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = projectedTripEditorSceneProvider;
-  static final $allTransitiveDependencies1 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies0 = modeContextProvider;
+  static final $allTransitiveDependencies1 = tripEditorSceneItemsProvider;
   static final $allTransitiveDependencies2 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies1;
+      TripEditorSceneItemsProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies3 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies2;
+      TripEditorSceneItemsProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies4 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies3;
+      TripEditorSceneItemsProvider.$allTransitiveDependencies2;
   static final $allTransitiveDependencies5 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies4;
+      TripEditorSceneItemsProvider.$allTransitiveDependencies3;
   static final $allTransitiveDependencies6 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies5;
+      TripEditorSceneItemsProvider.$allTransitiveDependencies4;
   static final $allTransitiveDependencies7 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies6;
+      TripEditorSceneItemsProvider.$allTransitiveDependencies5;
   static final $allTransitiveDependencies8 =
-      ProjectedTripEditorSceneProvider.$allTransitiveDependencies7;
-  static final $allTransitiveDependencies9 = modeContextProvider;
+      TripEditorSceneItemsProvider.$allTransitiveDependencies6;
+  static final $allTransitiveDependencies9 =
+      TripEditorSceneItemsProvider.$allTransitiveDependencies7;
+  static final $allTransitiveDependencies10 =
+      TripEditorSceneItemsProvider.$allTransitiveDependencies8;
+  static final $allTransitiveDependencies11 =
+      TripEditorSceneItemsProvider.$allTransitiveDependencies9;
 
   @override
   String debugGetCreateSourceHash() => _$tripEditorSceneHash();
@@ -192,7 +386,7 @@ final class TripEditorSceneProvider
   }
 }
 
-String _$tripEditorSceneHash() => r'd85509ba3a6de3466a75553506f86d2e071701a9';
+String _$tripEditorSceneHash() => r'df03c190a03eb6aa4e4f5301df19d657044bfdf1';
 
 final class TripEditorSceneFamily extends $Family
     with $FunctionalFamilyOverride<MapScene, TripId> {
@@ -201,8 +395,8 @@ final class TripEditorSceneFamily extends $Family
         retry: null,
         name: r'tripEditorSceneProvider',
         dependencies: <ProviderOrFamily>[
-          projectedTripEditorSceneProvider,
           modeContextProvider,
+          tripEditorSceneItemsProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           TripEditorSceneProvider.$allTransitiveDependencies0,
@@ -215,6 +409,8 @@ final class TripEditorSceneFamily extends $Family
           TripEditorSceneProvider.$allTransitiveDependencies7,
           TripEditorSceneProvider.$allTransitiveDependencies8,
           TripEditorSceneProvider.$allTransitiveDependencies9,
+          TripEditorSceneProvider.$allTransitiveDependencies10,
+          TripEditorSceneProvider.$allTransitiveDependencies11,
         },
         isAutoDispose: true,
       );

@@ -4,35 +4,34 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 
-import '../../../camera/injection/camera_or_null.dart';
-import '../application/projected_sketch_pencil.dart';
-import '../application/projected_sketch_segment.dart';
+import '/map/canvas/domain/scene_item/pencil_item.dart';
+import '/map/canvas/domain/scene_item/sketch_segment_item.dart';
 import 'map_editor_mode.dart';
-part 'sketch_elements_projecter.g.dart';
+part 'sketch_item.g.dart';
 
 // final projection = const Epsg3857().projection;
 
-@Riverpod(dependencies: [CameraOrNull, MapEditor])
-List<SceneItem> sketchElementProjection(Ref ref, TripId tripId) {
+@Riverpod(dependencies: [MapEditor])
+List<SceneItem> sketchItem(
+  Ref ref,
+  TripId tripId,
+  MapCameraReader cameraReader,
+) {
   final List<SceneItem> ret = [];
 
   final editorMode = ref.watch(mapEditorProvider(tripId).select((m) => m.mode));
-  final cameraReader = ref.watch(cameraOrNullProvider);
-  if (cameraReader == null) {
-    return [];
-  }
 
   if (editorMode case final SketchMode sketch) {
     final position = sketch.pencilPositionOrNull;
     if (position != null) {
       ret.add(
-        ProjectedSketchPencil(
+        PencilItem(
           object: MapSketchPencil(position),
           worldPosition: cameraReader.latLngToWorldOffset(position),
         ),
       );
       ret.add(
-        ProjectedSketchSegment(
+        SketchSegmentItem(
           object: MapSketchSegment(sketch.path),
           worldSegments: projectLine(
             sketch.path,
