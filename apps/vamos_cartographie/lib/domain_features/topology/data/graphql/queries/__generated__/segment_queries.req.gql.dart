@@ -9,11 +9,9 @@ import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i9;
+    as _i8;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i7;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
-    as _i8;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/queries/__generated__/segment_queries.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/queries/__generated__/segment_queries.data.gql.dart'
@@ -63,8 +61,7 @@ class GGetSegmentsReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.GetSegments,
     _i7.SegmentFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

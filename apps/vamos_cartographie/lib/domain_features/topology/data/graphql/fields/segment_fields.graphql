@@ -3,12 +3,6 @@
 fragment SegmentFields on SegmentType {
     id
     mobilityType
-    startVertex {
-        ...VertexFields
-    }
-    endVertex {
-        ...VertexFields
-    }
     geometry {
         ...LatLngFields
     }
@@ -24,9 +18,6 @@ fragment SegmentSplicePayloadFragment on SegmentSplicePayload {
 fragment CreateSegmentPayloadFragment on CreateSegmentPayload {
     segment {
         ...SegmentFields
-    }
-    vertex {
-        ...VertexFields
     }
     refinementFailed
     errorMessage

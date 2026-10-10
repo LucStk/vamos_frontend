@@ -481,8 +481,6 @@ class GSegmentCreateInput {
   const GSegmentCreateInput({
     this.id = const Value.absent(),
     required this.mobilityType,
-    required this.startVertexId,
-    this.endVertexId = const Value.absent(),
     required this.geometry,
   });
 
@@ -492,12 +490,6 @@ class GSegmentCreateInput {
           ? Value.present(json['id'] == null ? null : (json['id'] as String))
           : Value.absent(),
       mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
-      startVertexId: (json['startVertexId'] as String),
-      endVertexId: json.containsKey('endVertexId')
-          ? Value.present(json['endVertexId'] == null
-              ? null
-              : (json['endVertexId'] as String))
-          : Value.absent(),
       geometry: (json['geometry'] as List<dynamic>)
           .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
@@ -507,10 +499,6 @@ class GSegmentCreateInput {
   final Value<String> id;
 
   final GMobilityType mobilityType;
-
-  final String startVertexId;
-
-  final Value<String> endVertexId;
 
   final List<GLatLngInput> geometry;
 
@@ -523,14 +511,6 @@ class GSegmentCreateInput {
     }
     final _$mobilityTypeValue = this.mobilityType;
     _$result['mobilityType'] = _$mobilityTypeValue.toJson();
-    final _$startVertexIdValue = this.startVertexId;
-    _$result['startVertexId'] = _$startVertexIdValue;
-    final _$endVertexIdValue = this.endVertexId;
-    if (_$endVertexIdValue.isPresent) {
-      final _$endVertexIdRequired = _$endVertexIdValue.requireValue;
-      _$result['endVertexId'] =
-          _$endVertexIdRequired == null ? null : _$endVertexIdRequired;
-    }
     final _$geometryValue = this.geometry;
     _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
     return _$result;
@@ -539,15 +519,11 @@ class GSegmentCreateInput {
   GSegmentCreateInput copyWith({
     Value<String>? id,
     GMobilityType? mobilityType,
-    String? startVertexId,
-    Value<String>? endVertexId,
     List<GLatLngInput>? geometry,
   }) {
     return GSegmentCreateInput(
       id: id ?? this.id,
       mobilityType: mobilityType ?? this.mobilityType,
-      startVertexId: startVertexId ?? this.startVertexId,
-      endVertexId: endVertexId ?? this.endVertexId,
       geometry: geometry ?? this.geometry,
     );
   }
@@ -566,7 +542,7 @@ class GSegmentCreateInput {
 
   @override
   String toString() {
-    return 'GSegmentCreateInput(id: $id, mobilityType: $mobilityType, startVertexId: $startVertexId, endVertexId: $endVertexId, geometry: $geometry)';
+    return 'GSegmentCreateInput(id: $id, mobilityType: $mobilityType, geometry: $geometry)';
   }
 }
 

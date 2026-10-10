@@ -11,8 +11,6 @@ extension GSegmentFieldsMapper on GSegmentFields {
     id: SegmentId(id),
     mobilityType: mobilityType.toDomain(),
     geometry: geometry.map((d) => d.toLatLng()).toList(),
-    startVertexId: VertexId(startVertex.id),
-    endVertexId: VertexId(endVertex.id),
   );
 }
 
@@ -27,8 +25,7 @@ extension SegmentFieldsMapper on SegmentFields {
   GSegmentCreateInput toGQLCreateInput() {
     return GSegmentCreateInput(
       mobilityType: mobilityType.toGQL(),
-      startVertexId: startVertexId.value,
-      endVertexId: Value.present(endVertexId.value),
+
       geometry: geometry.map((m) => m.toGQLInput()).toList(),
     );
   }

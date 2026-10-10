@@ -2,7 +2,6 @@ import 'package:domain_core/geometry.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:domain_core/domain_core.dart';
 import '/topology/domain/value_objects/mobility_types.dart';
-import "vertex_model.dart";
 
 part 'segment_model.freezed.dart';
 
@@ -10,9 +9,7 @@ sealed class SegmentFields implements HasId {
   MobilityType get mobilityType;
   @override
   Id<SegmentFields> get id;
-  VertexId get startVertexId;
-  VertexId get endVertexId;
-  Geometry get geometry; // <- plus List<LatLng>
+  Geometry get geometry;
 }
 
 typedef SegmentId = Id<SegmentFields>;
@@ -23,8 +20,6 @@ abstract class SegmentRemoteModel
     implements SegmentFields {
   const factory SegmentRemoteModel({
     required SegmentId id,
-    required VertexId startVertexId,
-    required VertexId endVertexId,
     required Geometry geometry,
     @Default(MobilityType.bike) MobilityType mobilityType,
   }) = _SegmentRemoteModel;
@@ -34,8 +29,6 @@ abstract class SegmentRemoteModel
   factory SegmentRemoteModel.fromFields(SegmentFields fields) {
     return SegmentRemoteModel(
       id: fields.id,
-      startVertexId: fields.startVertexId,
-      endVertexId: fields.endVertexId,
       geometry: fields.geometry,
       mobilityType: fields.mobilityType,
     );
@@ -49,8 +42,6 @@ abstract class SegmentPatchModel
   @Implements<Patch<SegmentRemoteModel>>()
   const factory SegmentPatchModel.internal({
     required SegmentId id,
-    required VertexId startVertexId,
-    required VertexId endVertexId,
     required Geometry geometry,
     @Default(MobilityType.bike) MobilityType mobilityType,
     @Default(false) bool recomputing,
@@ -66,8 +57,6 @@ abstract class SegmentPatchModel
   }) {
     return SegmentPatchModel.internal(
       id: fields.id,
-      startVertexId: fields.startVertexId,
-      endVertexId: fields.endVertexId,
       geometry: fields.geometry,
       mobilityType: fields.mobilityType,
       recomputing: recomputing,
@@ -77,17 +66,13 @@ abstract class SegmentPatchModel
 
   factory SegmentPatchModel({
     SegmentId? id,
-    required VertexId startVertexId,
     required Geometry geometry,
-    required VertexId endVertexId,
     bool recomputing = false,
     Object? error,
     MobilityType mobilityType = MobilityType.bike,
   }) {
     return SegmentPatchModel.internal(
       id: id ?? Id.generate(),
-      startVertexId: startVertexId,
-      endVertexId: endVertexId,
       geometry: geometry,
       recomputing: recomputing,
       error: error,

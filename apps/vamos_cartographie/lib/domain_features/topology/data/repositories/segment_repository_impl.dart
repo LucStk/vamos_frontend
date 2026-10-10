@@ -3,7 +3,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
 import '../datasources/datasources.dart';
-import '../mappers/vertex_mappers.dart';
 import '/core/graphql/graphql.dart';
 import '../mappers/geometry_mapper.dart';
 import '../mappers/mobility_type_mapper.dart';
@@ -42,7 +41,6 @@ class SegmentRepositoryImpl extends SegmentRepository {
         geometry: geometry,
       );
       return CreateSegmentPayload(
-        vertex: gqlResult.vertex.toDomain(),
         segment: gqlResult.segment.toDomain(),
         rafinementFailed: gqlResult.refinementFailed,
         errorMessage: gqlResult.errorMessage,

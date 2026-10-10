@@ -24,12 +24,10 @@ class TripDetailsRes {
 }
 
 class CreateSegmentPayload {
-  final VertexRemoteModel vertex;
   final SegmentRemoteModel segment;
   final bool rafinementFailed;
   final String? errorMessage;
   CreateSegmentPayload({
-    required this.vertex,
     required this.segment,
     required this.rafinementFailed,
     this.errorMessage,

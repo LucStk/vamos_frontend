@@ -9,11 +9,9 @@ import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i9;
+    as _i8;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i7;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
-    as _i8;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/mutation/__generated__/segment_mutations.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/mutation/__generated__/segment_mutations.data.gql.dart'
@@ -63,8 +61,7 @@ class GUpdateSegmentReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.UpdateSegment,
     _i7.SegmentFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -232,8 +229,7 @@ class GCreateSegmentReq
     _i6.CreateSegment,
     _i7.SegmentFields,
     _i7.CreateSegmentPayloadFragment,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -402,8 +398,7 @@ class GRefineSegmentGeometryReq
     _i6.RefineSegmentGeometry,
     _i7.SegmentFields,
     _i7.RefineSegmentPayloadFragment,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -572,8 +567,7 @@ class GCorrectSegmentReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CorrectSegment,
     _i7.SegmentFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -742,8 +736,7 @@ class GspliceSegmentReq
     _i6.spliceSegment,
     _i7.SegmentFields,
     _i7.SegmentSplicePayloadFragment,
-    _i8.VertexFields,
-    _i9.LatLngFields,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

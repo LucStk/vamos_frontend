@@ -1,4 +1,3 @@
-import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../mappers/geometry_mapper.dart';
@@ -38,10 +37,6 @@ class SegmentRemoteDatasource {
         vars: GCreateSegmentVars(
           tripId: tripId.value,
           segment: GSegmentCreateInput(
-            startVertexId: startVertexId.value,
-            endVertexId: (endVertexId != null)
-                ? Value.present(endVertexId.value)
-                : Value.absent(),
             mobilityType: mobilityType.toGQL(),
             geometry: geometry.map((m) => m.toGQLInput()).toList(),
           ),

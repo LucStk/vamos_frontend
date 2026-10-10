@@ -8,16 +8,12 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.data.gql.dart'
-    as _i3;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.data.gql.dart'
     as _i2;
 
 abstract class GSegmentFields {
   String get id;
   _i1.GMobilityType get mobilityType;
-  _i2.GVertexFields get startVertex;
-  _i2.GVertexFields get endVertex;
-  List<_i3.GLatLngFields> get geometry;
+  List<_i2.GLatLngFields> get geometry;
   String get G__typename;
 }
 
@@ -25,8 +21,6 @@ class GSegmentFieldsData implements GSegmentFields {
   const GSegmentFieldsData({
     required this.id,
     required this.mobilityType,
-    required this.startVertex,
-    required this.endVertex,
     required this.geometry,
     this.G__typename = 'SegmentType',
   });
@@ -36,13 +30,9 @@ class GSegmentFieldsData implements GSegmentFields {
       id: (json['id'] as String),
       mobilityType:
           _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
-      startVertex: _i2.GVertexFieldsData.fromJson(
-          (json['startVertex'] as Map<String, dynamic>)),
-      endVertex: _i2.GVertexFieldsData.fromJson(
-          (json['endVertex'] as Map<String, dynamic>)),
       geometry: (json['geometry'] as List<dynamic>)
           .map((_$e) =>
-              _i3.GLatLngFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i2.GLatLngFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -52,11 +42,7 @@ class GSegmentFieldsData implements GSegmentFields {
 
   final _i1.GMobilityType mobilityType;
 
-  final _i2.GVertexFieldsData startVertex;
-
-  final _i2.GVertexFieldsData endVertex;
-
-  final List<_i3.GLatLngFieldsData> geometry;
+  final List<_i2.GLatLngFieldsData> geometry;
 
   final String G__typename;
 
@@ -64,8 +50,6 @@ class GSegmentFieldsData implements GSegmentFields {
     final _$result = <String, dynamic>{};
     _$result['id'] = this.id;
     _$result['mobilityType'] = this.mobilityType.toJson();
-    _$result['startVertex'] = this.startVertex.toJson();
-    _$result['endVertex'] = this.endVertex.toJson();
     _$result['geometry'] = this.geometry.map((_$e) => _$e.toJson()).toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
@@ -74,16 +58,12 @@ class GSegmentFieldsData implements GSegmentFields {
   GSegmentFieldsData copyWith({
     String? id,
     _i1.GMobilityType? mobilityType,
-    _i2.GVertexFieldsData? startVertex,
-    _i2.GVertexFieldsData? endVertex,
-    List<_i3.GLatLngFieldsData>? geometry,
+    List<_i2.GLatLngFieldsData>? geometry,
     String? G__typename,
   }) {
     return GSegmentFieldsData(
       id: id ?? this.id,
       mobilityType: mobilityType ?? this.mobilityType,
-      startVertex: startVertex ?? this.startVertex,
-      endVertex: endVertex ?? this.endVertex,
       geometry: geometry ?? this.geometry,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -95,21 +75,19 @@ class GSegmentFieldsData implements GSegmentFields {
         (other is GSegmentFieldsData &&
             id == other.id &&
             mobilityType == other.mobilityType &&
-            startVertex == other.startVertex &&
-            endVertex == other.endVertex &&
             _gqlUtils.listEquals(geometry, other.geometry) &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, mobilityType, startVertex, endVertex,
+    return Object.hash(runtimeType, id, mobilityType,
         _gqlUtils.listHash(geometry), G__typename);
   }
 
   @override
   String toString() {
-    return 'GSegmentFieldsData(id: $id, mobilityType: $mobilityType, startVertex: $startVertex, endVertex: $endVertex, geometry: $geometry, G__typename: $G__typename)';
+    return 'GSegmentFieldsData(id: $id, mobilityType: $mobilityType, geometry: $geometry, G__typename: $G__typename)';
   }
 }
 
@@ -188,7 +166,6 @@ class GSegmentSplicePayloadFragmentData
 
 abstract class GCreateSegmentPayloadFragment {
   GSegmentFields get segment;
-  _i2.GVertexFields get vertex;
   bool get refinementFailed;
   String? get errorMessage;
   String get G__typename;
@@ -198,7 +175,6 @@ class GCreateSegmentPayloadFragmentData
     implements GCreateSegmentPayloadFragment {
   const GCreateSegmentPayloadFragmentData({
     required this.segment,
-    required this.vertex,
     required this.refinementFailed,
     this.errorMessage,
     this.G__typename = 'CreateSegmentPayload',
@@ -209,8 +185,6 @@ class GCreateSegmentPayloadFragmentData
     return GCreateSegmentPayloadFragmentData(
       segment: GSegmentFieldsData.fromJson(
           (json['segment'] as Map<String, dynamic>)),
-      vertex: _i2.GVertexFieldsData.fromJson(
-          (json['vertex'] as Map<String, dynamic>)),
       refinementFailed: (json['refinementFailed'] as bool),
       errorMessage: json['errorMessage'] == null
           ? null
@@ -221,8 +195,6 @@ class GCreateSegmentPayloadFragmentData
 
   final GSegmentFieldsData segment;
 
-  final _i2.GVertexFieldsData vertex;
-
   final bool refinementFailed;
 
   final String? errorMessage;
@@ -232,7 +204,6 @@ class GCreateSegmentPayloadFragmentData
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['segment'] = this.segment.toJson();
-    _$result['vertex'] = this.vertex.toJson();
     _$result['refinementFailed'] = this.refinementFailed;
     final _$errorMessageValue = this.errorMessage;
     _$result['errorMessage'] =
@@ -243,7 +214,6 @@ class GCreateSegmentPayloadFragmentData
 
   GCreateSegmentPayloadFragmentData copyWith({
     GSegmentFieldsData? segment,
-    _i2.GVertexFieldsData? vertex,
     bool? refinementFailed,
     String? errorMessage,
     bool errorMessageIsSet = false,
@@ -251,7 +221,6 @@ class GCreateSegmentPayloadFragmentData
   }) {
     return GCreateSegmentPayloadFragmentData(
       segment: segment ?? this.segment,
-      vertex: vertex ?? this.vertex,
       refinementFailed: refinementFailed ?? this.refinementFailed,
       errorMessage: errorMessage != null || errorMessageIsSet
           ? errorMessage
@@ -265,7 +234,6 @@ class GCreateSegmentPayloadFragmentData
     return identical(this, other) ||
         (other is GCreateSegmentPayloadFragmentData &&
             segment == other.segment &&
-            vertex == other.vertex &&
             refinementFailed == other.refinementFailed &&
             errorMessage == other.errorMessage &&
             G__typename == other.G__typename);
@@ -273,13 +241,13 @@ class GCreateSegmentPayloadFragmentData
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, segment, vertex, refinementFailed,
-        errorMessage, G__typename);
+    return Object.hash(
+        runtimeType, segment, refinementFailed, errorMessage, G__typename);
   }
 
   @override
   String toString() {
-    return 'GCreateSegmentPayloadFragmentData(segment: $segment, vertex: $vertex, refinementFailed: $refinementFailed, errorMessage: $errorMessage, G__typename: $G__typename)';
+    return 'GCreateSegmentPayloadFragmentData(segment: $segment, refinementFailed: $refinementFailed, errorMessage: $errorMessage, G__typename: $G__typename)';
   }
 }
 

@@ -2,18 +2,19 @@ import 'package:domain_core/failures/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import '../../../../overlay_ui/draggable_sheet/draggable_sheet.dart';
+import '/map/overlay_ui/draggable_sheet/draggable_sheet.dart';
 import '/domain_features/domain_features.dart';
 import 'bottom_sheet.dart';
 import 'floating_trip_card.dart';
 import '/map/injection/map_scene.dart';
+import '/map/camera/injection/map_camera_provider.dart';
 import "/map/injection/map_gesture_handler.dart";
 import 'package:riverpod_annotation/experimental/scope.dart';
 
 const _cardHeight = 64.0;
 const _cardMargin = 12.0;
 
-@Dependencies([mapScene, MapGestureHandlerNotifier])
+@Dependencies([mapScene, MapGestureHandlerNotifier, mapCamera])
 class TripBottomSheet extends ConsumerStatefulWidget {
   final TripId tripId;
   const TripBottomSheet({super.key, required this.tripId});

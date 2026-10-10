@@ -10,9 +10,10 @@ import '../../../injection/map_mode.dart';
 import 'bottom_sheet/create_trip_bottom_sheet.dart';
 import 'bottom_sheet/trip_bottom_sheet.dart';
 import '/map/injection/map_scene.dart';
+import '/map/camera/injection/map_camera_provider.dart';
 import "/map/injection/map_gesture_handler.dart";
 
-@Dependencies([mapScene, MapGestureHandlerNotifier, modeContext])
+@Dependencies([mapScene, MapGestureHandlerNotifier, modeContext, mapCamera])
 class ExploreBottomSheet extends ConsumerWidget {
   const ExploreBottomSheet({super.key});
 

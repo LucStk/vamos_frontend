@@ -29,9 +29,6 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
       ),
       onSuccess: (gs, serveurValue) {
         gs = gs.insertSegment(serveurValue.segment);
-        if (endVertexId == null) {
-          return gs.insertVertex(serveurValue.vertex);
-        }
         return gs;
       },
       onError: (gs, Failure failure) {

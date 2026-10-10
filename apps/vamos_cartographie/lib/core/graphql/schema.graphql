@@ -31,7 +31,6 @@ type CreateProfileSuccess {
 }
 
 type CreateSegmentPayload {
-  vertex: VertexType!
   segment: SegmentType!
   refinementFailed: Boolean!
   errorMessage: String
@@ -151,8 +150,6 @@ input SegmentCorrectionInput {
 input SegmentCreateInput {
   id: UUID
   mobilityType: MobilityType!
-  startVertexId: UUID!
-  endVertexId: UUID
   geometry: [LatLngInput!]!
 }
 
@@ -164,8 +161,6 @@ type SegmentSplicePayload {
 type SegmentType {
   id: UUID!
   mobilityType: MobilityType!
-  startVertex: VertexType!
-  endVertex: VertexType!
   geometry: [LatLngType!]!
 }
 

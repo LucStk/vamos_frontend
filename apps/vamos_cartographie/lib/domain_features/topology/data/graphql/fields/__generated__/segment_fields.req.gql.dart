@@ -8,13 +8,11 @@ import 'package:gql/ast.dart' as _i3;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i6;
+    as _i5;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i4;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
-    as _i5;
 
 class GSegmentFieldsReq
     implements _i1.FragmentRequest<_i2.GSegmentFieldsData, Null> {
@@ -34,8 +32,7 @@ class GSegmentFieldsReq
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.SegmentFields,
-    _i5.VertexFields,
-    _i6.LatLngFields,
+    _i5.LatLngFields,
   ]);
 
   _i2.GSegmentFieldsData? parseData(Map<String, dynamic> json) =>
@@ -102,8 +99,7 @@ class GSegmentSplicePayloadFragmentReq
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.SegmentFields,
     _i4.SegmentSplicePayloadFragment,
-    _i5.VertexFields,
-    _i6.LatLngFields,
+    _i5.LatLngFields,
   ]);
 
   _i2.GSegmentSplicePayloadFragmentData? parseData(Map<String, dynamic> json) =>
@@ -171,8 +167,7 @@ class GCreateSegmentPayloadFragmentReq
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.SegmentFields,
     _i4.CreateSegmentPayloadFragment,
-    _i5.VertexFields,
-    _i6.LatLngFields,
+    _i5.LatLngFields,
   ]);
 
   _i2.GCreateSegmentPayloadFragmentData? parseData(Map<String, dynamic> json) =>
@@ -240,8 +235,7 @@ class GRefineSegmentPayloadFragmentReq
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.SegmentFields,
     _i4.RefineSegmentPayloadFragment,
-    _i5.VertexFields,
-    _i6.LatLngFields,
+    _i5.LatLngFields,
   ]);
 
   _i2.GRefineSegmentPayloadFragmentData? parseData(Map<String, dynamic> json) =>
