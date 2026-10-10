@@ -27,7 +27,6 @@ class SegmentRepositoryImpl extends SegmentRepository {
   @override
   Future<Either<Failure, CreateSegmentPayload>> createSegment({
     required Id<Trip> tripId,
-    required VertexId startVertexId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
     VertexId? endVertexId,
@@ -35,8 +34,6 @@ class SegmentRepositoryImpl extends SegmentRepository {
     return guard(() async {
       final gqlResult = await remote.createSegment(
         tripId: tripId,
-        startVertexId: startVertexId,
-        endVertexId: endVertexId,
         mobilityType: mobilityType,
         geometry: geometry,
       );

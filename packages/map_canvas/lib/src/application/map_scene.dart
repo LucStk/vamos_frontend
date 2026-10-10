@@ -14,7 +14,7 @@ class MapScene {
     this.dragging,
   });
 
-  final List<ProjectedObject> objects;
+  final List<SeneItem> objects;
   final Selection? selection;
   final MapObject? hovered;
   final MapObject? dragging;

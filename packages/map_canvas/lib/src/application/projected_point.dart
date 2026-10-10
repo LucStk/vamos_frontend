@@ -1,6 +1,6 @@
 part of 'projected_object.dart';
 
-abstract class ProjectedPoint<T extends MapPoint> extends ProjectedObject {
+abstract class ProjectedPoint<T extends MapPoint> extends SeneItem {
   final WorldOffset worldPosition;
 
   ProjectedPoint({required T object, required this.worldPosition})

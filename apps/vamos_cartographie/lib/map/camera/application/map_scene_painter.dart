@@ -10,7 +10,7 @@ import 'transition_hub.dart';
 class MapScenePainter extends CustomPainter {
   MapScenePainter({required this.objects, required this.visuals});
 
-  final Iterable<ProjectedObject> objects;
+  final Iterable<SeneItem> objects;
   final Map<Object, VisualState> visuals;
 
   @override
@@ -44,7 +44,7 @@ class ScreenLayer extends ConsumerWidget {
     required this.size,
   });
 
-  final Iterable<ProjectedObject> objects;
+  final Iterable<SeneItem> objects;
   final Map<Object, VisualState> visuals;
   final Listenable repaint;
   final Size size;
@@ -74,7 +74,7 @@ class ScreenSpacePainter extends CustomPainter {
     required Listenable repaint,
   }) : super(repaint: repaint); // <-- même instance de hub à chaque build
 
-  final Iterable<ProjectedObject> objects;
+  final Iterable<SeneItem> objects;
   final Map<Object, VisualState> visuals;
   final double zoomScale;
 

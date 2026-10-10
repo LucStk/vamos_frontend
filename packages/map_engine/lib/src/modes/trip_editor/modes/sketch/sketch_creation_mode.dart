@@ -9,16 +9,10 @@ abstract class SketchCreation extends MapEditorMode
     required VertexId vertexStart,
     required List<LatLng> path,
     required MobilityType mobilityType,
-    VertexId? touchedVertex,
-    MapObject? selection,
   }) = _SketchCreation;
 
   @override
   SketchCreation withPath(List<LatLng> path) => copyWith(path: path);
-
-  @override
-  SketchCreation withSelection(MapObject? selection) =>
-      copyWith(selection: selection);
 
   @override
   Transition<MapEditorMode> onPointerDown(PressGesture g) {
@@ -30,15 +24,15 @@ abstract class SketchCreation extends MapEditorMode
     return Transition.stay();
   }
 
-  @override
-  Transition<MapEditorMode> onTap(TapGesture g) {
-    switch (g.element) {
-      case MapSketchPencil _:
-        return Transition.overlay(SketchPencilMenu(g.offset));
-      case _:
-    }
-    return Transition.stay();
-  }
+  // @override
+  // Transition<MapEditorMode> onTap(TapGesture g) {
+  //   switch (g.element) {
+  //     case MapSketchPencil _:
+  //       return Transition.overlay(SketchPencilMenu(g.offset));
+  //     case _:
+  //   }
+  //   return Transition.stay();
+  // }
 
   // SketchCreation
   @override
@@ -46,13 +40,8 @@ abstract class SketchCreation extends MapEditorMode
     if (g.dragged is! MapSketchPencil) return Transition.stay();
 
     return switch (g.target) {
-      MapVertex v => Transition.run(
-        CreateSegmentFromSketch(
-          startVertexId: vertexStart,
-          endVertexId: v.id,
-          geometry: path,
-          mobilityType: mobilityType,
-        ),
+      MapVertex _ => Transition.run(
+        CreateSegmentFromSketch(geometry: path, mobilityType: mobilityType),
         then: leaveSketch,
       ),
       MapSegment s => Transition.run(

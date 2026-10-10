@@ -8,10 +8,10 @@ part "projected_line.dart";
 part "projected_point.dart";
 part "projected_polyline.dart";
 
-abstract class ProjectedObject {
+abstract class SeneItem {
   final MapObject object;
 
-  const ProjectedObject(this.object);
+  const SeneItem(this.object);
 
   bool isHitAt(WorldOffset point, double scale);
 

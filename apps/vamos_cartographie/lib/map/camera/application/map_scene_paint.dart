@@ -36,7 +36,7 @@ class _MapScenePaintState extends ConsumerState<MapScenePaint>
     super.dispose();
   }
 
-  MapObjectVisualState _computeState(ProjectedObject object, MapScene scene) {
+  MapObjectVisualState _computeState(SeneItem object, MapScene scene) {
     if (scene.dragging != null && scene.dragging!.isSameAs(object.object)) {
       return MapObjectVisualState.dragging;
     }
@@ -51,9 +51,9 @@ class _MapScenePaintState extends ConsumerState<MapScenePaint>
 
   /// Clé stable pour indexer _visuals. À adapter : voir la note plus bas
   /// sur isSameAs vs ==.
-  Object _keyOf(ProjectedObject object) => object.object;
+  Object _keyOf(SeneItem object) => object.object;
 
-  void _syncVisuals(Iterable<ProjectedObject> objects, MapScene scene) {
+  void _syncVisuals(Iterable<SeneItem> objects, MapScene scene) {
     final present = <Object>{};
 
     for (final object in objects) {

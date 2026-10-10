@@ -1,7 +1,6 @@
 part of 'projected_object.dart';
 
-abstract class ProjectedPolyline<T extends MapPolyline>
-    extends ProjectedObject {
+abstract class ProjectedPolyline<T extends MapPolyline> extends SeneItem {
   final List<List<WorldSegment>> worldSegments;
   final Rect bounds;
 

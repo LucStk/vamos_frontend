@@ -18,7 +18,7 @@ part 'trip_editor_scene.g.dart';
     allSegmentProjection,
   ],
 )
-List<ProjectedObject> projectedTripEditorScene(Ref ref, TripId tripId) {
+List<SeneItem> projectedTripEditorScene(Ref ref, TripId tripId) {
   final userLocation = ref.watch(userLocationProjectionProvider);
   final sketchElements = ref.watch(sketchElementProjectionProvider(tripId));
   final vertex = ref.watch(allVertexProjectionProvider(tripId));

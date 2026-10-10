@@ -7,11 +7,8 @@ Transition<MapEditorMode>? leaveSketch(MapEditorMode current, Object _) =>
 
 mixin SketchMode on MapEditorMode {
   List<LatLng> get path;
-  VertexId? get touchedVertex;
 
   SketchMode withPath(List<LatLng> path);
-
-  SketchMode withSelection(MapObject? selection);
 
   LatLng? get pencilPositionOrNull => path.isEmpty ? null : path.last;
 
@@ -30,7 +27,7 @@ mixin SketchMode on MapEditorMode {
 
   @override
   Transition<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
-    MapSketchPencil p => Transition.to(withSelection(p)),
+    MapSketchPencil _ => Transition.overlay(SketchPencilMenu(g.offset)),
     _ => Transition.stay(),
   };
 
@@ -40,9 +37,9 @@ mixin SketchMode on MapEditorMode {
   //     ? Transition.to(withSelection(null))
   //     : Transition.stay();
 
-  @override
-  Transition<MapEditorMode> onDragging(DragUpdateGesture g) =>
-      g.dragged is MapSketchPencil
-      ? addPoint(g.offset, mode: withSelection(g.target))
-      : Transition.stay();
+  // @override
+  // Transition<MapEditorMode> onDragging(DragUpdateGesture g) =>
+  //     g.dragged is MapSketchPencil
+  //     ? addPoint(g.offset, mode: withSelection(g.target))
+  //     : Transition.stay();
 }

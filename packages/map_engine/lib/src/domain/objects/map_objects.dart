@@ -6,6 +6,7 @@ import '../camera/map_geo_bounds.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
 part "trip_object.dart";
+part "segment_objects.dart";
 
 sealed class MapObject {
   const MapObject();
@@ -70,21 +71,4 @@ final class MapVertex extends MapPoint implements TopologyObject {
 
   @override
   bool isSameAs(MapObject? other) => other is MapVertex && other.id == id;
-}
-
-final class MapSegment extends MapLine implements TopologyObject {
-  final SegmentId id;
-  const MapSegment(this.id, super.geometry);
-
-  @override
-  SpliceAnchor get anchor => SegmentAnchor(id);
-
-  @override
-  double get radius => 10;
-
-  @override
-  int get hitPriority => 50;
-
-  @override
-  bool isSameAs(MapObject? other) => other is MapSegment && other.id == id;
 }

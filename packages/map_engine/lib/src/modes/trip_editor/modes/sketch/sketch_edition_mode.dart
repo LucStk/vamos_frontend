@@ -8,12 +8,7 @@ abstract class SketchEdition extends MapEditorMode
   factory SketchEdition({
     required SegmentId segmentId,
     required List<LatLng> path,
-    VertexId? touchedVertex,
-    MapObject? selection,
   }) = _SketchEdition;
-  @override
-  SketchEdition withSelection(MapObject? selection) =>
-      copyWith(selection: selection);
   @override
   SketchEdition withPath(List<LatLng> path) => copyWith(path: path);
 

@@ -171,13 +171,8 @@ final class ProjectTripFamily extends $Family
 final projectedExploreSceneProvider = ProjectedExploreSceneProvider._();
 
 final class ProjectedExploreSceneProvider
-    extends
-        $FunctionalProvider<
-          List<ProjectedObject>,
-          List<ProjectedObject>,
-          List<ProjectedObject>
-        >
-    with $Provider<List<ProjectedObject>> {
+    extends $FunctionalProvider<List<SeneItem>, List<SeneItem>, List<SeneItem>>
+    with $Provider<List<SeneItem>> {
   ProjectedExploreSceneProvider._()
     : super(
         from: null,
@@ -206,20 +201,19 @@ final class ProjectedExploreSceneProvider
 
   @$internal
   @override
-  $ProviderElement<List<ProjectedObject>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<SeneItem>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  List<ProjectedObject> create(Ref ref) {
+  List<SeneItem> create(Ref ref) {
     return projectedExploreScene(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<ProjectedObject> value) {
+  Override overrideWithValue(List<SeneItem> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<ProjectedObject>>(value),
+      providerOverride: $SyncValueProvider<List<SeneItem>>(value),
     );
   }
 }

@@ -15,8 +15,6 @@ abstract class SegmentRepository {
 
   Future<Either<Failure, CreateSegmentPayload>> createSegment({
     required Id<Trip> tripId,
-    required VertexId startVertexId,
-    VertexId? endVertexId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   });

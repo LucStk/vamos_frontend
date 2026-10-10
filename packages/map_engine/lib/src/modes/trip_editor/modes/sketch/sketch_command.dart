@@ -6,13 +6,9 @@ sealed class SketchCommand<R extends Object> extends EditorCommand<R> {
 
 final class CreateSegmentFromSketch extends SketchCommand<SegmentRemoteModel> {
   const CreateSegmentFromSketch({
-    required this.startVertexId,
     required this.geometry,
     required this.mobilityType,
-    this.endVertexId,
   });
-  final VertexId startVertexId;
-  final VertexId? endVertexId;
   final List<LatLng> geometry;
   final MobilityType mobilityType;
 }
@@ -65,8 +61,6 @@ mixin SketchResolver {
 
   Future<SegmentRemoteModel?> _create(CreateSegmentFromSketch c) async {
     final res = await graphEditor.createSegment(
-      startVertexId: c.startVertexId,
-      endVertexId: c.endVertexId,
       geometry: c.geometry,
       mobilityType: c.mobilityType,
     );

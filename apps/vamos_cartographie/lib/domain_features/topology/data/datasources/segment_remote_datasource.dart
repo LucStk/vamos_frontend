@@ -27,8 +27,6 @@ class SegmentRemoteDatasource {
 
   Future<GCreateSegmentPayloadFragment> createSegment({
     required Id<Trip> tripId,
-    required VertexId startVertexId,
-    VertexId? endVertexId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   }) async {

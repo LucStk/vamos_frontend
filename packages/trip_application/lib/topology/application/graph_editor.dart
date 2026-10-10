@@ -13,8 +13,6 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
   VertexRepository get vertexRepo;
 
   Future<Either<Failure, CreateSegmentPayload>> createSegment({
-    required VertexId startVertexId,
-    VertexId? endVertexId,
     required List<LatLng> geometry,
     required MobilityType mobilityType,
   }) async {
@@ -22,8 +20,6 @@ mixin GraphEditor on OptimisticRunner<GraphStore> {
       onApply: (gs) => gs,
       remote: (_) => segmentRepo.createSegment(
         tripId: tripId,
-        startVertexId: startVertexId,
-        endVertexId: endVertexId,
         mobilityType: mobilityType,
         geometry: geometry,
       ),
