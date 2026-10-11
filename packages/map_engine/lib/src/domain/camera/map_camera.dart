@@ -14,6 +14,7 @@ abstract interface class MapCameraReader {
   LatLng screenOffsetToLatLng(ScreenOffset offset);
   LatLng worldOffsetToLatLng(WorldOffset offset);
   double get rotationRad;
+  LatLng get center;
   ScreenOffset get screenCenter;
   WorldOffset get worldCenter;
   Size get size;

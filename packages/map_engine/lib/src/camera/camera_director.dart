@@ -1,18 +1,18 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:map_engine/map_engine.dart';
-import '../domain/domain.dart';
-import 'map_geo_mappers.dart';
+
+import '../domain/camera/camera_request.dart';
+import '../domain/camera/map_camera.dart';
 
 final class CameraDirector {
-  CameraDirector({required MapCameraController Function() camera})
-    : _camera = camera;
+  CameraDirector({required MapCameraController camera}) : _camera = camera;
 
-  final MapCameraController Function() _camera;
+  final MapCameraController _camera;
 
   /// Priorité minimale acceptée. Elle ne fait que monter.
   CameraPriority _floor = CameraPriority.ambient;
-
+  final _history = <FocusPoint>[];
+  static const _maxHistory = 20;
   CameraRequest? _pending;
   bool _flushScheduled = false;
 
@@ -50,19 +50,40 @@ final class CameraDirector {
     _pending = null;
     if (request == null) return;
 
-    // Règle 3 : ce qui a été exécuté relève le plancher.
     if (request.priority.index > _floor.index) _floor = request.priority;
 
+    _remember();
     _run(request.target);
   }
 
+  void _remember() {
+    _history.add(
+      FocusPoint(_camera.center, zoom: _camera.zoomScale),
+    ); // adapte `center`
+    if (_history.length > _maxHistory) _history.removeAt(0);
+  }
+
+  /// Revient à la position d'avant la dernière requête exécutée.
+  /// Ignore le plancher de priorité : c'est une action explicite.
+  void back() {
+    if (_disposed || _history.isEmpty) return;
+    _pending = null; // une requête en attente n'a plus de sens
+    _run(_history.removeLast());
+  }
+
   void _run(CameraTarget target) {
-    final camera = _camera();
     switch (target) {
       case FocusPoint(:final point, :final zoom, :final minZoom):
-        camera.zoomTo(point, deltaZoom: max(zoom ?? camera.zoomScale, minZoom));
+        _camera.zoomTo(
+          point,
+          deltaZoom: max(zoom ?? _camera.zoomScale, minZoom),
+        );
       case FitBounds(:final bounds, :final padding):
-        camera.fitBounds(bounds.toMapEngine(), padding: padding.toMapEngine());
+        _camera.fitBounds(bounds, padding: padding);
+      // camera_director.dart, dans _run
+      case ZoomAt(:final point):
+        final latLng = _camera.screenOffsetToLatLng(point);
+        _camera.zoomIn(latLng: latLng);
     }
   }
 }

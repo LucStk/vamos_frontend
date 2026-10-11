@@ -1,6 +1,6 @@
 // mode_machine/mode_command.dart
 
-import 'mode.dart';
+import '../mode.dart';
 
 /// Une intention d'effet. `R` est la donnée qu'elle produit (`Done` si aucune).
 abstract class ModeCommand<M extends Mode<M>, R extends Object> {

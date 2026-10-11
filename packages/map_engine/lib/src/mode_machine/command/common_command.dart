@@ -1,5 +1,6 @@
-import '../domain/space/offset_type.dart';
-import 'transition.dart';
+import '../../domain/camera/camera_request.dart';
+import '../../domain/space/offset_type.dart';
+import '../transition.dart';
 import 'mode_command.dart';
 
 sealed class CommonCommand<R extends Object> extends ModeCommand<Never, R> {
@@ -23,4 +24,13 @@ final class HapticFeedback extends CommonCommand<Done> {
 final class CopyToClipboard extends CommonCommand<Done> {
   const CopyToClipboard(this.text);
   final String text;
+}
+
+final class RequestCamera extends CommonCommand<Done> {
+  const RequestCamera(this.request);
+  final CameraRequest request;
+}
+
+final class CameraBack extends CommonCommand<Done> {
+  const CameraBack();
 }

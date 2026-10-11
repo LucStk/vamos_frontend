@@ -1,6 +1,6 @@
 import '../domain/gestures/map_gesture.dart';
+import 'command/common_command.dart';
 import 'slot.dart';
-import 'common_command.dart';
 import 'transition.dart';
 
 abstract class Mode<Self extends Mode<Self>> {

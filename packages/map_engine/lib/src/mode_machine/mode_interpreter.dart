@@ -1,10 +1,10 @@
 import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
 import '../domain/selection.dart';
+import 'command/mode_command.dart';
 import 'mode.dart';
 import 'effect_queue.dart';
 import 'transition.dart';
-import 'mode_command.dart';
 import 'overlay/overlay.dart';
 import 'mode_state.dart';
 

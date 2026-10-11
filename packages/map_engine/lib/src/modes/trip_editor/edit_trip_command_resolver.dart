@@ -1,9 +1,11 @@
 import 'package:trip_application/trip_application.dart';
 
+import '../../camera/camera_director.dart';
 import '../../domain/camera/map_camera.dart';
-import '../../mode_machine/common_command.dart';
-import '../../mode_machine/common_command_resolver.dart';
-import '../../mode_machine/mode_command.dart';
+
+import '../../mode_machine/command/common_command.dart';
+import '../../mode_machine/command/common_command_resolver.dart';
+import '../../mode_machine/command/mode_command.dart';
 import 'map_editor_command.dart';
 import 'map_editor_mode.dart';
 
@@ -17,11 +19,11 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
         SegmentSelectResolver,
         SketchResolver,
         CommonCommandResolver {
-  const EditTripCommandResolver({
+  EditTripCommandResolver({
     required this.graphEditor,
     required this.waypointEditor,
     required this.camera,
-  });
+  }) : director = CameraDirector(camera: camera);
 
   @override
   final GraphEditor graphEditor;
@@ -30,10 +32,12 @@ final class EditTripCommandResolver extends ModeCommandResolver<MapEditorMode>
   @override
   final MapCameraController camera;
   @override
+  final CameraDirector director;
+  @override
   Future<R?> resolve<R extends Object>(
     ModeCommand<MapEditorMode, R> command,
   ) async {
-    if (command is CommonCommand<R>) return resolveBase(command);
+    if (command is CommonCommand<R>) return resolveCommon(command);
     if (command is! EditorCommand<R>) return null;
 
     // On oublie le R précis ici : les resolvers renvoient de toute façon Object?.

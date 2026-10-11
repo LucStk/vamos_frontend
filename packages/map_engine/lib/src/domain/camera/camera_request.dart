@@ -1,6 +1,7 @@
-import 'package:flutter/painting.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+
+import '../../../map_engine.dart';
+import 'map_geo_bounds.dart';
 
 enum CameraPriority { ambient, content, explicit } // l'index sert à comparer
 
@@ -16,13 +17,18 @@ final class FocusPoint extends CameraTarget {
 }
 
 final class FitBounds extends CameraTarget {
-  const FitBounds(this.bounds, {this.padding = const EdgeInsets.all(48)});
-  final LatLngBounds bounds;
-  final EdgeInsets padding;
+  const FitBounds(this.bounds, {this.padding = const MapEdgeInsets.all(48)});
+  final MapLatLngBounds bounds;
+  final MapEdgeInsets padding;
 }
 
 final class CameraRequest {
   const CameraRequest(this.target, {this.priority = CameraPriority.content});
   final CameraTarget target;
   final CameraPriority priority;
+}
+
+final class ZoomAt extends CameraTarget {
+  const ZoomAt(this.point); // LatLng
+  final ScreenOffset point;
 }

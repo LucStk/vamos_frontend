@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
+import 'command/mode_command.dart';
 import 'slot.dart';
 import 'mode.dart';
-import 'mode_command.dart';
 import 'overlay/overlay.dart';
 
 /// Résultat typé d'une commande. Remplace `NoResult` pour les commandes sans donnée.

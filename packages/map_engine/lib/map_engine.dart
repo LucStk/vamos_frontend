@@ -21,7 +21,7 @@ export 'src/mode_machine/overlay/context_menu_overlay.dart';
 export 'src/input/map_pointer_event.dart';
 export 'src/input/map_gesture_handler.dart';
 
-export "src/mode_machine/mode_command.dart";
+export "src/mode_machine/command/mode_command.dart";
 export "src/mode_machine/mode_interpreter.dart";
 
 export 'src/domain/gestures/map_gesture.dart';
