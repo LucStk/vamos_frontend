@@ -8,6 +8,7 @@ import '../../mode_machine/command/common_command_resolver.dart';
 import '../../mode_machine/command/mode_command.dart';
 import 'map_editor_command.dart';
 import 'map_editor_mode.dart';
+import 'modes/sketch/sketch_command_resolver.dart';
 
 mixin GraphReader {}
 

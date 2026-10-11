@@ -1,5 +1,6 @@
 import '../domain/objects/map_objects.dart';
 import '../domain/space/offset_type.dart';
+import 'map_pointer_event.dart';
 
 sealed class PointerGestureState {
   const PointerGestureState();
@@ -10,34 +11,35 @@ class IdleState extends PointerGestureState {
 }
 
 class PressedState extends PointerGestureState {
-  const PressedState({required this.element, required this.offset});
+  const PressedState({required this.element, required this.position});
 
   final MapObject? element;
-  final ScreenOffset offset;
+  final PointerPosition position;
 }
 
 /// Le long press a été déclenché, le doigt est toujours posé.
 /// Sert à ne PAS émettre de Tap au relâchement.
 class LongPressedState extends PointerGestureState {
-  const LongPressedState({required this.element, required this.offset});
+  const LongPressedState({required this.element, required this.position});
 
   final MapObject? element;
-  final ScreenOffset offset;
+  final PointerPosition position;
 }
 
 class PendingTap extends PointerGestureState {
   const PendingTap({
     required this.element,
-    required this.offset,
+    required this.position,
     this.doubleTapMaxDistancePx = 24,
   });
 
   final MapObject? element;
-  final ScreenOffset offset;
+  final PointerPosition position;
   final double doubleTapMaxDistancePx;
 
   bool compare(MapObject? otherElement, ScreenOffset otherOffset) {
-    if ((offset.value - otherOffset.value).distance > doubleTapMaxDistancePx) {
+    if ((position.screen.value - otherOffset.value).distance >
+        doubleTapMaxDistancePx) {
       return false;
     }
 
@@ -49,7 +51,7 @@ class PendingTap extends PointerGestureState {
       return false;
     }
 
-    return element!.isSameAs(otherElement);
+    return element! == otherElement;
   }
 }
 

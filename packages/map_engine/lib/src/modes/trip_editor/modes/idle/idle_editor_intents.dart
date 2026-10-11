@@ -1,8 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
-import '/src/domain/selection.dart';
+import '../../../../../map_engine.dart';
 import '../../map_editor_command.dart';
-import '../../map_editor_mode.dart';
 import '/src/mode_machine/transition.dart';
 
 abstract final class IdleEditorIntents {
@@ -10,7 +9,7 @@ abstract final class IdleEditorIntents {
       Transition.run(
         CreateSimpleVertex(position),
         then: (current, VertexId id) => current is IdleEditor
-            ? Transition.set(selectionSlot, VertexSelection(id))
+            ? Transition.set(selectionSlot, MapVertex(id))
             : null,
       );
   // createWaypoint inchangé

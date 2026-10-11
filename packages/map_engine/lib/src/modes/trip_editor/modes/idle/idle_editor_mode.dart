@@ -6,20 +6,20 @@ mixin IdleBehavior on MapEditorMode {
   Set<Slot> get retainedSlots => const {selectionSlot};
   @override
   Transition<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
-    MapVertex e => Transition.set(selectionSlot, VertexSelection(e.id)),
-    MapSegment e => Transition.set(selectionSlot, SegmentSelection(e.id)),
+    MapVertex e => Transition.set(selectionSlot, e),
+    MapSegment e => Transition.set(selectionSlot, e),
     null => Transition.set(selectionSlot, null),
     _ => Transition.stay(),
   };
   @override
   Transition<MapEditorMode> onLongPress(LongPressGesture g) =>
       switch (g.element) {
-        _ => Transition.overlay(IdleMenu(g.offset)),
+        _ => Transition.overlay(IdleMenu(g.screen)),
       };
   @override
   Transition<MapEditorMode> onSecondaryTap(SecondaryTapGesture g) =>
       switch (g.element) {
-        _ => Transition.overlay(IdleMenu(g.offset)),
+        _ => Transition.overlay(IdleMenu(g.screen)),
       };
 }
 

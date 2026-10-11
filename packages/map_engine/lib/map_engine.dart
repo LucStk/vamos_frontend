@@ -1,3 +1,5 @@
+export "src/camera/camera_director.dart";
+
 export "src/domain/objects/map_objects.dart";
 export "src/domain/space/offset_type.dart";
 export "src/domain/space/world_segment.dart";
@@ -20,6 +22,7 @@ export 'src/mode_machine/overlay/context_menu_overlay.dart';
 
 export 'src/input/map_pointer_event.dart';
 export 'src/input/map_gesture_handler.dart';
+// export 'src/input/map_pointer_event.dart';
 
 export "src/mode_machine/command/mode_command.dart";
 export "src/mode_machine/mode_interpreter.dart";

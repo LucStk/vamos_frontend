@@ -1,8 +1,31 @@
 // length.dart
 sealed class Length {
   const Length(this.value);
+
   final double value;
+
   bool get dependsOnZoom => this is ScreenLength;
+
+  double toWorld(double zoomScale) => switch (this) {
+    ScreenLength(:final value) => value / zoomScale,
+    WorldLength(:final value) => value,
+  };
+
+  Length operator +(Length other) => switch ((this, other)) {
+    (ScreenLength a, ScreenLength b) => ScreenLength(a.value + b.value),
+    (WorldLength a, WorldLength b) => WorldLength(a.value + b.value),
+    _ => throw ArgumentError(
+      'Impossible d’additionner des longueurs d’unités différentes.',
+    ),
+  };
+
+  Length operator -(Length other) => switch ((this, other)) {
+    (ScreenLength a, ScreenLength b) => ScreenLength(a.value - b.value),
+    (WorldLength a, WorldLength b) => WorldLength(a.value - b.value),
+    _ => throw ArgumentError(
+      'Impossible de soustraire des longueurs d’unités différentes.',
+    ),
+  };
 }
 
 /// Décalage dont chaque composante porte son unité.

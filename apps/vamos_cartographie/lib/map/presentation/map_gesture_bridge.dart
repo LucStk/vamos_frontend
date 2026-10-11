@@ -1,19 +1,13 @@
 // features/map/presentation/widgets/map_gesture_bridge.dart
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import '/map/camera/injection/camera_or_null.dart';
 import '/map/camera/injection/map_camera_provider.dart';
 import '/map/injection/map_gesture_handler.dart';
 import '/map/injection/map_scene.dart';
 import 'map_canvas_view.dart';
-import 'package:flutter/gestures.dart';
 import '../canvas/injection/visual_target.dart';
-
-bool isSecondaryClick(PointerDownEvent event) =>
-    event.kind == PointerDeviceKind.mouse &&
-    (event.buttons & kSecondaryMouseButton) != 0;
 
 @Dependencies([
   visualTargets,
@@ -28,38 +22,14 @@ class MapGestureBridge extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final gestureHandler = ref.read(mapGestureHandlerProvider.notifier);
-    void resolve(PointerEventType type, PointerEvent event) {
-      final offset = ScreenOffset(event.localPosition);
-      gestureHandler.onPointerEvent(type, offset);
-    }
-
-    bool secondaryPressed = false;
+    final handler = ref.read(mapGestureHandlerProvider.notifier);
 
     return Listener(
       behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) {
-        if (isSecondaryClick(event)) {
-          secondaryPressed = true;
-
-          final offset = ScreenOffset(event.localPosition);
-          gestureHandler.onSecondaryClick(offset);
-          return; // on n'alimente pas le resolver
-        }
-        resolve(PointerEventType.down, event);
-      },
-      onPointerMove: (event) {
-        if (secondaryPressed) return;
-        resolve(PointerEventType.move, event);
-      },
-      onPointerUp: (event) {
-        if (secondaryPressed) {
-          secondaryPressed = false;
-          return;
-        }
-        resolve(PointerEventType.up, event);
-      },
-      onPointerCancel: (event) => secondaryPressed = false,
+      onPointerDown: handler.onPointerDown,
+      onPointerMove: handler.onPointerMove,
+      onPointerUp: handler.onPointerUp,
+      onPointerCancel: handler.onPointerCancel,
       child: MapCanvas(layers: mapLayers),
     );
   }

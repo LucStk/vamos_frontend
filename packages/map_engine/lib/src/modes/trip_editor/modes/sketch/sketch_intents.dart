@@ -1,4 +1,5 @@
 import 'package:trip_application/trip_application.dart';
+import '../../../../../map_engine.dart';
 import '/src/domain/selection.dart';
 import '/src/mode_machine/transition.dart';
 import '../../map_editor_mode.dart';
@@ -10,7 +11,6 @@ abstract final class SketchIntents {
     MobilityType type,
   ) => Transition.run(ChangeSegmentType(s.segmentId, type));
 
-  static Transition<MapEditorMode> stopSketch(SketchEdition s) => Transition.to(
-    IdleEditor(),
-  ).and(selectionSlot, SegmentSelection(s.segmentId));
+  static Transition<MapEditorMode> stopSketch(SketchEdition s) =>
+      Transition.to(IdleEditor()).and(selectionSlot, MapSegment(s.segmentId));
 }

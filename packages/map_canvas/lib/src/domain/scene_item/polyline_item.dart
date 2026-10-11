@@ -1,33 +1,26 @@
 part of 'scene_item.dart';
 
-abstract class PolylineItem<T extends MapSegmentedLine> extends SceneItem {
-  final List<List<WorldSegment>> worldSegments;
-  final Rect bounds;
+abstract class PolylineItem extends SceneItem {
+  List<List<WorldSegment>> get worldSegments;
+  Rect get bounds;
 
-  PolylineItem({required T object, required this.worldSegments})
-    : bounds = computeBounds(
-        worldSegments.expand(
-          (line) =>
-              line.expand((segment) => [segment.$1.value, segment.$2.value]),
-        ),
-      ),
-      super(object);
-
-  T get line => object as T;
+  // PolylineItem({
+  //   required T object,
+  //   required this.worldSegments,
+  //   required super.hitRadius,
+  // }) : bounds = computeBounds(
+  //        worldSegments.expand(
+  //          (line) =>
+  //              line.expand((segment) => [segment.$1.value, segment.$2.value]),
+  //        ),
+  //      ),
+  //      super(object);
 
   @override
-  bool isHitAt(WorldOffset position, double scale) {
-    if (!bounds.inflate(line.radius).contains(position.value)) {
-      return false;
-    }
-
-    for (final segments in worldSegments) {
-      if (distanceToPolyline(position.value, segments) <= line.radius / scale) {
-        return true;
-      }
-    }
-
-    return false;
+  bool isHitAt(WorldOffset p, double zoomScale) {
+    final r = hitRadius.toWorld(zoomScale);
+    if (!bounds.inflate(r).contains(p.value)) return false;
+    return worldSegments.any((s) => distanceToPolyline(p.value, s) <= r);
   }
 
   Path get path {

@@ -1,25 +1,20 @@
 part of 'map_objects.dart';
 
-final class MapSketchSegment extends MapLine {
-  const MapSketchSegment(super.geometry);
-  @override
-  Object get stableId => "sketchSegment";
-  @override
-  double get radius => 10;
+final class MapSketchSegment extends MapObject {
+  const MapSketchSegment();
 
   @override
   int get hitPriority => 50;
 
   @override
-  bool isSameAs(MapObject? other) => other is MapSketchSegment;
+  bool operator ==(Object other) => other is MapSketchSegment;
+
+  @override
+  int get hashCode => (MapSketchSegment).hashCode;
 }
 
-final class MapSketchPencil extends MapPoint {
-  const MapSketchPencil(super.position);
-  @override
-  Object get stableId => "pencil";
-  @override
-  double get radius => 10;
+final class MapSketchPencil extends MapObject {
+  const MapSketchPencil();
 
   @override
   bool get isDraggable => true;
@@ -28,5 +23,7 @@ final class MapSketchPencil extends MapPoint {
   int get hitPriority => 200;
 
   @override
-  bool isSameAs(MapObject? other) => other is MapSketchPencil;
+  bool operator ==(Object other) => other is MapSketchPencil;
+  @override
+  int get hashCode => (MapSketchPencil).hashCode;
 }

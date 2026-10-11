@@ -11,7 +11,6 @@ final class VertexLook implements Lerpable<VertexLook> {
     required this.scale,
     required this.haloOpacity,
   });
-
   final Color color;
   final double scale, haloOpacity;
 
@@ -24,6 +23,9 @@ final class VertexLook implements Lerpable<VertexLook> {
 }
 
 abstract final class VertexStyle {
+  /// Écart entre le disque plein et l'anneau de halo.
+  static const haloGap = 1.0;
+
   /// Point d'extension : `start` et `end` pourront avoir leur propre table.
   static StyleResolver<VertexLook> of(VertexVisualKind kind) => switch (kind) {
     VertexVisualKind.normal ||
@@ -56,13 +58,17 @@ abstract final class VertexStyle {
     ),
   };
 
-  static DrawCommand build(WorldOffset at, VertexLook look) => DrawTransform(
+  static DrawCommand build(
+    WorldOffset at,
+    VertexLook look, {
+    required ScreenLength radius,
+  }) => DrawTransform(
     transform: DrawTransformData(scale: look.scale, origin: at),
     commands: [
-      DrawCircle(center: at, radius: 9.px, style: Fill(look.color)),
+      DrawCircle(center: at, radius: radius, style: Fill(look.color)),
       DrawCircle(
         center: at,
-        radius: 10.px,
+        radius: radius + haloGap.px,
         style: Stroke(
           look.color.withValues(alpha: look.haloOpacity),
           width: 1.px,

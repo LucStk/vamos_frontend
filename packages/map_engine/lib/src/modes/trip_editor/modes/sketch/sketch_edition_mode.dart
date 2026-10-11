@@ -9,13 +9,11 @@ abstract class SketchEdition extends MapEditorMode
     required SegmentId segmentId,
     required List<LatLng> path,
   }) = _SketchEdition;
-  @override
-  SketchEdition withPath(List<LatLng> path) => copyWith(path: path);
 
   @override
   Transition<MapEditorMode> onPointerDown(PressGesture g) =>
       switch (g.element) {
-        MapSegment s when s.id == segmentId => addPoint(g.offset),
+        MapSegment s when s.id == segmentId => addPoint(g.screen),
         _ => Transition.stay(),
       };
 

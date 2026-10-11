@@ -1,5 +1,6 @@
 import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
+import '../domain/objects/map_objects.dart';
 import '../domain/selection.dart';
 import 'command/mode_command.dart';
 import 'mode.dart';
@@ -16,7 +17,7 @@ mixin ModeInterpreter<M extends Mode<M>> implements ModeHost {
   ModeCommandResolver<M> get resolver;
   EffectQueue get effectQueue;
   // dans la classe MapEditor
-  void actOnSelection<S extends Selection>(
+  void actOnSelection<S extends Selectable>(
     Transition<M>? Function(S s) action,
   ) {
     if (state.context.get(selectionSlot) case final S s) apply(action(s));

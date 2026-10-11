@@ -1,25 +1,21 @@
 part of 'scene_item.dart';
 
-abstract class LineItem<T extends MapLine> extends SceneItem {
-  final List<WorldSegment> worldSegments;
-  final Rect bounds;
-
-  LineItem({required T object, required this.worldSegments})
-    : bounds = computeBounds(
-        worldSegments.expand((segment) => [segment.$1.value, segment.$2.value]),
-      ),
-      super(object);
-
-  T get line => object as T;
-
+abstract class LineItem extends SceneItem {
+  List<WorldSegment> get worldSegments;
+  Rect get bounds;
   @override
-  bool isHitAt(WorldOffset position, double scale) {
-    if (!bounds.inflate(line.radius).contains(position.value)) {
-      return false;
-    }
+  Length get hitRadius;
 
-    return distanceToPolyline(position.value, worldSegments) <=
-        (line.radius / scale);
+  // LineItem({required this.worldSegments, required super.hitRadius})
+  //   : bounds = computeBounds(
+  //       worldSegments.expand((segment) => [segment.$1.value, segment.$2.value]),
+  //     );
+  //
+  @override
+  bool isHitAt(WorldOffset p, double zoomScale) {
+    final r = hitRadius.toWorld(zoomScale);
+    if (!bounds.inflate(r).contains(p.value)) return false;
+    return distanceToPolyline(p.value, worldSegments) <= r;
   }
 
   Path get path {

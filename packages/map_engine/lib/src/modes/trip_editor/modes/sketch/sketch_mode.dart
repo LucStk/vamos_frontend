@@ -6,28 +6,9 @@ Transition<MapEditorMode>? leaveSketch(MapEditorMode current, Object _) =>
     current is SketchMode ? Transition.to(IdleEditor()) : null;
 
 mixin SketchMode on MapEditorMode {
-  List<LatLng> get path;
-
-  SketchMode withPath(List<LatLng> path);
-
-  LatLng? get pencilPositionOrNull => path.isEmpty ? null : path.last;
-
-  /// Le point est ajouté au tracé du mode COURANT, pas à celui qui a lancé l'effet.
-  Transition<MapEditorMode> addPoint(ScreenOffset p, {MapEditorMode? mode}) =>
-      Transition.run(
-        AddPointToSketchSegment(p),
-        mode: mode,
-        then: (current, latLng) => switch (current) {
-          SketchMode s => Transition<MapEditorMode>.to(
-            s.withPath([...s.path, latLng]),
-          ),
-          _ => null,
-        },
-      );
-
   @override
   Transition<MapEditorMode> onTap(TapGesture g) => switch (g.element) {
-    MapSketchPencil _ => Transition.overlay(SketchPencilMenu(g.offset)),
+    MapSketchPencil _ => Transition.overlay(SketchPencilMenu(g.screen)),
     _ => Transition.stay(),
   };
 

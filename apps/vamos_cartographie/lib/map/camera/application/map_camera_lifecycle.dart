@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
-import '../domain/domain.dart';
+import '../domain/camera_vision.dart';
 import 'flutter_map_camera.dart';
 
 /// Mutualise la création de la caméra et son cycle de vie d'animation.

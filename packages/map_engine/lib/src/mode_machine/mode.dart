@@ -20,6 +20,7 @@ abstract class Mode<Self extends Mode<Self>> {
       DoubleTapGesture() => onDoubleTap(gesture),
       LongPressGesture() => onLongPress(gesture),
       SecondaryTapGesture() => onSecondaryTap(gesture),
+      DragCancelGesture() => null,
     };
   }
 
@@ -29,7 +30,7 @@ abstract class Mode<Self extends Mode<Self>> {
   Transition<Self> onDragEnd(DragEndGesture g) => Transition.stay();
   Transition<Self> onTap(TapGesture g) => Transition.stay();
   Transition<Self> onDoubleTap(DoubleTapGesture g) =>
-      Transition.run(ZoomIn(g.offset));
+      Transition.run(ZoomIn(g.position.screen));
   Transition<Self> onLongPress(LongPressGesture g) => Transition.stay();
   Transition<Self> onSecondaryTap(SecondaryTapGesture g) => Transition.stay();
 }

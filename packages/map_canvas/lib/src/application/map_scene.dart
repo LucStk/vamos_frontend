@@ -15,7 +15,7 @@ class MapScene {
   });
 
   final List<SceneItem> items;
-  final Selection? selection;
+  final Selectable? selection;
   final MapObject? hovered;
   final MapObject? dragging;
 
@@ -38,13 +38,13 @@ class MapScene {
   }
 
   MapObjectVisualState visualStateOf(MapObject object) {
-    if (dragging != null && dragging!.isSameAs(object)) {
+    if (dragging != null && dragging! == object) {
       return MapObjectVisualState.dragging;
     }
-    if (selection != null && selection!.concerns(object)) {
+    if (selection != null && selection! == object) {
       return MapObjectVisualState.selected;
     }
-    if (hovered != null && hovered!.isSameAs(object)) {
+    if (hovered != null && hovered! == object) {
       return MapObjectVisualState.hovered;
     }
     return MapObjectVisualState.normal;

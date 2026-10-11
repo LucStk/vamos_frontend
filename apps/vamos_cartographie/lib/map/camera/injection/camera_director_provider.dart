@@ -1,14 +1,13 @@
 import 'package:flutter_map/flutter_map.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../application/camera_director.dart';
 import 'map_camera_provider.dart';
 
 part 'camera_director_provider.g.dart';
 
 @Riverpod(dependencies: [mapCamera])
 CameraDirector cameraDirector(Ref ref) {
-  final director = CameraDirector(camera: () => ref.read(mapCameraProvider));
+  final director = CameraDirector(camera: ref.read(mapCameraProvider));
 
   // Un geste utilisateur bloque les demandes `ambient`.
   final gestures = ref

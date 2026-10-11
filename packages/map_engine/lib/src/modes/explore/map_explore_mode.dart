@@ -14,7 +14,7 @@ mixin ExploreIdleBehavior on Mode<MapExploreMode> {
   Set<Slot> get retainedSlots => const {selectionSlot};
   @override
   Transition<MapExploreMode> onTap(TapGesture g) => switch (g.element) {
-    MapTripObject e => Transition.set(selectionSlot, TripSelection(e.id)),
+    MapTrip e => Transition.set(selectionSlot, e),
     _ => Transition.stay(),
   };
 }

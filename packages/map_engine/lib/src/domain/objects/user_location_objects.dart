@@ -1,17 +1,9 @@
 part of 'map_objects.dart';
 
-final class MapUserLocation extends MapPoint {
+final class MapUserLocation extends MapObject implements Selectable {
   final double accuracy;
   final double heading;
-  const MapUserLocation(
-    super.position, {
-    required this.accuracy,
-    required this.heading,
-  });
-  @override
-  Object get stableId => "userLocation";
-  @override
-  double get radius => 10;
+  const MapUserLocation({required this.accuracy, required this.heading});
 
   @override
   bool get isDraggable => true;
@@ -20,5 +12,7 @@ final class MapUserLocation extends MapPoint {
   int get hitPriority => 200;
 
   @override
-  bool isSameAs(MapObject? other) => other is MapUserLocation;
+  bool operator ==(Object other) => other is MapUserLocation;
+  @override
+  int get hashCode => (MapUserLocation).hashCode;
 }

@@ -2,10 +2,8 @@ import 'package:domain_core/domain/collection_store.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
-import '../../domain/camera/map_camera.dart';
 import '../../mode_machine/command/mode_command.dart';
 import "/src/domain/space/offset_type.dart";
-import '../../geometry/merge_polyline.dart';
 import '../../mode_machine/transition.dart';
 import 'map_editor_mode.dart';
 part "modes/idle/segment_select_command.dart";

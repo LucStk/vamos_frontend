@@ -1,7 +1,6 @@
 // map_engine/lib/src/input/map_gesture_handler.dart
 import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
-import '../domain/space/offset_type.dart';
 import 'long_press_timer.dart';
 import 'map_pointer_event.dart';
 import 'map_pointure_gesture_state.dart';
@@ -19,15 +18,15 @@ class MapGestureHandler {
        _hitTest = hitTest,
        _onPanAllowedChanged = onPanAllowedChanged,
        _resolver = PointerGestureResolver(hitTest: hitTest) {
+    // Les timers passent directement par _feed : ils ne doivent jamais
+    // être bloqués par l'état du clic droit.
     _tapTimer = PendingTapTimer(
       timeout: tapTimeout,
-      onTimeout: (pending) =>
-          onPointerEvent(PointerEventType.tapTimeout, pending.offset),
+      onTimeout: (pending) => _feed(PointerTapTimeout(pending.position)),
     );
     _longPressTimer = LongPressTimer(
       timeout: longPressTimeout,
-      onTimeout: (pressed) =>
-          onPointerEvent(PointerEventType.longPressTimeout, pressed.offset),
+      onTimeout: (pressed) => _feed(PointerLongPressTimeout(pressed.position)),
     );
   }
 
@@ -43,8 +42,42 @@ class MapGestureHandler {
   bool _panAllowed = true;
   bool get panAllowed => _panAllowed;
 
-  void onPointerEvent(PointerEventType event, ScreenOffset offset) {
-    final gesture = _resolver.resolve(event, offset);
+  /// True entre un `down` secondaire et son `up` / `cancel`.
+  bool _secondaryPressed = false;
+
+  /// Point d'entrée unique. `button` n'a de sens que pour [PointerEventType.down].
+  void onPointerEvent(PointerEvent pointer) {
+    switch (pointer) {
+      case PointerDown e:
+        if (e.button == PointerButton.secondary) {
+          _secondaryPressed = true;
+          _sendSecondaryTap(e.position);
+          return; // le clic droit n'alimente pas le resolver
+        }
+      case PointerMove _:
+        if (_secondaryPressed) return;
+      case PointerUp _:
+      case PointerCancel _:
+        if (_secondaryPressed) {
+          _secondaryPressed = false;
+          return;
+        }
+      case PointerTapTimeout _:
+      case PointerLongPressTimeout _:
+        break;
+    }
+    _feed(pointer);
+  }
+
+  void dispose() {
+    _tapTimer.dispose();
+    _longPressTimer.dispose();
+  }
+
+  // --- Interne -------------------------------------------------------------
+
+  void _feed(PointerEvent pointer) {
+    final gesture = _resolver.resolve(pointer);
 
     // Resynchro AVANT le dispatch : les listeners déclenchés par le
     // dispatch voient un état final.
@@ -55,14 +88,9 @@ class MapGestureHandler {
   }
 
   /// Le clic droit ne passe pas par le resolver : pas de pan, de drag ni de double tap.
-  void onSecondaryClick(ScreenOffset offset) {
-    final element = _hitTest(offset: offset);
-    _sink().send(SecondaryTapGesture(offset, element: element));
-  }
-
-  void dispose() {
-    _tapTimer.dispose();
-    _longPressTimer.dispose();
+  void _sendSecondaryTap(PointerPosition position) {
+    final element = _hitTest(offset: position.screen);
+    _sink().send(SecondaryTapGesture(position, element: element));
   }
 
   void _syncTimers() {

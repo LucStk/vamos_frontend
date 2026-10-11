@@ -2,12 +2,13 @@
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
+import '../../../map_engine.dart';
 import '../../domain/selection.dart';
 import '../../mode_machine/transition.dart';
 import 'map_editor_command.dart';
 import 'map_editor_mode.dart';
 
-extension VertexSelectionActions on VertexSelection {
+extension VertexSelectionActions on MapVertex {
   Transition<MapEditorMode> delete() => Transition.run(
     RemoveVertex(id),
     then: (_, _) => Transition.set(selectionSlot, null),
@@ -25,7 +26,7 @@ extension VertexSelectionActions on VertexSelection {
   );
 }
 
-extension SegmentSelectionActions on SegmentSelection {
+extension SegmentSelectionActions on MapSegment {
   Transition<MapEditorMode> delete() => Transition.run(
     DeleteSegment(id),
     then: (_, _) => Transition.set(selectionSlot, null),

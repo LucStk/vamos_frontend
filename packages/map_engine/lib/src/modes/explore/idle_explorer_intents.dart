@@ -4,6 +4,6 @@ import '../../mode_machine/transition.dart';
 import 'map_explore_mode.dart';
 
 abstract final class IdleExplorerIntents {
-  static Transition<MapExploreMode> selectTrip(MapTripObject trip) =>
-      Transition.set(selectionSlot, TripSelection(trip.id));
+  static Transition<MapExploreMode> selectTrip(MapTrip trip) =>
+      Transition.set(selectionSlot, trip);
 }

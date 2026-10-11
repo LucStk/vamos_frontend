@@ -1,58 +1,47 @@
 part of 'map_objects.dart';
 
-final class MapSegment extends MapLine implements TopologyObject {
+final class MapSegment extends MapObject implements TopologyObject {
   final SegmentId id;
-  const MapSegment(this.id, super.geometry);
-
-  @override
-  Object get stableId => ("segment", id);
+  const MapSegment(this.id);
 
   @override
   SpliceAnchor get anchor => SegmentAnchor(id);
 
   @override
-  double get radius => 10;
-
-  @override
   int get hitPriority => 50;
 
   @override
-  bool isSameAs(MapObject? other) => other is MapSegment && other.id == id;
+  bool operator ==(Object other) => other is MapSegment && other.id == id;
+  @override
+  int get hashCode => id.hashCode;
 }
 
-final class MapTripStart extends MapPoint {
-  const MapTripStart(super.position);
-
-  @override
-  Object get stableId => "TripStart";
+final class MapTripStart extends MapObject implements Selectable {
+  const MapTripStart();
 
   @override
   bool get isDraggable => false;
 
   @override
-  double get radius => 10;
-
-  @override
   int get hitPriority => 50;
 
   @override
-  bool isSameAs(MapObject? other) => other is MapTripStart;
+  bool operator ==(Object other) => other is MapTripStart;
+  @override
+  int get hashCode => (MapTripStart).hashCode;
 }
 
-final class MapSegmentEndPoint extends MapPoint {
-  const MapSegmentEndPoint(this.id, super.position);
+final class MapSegmentEndPoint extends MapObject implements Selectable {
+  const MapSegmentEndPoint(this.id);
   final SegmentId id;
 
   @override
-  Object get stableId => ("segmentEnd", id);
-
-  @override
-  double get radius => 10;
-
-  @override
   int get hitPriority => 50;
 
   @override
-  bool isSameAs(MapObject? other) =>
+  bool operator ==(Object other) =>
       other is MapSegmentEndPoint && other.id == id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

@@ -6,7 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:flutter/material.dart';
 
-import '../domain/domain.dart';
+import '../domain/camera_vision.dart';
 import 'map_geo_mappers.dart';
 
 /// Implémentation unique de [MapCameraController].
@@ -61,6 +61,9 @@ class FlutterMapCamera implements MapCameraController {
 
   @override
   double get zoomScale => _camera.getZoomScale(_camera.zoom, referenceZoom);
+
+  @override
+  LatLng get center => _camera.center;
 
   Matrix4 get transformMatrix => buildCameraTransform(
     scale: zoomScale,
