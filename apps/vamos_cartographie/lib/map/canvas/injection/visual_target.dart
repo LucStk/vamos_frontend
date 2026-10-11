@@ -10,6 +10,6 @@ Map<Object, MapObjectVisualState> visualTargets(Ref ref) {
   final scene = ref.watch(mapSceneProvider);
   return {
     for (final item in scene.items)
-      item.object.stableId: scene.visualStateOf(item.object),
+      item.object: scene.visualStateOf(item.object),
   };
 }

@@ -3,6 +3,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
 import '../../domain/selection.dart';
+import '../../domain/sketch_trace.dart';
 import '../../mode_machine/slot.dart';
 import '/src/domain/gestures/map_gesture.dart';
 import '/src/domain/objects/map_objects.dart';

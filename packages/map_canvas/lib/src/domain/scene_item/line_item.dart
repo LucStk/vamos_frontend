@@ -2,15 +2,13 @@ part of 'scene_item.dart';
 
 abstract class LineItem extends SceneItem {
   List<WorldSegment> get worldSegments;
-  Rect get bounds;
-  @override
-  Length get hitRadius;
 
-  // LineItem({required this.worldSegments, required super.hitRadius})
-  //   : bounds = computeBounds(
-  //       worldSegments.expand((segment) => [segment.$1.value, segment.$2.value]),
-  //     );
-  //
+  /// Calculé au premier accès puis mis en cache. Valide tant que
+  /// `worldSegments` ne change pas (c'est un `final` dans les items).
+  late final Rect bounds = computeBounds(
+    worldSegments.expand((s) => [s.$1.value, s.$2.value]),
+  );
+
   @override
   bool isHitAt(WorldOffset p, double zoomScale) {
     final r = hitRadius.toWorld(zoomScale);

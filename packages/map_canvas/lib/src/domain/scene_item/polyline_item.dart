@@ -2,19 +2,11 @@ part of 'scene_item.dart';
 
 abstract class PolylineItem extends SceneItem {
   List<List<WorldSegment>> get worldSegments;
-  Rect get bounds;
-
-  // PolylineItem({
-  //   required T object,
-  //   required this.worldSegments,
-  //   required super.hitRadius,
-  // }) : bounds = computeBounds(
-  //        worldSegments.expand(
-  //          (line) =>
-  //              line.expand((segment) => [segment.$1.value, segment.$2.value]),
-  //        ),
-  //      ),
-  //      super(object);
+  late final Rect bounds = computeBounds(
+    worldSegments.expand(
+      (line) => line.expand((segment) => [segment.$1.value, segment.$2.value]),
+    ),
+  );
 
   @override
   bool isHitAt(WorldOffset p, double zoomScale) {

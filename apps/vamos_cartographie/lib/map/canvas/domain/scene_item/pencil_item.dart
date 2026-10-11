@@ -3,8 +3,19 @@ import 'dart:ui';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 
-final class PencilItem extends PointItem<MapSketchPencil> {
-  PencilItem({required super.object, required super.worldPosition});
+final class PencilItem extends PointItem {
+  PencilItem({required this.object, required this.worldPosition});
+
+  @override
+  final MapSketchPencil object;
+
+  @override
+  final WorldOffset worldPosition;
+  @override
+  final ScreenLength visualRadius = 9.px;
+
+  @override
+  ScreenLength get hitRadius => 14.px;
 
   @override
   DrawCommand toDrawCommand({
@@ -12,7 +23,7 @@ final class PencilItem extends PointItem<MapSketchPencil> {
   }) {
     return DrawCircle(
       center: worldPosition,
-      radius: 8.px,
+      radius: visualRadius,
       style: Fill(Color(0xFF000000)),
     );
   }

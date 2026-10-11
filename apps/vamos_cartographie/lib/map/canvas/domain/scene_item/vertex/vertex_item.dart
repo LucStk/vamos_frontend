@@ -17,6 +17,7 @@ final class VertexItem extends PointItem {
   final VertexVisualKind visualKind;
 
   /// Rayon du disque affiché (avant `look.scale`).
+  @override
   final ScreenLength visualRadius = 9.px;
 
   @override

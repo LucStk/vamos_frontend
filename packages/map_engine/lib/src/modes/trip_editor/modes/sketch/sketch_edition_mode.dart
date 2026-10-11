@@ -13,7 +13,10 @@ abstract class SketchEdition extends MapEditorMode
   @override
   Transition<MapEditorMode> onPointerDown(PressGesture g) =>
       switch (g.element) {
-        MapSegment s when s.id == segmentId => addPoint(g.screen),
+        MapSegment s when s.id == segmentId => Transition.set(
+          sketchTraceSlot,
+          g.screen,
+        ),
         _ => Transition.stay(),
       };
 

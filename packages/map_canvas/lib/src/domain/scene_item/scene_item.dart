@@ -12,6 +12,7 @@ abstract class SceneItem {
   // const SceneItem(this.object, {required this.hitRadius, this.hitPriority = 0});
   MapObject get object;
   Length get hitRadius;
+  Length get visualRadius;
   int hitPriority = 0;
 
   bool isHitAt(WorldOffset p, double zoomScale);
