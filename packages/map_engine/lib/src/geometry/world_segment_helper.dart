@@ -1,4 +1,3 @@
-import 'package:latlong2/latlong.dart';
 import '../domain/space/offset_type.dart';
 import '../domain/space/world_segment.dart';
 
@@ -8,9 +7,9 @@ List<(T, T)> consecutivePairs<T>(List<T> points) {
   ];
 }
 
-List<WorldSegment> projectLine(
-  List<LatLng> points,
-  WorldOffset Function(LatLng) project,
+List<WorldSegment> projectLine<T>(
+  List<T> points,
+  WorldOffset Function(T) project,
 ) {
   return [
     for (var i = 0; i < points.length - 1; i++)
@@ -18,9 +17,9 @@ List<WorldSegment> projectLine(
   ];
 }
 
-List<List<WorldSegment>> projectPolyline(
-  List<List<LatLng>> lines,
-  WorldOffset Function(LatLng) project,
+List<List<WorldSegment>> projectPolyline<T>(
+  List<List<T>> lines,
+  WorldOffset Function(T) project,
 ) {
   return [for (final line in lines) projectLine(line, project)];
 }

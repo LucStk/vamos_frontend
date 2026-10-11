@@ -20,7 +20,7 @@ class SketchPencilMenuWidget extends ConsumerWidget {
 
     return ContextMenuShell(
       child: TextButton.icon(
-        onPressed: () => editor.act(SketchCreationIntens.stopCreationAtPencil),
+        onPressed: () => editor.act(SketchCreationIntents.stopCreationAtPencil),
         icon: const Icon(Icons.add, size: 18),
         label: const Text('Créer étape ici'),
         style: TextButton.styleFrom(

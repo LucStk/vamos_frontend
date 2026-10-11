@@ -2,10 +2,17 @@ import 'package:domain_core/domain/collection_store.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 
+import '/src/domain/space/offset_type.dart';
 import '/src/domain/camera/map_camera.dart';
 import '/src/geometry/merge_polyline.dart';
 import '/src/mode_machine/transition.dart';
 import '../../map_editor_command.dart';
+
+extension ListWorldOffsetToListLatLng on List<WorldOffset> {
+  List<LatLng> toLatLngList(MapCameraReader camera) {
+    return map((s) => camera.worldOffsetToLatLng(s)).toList();
+  }
+}
 
 mixin SketchResolver {
   GraphEditor get graphEditor;
@@ -22,7 +29,7 @@ mixin SketchResolver {
 
   Future<SegmentRemoteModel?> _create(CreateSegmentFromSketch c) async {
     final res = await graphEditor.createSegment(
-      geometry: c.geometry,
+      geometry: c.geometry.toLatLngList(camera),
       mobilityType: c.mobilityType,
     );
     return res.fold((_) => null, (d) => d.segment);
@@ -32,7 +39,9 @@ mixin SketchResolver {
     final s = segment(c.segmentId);
     if (s == null) return null;
     final res = await graphEditor.spliceSegment(
-      correction: c.correction,
+      correction: c.correction
+          .map((s) => camera.worldOffsetToLatLng(s))
+          .toList(),
       mobilityType: s.mobilityType,
       startAnchor: c.startAnchor,
       endAnchor: c.endAnchor,
@@ -48,12 +57,13 @@ mixin SketchResolver {
   Future<Done?> _correct(CorrectSegmentFromSketch c) async {
     final s = segment(c.segmentId);
     if (s == null) return null;
+    final correction = c.correction.toLatLngList(camera);
     final patch = SegmentPatchModel.fromFields(
       s,
-    ).copyWith(geometry: mergeCorrection(c.correction, s.geometry));
+    ).copyWith(geometry: mergeCorrection(correction, s.geometry));
     return (await graphEditor.correctSegment(
       patch,
-      c.correction,
+      correction,
     )).fold((_) => null, (_) => const Done());
   }
 

@@ -1,5 +1,5 @@
 import 'package:trip_application/trip_application.dart';
-import '../../../../../map_engine.dart';
+import '/src/domain/objects/map_objects.dart';
 import '/src/domain/selection.dart';
 import '/src/mode_machine/transition.dart';
 import '../../map_editor_mode.dart';

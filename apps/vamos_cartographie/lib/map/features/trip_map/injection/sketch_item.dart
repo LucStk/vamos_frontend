@@ -27,18 +27,12 @@ List<SceneItem> sketchItem(
     final pencilPosition = sketchTrace.last;
     if (pencilPosition != null) {
       ret.add(
-        PencilItem(
-          object: MapSketchPencil(),
-          worldPosition: cameraReader.latLngToWorldOffset(pencilPosition),
-        ),
+        PencilItem(object: MapSketchPencil(), worldPosition: pencilPosition),
       );
       ret.add(
         SketchSegmentItem(
           object: MapSketchSegment(),
-          worldSegments: projectLine(
-            sketchTrace.points,
-            cameraReader.latLngToWorldOffset,
-          ),
+          worldSegments: projectLine<WorldOffset>(sketchTrace.points, (w) => w),
         ),
       );
     }

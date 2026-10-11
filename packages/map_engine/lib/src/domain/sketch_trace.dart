@@ -1,17 +1,21 @@
 // modes/trip_editor/sketch/sketch_trace.dart
-import 'package:latlong2/latlong.dart';
+import 'package:trip_application/topology/domain/domain.dart';
 
 import '/src/mode_machine/slot.dart';
+import 'space/offset_type.dart';
 
 /// Nommé Trace pour ne pas se confondre avec MapSketchSegment (l'objet de la carte).
 final class SketchTrace {
-  const SketchTrace(this.points);
-  SketchTrace.from(LatLng start) : points = [start];
+  const SketchTrace(this.points, {this.mobilityType = MobilityType.bike});
+  SketchTrace.from(WorldOffset start)
+    : points = [start],
+      mobilityType = MobilityType.bike;
 
-  final List<LatLng> points; // jamais modifiée après construction
+  final List<WorldOffset> points; // jamais modifiée après construction
+  final MobilityType mobilityType;
 
-  LatLng? get last => points.isEmpty ? null : points.last;
-  SketchTrace add(LatLng p) => SketchTrace([...points, p]);
+  WorldOffset? get last => points.isEmpty ? null : points.last;
+  SketchTrace add(WorldOffset p) => SketchTrace([...points, p]);
 }
 
 const sketchTraceSlot = Slot<SketchTrace>('sketchTrace');

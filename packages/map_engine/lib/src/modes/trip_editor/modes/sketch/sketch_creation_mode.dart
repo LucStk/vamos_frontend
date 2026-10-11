@@ -1,15 +1,7 @@
 part of '../../map_editor_mode.dart';
 
-@freezed
-abstract class SketchCreation extends MapEditorMode
-    with SketchMode, _$SketchCreation {
-  const SketchCreation._();
-
-  factory SketchCreation({
-    required VertexId vertexStart,
-    required List<LatLng> path,
-    required MobilityType mobilityType,
-  }) = _SketchCreation;
+class SketchCreation extends MapEditorMode with SketchMode {
+  const SketchCreation();
 
   @override
   Transition<MapEditorMode> onPointerDown(PressGesture g) {
@@ -36,29 +28,36 @@ abstract class SketchCreation extends MapEditorMode
   Transition<MapEditorMode> onDragEnd(DragEndGesture g) {
     if (g.dragged is! MapSketchPencil) return Transition.stay();
 
-    return switch (g.target) {
-      MapVertex _ => Transition.run(
-        CreateSegmentFromSketch(geometry: path, mobilityType: mobilityType),
-        then: leaveSketch,
-      ),
-      MapSegment s => Transition.run(
-        SpliceSegment(
-          segmentId: s.id,
-          correction: path,
-          startAnchor: VertexAnchor(vertexStart),
-          endAnchor: SegmentAnchor(s.id),
+    return Transition.withSlot(sketchTraceSlot, (trace) {
+      return switch (g.target) {
+        MapVertex _ => Transition.run(
+          CreateSegmentFromSketch(
+            geometry: trace.points,
+            mobilityType: trace.mobilityType,
+          ),
+          then: leaveSketch,
         ),
-        then: leaveSketch,
-      ),
-      // null => Transition.run(
-      //   CreateSegmentFromSketch(
-      //     startVertexId: vertexStart,
-      //     geometry: path,
-      //     mobilityType: mobilityType,
-      //   ),
-      //   then: leaveSketch,
-      // ),
-      _ => Transition.stay(),
-    };
+
+        _ => Transition.stay(),
+      };
+    });
+
+    // MapSegment s => Transition.run(
+    //   SpliceSegment(
+    //     segmentId: s.id,
+    //     correction: path,
+    //     startAnchor: VertexAnchor(vertexStart),
+    //     endAnchor: SegmentAnchor(s.id),
+    //   ),
+    //   then: leaveSketch,
+    // ),
+    // null => Transition.run(
+    //   CreateSegmentFromSketch(
+    //     startVertexId: vertexStart,
+    //     geometry: path,
+    //     mobilityType: mobilityType,
+    //   ),
+    //   then: leaveSketch,
+    // ),
   }
 }

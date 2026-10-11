@@ -1,9 +1,9 @@
 // modes/trip_editor/selection_actions.dart
 import 'package:latlong2/latlong.dart';
-import 'package:trip_application/trip_application.dart';
 
-import '../../../map_engine.dart';
+import '../../domain/objects/map_objects.dart';
 import '../../domain/selection.dart';
+
 import '../../mode_machine/transition.dart';
 import 'map_editor_command.dart';
 import 'map_editor_mode.dart';
@@ -17,13 +17,8 @@ extension VertexSelectionActions on MapVertex {
   Transition<MapEditorMode> createWaypoint() =>
       Transition.run(CreateWaypointFromVertex(id));
 
-  Transition<MapEditorMode> startSketch(LatLng position) => Transition.to(
-    SketchCreation(
-      vertexStart: id,
-      path: [position],
-      mobilityType: MobilityType.bike,
-    ),
-  );
+  Transition<MapEditorMode> startSketch(LatLng position) =>
+      Transition.to(SketchCreation());
 }
 
 extension SegmentSelectionActions on MapSegment {
@@ -33,5 +28,5 @@ extension SegmentSelectionActions on MapSegment {
   );
 
   Transition<MapEditorMode> startEdit() =>
-      Transition.to(SketchEdition(segmentId: id, path: []));
+      Transition.to(SketchEdition(segmentId: id));
 }

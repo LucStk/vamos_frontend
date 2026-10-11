@@ -1,10 +1,7 @@
-part of "../../../map_editor_mode.dart";
+part of "../../map_editor_mode.dart";
 
-@freezed
-sealed class InitTripMode extends MapEditorMode with _$InitTripMode {
-  InitTripMode._();
-
-  factory InitTripMode() = _InitTripMode;
+class InitTripMode extends MapEditorMode {
+  const InitTripMode();
 
   // @override
   // Transition<MapEditorMode> onTap(TapGesture g) => switch (g.element) {

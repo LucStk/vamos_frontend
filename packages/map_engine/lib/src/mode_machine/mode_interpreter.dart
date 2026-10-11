@@ -48,8 +48,21 @@ mixin ModeInterpreter<M extends Mode<M>> implements ModeHost {
   }
 
   void apply(Transition<M>? result, {bool fromEffect = false}) {
-    if (result == null) return;
+    switch (result) {
+      case null:
+        return;
+      case final DeferredTransition<M> d:
+        // Le résultat de build() peut lui-même être différé : on repasse par apply.
+        apply(d.build(state.context), fromEffect: fromEffect);
+      case final ResolvedTransition<M> r:
+        _applyResolved(r, fromEffect: fromEffect);
+    }
+  }
 
+  void _applyResolved(
+    ResolvedTransition<M> result, {
+    required bool fromEffect,
+  }) {
     final current = state.overlay;
     final nextMode = result.mode ?? mode;
 

@@ -9,7 +9,7 @@ final class CreateSegmentFromSketch extends SketchCommand<SegmentRemoteModel> {
     required this.geometry,
     required this.mobilityType,
   });
-  final List<LatLng> geometry;
+  final List<WorldOffset> geometry;
   final MobilityType mobilityType;
 }
 
@@ -21,7 +21,7 @@ final class SpliceSegment extends SketchCommand<SegmentId> {
     required this.endAnchor,
   });
   final SegmentId segmentId;
-  final List<LatLng> correction;
+  final List<WorldOffset> correction;
   final SpliceAnchor startAnchor;
   final SpliceAnchor endAnchor;
 }
@@ -37,7 +37,7 @@ final class CorrectSegmentFromSketch extends SketchCommand<Done> {
     required this.correction,
   });
   final SegmentId segmentId;
-  final List<LatLng> correction;
+  final List<WorldOffset> correction;
 }
 
 /// Projette un point écran en coordonnée géo ; le mode ajoute le résultat à son tracé.
