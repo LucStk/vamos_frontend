@@ -14,12 +14,8 @@ final vertexItemsProvider = VertexItemsFamily._();
 
 final class VertexItemsProvider
     extends
-        $FunctionalProvider<
-          List<PointItem<MapPoint>>,
-          List<PointItem<MapPoint>>,
-          List<PointItem<MapPoint>>
-        >
-    with $Provider<List<PointItem<MapPoint>>> {
+        $FunctionalProvider<List<PointItem>, List<PointItem>, List<PointItem>>
+    with $Provider<List<PointItem>> {
   VertexItemsProvider._({
     required VertexItemsFamily super.from,
     required (TripId, MapCameraReader) super.argument,
@@ -47,21 +43,20 @@ final class VertexItemsProvider
 
   @$internal
   @override
-  $ProviderElement<List<PointItem<MapPoint>>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<PointItem>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  List<PointItem<MapPoint>> create(Ref ref) {
+  List<PointItem> create(Ref ref) {
     final argument = this.argument as (TripId, MapCameraReader);
     return vertexItems(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<PointItem<MapPoint>> value) {
+  Override overrideWithValue(List<PointItem> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<PointItem<MapPoint>>>(value),
+      providerOverride: $SyncValueProvider<List<PointItem>>(value),
     );
   }
 
@@ -79,11 +74,7 @@ final class VertexItemsProvider
 String _$vertexItemsHash() => r'df082fcfbddbcf74ad35730cd3818daeec28ef98';
 
 final class VertexItemsFamily extends $Family
-    with
-        $FunctionalFamilyOverride<
-          List<PointItem<MapPoint>>,
-          (TripId, MapCameraReader)
-        > {
+    with $FunctionalFamilyOverride<List<PointItem>, (TripId, MapCameraReader)> {
   VertexItemsFamily._()
     : super(
         retry: null,
@@ -107,13 +98,8 @@ final class VertexItemsFamily extends $Family
 final segmentItemsProvider = SegmentItemsFamily._();
 
 final class SegmentItemsProvider
-    extends
-        $FunctionalProvider<
-          List<LineItem<MapLine>>,
-          List<LineItem<MapLine>>,
-          List<LineItem<MapLine>>
-        >
-    with $Provider<List<LineItem<MapLine>>> {
+    extends $FunctionalProvider<List<LineItem>, List<LineItem>, List<LineItem>>
+    with $Provider<List<LineItem>> {
   SegmentItemsProvider._({
     required SegmentItemsFamily super.from,
     required (TripId, MapCameraReader) super.argument,
@@ -139,21 +125,20 @@ final class SegmentItemsProvider
 
   @$internal
   @override
-  $ProviderElement<List<LineItem<MapLine>>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<LineItem>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  List<LineItem<MapLine>> create(Ref ref) {
+  List<LineItem> create(Ref ref) {
     final argument = this.argument as (TripId, MapCameraReader);
     return segmentItems(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<LineItem<MapLine>> value) {
+  Override overrideWithValue(List<LineItem> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<LineItem<MapLine>>>(value),
+      providerOverride: $SyncValueProvider<List<LineItem>>(value),
     );
   }
 
@@ -171,11 +156,7 @@ final class SegmentItemsProvider
 String _$segmentItemsHash() => r'f2e5b23da5a4611eef69c4cffbd5f63cda2c4eac';
 
 final class SegmentItemsFamily extends $Family
-    with
-        $FunctionalFamilyOverride<
-          List<LineItem<MapLine>>,
-          (TripId, MapCameraReader)
-        > {
+    with $FunctionalFamilyOverride<List<LineItem>, (TripId, MapCameraReader)> {
   SegmentItemsFamily._()
     : super(
         retry: null,

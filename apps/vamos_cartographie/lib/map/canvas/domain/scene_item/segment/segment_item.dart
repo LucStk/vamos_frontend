@@ -13,7 +13,7 @@ final class SegmentItem extends LineItem {
   final SegmentAppearance appearance;
 
   @override
-  final MapTrip object; // voir remarque ci-dessous
+  final MapSegment object; // voir remarque ci-dessous
 
   @override
   final List<WorldSegment> worldSegments;

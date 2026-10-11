@@ -23,7 +23,7 @@ class ExploreBottomSheet extends ConsumerWidget {
     final selection = ref.watch(modeContextProvider).get(selectionSlot);
 
     switch (selection) {
-      case TripSelection e:
+      case MapTrip e:
         return TripBottomSheet(tripId: e.id);
       case _:
         return CreateTripBottomSheet();

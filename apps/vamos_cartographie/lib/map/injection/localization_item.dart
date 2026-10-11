@@ -10,7 +10,7 @@ LocalizationItem? localizationItem(Ref ref, MapCameraReader camera) {
 
   if (location case final UserPositionActive activeLocation) {
     return LocalizationItem(
-      object: MapUserLocation(
+      object: MapLocalization(
         accuracy: activeLocation.accuracy,
         heading: activeLocation.heading,
       ),

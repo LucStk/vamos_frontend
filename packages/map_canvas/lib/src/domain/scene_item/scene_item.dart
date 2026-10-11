@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:map_engine/map_engine.dart';
 
+import '../../../map_canvas.dart';
 import '../draw_command.dart';
 import '../length.dart';
 
@@ -17,5 +18,5 @@ abstract class SceneItem {
 
   bool isHitAt(WorldOffset p, double zoomScale);
 
-  DrawCommand toDrawCommand();
+  DrawCommand toDrawCommand({MapPaintContext context});
 }

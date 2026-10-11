@@ -156,7 +156,7 @@ final class VertexItemProvider
   }
 }
 
-String _$vertexItemHash() => r'da550810aff39383a434d94c5e0ed7323083de25';
+String _$vertexItemHash() => r'874ceca0c2048205ea7e619703d2c71d822fed7b';
 
 final class VertexItemFamily extends $Family
     with

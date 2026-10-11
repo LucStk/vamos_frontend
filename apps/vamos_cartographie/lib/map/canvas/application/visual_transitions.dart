@@ -78,7 +78,7 @@ class VisualTransitions {
     _cachedVersion = _version;
     return _cached = [
       for (final item in items.reversed)
-        item.toDrawCommand(context: contextOf(item.object.stableId)),
+        item.toDrawCommand(context: contextOf(item.object)),
     ];
   }
 

@@ -6,7 +6,6 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import '/map/camera/application/map_camera_lifecycle.dart';
 import '/map/camera/injection/camera_or_null.dart';
 import '/map/camera/injection/map_camera_provider.dart';
-import '/map/camera/injection/user_location_trigger.dart';
 import "/map/camera/injection/camera_director_provider.dart";
 
 import "/map/injection/map_gesture_handler.dart";
@@ -19,7 +18,6 @@ import '/domain_features/domain_features.dart';
 
 import 'injection/explore_mode.dart';
 import 'injection/explore_scene.dart';
-import 'injection/trip_bounds_trigger.dart';
 
 import 'presentation/explore_bottom_sheet.dart';
 import 'presentation/trips_carousel_widget.dart';
@@ -48,11 +46,9 @@ class _MapExploreScreenState extends State<ExploreMapScreen>
 
 @Dependencies([
   MapExplore,
-  tripBoundsTrigger,
   CameraOrNull,
   mapCamera,
   cameraDirector,
-  userLocationTrigger,
   MapGestureHandlerNotifier,
 ])
 class _ExploreSceneResolver extends ConsumerWidget {
@@ -78,12 +74,10 @@ class _ExploreSceneResolver extends ConsumerWidget {
   visualTargets,
   modeContext,
   mapScene,
-  tripBoundsTrigger,
   CameraOrNull,
   MapExplore,
   mapCamera,
   cameraDirector,
-  userLocationTrigger,
   MapGestureHandlerNotifier,
 ])
 class _ExploreMapView extends ConsumerStatefulWidget {
@@ -102,10 +96,6 @@ class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
       body: Stack(
         children: [
           BaseMap(
-            cameraTriggers: [
-              userLocationTriggerProvider,
-              tripBoundsTriggerProvider,
-            ],
             overlayChildren: const [
               TripsCarouselWidget(),
               ExploreBottomSheet(),

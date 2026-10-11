@@ -4,8 +4,8 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip/trip.dart';
 
+import '../../../canvas/domain/scene_item/sketch_segment/sketch_segment_item.dart';
 import '/map/canvas/domain/scene_item/pencil_item.dart';
-import '/map/canvas/domain/scene_item/sketch_segment_item.dart';
 import 'map_editor_mode.dart';
 part 'sketch_item.g.dart';
 
@@ -19,22 +19,24 @@ List<SceneItem> sketchItem(
 ) {
   final List<SceneItem> ret = [];
 
-  final editorMode = ref.watch(mapEditorProvider(tripId).select((m) => m.mode));
+  final sketchTrace = ref.watch(
+    mapEditorProvider(tripId).select((m) => m.context.get(sketchTraceSlot)),
+  );
 
-  if (editorMode case final SketchMode sketch) {
-    final position = sketch.pencilPositionOrNull;
-    if (position != null) {
+  if (sketchTrace != null) {
+    final pencilPosition = sketchTrace.last;
+    if (pencilPosition != null) {
       ret.add(
         PencilItem(
-          object: MapSketchPencil(position),
-          worldPosition: cameraReader.latLngToWorldOffset(position),
+          object: MapSketchPencil(),
+          worldPosition: cameraReader.latLngToWorldOffset(pencilPosition),
         ),
       );
       ret.add(
         SketchSegmentItem(
-          object: MapSketchSegment(sketch.path),
+          object: MapSketchSegment(),
           worldSegments: projectLine(
-            sketch.path,
+            sketchTrace.points,
             cameraReader.latLngToWorldOffset,
           ),
         ),

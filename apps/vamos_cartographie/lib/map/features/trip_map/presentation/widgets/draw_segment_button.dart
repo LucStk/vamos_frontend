@@ -22,7 +22,7 @@ class DrawSegmentButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final editor = ref.watch(mapEditorProvider(tripId).notifier);
     return OutlinedButton.icon(
-      onPressed: () => editor.actOnSelection<VertexSelection>((s) {
+      onPressed: () => editor.actOnSelection<MapVertex>((s) {
         final v = ref.read(vertexProvider(tripId, s.id));
         return s.startSketch(v.latLng);
       }),

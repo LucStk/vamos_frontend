@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart' hide PointerEvent;
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -28,21 +28,36 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
     return true;
   }
 
-  /// Traduit un événement Flutter en types du moteur.
-  void onPointerEvent(PointerEventType type, PointerEvent event) {
-    _handler.onPointerEvent(
-      type,
-      ScreenOffset(event.localPosition),
-      button: _isSecondaryClick(event)
-          ? PointerButton.secondary
-          : PointerButton.primary,
-    );
+  // --- Entrées Flutter -> événements du moteur -----------------------------
+
+  void onPointerDown(PointerDownEvent e) => _handler.onPointerEvent(
+    PointerDown(_position(e.localPosition), _buttonOf(e.kind, e.buttons)),
+  );
+
+  void onPointerMove(PointerMoveEvent e) =>
+      _handler.onPointerEvent(PointerMove(_position(e.localPosition)));
+
+  void onPointerUp(PointerUpEvent e) =>
+      _handler.onPointerEvent(PointerUp(_position(e.localPosition)));
+
+  void onPointerCancel(PointerCancelEvent e) =>
+      _handler.onPointerEvent(PointerCancel(_position(e.localPosition)));
+
+  // --- Interne -------------------------------------------------------------
+
+  /// La caméra est lue à chaque événement, jamais capturée.
+  PointerPosition _position(Offset local) {
+    final screen = ScreenOffset(local);
+    final camera = ref.read(mapCameraProvider);
+    return PointerPosition(screen: screen, world: camera.screenToWorld(screen));
   }
 
-  static bool _isSecondaryClick(PointerEvent e) =>
-      e is PointerDownEvent &&
-      e.kind == PointerDeviceKind.mouse &&
-      (e.buttons & kSecondaryMouseButton) != 0;
+  /// Sur un `up`, Flutter met `buttons` à 0 : on retombe sur `primary`,
+  /// ce que le handler ignore de toute façon (il suit lui-même le clic droit).
+  static PointerButton _buttonOf(PointerDeviceKind kind, int buttons) =>
+      kind == PointerDeviceKind.mouse && (buttons & kSecondaryMouseButton) != 0
+      ? PointerButton.secondary
+      : PointerButton.primary;
 
   MapObject? _hitTest({required ScreenOffset offset, MapObject? exclude}) {
     final scene = ref.read(mapSceneProvider);

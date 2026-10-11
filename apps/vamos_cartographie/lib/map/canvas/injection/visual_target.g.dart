@@ -60,4 +60,4 @@ final class VisualTargetsProvider
   }
 }
 
-String _$visualTargetsHash() => r'981800695dfc59cc21801ce4c957e26d9c481567';
+String _$visualTargetsHash() => r'8734b87f46822062890b5bb8d4a27e9428e96f96';

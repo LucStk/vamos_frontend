@@ -16,6 +16,6 @@ SegmentItem segmentItem(
   final d = ref.watch(segmentProvider(tripId, id));
   return SegmentItem(
     worldSegments: projectLine(d.geometry, cameraReader.latLngToWorldOffset),
-    object: MapSegment(d.id, d.geometry),
+    object: MapSegment(d.id),
   );
 }

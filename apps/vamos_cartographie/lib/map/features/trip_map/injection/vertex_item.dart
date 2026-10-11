@@ -46,7 +46,7 @@ VertexItem vertexItem(
   final d = ref.watch(vertexDataProvider(tripId, id));
   return VertexItem(
     worldPosition: cameraReader.latLngToWorldOffset(d.position),
-    object: MapVertex(id, d.position),
+    object: MapVertex(id),
     visualKind: d.kind,
   );
 }

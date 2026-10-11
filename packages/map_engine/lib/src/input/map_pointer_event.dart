@@ -15,7 +15,7 @@ sealed class PointerEvent {
   final PointerPosition position;
 
   ScreenOffset get screen => position.screen;
-  WorldOffset? get world => position.world;
+  WorldOffset get world => position.world;
 }
 
 sealed class PointerButtonEvent extends PointerEvent {
@@ -28,12 +28,12 @@ final class PointerDown extends PointerButtonEvent {
   const PointerDown(super.position, super.pointerButton);
 }
 
-final class PointerMove extends PointerButtonEvent {
-  const PointerMove(super.position, super.pointerButton);
+final class PointerMove extends PointerEvent {
+  const PointerMove(super.position);
 }
 
-final class PointerUp extends PointerButtonEvent {
-  const PointerUp(super.position, super.pointerButton);
+final class PointerUp extends PointerEvent {
+  const PointerUp(super.position);
 }
 
 final class PointerCancel extends PointerEvent {

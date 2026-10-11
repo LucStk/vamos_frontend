@@ -1,6 +1,6 @@
 part of 'map_objects.dart';
 
-final class MapSegment extends MapObject implements TopologyObject {
+final class MapSegment extends MapObject implements Selectable, TopologyObject {
   final SegmentId id;
   const MapSegment(this.id);
 

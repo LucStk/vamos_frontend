@@ -5,9 +5,12 @@ export "src/domain/space/offset_type.dart";
 export "src/domain/space/world_segment.dart";
 
 export "src/domain/camera/map_camera.dart";
-export "src/domain/selection.dart";
 export "src/domain/camera/map_geo_bounds.dart";
 export "src/domain/gestures/gesture_sink.dart";
+export 'src/domain/gestures/map_gesture.dart';
+
+export "src/domain/selection.dart";
+export "src/domain/sketch_trace.dart";
 
 export "src/geometry/camera_to_matrix4.dart";
 export "src/geometry/segment_hit_helpers.dart";
@@ -26,8 +29,6 @@ export 'src/input/map_gesture_handler.dart';
 
 export "src/mode_machine/command/mode_command.dart";
 export "src/mode_machine/mode_interpreter.dart";
-
-export 'src/domain/gestures/map_gesture.dart';
 
 export "src/modes/trip_editor/map_editor_mode.dart";
 export "src/modes/trip_editor/edit_trip_command_resolver.dart";

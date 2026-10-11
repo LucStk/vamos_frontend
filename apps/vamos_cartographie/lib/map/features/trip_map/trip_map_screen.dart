@@ -12,7 +12,6 @@ import '/map/camera/application/map_camera_lifecycle.dart';
 import '/map/camera/domain/camera_vision.dart';
 import '/map/camera/injection/camera_or_null.dart';
 import '/map/camera/injection/map_camera_provider.dart';
-import '/map/camera/injection/user_location_trigger.dart';
 import "/map/camera/injection/camera_director_provider.dart";
 
 import '/map/canvas/injection/visual_target.dart';
@@ -61,7 +60,6 @@ class _TripMapScreenState extends State<TripMapScreen>
   mapCamera,
   MapEditor,
   cameraDirector,
-  userLocationTrigger,
   MapGestureHandlerNotifier,
 ])
 class _TripMapResolver extends ConsumerWidget {
@@ -116,7 +114,6 @@ class _TripMapResolver extends ConsumerWidget {
   mapCamera,
   MapEditor,
   cameraDirector,
-  userLocationTrigger,
   mapScene,
   MapGestureHandlerNotifier,
 ])
@@ -135,7 +132,6 @@ class _TripMapView extends ConsumerWidget {
       body: Stack(
         children: [
           BaseMap(
-            cameraTriggers: [userLocationTriggerProvider],
             overlayChildren: [
               MapTopBar(tripId: tripId),
               MapEditorBottomSheet(tripId: tripId),

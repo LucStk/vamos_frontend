@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import '../injection/explore_mode.dart';
-import '../injection/map_trip_object.dart';
 import '/domain_features/domain_features.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
@@ -40,10 +39,9 @@ class TripsCarouselWidget extends ConsumerWidget {
               return InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {
-                  final trip = ref.read(mapTripObjectProvider(tripId));
                   ref
                       .read(mapExploreProvider.notifier)
-                      .act((m) => IdleExplorerIntents.selectTrip(trip));
+                      .act((m) => IdleExplorerIntents.selectTrip(tripId));
                   //                   TripViewerDialog.show(
                   //                     context: context,
                   //                     tripId: tripId,

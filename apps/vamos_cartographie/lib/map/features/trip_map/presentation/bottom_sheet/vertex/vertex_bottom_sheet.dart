@@ -45,7 +45,7 @@ class VertexBottomSheet extends ConsumerWidget {
               Expanded(
                 child: ConfirmButton(
                   label: "Créer une étape ici",
-                  onPressed: () => editor.actOnSelection<VertexSelection>(
+                  onPressed: () => editor.actOnSelection<MapVertex>(
                     (s) => s.createWaypoint(),
                   ),
                 ),
@@ -56,7 +56,7 @@ class VertexBottomSheet extends ConsumerWidget {
               // 3. Supprimer le vertex
               DeleteButton(
                 onPressed: () =>
-                    editor.actOnSelection<VertexSelection>((s) => s.delete()),
+                    editor.actOnSelection<MapVertex>((s) => s.delete()),
               ),
             ],
           ),

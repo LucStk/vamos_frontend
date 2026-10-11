@@ -31,17 +31,17 @@ class MapEditorBottomSheet extends ConsumerWidget {
     );
 
     return switch (selected) {
-      VertexSelection(:final id) => _VertexSheet(
+      MapVertex(:final id) => _VertexSheet(
         key: ValueKey(id),
         tripId: tripId,
         vertexId: id,
       ),
-      SegmentSelection(:final id) => SegmentBottomSheet(
+      MapSegment(:final id) => SegmentBottomSheet(
         key: ValueKey(id),
         tripId: tripId,
         segmentId: id,
       ),
-      TripSelection() || null => const SizedBox.shrink(),
+      _ => const SizedBox.shrink(),
     };
   }
 }

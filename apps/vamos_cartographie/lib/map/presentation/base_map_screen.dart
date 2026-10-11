@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../canvas/injection/visual_target.dart';
 
@@ -27,23 +26,13 @@ import 'map_gesture_bridge.dart';
   MapGestureHandlerNotifier,
 ])
 class BaseMap extends ConsumerWidget {
-  const BaseMap({
-    super.key,
-    required this.overlayChildren,
-    this.cameraTriggers = const [],
-  });
+  const BaseMap({super.key, required this.overlayChildren});
 
-  final List<ProviderListenable<void>> cameraTriggers;
   final List<Widget> overlayChildren;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(cameraDirectorProvider);
-    print("base_map rebuild");
-
-    for (final trigger in cameraTriggers) {
-      ref.watch(trigger);
-    }
 
     return Stack(
       children: [
