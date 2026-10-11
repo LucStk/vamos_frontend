@@ -72,7 +72,7 @@ final class LocalizationItemProvider
   }
 }
 
-String _$localizationItemHash() => r'eac8509aa8dc85159ba4e741b08aa2c43da54963';
+String _$localizationItemHash() => r'd2450430c847e57c1f5ebbc17f255f77fa13a696';
 
 final class LocalizationItemFamily extends $Family
     with $FunctionalFamilyOverride<LocalizationItem?, MapCameraReader> {

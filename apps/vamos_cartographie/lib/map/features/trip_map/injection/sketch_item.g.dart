@@ -71,7 +71,7 @@ final class SketchItemProvider
   }
 }
 
-String _$sketchItemHash() => r'3cfebd22d0be1d13551a3b99c7e77c837bf44df3';
+String _$sketchItemHash() => r'e42c89749397da83319193eba6606e65ff96ac7c';
 
 final class SketchItemFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {
