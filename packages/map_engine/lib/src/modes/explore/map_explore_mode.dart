@@ -4,6 +4,7 @@ import '../../domain/selection.dart';
 import '../../mode_machine/slot.dart';
 import '../../mode_machine/mode.dart';
 import '../../mode_machine/transition.dart';
+import 'explore_command.dart';
 
 class MapExploreMode extends Mode<MapExploreMode> with ExploreIdleBehavior {
   const MapExploreMode();
@@ -14,7 +15,7 @@ mixin ExploreIdleBehavior on Mode<MapExploreMode> {
   Set<Slot> get retainedSlots => const {selectionSlot};
   @override
   Transition<MapExploreMode> onTap(TapGesture g) => switch (g.element) {
-    MapTrip e => Transition.set(selectionSlot, e),
+    MapTrip e => Transition.run(FocusTrip(e)).and(selectionSlot, e),
     _ => Transition.stay(),
   };
 }

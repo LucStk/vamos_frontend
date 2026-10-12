@@ -41,7 +41,7 @@ class TripsCarouselWidget extends ConsumerWidget {
                 onTap: () {
                   ref
                       .read(mapExploreProvider.notifier)
-                      .act((m) => IdleExplorerIntents.selectTrip(tripId));
+                      .apply(IdleExplorerIntents.selectTrip(tripId));
                   //                   TripViewerDialog.show(
                   //                     context: context,
                   //                     tripId: tripId,

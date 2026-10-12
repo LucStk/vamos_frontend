@@ -21,7 +21,7 @@ class PopupCreateVertexWidget extends ConsumerWidget {
 
     return ContextMenuShell(
       child: TextButton.icon(
-        onPressed: () => editor.act((m) {
+        onPressed: () => editor.apply((m) {
           final latLng = contextMenuLatLngPosition(ref, tripId);
           if (latLng == null) return null;
           return IdleEditorIntents.createVertex(latLng);

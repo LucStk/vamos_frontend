@@ -18,9 +18,12 @@ mixin SketchMode on MapEditorMode {
   //     ? Transition.to(withSelection(null))
   //     : Transition.stay();
 
-  // @override
-  // Transition<MapEditorMode> onDragging(DragUpdateGesture g) =>
-  //     g.dragged is MapSketchPencil
-  //     ? addPoint(g.offset, mode: withSelection(g.target))
-  //     : Transition.stay();
+  @override
+  Transition<MapEditorMode> onDragging(DragUpdateGesture g) =>
+      g.dragged is MapSketchPencil
+      ? Transition.withSlot(sketchTraceSlot, (trace) {
+          final t = trace.add(g.position.world);
+          return Transition.set(sketchTraceSlot, t);
+        })
+      : Transition.stay();
 }

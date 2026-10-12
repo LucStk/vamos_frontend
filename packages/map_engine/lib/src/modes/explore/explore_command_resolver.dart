@@ -3,6 +3,8 @@ import "../../domain/camera/map_camera.dart";
 import "../../mode_machine/command/common_command.dart";
 import "../../mode_machine/command/common_command_resolver.dart";
 import "../../mode_machine/command/mode_command.dart";
+import "../../mode_machine/transition.dart";
+import "explore_command.dart";
 import "map_explore_mode.dart";
 
 final class ExploreCommandResolver extends ModeCommandResolver<MapExploreMode>
@@ -17,6 +19,9 @@ final class ExploreCommandResolver extends ModeCommandResolver<MapExploreMode>
     ModeCommand<MapExploreMode, R> command,
   ) async {
     if (command is CommonCommand<R>) return resolveCommon(command);
-    return null;
+    final Object? result = await switch (command) {
+      FocusTrip(:final trip) => valueOrNull(),
+    };
+    return result as R?;
   }
 }

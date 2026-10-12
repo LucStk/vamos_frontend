@@ -6,11 +6,15 @@ import '../../map_editor_mode.dart';
 import '../../map_editor_command.dart';
 
 abstract final class SketchIntents {
-  static Transition<MapEditorMode> changeSegmentType(
-    SketchEdition s,
-    MobilityType type,
-  ) => Transition.run(ChangeSegmentType(s.segmentId, type));
+  static Transition<MapEditorMode> changeSegmentType(MobilityType type) =>
+      Transition.withSelection<MapEditorMode, SketchEdition>(
+        (s) => Transition.run(ChangeSegmentType(s.segmentId, type)),
+      );
 
-  static Transition<MapEditorMode> stopSketch(SketchEdition s) =>
-      Transition.to(IdleEditor()).and(selectionSlot, MapSegment(s.segmentId));
+  static Transition<MapEditorMode> stopSketch() =>
+      Transition.withSelection<MapEditorMode, SketchEdition>(
+        (s) => Transition.to(
+          IdleEditor(),
+        ).and(selectionSlot, MapSegment(s.segmentId)),
+      );
 }

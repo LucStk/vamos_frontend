@@ -45,7 +45,7 @@ class VertexBottomSheet extends ConsumerWidget {
               Expanded(
                 child: ConfirmButton(
                   label: "Créer une étape ici",
-                  onPressed: () => editor.actOnSelection<MapVertex>(
+                  onPressed: () => editor.apply(Transition.withContext<IdleEditor>(
                     (s) => s.createWaypoint(),
                   ),
                 ),

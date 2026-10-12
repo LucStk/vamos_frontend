@@ -37,15 +37,14 @@ class SketchBottomSheet extends ConsumerWidget {
                   values: MobilityTypeStyle.values,
                   selectedType:
                       MobilityTypeStyle.bike, // idéalement issu d'un ref.watch
-                  onTypeChanged: (newType) => editor.act(
-                    (SketchEdition m) =>
-                        SketchIntents.changeSegmentType(m, newType.type),
+                  onTypeChanged: (newType) => editor.apply(
+                    SketchIntents.changeSegmentType(m, newType.type),
                   ),
                 ),
               ),
               const SizedBox(width: 12),
               IconButton.filled(
-                onPressed: () => editor.act(SketchIntents.stopSketch),
+                onPressed: () => editor.apply(SketchIntents.stopSketch()),
                 icon: const Icon(Icons.close, size: 20),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.red.shade50,

@@ -1,8 +1,7 @@
 import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
-import '../domain/objects/map_objects.dart';
-import '../domain/selection.dart';
 import 'command/mode_command.dart';
+import 'effect/pending_run.dart';
 import 'mode.dart';
 import 'effect_queue.dart';
 import 'transition.dart';
@@ -16,81 +15,34 @@ mixin ModeInterpreter<M extends Mode<M>> implements ModeHost {
 
   ModeCommandResolver<M> get resolver;
   EffectQueue get effectQueue;
-  // dans la classe MapEditor
-  void actOnSelection<S extends Selectable>(
-    Transition<M>? Function(S s) action,
-  ) {
-    if (state.context.get(selectionSlot) case final S s) apply(action(s));
-  }
 
   @override
   void send(MapGesture event) {
     final interception = state.overlay?.intercept(event) ?? Interception.pass;
-
     if (interception.dismisses) dismissOverlay();
     if (interception.consumes) return;
-
     apply(mode.dispatchGesture(event));
   }
 
-  /// Exécute l'intent seulement si le mode courant est bien du type T.
-  void act<T extends M>(Transition<M>? Function(T mode) intent) {
-    final current = mode;
-    if (current is T) apply(intent(current));
-  }
-
-  /// Exécute l'action seulement si la sélection courante est de type S.
   @override
-  void dismissOverlay() {
-    if (state.overlay != null) {
-      setState(ModeState(mode, null, state.context));
-    }
-  }
+  void dismissOverlay() => _commit(state.withoutOverlay());
 
-  void apply(Transition<M>? result, {bool fromEffect = false}) {
-    switch (result) {
-      case null:
-        return;
-      case final DeferredTransition<M> d:
-        // Le résultat de build() peut lui-même être différé : on repasse par apply.
-        apply(d.build(state.context), fromEffect: fromEffect);
-      case final ResolvedTransition<M> r:
-        _applyResolved(r, fromEffect: fromEffect);
-    }
-  }
-
-  void _applyResolved(
-    ResolvedTransition<M> result, {
-    required bool fromEffect,
-  }) {
-    final current = state.overlay;
-    final nextMode = result.mode ?? mode;
-
-    var ctx = state.context;
-    if (nextMode != mode) ctx = ctx.afterTransition(nextMode);
-    for (final (slot, value) in result.slots) {
-      ctx = ctx.withSlot(slot, value);
-    }
-
-    final keep =
-        current != null &&
-        (fromEffect ? result.mode == null : current.survives(result));
-    final nextOverlay = result.overlay ?? (keep ? current : null);
-
-    if (!identical(nextMode, mode) ||
-        !identical(nextOverlay, current) ||
-        ctx != state.context) {
-      setState(ModeState(nextMode, nextOverlay, ctx));
-    }
-
-    final pending = result.pending;
+  void apply(Transition<M>? transition) {
+    final t = transition?.resolve(state);
+    if (t == null) return;
+    _commit(state.after(t));
+    final pending = t.pending;
     if (pending != null) effectQueue.add(() => _run(pending));
+  }
+
+  void _commit(ModeState<M> next) {
+    if (!identical(next, state)) setState(next);
   }
 
   Future<void> _run(PendingRun<M> pending) async {
     final result = await resolver.resolve(pending.command);
     if (result == null) return;
-    // Un effet qui se termine ne ferme pas un décorateur ouvert entre-temps.
-    apply(pending.then?.call(mode, result), fromEffect: true);
+    // `mode` est lu après l'attente : c'est le mode COURANT.
+    apply(pending.then?.call(state, result));
   }
 }
