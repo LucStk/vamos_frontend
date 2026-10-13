@@ -20,7 +20,7 @@ List<SceneItem> sketchItem(
   final List<SceneItem> ret = [];
 
   final sketchTrace = ref.watch(
-    mapEditorProvider(tripId).select((m) => m.context.get(sketchTraceSlot)),
+    mapEditorProvider(tripId).select((m) => m.slots.get(sketchTraceSlot)),
   );
 
   if (sketchTrace != null) {

@@ -48,8 +48,12 @@ class SegmentBottomSheet extends ConsumerWidget {
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(
                 onPressed: () => editor.apply(
-                  Transition.withSelection<MapEditorMode, MapSegment>(
-                    (s) => s.startEdit(),
+                  Transition.withSlot<TripEditMode, Selectable>(
+                    selectionSlot,
+                    (s) => switch (s) {
+                      MapSegment segment => segment.startEdit(),
+                      _ => Transition.stay(),
+                    },
                   ),
                 ),
                 icon: const Icon(Icons.edit_road_rounded, size: 20),
@@ -69,7 +73,8 @@ class SegmentBottomSheet extends ConsumerWidget {
               // 3. Bouton "Supprimer" le segment
               DeleteButton(
                 onPressed: () => editor.apply(
-                  Transition.withSelection<MapEditorMode, MapSegment>(
+                  Transition.withSlot<TripEditMode, Selectable>(
+                    selectionSlot,
                     (s) => s.delete(),
                   ),
                 ),

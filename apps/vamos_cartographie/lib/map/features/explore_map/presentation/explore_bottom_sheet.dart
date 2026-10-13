@@ -13,7 +13,7 @@ import '/map/injection/map_scene.dart';
 import '/map/camera/injection/map_camera_provider.dart';
 import "/map/injection/map_gesture_handler.dart";
 
-@Dependencies([mapScene, MapGestureHandlerNotifier, modeContext, mapCamera])
+@Dependencies([mapScene, MapGestureHandlerNotifier, mapCamera])
 class ExploreBottomSheet extends ConsumerWidget {
   const ExploreBottomSheet({super.key});
 

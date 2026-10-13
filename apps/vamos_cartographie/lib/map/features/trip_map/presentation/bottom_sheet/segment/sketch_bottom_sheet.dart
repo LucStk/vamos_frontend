@@ -1,29 +1,21 @@
 // Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_bottom_sheet.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_engine/map_engine.dart';
-import 'package:trip_application/trip/domain/domain.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import 'package:vamos_cartographie/map/overlay_ui/simple_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
 
-import '../../../../../../domain_features/topology/presentation/mobility_type_display.dart';
-import '../../../../../../ui_kit/type_selector/type_selector_view.dart';
-import '../../../../../overlay_ui/simple_bottom_sheet_shell.dart';
-import '../../../injection/map_editor_mode.dart';
-
-@Dependencies([MapEditor])
-class SketchBottomSheet extends ConsumerWidget {
-  final TripId tripId;
-
-  const SketchBottomSheet({super.key, required this.tripId});
+class SketchBottomSheet extends StatelessWidget {
+  const SketchBottomSheet({
+    super.key,
+    required this.onTypeChanged,
+    required this.stopSketch,
+  });
+  final void Function(MobilityTypeStyle type) onTypeChanged;
+  final VoidCallback stopSketch;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final editor = ref.read(mapEditorProvider(tripId).notifier);
-
-    // On écoute aussi l'état courant pour mettre à jour la sélection visuelle !
-    // (À adapter selon ton provider exact, ex: final currentType = ref.watch(...))
-
+  Widget build(BuildContext context) {
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey('compact_content'),
@@ -37,14 +29,12 @@ class SketchBottomSheet extends ConsumerWidget {
                   values: MobilityTypeStyle.values,
                   selectedType:
                       MobilityTypeStyle.bike, // idéalement issu d'un ref.watch
-                  onTypeChanged: (newType) => editor.apply(
-                    SketchIntents.changeSegmentType(m, newType.type),
-                  ),
+                  onTypeChanged: onTypeChanged,
                 ),
               ),
               const SizedBox(width: 12),
               IconButton.filled(
-                onPressed: () => editor.apply(SketchIntents.stopSketch()),
+                onPressed: stopSketch,
                 icon: const Icon(Icons.close, size: 20),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.red.shade50,

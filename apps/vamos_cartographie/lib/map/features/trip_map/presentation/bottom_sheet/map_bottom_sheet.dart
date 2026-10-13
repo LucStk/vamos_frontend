@@ -27,7 +27,7 @@ class MapEditorBottomSheet extends ConsumerWidget {
     if (isSketch) return SketchBottomSheet(tripId: tripId);
 
     final selected = ref.watch(
-      mapEditorProvider(tripId).select((s) => s.context.get(selectionSlot)),
+      mapEditorProvider(tripId).select((s) => s.slots.get(selectionSlot)),
     );
 
     return switch (selected) {

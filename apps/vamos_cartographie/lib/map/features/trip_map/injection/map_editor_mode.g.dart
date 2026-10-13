@@ -13,7 +13,7 @@ part of 'map_editor_mode.dart';
 final mapEditorProvider = MapEditorFamily._();
 
 final class MapEditorProvider
-    extends $NotifierProvider<MapEditor, ModeState<MapEditorMode>> {
+    extends $NotifierProvider<MapEditor, ModeState<TripEditMode>> {
   MapEditorProvider._({
     required MapEditorFamily super.from,
     required TripId super.argument,
@@ -42,10 +42,10 @@ final class MapEditorProvider
   MapEditor create() => MapEditor();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ModeState<MapEditorMode> value) {
+  Override overrideWithValue(ModeState<TripEditMode> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ModeState<MapEditorMode>>(value),
+      providerOverride: $SyncValueProvider<ModeState<TripEditMode>>(value),
     );
   }
 
@@ -60,15 +60,15 @@ final class MapEditorProvider
   }
 }
 
-String _$mapEditorHash() => r'8cc2eeb1b44608e89dc87be01d8b2b3de7122c28';
+String _$mapEditorHash() => r'1b0a34665838be17650c5ad3f91205e69245172e';
 
 final class MapEditorFamily extends $Family
     with
         $ClassFamilyOverride<
           MapEditor,
-          ModeState<MapEditorMode>,
-          ModeState<MapEditorMode>,
-          ModeState<MapEditorMode>,
+          ModeState<TripEditMode>,
+          ModeState<TripEditMode>,
+          ModeState<TripEditMode>,
           TripId
         > {
   MapEditorFamily._()
@@ -89,21 +89,21 @@ final class MapEditorFamily extends $Family
   String toString() => r'mapEditorProvider';
 }
 
-abstract class _$MapEditor extends $Notifier<ModeState<MapEditorMode>> {
+abstract class _$MapEditor extends $Notifier<ModeState<TripEditMode>> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  ModeState<MapEditorMode> build(TripId tripId);
+  ModeState<TripEditMode> build(TripId tripId);
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
     final ref =
-        this.ref as $Ref<ModeState<MapEditorMode>, ModeState<MapEditorMode>>;
+        this.ref as $Ref<ModeState<TripEditMode>, ModeState<TripEditMode>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<ModeState<MapEditorMode>, ModeState<MapEditorMode>>,
-              ModeState<MapEditorMode>,
+              AnyNotifier<ModeState<TripEditMode>, ModeState<TripEditMode>>,
+              ModeState<TripEditMode>,
               Object?,
               Object?
             >;

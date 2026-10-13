@@ -304,27 +304,26 @@ final class TripEditorSceneProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = modeContextProvider;
-  static final $allTransitiveDependencies1 = tripEditorSceneItemsProvider;
-  static final $allTransitiveDependencies2 =
+  static final $allTransitiveDependencies0 = tripEditorSceneItemsProvider;
+  static final $allTransitiveDependencies1 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies3 =
+  static final $allTransitiveDependencies2 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies4 =
+  static final $allTransitiveDependencies3 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies5 =
+  static final $allTransitiveDependencies4 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies3;
-  static final $allTransitiveDependencies6 =
+  static final $allTransitiveDependencies5 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies4;
-  static final $allTransitiveDependencies7 =
+  static final $allTransitiveDependencies6 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies5;
-  static final $allTransitiveDependencies8 =
+  static final $allTransitiveDependencies7 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies6;
-  static final $allTransitiveDependencies9 =
+  static final $allTransitiveDependencies8 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies7;
-  static final $allTransitiveDependencies10 =
+  static final $allTransitiveDependencies9 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies8;
-  static final $allTransitiveDependencies11 =
+  static final $allTransitiveDependencies10 =
       TripEditorSceneItemsProvider.$allTransitiveDependencies9;
 
   @override
@@ -367,7 +366,7 @@ final class TripEditorSceneProvider
   }
 }
 
-String _$tripEditorSceneHash() => r'df03c190a03eb6aa4e4f5301df19d657044bfdf1';
+String _$tripEditorSceneHash() => r'4911042a7c991bc870aac63a17ebdce57f57ff86';
 
 final class TripEditorSceneFamily extends $Family
     with $FunctionalFamilyOverride<MapScene, TripId> {
@@ -375,10 +374,7 @@ final class TripEditorSceneFamily extends $Family
     : super(
         retry: null,
         name: r'tripEditorSceneProvider',
-        dependencies: <ProviderOrFamily>[
-          modeContextProvider,
-          tripEditorSceneItemsProvider,
-        ],
+        dependencies: <ProviderOrFamily>[tripEditorSceneItemsProvider],
         $allTransitiveDependencies: <ProviderOrFamily>{
           TripEditorSceneProvider.$allTransitiveDependencies0,
           TripEditorSceneProvider.$allTransitiveDependencies1,
@@ -391,7 +387,6 @@ final class TripEditorSceneFamily extends $Family
           TripEditorSceneProvider.$allTransitiveDependencies8,
           TripEditorSceneProvider.$allTransitiveDependencies9,
           TripEditorSceneProvider.$allTransitiveDependencies10,
-          TripEditorSceneProvider.$allTransitiveDependencies11,
         },
         isAutoDispose: true,
       );

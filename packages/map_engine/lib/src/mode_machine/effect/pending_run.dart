@@ -1,16 +1,31 @@
-import '../command/mode_command.dart';
+import '../command/command.dart';
 import '../mode.dart';
 import '../mode_state.dart';
 import '../transition.dart';
 
+import '../command/handler_registry.dart';
+
 final class PendingRun<M extends Mode<M>> {
-  const PendingRun._(this.command, this.then);
+  const PendingRun._(this._execute);
 
   static PendingRun<M> of<M extends Mode<M>, R extends Object>(
-    ModeCommand<M, R> command,
+    Command<R, Object?> command,
     Transition<M>? Function(ModeState<M> current, R result)? then,
-  ) => PendingRun._(command, then == null ? null : (m, r) => then(m, r as R));
+  ) => PendingRun._((registry, current) async {
+    final result = await command.run(registry);
+    if (result == null) return null;
+    // `current()` est appelé après l'attente : c'est le mode COURANT.
+    return then?.call(current(), result);
+  });
 
-  final ModeCommand<M, Object> command;
-  final Transition<M>? Function(ModeState<M> current, Object result)? then;
+  final Future<Transition<M>?> Function(
+    HandlerRegistry registry,
+    ModeState<M> Function() current,
+  )
+  _execute;
+
+  Future<Transition<M>?> execute(
+    HandlerRegistry registry,
+    ModeState<M> Function() current,
+  ) => _execute(registry, current);
 }

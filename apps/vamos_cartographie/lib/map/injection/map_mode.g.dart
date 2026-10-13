@@ -103,46 +103,52 @@ final class ModeOverlayProvider
 
 String _$modeOverlayHash() => r'1daeccacb3ad716cf10f080751f1fb6b8b0fdb17';
 
-@ProviderFor(modeContext)
-final modeContextProvider = ModeContextProvider._();
+@ProviderFor(modeState)
+final modeStateProvider = ModeStateProvider._();
 
-final class ModeContextProvider
-    extends $FunctionalProvider<ModeContext, ModeContext, ModeContext>
-    with $Provider<ModeContext> {
-  ModeContextProvider._()
+final class ModeStateProvider
+    extends
+        $FunctionalProvider<
+          ModeState<Mode<dynamic>>,
+          ModeState<Mode<dynamic>>,
+          ModeState<Mode<dynamic>>
+        >
+    with $Provider<ModeState<Mode<dynamic>>> {
+  ModeStateProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'modeContextProvider',
+        name: r'modeStateProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
       );
 
   @override
-  String debugGetCreateSourceHash() => _$modeContextHash();
+  String debugGetCreateSourceHash() => _$modeStateHash();
 
   @$internal
   @override
-  $ProviderElement<ModeContext> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<ModeState<Mode<dynamic>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
-  ModeContext create(Ref ref) {
-    return modeContext(ref);
+  ModeState<Mode<dynamic>> create(Ref ref) {
+    return modeState(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ModeContext value) {
+  Override overrideWithValue(ModeState<Mode<dynamic>> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ModeContext>(value),
+      providerOverride: $SyncValueProvider<ModeState<Mode<dynamic>>>(value),
     );
   }
 }
 
-String _$modeContextHash() => r'b8462fbab2c897c113e2330a6ca27fc0a2b19bdb';
+String _$modeStateHash() => r'82b6a0a9605b578dd872e513d92b933a2488a34a';
 
 @ProviderFor(mapModeController)
 final mapModeControllerProvider = MapModeControllerProvider._();

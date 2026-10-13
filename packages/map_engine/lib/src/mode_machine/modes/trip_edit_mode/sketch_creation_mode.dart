@@ -1,10 +1,10 @@
-part of '../../map_editor_mode.dart';
+part of '../trip_edit_mode.dart';
 
-class SketchCreation extends MapEditorMode with SketchMode {
+class SketchCreation extends TripEditMode with SketchMode {
   const SketchCreation();
 
   @override
-  Transition<MapEditorMode> onPointerDown(PressGesture g) {
+  Transition<TripEditMode> onPointerDown(PressGesture g) {
     if (g.element is! MapSketchSegment) return Transition.stay();
     // final grab = closestPointOnPolyline(p, path);
     // return Transition(
@@ -14,7 +14,7 @@ class SketchCreation extends MapEditorMode with SketchMode {
   }
 
   // @override
-  // Transition<MapEditorMode> onTap(TapGesture g) {
+  // Transition<TripEditMode> onTap(TapGesture g) {
   //   switch (g.element) {
   //     case MapSketchPencil _:
   //       return Transition.overlay(SketchPencilMenu(g.offset));
@@ -25,7 +25,7 @@ class SketchCreation extends MapEditorMode with SketchMode {
 
   // SketchCreation
   @override
-  Transition<MapEditorMode> onDragEnd(DragEndGesture g) {
+  Transition<TripEditMode> onDragEnd(DragEndGesture g) {
     if (g.dragged is! MapSketchPencil) return Transition.stay();
 
     return Transition.withSlot(sketchTraceSlot, (trace) {

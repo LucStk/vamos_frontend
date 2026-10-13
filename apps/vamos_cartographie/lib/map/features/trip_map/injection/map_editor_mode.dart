@@ -9,14 +9,14 @@ import '/map/camera/injection/map_camera_provider.dart';
 part "map_editor_mode.g.dart";
 
 @Riverpod(dependencies: [mapCamera])
-class MapEditor extends _$MapEditor with ModeInterpreter<MapEditorMode> {
+class MapEditor extends _$MapEditor with ModeInterpreter<TripEditMode> {
   final _queue = EffectQueue();
 
   @override
   late EditTripCommandResolver resolver;
 
   @override
-  ModeState<MapEditorMode> build(TripId tripId) {
+  ModeState<TripEditMode> build(TripId tripId) {
     final graphEditor = ref.read(graphStoreProvider(tripId).notifier);
     final waypointEditor = ref.read(waypointStoreProvider(tripId).notifier);
     final mapCamera = ref.read(mapCameraProvider);
@@ -39,7 +39,7 @@ class MapEditor extends _$MapEditor with ModeInterpreter<MapEditorMode> {
   }
 
   @override
-  void setState(ModeState<MapEditorMode> newState) => state = newState;
+  void setState(ModeState<TripEditMode> newState) => state = newState;
 
   @override
   EffectQueue get effectQueue => _queue;

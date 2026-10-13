@@ -1,26 +1,25 @@
-part of "../../map_editor_mode.dart";
+part of "../trip_edit_mode.dart";
 
-class SketchEdition extends MapEditorMode with SketchMode {
+class SketchEdition extends TripEditMode with SketchMode {
   final SegmentId segmentId;
   const SketchEdition({required this.segmentId});
 
   @override
-  Transition<MapEditorMode> onPointerDown(PressGesture g) =>
-      switch (g.element) {
-        // On saisit le segment édité : le croquis démarre à ce point.
-        MapSegment s when s.id == segmentId => Transition.set(
-          sketchTraceSlot,
-          SketchTrace.from(g.position.world),
-        ),
-        _ => Transition.stay(),
-      };
+  Transition<TripEditMode> onPointerDown(PressGesture g) => switch (g.element) {
+    // On saisit le segment édité : le croquis démarre à ce point.
+    MapSegment s when s.id == segmentId => Transition.set(
+      sketchTraceSlot,
+      SketchTrace.from(g.position.world),
+    ),
+    _ => Transition.stay(),
+  };
 
   @override
-  Transition<MapEditorMode> onDragEnd(DragEndGesture g) =>
+  Transition<TripEditMode> onDragEnd(DragEndGesture g) =>
       Transition.withSlot(sketchTraceSlot, (trace) {
         final points = trace.points;
 
-        final Transition<MapEditorMode> correct = Transition.run(
+        final Transition<TripEditMode> correct = Transition.run(
           CorrectSegmentFromSketch(segmentId: segmentId, correction: points),
           then: leaveSketch,
         );

@@ -1,5 +1,5 @@
 import '../domain/gestures/map_gesture.dart';
-import 'command/common_command.dart';
+import 'command/camera_command.dart';
 import 'slot.dart';
 import 'transition.dart';
 

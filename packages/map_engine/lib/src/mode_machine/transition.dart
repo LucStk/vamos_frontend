@@ -1,9 +1,10 @@
+import '../../map_engine.dart';
+import 'command/command.dart';
 import 'effect/pending_run.dart';
 import 'mode.dart';
 import 'mode_state.dart';
 import 'overlay/overlay.dart';
 import 'slot.dart';
-import 'command/mode_command.dart';
 
 // Les commandes importent `Done` depuis ici : on le réexporte.
 export 'effect/results.dart';
@@ -14,9 +15,18 @@ part 'transition/deferred.dart';
 /// Ce qu'un mode ou un intent renvoie :
 /// - [ResolvedTransition] : décrite complètement ;
 /// - [DeferredTransition] : construite avec le contexte et le mode courants.
+// transition.dart
 sealed class Transition<M extends Mode<M>> {
   const Transition();
   ResolvedTransition<M>? resolve(ModeState<M> state);
+
+  /// Applique [f] au résultat, quand il sera connu.
+  Transition<M> _map(ResolvedTransition<M> Function(ResolvedTransition<M>) f);
+
+  Transition<M> and<T extends Object>(Slot<T> slot, T? value) =>
+      _map((r) => r.and(slot, value));
+  Transition<M> withOverlay(Overlay<M> o) => _map((r) => r.withOverlay(o));
+  Transition<M> closingOverlay() => _map((r) => r.closingOverlay());
 
   // --- Immédiates (renvoient ResolvedTransition : `.and` etc. dispo) -------
 
@@ -41,11 +51,9 @@ sealed class Transition<M extends Mode<M>> {
   /// Lance un effet. `then` reçoit le mode COURANT à la fin, et seulement
   /// si l'effet a réussi.
   static ResolvedTransition<M> run<M extends Mode<M>, R extends Object>(
-    ModeCommand<M, R> command, {
-    M? mode,
-    Transition<M>? Function(M current, R result)? then,
-  }) =>
-      ResolvedTransition<M>(mode: mode, pending: PendingRun.of(command, then));
+    Command<R, Object?> command, {
+    Transition<M>? Function(ModeState<M> current, R result)? then,
+  }) => ResolvedTransition<M>(pending: PendingRun.of(command, then));
 
   // --- Différées : `null` annule l'action ----------------------------------
 
@@ -63,6 +71,12 @@ sealed class Transition<M extends Mode<M>> {
   ) => withState<M>((st) {
     final v = st.slots.get(slot);
     return v == null ? null : build(v);
+  });
+  static DeferredTransition<M>
+  withSelection<M extends Mode<M>, T extends Selectable>(
+    Transition<M>? Function(T value) build,
+  ) => withSlot<M, Selectable>(selectionSlot, (st) {
+    return (st is T) ? build(st) : null;
   });
 
   static DeferredTransition<M> update<M extends Mode<M>, T extends Object>(

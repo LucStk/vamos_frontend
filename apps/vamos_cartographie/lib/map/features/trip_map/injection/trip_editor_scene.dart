@@ -53,10 +53,10 @@ List<SceneItem> tripEditorSceneItems(Ref ref, TripId tripId) {
   return objects;
 }
 
-@Riverpod(dependencies: [modeContext, tripEditorSceneItems])
+@Riverpod(dependencies: [tripEditorSceneItems])
 MapScene tripEditorScene(Ref ref, TripId tripId) {
   final selected = ref.watch(
-    modeContextProvider.select((c) => c.get(selectionSlot)),
+    modeContextProvider.select((c) => c.g(selectionSlot)),
   );
 
   final items = ref.watch(tripEditorSceneItemsProvider(tripId));

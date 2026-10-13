@@ -26,10 +26,10 @@ List<SceneItem> exploreSceneItems(Ref ref) {
   return items;
 }
 
-@Riverpod(dependencies: [exploreSceneItems, modeContext])
+@Riverpod(dependencies: [exploreSceneItems])
 MapScene exploreScene(Ref ref) {
   final selected = ref.watch(
-    modeContextProvider.select((c) => c.get(selectionSlot)),
+    modeStateProvider.select((c) => c.slots.get(selectionSlot)),
   );
   final projectScene = ref.watch(exploreSceneItemsProvider);
   return MapScene(selection: selected, items: projectScene);

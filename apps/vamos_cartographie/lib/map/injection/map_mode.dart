@@ -10,7 +10,26 @@ Mode mapMode(Ref ref) => throw UnimplementedError();
 Overlay? modeOverlay(Ref ref) => throw UnimplementedError();
 
 @Riverpod(keepAlive: true, dependencies: [])
-ModeContext modeContext(Ref ref) => throw UnimplementedError();
+ModeState modeState(Ref ref) => throw UnimplementedError();
 
 @Riverpod(keepAlive: true, dependencies: [])
 ModeHost mapModeController(Ref ref) => throw UnimplementedError();
+
+@Riverpod(dependencies: [mapCamera])
+class ModeMachineNotifier extends _$ModeMachineNotifier
+    with ModeMachine<MapExploreMode> {
+  final _queue = EffectQueue();
+
+  @override
+  ModeState<MapExploreMode> build() {
+    final camera = ref.read(mapCameraProvider);
+    resolver = ExploreCommandResolver(camera);
+    return ModeState(MapExploreMode());
+  }
+
+  @override
+  void setState(ModeState<MapExploreMode> newState) => state = newState;
+
+  @override
+  EffectQueue get effectQueue => _queue;
+}
