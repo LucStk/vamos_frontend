@@ -265,7 +265,7 @@ final class AllVertexIdsProvider
   }) : super(
          retry: null,
          name: r'allVertexIdsProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -310,7 +310,7 @@ final class AllVertexIdsProvider
   }
 }
 
-String _$allVertexIdsHash() => r'561c8c128729684dd2e29c2a6300dca9487b695b';
+String _$allVertexIdsHash() => r'f4255d1445df2bcb3b47353387dea24ed2c11d24';
 
 final class AllVertexIdsFamily extends $Family
     with $FunctionalFamilyOverride<List<VertexId>, TripId> {
@@ -320,7 +320,7 @@ final class AllVertexIdsFamily extends $Family
         name: r'allVertexIdsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   AllVertexIdsProvider call(TripId tripId) =>

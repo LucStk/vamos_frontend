@@ -409,7 +409,7 @@ final class VertexStoreProvider
   }) : super(
          retry: null,
          name: r'vertexStoreProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -457,7 +457,7 @@ final class VertexStoreProvider
   }
 }
 
-String _$vertexStoreHash() => r'73472e485f674c8410c9092c54abf740bb3cec49';
+String _$vertexStoreHash() => r'61cef566296481ac2dddd64ce16add40084839ba';
 
 final class VertexStoreFamily extends $Family
     with $FunctionalFamilyOverride<GraphCollectionStore<VertexFields>, TripId> {
@@ -467,7 +467,7 @@ final class VertexStoreFamily extends $Family
         name: r'vertexStoreProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   VertexStoreProvider call(TripId tripId) =>

@@ -28,12 +28,48 @@ final class VisualTargetsProvider
         name: r'visualTargetsProvider',
         isAutoDispose: true,
         dependencies: <ProviderOrFamily>[mapSceneProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
+        $allTransitiveDependencies: <ProviderOrFamily>{
           VisualTargetsProvider.$allTransitiveDependencies0,
-        ],
+          VisualTargetsProvider.$allTransitiveDependencies1,
+          VisualTargetsProvider.$allTransitiveDependencies2,
+          VisualTargetsProvider.$allTransitiveDependencies3,
+          VisualTargetsProvider.$allTransitiveDependencies4,
+          VisualTargetsProvider.$allTransitiveDependencies5,
+          VisualTargetsProvider.$allTransitiveDependencies6,
+          VisualTargetsProvider.$allTransitiveDependencies7,
+          VisualTargetsProvider.$allTransitiveDependencies8,
+          VisualTargetsProvider.$allTransitiveDependencies9,
+          VisualTargetsProvider.$allTransitiveDependencies10,
+          VisualTargetsProvider.$allTransitiveDependencies11,
+          VisualTargetsProvider.$allTransitiveDependencies12,
+        },
       );
 
   static final $allTransitiveDependencies0 = mapSceneProvider;
+  static final $allTransitiveDependencies1 =
+      MapSceneProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      MapSceneProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 =
+      MapSceneProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies4 =
+      MapSceneProvider.$allTransitiveDependencies3;
+  static final $allTransitiveDependencies5 =
+      MapSceneProvider.$allTransitiveDependencies4;
+  static final $allTransitiveDependencies6 =
+      MapSceneProvider.$allTransitiveDependencies5;
+  static final $allTransitiveDependencies7 =
+      MapSceneProvider.$allTransitiveDependencies6;
+  static final $allTransitiveDependencies8 =
+      MapSceneProvider.$allTransitiveDependencies7;
+  static final $allTransitiveDependencies9 =
+      MapSceneProvider.$allTransitiveDependencies8;
+  static final $allTransitiveDependencies10 =
+      MapSceneProvider.$allTransitiveDependencies9;
+  static final $allTransitiveDependencies11 =
+      MapSceneProvider.$allTransitiveDependencies10;
+  static final $allTransitiveDependencies12 =
+      MapSceneProvider.$allTransitiveDependencies11;
 
   @override
   String debugGetCreateSourceHash() => _$visualTargetsHash();

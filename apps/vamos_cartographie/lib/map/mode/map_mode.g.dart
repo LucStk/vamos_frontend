@@ -41,7 +41,7 @@ final class ModeStateNotifierProvider
   }
 }
 
-String _$modeStateNotifierHash() => r'f6f6cd4b255efacaf3e7892dce9baf453c85a43e';
+String _$modeStateNotifierHash() => r'905fda969c09af84c0a9a6f9c671147e1ba66069';
 
 abstract class _$ModeStateNotifier extends $Notifier<AppModeState> {
   AppModeState build();

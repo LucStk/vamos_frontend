@@ -37,14 +37,50 @@ final class MapGestureHandlerNotifierProvider
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies1,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies2,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies3,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies4,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies5,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies6,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies7,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies8,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies9,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies10,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies11,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies12,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies13,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies14,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies15,
         },
       );
 
   static final $allTransitiveDependencies0 = mapSceneProvider;
-  static final $allTransitiveDependencies1 = mapModeControllerProvider;
+  static final $allTransitiveDependencies1 =
+      MapSceneProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 =
+      MapSceneProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 =
+      MapSceneProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies4 =
+      MapSceneProvider.$allTransitiveDependencies3;
+  static final $allTransitiveDependencies5 =
+      MapSceneProvider.$allTransitiveDependencies4;
+  static final $allTransitiveDependencies6 =
+      MapSceneProvider.$allTransitiveDependencies5;
+  static final $allTransitiveDependencies7 =
+      MapSceneProvider.$allTransitiveDependencies6;
+  static final $allTransitiveDependencies8 =
+      MapSceneProvider.$allTransitiveDependencies7;
+  static final $allTransitiveDependencies9 =
+      MapSceneProvider.$allTransitiveDependencies8;
+  static final $allTransitiveDependencies10 =
+      MapSceneProvider.$allTransitiveDependencies9;
+  static final $allTransitiveDependencies11 =
+      MapSceneProvider.$allTransitiveDependencies10;
+  static final $allTransitiveDependencies12 =
+      MapSceneProvider.$allTransitiveDependencies11;
+  static final $allTransitiveDependencies13 = mapModeControllerProvider;
+  static final $allTransitiveDependencies14 =
       MapModeControllerProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies3 = mapCameraProvider;
+  static final $allTransitiveDependencies15 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();

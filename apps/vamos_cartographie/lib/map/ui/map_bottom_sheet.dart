@@ -6,36 +6,39 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/domain_features/topology/topology.dart';
+import 'package:vamos_cartographie/map/mode/map_mode.dart';
+import 'package:vamos_cartographie/map/ui/trip_map/bottom_sheet/segment/segment.dart';
+import 'package:vamos_cartographie/map/ui/trip_map/bottom_sheet/vertex/vertex_bottom_sheet.dart';
+import 'package:vamos_cartographie/map/ui/trip_map/bottom_sheet/vertex/waypoint_bottom_sheet.dart';
 
-@Dependencies([])
+@Dependencies([modeSelection, ModeMachine])
 class MapBottomSheet extends ConsumerWidget {
-  const MapBottomSheet({super.key, required this.tripId});
-  final TripId tripId;
+  const MapBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSketch = ref.watch(
-      mapEditorProvider(tripId).select((s) => s.mode is SketchMode),
-    );
-    if (isSketch) return SketchBottomSheet(tripId: tripId);
+    final mode = ref.watch(modeStateProvider.select((m) => m.mode));
+    final selection = ref.watch(modeSelectionProvider);
 
-    final selected = ref.watch(
-      mapEditorProvider(tripId).select((s) => s.slots.get(selectionSlot)),
-    );
-
-    return switch (selected) {
-      MapVertex(:final id) => _VertexSheet(
-        key: ValueKey(id),
-        tripId: tripId,
-        vertexId: id,
-      ),
-      MapSegment(:final id) => SegmentBottomSheet(
-        key: ValueKey(id),
-        tripId: tripId,
-        segmentId: id,
-      ),
-      _ => const SizedBox.shrink(),
-    };
+    switch ((mode, selection)) {
+      case (SketchMode _, _):
+        return SketchBottomSheet(onTypeChanged: (_) {}, stopSketch: () {});
+      case (TripEditMode _, MapVertex v):
+        return _VertexSheet(
+          key: ValueKey(v.id),
+          tripId: v.tripId,
+          vertexId: v.id,
+        );
+      case (TripEditMode _, MapSegment s):
+        return SegmentBottomSheet(
+          key: ValueKey(s.id),
+          tripId: s.tripId,
+          segmentId: s.id,
+        );
+      default:
+        return const SizedBox.shrink();
+    }
   }
 }
 
