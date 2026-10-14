@@ -1,3 +1,6 @@
+import 'package:map_engine/src/mode_machine/effect/handler_registry.dart';
+import 'package:map_engine/src/mode_machine/effect/effect_queue.dart';
+
 import '../domain/gestures/gesture_sink.dart';
 import '../domain/gestures/map_gesture.dart';
 import 'effect/effect_runner.dart';
@@ -12,8 +15,17 @@ mixin ModeMachine<M extends Mode<M>> implements ModeHost, ModeDriver<M> {
   void setState(ModeState<M> state);
   M get mode => state.mode;
 
-  /// Appelé quand une transition demande un effet. L'interpréteur ne l'exécute pas.
-  void schedule(PendingRun<M> run);
+  HandlerRegistry get registry;
+  EffectQueue get effectQueue;
+
+  late final EffectRunner<M> _runner = EffectRunner(
+    registry: registry,
+    queue: effectQueue,
+    driver: this,
+  );
+
+  void schedule(PendingRun<M> run) => _runner.schedule(run);
+  // setState, apply, send, dismissOverlay... inchangés
 
   @override
   void apply(Transition<M>? transition) {

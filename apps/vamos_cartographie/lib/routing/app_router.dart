@@ -2,32 +2,21 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter/material.dart';
 
+import 'package:vamos_cartographie/routing/routes/auth_routes.dart' as auth;
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/domain_features/auth/providers/providers.dart';
+import 'package:vamos_cartographie/map/map_screen.dart';
 
-import '/domain_features/auth/providers/auth_providers.dart';
-
-import 'routes/routes.dart';
-import 'routes/auth_routes.dart' as auth;
-
-import '/map/camera/domain/camera_vision.dart';
-import '/map/features/explore_map/explore_map_screen.dart';
-import "/map/injection/map_gesture_handler.dart";
-
-// import '/map/camera/injection/user_location_trigger.dart';
-// import '/map/features/explore_map/injection/trip_bounds_trigger.dart';
 part 'app_router.g.dart';
 
-@Dependencies([MapGestureHandlerNotifier])
-@TypedGoRoute<ExploreRoute>(
-  path: '/',
-  routes: [TypedGoRoute<TripRoute>(path: 'trip/:tripId')],
-)
+@Dependencies([])
+@TypedGoRoute<ExploreRoute>(path: '/', routes: [])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const ExploreMapScreen();
+    return const MapScreen();
   }
 }
 

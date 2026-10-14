@@ -3,7 +3,7 @@ import '../mode.dart';
 import '../mode_state.dart';
 import '../transition.dart';
 
-import '../command/handler_registry.dart';
+import 'handler_registry.dart';
 
 final class PendingRun<M extends Mode<M>> {
   const PendingRun._(this._execute);

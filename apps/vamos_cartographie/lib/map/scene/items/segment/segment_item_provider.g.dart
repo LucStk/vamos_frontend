@@ -1,0 +1,175 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'segment_item_provider.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(segmentItem)
+final segmentItemProvider = SegmentItemFamily._();
+
+final class SegmentItemProvider
+    extends $FunctionalProvider<SegmentItem, SegmentItem, SegmentItem>
+    with $Provider<SegmentItem> {
+  SegmentItemProvider._({
+    required SegmentItemFamily super.from,
+    required (TripId, SegmentId, MapCameraReader) super.argument,
+  }) : super(
+         retry: null,
+         name: r'segmentItemProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$segmentItemHash();
+
+  @override
+  String toString() {
+    return r'segmentItemProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<SegmentItem> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SegmentItem create(Ref ref) {
+    final argument = this.argument as (TripId, SegmentId, MapCameraReader);
+    return segmentItem(ref, argument.$1, argument.$2, argument.$3);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SegmentItem value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SegmentItem>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SegmentItemProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$segmentItemHash() => r'1f917eabe7d2f37393b8723147f65de270d13180';
+
+final class SegmentItemFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          SegmentItem,
+          (TripId, SegmentId, MapCameraReader)
+        > {
+  SegmentItemFamily._()
+    : super(
+        retry: null,
+        name: r'segmentItemProvider',
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
+        isAutoDispose: true,
+      );
+
+  SegmentItemProvider call(
+    TripId tripId,
+    SegmentId id,
+    MapCameraReader cameraReader,
+  ) => SegmentItemProvider._(argument: (tripId, id, cameraReader), from: this);
+
+  @override
+  String toString() => r'segmentItemProvider';
+}
+
+@ProviderFor(allSegmentItem)
+final allSegmentItemProvider = AllSegmentItemFamily._();
+
+final class AllSegmentItemProvider
+    extends $FunctionalProvider<List<LineItem>, List<LineItem>, List<LineItem>>
+    with $Provider<List<LineItem>> {
+  AllSegmentItemProvider._({
+    required AllSegmentItemFamily super.from,
+    required (TripId, MapCameraReader) super.argument,
+  }) : super(
+         retry: null,
+         name: r'allSegmentItemProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  static final $allTransitiveDependencies0 = segmentItemProvider;
+
+  @override
+  String debugGetCreateSourceHash() => _$allSegmentItemHash();
+
+  @override
+  String toString() {
+    return r'allSegmentItemProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<LineItem>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<LineItem> create(Ref ref) {
+    final argument = this.argument as (TripId, MapCameraReader);
+    return allSegmentItem(ref, argument.$1, argument.$2);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<LineItem> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<LineItem>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllSegmentItemProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$allSegmentItemHash() => r'09b86960c7b0e1928c4f60f6bba3c4322b158119';
+
+final class AllSegmentItemFamily extends $Family
+    with $FunctionalFamilyOverride<List<LineItem>, (TripId, MapCameraReader)> {
+  AllSegmentItemFamily._()
+    : super(
+        retry: null,
+        name: r'allSegmentItemProvider',
+        dependencies: <ProviderOrFamily>[segmentItemProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          AllSegmentItemProvider.$allTransitiveDependencies0,
+        ],
+        isAutoDispose: true,
+      );
+
+  AllSegmentItemProvider call(TripId tripId, MapCameraReader camera) =>
+      AllSegmentItemProvider._(argument: (tripId, camera), from: this);
+
+  @override
+  String toString() => r'allSegmentItemProvider';
+}

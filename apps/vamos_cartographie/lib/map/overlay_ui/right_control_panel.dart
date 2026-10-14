@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
+
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import '../camera/presentation/presentation.dart';
-import 'widgets/user_location_button.dart';
-import '/map/camera/injection/map_camera_provider.dart';
+import 'package:vamos_cartographie/map/overlay_ui/camera_ui/camera_buttons_control.dart';
+import 'package:vamos_cartographie/map/overlay_ui/widgets/user_location_button.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.
-@Dependencies([mapCamera])
+@Dependencies([])
 class MapControls extends ConsumerWidget {
   const MapControls({super.key});
 

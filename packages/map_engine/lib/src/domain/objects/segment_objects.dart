@@ -2,7 +2,8 @@ part of 'map_objects.dart';
 
 final class MapSegment extends MapObject implements Selectable, TopologyObject {
   final SegmentId id;
-  const MapSegment(this.id);
+  final TripId tripId;
+  const MapSegment({required this.id, required this.tripId});
 
   @override
   SpliceAnchor get anchor => SegmentAnchor(id);

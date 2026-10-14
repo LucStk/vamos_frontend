@@ -17,10 +17,17 @@ export "src/geometry/segment_hit_helpers.dart";
 export "src/geometry/world_segment_helper.dart";
 
 export "src/mode_machine/mode.dart";
+
 export "src/mode_machine/transition.dart";
 export "src/mode_machine/actions/selection_actions.dart";
-export 'src/mode_machine/effect_queue.dart';
+export "src/mode_machine/command/scopes.dart";
+
+export "src/mode_machine/effect/handler_registry.dart";
+export 'src/mode_machine/effect/effect_queue.dart';
+export 'src/mode_machine/effect/effect_runner.dart';
+
 export 'src/mode_machine/mode_state.dart';
+
 export 'src/mode_machine/overlay/overlay.dart';
 export 'src/mode_machine/overlay/context_menu_overlay.dart';
 export 'src/mode_machine/overlay/pencil_menu_overlay.dart';
@@ -32,8 +39,4 @@ export 'src/input/map_gesture_handler.dart';
 
 export "src/mode_machine/mode_machine.dart";
 
-export "src/mode_machine/modes/trip_edit_mode.dart";
-export "src/mode_machine/modes/map_explore_mode.dart";
-
-// export "src/modes/explore/modes/idle_explorer_mode.dart";
-// export "src/modes/explore/modes/trip_select_mode.dart";
+export "src/mode_machine/app_mode.dart";

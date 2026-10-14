@@ -1,10 +1,10 @@
-part of '../trip_edit_mode.dart';
+part of '../../app_mode.dart';
 
 class SketchCreation extends TripEditMode with SketchMode {
-  const SketchCreation();
+  const SketchCreation(super.tripId);
 
   @override
-  Transition<TripEditMode> onPointerDown(PressGesture g) {
+  Transition<AppMode> onPointerDown(PressGesture g) {
     if (g.element is! MapSketchSegment) return Transition.stay();
     // final grab = closestPointOnPolyline(p, path);
     // return Transition(
@@ -14,7 +14,7 @@ class SketchCreation extends TripEditMode with SketchMode {
   }
 
   // @override
-  // Transition<TripEditMode> onTap(TapGesture g) {
+  // Transition<AppMode> onTap(TapGesture g) {
   //   switch (g.element) {
   //     case MapSketchPencil _:
   //       return Transition.overlay(SketchPencilMenu(g.offset));
@@ -25,7 +25,7 @@ class SketchCreation extends TripEditMode with SketchMode {
 
   // SketchCreation
   @override
-  Transition<TripEditMode> onDragEnd(DragEndGesture g) {
+  Transition<AppMode> onDragEnd(DragEndGesture g) {
     if (g.dragged is! MapSketchPencil) return Transition.stay();
 
     return Transition.withSlot(sketchTraceSlot, (trace) {
@@ -35,7 +35,11 @@ class SketchCreation extends TripEditMode with SketchMode {
             geometry: trace.points,
             mobilityType: trace.mobilityType,
           ),
-          then: leaveSketch,
+          then: (current, SegmentRemoteModel m) {
+            return Transition.to(
+              IdleEditor(tripId),
+            ).and(selectionSlot, MapSegment(id: m.id, tripId: tripId));
+          },
         ),
 
         _ => Transition.stay(),

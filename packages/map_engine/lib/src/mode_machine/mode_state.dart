@@ -30,3 +30,8 @@ final class ModeState<M extends Mode<M>> {
     return ModeState(nextMode, nextOverlay, nextslots);
   }
 }
+
+extension ModeStateX<M extends Mode<M>> on ModeState<M> {
+  /// Le mode courant s'il est de type [S], sinon null.
+  S? modeAs<S extends M>() => mode is S ? mode as S : null;
+}

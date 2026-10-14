@@ -2,7 +2,8 @@ part of 'map_objects.dart';
 
 final class MapVertex extends MapObject implements TopologyObject, Selectable {
   final VertexId id;
-  const MapVertex(this.id);
+  final TripId tripId;
+  const MapVertex({required this.id, required this.tripId});
 
   @override
   SpliceAnchor get anchor => VertexAnchor(id);

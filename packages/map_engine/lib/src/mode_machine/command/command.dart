@@ -1,8 +1,7 @@
 // mode_machine/command.dart
 import 'package:dartz/dartz.dart';
-
-import '../effect/results.dart';
-import 'handler_registry.dart';
+import 'package:map_engine/src/mode_machine/effect/handler_registry.dart';
+import 'package:map_engine/src/mode_machine/effect/results.dart';
 
 abstract class Command<R extends Object, H> {
   const Command();

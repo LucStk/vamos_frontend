@@ -1,6 +1,6 @@
 // effect/effect_runner.dart
-import '../command/handler_registry.dart';
-import '../effect_queue.dart';
+import 'handler_registry.dart';
+import 'effect_queue.dart';
 import '../mode.dart';
 import '../mode_state.dart';
 import '../transition.dart';

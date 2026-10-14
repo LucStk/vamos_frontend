@@ -12,13 +12,6 @@ RouteBase get $exploreRoute => GoRouteData.$route(
   path: '/',
   hasOverriddenOnExit: false,
   factory: $ExploreRoute._fromState,
-  routes: [
-    GoRouteData.$route(
-      path: 'trip/:tripId',
-      hasOverriddenOnExit: false,
-      factory: $TripRoute._fromState,
-    ),
-  ],
 );
 
 mixin $ExploreRoute on GoRouteData {
@@ -39,34 +32,6 @@ mixin $ExploreRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $TripRoute on GoRouteData {
-  static TripRoute _fromState(GoRouterState state) => TripRoute(
-    tripId: state.pathParameters['tripId']!,
-    $extra: state.extra as CameraVision?,
-  );
-
-  TripRoute get _self => this as TripRoute;
-
-  @override
-  String get location =>
-      GoRouteData.$location('/trip/${Uri.encodeComponent(_self.tripId)}');
-
-  @override
-  void go(BuildContext context) => context.go(location, extra: _self.$extra);
-
-  @override
-  Future<T?> push<T>(BuildContext context) =>
-      context.push<T>(location, extra: _self.$extra);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location, extra: _self.$extra);
-
-  @override
-  void replace(BuildContext context) =>
-      context.replace(location, extra: _self.$extra);
 }
 
 // **************************************************************************
