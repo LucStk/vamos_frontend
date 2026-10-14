@@ -1,3 +1,4 @@
+import 'package:map_engine/src/mode_machine/command/camera_command.dart';
 import 'package:map_engine/src/mode_machine/command/trip_command.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
 

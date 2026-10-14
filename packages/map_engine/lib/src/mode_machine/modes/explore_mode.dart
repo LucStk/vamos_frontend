@@ -11,7 +11,14 @@ class ExploreMode extends AppMode {
     MapTrip e => Transition.run<AppMode, Done>(
       FocusTrip(e.id),
     ).and(selectionSlot, e),
-    null => Transition.set(selectionSlot, null),
+    null => Transition.withSelection((s) {
+      return switch (s) {
+        MapTrip _ => Transition.run<AppMode, Done>(
+          CameraBack(),
+        ).and(selectionSlot, null),
+        _ => Transition.stay(),
+      };
+    }),
     _ => Transition.stay(),
   };
 

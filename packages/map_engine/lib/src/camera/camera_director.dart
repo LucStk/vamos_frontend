@@ -11,7 +11,7 @@ final class CameraDirector {
 
   /// Priorité minimale acceptée. Elle ne fait que monter.
   CameraPriority _floor = CameraPriority.ambient;
-  final _history = <FocusPoint>[];
+  final _history = <CameraPose>[];
   static const _maxHistory = 20;
   CameraRequest? _pending;
   bool _flushScheduled = false;
@@ -57,18 +57,14 @@ final class CameraDirector {
   }
 
   void _remember() {
-    _history.add(
-      FocusPoint(_camera.center, zoom: _camera.zoomScale),
-    ); // adapte `center`
+    _history.add(_camera.pose);
     if (_history.length > _maxHistory) _history.removeAt(0);
   }
 
-  /// Revient à la position d'avant la dernière requête exécutée.
-  /// Ignore le plancher de priorité : c'est une action explicite.
   void back() {
     if (_disposed || _history.isEmpty) return;
-    _pending = null; // une requête en attente n'a plus de sens
-    _run(_history.removeLast());
+    _pending = null;
+    _camera.restore(_history.removeLast());
   }
 
   void _run(CameraTarget target) {

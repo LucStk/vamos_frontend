@@ -4,6 +4,8 @@ import 'package:domain_core/map_geo_bounds.dart';
 import 'package:domain_core/space/offset_type.dart';
 import 'package:latlong2/latlong.dart';
 
+typedef CameraPose = ({LatLng center, double zoom, double rotationDeg});
+
 // map_camera_reader.dart (nouveau, lecture seule)
 abstract interface class MapCameraReader {
   WorldOffset latLngToWorldOffset(LatLng position);
@@ -17,6 +19,7 @@ abstract interface class MapCameraReader {
   LatLng get center;
   ScreenOffset get screenCenter;
   WorldOffset get worldCenter;
+  CameraPose get pose;
   Size get size;
 }
 
@@ -33,4 +36,5 @@ abstract class MapCameraController extends MapCameraReader {
     MapEdgeInsets padding = MapEdgeInsets.zero,
     double? maxZoom,
   });
+  void restore(CameraPose pose);
 }

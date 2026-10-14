@@ -65,6 +65,23 @@ class FlutterMapCamera implements MapCameraController {
   @override
   LatLng get center => _camera.center;
 
+  @override
+  CameraPose get pose => (
+    center: _camera.center,
+    zoom: _camera.zoom,
+    rotationDeg: _camera.rotation,
+  );
+
+  @override
+  void restore(CameraPose p) {
+    final animated = _animatedController;
+    if (animated != null) {
+      animated.animateTo(dest: p.center, zoom: p.zoom, rotation: p.rotationDeg);
+    } else {
+      mapController.moveAndRotate(p.center, p.zoom, p.rotationDeg);
+    }
+  }
+
   Matrix4 get transformMatrix => buildCameraTransform(
     scale: zoomScale,
     screenCenter: screenCenter,
