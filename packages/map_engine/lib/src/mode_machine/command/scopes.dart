@@ -31,7 +31,9 @@ extension TopologyScopeX on TopologyScope {
 }
 
 // --- Scopes de mode : un par mode de AppMode ---
-abstract interface class ExploreScope implements CommonScope {}
+abstract interface class ExploreScope implements CommonScope {
+  Trip? getTrip(TripId tripId);
+}
 
 abstract interface class TripEditScope
     implements CommonScope, TopologyScope, WaypointScope, EditorScope {

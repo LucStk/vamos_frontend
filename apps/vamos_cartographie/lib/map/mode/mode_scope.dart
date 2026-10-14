@@ -10,11 +10,22 @@ part 'mode_scope.g.dart';
 
 // mode/mode_scopes.dart
 final class _ExploreScopeImpl implements ExploreScope {
-  const _ExploreScopeImpl({required this.director, required this.camera});
+  const _ExploreScopeImpl({
+    required this.director,
+    required this.camera,
+    required this.tripLookup,
+  });
+
   @override
   final CameraDirector director;
+
   @override
   final MapCameraController camera;
+
+  final Trip? Function(TripId tripId) tripLookup;
+
+  @override
+  Trip? getTrip(TripId tripId) => tripLookup(tripId);
 }
 
 final class _TripEditScopeImpl implements TripEditScope {
@@ -50,6 +61,10 @@ HandlerRegistry handlerRegistry(Ref ref) {
       graphEditor: ref.read(graphStoreProvider(tripId).notifier),
       waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
     ),
-    ExploreMode() => _ExploreScopeImpl(director: director, camera: camera),
+    ExploreMode() => _ExploreScopeImpl(
+      director: director,
+      camera: camera,
+      tripLookup: (TripId tripId) => ref.read(tripProvider(tripId)),
+    ),
   });
 }

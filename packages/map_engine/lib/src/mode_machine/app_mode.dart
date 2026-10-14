@@ -1,3 +1,4 @@
+import 'package:map_engine/src/mode_machine/command/trip_command.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
 
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';

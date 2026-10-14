@@ -8,8 +8,9 @@ class ExploreMode extends AppMode {
 
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    // MapTrip e => Transition.run(FocusTrip(e)).and(selectionSlot, e),
-    MapTrip e => Transition.set(selectionSlot, e),
+    MapTrip e => Transition.run<AppMode, Done>(
+      FocusTrip(e.id),
+    ).and(selectionSlot, e),
     null => Transition.set(selectionSlot, null),
     _ => Transition.stay(),
   };
