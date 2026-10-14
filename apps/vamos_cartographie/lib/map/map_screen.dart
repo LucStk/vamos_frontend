@@ -12,6 +12,7 @@ import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
 import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
+import 'package:vamos_cartographie/map/ui/map_ui.dart';
 
 @Dependencies([MapGestureHandlerNotifier, mapScene, visualTargets])
 class MapScreen extends StatefulWidget {
@@ -58,12 +59,7 @@ class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
     return Scaffold(
       body: Stack(
         children: [
-          BaseMap(
-            overlayChildren: const [
-              // TripsCarouselWidget(),
-              // ExploreBottomSheet(),
-            ],
-          ),
+          BaseMap(overlayChildren: const [MapUi()]),
 
           Positioned(top: 16, right: 16, child: AccountButton()),
 
