@@ -3,6 +3,7 @@ export "src/camera/camera_director.dart";
 export "src/domain/objects/map_objects.dart";
 
 export "src/domain/camera/map_camera.dart";
+export "src/domain/camera/camera_pose.dart";
 export "src/domain/gestures/gesture_sink.dart";
 export 'src/domain/gestures/map_gesture.dart';
 

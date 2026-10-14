@@ -130,7 +130,7 @@ final class TripStoreNotifierProvider
   }
 }
 
-String _$tripStoreNotifierHash() => r'704bb439d2d1b2a632e1ba8bb1ef789ffd9f4353';
+String _$tripStoreNotifierHash() => r'733eaff2d43841eca58559bbc4a23c5e2ec7c76a';
 
 abstract class _$TripStoreNotifier extends $Notifier<TripStore> {
   TripStore build();
@@ -161,7 +161,7 @@ final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
   }) : super(
          retry: null,
          name: r'tripProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -206,7 +206,7 @@ final class TripProvider extends $FunctionalProvider<Trip?, Trip?, Trip?>
   }
 }
 
-String _$tripHash() => r'f095ca0f0e1fa027df1faf1b0e213cd9a4906284';
+String _$tripHash() => r'bc028a391a7a0d147894afba9dc2094e9f34efef';
 
 final class TripFamily extends $Family
     with $FunctionalFamilyOverride<Trip?, TripId> {
@@ -216,7 +216,7 @@ final class TripFamily extends $Family
         name: r'tripProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   TripProvider call(TripId tripId) =>

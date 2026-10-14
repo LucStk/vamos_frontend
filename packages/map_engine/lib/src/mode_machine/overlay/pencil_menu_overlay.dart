@@ -21,7 +21,7 @@ final class PencilMenu extends ContextMenuOverlay<AppMode> {
           then: (current, segment) {
             final editor = current.modeAs<SketchMode>();
             if (editor == null) return null;
-            return Transition.to(IdleEditor(editor.tripId)).and(
+            return Transition.to(TripEditMode(editor.tripId)).and(
               selectionSlot,
               MapSegment(tripId: editor.tripId, id: segment.id),
             );

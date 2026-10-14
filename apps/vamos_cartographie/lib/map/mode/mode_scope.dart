@@ -54,7 +54,7 @@ HandlerRegistry handlerRegistry(Ref ref) {
   final camera = ref.watch(mapCameraProvider);
 
   return HandlerRegistry(switch (ref.watch(mapModeProvider)) {
-    TripEditMode(:final tripId) => _TripEditScopeImpl(
+    TripMode(:final tripId) => _TripEditScopeImpl(
       director: director,
       camera: camera,
       tripId: tripId,

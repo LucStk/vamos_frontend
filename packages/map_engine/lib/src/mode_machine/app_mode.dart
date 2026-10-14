@@ -18,8 +18,7 @@ import 'package:trip_application/trip_application.dart';
 part 'modes/trip_edit_mode/sketch_mode.dart';
 part "modes/trip_edit_mode/sketch_creation_mode.dart";
 part "modes/trip_edit_mode/sketch_edition_mode.dart";
-part "modes/trip_edit_mode/idle_editor_mode.dart";
-part "modes/trip_edit_mode.dart";
+part "modes/trip_mode.dart";
 part "modes/explore_mode.dart";
 
 typedef AppTransition = Transition<AppMode>;

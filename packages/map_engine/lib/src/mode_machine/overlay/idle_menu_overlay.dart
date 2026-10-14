@@ -14,7 +14,7 @@ final class IdleMenu extends ContextMenuOverlay<AppMode> {
   Transition<AppMode> createVertex() => Transition.run(
     CreateSimpleVertex(at),
     then: (current, VertexId id) {
-      final editor = current.modeAs<IdleEditor>();
+      final editor = current.modeAs<TripEditMode>();
       if (editor == null) return null;
       return Transition.set(
         selectionSlot,

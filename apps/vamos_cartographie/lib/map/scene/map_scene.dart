@@ -28,13 +28,13 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   final List<SceneItem> items = [?ref.watch(localizationItemProvider(camera))];
 
   switch (mode) {
-    case ExploreMode():
+    case ExploreMode _:
       items.addAll(ref.watch(allTripItemProvider(camera)));
 
     case SketchMode e:
       items.addAll(ref.watch(sketchItemProvider(e.tripId, camera)));
 
-    case TripEditMode e:
+    case TripMode e:
       items.addAll(ref.watch(allVertexItemProvider(e.tripId, camera)));
       items.addAll(ref.watch(allSegmentItemProvider(e.tripId, camera)));
       break;

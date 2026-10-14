@@ -1,6 +1,6 @@
 part of "../../app_mode.dart";
 
-mixin SketchMode on TripEditMode {
+mixin SketchMode on TripMode {
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
     MapSketchPencil _ => Transition.overlay(PencilMenu(g.screen)),
@@ -30,7 +30,7 @@ mixin SketchMode on TripEditMode {
   static Transition<AppMode> stopSketch() =>
       Transition.withMode<AppMode, SketchEdition>(
         (s) => Transition.to(
-          IdleEditor(s.tripId),
+          TripEditMode(s.tripId),
         ).and(selectionSlot, MapSegment(tripId: s.tripId, id: s.segmentId)),
       );
 }

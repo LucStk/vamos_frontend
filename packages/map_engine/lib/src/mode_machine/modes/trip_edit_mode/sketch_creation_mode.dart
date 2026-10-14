@@ -1,6 +1,6 @@
 part of '../../app_mode.dart';
 
-class SketchCreation extends TripEditMode with SketchMode {
+class SketchCreation extends TripMode with SketchMode {
   const SketchCreation(super.tripId);
 
   @override
@@ -37,7 +37,7 @@ class SketchCreation extends TripEditMode with SketchMode {
           ),
           then: (current, SegmentRemoteModel m) {
             return Transition.to(
-              IdleEditor(tripId),
+              TripEditMode(tripId),
             ).and(selectionSlot, MapSegment(id: m.id, tripId: tripId));
           },
         ),

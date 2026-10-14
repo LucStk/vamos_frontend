@@ -3,8 +3,7 @@ import 'dart:ui';
 import 'package:domain_core/map_geo_bounds.dart';
 import 'package:domain_core/space/offset_type.dart';
 import 'package:latlong2/latlong.dart';
-
-typedef CameraPose = ({LatLng center, double zoom, double rotationDeg});
+import 'package:map_engine/src/domain/camera/camera_pose.dart';
 
 // map_camera_reader.dart (nouveau, lecture seule)
 abstract interface class MapCameraReader {
@@ -36,5 +35,6 @@ abstract class MapCameraController extends MapCameraReader {
     MapEdgeInsets padding = MapEdgeInsets.zero,
     double? maxZoom,
   });
+  void panTo(LatLng center);
   void restore(CameraPose pose);
 }

@@ -1,6 +1,6 @@
 part of "../../app_mode.dart";
 
-class SketchEdition extends TripEditMode with SketchMode {
+class SketchEdition extends TripMode with SketchMode {
   final SegmentId segmentId;
   const SketchEdition(super.tripId, {required this.segmentId});
 
@@ -24,7 +24,7 @@ class SketchEdition extends TripEditMode with SketchMode {
           then: (current, done) {
             final editor = current.modeAs<SketchMode>();
             if (editor == null) return null;
-            return Transition.to(IdleEditor(editor.tripId));
+            return Transition.to(TripViewMode(editor.tripId));
           },
         );
 
@@ -42,7 +42,7 @@ class SketchEdition extends TripEditMode with SketchMode {
             then: (current, done) {
               final editor = current.modeAs<SketchMode>();
               if (editor == null) return null;
-              return Transition.to(IdleEditor(editor.tripId));
+              return Transition.to(TripEditMode(editor.tripId));
             },
           ),
           _ => Transition.stay(),

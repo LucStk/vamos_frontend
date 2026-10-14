@@ -66,7 +66,7 @@ class FlutterMapCamera implements MapCameraController {
   LatLng get center => _camera.center;
 
   @override
-  CameraPose get pose => (
+  CameraPose get pose => CameraPose(
     center: _camera.center,
     zoom: _camera.zoom,
     rotationDeg: _camera.rotation,
@@ -175,6 +175,16 @@ class FlutterMapCamera implements MapCameraController {
         _camera.center,
         max(_camera.zoom - 1, _camera.minZoom ?? 0),
       );
+    }
+  }
+
+  @override
+  void panTo(LatLng center) {
+    final animated = _animatedController;
+    if (animated != null) {
+      animated.animateTo(dest: center, zoom: _camera.zoom); // zoom inchangé
+    } else {
+      mapController.move(center, _camera.zoom);
     }
   }
 

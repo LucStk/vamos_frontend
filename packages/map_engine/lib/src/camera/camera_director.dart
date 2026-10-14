@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:map_engine/src/domain/camera/camera_pose.dart';
 import 'package:map_engine/src/domain/camera/camera_request.dart';
 import 'package:map_engine/src/domain/camera/map_camera.dart';
 
@@ -64,7 +65,15 @@ final class CameraDirector {
   void back() {
     if (_disposed || _history.isEmpty) return;
     _pending = null;
-    _camera.restore(_history.removeLast());
+    final saved = _history.removeLast();
+    final current = _camera.pose;
+
+    _camera.restore(
+      saved.copyWith(
+        zoom: min(saved.zoom, current.zoom),
+        rotationDeg: current.rotationDeg,
+      ),
+    );
   }
 
   void _run(CameraTarget target) {

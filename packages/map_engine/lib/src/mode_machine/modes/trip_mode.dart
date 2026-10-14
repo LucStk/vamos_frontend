@@ -1,14 +1,27 @@
-part of "../../app_mode.dart";
+part of "../app_mode.dart";
 
-// idle_editor_mode.dart
-mixin IdleBehavior on TripEditMode {
+sealed class TripMode extends AppMode {
+  const TripMode(this.tripId);
+  final TripId tripId;
+}
+
+final class TripEditMode extends TripViewMode {
+  const TripEditMode(super.tripId);
+}
+
+final class TripViewMode extends TripMode {
+  const TripViewMode(super.tripId);
+
   @override
   Set<Slot> get retainedSlots => const {selectionSlot};
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
     MapVertex e => Transition.set(selectionSlot, e),
     MapSegment e => Transition.set(selectionSlot, e),
-    null => Transition.set(selectionSlot, null),
+    null => Transition.run<AppMode, Done>(
+      CameraBack(),
+      then: (_, _) => Transition.to<AppMode>(const ExploreMode()),
+    ),
     _ => Transition.stay(),
   };
   @override
@@ -20,8 +33,4 @@ mixin IdleBehavior on TripEditMode {
       switch (g.element) {
         _ => Transition.overlay(IdleMenu(g.screen)),
       };
-}
-
-final class IdleEditor extends TripEditMode with IdleBehavior {
-  IdleEditor(super.tripId);
 }
