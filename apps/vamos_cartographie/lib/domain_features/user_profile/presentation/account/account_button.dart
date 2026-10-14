@@ -22,7 +22,7 @@ class AccountButton extends ConsumerWidget {
         child: InkResponse(
           containedInkWell: true,
           highlightShape: BoxShape.circle,
-          onTap: () => const ProfileRoute().go(context),
+          onTap: () => const ProfileRoute().push(context),
           child: authState.when(
             loading: () => const AccountButtonPlaceholder(),
             error: (_, _) => const LoggedOutAccountContent(),

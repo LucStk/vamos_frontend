@@ -47,6 +47,14 @@ final class MapLatLngBounds {
   LatLng get southEast => LatLng(south, east);
 
   LatLng get center => LatLng((north + south) / 2, (east + west) / 2);
+  @override
+  String toString() =>
+      'MapLatLngBounds('
+      'north: $north, '
+      'south: $south, '
+      'east: $east, '
+      'west: $west'
+      ')';
 }
 
 /// Représentation agnostique du padding en pixels logiques.

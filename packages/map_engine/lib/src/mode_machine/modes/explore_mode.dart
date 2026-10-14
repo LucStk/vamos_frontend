@@ -12,7 +12,6 @@ class ExploreMode extends AppMode {
       FocusTrip(e.id),
       then: (_, _) => Transition.to<AppMode>(TripViewMode(e.id)),
     ),
-    null => Transition.stay(),
     _ => Transition.stay(),
   };
 

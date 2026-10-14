@@ -30,7 +30,10 @@ final class CameraDirector {
 
   void submit(CameraRequest request) {
     // Règle 1 : trop peu prioritaire par rapport à ce qui s'est déjà passé.
-    if (request.priority.index < _floor.index) return;
+    if (request.priority.index < _floor.index) {
+      print("Not priority enougth");
+      return;
+    }
 
     // Règle 2 : dans la même passe, la plus prioritaire gagne (à égalité, la dernière).
     final pending = _pending;
@@ -51,12 +54,13 @@ final class CameraDirector {
     _pending = null;
     if (request == null) return;
 
-    if (request.priority.index > _floor.index) _floor = request.priority;
+    // supprimé : if (request.priority.index > _floor.index) _floor = request.priority;
 
     _remember();
     _run(request.target);
   }
 
+  void resetFloor() => _floor = CameraPriority.ambient;
   void _remember() {
     _history.add(_camera.pose);
     if (_history.length > _maxHistory) _history.removeAt(0);

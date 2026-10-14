@@ -17,8 +17,12 @@ final class FocusTrip extends ExploreCommand<Done> {
   Future<Done> handle(ExploreScope n) async {
     final bounds = n.getTrip(tripId)?.bounds;
     if (bounds != null) {
+      print("focus trip bounds ${bounds.toString()}");
       n.director.submit(
-        CameraRequest(FitBounds(bounds, padding: MapEdgeInsets.all(200))),
+        CameraRequest(
+          FitBounds(bounds, padding: MapEdgeInsets.all(200)),
+          priority: CameraPriority.explicit,
+        ),
       );
     }
     return const Done();
