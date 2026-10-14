@@ -29,8 +29,8 @@ final class MapGestureHandlerNotifierProvider
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[
           mapSceneProvider,
-          mapModeControllerProvider,
           mapCameraProvider,
+          modeMachineProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies0,
@@ -49,6 +49,7 @@ final class MapGestureHandlerNotifierProvider
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies13,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies14,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies15,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies16,
         },
       );
 
@@ -77,10 +78,12 @@ final class MapGestureHandlerNotifierProvider
       MapSceneProvider.$allTransitiveDependencies10;
   static final $allTransitiveDependencies12 =
       MapSceneProvider.$allTransitiveDependencies11;
-  static final $allTransitiveDependencies13 = mapModeControllerProvider;
-  static final $allTransitiveDependencies14 =
-      MapModeControllerProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies15 = mapCameraProvider;
+  static final $allTransitiveDependencies13 = mapCameraProvider;
+  static final $allTransitiveDependencies14 = modeMachineProvider;
+  static final $allTransitiveDependencies15 =
+      ModeMachineProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies16 =
+      ModeMachineProvider.$allTransitiveDependencies3;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();
@@ -99,7 +102,7 @@ final class MapGestureHandlerNotifierProvider
 }
 
 String _$mapGestureHandlerNotifierHash() =>
-    r'41f01ed951a13780ec7f73a8df8fa1503a215134';
+    r'5f8dc7711a4fb7f51f1db17a872e794a2f325a08';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).

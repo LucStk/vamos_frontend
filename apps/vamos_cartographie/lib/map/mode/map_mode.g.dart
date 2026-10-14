@@ -74,9 +74,27 @@ final class ModeMachineProvider
         retry: null,
         name: r'modeMachineProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: <ProviderOrFamily>[
+          handlerRegistryProvider,
+          mapCameraProvider,
+          mapModeProvider,
+          cameraDirectorProvider,
+        ],
+        $allTransitiveDependencies: <ProviderOrFamily>{
+          ModeMachineProvider.$allTransitiveDependencies0,
+          ModeMachineProvider.$allTransitiveDependencies1,
+          ModeMachineProvider.$allTransitiveDependencies2,
+          ModeMachineProvider.$allTransitiveDependencies3,
+        },
       );
+
+  static final $allTransitiveDependencies0 = handlerRegistryProvider;
+  static final $allTransitiveDependencies1 =
+      HandlerRegistryProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      HandlerRegistryProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 =
+      HandlerRegistryProvider.$allTransitiveDependencies2;
 
   @override
   String debugGetCreateSourceHash() => _$modeMachineHash();
@@ -100,7 +118,7 @@ final class ModeMachineProvider
   }
 }
 
-String _$modeMachineHash() => r'9136970cbfc52f5ebbcd5111d8b8b941e8ffb3c4';
+String _$modeMachineHash() => r'915a2cb4b7b9cfe000118474bb0b9c334fe38846';
 
 @ProviderFor(mapMode)
 final mapModeProvider = MapModeProvider._();
@@ -224,48 +242,3 @@ final class ModeSelectionProvider
 }
 
 String _$modeSelectionHash() => r'0c8da05f2e84ae36d6bd4bc0a477a08e3e4f66ef';
-
-@ProviderFor(mapModeController)
-final mapModeControllerProvider = MapModeControllerProvider._();
-
-final class MapModeControllerProvider
-    extends $FunctionalProvider<ModeHost, ModeHost, ModeHost>
-    with $Provider<ModeHost> {
-  MapModeControllerProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'mapModeControllerProvider',
-        isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[modeMachineProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapModeControllerProvider.$allTransitiveDependencies0,
-        ],
-      );
-
-  static final $allTransitiveDependencies0 = modeMachineProvider;
-
-  @override
-  String debugGetCreateSourceHash() => _$mapModeControllerHash();
-
-  @$internal
-  @override
-  $ProviderElement<ModeHost> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  ModeHost create(Ref ref) {
-    return mapModeController(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ModeHost value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ModeHost>(value),
-    );
-  }
-}
-
-String _$mapModeControllerHash() => r'11ddfa3c15acb254579db8bb3b4d5dba904ca30e';

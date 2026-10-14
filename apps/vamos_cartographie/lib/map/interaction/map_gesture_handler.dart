@@ -9,17 +9,14 @@ part 'map_gesture_handler.g.dart';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).
-@Riverpod(
-  keepAlive: true,
-  dependencies: [mapScene, mapModeController, mapCamera],
-)
+@Riverpod(keepAlive: true, dependencies: [mapScene, mapCamera, modeMachine])
 class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
   late MapGestureHandler _handler;
 
   @override
   bool build() {
     _handler = MapGestureHandler(
-      sink: () => ref.read(mapModeControllerProvider),
+      sink: () => ref.read(modeMachineProvider),
       hitTest: _hitTest,
       onPanAllowedChanged: (allowed) => state = allowed,
     );

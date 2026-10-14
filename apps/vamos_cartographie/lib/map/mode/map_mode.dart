@@ -2,6 +2,10 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/mode/mode_machine.dart';
+import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
+
+import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 part 'map_mode.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -12,7 +16,10 @@ class ModeStateNotifier extends _$ModeStateNotifier {
   void set(AppModeState next) => state = next;
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(
+  keepAlive: true,
+  dependencies: [handlerRegistry, mapCamera, mapMode, cameraDirector],
+)
 AppModeMachine modeMachine(Ref ref) => AppModeMachine(ref);
 
 // Dérivés : ils ne dépendent plus que de l'état
@@ -26,6 +33,3 @@ AppOverlay? modeOverlay(Ref ref) =>
 @Riverpod(keepAlive: true, dependencies: [])
 Selectable? modeSelection(Ref ref) =>
     ref.watch(modeStateProvider.select((s) => s.slots.get(selectionSlot)));
-
-@Riverpod(keepAlive: true, dependencies: [modeMachine])
-ModeHost mapModeController(Ref ref) => ref.watch(modeMachineProvider);

@@ -7,10 +7,14 @@ class ExploreMode extends AppMode {
   Set<Slot> get retainedSlots => const {selectionSlot};
 
   @override
-  Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    // MapTrip e => Transition.run(FocusTrip(e)).and(selectionSlot, e),
-    _ => Transition.stay(),
-  };
+  Transition<AppMode> onTap(TapGesture g) {
+    print("tap");
+    return switch (g.element) {
+      // MapTrip e => Transition.run(FocusTrip(e)).and(selectionSlot, e),
+      MapTrip e => Transition.set(selectionSlot, e),
+      _ => Transition.stay(),
+    };
+  }
 
   static Transition<AppMode> selectTrip(TripId tripId) =>
       Transition.set(selectionSlot, MapTrip(tripId));

@@ -31,6 +31,7 @@ abstract class Mode<Self extends Mode<Self>> {
   Transition<Self> onTap(TapGesture g) => Transition.stay();
   Transition<Self> onDoubleTap(DoubleTapGesture g) =>
       Transition.run(ZoomIn(g.position.screen));
+
   Transition<Self> onLongPress(LongPressGesture g) => Transition.stay();
   Transition<Self> onSecondaryTap(SecondaryTapGesture g) => Transition.stay();
 }

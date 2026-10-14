@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 
-@Dependencies([])
+@Dependencies([handlerRegistry])
 final class AppModeMachine with ModeMachine<AppMode> {
   AppModeMachine(this._ref);
   final Ref _ref;
@@ -24,5 +24,5 @@ final class AppModeMachine with ModeMachine<AppMode> {
   EffectQueue get effectQueue => _queue;
 
   @override
-  HandlerRegistry get registry => handlerRegistry(_ref);
+  HandlerRegistry get registry => _ref.read(handlerRegistryProvider);
 }

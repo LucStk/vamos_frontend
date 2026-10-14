@@ -42,29 +42,14 @@ HandlerRegistry handlerRegistry(Ref ref) {
   final director = ref.watch(cameraDirectorProvider);
   final camera = ref.watch(mapCameraProvider);
 
-  return switch (ref.watch(mapModeProvider)) {
-    TripEditMode(:final tripId) => _tripEditRegistry(
-      _TripEditScopeImpl(
-        director: director,
-        camera: camera,
-        tripId: tripId,
-        graphEditor: ref.read(graphStoreProvider(tripId).notifier),
-        waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
-      ),
+  return HandlerRegistry(switch (ref.watch(mapModeProvider)) {
+    TripEditMode(:final tripId) => _TripEditScopeImpl(
+      director: director,
+      camera: camera,
+      tripId: tripId,
+      graphEditor: ref.read(graphStoreProvider(tripId).notifier),
+      waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
     ),
-    ExploreMode() => _exploreRegistry(
-      _ExploreScopeImpl(director: director, camera: camera),
-    ),
-  };
+    ExploreMode() => _ExploreScopeImpl(director: director, camera: camera),
+  });
 }
-
-HandlerRegistry _exploreRegistry(_ExploreScopeImpl s) => HandlerRegistry()
-  ..register<CommonScope>(s)
-  ..register<ExploreScope>(s);
-
-HandlerRegistry _tripEditRegistry(_TripEditScopeImpl s) => HandlerRegistry()
-  ..register<CommonScope>(s)
-  ..register<TopologyScope>(s)
-  ..register<WaypointScope>(s)
-  ..register<EditorScope>(s)
-  ..register<TripEditScope>(s);

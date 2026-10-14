@@ -1,15 +1,22 @@
 // mode_machine/command.dart
 import 'package:dartz/dartz.dart';
+import 'package:map_engine/src/mode_machine/command/scopes.dart';
 import 'package:map_engine/src/mode_machine/effect/handler_registry.dart';
 import 'package:map_engine/src/mode_machine/effect/results.dart';
 
-abstract class Command<R extends Object, H> {
+abstract class Command<R extends Object, H extends CommandScope> {
   const Command();
 
   Future<R?> handle(H handler);
 
-  /// Appelé par le runner : H est connu ici, pas dans le runner.
-  Future<R?> run(HandlerRegistry registry) => handle(registry.of<H>());
+  Future<R?> run(HandlerRegistry registry) {
+    final h = registry.maybeOf<H>();
+    if (h == null) {
+      assert(false, '$runtimeType: $H indisponible dans le mode courant');
+      return Future.value(null);
+    }
+    return handle(h);
+  }
 }
 
 Future<Done?> done<F, T>(Future<Either<F, T>> Function() action) async =>

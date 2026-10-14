@@ -1,15 +1,15 @@
 // mode_machine/command/handler_registry.dart
+// mode_machine/command/handler_registry.dart
 final class HandlerRegistry {
-  final _byType = <Type, Object>{};
+  const HandlerRegistry(this._scope);
 
-  HandlerRegistry register<T extends Object>(T handler) {
-    _byType[T] = handler;
-    return this;
-  }
+  /// Le scope du mode courant (_ExploreScopeImpl, _TripEditScopeImpl...).
+  final Object _scope;
 
-  T of<T>() {
-    final h = _byType[T];
-    if (h is T) return h;
-    throw StateError('Aucun handler enregistré pour $T');
+  /// Renvoie le scope vu sous le type [H], ou null si le mode courant
+  /// ne fournit pas cette capacité.
+  H? maybeOf<H extends Object>() {
+    final s = _scope;
+    return s is H ? s : null;
   }
 }

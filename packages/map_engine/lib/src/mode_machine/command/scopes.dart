@@ -3,8 +3,10 @@ import 'package:domain_core/domain/collection_store.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
+abstract interface class CommandScope {}
+
 // command/scopes.dart
-abstract interface class CommonScope {
+abstract interface class CommonScope implements CommandScope {
   CameraDirector get director;
   MapCameraController get camera;
 }

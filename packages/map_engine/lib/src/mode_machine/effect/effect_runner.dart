@@ -22,6 +22,12 @@ final class EffectRunner<M extends Mode<M>> {
   final ModeDriver<M> driver;
 
   void schedule(PendingRun<M> p) => queue.add(() async {
-    driver.apply(await p.execute(registry, () => driver.state));
+    try {
+      final t = await p.execute(registry, () => driver.state);
+      driver.apply(t);
+    } catch (e, st) {
+      print('effet en échec : $e\n$st');
+      rethrow;
+    }
   });
 }
