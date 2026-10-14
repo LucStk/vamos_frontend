@@ -14,14 +14,22 @@ final class TripViewMode extends TripMode {
 
   @override
   Set<Slot> get retainedSlots => const {selectionSlot};
+
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
     MapVertex e => Transition.set(selectionSlot, e),
     MapSegment e => Transition.set(selectionSlot, e),
-    null => Transition.run<AppMode, Done>(
-      CameraBack(),
-      then: (_, _) => Transition.to<AppMode>(const ExploreMode()),
+
+    // Tap dans le vide : d'abord on désélectionne, ensuite seulement on sort.
+    null => Transition.withState<AppMode>(
+      (st) => st.slots.get(selectionSlot) == null
+          ? Transition.run<AppMode, Done>(
+              CameraBack(),
+              then: (_, _) => Transition.to<AppMode>(const ExploreMode()),
+            )
+          : Transition.set(selectionSlot, null),
     ),
+
     _ => Transition.stay(),
   };
   @override
