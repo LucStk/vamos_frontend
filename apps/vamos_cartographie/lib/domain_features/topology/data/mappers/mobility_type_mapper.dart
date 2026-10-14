@@ -1,5 +1,5 @@
 import 'package:trip_application/trip_application.dart';
-import '/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 
 // 1. De ton modèle local (MobilityType) VERS GraphQL (GMobilityType)
 extension MobilityTypeMapper on MobilityType {

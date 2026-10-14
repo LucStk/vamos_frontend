@@ -1,7 +1,7 @@
 import 'dart:ui';
-import 'package:map_engine/map_engine.dart';
-import 'length.dart';
-import 'paint_spec.dart';
+import 'package:domain_core/space/offset_type.dart';
+import 'package:map_canvas/src/domain/length.dart';
+import 'package:map_canvas/src/domain/paint_spec.dart';
 
 sealed class DrawCommand {
   const DrawCommand();

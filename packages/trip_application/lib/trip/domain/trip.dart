@@ -1,4 +1,5 @@
 import 'package:domain_core/id.dart';
+import 'package:domain_core/map_geo_bounds.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 part 'trip.freezed.dart';
@@ -12,6 +13,7 @@ abstract class Trip with _$Trip implements HasId {
     @Default('') String title,
     @Default('') String description,
     DateTime? date,
+    MapLatLngBounds? bounds,
   }) = _Trip;
 }
 

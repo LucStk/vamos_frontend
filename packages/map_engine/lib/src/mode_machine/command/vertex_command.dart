@@ -1,10 +1,9 @@
+import 'package:domain_core/space/offset_type.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:map_engine/src/mode_machine/command/command.dart';
+import 'package:map_engine/src/mode_machine/command/scopes.dart';
+import 'package:map_engine/src/mode_machine/effect/results.dart';
 import 'package:trip_application/trip_application.dart';
-
-import '../../domain/space/offset_type.dart';
-import '../transition.dart';
-import 'command.dart';
-import 'scopes.dart';
 
 sealed class VertexCommand<R extends Object> extends Command<R, TopologyScope> {
   const VertexCommand();

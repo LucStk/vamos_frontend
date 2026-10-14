@@ -1,10 +1,9 @@
 import 'package:trip_application/trip_application.dart';
-import '../graphql/graphql.dart';
-import '/core/graphql/graphql.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
-
-import 'geometry_mapper.dart';
-import 'mobility_type_mapper.dart';
+import 'package:vamos_cartographie/core/geometry_mappers/position_mapper.dart';
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.data.gql.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/mappers/mobility_type_mapper.dart';
 
 extension GSegmentFieldsMapper on GSegmentFields {
   SegmentRemoteModel toDomain() => SegmentRemoteModel(

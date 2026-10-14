@@ -1,7 +1,6 @@
+import 'package:domain_core/map_geo_bounds.dart';
+import 'package:domain_core/space/offset_type.dart';
 import 'package:latlong2/latlong.dart';
-
-import '../../../map_engine.dart';
-import 'map_geo_bounds.dart';
 
 enum CameraPriority { ambient, content, explicit } // l'index sert à comparer
 

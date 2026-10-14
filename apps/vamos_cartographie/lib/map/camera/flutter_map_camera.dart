@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:domain_core/domain_core.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';

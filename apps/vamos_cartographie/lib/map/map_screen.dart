@@ -9,8 +9,11 @@ import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/rendering/base_map_screen.dart';
 import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
+import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 
-@Dependencies([MapGestureHandlerNotifier])
+import 'package:vamos_cartographie/map/scene/map_scene.dart';
+
+@Dependencies([MapGestureHandlerNotifier, mapScene, visualTargets])
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
 
@@ -33,6 +36,8 @@ class _MapExploreScreenState extends State<MapScreen>
 }
 
 @Dependencies([
+  mapScene,
+  visualTargets,
   MapGestureHandlerNotifier,
   CameraOrNull,
   mapCamera,

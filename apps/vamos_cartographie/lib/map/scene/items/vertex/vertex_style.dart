@@ -1,7 +1,7 @@
 import 'dart:ui';
 
+import 'package:domain_core/space/offset_type.dart';
 import 'package:map_canvas/map_canvas.dart';
-import 'package:map_engine/map_engine.dart';
 
 enum VertexVisualKind { normal, start, end }
 

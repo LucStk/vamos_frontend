@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:map_engine/map_engine.dart';
+import 'package:domain_core/domain_core.dart';
 
 extension MapEdgeInsetsToFlutter on MapEdgeInsets {
   EdgeInsets toFlutter() {

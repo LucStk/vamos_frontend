@@ -6,10 +6,13 @@ import 'package:vamos_cartographie/routing/routes/auth_routes.dart' as auth;
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/auth/providers/providers.dart';
 import 'package:vamos_cartographie/map/map_screen.dart';
+import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
+import 'package:vamos_cartographie/map/interaction/visual_target.dart';
+import 'package:vamos_cartographie/map/scene/map_scene.dart';
 
 part 'app_router.g.dart';
 
-@Dependencies([])
+@Dependencies([MapGestureHandlerNotifier, mapScene, visualTargets])
 @TypedGoRoute<ExploreRoute>(path: '/', routes: [])
 class ExploreRoute extends GoRouteData with $ExploreRoute {
   const ExploreRoute();

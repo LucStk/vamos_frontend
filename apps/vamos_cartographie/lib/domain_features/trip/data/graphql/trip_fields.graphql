@@ -7,6 +7,7 @@ fragment TripFields on TripType {
     title
     date
     description
+    bounds
     files {
         ...FileAttachment
     }

@@ -3,12 +3,12 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i2;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.data.gql.dart'
-    as _i2;
 
 abstract class GSegmentFields {
   String get id;

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
+import 'package:domain_core/map_geo_bounds.dart';
+import 'package:domain_core/space/offset_type.dart';
 import 'package:latlong2/latlong.dart';
-import '../space/offset_type.dart';
-import 'map_geo_bounds.dart';
 
 // map_camera_reader.dart (nouveau, lecture seule)
 abstract interface class MapCameraReader {

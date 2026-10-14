@@ -124,6 +124,12 @@ enum PoiCategory {
   WARNING
 }
 
+"""
+A geographical object that gets 1 or 2 LinearRing objects as external and
+internal rings. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or object).
+"""
+scalar Polygon
+
 type Query {
   trip(id: UUID!): TripType!
   trips: [TripType!]!
@@ -193,6 +199,7 @@ type TripType {
   title: String!
   description: String!
   date: Date
+  bounds: Polygon
   waypoints: [WaypointType!]!
   owner: UserProfileType!
   files: [FileAttachmentType!]!

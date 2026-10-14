@@ -1,6 +1,6 @@
-import '../../input/map_pointer_event.dart';
-import '../objects/map_objects.dart';
-import '../space/offset_type.dart';
+import 'package:domain_core/space/offset_type.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:map_engine/src/input/map_pointer_event.dart';
 
 sealed class MapGesture {
   const MapGesture(this.position);

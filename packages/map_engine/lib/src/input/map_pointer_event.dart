@@ -1,4 +1,4 @@
-import '../domain/space/offset_type.dart';
+import 'package:domain_core/space/offset_type.dart';
 
 enum PointerButton { primary, secondary }
 

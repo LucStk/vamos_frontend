@@ -74,12 +74,7 @@ final class ModeMachineProvider
         retry: null,
         name: r'modeMachineProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[
-          handlerRegistryProvider,
-          mapCameraProvider,
-          mapModeProvider,
-          cameraDirectorProvider,
-        ],
+        dependencies: <ProviderOrFamily>[handlerRegistryProvider],
         $allTransitiveDependencies: <ProviderOrFamily>{
           ModeMachineProvider.$allTransitiveDependencies0,
           ModeMachineProvider.$allTransitiveDependencies1,
@@ -118,7 +113,7 @@ final class ModeMachineProvider
   }
 }
 
-String _$modeMachineHash() => r'915a2cb4b7b9cfe000118474bb0b9c334fe38846';
+String _$modeMachineHash() => r'453119fde5a87ff4cbdbf3b67e7805578f71c1f1';
 
 @ProviderFor(mapMode)
 final mapModeProvider = MapModeProvider._();

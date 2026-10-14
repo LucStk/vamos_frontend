@@ -908,6 +908,10 @@ const PoiCategory = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const Polygon = _i1.ScalarTypeDefinitionNode(
+  name: _i1.NameNode(value: 'Polygon'),
+  directives: [],
+);
 const Query = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'Query'),
   directives: [],
@@ -1354,6 +1358,15 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'bounds'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Polygon'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'waypoints'),
       directives: [],
       args: [],
@@ -1695,6 +1708,7 @@ const document = _i1.DocumentNode(definitions: [
   MobilityType,
   Mutation,
   PoiCategory,
+  Polygon,
   Query,
   RefineSegmentPayload,
   SegmentAnchorInput,

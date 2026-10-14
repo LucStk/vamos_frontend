@@ -2,12 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
-import '../datasources/datasources.dart';
-import '/core/graphql/graphql.dart';
-import '../mappers/geometry_mapper.dart';
-import '../mappers/mobility_type_mapper.dart';
-import '../mappers/segment_mappers.dart';
-import '/core/erreur_handler.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
+import 'package:vamos_cartographie/core/geometry_mappers/position_mapper.dart';
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/datasources/segment_remote_datasource.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/mappers/mobility_type_mapper.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/mappers/segment_mappers.dart';
 
 class SegmentRepositoryImpl extends SegmentRepository {
   final SegmentRemoteDatasource remote;

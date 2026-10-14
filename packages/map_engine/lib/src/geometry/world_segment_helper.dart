@@ -1,5 +1,5 @@
-import '../domain/space/offset_type.dart';
-import '../domain/space/world_segment.dart';
+import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/space/world_segment.dart';
 
 List<(T, T)> consecutivePairs<T>(List<T> points) {
   return [

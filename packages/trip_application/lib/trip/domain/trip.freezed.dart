@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Trip {
 
- TripId get id; UserId get ownerId; String get title; String get description; DateTime? get date;
+ TripId get id; UserId get ownerId; String get title; String get description; DateTime? get date; MapLatLngBounds? get bounds;
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $TripCopyWith<Trip> get copyWith => _$TripCopyWithImpl<Trip>(this as Trip, _$ide
 @override
 bool operator ==(Object other) {
   final _this = this as Trip;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trip&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.ownerId, _this.ownerId) || other.ownerId == _this.ownerId)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.date, _this.date) || other.date == _this.date));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Trip&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.ownerId, _this.ownerId) || other.ownerId == _this.ownerId)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.date, _this.date) || other.date == _this.date)&&(identical(other.bounds, _this.bounds) || other.bounds == _this.bounds));
 }
 
 
 @override
 int get hashCode {
   final _this = this as Trip;
-  return Object.hash(runtimeType,_this.id,_this.ownerId,_this.title,_this.description,_this.date);
+  return Object.hash(runtimeType,_this.id,_this.ownerId,_this.title,_this.description,_this.date,_this.bounds);
 }
 
 @override
 String toString() {
   final _this = this as Trip;
-  return 'Trip(id: ${_this.id}, ownerId: ${_this.ownerId}, title: ${_this.title}, description: ${_this.description}, date: ${_this.date})';
+  return 'Trip(id: ${_this.id}, ownerId: ${_this.ownerId}, title: ${_this.title}, description: ${_this.description}, date: ${_this.date}, bounds: ${_this.bounds})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $TripCopyWith<$Res>  {
   factory $TripCopyWith(Trip value, $Res Function(Trip) _then) = _$TripCopyWithImpl;
 @useResult
 $Res call({
- TripId id, UserId ownerId, String title, String description, DateTime? date
+ TripId id, UserId ownerId, String title, String description, DateTime? date, MapLatLngBounds? bounds
 });
 
 
@@ -68,14 +68,15 @@ class _$TripCopyWithImpl<$Res>
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ownerId = null,Object? title = null,Object? description = null,Object? date = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ownerId = null,Object? title = null,Object? description = null,Object? date = freezed,Object? bounds = freezed,}) {
   return _then(Trip(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
 as UserId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,bounds: freezed == bounds ? _self.bounds : bounds // ignore: cast_nullable_to_non_nullable
+as MapLatLngBounds?,
   ));
 }
 
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TripId id,  UserId ownerId,  String title,  String description,  DateTime? date)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TripId id,  UserId ownerId,  String title,  String description,  DateTime? date,  MapLatLngBounds? bounds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Trip() when $default != null:
-return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date);case _:
+return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date,_that.bounds);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date)
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TripId id,  UserId ownerId,  String title,  String description,  DateTime? date)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TripId id,  UserId ownerId,  String title,  String description,  DateTime? date,  MapLatLngBounds? bounds)  $default,) {final _that = this;
 switch (_that) {
 case _Trip():
-return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date);case _:
+return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date,_that.bounds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date)
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TripId id,  UserId ownerId,  String title,  String description,  DateTime? date)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TripId id,  UserId ownerId,  String title,  String description,  DateTime? date,  MapLatLngBounds? bounds)?  $default,) {final _that = this;
 switch (_that) {
 case _Trip() when $default != null:
-return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date);case _:
+return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date,_that.bounds);case _:
   return null;
 
 }
@@ -216,7 +217,7 @@ return $default(_that.id,_that.ownerId,_that.title,_that.description,_that.date)
 
 
 class _Trip extends Trip {
-  const _Trip({required this.id, required this.ownerId, this.title = '', this.description = '', this.date}): super._();
+  const _Trip({required this.id, required this.ownerId, this.title = '', this.description = '', this.date, this.bounds}): super._();
   
 
 @override final  TripId id;
@@ -224,6 +225,7 @@ class _Trip extends Trip {
 @override@JsonKey() final  String title;
 @override@JsonKey() final  String description;
 @override final  DateTime? date;
+@override final  MapLatLngBounds? bounds;
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
@@ -235,18 +237,18 @@ _$TripCopyWith<_Trip> get copyWith => __$TripCopyWithImpl<_Trip>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Trip&&(identical(other.id, id) || other.id == id)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.date, date) || other.date == date)&&(identical(other.bounds, bounds) || other.bounds == bounds));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,ownerId,title,description,date);
+    return Object.hash(runtimeType,id,ownerId,title,description,date,bounds);
 }
 
 @override
 String toString() {
-    return 'Trip(id: $id, ownerId: $ownerId, title: $title, description: $description, date: $date)';
+    return 'Trip(id: $id, ownerId: $ownerId, title: $title, description: $description, date: $date, bounds: $bounds)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$TripCopyWith<$Res> implements $TripCopyWith<$Res> {
   factory _$TripCopyWith(_Trip value, $Res Function(_Trip) _then) = __$TripCopyWithImpl;
 @override @useResult
 $Res call({
- TripId id, UserId ownerId, String title, String description, DateTime? date
+ TripId id, UserId ownerId, String title, String description, DateTime? date, MapLatLngBounds? bounds
 });
 
 
@@ -274,14 +276,15 @@ class __$TripCopyWithImpl<$Res>
 
 /// Create a copy of Trip
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ownerId = null,Object? title = null,Object? description = null,Object? date = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ownerId = null,Object? title = null,Object? description = null,Object? date = freezed,Object? bounds = freezed,}) {
   return _then(_Trip(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
 as UserId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,bounds: freezed == bounds ? _self.bounds : bounds // ignore: cast_nullable_to_non_nullable
+as MapLatLngBounds?,
   ));
 }
 

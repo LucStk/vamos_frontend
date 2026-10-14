@@ -1,7 +1,5 @@
 import 'package:latlong2/latlong.dart';
-
-import '../graphql/graphql.dart';
-import '/core/graphql/graphql.dart';
+import 'package:vamos_cartographie/core/graphql/graphql.dart';
 
 extension LatLngMapper on LatLng {
   GLatLngInput toGQLInput() => GLatLngInput(lat: latitude, lng: longitude);

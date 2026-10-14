@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'dart:math' as math;
 
-import '../domain/space/world_segment.dart';
+import 'package:domain_core/space/world_segment.dart';
 
 Rect computeBounds(Iterable<Offset> points) {
   final pointsList = points.toList();

@@ -4,10 +4,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:gql/ast.dart' as _i1;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i5;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i5;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i3;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
@@ -47,6 +47,13 @@ const TripFields = _i1.FragmentDefinitionNode(
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'description'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'bounds'),
       alias: null,
       arguments: [],
       directives: [],

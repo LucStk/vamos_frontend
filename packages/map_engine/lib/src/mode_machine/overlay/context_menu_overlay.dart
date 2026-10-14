@@ -1,8 +1,7 @@
-// overlays/popup_overlay.dart
-import '../../domain/gestures/map_gesture.dart';
-import '../../domain/space/offset_type.dart';
-import '../mode.dart';
-import 'overlay.dart';
+import 'package:domain_core/space/offset_type.dart';
+import 'package:map_engine/src/domain/gestures/map_gesture.dart';
+import 'package:map_engine/src/mode_machine/mode.dart';
+import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
 
 abstract class ContextMenuOverlay<M extends Mode<M>> extends Overlay<M> {
   final ScreenOffset at;

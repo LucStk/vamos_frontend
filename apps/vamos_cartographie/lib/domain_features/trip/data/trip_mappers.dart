@@ -2,11 +2,11 @@ import 'package:domain_core/domain_core.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/domain.dart';
-import '../../topology/data/mappers/segment_mappers.dart';
-import '../../topology/data/mappers/vertex_mappers.dart';
-import 'graphql/graphql.dart';
-
-import '/core/graphql/graphql.dart';
+import 'package:vamos_cartographie/core/geometry_mappers/bounds_mapper.dart';
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/mappers/segment_mappers.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/mappers/vertex_mappers.dart';
+import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
 
 /// ---------------------------------------------------------------------------
 /// GraphQL -> Domain
@@ -19,6 +19,7 @@ extension GTripFieldsMapper on GTripFields {
     title: title,
     description: description,
     date: date == null ? null : DateTime.parse(date!),
+    bounds: bounds == null ? null : (bounds as List<dynamic>).toDomain(),
   );
 }
 

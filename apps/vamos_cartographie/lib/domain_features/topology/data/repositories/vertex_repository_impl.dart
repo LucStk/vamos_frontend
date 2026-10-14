@@ -2,11 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-
-import '../datasources/datasources.dart';
-import '../mappers/geometry_mapper.dart';
-import '../mappers/vertex_mappers.dart';
-import '/core/erreur_handler.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
+import 'package:vamos_cartographie/core/geometry_mappers/position_mapper.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/datasources/vertex_remote_datasource.dart';
+import 'package:vamos_cartographie/domain_features/topology/data/mappers/vertex_mappers.dart';
 
 class VertexRepositoryImpl extends VertexRepository {
   final VertexRemoteDatasource remote;

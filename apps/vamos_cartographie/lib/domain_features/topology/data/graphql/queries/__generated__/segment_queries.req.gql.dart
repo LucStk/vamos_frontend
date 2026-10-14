@@ -6,10 +6,10 @@
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i5;
 import 'package:gql_exec/gql_exec.dart' as _i4;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i8;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/geo_fields.ast.gql.dart'
-    as _i8;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
     as _i7;
 import 'package:vamos_cartographie/domain_features/topology/data/graphql/queries/__generated__/segment_queries.ast.gql.dart'

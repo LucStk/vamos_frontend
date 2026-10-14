@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/map/camera/flutter_map_camera.dart';
 part 'map_camera_provider.g.dart';
 

@@ -1,9 +1,10 @@
 import 'dart:ui';
+import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/space/world_segment.dart';
+import 'package:map_canvas/src/domain/draw_command.dart';
+import 'package:map_canvas/src/domain/length.dart';
+import 'package:map_canvas/src/domain/map_paint_context.dart';
 import 'package:map_engine/map_engine.dart';
-
-import '../../../map_canvas.dart';
-import '../draw_command.dart';
-import '../length.dart';
 
 part "line_item.dart";
 part "point_item.dart";

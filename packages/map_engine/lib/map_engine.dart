@@ -1,11 +1,8 @@
 export "src/camera/camera_director.dart";
 
 export "src/domain/objects/map_objects.dart";
-export "src/domain/space/offset_type.dart";
-export "src/domain/space/world_segment.dart";
 
 export "src/domain/camera/map_camera.dart";
-export "src/domain/camera/map_geo_bounds.dart";
 export "src/domain/gestures/gesture_sink.dart";
 export 'src/domain/gestures/map_gesture.dart';
 
