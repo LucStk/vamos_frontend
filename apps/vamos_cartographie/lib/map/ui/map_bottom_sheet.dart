@@ -8,8 +8,8 @@ import 'package:trip_application/trip_application.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
 @Dependencies([])
-class MapEditorBottomSheet extends ConsumerWidget {
-  const MapEditorBottomSheet({super.key, required this.tripId});
+class MapBottomSheet extends ConsumerWidget {
+  const MapBottomSheet({super.key, required this.tripId});
   final TripId tripId;
 
   @override
