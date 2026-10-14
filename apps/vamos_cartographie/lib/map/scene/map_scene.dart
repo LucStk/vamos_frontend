@@ -2,7 +2,6 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/items/localization/localization_item_provider.dart';
@@ -22,7 +21,6 @@ part 'map_scene.g.dart';
     sketchItem,
     allSegmentItem,
     allVertexItem,
-    sceneItems,
   ],
 )
 List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
@@ -30,7 +28,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   final List<SceneItem> items = [?ref.watch(localizationItemProvider(camera))];
 
   switch (mode) {
-    case MapExploreMode():
+    case ExploreMode():
       items.addAll(ref.watch(allTripItemProvider(camera)));
 
     case SketchMode e:
@@ -46,7 +44,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   return items;
 }
 
-@Riverpod(keepAlive: true, dependencies: [mapMode])
+@Riverpod(keepAlive: true, dependencies: [CameraOrNull, sceneItems])
 MapScene mapScene(Ref ref) {
   final selected = ref.watch(
     modeStateProvider.select((c) => c.slots.get(selectionSlot)),

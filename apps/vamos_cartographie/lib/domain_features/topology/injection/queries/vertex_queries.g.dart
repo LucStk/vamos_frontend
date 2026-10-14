@@ -26,7 +26,7 @@ final class VertexNodeProvider
   }) : super(
          retry: null,
          name: r'vertexNodeProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -72,7 +72,7 @@ final class VertexNodeProvider
   }
 }
 
-String _$vertexNodeHash() => r'8eaed2c3ffeccf8d5d8edf702da8e5000d572e35';
+String _$vertexNodeHash() => r'2ebf57e90caf5bf04659bd9f721773dc6ecc58a9';
 
 final class VertexNodeFamily extends $Family
     with
@@ -83,7 +83,7 @@ final class VertexNodeFamily extends $Family
         name: r'vertexNodeProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   VertexNodeProvider call(TripId tripId, VertexId id) =>
@@ -105,7 +105,7 @@ final class VertexProvider
   }) : super(
          retry: null,
          name: r'vertexProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -150,7 +150,7 @@ final class VertexProvider
   }
 }
 
-String _$vertexHash() => r'4fc6b6b24760611f169e0b79f9d415285c9ce2e9';
+String _$vertexHash() => r'528527454e76be02781a10596808b34f3eb6ec5c';
 
 final class VertexFamily extends $Family
     with $FunctionalFamilyOverride<VertexFields, (TripId, VertexId)> {
@@ -160,7 +160,7 @@ final class VertexFamily extends $Family
         name: r'vertexProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   VertexProvider call(TripId tripId, VertexId id) =>
@@ -187,7 +187,7 @@ final class AllVertexProvider
   }) : super(
          retry: null,
          name: r'allVertexProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -233,7 +233,7 @@ final class AllVertexProvider
   }
 }
 
-String _$allVertexHash() => r'8d0556f7b2bdd934fc917454f9b3bcaa89eea1aa';
+String _$allVertexHash() => r'aa538c1a1ee69d61e7bb945c9984e63a11b2c77c';
 
 final class AllVertexFamily extends $Family
     with $FunctionalFamilyOverride<List<VertexFields>, TripId> {
@@ -243,7 +243,7 @@ final class AllVertexFamily extends $Family
         name: r'allVertexProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   AllVertexProvider call(TripId tripId) =>
@@ -342,7 +342,7 @@ final class WaypointFromVertexProvider
   }) : super(
          retry: null,
          name: r'waypointFromVertexProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -388,7 +388,7 @@ final class WaypointFromVertexProvider
 }
 
 String _$waypointFromVertexHash() =>
-    r'b9b629e8c55376b6f1659906c86b91cb9c6f7a00';
+    r'a3d4d49cbc1cab629c894c1c190579c13438db39';
 
 final class WaypointFromVertexFamily extends $Family
     with $FunctionalFamilyOverride<WaypointId?, (TripId, VertexId)> {
@@ -398,7 +398,7 @@ final class WaypointFromVertexFamily extends $Family
         name: r'waypointFromVertexProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   WaypointFromVertexProvider call(TripId tripId, VertexId vertexId) =>

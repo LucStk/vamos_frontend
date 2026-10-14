@@ -7,7 +7,7 @@ part 'map_mode.g.dart';
 @Riverpod(keepAlive: true)
 class ModeStateNotifier extends _$ModeStateNotifier {
   @override
-  AppModeState build() => ModeState<AppMode>(MapExploreMode());
+  AppModeState build() => ModeState<AppMode>(ExploreMode());
 
   void set(AppModeState next) => state = next;
 }

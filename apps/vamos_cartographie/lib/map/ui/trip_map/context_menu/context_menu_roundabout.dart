@@ -4,6 +4,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
+import 'package:vamos_cartographie/map/ui/trip_map/context_menu/popup_create_vertex.dart';
+import 'package:vamos_cartographie/map/ui/trip_map/context_menu/sketch_pencil_menu.dart';
 
 @Dependencies([modeOverlay, modeMachine])
 class ContextMenuRoundabout extends ConsumerWidget {

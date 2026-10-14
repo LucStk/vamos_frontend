@@ -21,7 +21,7 @@ final class SegmentItemProvider
   }) : super(
          retry: null,
          name: r'segmentItemProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -66,7 +66,7 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'1f917eabe7d2f37393b8723147f65de270d13180';
+String _$segmentItemHash() => r'bf140ccec1520f1b7c4754a492647b49a7fc5248';
 
 final class SegmentItemFamily extends $Family
     with
@@ -80,7 +80,7 @@ final class SegmentItemFamily extends $Family
         name: r'segmentItemProvider',
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   SegmentItemProvider call(
@@ -105,7 +105,7 @@ final class AllSegmentItemProvider
   }) : super(
          retry: null,
          name: r'allSegmentItemProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -152,7 +152,7 @@ final class AllSegmentItemProvider
   }
 }
 
-String _$allSegmentItemHash() => r'09b86960c7b0e1928c4f60f6bba3c4322b158119';
+String _$allSegmentItemHash() => r'ef89d379fc4c76d81483f27aff43dd134738cfe8';
 
 final class AllSegmentItemFamily extends $Family
     with $FunctionalFamilyOverride<List<LineItem>, (TripId, MapCameraReader)> {
@@ -164,7 +164,7 @@ final class AllSegmentItemFamily extends $Family
         $allTransitiveDependencies: <ProviderOrFamily>[
           AllSegmentItemProvider.$allTransitiveDependencies0,
         ],
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   AllSegmentItemProvider call(TripId tripId, MapCameraReader camera) =>

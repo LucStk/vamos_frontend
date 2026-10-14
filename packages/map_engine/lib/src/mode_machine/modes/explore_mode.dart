@@ -1,7 +1,7 @@
 part of '../app_mode.dart';
 
-class MapExploreMode extends AppMode {
-  const MapExploreMode();
+class ExploreMode extends AppMode {
+  const ExploreMode();
 
   @override
   Set<Slot> get retainedSlots => const {selectionSlot};

@@ -52,7 +52,7 @@ HandlerRegistry handlerRegistry(Ref ref) {
         waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
       ),
     ),
-    MapExploreMode() => _exploreRegistry(
+    ExploreMode() => _exploreRegistry(
       _ExploreScopeImpl(director: director, camera: camera),
     ),
   };

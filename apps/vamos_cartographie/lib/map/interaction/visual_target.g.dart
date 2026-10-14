@@ -27,9 +27,13 @@ final class VisualTargetsProvider
         retry: null,
         name: r'visualTargetsProvider',
         isAutoDispose: true,
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: <ProviderOrFamily>[mapSceneProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          VisualTargetsProvider.$allTransitiveDependencies0,
+        ],
       );
+
+  static final $allTransitiveDependencies0 = mapSceneProvider;
 
   @override
   String debugGetCreateSourceHash() => _$visualTargetsHash();
@@ -56,4 +60,4 @@ final class VisualTargetsProvider
   }
 }
 
-String _$visualTargetsHash() => r'74515452bb53ce884709d221971a8960bb79d214';
+String _$visualTargetsHash() => r'8734b87f46822062890b5bb8d4a27e9428e96f96';

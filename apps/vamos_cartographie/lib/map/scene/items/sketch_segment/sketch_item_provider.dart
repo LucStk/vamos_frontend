@@ -11,7 +11,7 @@ part 'sketch_item_provider.g.dart';
 
 // final projection = const Epsg3857().projection;
 
-@Riverpod(dependencies: [])
+@Riverpod(keepAlive: true, dependencies: [])
 List<SceneItem> sketchItem(
   Ref ref,
   TripId tripId,

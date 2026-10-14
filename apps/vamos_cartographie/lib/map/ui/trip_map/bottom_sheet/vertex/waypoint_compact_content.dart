@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
@@ -12,7 +13,7 @@ import 'package:vamos_cartographie/map/ui/trip_map/widgets/draw_segment_button.d
 import 'package:vamos_cartographie/ui_kit/buttons/delete_button.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/modifier_button.dart';
 
-@Dependencies([])
+@Dependencies([ModeMachine])
 class WaypointCompactContent extends ConsumerWidget {
   final TripId tripId;
   final WaypointFields waypoint;

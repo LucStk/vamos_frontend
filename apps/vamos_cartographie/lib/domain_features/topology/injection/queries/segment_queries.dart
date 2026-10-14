@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/domain_features/topology/injection/injection.
 
 part 'segment_queries.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 GraphNode<SegmentFields> segmentNode(Ref ref, TripId tripId, SegmentId id) {
   final node = ref.watch(
     segmentStoreProvider(tripId).select((s) {
@@ -21,12 +21,12 @@ GraphNode<SegmentFields> segmentNode(Ref ref, TripId tripId, SegmentId id) {
   return node;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 SegmentFields segment(Ref ref, TripId tripId, SegmentId id) {
   return ref.watch(segmentNodeProvider(tripId, id).select((s) => s.current));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 List<SegmentFields> allSegments(Ref ref, TripId tripId) {
   final store = ref.watch(segmentStoreProvider(tripId));
   return store.store.values.map((s) => s.current).toList();

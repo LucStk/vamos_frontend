@@ -26,7 +26,7 @@ final class VertexDataProvider
   }) : super(
          retry: null,
          name: r'vertexDataProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -73,7 +73,7 @@ final class VertexDataProvider
   }
 }
 
-String _$vertexDataHash() => r'3641db2eb9e4b46458349b8b8ecca4bd2cd6902f';
+String _$vertexDataHash() => r'c3bb4763dc14f34b89bbe0f1e349df036d5b268e';
 
 final class VertexDataFamily extends $Family
     with
@@ -87,7 +87,7 @@ final class VertexDataFamily extends $Family
         name: r'vertexDataProvider',
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   VertexDataProvider call(TripId tripId, VertexId vertexId) =>
@@ -109,7 +109,7 @@ final class VertexItemProvider
   }) : super(
          retry: null,
          name: r'vertexItemProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -156,7 +156,7 @@ final class VertexItemProvider
   }
 }
 
-String _$vertexItemHash() => r'b48dfff1791fb9def07cd6b55e2fd54314cbddca';
+String _$vertexItemHash() => r'7c51f4f8d641b3759a7c13ee53b6ba1d1e91d844';
 
 final class VertexItemFamily extends $Family
     with
@@ -172,7 +172,7 @@ final class VertexItemFamily extends $Family
         $allTransitiveDependencies: <ProviderOrFamily>[
           VertexItemProvider.$allTransitiveDependencies0,
         ],
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   VertexItemProvider call(
@@ -198,7 +198,7 @@ final class AllVertexItemProvider
   }) : super(
          retry: null,
          name: r'allVertexItemProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -247,7 +247,7 @@ final class AllVertexItemProvider
   }
 }
 
-String _$allVertexItemHash() => r'd9ca29eb0eec045ad29abd8a588faca378861e40';
+String _$allVertexItemHash() => r'cd91421de93f1e0fd08b167656612198c5e49a3d';
 
 final class AllVertexItemFamily extends $Family
     with $FunctionalFamilyOverride<List<PointItem>, (TripId, MapCameraReader)> {
@@ -260,7 +260,7 @@ final class AllVertexItemFamily extends $Family
           AllVertexItemProvider.$allTransitiveDependencies0,
           AllVertexItemProvider.$allTransitiveDependencies1,
         ],
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   AllVertexItemProvider call(TripId tripId, MapCameraReader camera) =>

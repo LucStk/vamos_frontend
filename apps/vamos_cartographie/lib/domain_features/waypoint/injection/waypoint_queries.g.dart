@@ -26,7 +26,7 @@ final class WaypointNodeProvider
   }) : super(
          retry: null,
          name: r'waypointNodeProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -72,7 +72,7 @@ final class WaypointNodeProvider
   }
 }
 
-String _$waypointNodeHash() => r'05617377b215961cfb8b1edc53e2a7af6c031a86';
+String _$waypointNodeHash() => r'9efa268a3d18c4b9910368faa08f3d5d8b282826';
 
 final class WaypointNodeFamily extends $Family
     with
@@ -86,7 +86,7 @@ final class WaypointNodeFamily extends $Family
         name: r'waypointNodeProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   WaypointNodeProvider call(TripId tripId, WaypointId id) =>
@@ -108,7 +108,7 @@ final class WaypointProvider
   }) : super(
          retry: null,
          name: r'waypointProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -153,7 +153,7 @@ final class WaypointProvider
   }
 }
 
-String _$waypointHash() => r'8081ddca66ec6c9d98e0c99d08ac47ea974fd399';
+String _$waypointHash() => r'7713b4c2b061bfe7e0c1caf0ad2dd8500c7a4506';
 
 final class WaypointFamily extends $Family
     with $FunctionalFamilyOverride<WaypointFields, (TripId, WaypointId)> {
@@ -163,7 +163,7 @@ final class WaypointFamily extends $Family
         name: r'waypointProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   WaypointProvider call(TripId tripId, WaypointId id) =>

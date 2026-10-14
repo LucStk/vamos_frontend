@@ -19,12 +19,9 @@ final class AppModeMachine with ModeMachine<AppMode> {
   }
 
   final _queue = EffectQueue();
-  HandlerRegistry? _registry;
 
   @override
   EffectQueue get effectQueue => _queue;
-
-  bool? _builtForEdit;
 
   @override
   HandlerRegistry get registry => handlerRegistry(_ref);

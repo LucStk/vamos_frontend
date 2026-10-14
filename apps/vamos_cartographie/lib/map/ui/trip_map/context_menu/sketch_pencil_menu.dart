@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/overlay_ui/context_menu/context_menu_shell.dart';
+import 'package:vamos_cartographie/map/mode/map_mode.dart';
 
-@Dependencies([])
+@Dependencies([modeOverlay])
 class SketchPencilMenuWidget extends StatelessWidget {
   const SketchPencilMenuWidget({super.key, required this.onPressed});
   final VoidCallback onPressed;

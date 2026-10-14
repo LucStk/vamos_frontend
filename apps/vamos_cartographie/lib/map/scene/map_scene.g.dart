@@ -28,6 +28,19 @@ final class SceneItemsProvider
        );
 
   static final $allTransitiveDependencies0 = mapModeProvider;
+  static final $allTransitiveDependencies1 = allTripItemProvider;
+  static final $allTransitiveDependencies2 =
+      AllTripItemProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies3 = localizationItemProvider;
+  static final $allTransitiveDependencies4 = sketchItemProvider;
+  static final $allTransitiveDependencies5 = allSegmentItemProvider;
+  static final $allTransitiveDependencies6 =
+      AllSegmentItemProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies7 = allVertexItemProvider;
+  static final $allTransitiveDependencies8 =
+      AllVertexItemProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies9 =
+      AllVertexItemProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$sceneItemsHash();
@@ -69,7 +82,7 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'f565e52191b9353491a1ce6729d075abd0d0c8be';
+String _$sceneItemsHash() => r'f6c0e9b39d9e0a380967160bfe7f83f89609cabd';
 
 final class SceneItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, MapCameraController> {
@@ -77,10 +90,26 @@ final class SceneItemsFamily extends $Family
     : super(
         retry: null,
         name: r'sceneItemsProvider',
-        dependencies: <ProviderOrFamily>[mapModeProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SceneItemsProvider.$allTransitiveDependencies0,
+        dependencies: <ProviderOrFamily>[
+          mapModeProvider,
+          allTripItemProvider,
+          localizationItemProvider,
+          sketchItemProvider,
+          allSegmentItemProvider,
+          allVertexItemProvider,
         ],
+        $allTransitiveDependencies: <ProviderOrFamily>{
+          SceneItemsProvider.$allTransitiveDependencies0,
+          SceneItemsProvider.$allTransitiveDependencies1,
+          SceneItemsProvider.$allTransitiveDependencies2,
+          SceneItemsProvider.$allTransitiveDependencies3,
+          SceneItemsProvider.$allTransitiveDependencies4,
+          SceneItemsProvider.$allTransitiveDependencies5,
+          SceneItemsProvider.$allTransitiveDependencies6,
+          SceneItemsProvider.$allTransitiveDependencies7,
+          SceneItemsProvider.$allTransitiveDependencies8,
+          SceneItemsProvider.$allTransitiveDependencies9,
+        },
         isAutoDispose: false,
       );
 
@@ -104,13 +133,9 @@ final class MapSceneProvider
         retry: null,
         name: r'mapSceneProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapModeProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapSceneProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
       );
-
-  static final $allTransitiveDependencies0 = mapModeProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapSceneHash();
@@ -134,4 +159,4 @@ final class MapSceneProvider
   }
 }
 
-String _$mapSceneHash() => r'04ebaa1de4c276346d4a01b8367cb5b4869af5a1';
+String _$mapSceneHash() => r'1437dd61d84e4581a876b4dc0f470d9ef84869eb';

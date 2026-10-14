@@ -5,10 +5,12 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_lifecycle.dart';
+import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/rendering/base_map_screen.dart';
+import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
 
-@Dependencies([])
+@Dependencies([MapGestureHandlerNotifier])
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
 
@@ -30,7 +32,12 @@ class _MapExploreScreenState extends State<MapScreen>
   }
 }
 
-@Dependencies([CameraOrNull, mapCamera])
+@Dependencies([
+  MapGestureHandlerNotifier,
+  CameraOrNull,
+  mapCamera,
+  cameraDirector,
+])
 class _ExploreMapView extends ConsumerStatefulWidget {
   const _ExploreMapView();
 

@@ -494,7 +494,7 @@ final class SegmentStoreProvider
   }) : super(
          retry: null,
          name: r'segmentStoreProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -542,7 +542,7 @@ final class SegmentStoreProvider
   }
 }
 
-String _$segmentStoreHash() => r'bcdbfbd7511137a01ea768bc2c9da6335f25df9d';
+String _$segmentStoreHash() => r'0972cedace31de067d8d221eff5b285eadd25a12';
 
 final class SegmentStoreFamily extends $Family
     with
@@ -553,7 +553,7 @@ final class SegmentStoreFamily extends $Family
         name: r'segmentStoreProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   SegmentStoreProvider call(TripId tripId) =>

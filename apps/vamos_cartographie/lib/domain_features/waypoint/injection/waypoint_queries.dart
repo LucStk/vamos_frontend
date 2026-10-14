@@ -2,11 +2,11 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'waypoint_store.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
 
 part 'waypoint_queries.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 GraphNode<WaypointFields> waypointNode(Ref ref, TripId tripId, WaypointId id) {
   final node = ref.watch(
     waypointStoreProvider(tripId).select((s) => s.waypointStore.get(id)),
@@ -19,7 +19,7 @@ GraphNode<WaypointFields> waypointNode(Ref ref, TripId tripId, WaypointId id) {
   return node;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 WaypointFields waypoint(Ref ref, TripId tripId, WaypointId id) {
   return ref.watch(waypointNodeProvider(tripId, id).select((s) => s.current));
 }

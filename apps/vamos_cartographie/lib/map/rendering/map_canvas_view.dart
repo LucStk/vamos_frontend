@@ -7,9 +7,17 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
+import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 import 'package:vamos_cartographie/map/rendering/map_scene_paint.dart';
+import 'package:vamos_cartographie/map/scene/map_scene.dart';
 
-@Dependencies([CameraOrNull, mapCamera, MapGestureHandlerNotifier])
+@Dependencies([
+  visualTargets,
+  mapScene,
+  CameraOrNull,
+  mapCamera,
+  MapGestureHandlerNotifier,
+])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
 

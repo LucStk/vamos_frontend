@@ -1,5 +1,4 @@
 import 'package:flutter/gestures.dart' hide PointerEvent;
-import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
@@ -10,7 +9,10 @@ part 'map_gesture_handler.g.dart';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).
-@Riverpod(keepAlive: true, dependencies: [mapModeController, mapCamera])
+@Riverpod(
+  keepAlive: true,
+  dependencies: [mapScene, mapModeController, mapCamera],
+)
 class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
   late MapGestureHandler _handler;
 

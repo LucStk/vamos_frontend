@@ -2,12 +2,12 @@ import 'package:domain_core/domain_core.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import '/domain_features/topology/injection/injection.dart';
-import '/domain_features/waypoint/waypoint.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import 'package:vamos_cartographie/domain_features/topology/topology.dart';
 
 part 'vertex_queries.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 GraphNode<VertexFields> vertexNode(Ref ref, TripId tripId, VertexId id) {
   final node = ref.watch(vertexStoreProvider(tripId).select((s) => s.get(id)));
   if (node == null) {
@@ -18,26 +18,26 @@ GraphNode<VertexFields> vertexNode(Ref ref, TripId tripId, VertexId id) {
   return node;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 VertexFields vertex(Ref ref, TripId tripId, VertexId id) {
   return ref.watch(vertexNodeProvider(tripId, id).select((e) => e.current));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 List<VertexFields> allVertex(Ref ref, TripId tripId) {
   // Attention, ne fait pas de watch sur les StateNode<Vertex>
   final store = ref.watch(vertexStoreProvider(tripId));
   return store.store.values.map((v) => v.current).toList();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 List<VertexId> allVertexIds(Ref ref, TripId tripId) {
   // Attention, ne fait pas de watch sur les StateNode<Vertex>
   final store = ref.watch(vertexStoreProvider(tripId));
   return store.store.values.map((v) => v.id).toList();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 WaypointId? waypointFromVertex(Ref ref, TripId tripId, VertexId vertexId) {
   return ref.watch(
     waypointStoreProvider(tripId).select((s) => s.getFromVertex(vertexId)),

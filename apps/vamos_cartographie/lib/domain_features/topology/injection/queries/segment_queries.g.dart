@@ -26,7 +26,7 @@ final class SegmentNodeProvider
   }) : super(
          retry: null,
          name: r'segmentNodeProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -72,7 +72,7 @@ final class SegmentNodeProvider
   }
 }
 
-String _$segmentNodeHash() => r'a0eefb4e7f538f0a9b27db5315dfd3eeb4cb861d';
+String _$segmentNodeHash() => r'cba61adc88070f5ec1ecf6680caa99e97581bf27';
 
 final class SegmentNodeFamily extends $Family
     with
@@ -86,7 +86,7 @@ final class SegmentNodeFamily extends $Family
         name: r'segmentNodeProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   SegmentNodeProvider call(TripId tripId, SegmentId id) =>
@@ -108,7 +108,7 @@ final class SegmentProvider
   }) : super(
          retry: null,
          name: r'segmentProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -153,7 +153,7 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'89105d6a11cc5f022bc642085e572f2480ffa376';
+String _$segmentHash() => r'e6313903311de6fe846e65321f58c23669534bfc';
 
 final class SegmentFamily extends $Family
     with $FunctionalFamilyOverride<SegmentFields, (TripId, SegmentId)> {
@@ -163,7 +163,7 @@ final class SegmentFamily extends $Family
         name: r'segmentProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   SegmentProvider call(TripId tripId, SegmentId id) =>
@@ -190,7 +190,7 @@ final class AllSegmentsProvider
   }) : super(
          retry: null,
          name: r'allSegmentsProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -236,7 +236,7 @@ final class AllSegmentsProvider
   }
 }
 
-String _$allSegmentsHash() => r'ffc94df64d42d429d600dc5e90e796df30d40a72';
+String _$allSegmentsHash() => r'b45ce6b74fb9fa909904492316a1685a6357fcba';
 
 final class AllSegmentsFamily extends $Family
     with $FunctionalFamilyOverride<List<SegmentFields>, TripId> {
@@ -246,7 +246,7 @@ final class AllSegmentsFamily extends $Family
         name: r'allSegmentsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   AllSegmentsProvider call(TripId tripId) =>

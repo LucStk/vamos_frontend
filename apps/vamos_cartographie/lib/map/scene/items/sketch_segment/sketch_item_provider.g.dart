@@ -22,7 +22,7 @@ final class SketchItemProvider
   }) : super(
          retry: null,
          name: r'sketchItemProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -67,7 +67,7 @@ final class SketchItemProvider
   }
 }
 
-String _$sketchItemHash() => r'543386f6d463e95e9de95dc8a801ba15608d09a3';
+String _$sketchItemHash() => r'7653e4a669930d23530ecc386f20878c522bf691';
 
 final class SketchItemFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {
@@ -77,7 +77,7 @@ final class SketchItemFamily extends $Family
         name: r'sketchItemProvider',
         dependencies: <ProviderOrFamily>[],
         $allTransitiveDependencies: <ProviderOrFamily>[],
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   SketchItemProvider call(TripId tripId, MapCameraReader cameraReader) =>

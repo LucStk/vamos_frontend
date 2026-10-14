@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/map/scene/map_scene.dart';
 
 part 'visual_target.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [mapScene])
 Map<Object, MapObjectVisualState> visualTargets(Ref ref) {
   final scene = ref.watch(mapSceneProvider);
   return {
