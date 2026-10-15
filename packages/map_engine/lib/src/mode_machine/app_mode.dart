@@ -7,12 +7,13 @@ import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/selection.dart';
 import 'package:map_engine/src/domain/sketch_trace.dart';
 import 'package:map_engine/src/mode_machine/command/segment_command.dart';
+import 'package:map_engine/src/mode_machine/overlay/map_point_menu.dart';
 import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
+import 'package:map_engine/src/mode_machine/overlay/pencil_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/vertex_menu.dart';
 import 'package:map_engine/src/mode_machine/slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:map_engine/src/mode_machine/mode_state.dart';
-import 'package:map_engine/src/mode_machine/overlay/idle_menu_overlay.dart';
-import 'package:map_engine/src/mode_machine/overlay/pencil_menu_overlay.dart';
 import 'package:trip_application/trip_application.dart';
 
 part 'modes/trip_edit_mode/sketch_mode.dart';

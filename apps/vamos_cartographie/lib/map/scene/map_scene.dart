@@ -18,7 +18,7 @@ part 'map_scene.g.dart';
     mapMode,
     allTripItem,
     localizationItem,
-    sketchItem,
+    allSketchItem,
     allSegmentItem,
     allVertexItem,
   ],
@@ -31,8 +31,8 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
     case ExploreMode _:
       items.addAll(ref.watch(allTripItemProvider(camera)));
 
-    case SketchMode e:
-      items.addAll(ref.watch(sketchItemProvider(e.tripId, camera)));
+    case SketchMode _:
+      items.addAll(ref.watch(allSketchItemProvider(camera)));
 
     case TripMode e:
       items.addAll(ref.watch(allVertexItemProvider(e.tripId, camera)));

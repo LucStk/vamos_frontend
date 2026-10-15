@@ -1,32 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_engine/map_engine.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/mode/map_mode.dart';
 
-@Dependencies([modeOverlay])
-class ContextMenuShell extends ConsumerWidget {
-  const ContextMenuShell({super.key, required this.child});
-  final Widget child;
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var d = ref.watch(modeOverlayProvider);
-    return switch (d) {
-      ContextMenuOverlay o => Positioned(
-        left: o.at.dx,
-        top: o.at.dy,
-        child: FractionalTranslation(
-          translation: const Offset(-0.5, -1.5),
-          child: _PencilPopupContent(child: child),
-        ),
-      ),
-      _ => const SizedBox.shrink(),
-    };
-  }
-}
-
-class _PencilPopupContent extends StatelessWidget {
-  const _PencilPopupContent({required this.child});
+class ContextMenu extends StatelessWidget {
+  const ContextMenu(this.child, {super.key});
 
   final Widget child;
 

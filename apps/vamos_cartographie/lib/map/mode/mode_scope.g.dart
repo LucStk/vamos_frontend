@@ -61,4 +61,4 @@ final class HandlerRegistryProvider
   }
 }
 
-String _$handlerRegistryHash() => r'0889c9b137d3ff7dc395c6932c59b0ff1c972e24';
+String _$handlerRegistryHash() => r'818c9d12a6601791a8e25e350b64a673a6022b4a';

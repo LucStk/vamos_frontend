@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
-import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/point_menu_shell.dart';
 
 @Dependencies([modeOverlay])
 class PopupCreateVertexWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class PopupCreateVertexWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ContextMenuShell(
+    return PointMenuShell(
       child: TextButton.icon(
         onPressed: onPressed,
         icon: const Icon(Icons.add, size: 18),

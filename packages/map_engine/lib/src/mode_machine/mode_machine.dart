@@ -1,14 +1,13 @@
+import 'package:map_engine/src/domain/gestures/gesture_sink.dart';
+import 'package:map_engine/src/domain/gestures/map_gesture.dart';
+import 'package:map_engine/src/mode_machine/effect/effect_runner.dart';
 import 'package:map_engine/src/mode_machine/effect/handler_registry.dart';
 import 'package:map_engine/src/mode_machine/effect/effect_queue.dart';
-
-import '../domain/gestures/gesture_sink.dart';
-import '../domain/gestures/map_gesture.dart';
-import 'effect/effect_runner.dart';
-import 'effect/pending_run.dart';
-import 'mode.dart';
-import 'transition.dart';
-import 'overlay/overlay.dart';
-import 'mode_state.dart';
+import 'package:map_engine/src/mode_machine/effect/pending_run.dart';
+import 'package:map_engine/src/mode_machine/mode.dart';
+import 'package:map_engine/src/mode_machine/mode_state.dart';
+import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
+import 'package:map_engine/src/mode_machine/transition.dart';
 
 // mode_interpreter.dart
 mixin ModeMachine<M extends Mode<M>> implements ModeHost, ModeDriver<M> {

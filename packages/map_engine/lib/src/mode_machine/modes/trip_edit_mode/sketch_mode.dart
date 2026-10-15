@@ -3,7 +3,8 @@ part of "../../app_mode.dart";
 mixin SketchMode on TripMode {
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapSketchPencil _ => Transition.overlay(PencilMenu(g.screen)),
+    MapVertex e => Transition.overlay(VertexMenu(e)),
+    MapSketchPencil p => Transition.overlay(PencilMenu(p)),
     _ => Transition.stay(),
   };
 

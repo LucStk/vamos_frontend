@@ -3,15 +3,6 @@ part of "../app_mode.dart";
 sealed class TripMode extends AppMode {
   const TripMode(this.tripId);
   final TripId tripId;
-}
-
-final class TripEditMode extends TripViewMode {
-  const TripEditMode(super.tripId);
-}
-
-final class TripViewMode extends TripMode {
-  const TripViewMode(super.tripId);
-
   @override
   Set<Slot> get retainedSlots => const {selectionSlot};
 
@@ -32,13 +23,22 @@ final class TripViewMode extends TripMode {
 
     _ => Transition.stay(),
   };
+}
+
+final class TripEditMode extends TripMode {
+  const TripEditMode(super.tripId);
+
   @override
   Transition<AppMode> onLongPress(LongPressGesture g) => switch (g.element) {
-    _ => Transition.overlay(IdleMenu(g.screen)),
+    _ => Transition.overlay(MapPointMenu(g.screen)),
   };
   @override
   Transition<AppMode> onSecondaryTap(SecondaryTapGesture g) =>
       switch (g.element) {
-        _ => Transition.overlay(IdleMenu(g.screen)),
+        _ => Transition.overlay(MapPointMenu(g.screen)),
       };
+}
+
+final class TripViewMode extends TripMode {
+  const TripViewMode(super.tripId);
 }

@@ -28,6 +28,8 @@ abstract interface class EditorScope implements CommonScope {
 extension TopologyScopeX on TopologyScope {
   SegmentFields? segment(SegmentId id) =>
       graphEditor.state.segmentStore.get(id)?.current;
+  VertexFields? vertex(VertexId id) =>
+      graphEditor.state.vertexStore.get(id)?.current;
 }
 
 // --- Scopes de mode : un par mode de AppMode ---
