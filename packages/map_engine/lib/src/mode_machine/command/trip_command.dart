@@ -19,7 +19,7 @@ final class FocusTrip extends ExploreCommand<Done> {
     if (bounds != null) {
       n.director.submit(
         CameraRequest(
-          FitBounds(bounds, padding: MapEdgeInsets.all(200)),
+          FitBounds(bounds, padding: MapEdgeInsets.all(250)),
           priority: CameraPriority.explicit,
         ),
       );

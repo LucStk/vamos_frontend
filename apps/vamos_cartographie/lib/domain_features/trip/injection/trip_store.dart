@@ -1,6 +1,8 @@
 import "package:domain_core/domain_core.dart";
+import "package:riverpod/riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
+import "package:vamos_cartographie/domain_features/auth/providers/providers.dart";
 
 import "/core/injection/error_logger.dart";
 import "/core/injection/mutation_queue_provider.dart";
@@ -43,7 +45,7 @@ Trip? trip(Ref ref, TripId tripId) {
   return ref.watch(tripStoreProvider).tripStore.get(tripId);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Trip tripRequired(Ref ref, TripId tripId) {
   final trip = ref.watch(tripStoreProvider).tripStore.get(tripId);
   if (trip == null) {
@@ -56,4 +58,11 @@ Trip tripRequired(Ref ref, TripId tripId) {
 List<TripId> tripIds(Ref ref) {
   final store = ref.watch(tripStoreProvider);
   return store.tripStore.getIds();
+}
+
+@Riverpod(keepAlive: true)
+bool isTripOwned(Ref ref, TripId tripId) {
+  final userId = ref.watch(currentUserIdProvider);
+  final ownerId = ref.watch(tripProvider(tripId).select((t) => t?.ownerId));
+  return userId != null && ownerId != null && ownerId.value == userId;
 }

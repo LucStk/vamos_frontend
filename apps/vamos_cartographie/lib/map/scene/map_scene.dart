@@ -16,7 +16,6 @@ part 'map_scene.g.dart';
   keepAlive: true,
   dependencies: [
     mapMode,
-    allTripItem,
     localizationItem,
     allSketchItem,
     allSegmentItem,

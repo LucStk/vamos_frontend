@@ -8,12 +8,19 @@ import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 part 'mode_scope.g.dart';
 
-// mode/mode_scopes.dart
-final class _ExploreScopeImpl implements ExploreScope {
-  const _ExploreScopeImpl({
+@Riverpod(keepAlive: true, dependencies: [mapCamera, cameraDirector])
+ExploreScope exploreScope(Ref ref) {
+  final director = ref.watch(cameraDirectorProvider);
+  final camera = ref.watch(mapCameraProvider);
+
+  return _ExploreScope(director: director, camera: camera, ref: ref);
+}
+
+final class _ExploreScope implements ExploreScope {
+  const _ExploreScope({
     required this.director,
     required this.camera,
-    required this.tripLookup,
+    required this.ref,
   });
 
   @override
@@ -22,49 +29,60 @@ final class _ExploreScopeImpl implements ExploreScope {
   @override
   final MapCameraController camera;
 
-  final Trip? Function(TripId tripId) tripLookup;
+  final Ref ref;
 
   @override
-  Trip? getTrip(TripId tripId) => tripLookup(tripId);
+  Trip? getTrip(TripId tripId) => ref.read(tripProvider(tripId));
 }
 
-final class _TripEditScopeImpl implements TripEditScope {
-  const _TripEditScopeImpl({
+@Riverpod(keepAlive: true, dependencies: [mapCamera, cameraDirector, mapMode])
+TripEditScope tripEditScope(Ref ref) {
+  final mode = ref.watch(mapModeProvider);
+
+  if (mode is! TripMode) {
+    throw StateError('tripEditScope nécessite le mode TripMode.');
+  }
+
+  final tripId = mode.tripId;
+
+  return _TripEditScope(
+    director: ref.watch(cameraDirectorProvider),
+    camera: ref.watch(mapCameraProvider),
+    tripId: tripId,
+    graphEditor: ref.read(graphStoreProvider(tripId).notifier),
+    waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
+  );
+}
+
+final class _TripEditScope implements TripEditScope {
+  const _TripEditScope({
     required this.director,
     required this.camera,
     required this.tripId,
     required this.graphEditor,
     required this.waypointEditor,
   });
+
   @override
   final CameraDirector director;
+
   @override
   final MapCameraController camera;
+
   @override
   final TripId tripId;
+
   @override
   final GraphEditor graphEditor;
+
   @override
   final WaypointEditor waypointEditor;
 }
 
-@Riverpod(keepAlive: true, dependencies: [mapMode, mapCamera, cameraDirector])
+@Riverpod(keepAlive: true, dependencies: [mapMode, exploreScope, tripEditScope])
 HandlerRegistry handlerRegistry(Ref ref) {
-  final director = ref.watch(cameraDirectorProvider);
-  final camera = ref.watch(mapCameraProvider);
-
   return HandlerRegistry(switch (ref.watch(mapModeProvider)) {
-    TripMode(:final tripId) => _TripEditScopeImpl(
-      director: director,
-      camera: camera,
-      tripId: tripId,
-      graphEditor: ref.read(graphStoreProvider(tripId).notifier),
-      waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
-    ),
-    ExploreMode() => _ExploreScopeImpl(
-      director: director,
-      camera: camera,
-      tripLookup: (TripId tripId) => ref.read(tripProvider(tripId)),
-    ),
+    ExploreMode() => ref.watch(exploreScopeProvider),
+    TripMode() => ref.watch(tripEditScopeProvider),
   });
 }

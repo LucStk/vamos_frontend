@@ -30,7 +30,7 @@ class MapUi extends ConsumerWidget {
         return SketchBottomSheet(onTypeChanged: (_) {}, stopSketch: () {});
       case (TripMode e, null):
         return TripBottomSheet(tripId: e.tripId);
-      case (TripMode _, MapVertex v):
+      case (TripViewMode _, MapVertex v):
         return _VertexSheet(
           key: ValueKey(v.id),
           tripId: v.tripId,

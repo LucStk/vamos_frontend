@@ -10,11 +10,13 @@ class ExploreMode extends AppMode {
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
     MapTrip e => Transition.run<AppMode, Done>(
       FocusTrip(e.id),
-      then: (_, _) => Transition.to<AppMode>(TripViewMode(e.id)),
+      then: (_, _) => Transition.to<AppMode>(
+        e.isOwned ? TripEditMode(e.id) : TripViewMode(e.id),
+      ),
     ),
     _ => Transition.stay(),
   };
 
-  static Transition<AppMode> selectTrip(TripId tripId) =>
-      Transition.set(selectionSlot, MapTrip(tripId));
+  static Transition<AppMode> selectTrip(MapTrip trip) =>
+      Transition.set(selectionSlot, trip);
 }

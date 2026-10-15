@@ -237,7 +237,7 @@ final class TripRequiredProvider extends $FunctionalProvider<Trip, Trip, Trip>
   }) : super(
          retry: null,
          name: r'tripRequiredProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -282,7 +282,7 @@ final class TripRequiredProvider extends $FunctionalProvider<Trip, Trip, Trip>
   }
 }
 
-String _$tripRequiredHash() => r'a55d1f20d29befe6f3ceeb45a7e2065debc4608b';
+String _$tripRequiredHash() => r'9361b633e25357e2a068ebe9eb0382373458ca13';
 
 final class TripRequiredFamily extends $Family
     with $FunctionalFamilyOverride<Trip, TripId> {
@@ -292,7 +292,7 @@ final class TripRequiredFamily extends $Family
         name: r'tripRequiredProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   TripRequiredProvider call(TripId tripId) =>
@@ -342,3 +342,79 @@ final class TripIdsProvider
 }
 
 String _$tripIdsHash() => r'd0a50120d8766e9cff6865a2d85e1d9a712b2108';
+
+@ProviderFor(isTripOwned)
+final isTripOwnedProvider = IsTripOwnedFamily._();
+
+final class IsTripOwnedProvider extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  IsTripOwnedProvider._({
+    required IsTripOwnedFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'isTripOwnedProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$isTripOwnedHash();
+
+  @override
+  String toString() {
+    return r'isTripOwnedProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    final argument = this.argument as TripId;
+    return isTripOwned(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is IsTripOwnedProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$isTripOwnedHash() => r'e4af0c07fad4d215abf5f39e14b354af1a029d09';
+
+final class IsTripOwnedFamily extends $Family
+    with $FunctionalFamilyOverride<bool, TripId> {
+  IsTripOwnedFamily._()
+    : super(
+        retry: null,
+        name: r'isTripOwnedProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  IsTripOwnedProvider call(TripId tripId) =>
+      IsTripOwnedProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'isTripOwnedProvider';
+}

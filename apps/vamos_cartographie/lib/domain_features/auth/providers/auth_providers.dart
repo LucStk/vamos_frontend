@@ -19,10 +19,10 @@ Stream<User?> authState(Ref ref) {
 String? currentUserId(Ref ref) =>
     ref.watch(authStateProvider.select((s) => s.value?.id));
 
-// @Riverpod(keepAlive: true)
-// User? currentUser(Ref ref) {
-//   return ref.watch(authStateProvider).value;
-// }
+@Riverpod(keepAlive: true)
+User? currentUser(Ref ref) {
+  return ref.watch(authStateProvider).value;
+}
 
 // @Riverpod(keepAlive: true)
 // String? accessToken(Ref ref) {

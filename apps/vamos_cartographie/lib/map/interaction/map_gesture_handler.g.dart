@@ -80,16 +80,16 @@ final class MapGestureHandlerNotifierProvider
       MapSceneProvider.$allTransitiveDependencies10;
   static final $allTransitiveDependencies12 =
       MapSceneProvider.$allTransitiveDependencies11;
-  static final $allTransitiveDependencies13 =
-      MapSceneProvider.$allTransitiveDependencies12;
-  static final $allTransitiveDependencies14 =
-      MapSceneProvider.$allTransitiveDependencies13;
-  static final $allTransitiveDependencies15 = mapCameraProvider;
-  static final $allTransitiveDependencies16 = modeMachineProvider;
-  static final $allTransitiveDependencies17 =
+  static final $allTransitiveDependencies13 = mapCameraProvider;
+  static final $allTransitiveDependencies14 = modeMachineProvider;
+  static final $allTransitiveDependencies15 =
       ModeMachineProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies16 =
+      ModeMachineProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies17 =
+      ModeMachineProvider.$allTransitiveDependencies4;
   static final $allTransitiveDependencies18 =
-      ModeMachineProvider.$allTransitiveDependencies3;
+      ModeMachineProvider.$allTransitiveDependencies5;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();

@@ -66,7 +66,7 @@ final class TripItemProvider
   }
 }
 
-String _$tripItemHash() => r'7104dfe93f5504bec21c92615c6a634bb165a7c5';
+String _$tripItemHash() => r'e6811810938159db06bc954c67b45b2c9c19206f';
 
 final class TripItemFamily extends $Family
     with $FunctionalFamilyOverride<TripItem, (TripId, MapCameraReader)> {
@@ -74,8 +74,8 @@ final class TripItemFamily extends $Family
     : super(
         retry: null,
         name: r'tripItemProvider',
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 
@@ -102,8 +102,6 @@ final class AllTripItemProvider
          dependencies: null,
          $allTransitiveDependencies: null,
        );
-
-  static final $allTransitiveDependencies0 = tripItemProvider;
 
   @override
   String debugGetCreateSourceHash() => _$allTripItemHash();
@@ -145,7 +143,7 @@ final class AllTripItemProvider
   }
 }
 
-String _$allTripItemHash() => r'816ce4b2b462021117c1c3ea03218b7a88333143';
+String _$allTripItemHash() => r'f55c2b5c480aad56aa92d8e6cc082f016b14bd81';
 
 final class AllTripItemFamily extends $Family
     with $FunctionalFamilyOverride<List<TripItem>, MapCameraController> {
@@ -153,10 +151,8 @@ final class AllTripItemFamily extends $Family
     : super(
         retry: null,
         name: r'allTripItemProvider',
-        dependencies: <ProviderOrFamily>[tripItemProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          AllTripItemProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

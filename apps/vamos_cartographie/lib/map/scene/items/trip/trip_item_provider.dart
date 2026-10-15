@@ -9,17 +9,17 @@ import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dar
 import 'package:vamos_cartographie/map/scene/items/trip/trip_item.dart';
 part 'trip_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true)
 TripItem tripItem(Ref ref, TripId tripId, MapCameraReader camera) {
   final tripSegment = ref.watch(allSegmentsProvider(tripId));
   final tripGeometry = tripSegment.map((s) => s.geometry).toList();
   return TripItem(
     worldSegments: projectPolyline(tripGeometry, camera.latLngToWorldOffset),
-    object: MapTrip(tripId),
+    object: MapTrip(tripId, isOwned: ref.watch(isTripOwnedProvider(tripId))),
   );
 }
 
-@Riverpod(keepAlive: true, dependencies: [tripItem])
+@Riverpod(keepAlive: true)
 List<TripItem> allTripItem(Ref ref, MapCameraController camera) {
   final tripsIds = ref.watch(
     tripStoreProvider.select((t) => t.tripStore.getIds()),
