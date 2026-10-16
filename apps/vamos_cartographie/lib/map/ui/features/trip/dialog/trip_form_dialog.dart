@@ -4,7 +4,7 @@ import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_picker.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/injection.dart';
-import 'package:vamos_cartographie/map/ui/modes/explore/trip_section_label.dart';
+import 'package:vamos_cartographie/map/ui/features/trip/widgets/trip_section_label.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/cancel_button.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/confirm_button.dart';
 import 'package:vamos_cartographie/ui_kit/date/date_picker.dart';

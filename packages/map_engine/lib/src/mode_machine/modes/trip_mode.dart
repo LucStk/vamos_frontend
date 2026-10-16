@@ -8,7 +8,7 @@ sealed class TripMode extends AppMode {
 
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapVertex e => Transition.set(selectionSlot, e),
+    MapVertex e => Transition.overlay(VertexMenu(e)).and(selectionSlot, e),
     MapSegment e => Transition.set(selectionSlot, e),
 
     // Tap dans le vide : d'abord on désélectionne, ensuite seulement on sort.
@@ -30,12 +30,12 @@ final class TripEditMode extends TripMode {
 
   @override
   Transition<AppMode> onLongPress(LongPressGesture g) => switch (g.element) {
-    _ => Transition.overlay(MapPointMenu(g.screen)),
+    _ => Transition.overlay(MapPointMenu(g.world)),
   };
   @override
   Transition<AppMode> onSecondaryTap(SecondaryTapGesture g) =>
       switch (g.element) {
-        _ => Transition.overlay(MapPointMenu(g.screen)),
+        _ => Transition.overlay(MapPointMenu(g.world)),
       };
 }
 

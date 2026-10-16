@@ -7,18 +7,18 @@ import 'package:trip_application/topology/domain/domain.dart';
 import 'package:trip_application/trip/domain/domain.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip/widgets/widgets.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/widgets/widgets.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/confirm_button.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/delete_button.dart';
 
 @Dependencies([modeMachine])
-class VertexBottomSheet extends ConsumerWidget {
+class VertexBottomSheetContent extends ConsumerWidget {
   final TripId tripId;
   final VertexId vertexId;
   final Widget? child;
 
-  const VertexBottomSheet({
+  const VertexBottomSheetContent({
     super.key,
     required this.tripId,
     required this.vertexId,

@@ -46,28 +46,4 @@ class ObjectMenuShell extends ConsumerWidget {
       ),
     );
   }
-
-  ScreenOffset? _pencilPosition(WidgetRef ref, MapCameraController camera) {
-    final pencil = ref.read(pencilItemProvider(camera));
-    final worldPosition = pencil?.worldPosition;
-
-    if (worldPosition == null) {
-      return null;
-    }
-
-    return camera.worldToScreen(worldPosition);
-  }
-
-  ScreenOffset? _vertexPosition(
-    WidgetRef ref,
-    MapCameraController camera,
-    MapVertex object,
-  ) {
-    final vertex = ref.read(
-      vertexItemProvider(object.tripId, object.id, camera),
-    );
-
-    final worldPosition = vertex.worldPosition;
-    return camera.worldToScreen(worldPosition);
-  }
 }

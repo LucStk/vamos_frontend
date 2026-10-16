@@ -6,7 +6,7 @@ import 'package:map_engine/src/mode_machine/effect/effect_queue.dart';
 import 'package:map_engine/src/mode_machine/effect/pending_run.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
 import 'package:map_engine/src/mode_machine/mode_state.dart';
-import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
+import 'package:map_engine/src/mode_machine/overlay.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 
 // mode_interpreter.dart
@@ -37,8 +37,16 @@ mixin ModeMachine<M extends Mode<M>> implements ModeHost, ModeDriver<M> {
 
   @override
   void send(MapGesture event) {
-    final interception = state.overlay?.intercept(event) ?? Interception.pass;
-    if (interception.dismisses) dismissOverlay();
+    final overlay = state.overlay;
+    final interception = overlay?.intercept(event) ?? Interception.pass;
+
+    if (interception.dismisses) {
+      dismissOverlay();
+    } else if (overlay != null) {
+      final visible = overlay.visibleAfter(event);
+      if (visible != null) _commit(state.withOverlayVisible(visible));
+    }
+
     if (interception.consumes) return;
     apply(mode.dispatchGesture(event));
   }

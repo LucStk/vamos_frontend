@@ -133,7 +133,7 @@ class FlutterMapCamera implements MapCameraController {
       ScreenOffset(_camera.nonRotatedSize.center(Offset.zero));
   @override
   WorldOffset get worldCenter =>
-      WorldOffset(_camera.projectAtZoom(_camera.center, 0));
+      WorldOffset(_camera.projectAtZoom(_camera.center, referenceZoom));
   @override
   Stream<double> get rotationStream =>
       mapController.mapEventStream.map((_) => _camera.rotation);

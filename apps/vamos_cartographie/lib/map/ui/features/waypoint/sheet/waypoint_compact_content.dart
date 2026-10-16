@@ -7,9 +7,6 @@ import 'package:trip_application/trip_application.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/dialog/waypoint_sheet.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip/widgets/widgets.dart';
-import 'package:vamos_cartographie/ui_kit/buttons/delete_button.dart';
-import 'package:vamos_cartographie/ui_kit/buttons/modifier_button.dart';
 
 @Dependencies([ModeMachine])
 class WaypointCompactContent extends ConsumerWidget {
@@ -40,28 +37,28 @@ class WaypointCompactContent extends ConsumerWidget {
 
             Row(
               children: [
-                DrawSegmentButton(vertexId: waypoint.vertexId, tripId: tripId),
-                const SizedBox(width: 8),
-                ModifierButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => WaypointFormDialog(
-                        tripId: tripId,
-                        initialWaypoint: waypoint,
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(width: 8),
-                DeleteButton(
-                  onPressed: () => deleteWaypointWithConfirmation(
-                    context: context,
-                    ref: ref,
-                    tripId: tripId,
-                    waypointId: waypoint.id,
-                  ),
-                ),
+                // DrawSegmentButton(vertexId: waypoint.vertexId, tripId: tripId),
+                // const SizedBox(width: 8),
+                // ModifierButton(
+                //   onPressed: () {
+                //     showDialog(
+                //       context: context,
+                //       builder: (ctx) => WaypointFormDialog(
+                //         tripId: tripId,
+                //         initialWaypoint: waypoint,
+                //       ),
+                //     );
+                //   },
+                // ),
+                // const SizedBox(width: 8),
+                // DeleteButton(
+                //   onPressed: () => deleteWaypointWithConfirmation(
+                //     context: context,
+                //     ref: ref,
+                //     tripId: tripId,
+                //     waypointId: waypoint.id,
+                //   ),
+                // ),
               ],
             ),
           ],
