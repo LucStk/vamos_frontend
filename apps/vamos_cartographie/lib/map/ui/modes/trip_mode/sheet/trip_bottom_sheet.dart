@@ -4,11 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/header/floating_trip_card.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/header/trip_info_bar.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/sheet/trip_compact_content.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/sheet/trip_viewer_content.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/deferred_notifier.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/floating_trip_card.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/trip_info_bar.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_compact_content.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_viewer_content.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/draggable_sheet.dart';
 
 const _cardHeight = 64.0;

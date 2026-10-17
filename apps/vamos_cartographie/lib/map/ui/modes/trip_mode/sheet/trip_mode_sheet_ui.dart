@@ -9,9 +9,9 @@ import 'package:vamos_cartographie/domain_features/topology/topology.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/features/segment/sheet/segment_bottom_sheet_view.dart';
 import 'package:vamos_cartographie/map/ui/features/sketch/sheet/sketch_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/sheet/trip_bottom_sheet.dart';
 import 'package:vamos_cartographie/map/ui/features/vertex/sheet/vertex_bottom_sheet_content.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/sheet/waypoint_bottom_sheet.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_bottom_sheet.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class TripModeSheetUi extends ConsumerWidget {

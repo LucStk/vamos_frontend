@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/ui/chrome/profile_capsule.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/header/trip_info_bar.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/trip_info_bar.dart';
 
 const _cardHeight = 64.0;
 const _cardMargin = 12.0;

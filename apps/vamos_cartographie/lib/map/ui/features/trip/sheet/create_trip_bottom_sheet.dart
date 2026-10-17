@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/sheet/trip_form_sheet.dart';
+import 'package:vamos_cartographie/map/ui/features/trip/modal/trip_form_sheet.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/simple_bottom_sheet_shell.dart';
 
 // + import de tripStoreProvider et de showTripFormSheet
