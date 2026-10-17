@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/mode/map_mode.dart';
-import 'package:vamos_cartographie/map/ui/shared/menus/object_menu_shell.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 
-import 'package:vamos_cartographie/map/scene/items/sketch_segment/sketch_item_provider.dart';
-import 'package:vamos_cartographie/map/scene/items/vertex/vertex_item_provider.dart';
-
-@Dependencies([vertexItem, pencilItem, modeOverlay])
 class VertexMenuWidget extends StatelessWidget {
   const VertexMenuWidget({
     super.key,
@@ -23,7 +17,7 @@ class VertexMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ObjectMenuShell(
+    return ContextMenuShell(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,

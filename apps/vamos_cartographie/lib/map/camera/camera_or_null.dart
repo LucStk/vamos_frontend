@@ -12,6 +12,7 @@ FlutterMapCamera? cameraOrNull(Ref ref) {
   void onChange() => ref.invalidateSelf();
   camera.ready.addListener(onChange);
   ref.onDispose(() => camera.ready.removeListener(onChange));
+  print("camera rebuila");
 
   return camera.ready.value ? camera : null;
 }

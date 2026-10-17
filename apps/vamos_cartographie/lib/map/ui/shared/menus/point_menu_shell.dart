@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
-import 'package:vamos_cartographie/map/ui/shared/menus/context_menu.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 
 @Dependencies([modeOverlay])
 class PointMenuShell extends ConsumerWidget {
@@ -19,7 +19,7 @@ class PointMenuShell extends ConsumerWidget {
           top: o.at.dy,
           child: FractionalTranslation(
             translation: const Offset(-0.5, -1.5),
-            child: ContextMenu(child),
+            child: ContextMenuShell(child: child),
           ),
         );
       case _:

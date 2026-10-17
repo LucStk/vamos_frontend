@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
-import 'package:vamos_cartographie/map/ui/shared/menus/context_menu.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 
 /// Affiche [child] au-dessus de l'ancre du menu ouvert.
 ///
@@ -28,15 +28,13 @@ class ObjectMenuShell extends ConsumerWidget {
     final camera = ref.watch(cameraOrNullProvider);
     if (camera == null) return const SizedBox.shrink();
 
-    final world = ref.watch(
-      menuPlacementProvider(camera).select((p) => p?.world),
-    );
+    final world = ref.watch(menuPlacementProvider.select((p) => p?.world));
     if (world == null) return const SizedBox.shrink();
 
     return ListenableBuilder(
       listenable: camera.changes,
       // Construit une seule fois : seul le positionnement suit la caméra.
-      child: ContextMenu(child),
+      child: ContextMenuShell(child: child),
       builder: (context, menu) {
         final at = camera.worldToScreen(world);
         return Positioned(
@@ -44,7 +42,10 @@ class ObjectMenuShell extends ConsumerWidget {
           top: at.dy - _gap,
           child: FractionalTranslation(
             translation: const Offset(-0.5, -1),
-            child: menu,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 240),
+              child: menu,
+            ),
           ),
         );
       },

@@ -10,77 +10,20 @@ part of 'menu_placement.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(menuPlacement)
-final menuPlacementProvider = MenuPlacementFamily._();
+final menuPlacementProvider = MenuPlacementProvider._();
 
 final class MenuPlacementProvider
     extends $FunctionalProvider<MenuPlacement?, MenuPlacement?, MenuPlacement?>
     with $Provider<MenuPlacement?> {
-  MenuPlacementProvider._({
-    required MenuPlacementFamily super.from,
-    required MapCameraController super.argument,
-  }) : super(
-         retry: null,
-         name: r'menuPlacementProvider',
-         isAutoDispose: false,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  static final $allTransitiveDependencies0 = modeOverlayProvider;
-  static final $allTransitiveDependencies1 = vertexItemProvider;
-  static final $allTransitiveDependencies2 =
-      VertexItemProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies3 = pencilItemProvider;
-
-  @override
-  String debugGetCreateSourceHash() => _$menuPlacementHash();
-
-  @override
-  String toString() {
-    return r'menuPlacementProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<MenuPlacement?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  MenuPlacement? create(Ref ref) {
-    final argument = this.argument as MapCameraController;
-    return menuPlacement(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MenuPlacement? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<MenuPlacement?>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is MenuPlacementProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$menuPlacementHash() => r'e0d9c21539809666dce6a7b15027155e563d1697';
-
-final class MenuPlacementFamily extends $Family
-    with $FunctionalFamilyOverride<MenuPlacement?, MapCameraController> {
-  MenuPlacementFamily._()
+  MenuPlacementProvider._()
     : super(
+        from: null,
+        argument: null,
         retry: null,
         name: r'menuPlacementProvider',
+        isAutoDispose: false,
         dependencies: <ProviderOrFamily>[
+          cameraOrNullProvider,
           modeOverlayProvider,
           vertexItemProvider,
           pencilItemProvider,
@@ -90,13 +33,40 @@ final class MenuPlacementFamily extends $Family
           MenuPlacementProvider.$allTransitiveDependencies1,
           MenuPlacementProvider.$allTransitiveDependencies2,
           MenuPlacementProvider.$allTransitiveDependencies3,
+          MenuPlacementProvider.$allTransitiveDependencies4,
+          MenuPlacementProvider.$allTransitiveDependencies5,
         },
-        isAutoDispose: false,
       );
 
-  MenuPlacementProvider call(MapCameraController camera) =>
-      MenuPlacementProvider._(argument: camera, from: this);
+  static final $allTransitiveDependencies0 = cameraOrNullProvider;
+  static final $allTransitiveDependencies1 =
+      CameraOrNullProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 = modeOverlayProvider;
+  static final $allTransitiveDependencies3 = vertexItemProvider;
+  static final $allTransitiveDependencies4 =
+      VertexItemProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies5 = pencilItemProvider;
 
   @override
-  String toString() => r'menuPlacementProvider';
+  String debugGetCreateSourceHash() => _$menuPlacementHash();
+
+  @$internal
+  @override
+  $ProviderElement<MenuPlacement?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  MenuPlacement? create(Ref ref) {
+    return menuPlacement(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MenuPlacement? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MenuPlacement?>(value),
+    );
+  }
 }
+
+String _$menuPlacementHash() => r'6ff224d32ff063031a35684a34b22d9aec8cce06';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ContextMenu extends StatelessWidget {
-  const ContextMenu(this.child, {super.key});
+class ContextMenuShell extends StatelessWidget {
+  const ContextMenuShell({required this.child, super.key});
 
   final Widget child;
 
@@ -17,7 +17,13 @@ class ContextMenu extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           color: theme.colorScheme.surface,
           clipBehavior: Clip.antiAlias,
-          child: Padding(padding: const EdgeInsets.all(6), child: child),
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 200),
+              child: child,
+            ),
+          ),
         ),
 
         // Petite pointe qui indique le point géographique.

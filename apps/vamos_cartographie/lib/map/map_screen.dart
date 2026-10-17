@@ -6,11 +6,13 @@ import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_lifecycle.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
-import 'package:vamos_cartographie/map/rendering/base_map_screen.dart';
+import 'package:vamos_cartographie/map/interaction/map_gesture_bridge.dart';
+import 'package:vamos_cartographie/map/layers/layers.dart';
 import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
 import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
+import 'package:vamos_cartographie/map/ui/chrome/right_control_panel.dart';
 import 'package:vamos_cartographie/map/ui/map_ui.dart';
 
 @Dependencies([MapGestureHandlerNotifier, mapScene, visualTargets])
@@ -54,10 +56,10 @@ class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
     return Scaffold(
       body: Stack(
         children: [
-          BaseMap(overlayChildren: const [MapUi()]),
-
+          MapGestureBridge(mapLayers: [MapTileLayer()]),
+          const MapControls(),
+          const MapUi(),
           Positioned(top: 16, right: 16, child: AccountButton()),
-
           if (loader.isLoading)
             const Positioned(
               top: 0,
