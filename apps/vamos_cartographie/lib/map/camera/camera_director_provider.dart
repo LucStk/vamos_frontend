@@ -7,13 +7,10 @@ part 'camera_director_provider.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [mapCamera])
 CameraDirector cameraDirector(Ref ref) {
-  final director = CameraDirector(camera: ref.read(mapCameraProvider));
+  final camera = ref.watch(mapCameraProvider);
+  final director = CameraDirector(camera: camera);
 
-  // Un geste utilisateur bloque les demandes `ambient`.
-  final gestures = ref
-      .watch(mapCameraProvider)
-      .mapController
-      .mapEventStream
+  final gestures = camera.mapController.mapEventStream
       .where((e) => _isUserGesture(e.source))
       .listen((_) => director.onUserGesture());
 

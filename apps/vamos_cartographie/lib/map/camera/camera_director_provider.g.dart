@@ -52,4 +52,4 @@ final class CameraDirectorProvider
   }
 }
 
-String _$cameraDirectorHash() => r'b21700f404dcba46a525faf1947755f1c1bb7eda';
+String _$cameraDirectorHash() => r'43ff59ccff247886bf43644eb73dc6f95483fc55';

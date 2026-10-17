@@ -23,7 +23,8 @@ mixin MapCameraLifecycle<T extends StatefulWidget>
 
   @override
   void dispose() {
-    camera.detachAnimatedController();
+    camera
+        .dispose(); // annule l'abonnement, détache l'animation, libère les notifiers
     super.dispose();
   }
 }

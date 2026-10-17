@@ -80,7 +80,8 @@ final class MapGestureHandlerNotifierProvider
       MapSceneProvider.$allTransitiveDependencies10;
   static final $allTransitiveDependencies12 =
       MapSceneProvider.$allTransitiveDependencies11;
-  static final $allTransitiveDependencies13 = mapCameraProvider;
+  static final $allTransitiveDependencies13 =
+      MapSceneProvider.$allTransitiveDependencies12;
   static final $allTransitiveDependencies14 = modeMachineProvider;
   static final $allTransitiveDependencies15 =
       ModeMachineProvider.$allTransitiveDependencies0;

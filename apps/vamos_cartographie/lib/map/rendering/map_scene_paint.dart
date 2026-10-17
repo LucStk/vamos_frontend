@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/map/rendering/map_scene_painter.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/camera_transform_widget.dart';
 
-@Dependencies([mapScene, visualTargets, mapCameraSnapshot])
+@Dependencies([mapScene, visualTargets, mapCamera])
 class MapScenePaint extends ConsumerStatefulWidget {
   const MapScenePaint({super.key});
 
@@ -42,11 +42,21 @@ class _MapScenePaintState extends ConsumerState<MapScenePaint>
       (_, next) => _transitions.setTargets(next),
     );
 
+    final camera = ref.watch(mapCameraProvider);
     final items = ref.watch(mapSceneProvider.select((s) => s.items));
-    final size = ref.watch(mapCameraSnapshotProvider.select((c) => c.size));
 
     return CameraTransform(
-      child: SceneLayer(items: items, transitions: _transitions, size: size),
+      // Seule la taille de la carte est suivie ici : le pan, le zoom et la
+      // rotation sont gérés par CameraTransform, sans reconstruire la scène.
+      child: ValueListenableBuilder<Size>(
+        valueListenable: camera.sizeListenable,
+        builder: (context, size, _) => SceneLayer(
+          items: items,
+          transitions: _transitions,
+          zoomScale: camera.zoomScaleListenable,
+          size: size,
+        ),
+      ),
     );
   }
 }

@@ -8,14 +8,33 @@ part of 'map_scene.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Items de la scène, en coordonnées MONDE.
+///
+/// La caméra n'est qu'une clé de famille : la projection monde est fixe
+/// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
+/// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
+/// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 
 @ProviderFor(sceneItems)
 final sceneItemsProvider = SceneItemsFamily._();
+
+/// Items de la scène, en coordonnées MONDE.
+///
+/// La caméra n'est qu'une clé de famille : la projection monde est fixe
+/// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
+/// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
+/// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 
 final class SceneItemsProvider
     extends
         $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
     with $Provider<List<SceneItem>> {
+  /// Items de la scène, en coordonnées MONDE.
+  ///
+  /// La caméra n'est qu'une clé de famille : la projection monde est fixe
+  /// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
+  /// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
+  /// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
   SceneItemsProvider._({
     required SceneItemsFamily super.from,
     required MapCameraController super.argument,
@@ -83,7 +102,14 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'9b0e0371eca73385609f63cd1ddfea9504b939be';
+String _$sceneItemsHash() => r'7af02997da85e8de9655d700cc50ad39d5e12cf3';
+
+/// Items de la scène, en coordonnées MONDE.
+///
+/// La caméra n'est qu'une clé de famille : la projection monde est fixe
+/// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
+/// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
+/// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 
 final class SceneItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, MapCameraController> {
@@ -113,6 +139,13 @@ final class SceneItemsFamily extends $Family
         isAutoDispose: false,
       );
 
+  /// Items de la scène, en coordonnées MONDE.
+  ///
+  /// La caméra n'est qu'une clé de famille : la projection monde est fixe
+  /// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
+  /// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
+  /// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
+
   SceneItemsProvider call(MapCameraController camera) =>
       SceneItemsProvider._(argument: camera, from: this);
 
@@ -120,12 +153,23 @@ final class SceneItemsFamily extends $Family
   String toString() => r'sceneItemsProvider';
 }
 
+/// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
+/// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
+/// une exception.
+
 @ProviderFor(mapScene)
 final mapSceneProvider = MapSceneProvider._();
+
+/// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
+/// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
+/// une exception.
 
 final class MapSceneProvider
     extends $FunctionalProvider<MapScene, MapScene, MapScene>
     with $Provider<MapScene> {
+  /// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
+  /// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
+  /// une exception.
   MapSceneProvider._()
     : super(
         from: null,
@@ -134,8 +178,8 @@ final class MapSceneProvider
         name: r'mapSceneProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[
-          cameraOrNullProvider,
           sceneItemsProvider,
+          cameraOrNullProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MapSceneProvider.$allTransitiveDependencies0,
@@ -150,31 +194,34 @@ final class MapSceneProvider
           MapSceneProvider.$allTransitiveDependencies9,
           MapSceneProvider.$allTransitiveDependencies10,
           MapSceneProvider.$allTransitiveDependencies11,
+          MapSceneProvider.$allTransitiveDependencies12,
         },
       );
 
-  static final $allTransitiveDependencies0 = cameraOrNullProvider;
-  static final $allTransitiveDependencies1 = sceneItemsProvider;
-  static final $allTransitiveDependencies2 =
+  static final $allTransitiveDependencies0 = sceneItemsProvider;
+  static final $allTransitiveDependencies1 =
       SceneItemsProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies3 =
+  static final $allTransitiveDependencies2 =
       SceneItemsProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies4 =
+  static final $allTransitiveDependencies3 =
       SceneItemsProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies5 =
+  static final $allTransitiveDependencies4 =
       SceneItemsProvider.$allTransitiveDependencies3;
-  static final $allTransitiveDependencies6 =
+  static final $allTransitiveDependencies5 =
       SceneItemsProvider.$allTransitiveDependencies4;
-  static final $allTransitiveDependencies7 =
+  static final $allTransitiveDependencies6 =
       SceneItemsProvider.$allTransitiveDependencies5;
-  static final $allTransitiveDependencies8 =
+  static final $allTransitiveDependencies7 =
       SceneItemsProvider.$allTransitiveDependencies6;
-  static final $allTransitiveDependencies9 =
+  static final $allTransitiveDependencies8 =
       SceneItemsProvider.$allTransitiveDependencies7;
-  static final $allTransitiveDependencies10 =
+  static final $allTransitiveDependencies9 =
       SceneItemsProvider.$allTransitiveDependencies8;
-  static final $allTransitiveDependencies11 =
+  static final $allTransitiveDependencies10 =
       SceneItemsProvider.$allTransitiveDependencies9;
+  static final $allTransitiveDependencies11 = cameraOrNullProvider;
+  static final $allTransitiveDependencies12 =
+      CameraOrNullProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$mapSceneHash();
@@ -198,4 +245,4 @@ final class MapSceneProvider
   }
 }
 
-String _$mapSceneHash() => r'f5afb2bcc9dfd3bee33912d19d1b5fc182f8e5b4';
+String _$mapSceneHash() => r'9889b329e76229ccf85d93b1b73bd3b6468e376c';

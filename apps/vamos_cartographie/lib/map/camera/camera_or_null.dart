@@ -1,13 +1,17 @@
 // camera_ready.dart
-import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
+import 'package:vamos_cartographie/map/camera/flutter_map_camera.dart';
 
 part 'camera_or_null.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
-class CameraOrNull extends _$CameraOrNull {
-  @override
-  MapCameraController? build() => null; // pas prête au départ
+@Riverpod(keepAlive: true, dependencies: [mapCamera])
+FlutterMapCamera? cameraOrNull(Ref ref) {
+  final camera = ref.watch(mapCameraProvider);
 
-  void markReady(MapCameraController camera) => state = camera;
+  void onChange() => ref.invalidateSelf();
+  camera.ready.addListener(onChange);
+  ref.onDispose(() => camera.ready.removeListener(onChange));
+
+  return camera.ready.value ? camera : null;
 }

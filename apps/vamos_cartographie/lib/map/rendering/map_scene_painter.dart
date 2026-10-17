@@ -1,27 +1,30 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:map_canvas/map_canvas.dart';
-
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/rendering/animation/visual_transitions.dart';
 
+/// Peint les items de la scène en une passe.
+///
+/// - [zoomScale] == null : passe invariante au zoom (géométrie monde, mise à
+///   l'échelle par le `Transform` parent). Elle ne se repeint que si les
+///   items changent ou sur un tick d'animation.
+/// - [zoomScale] != null : passe dépendante du zoom (tailles écran
+///   constantes). Elle se repeint à chaque changement de zoom, SANS
+///   reconstruire de widget : la valeur est lue au moment de `paint`.
 class ScenePainter extends CustomPainter {
-  ScenePainter({
-    required this.items,
-    required this.transitions,
-    this.zoomScale, // null = passe invariante au zoom
-  }) : super(repaint: transitions.ticks);
+  ScenePainter({required this.items, required this.transitions, this.zoomScale})
+    : super(repaint: Listenable.merge([transitions.ticks, zoomScale]));
 
   final List<SceneItem> items;
   final VisualTransitions transitions;
-  final double? zoomScale;
+  final ValueListenable<double>? zoomScale;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final renderer = zoomScale == null
+    final zoom = zoomScale?.value;
+    final renderer = zoom == null
         ? MapCommandRenderer.zoomInvariant(canvas)
-        : MapCommandRenderer.zoomDependent(canvas, zoomScale: zoomScale!);
+        : MapCommandRenderer.zoomDependent(canvas, zoomScale: zoom);
     renderer.paintAll(transitions.commandsFor(items));
   }
 
@@ -30,24 +33,24 @@ class ScenePainter extends CustomPainter {
       !identical(items, old.items) || zoomScale != old.zoomScale;
 }
 
-@Dependencies([mapCameraSnapshot])
-class SceneLayer extends ConsumerWidget {
+/// Deux couches : l'une invariante au zoom, l'autre dépendante.
+/// Plus de Riverpod ici : le zoom arrive sous forme de [ValueListenable].
+class SceneLayer extends StatelessWidget {
   const SceneLayer({
     super.key,
     required this.items,
     required this.transitions,
+    required this.zoomScale,
     required this.size,
   });
 
   final List<SceneItem> items;
   final VisualTransitions transitions;
+  final ValueListenable<double> zoomScale;
   final Size size;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final zoom = ref.watch(
-      mapCameraSnapshotProvider.select((c) => c.zoomScale),
-    );
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         RepaintBoundary(
@@ -62,7 +65,7 @@ class SceneLayer extends ConsumerWidget {
             painter: ScenePainter(
               items: items,
               transitions: transitions,
-              zoomScale: zoom,
+              zoomScale: zoomScale,
             ),
           ),
         ),

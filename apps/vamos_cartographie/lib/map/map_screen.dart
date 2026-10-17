@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_lifecycle.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
@@ -27,10 +26,7 @@ class _MapExploreScreenState extends State<MapScreen>
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      overrides: [
-        mapCameraProvider.overrideWithValue(camera),
-        cameraOrNullProvider.overrideWith(CameraOrNull.new),
-      ],
+      overrides: [mapCameraProvider.overrideWithValue(camera)],
       child: _ExploreMapView(),
     );
   }
@@ -40,7 +36,6 @@ class _MapExploreScreenState extends State<MapScreen>
   mapScene,
   visualTargets,
   MapGestureHandlerNotifier,
-  CameraOrNull,
   mapCamera,
   cameraDirector,
 ])

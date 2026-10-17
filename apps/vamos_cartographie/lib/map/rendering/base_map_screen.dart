@@ -4,19 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/interaction/map_gesture_bridge.dart';
 import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
-import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/layers/map_tile_layer.dart';
 import 'package:vamos_cartographie/map/ui/chrome/right_control_panel.dart';
 
+import 'package:vamos_cartographie/map/interaction/visual_target.dart';
+
 @Dependencies([
   visualTargets,
   MapGestureHandlerNotifier,
-  CameraOrNull,
   cameraDirector,
   mapCamera,
   mapScene,

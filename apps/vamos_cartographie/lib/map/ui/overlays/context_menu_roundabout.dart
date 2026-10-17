@@ -8,11 +8,10 @@ import 'package:vamos_cartographie/map/ui/features/segment/menu/sketch_pencil_me
 import 'package:vamos_cartographie/map/ui/features/vertex/menu/vertex_menu.dart';
 import 'package:vamos_cartographie/map/ui/features/vertex/popup/popup_create_vertex.dart';
 
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/scene/items/sketch_segment/sketch_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/items/vertex/vertex_item_provider.dart';
 
-@Dependencies([modeOverlay, modeMachine, CameraOrNull, pencilItem, vertexItem])
+@Dependencies([modeOverlay, modeMachine, pencilItem, vertexItem])
 class ContextMenuRoundabout extends ConsumerWidget {
   const ContextMenuRoundabout({super.key, required this.tripId});
   final TripId tripId;

@@ -12,6 +12,12 @@ import 'package:vamos_cartographie/map/scene/items/vertex/vertex_item_provider.d
 
 part 'map_scene.g.dart';
 
+/// Items de la scène, en coordonnées MONDE.
+///
+/// La caméra n'est qu'une clé de famille : la projection monde est fixe
+/// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
+/// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
+/// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 @Riverpod(
   keepAlive: true,
   dependencies: [
@@ -36,23 +42,24 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
     case TripMode e:
       items.addAll(ref.watch(allVertexItemProvider(e.tripId, camera)));
       items.addAll(ref.watch(allSegmentItemProvider(e.tripId, camera)));
-      break;
   }
 
   items.sort((a, b) => b.object.hitPriority.compareTo(a.object.hitPriority));
   return items;
 }
 
-@Riverpod(keepAlive: true, dependencies: [CameraOrNull, sceneItems])
+/// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
+/// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
+/// une exception.
+@Riverpod(keepAlive: true, dependencies: [sceneItems, cameraOrNull])
 MapScene mapScene(Ref ref) {
   final selected = ref.watch(
     modeStateProvider.select((c) => c.slots.get(selectionSlot)),
   );
   final camera = ref.watch(cameraOrNullProvider);
 
-  final List<SceneItem> items = (camera != null)
-      ? ref.watch(sceneItemsProvider(camera))
-      : [];
-
+  final List<SceneItem> items = camera == null
+      ? const []
+      : ref.watch(sceneItemsProvider(camera));
   return MapScene(selection: selected, items: items);
 }

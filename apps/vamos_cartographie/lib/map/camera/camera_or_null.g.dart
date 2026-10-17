@@ -9,11 +9,17 @@ part of 'camera_or_null.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(CameraOrNull)
+@ProviderFor(cameraOrNull)
 final cameraOrNullProvider = CameraOrNullProvider._();
 
 final class CameraOrNullProvider
-    extends $NotifierProvider<CameraOrNull, MapCameraController?> {
+    extends
+        $FunctionalProvider<
+          FlutterMapCamera?,
+          FlutterMapCamera?,
+          FlutterMapCamera?
+        >
+    with $Provider<FlutterMapCamera?> {
   CameraOrNullProvider._()
     : super(
         from: null,
@@ -21,42 +27,35 @@ final class CameraOrNullProvider
         retry: null,
         name: r'cameraOrNullProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: <ProviderOrFamily>[mapCameraProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          CameraOrNullProvider.$allTransitiveDependencies0,
+        ],
       );
+
+  static final $allTransitiveDependencies0 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$cameraOrNullHash();
 
   @$internal
   @override
-  CameraOrNull create() => CameraOrNull();
+  $ProviderElement<FlutterMapCamera?> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  FlutterMapCamera? create(Ref ref) {
+    return cameraOrNull(ref);
+  }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MapCameraController? value) {
+  Override overrideWithValue(FlutterMapCamera? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MapCameraController?>(value),
+      providerOverride: $SyncValueProvider<FlutterMapCamera?>(value),
     );
   }
 }
 
-String _$cameraOrNullHash() => r'42423607de78065c636c5f25f86859ffaea17444';
-
-abstract class _$CameraOrNull extends $Notifier<MapCameraController?> {
-  MapCameraController? build();
-  @$mustCallSuper
-  @override
-  WhenComplete runBuild() {
-    final ref = this.ref as $Ref<MapCameraController?, MapCameraController?>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<MapCameraController?, MapCameraController?>,
-              MapCameraController?,
-              Object?,
-              Object?
-            >;
-    return element.handleCreate(ref, build);
-  }
-}
+String _$cameraOrNullHash() => r'89e366c004bf0099a4dae9c72413a0b2740fc8dd';

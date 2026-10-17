@@ -4,20 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
-import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 import 'package:vamos_cartographie/map/rendering/map_scene_paint.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
+import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 
-@Dependencies([
-  visualTargets,
-  mapScene,
-  CameraOrNull,
-  mapCamera,
-  MapGestureHandlerNotifier,
-])
+@Dependencies([visualTargets, mapScene, mapCamera, MapGestureHandlerNotifier])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
 
@@ -31,8 +24,7 @@ class MapCanvas extends ConsumerWidget {
     return FlutterMap(
       mapController: camera.mapController,
       options: MapOptions(
-        onMapReady: () =>
-            ref.read(cameraOrNullProvider.notifier).markReady(camera),
+        onMapReady: camera.markReady,
         initialCameraFit: camera.initialCameraFit,
         initialCenter: const LatLng(46.8, 2.2),
         initialZoom: 7,
@@ -44,15 +36,7 @@ class MapCanvas extends ConsumerWidget {
                     ~InteractiveFlag.drag,
         ),
       ),
-      children: [
-        ...layers,
-        ProviderScope(
-          overrides: [
-            mapCameraSnapshotProvider.overrideWith(mapCameraSnapshot),
-          ],
-          child: MapScenePaint(),
-        ),
-      ],
+      children: [...layers, MapScenePaint()],
     );
   }
 }
