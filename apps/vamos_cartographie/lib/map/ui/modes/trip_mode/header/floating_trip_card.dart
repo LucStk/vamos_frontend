@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/ui/chrome/profile_capsule.dart';
 import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/trip_info_bar.dart';
-
-const _cardHeight = 64.0;
-const _cardMargin = 12.0;
+import 'package:vamos_cartographie/map/ui/shared/sheets/floating_card_bottom_sheet.dart';
 
 /// Carte du haut : poussée, réduite et estompée par la sheet qui arrive.
 class FloatingTripCard extends StatelessWidget {
@@ -31,7 +29,7 @@ class FloatingTripCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             clipBehavior: Clip.antiAlias,
             child: SizedBox(
-              height: _cardHeight,
+              height: kFloatingCardHeight,
               child: TripInfoBar(trip: trip),
             ),
           ),
@@ -47,7 +45,7 @@ class FloatingTripCard extends StatelessWidget {
         child: Opacity(
           opacity: 1 - p,
           child: Transform.translate(
-            offset: Offset(0, -_cardMargin * p),
+            offset: Offset(0, -kFloatingCardHeight * p),
             child: Transform.scale(scale: 1 - 0.06 * p, child: child),
           ),
         ),
