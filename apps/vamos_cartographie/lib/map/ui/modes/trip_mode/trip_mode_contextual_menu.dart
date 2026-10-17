@@ -21,18 +21,14 @@ class TripModeContextualMenu extends ConsumerWidget {
     final placement = ref.watch(menuPlacementProvider);
     final camera = ref.watch(cameraOrNullProvider);
     if (camera == null || placement == null) {
-      return Positioned(
-        left: 0,
-        top: 0,
-        width: 0,
-        height: 0,
-        child: SizedBox.shrink(),
-      );
+      return kEmptyPositioned;
     }
 
     return switch (placement.overlay) {
       VertexMenu _ => WorldPositioned(
+        offset: Offset(0, -50),
         worldOffset: placement.world,
+        alignment: Alignment.bottomCenter,
         child: VertexMenuWidget(
           createFrom: () {},
           drawFrom: () {},
@@ -40,7 +36,7 @@ class TripModeContextualMenu extends ConsumerWidget {
           move: () {},
         ),
       ),
-      _ => const SizedBox.shrink(),
+      _ => kEmptyPositioned,
     };
   }
 }

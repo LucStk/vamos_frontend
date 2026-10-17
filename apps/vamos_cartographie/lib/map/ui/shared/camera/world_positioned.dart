@@ -5,6 +5,15 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 
+// world_positioned.dart (ou un fichier utilitaire)
+const kEmptyPositioned = Positioned(
+  left: 0,
+  top: 0,
+  width: 0,
+  height: 0,
+  child: SizedBox.shrink(),
+);
+
 @Dependencies([cameraOrNull])
 class WorldPositioned extends ConsumerWidget {
   const WorldPositioned({
