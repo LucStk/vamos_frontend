@@ -9,7 +9,7 @@ typedef HitTest =
     MapObject? Function({required ScreenOffset offset, MapObject? exclude});
 
 class PointerGestureResolver {
-  static const double dragStartThreshold = 2;
+  static const double dragStartThreshold = 5;
   PointerGestureState state;
   final HitTest hitTest;
   PointerGestureResolver({required this.hitTest}) : state = IdleState();
@@ -23,15 +23,37 @@ class PointerGestureResolver {
 
       case (PressedState pressed, PointerMove e):
         final distance =
-            (pressed.position.world - e.position.world).value.distance;
+            (pressed.position.screen - e.position.screen).value.distance;
+        if (distance < dragStartThreshold) return null;
 
-        if (distance < dragStartThreshold) {
-          // Le move peut être un accident
+        final element = pressed.element;
+        if (element == null || !element.isDraggable) {
+          state = const PanningState();
           return null;
         }
-        // On commence le drag
-        state = DraggingState(dragged: pressed.element);
-        return DragStartGesture(e.position, dragged: pressed.element);
+        state = DraggingState(dragged: element);
+        return DragStartGesture(e.position, dragged: element);
+
+      case (LongPressedState longPressed, PointerMove e):
+        final distance =
+            (longPressed.position.screen - e.position.screen).value.distance;
+        if (distance < dragStartThreshold) return null;
+
+        final element = longPressed.element;
+        if (element == null || !element.isDraggable) {
+          state = const PanningState();
+          return null;
+        }
+        state = DraggingState(dragged: element);
+        return DragStartGesture(e.position, dragged: element);
+
+      case (PanningState _, PointerMove _):
+        return null;
+
+      case (PanningState _, PointerUp _) || (PanningState _, PointerCancel _):
+        state = const IdleState();
+        return null;
+
       case (PressedState pressed, PointerLongPressTimeout e):
         state = LongPressedState(
           element: pressed.element,
@@ -48,15 +70,6 @@ class PointerGestureResolver {
         }
         state = PendingTap(element: pressed.element, position: e.position);
         return null;
-
-      case (LongPressedState longPressed, PointerMove e):
-        final distance =
-            (longPressed.position.world - e.position.world).value.distance;
-        if (distance < dragStartThreshold) return null;
-        // Variante : long press puis drag (ex. déplacer un objet).
-        // Pour ignorer les moves, remplace ces 2 lignes par `return null;`
-        state = DraggingState(dragged: longPressed.element);
-        return DragStartGesture(e.position, dragged: longPressed.element);
 
       case (LongPressedState _, PointerUp _):
         state = const IdleState();

@@ -29,11 +29,11 @@ class TripModeSheetUi extends ConsumerWidget {
         stopSketch: () {},
       ),
       (TripMode e, null) => TripBottomSheet(tripId: e.tripId),
-      // (TripViewMode e, MapVertex v) => _VertexSheet(
-      //   key: ValueKey(v.id),
-      //   tripId: e.tripId,
-      //   vertexId: v.id,
-      // ),
+      (TripViewMode e, MapVertex v) => _VertexSheet(
+        key: ValueKey(v.id),
+        tripId: e.tripId,
+        vertexId: v.id,
+      ),
       (TripMode _, MapSegment s) => SegmentBottomSheet(
         key: ValueKey(s.id),
         tripId: s.tripId,

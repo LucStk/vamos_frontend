@@ -109,8 +109,12 @@ class MapGestureHandler {
 
   void _syncPanAllowed() {
     final allowed = switch (_resolver.state) {
-      DraggingState(:final dragged) => dragged == null,
-      _ => true,
+      // Appui sur un élément déplaçable : la carte ne doit pas bouger,
+      // même avant que le seuil de drag soit franchi.
+      PressedState(:final element) || LongPressedState(:final element) =>
+        element == null || !element.isDraggable,
+      DraggingState() => false,
+      _ => true, // Idle, PendingTap, PanningState
     };
     if (allowed == _panAllowed) return;
     _panAllowed = allowed;
