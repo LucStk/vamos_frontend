@@ -20,11 +20,6 @@ abstract interface class TopologyScope implements CommonScope {
   GraphEditor get graphEditor;
 }
 
-abstract interface class EditorScope implements CommonScope {
-  GraphEditor get graphEditor;
-  WaypointEditor get waypointEditor;
-}
-
 extension TopologyScopeX on TopologyScope {
   SegmentFields? segment(SegmentId id) =>
       graphEditor.state.segmentStore.get(id)?.current;
@@ -38,6 +33,6 @@ abstract interface class ExploreScope implements CommonScope {
 }
 
 abstract interface class TripEditScope
-    implements CommonScope, TopologyScope, WaypointScope, EditorScope {
+    implements CommonScope, TopologyScope, WaypointScope {
   TripId get tripId;
 }

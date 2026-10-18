@@ -10,8 +10,8 @@ import 'package:map_engine/src/mode_machine/transition.dart';
 
 extension SelectableDelete on Selectable {
   Transition<AppMode> delete() => switch (this) {
-    MapVertex vertex => vertex.delete(),
-    MapSegment segment => segment.delete(),
+    MapVertex vertex => vertex.delete().closingOverlay(),
+    MapSegment segment => segment.delete().closingOverlay(),
     _ => Transition.stay(),
   };
 }

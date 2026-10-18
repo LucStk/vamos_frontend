@@ -58,4 +58,4 @@ final class CameraOrNullProvider
   }
 }
 
-String _$cameraOrNullHash() => r'89e366c004bf0099a4dae9c72413a0b2740fc8dd';
+String _$cameraOrNullHash() => r'7c492bc66759ee685f08a0fe38e1fae405e31402';

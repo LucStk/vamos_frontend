@@ -5,7 +5,7 @@ import 'package:map_engine/src/mode_machine/command/scopes.dart';
 import 'package:map_engine/src/mode_machine/effect/results.dart';
 import 'package:trip_application/trip_application.dart';
 
-sealed class VertexCommand<R extends Object> extends Command<R, TopologyScope> {
+sealed class VertexCommand<R extends Object> extends Command<R, TripEditScope> {
   const VertexCommand();
 }
 
@@ -14,7 +14,7 @@ final class CreateSimpleVertex extends VertexCommand<VertexId> {
   final OffsetType position;
 
   @override
-  Future<VertexId?> handle(TopologyScope h) {
+  Future<VertexId?> handle(TripEditScope h) {
     final latLng = switch (position) {
       WorldOffset d => h.camera.worldOffsetToLatLng(d),
       ScreenOffset d => h.camera.screenOffsetToLatLng(d),
@@ -32,7 +32,7 @@ final class RemoveVertex extends VertexCommand<Done> {
   final VertexId vertexId;
 
   @override
-  Future<Done?> handle(TopologyScope h) =>
+  Future<Done?> handle(TripEditScope h) =>
       done(() => h.graphEditor.removeVertex(vertexId));
 }
 
@@ -42,6 +42,6 @@ final class MoveVertex extends VertexCommand<Done> {
   final LatLng position;
 
   @override
-  Future<Done?> handle(TopologyScope h) =>
+  Future<Done?> handle(TripEditScope h) =>
       done(() => h.graphEditor.moveVertex(vertexId, position));
 }

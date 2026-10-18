@@ -22,7 +22,6 @@ export "src/mode_machine/command/scopes.dart";
 
 export "src/mode_machine/effect/handler_registry.dart";
 export 'src/mode_machine/effect/effect_queue.dart';
-export 'src/mode_machine/effect/effect_runner.dart';
 
 export 'src/mode_machine/mode_state.dart';
 

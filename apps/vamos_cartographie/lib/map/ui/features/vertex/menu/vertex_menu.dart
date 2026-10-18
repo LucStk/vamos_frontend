@@ -24,17 +24,17 @@ class VertexMenuWidget extends StatelessWidget {
         children: [
           _MenuButton(
             icon: Icons.route,
-            label: 'Tracer depuis ici',
+            label: 'Tracer depuis',
             onPressed: drawFrom,
           ),
           _MenuButton(
             icon: Icons.add_location_alt_outlined,
-            label: 'Créer étape ici',
+            label: 'Créer',
             onPressed: createFrom,
           ),
           _MenuButton(
             icon: Icons.delete_outline,
-            label: 'Supprimer le sommet',
+            label: 'Effacer',
             onPressed: delete,
             foregroundColor: Theme.of(context).colorScheme.error,
           ),
