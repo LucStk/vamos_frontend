@@ -1,0 +1,23 @@
+#import "route_fields.graphql"
+
+# Première route d'un trip (refusée si le trip a déjà une route).
+mutation DrawRoute($tripId: UUID!, $input: DrawRouteInput!) {
+    drawRoute(tripId: $tripId, input: $input) {
+        ...EditRoutePayloadFragment
+    }
+}
+
+# Prolonge la route depuis sa dernière extrémité avec un tracé à main levé.
+mutation ExtendRoute($tripId: UUID!, $input: ExtendRouteInput!) {
+    extendRoute(tripId: $tripId, input: $input) {
+        ...EditRoutePayloadFragment
+    }
+}
+
+# Redessine une portion : de n'importe quel point à n'importe quel autre,
+# ou jusqu'à la fin de la route (end = null).
+mutation RedrawRoutePortion($tripId: UUID!, $input: RedrawRouteInput!) {
+    redrawRoutePortion(tripId: $tripId, input: $input) {
+        ...EditRoutePayloadFragment
+    }
+}

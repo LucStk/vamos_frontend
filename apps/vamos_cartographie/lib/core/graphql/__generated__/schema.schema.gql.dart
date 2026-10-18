@@ -97,6 +97,164 @@ enum GCreateProfileErrorCode {
   }
 }
 
+class GDrawRouteInput {
+  const GDrawRouteInput({
+    required this.points,
+    required this.mobilityType,
+    required this.autoRoute,
+    this.basedOn = const Value.absent(),
+  });
+
+  factory GDrawRouteInput.fromJson(Map<String, dynamic> json) {
+    return GDrawRouteInput(
+      points: (json['points'] as List<dynamic>)
+          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
+      autoRoute: (json['autoRoute'] as bool),
+      basedOn: json.containsKey('basedOn')
+          ? Value.present(
+              json['basedOn'] == null ? null : (json['basedOn'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final List<GLatLngInput> points;
+
+  final GMobilityType mobilityType;
+
+  final bool autoRoute;
+
+  final Value<String> basedOn;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$pointsValue = this.points;
+    _$result['points'] = _$pointsValue.map((_$e) => _$e.toJson()).toList();
+    final _$mobilityTypeValue = this.mobilityType;
+    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
+    final _$autoRouteValue = this.autoRoute;
+    _$result['autoRoute'] = _$autoRouteValue;
+    final _$basedOnValue = this.basedOn;
+    if (_$basedOnValue.isPresent) {
+      final _$basedOnRequired = _$basedOnValue.requireValue;
+      _$result['basedOn'] =
+          _$basedOnRequired == null ? null : _$basedOnRequired;
+    }
+    return _$result;
+  }
+
+  GDrawRouteInput copyWith({
+    List<GLatLngInput>? points,
+    GMobilityType? mobilityType,
+    bool? autoRoute,
+    Value<String>? basedOn,
+  }) {
+    return GDrawRouteInput(
+      points: points ?? this.points,
+      mobilityType: mobilityType ?? this.mobilityType,
+      autoRoute: autoRoute ?? this.autoRoute,
+      basedOn: basedOn ?? this.basedOn,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDrawRouteInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GDrawRouteInput(points: $points, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
+  }
+}
+
+class GExtendRouteInput {
+  const GExtendRouteInput({
+    required this.points,
+    required this.mobilityType,
+    required this.autoRoute,
+    this.basedOn = const Value.absent(),
+  });
+
+  factory GExtendRouteInput.fromJson(Map<String, dynamic> json) {
+    return GExtendRouteInput(
+      points: (json['points'] as List<dynamic>)
+          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
+      autoRoute: (json['autoRoute'] as bool),
+      basedOn: json.containsKey('basedOn')
+          ? Value.present(
+              json['basedOn'] == null ? null : (json['basedOn'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final List<GLatLngInput> points;
+
+  final GMobilityType mobilityType;
+
+  final bool autoRoute;
+
+  final Value<String> basedOn;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$pointsValue = this.points;
+    _$result['points'] = _$pointsValue.map((_$e) => _$e.toJson()).toList();
+    final _$mobilityTypeValue = this.mobilityType;
+    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
+    final _$autoRouteValue = this.autoRoute;
+    _$result['autoRoute'] = _$autoRouteValue;
+    final _$basedOnValue = this.basedOn;
+    if (_$basedOnValue.isPresent) {
+      final _$basedOnRequired = _$basedOnValue.requireValue;
+      _$result['basedOn'] =
+          _$basedOnRequired == null ? null : _$basedOnRequired;
+    }
+    return _$result;
+  }
+
+  GExtendRouteInput copyWith({
+    List<GLatLngInput>? points,
+    GMobilityType? mobilityType,
+    bool? autoRoute,
+    Value<String>? basedOn,
+  }) {
+    return GExtendRouteInput(
+      points: points ?? this.points,
+      mobilityType: mobilityType ?? this.mobilityType,
+      autoRoute: autoRoute ?? this.autoRoute,
+      basedOn: basedOn ?? this.basedOn,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GExtendRouteInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GExtendRouteInput(points: $points, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
+  }
+}
+
 enum GFileTargetTypeEnum {
   TRIP,
   WAYPOINT,
@@ -120,6 +278,34 @@ enum GFileTargetTypeEnum {
       case GFileTargetTypeEnum.WAYPOINT:
         return r'WAYPOINT';
       case GFileTargetTypeEnum.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
+enum GGeometrySource {
+  COMPUTED,
+  DRAWN,
+  gUnknownEnumValue;
+
+  static GGeometrySource fromJson(String value) {
+    switch (value) {
+      case r'COMPUTED':
+        return GGeometrySource.COMPUTED;
+      case r'DRAWN':
+        return GGeometrySource.DRAWN;
+      default:
+        return GGeometrySource.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GGeometrySource.COMPUTED:
+        return r'COMPUTED';
+      case GGeometrySource.DRAWN:
+        return r'DRAWN';
+      case GGeometrySource.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
   }
@@ -367,311 +553,97 @@ enum GPoiCategory {
   }
 }
 
-class GSegmentAnchorInput {
-  const GSegmentAnchorInput({
-    this.segmentId = const Value.absent(),
-    this.vertexId = const Value.absent(),
-  });
-
-  factory GSegmentAnchorInput.fromJson(Map<String, dynamic> json) {
-    return GSegmentAnchorInput(
-      segmentId: json.containsKey('segmentId')
-          ? Value.present(
-              json['segmentId'] == null ? null : (json['segmentId'] as String))
-          : Value.absent(),
-      vertexId: json.containsKey('vertexId')
-          ? Value.present(
-              json['vertexId'] == null ? null : (json['vertexId'] as String))
-          : Value.absent(),
-    );
-  }
-
-  final Value<String> segmentId;
-
-  final Value<String> vertexId;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$segmentIdValue = this.segmentId;
-    if (_$segmentIdValue.isPresent) {
-      final _$segmentIdRequired = _$segmentIdValue.requireValue;
-      _$result['segmentId'] =
-          _$segmentIdRequired == null ? null : _$segmentIdRequired;
-    }
-    final _$vertexIdValue = this.vertexId;
-    if (_$vertexIdValue.isPresent) {
-      final _$vertexIdRequired = _$vertexIdValue.requireValue;
-      _$result['vertexId'] =
-          _$vertexIdRequired == null ? null : _$vertexIdRequired;
-    }
-    return _$result;
-  }
-
-  GSegmentAnchorInput copyWith({
-    Value<String>? segmentId,
-    Value<String>? vertexId,
-  }) {
-    return GSegmentAnchorInput(
-      segmentId: segmentId ?? this.segmentId,
-      vertexId: vertexId ?? this.vertexId,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GSegmentAnchorInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GSegmentAnchorInput(segmentId: $segmentId, vertexId: $vertexId)';
-  }
-}
-
-class GSegmentCorrectionInput {
-  const GSegmentCorrectionInput({required this.correction});
-
-  factory GSegmentCorrectionInput.fromJson(Map<String, dynamic> json) {
-    return GSegmentCorrectionInput(
-        correction: (json['correction'] as List<dynamic>)
-            .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-            .toList());
-  }
-
-  final List<GLatLngInput> correction;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$correctionValue = this.correction;
-    _$result['correction'] =
-        _$correctionValue.map((_$e) => _$e.toJson()).toList();
-    return _$result;
-  }
-
-  GSegmentCorrectionInput copyWith({List<GLatLngInput>? correction}) {
-    return GSegmentCorrectionInput(correction: correction ?? this.correction);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GSegmentCorrectionInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GSegmentCorrectionInput(correction: $correction)';
-  }
-}
-
-class GSegmentCreateInput {
-  const GSegmentCreateInput({
-    this.id = const Value.absent(),
-    required this.mobilityType,
-    required this.geometry,
-  });
-
-  factory GSegmentCreateInput.fromJson(Map<String, dynamic> json) {
-    return GSegmentCreateInput(
-      id: json.containsKey('id')
-          ? Value.present(json['id'] == null ? null : (json['id'] as String))
-          : Value.absent(),
-      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
-      geometry: (json['geometry'] as List<dynamic>)
-          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-    );
-  }
-
-  final Value<String> id;
-
-  final GMobilityType mobilityType;
-
-  final List<GLatLngInput> geometry;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$idValue = this.id;
-    if (_$idValue.isPresent) {
-      final _$idRequired = _$idValue.requireValue;
-      _$result['id'] = _$idRequired == null ? null : _$idRequired;
-    }
-    final _$mobilityTypeValue = this.mobilityType;
-    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
-    final _$geometryValue = this.geometry;
-    _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
-    return _$result;
-  }
-
-  GSegmentCreateInput copyWith({
-    Value<String>? id,
-    GMobilityType? mobilityType,
-    List<GLatLngInput>? geometry,
-  }) {
-    return GSegmentCreateInput(
-      id: id ?? this.id,
-      mobilityType: mobilityType ?? this.mobilityType,
-      geometry: geometry ?? this.geometry,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GSegmentCreateInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GSegmentCreateInput(id: $id, mobilityType: $mobilityType, geometry: $geometry)';
-  }
-}
-
-class GSegmentUpdateInput {
-  const GSegmentUpdateInput({
-    required this.geometry,
-    this.mobilityType = const Value.absent(),
-  });
-
-  factory GSegmentUpdateInput.fromJson(Map<String, dynamic> json) {
-    return GSegmentUpdateInput(
-      geometry: (json['geometry'] as List<dynamic>)
-          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-      mobilityType: json.containsKey('mobilityType')
-          ? Value.present(json['mobilityType'] == null
-              ? null
-              : GMobilityType.fromJson((json['mobilityType'] as String)))
-          : Value.absent(),
-    );
-  }
-
-  final List<GLatLngInput> geometry;
-
-  final Value<GMobilityType> mobilityType;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$geometryValue = this.geometry;
-    _$result['geometry'] = _$geometryValue.map((_$e) => _$e.toJson()).toList();
-    final _$mobilityTypeValue = this.mobilityType;
-    if (_$mobilityTypeValue.isPresent) {
-      final _$mobilityTypeRequired = _$mobilityTypeValue.requireValue;
-      _$result['mobilityType'] = _$mobilityTypeRequired == null
-          ? null
-          : _$mobilityTypeRequired.toJson();
-    }
-    return _$result;
-  }
-
-  GSegmentUpdateInput copyWith({
-    List<GLatLngInput>? geometry,
-    Value<GMobilityType>? mobilityType,
-  }) {
-    return GSegmentUpdateInput(
-      geometry: geometry ?? this.geometry,
-      mobilityType: mobilityType ?? this.mobilityType,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GSegmentUpdateInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GSegmentUpdateInput(geometry: $geometry, mobilityType: $mobilityType)';
-  }
-}
-
-class GSpliceSegmentInput {
-  const GSpliceSegmentInput({
-    required this.startAnchor,
-    required this.endAnchor,
+class GRedrawRouteInput {
+  const GRedrawRouteInput({
+    required this.start,
+    this.end = const Value.absent(),
     required this.correction,
     required this.mobilityType,
+    required this.autoRoute,
+    this.basedOn = const Value.absent(),
   });
 
-  factory GSpliceSegmentInput.fromJson(Map<String, dynamic> json) {
-    return GSpliceSegmentInput(
-      startAnchor: GSegmentAnchorInput.fromJson(
-          (json['startAnchor'] as Map<String, dynamic>)),
-      endAnchor: GSegmentAnchorInput.fromJson(
-          (json['endAnchor'] as Map<String, dynamic>)),
+  factory GRedrawRouteInput.fromJson(Map<String, dynamic> json) {
+    return GRedrawRouteInput(
+      start:
+          GRouteAnchorInput.fromJson((json['start'] as Map<String, dynamic>)),
+      end: json.containsKey('end')
+          ? Value.present(json['end'] == null
+              ? null
+              : GRouteAnchorInput.fromJson(
+                  (json['end'] as Map<String, dynamic>)))
+          : Value.absent(),
       correction: (json['correction'] as List<dynamic>)
           .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
+      autoRoute: (json['autoRoute'] as bool),
+      basedOn: json.containsKey('basedOn')
+          ? Value.present(
+              json['basedOn'] == null ? null : (json['basedOn'] as String))
+          : Value.absent(),
     );
   }
 
-  final GSegmentAnchorInput startAnchor;
+  final GRouteAnchorInput start;
 
-  final GSegmentAnchorInput endAnchor;
+  final Value<GRouteAnchorInput> end;
 
   final List<GLatLngInput> correction;
 
   final GMobilityType mobilityType;
 
+  final bool autoRoute;
+
+  final Value<String> basedOn;
+
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$startAnchorValue = this.startAnchor;
-    _$result['startAnchor'] = _$startAnchorValue.toJson();
-    final _$endAnchorValue = this.endAnchor;
-    _$result['endAnchor'] = _$endAnchorValue.toJson();
+    final _$startValue = this.start;
+    _$result['start'] = _$startValue.toJson();
+    final _$endValue = this.end;
+    if (_$endValue.isPresent) {
+      final _$endRequired = _$endValue.requireValue;
+      _$result['end'] = _$endRequired == null ? null : _$endRequired.toJson();
+    }
     final _$correctionValue = this.correction;
     _$result['correction'] =
         _$correctionValue.map((_$e) => _$e.toJson()).toList();
     final _$mobilityTypeValue = this.mobilityType;
     _$result['mobilityType'] = _$mobilityTypeValue.toJson();
+    final _$autoRouteValue = this.autoRoute;
+    _$result['autoRoute'] = _$autoRouteValue;
+    final _$basedOnValue = this.basedOn;
+    if (_$basedOnValue.isPresent) {
+      final _$basedOnRequired = _$basedOnValue.requireValue;
+      _$result['basedOn'] =
+          _$basedOnRequired == null ? null : _$basedOnRequired;
+    }
     return _$result;
   }
 
-  GSpliceSegmentInput copyWith({
-    GSegmentAnchorInput? startAnchor,
-    GSegmentAnchorInput? endAnchor,
+  GRedrawRouteInput copyWith({
+    GRouteAnchorInput? start,
+    Value<GRouteAnchorInput>? end,
     List<GLatLngInput>? correction,
     GMobilityType? mobilityType,
+    bool? autoRoute,
+    Value<String>? basedOn,
   }) {
-    return GSpliceSegmentInput(
-      startAnchor: startAnchor ?? this.startAnchor,
-      endAnchor: endAnchor ?? this.endAnchor,
+    return GRedrawRouteInput(
+      start: start ?? this.start,
+      end: end ?? this.end,
       correction: correction ?? this.correction,
       mobilityType: mobilityType ?? this.mobilityType,
+      autoRoute: autoRoute ?? this.autoRoute,
+      basedOn: basedOn ?? this.basedOn,
     );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GSpliceSegmentInput &&
+        (other is GRedrawRouteInput &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -682,7 +654,61 @@ class GSpliceSegmentInput {
 
   @override
   String toString() {
-    return 'GSpliceSegmentInput(startAnchor: $startAnchor, endAnchor: $endAnchor, correction: $correction, mobilityType: $mobilityType)';
+    return 'GRedrawRouteInput(start: $start, end: $end, correction: $correction, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
+  }
+}
+
+class GRouteAnchorInput {
+  const GRouteAnchorInput({
+    required this.sectionId,
+    required this.point,
+  });
+
+  factory GRouteAnchorInput.fromJson(Map<String, dynamic> json) {
+    return GRouteAnchorInput(
+      sectionId: (json['sectionId'] as String),
+      point: GLatLngInput.fromJson((json['point'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String sectionId;
+
+  final GLatLngInput point;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$sectionIdValue = this.sectionId;
+    _$result['sectionId'] = _$sectionIdValue;
+    final _$pointValue = this.point;
+    _$result['point'] = _$pointValue.toJson();
+    return _$result;
+  }
+
+  GRouteAnchorInput copyWith({
+    String? sectionId,
+    GLatLngInput? point,
+  }) {
+    return GRouteAnchorInput(
+      sectionId: sectionId ?? this.sectionId,
+      point: point ?? this.point,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRouteAnchorInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GRouteAnchorInput(sectionId: $sectionId, point: $point)';
   }
 }
 
@@ -837,6 +863,7 @@ class GUpdateUserProfileInput {
 
 class GWaypointUpdateInput {
   const GWaypointUpdateInput({
+    this.location = const Value.absent(),
     this.title = const Value.absent(),
     this.poiCategory = const Value.absent(),
     this.vertexId = const Value.absent(),
@@ -845,6 +872,12 @@ class GWaypointUpdateInput {
 
   factory GWaypointUpdateInput.fromJson(Map<String, dynamic> json) {
     return GWaypointUpdateInput(
+      location: json.containsKey('location')
+          ? Value.present(json['location'] == null
+              ? null
+              : GLatLngInput.fromJson(
+                  (json['location'] as Map<String, dynamic>)))
+          : Value.absent(),
       title: json.containsKey('title')
           ? Value.present(
               json['title'] == null ? null : (json['title'] as String))
@@ -866,6 +899,8 @@ class GWaypointUpdateInput {
     );
   }
 
+  final Value<GLatLngInput> location;
+
   final Value<String> title;
 
   final Value<GPoiCategory> poiCategory;
@@ -876,6 +911,12 @@ class GWaypointUpdateInput {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
+    final _$locationValue = this.location;
+    if (_$locationValue.isPresent) {
+      final _$locationRequired = _$locationValue.requireValue;
+      _$result['location'] =
+          _$locationRequired == null ? null : _$locationRequired.toJson();
+    }
     final _$titleValue = this.title;
     if (_$titleValue.isPresent) {
       final _$titleRequired = _$titleValue.requireValue;
@@ -903,12 +944,14 @@ class GWaypointUpdateInput {
   }
 
   GWaypointUpdateInput copyWith({
+    Value<GLatLngInput>? location,
     Value<String>? title,
     Value<GPoiCategory>? poiCategory,
     Value<int>? vertexId,
     Value<String>? description,
   }) {
     return GWaypointUpdateInput(
+      location: location ?? this.location,
       title: title ?? this.title,
       poiCategory: poiCategory ?? this.poiCategory,
       vertexId: vertexId ?? this.vertexId,
@@ -930,7 +973,7 @@ class GWaypointUpdateInput {
 
   @override
   String toString() {
-    return 'GWaypointUpdateInput(title: $title, poiCategory: $poiCategory, vertexId: $vertexId, description: $description)';
+    return 'GWaypointUpdateInput(location: $location, title: $title, poiCategory: $poiCategory, vertexId: $vertexId, description: $description)';
   }
 }
 

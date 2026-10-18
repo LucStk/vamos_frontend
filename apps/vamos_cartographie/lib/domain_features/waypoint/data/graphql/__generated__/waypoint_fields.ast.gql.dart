@@ -4,12 +4,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
-    as _i4;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
-    as _i3;
 
 const WaypointFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'WaypointFields'),
@@ -68,81 +64,6 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       ]),
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'vertex'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'VertexFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
-);
-const CreateWaypointPayloadFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'CreateWaypointPayloadFields'),
-  typeCondition: _i1.TypeConditionNode(
-      on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'CreateWaypointPayload'),
-    isNonNull: false,
-  )),
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'waypoint'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'WaypointFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'vertex'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'VertexFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
       name: _i1.NameNode(value: '__typename'),
       alias: null,
       arguments: [],
@@ -153,10 +74,7 @@ const CreateWaypointPayloadFields = _i1.FragmentDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   WaypointFields,
-  CreateWaypointPayloadFields,
   _i2.StoredFile,
   _i2.FileAttachment,
   _i2.UploadConfigFields,
-  _i3.VertexFields,
-  _i4.LatLngFields,
 ]);

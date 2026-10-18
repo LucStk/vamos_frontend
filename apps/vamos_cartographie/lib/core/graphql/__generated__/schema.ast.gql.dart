@@ -120,17 +120,70 @@ const CreateProfileSuccess = _i1.ObjectTypeDefinitionNode(
     )
   ],
 );
-const CreateSegmentPayload = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreateSegmentPayload'),
+const Date = _i1.ScalarTypeDefinitionNode(
+  name: _i1.NameNode(value: 'Date'),
+  directives: [],
+);
+const DateTime = _i1.ScalarTypeDefinitionNode(
+  name: _i1.NameNode(value: 'DateTime'),
+  directives: [],
+);
+const DrawRouteInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'DrawRouteInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'points'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'autoRoute'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.BooleanValueNode(value: true),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'basedOn'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+  ],
+);
+const EditRoutePayload = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'EditRoutePayload'),
   directives: [],
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'segment'),
+      name: _i1.NameNode(value: 'trip'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
+        name: _i1.NameNode(value: 'TripType'),
         isNonNull: true,
       ),
     ),
@@ -154,34 +207,50 @@ const CreateSegmentPayload = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const CreateWaypointPayload = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'CreateWaypointPayload'),
+const ExtendRouteInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ExtendRouteInput'),
   directives: [],
-  interfaces: [],
   fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'waypoint'),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'points'),
       directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'WaypointType'),
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
         isNonNull: true,
       ),
+      defaultValue: null,
     ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'vertex'),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
       directives: [],
-      args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'VertexType'),
+        name: _i1.NameNode(value: 'MobilityType'),
         isNonNull: true,
       ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'autoRoute'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.BooleanValueNode(value: true),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'basedOn'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
     ),
   ],
-);
-const Date = _i1.ScalarTypeDefinitionNode(
-  name: _i1.NameNode(value: 'Date'),
-  directives: [],
 );
 const FileAttachmentType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'FileAttachmentType'),
@@ -227,6 +296,20 @@ const FileTargetTypeEnum = _i1.EnumTypeDefinitionNode(
     ),
     _i1.EnumValueDefinitionNode(
       name: _i1.NameNode(value: 'WAYPOINT'),
+      directives: [],
+    ),
+  ],
+);
+const GeometrySource = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'GeometrySource'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'COMPUTED'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'DRAWN'),
       directives: [],
     ),
   ],
@@ -515,35 +598,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'CreateWaypointPayload'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createBlankWaypointFromVertex'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'tripId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'vertexId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'CreateWaypointPayload'),
+        name: _i1.NameNode(value: 'WaypointType'),
         isNonNull: true,
       ),
     ),
@@ -567,7 +622,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createSegment'),
+      name: _i1.NameNode(value: 'drawRoute'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -583,113 +638,19 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'SegmentCreateInput'),
+            name: _i1.NameNode(value: 'DrawRouteInput'),
             isNonNull: true,
           ),
           defaultValue: null,
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'CreateSegmentPayload'),
+        name: _i1.NameNode(value: 'EditRoutePayload'),
         isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'deleteSegment'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'refineSegmentGeometry'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'segmentId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'RefineSegmentPayload'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'updateSegment'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'SegmentUpdateInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'correctSegment'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'segmentId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'SegmentCorrectionInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'spliceSegment'),
+      name: _i1.NameNode(value: 'extendRoute'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -705,47 +666,19 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'SpliceSegmentInput'),
+            name: _i1.NameNode(value: 'ExtendRouteInput'),
             isNonNull: true,
           ),
           defaultValue: null,
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentSplicePayload'),
+        name: _i1.NameNode(value: 'EditRoutePayload'),
         isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'moveVertex'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'latLng'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'LatLngInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'VertexType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createVertex'),
+      name: _i1.NameNode(value: 'redrawRoutePortion'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -758,36 +691,82 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'latLng'),
+          name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'LatLngInput'),
+            name: _i1.NameNode(value: 'RedrawRouteInput'),
             isNonNull: true,
           ),
           defaultValue: null,
         ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'VertexType'),
+        name: _i1.NameNode(value: 'EditRoutePayload'),
         isNonNull: true,
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'deleteVertex'),
+      name: _i1.NameNode(value: 'refineSection'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
+          name: _i1.NameNode(value: 'tripId'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'UUID'),
             isNonNull: true,
           ),
           defaultValue: null,
-        )
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'sectionId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
       ],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
+        name: _i1.NameNode(value: 'EditRoutePayload'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'setSectionMobility'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'sectionId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'mobilityType'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'MobilityType'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'EditRoutePayload'),
         isNonNull: true,
       ),
     ),
@@ -908,6 +887,10 @@ const PoiCategory = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const Point = _i1.ScalarTypeDefinitionNode(
+  name: _i1.NameNode(value: 'Point'),
+  directives: [],
+);
 const Polygon = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Polygon'),
   directives: [],
@@ -993,148 +976,95 @@ const Query = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const RefineSegmentPayload = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'RefineSegmentPayload'),
+const RedrawRouteInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RedrawRouteInput'),
   directives: [],
-  interfaces: [],
   fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'segment'),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'start'),
       directives: [],
-      args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
+        name: _i1.NameNode(value: 'RouteAnchorInput'),
         isNonNull: true,
       ),
+      defaultValue: null,
     ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'refinementFailed'),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'end'),
       directives: [],
-      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RouteAnchorInput'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'correction'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'autoRoute'),
+      directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),
         isNonNull: true,
       ),
+      defaultValue: _i1.BooleanValueNode(value: true),
     ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'errorMessage'),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'basedOn'),
       directives: [],
-      args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
+        name: _i1.NameNode(value: 'DateTime'),
         isNonNull: false,
       ),
+      defaultValue: _i1.NullValueNode(),
     ),
   ],
 );
-const SegmentAnchorInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentAnchorInput'),
+const RouteAnchorInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RouteAnchorInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'segmentId'),
+      name: _i1.NameNode(value: 'sectionId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'UUID'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'vertexId'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
-const SegmentCorrectionInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentCorrectionInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'correction'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    )
-  ],
-);
-const SegmentCreateInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentCreateInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
         isNonNull: true,
       ),
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'geometry'),
+      name: _i1.NameNode(value: 'point'),
       directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
         isNonNull: true,
       ),
       defaultValue: null,
     ),
   ],
 );
-const SegmentSplicePayload = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentSplicePayload'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'segment'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'deletedSegmentIds'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'UUID'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
-const SegmentType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentType'),
+const RouteSectionType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RouteSectionType'),
   directives: [],
   interfaces: [],
   fields: [
@@ -1148,6 +1078,15 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'startIndex'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'mobilityType'),
       directives: [],
       args: [],
@@ -1157,88 +1096,13 @@ const SegmentType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'geometry'),
+      name: _i1.NameNode(value: 'geometrySource'),
       directives: [],
       args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngType'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
-const SegmentUpdateInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SegmentUpdateInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'geometry'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
-  ],
-);
-const SpliceSegmentInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'SpliceSegmentInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'startAnchor'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentAnchorInput'),
+        name: _i1.NameNode(value: 'GeometrySource'),
         isNonNull: true,
       ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'endAnchor'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SegmentAnchorInput'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'correction'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
     ),
   ],
 );
@@ -1280,37 +1144,6 @@ const StoredFileType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
-const TopologyType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'TopologyType'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'vertices'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'VertexType'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'segments'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'SegmentType'),
-          isNonNull: true,
-        ),
         isNonNull: true,
       ),
     ),
@@ -1358,6 +1191,36 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'waypoints'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'WaypointType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'startPoint'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Point'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'endPoint'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Point'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'bounds'),
       directives: [],
       args: [],
@@ -1367,12 +1230,21 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'waypoints'),
+      name: _i1.NameNode(value: 'routeUpdatedAt'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'sections'),
       directives: [],
       args: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'WaypointType'),
+          name: _i1.NameNode(value: 'RouteSectionType'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -1400,11 +1272,14 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'topology'),
+      name: _i1.NameNode(value: 'route'),
       directives: [],
       args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'TopologyType'),
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngType'),
+          isNonNull: true,
+        ),
         isNonNull: true,
       ),
     ),
@@ -1557,31 +1432,6 @@ const UUID = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'UUID'),
   directives: [],
 );
-const VertexType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'VertexType'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'latLng'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'LatLngType'),
-        isNonNull: true,
-      ),
-    ),
-  ],
-);
 const WaypointType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointType'),
   directives: [],
@@ -1624,11 +1474,29 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'vertex'),
+      name: _i1.NameNode(value: 'location'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'VertexType'),
+        name: _i1.NameNode(value: 'Point'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'anchorEdge'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'anchorOffset'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
         isNonNull: true,
       ),
     ),
@@ -1650,6 +1518,15 @@ const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointUpdateInput'),
   directives: [],
   fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'location'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'title'),
       directives: [],
@@ -1696,11 +1573,14 @@ const document = _i1.DocumentNode(definitions: [
   CreateProfileErrorCode,
   CreateProfileResult,
   CreateProfileSuccess,
-  CreateSegmentPayload,
-  CreateWaypointPayload,
   Date,
+  DateTime,
+  DrawRouteInput,
+  EditRoutePayload,
+  ExtendRouteInput,
   FileAttachmentType,
   FileTargetTypeEnum,
+  GeometrySource,
   GetMePayload,
   ImageUploadRequest,
   LatLngInput,
@@ -1708,25 +1588,19 @@ const document = _i1.DocumentNode(definitions: [
   MobilityType,
   Mutation,
   PoiCategory,
+  Point,
   Polygon,
   Query,
-  RefineSegmentPayload,
-  SegmentAnchorInput,
-  SegmentCorrectionInput,
-  SegmentCreateInput,
-  SegmentSplicePayload,
-  SegmentType,
-  SegmentUpdateInput,
-  SpliceSegmentInput,
+  RedrawRouteInput,
+  RouteAnchorInput,
+  RouteSectionType,
   StoredFileType,
-  TopologyType,
   TripType,
   TripUpdateInput,
   UpdateUserProfileInput,
   UploadConfigType,
   UserProfileType,
   UUID,
-  VertexType,
   WaypointType,
   WaypointUpdateInput,
 ]);

@@ -74,7 +74,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
     required this.title,
     this.date,
     required this.description,
-    this.bounds,
     required this.files,
     required this.owner,
     this.G__typename = 'TripType',
@@ -87,7 +86,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      bounds: json['bounds'] == null ? null : (json['bounds'] as Object),
       files: (json['files'] as List<dynamic>)
           .map((_$e) =>
               _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
@@ -110,8 +108,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
 
   final String description;
 
-  final Object? bounds;
-
   final List<_i2.GFileAttachmentData> files;
 
   final _i3.GUserProfileFieldsData owner;
@@ -127,8 +123,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    final _$boundsValue = this.bounds;
-    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue;
     _$result['files'] = this.files.map((_$e) => _$e.toJson()).toList();
     _$result['owner'] = this.owner.toJson();
     _$result['__typename'] = this.G__typename;
@@ -142,8 +136,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    Object? bounds,
-    bool boundsIsSet = false,
     List<_i2.GFileAttachmentData>? files,
     _i3.GUserProfileFieldsData? owner,
     String? G__typename,
@@ -154,7 +146,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
       title: title ?? this.title,
       date: date != null || dateIsSet ? date : this.date,
       description: description ?? this.description,
-      bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
       files: files ?? this.files,
       owner: owner ?? this.owner,
       G__typename: G__typename ?? this.G__typename,
@@ -170,7 +161,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            bounds == other.bounds &&
             _gqlUtils.listEquals(files, other.files) &&
             owner == other.owner &&
             G__typename == other.G__typename &&
@@ -185,7 +175,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
         title,
         date,
         description,
-        bounds,
         _gqlUtils.listHash(files),
         owner,
         G__typename,
@@ -194,6 +183,6 @@ class GGetWaypointsData_trip implements _i1.GTripFields {
 
   @override
   String toString() {
-    return 'GGetWaypointsData_trip(id: $id, title: $title, date: $date, description: $description, bounds: $bounds, files: $files, owner: $owner, G__typename: $G__typename, waypoints: $waypoints)';
+    return 'GGetWaypointsData_trip(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, waypoints: $waypoints)';
   }
 }

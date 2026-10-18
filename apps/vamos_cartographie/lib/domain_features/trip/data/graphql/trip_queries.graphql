@@ -1,14 +1,10 @@
 #import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
 #import "trip_fields.graphql"
-#import "/domain_features/topology/data/graphql/fields/segment_fields.graphql"
-#import "/domain_features/topology/data/graphql/fields/vertex_fields.graphql"
 
 query GetAllTrips {
     trips {
         ...TripFields
-        topology {
-            ...TopologyFields
-        }
+
     }
 }
 
@@ -33,8 +29,6 @@ query GetTripDetails($id: UUID!) {
         waypoints {
             ...WaypointFields
         }
-        topology {
-            ...TopologyFields
-        }
+
     }
 }

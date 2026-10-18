@@ -10,15 +10,7 @@ mutation CreateBlankWaypointFromPosition(
     $tripId: UUID!
     $latLng: LatLngInput!
 ) {
-    createBlankWaypointFromPosition(tripId: $tripId, latLng: $latLng) {
-        ...CreateWaypointPayloadFields
-    }
-}
-
-mutation CreateBlankWaypointFromVertex($tripId: UUID!, $vertexId: UUID!) {
-    createBlankWaypointFromVertex(tripId: $tripId, vertexId: $vertexId) {
-        ...CreateWaypointPayloadFields
-    }
+    ...WaypointFields
 }
 
 mutation DeleteWaypoint($waypointId: UUID!) {

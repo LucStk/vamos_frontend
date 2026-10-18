@@ -24,13 +24,13 @@ class GGetAllTripsData {
     return GGetAllTripsData(
       trips: (json['trips'] as List<dynamic>)
           .map((_$e) =>
-              GGetAllTripsData_trips.fromJson((_$e as Map<String, dynamic>)))
+              _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final List<GGetAllTripsData_trips> trips;
+  final List<_i1.GTripFieldsData> trips;
 
   final String G__typename;
 
@@ -42,7 +42,7 @@ class GGetAllTripsData {
   }
 
   GGetAllTripsData copyWith({
-    List<GGetAllTripsData_trips>? trips,
+    List<_i1.GTripFieldsData>? trips,
     String? G__typename,
   }) {
     return GGetAllTripsData(
@@ -67,125 +67,6 @@ class GGetAllTripsData {
   @override
   String toString() {
     return 'GGetAllTripsData(trips: $trips, G__typename: $G__typename)';
-  }
-}
-
-class GGetAllTripsData_trips implements _i1.GTripFields {
-  const GGetAllTripsData_trips({
-    required this.id,
-    required this.title,
-    this.date,
-    required this.description,
-    this.bounds,
-    required this.files,
-    required this.owner,
-    this.G__typename = 'TripType',
-    required this.topology,
-  });
-
-  factory GGetAllTripsData_trips.fromJson(Map<String, dynamic> json) {
-    return GGetAllTripsData_trips(
-      id: (json['id'] as String),
-      title: (json['title'] as String),
-      date: json['date'] == null ? null : (json['date'] as String),
-      description: (json['description'] as String),
-      bounds: json['bounds'] == null ? null : (json['bounds'] as Object),
-      files: (json['files'] as List<dynamic>)
-          .map((_$e) =>
-              _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-      owner: _i3.GUserProfileFieldsData.fromJson(
-          (json['owner'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-      topology: _i1.GTopologyFieldsData.fromJson(
-          (json['topology'] as Map<String, dynamic>)),
-    );
-  }
-
-  final String id;
-
-  final String title;
-
-  final String? date;
-
-  final String description;
-
-  final Object? bounds;
-
-  final List<_i2.GFileAttachmentData> files;
-
-  final _i3.GUserProfileFieldsData owner;
-
-  final String G__typename;
-
-  final _i1.GTopologyFieldsData topology;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
-    _$result['title'] = this.title;
-    final _$dateValue = this.date;
-    _$result['date'] = _$dateValue == null ? null : _$dateValue;
-    _$result['description'] = this.description;
-    final _$boundsValue = this.bounds;
-    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue;
-    _$result['files'] = this.files.map((_$e) => _$e.toJson()).toList();
-    _$result['owner'] = this.owner.toJson();
-    _$result['__typename'] = this.G__typename;
-    _$result['topology'] = this.topology.toJson();
-    return _$result;
-  }
-
-  GGetAllTripsData_trips copyWith({
-    String? id,
-    String? title,
-    String? date,
-    bool dateIsSet = false,
-    String? description,
-    Object? bounds,
-    bool boundsIsSet = false,
-    List<_i2.GFileAttachmentData>? files,
-    _i3.GUserProfileFieldsData? owner,
-    String? G__typename,
-    _i1.GTopologyFieldsData? topology,
-  }) {
-    return GGetAllTripsData_trips(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      date: date != null || dateIsSet ? date : this.date,
-      description: description ?? this.description,
-      bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
-      files: files ?? this.files,
-      owner: owner ?? this.owner,
-      G__typename: G__typename ?? this.G__typename,
-      topology: topology ?? this.topology,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GGetAllTripsData_trips &&
-            id == other.id &&
-            title == other.title &&
-            date == other.date &&
-            description == other.description &&
-            bounds == other.bounds &&
-            _gqlUtils.listEquals(files, other.files) &&
-            owner == other.owner &&
-            G__typename == other.G__typename &&
-            topology == other.topology);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, id, title, date, description, bounds,
-        _gqlUtils.listHash(files), owner, G__typename, topology);
-  }
-
-  @override
-  String toString() {
-    return 'GGetAllTripsData_trips(id: $id, title: $title, date: $date, description: $description, bounds: $bounds, files: $files, owner: $owner, G__typename: $G__typename, topology: $topology)';
   }
 }
 
@@ -415,12 +296,10 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
     required this.title,
     this.date,
     required this.description,
-    this.bounds,
     required this.files,
     required this.owner,
     this.G__typename = 'TripType',
     required this.waypoints,
-    required this.topology,
   });
 
   factory GGetTripDetailsData_trip.fromJson(Map<String, dynamic> json) {
@@ -429,7 +308,6 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
       description: (json['description'] as String),
-      bounds: json['bounds'] == null ? null : (json['bounds'] as Object),
       files: (json['files'] as List<dynamic>)
           .map((_$e) =>
               _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
@@ -441,8 +319,6 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
           .map((_$e) =>
               _i4.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      topology: _i1.GTopologyFieldsData.fromJson(
-          (json['topology'] as Map<String, dynamic>)),
     );
   }
 
@@ -454,8 +330,6 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
 
   final String description;
 
-  final Object? bounds;
-
   final List<_i2.GFileAttachmentData> files;
 
   final _i3.GUserProfileFieldsData owner;
@@ -464,8 +338,6 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
 
   final List<_i4.GWaypointFieldsData> waypoints;
 
-  final _i1.GTopologyFieldsData topology;
-
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['id'] = this.id;
@@ -473,13 +345,10 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
     final _$dateValue = this.date;
     _$result['date'] = _$dateValue == null ? null : _$dateValue;
     _$result['description'] = this.description;
-    final _$boundsValue = this.bounds;
-    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue;
     _$result['files'] = this.files.map((_$e) => _$e.toJson()).toList();
     _$result['owner'] = this.owner.toJson();
     _$result['__typename'] = this.G__typename;
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
-    _$result['topology'] = this.topology.toJson();
     return _$result;
   }
 
@@ -489,25 +358,20 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
     String? date,
     bool dateIsSet = false,
     String? description,
-    Object? bounds,
-    bool boundsIsSet = false,
     List<_i2.GFileAttachmentData>? files,
     _i3.GUserProfileFieldsData? owner,
     String? G__typename,
     List<_i4.GWaypointFieldsData>? waypoints,
-    _i1.GTopologyFieldsData? topology,
   }) {
     return GGetTripDetailsData_trip(
       id: id ?? this.id,
       title: title ?? this.title,
       date: date != null || dateIsSet ? date : this.date,
       description: description ?? this.description,
-      bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
       files: files ?? this.files,
       owner: owner ?? this.owner,
       G__typename: G__typename ?? this.G__typename,
       waypoints: waypoints ?? this.waypoints,
-      topology: topology ?? this.topology,
     );
   }
 
@@ -519,12 +383,10 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
             title == other.title &&
             date == other.date &&
             description == other.description &&
-            bounds == other.bounds &&
             _gqlUtils.listEquals(files, other.files) &&
             owner == other.owner &&
             G__typename == other.G__typename &&
-            _gqlUtils.listEquals(waypoints, other.waypoints) &&
-            topology == other.topology);
+            _gqlUtils.listEquals(waypoints, other.waypoints));
   }
 
   @override
@@ -535,16 +397,14 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
         title,
         date,
         description,
-        bounds,
         _gqlUtils.listHash(files),
         owner,
         G__typename,
-        _gqlUtils.listHash(waypoints),
-        topology);
+        _gqlUtils.listHash(waypoints));
   }
 
   @override
   String toString() {
-    return 'GGetTripDetailsData_trip(id: $id, title: $title, date: $date, description: $description, bounds: $bounds, files: $files, owner: $owner, G__typename: $G__typename, waypoints: $waypoints, topology: $topology)';
+    return 'GGetTripDetailsData_trip(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, waypoints: $waypoints)';
   }
 }

@@ -1,0 +1,23 @@
+#import "route_fields.graphql"
+
+# Repasse une section (typiquement DRAWN) au routeur.
+mutation RefineSection($tripId: UUID!, $sectionId: UUID!) {
+    refineSection(tripId: $tripId, sectionId: $sectionId) {
+        ...EditRoutePayloadFragment
+    }
+}
+
+# Change le mode de déplacement d'une section, sans toucher à la géométrie.
+mutation SetSectionMobility(
+    $tripId: UUID!
+    $sectionId: UUID!
+    $mobilityType: MobilityType!
+) {
+    setSectionMobility(
+        tripId: $tripId
+        sectionId: $sectionId
+        mobilityType: $mobilityType
+    ) {
+        ...EditRoutePayloadFragment
+    }
+}

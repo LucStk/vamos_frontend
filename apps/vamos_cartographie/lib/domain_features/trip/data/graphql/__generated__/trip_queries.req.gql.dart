@@ -6,28 +6,22 @@
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i4;
 import 'package:gql_exec/gql_exec.dart' as _i3;
-import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
-    as _i8;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
-    as _i10;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
-    as _i6;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
     as _i7;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
-    as _i9;
+    as _i6;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_queries.ast.gql.dart'
     as _i5;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_queries.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_queries.var.gql.dart'
-    as _i12;
+    as _i9;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
-    as _i11;
+    as _i8;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i13;
+    as _i10;
 
 class GGetAllTripsReq
     implements _i1.OperationRequest<_i2.GGetAllTripsData, Null> {
@@ -52,8 +46,7 @@ class GGetAllTripsReq
   final _i2.GGetAllTripsData? Function(
     _i2.GGetAllTripsData?,
     _i2.GGetAllTripsData?,
-  )?
-  updateResult;
+  )? updateResult;
 
   final _i2.GGetAllTripsData? optimisticResponse;
 
@@ -67,19 +60,13 @@ class GGetAllTripsReq
 
   final _i3.Context? context;
 
-  static const _i4.DocumentNode _document = _i4.DocumentNode(
-    definitions: [
-      _i5.GetAllTrips,
-      _i6.RouteSectionFields,
-      _i7.VertexFields,
-      _i8.LatLngFields,
-      _i9.TripFields,
-      _i9.TopologyFields,
-      _i10.StoredFile,
-      _i10.FileAttachment,
-      _i11.UserProfileFields,
-    ],
-  );
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetAllTrips,
+    _i6.TripFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+    _i8.UserProfileFields,
+  ]);
 
   static const _i3.Operation _operation = _i3.Operation(
     document: _document,
@@ -87,10 +74,10 @@ class GGetAllTripsReq
   );
 
   _i3.Request get execRequest => _i3.Request(
-    operation: operation,
-    variables: varsToJson(),
-    context: context ?? const _i3.Context(),
-  );
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
 
   _i2.GGetAllTripsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetAllTripsData.fromJson(json);
@@ -100,8 +87,7 @@ class GGetAllTripsReq
   Map<String, dynamic> dataToJson(_i2.GGetAllTripsData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GGetAllTripsData, Null> transformOperation(
-    _i3.Operation Function(_i3.Operation) transform,
-  ) {
+      _i3.Operation Function(_i3.Operation) transform) {
     return GGetAllTripsReq(
       operation: transform(operation),
       requestId: requestId,
@@ -122,8 +108,7 @@ class GGetAllTripsReq
     _i2.GGetAllTripsData? Function(
       _i2.GGetAllTripsData?,
       _i2.GGetAllTripsData?,
-    )?
-    updateResult,
+    )? updateResult,
     bool updateResultIsSet = false,
     _i2.GGetAllTripsData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -139,9 +124,8 @@ class GGetAllTripsReq
   }) {
     return GGetAllTripsReq(
       operation: operation ?? this.operation,
-      requestId: requestId != null || requestIdIsSet
-          ? requestId
-          : this.requestId,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
       updateResult: updateResult != null || updateResultIsSet
           ? updateResult
           : this.updateResult,
@@ -150,12 +134,12 @@ class GGetAllTripsReq
           : this.optimisticResponse,
       updateCacheHandlerKey:
           updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-          ? updateCacheHandlerKey
-          : this.updateCacheHandlerKey,
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
       updateCacheHandlerContext:
           updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-          ? updateCacheHandlerContext
-          : this.updateCacheHandlerContext,
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
       fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
           ? fetchPolicy
           : this.fetchPolicy,
@@ -175,9 +159,7 @@ class GGetAllTripsReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-              updateCacheHandlerContext,
-              other.updateCacheHandlerContext,
-            ) &&
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -186,18 +168,17 @@ class GGetAllTripsReq
   @override
   int get hashCode {
     return Object.hash(
-      runtimeType,
-      _gqlUtils.deepHash(varsToJson()),
-      operation,
-      requestId,
-      updateResult,
-      optimisticResponse,
-      updateCacheHandlerKey,
-      _gqlUtils.deepHash(updateCacheHandlerContext),
-      fetchPolicy,
-      executeOnListen,
-      context,
-    );
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
   }
 
   @override
@@ -207,7 +188,7 @@ class GGetAllTripsReq
 }
 
 class GGetTripReq
-    implements _i1.OperationRequest<_i2.GGetTripData, _i12.GGetTripVars> {
+    implements _i1.OperationRequest<_i2.GGetTripData, _i9.GGetTripVars> {
   GGetTripReq({
     required this.vars,
     _i3.Operation? operation,
@@ -221,14 +202,16 @@ class GGetTripReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i12.GGetTripVars vars;
+  final _i9.GGetTripVars vars;
 
   final _i3.Operation operation;
 
   final String? requestId;
 
-  final _i2.GGetTripData? Function(_i2.GGetTripData?, _i2.GGetTripData?)?
-  updateResult;
+  final _i2.GGetTripData? Function(
+    _i2.GGetTripData?,
+    _i2.GGetTripData?,
+  )? updateResult;
 
   final _i2.GGetTripData? optimisticResponse;
 
@@ -242,15 +225,13 @@ class GGetTripReq
 
   final _i3.Context? context;
 
-  static const _i4.DocumentNode _document = _i4.DocumentNode(
-    definitions: [
-      _i5.GetTrip,
-      _i9.TripFields,
-      _i10.StoredFile,
-      _i10.FileAttachment,
-      _i11.UserProfileFields,
-    ],
-  );
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetTrip,
+    _i6.TripFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+    _i8.UserProfileFields,
+  ]);
 
   static const _i3.Operation _operation = _i3.Operation(
     document: _document,
@@ -258,10 +239,10 @@ class GGetTripReq
   );
 
   _i3.Request get execRequest => _i3.Request(
-    operation: operation,
-    variables: varsToJson(),
-    context: context ?? const _i3.Context(),
-  );
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
 
   _i2.GGetTripData? parseData(Map<String, dynamic> json) =>
       _i2.GGetTripData.fromJson(json);
@@ -270,9 +251,8 @@ class GGetTripReq
 
   Map<String, dynamic> dataToJson(_i2.GGetTripData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GGetTripData, _i12.GGetTripVars> transformOperation(
-    _i3.Operation Function(_i3.Operation) transform,
-  ) {
+  _i1.OperationRequest<_i2.GGetTripData, _i9.GGetTripVars> transformOperation(
+      _i3.Operation Function(_i3.Operation) transform) {
     return GGetTripReq(
       vars: vars,
       operation: transform(operation),
@@ -288,12 +268,14 @@ class GGetTripReq
   }
 
   GGetTripReq copyWith({
-    _i12.GGetTripVars? vars,
+    _i9.GGetTripVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GGetTripData? Function(_i2.GGetTripData?, _i2.GGetTripData?)?
-    updateResult,
+    _i2.GGetTripData? Function(
+      _i2.GGetTripData?,
+      _i2.GGetTripData?,
+    )? updateResult,
     bool updateResultIsSet = false,
     _i2.GGetTripData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -310,9 +292,8 @@ class GGetTripReq
     return GGetTripReq(
       vars: vars ?? this.vars,
       operation: operation ?? this.operation,
-      requestId: requestId != null || requestIdIsSet
-          ? requestId
-          : this.requestId,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
       updateResult: updateResult != null || updateResultIsSet
           ? updateResult
           : this.updateResult,
@@ -321,12 +302,12 @@ class GGetTripReq
           : this.optimisticResponse,
       updateCacheHandlerKey:
           updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-          ? updateCacheHandlerKey
-          : this.updateCacheHandlerKey,
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
       updateCacheHandlerContext:
           updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-          ? updateCacheHandlerContext
-          : this.updateCacheHandlerContext,
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
       fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
           ? fetchPolicy
           : this.fetchPolicy,
@@ -346,9 +327,7 @@ class GGetTripReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-              updateCacheHandlerContext,
-              other.updateCacheHandlerContext,
-            ) &&
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -357,18 +336,17 @@ class GGetTripReq
   @override
   int get hashCode {
     return Object.hash(
-      runtimeType,
-      _gqlUtils.deepHash(varsToJson()),
-      operation,
-      requestId,
-      updateResult,
-      optimisticResponse,
-      updateCacheHandlerKey,
-      _gqlUtils.deepHash(updateCacheHandlerContext),
-      fetchPolicy,
-      executeOnListen,
-      context,
-    );
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
   }
 
   @override
@@ -400,8 +378,7 @@ class GGetMeTripsReq
   final _i2.GGetMeTripsData? Function(
     _i2.GGetMeTripsData?,
     _i2.GGetMeTripsData?,
-  )?
-  updateResult;
+  )? updateResult;
 
   final _i2.GGetMeTripsData? optimisticResponse;
 
@@ -415,15 +392,13 @@ class GGetMeTripsReq
 
   final _i3.Context? context;
 
-  static const _i4.DocumentNode _document = _i4.DocumentNode(
-    definitions: [
-      _i5.GetMeTrips,
-      _i9.TripFields,
-      _i10.StoredFile,
-      _i10.FileAttachment,
-      _i11.UserProfileFields,
-    ],
-  );
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetMeTrips,
+    _i6.TripFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+    _i8.UserProfileFields,
+  ]);
 
   static const _i3.Operation _operation = _i3.Operation(
     document: _document,
@@ -431,10 +406,10 @@ class GGetMeTripsReq
   );
 
   _i3.Request get execRequest => _i3.Request(
-    operation: operation,
-    variables: varsToJson(),
-    context: context ?? const _i3.Context(),
-  );
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
 
   _i2.GGetMeTripsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetMeTripsData.fromJson(json);
@@ -444,8 +419,7 @@ class GGetMeTripsReq
   Map<String, dynamic> dataToJson(_i2.GGetMeTripsData data) => data.toJson();
 
   _i1.OperationRequest<_i2.GGetMeTripsData, Null> transformOperation(
-    _i3.Operation Function(_i3.Operation) transform,
-  ) {
+      _i3.Operation Function(_i3.Operation) transform) {
     return GGetMeTripsReq(
       operation: transform(operation),
       requestId: requestId,
@@ -463,8 +437,10 @@ class GGetMeTripsReq
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
-    _i2.GGetMeTripsData? Function(_i2.GGetMeTripsData?, _i2.GGetMeTripsData?)?
-    updateResult,
+    _i2.GGetMeTripsData? Function(
+      _i2.GGetMeTripsData?,
+      _i2.GGetMeTripsData?,
+    )? updateResult,
     bool updateResultIsSet = false,
     _i2.GGetMeTripsData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -480,9 +456,8 @@ class GGetMeTripsReq
   }) {
     return GGetMeTripsReq(
       operation: operation ?? this.operation,
-      requestId: requestId != null || requestIdIsSet
-          ? requestId
-          : this.requestId,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
       updateResult: updateResult != null || updateResultIsSet
           ? updateResult
           : this.updateResult,
@@ -491,12 +466,12 @@ class GGetMeTripsReq
           : this.optimisticResponse,
       updateCacheHandlerKey:
           updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-          ? updateCacheHandlerKey
-          : this.updateCacheHandlerKey,
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
       updateCacheHandlerContext:
           updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-          ? updateCacheHandlerContext
-          : this.updateCacheHandlerContext,
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
       fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
           ? fetchPolicy
           : this.fetchPolicy,
@@ -516,9 +491,7 @@ class GGetMeTripsReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-              updateCacheHandlerContext,
-              other.updateCacheHandlerContext,
-            ) &&
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -527,18 +500,17 @@ class GGetMeTripsReq
   @override
   int get hashCode {
     return Object.hash(
-      runtimeType,
-      _gqlUtils.deepHash(varsToJson()),
-      operation,
-      requestId,
-      updateResult,
-      optimisticResponse,
-      updateCacheHandlerKey,
-      _gqlUtils.deepHash(updateCacheHandlerContext),
-      fetchPolicy,
-      executeOnListen,
-      context,
-    );
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
   }
 
   @override
@@ -549,7 +521,7 @@ class GGetMeTripsReq
 
 class GGetUserTripsReq
     implements
-        _i1.OperationRequest<_i2.GGetUserTripsData, _i12.GGetUserTripsVars> {
+        _i1.OperationRequest<_i2.GGetUserTripsData, _i9.GGetUserTripsVars> {
   GGetUserTripsReq({
     required this.vars,
     _i3.Operation? operation,
@@ -563,7 +535,7 @@ class GGetUserTripsReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i12.GGetUserTripsVars vars;
+  final _i9.GGetUserTripsVars vars;
 
   final _i3.Operation operation;
 
@@ -572,8 +544,7 @@ class GGetUserTripsReq
   final _i2.GGetUserTripsData? Function(
     _i2.GGetUserTripsData?,
     _i2.GGetUserTripsData?,
-  )?
-  updateResult;
+  )? updateResult;
 
   final _i2.GGetUserTripsData? optimisticResponse;
 
@@ -587,15 +558,13 @@ class GGetUserTripsReq
 
   final _i3.Context? context;
 
-  static const _i4.DocumentNode _document = _i4.DocumentNode(
-    definitions: [
-      _i5.GetUserTrips,
-      _i9.TripFields,
-      _i10.StoredFile,
-      _i10.FileAttachment,
-      _i11.UserProfileFields,
-    ],
-  );
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetUserTrips,
+    _i6.TripFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+    _i8.UserProfileFields,
+  ]);
 
   static const _i3.Operation _operation = _i3.Operation(
     document: _document,
@@ -603,10 +572,10 @@ class GGetUserTripsReq
   );
 
   _i3.Request get execRequest => _i3.Request(
-    operation: operation,
-    variables: varsToJson(),
-    context: context ?? const _i3.Context(),
-  );
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
 
   _i2.GGetUserTripsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetUserTripsData.fromJson(json);
@@ -615,8 +584,8 @@ class GGetUserTripsReq
 
   Map<String, dynamic> dataToJson(_i2.GGetUserTripsData data) => data.toJson();
 
-  _i1.OperationRequest<_i2.GGetUserTripsData, _i12.GGetUserTripsVars>
-  transformOperation(_i3.Operation Function(_i3.Operation) transform) {
+  _i1.OperationRequest<_i2.GGetUserTripsData, _i9.GGetUserTripsVars>
+      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
     return GGetUserTripsReq(
       vars: vars,
       operation: transform(operation),
@@ -632,15 +601,14 @@ class GGetUserTripsReq
   }
 
   GGetUserTripsReq copyWith({
-    _i12.GGetUserTripsVars? vars,
+    _i9.GGetUserTripsVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
     _i2.GGetUserTripsData? Function(
       _i2.GGetUserTripsData?,
       _i2.GGetUserTripsData?,
-    )?
-    updateResult,
+    )? updateResult,
     bool updateResultIsSet = false,
     _i2.GGetUserTripsData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -657,9 +625,8 @@ class GGetUserTripsReq
     return GGetUserTripsReq(
       vars: vars ?? this.vars,
       operation: operation ?? this.operation,
-      requestId: requestId != null || requestIdIsSet
-          ? requestId
-          : this.requestId,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
       updateResult: updateResult != null || updateResultIsSet
           ? updateResult
           : this.updateResult,
@@ -668,12 +635,12 @@ class GGetUserTripsReq
           : this.optimisticResponse,
       updateCacheHandlerKey:
           updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-          ? updateCacheHandlerKey
-          : this.updateCacheHandlerKey,
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
       updateCacheHandlerContext:
           updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-          ? updateCacheHandlerContext
-          : this.updateCacheHandlerContext,
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
       fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
           ? fetchPolicy
           : this.fetchPolicy,
@@ -693,9 +660,7 @@ class GGetUserTripsReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-              updateCacheHandlerContext,
-              other.updateCacheHandlerContext,
-            ) &&
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -704,18 +669,17 @@ class GGetUserTripsReq
   @override
   int get hashCode {
     return Object.hash(
-      runtimeType,
-      _gqlUtils.deepHash(varsToJson()),
-      operation,
-      requestId,
-      updateResult,
-      optimisticResponse,
-      updateCacheHandlerKey,
-      _gqlUtils.deepHash(updateCacheHandlerContext),
-      fetchPolicy,
-      executeOnListen,
-      context,
-    );
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
   }
 
   @override
@@ -726,10 +690,7 @@ class GGetUserTripsReq
 
 class GGetTripDetailsReq
     implements
-        _i1.OperationRequest<
-          _i2.GGetTripDetailsData,
-          _i12.GGetTripDetailsVars
-        > {
+        _i1.OperationRequest<_i2.GGetTripDetailsData, _i9.GGetTripDetailsVars> {
   GGetTripDetailsReq({
     required this.vars,
     _i3.Operation? operation,
@@ -743,7 +704,7 @@ class GGetTripDetailsReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final _i12.GGetTripDetailsVars vars;
+  final _i9.GGetTripDetailsVars vars;
 
   final _i3.Operation operation;
 
@@ -752,8 +713,7 @@ class GGetTripDetailsReq
   final _i2.GGetTripDetailsData? Function(
     _i2.GGetTripDetailsData?,
     _i2.GGetTripDetailsData?,
-  )?
-  updateResult;
+  )? updateResult;
 
   final _i2.GGetTripDetailsData? optimisticResponse;
 
@@ -767,20 +727,14 @@ class GGetTripDetailsReq
 
   final _i3.Context? context;
 
-  static const _i4.DocumentNode _document = _i4.DocumentNode(
-    definitions: [
-      _i5.GetTripDetails,
-      _i6.RouteSectionFields,
-      _i7.VertexFields,
-      _i8.LatLngFields,
-      _i9.TripFields,
-      _i9.TopologyFields,
-      _i10.StoredFile,
-      _i10.FileAttachment,
-      _i11.UserProfileFields,
-      _i13.WaypointFields,
-    ],
-  );
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.GetTripDetails,
+    _i6.TripFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+    _i8.UserProfileFields,
+    _i10.WaypointFields,
+  ]);
 
   static const _i3.Operation _operation = _i3.Operation(
     document: _document,
@@ -788,10 +742,10 @@ class GGetTripDetailsReq
   );
 
   _i3.Request get execRequest => _i3.Request(
-    operation: operation,
-    variables: varsToJson(),
-    context: context ?? const _i3.Context(),
-  );
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
 
   _i2.GGetTripDetailsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetTripDetailsData.fromJson(json);
@@ -801,8 +755,8 @@ class GGetTripDetailsReq
   Map<String, dynamic> dataToJson(_i2.GGetTripDetailsData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GGetTripDetailsData, _i12.GGetTripDetailsVars>
-  transformOperation(_i3.Operation Function(_i3.Operation) transform) {
+  _i1.OperationRequest<_i2.GGetTripDetailsData, _i9.GGetTripDetailsVars>
+      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
     return GGetTripDetailsReq(
       vars: vars,
       operation: transform(operation),
@@ -818,15 +772,14 @@ class GGetTripDetailsReq
   }
 
   GGetTripDetailsReq copyWith({
-    _i12.GGetTripDetailsVars? vars,
+    _i9.GGetTripDetailsVars? vars,
     _i3.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
     _i2.GGetTripDetailsData? Function(
       _i2.GGetTripDetailsData?,
       _i2.GGetTripDetailsData?,
-    )?
-    updateResult,
+    )? updateResult,
     bool updateResultIsSet = false,
     _i2.GGetTripDetailsData? optimisticResponse,
     bool optimisticResponseIsSet = false,
@@ -843,9 +796,8 @@ class GGetTripDetailsReq
     return GGetTripDetailsReq(
       vars: vars ?? this.vars,
       operation: operation ?? this.operation,
-      requestId: requestId != null || requestIdIsSet
-          ? requestId
-          : this.requestId,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
       updateResult: updateResult != null || updateResultIsSet
           ? updateResult
           : this.updateResult,
@@ -854,12 +806,12 @@ class GGetTripDetailsReq
           : this.optimisticResponse,
       updateCacheHandlerKey:
           updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-          ? updateCacheHandlerKey
-          : this.updateCacheHandlerKey,
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
       updateCacheHandlerContext:
           updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-          ? updateCacheHandlerContext
-          : this.updateCacheHandlerContext,
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
       fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
           ? fetchPolicy
           : this.fetchPolicy,
@@ -879,9 +831,7 @@ class GGetTripDetailsReq
             optimisticResponse == other.optimisticResponse &&
             updateCacheHandlerKey == other.updateCacheHandlerKey &&
             _gqlUtils.deepEquals(
-              updateCacheHandlerContext,
-              other.updateCacheHandlerContext,
-            ) &&
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
             fetchPolicy == other.fetchPolicy &&
             executeOnListen == other.executeOnListen &&
             context == other.context);
@@ -890,18 +840,17 @@ class GGetTripDetailsReq
   @override
   int get hashCode {
     return Object.hash(
-      runtimeType,
-      _gqlUtils.deepHash(varsToJson()),
-      operation,
-      requestId,
-      updateResult,
-      optimisticResponse,
-      updateCacheHandlerKey,
-      _gqlUtils.deepHash(updateCacheHandlerContext),
-      fetchPolicy,
-      executeOnListen,
-      context,
-    );
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
   }
 
   @override

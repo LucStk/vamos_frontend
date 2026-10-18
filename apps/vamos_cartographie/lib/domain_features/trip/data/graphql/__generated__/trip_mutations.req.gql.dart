@@ -4,27 +4,25 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
-import 'package:gql/ast.dart' as _i4;
-import 'package:gql_exec/gql_exec.dart' as _i3;
+import 'package:gql/ast.dart' as _i5;
+import 'package:gql_exec/gql_exec.dart' as _i4;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
-    as _i6;
-import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i7;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.ast.gql.dart'
-    as _i5;
+    as _i6;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.var.gql.dart'
-    as _i9;
-import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
-    as _i8;
+    as _i3;
 
-class GCreateBlankTripReq
-    implements _i1.OperationRequest<_i2.GCreateBlankTripData, Null> {
-  GCreateBlankTripReq({
-    _i3.Operation? operation,
+class GUpdateWaypointReq
+    implements
+        _i1.OperationRequest<_i2.GUpdateWaypointData, _i3.GUpdateWaypointVars> {
+  GUpdateWaypointReq({
+    required this.vars,
+    _i4.Operation? operation,
     this.requestId,
     this.updateResult,
     this.optimisticResponse,
@@ -34,485 +32,396 @@ class GCreateBlankTripReq
     this.executeOnListen = true,
     this.context,
   }) : operation = operation ?? _operation;
+
+  final _i3.GUpdateWaypointVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GUpdateWaypointData? Function(
+    _i2.GUpdateWaypointData?,
+    _i2.GUpdateWaypointData?,
+  )? updateResult;
+
+  final _i2.GUpdateWaypointData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.UpdateWaypoint,
+    _i6.WaypointFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'UpdateWaypoint',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GUpdateWaypointData? parseData(Map<String, dynamic> json) =>
+      _i2.GUpdateWaypointData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GUpdateWaypointData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GUpdateWaypointData, _i3.GUpdateWaypointVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GUpdateWaypointReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GUpdateWaypointReq copyWith({
+    _i3.GUpdateWaypointVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GUpdateWaypointData? Function(
+      _i2.GUpdateWaypointData?,
+      _i2.GUpdateWaypointData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GUpdateWaypointData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GUpdateWaypointReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUpdateWaypointReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GUpdateWaypointReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GCreateBlankWaypointFromPositionReq
+    implements
+        _i1.OperationRequest<_i2.GCreateBlankWaypointFromPositionData,
+            _i3.GCreateBlankWaypointFromPositionVars> {
+  GCreateBlankWaypointFromPositionReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GCreateBlankWaypointFromPositionVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GCreateBlankWaypointFromPositionData? Function(
+    _i2.GCreateBlankWaypointFromPositionData?,
+    _i2.GCreateBlankWaypointFromPositionData?,
+  )? updateResult;
+
+  final _i2.GCreateBlankWaypointFromPositionData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.CreateBlankWaypointFromPosition,
+    _i6.WaypointFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'CreateBlankWaypointFromPosition',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GCreateBlankWaypointFromPositionData? parseData(
+          Map<String, dynamic> json) =>
+      _i2.GCreateBlankWaypointFromPositionData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(
+          _i2.GCreateBlankWaypointFromPositionData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GCreateBlankWaypointFromPositionData,
+          _i3.GCreateBlankWaypointFromPositionVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GCreateBlankWaypointFromPositionReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GCreateBlankWaypointFromPositionReq copyWith({
+    _i3.GCreateBlankWaypointFromPositionVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GCreateBlankWaypointFromPositionData? Function(
+      _i2.GCreateBlankWaypointFromPositionData?,
+      _i2.GCreateBlankWaypointFromPositionData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GCreateBlankWaypointFromPositionData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GCreateBlankWaypointFromPositionReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateBlankWaypointFromPositionReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GCreateBlankWaypointFromPositionReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GWaypointFieldsReq
+    implements _i1.FragmentRequest<_i2.GWaypointFieldsData, Null> {
+  GWaypointFieldsReq({
+    _i5.DocumentNode? document,
+    this.fragmentName = 'WaypointFields',
+    this.idFields = const <String, dynamic>{},
+  }) : document = document ?? _document;
 
   final Null vars = null;
 
-  final _i3.Operation operation;
+  final _i5.DocumentNode document;
 
-  final String? requestId;
+  final String? fragmentName;
 
-  final _i2.GCreateBlankTripData? Function(
-    _i2.GCreateBlankTripData?,
-    _i2.GCreateBlankTripData?,
-  )? updateResult;
+  final Map<String, dynamic> idFields;
 
-  final _i2.GCreateBlankTripData? optimisticResponse;
-
-  final String? updateCacheHandlerKey;
-
-  final Map<String, dynamic>? updateCacheHandlerContext;
-
-  final _i1.FetchPolicy? fetchPolicy;
-
-  final bool executeOnListen;
-
-  final _i3.Context? context;
-
-  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
-    _i5.CreateBlankTrip,
-    _i6.StoredFile,
-    _i6.FileAttachment,
-    _i7.TripFields,
-    _i8.UserProfileFields,
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.WaypointFields,
+    _i7.StoredFile,
+    _i7.FileAttachment,
   ]);
 
-  static const _i3.Operation _operation = _i3.Operation(
-    document: _document,
-    operationName: 'CreateBlankTrip',
-  );
-
-  _i3.Request get execRequest => _i3.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i3.Context(),
-      );
-
-  _i2.GCreateBlankTripData? parseData(Map<String, dynamic> json) =>
-      _i2.GCreateBlankTripData.fromJson(json);
+  _i2.GWaypointFieldsData? parseData(Map<String, dynamic> json) =>
+      _i2.GWaypointFieldsData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GCreateBlankTripData data) =>
+  Map<String, dynamic> dataToJson(_i2.GWaypointFieldsData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GCreateBlankTripData, Null> transformOperation(
-      _i3.Operation Function(_i3.Operation) transform) {
-    return GCreateBlankTripReq(
-      operation: transform(operation),
-      requestId: requestId,
-      updateResult: updateResult,
-      optimisticResponse: optimisticResponse,
-      updateCacheHandlerKey: updateCacheHandlerKey,
-      updateCacheHandlerContext: updateCacheHandlerContext,
-      fetchPolicy: fetchPolicy,
-      executeOnListen: executeOnListen,
-      context: context,
-    );
-  }
-
-  GCreateBlankTripReq copyWith({
-    _i3.Operation? operation,
-    String? requestId,
-    bool requestIdIsSet = false,
-    _i2.GCreateBlankTripData? Function(
-      _i2.GCreateBlankTripData?,
-      _i2.GCreateBlankTripData?,
-    )? updateResult,
-    bool updateResultIsSet = false,
-    _i2.GCreateBlankTripData? optimisticResponse,
-    bool optimisticResponseIsSet = false,
-    String? updateCacheHandlerKey,
-    bool updateCacheHandlerKeyIsSet = false,
-    Map<String, dynamic>? updateCacheHandlerContext,
-    bool updateCacheHandlerContextIsSet = false,
-    _i1.FetchPolicy? fetchPolicy,
-    bool fetchPolicyIsSet = false,
-    bool? executeOnListen,
-    _i3.Context? context,
-    bool contextIsSet = false,
+  GWaypointFieldsReq copyWith({
+    _i5.DocumentNode? document,
+    String? fragmentName,
+    bool fragmentNameIsSet = false,
+    Map<String, dynamic>? idFields,
   }) {
-    return GCreateBlankTripReq(
-      operation: operation ?? this.operation,
-      requestId:
-          requestId != null || requestIdIsSet ? requestId : this.requestId,
-      updateResult: updateResult != null || updateResultIsSet
-          ? updateResult
-          : this.updateResult,
-      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
-          ? optimisticResponse
-          : this.optimisticResponse,
-      updateCacheHandlerKey:
-          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-              ? updateCacheHandlerKey
-              : this.updateCacheHandlerKey,
-      updateCacheHandlerContext:
-          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-              ? updateCacheHandlerContext
-              : this.updateCacheHandlerContext,
-      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
-          ? fetchPolicy
-          : this.fetchPolicy,
-      executeOnListen: executeOnListen ?? this.executeOnListen,
-      context: context != null || contextIsSet ? context : this.context,
+    return GWaypointFieldsReq(
+      document: document ?? this.document,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
+      idFields: idFields ?? this.idFields,
     );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateBlankTripReq &&
+        (other is GWaypointFieldsReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
-            operation == other.operation &&
-            requestId == other.requestId &&
-            updateResult == other.updateResult &&
-            optimisticResponse == other.optimisticResponse &&
-            updateCacheHandlerKey == other.updateCacheHandlerKey &&
-            _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
-            fetchPolicy == other.fetchPolicy &&
-            executeOnListen == other.executeOnListen &&
-            context == other.context);
+            document == other.document &&
+            fragmentName == other.fragmentName &&
+            _gqlUtils.deepEquals(idFields, other.idFields));
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
+    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
+        fragmentName, _gqlUtils.deepHash(idFields));
   }
 
   @override
   String toString() {
-    return 'GCreateBlankTripReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
-  }
-}
-
-class GUpdateTripReq
-    implements _i1.OperationRequest<_i2.GUpdateTripData, _i9.GUpdateTripVars> {
-  GUpdateTripReq({
-    required this.vars,
-    _i3.Operation? operation,
-    this.requestId,
-    this.updateResult,
-    this.optimisticResponse,
-    this.updateCacheHandlerKey,
-    this.updateCacheHandlerContext,
-    this.fetchPolicy,
-    this.executeOnListen = true,
-    this.context,
-  }) : operation = operation ?? _operation;
-
-  final _i9.GUpdateTripVars vars;
-
-  final _i3.Operation operation;
-
-  final String? requestId;
-
-  final _i2.GUpdateTripData? Function(
-    _i2.GUpdateTripData?,
-    _i2.GUpdateTripData?,
-  )? updateResult;
-
-  final _i2.GUpdateTripData? optimisticResponse;
-
-  final String? updateCacheHandlerKey;
-
-  final Map<String, dynamic>? updateCacheHandlerContext;
-
-  final _i1.FetchPolicy? fetchPolicy;
-
-  final bool executeOnListen;
-
-  final _i3.Context? context;
-
-  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
-    _i5.UpdateTrip,
-    _i6.StoredFile,
-    _i6.FileAttachment,
-    _i7.TripFields,
-    _i8.UserProfileFields,
-  ]);
-
-  static const _i3.Operation _operation = _i3.Operation(
-    document: _document,
-    operationName: 'UpdateTrip',
-  );
-
-  _i3.Request get execRequest => _i3.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i3.Context(),
-      );
-
-  _i2.GUpdateTripData? parseData(Map<String, dynamic> json) =>
-      _i2.GUpdateTripData.fromJson(json);
-
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  Map<String, dynamic> dataToJson(_i2.GUpdateTripData data) => data.toJson();
-
-  _i1.OperationRequest<_i2.GUpdateTripData, _i9.GUpdateTripVars>
-      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
-    return GUpdateTripReq(
-      vars: vars,
-      operation: transform(operation),
-      requestId: requestId,
-      updateResult: updateResult,
-      optimisticResponse: optimisticResponse,
-      updateCacheHandlerKey: updateCacheHandlerKey,
-      updateCacheHandlerContext: updateCacheHandlerContext,
-      fetchPolicy: fetchPolicy,
-      executeOnListen: executeOnListen,
-      context: context,
-    );
-  }
-
-  GUpdateTripReq copyWith({
-    _i9.GUpdateTripVars? vars,
-    _i3.Operation? operation,
-    String? requestId,
-    bool requestIdIsSet = false,
-    _i2.GUpdateTripData? Function(
-      _i2.GUpdateTripData?,
-      _i2.GUpdateTripData?,
-    )? updateResult,
-    bool updateResultIsSet = false,
-    _i2.GUpdateTripData? optimisticResponse,
-    bool optimisticResponseIsSet = false,
-    String? updateCacheHandlerKey,
-    bool updateCacheHandlerKeyIsSet = false,
-    Map<String, dynamic>? updateCacheHandlerContext,
-    bool updateCacheHandlerContextIsSet = false,
-    _i1.FetchPolicy? fetchPolicy,
-    bool fetchPolicyIsSet = false,
-    bool? executeOnListen,
-    _i3.Context? context,
-    bool contextIsSet = false,
-  }) {
-    return GUpdateTripReq(
-      vars: vars ?? this.vars,
-      operation: operation ?? this.operation,
-      requestId:
-          requestId != null || requestIdIsSet ? requestId : this.requestId,
-      updateResult: updateResult != null || updateResultIsSet
-          ? updateResult
-          : this.updateResult,
-      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
-          ? optimisticResponse
-          : this.optimisticResponse,
-      updateCacheHandlerKey:
-          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-              ? updateCacheHandlerKey
-              : this.updateCacheHandlerKey,
-      updateCacheHandlerContext:
-          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-              ? updateCacheHandlerContext
-              : this.updateCacheHandlerContext,
-      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
-          ? fetchPolicy
-          : this.fetchPolicy,
-      executeOnListen: executeOnListen ?? this.executeOnListen,
-      context: context != null || contextIsSet ? context : this.context,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GUpdateTripReq &&
-            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
-            operation == other.operation &&
-            requestId == other.requestId &&
-            updateResult == other.updateResult &&
-            optimisticResponse == other.optimisticResponse &&
-            updateCacheHandlerKey == other.updateCacheHandlerKey &&
-            _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
-            fetchPolicy == other.fetchPolicy &&
-            executeOnListen == other.executeOnListen &&
-            context == other.context);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
-  }
-
-  @override
-  String toString() {
-    return 'GUpdateTripReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
-  }
-}
-
-class GDeleteTripReq
-    implements _i1.OperationRequest<_i2.GDeleteTripData, _i9.GDeleteTripVars> {
-  GDeleteTripReq({
-    required this.vars,
-    _i3.Operation? operation,
-    this.requestId,
-    this.updateResult,
-    this.optimisticResponse,
-    this.updateCacheHandlerKey,
-    this.updateCacheHandlerContext,
-    this.fetchPolicy,
-    this.executeOnListen = true,
-    this.context,
-  }) : operation = operation ?? _operation;
-
-  final _i9.GDeleteTripVars vars;
-
-  final _i3.Operation operation;
-
-  final String? requestId;
-
-  final _i2.GDeleteTripData? Function(
-    _i2.GDeleteTripData?,
-    _i2.GDeleteTripData?,
-  )? updateResult;
-
-  final _i2.GDeleteTripData? optimisticResponse;
-
-  final String? updateCacheHandlerKey;
-
-  final Map<String, dynamic>? updateCacheHandlerContext;
-
-  final _i1.FetchPolicy? fetchPolicy;
-
-  final bool executeOnListen;
-
-  final _i3.Context? context;
-
-  static const _i4.DocumentNode _document =
-      _i4.DocumentNode(definitions: [_i5.DeleteTrip]);
-
-  static const _i3.Operation _operation = _i3.Operation(
-    document: _document,
-    operationName: 'DeleteTrip',
-  );
-
-  _i3.Request get execRequest => _i3.Request(
-        operation: operation,
-        variables: varsToJson(),
-        context: context ?? const _i3.Context(),
-      );
-
-  _i2.GDeleteTripData? parseData(Map<String, dynamic> json) =>
-      _i2.GDeleteTripData.fromJson(json);
-
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  Map<String, dynamic> dataToJson(_i2.GDeleteTripData data) => data.toJson();
-
-  _i1.OperationRequest<_i2.GDeleteTripData, _i9.GDeleteTripVars>
-      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
-    return GDeleteTripReq(
-      vars: vars,
-      operation: transform(operation),
-      requestId: requestId,
-      updateResult: updateResult,
-      optimisticResponse: optimisticResponse,
-      updateCacheHandlerKey: updateCacheHandlerKey,
-      updateCacheHandlerContext: updateCacheHandlerContext,
-      fetchPolicy: fetchPolicy,
-      executeOnListen: executeOnListen,
-      context: context,
-    );
-  }
-
-  GDeleteTripReq copyWith({
-    _i9.GDeleteTripVars? vars,
-    _i3.Operation? operation,
-    String? requestId,
-    bool requestIdIsSet = false,
-    _i2.GDeleteTripData? Function(
-      _i2.GDeleteTripData?,
-      _i2.GDeleteTripData?,
-    )? updateResult,
-    bool updateResultIsSet = false,
-    _i2.GDeleteTripData? optimisticResponse,
-    bool optimisticResponseIsSet = false,
-    String? updateCacheHandlerKey,
-    bool updateCacheHandlerKeyIsSet = false,
-    Map<String, dynamic>? updateCacheHandlerContext,
-    bool updateCacheHandlerContextIsSet = false,
-    _i1.FetchPolicy? fetchPolicy,
-    bool fetchPolicyIsSet = false,
-    bool? executeOnListen,
-    _i3.Context? context,
-    bool contextIsSet = false,
-  }) {
-    return GDeleteTripReq(
-      vars: vars ?? this.vars,
-      operation: operation ?? this.operation,
-      requestId:
-          requestId != null || requestIdIsSet ? requestId : this.requestId,
-      updateResult: updateResult != null || updateResultIsSet
-          ? updateResult
-          : this.updateResult,
-      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
-          ? optimisticResponse
-          : this.optimisticResponse,
-      updateCacheHandlerKey:
-          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
-              ? updateCacheHandlerKey
-              : this.updateCacheHandlerKey,
-      updateCacheHandlerContext:
-          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
-              ? updateCacheHandlerContext
-              : this.updateCacheHandlerContext,
-      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
-          ? fetchPolicy
-          : this.fetchPolicy,
-      executeOnListen: executeOnListen ?? this.executeOnListen,
-      context: context != null || contextIsSet ? context : this.context,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GDeleteTripReq &&
-            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
-            operation == other.operation &&
-            requestId == other.requestId &&
-            updateResult == other.updateResult &&
-            optimisticResponse == other.optimisticResponse &&
-            updateCacheHandlerKey == other.updateCacheHandlerKey &&
-            _gqlUtils.deepEquals(
-                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
-            fetchPolicy == other.fetchPolicy &&
-            executeOnListen == other.executeOnListen &&
-            context == other.context);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-        runtimeType,
-        _gqlUtils.deepHash(varsToJson()),
-        operation,
-        requestId,
-        updateResult,
-        optimisticResponse,
-        updateCacheHandlerKey,
-        _gqlUtils.deepHash(updateCacheHandlerContext),
-        fetchPolicy,
-        executeOnListen,
-        context);
-  }
-
-  @override
-  String toString() {
-    return 'GDeleteTripReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+    return 'GWaypointFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }

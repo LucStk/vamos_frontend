@@ -1,5 +1,4 @@
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
-#import "/domain_features/topology/data/graphql/fields/vertex_fields.graphql"
 
 fragment WaypointFields on WaypointType {
     id
@@ -8,16 +7,5 @@ fragment WaypointFields on WaypointType {
     description
     files {
         ...FileAttachment
-    }
-    vertex {
-        ...VertexFields
-    }
-}
-fragment CreateWaypointPayloadFields on CreateWaypointPayload {
-    waypoint {
-        ...WaypointFields
-    }
-    vertex {
-        ...VertexFields
     }
 }

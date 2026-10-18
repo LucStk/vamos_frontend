@@ -8,47 +8,47 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
-class GUpdateTripVars {
-  const GUpdateTripVars({
-    required this.trip,
+class GUpdateWaypointVars {
+  const GUpdateWaypointVars({
     required this.id,
+    required this.waypoint,
   });
 
-  factory GUpdateTripVars.fromJson(Map<String, dynamic> json) {
-    return GUpdateTripVars(
-      trip:
-          _i1.GTripUpdateInput.fromJson((json['trip'] as Map<String, dynamic>)),
+  factory GUpdateWaypointVars.fromJson(Map<String, dynamic> json) {
+    return GUpdateWaypointVars(
       id: (json['id'] as String),
+      waypoint: _i1.GWaypointUpdateInput.fromJson(
+          (json['waypoint'] as Map<String, dynamic>)),
     );
   }
 
-  final _i1.GTripUpdateInput trip;
-
   final String id;
+
+  final _i1.GWaypointUpdateInput waypoint;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$tripValue = this.trip;
-    _$result['trip'] = _$tripValue.toJson();
     final _$idValue = this.id;
     _$result['id'] = _$idValue;
+    final _$waypointValue = this.waypoint;
+    _$result['waypoint'] = _$waypointValue.toJson();
     return _$result;
   }
 
-  GUpdateTripVars copyWith({
-    _i1.GTripUpdateInput? trip,
+  GUpdateWaypointVars copyWith({
     String? id,
+    _i1.GWaypointUpdateInput? waypoint,
   }) {
-    return GUpdateTripVars(
-      trip: trip ?? this.trip,
+    return GUpdateWaypointVars(
       id: id ?? this.id,
+      waypoint: waypoint ?? this.waypoint,
     );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GUpdateTripVars &&
+        (other is GUpdateWaypointVars &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -59,34 +59,52 @@ class GUpdateTripVars {
 
   @override
   String toString() {
-    return 'GUpdateTripVars(trip: $trip, id: $id)';
+    return 'GUpdateWaypointVars(id: $id, waypoint: $waypoint)';
   }
 }
 
-class GDeleteTripVars {
-  const GDeleteTripVars({required this.id});
+class GCreateBlankWaypointFromPositionVars {
+  const GCreateBlankWaypointFromPositionVars({
+    required this.tripId,
+    required this.latLng,
+  });
 
-  factory GDeleteTripVars.fromJson(Map<String, dynamic> json) {
-    return GDeleteTripVars(id: (json['id'] as String));
+  factory GCreateBlankWaypointFromPositionVars.fromJson(
+      Map<String, dynamic> json) {
+    return GCreateBlankWaypointFromPositionVars(
+      tripId: (json['tripId'] as String),
+      latLng:
+          _i1.GLatLngInput.fromJson((json['latLng'] as Map<String, dynamic>)),
+    );
   }
 
-  final String id;
+  final String tripId;
+
+  final _i1.GLatLngInput latLng;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$idValue = this.id;
-    _$result['id'] = _$idValue;
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$latLngValue = this.latLng;
+    _$result['latLng'] = _$latLngValue.toJson();
     return _$result;
   }
 
-  GDeleteTripVars copyWith({String? id}) {
-    return GDeleteTripVars(id: id ?? this.id);
+  GCreateBlankWaypointFromPositionVars copyWith({
+    String? tripId,
+    _i1.GLatLngInput? latLng,
+  }) {
+    return GCreateBlankWaypointFromPositionVars(
+      tripId: tripId ?? this.tripId,
+      latLng: latLng ?? this.latLng,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GDeleteTripVars &&
+        (other is GCreateBlankWaypointFromPositionVars &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -97,6 +115,6 @@ class GDeleteTripVars {
 
   @override
   String toString() {
-    return 'GDeleteTripVars(id: $id)';
+    return 'GCreateBlankWaypointFromPositionVars(tripId: $tripId, latLng: $latLng)';
   }
 }

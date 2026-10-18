@@ -1,8 +1,0 @@
-#import "/core/graphql/geo_fields.graphql"
-
-fragment VertexFields on VertexType {
-    id
-    latLng {
-        ...LatLngFields
-    }
-}

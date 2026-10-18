@@ -1,0 +1,43 @@
+#import "/core/graphql/geo_fields.graphql"
+
+#import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
+#import "/domain_features/trip/data/graphql/trip_fields.graphql"
+fragment RouteSectionFields on RouteSectionType {
+    id
+    startIndex
+    mobilityType
+    geometrySource
+}
+
+fragment WaypointAnchorFields on WaypointType {
+    id
+    anchorEdge
+    anchorOffset
+}
+
+# Tout ce que le client doit REMPLACER après une édition de route :
+# chaque édition décale les index des sections et les ancres des waypoints,
+# il ne faut donc jamais patcher, seulement remplacer.
+fragment TripRouteFields on TripType {
+    id
+    routeUpdatedAt
+    bounds
+    route {
+        lat
+        lng
+    }
+    sections {
+        ...RouteSectionFields
+    }
+    waypoints {
+        ...WaypointAnchorFields
+    }
+}
+
+fragment EditRoutePayloadFragment on EditRoutePayload {
+    refinementFailed
+    errorMessage
+    trip {
+        ...TripRouteFields
+    }
+}

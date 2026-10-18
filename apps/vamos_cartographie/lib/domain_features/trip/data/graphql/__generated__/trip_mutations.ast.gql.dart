@@ -4,126 +4,16 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
-    as _i6;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i2;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/segment_fields.ast.gql.dart'
-    as _i4;
-import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/__generated__/vertex_fields.ast.gql.dart'
-    as _i5;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i3;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
-    as _i7;
+    as _i4;
 
-const CreateBlankTrip = _i1.OperationDefinitionNode(
+const UpdateWaypoint = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'CreateBlankTrip'),
-  variableDefinitions: [],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(
-    selections: [
-      _i1.FieldNode(
-        name: _i1.NameNode(value: 'createBlankTrip'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: _i1.SelectionSetNode(
-          selections: [
-            _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'TripFields'),
-              directives: [],
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ],
-        ),
-      ),
-      _i1.FieldNode(
-        name: _i1.NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
-);
-const UpdateTrip = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'UpdateTrip'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'TripUpdateInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(
-    selections: [
-      _i1.FieldNode(
-        name: _i1.NameNode(value: 'updateTrip'),
-        alias: null,
-        arguments: [
-          _i1.ArgumentNode(
-            name: _i1.NameNode(value: 'trip'),
-            value: _i1.VariableNode(name: _i1.NameNode(value: 'trip')),
-          ),
-          _i1.ArgumentNode(
-            name: _i1.NameNode(value: 'id'),
-            value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-          ),
-        ],
-        directives: [],
-        selectionSet: _i1.SelectionSetNode(
-          selections: [
-            _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'TripFields'),
-              directives: [],
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ],
-        ),
-      ),
-      _i1.FieldNode(
-        name: _i1.NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
-);
-const DeleteTrip = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'DeleteTrip'),
+  name: _i1.NameNode(value: 'UpdateWaypoint'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
@@ -134,49 +24,190 @@ const DeleteTrip = _i1.OperationDefinitionNode(
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
     ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'WaypointUpdateInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(
-    selections: [
-      _i1.FieldNode(
-        name: _i1.NameNode(value: 'deleteTrip'),
-        alias: null,
-        arguments: [
-          _i1.ArgumentNode(
-            name: _i1.NameNode(value: 'id'),
-            value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-          ),
-        ],
-        directives: [],
-        selectionSet: null,
-      ),
-      _i1.FieldNode(
-        name: _i1.NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'updateWaypoint'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'waypoint')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'WaypointFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
 );
-const document = _i1.DocumentNode(
-  definitions: [
-    CreateBlankTrip,
-    UpdateTrip,
-    DeleteTrip,
-    _i2.StoredFile,
-    _i2.FileAttachment,
-    _i2.UploadConfigFields,
-    _i3.TripFields,
-    _i3.TopologyFields,
-    _i4.RouteSectionFields,
-    _i4.SegmentSplicePayloadFragment,
-    _i4.CreateSegmentPayloadFragment,
-    _i4.RefineSegmentPayloadFragment,
-    _i5.VertexFields,
-    _i6.LatLngFields,
-    _i7.UserProfileFields,
-    _i7.CreateProfilePayload,
+const CreateBlankWaypointFromPosition = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'CreateBlankWaypointFromPosition'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
   ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'createBlankWaypointFromPosition'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'tripId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'latLng'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'latLng')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'WaypointFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
 );
+const WaypointFields = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'WaypointFields'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'WaypointType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'poiCategory'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'title'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'description'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'files'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'FileAttachment'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const document = _i1.DocumentNode(definitions: [
+  UpdateWaypoint,
+  CreateBlankWaypointFromPosition,
+  WaypointFields,
+  _i2.StoredFile,
+  _i2.FileAttachment,
+  _i2.UploadConfigFields,
+  _i3.TripFields,
+  _i4.UserProfileFields,
+  _i4.CreateProfilePayload,
+]);
