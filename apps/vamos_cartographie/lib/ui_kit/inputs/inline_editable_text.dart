@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:domain_core/failures/failures.dart';
 
 class InlineEditableText extends StatefulWidget {
   const InlineEditableText({
@@ -20,7 +21,7 @@ class InlineEditableText extends StatefulWidget {
 
   /// Doit lever une exception en cas d'échec : le widget reste alors
   /// en édition et le texte saisi n'est pas perdu.
-  final Future<void> Function(String value) onSave;
+  final Future<Failure?> Function(String value) onSave;
 
   @override
   State<InlineEditableText> createState() => _InlineEditableTextState();

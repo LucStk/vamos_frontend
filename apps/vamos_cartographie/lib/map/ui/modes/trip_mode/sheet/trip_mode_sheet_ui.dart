@@ -11,7 +11,7 @@ import 'package:vamos_cartographie/map/ui/features/segment/sheet/segment_bottom_
 import 'package:vamos_cartographie/map/ui/features/sketch/sheet/sketch_bottom_sheet.dart';
 import 'package:vamos_cartographie/map/ui/features/vertex/sheet/vertex_bottom_sheet_content.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/sheet/waypoint_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_bottom_sheet.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_sheet.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class TripModeSheetUi extends ConsumerWidget {
@@ -28,7 +28,7 @@ class TripModeSheetUi extends ConsumerWidget {
         onTypeChanged: (_) {},
         stopSketch: () {},
       ),
-      (TripMode e, null) => TripBottomSheet(tripId: e.tripId),
+      (TripMode e, null) => TripSheet(tripId: e.tripId, mode: mode),
       (TripViewMode e, MapVertex v) => _VertexSheet(
         key: ValueKey(v.id),
         tripId: e.tripId,

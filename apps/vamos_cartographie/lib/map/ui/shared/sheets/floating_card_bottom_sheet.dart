@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/floating_trip_card.dart';
+import 'package:vamos_cartographie/map/ui/shared/sheets/absorbed_slot.dart';
+import 'package:vamos_cartographie/map/ui/shared/sheets/absorbing_card.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/draggable_sheet.dart';
 
 const kFloatingCardHeight = 64.0;
@@ -11,7 +11,7 @@ const kFloatingCardMargin = 12.0;
 class FloatingCardBottomSheet extends StatefulWidget {
   const FloatingCardBottomSheet({
     super.key,
-    required this.cardBuilder,
+    required this.card,
     required this.header,
     required this.compactContent,
     required this.expandedContent,
@@ -19,9 +19,7 @@ class FloatingCardBottomSheet extends StatefulWidget {
 
   /// [progress] vaut 0 quand la carte est entièrement visible,
   /// 1 quand elle est entièrement absorbée.
-  final Widget Function(BuildContext context, ValueListenable<double> progress)
-  cardBuilder;
-
+  final Widget card;
   final Widget header;
   final Widget compactContent;
   final Widget expandedContent;
@@ -62,7 +60,7 @@ class _FloatingCardBottomSheetState extends State<FloatingCardBottomSheet> {
             children: [
               _TopCardSlot(
                 top: geometry.top,
-                child: widget.cardBuilder(context, _progress),
+                child: AbsorbingCard(progress: _progress, child: widget.card),
               ),
               DraggableBottomSheetShell(
                 maxChildSize: geometry.maxChildSize,

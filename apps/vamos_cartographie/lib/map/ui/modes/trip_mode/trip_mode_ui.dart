@@ -13,11 +13,7 @@ class TripModeUi extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
-      children: [
-        TripModeSheetUi(mode),
-        TripModeContextualMenu(mode),
-        // Autres éléments d'interface liés au mode.
-      ],
+      children: [TripModeSheetUi(mode), TripModeContextualMenu(mode)],
     );
   }
 }

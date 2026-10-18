@@ -1,3 +1,4 @@
+import "package:domain_core/failures/failures.dart";
 import "package:flutter/material.dart";
 import "package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart";
 
@@ -12,14 +13,18 @@ class TripHeader extends StatelessWidget {
 
   final String title;
   final bool canEdit;
-  final Future<void> Function(String title)? onRename;
+  final Future<Failure?> Function(String title)? onRename;
 
   @override
   Widget build(BuildContext context) {
     return InlineEditableText(
       text: title,
       canEdit: canEdit && onRename != null,
-      onSave: onRename ?? (_) async {},
+      onSave:
+          onRename ??
+          (_) async {
+            return;
+          },
       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     );
   }
