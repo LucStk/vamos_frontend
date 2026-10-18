@@ -15,7 +15,7 @@ import 'package:vamos_cartographie/ui_kit/buttons/delete_button.dart';
 @Dependencies([modeMachine])
 class VertexBottomSheetContent extends ConsumerWidget {
   final TripId tripId;
-  final VertexId vertexId;
+  final WaypointId vertexId;
   final Widget? child;
 
   const VertexBottomSheetContent({
@@ -37,7 +37,7 @@ class VertexBottomSheetContent extends ConsumerWidget {
           // Ligne d'actions
           Row(
             children: [
-              // 1. Action de dessin de segment depuis ce vertex
+              // 1. Action de dessin de segment depuis ce waypoint
               DrawSegmentButton(vertexId: vertexId, tripId: tripId),
 
               const SizedBox(width: 8),
@@ -47,7 +47,7 @@ class VertexBottomSheetContent extends ConsumerWidget {
                 child: ConfirmButton(
                   label: "Créer une étape ici",
                   onPressed: () => editor.apply(
-                    Transition.withSelection<AppMode, MapVertex>(
+                    Transition.withSelection<AppMode, MapWaypoint>(
                       (s) => s.createWaypoint(),
                     ),
                   ),
@@ -56,7 +56,7 @@ class VertexBottomSheetContent extends ConsumerWidget {
 
               const SizedBox(width: 8),
 
-              // 3. Supprimer le vertex
+              // 3. Supprimer le waypoint
               DeleteButton(
                 onPressed: () => editor.apply(
                   Transition.withSlot<AppMode, Selectable>(

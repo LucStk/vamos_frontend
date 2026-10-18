@@ -12,7 +12,7 @@ sealed class WaypointCommand<R extends Object>
 
 final class CreateWaypointFromVertex extends WaypointCommand<Done> {
   const CreateWaypointFromVertex(this.vertexId);
-  final VertexId vertexId;
+  final WaypointId vertexId;
 
   @override
   Future<Done?> handle(WaypointScope h) =>

@@ -6,13 +6,12 @@ mutation UpdateWaypoint($id: UUID!, $waypoint: WaypointUpdateInput!) {
         ...WaypointFields
     }
 }
+
 mutation CreateBlankWaypointFromPosition(
     $tripId: UUID!
     $latLng: LatLngInput!
 ) {
-    ...WaypointFields
-}
-
-mutation DeleteWaypoint($waypointId: UUID!) {
-    deleteWaypoint(id: $waypointId)
+    createBlankWaypointFromPosition(tripId: $tripId, latLng: $latLng) {
+        ...WaypointFields
+    }
 }

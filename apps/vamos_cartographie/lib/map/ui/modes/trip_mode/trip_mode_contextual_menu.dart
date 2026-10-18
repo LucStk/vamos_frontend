@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
 import 'package:vamos_cartographie/map/mode/mode_scope.dart';
-import 'package:vamos_cartographie/map/ui/features/vertex/menu/vertex_menu.dart';
+import 'package:vamos_cartographie/map/ui/features/waypoint/menu/vertex_menu.dart';
 
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
 

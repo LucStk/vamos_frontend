@@ -12,7 +12,7 @@ final class VertexItem extends PointItem {
   });
 
   @override
-  final MapVertex object;
+  final MapWaypoint object;
   @override
   final WorldOffset worldPosition;
   final VertexVisualKind visualKind;

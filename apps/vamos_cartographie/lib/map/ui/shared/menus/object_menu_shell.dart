@@ -19,7 +19,7 @@ class ObjectMenuShell extends ConsumerWidget {
   final Widget child;
 
   /// Espace entre le bas du menu et le centre de l'ancre
-  /// (rayon visuel du vertex + marge).
+  /// (rayon visuel du waypoint + marge).
   static const _gap = 13.0;
 
   @override

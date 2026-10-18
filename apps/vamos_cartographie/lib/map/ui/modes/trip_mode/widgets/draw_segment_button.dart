@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/mode/map_mode.dart';
 
 @Dependencies([modeMachine])
 class DrawSegmentButton extends ConsumerWidget {
-  final VertexId vertexId;
+  final WaypointId vertexId;
   final TripId tripId;
   const DrawSegmentButton({
     super.key,
@@ -23,7 +23,7 @@ class DrawSegmentButton extends ConsumerWidget {
     return OutlinedButton.icon(
       onPressed: () => editor.apply(
         Transition.withSlot(selectionSlot, (s) {
-          if (s is! MapVertex) return null;
+          if (s is! MapWaypoint) return null;
           final v = ref.read(vertexProvider(tripId, s.id));
           return s.startSketch(v.latLng);
         }),

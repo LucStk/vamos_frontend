@@ -8,3 +8,7 @@ extension LatLngMapper on LatLng {
 extension GLatLngFieldsMapper on GLatLngFields {
   LatLng toLatLng() => LatLng(lat, lng);
 }
+
+extension ListLatLngMapper on List<LatLng> {
+  List<GLatLngInput> toGQLInput() => map((m) => m.toGQLInput()).toList();
+}

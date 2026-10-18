@@ -9,12 +9,12 @@ sealed class VertexCommand<R extends Object> extends Command<R, TripEditScope> {
   const VertexCommand();
 }
 
-final class CreateSimpleVertex extends VertexCommand<VertexId> {
+final class CreateSimpleVertex extends VertexCommand<WaypointId> {
   const CreateSimpleVertex(this.position);
   final OffsetType position;
 
   @override
-  Future<VertexId?> handle(TripEditScope h) {
+  Future<WaypointId?> handle(TripEditScope h) {
     final latLng = switch (position) {
       WorldOffset d => h.camera.worldOffsetToLatLng(d),
       ScreenOffset d => h.camera.screenOffsetToLatLng(d),
@@ -22,14 +22,14 @@ final class CreateSimpleVertex extends VertexCommand<VertexId> {
     return valueOrNull(
       h.graphEditor
           .createSimpleVertex(latLng)
-          .then((r) => r.map((v) => v.id)), // Either<Failure, VertexId>
+          .then((r) => r.map((v) => v.id)), // Either<Failure, WaypointId>
     );
   }
 }
 
 final class RemoveVertex extends VertexCommand<Done> {
   const RemoveVertex(this.vertexId);
-  final VertexId vertexId;
+  final WaypointId vertexId;
 
   @override
   Future<Done?> handle(TripEditScope h) =>
@@ -38,7 +38,7 @@ final class RemoveVertex extends VertexCommand<Done> {
 
 final class MoveVertex extends VertexCommand<Done> {
   const MoveVertex(this.vertexId, this.position);
-  final VertexId vertexId;
+  final WaypointId vertexId;
   final LatLng position;
 
   @override

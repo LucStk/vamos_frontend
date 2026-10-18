@@ -32,7 +32,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
         latLng: latLng,
       );
       final createWaypoint = gqlResult.waypoint.toDomain();
-      final waypointVertex = gqlResult.vertex.toDomain();
+      final waypointVertex = gqlResult.waypoint.toDomain();
       return WaypointCreateBlankRes(createWaypoint, waypointVertex);
     });
   }
@@ -40,7 +40,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
   @override
   Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypointFromVertex(
     Id<Trip> tripId,
-    VertexId vertexId,
+    WaypointId vertexId,
   ) {
     return guard(() async {
       final gqlResult = await remote.createBlankWaypointFromVertex(
@@ -48,7 +48,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
         vertexId: vertexId,
       );
       final createWaypoint = gqlResult.waypoint.toDomain();
-      final waypointVertex = gqlResult.vertex.toDomain();
+      final waypointVertex = gqlResult.waypoint.toDomain();
       return WaypointCreateBlankRes(createWaypoint, waypointVertex);
     });
   }

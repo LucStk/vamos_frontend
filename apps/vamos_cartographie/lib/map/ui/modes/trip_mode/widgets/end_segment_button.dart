@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 
 class EndSegmentButton extends ConsumerWidget {
-  final VertexId vertexId;
+  final WaypointId vertexId;
   final TripId tripId;
   const EndSegmentButton({
     super.key,

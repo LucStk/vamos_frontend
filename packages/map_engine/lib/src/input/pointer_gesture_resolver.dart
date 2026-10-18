@@ -114,7 +114,7 @@ class PointerGestureResolver {
       // --- Annulation (le système a repris le pointeur) -------------------
       case (DraggingState dragging, PointerCancel e):
         // Un DragStart a déjà été émis : le sink doit être prévenu pour
-        // restaurer l'état (position d'origine du vertex, mode, etc.).
+        // restaurer l'état (position d'origine du waypoint, mode, etc.).
         state = const IdleState();
         return DragCancelGesture(e.position, dragged: dragging.dragged);
 

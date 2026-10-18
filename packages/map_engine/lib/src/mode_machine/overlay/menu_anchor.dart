@@ -7,7 +7,7 @@ sealed class MenuAnchor {
 
 final class VertexAnchor extends MenuAnchor {
   const VertexAnchor(this.object);
-  final MapVertex object;
+  final MapWaypoint object;
 }
 
 final class PencilAnchor extends MenuAnchor {

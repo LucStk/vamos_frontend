@@ -10,13 +10,13 @@ import 'package:map_engine/src/mode_machine/transition.dart';
 
 extension SelectableDelete on Selectable {
   Transition<AppMode> delete() => switch (this) {
-    MapVertex vertex => vertex.delete().closingOverlay(),
+    MapWaypoint waypoint => waypoint.delete().closingOverlay(),
     MapSegment segment => segment.delete().closingOverlay(),
     _ => Transition.stay(),
   };
 }
 
-extension VertexSelectionActions on MapVertex {
+extension VertexSelectionActions on MapWaypoint {
   Transition<AppMode> delete() => Transition.run(
     RemoveVertex(id),
     then: (_, _) => Transition.set(selectionSlot, null),

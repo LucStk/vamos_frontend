@@ -2,7 +2,6 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/topology/injection/queries/queries.dart';
 import 'package:vamos_cartographie/map/scene/items/segment/segment_item.dart';
 
 part 'segment_item_provider.g.dart';

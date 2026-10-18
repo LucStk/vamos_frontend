@@ -8,7 +8,7 @@ sealed class TripMode extends AppMode {
 
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapVertex e => Transition.overlay(VertexMenu(e)).and(selectionSlot, e),
+    MapWaypoint e => Transition.overlay(VertexMenu(e)).and(selectionSlot, e),
     MapSegment e => Transition.set(selectionSlot, e),
 
     // Tap dans le vide : d'abord on désélectionne, ensuite seulement on sort.

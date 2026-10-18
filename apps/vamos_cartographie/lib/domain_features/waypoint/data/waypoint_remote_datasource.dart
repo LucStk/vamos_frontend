@@ -17,7 +17,7 @@ class WaypointRemoteDatasource {
 
   WaypointRemoteDatasource(this.ferryClient);
 
-  /// Create a vertex at the given location.
+  /// Create a waypoint at the given location.
   /// This is typically done before creating a waypoint.
   Future<GVertexFields> createVertex({
     required Id<Trip> tripId,
@@ -34,10 +34,10 @@ class WaypointRemoteDatasource {
     return data.createVertex;
   }
 
-  /// Move a vertex to a new location.
+  /// Move a waypoint to a new location.
   /// This is typically used when updating a waypoint's position.
   Future<GVertexFields> moveVertex({
-    required VertexId vertexId,
+    required WaypointId vertexId,
     required LatLng latLng,
   }) async {
     final data = await ferryClient.execute(
@@ -60,7 +60,7 @@ class WaypointRemoteDatasource {
 
   Future<GCreateWaypointPayloadFields> createBlankWaypointFromVertex({
     required Id<Trip> tripId,
-    required VertexId vertexId,
+    required WaypointId vertexId,
   }) async {
     final data = await ferryClient.execute(
       GCreateBlankWaypointFromVertexReq(

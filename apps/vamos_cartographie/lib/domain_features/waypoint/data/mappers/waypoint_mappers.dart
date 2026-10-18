@@ -8,7 +8,7 @@ import 'package:trip_application/trip_application.dart';
 extension GWaypointFieldsMapper on GWaypointFields {
   WaypointRemoteModel toDomain() => WaypointRemoteModel(
     id: WaypointId(id),
-    vertexId: VertexId(vertex.id),
+    vertexId: WaypointId(waypoint.id),
     poiCategory: poiCategory.toDomain(),
     title: title,
     description: description,

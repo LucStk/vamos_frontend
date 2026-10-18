@@ -1,5 +1,7 @@
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
 #import "/domain_features/user_profile/data/graphql/user_profile_fields.graphql"
+#import "/domain_features/route/data/graphql/route_fields.graphql"
+
 fragment TripFields on TripType {
     id
     title
@@ -11,4 +13,9 @@ fragment TripFields on TripType {
     owner {
         ...UserProfileFields
     }
+}
+
+fragment TripWithRouteFields on TripType {
+    ...TripFields
+    ...TripRouteFields
 }

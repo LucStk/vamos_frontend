@@ -5,8 +5,6 @@ import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
 import '/core/erreur_handler.dart';
 import '../../stored_file/data/mappers/stored_file_mappers.dart';
-import '../../topology/data/mappers/segment_mappers.dart';
-import '../../topology/data/mappers/vertex_mappers.dart';
 import '../../user_profile/data/data.dart';
 import '../../waypoint/data/mappers/mappers.dart';
 import 'trip_mappers.dart';
@@ -86,7 +84,7 @@ class TripRepositoryImpl extends TripRepository {
       final gqlTrip = await remote.getTripDetails(id: id);
 
       final vertices = gqlTrip.topology.vertices
-          .map((vertex) => vertex.toDomain())
+          .map((waypoint) => waypoint.toDomain())
           .toList();
 
       final segments = gqlTrip.topology.segments

@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/items/sketch_segment/sketch_item_provider.dart';
-import 'package:vamos_cartographie/map/scene/items/vertex/vertex_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/vertex_item_provider.dart';
 
 part 'menu_placement.g.dart';
 

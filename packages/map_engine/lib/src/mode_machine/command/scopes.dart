@@ -23,7 +23,7 @@ abstract interface class TopologyScope implements CommonScope {
 extension TopologyScopeX on TopologyScope {
   RouteSectionFields? segment(SectionId id) =>
       graphEditor.state.sectionStore.get(id)?.current;
-  VertexFields? vertex(VertexId id) =>
+  WaypointFields? waypoint(WaypointId id) =>
       graphEditor.state.vertexStore.get(id)?.current;
 }
 

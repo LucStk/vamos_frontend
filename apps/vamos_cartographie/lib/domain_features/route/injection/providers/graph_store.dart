@@ -71,7 +71,7 @@ class GraphStoreNotifier extends _$GraphStoreNotifier
 }
 
 @Riverpod(keepAlive: true)
-GraphCollectionStore<VertexFields> vertexStore(Ref ref, TripId tripId) {
+GraphCollectionStore<WaypointFields> vertexStore(Ref ref, TripId tripId) {
   return ref.watch(graphStoreProvider(tripId).select((gs) => gs.vertexStore));
 }
 

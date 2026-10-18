@@ -6,8 +6,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/topology/injection/queries/vertex_queries.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
-import 'package:vamos_cartographie/map/scene/items/vertex/vertex_item.dart';
-import 'package:vamos_cartographie/map/scene/items/vertex/vertex_style.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/vertex_item.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/vertex_style.dart';
 
 part 'vertex_item_provider.g.dart';
 
@@ -27,7 +27,7 @@ VertexVisualKind _visualKind(WaypointFields? waypoint) {
 ({LatLng position, VertexVisualKind kind}) vertexData(
   Ref ref,
   TripId tripId,
-  VertexId vertexId,
+  WaypointId vertexId,
 ) {
   final wId = ref.watch(waypointFromVertexProvider(tripId, vertexId));
   final w = wId != null ? ref.watch(waypointProvider(tripId, wId)) : null;
@@ -41,13 +41,13 @@ VertexVisualKind _visualKind(WaypointFields? waypoint) {
 VertexItem vertexItem(
   Ref ref,
   TripId tripId,
-  VertexId id,
+  WaypointId id,
   MapCameraReader cameraReader,
 ) {
   final d = ref.watch(vertexDataProvider(tripId, id));
   return VertexItem(
     worldPosition: cameraReader.latLngToWorldOffset(d.position),
-    object: MapVertex(tripId: tripId, id: id),
+    object: MapWaypoint(tripId: tripId, id: id),
     visualKind: d.kind,
   );
 }
