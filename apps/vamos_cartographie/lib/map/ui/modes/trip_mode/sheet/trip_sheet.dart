@@ -5,11 +5,12 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/floating_trip_card.dart';
+import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/trip_header.dart';
 import 'package:vamos_cartographie/map/ui/modes/trip_mode/header/trip_info_bar.dart';
 import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_compact_content.dart';
 import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_viewer_content.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/floating_card_bottom_sheet.dart';
+import 'package:vamos_cartographie/map/ui/shared/sheets/floating_header_card.dart';
 
 @Dependencies([])
 class TripSheet extends ConsumerWidget {
@@ -33,7 +34,13 @@ class TripSheet extends ConsumerWidget {
     }
 
     return FloatingCardBottomSheet(
-      card: FloatingTripCard(trip: trip, onRename: onRename, canEdit: canEdit),
+      card: FloatingHeaderCard(
+        child: TripHeader(
+          title: trip.title,
+          onRename: onRename,
+          canEdit: canEdit,
+        ),
+      ),
       header: TripInfoBar(trip: trip),
       compactContent: TripCompactContent(trip: trip),
       expandedContent: TripViewerContent(trip: trip),

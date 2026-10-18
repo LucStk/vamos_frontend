@@ -20,7 +20,13 @@ class FloatingHeaderCard extends StatelessWidget {
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
           clipBehavior: Clip.antiAlias,
-          child: SizedBox(height: kFloatingCardHeight, child: child),
+          child: SizedBox(
+            height: kFloatingCardHeight,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: child,
+            ),
+          ),
         ),
         const SizedBox(height: 4),
         if (profileCapsule != null)

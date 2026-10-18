@@ -16,10 +16,11 @@ import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:map_engine/src/mode_machine/mode_state.dart';
 import 'package:trip_application/trip_application.dart';
 
-part 'modes/trip_edit_mode/sketch_mode.dart';
-part "modes/trip_edit_mode/sketch_creation_mode.dart";
-part "modes/trip_edit_mode/sketch_edition_mode.dart";
+part 'modes/sketch_mode/sketch_mode.dart';
+part "modes/sketch_mode/sketch_creation_mode.dart";
+part "modes/sketch_mode/sketch_edition_mode.dart";
 part "modes/trip_mode.dart";
+part "modes/trip_edit_mode.dart";
 part "modes/explore_mode.dart";
 
 typedef AppTransition = Transition<AppMode>;

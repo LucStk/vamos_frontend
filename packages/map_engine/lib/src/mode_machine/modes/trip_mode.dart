@@ -25,20 +25,6 @@ sealed class TripMode extends AppMode {
   };
 }
 
-final class TripEditMode extends TripMode {
-  const TripEditMode(super.tripId);
-
-  @override
-  Transition<AppMode> onLongPress(LongPressGesture g) => switch (g.element) {
-    _ => Transition.overlay(MapPointMenu(g.world)),
-  };
-  @override
-  Transition<AppMode> onSecondaryTap(SecondaryTapGesture g) =>
-      switch (g.element) {
-        _ => Transition.overlay(MapPointMenu(g.world)),
-      };
-}
-
 final class TripViewMode extends TripMode {
   const TripViewMode(super.tripId);
 }
