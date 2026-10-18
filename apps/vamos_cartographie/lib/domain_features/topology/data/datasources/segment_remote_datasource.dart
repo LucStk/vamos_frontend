@@ -44,7 +44,7 @@ class SegmentRemoteDatasource {
     return data.createSegment;
   }
 
-  Future<GRefineSegmentPayloadFragment> refineSegment(SegmentId id) async {
+  Future<GRefineSegmentPayloadFragment> refineSegment(SectionId id) async {
     final data = await ferryClient.execute(
       GRefineSegmentGeometryReq(
         vars: GRefineSegmentGeometryVars(segmentId: id.value),
@@ -54,7 +54,7 @@ class SegmentRemoteDatasource {
   }
 
   Future<GSegmentFields> updateSegment({
-    required SegmentId id,
+    required SectionId id,
     required GSegmentUpdateInput input,
   }) async {
     final data = await ferryClient.execute(
@@ -66,7 +66,7 @@ class SegmentRemoteDatasource {
   }
 
   Future<GSegmentFields> correctSegment({
-    required SegmentId id,
+    required SectionId id,
     required GSegmentCorrectionInput input,
   }) async {
     final data = await ferryClient.execute(
@@ -89,7 +89,7 @@ class SegmentRemoteDatasource {
     return data.spliceSegment;
   }
 
-  Future<void> deleteSegment({required SegmentId id}) async {
+  Future<void> deleteSegment({required SectionId id}) async {
     await ferryClient.execute(
       GDeleteSegmentReq(vars: GDeleteSegmentVars(segmentId: id.value)),
     );

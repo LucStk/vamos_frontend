@@ -11,7 +11,7 @@ part 'segment_item_provider.g.dart';
 SegmentItem segmentItem(
   Ref ref,
   TripId tripId,
-  SegmentId id,
+  SectionId id,
   MapCameraReader cameraReader,
 ) {
   final d = ref.watch(segmentProvider(tripId, id));

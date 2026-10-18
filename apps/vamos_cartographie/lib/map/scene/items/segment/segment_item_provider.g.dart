@@ -17,7 +17,7 @@ final class SegmentItemProvider
     with $Provider<SegmentItem> {
   SegmentItemProvider._({
     required SegmentItemFamily super.from,
-    required (TripId, SegmentId, MapCameraReader) super.argument,
+    required (TripId, SectionId, MapCameraReader) super.argument,
   }) : super(
          retry: null,
          name: r'segmentItemProvider',
@@ -43,7 +43,7 @@ final class SegmentItemProvider
 
   @override
   SegmentItem create(Ref ref) {
-    final argument = this.argument as (TripId, SegmentId, MapCameraReader);
+    final argument = this.argument as (TripId, SectionId, MapCameraReader);
     return segmentItem(ref, argument.$1, argument.$2, argument.$3);
   }
 
@@ -72,7 +72,7 @@ final class SegmentItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
           SegmentItem,
-          (TripId, SegmentId, MapCameraReader)
+          (TripId, SectionId, MapCameraReader)
         > {
   SegmentItemFamily._()
     : super(
@@ -85,7 +85,7 @@ final class SegmentItemFamily extends $Family
 
   SegmentItemProvider call(
     TripId tripId,
-    SegmentId id,
+    SectionId id,
     MapCameraReader cameraReader,
   ) => SegmentItemProvider._(argument: (tripId, id, cameraReader), from: this);
 

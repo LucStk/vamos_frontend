@@ -31,34 +31,47 @@ const GetWaypoints = _i1.OperationDefinitionNode(
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
-    )
+    ),
   ],
   directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'trip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'waypoints'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
+  selectionSet: _i1.SelectionSetNode(
+    selections: [
+      _i1.FieldNode(
+        name: _i1.NameNode(value: 'trip'),
+        alias: null,
+        arguments: [
+          _i1.ArgumentNode(
+            name: _i1.NameNode(value: 'id'),
+            value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+          ),
+        ],
+        directives: [],
+        selectionSet: _i1.SelectionSetNode(
+          selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'WaypointFields'),
+              name: _i1.NameNode(value: 'TripFields'),
               directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'waypoints'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: _i1.SelectionSetNode(
+                selections: [
+                  _i1.FragmentSpreadNode(
+                    name: _i1.NameNode(value: 'WaypointFields'),
+                    directives: [],
+                  ),
+                  _i1.FieldNode(
+                    name: _i1.NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ],
+              ),
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
@@ -67,41 +80,36 @@ const GetWaypoints = _i1.OperationDefinitionNode(
               directives: [],
               selectionSet: null,
             ),
-          ]),
+          ],
         ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      _i1.FieldNode(
+        name: _i1.NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const document = _i1.DocumentNode(definitions: [
-  GetWaypoints,
-  _i2.TripFields,
-  _i2.TopologyFields,
-  _i3.StoredFile,
-  _i3.FileAttachment,
-  _i3.UploadConfigFields,
-  _i4.SegmentFields,
-  _i4.SegmentSplicePayloadFragment,
-  _i4.CreateSegmentPayloadFragment,
-  _i4.RefineSegmentPayloadFragment,
-  _i5.VertexFields,
-  _i6.LatLngFields,
-  _i7.UserProfileFields,
-  _i7.CreateProfilePayload,
-  _i8.WaypointFields,
-  _i8.CreateWaypointPayloadFields,
-]);
+const document = _i1.DocumentNode(
+  definitions: [
+    GetWaypoints,
+    _i2.TripFields,
+    _i2.TopologyFields,
+    _i3.StoredFile,
+    _i3.FileAttachment,
+    _i3.UploadConfigFields,
+    _i4.RouteSectionFields,
+    _i4.SegmentSplicePayloadFragment,
+    _i4.CreateSegmentPayloadFragment,
+    _i4.RefineSegmentPayloadFragment,
+    _i5.VertexFields,
+    _i6.LatLngFields,
+    _i7.UserProfileFields,
+    _i7.CreateProfilePayload,
+    _i8.WaypointFields,
+    _i8.CreateWaypointPayloadFields,
+  ],
+);

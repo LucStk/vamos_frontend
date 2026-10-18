@@ -35,7 +35,7 @@ class SketchCreation extends TripMode with SketchMode {
             geometry: trace.points,
             mobilityType: trace.mobilityType,
           ),
-          then: (current, SegmentRemoteModel m) {
+          then: (current, RouteSectionRemoteModel m) {
             return Transition.to(
               TripEditMode(tripId),
             ).and(selectionSlot, MapSegment(id: m.id, tripId: tripId));

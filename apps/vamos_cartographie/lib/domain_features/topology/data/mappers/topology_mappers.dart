@@ -10,7 +10,7 @@ extension GGetTopologyDataTopologyMapper on GGetTopologyData_trip_topology {
     final List<VertexRemoteModel> lV = vertices
         .map((m) => m.toDomain())
         .toList();
-    final List<SegmentRemoteModel> lS = segments
+    final List<RouteSectionRemoteModel> lS = segments
         .map((GSegmentFields m) => m.toDomain())
         .toList();
     return TopologyRes(lV, lS);

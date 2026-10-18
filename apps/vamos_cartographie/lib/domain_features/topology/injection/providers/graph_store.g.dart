@@ -298,7 +298,7 @@ String _$topologyRepositoryHash() =>
 final graphStoreProvider = GraphStoreNotifierFamily._();
 
 final class GraphStoreNotifierProvider
-    extends $NotifierProvider<GraphStoreNotifier, GraphStore> {
+    extends $NotifierProvider<GraphStoreNotifier, RouteStore> {
   GraphStoreNotifierProvider._({
     required GraphStoreNotifierFamily super.from,
     required TripId super.argument,
@@ -325,10 +325,10 @@ final class GraphStoreNotifierProvider
   GraphStoreNotifier create() => GraphStoreNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphStore value) {
+  Override overrideWithValue(RouteStore value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GraphStore>(value),
+      providerOverride: $SyncValueProvider<RouteStore>(value),
     );
   }
 
@@ -350,9 +350,9 @@ final class GraphStoreNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           GraphStoreNotifier,
-          GraphStore,
-          GraphStore,
-          GraphStore,
+          RouteStore,
+          RouteStore,
+          RouteStore,
           TripId
         > {
   GraphStoreNotifierFamily._()
@@ -371,20 +371,20 @@ final class GraphStoreNotifierFamily extends $Family
   String toString() => r'graphStoreProvider';
 }
 
-abstract class _$GraphStoreNotifier extends $Notifier<GraphStore> {
+abstract class _$GraphStoreNotifier extends $Notifier<RouteStore> {
   late final _$args = ref.$arg as TripId;
   TripId get tripId => _$args;
 
-  GraphStore build(TripId tripId);
+  RouteStore build(TripId tripId);
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<GraphStore, GraphStore>;
+    final ref = this.ref as $Ref<RouteStore, RouteStore>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<GraphStore, GraphStore>,
-              GraphStore,
+              AnyNotifier<RouteStore, RouteStore>,
+              RouteStore,
               Object?,
               Object?
             >;
@@ -477,17 +477,17 @@ final class VertexStoreFamily extends $Family
   String toString() => r'vertexStoreProvider';
 }
 
-@ProviderFor(segmentStore)
+@ProviderFor(sectionStore)
 final segmentStoreProvider = SegmentStoreFamily._();
 
 final class SegmentStoreProvider
     extends
         $FunctionalProvider<
-          GraphCollectionStore<SegmentFields>,
-          GraphCollectionStore<SegmentFields>,
-          GraphCollectionStore<SegmentFields>
+          GraphCollectionStore<RouteSectionFields>,
+          GraphCollectionStore<RouteSectionFields>,
+          GraphCollectionStore<RouteSectionFields>
         >
-    with $Provider<GraphCollectionStore<SegmentFields>> {
+    with $Provider<GraphCollectionStore<RouteSectionFields>> {
   SegmentStoreProvider._({
     required SegmentStoreFamily super.from,
     required TripId super.argument,
@@ -511,23 +511,22 @@ final class SegmentStoreProvider
 
   @$internal
   @override
-  $ProviderElement<GraphCollectionStore<SegmentFields>> $createElement(
+  $ProviderElement<GraphCollectionStore<RouteSectionFields>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  GraphCollectionStore<SegmentFields> create(Ref ref) {
+  GraphCollectionStore<RouteSectionFields> create(Ref ref) {
     final argument = this.argument as TripId;
-    return segmentStore(ref, argument);
+    return sectionStore(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GraphCollectionStore<SegmentFields> value) {
+  Override overrideWithValue(GraphCollectionStore<RouteSectionFields> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GraphCollectionStore<SegmentFields>>(
-        value,
-      ),
+      providerOverride:
+          $SyncValueProvider<GraphCollectionStore<RouteSectionFields>>(value),
     );
   }
 
@@ -546,7 +545,10 @@ String _$segmentStoreHash() => r'0972cedace31de067d8d221eff5b285eadd25a12';
 
 final class SegmentStoreFamily extends $Family
     with
-        $FunctionalFamilyOverride<GraphCollectionStore<SegmentFields>, TripId> {
+        $FunctionalFamilyOverride<
+          GraphCollectionStore<RouteSectionFields>,
+          TripId
+        > {
   SegmentStoreFamily._()
     : super(
         retry: null,

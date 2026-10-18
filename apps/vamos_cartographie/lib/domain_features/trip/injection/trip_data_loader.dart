@@ -18,7 +18,7 @@ Future<void> tripDetailsLoader(Ref ref, TripId tripId) async {
         throw failure, // L'erreur sera capturée par le framework Riverpod
     (data) {
       var newWaypointStore = WaypointStore.initial();
-      var newGraphStore = GraphStore.initial();
+      var newGraphStore = RouteStore.initial();
       var newMediaStore = StoredFileStore.initial();
 
       for (final v in data.vertices) {
@@ -53,7 +53,7 @@ Future<Failure?> loadTripsNotifier(Ref ref) async {
     var newFileStore = StoredFileStore.initial();
     for (final (trip, user, listImages, topology) in data) {
       newProfileStore = newProfileStore.insertProfile(user);
-      var newGraphStore = GraphStore.initial();
+      var newGraphStore = RouteStore.initial();
       newStore = newStore.insertTrip(trip);
       for (final i in listImages) {
         newFileStore = newFileStore.insertStoredFile(trip.id, i);

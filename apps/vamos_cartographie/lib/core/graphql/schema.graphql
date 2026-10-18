@@ -30,19 +30,31 @@ type CreateProfileSuccess {
   profile: UserProfileType!
 }
 
-type CreateSegmentPayload {
-  segment: SegmentType!
+"""Date (isoformat)"""
+scalar Date
+
+"""Date with time (isoformat)"""
+scalar DateTime
+
+input DrawRouteInput {
+  points: [LatLngInput!]!
+  mobilityType: MobilityType!
+  autoRoute: Boolean! = true
+  basedOn: DateTime = null
+}
+
+type EditRoutePayload {
+  trip: TripType!
   refinementFailed: Boolean!
   errorMessage: String
 }
 
-type CreateWaypointPayload {
-  waypoint: WaypointType!
-  vertex: VertexType!
+input ExtendRouteInput {
+  points: [LatLngInput!]!
+  mobilityType: MobilityType!
+  autoRoute: Boolean! = true
+  basedOn: DateTime = null
 }
-
-"""Date (isoformat)"""
-scalar Date
 
 type FileAttachmentType {
   order: Int!
@@ -53,6 +65,11 @@ type FileAttachmentType {
 enum FileTargetTypeEnum {
   TRIP
   WAYPOINT
+}
+
+enum GeometrySource {
+  COMPUTED
+  DRAWN
 }
 
 type GetMePayload {
@@ -91,18 +108,13 @@ type Mutation {
   deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
-  createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): CreateWaypointPayload!
-  createBlankWaypointFromVertex(tripId: UUID!, vertexId: UUID!): CreateWaypointPayload!
+  createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): WaypointType!
   deleteWaypoint(id: UUID!): Boolean!
-  createSegment(tripId: UUID!, input: SegmentCreateInput!): CreateSegmentPayload!
-  deleteSegment(id: UUID!): Boolean!
-  refineSegmentGeometry(segmentId: UUID!): RefineSegmentPayload!
-  updateSegment(id: UUID!, input: SegmentUpdateInput!): SegmentType!
-  correctSegment(segmentId: UUID!, input: SegmentCorrectionInput!): SegmentType!
-  spliceSegment(tripId: UUID!, input: SpliceSegmentInput!): SegmentSplicePayload!
-  moveVertex(id: UUID!, latLng: LatLngInput!): VertexType!
-  createVertex(tripId: UUID!, latLng: LatLngInput!): VertexType!
-  deleteVertex(id: UUID!): Boolean!
+  drawRoute(tripId: UUID!, input: DrawRouteInput!): EditRoutePayload!
+  extendRoute(tripId: UUID!, input: ExtendRouteInput!): EditRoutePayload!
+  redrawRoutePortion(tripId: UUID!, input: RedrawRouteInput!): EditRoutePayload!
+  refineSection(tripId: UUID!, sectionId: UUID!): EditRoutePayload!
+  setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!): EditRoutePayload!
   detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
@@ -125,6 +137,11 @@ enum PoiCategory {
 }
 
 """
+Represents a point as `(x, y, z)` or `(x, y)`. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or object).
+"""
+scalar Point
+
+"""
 A geographical object that gets 1 or 2 LinearRing objects as external and
 internal rings. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or object).
 """
@@ -138,48 +155,25 @@ type Query {
   me: GetMePayload!
 }
 
-type RefineSegmentPayload {
-  segment: SegmentType!
-  refinementFailed: Boolean!
-  errorMessage: String
-}
-
-input SegmentAnchorInput {
-  segmentId: UUID
-  vertexId: UUID
-}
-
-input SegmentCorrectionInput {
+input RedrawRouteInput {
+  start: RouteAnchorInput!
+  end: RouteAnchorInput = null
   correction: [LatLngInput!]!
-}
-
-input SegmentCreateInput {
-  id: UUID
   mobilityType: MobilityType!
-  geometry: [LatLngInput!]!
+  autoRoute: Boolean! = true
+  basedOn: DateTime = null
 }
 
-type SegmentSplicePayload {
-  segment: SegmentType!
-  deletedSegmentIds: [UUID!]!
+input RouteAnchorInput {
+  sectionId: UUID!
+  point: LatLngInput!
 }
 
-type SegmentType {
+type RouteSectionType {
   id: UUID!
+  startVertex: Int!
   mobilityType: MobilityType!
-  geometry: [LatLngType!]!
-}
-
-input SegmentUpdateInput {
-  geometry: [LatLngInput!]!
-  mobilityType: MobilityType
-}
-
-input SpliceSegmentInput {
-  startAnchor: SegmentAnchorInput!
-  endAnchor: SegmentAnchorInput!
-  correction: [LatLngInput!]!
-  mobilityType: MobilityType!
+  geometrySource: GeometrySource!
 }
 
 type StoredFileType {
@@ -189,21 +183,20 @@ type StoredFileType {
   url: String!
 }
 
-type TopologyType {
-  vertices: [VertexType!]!
-  segments: [SegmentType!]!
-}
-
 type TripType {
   id: UUID!
   title: String!
   description: String!
   date: Date
-  bounds: Polygon
   waypoints: [WaypointType!]!
+  startPoint: Point
+  endPoint: Point
+  bounds: Polygon
+  routeUpdatedAt: DateTime
+  sections: [RouteSectionType!]!
   owner: UserProfileType!
   files: [FileAttachmentType!]!
-  topology: TopologyType!
+  route: [LatLngType!]!
 }
 
 input TripUpdateInput {
@@ -233,21 +226,17 @@ type UserProfileType {
 
 scalar UUID
 
-type VertexType {
-  id: UUID!
-  latLng: LatLngType!
-}
-
 type WaypointType {
   id: UUID!
   title: String!
   description: String!
   poiCategory: PoiCategory!
-  vertex: VertexType!
+  location: Point!
   files: [FileAttachmentType!]!
 }
 
 input WaypointUpdateInput {
+  location: LatLngInput
   title: String
   poiCategory: PoiCategory
   vertexId: Int

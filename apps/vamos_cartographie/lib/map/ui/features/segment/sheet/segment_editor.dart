@@ -5,8 +5,9 @@ import '/domain_features/domain_features.dart';
 import '/ui_kit/ui_kit.dart';
 
 class SegmentEditor extends ConsumerStatefulWidget {
-  final SegmentFields initialSegment;
-  final Future<void> Function(WidgetRef ref, SegmentFields segment) onSubmit;
+  final RouteSectionFields initialSegment;
+  final Future<void> Function(WidgetRef ref, RouteSectionFields segment)
+  onSubmit;
   final String successMessage;
   const SegmentEditor({
     super.key,
@@ -20,15 +21,15 @@ class SegmentEditor extends ConsumerStatefulWidget {
 }
 
 class _SegmentEditorState extends ConsumerState<SegmentEditor> {
-  late SegmentPatchModel currentSegment; // Accessible par la GlobalKey
+  late RouteSectionPatchModel currentSegment; // Accessible par la GlobalKey
 
   @override
   void initState() {
     super.initState();
-    currentSegment = SegmentPatchModel.fromFields(widget.initialSegment);
+    currentSegment = RouteSectionPatchModel.fromFields(widget.initialSegment);
   }
 
-  void _submit(SegmentPatchModel newSegment) async {
+  void _submit(RouteSectionPatchModel newSegment) async {
     try {
       await widget.onSubmit(ref, newSegment);
 

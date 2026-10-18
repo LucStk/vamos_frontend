@@ -19,7 +19,7 @@ sealed class SegmentCommand<R extends Object>
 
 final class DeleteSegment extends SegmentCommand<Done> {
   const DeleteSegment(this.segmentId);
-  final SegmentId segmentId;
+  final SectionId segmentId;
 
   @override
   Future<Done?> handle(TopologyScope h) async {
@@ -30,7 +30,7 @@ final class DeleteSegment extends SegmentCommand<Done> {
 
 final class ChangeType extends SegmentCommand<Done> {
   const ChangeType({required this.segmentId, required this.type});
-  final SegmentId segmentId;
+  final SectionId segmentId;
   final MobilityType type;
 
   @override
@@ -38,13 +38,14 @@ final class ChangeType extends SegmentCommand<Done> {
     final s = h.segment(segmentId);
     if (s == null) return null;
     await h.graphEditor.updateSegment(
-      SegmentPatchModel.fromFields(s).copyWith(mobilityType: type),
+      RouteSectionPatchModel.fromFields(s).copyWith(mobilityType: type),
     );
     return const Done();
   }
 }
 
-final class CreateSegmentFromSketch extends SegmentCommand<SegmentRemoteModel> {
+final class CreateSegmentFromSketch
+    extends SegmentCommand<RouteSectionRemoteModel> {
   const CreateSegmentFromSketch({
     required this.geometry,
     required this.mobilityType,
@@ -53,7 +54,7 @@ final class CreateSegmentFromSketch extends SegmentCommand<SegmentRemoteModel> {
   final MobilityType mobilityType;
 
   @override
-  Future<SegmentRemoteModel?> handle(TopologyScope h) async {
+  Future<RouteSectionRemoteModel?> handle(TopologyScope h) async {
     final res = await h.graphEditor.createSegment(
       geometry: geometry.toLatLngList(h.camera),
       mobilityType: mobilityType,
@@ -62,20 +63,20 @@ final class CreateSegmentFromSketch extends SegmentCommand<SegmentRemoteModel> {
   }
 }
 
-final class SpliceSegment extends SegmentCommand<SegmentId> {
+final class SpliceSegment extends SegmentCommand<SectionId> {
   const SpliceSegment({
     required this.segmentId,
     required this.correction,
     required this.startAnchor,
     required this.endAnchor,
   });
-  final SegmentId segmentId;
+  final SectionId segmentId;
   final List<WorldOffset> correction;
   final SpliceAnchor startAnchor;
   final SpliceAnchor endAnchor;
 
   @override
-  Future<SegmentId?> handle(TopologyScope h) async {
+  Future<SectionId?> handle(TopologyScope h) async {
     final s = h.segment(segmentId);
     if (s == null) return null;
     final res = await h.graphEditor.spliceSegment(
@@ -90,7 +91,7 @@ final class SpliceSegment extends SegmentCommand<SegmentId> {
 
 final class EditSegmentFromSketch extends SegmentCommand<Done> {
   const EditSegmentFromSketch(this.patch);
-  final SegmentPatchModel patch;
+  final RouteSectionPatchModel patch;
 
   @override
   Future<Done?> handle(TopologyScope h) async =>
@@ -104,7 +105,7 @@ final class CorrectSegmentFromSketch extends SegmentCommand<Done> {
     required this.segmentId,
     required this.correction,
   });
-  final SegmentId segmentId;
+  final SectionId segmentId;
   final List<WorldOffset> correction;
 
   @override
@@ -112,7 +113,7 @@ final class CorrectSegmentFromSketch extends SegmentCommand<Done> {
     final s = h.segment(segmentId);
     if (s == null) return null;
     final points = correction.toLatLngList(h.camera);
-    final patch = SegmentPatchModel.fromFields(
+    final patch = RouteSectionPatchModel.fromFields(
       s,
     ).copyWith(geometry: mergeCorrection(points, s.geometry));
     return (await h.graphEditor.correctSegment(

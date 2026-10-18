@@ -20,6 +20,6 @@ fragment TopologyFields on TopologyType {
         ...VertexFields
     }
     segments {
-        ...SegmentFields
+        ...RouteSectionFields
     }
 }

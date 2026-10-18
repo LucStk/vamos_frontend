@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
-extension ExtMobilityTypeStyle on SegmentFields {
+extension ExtMobilityTypeStyle on RouteSectionFields {
   MobilityTypeStyle get mobilityTypeDisplay =>
       MobilityTypeStyle.from(mobilityType);
 }

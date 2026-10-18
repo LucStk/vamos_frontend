@@ -6,14 +6,14 @@ import 'package:vamos_cartographie/domain_features/topology/data/graphql/fields/
 import 'package:vamos_cartographie/domain_features/topology/data/mappers/mobility_type_mapper.dart';
 
 extension GSegmentFieldsMapper on GSegmentFields {
-  SegmentRemoteModel toDomain() => SegmentRemoteModel(
-    id: SegmentId(id),
+  RouteSectionRemoteModel toDomain() => RouteSectionRemoteModel(
+    id: SectionId(id),
     mobilityType: mobilityType.toDomain(),
     geometry: geometry.map((d) => d.toLatLng()).toList(),
   );
 }
 
-extension SegmentFieldsMapper on SegmentFields {
+extension SegmentFieldsMapper on RouteSectionFields {
   GSegmentUpdateInput toGQLUpdateInput() {
     return GSegmentUpdateInput(
       geometry: geometry.map((m) => m.toGQLInput()).toList(),

@@ -15,7 +15,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
   SegmentRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, List<SegmentRemoteModel>>> getSegments(
+  Future<Either<Failure, List<RouteSectionRemoteModel>>> getSegments(
     Id<Trip> tripId,
   ) {
     return guard(() async {
@@ -47,7 +47,7 @@ class SegmentRepositoryImpl extends SegmentRepository {
 
   @override
   Future<Either<Failure, RefineSegmentPayload>> refineSegment(
-    SegmentId segmentId,
+    SectionId segmentId,
   ) async {
     return guard(() async {
       final gqlResult = await remote.refineSegment(segmentId);
@@ -60,8 +60,8 @@ class SegmentRepositoryImpl extends SegmentRepository {
   }
 
   @override
-  Future<Either<Failure, SegmentRemoteModel>> updateSegment(
-    SegmentFields segment,
+  Future<Either<Failure, RouteSectionRemoteModel>> updateSegment(
+    RouteSectionFields segment,
   ) async {
     return guard(() async {
       final gqlResult = await remote.updateSegment(
@@ -73,8 +73,8 @@ class SegmentRepositoryImpl extends SegmentRepository {
   }
 
   @override
-  Future<Either<Failure, SegmentRemoteModel>> correctSegment(
-    SegmentId segmentId,
+  Future<Either<Failure, RouteSectionRemoteModel>> correctSegment(
+    SectionId segmentId,
     List<LatLng> correction,
   ) async {
     return guard(() async {
@@ -89,7 +89,8 @@ class SegmentRepositoryImpl extends SegmentRepository {
   }
 
   @override
-  Future<Either<Failure, (List<SegmentId>, SegmentRemoteModel)>> spliceSegment({
+  Future<Either<Failure, (List<SectionId>, RouteSectionRemoteModel)>>
+  spliceSegment({
     required TripId tripId,
     required List<LatLng> correction,
     required MobilityType mobilityType,
@@ -107,14 +108,14 @@ class SegmentRepositoryImpl extends SegmentRepository {
         ),
       );
       return (
-        gqlResult.deletedSegmentIds.map((i) => SegmentId(i)).toList(),
+        gqlResult.deletedSegmentIds.map((i) => SectionId(i)).toList(),
         gqlResult.segment.toDomain(),
       );
     });
   }
 
   @override
-  Future<Either<Failure, void>> deleteSegment(SegmentId id) async {
+  Future<Either<Failure, void>> deleteSegment(SectionId id) async {
     return guard(() async {
       await remote.deleteSegment(id: id);
     });

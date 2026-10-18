@@ -43,12 +43,12 @@ TopologyRepository topologyRepository(Ref ref) {
 
 @Riverpod(keepAlive: true)
 class GraphStoreNotifier extends _$GraphStoreNotifier
-    with OptimisticRunner<GraphStore>, GraphEditor {
+    with OptimisticRunner<RouteStore>, GraphEditor {
   @override
-  GraphStore build(TripId tripId) => GraphStore.initial();
+  RouteStore build(TripId tripId) => RouteStore.initial();
 
   // Méthode publique dédiée à l'écriture externe contrôlée
-  void updateState(GraphStore value) {
+  void updateState(RouteStore value) {
     state = value; // ici, state = est légal car on est DANS la classe Notifier
   }
 
@@ -65,7 +65,7 @@ class GraphStoreNotifier extends _$GraphStoreNotifier
   @override
   ErrorLogger? get errorLogger => ref.read(errorLoggerProvider);
 
-  void emit(GraphStore newGraphStore) {
+  void emit(RouteStore newGraphStore) {
     state = newGraphStore;
   }
 }
@@ -76,6 +76,6 @@ GraphCollectionStore<VertexFields> vertexStore(Ref ref, TripId tripId) {
 }
 
 @Riverpod(keepAlive: true)
-GraphCollectionStore<SegmentFields> segmentStore(Ref ref, TripId tripId) {
-  return ref.watch(graphStoreProvider(tripId).select((gs) => gs.segmentStore));
+GraphCollectionStore<RouteSectionFields> sectionStore(Ref ref, TripId tripId) {
+  return ref.watch(graphStoreProvider(tripId).select((gs) => gs.sectionStore));
 }

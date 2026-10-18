@@ -18,7 +18,7 @@ class GSegmentFieldsReq
     implements _i1.FragmentRequest<_i2.GSegmentFieldsData, Null> {
   GSegmentFieldsReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'SegmentFields',
+    this.fragmentName = 'RouteSectionFields',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -30,10 +30,9 @@ class GSegmentFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.SegmentFields,
-    _i5.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [_i4.RouteSectionFields, _i5.LatLngFields],
+  );
 
   _i2.GSegmentFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GSegmentFieldsData.fromJson(json);
@@ -69,8 +68,13 @@ class GSegmentFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override
@@ -96,11 +100,13 @@ class GSegmentSplicePayloadFragmentReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.SegmentFields,
-    _i4.SegmentSplicePayloadFragment,
-    _i5.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [
+      _i4.RouteSectionFields,
+      _i4.SegmentSplicePayloadFragment,
+      _i5.LatLngFields,
+    ],
+  );
 
   _i2.GSegmentSplicePayloadFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GSegmentSplicePayloadFragmentData.fromJson(json);
@@ -137,8 +143,13 @@ class GSegmentSplicePayloadFragmentReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override
@@ -164,11 +175,13 @@ class GCreateSegmentPayloadFragmentReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.SegmentFields,
-    _i4.CreateSegmentPayloadFragment,
-    _i5.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [
+      _i4.RouteSectionFields,
+      _i4.CreateSegmentPayloadFragment,
+      _i5.LatLngFields,
+    ],
+  );
 
   _i2.GCreateSegmentPayloadFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateSegmentPayloadFragmentData.fromJson(json);
@@ -205,8 +218,13 @@ class GCreateSegmentPayloadFragmentReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override
@@ -232,11 +250,13 @@ class GRefineSegmentPayloadFragmentReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.SegmentFields,
-    _i4.RefineSegmentPayloadFragment,
-    _i5.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [
+      _i4.RouteSectionFields,
+      _i4.RefineSegmentPayloadFragment,
+      _i5.LatLngFields,
+    ],
+  );
 
   _i2.GRefineSegmentPayloadFragmentData? parseData(Map<String, dynamic> json) =>
       _i2.GRefineSegmentPayloadFragmentData.fromJson(json);
@@ -273,8 +293,13 @@ class GRefineSegmentPayloadFragmentReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

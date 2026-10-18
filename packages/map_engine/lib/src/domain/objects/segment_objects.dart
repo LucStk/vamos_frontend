@@ -1,7 +1,7 @@
 part of 'map_objects.dart';
 
 final class MapSegment extends MapObject implements Selectable, TopologyObject {
-  final SegmentId id;
+  final SectionId id;
   final TripId tripId;
   const MapSegment({required this.id, required this.tripId});
 
@@ -34,7 +34,7 @@ final class MapTripStart extends MapObject implements Selectable {
 
 final class MapSegmentEndPoint extends MapObject implements Selectable {
   const MapSegmentEndPoint(this.id);
-  final SegmentId id;
+  final SectionId id;
 
   @override
   int get hitPriority => 50;

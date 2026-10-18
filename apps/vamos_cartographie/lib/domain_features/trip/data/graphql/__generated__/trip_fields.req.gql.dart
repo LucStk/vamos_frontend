@@ -37,12 +37,14 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.TripFields,
-    _i5.StoredFile,
-    _i5.FileAttachment,
-    _i6.UserProfileFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [
+      _i4.TripFields,
+      _i5.StoredFile,
+      _i5.FileAttachment,
+      _i6.UserProfileFields,
+    ],
+  );
 
   _i2.GTripFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GTripFieldsData.fromJson(json);
@@ -78,8 +80,13 @@ class GTripFieldsReq implements _i1.FragmentRequest<_i2.GTripFieldsData, Null> {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override
@@ -104,12 +111,14 @@ class GTopologyFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.TopologyFields,
-    _i7.SegmentFields,
-    _i8.VertexFields,
-    _i9.LatLngFields,
-  ]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(
+    definitions: [
+      _i4.TopologyFields,
+      _i7.RouteSectionFields,
+      _i8.VertexFields,
+      _i9.LatLngFields,
+    ],
+  );
 
   _i2.GTopologyFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GTopologyFieldsData.fromJson(json);
@@ -146,8 +155,13 @@ class GTopologyFieldsReq
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
+    return Object.hash(
+      runtimeType,
+      _gqlUtils.deepHash(varsToJson()),
+      document,
+      fragmentName,
+      _gqlUtils.deepHash(idFields),
+    );
   }
 
   @override

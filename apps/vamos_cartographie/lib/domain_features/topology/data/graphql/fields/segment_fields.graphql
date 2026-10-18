@@ -1,6 +1,6 @@
 #import "vertex_fields.graphql"
 
-fragment SegmentFields on SegmentType {
+fragment RouteSectionFields on SegmentType {
     id
     mobilityType
     geometry {
@@ -11,20 +11,20 @@ fragment SegmentFields on SegmentType {
 fragment SegmentSplicePayloadFragment on SegmentSplicePayload {
     deletedSegmentIds
     segment {
-        ...SegmentFields
+        ...RouteSectionFields
     }
 }
 
 fragment CreateSegmentPayloadFragment on CreateSegmentPayload {
     segment {
-        ...SegmentFields
+        ...RouteSectionFields
     }
     refinementFailed
     errorMessage
 }
 fragment RefineSegmentPayloadFragment on RefineSegmentPayload {
     segment {
-        ...SegmentFields
+        ...RouteSectionFields
     }
     refinementFailed
     errorMessage

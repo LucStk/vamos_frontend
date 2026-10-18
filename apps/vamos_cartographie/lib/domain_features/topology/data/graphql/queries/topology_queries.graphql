@@ -9,7 +9,7 @@ query GetTopology($tripId: UUID!) {
                 ...VertexFields
             }
             segments {
-                ...SegmentFields
+                ...RouteSectionFields
             }
         }
     }
