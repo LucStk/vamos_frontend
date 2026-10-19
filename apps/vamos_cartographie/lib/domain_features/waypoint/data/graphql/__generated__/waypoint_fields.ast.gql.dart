@@ -24,6 +24,20 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
+      name: _i1.NameNode(value: 'anchorEdge'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'anchorOffset'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
       name: _i1.NameNode(value: 'poiCategory'),
       alias: null,
       arguments: [],
@@ -39,6 +53,13 @@ const WaypointFields = _i1.FragmentDefinitionNode(
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'description'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'location'),
       alias: null,
       arguments: [],
       directives: [],

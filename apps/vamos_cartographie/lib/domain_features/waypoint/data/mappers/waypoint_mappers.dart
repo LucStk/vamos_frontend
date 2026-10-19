@@ -1,14 +1,14 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
-import '/domain_features/waypoint/data/graphql/graphql.dart';
-import '/domain_features/waypoint/data/mappers/waypoint_enum_mapper.dart';
-import '/core/graphql/graphql.dart';
 
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/data/data.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/data/mappers/waypoint_enum_mapper.dart';
 
 extension GWaypointFieldsMapper on GWaypointFields {
   WaypointRemoteModel toDomain() => WaypointRemoteModel(
     id: WaypointId(id),
-    vertexId: WaypointId(waypoint.id),
+    position: location,
     poiCategory: poiCategory.toDomain(),
     title: title,
     description: description,

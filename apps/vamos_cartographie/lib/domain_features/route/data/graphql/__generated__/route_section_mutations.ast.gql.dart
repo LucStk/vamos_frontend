@@ -10,12 +10,8 @@ import 'package:vamos_cartographie/domain_features/route/data/graphql/__generate
     as _i2;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i5;
-import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
-    as _i4;
-import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
-    as _i6;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i7;
+    as _i4;
 
 const RefineSection = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -162,11 +158,8 @@ const document = _i1.DocumentNode(definitions: [
   _i2.TripRouteFields,
   _i2.EditRoutePayloadFragment,
   _i3.LatLngFields,
-  _i4.TripFields,
+  _i4.WaypointFields,
   _i5.StoredFile,
   _i5.FileAttachment,
   _i5.UploadConfigFields,
-  _i6.UserProfileFields,
-  _i6.CreateProfilePayload,
-  _i7.WaypointFields,
 ]);

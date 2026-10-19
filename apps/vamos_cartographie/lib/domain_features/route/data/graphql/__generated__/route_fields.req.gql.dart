@@ -5,6 +5,8 @@
 
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i5;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.ast.gql.dart'
@@ -160,6 +162,7 @@ class GTripRouteFieldsReq
     _i4.RouteSectionFields,
     _i4.WaypointAnchorFields,
     _i4.TripRouteFields,
+    _i5.LatLngFields,
   ]);
 
   _i2.GTripRouteFieldsData? parseData(Map<String, dynamic> json) =>
@@ -228,6 +231,7 @@ class GEditRoutePayloadFragmentReq
     _i4.WaypointAnchorFields,
     _i4.TripRouteFields,
     _i4.EditRoutePayloadFragment,
+    _i5.LatLngFields,
   ]);
 
   _i2.GEditRoutePayloadFragmentData? parseData(Map<String, dynamic> json) =>

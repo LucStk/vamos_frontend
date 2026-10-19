@@ -31,7 +31,7 @@ class TripRepositoryImpl extends TripRepository {
       final response = await remote.getAllTrips();
 
       return response.trips.map((gqlTrip) {
-        final trip = gqlTrip.toDomain();
+        final trip = gqlTrip.toTripDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
         final topology = gqlTrip.topology.toDomain();
         final userProfile = gqlTrip.owner.toUserProfileModel();

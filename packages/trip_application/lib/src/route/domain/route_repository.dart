@@ -1,34 +1,48 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:trip_application/src/route/route.dart';
+import 'package:trip_application/src/trip/domain/domain.dart';
+
+class RoutePayload {
+  RoutePayload({required this.route, required this.sections});
+  final RouteRemoteModel route;
+  final List<RouteSectionRemoteModel> sections;
+}
+
+class EditRoutePayload {
+  EditRoutePayload({required this.route, required this.sections});
+  final RouteRemoteModel route;
+  final List<RouteSectionRemoteModel> sections;
+}
 
 abstract class RouteRepository {
-  //   Future<Either<Failure, RouteSectionRemoteModel>> updateSegment(
-  //     RouteSectionFields segment,
-  //   );
-  //   Future<Either<Failure, RouteSectionRemoteModel>> correctSegment(
-  //     SectionId segmentId,
-  //     List<LatLng> correction,
-  //   );
-  //
-  //   Future<Either<Failure, CreateSegmentPayload>> createSegment({
-  //     required Id<Trip> tripId,
-  //     required MobilityType mobilityType,
-  //     required List<LatLng> geometry,
-  //   });
-  //   Future<Either<Failure, RefineSegmentPayload>> refineSegment(
-  //     SectionId segmentId,
-  //   );
-  //   Future<Either<Failure, (List<SectionId>, RouteSectionRemoteModel)>>
-  //   spliceSegment({
-  //     required TripId tripId,
-  //     required List<LatLng> correction,
-  //     required MobilityType mobilityType,
-  //     required SpliceAnchor startAnchor,
-  //     required SpliceAnchor endAnchor,
-  //   });
-  //   Future<Either<Failure, void>> deleteSegment(SectionId id);
-  //   Future<Either<Failure, List<RouteSectionRemoteModel>>> getSegments(
-  //     TripId tripId,
-  //   );
+  Future<Either<Failure, EditRoutePayload>> drawRoute({
+    required TripId tripId,
+    required MobilityType mobilityType,
+    required List<LatLng> geometry,
+  });
+
+  Future<Either<Failure, EditRoutePayload>> extendsRoute({
+    required TripId tripId,
+    required MobilityType mobilityType,
+    required List<LatLng> geometry,
+  });
+  Future<Either<Failure, EditRoutePayload>> redrawRoutePortion({
+    required Id<Trip> tripId,
+    required MobilityType mobilityType,
+    required List<LatLng> geometry,
+    required RouteAnchor startAnchor,
+    required LatLng latLng,
+    RouteAnchor? endAnchor,
+  });
+  Future<Either<Failure, EditRoutePayload>> refineSection({
+    required TripId tripId,
+    required SectionId sectionId,
+  });
+  Future<Either<Failure, EditRoutePayload>> setSectionMobility({
+    required TripId tripId,
+    required SectionId sectionId,
+    required MobilityType mobilityType,
+  });
 }

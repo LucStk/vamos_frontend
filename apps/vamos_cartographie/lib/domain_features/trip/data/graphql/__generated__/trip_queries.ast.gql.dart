@@ -4,12 +4,16 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i4;
+import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.ast.gql.dart'
     as _i3;
+import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
+    as _i6;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
-    as _i4;
+    as _i7;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i5;
 
@@ -254,10 +258,16 @@ const document = _i1.DocumentNode(definitions: [
   GetUserTrips,
   GetTripDetails,
   _i2.TripFields,
-  _i3.StoredFile,
-  _i3.FileAttachment,
-  _i3.UploadConfigFields,
-  _i4.UserProfileFields,
-  _i4.CreateProfilePayload,
+  _i2.TripWithRouteFields,
+  _i3.RouteSectionFields,
+  _i3.WaypointAnchorFields,
+  _i3.TripRouteFields,
+  _i3.EditRoutePayloadFragment,
+  _i4.LatLngFields,
   _i5.WaypointFields,
+  _i6.StoredFile,
+  _i6.FileAttachment,
+  _i6.UploadConfigFields,
+  _i7.UserProfileFields,
+  _i7.CreateProfilePayload,
 ]);

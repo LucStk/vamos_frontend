@@ -3,21 +3,26 @@ import 'package:ferry/ferry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:gql_exec/gql_exec.dart';
 import 'package:gql_link/gql_link.dart';
-import "dio_exceptions_mappers.dart";
-import 'graphql_exceptions_mappers.dart';
-import "link_exceptions_mappers.dart";
-
+import 'package:vamos_cartographie/core/errors/exceptions_mappers/graphql_error_mapper.dart';
+import 'package:vamos_cartographie/core/errors/exceptions_mappers/link_exceptions_mappers.dart';
+import 'package:vamos_cartographie/core/errors/exceptions_mappers/dio_exceptions_mappers.dart';
+import 'package:vamos_cartographie/core/errors/exceptions_mappers/session_exceptions_mappers.dart';
+import 'package:vamos_cartographie/core/errors/server_failures.dart';
 import 'package:domain_core/domain_core.dart';
-
-import '../network/graphql_request_exception.dart';
+import 'package:vamos_cartographie/core/network/network.dart';
 
 class ExceptionMapper {
-  static Failure fromException(Object error, [StackTrace? stackTrace]) {
+  static Failure fromException(
+    Object error, {
+    StackTrace? stackTrace,
+    GraphQLErrorsMapper? graphqlMapper,
+  }) {
     return switch (error) {
       // --- Ferry / GraphQL ---
       GraphQLRequestException e => fromResponse(
         linkException: e.linkException,
         graphqlErrors: e.graphqlErrors,
+        graphqlMapper: graphqlMapper,
       ),
 
       LinkException e => linkExceptionsMappers(e),
@@ -39,17 +44,18 @@ class ExceptionMapper {
   static Failure fromResponse({
     LinkException? linkException,
     List<GraphQLError> graphqlErrors = const [],
+    GraphQLErrorsMapper? graphqlMapper,
   }) {
-    // Erreur au niveau HTTP / transport.
+    // Le transport reste prioritaire.
     if (linkException != null) {
       return linkExceptionsMappers(linkException);
     }
 
-    // Erreur GraphQL.
     if (graphqlErrors.isNotEmpty) {
-      return graphqlExceptionsMappers(graphqlErrors);
+      return sessionExceptionsMappers(graphqlErrors) ??
+          graphqlMapper?.call(graphqlErrors) ??
+          graphqlExceptionsMappers(graphqlErrors);
     }
-
     return UnexpectedFailure();
   }
 

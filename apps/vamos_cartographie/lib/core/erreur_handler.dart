@@ -4,19 +4,24 @@ import "package:domain_core/domain_core.dart";
 
 import 'package:stack_trace/stack_trace.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'domain/notification_type.dart';
-import 'exceptions_mappers/exceptions_mappers.dart';
-import 'injection/notification_provider.dart';
+import 'package:vamos_cartographie/core/domain/domain.dart';
+import 'package:vamos_cartographie/core/errors/exceptions_mappers/exceptions_mappers.dart';
+import 'package:vamos_cartographie/core/errors/exceptions_mappers/graphql_error_mapper.dart';
+import 'package:vamos_cartographie/core/injection/notification_provider.dart';
 
-// core/erreur_handler.dart
-Future<Either<Failure, T>> guard<T>(Future<T> Function() action) async {
+Future<Either<Failure, T>> guard<T>(
+  Future<T> Function() action, {
+  GraphQLErrorsMapper? graphqlMapper,
+}) async {
   try {
     return Right(await action());
   } catch (e, s) {
-    // print("guarde keep $e");
-    final failure = ExceptionMapper.fromException(e, s);
-
-    print("guarde keep $failure");
+    final failure = ExceptionMapper.fromException(
+      e,
+      stackTrace: s,
+      graphqlMapper: graphqlMapper,
+    );
+    debugPrint('guard caught: $failure');
     return Left(failure);
   }
 }

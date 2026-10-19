@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain_core/failures/failures.dart';
 
-import 'auth_repository.dart';
+import 'package:domain_core/domain_core.dart';
 import "package:supabase_flutter/supabase_flutter.dart";
+import 'package:vamos_cartographie/domain_features/auth/data/auth_repository.dart';
+import 'package:vamos_cartographie/domain_features/auth/data/sign_in_exceptions_mappers.dart';
+import 'package:vamos_cartographie/domain_features/auth/data/sign_in_failures.dart';
 
 final class SupabaseAuthRepository implements AuthRepository {
   const SupabaseAuthRepository(this._client);
@@ -24,65 +26,38 @@ final class SupabaseAuthRepository implements AuthRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, User>> signInWithPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<Either<Failure, T>> _run<T>(Future<T> Function() action) async {
     try {
-      final response = await _client.auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
-
-      final user = response.user;
-
-      if (user == null) {
-        return left(AuthResponseParseFailed());
-      }
-
-      return right(user);
+      return right(await action());
     } on AuthException catch (e) {
-      return left(_mapAuthException(e));
+      return left(signInExceptionsMapper(e));
     } catch (_) {
       return left(AuthUnknownFailure());
     }
   }
 
-  AuthFailure _mapAuthException(AuthException error) {
-    return switch (error.code) {
-      'invalid_credentials' => InvalidCredentials(),
-      'email_not_confirmed' => EmailNotConfirmed(),
-      _ => AuthUnknownFailure(),
-    };
+  @override
+  Future<Either<Failure, User>> signInWithPassword({
+    required String email,
+    required String password,
+  }) async {
+    final result = await _run(
+      () => _client.auth.signInWithPassword(email: email, password: password),
+    );
+
+    return result.flatMap(
+      (response) => response.user == null
+          ? left(AuthResponseParseFailed())
+          : right(response.user!),
+    );
   }
 
   @override
   Future<Either<Failure, void>> signUp({
     required String email,
     required String password,
-  }) async {
-    try {
-      await _client.auth.signUp(email: email, password: password);
-
-      return right(null);
-    } on AuthException catch (e) {
-      return left(_mapAuthException(e));
-    } catch (_) {
-      return left(AuthUnknownFailure());
-    }
-  }
+  }) => _run(() => _client.auth.signUp(email: email, password: password));
 
   @override
-  Future<Either<Failure, void>> signOut() async {
-    try {
-      await _client.auth.signOut();
-
-      return right(null);
-    } on AuthException catch (e) {
-      return left(_mapAuthException(e));
-    } catch (_) {
-      return left(AuthUnknownFailure());
-    }
-  }
+  Future<Either<Failure, void>> signOut() => _run(_client.auth.signOut);
 }

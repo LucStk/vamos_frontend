@@ -6,6 +6,8 @@
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i5;
 import 'package:gql_exec/gql_exec.dart' as _i4;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i8;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.ast.gql.dart'
@@ -62,6 +64,7 @@ class GRefineSectionReq
     _i7.WaypointAnchorFields,
     _i7.TripRouteFields,
     _i7.EditRoutePayloadFragment,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -232,6 +235,7 @@ class GSetSectionMobilityReq
     _i7.WaypointAnchorFields,
     _i7.TripRouteFields,
     _i7.EditRoutePayloadFragment,
+    _i8.LatLngFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

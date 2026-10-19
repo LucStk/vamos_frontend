@@ -1,5 +1,6 @@
 #import "trip_fields.graphql"
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
+#import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
 
 mutation UpdateWaypoint($id: UUID!, $waypoint: WaypointUpdateInput!) {
     updateWaypoint(input: $waypoint, id: $id) {
@@ -13,15 +14,5 @@ mutation CreateBlankWaypointFromPosition(
 ) {
     createBlankWaypointFromPosition(tripId: $tripId, latLng: $latLng) {
         ...WaypointFields
-    }
-}
-
-fragment WaypointFields on WaypointType {
-    id
-    poiCategory
-    title
-    description
-    files {
-        ...FileAttachment
     }
 }

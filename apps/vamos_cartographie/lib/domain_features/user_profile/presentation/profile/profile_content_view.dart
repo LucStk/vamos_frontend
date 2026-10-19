@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trip_application/trip/trip.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
-import '/routing/presentation/app_page_scaffold.dart';
-import '../trips/trip_librairy_section.dart';
-import 'profile_section.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_section.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/trip_librairy_section.dart';
+import 'package:vamos_cartographie/routing/presentation/app_page_scaffold.dart';
 
 class ProfileContentView extends StatelessWidget {
   const ProfileContentView({

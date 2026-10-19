@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:domain_core/failures/failures.dart';
+import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/core/errors/server_failures.dart';
 
 Failure dioExceptionsMappers(DioException e) {
   return switch (e.type) {

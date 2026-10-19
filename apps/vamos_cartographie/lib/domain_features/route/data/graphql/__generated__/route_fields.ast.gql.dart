@@ -8,12 +8,8 @@ import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql
     as _i2;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i4;
-import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
-    as _i3;
-import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
-    as _i5;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i6;
+    as _i3;
 
 const RouteSectionFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'RouteSectionFields'),
@@ -136,19 +132,9 @@ const TripRouteFields = _i1.FragmentDefinitionNode(
       arguments: [],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'lat'),
-          alias: null,
-          arguments: [],
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'LatLngFields'),
           directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'lng'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
         ),
         _i1.FieldNode(
           name: _i1.NameNode(value: '__typename'),
@@ -263,11 +249,8 @@ const document = _i1.DocumentNode(definitions: [
   TripRouteFields,
   EditRoutePayloadFragment,
   _i2.LatLngFields,
-  _i3.TripFields,
+  _i3.WaypointFields,
   _i4.StoredFile,
   _i4.FileAttachment,
   _i4.UploadConfigFields,
-  _i5.UserProfileFields,
-  _i5.CreateProfilePayload,
-  _i6.WaypointFields,
 ]);

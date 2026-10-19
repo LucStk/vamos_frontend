@@ -1,5 +1,6 @@
-import 'package:domain_core/failures/failures.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:gql_link/gql_link.dart';
+import 'package:vamos_cartographie/core/errors/server_failures.dart';
 
 Failure linkExceptionsMappers(LinkException error) {
   return switch (error) {

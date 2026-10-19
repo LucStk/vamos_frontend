@@ -730,10 +730,10 @@ class GGetTripDetailsReq
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetTripDetails,
     _i6.TripFields,
+    _i10.WaypointFields,
     _i7.StoredFile,
     _i7.FileAttachment,
     _i8.UserProfileFields,
-    _i10.WaypointFields,
   ]);
 
   static const _i3.Operation _operation = _i3.Operation(

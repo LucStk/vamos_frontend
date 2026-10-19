@@ -2,9 +2,12 @@
 
 fragment WaypointFields on WaypointType {
     id
+    anchorEdge
+    anchorOffset
     poiCategory
     title
     description
+    location
     files {
         ...FileAttachment
     }

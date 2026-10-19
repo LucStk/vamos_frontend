@@ -3,6 +3,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:vamos_cartographie/core/geometry_mappers/geo_polygon_dto.dart';
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i2;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
@@ -180,16 +183,10 @@ class GWaypointAnchorFieldsData implements GWaypointAnchorFields {
 abstract class GTripRouteFields {
   String get id;
   String? get routeUpdatedAt;
-  Object? get bounds;
-  List<GTripRouteFields_route> get route;
+  GeoPolygonDto? get bounds;
+  List<_i2.GLatLngFields> get route;
   List<GRouteSectionFields> get sections;
   List<GWaypointAnchorFields> get waypoints;
-  String get G__typename;
-}
-
-abstract class GTripRouteFields_route {
-  double get lat;
-  double get lng;
   String get G__typename;
 }
 
@@ -210,10 +207,11 @@ class GTripRouteFieldsData implements GTripRouteFields {
       routeUpdatedAt: json['routeUpdatedAt'] == null
           ? null
           : (json['routeUpdatedAt'] as String),
-      bounds: json['bounds'] == null ? null : (json['bounds'] as Object),
+      bounds:
+          json['bounds'] == null ? null : geoPolygonDtoFromJson(json['bounds']),
       route: (json['route'] as List<dynamic>)
-          .map((_$e) => GTripRouteFieldsData_route.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map((_$e) =>
+              _i2.GLatLngFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       sections: (json['sections'] as List<dynamic>)
           .map((_$e) =>
@@ -231,9 +229,9 @@ class GTripRouteFieldsData implements GTripRouteFields {
 
   final String? routeUpdatedAt;
 
-  final Object? bounds;
+  final GeoPolygonDto? bounds;
 
-  final List<GTripRouteFieldsData_route> route;
+  final List<_i2.GLatLngFieldsData> route;
 
   final List<GRouteSectionFieldsData> sections;
 
@@ -248,7 +246,8 @@ class GTripRouteFieldsData implements GTripRouteFields {
     _$result['routeUpdatedAt'] =
         _$routeUpdatedAtValue == null ? null : _$routeUpdatedAtValue;
     final _$boundsValue = this.bounds;
-    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue;
+    _$result['bounds'] =
+        _$boundsValue == null ? null : geoPolygonDtoToJson(_$boundsValue);
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
     _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
@@ -260,9 +259,9 @@ class GTripRouteFieldsData implements GTripRouteFields {
     String? id,
     String? routeUpdatedAt,
     bool routeUpdatedAtIsSet = false,
-    Object? bounds,
+    GeoPolygonDto? bounds,
     bool boundsIsSet = false,
-    List<GTripRouteFieldsData_route>? route,
+    List<_i2.GLatLngFieldsData>? route,
     List<GRouteSectionFieldsData>? sections,
     List<GWaypointAnchorFieldsData>? waypoints,
     String? G__typename,
@@ -309,67 +308,6 @@ class GTripRouteFieldsData implements GTripRouteFields {
   @override
   String toString() {
     return 'GTripRouteFieldsData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, route: $route, sections: $sections, waypoints: $waypoints, G__typename: $G__typename)';
-  }
-}
-
-class GTripRouteFieldsData_route implements GTripRouteFields_route {
-  const GTripRouteFieldsData_route({
-    required this.lat,
-    required this.lng,
-    this.G__typename = 'LatLngType',
-  });
-
-  factory GTripRouteFieldsData_route.fromJson(Map<String, dynamic> json) {
-    return GTripRouteFieldsData_route(
-      lat: (json['lat'] as num).toDouble(),
-      lng: (json['lng'] as num).toDouble(),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final double lat;
-
-  final double lng;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['lat'] = this.lat;
-    _$result['lng'] = this.lng;
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GTripRouteFieldsData_route copyWith({
-    double? lat,
-    double? lng,
-    String? G__typename,
-  }) {
-    return GTripRouteFieldsData_route(
-      lat: lat ?? this.lat,
-      lng: lng ?? this.lng,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GTripRouteFieldsData_route &&
-            lat == other.lat &&
-            lng == other.lng &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, lat, lng, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GTripRouteFieldsData_route(lat: $lat, lng: $lng, G__typename: $G__typename)';
   }
 }
 

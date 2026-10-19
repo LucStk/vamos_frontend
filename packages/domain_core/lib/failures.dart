@@ -1,11 +1,5 @@
 import 'package:equatable/equatable.dart';
 import "package:intl/intl.dart";
-// domain_core/lib/failure.dart
-
-part "queries_failures.dart";
-part "server_failures.dart";
-part "auth_failures.dart";
-part "user_profile_failures.dart";
 
 abstract class Failure extends Equatable {
   final String message;
@@ -24,4 +18,17 @@ abstract class Failure extends Equatable {
 final class UnexpectedFailure extends Failure {
   UnexpectedFailure({String? message, super.timestamp})
     : super(message ?? "Erreur inattendue");
+}
+
+final class NotFoundFailure extends Failure {
+  final String? resourceType;
+  final String? resourceId;
+  NotFoundFailure({this.resourceType, this.resourceId})
+    : super("Ressource introuvable");
+
+  @override
+  List<Object?> get props => [...super.props, resourceType, resourceId];
+  // Optionnel : une méthode pour faciliter le debug/log
+  @override
+  String toString() => 'NotFoundFailure($resourceType #$resourceId): $message';
 }

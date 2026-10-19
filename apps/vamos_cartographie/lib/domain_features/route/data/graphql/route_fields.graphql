@@ -1,7 +1,6 @@
 #import "/core/graphql/geo_fields.graphql"
 
 #import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
-#import "/domain_features/trip/data/graphql/trip_fields.graphql"
 fragment RouteSectionFields on RouteSectionType {
     id
     startIndex
@@ -23,8 +22,7 @@ fragment TripRouteFields on TripType {
     routeUpdatedAt
     bounds
     route {
-        lat
-        lng
+        ...LatLngFields
     }
     sections {
         ...RouteSectionFields

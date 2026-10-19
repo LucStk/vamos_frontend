@@ -5,7 +5,6 @@ import 'package:user_profile_application/application/application.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../domain_features.dart';
 part 'trip_data_loader.g.dart';
 
 @Riverpod(keepAlive: true)

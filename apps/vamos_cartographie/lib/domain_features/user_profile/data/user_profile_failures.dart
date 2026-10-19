@@ -1,4 +1,4 @@
-part of "failures.dart";
+import 'package:domain_core/domain_core.dart';
 
 sealed class CreateProfileFailure extends Failure {
   CreateProfileFailure({String? message})

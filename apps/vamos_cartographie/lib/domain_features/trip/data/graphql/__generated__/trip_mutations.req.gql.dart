@@ -16,6 +16,8 @@ import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated
     as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.var.gql.dart'
     as _i3;
+import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
+    as _i8;
 
 class GUpdateWaypointReq
     implements
@@ -58,9 +60,9 @@ class GUpdateWaypointReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.UpdateWaypoint,
-    _i6.WaypointFields,
     _i7.StoredFile,
     _i7.FileAttachment,
+    _i8.WaypointFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -228,9 +230,9 @@ class GCreateBlankWaypointFromPositionReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateBlankWaypointFromPosition,
-    _i6.WaypointFields,
     _i7.StoredFile,
     _i7.FileAttachment,
+    _i8.WaypointFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -356,72 +358,5 @@ class GCreateBlankWaypointFromPositionReq
   @override
   String toString() {
     return 'GCreateBlankWaypointFromPositionReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
-  }
-}
-
-class GWaypointFieldsReq
-    implements _i1.FragmentRequest<_i2.GWaypointFieldsData, Null> {
-  GWaypointFieldsReq({
-    _i5.DocumentNode? document,
-    this.fragmentName = 'WaypointFields',
-    this.idFields = const <String, dynamic>{},
-  }) : document = document ?? _document;
-
-  final Null vars = null;
-
-  final _i5.DocumentNode document;
-
-  final String? fragmentName;
-
-  final Map<String, dynamic> idFields;
-
-  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
-    _i6.WaypointFields,
-    _i7.StoredFile,
-    _i7.FileAttachment,
-  ]);
-
-  _i2.GWaypointFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GWaypointFieldsData.fromJson(json);
-
-  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
-
-  Map<String, dynamic> dataToJson(_i2.GWaypointFieldsData data) =>
-      data.toJson();
-
-  GWaypointFieldsReq copyWith({
-    _i5.DocumentNode? document,
-    String? fragmentName,
-    bool fragmentNameIsSet = false,
-    Map<String, dynamic>? idFields,
-  }) {
-    return GWaypointFieldsReq(
-      document: document ?? this.document,
-      fragmentName: fragmentName != null || fragmentNameIsSet
-          ? fragmentName
-          : this.fragmentName,
-      idFields: idFields ?? this.idFields,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GWaypointFieldsReq &&
-            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
-            document == other.document &&
-            fragmentName == other.fragmentName &&
-            _gqlUtils.deepEquals(idFields, other.idFields));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
-  }
-
-  @override
-  String toString() {
-    return 'GWaypointFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trip_application/trip/domain/domain.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
-
-import '../../providers/user_trips_provider.dart';
-import 'trip_library.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/trip_library.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/providers/user_trips_provider.dart';
 
 class TripLibrarySection extends ConsumerWidget {
   const TripLibrarySection({
