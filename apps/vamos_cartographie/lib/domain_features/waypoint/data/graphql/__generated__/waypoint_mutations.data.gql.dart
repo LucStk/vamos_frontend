@@ -118,3 +118,56 @@ class GCreateBlankWaypointFromPositionData {
     return 'GCreateBlankWaypointFromPositionData(createBlankWaypointFromPosition: $createBlankWaypointFromPosition, G__typename: $G__typename)';
   }
 }
+
+class GDeleteWaypointData {
+  const GDeleteWaypointData({
+    required this.deleteWaypoint,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GDeleteWaypointData.fromJson(Map<String, dynamic> json) {
+    return GDeleteWaypointData(
+      deleteWaypoint: (json['deleteWaypoint'] as bool),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final bool deleteWaypoint;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['deleteWaypoint'] = this.deleteWaypoint;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDeleteWaypointData copyWith({
+    bool? deleteWaypoint,
+    String? G__typename,
+  }) {
+    return GDeleteWaypointData(
+      deleteWaypoint: deleteWaypoint ?? this.deleteWaypoint,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteWaypointData &&
+            deleteWaypoint == other.deleteWaypoint &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, deleteWaypoint, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteWaypointData(deleteWaypoint: $deleteWaypoint, G__typename: $G__typename)';
+  }
+}

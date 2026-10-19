@@ -6,6 +6,8 @@
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i5;
 import 'package:gql_exec/gql_exec.dart' as _i4;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i8;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
@@ -17,7 +19,7 @@ import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.var.gql.dart'
     as _i3;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i8;
+    as _i9;
 
 class GUpdateWaypointReq
     implements
@@ -62,7 +64,8 @@ class GUpdateWaypointReq
     _i6.UpdateWaypoint,
     _i7.StoredFile,
     _i7.FileAttachment,
-    _i8.WaypointFields,
+    _i8.LatLngFields,
+    _i9.WaypointFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -232,7 +235,8 @@ class GCreateBlankWaypointFromPositionReq
     _i6.CreateBlankWaypointFromPosition,
     _i7.StoredFile,
     _i7.FileAttachment,
-    _i8.WaypointFields,
+    _i8.LatLngFields,
+    _i9.WaypointFields,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

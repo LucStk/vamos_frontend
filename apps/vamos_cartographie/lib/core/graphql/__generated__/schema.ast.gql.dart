@@ -173,8 +173,47 @@ const DrawRouteInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
-const EditRoutePayload = _i1.ObjectTypeDefinitionNode(
+const EditRouteError = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'EditRouteError'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'code'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RouteEditErrorCode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'message'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
+const EditRoutePayload = _i1.UnionTypeDefinitionNode(
   name: _i1.NameNode(value: 'EditRoutePayload'),
+  directives: [],
+  types: [
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'EditRouteSuccess'),
+      isNonNull: false,
+    ),
+    _i1.NamedTypeNode(
+      name: _i1.NameNode(value: 'EditRouteError'),
+      isNonNull: false,
+    ),
+  ],
+);
+const EditRouteSuccess = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'EditRouteSuccess'),
   directives: [],
   interfaces: [],
   fields: [
@@ -188,20 +227,11 @@ const EditRoutePayload = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'refinementFailed'),
+      name: _i1.NameNode(value: 'refinementError'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'errorMessage'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
+        name: _i1.NameNode(value: 'RefinementError'),
         isNonNull: false,
       ),
     ),
@@ -1039,6 +1069,24 @@ const RedrawRouteInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const RefinementError = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RefinementError'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'ROUTER_UNAVAILABLE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'NO_ROUTE_FOUND'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'EMPTY_ROUTE'),
+      directives: [],
+    ),
+  ],
+);
 const RouteAnchorInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'RouteAnchorInput'),
   directives: [],
@@ -1060,6 +1108,28 @@ const RouteAnchorInput = _i1.InputObjectTypeDefinitionNode(
         isNonNull: true,
       ),
       defaultValue: null,
+    ),
+  ],
+);
+const RouteEditErrorCode = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RouteEditErrorCode'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'STALE_ROUTE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'INVALID_ANCHOR'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'INVALID_EDIT'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'TRIP_NOT_FOUND'),
+      directives: [],
     ),
   ],
 );
@@ -1474,15 +1544,6 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'location'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Point'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'anchorEdge'),
       directives: [],
       args: [],
@@ -1497,6 +1558,15 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'location'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngType'),
         isNonNull: true,
       ),
     ),
@@ -1576,7 +1646,9 @@ const document = _i1.DocumentNode(definitions: [
   Date,
   DateTime,
   DrawRouteInput,
+  EditRouteError,
   EditRoutePayload,
+  EditRouteSuccess,
   ExtendRouteInput,
   FileAttachmentType,
   FileTargetTypeEnum,
@@ -1592,7 +1664,9 @@ const document = _i1.DocumentNode(definitions: [
   Polygon,
   Query,
   RedrawRouteInput,
+  RefinementError,
   RouteAnchorInput,
+  RouteEditErrorCode,
   RouteSectionType,
   StoredFileType,
   TripType,

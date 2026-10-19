@@ -15,10 +15,8 @@ targets:
               type: String
             Date:
               type: String
-
             DateTime:
               type: String
-
             Polygon:
               type: GeoPolygonDto
               import: package:vamos_cartographie/core/geometry_mappers/geo_polygon_dto.dart

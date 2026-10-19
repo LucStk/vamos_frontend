@@ -7,8 +7,8 @@ import 'package:stored_file_application/stored_file_application.dart';
 
 import 'package:mime/mime.dart'; // Packge utile pour le mimeType
 import 'package:path/path.dart' as p;
-
-import '../../../core/exceptions_mappers/exceptions_mappers.dart';
+import 'package:vamos_cartographie/core/errors/exceptions_mappers/exceptions_mappers.dart';
+import 'package:vamos_cartographie/core/errors/server_failures.dart';
 
 class UploadServiceImpl implements UploadService {
   final StoredFileRepository storedFileRepo;

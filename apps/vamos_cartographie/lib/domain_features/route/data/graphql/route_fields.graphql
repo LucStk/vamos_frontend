@@ -33,9 +33,15 @@ fragment TripRouteFields on TripType {
 }
 
 fragment EditRoutePayloadFragment on EditRoutePayload {
-    refinementFailed
-    errorMessage
-    trip {
-        ...TripRouteFields
+    __typename
+    ... on EditRouteSuccess {
+        refinementError
+        trip {
+            ...TripRouteFields
+        }
+    }
+    ... on EditRouteError {
+        code
+        message
     }
 }

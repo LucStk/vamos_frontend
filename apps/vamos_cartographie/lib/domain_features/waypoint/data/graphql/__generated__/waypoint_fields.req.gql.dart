@@ -5,10 +5,12 @@
 
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i5;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
-    as _i5;
+    as _i6;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i4;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
@@ -32,8 +34,9 @@ class GWaypointFieldsReq
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.WaypointFields,
-    _i5.StoredFile,
-    _i5.FileAttachment,
+    _i5.LatLngFields,
+    _i6.StoredFile,
+    _i6.FileAttachment,
   ]);
 
   _i2.GWaypointFieldsData? parseData(Map<String, dynamic> json) =>

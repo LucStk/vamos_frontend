@@ -118,3 +118,41 @@ class GCreateBlankWaypointFromPositionVars {
     return 'GCreateBlankWaypointFromPositionVars(tripId: $tripId, latLng: $latLng)';
   }
 }
+
+class GDeleteWaypointVars {
+  const GDeleteWaypointVars({required this.id});
+
+  factory GDeleteWaypointVars.fromJson(Map<String, dynamic> json) {
+    return GDeleteWaypointVars(id: (json['id'] as String));
+  }
+
+  final String id;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue;
+    return _$result;
+  }
+
+  GDeleteWaypointVars copyWith({String? id}) {
+    return GDeleteWaypointVars(id: id ?? this.id);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteWaypointVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteWaypointVars(id: $id)';
+  }
+}

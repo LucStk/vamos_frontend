@@ -15,3 +15,7 @@ mutation CreateBlankWaypointFromPosition(
         ...WaypointFields
     }
 }
+
+mutation DeleteWaypoint($id: UUID!) {
+    deleteWaypoint(id: $id)
+}

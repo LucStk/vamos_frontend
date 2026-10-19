@@ -41,18 +41,4 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
       onSuccess: (gs, _) => gs.removeWaypoint(id),
     );
   }
-
-  Future<Either<Failure, WaypointRemoteModel>> moveWaypoint(
-    WaypointId id,
-    LatLng latLng,
-  ) async {
-    return await run(
-      onApply: (gs) =>
-          gs.setWaypoint(WaypointPatchModel(id: id, position: latLng)),
-      remote: (_) => waypointRepo.moveWaypoint(waypointId: id, latLng: latLng),
-      onSuccess: (gs, WaypointRemoteModel serveurValue) =>
-          gs.setWaypoint(serveurValue),
-      onError: (gs, Failure failure) => gs.rollbackWaypoint(id),
-    );
-  }
 }

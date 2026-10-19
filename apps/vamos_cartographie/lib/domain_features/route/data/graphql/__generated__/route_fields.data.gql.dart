@@ -312,86 +312,261 @@ class GTripRouteFieldsData implements GTripRouteFields {
 }
 
 abstract class GEditRoutePayloadFragment {
-  bool get refinementFailed;
-  String? get errorMessage;
+  String get G__typename;
+}
+
+abstract class GEditRoutePayloadFragment__asEditRouteSuccess
+    implements GEditRoutePayloadFragment {
+  _i1.GRefinementError? get refinementError;
   GTripRouteFields get trip;
   String get G__typename;
 }
 
-class GEditRoutePayloadFragmentData implements GEditRoutePayloadFragment {
-  const GEditRoutePayloadFragmentData({
-    required this.refinementFailed,
-    this.errorMessage,
-    required this.trip,
-    this.G__typename = 'EditRoutePayload',
-  });
+abstract class GEditRoutePayloadFragment__asEditRouteError
+    implements GEditRoutePayloadFragment {
+  _i1.GRouteEditErrorCode get code;
+  String get message;
+  String get G__typename;
+}
+
+sealed class GEditRoutePayloadFragmentData
+    implements GEditRoutePayloadFragment {
+  const GEditRoutePayloadFragmentData({required this.G__typename});
 
   factory GEditRoutePayloadFragmentData.fromJson(Map<String, dynamic> json) {
-    return GEditRoutePayloadFragmentData(
-      refinementFailed: (json['refinementFailed'] as bool),
-      errorMessage: json['errorMessage'] == null
-          ? null
-          : (json['errorMessage'] as String),
-      trip:
-          GTripRouteFieldsData.fromJson((json['trip'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
+    switch (json['__typename'] as String) {
+      case 'EditRouteSuccess':
+        return GEditRoutePayloadFragmentData__asEditRouteSuccess.fromJson(json);
+      case 'EditRouteError':
+        return GEditRoutePayloadFragmentData__asEditRouteError.fromJson(json);
+      default:
+        return GEditRoutePayloadFragmentData__unknown.fromJson(json);
+    }
   }
-
-  final bool refinementFailed;
-
-  final String? errorMessage;
-
-  final GTripRouteFieldsData trip;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['refinementFailed'] = this.refinementFailed;
-    final _$errorMessageValue = this.errorMessage;
-    _$result['errorMessage'] =
-        _$errorMessageValue == null ? null : _$errorMessageValue;
-    _$result['trip'] = this.trip.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
+}
 
-  GEditRoutePayloadFragmentData copyWith({
-    bool? refinementFailed,
-    String? errorMessage,
-    bool errorMessageIsSet = false,
-    GTripRouteFieldsData? trip,
-    String? G__typename,
+extension GEditRoutePayloadFragmentDataWhenExtension
+    on GEditRoutePayloadFragmentData {
+  _T when<_T>({
+    required _T Function(GEditRoutePayloadFragmentData__asEditRouteSuccess)
+        editRouteSuccess,
+    required _T Function(GEditRoutePayloadFragmentData__asEditRouteError)
+        editRouteError,
+    required _T Function() orElse,
   }) {
-    return GEditRoutePayloadFragmentData(
-      refinementFailed: refinementFailed ?? this.refinementFailed,
-      errorMessage: errorMessage != null || errorMessageIsSet
-          ? errorMessage
-          : this.errorMessage,
-      trip: trip ?? this.trip,
+    switch (G__typename) {
+      case 'EditRouteSuccess':
+        return editRouteSuccess(
+            this as GEditRoutePayloadFragmentData__asEditRouteSuccess);
+      case 'EditRouteError':
+        return editRouteError(
+            this as GEditRoutePayloadFragmentData__asEditRouteError);
+      default:
+        return orElse();
+    }
+  }
+
+  _T maybeWhen<_T>({
+    _T Function(GEditRoutePayloadFragmentData__asEditRouteSuccess)?
+        editRouteSuccess,
+    _T Function(GEditRoutePayloadFragmentData__asEditRouteError)?
+        editRouteError,
+    required _T Function() orElse,
+  }) {
+    switch (G__typename) {
+      case 'EditRouteSuccess':
+        return editRouteSuccess == null
+            ? orElse()
+            : editRouteSuccess(
+                this as GEditRoutePayloadFragmentData__asEditRouteSuccess);
+      case 'EditRouteError':
+        return editRouteError == null
+            ? orElse()
+            : editRouteError(
+                this as GEditRoutePayloadFragmentData__asEditRouteError);
+      default:
+        return orElse();
+    }
+  }
+}
+
+class GEditRoutePayloadFragmentData__asEditRouteSuccess
+    extends GEditRoutePayloadFragmentData
+    implements
+        GEditRoutePayloadFragment,
+        GEditRoutePayloadFragment__asEditRouteSuccess {
+  GEditRoutePayloadFragmentData__asEditRouteSuccess({
+    String G__typename = 'EditRouteSuccess',
+    this.refinementError,
+    required this.trip,
+  }) : super(G__typename: G__typename);
+
+  factory GEditRoutePayloadFragmentData__asEditRouteSuccess.fromJson(
+      Map<String, dynamic> json) {
+    return GEditRoutePayloadFragmentData__asEditRouteSuccess(
+      G__typename: (json['__typename'] as String),
+      refinementError: json['refinementError'] == null
+          ? null
+          : _i1.GRefinementError.fromJson((json['refinementError'] as String)),
+      trip:
+          GTripRouteFieldsData.fromJson((json['trip'] as Map<String, dynamic>)),
+    );
+  }
+
+  final _i1.GRefinementError? refinementError;
+
+  final GTripRouteFieldsData trip;
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    final _$refinementErrorValue = this.refinementError;
+    _$result['refinementError'] =
+        _$refinementErrorValue == null ? null : _$refinementErrorValue.toJson();
+    _$result['trip'] = this.trip.toJson();
+    return _$result;
+  }
+
+  GEditRoutePayloadFragmentData__asEditRouteSuccess copyWith({
+    String? G__typename,
+    _i1.GRefinementError? refinementError,
+    bool refinementErrorIsSet = false,
+    GTripRouteFieldsData? trip,
+  }) {
+    return GEditRoutePayloadFragmentData__asEditRouteSuccess(
       G__typename: G__typename ?? this.G__typename,
+      refinementError: refinementError != null || refinementErrorIsSet
+          ? refinementError
+          : this.refinementError,
+      trip: trip ?? this.trip,
     );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GEditRoutePayloadFragmentData &&
-            refinementFailed == other.refinementFailed &&
-            errorMessage == other.errorMessage &&
-            trip == other.trip &&
+        (other is GEditRoutePayloadFragmentData__asEditRouteSuccess &&
+            G__typename == other.G__typename &&
+            refinementError == other.refinementError &&
+            trip == other.trip);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, G__typename, refinementError, trip);
+  }
+
+  @override
+  String toString() {
+    return 'GEditRoutePayloadFragmentData__asEditRouteSuccess(G__typename: $G__typename, refinementError: $refinementError, trip: $trip)';
+  }
+}
+
+class GEditRoutePayloadFragmentData__asEditRouteError
+    extends GEditRoutePayloadFragmentData
+    implements
+        GEditRoutePayloadFragment,
+        GEditRoutePayloadFragment__asEditRouteError {
+  GEditRoutePayloadFragmentData__asEditRouteError({
+    String G__typename = 'EditRouteError',
+    required this.code,
+    required this.message,
+  }) : super(G__typename: G__typename);
+
+  factory GEditRoutePayloadFragmentData__asEditRouteError.fromJson(
+      Map<String, dynamic> json) {
+    return GEditRoutePayloadFragmentData__asEditRouteError(
+      G__typename: (json['__typename'] as String),
+      code: _i1.GRouteEditErrorCode.fromJson((json['code'] as String)),
+      message: (json['message'] as String),
+    );
+  }
+
+  final _i1.GRouteEditErrorCode code;
+
+  final String message;
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    _$result['code'] = this.code.toJson();
+    _$result['message'] = this.message;
+    return _$result;
+  }
+
+  GEditRoutePayloadFragmentData__asEditRouteError copyWith({
+    String? G__typename,
+    _i1.GRouteEditErrorCode? code,
+    String? message,
+  }) {
+    return GEditRoutePayloadFragmentData__asEditRouteError(
+      G__typename: G__typename ?? this.G__typename,
+      code: code ?? this.code,
+      message: message ?? this.message,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GEditRoutePayloadFragmentData__asEditRouteError &&
+            G__typename == other.G__typename &&
+            code == other.code &&
+            message == other.message);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, G__typename, code, message);
+  }
+
+  @override
+  String toString() {
+    return 'GEditRoutePayloadFragmentData__asEditRouteError(G__typename: $G__typename, code: $code, message: $message)';
+  }
+}
+
+class GEditRoutePayloadFragmentData__unknown
+    extends GEditRoutePayloadFragmentData implements GEditRoutePayloadFragment {
+  GEditRoutePayloadFragmentData__unknown({required String G__typename})
+      : super(G__typename: G__typename);
+
+  factory GEditRoutePayloadFragmentData__unknown.fromJson(
+      Map<String, dynamic> json) {
+    return GEditRoutePayloadFragmentData__unknown(
+        G__typename: (json['__typename'] as String));
+  }
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    return _$result;
+  }
+
+  GEditRoutePayloadFragmentData__unknown copyWith({String? G__typename}) {
+    return GEditRoutePayloadFragmentData__unknown(
+        G__typename: G__typename ?? this.G__typename);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GEditRoutePayloadFragmentData__unknown &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, refinementFailed, errorMessage, trip, G__typename);
+    return Object.hash(runtimeType, G__typename);
   }
 
   @override
   String toString() {
-    return 'GEditRoutePayloadFragmentData(refinementFailed: $refinementFailed, errorMessage: $errorMessage, trip: $trip, G__typename: $G__typename)';
+    return 'GEditRoutePayloadFragmentData__unknown(G__typename: $G__typename)';
   }
 }

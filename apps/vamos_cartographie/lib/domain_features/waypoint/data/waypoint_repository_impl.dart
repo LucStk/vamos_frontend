@@ -2,11 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 import "package:latlong2/latlong.dart";
-
-import '../../topology/data/mappers/vertex_mappers.dart';
-import '/core/erreur_handler.dart';
-import 'mappers/mappers.dart';
-import 'waypoint_remote_datasource.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/waypoint.dart';
 
 class WaypointRepositoryImpl extends WaypointRepository {
   final WaypointRemoteDatasource remote;
@@ -24,32 +21,16 @@ class WaypointRepositoryImpl extends WaypointRepository {
   }
 
   @override
-  Future<Either<Failure, WaypointCreateBlankRes>>
-  createBlankWaypointFromPosition(Id<Trip> tripId, LatLng latLng) {
+  Future<Either<Failure, WaypointRemoteModel>> createBlankWaypoint({
+    required TripId tripId,
+    required LatLng latLng,
+  }) {
     return guard(() async {
       final gqlResult = await remote.createBlankWaypointFromPosition(
         tripId: tripId,
         latLng: latLng,
       );
-      final createWaypoint = gqlResult.waypoint.toDomain();
-      final waypointVertex = gqlResult.waypoint.toDomain();
-      return WaypointCreateBlankRes(createWaypoint, waypointVertex);
-    });
-  }
-
-  @override
-  Future<Either<Failure, WaypointCreateBlankRes>> createBlankWaypointFromVertex(
-    Id<Trip> tripId,
-    WaypointId vertexId,
-  ) {
-    return guard(() async {
-      final gqlResult = await remote.createBlankWaypointFromVertex(
-        tripId: tripId,
-        vertexId: vertexId,
-      );
-      final createWaypoint = gqlResult.waypoint.toDomain();
-      final waypointVertex = gqlResult.waypoint.toDomain();
-      return WaypointCreateBlankRes(createWaypoint, waypointVertex);
+      return gqlResult.toDomain();
     });
   }
 

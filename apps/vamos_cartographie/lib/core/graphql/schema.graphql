@@ -43,10 +43,16 @@ input DrawRouteInput {
   basedOn: DateTime = null
 }
 
-type EditRoutePayload {
+type EditRouteError {
+  code: RouteEditErrorCode!
+  message: String!
+}
+
+union EditRoutePayload = EditRouteSuccess | EditRouteError
+
+type EditRouteSuccess {
   trip: TripType!
-  refinementFailed: Boolean!
-  errorMessage: String
+  refinementError: RefinementError
 }
 
 input ExtendRouteInput {
@@ -164,9 +170,22 @@ input RedrawRouteInput {
   basedOn: DateTime = null
 }
 
+enum RefinementError {
+  ROUTER_UNAVAILABLE
+  NO_ROUTE_FOUND
+  EMPTY_ROUTE
+}
+
 input RouteAnchorInput {
   sectionId: UUID!
   point: LatLngInput!
+}
+
+enum RouteEditErrorCode {
+  STALE_ROUTE
+  INVALID_ANCHOR
+  INVALID_EDIT
+  TRIP_NOT_FOUND
 }
 
 type RouteSectionType {
@@ -231,9 +250,9 @@ type WaypointType {
   title: String!
   description: String!
   poiCategory: PoiCategory!
-  location: Point!
   anchorEdge: Int
   anchorOffset: Float!
+  location: LatLngType!
   files: [FileAttachmentType!]!
 }
 

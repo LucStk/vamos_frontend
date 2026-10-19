@@ -1,12 +1,11 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import '../../topology/data/graphql/graphql.dart';
-import '/core/graphql/graphql.dart';
-import '/core/network/network.dart';
 import 'package:ferry/ferry.dart';
 import 'package:latlong2/latlong.dart';
-
-import 'graphql/graphql.dart';
+import 'package:vamos_cartographie/core/graphql/graphql.dart';
+import 'package:vamos_cartographie/core/network/ferry_client_x.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/waypoint.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/graphql.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le ferryClient Ferry (GraphQL).
@@ -17,40 +16,6 @@ class WaypointRemoteDatasource {
 
   WaypointRemoteDatasource(this.ferryClient);
 
-  /// Create a waypoint at the given location.
-  /// This is typically done before creating a waypoint.
-  Future<GVertexFields> createVertex({
-    required Id<Trip> tripId,
-    required LatLng latLng,
-  }) async {
-    final data = await ferryClient.execute(
-      GCreateVertexReq(
-        vars: GCreateVertexVars(
-          tripId: tripId.value,
-          latLng: GLatLngInput(lat: latLng.latitude, lng: latLng.longitude),
-        ),
-      ),
-    );
-    return data.createVertex;
-  }
-
-  /// Move a waypoint to a new location.
-  /// This is typically used when updating a waypoint's position.
-  Future<GVertexFields> moveVertex({
-    required WaypointId vertexId,
-    required LatLng latLng,
-  }) async {
-    final data = await ferryClient.execute(
-      GMoveVertexReq(
-        vars: GMoveVertexVars(
-          id: vertexId.value,
-          latLng: GLatLngInput(lat: latLng.latitude, lng: latLng.longitude),
-        ),
-      ),
-    );
-    return data.moveVertex;
-  }
-
   Future<List<GWaypointFields>> getWaypoints({required Id<Trip> tripId}) async {
     final data = await ferryClient.execute(
       GGetWaypointsReq(vars: GGetWaypointsVars(tripId: tripId.value)),
@@ -58,22 +23,7 @@ class WaypointRemoteDatasource {
     return data.trip.waypoints;
   }
 
-  Future<GCreateWaypointPayloadFields> createBlankWaypointFromVertex({
-    required Id<Trip> tripId,
-    required WaypointId vertexId,
-  }) async {
-    final data = await ferryClient.execute(
-      GCreateBlankWaypointFromVertexReq(
-        vars: GCreateBlankWaypointFromVertexVars(
-          tripId: tripId.value,
-          vertexId: vertexId.value,
-        ),
-      ),
-    );
-    return data.createBlankWaypointFromVertex;
-  }
-
-  Future<GCreateWaypointPayloadFields> createBlankWaypointFromPosition({
+  Future<GWaypointFields> createBlankWaypointFromPosition({
     required Id<Trip> tripId,
     required LatLng latLng,
   }) async {
@@ -102,7 +52,7 @@ class WaypointRemoteDatasource {
 
   Future<void> deleteWaypoint({required WaypointId id}) async {
     await ferryClient.execute(
-      GDeleteWaypointReq(vars: GDeleteWaypointVars(waypointId: id.value)),
+      GDeleteWaypointReq(vars: GDeleteWaypointVars(id: id.value)),
     );
   }
 }

@@ -202,28 +202,45 @@ const EditRoutePayloadFragment = _i1.FragmentDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'refinementFailed'),
+      name: _i1.NameNode(value: '__typename'),
       alias: null,
       arguments: [],
       directives: [],
       selectionSet: null,
     ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'errorMessage'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'trip'),
-      alias: null,
-      arguments: [],
+    _i1.InlineFragmentNode(
+      typeCondition: _i1.TypeConditionNode(
+          on: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'EditRouteSuccess'),
+        isNonNull: false,
+      )),
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripRouteFields'),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'refinementError'),
+          alias: null,
+          arguments: [],
           directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'trip'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'TripRouteFields'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
         ),
         _i1.FieldNode(
           name: _i1.NameNode(value: '__typename'),
@@ -234,12 +251,36 @@ const EditRoutePayloadFragment = _i1.FragmentDefinitionNode(
         ),
       ]),
     ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
+    _i1.InlineFragmentNode(
+      typeCondition: _i1.TypeConditionNode(
+          on: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'EditRouteError'),
+        isNonNull: false,
+      )),
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'code'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'message'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
   ]),
 );

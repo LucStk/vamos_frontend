@@ -658,6 +658,39 @@ class GRedrawRouteInput {
   }
 }
 
+enum GRefinementError {
+  ROUTER_UNAVAILABLE,
+  NO_ROUTE_FOUND,
+  EMPTY_ROUTE,
+  gUnknownEnumValue;
+
+  static GRefinementError fromJson(String value) {
+    switch (value) {
+      case r'ROUTER_UNAVAILABLE':
+        return GRefinementError.ROUTER_UNAVAILABLE;
+      case r'NO_ROUTE_FOUND':
+        return GRefinementError.NO_ROUTE_FOUND;
+      case r'EMPTY_ROUTE':
+        return GRefinementError.EMPTY_ROUTE;
+      default:
+        return GRefinementError.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GRefinementError.ROUTER_UNAVAILABLE:
+        return r'ROUTER_UNAVAILABLE';
+      case GRefinementError.NO_ROUTE_FOUND:
+        return r'NO_ROUTE_FOUND';
+      case GRefinementError.EMPTY_ROUTE:
+        return r'EMPTY_ROUTE';
+      case GRefinementError.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 class GRouteAnchorInput {
   const GRouteAnchorInput({
     required this.sectionId,
@@ -709,6 +742,44 @@ class GRouteAnchorInput {
   @override
   String toString() {
     return 'GRouteAnchorInput(sectionId: $sectionId, point: $point)';
+  }
+}
+
+enum GRouteEditErrorCode {
+  STALE_ROUTE,
+  INVALID_ANCHOR,
+  INVALID_EDIT,
+  TRIP_NOT_FOUND,
+  gUnknownEnumValue;
+
+  static GRouteEditErrorCode fromJson(String value) {
+    switch (value) {
+      case r'STALE_ROUTE':
+        return GRouteEditErrorCode.STALE_ROUTE;
+      case r'INVALID_ANCHOR':
+        return GRouteEditErrorCode.INVALID_ANCHOR;
+      case r'INVALID_EDIT':
+        return GRouteEditErrorCode.INVALID_EDIT;
+      case r'TRIP_NOT_FOUND':
+        return GRouteEditErrorCode.TRIP_NOT_FOUND;
+      default:
+        return GRouteEditErrorCode.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GRouteEditErrorCode.STALE_ROUTE:
+        return r'STALE_ROUTE';
+      case GRouteEditErrorCode.INVALID_ANCHOR:
+        return r'INVALID_ANCHOR';
+      case GRouteEditErrorCode.INVALID_EDIT:
+        return r'INVALID_EDIT';
+      case GRouteEditErrorCode.TRIP_NOT_FOUND:
+        return r'TRIP_NOT_FOUND';
+      case GRouteEditErrorCode.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
   }
 }
 
@@ -981,5 +1052,9 @@ const Map<String, Set<String>> possibleTypesMap = {
   'CreateProfileResult': {
     'CreateProfileSuccess',
     'CreateProfileError',
-  }
+  },
+  'EditRoutePayload': {
+    'EditRouteSuccess',
+    'EditRouteError',
+  },
 };

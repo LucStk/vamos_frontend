@@ -9,10 +9,7 @@ abstract class WaypointRepository {
     required TripId tripId,
     required LatLng latLng,
   });
-  Future<Either<Failure, WaypointRemoteModel>> moveWaypoint({
-    required WaypointId waypointId,
-    required LatLng latLng,
-  });
+
   Future<Either<Failure, List<WaypointRemoteModel>>> getWaypoints(TripId id);
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointRemoteModel waypoint,

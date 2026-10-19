@@ -4,8 +4,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:gql/ast.dart' as _i1;
-import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
     as _i2;
+import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
+    as _i3;
 
 const WaypointFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'WaypointFields'),
@@ -63,7 +65,19 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'LatLngFields'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'files'),
@@ -95,7 +109,8 @@ const WaypointFields = _i1.FragmentDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   WaypointFields,
-  _i2.StoredFile,
-  _i2.FileAttachment,
-  _i2.UploadConfigFields,
+  _i2.LatLngFields,
+  _i3.StoredFile,
+  _i3.FileAttachment,
+  _i3.UploadConfigFields,
 ]);

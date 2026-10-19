@@ -3,12 +3,14 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i2;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
-    as _i2;
+    as _i3;
 
 abstract class GWaypointFields {
   String get id;
@@ -17,8 +19,8 @@ abstract class GWaypointFields {
   _i1.GPoiCategory get poiCategory;
   String get title;
   String get description;
-  Object get location;
-  List<_i2.GFileAttachment> get files;
+  _i2.GLatLngFields get location;
+  List<_i3.GFileAttachment> get files;
   String get G__typename;
 }
 
@@ -44,10 +46,11 @@ class GWaypointFieldsData implements GWaypointFields {
       poiCategory: _i1.GPoiCategory.fromJson((json['poiCategory'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
-      location: (json['location'] as Object),
+      location: _i2.GLatLngFieldsData.fromJson(
+          (json['location'] as Map<String, dynamic>)),
       files: (json['files'] as List<dynamic>)
           .map((_$e) =>
-              _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
+              _i3.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -65,9 +68,9 @@ class GWaypointFieldsData implements GWaypointFields {
 
   final String description;
 
-  final Object location;
+  final _i2.GLatLngFieldsData location;
 
-  final List<_i2.GFileAttachmentData> files;
+  final List<_i3.GFileAttachmentData> files;
 
   final String G__typename;
 
@@ -81,7 +84,7 @@ class GWaypointFieldsData implements GWaypointFields {
     _$result['poiCategory'] = this.poiCategory.toJson();
     _$result['title'] = this.title;
     _$result['description'] = this.description;
-    _$result['location'] = this.location;
+    _$result['location'] = this.location.toJson();
     _$result['files'] = this.files.map((_$e) => _$e.toJson()).toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
@@ -95,8 +98,8 @@ class GWaypointFieldsData implements GWaypointFields {
     _i1.GPoiCategory? poiCategory,
     String? title,
     String? description,
-    Object? location,
-    List<_i2.GFileAttachmentData>? files,
+    _i2.GLatLngFieldsData? location,
+    List<_i3.GFileAttachmentData>? files,
     String? G__typename,
   }) {
     return GWaypointFieldsData(
