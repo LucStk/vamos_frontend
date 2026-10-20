@@ -17,12 +17,12 @@ class TripDetailsRes {
   });
 }
 
-class CreateSegmentPayload {
-  final RouteSectionRemoteModel segment;
+class CreateRoutePayload {
+  final RouteSectionRemoteModel section;
   final bool rafinementFailed;
   final String? errorMessage;
-  CreateSegmentPayload({
-    required this.segment,
+  CreateRoutePayload({
+    required this.section,
     required this.rafinementFailed,
     this.errorMessage,
   });

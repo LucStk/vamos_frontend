@@ -1,21 +1,20 @@
 import 'package:domain_core/space/offset_type.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:map_canvas/map_canvas.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/waypoint_style.dart';
 
-import 'vertex_style.dart';
-
-final class VertexItem extends PointItem {
-  VertexItem({
+final class WaypointItem extends PointItem {
+  WaypointItem({
     required this.object,
     required this.worldPosition,
-    this.visualKind = VertexVisualKind.normal,
+    this.visualKind = WaypointVisualKind.normal,
   });
 
   @override
   final MapWaypoint object;
   @override
   final WorldOffset worldPosition;
-  final VertexVisualKind visualKind;
+  final WaypointVisualKind visualKind;
 
   /// Rayon du disque affiché (avant `look.scale`).
   @override
@@ -27,9 +26,9 @@ final class VertexItem extends PointItem {
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
-  }) => VertexStyle.build(
+  }) => WaypointStyle.build(
     worldPosition,
-    VertexStyle.of(visualKind).resolve(context),
+    WaypointStyle.of(visualKind).resolve(context),
     radius: visualRadius,
   );
 }

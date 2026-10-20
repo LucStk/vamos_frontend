@@ -190,7 +190,7 @@ final class AllWaypointIdsProvider
   }) : super(
          retry: null,
          name: r'allWaypointIdsProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -235,7 +235,7 @@ final class AllWaypointIdsProvider
   }
 }
 
-String _$allWaypointIdsHash() => r'4d9715f6fe92ae8547b37b3cd20f7645c9455cda';
+String _$allWaypointIdsHash() => r'cc7e766973fe1ff749e5efe6644d7dc0931c8de1';
 
 final class AllWaypointIdsFamily extends $Family
     with $FunctionalFamilyOverride<List<WaypointId>, TripId> {
@@ -245,7 +245,7 @@ final class AllWaypointIdsFamily extends $Family
         name: r'allWaypointIdsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   AllWaypointIdsProvider call(TripId tripId) =>

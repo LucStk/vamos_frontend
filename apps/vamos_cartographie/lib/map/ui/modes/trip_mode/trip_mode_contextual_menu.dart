@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
 import 'package:vamos_cartographie/map/mode/mode_scope.dart';
-import 'package:vamos_cartographie/map/ui/features/waypoint/menu/vertex_menu.dart';
+import 'package:vamos_cartographie/map/ui/features/waypoint/menu/waypoint_menu.dart';
 
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
 
@@ -31,11 +31,11 @@ class TripModeContextualMenu extends ConsumerWidget {
     }
 
     return switch (placement.overlay) {
-      VertexMenu _ => WorldPositioned(
+      WaypointMenu _ => WorldPositioned(
         offset: Offset(0, -50),
         worldOffset: placement.world,
         alignment: Alignment.bottomCenter,
-        child: VertexMenuWidget(
+        child: WaypointMenuWidget(
           createFrom: () {},
           drawFrom: () {},
           delete: onDelete,

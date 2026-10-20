@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 
-class VertexMenuWidget extends StatelessWidget {
-  const VertexMenuWidget({
+class WaypointMenuWidget extends StatelessWidget {
+  const WaypointMenuWidget({
     super.key,
     required this.drawFrom,
     required this.createFrom,

@@ -3,12 +3,10 @@ import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
-import '/core/erreur_handler.dart';
-import '../../stored_file/data/mappers/stored_file_mappers.dart';
-import '../../user_profile/data/data.dart';
-import '../../waypoint/data/mappers/mappers.dart';
-import 'trip_mappers.dart';
-import 'trip_remote_datasource.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
+import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
+import 'package:vamos_cartographie/domain_features/trip/data/trip_mappers.dart';
+import 'package:vamos_cartographie/domain_features/trip/data/trip_remote_datasource.dart';
 
 class TripRepositoryImpl extends TripRepository {
   TripRepositoryImpl(this.remote);
@@ -33,9 +31,8 @@ class TripRepositoryImpl extends TripRepository {
       return response.trips.map((gqlTrip) {
         final trip = gqlTrip.toTripDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
-        final topology = gqlTrip.topology.toDomain();
         final userProfile = gqlTrip.owner.toUserProfileModel();
-        return (trip, userProfile, images, topology);
+        return (trip, userProfile, images);
       }).toList();
     });
   }
@@ -46,7 +43,7 @@ class TripRepositoryImpl extends TripRepository {
     return guard(() async {
       final response = await remote.getMeTrips();
       return response.meTrips.map((gqlTrip) {
-        final trip = gqlTrip.toDomain();
+        final trip = gqlTrip.toTripDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
         return (trip, images);
       }).toList();

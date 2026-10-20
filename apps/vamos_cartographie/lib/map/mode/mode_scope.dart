@@ -1,8 +1,10 @@
 // injection/app_scope.dart
 import 'package:map_engine/map_engine.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/providers/route_store.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
@@ -32,7 +34,8 @@ final class _ExploreScope implements ExploreScope {
   final Ref ref;
 
   @override
-  Trip? getTrip(TripId tripId) => ref.read(tripProvider(tripId));
+  RouteFields? getRoute(TripId tripId) =>
+      ref.read(routeStoreProvider(tripId).select((s) => s.route?.current));
 }
 
 @Riverpod(keepAlive: true, dependencies: [mapCamera, cameraDirector, mapMode])
@@ -49,7 +52,7 @@ TripEditScope tripEditScope(Ref ref) {
     director: ref.watch(cameraDirectorProvider),
     camera: ref.watch(mapCameraProvider),
     tripId: tripId,
-    graphEditor: ref.read(graphStoreProvider(tripId).notifier),
+    routeEditor: ref.read(routeStoreProvider(tripId).notifier),
     waypointEditor: ref.read(waypointStoreProvider(tripId).notifier),
   );
 }
@@ -59,7 +62,7 @@ final class _TripEditScope implements TripEditScope {
     required this.director,
     required this.camera,
     required this.tripId,
-    required this.graphEditor,
+    required this.routeEditor,
     required this.waypointEditor,
   });
 
@@ -73,7 +76,7 @@ final class _TripEditScope implements TripEditScope {
   final TripId tripId;
 
   @override
-  final GraphEditor graphEditor;
+  final RouteEditor routeEditor;
 
   @override
   final WaypointEditor waypointEditor;

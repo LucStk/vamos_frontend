@@ -3,9 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:trip_application/topology/domain/domain.dart';
-import 'package:trip_application/trip/domain/domain.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/modes/trip_mode/widgets/widgets.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/simple_bottom_sheet_shell.dart';

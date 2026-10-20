@@ -5,6 +5,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/waypoint_item.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/waypoint_style.dart';
 
 part 'waypoint_item_provider.g.dart';
 
@@ -20,39 +22,29 @@ WaypointVisualKind _visualKind(WaypointFields? waypoint) {
   };
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
-({LatLng position, WaypointVisualKind kind}) vertexData(
-  Ref ref,
-  TripId tripId,
-  WaypointId vertexId,
-) {
-  final wId = ref.watch(waypointFromVertexProvider(tripId, vertexId));
-  final w = wId != null ? ref.watch(waypointProvider(tripId, wId)) : null;
-  final position = ref.watch(
-    vertexProvider(tripId, vertexId).select((v) => v.latLng),
-  );
-  return (position: position, kind: _visualKind(w));
-}
-
-@Riverpod(keepAlive: true, dependencies: [vertexData])
-WaypointItem vertexItem(
+@Riverpod(keepAlive: true)
+WaypointItem waypointItem(
   Ref ref,
   TripId tripId,
   WaypointId id,
   MapCameraReader cameraReader,
 ) {
-  final d = ref.watch(vertexDataProvider(tripId, id));
+  final d = ref.watch(waypointProvider(tripId, id));
   return WaypointItem(
     worldPosition: cameraReader.latLngToWorldOffset(d.position),
     object: MapWaypoint(tripId: tripId, id: id),
-    visualKind: d.kind,
+    visualKind: _visualKind(d),
   );
 }
 
-@Riverpod(keepAlive: true, dependencies: [vertexItem])
-List<PointItem> allVertexItem(Ref ref, TripId tripId, MapCameraReader camera) {
+@Riverpod(keepAlive: true, dependencies: [waypointItem])
+List<PointItem> allWaypointItem(
+  Ref ref,
+  TripId tripId,
+  MapCameraReader camera,
+) {
   return [
-    for (final id in ref.watch(allVertexIdsProvider(tripId)))
-      ref.watch(vertexItemProvider(tripId, id, camera)),
+    for (final id in ref.watch(allWaypointIdsProvider(tripId)))
+      ref.watch(waypointItemProvider(tripId, id, camera)),
   ];
 }

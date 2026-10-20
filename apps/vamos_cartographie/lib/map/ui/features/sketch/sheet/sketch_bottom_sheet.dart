@@ -1,7 +1,7 @@
 // Emplacement suggéré : lib/features/waypoint/widgets/waypoint_viewer_bottom_sheet.dart
 
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import 'package:vamos_cartographie/domain_features/trip/presentation/presentation.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
 

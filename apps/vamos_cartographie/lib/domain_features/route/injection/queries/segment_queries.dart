@@ -31,7 +31,7 @@ RouteSectionFields segment(Ref ref, TripId tripId, SectionId id) {
 
 @Riverpod(keepAlive: true)
 List<RouteSectionFields> allSegments(Ref ref, TripId tripId) {
-  final store = ref.watch(segmentStoreProvider(tripId));
+  final store = ref.watch(routeStoreProvider(tripId));
   return store.store.values.map((s) => s.current).toList();
 }
 

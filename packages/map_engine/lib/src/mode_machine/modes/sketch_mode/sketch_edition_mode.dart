@@ -15,37 +15,37 @@ class SketchEdition extends TripMode with SketchMode {
   };
 
   @override
-  Transition<AppMode> onDragEnd(DragEndGesture g) =>
-      Transition.withSlot(sketchTraceSlot, (trace) {
-        final points = trace.points;
-
-        final Transition<AppMode> correct = Transition.run(
-          CorrectSegmentFromSketch(segmentId: segmentId, correction: points),
-          then: (current, done) {
-            final editor = current.modeAs<SketchMode>();
-            if (editor == null) return null;
-            return Transition.to(TripViewMode(editor.tripId));
-          },
-        );
-
-        if (g.dragged is MapSketchPencil) return correct;
-
-        return switch (g.target) {
-          MapSegment s when s.id == segmentId => correct,
-          TopologyObject s => Transition.run(
-            SpliceSegment(
-              segmentId: segmentId,
-              correction: points,
-              startAnchor: SegmentAnchor(segmentId),
-              endAnchor: s.anchor,
-            ),
-            then: (current, done) {
-              final editor = current.modeAs<SketchMode>();
-              if (editor == null) return null;
-              return Transition.to(TripEditMode(editor.tripId));
-            },
-          ),
-          _ => Transition.stay(),
-        };
-      });
+  Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.stay();
+  //       Transition.withSlot(sketchTraceSlot, (trace) {
+  //         final points = trace.points;
+  //
+  //         final Transition<AppMode> correct = Transition.run(
+  //           CorrectSegmentFromSketch(segmentId: segmentId, correction: points),
+  //           then: (current, done) {
+  //             final editor = current.modeAs<SketchMode>();
+  //             if (editor == null) return null;
+  //             return Transition.to(TripViewMode(editor.tripId));
+  //           },
+  //         );
+  //
+  //         if (g.dragged is MapSketchPencil) return correct;
+  //
+  //         return switch (g.target) {
+  //           MapSegment s when s.id == segmentId => correct,
+  //           TopologyObject s => Transition.run(
+  //             SpliceSegment(
+  //               segmentId: segmentId,
+  //               correction: points,
+  //               startAnchor: RouteAnchor(id: segmentId),
+  //               endAnchor: s.anchor,
+  //             ),
+  //             then: (current, done) {
+  //               final editor = current.modeAs<SketchMode>();
+  //               if (editor == null) return null;
+  //               return Transition.to(TripEditMode(editor.tripId));
+  //             },
+  //           ),
+  //           _ => Transition.stay(),
+  //         };
+  // });
 }

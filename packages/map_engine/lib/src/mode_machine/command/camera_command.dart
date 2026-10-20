@@ -1,8 +1,8 @@
 import 'package:domain_core/space/offset_type.dart';
 import 'package:map_engine/src/domain/camera/camera_request.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
+import 'package:map_engine/src/mode_machine/command/effect/results.dart';
 import 'package:map_engine/src/mode_machine/command/scopes.dart';
-import 'package:map_engine/src/mode_machine/effect/results.dart';
 
 abstract class CameraCommand extends Command<Done, CommonScope> {
   const CameraCommand();

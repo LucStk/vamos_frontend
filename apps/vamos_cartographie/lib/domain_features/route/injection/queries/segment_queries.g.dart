@@ -244,7 +244,7 @@ final class AllSegmentsProvider
   }
 }
 
-String _$allSegmentsHash() => r'49d0cceffc791cc7c879e295a46eee77fab2ae43';
+String _$allSegmentsHash() => r'c8817540c481f26a3712a3525a9757c721e2e4ab';
 
 final class AllSegmentsFamily extends $Family
     with $FunctionalFamilyOverride<List<RouteSectionFields>, TripId> {

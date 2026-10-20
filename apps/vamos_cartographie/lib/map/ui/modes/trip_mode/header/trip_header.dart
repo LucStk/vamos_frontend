@@ -1,4 +1,4 @@
-import "package:domain_core/failures/failures.dart";
+import "package:domain_core/domain_core.dart";
 import "package:flutter/material.dart";
 import "package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart";
 

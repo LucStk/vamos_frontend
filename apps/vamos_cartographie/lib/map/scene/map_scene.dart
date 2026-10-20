@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/map/scene/items/localization/localization_ite
 import 'package:vamos_cartographie/map/scene/items/segment/segment_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/items/sketch_segment/sketch_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/items/trip/trip_item_provider.dart';
-import 'package:vamos_cartographie/map/scene/items/waypoint/vertex_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/waypoint_item_provider.dart';
 
 part 'map_scene.g.dart';
 
@@ -34,7 +34,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
       items.addAll(ref.watch(allSketchItemProvider(camera)));
 
     case TripMode e:
-      items.addAll(ref.watch(allVertexItemProvider(e.tripId, camera)));
+      items.addAll(ref.watch(allWaypointItemProvider(e.tripId, camera)));
       items.addAll(ref.watch(allSegmentItemProvider(e.tripId, camera)));
   }
 

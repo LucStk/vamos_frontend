@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:domain_core/failures/failures.dart';
+import 'package:domain_core/domain_core.dart';
 
 class InlineEditableText extends StatefulWidget {
   const InlineEditableText({

@@ -1,9 +1,8 @@
-import '../command/command.dart';
-import '../mode.dart';
-import '../mode_state.dart';
-import '../transition.dart';
-
-import 'handler_registry.dart';
+import 'package:map_engine/src/mode_machine/command/command.dart';
+import 'package:map_engine/src/mode_machine/command/effect/handler_registry.dart';
+import 'package:map_engine/src/mode_machine/mode.dart';
+import 'package:map_engine/src/mode_machine/mode_state.dart';
+import 'package:map_engine/src/mode_machine/transition.dart';
 
 final class PendingRun<M extends Mode<M>> {
   const PendingRun._(this._execute);

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import '/domain_features/domain_features.dart';
-import '/ui_kit/ui_kit.dart';
+import 'package:vamos_cartographie/domain_features/trip/presentation/presentation.dart';
+import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
 
 class SegmentEditor extends ConsumerStatefulWidget {
   final RouteSectionFields initialSegment;

@@ -31,7 +31,7 @@ class SketchCreation extends TripMode with SketchMode {
     return Transition.withSlot(sketchTraceSlot, (trace) {
       return switch (g.target) {
         MapWaypoint _ => Transition.run(
-          CreateSegmentFromSketch(
+          CreateSegment(
             geometry: trace.points,
             mobilityType: trace.mobilityType,
           ),

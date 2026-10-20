@@ -2,8 +2,8 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/selection.dart';
-import 'package:map_engine/src/mode_machine/command/vertex_command.dart';
 import 'package:map_engine/src/mode_machine/app_mode.dart';
+import 'package:map_engine/src/mode_machine/command/waypoint_command.dart';
 import 'package:map_engine/src/mode_machine/overlay/context_menu.dart';
 import 'package:map_engine/src/mode_machine/overlay/menu_anchor.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
@@ -17,7 +17,7 @@ class MapPointMenu extends ContextMenuOverlay<AppMode> {
   MenuAnchor get anchor => GeoAnchor(at);
 
   Transition<AppMode> createVertex() => Transition.run(
-    CreateSimpleVertex(at),
+    CreateWaypoint(at),
     then: (current, WaypointId id) {
       final editor = current.modeAs<TripEditMode>();
       if (editor == null) return null;

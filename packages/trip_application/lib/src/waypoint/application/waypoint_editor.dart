@@ -8,7 +8,7 @@ import 'package:trip_application/src/waypoint/domain/domain.dart';
 mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   WaypointRepository get waypointRepo;
   TripId get tripId;
-  Future<Either<Failure, WaypointRemoteModel>> createSimpleVertex(
+  Future<Either<Failure, WaypointRemoteModel>> createBlankWaypoint(
     LatLng latLng,
   ) async {
     return await run(

@@ -1,5 +1,4 @@
 // command/scopes.dart
-import 'package:domain_core/domain/collection_store.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -16,23 +15,19 @@ abstract interface class WaypointScope implements CommonScope {
   WaypointEditor get waypointEditor;
 }
 
-abstract interface class TopologyScope implements CommonScope {
-  GraphEditor get graphEditor;
-}
-
-extension TopologyScopeX on TopologyScope {
-  RouteSectionFields? segment(SectionId id) =>
-      graphEditor.state.sectionStore.get(id)?.current;
-  WaypointFields? waypoint(WaypointId id) =>
-      graphEditor.state.vertexStore.get(id)?.current;
-}
+// extension TopologyScopeX on TopologyScope {
+//   RouteSectionFields? segment(SectionId id) =>
+//       routeEditor.state.sectionStore.get(id)?.current;
+//   WaypointFields? waypoint(WaypointId id) =>
+//       waypointEditor.waypointStore.get(id)?.current;
+// }
 
 // --- Scopes de mode : un par mode de AppMode ---
 abstract interface class ExploreScope implements CommonScope {
-  Trip? getTrip(TripId tripId);
+  RouteFields? getRoute(TripId tripId);
 }
 
-abstract interface class TripEditScope
-    implements CommonScope, TopologyScope, WaypointScope {
+abstract interface class TripEditScope implements CommonScope, WaypointScope {
+  RouteEditor get routeEditor;
   TripId get tripId;
 }

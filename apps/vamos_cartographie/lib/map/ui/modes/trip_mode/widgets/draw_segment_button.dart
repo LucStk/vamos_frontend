@@ -24,8 +24,8 @@ class DrawSegmentButton extends ConsumerWidget {
       onPressed: () => editor.apply(
         Transition.withSlot(selectionSlot, (s) {
           if (s is! MapWaypoint) return null;
-          final v = ref.read(vertexProvider(tripId, s.id));
-          return s.startSketch(v.latLng);
+          final v = ref.read(waypointProvider(tripId, s.id));
+          return s.startSketch(v.position);
         }),
       ),
       icon: const Icon(Icons.draw_outlined, size: 16),

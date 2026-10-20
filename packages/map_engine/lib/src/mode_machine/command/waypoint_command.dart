@@ -1,29 +1,37 @@
-import 'package:latlong2/latlong.dart';
-import 'package:trip_application/topology/domain/entities/vertex_model.dart';
-
-import '../effect/results.dart';
-import 'command.dart';
-import 'scopes.dart';
+import 'package:domain_core/space/offset_type.dart';
+import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/src/mode_machine/command/command.dart';
+import 'package:map_engine/src/mode_machine/command/effect/results.dart';
+import 'package:trip_application/trip_application.dart';
 
 sealed class WaypointCommand<R extends Object>
-    extends Command<R, WaypointScope> {
+    extends Command<R, TripEditScope> {
   const WaypointCommand();
 }
 
-final class CreateWaypointFromVertex extends WaypointCommand<Done> {
-  const CreateWaypointFromVertex(this.vertexId);
-  final WaypointId vertexId;
+final class CreateWaypoint extends WaypointCommand<WaypointId> {
+  const CreateWaypoint(this.position);
+  final OffsetType position;
 
   @override
-  Future<Done?> handle(WaypointScope h) =>
-      done(() => h.waypointEditor.createBlankWaypointFromVertex(vertexId));
+  Future<WaypointId?> handle(TripEditScope h) {
+    final latLng = switch (position) {
+      WorldOffset d => h.camera.worldOffsetToLatLng(d),
+      ScreenOffset d => h.camera.screenOffsetToLatLng(d),
+    };
+    return valueOrNull(
+      h.waypointEditor
+          .createBlankWaypoint(latLng)
+          .then((r) => r.map((v) => v.id)), // Either<Failure, WaypointId>
+    );
+  }
 }
 
-final class CreateWaypointFromPosition extends WaypointCommand<Done> {
-  const CreateWaypointFromPosition(this.position);
-  final LatLng position;
+final class RemoveWaypoint extends WaypointCommand<Done> {
+  const RemoveWaypoint(this.waypointId);
+  final WaypointId waypointId;
 
   @override
-  Future<Done?> handle(WaypointScope h) =>
-      done(() => h.waypointEditor.createBlankWaypointFromPosition(position));
+  Future<Done?> handle(TripEditScope h) =>
+      done(() => h.waypointEditor.deleteWaypoint(waypointId));
 }

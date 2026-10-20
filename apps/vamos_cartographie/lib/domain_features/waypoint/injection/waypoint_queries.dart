@@ -24,7 +24,7 @@ WaypointFields waypoint(Ref ref, TripId tripId, WaypointId id) {
   return ref.watch(waypointNodeProvider(tripId, id).select((s) => s.current));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 List<WaypointId> allWaypointIds(Ref ref, TripId tripId) {
   // Attention, ne fait pas de watch sur les StateNode<Vertex>
   return ref.watch(

@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/items/sketch_segment/sketch_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/items/waypoint/waypoint_item_provider.dart';
 
 part 'menu_placement.g.dart';
 
@@ -26,7 +27,7 @@ MenuPlacement? menuPlacement(Ref ref) {
   final WorldOffset? world = switch (overlay.anchor) {
     VertexAnchor(:final object) =>
       ref
-          .watch(vertexItemProvider(object.tripId, object.id, camera))
+          .watch(waypointItemProvider(object.tripId, object.id, camera))
           .worldPosition,
     PencilAnchor() => ref.watch(pencilItemProvider(camera))?.worldPosition,
     GeoAnchor(:final position) => position,

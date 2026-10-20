@@ -97,7 +97,7 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'd34062d04b239d97bc8cc8a78114c7ff6fb2cd92';
+String _$sceneItemsHash() => r'b1407ffa94b33ba15dbfcebd50cad52c8fd5be4b';
 
 /// Items de la scène, en coordonnées MONDE.
 ///

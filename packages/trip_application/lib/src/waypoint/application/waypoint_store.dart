@@ -4,9 +4,29 @@ import 'package:trip_application/src/waypoint/domain/domain.dart';
 class WaypointStore {
   final GraphCollectionStore<WaypointFields> waypointStore;
 
-  WaypointStore({required this.waypointStore});
+  const WaypointStore({required this.waypointStore});
 
-  WaypointStore.initial() : waypointStore = const GraphCollectionStore();
+  const WaypointStore.initial()
+    : waypointStore = const GraphCollectionStore<WaypointFields>();
+
+  /// Monte un store à partir de modèles confirmés par le serveur
+  /// (chargement d'un trip).
+  factory WaypointStore.fromRemote(Iterable<WaypointFields> waypoints) {
+    return WaypointStore(waypointStore: _storeOf(waypoints));
+  }
+
+  /// Remplace tout l'état local par celui renvoyé par le serveur.
+  /// Les waypoints absents de `waypoints` disparaissent du store.
+  WaypointStore replacedByServer(Iterable<WaypointFields> waypoints) {
+    return copyWith(waypointStore: _storeOf(waypoints));
+  }
+
+  static GraphCollectionStore<WaypointFields> _storeOf(
+    Iterable<WaypointFields> waypoints,
+  ) => waypoints.fold<GraphCollectionStore<WaypointFields>>(
+    const GraphCollectionStore<WaypointFields>(),
+    (store, waypoint) => store.setNode(waypoint),
+  );
 
   WaypointStore copyWith({
     GraphCollectionStore<WaypointFields>? waypointStore,
@@ -14,6 +34,8 @@ class WaypointStore {
     return WaypointStore(waypointStore: waypointStore ?? this.waypointStore);
   }
 }
+
+// WaypointStoreActions inchangé
 
 extension WaypointStoreActions on WaypointStore {
   WaypointStore insertWaypoint(WaypointFields state) {
