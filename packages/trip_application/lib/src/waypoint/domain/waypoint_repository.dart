@@ -3,6 +3,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/src/trip/domain/trip.dart';
 import 'package:trip_application/src/waypoint/domain/domain.dart';
+import 'package:trip_application/src/waypoint/domain/waypoint_payload.dart';
 
 abstract class WaypointRepository {
   Future<Either<Failure, WaypointRemoteModel>> createBlankWaypoint({
@@ -10,7 +11,7 @@ abstract class WaypointRepository {
     required LatLng latLng,
   });
 
-  Future<Either<Failure, List<WaypointRemoteModel>>> getWaypoints(TripId id);
+  Future<Either<Failure, Iterable<WaypointPayload>>> getWaypoints(TripId id);
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointRemoteModel waypoint,
   );

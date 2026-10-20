@@ -142,3 +142,84 @@ class GWaypointFieldsData implements GWaypointFields {
     return 'GWaypointFieldsData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, poiCategory: $poiCategory, title: $title, description: $description, location: $location, files: $files, G__typename: $G__typename)';
   }
 }
+
+abstract class GWaypointAnchorFields {
+  String get id;
+  int? get anchorEdge;
+  double get anchorOffset;
+  String get G__typename;
+}
+
+class GWaypointAnchorFieldsData implements GWaypointAnchorFields {
+  const GWaypointAnchorFieldsData({
+    required this.id,
+    this.anchorEdge,
+    required this.anchorOffset,
+    this.G__typename = 'WaypointType',
+  });
+
+  factory GWaypointAnchorFieldsData.fromJson(Map<String, dynamic> json) {
+    return GWaypointAnchorFieldsData(
+      id: (json['id'] as String),
+      anchorEdge:
+          json['anchorEdge'] == null ? null : (json['anchorEdge'] as int),
+      anchorOffset: (json['anchorOffset'] as num).toDouble(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String id;
+
+  final int? anchorEdge;
+
+  final double anchorOffset;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['id'] = this.id;
+    final _$anchorEdgeValue = this.anchorEdge;
+    _$result['anchorEdge'] =
+        _$anchorEdgeValue == null ? null : _$anchorEdgeValue;
+    _$result['anchorOffset'] = this.anchorOffset;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GWaypointAnchorFieldsData copyWith({
+    String? id,
+    int? anchorEdge,
+    bool anchorEdgeIsSet = false,
+    double? anchorOffset,
+    String? G__typename,
+  }) {
+    return GWaypointAnchorFieldsData(
+      id: id ?? this.id,
+      anchorEdge:
+          anchorEdge != null || anchorEdgeIsSet ? anchorEdge : this.anchorEdge,
+      anchorOffset: anchorOffset ?? this.anchorOffset,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GWaypointAnchorFieldsData &&
+            id == other.id &&
+            anchorEdge == other.anchorEdge &&
+            anchorOffset == other.anchorOffset &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, id, anchorEdge, anchorOffset, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GWaypointAnchorFieldsData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, G__typename: $G__typename)';
+  }
+}

@@ -99,94 +99,12 @@ class GRouteSectionFieldsData implements GRouteSectionFields {
   }
 }
 
-abstract class GWaypointAnchorFields {
-  String get id;
-  int? get anchorEdge;
-  double get anchorOffset;
-  String get G__typename;
-}
-
-class GWaypointAnchorFieldsData implements GWaypointAnchorFields {
-  const GWaypointAnchorFieldsData({
-    required this.id,
-    this.anchorEdge,
-    required this.anchorOffset,
-    this.G__typename = 'WaypointType',
-  });
-
-  factory GWaypointAnchorFieldsData.fromJson(Map<String, dynamic> json) {
-    return GWaypointAnchorFieldsData(
-      id: (json['id'] as String),
-      anchorEdge:
-          json['anchorEdge'] == null ? null : (json['anchorEdge'] as int),
-      anchorOffset: (json['anchorOffset'] as num).toDouble(),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final String id;
-
-  final int? anchorEdge;
-
-  final double anchorOffset;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
-    final _$anchorEdgeValue = this.anchorEdge;
-    _$result['anchorEdge'] =
-        _$anchorEdgeValue == null ? null : _$anchorEdgeValue;
-    _$result['anchorOffset'] = this.anchorOffset;
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GWaypointAnchorFieldsData copyWith({
-    String? id,
-    int? anchorEdge,
-    bool anchorEdgeIsSet = false,
-    double? anchorOffset,
-    String? G__typename,
-  }) {
-    return GWaypointAnchorFieldsData(
-      id: id ?? this.id,
-      anchorEdge:
-          anchorEdge != null || anchorEdgeIsSet ? anchorEdge : this.anchorEdge,
-      anchorOffset: anchorOffset ?? this.anchorOffset,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GWaypointAnchorFieldsData &&
-            id == other.id &&
-            anchorEdge == other.anchorEdge &&
-            anchorOffset == other.anchorOffset &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, id, anchorEdge, anchorOffset, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GWaypointAnchorFieldsData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, G__typename: $G__typename)';
-  }
-}
-
 abstract class GTripRouteFields {
   String get id;
   String? get routeUpdatedAt;
   GeoPolygonDto? get bounds;
   List<_i2.GLatLngFields> get route;
   List<GRouteSectionFields> get sections;
-  List<GWaypointAnchorFields> get waypoints;
   String get G__typename;
 }
 
@@ -197,7 +115,6 @@ class GTripRouteFieldsData implements GTripRouteFields {
     this.bounds,
     required this.route,
     required this.sections,
-    required this.waypoints,
     this.G__typename = 'TripType',
   });
 
@@ -217,10 +134,6 @@ class GTripRouteFieldsData implements GTripRouteFields {
           .map((_$e) =>
               GRouteSectionFieldsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              GWaypointAnchorFieldsData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -235,8 +148,6 @@ class GTripRouteFieldsData implements GTripRouteFields {
 
   final List<GRouteSectionFieldsData> sections;
 
-  final List<GWaypointAnchorFieldsData> waypoints;
-
   final String G__typename;
 
   Map<String, dynamic> toJson() {
@@ -250,7 +161,6 @@ class GTripRouteFieldsData implements GTripRouteFields {
         _$boundsValue == null ? null : geoPolygonDtoToJson(_$boundsValue);
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
     _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
-    _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -263,7 +173,6 @@ class GTripRouteFieldsData implements GTripRouteFields {
     bool boundsIsSet = false,
     List<_i2.GLatLngFieldsData>? route,
     List<GRouteSectionFieldsData>? sections,
-    List<GWaypointAnchorFieldsData>? waypoints,
     String? G__typename,
   }) {
     return GTripRouteFieldsData(
@@ -274,7 +183,6 @@ class GTripRouteFieldsData implements GTripRouteFields {
       bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
       route: route ?? this.route,
       sections: sections ?? this.sections,
-      waypoints: waypoints ?? this.waypoints,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -288,26 +196,18 @@ class GTripRouteFieldsData implements GTripRouteFields {
             bounds == other.bounds &&
             _gqlUtils.listEquals(route, other.route) &&
             _gqlUtils.listEquals(sections, other.sections) &&
-            _gqlUtils.listEquals(waypoints, other.waypoints) &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType,
-        id,
-        routeUpdatedAt,
-        bounds,
-        _gqlUtils.listHash(route),
-        _gqlUtils.listHash(sections),
-        _gqlUtils.listHash(waypoints),
-        G__typename);
+    return Object.hash(runtimeType, id, routeUpdatedAt, bounds,
+        _gqlUtils.listHash(route), _gqlUtils.listHash(sections), G__typename);
   }
 
   @override
   String toString() {
-    return 'GTripRouteFieldsData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, route: $route, sections: $sections, waypoints: $waypoints, G__typename: $G__typename)';
+    return 'GTripRouteFieldsData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, route: $route, sections: $sections, G__typename: $G__typename)';
   }
 }
 

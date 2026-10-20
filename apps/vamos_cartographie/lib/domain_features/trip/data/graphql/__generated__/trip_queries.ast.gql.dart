@@ -30,7 +30,7 @@ const GetAllTrips = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
+          name: _i1.NameNode(value: 'TripWithRouteFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -260,11 +260,11 @@ const document = _i1.DocumentNode(definitions: [
   _i2.TripFields,
   _i2.TripWithRouteFields,
   _i3.RouteSectionFields,
-  _i3.WaypointAnchorFields,
   _i3.TripRouteFields,
   _i3.EditRoutePayloadFragment,
   _i4.LatLngFields,
   _i5.WaypointFields,
+  _i5.WaypointAnchorFields,
   _i6.StoredFile,
   _i6.FileAttachment,
   _i6.UploadConfigFields,

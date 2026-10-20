@@ -196,3 +196,86 @@ abstract class _$RouteStoreNotifier extends $Notifier<RouteStore> {
     return element.handleCreate(ref, () => build(_$args));
   }
 }
+
+@ProviderFor(sectionRanges)
+final sectionRangesProvider = SectionRangesFamily._();
+
+final class SectionRangesProvider
+    extends
+        $FunctionalProvider<
+          Map<SectionId, VertexRange>,
+          Map<SectionId, VertexRange>,
+          Map<SectionId, VertexRange>
+        >
+    with $Provider<Map<SectionId, VertexRange>> {
+  SectionRangesProvider._({
+    required SectionRangesFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'sectionRangesProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$sectionRangesHash();
+
+  @override
+  String toString() {
+    return r'sectionRangesProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<Map<SectionId, VertexRange>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Map<SectionId, VertexRange> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return sectionRanges(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<SectionId, VertexRange> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<SectionId, VertexRange>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SectionRangesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$sectionRangesHash() => r'b57ef0f04bdbe8689b11d066287f7e8e13f3cc13';
+
+final class SectionRangesFamily extends $Family
+    with $FunctionalFamilyOverride<Map<SectionId, VertexRange>, TripId> {
+  SectionRangesFamily._()
+    : super(
+        retry: null,
+        name: r'sectionRangesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  SectionRangesProvider call(TripId tripId) =>
+      SectionRangesProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'sectionRangesProvider';
+}

@@ -1,5 +1,4 @@
 import "package:domain_core/domain_core.dart";
-import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/core/injection/client_provider.dart";
@@ -44,4 +43,16 @@ class RouteStoreNotifier extends _$RouteStoreNotifier
   void emit(RouteStore newGraphStore) {
     state = newGraphStore;
   }
+}
+
+@Riverpod(keepAlive: true)
+Map<SectionId, VertexRange> sectionRanges(Ref ref, TripId tripId) {
+  final store = ref.watch(routeStoreProvider(tripId));
+  final route = store.route?.current;
+  if (route == null) return const {};
+
+  return computeSectionRanges(
+    store.sectionStore.store.values.map((n) => n.current),
+    route.geometry.length,
+  );
 }

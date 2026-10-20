@@ -6,3 +6,5 @@ export "domain/route_repository.dart";
 
 export "application/route_editor.dart";
 export "application/route_store.dart";
+
+export "services/compute_section_ranges.dart";

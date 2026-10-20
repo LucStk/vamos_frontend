@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'segment_queries.dart';
+part of 'section_queries.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,10 +9,10 @@ part of 'segment_queries.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(segmentNode)
-final segmentNodeProvider = SegmentNodeFamily._();
+@ProviderFor(sectionNode)
+final sectionNodeProvider = SectionNodeFamily._();
 
-final class SegmentNodeProvider
+final class SectionNodeProvider
     extends
         $FunctionalProvider<
           GraphNode<RouteSectionFields>,
@@ -20,23 +20,23 @@ final class SegmentNodeProvider
           GraphNode<RouteSectionFields>
         >
     with $Provider<GraphNode<RouteSectionFields>> {
-  SegmentNodeProvider._({
-    required SegmentNodeFamily super.from,
+  SectionNodeProvider._({
+    required SectionNodeFamily super.from,
     required (TripId, SectionId) super.argument,
   }) : super(
          retry: null,
-         name: r'segmentNodeProvider',
+         name: r'sectionNodeProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentNodeHash();
+  String debugGetCreateSourceHash() => _$sectionNodeHash();
 
   @override
   String toString() {
-    return r'segmentNodeProvider'
+    return r'sectionNodeProvider'
         ''
         '$argument';
   }
@@ -50,7 +50,7 @@ final class SegmentNodeProvider
   @override
   GraphNode<RouteSectionFields> create(Ref ref) {
     final argument = this.argument as (TripId, SectionId);
-    return segmentNode(ref, argument.$1, argument.$2);
+    return sectionNode(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -65,7 +65,7 @@ final class SegmentNodeProvider
 
   @override
   bool operator ==(Object other) {
-    return other is SegmentNodeProvider && other.argument == argument;
+    return other is SectionNodeProvider && other.argument == argument;
   }
 
   @override
@@ -74,34 +74,34 @@ final class SegmentNodeProvider
   }
 }
 
-String _$segmentNodeHash() => r'4d5357ee48c0adee985ef5433f2bea407a8796a5';
+String _$sectionNodeHash() => r'128c181d9383af64ac7d1a43842da6e865673680';
 
-final class SegmentNodeFamily extends $Family
+final class SectionNodeFamily extends $Family
     with
         $FunctionalFamilyOverride<
           GraphNode<RouteSectionFields>,
           (TripId, SectionId)
         > {
-  SegmentNodeFamily._()
+  SectionNodeFamily._()
     : super(
         retry: null,
-        name: r'segmentNodeProvider',
+        name: r'sectionNodeProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 
-  SegmentNodeProvider call(TripId tripId, SectionId id) =>
-      SegmentNodeProvider._(argument: (tripId, id), from: this);
+  SectionNodeProvider call(TripId tripId, SectionId id) =>
+      SectionNodeProvider._(argument: (tripId, id), from: this);
 
   @override
-  String toString() => r'segmentNodeProvider';
+  String toString() => r'sectionNodeProvider';
 }
 
-@ProviderFor(segment)
-final segmentProvider = SegmentFamily._();
+@ProviderFor(section)
+final sectionProvider = SectionFamily._();
 
-final class SegmentProvider
+final class SectionProvider
     extends
         $FunctionalProvider<
           RouteSectionFields,
@@ -109,23 +109,23 @@ final class SegmentProvider
           RouteSectionFields
         >
     with $Provider<RouteSectionFields> {
-  SegmentProvider._({
-    required SegmentFamily super.from,
+  SectionProvider._({
+    required SectionFamily super.from,
     required (TripId, SectionId) super.argument,
   }) : super(
          retry: null,
-         name: r'segmentProvider',
+         name: r'sectionProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$segmentHash();
+  String debugGetCreateSourceHash() => _$sectionHash();
 
   @override
   String toString() {
-    return r'segmentProvider'
+    return r'sectionProvider'
         ''
         '$argument';
   }
@@ -139,7 +139,7 @@ final class SegmentProvider
   @override
   RouteSectionFields create(Ref ref) {
     final argument = this.argument as (TripId, SectionId);
-    return segment(ref, argument.$1, argument.$2);
+    return section(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -152,7 +152,7 @@ final class SegmentProvider
 
   @override
   bool operator ==(Object other) {
-    return other is SegmentProvider && other.argument == argument;
+    return other is SectionProvider && other.argument == argument;
   }
 
   @override
@@ -161,30 +161,30 @@ final class SegmentProvider
   }
 }
 
-String _$segmentHash() => r'2f91d64c0c1d603340f063febfe40a460fb6b1ac';
+String _$sectionHash() => r'3f72b1f303cbde621f1f57732a1682715e81a3c3';
 
-final class SegmentFamily extends $Family
+final class SectionFamily extends $Family
     with $FunctionalFamilyOverride<RouteSectionFields, (TripId, SectionId)> {
-  SegmentFamily._()
+  SectionFamily._()
     : super(
         retry: null,
-        name: r'segmentProvider',
+        name: r'sectionProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 
-  SegmentProvider call(TripId tripId, SectionId id) =>
-      SegmentProvider._(argument: (tripId, id), from: this);
+  SectionProvider call(TripId tripId, SectionId id) =>
+      SectionProvider._(argument: (tripId, id), from: this);
 
   @override
-  String toString() => r'segmentProvider';
+  String toString() => r'sectionProvider';
 }
 
-@ProviderFor(allSegments)
-final allSegmentsProvider = AllSegmentsFamily._();
+@ProviderFor(allSections)
+final allSectionsProvider = AllSectionsFamily._();
 
-final class AllSegmentsProvider
+final class AllSectionsProvider
     extends
         $FunctionalProvider<
           List<RouteSectionFields>,
@@ -192,23 +192,23 @@ final class AllSegmentsProvider
           List<RouteSectionFields>
         >
     with $Provider<List<RouteSectionFields>> {
-  AllSegmentsProvider._({
-    required AllSegmentsFamily super.from,
+  AllSectionsProvider._({
+    required AllSectionsFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'allSegmentsProvider',
+         name: r'allSectionsProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$allSegmentsHash();
+  String debugGetCreateSourceHash() => _$allSectionsHash();
 
   @override
   String toString() {
-    return r'allSegmentsProvider'
+    return r'allSectionsProvider'
         ''
         '($argument)';
   }
@@ -222,7 +222,7 @@ final class AllSegmentsProvider
   @override
   List<RouteSectionFields> create(Ref ref) {
     final argument = this.argument as TripId;
-    return allSegments(ref, argument);
+    return allSections(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -235,7 +235,7 @@ final class AllSegmentsProvider
 
   @override
   bool operator ==(Object other) {
-    return other is AllSegmentsProvider && other.argument == argument;
+    return other is AllSectionsProvider && other.argument == argument;
   }
 
   @override
@@ -244,22 +244,22 @@ final class AllSegmentsProvider
   }
 }
 
-String _$allSegmentsHash() => r'c8817540c481f26a3712a3525a9757c721e2e4ab';
+String _$allSectionsHash() => r'5c147497999c32c037d58679c189dc573cc2990e';
 
-final class AllSegmentsFamily extends $Family
+final class AllSectionsFamily extends $Family
     with $FunctionalFamilyOverride<List<RouteSectionFields>, TripId> {
-  AllSegmentsFamily._()
+  AllSectionsFamily._()
     : super(
         retry: null,
-        name: r'allSegmentsProvider',
+        name: r'allSectionsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 
-  AllSegmentsProvider call(TripId tripId) =>
-      AllSegmentsProvider._(argument: tripId, from: this);
+  AllSectionsProvider call(TripId tripId) =>
+      AllSectionsProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'allSegmentsProvider';
+  String toString() => r'allSectionsProvider';
 }

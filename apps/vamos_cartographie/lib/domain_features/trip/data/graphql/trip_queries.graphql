@@ -3,8 +3,7 @@
 
 query GetAllTrips {
     trips {
-        ...TripFields
-
+        ...TripWithRouteFields
     }
 }
 

@@ -15,3 +15,8 @@ fragment WaypointFields on WaypointType {
         ...FileAttachment
     }
 }
+fragment WaypointAnchorFields on WaypointType {
+    id
+    anchorEdge
+    anchorOffset
+}

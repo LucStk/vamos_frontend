@@ -110,7 +110,7 @@ enum MobilityType {
 type Mutation {
   createProfile(profileName: String!): CreateProfileResult!
   updateProfile(input: UpdateUserProfileInput!): UserProfileType!
-  updateTrip(id: UUID!, trip: TripUpdateInput!): TripType!
+  updateTrip(id: UUID!, input: TripUpdateInput!): TripType!
   deleteTrip(id: UUID!): Boolean!
   createBlankTrip: TripType!
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!

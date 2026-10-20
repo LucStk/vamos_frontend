@@ -13,8 +13,8 @@ part of 'trip_item_provider.dart';
 final tripItemProvider = TripItemFamily._();
 
 final class TripItemProvider
-    extends $FunctionalProvider<TripItem, TripItem, TripItem>
-    with $Provider<TripItem> {
+    extends $FunctionalProvider<TripItem?, TripItem?, TripItem?>
+    with $Provider<TripItem?> {
   TripItemProvider._({
     required TripItemFamily super.from,
     required (TripId, MapCameraReader) super.argument,
@@ -38,20 +38,20 @@ final class TripItemProvider
 
   @$internal
   @override
-  $ProviderElement<TripItem> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<TripItem?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  TripItem create(Ref ref) {
+  TripItem? create(Ref ref) {
     final argument = this.argument as (TripId, MapCameraReader);
     return tripItem(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(TripItem value) {
+  Override overrideWithValue(TripItem? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<TripItem>(value),
+      providerOverride: $SyncValueProvider<TripItem?>(value),
     );
   }
 
@@ -66,10 +66,10 @@ final class TripItemProvider
   }
 }
 
-String _$tripItemHash() => r'e6811810938159db06bc954c67b45b2c9c19206f';
+String _$tripItemHash() => r'78503cdd64d48bcd0bb83a37153a00be8f6076bb';
 
 final class TripItemFamily extends $Family
-    with $FunctionalFamilyOverride<TripItem, (TripId, MapCameraReader)> {
+    with $FunctionalFamilyOverride<TripItem?, (TripId, MapCameraReader)> {
   TripItemFamily._()
     : super(
         retry: null,
@@ -143,7 +143,7 @@ final class AllTripItemProvider
   }
 }
 
-String _$allTripItemHash() => r'f55c2b5c480aad56aa92d8e6cc082f016b14bd81';
+String _$allTripItemHash() => r'12287f1b76e39b94df2e3191dce13f435d7bf3e5';
 
 final class AllTripItemFamily extends $Family
     with $FunctionalFamilyOverride<List<TripItem>, MapCameraController> {

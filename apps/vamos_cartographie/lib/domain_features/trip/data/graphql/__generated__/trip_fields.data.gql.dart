@@ -137,7 +137,6 @@ abstract class GTripWithRouteFields {
   GeoPolygonDto? get bounds;
   List<_i3.GLatLngFields> get route;
   List<_i4.GRouteSectionFields> get sections;
-  List<_i4.GWaypointAnchorFields> get waypoints;
 }
 
 class GTripWithRouteFieldsData
@@ -154,7 +153,6 @@ class GTripWithRouteFieldsData
     this.bounds,
     required this.route,
     required this.sections,
-    required this.waypoints,
   });
 
   factory GTripWithRouteFieldsData.fromJson(Map<String, dynamic> json) {
@@ -183,10 +181,6 @@ class GTripWithRouteFieldsData
           .map((_$e) => _i4.GRouteSectionFieldsData.fromJson(
               (_$e as Map<String, dynamic>)))
           .toList(),
-      waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) => _i4.GWaypointAnchorFieldsData.fromJson(
-              (_$e as Map<String, dynamic>)))
-          .toList(),
     );
   }
 
@@ -212,8 +206,6 @@ class GTripWithRouteFieldsData
 
   final List<_i4.GRouteSectionFieldsData> sections;
 
-  final List<_i4.GWaypointAnchorFieldsData> waypoints;
-
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['id'] = this.id;
@@ -232,7 +224,6 @@ class GTripWithRouteFieldsData
         _$boundsValue == null ? null : geoPolygonDtoToJson(_$boundsValue);
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
     _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
-    _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     return _$result;
   }
 
@@ -251,7 +242,6 @@ class GTripWithRouteFieldsData
     bool boundsIsSet = false,
     List<_i3.GLatLngFieldsData>? route,
     List<_i4.GRouteSectionFieldsData>? sections,
-    List<_i4.GWaypointAnchorFieldsData>? waypoints,
   }) {
     return GTripWithRouteFieldsData(
       id: id ?? this.id,
@@ -267,7 +257,6 @@ class GTripWithRouteFieldsData
       bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
       route: route ?? this.route,
       sections: sections ?? this.sections,
-      waypoints: waypoints ?? this.waypoints,
     );
   }
 
@@ -285,8 +274,7 @@ class GTripWithRouteFieldsData
             routeUpdatedAt == other.routeUpdatedAt &&
             bounds == other.bounds &&
             _gqlUtils.listEquals(route, other.route) &&
-            _gqlUtils.listEquals(sections, other.sections) &&
-            _gqlUtils.listEquals(waypoints, other.waypoints));
+            _gqlUtils.listEquals(sections, other.sections));
   }
 
   @override
@@ -303,12 +291,11 @@ class GTripWithRouteFieldsData
         routeUpdatedAt,
         bounds,
         _gqlUtils.listHash(route),
-        _gqlUtils.listHash(sections),
-        _gqlUtils.listHash(waypoints));
+        _gqlUtils.listHash(sections));
   }
 
   @override
   String toString() {
-    return 'GTripWithRouteFieldsData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, route: $route, sections: $sections, waypoints: $waypoints)';
+    return 'GTripWithRouteFieldsData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, route: $route, sections: $sections)';
   }
 }

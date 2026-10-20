@@ -1,18 +1,19 @@
 #import "trip_fields.graphql"
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
-#import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
+#import "/domain_features/trip/data/graphql/trip_fields.graphql"
 
-mutation UpdateWaypoint($id: UUID!, $waypoint: WaypointUpdateInput!) {
-    updateWaypoint(input: $waypoint, id: $id) {
-        ...WaypointFields
+mutation UpdateTrip($id: UUID!, $input: TripUpdateInput!) {
+    updateTrip(input: $input, id: $id) {
+        ...TripFields
     }
 }
 
-mutation CreateBlankWaypointFromPosition(
-    $tripId: UUID!
-    $latLng: LatLngInput!
-) {
-    createBlankWaypointFromPosition(tripId: $tripId, latLng: $latLng) {
-        ...WaypointFields
+mutation CreateBlankTrip() {
+    createBlankTrip() {
+        ...TripFields
     }
+}
+
+mutation DeleteTrip($id : UUID!) {
+    deleteTrip(id : $id)
 }

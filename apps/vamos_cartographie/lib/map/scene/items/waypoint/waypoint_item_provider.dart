@@ -1,5 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -37,7 +35,7 @@ WaypointItem waypointItem(
   );
 }
 
-@Riverpod(keepAlive: true, dependencies: [waypointItem])
+@Riverpod(keepAlive: true)
 List<PointItem> allWaypointItem(
   Ref ref,
   TripId tripId,

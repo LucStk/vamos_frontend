@@ -3,6 +3,7 @@ import 'package:user_profile_application/user_profile_application.dart';
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/graphql/graphql.dart';
 import 'package:vamos_cartographie/core/network/ferry_client_x.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
 
@@ -77,7 +78,7 @@ class TripRemoteDatasource {
   }) async {
     final data = await ferryClient.execute(
       GUpdateTripReq(
-        vars: GUpdateTripVars(id: id.value, trip: input),
+        vars: GUpdateTripVars(id: id.value, input: input),
       ),
     );
 

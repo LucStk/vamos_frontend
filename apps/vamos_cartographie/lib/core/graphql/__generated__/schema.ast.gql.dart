@@ -534,7 +534,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'trip'),
+          name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'TripUpdateInput'),

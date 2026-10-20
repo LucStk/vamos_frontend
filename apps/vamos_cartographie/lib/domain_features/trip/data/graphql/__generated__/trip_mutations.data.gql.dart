@@ -3,40 +3,40 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
+import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
     as _i1;
 
-class GUpdateWaypointData {
-  const GUpdateWaypointData({
-    required this.updateWaypoint,
+class GUpdateTripData {
+  const GUpdateTripData({
+    required this.updateTrip,
     this.G__typename = 'Mutation',
   });
 
-  factory GUpdateWaypointData.fromJson(Map<String, dynamic> json) {
-    return GUpdateWaypointData(
-      updateWaypoint: _i1.GWaypointFieldsData.fromJson(
-          (json['updateWaypoint'] as Map<String, dynamic>)),
+  factory GUpdateTripData.fromJson(Map<String, dynamic> json) {
+    return GUpdateTripData(
+      updateTrip: _i1.GTripFieldsData.fromJson(
+          (json['updateTrip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GWaypointFieldsData updateWaypoint;
+  final _i1.GTripFieldsData updateTrip;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['updateWaypoint'] = this.updateWaypoint.toJson();
+    _$result['updateTrip'] = this.updateTrip.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
-  GUpdateWaypointData copyWith({
-    _i1.GWaypointFieldsData? updateWaypoint,
+  GUpdateTripData copyWith({
+    _i1.GTripFieldsData? updateTrip,
     String? G__typename,
   }) {
-    return GUpdateWaypointData(
-      updateWaypoint: updateWaypoint ?? this.updateWaypoint,
+    return GUpdateTripData(
+      updateTrip: updateTrip ?? this.updateTrip,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -44,56 +44,53 @@ class GUpdateWaypointData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GUpdateWaypointData &&
-            updateWaypoint == other.updateWaypoint &&
+        (other is GUpdateTripData &&
+            updateTrip == other.updateTrip &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, updateWaypoint, G__typename);
+    return Object.hash(runtimeType, updateTrip, G__typename);
   }
 
   @override
   String toString() {
-    return 'GUpdateWaypointData(updateWaypoint: $updateWaypoint, G__typename: $G__typename)';
+    return 'GUpdateTripData(updateTrip: $updateTrip, G__typename: $G__typename)';
   }
 }
 
-class GCreateBlankWaypointFromPositionData {
-  const GCreateBlankWaypointFromPositionData({
-    required this.createBlankWaypointFromPosition,
+class GCreateBlankTripData {
+  const GCreateBlankTripData({
+    required this.createBlankTrip,
     this.G__typename = 'Mutation',
   });
 
-  factory GCreateBlankWaypointFromPositionData.fromJson(
-      Map<String, dynamic> json) {
-    return GCreateBlankWaypointFromPositionData(
-      createBlankWaypointFromPosition: _i1.GWaypointFieldsData.fromJson(
-          (json['createBlankWaypointFromPosition'] as Map<String, dynamic>)),
+  factory GCreateBlankTripData.fromJson(Map<String, dynamic> json) {
+    return GCreateBlankTripData(
+      createBlankTrip: _i1.GTripFieldsData.fromJson(
+          (json['createBlankTrip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GWaypointFieldsData createBlankWaypointFromPosition;
+  final _i1.GTripFieldsData createBlankTrip;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['createBlankWaypointFromPosition'] =
-        this.createBlankWaypointFromPosition.toJson();
+    _$result['createBlankTrip'] = this.createBlankTrip.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
-  GCreateBlankWaypointFromPositionData copyWith({
-    _i1.GWaypointFieldsData? createBlankWaypointFromPosition,
+  GCreateBlankTripData copyWith({
+    _i1.GTripFieldsData? createBlankTrip,
     String? G__typename,
   }) {
-    return GCreateBlankWaypointFromPositionData(
-      createBlankWaypointFromPosition: createBlankWaypointFromPosition ??
-          this.createBlankWaypointFromPosition,
+    return GCreateBlankTripData(
+      createBlankTrip: createBlankTrip ?? this.createBlankTrip,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -101,20 +98,71 @@ class GCreateBlankWaypointFromPositionData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateBlankWaypointFromPositionData &&
-            createBlankWaypointFromPosition ==
-                other.createBlankWaypointFromPosition &&
+        (other is GCreateBlankTripData &&
+            createBlankTrip == other.createBlankTrip &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, createBlankWaypointFromPosition, G__typename);
+    return Object.hash(runtimeType, createBlankTrip, G__typename);
   }
 
   @override
   String toString() {
-    return 'GCreateBlankWaypointFromPositionData(createBlankWaypointFromPosition: $createBlankWaypointFromPosition, G__typename: $G__typename)';
+    return 'GCreateBlankTripData(createBlankTrip: $createBlankTrip, G__typename: $G__typename)';
+  }
+}
+
+class GDeleteTripData {
+  const GDeleteTripData({
+    required this.deleteTrip,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GDeleteTripData.fromJson(Map<String, dynamic> json) {
+    return GDeleteTripData(
+      deleteTrip: (json['deleteTrip'] as bool),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final bool deleteTrip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['deleteTrip'] = this.deleteTrip;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDeleteTripData copyWith({
+    bool? deleteTrip,
+    String? G__typename,
+  }) {
+    return GDeleteTripData(
+      deleteTrip: deleteTrip ?? this.deleteTrip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteTripData &&
+            deleteTrip == other.deleteTrip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, deleteTrip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteTripData(deleteTrip: $deleteTrip, G__typename: $G__typename)';
   }
 }

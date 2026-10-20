@@ -111,8 +111,6 @@ final class AllWaypointItemProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = waypointItemProvider;
-
   @override
   String debugGetCreateSourceHash() => _$allWaypointItemHash();
 
@@ -153,7 +151,7 @@ final class AllWaypointItemProvider
   }
 }
 
-String _$allWaypointItemHash() => r'1d4d31beb7dcc33852e217fc6d8f9592ee099236';
+String _$allWaypointItemHash() => r'9c72980212a278315e94d837ec7e2944f2b8a6b0';
 
 final class AllWaypointItemFamily extends $Family
     with $FunctionalFamilyOverride<List<PointItem>, (TripId, MapCameraReader)> {
@@ -161,10 +159,8 @@ final class AllWaypointItemFamily extends $Family
     : super(
         retry: null,
         name: r'allWaypointItemProvider',
-        dependencies: <ProviderOrFamily>[waypointItemProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          AllWaypointItemProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

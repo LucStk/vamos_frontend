@@ -8,12 +8,6 @@ fragment RouteSectionFields on RouteSectionType {
     geometrySource
 }
 
-fragment WaypointAnchorFields on WaypointType {
-    id
-    anchorEdge
-    anchorOffset
-}
-
 # Tout ce que le client doit REMPLACER après une édition de route :
 # chaque édition décale les index des sections et les ancres des waypoints,
 # il ne faut donc jamais patcher, seulement remplacer.
@@ -26,9 +20,6 @@ fragment TripRouteFields on TripType {
     }
     sections {
         ...RouteSectionFields
-    }
-    waypoints {
-        ...WaypointAnchorFields
     }
 }
 

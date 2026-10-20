@@ -106,7 +106,6 @@ class GTripWithRouteFieldsReq
     _i4.TripFields,
     _i4.TripWithRouteFields,
     _i7.RouteSectionFields,
-    _i7.WaypointAnchorFields,
     _i7.TripRouteFields,
     _i8.LatLngFields,
     _i5.StoredFile,

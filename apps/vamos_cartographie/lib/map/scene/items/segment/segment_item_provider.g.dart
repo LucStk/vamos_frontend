@@ -13,8 +13,8 @@ part of 'segment_item_provider.dart';
 final segmentItemProvider = SegmentItemFamily._();
 
 final class SegmentItemProvider
-    extends $FunctionalProvider<SegmentItem, SegmentItem, SegmentItem>
-    with $Provider<SegmentItem> {
+    extends $FunctionalProvider<SegmentItem?, SegmentItem?, SegmentItem?>
+    with $Provider<SegmentItem?> {
   SegmentItemProvider._({
     required SegmentItemFamily super.from,
     required (TripId, SectionId, MapCameraReader) super.argument,
@@ -38,20 +38,20 @@ final class SegmentItemProvider
 
   @$internal
   @override
-  $ProviderElement<SegmentItem> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<SegmentItem?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  SegmentItem create(Ref ref) {
+  SegmentItem? create(Ref ref) {
     final argument = this.argument as (TripId, SectionId, MapCameraReader);
     return segmentItem(ref, argument.$1, argument.$2, argument.$3);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SegmentItem value) {
+  Override overrideWithValue(SegmentItem? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SegmentItem>(value),
+      providerOverride: $SyncValueProvider<SegmentItem?>(value),
     );
   }
 
@@ -66,12 +66,12 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'6b57445feb3fa272669267be701fdc9d51e9b81c';
+String _$segmentItemHash() => r'5a6cafa3ff7239b33f04c1fe1f4e22e9b0c77731';
 
 final class SegmentItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
-          SegmentItem,
+          SegmentItem?,
           (TripId, SectionId, MapCameraReader)
         > {
   SegmentItemFamily._()
@@ -152,7 +152,7 @@ final class AllSegmentItemProvider
   }
 }
 
-String _$allSegmentItemHash() => r'ef89d379fc4c76d81483f27aff43dd134738cfe8';
+String _$allSegmentItemHash() => r'88ae385ed2cf48908ccbbda12654e1b42b3465e2';
 
 final class AllSegmentItemFamily extends $Family
     with $FunctionalFamilyOverride<List<LineItem>, (TripId, MapCameraReader)> {

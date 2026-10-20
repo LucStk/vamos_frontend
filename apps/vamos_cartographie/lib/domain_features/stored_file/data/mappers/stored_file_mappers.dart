@@ -14,7 +14,7 @@ extension GStoredFileX on GStoredFile {
   }
 }
 
-extension GFileAttachmentX on GFileAttachmentData {
+extension GFileAttachmentX on GFileAttachment {
   StoredFileRemoteModel toDomain() {
     return file.toDomain();
   }

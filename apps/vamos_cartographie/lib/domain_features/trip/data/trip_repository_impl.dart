@@ -7,6 +7,7 @@ import 'package:vamos_cartographie/core/erreur_handler.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/trip_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/trip_remote_datasource.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/data/user_profile_mappers.dart';
 
 class TripRepositoryImpl extends TripRepository {
   TripRepositoryImpl(this.remote);
@@ -21,18 +22,27 @@ class TripRepositoryImpl extends TripRepository {
   Future<
     Either<
       Failure,
-      List<(Trip, UserProfile, List<StoredFileRemoteModel>, TopologyRes)>
+      List<
+        (
+          Trip,
+          UserProfile,
+          List<StoredFileRemoteModel>,
+          RouteRemoteModel,
+          Iterable<RouteSectionRemoteModel>,
+        )
+      >
     >
   >
   getAllTrips() {
     return guard(() async {
       final response = await remote.getAllTrips();
-
       return response.trips.map((gqlTrip) {
         final trip = gqlTrip.toTripDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
         final userProfile = gqlTrip.owner.toUserProfileModel();
-        return (trip, userProfile, images);
+        final route = gqlTrip.toRouteDomain();
+        final sections = gqlTrip.toSections();
+        return (trip, userProfile, images, route, sections);
       }).toList();
     });
   }
@@ -43,7 +53,7 @@ class TripRepositoryImpl extends TripRepository {
     return guard(() async {
       final response = await remote.getMeTrips();
       return response.meTrips.map((gqlTrip) {
-        final trip = gqlTrip.toTripDomain();
+        final trip = gqlTrip.toDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
         return (trip, images);
       }).toList();
@@ -72,32 +82,6 @@ class TripRepositoryImpl extends TripRepository {
       final trip = gqlTrip.toDomain();
       final images = gqlTrip.files.map((file) => file.file.toDomain()).toList();
       return (trip, images);
-    });
-  }
-
-  @override
-  Future<Either<Failure, TripDetailsRes>> getTripDetails(Id<Trip> id) {
-    return guard(() async {
-      final gqlTrip = await remote.getTripDetails(id: id);
-
-      final vertices = gqlTrip.topology.vertices
-          .map((waypoint) => waypoint.toDomain())
-          .toList();
-
-      final segments = gqlTrip.topology.segments
-          .map((segment) => segment.toDomain())
-          .toList();
-
-      final waypoints = gqlTrip.waypoints
-          .map(
-            (waypoint) => (
-              waypoint.toDomain(),
-              waypoint.files.map((file) => file.file.toDomain()).toList(),
-            ),
-          )
-          .toList();
-
-      return TripDetailsRes(vertices, segments, waypoints);
     });
   }
 

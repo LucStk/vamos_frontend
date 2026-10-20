@@ -57,45 +57,6 @@ const RouteSectionFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const WaypointAnchorFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointAnchorFields'),
-  typeCondition: _i1.TypeConditionNode(
-      on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'WaypointType'),
-    isNonNull: false,
-  )),
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'anchorEdge'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'anchorOffset'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
-);
 const TripRouteFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'TripRouteFields'),
   typeCondition: _i1.TypeConditionNode(
@@ -153,25 +114,6 @@ const TripRouteFields = _i1.FragmentDefinitionNode(
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
           name: _i1.NameNode(value: 'RouteSectionFields'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'waypoints'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'WaypointAnchorFields'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -286,11 +228,11 @@ const EditRoutePayloadFragment = _i1.FragmentDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   RouteSectionFields,
-  WaypointAnchorFields,
   TripRouteFields,
   EditRoutePayloadFragment,
   _i2.LatLngFields,
   _i3.WaypointFields,
+  _i3.WaypointAnchorFields,
   _i4.StoredFile,
   _i4.FileAttachment,
   _i4.UploadConfigFields,

@@ -110,7 +110,7 @@ final class TripEditScopeProvider
   }
 }
 
-String _$tripEditScopeHash() => r'a71067fb0f41692976cb26b82c7f1e4b38fd2388';
+String _$tripEditScopeHash() => r'6313793b09865da7617eba36e2f985e5820e4d1b';
 
 @ProviderFor(handlerRegistry)
 final handlerRegistryProvider = HandlerRegistryProvider._();

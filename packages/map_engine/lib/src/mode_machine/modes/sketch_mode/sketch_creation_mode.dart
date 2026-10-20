@@ -30,17 +30,17 @@ class SketchCreation extends TripMode with SketchMode {
 
     return Transition.withSlot(sketchTraceSlot, (trace) {
       return switch (g.target) {
-        MapWaypoint _ => Transition.run(
-          CreateSegment(
-            geometry: trace.points,
-            mobilityType: trace.mobilityType,
-          ),
-          then: (current, RouteSectionRemoteModel m) {
-            return Transition.to(
-              TripEditMode(tripId),
-            ).and(selectionSlot, MapSegment(id: m.id, tripId: tripId));
-          },
-        ),
+        MapWaypoint _ => Transition.stay(), //Transition.run(
+        //   CreateSegment(
+        //     geometry: trace.points,
+        //     mobilityType: trace.mobilityType,
+        //   ),
+        //   then: (current, RouteSectionRemoteModel m) {
+        //     return Transition.to(
+        //       TripEditMode(tripId),
+        //     ).and(selectionSlot, MapSegment(id: m.id, tripId: tripId));
+        //   },
+        // ),
 
         _ => Transition.stay(),
       };

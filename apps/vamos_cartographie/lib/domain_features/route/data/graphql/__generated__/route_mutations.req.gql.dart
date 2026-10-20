@@ -60,7 +60,6 @@ class GDrawRouteReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.DrawRoute,
     _i7.RouteSectionFields,
-    _i7.WaypointAnchorFields,
     _i7.TripRouteFields,
     _i7.EditRoutePayloadFragment,
     _i8.LatLngFields,
@@ -230,7 +229,6 @@ class GExtendRouteReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.ExtendRoute,
     _i7.RouteSectionFields,
-    _i7.WaypointAnchorFields,
     _i7.TripRouteFields,
     _i7.EditRoutePayloadFragment,
     _i8.LatLngFields,
@@ -401,7 +399,6 @@ class GRedrawRoutePortionReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.RedrawRoutePortion,
     _i7.RouteSectionFields,
-    _i7.WaypointAnchorFields,
     _i7.TripRouteFields,
     _i7.EditRoutePayloadFragment,
     _i8.LatLngFields,

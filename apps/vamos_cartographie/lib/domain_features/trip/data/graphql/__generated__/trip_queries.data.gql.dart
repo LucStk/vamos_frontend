@@ -23,14 +23,14 @@ class GGetAllTripsData {
   factory GGetAllTripsData.fromJson(Map<String, dynamic> json) {
     return GGetAllTripsData(
       trips: (json['trips'] as List<dynamic>)
-          .map((_$e) =>
-              _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) => _i1.GTripWithRouteFieldsData.fromJson(
+              (_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final List<_i1.GTripFieldsData> trips;
+  final List<_i1.GTripWithRouteFieldsData> trips;
 
   final String G__typename;
 
@@ -42,7 +42,7 @@ class GGetAllTripsData {
   }
 
   GGetAllTripsData copyWith({
-    List<_i1.GTripFieldsData>? trips,
+    List<_i1.GTripWithRouteFieldsData>? trips,
     String? G__typename,
   }) {
     return GGetAllTripsData(

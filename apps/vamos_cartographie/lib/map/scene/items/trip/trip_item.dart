@@ -3,14 +3,14 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'trip_style.dart';
 
-final class TripItem extends PolylineItem {
+final class TripItem extends LineItem {
   TripItem({required this.object, required this.worldSegments});
 
   @override
   final MapTrip object;
 
   @override
-  final List<List<WorldSegment>> worldSegments;
+  final List<WorldSegment> worldSegments;
 
   /// Demi-largeur du contour au repos (avant `look.widthScale`).
   @override
