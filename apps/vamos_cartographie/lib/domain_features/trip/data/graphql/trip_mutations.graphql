@@ -1,5 +1,6 @@
 #import "trip_fields.graphql"
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
+#import "/domain_features/route/data/graphql/route_fields.graphql"
 #import "/domain_features/trip/data/graphql/trip_fields.graphql"
 
 mutation UpdateTrip($id: UUID!, $input: TripUpdateInput!) {
@@ -16,4 +17,10 @@ mutation CreateBlankTrip() {
 
 mutation DeleteTrip($id : UUID!) {
     deleteTrip(id : $id)
+}
+
+mutation SetTripOrigin($id: UUID!, $origin: LatLngInput!) {
+    setTripOrigin(id: $id, origin: $origin) {
+        ...EditRoutePayloadFragment
+    }
 }

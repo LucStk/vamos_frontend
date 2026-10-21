@@ -3,6 +3,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.data.gql.dart'
+    as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
     as _i1;
 
@@ -164,5 +166,59 @@ class GDeleteTripData {
   @override
   String toString() {
     return 'GDeleteTripData(deleteTrip: $deleteTrip, G__typename: $G__typename)';
+  }
+}
+
+class GSetTripOriginData {
+  const GSetTripOriginData({
+    required this.setTripOrigin,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GSetTripOriginData.fromJson(Map<String, dynamic> json) {
+    return GSetTripOriginData(
+      setTripOrigin: _i2.GEditRoutePayloadFragmentData.fromJson(
+          (json['setTripOrigin'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i2.GEditRoutePayloadFragmentData setTripOrigin;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['setTripOrigin'] = this.setTripOrigin.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GSetTripOriginData copyWith({
+    _i2.GEditRoutePayloadFragmentData? setTripOrigin,
+    String? G__typename,
+  }) {
+    return GSetTripOriginData(
+      setTripOrigin: setTripOrigin ?? this.setTripOrigin,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSetTripOriginData &&
+            setTripOrigin == other.setTripOrigin &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, setTripOrigin, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GSetTripOriginData(setTripOrigin: $setTripOrigin, G__typename: $G__typename)';
   }
 }

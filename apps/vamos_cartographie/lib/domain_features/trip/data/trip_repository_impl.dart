@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
 import 'package:vamos_cartographie/core/erreur_handler.dart';
+import 'package:vamos_cartographie/domain_features/route/data/route_repository_impl.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/trip_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/trip_remote_datasource.dart';
@@ -111,6 +113,13 @@ class TripRepositoryImpl extends TripRepository {
   Future<Either<Failure, void>> deleteTrip(Id<Trip> id) {
     return guard(() async {
       await remote.deleteTrip(id: id);
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> setTripOrigin(Id<Trip> id, LatLng origin) {
+    return guardRouteEdit(() async {
+      await remote.setTripOrigin(id: id, origin: origin);
     });
   }
 }

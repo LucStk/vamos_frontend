@@ -5,17 +5,17 @@
 
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
-    as _i5;
-import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.ast.gql.dart'
-    as _i4;
-import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
-    as _i2;
-import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
     as _i3;
+import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.ast.gql.dart'
+    as _i2;
+import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
+    as _i5;
+import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
+    as _i6;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
     as _i7;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
-    as _i6;
+    as _i4;
 
 const UpdateTrip = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
@@ -150,21 +150,84 @@ const DeleteTrip = _i1.OperationDefinitionNode(
     ),
   ]),
 );
+const SetTripOrigin = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'SetTripOrigin'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'origin')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'setTripOrigin'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'origin'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'origin')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'EditRoutePayloadFragment'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
 const document = _i1.DocumentNode(definitions: [
   UpdateTrip,
   CreateBlankTrip,
   DeleteTrip,
-  _i2.StoredFile,
-  _i2.FileAttachment,
-  _i2.UploadConfigFields,
-  _i3.TripFields,
-  _i3.TripWithRouteFields,
-  _i4.RouteSectionFields,
-  _i4.TripRouteFields,
-  _i4.EditRoutePayloadFragment,
-  _i5.LatLngFields,
-  _i6.WaypointFields,
-  _i6.WaypointAnchorFields,
+  SetTripOrigin,
+  _i2.RouteSectionFields,
+  _i2.TripRouteFields,
+  _i2.EditRoutePayloadFragment,
+  _i3.LatLngFields,
+  _i4.WaypointFields,
+  _i4.WaypointAnchorFields,
+  _i5.StoredFile,
+  _i5.FileAttachment,
+  _i5.UploadConfigFields,
+  _i6.TripFields,
+  _i6.TripWithRouteFields,
   _i7.UserProfileFields,
   _i7.CreateProfilePayload,
 ]);

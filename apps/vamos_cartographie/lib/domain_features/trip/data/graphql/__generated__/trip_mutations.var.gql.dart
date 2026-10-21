@@ -100,3 +100,58 @@ class GDeleteTripVars {
     return 'GDeleteTripVars(id: $id)';
   }
 }
+
+class GSetTripOriginVars {
+  const GSetTripOriginVars({
+    required this.id,
+    required this.origin,
+  });
+
+  factory GSetTripOriginVars.fromJson(Map<String, dynamic> json) {
+    return GSetTripOriginVars(
+      id: (json['id'] as String),
+      origin:
+          _i1.GLatLngInput.fromJson((json['origin'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String id;
+
+  final _i1.GLatLngInput origin;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue;
+    final _$originValue = this.origin;
+    _$result['origin'] = _$originValue.toJson();
+    return _$result;
+  }
+
+  GSetTripOriginVars copyWith({
+    String? id,
+    _i1.GLatLngInput? origin,
+  }) {
+    return GSetTripOriginVars(
+      id: id ?? this.id,
+      origin: origin ?? this.origin,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSetTripOriginVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSetTripOriginVars(id: $id, origin: $origin)';
+  }
+}

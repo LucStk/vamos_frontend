@@ -21,9 +21,3 @@ mutation RedrawRoutePortion($tripId: UUID!, $input: RedrawRouteInput!) {
         ...EditRoutePayloadFragment
     }
 }
-
-mutation SetTripOrigin($id: UUID!, $origin: LatLngInput!) {
-    setTripOrigin(id: $id, origin: $origin) {
-        ...EditRoutePayloadFragment
-    }
-}

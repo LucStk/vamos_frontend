@@ -140,61 +140,67 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
       appBar: AppBar(title: const Text('Modifier mon profil')),
       body: Form(
         key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
-            Center(
-              child: ProfilePictureEditor(
-                imageUrl: profile?.profilePictureUrl,
-                previewFile: _selectedProfilePicture,
-                isLoading: _isSaving,
-                errorMessage: _errorMessage,
-                onPickImage: _pickProfilePicture,
-              ),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: ListView(
+              padding: const EdgeInsets.all(24),
+              children: [
+                Center(
+                  child: ProfilePictureEditor(
+                    imageUrl: profile?.profilePictureUrl,
+                    previewFile: _selectedProfilePicture,
+                    isLoading: _isSaving,
+                    errorMessage: _errorMessage,
+                    onPickImage: _pickProfilePicture,
+                  ),
+                ),
+
+                // const SizedBox(height: 32),
+
+                // TextFormField(
+                //   controller: _profileNameController,
+                //   enabled: !_isSaving,
+                //   decoration: const InputDecoration(labelText: 'Nom du profil'),
+                // ),
+                const SizedBox(height: 16),
+
+                TextFormField(
+                  controller: _bioController,
+                  maxLines: 5,
+                  maxLength: 500,
+                  enabled: !_isSaving,
+                  decoration: const InputDecoration(
+                    labelText: 'Biographie',
+                    hintText: 'Présentez-vous...',
+                    alignLabelWithHint: true,
+                  ),
+                ),
+
+                if (_errorMessage != null) ...[
+                  const SizedBox(height: 8),
+                  _ErrorMessage(message: _errorMessage!),
+                ],
+
+                const SizedBox(height: 24),
+
+                FilledButton(
+                  onPressed: _isSaving ? null : _save,
+                  child: _isSaving
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text('Enregistrer'),
+                ),
+              ],
             ),
-
-            // const SizedBox(height: 32),
-
-            // TextFormField(
-            //   controller: _profileNameController,
-            //   enabled: !_isSaving,
-            //   decoration: const InputDecoration(labelText: 'Nom du profil'),
-            // ),
-            const SizedBox(height: 16),
-
-            TextFormField(
-              controller: _bioController,
-              maxLines: 5,
-              maxLength: 500,
-              enabled: !_isSaving,
-              decoration: const InputDecoration(
-                labelText: 'Biographie',
-                hintText: 'Présentez-vous...',
-                alignLabelWithHint: true,
-              ),
-            ),
-
-            if (_errorMessage != null) ...[
-              const SizedBox(height: 8),
-              _ErrorMessage(message: _errorMessage!),
-            ],
-
-            const SizedBox(height: 24),
-
-            FilledButton(
-              onPressed: _isSaving ? null : _save,
-              child: _isSaving
-                  ? const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
-                      ),
-                    )
-                  : const Text('Enregistrer'),
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -1,10 +1,13 @@
+import 'package:latlong2/latlong.dart';
 import 'package:user_profile_application/user_profile_application.dart';
 
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/graphql.dart';
 import 'package:vamos_cartographie/core/network/ferry_client_x.dart';
+import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.data.gql.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
 
 /// Datasource distant pour les opérations sur les trips.
@@ -90,5 +93,17 @@ class TripRemoteDatasource {
     await ferryClient.execute(
       GDeleteTripReq(vars: GDeleteTripVars(id: id.value)),
     );
+  }
+
+  Future<GEditRoutePayloadFragment> setTripOrigin({
+    required Id<Trip> id,
+    required LatLng origin,
+  }) async {
+    final data = await ferryClient.execute(
+      GSetTripOriginReq(
+        vars: GSetTripOriginVars(id: id.value, origin: origin.toGQLInput()),
+      ),
+    );
+    return data.setTripOrigin;
   }
 }
