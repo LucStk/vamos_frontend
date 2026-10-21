@@ -17,13 +17,12 @@ class EditRoutePayload {
 }
 
 abstract class RouteRepository {
-  Future<Either<Failure, EditRoutePayload>> drawRoute({
+  Future<Either<Failure, EditRoutePayload>> extendRoute({
     required TripId tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   });
-
-  Future<Either<Failure, EditRoutePayload>> extendsRoute({
+  Future<Either<Failure, EditRoutePayload>> prependRoute({
     required TripId tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,

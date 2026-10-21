@@ -60,7 +60,7 @@ final class LoadWaypointNotifierProvider
 }
 
 String _$loadWaypointNotifierHash() =>
-    r'c3a73545e1644508dc50b363cebc3b50caf79bf1';
+    r'2caea2d56fb2c02fe842ecba1507b0058bf945e4';
 
 final class LoadWaypointNotifierFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Failure?>, TripId> {

@@ -13,9 +13,9 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__ge
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i4;
 
-const DrawRoute = _i1.OperationDefinitionNode(
+const ExtendRoute = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'DrawRoute'),
+  name: _i1.NameNode(value: 'ExtendRoute'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
@@ -29,7 +29,7 @@ const DrawRoute = _i1.OperationDefinitionNode(
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DrawRouteInput'),
+        name: _i1.NameNode(value: 'ExtendRouteInput'),
         isNonNull: true,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -39,7 +39,7 @@ const DrawRoute = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'drawRoute'),
+      name: _i1.NameNode(value: 'extendRoute'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
@@ -75,9 +75,9 @@ const DrawRoute = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const ExtendRoute = _i1.OperationDefinitionNode(
+const PrependRoute = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'ExtendRoute'),
+  name: _i1.NameNode(value: 'PrependRoute'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
@@ -101,7 +101,7 @@ const ExtendRoute = _i1.OperationDefinitionNode(
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'extendRoute'),
+      name: _i1.NameNode(value: 'prependRoute'),
       alias: null,
       arguments: [
         _i1.ArgumentNode(
@@ -199,10 +199,73 @@ const RedrawRoutePortion = _i1.OperationDefinitionNode(
     ),
   ]),
 );
+const SetTripOrigin = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'SetTripOrigin'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'origin')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'setTripOrigin'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'origin'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'origin')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'EditRoutePayloadFragment'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
 const document = _i1.DocumentNode(definitions: [
-  DrawRoute,
   ExtendRoute,
+  PrependRoute,
   RedrawRoutePortion,
+  SetTripOrigin,
   _i2.RouteSectionFields,
   _i2.TripRouteFields,
   _i2.EditRoutePayloadFragment,

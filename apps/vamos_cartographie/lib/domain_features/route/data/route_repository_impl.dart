@@ -45,13 +45,13 @@ class RouteRepositoryImpl extends RouteRepository {
   };
 
   @override
-  Future<Either<Failure, EditRoutePayload>> drawRoute({
+  Future<Either<Failure, EditRoutePayload>> extendRoute({
     required TripId tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   }) async {
     final res = await guardRouteEdit(
-      () => remote.drawRoute(
+      () => remote.extendRoute(
         geometry: geometry,
         mobilityType: mobilityType,
         tripId: tripId,
@@ -61,13 +61,13 @@ class RouteRepositoryImpl extends RouteRepository {
   }
 
   @override
-  Future<Either<Failure, EditRoutePayload>> extendsRoute({
+  Future<Either<Failure, EditRoutePayload>> prependRoute({
     required TripId tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   }) async {
     final res = await guardRouteEdit(
-      () => remote.extendsRoute(
+      () => remote.prependRoute(
         geometry: geometry,
         mobilityType: mobilityType,
         tripId: tripId,

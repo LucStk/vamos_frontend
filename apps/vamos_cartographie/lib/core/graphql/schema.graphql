@@ -36,13 +36,6 @@ scalar Date
 """Date with time (isoformat)"""
 scalar DateTime
 
-input DrawRouteInput {
-  points: [LatLngInput!]!
-  mobilityType: MobilityType!
-  autoRoute: Boolean! = true
-  basedOn: DateTime = null
-}
-
 type EditRouteError {
   code: RouteEditErrorCode!
   message: String!
@@ -112,12 +105,13 @@ type Mutation {
   updateProfile(input: UpdateUserProfileInput!): UserProfileType!
   updateTrip(id: UUID!, input: TripUpdateInput!): TripType!
   deleteTrip(id: UUID!): Boolean!
-  createBlankTrip: TripType!
+  createBlankTrip(origin: LatLngInput = null): TripType!
+  setTripOrigin(id: UUID!, origin: LatLngInput!): EditRoutePayload!
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): WaypointType!
   deleteWaypoint(id: UUID!): Boolean!
-  drawRoute(tripId: UUID!, input: DrawRouteInput!): EditRoutePayload!
   extendRoute(tripId: UUID!, input: ExtendRouteInput!): EditRoutePayload!
+  prependRoute(tripId: UUID!, input: ExtendRouteInput!): EditRoutePayload!
   redrawRoutePortion(tripId: UUID!, input: RedrawRouteInput!): EditRoutePayload!
   refineSection(tripId: UUID!, sectionId: UUID!): EditRoutePayload!
   setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!): EditRoutePayload!
@@ -222,6 +216,7 @@ input TripUpdateInput {
   title: String
   description: String
   date: Date
+  origin: LatLngInput = null
 }
 
 input UpdateUserProfileInput {

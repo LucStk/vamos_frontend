@@ -128,51 +128,6 @@ const DateTime = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'DateTime'),
   directives: [],
 );
-const DrawRouteInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'DrawRouteInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'points'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'autoRoute'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.BooleanValueNode(value: true),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'basedOn'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DateTime'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-  ],
-);
 const EditRouteError = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'EditRouteError'),
   directives: [],
@@ -570,9 +525,47 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'createBlankTrip'),
       directives: [],
-      args: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'origin'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'LatLngInput'),
+            isNonNull: false,
+          ),
+          defaultValue: _i1.NullValueNode(),
+        )
+      ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'TripType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'setTripOrigin'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'origin'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'LatLngInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'EditRoutePayload'),
         isNonNull: true,
       ),
     ),
@@ -652,7 +645,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'drawRoute'),
+      name: _i1.NameNode(value: 'extendRoute'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -668,7 +661,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'DrawRouteInput'),
+            name: _i1.NameNode(value: 'ExtendRouteInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -680,7 +673,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'extendRoute'),
+      name: _i1.NameNode(value: 'prependRoute'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -1386,6 +1379,15 @@ const TripUpdateInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'origin'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
   ],
 );
 const UpdateUserProfileInput = _i1.InputObjectTypeDefinitionNode(
@@ -1645,7 +1647,6 @@ const document = _i1.DocumentNode(definitions: [
   CreateProfileSuccess,
   Date,
   DateTime,
-  DrawRouteInput,
   EditRouteError,
   EditRoutePayload,
   EditRouteSuccess,

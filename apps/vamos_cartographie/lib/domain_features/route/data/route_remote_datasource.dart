@@ -20,27 +20,27 @@ class RouteRemoteDatasource {
 
   RouteRemoteDatasource(this.ferryClient);
 
-  Future<GEditRoutePayloadFragment> drawRoute({
+  Future<GEditRoutePayloadFragment> extendRoute({
     required Id<Trip> tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
   }) async {
     final data = await ferryClient.execute(
-      GDrawRouteReq(
-        vars: GDrawRouteVars(
-          input: GDrawRouteInput(
-            points: geometry.toGQLInput(),
-            mobilityType: mobilityType.toGQL(),
-            autoRoute: true,
-          ),
+      GExtendRouteReq(
+        vars: GExtendRouteVars(
           tripId: tripId.value,
+          input: GExtendRouteInput(
+            autoRoute: true,
+            mobilityType: mobilityType.toGQL(),
+            points: geometry.toGQLInput(),
+          ),
         ),
       ),
     );
-    return data.drawRoute;
+    return data.extendRoute;
   }
 
-  Future<GEditRoutePayloadFragment> extendsRoute({
+  Future<GEditRoutePayloadFragment> prependRoute({
     required Id<Trip> tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,

@@ -8,61 +8,6 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
-class GDrawRouteVars {
-  const GDrawRouteVars({
-    required this.tripId,
-    required this.input,
-  });
-
-  factory GDrawRouteVars.fromJson(Map<String, dynamic> json) {
-    return GDrawRouteVars(
-      tripId: (json['tripId'] as String),
-      input:
-          _i1.GDrawRouteInput.fromJson((json['input'] as Map<String, dynamic>)),
-    );
-  }
-
-  final String tripId;
-
-  final _i1.GDrawRouteInput input;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$tripIdValue = this.tripId;
-    _$result['tripId'] = _$tripIdValue;
-    final _$inputValue = this.input;
-    _$result['input'] = _$inputValue.toJson();
-    return _$result;
-  }
-
-  GDrawRouteVars copyWith({
-    String? tripId,
-    _i1.GDrawRouteInput? input,
-  }) {
-    return GDrawRouteVars(
-      tripId: tripId ?? this.tripId,
-      input: input ?? this.input,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GDrawRouteVars &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GDrawRouteVars(tripId: $tripId, input: $input)';
-  }
-}
-
 class GExtendRouteVars {
   const GExtendRouteVars({
     required this.tripId,
@@ -118,6 +63,61 @@ class GExtendRouteVars {
   }
 }
 
+class GPrependRouteVars {
+  const GPrependRouteVars({
+    required this.tripId,
+    required this.input,
+  });
+
+  factory GPrependRouteVars.fromJson(Map<String, dynamic> json) {
+    return GPrependRouteVars(
+      tripId: (json['tripId'] as String),
+      input: _i1.GExtendRouteInput.fromJson(
+          (json['input'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String tripId;
+
+  final _i1.GExtendRouteInput input;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$inputValue = this.input;
+    _$result['input'] = _$inputValue.toJson();
+    return _$result;
+  }
+
+  GPrependRouteVars copyWith({
+    String? tripId,
+    _i1.GExtendRouteInput? input,
+  }) {
+    return GPrependRouteVars(
+      tripId: tripId ?? this.tripId,
+      input: input ?? this.input,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPrependRouteVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GPrependRouteVars(tripId: $tripId, input: $input)';
+  }
+}
+
 class GRedrawRoutePortionVars {
   const GRedrawRoutePortionVars({
     required this.tripId,
@@ -170,5 +170,60 @@ class GRedrawRoutePortionVars {
   @override
   String toString() {
     return 'GRedrawRoutePortionVars(tripId: $tripId, input: $input)';
+  }
+}
+
+class GSetTripOriginVars {
+  const GSetTripOriginVars({
+    required this.id,
+    required this.origin,
+  });
+
+  factory GSetTripOriginVars.fromJson(Map<String, dynamic> json) {
+    return GSetTripOriginVars(
+      id: (json['id'] as String),
+      origin:
+          _i1.GLatLngInput.fromJson((json['origin'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String id;
+
+  final _i1.GLatLngInput origin;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue;
+    final _$originValue = this.origin;
+    _$result['origin'] = _$originValue.toJson();
+    return _$result;
+  }
+
+  GSetTripOriginVars copyWith({
+    String? id,
+    _i1.GLatLngInput? origin,
+  }) {
+    return GSetTripOriginVars(
+      id: id ?? this.id,
+      origin: origin ?? this.origin,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSetTripOriginVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSetTripOriginVars(id: $id, origin: $origin)';
   }
 }

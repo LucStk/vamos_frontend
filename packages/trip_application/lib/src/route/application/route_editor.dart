@@ -11,14 +11,14 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
   TripId get tripId;
   RouteRepository get routeRepo;
 
-  Future<Either<Failure, EditRoutePayload>> drawRoute({
+  Future<Either<Failure, EditRoutePayload>> extendRoute({
     required List<LatLng> geometry,
     required MobilityType mobilityType,
   }) {
     return run<EditRoutePayload, TripId>(
       entityKey: tripId, // sérialise toutes les éditions de ce trip
       onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
-      remote: (_) => routeRepo.drawRoute(
+      remote: (_) => routeRepo.extendRoute(
         tripId: tripId,
         mobilityType: mobilityType,
         geometry: geometry,
@@ -31,14 +31,14 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
     );
   }
 
-  Future<Either<Failure, EditRoutePayload>> extendsRoute({
+  Future<Either<Failure, EditRoutePayload>> prependRoute({
     required List<LatLng> geometry,
     required MobilityType mobilityType,
   }) {
     return run<EditRoutePayload, TripId>(
       entityKey: tripId, // sérialise toutes les éditions de ce trip
       onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
-      remote: (_) => routeRepo.extendsRoute(
+      remote: (_) => routeRepo.prependRoute(
         tripId: tripId,
         mobilityType: mobilityType,
         geometry: geometry,
@@ -50,21 +50,4 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
       onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
     );
   }
-
-  // Future<Either<Failure, EditRoutePayload>> deleteSection(SectionId sectionId) {
-  //   return run<EditRoutePayload, TripId>(
-  //     entityKey: tripId, // sérialise toutes les éditions de ce trip
-  //     onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
-  //     remote: (_) => routeRepo.r(
-  //       tripId: tripId,
-  //       mobilityType: mobilityType,
-  //       geometry: geometry,
-  //     ),
-  //     onSuccess: (gs, payload) => gs.replacedByServer(
-  //       remoteRoute: payload.route,
-  //       remoteSections: payload.sections,
-  //     ),
-  //     onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
-  //   );
-  // }
 }

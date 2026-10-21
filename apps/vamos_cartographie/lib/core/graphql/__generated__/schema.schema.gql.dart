@@ -97,85 +97,6 @@ enum GCreateProfileErrorCode {
   }
 }
 
-class GDrawRouteInput {
-  const GDrawRouteInput({
-    required this.points,
-    required this.mobilityType,
-    required this.autoRoute,
-    this.basedOn = const Value.absent(),
-  });
-
-  factory GDrawRouteInput.fromJson(Map<String, dynamic> json) {
-    return GDrawRouteInput(
-      points: (json['points'] as List<dynamic>)
-          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
-      autoRoute: (json['autoRoute'] as bool),
-      basedOn: json.containsKey('basedOn')
-          ? Value.present(
-              json['basedOn'] == null ? null : (json['basedOn'] as String))
-          : Value.absent(),
-    );
-  }
-
-  final List<GLatLngInput> points;
-
-  final GMobilityType mobilityType;
-
-  final bool autoRoute;
-
-  final Value<String> basedOn;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$pointsValue = this.points;
-    _$result['points'] = _$pointsValue.map((_$e) => _$e.toJson()).toList();
-    final _$mobilityTypeValue = this.mobilityType;
-    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
-    final _$autoRouteValue = this.autoRoute;
-    _$result['autoRoute'] = _$autoRouteValue;
-    final _$basedOnValue = this.basedOn;
-    if (_$basedOnValue.isPresent) {
-      final _$basedOnRequired = _$basedOnValue.requireValue;
-      _$result['basedOn'] =
-          _$basedOnRequired == null ? null : _$basedOnRequired;
-    }
-    return _$result;
-  }
-
-  GDrawRouteInput copyWith({
-    List<GLatLngInput>? points,
-    GMobilityType? mobilityType,
-    bool? autoRoute,
-    Value<String>? basedOn,
-  }) {
-    return GDrawRouteInput(
-      points: points ?? this.points,
-      mobilityType: mobilityType ?? this.mobilityType,
-      autoRoute: autoRoute ?? this.autoRoute,
-      basedOn: basedOn ?? this.basedOn,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GDrawRouteInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GDrawRouteInput(points: $points, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
-  }
-}
-
 class GExtendRouteInput {
   const GExtendRouteInput({
     required this.points,
@@ -788,6 +709,7 @@ class GTripUpdateInput {
     this.title = const Value.absent(),
     this.description = const Value.absent(),
     this.date = const Value.absent(),
+    this.origin = const Value.absent(),
   });
 
   factory GTripUpdateInput.fromJson(Map<String, dynamic> json) {
@@ -805,6 +727,11 @@ class GTripUpdateInput {
           ? Value.present(
               json['date'] == null ? null : (json['date'] as String))
           : Value.absent(),
+      origin: json.containsKey('origin')
+          ? Value.present(json['origin'] == null
+              ? null
+              : GLatLngInput.fromJson((json['origin'] as Map<String, dynamic>)))
+          : Value.absent(),
     );
   }
 
@@ -813,6 +740,8 @@ class GTripUpdateInput {
   final Value<String> description;
 
   final Value<String> date;
+
+  final Value<GLatLngInput> origin;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -832,6 +761,12 @@ class GTripUpdateInput {
       final _$dateRequired = _$dateValue.requireValue;
       _$result['date'] = _$dateRequired == null ? null : _$dateRequired;
     }
+    final _$originValue = this.origin;
+    if (_$originValue.isPresent) {
+      final _$originRequired = _$originValue.requireValue;
+      _$result['origin'] =
+          _$originRequired == null ? null : _$originRequired.toJson();
+    }
     return _$result;
   }
 
@@ -839,11 +774,13 @@ class GTripUpdateInput {
     Value<String>? title,
     Value<String>? description,
     Value<String>? date,
+    Value<GLatLngInput>? origin,
   }) {
     return GTripUpdateInput(
       title: title ?? this.title,
       description: description ?? this.description,
       date: date ?? this.date,
+      origin: origin ?? this.origin,
     );
   }
 
@@ -861,7 +798,7 @@ class GTripUpdateInput {
 
   @override
   String toString() {
-    return 'GTripUpdateInput(title: $title, description: $description, date: $date)';
+    return 'GTripUpdateInput(title: $title, description: $description, date: $date, origin: $origin)';
   }
 }
 
