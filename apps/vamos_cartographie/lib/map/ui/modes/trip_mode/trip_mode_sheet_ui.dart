@@ -28,7 +28,6 @@ class TripModeSheetUi extends ConsumerWidget {
           stopSketch: () {},
         ),
         TripValidatingMode _ => SizedBox.shrink(),
-        SetTripOriginMode _ => SizedBox.shrink(),
       },
     };
   }

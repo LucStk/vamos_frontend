@@ -35,17 +35,3 @@ final class TripValidatingMode extends TripEditableMode {
     return Transition.to<AppMode>(TripActiveMode(tripId));
   }
 }
-
-// mode just après avoir créé un trip pour poser le premier point
-final class SetTripOriginMode extends TripEditableMode {
-  const SetTripOriginMode(super.tripId);
-  @override
-  Transition<AppMode> onLongPress(LongPressGesture g) => Transition.stay();
-  @override
-  Transition<AppMode> onSecondaryTap(SecondaryTapGesture g) =>
-      Transition.stay();
-
-  @override
-  Transition<AppMode> onTap(TapGesture g) =>
-      Transition.set(tripOriginSlot, TripOrigin(g.world));
-}

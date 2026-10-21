@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/map/scene/items/localization/localization_ite
 
 part 'localization_layer.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true)
 LocalizationItem? localizationItem(Ref ref, MapCameraReader camera) {
   final location = ref.watch(userLocationProvider);
 

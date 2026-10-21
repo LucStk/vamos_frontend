@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:map_engine/map_engine.dart';
+import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_mutations.ast.gql.dart';
+import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import '../on_boarding/create_profile_page.dart';
 import '/domain_features/user_profile/providers/user_session_providers.dart';
 import '/ui_kit/ui_kit.dart';
@@ -27,7 +30,10 @@ class ProfilePage extends ConsumerWidget {
 
       AsyncData(value: final me) => ProfileContentView(
         profile: me!.profile!,
-        onCreateTrip: () {},
+        onCreateTrip: () {
+          
+          ref.watch(modeMachineProvider).apply(SetTripOriginMode.switchTo());
+        },
         onEditProfile: () {
           Navigator.of(context).push(
             MaterialPageRoute<void>(builder: (_) => const EditProfilePage()),

@@ -32,3 +32,7 @@ abstract interface class TripEditScope implements CommonScope, WaypointScope {
   TripId get tripId;
   RouteSectionFields? section(SectionId section);
 }
+
+abstract interface class TripCreateScope implements CommonScope {
+  TripEditor get tripEditor;
+}

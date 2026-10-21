@@ -16,11 +16,10 @@ class MapUi extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(modeStateProvider.select((m) => m.mode));
 
-    switch (mode) {
-      case (ExploreMode _):
-        return SizedBox.shrink();
-      case (TripMode t):
-        return TripModeUi(t);
-    }
+    return switch (mode) {
+      ExploreMode _ => SizedBox.shrink(),
+      TripMode t => TripModeUi(t),
+      SetTripOriginMode _ => SizedBox.shrink(),
+    };
   }
 }

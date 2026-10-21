@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
-import 'package:vamos_cartographie/map/mode/mode_scope.dart';
+// import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/menu/waypoint_menu.dart';
 
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
@@ -26,7 +26,7 @@ class TripModeContextualMenu extends ConsumerWidget {
     }
     void onDelete() {
       final selection = ref.read(modeSelectionProvider);
-      final handler = ref.watch(handlerRegistryProvider);
+      // final handler = ref.watch(handlerRegistryProvider);
       ref.read(modeMachineProvider).apply(selection?.delete());
     }
 

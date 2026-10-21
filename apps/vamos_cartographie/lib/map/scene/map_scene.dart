@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/scene_composition.dart';
 import 'package:vamos_cartographie/map/scene/layers/segments/segments_layer.dart';
+import 'package:vamos_cartographie/map/scene/layers/localization_layer.dart';
 import 'package:vamos_cartographie/map/scene/layers/sketch/sketch_layer.dart';
 import 'package:vamos_cartographie/map/scene/layers/trips/trip_origin_item_provider.dart';
 part 'map_scene.g.dart';
@@ -18,7 +19,13 @@ part 'map_scene.g.dart';
 /// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 @Riverpod(
   keepAlive: true,
-  dependencies: [mapMode, allSegmentItem, allSketchItem, tripOriginItem],
+  dependencies: [
+    mapMode,
+    allSegmentItem,
+    allSketchItem,
+    localizationItem,
+    tripOriginItem,
+  ],
 )
 List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   final mode = ref.watch(mapModeProvider);

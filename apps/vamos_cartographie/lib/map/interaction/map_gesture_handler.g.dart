@@ -49,6 +49,7 @@ final class MapGestureHandlerNotifierProvider
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies13,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies14,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies15,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies16,
         },
       );
 
@@ -73,14 +74,16 @@ final class MapGestureHandlerNotifierProvider
       MapSceneProvider.$allTransitiveDependencies8;
   static final $allTransitiveDependencies10 =
       MapSceneProvider.$allTransitiveDependencies9;
-  static final $allTransitiveDependencies11 = modeMachineProvider;
-  static final $allTransitiveDependencies12 =
-      ModeMachineProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies11 =
+      MapSceneProvider.$allTransitiveDependencies10;
+  static final $allTransitiveDependencies12 = modeMachineProvider;
   static final $allTransitiveDependencies13 =
-      ModeMachineProvider.$allTransitiveDependencies2;
+      ModeMachineProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies14 =
-      ModeMachineProvider.$allTransitiveDependencies4;
+      ModeMachineProvider.$allTransitiveDependencies2;
   static final $allTransitiveDependencies15 =
+      ModeMachineProvider.$allTransitiveDependencies4;
+  static final $allTransitiveDependencies16 =
       ModeMachineProvider.$allTransitiveDependencies5;
 
   @override
