@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'localization_item_provider.dart';
+part of 'localization_layer.dart';
 
 // **************************************************************************
 // RiverpodGenerator

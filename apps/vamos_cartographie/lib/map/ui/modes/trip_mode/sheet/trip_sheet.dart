@@ -1,7 +1,6 @@
 import 'package:domain_core/failures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
@@ -14,10 +13,10 @@ import 'package:vamos_cartographie/map/ui/shared/sheets/floating_header_card.dar
 
 @Dependencies([])
 class TripSheet extends ConsumerWidget {
-  const TripSheet({super.key, required this.mode, required this.tripId});
+  const TripSheet({super.key, required this.canEdit, required this.tripId});
 
   final TripId tripId;
-  final TripMode mode;
+  final bool canEdit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +24,6 @@ class TripSheet extends ConsumerWidget {
     if (trip == null) {
       throw NotFoundFailure(resourceId: tripId.value, resourceType: 'trip');
     }
-    final canEdit = mode is TripEditMode;
     Future<Failure?> onRename(String title) async {
       final c = await ref
           .read(tripStoreProvider.notifier)

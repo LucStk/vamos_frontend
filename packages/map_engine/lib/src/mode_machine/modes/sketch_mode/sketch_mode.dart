@@ -1,6 +1,6 @@
 part of "../../app_mode.dart";
 
-mixin SketchMode on TripMode {
+base mixin SketchMode on TripEditableMode {
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
     MapWaypoint e => Transition.overlay(WaypointMenu(e)),
@@ -33,7 +33,7 @@ mixin SketchMode on TripMode {
   static Transition<AppMode> stopSketch() =>
       Transition.withMode<AppMode, SketchEdition>(
         (s) => Transition.to(
-          TripEditMode(s.tripId),
+          TripActiveMode(s.tripId),
         ).and(selectionSlot, MapSegment(tripId: s.tripId, id: s.segmentId)),
       );
 }

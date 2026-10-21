@@ -1,9 +1,9 @@
 // modes/trip_editor/selection_actions.dart
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
-import 'package:map_engine/src/domain/selection.dart';
 import 'package:map_engine/src/mode_machine/command/waypoint_command.dart';
 import 'package:map_engine/src/mode_machine/app_mode.dart';
+import 'package:map_engine/src/mode_machine/slots/selection_slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 
 extension SelectableDelete on Selectable {

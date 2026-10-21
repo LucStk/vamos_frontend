@@ -1,7 +1,7 @@
-import '../domain/gestures/map_gesture.dart';
-import 'command/camera_command.dart';
-import 'slot.dart';
-import 'transition.dart';
+import 'package:map_engine/src/domain/gestures/map_gesture.dart';
+import 'package:map_engine/src/mode_machine/command/camera_command.dart';
+import 'package:map_engine/src/mode_machine/slots/slot.dart';
+import 'package:map_engine/src/mode_machine/transition.dart';
 
 abstract class Mode<Self extends Mode<Self>> {
   const Mode();

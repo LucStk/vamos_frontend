@@ -47,15 +47,15 @@ final class SceneItemsProvider
        );
 
   static final $allTransitiveDependencies0 = mapModeProvider;
-  static final $allTransitiveDependencies1 = localizationItemProvider;
-  static final $allTransitiveDependencies2 = allSketchItemProvider;
-  static final $allTransitiveDependencies3 =
-      AllSketchItemProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies4 =
-      AllSketchItemProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies5 = allSegmentItemProvider;
-  static final $allTransitiveDependencies6 =
+  static final $allTransitiveDependencies1 = allSegmentItemProvider;
+  static final $allTransitiveDependencies2 =
       AllSegmentItemProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies3 = allSketchItemProvider;
+  static final $allTransitiveDependencies4 =
+      AllSketchItemProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies5 =
+      AllSketchItemProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies6 = tripOriginItemProvider;
 
   @override
   String debugGetCreateSourceHash() => _$sceneItemsHash();
@@ -97,7 +97,7 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'b1407ffa94b33ba15dbfcebd50cad52c8fd5be4b';
+String _$sceneItemsHash() => r'37d9ad6d5db5284c40130538ba69ffd2b7fcd10f';
 
 /// Items de la scène, en coordonnées MONDE.
 ///
@@ -114,9 +114,9 @@ final class SceneItemsFamily extends $Family
         name: r'sceneItemsProvider',
         dependencies: <ProviderOrFamily>[
           mapModeProvider,
-          localizationItemProvider,
-          allSketchItemProvider,
           allSegmentItemProvider,
+          allSketchItemProvider,
+          tripOriginItemProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           SceneItemsProvider.$allTransitiveDependencies0,

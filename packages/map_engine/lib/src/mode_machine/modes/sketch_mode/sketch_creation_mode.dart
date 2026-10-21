@@ -1,6 +1,6 @@
 part of '../../app_mode.dart';
 
-class SketchCreation extends TripMode with SketchMode {
+final class SketchCreation extends TripEditableMode with SketchMode {
   const SketchCreation(super.tripId);
 
   @override

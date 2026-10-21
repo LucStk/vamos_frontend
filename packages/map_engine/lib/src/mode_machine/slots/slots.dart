@@ -1,8 +1,7 @@
 // mode_context.dart
-import 'slot.dart';
 import "package:collection/collection.dart";
-
-import 'mode.dart';
+import "package:map_engine/src/mode_machine/mode.dart";
+import "package:map_engine/src/mode_machine/slots/slot.dart";
 
 // slots.dart
 final class Slots {

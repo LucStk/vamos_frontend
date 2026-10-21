@@ -25,6 +25,6 @@ sealed class TripMode extends AppMode {
   };
 }
 
-final class TripViewMode extends TripMode {
-  const TripViewMode(super.tripId);
+final class TripReadOnlyMode extends TripMode {
+  const TripReadOnlyMode(super.tripId);
 }

@@ -1,11 +1,11 @@
 import 'package:map_engine/src/domain/objects/map_objects.dart';
-import 'package:map_engine/src/domain/selection.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
 import 'package:map_engine/src/mode_machine/command/effect/pending_run.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
 import 'package:map_engine/src/mode_machine/mode_state.dart';
 import 'package:map_engine/src/mode_machine/overlay.dart';
-import 'package:map_engine/src/mode_machine/slot.dart';
+import 'package:map_engine/src/mode_machine/slots/selection_slot.dart';
+import 'package:map_engine/src/mode_machine/slots/slot.dart';
 
 // Les commandes importent `Done` depuis ici : on le réexporte.
 

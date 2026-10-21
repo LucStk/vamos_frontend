@@ -1,4 +1,3 @@
-import 'package:domain_core/domain/collection_store.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,14 +22,4 @@ TripItem? tripItem(Ref ref, TripId tripId, MapCameraReader camera) {
     ),
     object: MapTrip(tripId, isOwned: ref.watch(isTripOwnedProvider(tripId))),
   );
-}
-
-@Riverpod(keepAlive: true)
-List<TripItem> allTripItem(Ref ref, MapCameraController camera) {
-  final tripsIds = ref.watch(
-    tripStoreProvider.select((t) => t.tripStore.getIds()),
-  );
-  return [
-    for (final tripId in tripsIds) ?ref.watch(tripItemProvider(tripId, camera)),
-  ];
 }

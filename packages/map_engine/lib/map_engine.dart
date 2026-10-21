@@ -7,7 +7,6 @@ export "src/domain/camera/camera_pose.dart";
 export "src/domain/gestures/gesture_sink.dart";
 export 'src/domain/gestures/map_gesture.dart';
 
-export "src/domain/selection.dart";
 export "src/domain/sketch_trace.dart";
 
 export "src/geometry/camera_to_matrix4.dart";
@@ -15,6 +14,10 @@ export "src/geometry/segment_hit_helpers.dart";
 export "src/geometry/world_segment_helper.dart";
 
 export "src/mode_machine/mode.dart";
+
+export "src/mode_machine/slots/selection_slot.dart";
+export "src/mode_machine/slots/sketch_trace_slot.dart";
+export "src/mode_machine/slots/trip_origin_slot.dart";
 
 export "src/mode_machine/transition.dart";
 export "src/mode_machine/actions/selection_actions.dart";

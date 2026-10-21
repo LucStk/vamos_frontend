@@ -11,7 +11,7 @@ class ExploreMode extends AppMode {
     MapTrip e => Transition.run<AppMode, Done>(
       FocusTrip(e.id),
       then: (_, _) => Transition.to<AppMode>(
-        e.isOwned ? TripEditMode(e.id) : TripViewMode(e.id),
+        e.isOwned ? TripActiveMode(e.id) : TripReadOnlyMode(e.id),
       ),
     ),
     _ => Transition.stay(),

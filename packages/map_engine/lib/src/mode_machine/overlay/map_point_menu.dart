@@ -1,7 +1,7 @@
 // segment_select_mode.dart (ou son dossier)
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
-import 'package:map_engine/src/domain/selection.dart';
+import 'package:map_engine/src/mode_machine/slots/selection_slot.dart';
 import 'package:map_engine/src/mode_machine/app_mode.dart';
 import 'package:map_engine/src/mode_machine/command/waypoint_command.dart';
 import 'package:map_engine/src/mode_machine/overlay/context_menu.dart';
@@ -19,7 +19,7 @@ class MapPointMenu extends ContextMenuOverlay<AppMode> {
   Transition<AppMode> createVertex() => Transition.run(
     CreateWaypoint(at),
     then: (current, WaypointId id) {
-      final editor = current.modeAs<TripEditMode>();
+      final editor = current.modeAs<TripActiveMode>();
       if (editor == null) return null;
       return Transition.set(
         selectionSlot,

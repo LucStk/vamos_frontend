@@ -8,13 +8,17 @@ part of 'segment_item_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 
 @ProviderFor(segmentItem)
 final segmentItemProvider = SegmentItemFamily._();
 
+/// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
+
 final class SegmentItemProvider
     extends $FunctionalProvider<SegmentItem?, SegmentItem?, SegmentItem?>
     with $Provider<SegmentItem?> {
+  /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
   SegmentItemProvider._({
     required SegmentItemFamily super.from,
     required (TripId, SectionId, MapCameraReader) super.argument,
@@ -66,7 +70,9 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'5a6cafa3ff7239b33f04c1fe1f4e22e9b0c77731';
+String _$segmentItemHash() => r'511a5d00e3c01ac08181a9675f21741d7047fea2';
+
+/// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 
 final class SegmentItemFamily extends $Family
     with
@@ -83,6 +89,8 @@ final class SegmentItemFamily extends $Family
         isAutoDispose: false,
       );
 
+  /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
+
   SegmentItemProvider call(
     TripId tripId,
     SectionId id,
@@ -91,85 +99,4 @@ final class SegmentItemFamily extends $Family
 
   @override
   String toString() => r'segmentItemProvider';
-}
-
-@ProviderFor(allSegmentItem)
-final allSegmentItemProvider = AllSegmentItemFamily._();
-
-final class AllSegmentItemProvider
-    extends $FunctionalProvider<List<LineItem>, List<LineItem>, List<LineItem>>
-    with $Provider<List<LineItem>> {
-  AllSegmentItemProvider._({
-    required AllSegmentItemFamily super.from,
-    required (TripId, MapCameraReader) super.argument,
-  }) : super(
-         retry: null,
-         name: r'allSegmentItemProvider',
-         isAutoDispose: false,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  static final $allTransitiveDependencies0 = segmentItemProvider;
-
-  @override
-  String debugGetCreateSourceHash() => _$allSegmentItemHash();
-
-  @override
-  String toString() {
-    return r'allSegmentItemProvider'
-        ''
-        '$argument';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<List<LineItem>> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  List<LineItem> create(Ref ref) {
-    final argument = this.argument as (TripId, MapCameraReader);
-    return allSegmentItem(ref, argument.$1, argument.$2);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<LineItem> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<LineItem>>(value),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is AllSegmentItemProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$allSegmentItemHash() => r'88ae385ed2cf48908ccbbda12654e1b42b3465e2';
-
-final class AllSegmentItemFamily extends $Family
-    with $FunctionalFamilyOverride<List<LineItem>, (TripId, MapCameraReader)> {
-  AllSegmentItemFamily._()
-    : super(
-        retry: null,
-        name: r'allSegmentItemProvider',
-        dependencies: <ProviderOrFamily>[segmentItemProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          AllSegmentItemProvider.$allTransitiveDependencies0,
-        ],
-        isAutoDispose: false,
-      );
-
-  AllSegmentItemProvider call(TripId tripId, MapCameraReader camera) =>
-      AllSegmentItemProvider._(argument: (tripId, camera), from: this);
-
-  @override
-  String toString() => r'allSegmentItemProvider';
 }

@@ -1,7 +1,11 @@
 part of "../app_mode.dart";
 
-final class TripEditMode extends TripMode {
-  const TripEditMode(super.tripId);
+sealed class TripEditableMode extends TripMode {
+  const TripEditableMode(super.tripId);
+}
+
+final class TripActiveMode extends TripEditableMode {
+  const TripActiveMode(super.tripId);
 
   @override
   Transition<AppMode> onLongPress(LongPressGesture g) => switch (g.element) {
@@ -19,7 +23,7 @@ final class TripEditMode extends TripMode {
 }
 
 /// Transitoire : l'édition est terminée, le serveur valide.
-final class TripValidatingMode extends TripMode {
+final class TripValidatingMode extends TripEditableMode {
   const TripValidatingMode(super.tripId);
 
   // Pas de onLongPress / onSecondaryTap : l'édition est impossible.
@@ -28,6 +32,20 @@ final class TripValidatingMode extends TripMode {
   // sortirait vers ExploreMode en plein milieu de la validation.
   @override
   Transition<AppMode> onTap(TapGesture g) {
-    return Transition.to<AppMode>(TripEditMode(tripId));
+    return Transition.to<AppMode>(TripActiveMode(tripId));
   }
+}
+
+// mode just après avoir créé un trip pour poser le premier point
+final class SetTripOriginMode extends TripEditableMode {
+  const SetTripOriginMode(super.tripId);
+  @override
+  Transition<AppMode> onLongPress(LongPressGesture g) => Transition.stay();
+  @override
+  Transition<AppMode> onSecondaryTap(SecondaryTapGesture g) =>
+      Transition.stay();
+
+  @override
+  Transition<AppMode> onTap(TapGesture g) =>
+      Transition.set(tripOriginSlot, TripOrigin(g.world));
 }

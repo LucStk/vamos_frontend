@@ -2,7 +2,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
 import 'package:map_engine/src/mode_machine/overlay.dart';
-import 'package:map_engine/src/mode_machine/slots.dart';
+import 'package:map_engine/src/mode_machine/slots/slots.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 
 part 'mode_state.freezed.dart';

@@ -1,6 +1,6 @@
 part of "../../app_mode.dart";
 
-class SketchEdition extends TripMode with SketchMode {
+final class SketchEdition extends TripEditableMode with SketchMode {
   final SectionId segmentId;
   const SketchEdition(super.tripId, {required this.segmentId});
 
