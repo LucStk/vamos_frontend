@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ContextMenuShell extends StatelessWidget {
-  const ContextMenuShell({required this.child, super.key});
+  const ContextMenuShell({required this.child, this.maxWidth = 200, super.key});
 
   final Widget child;
+  final double maxWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ContextMenuShell extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(6),
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 200),
+              constraints: BoxConstraints(maxWidth: maxWidth),
               child: child,
             ),
           ),

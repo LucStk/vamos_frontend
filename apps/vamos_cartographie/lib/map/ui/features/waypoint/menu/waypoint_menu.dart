@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 
 class WaypointMenuWidget extends StatelessWidget {
   const WaypointMenuWidget({
@@ -17,60 +18,28 @@ class WaypointMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("waypoint menu widget open");
     return ContextMenuShell(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _MenuButton(
+          MenuButton(
             icon: Icons.route,
             label: 'Tracer depuis',
             onPressed: drawFrom,
           ),
-          _MenuButton(
+          MenuButton(
             icon: Icons.add_location_alt_outlined,
             label: 'Créer',
             onPressed: createFrom,
           ),
-          _MenuButton(
+          MenuButton(
             icon: Icons.delete_outline,
             label: 'Effacer',
             onPressed: delete,
             foregroundColor: Theme.of(context).colorScheme.error,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _MenuButton extends StatelessWidget {
-  const _MenuButton({
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-    this.foregroundColor,
-  });
-
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
-  final Color? foregroundColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon, size: 18),
-      label: Text(label),
-      style: TextButton.styleFrom(
-        foregroundColor: foregroundColor,
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        minimumSize: Size.zero,
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }

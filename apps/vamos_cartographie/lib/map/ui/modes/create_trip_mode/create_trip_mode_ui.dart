@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/modes/create_trip_mode/create_trip_cancel_button.dart';
-import 'package:vamos_cartographie/map/ui/modes/create_trip_mode/trip_origin_menu.dart';
+import 'package:vamos_cartographie/map/ui/modes/create_trip_mode/create_trip_menu_ui.dart';
 
 class CreateTripModeUi extends ConsumerWidget {
   const CreateTripModeUi(this.mode, {super.key});
@@ -20,7 +20,7 @@ class CreateTripModeUi extends ConsumerWidget {
             ref.watch(modeMachineProvider).apply(ExploreMode.switchTo());
           },
         ),
-        TripOriginMenuWidget(mode),
+        TripOriginMenuUi(mode),
       ],
     );
   }
