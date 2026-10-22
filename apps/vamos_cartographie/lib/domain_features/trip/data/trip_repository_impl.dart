@@ -92,9 +92,9 @@ class TripRepositoryImpl extends TripRepository {
   // ---------------------------------------------------------------------------
 
   @override
-  Future<Either<Failure, Trip>> createBlankTrip() {
+  Future<Either<Failure, Trip>> createBlankTrip(LatLng latLng) {
     return guard(() async {
-      final result = await remote.createBlankTrip();
+      final result = await remote.createBlankTrip(latLng);
       return result.toDomain();
     });
   }

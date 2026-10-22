@@ -17,6 +17,7 @@ class WaypointMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("waypoint menu widget open");
     return ContextMenuShell(
       child: Column(
         mainAxisSize: MainAxisSize.min,

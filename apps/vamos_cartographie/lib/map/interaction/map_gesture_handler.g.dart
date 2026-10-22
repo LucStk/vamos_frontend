@@ -50,6 +50,7 @@ final class MapGestureHandlerNotifierProvider
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies14,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies15,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies16,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies17,
         },
       );
 
@@ -85,6 +86,8 @@ final class MapGestureHandlerNotifierProvider
       ModeMachineProvider.$allTransitiveDependencies4;
   static final $allTransitiveDependencies16 =
       ModeMachineProvider.$allTransitiveDependencies5;
+  static final $allTransitiveDependencies17 =
+      ModeMachineProvider.$allTransitiveDependencies6;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();

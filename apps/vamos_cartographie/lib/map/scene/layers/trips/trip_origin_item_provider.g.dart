@@ -67,7 +67,7 @@ final class TripOriginItemProvider
   }
 }
 
-String _$tripOriginItemHash() => r'f4cfbea54eaf2ea41b2c74125e31135a806e5f3b';
+String _$tripOriginItemHash() => r'807386f90b70035ba3c4cabcf12efea4803223ed';
 
 final class TripOriginItemFamily extends $Family
     with $FunctionalFamilyOverride<TripOriginItem?, MapCameraReader> {
@@ -75,8 +75,8 @@ final class TripOriginItemFamily extends $Family
     : super(
         retry: null,
         name: r'tripOriginItemProvider',
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

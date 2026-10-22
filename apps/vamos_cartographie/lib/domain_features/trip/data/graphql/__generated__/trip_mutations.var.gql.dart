@@ -3,6 +3,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
@@ -60,6 +61,54 @@ class GUpdateTripVars {
   @override
   String toString() {
     return 'GUpdateTripVars(id: $id, input: $input)';
+  }
+}
+
+class GCreateBlankTripVars {
+  const GCreateBlankTripVars({this.origin = const Value.absent()});
+
+  factory GCreateBlankTripVars.fromJson(Map<String, dynamic> json) {
+    return GCreateBlankTripVars(
+        origin: json.containsKey('origin')
+            ? Value.present(json['origin'] == null
+                ? null
+                : _i1.GLatLngInput.fromJson(
+                    (json['origin'] as Map<String, dynamic>)))
+            : Value.absent());
+  }
+
+  final Value<_i1.GLatLngInput> origin;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$originValue = this.origin;
+    if (_$originValue.isPresent) {
+      final _$originRequired = _$originValue.requireValue;
+      _$result['origin'] =
+          _$originRequired == null ? null : _$originRequired.toJson();
+    }
+    return _$result;
+  }
+
+  GCreateBlankTripVars copyWith({Value<_i1.GLatLngInput>? origin}) {
+    return GCreateBlankTripVars(origin: origin ?? this.origin);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCreateBlankTripVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GCreateBlankTripVars(origin: $origin)';
   }
 }
 

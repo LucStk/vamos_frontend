@@ -7,6 +7,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/modes/trip_mode/trip_mode_ui.dart';
+import 'package:vamos_cartographie/map/ui/modes/create_trip_mode/create_trip_mode_ui.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class MapUi extends ConsumerWidget {
@@ -19,7 +20,7 @@ class MapUi extends ConsumerWidget {
     return switch (mode) {
       ExploreMode _ => SizedBox.shrink(),
       TripMode t => TripModeUi(t),
-      SetTripOriginMode _ => SizedBox.shrink(),
+      CreateTripMode t => CreateTripModeUi(t),
     };
   }
 }

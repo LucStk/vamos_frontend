@@ -194,8 +194,11 @@ class GUpdateTripReq
 }
 
 class GCreateBlankTripReq
-    implements _i1.OperationRequest<_i2.GCreateBlankTripData, Null> {
+    implements
+        _i1
+        .OperationRequest<_i2.GCreateBlankTripData, _i3.GCreateBlankTripVars> {
   GCreateBlankTripReq({
+    required this.vars,
     _i4.Operation? operation,
     this.requestId,
     this.updateResult,
@@ -207,7 +210,7 @@ class GCreateBlankTripReq
     this.context,
   }) : operation = operation ?? _operation;
 
-  final Null vars = null;
+  final _i3.GCreateBlankTripVars vars;
 
   final _i4.Operation operation;
 
@@ -252,14 +255,15 @@ class GCreateBlankTripReq
   _i2.GCreateBlankTripData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateBlankTripData.fromJson(json);
 
-  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
+  Map<String, dynamic> varsToJson() => vars.toJson();
 
   Map<String, dynamic> dataToJson(_i2.GCreateBlankTripData data) =>
       data.toJson();
 
-  _i1.OperationRequest<_i2.GCreateBlankTripData, Null> transformOperation(
-      _i4.Operation Function(_i4.Operation) transform) {
+  _i1.OperationRequest<_i2.GCreateBlankTripData, _i3.GCreateBlankTripVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
     return GCreateBlankTripReq(
+      vars: vars,
       operation: transform(operation),
       requestId: requestId,
       updateResult: updateResult,
@@ -273,6 +277,7 @@ class GCreateBlankTripReq
   }
 
   GCreateBlankTripReq copyWith({
+    _i3.GCreateBlankTripVars? vars,
     _i4.Operation? operation,
     String? requestId,
     bool requestIdIsSet = false,
@@ -294,6 +299,7 @@ class GCreateBlankTripReq
     bool contextIsSet = false,
   }) {
     return GCreateBlankTripReq(
+      vars: vars ?? this.vars,
       operation: operation ?? this.operation,
       requestId:
           requestId != null || requestIdIsSet ? requestId : this.requestId,

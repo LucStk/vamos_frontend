@@ -82,6 +82,7 @@ final class ModeMachineProvider
           ModeMachineProvider.$allTransitiveDependencies3,
           ModeMachineProvider.$allTransitiveDependencies4,
           ModeMachineProvider.$allTransitiveDependencies5,
+          ModeMachineProvider.$allTransitiveDependencies6,
         },
       );
 
@@ -96,6 +97,8 @@ final class ModeMachineProvider
       HandlerRegistryProvider.$allTransitiveDependencies3;
   static final $allTransitiveDependencies5 =
       HandlerRegistryProvider.$allTransitiveDependencies4;
+  static final $allTransitiveDependencies6 =
+      HandlerRegistryProvider.$allTransitiveDependencies5;
 
   @override
   String debugGetCreateSourceHash() => _$modeMachineHash();

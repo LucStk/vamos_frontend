@@ -32,6 +32,6 @@ abstract class TripRepository {
   getMeTrips();
   Future<Either<Failure, Trip>> updateTrip(Trip trip);
   Future<Either<Failure, void>> deleteTrip(TripId id);
-  Future<Either<Failure, Trip>> createBlankTrip();
+  Future<Either<Failure, Trip>> createBlankTrip(LatLng latLng);
   Future<Either<Failure, void>> setTripOrigin(Id<Trip> id, LatLng origin);
 }

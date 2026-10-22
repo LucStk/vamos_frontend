@@ -9,14 +9,14 @@ mutation UpdateTrip($id: UUID!, $input: TripUpdateInput!) {
     }
 }
 
-mutation CreateBlankTrip() {
-    createBlankTrip() {
+mutation CreateBlankTrip($origin: LatLngInput) {
+    createBlankTrip(origin: $origin) {
         ...TripFields
     }
 }
 
-mutation DeleteTrip($id : UUID!) {
-    deleteTrip(id : $id)
+mutation DeleteTrip($id: UUID!) {
+    deleteTrip(id: $id)
 }
 
 mutation SetTripOrigin($id: UUID!, $origin: LatLngInput!) {

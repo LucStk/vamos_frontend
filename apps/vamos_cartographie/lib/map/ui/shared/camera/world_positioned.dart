@@ -37,14 +37,9 @@ class WorldPositioned extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final camera = ref.watch(cameraOrNullProvider);
     if (camera == null) {
-      return Positioned(
-        left: 0,
-        top: 0,
-        width: 0,
-        height: 0,
-        child: SizedBox.shrink(),
-      );
+      return kEmptyPositioned;
     }
+
     return ListenableBuilder(
       listenable: camera.changes,
       child: child,

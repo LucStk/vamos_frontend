@@ -26,12 +26,14 @@ final class MenuPlacementProvider
           cameraOrNullProvider,
           modeOverlayProvider,
           pencilItemProvider,
+          tripOriginItemProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MenuPlacementProvider.$allTransitiveDependencies0,
           MenuPlacementProvider.$allTransitiveDependencies1,
           MenuPlacementProvider.$allTransitiveDependencies2,
           MenuPlacementProvider.$allTransitiveDependencies3,
+          MenuPlacementProvider.$allTransitiveDependencies4,
         },
       );
 
@@ -40,6 +42,7 @@ final class MenuPlacementProvider
       CameraOrNullProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 = modeOverlayProvider;
   static final $allTransitiveDependencies3 = pencilItemProvider;
+  static final $allTransitiveDependencies4 = tripOriginItemProvider;
 
   @override
   String debugGetCreateSourceHash() => _$menuPlacementHash();
@@ -63,4 +66,4 @@ final class MenuPlacementProvider
   }
 }
 
-String _$menuPlacementHash() => r'9ba493a754a5effa81622770a5a3c79aa12cac77';
+String _$menuPlacementHash() => r'f1f99fc3173368ace1f4693cd768f67cb339ef4f';

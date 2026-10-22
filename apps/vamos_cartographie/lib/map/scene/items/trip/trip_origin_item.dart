@@ -14,7 +14,7 @@ final class TripOriginItem extends PointItem {
 
   /// Demi-largeur du contour au repos (avant `look.widthScale`).
   @override
-  ScreenLength get visualRadius => 2.25.px;
+  ScreenLength get visualRadius => 8.px;
 
   @override
   ScreenLength get hitRadius => 14.px;

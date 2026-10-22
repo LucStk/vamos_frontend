@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/map/scene/items/trip/trip_origin_item.dart';
 
 part 'trip_origin_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true)
 TripOriginItem? tripOriginItem(Ref ref, MapCameraReader camera) {
   final origin = ref.watch(
     modeStateProvider.select((m) => m.slots.get(tripOriginSlot)),

@@ -1,3 +1,4 @@
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:user_profile_application/user_profile_application.dart';
 
@@ -68,8 +69,12 @@ class TripRemoteDatasource {
   // Mutations
   // ---------------------------------------------------------------------------
 
-  Future<GTripFields> createBlankTrip() async {
-    final data = await ferryClient.execute(GCreateBlankTripReq());
+  Future<GTripFields> createBlankTrip(LatLng latLng) async {
+    final data = await ferryClient.execute(
+      GCreateBlankTripReq(
+        vars: GCreateBlankTripVars(origin: Value.present(latLng.toGQLInput())),
+      ),
+    );
     return data.createBlankTrip;
   }
 

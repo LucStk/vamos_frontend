@@ -1,29 +1,22 @@
-import 'package:domain_core/map_geo_bounds.dart';
-import 'package:map_engine/src/domain/camera/camera_request.dart';
+import 'package:dartz/dartz.dart';
+import 'package:domain_core/failures.dart';
+import 'package:domain_core/space/offset_type.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
-import 'package:map_engine/src/mode_machine/command/effect/results.dart';
 import 'package:map_engine/src/mode_machine/command/scopes.dart';
 import 'package:trip_application/trip_application.dart';
 
 sealed class CreateTripCommand<R extends Object>
-    extends Command<Done, ExploreScope> {
+    extends Command<R, TripCreateScope> {
   const CreateTripCommand();
 }
 
-final class CreateTrip extends CreateTripCommand<Done> {
-  const CreateTrip();
-  final ;
+final class CreateTrip extends CreateTripCommand<Either<Failure, Trip>> {
+  const CreateTrip(this.position);
+  final WorldOffset position;
   @override
-  Future<Done> handle(ExploreScope n) async {
-    final bounds = n.getRoute(tripId)?.bounds;
-    if (bounds != null) {
-      n.director.submit(
-        CameraRequest(
-          FitBounds(bounds, padding: MapEdgeInsets.all(250)),
-          priority: CameraPriority.explicit,
-        ),
-      );
-    }
-    return const Done();
+  Future<Either<Failure, Trip>> handle(TripCreateScope n) async {
+    final LatLng latLng = n.camera.worldOffsetToLatLng(position);
+    return await n.tripEditor.createBlankTrip(latLng);
   }
 }
