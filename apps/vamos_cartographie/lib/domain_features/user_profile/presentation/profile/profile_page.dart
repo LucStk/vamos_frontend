@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/on_boarding/create_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/edit_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content_view.dart';
@@ -40,7 +41,12 @@ class ProfilePage extends ConsumerWidget {
             MaterialPageRoute<void>(builder: (_) => const EditProfilePage()),
           );
         },
-        onOpenTrip: (trip) {},
+        onOpenTrip: (trip) {
+          ref
+              .watch(modeMachineProvider)
+              .apply(TripActiveMode.switchTo(trip.id));
+          context.canPop() ? context.pop() : context.go("/");
+        },
       ),
     };
   }

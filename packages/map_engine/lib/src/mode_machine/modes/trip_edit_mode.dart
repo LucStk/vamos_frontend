@@ -20,6 +20,8 @@ final class TripActiveMode extends TripEditableMode {
   /// Appelé quand on touche la carte.
   Transition<AppMode> onCardTap() =>
       Transition.to<AppMode>(TripValidatingMode(tripId));
+  static Transition<AppMode> switchTo(TripId tripId) =>
+      Transition.to(TripActiveMode(tripId));
 }
 
 /// Transitoire : l'édition est terminée, le serveur valide.
