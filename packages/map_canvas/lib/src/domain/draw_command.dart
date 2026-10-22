@@ -52,3 +52,17 @@ final class DrawPath extends DrawCommand {
   final PaintSpec style;
   bool get dependsOnZoom => style.dependsOnZoom;
 }
+
+final class DrawAnchoredPath extends DrawCommand {
+  const DrawAnchoredPath({
+    required this.anchor,
+    required this.path,
+    required this.style,
+  });
+
+  final WorldOffset anchor;
+  final Path path; // coordonnées en px, (0,0) = anchor, y vers le bas
+  final PaintSpec style;
+
+  bool get dependsOnZoom => true;
+}

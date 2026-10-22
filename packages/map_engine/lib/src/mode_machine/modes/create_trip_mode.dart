@@ -18,17 +18,4 @@ final class CreateTripMode extends AppMode {
       Transition.overlay(TripOriginMenu(MapTripOrigin()));
 
   static Transition<AppMode> switchTo() => Transition.to(CreateTripMode());
-
-  Transition<AppMode> validateOrigin() {
-    return Transition.withSlot(
-      tripOriginSlot,
-      (slot) => Transition.run(
-        CreateTrip(slot.point),
-        then: (mode, res) => res.fold(
-          (Failure f) => throw f,
-          (trip) => Transition.to(TripActiveMode(trip.id)),
-        ),
-      ),
-    );
-  }
 }

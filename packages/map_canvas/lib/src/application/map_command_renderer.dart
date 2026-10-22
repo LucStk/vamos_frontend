@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import '../domain/draw_command.dart';
@@ -39,6 +40,8 @@ final class MapCommandRenderer {
         if (_belongs(c.dependsOnZoom || inheritedDependent)) _paintCircle(c);
       case DrawPath():
         if (_belongs(c.dependsOnZoom || inheritedDependent)) _paintPath(c);
+      case DrawAnchoredPath():
+        if (_dependentPass) _paintAnchoredPath(c);
     }
   }
 
@@ -97,6 +100,31 @@ final class MapCommandRenderer {
       path = _dashed(path, [for (final d in dash) _toWorld(d)]);
     }
     canvas.drawPath(path, _paintOf(c.style));
+  }
+
+  void _paintAnchoredPath(DrawAnchoredPath c) {
+    final s = 1.0 / zoomScale!;
+    final a = c.anchor.value;
+    // Échelle 1/zoom + translation vers l'ancre (matrice 4x4 colonne-major).
+    final m = Float64List.fromList([
+      s,
+      0,
+      0,
+      0,
+      0,
+      s,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      a.dx,
+      a.dy,
+      0,
+      1,
+    ]);
+    _paintPath(DrawPath(path: c.path.transform(m), style: c.style));
   }
 
   static Path _dashed(Path source, List<double> pattern) {

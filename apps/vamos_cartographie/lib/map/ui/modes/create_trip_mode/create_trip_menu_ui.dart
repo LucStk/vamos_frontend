@@ -22,12 +22,17 @@ class TripOriginMenuUi extends ConsumerWidget {
     if (placement == null) {
       return kEmptyPositioned;
     }
+    final modeMachine = ref.watch(modeMachineProvider);
+    void createFrom(TripOriginMenu t) {
+      modeMachine.apply(t.validateOrigin());
+    }
+
     return switch (placement.overlay) {
-      TripOriginMenu _ => WorldPositioned(
-        offset: Offset(0, -20),
+      TripOriginMenu t => WorldPositioned(
+        offset: Offset(0, -40),
         worldOffset: placement.world,
         alignment: Alignment.bottomCenter,
-        child: TripOriginMenuWidget(createFrom: () {}),
+        child: TripOriginMenuWidget(createFrom: () => createFrom(t)),
       ),
       _ => kEmptyPositioned,
     };

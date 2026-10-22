@@ -46,8 +46,8 @@ class _PopupArrowPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final path = Path()
       ..moveTo(0, 0)
-      ..lineTo(size.width / 2, size.height)
-      ..lineTo(size.width, 0)
+      ..lineTo(size.width / 3, size.height)
+      ..lineTo(size.width / 2, 0)
       ..close();
 
     canvas.drawPath(path, Paint()..color = color);
