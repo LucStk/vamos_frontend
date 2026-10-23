@@ -15,6 +15,9 @@ fragment TripRouteFields on TripType {
     id
     routeUpdatedAt
     bounds
+    startPoint {
+        ...LatLngFields
+    }
     route {
         ...LatLngFields
     }

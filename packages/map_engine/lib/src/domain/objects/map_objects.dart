@@ -5,6 +5,7 @@ part "trip_object.dart";
 part "segment_objects.dart";
 part "waypoint_objects.dart";
 part "trip_origin_object.dart";
+part "trip_end_object.dart";
 
 sealed class MapObject {
   const MapObject();

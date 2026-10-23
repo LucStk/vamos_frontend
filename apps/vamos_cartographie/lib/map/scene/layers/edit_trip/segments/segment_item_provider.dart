@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/map/scene/items/segment/segment_item.dart';
-import 'package:vamos_cartographie/map/scene/layers/segments/section_slice.dart';
+import 'package:vamos_cartographie/map/scene/layers/edit_trip/segments/section_slice.dart';
 
 part 'segment_item_provider.g.dart';
 

@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/on_boarding/create_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/edit_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content_view.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
-import 'package:vamos_cartographie/ui_kit/views/loading_view.dart';
 
+import 'package:riverpod_annotation/experimental/scope.dart';
+
+@Dependencies([modeSelection, ModeMachine])
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 

@@ -35,6 +35,7 @@ extension GTripWithRouteFieldsMapper on GTripWithRouteFields {
     id: Id<Trip>(id),
     geometry: route.toDomain(),
     bounds: bounds?.toBounds(),
+    startPoint: startPoint.toLatLng(),
   );
   Iterable<RouteSectionRemoteModel> toSections() =>
       sections.map((m) => m.toDomain());

@@ -5,10 +5,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/scene_composition.dart';
-import 'package:vamos_cartographie/map/scene/layers/segments/segments_layer.dart';
 import 'package:vamos_cartographie/map/scene/layers/localization_layer.dart';
-import 'package:vamos_cartographie/map/scene/layers/sketch/sketch_layer.dart';
-import 'package:vamos_cartographie/map/scene/layers/trips/trip_origin_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/layers/create_trip/create_trip_origin_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/layers/edit_trip/segments/segments_layer.dart';
+import 'package:vamos_cartographie/map/scene/layers/edit_trip/sketch/sketch_layer.dart';
 part 'map_scene.g.dart';
 
 /// Items de la scène, en coordonnées MONDE.
@@ -24,7 +24,7 @@ part 'map_scene.g.dart';
     allSegmentItem,
     allSketchItem,
     localizationItem,
-    tripOriginItem,
+    createTripOriginItem,
   ],
 )
 List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {

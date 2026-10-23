@@ -137,11 +137,6 @@ enum PoiCategory {
 }
 
 """
-Represents a point as `(x, y, z)` or `(x, y)`. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or object).
-"""
-scalar Point
-
-"""
 A geographical object that gets 1 or 2 LinearRing objects as external and
 internal rings. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or object).
 """
@@ -202,11 +197,11 @@ type TripType {
   description: String!
   date: Date
   waypoints: [WaypointType!]!
-  startPoint: Point
-  endPoint: Point
   bounds: Polygon
   routeUpdatedAt: DateTime
   sections: [RouteSectionType!]!
+  startPoint: LatLngType!
+  endPoint: LatLngType
   owner: UserProfileType!
   files: [FileAttachmentType!]!
   route: [LatLngType!]!

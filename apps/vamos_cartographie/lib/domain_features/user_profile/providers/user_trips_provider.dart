@@ -2,8 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
-
-import '../../trip/injection/injection.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 
 part 'user_trips_provider.g.dart';
 

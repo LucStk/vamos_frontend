@@ -910,10 +910,6 @@ const PoiCategory = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
-const Point = _i1.ScalarTypeDefinitionNode(
-  name: _i1.NameNode(value: 'Point'),
-  directives: [],
-);
 const Polygon = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Polygon'),
   directives: [],
@@ -1266,24 +1262,6 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'startPoint'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Point'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'endPoint'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Point'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'bounds'),
       directives: [],
       args: [],
@@ -1311,6 +1289,24 @@ const TripType = _i1.ObjectTypeDefinitionNode(
           isNonNull: true,
         ),
         isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'startPoint'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'endPoint'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngType'),
+        isNonNull: false,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -1661,7 +1657,6 @@ const document = _i1.DocumentNode(definitions: [
   MobilityType,
   Mutation,
   PoiCategory,
-  Point,
   Polygon,
   Query,
   RedrawRouteInput,

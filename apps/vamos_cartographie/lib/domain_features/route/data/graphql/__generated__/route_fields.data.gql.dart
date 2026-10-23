@@ -103,6 +103,7 @@ abstract class GTripRouteFields {
   String get id;
   String? get routeUpdatedAt;
   GeoPolygonDto? get bounds;
+  _i2.GLatLngFields get startPoint;
   List<_i2.GLatLngFields> get route;
   List<GRouteSectionFields> get sections;
   String get G__typename;
@@ -113,6 +114,7 @@ class GTripRouteFieldsData implements GTripRouteFields {
     required this.id,
     this.routeUpdatedAt,
     this.bounds,
+    required this.startPoint,
     required this.route,
     required this.sections,
     this.G__typename = 'TripType',
@@ -126,6 +128,8 @@ class GTripRouteFieldsData implements GTripRouteFields {
           : (json['routeUpdatedAt'] as String),
       bounds:
           json['bounds'] == null ? null : geoPolygonDtoFromJson(json['bounds']),
+      startPoint: _i2.GLatLngFieldsData.fromJson(
+          (json['startPoint'] as Map<String, dynamic>)),
       route: (json['route'] as List<dynamic>)
           .map((_$e) =>
               _i2.GLatLngFieldsData.fromJson((_$e as Map<String, dynamic>)))
@@ -144,6 +148,8 @@ class GTripRouteFieldsData implements GTripRouteFields {
 
   final GeoPolygonDto? bounds;
 
+  final _i2.GLatLngFieldsData startPoint;
+
   final List<_i2.GLatLngFieldsData> route;
 
   final List<GRouteSectionFieldsData> sections;
@@ -159,6 +165,7 @@ class GTripRouteFieldsData implements GTripRouteFields {
     final _$boundsValue = this.bounds;
     _$result['bounds'] =
         _$boundsValue == null ? null : geoPolygonDtoToJson(_$boundsValue);
+    _$result['startPoint'] = this.startPoint.toJson();
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
     _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
     _$result['__typename'] = this.G__typename;
@@ -171,6 +178,7 @@ class GTripRouteFieldsData implements GTripRouteFields {
     bool routeUpdatedAtIsSet = false,
     GeoPolygonDto? bounds,
     bool boundsIsSet = false,
+    _i2.GLatLngFieldsData? startPoint,
     List<_i2.GLatLngFieldsData>? route,
     List<GRouteSectionFieldsData>? sections,
     String? G__typename,
@@ -181,6 +189,7 @@ class GTripRouteFieldsData implements GTripRouteFields {
           ? routeUpdatedAt
           : this.routeUpdatedAt,
       bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
+      startPoint: startPoint ?? this.startPoint,
       route: route ?? this.route,
       sections: sections ?? this.sections,
       G__typename: G__typename ?? this.G__typename,
@@ -194,6 +203,7 @@ class GTripRouteFieldsData implements GTripRouteFields {
             id == other.id &&
             routeUpdatedAt == other.routeUpdatedAt &&
             bounds == other.bounds &&
+            startPoint == other.startPoint &&
             _gqlUtils.listEquals(route, other.route) &&
             _gqlUtils.listEquals(sections, other.sections) &&
             G__typename == other.G__typename);
@@ -201,13 +211,13 @@ class GTripRouteFieldsData implements GTripRouteFields {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, routeUpdatedAt, bounds,
+    return Object.hash(runtimeType, id, routeUpdatedAt, bounds, startPoint,
         _gqlUtils.listHash(route), _gqlUtils.listHash(sections), G__typename);
   }
 
   @override
   String toString() {
-    return 'GTripRouteFieldsData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, route: $route, sections: $sections, G__typename: $G__typename)';
+    return 'GTripRouteFieldsData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, sections: $sections, G__typename: $G__typename)';
   }
 }
 

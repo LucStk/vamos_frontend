@@ -32,6 +32,7 @@ extension RouteSectionMapper on GRouteSectionFields {
 extension GTripRouteFieldsMapper on GTripRouteFields {
   RoutePayload toDomain() {
     final r = RouteRemoteModel(
+      startPoint: startPoint.toLatLng(),
       geometry: route.toDomain(),
       id: TripId(id),
       bounds: bounds?.toBounds(),

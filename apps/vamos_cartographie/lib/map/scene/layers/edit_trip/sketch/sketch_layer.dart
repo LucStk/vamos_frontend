@@ -1,8 +1,8 @@
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/scene/layers/sketch/pencil_item_provider.dart';
-import 'package:vamos_cartographie/map/scene/layers/sketch/sketch_trace_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/layers/edit_trip/sketch/pencil_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/layers/edit_trip/sketch/sketch_trace_item_provider.dart';
 
 part 'sketch_layer.g.dart';
 

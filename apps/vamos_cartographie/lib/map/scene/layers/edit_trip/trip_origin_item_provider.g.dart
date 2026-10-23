@@ -18,7 +18,7 @@ final class TripOriginItemProvider
     with $Provider<TripOriginItem?> {
   TripOriginItemProvider._({
     required TripOriginItemFamily super.from,
-    required MapCameraReader super.argument,
+    required (TripId, MapCameraReader) super.argument,
   }) : super(
          retry: null,
          name: r'tripOriginItemProvider',
@@ -34,7 +34,7 @@ final class TripOriginItemProvider
   String toString() {
     return r'tripOriginItemProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -44,8 +44,8 @@ final class TripOriginItemProvider
 
   @override
   TripOriginItem? create(Ref ref) {
-    final argument = this.argument as MapCameraReader;
-    return tripOriginItem(ref, argument);
+    final argument = this.argument as (TripId, MapCameraReader);
+    return tripOriginItem(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -67,10 +67,10 @@ final class TripOriginItemProvider
   }
 }
 
-String _$tripOriginItemHash() => r'807386f90b70035ba3c4cabcf12efea4803223ed';
+String _$tripOriginItemHash() => r'83005a097faec79fed6e7cbf8b0e9ca3f701e108';
 
 final class TripOriginItemFamily extends $Family
-    with $FunctionalFamilyOverride<TripOriginItem?, MapCameraReader> {
+    with $FunctionalFamilyOverride<TripOriginItem?, (TripId, MapCameraReader)> {
   TripOriginItemFamily._()
     : super(
         retry: null,
@@ -80,8 +80,8 @@ final class TripOriginItemFamily extends $Family
         isAutoDispose: false,
       );
 
-  TripOriginItemProvider call(MapCameraReader camera) =>
-      TripOriginItemProvider._(argument: camera, from: this);
+  TripOriginItemProvider call(TripId tripId, MapCameraReader camera) =>
+      TripOriginItemProvider._(argument: (tripId, camera), from: this);
 
   @override
   String toString() => r'tripOriginItemProvider';
