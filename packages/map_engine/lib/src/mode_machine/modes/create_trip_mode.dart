@@ -6,7 +6,7 @@ final class CreateTripMode extends AppMode {
 
   @override
   Transition<AppMode> onTap(TapGesture g) => Transition.overlay(
-    TripOriginMenu(MapTripOrigin()),
+    TripOriginMenu(),
   ).and(tripOriginSlot, TripOrigin(g.world));
 
   @override
@@ -15,7 +15,7 @@ final class CreateTripMode extends AppMode {
 
   @override
   Transition<AppMode> onDragEnd(DragEndGesture g) =>
-      Transition.overlay(TripOriginMenu(MapTripOrigin()));
+      Transition.overlay(TripOriginMenu());
 
   static Transition<AppMode> switchTo() => Transition.to(CreateTripMode());
 }

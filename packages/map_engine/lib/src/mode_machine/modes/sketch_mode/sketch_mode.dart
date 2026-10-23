@@ -23,17 +23,17 @@ base mixin SketchMode on TripEditableMode {
         })
       : Transition.stay();
 
-  static Transition<AppMode> changeSegmentType(
-    MobilityType type,
-  ) => Transition.withMode<AppMode, SketchEdition>(
-    (s) =>
-        Transition.stay(), //Transition.run(ChangeType(segmentId: s.segmentId, type: type)),
-  );
-
-  static Transition<AppMode> stopSketch() =>
-      Transition.withMode<AppMode, SketchEdition>(
-        (s) => Transition.to(
-          TripActiveMode(s.tripId),
-        ).and(selectionSlot, MapSegment(tripId: s.tripId, id: s.segmentId)),
-      );
+  //   static Transition<AppMode> changeSegmentType(
+  //     MobilityType type,
+  //   ) => Transition.withMode<AppMode, SketchEdition>(
+  //     (s) =>
+  //         Transition.stay(), //Transition.run(ChangeType(segmentId: s.segmentId, type: type)),
+  //   );
+  //
+  //   static Transition<AppMode> stopSketch() =>
+  //       Transition.withMode<AppMode, SketchEdition>(
+  //         (s) => Transition.to(
+  //           TripActiveMode(s.tripId),
+  //         ).and(selectionSlot, MapSegment(tripId: s.tripId, id: s.segmentId)),
+  //       );
 }

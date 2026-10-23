@@ -23,11 +23,13 @@ class TripModeSheetUi extends ConsumerWidget {
       ),
       TripEditableMode m => switch (m) {
         TripActiveMode e => TripSelectionSheet(tripId: e.tripId, canEdit: true),
-        SketchMode _ => SketchBottomSheet(
+        SketchEdition _ => SketchBottomSheet(
           onTypeChanged: (_) {},
           stopSketch: () {},
         ),
         TripValidatingMode _ => SizedBox.shrink(),
+        SketchCreation _ => SizedBox.shrink(),
+        SketchMode _ => SizedBox.shrink(),
       },
     };
   }

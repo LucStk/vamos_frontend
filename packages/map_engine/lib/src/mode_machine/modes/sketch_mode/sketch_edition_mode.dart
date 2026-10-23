@@ -1,13 +1,22 @@
 part of "../../app_mode.dart";
 
-final class SketchEdition extends TripEditableMode with SketchMode {
-  final SectionId segmentId;
-  const SketchEdition(super.tripId, {required this.segmentId});
+final class SketchEdition extends TripEditableMode {
+  const SketchEdition(super.tripId);
 
   @override
+  Set<Slot> get retainedSlots => {sketchTraceSlot};
+
+  @override
+  Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
+    MapWaypoint e => Transition.overlay(WaypointMenu(e)),
+    MapSketchPencil p => Transition.overlay(PencilMenu(p)),
+    _ => Transition.stay(),
+  };
+
+  /// On saisit le segment : le tracé démarre à ce point.
+  @override
   Transition<AppMode> onPointerDown(PressGesture g) => switch (g.element) {
-    // On saisit le segment édité : le croquis démarre à ce point.
-    MapSegment s when s.id == segmentId => Transition.set(
+    MapSegment() => Transition.set(
       sketchTraceSlot,
       SketchTrace.from(g.position.world),
     ),
@@ -15,37 +24,19 @@ final class SketchEdition extends TripEditableMode with SketchMode {
   };
 
   @override
-  Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.stay();
-  //       Transition.withSlot(sketchTraceSlot, (trace) {
-  //         final points = trace.points;
-  //
-  //         final Transition<AppMode> correct = Transition.run(
-  //           CorrectSegmentFromSketch(segmentId: segmentId, correction: points),
-  //           then: (current, done) {
-  //             final editor = current.modeAs<SketchMode>();
-  //             if (editor == null) return null;
-  //             return Transition.to(TripViewMode(editor.tripId));
-  //           },
-  //         );
-  //
-  //         if (g.dragged is MapSketchPencil) return correct;
-  //
-  //         return switch (g.target) {
-  //           MapSegment s when s.id == segmentId => correct,
-  //           TopologyObject s => Transition.run(
-  //             SpliceSegment(
-  //               segmentId: segmentId,
-  //               correction: points,
-  //               startAnchor: RouteAnchor(id: segmentId),
-  //               endAnchor: s.anchor,
-  //             ),
-  //             then: (current, done) {
-  //               final editor = current.modeAs<SketchMode>();
-  //               if (editor == null) return null;
-  //               return Transition.to(TripEditMode(editor.tripId));
-  //             },
-  //           ),
-  //           _ => Transition.stay(),
-  //         };
-  // });
+  Transition<AppMode> onDragging(DragUpdateGesture g) =>
+      g.dragged is MapSketchPencil
+      ? Transition.update(sketchTraceSlot, (t) => t.add(g.position.world))
+      : Transition.stay();
+
+  // --- Intents ---
+  static Transition<AppMode> start(TripId tripId, WorldOffset from) =>
+      Transition.to<AppMode>(
+        SketchEdition(tripId),
+      ).and(sketchTraceSlot, SketchTrace.from(from));
+
+  static Transition<AppMode> stop() =>
+      Transition.withMode<AppMode, SketchEdition>(
+        (s) => Transition.to(TripActiveMode(s.tripId)),
+      );
 }

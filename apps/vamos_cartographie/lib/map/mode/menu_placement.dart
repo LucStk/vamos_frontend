@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/items/waypoint/waypoint_item_provider.dart';
-import 'package:vamos_cartographie/map/scene/layers/create_trip/create_trip_origin_item_provider.dart';
+import 'package:vamos_cartographie/map/scene/layers/edit_trip/trip_origin_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/layers/edit_trip/sketch/pencil_item_provider.dart';
 
 part 'menu_placement.g.dart';
@@ -17,7 +17,7 @@ typedef MenuPlacement = ({
 
 @Riverpod(
   keepAlive: true,
-  dependencies: [cameraOrNull, modeOverlay, pencilItem, createTripOriginItem],
+  dependencies: [cameraOrNull, modeOverlay, pencilItem, tripOriginItem],
 )
 MenuPlacement? menuPlacement(Ref ref) {
   final camera = ref.watch(cameraOrNullProvider);
@@ -32,7 +32,7 @@ MenuPlacement? menuPlacement(Ref ref) {
           .worldPosition,
     PencilAnchor() => ref.watch(pencilItemProvider(camera))?.worldPosition,
     TripOriginAnchor() =>
-      ref.watch(createTripOriginItemProvider(camera))?.worldPosition,
+      ref.watch(tripOriginItemProvider(camera))?.worldPosition,
     GeoAnchor(:final position) => position,
   };
   if (world == null) return null;

@@ -13,5 +13,6 @@ final class SketchTrace {
   final MobilityType mobilityType;
 
   WorldOffset? get last => points.isEmpty ? null : points.last;
-  SketchTrace add(WorldOffset p) => SketchTrace([...points, p]);
+  SketchTrace add(WorldOffset p) =>
+      SketchTrace([...points, p], mobilityType: mobilityType);
 }

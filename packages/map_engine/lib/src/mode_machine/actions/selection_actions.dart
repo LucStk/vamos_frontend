@@ -23,13 +23,13 @@ extension WaypointSelectionActions on MapWaypoint {
   Transition<AppMode> startSketch(LatLng position) =>
       Transition.to(SketchCreation(tripId));
 }
-
-extension SegmentSelectionActions on MapSegment {
-  Transition<AppMode> delete() => Transition.stay(); //Transition.run(
-  //     DeleteSegment(id),
-  //     then: (_, _) => Transition.set(selectionSlot, null),
-  //   );
-  //
-  Transition<AppMode> startEdit() =>
-      Transition.to(SketchEdition(tripId, segmentId: id));
-}
+//
+// extension SegmentSelectionActions on MapSegment {
+//   Transition<AppMode> delete() => Transition.stay(); //Transition.run(
+//   //     DeleteSegment(id),
+//   //     then: (_, _) => Transition.set(selectionSlot, null),
+//   //   );
+//   //
+//   Transition<AppMode> startEdit() =>
+//       Transition.to(SketchEdition(tripId, segmentId: id));
+// }

@@ -10,7 +10,8 @@ import 'package:map_engine/src/mode_machine/slots/trip_origin_slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 
 final class TripOriginMenu extends MapObjectMenu<MapTripOrigin> {
-  TripOriginMenu(super.p);
+  TripOriginMenu() : super(MapTripOrigin());
+
   @override
   MenuAnchor get anchor => TripOriginAnchor(object);
 

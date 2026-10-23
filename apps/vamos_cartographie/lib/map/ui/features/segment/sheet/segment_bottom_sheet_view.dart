@@ -50,7 +50,7 @@ class SegmentBottomSheet extends ConsumerWidget {
                   Transition.withSlot<AppMode, Selectable>(
                     selectionSlot,
                     (s) => switch (s) {
-                      MapSegment segment => segment.startEdit(),
+                      // MapSegment segment => segment.startEdit(),
                       _ => Transition.stay(),
                     },
                   ),

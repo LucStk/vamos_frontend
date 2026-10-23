@@ -1,9 +1,9 @@
+import 'package:domain_core/space/offset_type.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
-import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
+import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
 
 /// Affiche [child] au-dessus de l'ancre du menu ouvert.
 ///
@@ -13,42 +13,25 @@ import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 /// - La conversion monde → écran est refaite à chaque événement de la carte
 ///   (`camera.changes`), sans reconstruire le contenu du menu.
 @Dependencies([menuPlacement, cameraOrNull])
-class ObjectMenuShell extends ConsumerWidget {
-  const ObjectMenuShell({super.key, required this.child});
+class ObjectMenuShell extends StatelessWidget {
+  const ObjectMenuShell({
+    super.key,
+    required this.worldOffset,
+    required this.child,
+    this.topOffset = 50,
+  });
 
   final Widget child;
-
-  /// Espace entre le bas du menu et le centre de l'ancre
-  /// (rayon visuel du waypoint + marge).
-  static const _gap = 13.0;
+  final WorldOffset worldOffset;
+  final double topOffset;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // null tant que la carte n'est pas montée (camera.ready == false).
-    final camera = ref.watch(cameraOrNullProvider);
-    if (camera == null) return const SizedBox.shrink();
-
-    final world = ref.watch(menuPlacementProvider.select((p) => p?.world));
-    if (world == null) return const SizedBox.shrink();
-
-    return ListenableBuilder(
-      listenable: camera.changes,
-      // Construit une seule fois : seul le positionnement suit la caméra.
-      child: ContextMenuShell(child: child),
-      builder: (context, menu) {
-        final at = camera.worldToScreen(world);
-        return Positioned(
-          left: at.dx,
-          top: at.dy - _gap,
-          child: FractionalTranslation(
-            translation: const Offset(-0.5, -1),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 240),
-              child: menu,
-            ),
-          ),
-        );
-      },
+  Widget build(BuildContext context) {
+    return WorldPositioned(
+      offset: Offset(0, -topOffset),
+      worldOffset: worldOffset,
+      alignment: Alignment.bottomCenter,
+      child: child,
     );
   }
 }
