@@ -15,7 +15,20 @@ final class TripOriginMenu extends MapObjectMenu<MapTripOrigin> {
   @override
   MenuAnchor get anchor => TripOriginAnchor(object);
 
-  Transition<AppMode> validateOrigin() {
+  Transition<AppMode> createTripWtOrigin() {
+    return Transition.withSlot(
+      tripOriginSlot,
+      (slot) => Transition.run(
+        CreateTrip(slot.point),
+        then: (mode, res) => res.fold(
+          (Failure f) => throw f,
+          (trip) => Transition.to(TripActiveMode(trip.id)),
+        ),
+      ),
+    );
+  }
+
+  Transition<AppMode> updateTripOrigin() {
     return Transition.withSlot(
       tripOriginSlot,
       (slot) => Transition.run(

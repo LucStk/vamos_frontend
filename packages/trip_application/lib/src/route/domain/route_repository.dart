@@ -17,6 +17,11 @@ class EditRoutePayload {
 }
 
 abstract class RouteRepository {
+  Future<Either<Failure, EditRoutePayload>> moveStartPoint({
+    required TripId tripId,
+    required LatLng startPoint,
+  });
+
   Future<Either<Failure, EditRoutePayload>> extendRoute({
     required TripId tripId,
     required MobilityType mobilityType,

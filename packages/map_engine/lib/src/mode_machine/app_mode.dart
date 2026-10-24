@@ -1,7 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/mode_machine/command/camera_command.dart';
 import 'package:map_engine/src/mode_machine/command/effect/results.dart';
-import 'package:map_engine/src/mode_machine/command/trip_command.dart';
+import 'package:map_engine/src/mode_machine/command/explore_command.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
 
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';

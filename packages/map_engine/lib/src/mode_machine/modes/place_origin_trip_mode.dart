@@ -1,7 +1,7 @@
 part of "../app_mode.dart";
 
 // mode just après avoir créé un trip pour poser le premier point
-final class PlaceOriginTripMode extends AppMode {
+sealed class PlaceOriginTripMode extends AppMode {
   const PlaceOriginTripMode();
 
   @override

@@ -11,6 +11,15 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
   TripId get tripId;
   RouteRepository get routeRepo;
 
+  Future<Either<Failure, Trip>> moveStartPoint(RouteFields route) async {
+    return await run(
+      entityKey: trip.id,
+      onApply: (gs) => gs,
+      remote: (_) => tripRepo.updateTrip(trip),
+      onSuccess: (gs, Trip serverTrip) => gs.insertTrip(serverTrip),
+    );
+  }
+
   Future<Either<Failure, EditRoutePayload>> extendRoute({
     required List<LatLng> geometry,
     required MobilityType mobilityType,

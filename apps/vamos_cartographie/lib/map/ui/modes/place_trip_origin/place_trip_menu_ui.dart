@@ -5,6 +5,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
+import 'package:vamos_cartographie/map/ui/modes/place_trip_origin/trip_origin_menu_widget.dart';
 // import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 
 import 'package:vamos_cartographie/map/ui/shared/menus/object_menu_shell.dart';
