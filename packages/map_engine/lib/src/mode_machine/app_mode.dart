@@ -22,11 +22,13 @@ import 'package:trip_application/trip_application.dart';
 
 part 'modes/sketch_mode/sketch_mode.dart';
 part "modes/sketch_mode/sketch_creation_mode.dart";
-part "modes/sketch_mode/sketch_edition_mode.dart";
+part "modes/sketch_edition_mode.dart";
 part "modes/trip_mode.dart";
 part "modes/trip_edit_mode.dart";
 part "modes/explore_mode.dart";
+part "modes/place_origin_trip_mode.dart";
 part "modes/create_trip_mode.dart";
+part "modes/move_trip_origin_mode.dart";
 
 typedef AppTransition = Transition<AppMode>;
 typedef AppModeState = ModeState<AppMode>;

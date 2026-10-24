@@ -22,6 +22,6 @@ HandlerRegistry handlerRegistry(Ref ref) {
   return HandlerRegistry(switch (ref.watch(mapModeProvider)) {
     ExploreMode() => ref.watch(exploreScopeProvider),
     TripMode() => ref.watch(tripEditScopeProvider),
-    CreateTripMode() => ref.watch(tripCreateScopeProvider),
+    PlaceOriginTripMode() => ref.watch(tripCreateScopeProvider),
   });
 }

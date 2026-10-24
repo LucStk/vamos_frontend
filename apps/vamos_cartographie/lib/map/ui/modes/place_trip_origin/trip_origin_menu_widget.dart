@@ -3,9 +3,9 @@ import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 
 class TripOriginMenuWidget extends StatelessWidget {
-  const TripOriginMenuWidget({super.key, required this.createFrom});
+  const TripOriginMenuWidget({super.key, required this.validate});
 
-  final VoidCallback createFrom;
+  final VoidCallback validate;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class TripOriginMenuWidget extends StatelessWidget {
           MenuButton(
             icon: Icons.add_location_alt_outlined,
             label: 'Start ici',
-            onPressed: createFrom,
+            onPressed: validate,
           ),
         ],
       ),

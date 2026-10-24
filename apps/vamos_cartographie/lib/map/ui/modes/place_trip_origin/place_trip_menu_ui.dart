@@ -7,14 +7,14 @@ import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
 // import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 
-import 'package:vamos_cartographie/map/ui/modes/create_trip_mode/trip_origin_menu_widget.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/object_menu_shell.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class TripOriginMenuUi extends ConsumerWidget {
-  const TripOriginMenuUi(this.mode, {super.key});
+  const TripOriginMenuUi({super.key, required this.validate});
 
-  final CreateTripMode mode;
+  final void Function(TripOriginMenu t) validate;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,17 +22,10 @@ class TripOriginMenuUi extends ConsumerWidget {
     if (placement == null) {
       return kEmptyPositioned;
     }
-    final modeMachine = ref.watch(modeMachineProvider);
-    void createFrom(TripOriginMenu t) {
-      modeMachine.apply(t.validateOrigin());
-    }
-
     return switch (placement.overlay) {
-      TripOriginMenu t => WorldPositioned(
-        offset: Offset(0, -40),
+      TripOriginMenu t => ObjectMenuShell(
         worldOffset: placement.world,
-        alignment: Alignment.bottomCenter,
-        child: TripOriginMenuWidget(createFrom: () => createFrom(t)),
+        child: TripOriginMenuWidget(validate: () => validate(t)),
       ),
       _ => kEmptyPositioned,
     };

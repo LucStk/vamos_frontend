@@ -1,4 +1,4 @@
-part of "../../app_mode.dart";
+part of "../app_mode.dart";
 
 final class SketchEdition extends TripEditableMode {
   const SketchEdition(super.tripId);
