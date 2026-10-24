@@ -29,7 +29,9 @@ final class _TripEditScope implements TripEditScope {
     required this.waypointEditor,
     required this.ref,
   });
-
+  @override
+  RouteFields? getRoute(TripId tripId) =>
+      ref.read(routeStoreProvider(tripId).select((s) => s.route?.current));
   @override
   final CameraDirector director;
 

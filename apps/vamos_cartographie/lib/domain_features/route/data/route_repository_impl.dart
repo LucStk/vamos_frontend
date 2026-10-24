@@ -16,6 +16,18 @@ class RouteRepositoryImpl extends RouteRepository {
   RouteRepositoryImpl(this.remote);
 
   @override
+  Future<Either<Failure, EditRoutePayload>> setTripOrigin({
+    required TripId tripId,
+    required LatLng position,
+  }) async {
+    final res = await guardRouteEdit(
+      () => remote.setTripOrigin(tripId: tripId, position: position),
+    );
+
+    return res.flatMap((m) => m.toDomain());
+  }
+
+  @override
   Future<Either<Failure, EditRoutePayload>> extendRoute({
     required TripId tripId,
     required MobilityType mobilityType,

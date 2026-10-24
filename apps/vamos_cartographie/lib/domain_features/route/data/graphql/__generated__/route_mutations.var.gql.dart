@@ -172,3 +172,58 @@ class GRedrawRoutePortionVars {
     return 'GRedrawRoutePortionVars(tripId: $tripId, input: $input)';
   }
 }
+
+class GSetTripOriginVars {
+  const GSetTripOriginVars({
+    required this.tripId,
+    required this.origin,
+  });
+
+  factory GSetTripOriginVars.fromJson(Map<String, dynamic> json) {
+    return GSetTripOriginVars(
+      tripId: (json['tripId'] as String),
+      origin:
+          _i1.GLatLngInput.fromJson((json['origin'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String tripId;
+
+  final _i1.GLatLngInput origin;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$originValue = this.origin;
+    _$result['origin'] = _$originValue.toJson();
+    return _$result;
+  }
+
+  GSetTripOriginVars copyWith({
+    String? tripId,
+    _i1.GLatLngInput? origin,
+  }) {
+    return GSetTripOriginVars(
+      tripId: tripId ?? this.tripId,
+      origin: origin ?? this.origin,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSetTripOriginVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSetTripOriginVars(tripId: $tripId, origin: $origin)';
+  }
+}

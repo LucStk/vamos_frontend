@@ -5,18 +5,23 @@ import 'package:trip_application/src/route/application/route_store.dart';
 import 'package:trip_application/src/route/domain/mobility_types.dart';
 import 'package:trip_application/src/route/domain/route_repository.dart';
 import 'package:trip_application/src/trip/domain/domain.dart';
-import 'package:trip_application/trip_application.dart';
 
 mixin RouteEditor on OptimisticRunner<RouteStore> {
   TripId get tripId;
   RouteRepository get routeRepo;
 
-  Future<Either<Failure, Trip>> moveStartPoint(RouteFields route) async {
+  Future<Either<Failure, EditRoutePayload>> setTripOrigin(
+    LatLng position,
+  ) async {
     return await run(
-      entityKey: trip.id,
+      entityKey: tripId,
       onApply: (gs) => gs,
-      remote: (_) => tripRepo.updateTrip(trip),
-      onSuccess: (gs, Trip serverTrip) => gs.insertTrip(serverTrip),
+      remote: (_) =>
+          routeRepo.setTripOrigin(tripId: tripId, position: position),
+      onSuccess: (gs, payload) => gs.replacedByServer(
+        remoteRoute: payload.route,
+        remoteSections: payload.sections,
+      ),
     );
   }
 

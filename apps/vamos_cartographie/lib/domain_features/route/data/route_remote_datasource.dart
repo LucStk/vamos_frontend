@@ -19,6 +19,20 @@ class RouteRemoteDatasource {
   final Client ferryClient;
 
   RouteRemoteDatasource(this.ferryClient);
+  Future<GEditRoutePayloadFragment> setTripOrigin({
+    required Id<Trip> tripId,
+    required LatLng position,
+  }) async {
+    final data = await ferryClient.execute(
+      GSetTripOriginReq(
+        vars: GSetTripOriginVars(
+          tripId: tripId.value,
+          origin: position.toGQLInput(),
+        ),
+      ),
+    );
+    return data.setTripOrigin;
+  }
 
   Future<GEditRoutePayloadFragment> extendRoute({
     required Id<Trip> tripId,
