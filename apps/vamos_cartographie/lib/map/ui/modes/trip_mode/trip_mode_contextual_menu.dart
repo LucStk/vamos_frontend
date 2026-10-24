@@ -23,7 +23,6 @@ class TripModeContextualMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final placement = ref.watch(menuPlacementProvider);
 
-    debugPrint("menu rebuild $placement ${placement?.overlay}");
     if (placement == null) {
       return kEmptyPositioned;
     }

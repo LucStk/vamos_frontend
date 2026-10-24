@@ -8,9 +8,7 @@ final class TripActiveMode extends TripEditableMode {
   const TripActiveMode(super.tripId);
   @override
   Transition<AppMode> onTap(TapGesture g) {
-    print("tap on activeMode");
     if (g.element is MapTripOrigin) {
-      print("overlay activate on activeMode");
       return Transition.overlay<AppMode>(TripOriginMenu());
     }
     return Transition.stay();

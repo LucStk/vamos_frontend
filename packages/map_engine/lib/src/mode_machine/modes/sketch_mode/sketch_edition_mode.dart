@@ -14,15 +14,21 @@ final class SketchEdition extends TripEditableMode {
   };
 
   /// On saisit le segment : le tracé démarre à ce point.
+  /// On saisit le crayon : on retient où, par rapport à sa pointe.
   @override
   Transition<AppMode> onPointerDown(PressGesture g) => switch (g.element) {
     MapSegment() => Transition.set(
       sketchTraceSlot,
       SketchTrace.from(g.position.world),
     ),
+    MapSketchPencil() => Transition.update(
+      sketchTraceSlot,
+      (t) => t.grabbedAt(g.position.world),
+    ),
     _ => Transition.stay(),
   };
 
+  // onDragging reste identique : add() applique maintenant le décalage.
   @override
   Transition<AppMode> onDragging(DragUpdateGesture g) =>
       g.dragged is MapSketchPencil

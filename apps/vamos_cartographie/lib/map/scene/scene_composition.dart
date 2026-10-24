@@ -27,7 +27,7 @@ typedef Layer = List<SceneItem> Function(Ref ref, MapCameraController cam);
 @Dependencies([allSketchItem, allSegmentItem, tripOriginItem])
 List<Layer> layersFor(AppMode mode) => switch (mode) {
   ExploreMode() => [(ref, cam) => ref.watch(allTripItemProvider(cam))],
-  SketchMode() => [(ref, cam) => ref.watch(allSketchItemProvider(cam))],
+  SketchEdition() => [(ref, cam) => ref.watch(allSketchItemProvider(cam))],
   CreateTripMode() => [
     (ref, cam) => [?ref.watch(tripOriginItemProvider(cam))],
   ],

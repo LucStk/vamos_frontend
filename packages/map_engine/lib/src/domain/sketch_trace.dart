@@ -1,18 +1,39 @@
 // modes/trip_editor/sketch/sketch_trace.dart
 import 'package:domain_core/space/offset_type.dart';
 import 'package:trip_application/trip_application.dart';
+import 'dart:ui';
 
-/// Nommé Trace pour ne pas se confondre avec MapSketchSegment (l'objet de la carte).
 final class SketchTrace {
-  const SketchTrace(this.points, {this.mobilityType = MobilityType.bike});
+  const SketchTrace(
+    this.points, {
+    this.mobilityType = MobilityType.bike,
+    this.grabOffset = Offset.zero,
+  });
   SketchTrace.from(WorldOffset start)
     : points = [start],
-      mobilityType = MobilityType.bike;
+      mobilityType = MobilityType.bike,
+      grabOffset = Offset.zero;
 
-  final List<WorldOffset> points; // jamais modifiée après construction
+  final List<WorldOffset> points;
   final MobilityType mobilityType;
 
+  /// Écart (monde) entre le pointeur et la pointe du crayon au moment de la saisie.
+  final Offset grabOffset;
+
   WorldOffset? get last => points.isEmpty ? null : points.last;
-  SketchTrace add(WorldOffset p) =>
-      SketchTrace([...points, p], mobilityType: mobilityType);
+
+  /// Mémorise où le crayon a été saisi, par rapport à sa pointe.
+  SketchTrace grabbedAt(WorldOffset pointer) => SketchTrace(
+    points,
+    mobilityType: mobilityType,
+    grabOffset: last == null ? Offset.zero : pointer.value - last!.value,
+  );
+
+  /// [pointer] est la position du pointeur ; la pointe est placée à
+  /// `pointer - grabOffset`.
+  SketchTrace add(WorldOffset pointer) => SketchTrace(
+    [...points, WorldOffset(pointer.value - grabOffset)],
+    mobilityType: mobilityType,
+    grabOffset: grabOffset,
+  );
 }
