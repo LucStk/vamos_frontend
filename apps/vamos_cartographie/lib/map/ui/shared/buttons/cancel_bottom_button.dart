@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CreateTripCancelButton extends StatelessWidget {
-  const CreateTripCancelButton({super.key, required this.onPressed});
+class CancelBottomButton extends StatelessWidget {
+  const CancelBottomButton({
+    super.key,
+    required this.onPressed,
+    required this.tooltipText,
+  });
 
   final VoidCallback onPressed;
+  final String tooltipText;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class CreateTripCancelButton extends StatelessWidget {
               ),
             ),
             icon: const Icon(Icons.close, size: 24),
-            tooltip: 'Annuler la création',
+            tooltip: tooltipText,
           ),
         ),
       ),

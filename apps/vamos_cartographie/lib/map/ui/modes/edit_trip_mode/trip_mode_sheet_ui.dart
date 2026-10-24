@@ -5,8 +5,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
-import 'package:vamos_cartographie/map/ui/features/sketch/sheet/sketch_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_selection_sheet.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/sheet/trip_selection_sheet.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class TripModeSheetUi extends ConsumerWidget {
@@ -23,13 +22,7 @@ class TripModeSheetUi extends ConsumerWidget {
       ),
       TripEditableMode m => switch (m) {
         TripActiveMode e => TripSelectionSheet(tripId: e.tripId, canEdit: true),
-        SketchEdition _ => SketchBottomSheet(
-          onTypeChanged: (_) {},
-          stopSketch: () {},
-        ),
-        TripValidatingMode _ => SizedBox.shrink(),
-        SketchCreation _ => SizedBox.shrink(),
-        SketchMode _ => SizedBox.shrink(),
+        _ => SizedBox.shrink(),
       },
     };
   }

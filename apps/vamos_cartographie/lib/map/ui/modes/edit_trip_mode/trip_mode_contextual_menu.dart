@@ -6,8 +6,8 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip_mode/menu/trip_origin_menu.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip_mode/menu/waypoint_menu.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/menu/trip_origin_menu.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/menu/waypoint_menu.dart';
 // import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';

@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/ui/features/segment/sheet/segment_bottom_sheet_view.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/sheet/waypoint_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/ui/modes/trip_mode/sheet/trip_sheet.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/sheet/trip_sheet.dart';
 
 @Dependencies([modeMachine, modeSelection])
 class TripSelectionSheet extends ConsumerWidget {
