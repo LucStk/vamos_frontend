@@ -5,7 +5,6 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/modes/place_trip_origin/place_trip_menu_ui.dart';
-import 'package:vamos_cartographie/map/ui/modes/place_trip_origin/trip_origin_menu_widget.dart';
 import 'package:vamos_cartographie/map/ui/shared/buttons/cancel_bottom_button.dart';
 
 class PlaceOriginTripModeUi extends ConsumerWidget {
@@ -21,8 +20,8 @@ class PlaceOriginTripModeUi extends ConsumerWidget {
       switch (mode) {
         case CreateTripMode _:
           modeMachine.apply(t.createTripWtOrigin());
-        case MoveTripOriginMode _:
-          modeMachine.apply(t.updateTripOrigin());
+        case MoveTripOriginMode m:
+          modeMachine.apply(t.updateTripOrigin(m.tripId));
       }
     }
 
@@ -31,8 +30,13 @@ class PlaceOriginTripModeUi extends ConsumerWidget {
       children: [
         CancelBottomButton(
           tooltipText: "Cancel creation",
-          onPressed: () {
-            ref.watch(modeMachineProvider).apply(ExploreMode.switchTo());
+          onPressed: () => switch (mode) {
+            CreateTripMode _ =>
+              ref.watch(modeMachineProvider).apply(ExploreMode.switchTo()),
+            MoveTripOriginMode m =>
+              ref
+                  .watch(modeMachineProvider)
+                  .apply(TripActiveMode.switchTo(m.tripId)),
           },
         ),
         TripOriginMenuUi(validate: validate),
