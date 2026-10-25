@@ -3,7 +3,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
-import 'package:map_engine/src/mode_machine/modes/shared/place_origin_trip_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/shared/origin_placement.dart';
 import 'package:map_engine/src/mode_machine/slots/trip_origin_slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:trip_application/trip_application.dart';

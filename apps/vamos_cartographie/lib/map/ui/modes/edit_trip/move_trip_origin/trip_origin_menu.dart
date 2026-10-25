@@ -5,12 +5,10 @@ import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 class TripOriginMenuWidget extends StatelessWidget {
   const TripOriginMenuWidget({
     super.key,
-    required this.geometryEmpty,
     required this.prependRoute,
     required this.extendRoute,
     required this.move,
   });
-  final bool geometryEmpty;
   final VoidCallback prependRoute;
   final VoidCallback extendRoute;
   final VoidCallback move;
@@ -22,18 +20,11 @@ class TripOriginMenuWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (geometryEmpty)
-            MenuButton(
-              icon: Icons.gesture,
-              label: 'Dessiner une route',
-              onPressed: extendRoute,
-            )
-          else
-            MenuButton(
-              icon: Icons.pan_tool,
-              label: 'Rajouter une Route avant',
-              onPressed: prependRoute,
-            ),
+          MenuButton(
+            icon: Icons.gesture,
+            label: 'Dessiner une route',
+            onPressed: extendRoute,
+          ),
 
           MenuButton(icon: Icons.open_with, label: 'Déplacer', onPressed: move),
         ],

@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
+
+class OriginMenuWidget extends StatelessWidget {
+  const OriginMenuWidget({super.key, required this.validate});
+
+  final VoidCallback validate;
+
+  @override
+  Widget build(BuildContext context) {
+    return ContextMenuShell(
+      maxWidth: 120,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          MenuButton(
+            icon: Icons.add_location_alt_outlined,
+            label: 'Start ici',
+            onPressed: validate,
+          ),
+        ],
+      ),
+    );
+  }
+}

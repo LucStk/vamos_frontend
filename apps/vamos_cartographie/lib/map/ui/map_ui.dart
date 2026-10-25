@@ -6,9 +6,9 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
-import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/trip_mode_ui.dart';
-import 'package:vamos_cartographie/map/ui/modes/place_trip_origin/place_trip_mode_ui.dart';
-import 'package:vamos_cartographie/map/ui/modes/sketch_mode/sketch_mode_ui.dart';
+import 'package:vamos_cartographie/map/ui/modes/create_trip/create_trip_ui.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip/sketch_mode/sketch_mode_ui.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip/trip_mode_ui.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class MapUi extends ConsumerWidget {
@@ -22,7 +22,8 @@ class MapUi extends ConsumerWidget {
       ExploreMode _ => SizedBox.shrink(),
       SketchEdition t => SketchModeUi(t),
       TripMode t => TripModeUi(t),
-      OriginPlacement t => PlaceOriginTripModeUi(t),
+      CreateTripMode t => CreateTripUi(t),
+      _ => SizedBox.shrink(),
     };
   }
 }

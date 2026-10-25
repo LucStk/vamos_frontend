@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_view.dart';
-import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/header/trip_header.dart';
+import 'package:vamos_cartographie/map/ui/modes/shared/trip/header/trip_header.dart';
 
 class TripViewerContent extends StatelessWidget {
   final Trip trip;

@@ -10,9 +10,9 @@ sealed class EditTripCommand<R extends Object> extends Command<R> {
   const EditTripCommand();
 }
 
-final class UpdateTripOrigin
+final class SetTripOrigin
     extends EditTripCommand<Either<Failure, EditRoutePayload>> {
-  const UpdateTripOrigin({required this.position, required this.tripId});
+  const SetTripOrigin({required this.position, required this.tripId});
   final WorldOffset position;
   final TripId tripId;
 

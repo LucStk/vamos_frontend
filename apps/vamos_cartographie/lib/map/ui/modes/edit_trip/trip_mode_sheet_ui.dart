@@ -24,6 +24,7 @@ class TripModeSheetUi extends ConsumerWidget {
         TripActiveMode e => TripSelectionSheet(tripId: e.tripId, canEdit: true),
         _ => SizedBox.shrink(),
       },
+      _ => SizedBox.shrink(),
     };
   }
 }

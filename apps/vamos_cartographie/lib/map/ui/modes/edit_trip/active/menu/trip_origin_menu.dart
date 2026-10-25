@@ -3,23 +3,29 @@ import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 
 class TripOriginMenuWidget extends StatelessWidget {
-  const TripOriginMenuWidget({super.key, required this.validate});
-
-  final VoidCallback validate;
+  const TripOriginMenuWidget({
+    super.key,
+    required this.prependRoute,
+    required this.extendRoute,
+    required this.move,
+  });
+  final VoidCallback prependRoute;
+  final VoidCallback extendRoute;
+  final VoidCallback move;
 
   @override
   Widget build(BuildContext context) {
     return ContextMenuShell(
-      maxWidth: 120,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           MenuButton(
-            icon: Icons.add_location_alt_outlined,
-            label: 'Start ici',
-            onPressed: validate,
+            icon: Icons.pan_tool,
+            label: 'Rajouter une Route avant',
+            onPressed: prependRoute,
           ),
+          MenuButton(icon: Icons.open_with, label: 'Déplacer', onPressed: move),
         ],
       ),
     );

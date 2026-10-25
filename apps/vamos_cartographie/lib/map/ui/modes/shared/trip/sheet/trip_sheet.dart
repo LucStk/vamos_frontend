@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/header/trip_header.dart';
-import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/header/trip_info_bar.dart';
-import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/sheet/trip_compact_content.dart';
-import 'package:vamos_cartographie/map/ui/modes/edit_trip_mode/sheet/trip_viewer_content.dart';
+import 'package:vamos_cartographie/map/ui/modes/shared/trip/header/trip_header.dart';
+import 'package:vamos_cartographie/map/ui/modes/shared/trip/header/trip_info_bar.dart';
+import 'package:vamos_cartographie/map/ui/modes/shared/trip/sheet/trip_compact_content.dart';
+import 'package:vamos_cartographie/map/ui/modes/shared/trip/sheet/trip_viewer_content.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/floating_card_bottom_sheet.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/floating_header_card.dart';
 
