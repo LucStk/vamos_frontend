@@ -9,22 +9,3 @@ import 'package:trip_application/trip_application.dart';
 sealed class EditTripCommand<R extends Object> extends Command<R> {
   const EditTripCommand();
 }
-
-final class SetTripOrigin
-    extends EditTripCommand<Either<Failure, EditRoutePayload>> {
-  const SetTripOrigin({required this.position, required this.tripId});
-  final WorldOffset position;
-  final TripId tripId;
-
-  @override
-  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope n) async {
-    final LatLng latLng = n.camera.worldOffsetToLatLng(position);
-    final route = n.forTrip(tripId).route;
-    if (route == null) {
-      return Left(
-        NotFoundFailure(resourceId: tripId.toString(), resourceType: "Route"),
-      );
-    }
-    return await n.forTrip(tripId).routeEditor.setTripOrigin(latLng);
-  }
-}

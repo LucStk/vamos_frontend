@@ -1,10 +1,12 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
-import 'package:map_engine/src/mode_machine/command/create_trip_command.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:map_engine/src/mode_machine/command/place_origin_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/explore/explore_mode.dart';
-import 'package:map_engine/src/mode_machine/overlay/trip_origin_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/context_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/origin_menu.dart';
 import 'package:map_engine/src/mode_machine/slots/slot.dart';
 import 'package:map_engine/src/mode_machine/slots/trip_origin_slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
@@ -12,15 +14,21 @@ import 'package:trip_application/trip_application.dart';
 
 sealed class OriginTarget {
   const OriginTarget();
+
+  MapObjectMenu<MapTripOrigin> get menu;
 }
 
 final class NewTrip extends OriginTarget {
   const NewTrip();
+  @override
+  MapObjectMenu<MapTripOrigin> get menu => SetOriginMenu();
 }
 
 final class ExistingTrip extends OriginTarget {
   const ExistingTrip(this.tripId);
   final TripId tripId;
+  @override
+  MapObjectMenu<MapTripOrigin> get menu => TripOriginMenu(tripId);
 }
 
 final class PlaceOriginMode extends AppMode {
@@ -32,7 +40,7 @@ final class PlaceOriginMode extends AppMode {
 
   @override
   Transition<AppMode> onTap(TapGesture g) => Transition.overlay<AppMode>(
-    TripOriginMenu(),
+    target.menu,
   ).and(tripOriginSlot, TripOrigin(g.world));
 
   @override
@@ -41,7 +49,7 @@ final class PlaceOriginMode extends AppMode {
 
   @override
   Transition<AppMode> onDragEnd(DragEndGesture g) =>
-      Transition.overlay(TripOriginMenu());
+      Transition.overlay(target.menu);
 
   // --- Intents ---
   static Transition<AppMode> forNewTrip() =>
@@ -62,7 +70,7 @@ final class PlaceOriginMode extends AppMode {
       ),
     ),
     ExistingTrip(:final tripId) => Transition.run(
-      SetTripOrigin(tripId, origin),
+      SetTripOrigin(tripId: tripId, position: origin),
       then: (_, _) => TripActiveMode.switchTo(tripId),
     ),
   };

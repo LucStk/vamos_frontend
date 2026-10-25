@@ -3,7 +3,7 @@ import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/map_point_menu.dart';
-import 'package:map_engine/src/mode_machine/overlay/trip_origin_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/origin_menu.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -16,7 +16,7 @@ final class TripActiveMode extends TripEditableMode {
   @override
   Transition<AppMode> onTap(TapGesture g) {
     if (g.element is MapTripOrigin) {
-      return Transition.overlay<AppMode>(TripOriginMenu());
+      return Transition.overlay<AppMode>(TripOriginMenu(tripId));
     }
     return Transition.stay();
   }

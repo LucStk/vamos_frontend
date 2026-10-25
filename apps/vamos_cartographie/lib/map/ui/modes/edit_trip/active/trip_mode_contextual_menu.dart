@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
 import 'package:vamos_cartographie/map/ui/modes/edit_trip/active/menu/waypoint_menu.dart';
@@ -29,7 +28,7 @@ class TripModeContextualMenu extends ConsumerWidget {
         OverlayMenu<TripOriginMenu>(
           builder: (_, menu, world) => TripOriginMenuWidget(
             prependRoute: () {},
-            move: () => apply(MoveTripOriginMode.start(tripId, world)),
+            move: () {}, // => apply(MoveTripOriginMode.start(tripId, world)),
             extendRoute: () => apply(SketchEdition.start(tripId, world)),
           ),
         ),
