@@ -75,15 +75,11 @@ final class ModeMachineProvider
         name: r'modeMachineProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[handlerRegistryProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>{
+        $allTransitiveDependencies: <ProviderOrFamily>[
           ModeMachineProvider.$allTransitiveDependencies0,
           ModeMachineProvider.$allTransitiveDependencies1,
           ModeMachineProvider.$allTransitiveDependencies2,
-          ModeMachineProvider.$allTransitiveDependencies3,
-          ModeMachineProvider.$allTransitiveDependencies4,
-          ModeMachineProvider.$allTransitiveDependencies5,
-          ModeMachineProvider.$allTransitiveDependencies6,
-        },
+        ],
       );
 
   static final $allTransitiveDependencies0 = handlerRegistryProvider;
@@ -91,14 +87,6 @@ final class ModeMachineProvider
       HandlerRegistryProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 =
       HandlerRegistryProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 =
-      HandlerRegistryProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies4 =
-      HandlerRegistryProvider.$allTransitiveDependencies3;
-  static final $allTransitiveDependencies5 =
-      HandlerRegistryProvider.$allTransitiveDependencies4;
-  static final $allTransitiveDependencies6 =
-      HandlerRegistryProvider.$allTransitiveDependencies5;
 
   @override
   String debugGetCreateSourceHash() => _$modeMachineHash();

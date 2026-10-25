@@ -45,12 +45,15 @@ class TripModeContextualMenu extends ConsumerWidget {
     }
 
     return switch (placement.overlay) {
-      TripOriginMenu _ => ObjectMenuShell(
+      TripOriginMenu t => ObjectMenuShell(
         worldOffset: placement.world,
         child: TripOriginMenuWidget(
           geometryEmpty: isGeometryEmpty(),
           prependRoute: () {},
-          move: () {},
+          move: () => ref
+              .watch(modeMachineProvider)
+              .apply(MoveTripOriginMode.start(mode.tripId, placement.world)),
+
           extendRoute: () => ref
               .watch(modeMachineProvider)
               .apply(SketchEdition.start(mode.tripId, placement.world)),

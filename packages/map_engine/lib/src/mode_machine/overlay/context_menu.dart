@@ -1,7 +1,7 @@
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
-import 'package:map_engine/src/mode_machine/app_mode.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
+import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay.dart';
 import 'package:map_engine/src/mode_machine/overlay/menu_anchor.dart';
 

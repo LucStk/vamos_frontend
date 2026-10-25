@@ -2,17 +2,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:map_engine/src/mode_machine/command/effect/handler_registry.dart';
 import 'package:map_engine/src/mode_machine/command/effect/results.dart';
-import 'package:map_engine/src/mode_machine/command/scopes.dart';
+import 'package:map_engine/src/mode_machine/app_scope.dart';
 
-abstract class Command<R extends Object, H extends CommandScope> {
+abstract class Command<R extends Object> {
   const Command();
 
-  Future<R?> handle(H handler);
+  Future<R?> handle(AppCommandScope handler);
 
   Future<R?> run(HandlerRegistry registry) {
-    final h = registry.maybeOf<H>();
+    final h = registry.maybeOf<AppCommandScope>();
     if (h == null) {
-      assert(false, '$runtimeType: $H indisponible dans le mode courant');
+      assert(false, '$runtimeType: AppCommandScope indisponible');
       return Future.value(null);
     }
     return handle(h);

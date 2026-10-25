@@ -12,7 +12,7 @@ TripOriginItem? tripOriginItem(Ref ref, MapCameraReader camera) {
   final mode = ref.watch(modeStateProvider.select((s) => s.mode));
 
   final worldPosition = switch (mode) {
-    CreateTripMode() => ref.watch(
+    OriginPlacement() => ref.watch(
       modeStateProvider.select((s) => s.slots.get(tripOriginSlot)?.point),
     ),
     TripMode() => ref.watch(

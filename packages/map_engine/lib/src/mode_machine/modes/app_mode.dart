@@ -18,17 +18,6 @@ import 'package:map_engine/src/mode_machine/slots/slot.dart';
 import 'package:map_engine/src/mode_machine/slots/trip_origin_slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:map_engine/src/mode_machine/mode_state.dart';
-import 'package:trip_application/trip_application.dart';
-
-part 'modes/sketch_mode/sketch_mode.dart';
-part "modes/sketch_mode/sketch_creation_mode.dart";
-part "modes/sketch_edition_mode.dart";
-part "modes/trip_mode.dart";
-part "modes/trip_edit_mode.dart";
-part "modes/explore_mode.dart";
-part "modes/place_origin_trip_mode.dart";
-part "modes/create_trip_mode.dart";
-part "modes/move_trip_origin_mode.dart";
 
 typedef AppTransition = Transition<AppMode>;
 typedef AppModeState = ModeState<AppMode>;
@@ -37,6 +26,6 @@ typedef AppOverlay =
       AppMode
     >; // évite aussi le conflit avec le widget Overlay de Flutter
 
-sealed class AppMode extends Mode<AppMode> {
+abstract class AppMode extends Mode<AppMode> {
   const AppMode();
 }

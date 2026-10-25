@@ -2,9 +2,10 @@
 import 'package:domain_core/failures.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 
-import 'package:map_engine/src/mode_machine/app_mode.dart';
 import 'package:map_engine/src/mode_machine/command/create_trip_command.dart';
 import 'package:map_engine/src/mode_machine/command/edit_trip_command.dart';
+import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/context_menu.dart';
 import 'package:map_engine/src/mode_machine/overlay/menu_anchor.dart';
 import 'package:map_engine/src/mode_machine/slots/trip_origin_slot.dart';

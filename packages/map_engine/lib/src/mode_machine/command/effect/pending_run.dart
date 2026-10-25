@@ -8,7 +8,7 @@ final class PendingRun<M extends Mode<M>> {
   const PendingRun._(this._execute);
 
   static PendingRun<M> of<M extends Mode<M>, R extends Object>(
-    Command<R, Object?> command,
+    Command<R> command,
     Transition<M>? Function(ModeState<M> current, R result)? then,
   ) => PendingRun._((registry, current) async {
     final result = await command.run(registry);

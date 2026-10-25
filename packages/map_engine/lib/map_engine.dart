@@ -21,7 +21,7 @@ export "src/mode_machine/slots/trip_origin_slot.dart";
 
 export "src/mode_machine/transition.dart";
 export "src/mode_machine/actions/selection_actions.dart";
-export "src/mode_machine/command/scopes.dart";
+export "src/mode_machine/app_scope.dart";
 export "src/mode_machine/command/effect/effect_queue.dart";
 export "src/mode_machine/command/effect/pending_run.dart";
 export "src/mode_machine/command/effect/handler_registry.dart";
@@ -43,4 +43,4 @@ export 'src/input/map_gesture_handler.dart';
 
 export "src/mode_machine/mode_machine.dart";
 
-export "src/mode_machine/app_mode.dart";
+export "src/mode_machine/modes/modes.dart";

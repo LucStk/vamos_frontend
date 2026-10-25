@@ -22,7 +22,7 @@ class MapUi extends ConsumerWidget {
       ExploreMode _ => SizedBox.shrink(),
       SketchEdition t => SketchModeUi(t),
       TripMode t => TripModeUi(t),
-      PlaceOriginTripMode t => PlaceOriginTripModeUi(t),
+      OriginPlacement t => PlaceOriginTripModeUi(t),
     };
   }
 }

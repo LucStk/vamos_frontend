@@ -1,4 +1,15 @@
-part of "../app_mode.dart";
+import 'package:domain_core/domain_core.dart';
+import 'package:map_engine/src/domain/gestures/map_gesture.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:map_engine/src/domain/sketch_trace.dart';
+import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
+import 'package:map_engine/src/mode_machine/overlay/pencil_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/vertex_menu.dart';
+import 'package:map_engine/src/mode_machine/slots/sketch_trace_slot.dart';
+import 'package:map_engine/src/mode_machine/slots/slot.dart';
+import 'package:map_engine/src/mode_machine/transition.dart';
+import 'package:trip_application/trip_application.dart';
 
 final class SketchEdition extends TripEditableMode {
   const SketchEdition(super.tripId);

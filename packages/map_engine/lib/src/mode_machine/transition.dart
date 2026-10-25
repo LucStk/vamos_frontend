@@ -51,7 +51,7 @@ sealed class Transition<M extends Mode<M>> {
   /// Lance un effet. `then` reçoit le mode COURANT à la fin, et seulement
   /// si l'effet a réussi.
   static ResolvedTransition<M> run<M extends Mode<M>, R extends Object>(
-    Command<R, Object?> command, {
+    Command<R> command, {
     Transition<M>? Function(ModeState<M> current, R result)? then,
   }) => ResolvedTransition<M>(pending: PendingRun.of(command, then));
 

@@ -2,9 +2,9 @@ import 'package:domain_core/space/offset_type.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/domain/camera/map_camera.dart';
 import 'package:map_engine/src/geometry/merge_polyline.dart';
+import 'package:map_engine/src/mode_machine/app_scope.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
 import 'package:map_engine/src/mode_machine/command/effect/results.dart';
-import 'package:map_engine/src/mode_machine/command/scopes.dart';
 import 'package:trip_application/trip_application.dart';
 
 extension ListWorldOffsetToListLatLng on List<WorldOffset> {
@@ -12,7 +12,7 @@ extension ListWorldOffsetToListLatLng on List<WorldOffset> {
       map(camera.worldOffsetToLatLng).toList();
 }
 
-sealed class RouteCommand<R extends Object> extends Command<R, TripEditScope> {
+sealed class RouteCommand<R extends Object> extends Command<R> {
   const RouteCommand();
 }
 //

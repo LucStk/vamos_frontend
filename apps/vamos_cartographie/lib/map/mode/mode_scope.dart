@@ -9,19 +9,44 @@ import 'package:vamos_cartographie/domain_features/route/injection/route_store.d
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
-part "scopes/trip_edit_scope.dart";
-part "scopes/explore_scope.dart";
-part "scopes/create_trip_scope.dart";
-part 'mode_scope.g.dart';
 
-@Riverpod(
-  keepAlive: true,
-  dependencies: [mapMode, exploreScope, tripEditScope, tripCreateScope],
-)
-HandlerRegistry handlerRegistry(Ref ref) {
-  return HandlerRegistry(switch (ref.watch(mapModeProvider)) {
-    ExploreMode() => ref.watch(exploreScopeProvider),
-    TripMode() => ref.watch(tripEditScopeProvider),
-    PlaceOriginTripMode() => ref.watch(tripCreateScopeProvider),
-  });
+@Riverpod(keepAlive: true, dependencies: [mapCamera, cameraDirector])
+HandlerRegistry handlerRegistry(Ref ref) =>
+    HandlerRegistry(_AppCommandScope(ref));
+
+final class _AppCommandScope implements AppCommandScope {
+  const _AppCommandScope(this._ref);
+  final Ref _ref;
+
+  @override
+  CameraDirector get director => _ref.read(cameraDirectorProvider);
+  @override
+  MapCameraController get camera => _ref.read(mapCameraProvider);
+  @override
+  TripEditor get tripEditor => _ref.read(tripStoreProvider.notifier);
+
+  @override
+  TripScope forTrip(TripId tripId) => _TripScope(_ref, tripId);
+}
+
+final class _TripScope implements TripScope {
+  const _TripScope(this._ref, this.tripId);
+  final Ref _ref;
+  @override
+  final TripId tripId;
+
+  @override
+  RouteEditor get routeEditor => _ref.read(routeStoreProvider(tripId).notifier);
+
+  @override
+  WaypointEditor get waypointEditor =>
+      _ref.read(waypointStoreProvider(tripId).notifier);
+
+  @override
+  RouteFields? get route =>
+      _ref.read(routeStoreProvider(tripId)).route?.current;
+
+  @override
+  RouteSectionFields? section(SectionId id) =>
+      _ref.read(routeStoreProvider(tripId)).sectionStore.get(id)?.current;
 }

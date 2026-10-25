@@ -1,6 +1,13 @@
-part of "../app_mode.dart";
+import 'package:map_engine/src/domain/gestures/map_gesture.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
+import 'package:map_engine/src/mode_machine/overlay/map_point_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/trip_origin_menu.dart';
+import 'package:map_engine/src/mode_machine/transition.dart';
+import 'package:trip_application/trip_application.dart';
 
-sealed class TripEditableMode extends TripMode {
+abstract class TripEditableMode extends TripMode {
   const TripEditableMode(super.tripId);
 }
 
@@ -16,12 +23,12 @@ final class TripActiveMode extends TripEditableMode {
 
   @override
   Transition<AppMode> onLongPress(LongPressGesture g) => switch (g.element) {
-    _ => Transition.overlay(MapPointMenu(g.world)),
+    _ => Transition.overlay(MapPointMenu(tripId: tripId, at: g.world)),
   };
   @override
   Transition<AppMode> onSecondaryTap(SecondaryTapGesture g) =>
       switch (g.element) {
-        _ => Transition.overlay(MapPointMenu(g.world)),
+        _ => Transition.overlay(MapPointMenu(tripId: tripId, at: g.world)),
       };
 
   /// Appelé quand on touche la carte.
