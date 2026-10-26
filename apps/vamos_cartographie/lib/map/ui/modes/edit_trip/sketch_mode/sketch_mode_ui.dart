@@ -25,9 +25,7 @@ class SketchModeUi extends ConsumerWidget {
         CancelBottomButton(
           tooltipText: "Cancel creation",
           onPressed: () {
-            ref
-                .watch(modeMachineProvider)
-                .apply(TripActiveMode.switchTo(mode.tripId));
+            ref.watch(modeMachineProvider).apply(SketchEdition.stop());
           },
         ),
       ],

@@ -4,6 +4,7 @@ import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/sketch_trace.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/pencil_menu.dart';
 import 'package:map_engine/src/mode_machine/overlay/vertex_menu.dart';
 import 'package:map_engine/src/mode_machine/slots/sketch_trace_slot.dart';
@@ -54,6 +55,6 @@ final class SketchEdition extends TripEditableMode {
 
   static Transition<AppMode> stop() =>
       Transition.withMode<AppMode, SketchEdition>(
-        (s) => Transition.to(TripActiveMode(s.tripId)),
+        (s) => TripMode.open((s.tripId)),
       );
 }
