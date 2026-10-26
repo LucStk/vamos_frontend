@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/mode/map_mode.dart';
+// import 'package:riverpod_annotation/experimental/scope.dart';
+// import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 
-@Dependencies([modeOverlay])
+// @Dependencies([modeOverlay])
 class PencilMenuWidget extends StatelessWidget {
   const PencilMenuWidget({super.key, required this.endSketch});
   final VoidCallback endSketch;

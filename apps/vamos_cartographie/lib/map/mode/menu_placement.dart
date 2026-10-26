@@ -17,7 +17,7 @@ typedef MenuPlacement = ({
 
 @Riverpod(
   keepAlive: true,
-  dependencies: [cameraOrNull, modeOverlay, pencilItem, tripOriginItem],
+  dependencies: [cameraOrNull, modeOverlay, pencilItem],
 )
 MenuPlacement? menuPlacement(Ref ref) {
   final camera = ref.watch(cameraOrNullProvider);

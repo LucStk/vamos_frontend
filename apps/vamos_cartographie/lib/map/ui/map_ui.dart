@@ -9,6 +9,7 @@ import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/modes/edit_trip/sketch_mode/sketch_mode_ui.dart';
 import 'package:vamos_cartographie/map/ui/modes/edit_trip/trip_mode_ui.dart';
 import 'package:vamos_cartographie/map/ui/modes/place_origin/place_origin_ui.dart';
+import 'package:vamos_cartographie/map/ui/modes/explore/trip_read_only_ui.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class MapUi extends ConsumerWidget {
@@ -19,9 +20,9 @@ class MapUi extends ConsumerWidget {
     final mode = ref.watch(modeStateProvider.select((m) => m.mode));
 
     return switch (mode) {
-      ExploreMode _ => SizedBox.shrink(),
+      TripReadOnlyMode t => TripReadOnlyUi(t),
       SketchEdition t => SketchModeUi(t),
-      TripMode t => TripModeUi(t),
+      TripEditableMode t => TripModeUi(t),
       PlaceOriginMode t => PlaceOriginUi(t),
       _ => SizedBox.shrink(),
     };

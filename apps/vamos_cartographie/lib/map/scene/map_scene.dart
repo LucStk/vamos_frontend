@@ -19,13 +19,7 @@ part 'map_scene.g.dart';
 /// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 @Riverpod(
   keepAlive: true,
-  dependencies: [
-    mapMode,
-    allSegmentItem,
-    allSketchItem,
-    localizationItem,
-    tripOriginItem,
-  ],
+  dependencies: [mapMode, allSegmentItem, allSketchItem],
 )
 List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   final mode = ref.watch(mapModeProvider);

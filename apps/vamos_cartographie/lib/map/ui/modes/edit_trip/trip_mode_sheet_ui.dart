@@ -6,23 +6,18 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 
+import 'package:vamos_cartographie/map/ui/modes/shared/trip/sheet/trip_selection_sheet.dart';
+
 @Dependencies([modeSelection, ModeMachine])
 class TripModeSheetUi extends ConsumerWidget {
   const TripModeSheetUi(this.mode, {super.key});
 
-  final TripMode mode;
+  final TripEditableMode mode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return switch (mode) {
-      TripReadOnlyMode e => TripSelectionSheet(
-        tripId: e.tripId,
-        canEdit: false,
-      ),
-      TripEditableMode m => switch (m) {
-        TripActiveMode e => TripSelectionSheet(tripId: e.tripId, canEdit: true),
-        _ => SizedBox.shrink(),
-      },
+      TripActiveMode e => TripSelectionSheet(tripId: e.tripId, canEdit: true),
       _ => SizedBox.shrink(),
     };
   }

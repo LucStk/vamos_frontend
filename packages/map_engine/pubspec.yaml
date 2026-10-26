@@ -18,6 +18,8 @@ dependencies:
     path: ../domain_core
   trip_application:
     path: ../trip_application
+  user_profile_application:
+    path: ../user_profile_application
   uuid: ^4.5.3
   vector_math: ^2.4.3
   collection: ^1.19.1

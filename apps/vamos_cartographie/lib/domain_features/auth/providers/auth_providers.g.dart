@@ -87,8 +87,8 @@ String _$authStateHash() => r'0b10eaefd3623136d0dc5bdbd92d6949d7f2649f';
 final currentUserIdProvider = CurrentUserIdProvider._();
 
 final class CurrentUserIdProvider
-    extends $FunctionalProvider<String?, String?, String?>
-    with $Provider<String?> {
+    extends $FunctionalProvider<UserId?, UserId?, UserId?>
+    with $Provider<UserId?> {
   CurrentUserIdProvider._()
     : super(
         from: null,
@@ -105,24 +105,24 @@ final class CurrentUserIdProvider
 
   @$internal
   @override
-  $ProviderElement<String?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<UserId?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  String? create(Ref ref) {
+  UserId? create(Ref ref) {
     return currentUserId(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(String? value) {
+  Override overrideWithValue(UserId? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<String?>(value),
+      providerOverride: $SyncValueProvider<UserId?>(value),
     );
   }
 }
 
-String _$currentUserIdHash() => r'5230bddb50b488e8c21a6bb55d27d8839401016c';
+String _$currentUserIdHash() => r'88d7d49ee386a4f8aaae01f08db36edb7f12115e';
 
 @ProviderFor(currentUser)
 final currentUserProvider = CurrentUserProvider._();

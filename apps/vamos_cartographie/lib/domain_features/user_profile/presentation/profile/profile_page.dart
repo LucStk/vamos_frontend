@@ -44,9 +44,7 @@ class ProfilePage extends ConsumerWidget {
           );
         },
         onOpenTrip: (trip) {
-          ref
-              .watch(modeMachineProvider)
-              .apply(TripActiveMode.switchTo(trip.id));
+          ref.watch(modeMachineProvider).apply(TripMode.open(trip.id));
           context.canPop() ? context.pop() : context.go("/");
         },
       ),

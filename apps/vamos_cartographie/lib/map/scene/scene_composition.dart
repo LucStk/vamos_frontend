@@ -15,7 +15,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 /// Couches toujours présentes, quel que soit le mode.
 // scene_composition.dart
 //
-@Dependencies([localizationItem])
+// @Dependencies([localizationItem])
 final baseLayers = <Layer>[
   (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
 ];
@@ -24,7 +24,7 @@ final baseLayers = <Layer>[
 /// Seul endroit qui relie un mode à ses couches.
 typedef Layer = List<SceneItem> Function(Ref ref, MapCameraController cam);
 
-@Dependencies([allSketchItem, allSegmentItem, tripOriginItem])
+@Dependencies([allSketchItem, allSegmentItem])
 List<Layer> layersFor(AppMode mode) => switch (mode) {
   ExploreMode() => [(ref, cam) => ref.watch(allTripItemProvider(cam))],
   SketchEdition() => [(ref, cam) => ref.watch(allSketchItemProvider(cam))],

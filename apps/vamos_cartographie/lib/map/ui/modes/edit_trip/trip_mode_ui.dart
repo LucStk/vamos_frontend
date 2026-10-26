@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/ui/modes/edit_trip/trip_mode_sheet_ui.dar
 class TripModeUi extends StatelessWidget {
   const TripModeUi(this.mode, {super.key});
 
-  final TripMode mode;
+  final TripEditableMode mode;
 
   @override
   Widget build(BuildContext context) {
