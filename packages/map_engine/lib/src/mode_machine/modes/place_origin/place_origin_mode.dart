@@ -39,9 +39,15 @@ final class PlaceOriginMode extends AppMode {
   Set<Slot> get retainedSlots => {tripOriginSlot};
 
   @override
-  Transition<AppMode> onTap(TapGesture g) => Transition.overlay<AppMode>(
-    target.menu,
-  ).and(tripOriginSlot, TripOrigin(g.world));
+  Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
+    MapTripOrigin _ => Transition.overlay<AppMode>(target.menu),
+    _ => switch (target) {
+      NewTrip _ => Transition.overlay<AppMode>(
+        target.menu,
+      ).and(tripOriginSlot, TripOrigin(g.world)),
+      ExistingTrip _ => Transition.stay(),
+    },
+  };
 
   @override
   Transition<AppMode> onDragging(DragUpdateGesture g) =>
@@ -76,10 +82,7 @@ final class PlaceOriginMode extends AppMode {
         (trip) => TripActiveMode.switchTo(trip.id),
       ),
     ),
-    ExistingTrip(:final tripId) => Transition.run(
-      SetTripOrigin(tripId: tripId, position: origin),
-      then: (_, _) => TripActiveMode.switchTo(tripId),
-    ),
+    ExistingTrip() => Transition.stay(),
   };
 
   Transition<AppMode> cancel() => switch (target) {

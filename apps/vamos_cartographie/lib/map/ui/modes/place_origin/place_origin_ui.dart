@@ -72,14 +72,10 @@ class _ExistingTripUi extends ConsumerWidget {
           builder: (_, _, world) => OriginMenuWidget(
             children: [
               MenuButton(
-                icon: Icons.check,
-                label: 'Déplacer ici',
-                onPressed: () => ref.applyTransition(mode.validate(world)),
-              ),
-              MenuButton(
-                icon: Icons.close,
-                label: 'Annuler',
-                onPressed: () => ref.applyTransition(mode.cancel()),
+                icon: Icons.route,
+                label: 'start route',
+                onPressed: () =>
+                    ref.applyTransition(SketchEdition.start(tripId, world)),
               ),
             ],
           ),
