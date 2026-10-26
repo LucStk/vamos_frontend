@@ -14,7 +14,7 @@ import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 
 part "mode_scope.g.dart";
 
-@Riverpod(keepAlive: true, dependencies: [mapCamera, cameraDirector])
+@Riverpod(keepAlive: true, dependencies: [cameraDirector])
 HandlerRegistry handlerRegistry(Ref ref) =>
     HandlerRegistry(_AppCommandScope(ref));
 

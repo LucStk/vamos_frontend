@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/map/ui/features/segment/sheet/segment_bottom_
 import 'package:vamos_cartographie/map/ui/features/waypoint/sheet/waypoint_bottom_sheet.dart';
 import 'package:vamos_cartographie/map/ui/modes/shared/trip/sheet/trip_sheet.dart';
 
-@Dependencies([modeMachine, modeSelection])
+@Dependencies([modeSelection])
 class TripSelectionSheet extends ConsumerWidget {
   const TripSelectionSheet({
     required this.tripId,

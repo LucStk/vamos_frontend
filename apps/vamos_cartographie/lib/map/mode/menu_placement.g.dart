@@ -23,23 +23,17 @@ final class MenuPlacementProvider
         name: r'menuPlacementProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[
-          cameraOrNullProvider,
           modeOverlayProvider,
           pencilItemProvider,
         ],
-        $allTransitiveDependencies: <ProviderOrFamily>{
+        $allTransitiveDependencies: <ProviderOrFamily>[
           MenuPlacementProvider.$allTransitiveDependencies0,
           MenuPlacementProvider.$allTransitiveDependencies1,
-          MenuPlacementProvider.$allTransitiveDependencies2,
-          MenuPlacementProvider.$allTransitiveDependencies3,
-        },
+        ],
       );
 
-  static final $allTransitiveDependencies0 = cameraOrNullProvider;
-  static final $allTransitiveDependencies1 =
-      CameraOrNullProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 = modeOverlayProvider;
-  static final $allTransitiveDependencies3 = pencilItemProvider;
+  static final $allTransitiveDependencies0 = modeOverlayProvider;
+  static final $allTransitiveDependencies1 = pencilItemProvider;
 
   @override
   String debugGetCreateSourceHash() => _$menuPlacementHash();
@@ -63,4 +57,4 @@ final class MenuPlacementProvider
   }
 }
 
-String _$menuPlacementHash() => r'f8f9a251f444c58bb35d0100940d86cf2e22ae11';
+String _$menuPlacementHash() => r'a2f60beede35f2fe1ce9f5a30765408210926221';

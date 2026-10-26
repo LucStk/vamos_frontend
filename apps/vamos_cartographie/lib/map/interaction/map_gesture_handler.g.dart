@@ -27,11 +27,7 @@ final class MapGestureHandlerNotifierProvider
         retry: null,
         name: r'mapGestureHandlerProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[
-          mapSceneProvider,
-          mapCameraProvider,
-          modeMachineProvider,
-        ],
+        dependencies: <ProviderOrFamily>[mapSceneProvider, modeMachineProvider],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies0,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies1,
@@ -44,8 +40,6 @@ final class MapGestureHandlerNotifierProvider
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies8,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies9,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies10,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies11,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies12,
         },
       );
 
@@ -64,15 +58,11 @@ final class MapGestureHandlerNotifierProvider
       MapSceneProvider.$allTransitiveDependencies5;
   static final $allTransitiveDependencies7 =
       MapSceneProvider.$allTransitiveDependencies6;
-  static final $allTransitiveDependencies8 =
-      MapSceneProvider.$allTransitiveDependencies7;
+  static final $allTransitiveDependencies8 = modeMachineProvider;
   static final $allTransitiveDependencies9 =
-      MapSceneProvider.$allTransitiveDependencies8;
-  static final $allTransitiveDependencies10 = modeMachineProvider;
-  static final $allTransitiveDependencies11 =
       ModeMachineProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies12 =
-      ModeMachineProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies10 =
+      ModeMachineProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();
@@ -91,7 +81,7 @@ final class MapGestureHandlerNotifierProvider
 }
 
 String _$mapGestureHandlerNotifierHash() =>
-    r'5f8dc7711a4fb7f51f1db17a872e794a2f325a08';
+    r'c8955789d8e5c4900006c9b975d03cc003d5f348';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).

@@ -15,25 +15,6 @@ import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/chrome/right_control_panel.dart';
 import 'package:vamos_cartographie/map/ui/map_ui.dart';
 
-@Dependencies([MapGestureHandlerNotifier, mapScene, visualTargets])
-class MapScreen extends StatefulWidget {
-  const MapScreen({super.key});
-
-  @override
-  State<MapScreen> createState() => _MapExploreScreenState();
-}
-
-class _MapExploreScreenState extends State<MapScreen>
-    with TickerProviderStateMixin, MapCameraLifecycle {
-  @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      overrides: [mapCameraProvider.overrideWithValue(camera)],
-      child: _ExploreMapView(),
-    );
-  }
-}
-
 @Dependencies([
   mapScene,
   visualTargets,
@@ -41,14 +22,15 @@ class _MapExploreScreenState extends State<MapScreen>
   mapCamera,
   cameraDirector,
 ])
-class _ExploreMapView extends ConsumerStatefulWidget {
-  const _ExploreMapView();
+class MapScreen extends ConsumerStatefulWidget {
+  const MapScreen();
 
   @override
-  ConsumerState<_ExploreMapView> createState() => _ExploreMapViewState();
+  ConsumerState<MapScreen> createState() => _MapScreenState();
 }
 
-class _ExploreMapViewState extends ConsumerState<_ExploreMapView> {
+class _MapScreenState extends ConsumerState<MapScreen>
+    with TickerProviderStateMixin, MapCameraLifecycle {
   @override
   Widget build(BuildContext context) {
     final loader = ref.watch(loadTripsProvider);

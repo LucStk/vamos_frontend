@@ -1,7 +1,6 @@
 import 'package:domain_core/space/offset_type.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
+// import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
 
 /// Affiche [child] au-dessus de l'ancre du menu ouvert.
@@ -11,7 +10,7 @@ import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
 ///   change.
 /// - La conversion monde → écran est refaite à chaque événement de la carte
 ///   (`camera.changes`), sans reconstruire le contenu du menu.
-@Dependencies([cameraOrNull])
+// @Dependencies([cameraOrNull])
 class ObjectMenuShell extends StatelessWidget {
   const ObjectMenuShell({
     super.key,

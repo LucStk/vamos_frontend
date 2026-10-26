@@ -1,9 +1,9 @@
 import 'package:domain_core/space/offset_type.dart';
 import 'package:flutter/material.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
+// import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 
 // world_positioned.dart (ou un fichier utilitaire)
 const kEmptyPositioned = Positioned(
@@ -14,7 +14,7 @@ const kEmptyPositioned = Positioned(
   child: SizedBox.shrink(),
 );
 
-@Dependencies([cameraOrNull])
+// @Dependencies([cameraOrNull])
 class WorldPositioned extends ConsumerWidget {
   const WorldPositioned({
     super.key,
@@ -35,7 +35,7 @@ class WorldPositioned extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final camera = ref.watch(cameraOrNullProvider);
+    final camera = ref.watch(readyCameraProvider);
     if (camera == null) {
       return kEmptyPositioned;
     }

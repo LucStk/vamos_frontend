@@ -22,13 +22,9 @@ final class CameraDirectorProvider
         retry: null,
         name: r'cameraDirectorProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapCameraProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          CameraDirectorProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
-
-  static final $allTransitiveDependencies0 = mapCameraProvider;
 
   @override
   String debugGetCreateSourceHash() => _$cameraDirectorHash();
@@ -52,4 +48,4 @@ final class CameraDirectorProvider
   }
 }
 
-String _$cameraDirectorHash() => r'43ff59ccff247886bf43644eb73dc6f95483fc55';
+String _$cameraDirectorHash() => r'39c19846325ca579caecff0476598c0d7e56bf99';

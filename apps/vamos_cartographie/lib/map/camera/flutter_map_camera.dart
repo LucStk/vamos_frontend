@@ -96,8 +96,8 @@ class FlutterMapCamera implements MapCameraController {
 
   /// À appeler dans le `dispose` du scope qui a créé la caméra.
   void dispose() {
+    _disposed = true;
     _mapSub?.cancel();
-    _mapSub = null;
     detachAnimatedController();
     unawaited(_events.close());
     _revision.dispose();
@@ -107,6 +107,7 @@ class FlutterMapCamera implements MapCameraController {
   }
 
   void attachAnimatedController(TickerProvider ticker) {
+    _animatedController?.dispose(); // protège d'un double attach
     _animatedController = AnimatedMapController(
       vsync: ticker,
       mapController: mapController,
@@ -114,6 +115,16 @@ class FlutterMapCamera implements MapCameraController {
       curve: Curves.easeInOutCubic,
     );
   }
+
+  void markDetached() {
+    if (_disposed) return;
+    ready.value = false;
+    _mapSub?.cancel();
+    _mapSub = null;
+    detachAnimatedController();
+  }
+
+  bool _disposed = false;
 
   void detachAnimatedController() {
     _animatedController?.dispose();

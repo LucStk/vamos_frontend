@@ -23,18 +23,13 @@ final class HandlerRegistryProvider
         retry: null,
         name: r'handlerRegistryProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[
-          mapCameraProvider,
-          cameraDirectorProvider,
-        ],
+        dependencies: <ProviderOrFamily>[cameraDirectorProvider],
         $allTransitiveDependencies: <ProviderOrFamily>[
           HandlerRegistryProvider.$allTransitiveDependencies0,
-          HandlerRegistryProvider.$allTransitiveDependencies1,
         ],
       );
 
-  static final $allTransitiveDependencies0 = mapCameraProvider;
-  static final $allTransitiveDependencies1 = cameraDirectorProvider;
+  static final $allTransitiveDependencies0 = cameraDirectorProvider;
 
   @override
   String debugGetCreateSourceHash() => _$handlerRegistryHash();
@@ -58,4 +53,4 @@ final class HandlerRegistryProvider
   }
 }
 
-String _$handlerRegistryHash() => r'113c05073bad3b54db02f64444d43a1028cf2512';
+String _$handlerRegistryHash() => r'73b228244a516be407701ace28aaa4723341e60b';

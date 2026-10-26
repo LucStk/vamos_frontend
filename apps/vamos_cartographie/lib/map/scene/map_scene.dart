@@ -2,11 +2,9 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/scene_composition.dart';
-import 'package:vamos_cartographie/map/scene/layers/localization_layer.dart';
-import 'package:vamos_cartographie/map/scene/layers/edit_trip/trip_origin_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/layers/edit_trip/segments/segments_layer.dart';
 import 'package:vamos_cartographie/map/scene/layers/edit_trip/sketch/sketch_layer.dart';
 part 'map_scene.g.dart';
@@ -34,12 +32,12 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
 /// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
 /// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
 /// une exception.
-@Riverpod(keepAlive: true, dependencies: [sceneItems, cameraOrNull])
+@Riverpod(keepAlive: true, dependencies: [sceneItems])
 MapScene mapScene(Ref ref) {
   final selected = ref.watch(
     modeStateProvider.select((c) => c.slots.get(selectionSlot)),
   );
-  final camera = ref.watch(cameraOrNullProvider);
+  final camera = ref.watch(readyCameraProvider);
 
   final List<SceneItem> items = camera == null
       ? const []

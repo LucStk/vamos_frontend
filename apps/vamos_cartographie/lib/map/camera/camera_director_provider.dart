@@ -1,11 +1,11 @@
 import 'package:flutter_map/flutter_map.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'map_camera_provider.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 
 part 'camera_director_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [mapCamera])
+@Riverpod(keepAlive: true) //, dependencies: [mapCamera])
 CameraDirector cameraDirector(Ref ref) {
   final camera = ref.watch(mapCameraProvider);
   final director = CameraDirector(camera: camera);

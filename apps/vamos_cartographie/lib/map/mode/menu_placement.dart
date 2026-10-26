@@ -2,7 +2,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/camera/camera_or_null.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/scene/items/waypoint/waypoint_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/layers/edit_trip/trip_origin_item_provider.dart';
@@ -15,12 +15,9 @@ typedef MenuPlacement = ({
   WorldOffset world,
 });
 
-@Riverpod(
-  keepAlive: true,
-  dependencies: [cameraOrNull, modeOverlay, pencilItem],
-)
+@Riverpod(keepAlive: true, dependencies: [modeOverlay, pencilItem])
 MenuPlacement? menuPlacement(Ref ref) {
-  final camera = ref.watch(cameraOrNullProvider);
+  final camera = ref.watch(readyCameraProvider);
   if (camera == null) return null;
   final overlay = ref.watch(modeOverlayProvider);
   if (overlay is! ContextMenuOverlay<AppMode>) return null; // promu ici

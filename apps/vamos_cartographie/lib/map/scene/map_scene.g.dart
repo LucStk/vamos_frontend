@@ -165,10 +165,7 @@ final class MapSceneProvider
         retry: null,
         name: r'mapSceneProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[
-          sceneItemsProvider,
-          cameraOrNullProvider,
-        ],
+        dependencies: <ProviderOrFamily>[sceneItemsProvider],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MapSceneProvider.$allTransitiveDependencies0,
           MapSceneProvider.$allTransitiveDependencies1,
@@ -177,8 +174,6 @@ final class MapSceneProvider
           MapSceneProvider.$allTransitiveDependencies4,
           MapSceneProvider.$allTransitiveDependencies5,
           MapSceneProvider.$allTransitiveDependencies6,
-          MapSceneProvider.$allTransitiveDependencies7,
-          MapSceneProvider.$allTransitiveDependencies8,
         },
       );
 
@@ -195,9 +190,6 @@ final class MapSceneProvider
       SceneItemsProvider.$allTransitiveDependencies4;
   static final $allTransitiveDependencies6 =
       SceneItemsProvider.$allTransitiveDependencies5;
-  static final $allTransitiveDependencies7 = cameraOrNullProvider;
-  static final $allTransitiveDependencies8 =
-      CameraOrNullProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$mapSceneHash();
@@ -221,4 +213,4 @@ final class MapSceneProvider
   }
 }
 
-String _$mapSceneHash() => r'9889b329e76229ccf85d93b1b73bd3b6468e376c';
+String _$mapSceneHash() => r'1a2807521591c8a37659e184acb2eee019505505';

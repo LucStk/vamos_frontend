@@ -27,8 +27,8 @@ final class MapCameraProvider
         retry: null,
         name: r'mapCameraProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
 
   @override
@@ -53,4 +53,59 @@ final class MapCameraProvider
   }
 }
 
-String _$mapCameraHash() => r'813cba9e11141ec0f8976aededb1019f982276b6';
+String _$mapCameraHash() => r'cad9e879cf81b08519f5dd33b0b2a107aaa442df';
+
+/// La caméra une fois la carte montée, sinon `null`.
+/// Pont entre `camera.ready` (ValueNotifier) et Riverpod.
+
+@ProviderFor(readyCamera)
+final readyCameraProvider = ReadyCameraProvider._();
+
+/// La caméra une fois la carte montée, sinon `null`.
+/// Pont entre `camera.ready` (ValueNotifier) et Riverpod.
+
+final class ReadyCameraProvider
+    extends
+        $FunctionalProvider<
+          FlutterMapCamera?,
+          FlutterMapCamera?,
+          FlutterMapCamera?
+        >
+    with $Provider<FlutterMapCamera?> {
+  /// La caméra une fois la carte montée, sinon `null`.
+  /// Pont entre `camera.ready` (ValueNotifier) et Riverpod.
+  ReadyCameraProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'readyCameraProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$readyCameraHash();
+
+  @$internal
+  @override
+  $ProviderElement<FlutterMapCamera?> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  FlutterMapCamera? create(Ref ref) {
+    return readyCamera(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FlutterMapCamera? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FlutterMapCamera?>(value),
+    );
+  }
+}
+
+String _$readyCameraHash() => r'5fb5c00e1209a684daf6124706268e8c1ee24885';

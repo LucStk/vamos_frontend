@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/map/rendering/map_scene_painter.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/camera_transform_widget.dart';
 
-@Dependencies([mapScene, visualTargets, mapCamera])
+@Dependencies([mapScene, visualTargets])
 class MapScenePaint extends ConsumerStatefulWidget {
   const MapScenePaint({super.key});
 
