@@ -48,8 +48,15 @@ final class PlaceOriginMode extends AppMode {
       Transition.set(tripOriginSlot, TripOrigin(g.world));
 
   @override
-  Transition<AppMode> onDragEnd(DragEndGesture g) =>
-      Transition.overlay(target.menu);
+  Transition<AppMode> onDragEnd(DragEndGesture g) {
+    return switch (target) {
+      NewTrip _ => Transition.overlay(target.menu),
+      ExistingTrip t => Transition.run(
+        SetTripOrigin(position: g.world, tripId: t.tripId),
+        then: (_, _) => Transition.overlay(target.menu),
+      ),
+    };
+  }
 
   // --- Intents ---
   static Transition<AppMode> forNewTrip() =>

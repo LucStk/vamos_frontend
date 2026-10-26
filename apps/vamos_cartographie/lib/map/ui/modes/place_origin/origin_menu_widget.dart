@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
-import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 
 class OriginMenuWidget extends StatelessWidget {
-  const OriginMenuWidget({super.key, required this.validate});
-
-  final VoidCallback validate;
+  const OriginMenuWidget({super.key, required this.children});
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +13,7 @@ class OriginMenuWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MenuButton(
-            icon: Icons.add_location_alt_outlined,
-            label: 'Start ici',
-            onPressed: validate,
-          ),
-        ],
+        children: children,
       ),
     );
   }

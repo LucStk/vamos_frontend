@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:trip_application/trip_application.dart';
 
 import 'package:vamos_cartographie/map/mode/helpers/mode_apply.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
+import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/modes/place_origin/origin_menu_widget.dart';
+import 'package:vamos_cartographie/map/ui/modes/shared/trip/sheet/trip_selection_sheet.dart';
 import 'package:vamos_cartographie/map/ui/shared/buttons/cancel_bottom_button.dart';
+import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/overlay_menu.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([menuPlacement])
+@Dependencies([menuPlacement, modeSelection])
 class PlaceOriginUi extends ConsumerWidget {
   const PlaceOriginUi(this.mode, {super.key});
+  final PlaceOriginMode mode;
 
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => switch (mode.target) {
+    NewTrip() => _NewTripUi(mode),
+    ExistingTrip(:final tripId) => _ExistingTripUi(mode, tripId),
+  };
+}
+
+@Dependencies([menuPlacement])
+class _NewTripUi extends ConsumerWidget {
+  const _NewTripUi(this.mode);
   final PlaceOriginMode mode;
 
   @override
@@ -22,17 +37,51 @@ class PlaceOriginUi extends ConsumerWidget {
       fit: StackFit.expand,
       children: [
         CancelBottomButton(
-          tooltipText: "Cancel creation",
+          tooltipText: 'Cancel creation',
           onPressed: () => ref.applyTransition(mode.cancel()),
         ),
-        OverlayMenu<TripOriginMenu>(
-          builder: (_, t, p) => OriginMenuWidget(
-            validate: () => ref.applyTransition(mode.validate(p)),
+        OverlayMenu<SetOriginMenu>(
+          builder: (_, _, world) => OriginMenuWidget(
+            children: [
+              MenuButton(
+                icon: Icons.add_location_alt_outlined,
+                label: 'Start ici',
+                onPressed: () => ref.applyTransition(mode.validate(world)),
+              ),
+            ],
           ),
         ),
-        OverlayMenu<SetOriginMenu>(
-          builder: (_, t, p) => OriginMenuWidget(
-            validate: () => ref.applyTransition(mode.validate(p)),
+      ],
+    );
+  }
+}
+
+@Dependencies([menuPlacement, modeSelection])
+class _ExistingTripUi extends ConsumerWidget {
+  const _ExistingTripUi(this.mode, this.tripId);
+  final PlaceOriginMode mode;
+  final TripId tripId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        TripSelectionSheet(tripId: tripId, canEdit: true),
+        OverlayMenu<TripOriginMenu>(
+          builder: (_, _, world) => OriginMenuWidget(
+            children: [
+              MenuButton(
+                icon: Icons.check,
+                label: 'Déplacer ici',
+                onPressed: () => ref.applyTransition(mode.validate(world)),
+              ),
+              MenuButton(
+                icon: Icons.close,
+                label: 'Annuler',
+                onPressed: () => ref.applyTransition(mode.cancel()),
+              ),
+            ],
           ),
         ),
       ],
