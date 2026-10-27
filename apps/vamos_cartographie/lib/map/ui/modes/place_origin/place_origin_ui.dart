@@ -20,16 +20,16 @@ class PlaceOriginUi extends ConsumerWidget {
   final PlaceOriginMode mode;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => switch (mode.target) {
-    NewTrip() => _NewTripUi(mode),
-    ExistingTrip(:final tripId) => _ExistingTripUi(mode, tripId),
+  Widget build(BuildContext context, WidgetRef ref) => switch (mode) {
+    PlaceNewTripOrigin m => _NewTripUi(m),
+    PlaceExistingTripOrigin(:final tripId) => _ExistingTripUi(mode, tripId),
   };
 }
 
 @Dependencies([menuPlacement])
 class _NewTripUi extends ConsumerWidget {
   const _NewTripUi(this.mode);
-  final PlaceOriginMode mode;
+  final PlaceNewTripOrigin mode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

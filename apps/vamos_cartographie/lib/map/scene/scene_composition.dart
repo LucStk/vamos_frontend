@@ -28,12 +28,14 @@ typedef Layer = List<SceneItem> Function(Ref ref, MapCameraController cam);
 List<Layer> layersFor(AppMode mode) => switch (mode) {
   ExploreMode() => [(ref, cam) => ref.watch(allTripItemProvider(cam))],
   SketchEdition() => [(ref, cam) => ref.watch(allSketchItemProvider(cam))],
-  PlaceOriginMode() => [
-    (ref, cam) => [?ref.watch(tripOriginItemProvider(cam))],
+  PlaceOriginMode _ => [
+    (ref, cam) => [?ref.watch(tripOriginItemProvider(MapTmpOrigin(), cam))],
   ],
   TripMode(:final tripId) => [
     (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],
-    (ref, cam) => [?ref.watch(tripOriginItemProvider(cam))],
+    (ref, cam) => [
+      ?ref.watch(tripOriginItemProvider(MapTripOrigin(tripId), cam)),
+    ],
     (ref, cam) => ref.watch(allWaypointItemProvider(tripId, cam)),
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
   ],

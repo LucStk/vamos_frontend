@@ -35,7 +35,7 @@ class ProfilePage extends ConsumerWidget {
       AsyncData(value: final me) => ProfileContentView(
         profile: me!.profile!,
         onCreateTrip: () {
-          ref.applyTransition(Transition.to(PlaceOriginMode(NewTrip())));
+          ref.applyTransition(Transition.to(PlaceNewTripOrigin()));
           context.canPop() ? context.pop() : context.go("/");
         },
         onEditProfile: () {

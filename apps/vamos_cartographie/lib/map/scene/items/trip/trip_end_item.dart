@@ -7,13 +7,13 @@ final class TripEndItem extends PointItem {
   TripEndItem({required this.object, required this.worldPosition});
 
   @override
-  final MapTripOrigin object;
+  final MapTripEnd object;
 
   @override
   final WorldOffset worldPosition;
 
-  static const _poleColor = Color(0xFF1B5E20); // vert foncé
-  static const _flagColor = Color(0xFF43A047); // vert
+  static const _poleColor = Color(0xFFA0692A); // vert foncé
+  static const _flagColor = Color(0xFFA5AA2A); // vert
   static const _dotColor = Color(0xFF1B5E20);
 
   // Dimensions en px écran, origine (0,0) = pied du mât.

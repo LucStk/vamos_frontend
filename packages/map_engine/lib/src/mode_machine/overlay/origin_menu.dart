@@ -10,14 +10,14 @@ import 'package:map_engine/src/mode_machine/overlay/menu_anchor.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:trip_application/trip_application.dart';
 
-final class SetOriginMenu extends MapObjectMenu<MapTripOrigin> {
-  SetOriginMenu() : super(MapTripOrigin());
+final class SetOriginMenu extends MapObjectMenu<MapTmpOrigin> {
+  SetOriginMenu() : super(MapTmpOrigin());
   @override
   MenuAnchor get anchor => TripOriginAnchor(object);
 }
 
 final class TripOriginMenu extends MapObjectMenu<MapTripOrigin> {
-  TripOriginMenu(this.tripId) : super(MapTripOrigin());
+  TripOriginMenu(this.tripId) : super(MapTripOrigin(tripId));
   final TripId tripId;
 
   @override

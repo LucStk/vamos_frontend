@@ -3,7 +3,6 @@ import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_machine/command/place_origin_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
-import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/explore/explore_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/context_menu.dart';
@@ -13,82 +12,83 @@ import 'package:map_engine/src/mode_machine/slots/trip_origin_slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:trip_application/trip_application.dart';
 
-sealed class OriginTarget {
-  const OriginTarget();
-
-  MapObjectMenu<MapTripOrigin> get menu;
-}
-
-final class NewTrip extends OriginTarget {
-  const NewTrip();
-  @override
-  MapObjectMenu<MapTripOrigin> get menu => SetOriginMenu();
-}
-
-final class ExistingTrip extends OriginTarget {
-  const ExistingTrip(this.tripId);
-  final TripId tripId;
-  @override
-  MapObjectMenu<MapTripOrigin> get menu => TripOriginMenu(tripId);
-}
-
-final class PlaceOriginMode extends AppMode {
-  const PlaceOriginMode(this.target);
-  final OriginTarget target;
+sealed class PlaceOriginMode extends AppMode {
+  const PlaceOriginMode();
 
   @override
   Set<Slot> get retainedSlots => {tripOriginSlot};
 
+  // --- Ce qui diffère selon le cas ---
+  MapObjectMenu get menu;
+
+  /// Tap hors de l'origine : rien par défaut.
+  Transition<AppMode> onTapElsewhere(TapGesture g) => Transition.stay();
+
+  // --- Commun ---
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapTripOrigin _ => Transition.overlay<AppMode>(target.menu),
-    _ => switch (target) {
-      NewTrip _ => Transition.overlay<AppMode>(
-        target.menu,
-      ).and(tripOriginSlot, TripOrigin(g.world)),
-      ExistingTrip _ => Transition.stay(),
-    },
+    MapTripOrigin _ => Transition.overlay<AppMode>(menu),
+    _ => onTapElsewhere(g),
   };
 
   @override
   Transition<AppMode> onDragging(DragUpdateGesture g) =>
       Transition.set(tripOriginSlot, TripOrigin(g.world));
 
-  @override
-  Transition<AppMode> onDragEnd(DragEndGesture g) {
-    return switch (target) {
-      NewTrip _ => Transition.overlay(target.menu),
-      ExistingTrip t => Transition.run(
-        SetTripOrigin(position: g.world, tripId: t.tripId),
-        then: (_, _) => Transition.overlay(target.menu),
-      ),
-    };
-  }
-
   // --- Intents ---
   static Transition<AppMode> forNewTrip() =>
-      Transition.to(const PlaceOriginMode(NewTrip()));
+      Transition.to<AppMode>(const PlaceNewTripOrigin());
 
   static Transition<AppMode> forTrip(TripId id, WorldOffset from) =>
       Transition.to<AppMode>(
-        PlaceOriginMode(ExistingTrip(id)),
+        PlaceExistingTripOrigin(id),
       ).and(tripOriginSlot, TripOrigin(from));
+}
 
-  /// La seule vraie différence entre les deux cas.
-  Transition<AppMode> validate(WorldOffset origin) => switch (target) {
-    NewTrip() => Transition.run(
-      CreateTrip(origin),
-      then: (_, data) => data.fold(
-        (Failure f) => Transition.stay(),
-        (trip) => TripMode.open(trip.id),
-      ),
+final class PlaceNewTripOrigin extends PlaceOriginMode {
+  const PlaceNewTripOrigin();
+
+  @override
+  MapObjectMenu<MapTmpOrigin> get menu => SetOriginMenu();
+
+  /// Un tap sur la carte pose l'origine et ouvre le menu.
+  @override
+  Transition<AppMode> onTapElsewhere(TapGesture g) =>
+      Transition.overlay<AppMode>(
+        menu,
+      ).and(tripOriginSlot, TripOrigin(g.world));
+
+  @override
+  Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.overlay(menu);
+
+  Transition<AppMode> validate(WorldOffset origin) => Transition.run(
+    CreateTrip(origin),
+    then: (_, data) => data.fold(
+      (Failure f) => Transition.stay(),
+      (trip) => TripMode.open(trip.id),
     ),
-    ExistingTrip() => Transition.stay(),
-  };
+  );
 
-  Transition<AppMode> cancel() => switch (target) {
-    NewTrip() => Transition.to(ExploreMode()),
+  Transition<AppMode> cancel() => Transition.to(ExploreMode());
+}
 
-    ExistingTrip(:final tripId) => Transition.to(TripActiveMode(tripId)),
-  };
+final class PlaceExistingTripOrigin extends PlaceOriginMode {
+  const PlaceExistingTripOrigin(this.tripId);
+  final TripId tripId;
+
+  @override
+  MapObjectMenu<MapTripOrigin> get menu => TripOriginMenu(tripId);
+
+  /// Le déplacement est enregistré à la fin du drag, puis le menu s'ouvre.
+  @override
+  Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.run(
+    SetTripOrigin(position: g.world, tripId: tripId),
+    then: (_, _) => Transition.overlay(menu),
+  );
+
+  @override
+  bool operator ==(Object other) =>
+      other is PlaceExistingTripOrigin && other.tripId == tripId;
+  @override
+  int get hashCode => Object.hash(runtimeType, tripId);
 }

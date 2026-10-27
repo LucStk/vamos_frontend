@@ -17,7 +17,12 @@ final class PencilAnchor extends MenuAnchor {
 
 final class TripOriginAnchor extends MenuAnchor {
   const TripOriginAnchor(this.object);
-  final MapTripOrigin object;
+  final MapRouteOrigin object;
+}
+
+final class TripEndAnchor extends MenuAnchor {
+  const TripEndAnchor(this.object);
+  final MapTripEnd object;
 }
 
 final class GeoAnchor extends MenuAnchor {

@@ -7,7 +7,7 @@ final class TripOriginItem extends PointItem {
   TripOriginItem({required this.object, required this.worldPosition});
 
   @override
-  final MapTripOrigin object;
+  final MapRouteOrigin object;
 
   @override
   final WorldOffset worldPosition;

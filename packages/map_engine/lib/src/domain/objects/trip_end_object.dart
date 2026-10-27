@@ -1,7 +1,8 @@
 part of "map_objects.dart";
 
 final class MapTripEnd extends MapObject implements Selectable {
-  const MapTripEnd();
+  final TripId tripId;
+  const MapTripEnd(this.tripId);
 
   @override
   bool get isDraggable => true;

@@ -29,13 +29,7 @@ export "src/mode_machine/command/effect/handler_registry.dart";
 export 'src/mode_machine/mode_state.dart';
 
 export 'src/mode_machine/overlay.dart';
-export 'src/mode_machine/overlay/map_point_menu.dart';
-export 'src/mode_machine/overlay/pencil_menu.dart';
-export 'src/mode_machine/overlay/vertex_menu.dart';
-export 'src/mode_machine/overlay/origin_menu.dart';
-
-export 'src/mode_machine/overlay/menu_anchor.dart';
-export 'src/mode_machine/overlay/context_menu.dart';
+export 'src/mode_machine/overlay/overlay.dart';
 
 export 'src/input/map_pointer_event.dart';
 export 'src/input/map_gesture_handler.dart';

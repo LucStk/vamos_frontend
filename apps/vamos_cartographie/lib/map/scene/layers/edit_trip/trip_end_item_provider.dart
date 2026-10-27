@@ -14,5 +14,5 @@ TripEndItem? tripEndItem(Ref ref, TripId tripId, MapCameraReader camera) {
   );
   if (geometry == null || geometry.isEmpty) return null;
   final wOffset = camera.latLngToWorldOffset(geometry.last);
-  return TripEndItem(object: MapTripOrigin(), worldPosition: wOffset);
+  return TripEndItem(object: MapTripEnd(tripId), worldPosition: wOffset);
 }

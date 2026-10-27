@@ -8,23 +8,23 @@ import 'package:vamos_cartographie/map/scene/items/trip/trip_origin_item.dart';
 part 'trip_origin_item_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-TripOriginItem? tripOriginItem(Ref ref, MapCameraReader camera) {
-  final mode = ref.watch(modeStateProvider.select((s) => s.mode));
-
-  final worldPosition = switch (mode) {
-    PlaceOriginMode() => ref.watch(
-      modeStateProvider.select((s) => s.slots.get(tripOriginSlot)?.point),
-    ),
-    TripMode() => ref.watch(
-      routeStoreProvider(mode.tripId).select((s) {
+TripOriginItem? tripOriginItem(
+  Ref ref,
+  MapRouteOrigin o,
+  MapCameraReader camera,
+) {
+  final worldPosition = switch (o) {
+    MapTripOrigin t => ref.watch(
+      routeStoreProvider(t.tripId).select((s) {
         final origin = s.route?.current.startPoint;
         return origin == null ? null : camera.latLngToWorldOffset(origin);
       }),
     ),
-    _ => null,
+    MapTmpOrigin _ => ref.watch(
+      modeStateProvider.select((s) => s.slots.get(tripOriginSlot)?.point),
+    ),
   };
 
   if (worldPosition == null) return null;
-
-  return TripOriginItem(object: MapTripOrigin(), worldPosition: worldPosition);
+  return TripOriginItem(object: o, worldPosition: worldPosition);
 }

@@ -25,7 +25,7 @@ class TripOriginMenuWidget extends StatelessWidget {
             label: 'Rajouter une Route avant',
             onPressed: prependRoute,
           ),
-          MenuButton(icon: Icons.open_with, label: 'Déplacer', onPressed: move),
+          // MenuButton(icon: Icons.open_with, label: 'Déplacer', onPressed: move),
         ],
       ),
     );
