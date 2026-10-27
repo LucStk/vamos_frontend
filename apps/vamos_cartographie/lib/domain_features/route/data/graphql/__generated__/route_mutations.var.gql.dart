@@ -227,3 +227,41 @@ class GSetTripOriginVars {
     return 'GSetTripOriginVars(tripId: $tripId, origin: $origin)';
   }
 }
+
+class GDeleteRouteVars {
+  const GDeleteRouteVars({required this.tripId});
+
+  factory GDeleteRouteVars.fromJson(Map<String, dynamic> json) {
+    return GDeleteRouteVars(tripId: (json['tripId'] as String));
+  }
+
+  final String tripId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    return _$result;
+  }
+
+  GDeleteRouteVars copyWith({String? tripId}) {
+    return GDeleteRouteVars(tripId: tripId ?? this.tripId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteRouteVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteRouteVars(tripId: $tripId)';
+  }
+}

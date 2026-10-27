@@ -115,6 +115,7 @@ type Mutation {
   redrawRoutePortion(tripId: UUID!, input: RedrawRouteInput!): EditRoutePayload!
   refineSection(tripId: UUID!, sectionId: UUID!): EditRoutePayload!
   setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!): EditRoutePayload!
+  deleteRoute(tripId: UUID!): EditRoutePayload!
   detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!

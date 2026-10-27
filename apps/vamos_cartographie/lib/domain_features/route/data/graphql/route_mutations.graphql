@@ -28,7 +28,7 @@ mutation SetTripOrigin($tripId: UUID!, $origin: LatLngInput!) {
     }
 }
 mutation DeleteRoute($tripId: UUID!) {
-    deleteRoute(id: $tripId) {
+    deleteRoute(tripId: $tripId) {
         ...EditRouteResult
     }
 }

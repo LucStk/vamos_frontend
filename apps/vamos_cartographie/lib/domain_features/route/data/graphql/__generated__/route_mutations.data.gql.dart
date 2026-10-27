@@ -221,3 +221,57 @@ class GSetTripOriginData {
     return 'GSetTripOriginData(setTripOrigin: $setTripOrigin, G__typename: $G__typename)';
   }
 }
+
+class GDeleteRouteData {
+  const GDeleteRouteData({
+    required this.deleteRoute,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GDeleteRouteData.fromJson(Map<String, dynamic> json) {
+    return GDeleteRouteData(
+      deleteRoute: _i1.GEditRouteResultData.fromJson(
+          (json['deleteRoute'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GEditRouteResultData deleteRoute;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['deleteRoute'] = this.deleteRoute.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDeleteRouteData copyWith({
+    _i1.GEditRouteResultData? deleteRoute,
+    String? G__typename,
+  }) {
+    return GDeleteRouteData(
+      deleteRoute: deleteRoute ?? this.deleteRoute,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDeleteRouteData &&
+            deleteRoute == other.deleteRoute &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, deleteRoute, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDeleteRouteData(deleteRoute: $deleteRoute, G__typename: $G__typename)';
+  }
+}

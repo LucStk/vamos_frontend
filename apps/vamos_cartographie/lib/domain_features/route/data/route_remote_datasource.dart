@@ -135,14 +135,8 @@ class RouteRemoteDatasource {
 
   Future<GEditRouteResult> deleteRoute({required Id<Trip> tripId}) async {
     final data = await ferryClient.execute(
-      GSetSectionMobilityReq(
-        vars: GSetSectionMobilityVars(
-          tripId: tripId.value,
-          sectionId: sectionId.value,
-          mobilityType: mobilityType.toGQL(),
-        ),
-      ),
+      GDeleteRouteReq(vars: GDeleteRouteVars(tripId: tripId.value)),
     );
-    return data.setSectionMobility;
+    return data.deleteRoute;
   }
 }

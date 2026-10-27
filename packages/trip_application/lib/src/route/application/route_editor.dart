@@ -71,7 +71,7 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
     return run<EditRoutePayload, TripId>(
       entityKey: tripId, // sérialise toutes les éditions de ce trip
       onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
-      remote: (_) => routeRepo.deleteRoute(tripId: tripId),
+      remote: (_) => routeRepo.deleteRoute(tripId),
       onSuccess: (gs, payload) => gs.replacedByServer(
         remoteRoute: payload.route,
         remoteSections: payload.sections,
