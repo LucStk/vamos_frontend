@@ -26,7 +26,7 @@ final class StoredFileNodeProvider
   }) : super(
          retry: null,
          name: r'storedFileNodeProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -72,7 +72,7 @@ final class StoredFileNodeProvider
   }
 }
 
-String _$storedFileNodeHash() => r'bdff11e0c51f5c75f4c3c80f86fd3e167e8278ec';
+String _$storedFileNodeHash() => r'036359f7ba130fc9dec0a6b30d87272149cca11b';
 
 final class StoredFileNodeFamily extends $Family
     with $FunctionalFamilyOverride<GraphNode<StoredFileFields>, StoredFileId> {
@@ -82,7 +82,7 @@ final class StoredFileNodeFamily extends $Family
         name: r'storedFileNodeProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   StoredFileNodeProvider call(StoredFileId fileId) =>
@@ -109,7 +109,7 @@ final class StoreFileProvider
   }) : super(
          retry: null,
          name: r'storeFileProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -154,7 +154,7 @@ final class StoreFileProvider
   }
 }
 
-String _$storeFileHash() => r'81967fe9252d3a93f985dea2a9cb594c29ded456';
+String _$storeFileHash() => r'9f75be1e5d85e6e30d8f4ad2e6add50f5be001ba';
 
 final class StoreFileFamily extends $Family
     with $FunctionalFamilyOverride<StoredFileFields, StoredFileId> {
@@ -164,7 +164,7 @@ final class StoreFileFamily extends $Family
         name: r'storeFileProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   StoreFileProvider call(StoredFileId fileId) =>
@@ -191,7 +191,7 @@ final class TripImagesProvider
   }) : super(
          retry: null,
          name: r'tripImagesProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -237,7 +237,7 @@ final class TripImagesProvider
   }
 }
 
-String _$tripImagesHash() => r'75fd1b6e82a9ba575e808a642b6e47c15e7cfa84';
+String _$tripImagesHash() => r'0655099799a4734899dd03bd482efffe0adf6c67';
 
 final class TripImagesFamily extends $Family
     with $FunctionalFamilyOverride<List<StoredFileFields>, TripId> {
@@ -247,7 +247,7 @@ final class TripImagesFamily extends $Family
         name: r'tripImagesProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   TripImagesProvider call(TripId tripId) =>

@@ -22,7 +22,7 @@ final class LoadTripsProvider
         argument: null,
         retry: null,
         name: r'loadTripsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class LoadTripsProvider
   }
 }
 
-String _$loadTripsHash() => r'38be15531047071f2964d6e534c42ad0c301650b';
+String _$loadTripsHash() => r'd863e9c9c335b8900e541d1edd6967539d7987d1';
 
 @ProviderFor(ensureTripLoaded)
 final ensureTripLoadedProvider = EnsureTripLoadedFamily._();
@@ -56,7 +56,7 @@ final class EnsureTripLoadedProvider
   }) : super(
          retry: null,
          name: r'ensureTripLoadedProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -93,7 +93,7 @@ final class EnsureTripLoadedProvider
   }
 }
 
-String _$ensureTripLoadedHash() => r'e10a2ec9878057790e263679d59d56e8a428453a';
+String _$ensureTripLoadedHash() => r'c7449cebec513944428489c5ce2c8f5ce7a617d5';
 
 final class EnsureTripLoadedFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Failure?>, TripId> {
@@ -103,7 +103,7 @@ final class EnsureTripLoadedFamily extends $Family
         name: r'ensureTripLoadedProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
   EnsureTripLoadedProvider call(TripId tripId) =>

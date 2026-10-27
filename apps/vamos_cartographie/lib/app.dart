@@ -11,6 +11,7 @@ class CartographieApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint("App rebuild");
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
       routerConfig: router,

@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/domain_features/stored_file/injection/stored_
 
 part 'stored_file_queries.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 GraphNode<StoredFileFields> storedFileNode(Ref ref, StoredFileId fileId) {
   final node = ref.watch(
     storedFileStoreProvider.select((s) => s.storedFileStore.get(fileId)),
@@ -20,12 +20,12 @@ GraphNode<StoredFileFields> storedFileNode(Ref ref, StoredFileId fileId) {
   return node;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 StoredFileFields storeFile(Ref ref, StoredFileId fileId) {
   return ref.watch(storedFileNodeProvider(fileId).select((e) => e.current));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 List<StoredFileFields> tripImages(Ref ref, TripId tripId) {
   final listIds = ref.watch(
     storedFileStoreProvider.select((e) => e.getFromOwner(tripId)),

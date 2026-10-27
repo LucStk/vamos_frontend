@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/core/log/log_observer.dart';
 
 import 'app.dart';
 import 'core/config/config.dart';
@@ -16,7 +17,7 @@ void main() {
       WidgetsFlutterBinding.ensureInitialized();
 
       await dotenv.load(fileName: ".env");
-      final container = ProviderContainer();
+      final container = ProviderContainer(observers: [LogObserver()]);
 
       ErrorHandler.instance.init(container);
 

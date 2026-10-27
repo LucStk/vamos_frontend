@@ -35,7 +35,7 @@ class RouteStore {
       route:
           route?.set(remoteRoute) ??
           GraphNode<RouteFields>.initial(remoteRoute),
-      sectionStore: _storeOf(remoteSections),
+      sectionStore: _upsertAll(remoteSections),
     );
   }
 
@@ -43,7 +43,20 @@ class RouteStore {
     Iterable<RouteSectionFields> sections,
   ) => sections.fold<GraphCollectionStore<RouteSectionFields>>(
     const GraphCollectionStore<RouteSectionFields>(),
-    (store, section) => store.setNode(section),
+    (store, section) => store.insertState(section),
+  );
+
+  GraphCollectionStore<RouteSectionFields> _upsertAll(
+    Iterable<RouteSectionFields> remote,
+  ) => remote.fold<GraphCollectionStore<RouteSectionFields>>(
+    const GraphCollectionStore<RouteSectionFields>(),
+    (acc, section) {
+      final existing = sectionStore.get(section.id as Id<RouteSectionFields>);
+      return acc.replaceNode(
+        existing?.set(section) ??
+            GraphNode<RouteSectionFields>.initial(section),
+      );
+    },
   );
 
   RouteStore copyWith({

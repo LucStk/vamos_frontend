@@ -1,4 +1,5 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:flutter/rendering.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -60,16 +61,21 @@ void ingestTrips(Ref ref, Iterable<TripBundle> bundles) {
       .emit(ref.read(storedFileStoreProvider).upsertRemoteFiles(state.files));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<Failure?> loadTrips(Ref ref) async {
-  final res = await ref.watch(tripRepositoryProvider).getAllTripBundles();
+  final res = await ref.read(tripRepositoryProvider).getAllTripBundles();
   return res.fold((f) => f, (data) {
-    ingestTrips(ref, data);
+    try {
+      ingestTrips(ref, data);
+    } catch (e, st) {
+      debugPrint('ingestTrips a échoué : $e\n$st');
+      rethrow;
+    }
     return null;
   });
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<Failure?> ensureTripLoaded(Ref ref, TripId tripId) async {
   final hasTrip = ref.read(tripProvider(tripId)) != null;
   final hasRoute = ref.read(routeStoreProvider(tripId)).route != null;
