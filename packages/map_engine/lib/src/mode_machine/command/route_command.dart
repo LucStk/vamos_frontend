@@ -61,6 +61,17 @@ final class PrependRoute
         );
   }
 }
+
+final class DeleteRoute
+    extends RouteCommand<Either<Failure, EditRoutePayload>> {
+  const DeleteRoute({required this.tripId});
+  final TripId tripId;
+
+  @override
+  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async {
+    return await h.forTrip(tripId).routeEditor.deleteRoute(tripId: tripId);
+  }
+}
 //
 // final class DeleteSection extends RouteCommand<Done> {
 //   const DeleteSection(this.sectionId);

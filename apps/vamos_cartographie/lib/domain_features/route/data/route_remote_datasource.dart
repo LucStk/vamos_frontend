@@ -132,4 +132,17 @@ class RouteRemoteDatasource {
     );
     return data.setSectionMobility;
   }
+
+  Future<GEditRouteResult> deleteRoute({required Id<Trip> tripId}) async {
+    final data = await ferryClient.execute(
+      GSetSectionMobilityReq(
+        vars: GSetSectionMobilityVars(
+          tripId: tripId.value,
+          sectionId: sectionId.value,
+          mobilityType: mobilityType.toGQL(),
+        ),
+      ),
+    );
+    return data.setSectionMobility;
+  }
 }

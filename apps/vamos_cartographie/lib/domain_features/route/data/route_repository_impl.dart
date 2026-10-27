@@ -112,13 +112,11 @@ class RouteRepositoryImpl extends RouteRepository {
     return res.flatMap((m) => m.toDomain());
   }
 
-  // @override
-  // Future<Either<Failure, EditRoutePayload>> deleteSection(
-  //   SectionId sectionId,
-  // ) async {
-  //   final res = await guardRouteEdit(
-  //     () => remote.refineSection(sectionId: sectionId, tripId: tripId),
-  //   );
-  //   return res.flatMap(_mapEditRoute);
-  // }
+  @override
+  Future<Either<Failure, EditRoutePayload>> deleteRoute(TripId tripId) async {
+    final res = await guardRouteEdit(
+      () => remote.refineSection(sectionId: sectionId, tripId: tripId),
+    );
+    return res.flatMap(_mapEditRoute);
+  }
 }

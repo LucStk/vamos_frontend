@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
 import 'package:vamos_cartographie/map/ui/modes/edit_trip/active/menu/section_menu.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip/active/menu/trip_end_menu.dart';
 import 'package:vamos_cartographie/map/ui/modes/edit_trip/active/menu/trip_origin_menu.dart';
 // import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 
@@ -33,9 +34,7 @@ class TripModeContextualMenu extends ConsumerWidget {
           ),
         ),
         OverlayMenu<TripEndMenu>(
-          builder: (_, menu, world) => TripOriginMenuWidget(
-            prependRoute: () {},
-            move: () {}, // => apply(MoveTripOriginMode.start(tripId, world)),
+          builder: (_, menu, world) => TripEndMenuWidget(
             extendRoute: () => apply(SketchEdition.start(tripId, world)),
           ),
         ),

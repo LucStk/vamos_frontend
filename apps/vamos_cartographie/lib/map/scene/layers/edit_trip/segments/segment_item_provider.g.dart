@@ -70,7 +70,7 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'511a5d00e3c01ac08181a9675f21741d7047fea2';
+String _$segmentItemHash() => r'06ba133e5d3cf49715b7af3a885b45da4cdf3130';
 
 /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 

@@ -27,3 +27,8 @@ mutation SetTripOrigin($tripId: UUID!, $origin: LatLngInput!) {
         ...EditRouteResult
     }
 }
+mutation DeleteRoute($tripId: UUID!) {
+    deleteRoute(id: $tripId) {
+        ...EditRouteResult
+    }
+}

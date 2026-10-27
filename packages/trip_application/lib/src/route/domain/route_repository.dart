@@ -49,5 +49,7 @@ abstract class RouteRepository {
     required SectionId sectionId,
     required MobilityType mobilityType,
   });
-  // Future<Either<Failure, EditRoutePayload>> deleteSection(SectionId sectionId);
+  Future<Either<Failure, EditRoutePayload>> deleteRoute({
+    required TripId tripId,
+  });
 }

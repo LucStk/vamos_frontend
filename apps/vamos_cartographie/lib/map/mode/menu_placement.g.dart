@@ -57,4 +57,4 @@ final class MenuPlacementProvider
   }
 }
 
-String _$menuPlacementHash() => r'67ebbc8cbac44def73fb5369f617c5b73859e530';
+String _$menuPlacementHash() => r'2f30c28d093b6a108dc010d2798f860f2e336d63';
