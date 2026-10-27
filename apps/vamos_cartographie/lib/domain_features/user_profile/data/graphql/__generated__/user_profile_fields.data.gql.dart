@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
     as _i1;
 
-abstract class GUserProfileFields {
+abstract class GUserProfileDetails {
   String get id;
   String get profileName;
   _i1.GStoredFile? get profilePicture;
@@ -16,8 +16,8 @@ abstract class GUserProfileFields {
   String get G__typename;
 }
 
-class GUserProfileFieldsData implements GUserProfileFields {
-  const GUserProfileFieldsData({
+class GUserProfileDetailsData implements GUserProfileDetails {
+  const GUserProfileDetailsData({
     required this.id,
     required this.profileName,
     this.profilePicture,
@@ -25,8 +25,8 @@ class GUserProfileFieldsData implements GUserProfileFields {
     this.G__typename = 'UserProfileType',
   });
 
-  factory GUserProfileFieldsData.fromJson(Map<String, dynamic> json) {
-    return GUserProfileFieldsData(
+  factory GUserProfileDetailsData.fromJson(Map<String, dynamic> json) {
+    return GUserProfileDetailsData(
       id: (json['id'] as String),
       profileName: (json['profileName'] as String),
       profilePicture: json['profilePicture'] == null
@@ -60,7 +60,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
     return _$result;
   }
 
-  GUserProfileFieldsData copyWith({
+  GUserProfileDetailsData copyWith({
     String? id,
     String? profileName,
     _i1.GStoredFileData? profilePicture,
@@ -68,7 +68,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
     String? bio,
     String? G__typename,
   }) {
-    return GUserProfileFieldsData(
+    return GUserProfileDetailsData(
       id: id ?? this.id,
       profileName: profileName ?? this.profileName,
       profilePicture: profilePicture != null || profilePictureIsSet
@@ -82,7 +82,7 @@ class GUserProfileFieldsData implements GUserProfileFields {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GUserProfileFieldsData &&
+        (other is GUserProfileDetailsData &&
             id == other.id &&
             profileName == other.profileName &&
             profilePicture == other.profilePicture &&
@@ -98,37 +98,37 @@ class GUserProfileFieldsData implements GUserProfileFields {
 
   @override
   String toString() {
-    return 'GUserProfileFieldsData(id: $id, profileName: $profileName, profilePicture: $profilePicture, bio: $bio, G__typename: $G__typename)';
+    return 'GUserProfileDetailsData(id: $id, profileName: $profileName, profilePicture: $profilePicture, bio: $bio, G__typename: $G__typename)';
   }
 }
 
-abstract class GCreateProfilePayload {
+abstract class GCreateProfileResult {
   String get G__typename;
 }
 
-abstract class GCreateProfilePayload__asCreateProfileSuccess
-    implements GCreateProfilePayload {
-  GUserProfileFields get profile;
+abstract class GCreateProfileResult__asCreateProfileSuccess
+    implements GCreateProfileResult {
+  GUserProfileDetails get profile;
   String get G__typename;
 }
 
-abstract class GCreateProfilePayload__asCreateProfileError
-    implements GCreateProfilePayload {
+abstract class GCreateProfileResult__asCreateProfileError
+    implements GCreateProfileResult {
   _i2.GCreateProfileErrorCode get code;
   String get G__typename;
 }
 
-sealed class GCreateProfilePayloadData implements GCreateProfilePayload {
-  const GCreateProfilePayloadData({required this.G__typename});
+sealed class GCreateProfileResultData implements GCreateProfileResult {
+  const GCreateProfileResultData({required this.G__typename});
 
-  factory GCreateProfilePayloadData.fromJson(Map<String, dynamic> json) {
+  factory GCreateProfileResultData.fromJson(Map<String, dynamic> json) {
     switch (json['__typename'] as String) {
       case 'CreateProfileSuccess':
-        return GCreateProfilePayloadData__asCreateProfileSuccess.fromJson(json);
+        return GCreateProfileResultData__asCreateProfileSuccess.fromJson(json);
       case 'CreateProfileError':
-        return GCreateProfilePayloadData__asCreateProfileError.fromJson(json);
+        return GCreateProfileResultData__asCreateProfileError.fromJson(json);
       default:
-        return GCreateProfilePayloadData__unknown.fromJson(json);
+        return GCreateProfileResultData__unknown.fromJson(json);
     }
   }
 
@@ -141,30 +141,30 @@ sealed class GCreateProfilePayloadData implements GCreateProfilePayload {
   }
 }
 
-extension GCreateProfilePayloadDataWhenExtension on GCreateProfilePayloadData {
+extension GCreateProfileResultDataWhenExtension on GCreateProfileResultData {
   _T when<_T>({
-    required _T Function(GCreateProfilePayloadData__asCreateProfileSuccess)
+    required _T Function(GCreateProfileResultData__asCreateProfileSuccess)
         createProfileSuccess,
-    required _T Function(GCreateProfilePayloadData__asCreateProfileError)
+    required _T Function(GCreateProfileResultData__asCreateProfileError)
         createProfileError,
     required _T Function() orElse,
   }) {
     switch (G__typename) {
       case 'CreateProfileSuccess':
         return createProfileSuccess(
-            this as GCreateProfilePayloadData__asCreateProfileSuccess);
+            this as GCreateProfileResultData__asCreateProfileSuccess);
       case 'CreateProfileError':
         return createProfileError(
-            this as GCreateProfilePayloadData__asCreateProfileError);
+            this as GCreateProfileResultData__asCreateProfileError);
       default:
         return orElse();
     }
   }
 
   _T maybeWhen<_T>({
-    _T Function(GCreateProfilePayloadData__asCreateProfileSuccess)?
+    _T Function(GCreateProfileResultData__asCreateProfileSuccess)?
         createProfileSuccess,
-    _T Function(GCreateProfilePayloadData__asCreateProfileError)?
+    _T Function(GCreateProfileResultData__asCreateProfileError)?
         createProfileError,
     required _T Function() orElse,
   }) {
@@ -173,38 +173,38 @@ extension GCreateProfilePayloadDataWhenExtension on GCreateProfilePayloadData {
         return createProfileSuccess == null
             ? orElse()
             : createProfileSuccess(
-                this as GCreateProfilePayloadData__asCreateProfileSuccess);
+                this as GCreateProfileResultData__asCreateProfileSuccess);
       case 'CreateProfileError':
         return createProfileError == null
             ? orElse()
             : createProfileError(
-                this as GCreateProfilePayloadData__asCreateProfileError);
+                this as GCreateProfileResultData__asCreateProfileError);
       default:
         return orElse();
     }
   }
 }
 
-class GCreateProfilePayloadData__asCreateProfileSuccess
-    extends GCreateProfilePayloadData
+class GCreateProfileResultData__asCreateProfileSuccess
+    extends GCreateProfileResultData
     implements
-        GCreateProfilePayload,
-        GCreateProfilePayload__asCreateProfileSuccess {
-  GCreateProfilePayloadData__asCreateProfileSuccess({
+        GCreateProfileResult,
+        GCreateProfileResult__asCreateProfileSuccess {
+  GCreateProfileResultData__asCreateProfileSuccess({
     String G__typename = 'CreateProfileSuccess',
     required this.profile,
   }) : super(G__typename: G__typename);
 
-  factory GCreateProfilePayloadData__asCreateProfileSuccess.fromJson(
+  factory GCreateProfileResultData__asCreateProfileSuccess.fromJson(
       Map<String, dynamic> json) {
-    return GCreateProfilePayloadData__asCreateProfileSuccess(
+    return GCreateProfileResultData__asCreateProfileSuccess(
       G__typename: (json['__typename'] as String),
-      profile: GUserProfileFieldsData.fromJson(
+      profile: GUserProfileDetailsData.fromJson(
           (json['profile'] as Map<String, dynamic>)),
     );
   }
 
-  final GUserProfileFieldsData profile;
+  final GUserProfileDetailsData profile;
 
   Map<String, dynamic> toJson() {
     final _$result = super.toJson();
@@ -212,11 +212,11 @@ class GCreateProfilePayloadData__asCreateProfileSuccess
     return _$result;
   }
 
-  GCreateProfilePayloadData__asCreateProfileSuccess copyWith({
+  GCreateProfileResultData__asCreateProfileSuccess copyWith({
     String? G__typename,
-    GUserProfileFieldsData? profile,
+    GUserProfileDetailsData? profile,
   }) {
-    return GCreateProfilePayloadData__asCreateProfileSuccess(
+    return GCreateProfileResultData__asCreateProfileSuccess(
       G__typename: G__typename ?? this.G__typename,
       profile: profile ?? this.profile,
     );
@@ -225,7 +225,7 @@ class GCreateProfilePayloadData__asCreateProfileSuccess
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateProfilePayloadData__asCreateProfileSuccess &&
+        (other is GCreateProfileResultData__asCreateProfileSuccess &&
             G__typename == other.G__typename &&
             profile == other.profile);
   }
@@ -237,23 +237,23 @@ class GCreateProfilePayloadData__asCreateProfileSuccess
 
   @override
   String toString() {
-    return 'GCreateProfilePayloadData__asCreateProfileSuccess(G__typename: $G__typename, profile: $profile)';
+    return 'GCreateProfileResultData__asCreateProfileSuccess(G__typename: $G__typename, profile: $profile)';
   }
 }
 
-class GCreateProfilePayloadData__asCreateProfileError
-    extends GCreateProfilePayloadData
+class GCreateProfileResultData__asCreateProfileError
+    extends GCreateProfileResultData
     implements
-        GCreateProfilePayload,
-        GCreateProfilePayload__asCreateProfileError {
-  GCreateProfilePayloadData__asCreateProfileError({
+        GCreateProfileResult,
+        GCreateProfileResult__asCreateProfileError {
+  GCreateProfileResultData__asCreateProfileError({
     String G__typename = 'CreateProfileError',
     required this.code,
   }) : super(G__typename: G__typename);
 
-  factory GCreateProfilePayloadData__asCreateProfileError.fromJson(
+  factory GCreateProfileResultData__asCreateProfileError.fromJson(
       Map<String, dynamic> json) {
-    return GCreateProfilePayloadData__asCreateProfileError(
+    return GCreateProfileResultData__asCreateProfileError(
       G__typename: (json['__typename'] as String),
       code: _i2.GCreateProfileErrorCode.fromJson((json['code'] as String)),
     );
@@ -267,11 +267,11 @@ class GCreateProfilePayloadData__asCreateProfileError
     return _$result;
   }
 
-  GCreateProfilePayloadData__asCreateProfileError copyWith({
+  GCreateProfileResultData__asCreateProfileError copyWith({
     String? G__typename,
     _i2.GCreateProfileErrorCode? code,
   }) {
-    return GCreateProfilePayloadData__asCreateProfileError(
+    return GCreateProfileResultData__asCreateProfileError(
       G__typename: G__typename ?? this.G__typename,
       code: code ?? this.code,
     );
@@ -280,7 +280,7 @@ class GCreateProfilePayloadData__asCreateProfileError
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateProfilePayloadData__asCreateProfileError &&
+        (other is GCreateProfileResultData__asCreateProfileError &&
             G__typename == other.G__typename &&
             code == other.code);
   }
@@ -292,18 +292,18 @@ class GCreateProfilePayloadData__asCreateProfileError
 
   @override
   String toString() {
-    return 'GCreateProfilePayloadData__asCreateProfileError(G__typename: $G__typename, code: $code)';
+    return 'GCreateProfileResultData__asCreateProfileError(G__typename: $G__typename, code: $code)';
   }
 }
 
-class GCreateProfilePayloadData__unknown extends GCreateProfilePayloadData
-    implements GCreateProfilePayload {
-  GCreateProfilePayloadData__unknown({required String G__typename})
+class GCreateProfileResultData__unknown extends GCreateProfileResultData
+    implements GCreateProfileResult {
+  GCreateProfileResultData__unknown({required String G__typename})
       : super(G__typename: G__typename);
 
-  factory GCreateProfilePayloadData__unknown.fromJson(
+  factory GCreateProfileResultData__unknown.fromJson(
       Map<String, dynamic> json) {
-    return GCreateProfilePayloadData__unknown(
+    return GCreateProfileResultData__unknown(
         G__typename: (json['__typename'] as String));
   }
 
@@ -312,15 +312,15 @@ class GCreateProfilePayloadData__unknown extends GCreateProfilePayloadData
     return _$result;
   }
 
-  GCreateProfilePayloadData__unknown copyWith({String? G__typename}) {
-    return GCreateProfilePayloadData__unknown(
+  GCreateProfileResultData__unknown copyWith({String? G__typename}) {
+    return GCreateProfileResultData__unknown(
         G__typename: G__typename ?? this.G__typename);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateProfilePayloadData__unknown &&
+        (other is GCreateProfileResultData__unknown &&
             G__typename == other.G__typename);
   }
 
@@ -331,6 +331,6 @@ class GCreateProfilePayloadData__unknown extends GCreateProfilePayloadData
 
   @override
   String toString() {
-    return 'GCreateProfilePayloadData__unknown(G__typename: $G__typename)';
+    return 'GCreateProfileResultData__unknown(G__typename: $G__typename)';
   }
 }

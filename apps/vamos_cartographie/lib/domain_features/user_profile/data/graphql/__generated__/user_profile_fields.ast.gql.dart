@@ -7,8 +7,8 @@ import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i2;
 
-const UserProfileFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'UserProfileFields'),
+const UserProfileDetails = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'UserProfileDetails'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'UserProfileType'),
@@ -65,8 +65,8 @@ const UserProfileFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const CreateProfilePayload = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'CreateProfilePayload'),
+const CreateProfileResult = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'CreateProfileResult'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'CreateProfileResult'),
@@ -89,7 +89,7 @@ const CreateProfilePayload = _i1.FragmentDefinitionNode(
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'UserProfileFields'),
+              name: _i1.NameNode(value: 'UserProfileDetails'),
               directives: [],
             ),
             _i1.FieldNode(
@@ -144,8 +144,8 @@ const CreateProfilePayload = _i1.FragmentDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  UserProfileFields,
-  CreateProfilePayload,
+  UserProfileDetails,
+  CreateProfileResult,
   _i2.StoredFile,
   _i2.FileAttachment,
   _i2.UploadConfigFields,

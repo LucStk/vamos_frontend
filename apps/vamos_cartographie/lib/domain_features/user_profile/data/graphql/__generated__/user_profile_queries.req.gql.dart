@@ -55,7 +55,7 @@ class GGetMeReq implements _i1.OperationRequest<_i2.GGetMeData, Null> {
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetMe,
-    _i6.UserProfileFields,
+    _i6.UserProfileDetails,
     _i7.StoredFile,
   ]);
 

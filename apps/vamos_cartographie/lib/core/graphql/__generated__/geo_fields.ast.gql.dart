@@ -5,8 +5,8 @@
 
 import 'package:gql/ast.dart' as _i1;
 
-const LatLngFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'LatLngFields'),
+const LatLng = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'LatLng'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'LatLngType'),
@@ -37,4 +37,4 @@ const LatLngFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const document = _i1.DocumentNode(definitions: [LatLngFields]);
+const document = _i1.DocumentNode(definitions: [LatLng]);

@@ -60,10 +60,10 @@ class GRefineSectionReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.RefineSection,
-    _i7.RouteSectionFields,
-    _i7.TripRouteFields,
-    _i7.EditRoutePayloadFragment,
-    _i8.LatLngFields,
+    _i7.RouteSection,
+    _i7.TripRoute,
+    _i7.EditRouteResult,
+    _i8.LatLng,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -230,10 +230,10 @@ class GSetSectionMobilityReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetSectionMobility,
-    _i7.RouteSectionFields,
-    _i7.TripRouteFields,
-    _i7.EditRoutePayloadFragment,
-    _i8.LatLngFields,
+    _i7.RouteSection,
+    _i7.TripRoute,
+    _i7.EditRouteResult,
+    _i8.LatLng,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

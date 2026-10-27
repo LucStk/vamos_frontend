@@ -18,9 +18,9 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
       onApply: (gs) => gs,
       remote: (_) =>
           routeRepo.setTripOrigin(tripId: tripId, position: position),
-      onSuccess: (gs, payload) => gs.replacedByServer(
-        remoteRoute: payload.route,
-        remoteSections: payload.sections,
+      onSuccess: (gs, payload) => RouteStore.fromRemote(
+        route: payload.route,
+        sections: payload.sections,
       ),
     );
   }
@@ -37,9 +37,9 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
         mobilityType: mobilityType,
         geometry: geometry,
       ),
-      onSuccess: (gs, payload) => gs.replacedByServer(
-        remoteRoute: payload.route,
-        remoteSections: payload.sections,
+      onSuccess: (gs, payload) => RouteStore.fromRemote(
+        route: payload.route,
+        sections: payload.sections,
       ),
       onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
     );

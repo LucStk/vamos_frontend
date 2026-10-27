@@ -3,7 +3,7 @@
 # Repasse une section (typiquement DRAWN) au routeur.
 mutation RefineSection($tripId: UUID!, $sectionId: UUID!) {
     refineSection(tripId: $tripId, sectionId: $sectionId) {
-        ...EditRoutePayloadFragment
+        ...EditRouteResult
     }
 }
 
@@ -18,6 +18,6 @@ mutation SetSectionMobility(
         sectionId: $sectionId
         mobilityType: $mobilityType
     ) {
-        ...EditRoutePayloadFragment
+        ...EditRouteResult
     }
 }

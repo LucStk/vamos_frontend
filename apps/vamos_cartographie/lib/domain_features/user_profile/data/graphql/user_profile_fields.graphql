@@ -1,5 +1,5 @@
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
-fragment UserProfileFields on UserProfileType {
+fragment UserProfileDetails on UserProfileType {
     id
     profileName
     profilePicture {
@@ -7,10 +7,10 @@ fragment UserProfileFields on UserProfileType {
     }
     bio
 }
-fragment CreateProfilePayload on CreateProfileResult {
+fragment CreateProfileResult on CreateProfileResult {
     ... on CreateProfileSuccess {
         profile {
-            ...UserProfileFields
+            ...UserProfileDetails
         }
     }
     ... on CreateProfileError {

@@ -21,21 +21,7 @@ class TripRepositoryImpl extends TripRepository {
   // ---------------------------------------------------------------------------
 
   @override
-  Future<
-    Either<
-      Failure,
-      List<
-        (
-          Trip,
-          UserProfile,
-          List<StoredFileRemoteModel>,
-          RouteRemoteModel,
-          Iterable<RouteSectionRemoteModel>,
-        )
-      >
-    >
-  >
-  getAllTrips() {
+  Future<Either<Failure, List<TripBundle>>> getAllTripBundles() {
     return guard(() async {
       final response = await remote.getAllTrips();
       return response.trips.map((gqlTrip) {
@@ -50,8 +36,7 @@ class TripRepositoryImpl extends TripRepository {
   }
 
   @override
-  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
-  getMeTrips() {
+  Future<Either<Failure, List<TripBundle>>> getMeTrips() {
     return guard(() async {
       final response = await remote.getMeTrips();
       return response.meTrips.map((gqlTrip) {

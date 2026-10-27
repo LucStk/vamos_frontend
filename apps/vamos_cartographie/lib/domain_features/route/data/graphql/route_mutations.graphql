@@ -4,13 +4,13 @@
 # Ou : création d'une nouvelle route depuis le premier point
 mutation ExtendRoute($tripId: UUID!, $input: ExtendRouteInput!) {
     extendRoute(tripId: $tripId, input: $input) {
-        ...EditRoutePayloadFragment
+        ...EditRouteResult
     }
 }
 
 mutation PrependRoute($tripId: UUID!, $input: ExtendRouteInput!) {
     prependRoute(tripId: $tripId, input: $input) {
-        ...EditRoutePayloadFragment
+        ...EditRouteResult
     }
 }
 
@@ -18,12 +18,12 @@ mutation PrependRoute($tripId: UUID!, $input: ExtendRouteInput!) {
 # ou jusqu'à la fin de la route (end = null).
 mutation RedrawRoutePortion($tripId: UUID!, $input: RedrawRouteInput!) {
     redrawRoutePortion(tripId: $tripId, input: $input) {
-        ...EditRoutePayloadFragment
+        ...EditRouteResult
     }
 }
 
 mutation SetTripOrigin($tripId: UUID!, $origin: LatLngInput!) {
     setTripOrigin(id: $tripId, origin: $origin) {
-        ...EditRoutePayloadFragment
+        ...EditRouteResult
     }
 }

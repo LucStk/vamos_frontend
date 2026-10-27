@@ -14,13 +14,13 @@ class GExtendRouteData {
 
   factory GExtendRouteData.fromJson(Map<String, dynamic> json) {
     return GExtendRouteData(
-      extendRoute: _i1.GEditRoutePayloadFragmentData.fromJson(
+      extendRoute: _i1.GEditRouteResultData.fromJson(
           (json['extendRoute'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GEditRoutePayloadFragmentData extendRoute;
+  final _i1.GEditRouteResultData extendRoute;
 
   final String G__typename;
 
@@ -32,7 +32,7 @@ class GExtendRouteData {
   }
 
   GExtendRouteData copyWith({
-    _i1.GEditRoutePayloadFragmentData? extendRoute,
+    _i1.GEditRouteResultData? extendRoute,
     String? G__typename,
   }) {
     return GExtendRouteData(
@@ -68,13 +68,13 @@ class GPrependRouteData {
 
   factory GPrependRouteData.fromJson(Map<String, dynamic> json) {
     return GPrependRouteData(
-      prependRoute: _i1.GEditRoutePayloadFragmentData.fromJson(
+      prependRoute: _i1.GEditRouteResultData.fromJson(
           (json['prependRoute'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GEditRoutePayloadFragmentData prependRoute;
+  final _i1.GEditRouteResultData prependRoute;
 
   final String G__typename;
 
@@ -86,7 +86,7 @@ class GPrependRouteData {
   }
 
   GPrependRouteData copyWith({
-    _i1.GEditRoutePayloadFragmentData? prependRoute,
+    _i1.GEditRouteResultData? prependRoute,
     String? G__typename,
   }) {
     return GPrependRouteData(
@@ -122,13 +122,13 @@ class GRedrawRoutePortionData {
 
   factory GRedrawRoutePortionData.fromJson(Map<String, dynamic> json) {
     return GRedrawRoutePortionData(
-      redrawRoutePortion: _i1.GEditRoutePayloadFragmentData.fromJson(
+      redrawRoutePortion: _i1.GEditRouteResultData.fromJson(
           (json['redrawRoutePortion'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GEditRoutePayloadFragmentData redrawRoutePortion;
+  final _i1.GEditRouteResultData redrawRoutePortion;
 
   final String G__typename;
 
@@ -140,7 +140,7 @@ class GRedrawRoutePortionData {
   }
 
   GRedrawRoutePortionData copyWith({
-    _i1.GEditRoutePayloadFragmentData? redrawRoutePortion,
+    _i1.GEditRouteResultData? redrawRoutePortion,
     String? G__typename,
   }) {
     return GRedrawRoutePortionData(
@@ -176,13 +176,13 @@ class GSetTripOriginData {
 
   factory GSetTripOriginData.fromJson(Map<String, dynamic> json) {
     return GSetTripOriginData(
-      setTripOrigin: _i1.GEditRoutePayloadFragmentData.fromJson(
+      setTripOrigin: _i1.GEditRouteResultData.fromJson(
           (json['setTripOrigin'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GEditRoutePayloadFragmentData setTripOrigin;
+  final _i1.GEditRouteResultData setTripOrigin;
 
   final String G__typename;
 
@@ -194,7 +194,7 @@ class GSetTripOriginData {
   }
 
   GSetTripOriginData copyWith({
-    _i1.GEditRoutePayloadFragmentData? setTripOrigin,
+    _i1.GEditRouteResultData? setTripOrigin,
     String? G__typename,
   }) {
     return GSetTripOriginData(

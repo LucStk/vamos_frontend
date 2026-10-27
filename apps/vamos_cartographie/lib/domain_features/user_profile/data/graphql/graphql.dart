@@ -10,7 +10,6 @@ export '__generated__/user_profile_mutations.req.gql.dart';
 export '__generated__/user_profile_mutations.data.gql.dart';
 export '__generated__/user_profile_mutations.var.gql.dart';
 
-typedef CreateProfileSuccessData =
-    GCreateProfilePayload__asCreateProfileSuccess;
+typedef CreateProfileSuccessData = GCreateProfileResult__asCreateProfileSuccess;
 
-typedef CreateProfileErrorData = GCreateProfilePayload__asCreateProfileError;
+typedef CreateProfileErrorData = GCreateProfileResult__asCreateProfileError;

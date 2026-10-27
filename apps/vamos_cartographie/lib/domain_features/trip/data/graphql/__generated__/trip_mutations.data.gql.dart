@@ -16,13 +16,13 @@ class GUpdateTripData {
 
   factory GUpdateTripData.fromJson(Map<String, dynamic> json) {
     return GUpdateTripData(
-      updateTrip: _i1.GTripFieldsData.fromJson(
+      updateTrip: _i1.GTripSummaryData.fromJson(
           (json['updateTrip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GTripFieldsData updateTrip;
+  final _i1.GTripSummaryData updateTrip;
 
   final String G__typename;
 
@@ -34,7 +34,7 @@ class GUpdateTripData {
   }
 
   GUpdateTripData copyWith({
-    _i1.GTripFieldsData? updateTrip,
+    _i1.GTripSummaryData? updateTrip,
     String? G__typename,
   }) {
     return GUpdateTripData(
@@ -70,13 +70,13 @@ class GCreateBlankTripData {
 
   factory GCreateBlankTripData.fromJson(Map<String, dynamic> json) {
     return GCreateBlankTripData(
-      createBlankTrip: _i1.GTripFieldsData.fromJson(
+      createBlankTrip: _i1.GTripSummaryData.fromJson(
           (json['createBlankTrip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GTripFieldsData createBlankTrip;
+  final _i1.GTripSummaryData createBlankTrip;
 
   final String G__typename;
 
@@ -88,7 +88,7 @@ class GCreateBlankTripData {
   }
 
   GCreateBlankTripData copyWith({
-    _i1.GTripFieldsData? createBlankTrip,
+    _i1.GTripSummaryData? createBlankTrip,
     String? G__typename,
   }) {
     return GCreateBlankTripData(
@@ -177,13 +177,13 @@ class GSetTripOriginData {
 
   factory GSetTripOriginData.fromJson(Map<String, dynamic> json) {
     return GSetTripOriginData(
-      setTripOrigin: _i2.GEditRoutePayloadFragmentData.fromJson(
+      setTripOrigin: _i2.GEditRouteResultData.fromJson(
           (json['setTripOrigin'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i2.GEditRoutePayloadFragmentData setTripOrigin;
+  final _i2.GEditRouteResultData setTripOrigin;
 
   final String G__typename;
 
@@ -195,7 +195,7 @@ class GSetTripOriginData {
   }
 
   GSetTripOriginData copyWith({
-    _i2.GEditRoutePayloadFragmentData? setTripOrigin,
+    _i2.GEditRouteResultData? setTripOrigin,
     String? G__typename,
   }) {
     return GSetTripOriginData(

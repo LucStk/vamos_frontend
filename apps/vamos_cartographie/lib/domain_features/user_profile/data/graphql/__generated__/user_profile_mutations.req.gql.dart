@@ -60,8 +60,8 @@ class GCreateProfileReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CreateProfile,
-    _i7.UserProfileFields,
-    _i7.CreateProfilePayload,
+    _i7.UserProfileDetails,
+    _i7.CreateProfileResult,
     _i8.StoredFile,
   ]);
 
@@ -228,7 +228,7 @@ class GUpdateProfileReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.UpdateProfile,
-    _i7.UserProfileFields,
+    _i7.UserProfileDetails,
     _i8.StoredFile,
   ]);
 

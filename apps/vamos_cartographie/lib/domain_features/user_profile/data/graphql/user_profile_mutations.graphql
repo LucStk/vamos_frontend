@@ -1,11 +1,11 @@
 #import "user_profile_fields.graphql"
 mutation CreateProfile($profileName: String!) {
     createProfile(profileName: $profileName) {
-        ...CreateProfilePayload
+        ...CreateProfileResult
     }
 }
 mutation UpdateProfile($input: UpdateUserProfileInput!) {
     updateProfile(input: $input) {
-        ...UserProfileFields
+        ...UserProfileDetails
     }
 }

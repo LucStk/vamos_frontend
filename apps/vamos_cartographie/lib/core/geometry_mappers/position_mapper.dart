@@ -5,11 +5,11 @@ extension LatLngMapper on LatLng {
   GLatLngInput toGQLInput() => GLatLngInput(lat: latitude, lng: longitude);
 }
 
-extension GLatLngFieldsMapper on GLatLngFields {
+extension GLatLngFieldsMapper on GLatLng {
   LatLng toLatLng() => LatLng(lat, lng);
 }
 
-extension ListGLatLngFieldsMapper on List<GLatLngFields> {
+extension ListGLatLngFieldsMapper on List<GLatLng> {
   List<LatLng> toDomain() => map((m) => LatLng(m.lat, m.lng)).toList();
 }
 

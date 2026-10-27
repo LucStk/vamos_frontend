@@ -3,7 +3,7 @@
 
 mutation UpdateWaypoint($id: UUID!, $waypoint: WaypointUpdateInput!) {
     updateWaypoint(input: $waypoint, id: $id) {
-        ...WaypointFields
+        ...WaypointDetails
     }
 }
 
@@ -12,7 +12,7 @@ mutation CreateBlankWaypointFromPosition(
     $latLng: LatLngInput!
 ) {
     createBlankWaypointFromPosition(tripId: $tripId, latLng: $latLng) {
-        ...WaypointFields
+        ...WaypointDetails
     }
 }
 

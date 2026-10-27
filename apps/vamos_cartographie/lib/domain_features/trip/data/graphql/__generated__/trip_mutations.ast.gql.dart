@@ -58,7 +58,7 @@ const UpdateTrip = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
+          name: _i1.NameNode(value: 'TripSummary'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -107,7 +107,7 @@ const CreateBlankTrip = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
+          name: _i1.NameNode(value: 'TripSummary'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -206,7 +206,7 @@ const SetTripOrigin = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'EditRoutePayloadFragment'),
+          name: _i1.NameNode(value: 'EditRouteResult'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -232,17 +232,17 @@ const document = _i1.DocumentNode(definitions: [
   CreateBlankTrip,
   DeleteTrip,
   SetTripOrigin,
-  _i2.RouteSectionFields,
-  _i2.TripRouteFields,
-  _i2.EditRoutePayloadFragment,
-  _i3.LatLngFields,
-  _i4.WaypointFields,
-  _i4.WaypointAnchorFields,
+  _i2.RouteSection,
+  _i2.TripRoute,
+  _i2.EditRouteResult,
+  _i3.LatLng,
+  _i4.WaypointDetails,
+  _i4.WaypointAnchor,
   _i5.StoredFile,
   _i5.FileAttachment,
   _i5.UploadConfigFields,
-  _i6.TripFields,
-  _i6.TripWithRouteFields,
-  _i7.UserProfileFields,
-  _i7.CreateProfilePayload,
+  _i6.TripSummary,
+  _i6.TripFull,
+  _i7.UserProfileDetails,
+  _i7.CreateProfileResult,
 ]);

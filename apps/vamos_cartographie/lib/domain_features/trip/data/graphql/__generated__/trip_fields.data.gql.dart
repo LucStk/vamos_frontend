@@ -14,19 +14,21 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__ge
     as _i1;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
     as _i2;
+import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
+    as _i5;
 
-abstract class GTripFields {
+abstract class GTripSummary {
   String get id;
   String get title;
   String? get date;
   String get description;
   List<_i1.GFileAttachment> get files;
-  _i2.GUserProfileFields get owner;
+  _i2.GUserProfileDetails get owner;
   String get G__typename;
 }
 
-class GTripFieldsData implements GTripFields {
-  const GTripFieldsData({
+class GTripSummaryData implements GTripSummary {
+  const GTripSummaryData({
     required this.id,
     required this.title,
     this.date,
@@ -36,8 +38,8 @@ class GTripFieldsData implements GTripFields {
     this.G__typename = 'TripType',
   });
 
-  factory GTripFieldsData.fromJson(Map<String, dynamic> json) {
-    return GTripFieldsData(
+  factory GTripSummaryData.fromJson(Map<String, dynamic> json) {
+    return GTripSummaryData(
       id: (json['id'] as String),
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
@@ -46,7 +48,7 @@ class GTripFieldsData implements GTripFields {
           .map((_$e) =>
               _i1.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      owner: _i2.GUserProfileFieldsData.fromJson(
+      owner: _i2.GUserProfileDetailsData.fromJson(
           (json['owner'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
@@ -62,7 +64,7 @@ class GTripFieldsData implements GTripFields {
 
   final List<_i1.GFileAttachmentData> files;
 
-  final _i2.GUserProfileFieldsData owner;
+  final _i2.GUserProfileDetailsData owner;
 
   final String G__typename;
 
@@ -79,17 +81,17 @@ class GTripFieldsData implements GTripFields {
     return _$result;
   }
 
-  GTripFieldsData copyWith({
+  GTripSummaryData copyWith({
     String? id,
     String? title,
     String? date,
     bool dateIsSet = false,
     String? description,
     List<_i1.GFileAttachmentData>? files,
-    _i2.GUserProfileFieldsData? owner,
+    _i2.GUserProfileDetailsData? owner,
     String? G__typename,
   }) {
-    return GTripFieldsData(
+    return GTripSummaryData(
       id: id ?? this.id,
       title: title ?? this.title,
       date: date != null || dateIsSet ? date : this.date,
@@ -103,7 +105,7 @@ class GTripFieldsData implements GTripFields {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GTripFieldsData &&
+        (other is GTripSummaryData &&
             id == other.id &&
             title == other.title &&
             date == other.date &&
@@ -121,28 +123,28 @@ class GTripFieldsData implements GTripFields {
 
   @override
   String toString() {
-    return 'GTripFieldsData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename)';
+    return 'GTripSummaryData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename)';
   }
 }
 
-abstract class GTripWithRouteFields {
+abstract class GTripFull {
   String get id;
   String get title;
   String? get date;
   String get description;
   List<_i1.GFileAttachment> get files;
-  _i2.GUserProfileFields get owner;
+  _i2.GUserProfileDetails get owner;
   String get G__typename;
   String? get routeUpdatedAt;
   GeoPolygonDto? get bounds;
-  _i3.GLatLngFields get startPoint;
-  List<_i3.GLatLngFields> get route;
-  List<_i4.GRouteSectionFields> get sections;
+  _i3.GLatLng get startPoint;
+  List<_i3.GLatLng> get route;
+  List<_i4.GRouteSection> get sections;
+  List<_i5.GWaypointDetails> get waypoints;
 }
 
-class GTripWithRouteFieldsData
-    implements GTripWithRouteFields, GTripFields, _i4.GTripRouteFields {
-  const GTripWithRouteFieldsData({
+class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
+  const GTripFullData({
     required this.id,
     required this.title,
     this.date,
@@ -155,10 +157,11 @@ class GTripWithRouteFieldsData
     required this.startPoint,
     required this.route,
     required this.sections,
+    required this.waypoints,
   });
 
-  factory GTripWithRouteFieldsData.fromJson(Map<String, dynamic> json) {
-    return GTripWithRouteFieldsData(
+  factory GTripFullData.fromJson(Map<String, dynamic> json) {
+    return GTripFullData(
       id: (json['id'] as String),
       title: (json['title'] as String),
       date: json['date'] == null ? null : (json['date'] as String),
@@ -167,7 +170,7 @@ class GTripWithRouteFieldsData
           .map((_$e) =>
               _i1.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      owner: _i2.GUserProfileFieldsData.fromJson(
+      owner: _i2.GUserProfileDetailsData.fromJson(
           (json['owner'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
       routeUpdatedAt: json['routeUpdatedAt'] == null
@@ -175,15 +178,18 @@ class GTripWithRouteFieldsData
           : (json['routeUpdatedAt'] as String),
       bounds:
           json['bounds'] == null ? null : geoPolygonDtoFromJson(json['bounds']),
-      startPoint: _i3.GLatLngFieldsData.fromJson(
+      startPoint: _i3.GLatLngData.fromJson(
           (json['startPoint'] as Map<String, dynamic>)),
       route: (json['route'] as List<dynamic>)
-          .map((_$e) =>
-              _i3.GLatLngFieldsData.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) => _i3.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       sections: (json['sections'] as List<dynamic>)
-          .map((_$e) => _i4.GRouteSectionFieldsData.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map((_$e) =>
+              _i4.GRouteSectionData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      waypoints: (json['waypoints'] as List<dynamic>)
+          .map((_$e) =>
+              _i5.GWaypointDetailsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -198,7 +204,7 @@ class GTripWithRouteFieldsData
 
   final List<_i1.GFileAttachmentData> files;
 
-  final _i2.GUserProfileFieldsData owner;
+  final _i2.GUserProfileDetailsData owner;
 
   final String G__typename;
 
@@ -206,11 +212,13 @@ class GTripWithRouteFieldsData
 
   final GeoPolygonDto? bounds;
 
-  final _i3.GLatLngFieldsData startPoint;
+  final _i3.GLatLngData startPoint;
 
-  final List<_i3.GLatLngFieldsData> route;
+  final List<_i3.GLatLngData> route;
 
-  final List<_i4.GRouteSectionFieldsData> sections;
+  final List<_i4.GRouteSectionData> sections;
+
+  final List<_i5.GWaypointDetailsData> waypoints;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -231,27 +239,29 @@ class GTripWithRouteFieldsData
     _$result['startPoint'] = this.startPoint.toJson();
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
     _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
+    _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     return _$result;
   }
 
-  GTripWithRouteFieldsData copyWith({
+  GTripFullData copyWith({
     String? id,
     String? title,
     String? date,
     bool dateIsSet = false,
     String? description,
     List<_i1.GFileAttachmentData>? files,
-    _i2.GUserProfileFieldsData? owner,
+    _i2.GUserProfileDetailsData? owner,
     String? G__typename,
     String? routeUpdatedAt,
     bool routeUpdatedAtIsSet = false,
     GeoPolygonDto? bounds,
     bool boundsIsSet = false,
-    _i3.GLatLngFieldsData? startPoint,
-    List<_i3.GLatLngFieldsData>? route,
-    List<_i4.GRouteSectionFieldsData>? sections,
+    _i3.GLatLngData? startPoint,
+    List<_i3.GLatLngData>? route,
+    List<_i4.GRouteSectionData>? sections,
+    List<_i5.GWaypointDetailsData>? waypoints,
   }) {
-    return GTripWithRouteFieldsData(
+    return GTripFullData(
       id: id ?? this.id,
       title: title ?? this.title,
       date: date != null || dateIsSet ? date : this.date,
@@ -266,13 +276,14 @@ class GTripWithRouteFieldsData
       startPoint: startPoint ?? this.startPoint,
       route: route ?? this.route,
       sections: sections ?? this.sections,
+      waypoints: waypoints ?? this.waypoints,
     );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GTripWithRouteFieldsData &&
+        (other is GTripFullData &&
             id == other.id &&
             title == other.title &&
             date == other.date &&
@@ -284,7 +295,8 @@ class GTripWithRouteFieldsData
             bounds == other.bounds &&
             startPoint == other.startPoint &&
             _gqlUtils.listEquals(route, other.route) &&
-            _gqlUtils.listEquals(sections, other.sections));
+            _gqlUtils.listEquals(sections, other.sections) &&
+            _gqlUtils.listEquals(waypoints, other.waypoints));
   }
 
   @override
@@ -302,11 +314,12 @@ class GTripWithRouteFieldsData
         bounds,
         startPoint,
         _gqlUtils.listHash(route),
-        _gqlUtils.listHash(sections));
+        _gqlUtils.listHash(sections),
+        _gqlUtils.listHash(waypoints));
   }
 
   @override
   String toString() {
-    return 'GTripWithRouteFieldsData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, sections: $sections)';
+    return 'GTripFullData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, sections: $sections, waypoints: $waypoints)';
   }
 }

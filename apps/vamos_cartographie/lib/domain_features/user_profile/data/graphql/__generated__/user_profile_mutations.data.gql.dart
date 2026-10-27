@@ -14,13 +14,13 @@ class GCreateProfileData {
 
   factory GCreateProfileData.fromJson(Map<String, dynamic> json) {
     return GCreateProfileData(
-      createProfile: _i1.GCreateProfilePayloadData.fromJson(
+      createProfile: _i1.GCreateProfileResultData.fromJson(
           (json['createProfile'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GCreateProfilePayloadData createProfile;
+  final _i1.GCreateProfileResultData createProfile;
 
   final String G__typename;
 
@@ -32,7 +32,7 @@ class GCreateProfileData {
   }
 
   GCreateProfileData copyWith({
-    _i1.GCreateProfilePayloadData? createProfile,
+    _i1.GCreateProfileResultData? createProfile,
     String? G__typename,
   }) {
     return GCreateProfileData(
@@ -68,13 +68,13 @@ class GUpdateProfileData {
 
   factory GUpdateProfileData.fromJson(Map<String, dynamic> json) {
     return GUpdateProfileData(
-      updateProfile: _i1.GUserProfileFieldsData.fromJson(
+      updateProfile: _i1.GUserProfileDetailsData.fromJson(
           (json['updateProfile'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GUserProfileFieldsData updateProfile;
+  final _i1.GUserProfileDetailsData updateProfile;
 
   final String G__typename;
 
@@ -86,7 +86,7 @@ class GUpdateProfileData {
   }
 
   GUpdateProfileData copyWith({
-    _i1.GUserProfileFieldsData? updateProfile,
+    _i1.GUserProfileDetailsData? updateProfile,
     String? G__typename,
   }) {
     return GUpdateProfileData(

@@ -14,11 +14,11 @@ import 'package:vamos_cartographie/domain_features/route/data/graphql/__generate
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.data.gql.dart'
     as _i2;
 
-class GRouteSectionFieldsReq
-    implements _i1.FragmentRequest<_i2.GRouteSectionFieldsData, Null> {
-  GRouteSectionFieldsReq({
+class GRouteSectionReq
+    implements _i1.FragmentRequest<_i2.GRouteSectionData, Null> {
+  GRouteSectionReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'RouteSectionFields',
+    this.fragmentName = 'RouteSection',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -31,23 +31,22 @@ class GRouteSectionFieldsReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.RouteSectionFields]);
+      _i3.DocumentNode(definitions: [_i4.RouteSection]);
 
-  _i2.GRouteSectionFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GRouteSectionFieldsData.fromJson(json);
+  _i2.GRouteSectionData? parseData(Map<String, dynamic> json) =>
+      _i2.GRouteSectionData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GRouteSectionFieldsData data) =>
-      data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GRouteSectionData data) => data.toJson();
 
-  GRouteSectionFieldsReq copyWith({
+  GRouteSectionReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GRouteSectionFieldsReq(
+    return GRouteSectionReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -59,7 +58,7 @@ class GRouteSectionFieldsReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GRouteSectionFieldsReq &&
+        (other is GRouteSectionReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -74,15 +73,14 @@ class GRouteSectionFieldsReq
 
   @override
   String toString() {
-    return 'GRouteSectionFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GRouteSectionReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
 
-class GTripRouteFieldsReq
-    implements _i1.FragmentRequest<_i2.GTripRouteFieldsData, Null> {
-  GTripRouteFieldsReq({
+class GTripRouteReq implements _i1.FragmentRequest<_i2.GTripRouteData, Null> {
+  GTripRouteReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'TripRouteFields',
+    this.fragmentName = 'TripRoute',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -95,26 +93,25 @@ class GTripRouteFieldsReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.RouteSectionFields,
-    _i4.TripRouteFields,
-    _i5.LatLngFields,
+    _i4.RouteSection,
+    _i4.TripRoute,
+    _i5.LatLng,
   ]);
 
-  _i2.GTripRouteFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GTripRouteFieldsData.fromJson(json);
+  _i2.GTripRouteData? parseData(Map<String, dynamic> json) =>
+      _i2.GTripRouteData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GTripRouteFieldsData data) =>
-      data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GTripRouteData data) => data.toJson();
 
-  GTripRouteFieldsReq copyWith({
+  GTripRouteReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GTripRouteFieldsReq(
+    return GTripRouteReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -126,7 +123,7 @@ class GTripRouteFieldsReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GTripRouteFieldsReq &&
+        (other is GTripRouteReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -141,15 +138,15 @@ class GTripRouteFieldsReq
 
   @override
   String toString() {
-    return 'GTripRouteFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GTripRouteReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
 
-class GEditRoutePayloadFragmentReq
-    implements _i1.FragmentRequest<_i2.GEditRoutePayloadFragmentData, Null> {
-  GEditRoutePayloadFragmentReq({
+class GEditRouteResultReq
+    implements _i1.FragmentRequest<_i2.GEditRouteResultData, Null> {
+  GEditRouteResultReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'EditRoutePayloadFragment',
+    this.fragmentName = 'EditRouteResult',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -162,27 +159,27 @@ class GEditRoutePayloadFragmentReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.RouteSectionFields,
-    _i4.TripRouteFields,
-    _i4.EditRoutePayloadFragment,
-    _i5.LatLngFields,
+    _i4.RouteSection,
+    _i4.TripRoute,
+    _i4.EditRouteResult,
+    _i5.LatLng,
   ]);
 
-  _i2.GEditRoutePayloadFragmentData? parseData(Map<String, dynamic> json) =>
-      _i2.GEditRoutePayloadFragmentData.fromJson(json);
+  _i2.GEditRouteResultData? parseData(Map<String, dynamic> json) =>
+      _i2.GEditRouteResultData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GEditRoutePayloadFragmentData data) =>
+  Map<String, dynamic> dataToJson(_i2.GEditRouteResultData data) =>
       data.toJson();
 
-  GEditRoutePayloadFragmentReq copyWith({
+  GEditRouteResultReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GEditRoutePayloadFragmentReq(
+    return GEditRouteResultReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -194,7 +191,7 @@ class GEditRoutePayloadFragmentReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GEditRoutePayloadFragmentReq &&
+        (other is GEditRouteResultReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -209,6 +206,6 @@ class GEditRoutePayloadFragmentReq
 
   @override
   String toString() {
-    return 'GEditRoutePayloadFragmentReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GEditRouteResultReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }

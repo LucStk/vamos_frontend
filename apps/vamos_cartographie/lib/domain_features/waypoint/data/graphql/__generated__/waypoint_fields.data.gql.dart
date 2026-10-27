@@ -12,20 +12,20 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
     as _i3;
 
-abstract class GWaypointFields {
+abstract class GWaypointDetails {
   String get id;
   int? get anchorEdge;
   double get anchorOffset;
   _i1.GPoiCategory get poiCategory;
   String get title;
   String get description;
-  _i2.GLatLngFields get location;
+  _i2.GLatLng get location;
   List<_i3.GFileAttachment> get files;
   String get G__typename;
 }
 
-class GWaypointFieldsData implements GWaypointFields {
-  const GWaypointFieldsData({
+class GWaypointDetailsData implements GWaypointDetails {
+  const GWaypointDetailsData({
     required this.id,
     this.anchorEdge,
     required this.anchorOffset,
@@ -37,8 +37,8 @@ class GWaypointFieldsData implements GWaypointFields {
     this.G__typename = 'WaypointType',
   });
 
-  factory GWaypointFieldsData.fromJson(Map<String, dynamic> json) {
-    return GWaypointFieldsData(
+  factory GWaypointDetailsData.fromJson(Map<String, dynamic> json) {
+    return GWaypointDetailsData(
       id: (json['id'] as String),
       anchorEdge:
           json['anchorEdge'] == null ? null : (json['anchorEdge'] as int),
@@ -46,8 +46,8 @@ class GWaypointFieldsData implements GWaypointFields {
       poiCategory: _i1.GPoiCategory.fromJson((json['poiCategory'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
-      location: _i2.GLatLngFieldsData.fromJson(
-          (json['location'] as Map<String, dynamic>)),
+      location:
+          _i2.GLatLngData.fromJson((json['location'] as Map<String, dynamic>)),
       files: (json['files'] as List<dynamic>)
           .map((_$e) =>
               _i3.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
@@ -68,7 +68,7 @@ class GWaypointFieldsData implements GWaypointFields {
 
   final String description;
 
-  final _i2.GLatLngFieldsData location;
+  final _i2.GLatLngData location;
 
   final List<_i3.GFileAttachmentData> files;
 
@@ -90,7 +90,7 @@ class GWaypointFieldsData implements GWaypointFields {
     return _$result;
   }
 
-  GWaypointFieldsData copyWith({
+  GWaypointDetailsData copyWith({
     String? id,
     int? anchorEdge,
     bool anchorEdgeIsSet = false,
@@ -98,11 +98,11 @@ class GWaypointFieldsData implements GWaypointFields {
     _i1.GPoiCategory? poiCategory,
     String? title,
     String? description,
-    _i2.GLatLngFieldsData? location,
+    _i2.GLatLngData? location,
     List<_i3.GFileAttachmentData>? files,
     String? G__typename,
   }) {
-    return GWaypointFieldsData(
+    return GWaypointDetailsData(
       id: id ?? this.id,
       anchorEdge:
           anchorEdge != null || anchorEdgeIsSet ? anchorEdge : this.anchorEdge,
@@ -119,7 +119,7 @@ class GWaypointFieldsData implements GWaypointFields {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GWaypointFieldsData &&
+        (other is GWaypointDetailsData &&
             id == other.id &&
             anchorEdge == other.anchorEdge &&
             anchorOffset == other.anchorOffset &&
@@ -139,27 +139,27 @@ class GWaypointFieldsData implements GWaypointFields {
 
   @override
   String toString() {
-    return 'GWaypointFieldsData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, poiCategory: $poiCategory, title: $title, description: $description, location: $location, files: $files, G__typename: $G__typename)';
+    return 'GWaypointDetailsData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, poiCategory: $poiCategory, title: $title, description: $description, location: $location, files: $files, G__typename: $G__typename)';
   }
 }
 
-abstract class GWaypointAnchorFields {
+abstract class GWaypointAnchor {
   String get id;
   int? get anchorEdge;
   double get anchorOffset;
   String get G__typename;
 }
 
-class GWaypointAnchorFieldsData implements GWaypointAnchorFields {
-  const GWaypointAnchorFieldsData({
+class GWaypointAnchorData implements GWaypointAnchor {
+  const GWaypointAnchorData({
     required this.id,
     this.anchorEdge,
     required this.anchorOffset,
     this.G__typename = 'WaypointType',
   });
 
-  factory GWaypointAnchorFieldsData.fromJson(Map<String, dynamic> json) {
-    return GWaypointAnchorFieldsData(
+  factory GWaypointAnchorData.fromJson(Map<String, dynamic> json) {
+    return GWaypointAnchorData(
       id: (json['id'] as String),
       anchorEdge:
           json['anchorEdge'] == null ? null : (json['anchorEdge'] as int),
@@ -187,14 +187,14 @@ class GWaypointAnchorFieldsData implements GWaypointAnchorFields {
     return _$result;
   }
 
-  GWaypointAnchorFieldsData copyWith({
+  GWaypointAnchorData copyWith({
     String? id,
     int? anchorEdge,
     bool anchorEdgeIsSet = false,
     double? anchorOffset,
     String? G__typename,
   }) {
-    return GWaypointAnchorFieldsData(
+    return GWaypointAnchorData(
       id: id ?? this.id,
       anchorEdge:
           anchorEdge != null || anchorEdgeIsSet ? anchorEdge : this.anchorEdge,
@@ -206,7 +206,7 @@ class GWaypointAnchorFieldsData implements GWaypointAnchorFields {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GWaypointAnchorFieldsData &&
+        (other is GWaypointAnchorData &&
             id == other.id &&
             anchorEdge == other.anchorEdge &&
             anchorOffset == other.anchorOffset &&
@@ -220,6 +220,6 @@ class GWaypointAnchorFieldsData implements GWaypointAnchorFields {
 
   @override
   String toString() {
-    return 'GWaypointAnchorFieldsData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, G__typename: $G__typename)';
+    return 'GWaypointAnchorData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, G__typename: $G__typename)';
   }
 }

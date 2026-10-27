@@ -11,8 +11,8 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__ge
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i3;
 
-const RouteSectionFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'RouteSectionFields'),
+const RouteSection = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'RouteSection'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'RouteSectionType'),
@@ -57,8 +57,8 @@ const RouteSectionFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const TripRouteFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'TripRouteFields'),
+const TripRoute = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'TripRoute'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'TripType'),
@@ -94,7 +94,7 @@ const TripRouteFields = _i1.FragmentDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'LatLngFields'),
+          name: _i1.NameNode(value: 'LatLng'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -113,7 +113,7 @@ const TripRouteFields = _i1.FragmentDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'LatLngFields'),
+          name: _i1.NameNode(value: 'LatLng'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -132,7 +132,7 @@ const TripRouteFields = _i1.FragmentDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'RouteSectionFields'),
+          name: _i1.NameNode(value: 'RouteSection'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -153,8 +153,8 @@ const TripRouteFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const EditRoutePayloadFragment = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'EditRoutePayloadFragment'),
+const EditRouteResult = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'EditRouteResult'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'EditRoutePayload'),
@@ -191,7 +191,7 @@ const EditRoutePayloadFragment = _i1.FragmentDefinitionNode(
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'TripRouteFields'),
+              name: _i1.NameNode(value: 'TripRoute'),
               directives: [],
             ),
             _i1.FieldNode(
@@ -246,12 +246,12 @@ const EditRoutePayloadFragment = _i1.FragmentDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  RouteSectionFields,
-  TripRouteFields,
-  EditRoutePayloadFragment,
-  _i2.LatLngFields,
-  _i3.WaypointFields,
-  _i3.WaypointAnchorFields,
+  RouteSection,
+  TripRoute,
+  EditRouteResult,
+  _i2.LatLng,
+  _i3.WaypointDetails,
+  _i3.WaypointAnchor,
   _i4.StoredFile,
   _i4.FileAttachment,
   _i4.UploadConfigFields,

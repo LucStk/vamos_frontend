@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/mode/helpers/mode_apply.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/ui/modes/edit_trip/sketch_mode/pencil_menu_widget.dart';
 import 'package:vamos_cartographie/map/ui/shared/buttons/cancel_bottom_button.dart';
@@ -20,12 +21,15 @@ class SketchModeUi extends ConsumerWidget {
       fit: StackFit.expand,
       children: [
         OverlayMenu<PencilMenu>(
-          builder: (_, t, _) => PencilMenuWidget(endSketch: () {}),
+          builder: (_, t, _) => PencilMenuWidget(
+            endSketch: () =>
+                ref.applyTransition(mode.validateExtensionSketch()),
+          ),
         ),
         CancelBottomButton(
           tooltipText: "Cancel creation",
           onPressed: () {
-            ref.watch(modeMachineProvider).apply(SketchEdition.stop());
+            ref.watch(modeMachineProvider).apply(TripMode.open(mode.tripId));
           },
         ),
       ],

@@ -30,7 +30,7 @@ const GetAllTrips = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripWithRouteFields'),
+          name: _i1.NameNode(value: 'TripFull'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -79,7 +79,7 @@ const GetTrip = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
+          name: _i1.NameNode(value: 'TripSummary'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -113,7 +113,7 @@ const GetMeTrips = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
+          name: _i1.NameNode(value: 'TripSummary'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -162,7 +162,7 @@ const GetUserTrips = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
+          name: _i1.NameNode(value: 'TripSummary'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -211,7 +211,7 @@ const GetTripDetails = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripFields'),
+          name: _i1.NameNode(value: 'TripSummary'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -221,7 +221,7 @@ const GetTripDetails = _i1.OperationDefinitionNode(
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'WaypointFields'),
+              name: _i1.NameNode(value: 'WaypointDetails'),
               directives: [],
             ),
             _i1.FieldNode(
@@ -257,17 +257,17 @@ const document = _i1.DocumentNode(definitions: [
   GetMeTrips,
   GetUserTrips,
   GetTripDetails,
-  _i2.TripFields,
-  _i2.TripWithRouteFields,
-  _i3.RouteSectionFields,
-  _i3.TripRouteFields,
-  _i3.EditRoutePayloadFragment,
-  _i4.LatLngFields,
-  _i5.WaypointFields,
-  _i5.WaypointAnchorFields,
+  _i2.TripSummary,
+  _i2.TripFull,
+  _i3.RouteSection,
+  _i3.TripRoute,
+  _i3.EditRouteResult,
+  _i4.LatLng,
+  _i5.WaypointDetails,
+  _i5.WaypointAnchor,
   _i6.StoredFile,
   _i6.FileAttachment,
   _i6.UploadConfigFields,
-  _i7.UserProfileFields,
-  _i7.CreateProfilePayload,
+  _i7.UserProfileDetails,
+  _i7.CreateProfileResult,
 ]);

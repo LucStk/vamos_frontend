@@ -9,8 +9,8 @@ import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i3;
 
-const WaypointFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointFields'),
+const WaypointDetails = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'WaypointDetails'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'WaypointType'),
@@ -67,7 +67,7 @@ const WaypointFields = _i1.FragmentDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'LatLngFields'),
+          name: _i1.NameNode(value: 'LatLng'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -107,8 +107,8 @@ const WaypointFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const WaypointAnchorFields = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointAnchorFields'),
+const WaypointAnchor = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'WaypointAnchor'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
     name: _i1.NameNode(value: 'WaypointType'),
@@ -147,9 +147,9 @@ const WaypointAnchorFields = _i1.FragmentDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  WaypointFields,
-  WaypointAnchorFields,
-  _i2.LatLngFields,
+  WaypointDetails,
+  WaypointAnchor,
+  _i2.LatLng,
   _i3.StoredFile,
   _i3.FileAttachment,
   _i3.UploadConfigFields,

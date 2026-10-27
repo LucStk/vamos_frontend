@@ -16,14 +16,7 @@ class WaypointRemoteDatasource {
 
   WaypointRemoteDatasource(this.ferryClient);
 
-  Future<List<GWaypointFields>> getWaypoints({required Id<Trip> tripId}) async {
-    final data = await ferryClient.execute(
-      GGetWaypointsReq(vars: GGetWaypointsVars(tripId: tripId.value)),
-    );
-    return data.trip.waypoints;
-  }
-
-  Future<GWaypointFields> createBlankWaypointFromPosition({
+  Future<GWaypointDetails> createBlankWaypointFromPosition({
     required Id<Trip> tripId,
     required LatLng latLng,
   }) async {
@@ -38,7 +31,7 @@ class WaypointRemoteDatasource {
     return data.createBlankWaypointFromPosition;
   }
 
-  Future<GWaypointFields> updateWaypoint({
+  Future<GWaypointDetails> updateWaypoint({
     required WaypointId id,
     required GWaypointUpdateInput input,
   }) async {

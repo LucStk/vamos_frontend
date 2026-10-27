@@ -37,7 +37,7 @@ const CreateProfile = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'CreateProfilePayload'),
+          name: _i1.NameNode(value: 'CreateProfileResult'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -86,7 +86,7 @@ const UpdateProfile = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'UserProfileFields'),
+          name: _i1.NameNode(value: 'UserProfileDetails'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -110,8 +110,8 @@ const UpdateProfile = _i1.OperationDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   CreateProfile,
   UpdateProfile,
-  _i2.UserProfileFields,
-  _i2.CreateProfilePayload,
+  _i2.UserProfileDetails,
+  _i2.CreateProfileResult,
   _i3.StoredFile,
   _i3.FileAttachment,
   _i3.UploadConfigFields,

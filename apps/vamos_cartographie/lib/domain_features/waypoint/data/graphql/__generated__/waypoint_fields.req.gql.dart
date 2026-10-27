@@ -16,11 +16,11 @@ import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__gener
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
     as _i2;
 
-class GWaypointFieldsReq
-    implements _i1.FragmentRequest<_i2.GWaypointFieldsData, Null> {
-  GWaypointFieldsReq({
+class GWaypointDetailsReq
+    implements _i1.FragmentRequest<_i2.GWaypointDetailsData, Null> {
+  GWaypointDetailsReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'WaypointFields',
+    this.fragmentName = 'WaypointDetails',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -33,27 +33,27 @@ class GWaypointFieldsReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.WaypointFields,
-    _i5.LatLngFields,
+    _i4.WaypointDetails,
+    _i5.LatLng,
     _i6.StoredFile,
     _i6.FileAttachment,
   ]);
 
-  _i2.GWaypointFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GWaypointFieldsData.fromJson(json);
+  _i2.GWaypointDetailsData? parseData(Map<String, dynamic> json) =>
+      _i2.GWaypointDetailsData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GWaypointFieldsData data) =>
+  Map<String, dynamic> dataToJson(_i2.GWaypointDetailsData data) =>
       data.toJson();
 
-  GWaypointFieldsReq copyWith({
+  GWaypointDetailsReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GWaypointFieldsReq(
+    return GWaypointDetailsReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -65,7 +65,7 @@ class GWaypointFieldsReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GWaypointFieldsReq &&
+        (other is GWaypointDetailsReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -80,15 +80,15 @@ class GWaypointFieldsReq
 
   @override
   String toString() {
-    return 'GWaypointFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GWaypointDetailsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
 
-class GWaypointAnchorFieldsReq
-    implements _i1.FragmentRequest<_i2.GWaypointAnchorFieldsData, Null> {
-  GWaypointAnchorFieldsReq({
+class GWaypointAnchorReq
+    implements _i1.FragmentRequest<_i2.GWaypointAnchorData, Null> {
+  GWaypointAnchorReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'WaypointAnchorFields',
+    this.fragmentName = 'WaypointAnchor',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -101,23 +101,23 @@ class GWaypointAnchorFieldsReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.WaypointAnchorFields]);
+      _i3.DocumentNode(definitions: [_i4.WaypointAnchor]);
 
-  _i2.GWaypointAnchorFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GWaypointAnchorFieldsData.fromJson(json);
+  _i2.GWaypointAnchorData? parseData(Map<String, dynamic> json) =>
+      _i2.GWaypointAnchorData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GWaypointAnchorFieldsData data) =>
+  Map<String, dynamic> dataToJson(_i2.GWaypointAnchorData data) =>
       data.toJson();
 
-  GWaypointAnchorFieldsReq copyWith({
+  GWaypointAnchorReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GWaypointAnchorFieldsReq(
+    return GWaypointAnchorReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -129,7 +129,7 @@ class GWaypointAnchorFieldsReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GWaypointAnchorFieldsReq &&
+        (other is GWaypointAnchorReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -144,6 +144,6 @@ class GWaypointAnchorFieldsReq
 
   @override
   String toString() {
-    return 'GWaypointAnchorFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GWaypointAnchorReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }

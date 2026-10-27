@@ -23,14 +23,14 @@ class GGetAllTripsData {
   factory GGetAllTripsData.fromJson(Map<String, dynamic> json) {
     return GGetAllTripsData(
       trips: (json['trips'] as List<dynamic>)
-          .map((_$e) => _i1.GTripWithRouteFieldsData.fromJson(
-              (_$e as Map<String, dynamic>)))
+          .map((_$e) =>
+              _i1.GTripFullData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final List<_i1.GTripWithRouteFieldsData> trips;
+  final List<_i1.GTripFullData> trips;
 
   final String G__typename;
 
@@ -42,7 +42,7 @@ class GGetAllTripsData {
   }
 
   GGetAllTripsData copyWith({
-    List<_i1.GTripWithRouteFieldsData>? trips,
+    List<_i1.GTripFullData>? trips,
     String? G__typename,
   }) {
     return GGetAllTripsData(
@@ -79,12 +79,12 @@ class GGetTripData {
   factory GGetTripData.fromJson(Map<String, dynamic> json) {
     return GGetTripData(
       trip:
-          _i1.GTripFieldsData.fromJson((json['trip'] as Map<String, dynamic>)),
+          _i1.GTripSummaryData.fromJson((json['trip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GTripFieldsData trip;
+  final _i1.GTripSummaryData trip;
 
   final String G__typename;
 
@@ -96,7 +96,7 @@ class GGetTripData {
   }
 
   GGetTripData copyWith({
-    _i1.GTripFieldsData? trip,
+    _i1.GTripSummaryData? trip,
     String? G__typename,
   }) {
     return GGetTripData(
@@ -134,13 +134,13 @@ class GGetMeTripsData {
     return GGetMeTripsData(
       meTrips: (json['meTrips'] as List<dynamic>)
           .map((_$e) =>
-              _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i1.GTripSummaryData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final List<_i1.GTripFieldsData> meTrips;
+  final List<_i1.GTripSummaryData> meTrips;
 
   final String G__typename;
 
@@ -152,7 +152,7 @@ class GGetMeTripsData {
   }
 
   GGetMeTripsData copyWith({
-    List<_i1.GTripFieldsData>? meTrips,
+    List<_i1.GTripSummaryData>? meTrips,
     String? G__typename,
   }) {
     return GGetMeTripsData(
@@ -190,13 +190,13 @@ class GGetUserTripsData {
     return GGetUserTripsData(
       userTrips: (json['userTrips'] as List<dynamic>)
           .map((_$e) =>
-              _i1.GTripFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i1.GTripSummaryData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final List<_i1.GTripFieldsData> userTrips;
+  final List<_i1.GTripSummaryData> userTrips;
 
   final String G__typename;
 
@@ -208,7 +208,7 @@ class GGetUserTripsData {
   }
 
   GGetUserTripsData copyWith({
-    List<_i1.GTripFieldsData>? userTrips,
+    List<_i1.GTripSummaryData>? userTrips,
     String? G__typename,
   }) {
     return GGetUserTripsData(
@@ -290,7 +290,7 @@ class GGetTripDetailsData {
   }
 }
 
-class GGetTripDetailsData_trip implements _i1.GTripFields {
+class GGetTripDetailsData_trip implements _i1.GTripSummary {
   const GGetTripDetailsData_trip({
     required this.id,
     required this.title,
@@ -312,12 +312,12 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
           .map((_$e) =>
               _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      owner: _i3.GUserProfileFieldsData.fromJson(
+      owner: _i3.GUserProfileDetailsData.fromJson(
           (json['owner'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
-              _i4.GWaypointFieldsData.fromJson((_$e as Map<String, dynamic>)))
+              _i4.GWaypointDetailsData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -332,11 +332,11 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
 
   final List<_i2.GFileAttachmentData> files;
 
-  final _i3.GUserProfileFieldsData owner;
+  final _i3.GUserProfileDetailsData owner;
 
   final String G__typename;
 
-  final List<_i4.GWaypointFieldsData> waypoints;
+  final List<_i4.GWaypointDetailsData> waypoints;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
@@ -359,9 +359,9 @@ class GGetTripDetailsData_trip implements _i1.GTripFields {
     bool dateIsSet = false,
     String? description,
     List<_i2.GFileAttachmentData>? files,
-    _i3.GUserProfileFieldsData? owner,
+    _i3.GUserProfileDetailsData? owner,
     String? G__typename,
-    List<_i4.GWaypointFieldsData>? waypoints,
+    List<_i4.GWaypointDetailsData>? waypoints,
   }) {
     return GGetTripDetailsData_trip(
       id: id ?? this.id,

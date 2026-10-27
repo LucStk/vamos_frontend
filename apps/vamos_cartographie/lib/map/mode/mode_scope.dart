@@ -42,7 +42,7 @@ final class _TripScope implements TripScope {
   final TripId tripId;
 
   @override
-  Trip get trip => _ref.read(tripProvider(tripId)) ?? (throw NotFoundFailure());
+  Trip get trip => _ref.read(tripRequiredProvider(tripId));
 
   @override
   RouteEditor get routeEditor => _ref.read(routeStoreProvider(tripId).notifier);

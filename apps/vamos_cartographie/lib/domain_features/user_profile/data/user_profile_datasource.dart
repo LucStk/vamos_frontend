@@ -15,7 +15,7 @@ class UserProfileDatasource {
     return data.me;
   }
 
-  Future<GCreateProfilePayload> createProfile(String profileName) async {
+  Future<GCreateProfileResult> createProfile(String profileName) async {
     final response = await ferryClient.execute(
       GCreateProfileReq(vars: GCreateProfileVars(profileName: profileName)),
     );
@@ -23,7 +23,7 @@ class UserProfileDatasource {
     return response.createProfile;
   }
 
-  Future<GUserProfileFieldsData> updateProfile({
+  Future<GUserProfileDetailsData> updateProfile({
     String? bio,
     StoredFileId? fileId,
   }) async {

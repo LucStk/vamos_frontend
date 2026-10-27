@@ -46,13 +46,8 @@ Trip? trip(Ref ref, TripId tripId) {
 }
 
 @Riverpod(keepAlive: true)
-Trip tripRequired(Ref ref, TripId tripId) {
-  final trip = ref.watch(tripStoreProvider).tripStore.get(tripId);
-  if (trip == null) {
-    throw NotFoundFailure(resourceId: tripId.value, resourceType: "trip");
-  }
-  return trip;
-}
+Trip tripRequired(Ref ref, TripId tripId) =>
+    ref.watch(tripStoreProvider).tripStore.getRequired(tripId);
 
 @riverpod
 List<TripId> tripIds(Ref ref) {

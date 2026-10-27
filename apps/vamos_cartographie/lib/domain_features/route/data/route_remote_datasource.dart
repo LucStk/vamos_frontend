@@ -19,7 +19,7 @@ class RouteRemoteDatasource {
   final Client ferryClient;
 
   RouteRemoteDatasource(this.ferryClient);
-  Future<GEditRoutePayloadFragment> setTripOrigin({
+  Future<GEditRouteResult> setTripOrigin({
     required Id<Trip> tripId,
     required LatLng position,
   }) async {
@@ -34,7 +34,7 @@ class RouteRemoteDatasource {
     return data.setTripOrigin;
   }
 
-  Future<GEditRoutePayloadFragment> extendRoute({
+  Future<GEditRouteResult> extendRoute({
     required Id<Trip> tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
@@ -54,7 +54,7 @@ class RouteRemoteDatasource {
     return data.extendRoute;
   }
 
-  Future<GEditRoutePayloadFragment> prependRoute({
+  Future<GEditRouteResult> prependRoute({
     required Id<Trip> tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
@@ -74,7 +74,7 @@ class RouteRemoteDatasource {
     return data.extendRoute;
   }
 
-  Future<GEditRoutePayloadFragment> redrawRoutePortion({
+  Future<GEditRouteResult> redrawRoutePortion({
     required Id<Trip> tripId,
     required MobilityType mobilityType,
     required List<LatLng> geometry,
@@ -101,7 +101,7 @@ class RouteRemoteDatasource {
     return data.redrawRoutePortion;
   }
 
-  Future<GEditRoutePayloadFragment> refineSection({
+  Future<GEditRouteResult> refineSection({
     required Id<Trip> tripId,
     required SectionId sectionId,
   }) async {
@@ -116,7 +116,7 @@ class RouteRemoteDatasource {
     return data.refineSection;
   }
 
-  Future<GEditRoutePayloadFragment> setSectionMobility({
+  Future<GEditRouteResult> setSectionMobility({
     required Id<Trip> tripId,
     required SectionId sectionId,
     required MobilityType mobilityType,

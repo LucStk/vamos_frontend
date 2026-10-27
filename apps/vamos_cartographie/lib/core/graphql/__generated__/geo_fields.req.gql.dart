@@ -12,11 +12,10 @@ import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gq
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
-class GLatLngFieldsReq
-    implements _i1.FragmentRequest<_i2.GLatLngFieldsData, Null> {
-  GLatLngFieldsReq({
+class GLatLngReq implements _i1.FragmentRequest<_i2.GLatLngData, Null> {
+  GLatLngReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'LatLngFields',
+    this.fragmentName = 'LatLng',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -29,22 +28,22 @@ class GLatLngFieldsReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.LatLngFields]);
+      _i3.DocumentNode(definitions: [_i4.LatLng]);
 
-  _i2.GLatLngFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GLatLngFieldsData.fromJson(json);
+  _i2.GLatLngData? parseData(Map<String, dynamic> json) =>
+      _i2.GLatLngData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GLatLngFieldsData data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GLatLngData data) => data.toJson();
 
-  GLatLngFieldsReq copyWith({
+  GLatLngReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GLatLngFieldsReq(
+    return GLatLngReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -56,7 +55,7 @@ class GLatLngFieldsReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GLatLngFieldsReq &&
+        (other is GLatLngReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -71,6 +70,6 @@ class GLatLngFieldsReq
 
   @override
   String toString() {
-    return 'GLatLngFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GLatLngReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }

@@ -67,8 +67,8 @@ class GUpdateTripReq
     _i6.UpdateTrip,
     _i7.StoredFile,
     _i7.FileAttachment,
-    _i8.TripFields,
-    _i9.UserProfileFields,
+    _i8.TripSummary,
+    _i9.UserProfileDetails,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -237,8 +237,8 @@ class GCreateBlankTripReq
     _i6.CreateBlankTrip,
     _i7.StoredFile,
     _i7.FileAttachment,
-    _i8.TripFields,
-    _i9.UserProfileFields,
+    _i8.TripSummary,
+    _i9.UserProfileDetails,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -568,10 +568,10 @@ class GSetTripOriginReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetTripOrigin,
-    _i10.RouteSectionFields,
-    _i10.TripRouteFields,
-    _i10.EditRoutePayloadFragment,
-    _i11.LatLngFields,
+    _i10.RouteSection,
+    _i10.TripRoute,
+    _i10.EditRouteResult,
+    _i11.LatLng,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

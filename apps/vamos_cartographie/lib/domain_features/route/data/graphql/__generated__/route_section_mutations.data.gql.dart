@@ -14,13 +14,13 @@ class GRefineSectionData {
 
   factory GRefineSectionData.fromJson(Map<String, dynamic> json) {
     return GRefineSectionData(
-      refineSection: _i1.GEditRoutePayloadFragmentData.fromJson(
+      refineSection: _i1.GEditRouteResultData.fromJson(
           (json['refineSection'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GEditRoutePayloadFragmentData refineSection;
+  final _i1.GEditRouteResultData refineSection;
 
   final String G__typename;
 
@@ -32,7 +32,7 @@ class GRefineSectionData {
   }
 
   GRefineSectionData copyWith({
-    _i1.GEditRoutePayloadFragmentData? refineSection,
+    _i1.GEditRouteResultData? refineSection,
     String? G__typename,
   }) {
     return GRefineSectionData(
@@ -68,13 +68,13 @@ class GSetSectionMobilityData {
 
   factory GSetSectionMobilityData.fromJson(Map<String, dynamic> json) {
     return GSetSectionMobilityData(
-      setSectionMobility: _i1.GEditRoutePayloadFragmentData.fromJson(
+      setSectionMobility: _i1.GEditRouteResultData.fromJson(
           (json['setSectionMobility'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GEditRoutePayloadFragmentData setSectionMobility;
+  final _i1.GEditRouteResultData setSectionMobility;
 
   final String G__typename;
 
@@ -86,7 +86,7 @@ class GSetSectionMobilityData {
   }
 
   GSetSectionMobilityData copyWith({
-    _i1.GEditRoutePayloadFragmentData? setSectionMobility,
+    _i1.GEditRouteResultData? setSectionMobility,
     String? G__typename,
   }) {
     return GSetSectionMobilityData(

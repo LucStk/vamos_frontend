@@ -10,7 +10,7 @@ abstract class WaypointRepository {
     required LatLng latLng,
   });
 
-  Future<Either<Failure, Iterable<WaypointPayload>>> getWaypoints(TripId id);
+  // Future<Either<Failure, Iterable<WaypointPayload>>> getWaypoints(TripId id);
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointRemoteModel waypoint,
   );

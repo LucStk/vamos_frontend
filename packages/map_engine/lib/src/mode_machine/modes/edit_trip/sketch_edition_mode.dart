@@ -2,6 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/sketch_trace.dart';
+import 'package:map_engine/src/mode_machine/command/route_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
@@ -48,6 +49,21 @@ final class SketchEdition extends TripEditableMode {
       : Transition.stay();
 
   // --- Intents ---
+  Transition<AppMode> validateExtensionSketch() => Transition.withSlot(
+    sketchTraceSlot,
+    (slot) => Transition.run(
+      ExtendRoute(
+        tripId: tripId,
+        geometry: slot.points,
+        mobilityType: slot.mobilityType,
+      ),
+      then: (route, data) => data.fold(
+        (failure) => Transition.stay(),
+        (data) => TripMode.open(tripId),
+      ),
+    ),
+  );
+
   static Transition<AppMode> start(TripId tripId, WorldOffset from) =>
       Transition.to<AppMode>(
         SketchEdition(tripId),

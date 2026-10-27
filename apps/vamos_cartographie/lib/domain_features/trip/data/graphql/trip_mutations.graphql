@@ -5,13 +5,13 @@
 
 mutation UpdateTrip($id: UUID!, $input: TripUpdateInput!) {
     updateTrip(input: $input, id: $id) {
-        ...TripFields
+        ...TripSummary
     }
 }
 
 mutation CreateBlankTrip($origin: LatLngInput) {
     createBlankTrip(origin: $origin) {
-        ...TripFields
+        ...TripSummary
     }
 }
 
@@ -21,6 +21,6 @@ mutation DeleteTrip($id: UUID!) {
 
 mutation SetTripOrigin($id: UUID!, $origin: LatLngInput!) {
     setTripOrigin(id: $id, origin: $origin) {
-        ...EditRoutePayloadFragment
+        ...EditRouteResult
     }
 }

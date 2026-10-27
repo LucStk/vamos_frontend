@@ -21,7 +21,7 @@ extension GeoPolygoneMapper on GeoPolygonDto {
   );
 }
 
-extension RouteSectionMapper on GRouteSectionFields {
+extension RouteSectionMapper on GRouteSection {
   RouteSectionRemoteModel toDomain() => RouteSectionRemoteModel(
     id: SectionId(id),
     startIndex: startIndex,
@@ -29,7 +29,7 @@ extension RouteSectionMapper on GRouteSectionFields {
   );
 }
 
-extension GTripRouteFieldsMapper on GTripRouteFields {
+extension GTripRouteFieldsMapper on GTripRoute {
   RoutePayload toDomain() {
     final r = RouteRemoteModel(
       startPoint: startPoint.toLatLng(),
@@ -44,21 +44,19 @@ extension GTripRouteFieldsMapper on GTripRouteFields {
   }
 }
 
-extension GEditRoutePayloadFragmetMapper on GEditRoutePayloadFragment {
+extension GEditRoutePayloadFragmetMapper on GEditRouteResult {
   Either<Failure, EditRoutePayload> toDomain() {
     return switch (this) {
-      final GEditRoutePayloadFragment__asEditRouteSuccess success =>
+      final GEditRouteResult__asEditRouteSuccess success =>
         Right<Failure, EditRoutePayload>(_toPayload(success)),
-      GEditRoutePayloadFragment__asEditRouteError(:final code) =>
+      GEditRouteResult__asEditRouteError(:final code) =>
         Left<Failure, EditRoutePayload>(_failureFor(code)),
       _ => Left<Failure, EditRoutePayload>(UnexpectedFailure()),
     };
   }
 }
 
-EditRoutePayload _toPayload(
-  GEditRoutePayloadFragment__asEditRouteSuccess data,
-) {
+EditRoutePayload _toPayload(GEditRouteResult__asEditRouteSuccess data) {
   final domain = data.trip.toDomain();
   return EditRoutePayload(route: domain.route, sections: domain.sections);
 }

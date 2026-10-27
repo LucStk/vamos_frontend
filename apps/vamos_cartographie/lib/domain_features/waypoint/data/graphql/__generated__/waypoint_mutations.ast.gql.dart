@@ -52,7 +52,7 @@ const UpdateWaypoint = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'WaypointFields'),
+          name: _i1.NameNode(value: 'WaypointDetails'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -114,7 +114,7 @@ const CreateBlankWaypointFromPosition = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'WaypointFields'),
+          name: _i1.NameNode(value: 'WaypointDetails'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -179,7 +179,7 @@ const document = _i1.DocumentNode(definitions: [
   _i2.StoredFile,
   _i2.FileAttachment,
   _i2.UploadConfigFields,
-  _i3.WaypointFields,
-  _i3.WaypointAnchorFields,
-  _i4.LatLngFields,
+  _i3.WaypointDetails,
+  _i3.WaypointAnchor,
+  _i4.LatLng,
 ]);

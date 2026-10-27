@@ -282,7 +282,7 @@ final class TripRequiredProvider extends $FunctionalProvider<Trip, Trip, Trip>
   }
 }
 
-String _$tripRequiredHash() => r'9361b633e25357e2a068ebe9eb0382373458ca13';
+String _$tripRequiredHash() => r'765c7f25f09ee970398fcd148920e929398f0a0c';
 
 final class TripRequiredFamily extends $Family
     with $FunctionalFamilyOverride<Trip, TripId> {

@@ -1,7 +1,7 @@
 #import "/core/graphql/geo_fields.graphql"
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
 
-fragment WaypointFields on WaypointType {
+fragment WaypointDetails on WaypointType {
     id
     anchorEdge
     anchorOffset
@@ -9,13 +9,13 @@ fragment WaypointFields on WaypointType {
     title
     description
     location {
-        ...LatLngFields
+        ...LatLng
     }
     files {
         ...FileAttachment
     }
 }
-fragment WaypointAnchorFields on WaypointType {
+fragment WaypointAnchor on WaypointType {
     id
     anchorEdge
     anchorOffset

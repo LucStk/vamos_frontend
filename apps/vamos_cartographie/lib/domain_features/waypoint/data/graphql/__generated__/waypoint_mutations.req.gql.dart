@@ -64,8 +64,8 @@ class GUpdateWaypointReq
     _i6.UpdateWaypoint,
     _i7.StoredFile,
     _i7.FileAttachment,
-    _i8.WaypointFields,
-    _i9.LatLngFields,
+    _i8.WaypointDetails,
+    _i9.LatLng,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -235,8 +235,8 @@ class GCreateBlankWaypointFromPositionReq
     _i6.CreateBlankWaypointFromPosition,
     _i7.StoredFile,
     _i7.FileAttachment,
-    _i8.WaypointFields,
-    _i9.LatLngFields,
+    _i8.WaypointDetails,
+    _i9.LatLng,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

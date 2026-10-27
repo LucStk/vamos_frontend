@@ -5,6 +5,7 @@ import 'package:map_engine/src/mode_machine/command/place_origin_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/explore/explore_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/context_menu.dart';
 import 'package:map_engine/src/mode_machine/overlay/origin_menu.dart';
 import 'package:map_engine/src/mode_machine/slots/slot.dart';
@@ -79,7 +80,7 @@ final class PlaceOriginMode extends AppMode {
       CreateTrip(origin),
       then: (_, data) => data.fold(
         (Failure f) => Transition.stay(),
-        (trip) => TripActiveMode.switchTo(trip.id),
+        (trip) => TripMode.open(trip.id),
       ),
     ),
     ExistingTrip() => Transition.stay(),

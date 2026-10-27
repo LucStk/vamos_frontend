@@ -11,18 +11,6 @@ class WaypointRepositoryImpl extends WaypointRepository {
   WaypointRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, Iterable<WaypointPayload>>> getWaypoints(
-    Id<Trip> tripId,
-  ) {
-    return guard(() async {
-      final waypoints = await remote.getWaypoints(tripId: tripId);
-      return waypoints.map(
-        (w) => WaypointPayload(waypoint: w.toDomain(), images: w.toImages()),
-      );
-    });
-  }
-
-  @override
   Future<Either<Failure, WaypointRemoteModel>> createBlankWaypoint({
     required TripId tripId,
     required LatLng latLng,

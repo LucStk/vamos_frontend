@@ -3,7 +3,7 @@ import 'package:user_profile_application/user_profile_application.dart';
 import '../../stored_file/data/mappers/stored_file_mappers.dart';
 import 'graphql/graphql.dart';
 
-extension GUserProfileFieldsDataMapper on GUserProfileFieldsData {
+extension GUserProfileFieldsDataMapper on GUserProfileDetailsData {
   UserProfile toUserProfileModel() {
     final profilePictureModel = (profilePicture == null)
         ? null

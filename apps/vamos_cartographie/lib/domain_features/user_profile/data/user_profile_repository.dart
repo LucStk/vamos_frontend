@@ -25,7 +25,7 @@ class UserProfileRepository {
 
     return res.fold((f) => Left(f), (data) {
       return switch (data) {
-        CreateProfileSuccessData(:final GUserProfileFieldsData profile) =>
+        CreateProfileSuccessData(:final GUserProfileDetailsData profile) =>
           Right(profile.toMeProfileModel()),
         CreateProfileErrorData(:final code) => switch (code) {
           GCreateProfileErrorCode.USERNAME_ALREADY_TAKEN => Left(

@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stor
 import 'package:vamos_cartographie/domain_features/waypoint/data/data.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/data/mappers/waypoint_enum_mapper.dart';
 
-extension GWaypointFieldsMapper on GWaypointFields {
+extension GWaypointFieldsMapper on GWaypointDetails {
   WaypointRemoteModel toDomain() => WaypointRemoteModel(
     id: WaypointId(id),
     position: location.toLatLng(),

@@ -71,7 +71,7 @@ class GGetMeData_me {
       id: (json['id'] as String),
       profile: json['profile'] == null
           ? null
-          : _i1.GUserProfileFieldsData.fromJson(
+          : _i1.GUserProfileDetailsData.fromJson(
               (json['profile'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
@@ -79,7 +79,7 @@ class GGetMeData_me {
 
   final String id;
 
-  final _i1.GUserProfileFieldsData? profile;
+  final _i1.GUserProfileDetailsData? profile;
 
   final String G__typename;
 
@@ -95,7 +95,7 @@ class GGetMeData_me {
 
   GGetMeData_me copyWith({
     String? id,
-    _i1.GUserProfileFieldsData? profile,
+    _i1.GUserProfileDetailsData? profile,
     bool profileIsSet = false,
     String? G__typename,
   }) {

@@ -14,11 +14,11 @@ import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__g
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
     as _i2;
 
-class GUserProfileFieldsReq
-    implements _i1.FragmentRequest<_i2.GUserProfileFieldsData, Null> {
-  GUserProfileFieldsReq({
+class GUserProfileDetailsReq
+    implements _i1.FragmentRequest<_i2.GUserProfileDetailsData, Null> {
+  GUserProfileDetailsReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'UserProfileFields',
+    this.fragmentName = 'UserProfileDetails',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -31,25 +31,25 @@ class GUserProfileFieldsReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.UserProfileFields,
+    _i4.UserProfileDetails,
     _i5.StoredFile,
   ]);
 
-  _i2.GUserProfileFieldsData? parseData(Map<String, dynamic> json) =>
-      _i2.GUserProfileFieldsData.fromJson(json);
+  _i2.GUserProfileDetailsData? parseData(Map<String, dynamic> json) =>
+      _i2.GUserProfileDetailsData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GUserProfileFieldsData data) =>
+  Map<String, dynamic> dataToJson(_i2.GUserProfileDetailsData data) =>
       data.toJson();
 
-  GUserProfileFieldsReq copyWith({
+  GUserProfileDetailsReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GUserProfileFieldsReq(
+    return GUserProfileDetailsReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -61,7 +61,7 @@ class GUserProfileFieldsReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GUserProfileFieldsReq &&
+        (other is GUserProfileDetailsReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -76,15 +76,15 @@ class GUserProfileFieldsReq
 
   @override
   String toString() {
-    return 'GUserProfileFieldsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GUserProfileDetailsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
 
-class GCreateProfilePayloadReq
-    implements _i1.FragmentRequest<_i2.GCreateProfilePayloadData, Null> {
-  GCreateProfilePayloadReq({
+class GCreateProfileResultReq
+    implements _i1.FragmentRequest<_i2.GCreateProfileResultData, Null> {
+  GCreateProfileResultReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'CreateProfilePayload',
+    this.fragmentName = 'CreateProfileResult',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -97,26 +97,26 @@ class GCreateProfilePayloadReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.UserProfileFields,
-    _i4.CreateProfilePayload,
+    _i4.UserProfileDetails,
+    _i4.CreateProfileResult,
     _i5.StoredFile,
   ]);
 
-  _i2.GCreateProfilePayloadData? parseData(Map<String, dynamic> json) =>
-      _i2.GCreateProfilePayloadData.fromJson(json);
+  _i2.GCreateProfileResultData? parseData(Map<String, dynamic> json) =>
+      _i2.GCreateProfileResultData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GCreateProfilePayloadData data) =>
+  Map<String, dynamic> dataToJson(_i2.GCreateProfileResultData data) =>
       data.toJson();
 
-  GCreateProfilePayloadReq copyWith({
+  GCreateProfileResultReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GCreateProfilePayloadReq(
+    return GCreateProfileResultReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -128,7 +128,7 @@ class GCreateProfilePayloadReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GCreateProfilePayloadReq &&
+        (other is GCreateProfileResultReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -143,6 +143,6 @@ class GCreateProfilePayloadReq
 
   @override
   String toString() {
-    return 'GCreateProfilePayloadReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GCreateProfileResultReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }

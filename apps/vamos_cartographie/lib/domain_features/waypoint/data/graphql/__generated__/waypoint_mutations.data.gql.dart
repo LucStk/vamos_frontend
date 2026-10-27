@@ -14,13 +14,13 @@ class GUpdateWaypointData {
 
   factory GUpdateWaypointData.fromJson(Map<String, dynamic> json) {
     return GUpdateWaypointData(
-      updateWaypoint: _i1.GWaypointFieldsData.fromJson(
+      updateWaypoint: _i1.GWaypointDetailsData.fromJson(
           (json['updateWaypoint'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GWaypointFieldsData updateWaypoint;
+  final _i1.GWaypointDetailsData updateWaypoint;
 
   final String G__typename;
 
@@ -32,7 +32,7 @@ class GUpdateWaypointData {
   }
 
   GUpdateWaypointData copyWith({
-    _i1.GWaypointFieldsData? updateWaypoint,
+    _i1.GWaypointDetailsData? updateWaypoint,
     String? G__typename,
   }) {
     return GUpdateWaypointData(
@@ -69,13 +69,13 @@ class GCreateBlankWaypointFromPositionData {
   factory GCreateBlankWaypointFromPositionData.fromJson(
       Map<String, dynamic> json) {
     return GCreateBlankWaypointFromPositionData(
-      createBlankWaypointFromPosition: _i1.GWaypointFieldsData.fromJson(
+      createBlankWaypointFromPosition: _i1.GWaypointDetailsData.fromJson(
           (json['createBlankWaypointFromPosition'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final _i1.GWaypointFieldsData createBlankWaypointFromPosition;
+  final _i1.GWaypointDetailsData createBlankWaypointFromPosition;
 
   final String G__typename;
 
@@ -88,7 +88,7 @@ class GCreateBlankWaypointFromPositionData {
   }
 
   GCreateBlankWaypointFromPositionData copyWith({
-    _i1.GWaypointFieldsData? createBlankWaypointFromPosition,
+    _i1.GWaypointDetailsData? createBlankWaypointFromPosition,
     String? G__typename,
   }) {
     return GCreateBlankWaypointFromPositionData(

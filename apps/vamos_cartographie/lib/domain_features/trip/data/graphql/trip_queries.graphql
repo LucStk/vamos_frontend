@@ -3,30 +3,30 @@
 
 query GetAllTrips {
     trips {
-        ...TripWithRouteFields
+        ...TripFull
     }
 }
 
 query GetTrip($id: UUID!) {
     trip(id: $id) {
-        ...TripFields
+        ...TripSummary
     }
 }
 query GetMeTrips() {
     meTrips() {
-        ...TripFields
+        ...TripSummary
     }
 }
 query GetUserTrips($id : UUID!) {
     userTrips(userId :$id) {
-        ...TripFields
+        ...TripSummary
     }
 }
 query GetTripDetails($id: UUID!) {
     trip(id: $id) {
-        ...TripFields
+        ...TripSummary
         waypoints {
-            ...WaypointFields
+            ...WaypointDetails
         }
 
     }

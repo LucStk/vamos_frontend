@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 
-abstract class GLatLngFields {
+abstract class GLatLng {
   double get lat;
   double get lng;
   String get G__typename;
 }
 
-class GLatLngFieldsData implements GLatLngFields {
-  const GLatLngFieldsData({
+class GLatLngData implements GLatLng {
+  const GLatLngData({
     required this.lat,
     required this.lng,
     this.G__typename = 'LatLngType',
   });
 
-  factory GLatLngFieldsData.fromJson(Map<String, dynamic> json) {
-    return GLatLngFieldsData(
+  factory GLatLngData.fromJson(Map<String, dynamic> json) {
+    return GLatLngData(
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
       G__typename: (json['__typename'] as String),
@@ -36,12 +36,12 @@ class GLatLngFieldsData implements GLatLngFields {
     return _$result;
   }
 
-  GLatLngFieldsData copyWith({
+  GLatLngData copyWith({
     double? lat,
     double? lng,
     String? G__typename,
   }) {
-    return GLatLngFieldsData(
+    return GLatLngData(
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
       G__typename: G__typename ?? this.G__typename,
@@ -51,7 +51,7 @@ class GLatLngFieldsData implements GLatLngFields {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GLatLngFieldsData &&
+        (other is GLatLngData &&
             lat == other.lat &&
             lng == other.lng &&
             G__typename == other.G__typename);
@@ -64,6 +64,6 @@ class GLatLngFieldsData implements GLatLngFields {
 
   @override
   String toString() {
-    return 'GLatLngFieldsData(lat: $lat, lng: $lng, G__typename: $G__typename)';
+    return 'GLatLngData(lat: $lat, lng: $lng, G__typename: $G__typename)';
   }
 }

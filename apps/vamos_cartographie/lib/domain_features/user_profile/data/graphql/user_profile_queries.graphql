@@ -3,7 +3,7 @@ query GetMe {
     me {
         id
         profile {
-            ...UserProfileFields
+            ...UserProfileDetails
         }
     }
 }

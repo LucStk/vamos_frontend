@@ -23,7 +23,7 @@ import 'package:vamos_cartographie/map/ui/map_ui.dart';
   cameraDirector,
 ])
 class MapScreen extends ConsumerStatefulWidget {
-  const MapScreen();
+  const MapScreen({super.key});
 
   @override
   ConsumerState<MapScreen> createState() => _MapScreenState();

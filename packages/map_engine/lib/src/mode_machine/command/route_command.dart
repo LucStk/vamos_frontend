@@ -1,7 +1,11 @@
+import 'package:dartz/dartz.dart';
+import 'package:domain_core/failures.dart';
 import 'package:domain_core/space/offset_type.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/domain/camera/map_camera.dart';
+import 'package:map_engine/src/mode_machine/app_scope.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
+import 'package:trip_application/trip_application.dart';
 
 extension ListWorldOffsetToListLatLng on List<WorldOffset> {
   List<LatLng> toLatLngList(MapCameraReader camera) =>
@@ -10,6 +14,52 @@ extension ListWorldOffsetToListLatLng on List<WorldOffset> {
 
 sealed class RouteCommand<R extends Object> extends Command<R> {
   const RouteCommand();
+}
+
+final class ExtendRoute
+    extends RouteCommand<Either<Failure, EditRoutePayload>> {
+  const ExtendRoute({
+    required this.tripId,
+    required this.geometry,
+    required this.mobilityType,
+  });
+  final TripId tripId;
+  final List<WorldOffset> geometry;
+  final MobilityType mobilityType;
+
+  @override
+  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async {
+    return await h
+        .forTrip(tripId)
+        .routeEditor
+        .extendRoute(
+          geometry: geometry.toLatLngList(h.camera),
+          mobilityType: mobilityType,
+        );
+  }
+}
+
+final class PrependRoute
+    extends RouteCommand<Either<Failure, EditRoutePayload>> {
+  const PrependRoute({
+    required this.tripId,
+    required this.geometry,
+    required this.mobilityType,
+  });
+  final TripId tripId;
+  final List<WorldOffset> geometry;
+  final MobilityType mobilityType;
+
+  @override
+  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async {
+    return await h
+        .forTrip(tripId)
+        .routeEditor
+        .prependRoute(
+          geometry: geometry.toLatLngList(h.camera),
+          mobilityType: mobilityType,
+        );
+  }
 }
 //
 // final class DeleteSection extends RouteCommand<Done> {
@@ -36,25 +86,6 @@ sealed class RouteCommand<R extends Object> extends Command<R> {
 //       RouteSectionPatchModel.fromFields(s).copyWith(mobilityType: type),
 //     );
 //     return const Done();
-//   }
-// }
-//
-// final class CreateRouteFromSketch
-//     extends RouteCommand<RouteSectionRemoteModel> {
-//   const CreateRouteFromSketch({
-//     required this.geometry,
-//     required this.mobilityType,
-//   });
-//   final List<WorldOffset> geometry;
-//   final MobilityType mobilityType;
-//
-//   @override
-//   Future<RouteSectionRemoteModel?> handle(TripEditScope h) async {
-//     final res = await h.routeEditor.createRoute(
-//       geometry: geometry.toLatLngList(h.camera),
-//       mobilityType: mobilityType,
-//     );
-//     return res.fold((_) => null, (d) => d.section);
 //   }
 // }
 
