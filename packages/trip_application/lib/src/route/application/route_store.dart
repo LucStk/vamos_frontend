@@ -51,7 +51,7 @@ class RouteStore {
   ) => remote.fold<GraphCollectionStore<RouteSectionFields>>(
     const GraphCollectionStore<RouteSectionFields>(),
     (acc, section) {
-      final existing = sectionStore.get(section.id as Id<RouteSectionFields>);
+      final existing = sectionStore.get(section.id);
       return acc.replaceNode(
         existing?.set(section) ??
             GraphNode<RouteSectionFields>.initial(section),

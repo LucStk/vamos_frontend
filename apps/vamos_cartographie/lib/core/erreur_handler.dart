@@ -4,10 +4,8 @@ import "package:domain_core/domain_core.dart";
 
 import 'package:stack_trace/stack_trace.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamos_cartographie/core/domain/domain.dart';
 import 'package:vamos_cartographie/core/errors/exceptions_mappers/exceptions_mappers.dart';
 import 'package:vamos_cartographie/core/errors/exceptions_mappers/graphql_error_mapper.dart';
-import 'package:vamos_cartographie/core/injection/notification_provider.dart';
 
 Future<Either<Failure, T>> guard<T>(
   Future<T> Function() action, {
@@ -47,19 +45,19 @@ class ErrorHandler implements ErrorLogger {
     if (stackTrace != null) {
       // Convertit en objet Trace puis prend les 15 premiers frames
       final trace = Trace.from(stackTrace);
-      final limitedTrace = Trace(trace.frames.take(15));
+      final limitedTrace = Trace(trace.frames.take(6));
 
       debugPrint('Erreur capturée : $error ->\n$limitedTrace');
     } else {
       debugPrint('Erreur capturée : $error -> Pas de StackTrace');
     }
     // 2. Déclenche la notification système via Riverpod
-    _container
-        .read(notificationQueueProvider.notifier)
-        .show(
-          message: 'Une erreur inattendue est survenue : $error',
-          type: NotificationType.error,
-          duration: const Duration(seconds: 5),
-        );
+    // _container
+    //     .read(notificationQueueProvider.notifier)
+    //     .show(
+    //       message: 'Une erreur inattendue est survenue : $error',
+    //       type: NotificationType.error,
+    //       duration: const Duration(seconds: 5),
+    //     );
   }
 }

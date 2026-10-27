@@ -1,11 +1,8 @@
 part of "map_objects.dart";
 
 final class MapTrip extends MapObject {
-  const MapTrip(this.id, {this.isOwned = false});
+  const MapTrip(this.id);
   final TripId id;
-
-  /// Calculé par le provider de la scène (ownerId == currentUserId).
-  final bool isOwned;
 
   // Identité = le trip, pas le droit d'édition.
   @override
