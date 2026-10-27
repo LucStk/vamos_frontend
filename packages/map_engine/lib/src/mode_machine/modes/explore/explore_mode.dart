@@ -28,6 +28,4 @@ class ExploreMode extends AppMode {
 
   static Transition<AppMode> selectTrip(MapTrip trip) =>
       Transition.set(selectionSlot, trip);
-
-  static Transition<AppMode> switchTo() => Transition.to(ExploreMode());
 }

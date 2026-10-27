@@ -8,6 +8,10 @@ sealed class TripEntry {
   const TripEntry();
 }
 
+final class TripUnavailable extends TripEntry {
+  const TripUnavailable();
+}
+
 final class TripReadOnly extends TripEntry {
   const TripReadOnly();
 }
@@ -27,6 +31,9 @@ final class ResolveTripEntry extends Command<TripEntry> {
 
   @override
   Future<TripEntry> handle(AppCommandScope n) async {
+    if (await n.forTrip(tripId).ensureTripLoaded() != null) {
+      return const TripUnavailable();
+    }
     final trip = n.forTrip(tripId).trip;
     final userId = n.currentUserId;
 

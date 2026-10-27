@@ -6,11 +6,11 @@
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 
-class GGetTripVars {
-  const GGetTripVars({required this.id});
+class GGetTripBundleVars {
+  const GGetTripBundleVars({required this.id});
 
-  factory GGetTripVars.fromJson(Map<String, dynamic> json) {
-    return GGetTripVars(id: (json['id'] as String));
+  factory GGetTripBundleVars.fromJson(Map<String, dynamic> json) {
+    return GGetTripBundleVars(id: (json['id'] as String));
   }
 
   final String id;
@@ -22,14 +22,14 @@ class GGetTripVars {
     return _$result;
   }
 
-  GGetTripVars copyWith({String? id}) {
-    return GGetTripVars(id: id ?? this.id);
+  GGetTripBundleVars copyWith({String? id}) {
+    return GGetTripBundleVars(id: id ?? this.id);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetTripVars &&
+        (other is GGetTripBundleVars &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -40,15 +40,15 @@ class GGetTripVars {
 
   @override
   String toString() {
-    return 'GGetTripVars(id: $id)';
+    return 'GGetTripBundleVars(id: $id)';
   }
 }
 
-class GGetUserTripsVars {
-  const GGetUserTripsVars({required this.id});
+class GGetTripSummaryVars {
+  const GGetTripSummaryVars({required this.id});
 
-  factory GGetUserTripsVars.fromJson(Map<String, dynamic> json) {
-    return GGetUserTripsVars(id: (json['id'] as String));
+  factory GGetTripSummaryVars.fromJson(Map<String, dynamic> json) {
+    return GGetTripSummaryVars(id: (json['id'] as String));
   }
 
   final String id;
@@ -60,14 +60,14 @@ class GGetUserTripsVars {
     return _$result;
   }
 
-  GGetUserTripsVars copyWith({String? id}) {
-    return GGetUserTripsVars(id: id ?? this.id);
+  GGetTripSummaryVars copyWith({String? id}) {
+    return GGetTripSummaryVars(id: id ?? this.id);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetUserTripsVars &&
+        (other is GGetTripSummaryVars &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -78,15 +78,15 @@ class GGetUserTripsVars {
 
   @override
   String toString() {
-    return 'GGetUserTripsVars(id: $id)';
+    return 'GGetTripSummaryVars(id: $id)';
   }
 }
 
-class GGetTripDetailsVars {
-  const GGetTripDetailsVars({required this.id});
+class GGetUserTripsSummaryVars {
+  const GGetUserTripsSummaryVars({required this.id});
 
-  factory GGetTripDetailsVars.fromJson(Map<String, dynamic> json) {
-    return GGetTripDetailsVars(id: (json['id'] as String));
+  factory GGetUserTripsSummaryVars.fromJson(Map<String, dynamic> json) {
+    return GGetUserTripsSummaryVars(id: (json['id'] as String));
   }
 
   final String id;
@@ -98,14 +98,14 @@ class GGetTripDetailsVars {
     return _$result;
   }
 
-  GGetTripDetailsVars copyWith({String? id}) {
-    return GGetTripDetailsVars(id: id ?? this.id);
+  GGetUserTripsSummaryVars copyWith({String? id}) {
+    return GGetUserTripsSummaryVars(id: id ?? this.id);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetTripDetailsVars &&
+        (other is GGetUserTripsSummaryVars &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -116,6 +116,6 @@ class GGetTripDetailsVars {
 
   @override
   String toString() {
-    return 'GGetTripDetailsVars(id: $id)';
+    return 'GGetUserTripsSummaryVars(id: $id)';
   }
 }

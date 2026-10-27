@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:domain_core/domain_core.dart';
-import 'package:trip_application/trip_application.dart';
-
 import 'package:go_router/go_router.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/injection.dart';
 
 /// Contient un bouton retour en capsule et un titre centré.
-class MapTopBar extends ConsumerWidget {
-  final Id<Trip> tripId;
+class MapTopBar extends StatelessWidget {
+  final String? title;
 
-  const MapTopBar({super.key, required this.tripId});
+  const MapTopBar({super.key, required this.title});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final title = ref.watch(tripProvider(tripId).select((s) => s?.title));
 
     final boxShadow = [
       BoxShadow(

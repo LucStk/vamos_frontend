@@ -1,33 +1,29 @@
 #import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
 #import "trip_fields.graphql"
 
-query GetAllTrips {
+query GetAllTripBundles {
     trips {
         ...TripFull
     }
 }
+query GetTripBundle($id: UUID!) {
+    trip(id: $id) {
+        ...TripFull
+    }
+}
 
-query GetTrip($id: UUID!) {
+query GetTripSummary($id: UUID!) {
     trip(id: $id) {
         ...TripSummary
     }
 }
-query GetMeTrips() {
+query GetMeTripsSummary() {
     meTrips() {
         ...TripSummary
     }
 }
-query GetUserTrips($id : UUID!) {
+query GetUserTripsSummary($id : UUID!) {
     userTrips(userId :$id) {
         ...TripSummary
-    }
-}
-query GetTripDetails($id: UUID!) {
-    trip(id: $id) {
-        ...TripSummary
-        waypoints {
-            ...WaypointDetails
-        }
-
     }
 }

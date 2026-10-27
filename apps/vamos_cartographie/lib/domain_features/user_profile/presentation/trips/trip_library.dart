@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:stored_file_application/stored_file_application.dart';
-import "trip_card.dart";
-import 'create_trip_card.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/create_trip_card.dart';
+import 'package:vamos_cartographie/map/ui/features/trip/card/trip_card.dart';
 
 class TripLibrary extends StatelessWidget {
   const TripLibrary({
@@ -12,7 +11,7 @@ class TripLibrary extends StatelessWidget {
     required this.onCreateTrip,
   });
 
-  final List<(Trip, List<StoredFileRemoteModel>)> trips;
+  final List<TripSummary> trips;
   final ValueChanged<Trip> onOpenTrip;
   final VoidCallback onCreateTrip;
 
@@ -55,11 +54,10 @@ class TripLibrary extends StatelessWidget {
               if (index == 0) {
                 cardContent = CreateTripCard(onTap: onCreateTrip);
               } else {
-                final (trip, images) = trips[index - 1];
+                final summary = trips[index - 1];
                 cardContent = TripCard(
-                  trip: trip,
-                  images: images,
-                  onTap: () => onOpenTrip(trip),
+                  tripSummary: summary,
+                  onTap: () => onOpenTrip(summary.trip),
                 );
               }
 

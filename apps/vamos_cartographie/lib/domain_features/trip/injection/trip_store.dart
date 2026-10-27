@@ -3,6 +3,7 @@ import "package:riverpod/riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:trip_application/trip_application.dart";
 import "package:vamos_cartographie/domain_features/auth/providers/providers.dart";
+import "package:vamos_cartographie/domain_features/stored_file/injection/injection.dart";
 
 import "/core/injection/error_logger.dart";
 import "/core/injection/mutation_queue_provider.dart";
@@ -60,4 +61,12 @@ bool isTripOwned(Ref ref, TripId tripId) {
   final userId = ref.watch(currentUserIdProvider);
   final ownerId = ref.watch(tripProvider(tripId).select((t) => t?.ownerId));
   return userId != null && ownerId != null && ownerId.value == userId;
+}
+
+@Riverpod(keepAlive: true)
+TripSummary tripSummary(Ref ref, TripId tripId) {
+  return TripSummary(
+    trip: ref.watch(tripRequiredProvider(tripId)),
+    storedFiles: ref.watch(tripImagesProvider(tripId)),
+  );
 }

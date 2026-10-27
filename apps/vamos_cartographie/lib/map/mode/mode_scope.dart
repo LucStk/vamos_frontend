@@ -9,6 +9,8 @@ import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_data_loader.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 
@@ -40,6 +42,10 @@ final class _TripScope implements TripScope {
   const _TripScope(this._ref, this.tripId);
   final Ref _ref;
   final TripId tripId;
+  // _AppCommandScope
+  @override
+  Future<Failure?> ensureTripLoaded() =>
+      _ref.read(ensureTripLoadedProvider(tripId).future);
 
   @override
   Trip get trip => _ref.read(tripRequiredProvider(tripId));

@@ -5,7 +5,6 @@ import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/map_point_menu.dart';
 import 'package:map_engine/src/mode_machine/overlay/origin_menu.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
-import 'package:trip_application/trip_application.dart';
 
 abstract class TripEditableMode extends TripMode {
   const TripEditableMode(super.tripId);
@@ -34,8 +33,6 @@ final class TripActiveMode extends TripEditableMode {
   /// Appelé quand on touche la carte.
   Transition<AppMode> onCardTap() =>
       Transition.to<AppMode>(TripValidatingMode(tripId));
-  static Transition<AppMode> switchTo(TripId tripId) =>
-      Transition.to(TripActiveMode(tripId));
 }
 
 /// Transitoire : l'édition est terminée, le serveur valide.

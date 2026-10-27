@@ -87,7 +87,8 @@ final class PlaceOriginMode extends AppMode {
   };
 
   Transition<AppMode> cancel() => switch (target) {
-    NewTrip() => ExploreMode.switchTo(),
-    ExistingTrip(:final tripId) => TripActiveMode.switchTo(tripId),
+    NewTrip() => Transition.to(ExploreMode()),
+
+    ExistingTrip(:final tripId) => Transition.to(TripActiveMode(tripId)),
   };
 }

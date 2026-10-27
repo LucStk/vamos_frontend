@@ -1,41 +1,91 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:stored_file_application/application/stored_file_store.dart';
-import 'package:stored_file_application/domain/stored_file_model.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:user_profile_application/application/application.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:user_profile_application/application/application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
+import 'package:vamos_cartographie/domain_features/stored_file/helpers/bulk_upserts.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 
 part 'trip_data_loader.g.dart';
 
-@riverpod
-Future<Failure?> loadTripsNotifier(Ref ref) async {
-  final tripRepo = ref.watch(tripRepositoryProvider);
-  final res = await tripRepo.getAllTrips();
+typedef StoredFilesByTrip = List<TripSummary>;
 
-  return res.fold((Failure f) => f, (data) {
-    var newProfileStore = ProfileStore.initial();
-    var newStore = TripStore.initial();
-    final filesByOwner = <(Id, Iterable<StoredFileFields>)>[];
+/// État accumulé pendant l'ingestion d'un lot de trips.
+typedef IngestState = ({
+  ProfileStore profiles,
+  TripStore trips,
+  StoredFilesByTrip files,
+});
 
-    for (final (trip, user, listImages, route, section) in data) {
-      newProfileStore = newProfileStore.insertProfile(user);
-      newStore = newStore.insertTrip(trip);
-      filesByOwner.add((trip.id, listImages));
-      ref
-          .read(routeStoreProvider(trip.id).notifier)
-          .emit(RouteStore.fromRemote(route: route, sections: section));
-    }
+/// Ajoute un bundle à l'état accumulé. Pure : ne touche à aucun provider.
+/// `files` est mutée volontairement (évite une copie par trip).
+IngestState ingestTrip(IngestState state, TripBundle bundle) {
+  state.files.add(bundle.tripSummary);
+  return (
+    profiles: state.profiles.insertProfile(bundle.user),
+    trips: state.trips.insertTrip(bundle.tripSummary.trip),
+    files: state.files,
+  );
+}
 
-    ref.read(tripStoreProvider.notifier).emit(newStore);
+/// Fusionne les bundles dans les stores existants (n'écrase rien d'autre).
+void ingestTrips(Ref ref, Iterable<TripBundle> bundles) {
+  var state = (
+    profiles: ref.read(profileStoreProvider),
+    trips: ref.read(tripStoreProvider),
+    files: <TripSummary>[],
+  );
+
+  for (final bundle in bundles) {
+    state = ingestTrip(state, bundle);
+
+    // Famille indexée par tripId : un notifier par trip, donc hors de l'accumulateur.
     ref
-        .read(storedFileStoreProvider.notifier)
+        .read(routeStoreProvider(bundle.tripSummary.trip.id).notifier)
         .emit(
-          ref.read(storedFileStoreProvider).upsertRemoteFiles(filesByOwner),
+          RouteStore.fromRemote(
+            route: bundle.route,
+            sections: bundle.routeSections,
+          ),
         );
-    ref.read(profileStoreProvider.notifier).emit(newProfileStore);
+  }
+
+  // Une seule émission par store, après la boucle.
+  ref.read(tripStoreProvider.notifier).emit(state.trips);
+  ref.read(profileStoreProvider.notifier).emit(state.profiles);
+  ref
+      .read(storedFileStoreProvider.notifier)
+      .emit(ref.read(storedFileStoreProvider).upsertRemoteFiles(state.files));
+}
+
+@riverpod
+Future<Failure?> loadTrips(Ref ref) async {
+  final res = await ref.watch(tripRepositoryProvider).getAllTripBundles();
+  return res.fold((f) => f, (data) {
+    ingestTrips(ref, data);
     return null;
   });
+}
+
+@riverpod
+Future<Failure?> ensureTripLoaded(Ref ref, TripId tripId) async {
+  final hasTrip = ref.read(tripProvider(tripId)) != null;
+  final hasRoute = ref.read(routeStoreProvider(tripId)).route != null;
+  if (hasTrip && hasRoute) return null; // rien à faire
+
+  final link = ref.keepAlive(); // dédoublonne les appels concurrents
+  final res = await ref.read(tripRepositoryProvider).getTripBundle(tripId);
+
+  return res.fold(
+    (f) {
+      link.close(); // échec : pas de mémo, le prochain appel réessaie
+      return f;
+    },
+    (bundle) {
+      ingestTrips(ref, [bundle]);
+      return null; // succès : mémorisé tant que le provider reste vivant
+    },
+  );
 }

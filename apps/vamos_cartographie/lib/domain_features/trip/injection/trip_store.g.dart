@@ -418,3 +418,80 @@ final class IsTripOwnedFamily extends $Family
   @override
   String toString() => r'isTripOwnedProvider';
 }
+
+@ProviderFor(tripSummary)
+final tripSummaryProvider = TripSummaryFamily._();
+
+final class TripSummaryProvider
+    extends $FunctionalProvider<TripSummary, TripSummary, TripSummary>
+    with $Provider<TripSummary> {
+  TripSummaryProvider._({
+    required TripSummaryFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'tripSummaryProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$tripSummaryHash();
+
+  @override
+  String toString() {
+    return r'tripSummaryProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<TripSummary> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  TripSummary create(Ref ref) {
+    final argument = this.argument as TripId;
+    return tripSummary(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TripSummary value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TripSummary>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TripSummaryProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$tripSummaryHash() => r'4c79552849b48ba5b9d8e6c3e1ed87aa2653d5f0';
+
+final class TripSummaryFamily extends $Family
+    with $FunctionalFamilyOverride<TripSummary, TripId> {
+  TripSummaryFamily._()
+    : super(
+        retry: null,
+        name: r'tripSummaryProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  TripSummaryProvider call(TripId tripId) =>
+      TripSummaryProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'tripSummaryProvider';
+}

@@ -15,11 +15,13 @@ final myTripsProvider = MyTripsProvider._();
 final class MyTripsProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<UserTrip>>,
-          List<UserTrip>,
-          FutureOr<List<UserTrip>>
+          AsyncValue<List<TripSummary>>,
+          List<TripSummary>,
+          FutureOr<List<TripSummary>>
         >
-    with $FutureModifier<List<UserTrip>>, $FutureProvider<List<UserTrip>> {
+    with
+        $FutureModifier<List<TripSummary>>,
+        $FutureProvider<List<TripSummary>> {
   MyTripsProvider._()
     : super(
         from: null,
@@ -36,14 +38,14 @@ final class MyTripsProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<UserTrip>> $createElement(
+  $FutureProviderElement<List<TripSummary>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<UserTrip>> create(Ref ref) {
+  FutureOr<List<TripSummary>> create(Ref ref) {
     return myTrips(ref);
   }
 }
 
-String _$myTripsHash() => r'fd1fa5f3302038799f05e4ab885c508b8ef7c206';
+String _$myTripsHash() => r'57b5caa43244fceb3cefd1f0e08bce78d3085032';

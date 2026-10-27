@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
 import 'package:vamos_cartographie/core/erreur_handler.dart';
@@ -30,47 +29,69 @@ class TripRepositoryImpl extends TripRepository {
         final userProfile = gqlTrip.owner.toUserProfileModel();
         final route = gqlTrip.toRouteDomain();
         final sections = gqlTrip.toSections();
-        return (trip, userProfile, images, route, sections);
+        return TripBundle(
+          user: userProfile,
+          tripSummary: TripSummary(trip: trip, storedFiles: images),
+          route: route,
+          routeSections: sections,
+        );
       }).toList();
     });
   }
 
   @override
-  Future<Either<Failure, List<TripBundle>>> getMeTrips() {
+  Future<Either<Failure, TripBundle>> getTripBundle(TripId tripId) {
+    return guard(() async {
+      final data = (await remote.getTripBundle(tripId: tripId));
+      final trip = data.toTripDomain();
+      final images = data.files.map((file) => file.toDomain()).toList();
+      final userProfile = data.owner.toUserProfileModel();
+      final route = data.toRouteDomain();
+      final sections = data.toSections();
+      return TripBundle(
+        user: userProfile,
+        tripSummary: TripSummary(trip: trip, storedFiles: images),
+        route: route,
+        routeSections: sections,
+      );
+    });
+  }
+
+  @override
+  Future<Either<Failure, List<TripSummary>>> getMeTripsSummary() {
     return guard(() async {
       final response = await remote.getMeTrips();
       return response.meTrips.map((gqlTrip) {
         final trip = gqlTrip.toDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
-        return (trip, images);
+        return TripSummary(trip: trip, storedFiles: images);
       }).toList();
     });
   }
 
   @override
-  Future<Either<Failure, List<(Trip, List<StoredFileRemoteModel>)>>>
-  getUserTrips(UserId id) {
+  Future<Either<Failure, List<TripSummary>>> getUserTripsSummary(UserId id) {
     return guard(() async {
       final response = await remote.getUserTrips(id);
-      return response.userTrips.map((gqlTrip) {
+      return response.map((gqlTrip) {
         final trip = gqlTrip.toDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
-        return (trip, images);
+        return TripSummary(trip: trip, storedFiles: images);
       }).toList();
     });
   }
 
-  @override
-  Future<Either<Failure, (Trip, List<StoredFileRemoteModel>)>> getTrip(
-    Id<Trip> id,
-  ) {
-    return guard(() async {
-      final gqlTrip = await remote.getTripById(id: id);
-      final trip = gqlTrip.toDomain();
-      final images = gqlTrip.files.map((file) => file.file.toDomain()).toList();
-      return (trip, images);
-    });
-  }
+  // @override
+  // Future<Either<Failure, (Trip, List<StoredFileRemoteModel>)>> getTrip(
+  //   Id<Trip> id,
+  // ) {
+  //   return guard(() async {
+  //     final gqlTrip = await remote.getTripById(id: id);
+  //     final trip = gqlTrip.toDomain();
+  //     final images = gqlTrip.files.map((file) => file.file.toDomain()).toList();
+  //     return (trip, images);
+  //   });
+  // }
 
   // ---------------------------------------------------------------------------
   // Mutations

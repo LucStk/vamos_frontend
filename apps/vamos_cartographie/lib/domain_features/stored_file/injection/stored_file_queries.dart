@@ -2,7 +2,8 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:stored_file_application/stored_file_application.dart';
-import 'stored_file_provider.dart';
+import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/stored_file/injection/stored_file_provider.dart';
 
 part 'stored_file_queries.g.dart';
 
@@ -22,4 +23,12 @@ GraphNode<StoredFileFields> storedFileNode(Ref ref, StoredFileId fileId) {
 @riverpod
 StoredFileFields storeFile(Ref ref, StoredFileId fileId) {
   return ref.watch(storedFileNodeProvider(fileId).select((e) => e.current));
+}
+
+@riverpod
+List<StoredFileFields> tripImages(Ref ref, TripId tripId) {
+  final listIds = ref.watch(
+    storedFileStoreProvider.select((e) => e.getFromOwner(tripId)),
+  );
+  return listIds.map((s) => ref.watch(storeFileProvider(s))).toList();
 }

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_picker.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/injection.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/ui/features/trip/widgets/trip_section_label.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/cancel_button.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/confirm_button.dart';

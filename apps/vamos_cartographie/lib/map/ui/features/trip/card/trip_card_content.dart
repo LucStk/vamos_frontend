@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 
 class TripCardContent extends StatelessWidget {
-  final Trip trip;
-  const TripCardContent({super.key, required this.trip});
+  final TripSummary tripSummary;
+  const TripCardContent({super.key, required this.tripSummary});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final trip = tripSummary.trip;
 
     final title = trip.title.trim().isEmpty ? 'Sans titre' : trip.title.trim();
     final hasDate = trip.date != null;

@@ -15,11 +15,13 @@ final userTripsProvider = UserTripsFamily._();
 final class UserTripsProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<UserTrip>>,
-          List<UserTrip>,
-          FutureOr<List<UserTrip>>
+          AsyncValue<List<TripSummary>>,
+          List<TripSummary>,
+          FutureOr<List<TripSummary>>
         >
-    with $FutureModifier<List<UserTrip>>, $FutureProvider<List<UserTrip>> {
+    with
+        $FutureModifier<List<TripSummary>>,
+        $FutureProvider<List<TripSummary>> {
   UserTripsProvider._({
     required UserTripsFamily super.from,
     required UserId super.argument,
@@ -43,12 +45,12 @@ final class UserTripsProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<UserTrip>> $createElement(
+  $FutureProviderElement<List<TripSummary>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<UserTrip>> create(Ref ref) {
+  FutureOr<List<TripSummary>> create(Ref ref) {
     final argument = this.argument as UserId;
     return userTrips(ref, argument);
   }
@@ -64,10 +66,10 @@ final class UserTripsProvider
   }
 }
 
-String _$userTripsHash() => r'0e9f733781c393813ca84c56838fab4155d9349e';
+String _$userTripsHash() => r'70421467f980e8c5f55595ed7d13169c83f6751d';
 
 final class UserTripsFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<UserTrip>>, UserId> {
+    with $FunctionalFamilyOverride<FutureOr<List<TripSummary>>, UserId> {
   UserTripsFamily._()
     : super(
         retry: null,

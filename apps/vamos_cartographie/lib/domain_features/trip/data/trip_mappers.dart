@@ -11,7 +11,7 @@ import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dar
 /// GraphQL -> Domain
 /// ---------------------------------------------------------------------------
 
-extension GTripFieldsMapper on GTripSummaryData {
+extension GTripFieldsMapper on GTripSummary {
   Trip toDomain() => Trip(
     id: Id<Trip>(id),
     ownerId: UserId(owner.id),

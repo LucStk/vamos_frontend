@@ -26,41 +26,39 @@ class TripRemoteDatasource {
 
   /// Récupère la liste de tous les trips (champs de base uniquement,
   /// sans waypoints ni segments).
-  Future<GGetAllTripsData> getAllTrips() async {
+  Future<GGetAllTripBundlesData> getAllTrips() async {
     final data = await ferryClient.execute(
-      GGetAllTripsReq(fetchPolicy: FetchPolicy.NetworkOnly),
+      GGetAllTripBundlesReq(fetchPolicy: FetchPolicy.NetworkOnly),
     );
 
     return data;
   }
 
-  Future<GGetMeTripsData> getMeTrips() async {
+  Future<GGetMeTripsSummaryData> getMeTrips() async {
     final data = await ferryClient.execute(
-      GGetMeTripsReq(fetchPolicy: FetchPolicy.NetworkOnly),
+      GGetMeTripsSummaryReq(fetchPolicy: FetchPolicy.NetworkOnly),
     );
     return data;
   }
 
-  Future<GGetUserTripsData> getUserTrips(UserId id) async {
+  Future<List<GTripSummaryData>> getUserTrips(UserId id) async {
     final data = await ferryClient.execute(
-      GGetUserTripsReq(vars: GGetUserTripsVars(id: id.value)),
+      GGetUserTripsSummaryReq(vars: GGetUserTripsSummaryVars(id: id.value)),
     );
-    return data;
+    return data.userTrips;
   }
 
   /// Récupère un trip complet (avec waypoints et segments) par son [id].
-  Future<GTripFieldsData> getTripById({required Id<Trip> id}) async {
+  Future<GTripSummaryData> getTripSummary({required TripId tripId}) async {
     final data = await ferryClient.execute(
-      GGetTripReq(vars: GGetTripVars(id: id.value)),
+      GGetTripSummaryReq(vars: GGetTripSummaryVars(id: tripId.value)),
     );
     return data.trip;
   }
 
-  Future<GGetTripDetailsData_trip> getTripDetails({
-    required Id<Trip> id,
-  }) async {
+  Future<GTripFullData> getTripBundle({required TripId tripId}) async {
     final data = await ferryClient.execute(
-      GGetTripDetailsReq(vars: GGetTripDetailsVars(id: id.value)),
+      GGetTripBundleReq(vars: GGetTripBundleVars(id: tripId.value)),
     );
 
     return data.trip;
@@ -69,7 +67,7 @@ class TripRemoteDatasource {
   // Mutations
   // ---------------------------------------------------------------------------
 
-  Future<GTripFields> createBlankTrip(LatLng latLng) async {
+  Future<GTripSummary> createBlankTrip(LatLng latLng) async {
     final data = await ferryClient.execute(
       GCreateBlankTripReq(
         vars: GCreateBlankTripVars(origin: Value.present(latLng.toGQLInput())),
@@ -80,7 +78,7 @@ class TripRemoteDatasource {
 
   /// Met à jour un trip existant identifié par [id] avec les données fournies
   /// dans [input]. Retourne le trip mis à jour (avec waypoints et segments).
-  Future<GTripFields> updateTrip({
+  Future<GTripSummary> updateTrip({
     required Id<Trip> id,
     required GTripUpdateInput input,
   }) async {
@@ -100,7 +98,7 @@ class TripRemoteDatasource {
     );
   }
 
-  Future<GEditRoutePayloadFragment> setTripOrigin({
+  Future<GEditRouteResult> setTripOrigin({
     required Id<Trip> id,
     required LatLng origin,
   }) async {

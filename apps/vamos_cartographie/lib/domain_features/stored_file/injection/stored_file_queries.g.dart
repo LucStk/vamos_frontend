@@ -173,3 +173,86 @@ final class StoreFileFamily extends $Family
   @override
   String toString() => r'storeFileProvider';
 }
+
+@ProviderFor(tripImages)
+final tripImagesProvider = TripImagesFamily._();
+
+final class TripImagesProvider
+    extends
+        $FunctionalProvider<
+          List<StoredFileFields>,
+          List<StoredFileFields>,
+          List<StoredFileFields>
+        >
+    with $Provider<List<StoredFileFields>> {
+  TripImagesProvider._({
+    required TripImagesFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'tripImagesProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$tripImagesHash();
+
+  @override
+  String toString() {
+    return r'tripImagesProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<StoredFileFields>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  List<StoredFileFields> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return tripImages(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<StoredFileFields> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<StoredFileFields>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TripImagesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$tripImagesHash() => r'75fd1b6e82a9ba575e808a642b6e47c15e7cfa84';
+
+final class TripImagesFamily extends $Family
+    with $FunctionalFamilyOverride<List<StoredFileFields>, TripId> {
+  TripImagesFamily._()
+    : super(
+        retry: null,
+        name: r'tripImagesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  TripImagesProvider call(TripId tripId) =>
+      TripImagesProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'tripImagesProvider';
+}

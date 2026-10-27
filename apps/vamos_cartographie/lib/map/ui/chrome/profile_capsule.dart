@@ -1,19 +1,12 @@
-import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
-import "/domain_features/user_profile/user_profile.dart";
 
-class ProfileCapsule extends ConsumerWidget {
-  const ProfileCapsule({super.key, required this.userId});
-  final UserId userId;
+class ProfileCapsule extends StatelessWidget {
+  const ProfileCapsule({super.key, required this.profil});
+  final UserProfile profil;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final profil = ref.watch(userProfileProvider(userId));
+  Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    if (profil == null) {
-      throw NotFoundFailure(resourceId: userId.value, resourceType: "profile");
-    }
     final imageUrl = profil.profilePictureUrl;
     return Material(
       color: Theme.of(context).colorScheme.primaryContainer,

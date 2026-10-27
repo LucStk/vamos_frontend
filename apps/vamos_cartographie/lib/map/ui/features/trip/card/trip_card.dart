@@ -1,33 +1,25 @@
-import 'package:domain_core/domain/collection_store.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/ui/features/trip/card/trip_card_content.dart';
 
-class TripCard extends ConsumerWidget {
-  const TripCard({super.key, required this.tripId});
+class TripCard extends StatelessWidget {
+  const TripCard({super.key, required this.tripSummary, required this.onTap});
 
-  final TripId tripId;
+  final TripSummary tripSummary;
+  final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tripStore = ref.watch(tripStoreProvider).tripStore;
-    final trip = tripStore.get(tripId);
-
-    if (trip == null) {
-      return const SizedBox.shrink();
-    }
-
+  Widget build(BuildContext context) {
     return Material(
       elevation: 2,
       borderRadius: BorderRadius.circular(16),
       color: Theme.of(context).colorScheme.surfaceContainer,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: TripCardContent(trip: trip),
+          child: TripCardContent(tripSummary: tripSummary),
         ),
       ),
     );

@@ -5,23 +5,17 @@
 
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
-    as _i2;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
     as _i1;
-import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
-    as _i3;
-import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.data.gql.dart'
-    as _i4;
 
-class GGetAllTripsData {
-  const GGetAllTripsData({
+class GGetAllTripBundlesData {
+  const GGetAllTripBundlesData({
     required this.trips,
     this.G__typename = 'Query',
   });
 
-  factory GGetAllTripsData.fromJson(Map<String, dynamic> json) {
-    return GGetAllTripsData(
+  factory GGetAllTripBundlesData.fromJson(Map<String, dynamic> json) {
+    return GGetAllTripBundlesData(
       trips: (json['trips'] as List<dynamic>)
           .map((_$e) =>
               _i1.GTripFullData.fromJson((_$e as Map<String, dynamic>)))
@@ -41,11 +35,11 @@ class GGetAllTripsData {
     return _$result;
   }
 
-  GGetAllTripsData copyWith({
+  GGetAllTripBundlesData copyWith({
     List<_i1.GTripFullData>? trips,
     String? G__typename,
   }) {
-    return GGetAllTripsData(
+    return GGetAllTripBundlesData(
       trips: trips ?? this.trips,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -54,7 +48,7 @@ class GGetAllTripsData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetAllTripsData &&
+        (other is GGetAllTripBundlesData &&
             _gqlUtils.listEquals(trips, other.trips) &&
             G__typename == other.G__typename);
   }
@@ -66,18 +60,71 @@ class GGetAllTripsData {
 
   @override
   String toString() {
-    return 'GGetAllTripsData(trips: $trips, G__typename: $G__typename)';
+    return 'GGetAllTripBundlesData(trips: $trips, G__typename: $G__typename)';
   }
 }
 
-class GGetTripData {
-  const GGetTripData({
+class GGetTripBundleData {
+  const GGetTripBundleData({
     required this.trip,
     this.G__typename = 'Query',
   });
 
-  factory GGetTripData.fromJson(Map<String, dynamic> json) {
-    return GGetTripData(
+  factory GGetTripBundleData.fromJson(Map<String, dynamic> json) {
+    return GGetTripBundleData(
+      trip: _i1.GTripFullData.fromJson((json['trip'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GTripFullData trip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['trip'] = this.trip.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetTripBundleData copyWith({
+    _i1.GTripFullData? trip,
+    String? G__typename,
+  }) {
+    return GGetTripBundleData(
+      trip: trip ?? this.trip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetTripBundleData &&
+            trip == other.trip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, trip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetTripBundleData(trip: $trip, G__typename: $G__typename)';
+  }
+}
+
+class GGetTripSummaryData {
+  const GGetTripSummaryData({
+    required this.trip,
+    this.G__typename = 'Query',
+  });
+
+  factory GGetTripSummaryData.fromJson(Map<String, dynamic> json) {
+    return GGetTripSummaryData(
       trip:
           _i1.GTripSummaryData.fromJson((json['trip'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
@@ -95,11 +142,11 @@ class GGetTripData {
     return _$result;
   }
 
-  GGetTripData copyWith({
+  GGetTripSummaryData copyWith({
     _i1.GTripSummaryData? trip,
     String? G__typename,
   }) {
-    return GGetTripData(
+    return GGetTripSummaryData(
       trip: trip ?? this.trip,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -108,7 +155,7 @@ class GGetTripData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetTripData &&
+        (other is GGetTripSummaryData &&
             trip == other.trip &&
             G__typename == other.G__typename);
   }
@@ -120,18 +167,18 @@ class GGetTripData {
 
   @override
   String toString() {
-    return 'GGetTripData(trip: $trip, G__typename: $G__typename)';
+    return 'GGetTripSummaryData(trip: $trip, G__typename: $G__typename)';
   }
 }
 
-class GGetMeTripsData {
-  const GGetMeTripsData({
+class GGetMeTripsSummaryData {
+  const GGetMeTripsSummaryData({
     required this.meTrips,
     this.G__typename = 'Query',
   });
 
-  factory GGetMeTripsData.fromJson(Map<String, dynamic> json) {
-    return GGetMeTripsData(
+  factory GGetMeTripsSummaryData.fromJson(Map<String, dynamic> json) {
+    return GGetMeTripsSummaryData(
       meTrips: (json['meTrips'] as List<dynamic>)
           .map((_$e) =>
               _i1.GTripSummaryData.fromJson((_$e as Map<String, dynamic>)))
@@ -151,11 +198,11 @@ class GGetMeTripsData {
     return _$result;
   }
 
-  GGetMeTripsData copyWith({
+  GGetMeTripsSummaryData copyWith({
     List<_i1.GTripSummaryData>? meTrips,
     String? G__typename,
   }) {
-    return GGetMeTripsData(
+    return GGetMeTripsSummaryData(
       meTrips: meTrips ?? this.meTrips,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -164,7 +211,7 @@ class GGetMeTripsData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetMeTripsData &&
+        (other is GGetMeTripsSummaryData &&
             _gqlUtils.listEquals(meTrips, other.meTrips) &&
             G__typename == other.G__typename);
   }
@@ -176,18 +223,18 @@ class GGetMeTripsData {
 
   @override
   String toString() {
-    return 'GGetMeTripsData(meTrips: $meTrips, G__typename: $G__typename)';
+    return 'GGetMeTripsSummaryData(meTrips: $meTrips, G__typename: $G__typename)';
   }
 }
 
-class GGetUserTripsData {
-  const GGetUserTripsData({
+class GGetUserTripsSummaryData {
+  const GGetUserTripsSummaryData({
     required this.userTrips,
     this.G__typename = 'Query',
   });
 
-  factory GGetUserTripsData.fromJson(Map<String, dynamic> json) {
-    return GGetUserTripsData(
+  factory GGetUserTripsSummaryData.fromJson(Map<String, dynamic> json) {
+    return GGetUserTripsSummaryData(
       userTrips: (json['userTrips'] as List<dynamic>)
           .map((_$e) =>
               _i1.GTripSummaryData.fromJson((_$e as Map<String, dynamic>)))
@@ -207,11 +254,11 @@ class GGetUserTripsData {
     return _$result;
   }
 
-  GGetUserTripsData copyWith({
+  GGetUserTripsSummaryData copyWith({
     List<_i1.GTripSummaryData>? userTrips,
     String? G__typename,
   }) {
-    return GGetUserTripsData(
+    return GGetUserTripsSummaryData(
       userTrips: userTrips ?? this.userTrips,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -220,7 +267,7 @@ class GGetUserTripsData {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GGetUserTripsData &&
+        (other is GGetUserTripsSummaryData &&
             _gqlUtils.listEquals(userTrips, other.userTrips) &&
             G__typename == other.G__typename);
   }
@@ -232,179 +279,6 @@ class GGetUserTripsData {
 
   @override
   String toString() {
-    return 'GGetUserTripsData(userTrips: $userTrips, G__typename: $G__typename)';
-  }
-}
-
-class GGetTripDetailsData {
-  const GGetTripDetailsData({
-    required this.trip,
-    this.G__typename = 'Query',
-  });
-
-  factory GGetTripDetailsData.fromJson(Map<String, dynamic> json) {
-    return GGetTripDetailsData(
-      trip: GGetTripDetailsData_trip.fromJson(
-          (json['trip'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final GGetTripDetailsData_trip trip;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['trip'] = this.trip.toJson();
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GGetTripDetailsData copyWith({
-    GGetTripDetailsData_trip? trip,
-    String? G__typename,
-  }) {
-    return GGetTripDetailsData(
-      trip: trip ?? this.trip,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GGetTripDetailsData &&
-            trip == other.trip &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, trip, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GGetTripDetailsData(trip: $trip, G__typename: $G__typename)';
-  }
-}
-
-class GGetTripDetailsData_trip implements _i1.GTripSummary {
-  const GGetTripDetailsData_trip({
-    required this.id,
-    required this.title,
-    this.date,
-    required this.description,
-    required this.files,
-    required this.owner,
-    this.G__typename = 'TripType',
-    required this.waypoints,
-  });
-
-  factory GGetTripDetailsData_trip.fromJson(Map<String, dynamic> json) {
-    return GGetTripDetailsData_trip(
-      id: (json['id'] as String),
-      title: (json['title'] as String),
-      date: json['date'] == null ? null : (json['date'] as String),
-      description: (json['description'] as String),
-      files: (json['files'] as List<dynamic>)
-          .map((_$e) =>
-              _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-      owner: _i3.GUserProfileDetailsData.fromJson(
-          (json['owner'] as Map<String, dynamic>)),
-      G__typename: (json['__typename'] as String),
-      waypoints: (json['waypoints'] as List<dynamic>)
-          .map((_$e) =>
-              _i4.GWaypointDetailsData.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-    );
-  }
-
-  final String id;
-
-  final String title;
-
-  final String? date;
-
-  final String description;
-
-  final List<_i2.GFileAttachmentData> files;
-
-  final _i3.GUserProfileDetailsData owner;
-
-  final String G__typename;
-
-  final List<_i4.GWaypointDetailsData> waypoints;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
-    _$result['title'] = this.title;
-    final _$dateValue = this.date;
-    _$result['date'] = _$dateValue == null ? null : _$dateValue;
-    _$result['description'] = this.description;
-    _$result['files'] = this.files.map((_$e) => _$e.toJson()).toList();
-    _$result['owner'] = this.owner.toJson();
-    _$result['__typename'] = this.G__typename;
-    _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
-    return _$result;
-  }
-
-  GGetTripDetailsData_trip copyWith({
-    String? id,
-    String? title,
-    String? date,
-    bool dateIsSet = false,
-    String? description,
-    List<_i2.GFileAttachmentData>? files,
-    _i3.GUserProfileDetailsData? owner,
-    String? G__typename,
-    List<_i4.GWaypointDetailsData>? waypoints,
-  }) {
-    return GGetTripDetailsData_trip(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      date: date != null || dateIsSet ? date : this.date,
-      description: description ?? this.description,
-      files: files ?? this.files,
-      owner: owner ?? this.owner,
-      G__typename: G__typename ?? this.G__typename,
-      waypoints: waypoints ?? this.waypoints,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GGetTripDetailsData_trip &&
-            id == other.id &&
-            title == other.title &&
-            date == other.date &&
-            description == other.description &&
-            _gqlUtils.listEquals(files, other.files) &&
-            owner == other.owner &&
-            G__typename == other.G__typename &&
-            _gqlUtils.listEquals(waypoints, other.waypoints));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-        runtimeType,
-        id,
-        title,
-        date,
-        description,
-        _gqlUtils.listHash(files),
-        owner,
-        G__typename,
-        _gqlUtils.listHash(waypoints));
-  }
-
-  @override
-  String toString() {
-    return 'GGetTripDetailsData_trip(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, waypoints: $waypoints)';
+    return 'GGetUserTripsSummaryData(userTrips: $userTrips, G__typename: $G__typename)';
   }
 }

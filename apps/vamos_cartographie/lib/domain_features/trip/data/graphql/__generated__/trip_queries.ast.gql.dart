@@ -17,9 +17,9 @@ import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__g
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i5;
 
-const GetAllTrips = _i1.OperationDefinitionNode(
+const GetAllTripBundles = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetAllTrips'),
+  name: _i1.NameNode(value: 'GetAllTripBundles'),
   variableDefinitions: [],
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -51,9 +51,58 @@ const GetAllTrips = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const GetTrip = _i1.OperationDefinitionNode(
+const GetTripBundle = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetTrip'),
+  name: _i1.NameNode(value: 'GetTripBundle'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'trip'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'id'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'TripFull'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const GetTripSummary = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetTripSummary'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
@@ -100,9 +149,9 @@ const GetTrip = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const GetMeTrips = _i1.OperationDefinitionNode(
+const GetMeTripsSummary = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetMeTrips'),
+  name: _i1.NameNode(value: 'GetMeTripsSummary'),
   variableDefinitions: [],
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -134,9 +183,9 @@ const GetMeTrips = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const GetUserTrips = _i1.OperationDefinitionNode(
+const GetUserTripsSummary = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetUserTrips'),
+  name: _i1.NameNode(value: 'GetUserTripsSummary'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
       variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
@@ -183,80 +232,12 @@ const GetUserTrips = _i1.OperationDefinitionNode(
     ),
   ]),
 );
-const GetTripDetails = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetTripDetails'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'trip'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'id'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'TripSummary'),
-          directives: [],
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'waypoints'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'WaypointDetails'),
-              directives: [],
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
-);
 const document = _i1.DocumentNode(definitions: [
-  GetAllTrips,
-  GetTrip,
-  GetMeTrips,
-  GetUserTrips,
-  GetTripDetails,
+  GetAllTripBundles,
+  GetTripBundle,
+  GetTripSummary,
+  GetMeTripsSummary,
+  GetUserTripsSummary,
   _i2.TripSummary,
   _i2.TripFull,
   _i3.RouteSection,

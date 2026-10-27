@@ -8,8 +8,8 @@ import 'package:user_profile_application/domain/domain.dart';
 abstract class TripRepository {
   Future<Either<Failure, List<TripBundle>>> getAllTripBundles();
   Future<Either<Failure, TripBundle>> getTripBundle(TripId tripId);
-  Future<Either<Failure, List<TripBundle>>> getUserTripBundles(UserId id);
-  Future<Either<Failure, List<TripBundle>>> getMeTripBundles();
+  Future<Either<Failure, List<TripSummary>>> getUserTripsSummary(UserId id);
+  Future<Either<Failure, List<TripSummary>>> getMeTripsSummary();
   Future<Either<Failure, Trip>> updateTrip(Trip trip);
   Future<Either<Failure, void>> deleteTrip(TripId id);
   Future<Either<Failure, Trip>> createBlankTrip(LatLng latLng);

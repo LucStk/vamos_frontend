@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:domain_core/domain_core.dart';
-
 import 'package:riverpod_annotation/experimental/scope.dart';
-// import 'package:vamos_cartographie/routing/routing.dart';
-import '/domain_features/domain_features.dart';
-import 'trip_card_content.dart';
-import 'trip_card_icon.dart';
+import 'package:vamos_cartographie/map/ui/features/trip/card/trip_card_content.dart';
+import 'package:vamos_cartographie/map/ui/features/trip/card/trip_card_icon.dart';
 
 // ── Card ─────────────────────────────────────────────────────────────────────
 @Dependencies([
@@ -15,17 +10,13 @@ import 'trip_card_icon.dart';
   // MapEditor,
   // // tripEditorScene,
 ])
-class TripCardView extends ConsumerWidget {
-  final Id<Trip> tripId;
+class TripCardView extends StatelessWidget {
+  final TripSummary tripSummary;
 
-  const TripCardView({super.key, required this.tripId});
+  const TripCardView({super.key, required this.tripSummary});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final trip = ref.watch(tripProvider(tripId));
-    if (trip == null) {
-      throw Exception("TripCard -> tripId not found in tripByIdProvider");
-    }
+  Widget build(BuildContext context) {
     return Card(
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -41,7 +32,7 @@ class TripCardView extends ConsumerWidget {
             children: [
               TripCardIcon(),
               const SizedBox(width: 14),
-              TripCardContent(trip: trip),
+              TripCardContent(tripSummary: tripSummary),
             ],
           ),
         ),
