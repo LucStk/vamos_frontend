@@ -3,11 +3,11 @@ import 'package:flutter/painting.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 
-final class TripOriginItem extends PointItem {
+final class TripOriginItem<T extends MapRouteOrigin> extends PointItem {
   TripOriginItem({required this.object, required this.worldPosition});
 
   @override
-  final MapRouteOrigin object;
+  final T object;
 
   @override
   final WorldOffset worldPosition;

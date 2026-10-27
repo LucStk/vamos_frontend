@@ -43,6 +43,10 @@ class RouteStoreNotifier extends _$RouteStoreNotifier
   void emit(RouteStore newGraphStore) {
     state = newGraphStore;
   }
+
+  void patchRoute(RoutePatchModel value) => state = state.patchRoute(value);
+
+  void rollbackRoute() => state = state.rollbackRoute();
 }
 
 @Riverpod(keepAlive: true)

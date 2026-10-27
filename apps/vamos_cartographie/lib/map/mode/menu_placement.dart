@@ -29,8 +29,11 @@ MenuPlacement? menuPlacement(Ref ref) {
           .watch(waypointItemProvider(object.tripId, object.id, camera))
           .worldPosition,
     PencilAnchor() => ref.watch(pencilItemProvider(camera))?.worldPosition,
-    TripOriginAnchor t =>
-      ref.watch(tripOriginItemProvider(t.object, camera))?.worldPosition,
+    TripOriginAnchor t => switch (t.object) {
+      MapTmpOrigin _ => ref.watch(tmpOriginItemProvider(camera))?.worldPosition,
+      MapTripOrigin m =>
+        ref.watch(tripOriginItemProvider(m.tripId, camera))?.worldPosition,
+    },
     TripEndAnchor(:final object) =>
       ref.watch(tripEndItemProvider(object.tripId, camera))?.worldPosition,
     GeoAnchor(:final position) => position,

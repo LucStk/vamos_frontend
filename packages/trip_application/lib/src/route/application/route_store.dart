@@ -25,6 +25,8 @@ class RouteStore {
       sectionStore: _storeOf(sections),
     );
   }
+  RouteStore withRoute(GraphNode<RouteFields>? route) =>
+      RouteStore(route: route, sectionStore: sectionStore);
 
   /// Après une édition : remplace tout, en gardant la révision du nœud existant.
   RouteStore replacedByServer({
@@ -83,7 +85,14 @@ extension RouteStoreActions on RouteStore {
     return copyWith(sectionStore: sectionStore.rollbackNode(sId));
   }
 
-  RouteStore clear() {
-    return copyWith(sectionStore: GraphCollectionStore<RouteSectionFields>());
+  RouteStore patchRoute(RoutePatchModel value) =>
+      withRoute(route?.set(value) ?? GraphNode<RouteFields>.initial(value));
+
+  /// Annule un patch. Un nœud jamais confirmé par le serveur disparaît,
+  /// car GraphNode.rollback() le laisserait tel quel.
+  RouteStore rollbackRoute() {
+    final node = route;
+    if (node == null) return this;
+    return withRoute(node.isPendingCreation ? null : node.rollback());
   }
 }

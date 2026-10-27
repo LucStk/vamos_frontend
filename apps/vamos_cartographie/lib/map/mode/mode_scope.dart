@@ -1,7 +1,7 @@
 // injection/app_scope.dart
-import 'package:domain_core/domain/collection_store.dart';
-import 'package:domain_core/failures.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:riverpod/riverpod.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -60,6 +60,10 @@ final class _TripScope implements TripScope {
   @override
   RouteFields? get route =>
       _ref.read(routeStoreProvider(tripId)).route?.current;
+
+  @override
+  void patchRoute(RoutePatchModel value) =>
+      _ref.read(routeStoreProvider(tripId).notifier).patchRoute(value);
 
   @override
   RouteSectionFields? section(SectionId id) =>

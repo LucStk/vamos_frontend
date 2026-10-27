@@ -23,5 +23,6 @@ abstract class TripScope {
   RouteEditor get routeEditor;
   WaypointEditor get waypointEditor;
   RouteFields? get route;
+  void patchRoute(RoutePatchModel value);
   RouteSectionFields? section(SectionId id);
 }

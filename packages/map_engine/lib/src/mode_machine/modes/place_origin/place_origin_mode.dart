@@ -20,7 +20,6 @@ sealed class PlaceOriginMode extends AppMode {
   // --- Ce qui diffère selon le cas ---
   MapObjectMenu get menu;
 
-  /// Tap hors de l'origine : rien par défaut.
   Transition<AppMode> onTapElsewhere(TapGesture g) => Transition.stay();
 
   // --- Commun ---
@@ -29,19 +28,6 @@ sealed class PlaceOriginMode extends AppMode {
     MapTripOrigin _ => Transition.overlay<AppMode>(menu),
     _ => onTapElsewhere(g),
   };
-
-  @override
-  Transition<AppMode> onDragging(DragUpdateGesture g) =>
-      Transition.set(tripOriginSlot, TripOrigin(g.world));
-
-  // --- Intents ---
-  static Transition<AppMode> forNewTrip() =>
-      Transition.to<AppMode>(const PlaceNewTripOrigin());
-
-  static Transition<AppMode> forTrip(TripId id, WorldOffset from) =>
-      Transition.to<AppMode>(
-        PlaceExistingTripOrigin(id),
-      ).and(tripOriginSlot, TripOrigin(from));
 }
 
 final class PlaceNewTripOrigin extends PlaceOriginMode {
@@ -56,6 +42,10 @@ final class PlaceNewTripOrigin extends PlaceOriginMode {
       Transition.overlay<AppMode>(
         menu,
       ).and(tripOriginSlot, TripOrigin(g.world));
+
+  @override
+  Transition<AppMode> onDragging(DragUpdateGesture g) =>
+      Transition.set(tripOriginSlot, TripOrigin(g.world));
 
   @override
   Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.overlay(menu);
@@ -77,6 +67,14 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
 
   @override
   MapObjectMenu<MapTripOrigin> get menu => TripOriginMenu(tripId);
+  @override
+  Transition<AppMode> onTap(TapGesture g) {
+    print("gesture ${g.element}");
+    return switch (g.element) {
+      MapTripOrigin _ => Transition.overlay(menu),
+      _ => onTapElsewhere(g),
+    };
+  }
 
   /// Le déplacement est enregistré à la fin du drag, puis le menu s'ouvre.
   @override
@@ -84,6 +82,9 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
     SetTripOrigin(position: g.world, tripId: tripId),
     then: (_, _) => Transition.overlay(menu),
   );
+  @override
+  Transition<AppMode> onDragging(DragUpdateGesture g) =>
+      Transition.run(PatchTripOrigin(position: g.world, tripId: tripId));
 
   @override
   bool operator ==(Object other) =>

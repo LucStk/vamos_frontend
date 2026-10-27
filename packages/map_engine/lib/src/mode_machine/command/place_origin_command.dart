@@ -29,6 +29,30 @@ final class SetTripOrigin
   }
 }
 
+final class PatchTripOrigin extends PlaceOriginCommand<Failure> {
+  const PatchTripOrigin({required this.position, required this.tripId});
+  final WorldOffset position;
+  final TripId tripId;
+
+  @override
+  Future<Failure?> handle(AppCommandScope n) async {
+    final LatLng latLng = n.camera.worldOffsetToLatLng(position);
+    final route = n.forTrip(tripId).route;
+    if (route == null) {
+      return NotFoundFailure(
+        resourceId: tripId.toString(),
+        resourceType: "Route",
+      );
+    }
+    n
+        .forTrip(tripId)
+        .patchRoute(
+          RoutePatchModel.fromFields(route).copyWith(startPoint: latLng),
+        );
+    return null;
+  }
+}
+
 final class CreateTrip extends PlaceOriginCommand<Either<Failure, Trip>> {
   const CreateTrip(this.position);
   final WorldOffset position;
