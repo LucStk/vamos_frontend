@@ -3,15 +3,8 @@ import 'package:vamos_cartographie/map/ui/shared/menus/context_menu_shell.dart';
 import 'package:vamos_cartographie/map/ui/shared/menus/menu_button.dart';
 
 class TripOriginMenuWidget extends StatelessWidget {
-  const TripOriginMenuWidget({
-    super.key,
-    required this.prependRoute,
-    required this.extendRoute,
-    required this.move,
-  });
+  const TripOriginMenuWidget({super.key, required this.prependRoute});
   final VoidCallback prependRoute;
-  final VoidCallback extendRoute;
-  final VoidCallback move;
 
   @override
   Widget build(BuildContext context) {
