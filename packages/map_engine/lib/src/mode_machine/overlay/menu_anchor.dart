@@ -25,6 +25,12 @@ final class TripEndAnchor extends MenuAnchor {
   final MapTripEnd object;
 }
 
+final class SectionAnchor extends MenuAnchor {
+  const SectionAnchor(this.object, this.position);
+  final MapSection object;
+  final WorldOffset position;
+}
+
 final class GeoAnchor extends MenuAnchor {
   const GeoAnchor(this.position);
   final WorldOffset position;

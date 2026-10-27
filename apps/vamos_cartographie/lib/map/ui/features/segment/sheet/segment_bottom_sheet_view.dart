@@ -72,10 +72,9 @@ class SegmentBottomSheet extends ConsumerWidget {
               // 3. Bouton "Supprimer" le segment
               DeleteButton(
                 onPressed: () => editor.apply(
-                  Transition.withSlot<AppMode, Selectable>(
-                    selectionSlot,
-                    (s) => s.delete(),
-                  ),
+                  Transition.withSlot<AppMode, Selectable>(selectionSlot, (s) {
+                    return null;
+                  }),
                 ),
               ),
             ],

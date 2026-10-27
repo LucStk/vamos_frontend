@@ -34,6 +34,7 @@ MenuPlacement? menuPlacement(Ref ref) {
     TripEndAnchor(:final object) =>
       ref.watch(tripEndItemProvider(object.tripId, camera))?.worldPosition,
     GeoAnchor(:final position) => position,
+    SectionAnchor(:final position) => position,
   };
   if (world == null) return null;
 

@@ -1,4 +1,4 @@
-part of "map_objects.dart";
+part of "../map_objects.dart";
 
 sealed class MapRouteOrigin extends MapObject implements Selectable {
   @override

@@ -2,8 +2,7 @@ import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/mode_machine/overlay/map_point_menu.dart';
-import 'package:map_engine/src/mode_machine/overlay/origin_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 
 abstract class TripEditableMode extends TripMode {
@@ -13,12 +12,14 @@ abstract class TripEditableMode extends TripMode {
 final class TripActiveMode extends TripEditableMode {
   const TripActiveMode(super.tripId);
   @override
-  Transition<AppMode> onTap(TapGesture g) {
-    if (g.element is MapTripOrigin) {
-      return Transition.overlay<AppMode>(TripOriginMenu(tripId));
-    }
-    return Transition.stay();
-  }
+  Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
+    MapTripOrigin _ => Transition.overlay<AppMode>(TripOriginMenu(tripId)),
+    MapTripEnd _ => Transition.overlay<AppMode>(TripEndMenu(tripId)),
+    MapSection s => Transition.overlay<AppMode>(
+      SectionMenu(tripId: tripId, sectionId: s.id, at: g.world),
+    ),
+    _ => Transition.stay(),
+  };
 
   @override
   Transition<AppMode> onLongPress(LongPressGesture g) => switch (g.element) {

@@ -29,7 +29,7 @@ class TripSelectionSheet extends ConsumerWidget {
         tripId: tripId,
         waypointId: v.id,
       ),
-      MapSegment s => SegmentBottomSheet(
+      MapSection s => SegmentBottomSheet(
         key: ValueKey(s.id),
         tripId: s.tripId,
         segmentId: s.id,

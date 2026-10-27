@@ -30,10 +30,9 @@ class ErrorHandler implements ErrorLogger {
   static final ErrorHandler instance = ErrorHandler._privateConstructor();
 
   // On garde une référence tardive (late) du conteneur Riverpod
-  late final ProviderContainer _container;
-
+  // late final ProviderContainer _container;
   void init(ProviderContainer container) {
-    _container = container;
+    // _container = container;
   }
 
   @override

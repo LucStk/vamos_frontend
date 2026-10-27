@@ -6,8 +6,7 @@ import 'package:map_engine/src/mode_machine/command/route_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/mode_machine/overlay/pencil_menu.dart';
-import 'package:map_engine/src/mode_machine/overlay/vertex_menu.dart';
+import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
 import 'package:map_engine/src/mode_machine/slots/sketch_trace_slot.dart';
 import 'package:map_engine/src/mode_machine/slots/slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
@@ -30,7 +29,7 @@ final class SketchEdition extends TripEditableMode {
   /// On saisit le crayon : on retient où, par rapport à sa pointe.
   @override
   Transition<AppMode> onPointerDown(PressGesture g) => switch (g.element) {
-    MapSegment() => Transition.set(
+    MapSection() => Transition.set(
       sketchTraceSlot,
       SketchTrace.from(g.position.world),
     ),

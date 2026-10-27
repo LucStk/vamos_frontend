@@ -2,10 +2,10 @@ import 'package:trip_application/trip_application.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
 part "trip_object.dart";
-part "segment_objects.dart";
+part "route/route_section.dart";
 part "waypoint_objects.dart";
-part "trip_origin_object.dart";
-part "trip_end_object.dart";
+part "route/trip_origin.dart";
+part "route/trip_end.dart";
 
 sealed class MapObject {
   const MapObject();

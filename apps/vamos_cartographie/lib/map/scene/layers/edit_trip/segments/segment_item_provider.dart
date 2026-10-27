@@ -27,6 +27,6 @@ SegmentItem? segmentItem(
 
   return SegmentItem(
     worldSegments: projectLine(slice, cameraReader.latLngToWorldOffset),
-    object: MapSegment(tripId: tripId, id: id),
+    object: MapSection(tripId: tripId, id: id),
   );
 }

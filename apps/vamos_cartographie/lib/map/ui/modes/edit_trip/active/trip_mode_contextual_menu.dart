@@ -5,8 +5,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode/map_mode.dart';
 import 'package:vamos_cartographie/map/mode/menu_placement.dart';
+import 'package:vamos_cartographie/map/ui/modes/edit_trip/active/menu/section_menu.dart';
 import 'package:vamos_cartographie/map/ui/modes/edit_trip/active/menu/trip_origin_menu.dart';
-import 'package:vamos_cartographie/map/ui/modes/edit_trip/active/menu/waypoint_menu.dart';
 // import 'package:vamos_cartographie/map/mode/mode_scope.dart';
 
 import 'package:vamos_cartographie/map/ui/shared/menus/overlay_menu.dart';
@@ -39,12 +39,13 @@ class TripModeContextualMenu extends ConsumerWidget {
             extendRoute: () => apply(SketchEdition.start(tripId, world)),
           ),
         ),
-        OverlayMenu<WaypointMenu>(
-          builder: (_, _, _) => WaypointMenuWidget(
+
+        OverlayMenu<SectionMenu>(
+          builder: (_, _, _) => SectionMenuWidget(
             createFrom: () {},
             drawFrom: () {},
             move: () {},
-            delete: () => apply(ref.read(modeSelectionProvider)?.delete()),
+            delete: () {},
           ),
         ),
       ],

@@ -1,4 +1,4 @@
-part of "map_objects.dart";
+part of "../map_objects.dart";
 
 final class MapTripEnd extends MapObject implements Selectable {
   final TripId tripId;
