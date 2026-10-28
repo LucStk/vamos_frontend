@@ -27,8 +27,9 @@ final class AllSketchItemProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = pencilItemProvider;
-  static final $allTransitiveDependencies1 = sketchTraceItemProvider;
+  static final $allTransitiveDependencies0 = mapModeProvider;
+  static final $allTransitiveDependencies1 = pencilItemProvider;
+  static final $allTransitiveDependencies2 = sketchTraceItemProvider;
 
   @override
   String debugGetCreateSourceHash() => _$allSketchItemHash();
@@ -70,7 +71,7 @@ final class AllSketchItemProvider
   }
 }
 
-String _$allSketchItemHash() => r'f867b9a39dec28924b4d0aa228ab9fa6b911eefd';
+String _$allSketchItemHash() => r'49411502db33be5bc76d1a0fa83c4703fbd1c99e';
 
 final class AllSketchItemFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, MapCameraReader> {
@@ -79,12 +80,14 @@ final class AllSketchItemFamily extends $Family
         retry: null,
         name: r'allSketchItemProvider',
         dependencies: <ProviderOrFamily>[
+          mapModeProvider,
           pencilItemProvider,
           sketchTraceItemProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>[
           AllSketchItemProvider.$allTransitiveDependencies0,
           AllSketchItemProvider.$allTransitiveDependencies1,
+          AllSketchItemProvider.$allTransitiveDependencies2,
         ],
         isAutoDispose: false,
       );

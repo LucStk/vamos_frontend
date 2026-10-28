@@ -6,6 +6,7 @@ class MapPaintContext {
     MapObjectVisualState? from,
     this.t = 1.0,
     this.previous,
+    this.time = 0,
   }) : from = from ?? state;
 
   /// État vers lequel on transitionne (état stable si t == 1).
@@ -22,4 +23,9 @@ class MapPaintContext {
   /// présente, le look de départ est son look résolu, pas `lookOf(from)` :
   /// c'est ce qui évite le saut visuel.
   final MapPaintContext? previous;
+
+  /// Secondes écoulées, horloge continue pour les animations en boucle.
+  /// Vaut 0 quand aucune boucle ne tourne. Sans rapport avec [t], qui est
+  /// une transition finie.
+  final double time;
 }

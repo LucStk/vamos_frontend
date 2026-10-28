@@ -31,6 +31,8 @@ final class SketchTraceItemProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = mapModeProvider;
+
   @override
   String debugGetCreateSourceHash() => _$sketchTraceItemHash();
 
@@ -72,7 +74,7 @@ final class SketchTraceItemProvider
   }
 }
 
-String _$sketchTraceItemHash() => r'd0f13a4af47cbb8b753016d3c7f593591472c892';
+String _$sketchTraceItemHash() => r'944a97e9f6cfffec7c698c5b34ba4eca927eec0b';
 
 final class SketchTraceItemFamily extends $Family
     with $FunctionalFamilyOverride<SketchSegmentItem?, MapCameraReader> {
@@ -80,8 +82,10 @@ final class SketchTraceItemFamily extends $Family
     : super(
         retry: null,
         name: r'sketchTraceItemProvider',
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: <ProviderOrFamily>[mapModeProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          SketchTraceItemProvider.$allTransitiveDependencies0,
+        ],
         isAutoDispose: false,
       );
 

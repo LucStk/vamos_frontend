@@ -9,8 +9,9 @@ import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
 import 'package:vamos_cartographie/map/rendering/map_scene_paint.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/interaction/visual_target.dart';
+import 'package:vamos_cartographie/map/mode/map_mode.dart';
 
-@Dependencies([visualTargets, mapScene, MapGestureHandlerNotifier])
+@Dependencies([visualTargets, mapScene, mapMode, MapGestureHandlerNotifier])
 class MapCanvas extends ConsumerWidget {
   final List<Widget> layers;
 

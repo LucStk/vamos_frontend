@@ -54,6 +54,27 @@ class VisualTransitions {
   int _cachedVersion = -1;
   List<DrawCommand> _cached = const [];
 
+  // ---- Boucle continue (chargement) ----
+
+  bool _looping = false;
+
+  /// Tant que c'est vrai, le ticker tourne et les commandes sont recalculées
+  /// à chaque frame. À éteindre dès que plus rien n'est animé en continu.
+  set looping(bool on) {
+    if (on == _looping) return;
+    _looping = on;
+    _version++; // invalide le cache de commandsFor
+    ticks.pulse();
+    if (on && !_ticker.isActive) _ticker.start();
+    // À l'extinction, le prochain _onTick arrête le ticker.
+  }
+
+  bool get looping => _looping;
+
+  double get _time => _clock.elapsed.inMicroseconds / 1e6;
+
+  // ---- Transitions finies ----
+
   double _progress(_Visual v, Duration now) {
     final started = v.startedAt;
     if (started == null) return 1;
@@ -105,18 +126,23 @@ class VisualTransitions {
   }
 
   MapPaintContext contextOf(Object key) {
+    // L'horloge n'avance pour les styles que pendant la boucle : hors boucle,
+    // `time` vaut 0 (= « horloge arrêtée »).
+    final time = _looping ? _time : 0.0;
+
     final v = _visuals[key];
-    if (v == null) return const MapPaintContext();
-    if (v.startedAt == null) return MapPaintContext(state: v.state);
+    if (v == null) return MapPaintContext(time: time);
+    if (v.startedAt == null) return MapPaintContext(state: v.state, time: time);
 
     final t = _progress(v, _clock.elapsed);
     return t >= 1
-        ? MapPaintContext(state: v.state)
+        ? MapPaintContext(state: v.state, time: time)
         : MapPaintContext(
             from: v.from,
             state: v.state,
             t: t,
             previous: v.previous,
+            time: time,
           );
   }
 
@@ -148,7 +174,7 @@ class VisualTransitions {
     }
     _version++;
     ticks.pulse();
-    if (!running) _ticker.stop();
+    if (!running && !_looping) _ticker.stop();
   }
 
   void dispose() {

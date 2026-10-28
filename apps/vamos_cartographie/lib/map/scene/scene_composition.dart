@@ -13,14 +13,10 @@ import 'package:vamos_cartographie/map/scene/layers/explore/trips_layer.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 
 /// Couches toujours présentes, quel que soit le mode.
-// scene_composition.dart
-//
-// @Dependencies([localizationItem])
 final baseLayers = <Layer>[
   (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
 ];
 
-/// Seul endroit qui relie un mode à ses couches.
 /// Seul endroit qui relie un mode à ses couches.
 typedef Layer = List<SceneItem> Function(Ref ref, MapCameraController cam);
 
@@ -28,6 +24,11 @@ typedef Layer = List<SceneItem> Function(Ref ref, MapCameraController cam);
 List<Layer> layersFor(AppMode mode) => switch (mode) {
   ExploreMode() => [(ref, cam) => ref.watch(allTripItemProvider(cam))],
   SketchEdition(:final tripId) => [
+    (ref, cam) => ref.watch(allSketchItemProvider(cam)),
+    (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
+  ],
+  // Doit précéder TripMode : SketchGenerating en hérite.
+  SketchGenerating(:final tripId) => [
     (ref, cam) => ref.watch(allSketchItemProvider(cam)),
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
   ],

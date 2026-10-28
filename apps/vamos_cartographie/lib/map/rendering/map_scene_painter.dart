@@ -23,8 +23,8 @@ class ScenePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final zoom = zoomScale?.value;
     final renderer = zoom == null
-        ? MapCommandRenderer.zoomInvariant(canvas)
-        : MapCommandRenderer.zoomDependent(canvas, zoomScale: zoom);
+        ? CommandRenderer.zoomInvariant(canvas)
+        : CommandRenderer.zoomDependent(canvas, zoomScale: zoom);
     renderer.paintAll(transitions.commandsFor(items));
   }
 

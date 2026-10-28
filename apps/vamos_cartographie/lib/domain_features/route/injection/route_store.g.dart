@@ -149,7 +149,7 @@ final class RouteStoreNotifierProvider
 }
 
 String _$routeStoreNotifierHash() =>
-    r'8278def514c39eec9a6c76bc7ed473f083ad608f';
+    r'dfb16afbd15aeb5aada574b911db004651f16578';
 
 final class RouteStoreNotifierFamily extends $Family
     with

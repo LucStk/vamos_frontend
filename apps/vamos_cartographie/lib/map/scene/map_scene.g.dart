@@ -52,9 +52,9 @@ final class SceneItemsProvider
       AllSegmentItemProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies3 = allSketchItemProvider;
   static final $allTransitiveDependencies4 =
-      AllSketchItemProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies5 =
       AllSketchItemProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies5 =
+      AllSketchItemProvider.$allTransitiveDependencies2;
 
   @override
   String debugGetCreateSourceHash() => _$sceneItemsHash();
