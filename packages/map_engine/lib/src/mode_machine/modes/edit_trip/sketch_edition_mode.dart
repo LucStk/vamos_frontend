@@ -112,7 +112,7 @@ final class SketchPrepend extends SketchEdition {
   Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace t) =>
       PrependRoute(
         tripId: tripId,
-        geometry: t.points,
+        geometry: t.points.reversed.toList(),
         mobilityType: t.mobilityType,
       );
 }

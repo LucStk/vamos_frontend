@@ -6,8 +6,8 @@ import 'package:vamos_cartographie/domain_features/user_profile/presentation/on_
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/edit_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content_view.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
-import 'package:vamos_cartographie/map/mode/helpers/mode_apply.dart';
-import 'package:vamos_cartographie/map/mode/map_mode.dart';
+import 'package:vamos_cartographie/map/mode_machine/helpers/mode_apply.dart';
+import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
 import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';

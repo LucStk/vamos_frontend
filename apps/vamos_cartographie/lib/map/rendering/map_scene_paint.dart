@@ -4,7 +4,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/interaction/visual_target.dart';
-import 'package:vamos_cartographie/map/mode/map_mode.dart';
+import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
 import 'package:vamos_cartographie/map/rendering/animation/visual_transitions.dart';
 import 'package:vamos_cartographie/map/rendering/map_scene_painter.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';

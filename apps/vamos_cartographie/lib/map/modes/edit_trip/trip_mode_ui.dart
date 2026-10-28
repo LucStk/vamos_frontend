@@ -1,0 +1,19 @@
+// On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
+import 'package:flutter/material.dart';
+import 'package:map_engine/map_engine.dart';
+import 'package:vamos_cartographie/map/modes/edit_trip/active/trip_mode_contextual_menu.dart';
+import 'package:vamos_cartographie/map/modes/edit_trip/trip_mode_sheet_ui.dart';
+
+class TripModeUi extends StatelessWidget {
+  const TripModeUi(this.mode, {super.key});
+
+  final TripEditableMode mode;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [TripModeSheetUi(mode), TripModeContextualMenu(mode)],
+    );
+  }
+}
