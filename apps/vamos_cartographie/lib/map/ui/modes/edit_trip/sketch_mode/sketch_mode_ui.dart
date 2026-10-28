@@ -22,8 +22,7 @@ class SketchModeUi extends ConsumerWidget {
       children: [
         OverlayMenu<PencilMenu>(
           builder: (_, t, _) => PencilMenuWidget(
-            endSketch: () =>
-                ref.applyTransition(mode.validateExtensionSketch()),
+            endSketch: () => ref.applyTransition(mode.validate()),
           ),
         ),
         CancelBottomButton(

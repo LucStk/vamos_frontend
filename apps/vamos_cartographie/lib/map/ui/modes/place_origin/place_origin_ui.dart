@@ -75,7 +75,7 @@ class _ExistingTripUi extends ConsumerWidget {
                 icon: Icons.route,
                 label: 'start route',
                 onPressed: () =>
-                    ref.applyTransition(SketchEdition.start(tripId, world)),
+                    ref.applyTransition(SketchExtend.start(tripId, world)),
               ),
             ],
           ),

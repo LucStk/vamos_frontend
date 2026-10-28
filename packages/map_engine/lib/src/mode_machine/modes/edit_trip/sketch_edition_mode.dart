@@ -12,7 +12,7 @@ import 'package:map_engine/src/mode_machine/slots/slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:trip_application/trip_application.dart';
 
-final class SketchEdition extends TripEditableMode {
+abstract class SketchEdition extends TripEditableMode {
   const SketchEdition(super.tripId);
 
   @override
@@ -48,7 +48,24 @@ final class SketchEdition extends TripEditableMode {
       : Transition.stay();
 
   // --- Intents ---
-  Transition<AppMode> validateExtensionSketch() => Transition.withSlot(
+  Transition<AppMode> validate();
+
+  static Transition<AppMode> stop() =>
+      Transition.withMode<AppMode, SketchEdition>(
+        (s) => TripMode.open((s.tripId)),
+      );
+}
+
+final class SketchExtend extends SketchEdition {
+  const SketchExtend(super.tripId);
+
+  static Transition<AppMode> start(TripId tripId, WorldOffset from) =>
+      Transition.to<AppMode>(
+        SketchExtend(tripId),
+      ).and(sketchTraceSlot, SketchTrace.from(from));
+
+  @override
+  Transition<AppMode> validate() => Transition.withSlot(
     sketchTraceSlot,
     (slot) => Transition.run(
       ExtendRoute(
@@ -62,14 +79,29 @@ final class SketchEdition extends TripEditableMode {
       ),
     ),
   );
+}
+
+final class SketchPrepend extends SketchEdition {
+  const SketchPrepend(super.tripId);
 
   static Transition<AppMode> start(TripId tripId, WorldOffset from) =>
       Transition.to<AppMode>(
-        SketchEdition(tripId),
+        SketchPrepend(tripId),
       ).and(sketchTraceSlot, SketchTrace.from(from));
 
-  static Transition<AppMode> stop() =>
-      Transition.withMode<AppMode, SketchEdition>(
-        (s) => TripMode.open((s.tripId)),
-      );
+  @override
+  Transition<AppMode> validate() => Transition.withSlot(
+    sketchTraceSlot,
+    (slot) => Transition.run(
+      PrependRoute(
+        tripId: tripId,
+        geometry: slot.points.reversed.toList(),
+        mobilityType: slot.mobilityType,
+      ),
+      then: (route, data) => data.fold(
+        (failure) => Transition.stay(),
+        (data) => TripMode.open(tripId),
+      ),
+    ),
+  );
 }

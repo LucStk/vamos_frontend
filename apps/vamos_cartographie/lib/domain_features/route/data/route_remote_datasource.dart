@@ -60,8 +60,8 @@ class RouteRemoteDatasource {
     required List<LatLng> geometry,
   }) async {
     final data = await ferryClient.execute(
-      GExtendRouteReq(
-        vars: GExtendRouteVars(
+      GPrependRouteReq(
+        vars: GPrependRouteVars(
           tripId: tripId.value,
           input: GExtendRouteInput(
             autoRoute: true,
@@ -71,7 +71,7 @@ class RouteRemoteDatasource {
         ),
       ),
     );
-    return data.extendRoute;
+    return data.prependRoute;
   }
 
   Future<GEditRouteResult> redrawRoutePortion({

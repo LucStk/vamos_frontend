@@ -29,12 +29,12 @@ class TripModeContextualMenu extends ConsumerWidget {
       children: [
         OverlayMenu<TripOriginMenu>(
           builder: (_, menu, world) => TripOriginMenuWidget(
-            prependRoute: () => apply(SketchEdition.start(tripId, world)),
+            prependRoute: () => apply(SketchPrepend.start(tripId, world)),
           ),
         ),
         OverlayMenu<TripEndMenu>(
           builder: (_, menu, world) => TripEndMenuWidget(
-            extendRoute: () => apply(SketchEdition.start(tripId, world)),
+            extendRoute: () => apply(SketchExtend.start(tripId, world)),
           ),
         ),
 
