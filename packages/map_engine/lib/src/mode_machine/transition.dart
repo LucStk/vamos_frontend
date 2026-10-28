@@ -83,4 +83,13 @@ sealed class Transition<M extends Mode<M>> {
     Slot<T> slot,
     T? Function(T current) change,
   ) => withSlot<M, T>(slot, (v) => set<M, T>(slot, change(v)));
+  // transition.dart, à côté de `run`
+  /// Change de mode ET lance un effet, en une seule transition.
+  /// Le mode est posé avant que l'effet ne parte : pas de fenêtre entre les deux.
+  static ResolvedTransition<M> toAndRun<M extends Mode<M>, R extends Object>(
+    M mode,
+    Command<R> command, {
+    Transition<M>? Function(ModeState<M> current, R result)? then,
+  }) =>
+      ResolvedTransition<M>(mode: mode, pending: PendingRun.of(command, then));
 }

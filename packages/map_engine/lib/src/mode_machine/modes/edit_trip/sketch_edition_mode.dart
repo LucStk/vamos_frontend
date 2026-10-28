@@ -1,9 +1,13 @@
+import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/sketch_trace.dart';
+import 'package:map_engine/src/mode_machine/command/command.dart';
 import 'package:map_engine/src/mode_machine/command/route_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/edit_trip/sketch_generating.dart';
 import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
@@ -47,8 +51,32 @@ abstract class SketchEdition extends TripEditableMode {
       ? Transition.update(sketchTraceSlot, (t) => t.add(g.position.world))
       : Transition.stay();
 
-  // --- Intents ---
-  Transition<AppMode> validate();
+  // SketchEdition
+  @protected
+  Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace trace);
+
+  Transition<AppMode> validate() =>
+      Transition.withSlot<AppMode, SketchTrace>(sketchTraceSlot, (trace) {
+        if (trace.points.length < 2) return Transition.stay();
+
+        final generating = SketchGenerating(tripId, this);
+
+        return Transition.toAndRun<AppMode, Either<Failure, EditRoutePayload>>(
+          generating,
+          buildCommand(trace),
+          then: (current, result) {
+            final m = current.mode;
+            // Annulé ou remplacé entre-temps : on ignore cette réponse.
+            if (m is! SketchGenerating || m.token != generating.token) {
+              return null;
+            }
+            return result.fold(
+              (failure) => Transition.to<AppMode>(this), // retour au tracé
+              (_) => TripMode.open(tripId),
+            );
+          },
+        );
+      });
 
   static Transition<AppMode> stop() =>
       Transition.withMode<AppMode, SketchEdition>(
@@ -58,27 +86,18 @@ abstract class SketchEdition extends TripEditableMode {
 
 final class SketchExtend extends SketchEdition {
   const SketchExtend(super.tripId);
+  @override
+  Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace t) =>
+      ExtendRoute(
+        tripId: tripId,
+        geometry: t.points,
+        mobilityType: t.mobilityType,
+      );
 
   static Transition<AppMode> start(TripId tripId, WorldOffset from) =>
       Transition.to<AppMode>(
         SketchExtend(tripId),
       ).and(sketchTraceSlot, SketchTrace.from(from));
-
-  @override
-  Transition<AppMode> validate() => Transition.withSlot(
-    sketchTraceSlot,
-    (slot) => Transition.run(
-      ExtendRoute(
-        tripId: tripId,
-        geometry: slot.points,
-        mobilityType: slot.mobilityType,
-      ),
-      then: (route, data) => data.fold(
-        (failure) => Transition.stay(),
-        (data) => TripMode.open(tripId),
-      ),
-    ),
-  );
 }
 
 final class SketchPrepend extends SketchEdition {
@@ -90,18 +109,10 @@ final class SketchPrepend extends SketchEdition {
       ).and(sketchTraceSlot, SketchTrace.from(from));
 
   @override
-  Transition<AppMode> validate() => Transition.withSlot(
-    sketchTraceSlot,
-    (slot) => Transition.run(
+  Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace t) =>
       PrependRoute(
         tripId: tripId,
-        geometry: slot.points.reversed.toList(),
-        mobilityType: slot.mobilityType,
-      ),
-      then: (route, data) => data.fold(
-        (failure) => Transition.stay(),
-        (data) => TripMode.open(tripId),
-      ),
-    ),
-  );
+        geometry: t.points,
+        mobilityType: t.mobilityType,
+      );
 }
