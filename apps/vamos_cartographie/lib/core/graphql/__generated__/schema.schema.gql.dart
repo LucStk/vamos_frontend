@@ -551,37 +551,54 @@ enum GRefinementError {
 
 class GRouteAnchorInput {
   const GRouteAnchorInput({
-    required this.sectionId,
-    required this.point,
+    this.section = const Value.absent(),
+    this.endpoint = const Value.absent(),
   });
 
   factory GRouteAnchorInput.fromJson(Map<String, dynamic> json) {
     return GRouteAnchorInput(
-      sectionId: (json['sectionId'] as String),
-      point: GLatLngInput.fromJson((json['point'] as Map<String, dynamic>)),
+      section: json.containsKey('section')
+          ? Value.present(json['section'] == null
+              ? null
+              : GSectionAnchorInput.fromJson(
+                  (json['section'] as Map<String, dynamic>)))
+          : Value.absent(),
+      endpoint: json.containsKey('endpoint')
+          ? Value.present(json['endpoint'] == null
+              ? null
+              : GRouteEndpoint.fromJson((json['endpoint'] as String)))
+          : Value.absent(),
     );
   }
 
-  final String sectionId;
+  final Value<GSectionAnchorInput> section;
 
-  final GLatLngInput point;
+  final Value<GRouteEndpoint> endpoint;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    final _$sectionIdValue = this.sectionId;
-    _$result['sectionId'] = _$sectionIdValue;
-    final _$pointValue = this.point;
-    _$result['point'] = _$pointValue.toJson();
+    final _$sectionValue = this.section;
+    if (_$sectionValue.isPresent) {
+      final _$sectionRequired = _$sectionValue.requireValue;
+      _$result['section'] =
+          _$sectionRequired == null ? null : _$sectionRequired.toJson();
+    }
+    final _$endpointValue = this.endpoint;
+    if (_$endpointValue.isPresent) {
+      final _$endpointRequired = _$endpointValue.requireValue;
+      _$result['endpoint'] =
+          _$endpointRequired == null ? null : _$endpointRequired.toJson();
+    }
     return _$result;
   }
 
   GRouteAnchorInput copyWith({
-    String? sectionId,
-    GLatLngInput? point,
+    Value<GSectionAnchorInput>? section,
+    Value<GRouteEndpoint>? endpoint,
   }) {
     return GRouteAnchorInput(
-      sectionId: sectionId ?? this.sectionId,
-      point: point ?? this.point,
+      section: section ?? this.section,
+      endpoint: endpoint ?? this.endpoint,
     );
   }
 
@@ -599,7 +616,7 @@ class GRouteAnchorInput {
 
   @override
   String toString() {
-    return 'GRouteAnchorInput(sectionId: $sectionId, point: $point)';
+    return 'GRouteAnchorInput(section: $section, endpoint: $endpoint)';
   }
 }
 
@@ -638,6 +655,88 @@ enum GRouteEditErrorCode {
       case GRouteEditErrorCode.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
+  }
+}
+
+enum GRouteEndpoint {
+  ROUTE_START,
+  ROUTE_END,
+  gUnknownEnumValue;
+
+  static GRouteEndpoint fromJson(String value) {
+    switch (value) {
+      case r'ROUTE_START':
+        return GRouteEndpoint.ROUTE_START;
+      case r'ROUTE_END':
+        return GRouteEndpoint.ROUTE_END;
+      default:
+        return GRouteEndpoint.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GRouteEndpoint.ROUTE_START:
+        return r'ROUTE_START';
+      case GRouteEndpoint.ROUTE_END:
+        return r'ROUTE_END';
+      case GRouteEndpoint.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
+class GSectionAnchorInput {
+  const GSectionAnchorInput({
+    required this.sectionId,
+    required this.point,
+  });
+
+  factory GSectionAnchorInput.fromJson(Map<String, dynamic> json) {
+    return GSectionAnchorInput(
+      sectionId: (json['sectionId'] as String),
+      point: GLatLngInput.fromJson((json['point'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String sectionId;
+
+  final GLatLngInput point;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$sectionIdValue = this.sectionId;
+    _$result['sectionId'] = _$sectionIdValue;
+    final _$pointValue = this.point;
+    _$result['point'] = _$pointValue.toJson();
+    return _$result;
+  }
+
+  GSectionAnchorInput copyWith({
+    String? sectionId,
+    GLatLngInput? point,
+  }) {
+    return GSectionAnchorInput(
+      sectionId: sectionId ?? this.sectionId,
+      point: point ?? this.point,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSectionAnchorInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSectionAnchorInput(sectionId: $sectionId, point: $point)';
   }
 }
 

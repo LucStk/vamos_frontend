@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/core/mappers/to_ferry_value.dart';
 import 'package:vamos_cartographie/core/network/ferry_client_x.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/graphql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/mobility_type_mapper.dart';
-import 'package:vamos_cartographie/domain_features/route/data/mappers/route_mappers.dart';
+import 'package:vamos_cartographie/domain_features/route/data/mappers/route_anchor_mappers.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le ferryClient Ferry (GraphQL).

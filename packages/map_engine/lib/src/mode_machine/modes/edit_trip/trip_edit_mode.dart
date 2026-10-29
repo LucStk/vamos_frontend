@@ -9,7 +9,7 @@ final class TripEditMode extends TripMode {
   const TripEditMode(super.tripId);
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapTripOrigin _ => Transition.overlay<AppMode>(TripOriginMenu(tripId)),
+    MapTripOrigin _ => Transition.overlay<AppMode>(TripOriginMenu()),
     MapTripEnd _ => Transition.overlay<AppMode>(TripEndMenu(tripId)),
     MapSection s => Transition.overlay<AppMode>(
       SectionMenu(tripId: tripId, sectionId: s.id, at: g.world),
@@ -19,11 +19,13 @@ final class TripEditMode extends TripMode {
 
   @override
   Transition<AppMode> onLongPress(LongPressGesture g) => switch (g.element) {
-    _ => Transition.overlay(MapPointMenu(tripId: tripId, at: g.world)),
+    _ => Transition.overlay(MapPointMenu(tripId: tripId, position: g.world)),
   };
   @override
   Transition<AppMode> onSecondaryTap(SecondaryTapGesture g) =>
       switch (g.element) {
-        _ => Transition.overlay(MapPointMenu(tripId: tripId, at: g.world)),
+        _ => Transition.overlay(
+          MapPointMenu(tripId: tripId, position: g.world),
+        ),
       };
 }

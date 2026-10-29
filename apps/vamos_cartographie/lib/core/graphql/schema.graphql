@@ -170,9 +170,14 @@ enum RefinementError {
   EMPTY_ROUTE
 }
 
+"""
+Une ancre sur la route existante : EXACTEMENT UNE des deux formes.
+- `endpoint` : le départ ou l'arrivée exacts de la route (poignées), sans section ni point ;
+- `section` : un endroit quelconque de la route.
+"""
 input RouteAnchorInput {
-  sectionId: UUID!
-  point: LatLngInput!
+  section: SectionAnchorInput
+  endpoint: RouteEndpoint
 }
 
 enum RouteEditErrorCode {
@@ -182,11 +187,25 @@ enum RouteEditErrorCode {
   TRIP_NOT_FOUND
 }
 
+enum RouteEndpoint {
+  ROUTE_START
+  ROUTE_END
+}
+
 type RouteSectionType {
   id: UUID!
   startIndex: Int!
   mobilityType: MobilityType!
   geometrySource: GeometrySource!
+}
+
+"""
+Un endroit quelconque de la route. Le serveur projette `point` sur la section
+`sectionId` (lève l'ambiguïté des croisements).
+"""
+input SectionAnchorInput {
+  sectionId: UUID!
+  point: LatLngInput!
 }
 
 type StoredFileType {

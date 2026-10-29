@@ -3,7 +3,6 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/sketch_trace.dart';
-import 'package:map_engine/src/mode_machine/command/command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/sketch/sketch_generating.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
@@ -30,6 +29,10 @@ class SketchEdition extends TripMode {
   /// On saisit le crayon : on retient où, par rapport à sa pointe.
   @override
   Transition<AppMode> onPointerDown(PressGesture g) => switch (g.element) {
+    MapTripOrigin() => Transition.set(
+      sketchTraceSlot,
+      SketchTrace(startPoint: g.position.world),
+    ),
     MapSection() => Transition.set(
       sketchTraceSlot,
       SketchTrace.from(g.position.world),
@@ -47,9 +50,6 @@ class SketchEdition extends TripMode {
       g.dragged is MapSketchPencil
       ? Transition.update(sketchTraceSlot, (t) => t.add(g.position.world))
       : Transition.stay();
-
-  // SketchEdition
-  Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace trace);
 
   Transition<AppMode> validate() =>
       Transition.withSlot<AppMode, SketchTrace>(sketchTraceSlot, (trace) {

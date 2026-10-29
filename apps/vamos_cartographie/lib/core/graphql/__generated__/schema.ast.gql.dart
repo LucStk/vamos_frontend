@@ -999,20 +999,20 @@ const RouteAnchorInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'sectionId'),
+      name: _i1.NameNode(value: 'section'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
+        name: _i1.NameNode(value: 'SectionAnchorInput'),
+        isNonNull: false,
       ),
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'point'),
+      name: _i1.NameNode(value: 'endpoint'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'LatLngInput'),
-        isNonNull: true,
+        name: _i1.NameNode(value: 'RouteEndpoint'),
+        isNonNull: false,
       ),
       defaultValue: null,
     ),
@@ -1036,6 +1036,20 @@ const RouteEditErrorCode = _i1.EnumTypeDefinitionNode(
     ),
     _i1.EnumValueDefinitionNode(
       name: _i1.NameNode(value: 'TRIP_NOT_FOUND'),
+      directives: [],
+    ),
+  ],
+);
+const RouteEndpoint = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RouteEndpoint'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'ROUTE_START'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'ROUTE_END'),
       directives: [],
     ),
   ],
@@ -1080,6 +1094,30 @@ const RouteSectionType = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'GeometrySource'),
         isNonNull: true,
       ),
+    ),
+  ],
+);
+const SectionAnchorInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SectionAnchorInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'sectionId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'point'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
     ),
   ],
 );
@@ -1580,7 +1618,9 @@ const document = _i1.DocumentNode(definitions: [
   RefinementError,
   RouteAnchorInput,
   RouteEditErrorCode,
+  RouteEndpoint,
   RouteSectionType,
+  SectionAnchorInput,
   StoredFileType,
   TripType,
   TripUpdateInput,

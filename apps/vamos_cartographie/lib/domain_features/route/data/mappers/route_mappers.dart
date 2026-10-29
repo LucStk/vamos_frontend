@@ -10,11 +10,6 @@ import 'package:vamos_cartographie/domain_features/route/data/graphql/graphql.da
 import 'package:vamos_cartographie/domain_features/route/data/mappers/mobility_type_mapper.dart';
 import 'package:vamos_cartographie/domain_features/route/data/route_failures.dart';
 
-extension RouteAnchorMapper on RouteAnchor {
-  GRouteAnchorInput toGQL() =>
-      GRouteAnchorInput(point: position.toGQLInput(), sectionId: id.value);
-}
-
 extension GeoPolygoneMapper on GeoPolygonDto {
   MapLatLngBounds toBounds() => MapLatLngBounds.fromPoints(
     rings.expand((ring) => ring).map((c) => LatLng(c[1], c[0])),

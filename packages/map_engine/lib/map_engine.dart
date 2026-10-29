@@ -9,6 +9,8 @@ export 'src/domain/gestures/map_gesture.dart';
 
 export "src/domain/sketch_trace.dart";
 
+export "src/domain/map_hit.dart";
+
 export "src/geometry/camera_to_matrix4.dart";
 export "src/geometry/segment_hit_helpers.dart";
 export "src/geometry/world_segment_helper.dart";

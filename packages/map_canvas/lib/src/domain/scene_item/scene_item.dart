@@ -18,6 +18,7 @@ abstract class SceneItem {
   int hitPriority = 0;
 
   bool isHitAt(WorldOffset p, double zoomScale);
+  WorldOffset hitPoint(WorldOffset p);
 
   DrawCommand toDrawCommand({MapPaintContext context});
 }

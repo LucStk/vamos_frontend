@@ -69,13 +69,14 @@ class _ExistingTripUi extends ConsumerWidget {
       children: [
         TripSelectionSheet(tripId: tripId, canEdit: true),
         OverlayMenu<TripOriginMenu>(
-          builder: (_, _, world) => OriginMenuWidget(
+          builder: (_, menu) => OriginMenuWidget(
             children: [
               MenuButton(
                 icon: Icons.route,
                 label: 'start route',
-                onPressed: () =>
-                    ref.applyTransition(SketchExtend.start(tripId, world)),
+                onPressed: () => ref.applyTransition(
+                  SketchExtend.start(tripId, menu.position),
+                ),
               ),
             ],
           ),

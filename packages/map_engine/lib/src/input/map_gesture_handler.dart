@@ -89,8 +89,8 @@ class MapGestureHandler {
 
   /// Le clic droit ne passe pas par le resolver : pas de pan, de drag ni de double tap.
   void _sendSecondaryTap(PointerPosition position) {
-    final element = _hitTest(offset: position.screen);
-    _sink().send(SecondaryTapGesture(position, element: element));
+    final hit = _hitTest(offset: position.screen);
+    _sink().send(SecondaryTapGesture(position, hit: hit));
   }
 
   void _syncTimers() {

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SketchTrace {
 
- List<WorldOffset> get points; RouteAnchor? get startAnchor; RouteAnchor? get endAnchor; MobilityType? get mobilityType;/// Écart (monde) entre le pointeur et la pointe du crayon au moment de la saisie.
+ WorldOffset get startPoint; MapAnchor? get startAnchor; MapAnchor? get endAnchor; MobilityType? get mobilityType; List<WorldOffset> get points;/// Écart (monde) entre le pointeur et la pointe du crayon au moment de la saisie.
  Offset get grabOffset;
 /// Create a copy of SketchTrace
 /// with the given fields replaced by the non-null parameter values.
@@ -28,20 +28,20 @@ $SketchTraceCopyWith<SketchTrace> get copyWith => _$SketchTraceCopyWithImpl<Sket
 @override
 bool operator ==(Object other) {
   final _this = this as SketchTrace;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchTrace&&const DeepCollectionEquality().equals(other.points, _this.points)&&(identical(other.startAnchor, _this.startAnchor) || other.startAnchor == _this.startAnchor)&&(identical(other.endAnchor, _this.endAnchor) || other.endAnchor == _this.endAnchor)&&(identical(other.mobilityType, _this.mobilityType) || other.mobilityType == _this.mobilityType)&&const DeepCollectionEquality().equals(other.grabOffset, _this.grabOffset));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SketchTrace&&(identical(other.startPoint, _this.startPoint) || other.startPoint == _this.startPoint)&&(identical(other.startAnchor, _this.startAnchor) || other.startAnchor == _this.startAnchor)&&(identical(other.endAnchor, _this.endAnchor) || other.endAnchor == _this.endAnchor)&&(identical(other.mobilityType, _this.mobilityType) || other.mobilityType == _this.mobilityType)&&const DeepCollectionEquality().equals(other.points, _this.points)&&const DeepCollectionEquality().equals(other.grabOffset, _this.grabOffset));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SketchTrace;
-  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.points),_this.startAnchor,_this.endAnchor,_this.mobilityType,const DeepCollectionEquality().hash(_this.grabOffset));
+  return Object.hash(runtimeType,_this.startPoint,_this.startAnchor,_this.endAnchor,_this.mobilityType,const DeepCollectionEquality().hash(_this.points),const DeepCollectionEquality().hash(_this.grabOffset));
 }
 
 @override
 String toString() {
   final _this = this as SketchTrace;
-  return 'SketchTrace(points: ${_this.points}, startAnchor: ${_this.startAnchor}, endAnchor: ${_this.endAnchor}, mobilityType: ${_this.mobilityType}, grabOffset: ${_this.grabOffset})';
+  return 'SketchTrace(startPoint: ${_this.startPoint}, startAnchor: ${_this.startAnchor}, endAnchor: ${_this.endAnchor}, mobilityType: ${_this.mobilityType}, points: ${_this.points}, grabOffset: ${_this.grabOffset})';
 }
 
 
@@ -52,7 +52,7 @@ abstract mixin class $SketchTraceCopyWith<$Res>  {
   factory $SketchTraceCopyWith(SketchTrace value, $Res Function(SketchTrace) _then) = _$SketchTraceCopyWithImpl;
 @useResult
 $Res call({
- List<WorldOffset> points, RouteAnchor? startAnchor, RouteAnchor? endAnchor, MobilityType? mobilityType, Offset grabOffset
+ WorldOffset startPoint, MapAnchor? startAnchor, MapAnchor? endAnchor, MobilityType? mobilityType, List<WorldOffset> points, Offset grabOffset
 });
 
 
@@ -69,13 +69,14 @@ class _$SketchTraceCopyWithImpl<$Res>
 
 /// Create a copy of SketchTrace
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? points = null,Object? startAnchor = freezed,Object? endAnchor = freezed,Object? mobilityType = freezed,Object? grabOffset = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? startPoint = null,Object? startAnchor = freezed,Object? endAnchor = freezed,Object? mobilityType = freezed,Object? points = null,Object? grabOffset = freezed,}) {
   return _then(SketchTrace(
-null == points ? _self.points : points // ignore: cast_nullable_to_non_nullable
-as List<WorldOffset>,startAnchor: freezed == startAnchor ? _self.startAnchor : startAnchor // ignore: cast_nullable_to_non_nullable
-as RouteAnchor?,endAnchor: freezed == endAnchor ? _self.endAnchor : endAnchor // ignore: cast_nullable_to_non_nullable
-as RouteAnchor?,mobilityType: freezed == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
-as MobilityType?,grabOffset: freezed == grabOffset ? _self.grabOffset : grabOffset // ignore: cast_nullable_to_non_nullable
+startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
+as WorldOffset,startAnchor: freezed == startAnchor ? _self.startAnchor : startAnchor // ignore: cast_nullable_to_non_nullable
+as MapAnchor?,endAnchor: freezed == endAnchor ? _self.endAnchor : endAnchor // ignore: cast_nullable_to_non_nullable
+as MapAnchor?,mobilityType: freezed == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as MobilityType?,points: null == points ? _self.points : points // ignore: cast_nullable_to_non_nullable
+as List<WorldOffset>,grabOffset: freezed == grabOffset ? _self.grabOffset : grabOffset // ignore: cast_nullable_to_non_nullable
 as Offset,
   ));
 }
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<WorldOffset> points,  RouteAnchor? startAnchor,  RouteAnchor? endAnchor,  MobilityType? mobilityType,  Offset grabOffset)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( WorldOffset startPoint,  MapAnchor? startAnchor,  MapAnchor? endAnchor,  MobilityType? mobilityType,  List<WorldOffset> points,  Offset grabOffset)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SketchTrace() when $default != null:
-return $default(_that.points,_that.startAnchor,_that.endAnchor,_that.mobilityType,_that.grabOffset);case _:
+return $default(_that.startPoint,_that.startAnchor,_that.endAnchor,_that.mobilityType,_that.points,_that.grabOffset);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.points,_that.startAnchor,_that.endAnchor,_that.mobilityTyp
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<WorldOffset> points,  RouteAnchor? startAnchor,  RouteAnchor? endAnchor,  MobilityType? mobilityType,  Offset grabOffset)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( WorldOffset startPoint,  MapAnchor? startAnchor,  MapAnchor? endAnchor,  MobilityType? mobilityType,  List<WorldOffset> points,  Offset grabOffset)  $default,) {final _that = this;
 switch (_that) {
 case _SketchTrace():
-return $default(_that.points,_that.startAnchor,_that.endAnchor,_that.mobilityType,_that.grabOffset);case _:
+return $default(_that.startPoint,_that.startAnchor,_that.endAnchor,_that.mobilityType,_that.points,_that.grabOffset);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.points,_that.startAnchor,_that.endAnchor,_that.mobilityTyp
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<WorldOffset> points,  RouteAnchor? startAnchor,  RouteAnchor? endAnchor,  MobilityType? mobilityType,  Offset grabOffset)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( WorldOffset startPoint,  MapAnchor? startAnchor,  MapAnchor? endAnchor,  MobilityType? mobilityType,  List<WorldOffset> points,  Offset grabOffset)?  $default,) {final _that = this;
 switch (_that) {
 case _SketchTrace() when $default != null:
-return $default(_that.points,_that.startAnchor,_that.endAnchor,_that.mobilityType,_that.grabOffset);case _:
+return $default(_that.startPoint,_that.startAnchor,_that.endAnchor,_that.mobilityType,_that.points,_that.grabOffset);case _:
   return null;
 
 }
@@ -217,19 +218,20 @@ return $default(_that.points,_that.startAnchor,_that.endAnchor,_that.mobilityTyp
 
 
 class _SketchTrace extends SketchTrace {
-  const _SketchTrace( List<WorldOffset> points, {this.startAnchor, this.endAnchor, this.mobilityType, this.grabOffset = Offset.zero}): _points = points,super._();
+  const _SketchTrace({required this.startPoint, this.startAnchor, this.endAnchor, this.mobilityType,  List<WorldOffset> points = const [], this.grabOffset = Offset.zero}): _points = points,super._();
   
 
+@override final  WorldOffset startPoint;
+@override final  MapAnchor? startAnchor;
+@override final  MapAnchor? endAnchor;
+@override final  MobilityType? mobilityType;
  final  List<WorldOffset> _points;
-@override List<WorldOffset> get points {
+@override@JsonKey() List<WorldOffset> get points {
   if (_points is EqualUnmodifiableListView) return _points;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_points);
 }
 
-@override final  RouteAnchor? startAnchor;
-@override final  RouteAnchor? endAnchor;
-@override final  MobilityType? mobilityType;
 /// Écart (monde) entre le pointeur et la pointe du crayon au moment de la saisie.
 @override@JsonKey() final  Offset grabOffset;
 
@@ -243,18 +245,18 @@ _$SketchTraceCopyWith<_SketchTrace> get copyWith => __$SketchTraceCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchTrace&&const DeepCollectionEquality().equals(other.points, _points)&&(identical(other.startAnchor, startAnchor) || other.startAnchor == startAnchor)&&(identical(other.endAnchor, endAnchor) || other.endAnchor == endAnchor)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&const DeepCollectionEquality().equals(other.grabOffset, grabOffset));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SketchTrace&&(identical(other.startPoint, startPoint) || other.startPoint == startPoint)&&(identical(other.startAnchor, startAnchor) || other.startAnchor == startAnchor)&&(identical(other.endAnchor, endAnchor) || other.endAnchor == endAnchor)&&(identical(other.mobilityType, mobilityType) || other.mobilityType == mobilityType)&&const DeepCollectionEquality().equals(other.points, _points)&&const DeepCollectionEquality().equals(other.grabOffset, grabOffset));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_points),startAnchor,endAnchor,mobilityType,const DeepCollectionEquality().hash(grabOffset));
+    return Object.hash(runtimeType,startPoint,startAnchor,endAnchor,mobilityType,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(grabOffset));
 }
 
 @override
 String toString() {
-    return 'SketchTrace(points: $points, startAnchor: $startAnchor, endAnchor: $endAnchor, mobilityType: $mobilityType, grabOffset: $grabOffset)';
+    return 'SketchTrace(startPoint: $startPoint, startAnchor: $startAnchor, endAnchor: $endAnchor, mobilityType: $mobilityType, points: $points, grabOffset: $grabOffset)';
 }
 
 
@@ -265,7 +267,7 @@ abstract mixin class _$SketchTraceCopyWith<$Res> implements $SketchTraceCopyWith
   factory _$SketchTraceCopyWith(_SketchTrace value, $Res Function(_SketchTrace) _then) = __$SketchTraceCopyWithImpl;
 @override @useResult
 $Res call({
- List<WorldOffset> points, RouteAnchor? startAnchor, RouteAnchor? endAnchor, MobilityType? mobilityType, Offset grabOffset
+ WorldOffset startPoint, MapAnchor? startAnchor, MapAnchor? endAnchor, MobilityType? mobilityType, List<WorldOffset> points, Offset grabOffset
 });
 
 
@@ -282,13 +284,14 @@ class __$SketchTraceCopyWithImpl<$Res>
 
 /// Create a copy of SketchTrace
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? points = null,Object? startAnchor = freezed,Object? endAnchor = freezed,Object? mobilityType = freezed,Object? grabOffset = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? startPoint = null,Object? startAnchor = freezed,Object? endAnchor = freezed,Object? mobilityType = freezed,Object? points = null,Object? grabOffset = freezed,}) {
   return _then(_SketchTrace(
-null == points ? _self._points : points // ignore: cast_nullable_to_non_nullable
-as List<WorldOffset>,startAnchor: freezed == startAnchor ? _self.startAnchor : startAnchor // ignore: cast_nullable_to_non_nullable
-as RouteAnchor?,endAnchor: freezed == endAnchor ? _self.endAnchor : endAnchor // ignore: cast_nullable_to_non_nullable
-as RouteAnchor?,mobilityType: freezed == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
-as MobilityType?,grabOffset: freezed == grabOffset ? _self.grabOffset : grabOffset // ignore: cast_nullable_to_non_nullable
+startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
+as WorldOffset,startAnchor: freezed == startAnchor ? _self.startAnchor : startAnchor // ignore: cast_nullable_to_non_nullable
+as MapAnchor?,endAnchor: freezed == endAnchor ? _self.endAnchor : endAnchor // ignore: cast_nullable_to_non_nullable
+as MapAnchor?,mobilityType: freezed == mobilityType ? _self.mobilityType : mobilityType // ignore: cast_nullable_to_non_nullable
+as MobilityType?,points: null == points ? _self._points : points // ignore: cast_nullable_to_non_nullable
+as List<WorldOffset>,grabOffset: freezed == grabOffset ? _self.grabOffset : grabOffset // ignore: cast_nullable_to_non_nullable
 as Offset,
   ));
 }

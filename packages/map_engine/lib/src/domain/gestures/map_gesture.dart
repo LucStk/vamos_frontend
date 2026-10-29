@@ -1,5 +1,6 @@
 // domain/gestures/map_gesture.dart
 import 'package:domain_core/space/offset_type.dart';
+import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/input/map_pointer_event.dart';
 
@@ -31,32 +32,33 @@ sealed class MapGesture {
 // ---------------------------------------------------------------------------
 
 sealed class PointGesture extends MapGesture {
-  const PointGesture(super.position, {required this.element});
+  const PointGesture(super.position, {required this.hit});
 
   /// Objet touché, `null` si le geste a lieu sur la carte vide.
-  final MapObject? element;
+  final MapHit? hit;
 
-  bool get onMap => element == null;
+  bool get onMap => hit == null;
+  MapObject? get element => hit?.object; // le reste du code ne change pas
 }
 
 final class PressGesture extends PointGesture {
-  const PressGesture(super.position, {required super.element});
+  const PressGesture(super.position, {required super.hit});
 }
 
 final class TapGesture extends PointGesture {
-  const TapGesture(super.position, {required super.element});
+  const TapGesture(super.position, {required super.hit});
 }
 
 final class DoubleTapGesture extends PointGesture {
-  const DoubleTapGesture(super.position, {required super.element});
+  const DoubleTapGesture(super.position, {required super.hit});
 }
 
 final class LongPressGesture extends PointGesture {
-  const LongPressGesture(super.position, {required super.element});
+  const LongPressGesture(super.position, {required super.hit});
 }
 
 final class SecondaryTapGesture extends PointGesture {
-  const SecondaryTapGesture(super.position, {required super.element});
+  const SecondaryTapGesture(super.position, {required super.hit});
 }
 
 // ---------------------------------------------------------------------------
@@ -83,18 +85,18 @@ sealed class DragTrackingGesture extends DragGesture {
   const DragTrackingGesture(
     super.position, {
     required super.dragged,
-    required this.target,
+    required this.hit,
   });
 
   /// Objet sous le pointeur, `null` si le pointeur est sur la carte vide.
-  final MapObject? target;
+  final MapHit? hit;
 }
 
 final class DragUpdateGesture extends DragTrackingGesture {
   const DragUpdateGesture(
     super.position, {
     required super.dragged,
-    required super.target,
+    required super.hit,
   });
 }
 
@@ -102,6 +104,6 @@ final class DragEndGesture extends DragTrackingGesture {
   const DragEndGesture(
     super.position, {
     required super.dragged,
-    required super.target,
+    required super.hit,
   });
 }

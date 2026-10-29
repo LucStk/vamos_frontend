@@ -25,4 +25,13 @@ abstract class LineItem extends SceneItem {
     }
     return path;
   }
+
+  @override
+  WorldOffset hitPoint(WorldOffset p) => worldSegments
+      .map((s) => nearestPointOnSegment(s.$1, s.$2, p))
+      .reduce(
+        (a, b) => (a.value - p.value).distance <= (b.value - p.value).distance
+            ? a
+            : b,
+      );
 }

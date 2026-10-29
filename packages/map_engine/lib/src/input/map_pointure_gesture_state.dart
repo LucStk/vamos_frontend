@@ -1,4 +1,5 @@
 import 'package:domain_core/space/offset_type.dart';
+import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/input/map_pointer_event.dart';
 
@@ -11,31 +12,35 @@ class IdleState extends PointerGestureState {
 }
 
 class PressedState extends PointerGestureState {
-  const PressedState({required this.element, required this.position});
-
-  final MapObject? element;
+  const PressedState({required this.hit, required this.position});
+  final MapHit? hit;
   final PointerPosition position;
+  MapObject? get element => hit?.object; // le reste du code ne change pas
 }
 
 /// Le long press a été déclenché, le doigt est toujours posé.
 /// Sert à ne PAS émettre de Tap au relâchement.
 class LongPressedState extends PointerGestureState {
-  const LongPressedState({required this.element, required this.position});
+  const LongPressedState({required this.hit, required this.position});
 
-  final MapObject? element;
+  final MapHit? hit;
   final PointerPosition position;
+
+  MapObject? get element => hit?.object; // le reste du code ne change pas
 }
 
 class PendingTap extends PointerGestureState {
   const PendingTap({
-    required this.element,
+    required this.hit,
     required this.position,
     this.doubleTapMaxDistancePx = 24,
   });
 
-  final MapObject? element;
+  final MapHit? hit;
   final PointerPosition position;
   final double doubleTapMaxDistancePx;
+
+  MapObject? get element => hit?.object; // le reste du code ne change pas
 
   bool compare(MapObject? otherElement, ScreenOffset otherOffset) {
     if ((position.screen.value - otherOffset.value).distance >
@@ -56,10 +61,10 @@ class PendingTap extends PointerGestureState {
 }
 
 class DraggingState extends PointerGestureState {
-  const DraggingState({required this.dragged, this.target});
+  const DraggingState({required this.dragged, this.hit});
 
   final MapObject dragged;
-  final MapObject? target; // peut potentiellement servir à rien
+  final MapHit? hit; // peut potentiellement servir à rien
   // dans la nouvelle version de l'engine avec les slots
 }
 

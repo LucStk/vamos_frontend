@@ -55,7 +55,7 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
       ? PointerButton.secondary
       : PointerButton.primary;
 
-  MapObject? _hitTest({required ScreenOffset offset, MapObject? exclude}) {
+  MapHit? _hitTest({required ScreenOffset offset, MapObject? exclude}) {
     final scene = ref.read(mapSceneProvider);
     final camera = ref.read(mapCameraProvider);
     return scene.hitTest(

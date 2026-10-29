@@ -1,12 +1,13 @@
 import 'package:domain_core/space/offset_type.dart';
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
+import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/input/map_pointer_event.dart';
 import 'package:map_engine/src/input/map_pointure_gesture_state.dart';
 
 typedef GestureResolution = ({PointerGestureState state, MapGesture? gesture});
 typedef HitTest =
-    MapObject? Function({required ScreenOffset offset, MapObject? exclude});
+    MapHit? Function({required ScreenOffset offset, MapObject? exclude});
 
 class PointerGestureResolver {
   static const double dragStartThreshold = 5;
@@ -17,9 +18,9 @@ class PointerGestureResolver {
   MapGesture? resolve(PointerEvent pointer) {
     switch ((state, pointer)) {
       case (IdleState(), PointerDown e):
-        final element = hitTest(offset: e.screen);
-        state = PressedState(element: element, position: pointer.position);
-        return PressGesture(e.position, element: element);
+        final hit = hitTest(offset: e.screen);
+        state = PressedState(hit: hit, position: pointer.position);
+        return PressGesture(e.position, hit: hit);
 
       case (PressedState pressed, PointerMove e):
         final distance =
@@ -55,20 +56,17 @@ class PointerGestureResolver {
         return null;
 
       case (PressedState pressed, PointerLongPressTimeout e):
-        state = LongPressedState(
-          element: pressed.element,
-          position: e.position,
-        );
-        return LongPressGesture(pressed.position, element: pressed.element);
+        state = LongPressedState(hit: pressed.hit, position: e.position);
+        return LongPressGesture(pressed.position, hit: pressed.hit);
 
       case (PressedState pressed, PointerUp e):
         //Dans le cas où l'élément ne peut pas avoir de doubleTap, on envoie directement le tap
         if (pressed.element != null && !pressed.element!.awaitsDoubleTap) {
           state = const IdleState();
 
-          return TapGesture(e.position, element: pressed.element);
+          return TapGesture(e.position, hit: pressed.hit);
         }
-        state = PendingTap(element: pressed.element, position: e.position);
+        state = PendingTap(hit: pressed.hit, position: e.position);
         return null;
 
       case (LongPressedState _, PointerUp _):
@@ -78,15 +76,15 @@ class PointerGestureResolver {
       case (DraggingState dragging, PointerMove e):
         // On fait le testhit pour détecter si on touche un
         // element autre celui que l'on déplace
-        final target = hitTest(
+        final hit = hitTest(
           offset: e.position.screen,
           exclude: dragging.dragged,
         );
-        state = DraggingState(dragged: dragging.dragged, target: target);
+        state = DraggingState(dragged: dragging.dragged, hit: hit);
         return DragUpdateGesture(
           e.position,
           dragged: dragging.dragged,
-          target: target,
+          hit: hit,
         );
 
       case (DraggingState dragging, PointerUp e):
@@ -94,23 +92,23 @@ class PointerGestureResolver {
         return DragEndGesture(
           e.position,
           dragged: dragging.dragged,
-          target: dragging.target,
+          hit: dragging.hit,
         );
 
       case (PendingTap pending, PointerDown e):
-        final element = hitTest(offset: e.screen);
-        if (pending.compare(element, e.screen)) {
+        final hit = hitTest(offset: e.screen);
+        if (pending.compare(hit?.object, e.screen)) {
           state = IdleState();
-          return DoubleTapGesture(e.position, element: element);
+          return DoubleTapGesture(e.position, hit: hit);
         }
-        state = PressedState(element: element, position: e.position);
+        state = PressedState(hit: hit, position: e.position);
         // Le premier tap était finalement un tap simple.
         // Le nouveau down démarre une nouvelle interaction.
-        return TapGesture(e.position, element: pending.element);
+        return TapGesture(e.position, hit: pending.hit);
 
       case (PendingTap pending, PointerTapTimeout e):
         state = const IdleState();
-        return TapGesture(e.position, element: pending.element);
+        return TapGesture(e.position, hit: pending.hit);
       // --- Annulation (le système a repris le pointeur) -------------------
       case (DraggingState dragging, PointerCancel e):
         // Un DragStart a déjà été émis : le sink doit être prévenu pour

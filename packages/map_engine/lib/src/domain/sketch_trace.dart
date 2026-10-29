@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:domain_core/space/offset_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:map_engine/src/domain/map_anchor.dart';
 import 'package:trip_application/trip_application.dart';
 
 part 'sketch_trace.freezed.dart';
@@ -21,11 +22,13 @@ part 'sketch_trace.freezed.dart';
 abstract class SketchTrace with _$SketchTrace {
   const SketchTrace._();
 
-  const factory SketchTrace(
-    List<WorldOffset> points, {
-    RouteAnchor? startAnchor,
-    RouteAnchor? endAnchor,
+  const factory SketchTrace({
+    required WorldOffset startPoint,
+    MapAnchor? startAnchor,
+    MapAnchor? endAnchor,
     MobilityType? mobilityType,
+
+    @Default([]) List<WorldOffset> points,
 
     /// Écart (monde) entre le pointeur et la pointe du crayon au moment de la saisie.
     @Default(Offset.zero) Offset grabOffset,
@@ -33,24 +36,28 @@ abstract class SketchTrace with _$SketchTrace {
 
   /// Tracé vide, sans ancre : le départ sera un point libre (la fin pourra
   /// ensuite être posée sur la route avec [endingAt]).
-  factory SketchTrace.empty() => const SketchTrace([]);
+  factory SketchTrace.empty(WorldOffset start) =>
+      SketchTrace(startPoint: start);
 
   /// Première route d'un trip : pas d'ancre, la mobilité est obligatoire.
   factory SketchTrace.firstRoute({
+    required WorldOffset start,
     MobilityType mobilityType = MobilityType.bike,
-  }) => SketchTrace(const [], mobilityType: mobilityType);
+  }) => SketchTrace(startPoint: start, mobilityType: mobilityType);
 
   /// Tracé qui part de [startAnchor]. [points] reste vide : l'ancre n'en fait
   /// PAS partie (la dupliquer ferait un doublon côté serveur).
-  factory SketchTrace.fromStartAnchor(RouteAnchor startAnchor) =>
-      SketchTrace(const [], startAnchor: startAnchor);
+  factory SketchTrace.fromStartAnchor({
+    required WorldOffset start,
+    required MapAnchor startAnchor,
+  }) => SketchTrace(startPoint: start, startAnchor: startAnchor);
 
   /// Dernier point dessiné.
   WorldOffset? get last => points.isEmpty ? null : points.last;
 
   /// Pointe du crayon : le dernier point dessiné ou, tant qu'on n'a rien
   /// dessiné, l'ancre de départ.
-  WorldOffset? get tip => last ?? startAnchor?.position;
+  WorldOffset? get tip => last ?? startPoint;
 
   bool get hasAnchor => startAnchor != null || endAnchor != null;
 
@@ -82,7 +89,7 @@ abstract class SketchTrace with _$SketchTrace {
       copyWith(points: [...points, WorldOffset(pointer.value - grabOffset)]);
 
   /// Le tracé rejoint la route en [anchor].
-  SketchTrace endingAt(RouteAnchor anchor) => copyWith(endAnchor: anchor);
+  SketchTrace endingAt(MapAnchor anchor) => copyWith(endAnchor: anchor);
 
   /// Le tracé ne rejoint plus la route (le pointeur s'en est éloigné).
   SketchTrace detached() => copyWith(endAnchor: null);
