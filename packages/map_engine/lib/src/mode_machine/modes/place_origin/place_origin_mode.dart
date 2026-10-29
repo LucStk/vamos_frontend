@@ -21,7 +21,7 @@ sealed class PlaceOriginMode extends AppMode {
 
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapTripOrigin _ => Transition.overlay<AppMode>(g.menuAt),
+    MapTripOrigin _ => Transition.overlay<AppMode>(g.tapMenu),
     _ => onTapElsewhere(g),
   };
 }
@@ -33,16 +33,12 @@ final class PlaceNewTripOrigin extends PlaceOriginMode {
   @override
   Transition<AppMode> onTapElsewhere(TapGesture g) =>
       Transition.overlay<AppMode>(
-        MapGeoMenu(g.world),
+        TapMenu(g.world, object: null),
       ).and(tripOriginSlot, TripOrigin(g.world));
 
   @override
   Transition<AppMode> onDragging(DragUpdateGesture g) =>
       Transition.set(tripOriginSlot, TripOrigin(g.world));
-
-  @override
-  Transition<AppMode> onDragEnd(DragEndGesture g) =>
-      Transition.overlay(g.menuAt);
 
   Transition<AppMode> validate(WorldOffset origin) => Transition.run(
     CreateTrip(origin),
@@ -63,7 +59,7 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   Transition<AppMode> onTap(TapGesture g) {
     print("gesture ${g.element}");
     return switch (g.element) {
-      MapTripOrigin _ => Transition.overlay(MapObjectMenu(g.hit!)),
+      MapTripOrigin _ => Transition.overlay(g.tapMenu),
       _ => onTapElsewhere(g),
     };
   }
@@ -72,7 +68,7 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   @override
   Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.run(
     SetTripOrigin(position: g.world, tripId: tripId),
-    then: (_, _) => Transition.overlay(MapObjectMenu(g.hit!)),
+    then: (_, _) => Transition.overlay(g.dragEndMenu),
   );
   @override
   Transition<AppMode> onDragging(DragUpdateGesture g) =>

@@ -1,3 +1,4 @@
+import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
 import 'package:map_engine/src/mode_machine/command/effect/pending_run.dart';
@@ -79,6 +80,7 @@ sealed class Transition<M extends Mode<M>> {
     return (st is T) ? build(st) : null;
   });
 
+  // (si `section` est un RouteElements : MapHit<RouteElements> directement.)
   static DeferredTransition<M> update<M extends Mode<M>, T extends Object>(
     Slot<T> slot,
     T? Function(T current) change,

@@ -1,5 +1,5 @@
+import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/mode_machine/mode.dart';
-
 import 'package:map_engine/src/mode_machine/overlay.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:map_engine/src/mode_machine/mode_state.dart';
@@ -13,4 +13,10 @@ typedef AppOverlay =
 
 abstract class AppMode extends Mode<AppMode> {
   const AppMode();
+  @override
+  Transition<AppMode> onTap(TapGesture g) =>
+      Transition.overlay<AppMode>(g.tapMenu);
+  @override
+  Transition<AppMode> onDragEnd(DragEndGesture g) =>
+      Transition.overlay<AppMode>(g.dragEndMenu);
 }

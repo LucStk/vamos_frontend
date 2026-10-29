@@ -53,7 +53,9 @@ class TripEditSheets extends ConsumerWidget {
           EditBottomButton(
             tooltipText: "Edit route",
             onPressed: () {
-              ref.watch(modeMachineProvider).apply(Transition.to(Sk(mode.tripId));
+              ref
+                  .watch(modeMachineProvider)
+                  .apply(Transition.to(SketchEdition(mode.tripId)));
             },
           ),
         ],

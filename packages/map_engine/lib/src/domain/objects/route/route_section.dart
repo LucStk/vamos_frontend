@@ -1,9 +1,9 @@
 part of '../map_objects.dart';
 
-final class MapSection extends MapObject implements Selectable {
+final class MapSection extends RouteElements {
   final SectionId id;
   final TripId tripId;
-  const MapSection({required this.id, required this.tripId});
+  MapSection({required this.id, required this.tripId});
 
   @override
   int get hitPriority => 50;
@@ -13,3 +13,5 @@ final class MapSection extends MapObject implements Selectable {
   @override
   int get hashCode => id.hashCode;
 }
+
+

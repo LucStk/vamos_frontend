@@ -3,94 +3,72 @@ import 'dart:ui';
 
 import 'package:domain_core/space/offset_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:map_engine/src/domain/map_anchor.dart';
+import 'package:map_engine/src/domain/map_hit.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:trip_application/trip_application.dart';
 
 part 'sketch_trace.freezed.dart';
 
-/// Tracé à main levé en cours de saisie, tel qu'il sera envoyé à `editRoute`.
+/// Une ancre utilisable pendant l'édition d'un tracé.
 ///
-/// Même contrat que le serveur :
-/// - [points] : ordre du dessin, SANS les ancres. Le tracé part de
-///   [startAnchor] (ou d'un point libre) et arrive à [endAnchor] (ou à un
-///   point libre). Le serveur retourne lui-même les points quand il faut.
-/// - [startAnchor] / [endAnchor] : où le tracé touche la route existante.
-///   Sans route, aucune des deux.
-/// - [mobilityType] : `null` = hériter de la section de [startAnchor] (à défaut
-///   [endAnchor]). Obligatoire pour la première route d'un trip.
+/// - [hit] : rattachement à un élément identifié sur la carte.
+/// - [position] : position libre dans le monde cartographique.
+@freezed
+sealed class SketchAnchor with _$SketchAnchor {
+  const SketchAnchor._();
+  const factory SketchAnchor(MapHit<RouteElements> hit) = _SketchAnchor;
+}
+
+/// Tracé à main levée en cours de saisie, destiné à `editRoute`.
+///
+/// - [startPoint] : position initiale du crayon, toujours présente.
+/// - [startAnchor] : ancre de départ éventuelle.
+/// - [endAnchor] : ancre d'arrivée éventuelle.
+/// - [points] : points dessinés, dans l'ordre, sans les ancres.
+/// - [mobilityType] : `null` signifie hériter de la section raccordée,
+///   en priorité celle de départ, puis celle d'arrivée.
+///   Pour la première route du trajet, la mobilité est obligatoire.
 @freezed
 abstract class SketchTrace with _$SketchTrace {
   const SketchTrace._();
 
   const factory SketchTrace({
-    required WorldOffset startPoint,
-    MapAnchor? startAnchor,
-    MapAnchor? endAnchor,
+    required SketchAnchor startAnchor,
+    SketchAnchor? endAnchor,
     MobilityType? mobilityType,
-
     @Default([]) List<WorldOffset> points,
-
-    /// Écart (monde) entre le pointeur et la pointe du crayon au moment de la saisie.
     @Default(Offset.zero) Offset grabOffset,
   }) = _SketchTrace;
 
-  /// Tracé vide, sans ancre : le départ sera un point libre (la fin pourra
-  /// ensuite être posée sur la route avec [endingAt]).
-  factory SketchTrace.empty(WorldOffset start) =>
-      SketchTrace(startPoint: start);
-
-  /// Première route d'un trip : pas d'ancre, la mobilité est obligatoire.
-  factory SketchTrace.firstRoute({
-    required WorldOffset start,
-    MobilityType mobilityType = MobilityType.bike,
-  }) => SketchTrace(startPoint: start, mobilityType: mobilityType);
-
-  /// Tracé qui part de [startAnchor]. [points] reste vide : l'ancre n'en fait
-  /// PAS partie (la dupliquer ferait un doublon côté serveur).
-  factory SketchTrace.fromStartAnchor({
-    required WorldOffset start,
-    required MapAnchor startAnchor,
-  }) => SketchTrace(startPoint: start, startAnchor: startAnchor);
-
-  /// Dernier point dessiné.
+  /// Dernier point effectivement dessiné.
   WorldOffset? get last => points.isEmpty ? null : points.last;
 
-  /// Pointe du crayon : le dernier point dessiné ou, tant qu'on n'a rien
-  /// dessiné, l'ancre de départ.
-  WorldOffset? get tip => last ?? startPoint;
+  /// Pointe du crayon : dernier point dessiné, ancre de départ,
+  /// ou position initiale si le tracé est libre.
+  WorldOffset get tip => last ?? startAnchor.hit.point;
 
-  bool get hasAnchor => startAnchor != null || endAnchor != null;
+  bool get isCut => points.isEmpty && (endAnchor != null);
 
-  /// Une seule ancre et aucun point : pour le serveur c'est une COUPE (la fin
-  /// ou le début de la route est supprimé). Ne jamais l'envoyer comme simple
-  /// effet d'un geste vide : seulement sur une action explicite de l'utilisateur.
-  bool get isCut =>
-      points.isEmpty && (startAnchor != null) != (endAnchor != null);
-
-  /// Peut être envoyé comme un tracé : première route (points + mobilité), ou
-  /// ancres avec des points, ou deux ancres (recalcul entre elles). Les coupes
-  /// ([isCut]) sont exclues.
+  /// Indique si le tracé peut être envoyé au serveur.
+  ///
+  /// Une première route nécessite des points et une mobilité.
+  /// Un tracé raccordé nécessite des points ou deux ancres.
+  /// Les coupes sont exclues.
   bool get canSubmit {
-    if (!hasAnchor) return points.isNotEmpty && mobilityType != null;
-    return points.isNotEmpty || (startAnchor != null && endAnchor != null);
+    return points.isNotEmpty || endAnchor != null;
   }
 
-  /// Mémorise où le crayon a été saisi, par rapport à sa pointe.
-  SketchTrace grabbedAt(WorldOffset pointer) {
-    final t = tip;
-    return copyWith(
-      grabOffset: t == null ? Offset.zero : pointer.value - t.value,
-    );
-  }
+  /// Mémorise la position du pointeur relativement à la pointe du crayon.
+  SketchTrace grabbedAt(WorldOffset pointer) =>
+      copyWith(grabOffset: pointer.value - tip.value);
 
-  /// [pointer] est la position du pointeur ; la pointe est placée à
-  /// `pointer - grabOffset`.
+  /// Ajoute un point en tenant compte du décalage de saisie.
   SketchTrace add(WorldOffset pointer) =>
       copyWith(points: [...points, WorldOffset(pointer.value - grabOffset)]);
 
-  /// Le tracé rejoint la route en [anchor].
-  SketchTrace endingAt(MapAnchor anchor) => copyWith(endAnchor: anchor);
+  /// Rattache l'arrivée du tracé à une ancre.
+  SketchTrace endingAt(SketchAnchor anchor) => copyWith(endAnchor: anchor);
 
-  /// Le tracé ne rejoint plus la route (le pointeur s'en est éloigné).
+  /// Détache l'arrivée du tracé de la route.
   SketchTrace detached() => copyWith(endAnchor: null);
 }

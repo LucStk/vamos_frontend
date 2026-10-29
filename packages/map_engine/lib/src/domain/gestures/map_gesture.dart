@@ -29,21 +29,24 @@ sealed class MapGesture {
   ScreenOffset get screen => position.screen;
 }
 
+abstract interface class HitTrackingGesture {
+  MapHit? get hit;
+}
 // ---------------------------------------------------------------------------
 // Gestes ponctuels : portent l'objet touché, ou `null` si c'est la carte.
 // ---------------------------------------------------------------------------
 
-sealed class PointGesture extends MapGesture {
+sealed class PointGesture extends MapGesture implements HitTrackingGesture {
   const PointGesture(super.position, {required this.hit});
 
   /// Objet touché, `null` si le geste a lieu sur la carte vide.
+  @override
   final MapHit? hit;
 
-  bool get onMap => hit == null;
   MapObject? get element => hit?.object; // le reste du code ne change pas
 
-  ContextMenuOverlay<AppMode> get menuAt =>
-      onMap ? MapGeoMenu(super.position.world) : MapObjectMenu(hit!);
+  ContextMenuOverlay<AppMode> get tapMenu =>
+      TapMenu(hit?.point ?? world, object: element);
 }
 
 final class PressGesture extends PointGesture {
@@ -92,11 +95,12 @@ sealed class DragTrackingGesture extends DragGesture {
     required super.dragged,
     required this.hit,
   });
+  MapObject? get element => hit?.object;
 
   /// Objet sous le pointeur, `null` si le pointeur est sur la carte vide.
   final MapHit? hit;
-  ContextMenuOverlay<AppMode> get menuAt =>
-      (hit == null) ? MapGeoMenu(super.position.world) : MapObjectMenu(hit!);
+  ContextMenuOverlay<AppMode> get dragEndMenu =>
+      DragEndMenu(hit?.point ?? world, object: element);
 }
 
 final class DragUpdateGesture extends DragTrackingGesture {

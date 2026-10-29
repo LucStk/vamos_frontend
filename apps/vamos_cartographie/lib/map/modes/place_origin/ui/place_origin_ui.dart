@@ -6,7 +6,6 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/mode_machine/helpers/mode_apply.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
 import 'package:vamos_cartographie/map/modes/place_origin/ui/origin_menu_widget.dart';
-import 'package:vamos_cartographie/map/modes/shared/menus/providers/menu_placement.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/menu_button.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/overlay_menu.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_selection_sheet.dart';
@@ -75,7 +74,7 @@ class _ExistingTripUi extends ConsumerWidget {
                 icon: Icons.route,
                 label: 'start route',
                 onPressed: () =>
-                    ref.applyTransition(SketchExtend.start(tripId, hit.point)),
+                    ref.applyTransition(SketchEdition.startFromOrigin(hit)),
               ),
             ],
           ),

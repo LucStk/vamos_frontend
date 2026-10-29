@@ -5,15 +5,12 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/mode_machine/helpers/mode_apply.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
-import 'package:vamos_cartographie/map/modes/shared/menus/providers/menu_placement.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/overlay_menu.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/menu/section_menu.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/menu/trip_end_menu.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/menu/trip_origin_menu.dart';
 
 // import 'package:vamos_cartographie/map/mode_machine/mode_scope.dart';
 
-@Dependencies([modeSelection, ModeMachine, MenuPlacement])
+@Dependencies([modeSelection, ModeMachine])
 class TripEditMenus extends ConsumerWidget {
   const TripEditMenus(this.mode, {super.key});
   final TripEditMode mode;
@@ -21,22 +18,20 @@ class TripEditMenus extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tripId = mode.tripId;
-    void apply(Transition<AppMode>? t) =>
-        ref.read(modeMachineProvider).apply(t);
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        OverlayMenu<MapTripOrigin>(
-          builder: (_, hit) => TripOriginMenuWidget(
-            prependRoute: () => apply(SketchPrepend.start(tripId, hit)),
-          ),
-        ),
-        OverlayMenu<MapTripEnd>(
-          builder: (_, hit) => TripEndMenuWidget(
-            extendRoute: () => apply(SketchExtend.start(tripId, hit)),
-          ),
-        ),
+        // OverlayMenu<MapTripOrigin>(
+        //   builder: (_, hit) => TripOriginMenuWidget(
+        //     prependRoute: () => apply(SketchPrepend.start(tripId, hit)),
+        //   ),
+        // ),
+        // OverlayMenu<MapTripEnd>(
+        //   builder: (_, hit) => TripEndMenuWidget(
+        //     extendRoute: () => apply(SketchExtend.start(tripId, hit)),
+        //   ),
+        // ),
 
         OverlayMenu<MapSection>(
           builder: (_, _) => SectionMenuWidget(

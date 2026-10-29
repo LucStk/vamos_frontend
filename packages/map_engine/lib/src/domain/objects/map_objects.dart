@@ -1,3 +1,4 @@
+import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
@@ -16,3 +17,13 @@ sealed class MapObject {
 }
 
 abstract interface class Selectable implements MapObject {}
+
+sealed class RouteElements extends MapObject implements Selectable {}
+
+extension ToRouteAnchor on RouteElements {
+  RouteAnchor toRouteAnchor(LatLng position) => switch (this) {
+    MapSection t => SectionAnchor(position: position, sectionId: t.id),
+    MapTripEnd _ => EndRouteAnchor(),
+    MapTripOrigin() => StartRouteAnchor(),
+  };
+}

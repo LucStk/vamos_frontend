@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
+import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/sketch_trace.dart';
+import 'package:map_engine/src/mode_machine/command/route_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/sketch/sketch_generating.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
 import 'package:map_engine/src/mode_machine/slots/sketch_trace_slot.dart';
 import 'package:map_engine/src/mode_machine/slots/slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
@@ -18,31 +19,24 @@ class SketchEdition extends TripMode {
   @override
   Set<Slot> get retainedSlots => {sketchTraceSlot};
 
-  @override
-  Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapWaypoint e => Transition.overlay(WaypointMenu(e)),
-    MapSketchPencil p => Transition.overlay(PencilMenu(p)),
-    _ => Transition.stay(),
-  };
-
   /// On saisit le segment : le tracé démarre à ce point.
   /// On saisit le crayon : on retient où, par rapport à sa pointe.
   @override
-  Transition<AppMode> onPointerDown(PressGesture g) => switch (g.element) {
-    MapTripOrigin() => Transition.set(
-      sketchTraceSlot,
-      SketchTrace(startPoint: g.position.world),
-    ),
-    MapSection() => Transition.set(
-      sketchTraceSlot,
-      SketchTrace.from(g.position.world),
-    ),
-    MapSketchPencil() => Transition.update(
-      sketchTraceSlot,
-      (t) => t.grabbedAt(g.position.world),
-    ),
-    _ => Transition.stay(),
-  };
+  Transition<AppMode> onPointerDown(PressGesture g) {
+    if (g.hit?.narrow<RouteElements>() case final hit?) {
+      return Transition.set(
+        sketchTraceSlot,
+        SketchTrace(startAnchor: SketchAnchor(hit)),
+      );
+    }
+    return switch (g.element) {
+      MapSketchPencil() => Transition.update(
+        sketchTraceSlot,
+        (t) => t.grabbedAt(g.position.world),
+      ),
+      _ => Transition.stay(),
+    };
+  }
 
   // onDragging reste identique : add() applique maintenant le décalage.
   @override
@@ -59,7 +53,8 @@ class SketchEdition extends TripMode {
 
         return Transition.toAndRun<AppMode, Either<Failure, EditRoutePayload>>(
           generating,
-          buildCommand(trace),
+
+          EditRoute(tripId: tripId, sketch: trace),
           then: (current, result) {
             final m = current.mode;
             // Annulé ou remplacé entre-temps : on ignore cette réponse.
@@ -78,4 +73,11 @@ class SketchEdition extends TripMode {
       Transition.withMode<AppMode, SketchEdition>(
         (s) => TripMode.open((s.tripId)),
       );
+
+  /// Depuis le menu ouvert sur l'origine de la route : passe en édition de
+  /// tracé, ancré au départ de la route.
+  static Transition<AppMode> startFromOrigin(MapHit<MapTripOrigin> hit) =>
+      Transition.to<AppMode>(
+        SketchEdition(hit.object.tripId),
+      ).and(sketchTraceSlot, SketchTrace(startAnchor: SketchAnchor(hit)));
 }
