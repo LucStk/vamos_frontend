@@ -153,6 +153,69 @@ const EditRouteError = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const EditRouteInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'EditRouteInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'points'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'LatLngInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.ListValueNode(values: []),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'start'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RouteAnchorInput'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'end'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RouteAnchorInput'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'autoRoute'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.BooleanValueNode(value: true),
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'basedOn'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+  ],
+);
 const EditRoutePayload = _i1.UnionTypeDefinitionNode(
   name: _i1.NameNode(value: 'EditRoutePayload'),
   directives: [],
@@ -189,51 +252,6 @@ const EditRouteSuccess = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'RefinementError'),
         isNonNull: false,
       ),
-    ),
-  ],
-);
-const ExtendRouteInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'ExtendRouteInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'points'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'autoRoute'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.BooleanValueNode(value: true),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'basedOn'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DateTime'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
     ),
   ],
 );
@@ -645,7 +663,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'extendRoute'),
+      name: _i1.NameNode(value: 'editRoute'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -661,63 +679,7 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           name: _i1.NameNode(value: 'input'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'ExtendRouteInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'EditRoutePayload'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'prependRoute'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'tripId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'ExtendRouteInput'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-      ],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'EditRoutePayload'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'redrawRoutePortion'),
-      directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'tripId'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'UUID'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'input'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'RedrawRouteInput'),
+            name: _i1.NameNode(value: 'EditRouteInput'),
             isNonNull: true,
           ),
           defaultValue: null,
@@ -1011,69 +973,6 @@ const Query = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'GetMePayload'),
         isNonNull: true,
       ),
-    ),
-  ],
-);
-const RedrawRouteInput = _i1.InputObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'RedrawRouteInput'),
-  directives: [],
-  fields: [
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'start'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'RouteAnchorInput'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'end'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'RouteAnchorInput'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'correction'),
-      directives: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'LatLngInput'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: true,
-      ),
-      defaultValue: null,
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'autoRoute'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.BooleanValueNode(value: true),
-    ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'basedOn'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DateTime'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.NullValueNode(),
     ),
   ],
 );
@@ -1663,9 +1562,9 @@ const document = _i1.DocumentNode(definitions: [
   Date,
   DateTime,
   EditRouteError,
+  EditRouteInput,
   EditRoutePayload,
   EditRouteSuccess,
-  ExtendRouteInput,
   FileAttachmentType,
   FileTargetTypeEnum,
   GeometrySource,
@@ -1678,7 +1577,6 @@ const document = _i1.DocumentNode(definitions: [
   PoiCategory,
   Polygon,
   Query,
-  RedrawRouteInput,
   RefinementError,
   RouteAnchorInput,
   RouteEditErrorCode,

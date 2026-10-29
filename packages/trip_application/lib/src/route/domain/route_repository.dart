@@ -22,22 +22,11 @@ abstract class RouteRepository {
     required LatLng position,
   });
 
-  Future<Either<Failure, EditRoutePayload>> extendRoute({
-    required TripId tripId,
-    required MobilityType mobilityType,
-    required List<LatLng> geometry,
-  });
-  Future<Either<Failure, EditRoutePayload>> prependRoute({
-    required TripId tripId,
-    required MobilityType mobilityType,
-    required List<LatLng> geometry,
-  });
-  Future<Either<Failure, EditRoutePayload>> redrawRoutePortion({
+  Future<Either<Failure, EditRoutePayload>> editRoute({
     required Id<Trip> tripId,
-    required MobilityType mobilityType,
     required List<LatLng> geometry,
-    required RouteAnchor startAnchor,
-    required LatLng latLng,
+    MobilityType? mobilityType,
+    RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
   });
   Future<Either<Failure, EditRoutePayload>> refineSection({

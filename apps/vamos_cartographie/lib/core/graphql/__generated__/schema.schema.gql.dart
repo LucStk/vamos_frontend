@@ -97,20 +97,38 @@ enum GCreateProfileErrorCode {
   }
 }
 
-class GExtendRouteInput {
-  const GExtendRouteInput({
+class GEditRouteInput {
+  const GEditRouteInput({
     required this.points,
-    required this.mobilityType,
+    this.start = const Value.absent(),
+    this.end = const Value.absent(),
+    this.mobilityType = const Value.absent(),
     required this.autoRoute,
     this.basedOn = const Value.absent(),
   });
 
-  factory GExtendRouteInput.fromJson(Map<String, dynamic> json) {
-    return GExtendRouteInput(
+  factory GEditRouteInput.fromJson(Map<String, dynamic> json) {
+    return GEditRouteInput(
       points: (json['points'] as List<dynamic>)
           .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
+      start: json.containsKey('start')
+          ? Value.present(json['start'] == null
+              ? null
+              : GRouteAnchorInput.fromJson(
+                  (json['start'] as Map<String, dynamic>)))
+          : Value.absent(),
+      end: json.containsKey('end')
+          ? Value.present(json['end'] == null
+              ? null
+              : GRouteAnchorInput.fromJson(
+                  (json['end'] as Map<String, dynamic>)))
+          : Value.absent(),
+      mobilityType: json.containsKey('mobilityType')
+          ? Value.present(json['mobilityType'] == null
+              ? null
+              : GMobilityType.fromJson((json['mobilityType'] as String)))
+          : Value.absent(),
       autoRoute: (json['autoRoute'] as bool),
       basedOn: json.containsKey('basedOn')
           ? Value.present(
@@ -121,7 +139,11 @@ class GExtendRouteInput {
 
   final List<GLatLngInput> points;
 
-  final GMobilityType mobilityType;
+  final Value<GRouteAnchorInput> start;
+
+  final Value<GRouteAnchorInput> end;
+
+  final Value<GMobilityType> mobilityType;
 
   final bool autoRoute;
 
@@ -131,8 +153,24 @@ class GExtendRouteInput {
     final _$result = <String, dynamic>{};
     final _$pointsValue = this.points;
     _$result['points'] = _$pointsValue.map((_$e) => _$e.toJson()).toList();
+    final _$startValue = this.start;
+    if (_$startValue.isPresent) {
+      final _$startRequired = _$startValue.requireValue;
+      _$result['start'] =
+          _$startRequired == null ? null : _$startRequired.toJson();
+    }
+    final _$endValue = this.end;
+    if (_$endValue.isPresent) {
+      final _$endRequired = _$endValue.requireValue;
+      _$result['end'] = _$endRequired == null ? null : _$endRequired.toJson();
+    }
     final _$mobilityTypeValue = this.mobilityType;
-    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
+    if (_$mobilityTypeValue.isPresent) {
+      final _$mobilityTypeRequired = _$mobilityTypeValue.requireValue;
+      _$result['mobilityType'] = _$mobilityTypeRequired == null
+          ? null
+          : _$mobilityTypeRequired.toJson();
+    }
     final _$autoRouteValue = this.autoRoute;
     _$result['autoRoute'] = _$autoRouteValue;
     final _$basedOnValue = this.basedOn;
@@ -144,14 +182,18 @@ class GExtendRouteInput {
     return _$result;
   }
 
-  GExtendRouteInput copyWith({
+  GEditRouteInput copyWith({
     List<GLatLngInput>? points,
-    GMobilityType? mobilityType,
+    Value<GRouteAnchorInput>? start,
+    Value<GRouteAnchorInput>? end,
+    Value<GMobilityType>? mobilityType,
     bool? autoRoute,
     Value<String>? basedOn,
   }) {
-    return GExtendRouteInput(
+    return GEditRouteInput(
       points: points ?? this.points,
+      start: start ?? this.start,
+      end: end ?? this.end,
       mobilityType: mobilityType ?? this.mobilityType,
       autoRoute: autoRoute ?? this.autoRoute,
       basedOn: basedOn ?? this.basedOn,
@@ -161,7 +203,7 @@ class GExtendRouteInput {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GExtendRouteInput &&
+        (other is GEditRouteInput &&
             _gqlUtils.deepEquals(toJson(), other.toJson()));
   }
 
@@ -172,7 +214,7 @@ class GExtendRouteInput {
 
   @override
   String toString() {
-    return 'GExtendRouteInput(points: $points, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
+    return 'GEditRouteInput(points: $points, start: $start, end: $end, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
   }
 }
 
@@ -471,111 +513,6 @@ enum GPoiCategory {
       case GPoiCategory.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
-  }
-}
-
-class GRedrawRouteInput {
-  const GRedrawRouteInput({
-    required this.start,
-    this.end = const Value.absent(),
-    required this.correction,
-    required this.mobilityType,
-    required this.autoRoute,
-    this.basedOn = const Value.absent(),
-  });
-
-  factory GRedrawRouteInput.fromJson(Map<String, dynamic> json) {
-    return GRedrawRouteInput(
-      start:
-          GRouteAnchorInput.fromJson((json['start'] as Map<String, dynamic>)),
-      end: json.containsKey('end')
-          ? Value.present(json['end'] == null
-              ? null
-              : GRouteAnchorInput.fromJson(
-                  (json['end'] as Map<String, dynamic>)))
-          : Value.absent(),
-      correction: (json['correction'] as List<dynamic>)
-          .map((_$e) => GLatLngInput.fromJson((_$e as Map<String, dynamic>)))
-          .toList(),
-      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
-      autoRoute: (json['autoRoute'] as bool),
-      basedOn: json.containsKey('basedOn')
-          ? Value.present(
-              json['basedOn'] == null ? null : (json['basedOn'] as String))
-          : Value.absent(),
-    );
-  }
-
-  final GRouteAnchorInput start;
-
-  final Value<GRouteAnchorInput> end;
-
-  final List<GLatLngInput> correction;
-
-  final GMobilityType mobilityType;
-
-  final bool autoRoute;
-
-  final Value<String> basedOn;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    final _$startValue = this.start;
-    _$result['start'] = _$startValue.toJson();
-    final _$endValue = this.end;
-    if (_$endValue.isPresent) {
-      final _$endRequired = _$endValue.requireValue;
-      _$result['end'] = _$endRequired == null ? null : _$endRequired.toJson();
-    }
-    final _$correctionValue = this.correction;
-    _$result['correction'] =
-        _$correctionValue.map((_$e) => _$e.toJson()).toList();
-    final _$mobilityTypeValue = this.mobilityType;
-    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
-    final _$autoRouteValue = this.autoRoute;
-    _$result['autoRoute'] = _$autoRouteValue;
-    final _$basedOnValue = this.basedOn;
-    if (_$basedOnValue.isPresent) {
-      final _$basedOnRequired = _$basedOnValue.requireValue;
-      _$result['basedOn'] =
-          _$basedOnRequired == null ? null : _$basedOnRequired;
-    }
-    return _$result;
-  }
-
-  GRedrawRouteInput copyWith({
-    GRouteAnchorInput? start,
-    Value<GRouteAnchorInput>? end,
-    List<GLatLngInput>? correction,
-    GMobilityType? mobilityType,
-    bool? autoRoute,
-    Value<String>? basedOn,
-  }) {
-    return GRedrawRouteInput(
-      start: start ?? this.start,
-      end: end ?? this.end,
-      correction: correction ?? this.correction,
-      mobilityType: mobilityType ?? this.mobilityType,
-      autoRoute: autoRoute ?? this.autoRoute,
-      basedOn: basedOn ?? this.basedOn,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GRedrawRouteInput &&
-            _gqlUtils.deepEquals(toJson(), other.toJson()));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
-  }
-
-  @override
-  String toString() {
-    return 'GRedrawRouteInput(start: $start, end: $end, correction: $correction, mobilityType: $mobilityType, autoRoute: $autoRoute, basedOn: $basedOn)';
   }
 }
 

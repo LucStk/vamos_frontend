@@ -16,48 +16,30 @@ sealed class RouteCommand<R extends Object> extends Command<R> {
   const RouteCommand();
 }
 
-final class ExtendRoute
-    extends RouteCommand<Either<Failure, EditRoutePayload>> {
-  const ExtendRoute({
+final class EditRoute extends RouteCommand<Either<Failure, EditRoutePayload>> {
+  const EditRoute({
     required this.tripId,
     required this.geometry,
-    required this.mobilityType,
+    this.mobilityType,
+    this.endAnchor,
+    this.startAnchor,
   });
   final TripId tripId;
   final List<WorldOffset> geometry;
-  final MobilityType mobilityType;
+  final MobilityType? mobilityType;
+  final RouteAnchor? startAnchor;
+  final RouteAnchor? endAnchor;
 
   @override
   Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async {
     return await h
         .forTrip(tripId)
         .routeEditor
-        .extendRoute(
+        .editRoute(
           geometry: geometry.toLatLngList(h.camera),
           mobilityType: mobilityType,
-        );
-  }
-}
-
-final class PrependRoute
-    extends RouteCommand<Either<Failure, EditRoutePayload>> {
-  const PrependRoute({
-    required this.tripId,
-    required this.geometry,
-    required this.mobilityType,
-  });
-  final TripId tripId;
-  final List<WorldOffset> geometry;
-  final MobilityType mobilityType;
-
-  @override
-  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async {
-    return await h
-        .forTrip(tripId)
-        .routeEditor
-        .prependRoute(
-          geometry: geometry.toLatLngList(h.camera),
-          mobilityType: mobilityType,
+          startAnchor: startAnchor,
+          endAnchor: endAnchor,
         );
   }
 }

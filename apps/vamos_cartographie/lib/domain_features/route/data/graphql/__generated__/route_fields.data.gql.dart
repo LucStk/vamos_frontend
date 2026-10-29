@@ -3,13 +3,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:vamos_cartographie/core/geometry_mappers/geo_polygon_dto.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
+import 'package:vamos_cartographie/core/mappers/geometry_mappers/geo_polygon_dto.dart';
 
 abstract class GRouteSection {
   String get id;

@@ -19,7 +19,7 @@ targets:
               type: String
             Polygon:
               type: GeoPolygonDto
-              import: package:vamos_cartographie/core/geometry_mappers/geo_polygon_dto.dart
+              import: package:vamos_cartographie/core/mappers/geometry_mappers/geo_polygon_dto.dart
               from_json: geoPolygonDtoFromJson
               to_json: geoPolygonDtoToJson
           outputs:

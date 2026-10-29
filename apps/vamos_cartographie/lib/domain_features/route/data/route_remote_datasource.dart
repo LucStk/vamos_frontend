@@ -1,11 +1,11 @@
-import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'package:ferry/ferry.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/core/geometry_mappers/position_mapper.dart';
+import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/core/mappers/to_ferry_value.dart';
 import 'package:vamos_cartographie/core/network/ferry_client_x.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/graphql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/mobility_type_mapper.dart';
@@ -34,71 +34,28 @@ class RouteRemoteDatasource {
     return data.setTripOrigin;
   }
 
-  Future<GEditRouteResult> extendRoute({
+  Future<GEditRouteResult> editRoute({
     required Id<Trip> tripId,
-    required MobilityType mobilityType,
     required List<LatLng> geometry,
-  }) async {
-    final data = await ferryClient.execute(
-      GExtendRouteReq(
-        vars: GExtendRouteVars(
-          tripId: tripId.value,
-          input: GExtendRouteInput(
-            autoRoute: true,
-            mobilityType: mobilityType.toGQL(),
-            points: geometry.toGQLInput(),
-          ),
-        ),
-      ),
-    );
-    return data.extendRoute;
-  }
-
-  Future<GEditRouteResult> prependRoute({
-    required Id<Trip> tripId,
-    required MobilityType mobilityType,
-    required List<LatLng> geometry,
-  }) async {
-    final data = await ferryClient.execute(
-      GPrependRouteReq(
-        vars: GPrependRouteVars(
-          tripId: tripId.value,
-          input: GExtendRouteInput(
-            autoRoute: true,
-            mobilityType: mobilityType.toGQL(),
-            points: geometry.toGQLInput(),
-          ),
-        ),
-      ),
-    );
-    return data.prependRoute;
-  }
-
-  Future<GEditRouteResult> redrawRoutePortion({
-    required Id<Trip> tripId,
-    required MobilityType mobilityType,
-    required List<LatLng> geometry,
-    required RouteAnchor startAnchor,
-    required LatLng latLng,
+    MobilityType? mobilityType,
+    RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
   }) async {
     final data = await ferryClient.execute(
-      GRedrawRoutePortionReq(
-        vars: GRedrawRoutePortionVars(
+      GEditRouteReq(
+        vars: GEditRouteVars(
           tripId: tripId.value,
-          input: GRedrawRouteInput(
-            start: startAnchor.toGQL(),
-            end: (endAnchor != null)
-                ? Value.present(endAnchor.toGQL())
-                : Value.absent(),
+          input: GEditRouteInput(
             autoRoute: true,
-            mobilityType: mobilityType.toGQL(),
-            correction: geometry.toGQLInput(),
+            mobilityType: toFerryValue(mobilityType?.toGQL()),
+            points: geometry.toGQLInput(),
+            start: toFerryValue(startAnchor?.toGQL()),
+            end: toFerryValue(endAnchor?.toGQL()),
           ),
         ),
       ),
     );
-    return data.redrawRoutePortion;
+    return data.editRoute;
   }
 
   Future<GEditRouteResult> refineSection({

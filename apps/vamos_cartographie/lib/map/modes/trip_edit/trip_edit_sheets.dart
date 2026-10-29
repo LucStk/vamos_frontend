@@ -7,6 +7,7 @@ import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dar
 import 'package:vamos_cartographie/map/mode_machine/helpers/mode_apply.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_button.dart';
 
 import 'package:vamos_cartographie/map/ui/shared/sheets/floating_header_card.dart';
 
@@ -21,18 +22,21 @@ class TripEditSheets extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trip = ref.watch(tripRequiredProvider(mode.tripId));
+
     return SafeArea(
       child: Stack(
         children: [
-          // Contenu : décalé sous la barre, bornes de hauteur préservées
-          Positioned.fill(
-            top: _barHeight,
-            child: FloatingHeaderCard(
-              child: TripHeader(title: trip.title, canEdit: true),
+          // Barre centrée dans l'écran
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 200),
+              child: FloatingHeaderCard(
+                child: TripHeader(title: trip.title, canEdit: true),
+              ),
             ),
           ),
 
-          // "AppBar" : juste le bouton retour, en haut à gauche
+          // Bouton retour, aligné sur le même niveau
           Positioned(
             top: 0,
             left: 0,
@@ -40,11 +44,17 @@ class TripEditSheets extends ConsumerWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () =>
                     ref.applyTransition(Transition.to(ExploreMode())),
               ),
             ),
+          ),
+          EditBottomButton(
+            tooltipText: "Edit route",
+            onPressed: () {
+              ref.watch(modeMachineProvider).apply(Transition.to(Sk(mode.tripId));
+            },
           ),
         ],
       ),

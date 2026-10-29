@@ -28,55 +28,19 @@ class RouteRepositoryImpl extends RouteRepository {
   }
 
   @override
-  Future<Either<Failure, EditRoutePayload>> extendRoute({
-    required TripId tripId,
-    required MobilityType mobilityType,
-    required List<LatLng> geometry,
-  }) async {
-    final res = await guardRouteEdit(
-      () => remote.extendRoute(
-        geometry: geometry,
-        mobilityType: mobilityType,
-        tripId: tripId,
-      ),
-    );
-
-    return res.flatMap((m) => m.toDomain());
-  }
-
-  @override
-  Future<Either<Failure, EditRoutePayload>> prependRoute({
-    required TripId tripId,
-    required MobilityType mobilityType,
-    required List<LatLng> geometry,
-  }) async {
-    final res = await guardRouteEdit(
-      () => remote.prependRoute(
-        geometry: geometry,
-        mobilityType: mobilityType,
-        tripId: tripId,
-      ),
-    );
-
-    return res.flatMap((m) => m.toDomain());
-  }
-
-  @override
-  Future<Either<Failure, EditRoutePayload>> redrawRoutePortion({
+  Future<Either<Failure, EditRoutePayload>> editRoute({
     required Id<Trip> tripId,
-    required MobilityType mobilityType,
     required List<LatLng> geometry,
-    required RouteAnchor startAnchor,
-    required LatLng latLng,
+    MobilityType? mobilityType,
+    RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
   }) async {
     final res = await guardRouteEdit(
-      () => remote.redrawRoutePortion(
+      () => remote.editRoute(
         geometry: geometry,
         mobilityType: mobilityType,
         tripId: tripId,
         startAnchor: startAnchor,
-        latLng: latLng,
         endAnchor: endAnchor,
       ),
     );

@@ -2,22 +2,8 @@
 
 # Prolonge la route depuis sa dernière extrémité avec un tracé à main levé.
 # Ou : création d'une nouvelle route depuis le premier point
-mutation ExtendRoute($tripId: UUID!, $input: ExtendRouteInput!) {
-    extendRoute(tripId: $tripId, input: $input) {
-        ...EditRouteResult
-    }
-}
-
-mutation PrependRoute($tripId: UUID!, $input: ExtendRouteInput!) {
-    prependRoute(tripId: $tripId, input: $input) {
-        ...EditRouteResult
-    }
-}
-
-# Redessine une portion : de n'importe quel point à n'importe quel autre,
-# ou jusqu'à la fin de la route (end = null).
-mutation RedrawRoutePortion($tripId: UUID!, $input: RedrawRouteInput!) {
-    redrawRoutePortion(tripId: $tripId, input: $input) {
+mutation EditRoute($tripId: UUID!, $input: EditRouteInput!) {
+    editRoute(tripId: $tripId, input: $input) {
         ...EditRouteResult
     }
 }

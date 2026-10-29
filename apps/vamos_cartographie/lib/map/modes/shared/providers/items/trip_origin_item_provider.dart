@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
-import 'package:vamos_cartographie/map/modes/explore/scene/trip_origin_item.dart';
+import 'package:vamos_cartographie/map/modes/shared/scene/trip_origin_item.dart';
 
 part 'trip_origin_item_provider.g.dart';
 

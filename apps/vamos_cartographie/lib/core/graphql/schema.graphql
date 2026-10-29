@@ -41,18 +41,33 @@ type EditRouteError {
   message: String!
 }
 
+"""
+Un tracé appliqué à la route. Le serveur déduit l'opération des ancres.
+
+Sans route : ni start ni end, `points` (≥ 1) et `mobilityType` obligatoires.
+Avec route, au moins une ancre :
+- start seul sur le départ de la route : le tracé est ajouté AVANT la route ;
+- start seul sur l'arrivée : la route est prolongée ;
+- start seul à l'intérieur : tout ce qui suit est remplacé (points vides : la fin est supprimée) ;
+- end seul : tout ce qui précède est remplacé (points vides : le début est
+supprimé) ; sur le départ de la route, c'est un ajout avant la route ;
+- start et end : la portion entre les deux est remplacée, quel que soit l'ordre des ancres sur la route.
+La nouvelle portion hérite de la mobilité de la section de start (à défaut de end) sauf si mobilityType est fourni.
+"""
+input EditRouteInput {
+  points: [LatLngInput!]! = []
+  start: RouteAnchorInput = null
+  end: RouteAnchorInput = null
+  mobilityType: MobilityType = null
+  autoRoute: Boolean! = true
+  basedOn: DateTime = null
+}
+
 union EditRoutePayload = EditRouteSuccess | EditRouteError
 
 type EditRouteSuccess {
   trip: TripType!
   refinementError: RefinementError
-}
-
-input ExtendRouteInput {
-  points: [LatLngInput!]!
-  mobilityType: MobilityType!
-  autoRoute: Boolean! = true
-  basedOn: DateTime = null
 }
 
 type FileAttachmentType {
@@ -110,9 +125,7 @@ type Mutation {
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): WaypointType!
   deleteWaypoint(id: UUID!): Boolean!
-  extendRoute(tripId: UUID!, input: ExtendRouteInput!): EditRoutePayload!
-  prependRoute(tripId: UUID!, input: ExtendRouteInput!): EditRoutePayload!
-  redrawRoutePortion(tripId: UUID!, input: RedrawRouteInput!): EditRoutePayload!
+  editRoute(tripId: UUID!, input: EditRouteInput!): EditRoutePayload!
   refineSection(tripId: UUID!, sectionId: UUID!): EditRoutePayload!
   setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!): EditRoutePayload!
   deleteRoute(tripId: UUID!): EditRoutePayload!
@@ -149,15 +162,6 @@ type Query {
   userTrips(userId: UUID!): [TripType!]!
   meTrips: [TripType!]!
   me: GetMePayload!
-}
-
-input RedrawRouteInput {
-  start: RouteAnchorInput!
-  end: RouteAnchorInput = null
-  correction: [LatLngInput!]!
-  mobilityType: MobilityType!
-  autoRoute: Boolean! = true
-  basedOn: DateTime = null
 }
 
 enum RefinementError {

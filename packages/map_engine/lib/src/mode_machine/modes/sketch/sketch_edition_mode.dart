@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_engine/src/domain/gestures/map_gesture.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/domain/sketch_trace.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
-import 'package:map_engine/src/mode_machine/command/route_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
 import 'package:map_engine/src/mode_machine/modes/sketch/sketch_generating.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
@@ -15,7 +13,7 @@ import 'package:map_engine/src/mode_machine/slots/slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:trip_application/trip_application.dart';
 
-abstract class SketchEdition extends TripMode {
+class SketchEdition extends TripMode {
   const SketchEdition(super.tripId);
 
   @override
@@ -51,7 +49,6 @@ abstract class SketchEdition extends TripMode {
       : Transition.stay();
 
   // SketchEdition
-  @protected
   Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace trace);
 
   Transition<AppMode> validate() =>
@@ -80,38 +77,5 @@ abstract class SketchEdition extends TripMode {
   static Transition<AppMode> stop() =>
       Transition.withMode<AppMode, SketchEdition>(
         (s) => TripMode.open((s.tripId)),
-      );
-}
-
-final class SketchExtend extends SketchEdition {
-  const SketchExtend(super.tripId);
-  @override
-  Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace t) =>
-      ExtendRoute(
-        tripId: tripId,
-        geometry: t.points,
-        mobilityType: t.mobilityType,
-      );
-
-  static Transition<AppMode> start(TripId tripId, WorldOffset from) =>
-      Transition.to<AppMode>(
-        SketchExtend(tripId),
-      ).and(sketchTraceSlot, SketchTrace.from(from));
-}
-
-final class SketchPrepend extends SketchEdition {
-  const SketchPrepend(super.tripId);
-
-  static Transition<AppMode> start(TripId tripId, WorldOffset from) =>
-      Transition.to<AppMode>(
-        SketchPrepend(tripId),
-      ).and(sketchTraceSlot, SketchTrace.from(from));
-
-  @override
-  Command<Either<Failure, EditRoutePayload>> buildCommand(SketchTrace t) =>
-      PrependRoute(
-        tripId: tripId,
-        geometry: t.points.reversed.toList(),
-        mobilityType: t.mobilityType,
       );
 }
