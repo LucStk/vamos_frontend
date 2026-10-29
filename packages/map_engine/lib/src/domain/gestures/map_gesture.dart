@@ -3,6 +3,8 @@ import 'package:domain_core/space/offset_type.dart';
 import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/input/map_pointer_event.dart';
+import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
+import 'package:map_engine/src/mode_machine/overlay/context_menu.dart';
 
 /// Geste sémantique sur la carte. Valeur pure, produite par `input/`
 /// et consommée par la machine à modes.
@@ -39,6 +41,9 @@ sealed class PointGesture extends MapGesture {
 
   bool get onMap => hit == null;
   MapObject? get element => hit?.object; // le reste du code ne change pas
+
+  ContextMenuOverlay<AppMode> get menuAt =>
+      onMap ? MapGeoMenu(super.position.world) : MapObjectMenu(hit!);
 }
 
 final class PressGesture extends PointGesture {
@@ -90,6 +95,8 @@ sealed class DragTrackingGesture extends DragGesture {
 
   /// Objet sous le pointeur, `null` si le pointeur est sur la carte vide.
   final MapHit? hit;
+  ContextMenuOverlay<AppMode> get menuAt =>
+      (hit == null) ? MapGeoMenu(super.position.world) : MapObjectMenu(hit!);
 }
 
 final class DragUpdateGesture extends DragTrackingGesture {

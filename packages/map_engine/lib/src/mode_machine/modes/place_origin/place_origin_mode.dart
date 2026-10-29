@@ -17,15 +17,11 @@ sealed class PlaceOriginMode extends AppMode {
   @override
   Set<Slot> get retainedSlots => {tripOriginSlot};
 
-  // --- Ce qui diffère selon le cas ---
-  MapObjectMenu get menu;
-
   Transition<AppMode> onTapElsewhere(TapGesture g) => Transition.stay();
 
-  // --- Commun ---
   @override
   Transition<AppMode> onTap(TapGesture g) => switch (g.element) {
-    MapTripOrigin _ => Transition.overlay<AppMode>(menu),
+    MapTripOrigin _ => Transition.overlay<AppMode>(g.menuAt),
     _ => onTapElsewhere(g),
   };
 }
@@ -33,14 +29,11 @@ sealed class PlaceOriginMode extends AppMode {
 final class PlaceNewTripOrigin extends PlaceOriginMode {
   const PlaceNewTripOrigin();
 
-  @override
-  MapObjectMenu<MapTmpOrigin> get menu => SetOriginMenu();
-
   /// Un tap sur la carte pose l'origine et ouvre le menu.
   @override
   Transition<AppMode> onTapElsewhere(TapGesture g) =>
       Transition.overlay<AppMode>(
-        menu,
+        MapGeoMenu(g.world),
       ).and(tripOriginSlot, TripOrigin(g.world));
 
   @override
@@ -48,7 +41,8 @@ final class PlaceNewTripOrigin extends PlaceOriginMode {
       Transition.set(tripOriginSlot, TripOrigin(g.world));
 
   @override
-  Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.overlay(menu);
+  Transition<AppMode> onDragEnd(DragEndGesture g) =>
+      Transition.overlay(g.menuAt);
 
   Transition<AppMode> validate(WorldOffset origin) => Transition.run(
     CreateTrip(origin),
@@ -66,12 +60,10 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   final TripId tripId;
 
   @override
-  MapObjectMenu<MapTripOrigin> get menu => TripOriginMenu(tripId);
-  @override
   Transition<AppMode> onTap(TapGesture g) {
     print("gesture ${g.element}");
     return switch (g.element) {
-      MapTripOrigin _ => Transition.overlay(menu),
+      MapTripOrigin _ => Transition.overlay(MapObjectMenu(g.hit!)),
       _ => onTapElsewhere(g),
     };
   }
@@ -80,7 +72,7 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   @override
   Transition<AppMode> onDragEnd(DragEndGesture g) => Transition.run(
     SetTripOrigin(position: g.world, tripId: tripId),
-    then: (_, _) => Transition.overlay(menu),
+    then: (_, _) => Transition.overlay(MapObjectMenu(g.hit!)),
   );
   @override
   Transition<AppMode> onDragging(DragUpdateGesture g) =>

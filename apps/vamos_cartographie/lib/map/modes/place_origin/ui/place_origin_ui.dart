@@ -14,7 +14,7 @@ import 'package:vamos_cartographie/map/ui/shared/buttons/cancel_bottom_button.da
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([menuPlacement, modeSelection])
+@Dependencies([modeOverlay, modeSelection])
 class PlaceOriginUi extends ConsumerWidget {
   const PlaceOriginUi(this.mode, {super.key});
   final PlaceOriginMode mode;
@@ -26,7 +26,7 @@ class PlaceOriginUi extends ConsumerWidget {
   };
 }
 
-@Dependencies([menuPlacement])
+@Dependencies([modeOverlay])
 class _NewTripUi extends ConsumerWidget {
   const _NewTripUi(this.mode);
   final PlaceNewTripOrigin mode;
@@ -40,13 +40,13 @@ class _NewTripUi extends ConsumerWidget {
           tooltipText: 'Cancel creation',
           onPressed: () => ref.applyTransition(mode.cancel()),
         ),
-        OverlayMenu<SetOriginMenu>(
-          builder: (_, _, world) => OriginMenuWidget(
+        OverlayMenu<MapTmpOrigin>(
+          builder: (_, hit) => OriginMenuWidget(
             children: [
               MenuButton(
                 icon: Icons.add_location_alt_outlined,
                 label: 'Start ici',
-                onPressed: () => ref.applyTransition(mode.validate(world)),
+                onPressed: () => ref.applyTransition(mode.validate(hit.point)),
               ),
             ],
           ),
@@ -56,7 +56,7 @@ class _NewTripUi extends ConsumerWidget {
   }
 }
 
-@Dependencies([menuPlacement, modeSelection])
+@Dependencies([modeOverlay, modeSelection])
 class _ExistingTripUi extends ConsumerWidget {
   const _ExistingTripUi(this.mode, this.tripId);
   final PlaceOriginMode mode;
@@ -68,15 +68,14 @@ class _ExistingTripUi extends ConsumerWidget {
       fit: StackFit.expand,
       children: [
         TripSelectionSheet(tripId: tripId, canEdit: true),
-        OverlayMenu<TripOriginMenu>(
-          builder: (_, menu) => OriginMenuWidget(
+        OverlayMenu<MapTripOrigin>(
+          builder: (_, hit) => OriginMenuWidget(
             children: [
               MenuButton(
                 icon: Icons.route,
                 label: 'start route',
-                onPressed: () => ref.applyTransition(
-                  SketchExtend.start(tripId, menu.position),
-                ),
+                onPressed: () =>
+                    ref.applyTransition(SketchExtend.start(tripId, hit.point)),
               ),
             ],
           ),

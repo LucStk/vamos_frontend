@@ -27,19 +27,19 @@ class TripEditMenus extends ConsumerWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        OverlayMenu<TripOriginMenu>(
-          builder: (_, menu, world) => TripOriginMenuWidget(
-            prependRoute: () => apply(SketchPrepend.start(tripId, world)),
+        OverlayMenu<MapTripOrigin>(
+          builder: (_, hit) => TripOriginMenuWidget(
+            prependRoute: () => apply(SketchPrepend.start(tripId, hit)),
           ),
         ),
-        OverlayMenu<TripEndMenu>(
-          builder: (_, menu, world) => TripEndMenuWidget(
-            extendRoute: () => apply(SketchExtend.start(tripId, world)),
+        OverlayMenu<MapTripEnd>(
+          builder: (_, hit) => TripEndMenuWidget(
+            extendRoute: () => apply(SketchExtend.start(tripId, hit)),
           ),
         ),
 
-        OverlayMenu<SectionMenu>(
-          builder: (_, _, _) => SectionMenuWidget(
+        OverlayMenu<MapSection>(
+          builder: (_, _) => SectionMenuWidget(
             createFrom: () {},
             drawFrom: () {},
             move: () {},

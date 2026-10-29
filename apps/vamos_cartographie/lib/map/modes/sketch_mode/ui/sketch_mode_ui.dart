@@ -20,8 +20,8 @@ class SketchModeUi extends ConsumerWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        OverlayMenu<PencilMenu>(
-          builder: (_, t, _) => PencilMenuWidget(
+        OverlayMenu<MapSketchPencil>(
+          builder: (_, hit) => PencilMenuWidget(
             endSketch: () => ref.applyTransition(mode.validate()),
           ),
         ),
