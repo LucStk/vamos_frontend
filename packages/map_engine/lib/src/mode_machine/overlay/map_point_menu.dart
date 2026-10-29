@@ -21,7 +21,7 @@ class MapPointMenu extends ContextMenuOverlay<AppMode> {
   Transition<AppMode> createVertex() => Transition.run(
     CreateWaypoint(tripId: tripId, position: at),
     then: (current, WaypointId id) {
-      final editor = current.modeAs<TripActiveMode>();
+      final editor = current.modeAs<TripEditMode>();
       if (editor == null) return null;
       return Transition.set(
         selectionSlot,

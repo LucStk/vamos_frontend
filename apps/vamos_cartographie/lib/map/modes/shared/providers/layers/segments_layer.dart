@@ -3,7 +3,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/section_queries.dart';
-import 'package:vamos_cartographie/map/modes/edit_trip/providers/segments/segment_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/items/segment_item_provider.dart';
 
 part 'segments_layer.g.dart';
 

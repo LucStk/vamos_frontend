@@ -4,9 +4,9 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
-import 'package:vamos_cartographie/map/modes/edit_trip/providers/trip_end_item_provider.dart';
-import 'package:vamos_cartographie/map/modes/edit_trip/providers/trip_origin_item_provider.dart';
-import 'package:vamos_cartographie/map/modes/shared/providers/waypoint_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_end_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_origin_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/items/waypoint_item_provider.dart';
 import 'package:vamos_cartographie/map/modes/sketch_mode/providers/pencil_item_provider.dart';
 part 'menu_placement.g.dart';
 

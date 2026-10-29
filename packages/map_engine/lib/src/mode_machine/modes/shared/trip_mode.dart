@@ -19,7 +19,7 @@ abstract class TripMode extends AppMode {
         ResolveTripEntry(id),
         then: (_, entry) => switch (entry) {
           TripReadOnly() => Transition.to(TripReadOnlyMode(id)),
-          TripReady() => Transition.to(TripActiveMode(id)),
+          TripReady() => Transition.to(TripEditMode(id)),
           TripNeedsOrigin() => Transition.to(PlaceExistingTripOrigin(id)),
           TripUnavailable _ => throw Exception,
         },

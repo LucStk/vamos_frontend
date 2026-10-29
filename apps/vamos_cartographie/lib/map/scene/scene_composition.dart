@@ -2,11 +2,11 @@
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/modes/edit_trip/providers/segments/segments_layer.dart';
-import 'package:vamos_cartographie/map/modes/edit_trip/providers/trip_end_item_provider.dart';
-import 'package:vamos_cartographie/map/modes/edit_trip/providers/trip_origin_item_provider.dart';
 import 'package:vamos_cartographie/map/modes/explore/providers/trips_layer.dart';
-import 'package:vamos_cartographie/map/modes/shared/providers/waypoint_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_end_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_origin_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/items/waypoint_item_provider.dart';
+import 'package:vamos_cartographie/map/modes/shared/providers/layers/segments_layer.dart';
 import 'package:vamos_cartographie/map/modes/sketch_mode/providers/sketch_layer.dart';
 import 'package:vamos_cartographie/map/scene/layers/localization_layer.dart';
 

@@ -4,9 +4,10 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
-import 'package:vamos_cartographie/map/modes/edit_trip/providers/segments/segments_layer.dart';
 import 'package:vamos_cartographie/map/modes/sketch_mode/providers/sketch_layer.dart';
 import 'package:vamos_cartographie/map/scene/scene_composition.dart';
+
+import 'package:vamos_cartographie/map/modes/shared/providers/layers/segments_layer.dart';
 part 'map_scene.g.dart';
 
 /// Items de la scène, en coordonnées MONDE.

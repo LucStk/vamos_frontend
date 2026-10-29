@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/mode_machine/helpers/mode_apply.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.dart';
@@ -10,27 +11,25 @@ import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.d
 import 'package:vamos_cartographie/map/ui/shared/sheets/floating_header_card.dart';
 
 @Dependencies([modeSelection, ModeMachine])
-class TripModeSheetUi extends ConsumerWidget {
-  const TripModeSheetUi(this.mode, {super.key});
+class TripEditSheets extends ConsumerWidget {
+  const TripEditSheets(this.mode, {super.key});
 
-  final TripEditableMode mode;
+  final TripEditMode mode;
 
   static const double _barHeight = 56;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final trip = ref.watch(tripRequiredProvider(mode.tripId));
     return SafeArea(
       child: Stack(
         children: [
           // Contenu : décalé sous la barre, bornes de hauteur préservées
           Positioned.fill(
             top: _barHeight,
-            child: switch (mode) {
-              TripActiveMode e => FloatingHeaderCard(
-                child: TripHeader(title: e.title, canEdit: true),
-              ),
-              _ => const SizedBox.shrink(),
-            },
+            child: FloatingHeaderCard(
+              child: TripHeader(title: trip.title, canEdit: true),
+            ),
           ),
 
           // "AppBar" : juste le bouton retour, en haut à gauche

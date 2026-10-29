@@ -7,8 +7,7 @@ import 'package:map_engine/src/domain/sketch_trace.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
 import 'package:map_engine/src/mode_machine/command/route_command.dart';
 import 'package:map_engine/src/mode_machine/modes/app_mode.dart';
-import 'package:map_engine/src/mode_machine/modes/edit_trip/sketch_generating.dart';
-import 'package:map_engine/src/mode_machine/modes/edit_trip/trip_edit_mode.dart';
+import 'package:map_engine/src/mode_machine/modes/sketch/sketch_generating.dart';
 import 'package:map_engine/src/mode_machine/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/mode_machine/overlay/overlay.dart';
 import 'package:map_engine/src/mode_machine/slots/sketch_trace_slot.dart';
@@ -16,7 +15,7 @@ import 'package:map_engine/src/mode_machine/slots/slot.dart';
 import 'package:map_engine/src/mode_machine/transition.dart';
 import 'package:trip_application/trip_application.dart';
 
-abstract class SketchEdition extends TripEditableMode {
+abstract class SketchEdition extends TripMode {
   const SketchEdition(super.tripId);
 
   @override
