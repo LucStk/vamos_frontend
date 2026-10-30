@@ -20,6 +20,9 @@ final class MapSketchPencil extends MapObject {
   bool get isDraggable => true;
 
   @override
+  bool get isDropTarget => false;
+
+  @override
   int get hitPriority => 200;
 
   @override

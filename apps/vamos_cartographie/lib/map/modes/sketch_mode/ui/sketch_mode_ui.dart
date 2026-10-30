@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/mode_machine/helpers/mode_apply.dart';
-import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
+import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/overlay_menu.dart';
 import 'package:vamos_cartographie/map/modes/sketch_mode/ui/pencil_menu_widget.dart';
 import 'package:vamos_cartographie/map/ui/shared/buttons/cancel_bottom_button.dart';
@@ -28,7 +27,9 @@ class SketchModeUi extends ConsumerWidget {
         CancelBottomButton(
           tooltipText: "Cancel creation",
           onPressed: () {
-            ref.watch(modeMachineProvider).apply(TripMode.open(mode.tripId));
+            ref
+                .watch(appModeMachineProvider.notifier)
+                .apply(TripMode.open(mode.tripId));
           },
         ),
       ],

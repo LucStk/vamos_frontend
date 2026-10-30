@@ -11,7 +11,7 @@
 // part 'menu_placement.g.dart';
 //
 // typedef MenuPlacement = ({
-//   ContextMenuOverlay<AppMode> overlay,
+//   ContextMenuOverlay overlay,
 //   WorldOffset world,
 // });
 //
@@ -20,7 +20,7 @@
 //   final camera = ref.watch(readyCameraProvider);
 //   if (camera == null) return null;
 //   final overlay = ref.watch(modeOverlayProvider);
-//   if (overlay is! ContextMenuOverlay<AppMode>) return null; // promu ici
+//   if (overlay is! ContextMenuOverlay) return null; // promu ici
 //
 //   final WorldOffset? world = switch (overlay.anchor) {
 //     VertexMapAnchor(:final object) =>

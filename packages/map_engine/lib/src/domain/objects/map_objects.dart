@@ -13,6 +13,10 @@ sealed class MapObject {
   bool get isDraggable => false;
   bool get awaitsDoubleTap => false;
   bool get isHitTestable => true;
+
+  /// Peut être « survolé » par un objet en cours de drag.
+  /// Faux pour les proxys du pointeur (ex. Pencil).
+  bool get isDropTarget => true;
   int get hitPriority => 0;
 }
 

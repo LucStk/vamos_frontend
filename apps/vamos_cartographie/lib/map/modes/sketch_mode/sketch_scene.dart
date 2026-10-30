@@ -10,7 +10,13 @@ import 'package:vamos_cartographie/map/scene/map_layer.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([pencilItem, sketchTraceItem, allSegmentItem])
+@Dependencies([
+  pencilItem,
+  sketchTraceItem,
+  allSegmentItem,
+  sketchOriginItem,
+  sketchEndItem,
+])
 List<Layer> sketchScene(TripId tripId) => [
   (ref, cam) => [?ref.watch(sketchOriginItemProvider(tripId, cam))],
   (ref, cam) => [?ref.watch(sketchEndItemProvider(tripId, cam))],

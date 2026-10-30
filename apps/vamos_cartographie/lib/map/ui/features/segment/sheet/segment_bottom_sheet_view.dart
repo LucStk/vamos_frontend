@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:vamos_cartographie/map/ui/shared/sheets/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/delete_button.dart';
 
-@Dependencies([modeMachine])
 class SegmentBottomSheet extends ConsumerWidget {
   final TripId tripId;
   final SectionId segmentId;
@@ -22,7 +20,7 @@ class SegmentBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final editor = ref.read(modeMachineProvider);
+    final editor = ref.read(appModeMachineProvider.notifier);
     return SimpleBottomSheetShell(
       content: Column(
         key: const ValueKey('compact_content'),
@@ -47,7 +45,7 @@ class SegmentBottomSheet extends ConsumerWidget {
               // 2. Bouton "Redessiner" le segment
               IconButton.filledTonal(
                 onPressed: () => editor.apply(
-                  Transition.withSlot<AppMode, Selectable>(
+                  Transition.withSlot<Selectable>(
                     selectionSlot,
                     (s) => switch (s) {
                       // MapSegment segment => segment.startEdit(),
@@ -72,7 +70,7 @@ class SegmentBottomSheet extends ConsumerWidget {
               // 3. Bouton "Supprimer" le segment
               DeleteButton(
                 onPressed: () => editor.apply(
-                  Transition.withSlot<AppMode, Selectable>(selectionSlot, (s) {
+                  Transition.withSlot<Selectable>(selectionSlot, (s) {
                     return null;
                   }),
                 ),

@@ -36,6 +36,12 @@ final class VisualTargetsProvider
           VisualTargetsProvider.$allTransitiveDependencies4,
           VisualTargetsProvider.$allTransitiveDependencies5,
           VisualTargetsProvider.$allTransitiveDependencies6,
+          VisualTargetsProvider.$allTransitiveDependencies7,
+          VisualTargetsProvider.$allTransitiveDependencies8,
+          VisualTargetsProvider.$allTransitiveDependencies9,
+          VisualTargetsProvider.$allTransitiveDependencies10,
+          VisualTargetsProvider.$allTransitiveDependencies11,
+          VisualTargetsProvider.$allTransitiveDependencies12,
         },
       );
 
@@ -52,6 +58,18 @@ final class VisualTargetsProvider
       MapSceneProvider.$allTransitiveDependencies4;
   static final $allTransitiveDependencies6 =
       MapSceneProvider.$allTransitiveDependencies5;
+  static final $allTransitiveDependencies7 =
+      MapSceneProvider.$allTransitiveDependencies6;
+  static final $allTransitiveDependencies8 =
+      MapSceneProvider.$allTransitiveDependencies7;
+  static final $allTransitiveDependencies9 =
+      MapSceneProvider.$allTransitiveDependencies8;
+  static final $allTransitiveDependencies10 =
+      MapSceneProvider.$allTransitiveDependencies9;
+  static final $allTransitiveDependencies11 =
+      MapSceneProvider.$allTransitiveDependencies10;
+  static final $allTransitiveDependencies12 =
+      MapSceneProvider.$allTransitiveDependencies11;
 
   @override
   String debugGetCreateSourceHash() => _$visualTargetsHash();

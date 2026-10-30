@@ -4,8 +4,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/map/mode_machine/helpers/mode_apply.dart';
-import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
+import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_button.dart';
 
@@ -54,7 +53,7 @@ class TripEditSheets extends ConsumerWidget {
             tooltipText: "Edit route",
             onPressed: () {
               ref
-                  .watch(modeMachineProvider)
+                  .read(appModeMachineProvider.notifier)
                   .apply(Transition.to(SketchEdition(mode.tripId)));
             },
           ),

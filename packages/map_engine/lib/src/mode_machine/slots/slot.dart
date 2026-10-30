@@ -1,8 +1,0 @@
-// slot.dart
-
-final class Slot<T extends Object> {
-  const Slot(this.name);
-  final String name;
-}
-
-typedef SlotChange = (Slot slot, Object? value);

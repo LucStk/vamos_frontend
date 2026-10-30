@@ -4,7 +4,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
+import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_end_item_provider.dart';
 import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_origin_item_provider.dart';
 import 'package:vamos_cartographie/map/modes/shared/scene/trip_end_item.dart';
@@ -30,7 +30,7 @@ bool _pencilStillOn<T extends RouteElements>(
 
 /// Icône de départ de la route, absente tant que le crayon parti d'elle ne
 /// l'a pas quittée.
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [modeSlot])
 TripOriginItem? sketchOriginItem(
   Ref ref,
   TripId tripId,
@@ -43,29 +43,24 @@ TripOriginItem? sketchOriginItem(
   // On sélectionne un bool : le provider ne se recalcule qu'à la bascule,
   // pas à chaque point dessiné.
   final hidden = ref.watch(
-    modeStateProvider.select(
-      (m) => _pencilStillOn<MapTripOrigin>(
-        m.slots.get(sketchTraceSlot),
-        item,
-        zoom,
-      ),
-    ),
+    modeSlotProvider(
+      sketchTraceSlot,
+    ).select((m) => _pencilStillOn<MapTripOrigin>(m, item, zoom)),
   );
   return hidden ? null : item;
 }
 
 /// Icône d'arrivée de la route, même règle.
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [modeSlot])
 TripEndItem? sketchEndItem(Ref ref, TripId tripId, MapCameraReader camera) {
   final item = ref.watch(tripEndItemProvider(tripId, camera));
   if (item == null) return null;
 
   final zoom = camera.zoomScale;
   final hidden = ref.watch(
-    modeStateProvider.select(
-      (m) =>
-          _pencilStillOn<MapTripEnd>(m.slots.get(sketchTraceSlot), item, zoom),
-    ),
+    modeSlotProvider(
+      sketchTraceSlot,
+    ).select((m) => _pencilStillOn<MapTripEnd>(m, item, zoom)),
   );
   return hidden ? null : item;
 }

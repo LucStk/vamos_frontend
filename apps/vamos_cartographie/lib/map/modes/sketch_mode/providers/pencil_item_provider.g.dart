@@ -66,7 +66,7 @@ final class PencilItemProvider
   }
 }
 
-String _$pencilItemHash() => r'ebe5ab743d399e53591735f5a8a3e2a0ffcd4810';
+String _$pencilItemHash() => r'3d36302beeca1697539383bb9e781b3d75be6513';
 
 final class PencilItemFamily extends $Family
     with $FunctionalFamilyOverride<PencilItem?, MapCameraReader> {

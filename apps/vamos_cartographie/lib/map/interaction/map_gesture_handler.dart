@@ -2,28 +2,42 @@ import 'package:flutter/gestures.dart' hide PointerEvent;
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
-import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
-import 'package:vamos_cartographie/map/scene/map_scene.dart';
+import 'package:vamos_cartographie/map/interaction/hit_test_engine.dart';
+import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:domain_core/domain_core.dart';
 part 'map_gesture_handler.g.dart';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).
-@Riverpod(keepAlive: true, dependencies: [mapScene, modeMachine])
-class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
+@Riverpod(keepAlive: true, dependencies: [hitTester])
+class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier
+    implements MapGestureHost {
   late MapGestureHandler _handler;
 
   @override
   bool build() {
-    _handler = MapGestureHandler(
-      sink: () => ref.read(modeMachineProvider),
-      hitTest: _hitTest,
-      onPanAllowedChanged: (allowed) => state = allowed,
-    );
+    _handler = MapGestureHandler(host: this);
     ref.onDispose(_handler.dispose);
     return true;
   }
 
+  @override
+  GestureSink get sink => ref.read(appModeMachineProvider.notifier);
+
+  @override
+  MapHit? hitTest({
+    required ScreenOffset offset,
+    MapObject? exclude,
+    bool dropTargetsOnly = false,
+  }) => ref
+      .read(hitTesterProvider)
+      .hitTest(
+        offset: offset,
+        exclude: exclude,
+        dropTargetsOnly: dropTargetsOnly,
+      );
+  @override
+  void onPanAllowedChanged(bool allowed) => state = allowed;
   // --- Entrées Flutter -> événements du moteur -----------------------------
 
   void onPointerDown(PointerDownEvent e) => _handler.onPointerEvent(
@@ -54,14 +68,4 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier {
       kind == PointerDeviceKind.mouse && (buttons & kSecondaryMouseButton) != 0
       ? PointerButton.secondary
       : PointerButton.primary;
-
-  MapHit? _hitTest({required ScreenOffset offset, MapObject? exclude}) {
-    final scene = ref.read(mapSceneProvider);
-    final camera = ref.read(mapCameraProvider);
-    return scene.hitTest(
-      camera.screenToWorld(offset),
-      camera.zoomScale,
-      ignore: (o) => exclude != null && o == exclude,
-    );
-  }
 }

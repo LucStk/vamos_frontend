@@ -31,6 +31,10 @@ final class TmpOriginItemProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = modeSlotProvider;
+  static final $allTransitiveDependencies1 =
+      ModeSlotProvider.$allTransitiveDependencies0;
+
   @override
   String debugGetCreateSourceHash() => _$tmpOriginItemHash();
 
@@ -74,7 +78,7 @@ final class TmpOriginItemProvider
   }
 }
 
-String _$tmpOriginItemHash() => r'0d0a3a55ad56ca10fedef1d75c204133f9cc0b2d';
+String _$tmpOriginItemHash() => r'ce80d8ebe1d41da6308d317ff80e3eae0c952586';
 
 final class TmpOriginItemFamily extends $Family
     with
@@ -86,8 +90,11 @@ final class TmpOriginItemFamily extends $Family
     : super(
         retry: null,
         name: r'tmpOriginItemProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[modeSlotProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          TmpOriginItemProvider.$allTransitiveDependencies0,
+          TmpOriginItemProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: false,
       );
 

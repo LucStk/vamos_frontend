@@ -27,7 +27,10 @@ final class MapGestureHandlerNotifierProvider
         retry: null,
         name: r'mapGestureHandlerProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapSceneProvider, modeMachineProvider],
+        dependencies: <ProviderOrFamily>[
+          appModeMachineProvider,
+          hitTesterProvider,
+        ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies0,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies1,
@@ -39,27 +42,39 @@ final class MapGestureHandlerNotifierProvider
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies7,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies8,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies9,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies10,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies11,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies12,
+          MapGestureHandlerNotifierProvider.$allTransitiveDependencies13,
         },
       );
 
-  static final $allTransitiveDependencies0 = mapSceneProvider;
-  static final $allTransitiveDependencies1 =
-      MapSceneProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies0 = appModeMachineProvider;
+  static final $allTransitiveDependencies1 = hitTesterProvider;
   static final $allTransitiveDependencies2 =
-      MapSceneProvider.$allTransitiveDependencies1;
+      HitTesterProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies3 =
-      MapSceneProvider.$allTransitiveDependencies2;
+      HitTesterProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies4 =
-      MapSceneProvider.$allTransitiveDependencies3;
+      HitTesterProvider.$allTransitiveDependencies2;
   static final $allTransitiveDependencies5 =
-      MapSceneProvider.$allTransitiveDependencies4;
+      HitTesterProvider.$allTransitiveDependencies3;
   static final $allTransitiveDependencies6 =
-      MapSceneProvider.$allTransitiveDependencies5;
-  static final $allTransitiveDependencies7 = modeMachineProvider;
+      HitTesterProvider.$allTransitiveDependencies4;
+  static final $allTransitiveDependencies7 =
+      HitTesterProvider.$allTransitiveDependencies6;
   static final $allTransitiveDependencies8 =
-      ModeMachineProvider.$allTransitiveDependencies0;
+      HitTesterProvider.$allTransitiveDependencies7;
   static final $allTransitiveDependencies9 =
-      ModeMachineProvider.$allTransitiveDependencies1;
+      HitTesterProvider.$allTransitiveDependencies8;
+  static final $allTransitiveDependencies10 =
+      HitTesterProvider.$allTransitiveDependencies9;
+  static final $allTransitiveDependencies11 =
+      HitTesterProvider.$allTransitiveDependencies10;
+  static final $allTransitiveDependencies12 =
+      HitTesterProvider.$allTransitiveDependencies11;
+  static final $allTransitiveDependencies13 =
+      HitTesterProvider.$allTransitiveDependencies12;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();
@@ -78,7 +93,7 @@ final class MapGestureHandlerNotifierProvider
 }
 
 String _$mapGestureHandlerNotifierHash() =>
-    r'2fc1566332e74386ff8df715cc9a7734d5a2c737';
+    r'ed3a46601e9bfb013db5324276ca4eeb07aaa074';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).
