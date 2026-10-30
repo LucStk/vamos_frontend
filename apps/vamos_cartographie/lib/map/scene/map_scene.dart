@@ -4,10 +4,10 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
-import 'package:vamos_cartographie/map/modes/sketch_mode/providers/sketch_layer.dart';
-import 'package:vamos_cartographie/map/scene/scene_composition.dart';
-
-import 'package:vamos_cartographie/map/modes/shared/providers/layers/segments_layer.dart';
+import 'package:vamos_cartographie/map/modes/modes.dart';
+import 'package:vamos_cartographie/map/scene/layers/localization_layer.dart';
+import 'package:vamos_cartographie/map/scene/map_layer.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 part 'map_scene.g.dart';
 
 /// Items de la scène, en coordonnées MONDE.
@@ -16,6 +16,23 @@ part 'map_scene.g.dart';
 /// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
 /// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
 /// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
+
+final baseLayers = <Layer>[
+  (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
+];
+
+@Dependencies([allSketchItem, allSegmentItem])
+List<Layer> layersFor(AppMode mode) => switch (mode) {
+  ExploreMode() => exploreScene(),
+  SketchEdition(:final tripId) => sketchScene(tripId),
+  SketchGenerating(:final tripId) => sketchGeneratingScene(tripId),
+  PlaceExistingTripOrigin(:final tripId) => placeExistingTripOriginScene(
+    tripId,
+  ),
+  PlaceNewTripOrigin() => placeNewTripOriginScene(),
+  TripMode(:final tripId) => tripEditScene(tripId),
+  _ => [],
+};
 @Riverpod(
   keepAlive: true,
   dependencies: [mapMode, allSegmentItem, allSketchItem],

@@ -12,8 +12,8 @@ import 'package:vamos_cartographie/map/modes/sketch_mode/ui/sketch_mode_ui.dart'
 import 'package:vamos_cartographie/map/modes/trip_edit/trip_edit_mode_ui.dart';
 
 @Dependencies([modeSelection, ModeMachine])
-class MapUi extends ConsumerWidget {
-  const MapUi({super.key});
+class ModeUi extends ConsumerWidget {
+  const ModeUi({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

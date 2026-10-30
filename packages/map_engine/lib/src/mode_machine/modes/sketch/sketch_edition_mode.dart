@@ -23,7 +23,9 @@ class SketchEdition extends TripMode {
   /// On saisit le crayon : on retient où, par rapport à sa pointe.
   @override
   Transition<AppMode> onPointerDown(PressGesture g) {
+    print("Sketch pointerDown ${g.element}");
     if (g.hit?.narrow<RouteElements>() case final hit?) {
+      print("Sketch hit ${g.element}");
       return Transition.set(
         sketchTraceSlot,
         SketchTrace(startAnchor: SketchAnchor(hit)),

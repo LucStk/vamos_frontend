@@ -14,7 +14,7 @@ import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/chrome/right_control_panel.dart';
-import 'package:vamos_cartographie/map/ui/map_ui.dart';
+import 'package:vamos_cartographie/map/modes/mode_ui.dart';
 
 @Dependencies([
   mapScene,
@@ -41,7 +41,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
         children: [
           MapGestureBridge(mapLayers: [MapTileLayer()]),
           const MapControls(),
-          const MapUi(),
+          const ModeUi(),
           Positioned(top: 16, right: 16, child: AccountButton()),
           if (loader.isLoading)
             const Positioned(
