@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart' hide id;
-import 'package:domain_core/failures.dart';
 import 'package:domain_core/map_geo_bounds.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/geo_polygon_dto.dart';
@@ -39,16 +39,14 @@ extension GTripRouteFieldsMapper on GTripRoute {
   }
 }
 
-extension GEditRoutePayloadFragmetMapper on GEditRouteResult {
-  Either<Failure, EditRoutePayload> toDomain() {
-    return switch (this) {
-      final GEditRouteResult__asEditRouteSuccess success =>
-        Right<Failure, EditRoutePayload>(_toPayload(success)),
-      GEditRouteResult__asEditRouteError(:final code) =>
-        Left<Failure, EditRoutePayload>(_failureFor(code)),
-      _ => Left<Failure, EditRoutePayload>(UnexpectedFailure()),
-    };
-  }
+extension GEditRouteResultMapper on GEditRouteResult {
+  Either<RouteEditFailure, EditRoutePayload> toDomain() => switch (this) {
+    final GEditRouteResult__asEditRouteSuccess s => Right(_toPayload(s)),
+    final GEditRouteResult__asEditRouteError e => Left(
+      routeEditFailureFor(e.code, e.message),
+    ),
+    _ => Left(UnknownRouteEditFailure(code: G__typename)),
+  };
 }
 
 EditRoutePayload _toPayload(GEditRouteResult__asEditRouteSuccess data) {
@@ -56,10 +54,20 @@ EditRoutePayload _toPayload(GEditRouteResult__asEditRouteSuccess data) {
   return EditRoutePayload(route: domain.route, sections: domain.sections);
 }
 
-Failure _failureFor(GRouteEditErrorCode code) => switch (code) {
-  GRouteEditErrorCode.STALE_ROUTE => StaleRouteFailure(),
-  GRouteEditErrorCode.INVALID_ANCHOR => InvalidRouteAnchorFailure(),
-  GRouteEditErrorCode.INVALID_EDIT => InvalidRouteEditFailure(),
-  GRouteEditErrorCode.TRIP_NOT_FOUND => RouteTripNotFoundFailure(),
-  _ => UnexpectedFailure(),
+@visibleForTesting
+RouteEditFailure routeEditFailureFor(
+  GRouteEditErrorCode code,
+  String message,
+) => switch (code) {
+  GRouteEditErrorCode.STALE_ROUTE => StaleRouteFailure(serverMessage: message),
+  GRouteEditErrorCode.INVALID_ANCHOR => InvalidRouteAnchorFailure(
+    serverMessage: message,
+  ),
+  GRouteEditErrorCode.INVALID_EDIT => InvalidRouteEditFailure(
+    serverMessage: message,
+  ),
+  GRouteEditErrorCode.TRIP_NOT_FOUND => RouteTripNotFoundFailure(
+    serverMessage: message,
+  ),
+  _ => UnknownRouteEditFailure(code: code.name, serverMessage: message),
 };

@@ -1,45 +1,56 @@
+// route_failures.dart
 import 'package:domain_core/domain_core.dart';
 
-/// Erreurs d'édition de la route d'un trip. Chaque classe correspond au
-/// `extensions.code` renvoyé par le serveur (voir route_failure_mapper.dart).
 sealed class RouteEditFailure extends Failure {
-  RouteEditFailure({String? message})
-    : super(message ?? "Erreur dans la modification de la route");
+  /// Message brut du serveur : logs/debug uniquement, jamais affiché.
+  final String? serverMessage;
+
+  RouteEditFailure(super.userMessage, {this.serverMessage});
+
+  @override
+  List<Object?> get props => [...super.props, serverMessage];
 }
 
-/// STALE_ROUTE : la route a changé depuis sa dernière lecture (autre onglet,
-/// double clic, section qui n'existe plus). Recharger le trip avant de réessayer.
 class StaleRouteFailure extends RouteEditFailure {
-  StaleRouteFailure()
-    : super(message: "La route a changé entre-temps, veuillez réessayer");
+  StaleRouteFailure({super.serverMessage})
+    : super("La route a changé entre-temps, veuillez réessayer");
 }
 
-/// INVALID_ANCHOR : le point cliqué ne peut pas être rattaché à la section indiquée.
 class InvalidRouteAnchorFailure extends RouteEditFailure {
-  InvalidRouteAnchorFailure()
-    : super(message: "Ce point n'est pas sur la section choisie");
+  InvalidRouteAnchorFailure({super.serverMessage})
+    : super("Ce point n'est pas sur la section choisie");
 }
 
-/// INVALID_EDIT : édition impossible (début et fin confondus, route déjà existante...).
 class InvalidRouteEditFailure extends RouteEditFailure {
-  InvalidRouteEditFailure()
-    : super(message: "Cette modification de la route est impossible");
+  InvalidRouteEditFailure({super.serverMessage})
+    : super("Cette modification de la route est impossible");
 }
 
-/// NOT_FOUND : le trip n'existe pas (ou plus).
 class RouteTripNotFoundFailure extends RouteEditFailure {
-  RouteTripNotFoundFailure() : super(message: "Ce voyage est introuvable");
+  RouteTripNotFoundFailure({super.serverMessage})
+    : super("Ce voyage est introuvable");
 }
 
-/// Le routeur a échoué (`refinementFailed: true`), mais l'édition a RÉUSSI :
-/// la portion est enregistrée en tracé brut (DRAWN).
-///
-/// Volontairement HORS de [RouteEditFailure] : ce n'est pas un échec de
-/// l'opération, il ne doit pas voyager dans le côté « erreur » d'un résultat.
-/// Il est porté par le résultat de succès (voir RouteEditResult).
+/// Code absent ou non reconnu (ex: nouveau code serveur pas encore géré).
+class UnknownRouteEditFailure extends RouteEditFailure {
+  final String? code;
+
+  UnknownRouteEditFailure({this.code, super.serverMessage})
+    : super("Erreur dans la modification de la route");
+
+  @override
+  List<Object?> get props => [...super.props, code];
+}
+
 class RoutingFailure extends Failure {
-  RoutingFailure()
+  RoutingFailure({this.reason})
     : super(
-        "L'itinéraire n'a pas pu être calculé : votre tracé à main levé a été conservé",
+        "L'itinéraire n'a pas pu être calculé : votre tracé à main levée a été conservé",
       );
+
+  /// Valeur de `refinementError` renvoyée par le serveur. Logs uniquement.
+  final String? reason;
+
+  @override
+  List<Object?> get props => [...super.props, reason];
 }

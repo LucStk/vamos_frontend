@@ -38,7 +38,7 @@ class RouteRepositoryImpl extends RouteRepository {
     final res = await guardRouteEdit(
       () => remote.editRoute(
         geometry: geometry,
-        mobilityType: mobilityType,
+        mobilityType: mobilityType ?? MobilityType.bike,
         tripId: tripId,
         startAnchor: startAnchor,
         endAnchor: endAnchor,
