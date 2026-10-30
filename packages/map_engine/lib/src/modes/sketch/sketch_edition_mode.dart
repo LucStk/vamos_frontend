@@ -21,10 +21,7 @@ class SketchEdition extends TripMode {
   @override
   Transition onPointerDown(PressGesture g) {
     if (g.hit?.narrow<RouteElements>() case final hit?) {
-      return Transition.set(
-        sketchTraceSlot,
-        SketchTrace(startAnchor: SketchAnchor(hit)),
-      );
+      return Transition.set(sketchTraceSlot, SketchTrace(startAnchor: hit));
     }
     return switch (g.element) {
       MapSketchPencil() => Transition.update(
@@ -37,8 +34,13 @@ class SketchEdition extends TripMode {
 
   // onDragging reste identique : add() applique maintenant le décalage.
   @override
-  Transition onDragging(DragUpdateGesture g) =>
-      Transition.update(sketchTraceSlot, (t) => t.add(g.position.world));
+  Transition onDragging(DragUpdateGesture g) {
+    final hit = g.hit?.narrow<RouteElements>();
+    return Transition.update(
+      sketchTraceSlot,
+      (t) => t.add(g.position.world).endingAt(hit),
+    );
+  }
 
   Transition validate() =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
@@ -69,9 +71,7 @@ class SketchEdition extends TripMode {
 
   /// Depuis le menu ouvert sur l'origine de la route : passe en édition de
   /// tracé, ancré au départ de la route.
-  static Transition startFromOrigin(MapHit<MapTripOrigin> hit) =>
-      Transition.to(SketchEdition(hit.object.tripId)).and(
-        sketchTraceSlot,
-        SketchTrace(startAnchor: SketchAnchor(hit), points: [hit.point]),
-      );
+  static Transition startFromOrigin(MapHit<MapTripOrigin> hit) => Transition.to(
+    SketchEdition(hit.object.tripId),
+  ).and(sketchTraceSlot, SketchTrace(startAnchor: hit, points: [hit.point]));
 }

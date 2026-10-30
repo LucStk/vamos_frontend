@@ -1,4 +1,5 @@
-import 'package:latlong2/latlong.dart';
+import 'package:map_engine/src/domain/camera/map_camera.dart';
+import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:trip_application/trip_application.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
@@ -27,9 +28,12 @@ sealed class RouteElements extends MapObject implements Selectable {
   bool get isDraggable => true;
 }
 
-extension ToRouteAnchor on RouteElements {
-  RouteAnchor toRouteAnchor(LatLng position) => switch (this) {
-    MapSection t => SectionAnchor(position: position, sectionId: t.id),
+extension MapHitRouteElementstoAnchor on MapHit<RouteElements> {
+  RouteAnchor toRouteAnchor(MapCameraReader camera) => switch (object) {
+    MapSection t => SectionAnchor(
+      position: camera.worldOffsetToLatLng(point),
+      sectionId: t.id,
+    ),
     MapTripEnd _ => EndRouteAnchor(),
     MapTripOrigin() => StartRouteAnchor(),
   };

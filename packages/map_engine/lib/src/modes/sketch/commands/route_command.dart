@@ -26,15 +26,9 @@ final class EditRoute extends RouteCommand<Either<Failure, EditRoutePayload>> {
   Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async {
     final geometry = sketch.points.toLatLngList(h.camera);
 
-    final startHit = sketch.startAnchor.hit;
-    final startAnchor = startHit.object.toRouteAnchor(
-      h.camera.worldOffsetToLatLng(startHit.point),
-    );
+    final startAnchor = sketch.startAnchor.toRouteAnchor(h.camera);
 
-    final endHit = sketch.endAnchor?.hit;
-    final endAnchor = endHit?.object.toRouteAnchor(
-      h.camera.worldOffsetToLatLng(endHit.point),
-    );
+    final endAnchor = sketch.endAnchor?.toRouteAnchor(h.camera);
 
     return h
         .forTrip(tripId)

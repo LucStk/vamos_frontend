@@ -25,7 +25,7 @@ bool _pencilStillOn<T extends RouteElements>(
   double zoomScale,
 ) =>
     trace != null &&
-    trace.startAnchor.hit.object is T &&
+    trace.startAnchor.object is T &&
     trace.points.every((p) => item.isHitAt(p, zoomScale));
 
 /// Icône de départ de la route, absente tant que le crayon parti d'elle ne
