@@ -8,33 +8,14 @@ part of 'map_scene.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Items de la scène, en coordonnées MONDE.
-///
-/// La caméra n'est qu'une clé de famille : la projection monde est fixe
-/// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
-/// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
-/// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 
 @ProviderFor(sceneItems)
 final sceneItemsProvider = SceneItemsFamily._();
-
-/// Items de la scène, en coordonnées MONDE.
-///
-/// La caméra n'est qu'une clé de famille : la projection monde est fixe
-/// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
-/// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
-/// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 
 final class SceneItemsProvider
     extends
         $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
     with $Provider<List<SceneItem>> {
-  /// Items de la scène, en coordonnées MONDE.
-  ///
-  /// La caméra n'est qu'une clé de famille : la projection monde est fixe
-  /// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
-  /// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
-  /// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
   SceneItemsProvider._({
     required SceneItemsFamily super.from,
     required MapCameraController super.argument,
@@ -46,15 +27,12 @@ final class SceneItemsProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapModeProvider;
-  static final $allTransitiveDependencies1 = allSegmentItemProvider;
-  static final $allTransitiveDependencies2 =
-      AllSegmentItemProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies3 = allSketchItemProvider;
+  static final $allTransitiveDependencies0 = sketchTraceItemProvider;
+  static final $allTransitiveDependencies1 = pencilItemProvider;
+  static final $allTransitiveDependencies2 = mapModeProvider;
+  static final $allTransitiveDependencies3 = allSegmentItemProvider;
   static final $allTransitiveDependencies4 =
-      AllSketchItemProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies5 =
-      AllSketchItemProvider.$allTransitiveDependencies2;
+      AllSegmentItemProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$sceneItemsHash();
@@ -96,14 +74,7 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'4f788d0d2c1b9e04db244a622c98f3db8400cdb0';
-
-/// Items de la scène, en coordonnées MONDE.
-///
-/// La caméra n'est qu'une clé de famille : la projection monde est fixe
-/// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
-/// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
-/// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
+String _$sceneItemsHash() => r'1b833705430478a94bf683ea089e40b513b1e129';
 
 final class SceneItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, MapCameraController> {
@@ -112,9 +83,10 @@ final class SceneItemsFamily extends $Family
         retry: null,
         name: r'sceneItemsProvider',
         dependencies: <ProviderOrFamily>[
+          sketchTraceItemProvider,
+          pencilItemProvider,
           mapModeProvider,
           allSegmentItemProvider,
-          allSketchItemProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           SceneItemsProvider.$allTransitiveDependencies0,
@@ -122,17 +94,9 @@ final class SceneItemsFamily extends $Family
           SceneItemsProvider.$allTransitiveDependencies2,
           SceneItemsProvider.$allTransitiveDependencies3,
           SceneItemsProvider.$allTransitiveDependencies4,
-          SceneItemsProvider.$allTransitiveDependencies5,
         },
         isAutoDispose: false,
       );
-
-  /// Items de la scène, en coordonnées MONDE.
-  ///
-  /// La caméra n'est qu'une clé de famille : la projection monde est fixe
-  /// (`referenceZoom`), donc les items ne dépendent pas de l'état de la vue
-  /// (pan, zoom, rotation). Ce provider ne se recalcule pas quand la caméra
-  /// bouge ; c'est `CameraTransform` qui applique la matrice de vue.
 
   SceneItemsProvider call(MapCameraController camera) =>
       SceneItemsProvider._(argument: camera, from: this);
@@ -173,7 +137,6 @@ final class MapSceneProvider
           MapSceneProvider.$allTransitiveDependencies3,
           MapSceneProvider.$allTransitiveDependencies4,
           MapSceneProvider.$allTransitiveDependencies5,
-          MapSceneProvider.$allTransitiveDependencies6,
         },
       );
 
@@ -188,8 +151,6 @@ final class MapSceneProvider
       SceneItemsProvider.$allTransitiveDependencies3;
   static final $allTransitiveDependencies5 =
       SceneItemsProvider.$allTransitiveDependencies4;
-  static final $allTransitiveDependencies6 =
-      SceneItemsProvider.$allTransitiveDependencies5;
 
   @override
   String debugGetCreateSourceHash() => _$mapSceneHash();

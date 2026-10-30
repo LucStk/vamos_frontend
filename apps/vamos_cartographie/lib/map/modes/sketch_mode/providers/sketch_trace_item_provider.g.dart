@@ -22,7 +22,7 @@ final class SketchTraceItemProvider
     with $Provider<SketchSegmentItem?> {
   SketchTraceItemProvider._({
     required SketchTraceItemFamily super.from,
-    required MapCameraReader super.argument,
+    required (bool, MapCameraReader) super.argument,
   }) : super(
          retry: null,
          name: r'sketchTraceItemProvider',
@@ -31,8 +31,6 @@ final class SketchTraceItemProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = mapModeProvider;
-
   @override
   String debugGetCreateSourceHash() => _$sketchTraceItemHash();
 
@@ -40,7 +38,7 @@ final class SketchTraceItemProvider
   String toString() {
     return r'sketchTraceItemProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -51,8 +49,8 @@ final class SketchTraceItemProvider
 
   @override
   SketchSegmentItem? create(Ref ref) {
-    final argument = this.argument as MapCameraReader;
-    return sketchTraceItem(ref, argument);
+    final argument = this.argument as (bool, MapCameraReader);
+    return sketchTraceItem(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -74,23 +72,22 @@ final class SketchTraceItemProvider
   }
 }
 
-String _$sketchTraceItemHash() => r'944a97e9f6cfffec7c698c5b34ba4eca927eec0b';
+String _$sketchTraceItemHash() => r'd21b7342d7f7665935159602c78920dbac593172';
 
 final class SketchTraceItemFamily extends $Family
-    with $FunctionalFamilyOverride<SketchSegmentItem?, MapCameraReader> {
+    with
+        $FunctionalFamilyOverride<SketchSegmentItem?, (bool, MapCameraReader)> {
   SketchTraceItemFamily._()
     : super(
         retry: null,
         name: r'sketchTraceItemProvider',
-        dependencies: <ProviderOrFamily>[mapModeProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SketchTraceItemProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
         isAutoDispose: false,
       );
 
-  SketchTraceItemProvider call(MapCameraReader camera) =>
-      SketchTraceItemProvider._(argument: camera, from: this);
+  SketchTraceItemProvider call(bool pending, MapCameraReader camera) =>
+      SketchTraceItemProvider._(argument: (pending, camera), from: this);
 
   @override
   String toString() => r'sketchTraceItemProvider';

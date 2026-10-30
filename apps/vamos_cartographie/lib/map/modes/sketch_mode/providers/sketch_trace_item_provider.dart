@@ -7,11 +7,12 @@ import 'package:vamos_cartographie/map/modes/sketch_mode/scene/sketch_segment_it
 
 part 'sketch_trace_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [mapMode])
-SketchSegmentItem? sketchTraceItem(Ref ref, MapCameraReader camera) {
-  final pending = ref.watch(
-    mapModeProvider.select((m) => m is SketchGenerating),
-  );
+@Riverpod(keepAlive: true, dependencies: [])
+SketchSegmentItem? sketchTraceItem(
+  Ref ref,
+  bool pending,
+  MapCameraReader camera,
+) {
   final sketchTrace = ref.watch(
     modeStateProvider.select((m) => m.slots.get(sketchTraceSlot)),
   );

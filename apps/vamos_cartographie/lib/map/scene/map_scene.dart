@@ -21,7 +21,7 @@ final baseLayers = <Layer>[
   (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
 ];
 
-@Dependencies([allSketchItem, allSegmentItem])
+@Dependencies([pencilItem, sketchTraceItem, allSegmentItem])
 List<Layer> layersFor(AppMode mode) => switch (mode) {
   ExploreMode() => exploreScene(),
   SketchEdition(:final tripId) => sketchScene(tripId),
@@ -35,7 +35,7 @@ List<Layer> layersFor(AppMode mode) => switch (mode) {
 };
 @Riverpod(
   keepAlive: true,
-  dependencies: [mapMode, allSegmentItem, allSketchItem],
+  dependencies: [sketchTraceItem, pencilItem, mapMode, allSegmentItem],
 )
 List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   final mode = ref.watch(mapModeProvider);

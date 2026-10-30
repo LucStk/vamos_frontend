@@ -11,7 +11,7 @@ PencilItem? pencilItem(Ref ref, MapCameraReader camera) {
   final sketchTrace = ref.watch(
     modeStateProvider.select((m) => m.slots.get(sketchTraceSlot)),
   );
-  final pencilPosition = sketchTrace?.last;
+  final pencilPosition = sketchTrace?.tip;
   if (pencilPosition == null) return null;
   return PencilItem(object: MapSketchPencil(), worldPosition: pencilPosition);
 }

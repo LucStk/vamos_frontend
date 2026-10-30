@@ -74,7 +74,7 @@ final class TripOriginItemProvider
   }
 }
 
-String _$tripOriginItemHash() => r'1388391bdae6b21b2e1f0778f20056e89972396e';
+String _$tripOriginItemHash() => r'36e741ae332cfc43b2f3dc43494a4c47a1f4e663';
 
 final class TripOriginItemFamily extends $Family
     with
@@ -96,93 +96,4 @@ final class TripOriginItemFamily extends $Family
 
   @override
   String toString() => r'tripOriginItemProvider';
-}
-
-@ProviderFor(tmpOriginItem)
-final tmpOriginItemProvider = TmpOriginItemFamily._();
-
-final class TmpOriginItemProvider
-    extends
-        $FunctionalProvider<
-          TripOriginItem<MapRouteOrigin>?,
-          TripOriginItem<MapRouteOrigin>?,
-          TripOriginItem<MapRouteOrigin>?
-        >
-    with $Provider<TripOriginItem<MapRouteOrigin>?> {
-  TmpOriginItemProvider._({
-    required TmpOriginItemFamily super.from,
-    required MapCameraReader super.argument,
-  }) : super(
-         retry: null,
-         name: r'tmpOriginItemProvider',
-         isAutoDispose: false,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
-
-  @override
-  String debugGetCreateSourceHash() => _$tmpOriginItemHash();
-
-  @override
-  String toString() {
-    return r'tmpOriginItemProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  $ProviderElement<TripOriginItem<MapRouteOrigin>?> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  TripOriginItem<MapRouteOrigin>? create(Ref ref) {
-    final argument = this.argument as MapCameraReader;
-    return tmpOriginItem(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(TripOriginItem<MapRouteOrigin>? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<TripOriginItem<MapRouteOrigin>?>(
-        value,
-      ),
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is TmpOriginItemProvider && other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$tmpOriginItemHash() => r'0d0a3a55ad56ca10fedef1d75c204133f9cc0b2d';
-
-final class TmpOriginItemFamily extends $Family
-    with
-        $FunctionalFamilyOverride<
-          TripOriginItem<MapRouteOrigin>?,
-          MapCameraReader
-        > {
-  TmpOriginItemFamily._()
-    : super(
-        retry: null,
-        name: r'tmpOriginItemProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: false,
-      );
-
-  TmpOriginItemProvider call(MapCameraReader camera) =>
-      TmpOriginItemProvider._(argument: camera, from: this);
-
-  @override
-  String toString() => r'tmpOriginItemProvider';
 }

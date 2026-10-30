@@ -1,4 +1,3 @@
-import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_machine/command/command.dart';
 import 'package:map_engine/src/mode_machine/command/effect/pending_run.dart';

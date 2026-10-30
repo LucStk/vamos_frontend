@@ -12,10 +12,7 @@ include: package:flutter_lints/flutter.yaml
 
 plugins:
   riverpod_lint: ^3.1.9
-  barrel_file_lints:
-    version: ^1.0.5
-    diagnostics:
-      avoid_self_barrel_import: true
+
 
 linter:
   rules:
