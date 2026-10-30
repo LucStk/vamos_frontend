@@ -27,10 +27,7 @@ final class MapGestureHandlerNotifierProvider
         retry: null,
         name: r'mapGestureHandlerProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[
-          appModeMachineProvider,
-          hitTesterProvider,
-        ],
+        dependencies: <ProviderOrFamily>[hitTesterProvider],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies0,
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies1,
@@ -49,18 +46,19 @@ final class MapGestureHandlerNotifierProvider
         },
       );
 
-  static final $allTransitiveDependencies0 = appModeMachineProvider;
-  static final $allTransitiveDependencies1 = hitTesterProvider;
-  static final $allTransitiveDependencies2 =
+  static final $allTransitiveDependencies0 = hitTesterProvider;
+  static final $allTransitiveDependencies1 =
       HitTesterProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies3 =
+  static final $allTransitiveDependencies2 =
       HitTesterProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies4 =
+  static final $allTransitiveDependencies3 =
       HitTesterProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies5 =
+  static final $allTransitiveDependencies4 =
       HitTesterProvider.$allTransitiveDependencies3;
-  static final $allTransitiveDependencies6 =
+  static final $allTransitiveDependencies5 =
       HitTesterProvider.$allTransitiveDependencies4;
+  static final $allTransitiveDependencies6 =
+      HitTesterProvider.$allTransitiveDependencies5;
   static final $allTransitiveDependencies7 =
       HitTesterProvider.$allTransitiveDependencies6;
   static final $allTransitiveDependencies8 =
@@ -93,7 +91,7 @@ final class MapGestureHandlerNotifierProvider
 }
 
 String _$mapGestureHandlerNotifierHash() =>
-    r'ed3a46601e9bfb013db5324276ca4eeb07aaa074';
+    r'fa387cecab016ae8b0a7aed8769d220eb65dd230';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).

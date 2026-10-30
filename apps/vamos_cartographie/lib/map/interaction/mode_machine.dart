@@ -41,7 +41,7 @@ AppMode mapMode(Ref ref) =>
 Overlay? modeOverlay(Ref ref) =>
     ref.watch(appModeMachineProvider.select((s) => s.overlay));
 
-@Riverpod(keepAlive: true, dependencies: [AppModeMachine])
+@Riverpod(keepAlive: true, dependencies: [AppModeMachine, modeSlot])
 Selectable? modeSelection(Ref ref) =>
     ref.watch(modeSlotProvider(selectionSlot));
 

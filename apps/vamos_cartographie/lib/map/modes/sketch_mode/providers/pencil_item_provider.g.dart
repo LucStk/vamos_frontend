@@ -26,6 +26,10 @@ final class PencilItemProvider
          $allTransitiveDependencies: null,
        );
 
+  static final $allTransitiveDependencies0 = modeSlotProvider;
+  static final $allTransitiveDependencies1 =
+      ModeSlotProvider.$allTransitiveDependencies0;
+
   @override
   String debugGetCreateSourceHash() => _$pencilItemHash();
 
@@ -66,7 +70,7 @@ final class PencilItemProvider
   }
 }
 
-String _$pencilItemHash() => r'3d36302beeca1697539383bb9e781b3d75be6513';
+String _$pencilItemHash() => r'e7e38adfeca71bab5c1d14f9fd05ff09fc5490af';
 
 final class PencilItemFamily extends $Family
     with $FunctionalFamilyOverride<PencilItem?, MapCameraReader> {
@@ -74,8 +78,11 @@ final class PencilItemFamily extends $Family
     : super(
         retry: null,
         name: r'pencilItemProvider',
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: <ProviderOrFamily>[modeSlotProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
+          PencilItemProvider.$allTransitiveDependencies0,
+          PencilItemProvider.$allTransitiveDependencies1,
+        ],
         isAutoDispose: false,
       );
 

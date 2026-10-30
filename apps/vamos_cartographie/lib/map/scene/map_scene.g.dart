@@ -28,11 +28,11 @@ final class SceneItemsProvider
        );
 
   static final $allTransitiveDependencies0 = pencilItemProvider;
-  static final $allTransitiveDependencies1 = sketchTraceItemProvider;
+  static final $allTransitiveDependencies1 =
+      PencilItemProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 =
-      SketchTraceItemProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies3 =
-      SketchTraceItemProvider.$allTransitiveDependencies1;
+      PencilItemProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 = sketchTraceItemProvider;
   static final $allTransitiveDependencies4 = allSegmentItemProvider;
   static final $allTransitiveDependencies5 =
       AllSegmentItemProvider.$allTransitiveDependencies0;

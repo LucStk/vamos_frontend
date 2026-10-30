@@ -1,9 +1,7 @@
 // injection/app_scope.dart
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:riverpod/riverpod.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
@@ -16,11 +14,10 @@ import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 
 part "mode_scope.g.dart";
 
-@Riverpod(keepAlive: true, dependencies: [cameraDirector])
+@Riverpod(keepAlive: true)
 HandlerRegistry handlerRegistry(Ref ref) =>
     HandlerRegistry(_AppCommandScope(ref));
 
-@Dependencies([ModeMachine])
 final class _AppCommandScope implements AppCommandScope {
   const _AppCommandScope(this._ref);
   final Ref _ref;

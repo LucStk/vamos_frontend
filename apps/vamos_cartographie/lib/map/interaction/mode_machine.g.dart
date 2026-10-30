@@ -21,8 +21,8 @@ final class AppModeMachineProvider
         retry: null,
         name: r'appModeMachineProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
 
   @override
@@ -41,7 +41,7 @@ final class AppModeMachineProvider
   }
 }
 
-String _$appModeMachineHash() => r'37658771facf780c4c47f8c256a7cc35747c14ff';
+String _$appModeMachineHash() => r'53cdb833623495b420ac22eef7f95255762b4878';
 
 abstract class _$AppModeMachine extends $Notifier<ModeState> {
   ModeState build();
@@ -164,13 +164,18 @@ final class ModeSelectionProvider
         retry: null,
         name: r'modeSelectionProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[appModeMachineProvider],
+        dependencies: <ProviderOrFamily>[
+          appModeMachineProvider,
+          modeSlotProvider,
+        ],
         $allTransitiveDependencies: <ProviderOrFamily>[
           ModeSelectionProvider.$allTransitiveDependencies0,
+          ModeSelectionProvider.$allTransitiveDependencies1,
         ],
       );
 
   static final $allTransitiveDependencies0 = appModeMachineProvider;
+  static final $allTransitiveDependencies1 = modeSlotProvider;
 
   @override
   String debugGetCreateSourceHash() => _$modeSelectionHash();
@@ -194,7 +199,7 @@ final class ModeSelectionProvider
   }
 }
 
-String _$modeSelectionHash() => r'19b12d1305965e77fee8f1d2528f39fa077c083e';
+String _$modeSelectionHash() => r'd0941bb12c2a407d8a6eea75590cb99cf2adbf8a';
 
 @ProviderFor(modeSlot)
 final modeSlotProvider = ModeSlotFamily._();
