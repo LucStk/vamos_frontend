@@ -22,7 +22,10 @@ sealed class MapObject {
 
 abstract interface class Selectable implements MapObject {}
 
-sealed class RouteElements extends MapObject implements Selectable {}
+sealed class RouteElements extends MapObject implements Selectable {
+  @override
+  bool get isDraggable => true;
+}
 
 extension ToRouteAnchor on RouteElements {
   RouteAnchor toRouteAnchor(LatLng position) => switch (this) {

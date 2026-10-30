@@ -37,9 +37,8 @@ class SketchEdition extends TripMode {
 
   // onDragging reste identique : add() applique maintenant le décalage.
   @override
-  Transition onDragging(DragUpdateGesture g) => g.dragged is MapSketchPencil
-      ? Transition.update(sketchTraceSlot, (t) => t.add(g.position.world))
-      : Transition.stay();
+  Transition onDragging(DragUpdateGesture g) =>
+      Transition.update(sketchTraceSlot, (t) => t.add(g.position.world));
 
   Transition validate() =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
