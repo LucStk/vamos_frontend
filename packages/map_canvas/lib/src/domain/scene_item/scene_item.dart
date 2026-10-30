@@ -17,6 +17,10 @@ abstract class SceneItem {
   Length get visualRadius;
   int hitPriority = 0;
 
+  bool get isHitTestable => object.isHitTestable;
+  bool get isDraggable => object.isDraggable;
+  bool get isDropTarget => object.isDropTarget;
+
   bool isHitAt(WorldOffset p, double zoomScale);
   WorldOffset hitPoint(WorldOffset p);
 

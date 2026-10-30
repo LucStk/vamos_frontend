@@ -27,7 +27,8 @@ class _SceneHitTester implements HitTester {
     return scene.hitTest(
       camera.screenToWorld(offset),
       camera.zoomScale,
-      ignore: (o) => o == exclude || (dropTargetsOnly && !o.isDropTarget),
+      exclude: exclude,
+      dropTargetsOnly: dropTargetsOnly,
     );
   }
 }

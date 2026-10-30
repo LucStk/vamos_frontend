@@ -23,12 +23,13 @@ class MapScene {
   MapHit? hitTest(
     WorldOffset worldPosition,
     double scale, {
-    MapObjectPredicate? ignore,
+    MapObject? exclude,
+    bool dropTargetsOnly = false,
   }) {
     for (final candidate in items) {
-      if (ignore?.call(candidate.object) ?? false) {
-        continue;
-      }
+      if (!candidate.isHitTestable) continue;
+      if (dropTargetsOnly && !candidate.isDropTarget) continue;
+      if (candidate.object == exclude) continue;
 
       if (candidate.isHitAt(worldPosition, scale)) {
         return MapHit(
@@ -37,7 +38,6 @@ class MapScene {
         );
       }
     }
-
     return null;
   }
 
