@@ -42,7 +42,7 @@ final class EditRoute extends RouteCommand<Either<Failure, EditRoutePayload>> {
         .routeEditor
         .editRoute(
           geometry: geometry,
-          mobilityType: sketch.mobilityType,
+          mobilityType: sketch.mobilityType ?? MobilityType.bike,
           startAnchor: startAnchor,
           endAnchor: endAnchor,
         );
