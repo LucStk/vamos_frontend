@@ -67,7 +67,7 @@ sealed class Transition {
     return v == null ? null : build(v);
   });
 
-  // (si `section` est un RouteElements : MapHit<RouteElements> directement.)
+  // (si `section` est un RouteElements : HitObject<RouteElements> directement.)
   static DeferredTransition update<T extends Object>(
     Slot<T> slot,
     T? Function(T current) change,

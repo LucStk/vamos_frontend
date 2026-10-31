@@ -25,7 +25,7 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier
   GestureSink get sink => ref.read(appModeMachineProvider.notifier);
 
   @override
-  MapHit? hitTest({
+  HitObject? hitTest({
     required ScreenOffset offset,
     MapObject? exclude,
     bool dropTargetsOnly = false,

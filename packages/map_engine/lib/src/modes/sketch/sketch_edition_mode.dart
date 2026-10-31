@@ -19,26 +19,39 @@ class SketchEdition extends TripMode {
   /// On saisit le segment : le tracé démarre à ce point.
   /// On saisit le crayon : on retient où, par rapport à sa pointe.
   @override
-  Transition onPointerDown(PressGesture g) {
-    if (g.hit?.narrow<RouteElements>() case final hit?) {
+  Transition onPointerDown(PressGesture g) => switch (g.element) {
+    MapSketchPencil() => Transition.update(
+      sketchTraceSlot,
+      (t) => t.grabbedAt(g.position.world),
+    ),
+    _ => Transition.stay(),
+  };
+
+  /// Drag depuis un élément de route : le tracé naît ici, au point saisi.
+  /// Drag depuis le Pencil : le tracé existe déjà, on ne touche à rien.
+  @override
+  Transition onDragStart(DragStartGesture g) {
+    if (g.source.narrow<RouteElements>() case final hit?) {
       return Transition.set(sketchTraceSlot, SketchTrace(startAnchor: hit));
     }
-    return switch (g.element) {
-      MapSketchPencil() => Transition.update(
-        sketchTraceSlot,
-        (t) => t.grabbedAt(g.position.world),
-      ),
-      _ => Transition.stay(),
-    };
+    return Transition.stay();
   }
 
-  // onDragging reste identique : add() applique maintenant le décalage.
+  /// En dessous, le doigt est encore « sur » son point de départ :
+  /// on n'accroche pas d'ancre d'arrivée.
+  static const _minAnchorTravelPx = 24.0;
+
   @override
   Transition onDragging(DragUpdateGesture g) {
-    final hit = g.hit?.narrow<RouteElements>();
+    if (!_drivesTrace(g.sourceObject)) return Transition.stay();
+
+    final end = g.travelPx < _minAnchorTravelPx
+        ? null
+        : g.target?.narrow<RouteElements>();
+
     return Transition.update(
       sketchTraceSlot,
-      (t) => t.add(g.position.world).endingAt(hit),
+      (t) => t.add(g.position.world).endingAt(end),
     );
   }
 
@@ -71,7 +84,23 @@ class SketchEdition extends TripMode {
 
   /// Depuis le menu ouvert sur l'origine de la route : passe en édition de
   /// tracé, ancré au départ de la route.
-  static Transition startFromOrigin(MapHit<MapTripOrigin> hit) => Transition.to(
-    SketchEdition(hit.object.tripId),
-  ).and(sketchTraceSlot, SketchTrace(startAnchor: hit, points: [hit.point]));
+  static Transition startFromOrigin(HitObject<MapTripOrigin> hit) =>
+      Transition.to(SketchEdition(hit.object.tripId)).and(
+        sketchTraceSlot,
+        SketchTrace(startAnchor: hit, points: [hit.point]),
+      );
+
+  /// Le système a repris le pointeur après le spawn : on retire le tracé
+  /// orphelin. Si le drag partait du Pencil, le tracé existait avant, on le garde.
+  @override
+  Transition onDragCancel(DragCancelGesture g) =>
+      g.source.narrow<RouteElements>() != null
+      ? Transition.set(sketchTraceSlot, null)
+      : Transition.stay();
+
+  /// Les deux seules origines qui pilotent le tracé.
+  static bool _drivesTrace(MapObject o) =>
+      o is RouteElements || o is MapSketchPencil;
+
+  // validate(), stop(), startFromOrigin() : inchangés
 }

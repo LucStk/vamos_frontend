@@ -7,10 +7,10 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 
 final class PencilItem extends PointItem {
-  PencilItem({required this.object, required this.worldPosition});
+  PencilItem({required this.worldPosition});
 
   @override
-  final MapSketchPencil object;
+  final MapSketchPencil object = MapSketchPencil();
 
   @override
   final WorldOffset worldPosition;

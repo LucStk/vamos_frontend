@@ -16,20 +16,27 @@ import 'package:map_engine/src/domain/objects/map_objects.dart';
 /// Le moteur de gestes continue de raisonner sur [object] (identité stable,
 /// comparable d'un événement à l'autre) ; [point] est un instantané pris au
 /// moment du hit-test.
-final class MapHit<T extends MapObject> {
-  const MapHit({required this.object, required this.point});
+///
+sealed class MapHit {
+  const MapHit();
+  WorldOffset get point;
+}
 
+final class HitGeo extends MapHit {
+  const HitGeo(this.point);
+  @override
+  final WorldOffset point;
+}
+
+final class HitObject<T extends MapObject> extends MapHit {
+  const HitObject({required this.object, required this.point});
   final T object;
+  @override
   final WorldOffset point;
 
-  /// Ce même hit, typé plus précisément, si son objet est un [R] ; sinon null.
-  ///
-  /// À utiliser plutôt qu'un cast : le résultat est vérifié par le compilateur
-  /// partout où on le passe (ex. `SketchAnchor.hit(MapHit<RouteElements>)`).
-  /// Un `MapHit<R>` reste utilisable partout où un `MapHit` est attendu.
-  MapHit<R>? narrow<R extends MapObject>() {
+  HitObject<R>? narrow<R extends MapObject>() {
     final o = object;
-    return o is R ? MapHit<R>(object: o, point: point) : null;
+    return o is R ? HitObject<R>(object: o, point: point) : null;
   }
 }
 

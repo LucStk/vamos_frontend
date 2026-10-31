@@ -20,7 +20,7 @@ class MapScene {
   final MapObject? hovered;
   final MapObject? dragging;
 
-  MapHit? hitTest(
+  HitObject? hitTest(
     WorldOffset worldPosition,
     double scale, {
     MapObject? exclude,
@@ -32,7 +32,7 @@ class MapScene {
       if (candidate.object == exclude) continue;
 
       if (candidate.isHitAt(worldPosition, scale)) {
-        return MapHit(
+        return HitObject(
           object: candidate.object,
           point: candidate.hitPoint(worldPosition),
         );

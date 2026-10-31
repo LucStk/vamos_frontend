@@ -13,8 +13,8 @@ part of 'pencil_item_provider.dart';
 final pencilItemProvider = PencilItemFamily._();
 
 final class PencilItemProvider
-    extends $FunctionalProvider<PencilItem?, PencilItem?, PencilItem?>
-    with $Provider<PencilItem?> {
+    extends $FunctionalProvider<SceneItem?, SceneItem?, SceneItem?>
+    with $Provider<SceneItem?> {
   PencilItemProvider._({
     required PencilItemFamily super.from,
     required MapCameraReader super.argument,
@@ -42,20 +42,20 @@ final class PencilItemProvider
 
   @$internal
   @override
-  $ProviderElement<PencilItem?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<SceneItem?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  PencilItem? create(Ref ref) {
+  SceneItem? create(Ref ref) {
     final argument = this.argument as MapCameraReader;
     return pencilItem(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PencilItem? value) {
+  Override overrideWithValue(SceneItem? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<PencilItem?>(value),
+      providerOverride: $SyncValueProvider<SceneItem?>(value),
     );
   }
 
@@ -70,10 +70,10 @@ final class PencilItemProvider
   }
 }
 
-String _$pencilItemHash() => r'e7e38adfeca71bab5c1d14f9fd05ff09fc5490af';
+String _$pencilItemHash() => r'e8f26433ca73706c316a25ada6de9fff8881c09e';
 
 final class PencilItemFamily extends $Family
-    with $FunctionalFamilyOverride<PencilItem?, MapCameraReader> {
+    with $FunctionalFamilyOverride<SceneItem?, MapCameraReader> {
   PencilItemFamily._()
     : super(
         retry: null,

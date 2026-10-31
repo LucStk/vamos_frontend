@@ -5,7 +5,7 @@ import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 
 // input/hit_tester.dart
 abstract interface class HitTester {
-  MapHit? hitTest({
+  HitObject? hitTest({
     required ScreenOffset offset,
     MapObject? exclude,
     bool dropTargetsOnly = false,

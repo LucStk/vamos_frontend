@@ -21,7 +21,7 @@ const sketchTraceSlot = Slot<SketchTrace>('sketchTrace');
 ///   en priorité celle de départ, puis celle d'arrivée.
 ///   Pour la première route du trajet, la mobilité est obligatoire.
 
-typedef SketchAnchor = MapHit<RouteElements>;
+typedef SketchAnchor = HitObject<RouteElements>;
 
 @freezed
 abstract class SketchTrace with _$SketchTrace {
@@ -62,7 +62,9 @@ abstract class SketchTrace with _$SketchTrace {
       copyWith(points: [...points, WorldOffset(pointer.value - grabOffset)]);
 
   /// Rattache l'arrivée du tracé à une ancre.
-  SketchTrace endingAt(SketchAnchor? anchor) => copyWith(endAnchor: anchor);
+  SketchTrace endingAt(SketchAnchor? hit) {
+    return copyWith(endAnchor: hit);
+  }
 
   /// Détache l'arrivée du tracé de la route.
   SketchTrace detached() => copyWith(endAnchor: null);

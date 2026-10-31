@@ -19,11 +19,12 @@ class MapGestureHandler {
     // être bloqués par l'état du clic droit.
     _tapTimer = PendingTapTimer(
       timeout: tapTimeout,
-      onTimeout: (pending) => _feed(PointerTapTimeout(pending.position)),
+      onTimeout: (pending) => _feed(PointerTapTimeout(pending.pressPosition)),
     );
     _longPressTimer = LongPressTimer(
       timeout: longPressTimeout,
-      onTimeout: (pressed) => _feed(PointerLongPressTimeout(pressed.position)),
+      onTimeout: (pressed) =>
+          _feed(PointerLongPressTimeout(pressed.pressPosition)),
     );
   }
 

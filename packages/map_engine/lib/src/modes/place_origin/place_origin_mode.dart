@@ -1,4 +1,5 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
@@ -31,7 +32,7 @@ final class PlaceNewTripOrigin extends PlaceOriginMode {
   /// Un tap sur la carte pose l'origine et ouvre le menu.
   @override
   Transition onTapElsewhere(TapGesture g) => Transition.overlay(
-    TapMenu(g.world, object: null),
+    TapMenu(HitGeo(g.world)),
   ).and(tripOriginSlot, TripOrigin(g.world));
 
   @override

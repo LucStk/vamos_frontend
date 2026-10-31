@@ -14,6 +14,7 @@ sealed class MapObject {
   bool get isDraggable => false;
   bool get awaitsDoubleTap => false;
   bool get isHitTestable => true;
+  bool get isMovedByDrag => isDraggable;
 
   /// Peut être « survolé » par un objet en cours de drag.
   /// Faux pour les proxys du pointeur (ex. Pencil).
@@ -26,9 +27,11 @@ abstract interface class Selectable implements MapObject {}
 sealed class RouteElements extends MapObject implements Selectable {
   @override
   bool get isDraggable => true;
+  @override
+  bool get isMovedByDrag => false;
 }
 
-extension MapHitRouteElementstoAnchor on MapHit<RouteElements> {
+extension HitObjectRouteElementstoAnchor on HitObject<RouteElements> {
   RouteAnchor toRouteAnchor(MapCameraReader camera) => switch (object) {
     MapSection t => SectionAnchor(
       position: camera.worldOffsetToLatLng(point),

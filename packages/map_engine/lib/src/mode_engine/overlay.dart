@@ -1,6 +1,9 @@
 // overlay.dart
+import 'package:map_engine/src/domain/map_hit.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/transition.dart';
+import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 
 enum Interception { pass, consume, dismiss, dismissAndConsume }
 
@@ -21,4 +24,11 @@ abstract class Overlay {
   bool? visibleAfter(MapGesture event) => null;
 
   bool survives(Transition result) => false;
+}
+
+extension OverlayHit on Overlay? {
+  HitObject<T>? hitAs<T extends MapObject>() {
+    final o = this;
+    return o is EventMenu<MapHit> ? o.hitAs<T>() : null;
+  }
 }

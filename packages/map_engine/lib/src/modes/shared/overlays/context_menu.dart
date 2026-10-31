@@ -21,19 +21,20 @@ abstract class ContextMenuOverlay extends Overlay {
   };
 }
 
-// Remplace EventMenu / TapMenu / DragEndMenu dans ton fichier de menus.
-// (ContextMenuOverlay reste inchangé.)
+/// Menu ancré sur un hit : [HitObject] (objet touché) ou [HitGeo] (carte vide).
+abstract class EventMenu<H extends MapHit> extends ContextMenuOverlay {
+  const EventMenu(this.hit);
 
-/// Menu ouvert sur [object] (ou sur le fond de carte : `EventMenu<Null>`).
-///
-/// Le paramètre [T] sert au typage STATIQUE là où on connaît l'objet à la
-/// création. Pour retrouver le type à l'exécution, utiliser [objectAs] ou un
-/// `switch` sur [object] : voir la note sur les génériques réifiés.
-abstract class EventMenu<T extends MapObject?> extends ContextMenuOverlay {
-  EventMenu(this.position, {required this.object});
+  final H hit;
 
-  final WorldOffset position;
-  final T object;
+  /// Point d'ancrage du menu.
+  WorldOffset get position => hit.point;
+
+  /// L'objet touché, `null` sur la carte vide.
+  MapObject? get object => switch (hit) {
+    HitObject(:final object) => object,
+    HitGeo() => null,
+  };
 
   /// L'objet, typé [R], s'il en est un ; null sinon.
   /// Fiable à l'exécution (teste la valeur, pas le paramètre de type).
@@ -42,19 +43,19 @@ abstract class EventMenu<T extends MapObject?> extends ContextMenuOverlay {
     return o is R ? o : null;
   }
 
-  /// Ce menu vu comme un hit typé : l'objet touché et l'endroit du tap.
-  MapHit<R>? hitAs<R extends MapObject>() {
-    final o = objectAs<R>();
-    return o == null ? null : MapHit<R>(object: o, point: position);
-  }
+  /// Le hit, resserré sur un objet [R] ; null si carte vide ou autre type.
+  HitObject<R>? hitAs<R extends MapObject>() => switch (hit) {
+    final HitObject h => h.narrow<R>(),
+    HitGeo() => null,
+  };
 }
 
-class TapMenu<T extends MapObject?> extends EventMenu<T> {
-  TapMenu(super.position, {required super.object});
+class TapMenu<H extends MapHit> extends EventMenu<H> {
+  const TapMenu(super.hit);
 }
 
-class DragEndMenu<T extends MapObject?> extends EventMenu<T> {
-  DragEndMenu(super.position, {required super.object});
+class DragEndMenu<H extends MapHit> extends EventMenu<H> {
+  const DragEndMenu(super.hit);
 }
 
 // ---------------------------------------------------------------------------
@@ -62,20 +63,22 @@ class DragEndMenu<T extends MapObject?> extends EventMenu<T> {
 // ---------------------------------------------------------------------------
 
 extension MenuState on ModeState {
-  /// Le menu ouvert, s'il y en a un. Le test se fait contre le type le plus
-  /// large (`EventMenu<MapObject?>`) : un `TapMenu<MapSection>` en est un.
-  EventMenu<MapObject?>? get menu {
+  /// Le menu ouvert, s'il y en a un. Test contre le type le plus large :
+  /// un `TapMenu<HitObject<MapSection>>` est un `EventMenu<MapHit>`.
+  EventMenu<MapHit>? get menu {
     final o = overlay;
-    return o is EventMenu<MapObject?> ? o : null;
+    return o is EventMenu<MapHit> ? o : null;
   }
 
   /// L'objet du menu ouvert, s'il est un [T].
   T? menuObjectAs<T extends MapObject>() => menu?.objectAs<T>();
 
-  /// Pendant de `withSelection` : `build` n'est appelé que si le menu ouvert
-  /// l'est sur un [T]. Reçoit le menu (position...) et l'objet déjà typé.
+  /// Le hit du menu ouvert, resserré sur [T] (objet + point d'ancrage).
+  HitObject<T>? menuHitAs<T extends MapObject>() => menu?.hitAs<T>();
+
+  /// `build` n'est appelé que si le menu ouvert l'est sur un [T].
   Transition? whenMenuOn<T extends MapObject>(
-    Transition? Function(EventMenu<MapObject?> menu, T object) build,
+    Transition? Function(EventMenu<MapHit> menu, T object) build,
   ) {
     final m = menu;
     final object = m?.objectAs<T>();
@@ -83,12 +86,11 @@ extension MenuState on ModeState {
   }
 }
 
-extension DragTrasckingGestureMenu on DragTrackingGesture {
-  ContextMenuOverlay get dragEndMenu =>
-      DragEndMenu(hit?.point ?? world, object: element);
+extension DragTrackingGestureMenu on DragTrackingGesture {
+  /// Cible sous le pointeur, ou la position brute si la carte est vide.
+  ContextMenuOverlay get dragEndMenu => DragEndMenu(target ?? HitGeo(world));
 }
 
 extension PointGestureMenu on PointGesture {
-  ContextMenuOverlay get tapMenu =>
-      TapMenu(hit?.point ?? world, object: element);
+  ContextMenuOverlay get tapMenu => TapMenu(hit ?? HitGeo(world));
 }

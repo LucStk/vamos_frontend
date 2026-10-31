@@ -23,21 +23,13 @@ final class EditRoute extends RouteCommand<Either<Failure, EditRoutePayload>> {
   final SketchTrace sketch;
 
   @override
-  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async {
-    final geometry = sketch.points.toLatLngList(h.camera);
-
-    final startAnchor = sketch.startAnchor.toRouteAnchor(h.camera);
-
-    final endAnchor = sketch.endAnchor?.toRouteAnchor(h.camera);
-
-    return h
-        .forTrip(tripId)
-        .routeEditor
-        .editRoute(
-          geometry: geometry,
-          mobilityType: sketch.mobilityType,
-          startAnchor: startAnchor,
-          endAnchor: endAnchor,
-        );
-  }
+  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) async => h
+      .forTrip(tripId)
+      .routeEditor
+      .editRoute(
+        geometry: sketch.points.toLatLngList(h.camera),
+        mobilityType: sketch.mobilityType,
+        startAnchor: sketch.startAnchor.toRouteAnchor(h.camera),
+        endAnchor: sketch.endAnchor?.toRouteAnchor(h.camera),
+      );
 }

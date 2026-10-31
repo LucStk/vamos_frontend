@@ -5,6 +5,8 @@ final class MapSketchSegment extends MapObject {
 
   @override
   int get hitPriority => 50;
+  @override
+  bool get isDropTarget => false;
 
   @override
   bool operator ==(Object other) => other is MapSketchSegment;

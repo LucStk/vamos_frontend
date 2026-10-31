@@ -17,7 +17,7 @@ class _SceneHitTester implements HitTester {
   final Ref _ref;
 
   @override
-  MapHit? hitTest({
+  HitObject? hitTest({
     required ScreenOffset offset,
     MapObject? exclude,
     bool dropTargetsOnly = false,

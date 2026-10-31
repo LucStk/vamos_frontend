@@ -12,19 +12,19 @@ class IdleState extends PointerGestureState {
 }
 
 class PressedState extends PointerGestureState {
-  const PressedState({required this.hit, required this.position});
-  final MapHit? hit;
-  final PointerPosition position;
+  const PressedState({required this.hit, required this.pressPosition});
+  final HitObject? hit;
+  final PointerPosition pressPosition;
   MapObject? get element => hit?.object; // le reste du code ne change pas
 }
 
 /// Le long press a été déclenché, le doigt est toujours posé.
 /// Sert à ne PAS émettre de Tap au relâchement.
 class LongPressedState extends PointerGestureState {
-  const LongPressedState({required this.hit, required this.position});
+  const LongPressedState({required this.hit, required this.pressPosition});
 
-  final MapHit? hit;
-  final PointerPosition position;
+  final HitObject? hit;
+  final PointerPosition pressPosition;
 
   MapObject? get element => hit?.object; // le reste du code ne change pas
 }
@@ -32,18 +32,18 @@ class LongPressedState extends PointerGestureState {
 class PendingTap extends PointerGestureState {
   const PendingTap({
     required this.hit,
-    required this.position,
+    required this.pressPosition,
     this.doubleTapMaxDistancePx = 24,
   });
 
-  final MapHit? hit;
-  final PointerPosition position;
+  final HitObject? hit;
+  final PointerPosition pressPosition;
   final double doubleTapMaxDistancePx;
 
   MapObject? get element => hit?.object; // le reste du code ne change pas
 
   bool compare(MapObject? otherElement, ScreenOffset otherOffset) {
-    if ((position.screen.value - otherOffset.value).distance >
+    if ((pressPosition.screen.value - otherOffset.value).distance >
         doubleTapMaxDistancePx) {
       return false;
     }
@@ -61,11 +61,31 @@ class PendingTap extends PointerGestureState {
 }
 
 class DraggingState extends PointerGestureState {
-  const DraggingState({required this.dragged, this.hit});
+  const DraggingState({
+    required this.source,
+    required this.pressPosition,
+    this.target,
+  });
 
-  final MapObject dragged;
-  final MapHit? hit; // peut potentiellement servir à rien
-  // dans la nouvelle version de l'engine avec les slots
+  /// Saisi au press : objet + point exact. Fixe pendant tout le drag.
+  final HitObject source;
+
+  /// Où le doigt s'est posé.
+  final PointerPosition pressPosition;
+
+  /// Cible de dépôt sous le doigt, mise à jour à chaque move.
+  final HitObject? target;
+
+  MapObject get sourceObject => source.object;
+
+  /// Seul un objet réellement déplacé est exclu du hit-test.
+  MapObject? get excluded => sourceObject.isMovedByDrag ? sourceObject : null;
+
+  DraggingState withTarget(HitObject? target) => DraggingState(
+    source: source,
+    pressPosition: pressPosition,
+    target: target,
+  );
 }
 
 class PanningState extends PointerGestureState {
