@@ -99,6 +99,94 @@ class GRouteSectionData implements GRouteSection {
   }
 }
 
+abstract class GPreviewSection {
+  bool get isNew;
+  int get startIndex;
+  _i1.GMobilityType get mobilityType;
+  _i1.GGeometrySource get geometrySource;
+  String get G__typename;
+}
+
+class GPreviewSectionData implements GPreviewSection {
+  const GPreviewSectionData({
+    required this.isNew,
+    required this.startIndex,
+    required this.mobilityType,
+    required this.geometrySource,
+    this.G__typename = 'PreviewSectionType',
+  });
+
+  factory GPreviewSectionData.fromJson(Map<String, dynamic> json) {
+    return GPreviewSectionData(
+      isNew: (json['isNew'] as bool),
+      startIndex: (json['startIndex'] as int),
+      mobilityType:
+          _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
+      geometrySource:
+          _i1.GGeometrySource.fromJson((json['geometrySource'] as String)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final bool isNew;
+
+  final int startIndex;
+
+  final _i1.GMobilityType mobilityType;
+
+  final _i1.GGeometrySource geometrySource;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['isNew'] = this.isNew;
+    _$result['startIndex'] = this.startIndex;
+    _$result['mobilityType'] = this.mobilityType.toJson();
+    _$result['geometrySource'] = this.geometrySource.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GPreviewSectionData copyWith({
+    bool? isNew,
+    int? startIndex,
+    _i1.GMobilityType? mobilityType,
+    _i1.GGeometrySource? geometrySource,
+    String? G__typename,
+  }) {
+    return GPreviewSectionData(
+      isNew: isNew ?? this.isNew,
+      startIndex: startIndex ?? this.startIndex,
+      mobilityType: mobilityType ?? this.mobilityType,
+      geometrySource: geometrySource ?? this.geometrySource,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPreviewSectionData &&
+            isNew == other.isNew &&
+            startIndex == other.startIndex &&
+            mobilityType == other.mobilityType &&
+            geometrySource == other.geometrySource &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, isNew, startIndex, mobilityType,
+        geometrySource, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GPreviewSectionData(isNew: $isNew, startIndex: $startIndex, mobilityType: $mobilityType, geometrySource: $geometrySource, G__typename: $G__typename)';
+  }
+}
+
 abstract class GTripRoute {
   String get id;
   String? get routeUpdatedAt;
@@ -473,16 +561,8 @@ abstract class GRoutePreviewResult__asRoutePreviewSuccess
     implements GRoutePreviewResult {
   String get proposalId;
   List<_i2.GLatLng> get coordinates;
-  List<GRoutePreviewResult__asRoutePreviewSuccess_sections> get sections;
+  List<GPreviewSection> get sections;
   _i1.GRefinementFailure? get refinementError;
-  String get G__typename;
-}
-
-abstract class GRoutePreviewResult__asRoutePreviewSuccess_sections {
-  bool get isNew;
-  int get startIndex;
-  _i1.GMobilityType get mobilityType;
-  _i1.GGeometrySource get geometrySource;
   String get G__typename;
 }
 
@@ -579,8 +659,7 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
           .toList(),
       sections: (json['sections'] as List<dynamic>)
           .map((_$e) =>
-              GRoutePreviewResultData__asRoutePreviewSuccess_sections.fromJson(
-                  (_$e as Map<String, dynamic>)))
+              GPreviewSectionData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       refinementError: json['refinementError'] == null
           ? null
@@ -593,7 +672,7 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
 
   final List<_i2.GLatLngData> coordinates;
 
-  final List<GRoutePreviewResultData__asRoutePreviewSuccess_sections> sections;
+  final List<GPreviewSectionData> sections;
 
   final _i1.GRefinementFailure? refinementError;
 
@@ -613,7 +692,7 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
     String? G__typename,
     String? proposalId,
     List<_i2.GLatLngData>? coordinates,
-    List<GRoutePreviewResultData__asRoutePreviewSuccess_sections>? sections,
+    List<GPreviewSectionData>? sections,
     _i1.GRefinementFailure? refinementError,
     bool refinementErrorIsSet = false,
   }) {
@@ -653,88 +732,6 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
   @override
   String toString() {
     return 'GRoutePreviewResultData__asRoutePreviewSuccess(G__typename: $G__typename, proposalId: $proposalId, coordinates: $coordinates, sections: $sections, refinementError: $refinementError)';
-  }
-}
-
-class GRoutePreviewResultData__asRoutePreviewSuccess_sections
-    implements GRoutePreviewResult__asRoutePreviewSuccess_sections {
-  const GRoutePreviewResultData__asRoutePreviewSuccess_sections({
-    required this.isNew,
-    required this.startIndex,
-    required this.mobilityType,
-    required this.geometrySource,
-    this.G__typename = 'PreviewSection',
-  });
-
-  factory GRoutePreviewResultData__asRoutePreviewSuccess_sections.fromJson(
-      Map<String, dynamic> json) {
-    return GRoutePreviewResultData__asRoutePreviewSuccess_sections(
-      isNew: (json['isNew'] as bool),
-      startIndex: (json['startIndex'] as int),
-      mobilityType:
-          _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
-      geometrySource:
-          _i1.GGeometrySource.fromJson((json['geometrySource'] as String)),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final bool isNew;
-
-  final int startIndex;
-
-  final _i1.GMobilityType mobilityType;
-
-  final _i1.GGeometrySource geometrySource;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['isNew'] = this.isNew;
-    _$result['startIndex'] = this.startIndex;
-    _$result['mobilityType'] = this.mobilityType.toJson();
-    _$result['geometrySource'] = this.geometrySource.toJson();
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GRoutePreviewResultData__asRoutePreviewSuccess_sections copyWith({
-    bool? isNew,
-    int? startIndex,
-    _i1.GMobilityType? mobilityType,
-    _i1.GGeometrySource? geometrySource,
-    String? G__typename,
-  }) {
-    return GRoutePreviewResultData__asRoutePreviewSuccess_sections(
-      isNew: isNew ?? this.isNew,
-      startIndex: startIndex ?? this.startIndex,
-      mobilityType: mobilityType ?? this.mobilityType,
-      geometrySource: geometrySource ?? this.geometrySource,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GRoutePreviewResultData__asRoutePreviewSuccess_sections &&
-            isNew == other.isNew &&
-            startIndex == other.startIndex &&
-            mobilityType == other.mobilityType &&
-            geometrySource == other.geometrySource &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, isNew, startIndex, mobilityType,
-        geometrySource, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GRoutePreviewResultData__asRoutePreviewSuccess_sections(isNew: $isNew, startIndex: $startIndex, mobilityType: $mobilityType, geometrySource: $geometrySource, G__typename: $G__typename)';
   }
 }
 

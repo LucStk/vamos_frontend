@@ -229,6 +229,7 @@ class GPreviewRouteEditReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.PreviewRouteEdit,
+    _i7.PreviewSection,
     _i7.RoutePreviewResult,
     _i8.LatLng,
   ]);

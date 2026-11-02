@@ -159,7 +159,7 @@ internal rings. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or obje
 """
 scalar Polygon
 
-type PreviewSection {
+type PreviewSectionType {
   startIndex: Int!
   mobilityType: MobilityType!
   geometrySource: GeometrySource!
@@ -209,7 +209,7 @@ type RoutePreviewSuccess {
   proposalId: UUID!
   expiresAt: DateTime!
   coordinates: [LatLngType!]!
-  sections: [PreviewSection!]!
+  sections: [PreviewSectionType!]!
   refinementError: RefinementFailure
 }
 

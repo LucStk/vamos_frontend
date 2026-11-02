@@ -57,6 +57,52 @@ const RouteSection = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
+const PreviewSection = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'PreviewSection'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'PreviewSectionType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'isNew'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'startIndex'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'geometrySource'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
 const TripRoute = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'TripRoute'),
   typeCondition: _i1.TypeConditionNode(
@@ -301,33 +347,9 @@ const RoutePreviewResult = _i1.FragmentDefinitionNode(
           arguments: [],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'isNew'),
-              alias: null,
-              arguments: [],
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'PreviewSection'),
               directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'startIndex'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'mobilityType'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'geometrySource'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: '__typename'),
@@ -389,6 +411,7 @@ const RoutePreviewResult = _i1.FragmentDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   RouteSection,
+  PreviewSection,
   TripRoute,
   EditRouteResult,
   RoutePreviewResult,

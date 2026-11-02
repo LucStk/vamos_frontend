@@ -970,8 +970,8 @@ const Polygon = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'Polygon'),
   directives: [],
 );
-const PreviewSection = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'PreviewSection'),
+const PreviewSectionType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'PreviewSectionType'),
   directives: [],
   interfaces: [],
   fields: [
@@ -1231,7 +1231,7 @@ const RoutePreviewSuccess = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'PreviewSection'),
+          name: _i1.NameNode(value: 'PreviewSectionType'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -1808,7 +1808,7 @@ const document = _i1.DocumentNode(definitions: [
   Mutation,
   PoiCategory,
   Polygon,
-  PreviewSection,
+  PreviewSectionType,
   Query,
   RefinementFailure,
   RouteAnchorInput,

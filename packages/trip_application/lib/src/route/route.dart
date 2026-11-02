@@ -1,4 +1,5 @@
 export 'domain/mobility_types.dart';
+export 'domain/geometry_source_types.dart';
 export "domain/route.dart";
 export "domain/route_section.dart";
 export 'domain/route_anchor.dart';

@@ -8,7 +8,12 @@ fragment RouteSection on RouteSectionType {
     mobilityType
     geometrySource
 }
-
+fragment PreviewSection on PreviewSectionType {
+    isNew
+    startIndex
+    mobilityType
+    geometrySource
+}
 fragment TripRoute on TripType {
     id
     routeUpdatedAt
@@ -45,10 +50,7 @@ fragment RoutePreviewResult on RoutePreviewPayload {
             ...LatLng
         }
         sections {
-            isNew
-            startIndex
-            mobilityType
-            geometrySource
+            ...PreviewSection
         }
         refinementError
     }

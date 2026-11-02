@@ -136,10 +136,7 @@ class RouteRemoteDatasource {
     return data.commitRouteEdit;
   }
 
-  Future<bool> discardRouteProposal({
-    required Id<Trip> tripId,
-    required Id proposalId,
-  }) async {
+  Future<bool> discardRouteProposal({required Id<Trip> tripId}) async {
     final data = await ferryClient.execute(
       GDiscardRouteProposalReq(
         vars: GDiscardRouteProposalVars(tripId: tripId.value),

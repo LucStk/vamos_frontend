@@ -233,6 +233,7 @@ const document = _i1.DocumentNode(definitions: [
   DeleteTrip,
   SetTripOrigin,
   _i2.RouteSection,
+  _i2.PreviewSection,
   _i2.TripRoute,
   _i2.EditRouteResult,
   _i2.RoutePreviewResult,

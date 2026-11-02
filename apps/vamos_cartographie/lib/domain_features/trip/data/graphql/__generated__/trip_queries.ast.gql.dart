@@ -241,6 +241,7 @@ const document = _i1.DocumentNode(definitions: [
   _i2.TripSummary,
   _i2.TripFull,
   _i3.RouteSection,
+  _i3.PreviewSection,
   _i3.TripRoute,
   _i3.EditRouteResult,
   _i3.RoutePreviewResult,

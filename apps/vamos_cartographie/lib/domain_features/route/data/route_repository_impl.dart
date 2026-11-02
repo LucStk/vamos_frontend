@@ -81,4 +81,43 @@ class RouteRepositoryImpl extends RouteRepository {
     final res = await guardRouteEdit(() => remote.deleteRoute(tripId: tripId));
     return res.flatMap((m) => m.toDomain());
   }
+
+  @override
+  Future<Either<Failure, PreviewRoutePayload>> previewRouteEdit({
+    required Id<Trip> tripId,
+    required List<LatLng> geometry,
+    MobilityType? mobilityType,
+    RouteAnchor? startAnchor,
+    RouteAnchor? endAnchor,
+  }) async {
+    final res = await guardRouteEdit(
+      () => remote.previewRouteEdit(
+        tripId: tripId,
+        geometry: geometry,
+        mobilityType: mobilityType,
+        startAnchor: startAnchor,
+        endAnchor: endAnchor,
+      ),
+    );
+    return res.flatMap((m) => m.toDomain());
+  }
+
+  @override
+  Future<Either<Failure, EditRoutePayload>> commitRouteEdit({
+    required Id<Trip> tripId,
+    required Id proposalId,
+  }) async {
+    final res = await guardRouteEdit(
+      () => remote.commitRouteEdit(tripId: tripId, proposalId: proposalId),
+    );
+    return res.flatMap((m) => m.toDomain());
+  }
+
+  @override
+  Future<Failure?> discardRouteProposal({required Id<Trip> tripId}) async {
+    final res = await guardRouteEdit(
+      () => remote.discardRouteProposal(tripId: tripId),
+    );
+    return res.fold((f) => f, (_) => null);
+  }
 }
