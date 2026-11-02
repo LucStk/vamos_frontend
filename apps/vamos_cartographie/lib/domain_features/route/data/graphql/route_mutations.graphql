@@ -7,6 +7,19 @@ mutation EditRoute($tripId: UUID!, $input: EditRouteInput!) {
         ...EditRouteResult
     }
 }
+mutation PreviewRouteEdit($tripId: UUID!, $input: EditRouteInput!) {
+    previewRouteEdit(tripId: $tripId, input: $input) {
+        ...RoutePreviewResult
+    }
+}
+mutation CommitRouteEdit($tripId: UUID!, $proposalId: UUID!) {
+    commitRouteEdit(tripId: $tripId, proposalId: $proposalId) {
+        ...EditRouteResult
+    }
+}
+mutation DiscardRouteProposal($tripId: UUID!) {
+    discardRouteProposal(tripId: $tripId)
+}
 
 mutation SetTripOrigin($tripId: UUID!, $origin: LatLngInput!) {
     setTripOrigin(id: $tripId, origin: $origin) {

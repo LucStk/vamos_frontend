@@ -63,6 +63,153 @@ class GEditRouteVars {
   }
 }
 
+class GPreviewRouteEditVars {
+  const GPreviewRouteEditVars({
+    required this.tripId,
+    required this.input,
+  });
+
+  factory GPreviewRouteEditVars.fromJson(Map<String, dynamic> json) {
+    return GPreviewRouteEditVars(
+      tripId: (json['tripId'] as String),
+      input:
+          _i1.GEditRouteInput.fromJson((json['input'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String tripId;
+
+  final _i1.GEditRouteInput input;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$inputValue = this.input;
+    _$result['input'] = _$inputValue.toJson();
+    return _$result;
+  }
+
+  GPreviewRouteEditVars copyWith({
+    String? tripId,
+    _i1.GEditRouteInput? input,
+  }) {
+    return GPreviewRouteEditVars(
+      tripId: tripId ?? this.tripId,
+      input: input ?? this.input,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPreviewRouteEditVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GPreviewRouteEditVars(tripId: $tripId, input: $input)';
+  }
+}
+
+class GCommitRouteEditVars {
+  const GCommitRouteEditVars({
+    required this.tripId,
+    required this.proposalId,
+  });
+
+  factory GCommitRouteEditVars.fromJson(Map<String, dynamic> json) {
+    return GCommitRouteEditVars(
+      tripId: (json['tripId'] as String),
+      proposalId: (json['proposalId'] as String),
+    );
+  }
+
+  final String tripId;
+
+  final String proposalId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$proposalIdValue = this.proposalId;
+    _$result['proposalId'] = _$proposalIdValue;
+    return _$result;
+  }
+
+  GCommitRouteEditVars copyWith({
+    String? tripId,
+    String? proposalId,
+  }) {
+    return GCommitRouteEditVars(
+      tripId: tripId ?? this.tripId,
+      proposalId: proposalId ?? this.proposalId,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCommitRouteEditVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GCommitRouteEditVars(tripId: $tripId, proposalId: $proposalId)';
+  }
+}
+
+class GDiscardRouteProposalVars {
+  const GDiscardRouteProposalVars({required this.tripId});
+
+  factory GDiscardRouteProposalVars.fromJson(Map<String, dynamic> json) {
+    return GDiscardRouteProposalVars(tripId: (json['tripId'] as String));
+  }
+
+  final String tripId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    return _$result;
+  }
+
+  GDiscardRouteProposalVars copyWith({String? tripId}) {
+    return GDiscardRouteProposalVars(tripId: tripId ?? this.tripId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDiscardRouteProposalVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GDiscardRouteProposalVars(tripId: $tripId)';
+  }
+}
+
 class GSetTripOriginVars {
   const GSetTripOriginVars({
     required this.tripId,

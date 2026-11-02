@@ -187,6 +187,513 @@ class GEditRouteReq
   }
 }
 
+class GPreviewRouteEditReq
+    implements
+        _i1.OperationRequest<_i2.GPreviewRouteEditData,
+            _i3.GPreviewRouteEditVars> {
+  GPreviewRouteEditReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GPreviewRouteEditVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GPreviewRouteEditData? Function(
+    _i2.GPreviewRouteEditData?,
+    _i2.GPreviewRouteEditData?,
+  )? updateResult;
+
+  final _i2.GPreviewRouteEditData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.PreviewRouteEdit,
+    _i7.RoutePreviewResult,
+    _i8.LatLng,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'PreviewRouteEdit',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GPreviewRouteEditData? parseData(Map<String, dynamic> json) =>
+      _i2.GPreviewRouteEditData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GPreviewRouteEditData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GPreviewRouteEditData, _i3.GPreviewRouteEditVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GPreviewRouteEditReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GPreviewRouteEditReq copyWith({
+    _i3.GPreviewRouteEditVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GPreviewRouteEditData? Function(
+      _i2.GPreviewRouteEditData?,
+      _i2.GPreviewRouteEditData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GPreviewRouteEditData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GPreviewRouteEditReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPreviewRouteEditReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GPreviewRouteEditReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GCommitRouteEditReq
+    implements
+        _i1
+        .OperationRequest<_i2.GCommitRouteEditData, _i3.GCommitRouteEditVars> {
+  GCommitRouteEditReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GCommitRouteEditVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GCommitRouteEditData? Function(
+    _i2.GCommitRouteEditData?,
+    _i2.GCommitRouteEditData?,
+  )? updateResult;
+
+  final _i2.GCommitRouteEditData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.CommitRouteEdit,
+    _i7.RouteSection,
+    _i7.TripRoute,
+    _i7.EditRouteResult,
+    _i8.LatLng,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'CommitRouteEdit',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GCommitRouteEditData? parseData(Map<String, dynamic> json) =>
+      _i2.GCommitRouteEditData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GCommitRouteEditData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GCommitRouteEditData, _i3.GCommitRouteEditVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GCommitRouteEditReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GCommitRouteEditReq copyWith({
+    _i3.GCommitRouteEditVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GCommitRouteEditData? Function(
+      _i2.GCommitRouteEditData?,
+      _i2.GCommitRouteEditData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GCommitRouteEditData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GCommitRouteEditReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GCommitRouteEditReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GCommitRouteEditReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GDiscardRouteProposalReq
+    implements
+        _i1.OperationRequest<_i2.GDiscardRouteProposalData,
+            _i3.GDiscardRouteProposalVars> {
+  GDiscardRouteProposalReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GDiscardRouteProposalVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GDiscardRouteProposalData? Function(
+    _i2.GDiscardRouteProposalData?,
+    _i2.GDiscardRouteProposalData?,
+  )? updateResult;
+
+  final _i2.GDiscardRouteProposalData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document =
+      _i5.DocumentNode(definitions: [_i6.DiscardRouteProposal]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'DiscardRouteProposal',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GDiscardRouteProposalData? parseData(Map<String, dynamic> json) =>
+      _i2.GDiscardRouteProposalData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GDiscardRouteProposalData data) =>
+      data.toJson();
+
+  _i1.OperationRequest<_i2.GDiscardRouteProposalData,
+          _i3.GDiscardRouteProposalVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GDiscardRouteProposalReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GDiscardRouteProposalReq copyWith({
+    _i3.GDiscardRouteProposalVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GDiscardRouteProposalData? Function(
+      _i2.GDiscardRouteProposalData?,
+      _i2.GDiscardRouteProposalData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GDiscardRouteProposalData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GDiscardRouteProposalReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDiscardRouteProposalReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GDiscardRouteProposalReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
 class GSetTripOriginReq
     implements
         _i1.OperationRequest<_i2.GSetTripOriginData, _i3.GSetTripOriginVars> {

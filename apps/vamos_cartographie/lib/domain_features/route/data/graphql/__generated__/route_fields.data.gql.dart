@@ -226,7 +226,7 @@ abstract class GEditRouteResult {
 
 abstract class GEditRouteResult__asEditRouteSuccess
     implements GEditRouteResult {
-  _i1.GRefinementError? get refinementError;
+  _i1.GRefinementFailure? get refinementError;
   GTripRoute get trip;
   String get G__typename;
 }
@@ -313,12 +313,13 @@ class GEditRouteResultData__asEditRouteSuccess extends GEditRouteResultData
       G__typename: (json['__typename'] as String),
       refinementError: json['refinementError'] == null
           ? null
-          : _i1.GRefinementError.fromJson((json['refinementError'] as String)),
+          : _i1.GRefinementFailure.fromJson(
+              (json['refinementError'] as String)),
       trip: GTripRouteData.fromJson((json['trip'] as Map<String, dynamic>)),
     );
   }
 
-  final _i1.GRefinementError? refinementError;
+  final _i1.GRefinementFailure? refinementError;
 
   final GTripRouteData trip;
 
@@ -333,7 +334,7 @@ class GEditRouteResultData__asEditRouteSuccess extends GEditRouteResultData
 
   GEditRouteResultData__asEditRouteSuccess copyWith({
     String? G__typename,
-    _i1.GRefinementError? refinementError,
+    _i1.GRefinementFailure? refinementError,
     bool refinementErrorIsSet = false,
     GTripRouteData? trip,
   }) {
@@ -461,5 +462,376 @@ class GEditRouteResultData__unknown extends GEditRouteResultData
   @override
   String toString() {
     return 'GEditRouteResultData__unknown(G__typename: $G__typename)';
+  }
+}
+
+abstract class GRoutePreviewResult {
+  String get G__typename;
+}
+
+abstract class GRoutePreviewResult__asRoutePreviewSuccess
+    implements GRoutePreviewResult {
+  String get proposalId;
+  List<_i2.GLatLng> get coordinates;
+  List<GRoutePreviewResult__asRoutePreviewSuccess_sections> get sections;
+  _i1.GRefinementFailure? get refinementError;
+  String get G__typename;
+}
+
+abstract class GRoutePreviewResult__asRoutePreviewSuccess_sections {
+  bool get isNew;
+  int get startIndex;
+  _i1.GMobilityType get mobilityType;
+  _i1.GGeometrySource get geometrySource;
+  String get G__typename;
+}
+
+abstract class GRoutePreviewResult__asEditRouteError
+    implements GRoutePreviewResult {
+  _i1.GRouteEditErrorCode get code;
+  String get message;
+  String get G__typename;
+}
+
+sealed class GRoutePreviewResultData implements GRoutePreviewResult {
+  const GRoutePreviewResultData({required this.G__typename});
+
+  factory GRoutePreviewResultData.fromJson(Map<String, dynamic> json) {
+    switch (json['__typename'] as String) {
+      case 'RoutePreviewSuccess':
+        return GRoutePreviewResultData__asRoutePreviewSuccess.fromJson(json);
+      case 'EditRouteError':
+        return GRoutePreviewResultData__asEditRouteError.fromJson(json);
+      default:
+        return GRoutePreviewResultData__unknown.fromJson(json);
+    }
+  }
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+}
+
+extension GRoutePreviewResultDataWhenExtension on GRoutePreviewResultData {
+  _T when<_T>({
+    required _T Function(GRoutePreviewResultData__asRoutePreviewSuccess)
+        routePreviewSuccess,
+    required _T Function(GRoutePreviewResultData__asEditRouteError)
+        editRouteError,
+    required _T Function() orElse,
+  }) {
+    switch (G__typename) {
+      case 'RoutePreviewSuccess':
+        return routePreviewSuccess(
+            this as GRoutePreviewResultData__asRoutePreviewSuccess);
+      case 'EditRouteError':
+        return editRouteError(
+            this as GRoutePreviewResultData__asEditRouteError);
+      default:
+        return orElse();
+    }
+  }
+
+  _T maybeWhen<_T>({
+    _T Function(GRoutePreviewResultData__asRoutePreviewSuccess)?
+        routePreviewSuccess,
+    _T Function(GRoutePreviewResultData__asEditRouteError)? editRouteError,
+    required _T Function() orElse,
+  }) {
+    switch (G__typename) {
+      case 'RoutePreviewSuccess':
+        return routePreviewSuccess == null
+            ? orElse()
+            : routePreviewSuccess(
+                this as GRoutePreviewResultData__asRoutePreviewSuccess);
+      case 'EditRouteError':
+        return editRouteError == null
+            ? orElse()
+            : editRouteError(this as GRoutePreviewResultData__asEditRouteError);
+      default:
+        return orElse();
+    }
+  }
+}
+
+class GRoutePreviewResultData__asRoutePreviewSuccess
+    extends GRoutePreviewResultData
+    implements GRoutePreviewResult, GRoutePreviewResult__asRoutePreviewSuccess {
+  GRoutePreviewResultData__asRoutePreviewSuccess({
+    String G__typename = 'RoutePreviewSuccess',
+    required this.proposalId,
+    required this.coordinates,
+    required this.sections,
+    this.refinementError,
+  }) : super(G__typename: G__typename);
+
+  factory GRoutePreviewResultData__asRoutePreviewSuccess.fromJson(
+      Map<String, dynamic> json) {
+    return GRoutePreviewResultData__asRoutePreviewSuccess(
+      G__typename: (json['__typename'] as String),
+      proposalId: (json['proposalId'] as String),
+      coordinates: (json['coordinates'] as List<dynamic>)
+          .map((_$e) => _i2.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      sections: (json['sections'] as List<dynamic>)
+          .map((_$e) =>
+              GRoutePreviewResultData__asRoutePreviewSuccess_sections.fromJson(
+                  (_$e as Map<String, dynamic>)))
+          .toList(),
+      refinementError: json['refinementError'] == null
+          ? null
+          : _i1.GRefinementFailure.fromJson(
+              (json['refinementError'] as String)),
+    );
+  }
+
+  final String proposalId;
+
+  final List<_i2.GLatLngData> coordinates;
+
+  final List<GRoutePreviewResultData__asRoutePreviewSuccess_sections> sections;
+
+  final _i1.GRefinementFailure? refinementError;
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    _$result['proposalId'] = this.proposalId;
+    _$result['coordinates'] =
+        this.coordinates.map((_$e) => _$e.toJson()).toList();
+    _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
+    final _$refinementErrorValue = this.refinementError;
+    _$result['refinementError'] =
+        _$refinementErrorValue == null ? null : _$refinementErrorValue.toJson();
+    return _$result;
+  }
+
+  GRoutePreviewResultData__asRoutePreviewSuccess copyWith({
+    String? G__typename,
+    String? proposalId,
+    List<_i2.GLatLngData>? coordinates,
+    List<GRoutePreviewResultData__asRoutePreviewSuccess_sections>? sections,
+    _i1.GRefinementFailure? refinementError,
+    bool refinementErrorIsSet = false,
+  }) {
+    return GRoutePreviewResultData__asRoutePreviewSuccess(
+      G__typename: G__typename ?? this.G__typename,
+      proposalId: proposalId ?? this.proposalId,
+      coordinates: coordinates ?? this.coordinates,
+      sections: sections ?? this.sections,
+      refinementError: refinementError != null || refinementErrorIsSet
+          ? refinementError
+          : this.refinementError,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRoutePreviewResultData__asRoutePreviewSuccess &&
+            G__typename == other.G__typename &&
+            proposalId == other.proposalId &&
+            _gqlUtils.listEquals(coordinates, other.coordinates) &&
+            _gqlUtils.listEquals(sections, other.sections) &&
+            refinementError == other.refinementError);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        G__typename,
+        proposalId,
+        _gqlUtils.listHash(coordinates),
+        _gqlUtils.listHash(sections),
+        refinementError);
+  }
+
+  @override
+  String toString() {
+    return 'GRoutePreviewResultData__asRoutePreviewSuccess(G__typename: $G__typename, proposalId: $proposalId, coordinates: $coordinates, sections: $sections, refinementError: $refinementError)';
+  }
+}
+
+class GRoutePreviewResultData__asRoutePreviewSuccess_sections
+    implements GRoutePreviewResult__asRoutePreviewSuccess_sections {
+  const GRoutePreviewResultData__asRoutePreviewSuccess_sections({
+    required this.isNew,
+    required this.startIndex,
+    required this.mobilityType,
+    required this.geometrySource,
+    this.G__typename = 'PreviewSection',
+  });
+
+  factory GRoutePreviewResultData__asRoutePreviewSuccess_sections.fromJson(
+      Map<String, dynamic> json) {
+    return GRoutePreviewResultData__asRoutePreviewSuccess_sections(
+      isNew: (json['isNew'] as bool),
+      startIndex: (json['startIndex'] as int),
+      mobilityType:
+          _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
+      geometrySource:
+          _i1.GGeometrySource.fromJson((json['geometrySource'] as String)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final bool isNew;
+
+  final int startIndex;
+
+  final _i1.GMobilityType mobilityType;
+
+  final _i1.GGeometrySource geometrySource;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['isNew'] = this.isNew;
+    _$result['startIndex'] = this.startIndex;
+    _$result['mobilityType'] = this.mobilityType.toJson();
+    _$result['geometrySource'] = this.geometrySource.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GRoutePreviewResultData__asRoutePreviewSuccess_sections copyWith({
+    bool? isNew,
+    int? startIndex,
+    _i1.GMobilityType? mobilityType,
+    _i1.GGeometrySource? geometrySource,
+    String? G__typename,
+  }) {
+    return GRoutePreviewResultData__asRoutePreviewSuccess_sections(
+      isNew: isNew ?? this.isNew,
+      startIndex: startIndex ?? this.startIndex,
+      mobilityType: mobilityType ?? this.mobilityType,
+      geometrySource: geometrySource ?? this.geometrySource,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRoutePreviewResultData__asRoutePreviewSuccess_sections &&
+            isNew == other.isNew &&
+            startIndex == other.startIndex &&
+            mobilityType == other.mobilityType &&
+            geometrySource == other.geometrySource &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, isNew, startIndex, mobilityType,
+        geometrySource, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GRoutePreviewResultData__asRoutePreviewSuccess_sections(isNew: $isNew, startIndex: $startIndex, mobilityType: $mobilityType, geometrySource: $geometrySource, G__typename: $G__typename)';
+  }
+}
+
+class GRoutePreviewResultData__asEditRouteError extends GRoutePreviewResultData
+    implements GRoutePreviewResult, GRoutePreviewResult__asEditRouteError {
+  GRoutePreviewResultData__asEditRouteError({
+    String G__typename = 'EditRouteError',
+    required this.code,
+    required this.message,
+  }) : super(G__typename: G__typename);
+
+  factory GRoutePreviewResultData__asEditRouteError.fromJson(
+      Map<String, dynamic> json) {
+    return GRoutePreviewResultData__asEditRouteError(
+      G__typename: (json['__typename'] as String),
+      code: _i1.GRouteEditErrorCode.fromJson((json['code'] as String)),
+      message: (json['message'] as String),
+    );
+  }
+
+  final _i1.GRouteEditErrorCode code;
+
+  final String message;
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    _$result['code'] = this.code.toJson();
+    _$result['message'] = this.message;
+    return _$result;
+  }
+
+  GRoutePreviewResultData__asEditRouteError copyWith({
+    String? G__typename,
+    _i1.GRouteEditErrorCode? code,
+    String? message,
+  }) {
+    return GRoutePreviewResultData__asEditRouteError(
+      G__typename: G__typename ?? this.G__typename,
+      code: code ?? this.code,
+      message: message ?? this.message,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRoutePreviewResultData__asEditRouteError &&
+            G__typename == other.G__typename &&
+            code == other.code &&
+            message == other.message);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, G__typename, code, message);
+  }
+
+  @override
+  String toString() {
+    return 'GRoutePreviewResultData__asEditRouteError(G__typename: $G__typename, code: $code, message: $message)';
+  }
+}
+
+class GRoutePreviewResultData__unknown extends GRoutePreviewResultData
+    implements GRoutePreviewResult {
+  GRoutePreviewResultData__unknown({required String G__typename})
+      : super(G__typename: G__typename);
+
+  factory GRoutePreviewResultData__unknown.fromJson(Map<String, dynamic> json) {
+    return GRoutePreviewResultData__unknown(
+        G__typename: (json['__typename'] as String));
+  }
+
+  Map<String, dynamic> toJson() {
+    final _$result = super.toJson();
+    return _$result;
+  }
+
+  GRoutePreviewResultData__unknown copyWith({String? G__typename}) {
+    return GRoutePreviewResultData__unknown(
+        G__typename: G__typename ?? this.G__typename);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRoutePreviewResultData__unknown &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GRoutePreviewResultData__unknown(G__typename: $G__typename)';
   }
 }

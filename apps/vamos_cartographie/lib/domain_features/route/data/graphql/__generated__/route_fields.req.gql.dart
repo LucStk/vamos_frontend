@@ -209,3 +209,69 @@ class GEditRouteResultReq
     return 'GEditRouteResultReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
+
+class GRoutePreviewResultReq
+    implements _i1.FragmentRequest<_i2.GRoutePreviewResultData, Null> {
+  GRoutePreviewResultReq({
+    _i3.DocumentNode? document,
+    this.fragmentName = 'RoutePreviewResult',
+    this.idFields = const <String, dynamic>{},
+  }) : document = document ?? _document;
+
+  final Null vars = null;
+
+  final _i3.DocumentNode document;
+
+  final String? fragmentName;
+
+  final Map<String, dynamic> idFields;
+
+  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
+    _i4.RoutePreviewResult,
+    _i5.LatLng,
+  ]);
+
+  _i2.GRoutePreviewResultData? parseData(Map<String, dynamic> json) =>
+      _i2.GRoutePreviewResultData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
+
+  Map<String, dynamic> dataToJson(_i2.GRoutePreviewResultData data) =>
+      data.toJson();
+
+  GRoutePreviewResultReq copyWith({
+    _i3.DocumentNode? document,
+    String? fragmentName,
+    bool fragmentNameIsSet = false,
+    Map<String, dynamic>? idFields,
+  }) {
+    return GRoutePreviewResultReq(
+      document: document ?? this.document,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
+      idFields: idFields ?? this.idFields,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRoutePreviewResultReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            document == other.document &&
+            fragmentName == other.fragmentName &&
+            _gqlUtils.deepEquals(idFields, other.idFields));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
+        fragmentName, _gqlUtils.deepHash(idFields));
+  }
+
+  @override
+  String toString() {
+    return 'GRoutePreviewResultReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+  }
+}

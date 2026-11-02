@@ -516,34 +516,34 @@ enum GPoiCategory {
   }
 }
 
-enum GRefinementError {
+enum GRefinementFailure {
   ROUTER_UNAVAILABLE,
   NO_ROUTE_FOUND,
   EMPTY_ROUTE,
   gUnknownEnumValue;
 
-  static GRefinementError fromJson(String value) {
+  static GRefinementFailure fromJson(String value) {
     switch (value) {
       case r'ROUTER_UNAVAILABLE':
-        return GRefinementError.ROUTER_UNAVAILABLE;
+        return GRefinementFailure.ROUTER_UNAVAILABLE;
       case r'NO_ROUTE_FOUND':
-        return GRefinementError.NO_ROUTE_FOUND;
+        return GRefinementFailure.NO_ROUTE_FOUND;
       case r'EMPTY_ROUTE':
-        return GRefinementError.EMPTY_ROUTE;
+        return GRefinementFailure.EMPTY_ROUTE;
       default:
-        return GRefinementError.gUnknownEnumValue;
+        return GRefinementFailure.gUnknownEnumValue;
     }
   }
 
   String toJson() {
     switch (this) {
-      case GRefinementError.ROUTER_UNAVAILABLE:
+      case GRefinementFailure.ROUTER_UNAVAILABLE:
         return r'ROUTER_UNAVAILABLE';
-      case GRefinementError.NO_ROUTE_FOUND:
+      case GRefinementFailure.NO_ROUTE_FOUND:
         return r'NO_ROUTE_FOUND';
-      case GRefinementError.EMPTY_ROUTE:
+      case GRefinementFailure.EMPTY_ROUTE:
         return r'EMPTY_ROUTE';
-      case GRefinementError.gUnknownEnumValue:
+      case GRefinementFailure.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
   }
@@ -621,6 +621,7 @@ class GRouteAnchorInput {
 }
 
 enum GRouteEditErrorCode {
+  PROPOSAL_EXPIRED,
   STALE_ROUTE,
   INVALID_ANCHOR,
   INVALID_EDIT,
@@ -629,6 +630,8 @@ enum GRouteEditErrorCode {
 
   static GRouteEditErrorCode fromJson(String value) {
     switch (value) {
+      case r'PROPOSAL_EXPIRED':
+        return GRouteEditErrorCode.PROPOSAL_EXPIRED;
       case r'STALE_ROUTE':
         return GRouteEditErrorCode.STALE_ROUTE;
       case r'INVALID_ANCHOR':
@@ -644,6 +647,8 @@ enum GRouteEditErrorCode {
 
   String toJson() {
     switch (this) {
+      case GRouteEditErrorCode.PROPOSAL_EXPIRED:
+        return r'PROPOSAL_EXPIRED';
       case GRouteEditErrorCode.STALE_ROUTE:
         return r'STALE_ROUTE';
       case GRouteEditErrorCode.INVALID_ANCHOR:
@@ -1028,6 +1033,10 @@ const Map<String, Set<String>> possibleTypesMap = {
   },
   'EditRoutePayload': {
     'EditRouteSuccess',
+    'EditRouteError',
+  },
+  'RoutePreviewPayload': {
+    'RoutePreviewSuccess',
     'EditRouteError',
   },
 };

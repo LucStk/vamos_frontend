@@ -96,4 +96,55 @@ class RouteRemoteDatasource {
     );
     return data.deleteRoute;
   }
+
+  Future<GRoutePreviewResult> previewRouteEdit({
+    required Id<Trip> tripId,
+    required List<LatLng> geometry,
+    MobilityType? mobilityType,
+    RouteAnchor? startAnchor,
+    RouteAnchor? endAnchor,
+  }) async {
+    final data = await ferryClient.execute(
+      GPreviewRouteEditReq(
+        vars: GPreviewRouteEditVars(
+          tripId: tripId.value,
+          input: GEditRouteInput(
+            autoRoute: true,
+            mobilityType: toFerryValue(mobilityType?.toGQL()),
+            points: geometry.toGQLInput(),
+            start: toFerryValue(startAnchor?.toGQL()),
+            end: toFerryValue(endAnchor?.toGQL()),
+          ),
+        ),
+      ),
+    );
+    return data.previewRouteEdit;
+  }
+
+  Future<GEditRouteResult> commitRouteEdit({
+    required Id<Trip> tripId,
+    required Id proposalId,
+  }) async {
+    final data = await ferryClient.execute(
+      GCommitRouteEditReq(
+        vars: GCommitRouteEditVars(
+          tripId: tripId.value,
+          proposalId: proposalId.value,
+        ),
+      ),
+    );
+    return data.commitRouteEdit;
+  }
+
+  Future<bool> discardRouteProposal({
+    required Id<Trip> tripId,
+    required Id proposalId,
+  }) async {
+    final data = await ferryClient.execute(
+      GDiscardRouteProposalReq(
+        vars: GDiscardRouteProposalVars(tripId: tripId.value),
+      ),
+    );
+    return data.discardRouteProposal;
+  }
 }

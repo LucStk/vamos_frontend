@@ -37,3 +37,23 @@ fragment EditRouteResult on EditRoutePayload {
         message
     }
 }
+fragment RoutePreviewResult on RoutePreviewPayload {
+    __typename
+    ... on RoutePreviewSuccess {
+        proposalId
+        coordinates {
+            ...LatLng
+        }
+        sections {
+            isNew
+            startIndex
+            mobilityType
+            geometrySource
+        }
+        refinementError
+    }
+    ... on EditRouteError {
+        code
+        message
+    }
+}

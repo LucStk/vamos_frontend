@@ -67,7 +67,7 @@ union EditRoutePayload = EditRouteSuccess | EditRouteError
 
 type EditRouteSuccess {
   trip: TripType!
-  refinementError: RefinementError
+  refinementError: RefinementFailure
 }
 
 type FileAttachmentType {
@@ -125,6 +125,9 @@ type Mutation {
   updateWaypoint(id: UUID!, input: WaypointUpdateInput!): WaypointType!
   createBlankWaypointFromPosition(tripId: UUID!, latLng: LatLngInput!): WaypointType!
   deleteWaypoint(id: UUID!): Boolean!
+  previewRouteEdit(tripId: UUID!, input: EditRouteInput!): RoutePreviewPayload!
+  commitRouteEdit(tripId: UUID!, proposalId: UUID!): EditRoutePayload!
+  discardRouteProposal(tripId: UUID!): Boolean!
   editRoute(tripId: UUID!, input: EditRouteInput!): EditRoutePayload!
   refineSection(tripId: UUID!, sectionId: UUID!): EditRoutePayload!
   setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!): EditRoutePayload!
@@ -156,6 +159,13 @@ internal rings. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or obje
 """
 scalar Polygon
 
+type PreviewSection {
+  startIndex: Int!
+  mobilityType: MobilityType!
+  geometrySource: GeometrySource!
+  isNew: Boolean!
+}
+
 type Query {
   trip(id: UUID!): TripType!
   trips: [TripType!]!
@@ -164,7 +174,7 @@ type Query {
   me: GetMePayload!
 }
 
-enum RefinementError {
+enum RefinementFailure {
   ROUTER_UNAVAILABLE
   NO_ROUTE_FOUND
   EMPTY_ROUTE
@@ -181,6 +191,7 @@ input RouteAnchorInput {
 }
 
 enum RouteEditErrorCode {
+  PROPOSAL_EXPIRED
   STALE_ROUTE
   INVALID_ANCHOR
   INVALID_EDIT
@@ -190,6 +201,16 @@ enum RouteEditErrorCode {
 enum RouteEndpoint {
   ROUTE_START
   ROUTE_END
+}
+
+union RoutePreviewPayload = RoutePreviewSuccess | EditRouteError
+
+type RoutePreviewSuccess {
+  proposalId: UUID!
+  expiresAt: DateTime!
+  coordinates: [LatLngType!]!
+  sections: [PreviewSection!]!
+  refinementError: RefinementFailure
 }
 
 type RouteSectionType {

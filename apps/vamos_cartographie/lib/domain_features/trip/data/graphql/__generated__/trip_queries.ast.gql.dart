@@ -243,6 +243,7 @@ const document = _i1.DocumentNode(definitions: [
   _i3.RouteSection,
   _i3.TripRoute,
   _i3.EditRouteResult,
+  _i3.RoutePreviewResult,
   _i4.LatLng,
   _i5.WaypointDetails,
   _i5.WaypointAnchor,
