@@ -1,14 +1,12 @@
-import 'package:dartz/dartz.dart';
-import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
+import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/sketch/commands/route_command.dart';
 import 'package:map_engine/src/modes/sketch/sketch_generating.dart';
 import 'package:map_engine/src/modes/sketch/slots/sketch_trace.dart';
-import 'package:trip_application/trip_application.dart';
 
 class SketchEdition extends TripMode {
   const SketchEdition(super.tripId);
@@ -55,15 +53,26 @@ class SketchEdition extends TripMode {
     );
   }
 
+  @override
+  Transition onDragEnd(DragEndGesture g) => Transition.overlay(
+    TapMenu(HitObject(object: MapSketchPencil(), point: g.world)),
+  );
+
+  /// Le système a repris le pointeur après le spawn : on retire le tracé
+  /// orphelin. Si le drag partait du Pencil, le tracé existait avant, on le garde.
+  @override
+  Transition onDragCancel(DragCancelGesture g) =>
+      g.source.narrow<RouteElements>() != null
+      ? Transition.set(sketchTraceSlot, null)
+      : Transition.stay();
+
   Transition validate() =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
         if (trace.points.length < 2) return Transition.stay();
 
         final generating = SketchGenerating(tripId, this);
 
-        return Transition.toAndRun<Either<Failure, EditRoutePayload>>(
-          generating,
-
+        return Transition.to(generating).running(
           EditRoute(tripId: tripId, sketch: trace),
           then: (current, result) {
             final m = current.mode;
@@ -73,7 +82,7 @@ class SketchEdition extends TripMode {
             }
             return result.fold(
               (failure) => Transition.to(this), // retour au tracé
-              (_) => TripMode.open(tripId),
+              (_) => Transition.to(this).clearSlot(sketchTraceSlot),
             );
           },
         );
@@ -89,14 +98,6 @@ class SketchEdition extends TripMode {
         sketchTraceSlot,
         SketchTrace(startAnchor: hit, points: [hit.point]),
       );
-
-  /// Le système a repris le pointeur après le spawn : on retire le tracé
-  /// orphelin. Si le drag partait du Pencil, le tracé existait avant, on le garde.
-  @override
-  Transition onDragCancel(DragCancelGesture g) =>
-      g.source.narrow<RouteElements>() != null
-      ? Transition.set(sketchTraceSlot, null)
-      : Transition.stay();
 
   /// Les deux seules origines qui pilotent le tracé.
   static bool _drivesTrace(MapObject o) =>

@@ -13,22 +13,49 @@ part 'transition/deferred.dart';
 /// Ce qu'un mode ou un intent renvoie :
 /// - [ResolvedTransition] : décrite complètement ;
 /// - [DeferredTransition] : construite avec le contexte et le mode courants.
-// transition.dart
+///
+/// Les combinateurs d'instance (`and`, `withOverlay`, `closingOverlay`,
+/// `switchingTo`, `running`) décrivent un ENREGISTREMENT de champs, pas une
+/// séquence : `.running(c).switchingTo(m)` et `.switchingTo(m).running(c)`
+/// sont équivalents (le mode est toujours posé avant l'effet).
 sealed class Transition {
   const Transition();
+
   ResolvedTransition? resolve(ModeState state);
 
   /// Applique [f] au résultat, quand il sera connu.
   Transition _map(ResolvedTransition Function(ResolvedTransition) f);
 
+  // --- Combinateurs (chaînables sur Resolved ET Deferred) ------------------
+
+  /// Ajoute un changement de slot. `null` vide le slot.
   Transition and<T extends Object>(Slot<T> slot, T? value) =>
       _map((r) => r.and(slot, value));
+
+  Transition clearSlot<T extends Object>(Slot<T> slot) =>
+      _map((r) => r.clearSlot(slot));
+
+  /// Ouvre / remplace l'overlay.
   Transition withOverlay(Overlay o) => _map((r) => r.withOverlay(o));
+
+  /// Ferme explicitement l'overlay.
   Transition closingOverlay() => _map((r) => r.closingOverlay());
 
-  // --- Immédiates (renvoient ResolvedTransition : `.and` etc. dispo) -------
+  /// Change de mode. Dernier appel gagnant.
+  Transition switchingTo(Mode mode) => _map((r) => r.switchingTo(mode));
 
-  static ResolvedTransition stay() => ResolvedTransition();
+  /// Lance un effet. `then` reçoit le mode COURANT à la fin, et seulement
+  /// si l'effet a réussi. Un seul effet par transition : pour enchaîner,
+  /// utiliser `then`.
+  Transition running<R extends Object>(
+    Command<R> command, {
+    Transition? Function(ModeState current, R result)? then,
+  }) => _map((r) => r.running(command, then: then));
+
+  // --- Immédiates (renvoient ResolvedTransition : les combinateurs sont
+  //     disponibles avec leur type de retour précis) -----------------------
+
+  static ResolvedTransition stay() => const ResolvedTransition();
 
   static ResolvedTransition to(Mode mode) => ResolvedTransition(mode: mode);
 
@@ -36,18 +63,17 @@ sealed class Transition {
       ResolvedTransition(overlay: o);
 
   static ResolvedTransition dismiss() =>
-      ResolvedTransition(closesOverlay: true);
+      const ResolvedTransition(closesOverlay: true);
 
   /// Ne change que le slot. `null` le vide.
   static ResolvedTransition set<T extends Object>(Slot<T> slot, T? value) =>
       ResolvedTransition(slots: [(slot, value)]);
 
-  /// Lance un effet. `then` reçoit le mode COURANT à la fin, et seulement
-  /// si l'effet a réussi.
+  /// Lance un effet sans changer de mode.
   static ResolvedTransition run<R extends Object>(
     Command<R> command, {
     Transition? Function(ModeState current, R result)? then,
-  }) => ResolvedTransition(pending: PendingRun.of(command, then));
+  }) => const ResolvedTransition().running(command, then: then);
 
   // --- Différées : `null` annule l'action ----------------------------------
 
@@ -67,17 +93,8 @@ sealed class Transition {
     return v == null ? null : build(v);
   });
 
-  // (si `section` est un RouteElements : HitObject<RouteElements> directement.)
   static DeferredTransition update<T extends Object>(
     Slot<T> slot,
     T? Function(T current) change,
   ) => withSlot<T>(slot, (v) => set<T>(slot, change(v)));
-  // transition.dart, à côté de `run`
-  /// Change de mode ET lance un effet, en une seule transition.
-  /// Le mode est posé avant que l'effet ne parte : pas de fenêtre entre les deux.
-  static ResolvedTransition toAndRun<R extends Object>(
-    Mode mode,
-    Command<R> command, {
-    Transition? Function(ModeState current, R result)? then,
-  }) => ResolvedTransition(mode: mode, pending: PendingRun.of(command, then));
 }

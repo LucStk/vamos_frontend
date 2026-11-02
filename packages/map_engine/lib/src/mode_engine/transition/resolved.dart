@@ -21,29 +21,49 @@ final class ResolvedTransition extends Transition {
       overlay ?? (closesOverlay || mode != null ? null : current);
 
   ResolvedTransition _copy({
+    Mode? mode,
+    PendingRun? pending,
     List<SlotChange>? slots,
     Overlay? overlay,
     bool? closesOverlay,
   }) => ResolvedTransition(
-    mode: mode,
-    pending: pending,
+    mode: mode ?? this.mode,
+    pending: pending ?? this.pending,
     overlay: overlay ?? this.overlay,
     closesOverlay: closesOverlay ?? this.closesOverlay,
     slots: slots ?? this.slots,
   );
-  // resolved.dart : `and` etc. restent, avec un type de retour plus précis
+
+  // Les combinateurs restent, avec un type de retour plus précis.
+
   @override
   ResolvedTransition and<T extends Object>(Slot<T> slot, T? value) =>
       _copy(slots: [...slots, (slot, value)]);
 
   @override
-  ResolvedTransition _map(ResolvedTransition Function(ResolvedTransition) f) =>
-      f(this);
+  ResolvedTransition clearSlot<T extends Object>(Slot<T> slot) =>
+      _copy(slots: [...slots, (slot, null)]);
   @override
   ResolvedTransition withOverlay(Overlay o) => _copy(overlay: o);
 
   @override
   ResolvedTransition closingOverlay() => _copy(closesOverlay: true);
+
+  @override
+  ResolvedTransition switchingTo(Mode m) => _copy(mode: m);
+
+  @override
+  ResolvedTransition running<R extends Object>(
+    Command<R> command, {
+    Transition? Function(ModeState current, R result)? then,
+  }) {
+    assert(pending == null, 'Une transition ne porte qu\'un seul effet');
+    return _copy(pending: PendingRun.of(command, then));
+  }
+
+  @override
+  ResolvedTransition _map(ResolvedTransition Function(ResolvedTransition) f) =>
+      f(this);
 
   @override
   ResolvedTransition resolve(ModeState state) => this;
