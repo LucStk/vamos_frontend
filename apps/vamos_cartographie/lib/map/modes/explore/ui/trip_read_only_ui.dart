@@ -6,6 +6,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_selection_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class TripReadOnlyUi extends ConsumerWidget {
@@ -15,6 +16,19 @@ class TripReadOnlyUi extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TripSelectionSheet(tripId: mode.tripId, canEdit: false);
+    return Stack(
+      children: [
+        SafeArea(
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: AccountButton(),
+            ),
+          ),
+        ),
+        TripSelectionSheet(tripId: mode.tripId, canEdit: false),
+      ],
+    );
   }
 }

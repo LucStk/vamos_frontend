@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/card/trip_card.dart';
 
 @Dependencies([])
 class TripsCarouselWidget extends ConsumerWidget {
@@ -32,14 +31,15 @@ class TripsCarouselWidget extends ConsumerWidget {
             itemCount: tripIds.length,
             separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
-              final tripSummary = ref.watch(
-                tripSummaryProvider(tripIds[index]),
-              );
-
+              //               final tripSummary = ref.watch(
+              //                 tripSummaryProvider(tripIds[index]),
+              //               );
+              //
               return InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {},
-                child: TripCard(tripSummary: tripSummary, onTap: () {}),
+                child:
+                    SizedBox.shrink(), //TripCard(tripSummary: tripSummary, onTap: () {}),
               );
             },
           ),

@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:trip_application/trip_application.dart';
 import 'package:stored_file_application/stored_file_application.dart';
+import 'package:trip_application/trip_application.dart';
 
 class TripCard extends StatelessWidget {
-  const TripCard({
-    super.key,
-    required this.trip,
-    required this.images,
-    required this.onTap,
-  });
+  const TripCard({super.key, required this.tripSummary, required this.onTap});
 
-  final Trip trip;
-  final List<StoredFileRemoteModel> images;
+  final TripSummary tripSummary;
   final VoidCallback onTap;
+
+  /// Première image sans erreur, remote ou patch. null → placeholder.
+  StoredFileFields? get _cover =>
+      tripSummary.storedFiles.where((f) => !f.hasError).firstOrNull;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final coverUrl = images.isEmpty ? null : images.first.url;
+    final trip = tripSummary.trip;
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -27,38 +25,30 @@ class TripCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            AspectRatio(
-              aspectRatio: 5 / 3,
-              child: coverUrl == null
-                  ? const _TripPlaceholder()
-                  : Image.network(
-                      coverUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) => const _TripPlaceholder(),
-                    ),
-            ),
+            Expanded(child: _TripCover(cover: _cover)),
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     trip.title.isEmpty ? 'Voyage sans titre' : trip.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleMedium,
+                    style: theme.textTheme.titleSmall,
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     trip.description.isEmpty
                         ? 'Aucune description'
                         : trip.description,
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.bodySmall,
                   ),
                   if (trip.date != null) ...[
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     Text(
                       MaterialLocalizations.of(
                         context,
@@ -73,6 +63,53 @@ class TripCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _TripCover extends StatelessWidget {
+  const _TripCover({required this.cover});
+
+  final StoredFileFields? cover;
+
+  @override
+  Widget build(BuildContext context) {
+    // switch exhaustif sur la sealed class : un nouveau sous-type
+    // casserait la compilation ici plutôt que de passer inaperçu.
+    return switch (cover) {
+      null => const _TripPlaceholder(),
+
+      StoredFileRemoteModel(:final url) => Image.network(
+        url,
+        fit: BoxFit.cover,
+        cacheWidth: 400,
+        errorBuilder: (_, _, _) => const _TripPlaceholder(),
+      ),
+
+      StoredFilePatchModel(
+        file: final localFile,
+        :final status,
+        :final sent,
+        :final total,
+      ) =>
+        Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.file(
+              localFile,
+              fit: BoxFit.cover,
+              cacheWidth: 400,
+              errorBuilder: (_, _, _) => const _TripPlaceholder(),
+            ),
+            if (status == UploadStatus.uploading)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: LinearProgressIndicator(
+                  value: total > 0 ? sent / total : null,
+                ),
+              ),
+          ],
+        ),
+    };
   }
 }
 

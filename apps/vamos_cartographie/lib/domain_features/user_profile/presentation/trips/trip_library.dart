@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/create_trip_card.dart';
-import 'package:vamos_cartographie/map/ui/features/trip/card/trip_card.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/trip_card.dart';
 
 class TripLibrary extends StatelessWidget {
   const TripLibrary({
@@ -57,29 +57,42 @@ class TripLibrary extends StatelessWidget {
 
         const SizedBox(height: 16),
 
-        Align(
-          alignment: Alignment.topCenter,
-          child: Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
-            children: [
-              SizedBox(
-                width: cardWidth,
-                height: cardHeight,
-                child: CreateTripCard(onTap: onCreateTrip),
-              ),
-              for (final summary in trips)
+        LayoutBuilder(
+          builder: (context, constraints) {
+            const spacing = 12.0;
+            const targetCardWidth = 180.0;
+            const cardAspectRatio = 0.78; // largeur / hauteur (était 0.68)
+
+            // Au moins 2 colonnes, plus si l'écran est large (tablette, desktop).
+            final columns =
+                ((constraints.maxWidth + spacing) / (targetCardWidth + spacing))
+                    .floor()
+                    .clamp(2, 6);
+            final cardWidth =
+                (constraints.maxWidth - spacing * (columns - 1)) / columns;
+            final cardHeight = cardWidth / cardAspectRatio;
+
+            return Wrap(
+              spacing: spacing,
+              runSpacing: spacing,
+              children: [
                 SizedBox(
                   width: cardWidth,
                   height: cardHeight,
-                  child: TripCard(
-                    tripSummary: summary,
-                    onTap: () => onOpenTrip(summary.trip),
-                  ),
+                  child: CreateTripCard(onTap: onCreateTrip),
                 ),
-            ],
-          ),
+                for (final summary in trips)
+                  SizedBox(
+                    width: cardWidth,
+                    height: cardHeight,
+                    child: TripCard(
+                      tripSummary: summary,
+                      onTap: () => onOpenTrip(summary.trip),
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
       ],
     );
