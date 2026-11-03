@@ -112,3 +112,72 @@ final class EnsureTripLoadedFamily extends $Family
   @override
   String toString() => r'ensureTripLoadedProvider';
 }
+
+@ProviderFor(loadUserTrips)
+final loadUserTripsProvider = LoadUserTripsFamily._();
+
+final class LoadUserTripsProvider
+    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
+    with $FutureModifier<void>, $FutureProvider<void> {
+  LoadUserTripsProvider._({
+    required LoadUserTripsFamily super.from,
+    required UserId super.argument,
+  }) : super(
+         retry: null,
+         name: r'loadUserTripsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$loadUserTripsHash();
+
+  @override
+  String toString() {
+    return r'loadUserTripsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<void> create(Ref ref) {
+    final argument = this.argument as UserId;
+    return loadUserTrips(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadUserTripsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$loadUserTripsHash() => r'b50137ef92f2ec7be282196999bcccabeb228c43';
+
+final class LoadUserTripsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<void>, UserId> {
+  LoadUserTripsFamily._()
+    : super(
+        retry: null,
+        name: r'loadUserTripsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  LoadUserTripsProvider call(UserId userId) =>
+      LoadUserTripsProvider._(argument: userId, from: this);
+
+  @override
+  String toString() => r'loadUserTripsProvider';
+}

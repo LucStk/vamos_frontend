@@ -4,6 +4,7 @@ import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:user_profile_application/application/application.dart';
+import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/helpers/bulk_upserts.dart';
@@ -93,5 +94,39 @@ Future<Failure?> ensureTripLoaded(Ref ref, TripId tripId) async {
       ingestTrips(ref, [bundle]);
       return null; // succès : mémorisé tant que le provider reste vivant
     },
+  );
+}
+
+/// Ingestion partielle : trips + fichiers uniquement.
+/// Ne touche ni aux profils ni aux routes (absents d'un summary).
+void ingestTripSummaries(Ref ref, List<TripSummary> summaries) {
+  if (summaries.isEmpty) return;
+
+  // Un seul copy() de l'index pour tout le lot (insertAll).
+  ref
+      .read(tripStoreProvider.notifier)
+      .emit(
+        ref.read(tripStoreProvider).insertAll(summaries.map((s) => s.trip)),
+      );
+
+  ref
+      .read(storedFileStoreProvider.notifier)
+      .emit(ref.read(storedFileStoreProvider).upsertRemoteFiles(summaries));
+}
+
+@riverpod
+Future<void> loadUserTrips(Ref ref, UserId userId) async {
+  final link = ref.keepAlive(); // survit à un éventuel dispose pendant l'await
+
+  final result = await ref
+      .read(tripRepositoryProvider)
+      .getUserTripsSummary(userId);
+
+  return result.fold(
+    (failure) {
+      link.close(); // échec : pas de mémo, le prochain watch réessaie
+      throw failure;
+    },
+    (summaries) => ingestTripSummaries(ref, summaries), // succès : mémorisé
   );
 }

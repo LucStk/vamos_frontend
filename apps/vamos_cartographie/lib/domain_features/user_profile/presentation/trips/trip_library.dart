@@ -9,9 +9,15 @@ class TripLibrary extends StatelessWidget {
     required this.trips,
     required this.onOpenTrip,
     required this.onCreateTrip,
+    this.isLoading = false,
+    this.hasError = false,
+    this.onRetry,
   });
 
   final List<TripSummary> trips;
+  final bool isLoading;
+  final bool hasError;
+  final VoidCallback? onRetry;
   final ValueChanged<Trip> onOpenTrip;
   final VoidCallback onCreateTrip;
 
@@ -21,53 +27,58 @@ class TripLibrary extends StatelessWidget {
     const double cardAspectRatio = 0.68;
     const double cardHeight = cardWidth / cardAspectRatio;
 
+    final textTheme = Theme.of(context).textTheme;
+    // Pas de compteur trompeur ("0 voyage") tant que rien n'est chargé.
+    final showCount = !(isLoading && trips.isEmpty);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(
-                'Voyages',
-                style: Theme.of(context).textTheme.titleLarge,
+            Expanded(child: Text('Voyages', style: textTheme.titleLarge)),
+            if (showCount)
+              Text(
+                '${trips.length} voyage${trips.length > 1 ? 's' : ''}',
+                style: textTheme.bodySmall,
               ),
-            ),
-            Text(
-              '${trips.length} voyage${trips.length > 1 ? 's' : ''}',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
           ],
         ),
+        const SizedBox(height: 8),
+
+        if (isLoading) const LinearProgressIndicator(),
+        if (hasError)
+          Row(
+            children: [
+              const Expanded(child: Text('Impossible de charger les voyages.')),
+              TextButton(onPressed: onRetry, child: const Text('Réessayer')),
+            ],
+          ),
+
         const SizedBox(height: 16),
 
-        // Align ou Center permet de centrer le bloc entier s'il y a très peu de cartes
         Align(
           alignment: Alignment.topCenter,
           child: Wrap(
-            spacing: 16, // Espacement horizontal entre les cartes
-            runSpacing: 16, // Espacement vertical entre les lignes
-            alignment: WrapAlignment
-                .center, // <-- Centre les cartes sur la dernière ligne
-            children: List.generate(trips.length + 1, (index) {
-              final Widget cardContent;
-
-              if (index == 0) {
-                cardContent = CreateTripCard(onTap: onCreateTrip);
-              } else {
-                final summary = trips[index - 1];
-                cardContent = TripCard(
-                  tripSummary: summary,
-                  onTap: () => onOpenTrip(summary.trip),
-                );
-              }
-
-              // Fixe la taille de chaque carte car Wrap n'impose pas de contraintes de grille
-              return SizedBox(
+            spacing: 16,
+            runSpacing: 16,
+            alignment: WrapAlignment.center,
+            children: [
+              SizedBox(
                 width: cardWidth,
                 height: cardHeight,
-                child: cardContent,
-              );
-            }),
+                child: CreateTripCard(onTap: onCreateTrip),
+              ),
+              for (final summary in trips)
+                SizedBox(
+                  width: cardWidth,
+                  height: cardHeight,
+                  child: TripCard(
+                    tripSummary: summary,
+                    onTap: () => onOpenTrip(summary.trip),
+                  ),
+                ),
+            ],
           ),
         ),
       ],
