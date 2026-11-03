@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui' show Size;
 
+import 'package:domain_core/map_geo_bounds.dart';
 import 'package:map_engine/src/domain/camera/camera_pose.dart';
 import 'package:map_engine/src/domain/camera/camera_request.dart';
 import 'package:map_engine/src/domain/camera/map_camera.dart';
@@ -18,6 +20,21 @@ final class CameraDirector {
   bool _flushScheduled = false;
 
   bool _disposed = false;
+
+  /// Taille actuelle de la zone carte (mise à jour par l'UI).
+  Size _viewport = const Size(400, 800);
+
+  /// À appeler depuis le widget qui connaît la taille réelle de la carte.
+  void updateViewport(Size size) => _viewport = size;
+
+  /// Padding par défaut pour un fitBounds, adapté à la taille d'écran.
+  /// Téléphone : 50. Tablette / PC : jusqu'à 250, mais jamais plus de 30 %
+  /// du petit côté afin de garder une zone visible.
+  MapEdgeInsets get _defaultFitPadding {
+    final shortest = _viewport.shortestSide;
+    final value = shortest >= 600 ? min(250.0, shortest * 0.3) : 50.0;
+    return MapEdgeInsets.all(value);
+  }
 
   void dispose() => _disposed = true;
 
@@ -54,13 +71,12 @@ final class CameraDirector {
     _pending = null;
     if (request == null) return;
 
-    // supprimé : if (request.priority.index > _floor.index) _floor = request.priority;
-
     _remember();
     _run(request.target);
   }
 
   void resetFloor() => _floor = CameraPriority.ambient;
+
   void _remember() {
     _history.add(_camera.pose);
     if (_history.length > _maxHistory) _history.removeAt(0);
@@ -88,8 +104,7 @@ final class CameraDirector {
           deltaZoom: max(zoom ?? _camera.zoomScale, minZoom),
         );
       case FitBounds(:final bounds, :final padding):
-        _camera.fitBounds(bounds, padding: padding);
-      // camera_director.dart, dans _run
+        _camera.fitBounds(bounds, padding: padding ?? _defaultFitPadding);
       case ZoomAt(:final point):
         final latLng = _camera.screenOffsetToLatLng(point);
         _camera.zoomIn(latLng: latLng);

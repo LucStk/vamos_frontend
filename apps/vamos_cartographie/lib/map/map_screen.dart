@@ -35,22 +35,39 @@ class _MapScreenState extends ConsumerState<MapScreen>
   @override
   Widget build(BuildContext context) {
     final loader = ref.watch(loadTripsProvider);
+    // Adaptez à votre façon d'accéder au CameraDirector
+    // (il est peut-être déjà exposé par le mixin MapCameraLifecycle).
+    final director = ref.read(cameraDirectorProvider);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          MapGestureBridge(mapLayers: [MapTileLayer()]),
-          const MapControls(),
-          const ModeUi(),
-          Positioned(top: 16, right: 16, child: AccountButton()),
-          if (loader.isLoading)
-            const Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: LinearProgressIndicator(),
-            ),
-        ],
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          director.updateViewport(constraints.biggest);
+
+          return Stack(
+            children: [
+              MapGestureBridge(mapLayers: [MapTileLayer()]),
+              const MapControls(),
+              const ModeUi(),
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: AccountButton(),
+                  ),
+                ),
+              ),
+              if (loader.isLoading)
+                const Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: SafeArea(child: LinearProgressIndicator()),
+                ),
+            ],
+          );
+        },
       ),
     );
   }

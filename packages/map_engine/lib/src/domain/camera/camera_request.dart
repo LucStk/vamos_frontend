@@ -16,9 +16,11 @@ final class FocusPoint extends CameraTarget {
 }
 
 final class FitBounds extends CameraTarget {
-  const FitBounds(this.bounds, {this.padding = const MapEdgeInsets.all(48)});
+  const FitBounds(this.bounds, {this.padding});
   final MapLatLngBounds bounds;
-  final MapEdgeInsets padding;
+
+  /// Si null, le CameraDirector choisit un padding adapté à la taille d'écran.
+  final MapEdgeInsets? padding;
 }
 
 final class CameraRequest {

@@ -1,4 +1,3 @@
-import 'package:domain_core/map_geo_bounds.dart';
 import 'package:map_engine/src/domain/camera/camera_request.dart';
 import 'package:map_engine/src/mode_engine/app_scope.dart';
 import 'package:map_engine/src/mode_engine/command.dart';
@@ -12,13 +11,14 @@ sealed class ExploreCommand<R extends Object> extends Command<Done> {
 final class FocusTrip extends ExploreCommand<Done> {
   const FocusTrip(this.tripId);
   final TripId tripId;
+
   @override
   Future<Done> handle(AppCommandScope n) async {
     final bounds = n.forTrip(tripId).route?.bounds;
     if (bounds != null) {
       n.director.submit(
         CameraRequest(
-          FitBounds(bounds, padding: MapEdgeInsets.all(250)),
+          FitBounds(bounds), // padding choisi automatiquement par le director
           priority: CameraPriority.explicit,
         ),
       );
