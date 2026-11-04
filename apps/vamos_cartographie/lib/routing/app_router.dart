@@ -20,7 +20,7 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
 }
 
 /// Routes qui nécessitent d'être connecté.
-const _protectedPrefixes = ["/cona"];
+const _protectedPrefixes = ["/profile"];
 
 @Riverpod(keepAlive: true, dependencies: [MapGestureHandlerNotifier])
 GoRouter router(Ref ref) {
@@ -36,7 +36,7 @@ GoRouter router(Ref ref) {
       final needsAuth = _protectedPrefixes.any(
         state.matchedLocation.startsWith,
       );
-      if (!loggedIn && needsAuth) return '/';
+      if (!loggedIn && needsAuth) return '/login';
       return null;
     },
     routes: [

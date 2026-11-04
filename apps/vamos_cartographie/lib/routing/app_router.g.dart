@@ -54,9 +54,55 @@ final class RouterProvider
         retry: null,
         name: r'routerProvider',
         isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[mapGestureHandlerProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>{
+          RouterProvider.$allTransitiveDependencies0,
+          RouterProvider.$allTransitiveDependencies1,
+          RouterProvider.$allTransitiveDependencies2,
+          RouterProvider.$allTransitiveDependencies3,
+          RouterProvider.$allTransitiveDependencies4,
+          RouterProvider.$allTransitiveDependencies5,
+          RouterProvider.$allTransitiveDependencies6,
+          RouterProvider.$allTransitiveDependencies7,
+          RouterProvider.$allTransitiveDependencies8,
+          RouterProvider.$allTransitiveDependencies9,
+          RouterProvider.$allTransitiveDependencies10,
+          RouterProvider.$allTransitiveDependencies11,
+          RouterProvider.$allTransitiveDependencies12,
+          RouterProvider.$allTransitiveDependencies13,
+          RouterProvider.$allTransitiveDependencies14,
+        },
       );
+
+  static final $allTransitiveDependencies0 = mapGestureHandlerProvider;
+  static final $allTransitiveDependencies1 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies2;
+  static final $allTransitiveDependencies4 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies3;
+  static final $allTransitiveDependencies5 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies4;
+  static final $allTransitiveDependencies6 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies5;
+  static final $allTransitiveDependencies7 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies6;
+  static final $allTransitiveDependencies8 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies7;
+  static final $allTransitiveDependencies9 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies8;
+  static final $allTransitiveDependencies10 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies9;
+  static final $allTransitiveDependencies11 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies10;
+  static final $allTransitiveDependencies12 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies11;
+  static final $allTransitiveDependencies13 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies12;
+  static final $allTransitiveDependencies14 =
+      MapGestureHandlerNotifierProvider.$allTransitiveDependencies13;
 
   @override
   String debugGetCreateSourceHash() => _$routerHash();
@@ -80,4 +126,4 @@ final class RouterProvider
   }
 }
 
-String _$routerHash() => r'135c6f0bccb6e3731a497fd2c4ef4b24ee15257c';
+String _$routerHash() => r'9aff547441d33bc12bf88666251518584d047308';

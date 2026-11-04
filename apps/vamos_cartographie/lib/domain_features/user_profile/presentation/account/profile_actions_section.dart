@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vamos_cartographie/domain_features/auth/auth.dart';
 
 class ProfileActionsSection extends ConsumerWidget {
@@ -28,18 +29,21 @@ class ProfileActionsSection extends ConsumerWidget {
   }
 
   Future<void> _signOut(BuildContext context, WidgetRef ref) async {
-    // Tout capturer AVANT le await : le widget peut être démonté
-    // dès que la session passe à null.
+    final router = GoRouter.of(context);
     final messenger = ScaffoldMessenger.of(context);
-    await ref.read(authControllerProvider.notifier).signOut();
+    final container = ProviderScope.containerOf(context);
 
-    final state = ref.read(authControllerProvider);
+    // Quitter la page protégée AVANT que la session ne disparaisse,
+    // pour que le garde `redirect` n'ait pas à s'en mêler.
+    router.go('/');
 
-    if (state.hasError) {
+    final result = await container
+        .read(authControllerProvider.notifier)
+        .signOut();
+
+    if (container.read(authControllerProvider).hasError) {
       messenger.showSnackBar(
-        SnackBar(
-          content: Text('Impossible de se déconnecter : ${state.error}'),
-        ),
+        SnackBar(content: Text('Impossible de se déconnecter ')),
       );
       return;
     }

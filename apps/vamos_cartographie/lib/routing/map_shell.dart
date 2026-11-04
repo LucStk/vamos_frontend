@@ -22,8 +22,8 @@ class MapShell extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        IgnorePointer(ignoring: onMap, child: overlay),
         const MapScreen(), // toujours en position 0 : jamais remonté
+        IgnorePointer(ignoring: onMap, child: overlay),
       ],
     );
   }
