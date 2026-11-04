@@ -132,7 +132,7 @@ class FlutterMapCamera implements MapCameraController {
     _animatedController = null;
   }
 
-  bool get _hasAnimation => _animatedController != null;
+  // bool get _hasAnimation => _animatedController != null;
 
   MapCamera get _camera => mapController.camera;
 

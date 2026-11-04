@@ -12,8 +12,12 @@ import 'package:vamos_cartographie/core/config/supabase_config.dart';
 import 'package:vamos_cartographie/core/erreur_handler.dart';
 import 'package:vamos_cartographie/dev/dev_root.dart';
 
+import 'package:vamos_cartographie/routing/app_router.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+
 // import 'package:vamos_cartographie/core/log/log_observer.dart';
 
+@Dependencies([router])
 void main() {
   // debugRepaintRainbowEnabled = true;
   runZonedGuarded(

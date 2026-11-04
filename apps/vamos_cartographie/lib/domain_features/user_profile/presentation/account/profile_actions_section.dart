@@ -37,9 +37,7 @@ class ProfileActionsSection extends ConsumerWidget {
     // pour que le garde `redirect` n'ait pas à s'en mêler.
     router.go('/');
 
-    final result = await container
-        .read(authControllerProvider.notifier)
-        .signOut();
+    await container.read(authControllerProvider.notifier).signOut();
 
     if (container.read(authControllerProvider).hasError) {
       messenger.showSnackBar(

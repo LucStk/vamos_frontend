@@ -54,7 +54,11 @@ final class RouterProvider
         retry: null,
         name: r'routerProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapGestureHandlerProvider],
+        dependencies: <ProviderOrFamily>[
+          mapGestureHandlerProvider,
+          mapSceneProvider,
+          visualTargetsProvider,
+        ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           RouterProvider.$allTransitiveDependencies0,
           RouterProvider.$allTransitiveDependencies1,
@@ -71,6 +75,7 @@ final class RouterProvider
           RouterProvider.$allTransitiveDependencies12,
           RouterProvider.$allTransitiveDependencies13,
           RouterProvider.$allTransitiveDependencies14,
+          RouterProvider.$allTransitiveDependencies15,
         },
       );
 
@@ -103,6 +108,7 @@ final class RouterProvider
       MapGestureHandlerNotifierProvider.$allTransitiveDependencies12;
   static final $allTransitiveDependencies14 =
       MapGestureHandlerNotifierProvider.$allTransitiveDependencies13;
+  static final $allTransitiveDependencies15 = visualTargetsProvider;
 
   @override
   String debugGetCreateSourceHash() => _$routerHash();
@@ -126,4 +132,4 @@ final class RouterProvider
   }
 }
 
-String _$routerHash() => r'9aff547441d33bc12bf88666251518584d047308';
+String _$routerHash() => r'117b8b428444260dc4f6554f20162d75aff850eb';
