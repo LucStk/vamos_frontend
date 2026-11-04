@@ -39,6 +39,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
     final director = ref.read(cameraDirectorProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: LayoutBuilder(
         builder: (context, constraints) {
           director.updateViewport(constraints.biggest);
