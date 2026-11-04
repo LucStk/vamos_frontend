@@ -125,3 +125,57 @@ class GGetMeData_me {
     return 'GGetMeData_me(id: $id, profile: $profile, G__typename: $G__typename)';
   }
 }
+
+class GGetUserData {
+  const GGetUserData({
+    required this.user,
+    this.G__typename = 'Query',
+  });
+
+  factory GGetUserData.fromJson(Map<String, dynamic> json) {
+    return GGetUserData(
+      user: _i1.GUserProfileDetailsData.fromJson(
+          (json['user'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GUserProfileDetailsData user;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['user'] = this.user.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetUserData copyWith({
+    _i1.GUserProfileDetailsData? user,
+    String? G__typename,
+  }) {
+    return GGetUserData(
+      user: user ?? this.user,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetUserData &&
+            user == other.user &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, user, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetUserData(user: $user, G__typename: $G__typename)';
+  }
+}

@@ -9,8 +9,8 @@ import 'package:vamos_cartographie/domain_features/user_profile/presentation/pro
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
 import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
-class ProfilePage extends ConsumerWidget {
-  const ProfilePage({
+class MeProfilePage extends ConsumerWidget {
+  const MeProfilePage({
     super.key,
     required this.onCreateTrip,
     required this.onOpenTrip,

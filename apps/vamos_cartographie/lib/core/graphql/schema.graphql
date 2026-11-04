@@ -172,6 +172,7 @@ type Query {
   userTrips(userId: UUID!): [TripType!]!
   meTrips: [TripType!]!
   me: GetMePayload!
+  user(userId: UUID!): UserProfileType!
 }
 
 enum RefinementFailure {

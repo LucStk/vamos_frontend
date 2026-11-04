@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/auth/presentation/login_page.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_page.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/me_profile_page.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/user_profile_page.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 
 part 'auth_routes.g.dart';
@@ -19,6 +21,17 @@ class LoginRoute extends GoRouteData with $LoginRoute {
   }
 }
 
+@TypedGoRoute<UserProfileRoute>(path: '/user/:userId')
+class UserProfileRoute extends GoRouteData with $UserProfileRoute {
+  const UserProfileRoute(this.userId);
+
+  final String userId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      UserProfilePage(userId: UserId(userId));
+}
+
 @TypedGoRoute<ProfileRoute>(path: '/profile')
 class ProfileRoute extends GoRouteData with $ProfileRoute {
   const ProfileRoute();
@@ -30,7 +43,7 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
         void apply(Transition t) =>
             ref.read(appModeMachineProvider.notifier).apply(t);
 
-        return ProfilePage(
+        return MeProfilePage(
           onCreateTrip: () {
             apply(Transition.to(PlaceNewTripOrigin()));
             _backToMap(context);
