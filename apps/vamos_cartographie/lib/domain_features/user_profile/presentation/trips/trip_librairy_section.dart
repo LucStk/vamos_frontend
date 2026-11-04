@@ -12,11 +12,14 @@ class TripLibrarySection extends ConsumerWidget {
     required this.userId,
     required this.onOpenTrip,
     required this.onCreateTrip,
+    required this.onDeleteTrip,
   });
 
   final UserId userId;
   final ValueChanged<Trip> onOpenTrip;
   final VoidCallback onCreateTrip;
+
+  final Function(TripId tripId) onDeleteTrip;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,6 +33,7 @@ class TripLibrarySection extends ConsumerWidget {
       onRetry: () => ref.invalidate(loadUserTripsProvider(userId)),
       onOpenTrip: onOpenTrip,
       onCreateTrip: onCreateTrip,
+      onDeleteTrip: onDeleteTrip,
     );
   }
 }

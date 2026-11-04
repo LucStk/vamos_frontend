@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/on_boarding/create_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/edit_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content_view.dart';
@@ -42,6 +43,8 @@ class ProfilePage extends ConsumerWidget {
             MaterialPageRoute<void>(builder: (_) => const EditProfilePage()),
           );
         },
+        onDeleteTrip: (tripId) =>
+            ref.read(tripStoreProvider.notifier).deleteTrip(tripId),
         onOpenTrip: (trip) => onOpenTrip(trip.id),
       ),
     };

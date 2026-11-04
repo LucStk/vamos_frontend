@@ -12,12 +12,14 @@ class ProfileContentView extends StatelessWidget {
     required this.onOpenTrip,
     required this.onCreateTrip,
     required this.onEditProfile,
+    required this.onDeleteTrip,
   });
 
   final UserProfile profile;
   final ValueChanged<Trip> onOpenTrip;
   final VoidCallback onCreateTrip;
   final VoidCallback onEditProfile;
+  final Function(TripId tripId) onDeleteTrip;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class ProfileContentView extends StatelessWidget {
             userId: profile.id,
             onOpenTrip: onOpenTrip,
             onCreateTrip: onCreateTrip,
+            onDeleteTrip: onDeleteTrip,
           ),
         ],
       ),

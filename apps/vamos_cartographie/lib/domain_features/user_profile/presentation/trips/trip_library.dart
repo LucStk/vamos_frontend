@@ -8,6 +8,7 @@ class TripLibrary extends StatelessWidget {
     super.key,
     required this.trips,
     required this.onOpenTrip,
+    required this.onDeleteTrip,
     required this.onCreateTrip,
     this.isLoading = false,
     this.hasError = false,
@@ -20,6 +21,7 @@ class TripLibrary extends StatelessWidget {
   final VoidCallback? onRetry;
   final ValueChanged<Trip> onOpenTrip;
   final VoidCallback onCreateTrip;
+  final Function(TripId tripId) onDeleteTrip;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,7 @@ class TripLibrary extends StatelessWidget {
                     child: TripCard(
                       tripSummary: summary,
                       onTap: () => onOpenTrip(summary.trip),
+                      onDelete: () => onDeleteTrip(summary.trip.id),
                     ),
                   ),
               ],

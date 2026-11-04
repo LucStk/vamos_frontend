@@ -5,7 +5,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/shared/ui/widgets/explore_bottom_bar.dart';
+import 'package:vamos_cartographie/map/modes/shared/chrome/explore_bottom_bar.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
 
 @Dependencies([modeSelection, ModeMachine])

@@ -47,9 +47,6 @@ GoRouter router(Ref ref) {
     routes: [
       ShellRoute(
         builder: (context, state, child) {
-          debugPrint(
-            'SHELL path=${state.uri.path} onMap=${state.uri.path == '/'}',
-          );
           return MapShell(onMap: state.uri.path == '/', overlay: child);
         },
         routes: [...$appRoutes, ...auth.$appRoutes],
