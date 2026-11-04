@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '/domain_features/auth/providers/auth_controller.dart';
 
@@ -30,18 +31,25 @@ class ProfileActionsSection extends ConsumerWidget {
   }
 
   Future<void> _signOut(BuildContext context, WidgetRef ref) async {
-    await ref.read(authControllerProvider.notifier).signOut();
+    // Tout capturer AVANT le await : le widget peut être démonté
+    // dès que la session passe à null.
+    final router = GoRouter.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final container = ProviderScope.containerOf(context);
 
-    if (!context.mounted) return;
+    await container.read(authControllerProvider.notifier).signOut();
 
-    final authState = ref.read(authControllerProvider);
+    final state = container.read(authControllerProvider);
 
-    if (authState.hasError) {
-      ScaffoldMessenger.of(context).showSnackBar(
+    if (state.hasError) {
+      messenger.showSnackBar(
         SnackBar(
-          content: Text('Impossible de se déconnecter : ${authState.error}'),
+          content: Text('Impossible de se déconnecter : ${state.error}'),
         ),
       );
+      return;
     }
+
+    router.go('/');
   }
 }
