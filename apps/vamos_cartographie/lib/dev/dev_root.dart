@@ -14,24 +14,33 @@ class DevRoot extends StatefulWidget {
 }
 
 class _DevRootState extends State<DevRoot> {
-  var _phone = false;
+  // Lancer avec --dart-define=PHONE=false pour démarrer en format PC
+  static const _phoneByDefault = bool.fromEnvironment(
+    'PHONE',
+    defaultValue: true,
+  );
+
+  late var _phone = _phoneByDefault;
 
   @override
   void initState() {
     super.initState();
-    if (const bool.fromEnvironment('PHONE')) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _toggle());
+
+    if (_phone) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        final c = DevicePreview.maybeController;
+        if (c == null) return;
+        await c.applyPreset(DevicePresets.iPhone16);
+      });
     }
   }
 
   Future<void> _toggle() async {
-    debugPrint('F2 reçu');
     final c = DevicePreview.maybeController;
-    if (c == null) {
-      debugPrint('DevicePreview.maybeController == null → simulation inactive');
-      return;
-    }
+    if (c == null) return;
+
     _phone = !_phone;
+
     if (_phone) {
       await c.applyPreset(DevicePresets.iPhone16);
     } else {

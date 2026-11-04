@@ -23,9 +23,9 @@ class TripLibrary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double cardWidth = 180.0;
-    const double cardAspectRatio = 0.68;
-    const double cardHeight = cardWidth / cardAspectRatio;
+    // const double cardWidth = 180.0;
+    // const double cardAspectRatio = 0.68;
+    // const double cardHeight = cardWidth / cardAspectRatio;
 
     final textTheme = Theme.of(context).textTheme;
     // Pas de compteur trompeur ("0 voyage") tant que rien n'est chargé.
