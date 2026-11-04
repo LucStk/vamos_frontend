@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/ui/chrome/profile_capsule.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/floating_card_bottom_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/floating_card_bottom_sheet.dart';
 
 class FloatingHeaderCard extends StatelessWidget {
   const FloatingHeaderCard({

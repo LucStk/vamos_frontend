@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/simple_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/simple_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/ui_kit/buttons/delete_button.dart';
 
 class SegmentBottomSheet extends ConsumerWidget {

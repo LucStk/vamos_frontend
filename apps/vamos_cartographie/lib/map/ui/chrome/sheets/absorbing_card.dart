@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/floating_card_bottom_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/floating_card_bottom_sheet.dart';
 
 /// Pousse, réduit et estompe [child] au fil de [progress]
 /// (0 = entièrement visible, 1 = absorbé). Inverse d'[AbsorbedSlot].

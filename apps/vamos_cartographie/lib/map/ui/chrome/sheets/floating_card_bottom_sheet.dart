@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/absorbed_slot.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/absorbing_card.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/draggable_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/absorbed_slot.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/absorbing_card.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/deferred_notifier.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 const kFloatingCardHeight = 64.0;
 

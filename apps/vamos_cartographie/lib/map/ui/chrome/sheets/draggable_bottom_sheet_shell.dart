@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/drag_hint_header.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/draggable_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/deferred_notifier.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/drag_hint_header.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 class DraggableBottomSheetShell extends StatefulWidget {
   /// Contenu compact : affiché au repos, et utilisé pour mesurer la taille initiale.
@@ -40,11 +41,20 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
   }
 
   /// Poignée + espacement + contenu (identique pour la mesure et la vraie sheet).
-  Widget _withChrome(Widget content) => Padding(
-    padding: const EdgeInsets.all(10),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [const DragHintHeader(), const SizedBox(height: 12), content],
+  ///
+  /// Le `SafeArea` est ici et non autour de la sheet : le fond doit descendre
+  /// jusqu'au bord physique, seul le contenu reste au-dessus de la barre de
+  /// gestes. Comme la mesure passe par le même chemin, la hauteur compacte
+  /// inclut déjà cette marge.
+  Widget _withChrome(Widget content) => SafeArea(
+    top: false,
+    minimum: const EdgeInsets.only(bottom: 8),
+    child: Padding(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [const DragHintHeader(), const SizedBox(height: 12), content],
+      ),
     ),
   );
 

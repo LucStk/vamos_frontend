@@ -8,8 +8,8 @@ import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.d
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_info_bar.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_compact_content.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_viewer_content.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/floating_card_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/floating_header_card.dart';
+import 'package:vamos_cartographie/map/ui/chrome/floating_header_card.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/floating_card_bottom_sheet.dart';
 
 @Dependencies([])
 class TripSheet extends ConsumerWidget {
