@@ -3,19 +3,24 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/section_queries.dart';
 import 'package:vamos_cartographie/map/modes/shared/helpers/section_slice.dart';
+import 'package:vamos_cartographie/map/objects/segment/appearance/mobility_appearance.dart';
 import 'package:vamos_cartographie/map/objects/segment/segment_item.dart';
 
 part 'segment_item_provider.g.dart';
 
 /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true)
 SegmentItem? segmentItem(
   Ref ref,
   TripId tripId,
   SectionId id,
   MapCameraReader cameraReader,
 ) {
+  final mobilityType = ref.watch(
+    sectionProvider(tripId, id).select((m) => m.mobilityType),
+  );
   final range = ref.watch(sectionRangesProvider(tripId).select((m) => m[id]));
   final geometry = ref.watch(
     routeStoreProvider(tripId).select((s) => s.route?.current.geometry),
@@ -26,6 +31,7 @@ SegmentItem? segmentItem(
   if (slice == null) return null;
 
   return SegmentItem(
+    appearance: MobilityAppearances.of(mobilityType),
     worldSegments: projectLine(slice, cameraReader.latLngToWorldOffset),
     object: MapSection(tripId: tripId, id: id),
   );

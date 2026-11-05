@@ -6,9 +6,6 @@ import 'package:vamos_cartographie/map/objects/trip_origin/providers/trip_origin
 import 'package:vamos_cartographie/map/objects/waypoint/providers/waypoint_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
-
-@Dependencies([allSegmentItem])
 List<Layer> tripEditScene(TripId tripId) => [
   (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],
   (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],

@@ -24,10 +24,7 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
 /// Routes qui nécessitent d'être connecté.
 const _protectedPrefixes = ["/profile"];
 
-@Riverpod(
-  keepAlive: true,
-  dependencies: [MapGestureHandlerNotifier, mapScene, visualTargets],
-)
+@Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
   final refresh = ValueNotifier<int>(0);
   ref.listen(currentUserIdProvider, (_, _) => refresh.value++);

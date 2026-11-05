@@ -41,7 +41,6 @@ final class VisualTargetsProvider
           VisualTargetsProvider.$allTransitiveDependencies9,
           VisualTargetsProvider.$allTransitiveDependencies10,
           VisualTargetsProvider.$allTransitiveDependencies11,
-          VisualTargetsProvider.$allTransitiveDependencies12,
         },
       );
 
@@ -68,8 +67,6 @@ final class VisualTargetsProvider
       MapSceneProvider.$allTransitiveDependencies9;
   static final $allTransitiveDependencies11 =
       MapSceneProvider.$allTransitiveDependencies10;
-  static final $allTransitiveDependencies12 =
-      MapSceneProvider.$allTransitiveDependencies11;
 
   @override
   String debugGetCreateSourceHash() => _$visualTargetsHash();

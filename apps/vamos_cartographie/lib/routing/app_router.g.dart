@@ -75,7 +75,6 @@ final class RouterProvider
           RouterProvider.$allTransitiveDependencies12,
           RouterProvider.$allTransitiveDependencies13,
           RouterProvider.$allTransitiveDependencies14,
-          RouterProvider.$allTransitiveDependencies15,
         },
       );
 
@@ -106,9 +105,7 @@ final class RouterProvider
       MapGestureHandlerNotifierProvider.$allTransitiveDependencies11;
   static final $allTransitiveDependencies13 =
       MapGestureHandlerNotifierProvider.$allTransitiveDependencies12;
-  static final $allTransitiveDependencies14 =
-      MapGestureHandlerNotifierProvider.$allTransitiveDependencies13;
-  static final $allTransitiveDependencies15 = visualTargetsProvider;
+  static final $allTransitiveDependencies14 = visualTargetsProvider;
 
   @override
   String debugGetCreateSourceHash() => _$routerHash();

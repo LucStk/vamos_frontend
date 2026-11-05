@@ -27,7 +27,6 @@ final baseLayers = <Layer>[
 @Dependencies([
   pencilItem,
   sketchTraceItem,
-  allSegmentItem,
   sketchOriginItem,
   sketchEndItem,
   tmpOriginItem,
@@ -48,7 +47,6 @@ List<Layer> layersFor(AppMode mode) => switch (mode) {
   dependencies: [
     pencilItem,
     sketchTraceItem,
-    allSegmentItem,
     sketchOriginItem,
     sketchEndItem,
     tmpOriginItem,

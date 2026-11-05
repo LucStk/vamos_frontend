@@ -1,0 +1,34 @@
+// objects/segment/badge/mobility_badge.dart
+
+part of '../map_objects.dart';
+
+// Pastille de modalité posée au milieu d'une section, cliquable.
+///
+/// Objet distinct de [MapSection] : sans ça, le hit-test ne permettrait pas
+/// de savoir si le tap visait la ligne ou la pastille.
+final class MobilityBadge extends MapObject {
+  const MobilityBadge({required this.sectionId, required this.mobility});
+
+  /// La section dont ce badge porte la modalité. C'est lui qui permet au
+  /// menu de savoir quoi modifier.
+  final SectionId sectionId;
+
+  /// Évite un aller-retour au store pour présélectionner la valeur
+  /// courante dans le picker.
+  final MobilityType mobility;
+
+  /// Au-dessus de [MapSection] : le hitRadius de 14 px de la ligne couvre
+  /// entièrement la pastille, donc à priorité égale le tap tomberait
+  /// toujours sur la ligne.
+  @override
+  int get hitPriority => 50; // ← à caler au-dessus de MapSection
+
+  @override
+  bool operator ==(Object other) =>
+      other is MobilityBadge &&
+      other.sectionId == sectionId &&
+      other.mobility == mobility;
+
+  @override
+  int get hashCode => Object.hash(sectionId, mobility);
+}

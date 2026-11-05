@@ -8,7 +8,7 @@ import 'package:vamos_cartographie/map/objects/segment/providers/segment_item_pr
 part 'segments_layer.g.dart';
 
 /// Couche « segments » d'un trajet : agrège les items de toutes ses sections.
-@Riverpod(keepAlive: true, dependencies: [segmentItem])
+@Riverpod(keepAlive: true)
 List<LineItem> allSegmentItem(Ref ref, TripId tripId, MapCameraReader camera) {
   final sections = ref.watch(allSectionsProvider(tripId));
   return [

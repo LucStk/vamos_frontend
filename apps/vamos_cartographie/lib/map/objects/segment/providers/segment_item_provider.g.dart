@@ -70,7 +70,7 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'06ba133e5d3cf49715b7af3a885b45da4cdf3130';
+String _$segmentItemHash() => r'e43079a695004467dea4a7d5e3cf800722907866';
 
 /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 
@@ -84,8 +84,8 @@ final class SegmentItemFamily extends $Family
     : super(
         retry: null,
         name: r'segmentItemProvider',
-        dependencies: <ProviderOrFamily>[],
-        $allTransitiveDependencies: <ProviderOrFamily>[],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

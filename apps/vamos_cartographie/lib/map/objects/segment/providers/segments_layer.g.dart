@@ -30,8 +30,6 @@ final class AllSegmentItemProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = segmentItemProvider;
-
   @override
   String debugGetCreateSourceHash() => _$allSegmentItemHash();
 
@@ -72,7 +70,7 @@ final class AllSegmentItemProvider
   }
 }
 
-String _$allSegmentItemHash() => r'88ae385ed2cf48908ccbbda12654e1b42b3465e2';
+String _$allSegmentItemHash() => r'06473ab03df169876c6ee8836026204ff19a84fc';
 
 /// Couche « segments » d'un trajet : agrège les items de toutes ses sections.
 
@@ -82,10 +80,8 @@ final class AllSegmentItemFamily extends $Family
     : super(
         retry: null,
         name: r'allSegmentItemProvider',
-        dependencies: <ProviderOrFamily>[segmentItemProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          AllSegmentItemProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

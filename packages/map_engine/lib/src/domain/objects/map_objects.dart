@@ -8,6 +8,7 @@ part "route/route_section.dart";
 part "waypoint_objects.dart";
 part "route/trip_origin.dart";
 part "route/trip_end.dart";
+part "route/mobility_badge.dart";
 
 sealed class MapObject {
   const MapObject();

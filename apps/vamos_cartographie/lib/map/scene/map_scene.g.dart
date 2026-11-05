@@ -34,12 +34,10 @@ final class SceneItemsProvider
       PencilItemProvider.$allTransitiveDependencies1;
   static final $allTransitiveDependencies3 = sketchTraceItemProvider;
   static final $allTransitiveDependencies4 = allSegmentItemProvider;
-  static final $allTransitiveDependencies5 =
-      AllSegmentItemProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies6 = sketchOriginItemProvider;
-  static final $allTransitiveDependencies7 = sketchEndItemProvider;
-  static final $allTransitiveDependencies8 = tmpOriginItemProvider;
-  static final $allTransitiveDependencies9 = mapModeProvider;
+  static final $allTransitiveDependencies5 = sketchOriginItemProvider;
+  static final $allTransitiveDependencies6 = sketchEndItemProvider;
+  static final $allTransitiveDependencies7 = tmpOriginItemProvider;
+  static final $allTransitiveDependencies8 = mapModeProvider;
 
   @override
   String debugGetCreateSourceHash() => _$sceneItemsHash();
@@ -108,7 +106,6 @@ final class SceneItemsFamily extends $Family
           SceneItemsProvider.$allTransitiveDependencies6,
           SceneItemsProvider.$allTransitiveDependencies7,
           SceneItemsProvider.$allTransitiveDependencies8,
-          SceneItemsProvider.$allTransitiveDependencies9,
         },
         isAutoDispose: false,
       );
@@ -160,7 +157,6 @@ final class MapSceneProvider
           MapSceneProvider.$allTransitiveDependencies8,
           MapSceneProvider.$allTransitiveDependencies9,
           MapSceneProvider.$allTransitiveDependencies10,
-          MapSceneProvider.$allTransitiveDependencies11,
         },
       );
 
@@ -183,9 +179,7 @@ final class MapSceneProvider
       SceneItemsProvider.$allTransitiveDependencies7;
   static final $allTransitiveDependencies9 =
       SceneItemsProvider.$allTransitiveDependencies8;
-  static final $allTransitiveDependencies10 =
-      SceneItemsProvider.$allTransitiveDependencies9;
-  static final $allTransitiveDependencies11 = modeSelectionProvider;
+  static final $allTransitiveDependencies10 = modeSelectionProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapSceneHash();
