@@ -4,9 +4,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/modes.dart';
-import 'package:vamos_cartographie/map/scene/layers/localization_layer.dart';
+import 'package:vamos_cartographie/map/objects/localization/providers/localization_layer.dart';
+import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
+import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
+import 'package:vamos_cartographie/map/objects/segment/segment.dart';
+import 'package:vamos_cartographie/map/objects/trip_origin/trip_origin.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
-import 'package:vamos_cartographie/map/modes/place_origin/providers/tmp_origin_item_provider.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 part 'map_scene.g.dart';
 
