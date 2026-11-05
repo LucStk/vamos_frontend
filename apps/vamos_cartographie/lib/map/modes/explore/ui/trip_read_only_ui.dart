@@ -24,7 +24,7 @@ class TripReadOnlyUi extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trip = ref.watch(tripRequiredProvider(mode.tripId));
-    final userProfile = ref.watch(userProfileProvider(trip.ownerId));
+    final userProfile = ref.watch(userProfileAsyncProvider(trip.ownerId));
     return Stack(
       children: [
         SafeArea(

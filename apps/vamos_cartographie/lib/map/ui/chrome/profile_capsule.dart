@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
 
 class ProfileCapsule extends StatelessWidget {
   const ProfileCapsule({super.key, required this.profil, this.onTap});
 
-  /// null → capsule en état d'erreur (profil introuvable).
-  final UserProfile? profil;
+  /// loading → squelette, error / data null → capsule d'erreur,
+  /// data → capsule normale.
+  final AsyncValue<UserProfile?> profil;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final profil = this.profil;
-    if (profil == null) return const _CapsuleError();
+    return profil.when(
+      loading: () => const _CapsuleLoading(),
+      error: (_, __) => const _CapsuleError(),
+      data: (p) => p == null
+          ? const _CapsuleError()
+          : _CapsuleData(profil: p, onTap: onTap),
+    );
+  }
+}
 
+/// État nominal (ton ancien build).
+class _CapsuleData extends StatelessWidget {
+  const _CapsuleData({required this.profil, this.onTap});
+
+  final UserProfile profil;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final imageUrl = profil.profilePictureUrl;
 
@@ -40,6 +58,38 @@ class ProfileCapsule extends StatelessWidget {
     );
   }
 }
+
+/// Chargement : même gabarit, avatar + barre de texte grisés.
+class _CapsuleLoading extends StatelessWidget {
+  const _CapsuleLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final placeholder = theme.colorScheme.onSurface.withValues(alpha: 0.12);
+
+    return _CapsuleShell(
+      background: theme.colorScheme.surfaceContainerHighest,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircleAvatar(radius: 18, backgroundColor: placeholder),
+          const SizedBox(width: 6),
+          Container(
+            width: 70,
+            height: 10,
+            decoration: BoxDecoration(
+              color: placeholder,
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// _CapsuleError et _CapsuleShell restent inchangés.
 
 /// Profil introuvable : même gabarit, couleurs d'erreur, non cliquable.
 class _CapsuleError extends StatelessWidget {

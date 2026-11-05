@@ -116,6 +116,10 @@ enum MobilityType {
 }
 
 type Mutation {
+  saveTrip(tripId: UUID!): TripType!
+  unsaveTrip(tripId: UUID!): TripType!
+  followUser(userId: UUID!): UserProfileType!
+  unfollowUser(userId: UUID!): UserProfileType!
   createProfile(profileName: String!): CreateProfileResult!
   updateProfile(input: UpdateUserProfileInput!): UserProfileType!
   updateTrip(id: UUID!, input: TripUpdateInput!): TripType!
@@ -171,8 +175,11 @@ type Query {
   trips: [TripType!]!
   userTrips(userId: UUID!): [TripType!]!
   meTrips: [TripType!]!
+  meSavedTrips(offset: Int! = 0, limit: Int! = 20): [TripType!]!
   me: GetMePayload!
   user(userId: UUID!): UserProfileType!
+  followers(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
+  following(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
 }
 
 enum RefinementFailure {
@@ -251,6 +258,8 @@ type TripType {
   owner: UserProfileType!
   files: [FileAttachmentType!]!
   route: [LatLngType!]!
+  savesCount: Int!
+  isSavedByMe: Boolean!
 }
 
 input TripUpdateInput {
@@ -277,6 +286,9 @@ type UserProfileType {
   profileName: String!
   profilePicture: StoredFileType
   bio: String!
+  followersCount: Int!
+  followingCount: Int!
+  isFollowedByMe: Boolean!
 }
 
 scalar UUID

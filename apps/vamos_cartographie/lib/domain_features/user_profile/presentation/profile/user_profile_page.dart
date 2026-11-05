@@ -12,7 +12,7 @@ class UserProfilePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileState = ref.watch(userProfileProvider(userId));
+    final profileState = ref.watch(userProfileAsyncProvider(userId));
 
     return Scaffold(
       appBar: AppBar(title: const Text('Profil')),
