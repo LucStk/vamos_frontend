@@ -1,6 +1,7 @@
 import 'package:domain_core/space/world_segment.dart';
 import 'package:map_canvas/map_canvas.dart';
 import "package:map_engine/map_engine.dart";
+import 'package:vamos_cartographie/map/objects/segment/appearance/segment_appearance.dart';
 import 'package:vamos_cartographie/map/objects/segment/style/segment_style.dart';
 
 final class SegmentItem extends LineItem {

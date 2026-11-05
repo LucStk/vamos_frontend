@@ -1,48 +1,8 @@
 import 'dart:ui';
 
 import 'package:map_canvas/map_canvas.dart';
-
-/// Apparence de base, indépendante de l'état visuel. Données pures, sans unité.
-final class SegmentAppearance {
-  const SegmentAppearance({required this.color, this.dash});
-
-  final Color color;
-
-  /// [trait, vide, trait, vide...] en pixels écran. `null` = trait plein.
-  final List<double>? dash;
-
-  static const fallback = SegmentAppearance(color: Color(0xFF9E9E9E));
-}
-
-/// Valeurs interpolables d'un segment dans un état donné.
-final class SegmentLook implements Lerpable<SegmentLook> {
-  const SegmentLook({
-    required this.widthScale,
-    required this.casing,
-    required this.halo,
-    required this.lift,
-  });
-
-  /// Multiplicateur de la largeur de base (`visualRadius * 2`).
-  final double widthScale;
-
-  /// Liseré clair de chaque côté (px).
-  final double casing;
-
-  /// Épaisseur ajoutée pour le halo (px), 0 = aucun.
-  final double halo;
-
-  /// 0..1 : éclaircissement vers le blanc.
-  final double lift;
-
-  @override
-  SegmentLook lerp(SegmentLook o, double t) => SegmentLook(
-    widthScale: lerpDouble(widthScale, o.widthScale, t)!,
-    casing: lerpDouble(casing, o.casing, t)!,
-    halo: lerpDouble(halo, o.halo, t)!,
-    lift: lerpDouble(lift, o.lift, t)!,
-  );
-}
+import 'package:vamos_cartographie/map/objects/segment/appearance/segment_appearance.dart';
+import 'package:vamos_cartographie/map/objects/segment/style/segment_look.dart';
 
 abstract final class SegmentStyle {
   static const resolver = StyleResolver<SegmentLook>(_lookOf);

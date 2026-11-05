@@ -131,7 +131,7 @@ final class UserProfileAsyncProvider
   }
 }
 
-String _$userProfileAsyncHash() => r'd523ab4fd87a30acb6237f47b38a1cd2b2656c42';
+String _$userProfileAsyncHash() => r'63a5e1cd01846bfeff681b01882018648d62bcd9';
 
 /// Profil d'un utilisateur, chargé à distance s'il n'est pas déjà en store.
 /// Les profils arrivent normalement avec les voyages (fragment

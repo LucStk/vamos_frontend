@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/app_services/user_location/user_location_prov
 import 'package:vamos_cartographie/app_services/user_location/user_location_domain.dart';
 import 'package:vamos_cartographie/map/objects/localization/localization_item.dart';
 
-part 'localization_layer.g.dart';
+part 'localization_item_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 LocalizationItem? localizationItem(Ref ref, MapCameraReader camera) {

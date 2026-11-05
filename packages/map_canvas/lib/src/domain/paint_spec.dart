@@ -1,5 +1,7 @@
 // paint_spec.dart
 import 'dart:ui';
+import 'package:map_canvas/src/domain/icon/icon_glyph.dart';
+
 import 'length.dart';
 
 // paint_spec.dart
@@ -33,3 +35,14 @@ final class Stroke extends PaintSpec {
   bool get dependsOnZoom =>
       width.dependsOnZoom || (dash?.any((d) => d.dependsOnZoom) ?? false);
 }
+
+PaintSpec glyphStyle(IconGlyph g, Color color, {required double sizePx}) =>
+    switch (g.paint) {
+      GlyphFill() => Fill(color),
+      GlyphStroke(:final width) => Stroke(
+        color,
+        width: (width * sizePx / g.viewBox.width).px,
+        cap: StrokeCap.round,
+        join: StrokeJoin.round,
+      ),
+    };
