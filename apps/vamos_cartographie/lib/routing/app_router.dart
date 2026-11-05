@@ -5,10 +5,6 @@ import 'package:vamos_cartographie/routing/map_shell.dart';
 
 import 'package:vamos_cartographie/routing/routes/auth_routes.dart' as auth;
 import 'package:vamos_cartographie/domain_features/auth/providers/providers.dart';
-import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
-
-import 'package:vamos_cartographie/map/scene/map_scene.dart';
-import 'package:vamos_cartographie/map/interaction/visual_target.dart';
 part 'app_router.g.dart';
 
 /// La route "/" n'affiche rien elle-même : la carte vit dans [MapShell].

@@ -16,8 +16,9 @@ final allSegmentItemProvider = AllSegmentItemFamily._();
 /// Couche « segments » d'un trajet : agrège les items de toutes ses sections.
 
 final class AllSegmentItemProvider
-    extends $FunctionalProvider<List<LineItem>, List<LineItem>, List<LineItem>>
-    with $Provider<List<LineItem>> {
+    extends
+        $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
+    with $Provider<List<SceneItem>> {
   /// Couche « segments » d'un trajet : agrège les items de toutes ses sections.
   AllSegmentItemProvider._({
     required AllSegmentItemFamily super.from,
@@ -42,20 +43,20 @@ final class AllSegmentItemProvider
 
   @$internal
   @override
-  $ProviderElement<List<LineItem>> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<List<SceneItem>> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  List<LineItem> create(Ref ref) {
+  List<SceneItem> create(Ref ref) {
     final argument = this.argument as (TripId, MapCameraReader);
     return allSegmentItem(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<LineItem> value) {
+  Override overrideWithValue(List<SceneItem> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<LineItem>>(value),
+      providerOverride: $SyncValueProvider<List<SceneItem>>(value),
     );
   }
 
@@ -70,12 +71,12 @@ final class AllSegmentItemProvider
   }
 }
 
-String _$allSegmentItemHash() => r'06473ab03df169876c6ee8836026204ff19a84fc';
+String _$allSegmentItemHash() => r'da98e940d373e8d2f237d3141e9e31f0cef60e96';
 
 /// Couche « segments » d'un trajet : agrège les items de toutes ses sections.
 
 final class AllSegmentItemFamily extends $Family
-    with $FunctionalFamilyOverride<List<LineItem>, (TripId, MapCameraReader)> {
+    with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {
   AllSegmentItemFamily._()
     : super(
         retry: null,
