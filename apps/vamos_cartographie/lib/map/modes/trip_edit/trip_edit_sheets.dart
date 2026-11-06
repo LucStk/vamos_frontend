@@ -8,6 +8,7 @@ import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_compact_content.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_viewer_content.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/floating_header_card.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 
@@ -64,14 +65,14 @@ class TripEditSheets extends ConsumerWidget {
                 ),
               ),
 
-              // EditBottomButton(
-              //   tooltipText: "Edit route",
-              //   onPressed: () {
-              //     ref
-              //         .read(appModeMachineProvider.notifier)
-              //         .apply(Transition.to(SketchEdition(mode.tripId)));
-              //   },
-              // ),
+              EditBottomButton(
+                tooltipText: "Edit route",
+                onPressed: () {
+                  ref
+                      .read(appModeMachineProvider.notifier)
+                      .apply(Transition.to(SketchEdition(mode.tripId)));
+                },
+              ),
             ],
           ),
         ),

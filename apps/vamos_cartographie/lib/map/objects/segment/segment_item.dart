@@ -1,7 +1,9 @@
 import 'package:domain_core/space/world_segment.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:map_canvas/map_canvas.dart';
 import "package:map_engine/map_engine.dart";
 import 'package:vamos_cartographie/map/objects/segment/appearance/segment_appearance.dart';
+import 'package:vamos_cartographie/map/objects/segment/geometry/rounded_polyline.dart';
 import 'package:vamos_cartographie/map/objects/segment/style/segment_style.dart';
 
 final class SegmentItem extends LineItem {
@@ -26,13 +28,22 @@ final class SegmentItem extends LineItem {
   @override
   ScreenLength get hitRadius => 14.px;
 
+  static const _cornerRadius = 12.0; // unités monde, à régler à l'œil
+
+  late final Path _roundedPath = roundedPolylinePath(
+    worldSegments,
+    radius: _cornerRadius,
+  );
+
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
-  }) => SegmentStyle.build(
-    path,
-    appearance,
-    SegmentStyle.resolver.resolve(context),
-    radius: visualRadius,
-  );
+  }) => DrawGroup([
+    SegmentStyle.build(
+      _roundedPath, // ← au lieu de `path`
+      appearance,
+      SegmentStyle.resolver.resolve(context),
+      radius: visualRadius,
+    ),
+  ]);
 }

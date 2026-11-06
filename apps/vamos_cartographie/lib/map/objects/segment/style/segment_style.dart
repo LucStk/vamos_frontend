@@ -14,7 +14,7 @@ abstract final class SegmentStyle {
 
   static SegmentLook _lookOf(MapObjectVisualState s) => switch (s) {
     MapObjectVisualState.normal => const SegmentLook(
-      widthScale: 1.0,
+      widthScale: 0.7,
       casing: 1.5,
       halo: 0,
       lift: 0,
