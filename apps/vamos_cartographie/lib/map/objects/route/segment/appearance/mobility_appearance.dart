@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/objects/segment/appearance/segment_appearance.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
 
 abstract final class MobilityAppearances {
   static const _symbols = Rect.fromLTWH(0, -960, 960, 960);

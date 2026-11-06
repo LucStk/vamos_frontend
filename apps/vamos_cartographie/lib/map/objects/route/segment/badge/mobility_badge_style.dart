@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:domain_core/space/offset_type.dart';
 import 'package:map_canvas/map_canvas.dart';
-import 'package:vamos_cartographie/map/objects/segment/appearance/segment_appearance.dart';
-import 'package:vamos_cartographie/map/objects/segment/badge/badge_look.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/badge/badge_look.dart';
 
 /// Valeurs interpolables de la pastille dans un état donné.
 ///

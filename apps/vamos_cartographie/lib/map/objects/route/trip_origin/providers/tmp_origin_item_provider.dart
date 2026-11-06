@@ -1,7 +1,7 @@
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
-import 'package:vamos_cartographie/map/objects/trip_origin/trip_origin_item.dart';
+import 'package:vamos_cartographie/map/objects/route/trip_origin/trip_origin_item.dart';
 
 part 'tmp_origin_item_provider.g.dart';
 

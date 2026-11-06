@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:map_canvas/map_canvas.dart';
-import 'package:vamos_cartographie/map/objects/segment/appearance/segment_appearance.dart';
-import 'package:vamos_cartographie/map/objects/segment/style/segment_look.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/style/segment_look.dart';
 
 abstract final class SegmentStyle {
   static const resolver = StyleResolver<SegmentLook>(_lookOf);

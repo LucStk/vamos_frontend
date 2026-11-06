@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/modes/modes.dart';
 import 'package:vamos_cartographie/map/objects/localization/providers/localization_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
-import 'package:vamos_cartographie/map/objects/trip_origin/trip_origin.dart';
+import 'package:vamos_cartographie/map/objects/route/route.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 part 'map_scene.g.dart';

@@ -3,8 +3,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/section_queries.dart';
-import 'package:vamos_cartographie/map/objects/segment/providers/mobility_badge_item_provider.dart';
-import 'package:vamos_cartographie/map/objects/segment/providers/segment_item_provider.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/providers/mobility_badge_item_provider.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/providers/segment_item_provider.dart';
 
 part 'segments_layer.g.dart';
 

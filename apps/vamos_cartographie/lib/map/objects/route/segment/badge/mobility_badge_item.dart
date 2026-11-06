@@ -2,8 +2,8 @@
 import 'package:domain_core/space/offset_type.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:vamos_cartographie/map/objects/segment/appearance/segment_appearance.dart';
-import 'package:vamos_cartographie/map/objects/segment/badge/mobility_badge_style.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/badge/mobility_badge_style.dart';
 
 final class MobilityBadgeItem extends PointItem {
   MobilityBadgeItem({

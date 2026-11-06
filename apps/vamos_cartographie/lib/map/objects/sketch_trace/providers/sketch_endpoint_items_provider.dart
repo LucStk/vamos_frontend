@@ -5,10 +5,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
-import 'package:vamos_cartographie/map/objects/trip_end/providers/trip_end_item_provider.dart';
-import 'package:vamos_cartographie/map/objects/trip_end/trip_end_item.dart';
-import 'package:vamos_cartographie/map/objects/trip_origin/providers/trip_origin_item_provider.dart';
-import 'package:vamos_cartographie/map/objects/trip_origin/trip_origin_item.dart';
+import 'package:vamos_cartographie/map/objects/route/route.dart';
 
 part 'sketch_endpoint_items_provider.g.dart';
 
