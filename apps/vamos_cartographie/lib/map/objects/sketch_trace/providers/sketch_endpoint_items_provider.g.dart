@@ -85,7 +85,7 @@ final class SketchOriginItemProvider
   }
 }
 
-String _$sketchOriginItemHash() => r'c35c9c44075eeeb3059fdeec05951d0ceba11ad0';
+String _$sketchOriginItemHash() => r'c12be0725790ea930e662080c669f594fb73caef';
 
 /// Icône de départ de la route, absente tant que le crayon parti d'elle ne
 /// l'a pas quittée.

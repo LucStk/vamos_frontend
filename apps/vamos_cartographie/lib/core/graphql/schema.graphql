@@ -115,6 +115,12 @@ enum MobilityType {
   TRAIN
 }
 
+input MoveMobilityBoundaryInput {
+  boundaryVertex: Int!
+  to: SectionPointInput!
+  basedOn: DateTime = null
+}
+
 type Mutation {
   saveTrip(tripId: UUID!): TripType!
   unsaveTrip(tripId: UUID!): TripType!
@@ -132,6 +138,8 @@ type Mutation {
   previewRouteEdit(tripId: UUID!, input: EditRouteInput!): RoutePreviewPayload!
   commitRouteEdit(tripId: UUID!, proposalId: UUID!): EditRoutePayload!
   discardRouteProposal(tripId: UUID!): Boolean!
+  setRangeMobility(tripId: UUID!, input: RangeMobilityInput!): EditRoutePayload!
+  moveMobilityBoundary(tripId: UUID!, input: MoveMobilityBoundaryInput!): EditRoutePayload!
   editRoute(tripId: UUID!, input: EditRouteInput!): EditRoutePayload!
   refineSection(tripId: UUID!, sectionId: UUID!): EditRoutePayload!
   setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!): EditRoutePayload!
@@ -168,6 +176,7 @@ type PreviewSectionType {
   mobilityType: MobilityType!
   geometrySource: GeometrySource!
   isNew: Boolean!
+  editId: UUID
 }
 
 type Query {
@@ -180,6 +189,13 @@ type Query {
   user(userId: UUID!): UserProfileType!
   followers(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
   following(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
+}
+
+input RangeMobilityInput {
+  start: SectionPointInput!
+  end: SectionPointInput!
+  mobilityType: MobilityType!
+  basedOn: DateTime = null
 }
 
 enum RefinementFailure {
@@ -233,6 +249,11 @@ Un endroit quelconque de la route. Le serveur projette `point` sur la section
 `sectionId` (lève l'ambiguïté des croisements).
 """
 input SectionAnchorInput {
+  sectionId: UUID!
+  point: LatLngInput!
+}
+
+input SectionPointInput {
   sectionId: UUID!
   point: LatLngInput!
 }

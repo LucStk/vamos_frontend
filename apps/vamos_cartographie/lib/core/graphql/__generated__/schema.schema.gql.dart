@@ -433,6 +433,75 @@ enum GMobilityType {
   }
 }
 
+class GMoveMobilityBoundaryInput {
+  const GMoveMobilityBoundaryInput({
+    required this.boundaryVertex,
+    required this.to,
+    this.basedOn = const Value.absent(),
+  });
+
+  factory GMoveMobilityBoundaryInput.fromJson(Map<String, dynamic> json) {
+    return GMoveMobilityBoundaryInput(
+      boundaryVertex: (json['boundaryVertex'] as int),
+      to: GSectionPointInput.fromJson((json['to'] as Map<String, dynamic>)),
+      basedOn: json.containsKey('basedOn')
+          ? Value.present(
+              json['basedOn'] == null ? null : (json['basedOn'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final int boundaryVertex;
+
+  final GSectionPointInput to;
+
+  final Value<String> basedOn;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$boundaryVertexValue = this.boundaryVertex;
+    _$result['boundaryVertex'] = _$boundaryVertexValue;
+    final _$toValue = this.to;
+    _$result['to'] = _$toValue.toJson();
+    final _$basedOnValue = this.basedOn;
+    if (_$basedOnValue.isPresent) {
+      final _$basedOnRequired = _$basedOnValue.requireValue;
+      _$result['basedOn'] =
+          _$basedOnRequired == null ? null : _$basedOnRequired;
+    }
+    return _$result;
+  }
+
+  GMoveMobilityBoundaryInput copyWith({
+    int? boundaryVertex,
+    GSectionPointInput? to,
+    Value<String>? basedOn,
+  }) {
+    return GMoveMobilityBoundaryInput(
+      boundaryVertex: boundaryVertex ?? this.boundaryVertex,
+      to: to ?? this.to,
+      basedOn: basedOn ?? this.basedOn,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GMoveMobilityBoundaryInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GMoveMobilityBoundaryInput(boundaryVertex: $boundaryVertex, to: $to, basedOn: $basedOn)';
+  }
+}
+
 enum GPoiCategory {
   START,
   END,
@@ -513,6 +582,84 @@ enum GPoiCategory {
       case GPoiCategory.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
+  }
+}
+
+class GRangeMobilityInput {
+  const GRangeMobilityInput({
+    required this.start,
+    required this.end,
+    required this.mobilityType,
+    this.basedOn = const Value.absent(),
+  });
+
+  factory GRangeMobilityInput.fromJson(Map<String, dynamic> json) {
+    return GRangeMobilityInput(
+      start:
+          GSectionPointInput.fromJson((json['start'] as Map<String, dynamic>)),
+      end: GSectionPointInput.fromJson((json['end'] as Map<String, dynamic>)),
+      mobilityType: GMobilityType.fromJson((json['mobilityType'] as String)),
+      basedOn: json.containsKey('basedOn')
+          ? Value.present(
+              json['basedOn'] == null ? null : (json['basedOn'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final GSectionPointInput start;
+
+  final GSectionPointInput end;
+
+  final GMobilityType mobilityType;
+
+  final Value<String> basedOn;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$startValue = this.start;
+    _$result['start'] = _$startValue.toJson();
+    final _$endValue = this.end;
+    _$result['end'] = _$endValue.toJson();
+    final _$mobilityTypeValue = this.mobilityType;
+    _$result['mobilityType'] = _$mobilityTypeValue.toJson();
+    final _$basedOnValue = this.basedOn;
+    if (_$basedOnValue.isPresent) {
+      final _$basedOnRequired = _$basedOnValue.requireValue;
+      _$result['basedOn'] =
+          _$basedOnRequired == null ? null : _$basedOnRequired;
+    }
+    return _$result;
+  }
+
+  GRangeMobilityInput copyWith({
+    GSectionPointInput? start,
+    GSectionPointInput? end,
+    GMobilityType? mobilityType,
+    Value<String>? basedOn,
+  }) {
+    return GRangeMobilityInput(
+      start: start ?? this.start,
+      end: end ?? this.end,
+      mobilityType: mobilityType ?? this.mobilityType,
+      basedOn: basedOn ?? this.basedOn,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GRangeMobilityInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GRangeMobilityInput(start: $start, end: $end, mobilityType: $mobilityType, basedOn: $basedOn)';
   }
 }
 
@@ -742,6 +889,60 @@ class GSectionAnchorInput {
   @override
   String toString() {
     return 'GSectionAnchorInput(sectionId: $sectionId, point: $point)';
+  }
+}
+
+class GSectionPointInput {
+  const GSectionPointInput({
+    required this.sectionId,
+    required this.point,
+  });
+
+  factory GSectionPointInput.fromJson(Map<String, dynamic> json) {
+    return GSectionPointInput(
+      sectionId: (json['sectionId'] as String),
+      point: GLatLngInput.fromJson((json['point'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String sectionId;
+
+  final GLatLngInput point;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$sectionIdValue = this.sectionId;
+    _$result['sectionId'] = _$sectionIdValue;
+    final _$pointValue = this.point;
+    _$result['point'] = _$pointValue.toJson();
+    return _$result;
+  }
+
+  GSectionPointInput copyWith({
+    String? sectionId,
+    GLatLngInput? point,
+  }) {
+    return GSectionPointInput(
+      sectionId: sectionId ?? this.sectionId,
+      point: point ?? this.point,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSectionPointInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSectionPointInput(sectionId: $sectionId, point: $point)';
   }
 }
 

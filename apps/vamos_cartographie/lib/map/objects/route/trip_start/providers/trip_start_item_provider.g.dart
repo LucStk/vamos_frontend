@@ -10,9 +10,9 @@ part of 'trip_start_item_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(tripOriginItem)
-final tripOriginItemProvider = TripStartItemFamily._();
+final tripOriginItemProvider = TripOriginItemFamily._();
 
-final class TripStartItemProvider
+final class TripOriginItemProvider
     extends
         $FunctionalProvider<
           TripStartItem<MapRouteOrigin>?,
@@ -20,8 +20,8 @@ final class TripStartItemProvider
           TripStartItem<MapRouteOrigin>?
         >
     with $Provider<TripStartItem<MapRouteOrigin>?> {
-  TripStartItemProvider._({
-    required TripStartItemFamily super.from,
+  TripOriginItemProvider._({
+    required TripOriginItemFamily super.from,
     required (TripId, MapCameraReader) super.argument,
   }) : super(
          retry: null,
@@ -65,7 +65,7 @@ final class TripStartItemProvider
 
   @override
   bool operator ==(Object other) {
-    return other is TripStartItemProvider && other.argument == argument;
+    return other is TripOriginItemProvider && other.argument == argument;
   }
 
   @override
@@ -74,15 +74,15 @@ final class TripStartItemProvider
   }
 }
 
-String _$tripOriginItemHash() => r'36e741ae332cfc43b2f3dc43494a4c47a1f4e663';
+String _$tripOriginItemHash() => r'29dccf82c599d6f86f2a6651394ad0680a2f561e';
 
-final class TripStartItemFamily extends $Family
+final class TripOriginItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
           TripStartItem<MapRouteOrigin>?,
           (TripId, MapCameraReader)
         > {
-  TripStartItemFamily._()
+  TripOriginItemFamily._()
     : super(
         retry: null,
         name: r'tripOriginItemProvider',
@@ -91,8 +91,8 @@ final class TripStartItemFamily extends $Family
         isAutoDispose: false,
       );
 
-  TripStartItemProvider call(TripId tripId, MapCameraReader camera) =>
-      TripStartItemProvider._(argument: (tripId, camera), from: this);
+  TripOriginItemProvider call(TripId tripId, MapCameraReader camera) =>
+      TripOriginItemProvider._(argument: (tripId, camera), from: this);
 
   @override
   String toString() => r'tripOriginItemProvider';

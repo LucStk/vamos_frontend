@@ -450,6 +450,39 @@ const MobilityType = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const MoveMobilityBoundaryInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'MoveMobilityBoundaryInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'boundaryVertex'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'to'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SectionPointInput'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'basedOn'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+  ],
+);
 const Mutation = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'Mutation'),
   directives: [],
@@ -814,6 +847,62 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'setRangeMobility'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'RangeMobilityInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'EditRoutePayload'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'moveMobilityBoundary'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'MoveMobilityBoundaryInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'EditRoutePayload'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'editRoute'),
       directives: [],
       args: [
@@ -1087,6 +1176,15 @@ const PreviewSectionType = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'editId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const Query = _i1.ObjectTypeDefinitionNode(
@@ -1300,6 +1398,48 @@ const Query = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const RangeMobilityInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RangeMobilityInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'start'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SectionPointInput'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'end'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SectionPointInput'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'basedOn'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+  ],
+);
 const RefinementFailure = _i1.EnumTypeDefinitionNode(
   name: _i1.NameNode(value: 'RefinementFailure'),
   directives: [],
@@ -1499,6 +1639,30 @@ const RouteSectionType = _i1.ObjectTypeDefinitionNode(
 );
 const SectionAnchorInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'SectionAnchorInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'sectionId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'point'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'LatLngInput'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
+const SectionPointInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SectionPointInput'),
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
@@ -2056,11 +2220,13 @@ const document = _i1.DocumentNode(definitions: [
   LatLngInput,
   LatLngType,
   MobilityType,
+  MoveMobilityBoundaryInput,
   Mutation,
   PoiCategory,
   Polygon,
   PreviewSectionType,
   Query,
+  RangeMobilityInput,
   RefinementFailure,
   RouteAnchorInput,
   RouteEditErrorCode,
@@ -2069,6 +2235,7 @@ const document = _i1.DocumentNode(definitions: [
   RoutePreviewSuccess,
   RouteSectionType,
   SectionAnchorInput,
+  SectionPointInput,
   StoredFileType,
   TripType,
   TripUpdateInput,
