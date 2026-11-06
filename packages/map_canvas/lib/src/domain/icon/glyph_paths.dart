@@ -1,6 +1,8 @@
 // map_canvas/lib/src/domain/icon/glyph_paths.dart
 import 'dart:ui';
 import 'package:map_canvas/src/domain/icon/icon_glyph.dart';
+import 'package:map_canvas/src/domain/paint_spec.dart';
+import 'package:map_canvas/src/domain/length.dart';
 import 'package:path_parsing/path_parsing.dart';
 import 'package:vector_math/vector_math_64.dart';
 
@@ -48,3 +50,17 @@ abstract final class GlyphPaths {
         return raw.transform(m.storage);
       });
 }
+
+/// Rempli ou tracé selon le pack d'icônes. L'épaisseur du trait suit la
+/// même échelle que la géométrie, sinon un glyphe réduit a un trait
+/// plusieurs fois trop épais.
+PaintSpec glyphPaintSpec(IconGlyph g, Color color, {required double sizePx}) =>
+    switch (g.paint) {
+      GlyphFill() => Fill(color),
+      GlyphStroke(:final width) => Stroke(
+        color,
+        width: (width * sizePx / g.viewBox.width).px,
+        cap: StrokeCap.round,
+        join: StrokeJoin.round,
+      ),
+    };

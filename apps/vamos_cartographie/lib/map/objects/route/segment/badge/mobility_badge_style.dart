@@ -80,25 +80,8 @@ abstract final class MobilityBadgeStyle {
       DrawAnchoredPath(
         anchor: anchor,
         path: GlyphPaths.anchored(glyph, sizePx: glyphPx),
-        style: _glyphStyle(glyph, _white, sizePx: glyphPx),
+        style: glyphPaintSpec(glyph, _white, sizePx: glyphPx),
       ),
     ]);
   }
-
-  /// Rempli ou tracé selon le pack d'icônes. L'épaisseur du trait suit la
-  /// même échelle que la géométrie, sinon un glyphe réduit a un trait
-  /// plusieurs fois trop épais.
-  static PaintSpec _glyphStyle(
-    IconGlyph g,
-    Color color, {
-    required double sizePx,
-  }) => switch (g.paint) {
-    GlyphFill() => Fill(color),
-    GlyphStroke(:final width) => Stroke(
-      color,
-      width: (width * sizePx / g.viewBox.width).px,
-      cap: StrokeCap.round,
-      join: StrokeJoin.round,
-    ),
-  };
 }
