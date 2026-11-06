@@ -1,12 +1,12 @@
 part of "../map_objects.dart";
 
-// part route/trip_origin.dart
-/// Un point d'origine : avec route (MapTripOrigin) ou sans (MapTmpOrigin).
+// part route/trip_start.dart
+/// Un point d'origine : avec route (MapTripStart) ou sans (MapTmpOrigin).
 abstract interface class MapRouteOrigin implements MapObject {}
 
-final class MapTripOrigin extends RouteElements implements MapRouteOrigin {
+final class MapTripStart extends RouteElements implements MapRouteOrigin {
   final TripId tripId;
-  MapTripOrigin(this.tripId);
+  MapTripStart(this.tripId);
   @override
   bool get isDraggable => true;
 

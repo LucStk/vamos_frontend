@@ -61,7 +61,7 @@ class _ExistingTripUi extends ConsumerWidget {
       fit: StackFit.expand,
       children: [
         TripSelectionSheet(tripId: tripId, canEdit: true),
-        OverlayMenu<MapTripOrigin>(
+        OverlayMenu<MapTripStart>(
           builder: (_, hit) => OriginMenuWidget(
             children: [
               MenuButton(

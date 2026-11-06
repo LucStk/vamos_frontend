@@ -21,7 +21,7 @@ sealed class PlaceOriginMode extends AppMode {
 
   @override
   Transition onTap(TapGesture g) => switch (g.element) {
-    MapTripOrigin _ || MapTmpOrigin _ => Transition.overlay(g.tapMenu),
+    MapTripStart _ || MapTmpOrigin _ => Transition.overlay(g.tapMenu),
     _ => onTapElsewhere(g),
   };
 }
@@ -58,7 +58,7 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   Transition onTap(TapGesture g) {
     print("gesture ${g.element}");
     return switch (g.element) {
-      MapTripOrigin _ => Transition.overlay(g.tapMenu),
+      MapTripStart _ => Transition.overlay(g.tapMenu),
       _ => onTapElsewhere(g),
     };
   }

@@ -20,11 +20,11 @@ final sketchOriginItemProvider = SketchOriginItemFamily._();
 final class SketchOriginItemProvider
     extends
         $FunctionalProvider<
-          TripOriginItem<MapRouteOrigin>?,
-          TripOriginItem<MapRouteOrigin>?,
-          TripOriginItem<MapRouteOrigin>?
+          TripStartItem<MapRouteOrigin>?,
+          TripStartItem<MapRouteOrigin>?,
+          TripStartItem<MapRouteOrigin>?
         >
-    with $Provider<TripOriginItem<MapRouteOrigin>?> {
+    with $Provider<TripStartItem<MapRouteOrigin>?> {
   /// Icône de départ de la route, absente tant que le crayon parti d'elle ne
   /// l'a pas quittée.
   SketchOriginItemProvider._({
@@ -54,21 +54,21 @@ final class SketchOriginItemProvider
 
   @$internal
   @override
-  $ProviderElement<TripOriginItem<MapRouteOrigin>?> $createElement(
+  $ProviderElement<TripStartItem<MapRouteOrigin>?> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  TripOriginItem<MapRouteOrigin>? create(Ref ref) {
+  TripStartItem<MapRouteOrigin>? create(Ref ref) {
     final argument = this.argument as (TripId, MapCameraReader);
     return sketchOriginItem(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(TripOriginItem<MapRouteOrigin>? value) {
+  Override overrideWithValue(TripStartItem<MapRouteOrigin>? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<TripOriginItem<MapRouteOrigin>?>(
+      providerOverride: $SyncValueProvider<TripStartItem<MapRouteOrigin>?>(
         value,
       ),
     );
@@ -93,7 +93,7 @@ String _$sketchOriginItemHash() => r'c35c9c44075eeeb3059fdeec05951d0ceba11ad0';
 final class SketchOriginItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
-          TripOriginItem<MapRouteOrigin>?,
+          TripStartItem<MapRouteOrigin>?,
           (TripId, MapCameraReader)
         > {
   SketchOriginItemFamily._()

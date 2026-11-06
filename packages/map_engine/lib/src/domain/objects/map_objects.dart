@@ -6,7 +6,7 @@ part "user_location_objects.dart";
 part "trip_object.dart";
 part "route/route_section.dart";
 part "waypoint_objects.dart";
-part "route/trip_origin.dart";
+part "route/trip_start.dart";
 part "route/trip_end.dart";
 part "route/mobility_badge.dart";
 
@@ -39,6 +39,6 @@ extension HitObjectRouteElementstoAnchor on HitObject<RouteElements> {
       sectionId: t.id,
     ),
     MapTripEnd _ => EndRouteAnchor(),
-    MapTripOrigin() => StartRouteAnchor(),
+    MapTripStart() => StartRouteAnchor(),
   };
 }

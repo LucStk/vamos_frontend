@@ -93,7 +93,7 @@ class SketchEdition extends TripMode {
 
   /// Depuis le menu ouvert sur l'origine de la route : passe en édition de
   /// tracé, ancré au départ de la route.
-  static Transition startFromOrigin(HitObject<MapTripOrigin> hit) =>
+  static Transition startFromOrigin(HitObject<MapTripStart> hit) =>
       Transition.to(SketchEdition(hit.object.tripId)).and(
         sketchTraceSlot,
         SketchTrace(startAnchor: hit, points: [hit.point]),

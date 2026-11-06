@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'trip_origin_item_provider.dart';
+part of 'trip_start_item_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -10,18 +10,18 @@ part of 'trip_origin_item_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(tripOriginItem)
-final tripOriginItemProvider = TripOriginItemFamily._();
+final tripOriginItemProvider = TripStartItemFamily._();
 
-final class TripOriginItemProvider
+final class TripStartItemProvider
     extends
         $FunctionalProvider<
-          TripOriginItem<MapRouteOrigin>?,
-          TripOriginItem<MapRouteOrigin>?,
-          TripOriginItem<MapRouteOrigin>?
+          TripStartItem<MapRouteOrigin>?,
+          TripStartItem<MapRouteOrigin>?,
+          TripStartItem<MapRouteOrigin>?
         >
-    with $Provider<TripOriginItem<MapRouteOrigin>?> {
-  TripOriginItemProvider._({
-    required TripOriginItemFamily super.from,
+    with $Provider<TripStartItem<MapRouteOrigin>?> {
+  TripStartItemProvider._({
+    required TripStartItemFamily super.from,
     required (TripId, MapCameraReader) super.argument,
   }) : super(
          retry: null,
@@ -43,21 +43,21 @@ final class TripOriginItemProvider
 
   @$internal
   @override
-  $ProviderElement<TripOriginItem<MapRouteOrigin>?> $createElement(
+  $ProviderElement<TripStartItem<MapRouteOrigin>?> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  TripOriginItem<MapRouteOrigin>? create(Ref ref) {
+  TripStartItem<MapRouteOrigin>? create(Ref ref) {
     final argument = this.argument as (TripId, MapCameraReader);
     return tripOriginItem(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(TripOriginItem<MapRouteOrigin>? value) {
+  Override overrideWithValue(TripStartItem<MapRouteOrigin>? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<TripOriginItem<MapRouteOrigin>?>(
+      providerOverride: $SyncValueProvider<TripStartItem<MapRouteOrigin>?>(
         value,
       ),
     );
@@ -65,7 +65,7 @@ final class TripOriginItemProvider
 
   @override
   bool operator ==(Object other) {
-    return other is TripOriginItemProvider && other.argument == argument;
+    return other is TripStartItemProvider && other.argument == argument;
   }
 
   @override
@@ -76,13 +76,13 @@ final class TripOriginItemProvider
 
 String _$tripOriginItemHash() => r'36e741ae332cfc43b2f3dc43494a4c47a1f4e663';
 
-final class TripOriginItemFamily extends $Family
+final class TripStartItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
-          TripOriginItem<MapRouteOrigin>?,
+          TripStartItem<MapRouteOrigin>?,
           (TripId, MapCameraReader)
         > {
-  TripOriginItemFamily._()
+  TripStartItemFamily._()
     : super(
         retry: null,
         name: r'tripOriginItemProvider',
@@ -91,8 +91,8 @@ final class TripOriginItemFamily extends $Family
         isAutoDispose: false,
       );
 
-  TripOriginItemProvider call(TripId tripId, MapCameraReader camera) =>
-      TripOriginItemProvider._(argument: (tripId, camera), from: this);
+  TripStartItemProvider call(TripId tripId, MapCameraReader camera) =>
+      TripStartItemProvider._(argument: (tripId, camera), from: this);
 
   @override
   String toString() => r'tripOriginItemProvider';

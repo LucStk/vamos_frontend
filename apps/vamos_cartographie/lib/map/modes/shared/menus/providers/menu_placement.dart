@@ -5,7 +5,7 @@
 // import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 // import 'package:vamos_cartographie/map/mode_machine/map_mode.dart';
 // import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_end_item_provider.dart';
-// import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_origin_item_provider.dart';
+// import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_start_item_provider.dart';
 // import 'package:vamos_cartographie/map/modes/shared/providers/items/waypoint_item_provider.dart';
 // import 'package:vamos_cartographie/map/modes/sketch_mode/providers/pencil_item_provider.dart';
 // part 'menu_placement.g.dart';
@@ -30,7 +30,7 @@
 //     PencilMapAnchor() => ref.watch(pencilItemProvider(camera))?.worldPosition,
 //     TripOriginMapAnchor t => switch (t.object) {
 //       MapTmpOrigin _ => ref.watch(tmpOriginItemProvider(camera))?.worldPosition,
-//       MapTripOrigin m =>
+//       MapTripStart m =>
 //         ref.watch(tripOriginItemProvider(m.tripId, camera))?.worldPosition,
 //     },
 //     TripEndMapAnchor(:final object) =>

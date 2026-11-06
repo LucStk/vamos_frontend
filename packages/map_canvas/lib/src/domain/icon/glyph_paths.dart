@@ -34,18 +34,16 @@ Path parseGlyph(IconGlyph g) {
 // map_canvas/lib/src/domain/icon/glyph_paths.dart
 abstract final class GlyphPaths {
   static final _raw = <String, Path>{};
-  static final _scaled = <(String, double), Path>{};
+  static final _scaled = <(String, Offset?, double), Path>{};
 
   /// Chemin en px, centré sur (0,0), inscrit dans un carré de [sizePx].
-  static Path centered(IconGlyph g, {required double sizePx}) =>
-      _scaled.putIfAbsent((g.d, sizePx), () {
+  static Path anchored(IconGlyph g, {required double sizePx}) =>
+      _scaled.putIfAbsent((g.d, g.anchor, sizePx), () {
         final raw = _raw.putIfAbsent(g.d, () => parseGlyph(g));
-        final vb = g.viewBox;
-        final s = sizePx / vb.width;
+        final a = g.anchor ?? g.viewBox.center;
+        final s = sizePx / g.viewBox.width;
         final m = Matrix4.identity()
-          ..translateByVector2(
-            Vector2(-s * vb.left - sizePx / 2, -s * vb.top - sizePx / 2),
-          )
+          ..translateByVector2(Vector2(-s * a.dx, -s * a.dy))
           ..scaleByVector3(Vector3(s, s, 0));
         return raw.transform(m.storage);
       });

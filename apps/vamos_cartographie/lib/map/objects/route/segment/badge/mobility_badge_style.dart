@@ -79,7 +79,7 @@ abstract final class MobilityBadgeStyle {
       ),
       DrawAnchoredPath(
         anchor: anchor,
-        path: GlyphPaths.centered(glyph, sizePx: glyphPx),
+        path: GlyphPaths.anchored(glyph, sizePx: glyphPx),
         style: _glyphStyle(glyph, _white, sizePx: glyphPx),
       ),
     ]);

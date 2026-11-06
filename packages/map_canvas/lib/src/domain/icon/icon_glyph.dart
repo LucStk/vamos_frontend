@@ -10,12 +10,14 @@ final class IconGlyph {
     this.viewBox = const Rect.fromLTWH(0, 0, 24, 24),
     this.paint = const GlyphFill(),
     this.fillType = PathFillType.nonZero,
+    this.anchor,
   });
 
   final String d;
   final Rect viewBox;
   final GlyphPaint paint;
   final PathFillType fillType;
+  final Offset? anchor;
 }
 
 sealed class GlyphPaint {

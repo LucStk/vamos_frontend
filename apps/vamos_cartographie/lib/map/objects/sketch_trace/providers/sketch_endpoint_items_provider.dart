@@ -28,7 +28,7 @@ bool _pencilStillOn<T extends RouteElements>(
 /// Icône de départ de la route, absente tant que le crayon parti d'elle ne
 /// l'a pas quittée.
 @Riverpod(keepAlive: true, dependencies: [modeSlot])
-TripOriginItem? sketchOriginItem(
+TripStartItem? sketchOriginItem(
   Ref ref,
   TripId tripId,
   MapCameraReader camera,
@@ -42,7 +42,7 @@ TripOriginItem? sketchOriginItem(
   final hidden = ref.watch(
     modeSlotProvider(
       sketchTraceSlot,
-    ).select((m) => _pencilStillOn<MapTripOrigin>(m, item, zoom)),
+    ).select((m) => _pencilStillOn<MapTripStart>(m, item, zoom)),
   );
   return hidden ? null : item;
 }
