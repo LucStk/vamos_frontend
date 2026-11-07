@@ -67,4 +67,32 @@ class UserProfileRepository {
     // };
     // });
   }
+
+  Future<Either<Failure, List<UserProfile>>> getFollowers(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.getFollowers(userId);
+      return d.map((m) => m.toUserProfileModel()).toList();
+    });
+  }
+
+  Future<Either<Failure, List<UserProfile>>> getFollowing(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.getFollowing(userId);
+      return d.map((m) => m.toUserProfileModel()).toList();
+    });
+  }
+
+  Future<Either<Failure, UserProfile>> followUser(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.followUser(userId);
+      return d.toUserProfileModel();
+    });
+  }
+
+  Future<Either<Failure, UserProfile>> unfollowUser(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.unfollowUser(userId);
+      return d.toUserProfileModel();
+    });
+  }
 }

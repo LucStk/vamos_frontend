@@ -1,4 +1,4 @@
-export '__generated__/trip_fields.ast.gql.dart' hide document;
+export '__generated__/trip_fields.ast.gql.dart' hide document, TripSummary;
 export '__generated__/trip_fields.data.gql.dart';
 export '__generated__/trip_fields.req.gql.dart';
 

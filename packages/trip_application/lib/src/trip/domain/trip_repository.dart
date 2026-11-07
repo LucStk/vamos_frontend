@@ -14,4 +14,7 @@ abstract class TripRepository {
   Future<Either<Failure, void>> deleteTrip(TripId id);
   Future<Either<Failure, Trip>> createBlankTrip(LatLng latLng);
   Future<Either<Failure, void>> setTripOrigin(Id<Trip> id, LatLng origin);
+  Future<Either<Failure, List<TripSummary>>> getFavoriteTrips(UserId userId);
+  Future<Either<Failure, void>> addFavorite(TripId tripId);
+  Future<Either<Failure, void>> removeFavorite(TripId tripId);
 }

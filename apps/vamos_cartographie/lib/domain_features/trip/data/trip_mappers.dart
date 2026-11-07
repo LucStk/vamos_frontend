@@ -5,6 +5,7 @@ import 'package:user_profile_application/domain/domain.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/route_mappers.dart';
+import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
 
 /// ---------------------------------------------------------------------------
@@ -19,6 +20,10 @@ extension GTripFieldsMapper on GTripSummary {
     description: description,
     date: date == null ? null : DateTime.parse(date!),
     // bounds: bounds == null ? null : (bounds as List<dynamic>).toDomain(),
+  );
+  TripSummary toTripSummary() => TripSummary(
+    trip: toDomain(),
+    storedFiles: files.map((m) => m.toDomain()).toList(),
   );
 }
 

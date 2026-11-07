@@ -85,3 +85,79 @@ class GUpdateProfileVars {
     return 'GUpdateProfileVars(input: $input)';
   }
 }
+
+class GFollowUserVars {
+  const GFollowUserVars({required this.userId});
+
+  factory GFollowUserVars.fromJson(Map<String, dynamic> json) {
+    return GFollowUserVars(userId: (json['userId'] as String));
+  }
+
+  final String userId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$userIdValue = this.userId;
+    _$result['userId'] = _$userIdValue;
+    return _$result;
+  }
+
+  GFollowUserVars copyWith({String? userId}) {
+    return GFollowUserVars(userId: userId ?? this.userId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GFollowUserVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GFollowUserVars(userId: $userId)';
+  }
+}
+
+class GUnFollowUserVars {
+  const GUnFollowUserVars({required this.userId});
+
+  factory GUnFollowUserVars.fromJson(Map<String, dynamic> json) {
+    return GUnFollowUserVars(userId: (json['userId'] as String));
+  }
+
+  final String userId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$userIdValue = this.userId;
+    _$result['userId'] = _$userIdValue;
+    return _$result;
+  }
+
+  GUnFollowUserVars copyWith({String? userId}) {
+    return GUnFollowUserVars(userId: userId ?? this.userId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUnFollowUserVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GUnFollowUserVars(userId: $userId)';
+  }
+}

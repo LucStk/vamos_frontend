@@ -43,3 +43,79 @@ class GGetUserVars {
     return 'GGetUserVars(userId: $userId)';
   }
 }
+
+class GGetFollowersVars {
+  const GGetFollowersVars({required this.userId});
+
+  factory GGetFollowersVars.fromJson(Map<String, dynamic> json) {
+    return GGetFollowersVars(userId: (json['userId'] as String));
+  }
+
+  final String userId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$userIdValue = this.userId;
+    _$result['userId'] = _$userIdValue;
+    return _$result;
+  }
+
+  GGetFollowersVars copyWith({String? userId}) {
+    return GGetFollowersVars(userId: userId ?? this.userId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetFollowersVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GGetFollowersVars(userId: $userId)';
+  }
+}
+
+class GGetFollowingVars {
+  const GGetFollowingVars({required this.userId});
+
+  factory GGetFollowingVars.fromJson(Map<String, dynamic> json) {
+    return GGetFollowingVars(userId: (json['userId'] as String));
+  }
+
+  final String userId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$userIdValue = this.userId;
+    _$result['userId'] = _$userIdValue;
+    return _$result;
+  }
+
+  GGetFollowingVars copyWith({String? userId}) {
+    return GGetFollowingVars(userId: userId ?? this.userId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetFollowingVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GGetFollowingVars(userId: $userId)';
+  }
+}

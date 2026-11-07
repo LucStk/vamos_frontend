@@ -3,6 +3,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
+    as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
     as _i1;
 
@@ -177,5 +179,117 @@ class GGetUserData {
   @override
   String toString() {
     return 'GGetUserData(user: $user, G__typename: $G__typename)';
+  }
+}
+
+class GGetFollowersData {
+  const GGetFollowersData({
+    required this.followers,
+    this.G__typename = 'Query',
+  });
+
+  factory GGetFollowersData.fromJson(Map<String, dynamic> json) {
+    return GGetFollowersData(
+      followers: (json['followers'] as List<dynamic>)
+          .map((_$e) => _i1.GUserProfileDetailsData.fromJson(
+              (_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<_i1.GUserProfileDetailsData> followers;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['followers'] = this.followers.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetFollowersData copyWith({
+    List<_i1.GUserProfileDetailsData>? followers,
+    String? G__typename,
+  }) {
+    return GGetFollowersData(
+      followers: followers ?? this.followers,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetFollowersData &&
+            _gqlUtils.listEquals(followers, other.followers) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.listHash(followers), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetFollowersData(followers: $followers, G__typename: $G__typename)';
+  }
+}
+
+class GGetFollowingData {
+  const GGetFollowingData({
+    required this.following,
+    this.G__typename = 'Query',
+  });
+
+  factory GGetFollowingData.fromJson(Map<String, dynamic> json) {
+    return GGetFollowingData(
+      following: (json['following'] as List<dynamic>)
+          .map((_$e) => _i1.GUserProfileDetailsData.fromJson(
+              (_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<_i1.GUserProfileDetailsData> following;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['following'] = this.following.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetFollowingData copyWith({
+    List<_i1.GUserProfileDetailsData>? following,
+    String? G__typename,
+  }) {
+    return GGetFollowingData(
+      following: following ?? this.following,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetFollowingData &&
+            _gqlUtils.listEquals(following, other.following) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.listHash(following), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetFollowingData(following: $following, G__typename: $G__typename)';
   }
 }

@@ -128,4 +128,28 @@ class TripRepositoryImpl extends TripRepository {
       await remote.setTripOrigin(id: id, origin: origin);
     });
   }
+
+  @override
+  Future<Either<Failure, List<TripSummary>>> getFavoriteTrips(UserId userId) {
+    return guard(() async {
+      final res = await remote.getUserSavedTrips(userId);
+      return res.map((m) => m.toTripSummary()).toList();
+    });
+  }
+
+  @override
+  Future<Either<Failure, TripSummary>> addFavorite(TripId tripId) {
+    return guard(() async {
+      final res = await remote.saveTrip(tripId);
+      return res.toTripSummary();
+    });
+  }
+
+  @override
+  Future<Either<Failure, TripSummary>> removeFavorite(TripId tripId) {
+    return guard(() async {
+      final res = await remote.unSaveTrip(tripId);
+      return res.toTripSummary();
+    });
+  }
 }

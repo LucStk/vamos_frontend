@@ -24,6 +24,20 @@ class UserProfileDatasource {
     return data.user;
   }
 
+  Future<List<GUserProfileDetailsData>> getFollowers(UserId userId) async {
+    final data = await ferryClient.execute(
+      GGetFollowersReq(vars: GGetFollowersVars(userId: userId.value)),
+    );
+    return data.followers;
+  }
+
+  Future<List<GUserProfileDetailsData>> getFollowing(UserId userId) async {
+    final data = await ferryClient.execute(
+      GGetFollowingReq(vars: GGetFollowingVars(userId: userId.value)),
+    );
+    return data.following;
+  }
+
   Future<GCreateProfileResult> createProfile(String profileName) async {
     final response = await ferryClient.execute(
       GCreateProfileReq(vars: GCreateProfileVars(profileName: profileName)),
@@ -49,5 +63,19 @@ class UserProfileDatasource {
       ),
     );
     return data.updateProfile;
+  }
+
+  Future<GUserProfileDetailsData> followUser(UserId userId) async {
+    final data = await ferryClient.execute(
+      GFollowUserReq(vars: GFollowUserVars(userId: userId.value)),
+    );
+    return data.followUser;
+  }
+
+  Future<GUserProfileDetailsData> unfollowUser(UserId userId) async {
+    final data = await ferryClient.execute(
+      GUnFollowUserReq(vars: GUnFollowUserVars(userId: userId.value)),
+    );
+    return data.unfollowUser;
   }
 }

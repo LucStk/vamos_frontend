@@ -27,3 +27,14 @@ query GetUserTripsSummary($id : UUID!) {
         ...TripSummary
     }
 }
+
+query GetMeSavedTrips() {
+    meSavedTrips() {
+        ...TripSummary
+    }
+}
+query GetUserSavedTrips($userId : UUID!) {
+    userSavedTrips(userId : $userId) {
+        ...TripSummary
+    }
+}

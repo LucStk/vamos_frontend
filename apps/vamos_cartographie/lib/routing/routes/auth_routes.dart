@@ -40,6 +40,7 @@ class UserProfileRoute extends GoRouteData with $UserProfileRoute {
             apply(TripMode.open(id));
             _backToMap(context);
           },
+          onOpenUser: (UserId userId) => UserProfileRoute(userId.value),
         );
       },
     );
@@ -66,6 +67,7 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
             apply(TripMode.open(id));
             _backToMap(context);
           },
+          onOpenUser: (UserId userId) => UserProfileRoute(userId.value),
         );
       },
     );

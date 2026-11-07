@@ -282,3 +282,119 @@ class GGetUserTripsSummaryData {
     return 'GGetUserTripsSummaryData(userTrips: $userTrips, G__typename: $G__typename)';
   }
 }
+
+class GGetMeSavedTripsData {
+  const GGetMeSavedTripsData({
+    required this.meSavedTrips,
+    this.G__typename = 'Query',
+  });
+
+  factory GGetMeSavedTripsData.fromJson(Map<String, dynamic> json) {
+    return GGetMeSavedTripsData(
+      meSavedTrips: (json['meSavedTrips'] as List<dynamic>)
+          .map((_$e) =>
+              _i1.GTripSummaryData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<_i1.GTripSummaryData> meSavedTrips;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['meSavedTrips'] =
+        this.meSavedTrips.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetMeSavedTripsData copyWith({
+    List<_i1.GTripSummaryData>? meSavedTrips,
+    String? G__typename,
+  }) {
+    return GGetMeSavedTripsData(
+      meSavedTrips: meSavedTrips ?? this.meSavedTrips,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetMeSavedTripsData &&
+            _gqlUtils.listEquals(meSavedTrips, other.meSavedTrips) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType, _gqlUtils.listHash(meSavedTrips), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetMeSavedTripsData(meSavedTrips: $meSavedTrips, G__typename: $G__typename)';
+  }
+}
+
+class GGetUserSavedTripsData {
+  const GGetUserSavedTripsData({
+    required this.userSavedTrips,
+    this.G__typename = 'Query',
+  });
+
+  factory GGetUserSavedTripsData.fromJson(Map<String, dynamic> json) {
+    return GGetUserSavedTripsData(
+      userSavedTrips: (json['userSavedTrips'] as List<dynamic>)
+          .map((_$e) =>
+              _i1.GTripSummaryData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<_i1.GTripSummaryData> userSavedTrips;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['userSavedTrips'] =
+        this.userSavedTrips.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GGetUserSavedTripsData copyWith({
+    List<_i1.GTripSummaryData>? userSavedTrips,
+    String? G__typename,
+  }) {
+    return GGetUserSavedTripsData(
+      userSavedTrips: userSavedTrips ?? this.userSavedTrips,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetUserSavedTripsData &&
+            _gqlUtils.listEquals(userSavedTrips, other.userSavedTrips) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType, _gqlUtils.listHash(userSavedTrips), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GGetUserSavedTripsData(userSavedTrips: $userSavedTrips, G__typename: $G__typename)';
+  }
+}

@@ -12,11 +12,13 @@ class ViewerProfilePage extends ConsumerWidget {
     super.key,
     required this.userId,
     required this.onOpenTrip,
+    required this.onOpenUser,
   });
 
   final UserId userId;
 
   final ValueChanged<TripId> onOpenTrip;
+  final ValueChanged<UserId> onOpenUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,6 +31,7 @@ class ViewerProfilePage extends ConsumerWidget {
         AsyncError() => const _ProfileError(),
         AsyncData(value: null) => const _ProfileError(),
         AsyncData(value: final profile) => ProfileContent.viewer(
+          onOpenUser: onOpenUser,
           profile: profile!,
           onOpenTrip: (trip) => onOpenTrip(trip.id),
         ),
