@@ -5,12 +5,12 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/on_boarding/create_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/edit_profile_page.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content_view.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
 import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
-class MeProfilePage extends ConsumerWidget {
-  const MeProfilePage({
+class EditorProfilePage extends ConsumerWidget {
+  const EditorProfilePage({
     super.key,
     required this.onCreateTrip,
     required this.onOpenTrip,
@@ -35,7 +35,7 @@ class MeProfilePage extends ConsumerWidget {
       AsyncData(value: final me) when me!.profile == null =>
         const CreateProfilePage(),
 
-      AsyncData(value: final me) => ProfileContentView(
+      AsyncData(value: final me) => ProfileContent.editor(
         profile: me!.profile!,
         onCreateTrip: onCreateTrip,
         onEditProfile: () {

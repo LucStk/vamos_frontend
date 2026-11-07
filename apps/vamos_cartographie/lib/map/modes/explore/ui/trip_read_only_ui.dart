@@ -13,6 +13,8 @@ import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_viewer_co
 import 'package:vamos_cartographie/map/ui/chrome/floating_header_card.dart';
 import 'package:vamos_cartographie/map/ui/chrome/profile_capsule.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/routing/app_router.dart';
+import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class TripReadOnlyUi extends ConsumerWidget {
@@ -35,7 +37,12 @@ class TripReadOnlyUi extends ConsumerWidget {
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: FloatingHeaderCard(
-                    profileCapsule: ProfileCapsule(profil: userProfile),
+                    profileCapsule: ProfileCapsule(
+                      onTap: () =>
+                          UserProfileRoute(trip.ownerId.value).go(context),
+
+                      profil: userProfile,
+                    ),
                     child: TripHeader(
                       title: trip.title,
                       canEdit: false,

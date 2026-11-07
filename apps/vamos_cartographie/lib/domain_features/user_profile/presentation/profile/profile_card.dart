@@ -4,15 +4,16 @@ import 'package:user_profile_application/domain/user_profile_model.dart';
 import '../account/profile_actions_section.dart';
 import 'profile_header_view.dart';
 
-class ProfileSection extends StatelessWidget {
-  const ProfileSection({
-    super.key,
-    required this.profile,
-    required this.onEdit,
-  });
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({super.key, required this.profile, this.onEdit});
 
   final UserProfile profile;
-  final VoidCallback onEdit;
+
+  /// `null` = profil d'un autre utilisateur (lecture seule) :
+  /// ni bouton de modification, ni actions du compte.
+  final VoidCallback? onEdit;
+
+  bool get _isEditable => onEdit != null;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +38,11 @@ class ProfileSection extends StatelessWidget {
                   children: [
                     // Padding symétrique : réserve la place du bouton des
                     // deux côtés, donc le header reste parfaitement centré.
+                    // Inutile s'il n'y a pas de bouton.
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: _isEditable ? 40 : 0,
+                      ),
                       child: Center(child: ProfileHeader(profile: profile)),
                     ),
                     const SizedBox(height: 12),
@@ -55,26 +59,29 @@ class ProfileSection extends StatelessWidget {
                         fontSize: 13,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Align(
-                      alignment: Alignment.center,
-                      child: ProfileActionsSection(),
-                    ),
+                    if (_isEditable) ...[
+                      const SizedBox(height: 16),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: ProfileActionsSection(),
+                      ),
+                    ],
                   ],
                 ),
               ),
 
               // Bouton modifier par-dessus, hors du flux : il ne décale rien.
-              Positioned(
-                top: 4,
-                right: 4,
-                child: IconButton(
-                  tooltip: 'Modifier le profil',
-                  visualDensity: VisualDensity.compact,
-                  icon: const Icon(Icons.edit_outlined),
-                  onPressed: onEdit,
+              if (_isEditable)
+                Positioned(
+                  top: 4,
+                  right: 4,
+                  child: IconButton(
+                    tooltip: 'Modifier le profil',
+                    visualDensity: VisualDensity.compact,
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: onEdit,
+                  ),
                 ),
-              ),
             ],
           ),
         ),

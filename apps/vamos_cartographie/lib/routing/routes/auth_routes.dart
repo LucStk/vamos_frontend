@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/auth/presentation/login_page.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/me_profile_page.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/user_profile_page.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/editor_profile_page.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/viewer_profile_page.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
 
 part 'auth_routes.g.dart';
@@ -28,8 +28,22 @@ class UserProfileRoute extends GoRouteData with $UserProfileRoute {
   final String userId;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      UserProfilePage(userId: UserId(userId));
+  Widget build(BuildContext context, GoRouterState state) {
+    return Consumer(
+      builder: (context, ref, _) {
+        void apply(Transition t) =>
+            ref.read(appModeMachineProvider.notifier).apply(t);
+
+        return ViewerProfilePage(
+          userId: UserId(userId),
+          onOpenTrip: (id) {
+            apply(TripMode.open(id));
+            _backToMap(context);
+          },
+        );
+      },
+    );
+  }
 }
 
 @TypedGoRoute<ProfileRoute>(path: '/profile')
@@ -43,7 +57,7 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
         void apply(Transition t) =>
             ref.read(appModeMachineProvider.notifier).apply(t);
 
-        return MeProfilePage(
+        return EditorProfilePage(
           onCreateTrip: () {
             apply(Transition.to(PlaceNewTripOrigin()));
             _backToMap(context);
