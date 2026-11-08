@@ -9,8 +9,8 @@ class RoutePayload {
     required this.editSpans,
   });
   final RouteRemoteModel route;
-  final List<MobilitySpanRemoteModel> mobilitySpans;
-  final List<EditSpan> editSpans;
+  final Iterable<MobilitySpanRemoteModel> mobilitySpans;
+  final Iterable<EditSpan> editSpans;
 }
 
 class EditRoutePayload {

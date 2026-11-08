@@ -61,8 +61,4 @@ final class _TripScope implements TripScope {
   @override
   void patchRoute(RoutePatchModel value) =>
       _ref.read(routeStoreProvider(tripId).notifier).patchRoute(value);
-
-  @override
-  RouteSectionFields? section(SectionId id) =>
-      _ref.read(routeStoreProvider(tripId)).sectionStore.get(id)?.current;
 }

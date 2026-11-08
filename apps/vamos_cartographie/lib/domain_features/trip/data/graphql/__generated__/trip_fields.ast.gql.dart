@@ -113,7 +113,7 @@ const TripFull = _i1.FragmentDefinitionNode(
       directives: [],
     ),
     _i1.FragmentSpreadNode(
-      name: _i1.NameNode(value: 'TripRoute'),
+      name: _i1.NameNode(value: 'TripRouteEditing'),
       directives: [],
     ),
     _i1.FieldNode(

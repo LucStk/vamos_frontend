@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart' hide id;
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/core/mappers/geometry_mappers/geo_polygon_dto.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/graphql.dart';

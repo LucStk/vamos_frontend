@@ -24,5 +24,5 @@ abstract class TripScope {
   WaypointEditor get waypointEditor;
   RouteFields? get route;
   void patchRoute(RoutePatchModel value);
-  RouteSpanFields? section(SpanId id);
+  // RouteSpanFields? section(SpanId id);
 }

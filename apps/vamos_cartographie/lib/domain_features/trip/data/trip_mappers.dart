@@ -5,6 +5,7 @@ import 'package:user_profile_application/domain/domain.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/route_mappers.dart';
+import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
 
 /// ---------------------------------------------------------------------------
@@ -38,11 +39,14 @@ extension GTripWithRouteFieldsMapper on GTripFull {
   RouteRemoteModel toRouteDomain() => RouteRemoteModel(
     id: Id<Trip>(id),
     geometry: route.map((m) => m.toLatLng()).toList(),
-    bounds: bounds?.toBounds(),
+    bounds: bounds?.toMapBounds(),
     startPoint: startPoint.toLatLng(),
   );
-  Iterable<RouteSectionRemoteModel> toSections() =>
-      sections.map((m) => m.toDomain());
+  RoutePayload toRoutePayload() => RoutePayload(
+    route: toRouteDomain(),
+    mobilitySpans: mobilitySpans.map((m) => m.toMobilityDomain()),
+    editSpans: editSpans.map((m) => m.toEditSpanDomain()),
+  );
 }
 
 /// ---------------------------------------------------------------------------

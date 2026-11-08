@@ -71,7 +71,7 @@ final class AllSegmentItemProvider
   }
 }
 
-String _$allSegmentItemHash() => r'da98e940d373e8d2f237d3141e9e31f0cef60e96';
+String _$allSegmentItemHash() => r'3fac6162b2614ea4b7970925695bfd29ec104440';
 
 /// Couche « segments » d'un trajet : agrège les items de toutes ses sections.
 

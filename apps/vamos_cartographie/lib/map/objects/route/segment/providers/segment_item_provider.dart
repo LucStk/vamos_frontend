@@ -15,13 +15,15 @@ part 'segment_item_provider.g.dart';
 SegmentItem? segmentItem(
   Ref ref,
   TripId tripId,
-  SpanId id,
+  MobilitySpanId id,
   MapCameraReader cameraReader,
 ) {
   final mobilityType = ref.watch(
     mobilitySpanProvider(tripId, id).select((m) => m.mobilityType),
   );
-  final range = ref.watch(sectionRangesProvider(tripId).select((m) => m[id]));
+  final range = ref.watch(
+    mobilitySpanRangesProvider(tripId).select((m) => m[id]),
+  );
   final geometry = ref.watch(
     routeStoreProvider(tripId).select((s) => s.route?.current.geometry),
   );

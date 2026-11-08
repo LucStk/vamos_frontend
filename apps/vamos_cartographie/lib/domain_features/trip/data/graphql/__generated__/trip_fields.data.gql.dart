@@ -139,10 +139,12 @@ abstract class GTripFull {
   _i4.GLatLng get startPoint;
   List<_i4.GLatLng> get route;
   List<_i3.GMobilitySpan> get mobilitySpans;
+  List<_i3.GEditSpan> get editSpans;
   List<_i5.GWaypointDetails> get waypoints;
 }
 
-class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
+class GTripFullData
+    implements GTripFull, GTripSummary, _i3.GTripRoute, _i3.GTripRouteEditing {
   const GTripFullData({
     required this.id,
     required this.title,
@@ -156,6 +158,7 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
     required this.startPoint,
     required this.route,
     required this.mobilitySpans,
+    required this.editSpans,
     required this.waypoints,
   });
 
@@ -186,6 +189,10 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
       mobilitySpans: (json['mobilitySpans'] as List<dynamic>)
           .map((_$e) =>
               _i3.GMobilitySpanData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      editSpans: (json['editSpans'] as List<dynamic>)
+          .map((_$e) =>
+              _i3.GEditSpanData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
@@ -218,6 +225,8 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
 
   final List<_i3.GMobilitySpanData> mobilitySpans;
 
+  final List<_i3.GEditSpanData> editSpans;
+
   final List<_i5.GWaypointDetailsData> waypoints;
 
   Map<String, dynamic> toJson() {
@@ -239,6 +248,7 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
     _$result['mobilitySpans'] =
         this.mobilitySpans.map((_$e) => _$e.toJson()).toList();
+    _$result['editSpans'] = this.editSpans.map((_$e) => _$e.toJson()).toList();
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     return _$result;
   }
@@ -259,6 +269,7 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
     _i4.GLatLngData? startPoint,
     List<_i4.GLatLngData>? route,
     List<_i3.GMobilitySpanData>? mobilitySpans,
+    List<_i3.GEditSpanData>? editSpans,
     List<_i5.GWaypointDetailsData>? waypoints,
   }) {
     return GTripFullData(
@@ -276,6 +287,7 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
       startPoint: startPoint ?? this.startPoint,
       route: route ?? this.route,
       mobilitySpans: mobilitySpans ?? this.mobilitySpans,
+      editSpans: editSpans ?? this.editSpans,
       waypoints: waypoints ?? this.waypoints,
     );
   }
@@ -296,6 +308,7 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
             startPoint == other.startPoint &&
             _gqlUtils.listEquals(route, other.route) &&
             _gqlUtils.listEquals(mobilitySpans, other.mobilitySpans) &&
+            _gqlUtils.listEquals(editSpans, other.editSpans) &&
             _gqlUtils.listEquals(waypoints, other.waypoints));
   }
 
@@ -315,11 +328,12 @@ class GTripFullData implements GTripFull, GTripSummary, _i3.GTripRoute {
         startPoint,
         _gqlUtils.listHash(route),
         _gqlUtils.listHash(mobilitySpans),
+        _gqlUtils.listHash(editSpans),
         _gqlUtils.listHash(waypoints));
   }
 
   @override
   String toString() {
-    return 'GTripFullData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, mobilitySpans: $mobilitySpans, waypoints: $waypoints)';
+    return 'GTripFullData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, mobilitySpans: $mobilitySpans, editSpans: $editSpans, waypoints: $waypoints)';
   }
 }

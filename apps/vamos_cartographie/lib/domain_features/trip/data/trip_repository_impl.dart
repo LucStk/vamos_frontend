@@ -27,13 +27,13 @@ class TripRepositoryImpl extends TripRepository {
         final trip = gqlTrip.toTripDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
         final userProfile = gqlTrip.owner.toUserProfileModel();
-        final route = gqlTrip.toRouteDomain();
-        final sections = gqlTrip.toSections();
+        final routePayload = gqlTrip.toRoutePayload();
         return TripBundle(
           user: userProfile,
           tripSummary: TripSummary(trip: trip, storedFiles: images),
-          route: route,
-          routeSections: sections,
+          route: routePayload.route,
+          editSpans: routePayload.editSpans,
+          mobilitySpans: routePayload.mobilitySpans,
         );
       }).toList();
     });
@@ -46,13 +46,13 @@ class TripRepositoryImpl extends TripRepository {
       final trip = data.toTripDomain();
       final images = data.files.map((file) => file.toDomain()).toList();
       final userProfile = data.owner.toUserProfileModel();
-      final route = data.toRouteDomain();
-      final sections = data.toSections();
+      final route = data.toRoutePayload();
       return TripBundle(
         user: userProfile,
         tripSummary: TripSummary(trip: trip, storedFiles: images),
-        route: route,
-        routeSections: sections,
+        route: route.route,
+        editSpans: route.editSpans,
+        mobilitySpans: route.mobilitySpans,
       );
     });
   }
