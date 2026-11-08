@@ -35,6 +35,15 @@ const RefineSection = _i1.OperationDefinitionNode(
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
     ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'basedOn')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
   ],
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -49,6 +58,10 @@ const RefineSection = _i1.OperationDefinitionNode(
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'sectionId'),
           value: _i1.VariableNode(name: _i1.NameNode(value: 'sectionId')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'basedOn'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'basedOn')),
         ),
       ],
       directives: [],
@@ -106,6 +119,15 @@ const SetSectionMobility = _i1.OperationDefinitionNode(
       defaultValue: _i1.DefaultValueNode(value: null),
       directives: [],
     ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'basedOn')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
   ],
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
@@ -124,6 +146,134 @@ const SetSectionMobility = _i1.OperationDefinitionNode(
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'mobilityType'),
           value: _i1.VariableNode(name: _i1.NameNode(value: 'mobilityType')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'basedOn'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'basedOn')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'EditRouteResult'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const SetRangeMobility = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'SetRangeMobility'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RangeMobilityInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'setRangeMobility'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'tripId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'EditRouteResult'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const MoveMobilityBoundary = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'MoveMobilityBoundary'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MoveMobilityBoundaryInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'moveMobilityBoundary'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'tripId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'tripId')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
         ),
       ],
       directives: [],
@@ -153,9 +303,15 @@ const SetSectionMobility = _i1.OperationDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   RefineSection,
   SetSectionMobility,
-  _i2.RouteSection,
-  _i2.PreviewSection,
+  SetRangeMobility,
+  MoveMobilityBoundary,
+  _i2.MobilitySpan,
+  _i2.Bounds,
+  _i2.EditSpan,
+  _i2.PreviewMobilitySpan,
+  _i2.PreviewEditSpan,
   _i2.TripRoute,
+  _i2.TripRouteEditing,
   _i2.EditRouteResult,
   _i2.RoutePreviewResult,
   _i3.LatLng,

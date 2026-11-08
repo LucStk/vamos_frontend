@@ -1,22 +1,27 @@
 #import "route_fields.graphql"
 
-# Prolonge la route depuis sa dernière extrémité avec un tracé à main levé.
-# Ou : création d'une nouvelle route depuis le premier point
+# Applique un tracé à la route. Le serveur déduit l'opération des ancres :
+# création (sans route), prolongement, ajout avant le départ, remplacement
+# d'une portion ou suppression (voir EditRouteInput).
 mutation EditRoute($tripId: UUID!, $input: EditRouteInput!) {
     editRoute(tripId: $tripId, input: $input) {
         ...EditRouteResult
     }
 }
+
+# Même calcul qu'EditRoute, sans modifier le trip. À rappeler à chaque ajustement.
 mutation PreviewRouteEdit($tripId: UUID!, $input: EditRouteInput!) {
     previewRouteEdit(tripId: $tripId, input: $input) {
         ...RoutePreviewResult
     }
 }
+
 mutation CommitRouteEdit($tripId: UUID!, $proposalId: UUID!) {
     commitRouteEdit(tripId: $tripId, proposalId: $proposalId) {
         ...EditRouteResult
     }
 }
+
 mutation DiscardRouteProposal($tripId: UUID!) {
     discardRouteProposal(tripId: $tripId)
 }
@@ -26,6 +31,7 @@ mutation SetTripOrigin($tripId: UUID!, $origin: LatLngInput!) {
         ...EditRouteResult
     }
 }
+
 mutation DeleteRoute($tripId: UUID!) {
     deleteRoute(tripId: $tripId) {
         ...EditRouteResult

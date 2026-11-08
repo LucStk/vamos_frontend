@@ -1,4 +1,5 @@
 import 'package:latlong2/latlong.dart';
+import 'package:trip_application/src/route/domain/spans/route_span.dart';
 import 'package:trip_application/src/route/route.dart';
 
 sealed class RouteAnchor {
@@ -7,7 +8,7 @@ sealed class RouteAnchor {
 
 class SectionAnchor extends RouteAnchor {
   final LatLng position;
-  final SectionId sectionId;
+  final SpanId sectionId;
 
   const SectionAnchor({required this.sectionId, required this.position});
 }

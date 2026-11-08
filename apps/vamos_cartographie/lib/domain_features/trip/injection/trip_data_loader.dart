@@ -49,7 +49,8 @@ void ingestTrips(Ref ref, Iterable<TripBundle> bundles) {
         .emit(
           RouteStore.fromRemote(
             route: bundle.route,
-            sections: bundle.routeSections,
+            editSpans: bundle.editSpans,
+            mobilitySpans: bundle.mobilitySpans,
           ),
         );
   }

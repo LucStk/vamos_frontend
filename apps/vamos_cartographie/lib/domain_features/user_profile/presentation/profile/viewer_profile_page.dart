@@ -24,19 +24,16 @@ class ViewerProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profileState = ref.watch(userProfileAsyncProvider(userId));
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Profil')),
-      body: switch (profileState) {
-        AsyncLoading() => const Center(child: CircularProgressIndicator()),
-        AsyncError() => const _ProfileError(),
-        AsyncData(value: null) => const _ProfileError(),
-        AsyncData(value: final profile) => ProfileContent.viewer(
-          onOpenUser: onOpenUser,
-          profile: profile!,
-          onOpenTrip: (trip) => onOpenTrip(trip.id),
-        ),
-      },
-    );
+    return switch (profileState) {
+      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+      AsyncError() => const _ProfileError(),
+      AsyncData(value: null) => const _ProfileError(),
+      AsyncData(value: final profile) => ProfileContent.viewer(
+        onOpenUser: onOpenUser,
+        profile: profile!,
+        onOpenTrip: (trip) => onOpenTrip(trip.id),
+      ),
+    };
   }
 }
 

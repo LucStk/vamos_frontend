@@ -1,7 +1,7 @@
 part of '../map_objects.dart';
 
 final class MapSection extends RouteElements {
-  final SectionId id;
+  final SpanId id;
   final TripId tripId;
   MapSection({required this.id, required this.tripId});
 
@@ -13,5 +13,3 @@ final class MapSection extends RouteElements {
   @override
   int get hashCode => id.hashCode;
 }
-
-

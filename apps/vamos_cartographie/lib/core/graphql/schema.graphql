@@ -15,6 +15,13 @@ input AttachFileInput {
   fileId: ID!
 }
 
+type BoundsType {
+  minLng: Float!
+  minLat: Float!
+  maxLng: Float!
+  maxLat: Float!
+}
+
 type CreateProfileError {
   code: CreateProfileErrorCode!
 }
@@ -35,13 +42,6 @@ scalar Date
 
 """Date with time (isoformat)"""
 scalar DateTime
-
-type DisplaySectionType {
-  startIndex: Int!
-  mobilityType: MobilityType!
-  lengthM: Float
-  sectionIds: [UUID!]!
-}
 
 type EditRouteError {
   code: RouteEditErrorCode!
@@ -75,6 +75,14 @@ union EditRoutePayload = EditRouteSuccess | EditRouteError
 type EditRouteSuccess {
   trip: TripType!
   refinementError: RefinementFailure
+}
+
+type EditSpanType {
+  id: UUID!
+  startIndex: Int!
+  editId: UUID!
+  geometrySource: GeometrySource!
+  lengthM: Float
 }
 
 type FileAttachmentType {
@@ -114,6 +122,13 @@ type LatLngType {
   lng: Float!
 }
 
+type MobilitySpanType {
+  id: UUID!
+  startIndex: Int!
+  mobilityType: MobilityType!
+  lengthM: Float
+}
+
 enum MobilityType {
   BIKE
   CAR
@@ -148,8 +163,8 @@ type Mutation {
   setRangeMobility(tripId: UUID!, input: RangeMobilityInput!): EditRoutePayload!
   moveMobilityBoundary(tripId: UUID!, input: MoveMobilityBoundaryInput!): EditRoutePayload!
   editRoute(tripId: UUID!, input: EditRouteInput!): EditRoutePayload!
-  refineSection(tripId: UUID!, sectionId: UUID!): EditRoutePayload!
-  setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!): EditRoutePayload!
+  refineSection(tripId: UUID!, sectionId: UUID!, basedOn: DateTime = null): EditRoutePayload!
+  setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!, basedOn: DateTime = null): EditRoutePayload!
   deleteRoute(tripId: UUID!): EditRoutePayload!
   detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
@@ -172,18 +187,18 @@ enum PoiCategory {
   WARNING
 }
 
-"""
-A geographical object that gets 1 or 2 LinearRing objects as external and
-internal rings. Input also accepts WKT, EWKT, HEXEWKB or GeoJSON (string or object).
-"""
-scalar Polygon
-
-type PreviewSectionType {
+type PreviewEditSpanType {
+  id: UUID
   startIndex: Int!
-  mobilityType: MobilityType!
+  editId: UUID!
   geometrySource: GeometrySource!
   isNew: Boolean!
-  editId: UUID
+}
+
+type PreviewMobilitySpanType {
+  id: UUID
+  startIndex: Int!
+  mobilityType: MobilityType!
 }
 
 type Query {
@@ -241,15 +256,9 @@ type RoutePreviewSuccess {
   proposalId: UUID!
   expiresAt: DateTime!
   coordinates: [LatLngType!]!
-  sections: [PreviewSectionType!]!
+  mobilitySpans: [PreviewMobilitySpanType!]!
+  editSpans: [PreviewEditSpanType!]!
   refinementError: RefinementFailure
-}
-
-type RouteSectionType {
-  id: UUID!
-  startIndex: Int!
-  mobilityType: MobilityType!
-  geometrySource: GeometrySource!
 }
 
 """
@@ -279,17 +288,17 @@ type TripType {
   description: String!
   date: Date
   waypoints: [WaypointType!]!
-  bounds: Polygon
   routeUpdatedAt: DateTime
-  sections: [RouteSectionType!]!
+  bounds: BoundsType
   startPoint: LatLngType!
   endPoint: LatLngType
   owner: UserProfileType!
   files: [FileAttachmentType!]!
   route: [LatLngType!]!
+  mobilitySpans: [MobilitySpanType!]!
+  editSpans: [EditSpanType!]!
   savesCount: Int!
   isSavedByMe: Boolean!
-  displaySections: [DisplaySectionType!]!
 }
 
 input TripUpdateInput {

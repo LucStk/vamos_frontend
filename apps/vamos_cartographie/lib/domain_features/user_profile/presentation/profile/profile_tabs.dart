@@ -24,10 +24,16 @@ class ProfileTabs extends StatefulWidget {
     super.key,
     required this.tabs,
     required this.contentBuilder,
+    this.minContentHeight = 0,
   }) : assert(tabs.length > 0);
 
   final List<ProfileTab> tabs;
   final Widget Function(BuildContext context, ProfileTab tab) contentBuilder;
+
+  /// Hauteur minimale de la zone de contenu. Garde la hauteur totale de la
+  /// page stable quand on passe d'un onglet long à un onglet court (ou vide),
+  /// pour que le contenu au-dessus ne saute pas.
+  final double minContentHeight;
 
   @override
   State<ProfileTabs> createState() => _ProfileTabsState();
@@ -73,9 +79,12 @@ class _ProfileTabsState extends State<ProfileTabs>
           tabs: [for (final t in widget.tabs) Tab(text: t.label)],
         ),
         const SizedBox(height: 16),
-        KeyedSubtree(
-          key: ValueKey(tab),
-          child: widget.contentBuilder(context, tab),
+        ConstrainedBox(
+          constraints: BoxConstraints(minHeight: widget.minContentHeight),
+          child: KeyedSubtree(
+            key: ValueKey(tab),
+            child: widget.contentBuilder(context, tab),
+          ),
         ),
       ],
     );

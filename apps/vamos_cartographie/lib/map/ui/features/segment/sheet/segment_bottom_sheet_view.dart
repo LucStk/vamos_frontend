@@ -10,7 +10,7 @@ import 'package:vamos_cartographie/ui_kit/buttons/delete_button.dart';
 
 class SegmentBottomSheet extends ConsumerWidget {
   final TripId tripId;
-  final SectionId segmentId;
+  final SpanId segmentId;
 
   const SegmentBottomSheet({
     super.key,

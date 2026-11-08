@@ -1,1 +1,0 @@
-enum GeometrySource { computed, drawn }

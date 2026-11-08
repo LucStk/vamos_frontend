@@ -21,7 +21,7 @@ final class SegmentItemProvider
   /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
   SegmentItemProvider._({
     required SegmentItemFamily super.from,
-    required (TripId, SectionId, MapCameraReader) super.argument,
+    required (TripId, SpanId, MapCameraReader) super.argument,
   }) : super(
          retry: null,
          name: r'segmentItemProvider',
@@ -47,7 +47,7 @@ final class SegmentItemProvider
 
   @override
   SegmentItem? create(Ref ref) {
-    final argument = this.argument as (TripId, SectionId, MapCameraReader);
+    final argument = this.argument as (TripId, SpanId, MapCameraReader);
     return segmentItem(ref, argument.$1, argument.$2, argument.$3);
   }
 
@@ -70,7 +70,7 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'e43079a695004467dea4a7d5e3cf800722907866';
+String _$segmentItemHash() => r'4e0269066f5e3d9f01ba0e64c29a7ef4881f4a5f';
 
 /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 
@@ -78,7 +78,7 @@ final class SegmentItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
           SegmentItem?,
-          (TripId, SectionId, MapCameraReader)
+          (TripId, SpanId, MapCameraReader)
         > {
   SegmentItemFamily._()
     : super(
@@ -93,7 +93,7 @@ final class SegmentItemFamily extends $Family
 
   SegmentItemProvider call(
     TripId tripId,
-    SectionId id,
+    SpanId id,
     MapCameraReader cameraReader,
   ) => SegmentItemProvider._(argument: (tripId, id, cameraReader), from: this);
 

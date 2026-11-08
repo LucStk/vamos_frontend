@@ -14,7 +14,7 @@ extension MobilityTypeMapper on MobilityType {
 
 // 2. De GraphQL (GMobilityType) VERS ton modèle local (MobilityType)
 extension GMobilityTypeMapper on GMobilityType {
-  MobilityType toDomain() => switch (this) {
+  MobilityType toMobilityDomain() => switch (this) {
     GMobilityType.BIKE => MobilityType.bike,
     GMobilityType.CAR => MobilityType.car,
     GMobilityType.BOAT => MobilityType.boat,

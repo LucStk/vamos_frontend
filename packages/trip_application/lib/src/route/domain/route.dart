@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/src/route/domain/mobility_types.dart';
-import 'package:trip_application/src/trip/domain/domain.dart';
+import 'package:trip_application/src/trip/trip.dart';
 
 part 'route.freezed.dart';
 

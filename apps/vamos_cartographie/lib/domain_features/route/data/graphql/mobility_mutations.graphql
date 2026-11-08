@@ -1,0 +1,46 @@
+#import "route_fields.graphql"
+
+# Repasse au routeur une section de modalité (MobilitySpan.id), typiquement DRAWN.
+# La section recalculée reçoit un NOUVEL id : retrouver la sélection par startIndex.
+mutation RefineSection($tripId: UUID!, $sectionId: UUID!, $basedOn: DateTime) {
+    refineSection(tripId: $tripId, sectionId: $sectionId, basedOn: $basedOn) {
+        ...EditRouteResult
+    }
+}
+
+# Change la modalité d'une section entière (MobilitySpan.id), sans toucher à la géométrie.
+mutation SetSectionMobility(
+    $tripId: UUID!
+    $sectionId: UUID!
+    $mobilityType: MobilityType!
+    $basedOn: DateTime
+) {
+    setSectionMobility(
+        tripId: $tripId
+        sectionId: $sectionId
+        mobilityType: $mobilityType
+        basedOn: $basedOn
+    ) {
+        ...EditRouteResult
+    }
+}
+
+# Donne une modalité à la portion choisie par l'utilisateur.
+# start et end dans un ordre quelconque ; leur sectionId est un MobilitySpan.id.
+mutation SetRangeMobility($tripId: UUID!, $input: RangeMobilityInput!) {
+    setRangeMobility(tripId: $tripId, input: $input) {
+        ...EditRouteResult
+    }
+}
+
+# Glisse une frontière de modalité. boundaryVertex : startIndex du
+# MobilitySpan qui commence à la frontière. Envoyer basedOn : le vertex n'a de
+# sens que pour cette version de la route.
+mutation MoveMobilityBoundary(
+    $tripId: UUID!
+    $input: MoveMobilityBoundaryInput!
+) {
+    moveMobilityBoundary(tripId: $tripId, input: $input) {
+        ...EditRouteResult
+    }
+}

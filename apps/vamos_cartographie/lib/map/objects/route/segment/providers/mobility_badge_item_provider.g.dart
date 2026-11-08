@@ -26,7 +26,7 @@ final class MobilityBadgeItemProvider
   /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
   MobilityBadgeItemProvider._({
     required MobilityBadgeItemFamily super.from,
-    required (TripId, SectionId, MapCameraReader) super.argument,
+    required (TripId, MobilitySpanId, MapCameraReader) super.argument,
   }) : super(
          retry: null,
          name: r'mobilityBadgeItemProvider',
@@ -53,7 +53,7 @@ final class MobilityBadgeItemProvider
 
   @override
   MobilityBadgeItem? create(Ref ref) {
-    final argument = this.argument as (TripId, SectionId, MapCameraReader);
+    final argument = this.argument as (TripId, MobilitySpanId, MapCameraReader);
     return mobilityBadgeItem(ref, argument.$1, argument.$2, argument.$3);
   }
 
@@ -76,7 +76,7 @@ final class MobilityBadgeItemProvider
   }
 }
 
-String _$mobilityBadgeItemHash() => r'00f78882ede50817b7978f5a52478d7a9ae9eb61';
+String _$mobilityBadgeItemHash() => r'68a2db3a6067d238271b6100323551e9f6ad511a';
 
 /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 
@@ -84,7 +84,7 @@ final class MobilityBadgeItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
           MobilityBadgeItem?,
-          (TripId, SectionId, MapCameraReader)
+          (TripId, MobilitySpanId, MapCameraReader)
         > {
   MobilityBadgeItemFamily._()
     : super(
@@ -99,7 +99,7 @@ final class MobilityBadgeItemFamily extends $Family
 
   MobilityBadgeItemProvider call(
     TripId tripId,
-    SectionId id,
+    MobilitySpanId id,
     MapCameraReader cameraReader,
   ) => MobilityBadgeItemProvider._(
     argument: (tripId, id, cameraReader),

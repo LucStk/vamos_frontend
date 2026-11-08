@@ -3,7 +3,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
-import 'package:vamos_cartographie/domain_features/route/injection/section_queries.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/span_queries.dart';
 import 'package:vamos_cartographie/map/modes/shared/helpers/section_slice.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/mobility_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/segment_item.dart';
@@ -15,11 +15,11 @@ part 'segment_item_provider.g.dart';
 SegmentItem? segmentItem(
   Ref ref,
   TripId tripId,
-  SectionId id,
+  SpanId id,
   MapCameraReader cameraReader,
 ) {
   final mobilityType = ref.watch(
-    sectionProvider(tripId, id).select((m) => m.mobilityType),
+    mobilitySpanProvider(tripId, id).select((m) => m.mobilityType),
   );
   final range = ref.watch(sectionRangesProvider(tripId).select((m) => m[id]));
   final geometry = ref.watch(

@@ -2,7 +2,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/route/injection/section_queries.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/span_queries.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/mobility_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/badge/mobility_badge_item.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/geometry/polyline_midpoint.dart';
@@ -15,7 +15,7 @@ part 'mobility_badge_item_provider.g.dart';
 MobilityBadgeItem? mobilityBadgeItem(
   Ref ref,
   TripId tripId,
-  SectionId id,
+  MobilitySpanId id,
   MapCameraReader cameraReader,
 ) {
   final geometry = ref.watch(
@@ -27,7 +27,7 @@ MobilityBadgeItem? mobilityBadgeItem(
   );
 
   final mobilityType = ref.watch(
-    sectionProvider(tripId, id).select((m) => m.mobilityType),
+    mobilitySpanProvider(tripId, id).select((m) => m.mobilityType),
   );
 
   if (geometry == null) return null;

@@ -60,6 +60,49 @@ const AttachFileInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const BoundsType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'BoundsType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'minLng'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'minLat'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'maxLng'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'maxLat'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const CreateProfileError = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateProfileError'),
   directives: [],
@@ -127,52 +170,6 @@ const Date = _i1.ScalarTypeDefinitionNode(
 const DateTime = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'DateTime'),
   directives: [],
-);
-const DisplaySectionType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'DisplaySectionType'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'startIndex'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'lengthM'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'sectionIds'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'UUID'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-    ),
-  ],
 );
 const EditRouteError = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'EditRouteError'),
@@ -296,6 +293,58 @@ const EditRouteSuccess = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'RefinementFailure'),
+        isNonNull: false,
+      ),
+    ),
+  ],
+);
+const EditSpanType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'EditSpanType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'startIndex'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'editId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'geometrySource'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'GeometrySource'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'lengthM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
         isNonNull: false,
       ),
     ),
@@ -466,6 +515,49 @@ const LatLngType = _i1.ObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Float'),
         isNonNull: true,
+      ),
+    ),
+  ],
+);
+const MobilitySpanType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'MobilitySpanType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'startIndex'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'lengthM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
       ),
     ),
   ],
@@ -998,6 +1090,15 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
           ),
           defaultValue: null,
         ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'basedOn'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'DateTime'),
+            isNonNull: false,
+          ),
+          defaultValue: _i1.NullValueNode(),
+        ),
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'EditRoutePayload'),
@@ -1034,6 +1135,15 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
             isNonNull: true,
           ),
           defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'basedOn'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'DateTime'),
+            isNonNull: false,
+          ),
+          defaultValue: _i1.NullValueNode(),
         ),
       ],
       type: _i1.NamedTypeNode(
@@ -1177,15 +1287,20 @@ const PoiCategory = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
-const Polygon = _i1.ScalarTypeDefinitionNode(
-  name: _i1.NameNode(value: 'Polygon'),
-  directives: [],
-);
-const PreviewSectionType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'PreviewSectionType'),
+const PreviewEditSpanType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'PreviewEditSpanType'),
   directives: [],
   interfaces: [],
   fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: false,
+      ),
+    ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'startIndex'),
       directives: [],
@@ -1196,11 +1311,11 @@ const PreviewSectionType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
+      name: _i1.NameNode(value: 'editId'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
+        name: _i1.NameNode(value: 'UUID'),
         isNonNull: true,
       ),
     ),
@@ -1222,13 +1337,38 @@ const PreviewSectionType = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+  ],
+);
+const PreviewMobilitySpanType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'PreviewMobilitySpanType'),
+  directives: [],
+  interfaces: [],
+  fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'editId'),
+      name: _i1.NameNode(value: 'id'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'UUID'),
         isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'startIndex'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: true,
       ),
     ),
   ],
@@ -1658,12 +1798,24 @@ const RoutePreviewSuccess = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'sections'),
+      name: _i1.NameNode(value: 'mobilitySpans'),
       directives: [],
       args: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'PreviewSectionType'),
+          name: _i1.NameNode(value: 'PreviewMobilitySpanType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'editSpans'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'PreviewEditSpanType'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -1676,49 +1828,6 @@ const RoutePreviewSuccess = _i1.ObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'RefinementFailure'),
         isNonNull: false,
-      ),
-    ),
-  ],
-);
-const RouteSectionType = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'RouteSectionType'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UUID'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'startIndex'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'mobilityType'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MobilityType'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'geometrySource'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'GeometrySource'),
-        isNonNull: true,
       ),
     ),
   ],
@@ -1868,15 +1977,6 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'bounds'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Polygon'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'routeUpdatedAt'),
       directives: [],
       args: [],
@@ -1886,15 +1986,12 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'sections'),
+      name: _i1.NameNode(value: 'bounds'),
       directives: [],
       args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'RouteSectionType'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'BoundsType'),
+        isNonNull: false,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -1949,6 +2046,30 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'mobilitySpans'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'MobilitySpanType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'editSpans'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'EditSpanType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'savesCount'),
       directives: [],
       args: [],
@@ -1963,18 +2084,6 @@ const TripType = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Boolean'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'displaySections'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'DisplaySectionType'),
-          isNonNull: true,
-        ),
         isNonNull: true,
       ),
     ),
@@ -2300,17 +2409,18 @@ const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
   AttachFileInput,
+  BoundsType,
   CreateProfileError,
   CreateProfileErrorCode,
   CreateProfileResult,
   CreateProfileSuccess,
   Date,
   DateTime,
-  DisplaySectionType,
   EditRouteError,
   EditRouteInput,
   EditRoutePayload,
   EditRouteSuccess,
+  EditSpanType,
   FileAttachmentType,
   FileTargetTypeEnum,
   GeometrySource,
@@ -2318,12 +2428,13 @@ const document = _i1.DocumentNode(definitions: [
   ImageUploadRequest,
   LatLngInput,
   LatLngType,
+  MobilitySpanType,
   MobilityType,
   MoveMobilityBoundaryInput,
   Mutation,
   PoiCategory,
-  Polygon,
-  PreviewSectionType,
+  PreviewEditSpanType,
+  PreviewMobilitySpanType,
   Query,
   RangeMobilityInput,
   RefinementFailure,
@@ -2332,7 +2443,6 @@ const document = _i1.DocumentNode(definitions: [
   RouteEndpoint,
   RoutePreviewPayload,
   RoutePreviewSuccess,
-  RouteSectionType,
   SectionAnchorInput,
   SectionPointInput,
   StoredFileType,

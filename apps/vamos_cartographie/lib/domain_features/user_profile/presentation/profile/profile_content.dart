@@ -58,6 +58,9 @@ class ProfileContent extends StatelessWidget {
           const SizedBox(height: 32),
           ProfileTabs(
             tabs: tabs,
+            // Hauteur de page stable d'un onglet à l'autre : la carte du
+            // profil ne bouge pas quand le contenu change.
+            minContentHeight: MediaQuery.sizeOf(context).height * 0.5,
             contentBuilder: (context, tab) => switch (tab) {
               ProfileTab.trips =>
                 onCreate != null && onDelete != null

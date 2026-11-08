@@ -1,11 +1,10 @@
 import 'package:stored_file_application/stored_file_application.dart';
-import 'package:trip_application/src/route/domain/route.dart';
-import 'package:trip_application/src/route/domain/route_section.dart';
+import 'package:trip_application/src/route/route.dart';
 import 'package:trip_application/src/waypoint/domain/waypoint_model.dart';
 
 class TripDetailsRes {
   final RouteRemoteModel route;
-  final List<RouteSectionRemoteModel> section;
+  final List<> section;
   final List<WaypointRemoteModel> waypoints;
   final List<(WaypointRemoteModel, List<StoredFileRemoteModel>)>
   waypointsImages;

@@ -11,7 +11,7 @@ final class MobilityBadge extends MapObject {
 
   /// La section dont ce badge porte la modalité. C'est lui qui permet au
   /// menu de savoir quoi modifier.
-  final SectionId sectionId;
+  final MobilitySpanId sectionId;
 
   /// Évite un aller-retour au store pour présélectionner la valeur
   /// courante dans le picker.

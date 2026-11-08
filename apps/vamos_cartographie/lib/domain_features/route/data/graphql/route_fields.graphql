@@ -2,39 +2,86 @@
 
 #import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
 
-fragment RouteSection on RouteSectionType {
+# --- Calques de la route ------------------------------------------------------
+
+# Section de modalité : ce que le viewer affiche. Son id sert d'ancre
+# (SectionAnchorInput.sectionId, SectionPointInput.sectionId) et de cible
+# pour refineSection / setSectionMobility.
+fragment MobilitySpan on MobilitySpanType {
     id
     startIndex
     mobilityType
-    geometrySource
+    lengthM
 }
-fragment PreviewSection on PreviewSectionType {
-    isNew
+fragment Bounds on BoundsType {
+    minLng
+    minLat
+    maxLng
+    maxLat
+}
+# Partie produite par une même action de l'utilisateur. Mode édition seulement.
+fragment EditSpan on EditSpanType {
+    id
+    startIndex
+    editId
+    geometrySource
+    lengthM
+}
+
+# id null : span créé par ce tracé. Pour savoir ce qui a été retracé,
+# utiliser PreviewEditSpan.isNew (un span existant peut avoir été prolongé).
+fragment PreviewMobilitySpan on PreviewMobilitySpanType {
+    id
     startIndex
     mobilityType
-    geometrySource
 }
+
+# isNew : portion produite par ce tracé, à surligner.
+fragment PreviewEditSpan on PreviewEditSpanType {
+    id
+    startIndex
+    editId
+    geometrySource
+    isNew
+}
+
+# --- Trip ---------------------------------------------------------------------
+
+# Ce dont le viewer a besoin pour dessiner la route.
 fragment TripRoute on TripType {
     id
     routeUpdatedAt
-    bounds
+    # Objet dans le schéma (DjangoGeometryType) : une sous-sélection est obligatoire.
+    bounds {
+        ...Bounds
+    }
     startPoint {
         ...LatLng
     }
     route {
         ...LatLng
     }
-    sections {
-        ...RouteSection
+    mobilitySpans {
+        ...MobilitySpan
     }
 }
+
+# Le viewer, plus l'historique des tracés : pour le mode édition.
+fragment TripRouteEditing on TripType {
+    ...TripRoute
+    editSpans {
+        ...EditSpan
+    }
+}
+
+# --- Résultats des mutations --------------------------------------------------
 
 fragment EditRouteResult on EditRoutePayload {
     __typename
     ... on EditRouteSuccess {
         refinementError
         trip {
-            ...TripRoute
+            ...TripRouteEditing
         }
     }
     ... on EditRouteError {
@@ -42,6 +89,7 @@ fragment EditRouteResult on EditRoutePayload {
         message
     }
 }
+
 fragment RoutePreviewResult on RoutePreviewPayload {
     __typename
     ... on RoutePreviewSuccess {
@@ -49,8 +97,11 @@ fragment RoutePreviewResult on RoutePreviewPayload {
         coordinates {
             ...LatLng
         }
-        sections {
-            ...PreviewSection
+        mobilitySpans {
+            ...PreviewMobilitySpan
+        }
+        editSpans {
+            ...PreviewEditSpan
         }
         refinementError
     }

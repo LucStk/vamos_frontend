@@ -1,11 +1,11 @@
 export 'domain/mobility_types.dart';
-export 'domain/geometry_source_types.dart';
 export "domain/route.dart";
-export "domain/route_section.dart";
+export "domain/spans/spans.dart";
 export 'domain/route_anchor.dart';
-export "domain/route_repository.dart";
 
 export "application/route_editor.dart";
 export "application/route_store.dart";
 
-export "services/compute_section_ranges.dart";
+export "application/route_repository.dart";
+export "application/route_payloads.dart";
+export "services/compute_span_ranges.dart";
