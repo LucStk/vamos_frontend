@@ -30,14 +30,14 @@ class TripEditMenus extends ConsumerWidget {
         //   ),
         // ),
 
-        OverlayMenu<MapSection>(
-          builder: (_, _) => SectionMenuWidget(
-            createFrom: () {},
-            drawFrom: () {},
-            move: () {},
-            delete: () => ref.applyTransition(mode.deleteTripRoute()),
-          ),
-        ),
+        // OverlayMenu<MapSection>(
+        //   builder: (_, _) => SectionMenuWidget(
+        //     createFrom: () {},
+        //     drawFrom: () {},
+        //     move: () {},
+        //     delete: () => ref.applyTransition(mode.deleteTripRoute()),
+        //   ),
+        // ),
       ],
     );
   }
