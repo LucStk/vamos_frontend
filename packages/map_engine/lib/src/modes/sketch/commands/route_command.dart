@@ -18,8 +18,13 @@ sealed class RouteCommand<R extends Object> extends Command<R> {
 }
 
 final class EditRoute extends RouteCommand<Either<Failure, EditRoutePayload>> {
-  const EditRoute({required this.tripId, required this.sketch});
+  const EditRoute({
+    required this.tripId,
+    required this.mobilityType,
+    required this.sketch,
+  });
   final TripId tripId;
+  final MobilityType mobilityType;
   final SketchTrace sketch;
 
   @override
@@ -28,7 +33,7 @@ final class EditRoute extends RouteCommand<Either<Failure, EditRoutePayload>> {
       .routeEditor
       .editRoute(
         geometry: sketch.points.toLatLngList(h.camera),
-        mobilityType: sketch.mobilityType,
+        mobilityType: mobilityType,
         startAnchor: sketch.startAnchor.toRouteAnchor(h.camera),
         endAnchor: sketch.endAnchor?.toRouteAnchor(h.camera),
       );

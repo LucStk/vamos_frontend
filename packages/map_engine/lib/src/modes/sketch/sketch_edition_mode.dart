@@ -7,6 +7,7 @@ import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/sketch/commands/route_command.dart';
 import 'package:map_engine/src/modes/sketch/sketch_generating.dart';
 import 'package:map_engine/src/modes/sketch/slots/sketch_trace.dart';
+import 'package:trip_application/trip_application.dart';
 
 class SketchEdition extends TripMode {
   const SketchEdition(super.tripId);
@@ -66,14 +67,14 @@ class SketchEdition extends TripMode {
       ? Transition.set(sketchTraceSlot, null)
       : Transition.stay();
 
-  Transition validate() =>
+  Transition validate(MobilityType mobilityType) =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
         if (trace.points.length < 2) return Transition.stay();
 
         final generating = SketchGenerating(tripId, this);
 
         return Transition.to(generating).running(
-          EditRoute(tripId: tripId, sketch: trace),
+          EditRoute(mobilityType: mobilityType, tripId: tripId, sketch: trace),
           then: (current, result) {
             final m = current.mode;
             // Annulé ou remplacé entre-temps : on ignore cette réponse.

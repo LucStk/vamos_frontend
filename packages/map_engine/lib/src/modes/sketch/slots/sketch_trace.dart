@@ -5,7 +5,6 @@ import 'package:domain_core/space/offset_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
-import 'package:trip_application/trip_application.dart';
 import 'package:map_engine/src/mode_engine/slots.dart';
 part 'sketch_trace.freezed.dart';
 
@@ -30,7 +29,6 @@ abstract class SketchTrace with _$SketchTrace {
   const factory SketchTrace({
     required SketchAnchor startAnchor,
     SketchAnchor? endAnchor,
-    MobilityType? mobilityType,
     @Default([]) List<WorldOffset> points,
     @Default(Offset.zero) Offset grabOffset,
   }) = _SketchTrace;
