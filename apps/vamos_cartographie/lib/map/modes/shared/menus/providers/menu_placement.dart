@@ -7,7 +7,7 @@
 // import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_end_item_provider.dart';
 // import 'package:vamos_cartographie/map/modes/shared/providers/items/trip_start_item_provider.dart';
 // import 'package:vamos_cartographie/map/modes/shared/providers/items/waypoint_item_provider.dart';
-// import 'package:vamos_cartographie/map/modes/sketch_mode/providers/pencil_item_provider.dart';
+// import 'package:vamos_cartographie/map/modes/route_edit/providers/pencil_item_provider.dart';
 // part 'menu_placement.g.dart';
 //
 // typedef MenuPlacement = ({

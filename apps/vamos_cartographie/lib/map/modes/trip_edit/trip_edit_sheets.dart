@@ -70,7 +70,7 @@ class TripEditSheets extends ConsumerWidget {
                 onPressed: () {
                   ref
                       .read(appModeMachineProvider.notifier)
-                      .apply(Transition.to(SketchEdition(mode.tripId)));
+                      .apply(Transition.to(RouteEditMode(mode.tripId)));
                 },
               ),
             ],

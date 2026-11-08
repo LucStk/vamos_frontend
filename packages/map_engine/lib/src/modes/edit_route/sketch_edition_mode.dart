@@ -4,9 +4,9 @@ import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/modes/sketch/commands/route_command.dart';
-import 'package:map_engine/src/modes/sketch/sketch_generating.dart';
-import 'package:map_engine/src/modes/sketch/slots/sketch_trace.dart';
+import 'package:map_engine/src/modes/edit_route/commands/route_command.dart';
+import 'package:map_engine/src/modes/edit_route/sketch_generating_mode.dart';
+import 'package:map_engine/src/modes/edit_route/slots/sketch_trace.dart';
 import 'package:trip_application/trip_application.dart';
 
 class SketchEdition extends TripMode {

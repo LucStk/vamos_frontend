@@ -1,8 +1,8 @@
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/modes/sketch/sketch_edition_mode.dart';
-import 'package:map_engine/src/modes/sketch/slots/sketch_trace.dart';
+import 'package:map_engine/src/modes/edit_route/sketch_edition_mode.dart';
+import 'package:map_engine/src/modes/edit_route/slots/sketch_trace.dart';
 
 final class SketchGenerating extends TripMode {
   SketchGenerating(super.tripId, this.editing) : token = Object();

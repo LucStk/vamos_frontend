@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/modes/sketch_mode/ui/widgets/mobility_type_menu.dart';
+import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/mobility_type_menu.dart';
 
 /// Panneau d'actions du mode sketch.
 ///
@@ -50,6 +50,12 @@ class SheetSketch extends StatelessWidget {
                 // Ligne 1 : outils
                 Row(
                   children: [
+                    IconButton(
+                      tooltip: 'Retour',
+                      onPressed: goBack,
+                      icon: const Icon(Icons.arrow_back),
+                    ),
+                    const SizedBox(width: 4),
                     MobilityTypeMenu(
                       selected: mobilityType,
                       onChanged: onMobilityTypeChanged,

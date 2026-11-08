@@ -5,7 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/domain/camera/map_camera.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
-import 'package:map_engine/src/modes/sketch/slots/sketch_trace.dart';
+import 'package:map_engine/src/modes/edit_route/slots/sketch_trace.dart';
 import 'package:trip_application/trip_application.dart';
 
 extension ListWorldOffsetToListLatLng on List<WorldOffset> {

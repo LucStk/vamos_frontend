@@ -16,7 +16,7 @@ final class SegmentItem extends LineItem {
   final SegmentAppearance appearance;
 
   @override
-  final MapSection object; // voir remarque ci-dessous
+  final MapMobilitySpan object; // voir remarque ci-dessous
 
   @override
   final List<WorldSegment> worldSegments;

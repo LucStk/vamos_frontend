@@ -35,6 +35,10 @@ SegmentItem? segmentItem(
   return SegmentItem(
     appearance: MobilityAppearances.of(mobilityType),
     worldSegments: projectLine(slice, cameraReader.latLngToWorldOffset),
-    object: MapSection(tripId: tripId, id: id),
+    object: MapMobilitySpan(
+      tripId: tripId,
+      id: id,
+      spanStartIndex: range.first,
+    ),
   );
 }

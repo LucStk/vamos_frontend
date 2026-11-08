@@ -25,12 +25,10 @@ export 'src/modes/app_mode.dart';
 export 'src/modes/explore/explore_mode.dart';
 export 'src/modes/explore/trip_read_only_mode.dart';
 export 'src/modes/edit_trip/trip_edit_mode.dart';
-export 'src/modes/sketch/sketch_edition_mode.dart';
-export 'src/modes/sketch/sketch_generating.dart';
 export 'src/modes/place_origin/place_origin_mode.dart';
 export 'src/modes/shared/trip_mode.dart';
+export 'src/modes/edit_route/edit_route.dart';
 
-export 'src/modes/sketch/slots/sketch_trace.dart';
 export 'src/modes/place_origin/slots/trip_origin_slot.dart';
 export 'src/modes/shared/slots/selection_slot.dart';
 

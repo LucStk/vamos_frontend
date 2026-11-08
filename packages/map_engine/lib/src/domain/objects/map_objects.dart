@@ -4,8 +4,8 @@ import 'package:trip_application/trip_application.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
 part "trip_object.dart";
-part "route/route_section.dart";
 part "waypoint_objects.dart";
+part "route/mobility_span.dart";
 part "route/trip_start.dart";
 part "route/trip_end.dart";
 part "route/mobility_badge.dart";
@@ -34,7 +34,7 @@ sealed class RouteElements extends MapObject implements Selectable {
 
 extension HitObjectRouteElementstoAnchor on HitObject<RouteElements> {
   RouteAnchor toRouteAnchor(MapCameraReader camera) => switch (object) {
-    MapSection t => SectionAnchor(
+    MapMobilitySpan t => SectionAnchor(
       position: camera.worldOffsetToLatLng(point),
       sectionId: t.id,
     ),

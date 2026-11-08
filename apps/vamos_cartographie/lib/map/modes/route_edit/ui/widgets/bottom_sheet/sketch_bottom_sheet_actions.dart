@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/modes/sketch_mode/ui/widgets/sheet_action.dart';
+import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/sheet_action.dart';
 
 class SketchBottomSheetActions extends StatelessWidget {
   const SketchBottomSheetActions({

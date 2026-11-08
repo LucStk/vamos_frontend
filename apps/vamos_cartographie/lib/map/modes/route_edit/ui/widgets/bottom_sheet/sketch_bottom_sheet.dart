@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/modes/sketch_mode/ui/widgets/bottom_sheet/sketch_bottom_sheet_actions.dart';
+import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/bottom_sheet/sketch_bottom_sheet_actions.dart';
 
 class SketchBottomSheet extends StatelessWidget {
   const SketchBottomSheet({

@@ -4,8 +4,6 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/shared/menus/ui/overlay_menu.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/menu/section_menu.dart';
 
 // import 'package:vamos_cartographie/map/mode_machine/mode_scope.dart';
 
