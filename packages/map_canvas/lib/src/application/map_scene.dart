@@ -54,4 +54,14 @@ class MapScene {
     }
     return MapObjectVisualState.normal;
   }
+
+  SceneItem? itemOf(MapObject o) {
+    for (final i in items) {
+      if (i.object == o) return i;
+    }
+    return null;
+  }
+
+  DragDetail? dragDetail(MapObject dragged, WorldOffset p) =>
+      itemOf(dragged)?.dragDetail(p);
 }

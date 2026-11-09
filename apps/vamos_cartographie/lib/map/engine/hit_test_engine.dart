@@ -32,4 +32,10 @@ class _SceneHitTester implements HitTester {
       dropTargetsOnly: dropTargetsOnly,
     );
   }
+
+  @override
+  DragDetail? dragDetail(MapObject dragged, WorldOffset p) {
+    final scene = _ref.read(mapSceneProvider);
+    return scene.dragDetail(dragged, p);
+  }
 }

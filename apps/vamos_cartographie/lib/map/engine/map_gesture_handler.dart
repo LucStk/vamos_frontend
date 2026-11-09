@@ -36,6 +36,13 @@ class MapGestureHandlerNotifier extends _$MapGestureHandlerNotifier
         exclude: exclude,
         dropTargetsOnly: dropTargetsOnly,
       );
+
+  @override
+  DragDetail? dragDetail(MapObject dragged, WorldOffset p) {
+    final scene = ref.read(hitTesterProvider);
+    return scene.dragDetail(dragged, p);
+  }
+
   @override
   void onPanAllowedChanged(bool allowed) => state = allowed;
   // --- Entrées Flutter -> événements du moteur -----------------------------

@@ -25,4 +25,5 @@ abstract class SceneItem {
   HitDetail? hitDetail(WorldOffset p) => null;
 
   DrawCommand toDrawCommand({MapPaintContext context});
+  DragDetail? dragDetail(WorldOffset p) => null;
 }

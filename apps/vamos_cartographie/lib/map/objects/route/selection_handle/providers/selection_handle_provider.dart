@@ -22,10 +22,16 @@ List<SceneItem> selectionHandleItems(
     for (final side in HandleSide.values)
       () {
         final pos = side == HandleSide.start ? selection.start : selection.end;
+        final (min, max) = switch (side) {
+          HandleSide.start => (0.0, selection.end),
+          HandleSide.end => (selection.start, polyline.maxPosition),
+        };
         return SelectionHandleItem(
+          position: pos,
+          polyline: polyline,
           object: SelectionHandle(tripId: tripId, side: side),
-          worldPosition: polyline.pointAt(pos),
-          angle: polyline.angleAt(pos),
+          max: max,
+          min: min,
         );
       }(),
   ];

@@ -12,6 +12,9 @@ final class SelectionHandle extends MapObject implements Selectable {
   int get hitPriority => 50;
 
   @override
+  final bool isDraggable = true;
+
+  @override
   bool operator ==(Object other) =>
       other is SelectionHandle && other.tripId == tripId && other.side == side;
 

@@ -1,11 +1,5 @@
 export "src/camera/camera_director.dart";
-
-export "src/domain/objects/map_objects.dart";
-
-export "src/domain/camera/map_camera.dart";
-export "src/domain/camera/camera_pose.dart";
-
-export "src/domain/map_hit.dart";
+export "src/domain/domain.dart";
 
 export "src/geometry/camera_to_matrix4.dart";
 export "src/geometry/segment_hit_helpers.dart";

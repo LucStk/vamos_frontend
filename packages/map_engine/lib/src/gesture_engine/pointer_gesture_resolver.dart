@@ -63,18 +63,22 @@ class PointerGestureResolver {
         return null; // pas de Tap : le long press a déjà été émis
 
       case (DraggingState dragging, PointerMove e):
-        // Cible de dépôt : ni l'objet déplacé, ni les proxys du pointeur.
         final target = hitTester.hitTest(
           offset: e.position.screen,
           exclude: dragging.excluded,
           dropTargetsOnly: true,
         );
-        state = dragging.withTarget(target);
+        final detail = hitTester.dragDetail(
+          dragging.source.object,
+          e.position.world,
+        );
+        state = dragging.withTarget(target).withDetail(detail);
         return DragUpdateGesture(
           e.position,
           source: dragging.source,
           pressPosition: dragging.pressPosition,
           target: target,
+          detail: detail,
         );
 
       case (DraggingState dragging, PointerUp e):
@@ -84,6 +88,7 @@ class PointerGestureResolver {
           source: dragging.source,
           pressPosition: dragging.pressPosition,
           target: dragging.target,
+          detail: dragging.detail,
         );
 
       // Le système a repris le pointeur : un DragStart a déjà été émis,

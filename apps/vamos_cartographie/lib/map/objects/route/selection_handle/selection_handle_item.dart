@@ -6,16 +6,29 @@ import 'package:vamos_cartographie/map/objects/route/selection_handle/appearance
 
 final class SelectionHandleItem extends PointItem {
   SelectionHandleItem({
+    required this.position,
     required this.object,
-    required this.worldPosition,
-    required this.angle,
+    required this.polyline,
+    required this.min,
+    required this.max,
   });
+
+  final RoutePolyline polyline;
+  final double min; // borne basse du déplacement (position continue)
+  final double max;
+
+  @override
+  DragDetail? dragDetail(WorldOffset p) =>
+      RouteDragDetail(polyline.project(p, min: min, max: max));
 
   @override
   final SelectionHandle object;
+  final double position;
+
   @override
-  final WorldOffset worldPosition;
-  final double angle;
+  WorldOffset get worldPosition => polyline.pointAt(position);
+
+  double get angle => polyline.angleAt(position);
 
   static const _color = Color(0xFF1565C0);
 
@@ -29,7 +42,7 @@ final class SelectionHandleItem extends PointItem {
     MapPaintContext context = const MapPaintContext(),
   }) => DrawAnchoredPath(
     anchor: worldPosition,
-    path: SelectionHandleShape.halfDrop(object.side),
+    path: SelectionHandleShape.halfDrop(object.side, angle: angle),
     style: const Fill(_color),
   );
 }
