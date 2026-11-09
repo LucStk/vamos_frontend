@@ -4,10 +4,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/modes.dart';
+import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_scene.dart';
 import 'package:vamos_cartographie/map/objects/localization/providers/localization_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
+import 'package:vamos_cartographie/map/objects/route/selection_handle/providers/selection_handle_provider.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 part 'map_scene.g.dart';
@@ -24,6 +26,7 @@ final baseLayers = <Layer>[
 ];
 
 @Dependencies([
+  selectionHandleItems,
   pencilItem,
   sketchTraceItem,
   sketchOriginItem,
@@ -32,6 +35,7 @@ final baseLayers = <Layer>[
 ])
 List<Layer> layersFor(AppMode mode) => switch (mode) {
   ExploreMode() => exploreScene(),
+  SelectRouteMode(:final tripId) => selectRouteScene(tripId),
   SketchEdition(:final tripId) => sketchScene(tripId),
   SketchGenerating(:final tripId) => sketchGeneratingScene(tripId),
   PlaceExistingTripOrigin(:final tripId) => placeExistingTripOriginScene(
@@ -44,6 +48,7 @@ List<Layer> layersFor(AppMode mode) => switch (mode) {
 @Riverpod(
   keepAlive: true,
   dependencies: [
+    selectionHandleItems,
     pencilItem,
     sketchTraceItem,
     sketchOriginItem,
