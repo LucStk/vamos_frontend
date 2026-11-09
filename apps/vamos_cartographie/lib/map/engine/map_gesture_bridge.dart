@@ -2,7 +2,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
+import 'package:vamos_cartographie/map/engine/map_gesture_handler.dart';
 import 'package:vamos_cartographie/map/rendering/map_canvas_view.dart';
 
 @Dependencies([MapGestureHandlerNotifier])

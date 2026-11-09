@@ -1,7 +1,7 @@
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil_anchor_item.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil_item.dart';
 

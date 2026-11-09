@@ -3,7 +3,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/interaction/mode_scope.dart';
+import 'package:vamos_cartographie/map/engine/mode_scope.dart';
 
 part 'mode_machine.g.dart';
 

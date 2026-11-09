@@ -1,7 +1,7 @@
 import 'package:domain_core/space/offset_type.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_segment_item.dart';
 
 part 'sketch_trace_item_provider.g.dart';

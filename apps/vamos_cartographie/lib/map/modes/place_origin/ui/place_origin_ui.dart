@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 
 import 'package:vamos_cartographie/map/modes/place_origin/ui/origin_menu_widget.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/menu_button.dart';

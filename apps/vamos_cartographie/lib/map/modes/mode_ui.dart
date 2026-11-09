@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/explore/ui/explore_ui.dart';
 import 'package:vamos_cartographie/map/modes/explore/ui/trip_read_only_ui.dart';
 import 'package:vamos_cartographie/map/modes/place_origin/ui/place_origin_ui.dart';

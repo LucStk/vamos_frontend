@@ -4,7 +4,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/providers/sketch_mobility_type_provider.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/bottom_sheet/contextual/sheet_sketch.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/bottom_sheet/sketch_bottom_sheet.dart';

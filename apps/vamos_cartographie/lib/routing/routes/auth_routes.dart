@@ -7,7 +7,7 @@ import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/auth/presentation/login_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/editor_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/viewer_profile_page.dart';
-import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 
 part 'auth_routes.g.dart';
 
