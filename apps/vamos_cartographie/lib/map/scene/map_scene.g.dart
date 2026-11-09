@@ -27,16 +27,17 @@ final class SceneItemsProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = pencilItemProvider;
+  static final $allTransitiveDependencies0 = selectionHandleItemsProvider;
   static final $allTransitiveDependencies1 =
-      PencilItemProvider.$allTransitiveDependencies0;
+      SelectionHandleItemsProvider.$allTransitiveDependencies0;
   static final $allTransitiveDependencies2 =
-      PencilItemProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 = sketchTraceItemProvider;
-  static final $allTransitiveDependencies4 = sketchOriginItemProvider;
-  static final $allTransitiveDependencies5 = sketchEndItemProvider;
-  static final $allTransitiveDependencies6 = tmpOriginItemProvider;
-  static final $allTransitiveDependencies7 = mapModeProvider;
+      SelectionHandleItemsProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 = pencilItemProvider;
+  static final $allTransitiveDependencies4 = sketchTraceItemProvider;
+  static final $allTransitiveDependencies5 = sketchOriginItemProvider;
+  static final $allTransitiveDependencies6 = sketchEndItemProvider;
+  static final $allTransitiveDependencies7 = tmpOriginItemProvider;
+  static final $allTransitiveDependencies8 = mapModeProvider;
 
   @override
   String debugGetCreateSourceHash() => _$sceneItemsHash();
@@ -78,7 +79,7 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'bf68077f531cbd3347d0431bbc4914bb8dc46b0e';
+String _$sceneItemsHash() => r'3f01753c1938dc25fb479155c591dee696b39461';
 
 final class SceneItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, MapCameraController> {
@@ -87,6 +88,7 @@ final class SceneItemsFamily extends $Family
         retry: null,
         name: r'sceneItemsProvider',
         dependencies: <ProviderOrFamily>[
+          selectionHandleItemsProvider,
           pencilItemProvider,
           sketchTraceItemProvider,
           sketchOriginItemProvider,
@@ -103,6 +105,7 @@ final class SceneItemsFamily extends $Family
           SceneItemsProvider.$allTransitiveDependencies5,
           SceneItemsProvider.$allTransitiveDependencies6,
           SceneItemsProvider.$allTransitiveDependencies7,
+          SceneItemsProvider.$allTransitiveDependencies8,
         },
         isAutoDispose: false,
       );
@@ -153,6 +156,7 @@ final class MapSceneProvider
           MapSceneProvider.$allTransitiveDependencies7,
           MapSceneProvider.$allTransitiveDependencies8,
           MapSceneProvider.$allTransitiveDependencies9,
+          MapSceneProvider.$allTransitiveDependencies10,
         },
       );
 
@@ -173,7 +177,9 @@ final class MapSceneProvider
       SceneItemsProvider.$allTransitiveDependencies6;
   static final $allTransitiveDependencies8 =
       SceneItemsProvider.$allTransitiveDependencies7;
-  static final $allTransitiveDependencies9 = modeSelectionProvider;
+  static final $allTransitiveDependencies9 =
+      SceneItemsProvider.$allTransitiveDependencies8;
+  static final $allTransitiveDependencies10 = modeSelectionProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapSceneHash();
