@@ -9,6 +9,7 @@ part "route/mobility_span.dart";
 part "route/trip_start.dart";
 part "route/trip_end.dart";
 part "route/mobility_badge.dart";
+part "route/selection_handle.dart";
 
 sealed class MapObject {
   const MapObject();
