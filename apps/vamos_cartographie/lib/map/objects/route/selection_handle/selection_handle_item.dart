@@ -5,12 +5,17 @@ import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/objects/route/selection_handle/appearance/selection_handle_shape.dart';
 
 final class SelectionHandleItem extends PointItem {
-  SelectionHandleItem({required this.object, required this.worldPosition});
+  SelectionHandleItem({
+    required this.object,
+    required this.worldPosition,
+    required this.angle,
+  });
 
   @override
   final SelectionHandle object;
   @override
   final WorldOffset worldPosition;
+  final double angle;
 
   static const _color = Color(0xFF1565C0);
 

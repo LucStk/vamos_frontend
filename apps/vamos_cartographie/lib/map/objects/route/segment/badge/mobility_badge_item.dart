@@ -1,5 +1,6 @@
 // objects/segment/badge/mobility_badge_item.dart
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';

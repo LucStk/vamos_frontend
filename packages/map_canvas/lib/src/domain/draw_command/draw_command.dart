@@ -1,5 +1,6 @@
 import 'dart:ui';
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_canvas/src/domain/length.dart';
 import 'package:map_canvas/src/domain/paint_spec.dart';
 part "draw_circle.dart";

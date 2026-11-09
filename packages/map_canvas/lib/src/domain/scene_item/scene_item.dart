@@ -1,6 +1,5 @@
 import 'dart:ui';
-import 'package:domain_core/space/offset_type.dart';
-import 'package:domain_core/space/world_segment.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:map_canvas/src/domain/draw_command/draw_command.dart';
 import 'package:map_canvas/src/domain/length.dart';
 import 'package:map_canvas/src/domain/map_paint_context.dart';
@@ -23,6 +22,7 @@ abstract class SceneItem {
 
   bool isHitAt(WorldOffset p, double zoomScale);
   WorldOffset hitPoint(WorldOffset p);
+  HitDetail? hitDetail(WorldOffset p) => null;
 
   DrawCommand toDrawCommand({MapPaintContext context});
 }

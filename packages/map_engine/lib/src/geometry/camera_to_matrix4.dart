@@ -1,4 +1,5 @@
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:vector_math/vector_math_64.dart'; // Nécessaire pour Vector2
 
 Matrix4 buildCameraTransform({

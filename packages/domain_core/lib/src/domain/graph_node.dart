@@ -1,5 +1,4 @@
-import 'package:domain_core/domain/patchable.dart';
-import 'package:domain_core/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'graph_node.freezed.dart';

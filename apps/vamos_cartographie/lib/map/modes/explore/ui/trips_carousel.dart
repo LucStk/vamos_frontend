@@ -1,4 +1,4 @@
-import 'package:domain_core/domain/collection_store.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

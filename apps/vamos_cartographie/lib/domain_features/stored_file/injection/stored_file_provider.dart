@@ -1,14 +1,14 @@
 import "package:dio/dio.dart";
-import "package:domain_core/notification/error_logger.dart";
-import "package:domain_core/runtime/mutation_queue.dart";
-import "package:domain_core/runtime/optimitic_runner.dart";
+import "package:domain_core/domain_core.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:stored_file_application/stored_file_application.dart";
+import "package:vamos_cartographie/core/injection/client_provider.dart";
+import "package:vamos_cartographie/core/injection/error_logger.dart";
+import "package:vamos_cartographie/core/injection/mutation_queue_provider.dart";
+import "package:vamos_cartographie/domain_features/stored_file/data/stored_file_remote_datasource.dart";
+import "package:vamos_cartographie/domain_features/stored_file/data/stored_file_repository_impl.dart";
+import "package:vamos_cartographie/domain_features/stored_file/data/upload_service_impl.dart";
 
-import "../../../core/injection/client_provider.dart";
-import "../../../core/injection/error_logger.dart";
-import "../../../core/injection/mutation_queue_provider.dart";
-import "../data/data.dart";
 part "stored_file_provider.g.dart";
 
 @Riverpod(keepAlive: true)

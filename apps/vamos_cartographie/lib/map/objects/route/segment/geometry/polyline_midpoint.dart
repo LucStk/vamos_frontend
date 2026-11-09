@@ -1,8 +1,7 @@
 // objects/segment/geometry/polyline_midpoint.dart
 import 'dart:math' as math;
 
-import 'package:domain_core/space/offset_type.dart';
-import 'package:domain_core/space/world_segment.dart';
+import 'package:domain_core/domain_core.dart';
 
 /// Point situé à la moitié de la longueur cumulée d'une polyligne,
 /// avec la direction de la portion qui le porte.

@@ -2,7 +2,8 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 

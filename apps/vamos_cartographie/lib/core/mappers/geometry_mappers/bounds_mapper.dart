@@ -1,4 +1,4 @@
-import 'package:domain_core/map_geo_bounds.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
 
 extension BoundsMapper on List<dynamic> {

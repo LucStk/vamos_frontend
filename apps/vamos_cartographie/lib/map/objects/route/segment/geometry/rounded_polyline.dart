@@ -2,7 +2,7 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
-import 'package:domain_core/space/world_segment.dart';
+import 'package:domain_core/domain_core.dart';
 
 /// Chemin passant par les sommets de [segments], chaque angle remplacé par
 /// un raccord tangent aux deux côtés. Les portions droites restent droites.

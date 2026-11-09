@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RouteSelection {
 
- int get startIndex; int get endIndex;
+ double get start; double get end;
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $RouteSelectionCopyWith<RouteSelection> get copyWith => _$RouteSelectionCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as RouteSelection;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteSelection&&(identical(other.startIndex, _this.startIndex) || other.startIndex == _this.startIndex)&&(identical(other.endIndex, _this.endIndex) || other.endIndex == _this.endIndex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteSelection&&(identical(other.start, _this.start) || other.start == _this.start)&&(identical(other.end, _this.end) || other.end == _this.end));
 }
 
 
 @override
 int get hashCode {
   final _this = this as RouteSelection;
-  return Object.hash(runtimeType,_this.startIndex,_this.endIndex);
+  return Object.hash(runtimeType,_this.start,_this.end);
 }
 
 @override
 String toString() {
   final _this = this as RouteSelection;
-  return 'RouteSelection(startIndex: ${_this.startIndex}, endIndex: ${_this.endIndex})';
+  return 'RouteSelection(start: ${_this.start}, end: ${_this.end})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $RouteSelectionCopyWith<$Res>  {
   factory $RouteSelectionCopyWith(RouteSelection value, $Res Function(RouteSelection) _then) = _$RouteSelectionCopyWithImpl;
 @useResult
 $Res call({
- int startIndex, int endIndex
+ double start, double end
 });
 
 
@@ -68,11 +68,11 @@ class _$RouteSelectionCopyWithImpl<$Res>
 
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? startIndex = null,Object? endIndex = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? start = null,Object? end = null,}) {
   return _then(RouteSelection(
-startIndex: null == startIndex ? _self.startIndex : startIndex // ignore: cast_nullable_to_non_nullable
-as int,endIndex: null == endIndex ? _self.endIndex : endIndex // ignore: cast_nullable_to_non_nullable
-as int,
+start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as double,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 
@@ -157,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int startIndex,  int endIndex)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double start,  double end)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RouteSelection() when $default != null:
-return $default(_that.startIndex,_that.endIndex);case _:
+return $default(_that.start,_that.end);case _:
   return orElse();
 
 }
@@ -178,10 +178,10 @@ return $default(_that.startIndex,_that.endIndex);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int startIndex,  int endIndex)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double start,  double end)  $default,) {final _that = this;
 switch (_that) {
 case _RouteSelection():
-return $default(_that.startIndex,_that.endIndex);case _:
+return $default(_that.start,_that.end);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +198,10 @@ return $default(_that.startIndex,_that.endIndex);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int startIndex,  int endIndex)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double start,  double end)?  $default,) {final _that = this;
 switch (_that) {
 case _RouteSelection() when $default != null:
-return $default(_that.startIndex,_that.endIndex);case _:
+return $default(_that.start,_that.end);case _:
   return null;
 
 }
@@ -213,11 +213,11 @@ return $default(_that.startIndex,_that.endIndex);case _:
 
 
 class _RouteSelection extends RouteSelection {
-  const _RouteSelection({required this.startIndex, required this.endIndex}): super._();
+  const _RouteSelection({required this.start, required this.end}): super._();
   
 
-@override final  int startIndex;
-@override final  int endIndex;
+@override final  double start;
+@override final  double end;
 
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
@@ -229,18 +229,18 @@ _$RouteSelectionCopyWith<_RouteSelection> get copyWith => __$RouteSelectionCopyW
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteSelection&&(identical(other.startIndex, startIndex) || other.startIndex == startIndex)&&(identical(other.endIndex, endIndex) || other.endIndex == endIndex));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteSelection&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,startIndex,endIndex);
+    return Object.hash(runtimeType,start,end);
 }
 
 @override
 String toString() {
-    return 'RouteSelection(startIndex: $startIndex, endIndex: $endIndex)';
+    return 'RouteSelection(start: $start, end: $end)';
 }
 
 
@@ -251,7 +251,7 @@ abstract mixin class _$RouteSelectionCopyWith<$Res> implements $RouteSelectionCo
   factory _$RouteSelectionCopyWith(_RouteSelection value, $Res Function(_RouteSelection) _then) = __$RouteSelectionCopyWithImpl;
 @override @useResult
 $Res call({
- int startIndex, int endIndex
+ double start, double end
 });
 
 
@@ -268,11 +268,11 @@ class __$RouteSelectionCopyWithImpl<$Res>
 
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? startIndex = null,Object? endIndex = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? start = null,Object? end = null,}) {
   return _then(_RouteSelection(
-startIndex: null == startIndex ? _self.startIndex : startIndex // ignore: cast_nullable_to_non_nullable
-as int,endIndex: null == endIndex ? _self.endIndex : endIndex // ignore: cast_nullable_to_non_nullable
-as int,
+start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as double,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

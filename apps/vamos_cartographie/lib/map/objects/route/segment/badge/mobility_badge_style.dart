@@ -1,7 +1,8 @@
 // objects/segment/badge/mobility_badge_style.dart
 import 'dart:ui';
 
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/badge/badge_look.dart';

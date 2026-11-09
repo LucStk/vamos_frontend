@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' show Size;
 
-import 'package:domain_core/map_geo_bounds.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/camera/camera_pose.dart';
 import 'package:map_engine/src/domain/camera/camera_request.dart';
 import 'package:map_engine/src/domain/camera/map_camera.dart';

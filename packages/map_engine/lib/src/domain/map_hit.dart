@@ -1,5 +1,6 @@
 // map_engine/lib/src/domain/map_hit.dart  (à exporter depuis map_engine.dart)
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 
 /// Résultat d'un hit-test : l'objet touché ET l'endroit précis sur lui.
@@ -28,15 +29,31 @@ final class HitGeo extends MapHit {
   final WorldOffset point;
 }
 
+/// Information propre à l'item touché, calculée au moment du hit-test.
+sealed class HitDetail {
+  const HitDetail();
+}
+
+/// Position continue sur la géométrie de la route (même repère que
+/// `MobilitySpanFields.startIndex`) : partie entière = index du point,
+/// partie décimale = avancement vers le suivant.
+final class RouteHitDetail extends HitDetail {
+  const RouteHitDetail(this.position);
+  final double position;
+}
+
 final class HitObject<T extends MapObject> extends MapHit {
-  const HitObject({required this.object, required this.point});
+  const HitObject({required this.object, required this.point, this.detail});
   final T object;
   @override
   final WorldOffset point;
+  final HitDetail? detail;
 
   HitObject<R>? narrow<R extends MapObject>() {
     final o = object;
-    return o is R ? HitObject<R>(object: o, point: point) : null;
+    return o is R
+        ? HitObject<R>(object: o, point: point, detail: detail)
+        : null;
   }
 }
 

@@ -1,4 +1,5 @@
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_engine/src/domain/camera/camera_request.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 

@@ -1,4 +1,5 @@
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_pointer_event.dart';

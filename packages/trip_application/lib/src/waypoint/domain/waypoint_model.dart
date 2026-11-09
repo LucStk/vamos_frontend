@@ -1,5 +1,4 @@
-import 'package:domain_core/domain/patchable.dart';
-import 'package:domain_core/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:trip_application/src/waypoint/domain/poi_category_types.dart';

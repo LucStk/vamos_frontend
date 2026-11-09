@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain_core/failures.dart';
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/domain/camera/map_camera.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';

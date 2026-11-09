@@ -1,4 +1,4 @@
-import 'package:domain_core/failures.dart';
+import 'package:domain_core/domain_core.dart';
 
 final class ServerFailure extends Failure {
   final int? statusCode;

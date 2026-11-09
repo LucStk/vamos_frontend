@@ -1,4 +1,4 @@
-import 'package:domain_core/space/world_segment.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:map_canvas/map_canvas.dart';
 import "package:map_engine/map_engine.dart";
@@ -10,10 +10,16 @@ final class SegmentItem extends LineItem {
   SegmentItem({
     required this.object,
     required this.worldSegments,
+    required this.polyline,
+    required this.endIndex,
     this.appearance = SegmentAppearance.fallback,
   });
 
   final SegmentAppearance appearance;
+
+  final RoutePolyline polyline;
+
+  final int endIndex;
 
   @override
   final MapMobilitySpan object; // voir remarque ci-dessous
@@ -27,6 +33,15 @@ final class SegmentItem extends LineItem {
 
   @override
   ScreenLength get hitRadius => 14.px;
+
+  @override
+  HitDetail? hitDetail(WorldOffset p) => RouteHitDetail(
+    polyline.project(
+      p,
+      min: object.spanStartIndex.toDouble(),
+      max: endIndex.toDouble(),
+    ),
+  );
 
   static const _cornerRadius = 12.0; // unités monde, à régler à l'œil
 

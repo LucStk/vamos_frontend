@@ -1,4 +1,5 @@
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/src/mode_engine/app_scope.dart';
 import 'package:map_engine/src/mode_engine/command.dart';
