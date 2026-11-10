@@ -1,3 +1,4 @@
+import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
@@ -17,7 +18,12 @@ class SelectSpanMode extends TripMode {
   //   Iterable<SlotChange> get initialSlots => [
   //     (mobilitySpanSlot, MobilitySpanSelected(mobilitySpanId: mobilitySpanId)),
   //   ];
-
+  @override
+  Transition onTap(TapGesture g) => switch (g.hit) {
+    HitObject(object: MapMobilitySpan(:final id)) when id != mobilitySpanId =>
+      Transition.to(SelectSpanMode(tripId, mobilitySpanId: id)),
+    _ => Transition.stay(),
+  };
   @override
   Transition onPointerDown(PressGesture g) => switch (g.element) {
     MapSketchPencil() => Transition.update(
