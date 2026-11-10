@@ -11,6 +11,7 @@ part "route/trip_start.dart";
 part "route/trip_end.dart";
 part "route/mobility_badge.dart";
 part "route/selection_handle.dart";
+part "route/selection_highlight.dart";
 
 sealed class MapObject {
   const MapObject();

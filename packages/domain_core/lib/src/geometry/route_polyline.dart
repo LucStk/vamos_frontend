@@ -44,6 +44,20 @@ final class RoutePolyline {
     }
     return bestPos;
   }
+
+  /// Points de la route entre [from] et [to] (positions continues) :
+  /// le point interpolé de départ, les sommets strictement entre les deux,
+  /// puis le point interpolé d'arrivée.
+  List<WorldOffset> sliceBetween(double from, double to) {
+    final lo = from.clamp(0.0, maxPosition);
+    final hi = to.clamp(0.0, maxPosition);
+    if (hi <= lo) return const [];
+    return [
+      pointAt(lo),
+      for (var i = lo.floor() + 1; i < hi; i++) points[i],
+      pointAt(hi),
+    ];
+  }
 }
 
 /// Paramètre t ∈ [0,1] de la projection de [p] sur le segment [a, b].

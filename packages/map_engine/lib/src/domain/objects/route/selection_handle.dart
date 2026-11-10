@@ -1,6 +1,6 @@
 part of '../map_objects.dart';
 
-final class SelectionHandle extends MapObject implements Selectable {
+final class SelectionHandle extends MapObject {
   SelectionHandle({required this.tripId, required this.id});
 
   final TripId tripId;
