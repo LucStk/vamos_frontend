@@ -27,7 +27,7 @@ class SelectRouteUi extends ConsumerWidget {
           // Retour : quitte le mode sans valider (ancien « Cancel creation »).
           onBack: () => ref
               .read(appModeMachineProvider.notifier)
-              .apply(TripMode.open(mode.tripId)),
+              .apply(Transition.to(RouteEditMode(mode.tripId))),
 
           onRoute: null,
           onCancelStroke: null,

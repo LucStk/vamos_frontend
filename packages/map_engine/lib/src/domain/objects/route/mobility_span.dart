@@ -2,12 +2,14 @@ part of '../map_objects.dart';
 
 final class MapMobilitySpan extends RouteElements {
   final MobilitySpanId id;
-  final int spanStartIndex;
+  final double start;
+  final double end;
   final TripId tripId;
   MapMobilitySpan({
     required this.id,
     required this.tripId,
-    required this.spanStartIndex,
+    required this.start,
+    required this.end,
   });
   // ...
   @override

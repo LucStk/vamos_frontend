@@ -11,7 +11,6 @@ final class SegmentItem extends LineItem {
     required this.object,
     required this.worldSegments,
     required this.polyline,
-    required this.endIndex,
     this.appearance = SegmentAppearance.fallback,
     this.context = const MapPaintContext(),
   });
@@ -20,8 +19,6 @@ final class SegmentItem extends LineItem {
   final MapPaintContext context;
 
   final RoutePolyline polyline;
-
-  final int endIndex;
 
   @override
   final MapMobilitySpan object; // voir remarque ci-dessous
@@ -41,8 +38,8 @@ final class SegmentItem extends LineItem {
     final d = RouteHitDetail(
       polyline.project(
         p,
-        min: object.spanStartIndex.toDouble(),
-        max: endIndex.toDouble(),
+        min: object.start.toDouble(),
+        max: object.end.toDouble(),
       ),
     );
     return d;

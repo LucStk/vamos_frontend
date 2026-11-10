@@ -6,7 +6,7 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/modes.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_scene.dart';
 // Adapte le chemin au fichier qui déclare `selectSpanScene`.
-import 'package:vamos_cartographie/map/modes/route_edit/select_span/select_span_scene.dart';
+import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_scene.dart';
 import 'package:vamos_cartographie/map/objects/localization/providers/localization_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
@@ -43,7 +43,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
   ExploreMode() => SceneSpec(layers: exploreScene()),
   // Avant `TripMode` : SelectSpanMode en est un sous-type, il serait sinon
   // capturé par le cas générique.
-  SelectSpanMode(:final tripId, :final mobilitySpanId) => selectSpanScene(
+  EditSpanMode(:final tripId, :final mobilitySpanId) => editSpanScene(
     tripId,
     mobilitySpanId,
   ),

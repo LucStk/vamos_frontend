@@ -36,13 +36,13 @@ SegmentItem? segmentItem(
 
   return SegmentItem(
     polyline: polyline,
-    endIndex: range.last,
     appearance: MobilityAppearances.of(mobilityType),
     worldSegments: projectLine(slice, cameraReader.latLngToWorldOffset),
     object: MapMobilitySpan(
       tripId: tripId,
       id: id,
-      spanStartIndex: range.first,
+      start: range.first.toDouble(),
+      end: range.last.toDouble(),
     ),
   );
 }

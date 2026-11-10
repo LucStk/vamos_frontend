@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 
 @Dependencies([selectionHandleItems])
-SceneSpec selectSpanScene(TripId tripId, MobilitySpanId spanId) => SceneSpec(
+SceneSpec editSpanScene(TripId tripId, MobilitySpanId spanId) => SceneSpec(
   layers: [
     (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],
     (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],

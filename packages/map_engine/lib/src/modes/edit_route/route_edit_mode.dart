@@ -26,9 +26,10 @@ final class RouteEditMode extends TripMode {
 
   @override
   Transition onTap(TapGesture g) => switch (g.hit) {
-    HitObject(object: MapMobilitySpan(:final id)) => Transition.to(
-      SelectSpanMode(tripId, mobilitySpanId: id),
-    ),
+    HitObject(object: MapMobilitySpan(:final id, :final start, :final end)) =>
+      Transition.to(
+        EditSpanMode(tripId, mobilitySpanId: id, start: start, end: end),
+      ),
     _ => Transition.stay(),
   };
 
