@@ -55,13 +55,16 @@ class MapScene {
     return MapObjectVisualState.normal;
   }
 
-  SceneItem? itemOf(MapObject o) {
-    for (final i in items) {
-      if (i.object == o) return i;
+  // MapScene
+  DragDetail? dragDetail(MapObject dragged, WorldOffset p) {
+    print(
+      'dragDetail ${items.where((i) => i.object == dragged).map((i) => i.runtimeType).toList()}',
+    );
+    for (final item in items) {
+      if (item.object != dragged) continue;
+      final d = item.dragDetail(p);
+      if (d != null) return d;
     }
     return null;
   }
-
-  DragDetail? dragDetail(MapObject dragged, WorldOffset p) =>
-      itemOf(dragged)?.dragDetail(p);
 }

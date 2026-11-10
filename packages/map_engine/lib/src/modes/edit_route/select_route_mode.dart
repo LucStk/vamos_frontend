@@ -6,7 +6,6 @@ import 'package:map_engine/src/modes/shared/trip_mode.dart';
 
 class SelectRouteMode extends TripMode {
   SelectRouteMode(super.tripId, {required this.initialPosition});
-
   final double initialPosition;
 
   @override
@@ -14,26 +13,34 @@ class SelectRouteMode extends TripMode {
     (routeSelectionSlot, RouteSelection.collapsedAt(initialPosition)),
   ];
 
+  // Nouveau drag depuis la route : on repart d'une sélection fermée.
   @override
-  Transition onPointerDown(PressGesture g) => switch (g.hit) {
+  Transition onDragStart(DragStartGesture g) => switch (g.source) {
     HitObject(
       object: MapMobilitySpan(),
       detail: RouteHitDetail(:final position),
     ) =>
-      Transition.to(SelectRouteMode(tripId, initialPosition: position)),
+      Transition.set(routeSelectionSlot, RouteSelection.collapsedAt(position)),
     _ => Transition.stay(),
   };
 
-  // SelectionHandle(tripId, id) : même objet qu'avant, avec `id` à la place de `side`.
-
   @override
-  Transition onDragging(DragUpdateGesture g) =>
-      switch ((g.source.object, g.detail)) {
-        (SelectionHandle(:final id), RouteDragDetail(:final position)) =>
-          Transition.update(
-            routeSelectionSlot,
-            (s) => s.withHandleAt(id, position),
-          ),
-        _ => Transition.stay(),
-      };
+  Transition onDragging(DragUpdateGesture g) {
+    print("g.detail -> ${g.detail}");
+    print("g.source.obj -> ${g.source.object}");
+    return switch ((g.source.object, g.detail)) {
+      // Le drag qui a créé la sélection : `b` suit le doigt.
+      (MapMobilitySpan(), RouteDragDetail(:final position)) =>
+        Transition.update(
+          routeSelectionSlot,
+          (s) => s.withHandleAt(HandleId.b, position),
+        ),
+      (SelectionHandle(:final id), RouteDragDetail(:final position)) =>
+        Transition.update(
+          routeSelectionSlot,
+          (s) => s.withHandleAt(id, position),
+        ),
+      _ => Transition.stay(),
+    };
+  }
 }

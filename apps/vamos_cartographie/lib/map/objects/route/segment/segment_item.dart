@@ -35,13 +35,19 @@ final class SegmentItem extends LineItem {
   ScreenLength get hitRadius => 14.px;
 
   @override
-  HitDetail? hitDetail(WorldOffset p) => RouteHitDetail(
-    polyline.project(
-      p,
-      min: object.spanStartIndex.toDouble(),
-      max: endIndex.toDouble(),
-    ),
-  );
+  HitDetail? hitDetail(WorldOffset p) {
+    final d = RouteHitDetail(
+      polyline.project(
+        p,
+        min: object.spanStartIndex.toDouble(),
+        max: endIndex.toDouble(),
+      ),
+    );
+    return d;
+  }
+
+  @override
+  DragDetail? dragDetail(WorldOffset p) => RouteDragDetail(polyline.project(p));
 
   static const _cornerRadius = 12.0; // unités monde, à régler à l'œil
 

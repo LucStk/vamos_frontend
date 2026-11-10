@@ -9,6 +9,12 @@ final class MapMobilitySpan extends RouteElements {
     required this.tripId,
     required this.spanStartIndex,
   });
+  // ...
+  @override
+  bool get isDraggable => true;
+
+  @override
+  bool get isMovedByDrag => false; // la route ne suit pas le doigt
 
   @override
   int get hitPriority => 50;

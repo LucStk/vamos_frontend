@@ -8,16 +8,34 @@ import 'package:map_engine/src/modes/shared/trip_mode.dart';
 
 final class RouteEditMode extends TripMode {
   const RouteEditMode(super.tripId);
-  @override
-  Transition onPointerDown(PressGesture g) => switch (g.hit) {
-    HitObject(
-      object: MapMobilitySpan(),
-      detail: RouteHitDetail(:final position),
-    ) =>
-      Transition.to(SelectRouteMode(tripId, initialPosition: position)),
-    _ => Transition.stay(),
-  };
 
+  @override
+  Transition onDragStart(DragStartGesture g) {
+    final res = switch (g.source) {
+      HitObject(
+        object: MapMobilitySpan(),
+        detail: RouteHitDetail(:final position),
+      ) =>
+        Transition.to(SelectRouteMode(tripId, initialPosition: position)),
+      _ => Transition.stay(),
+    };
+
+    print("drag start ${g.source.object}");
+    print("drag detail ${g.source.detail}");
+    print("resolve ${res.mode}");
+    return res;
+  }
+
+  //  @override
+  //   Transition onPointerDown(PressGesture g) => switch (g.hit) {
+  //     HitObject(
+  //       object: MapMobilitySpan(),
+  //       detail: RouteHitDetail(:final position),
+  //     ) =>
+  //       Transition.to(SelectRouteMode(tripId, initialPosition: position)),
+  //     _ => Transition.stay(),
+  //   };
+  //
   Transition deleteTripRoute() => Transition.run(
     DeleteRoute(tripId: tripId),
     then: (_, data) =>
