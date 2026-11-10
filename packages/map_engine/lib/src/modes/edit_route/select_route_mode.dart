@@ -24,13 +24,15 @@ class SelectRouteMode extends TripMode {
     _ => Transition.stay(),
   };
 
+  // SelectionHandle(tripId, id) : même objet qu'avant, avec `id` à la place de `side`.
+
   @override
   Transition onDragging(DragUpdateGesture g) =>
       switch ((g.source.object, g.detail)) {
-        (SelectionHandle(:final side), RouteDragDetail(:final position)) =>
+        (SelectionHandle(:final id), RouteDragDetail(:final position)) =>
           Transition.update(
             routeSelectionSlot,
-            (s) => s.withHandleAt(side, position),
+            (s) => s.withHandleAt(id, position),
           ),
         _ => Transition.stay(),
       };

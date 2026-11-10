@@ -6,29 +6,24 @@ import 'package:vamos_cartographie/map/objects/route/selection_handle/appearance
 
 final class SelectionHandleItem extends PointItem {
   SelectionHandleItem({
-    required this.position,
     required this.object,
     required this.polyline,
-    required this.min,
-    required this.max,
+    required this.position,
   });
-
-  final RoutePolyline polyline;
-  final double min; // borne basse du déplacement (position continue)
-  final double max;
-
-  @override
-  DragDetail? dragDetail(WorldOffset p) =>
-      RouteDragDetail(polyline.project(p, min: min, max: max));
 
   @override
   final SelectionHandle object;
+  final RoutePolyline polyline;
   final double position;
 
   @override
-  WorldOffset get worldPosition => polyline.pointAt(position);
+  late final WorldOffset worldPosition = polyline.pointAt(position);
+  late final double angle = polyline.angleAt(position);
+  late final Path _path = SelectionHandleShape.drop(angle: angle);
+  late final Offset _center = SelectionHandleShape.bodyCenter(angle);
 
-  double get angle => polyline.angleAt(position);
+  @override
+  DragDetail? dragDetail(WorldOffset p) => RouteDragDetail(polyline.project(p));
 
   static const _color = Color(0xFF1565C0);
 
@@ -37,12 +32,21 @@ final class SelectionHandleItem extends PointItem {
   @override
   ScreenLength get hitRadius => 16.px;
 
+  static const _hitPadding = 6.0; // marge pour le doigt, en px
+
+  @override
+  bool isHitAt(WorldOffset p, double zoomScale) {
+    final d = (p.value - worldPosition.value) * zoomScale; // px écran
+    return _path.contains(d) ||
+        (d - _center).distance <= SelectionHandleShape.radius + _hitPadding;
+  }
+
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
   }) => DrawAnchoredPath(
     anchor: worldPosition,
-    path: SelectionHandleShape.halfDrop(object.side, angle: angle),
+    path: _path, // le même chemin que celui du hit
     style: const Fill(_color),
   );
 }

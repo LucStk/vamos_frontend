@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RouteSelection {
 
- double get start; double get end;
+ double get a; double get b;
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $RouteSelectionCopyWith<RouteSelection> get copyWith => _$RouteSelectionCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as RouteSelection;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteSelection&&(identical(other.start, _this.start) || other.start == _this.start)&&(identical(other.end, _this.end) || other.end == _this.end));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouteSelection&&(identical(other.a, _this.a) || other.a == _this.a)&&(identical(other.b, _this.b) || other.b == _this.b));
 }
 
 
 @override
 int get hashCode {
   final _this = this as RouteSelection;
-  return Object.hash(runtimeType,_this.start,_this.end);
+  return Object.hash(runtimeType,_this.a,_this.b);
 }
 
 @override
 String toString() {
   final _this = this as RouteSelection;
-  return 'RouteSelection(start: ${_this.start}, end: ${_this.end})';
+  return 'RouteSelection(a: ${_this.a}, b: ${_this.b})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $RouteSelectionCopyWith<$Res>  {
   factory $RouteSelectionCopyWith(RouteSelection value, $Res Function(RouteSelection) _then) = _$RouteSelectionCopyWithImpl;
 @useResult
 $Res call({
- double start, double end
+ double a, double b
 });
 
 
@@ -68,10 +68,10 @@ class _$RouteSelectionCopyWithImpl<$Res>
 
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? start = null,Object? end = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? a = null,Object? b = null,}) {
   return _then(RouteSelection(
-start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
-as double,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+a: null == a ? _self.a : a // ignore: cast_nullable_to_non_nullable
+as double,b: null == b ? _self.b : b // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -157,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double start,  double end)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double a,  double b)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RouteSelection() when $default != null:
-return $default(_that.start,_that.end);case _:
+return $default(_that.a,_that.b);case _:
   return orElse();
 
 }
@@ -178,10 +178,10 @@ return $default(_that.start,_that.end);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double start,  double end)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double a,  double b)  $default,) {final _that = this;
 switch (_that) {
 case _RouteSelection():
-return $default(_that.start,_that.end);case _:
+return $default(_that.a,_that.b);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +198,10 @@ return $default(_that.start,_that.end);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double start,  double end)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double a,  double b)?  $default,) {final _that = this;
 switch (_that) {
 case _RouteSelection() when $default != null:
-return $default(_that.start,_that.end);case _:
+return $default(_that.a,_that.b);case _:
   return null;
 
 }
@@ -213,11 +213,11 @@ return $default(_that.start,_that.end);case _:
 
 
 class _RouteSelection extends RouteSelection {
-  const _RouteSelection({required this.start, required this.end}): super._();
+  const _RouteSelection({required this.a, required this.b}): super._();
   
 
-@override final  double start;
-@override final  double end;
+@override final  double a;
+@override final  double b;
 
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
@@ -229,18 +229,18 @@ _$RouteSelectionCopyWith<_RouteSelection> get copyWith => __$RouteSelectionCopyW
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteSelection&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RouteSelection&&(identical(other.a, a) || other.a == a)&&(identical(other.b, b) || other.b == b));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,start,end);
+    return Object.hash(runtimeType,a,b);
 }
 
 @override
 String toString() {
-    return 'RouteSelection(start: $start, end: $end)';
+    return 'RouteSelection(a: $a, b: $b)';
 }
 
 
@@ -251,7 +251,7 @@ abstract mixin class _$RouteSelectionCopyWith<$Res> implements $RouteSelectionCo
   factory _$RouteSelectionCopyWith(_RouteSelection value, $Res Function(_RouteSelection) _then) = __$RouteSelectionCopyWithImpl;
 @override @useResult
 $Res call({
- double start, double end
+ double a, double b
 });
 
 
@@ -268,10 +268,10 @@ class __$RouteSelectionCopyWithImpl<$Res>
 
 /// Create a copy of RouteSelection
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? start = null,Object? end = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? a = null,Object? b = null,}) {
   return _then(_RouteSelection(
-start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
-as double,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+a: null == a ? _self.a : a // ignore: cast_nullable_to_non_nullable
+as double,b: null == b ? _self.b : b // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }

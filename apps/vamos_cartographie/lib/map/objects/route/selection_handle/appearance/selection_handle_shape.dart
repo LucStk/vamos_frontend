@@ -2,47 +2,31 @@
 import 'dart:math';
 import 'dart:ui';
 import "dart:typed_data";
-import 'package:map_engine/map_engine.dart';
 
 abstract final class SelectionHandleShape {
-  static const radius = 8.0; // rayon du corps, en px
+  static const radius = 9.0; // rayon du corps, en px
   static const tipToCenter = 15.0; // pointe -> centre du corps, en px
 
-  /// Demi-goutte en px, (0,0) = pointe, y vers le bas.
-  /// `start` = moitié gauche, `end` = moitié droite.
-  static Path _halfDrop(HandleSide side) {
+  /// Goutte entière en px : pointe en (0,0), corps pendu vers le bas (y > 0).
+  static final Path _drop = () {
     const r = radius;
     const d = tipToCenter;
 
-    // Point de tangence : la pointe voit le cercle sous l'angle θ.
-    final theta = acos(r / d);
+    final theta = acos(r / d); // la pointe voit le cercle sous cet angle
     final tangent = Offset(r * sin(theta), d - r * cos(theta));
-
     final circle = Rect.fromCircle(center: const Offset(0, d), radius: r);
-    final path = Path()..moveTo(0, 0);
 
-    switch (side) {
-      case HandleSide.end:
-        // pointe -> tangente droite -> arc par la droite -> bas -> axe
-        path
-          ..lineTo(tangent.dx, tangent.dy)
-          ..arcTo(circle, theta - pi / 2, pi - theta, false);
-      case HandleSide.start:
-        // pointe -> bas (axe) -> arc par la gauche -> tangente gauche
-        path
-          ..lineTo(0, d + r)
-          ..arcTo(circle, pi / 2, pi - theta, false);
-    }
-    return path..close();
-  }
-  // ... radius, tipToCenter inchangés
+    return Path()
+      ..moveTo(0, 0)
+      ..lineTo(tangent.dx, tangent.dy) // tangente droite
+      ..arcTo(circle, theta - pi / 2, 2 * pi - 2 * theta, false) // par le bas
+      ..close(); // tangente gauche, retour à la pointe
+  }();
 
-  /// Demi-goutte en px, tournée de [angle] radians autour de la pointe (0,0).
-  /// angle = 0 : le corps pend vers le bas de l'écran.
-  static Path halfDrop(HandleSide side, {double angle = 0}) {
-    final path = _halfDrop(side); // ton code actuel, renommé en privé
-    if (angle == 0) return path;
-
+  /// Goutte tournée autour de la pointe.
+  /// [angle] : orientation de la route (0 = route vers la droite, le corps pend
+  /// sous elle). `start` s'incline vers l'arrière, `end` vers l'avant.
+  static Path drop({double angle = 0}) {
     final c = cos(angle), s = sin(angle);
     // Rotation 2D, matrice 4x4 colonne-major (comme dans paintAnchoredPath).
     final m = Float64List.fromList([
@@ -51,6 +35,10 @@ abstract final class SelectionHandleShape {
       0, 0, 1, 0,
       0, 0, 0, 1,
     ]);
-    return path.transform(m);
+    return _drop.transform(m);
   }
+
+  /// Centre du corps, dans le même repère que [drop].
+  static Offset bodyCenter(double angle) =>
+      Offset(-tipToCenter * sin(angle), tipToCenter * cos(angle));
 }

@@ -1,12 +1,10 @@
 part of '../map_objects.dart';
 
-enum HandleSide { start, end }
-
 final class SelectionHandle extends MapObject implements Selectable {
-  SelectionHandle({required this.tripId, required this.side});
+  SelectionHandle({required this.tripId, required this.id});
 
   final TripId tripId;
-  final HandleSide side;
+  final HandleId id;
 
   @override
   int get hitPriority => 50;
@@ -16,8 +14,8 @@ final class SelectionHandle extends MapObject implements Selectable {
 
   @override
   bool operator ==(Object other) =>
-      other is SelectionHandle && other.tripId == tripId && other.side == side;
+      other is SelectionHandle && other.tripId == tripId && other.id == id;
 
   @override
-  int get hashCode => Object.hash(tripId, side);
+  int get hashCode => Object.hash(tripId, id);
 }

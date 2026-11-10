@@ -72,7 +72,7 @@ final class SelectionHandleItemsProvider
 }
 
 String _$selectionHandleItemsHash() =>
-    r'c337d05851b464e70f33c54b9498109c7831da2b';
+    r'8b3fb6596845de5ebf730286884a86299354ee28';
 
 final class SelectionHandleItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {

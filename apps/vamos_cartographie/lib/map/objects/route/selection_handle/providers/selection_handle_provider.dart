@@ -19,20 +19,14 @@ List<SceneItem> selectionHandleItems(
   if (selection == null || polyline == null) return const [];
 
   return [
-    for (final side in HandleSide.values)
-      () {
-        final pos = side == HandleSide.start ? selection.start : selection.end;
-        final (min, max) = switch (side) {
-          HandleSide.start => (0.0, selection.end),
-          HandleSide.end => (selection.start, polyline.maxPosition),
-        };
-        return SelectionHandleItem(
-          position: pos,
-          polyline: polyline,
-          object: SelectionHandle(tripId: tripId, side: side),
-          max: max,
-          min: min,
-        );
-      }(),
+    for (final id in HandleId.values)
+      SelectionHandleItem(
+        object: SelectionHandle(tripId: tripId, id: id),
+        polyline: polyline,
+        position: switch (id) {
+          HandleId.a => selection.a,
+          HandleId.b => selection.b,
+        },
+      ),
   ];
 }

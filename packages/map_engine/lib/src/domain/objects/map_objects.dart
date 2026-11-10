@@ -1,5 +1,6 @@
 import 'package:map_engine/src/domain/camera/map_camera.dart';
 import 'package:map_engine/src/domain/map_hit.dart';
+import 'package:map_engine/src/modes/edit_route/slots/route_selection_slot.dart';
 import 'package:trip_application/trip_application.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
