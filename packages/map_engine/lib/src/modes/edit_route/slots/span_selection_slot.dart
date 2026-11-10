@@ -3,9 +3,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_engine/src/mode_engine/slots.dart';
 import 'package:trip_application/trip_application.dart';
-part 'mobility_span_slot.freezed.dart';
+part 'span_selection_slot.freezed.dart';
 
-const mobilitySpanSlot = Slot<MobilitySpanSelected>('mobilitySpanSelected');
+const spanSelectionSlot = Slot<SpanSelectionSlot>('spanSelectionSlot');
 
 /// Tracé à main levée en cours de saisie, destiné à `editRoute`.
 ///
@@ -18,11 +18,9 @@ const mobilitySpanSlot = Slot<MobilitySpanSelected>('mobilitySpanSelected');
 ///   Pour la première route du trajet, la mobilité est obligatoire.
 
 @freezed
-abstract class MobilitySpanSelected with _$MobilitySpanSelected {
-  const MobilitySpanSelected._();
+abstract class SpanSelectionSlot with _$SpanSelectionSlot {
+  const SpanSelectionSlot._();
 
-  const factory MobilitySpanSelected({
-    required MobilitySpanId mobilitySpanId,
-    required int currentIndex,
-  }) = _MobilitySpanSelected;
+  const factory SpanSelectionSlot({required int currentIndex}) =
+      _SpanSelectionSlot;
 }
