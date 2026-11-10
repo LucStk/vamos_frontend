@@ -25,7 +25,7 @@ final class RouteEditMode extends TripMode {
   }
 
   @override
-  Transition onPointerDown(PressGesture g) => switch (g.hit) {
+  Transition onTap(TapGesture g) => switch (g.hit) {
     HitObject(object: MapMobilitySpan(:final id)) => Transition.to(
       SelectSpanMode(tripId, mobilitySpanId: id),
     ),

@@ -56,7 +56,6 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
 
   @override
   Transition onTap(TapGesture g) {
-    print("gesture ${g.element}");
     return switch (g.element) {
       MapTripStart _ => Transition.overlay(g.tapMenu),
       _ => onTapElsewhere(g),

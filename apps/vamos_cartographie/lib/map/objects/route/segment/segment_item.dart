@@ -13,9 +13,11 @@ final class SegmentItem extends LineItem {
     required this.polyline,
     required this.endIndex,
     this.appearance = SegmentAppearance.fallback,
+    this.context = const MapPaintContext(),
   });
 
   final SegmentAppearance appearance;
+  final MapPaintContext context;
 
   final RoutePolyline polyline;
 
