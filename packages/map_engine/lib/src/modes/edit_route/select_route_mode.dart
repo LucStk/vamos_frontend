@@ -26,8 +26,6 @@ class SelectRouteMode extends TripMode {
 
   @override
   Transition onDragging(DragUpdateGesture g) {
-    print("g.detail -> ${g.detail}");
-    print("g.source.obj -> ${g.source.object}");
     return switch ((g.source.object, g.detail)) {
       // Le drag qui a créé la sélection : `b` suit le doigt.
       (MapMobilitySpan(), RouteDragDetail(:final position)) =>

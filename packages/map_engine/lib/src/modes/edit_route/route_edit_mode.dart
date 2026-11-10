@@ -20,9 +20,6 @@ final class RouteEditMode extends TripMode {
       _ => Transition.stay(),
     };
 
-    print("drag start ${g.source.object}");
-    print("drag detail ${g.source.detail}");
-    print("resolve ${res.mode}");
     return res;
   }
 
