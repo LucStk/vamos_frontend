@@ -1,6 +1,7 @@
 import 'package:map_engine/src/domain/camera/map_camera.dart';
 import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/modes/edit_route/slots/route_selection_slot.dart';
+import 'package:map_engine/src/modes/edit_route/slots/span_bounds_slot.dart';
 import 'package:trip_application/trip_application.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
@@ -10,8 +11,10 @@ part "route/mobility_span.dart";
 part "route/trip_start.dart";
 part "route/trip_end.dart";
 part "route/mobility_badge.dart";
-part "route/selection_handle.dart";
+part "route/handle/selection_handle.dart";
 part "route/selection_highlight.dart";
+part "route/handle/span_bound_handle.dart";
+part "route/handle/route_handle.dart";
 
 sealed class MapObject {
   const MapObject();

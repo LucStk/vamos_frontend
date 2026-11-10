@@ -4,15 +4,15 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/objects/route/selection_handle/appearance/selection_handle_shape.dart';
 
-final class SelectionHandleItem extends PointItem {
-  SelectionHandleItem({
+final class RouteHandleItem extends PointItem {
+  RouteHandleItem({
     required this.object,
     required this.polyline,
     required this.position,
   });
 
   @override
-  final SelectionHandle object;
+  final RouteHandle object;
   final RoutePolyline polyline;
   final double position;
 

@@ -7,11 +7,12 @@ import 'package:vamos_cartographie/map/modes/modes.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_scene.dart';
 // Adapte le chemin au fichier qui déclare `selectSpanScene`.
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_scene.dart';
+import 'package:vamos_cartographie/map/modes/route_edit/edit_span/providers/span_bound_handle_provider.dart';
+import 'package:vamos_cartographie/map/modes/route_edit/select_route/providers/selection_handle_provider.dart';
 import 'package:vamos_cartographie/map/objects/localization/providers/localization_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
-import 'package:vamos_cartographie/map/objects/route/selection_handle/providers/selection_handle_provider.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
@@ -32,6 +33,7 @@ final baseLayers = <Layer>[
 /// `SceneSpec` sans traits : on les migre une par une, quand l'une d'elles a
 /// besoin de déclarer une mise en avant.
 @Dependencies([
+  spanBoundHandleItems,
   selectionHandleItems,
   pencilItem,
   sketchTraceItem,
@@ -63,6 +65,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
 @Riverpod(
   keepAlive: true,
   dependencies: [
+    spanBoundHandleItems,
     selectionHandleItems,
     pencilItem,
     sketchTraceItem,
@@ -98,6 +101,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
 @Riverpod(
   keepAlive: true,
   dependencies: [
+    spanBoundHandleItems,
     selectionHandleItems,
     pencilItem,
     sketchTraceItem,

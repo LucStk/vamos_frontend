@@ -25,4 +25,8 @@ abstract class SpanBounds with _$SpanBounds {
     SpanBound.start => copyWith(start: position),
     SpanBound.end => copyWith(end: position),
   };
+  double operator [](SpanBound bound) => switch (bound) {
+    SpanBound.start => start,
+    SpanBound.end => end,
+  };
 }

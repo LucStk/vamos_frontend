@@ -1,6 +1,6 @@
-part of '../map_objects.dart';
+part of '../../map_objects.dart';
 
-final class SelectionHandle extends MapObject {
+final class SelectionHandle extends RouteHandle {
   SelectionHandle({required this.tripId, required this.id});
 
   final TripId tripId;

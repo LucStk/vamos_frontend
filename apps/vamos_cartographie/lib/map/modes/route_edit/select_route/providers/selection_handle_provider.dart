@@ -29,7 +29,7 @@ List<SceneItem> selectionHandleItems(
         points: slice,
       ),
     for (final id in HandleId.values)
-      SelectionHandleItem(
+      RouteHandleItem(
         object: SelectionHandle(tripId: tripId, id: id),
         polyline: polyline,
         position: switch (id) {
