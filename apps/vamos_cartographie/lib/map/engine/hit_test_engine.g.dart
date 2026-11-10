@@ -36,6 +36,8 @@ final class HitTesterProvider
           HitTesterProvider.$allTransitiveDependencies9,
           HitTesterProvider.$allTransitiveDependencies10,
           HitTesterProvider.$allTransitiveDependencies11,
+          HitTesterProvider.$allTransitiveDependencies12,
+          HitTesterProvider.$allTransitiveDependencies13,
         },
       );
 
@@ -62,6 +64,10 @@ final class HitTesterProvider
       MapSceneProvider.$allTransitiveDependencies9;
   static final $allTransitiveDependencies11 =
       MapSceneProvider.$allTransitiveDependencies10;
+  static final $allTransitiveDependencies12 =
+      MapSceneProvider.$allTransitiveDependencies11;
+  static final $allTransitiveDependencies13 =
+      MapSceneProvider.$allTransitiveDependencies12;
 
   @override
   String debugGetCreateSourceHash() => _$hitTesterHash();
