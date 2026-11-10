@@ -17,7 +17,7 @@ final class AllTripItemProvider
     with $Provider<List<TripItem>> {
   AllTripItemProvider._({
     required AllTripItemFamily super.from,
-    required MapCameraController super.argument,
+    required MapCameraReader super.argument,
   }) : super(
          retry: null,
          name: r'allTripItemProvider',
@@ -43,7 +43,7 @@ final class AllTripItemProvider
 
   @override
   List<TripItem> create(Ref ref) {
-    final argument = this.argument as MapCameraController;
+    final argument = this.argument as MapCameraReader;
     return allTripItem(ref, argument);
   }
 
@@ -66,10 +66,10 @@ final class AllTripItemProvider
   }
 }
 
-String _$allTripItemHash() => r'12287f1b76e39b94df2e3191dce13f435d7bf3e5';
+String _$allTripItemHash() => r'9784cfafbad713376be0ff781425d9941b0a4b67';
 
 final class AllTripItemFamily extends $Family
-    with $FunctionalFamilyOverride<List<TripItem>, MapCameraController> {
+    with $FunctionalFamilyOverride<List<TripItem>, MapCameraReader> {
   AllTripItemFamily._()
     : super(
         retry: null,
@@ -79,7 +79,7 @@ final class AllTripItemFamily extends $Family
         isAutoDispose: false,
       );
 
-  AllTripItemProvider call(MapCameraController camera) =>
+  AllTripItemProvider call(MapCameraReader camera) =>
       AllTripItemProvider._(argument: camera, from: this);
 
   @override

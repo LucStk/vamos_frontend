@@ -5,39 +5,36 @@ import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_
 import 'package:vamos_cartographie/map/objects/route/segment/style/segment_look.dart';
 
 abstract final class SegmentStyle {
-  static const resolver = StyleResolver<SegmentLook>(_lookOf);
-
   /// Largeur de base de référence (6.5 px) : sert à exprimer les ratios
   /// ci-dessous avec les valeurs d'origine. Doit rester égale à
   /// `SegmentItem.visualRadius * 2`.
   static const _base = 6.5;
 
-  static SegmentLook _lookOf(MapObjectVisualState s) => switch (s) {
-    MapObjectVisualState.normal => const SegmentLook(
-      widthScale: 0.7,
-      casing: 1.5,
-      halo: 0,
-      lift: 0,
-    ),
-    MapObjectVisualState.hovered => const SegmentLook(
-      widthScale: 5 / _base,
-      casing: 1.5,
-      halo: 5,
-      lift: 0.15,
-    ),
-    MapObjectVisualState.selected => const SegmentLook(
-      widthScale: 9 / _base,
-      casing: 2,
-      halo: 12,
-      lift: 0,
-    ),
-    MapObjectVisualState.dragging => const SegmentLook(
-      widthScale: 7 / _base,
-      casing: 2,
-      halo: 16,
-      lift: 0.2,
-    ),
-  };
+  /// Composition dans l'ordre hovered → selected → dragging : à 1, le
+  /// dernier trait actif l'emporte.
+  static const resolver = StyleResolver<SegmentLook>(
+    base: SegmentLook(widthScale: 0.7, casing: 1.5, halo: 0, lift: 0),
+    traits: {
+      VisualTrait.hovered: SegmentLook(
+        widthScale: 5 / _base,
+        casing: 1.5,
+        halo: 5,
+        lift: 0.15,
+      ),
+      VisualTrait.selected: SegmentLook(
+        widthScale: 9 / _base,
+        casing: 2,
+        halo: 12,
+        lift: 0,
+      ),
+      VisualTrait.dragging: SegmentLook(
+        widthScale: 7 / _base,
+        casing: 2,
+        halo: 16,
+        lift: 0.2,
+      ),
+    },
+  );
 
   static const _casingColor = Color(0xD9FFFFFF); // blanc ~85 %
   static const _white = Color(0xFFFFFFFF);

@@ -79,7 +79,7 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'3f01753c1938dc25fb479155c591dee696b39461';
+String _$sceneItemsHash() => r'2107cf5bf56219f94a76bed613a8afd87de67c9d';
 
 final class SceneItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, MapCameraController> {
@@ -117,6 +117,147 @@ final class SceneItemsFamily extends $Family
   String toString() => r'sceneItemsProvider';
 }
 
+/// Traits de la scène : sélection globale du mode, plus la mise en avant
+/// déclarée par la scène courante. Séparé de [sceneItems] pour qu'un
+/// changement de sélection ne reconstruise pas la liste des items.
+
+@ProviderFor(sceneTraits)
+final sceneTraitsProvider = SceneTraitsFamily._();
+
+/// Traits de la scène : sélection globale du mode, plus la mise en avant
+/// déclarée par la scène courante. Séparé de [sceneItems] pour qu'un
+/// changement de sélection ne reconstruise pas la liste des items.
+
+final class SceneTraitsProvider
+    extends
+        $FunctionalProvider<
+          Map<Object, Set<VisualTrait>>,
+          Map<Object, Set<VisualTrait>>,
+          Map<Object, Set<VisualTrait>>
+        >
+    with $Provider<Map<Object, Set<VisualTrait>>> {
+  /// Traits de la scène : sélection globale du mode, plus la mise en avant
+  /// déclarée par la scène courante. Séparé de [sceneItems] pour qu'un
+  /// changement de sélection ne reconstruise pas la liste des items.
+  SceneTraitsProvider._({
+    required SceneTraitsFamily super.from,
+    required MapCameraController super.argument,
+  }) : super(
+         retry: null,
+         name: r'sceneTraitsProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  static final $allTransitiveDependencies0 = selectionHandleItemsProvider;
+  static final $allTransitiveDependencies1 =
+      SelectionHandleItemsProvider.$allTransitiveDependencies0;
+  static final $allTransitiveDependencies2 =
+      SelectionHandleItemsProvider.$allTransitiveDependencies1;
+  static final $allTransitiveDependencies3 = pencilItemProvider;
+  static final $allTransitiveDependencies4 = sketchTraceItemProvider;
+  static final $allTransitiveDependencies5 = sketchOriginItemProvider;
+  static final $allTransitiveDependencies6 = sketchEndItemProvider;
+  static final $allTransitiveDependencies7 = tmpOriginItemProvider;
+  static final $allTransitiveDependencies8 = mapModeProvider;
+  static final $allTransitiveDependencies9 = modeSelectionProvider;
+
+  @override
+  String debugGetCreateSourceHash() => _$sceneTraitsHash();
+
+  @override
+  String toString() {
+    return r'sceneTraitsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<Map<Object, Set<VisualTrait>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Map<Object, Set<VisualTrait>> create(Ref ref) {
+    final argument = this.argument as MapCameraController;
+    return sceneTraits(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<Object, Set<VisualTrait>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<Object, Set<VisualTrait>>>(
+        value,
+      ),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SceneTraitsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$sceneTraitsHash() => r'960c8ba45fdd366f829c06233165d02129a75e24';
+
+/// Traits de la scène : sélection globale du mode, plus la mise en avant
+/// déclarée par la scène courante. Séparé de [sceneItems] pour qu'un
+/// changement de sélection ne reconstruise pas la liste des items.
+
+final class SceneTraitsFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          Map<Object, Set<VisualTrait>>,
+          MapCameraController
+        > {
+  SceneTraitsFamily._()
+    : super(
+        retry: null,
+        name: r'sceneTraitsProvider',
+        dependencies: <ProviderOrFamily>[
+          selectionHandleItemsProvider,
+          pencilItemProvider,
+          sketchTraceItemProvider,
+          sketchOriginItemProvider,
+          sketchEndItemProvider,
+          tmpOriginItemProvider,
+          mapModeProvider,
+          modeSelectionProvider,
+        ],
+        $allTransitiveDependencies: <ProviderOrFamily>{
+          SceneTraitsProvider.$allTransitiveDependencies0,
+          SceneTraitsProvider.$allTransitiveDependencies1,
+          SceneTraitsProvider.$allTransitiveDependencies2,
+          SceneTraitsProvider.$allTransitiveDependencies3,
+          SceneTraitsProvider.$allTransitiveDependencies4,
+          SceneTraitsProvider.$allTransitiveDependencies5,
+          SceneTraitsProvider.$allTransitiveDependencies6,
+          SceneTraitsProvider.$allTransitiveDependencies7,
+          SceneTraitsProvider.$allTransitiveDependencies8,
+          SceneTraitsProvider.$allTransitiveDependencies9,
+        },
+        isAutoDispose: false,
+      );
+
+  /// Traits de la scène : sélection globale du mode, plus la mise en avant
+  /// déclarée par la scène courante. Séparé de [sceneItems] pour qu'un
+  /// changement de sélection ne reconstruise pas la liste des items.
+
+  SceneTraitsProvider call(MapCameraController camera) =>
+      SceneTraitsProvider._(argument: camera, from: this);
+
+  @override
+  String toString() => r'sceneTraitsProvider';
+}
+
 /// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
 /// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
 /// une exception.
@@ -143,7 +284,7 @@ final class MapSceneProvider
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[
           sceneItemsProvider,
-          modeSelectionProvider,
+          sceneTraitsProvider,
         ],
         $allTransitiveDependencies: <ProviderOrFamily>{
           MapSceneProvider.$allTransitiveDependencies0,
@@ -157,6 +298,7 @@ final class MapSceneProvider
           MapSceneProvider.$allTransitiveDependencies8,
           MapSceneProvider.$allTransitiveDependencies9,
           MapSceneProvider.$allTransitiveDependencies10,
+          MapSceneProvider.$allTransitiveDependencies11,
         },
       );
 
@@ -179,7 +321,9 @@ final class MapSceneProvider
       SceneItemsProvider.$allTransitiveDependencies7;
   static final $allTransitiveDependencies9 =
       SceneItemsProvider.$allTransitiveDependencies8;
-  static final $allTransitiveDependencies10 = modeSelectionProvider;
+  static final $allTransitiveDependencies10 = sceneTraitsProvider;
+  static final $allTransitiveDependencies11 =
+      SceneTraitsProvider.$allTransitiveDependencies9;
 
   @override
   String debugGetCreateSourceHash() => _$mapSceneHash();
@@ -203,4 +347,4 @@ final class MapSceneProvider
   }
 }
 
-String _$mapSceneHash() => r'6c6c8f50891974691f5a486b5c613f4392d4990d';
+String _$mapSceneHash() => r'8b16568f580aa4eeefb2430c54d7d71f206cc885';

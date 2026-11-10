@@ -2,7 +2,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_engine/src/mode_engine/slots.dart';
-import 'package:trip_application/trip_application.dart';
 part 'span_selection_slot.freezed.dart';
 
 const spanSelectionSlot = Slot<SpanSelectionSlot>('spanSelectionSlot');

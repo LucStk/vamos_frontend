@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/objects/trip/trip_item.dart';
 part 'trips_layer.g.dart';
 
 @Riverpod(keepAlive: true)
-List<TripItem> allTripItem(Ref ref, MapCameraController camera) {
+List<TripItem> allTripItem(Ref ref, MapCameraReader camera) {
   final tripsIds = ref.watch(
     tripStoreProvider.select((t) => t.tripStore.getIds()),
   );

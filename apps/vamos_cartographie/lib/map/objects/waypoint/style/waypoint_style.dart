@@ -35,30 +35,28 @@ abstract final class WaypointStyle {
         WaypointVisualKind.end => _default,
       };
 
-  static const _default = StyleResolver<WaypointLook>(_lookOf);
-
-  static WaypointLook _lookOf(MapObjectVisualState s) => switch (s) {
-    MapObjectVisualState.normal => const WaypointLook(
-      color: Color(0xFF219903),
-      scale: 1.0,
-      haloOpacity: 0.0,
-    ),
-    MapObjectVisualState.selected => const WaypointLook(
-      color: Color(0xFF2196F3),
-      scale: 1.7,
-      haloOpacity: 1.0,
-    ),
-    MapObjectVisualState.hovered => const WaypointLook(
-      color: Color(0xFFFFC107),
-      scale: 1.15,
-      haloOpacity: 0.4,
-    ),
-    MapObjectVisualState.dragging => const WaypointLook(
-      color: Color(0xFFFF5722),
-      scale: 1.4,
-      haloOpacity: 1.0,
-    ),
-  };
+  /// Composition dans l'ordre hovered → selected → dragging : à 1, le
+  /// dernier trait actif l'emporte.
+  static const _default = StyleResolver<WaypointLook>(
+    base: WaypointLook(color: Color(0xFF219903), scale: 1.0, haloOpacity: 0.0),
+    traits: {
+      VisualTrait.hovered: WaypointLook(
+        color: Color(0xFFFFC107),
+        scale: 1.15,
+        haloOpacity: 0.4,
+      ),
+      VisualTrait.selected: WaypointLook(
+        color: Color(0xFF2196F3),
+        scale: 1.7,
+        haloOpacity: 1.0,
+      ),
+      VisualTrait.dragging: WaypointLook(
+        color: Color(0xFFFF5722),
+        scale: 1.4,
+        haloOpacity: 1.0,
+      ),
+    },
+  );
 
   static DrawCommand build(
     WorldOffset at,

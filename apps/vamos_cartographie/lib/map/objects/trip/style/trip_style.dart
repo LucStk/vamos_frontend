@@ -34,27 +34,26 @@ final class TripLook implements Lerpable<TripLook> {
 }
 
 abstract final class TripStyle {
-  static const resolver = StyleResolver<TripLook>(_lookOf);
-
-  static TripLook _lookOf(MapObjectVisualState s) => switch (s) {
-    // hovered et dragging gardent l'apparence normale, comme avant.
-    MapObjectVisualState.normal ||
-    MapObjectVisualState.hovered ||
-    MapObjectVisualState.dragging => const TripLook(
+  /// Seule la sélection change l'apparence : hovered et dragging n'ont pas
+  /// de look déclaré, donc aucun effet visuel (comme avant).
+  static const resolver = StyleResolver<TripLook>(
+    base: TripLook(
       borderColor: Color(0x66000000), // noir 40 %
       coreColor: Color(0xFF546E7A), // bleu-gris
       widthScale: 1.0,
       haloSpread: 0,
       haloOpacity: 0,
     ),
-    MapObjectVisualState.selected => const TripLook(
-      borderColor: Color(0xFF00363A), // contour de contraste
-      coreColor: Color(0xFF00E5FF), // cœur vif
-      widthScale: 1.6,
-      haloSpread: 11,
-      haloOpacity: 1,
-    ),
-  };
+    traits: {
+      VisualTrait.selected: TripLook(
+        borderColor: Color(0xFF00363A), // contour de contraste
+        coreColor: Color(0xFF00E5FF), // cœur vif
+        widthScale: 1.6,
+        haloSpread: 11,
+        haloOpacity: 1,
+      ),
+    },
+  );
 
   static const _haloColor = Color(0xFF00E5FF);
 

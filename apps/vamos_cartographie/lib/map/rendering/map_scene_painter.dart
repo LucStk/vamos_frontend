@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:map_canvas/map_canvas.dart';
-import 'package:vamos_cartographie/map/rendering/animation/visual_transitions.dart';
+import 'package:vamos_cartographie/map/rendering/visual_transitions.dart';
 
 /// Peint les items de la scène en une passe.
 ///
@@ -13,8 +13,7 @@ import 'package:vamos_cartographie/map/rendering/animation/visual_transitions.da
 ///   reconstruire de widget : la valeur est lue au moment de `paint`.
 class ScenePainter extends CustomPainter {
   ScenePainter({required this.items, required this.transitions, this.zoomScale})
-    : super(repaint: Listenable.merge([transitions.ticks, zoomScale]));
-
+    : super(repaint: Listenable.merge([transitions, zoomScale]));
   final List<SceneItem> items;
   final VisualTransitions transitions;
   final ValueListenable<double>? zoomScale;

@@ -4,13 +4,12 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/engine/visual_target.dart';
-import 'package:vamos_cartographie/map/rendering/animation/visual_transitions.dart';
 import 'package:vamos_cartographie/map/rendering/map_scene_painter.dart';
+import 'package:vamos_cartographie/map/rendering/visual_transitions.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/camera_transform_widget.dart';
 
-@Dependencies([mapScene, visualTargets, mapMode])
+@Dependencies([mapScene, mapMode])
 class MapScenePaint extends ConsumerStatefulWidget {
   const MapScenePaint({super.key});
 
@@ -33,9 +32,8 @@ class _MapScenePaintState extends ConsumerState<MapScenePaint>
   void initState() {
     super.initState();
     _transitions = VisualTransitions(this)
-      ..setTargets(
-        ref.read(visualTargetsProvider),
-      ); // premier rendu : sans animation
+      // Premier rendu : sans animation.
+      ..setTargets(ref.read(mapSceneProvider).traits, animate: false);
     _generating = ref.read(mapModeProvider) is SketchGenerating;
     _sync();
   }
@@ -57,7 +55,7 @@ class _MapScenePaintState extends ConsumerState<MapScenePaint>
   @override
   Widget build(BuildContext context) {
     ref.listen(
-      visualTargetsProvider,
+      mapSceneProvider.select((s) => s.traits),
       (_, next) => _transitions.setTargets(next),
     );
     ref.listen(mapModeProvider.select((m) => m is SketchGenerating), (_, on) {

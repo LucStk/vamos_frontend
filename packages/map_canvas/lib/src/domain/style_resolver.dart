@@ -1,24 +1,30 @@
-import "map_paint_context.dart";
+import 'package:map_canvas/src/domain/domain.dart';
+import 'package:map_canvas/src/domain/visual_trait.dart';
 
 abstract interface class Lerpable<T> {
   T lerp(T other, double t);
 }
 
+/// Compose un look à partir d'un look de base et d'un look cible par trait.
+///
+/// Les traits sont appliqués dans l'ordre de [VisualTrait.values], chacun par
+/// un lerp pondéré : `look = look.lerp(traits[t], poids(t))`.
+/// Un trait sans look déclaré n'a aucun effet visuel.
 final class StyleResolver<L extends Lerpable<L>> {
-  const StyleResolver(this.lookOf);
+  const StyleResolver({required this.base, required this.traits});
 
-  final L Function(MapObjectVisualState state) lookOf;
+  final L base;
+  final Map<VisualTrait, L> traits;
 
-  L resolve(MapPaintContext c) {
-    final to = lookOf(c.state);
-    if (c.t >= 1) return to;
-
-    final prev = c.previous;
-    if (prev == null) {
-      if (c.from == c.state) return to; // pas de transition en cours
-      return lookOf(c.from).lerp(to, c.t);
+  L resolve(MapPaintContext context) {
+    final weights = context.weights;
+    var look = base;
+    for (final trait in VisualTrait.values) {
+      final target = traits[trait];
+      if (target == null) continue;
+      final k = weights[trait];
+      if (k > 0) look = look.lerp(target, k);
     }
-    // Départ = look figé de la transition interrompue.
-    return resolve(prev).lerp(to, c.t);
+    return look;
   }
 }
