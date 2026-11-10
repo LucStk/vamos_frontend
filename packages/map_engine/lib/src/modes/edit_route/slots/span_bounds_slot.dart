@@ -1,4 +1,6 @@
 // modes/edit_route/slots/span_bounds_slot.dart
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_engine/src/mode_engine/slots.dart';
 
@@ -29,4 +31,7 @@ abstract class SpanBounds with _$SpanBounds {
     SpanBound.start => start,
     SpanBound.end => end,
   };
+  // span_bounds_slot.dart, avec import 'dart:math';
+  double get lower => min(start, end);
+  double get upper => max(start, end);
 }
