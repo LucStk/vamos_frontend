@@ -4,8 +4,6 @@ final class MapSketchSegment extends MapObject {
   const MapSketchSegment();
 
   @override
-  int get hitPriority => 50;
-  @override
   bool get isDropTarget => false;
 
   @override
@@ -23,9 +21,6 @@ final class MapSketchPencil extends MapObject {
 
   @override
   bool get isDropTarget => false;
-
-  @override
-  int get hitPriority => 200;
 
   @override
   bool operator ==(Object other) => other is MapSketchPencil;

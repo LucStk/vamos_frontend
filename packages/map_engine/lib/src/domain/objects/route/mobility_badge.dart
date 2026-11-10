@@ -17,12 +17,6 @@ final class MobilityBadge extends MapObject {
   /// courante dans le picker.
   final MobilityType mobility;
 
-  /// Au-dessus de [MapSection] : le hitRadius de 14 px de la ligne couvre
-  /// entièrement la pastille, donc à priorité égale le tap tomberait
-  /// toujours sur la ligne.
-  @override
-  int get hitPriority => 50; // ← à caler au-dessus de MapSection
-
   @override
   bool operator ==(Object other) =>
       other is MobilityBadge &&

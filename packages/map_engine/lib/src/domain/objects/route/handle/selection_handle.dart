@@ -7,9 +7,6 @@ final class SelectionHandle extends RouteHandle {
   final HandleId id;
 
   @override
-  int get hitPriority => 50;
-
-  @override
   final bool isDraggable = true;
 
   @override

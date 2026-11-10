@@ -19,9 +19,6 @@ final class MapMobilitySpan extends RouteElements {
   bool get isMovedByDrag => false; // la route ne suit pas le doigt
 
   @override
-  int get hitPriority => 50;
-
-  @override
   bool operator ==(Object other) => other is MapMobilitySpan && other.id == id;
   @override
   int get hashCode => id.hashCode;

@@ -8,21 +8,37 @@ part of 'span_bound_handle_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Surlignage des portions déplacées et curseurs des deux bornes.
+///
+/// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
+/// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
+/// par identité) laisserait une entrée en cache jamais libérée.
 
 @ProviderFor(spanBoundHandleItems)
 final spanBoundHandleItemsProvider = SpanBoundHandleItemsFamily._();
+
+/// Surlignage des portions déplacées et curseurs des deux bornes.
+///
+/// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
+/// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
+/// par identité) laisserait une entrée en cache jamais libérée.
 
 final class SpanBoundHandleItemsProvider
     extends
         $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
     with $Provider<List<SceneItem>> {
+  /// Surlignage des portions déplacées et curseurs des deux bornes.
+  ///
+  /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
+  /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
+  /// par identité) laisserait une entrée en cache jamais libérée.
   SpanBoundHandleItemsProvider._({
     required SpanBoundHandleItemsFamily super.from,
-    required (TripId, MobilitySpanId, MapCameraReader) super.argument,
+    required (EditSpanMode, MapCameraReader) super.argument,
   }) : super(
          retry: null,
          name: r'spanBoundHandleItemsProvider',
-         isAutoDispose: false,
+         isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -48,8 +64,8 @@ final class SpanBoundHandleItemsProvider
 
   @override
   List<SceneItem> create(Ref ref) {
-    final argument = this.argument as (TripId, MobilitySpanId, MapCameraReader);
-    return spanBoundHandleItems(ref, argument.$1, argument.$2, argument.$3);
+    final argument = this.argument as (EditSpanMode, MapCameraReader);
+    return spanBoundHandleItems(ref, argument.$1, argument.$2);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -72,13 +88,19 @@ final class SpanBoundHandleItemsProvider
 }
 
 String _$spanBoundHandleItemsHash() =>
-    r'0ac9ad035144916edc293a34e5a594ff177cbe11';
+    r'b05199ce340195a322a5307fa5ed63e960f7b7fd';
+
+/// Surlignage des portions déplacées et curseurs des deux bornes.
+///
+/// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
+/// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
+/// par identité) laisserait une entrée en cache jamais libérée.
 
 final class SpanBoundHandleItemsFamily extends $Family
     with
         $FunctionalFamilyOverride<
           List<SceneItem>,
-          (TripId, MobilitySpanId, MapCameraReader)
+          (EditSpanMode, MapCameraReader)
         > {
   SpanBoundHandleItemsFamily._()
     : super(
@@ -89,17 +111,19 @@ final class SpanBoundHandleItemsFamily extends $Family
           SpanBoundHandleItemsProvider.$allTransitiveDependencies0,
           SpanBoundHandleItemsProvider.$allTransitiveDependencies1,
         ],
-        isAutoDispose: false,
+        isAutoDispose: true,
       );
 
+  /// Surlignage des portions déplacées et curseurs des deux bornes.
+  ///
+  /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
+  /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
+  /// par identité) laisserait une entrée en cache jamais libérée.
+
   SpanBoundHandleItemsProvider call(
-    TripId tripId,
-    MobilitySpanId spanId,
+    EditSpanMode mode,
     MapCameraReader camera,
-  ) => SpanBoundHandleItemsProvider._(
-    argument: (tripId, spanId, camera),
-    from: this,
-  );
+  ) => SpanBoundHandleItemsProvider._(argument: (mode, camera), from: this);
 
   @override
   String toString() => r'spanBoundHandleItemsProvider';

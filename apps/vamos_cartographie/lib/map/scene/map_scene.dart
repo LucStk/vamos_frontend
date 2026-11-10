@@ -45,10 +45,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
   ExploreMode() => SceneSpec(layers: exploreScene()),
   // Avant `TripMode` : SelectSpanMode en est un sous-type, il serait sinon
   // capturé par le cas générique.
-  EditSpanMode(:final tripId, :final mobilitySpanId) => editSpanScene(
-    tripId,
-    mobilitySpanId,
-  ),
+  EditSpanMode t => editSpanScene(t),
   SelectRouteMode(:final tripId) => SceneSpec(layers: selectRouteScene(tripId)),
   SketchEdition(:final tripId) => SceneSpec(layers: sketchScene(tripId)),
   SketchGenerating(:final tripId) => SceneSpec(
@@ -87,9 +84,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   // partagent le même objet, donc la même priorité) se mélangent.
   final order = List<int>.generate(items.length, (i) => i)
     ..sort((i, j) {
-      final byPriority = items[j].object.hitPriority.compareTo(
-        items[i].object.hitPriority,
-      );
+      final byPriority = items[j].zIndex.compareTo(items[i].zIndex);
       return byPriority != 0 ? byPriority : i.compareTo(j);
     });
   return [for (final i in order) items[i]];

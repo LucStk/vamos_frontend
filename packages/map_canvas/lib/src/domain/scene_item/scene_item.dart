@@ -9,12 +9,21 @@ part "line_item.dart";
 part "point_item.dart";
 part "polyline_item.dart";
 
+/// Quelques paliers plutôt que des nombres libres : on raisonne en
+/// catégories, pas en valeurs.
+abstract final class ZIndex {
+  static const content = 0; // segments, tracés
+  static const marker = 10; // badges, départ, arrivée
+  static const overlay = 20; // surlignages d'édition
+  static const handle = 30; // curseurs, poignées
+}
+
 abstract class SceneItem {
   // const SceneItem(this.object, {required this.hitRadius, this.hitPriority = 0});
   MapObject get object;
   Length get hitRadius;
   Length get visualRadius;
-  int hitPriority = 0;
+  int get zIndex => ZIndex.content;
 
   bool get isHitTestable => object.isHitTestable;
   bool get isDraggable => object.isDraggable;

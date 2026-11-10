@@ -9,7 +9,4 @@ sealed class RouteHandle extends MapObject {
 
   @override
   bool get isDraggable => true;
-
-  @override
-  int get hitPriority => 10; // reprends la valeur actuelle de SelectionHandle
 }

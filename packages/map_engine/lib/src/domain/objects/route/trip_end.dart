@@ -8,9 +8,6 @@ final class MapTripEnd extends RouteElements {
   bool get isDraggable => true;
 
   @override
-  int get hitPriority => 200;
-
-  @override
   bool operator ==(Object other) => other is MapLocalization;
   @override
   int get hashCode => (MapLocalization).hashCode;

@@ -26,7 +26,6 @@ sealed class MapObject {
   /// Peut être « survolé » par un objet en cours de drag.
   /// Faux pour les proxys du pointeur (ex. Pencil).
   bool get isDropTarget => true;
-  int get hitPriority => 0;
 }
 
 abstract interface class Selectable implements MapObject {}
