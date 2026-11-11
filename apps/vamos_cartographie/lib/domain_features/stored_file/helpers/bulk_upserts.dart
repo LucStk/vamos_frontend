@@ -51,3 +51,22 @@ extension StoredFileStoreBulk on StoredFileStore {
     return copyWith(storedFileStore: nodes);
   }
 }
+
+extension WaypointImageUpserts on StoredFileStore {
+  /// Insère les images des waypoints, rattachées à leur waypoint.
+  ///
+  /// Un seul `ownerIndex.copy()` pour tout le lot : `insertStoredFile`
+  /// copierait l'index à chaque image.
+  StoredFileStore upsertWaypointImages(Iterable<WaypointPayload> payloads) {
+    final index = ownerIndex.copy();
+    var files = storedFileStore;
+
+    for (final payload in payloads) {
+      for (final image in payload.images) {
+        files = files.setNode(image);
+        index.addRelationship(payload.waypoint.id, image.id);
+      }
+    }
+    return copyWith(storedFileStore: files, ownerIndex: index);
+  }
+}

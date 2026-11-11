@@ -34,6 +34,7 @@ final baseLayers = <Layer>[
 /// `SceneSpec` sans traits : on les migre une par une, quand l'une d'elles a
 /// besoin de déclarer une mise en avant.
 @Dependencies([
+  pendingWaypoint,
   spanBoundHandleItems,
   selectionHandleItems,
   pencilItem,
@@ -99,6 +100,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
 @Riverpod(
   keepAlive: true,
   dependencies: [
+    pendingWaypoint,
     spanBoundHandleItems,
     selectionHandleItems,
     pencilItem,
