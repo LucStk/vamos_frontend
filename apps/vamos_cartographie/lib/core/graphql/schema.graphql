@@ -337,8 +337,7 @@ type WaypointType {
   title: String!
   description: String!
   poiCategory: PoiCategory!
-  anchorEdge: Int
-  anchorOffset: Float!
+  anchorPosition: Float!
   location: LatLngType!
   files: [FileAttachmentType!]!
 }

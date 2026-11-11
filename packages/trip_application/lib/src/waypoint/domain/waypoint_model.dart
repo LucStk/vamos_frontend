@@ -11,6 +11,7 @@ sealed class WaypointFields implements HasId {
   PoiCategory get poiCategory;
   String get description;
   LatLng get position;
+  double get anchorPosition;
 }
 
 typedef WaypointId = Id<WaypointFields>;
@@ -23,6 +24,8 @@ abstract class WaypointRemoteModel
   const factory WaypointRemoteModel({
     required WaypointId id,
     required LatLng position,
+
+    required double anchorPosition,
     @Default('') String title,
     @Default(PoiCategory.waypoint) PoiCategory poiCategory,
     @Default('') String description,
@@ -35,6 +38,7 @@ abstract class WaypointRemoteModel
       poiCategory: fields.poiCategory,
       description: fields.description,
       position: fields.position,
+      anchorPosition: fields.anchorPosition,
     );
   }
 }
@@ -49,6 +53,7 @@ abstract class WaypointPatchModel
     required LatLng position,
     required String title,
     required PoiCategory poiCategory,
+    required double anchorPosition,
     required String description,
     required bool recomputing,
     Object? error,
@@ -67,6 +72,7 @@ abstract class WaypointPatchModel
       title: fields.title,
       poiCategory: fields.poiCategory,
       description: fields.description,
+      anchorPosition: fields.anchorPosition,
       recomputing: recomputing,
       error: error,
     );
@@ -74,6 +80,7 @@ abstract class WaypointPatchModel
   factory WaypointPatchModel({
     WaypointId? id,
     required LatLng position,
+    required double anchorPosition,
     String? title,
     PoiCategory? poiCategory,
     String? description,
@@ -83,6 +90,7 @@ abstract class WaypointPatchModel
     return WaypointPatchModel.internal(
       id: id ?? WaypointId.generate(),
       position: position,
+      anchorPosition: anchorPosition,
       poiCategory: poiCategory ?? PoiCategory.waypoint,
       title: title ?? "",
       description: description ?? "",

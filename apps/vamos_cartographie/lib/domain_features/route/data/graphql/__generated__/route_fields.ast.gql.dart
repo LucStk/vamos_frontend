@@ -638,7 +638,6 @@ const document = _i1.DocumentNode(definitions: [
   RoutePreviewResult,
   _i2.LatLng,
   _i3.WaypointDetails,
-  _i3.WaypointAnchor,
   _i4.StoredFile,
   _i4.FileAttachment,
   _i4.UploadConfigFields,

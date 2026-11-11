@@ -180,6 +180,5 @@ const document = _i1.DocumentNode(definitions: [
   _i2.FileAttachment,
   _i2.UploadConfigFields,
   _i3.WaypointDetails,
-  _i3.WaypointAnchor,
   _i4.LatLng,
 ]);

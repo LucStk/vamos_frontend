@@ -15,6 +15,7 @@ extension GWaypointFieldsMapper on GWaypointDetails {
     poiCategory: poiCategory.toDomain(),
     title: title,
     description: description,
+    anchorPosition: anchorPosition,
   );
   Iterable<StoredFileRemoteModel> toImages() => files.map((m) => m.toDomain());
 }

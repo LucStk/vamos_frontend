@@ -26,14 +26,7 @@ const WaypointDetails = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'anchorEdge'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'anchorOffset'),
+      name: _i1.NameNode(value: 'anchorPosition'),
       alias: null,
       arguments: [],
       directives: [],
@@ -107,48 +100,8 @@ const WaypointDetails = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const WaypointAnchor = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'WaypointAnchor'),
-  typeCondition: _i1.TypeConditionNode(
-      on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'WaypointType'),
-    isNonNull: false,
-  )),
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'anchorEdge'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'anchorOffset'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
-);
 const document = _i1.DocumentNode(definitions: [
   WaypointDetails,
-  WaypointAnchor,
   _i2.LatLng,
   _i3.StoredFile,
   _i3.FileAttachment,
