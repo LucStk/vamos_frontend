@@ -1,32 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/mobility_type_menu.dart';
 
 /// Panneau d'actions du mode sketch.
 ///
 /// Ligne 1 : retour, type de mobilité, effacer le tracé.
 /// Ligne 2 : routage et validation.
 class CreateWaypointActions extends StatelessWidget {
-  const CreateWaypointActions({
-    super.key,
-    required this.mobilityType,
-    required this.onMobilityTypeChanged,
-    required this.goBack,
-    required this.eraseSketch,
-    required this.validateSketch,
-    required this.routingSketch,
-    required this.isSketchRouted,
-    required this.routingFailed,
-  });
+  const CreateWaypointActions({super.key, required this.validatePosition});
 
-  final MobilityType mobilityType;
-  final ValueChanged<MobilityType> onMobilityTypeChanged;
-  final VoidCallback goBack;
-  final VoidCallback eraseSketch;
-  final VoidCallback validateSketch;
-  final VoidCallback routingSketch;
-  final bool isSketchRouted;
-  final bool routingFailed;
+  final VoidCallback validatePosition;
 
   @override
   Widget build(BuildContext context) {
@@ -47,67 +28,21 @@ class CreateWaypointActions extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Ligne 1 : outils
-                Row(
-                  children: [
-                    IconButton(
-                      tooltip: 'Retour',
-                      onPressed: goBack,
-                      icon: const Icon(Icons.arrow_back),
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 200,
+                      maxWidth: 280,
                     ),
-                    const SizedBox(width: 4),
-                    MobilityTypeMenu(
-                      selected: mobilityType,
-                      onChanged: onMobilityTypeChanged,
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      tooltip: 'Effacer le tracé',
-                      onPressed: eraseSketch,
-                      color: colors.error,
-                      icon: const Icon(Icons.backspace_outlined),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-
-                // Ligne 2 : actions principales
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: FilledButton.tonalIcon(
-                        onPressed: routingSketch,
-                        style: routingFailed
-                            ? FilledButton.styleFrom(
-                                backgroundColor: colors.errorContainer,
-                                foregroundColor: colors.onErrorContainer,
-                              )
-                            : null,
-                        icon: Icon(
-                          routingFailed ? Icons.refresh : Icons.alt_route,
-                        ),
-                        label: Text(
-                          routingFailed ? 'Réessayer' : 'Router',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                    child: FilledButton.icon(
+                      onPressed: validatePosition,
+                      icon: const Icon(Icons.check),
+                      label: const Text(
+                        'Valider',
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      flex: 3,
-                      child: FilledButton.icon(
-                        onPressed: validateSketch,
-                        icon: const Icon(Icons.check),
-                        label: Text(
-                          isSketchRouted ? 'Valider' : 'Valider à main levée',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),

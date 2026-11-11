@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/providers/sketch_mobility_type_provider.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/bottom_sheet/contextual/sheet_sketch.dart';
 import 'package:vamos_cartographie/map/modes/shared/chrome/edit_bottom_sheet.dart';
+import 'package:vamos_cartographie/map/modes/waypoints_edit/widgets/create_waypoint_actions.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class CreateWaypointUi extends ConsumerWidget {
@@ -17,7 +17,8 @@ class CreateWaypointUi extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mobilityType = ref.watch(sketchMobilityTypeProvider);
+    final pending = ref.watch(modeSlotProvider(pendingWaypointSlot));
+    final camera = ref.read(mapCameraProvider);
 
     return EditBottomSheet(
       // Retour : quitte le mode sans valider (ancien « Cancel creation »).
@@ -26,17 +27,15 @@ class CreateWaypointUi extends ConsumerWidget {
           .apply(TripMode.open(mode.tripId)),
 
       onClearRoute: null,
-      contextualSheet: SheetSketch(
-        mobilityType: mobilityType,
-        eraseSketch: () {},
-        goBack: () {},
-        onMobilityTypeChanged: (MobilityType type) =>
-            ref.read(sketchMobilityTypeProvider.notifier).select(type),
-        validateSketch: () {},
-        routingSketch: () {},
-        routingFailed: false,
-        isSketchRouted: false,
-      ),
+      contextualSheet: (pending != null)
+          ? CreateWaypointActions(
+              validatePosition: () => ref
+                  .read(waypointStoreProvider(mode.tripId).notifier)
+                  .createBlankWaypoint(
+                    camera.worldOffsetToLatLng(pending.point),
+                  ),
+            )
+          : null,
     );
   }
 }
