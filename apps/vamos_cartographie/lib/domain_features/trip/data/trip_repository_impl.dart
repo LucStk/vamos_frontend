@@ -28,12 +28,14 @@ class TripRepositoryImpl extends TripRepository {
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
         final userProfile = gqlTrip.owner.toUserProfileModel();
         final routePayload = gqlTrip.toRoutePayload();
+        final waypoints = gqlTrip.toWaypointsPayload();
         return TripBundle(
           user: userProfile,
           tripSummary: TripSummary(trip: trip, storedFiles: images),
           route: routePayload.route,
           editSpans: routePayload.editSpans,
           mobilitySpans: routePayload.mobilitySpans,
+          waypoints: waypoints,
         );
       }).toList();
     });
@@ -47,12 +49,14 @@ class TripRepositoryImpl extends TripRepository {
       final images = data.files.map((file) => file.toDomain()).toList();
       final userProfile = data.owner.toUserProfileModel();
       final route = data.toRoutePayload();
+      final waypoints = data.toWaypointsPayload();
       return TripBundle(
         user: userProfile,
         tripSummary: TripSummary(trip: trip, storedFiles: images),
         route: route.route,
         editSpans: route.editSpans,
         mobilitySpans: route.mobilitySpans,
+        waypoints: waypoints,
       );
     });
   }

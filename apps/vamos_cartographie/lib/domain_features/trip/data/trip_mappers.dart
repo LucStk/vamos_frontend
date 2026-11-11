@@ -4,6 +4,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/domain.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/route_mappers.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
@@ -46,6 +47,9 @@ extension GTripWithRouteFieldsMapper on GTripFull {
     route: toRouteDomain(),
     mobilitySpans: mobilitySpans.map((m) => m.toMobilityDomain()),
     editSpans: editSpans.map((m) => m.toEditSpanDomain()),
+  );
+  Iterable<WaypointPayload> toWaypointsPayload() => waypoints.map(
+    (m) => WaypointPayload(images: m.toImages(), waypoint: m.toDomain()),
   );
 }
 
