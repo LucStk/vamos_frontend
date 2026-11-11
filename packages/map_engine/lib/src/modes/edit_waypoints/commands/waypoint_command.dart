@@ -54,26 +54,16 @@ final class PatchWaypointPosition extends WaypointCommand {
   }
 }
 
-final class UpdateWaypointPosition extends WaypointCommand {
-  const UpdateWaypointPosition({
-    required this.tripId,
-    required this.waypointId,
-    required this.position,
-  });
-  final OffsetType position;
+final class CommitWaypoint extends WaypointCommand<Done> {
+  const CommitWaypoint({required this.tripId, required this.waypointId});
   final TripId tripId;
   final WaypointId waypointId;
 
   @override
-  Future<void> handle(AppCommandScope h) async {
-    final latLng = switch (position) {
-      WorldOffset d => h.camera.worldOffsetToLatLng(d),
-      ScreenOffset d => h.camera.screenOffsetToLatLng(d),
-    };
-    return h
-        .forTrip(tripId)
-        .waypointEditor
-        .patchWaypointPosition(waypointId, latLng);
+  Future<Done?> handle(AppCommandScope h) async {
+    return done(
+      () => h.forTrip(tripId).waypointEditor.commitWaypoint(waypointId),
+    );
   }
 }
 

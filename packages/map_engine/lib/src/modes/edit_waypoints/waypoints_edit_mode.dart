@@ -16,10 +16,10 @@ final class WaypointsEditMode extends TripMode {
   }
 
   @override
-  Transition onDragging(DragGesture g) => switch (g.source.object) {
+  Transition onDragging(DragUpdateGesture g) => switch (g.source.object) {
     MapWaypoint(:final id) => Transition.run(
       PatchWaypointPosition(
-        position: g.position.world,
+        position: g.target?.point ?? g.position.world,
         tripId: tripId,
         waypointId: id,
       ),
@@ -29,11 +29,7 @@ final class WaypointsEditMode extends TripMode {
   @override
   Transition onDragEnd(DragEndGesture g) => switch (g.source.object) {
     MapWaypoint(:final id) => Transition.run(
-      PatchWaypointPosition(
-        position: g.position.world,
-        tripId: tripId,
-        waypointId: id,
-      ),
+      CommitWaypoint(tripId: tripId, waypointId: id),
     ),
     _ => Transition.stay(),
   };

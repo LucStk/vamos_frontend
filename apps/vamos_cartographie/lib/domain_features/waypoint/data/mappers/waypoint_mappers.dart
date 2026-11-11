@@ -26,5 +26,6 @@ extension WaypointFieldsMappers on WaypointFields {
         ? Value.present(description)
         : const Value.absent(),
     title: title.isNotEmpty ? Value.present(title) : const Value.absent(),
+    location: Value.present(position.toGQLInput()),
   );
 }
