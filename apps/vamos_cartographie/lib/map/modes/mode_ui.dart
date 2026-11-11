@@ -13,7 +13,7 @@ import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_rout
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_ui.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/ui/route_edit_ui.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/trip_edit_mode_ui.dart';
-import 'package:vamos_cartographie/map/modes/waypoints_edit/create_waypoint_ui.dart';
+import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoints_edit.dart';
 
 @Dependencies([ModeMachine])
 class ModeUi extends ConsumerWidget {
@@ -26,6 +26,7 @@ class ModeUi extends ConsumerWidget {
     return switch (mode) {
       ExploreMode t => ExploreUi(t),
       CreateWaypointMode t => CreateWaypointUi(t),
+      WaypointsEditMode t => WaypointsEditUi(t),
       TripReadOnlyMode t => TripReadOnlyUi(t),
       SelectRouteMode t => SelectRouteUi(t),
       EditSpanMode t => EditSpanUi(t),

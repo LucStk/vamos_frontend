@@ -31,6 +31,29 @@ final class CreateWaypoint extends WaypointCommand<WaypointId> {
   }
 }
 
+final class PatchWaypointPosition extends WaypointCommand {
+  const PatchWaypointPosition({
+    required this.tripId,
+    required this.waypointId,
+    required this.position,
+  });
+  final OffsetType position;
+  final TripId tripId;
+  final WaypointId waypointId;
+
+  @override
+  Future<void> handle(AppCommandScope h) async {
+    final latLng = switch (position) {
+      WorldOffset d => h.camera.worldOffsetToLatLng(d),
+      ScreenOffset d => h.camera.screenOffsetToLatLng(d),
+    };
+    return h
+        .forTrip(tripId)
+        .waypointEditor
+        .patchWaypointPosition(waypointId, latLng);
+  }
+}
+
 final class RemoveWaypoint extends WaypointCommand<Done> {
   const RemoveWaypoint({required this.tripId, required this.waypointId});
   final WaypointId waypointId;

@@ -20,6 +20,14 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     );
   }
 
+  void patchWaypointPosition(WaypointId waypointId, LatLng latLng) {
+    final w = state.waypointStore.getRequired(waypointId);
+    final patch = WaypointPatchModel.fromFields(
+      w.current,
+    ).copyWith(position: latLng);
+    state = state.setWaypoint(patch);
+  }
+
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointFields waypoint,
   ) async {

@@ -78,10 +78,10 @@ class TripEditSheets extends ConsumerWidget {
                   ),
                   EditBottomButton(
                     icon: Icons.add_location_alt,
-                    tooltipText: "Add Waypoint",
+                    tooltipText: "Edit Waypoints",
                     onPressed: () => ref
                         .read(appModeMachineProvider.notifier)
-                        .apply(Transition.to(CreateWaypointMode(mode.tripId))),
+                        .apply(Transition.to(WaypointsEditMode(mode.tripId))),
                   ),
                 ],
               ),
