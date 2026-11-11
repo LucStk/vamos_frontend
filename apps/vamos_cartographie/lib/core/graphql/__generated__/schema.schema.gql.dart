@@ -1113,6 +1113,7 @@ class GUpdateUserProfileInput {
 
 class GWaypointUpdateInput {
   const GWaypointUpdateInput({
+    this.anchorPosition = const Value.absent(),
     this.location = const Value.absent(),
     this.title = const Value.absent(),
     this.poiCategory = const Value.absent(),
@@ -1122,6 +1123,11 @@ class GWaypointUpdateInput {
 
   factory GWaypointUpdateInput.fromJson(Map<String, dynamic> json) {
     return GWaypointUpdateInput(
+      anchorPosition: json.containsKey('anchorPosition')
+          ? Value.present(json['anchorPosition'] == null
+              ? null
+              : (json['anchorPosition'] as num).toDouble())
+          : Value.absent(),
       location: json.containsKey('location')
           ? Value.present(json['location'] == null
               ? null
@@ -1149,6 +1155,8 @@ class GWaypointUpdateInput {
     );
   }
 
+  final Value<double> anchorPosition;
+
   final Value<GLatLngInput> location;
 
   final Value<String> title;
@@ -1161,6 +1169,12 @@ class GWaypointUpdateInput {
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
+    final _$anchorPositionValue = this.anchorPosition;
+    if (_$anchorPositionValue.isPresent) {
+      final _$anchorPositionRequired = _$anchorPositionValue.requireValue;
+      _$result['anchorPosition'] =
+          _$anchorPositionRequired == null ? null : _$anchorPositionRequired;
+    }
     final _$locationValue = this.location;
     if (_$locationValue.isPresent) {
       final _$locationRequired = _$locationValue.requireValue;
@@ -1194,6 +1208,7 @@ class GWaypointUpdateInput {
   }
 
   GWaypointUpdateInput copyWith({
+    Value<double>? anchorPosition,
     Value<GLatLngInput>? location,
     Value<String>? title,
     Value<GPoiCategory>? poiCategory,
@@ -1201,6 +1216,7 @@ class GWaypointUpdateInput {
     Value<String>? description,
   }) {
     return GWaypointUpdateInput(
+      anchorPosition: anchorPosition ?? this.anchorPosition,
       location: location ?? this.location,
       title: title ?? this.title,
       poiCategory: poiCategory ?? this.poiCategory,
@@ -1223,7 +1239,7 @@ class GWaypointUpdateInput {
 
   @override
   String toString() {
-    return 'GWaypointUpdateInput(location: $location, title: $title, poiCategory: $poiCategory, vertexId: $vertexId, description: $description)';
+    return 'GWaypointUpdateInput(anchorPosition: $anchorPosition, location: $location, title: $title, poiCategory: $poiCategory, vertexId: $vertexId, description: $description)';
   }
 }
 

@@ -343,6 +343,7 @@ type WaypointType {
 }
 
 input WaypointUpdateInput {
+  anchorPosition: Float
   location: LatLngInput
   title: String
   poiCategory: PoiCategory
