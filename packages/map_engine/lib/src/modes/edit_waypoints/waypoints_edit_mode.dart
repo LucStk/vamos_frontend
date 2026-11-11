@@ -26,4 +26,15 @@ final class WaypointsEditMode extends TripMode {
     ),
     _ => Transition.stay(),
   };
+  @override
+  Transition onDragEnd(DragEndGesture g) => switch (g.source.object) {
+    MapWaypoint(:final id) => Transition.run(
+      PatchWaypointPosition(
+        position: g.position.world,
+        tripId: tripId,
+        waypointId: id,
+      ),
+    ),
+    _ => Transition.stay(),
+  };
 }
