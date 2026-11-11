@@ -81,7 +81,7 @@ class TripEditSheets extends ConsumerWidget {
                     tooltipText: "Add Waypoint",
                     onPressed: () => ref
                         .read(appModeMachineProvider.notifier)
-                        .apply(Transition.to(WaypointsEditMode(mode.tripId))),
+                        .apply(Transition.to(CreateWaypointMode(mode.tripId))),
                   ),
                 ],
               ),

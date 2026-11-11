@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/map/objects/route/route.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/providers/waypoint_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 
-SceneSpec waypointsEditScene(TripId tripId) => SceneSpec(
+SceneSpec createWaypointScene(TripId tripId) => SceneSpec(
   layers: [
     (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],
     (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],

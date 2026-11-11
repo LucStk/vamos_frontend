@@ -1,20 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/bottom_sheet/sketch_bottom_sheet_actions.dart';
+import 'package:vamos_cartographie/map/modes/shared/chrome/edit_bottom_sheet_actions.dart';
 
-class SketchBottomSheet extends StatelessWidget {
-  const SketchBottomSheet({
+class EditBottomSheet extends StatelessWidget {
+  const EditBottomSheet({
     super.key,
     required this.onBack,
-    required this.onRoute,
-    required this.onCancelStroke,
     required this.onClearRoute,
     this.contextualSheet,
   });
 
   final VoidCallback onBack;
-  final VoidCallback? onRoute;
-  final VoidCallback? onCancelStroke;
   final VoidCallback? onClearRoute;
   final Widget? contextualSheet;
 
@@ -31,10 +27,7 @@ class SketchBottomSheet extends StatelessWidget {
               contextualSheet!,
               const SizedBox(height: 10),
             ],
-            SketchBottomSheetActions(
-              onBack: onBack,
-              onClearRoute: onClearRoute,
-            ),
+            EditBottomSheetActions(onBack: onBack, onClearRoute: onClearRoute),
           ],
         ),
       ),
