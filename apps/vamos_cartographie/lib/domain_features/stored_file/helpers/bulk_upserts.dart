@@ -63,7 +63,7 @@ extension WaypointImageUpserts on StoredFileStore {
 
     for (final payload in payloads) {
       for (final image in payload.images) {
-        files = files.setNode(image);
+        files = files.replaceState(image);
         index.addRelationship(payload.waypoint.id, image.id);
       }
     }

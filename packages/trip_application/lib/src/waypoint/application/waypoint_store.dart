@@ -25,7 +25,7 @@ class WaypointStore {
     Iterable<WaypointFields> waypoints,
   ) => waypoints.fold<GraphCollectionStore<WaypointFields>>(
     const GraphCollectionStore<WaypointFields>(),
-    (store, waypoint) => store.setNode(waypoint),
+    (store, waypoint) => store.replaceState(waypoint),
   );
 
   WaypointStore copyWith({
