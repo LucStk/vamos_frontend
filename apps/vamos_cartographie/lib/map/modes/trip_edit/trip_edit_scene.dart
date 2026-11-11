@@ -7,6 +7,7 @@ import 'package:vamos_cartographie/map/scene/map_layer.dart';
 List<Layer> tripEditScene(TripId tripId) => [
   (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],
   (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],
+  (ref, cam) => ref.watch(allMobilityBadgeItemProvider(tripId, cam)),
   (ref, cam) => ref.watch(allWaypointItemProvider(tripId, cam)),
   (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
 ];

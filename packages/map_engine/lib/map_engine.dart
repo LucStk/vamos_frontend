@@ -22,6 +22,7 @@ export 'src/modes/edit_trip/trip_edit_mode.dart';
 export 'src/modes/place_origin/place_origin_mode.dart';
 export 'src/modes/shared/trip_mode.dart';
 export 'src/modes/edit_route/edit_route.dart';
+export 'src/modes/edit_waypoints/edit_waypoints.dart';
 
 export 'src/modes/place_origin/slots/trip_origin_slot.dart';
 export 'src/modes/shared/slots/selection_slot.dart';

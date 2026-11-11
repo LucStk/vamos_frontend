@@ -11,9 +11,9 @@ final class MapTripStart extends RouteElements implements MapRouteOrigin {
   bool get isDraggable => true;
 
   @override
-  bool operator ==(Object other) => other is MapLocalization;
+  bool operator ==(Object other) => other is MapTripStart;
   @override
-  int get hashCode => (MapLocalization).hashCode;
+  int get hashCode => (MapTripStart).hashCode;
 }
 
 final class MapTmpOrigin extends MapObject
@@ -23,7 +23,7 @@ final class MapTmpOrigin extends MapObject
   bool get isDraggable => true;
 
   @override
-  bool operator ==(Object other) => other is MapLocalization;
+  bool operator ==(Object other) => other is MapTmpOrigin;
   @override
-  int get hashCode => (MapLocalization).hashCode;
+  int get hashCode => (MapTmpOrigin).hashCode;
 }

@@ -9,6 +9,7 @@ import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_rout
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_scene.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/providers/span_bound_handle_provider.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/providers/selection_handle_provider.dart';
+import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoints_edit.dart';
 import 'package:vamos_cartographie/map/objects/localization/providers/localization_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
@@ -46,6 +47,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
   // Avant `TripMode` : SelectSpanMode en est un sous-type, il serait sinon
   // capturé par le cas générique.
   EditSpanMode t => editSpanScene(t),
+  WaypointsEditMode(:final tripId) => waypointsEditScene(tripId),
   SelectRouteMode(:final tripId) => SceneSpec(layers: selectRouteScene(tripId)),
   SketchEdition(:final tripId) => SceneSpec(layers: sketchScene(tripId)),
   SketchGenerating(:final tripId) => SceneSpec(
@@ -62,6 +64,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
 @Riverpod(
   keepAlive: true,
   dependencies: [
+    pendingWaypoint,
     spanBoundHandleItems,
     selectionHandleItems,
     pencilItem,

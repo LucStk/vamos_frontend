@@ -9,6 +9,7 @@ import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.d
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_compact_content.dart';
 import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_viewer_content.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_button.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_actions.dart';
 import 'package:vamos_cartographie/map/ui/chrome/floating_header_card.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 
@@ -64,14 +65,25 @@ class TripEditSheets extends ConsumerWidget {
                   ),
                 ),
               ),
-
-              EditBottomButton(
-                tooltipText: "Edit route",
-                onPressed: () {
-                  ref
-                      .read(appModeMachineProvider.notifier)
-                      .apply(Transition.to(RouteEditMode(mode.tripId)));
-                },
+              EditBottomActions(
+                bottomOffset: 120, // ← ta marge Y par rapport au bas
+                spacing: 8, // ← espacement entre les boutons
+                direction: Axis.horizontal, // ← ou Axis.horizontal
+                children: [
+                  EditBottomButton(
+                    tooltipText: "Edit route",
+                    onPressed: () => ref
+                        .read(appModeMachineProvider.notifier)
+                        .apply(Transition.to(RouteEditMode(mode.tripId))),
+                  ),
+                  EditBottomButton(
+                    icon: Icons.add_location_alt,
+                    tooltipText: "Add Waypoint",
+                    onPressed: () => ref
+                        .read(appModeMachineProvider.notifier)
+                        .apply(Transition.to(WaypointsEditMode(mode.tripId))),
+                  ),
+                ],
               ),
             ],
           ),
