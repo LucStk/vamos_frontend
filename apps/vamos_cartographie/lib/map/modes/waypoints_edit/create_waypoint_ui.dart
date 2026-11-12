@@ -29,11 +29,8 @@ class CreateWaypointUi extends ConsumerWidget {
       onClearRoute: null,
       contextualSheet: (pending != null)
           ? CreateWaypointActions(
-              validatePosition: () => ref
-                  .read(waypointStoreProvider(mode.tripId).notifier)
-                  .createBlankWaypoint(
-                    camera.worldOffsetToLatLng(pending.point),
-                  ),
+              validatePosition: () =>
+                  ref.applyTransition(mode.validatePosition()),
             )
           : null,
     );
