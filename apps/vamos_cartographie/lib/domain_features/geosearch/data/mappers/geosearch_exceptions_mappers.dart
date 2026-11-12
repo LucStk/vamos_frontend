@@ -1,5 +1,5 @@
-import '../geosearch_failures.dart';
-import '../geosearch_remote_datasource.dart';
+import 'package:vamos_cartographie/domain_features/geosearch/data/geosearch_failures.dart';
+import 'package:vamos_cartographie/domain_features/geosearch/data/geosearch_remote_datasource.dart';
 
 extension GeosearchRequestExceptionX on GeosearchRequestException {
   GeosearchFailure toFailure() => switch (code) {
