@@ -46,3 +46,22 @@ final class MapWaypointAnchor extends MapObject {
   @override
   int get hashCode => Object.hash(tripId, waypointId, MapWaypointAnchor);
 }
+
+final class MapChainWaypoint extends MapObject {
+  final TripId tripId;
+  final WaypointId waypointId;
+  const MapChainWaypoint({required this.tripId, required this.waypointId});
+
+  @override
+  bool get isDraggable => false;
+  @override
+  bool get isHitTestable => false;
+  @override
+  bool operator ==(Object other) =>
+      other is MapChainWaypoint &&
+      other.waypointId == waypointId &&
+      other.tripId == tripId;
+
+  @override
+  int get hashCode => Object.hash(tripId, waypointId, MapChainWaypoint);
+}

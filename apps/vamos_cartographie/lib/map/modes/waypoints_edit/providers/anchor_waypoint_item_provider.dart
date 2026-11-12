@@ -4,13 +4,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/injection.dart';
-import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/anchor_waypoint_item.dart';
+import 'package:vamos_cartographie/map/objects/waypoint/chain_waypoint_item.dart';
 
 part 'anchor_waypoint_item_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-SceneItem? anchorWaypointItem(
+List<SceneItem> anchorWaypointItem(
   Ref ref,
   TripId tripId,
   WaypointId waypointId,
@@ -18,12 +18,20 @@ SceneItem? anchorWaypointItem(
 ) {
   final waypoint = ref.watch(waypointProvider(tripId, waypointId));
   final polyline = ref.watch(routePolylineProvider(tripId, camera));
-  if (polyline == null) return null;
+  if (polyline == null) return [];
+  final anchorPos = polyline.pointAt(waypoint.anchorPosition);
+  final waypointPos = camera.latLngToWorldOffset(waypoint.position);
 
-  return AnchorWaypointItem(
-    object: MapWaypointAnchor(tripId: tripId, waypointId: waypointId),
-    worldPosition: polyline.pointAt(waypoint.anchorPosition),
-  );
+  return [
+    AnchorWaypointItem(
+      object: MapWaypointAnchor(tripId: tripId, waypointId: waypointId),
+      worldPosition: anchorPos,
+    ),
+    ChainWaypointItem(
+      object: MapChainWaypoint(tripId: tripId, waypointId: waypointId),
+      worldSegments: [(waypointPos, anchorPos)],
+    ),
+  ];
 }
 
 @Riverpod(keepAlive: true)
@@ -34,6 +42,6 @@ List<SceneItem> allWaypointAnchorItem(
 ) {
   return [
     for (final id in ref.watch(allWaypointIdsProvider(tripId)))
-      ?ref.watch(anchorWaypointItemProvider(tripId, id, camera)),
+      ...ref.watch(anchorWaypointItemProvider(tripId, id, camera)),
   ];
 }

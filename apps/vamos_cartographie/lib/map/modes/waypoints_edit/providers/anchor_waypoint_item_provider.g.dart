@@ -13,8 +13,9 @@ part of 'anchor_waypoint_item_provider.dart';
 final anchorWaypointItemProvider = AnchorWaypointItemFamily._();
 
 final class AnchorWaypointItemProvider
-    extends $FunctionalProvider<SceneItem?, SceneItem?, SceneItem?>
-    with $Provider<SceneItem?> {
+    extends
+        $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
+    with $Provider<List<SceneItem>> {
   AnchorWaypointItemProvider._({
     required AnchorWaypointItemFamily super.from,
     required (TripId, WaypointId, MapCameraReader) super.argument,
@@ -38,20 +39,20 @@ final class AnchorWaypointItemProvider
 
   @$internal
   @override
-  $ProviderElement<SceneItem?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<List<SceneItem>> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  SceneItem? create(Ref ref) {
+  List<SceneItem> create(Ref ref) {
     final argument = this.argument as (TripId, WaypointId, MapCameraReader);
     return anchorWaypointItem(ref, argument.$1, argument.$2, argument.$3);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SceneItem? value) {
+  Override overrideWithValue(List<SceneItem> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SceneItem?>(value),
+      providerOverride: $SyncValueProvider<List<SceneItem>>(value),
     );
   }
 
@@ -67,12 +68,12 @@ final class AnchorWaypointItemProvider
 }
 
 String _$anchorWaypointItemHash() =>
-    r'75ad095f37c7c9e6c4b566b31f3d2408570a7d83';
+    r'74a5155496e393df060987d414451f886b3bae12';
 
 final class AnchorWaypointItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
-          SceneItem?,
+          List<SceneItem>,
           (TripId, WaypointId, MapCameraReader)
         > {
   AnchorWaypointItemFamily._()
@@ -156,7 +157,7 @@ final class AllWaypointAnchorItemProvider
 }
 
 String _$allWaypointAnchorItemHash() =>
-    r'291366f092d573fe0613f2a6636a88109836a437';
+    r'48a28dfb2703255028272e3cfdcb7483d17d6500';
 
 final class AllWaypointAnchorItemFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {
