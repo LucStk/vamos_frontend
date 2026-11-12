@@ -7,8 +7,7 @@ import 'package:vamos_cartographie/map/rendering/map_canvas_view.dart';
 
 @Dependencies([MapGestureHandlerNotifier])
 class MapGestureBridge extends ConsumerWidget {
-  final List<Widget> mapLayers;
-  const MapGestureBridge({required this.mapLayers, super.key});
+  const MapGestureBridge({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +19,7 @@ class MapGestureBridge extends ConsumerWidget {
       onPointerMove: handler.onPointerMove,
       onPointerUp: handler.onPointerUp,
       onPointerCancel: handler.onPointerCancel,
-      child: MapCanvas(layers: mapLayers),
+      child: MapCanvas(),
     );
   }
 }

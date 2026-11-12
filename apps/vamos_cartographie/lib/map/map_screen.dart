@@ -39,7 +39,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
           return Stack(
             children: [
-              MapGestureBridge(mapLayers: [MapTileLayer()]),
+              MapGestureBridge(),
               const MapControls(),
               const ModeUi(),
 
