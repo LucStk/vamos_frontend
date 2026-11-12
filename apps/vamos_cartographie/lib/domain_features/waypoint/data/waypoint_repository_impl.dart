@@ -27,9 +27,13 @@ class WaypointRepositoryImpl extends WaypointRepository {
   @override
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointFields waypoint,
+    WaypointChanges changes,
   ) {
     return guard(() async {
-      final input = waypoint.toGQLUpdateInput();
+      final input = waypoint.toGQLUpdateInput(
+        anchorEdited: changes.anchorEdited,
+        moved: changes.moved,
+      );
       final gqlResult = await remote.updateWaypoint(
         id: waypoint.id,
         input: input,

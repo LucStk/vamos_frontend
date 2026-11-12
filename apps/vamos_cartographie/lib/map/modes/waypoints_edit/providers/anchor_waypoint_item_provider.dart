@@ -24,6 +24,7 @@ List<SceneItem> anchorWaypointItem(
 
   return [
     AnchorWaypointItem(
+      polyline: polyline,
       object: MapWaypointAnchor(tripId: tripId, waypointId: waypointId),
       worldPosition: anchorPos,
     ),

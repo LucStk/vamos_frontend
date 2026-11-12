@@ -54,6 +54,25 @@ final class PatchWaypointPosition extends WaypointCommand {
   }
 }
 
+final class PatchWaypointAnchorPosition extends WaypointCommand {
+  const PatchWaypointAnchorPosition({
+    required this.tripId,
+    required this.waypointId,
+    required this.position,
+  });
+  final double position;
+  final TripId tripId;
+  final WaypointId waypointId;
+
+  @override
+  Future<void> handle(AppCommandScope h) async {
+    return h
+        .forTrip(tripId)
+        .waypointEditor
+        .patchWaypointAnchorPosition(waypointId, position);
+  }
+}
+
 final class CommitWaypoint extends WaypointCommand<Done> {
   const CommitWaypoint({required this.tripId, required this.waypointId});
   final TripId tripId;

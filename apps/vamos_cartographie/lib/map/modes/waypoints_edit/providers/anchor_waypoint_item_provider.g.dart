@@ -68,7 +68,7 @@ final class AnchorWaypointItemProvider
 }
 
 String _$anchorWaypointItemHash() =>
-    r'74a5155496e393df060987d414451f886b3bae12';
+    r'698df982243a4a01f9b98c32a74da0877a0d8e65';
 
 final class AnchorWaypointItemFamily extends $Family
     with

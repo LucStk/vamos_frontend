@@ -21,12 +21,18 @@ extension GWaypointFieldsMapper on GWaypointDetails {
 }
 
 extension WaypointFieldsMappers on WaypointFields {
-  GWaypointUpdateInput toGQLUpdateInput() => GWaypointUpdateInput(
+  GWaypointUpdateInput toGQLUpdateInput({
+    required bool moved,
+    required bool anchorEdited,
+  }) => GWaypointUpdateInput(
     poiCategory: Value.present(poiCategory.toGQL()),
-    description: description.isNotEmpty
-        ? Value.present(description)
+    description: Value.present(description),
+    title: Value.present(title),
+    location: moved
+        ? Value.present(position.toGQLInput())
         : const Value.absent(),
-    title: title.isNotEmpty ? Value.present(title) : const Value.absent(),
-    location: Value.present(position.toGQLInput()),
+    anchorPosition: anchorEdited
+        ? Value.present(anchorPosition)
+        : const Value.absent(),
   );
 }

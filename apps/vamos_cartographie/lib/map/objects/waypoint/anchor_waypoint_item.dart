@@ -8,6 +8,8 @@ final class AnchorWaypointItem extends PointItem {
   AnchorWaypointItem({
     required this.object,
     required this.worldPosition,
+
+    required this.polyline,
     this.visualKind = WaypointVisualKind.end,
   });
 
@@ -16,6 +18,7 @@ final class AnchorWaypointItem extends PointItem {
   @override
   final WorldOffset worldPosition;
   final WaypointVisualKind visualKind;
+  final RoutePolyline polyline;
 
   /// Rayon du disque affiché (avant `look.scale`).
   @override
@@ -23,6 +26,8 @@ final class AnchorWaypointItem extends PointItem {
 
   @override
   ScreenLength get hitRadius => 14.px;
+  @override
+  DragDetail? dragDetail(WorldOffset p) => RouteDragDetail(polyline.project(p));
 
   @override
   DrawCommand toDrawCommand({

@@ -28,14 +28,28 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     state = state.setWaypoint(patch);
   }
 
+  void patchWaypointAnchorPosition(WaypointId waypointId, double position) {
+    final w = state.waypointStore.getRequired(waypointId);
+    final patch = WaypointPatchModel.fromFields(
+      w.current,
+    ).copyWith(anchorPosition: position);
+    state = state.setWaypoint(patch);
+  }
+
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointFields waypoint,
   ) async {
+    // À calculer AVANT run : si `waypoint` est un WaypointRemoteModel, onApply
+    // écrase lastRemoteValue (cf. GraphNode.set) et le diff serait vide.
+    final changes = WaypointChanges.between(
+      state.waypointStore.get(waypoint.id)?.serverValue,
+      waypoint,
+    );
+
     return await run(
       entityKey: waypoint.id,
       onApply: (gs) => gs.setWaypoint(waypoint),
-      remote: (_) =>
-          waypointRepo.updateWaypoint(WaypointRemoteModel.fromFields(waypoint)),
+      remote: (_) => waypointRepo.updateWaypoint(waypoint, changes),
       onSuccess: (gs, serveurValue) => gs.setWaypoint(serveurValue),
       onError: (gs, Failure failure) => gs.rollbackWaypoint(waypoint.id),
     );
@@ -47,9 +61,15 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     return await run(
       entityKey: waypointId,
       onApply: (gs) => gs,
-      remote: (_) => waypointRepo.updateWaypoint(
-        state.waypointStore.getRequired(waypointId).current,
-      ),
+      remote: (_) {
+        // Lu au moment de l'appel : `current` est un Patch, donc lastRemoteValue
+        // est intact et le diff est fiable.
+        final node = state.waypointStore.getRequired(waypointId);
+        return waypointRepo.updateWaypoint(
+          node.current,
+          WaypointChanges.between(node.serverValue, node.current),
+        );
+      },
       onSuccess: (gs, serveurValue) => gs.setWaypoint(serveurValue),
       onError: (gs, Failure failure) => gs.rollbackWaypoint(waypointId),
     );
