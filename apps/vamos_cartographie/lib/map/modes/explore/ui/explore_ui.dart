@@ -5,6 +5,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/presentation/place_search_bar.dart';
+import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/chrome/explore_bottom_bar.dart';
@@ -46,6 +47,11 @@ class ExploreUi extends ConsumerWidget {
                               ),
                             ),
                           );
+                          if (r.bbox != null) {
+                            ref
+                                .read(cameraDirectorProvider)
+                                .submit(CameraRequest(FitBounds(r.bbox!)));
+                          }
                         },
                       ),
                     ),
