@@ -1,7 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_segment_item.dart';
+import 'package:vamos_cartographie/map/objects/waypoint/style/chain_waypoint_style.dart';
 
 final class ChainWaypointItem extends LineItem {
   ChainWaypointItem({
@@ -30,7 +30,7 @@ final class ChainWaypointItem extends LineItem {
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
-  }) => SketchSegmentStyle.build(
+  }) => ChainWaypointStyle.build(
     path,
     radius: visualRadius,
     pending: pending,

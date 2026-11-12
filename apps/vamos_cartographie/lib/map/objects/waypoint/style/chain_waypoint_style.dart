@@ -12,7 +12,7 @@ abstract final class ChainWaypointStyle {
       path: path,
       style: Stroke(
         Colors.grey,
-        width: ScreenLength(4),
+        width: ScreenLength(2),
         // [trait, vide, trait, vide...] : ici 8 px de trait, 6 px de vide,
         // constants à l'écran quel que soit le zoom.
         dash: [ScreenLength(8), ScreenLength(6)],
