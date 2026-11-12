@@ -1,0 +1,28 @@
+#import "./geosearch_fields.graphql"
+
+query SearchPlaces(
+    $q: String!
+    $lat: Float
+    $lon: Float
+    $limit: Int!
+    $radiusKm: Float
+    $mode: SearchMode!
+) {
+    searchPlaces(
+        q: $q
+        lat: $lat
+        lon: $lon
+        limit: $limit
+        radiusKm: $radiusKm
+        mode: $mode
+    ) {
+        mode
+        category {
+            key
+            label
+        }
+        results {
+            ...PlaceResultFields
+        }
+    }
+}

@@ -171,6 +171,17 @@ type Mutation {
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
 }
 
+type PlaceResult {
+  id: String!
+  name: String!
+  subtitle: String!
+  lat: Float!
+  lon: Float!
+  category: String!
+  distanceM: Int
+  bbox: [Float!]
+}
+
 enum PoiCategory {
   START
   END
@@ -212,6 +223,12 @@ type Query {
   user(userId: UUID!): UserProfileType!
   followers(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
   following(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
+
+  """
+  Recherche un lieu par nom/adresse, ou une catégorie (camping, eau...) autour
+  de lat/lon. Lecture seule : c'est une Query, pas une Mutation.
+  """
+  searchPlaces(q: String!, lat: Float = null, lon: Float = null, limit: Int! = 8, radiusKm: Float = null, mode: SearchMode! = AUTO): SearchResponse!
 }
 
 input RangeMobilityInput {
@@ -225,6 +242,11 @@ enum RefinementFailure {
   ROUTER_UNAVAILABLE
   NO_ROUTE_FOUND
   EMPTY_ROUTE
+}
+
+enum ResultMode {
+  PLACE
+  CATEGORY
 }
 
 """
@@ -259,6 +281,23 @@ type RoutePreviewSuccess {
   mobilitySpans: [PreviewMobilitySpanType!]!
   editSpans: [PreviewEditSpanType!]!
   refinementError: RefinementFailure
+}
+
+type SearchCategory {
+  key: String!
+  label: String!
+}
+
+enum SearchMode {
+  AUTO
+  PLACE
+  CATEGORY
+}
+
+type SearchResponse {
+  mode: ResultMode!
+  category: SearchCategory
+  results: [PlaceResult!]!
 }
 
 """

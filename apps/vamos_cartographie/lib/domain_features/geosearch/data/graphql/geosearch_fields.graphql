@@ -1,0 +1,10 @@
+fragment PlaceResultFields on PlaceResult {
+    id
+    name
+    subtitle
+    lat
+    lon
+    category
+    distanceM
+    bbox
+}

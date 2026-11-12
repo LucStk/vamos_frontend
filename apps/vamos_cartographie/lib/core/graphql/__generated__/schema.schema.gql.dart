@@ -696,6 +696,34 @@ enum GRefinementFailure {
   }
 }
 
+enum GResultMode {
+  PLACE,
+  CATEGORY,
+  gUnknownEnumValue;
+
+  static GResultMode fromJson(String value) {
+    switch (value) {
+      case r'PLACE':
+        return GResultMode.PLACE;
+      case r'CATEGORY':
+        return GResultMode.CATEGORY;
+      default:
+        return GResultMode.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GResultMode.PLACE:
+        return r'PLACE';
+      case GResultMode.CATEGORY:
+        return r'CATEGORY';
+      case GResultMode.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 class GRouteAnchorInput {
   const GRouteAnchorInput({
     this.section = const Value.absent(),
@@ -833,6 +861,39 @@ enum GRouteEndpoint {
       case GRouteEndpoint.ROUTE_END:
         return r'ROUTE_END';
       case GRouteEndpoint.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
+enum GSearchMode {
+  AUTO,
+  PLACE,
+  CATEGORY,
+  gUnknownEnumValue;
+
+  static GSearchMode fromJson(String value) {
+    switch (value) {
+      case r'AUTO':
+        return GSearchMode.AUTO;
+      case r'PLACE':
+        return GSearchMode.PLACE;
+      case r'CATEGORY':
+        return GSearchMode.CATEGORY;
+      default:
+        return GSearchMode.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GSearchMode.AUTO:
+        return r'AUTO';
+      case GSearchMode.PLACE:
+        return r'PLACE';
+      case GSearchMode.CATEGORY:
+        return r'CATEGORY';
+      case GSearchMode.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
   }

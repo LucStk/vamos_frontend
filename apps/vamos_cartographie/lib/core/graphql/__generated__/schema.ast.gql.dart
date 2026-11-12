@@ -1229,6 +1229,88 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const PlaceResult = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'PlaceResult'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'name'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'subtitle'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'lat'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'lon'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'category'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'distanceM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'bbox'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'Float'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+    ),
+  ],
+);
 const PoiCategory = _i1.EnumTypeDefinitionNode(
   name: _i1.NameNode(value: 'PoiCategory'),
   directives: [],
@@ -1622,6 +1704,70 @@ const Query = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'searchPlaces'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'q'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'lat'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Float'),
+            isNonNull: false,
+          ),
+          defaultValue: _i1.NullValueNode(),
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'lon'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Float'),
+            isNonNull: false,
+          ),
+          defaultValue: _i1.NullValueNode(),
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'limit'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Int'),
+            isNonNull: true,
+          ),
+          defaultValue: _i1.IntValueNode(value: '8'),
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'radiusKm'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'Float'),
+            isNonNull: false,
+          ),
+          defaultValue: _i1.NullValueNode(),
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'mode'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'SearchMode'),
+            isNonNull: true,
+          ),
+          defaultValue: _i1.EnumValueNode(name: _i1.NameNode(value: 'AUTO')),
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SearchResponse'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const RangeMobilityInput = _i1.InputObjectTypeDefinitionNode(
@@ -1680,6 +1826,20 @@ const RefinementFailure = _i1.EnumTypeDefinitionNode(
     ),
     _i1.EnumValueDefinitionNode(
       name: _i1.NameNode(value: 'EMPTY_ROUTE'),
+      directives: [],
+    ),
+  ],
+);
+const ResultMode = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ResultMode'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PLACE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'CATEGORY'),
       directives: [],
     ),
   ],
@@ -1828,6 +1988,86 @@ const RoutePreviewSuccess = _i1.ObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'RefinementFailure'),
         isNonNull: false,
+      ),
+    ),
+  ],
+);
+const SearchCategory = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SearchCategory'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'key'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'label'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
+const SearchMode = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SearchMode'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'AUTO'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PLACE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'CATEGORY'),
+      directives: [],
+    ),
+  ],
+);
+const SearchResponse = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'SearchResponse'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'mode'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ResultMode'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'category'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SearchCategory'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'results'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'PlaceResult'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
       ),
     ),
   ],
@@ -2432,17 +2672,22 @@ const document = _i1.DocumentNode(definitions: [
   MobilityType,
   MoveMobilityBoundaryInput,
   Mutation,
+  PlaceResult,
   PoiCategory,
   PreviewEditSpanType,
   PreviewMobilitySpanType,
   Query,
   RangeMobilityInput,
   RefinementFailure,
+  ResultMode,
   RouteAnchorInput,
   RouteEditErrorCode,
   RouteEndpoint,
   RoutePreviewPayload,
   RoutePreviewSuccess,
+  SearchCategory,
+  SearchMode,
+  SearchResponse,
   SectionAnchorInput,
   SectionPointInput,
   StoredFileType,
