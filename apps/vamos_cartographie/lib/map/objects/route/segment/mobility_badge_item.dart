@@ -4,7 +4,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
-import 'package:vamos_cartographie/map/objects/route/segment/badge/mobility_badge_style.dart';
+import 'package:vamos_cartographie/map/objects/shared/badge/badge_style.dart';
 
 final class MobilityBadgeItem extends PointItem {
   MobilityBadgeItem({
@@ -39,10 +39,10 @@ final class MobilityBadgeItem extends PointItem {
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
-  }) => MobilityBadgeStyle.build(
-    worldPosition,
-    appearance,
-    glyph,
-    MobilityBadgeStyle.resolver.resolve(context),
+  }) => BadgeStyle.build(
+    anchor: worldPosition,
+    color: appearance.color,
+    glyph: glyph,
+    look: BadgeStyle.resolver.resolve(context),
   );
 }

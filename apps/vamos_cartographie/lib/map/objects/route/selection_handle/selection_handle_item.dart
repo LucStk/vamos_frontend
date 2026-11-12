@@ -28,6 +28,9 @@ final class RouteHandleItem extends PointItem {
   static const _color = Color(0xFF1565C0);
 
   @override
+  int zIndex = ZIndex.handle;
+
+  @override
   ScreenLength get visualRadius => 12.px;
   @override
   ScreenLength get hitRadius => 16.px;

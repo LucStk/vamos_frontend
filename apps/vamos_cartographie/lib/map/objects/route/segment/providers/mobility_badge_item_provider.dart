@@ -4,8 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/span_queries.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/mobility_appearance.dart';
-import 'package:vamos_cartographie/map/objects/route/segment/badge/mobility_badge_item.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/geometry/polyline_midpoint.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/mobility_badge_item.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/providers/segment_item_provider.dart';
 
 part 'mobility_badge_item_provider.g.dart';
