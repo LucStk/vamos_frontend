@@ -4,9 +4,9 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/sheet/waypoint_compact_content.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/sheet/waypoint_viewer_content.dart';
-import 'package:vamos_cartographie/map/ui/shared/sheets/draggable_sheet.dart';
 
 @Dependencies([])
 class WaypointBottomSheet extends ConsumerWidget {

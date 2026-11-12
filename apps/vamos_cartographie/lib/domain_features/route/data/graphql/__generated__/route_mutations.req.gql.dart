@@ -59,8 +59,11 @@ class GEditRouteReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.EditRoute,
-    _i7.RouteSection,
+    _i7.MobilitySpan,
+    _i7.Bounds,
+    _i7.EditSpan,
     _i7.TripRoute,
+    _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
   ]);
@@ -229,7 +232,8 @@ class GPreviewRouteEditReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.PreviewRouteEdit,
-    _i7.PreviewSection,
+    _i7.PreviewMobilitySpan,
+    _i7.PreviewEditSpan,
     _i7.RoutePreviewResult,
     _i8.LatLng,
   ]);
@@ -399,8 +403,11 @@ class GCommitRouteEditReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CommitRouteEdit,
-    _i7.RouteSection,
+    _i7.MobilitySpan,
+    _i7.Bounds,
+    _i7.EditSpan,
     _i7.TripRoute,
+    _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
   ]);
@@ -736,8 +743,11 @@ class GSetTripOriginReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetTripOrigin,
-    _i7.RouteSection,
+    _i7.MobilitySpan,
+    _i7.Bounds,
+    _i7.EditSpan,
     _i7.TripRoute,
+    _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
   ]);
@@ -905,8 +915,11 @@ class GDeleteRouteReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.DeleteRoute,
-    _i7.RouteSection,
+    _i7.MobilitySpan,
+    _i7.Bounds,
+    _i7.EditSpan,
     _i7.TripRoute,
+    _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
   ]);

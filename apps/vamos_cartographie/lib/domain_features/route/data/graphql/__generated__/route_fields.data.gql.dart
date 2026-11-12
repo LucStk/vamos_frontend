@@ -9,33 +9,32 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/core/mappers/geometry_mappers/geo_polygon_dto.dart';
 
-abstract class GRouteSection {
+abstract class GMobilitySpan {
   String get id;
   int get startIndex;
   _i1.GMobilityType get mobilityType;
-  _i1.GGeometrySource get geometrySource;
+  double? get lengthM;
   String get G__typename;
 }
 
-class GRouteSectionData implements GRouteSection {
-  const GRouteSectionData({
+class GMobilitySpanData implements GMobilitySpan {
+  const GMobilitySpanData({
     required this.id,
     required this.startIndex,
     required this.mobilityType,
-    required this.geometrySource,
-    this.G__typename = 'RouteSectionType',
+    this.lengthM,
+    this.G__typename = 'MobilitySpanType',
   });
 
-  factory GRouteSectionData.fromJson(Map<String, dynamic> json) {
-    return GRouteSectionData(
+  factory GMobilitySpanData.fromJson(Map<String, dynamic> json) {
+    return GMobilitySpanData(
       id: (json['id'] as String),
       startIndex: (json['startIndex'] as int),
       mobilityType:
           _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
-      geometrySource:
-          _i1.GGeometrySource.fromJson((json['geometrySource'] as String)),
+      lengthM:
+          json['lengthM'] == null ? null : (json['lengthM'] as num).toDouble(),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -46,7 +45,7 @@ class GRouteSectionData implements GRouteSection {
 
   final _i1.GMobilityType mobilityType;
 
-  final _i1.GGeometrySource geometrySource;
+  final double? lengthM;
 
   final String G__typename;
 
@@ -55,23 +54,25 @@ class GRouteSectionData implements GRouteSection {
     _$result['id'] = this.id;
     _$result['startIndex'] = this.startIndex;
     _$result['mobilityType'] = this.mobilityType.toJson();
-    _$result['geometrySource'] = this.geometrySource.toJson();
+    final _$lengthMValue = this.lengthM;
+    _$result['lengthM'] = _$lengthMValue == null ? null : _$lengthMValue;
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
-  GRouteSectionData copyWith({
+  GMobilitySpanData copyWith({
     String? id,
     int? startIndex,
     _i1.GMobilityType? mobilityType,
-    _i1.GGeometrySource? geometrySource,
+    double? lengthM,
+    bool lengthMIsSet = false,
     String? G__typename,
   }) {
-    return GRouteSectionData(
+    return GMobilitySpanData(
       id: id ?? this.id,
       startIndex: startIndex ?? this.startIndex,
       mobilityType: mobilityType ?? this.mobilityType,
-      geometrySource: geometrySource ?? this.geometrySource,
+      lengthM: lengthM != null || lengthMIsSet ? lengthM : this.lengthM,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -79,87 +80,85 @@ class GRouteSectionData implements GRouteSection {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GRouteSectionData &&
+        (other is GMobilitySpanData &&
             id == other.id &&
             startIndex == other.startIndex &&
             mobilityType == other.mobilityType &&
-            geometrySource == other.geometrySource &&
+            lengthM == other.lengthM &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType, id, startIndex, mobilityType, geometrySource, G__typename);
+        runtimeType, id, startIndex, mobilityType, lengthM, G__typename);
   }
 
   @override
   String toString() {
-    return 'GRouteSectionData(id: $id, startIndex: $startIndex, mobilityType: $mobilityType, geometrySource: $geometrySource, G__typename: $G__typename)';
+    return 'GMobilitySpanData(id: $id, startIndex: $startIndex, mobilityType: $mobilityType, lengthM: $lengthM, G__typename: $G__typename)';
   }
 }
 
-abstract class GPreviewSection {
-  bool get isNew;
-  int get startIndex;
-  _i1.GMobilityType get mobilityType;
-  _i1.GGeometrySource get geometrySource;
+abstract class GBounds {
+  double get minLng;
+  double get minLat;
+  double get maxLng;
+  double get maxLat;
   String get G__typename;
 }
 
-class GPreviewSectionData implements GPreviewSection {
-  const GPreviewSectionData({
-    required this.isNew,
-    required this.startIndex,
-    required this.mobilityType,
-    required this.geometrySource,
-    this.G__typename = 'PreviewSectionType',
+class GBoundsData implements GBounds {
+  const GBoundsData({
+    required this.minLng,
+    required this.minLat,
+    required this.maxLng,
+    required this.maxLat,
+    this.G__typename = 'BoundsType',
   });
 
-  factory GPreviewSectionData.fromJson(Map<String, dynamic> json) {
-    return GPreviewSectionData(
-      isNew: (json['isNew'] as bool),
-      startIndex: (json['startIndex'] as int),
-      mobilityType:
-          _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
-      geometrySource:
-          _i1.GGeometrySource.fromJson((json['geometrySource'] as String)),
+  factory GBoundsData.fromJson(Map<String, dynamic> json) {
+    return GBoundsData(
+      minLng: (json['minLng'] as num).toDouble(),
+      minLat: (json['minLat'] as num).toDouble(),
+      maxLng: (json['maxLng'] as num).toDouble(),
+      maxLat: (json['maxLat'] as num).toDouble(),
       G__typename: (json['__typename'] as String),
     );
   }
 
-  final bool isNew;
+  final double minLng;
 
-  final int startIndex;
+  final double minLat;
 
-  final _i1.GMobilityType mobilityType;
+  final double maxLng;
 
-  final _i1.GGeometrySource geometrySource;
+  final double maxLat;
 
   final String G__typename;
 
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
-    _$result['isNew'] = this.isNew;
-    _$result['startIndex'] = this.startIndex;
-    _$result['mobilityType'] = this.mobilityType.toJson();
-    _$result['geometrySource'] = this.geometrySource.toJson();
+    _$result['minLng'] = this.minLng;
+    _$result['minLat'] = this.minLat;
+    _$result['maxLng'] = this.maxLng;
+    _$result['maxLat'] = this.maxLat;
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
 
-  GPreviewSectionData copyWith({
-    bool? isNew,
-    int? startIndex,
-    _i1.GMobilityType? mobilityType,
-    _i1.GGeometrySource? geometrySource,
+  GBoundsData copyWith({
+    double? minLng,
+    double? minLat,
+    double? maxLng,
+    double? maxLat,
     String? G__typename,
   }) {
-    return GPreviewSectionData(
-      isNew: isNew ?? this.isNew,
-      startIndex: startIndex ?? this.startIndex,
-      mobilityType: mobilityType ?? this.mobilityType,
-      geometrySource: geometrySource ?? this.geometrySource,
+    return GBoundsData(
+      minLng: minLng ?? this.minLng,
+      minLat: minLat ?? this.minLat,
+      maxLng: maxLng ?? this.maxLng,
+      maxLat: maxLat ?? this.maxLat,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -167,33 +166,309 @@ class GPreviewSectionData implements GPreviewSection {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GPreviewSectionData &&
-            isNew == other.isNew &&
-            startIndex == other.startIndex &&
-            mobilityType == other.mobilityType &&
-            geometrySource == other.geometrySource &&
+        (other is GBoundsData &&
+            minLng == other.minLng &&
+            minLat == other.minLat &&
+            maxLng == other.maxLng &&
+            maxLat == other.maxLat &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, isNew, startIndex, mobilityType,
-        geometrySource, G__typename);
+    return Object.hash(
+        runtimeType, minLng, minLat, maxLng, maxLat, G__typename);
   }
 
   @override
   String toString() {
-    return 'GPreviewSectionData(isNew: $isNew, startIndex: $startIndex, mobilityType: $mobilityType, geometrySource: $geometrySource, G__typename: $G__typename)';
+    return 'GBoundsData(minLng: $minLng, minLat: $minLat, maxLng: $maxLng, maxLat: $maxLat, G__typename: $G__typename)';
+  }
+}
+
+abstract class GEditSpan {
+  String get id;
+  int get startIndex;
+  String get editId;
+  _i1.GGeometrySource get geometrySource;
+  double? get lengthM;
+  String get G__typename;
+}
+
+class GEditSpanData implements GEditSpan {
+  const GEditSpanData({
+    required this.id,
+    required this.startIndex,
+    required this.editId,
+    required this.geometrySource,
+    this.lengthM,
+    this.G__typename = 'EditSpanType',
+  });
+
+  factory GEditSpanData.fromJson(Map<String, dynamic> json) {
+    return GEditSpanData(
+      id: (json['id'] as String),
+      startIndex: (json['startIndex'] as int),
+      editId: (json['editId'] as String),
+      geometrySource:
+          _i1.GGeometrySource.fromJson((json['geometrySource'] as String)),
+      lengthM:
+          json['lengthM'] == null ? null : (json['lengthM'] as num).toDouble(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String id;
+
+  final int startIndex;
+
+  final String editId;
+
+  final _i1.GGeometrySource geometrySource;
+
+  final double? lengthM;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['id'] = this.id;
+    _$result['startIndex'] = this.startIndex;
+    _$result['editId'] = this.editId;
+    _$result['geometrySource'] = this.geometrySource.toJson();
+    final _$lengthMValue = this.lengthM;
+    _$result['lengthM'] = _$lengthMValue == null ? null : _$lengthMValue;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GEditSpanData copyWith({
+    String? id,
+    int? startIndex,
+    String? editId,
+    _i1.GGeometrySource? geometrySource,
+    double? lengthM,
+    bool lengthMIsSet = false,
+    String? G__typename,
+  }) {
+    return GEditSpanData(
+      id: id ?? this.id,
+      startIndex: startIndex ?? this.startIndex,
+      editId: editId ?? this.editId,
+      geometrySource: geometrySource ?? this.geometrySource,
+      lengthM: lengthM != null || lengthMIsSet ? lengthM : this.lengthM,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GEditSpanData &&
+            id == other.id &&
+            startIndex == other.startIndex &&
+            editId == other.editId &&
+            geometrySource == other.geometrySource &&
+            lengthM == other.lengthM &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, id, startIndex, editId, geometrySource,
+        lengthM, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GEditSpanData(id: $id, startIndex: $startIndex, editId: $editId, geometrySource: $geometrySource, lengthM: $lengthM, G__typename: $G__typename)';
+  }
+}
+
+abstract class GPreviewMobilitySpan {
+  String? get id;
+  int get startIndex;
+  _i1.GMobilityType get mobilityType;
+  String get G__typename;
+}
+
+class GPreviewMobilitySpanData implements GPreviewMobilitySpan {
+  const GPreviewMobilitySpanData({
+    this.id,
+    required this.startIndex,
+    required this.mobilityType,
+    this.G__typename = 'PreviewMobilitySpanType',
+  });
+
+  factory GPreviewMobilitySpanData.fromJson(Map<String, dynamic> json) {
+    return GPreviewMobilitySpanData(
+      id: json['id'] == null ? null : (json['id'] as String),
+      startIndex: (json['startIndex'] as int),
+      mobilityType:
+          _i1.GMobilityType.fromJson((json['mobilityType'] as String)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String? id;
+
+  final int startIndex;
+
+  final _i1.GMobilityType mobilityType;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue == null ? null : _$idValue;
+    _$result['startIndex'] = this.startIndex;
+    _$result['mobilityType'] = this.mobilityType.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GPreviewMobilitySpanData copyWith({
+    String? id,
+    bool idIsSet = false,
+    int? startIndex,
+    _i1.GMobilityType? mobilityType,
+    String? G__typename,
+  }) {
+    return GPreviewMobilitySpanData(
+      id: id != null || idIsSet ? id : this.id,
+      startIndex: startIndex ?? this.startIndex,
+      mobilityType: mobilityType ?? this.mobilityType,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPreviewMobilitySpanData &&
+            id == other.id &&
+            startIndex == other.startIndex &&
+            mobilityType == other.mobilityType &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, id, startIndex, mobilityType, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GPreviewMobilitySpanData(id: $id, startIndex: $startIndex, mobilityType: $mobilityType, G__typename: $G__typename)';
+  }
+}
+
+abstract class GPreviewEditSpan {
+  String? get id;
+  int get startIndex;
+  String get editId;
+  _i1.GGeometrySource get geometrySource;
+  bool get isNew;
+  String get G__typename;
+}
+
+class GPreviewEditSpanData implements GPreviewEditSpan {
+  const GPreviewEditSpanData({
+    this.id,
+    required this.startIndex,
+    required this.editId,
+    required this.geometrySource,
+    required this.isNew,
+    this.G__typename = 'PreviewEditSpanType',
+  });
+
+  factory GPreviewEditSpanData.fromJson(Map<String, dynamic> json) {
+    return GPreviewEditSpanData(
+      id: json['id'] == null ? null : (json['id'] as String),
+      startIndex: (json['startIndex'] as int),
+      editId: (json['editId'] as String),
+      geometrySource:
+          _i1.GGeometrySource.fromJson((json['geometrySource'] as String)),
+      isNew: (json['isNew'] as bool),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final String? id;
+
+  final int startIndex;
+
+  final String editId;
+
+  final _i1.GGeometrySource geometrySource;
+
+  final bool isNew;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$idValue = this.id;
+    _$result['id'] = _$idValue == null ? null : _$idValue;
+    _$result['startIndex'] = this.startIndex;
+    _$result['editId'] = this.editId;
+    _$result['geometrySource'] = this.geometrySource.toJson();
+    _$result['isNew'] = this.isNew;
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GPreviewEditSpanData copyWith({
+    String? id,
+    bool idIsSet = false,
+    int? startIndex,
+    String? editId,
+    _i1.GGeometrySource? geometrySource,
+    bool? isNew,
+    String? G__typename,
+  }) {
+    return GPreviewEditSpanData(
+      id: id != null || idIsSet ? id : this.id,
+      startIndex: startIndex ?? this.startIndex,
+      editId: editId ?? this.editId,
+      geometrySource: geometrySource ?? this.geometrySource,
+      isNew: isNew ?? this.isNew,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPreviewEditSpanData &&
+            id == other.id &&
+            startIndex == other.startIndex &&
+            editId == other.editId &&
+            geometrySource == other.geometrySource &&
+            isNew == other.isNew &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, id, startIndex, editId, geometrySource,
+        isNew, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GPreviewEditSpanData(id: $id, startIndex: $startIndex, editId: $editId, geometrySource: $geometrySource, isNew: $isNew, G__typename: $G__typename)';
   }
 }
 
 abstract class GTripRoute {
   String get id;
   String? get routeUpdatedAt;
-  GeoPolygonDto? get bounds;
+  GBounds? get bounds;
   _i2.GLatLng get startPoint;
   List<_i2.GLatLng> get route;
-  List<GRouteSection> get sections;
+  List<GMobilitySpan> get mobilitySpans;
   String get G__typename;
 }
 
@@ -204,7 +479,7 @@ class GTripRouteData implements GTripRoute {
     this.bounds,
     required this.startPoint,
     required this.route,
-    required this.sections,
+    required this.mobilitySpans,
     this.G__typename = 'TripType',
   });
 
@@ -214,16 +489,17 @@ class GTripRouteData implements GTripRoute {
       routeUpdatedAt: json['routeUpdatedAt'] == null
           ? null
           : (json['routeUpdatedAt'] as String),
-      bounds:
-          json['bounds'] == null ? null : geoPolygonDtoFromJson(json['bounds']),
+      bounds: json['bounds'] == null
+          ? null
+          : GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
       startPoint: _i2.GLatLngData.fromJson(
           (json['startPoint'] as Map<String, dynamic>)),
       route: (json['route'] as List<dynamic>)
           .map((_$e) => _i2.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      sections: (json['sections'] as List<dynamic>)
+      mobilitySpans: (json['mobilitySpans'] as List<dynamic>)
           .map((_$e) =>
-              GRouteSectionData.fromJson((_$e as Map<String, dynamic>)))
+              GMobilitySpanData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       G__typename: (json['__typename'] as String),
     );
@@ -233,13 +509,13 @@ class GTripRouteData implements GTripRoute {
 
   final String? routeUpdatedAt;
 
-  final GeoPolygonDto? bounds;
+  final GBoundsData? bounds;
 
   final _i2.GLatLngData startPoint;
 
   final List<_i2.GLatLngData> route;
 
-  final List<GRouteSectionData> sections;
+  final List<GMobilitySpanData> mobilitySpans;
 
   final String G__typename;
 
@@ -250,11 +526,11 @@ class GTripRouteData implements GTripRoute {
     _$result['routeUpdatedAt'] =
         _$routeUpdatedAtValue == null ? null : _$routeUpdatedAtValue;
     final _$boundsValue = this.bounds;
-    _$result['bounds'] =
-        _$boundsValue == null ? null : geoPolygonDtoToJson(_$boundsValue);
+    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue.toJson();
     _$result['startPoint'] = this.startPoint.toJson();
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
-    _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
+    _$result['mobilitySpans'] =
+        this.mobilitySpans.map((_$e) => _$e.toJson()).toList();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -263,11 +539,11 @@ class GTripRouteData implements GTripRoute {
     String? id,
     String? routeUpdatedAt,
     bool routeUpdatedAtIsSet = false,
-    GeoPolygonDto? bounds,
+    GBoundsData? bounds,
     bool boundsIsSet = false,
     _i2.GLatLngData? startPoint,
     List<_i2.GLatLngData>? route,
-    List<GRouteSectionData>? sections,
+    List<GMobilitySpanData>? mobilitySpans,
     String? G__typename,
   }) {
     return GTripRouteData(
@@ -278,7 +554,7 @@ class GTripRouteData implements GTripRoute {
       bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
       startPoint: startPoint ?? this.startPoint,
       route: route ?? this.route,
-      sections: sections ?? this.sections,
+      mobilitySpans: mobilitySpans ?? this.mobilitySpans,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -292,19 +568,167 @@ class GTripRouteData implements GTripRoute {
             bounds == other.bounds &&
             startPoint == other.startPoint &&
             _gqlUtils.listEquals(route, other.route) &&
-            _gqlUtils.listEquals(sections, other.sections) &&
+            _gqlUtils.listEquals(mobilitySpans, other.mobilitySpans) &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, routeUpdatedAt, bounds, startPoint,
-        _gqlUtils.listHash(route), _gqlUtils.listHash(sections), G__typename);
+    return Object.hash(
+        runtimeType,
+        id,
+        routeUpdatedAt,
+        bounds,
+        startPoint,
+        _gqlUtils.listHash(route),
+        _gqlUtils.listHash(mobilitySpans),
+        G__typename);
   }
 
   @override
   String toString() {
-    return 'GTripRouteData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, sections: $sections, G__typename: $G__typename)';
+    return 'GTripRouteData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, mobilitySpans: $mobilitySpans, G__typename: $G__typename)';
+  }
+}
+
+abstract class GTripRouteEditing {
+  String get id;
+  String? get routeUpdatedAt;
+  GBounds? get bounds;
+  _i2.GLatLng get startPoint;
+  List<_i2.GLatLng> get route;
+  List<GMobilitySpan> get mobilitySpans;
+  String get G__typename;
+  List<GEditSpan> get editSpans;
+}
+
+class GTripRouteEditingData implements GTripRouteEditing, GTripRoute {
+  const GTripRouteEditingData({
+    required this.id,
+    this.routeUpdatedAt,
+    this.bounds,
+    required this.startPoint,
+    required this.route,
+    required this.mobilitySpans,
+    this.G__typename = 'TripType',
+    required this.editSpans,
+  });
+
+  factory GTripRouteEditingData.fromJson(Map<String, dynamic> json) {
+    return GTripRouteEditingData(
+      id: (json['id'] as String),
+      routeUpdatedAt: json['routeUpdatedAt'] == null
+          ? null
+          : (json['routeUpdatedAt'] as String),
+      bounds: json['bounds'] == null
+          ? null
+          : GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
+      startPoint: _i2.GLatLngData.fromJson(
+          (json['startPoint'] as Map<String, dynamic>)),
+      route: (json['route'] as List<dynamic>)
+          .map((_$e) => _i2.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      mobilitySpans: (json['mobilitySpans'] as List<dynamic>)
+          .map((_$e) =>
+              GMobilitySpanData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+      editSpans: (json['editSpans'] as List<dynamic>)
+          .map((_$e) => GEditSpanData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+    );
+  }
+
+  final String id;
+
+  final String? routeUpdatedAt;
+
+  final GBoundsData? bounds;
+
+  final _i2.GLatLngData startPoint;
+
+  final List<_i2.GLatLngData> route;
+
+  final List<GMobilitySpanData> mobilitySpans;
+
+  final String G__typename;
+
+  final List<GEditSpanData> editSpans;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['id'] = this.id;
+    final _$routeUpdatedAtValue = this.routeUpdatedAt;
+    _$result['routeUpdatedAt'] =
+        _$routeUpdatedAtValue == null ? null : _$routeUpdatedAtValue;
+    final _$boundsValue = this.bounds;
+    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue.toJson();
+    _$result['startPoint'] = this.startPoint.toJson();
+    _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
+    _$result['mobilitySpans'] =
+        this.mobilitySpans.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    _$result['editSpans'] = this.editSpans.map((_$e) => _$e.toJson()).toList();
+    return _$result;
+  }
+
+  GTripRouteEditingData copyWith({
+    String? id,
+    String? routeUpdatedAt,
+    bool routeUpdatedAtIsSet = false,
+    GBoundsData? bounds,
+    bool boundsIsSet = false,
+    _i2.GLatLngData? startPoint,
+    List<_i2.GLatLngData>? route,
+    List<GMobilitySpanData>? mobilitySpans,
+    String? G__typename,
+    List<GEditSpanData>? editSpans,
+  }) {
+    return GTripRouteEditingData(
+      id: id ?? this.id,
+      routeUpdatedAt: routeUpdatedAt != null || routeUpdatedAtIsSet
+          ? routeUpdatedAt
+          : this.routeUpdatedAt,
+      bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
+      startPoint: startPoint ?? this.startPoint,
+      route: route ?? this.route,
+      mobilitySpans: mobilitySpans ?? this.mobilitySpans,
+      G__typename: G__typename ?? this.G__typename,
+      editSpans: editSpans ?? this.editSpans,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTripRouteEditingData &&
+            id == other.id &&
+            routeUpdatedAt == other.routeUpdatedAt &&
+            bounds == other.bounds &&
+            startPoint == other.startPoint &&
+            _gqlUtils.listEquals(route, other.route) &&
+            _gqlUtils.listEquals(mobilitySpans, other.mobilitySpans) &&
+            G__typename == other.G__typename &&
+            _gqlUtils.listEquals(editSpans, other.editSpans));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        id,
+        routeUpdatedAt,
+        bounds,
+        startPoint,
+        _gqlUtils.listHash(route),
+        _gqlUtils.listHash(mobilitySpans),
+        G__typename,
+        _gqlUtils.listHash(editSpans));
+  }
+
+  @override
+  String toString() {
+    return 'GTripRouteEditingData(id: $id, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, mobilitySpans: $mobilitySpans, G__typename: $G__typename, editSpans: $editSpans)';
   }
 }
 
@@ -315,7 +739,7 @@ abstract class GEditRouteResult {
 abstract class GEditRouteResult__asEditRouteSuccess
     implements GEditRouteResult {
   _i1.GRefinementFailure? get refinementError;
-  GTripRoute get trip;
+  GTripRouteEditing get trip;
   String get G__typename;
 }
 
@@ -403,13 +827,14 @@ class GEditRouteResultData__asEditRouteSuccess extends GEditRouteResultData
           ? null
           : _i1.GRefinementFailure.fromJson(
               (json['refinementError'] as String)),
-      trip: GTripRouteData.fromJson((json['trip'] as Map<String, dynamic>)),
+      trip: GTripRouteEditingData.fromJson(
+          (json['trip'] as Map<String, dynamic>)),
     );
   }
 
   final _i1.GRefinementFailure? refinementError;
 
-  final GTripRouteData trip;
+  final GTripRouteEditingData trip;
 
   Map<String, dynamic> toJson() {
     final _$result = super.toJson();
@@ -424,7 +849,7 @@ class GEditRouteResultData__asEditRouteSuccess extends GEditRouteResultData
     String? G__typename,
     _i1.GRefinementFailure? refinementError,
     bool refinementErrorIsSet = false,
-    GTripRouteData? trip,
+    GTripRouteEditingData? trip,
   }) {
     return GEditRouteResultData__asEditRouteSuccess(
       G__typename: G__typename ?? this.G__typename,
@@ -561,7 +986,8 @@ abstract class GRoutePreviewResult__asRoutePreviewSuccess
     implements GRoutePreviewResult {
   String get proposalId;
   List<_i2.GLatLng> get coordinates;
-  List<GPreviewSection> get sections;
+  List<GPreviewMobilitySpan> get mobilitySpans;
+  List<GPreviewEditSpan> get editSpans;
   _i1.GRefinementFailure? get refinementError;
   String get G__typename;
 }
@@ -645,7 +1071,8 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
     String G__typename = 'RoutePreviewSuccess',
     required this.proposalId,
     required this.coordinates,
-    required this.sections,
+    required this.mobilitySpans,
+    required this.editSpans,
     this.refinementError,
   }) : super(G__typename: G__typename);
 
@@ -657,9 +1084,13 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
       coordinates: (json['coordinates'] as List<dynamic>)
           .map((_$e) => _i2.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      sections: (json['sections'] as List<dynamic>)
+      mobilitySpans: (json['mobilitySpans'] as List<dynamic>)
           .map((_$e) =>
-              GPreviewSectionData.fromJson((_$e as Map<String, dynamic>)))
+              GPreviewMobilitySpanData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      editSpans: (json['editSpans'] as List<dynamic>)
+          .map((_$e) =>
+              GPreviewEditSpanData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       refinementError: json['refinementError'] == null
           ? null
@@ -672,7 +1103,9 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
 
   final List<_i2.GLatLngData> coordinates;
 
-  final List<GPreviewSectionData> sections;
+  final List<GPreviewMobilitySpanData> mobilitySpans;
+
+  final List<GPreviewEditSpanData> editSpans;
 
   final _i1.GRefinementFailure? refinementError;
 
@@ -681,7 +1114,9 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
     _$result['proposalId'] = this.proposalId;
     _$result['coordinates'] =
         this.coordinates.map((_$e) => _$e.toJson()).toList();
-    _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
+    _$result['mobilitySpans'] =
+        this.mobilitySpans.map((_$e) => _$e.toJson()).toList();
+    _$result['editSpans'] = this.editSpans.map((_$e) => _$e.toJson()).toList();
     final _$refinementErrorValue = this.refinementError;
     _$result['refinementError'] =
         _$refinementErrorValue == null ? null : _$refinementErrorValue.toJson();
@@ -692,7 +1127,8 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
     String? G__typename,
     String? proposalId,
     List<_i2.GLatLngData>? coordinates,
-    List<GPreviewSectionData>? sections,
+    List<GPreviewMobilitySpanData>? mobilitySpans,
+    List<GPreviewEditSpanData>? editSpans,
     _i1.GRefinementFailure? refinementError,
     bool refinementErrorIsSet = false,
   }) {
@@ -700,7 +1136,8 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
       G__typename: G__typename ?? this.G__typename,
       proposalId: proposalId ?? this.proposalId,
       coordinates: coordinates ?? this.coordinates,
-      sections: sections ?? this.sections,
+      mobilitySpans: mobilitySpans ?? this.mobilitySpans,
+      editSpans: editSpans ?? this.editSpans,
       refinementError: refinementError != null || refinementErrorIsSet
           ? refinementError
           : this.refinementError,
@@ -714,7 +1151,8 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
             G__typename == other.G__typename &&
             proposalId == other.proposalId &&
             _gqlUtils.listEquals(coordinates, other.coordinates) &&
-            _gqlUtils.listEquals(sections, other.sections) &&
+            _gqlUtils.listEquals(mobilitySpans, other.mobilitySpans) &&
+            _gqlUtils.listEquals(editSpans, other.editSpans) &&
             refinementError == other.refinementError);
   }
 
@@ -725,13 +1163,14 @@ class GRoutePreviewResultData__asRoutePreviewSuccess
         G__typename,
         proposalId,
         _gqlUtils.listHash(coordinates),
-        _gqlUtils.listHash(sections),
+        _gqlUtils.listHash(mobilitySpans),
+        _gqlUtils.listHash(editSpans),
         refinementError);
   }
 
   @override
   String toString() {
-    return 'GRoutePreviewResultData__asRoutePreviewSuccess(G__typename: $G__typename, proposalId: $proposalId, coordinates: $coordinates, sections: $sections, refinementError: $refinementError)';
+    return 'GRoutePreviewResultData__asRoutePreviewSuccess(G__typename: $G__typename, proposalId: $proposalId, coordinates: $coordinates, mobilitySpans: $mobilitySpans, editSpans: $editSpans, refinementError: $refinementError)';
   }
 }
 

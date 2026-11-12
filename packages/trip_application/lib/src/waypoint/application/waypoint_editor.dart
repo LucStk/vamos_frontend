@@ -20,6 +20,14 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     );
   }
 
+  void patchWaypointPosition(WaypointId waypointId, LatLng latLng) {
+    final w = state.waypointStore.getRequired(waypointId);
+    final patch = WaypointPatchModel.fromFields(
+      w.current,
+    ).copyWith(position: latLng);
+    state = state.setWaypoint(patch);
+  }
+
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointFields waypoint,
   ) async {
@@ -30,6 +38,20 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
           waypointRepo.updateWaypoint(WaypointRemoteModel.fromFields(waypoint)),
       onSuccess: (gs, serveurValue) => gs.setWaypoint(serveurValue),
       onError: (gs, Failure failure) => gs.rollbackWaypoint(waypoint.id),
+    );
+  }
+
+  Future<Either<Failure, WaypointRemoteModel>> commitWaypoint(
+    WaypointId waypointId,
+  ) async {
+    return await run(
+      entityKey: waypointId,
+      onApply: (gs) => gs,
+      remote: (_) => waypointRepo.updateWaypoint(
+        state.waypointStore.getRequired(waypointId).current,
+      ),
+      onSuccess: (gs, serveurValue) => gs.setWaypoint(serveurValue),
+      onError: (gs, Failure failure) => gs.rollbackWaypoint(waypointId),
     );
   }
 

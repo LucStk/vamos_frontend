@@ -1,4 +1,6 @@
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+import 'package:map_engine/src/domain/drag_detail.dart';
+
 import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_pointer_event.dart';
@@ -65,6 +67,7 @@ class DraggingState extends PointerGestureState {
     required this.source,
     required this.pressPosition,
     this.target,
+    this.detail,
   });
 
   /// Saisi au press : objet + point exact. Fixe pendant tout le drag.
@@ -75,6 +78,7 @@ class DraggingState extends PointerGestureState {
 
   /// Cible de dépôt sous le doigt, mise à jour à chaque move.
   final HitObject? target;
+  final DragDetail? detail;
 
   MapObject get sourceObject => source.object;
 
@@ -85,6 +89,13 @@ class DraggingState extends PointerGestureState {
     source: source,
     pressPosition: pressPosition,
     target: target,
+    detail: detail,
+  );
+  DraggingState withDetail(DragDetail? detail) => DraggingState(
+    pressPosition: pressPosition,
+    source: source,
+    target: target,
+    detail: detail,
   );
 }
 

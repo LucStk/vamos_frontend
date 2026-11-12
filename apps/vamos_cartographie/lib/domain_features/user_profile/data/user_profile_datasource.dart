@@ -1,6 +1,8 @@
 import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:stored_file_application/domain/stored_file_model.dart';
+import 'package:user_profile_application/user_profile_application.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_queries.var.gql.dart';
 
 import "graphql/graphql.dart";
 import 'package:ferry/ferry.dart';
@@ -13,6 +15,27 @@ class UserProfileDatasource {
   Future<GGetMeData_me> getMe() async {
     final data = await ferryClient.execute(GGetMeReq());
     return data.me;
+  }
+
+  Future<GUserProfileDetailsData> getUser(UserId userId) async {
+    final data = await ferryClient.execute(
+      GGetUserReq(vars: GGetUserVars(userId: userId.value)),
+    );
+    return data.user;
+  }
+
+  Future<List<GUserProfileDetailsData>> getFollowers(UserId userId) async {
+    final data = await ferryClient.execute(
+      GGetFollowersReq(vars: GGetFollowersVars(userId: userId.value)),
+    );
+    return data.followers;
+  }
+
+  Future<List<GUserProfileDetailsData>> getFollowing(UserId userId) async {
+    final data = await ferryClient.execute(
+      GGetFollowingReq(vars: GGetFollowingVars(userId: userId.value)),
+    );
+    return data.following;
   }
 
   Future<GCreateProfileResult> createProfile(String profileName) async {
@@ -40,5 +63,19 @@ class UserProfileDatasource {
       ),
     );
     return data.updateProfile;
+  }
+
+  Future<GUserProfileDetailsData> followUser(UserId userId) async {
+    final data = await ferryClient.execute(
+      GFollowUserReq(vars: GFollowUserVars(userId: userId.value)),
+    );
+    return data.followUser;
+  }
+
+  Future<GUserProfileDetailsData> unfollowUser(UserId userId) async {
+    final data = await ferryClient.execute(
+      GUnFollowUserReq(vars: GUnFollowUserVars(userId: userId.value)),
+    );
+    return data.unfollowUser;
   }
 }

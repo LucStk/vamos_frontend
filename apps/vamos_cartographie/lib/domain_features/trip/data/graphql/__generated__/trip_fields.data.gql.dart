@@ -4,12 +4,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
-    as _i3;
+    as _i4;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
-import 'package:vamos_cartographie/core/mappers/geometry_mappers/geo_polygon_dto.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.data.gql.dart'
-    as _i4;
+    as _i3;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
@@ -136,14 +135,16 @@ abstract class GTripFull {
   _i2.GUserProfileDetails get owner;
   String get G__typename;
   String? get routeUpdatedAt;
-  GeoPolygonDto? get bounds;
-  _i3.GLatLng get startPoint;
-  List<_i3.GLatLng> get route;
-  List<_i4.GRouteSection> get sections;
+  _i3.GBounds? get bounds;
+  _i4.GLatLng get startPoint;
+  List<_i4.GLatLng> get route;
+  List<_i3.GMobilitySpan> get mobilitySpans;
+  List<_i3.GEditSpan> get editSpans;
   List<_i5.GWaypointDetails> get waypoints;
 }
 
-class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
+class GTripFullData
+    implements GTripFull, GTripSummary, _i3.GTripRoute, _i3.GTripRouteEditing {
   const GTripFullData({
     required this.id,
     required this.title,
@@ -156,7 +157,8 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
     this.bounds,
     required this.startPoint,
     required this.route,
-    required this.sections,
+    required this.mobilitySpans,
+    required this.editSpans,
     required this.waypoints,
   });
 
@@ -176,16 +178,21 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
       routeUpdatedAt: json['routeUpdatedAt'] == null
           ? null
           : (json['routeUpdatedAt'] as String),
-      bounds:
-          json['bounds'] == null ? null : geoPolygonDtoFromJson(json['bounds']),
-      startPoint: _i3.GLatLngData.fromJson(
+      bounds: json['bounds'] == null
+          ? null
+          : _i3.GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
+      startPoint: _i4.GLatLngData.fromJson(
           (json['startPoint'] as Map<String, dynamic>)),
       route: (json['route'] as List<dynamic>)
-          .map((_$e) => _i3.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) => _i4.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
-      sections: (json['sections'] as List<dynamic>)
+      mobilitySpans: (json['mobilitySpans'] as List<dynamic>)
           .map((_$e) =>
-              _i4.GRouteSectionData.fromJson((_$e as Map<String, dynamic>)))
+              _i3.GMobilitySpanData.fromJson((_$e as Map<String, dynamic>)))
+          .toList(),
+      editSpans: (json['editSpans'] as List<dynamic>)
+          .map((_$e) =>
+              _i3.GEditSpanData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
@@ -210,13 +217,15 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
 
   final String? routeUpdatedAt;
 
-  final GeoPolygonDto? bounds;
+  final _i3.GBoundsData? bounds;
 
-  final _i3.GLatLngData startPoint;
+  final _i4.GLatLngData startPoint;
 
-  final List<_i3.GLatLngData> route;
+  final List<_i4.GLatLngData> route;
 
-  final List<_i4.GRouteSectionData> sections;
+  final List<_i3.GMobilitySpanData> mobilitySpans;
+
+  final List<_i3.GEditSpanData> editSpans;
 
   final List<_i5.GWaypointDetailsData> waypoints;
 
@@ -234,11 +243,12 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
     _$result['routeUpdatedAt'] =
         _$routeUpdatedAtValue == null ? null : _$routeUpdatedAtValue;
     final _$boundsValue = this.bounds;
-    _$result['bounds'] =
-        _$boundsValue == null ? null : geoPolygonDtoToJson(_$boundsValue);
+    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue.toJson();
     _$result['startPoint'] = this.startPoint.toJson();
     _$result['route'] = this.route.map((_$e) => _$e.toJson()).toList();
-    _$result['sections'] = this.sections.map((_$e) => _$e.toJson()).toList();
+    _$result['mobilitySpans'] =
+        this.mobilitySpans.map((_$e) => _$e.toJson()).toList();
+    _$result['editSpans'] = this.editSpans.map((_$e) => _$e.toJson()).toList();
     _$result['waypoints'] = this.waypoints.map((_$e) => _$e.toJson()).toList();
     return _$result;
   }
@@ -254,11 +264,12 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
     String? G__typename,
     String? routeUpdatedAt,
     bool routeUpdatedAtIsSet = false,
-    GeoPolygonDto? bounds,
+    _i3.GBoundsData? bounds,
     bool boundsIsSet = false,
-    _i3.GLatLngData? startPoint,
-    List<_i3.GLatLngData>? route,
-    List<_i4.GRouteSectionData>? sections,
+    _i4.GLatLngData? startPoint,
+    List<_i4.GLatLngData>? route,
+    List<_i3.GMobilitySpanData>? mobilitySpans,
+    List<_i3.GEditSpanData>? editSpans,
     List<_i5.GWaypointDetailsData>? waypoints,
   }) {
     return GTripFullData(
@@ -275,7 +286,8 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
       bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
       startPoint: startPoint ?? this.startPoint,
       route: route ?? this.route,
-      sections: sections ?? this.sections,
+      mobilitySpans: mobilitySpans ?? this.mobilitySpans,
+      editSpans: editSpans ?? this.editSpans,
       waypoints: waypoints ?? this.waypoints,
     );
   }
@@ -295,7 +307,8 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
             bounds == other.bounds &&
             startPoint == other.startPoint &&
             _gqlUtils.listEquals(route, other.route) &&
-            _gqlUtils.listEquals(sections, other.sections) &&
+            _gqlUtils.listEquals(mobilitySpans, other.mobilitySpans) &&
+            _gqlUtils.listEquals(editSpans, other.editSpans) &&
             _gqlUtils.listEquals(waypoints, other.waypoints));
   }
 
@@ -314,12 +327,13 @@ class GTripFullData implements GTripFull, GTripSummary, _i4.GTripRoute {
         bounds,
         startPoint,
         _gqlUtils.listHash(route),
-        _gqlUtils.listHash(sections),
+        _gqlUtils.listHash(mobilitySpans),
+        _gqlUtils.listHash(editSpans),
         _gqlUtils.listHash(waypoints));
   }
 
   @override
   String toString() {
-    return 'GTripFullData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, sections: $sections, waypoints: $waypoints)';
+    return 'GTripFullData(id: $id, title: $title, date: $date, description: $description, files: $files, owner: $owner, G__typename: $G__typename, routeUpdatedAt: $routeUpdatedAt, bounds: $bounds, startPoint: $startPoint, route: $route, mobilitySpans: $mobilitySpans, editSpans: $editSpans, waypoints: $waypoints)';
   }
 }

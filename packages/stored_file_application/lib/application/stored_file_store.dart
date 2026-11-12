@@ -1,5 +1,4 @@
-import 'package:domain_core/domain/domain.dart';
-import 'package:domain_core/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stored_file_application/application/owner_index.dart';
 import 'package:stored_file_application/domain/domain.dart';

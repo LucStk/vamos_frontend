@@ -19,6 +19,9 @@ RouteRepository routeRepository(Ref ref) {
   return RouteRepositoryImpl(ref.watch(routeRemoteDatasourceProvider));
 }
 
+/// La route d'un trip et tous ses calques, dans un seul état : les
+/// `startIndex` des calques ne sont cohérents qu'avec la géométrie de la même
+/// version (voir `RouteStore`).
 @Riverpod(keepAlive: true)
 class RouteStoreNotifier extends _$RouteStoreNotifier
     with OptimisticRunner<RouteStore>, RouteEditor {
@@ -30,7 +33,7 @@ class RouteStoreNotifier extends _$RouteStoreNotifier
     state = value; // ici, state = est légal car on est DANS la classe Notifier
   }
 
-  // Injection des dépendances requises par le mixin TopologyHandler
+  // Dépendances requises par le mixin RouteEditor
   @override
   RouteRepository get routeRepo => ref.read(routeRepositoryProvider);
 
@@ -49,14 +52,25 @@ class RouteStoreNotifier extends _$RouteStoreNotifier
   void rollbackRoute() => state = state.rollbackRoute();
 }
 
+/// Vertex de début et de fin de chaque span du calque modalité.
 @Riverpod(keepAlive: true)
-Map<SectionId, VertexRange> sectionRanges(Ref ref, TripId tripId) {
+Map<SpanId, VertexRange> mobilitySpanRanges(Ref ref, TripId tripId) {
   final store = ref.watch(routeStoreProvider(tripId));
   final route = store.route?.current;
   if (route == null) return const {};
 
-  return computeSectionRanges(
-    store.sectionStore.store.values.map((n) => n.current),
+  return computeSpanRanges(
+    store.mobilitySpans.store.values.map((n) => n.current),
     route.geometry.length,
   );
+}
+
+/// Vertex de début et de fin de chaque span du calque d'édition.
+@Riverpod(keepAlive: true)
+Map<SpanId, VertexRange> editSpanRanges(Ref ref, TripId tripId) {
+  final store = ref.watch(routeStoreProvider(tripId));
+  final route = store.route?.current;
+  if (route == null) return const {};
+
+  return computeSpanRanges(store.editSpans, route.geometry.length);
 }

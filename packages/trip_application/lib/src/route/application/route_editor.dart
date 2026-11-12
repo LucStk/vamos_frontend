@@ -1,10 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:trip_application/src/route/application/route_store.dart';
-import 'package:trip_application/src/route/domain/mobility_types.dart';
-import 'package:trip_application/src/route/domain/route_repository.dart';
-import 'package:trip_application/src/trip/domain/domain.dart';
+import 'package:trip_application/src/route/application/route_payloads.dart';
+
 import 'package:trip_application/trip_application.dart';
 
 mixin RouteEditor on OptimisticRunner<RouteStore> {
@@ -19,10 +17,7 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
       onApply: (gs) => gs,
       remote: (_) =>
           routeRepo.setTripOrigin(tripId: tripId, position: position),
-      onSuccess: (gs, payload) => RouteStore.fromRemote(
-        route: payload.route,
-        sections: payload.sections,
-      ),
+      onSuccess: (gs, payload) => RouteStore.fromRemote(route: payload.route),
     );
   }
 
@@ -44,7 +39,8 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
       ),
       onSuccess: (gs, payload) => RouteStore.fromRemote(
         route: payload.route,
-        sections: payload.sections,
+        mobilitySpans: payload.mobilitySpans,
+        editSpans: payload.editSpans,
       ),
       onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
     );
@@ -59,7 +55,8 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
       remote: (_) => routeRepo.deleteRoute(tripId),
       onSuccess: (gs, payload) => gs.replacedByServer(
         remoteRoute: payload.route,
-        remoteSections: payload.sections,
+        remoteMobilitySpans: payload.mobilitySpans,
+        remoteEditSpans: payload.editSpans,
       ),
       onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
     );

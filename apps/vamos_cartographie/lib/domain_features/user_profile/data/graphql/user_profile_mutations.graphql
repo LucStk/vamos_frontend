@@ -9,3 +9,14 @@ mutation UpdateProfile($input: UpdateUserProfileInput!) {
         ...UserProfileDetails
     }
 }
+
+mutation FollowUser($userId: UUID!) {
+    followUser(userId: $userId) {
+        ...UserProfileDetails
+    }
+}
+mutation UnFollowUser($userId: UUID!) {
+    unfollowUser(userId: $userId) {
+        ...UserProfileDetails
+    }
+}

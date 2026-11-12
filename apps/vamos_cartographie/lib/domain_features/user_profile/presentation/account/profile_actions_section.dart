@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '/domain_features/auth/providers/auth_controller.dart';
+import 'package:vamos_cartographie/domain_features/auth/auth.dart';
 
 class ProfileActionsSection extends ConsumerWidget {
   const ProfileActionsSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authControllerProvider);
-    final isLoading = authState.isLoading;
+    final isLoading = ref.watch(authControllerProvider).isLoading;
 
     return FilledButton.tonalIcon(
       onPressed: isLoading ? null : () => _signOut(context, ref),
@@ -31,21 +29,19 @@ class ProfileActionsSection extends ConsumerWidget {
   }
 
   Future<void> _signOut(BuildContext context, WidgetRef ref) async {
-    // Tout capturer AVANT le await : le widget peut être démonté
-    // dès que la session passe à null.
     final router = GoRouter.of(context);
     final messenger = ScaffoldMessenger.of(context);
     final container = ProviderScope.containerOf(context);
 
+    // Quitter la page protégée AVANT que la session ne disparaisse,
+    // pour que le garde `redirect` n'ait pas à s'en mêler.
+    router.go('/');
+
     await container.read(authControllerProvider.notifier).signOut();
 
-    final state = container.read(authControllerProvider);
-
-    if (state.hasError) {
+    if (container.read(authControllerProvider).hasError) {
       messenger.showSnackBar(
-        SnackBar(
-          content: Text('Impossible de se déconnecter : ${state.error}'),
-        ),
+        SnackBar(content: Text('Impossible de se déconnecter ')),
       );
       return;
     }

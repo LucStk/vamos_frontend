@@ -1,4 +1,5 @@
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:flutter/material.dart';
 // import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';

@@ -15,6 +15,7 @@ extension GWaypointFieldsMapper on GWaypointDetails {
     poiCategory: poiCategory.toDomain(),
     title: title,
     description: description,
+    anchorPosition: anchorPosition,
   );
   Iterable<StoredFileRemoteModel> toImages() => files.map((m) => m.toDomain());
 }
@@ -26,5 +27,6 @@ extension WaypointFieldsMappers on WaypointFields {
         ? Value.present(description)
         : const Value.absent(),
     title: title.isNotEmpty ? Value.present(title) : const Value.absent(),
+    location: Value.present(position.toGQLInput()),
   );
 }

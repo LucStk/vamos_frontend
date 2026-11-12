@@ -50,7 +50,7 @@ class RouteRepositoryImpl extends RouteRepository {
   @override
   Future<Either<Failure, EditRoutePayload>> refineSection({
     required TripId tripId,
-    required SectionId sectionId,
+    required SpanId sectionId,
   }) async {
     final res = await guardRouteEdit(
       () => remote.refineSection(sectionId: sectionId, tripId: tripId),
@@ -62,7 +62,7 @@ class RouteRepositoryImpl extends RouteRepository {
   @override
   Future<Either<Failure, EditRoutePayload>> setSectionMobility({
     required TripId tripId,
-    required SectionId sectionId,
+    required SpanId sectionId,
     required MobilityType mobilityType,
   }) async {
     final res = await guardRouteEdit(

@@ -222,3 +222,111 @@ class GSetTripOriginData {
     return 'GSetTripOriginData(setTripOrigin: $setTripOrigin, G__typename: $G__typename)';
   }
 }
+
+class GSaveTripData {
+  const GSaveTripData({
+    required this.saveTrip,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GSaveTripData.fromJson(Map<String, dynamic> json) {
+    return GSaveTripData(
+      saveTrip: _i1.GTripSummaryData.fromJson(
+          (json['saveTrip'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GTripSummaryData saveTrip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['saveTrip'] = this.saveTrip.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GSaveTripData copyWith({
+    _i1.GTripSummaryData? saveTrip,
+    String? G__typename,
+  }) {
+    return GSaveTripData(
+      saveTrip: saveTrip ?? this.saveTrip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSaveTripData &&
+            saveTrip == other.saveTrip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, saveTrip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GSaveTripData(saveTrip: $saveTrip, G__typename: $G__typename)';
+  }
+}
+
+class GUnSaveTripData {
+  const GUnSaveTripData({
+    required this.unsaveTrip,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GUnSaveTripData.fromJson(Map<String, dynamic> json) {
+    return GUnSaveTripData(
+      unsaveTrip: _i1.GTripSummaryData.fromJson(
+          (json['unsaveTrip'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GTripSummaryData unsaveTrip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['unsaveTrip'] = this.unsaveTrip.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GUnSaveTripData copyWith({
+    _i1.GTripSummaryData? unsaveTrip,
+    String? G__typename,
+  }) {
+    return GUnSaveTripData(
+      unsaveTrip: unsaveTrip ?? this.unsaveTrip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUnSaveTripData &&
+            unsaveTrip == other.unsaveTrip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, unsaveTrip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GUnSaveTripData(unsaveTrip: $unsaveTrip, G__typename: $G__typename)';
+  }
+}

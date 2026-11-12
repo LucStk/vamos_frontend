@@ -6,22 +6,15 @@ import 'package:vamos_cartographie/domain_features/trip/injection/trip_data_load
 import 'package:vamos_cartographie/map/camera/map_camera_lifecycle.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
-import 'package:vamos_cartographie/map/interaction/map_gesture_bridge.dart';
+import 'package:vamos_cartographie/map/engine/map_gesture_bridge.dart';
 import 'package:vamos_cartographie/map/layers/layers.dart';
-import 'package:vamos_cartographie/map/interaction/map_gesture_handler.dart';
-import 'package:vamos_cartographie/map/interaction/visual_target.dart';
+import 'package:vamos_cartographie/map/engine/map_gesture_handler.dart';
 
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/chrome/right_control_panel.dart';
 import 'package:vamos_cartographie/map/modes/mode_ui.dart';
 
-@Dependencies([
-  mapScene,
-  visualTargets,
-  MapGestureHandlerNotifier,
-  mapCamera,
-  cameraDirector,
-])
+@Dependencies([mapScene, MapGestureHandlerNotifier, mapCamera, cameraDirector])
 class MapScreen extends ConsumerStatefulWidget {
   const MapScreen({super.key});
 
@@ -39,6 +32,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
     final director = ref.read(cameraDirectorProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: LayoutBuilder(
         builder: (context, constraints) {
           director.updateViewport(constraints.biggest);

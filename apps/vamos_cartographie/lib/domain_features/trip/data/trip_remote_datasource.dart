@@ -109,4 +109,26 @@ class TripRemoteDatasource {
     );
     return data.setTripOrigin;
   }
+
+  Future<List<GTripSummary>> getUserSavedTrips(UserId userId) async {
+    final data = await ferryClient.execute(
+      GGetUserSavedTripsReq(vars: GGetUserSavedTripsVars(userId: userId.value)),
+    );
+
+    return data.userSavedTrips;
+  }
+
+  Future<GTripSummary> saveTrip(TripId tripId) async {
+    final data = await ferryClient.execute(
+      GSaveTripReq(vars: GSaveTripVars(tripId: tripId.value)),
+    );
+    return data.saveTrip;
+  }
+
+  Future<GTripSummary> unSaveTrip(TripId tripId) async {
+    final data = await ferryClient.execute(
+      GUnSaveTripReq(vars: GUnSaveTripVars(tripId: tripId.value)),
+    );
+    return data.unsaveTrip;
+  }
 }

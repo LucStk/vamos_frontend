@@ -1,4 +1,4 @@
-import 'package:domain_core/notification/error_logger.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../erreur_handler.dart';

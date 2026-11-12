@@ -14,11 +14,11 @@ import 'package:vamos_cartographie/domain_features/route/data/graphql/__generate
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.data.gql.dart'
     as _i2;
 
-class GRouteSectionReq
-    implements _i1.FragmentRequest<_i2.GRouteSectionData, Null> {
-  GRouteSectionReq({
+class GMobilitySpanReq
+    implements _i1.FragmentRequest<_i2.GMobilitySpanData, Null> {
+  GMobilitySpanReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'RouteSection',
+    this.fragmentName = 'MobilitySpan',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -31,22 +31,22 @@ class GRouteSectionReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.RouteSection]);
+      _i3.DocumentNode(definitions: [_i4.MobilitySpan]);
 
-  _i2.GRouteSectionData? parseData(Map<String, dynamic> json) =>
-      _i2.GRouteSectionData.fromJson(json);
+  _i2.GMobilitySpanData? parseData(Map<String, dynamic> json) =>
+      _i2.GMobilitySpanData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GRouteSectionData data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GMobilitySpanData data) => data.toJson();
 
-  GRouteSectionReq copyWith({
+  GMobilitySpanReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GRouteSectionReq(
+    return GMobilitySpanReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -58,7 +58,7 @@ class GRouteSectionReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GRouteSectionReq &&
+        (other is GMobilitySpanReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -73,15 +73,14 @@ class GRouteSectionReq
 
   @override
   String toString() {
-    return 'GRouteSectionReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GMobilitySpanReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
 
-class GPreviewSectionReq
-    implements _i1.FragmentRequest<_i2.GPreviewSectionData, Null> {
-  GPreviewSectionReq({
+class GBoundsReq implements _i1.FragmentRequest<_i2.GBoundsData, Null> {
+  GBoundsReq({
     _i3.DocumentNode? document,
-    this.fragmentName = 'PreviewSection',
+    this.fragmentName = 'Bounds',
     this.idFields = const <String, dynamic>{},
   }) : document = document ?? _document;
 
@@ -94,23 +93,22 @@ class GPreviewSectionReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.PreviewSection]);
+      _i3.DocumentNode(definitions: [_i4.Bounds]);
 
-  _i2.GPreviewSectionData? parseData(Map<String, dynamic> json) =>
-      _i2.GPreviewSectionData.fromJson(json);
+  _i2.GBoundsData? parseData(Map<String, dynamic> json) =>
+      _i2.GBoundsData.fromJson(json);
 
   Map<String, dynamic> varsToJson() => const <String, dynamic>{};
 
-  Map<String, dynamic> dataToJson(_i2.GPreviewSectionData data) =>
-      data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GBoundsData data) => data.toJson();
 
-  GPreviewSectionReq copyWith({
+  GBoundsReq copyWith({
     _i3.DocumentNode? document,
     String? fragmentName,
     bool fragmentNameIsSet = false,
     Map<String, dynamic>? idFields,
   }) {
-    return GPreviewSectionReq(
+    return GBoundsReq(
       document: document ?? this.document,
       fragmentName: fragmentName != null || fragmentNameIsSet
           ? fragmentName
@@ -122,7 +120,7 @@ class GPreviewSectionReq
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is GPreviewSectionReq &&
+        (other is GBoundsReq &&
             _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
             document == other.document &&
             fragmentName == other.fragmentName &&
@@ -137,7 +135,197 @@ class GPreviewSectionReq
 
   @override
   String toString() {
-    return 'GPreviewSectionReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+    return 'GBoundsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+  }
+}
+
+class GEditSpanReq implements _i1.FragmentRequest<_i2.GEditSpanData, Null> {
+  GEditSpanReq({
+    _i3.DocumentNode? document,
+    this.fragmentName = 'EditSpan',
+    this.idFields = const <String, dynamic>{},
+  }) : document = document ?? _document;
+
+  final Null vars = null;
+
+  final _i3.DocumentNode document;
+
+  final String? fragmentName;
+
+  final Map<String, dynamic> idFields;
+
+  static const _i3.DocumentNode _document =
+      _i3.DocumentNode(definitions: [_i4.EditSpan]);
+
+  _i2.GEditSpanData? parseData(Map<String, dynamic> json) =>
+      _i2.GEditSpanData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
+
+  Map<String, dynamic> dataToJson(_i2.GEditSpanData data) => data.toJson();
+
+  GEditSpanReq copyWith({
+    _i3.DocumentNode? document,
+    String? fragmentName,
+    bool fragmentNameIsSet = false,
+    Map<String, dynamic>? idFields,
+  }) {
+    return GEditSpanReq(
+      document: document ?? this.document,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
+      idFields: idFields ?? this.idFields,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GEditSpanReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            document == other.document &&
+            fragmentName == other.fragmentName &&
+            _gqlUtils.deepEquals(idFields, other.idFields));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
+        fragmentName, _gqlUtils.deepHash(idFields));
+  }
+
+  @override
+  String toString() {
+    return 'GEditSpanReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+  }
+}
+
+class GPreviewMobilitySpanReq
+    implements _i1.FragmentRequest<_i2.GPreviewMobilitySpanData, Null> {
+  GPreviewMobilitySpanReq({
+    _i3.DocumentNode? document,
+    this.fragmentName = 'PreviewMobilitySpan',
+    this.idFields = const <String, dynamic>{},
+  }) : document = document ?? _document;
+
+  final Null vars = null;
+
+  final _i3.DocumentNode document;
+
+  final String? fragmentName;
+
+  final Map<String, dynamic> idFields;
+
+  static const _i3.DocumentNode _document =
+      _i3.DocumentNode(definitions: [_i4.PreviewMobilitySpan]);
+
+  _i2.GPreviewMobilitySpanData? parseData(Map<String, dynamic> json) =>
+      _i2.GPreviewMobilitySpanData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
+
+  Map<String, dynamic> dataToJson(_i2.GPreviewMobilitySpanData data) =>
+      data.toJson();
+
+  GPreviewMobilitySpanReq copyWith({
+    _i3.DocumentNode? document,
+    String? fragmentName,
+    bool fragmentNameIsSet = false,
+    Map<String, dynamic>? idFields,
+  }) {
+    return GPreviewMobilitySpanReq(
+      document: document ?? this.document,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
+      idFields: idFields ?? this.idFields,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPreviewMobilitySpanReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            document == other.document &&
+            fragmentName == other.fragmentName &&
+            _gqlUtils.deepEquals(idFields, other.idFields));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
+        fragmentName, _gqlUtils.deepHash(idFields));
+  }
+
+  @override
+  String toString() {
+    return 'GPreviewMobilitySpanReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+  }
+}
+
+class GPreviewEditSpanReq
+    implements _i1.FragmentRequest<_i2.GPreviewEditSpanData, Null> {
+  GPreviewEditSpanReq({
+    _i3.DocumentNode? document,
+    this.fragmentName = 'PreviewEditSpan',
+    this.idFields = const <String, dynamic>{},
+  }) : document = document ?? _document;
+
+  final Null vars = null;
+
+  final _i3.DocumentNode document;
+
+  final String? fragmentName;
+
+  final Map<String, dynamic> idFields;
+
+  static const _i3.DocumentNode _document =
+      _i3.DocumentNode(definitions: [_i4.PreviewEditSpan]);
+
+  _i2.GPreviewEditSpanData? parseData(Map<String, dynamic> json) =>
+      _i2.GPreviewEditSpanData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
+
+  Map<String, dynamic> dataToJson(_i2.GPreviewEditSpanData data) =>
+      data.toJson();
+
+  GPreviewEditSpanReq copyWith({
+    _i3.DocumentNode? document,
+    String? fragmentName,
+    bool fragmentNameIsSet = false,
+    Map<String, dynamic>? idFields,
+  }) {
+    return GPreviewEditSpanReq(
+      document: document ?? this.document,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
+      idFields: idFields ?? this.idFields,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GPreviewEditSpanReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            document == other.document &&
+            fragmentName == other.fragmentName &&
+            _gqlUtils.deepEquals(idFields, other.idFields));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
+        fragmentName, _gqlUtils.deepHash(idFields));
+  }
+
+  @override
+  String toString() {
+    return 'GPreviewEditSpanReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
   }
 }
 
@@ -157,7 +345,8 @@ class GTripRouteReq implements _i1.FragmentRequest<_i2.GTripRouteData, Null> {
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.RouteSection,
+    _i4.MobilitySpan,
+    _i4.Bounds,
     _i4.TripRoute,
     _i5.LatLng,
   ]);
@@ -206,6 +395,76 @@ class GTripRouteReq implements _i1.FragmentRequest<_i2.GTripRouteData, Null> {
   }
 }
 
+class GTripRouteEditingReq
+    implements _i1.FragmentRequest<_i2.GTripRouteEditingData, Null> {
+  GTripRouteEditingReq({
+    _i3.DocumentNode? document,
+    this.fragmentName = 'TripRouteEditing',
+    this.idFields = const <String, dynamic>{},
+  }) : document = document ?? _document;
+
+  final Null vars = null;
+
+  final _i3.DocumentNode document;
+
+  final String? fragmentName;
+
+  final Map<String, dynamic> idFields;
+
+  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
+    _i4.MobilitySpan,
+    _i4.Bounds,
+    _i4.EditSpan,
+    _i4.TripRoute,
+    _i4.TripRouteEditing,
+    _i5.LatLng,
+  ]);
+
+  _i2.GTripRouteEditingData? parseData(Map<String, dynamic> json) =>
+      _i2.GTripRouteEditingData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
+
+  Map<String, dynamic> dataToJson(_i2.GTripRouteEditingData data) =>
+      data.toJson();
+
+  GTripRouteEditingReq copyWith({
+    _i3.DocumentNode? document,
+    String? fragmentName,
+    bool fragmentNameIsSet = false,
+    Map<String, dynamic>? idFields,
+  }) {
+    return GTripRouteEditingReq(
+      document: document ?? this.document,
+      fragmentName: fragmentName != null || fragmentNameIsSet
+          ? fragmentName
+          : this.fragmentName,
+      idFields: idFields ?? this.idFields,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTripRouteEditingReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            document == other.document &&
+            fragmentName == other.fragmentName &&
+            _gqlUtils.deepEquals(idFields, other.idFields));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
+        fragmentName, _gqlUtils.deepHash(idFields));
+  }
+
+  @override
+  String toString() {
+    return 'GTripRouteEditingReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
+  }
+}
+
 class GEditRouteResultReq
     implements _i1.FragmentRequest<_i2.GEditRouteResultData, Null> {
   GEditRouteResultReq({
@@ -223,8 +482,11 @@ class GEditRouteResultReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.RouteSection,
+    _i4.MobilitySpan,
+    _i4.Bounds,
+    _i4.EditSpan,
     _i4.TripRoute,
+    _i4.TripRouteEditing,
     _i4.EditRouteResult,
     _i5.LatLng,
   ]);
@@ -291,7 +553,8 @@ class GRoutePreviewResultReq
   final Map<String, dynamic> idFields;
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
-    _i4.PreviewSection,
+    _i4.PreviewMobilitySpan,
+    _i4.PreviewEditSpan,
     _i4.RoutePreviewResult,
     _i5.LatLng,
   ]);

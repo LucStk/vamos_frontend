@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:domain_core/map_geo_bounds.dart';
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+
 import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/domain/camera/camera_pose.dart';
 

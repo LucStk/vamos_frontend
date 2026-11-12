@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
@@ -131,7 +132,7 @@ class FlutterMapCamera implements MapCameraController {
     _animatedController = null;
   }
 
-  bool get _hasAnimation => _animatedController != null;
+  // bool get _hasAnimation => _animatedController != null;
 
   MapCamera get _camera => mapController.camera;
 
@@ -219,78 +220,92 @@ class FlutterMapCamera implements MapCameraController {
 
   // ---- Actions : animées si possible, sinon instantanées ----
 
+  /// Exécute [action] tout de suite, sauf pendant le build/layout d'une frame
+  /// (écrire dans le MapController y déclencherait un setState interdit) :
+  /// elle est alors repoussée à la fin de la frame.
+  void _safely(void Function() action) {
+    if (_disposed) return;
+    if (WidgetsBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!_disposed) action();
+      });
+    } else {
+      action();
+    }
+  }
+
   @override
-  void restore(CameraPose p) {
+  void restore(CameraPose p) => _safely(() {
     final animated = _animatedController;
     if (animated != null) {
       animated.animateTo(dest: p.center, zoom: p.zoom, rotation: p.rotationDeg);
     } else {
       mapController.moveAndRotate(p.center, p.zoom, p.rotationDeg);
     }
-  }
+  });
 
   @override
-  void zoomTo(LatLng latLng, {double deltaZoom = 1}) {
+  void zoomTo(LatLng latLng, {double deltaZoom = 1}) => _safely(() {
     final targetZoom = min(_camera.zoom + deltaZoom, _camera.maxZoom ?? 20);
-
-    if (_hasAnimation) {
-      _animatedController!.animateTo(dest: latLng, zoom: targetZoom);
+    final animated = _animatedController;
+    if (animated != null) {
+      animated.animateTo(dest: latLng, zoom: targetZoom);
     } else {
       mapController.move(latLng, targetZoom);
     }
-  }
+  });
 
   @override
-  void zoomIn({LatLng? latLng}) {
+  void zoomIn({LatLng? latLng}) => _safely(() {
     final zoom = min(_camera.zoom + 1, _camera.maxZoom ?? 20);
-
-    if (_hasAnimation) {
-      _animatedController!.animateTo(
-        dest: latLng ?? _camera.center,
-        zoom: zoom,
-      );
+    final animated = _animatedController;
+    if (animated != null) {
+      animated.animateTo(dest: latLng ?? _camera.center, zoom: zoom);
     } else {
       mapController.move(latLng ?? _camera.center, zoom);
     }
-  }
+  });
 
   @override
-  void zoomOut() {
-    if (_hasAnimation) {
-      _animatedController!.animatedZoomOut();
+  void zoomOut() => _safely(() {
+    final animated = _animatedController;
+    if (animated != null) {
+      animated.animatedZoomOut();
     } else {
       mapController.move(
         _camera.center,
         max(_camera.zoom - 1, _camera.minZoom ?? 0),
       );
     }
-  }
+  });
 
   @override
-  void panTo(LatLng center) {
+  void panTo(LatLng center) => _safely(() {
     final animated = _animatedController;
     if (animated != null) {
-      animated.animateTo(dest: center, zoom: _camera.zoom); // zoom inchangé
+      animated.animateTo(dest: center, zoom: _camera.zoom);
     } else {
       mapController.move(center, _camera.zoom);
     }
-  }
+  });
 
   @override
-  void rotateTo(double degrees) {
-    if (_hasAnimation) {
-      _animatedController!.animatedRotateTo(degrees);
+  void rotateTo(double degrees) => _safely(() {
+    final animated = _animatedController;
+    if (animated != null) {
+      animated.animatedRotateTo(degrees);
     } else {
       mapController.rotate(degrees);
     }
-  }
+  });
 
   @override
   void fitBounds(
     MapLatLngBounds bounds, {
     MapEdgeInsets padding = MapEdgeInsets.zero,
     double? maxZoom,
-  }) {
+  }) => _safely(() {
     final fit = CameraFit.bounds(
       bounds: bounds.toFlutterMap(),
       padding: EdgeInsets.fromLTRB(
@@ -308,5 +323,5 @@ class FlutterMapCamera implements MapCameraController {
     } else {
       mapController.fitCamera(fit);
     }
-  }
+  });
 }

@@ -17,7 +17,7 @@ fragment TripSummary on TripType {
 
 fragment TripFull on TripType {
     ...TripSummary
-    ...TripRoute
+    ...TripRouteEditing
     waypoints {
         ...WaypointDetails
     }

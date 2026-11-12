@@ -24,3 +24,14 @@ mutation SetTripOrigin($id: UUID!, $origin: LatLngInput!) {
         ...EditRouteResult
     }
 }
+
+mutation SaveTrip($tripId: UUID!) {
+    saveTrip(tripId: $tripId) {
+        ...TripSummary
+    }
+}
+mutation UnSaveTrip($tripId: UUID!) {
+    unsaveTrip(tripId: $tripId) {
+        ...TripSummary
+    }
+}

@@ -3,8 +3,7 @@
 
 fragment WaypointDetails on WaypointType {
     id
-    anchorEdge
-    anchorOffset
+    anchorPosition
     poiCategory
     title
     description
@@ -14,9 +13,4 @@ fragment WaypointDetails on WaypointType {
     files {
         ...FileAttachment
     }
-}
-fragment WaypointAnchor on WaypointType {
-    id
-    anchorEdge
-    anchorOffset
 }

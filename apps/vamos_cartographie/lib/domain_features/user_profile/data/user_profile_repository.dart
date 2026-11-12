@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:user_profile_application/user_profile_application.dart';
+import 'package:vamos_cartographie/core/erreur_handler.dart';
+import 'package:vamos_cartographie/core/graphql/graphql.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/data/data.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/data/user_profile_failures.dart';
-import '../../../core/graphql/graphql.dart';
-import '/core/erreur_handler.dart';
-import '/domain_features/user_profile/data/data.dart';
 
 class UserProfileRepository {
   final UserProfileDatasource remote;
@@ -15,6 +15,13 @@ class UserProfileRepository {
     return guard(() async {
       final me = await remote.getMe();
       return me.toMeProfileModel();
+    });
+  }
+
+  Future<Either<Failure, UserProfile>> getUser(UserId userId) async {
+    return guard(() async {
+      final user = await remote.getUser(userId);
+      return user.toUserProfileModel();
     });
   }
 
@@ -59,5 +66,33 @@ class UserProfileRepository {
     //   _ => Left(ProfileUpdateFailed()),
     // };
     // });
+  }
+
+  Future<Either<Failure, List<UserProfile>>> getFollowers(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.getFollowers(userId);
+      return d.map((m) => m.toUserProfileModel()).toList();
+    });
+  }
+
+  Future<Either<Failure, List<UserProfile>>> getFollowing(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.getFollowing(userId);
+      return d.map((m) => m.toUserProfileModel()).toList();
+    });
+  }
+
+  Future<Either<Failure, UserProfile>> followUser(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.followUser(userId);
+      return d.toUserProfileModel();
+    });
+  }
+
+  Future<Either<Failure, UserProfile>> unfollowUser(UserId userId) async {
+    return await guard(() async {
+      final d = await remote.unfollowUser(userId);
+      return d.toUserProfileModel();
+    });
   }
 }

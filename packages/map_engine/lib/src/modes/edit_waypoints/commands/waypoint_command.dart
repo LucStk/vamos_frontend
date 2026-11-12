@@ -1,0 +1,78 @@
+import 'package:domain_core/domain_core.dart';
+
+import 'package:map_engine/map_engine.dart';
+import 'package:map_engine/src/mode_engine/app_scope.dart';
+import 'package:map_engine/src/mode_engine/command.dart';
+import 'package:map_engine/src/mode_engine/effect/results.dart';
+import 'package:trip_application/trip_application.dart';
+
+sealed class WaypointCommand<R extends Object> extends Command<R> {
+  const WaypointCommand();
+}
+
+final class CreateWaypoint extends WaypointCommand<WaypointId> {
+  const CreateWaypoint({required this.tripId, required this.position});
+  final OffsetType position;
+  final TripId tripId;
+
+  @override
+  Future<WaypointId?> handle(AppCommandScope h) {
+    final latLng = switch (position) {
+      WorldOffset d => h.camera.worldOffsetToLatLng(d),
+      ScreenOffset d => h.camera.screenOffsetToLatLng(d),
+    };
+    return valueOrNull(
+      h
+          .forTrip(tripId)
+          .waypointEditor
+          .createBlankWaypoint(latLng)
+          .then((r) => r.map((v) => v.id)), // Either<Failure, WaypointId>
+    );
+  }
+}
+
+final class PatchWaypointPosition extends WaypointCommand {
+  const PatchWaypointPosition({
+    required this.tripId,
+    required this.waypointId,
+    required this.position,
+  });
+  final OffsetType position;
+  final TripId tripId;
+  final WaypointId waypointId;
+
+  @override
+  Future<void> handle(AppCommandScope h) async {
+    final latLng = switch (position) {
+      WorldOffset d => h.camera.worldOffsetToLatLng(d),
+      ScreenOffset d => h.camera.screenOffsetToLatLng(d),
+    };
+    return h
+        .forTrip(tripId)
+        .waypointEditor
+        .patchWaypointPosition(waypointId, latLng);
+  }
+}
+
+final class CommitWaypoint extends WaypointCommand<Done> {
+  const CommitWaypoint({required this.tripId, required this.waypointId});
+  final TripId tripId;
+  final WaypointId waypointId;
+
+  @override
+  Future<Done?> handle(AppCommandScope h) async {
+    return done(
+      () => h.forTrip(tripId).waypointEditor.commitWaypoint(waypointId),
+    );
+  }
+}
+
+final class RemoveWaypoint extends WaypointCommand<Done> {
+  const RemoveWaypoint({required this.tripId, required this.waypointId});
+  final WaypointId waypointId;
+  final TripId tripId;
+
+  @override
+  Future<Done?> handle(AppCommandScope h) =>
+      done(() => h.forTrip(tripId).waypointEditor.deleteWaypoint(waypointId));
+}

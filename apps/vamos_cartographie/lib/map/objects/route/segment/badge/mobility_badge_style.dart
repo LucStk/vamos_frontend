@@ -1,0 +1,80 @@
+// objects/segment/badge/mobility_badge_style.dart
+import 'dart:ui';
+
+import 'package:domain_core/domain_core.dart';
+
+import 'package:map_canvas/map_canvas.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/badge/badge_look.dart';
+
+/// Valeurs interpolables de la pastille selon ses traits.
+///
+/// Distinct de `SegmentLook` : `widthScale` s'applique à une épaisseur de
+/// trait, pas à un rayon — le réutiliser ferait une pastille énorme à la
+/// sélection.
+abstract final class MobilityBadgeStyle {
+  /// Composition dans l'ordre hovered → selected → dragging : à 1, le
+  /// dernier trait actif l'emporte.
+  static const resolver = StyleResolver<BadgeLook>(
+    base: BadgeLook(scale: 1.0, casing: 1.5, halo: 0, lift: 0),
+    traits: {
+      VisualTrait.hovered: BadgeLook(
+        scale: 1.12,
+        casing: 1.5,
+        halo: 5,
+        lift: 0.15,
+      ),
+      VisualTrait.selected: BadgeLook(scale: 1.2, casing: 2, halo: 12, lift: 0),
+      VisualTrait.dragging: BadgeLook(
+        scale: 1.15,
+        casing: 2,
+        halo: 16,
+        lift: 0.2,
+      ),
+    },
+  );
+
+  static const _casingColor = Color(0xD9FFFFFF); // blanc ~85 %
+  static const _white = Color(0xFFFFFFFF);
+
+  /// Rayon de la pastille au repos (px). Doit rester égal à
+  /// `MobilityBadgeItem.visualRadius`.
+  static const _radius = 11.0;
+
+  /// Côté du glyphe au repos (px).
+  static const _glyph = 13.0;
+
+  static DrawCommand build(
+    WorldOffset anchor,
+    SegmentAppearance a,
+    IconGlyph glyph,
+    BadgeLook look,
+  ) {
+    final r = _radius * look.scale;
+    final fill = Color.lerp(a.color, _white, look.lift)!;
+
+    // Arrondi : sans lui, chaque frame d'animation crée une entrée de cache
+    // distincte dans GlyphPaths et le chemin est reparsé à 60 Hz.
+    final glyphPx = (_glyph * look.scale).roundToDouble();
+
+    return DrawGroup([
+      if (look.halo > 0.1)
+        DrawCircle(
+          center: anchor,
+          radius: (r + look.halo / 2).px,
+          style: Fill(a.color.withValues(alpha: 0.30)),
+        ),
+      DrawCircle(center: anchor, radius: r.px, style: Fill(_casingColor)),
+      DrawCircle(
+        center: anchor,
+        radius: (r - look.casing).px,
+        style: Fill(fill),
+      ),
+      DrawAnchoredPath(
+        anchor: anchor,
+        path: GlyphPaths.anchored(glyph, sizePx: glyphPx),
+        style: glyphPaintSpec(glyph, _white, sizePx: glyphPx),
+      ),
+    ]);
+  }
+}

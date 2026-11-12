@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RouteRemoteModel {
 
- TripId get id; Geometry get geometry; LatLng get startPoint; MapLatLngBounds? get bounds;
+ TripId get id; List<LatLng> get geometry; LatLng get startPoint; MapLatLngBounds? get bounds;
 /// Create a copy of RouteRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -51,7 +51,7 @@ abstract mixin class $RouteRemoteModelCopyWith<$Res>  {
   factory $RouteRemoteModelCopyWith(RouteRemoteModel value, $Res Function(RouteRemoteModel) _then) = _$RouteRemoteModelCopyWithImpl;
 @useResult
 $Res call({
- TripId id, Geometry geometry, LatLng startPoint, MapLatLngBounds? bounds
+ TripId id, List<LatLng> geometry, LatLng startPoint, MapLatLngBounds? bounds
 });
 
 
@@ -72,7 +72,7 @@ class _$RouteRemoteModelCopyWithImpl<$Res>
   return _then(RouteRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
-as Geometry,startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
 as LatLng,bounds: freezed == bounds ? _self.bounds : bounds // ignore: cast_nullable_to_non_nullable
 as MapLatLngBounds?,
   ));
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TripId id,  Geometry geometry,  LatLng startPoint,  MapLatLngBounds? bounds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TripId id,  List<LatLng> geometry,  LatLng startPoint,  MapLatLngBounds? bounds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RouteRemoteModel() when $default != null:
 return $default(_that.id,_that.geometry,_that.startPoint,_that.bounds);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.geometry,_that.startPoint,_that.bounds);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TripId id,  Geometry geometry,  LatLng startPoint,  MapLatLngBounds? bounds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TripId id,  List<LatLng> geometry,  LatLng startPoint,  MapLatLngBounds? bounds)  $default,) {final _that = this;
 switch (_that) {
 case _RouteRemoteModel():
 return $default(_that.id,_that.geometry,_that.startPoint,_that.bounds);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.geometry,_that.startPoint,_that.bounds);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TripId id,  Geometry geometry,  LatLng startPoint,  MapLatLngBounds? bounds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TripId id,  List<LatLng> geometry,  LatLng startPoint,  MapLatLngBounds? bounds)?  $default,) {final _that = this;
 switch (_that) {
 case _RouteRemoteModel() when $default != null:
 return $default(_that.id,_that.geometry,_that.startPoint,_that.bounds);case _:
@@ -215,12 +215,12 @@ return $default(_that.id,_that.geometry,_that.startPoint,_that.bounds);case _:
 
 
 class _RouteRemoteModel extends RouteRemoteModel {
-  const _RouteRemoteModel({required this.id, required  Geometry geometry, required this.startPoint, this.bounds}): _geometry = geometry,super._();
+  const _RouteRemoteModel({required this.id, required  List<LatLng> geometry, required this.startPoint, this.bounds}): _geometry = geometry,super._();
   
 
 @override final  TripId id;
- final  Geometry _geometry;
-@override Geometry get geometry {
+ final  List<LatLng> _geometry;
+@override List<LatLng> get geometry {
   if (_geometry is EqualUnmodifiableListView) return _geometry;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_geometry);
@@ -261,7 +261,7 @@ abstract mixin class _$RouteRemoteModelCopyWith<$Res> implements $RouteRemoteMod
   factory _$RouteRemoteModelCopyWith(_RouteRemoteModel value, $Res Function(_RouteRemoteModel) _then) = __$RouteRemoteModelCopyWithImpl;
 @override @useResult
 $Res call({
- TripId id, Geometry geometry, LatLng startPoint, MapLatLngBounds? bounds
+ TripId id, List<LatLng> geometry, LatLng startPoint, MapLatLngBounds? bounds
 });
 
 
@@ -282,7 +282,7 @@ class __$RouteRemoteModelCopyWithImpl<$Res>
   return _then(_RouteRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
-as Geometry,startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
 as LatLng,bounds: freezed == bounds ? _self.bounds : bounds // ignore: cast_nullable_to_non_nullable
 as MapLatLngBounds?,
   ));
@@ -294,7 +294,7 @@ as MapLatLngBounds?,
 /// @nodoc
 mixin _$RoutePatchModel {
 
- Geometry get geometry; TripId get id; LatLng get startPoint; MapLatLngBounds? get bounds; bool get recomputing; Object? get error;
+ List<LatLng> get geometry; TripId get id; LatLng get startPoint; MapLatLngBounds? get bounds; bool get recomputing; Object? get error;
 /// Create a copy of RoutePatchModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -330,7 +330,7 @@ abstract mixin class $RoutePatchModelCopyWith<$Res>  {
   factory $RoutePatchModelCopyWith(RoutePatchModel value, $Res Function(RoutePatchModel) _then) = _$RoutePatchModelCopyWithImpl;
 @useResult
 $Res call({
- Geometry geometry, TripId id, LatLng startPoint, MapLatLngBounds? bounds, bool recomputing, Object? error
+ List<LatLng> geometry, TripId id, LatLng startPoint, MapLatLngBounds? bounds, bool recomputing, Object? error
 });
 
 
@@ -351,7 +351,7 @@ class _$RoutePatchModelCopyWithImpl<$Res>
   return _then(RoutePatchModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,geometry: null == geometry ? _self.geometry : geometry // ignore: cast_nullable_to_non_nullable
-as Geometry,startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
 as LatLng,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));
@@ -438,7 +438,7 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Geometry geometry,  TripId id,  LatLng startPoint,  MapLatLngBounds? bounds,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( List<LatLng> geometry,  TripId id,  LatLng startPoint,  MapLatLngBounds? bounds,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RoutePatchModel() when internal != null:
 return internal(_that.geometry,_that.id,_that.startPoint,_that.bounds,_that.recomputing,_that.error);case _:
@@ -459,7 +459,7 @@ return internal(_that.geometry,_that.id,_that.startPoint,_that.bounds,_that.reco
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Geometry geometry,  TripId id,  LatLng startPoint,  MapLatLngBounds? bounds,  bool recomputing,  Object? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( List<LatLng> geometry,  TripId id,  LatLng startPoint,  MapLatLngBounds? bounds,  bool recomputing,  Object? error)  internal,}) {final _that = this;
 switch (_that) {
 case _RoutePatchModel():
 return internal(_that.geometry,_that.id,_that.startPoint,_that.bounds,_that.recomputing,_that.error);case _:
@@ -479,7 +479,7 @@ return internal(_that.geometry,_that.id,_that.startPoint,_that.bounds,_that.reco
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Geometry geometry,  TripId id,  LatLng startPoint,  MapLatLngBounds? bounds,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( List<LatLng> geometry,  TripId id,  LatLng startPoint,  MapLatLngBounds? bounds,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
 switch (_that) {
 case _RoutePatchModel() when internal != null:
 return internal(_that.geometry,_that.id,_that.startPoint,_that.bounds,_that.recomputing,_that.error);case _:
@@ -494,11 +494,11 @@ return internal(_that.geometry,_that.id,_that.startPoint,_that.bounds,_that.reco
 
 
 class _RoutePatchModel extends RoutePatchModel implements Patch<RouteRemoteModel> {
-  const _RoutePatchModel({required  Geometry geometry, required this.id, required this.startPoint, this.bounds, this.recomputing = false, this.error}): _geometry = geometry,super._();
+  const _RoutePatchModel({required  List<LatLng> geometry, required this.id, required this.startPoint, this.bounds, this.recomputing = false, this.error}): _geometry = geometry,super._();
   
 
- final  Geometry _geometry;
-@override Geometry get geometry {
+ final  List<LatLng> _geometry;
+@override List<LatLng> get geometry {
   if (_geometry is EqualUnmodifiableListView) return _geometry;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_geometry);
@@ -542,7 +542,7 @@ abstract mixin class _$RoutePatchModelCopyWith<$Res> implements $RoutePatchModel
   factory _$RoutePatchModelCopyWith(_RoutePatchModel value, $Res Function(_RoutePatchModel) _then) = __$RoutePatchModelCopyWithImpl;
 @override @useResult
 $Res call({
- Geometry geometry, TripId id, LatLng startPoint, MapLatLngBounds? bounds, bool recomputing, Object? error
+ List<LatLng> geometry, TripId id, LatLng startPoint, MapLatLngBounds? bounds, bool recomputing, Object? error
 });
 
 
@@ -562,7 +562,7 @@ class __$RoutePatchModelCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? geometry = null,Object? id = null,Object? startPoint = null,Object? bounds = freezed,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_RoutePatchModel(
 geometry: null == geometry ? _self._geometry : geometry // ignore: cast_nullable_to_non_nullable
-as Geometry,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as List<LatLng>,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as TripId,startPoint: null == startPoint ? _self.startPoint : startPoint // ignore: cast_nullable_to_non_nullable
 as LatLng,bounds: freezed == bounds ? _self.bounds : bounds // ignore: cast_nullable_to_non_nullable
 as MapLatLngBounds?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable

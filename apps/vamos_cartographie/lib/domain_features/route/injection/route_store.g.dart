@@ -99,11 +99,21 @@ final class RouteRepositoryProvider
 
 String _$routeRepositoryHash() => r'2e2e5cc0958211c545a711b6f2554f68a4e4e11d';
 
+/// La route d'un trip et tous ses calques, dans un seul état : les
+/// `startIndex` des calques ne sont cohérents qu'avec la géométrie de la même
+/// version (voir `RouteStore`).
+
 @ProviderFor(RouteStoreNotifier)
 final routeStoreProvider = RouteStoreNotifierFamily._();
 
+/// La route d'un trip et tous ses calques, dans un seul état : les
+/// `startIndex` des calques ne sont cohérents qu'avec la géométrie de la même
+/// version (voir `RouteStore`).
 final class RouteStoreNotifierProvider
     extends $NotifierProvider<RouteStoreNotifier, RouteStore> {
+  /// La route d'un trip et tous ses calques, dans un seul état : les
+  /// `startIndex` des calques ne sont cohérents qu'avec la géométrie de la même
+  /// version (voir `RouteStore`).
   RouteStoreNotifierProvider._({
     required RouteStoreNotifierFamily super.from,
     required TripId super.argument,
@@ -151,6 +161,10 @@ final class RouteStoreNotifierProvider
 String _$routeStoreNotifierHash() =>
     r'dfb16afbd15aeb5aada574b911db004651f16578';
 
+/// La route d'un trip et tous ses calques, dans un seul état : les
+/// `startIndex` des calques ne sont cohérents qu'avec la géométrie de la même
+/// version (voir `RouteStore`).
+
 final class RouteStoreNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
@@ -169,12 +183,20 @@ final class RouteStoreNotifierFamily extends $Family
         isAutoDispose: false,
       );
 
+  /// La route d'un trip et tous ses calques, dans un seul état : les
+  /// `startIndex` des calques ne sont cohérents qu'avec la géométrie de la même
+  /// version (voir `RouteStore`).
+
   RouteStoreNotifierProvider call(TripId tripId) =>
       RouteStoreNotifierProvider._(argument: tripId, from: this);
 
   @override
   String toString() => r'routeStoreProvider';
 }
+
+/// La route d'un trip et tous ses calques, dans un seul état : les
+/// `startIndex` des calques ne sont cohérents qu'avec la géométrie de la même
+/// version (voir `RouteStore`).
 
 abstract class _$RouteStoreNotifier extends $Notifier<RouteStore> {
   late final _$args = ref.$arg as TripId;
@@ -197,61 +219,66 @@ abstract class _$RouteStoreNotifier extends $Notifier<RouteStore> {
   }
 }
 
-@ProviderFor(sectionRanges)
-final sectionRangesProvider = SectionRangesFamily._();
+/// Vertex de début et de fin de chaque span du calque modalité.
 
-final class SectionRangesProvider
+@ProviderFor(mobilitySpanRanges)
+final mobilitySpanRangesProvider = MobilitySpanRangesFamily._();
+
+/// Vertex de début et de fin de chaque span du calque modalité.
+
+final class MobilitySpanRangesProvider
     extends
         $FunctionalProvider<
-          Map<SectionId, VertexRange>,
-          Map<SectionId, VertexRange>,
-          Map<SectionId, VertexRange>
+          Map<SpanId, VertexRange>,
+          Map<SpanId, VertexRange>,
+          Map<SpanId, VertexRange>
         >
-    with $Provider<Map<SectionId, VertexRange>> {
-  SectionRangesProvider._({
-    required SectionRangesFamily super.from,
+    with $Provider<Map<SpanId, VertexRange>> {
+  /// Vertex de début et de fin de chaque span du calque modalité.
+  MobilitySpanRangesProvider._({
+    required MobilitySpanRangesFamily super.from,
     required TripId super.argument,
   }) : super(
          retry: null,
-         name: r'sectionRangesProvider',
+         name: r'mobilitySpanRangesProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$sectionRangesHash();
+  String debugGetCreateSourceHash() => _$mobilitySpanRangesHash();
 
   @override
   String toString() {
-    return r'sectionRangesProvider'
+    return r'mobilitySpanRangesProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<Map<SectionId, VertexRange>> $createElement(
+  $ProviderElement<Map<SpanId, VertexRange>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  Map<SectionId, VertexRange> create(Ref ref) {
+  Map<SpanId, VertexRange> create(Ref ref) {
     final argument = this.argument as TripId;
-    return sectionRanges(ref, argument);
+    return mobilitySpanRanges(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Map<SectionId, VertexRange> value) {
+  Override overrideWithValue(Map<SpanId, VertexRange> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Map<SectionId, VertexRange>>(value),
+      providerOverride: $SyncValueProvider<Map<SpanId, VertexRange>>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SectionRangesProvider && other.argument == argument;
+    return other is MobilitySpanRangesProvider && other.argument == argument;
   }
 
   @override
@@ -260,22 +287,119 @@ final class SectionRangesProvider
   }
 }
 
-String _$sectionRangesHash() => r'b57ef0f04bdbe8689b11d066287f7e8e13f3cc13';
+String _$mobilitySpanRangesHash() =>
+    r'a994451320909e334e7805bcb6b15e1161ff1138';
 
-final class SectionRangesFamily extends $Family
-    with $FunctionalFamilyOverride<Map<SectionId, VertexRange>, TripId> {
-  SectionRangesFamily._()
+/// Vertex de début et de fin de chaque span du calque modalité.
+
+final class MobilitySpanRangesFamily extends $Family
+    with $FunctionalFamilyOverride<Map<SpanId, VertexRange>, TripId> {
+  MobilitySpanRangesFamily._()
     : super(
         retry: null,
-        name: r'sectionRangesProvider',
+        name: r'mobilitySpanRangesProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 
-  SectionRangesProvider call(TripId tripId) =>
-      SectionRangesProvider._(argument: tripId, from: this);
+  /// Vertex de début et de fin de chaque span du calque modalité.
+
+  MobilitySpanRangesProvider call(TripId tripId) =>
+      MobilitySpanRangesProvider._(argument: tripId, from: this);
 
   @override
-  String toString() => r'sectionRangesProvider';
+  String toString() => r'mobilitySpanRangesProvider';
+}
+
+/// Vertex de début et de fin de chaque span du calque d'édition.
+
+@ProviderFor(editSpanRanges)
+final editSpanRangesProvider = EditSpanRangesFamily._();
+
+/// Vertex de début et de fin de chaque span du calque d'édition.
+
+final class EditSpanRangesProvider
+    extends
+        $FunctionalProvider<
+          Map<SpanId, VertexRange>,
+          Map<SpanId, VertexRange>,
+          Map<SpanId, VertexRange>
+        >
+    with $Provider<Map<SpanId, VertexRange>> {
+  /// Vertex de début et de fin de chaque span du calque d'édition.
+  EditSpanRangesProvider._({
+    required EditSpanRangesFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'editSpanRangesProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$editSpanRangesHash();
+
+  @override
+  String toString() {
+    return r'editSpanRangesProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<Map<SpanId, VertexRange>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Map<SpanId, VertexRange> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return editSpanRanges(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<SpanId, VertexRange> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<SpanId, VertexRange>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is EditSpanRangesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$editSpanRangesHash() => r'0f6a002915ed7bd640f707b5a527484836add64c';
+
+/// Vertex de début et de fin de chaque span du calque d'édition.
+
+final class EditSpanRangesFamily extends $Family
+    with $FunctionalFamilyOverride<Map<SpanId, VertexRange>, TripId> {
+  EditSpanRangesFamily._()
+    : super(
+        retry: null,
+        name: r'editSpanRangesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  /// Vertex de début et de fin de chaque span du calque d'édition.
+
+  EditSpanRangesProvider call(TripId tripId) =>
+      EditSpanRangesProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'editSpanRangesProvider';
 }

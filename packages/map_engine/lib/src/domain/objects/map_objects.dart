@@ -1,13 +1,20 @@
 import 'package:map_engine/src/domain/camera/map_camera.dart';
 import 'package:map_engine/src/domain/map_hit.dart';
+import 'package:map_engine/src/modes/edit_route/slots/route_selection_slot.dart';
+import 'package:map_engine/src/modes/edit_route/slots/span_bounds_slot.dart';
 import 'package:trip_application/trip_application.dart';
 part "sketch_objects.dart";
 part "user_location_objects.dart";
 part "trip_object.dart";
-part "route/route_section.dart";
 part "waypoint_objects.dart";
-part "route/trip_origin.dart";
+part "route/mobility_span.dart";
+part "route/trip_start.dart";
 part "route/trip_end.dart";
+part "route/mobility_badge.dart";
+part "route/handle/selection_handle.dart";
+part "route/selection_highlight.dart";
+part "route/handle/span_bound_handle.dart";
+part "route/handle/route_handle.dart";
 
 sealed class MapObject {
   const MapObject();
@@ -19,7 +26,6 @@ sealed class MapObject {
   /// Peut être « survolé » par un objet en cours de drag.
   /// Faux pour les proxys du pointeur (ex. Pencil).
   bool get isDropTarget => true;
-  int get hitPriority => 0;
 }
 
 abstract interface class Selectable implements MapObject {}
@@ -33,11 +39,11 @@ sealed class RouteElements extends MapObject implements Selectable {
 
 extension HitObjectRouteElementstoAnchor on HitObject<RouteElements> {
   RouteAnchor toRouteAnchor(MapCameraReader camera) => switch (object) {
-    MapSection t => SectionAnchor(
+    MapMobilitySpan t => SectionAnchor(
       position: camera.worldOffsetToLatLng(point),
       sectionId: t.id,
     ),
     MapTripEnd _ => EndRouteAnchor(),
-    MapTripOrigin() => StartRouteAnchor(),
+    MapTripStart() => StartRouteAnchor(),
   };
 }

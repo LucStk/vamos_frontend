@@ -14,8 +14,7 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__ge
 
 abstract class GWaypointDetails {
   String get id;
-  int? get anchorEdge;
-  double get anchorOffset;
+  double get anchorPosition;
   _i1.GPoiCategory get poiCategory;
   String get title;
   String get description;
@@ -27,8 +26,7 @@ abstract class GWaypointDetails {
 class GWaypointDetailsData implements GWaypointDetails {
   const GWaypointDetailsData({
     required this.id,
-    this.anchorEdge,
-    required this.anchorOffset,
+    required this.anchorPosition,
     required this.poiCategory,
     required this.title,
     required this.description,
@@ -40,9 +38,7 @@ class GWaypointDetailsData implements GWaypointDetails {
   factory GWaypointDetailsData.fromJson(Map<String, dynamic> json) {
     return GWaypointDetailsData(
       id: (json['id'] as String),
-      anchorEdge:
-          json['anchorEdge'] == null ? null : (json['anchorEdge'] as int),
-      anchorOffset: (json['anchorOffset'] as num).toDouble(),
+      anchorPosition: (json['anchorPosition'] as num).toDouble(),
       poiCategory: _i1.GPoiCategory.fromJson((json['poiCategory'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
@@ -58,9 +54,7 @@ class GWaypointDetailsData implements GWaypointDetails {
 
   final String id;
 
-  final int? anchorEdge;
-
-  final double anchorOffset;
+  final double anchorPosition;
 
   final _i1.GPoiCategory poiCategory;
 
@@ -77,10 +71,7 @@ class GWaypointDetailsData implements GWaypointDetails {
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['id'] = this.id;
-    final _$anchorEdgeValue = this.anchorEdge;
-    _$result['anchorEdge'] =
-        _$anchorEdgeValue == null ? null : _$anchorEdgeValue;
-    _$result['anchorOffset'] = this.anchorOffset;
+    _$result['anchorPosition'] = this.anchorPosition;
     _$result['poiCategory'] = this.poiCategory.toJson();
     _$result['title'] = this.title;
     _$result['description'] = this.description;
@@ -92,9 +83,7 @@ class GWaypointDetailsData implements GWaypointDetails {
 
   GWaypointDetailsData copyWith({
     String? id,
-    int? anchorEdge,
-    bool anchorEdgeIsSet = false,
-    double? anchorOffset,
+    double? anchorPosition,
     _i1.GPoiCategory? poiCategory,
     String? title,
     String? description,
@@ -104,9 +93,7 @@ class GWaypointDetailsData implements GWaypointDetails {
   }) {
     return GWaypointDetailsData(
       id: id ?? this.id,
-      anchorEdge:
-          anchorEdge != null || anchorEdgeIsSet ? anchorEdge : this.anchorEdge,
-      anchorOffset: anchorOffset ?? this.anchorOffset,
+      anchorPosition: anchorPosition ?? this.anchorPosition,
       poiCategory: poiCategory ?? this.poiCategory,
       title: title ?? this.title,
       description: description ?? this.description,
@@ -121,8 +108,7 @@ class GWaypointDetailsData implements GWaypointDetails {
     return identical(this, other) ||
         (other is GWaypointDetailsData &&
             id == other.id &&
-            anchorEdge == other.anchorEdge &&
-            anchorOffset == other.anchorOffset &&
+            anchorPosition == other.anchorPosition &&
             poiCategory == other.poiCategory &&
             title == other.title &&
             description == other.description &&
@@ -133,93 +119,12 @@ class GWaypointDetailsData implements GWaypointDetails {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, anchorEdge, anchorOffset, poiCategory,
-        title, description, location, _gqlUtils.listHash(files), G__typename);
+    return Object.hash(runtimeType, id, anchorPosition, poiCategory, title,
+        description, location, _gqlUtils.listHash(files), G__typename);
   }
 
   @override
   String toString() {
-    return 'GWaypointDetailsData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, poiCategory: $poiCategory, title: $title, description: $description, location: $location, files: $files, G__typename: $G__typename)';
-  }
-}
-
-abstract class GWaypointAnchor {
-  String get id;
-  int? get anchorEdge;
-  double get anchorOffset;
-  String get G__typename;
-}
-
-class GWaypointAnchorData implements GWaypointAnchor {
-  const GWaypointAnchorData({
-    required this.id,
-    this.anchorEdge,
-    required this.anchorOffset,
-    this.G__typename = 'WaypointType',
-  });
-
-  factory GWaypointAnchorData.fromJson(Map<String, dynamic> json) {
-    return GWaypointAnchorData(
-      id: (json['id'] as String),
-      anchorEdge:
-          json['anchorEdge'] == null ? null : (json['anchorEdge'] as int),
-      anchorOffset: (json['anchorOffset'] as num).toDouble(),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final String id;
-
-  final int? anchorEdge;
-
-  final double anchorOffset;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['id'] = this.id;
-    final _$anchorEdgeValue = this.anchorEdge;
-    _$result['anchorEdge'] =
-        _$anchorEdgeValue == null ? null : _$anchorEdgeValue;
-    _$result['anchorOffset'] = this.anchorOffset;
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GWaypointAnchorData copyWith({
-    String? id,
-    int? anchorEdge,
-    bool anchorEdgeIsSet = false,
-    double? anchorOffset,
-    String? G__typename,
-  }) {
-    return GWaypointAnchorData(
-      id: id ?? this.id,
-      anchorEdge:
-          anchorEdge != null || anchorEdgeIsSet ? anchorEdge : this.anchorEdge,
-      anchorOffset: anchorOffset ?? this.anchorOffset,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GWaypointAnchorData &&
-            id == other.id &&
-            anchorEdge == other.anchorEdge &&
-            anchorOffset == other.anchorOffset &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, id, anchorEdge, anchorOffset, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GWaypointAnchorData(id: $id, anchorEdge: $anchorEdge, anchorOffset: $anchorOffset, G__typename: $G__typename)';
+    return 'GWaypointDetailsData(id: $id, anchorPosition: $anchorPosition, poiCategory: $poiCategory, title: $title, description: $description, location: $location, files: $files, G__typename: $G__typename)';
   }
 }

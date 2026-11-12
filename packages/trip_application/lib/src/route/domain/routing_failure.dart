@@ -1,4 +1,4 @@
-import 'package:domain_core/failures.dart';
+import 'package:domain_core/domain_core.dart';
 
 class RoutingFailure extends Failure {
   RoutingFailure({this.reason})

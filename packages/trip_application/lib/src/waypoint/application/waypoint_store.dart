@@ -1,4 +1,4 @@
-import 'package:domain_core/domain/domain.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/src/waypoint/domain/domain.dart';
 
 class WaypointStore {
@@ -25,7 +25,7 @@ class WaypointStore {
     Iterable<WaypointFields> waypoints,
   ) => waypoints.fold<GraphCollectionStore<WaypointFields>>(
     const GraphCollectionStore<WaypointFields>(),
-    (store, waypoint) => store.setNode(waypoint),
+    (store, waypoint) => store.replaceState(waypoint),
   );
 
   WaypointStore copyWith({

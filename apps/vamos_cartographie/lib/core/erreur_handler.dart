@@ -44,7 +44,7 @@ class ErrorHandler implements ErrorLogger {
     if (stackTrace != null) {
       // Convertit en objet Trace puis prend les 15 premiers frames
       final trace = Trace.from(stackTrace);
-      final limitedTrace = Trace(trace.frames.take(6));
+      final limitedTrace = Trace(trace.frames.take(150));
 
       debugPrint('Erreur capturée : $error ->\n$limitedTrace');
     } else {

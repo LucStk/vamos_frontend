@@ -28,7 +28,9 @@ abstract class ModeState with _$ModeState {
   /// Renvoie `this` si rien ne change.
   ModeState after(ResolvedTransition t) {
     final nextMode = t.mode ?? mode;
-    final entered = nextMode != mode ? slots.afterTransition(nextMode) : slots;
+    final entered = nextMode != mode
+        ? slots.afterTransition(nextMode).withSlots(nextMode.initialSlots)
+        : slots;
     final nextSlots = entered.withSlots(t.slots);
     final nextOverlay = t.overlayAfter(overlay);
 

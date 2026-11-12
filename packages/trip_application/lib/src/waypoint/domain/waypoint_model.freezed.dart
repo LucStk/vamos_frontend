@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WaypointRemoteModel {
 
- WaypointId get id; LatLng get position; String get title; PoiCategory get poiCategory; String get description;
+ WaypointId get id; LatLng get position; double get anchorPosition; String get title; PoiCategory get poiCategory; String get description;
 /// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $WaypointRemoteModelCopyWith<WaypointRemoteModel> get copyWith => _$WaypointRemo
 @override
 bool operator ==(Object other) {
   final _this = this as WaypointRemoteModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.poiCategory, _this.poiCategory) || other.poiCategory == _this.poiCategory)&&(identical(other.description, _this.description) || other.description == _this.description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.anchorPosition, _this.anchorPosition) || other.anchorPosition == _this.anchorPosition)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.poiCategory, _this.poiCategory) || other.poiCategory == _this.poiCategory)&&(identical(other.description, _this.description) || other.description == _this.description));
 }
 
 
 @override
 int get hashCode {
   final _this = this as WaypointRemoteModel;
-  return Object.hash(runtimeType,_this.id,_this.position,_this.title,_this.poiCategory,_this.description);
+  return Object.hash(runtimeType,_this.id,_this.position,_this.anchorPosition,_this.title,_this.poiCategory,_this.description);
 }
 
 @override
 String toString() {
   final _this = this as WaypointRemoteModel;
-  return 'WaypointRemoteModel(id: ${_this.id}, position: ${_this.position}, title: ${_this.title}, poiCategory: ${_this.poiCategory}, description: ${_this.description})';
+  return 'WaypointRemoteModel(id: ${_this.id}, position: ${_this.position}, anchorPosition: ${_this.anchorPosition}, title: ${_this.title}, poiCategory: ${_this.poiCategory}, description: ${_this.description})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $WaypointRemoteModelCopyWith<$Res>  {
   factory $WaypointRemoteModelCopyWith(WaypointRemoteModel value, $Res Function(WaypointRemoteModel) _then) = _$WaypointRemoteModelCopyWithImpl;
 @useResult
 $Res call({
- WaypointId id, LatLng position, String title, PoiCategory poiCategory, String description
+ WaypointId id, LatLng position, double anchorPosition, String title, PoiCategory poiCategory, String description
 });
 
 
@@ -68,11 +68,12 @@ class _$WaypointRemoteModelCopyWithImpl<$Res>
 
 /// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? position = null,Object? title = null,Object? poiCategory = null,Object? description = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? position = null,Object? anchorPosition = null,Object? title = null,Object? poiCategory = null,Object? description = null,}) {
   return _then(WaypointRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as WaypointId,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as LatLng,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as LatLng,anchorPosition: null == anchorPosition ? _self.anchorPosition : anchorPosition // ignore: cast_nullable_to_non_nullable
+as double,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( WaypointId id,  LatLng position,  double anchorPosition,  String title,  PoiCategory poiCategory,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WaypointRemoteModel() when $default != null:
-return $default(_that.id,_that.position,_that.title,_that.poiCategory,_that.description);case _:
+return $default(_that.id,_that.position,_that.anchorPosition,_that.title,_that.poiCategory,_that.description);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.id,_that.position,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  String description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( WaypointId id,  LatLng position,  double anchorPosition,  String title,  PoiCategory poiCategory,  String description)  $default,) {final _that = this;
 switch (_that) {
 case _WaypointRemoteModel():
-return $default(_that.id,_that.position,_that.title,_that.poiCategory,_that.description);case _:
+return $default(_that.id,_that.position,_that.anchorPosition,_that.title,_that.poiCategory,_that.description);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.id,_that.position,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  String description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( WaypointId id,  LatLng position,  double anchorPosition,  String title,  PoiCategory poiCategory,  String description)?  $default,) {final _that = this;
 switch (_that) {
 case _WaypointRemoteModel() when $default != null:
-return $default(_that.id,_that.position,_that.title,_that.poiCategory,_that.description);case _:
+return $default(_that.id,_that.position,_that.anchorPosition,_that.title,_that.poiCategory,_that.description);case _:
   return null;
 
 }
@@ -216,11 +217,12 @@ return $default(_that.id,_that.position,_that.title,_that.poiCategory,_that.desc
 
 
 class _WaypointRemoteModel extends WaypointRemoteModel {
-  const _WaypointRemoteModel({required this.id, required this.position, this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = ''}): super._();
+  const _WaypointRemoteModel({required this.id, required this.position, required this.anchorPosition, this.title = '', this.poiCategory = PoiCategory.waypoint, this.description = ''}): super._();
   
 
 @override final  WaypointId id;
 @override final  LatLng position;
+@override final  double anchorPosition;
 @override@JsonKey() final  String title;
 @override@JsonKey() final  PoiCategory poiCategory;
 @override@JsonKey() final  String description;
@@ -235,18 +237,18 @@ _$WaypointRemoteModelCopyWith<_WaypointRemoteModel> get copyWith => __$WaypointR
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.anchorPosition, anchorPosition) || other.anchorPosition == anchorPosition)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,position,title,poiCategory,description);
+    return Object.hash(runtimeType,id,position,anchorPosition,title,poiCategory,description);
 }
 
 @override
 String toString() {
-    return 'WaypointRemoteModel(id: $id, position: $position, title: $title, poiCategory: $poiCategory, description: $description)';
+    return 'WaypointRemoteModel(id: $id, position: $position, anchorPosition: $anchorPosition, title: $title, poiCategory: $poiCategory, description: $description)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$WaypointRemoteModelCopyWith<$Res> implements $WaypointRem
   factory _$WaypointRemoteModelCopyWith(_WaypointRemoteModel value, $Res Function(_WaypointRemoteModel) _then) = __$WaypointRemoteModelCopyWithImpl;
 @override @useResult
 $Res call({
- WaypointId id, LatLng position, String title, PoiCategory poiCategory, String description
+ WaypointId id, LatLng position, double anchorPosition, String title, PoiCategory poiCategory, String description
 });
 
 
@@ -274,11 +276,12 @@ class __$WaypointRemoteModelCopyWithImpl<$Res>
 
 /// Create a copy of WaypointRemoteModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? position = null,Object? title = null,Object? poiCategory = null,Object? description = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? position = null,Object? anchorPosition = null,Object? title = null,Object? poiCategory = null,Object? description = null,}) {
   return _then(_WaypointRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as WaypointId,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as LatLng,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as LatLng,anchorPosition: null == anchorPosition ? _self.anchorPosition : anchorPosition // ignore: cast_nullable_to_non_nullable
+as double,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,
@@ -291,7 +294,7 @@ as String,
 /// @nodoc
 mixin _$WaypointPatchModel {
 
- WaypointId get id; LatLng get position; String get title; PoiCategory get poiCategory; String get description; bool get recomputing; Object? get error;
+ WaypointId get id; LatLng get position; String get title; PoiCategory get poiCategory; double get anchorPosition; String get description; bool get recomputing; Object? get error;
 /// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -303,20 +306,20 @@ $WaypointPatchModelCopyWith<WaypointPatchModel> get copyWith => _$WaypointPatchM
 @override
 bool operator ==(Object other) {
   final _this = this as WaypointPatchModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointPatchModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.poiCategory, _this.poiCategory) || other.poiCategory == _this.poiCategory)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.recomputing, _this.recomputing) || other.recomputing == _this.recomputing)&&const DeepCollectionEquality().equals(other.error, _this.error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointPatchModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.poiCategory, _this.poiCategory) || other.poiCategory == _this.poiCategory)&&(identical(other.anchorPosition, _this.anchorPosition) || other.anchorPosition == _this.anchorPosition)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.recomputing, _this.recomputing) || other.recomputing == _this.recomputing)&&const DeepCollectionEquality().equals(other.error, _this.error));
 }
 
 
 @override
 int get hashCode {
   final _this = this as WaypointPatchModel;
-  return Object.hash(runtimeType,_this.id,_this.position,_this.title,_this.poiCategory,_this.description,_this.recomputing,const DeepCollectionEquality().hash(_this.error));
+  return Object.hash(runtimeType,_this.id,_this.position,_this.title,_this.poiCategory,_this.anchorPosition,_this.description,_this.recomputing,const DeepCollectionEquality().hash(_this.error));
 }
 
 @override
 String toString() {
   final _this = this as WaypointPatchModel;
-  return 'WaypointPatchModel(id: ${_this.id}, position: ${_this.position}, title: ${_this.title}, poiCategory: ${_this.poiCategory}, description: ${_this.description}, recomputing: ${_this.recomputing}, error: ${_this.error})';
+  return 'WaypointPatchModel(id: ${_this.id}, position: ${_this.position}, title: ${_this.title}, poiCategory: ${_this.poiCategory}, anchorPosition: ${_this.anchorPosition}, description: ${_this.description}, recomputing: ${_this.recomputing}, error: ${_this.error})';
 }
 
 
@@ -327,7 +330,7 @@ abstract mixin class $WaypointPatchModelCopyWith<$Res>  {
   factory $WaypointPatchModelCopyWith(WaypointPatchModel value, $Res Function(WaypointPatchModel) _then) = _$WaypointPatchModelCopyWithImpl;
 @useResult
 $Res call({
- WaypointId id, LatLng position, String title, PoiCategory poiCategory, String description, bool recomputing, Object? error
+ WaypointId id, LatLng position, String title, PoiCategory poiCategory, double anchorPosition, String description, bool recomputing, Object? error
 });
 
 
@@ -344,11 +347,12 @@ class _$WaypointPatchModelCopyWithImpl<$Res>
 
 /// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? position = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? recomputing = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? position = null,Object? title = null,Object? poiCategory = null,Object? anchorPosition = null,Object? description = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(WaypointPatchModel(
 id: freezed == id ? _self.id! : id // ignore: cast_nullable_to_non_nullable
 as WaypointId?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as LatLng,title: freezed == title ? _self.title! : title // ignore: cast_nullable_to_non_nullable
+as LatLng,anchorPosition: null == anchorPosition ? _self.anchorPosition : anchorPosition // ignore: cast_nullable_to_non_nullable
+as double,title: freezed == title ? _self.title! : title // ignore: cast_nullable_to_non_nullable
 as String?,poiCategory: freezed == poiCategory ? _self.poiCategory! : poiCategory // ignore: cast_nullable_to_non_nullable
 as PoiCategory?,description: freezed == description ? _self.description! : description // ignore: cast_nullable_to_non_nullable
 as String?,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
@@ -437,10 +441,10 @@ return internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  double anchorPosition,  String description,  bool recomputing,  Object? error)?  internal,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WaypointPatchModel() when internal != null:
-return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.description,_that.recomputing,_that.error);case _:
+return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.anchorPosition,_that.description,_that.recomputing,_that.error);case _:
   return orElse();
 
 }
@@ -458,10 +462,10 @@ return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)  internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  double anchorPosition,  String description,  bool recomputing,  Object? error)  internal,}) {final _that = this;
 switch (_that) {
 case _WaypointPatchModel():
-return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.description,_that.recomputing,_that.error);case _:
+return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.anchorPosition,_that.description,_that.recomputing,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -478,10 +482,10 @@ return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.desc
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  String description,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( WaypointId id,  LatLng position,  String title,  PoiCategory poiCategory,  double anchorPosition,  String description,  bool recomputing,  Object? error)?  internal,}) {final _that = this;
 switch (_that) {
 case _WaypointPatchModel() when internal != null:
-return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.description,_that.recomputing,_that.error);case _:
+return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.anchorPosition,_that.description,_that.recomputing,_that.error);case _:
   return null;
 
 }
@@ -493,13 +497,14 @@ return internal(_that.id,_that.position,_that.title,_that.poiCategory,_that.desc
 
 
 class _WaypointPatchModel extends WaypointPatchModel implements Patch<WaypointRemoteModel> {
-  const _WaypointPatchModel({required this.id, required this.position, required this.title, required this.poiCategory, required this.description, required this.recomputing, this.error}): super._();
+  const _WaypointPatchModel({required this.id, required this.position, required this.title, required this.poiCategory, required this.anchorPosition, required this.description, required this.recomputing, this.error}): super._();
   
 
 @override final  WaypointId id;
 @override final  LatLng position;
 @override final  String title;
 @override final  PoiCategory poiCategory;
+@override final  double anchorPosition;
 @override final  String description;
 @override final  bool recomputing;
 @override final  Object? error;
@@ -514,18 +519,18 @@ _$WaypointPatchModelCopyWith<_WaypointPatchModel> get copyWith => __$WaypointPat
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaypointPatchModel&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.title, title) || other.title == title)&&(identical(other.poiCategory, poiCategory) || other.poiCategory == poiCategory)&&(identical(other.anchorPosition, anchorPosition) || other.anchorPosition == anchorPosition)&&(identical(other.description, description) || other.description == description)&&(identical(other.recomputing, recomputing) || other.recomputing == recomputing)&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,position,title,poiCategory,description,recomputing,const DeepCollectionEquality().hash(error));
+    return Object.hash(runtimeType,id,position,title,poiCategory,anchorPosition,description,recomputing,const DeepCollectionEquality().hash(error));
 }
 
 @override
 String toString() {
-    return 'WaypointPatchModel.internal(id: $id, position: $position, title: $title, poiCategory: $poiCategory, description: $description, recomputing: $recomputing, error: $error)';
+    return 'WaypointPatchModel.internal(id: $id, position: $position, title: $title, poiCategory: $poiCategory, anchorPosition: $anchorPosition, description: $description, recomputing: $recomputing, error: $error)';
 }
 
 
@@ -536,7 +541,7 @@ abstract mixin class _$WaypointPatchModelCopyWith<$Res> implements $WaypointPatc
   factory _$WaypointPatchModelCopyWith(_WaypointPatchModel value, $Res Function(_WaypointPatchModel) _then) = __$WaypointPatchModelCopyWithImpl;
 @override @useResult
 $Res call({
- WaypointId id, LatLng position, String title, PoiCategory poiCategory, String description, bool recomputing, Object? error
+ WaypointId id, LatLng position, String title, PoiCategory poiCategory, double anchorPosition, String description, bool recomputing, Object? error
 });
 
 
@@ -553,13 +558,14 @@ class __$WaypointPatchModelCopyWithImpl<$Res>
 
 /// Create a copy of WaypointPatchModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? position = null,Object? title = null,Object? poiCategory = null,Object? description = null,Object? recomputing = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? position = null,Object? title = null,Object? poiCategory = null,Object? anchorPosition = null,Object? description = null,Object? recomputing = null,Object? error = freezed,}) {
   return _then(_WaypointPatchModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as WaypointId,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
 as LatLng,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,poiCategory: null == poiCategory ? _self.poiCategory : poiCategory // ignore: cast_nullable_to_non_nullable
-as PoiCategory,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as PoiCategory,anchorPosition: null == anchorPosition ? _self.anchorPosition : anchorPosition // ignore: cast_nullable_to_non_nullable
+as double,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,recomputing: null == recomputing ? _self.recomputing : recomputing // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error ,
   ));

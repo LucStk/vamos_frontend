@@ -1,4 +1,4 @@
-import 'package:domain_core/id.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 part 'trip.freezed.dart';

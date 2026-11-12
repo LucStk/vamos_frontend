@@ -204,3 +204,79 @@ class GSetTripOriginVars {
     return 'GSetTripOriginVars(id: $id, origin: $origin)';
   }
 }
+
+class GSaveTripVars {
+  const GSaveTripVars({required this.tripId});
+
+  factory GSaveTripVars.fromJson(Map<String, dynamic> json) {
+    return GSaveTripVars(tripId: (json['tripId'] as String));
+  }
+
+  final String tripId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    return _$result;
+  }
+
+  GSaveTripVars copyWith({String? tripId}) {
+    return GSaveTripVars(tripId: tripId ?? this.tripId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSaveTripVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSaveTripVars(tripId: $tripId)';
+  }
+}
+
+class GUnSaveTripVars {
+  const GUnSaveTripVars({required this.tripId});
+
+  factory GUnSaveTripVars.fromJson(Map<String, dynamic> json) {
+    return GUnSaveTripVars(tripId: (json['tripId'] as String));
+  }
+
+  final String tripId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    return _$result;
+  }
+
+  GUnSaveTripVars copyWith({String? tripId}) {
+    return GUnSaveTripVars(tripId: tripId ?? this.tripId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUnSaveTripVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GUnSaveTripVars(tripId: $tripId)';
+  }
+}

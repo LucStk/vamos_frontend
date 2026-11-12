@@ -6,14 +6,18 @@ class TripBundle {
   TripBundle({
     required this.tripSummary,
     required this.route,
-    required this.routeSections,
+    required this.mobilitySpans,
+    required this.editSpans,
     required this.user,
+    required this.waypoints,
   });
 
   final UserProfile user;
   final TripSummary tripSummary;
   final RouteRemoteModel? route;
-  final Iterable<RouteSectionRemoteModel> routeSections;
+  final Iterable<MobilitySpanRemoteModel> mobilitySpans;
+  final Iterable<EditSpan> editSpans;
+  final Iterable<WaypointPayload> waypoints;
 }
 
 class TripSummary {

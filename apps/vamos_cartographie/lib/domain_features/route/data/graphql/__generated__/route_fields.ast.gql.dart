@@ -11,11 +11,11 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__ge
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
     as _i3;
 
-const RouteSection = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'RouteSection'),
+const MobilitySpan = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'MobilitySpan'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'RouteSectionType'),
+    name: _i1.NameNode(value: 'MobilitySpanType'),
     isNonNull: false,
   )),
   directives: [],
@@ -42,7 +42,7 @@ const RouteSection = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'geometrySource'),
+      name: _i1.NameNode(value: 'lengthM'),
       alias: null,
       arguments: [],
       directives: [],
@@ -57,17 +57,116 @@ const RouteSection = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const PreviewSection = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'PreviewSection'),
+const Bounds = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'Bounds'),
   typeCondition: _i1.TypeConditionNode(
       on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'PreviewSectionType'),
+    name: _i1.NameNode(value: 'BoundsType'),
     isNonNull: false,
   )),
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'isNew'),
+      name: _i1.NameNode(value: 'minLng'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'minLat'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'maxLng'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'maxLat'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const EditSpan = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'EditSpan'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'EditSpanType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'startIndex'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'editId'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'geometrySource'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'lengthM'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const PreviewMobilitySpan = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'PreviewMobilitySpan'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'PreviewMobilitySpanType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'id'),
       alias: null,
       arguments: [],
       directives: [],
@@ -88,7 +187,53 @@ const PreviewSection = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const PreviewEditSpan = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'PreviewEditSpan'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'PreviewEditSpanType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'startIndex'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'editId'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
       name: _i1.NameNode(value: 'geometrySource'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'isNew'),
       alias: null,
       arguments: [],
       directives: [],
@@ -131,7 +276,19 @@ const TripRoute = _i1.FragmentDefinitionNode(
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'Bounds'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'startPoint'),
@@ -172,13 +329,54 @@ const TripRoute = _i1.FragmentDefinitionNode(
       ]),
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'sections'),
+      name: _i1.NameNode(value: 'mobilitySpans'),
       alias: null,
       arguments: [],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FragmentSpreadNode(
-          name: _i1.NameNode(value: 'RouteSection'),
+          name: _i1.NameNode(value: 'MobilitySpan'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const TripRouteEditing = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'TripRouteEditing'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'TripType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FragmentSpreadNode(
+      name: _i1.NameNode(value: 'TripRoute'),
+      directives: [],
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'editSpans'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'EditSpan'),
           directives: [],
         ),
         _i1.FieldNode(
@@ -237,7 +435,7 @@ const EditRouteResult = _i1.FragmentDefinitionNode(
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'TripRoute'),
+              name: _i1.NameNode(value: 'TripRouteEditing'),
               directives: [],
             ),
             _i1.FieldNode(
@@ -342,13 +540,32 @@ const RoutePreviewResult = _i1.FragmentDefinitionNode(
           ]),
         ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'sections'),
+          name: _i1.NameNode(value: 'mobilitySpans'),
           alias: null,
           arguments: [],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FragmentSpreadNode(
-              name: _i1.NameNode(value: 'PreviewSection'),
+              name: _i1.NameNode(value: 'PreviewMobilitySpan'),
+              directives: [],
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'editSpans'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FragmentSpreadNode(
+              name: _i1.NameNode(value: 'PreviewEditSpan'),
               directives: [],
             ),
             _i1.FieldNode(
@@ -410,14 +627,17 @@ const RoutePreviewResult = _i1.FragmentDefinitionNode(
   ]),
 );
 const document = _i1.DocumentNode(definitions: [
-  RouteSection,
-  PreviewSection,
+  MobilitySpan,
+  Bounds,
+  EditSpan,
+  PreviewMobilitySpan,
+  PreviewEditSpan,
   TripRoute,
+  TripRouteEditing,
   EditRouteResult,
   RoutePreviewResult,
   _i2.LatLng,
   _i3.WaypointDetails,
-  _i3.WaypointAnchor,
   _i4.StoredFile,
   _i4.FileAttachment,
   _i4.UploadConfigFields,

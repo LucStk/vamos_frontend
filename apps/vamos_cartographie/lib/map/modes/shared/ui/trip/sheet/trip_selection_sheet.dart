@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/map/interaction/mode_machine.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/ui/features/segment/sheet/segment_bottom_sheet_view.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/sheet/waypoint_bottom_sheet.dart';
 
@@ -28,7 +28,7 @@ class TripSelectionSheet extends ConsumerWidget {
         tripId: tripId,
         waypointId: v.id,
       ),
-      MapSection s => SegmentBottomSheet(
+      MapMobilitySpan s => SegmentBottomSheet(
         key: ValueKey(s.id),
         tripId: s.tripId,
         segmentId: s.id,

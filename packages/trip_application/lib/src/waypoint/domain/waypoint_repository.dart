@@ -12,7 +12,7 @@ abstract class WaypointRepository {
 
   // Future<Either<Failure, Iterable<WaypointPayload>>> getWaypoints(TripId id);
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
-    WaypointRemoteModel waypoint,
+    WaypointFields waypoint,
   );
 
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id);

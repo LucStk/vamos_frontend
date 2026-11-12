@@ -5,9 +5,8 @@ import 'package:vamos_cartographie/domain_features/trip/presentation/presentatio
 import 'package:vamos_cartographie/ui_kit/type_selector/type_selector_view.dart';
 
 class SegmentEditor extends ConsumerStatefulWidget {
-  final RouteSectionFields initialSegment;
-  final Future<void> Function(WidgetRef ref, RouteSectionFields segment)
-  onSubmit;
+  final MobilitySpanRemoteModel initialSegment;
+  final Future<void> Function(WidgetRef ref, RouteSpanFields segment) onSubmit;
   final String successMessage;
   const SegmentEditor({
     super.key,
@@ -21,15 +20,15 @@ class SegmentEditor extends ConsumerStatefulWidget {
 }
 
 class _SegmentEditorState extends ConsumerState<SegmentEditor> {
-  late RouteSectionPatchModel currentSegment; // Accessible par la GlobalKey
+  late MobilitySpanPatchModel currentSegment; // Accessible par la GlobalKey
 
   @override
   void initState() {
     super.initState();
-    currentSegment = RouteSectionPatchModel.fromFields(widget.initialSegment);
+    currentSegment = MobilitySpanPatchModel.fromFields(widget.initialSegment);
   }
 
-  void _submit(RouteSectionPatchModel newSegment) async {
+  void _submit(MobilitySpanPatchModel newSegment) async {
     try {
       await widget.onSubmit(ref, newSegment);
 

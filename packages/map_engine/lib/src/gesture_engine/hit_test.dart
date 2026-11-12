@@ -1,6 +1,5 @@
-import 'package:domain_core/space/offset_type.dart';
-import 'package:map_engine/src/domain/map_hit.dart';
-import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:domain_core/domain_core.dart';
+import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 
 // input/hit_tester.dart
@@ -10,6 +9,8 @@ abstract interface class HitTester {
     MapObject? exclude,
     bool dropTargetsOnly = false,
   });
+
+  DragDetail? dragDetail(MapObject dragged, WorldOffset p);
 }
 
 abstract interface class GestureSink {

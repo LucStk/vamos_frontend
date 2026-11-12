@@ -62,55 +62,67 @@ abstract class _$ProfileStoreNotifier extends $Notifier<ProfileStore> {
   }
 }
 
-@ProviderFor(userProfile)
-final userProfileProvider = UserProfileFamily._();
+/// Profil d'un utilisateur, chargé à distance s'il n'est pas déjà en store.
+/// Les profils arrivent normalement avec les voyages (fragment
+/// UserProfileDetails) ; ce provider couvre l'accès direct, par exemple
+/// l'ouverture d'un profil depuis un lien.
 
-final class UserProfileProvider
-    extends $FunctionalProvider<UserProfile?, UserProfile?, UserProfile?>
-    with $Provider<UserProfile?> {
-  UserProfileProvider._({
-    required UserProfileFamily super.from,
+@ProviderFor(userProfileAsync)
+final userProfileAsyncProvider = UserProfileAsyncFamily._();
+
+/// Profil d'un utilisateur, chargé à distance s'il n'est pas déjà en store.
+/// Les profils arrivent normalement avec les voyages (fragment
+/// UserProfileDetails) ; ce provider couvre l'accès direct, par exemple
+/// l'ouverture d'un profil depuis un lien.
+
+final class UserProfileAsyncProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<UserProfile?>,
+          UserProfile?,
+          FutureOr<UserProfile?>
+        >
+    with $FutureModifier<UserProfile?>, $FutureProvider<UserProfile?> {
+  /// Profil d'un utilisateur, chargé à distance s'il n'est pas déjà en store.
+  /// Les profils arrivent normalement avec les voyages (fragment
+  /// UserProfileDetails) ; ce provider couvre l'accès direct, par exemple
+  /// l'ouverture d'un profil depuis un lien.
+  UserProfileAsyncProvider._({
+    required UserProfileAsyncFamily super.from,
     required UserId super.argument,
   }) : super(
          retry: null,
-         name: r'userProfileProvider',
+         name: r'userProfileAsyncProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$userProfileHash();
+  String debugGetCreateSourceHash() => _$userProfileAsyncHash();
 
   @override
   String toString() {
-    return r'userProfileProvider'
+    return r'userProfileAsyncProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $ProviderElement<UserProfile?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $FutureProviderElement<UserProfile?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  UserProfile? create(Ref ref) {
+  FutureOr<UserProfile?> create(Ref ref) {
     final argument = this.argument as UserId;
-    return userProfile(ref, argument);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(UserProfile? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<UserProfile?>(value),
-    );
+    return userProfileAsync(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is UserProfileProvider && other.argument == argument;
+    return other is UserProfileAsyncProvider && other.argument == argument;
   }
 
   @override
@@ -119,22 +131,32 @@ final class UserProfileProvider
   }
 }
 
-String _$userProfileHash() => r'12c541a0adb4efc2e7be8b551783f39ca33d479b';
+String _$userProfileAsyncHash() => r'63a5e1cd01846bfeff681b01882018648d62bcd9';
 
-final class UserProfileFamily extends $Family
-    with $FunctionalFamilyOverride<UserProfile?, UserId> {
-  UserProfileFamily._()
+/// Profil d'un utilisateur, chargé à distance s'il n'est pas déjà en store.
+/// Les profils arrivent normalement avec les voyages (fragment
+/// UserProfileDetails) ; ce provider couvre l'accès direct, par exemple
+/// l'ouverture d'un profil depuis un lien.
+
+final class UserProfileAsyncFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<UserProfile?>, UserId> {
+  UserProfileAsyncFamily._()
     : super(
         retry: null,
-        name: r'userProfileProvider',
+        name: r'userProfileAsyncProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  UserProfileProvider call(UserId id) =>
-      UserProfileProvider._(argument: id, from: this);
+  /// Profil d'un utilisateur, chargé à distance s'il n'est pas déjà en store.
+  /// Les profils arrivent normalement avec les voyages (fragment
+  /// UserProfileDetails) ; ce provider couvre l'accès direct, par exemple
+  /// l'ouverture d'un profil depuis un lien.
+
+  UserProfileAsyncProvider call(UserId id) =>
+      UserProfileAsyncProvider._(argument: id, from: this);
 
   @override
-  String toString() => r'userProfileProvider';
+  String toString() => r'userProfileAsyncProvider';
 }

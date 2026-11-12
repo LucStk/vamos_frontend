@@ -119,3 +119,41 @@ class GGetUserTripsSummaryVars {
     return 'GGetUserTripsSummaryVars(id: $id)';
   }
 }
+
+class GGetUserSavedTripsVars {
+  const GGetUserSavedTripsVars({required this.userId});
+
+  factory GGetUserSavedTripsVars.fromJson(Map<String, dynamic> json) {
+    return GGetUserSavedTripsVars(userId: (json['userId'] as String));
+  }
+
+  final String userId;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$userIdValue = this.userId;
+    _$result['userId'] = _$userIdValue;
+    return _$result;
+  }
+
+  GGetUserSavedTripsVars copyWith({String? userId}) {
+    return GGetUserSavedTripsVars(userId: userId ?? this.userId);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GGetUserSavedTripsVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GGetUserSavedTripsVars(userId: $userId)';
+  }
+}

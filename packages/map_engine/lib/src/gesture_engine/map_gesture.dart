@@ -1,5 +1,7 @@
 // domain/gestures/map_gesture.dart
-import 'package:domain_core/space/offset_type.dart';
+import 'package:domain_core/domain_core.dart';
+import 'package:map_engine/src/domain/drag_detail.dart';
+
 import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_pointer_event.dart';
@@ -116,11 +118,13 @@ sealed class DragTrackingGesture extends DragGesture {
     required super.source,
     required super.pressPosition,
     required this.target,
+    required this.detail,
   });
 
   /// Objet sous le pointeur (hors source déplacée et hors proxys),
   /// `null` si le pointeur est sur la carte vide.
   final HitObject? target;
+  final DragDetail? detail;
 }
 
 final class DragUpdateGesture extends DragTrackingGesture {
@@ -129,6 +133,7 @@ final class DragUpdateGesture extends DragTrackingGesture {
     required super.source,
     required super.pressPosition,
     required super.target,
+    required super.detail,
   });
 }
 
@@ -138,5 +143,6 @@ final class DragEndGesture extends DragTrackingGesture {
     required super.source,
     required super.pressPosition,
     required super.target,
+    required super.detail,
   });
 }

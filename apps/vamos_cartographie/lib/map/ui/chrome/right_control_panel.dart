@@ -18,7 +18,7 @@ class MapControls extends ConsumerWidget {
 
     return Positioned(
       right: 12,
-      bottom: 120,
+      top: 200,
       child: Column(
         children: [
           CameraButtonsControl(),

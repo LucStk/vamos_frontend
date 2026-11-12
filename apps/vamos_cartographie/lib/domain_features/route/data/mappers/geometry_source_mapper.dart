@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/core/errors/mapping_failure.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 
 extension GGeometrySourceMapper on GGeometrySource {
-  GeometrySource toDomain() => switch (this) {
+  GeometrySource toGeometrySourceDomain() => switch (this) {
     GGeometrySource.COMPUTED => GeometrySource.computed,
     GGeometrySource.DRAWN => GeometrySource.drawn,
     GGeometrySource.gUnknownEnumValue => throw MappingFailure.unknownEnumValue(

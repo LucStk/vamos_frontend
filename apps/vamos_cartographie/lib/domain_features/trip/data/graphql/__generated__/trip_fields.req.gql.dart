@@ -107,8 +107,11 @@ class GTripFullReq implements _i1.FragmentRequest<_i2.GTripFullData, Null> {
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.TripSummary,
     _i4.TripFull,
-    _i7.RouteSection,
+    _i7.MobilitySpan,
+    _i7.Bounds,
+    _i7.EditSpan,
     _i7.TripRoute,
+    _i7.TripRouteEditing,
     _i8.LatLng,
     _i9.WaypointDetails,
     _i5.StoredFile,

@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart' hide id;
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/core/mappers/geometry_mappers/geo_polygon_dto.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/graphql.dart';
@@ -11,37 +9,51 @@ import 'package:vamos_cartographie/domain_features/route/data/mappers/geometry_s
 import 'package:vamos_cartographie/domain_features/route/data/mappers/mobility_type_mapper.dart';
 import 'package:vamos_cartographie/domain_features/route/data/route_failures.dart';
 
-extension GeoPolygoneMapper on GeoPolygonDto {
-  MapLatLngBounds toBounds() => MapLatLngBounds.fromPoints(
-    rings.expand((ring) => ring).map((c) => LatLng(c[1], c[0])),
-  );
-}
-
-extension RouteSectionMapper on GRouteSection {
-  RouteSectionRemoteModel toDomain() => RouteSectionRemoteModel(
-    id: SectionId(id),
-    startIndex: startIndex,
-    mobilityType: mobilityType.toDomain(),
-  );
-}
-
-extension GTripRouteFieldsMapper on GTripRoute {
-  RouteRemoteModel toRouteModel() => RouteRemoteModel(
-    geometry: route.toDomain(),
-    startPoint: startPoint.toLatLng(),
-    id: TripId(id),
-    bounds: bounds?.toBounds(),
-  );
-  RoutePayload toDomain() {
-    return RoutePayload(
-      route: toRouteModel(),
-      sections: sections.map((m) => m.toDomain()).toList(),
+extension BoundsMapper on GBounds {
+  /// Emprise du serveur (min/max) vers les quatre bords de la carte.
+  MapLatLngBounds toMapBounds() {
+    assert(
+      minLat <= maxLat && minLng <= maxLng,
+      'emprise incohérente : $minLng,$minLat → $maxLng,$maxLat',
+    );
+    return MapLatLngBounds(
+      north: maxLat,
+      south: minLat,
+      east: maxLng,
+      west: minLng,
     );
   }
+}
 
+extension RouteSectionMapper on GMobilitySpan {
+  MobilitySpanRemoteModel toMobilityDomain() => MobilitySpanRemoteModel(
+    id: MobilitySpanId(id),
+    startIndex: startIndex,
+    mobilityType: mobilityType.toMobilityDomain(),
+  );
+}
+
+extension EditSpanMapper on GEditSpan {
+  EditSpan toEditSpanDomain() => EditSpan(
+    id: MobilitySpanId(id),
+    startIndex: startIndex,
+    editId: EditId(editId),
+    lengthM: lengthM,
+    geometrySource: geometrySource.toGeometrySourceDomain(),
+  );
+}
+
+extension GTripRouteEditingMapper on GTripRouteEditing {
+  RouteRemoteModel toRouteModel() => RouteRemoteModel(
+    geometry: route.map((m) => m.toLatLng()).toList(),
+    startPoint: startPoint.toLatLng(),
+    id: TripId(id),
+    bounds: bounds?.toMapBounds(),
+  );
   EditRoutePayload toEditRoutePayload() => EditRoutePayload(
     route: toRouteModel(),
-    sections: sections.map((m) => m.toDomain()).toList(),
+    editSpans: editSpans.map((m) => m.toEditSpanDomain()),
+    mobilitySpans: mobilitySpans.map((m) => m.toMobilityDomain()),
   );
 }
 
@@ -57,12 +69,21 @@ extension GEditRouteResultMapper on GEditRouteResult {
   };
 }
 
-extension GPreviewSectionDataMapper on GPreviewSection {
-  PreviewSection toDomain() => PreviewSection(
+extension GPreviewEditSpanMapper on GPreviewEditSpan {
+  PreviewEditSpan toDomain() => PreviewEditSpan(
     isNew: isNew,
-    mobilityType: mobilityType.toDomain(),
+    editId: EditId(editId),
+    id: (id != null) ? Id(id!) : null,
     startIndex: startIndex,
-    geometrySource: geometrySource.toDomain(),
+    geometrySource: geometrySource.toGeometrySourceDomain(),
+  );
+}
+
+extension GPreviewMobilitySpanMapper on GPreviewMobilitySpan {
+  PreviewMobilitySpan toDomain() => PreviewMobilitySpan(
+    id: (id != null) ? Id(id!) : null,
+    startIndex: startIndex,
+    mobilityType: mobilityType.toMobilityDomain(),
   );
 }
 
@@ -72,7 +93,8 @@ extension GRoutePreviewResultMapper on GRoutePreviewResult {
       PreviewRoutePayload(
         coordinates: e.coordinates.toDomain(),
         proposalId: Id(e.proposalId),
-        sections: e.sections.map((m) => m.toDomain()).toList(),
+        editSpans: e.editSpans.map((m) => m.toDomain()),
+        mobilitySpans: e.mobilitySpans.map((m) => m.toDomain()),
       ),
     ),
     GRoutePreviewResultData__asEditRouteError e => Left(

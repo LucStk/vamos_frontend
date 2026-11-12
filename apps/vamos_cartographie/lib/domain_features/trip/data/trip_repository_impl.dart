@@ -27,13 +27,15 @@ class TripRepositoryImpl extends TripRepository {
         final trip = gqlTrip.toTripDomain();
         final images = gqlTrip.files.map((file) => file.toDomain()).toList();
         final userProfile = gqlTrip.owner.toUserProfileModel();
-        final route = gqlTrip.toRouteDomain();
-        final sections = gqlTrip.toSections();
+        final routePayload = gqlTrip.toRoutePayload();
+        final waypoints = gqlTrip.toWaypointsPayload();
         return TripBundle(
           user: userProfile,
           tripSummary: TripSummary(trip: trip, storedFiles: images),
-          route: route,
-          routeSections: sections,
+          route: routePayload.route,
+          editSpans: routePayload.editSpans,
+          mobilitySpans: routePayload.mobilitySpans,
+          waypoints: waypoints,
         );
       }).toList();
     });
@@ -46,13 +48,15 @@ class TripRepositoryImpl extends TripRepository {
       final trip = data.toTripDomain();
       final images = data.files.map((file) => file.toDomain()).toList();
       final userProfile = data.owner.toUserProfileModel();
-      final route = data.toRouteDomain();
-      final sections = data.toSections();
+      final route = data.toRoutePayload();
+      final waypoints = data.toWaypointsPayload();
       return TripBundle(
         user: userProfile,
         tripSummary: TripSummary(trip: trip, storedFiles: images),
-        route: route,
-        routeSections: sections,
+        route: route.route,
+        editSpans: route.editSpans,
+        mobilitySpans: route.mobilitySpans,
+        waypoints: waypoints,
       );
     });
   }
@@ -126,6 +130,30 @@ class TripRepositoryImpl extends TripRepository {
   Future<Either<Failure, void>> setTripOrigin(Id<Trip> id, LatLng origin) {
     return guardRouteEdit(() async {
       await remote.setTripOrigin(id: id, origin: origin);
+    });
+  }
+
+  @override
+  Future<Either<Failure, List<TripSummary>>> getFavoriteTrips(UserId userId) {
+    return guard(() async {
+      final res = await remote.getUserSavedTrips(userId);
+      return res.map((m) => m.toTripSummary()).toList();
+    });
+  }
+
+  @override
+  Future<Either<Failure, TripSummary>> addFavorite(TripId tripId) {
+    return guard(() async {
+      final res = await remote.saveTrip(tripId);
+      return res.toTripSummary();
+    });
+  }
+
+  @override
+  Future<Either<Failure, TripSummary>> removeFavorite(TripId tripId) {
+    return guard(() async {
+      final res = await remote.unSaveTrip(tripId);
+      return res.toTripSummary();
     });
   }
 }

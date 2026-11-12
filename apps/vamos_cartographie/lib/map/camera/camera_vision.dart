@@ -1,5 +1,5 @@
 // domain/camera_vision.dart
-import 'package:domain_core/map_geo_bounds.dart';
+import 'package:domain_core/domain_core.dart';
 
 class CameraVision {
   const CameraVision({required this.bounds});

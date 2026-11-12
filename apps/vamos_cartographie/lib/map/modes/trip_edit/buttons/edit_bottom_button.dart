@@ -5,51 +5,33 @@ class EditBottomButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.tooltipText,
+    this.icon = Icons.route,
   });
 
   final VoidCallback onPressed;
   final String tooltipText;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.22),
-                blurRadius: 12,
-                offset: const Offset(0, 5),
-              ),
-              BoxShadow(
-                color: Colors.yellow.withValues(alpha: 0.35),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: IconButton.filled(
-            onPressed: onPressed,
-            style: IconButton.styleFrom(
-              backgroundColor: Colors.yellow.withBlue(100),
-              foregroundColor: Theme.of(context).colorScheme.onError,
-              fixedSize: const Size(62, 62),
-              side: BorderSide(
-                color: Colors.yellow.withValues(alpha: 0.25),
-                width: 1.5,
-              ),
-            ),
-            icon: Icon(
-              Icons.route,
-              size: 24,
-              color: Colors.brown.withValues(alpha: 0.8),
-            ),
-            tooltip: tooltipText,
-          ),
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+
+    return FilledButton.tonalIcon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 18, color: scheme.primary),
+      label: Text(tooltipText),
+      style: FilledButton.styleFrom(
+        backgroundColor: scheme.surfaceContainerHigh,
+        foregroundColor: scheme.onSurface,
+        elevation: 1,
+        shadowColor: Colors.black.withValues(alpha: 0.25),
+        minimumSize: const Size(0, 40),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        textStyle: theme.textTheme.labelLarge,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: scheme.outlineVariant),
         ),
       ),
     );

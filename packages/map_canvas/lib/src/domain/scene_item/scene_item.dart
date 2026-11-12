@@ -1,6 +1,5 @@
 import 'dart:ui';
-import 'package:domain_core/space/offset_type.dart';
-import 'package:domain_core/space/world_segment.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:map_canvas/src/domain/draw_command/draw_command.dart';
 import 'package:map_canvas/src/domain/length.dart';
 import 'package:map_canvas/src/domain/map_paint_context.dart';
@@ -10,12 +9,21 @@ part "line_item.dart";
 part "point_item.dart";
 part "polyline_item.dart";
 
+/// Quelques paliers plutôt que des nombres libres : on raisonne en
+/// catégories, pas en valeurs.
+abstract final class ZIndex {
+  static const content = 0; // segments, tracés
+  static const marker = 10; // badges, départ, arrivée
+  static const overlay = 20; // surlignages d'édition
+  static const handle = 30; // curseurs, poignées
+}
+
 abstract class SceneItem {
   // const SceneItem(this.object, {required this.hitRadius, this.hitPriority = 0});
   MapObject get object;
   Length get hitRadius;
   Length get visualRadius;
-  int hitPriority = 0;
+  int get zIndex => ZIndex.content;
 
   bool get isHitTestable => object.isHitTestable;
   bool get isDraggable => object.isDraggable;
@@ -23,6 +31,8 @@ abstract class SceneItem {
 
   bool isHitAt(WorldOffset p, double zoomScale);
   WorldOffset hitPoint(WorldOffset p);
+  HitDetail? hitDetail(WorldOffset p) => null;
 
   DrawCommand toDrawCommand({MapPaintContext context});
+  DragDetail? dragDetail(WorldOffset p) => null;
 }

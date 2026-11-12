@@ -60,7 +60,7 @@ class RouteRemoteDatasource {
 
   Future<GEditRouteResult> refineSection({
     required Id<Trip> tripId,
-    required SectionId sectionId,
+    required SpanId sectionId,
   }) async {
     final data = await ferryClient.execute(
       GRefineSectionReq(
@@ -75,7 +75,7 @@ class RouteRemoteDatasource {
 
   Future<GEditRouteResult> setSectionMobility({
     required Id<Trip> tripId,
-    required SectionId sectionId,
+    required SpanId sectionId,
     required MobilityType mobilityType,
   }) async {
     final data = await ferryClient.execute(

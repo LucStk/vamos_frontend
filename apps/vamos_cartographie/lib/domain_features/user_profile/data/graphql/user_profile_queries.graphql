@@ -7,3 +7,20 @@ query GetMe {
         }
     }
 }
+
+query GetUser($userId: UUID!) {
+    user(userId: $userId) {
+        ...UserProfileDetails
+    }
+}
+
+query GetFollowers($userId: UUID!) {
+    followers(userId: $userId) {
+        ...UserProfileDetails
+    }
+}
+query GetFollowing($userId: UUID!) {
+    following(userId: $userId) {
+        ...UserProfileDetails
+    }
+}

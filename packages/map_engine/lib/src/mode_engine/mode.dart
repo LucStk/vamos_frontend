@@ -6,6 +6,7 @@ abstract class Mode {
   const Mode();
 
   Set<Slot> get retainedSlots => const {};
+  Iterable<SlotChange> get initialSlots => const [];
 
   Transition? dispatchGesture(MapGesture gesture) => switch (gesture) {
     PressGesture() => onPointerDown(gesture),

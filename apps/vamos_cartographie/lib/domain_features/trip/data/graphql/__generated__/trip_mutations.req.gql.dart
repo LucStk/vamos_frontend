@@ -568,8 +568,11 @@ class GSetTripOriginReq
 
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetTripOrigin,
-    _i10.RouteSection,
+    _i10.MobilitySpan,
+    _i10.Bounds,
+    _i10.EditSpan,
     _i10.TripRoute,
+    _i10.TripRouteEditing,
     _i10.EditRouteResult,
     _i11.LatLng,
   ]);
@@ -693,5 +696,341 @@ class GSetTripOriginReq
   @override
   String toString() {
     return 'GSetTripOriginReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GSaveTripReq
+    implements _i1.OperationRequest<_i2.GSaveTripData, _i3.GSaveTripVars> {
+  GSaveTripReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GSaveTripVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GSaveTripData? Function(
+    _i2.GSaveTripData?,
+    _i2.GSaveTripData?,
+  )? updateResult;
+
+  final _i2.GSaveTripData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.SaveTrip,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+    _i8.TripSummary,
+    _i9.UserProfileDetails,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'SaveTrip',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GSaveTripData? parseData(Map<String, dynamic> json) =>
+      _i2.GSaveTripData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GSaveTripData data) => data.toJson();
+
+  _i1.OperationRequest<_i2.GSaveTripData, _i3.GSaveTripVars> transformOperation(
+      _i4.Operation Function(_i4.Operation) transform) {
+    return GSaveTripReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GSaveTripReq copyWith({
+    _i3.GSaveTripVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GSaveTripData? Function(
+      _i2.GSaveTripData?,
+      _i2.GSaveTripData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GSaveTripData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GSaveTripReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSaveTripReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GSaveTripReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GUnSaveTripReq
+    implements _i1.OperationRequest<_i2.GUnSaveTripData, _i3.GUnSaveTripVars> {
+  GUnSaveTripReq({
+    required this.vars,
+    _i4.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i3.GUnSaveTripVars vars;
+
+  final _i4.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GUnSaveTripData? Function(
+    _i2.GUnSaveTripData?,
+    _i2.GUnSaveTripData?,
+  )? updateResult;
+
+  final _i2.GUnSaveTripData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i4.Context? context;
+
+  static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
+    _i6.UnSaveTrip,
+    _i7.StoredFile,
+    _i7.FileAttachment,
+    _i8.TripSummary,
+    _i9.UserProfileDetails,
+  ]);
+
+  static const _i4.Operation _operation = _i4.Operation(
+    document: _document,
+    operationName: 'UnSaveTrip',
+  );
+
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  _i2.GUnSaveTripData? parseData(Map<String, dynamic> json) =>
+      _i2.GUnSaveTripData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GUnSaveTripData data) => data.toJson();
+
+  _i1.OperationRequest<_i2.GUnSaveTripData, _i3.GUnSaveTripVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) {
+    return GUnSaveTripReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GUnSaveTripReq copyWith({
+    _i3.GUnSaveTripVars? vars,
+    _i4.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GUnSaveTripData? Function(
+      _i2.GUnSaveTripData?,
+      _i2.GUnSaveTripData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GUnSaveTripData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i4.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GUnSaveTripReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GUnSaveTripReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GUnSaveTripReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
   }
 }

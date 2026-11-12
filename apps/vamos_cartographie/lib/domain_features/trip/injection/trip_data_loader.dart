@@ -19,16 +19,17 @@ typedef IngestState = ({
   ProfileStore profiles,
   TripStore trips,
   StoredFilesByTrip files,
+  List<WaypointPayload> waypoints,
 });
 
-/// Ajoute un bundle à l'état accumulé. Pure : ne touche à aucun provider.
-/// `files` est mutée volontairement (évite une copie par trip).
 IngestState ingestTrip(IngestState state, TripBundle bundle) {
   state.files.add(bundle.tripSummary);
+  state.waypoints.addAll(bundle.waypoints); // mutée, comme `files`
   return (
     profiles: state.profiles.insertProfile(bundle.user),
     trips: state.trips.insertTrip(bundle.tripSummary.trip),
     files: state.files,
+    waypoints: state.waypoints,
   );
 }
 
@@ -38,28 +39,42 @@ void ingestTrips(Ref ref, Iterable<TripBundle> bundles) {
     profiles: ref.read(profileStoreProvider),
     trips: ref.read(tripStoreProvider),
     files: <TripSummary>[],
+    waypoints: <WaypointPayload>[],
   );
 
   for (final bundle in bundles) {
     state = ingestTrip(state, bundle);
+    final tripId = bundle.tripSummary.trip.id;
 
-    // Famille indexée par tripId : un notifier par trip, donc hors de l'accumulateur.
     ref
-        .read(routeStoreProvider(bundle.tripSummary.trip.id).notifier)
+        .read(routeStoreProvider(tripId).notifier)
         .emit(
           RouteStore.fromRemote(
             route: bundle.route,
-            sections: bundle.routeSections,
+            editSpans: bundle.editSpans,
+            mobilitySpans: bundle.mobilitySpans,
           ),
+        );
+
+    // Famille par tripId, comme la route. Même sans waypoint, on émet : un
+    // rechargement doit vider ceux qui ont disparu côté serveur.
+    ref
+        .read(waypointStoreProvider(tripId).notifier)
+        .emit(
+          WaypointStore.fromRemote(bundle.waypoints.map((p) => p.waypoint)),
         );
   }
 
-  // Une seule émission par store, après la boucle.
   ref.read(tripStoreProvider.notifier).emit(state.trips);
   ref.read(profileStoreProvider.notifier).emit(state.profiles);
   ref
       .read(storedFileStoreProvider.notifier)
-      .emit(ref.read(storedFileStoreProvider).upsertRemoteFiles(state.files));
+      .emit(
+        ref
+            .read(storedFileStoreProvider)
+            .upsertRemoteFiles(state.files)
+            .upsertWaypointImages(state.waypoints),
+      );
 }
 
 @Riverpod(keepAlive: true)

@@ -1,5 +1,5 @@
 // command/scopes.dart
-import 'package:domain_core/failures.dart';
+import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -24,5 +24,5 @@ abstract class TripScope {
   WaypointEditor get waypointEditor;
   RouteFields? get route;
   void patchRoute(RoutePatchModel value);
-  RouteSectionFields? section(SectionId id);
+  // RouteSpanFields? section(SpanId id);
 }

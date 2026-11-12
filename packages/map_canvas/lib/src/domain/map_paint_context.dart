@@ -1,31 +1,15 @@
-enum MapObjectVisualState { normal, selected, hovered, dragging }
+import 'visual_trait.dart';
 
+/// Ce qui change d'une frame à l'autre pour un objet, alors que l'item,
+/// lui, reste en cache.
 class MapPaintContext {
-  const MapPaintContext({
-    this.state = MapObjectVisualState.normal,
-    MapObjectVisualState? from,
-    this.t = 1.0,
-    this.previous,
-    this.time = 0,
-  }) : from = from ?? state;
+  const MapPaintContext({this.weights = VisualWeights.none, this.time = 0});
 
-  /// État vers lequel on transitionne (état stable si t == 1).
-  final MapObjectVisualState state;
-
-  /// État de départ de la transition en cours.
-  /// Ignoré si [previous] est non nul.
-  final MapObjectVisualState from;
-
-  /// Progression from → state. 0 = from, 1 = state.
-  final double t;
-
-  /// Transition interrompue, figée à son `t` d'interruption. Quand elle est
-  /// présente, le look de départ est son look résolu, pas `lookOf(from)` :
-  /// c'est ce qui évite le saut visuel.
-  final MapPaintContext? previous;
+  /// Poids animés des traits (hover, sélection, drag), déjà lissés par le
+  /// moteur : le style n'a qu'à composer.
+  final VisualWeights weights;
 
   /// Secondes écoulées, horloge continue pour les animations en boucle.
-  /// Vaut 0 quand aucune boucle ne tourne. Sans rapport avec [t], qui est
-  /// une transition finie.
+  /// Vaut 0 quand aucune boucle ne tourne.
   final double time;
 }
