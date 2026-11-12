@@ -82,7 +82,7 @@ abstract final class BadgeStyle {
       DrawAnchoredPath(
         anchor: anchor,
         path: GlyphPaths.anchored(glyph, sizePx: glyphPx),
-        style: glyphPaintSpec(glyph, _white, sizePx: glyphPx),
+        style: glyphStyle(glyph, _white, sizePx: glyphPx),
       ),
     ]);
   }

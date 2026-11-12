@@ -10,7 +10,7 @@ abstract final class EndpointStyle {
       DrawAnchoredPath(
         anchor: at,
         path: GlyphPaths.anchored(a.glyph, sizePx: px),
-        style: glyphPaintSpec(a.glyph, a.color, sizePx: px),
+        style: glyphStyle(a.glyph, a.color, sizePx: px),
       ),
       if (a.dotColor != null)
         DrawCircle(center: at, radius: 3.px, style: Fill(a.dotColor!)),
