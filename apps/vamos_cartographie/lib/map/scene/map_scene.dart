@@ -10,7 +10,7 @@ import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_scen
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/providers/span_bound_handle_provider.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/providers/selection_handle_provider.dart';
 import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoints_edit.dart';
-import 'package:vamos_cartographie/map/objects/annotation/providers/localization_item_provider.dart';
+import 'package:vamos_cartographie/map/objects/annotations/providers/localization_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';

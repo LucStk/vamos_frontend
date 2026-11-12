@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/objects/annotation/search_result_item.dart';
+import 'package:vamos_cartographie/map/objects/annotations/search_result_item.dart';
 
 part 'search_result_item_provider.g.dart';
 
