@@ -35,7 +35,18 @@ class ExploreUi extends ConsumerWidget {
                     Expanded(
                       child: PlaceSearchBar(
                         origin: () => ref.read(mapCameraProvider).center,
-                        onSelected: (r) {},
+                        onSelected: (r) {
+                          ref.applyTransition(
+                            Transition.set(
+                              searchResultMarkerSlot,
+                              SearchResultMarker(
+                                point: ref
+                                    .read(mapCameraProvider)
+                                    .latLngToWorldOffset(r.position),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
