@@ -57,52 +57,6 @@ const MobilitySpan = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const Bounds = _i1.FragmentDefinitionNode(
-  name: _i1.NameNode(value: 'Bounds'),
-  typeCondition: _i1.TypeConditionNode(
-      on: _i1.NamedTypeNode(
-    name: _i1.NameNode(value: 'BoundsType'),
-    isNonNull: false,
-  )),
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'minLng'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'minLat'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'maxLng'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'maxLat'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
-);
 const EditSpan = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'EditSpan'),
   typeCondition: _i1.TypeConditionNode(
@@ -628,7 +582,6 @@ const RoutePreviewResult = _i1.FragmentDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   MobilitySpan,
-  Bounds,
   EditSpan,
   PreviewMobilitySpan,
   PreviewEditSpan,
@@ -637,6 +590,7 @@ const document = _i1.DocumentNode(definitions: [
   EditRouteResult,
   RoutePreviewResult,
   _i2.LatLng,
+  _i2.Bounds,
   _i3.WaypointDetails,
   _i4.StoredFile,
   _i4.FileAttachment,

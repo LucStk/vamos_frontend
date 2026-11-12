@@ -61,12 +61,12 @@ class GRefineSectionReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.RefineSection,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -234,12 +234,12 @@ class GSetSectionMobilityReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetSectionMobility,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -408,12 +408,12 @@ class GSetRangeMobilityReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetRangeMobility,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -582,12 +582,12 @@ class GMoveMobilityBoundaryReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.MoveMobilityBoundary,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

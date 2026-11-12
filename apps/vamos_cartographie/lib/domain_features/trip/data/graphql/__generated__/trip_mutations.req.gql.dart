@@ -569,12 +569,12 @@ class GSetTripOriginReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetTripOrigin,
     _i10.MobilitySpan,
-    _i10.Bounds,
     _i10.EditSpan,
     _i10.TripRoute,
     _i10.TripRouteEditing,
     _i10.EditRouteResult,
     _i11.LatLng,
+    _i11.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

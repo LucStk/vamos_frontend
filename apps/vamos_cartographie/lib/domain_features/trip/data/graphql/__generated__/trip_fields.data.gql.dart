@@ -4,11 +4,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
-    as _i4;
+    as _i3;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.data.gql.dart'
-    as _i3;
+    as _i4;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.data.gql.dart'
@@ -136,15 +136,15 @@ abstract class GTripFull {
   String get G__typename;
   String? get routeUpdatedAt;
   _i3.GBounds? get bounds;
-  _i4.GLatLng get startPoint;
-  List<_i4.GLatLng> get route;
-  List<_i3.GMobilitySpan> get mobilitySpans;
-  List<_i3.GEditSpan> get editSpans;
+  _i3.GLatLng get startPoint;
+  List<_i3.GLatLng> get route;
+  List<_i4.GMobilitySpan> get mobilitySpans;
+  List<_i4.GEditSpan> get editSpans;
   List<_i5.GWaypointDetails> get waypoints;
 }
 
 class GTripFullData
-    implements GTripFull, GTripSummary, _i3.GTripRoute, _i3.GTripRouteEditing {
+    implements GTripFull, GTripSummary, _i4.GTripRoute, _i4.GTripRouteEditing {
   const GTripFullData({
     required this.id,
     required this.title,
@@ -181,18 +181,18 @@ class GTripFullData
       bounds: json['bounds'] == null
           ? null
           : _i3.GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
-      startPoint: _i4.GLatLngData.fromJson(
+      startPoint: _i3.GLatLngData.fromJson(
           (json['startPoint'] as Map<String, dynamic>)),
       route: (json['route'] as List<dynamic>)
-          .map((_$e) => _i4.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
+          .map((_$e) => _i3.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       mobilitySpans: (json['mobilitySpans'] as List<dynamic>)
           .map((_$e) =>
-              _i3.GMobilitySpanData.fromJson((_$e as Map<String, dynamic>)))
+              _i4.GMobilitySpanData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       editSpans: (json['editSpans'] as List<dynamic>)
           .map((_$e) =>
-              _i3.GEditSpanData.fromJson((_$e as Map<String, dynamic>)))
+              _i4.GEditSpanData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       waypoints: (json['waypoints'] as List<dynamic>)
           .map((_$e) =>
@@ -219,13 +219,13 @@ class GTripFullData
 
   final _i3.GBoundsData? bounds;
 
-  final _i4.GLatLngData startPoint;
+  final _i3.GLatLngData startPoint;
 
-  final List<_i4.GLatLngData> route;
+  final List<_i3.GLatLngData> route;
 
-  final List<_i3.GMobilitySpanData> mobilitySpans;
+  final List<_i4.GMobilitySpanData> mobilitySpans;
 
-  final List<_i3.GEditSpanData> editSpans;
+  final List<_i4.GEditSpanData> editSpans;
 
   final List<_i5.GWaypointDetailsData> waypoints;
 
@@ -266,10 +266,10 @@ class GTripFullData
     bool routeUpdatedAtIsSet = false,
     _i3.GBoundsData? bounds,
     bool boundsIsSet = false,
-    _i4.GLatLngData? startPoint,
-    List<_i4.GLatLngData>? route,
-    List<_i3.GMobilitySpanData>? mobilitySpans,
-    List<_i3.GEditSpanData>? editSpans,
+    _i3.GLatLngData? startPoint,
+    List<_i3.GLatLngData>? route,
+    List<_i4.GMobilitySpanData>? mobilitySpans,
+    List<_i4.GEditSpanData>? editSpans,
     List<_i5.GWaypointDetailsData>? waypoints,
   }) {
     return GTripFullData(

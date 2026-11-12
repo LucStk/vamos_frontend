@@ -12,8 +12,7 @@ import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.d
 class GSearchPlacesVars {
   const GSearchPlacesVars({
     required this.q,
-    this.lat = const Value.absent(),
-    this.lon = const Value.absent(),
+    this.origin = const Value.absent(),
     required this.limit,
     this.radiusKm = const Value.absent(),
     required this.mode,
@@ -22,13 +21,11 @@ class GSearchPlacesVars {
   factory GSearchPlacesVars.fromJson(Map<String, dynamic> json) {
     return GSearchPlacesVars(
       q: (json['q'] as String),
-      lat: json.containsKey('lat')
-          ? Value.present(
-              json['lat'] == null ? null : (json['lat'] as num).toDouble())
-          : Value.absent(),
-      lon: json.containsKey('lon')
-          ? Value.present(
-              json['lon'] == null ? null : (json['lon'] as num).toDouble())
+      origin: json.containsKey('origin')
+          ? Value.present(json['origin'] == null
+              ? null
+              : _i1.GLatLngInput.fromJson(
+                  (json['origin'] as Map<String, dynamic>)))
           : Value.absent(),
       limit: (json['limit'] as int),
       radiusKm: json.containsKey('radiusKm')
@@ -42,9 +39,7 @@ class GSearchPlacesVars {
 
   final String q;
 
-  final Value<double> lat;
-
-  final Value<double> lon;
+  final Value<_i1.GLatLngInput> origin;
 
   final int limit;
 
@@ -56,15 +51,11 @@ class GSearchPlacesVars {
     final _$result = <String, dynamic>{};
     final _$qValue = this.q;
     _$result['q'] = _$qValue;
-    final _$latValue = this.lat;
-    if (_$latValue.isPresent) {
-      final _$latRequired = _$latValue.requireValue;
-      _$result['lat'] = _$latRequired == null ? null : _$latRequired;
-    }
-    final _$lonValue = this.lon;
-    if (_$lonValue.isPresent) {
-      final _$lonRequired = _$lonValue.requireValue;
-      _$result['lon'] = _$lonRequired == null ? null : _$lonRequired;
+    final _$originValue = this.origin;
+    if (_$originValue.isPresent) {
+      final _$originRequired = _$originValue.requireValue;
+      _$result['origin'] =
+          _$originRequired == null ? null : _$originRequired.toJson();
     }
     final _$limitValue = this.limit;
     _$result['limit'] = _$limitValue;
@@ -81,16 +72,14 @@ class GSearchPlacesVars {
 
   GSearchPlacesVars copyWith({
     String? q,
-    Value<double>? lat,
-    Value<double>? lon,
+    Value<_i1.GLatLngInput>? origin,
     int? limit,
     Value<double>? radiusKm,
     _i1.GSearchMode? mode,
   }) {
     return GSearchPlacesVars(
       q: q ?? this.q,
-      lat: lat ?? this.lat,
-      lon: lon ?? this.lon,
+      origin: origin ?? this.origin,
       limit: limit ?? this.limit,
       radiusKm: radiusKm ?? this.radiusKm,
       mode: mode ?? this.mode,
@@ -111,6 +100,6 @@ class GSearchPlacesVars {
 
   @override
   String toString() {
-    return 'GSearchPlacesVars(q: $q, lat: $lat, lon: $lon, limit: $limit, radiusKm: $radiusKm, mode: $mode)';
+    return 'GSearchPlacesVars(q: $q, origin: $origin, limit: $limit, radiusKm: $radiusKm, mode: $mode)';
   }
 }

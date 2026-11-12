@@ -2,28 +2,13 @@ import 'package:dartz/dartz.dart' hide id;
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/core/mappers/geometry_mappers/bounds_mapper.dart';
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/graphql.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/geometry_source_mapper.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/mobility_type_mapper.dart';
 import 'package:vamos_cartographie/domain_features/route/data/route_failures.dart';
-
-extension BoundsMapper on GBounds {
-  /// Emprise du serveur (min/max) vers les quatre bords de la carte.
-  MapLatLngBounds toMapBounds() {
-    assert(
-      minLat <= maxLat && minLng <= maxLng,
-      'emprise incohérente : $minLng,$minLat → $maxLng,$maxLat',
-    );
-    return MapLatLngBounds(
-      north: maxLat,
-      south: minLat,
-      east: maxLng,
-      west: minLng,
-    );
-  }
-}
 
 extension RouteSectionMapper on GMobilitySpan {
   MobilitySpanRemoteModel toMobilityDomain() => MobilitySpanRemoteModel(

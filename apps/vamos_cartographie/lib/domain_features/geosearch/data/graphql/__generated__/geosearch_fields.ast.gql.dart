@@ -4,6 +4,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:gql/ast.dart' as _i1;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i2;
 
 const PlaceResultFields = _i1.FragmentDefinitionNode(
   name: _i1.NameNode(value: 'PlaceResultFields'),
@@ -36,18 +38,23 @@ const PlaceResultFields = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'lat'),
+      name: _i1.NameNode(value: 'position'),
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
-    ),
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'lon'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'LatLng'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: 'category'),
@@ -64,11 +71,23 @@ const PlaceResultFields = _i1.FragmentDefinitionNode(
       selectionSet: null,
     ),
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'bbox'),
+      name: _i1.NameNode(value: 'bounds'),
       alias: null,
       arguments: [],
       directives: [],
-      selectionSet: null,
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FragmentSpreadNode(
+          name: _i1.NameNode(value: 'Bounds'),
+          directives: [],
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
     ),
     _i1.FieldNode(
       name: _i1.NameNode(value: '__typename'),
@@ -79,4 +98,8 @@ const PlaceResultFields = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const document = _i1.DocumentNode(definitions: [PlaceResultFields]);
+const document = _i1.DocumentNode(definitions: [
+  PlaceResultFields,
+  _i2.LatLng,
+  _i2.Bounds,
+]);

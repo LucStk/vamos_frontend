@@ -41,7 +41,7 @@ final class PlaceSearchProvider
   }
 }
 
-String _$placeSearchHash() => r'd30b0c63e9b36be067a64bba342fa7b2baa0c562';
+String _$placeSearchHash() => r'1df0e5ea5a84170e99ff34edee85993e737ef9a4';
 
 abstract class _$PlaceSearch extends $Notifier<PlaceSearchState> {
   PlaceSearchState build();

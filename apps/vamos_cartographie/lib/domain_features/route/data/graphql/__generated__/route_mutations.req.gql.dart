@@ -60,12 +60,12 @@ class GEditRouteReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.EditRoute,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -404,12 +404,12 @@ class GCommitRouteEditReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.CommitRouteEdit,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -744,12 +744,12 @@ class GSetTripOriginReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SetTripOrigin,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(
@@ -916,12 +916,12 @@ class GDeleteRouteReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.DeleteRoute,
     _i7.MobilitySpan,
-    _i7.Bounds,
     _i7.EditSpan,
     _i7.TripRoute,
     _i7.TripRouteEditing,
     _i7.EditRouteResult,
     _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

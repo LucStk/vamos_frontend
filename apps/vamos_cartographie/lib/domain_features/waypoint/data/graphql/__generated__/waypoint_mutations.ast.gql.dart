@@ -181,4 +181,5 @@ const document = _i1.DocumentNode(definitions: [
   _i2.UploadConfigFields,
   _i3.WaypointDetails,
   _i4.LatLng,
+  _i4.Bounds,
 ]);

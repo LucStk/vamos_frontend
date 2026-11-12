@@ -1262,20 +1262,11 @@ const PlaceResult = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'lat'),
+      name: _i1.NameNode(value: 'position'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'lon'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
+        name: _i1.NameNode(value: 'LatLngType'),
         isNonNull: true,
       ),
     ),
@@ -1298,14 +1289,11 @@ const PlaceResult = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'bbox'),
+      name: _i1.NameNode(value: 'bounds'),
       directives: [],
       args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'Float'),
-          isNonNull: true,
-        ),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'BoundsType'),
         isNonNull: false,
       ),
     ),
@@ -1718,19 +1706,10 @@ const Query = _i1.ObjectTypeDefinitionNode(
           defaultValue: null,
         ),
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'lat'),
+          name: _i1.NameNode(value: 'origin'),
           directives: [],
           type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Float'),
-            isNonNull: false,
-          ),
-          defaultValue: _i1.NullValueNode(),
-        ),
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'lon'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Float'),
+            name: _i1.NameNode(value: 'LatLngInput'),
             isNonNull: false,
           ),
           defaultValue: _i1.NullValueNode(),

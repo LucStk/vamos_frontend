@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/data/geosearch_failures.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/data/geosearch_remote_datasource.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/data/mappers/geosearch_exceptions_mappers.dart';
@@ -17,8 +18,7 @@ class GeosearchRepositoryImpl implements GeosearchRepository {
   @override
   Future<SearchResponse> search(
     String query, {
-    double? lat,
-    double? lon,
+    LatLng? origin,
     int limit = 8,
     double? radiusKm,
     SearchMode mode = SearchMode.auto,
@@ -26,8 +26,7 @@ class GeosearchRepositoryImpl implements GeosearchRepository {
     try {
       final data = await _datasource.searchPlaces(
         query: query,
-        lat: lat,
-        lon: lon,
+        origin: origin,
         limit: limit,
         radiusKm: radiusKm,
         mode: searchModeToGql(mode),

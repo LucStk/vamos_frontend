@@ -175,11 +175,10 @@ type PlaceResult {
   id: String!
   name: String!
   subtitle: String!
-  lat: Float!
-  lon: Float!
+  position: LatLngType!
   category: String!
   distanceM: Int
-  bbox: [Float!]
+  bounds: BoundsType
 }
 
 enum PoiCategory {
@@ -226,9 +225,9 @@ type Query {
 
   """
   Recherche un lieu par nom/adresse, ou une catégorie (camping, eau...) autour
-  de lat/lon. Lecture seule : c'est une Query, pas une Mutation.
+  de `origin`. Lecture seule : c'est une Query, pas une Mutation.
   """
-  searchPlaces(q: String!, lat: Float = null, lon: Float = null, limit: Int! = 8, radiusKm: Float = null, mode: SearchMode! = AUTO): SearchResponse!
+  searchPlaces(q: String!, origin: LatLngInput = null, limit: Int! = 8, radiusKm: Float = null, mode: SearchMode! = AUTO): SearchResponse!
 }
 
 input RangeMobilityInput {

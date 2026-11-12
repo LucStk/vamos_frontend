@@ -5,6 +5,8 @@
 
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i3;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i5;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/geosearch/data/graphql/__generated__/geosearch_fields.ast.gql.dart'
@@ -28,8 +30,11 @@ class GPlaceResultFieldsReq
 
   final Map<String, dynamic> idFields;
 
-  static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.PlaceResultFields]);
+  static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
+    _i4.PlaceResultFields,
+    _i5.LatLng,
+    _i5.Bounds,
+  ]);
 
   _i2.GPlaceResultFieldsData? parseData(Map<String, dynamic> json) =>
       _i2.GPlaceResultFieldsData.fromJson(json);

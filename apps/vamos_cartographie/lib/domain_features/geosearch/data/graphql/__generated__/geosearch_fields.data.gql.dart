@@ -3,18 +3,17 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
-    as _gqlUtils;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i1;
 
 abstract class GPlaceResultFields {
   String get id;
   String get name;
   String get subtitle;
-  double get lat;
-  double get lon;
+  _i1.GLatLng get position;
   String get category;
   int? get distanceM;
-  List<double>? get bbox;
+  _i1.GBounds? get bounds;
   String get G__typename;
 }
 
@@ -23,11 +22,10 @@ class GPlaceResultFieldsData implements GPlaceResultFields {
     required this.id,
     required this.name,
     required this.subtitle,
-    required this.lat,
-    required this.lon,
+    required this.position,
     required this.category,
     this.distanceM,
-    this.bbox,
+    this.bounds,
     this.G__typename = 'PlaceResult',
   });
 
@@ -36,15 +34,13 @@ class GPlaceResultFieldsData implements GPlaceResultFields {
       id: (json['id'] as String),
       name: (json['name'] as String),
       subtitle: (json['subtitle'] as String),
-      lat: (json['lat'] as num).toDouble(),
-      lon: (json['lon'] as num).toDouble(),
+      position:
+          _i1.GLatLngData.fromJson((json['position'] as Map<String, dynamic>)),
       category: (json['category'] as String),
       distanceM: json['distanceM'] == null ? null : (json['distanceM'] as int),
-      bbox: json['bbox'] == null
+      bounds: json['bounds'] == null
           ? null
-          : (json['bbox'] as List<dynamic>)
-              .map((_$e) => (_$e as num).toDouble())
-              .toList(),
+          : _i1.GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
   }
@@ -55,15 +51,13 @@ class GPlaceResultFieldsData implements GPlaceResultFields {
 
   final String subtitle;
 
-  final double lat;
-
-  final double lon;
+  final _i1.GLatLngData position;
 
   final String category;
 
   final int? distanceM;
 
-  final List<double>? bbox;
+  final _i1.GBoundsData? bounds;
 
   final String G__typename;
 
@@ -72,14 +66,12 @@ class GPlaceResultFieldsData implements GPlaceResultFields {
     _$result['id'] = this.id;
     _$result['name'] = this.name;
     _$result['subtitle'] = this.subtitle;
-    _$result['lat'] = this.lat;
-    _$result['lon'] = this.lon;
+    _$result['position'] = this.position.toJson();
     _$result['category'] = this.category;
     final _$distanceMValue = this.distanceM;
     _$result['distanceM'] = _$distanceMValue == null ? null : _$distanceMValue;
-    final _$bboxValue = this.bbox;
-    _$result['bbox'] =
-        _$bboxValue == null ? null : _$bboxValue.map((_$e) => _$e).toList();
+    final _$boundsValue = this.bounds;
+    _$result['bounds'] = _$boundsValue == null ? null : _$boundsValue.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
   }
@@ -88,25 +80,23 @@ class GPlaceResultFieldsData implements GPlaceResultFields {
     String? id,
     String? name,
     String? subtitle,
-    double? lat,
-    double? lon,
+    _i1.GLatLngData? position,
     String? category,
     int? distanceM,
     bool distanceMIsSet = false,
-    List<double>? bbox,
-    bool bboxIsSet = false,
+    _i1.GBoundsData? bounds,
+    bool boundsIsSet = false,
     String? G__typename,
   }) {
     return GPlaceResultFieldsData(
       id: id ?? this.id,
       name: name ?? this.name,
       subtitle: subtitle ?? this.subtitle,
-      lat: lat ?? this.lat,
-      lon: lon ?? this.lon,
+      position: position ?? this.position,
       category: category ?? this.category,
       distanceM:
           distanceM != null || distanceMIsSet ? distanceM : this.distanceM,
-      bbox: bbox != null || bboxIsSet ? bbox : this.bbox,
+      bounds: bounds != null || boundsIsSet ? bounds : this.bounds,
       G__typename: G__typename ?? this.G__typename,
     );
   }
@@ -118,22 +108,21 @@ class GPlaceResultFieldsData implements GPlaceResultFields {
             id == other.id &&
             name == other.name &&
             subtitle == other.subtitle &&
-            lat == other.lat &&
-            lon == other.lon &&
+            position == other.position &&
             category == other.category &&
             distanceM == other.distanceM &&
-            _gqlUtils.listEquals(bbox, other.bbox) &&
+            bounds == other.bounds &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, name, subtitle, lat, lon, category,
-        distanceM, _gqlUtils.listHash(bbox), G__typename);
+    return Object.hash(runtimeType, id, name, subtitle, position, category,
+        distanceM, bounds, G__typename);
   }
 
   @override
   String toString() {
-    return 'GPlaceResultFieldsData(id: $id, name: $name, subtitle: $subtitle, lat: $lat, lon: $lon, category: $category, distanceM: $distanceM, bbox: $bbox, G__typename: $G__typename)';
+    return 'GPlaceResultFieldsData(id: $id, name: $name, subtitle: $subtitle, position: $position, category: $category, distanceM: $distanceM, bounds: $bounds, G__typename: $G__typename)';
   }
 }

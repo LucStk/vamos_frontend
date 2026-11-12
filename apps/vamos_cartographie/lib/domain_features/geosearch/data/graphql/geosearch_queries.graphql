@@ -2,16 +2,14 @@
 
 query SearchPlaces(
     $q: String!
-    $lat: Float
-    $lon: Float
+    $origin: LatLngInput
     $limit: Int!
     $radiusKm: Float
     $mode: SearchMode!
 ) {
     searchPlaces(
         q: $q
-        lat: $lat
-        lon: $lon
+        origin: $origin
         limit: $limit
         radiusKm: $radiusKm
         mode: $mode

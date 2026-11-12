@@ -77,68 +77,6 @@ class GMobilitySpanReq
   }
 }
 
-class GBoundsReq implements _i1.FragmentRequest<_i2.GBoundsData, Null> {
-  GBoundsReq({
-    _i3.DocumentNode? document,
-    this.fragmentName = 'Bounds',
-    this.idFields = const <String, dynamic>{},
-  }) : document = document ?? _document;
-
-  final Null vars = null;
-
-  final _i3.DocumentNode document;
-
-  final String? fragmentName;
-
-  final Map<String, dynamic> idFields;
-
-  static const _i3.DocumentNode _document =
-      _i3.DocumentNode(definitions: [_i4.Bounds]);
-
-  _i2.GBoundsData? parseData(Map<String, dynamic> json) =>
-      _i2.GBoundsData.fromJson(json);
-
-  Map<String, dynamic> varsToJson() => const <String, dynamic>{};
-
-  Map<String, dynamic> dataToJson(_i2.GBoundsData data) => data.toJson();
-
-  GBoundsReq copyWith({
-    _i3.DocumentNode? document,
-    String? fragmentName,
-    bool fragmentNameIsSet = false,
-    Map<String, dynamic>? idFields,
-  }) {
-    return GBoundsReq(
-      document: document ?? this.document,
-      fragmentName: fragmentName != null || fragmentNameIsSet
-          ? fragmentName
-          : this.fragmentName,
-      idFields: idFields ?? this.idFields,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GBoundsReq &&
-            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
-            document == other.document &&
-            fragmentName == other.fragmentName &&
-            _gqlUtils.deepEquals(idFields, other.idFields));
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, _gqlUtils.deepHash(varsToJson()), document,
-        fragmentName, _gqlUtils.deepHash(idFields));
-  }
-
-  @override
-  String toString() {
-    return 'GBoundsReq(vars: $vars, document: $document, fragmentName: $fragmentName, idFields: $idFields)';
-  }
-}
-
 class GEditSpanReq implements _i1.FragmentRequest<_i2.GEditSpanData, Null> {
   GEditSpanReq({
     _i3.DocumentNode? document,
@@ -346,9 +284,9 @@ class GTripRouteReq implements _i1.FragmentRequest<_i2.GTripRouteData, Null> {
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.MobilitySpan,
-    _i4.Bounds,
     _i4.TripRoute,
     _i5.LatLng,
+    _i5.Bounds,
   ]);
 
   _i2.GTripRouteData? parseData(Map<String, dynamic> json) =>
@@ -413,11 +351,11 @@ class GTripRouteEditingReq
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.MobilitySpan,
-    _i4.Bounds,
     _i4.EditSpan,
     _i4.TripRoute,
     _i4.TripRouteEditing,
     _i5.LatLng,
+    _i5.Bounds,
   ]);
 
   _i2.GTripRouteEditingData? parseData(Map<String, dynamic> json) =>
@@ -483,12 +421,12 @@ class GEditRouteResultReq
 
   static const _i3.DocumentNode _document = _i3.DocumentNode(definitions: [
     _i4.MobilitySpan,
-    _i4.Bounds,
     _i4.EditSpan,
     _i4.TripRoute,
     _i4.TripRouteEditing,
     _i4.EditRouteResult,
     _i5.LatLng,
+    _i5.Bounds,
   ]);
 
   _i2.GEditRouteResultData? parseData(Map<String, dynamic> json) =>

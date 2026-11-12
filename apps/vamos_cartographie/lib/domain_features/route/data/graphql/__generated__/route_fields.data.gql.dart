@@ -100,92 +100,6 @@ class GMobilitySpanData implements GMobilitySpan {
   }
 }
 
-abstract class GBounds {
-  double get minLng;
-  double get minLat;
-  double get maxLng;
-  double get maxLat;
-  String get G__typename;
-}
-
-class GBoundsData implements GBounds {
-  const GBoundsData({
-    required this.minLng,
-    required this.minLat,
-    required this.maxLng,
-    required this.maxLat,
-    this.G__typename = 'BoundsType',
-  });
-
-  factory GBoundsData.fromJson(Map<String, dynamic> json) {
-    return GBoundsData(
-      minLng: (json['minLng'] as num).toDouble(),
-      minLat: (json['minLat'] as num).toDouble(),
-      maxLng: (json['maxLng'] as num).toDouble(),
-      maxLat: (json['maxLat'] as num).toDouble(),
-      G__typename: (json['__typename'] as String),
-    );
-  }
-
-  final double minLng;
-
-  final double minLat;
-
-  final double maxLng;
-
-  final double maxLat;
-
-  final String G__typename;
-
-  Map<String, dynamic> toJson() {
-    final _$result = <String, dynamic>{};
-    _$result['minLng'] = this.minLng;
-    _$result['minLat'] = this.minLat;
-    _$result['maxLng'] = this.maxLng;
-    _$result['maxLat'] = this.maxLat;
-    _$result['__typename'] = this.G__typename;
-    return _$result;
-  }
-
-  GBoundsData copyWith({
-    double? minLng,
-    double? minLat,
-    double? maxLng,
-    double? maxLat,
-    String? G__typename,
-  }) {
-    return GBoundsData(
-      minLng: minLng ?? this.minLng,
-      minLat: minLat ?? this.minLat,
-      maxLng: maxLng ?? this.maxLng,
-      maxLat: maxLat ?? this.maxLat,
-      G__typename: G__typename ?? this.G__typename,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is GBoundsData &&
-            minLng == other.minLng &&
-            minLat == other.minLat &&
-            maxLng == other.maxLng &&
-            maxLat == other.maxLat &&
-            G__typename == other.G__typename);
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-        runtimeType, minLng, minLat, maxLng, maxLat, G__typename);
-  }
-
-  @override
-  String toString() {
-    return 'GBoundsData(minLng: $minLng, minLat: $minLat, maxLng: $maxLng, maxLat: $maxLat, G__typename: $G__typename)';
-  }
-}
-
 abstract class GEditSpan {
   String get id;
   int get startIndex;
@@ -465,7 +379,7 @@ class GPreviewEditSpanData implements GPreviewEditSpan {
 abstract class GTripRoute {
   String get id;
   String? get routeUpdatedAt;
-  GBounds? get bounds;
+  _i2.GBounds? get bounds;
   _i2.GLatLng get startPoint;
   List<_i2.GLatLng> get route;
   List<GMobilitySpan> get mobilitySpans;
@@ -491,7 +405,7 @@ class GTripRouteData implements GTripRoute {
           : (json['routeUpdatedAt'] as String),
       bounds: json['bounds'] == null
           ? null
-          : GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
+          : _i2.GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
       startPoint: _i2.GLatLngData.fromJson(
           (json['startPoint'] as Map<String, dynamic>)),
       route: (json['route'] as List<dynamic>)
@@ -509,7 +423,7 @@ class GTripRouteData implements GTripRoute {
 
   final String? routeUpdatedAt;
 
-  final GBoundsData? bounds;
+  final _i2.GBoundsData? bounds;
 
   final _i2.GLatLngData startPoint;
 
@@ -539,7 +453,7 @@ class GTripRouteData implements GTripRoute {
     String? id,
     String? routeUpdatedAt,
     bool routeUpdatedAtIsSet = false,
-    GBoundsData? bounds,
+    _i2.GBoundsData? bounds,
     bool boundsIsSet = false,
     _i2.GLatLngData? startPoint,
     List<_i2.GLatLngData>? route,
@@ -594,7 +508,7 @@ class GTripRouteData implements GTripRoute {
 abstract class GTripRouteEditing {
   String get id;
   String? get routeUpdatedAt;
-  GBounds? get bounds;
+  _i2.GBounds? get bounds;
   _i2.GLatLng get startPoint;
   List<_i2.GLatLng> get route;
   List<GMobilitySpan> get mobilitySpans;
@@ -622,7 +536,7 @@ class GTripRouteEditingData implements GTripRouteEditing, GTripRoute {
           : (json['routeUpdatedAt'] as String),
       bounds: json['bounds'] == null
           ? null
-          : GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
+          : _i2.GBoundsData.fromJson((json['bounds'] as Map<String, dynamic>)),
       startPoint: _i2.GLatLngData.fromJson(
           (json['startPoint'] as Map<String, dynamic>)),
       route: (json['route'] as List<dynamic>)
@@ -643,7 +557,7 @@ class GTripRouteEditingData implements GTripRouteEditing, GTripRoute {
 
   final String? routeUpdatedAt;
 
-  final GBoundsData? bounds;
+  final _i2.GBoundsData? bounds;
 
   final _i2.GLatLngData startPoint;
 
@@ -676,7 +590,7 @@ class GTripRouteEditingData implements GTripRouteEditing, GTripRoute {
     String? id,
     String? routeUpdatedAt,
     bool routeUpdatedAtIsSet = false,
-    GBoundsData? bounds,
+    _i2.GBoundsData? bounds,
     bool boundsIsSet = false,
     _i2.GLatLngData? startPoint,
     List<_i2.GLatLngData>? route,

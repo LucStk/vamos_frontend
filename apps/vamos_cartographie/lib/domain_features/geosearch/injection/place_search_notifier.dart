@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/data/geosearch_failures.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/domain/place_result.dart';
@@ -9,7 +10,7 @@ part 'place_search_notifier.g.dart';
 
 /// Position de recherche (centre de la carte ou position GPS). Évaluée au
 /// moment de l'appel pour toujours utiliser la valeur la plus récente.
-typedef SearchOrigin = ({double lat, double lon})? Function();
+typedef SearchOrigin = LatLng? Function();
 
 enum PlaceSearchStatus { idle, loading, data, error }
 
@@ -59,10 +60,9 @@ class PlaceSearch extends _$PlaceSearch {
     state = const PlaceSearchState(status: PlaceSearchStatus.loading);
 
     try {
-      final position = origin();
       final response = await ref
           .read(geosearchRepositoryProvider)
-          .search(query, lat: position?.lat, lon: position?.lon);
+          .search(query, origin: origin());
       if (id != _requestId) return; // une requête plus récente est partie
       state = PlaceSearchState(
         status: PlaceSearchStatus.data,

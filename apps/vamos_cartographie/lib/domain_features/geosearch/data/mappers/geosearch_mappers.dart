@@ -1,5 +1,7 @@
 import 'package:vamos_cartographie/core/graphql/graphql.dart'
     show GResultMode, GSearchMode;
+import 'package:vamos_cartographie/core/mappers/geometry_mappers/bounds_mapper.dart';
+import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/data/graphql/__generated__/geosearch_fields.data.gql.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/data/graphql/__generated__/geosearch_queries.data.gql.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/domain/geosearch_repository.dart';
@@ -15,11 +17,10 @@ PlaceResult placeFromFields(GPlaceResultFieldsData f) => PlaceResult(
   id: f.id,
   name: f.name,
   subtitle: f.subtitle,
-  lat: f.lat,
-  lon: f.lon,
+  position: f.position.toLatLng(),
   category: f.category,
   distanceM: f.distanceM,
-  bbox: f.bbox?.toList(),
+  bbox: f.bounds?.toMapBounds(),
 );
 
 SearchResponse searchResponseFromData(GSearchPlacesData data) {

@@ -1,6 +1,8 @@
 import 'package:ferry/ferry.dart';
 import 'package:gql_tristate_value/gql_tristate_value.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:vamos_cartographie/core/graphql/graphql.dart' show GSearchMode;
+import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 
 import 'graphql/graphql.dart';
 
@@ -23,8 +25,7 @@ class GeosearchRemoteDatasource {
   // gère erreurs et exceptions, utilisez-le à la place du bloc ci-dessous.
   Future<GSearchPlacesData> searchPlaces({
     required String query,
-    double? lat,
-    double? lon,
+    LatLng? origin,
     required int limit,
     double? radiusKm,
     required GSearchMode mode,
@@ -32,8 +33,9 @@ class GeosearchRemoteDatasource {
     final request = GSearchPlacesReq(
       vars: GSearchPlacesVars(
         q: query,
-        lat: (lat != null) ? Value.present(lat) : Value.absent(),
-        lon: (lon != null) ? Value.present(lon) : Value.absent(),
+        origin: (origin != null)
+            ? Value.present(origin.toGQLInput())
+            : Value.absent(),
         limit: limit,
         radiusKm: (radiusKm != null) ? Value.present(radiusKm) : Value.absent(),
         mode: mode,

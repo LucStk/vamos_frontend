@@ -37,4 +37,53 @@ const LatLng = _i1.FragmentDefinitionNode(
     ),
   ]),
 );
-const document = _i1.DocumentNode(definitions: [LatLng]);
+const Bounds = _i1.FragmentDefinitionNode(
+  name: _i1.NameNode(value: 'Bounds'),
+  typeCondition: _i1.TypeConditionNode(
+      on: _i1.NamedTypeNode(
+    name: _i1.NameNode(value: 'BoundsType'),
+    isNonNull: false,
+  )),
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'minLng'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'minLat'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'maxLng'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'maxLat'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
+const document = _i1.DocumentNode(definitions: [
+  LatLng,
+  Bounds,
+]);

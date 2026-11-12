@@ -1,3 +1,6 @@
+import 'package:domain_core/domain_core.dart';
+import 'package:latlong2/latlong.dart';
+
 /// Modèles de domaine de la recherche de lieux.
 ///
 /// La position est exposée en lat/lon bruts : si vous avez un type géo commun
@@ -15,8 +18,7 @@ class PlaceResult {
     required this.id,
     required this.name,
     required this.subtitle,
-    required this.lat,
-    required this.lon,
+    required this.position,
     required this.category,
     this.distanceM,
     this.bbox,
@@ -25,8 +27,7 @@ class PlaceResult {
   final String id;
   final String name;
   final String subtitle;
-  final double lat;
-  final double lon;
+  final LatLng position;
 
   /// Tag OSM, par exemple "tourism:camp_site".
   final String category;
@@ -35,7 +36,7 @@ class PlaceResult {
   final int? distanceM;
 
   /// [minLon, minLat, maxLon, maxLat], pour cadrer la carte (villes, zones).
-  final List<double>? bbox;
+  final MapLatLngBounds? bbox;
 }
 
 class SearchResponse {

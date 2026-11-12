@@ -2,3 +2,9 @@ fragment LatLng on LatLngType {
     lat
     lng
 }
+fragment Bounds on BoundsType {
+    minLng
+    minLat
+    maxLng
+    maxLat
+}

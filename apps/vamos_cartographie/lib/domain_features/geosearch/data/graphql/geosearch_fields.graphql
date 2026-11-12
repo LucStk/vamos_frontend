@@ -1,10 +1,14 @@
+#import "/core/graphql/geo_fields.graphql"
 fragment PlaceResultFields on PlaceResult {
     id
     name
     subtitle
-    lat
-    lon
+    position {
+        ...LatLng
+    }
     category
     distanceM
-    bbox
+    bounds {
+        ...Bounds
+    }
 }

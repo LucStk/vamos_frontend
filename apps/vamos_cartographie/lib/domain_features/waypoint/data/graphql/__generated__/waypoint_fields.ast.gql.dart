@@ -103,6 +103,7 @@ const WaypointDetails = _i1.FragmentDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   WaypointDetails,
   _i2.LatLng,
+  _i2.Bounds,
   _i3.StoredFile,
   _i3.FileAttachment,
   _i3.UploadConfigFields,

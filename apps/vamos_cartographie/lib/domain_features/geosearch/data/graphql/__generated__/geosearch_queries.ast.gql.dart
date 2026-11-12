@@ -4,6 +4,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:gql/ast.dart' as _i1;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i3;
 import 'package:vamos_cartographie/domain_features/geosearch/data/graphql/__generated__/geosearch_fields.ast.gql.dart'
     as _i2;
 
@@ -21,18 +23,9 @@ const SearchPlaces = _i1.OperationDefinitionNode(
       directives: [],
     ),
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'lat')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'origin')),
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
-        isNonNull: false,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'lon')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Float'),
+        name: _i1.NameNode(value: 'LatLngInput'),
         isNonNull: false,
       ),
       defaultValue: _i1.DefaultValueNode(value: null),
@@ -77,12 +70,8 @@ const SearchPlaces = _i1.OperationDefinitionNode(
           value: _i1.VariableNode(name: _i1.NameNode(value: 'q')),
         ),
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'lat'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'lat')),
-        ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'lon'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'lon')),
+          name: _i1.NameNode(value: 'origin'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'origin')),
         ),
         _i1.ArgumentNode(
           name: _i1.NameNode(value: 'limit'),
@@ -175,4 +164,6 @@ const SearchPlaces = _i1.OperationDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   SearchPlaces,
   _i2.PlaceResultFields,
+  _i3.LatLng,
+  _i3.Bounds,
 ]);

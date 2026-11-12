@@ -6,6 +6,8 @@
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i5;
 import 'package:gql_exec/gql_exec.dart' as _i4;
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
+    as _i8;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/geosearch/data/graphql/__generated__/geosearch_fields.ast.gql.dart'
@@ -59,6 +61,8 @@ class GSearchPlacesReq
   static const _i5.DocumentNode _document = _i5.DocumentNode(definitions: [
     _i6.SearchPlaces,
     _i7.PlaceResultFields,
+    _i8.LatLng,
+    _i8.Bounds,
   ]);
 
   static const _i4.Operation _operation = _i4.Operation(

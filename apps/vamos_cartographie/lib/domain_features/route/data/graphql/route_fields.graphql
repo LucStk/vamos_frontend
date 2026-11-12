@@ -13,12 +13,7 @@ fragment MobilitySpan on MobilitySpanType {
     mobilityType
     lengthM
 }
-fragment Bounds on BoundsType {
-    minLng
-    minLat
-    maxLng
-    maxLat
-}
+
 # Partie produite par une même action de l'utilisateur. Mode édition seulement.
 fragment EditSpan on EditSpanType {
     id
