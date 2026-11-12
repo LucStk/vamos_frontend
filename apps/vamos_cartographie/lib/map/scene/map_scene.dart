@@ -5,6 +5,8 @@ import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/modes.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_scene.dart';
+
+import 'package:vamos_cartographie/map/objects/annotations/providers/search_result_item_provider.dart';
 // Adapte le chemin au fichier qui déclare `selectSpanScene`.
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_scene.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/providers/span_bound_handle_provider.dart';
@@ -34,6 +36,7 @@ final baseLayers = <Layer>[
 /// `SceneSpec` sans traits : on les migre une par une, quand l'une d'elles a
 /// besoin de déclarer une mise en avant.
 @Dependencies([
+  searchResultItem,
   pendingWaypoint,
   spanBoundHandleItems,
   selectionHandleItems,
@@ -66,6 +69,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
 @Riverpod(
   keepAlive: true,
   dependencies: [
+    searchResultItem,
     pendingWaypoint,
     spanBoundHandleItems,
     selectionHandleItems,
@@ -101,6 +105,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
 @Riverpod(
   keepAlive: true,
   dependencies: [
+    searchResultItem,
     pendingWaypoint,
     spanBoundHandleItems,
     selectionHandleItems,
