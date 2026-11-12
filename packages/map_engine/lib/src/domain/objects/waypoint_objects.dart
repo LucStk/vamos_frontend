@@ -28,3 +28,21 @@ final class MapPendingWaypoint extends MapObject implements Selectable {
   @override
   int get hashCode => (MapPendingWaypoint).hashCode;
 }
+
+final class MapWaypointAnchor extends MapObject {
+  final TripId tripId;
+  final WaypointId waypointId;
+  const MapWaypointAnchor({required this.tripId, required this.waypointId});
+
+  @override
+  bool get isDraggable => true;
+
+  @override
+  bool operator ==(Object other) =>
+      other is MapWaypointAnchor &&
+      other.waypointId == waypointId &&
+      other.tripId == tripId;
+
+  @override
+  int get hashCode => Object.hash(tripId, waypointId, MapWaypointAnchor);
+}

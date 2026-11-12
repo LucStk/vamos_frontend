@@ -49,6 +49,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
   // capturé par le cas générique.
   EditSpanMode t => editSpanScene(t),
   CreateWaypointMode(:final tripId) => createWaypointScene(tripId),
+  WaypointsEditMode(:final tripId) => createWaypointScene(tripId),
   SelectRouteMode(:final tripId) => SceneSpec(layers: selectRouteScene(tripId)),
   SketchEdition(:final tripId) => SceneSpec(layers: sketchScene(tripId)),
   SketchGenerating(:final tripId) => SceneSpec(

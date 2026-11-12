@@ -7,7 +7,6 @@ import 'package:vamos_cartographie/map/camera/map_camera_lifecycle.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/map_gesture_bridge.dart';
-import 'package:vamos_cartographie/map/layers/layers.dart';
 import 'package:vamos_cartographie/map/engine/map_gesture_handler.dart';
 
 import 'package:vamos_cartographie/map/scene/map_scene.dart';

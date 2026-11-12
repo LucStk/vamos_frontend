@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'waypoints_edit_provider.dart';
+part of 'pending_waypoint_item_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -71,7 +71,7 @@ final class PendingWaypointProvider
   }
 }
 
-String _$pendingWaypointHash() => r'6ee590b0ac4b8442acfcfb2bc2290d8ab8529a97';
+String _$pendingWaypointHash() => r'6f77e76963f6f16ab6c65187b323050b1acec7dd';
 
 final class PendingWaypointFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {
