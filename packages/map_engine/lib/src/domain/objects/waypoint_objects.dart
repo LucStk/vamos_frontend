@@ -1,4 +1,5 @@
-part of 'map_objects.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:trip_application/trip_application.dart';
 
 final class MapWaypoint extends MapObject implements Selectable {
   final WaypointId id;

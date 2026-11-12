@@ -1,8 +1,8 @@
-import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/gesture_engine.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/app_mode.dart';
 
+import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/modes/explore/commands/explore_command.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';

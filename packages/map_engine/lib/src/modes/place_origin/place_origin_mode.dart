@@ -1,6 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:map_engine/src/domain/map_hit.dart';
-import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/app_mode.dart';
@@ -10,6 +8,8 @@ import 'package:map_engine/src/modes/place_origin/slots/trip_origin_slot.dart';
 import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:trip_application/trip_application.dart';
+
+import 'package:map_engine/src/domain/domain.dart';
 
 sealed class PlaceOriginMode extends AppMode {
   const PlaceOriginMode();

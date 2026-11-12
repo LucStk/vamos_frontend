@@ -1,9 +1,8 @@
 import 'package:map_engine/src/domain/map_hit.dart';
-import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:map_engine/src/domain/objects/objects.dart';
 import 'package:map_engine/src/gesture_engine/gesture_engine.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/edit_route/edit_route.dart';
-import 'package:map_engine/src/modes/edit_route/select_route_mode.dart';
 import 'package:map_engine/src/modes/edit_trip/commands/edit_trip_command.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 

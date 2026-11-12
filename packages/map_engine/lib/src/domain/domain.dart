@@ -1,4 +1,4 @@
-export "objects/map_objects.dart";
+export "objects/objects.dart";
 
 export "camera/map_camera.dart";
 export "camera/camera_pose.dart";

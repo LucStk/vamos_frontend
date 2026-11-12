@@ -1,4 +1,5 @@
-part of "../map_objects.dart";
+import 'package:map_engine/src/domain/objects/route/route_elements.dart';
+import 'package:trip_application/trip_application.dart';
 
 final class MapTripEnd extends RouteElements {
   final TripId tripId;

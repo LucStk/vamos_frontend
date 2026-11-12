@@ -3,9 +3,8 @@ import 'dart:ui';
 
 import 'package:domain_core/domain_core.dart';
 
+import 'package:map_engine/src/domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:map_engine/src/domain/map_hit.dart';
-import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_engine/slots.dart';
 part 'sketch_trace.freezed.dart';
 

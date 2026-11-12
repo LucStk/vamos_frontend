@@ -1,22 +1,4 @@
-import 'package:map_engine/src/domain/camera/map_camera.dart';
-import 'package:map_engine/src/domain/map_hit.dart';
-import 'package:map_engine/src/modes/edit_route/slots/route_selection_slot.dart';
-import 'package:map_engine/src/modes/edit_route/slots/span_bounds_slot.dart';
-import 'package:trip_application/trip_application.dart';
-part "sketch_objects.dart";
-part "user_location_objects.dart";
-part "trip_object.dart";
-part "waypoint_objects.dart";
-part "route/mobility_span.dart";
-part "route/trip_start.dart";
-part "route/trip_end.dart";
-part "route/mobility_badge.dart";
-part "route/handle/selection_handle.dart";
-part "route/selection_highlight.dart";
-part "route/handle/span_bound_handle.dart";
-part "route/handle/route_handle.dart";
-
-sealed class MapObject {
+abstract class MapObject {
   const MapObject();
   bool get isDraggable => false;
   bool get awaitsDoubleTap => false;
@@ -29,21 +11,3 @@ sealed class MapObject {
 }
 
 abstract interface class Selectable implements MapObject {}
-
-sealed class RouteElements extends MapObject implements Selectable {
-  @override
-  bool get isDraggable => true;
-  @override
-  bool get isMovedByDrag => false;
-}
-
-extension HitObjectRouteElementstoAnchor on HitObject<RouteElements> {
-  RouteAnchor toRouteAnchor(MapCameraReader camera) => switch (object) {
-    MapMobilitySpan t => SectionAnchor(
-      position: camera.worldOffsetToLatLng(point),
-      sectionId: t.id,
-    ),
-    MapTripEnd _ => EndRouteAnchor(),
-    MapTripStart() => StartRouteAnchor(),
-  };
-}

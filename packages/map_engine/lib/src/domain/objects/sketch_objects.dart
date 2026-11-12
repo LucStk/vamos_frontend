@@ -1,4 +1,4 @@
-part of 'map_objects.dart';
+import 'package:map_engine/src/domain/objects/map_objects.dart';
 
 final class MapSketchSegment extends MapObject {
   const MapSketchSegment();

@@ -1,6 +1,7 @@
-part of "../map_objects.dart";
+import 'package:map_engine/src/domain/objects/objects.dart';
+import 'package:map_engine/src/domain/objects/route/route_elements.dart';
+import 'package:trip_application/trip_application.dart';
 
-// part route/trip_start.dart
 /// Un point d'origine : avec route (MapTripStart) ou sans (MapTmpOrigin).
 abstract interface class MapRouteOrigin implements MapObject {}
 

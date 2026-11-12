@@ -1,8 +1,9 @@
 // objects/segment/badge/mobility_badge.dart
 
-part of '../map_objects.dart';
-
 // Pastille de modalité posée au milieu d'une section, cliquable.
+import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:trip_application/trip_application.dart';
+
 ///
 /// Objet distinct de [MapSection] : sans ça, le hit-test ne permettrait pas
 /// de savoir si le tap visait la ligne ou la pastille.

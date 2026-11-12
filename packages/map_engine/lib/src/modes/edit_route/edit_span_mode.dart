@@ -1,5 +1,3 @@
-import 'package:map_engine/src/domain/map_hit.dart';
-import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/edit_route/slots/span_bounds_slot.dart';
