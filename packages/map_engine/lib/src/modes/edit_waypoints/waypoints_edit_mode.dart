@@ -14,6 +14,7 @@ final class WaypointsEditMode extends TripMode {
     }
     return Transition.stay();
   }
+  // Test
 
   @override
   Transition onDragging(DragUpdateGesture g) => switch (g.source.object) {
