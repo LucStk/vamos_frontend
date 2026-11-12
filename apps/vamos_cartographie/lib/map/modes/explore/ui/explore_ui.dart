@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.ast.gql.dart';
+import 'package:vamos_cartographie/domain_features/geosearch/presentation/place_search_bar.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/chrome/explore_bottom_bar.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
@@ -21,9 +24,17 @@ class ExploreUi extends ConsumerWidget {
         SafeArea(
           child: Align(
             alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: AccountButton(),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: AccountButton(),
+                ),
+                PlaceSearchBar(
+                  origin: () => ref.read(mapCameraProvider).center,
+                  onSelected: (r) {},
+                ),
+              ],
             ),
           ),
         ),
