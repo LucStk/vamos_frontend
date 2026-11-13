@@ -9,6 +9,7 @@ import 'package:vamos_cartographie/map/modes/shared/chrome/search_top_sheet.dart
 import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/buttons/edit_bottom_actions.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/buttons/edit_bottom_button.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip_compact_content.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip_stats.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip_viewer_content.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 
@@ -33,7 +34,7 @@ class TripEditSheets extends ConsumerWidget {
               SearchTopSheet(),
 
               EditBottomActions(
-                bottomOffset: 120, // ← ta marge Y par rapport au bas
+                bottomOffset: 650, // ← ta marge Y par rapport au bas
                 spacing: 8, // ← espacement entre les boutons
                 direction: Axis.horizontal, // ← ou Axis.horizontal
                 children: [
@@ -56,8 +57,22 @@ class TripEditSheets extends ConsumerWidget {
           ),
         ),
         DraggableBottomSheetShell(
-          compactContent: TripCompactContent(trip: trip, editable: true),
-          expandedContent: TripViewerContent(trip: trip, editable: true),
+          pages: [
+            SheetPage(
+              label: 'Aperçu',
+              icon: Icons.photo_library_outlined,
+              selectedIcon: Icons.photo_library,
+              compact: TripOverviewCompact(trip: trip, editable: true),
+              expanded: TripViewerContent(trip: trip, editable: true),
+            ),
+            SheetPage(
+              label: 'Stats',
+              icon: Icons.bar_chart_outlined,
+              selectedIcon: Icons.bar_chart,
+              compact: TripStatsCompact(trip: trip),
+              expanded: TripStatsViewerContent(trip: trip),
+            ),
+          ],
         ),
       ],
     );

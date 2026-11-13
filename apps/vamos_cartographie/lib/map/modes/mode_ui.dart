@@ -7,7 +7,6 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/explore/ui/explore_ui.dart';
-import 'package:vamos_cartographie/map/modes/explore/ui/trip_read_only_ui.dart';
 import 'package:vamos_cartographie/map/modes/place_origin/ui/place_origin_ui.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_ui.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_ui.dart';
@@ -27,7 +26,6 @@ class ModeUi extends ConsumerWidget {
       ExploreMode t => ExploreUi(t),
       CreateWaypointMode t => CreateWaypointUi(t),
       WaypointsEditMode t => WaypointsEditUi(t),
-      TripReadOnlyMode t => TripReadOnlyUi(t),
       SelectRouteMode t => SelectRouteUi(t),
       EditSpanMode t => EditSpanUi(t),
       RouteEditMode t => RouteEditUi(t),
