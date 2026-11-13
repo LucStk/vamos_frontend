@@ -4,6 +4,9 @@ import 'package:stored_file_application/stored_file_application.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/injection/injection.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/thumbnail_view.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/header/trip_header.dart';
+import 'package:vamos_cartographie/map/ui/chrome/floating_header_card.dart';
 
 /// Aperçu au repos : une vignette, le titre, et ce qui reste à remplir.
 class TripCompactContent extends ConsumerWidget {
@@ -34,6 +37,22 @@ class TripCompactContent extends ConsumerWidget {
 
     return Row(
       children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 300),
+            child: TripHeader(
+              title: trip.title,
+              canEdit: editable,
+              onRename: (newTitle) async {
+                ref
+                    .read(tripStoreProvider.notifier)
+                    .updateTrip(trip.copyWith(title: newTitle));
+                return null;
+              },
+            ),
+          ),
+        ),
         SizedBox(
           width: 48,
           height: 48,

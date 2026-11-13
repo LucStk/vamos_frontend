@@ -12,7 +12,7 @@ import 'package:vamos_cartographie/map/modes/place_origin/ui/place_origin_ui.dar
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_ui.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_ui.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/ui/route_edit_ui.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/trip_edit_mode_ui.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/trip_edit_mode_ui.dart';
 import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoints_edit.dart';
 
 @Dependencies([ModeMachine])

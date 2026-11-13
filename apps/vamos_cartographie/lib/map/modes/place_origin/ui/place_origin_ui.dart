@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/place_origin/ui/origin_menu_widget.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/menu_button.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/overlay_menu.dart';
-import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_selection_sheet.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip_selection_sheet.dart';
 import 'package:vamos_cartographie/map/ui/shared/buttons/cancel_bottom_button.dart';
 
 class PlaceOriginUi extends ConsumerWidget {

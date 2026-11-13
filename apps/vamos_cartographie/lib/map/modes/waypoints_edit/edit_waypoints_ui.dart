@@ -5,7 +5,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/chrome/edit_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_button.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/buttons/edit_bottom_button.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class WaypointsEditUi extends ConsumerWidget {

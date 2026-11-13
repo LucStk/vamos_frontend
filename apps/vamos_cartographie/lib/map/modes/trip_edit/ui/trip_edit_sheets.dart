@@ -5,12 +5,11 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/shared/ui/trip/header/trip_header.dart';
-import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_compact_content.dart';
-import 'package:vamos_cartographie/map/modes/shared/ui/trip/sheet/trip_viewer_content.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_button.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/buttons/edit_bottom_actions.dart';
-import 'package:vamos_cartographie/map/ui/chrome/floating_header_card.dart';
+import 'package:vamos_cartographie/map/modes/shared/chrome/search_top_sheet.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/buttons/edit_bottom_actions.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/buttons/edit_bottom_button.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip_compact_content.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip_viewer_content.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 
 @Dependencies([modeSelection, ModeMachine])
@@ -31,40 +30,8 @@ class TripEditSheets extends ConsumerWidget {
           child: Stack(
             children: [
               // Barre centrée dans l'écran
-              Align(
-                alignment: Alignment.topCenter,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: FloatingHeaderCard(
-                    child: TripHeader(
-                      title: trip.title,
-                      canEdit: true,
-                      onRename: (newTitle) async {
-                        ref
-                            .read(tripStoreProvider.notifier)
-                            .updateTrip(trip.copyWith(title: newTitle));
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-              ),
+              SearchTopSheet(),
 
-              // Bouton retour, aligné sur le même niveau
-              Positioned(
-                top: 0,
-                left: 0,
-                height: _barHeight,
-
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () =>
-                        ref.applyTransition(Transition.to(ExploreMode())),
-                  ),
-                ),
-              ),
               EditBottomActions(
                 bottomOffset: 120, // ← ta marge Y par rapport au bas
                 spacing: 8, // ← espacement entre les boutons
