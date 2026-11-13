@@ -1,7 +1,7 @@
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:trip_application/trip_application.dart';
 
-final class MapWaypoint extends MapObject implements Selectable {
+final class MapWaypoint extends MapObject {
   final WaypointId id;
   final TripId tripId;
   const MapWaypoint({required this.id, required this.tripId});
@@ -16,7 +16,7 @@ final class MapWaypoint extends MapObject implements Selectable {
   int get hashCode => id.hashCode;
 }
 
-final class MapPendingWaypoint extends MapObject implements Selectable {
+final class MapPendingWaypoint extends MapObject {
   final TripId tripId;
   const MapPendingWaypoint({required this.tripId});
 

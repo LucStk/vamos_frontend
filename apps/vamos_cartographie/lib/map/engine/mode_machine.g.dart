@@ -155,8 +155,8 @@ String _$modeOverlayHash() => r'9501391ad9a585018ca12ba3108f32d7a9447b1d';
 final modeSelectionProvider = ModeSelectionProvider._();
 
 final class ModeSelectionProvider
-    extends $FunctionalProvider<Selectable?, Selectable?, Selectable?>
-    with $Provider<Selectable?> {
+    extends $FunctionalProvider<MapObject?, MapObject?, MapObject?>
+    with $Provider<MapObject?> {
   ModeSelectionProvider._()
     : super(
         from: null,
@@ -182,24 +182,24 @@ final class ModeSelectionProvider
 
   @$internal
   @override
-  $ProviderElement<Selectable?> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<MapObject?> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  Selectable? create(Ref ref) {
+  MapObject? create(Ref ref) {
     return modeSelection(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Selectable? value) {
+  Override overrideWithValue(MapObject? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Selectable?>(value),
+      providerOverride: $SyncValueProvider<MapObject?>(value),
     );
   }
 }
 
-String _$modeSelectionHash() => r'd0941bb12c2a407d8a6eea75590cb99cf2adbf8a';
+String _$modeSelectionHash() => r'8edeae40a3be4fa059ea1b64cf3a664565a25193';
 
 @ProviderFor(modeSlot)
 final modeSlotProvider = ModeSlotFamily._();

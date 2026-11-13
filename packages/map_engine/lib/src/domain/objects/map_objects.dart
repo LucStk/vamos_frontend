@@ -9,5 +9,3 @@ abstract class MapObject {
   /// Faux pour les proxys du pointeur (ex. Pencil).
   bool get isDropTarget => true;
 }
-
-abstract interface class Selectable implements MapObject {}

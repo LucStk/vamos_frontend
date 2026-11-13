@@ -1,6 +1,6 @@
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 
-final class MapLocalization extends MapObject implements Selectable {
+final class MapLocalization extends MapObject {
   final double accuracy;
   final double heading;
   const MapLocalization({required this.accuracy, required this.heading});

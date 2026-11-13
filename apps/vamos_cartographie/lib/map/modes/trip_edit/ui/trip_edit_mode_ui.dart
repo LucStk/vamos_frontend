@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/ui/trip_edit_menus.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/ui/trip_edit_sheets.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip_edit_sheets.dart';
 
 class TripEditModeUi extends StatelessWidget {
   const TripEditModeUi(this.mode, {super.key});

@@ -42,8 +42,7 @@ Overlay? modeOverlay(Ref ref) =>
     ref.watch(appModeMachineProvider.select((s) => s.overlay));
 
 @Riverpod(keepAlive: true, dependencies: [AppModeMachine, modeSlot])
-Selectable? modeSelection(Ref ref) =>
-    ref.watch(modeSlotProvider(selectionSlot));
+MapObject? modeSelection(Ref ref) => ref.watch(modeSlotProvider(selectionSlot));
 
 @Riverpod(keepAlive: true, dependencies: [AppModeMachine])
 T? modeSlot<T extends Object>(Ref ref, Slot<T> slot) =>

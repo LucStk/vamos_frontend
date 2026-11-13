@@ -3,7 +3,7 @@ import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/objects.dart';
 import 'package:trip_application/trip_application.dart';
 
-abstract class RouteElements extends MapObject implements Selectable {
+abstract class RouteElements extends MapObject {
   @override
   bool get isDraggable => true;
   @override

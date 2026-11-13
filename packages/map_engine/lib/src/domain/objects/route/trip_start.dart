@@ -17,8 +17,7 @@ final class MapTripStart extends RouteElements implements MapRouteOrigin {
   int get hashCode => (MapTripStart).hashCode;
 }
 
-final class MapTmpOrigin extends MapObject
-    implements Selectable, MapRouteOrigin {
+final class MapTmpOrigin extends MapObject implements MapRouteOrigin {
   MapTmpOrigin();
   @override
   bool get isDraggable => true;
