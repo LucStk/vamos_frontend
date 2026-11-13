@@ -312,6 +312,99 @@ final class MobilitySpanRangesFamily extends $Family
   String toString() => r'mobilitySpanRangesProvider';
 }
 
+/// Étendue de chaque span du calque modalité.
+
+@ProviderFor(mobilitySpanExtents)
+final mobilitySpanExtentsProvider = MobilitySpanExtentsFamily._();
+
+/// Étendue de chaque span du calque modalité.
+
+final class MobilitySpanExtentsProvider
+    extends
+        $FunctionalProvider<
+          Map<SpanId, SpanExtent>,
+          Map<SpanId, SpanExtent>,
+          Map<SpanId, SpanExtent>
+        >
+    with $Provider<Map<SpanId, SpanExtent>> {
+  /// Étendue de chaque span du calque modalité.
+  MobilitySpanExtentsProvider._({
+    required MobilitySpanExtentsFamily super.from,
+    required TripId super.argument,
+  }) : super(
+         retry: null,
+         name: r'mobilitySpanExtentsProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$mobilitySpanExtentsHash();
+
+  @override
+  String toString() {
+    return r'mobilitySpanExtentsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<Map<SpanId, SpanExtent>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Map<SpanId, SpanExtent> create(Ref ref) {
+    final argument = this.argument as TripId;
+    return mobilitySpanExtents(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<SpanId, SpanExtent> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<SpanId, SpanExtent>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MobilitySpanExtentsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$mobilitySpanExtentsHash() =>
+    r'5d0ef082bd4a89ede374af7e187ce5544f0b3fbb';
+
+/// Étendue de chaque span du calque modalité.
+
+final class MobilitySpanExtentsFamily extends $Family
+    with $FunctionalFamilyOverride<Map<SpanId, SpanExtent>, TripId> {
+  MobilitySpanExtentsFamily._()
+    : super(
+        retry: null,
+        name: r'mobilitySpanExtentsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  /// Étendue de chaque span du calque modalité.
+
+  MobilitySpanExtentsProvider call(TripId tripId) =>
+      MobilitySpanExtentsProvider._(argument: tripId, from: this);
+
+  @override
+  String toString() => r'mobilitySpanExtentsProvider';
+}
+
 /// Vertex de début et de fin de chaque span du calque d'édition.
 
 @ProviderFor(editSpanRanges)

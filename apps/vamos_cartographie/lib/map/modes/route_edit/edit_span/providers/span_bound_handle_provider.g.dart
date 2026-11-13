@@ -8,7 +8,7 @@ part of 'span_bound_handle_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Surlignage des portions déplacées et curseurs des deux bornes.
+/// Surlignage de la portion déplacée et curseurs des deux bornes.
 ///
 /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
 /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
@@ -17,7 +17,7 @@ part of 'span_bound_handle_provider.dart';
 @ProviderFor(spanBoundHandleItems)
 final spanBoundHandleItemsProvider = SpanBoundHandleItemsFamily._();
 
-/// Surlignage des portions déplacées et curseurs des deux bornes.
+/// Surlignage de la portion déplacée et curseurs des deux bornes.
 ///
 /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
 /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
@@ -27,7 +27,7 @@ final class SpanBoundHandleItemsProvider
     extends
         $FunctionalProvider<List<SceneItem>, List<SceneItem>, List<SceneItem>>
     with $Provider<List<SceneItem>> {
-  /// Surlignage des portions déplacées et curseurs des deux bornes.
+  /// Surlignage de la portion déplacée et curseurs des deux bornes.
   ///
   /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
   /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
@@ -88,9 +88,9 @@ final class SpanBoundHandleItemsProvider
 }
 
 String _$spanBoundHandleItemsHash() =>
-    r'b05199ce340195a322a5307fa5ed63e960f7b7fd';
+    r'b619a2b7b41783dc684b526e67e1e0a542639f3c';
 
-/// Surlignage des portions déplacées et curseurs des deux bornes.
+/// Surlignage de la portion déplacée et curseurs des deux bornes.
 ///
 /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
 /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
@@ -114,7 +114,7 @@ final class SpanBoundHandleItemsFamily extends $Family
         isAutoDispose: true,
       );
 
-  /// Surlignage des portions déplacées et curseurs des deux bornes.
+  /// Surlignage de la portion déplacée et curseurs des deux bornes.
   ///
   /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
   /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée

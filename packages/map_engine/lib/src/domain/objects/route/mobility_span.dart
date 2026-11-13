@@ -3,16 +3,9 @@ import 'package:trip_application/trip_application.dart';
 
 final class MapMobilitySpan extends RouteElements {
   final MobilitySpanId id;
-  final double start;
-  final double end;
+
   final TripId tripId;
-  MapMobilitySpan({
-    required this.id,
-    required this.tripId,
-    required this.start,
-    required this.end,
-  });
-  // ...
+  MapMobilitySpan({required this.id, required this.tripId});
   @override
   bool get isDraggable => true;
 

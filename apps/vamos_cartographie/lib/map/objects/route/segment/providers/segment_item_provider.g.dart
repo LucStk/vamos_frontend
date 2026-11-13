@@ -8,17 +8,13 @@ part of 'segment_item_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 
 @ProviderFor(segmentItem)
 final segmentItemProvider = SegmentItemFamily._();
 
-/// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
-
 final class SegmentItemProvider
     extends $FunctionalProvider<SegmentItem?, SegmentItem?, SegmentItem?>
     with $Provider<SegmentItem?> {
-  /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
   SegmentItemProvider._({
     required SegmentItemFamily super.from,
     required (TripId, MobilitySpanId, MapCameraReader) super.argument,
@@ -70,9 +66,7 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'561dc257533aded7b3e1f125f4ac78d1c5abe2b3';
-
-/// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
+String _$segmentItemHash() => r'3b60a2caac78135f0f4ed9cfe2030645439b0c21';
 
 final class SegmentItemFamily extends $Family
     with
@@ -88,8 +82,6 @@ final class SegmentItemFamily extends $Family
         $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
-
-  /// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 
   SegmentItemProvider call(
     TripId tripId,

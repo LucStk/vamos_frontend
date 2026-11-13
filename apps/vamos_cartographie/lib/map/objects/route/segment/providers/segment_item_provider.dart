@@ -11,7 +11,6 @@ import 'package:vamos_cartographie/map/objects/route/segment/segment_item.dart';
 
 part 'segment_item_provider.g.dart';
 
-/// Un item par section : ne se reconstruit que si SA plage ou la géométrie change.
 @Riverpod(keepAlive: true)
 SegmentItem? segmentItem(
   Ref ref,
@@ -22,9 +21,14 @@ SegmentItem? segmentItem(
   final mobilityType = ref.watch(
     mobilitySpanProvider(tripId, id).select((m) => m.mobilityType),
   );
+
+  // Seuls les sommets servent ici : sélectionner `.vertices` (un record, donc
+  // comparé par valeur) évite de reconstruire le segment si seule la nature
+  // d'une borne change.
   final range = ref.watch(
-    mobilitySpanRangesProvider(tripId).select((m) => m[id]),
+    mobilitySpanExtentsProvider(tripId).select((m) => m[id]?.vertices),
   );
+
   final geometry = ref.watch(
     routeStoreProvider(tripId).select((s) => s.route?.current.geometry),
   );
@@ -38,11 +42,6 @@ SegmentItem? segmentItem(
     polyline: polyline,
     appearance: MobilityAppearances.of(mobilityType),
     worldSegments: projectLine(slice, cameraReader.latLngToWorldOffset),
-    object: MapMobilitySpan(
-      tripId: tripId,
-      id: id,
-      start: range.first.toDouble(),
-      end: range.last.toDouble(),
-    ),
+    object: MapMobilitySpan(tripId: tripId, id: id),
   );
 }
