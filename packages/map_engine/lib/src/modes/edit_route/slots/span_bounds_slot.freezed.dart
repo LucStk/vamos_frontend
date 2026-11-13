@@ -15,7 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SpanBounds {
 
- double get start; double get end;
+/// Bornes d'origine : elles ne changent jamais pendant l'édition.
+ double get originStart; double get originEnd;/// Borne actuellement déplacée, ou null si aucune.
+ BoundMove? get moved;
 /// Create a copy of SpanBounds
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +29,20 @@ $SpanBoundsCopyWith<SpanBounds> get copyWith => _$SpanBoundsCopyWithImpl<SpanBou
 @override
 bool operator ==(Object other) {
   final _this = this as SpanBounds;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpanBounds&&(identical(other.start, _this.start) || other.start == _this.start)&&(identical(other.end, _this.end) || other.end == _this.end));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpanBounds&&(identical(other.originStart, _this.originStart) || other.originStart == _this.originStart)&&(identical(other.originEnd, _this.originEnd) || other.originEnd == _this.originEnd)&&(identical(other.moved, _this.moved) || other.moved == _this.moved));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SpanBounds;
-  return Object.hash(runtimeType,_this.start,_this.end);
+  return Object.hash(runtimeType,_this.originStart,_this.originEnd,_this.moved);
 }
 
 @override
 String toString() {
   final _this = this as SpanBounds;
-  return 'SpanBounds(start: ${_this.start}, end: ${_this.end})';
+  return 'SpanBounds(originStart: ${_this.originStart}, originEnd: ${_this.originEnd}, moved: ${_this.moved})';
 }
 
 
@@ -51,7 +53,7 @@ abstract mixin class $SpanBoundsCopyWith<$Res>  {
   factory $SpanBoundsCopyWith(SpanBounds value, $Res Function(SpanBounds) _then) = _$SpanBoundsCopyWithImpl;
 @useResult
 $Res call({
- double start, double end
+ double originStart, double originEnd, BoundMove? moved
 });
 
 
@@ -68,11 +70,12 @@ class _$SpanBoundsCopyWithImpl<$Res>
 
 /// Create a copy of SpanBounds
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? start = null,Object? end = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? originStart = null,Object? originEnd = null,Object? moved = freezed,}) {
   return _then(SpanBounds(
-start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
-as double,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
-as double,
+originStart: null == originStart ? _self.originStart : originStart // ignore: cast_nullable_to_non_nullable
+as double,originEnd: null == originEnd ? _self.originEnd : originEnd // ignore: cast_nullable_to_non_nullable
+as double,moved: freezed == moved ? _self.moved : moved // ignore: cast_nullable_to_non_nullable
+as BoundMove?,
   ));
 }
 
@@ -157,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double start,  double end)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double originStart,  double originEnd,  BoundMove? moved)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SpanBounds() when $default != null:
-return $default(_that.start,_that.end);case _:
+return $default(_that.originStart,_that.originEnd,_that.moved);case _:
   return orElse();
 
 }
@@ -178,10 +181,10 @@ return $default(_that.start,_that.end);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double start,  double end)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double originStart,  double originEnd,  BoundMove? moved)  $default,) {final _that = this;
 switch (_that) {
 case _SpanBounds():
-return $default(_that.start,_that.end);case _:
+return $default(_that.originStart,_that.originEnd,_that.moved);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +201,10 @@ return $default(_that.start,_that.end);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double start,  double end)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double originStart,  double originEnd,  BoundMove? moved)?  $default,) {final _that = this;
 switch (_that) {
 case _SpanBounds() when $default != null:
-return $default(_that.start,_that.end);case _:
+return $default(_that.originStart,_that.originEnd,_that.moved);case _:
   return null;
 
 }
@@ -213,11 +216,14 @@ return $default(_that.start,_that.end);case _:
 
 
 class _SpanBounds extends SpanBounds {
-  const _SpanBounds({required this.start, required this.end}): super._();
+  const _SpanBounds({required this.originStart, required this.originEnd, this.moved}): super._();
   
 
-@override final  double start;
-@override final  double end;
+/// Bornes d'origine : elles ne changent jamais pendant l'édition.
+@override final  double originStart;
+@override final  double originEnd;
+/// Borne actuellement déplacée, ou null si aucune.
+@override final  BoundMove? moved;
 
 /// Create a copy of SpanBounds
 /// with the given fields replaced by the non-null parameter values.
@@ -229,18 +235,18 @@ _$SpanBoundsCopyWith<_SpanBounds> get copyWith => __$SpanBoundsCopyWithImpl<_Spa
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpanBounds&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpanBounds&&(identical(other.originStart, originStart) || other.originStart == originStart)&&(identical(other.originEnd, originEnd) || other.originEnd == originEnd)&&(identical(other.moved, moved) || other.moved == moved));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,start,end);
+    return Object.hash(runtimeType,originStart,originEnd,moved);
 }
 
 @override
 String toString() {
-    return 'SpanBounds(start: $start, end: $end)';
+    return 'SpanBounds(originStart: $originStart, originEnd: $originEnd, moved: $moved)';
 }
 
 
@@ -251,7 +257,7 @@ abstract mixin class _$SpanBoundsCopyWith<$Res> implements $SpanBoundsCopyWith<$
   factory _$SpanBoundsCopyWith(_SpanBounds value, $Res Function(_SpanBounds) _then) = __$SpanBoundsCopyWithImpl;
 @override @useResult
 $Res call({
- double start, double end
+ double originStart, double originEnd, BoundMove? moved
 });
 
 
@@ -268,11 +274,12 @@ class __$SpanBoundsCopyWithImpl<$Res>
 
 /// Create a copy of SpanBounds
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? start = null,Object? end = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? originStart = null,Object? originEnd = null,Object? moved = freezed,}) {
   return _then(_SpanBounds(
-start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
-as double,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
-as double,
+originStart: null == originStart ? _self.originStart : originStart // ignore: cast_nullable_to_non_nullable
+as double,originEnd: null == originEnd ? _self.originEnd : originEnd // ignore: cast_nullable_to_non_nullable
+as double,moved: freezed == moved ? _self.moved : moved // ignore: cast_nullable_to_non_nullable
+as BoundMove?,
   ));
 }
 

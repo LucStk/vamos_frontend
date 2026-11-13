@@ -26,7 +26,7 @@ class EditSpanMode extends TripMode {
 
   @override
   Iterable<SlotChange> get initialSlots => [
-    (spanBoundsSlot, SpanBounds(start: start, end: end)),
+    (spanBoundsSlot, SpanBounds(originStart: start, originEnd: end)),
   ];
 
   // Taper un autre span : on passe à son édition, avec ses propres bornes.
