@@ -133,7 +133,7 @@ Map<Object, Set<VisualTrait>> sceneTraits(Ref ref, MapCameraController camera) {
 /// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
 /// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
 /// une exception.
-@Riverpod(keepAlive: true, dependencies: [sceneItems])
+@Riverpod(keepAlive: true, dependencies: [sceneItems, sceneTraits])
 MapScene mapScene(Ref ref) {
   final camera = ref.watch(readyCameraProvider);
   if (camera == null) return const MapScene(items: []);
