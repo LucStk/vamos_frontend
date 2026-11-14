@@ -9,14 +9,14 @@ import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dar
 import 'package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart';
 
 /// Contenu déplié : photos et description, consultables ou modifiables.
-class TripViewerContent extends ConsumerWidget {
-  const TripViewerContent({
+class WaypointViewerContent extends ConsumerWidget {
+  const WaypointViewerContent({
     super.key,
-    required this.trip,
+    required this.waypoint,
     this.editable = false,
   });
 
-  final Trip trip;
+  final WaypointFields waypoint;
   final bool editable;
 
   @override

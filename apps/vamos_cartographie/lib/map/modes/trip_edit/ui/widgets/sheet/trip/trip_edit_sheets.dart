@@ -5,9 +5,10 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip/trip_compact_content.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip/trip_stats.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip/trip_viewer_content.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip/pages/decription/trip_compact_content.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip/pages/decription/trip_viewer_content.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip/pages/trip_stats/trip_stats_compact.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/sheet/trip/pages/trip_stats/trip_stats_viewer.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 
 @Dependencies([modeSelection, ModeMachine])

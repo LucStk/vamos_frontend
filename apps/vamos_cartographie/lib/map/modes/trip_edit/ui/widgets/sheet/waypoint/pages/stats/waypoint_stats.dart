@@ -3,8 +3,8 @@ import 'package:trip_application/trip_application.dart';
 
 /// Une statistique numérique du voyage, partagée entre l'aperçu compact
 /// (3 tuiles) et le contenu déplié (liste complète).
-class TripStat {
-  const TripStat({
+class WaypointStat {
+  const WaypointStat({
     required this.icon,
     required this.label,
     required this.value,
@@ -16,16 +16,16 @@ class TripStat {
 }
 
 /// Les 3 premières sont affichées dans la page compacte, dans cet ordre.
-List<TripStat> tripStatsOf(Trip trip) {
+List<WaypointStat> tripStatsOf(Trip trip) {
   // TODO: brancher sur les vrais champs de Trip / sur tes stores.
   return const [
-    TripStat(icon: Icons.straighten, label: 'Distance', value: '—'),
-    TripStat(
+    WaypointStat(icon: Icons.straighten, label: 'Distance', value: '—'),
+    WaypointStat(
       icon: Icons.directions_walk,
       label: 'Mobilité préférée',
       value: '—',
     ),
-    TripStat(icon: Icons.visibility_outlined, label: 'Vues', value: '—'),
+    WaypointStat(icon: Icons.visibility_outlined, label: 'Vues', value: '—'),
     // Idées : durée, dénivelé, nombre d'étapes, date de création…
   ];
 }

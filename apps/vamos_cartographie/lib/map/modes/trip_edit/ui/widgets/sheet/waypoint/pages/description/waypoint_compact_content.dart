@@ -12,20 +12,20 @@ import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dar
 import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/header/trip_header.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 
-import 'trip_stats.dart';
+import 'waypoint_stats.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Page 1 : titre + galerie
 // ─────────────────────────────────────────────────────────────────────────────
 
-class TripOverviewCompact extends ConsumerWidget {
-  const TripOverviewCompact({
+class WaypointOverviewCompact extends ConsumerWidget {
+  const WaypointOverviewCompact({
     super.key,
-    required this.trip,
+    required this.waypoint,
     this.editable = false,
   });
 
-  final Trip trip;
+  final WaypointFields waypoint;
   final bool editable;
 
   @override
