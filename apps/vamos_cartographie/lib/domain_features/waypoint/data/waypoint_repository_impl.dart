@@ -54,7 +54,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
   Future<Either<Failure, WaypointRemoteModel>> setStay(
     WaypointId waypointId,
     int nights,
-  ) => _guard(
+  ) => guard(
     () async => (await remote.setStay(
       waypointId: waypointId,
       nights: nights,
@@ -64,7 +64,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
   @override
   Future<Either<Failure, WaypointRemoteModel>> clearStay(
     WaypointId waypointId,
-  ) => _guard(
+  ) => guard(
     () async => (await remote.clearStay(waypointId: waypointId)).toDomain(),
   );
 
@@ -75,7 +75,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
     required int offset,
     required String title,
     required String notes,
-  }) => _guard(
+  }) => guard(
     () async => (await remote.setStayDayNote(
       tripId: tripId,
       stayId: stayId,
@@ -90,7 +90,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
     required int offset,
     required String title,
     required String notes,
-  }) => _guard(
+  }) => guard(
     () async => (await remote.setFinalDayNote(
       tripId: tripId,
       title: title,
@@ -98,17 +98,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
     ))?.toDomain(),
   );
   @override
-  Future<Either<Failure, DayNote?>> finalDayNote(Id<Trip> tripId) => _guard(
+  Future<Either<Failure, DayNote?>> finalDayNote(Id<Trip> tripId) => guard(
     () async => (await remote.finalDayNote(tripId: tripId))?.toDomain(),
   );
-
-  // ADAPTER : remplace par le mécanisme qu'utilise déjà ton updateWaypoint
-  // pour convertir les exceptions (réseau, GraphQL) en Failure.
-  Future<Either<Failure, T>> _guard<T>(Future<T> Function() call) async {
-    try {
-      return Right(await call());
-    } catch (e, st) {
-      return Left(Failure.fromException(e, st));
-    }
-  }
 }

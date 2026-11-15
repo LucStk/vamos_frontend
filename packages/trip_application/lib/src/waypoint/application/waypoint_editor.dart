@@ -161,8 +161,11 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
         final stayId = state.waypointStore.get(waypointId)?.current.stay?.id;
         if (stayId == null) {
           return Left(
-            UnexpectedFailure('ce waypoint n’est pas une halte'),
-          ); // ADAPTER
+            NotFoundFailure(
+              resourceId: "waypointId",
+              resourceType: "stayId pour Waypoint",
+            ),
+          );
         }
         return waypointRepo.setDayNote(
           tripId: tripId,
