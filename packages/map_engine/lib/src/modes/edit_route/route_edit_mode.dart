@@ -3,8 +3,8 @@ import 'package:map_engine/src/domain/objects/objects.dart';
 import 'package:map_engine/src/gesture_engine/gesture_engine.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/edit_route/edit_route.dart';
-import 'package:map_engine/src/modes/edit_trip/commands/edit_trip_command.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
+import 'package:map_engine/src/modes/trip_ready/commands/edit_trip_command.dart';
 
 final class RouteEditMode extends TripMode {
   const RouteEditMode(super.tripId);

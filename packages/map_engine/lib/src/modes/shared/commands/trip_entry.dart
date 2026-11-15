@@ -11,12 +11,9 @@ final class TripUnavailable extends TripEntry {
   const TripUnavailable();
 }
 
-final class TripReadOnly extends TripEntry {
-  const TripReadOnly();
-}
-
 final class TripReady extends TripEntry {
-  const TripReady();
+  const TripReady({this.readOnly = true});
+  final bool readOnly;
 }
 
 final class TripNeedsOrigin extends TripEntry {
@@ -38,11 +35,13 @@ final class ResolveTripEntry extends Command<TripEntry> {
 
     // Pas connecté ou pas propriétaire : lecture seule.
     if (userId == null || trip.ownerId != userId) {
-      return const TripReadOnly();
+      return const TripReady(readOnly: true);
     }
 
     final route = n.forTrip(tripId).route;
-    if (route != null && route.geometry.isNotEmpty) return const TripReady();
+    if (route != null && route.geometry.isNotEmpty) {
+      return const TripReady(readOnly: false);
+    }
     final origin = route?.startPoint;
 
     if (origin == null) {

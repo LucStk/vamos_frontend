@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/map/objects/route/route.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/providers/waypoint_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
 
-List<Layer> tripEditScene(TripId tripId) => [
+List<Layer> tripReadyScene(TripId tripId) => [
   (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],
   (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],
   (ref, cam) => ref.watch(allMobilityBadgeItemProvider(tripId, cam)),

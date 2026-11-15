@@ -3,8 +3,8 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/buttons/edit_bottom_actions.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/ui/widgets/buttons/edit_bottom_button.dart';
+import 'package:vamos_cartographie/map/modes/trip_ready/ui/widgets/buttons/edit_bottom_actions.dart';
+import 'package:vamos_cartographie/map/modes/trip_ready/ui/widgets/buttons/edit_bottom_button.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class TripEditActions extends StatelessWidget {

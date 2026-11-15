@@ -10,7 +10,7 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 @Dependencies([modeSelection, ModeMachine])
 class TripEditMenus extends ConsumerWidget {
   const TripEditMenus(this.mode, {super.key});
-  final TripEditMode mode;
+  final TripReadyMode mode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

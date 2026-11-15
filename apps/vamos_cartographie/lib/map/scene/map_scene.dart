@@ -5,6 +5,7 @@ import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/modes.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_scene.dart';
+import 'package:vamos_cartographie/map/modes/trip_ready/trip_ready_scene.dart';
 
 import 'package:vamos_cartographie/map/objects/annotations/providers/search_result_item_provider.dart';
 // Adapte le chemin au fichier qui déclare `selectSpanScene`.
@@ -62,7 +63,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
     layers: placeExistingTripOriginScene(tripId),
   ),
   PlaceNewTripOrigin() => SceneSpec(layers: placeNewTripOriginScene()),
-  TripMode(:final tripId) => SceneSpec(layers: tripEditScene(tripId)),
+  TripMode(:final tripId) => SceneSpec(layers: tripReadyScene(tripId)),
   _ => const SceneSpec(layers: []),
 };
 
