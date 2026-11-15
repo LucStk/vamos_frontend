@@ -17,4 +17,23 @@ abstract class WaypointRepository {
   );
 
   Future<Either<Failure, void>> deleteWaypoint(WaypointId id);
+  Future<Either<Failure, WaypointRemoteModel>> setStay(
+    WaypointId waypointId,
+    int nights,
+  );
+  Future<Either<Failure, WaypointRemoteModel>> clearStay(WaypointId waypointId);
+  Future<Either<Failure, DayNote?>> setDayNote({
+    required Id<Trip> tripId,
+    required StayId stayId,
+    required int offset,
+    required String title,
+    required String notes,
+  });
+  Future<Either<Failure, DayNote?>> setFinalDayNote({
+    required Id<Trip> tripId,
+    required int offset,
+    required String title,
+    required String notes,
+  });
+  Future<Either<Failure, DayNote?>> finalDayNote(Id<Trip> tripId);
 }

@@ -161,7 +161,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
         final stayId = state.waypointStore.get(waypointId)?.current.stay?.id;
         if (stayId == null) {
           return Left(
-            Failure.unexpected('ce waypoint n’est pas une halte'),
+            UnexpectedFailure('ce waypoint n’est pas une halte'),
           ); // ADAPTER
         }
         return waypointRepo.setDayNote(
@@ -190,9 +190,8 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
         previous = gs.finalDayNote;
         return gs.withFinalDayNote(draft);
       },
-      remote: (_) => waypointRepo.setDayNote(
+      remote: (_) => waypointRepo.setFinalDayNote(
         tripId: tripId,
-        stayId: null,
         offset: 0,
         title: draft.title,
         notes: draft.notes,

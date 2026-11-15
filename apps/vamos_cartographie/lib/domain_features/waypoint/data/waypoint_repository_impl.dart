@@ -3,6 +3,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:trip_application/trip_application.dart';
 import "package:latlong2/latlong.dart";
 import 'package:vamos_cartographie/core/erreur_handler.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/data/mappers/stay_mappers.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/waypoint.dart';
 
 class WaypointRepositoryImpl extends WaypointRepository {
@@ -49,6 +50,7 @@ class WaypointRepositoryImpl extends WaypointRepository {
     });
   }
 
+  @override
   Future<Either<Failure, WaypointRemoteModel>> setStay(
     WaypointId waypointId,
     int nights,
@@ -59,20 +61,22 @@ class WaypointRepositoryImpl extends WaypointRepository {
     )).toDomain(),
   );
 
+  @override
   Future<Either<Failure, WaypointRemoteModel>> clearStay(
     WaypointId waypointId,
   ) => _guard(
     () async => (await remote.clearStay(waypointId: waypointId)).toDomain(),
   );
 
+  @override
   Future<Either<Failure, DayNote?>> setDayNote({
     required Id<Trip> tripId,
-    required StayId? stayId,
+    required StayId stayId,
     required int offset,
     required String title,
     required String notes,
   }) => _guard(
-    () async => (await remote.setDayNote(
+    () async => (await remote.setStayDayNote(
       tripId: tripId,
       stayId: stayId,
       offset: offset,
@@ -80,7 +84,20 @@ class WaypointRepositoryImpl extends WaypointRepository {
       notes: notes,
     ))?.toDomain(),
   );
-
+  @override
+  Future<Either<Failure, DayNote?>> setFinalDayNote({
+    required Id<Trip> tripId,
+    required int offset,
+    required String title,
+    required String notes,
+  }) => _guard(
+    () async => (await remote.setFinalDayNote(
+      tripId: tripId,
+      title: title,
+      notes: notes,
+    ))?.toDomain(),
+  );
+  @override
   Future<Either<Failure, DayNote?>> finalDayNote(Id<Trip> tripId) => _guard(
     () async => (await remote.finalDayNote(tripId: tripId))?.toDomain(),
   );

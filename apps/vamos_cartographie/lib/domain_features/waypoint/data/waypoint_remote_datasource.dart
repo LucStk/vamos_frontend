@@ -1,4 +1,5 @@
 import 'package:domain_core/domain_core.dart';
+import 'package:gql_tristate_value/gql_tristate_value.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:ferry/ferry.dart';
 import 'package:latlong2/latlong.dart';
@@ -69,18 +70,32 @@ class WaypointRemoteDatasource {
   }
 
   /// Renvoie null si la note a été supprimée (titre et notes vides).
-  Future<GDayNoteDetails?> setDayNote({
+  Future<GDayNoteDetails?> setStayDayNote({
     required Id<Trip> tripId,
-    required StayId? stayId,
+    required StayId stayId,
     required int offset,
     required String title,
     required String notes,
-  }) async {
+  }) => _setDayNote(tripId, Value.present(stayId.value), offset, title, notes);
+
+  Future<GDayNoteDetails?> setFinalDayNote({
+    required Id<Trip> tripId,
+    required String title,
+    required String notes,
+  }) => _setDayNote(tripId, Value.present(null), 0, title, notes);
+
+  Future<GDayNoteDetails?> _setDayNote(
+    Id<Trip> tripId,
+    Value<String> stayId,
+    int offset,
+    String title,
+    String notes,
+  ) async {
     final data = await ferryClient.execute(
       GSetDayNoteReq(
         vars: GSetDayNoteVars(
           tripId: tripId.value,
-          stayId: stayId?.value,
+          stayId: stayId,
           offset: offset,
           title: title,
           notes: notes,
