@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
+import "package:trip_application/trip_application.dart";
 import "/domain_features/domain_features.dart";
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class WaypointHeader extends StatelessWidget {
-  final PoiCategoryStyle type;
+  final WaypointKindStyle kind;
 
-  const WaypointHeader({super.key, required this.type});
+  const WaypointHeader({super.key, required this.kind});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +16,21 @@ class WaypointHeader extends StatelessWidget {
           width: 30,
           height: 30,
           decoration: BoxDecoration(
-            color: Color(type.colorValue),
+            color: Color(kind.colorValue),
             shape: BoxShape.circle,
           ),
-          child: Icon(type.icon, color: Colors.white, size: 17),
+          child: Icon(kind.icon, color: Colors.white, size: 17),
         ),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              type.label,
+              kind.label,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(type.colorValue),
+                color: Color(kind.colorValue),
               ),
             ),
           ],

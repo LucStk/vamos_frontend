@@ -15,7 +15,7 @@ import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__ge
 abstract class GWaypointDetails {
   String get id;
   double get anchorPosition;
-  _i1.GPoiCategory get poiCategory;
+  _i1.GWaypointKind get kind;
   String get title;
   String get description;
   _i2.GLatLng get location;
@@ -27,7 +27,7 @@ class GWaypointDetailsData implements GWaypointDetails {
   const GWaypointDetailsData({
     required this.id,
     required this.anchorPosition,
-    required this.poiCategory,
+    required this.kind,
     required this.title,
     required this.description,
     required this.location,
@@ -39,7 +39,7 @@ class GWaypointDetailsData implements GWaypointDetails {
     return GWaypointDetailsData(
       id: (json['id'] as String),
       anchorPosition: (json['anchorPosition'] as num).toDouble(),
-      poiCategory: _i1.GPoiCategory.fromJson((json['poiCategory'] as String)),
+      kind: _i1.GWaypointKind.fromJson((json['kind'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
       location:
@@ -56,7 +56,7 @@ class GWaypointDetailsData implements GWaypointDetails {
 
   final double anchorPosition;
 
-  final _i1.GPoiCategory poiCategory;
+  final _i1.GWaypointKind kind;
 
   final String title;
 
@@ -72,7 +72,7 @@ class GWaypointDetailsData implements GWaypointDetails {
     final _$result = <String, dynamic>{};
     _$result['id'] = this.id;
     _$result['anchorPosition'] = this.anchorPosition;
-    _$result['poiCategory'] = this.poiCategory.toJson();
+    _$result['kind'] = this.kind.toJson();
     _$result['title'] = this.title;
     _$result['description'] = this.description;
     _$result['location'] = this.location.toJson();
@@ -84,7 +84,7 @@ class GWaypointDetailsData implements GWaypointDetails {
   GWaypointDetailsData copyWith({
     String? id,
     double? anchorPosition,
-    _i1.GPoiCategory? poiCategory,
+    _i1.GWaypointKind? kind,
     String? title,
     String? description,
     _i2.GLatLngData? location,
@@ -94,7 +94,7 @@ class GWaypointDetailsData implements GWaypointDetails {
     return GWaypointDetailsData(
       id: id ?? this.id,
       anchorPosition: anchorPosition ?? this.anchorPosition,
-      poiCategory: poiCategory ?? this.poiCategory,
+      kind: kind ?? this.kind,
       title: title ?? this.title,
       description: description ?? this.description,
       location: location ?? this.location,
@@ -109,7 +109,7 @@ class GWaypointDetailsData implements GWaypointDetails {
         (other is GWaypointDetailsData &&
             id == other.id &&
             anchorPosition == other.anchorPosition &&
-            poiCategory == other.poiCategory &&
+            kind == other.kind &&
             title == other.title &&
             description == other.description &&
             location == other.location &&
@@ -119,12 +119,12 @@ class GWaypointDetailsData implements GWaypointDetails {
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, id, anchorPosition, poiCategory, title,
+    return Object.hash(runtimeType, id, anchorPosition, kind, title,
         description, location, _gqlUtils.listHash(files), G__typename);
   }
 
   @override
   String toString() {
-    return 'GWaypointDetailsData(id: $id, anchorPosition: $anchorPosition, poiCategory: $poiCategory, title: $title, description: $description, location: $location, files: $files, G__typename: $G__typename)';
+    return 'GWaypointDetailsData(id: $id, anchorPosition: $anchorPosition, kind: $kind, title: $title, description: $description, location: $location, files: $files, G__typename: $G__typename)';
   }
 }

@@ -5,11 +5,12 @@ import 'package:vamos_cartographie/map/modes/shared/sheets/common/stats/stat_ite
 List<StatItem> waypointStatsOf(WaypointFields waypoint) {
   final p = waypoint.position;
   return [
-    StatItem(
-      icon: Icons.category_outlined,
-      label: 'Catégorie',
-      value: waypoint.poiCategory.name,
-    ),
+    if (waypoint.kind != null)
+      StatItem(
+        icon: Icons.category_outlined,
+        label: 'Catégorie',
+        value: waypoint.kind!.name,
+      ),
     StatItem(
       icon: Icons.route_outlined,
       label: 'Sur l\'itinéraire',
@@ -19,7 +20,8 @@ List<StatItem> waypointStatsOf(WaypointFields waypoint) {
     StatItem(
       icon: Icons.my_location,
       label: 'Coordonnées',
-      value: '${p.latitude.toStringAsFixed(4)}, ${p.longitude.toStringAsFixed(4)}',
+      value:
+          '${p.latitude.toStringAsFixed(4)}, ${p.longitude.toStringAsFixed(4)}',
     ),
   ];
 }

@@ -1,14 +1,14 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:trip_application/src/waypoint/domain/waypoint_types.dart';
+import 'package:trip_application/src/waypoint/domain/waypoint_kind.dart';
 part 'waypoint_model.freezed.dart';
 
 sealed class WaypointFields implements HasId {
   @override
   WaypointId get id;
   String get title;
-  WaypointType? get type;
+  WaypointKind? get kind;
   String get description;
   LatLng get position;
   double get anchorPosition;
@@ -27,7 +27,7 @@ abstract class WaypointRemoteModel
 
     required double anchorPosition,
     @Default('') String title,
-    WaypointType? type,
+    WaypointKind? kind,
     @Default('') String description,
   }) = _WaypointRemoteModel;
 
@@ -35,7 +35,7 @@ abstract class WaypointRemoteModel
     return WaypointRemoteModel(
       id: fields.id,
       title: fields.title,
-      type: fields.type,
+      kind: fields.kind,
       description: fields.description,
       position: fields.position,
       anchorPosition: fields.anchorPosition,
@@ -52,7 +52,7 @@ abstract class WaypointPatchModel
     required WaypointId id,
     required LatLng position,
     required String title,
-    WaypointType? type,
+    WaypointKind? kind,
     required double anchorPosition,
     required String description,
     required bool recomputing,
@@ -70,7 +70,7 @@ abstract class WaypointPatchModel
       id: fields.id,
       position: fields.position,
       title: fields.title,
-      type: fields.type,
+      kind: fields.kind,
       description: fields.description,
       anchorPosition: fields.anchorPosition,
       recomputing: recomputing,
@@ -82,7 +82,7 @@ abstract class WaypointPatchModel
     required LatLng position,
     required double anchorPosition,
     String? title,
-    WaypointType? type,
+    WaypointKind? kind,
     String? description,
     bool recomputing = false,
     Object? error,
@@ -91,7 +91,7 @@ abstract class WaypointPatchModel
       id: id ?? WaypointId.generate(),
       position: position,
       anchorPosition: anchorPosition,
-      type: type,
+      kind: kind,
       title: title ?? "",
       description: description ?? "",
       recomputing: recomputing,

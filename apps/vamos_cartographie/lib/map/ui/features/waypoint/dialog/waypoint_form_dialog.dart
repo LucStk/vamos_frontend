@@ -69,17 +69,17 @@ class _FormWaypointDialogState extends ConsumerState<WaypointFormDialog> {
           const SizedBox(height: 16),
 
           // ── Header ─────────────────────────────
-          WaypointHeader(type: currentWaypoint.poiCategoryUi),
+          WaypointHeader(kind: currentWaypoint.display),
 
           const SizedBox(height: 12),
 
           // ── Type ───────────────────────────────
           TypeSelector(
-            values: PoiCategoryStyle.values,
-            selectedType: currentWaypoint.poiCategoryUi,
+            values: WaypointKindStyle.values,
+            selectedType: currentWaypoint.display,
 
             onTypeChanged: (newType) {
-              _patch(currentWaypoint.copyWith(poiCategory: newType.category));
+              _patch(currentWaypoint.copyWith(kind: newType.kind));
             },
           ),
         ],

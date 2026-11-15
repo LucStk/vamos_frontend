@@ -3,22 +3,9 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
-import 'package:vamos_cartographie/map/objects/waypoint/style/waypoint_style.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/waypoint_item.dart';
 
 part 'waypoint_item_provider.g.dart';
-
-WaypointVisualKind _visualKind(WaypointFields? waypoint) {
-  if (waypoint == null) {
-    return WaypointVisualKind.normal;
-  }
-
-  return switch (waypoint.type) {
-    PoiCategory.start => WaypointVisualKind.start,
-    PoiCategory.end => WaypointVisualKind.end,
-    _ => WaypointVisualKind.normal,
-  };
-}
 
 @Riverpod(keepAlive: true)
 WaypointItem waypointItem(
@@ -31,7 +18,6 @@ WaypointItem waypointItem(
   return WaypointItem(
     worldPosition: cameraReader.latLngToWorldOffset(d.position),
     object: MapWaypoint(tripId: tripId, id: id),
-    visualKind: _visualKind(d),
   );
 }
 

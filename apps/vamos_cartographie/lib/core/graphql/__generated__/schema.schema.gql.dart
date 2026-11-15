@@ -502,89 +502,6 @@ class GMoveMobilityBoundaryInput {
   }
 }
 
-enum GPoiCategory {
-  START,
-  END,
-  WAYPOINT,
-  WATER,
-  FOOD,
-  REPAIR,
-  SHELTER,
-  CAMPING,
-  VIEWPOINT,
-  HISTORIC,
-  BEACH,
-  BOAT,
-  WARNING,
-  gUnknownEnumValue;
-
-  static GPoiCategory fromJson(String value) {
-    switch (value) {
-      case r'START':
-        return GPoiCategory.START;
-      case r'END':
-        return GPoiCategory.END;
-      case r'WAYPOINT':
-        return GPoiCategory.WAYPOINT;
-      case r'WATER':
-        return GPoiCategory.WATER;
-      case r'FOOD':
-        return GPoiCategory.FOOD;
-      case r'REPAIR':
-        return GPoiCategory.REPAIR;
-      case r'SHELTER':
-        return GPoiCategory.SHELTER;
-      case r'CAMPING':
-        return GPoiCategory.CAMPING;
-      case r'VIEWPOINT':
-        return GPoiCategory.VIEWPOINT;
-      case r'HISTORIC':
-        return GPoiCategory.HISTORIC;
-      case r'BEACH':
-        return GPoiCategory.BEACH;
-      case r'BOAT':
-        return GPoiCategory.BOAT;
-      case r'WARNING':
-        return GPoiCategory.WARNING;
-      default:
-        return GPoiCategory.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GPoiCategory.START:
-        return r'START';
-      case GPoiCategory.END:
-        return r'END';
-      case GPoiCategory.WAYPOINT:
-        return r'WAYPOINT';
-      case GPoiCategory.WATER:
-        return r'WATER';
-      case GPoiCategory.FOOD:
-        return r'FOOD';
-      case GPoiCategory.REPAIR:
-        return r'REPAIR';
-      case GPoiCategory.SHELTER:
-        return r'SHELTER';
-      case GPoiCategory.CAMPING:
-        return r'CAMPING';
-      case GPoiCategory.VIEWPOINT:
-        return r'VIEWPOINT';
-      case GPoiCategory.HISTORIC:
-        return r'HISTORIC';
-      case GPoiCategory.BEACH:
-        return r'BEACH';
-      case GPoiCategory.BOAT:
-        return r'BOAT';
-      case GPoiCategory.WARNING:
-        return r'WARNING';
-      case GPoiCategory.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
-  }
-}
-
 class GRangeMobilityInput {
   const GRangeMobilityInput({
     required this.start,
@@ -1172,12 +1089,50 @@ class GUpdateUserProfileInput {
   }
 }
 
+enum GWaypointKind {
+  EAT,
+  RESUPPLY,
+  REPAIR,
+  SIGHTSEE,
+  gUnknownEnumValue;
+
+  static GWaypointKind fromJson(String value) {
+    switch (value) {
+      case r'EAT':
+        return GWaypointKind.EAT;
+      case r'RESUPPLY':
+        return GWaypointKind.RESUPPLY;
+      case r'REPAIR':
+        return GWaypointKind.REPAIR;
+      case r'SIGHTSEE':
+        return GWaypointKind.SIGHTSEE;
+      default:
+        return GWaypointKind.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GWaypointKind.EAT:
+        return r'EAT';
+      case GWaypointKind.RESUPPLY:
+        return r'RESUPPLY';
+      case GWaypointKind.REPAIR:
+        return r'REPAIR';
+      case GWaypointKind.SIGHTSEE:
+        return r'SIGHTSEE';
+      case GWaypointKind.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 class GWaypointUpdateInput {
   const GWaypointUpdateInput({
     this.anchorPosition = const Value.absent(),
     this.location = const Value.absent(),
     this.title = const Value.absent(),
-    this.poiCategory = const Value.absent(),
+    this.kind = const Value.absent(),
     this.vertexId = const Value.absent(),
     this.description = const Value.absent(),
   });
@@ -1199,10 +1154,10 @@ class GWaypointUpdateInput {
           ? Value.present(
               json['title'] == null ? null : (json['title'] as String))
           : Value.absent(),
-      poiCategory: json.containsKey('poiCategory')
-          ? Value.present(json['poiCategory'] == null
+      kind: json.containsKey('kind')
+          ? Value.present(json['kind'] == null
               ? null
-              : GPoiCategory.fromJson((json['poiCategory'] as String)))
+              : GWaypointKind.fromJson((json['kind'] as String)))
           : Value.absent(),
       vertexId: json.containsKey('vertexId')
           ? Value.present(
@@ -1222,7 +1177,7 @@ class GWaypointUpdateInput {
 
   final Value<String> title;
 
-  final Value<GPoiCategory> poiCategory;
+  final Value<GWaypointKind> kind;
 
   final Value<int> vertexId;
 
@@ -1247,11 +1202,11 @@ class GWaypointUpdateInput {
       final _$titleRequired = _$titleValue.requireValue;
       _$result['title'] = _$titleRequired == null ? null : _$titleRequired;
     }
-    final _$poiCategoryValue = this.poiCategory;
-    if (_$poiCategoryValue.isPresent) {
-      final _$poiCategoryRequired = _$poiCategoryValue.requireValue;
-      _$result['poiCategory'] =
-          _$poiCategoryRequired == null ? null : _$poiCategoryRequired.toJson();
+    final _$kindValue = this.kind;
+    if (_$kindValue.isPresent) {
+      final _$kindRequired = _$kindValue.requireValue;
+      _$result['kind'] =
+          _$kindRequired == null ? null : _$kindRequired.toJson();
     }
     final _$vertexIdValue = this.vertexId;
     if (_$vertexIdValue.isPresent) {
@@ -1272,7 +1227,7 @@ class GWaypointUpdateInput {
     Value<double>? anchorPosition,
     Value<GLatLngInput>? location,
     Value<String>? title,
-    Value<GPoiCategory>? poiCategory,
+    Value<GWaypointKind>? kind,
     Value<int>? vertexId,
     Value<String>? description,
   }) {
@@ -1280,7 +1235,7 @@ class GWaypointUpdateInput {
       anchorPosition: anchorPosition ?? this.anchorPosition,
       location: location ?? this.location,
       title: title ?? this.title,
-      poiCategory: poiCategory ?? this.poiCategory,
+      kind: kind ?? this.kind,
       vertexId: vertexId ?? this.vertexId,
       description: description ?? this.description,
     );
@@ -1300,7 +1255,7 @@ class GWaypointUpdateInput {
 
   @override
   String toString() {
-    return 'GWaypointUpdateInput(anchorPosition: $anchorPosition, location: $location, title: $title, poiCategory: $poiCategory, vertexId: $vertexId, description: $description)';
+    return 'GWaypointUpdateInput(anchorPosition: $anchorPosition, location: $location, title: $title, kind: $kind, vertexId: $vertexId, description: $description)';
   }
 }
 

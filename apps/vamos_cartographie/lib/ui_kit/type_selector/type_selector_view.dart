@@ -3,7 +3,7 @@ import "map_item_style.dart";
 
 class TypeSelector<T extends MapItemStyle> extends StatelessWidget {
   final List<T> values;
-  final T selectedType;
+  final T? selectedType;
   final ValueChanged<T> onTypeChanged;
 
   const TypeSelector({

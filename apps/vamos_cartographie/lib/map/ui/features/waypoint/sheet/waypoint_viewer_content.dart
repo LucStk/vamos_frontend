@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_view.dart';
-import 'package:vamos_cartographie/domain_features/waypoint/presentation/poi_ui.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/map/ui/features/waypoint/dialog/waypoint_sheet.dart';
 
 class WaypointViewerContent extends StatelessWidget {
@@ -19,7 +19,7 @@ class WaypointViewerContent extends StatelessWidget {
       key: const ValueKey('full_content'), // 👈 CRUCIAL pour AnimatedSwitcher
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        WaypointHeader(type: waypoint.poiCategoryUi),
+        WaypointHeader(kind: waypoint.display),
         const SizedBox(height: 16),
         ImageCarouselView(id: waypoint.id),
         if (waypoint.description.isNotEmpty) ...[

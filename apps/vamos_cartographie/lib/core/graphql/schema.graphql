@@ -189,22 +189,6 @@ type PlaceResult {
   bounds: BoundsType
 }
 
-enum PoiCategory {
-  START
-  END
-  WAYPOINT
-  WATER
-  FOOD
-  REPAIR
-  SHELTER
-  CAMPING
-  VIEWPOINT
-  HISTORIC
-  BEACH
-  BOAT
-  WARNING
-}
-
 type PreviewEditSpanType {
   id: UUID
   startIndex: Int!
@@ -384,11 +368,18 @@ type UserProfileType {
 
 scalar UUID
 
+enum WaypointKind {
+  EAT
+  RESUPPLY
+  REPAIR
+  SIGHTSEE
+}
+
 type WaypointType {
   id: UUID!
   title: String!
   description: String!
-  poiCategory: PoiCategory!
+  kind: WaypointKind!
   anchorPosition: Float!
   location: LatLngType!
   files: [FileAttachmentType!]!
@@ -400,7 +391,7 @@ input WaypointUpdateInput {
   anchorPosition: Float
   location: LatLngInput
   title: String
-  poiCategory: PoiCategory
+  kind: WaypointKind
   vertexId: Int
   description: String
 }

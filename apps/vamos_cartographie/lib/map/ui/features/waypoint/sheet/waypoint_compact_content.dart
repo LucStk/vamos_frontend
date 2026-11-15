@@ -31,7 +31,7 @@ class WaypointCompactContent extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Expanded empêche le titre/catégorie de déborder sur les boutons
-            Expanded(child: WaypointHeader(type: waypoint.poiCategoryUi)),
+            Expanded(child: WaypointHeader(kind: waypoint.display)),
 
             const SizedBox(width: 12),
 

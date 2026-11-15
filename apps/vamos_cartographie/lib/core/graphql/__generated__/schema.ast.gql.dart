@@ -1351,64 +1351,6 @@ const PlaceResult = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
-const PoiCategory = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'PoiCategory'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'START'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'END'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WAYPOINT'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WATER'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'FOOD'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'REPAIR'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'SHELTER'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'CAMPING'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'VIEWPOINT'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'HISTORIC'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'BEACH'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'BOAT'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'WARNING'),
-      directives: [],
-    ),
-  ],
-);
 const PreviewEditSpanType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'PreviewEditSpanType'),
   directives: [],
@@ -2580,6 +2522,28 @@ const UUID = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'UUID'),
   directives: [],
 );
+const WaypointKind = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'WaypointKind'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'EAT'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'RESUPPLY'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'REPAIR'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'SIGHTSEE'),
+      directives: [],
+    ),
+  ],
+);
 const WaypointType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'WaypointType'),
   directives: [],
@@ -2613,11 +2577,11 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'poiCategory'),
+      name: _i1.NameNode(value: 'kind'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'PoiCategory'),
+        name: _i1.NameNode(value: 'WaypointKind'),
         isNonNull: true,
       ),
     ),
@@ -2703,10 +2667,10 @@ const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'poiCategory'),
+      name: _i1.NameNode(value: 'kind'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'PoiCategory'),
+        name: _i1.NameNode(value: 'WaypointKind'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -2760,7 +2724,6 @@ const document = _i1.DocumentNode(definitions: [
   MoveMobilityBoundaryInput,
   Mutation,
   PlaceResult,
-  PoiCategory,
   PreviewEditSpanType,
   PreviewMobilitySpanType,
   Query,
@@ -2785,6 +2748,7 @@ const document = _i1.DocumentNode(definitions: [
   UploadConfigType,
   UserProfileType,
   UUID,
+  WaypointKind,
   WaypointType,
   WaypointUpdateInput,
 ]);

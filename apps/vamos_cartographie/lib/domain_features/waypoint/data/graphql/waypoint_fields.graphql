@@ -4,7 +4,7 @@
 fragment WaypointDetails on WaypointType {
     id
     anchorPosition
-    poiCategory
+    kind
     title
     description
     location {
