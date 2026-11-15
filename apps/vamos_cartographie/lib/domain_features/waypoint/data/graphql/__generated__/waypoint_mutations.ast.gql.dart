@@ -179,6 +179,8 @@ const document = _i1.DocumentNode(definitions: [
   _i2.StoredFile,
   _i2.FileAttachment,
   _i2.UploadConfigFields,
+  _i3.DayNoteDetails,
+  _i3.StayDetails,
   _i3.WaypointDetails,
   _i4.LatLng,
   _i4.Bounds,

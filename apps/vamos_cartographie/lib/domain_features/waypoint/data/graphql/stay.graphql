@@ -1,0 +1,38 @@
+# domain_features/waypoint/data/graphql/stay.graphql
+#import "waypoint_fields.graphql"
+
+mutation SetStay($waypointId: UUID!, $nights: Int!) {
+    setStay(waypointId: $waypointId, nights: $nights) {
+        ...WaypointDetails
+    }
+}
+
+mutation ClearStay($waypointId: UUID!) {
+    clearStay(waypointId: $waypointId) {
+        ...WaypointDetails
+    }
+}
+
+mutation SetDayNote(
+    $tripId: UUID!
+    $stayId: UUID
+    $offset: Int!
+    $title: String!
+    $notes: String!
+) {
+    setDayNote(
+        tripId: $tripId
+        stayId: $stayId
+        offset: $offset
+        title: $title
+        notes: $notes
+    ) {
+        ...DayNoteDetails
+    }
+}
+
+query FinalDayNote($tripId: UUID!) {
+    finalDayNote(tripId: $tripId) {
+        ...DayNoteDetails
+    }
+}

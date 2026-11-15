@@ -113,6 +113,8 @@ class GTripFullReq implements _i1.FragmentRequest<_i2.GTripFullData, Null> {
     _i7.TripRouteEditing,
     _i8.LatLng,
     _i8.Bounds,
+    _i9.DayNoteDetails,
+    _i9.StayDetails,
     _i9.WaypointDetails,
     _i5.StoredFile,
     _i5.FileAttachment,

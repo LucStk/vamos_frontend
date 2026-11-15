@@ -1,9 +1,27 @@
+# domain_features/waypoint/data/graphql/waypoint_fields.graphql
 #import "/core/graphql/geo_fields.graphql"
 #import "/domain_features/stored_file/data/graphql/file_storage_fields.graphql"
+
+fragment DayNoteDetails on DayNoteType {
+    id
+    offset
+    title
+    notes
+    stayId
+}
+
+fragment StayDetails on StayType {
+    id
+    nights
+    dayNotes {
+        ...DayNoteDetails
+    }
+}
 
 fragment WaypointDetails on WaypointType {
     id
     anchorPosition
+    distanceAlongRouteM
     kind
     title
     description
@@ -12,5 +30,8 @@ fragment WaypointDetails on WaypointType {
     }
     files {
         ...FileAttachment
+    }
+    stay {
+        ...StayDetails
     }
 }

@@ -1,7 +1,9 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:trip_application/src/waypoint/domain/stay_model.dart';
 import 'package:trip_application/src/waypoint/domain/waypoint_kind.dart';
+
 part 'waypoint_model.freezed.dart';
 
 sealed class WaypointFields implements HasId {
@@ -12,6 +14,9 @@ sealed class WaypointFields implements HasId {
   String get description;
   LatLng get position;
   double get anchorPosition;
+
+  /// Halte de nuit sur ce waypoint, ou null.
+  StayInfo? get stay;
 }
 
 typedef WaypointId = Id<WaypointFields>;
@@ -24,11 +29,11 @@ abstract class WaypointRemoteModel
   const factory WaypointRemoteModel({
     required WaypointId id,
     required LatLng position,
-
     required double anchorPosition,
     @Default('') String title,
     WaypointKind? kind,
     @Default('') String description,
+    StayInfo? stay,
   }) = _WaypointRemoteModel;
 
   factory WaypointRemoteModel.fromFields(WaypointFields fields) {
@@ -39,6 +44,7 @@ abstract class WaypointRemoteModel
       description: fields.description,
       position: fields.position,
       anchorPosition: fields.anchorPosition,
+      stay: fields.stay,
     );
   }
 }
@@ -55,6 +61,7 @@ abstract class WaypointPatchModel
     WaypointKind? kind,
     required double anchorPosition,
     required String description,
+    StayInfo? stay,
     required bool recomputing,
     Object? error,
   }) = _WaypointPatchModel;
@@ -73,10 +80,12 @@ abstract class WaypointPatchModel
       kind: fields.kind,
       description: fields.description,
       anchorPosition: fields.anchorPosition,
+      stay: fields.stay,
       recomputing: recomputing,
       error: error,
     );
   }
+
   factory WaypointPatchModel({
     WaypointId? id,
     required LatLng position,
@@ -84,6 +93,7 @@ abstract class WaypointPatchModel
     String? title,
     WaypointKind? kind,
     String? description,
+    StayInfo? stay,
     bool recomputing = false,
     Object? error,
   }) {
@@ -92,8 +102,9 @@ abstract class WaypointPatchModel
       position: position,
       anchorPosition: anchorPosition,
       kind: kind,
-      title: title ?? "",
-      description: description ?? "",
+      title: title ?? '',
+      description: description ?? '',
+      stay: stay,
       recomputing: recomputing,
       error: error,
     );

@@ -177,6 +177,9 @@ type Mutation {
   detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
+  setStay(waypointId: UUID!, nights: Int! = 1): WaypointType!
+  clearStay(waypointId: UUID!): WaypointType!
+  setDayNote(tripId: UUID!, offset: Int!, title: String!, notes: String!, stayId: UUID = null): DayNoteType
 }
 
 type PlaceResult {
@@ -220,6 +223,7 @@ type Query {
   de `origin`. Lecture seule : c'est une Query, pas une Mutation.
   """
   searchPlaces(q: String!, origin: LatLngInput = null, limit: Int! = 8, radiusKm: Float = null, mode: SearchMode! = AUTO): SearchResponse!
+  finalDayNote(tripId: UUID!): DayNoteType
 }
 
 input RangeMobilityInput {

@@ -66,7 +66,7 @@ final class WaypointItemProvider
   }
 }
 
-String _$waypointItemHash() => r'fdfbe006405c8467cb22eab6914f4b1bccbba249';
+String _$waypointItemHash() => r'f5e9d1b9ae65f134e854c222a6b870977ecf8781';
 
 final class WaypointItemFamily extends $Family
     with

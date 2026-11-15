@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/data/data.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/data/mappers/stay_mappers.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/data/mappers/waypoint_enum_mapper.dart';
 
 extension GWaypointFieldsMapper on GWaypointDetails {
@@ -16,6 +17,7 @@ extension GWaypointFieldsMapper on GWaypointDetails {
     title: title,
     description: description,
     anchorPosition: anchorPosition,
+    stay: stay?.toDomain(),
   );
   Iterable<StoredFileRemoteModel> toImages() => files.map((m) => m.toDomain());
 }

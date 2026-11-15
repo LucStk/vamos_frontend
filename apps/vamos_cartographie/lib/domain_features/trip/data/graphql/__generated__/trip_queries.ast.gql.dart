@@ -335,6 +335,8 @@ const document = _i1.DocumentNode(definitions: [
   _i3.RoutePreviewResult,
   _i4.LatLng,
   _i4.Bounds,
+  _i5.DayNoteDetails,
+  _i5.StayDetails,
   _i5.WaypointDetails,
   _i6.StoredFile,
   _i6.FileAttachment,

@@ -64,6 +64,8 @@ class GUpdateWaypointReq
     _i6.UpdateWaypoint,
     _i7.StoredFile,
     _i7.FileAttachment,
+    _i8.DayNoteDetails,
+    _i8.StayDetails,
     _i8.WaypointDetails,
     _i9.LatLng,
   ]);
@@ -235,6 +237,8 @@ class GCreateBlankWaypointFromPositionReq
     _i6.CreateBlankWaypointFromPosition,
     _i7.StoredFile,
     _i7.FileAttachment,
+    _i8.DayNoteDetails,
+    _i8.StayDetails,
     _i8.WaypointDetails,
     _i9.LatLng,
   ]);

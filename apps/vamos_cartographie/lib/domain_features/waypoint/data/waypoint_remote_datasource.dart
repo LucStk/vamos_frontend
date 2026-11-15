@@ -48,4 +48,52 @@ class WaypointRemoteDatasource {
       GDeleteWaypointReq(vars: GDeleteWaypointVars(id: id.value)),
     );
   }
+
+  Future<GWaypointDetails> setStay({
+    required WaypointId waypointId,
+    required int nights,
+  }) async {
+    final data = await ferryClient.execute(
+      GSetStayReq(
+        vars: GSetStayVars(waypointId: waypointId.value, nights: nights),
+      ),
+    );
+    return data.setStay;
+  }
+
+  Future<GWaypointDetails> clearStay({required WaypointId waypointId}) async {
+    final data = await ferryClient.execute(
+      GClearStayReq(vars: GClearStayVars(waypointId: waypointId.value)),
+    );
+    return data.clearStay;
+  }
+
+  /// Renvoie null si la note a été supprimée (titre et notes vides).
+  Future<GDayNoteDetails?> setDayNote({
+    required Id<Trip> tripId,
+    required StayId? stayId,
+    required int offset,
+    required String title,
+    required String notes,
+  }) async {
+    final data = await ferryClient.execute(
+      GSetDayNoteReq(
+        vars: GSetDayNoteVars(
+          tripId: tripId.value,
+          stayId: stayId?.value,
+          offset: offset,
+          title: title,
+          notes: notes,
+        ),
+      ),
+    );
+    return data.setDayNote;
+  }
+
+  Future<GDayNoteDetails?> finalDayNote({required Id<Trip> tripId}) async {
+    final data = await ferryClient.execute(
+      GFinalDayNoteReq(vars: GFinalDayNoteVars(tripId: tripId.value)),
+    );
+    return data.finalDayNote;
+  }
 }
