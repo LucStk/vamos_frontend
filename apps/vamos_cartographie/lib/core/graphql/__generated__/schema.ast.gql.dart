@@ -171,6 +171,58 @@ const DateTime = _i1.ScalarTypeDefinitionNode(
   name: _i1.NameNode(value: 'DateTime'),
   directives: [],
 );
+const DayNoteType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'DayNoteType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'offset'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'title'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'notes'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'stayId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: false,
+      ),
+    ),
+  ],
+);
 const EditRouteError = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'EditRouteError'),
   directives: [],
@@ -2099,6 +2151,43 @@ const SectionPointInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const StayType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'StayType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UUID'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'nights'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'dayNotes'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'DayNoteType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const StoredFileType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'StoredFileType'),
   directives: [],
@@ -2562,6 +2651,24 @@ const WaypointType = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'stay'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'StayType'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'distanceAlongRouteM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
@@ -2635,6 +2742,7 @@ const document = _i1.DocumentNode(definitions: [
   CreateProfileSuccess,
   Date,
   DateTime,
+  DayNoteType,
   EditRouteError,
   EditRouteInput,
   EditRoutePayload,
@@ -2669,6 +2777,7 @@ const document = _i1.DocumentNode(definitions: [
   SearchResponse,
   SectionAnchorInput,
   SectionPointInput,
+  StayType,
   StoredFileType,
   TripType,
   TripUpdateInput,

@@ -43,6 +43,14 @@ scalar Date
 """Date with time (isoformat)"""
 scalar DateTime
 
+type DayNoteType {
+  id: UUID!
+  offset: Int!
+  title: String!
+  notes: String!
+  stayId: UUID
+}
+
 type EditRouteError {
   code: RouteEditErrorCode!
   message: String!
@@ -313,6 +321,12 @@ input SectionPointInput {
   point: LatLngInput!
 }
 
+type StayType {
+  id: UUID!
+  nights: Int!
+  dayNotes: [DayNoteType!]!
+}
+
 type StoredFileType {
   id: UUID!
   filename: String!
@@ -378,6 +392,8 @@ type WaypointType {
   anchorPosition: Float!
   location: LatLngType!
   files: [FileAttachmentType!]!
+  stay: StayType
+  distanceAlongRouteM: Float
 }
 
 input WaypointUpdateInput {

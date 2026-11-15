@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/ui/widgets/mobility_type_menu.dart';
+import 'package:vamos_cartographie/map/modes/shared/mobility_type_menu.dart';
 
 /// Panneau d'actions du mode sketch.
 ///

@@ -12,7 +12,7 @@ extension GWaypointFieldsMapper on GWaypointDetails {
   WaypointRemoteModel toDomain() => WaypointRemoteModel(
     id: WaypointId(id),
     position: location.toLatLng(),
-    poiCategory: poiCategory.toDomain(),
+    type: poiCategory.toDomain(),
     title: title,
     description: description,
     anchorPosition: anchorPosition,

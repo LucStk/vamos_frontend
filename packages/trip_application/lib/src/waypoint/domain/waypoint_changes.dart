@@ -6,14 +6,14 @@ class WaypointChanges {
   const WaypointChanges({
     this.title,
     this.description,
-    this.poiCategory,
+    this.type,
     this.position,
     this.anchorPosition,
   });
 
   final String? title;
   final String? description;
-  final PoiCategory? poiCategory;
+  final WaypointType? type;
   final LatLng? position;
   final double? anchorPosition;
 
@@ -23,7 +23,7 @@ class WaypointChanges {
   bool get isEmpty =>
       title == null &&
       description == null &&
-      poiCategory == null &&
+      type == null &&
       position == null &&
       anchorPosition == null;
 
@@ -33,15 +33,15 @@ class WaypointChanges {
       return WaypointChanges(
         title: next.title,
         description: next.description,
-        poiCategory: next.poiCategory,
+        type: next.type,
         position: next.position,
       );
     }
-    T? diff<T>(T a, T b) => a != b ? b : null;
+    T? diff<T>(T? a, T? b) => a != b ? b : null;
     return WaypointChanges(
       title: diff(server.title, next.title),
       description: diff(server.description, next.description),
-      poiCategory: diff(server.poiCategory, next.poiCategory),
+      type: diff(server.type, next.type),
       position: diff(server.position, next.position),
       anchorPosition: diff(server.anchorPosition, next.anchorPosition),
     );

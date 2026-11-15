@@ -13,7 +13,7 @@ WaypointVisualKind _visualKind(WaypointFields? waypoint) {
     return WaypointVisualKind.normal;
   }
 
-  return switch (waypoint.poiCategory) {
+  return switch (waypoint.type) {
     PoiCategory.start => WaypointVisualKind.start,
     PoiCategory.end => WaypointVisualKind.end,
     _ => WaypointVisualKind.normal,
