@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/common/overview/entity_overview_compact.dart';
 
 class WaypointOverviewCompact extends ConsumerWidget {
   const WaypointOverviewCompact({
     super.key,
     required this.waypoint,
+    required this.tripId,
     this.editable = false,
   });
 
   final WaypointFields waypoint;
+  final TripId tripId;
   final bool editable;
 
   @override
@@ -28,10 +31,9 @@ class WaypointOverviewCompact extends ConsumerWidget {
         child: Icon(Icons.place, size: 16, color: scheme.onPrimaryContainer),
       ),
       onRename: (newTitle) async {
-        // TODO: brancher sur ton store de waypoints, par exemple :
-        // ref.read(waypointStoreProvider.notifier).update(
-        //   WaypointPatchModel.fromFields(waypoint).copyWith(title: newTitle),
-        // );
+        ref
+            .read(waypointStoreProvider(tripId).notifier)
+            .updateTitle(waypoint, newTitle);
         return null;
       },
     );

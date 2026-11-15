@@ -8,7 +8,9 @@ import 'package:vamos_cartographie/map/modes/shared/sheets/waypoint/pages/stats/
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
 
 List<SheetPage> waypointSheetPages(
+  TripId tripId,
   WaypointFields waypoint, {
+
   bool editable = false,
 }) {
   final stats = waypointStatsOf(waypoint);
@@ -17,8 +19,16 @@ List<SheetPage> waypointSheetPages(
       label: 'Aperçu',
       icon: Icons.photo_library_outlined,
       selectedIcon: Icons.photo_library,
-      compact: WaypointOverviewCompact(waypoint: waypoint, editable: editable),
-      expanded: WaypointOverviewViewer(waypoint: waypoint, editable: editable),
+      compact: WaypointOverviewCompact(
+        tripId: tripId,
+        waypoint: waypoint,
+        editable: editable,
+      ),
+      expanded: WaypointOverviewViewer(
+        tripId: tripId,
+        waypoint: waypoint,
+        editable: editable,
+      ),
     ),
     SheetPage(
       label: 'Détails',

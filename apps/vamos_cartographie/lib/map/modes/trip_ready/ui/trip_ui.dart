@@ -39,6 +39,7 @@ class TripReadyUi extends ConsumerWidget {
         DraggableBottomSheetShell(
           pages: switch (selected) {
             MapWaypoint(:final id, :final tripId) => waypointSheetPages(
+              tripId,
               ref.watch(waypointProvider(tripId, id)),
               editable: !mode.readOnly,
             ),

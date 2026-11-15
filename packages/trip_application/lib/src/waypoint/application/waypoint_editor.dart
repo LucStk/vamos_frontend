@@ -36,21 +36,33 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
     state = state.setWaypoint(patch);
   }
 
+  Future<Either<Failure, WaypointRemoteModel>> updateDescription(
+    WaypointFields current,
+    String description,
+  ) => updateWaypoint(
+    WaypointPatchModel.fromFields(current).copyWith(description: description),
+  );
+  Future<Either<Failure, WaypointRemoteModel>> updateTitle(
+    WaypointFields current,
+    String title,
+  ) => updateWaypoint(
+    WaypointPatchModel.fromFields(current).copyWith(title: title),
+  );
   Future<Either<Failure, WaypointRemoteModel>> updateWaypoint(
     WaypointFields waypoint,
   ) async {
-    // À calculer AVANT run : si `waypoint` est un WaypointRemoteModel, onApply
-    // écrase lastRemoteValue (cf. GraphNode.set) et le diff serait vide.
-    final changes = WaypointChanges.between(
-      state.waypointStore.get(waypoint.id)?.serverValue,
-      waypoint,
-    );
+    final server = state.waypointStore.get(waypoint.id)?.serverValue;
+    final changes = WaypointChanges.between(server, waypoint);
+
+    if (changes.isEmpty && server is WaypointRemoteModel) {
+      return Right(server);
+    }
 
     return await run(
       entityKey: waypoint.id,
       onApply: (gs) => gs.setWaypoint(waypoint),
       remote: (_) => waypointRepo.updateWaypoint(waypoint, changes),
-      onSuccess: (gs, serveurValue) => gs.setWaypoint(serveurValue),
+      onSuccess: (gs, serverValue) => gs.setWaypoint(serverValue),
       onError: (gs, Failure failure) => gs.rollbackWaypoint(waypoint.id),
     );
   }
