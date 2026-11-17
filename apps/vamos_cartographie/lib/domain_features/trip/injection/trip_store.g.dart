@@ -399,7 +399,7 @@ final class IsTripOwnedProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$isTripOwnedHash() => r'e4af0c07fad4d215abf5f39e14b354af1a029d09';
+String _$isTripOwnedHash() => r'fc082425e9c331626a18a345f5d454ad737b9190';
 
 final class IsTripOwnedFamily extends $Family
     with $FunctionalFamilyOverride<bool, TripId> {

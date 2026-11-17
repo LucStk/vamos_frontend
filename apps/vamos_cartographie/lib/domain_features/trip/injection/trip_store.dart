@@ -60,7 +60,7 @@ List<TripId> tripIds(Ref ref) {
 bool isTripOwned(Ref ref, TripId tripId) {
   final userId = ref.watch(currentUserIdProvider);
   final ownerId = ref.watch(tripProvider(tripId).select((t) => t?.ownerId));
-  return userId != null && ownerId != null && ownerId.value == userId;
+  return userId != null && ownerId != null && ownerId == userId;
 }
 
 @Riverpod(keepAlive: true)
