@@ -3,13 +3,9 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/modes.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_scene.dart';
-import 'package:vamos_cartographie/map/modes/trip_ready/trip_ready_scene.dart';
+import 'package:vamos_cartographie/map/modes/mode_view.dart';
 
 // Adapte le chemin au fichier qui déclare `selectSpanScene`.
-import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_scene.dart';
-import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoints_edit.dart';
 import 'package:vamos_cartographie/map/objects/annotations/providers/localization_item_provider.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
@@ -26,34 +22,11 @@ final baseLayers = <Layer>[
   (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
 ];
 
-/// Les scènes qui renvoient encore une `List<Layer>` sont enveloppées dans un
-/// `SceneSpec` sans traits : on les migre une par une, quand l'une d'elles a
-/// besoin de déclarer une mise en avant.
-SceneSpec sceneFor(AppMode mode) => switch (mode) {
-  ExploreMode() => SceneSpec(layers: exploreScene()),
-  // Avant `TripMode` : SelectSpanMode en est un sous-type, il serait sinon
-  // capturé par le cas générique.
-  EditSpanMode t => editSpanScene(t),
-  CreateWaypointMode(:final tripId) => createWaypointScene(tripId),
-  WaypointsEditMode(:final tripId) => createWaypointScene(tripId),
-  SelectRouteMode(:final tripId) => SceneSpec(layers: selectRouteScene(tripId)),
-  SketchEdition(:final tripId) => SceneSpec(layers: sketchScene(tripId)),
-  SketchGenerating(:final tripId) => SceneSpec(
-    layers: sketchGeneratingScene(tripId),
-  ),
-  PlaceExistingTripOrigin(:final tripId) => SceneSpec(
-    layers: placeExistingTripOriginScene(tripId),
-  ),
-  PlaceNewTripOrigin() => SceneSpec(layers: placeNewTripOriginScene()),
-  TripMode(:final tripId) => SceneSpec(layers: tripReadyScene(tripId)),
-  _ => const SceneSpec(layers: []),
-};
-
 @Riverpod(keepAlive: true)
 List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   final mode = ref.watch(mapModeProvider);
   final items = [
-    for (final layer in [...baseLayers, ...sceneFor(mode).layers])
+    for (final layer in [...baseLayers, ...viewFor(mode).scene.layers])
       ...layer(ref, camera),
   ];
 
@@ -80,7 +53,7 @@ Map<Object, Set<VisualTrait>> sceneTraits(Ref ref, MapCameraController camera) {
       {
         selected: {VisualTrait.selected},
       },
-    for (final source in sceneFor(mode).traits) source(ref, camera),
+    for (final source in viewFor(mode).scene.traits) source(ref, camera),
   ]);
 }
 
