@@ -4,6 +4,14 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/style/segment_look.dart';
 
+/// Les trois couches d'un segment, séparées pour qu'un item composé de
+/// plusieurs tronçons (un jour bicolore) puisse les empiler par couche.
+typedef SegmentLayers = ({
+  DrawCommand? halo,
+  DrawCommand casing,
+  DrawCommand main,
+});
+
 abstract final class SegmentStyle {
   /// Largeur de base de référence (6.5 px) : sert à exprimer les ratios
   /// ci-dessous avec les valeurs d'origine. Doit rester égale à
@@ -39,8 +47,8 @@ abstract final class SegmentStyle {
   static const _casingColor = Color(0xD9FFFFFF); // blanc ~85 %
   static const _white = Color(0xFFFFFFFF);
 
-  /// Look résolu, plus données de base, donne les commandes de dessin.
-  static DrawCommand build(
+  /// Halo, liseré et trait principal d'un tronçon, séparément.
+  static SegmentLayers layers(
     Path path,
     SegmentAppearance a,
     SegmentLook look, {
@@ -57,22 +65,35 @@ abstract final class SegmentStyle {
     final width = radius.value * 2 * look.widthScale;
     final outer = width + look.casing * 2;
 
-    return DrawGroup([
+    return (
       // Halo : toujours plein, même pour un segment pointillé.
-      if (look.halo > 0.1)
-        DrawPath(
-          path: path,
-          style: stroke(a.color.withValues(alpha: 0.30), outer + look.halo),
-        ),
+      halo: look.halo > 0.1
+          ? DrawPath(
+              path: path,
+              style: stroke(a.color.withValues(alpha: 0.30), outer + look.halo),
+            )
+          : null,
       // Liseré : pointillé aussi, sinon il comblerait les vides.
-      DrawPath(
+      casing: DrawPath(
         path: path,
         style: stroke(_casingColor, outer, dash: dash),
       ),
-      DrawPath(
+      main: DrawPath(
         path: path,
         style: stroke(mainColor, width, dash: dash),
       ),
-    ]);
+    );
+  }
+
+  /// Look résolu, plus données de base, donne les commandes de dessin.
+  /// Comportement identique à avant : halo, liseré, puis trait.
+  static DrawCommand build(
+    Path path,
+    SegmentAppearance a,
+    SegmentLook look, {
+    required ScreenLength radius,
+  }) {
+    final l = layers(path, a, look, radius: radius);
+    return DrawGroup([if (l.halo != null) l.halo!, l.casing, l.main]);
   }
 }
