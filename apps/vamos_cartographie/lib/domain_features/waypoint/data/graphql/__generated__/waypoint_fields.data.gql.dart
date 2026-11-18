@@ -4,11 +4,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i2;
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.data.gql.dart'
-    as _i2;
+    as _i3;
 
 abstract class GDayNoteDetails {
   String get id;
@@ -191,11 +193,11 @@ abstract class GWaypointDetails {
   String get id;
   double get anchorPosition;
   double? get distanceAlongRouteM;
-  String? get kind;
+  _i1.GWaypointKind? get kind;
   String get title;
   String get description;
-  _i1.GLatLng get location;
-  List<_i2.GFileAttachment> get files;
+  _i2.GLatLng get location;
+  List<_i3.GFileAttachment> get files;
   GStayDetails? get stay;
   String get G__typename;
 }
@@ -221,14 +223,16 @@ class GWaypointDetailsData implements GWaypointDetails {
       distanceAlongRouteM: json['distanceAlongRouteM'] == null
           ? null
           : (json['distanceAlongRouteM'] as num).toDouble(),
-      kind: json['kind'] == null ? null : (json['kind'] as String),
+      kind: json['kind'] == null
+          ? null
+          : _i1.GWaypointKind.fromJson((json['kind'] as String)),
       title: (json['title'] as String),
       description: (json['description'] as String),
       location:
-          _i1.GLatLngData.fromJson((json['location'] as Map<String, dynamic>)),
+          _i2.GLatLngData.fromJson((json['location'] as Map<String, dynamic>)),
       files: (json['files'] as List<dynamic>)
           .map((_$e) =>
-              _i2.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
+              _i3.GFileAttachmentData.fromJson((_$e as Map<String, dynamic>)))
           .toList(),
       stay: json['stay'] == null
           ? null
@@ -243,15 +247,15 @@ class GWaypointDetailsData implements GWaypointDetails {
 
   final double? distanceAlongRouteM;
 
-  final String? kind;
+  final _i1.GWaypointKind? kind;
 
   final String title;
 
   final String description;
 
-  final _i1.GLatLngData location;
+  final _i2.GLatLngData location;
 
-  final List<_i2.GFileAttachmentData> files;
+  final List<_i3.GFileAttachmentData> files;
 
   final GStayDetailsData? stay;
 
@@ -265,7 +269,7 @@ class GWaypointDetailsData implements GWaypointDetails {
     _$result['distanceAlongRouteM'] =
         _$distanceAlongRouteMValue == null ? null : _$distanceAlongRouteMValue;
     final _$kindValue = this.kind;
-    _$result['kind'] = _$kindValue == null ? null : _$kindValue;
+    _$result['kind'] = _$kindValue == null ? null : _$kindValue.toJson();
     _$result['title'] = this.title;
     _$result['description'] = this.description;
     _$result['location'] = this.location.toJson();
@@ -281,12 +285,12 @@ class GWaypointDetailsData implements GWaypointDetails {
     double? anchorPosition,
     double? distanceAlongRouteM,
     bool distanceAlongRouteMIsSet = false,
-    String? kind,
+    _i1.GWaypointKind? kind,
     bool kindIsSet = false,
     String? title,
     String? description,
-    _i1.GLatLngData? location,
-    List<_i2.GFileAttachmentData>? files,
+    _i2.GLatLngData? location,
+    List<_i3.GFileAttachmentData>? files,
     GStayDetailsData? stay,
     bool stayIsSet = false,
     String? G__typename,

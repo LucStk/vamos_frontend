@@ -383,7 +383,7 @@ type WaypointType {
   id: UUID!
   title: String!
   description: String!
-  kind: String
+  kind: WaypointKind
   anchorPosition: Float!
   location: LatLngType!
   files: [FileAttachmentType!]!
