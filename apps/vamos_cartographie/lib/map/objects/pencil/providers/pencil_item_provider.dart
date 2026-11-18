@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/objects/pencil/pencil_item.dart';
 
 part 'pencil_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [modeSlot])
+@Riverpod(keepAlive: true)
 SceneItem? pencilItem(Ref ref, MapCameraReader camera) {
   final sketchTrace = ref.watch(modeSlotProvider(sketchTraceSlot));
   final pencilPosition = sketchTrace?.tip;

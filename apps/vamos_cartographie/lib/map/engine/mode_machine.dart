@@ -33,17 +33,17 @@ class AppModeMachine extends _$AppModeMachine with ModeMachine {
 }
 
 // Dérivés : ils ne dépendent plus que de l'état
-@Riverpod(keepAlive: true, dependencies: [AppModeMachine])
+@Riverpod(keepAlive: true)
 AppMode mapMode(Ref ref) =>
     ref.watch(appModeMachineProvider.select((s) => (s.mode as AppMode)));
 
-@Riverpod(keepAlive: true, dependencies: [AppModeMachine])
+@Riverpod(keepAlive: true)
 Overlay? modeOverlay(Ref ref) =>
     ref.watch(appModeMachineProvider.select((s) => s.overlay));
 
-@Riverpod(keepAlive: true, dependencies: [AppModeMachine, modeSlot])
+@Riverpod(keepAlive: true)
 MapObject? modeSelection(Ref ref) => ref.watch(modeSlotProvider(selectionSlot));
 
-@Riverpod(keepAlive: true, dependencies: [AppModeMachine])
+@Riverpod(keepAlive: true)
 T? modeSlot<T extends Object>(Ref ref, Slot<T> slot) =>
     ref.watch(appModeMachineProvider.select((s) => s.slots.get<T>(slot)));

@@ -18,7 +18,7 @@ class SketchUi extends ConsumerWidget {
       // Retour : quitte le mode sans valider (ancien « Cancel creation »).
       onBack: () => ref
           .read(appModeMachineProvider.notifier)
-          .apply(Transition.to(RouteEditMode(mode.tripId))),
+          .apply(TripMode.open(mode.tripId)),
 
       onClearRoute: null,
       contextualSheet: Align(

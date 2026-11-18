@@ -31,10 +31,6 @@ final class SketchTraceItemProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = modeSlotProvider;
-  static final $allTransitiveDependencies1 =
-      ModeSlotProvider.$allTransitiveDependencies0;
-
   @override
   String debugGetCreateSourceHash() => _$sketchTraceItemHash();
 
@@ -76,7 +72,7 @@ final class SketchTraceItemProvider
   }
 }
 
-String _$sketchTraceItemHash() => r'a088df74c1159c1e622e9d2a39c2b0a816d1adcd';
+String _$sketchTraceItemHash() => r'f3ae6485fafb870bcbde40f0353e4b0e09faf64e';
 
 final class SketchTraceItemFamily extends $Family
     with
@@ -85,11 +81,8 @@ final class SketchTraceItemFamily extends $Family
     : super(
         retry: null,
         name: r'sketchTraceItemProvider',
-        dependencies: <ProviderOrFamily>[modeSlotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SketchTraceItemProvider.$allTransitiveDependencies0,
-          SketchTraceItemProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

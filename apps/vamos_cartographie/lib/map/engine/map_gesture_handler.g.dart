@@ -28,60 +28,12 @@ final class MapGestureHandlerNotifierProvider
         name: r'mapGestureHandlerProvider',
         isAutoDispose: false,
         dependencies: <ProviderOrFamily>[hitTesterProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>{
+        $allTransitiveDependencies: <ProviderOrFamily>[
           MapGestureHandlerNotifierProvider.$allTransitiveDependencies0,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies1,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies2,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies3,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies4,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies5,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies6,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies7,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies8,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies9,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies10,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies11,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies12,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies13,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies14,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies15,
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies16,
-        },
+        ],
       );
 
   static final $allTransitiveDependencies0 = hitTesterProvider;
-  static final $allTransitiveDependencies1 =
-      HitTesterProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 =
-      HitTesterProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 =
-      HitTesterProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies4 =
-      HitTesterProvider.$allTransitiveDependencies3;
-  static final $allTransitiveDependencies5 =
-      HitTesterProvider.$allTransitiveDependencies4;
-  static final $allTransitiveDependencies6 =
-      HitTesterProvider.$allTransitiveDependencies5;
-  static final $allTransitiveDependencies7 =
-      HitTesterProvider.$allTransitiveDependencies6;
-  static final $allTransitiveDependencies8 =
-      HitTesterProvider.$allTransitiveDependencies7;
-  static final $allTransitiveDependencies9 =
-      HitTesterProvider.$allTransitiveDependencies8;
-  static final $allTransitiveDependencies10 =
-      HitTesterProvider.$allTransitiveDependencies9;
-  static final $allTransitiveDependencies11 =
-      HitTesterProvider.$allTransitiveDependencies10;
-  static final $allTransitiveDependencies12 =
-      HitTesterProvider.$allTransitiveDependencies11;
-  static final $allTransitiveDependencies13 =
-      HitTesterProvider.$allTransitiveDependencies12;
-  static final $allTransitiveDependencies14 =
-      HitTesterProvider.$allTransitiveDependencies13;
-  static final $allTransitiveDependencies15 =
-      HitTesterProvider.$allTransitiveDependencies14;
-  static final $allTransitiveDependencies16 =
-      HitTesterProvider.$allTransitiveDependencies15;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();

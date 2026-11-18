@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/menus/ui/object_menu_shell.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/world_positioned.dart';
@@ -14,7 +13,6 @@ typedef OverlayMenuBuilder<T extends MapObject> =
 
 /// Affiche un menu ancré dans le monde, seulement si l'overlay ouvert est un
 /// menu ouvert sur un [T].
-@Dependencies([modeOverlay])
 class OverlayMenu<T extends MapObject> extends ConsumerWidget {
   const OverlayMenu({super.key, required this.builder, this.topOffset = 50});
 
@@ -36,7 +34,6 @@ class OverlayMenu<T extends MapObject> extends ConsumerWidget {
   }
 }
 
-@Dependencies([modeOverlay])
 class GeoMenu extends ConsumerWidget {
   const GeoMenu({super.key, required this.builder});
   final Widget Function(BuildContext, HitGeo) builder;

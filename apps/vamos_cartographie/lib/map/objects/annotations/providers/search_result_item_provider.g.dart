@@ -31,10 +31,6 @@ final class SearchResultItemProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = modeSlotProvider;
-  static final $allTransitiveDependencies1 =
-      ModeSlotProvider.$allTransitiveDependencies0;
-
   @override
   String debugGetCreateSourceHash() => _$searchResultItemHash();
 
@@ -76,7 +72,7 @@ final class SearchResultItemProvider
   }
 }
 
-String _$searchResultItemHash() => r'0f48c79ac9e874567146547128120f02e4edd7ec';
+String _$searchResultItemHash() => r'36287bd7c982c12dba64265d6dcc43b1fa21f75a';
 
 final class SearchResultItemFamily extends $Family
     with $FunctionalFamilyOverride<SearchResultItem?, MapCameraReader> {
@@ -84,11 +80,8 @@ final class SearchResultItemFamily extends $Family
     : super(
         retry: null,
         name: r'searchResultItemProvider',
-        dependencies: <ProviderOrFamily>[modeSlotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SearchResultItemProvider.$allTransitiveDependencies0,
-          SearchResultItemProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

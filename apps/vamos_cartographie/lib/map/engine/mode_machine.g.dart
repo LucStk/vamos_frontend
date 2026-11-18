@@ -74,13 +74,9 @@ final class MapModeProvider
         retry: null,
         name: r'mapModeProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[appModeMachineProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapModeProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
-
-  static final $allTransitiveDependencies0 = appModeMachineProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapModeHash();
@@ -104,7 +100,7 @@ final class MapModeProvider
   }
 }
 
-String _$mapModeHash() => r'096ca24bff3b8d87cc07220b75bb04c1393df29f';
+String _$mapModeHash() => r'e47f019c12fae950257529516e7d59fedb275342';
 
 @ProviderFor(modeOverlay)
 final modeOverlayProvider = ModeOverlayProvider._();
@@ -119,13 +115,9 @@ final class ModeOverlayProvider
         retry: null,
         name: r'modeOverlayProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[appModeMachineProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          ModeOverlayProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
-
-  static final $allTransitiveDependencies0 = appModeMachineProvider;
 
   @override
   String debugGetCreateSourceHash() => _$modeOverlayHash();
@@ -149,7 +141,7 @@ final class ModeOverlayProvider
   }
 }
 
-String _$modeOverlayHash() => r'9501391ad9a585018ca12ba3108f32d7a9447b1d';
+String _$modeOverlayHash() => r'2a663e7e939836bf24171872c0bf2e75ea7fb808';
 
 @ProviderFor(modeSelection)
 final modeSelectionProvider = ModeSelectionProvider._();
@@ -164,18 +156,9 @@ final class ModeSelectionProvider
         retry: null,
         name: r'modeSelectionProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[
-          appModeMachineProvider,
-          modeSlotProvider,
-        ],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          ModeSelectionProvider.$allTransitiveDependencies0,
-          ModeSelectionProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
-
-  static final $allTransitiveDependencies0 = appModeMachineProvider;
-  static final $allTransitiveDependencies1 = modeSlotProvider;
 
   @override
   String debugGetCreateSourceHash() => _$modeSelectionHash();
@@ -199,7 +182,7 @@ final class ModeSelectionProvider
   }
 }
 
-String _$modeSelectionHash() => r'8edeae40a3be4fa059ea1b64cf3a664565a25193';
+String _$modeSelectionHash() => r'ac152fb39712ccfb7f77412239be9746609afe5a';
 
 @ProviderFor(modeSlot)
 final modeSlotProvider = ModeSlotFamily._();
@@ -217,8 +200,6 @@ final class ModeSlotProvider<T extends Object>
          dependencies: null,
          $allTransitiveDependencies: null,
        );
-
-  static final $allTransitiveDependencies0 = appModeMachineProvider;
 
   @override
   String debugGetCreateSourceHash() => _$modeSlotHash();
@@ -266,17 +247,15 @@ final class ModeSlotProvider<T extends Object>
   }
 }
 
-String _$modeSlotHash() => r'9049089248d442bbdb15ee2531d0893a66c2d3da';
+String _$modeSlotHash() => r'69213efec29b24d8f3deb9097eea4a3f51b7cfb9';
 
 final class ModeSlotFamily extends $Family {
   ModeSlotFamily._()
     : super(
         retry: null,
         name: r'modeSlotProvider',
-        dependencies: <ProviderOrFamily>[appModeMachineProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          ModeSlotProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

@@ -43,10 +43,6 @@ final class SpanBoundHandleItemsProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = modeSlotProvider;
-  static final $allTransitiveDependencies1 =
-      ModeSlotProvider.$allTransitiveDependencies0;
-
   @override
   String debugGetCreateSourceHash() => _$spanBoundHandleItemsHash();
 
@@ -88,7 +84,7 @@ final class SpanBoundHandleItemsProvider
 }
 
 String _$spanBoundHandleItemsHash() =>
-    r'b619a2b7b41783dc684b526e67e1e0a542639f3c';
+    r'0452b33de3031a1a9e405fdca9d43c832c7a29af';
 
 /// Surlignage de la portion déplacée et curseurs des deux bornes.
 ///
@@ -106,11 +102,8 @@ final class SpanBoundHandleItemsFamily extends $Family
     : super(
         retry: null,
         name: r'spanBoundHandleItemsProvider',
-        dependencies: <ProviderOrFamily>[modeSlotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SpanBoundHandleItemsProvider.$allTransitiveDependencies0,
-          SpanBoundHandleItemsProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 

@@ -7,19 +7,12 @@ import 'package:vamos_cartographie/map/modes/modes.dart';
 import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_scene.dart';
 import 'package:vamos_cartographie/map/modes/trip_ready/trip_ready_scene.dart';
 
-import 'package:vamos_cartographie/map/objects/annotations/providers/search_result_item_provider.dart';
 // Adapte le chemin au fichier qui déclare `selectSpanScene`.
 import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_scene.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/edit_span/providers/span_bound_handle_provider.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/select_route/providers/selection_handle_provider.dart';
 import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoints_edit.dart';
 import 'package:vamos_cartographie/map/objects/annotations/providers/localization_item_provider.dart';
-import 'package:vamos_cartographie/map/objects/pencil/pencil.dart';
-import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
-import 'package:vamos_cartographie/map/objects/route/route.dart';
 import 'package:vamos_cartographie/map/scene/map_layer.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 part 'map_scene.g.dart';
 
 /// Items de la scène, en coordonnées MONDE.
@@ -36,17 +29,6 @@ final baseLayers = <Layer>[
 /// Les scènes qui renvoient encore une `List<Layer>` sont enveloppées dans un
 /// `SceneSpec` sans traits : on les migre une par une, quand l'une d'elles a
 /// besoin de déclarer une mise en avant.
-@Dependencies([
-  searchResultItem,
-  pendingWaypoint,
-  spanBoundHandleItems,
-  selectionHandleItems,
-  pencilItem,
-  sketchTraceItem,
-  sketchOriginItem,
-  sketchEndItem,
-  tmpOriginItem,
-])
 SceneSpec sceneFor(AppMode mode) => switch (mode) {
   ExploreMode() => SceneSpec(layers: exploreScene()),
   // Avant `TripMode` : SelectSpanMode en est un sous-type, il serait sinon
@@ -67,21 +49,7 @@ SceneSpec sceneFor(AppMode mode) => switch (mode) {
   _ => const SceneSpec(layers: []),
 };
 
-@Riverpod(
-  keepAlive: true,
-  dependencies: [
-    searchResultItem,
-    pendingWaypoint,
-    spanBoundHandleItems,
-    selectionHandleItems,
-    pencilItem,
-    sketchTraceItem,
-    sketchOriginItem,
-    sketchEndItem,
-    tmpOriginItem,
-    mapMode,
-  ],
-)
+@Riverpod(keepAlive: true)
 List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
   final mode = ref.watch(mapModeProvider);
   final items = [
@@ -103,22 +71,7 @@ List<SceneItem> sceneItems(Ref ref, MapCameraController camera) {
 /// Traits de la scène : sélection globale du mode, plus la mise en avant
 /// déclarée par la scène courante. Séparé de [sceneItems] pour qu'un
 /// changement de sélection ne reconstruise pas la liste des items.
-@Riverpod(
-  keepAlive: true,
-  dependencies: [
-    searchResultItem,
-    pendingWaypoint,
-    spanBoundHandleItems,
-    selectionHandleItems,
-    pencilItem,
-    sketchTraceItem,
-    sketchOriginItem,
-    sketchEndItem,
-    tmpOriginItem,
-    mapMode,
-    modeSelection,
-  ],
-)
+@Riverpod(keepAlive: true)
 Map<Object, Set<VisualTrait>> sceneTraits(Ref ref, MapCameraController camera) {
   final mode = ref.watch(mapModeProvider);
   final selected = ref.watch(modeSelectionProvider);
@@ -134,7 +87,7 @@ Map<Object, Set<VisualTrait>> sceneTraits(Ref ref, MapCameraController camera) {
 /// Scène courante. Vide tant que la carte n'est pas montée : `cameraOrNull`
 /// vaut alors `null`, et `latLngToWorldOffset` (appelé par les items) lèverait
 /// une exception.
-@Riverpod(keepAlive: true, dependencies: [sceneItems, sceneTraits])
+@Riverpod(keepAlive: true)
 MapScene mapScene(Ref ref) {
   final camera = ref.watch(readyCameraProvider);
   if (camera == null) return const MapScene(items: []);

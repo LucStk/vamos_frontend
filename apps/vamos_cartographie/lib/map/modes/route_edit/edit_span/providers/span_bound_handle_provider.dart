@@ -19,7 +19,7 @@ part 'span_bound_handle_provider.g.dart';
 /// Pas `keepAlive` : ce provider ne vit que pendant le mode. Avec
 /// `keepAlive`, chaque instance de [EditSpanMode] (clé de famille comparée
 /// par identité) laisserait une entrée en cache jamais libérée.
-@Riverpod(dependencies: [modeSlot])
+@riverpod
 List<SceneItem> spanBoundHandleItems(
   Ref ref,
   EditSpanMode mode,

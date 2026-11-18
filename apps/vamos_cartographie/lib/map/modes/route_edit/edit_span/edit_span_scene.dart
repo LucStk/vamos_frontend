@@ -5,12 +5,10 @@ import 'package:vamos_cartographie/map/modes/route_edit/edit_span/providers/span
 import 'package:vamos_cartographie/map/objects/route/segment/providers/segment_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 
 /// Ordre « dessus d'abord » : la première couche est dessinée en dernier.
 /// À `hitPriority` égale, c'est cet ordre qui décide qui passe au-dessus.
-@Dependencies([spanBoundHandleItems])
 SceneSpec editSpanScene(EditSpanMode mode) => SceneSpec(
   layers: [
     (ref, cam) => [?ref.watch(tripOriginItemProvider(mode.tripId, cam))],

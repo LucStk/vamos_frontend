@@ -27,10 +27,6 @@ final class PendingWaypointProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = modeSlotProvider;
-  static final $allTransitiveDependencies1 =
-      ModeSlotProvider.$allTransitiveDependencies0;
-
   @override
   String debugGetCreateSourceHash() => _$pendingWaypointHash();
 
@@ -71,7 +67,7 @@ final class PendingWaypointProvider
   }
 }
 
-String _$pendingWaypointHash() => r'6f77e76963f6f16ab6c65187b323050b1acec7dd';
+String _$pendingWaypointHash() => r'1eda03436f88dffa239ed37bf5450d1cb3bf5f70';
 
 final class PendingWaypointFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {
@@ -79,11 +75,8 @@ final class PendingWaypointFamily extends $Family
     : super(
         retry: null,
         name: r'pendingWaypointProvider',
-        dependencies: <ProviderOrFamily>[modeSlotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          PendingWaypointProvider.$allTransitiveDependencies0,
-          PendingWaypointProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

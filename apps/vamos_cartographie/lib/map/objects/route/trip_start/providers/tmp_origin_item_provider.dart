@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/map/objects/route/trip_start/trip_start.dart'
 
 part 'tmp_origin_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [modeSlot])
+@Riverpod(keepAlive: true)
 TripStartItem? tmpOriginItem(Ref ref, MapCameraReader camera) {
   final worldPosition = ref.watch(modeSlotProvider(tripOriginSlot))?.point;
 

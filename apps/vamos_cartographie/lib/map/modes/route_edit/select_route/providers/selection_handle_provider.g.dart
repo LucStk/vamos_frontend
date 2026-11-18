@@ -27,10 +27,6 @@ final class SelectionHandleItemsProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = modeSlotProvider;
-  static final $allTransitiveDependencies1 =
-      ModeSlotProvider.$allTransitiveDependencies0;
-
   @override
   String debugGetCreateSourceHash() => _$selectionHandleItemsHash();
 
@@ -72,7 +68,7 @@ final class SelectionHandleItemsProvider
 }
 
 String _$selectionHandleItemsHash() =>
-    r'948c1897bed2e5ccc7782051ed77259f256b8d2c';
+    r'260f0407096bfe4744dcafeab320ebc4acdb7af1';
 
 final class SelectionHandleItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, (TripId, MapCameraReader)> {
@@ -80,11 +76,8 @@ final class SelectionHandleItemsFamily extends $Family
     : super(
         retry: null,
         name: r'selectionHandleItemsProvider',
-        dependencies: <ProviderOrFamily>[modeSlotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SelectionHandleItemsProvider.$allTransitiveDependencies0,
-          SelectionHandleItemsProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

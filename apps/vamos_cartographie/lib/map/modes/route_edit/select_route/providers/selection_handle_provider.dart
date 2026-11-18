@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/objects/route/selection_handle/selection_
 
 part 'selection_handle_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [modeSlot])
+@Riverpod(keepAlive: true)
 List<SceneItem> selectionHandleItems(
   Ref ref,
   TripId tripId,

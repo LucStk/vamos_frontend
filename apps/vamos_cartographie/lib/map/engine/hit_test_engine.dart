@@ -2,17 +2,15 @@ import 'package:domain_core/domain_core.dart';
 
 import 'package:map_engine/map_engine.dart';
 
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 
 part 'hit_test_engine.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [mapScene])
+@Riverpod(keepAlive: true)
 HitTester hitTester(Ref ref) => _SceneHitTester(ref);
 
-@Dependencies([mapScene])
 class _SceneHitTester implements HitTester {
   _SceneHitTester(this._ref);
   final Ref _ref;

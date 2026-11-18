@@ -22,58 +22,9 @@ final class HitTesterProvider
         retry: null,
         name: r'hitTesterProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[mapSceneProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>{
-          HitTesterProvider.$allTransitiveDependencies0,
-          HitTesterProvider.$allTransitiveDependencies1,
-          HitTesterProvider.$allTransitiveDependencies2,
-          HitTesterProvider.$allTransitiveDependencies3,
-          HitTesterProvider.$allTransitiveDependencies4,
-          HitTesterProvider.$allTransitiveDependencies5,
-          HitTesterProvider.$allTransitiveDependencies6,
-          HitTesterProvider.$allTransitiveDependencies7,
-          HitTesterProvider.$allTransitiveDependencies8,
-          HitTesterProvider.$allTransitiveDependencies9,
-          HitTesterProvider.$allTransitiveDependencies10,
-          HitTesterProvider.$allTransitiveDependencies11,
-          HitTesterProvider.$allTransitiveDependencies12,
-          HitTesterProvider.$allTransitiveDependencies13,
-          HitTesterProvider.$allTransitiveDependencies14,
-          HitTesterProvider.$allTransitiveDependencies15,
-        },
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
-
-  static final $allTransitiveDependencies0 = mapSceneProvider;
-  static final $allTransitiveDependencies1 =
-      MapSceneProvider.$allTransitiveDependencies0;
-  static final $allTransitiveDependencies2 =
-      MapSceneProvider.$allTransitiveDependencies1;
-  static final $allTransitiveDependencies3 =
-      MapSceneProvider.$allTransitiveDependencies2;
-  static final $allTransitiveDependencies4 =
-      MapSceneProvider.$allTransitiveDependencies3;
-  static final $allTransitiveDependencies5 =
-      MapSceneProvider.$allTransitiveDependencies4;
-  static final $allTransitiveDependencies6 =
-      MapSceneProvider.$allTransitiveDependencies5;
-  static final $allTransitiveDependencies7 =
-      MapSceneProvider.$allTransitiveDependencies6;
-  static final $allTransitiveDependencies8 =
-      MapSceneProvider.$allTransitiveDependencies7;
-  static final $allTransitiveDependencies9 =
-      MapSceneProvider.$allTransitiveDependencies8;
-  static final $allTransitiveDependencies10 =
-      MapSceneProvider.$allTransitiveDependencies9;
-  static final $allTransitiveDependencies11 =
-      MapSceneProvider.$allTransitiveDependencies10;
-  static final $allTransitiveDependencies12 =
-      MapSceneProvider.$allTransitiveDependencies11;
-  static final $allTransitiveDependencies13 =
-      MapSceneProvider.$allTransitiveDependencies12;
-  static final $allTransitiveDependencies14 =
-      MapSceneProvider.$allTransitiveDependencies13;
-  static final $allTransitiveDependencies15 =
-      MapSceneProvider.$allTransitiveDependencies14;
 
   @override
   String debugGetCreateSourceHash() => _$hitTesterHash();
@@ -97,4 +48,4 @@ final class HitTesterProvider
   }
 }
 
-String _$hitTesterHash() => r'776b37fdfe008327dd5c114c6a14530239e727d0';
+String _$hitTesterHash() => r'9ae6185ef626bfa24ea0ca2449208e04297ee2fd';

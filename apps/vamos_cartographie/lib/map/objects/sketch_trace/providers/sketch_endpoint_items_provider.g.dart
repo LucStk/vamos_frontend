@@ -38,10 +38,6 @@ final class SketchOriginItemProvider
          $allTransitiveDependencies: null,
        );
 
-  static final $allTransitiveDependencies0 = modeSlotProvider;
-  static final $allTransitiveDependencies1 =
-      ModeSlotProvider.$allTransitiveDependencies0;
-
   @override
   String debugGetCreateSourceHash() => _$sketchOriginItemHash();
 
@@ -85,7 +81,7 @@ final class SketchOriginItemProvider
   }
 }
 
-String _$sketchOriginItemHash() => r'c12be0725790ea930e662080c669f594fb73caef';
+String _$sketchOriginItemHash() => r'62f58dc3151df8435679697ecbc7520018da287b';
 
 /// Icône de départ de la route, absente tant que le crayon parti d'elle ne
 /// l'a pas quittée.
@@ -100,11 +96,8 @@ final class SketchOriginItemFamily extends $Family
     : super(
         retry: null,
         name: r'sketchOriginItemProvider',
-        dependencies: <ProviderOrFamily>[modeSlotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SketchOriginItemProvider.$allTransitiveDependencies0,
-          SketchOriginItemProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 
@@ -139,10 +132,6 @@ final class SketchEndItemProvider
          dependencies: null,
          $allTransitiveDependencies: null,
        );
-
-  static final $allTransitiveDependencies0 = modeSlotProvider;
-  static final $allTransitiveDependencies1 =
-      ModeSlotProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$sketchEndItemHash();
@@ -184,7 +173,7 @@ final class SketchEndItemProvider
   }
 }
 
-String _$sketchEndItemHash() => r'9256e2ac89edc0ba92583374349da4dda776f629';
+String _$sketchEndItemHash() => r'b03544bd22b33724960a99d2687e7d1a0bf15245';
 
 /// Icône d'arrivée de la route, même règle.
 
@@ -194,11 +183,8 @@ final class SketchEndItemFamily extends $Family
     : super(
         retry: null,
         name: r'sketchEndItemProvider',
-        dependencies: <ProviderOrFamily>[modeSlotProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          SketchEndItemProvider.$allTransitiveDependencies0,
-          SketchEndItemProvider.$allTransitiveDependencies1,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 

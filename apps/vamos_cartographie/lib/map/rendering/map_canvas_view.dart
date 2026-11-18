@@ -3,7 +3,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_vector_tiles/flutter_map_vector_tiles.dart' as vt;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
 import 'package:vamos_cartographie/map/camera/flutter_map_camera.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
@@ -11,7 +10,6 @@ import 'package:vamos_cartographie/map/engine/map_gesture_handler.dart';
 import 'package:vamos_cartographie/map/layers/map_style_provider.dart';
 import 'package:vamos_cartographie/map/rendering/map_scene_paint.dart';
 
-@Dependencies([MapGestureHandlerNotifier])
 class MapCanvas extends ConsumerStatefulWidget {
   const MapCanvas({super.key});
 

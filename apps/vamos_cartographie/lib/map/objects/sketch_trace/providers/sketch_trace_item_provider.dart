@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_segment_item.
 
 part 'sketch_trace_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [modeSlot])
+@Riverpod(keepAlive: true)
 SketchSegmentItem? sketchTraceItem(
   Ref ref,
   bool pending,

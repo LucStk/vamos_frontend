@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/map/objects/annotations/search_result_item.da
 
 part 'search_result_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [modeSlot])
+@Riverpod(keepAlive: true)
 SearchResultItem? searchResultItem(Ref ref, MapCameraReader camera) {
   final searchResult = ref.watch(modeSlotProvider(searchResultMarkerSlot));
 

@@ -7,7 +7,7 @@ import 'package:vamos_cartographie/map/objects/waypoint/pending_waypoint_item.da
 
 part 'pending_waypoint_item_provider.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [modeSlot])
+@Riverpod(keepAlive: true)
 List<SceneItem> pendingWaypoint(
   Ref ref,
   TripId tripId,

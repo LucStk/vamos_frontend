@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/rendering/map_scene_painter.dart';
@@ -9,7 +8,6 @@ import 'package:vamos_cartographie/map/rendering/visual_transitions.dart';
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/camera_transform_widget.dart';
 
-@Dependencies([mapScene, mapMode])
 class MapScenePaint extends ConsumerStatefulWidget {
   const MapScenePaint({super.key});
 
