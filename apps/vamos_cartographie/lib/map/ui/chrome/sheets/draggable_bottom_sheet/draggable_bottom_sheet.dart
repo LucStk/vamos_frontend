@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/deferred_notifier.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/drag_hint_header.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/compact_pager.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/page_bar.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 /// Une "page" de la sheet : un contenu compact (au repos) associé à son
@@ -284,7 +285,7 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
     ),
     child: SafeArea(
       top: false,
-      child: _PageBar(
+      child: PageBar(
         pages: widget.pages,
         page: _page,
         hidden: _hidden,
@@ -467,7 +468,7 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
                         _SwitchedContent(
                           isAtMin: _isAtMin,
                           compact: _compactBody(
-                            _CompactPager(
+                            CompactPager(
                               pages: widget.pages,
                               page: _page,
                               onTap: _toggleSheet,
@@ -508,229 +509,6 @@ class _SwitchedContent extends StatelessWidget {
         child: atMin
             ? KeyedSubtree(key: const ValueKey('compact'), child: compact)
             : KeyedSubtree(key: const ValueKey('expanded'), child: expanded),
-      ),
-    );
-  }
-}
-
-/// PageView horizontal des contenus compacts.
-///
-/// Stateful car il possède son propre contrôleur : quand la sheet se déplie
-/// puis revient au repos, le PageView est recréé et repart de la bonne page.
-class _CompactPager extends StatefulWidget {
-  const _CompactPager({
-    required this.pages,
-    required this.page,
-    required this.onTap,
-  });
-
-  final List<SheetPage> pages;
-  final ValueNotifier<int> page;
-
-  /// Tap sur une zone "vide" d'une page : déplie la sheet. Les éléments
-  /// interactifs de la page (vignettes, renommage…) gardent la priorité.
-  final VoidCallback onTap;
-
-  @override
-  State<_CompactPager> createState() => _CompactPagerState();
-}
-
-class _CompactPagerState extends State<_CompactPager> {
-  late final PageController _ctrl;
-  bool _fromPager = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = PageController(initialPage: widget.page.value);
-    widget.page.addListener(_syncFromNotifier);
-  }
-
-  @override
-  void dispose() {
-    widget.page.removeListener(_syncFromNotifier);
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  /// Un tap sur la barre fait défiler le PageView.
-  void _syncFromNotifier() {
-    if (_fromPager || !_ctrl.hasClients) return;
-    final target = widget.page.value;
-    if (_ctrl.page?.round() == target) return;
-    _ctrl.animateToPage(
-      target,
-      duration: const Duration(milliseconds: 280),
-      curve: Curves.easeOutCubic,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView(
-      controller: _ctrl,
-      onPageChanged: (i) {
-        _fromPager = true;
-        widget.page.value = i;
-        _fromPager = false;
-      },
-      children: [
-        for (final p in widget.pages)
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: widget.onTap,
-            child: p.compact,
-          ),
-      ],
-    );
-  }
-}
-
-/// Barre d'icônes en bas de l'écran, à la manière d'un bottomNavigationBar :
-/// une icône par page, puis le bouton qui masque la sheet.
-class _PageBar extends StatelessWidget {
-  const _PageBar({
-    required this.pages,
-    required this.page,
-    required this.hidden,
-    required this.showHide,
-    required this.onSelect,
-    required this.onToggleHidden,
-  });
-
-  final List<SheetPage> pages;
-  final ValueListenable<int> page;
-  final ValueListenable<bool> hidden;
-  final bool showHide;
-  final ValueChanged<int> onSelect;
-  final VoidCallback onToggleHidden;
-
-  static const double height = 48;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    return ListenableBuilder(
-      listenable: Listenable.merge([page, hidden]),
-      builder: (context, _) {
-        final isHidden = hidden.value;
-        final current = page.value;
-        final showPages = pages.length > 1;
-
-        return Container(
-          height: height,
-          decoration: BoxDecoration(
-            // Filet uniquement quand la barre est collée à la sheet.
-            border: isHidden
-                ? null
-                : Border(
-                    top: BorderSide(color: scheme.outlineVariant, width: 0.5),
-                  ),
-          ),
-          child: Row(
-            children: [
-              if (showPages)
-                for (var i = 0; i < pages.length; i++)
-                  Expanded(
-                    child: _BarTab(
-                      icon: pages[i].icon,
-                      selectedIcon: pages[i].selectedIcon,
-                      label: pages[i].label,
-                      // Masquée : aucune page n'est "active".
-                      selected: !isHidden && i == current,
-                      onTap: () => onSelect(i),
-                    ),
-                  ),
-              if (showHide) ...[
-                if (showPages)
-                  SizedBox(
-                    height: 20,
-                    child: VerticalDivider(
-                      width: 1,
-                      thickness: 0.5,
-                      color: scheme.outlineVariant,
-                    ),
-                  ),
-                SizedBox(
-                  width: showPages ? 64 : null,
-                  child: _BarTab(
-                    icon: Icons.visibility_off_outlined,
-                    selectedIcon: Icons.visibility_off,
-                    label: isHidden
-                        ? 'Afficher le panneau'
-                        : 'Masquer le panneau',
-                    selected: isHidden,
-                    onTap: onToggleHidden,
-                  ),
-                ),
-              ],
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _BarTab extends StatelessWidget {
-  const _BarTab({
-    required this.icon,
-    this.selectedIcon,
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final IconData? selectedIcon;
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final color = selected ? scheme.primary : scheme.onSurfaceVariant;
-    final shown = selected ? (selectedIcon ?? icon) : icon;
-
-    return Tooltip(
-      message: label,
-      child: Semantics(
-        button: true,
-        selected: selected,
-        label: label,
-        excludeSemantics: true,
-        child: InkResponse(
-          onTap: onTap,
-          radius: 24,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 150),
-                child: Icon(
-                  shown,
-                  key: ValueKey(selected),
-                  size: 22,
-                  color: color,
-                ),
-              ),
-              const SizedBox(height: 4),
-              // Petit trait sous l'onglet actif.
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeOutCubic,
-                width: selected ? 16 : 0,
-                height: 3,
-                decoration: BoxDecoration(
-                  color: scheme.primary,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

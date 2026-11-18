@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/common/stats/stat_item.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 /// Page compacte générique : un titre et les 3 premières stats en tuiles.
 class StatsCompact extends StatelessWidget {

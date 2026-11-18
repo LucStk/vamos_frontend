@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/map/modes/shared/sheets/route/pages/overview/
 import 'package:vamos_cartographie/map/modes/shared/sheets/route/pages/overview/route_overview_viewer.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/route/pages/stats/route_sections_list.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/route/pages/stats/route_stats.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 List<SheetPage> routeSheetPages(
   RouteFields route,

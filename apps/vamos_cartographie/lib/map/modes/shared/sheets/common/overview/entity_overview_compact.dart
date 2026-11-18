@@ -4,7 +4,7 @@ import 'package:vamos_cartographie/map/modes/shared/sheets/common/photos/owner_p
 import 'package:vamos_cartographie/map/modes/trip_ready/ui/widgets/header/trip_header.dart';
 // TODO: déplacer TripHeader ici (common/overview/editable_title.dart) : il
 // n'a rien de spécifique au trip, et common ne doit pas dépendre de trip_edit.
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 /// Page compacte "Aperçu" commune : [leading] facultatif, titre éditable,
 /// chevron de dépliage, puis les photos du propriétaire.

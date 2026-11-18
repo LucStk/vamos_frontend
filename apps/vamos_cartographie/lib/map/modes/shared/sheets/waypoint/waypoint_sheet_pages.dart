@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/map/modes/shared/sheets/common/stats/stats_li
 import 'package:vamos_cartographie/map/modes/shared/sheets/waypoint/pages/overview/waypoint_overview_compact.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/waypoint/pages/overview/waypoint_overview_viewer.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/waypoint/pages/stats/waypoint_stats.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet_shell.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 List<SheetPage> waypointSheetPages(
   TripId tripId,
