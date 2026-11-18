@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
+
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/sheet_page.dart';
 
 /// PageView horizontal des contenus compacts.
 ///

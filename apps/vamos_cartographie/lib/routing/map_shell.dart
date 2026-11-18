@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:vamos_cartographie/map/engine/map_back_scope.dart';
 import 'package:vamos_cartographie/map/map_screen.dart';
 
 /// Héberge l'unique MapScreen, monté une seule fois pour toute la vie de l'app.
@@ -17,7 +18,9 @@ class MapShell extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        const MapScreen(), // toujours en position 0 : jamais remonté
+        // Toujours en position 0 : jamais remonté. Le retour ne pilote les
+        // modes que si la carte est la page affichée.
+        MapBackScope(enabled: onMap, child: const MapScreen()),
         IgnorePointer(ignoring: onMap, child: overlay),
       ],
     );

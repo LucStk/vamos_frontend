@@ -10,6 +10,7 @@ import 'package:vamos_cartographie/map/modes/shared/sheets/trip/trip_sheet_pages
 import 'package:vamos_cartographie/map/modes/shared/sheets/waypoint/waypoint_sheet_pages.dart';
 import 'package:vamos_cartographie/map/modes/trip_ready/ui/trip_edit_actions.dart';
 import 'package:vamos_cartographie/map/modes/trip_ready/ui/trip_edit_menus.dart';
+import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 class TripReadyUi extends ConsumerWidget {
@@ -40,6 +41,9 @@ class TripReadyUi extends ConsumerWidget {
             ),
           ),
         DraggableBottomSheetShell(
+          barLeading: BackTab(
+            onTap: () => ref.applyTransition(ref.read(mapModeProvider).back),
+          ),
           pages: switch (selected) {
             MapWaypoint(:final id, :final tripId) => waypointSheetPages(
               tripId,

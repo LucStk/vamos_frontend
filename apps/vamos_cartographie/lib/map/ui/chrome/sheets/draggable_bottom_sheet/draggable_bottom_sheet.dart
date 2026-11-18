@@ -2,36 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/map/ui/chrome/back/back_scope.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/drag_hint_header.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/compact_pager.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/page_bar.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
-/// Une "page" de la sheet : un contenu compact (au repos) associé à son
-/// contenu déplié, plus l'icône qui la représente dans la barre du bas.
-class SheetPage {
-  const SheetPage({
-    required this.label,
-    required this.icon,
-    this.selectedIcon,
-    required this.compact,
-    required this.expanded,
-  });
-
-  /// Pas affiché dans la barre (icônes seules) : sert au tooltip et à
-  /// l'accessibilité.
-  final String label;
-  final IconData icon;
-
-  /// Variante "pleine" de l'icône pour l'onglet actif (facultatif).
-  final IconData? selectedIcon;
-
-  /// Affiché au repos, dans le PageView horizontal.
-  final Widget compact;
-
-  /// Affiché quand la sheet est dépliée, pour la page courante.
-  final Widget expanded;
-}
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/sheet_page.dart';
 
 /// Donne aux pages l'accès au dépliage de la sheet, pour qu'elles placent
 /// elles-mêmes leur bouton (voir [SheetExpandButton]).
@@ -96,13 +73,17 @@ class DraggableBottomSheetShell extends StatefulWidget {
 
   final double maxChildSize;
 
-  /// Ajoute à la barre un bouton qui masque la sheet : seule la barre reste
-  /// visible, la carte est entièrement dégagée.
+  /// La sheet peut être glissée sous sa taille compacte pour être masquée :
+  /// seule la barre reste visible, la carte est entièrement dégagée. Un
+  /// onglet de la barre la ré-affiche.
   final bool hideable;
 
   /// Prévenu quand la sheet est masquée / ré-affichée (pour déplacer des
   /// boutons flottants, par exemple).
   final ValueChanged<bool>? onHiddenChanged;
+
+  /// Placé à gauche de la barre (ex. `BackTab`).
+  final Widget? barLeading;
 
   const DraggableBottomSheetShell({
     super.key,
@@ -112,6 +93,7 @@ class DraggableBottomSheetShell extends StatefulWidget {
     this.maxChildSize = 0.90,
     this.hideable = true,
     this.onHiddenChanged,
+    this.barLeading,
   });
 
   @override
@@ -144,16 +126,50 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
   /// compacte (masquage ou retour), pour ne pas la relancer en boucle.
   bool _settling = false;
 
-  bool get _hasBar => widget.pages.length > 1 || widget.hideable;
+  /// Sans barre (une seule page, pas de retour), la barre serait vide.
+  bool get _hasBar => widget.pages.length > 1 || widget.barLeading != null;
+
+  /// Masquer n'a de sens que si une barre reste là pour ré-afficher la sheet.
+  bool get _canHide => widget.hideable && _hasBar;
+
+  /// Registre du [BackScope] englobant : tant que la sheet est dépliée, un
+  /// retour système la replie au lieu de changer de mode. Null hors scope.
+  BackInterceptors? _interceptors;
+
+  @override
+  void initState() {
+    super.initState();
+    _isAtMin.addListener(_syncBack);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final interceptors = BackScope.interceptorsOf(context);
+    if (interceptors != _interceptors) {
+      _interceptors?.set(this, null);
+      _interceptors = interceptors;
+      _syncBack();
+    }
+  }
 
   @override
   void dispose() {
+    _isAtMin.removeListener(_syncBack);
+    _interceptors?.set(this, null);
     _isAtMin.dispose();
     _page.dispose();
     _hidden.dispose();
     _sheetCtrl?.dispose();
     super.dispose();
   }
+
+  /// Dépliée : un retour replie la sheet. Repliée : on laisse passer.
+  ///
+  /// `_toggleSheet` est une méthode : sa tear-off est égale d'un appel à
+  /// l'autre, donc `set` ne notifie pas inutilement.
+  void _syncBack() =>
+      _interceptors?.set(this, _isAtMin.value ? null : _toggleSheet);
 
   DraggableScrollableController _controllerFor(double minSize) {
     if (_sheetCtrl == null || _sheetCtrlMinSize != minSize) {
@@ -289,9 +305,8 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
         pages: widget.pages,
         page: _page,
         hidden: _hidden,
-        showHide: widget.hideable,
         onSelect: _onTabTap,
-        onToggleHidden: () => _setHidden(!_hidden.value),
+        leading: widget.barLeading,
       ),
     ),
   );
@@ -415,7 +430,7 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
       // Masquable : la sheet peut descendre sous sa taille compacte, et
       // `_settleBelowCompact` décide au relâchement (masquer ou revenir).
       // La taille compacte reste la référence pour tout le reste.
-      minChildSize: widget.hideable ? 0 : minSize,
+      minChildSize: _canHide ? 0 : minSize,
       maxChildSize: widget.maxChildSize,
       expand: false,
       builder: (context, scrollController) {

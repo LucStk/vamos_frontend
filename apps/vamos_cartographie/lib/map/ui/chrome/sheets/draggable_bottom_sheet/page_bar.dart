@@ -1,29 +1,33 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/bar_tab.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/sheet_page.dart';
 
 /// Barre d'icônes en bas de l'écran, à la manière d'un bottomNavigationBar :
-/// une icône par page, puis le bouton qui masque la sheet.
+/// un éventuel [leading] (retour), puis une icône par page.
+///
+/// Sheet masquée (glissée vers le bas) : toucher un onglet la ré-affiche.
 class PageBar extends StatelessWidget {
   const PageBar({
     super.key,
     required this.pages,
     required this.page,
     required this.hidden,
-    required this.showHide,
     required this.onSelect,
-    required this.onToggleHidden,
+    this.leading,
   });
 
   final List<SheetPage> pages;
   final ValueListenable<int> page;
   final ValueListenable<bool> hidden;
-  final bool showHide;
   final ValueChanged<int> onSelect;
-  final VoidCallback onToggleHidden;
+
+  /// Affiché à gauche de la barre (ex. bouton retour du mode).
+  final Widget? leading;
 
   static const double height = 48;
+
+  static const double _leadingWidth = 64;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,10 @@ class PageBar extends StatelessWidget {
       builder: (context, _) {
         final isHidden = hidden.value;
         final current = page.value;
-        final showPages = pages.length > 1;
+        // Une seule page : son onglet n'apparaît que sheet masquée, pour
+        // pouvoir la ré-afficher.
+        final showPages = pages.length > 1 || (isHidden && pages.isNotEmpty);
+        final leading = this.leading;
 
         return Container(
           height: height,
@@ -48,6 +55,20 @@ class PageBar extends StatelessWidget {
           ),
           child: Row(
             children: [
+              if (leading != null)
+                if (showPages) ...[
+                  SizedBox(width: _leadingWidth, child: leading),
+                  SizedBox(
+                    height: 20,
+                    child: VerticalDivider(
+                      width: 1,
+                      thickness: 0.5,
+                      color: scheme.outlineVariant,
+                    ),
+                  ),
+                ] else
+                  // Seul élément : il prend toute la largeur.
+                  Expanded(child: leading),
               if (showPages)
                 for (var i = 0; i < pages.length; i++)
                   Expanded(
@@ -60,29 +81,6 @@ class PageBar extends StatelessWidget {
                       onTap: () => onSelect(i),
                     ),
                   ),
-              if (showHide) ...[
-                if (showPages)
-                  SizedBox(
-                    height: 20,
-                    child: VerticalDivider(
-                      width: 1,
-                      thickness: 0.5,
-                      color: scheme.outlineVariant,
-                    ),
-                  ),
-                SizedBox(
-                  width: showPages ? 64 : null,
-                  child: BarTab(
-                    icon: Icons.visibility_off_outlined,
-                    selectedIcon: Icons.visibility_off,
-                    label: isHidden
-                        ? 'Afficher le panneau'
-                        : 'Masquer le panneau',
-                    selected: isHidden,
-                    onTap: onToggleHidden,
-                  ),
-                ),
-              ],
             ],
           ),
         );
