@@ -18,4 +18,6 @@ abstract class AppMode extends Mode {
   Transition onTap(TapGesture g) => Transition.overlay(g.tapMenu);
   @override
   Transition onDragEnd(DragEndGesture g) => Transition.overlay(g.dragEndMenu);
+
+  Transition get back => Transition.stay();
 }

@@ -6,10 +6,14 @@ import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/edit_route/commands/route_command.dart';
 import 'package:map_engine/src/modes/edit_route/sketch_generating_mode.dart';
 import 'package:map_engine/src/modes/edit_route/slots/sketch_trace.dart';
+import 'package:map_engine/src/modes/trip_ready/trip_ready_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 class SketchEdition extends TripMode {
   const SketchEdition(super.tripId);
+
+  @override
+  Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
 
   @override
   Set<Slot> get retainedSlots => {sketchTraceSlot};

@@ -1,6 +1,7 @@
 import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
+import 'package:map_engine/src/modes/explore/explore_mode.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip_ready/commands/edit_trip_command.dart';
@@ -8,6 +9,9 @@ import 'package:map_engine/src/modes/trip_ready/commands/edit_trip_command.dart'
 final class TripReadyMode extends TripMode {
   const TripReadyMode(super.tripId, {this.readOnly = true});
   final bool readOnly;
+
+  @override
+  Transition get back => Transition.to(ExploreMode());
 
   @override
   Transition onTap(TapGesture g) {
