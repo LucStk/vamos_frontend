@@ -28,12 +28,15 @@ class TripReadyUi extends ConsumerWidget {
         if (!mode.readOnly)
           SafeArea(
             child: TripEditActions(
-              editRoute: () => ref
-                  .read(appModeMachineProvider.notifier)
-                  .apply(Transition.to(RouteEditMode(mode.tripId))),
-              editWaypoint: () => ref
-                  .read(appModeMachineProvider.notifier)
-                  .apply(Transition.to(WaypointsEditMode(mode.tripId))),
+              editRoute: () => ref.applyTransition(
+                Transition.to(RouteEditMode(mode.tripId)),
+              ),
+              editWaypoint: () => ref.applyTransition(
+                Transition.to(WaypointsEditMode(mode.tripId)),
+              ),
+              activateDrawMode: () => ref.applyTransition(
+                Transition.to(SketchEdition(mode.tripId)),
+              ),
             ),
           ),
         DraggableBottomSheetShell(

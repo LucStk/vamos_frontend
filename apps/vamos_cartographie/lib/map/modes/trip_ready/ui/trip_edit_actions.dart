@@ -11,11 +11,13 @@ class TripEditActions extends StatelessWidget {
   const TripEditActions({
     required this.editRoute,
     required this.editWaypoint,
+    required this.activateDrawMode,
     super.key,
   });
 
   final VoidCallback editRoute;
   final VoidCallback editWaypoint;
+  final VoidCallback activateDrawMode;
   // static const double _barHeight = 56;
 
   @override
@@ -30,6 +32,11 @@ class TripEditActions extends StatelessWidget {
           icon: Icons.add_location_alt,
           tooltipText: "Edit Waypoints",
           onPressed: editWaypoint,
+        ),
+        EditBottomButton(
+          icon: Icons.draw,
+          tooltipText: "Draw Mode",
+          onPressed: activateDrawMode,
         ),
       ],
     );

@@ -5,6 +5,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/span_queries.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/span_ranges_provider.dart';
 import 'package:vamos_cartographie/map/modes/shared/helpers/section_slice.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/mobility_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/segment_item.dart';
@@ -35,7 +36,11 @@ SegmentItem? segmentItem(
   final polyline = ref.watch(routePolylineProvider(tripId, cameraReader));
   if (range == null || geometry == null || polyline == null) return null;
 
-  final slice = sliceBetween(geometry, range.first, range.last);
+  final slice = sliceBetweenPositions(
+    geometry,
+    range.first.toDouble(),
+    range.last.toDouble(),
+  );
   if (slice == null) return null;
 
   return SegmentItem(

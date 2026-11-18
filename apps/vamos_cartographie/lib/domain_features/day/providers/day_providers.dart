@@ -1,5 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/span_ranges_provider.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 // + routeStoreProvider, mobilitySpanExtentsProvider, et le provider qui expose
 //   les waypoints d'un trip (adaptez son nom).
 
@@ -14,7 +18,10 @@ List<RouteDay> routeDays(Ref ref, TripId tripId) {
   );
   if (vertexCount == null || vertexCount < 2) return const [];
 
-  final waypoints = ref.watch(waypointsProvider(tripId)); // adaptez
+  final waypointIds = ref.watch(allWaypointIdsProvider(tripId)); // adaptez
+  final waypoints = waypointIds.map(
+    (m) => ref.watch(waypointProvider(tripId, m)),
+  ); // adaptez
   return computeRouteDays(waypoints, routeEnd: (vertexCount - 1).toDouble());
 }
 

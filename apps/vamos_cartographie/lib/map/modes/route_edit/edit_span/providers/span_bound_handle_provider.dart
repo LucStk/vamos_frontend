@@ -6,8 +6,8 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 // Fichier où vivent routeStoreProvider et mobilitySpanExtentsProvider :
-import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/span_ranges_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/objects/route/selection_handle/selection_handle_item.dart';
 import 'package:vamos_cartographie/map/objects/route/selection_handle/selection_highlightItem.dart';

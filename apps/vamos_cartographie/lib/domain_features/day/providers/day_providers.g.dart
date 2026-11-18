@@ -73,7 +73,7 @@ final class RouteDaysProvider
   }
 }
 
-String _$routeDaysHash() => r'c7697e92969b8b9ab943f075dda842a56df7018c';
+String _$routeDaysHash() => r'1f052818364a8d65efd1039d61db1c7870dc5d13';
 
 /// Les journées de déplacement du trip, recalculées quand les haltes ou la
 /// géométrie changent.

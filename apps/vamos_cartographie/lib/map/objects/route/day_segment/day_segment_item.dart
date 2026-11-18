@@ -2,7 +2,6 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/geometry/rounded_polyline.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/style/segment_style.dart';

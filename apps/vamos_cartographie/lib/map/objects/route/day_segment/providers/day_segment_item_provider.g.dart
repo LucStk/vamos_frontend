@@ -18,7 +18,7 @@ final class DaySegmentItemProvider
     with $Provider<DaySegmentItem?> {
   DaySegmentItemProvider._({
     required DaySegmentItemFamily super.from,
-    required (TripId, SpanId, MapCameraReader) super.argument,
+    required (TripId, WaypointId?, MapCameraReader) super.argument,
   }) : super(
          retry: null,
          name: r'daySegmentItemProvider',
@@ -44,7 +44,7 @@ final class DaySegmentItemProvider
 
   @override
   DaySegmentItem? create(Ref ref) {
-    final argument = this.argument as (TripId, SpanId, MapCameraReader);
+    final argument = this.argument as (TripId, WaypointId?, MapCameraReader);
     return daySegmentItem(ref, argument.$1, argument.$2, argument.$3);
   }
 
@@ -67,13 +67,13 @@ final class DaySegmentItemProvider
   }
 }
 
-String _$daySegmentItemHash() => r'fac758227ccd7d8b17a2a521a644346036aa084e';
+String _$daySegmentItemHash() => r'221d1e9257931cf3d69283b82c23d058317f8d72';
 
 final class DaySegmentItemFamily extends $Family
     with
         $FunctionalFamilyOverride<
           DaySegmentItem?,
-          (TripId, SpanId, MapCameraReader)
+          (TripId, WaypointId?, MapCameraReader)
         > {
   DaySegmentItemFamily._()
     : super(
@@ -86,10 +86,10 @@ final class DaySegmentItemFamily extends $Family
 
   DaySegmentItemProvider call(
     TripId tripId,
-    SpanId dayId,
+    WaypointId? endsAt,
     MapCameraReader cameraReader,
   ) => DaySegmentItemProvider._(
-    argument: (tripId, dayId, cameraReader),
+    argument: (tripId, endsAt, cameraReader),
     from: this,
   );
 

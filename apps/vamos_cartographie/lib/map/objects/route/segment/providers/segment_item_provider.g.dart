@@ -66,7 +66,7 @@ final class SegmentItemProvider
   }
 }
 
-String _$segmentItemHash() => r'3b60a2caac78135f0f4ed9cfe2030645439b0c21';
+String _$segmentItemHash() => r'374a103f75cf8b1d66e798ee2f6aabfafad1e33d';
 
 final class SegmentItemFamily extends $Family
     with
