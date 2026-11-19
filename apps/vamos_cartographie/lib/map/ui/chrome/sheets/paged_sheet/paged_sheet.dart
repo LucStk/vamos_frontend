@@ -63,13 +63,15 @@ class _PagedSheetState extends State<PagedSheet> {
 
   /// Contrôleur de la sheet, pour la déplier/replier par un tap.
   ///
-  /// La sheet est recréée (ValueKey) quand `minSize` ou `maxSize` change, et
-  /// un contrôleur ne peut être attaché qu'à une seule sheet à la fois : on en
-  /// crée donc un nouveau pour chaque couple, et l'ancien est libéré après le
-  /// frame, une fois l'ancienne sheet détruite.
+  /// La sheet est recréée (ValueKey) quand `minSize` change, et un contrôleur
+  /// ne peut être attaché qu'à une seule sheet à la fois : on en crée donc un
+  /// nouveau pour chaque `minSize`, et l'ancien est libéré après le frame,
+  /// une fois l'ancienne sheet détruite.
+  ///
+  /// La hauteur max, elle, est fixe : la faire dépendre de la page recréerait
+  /// la sheet (et le pager) à chaque changement de page, en plein glissement.
   DraggableScrollableController? _sheetCtrl;
   double? _sheetCtrlMinSize;
-  double? _sheetCtrlMaxSize;
 
   /// Vrai pendant l'animation de "rangement" après un drag sous la taille
   /// compacte (masquage ou retour), pour ne pas la relancer en boucle.
@@ -89,6 +91,20 @@ class _PagedSheetState extends State<PagedSheet> {
   void initState() {
     super.initState();
     _isAtMin.addListener(_syncBack);
+    _page.addListener(_collapseIfNotExpandable);
+  }
+
+  /// Arrivée dépliée sur une page sans contenu déplié : on revient en compact.
+  void _collapseIfNotExpandable() {
+    if (_isAtMin.value || _canExpand(_currentIndex)) return;
+    final ctrl = _sheetCtrl;
+    final minSize = _sheetCtrlMinSize;
+    if (ctrl == null || minSize == null || !ctrl.isAttached) return;
+    ctrl.animateTo(
+      minSize,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOutCubic,
+    );
   }
 
   @override
@@ -105,6 +121,7 @@ class _PagedSheetState extends State<PagedSheet> {
   @override
   void dispose() {
     _isAtMin.removeListener(_syncBack);
+    _page.removeListener(_collapseIfNotExpandable);
     _interceptors?.set(this, null);
     _isAtMin.dispose();
     _page.dispose();
@@ -120,14 +137,11 @@ class _PagedSheetState extends State<PagedSheet> {
   void _syncBack() =>
       _interceptors?.set(this, _isAtMin.value ? null : _toggleSheet);
 
-  DraggableScrollableController _controllerFor(double minSize, double maxSize) {
-    if (_sheetCtrl == null ||
-        _sheetCtrlMinSize != minSize ||
-        _sheetCtrlMaxSize != maxSize) {
+  DraggableScrollableController _controllerFor(double minSize) {
+    if (_sheetCtrl == null || _sheetCtrlMinSize != minSize) {
       final old = _sheetCtrl;
       _sheetCtrl = DraggableScrollableController();
       _sheetCtrlMinSize = minSize;
-      _sheetCtrlMaxSize = maxSize;
       if (old != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) => old.dispose());
       }
@@ -142,17 +156,16 @@ class _PagedSheetState extends State<PagedSheet> {
       widget.pages.isNotEmpty &&
       widget.pages[index.clamp(0, widget.pages.length - 1)].expanded != null;
 
-  /// Déplie / replie. Sans contenu déplié, ne fait rien (la sheet ne peut de
-  /// toute façon pas monter au-dessus de sa taille compacte).
+  /// Déplie / replie. Une page sans contenu déplié ne se déplie pas (mais
+  /// peut toujours être repliée).
   void _toggleSheet() {
     final ctrl = _sheetCtrl;
     final minSize = _sheetCtrlMinSize;
-    final maxSize = _sheetCtrlMaxSize;
-    if (ctrl == null || minSize == null || maxSize == null) return;
-    if (!ctrl.isAttached || maxSize <= minSize + 0.001) return;
+    if (ctrl == null || minSize == null || !ctrl.isAttached) return;
+    if (_isAtMin.value && !_canExpand(_currentIndex)) return;
 
     ctrl.animateTo(
-      _isAtMin.value ? maxSize : minSize,
+      _isAtMin.value ? widget.maxChildSize : minSize,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutCubic,
     );
@@ -217,6 +230,20 @@ class _PagedSheetState extends State<PagedSheet> {
     if (_settling) return;
 
     final size = ctrl.size;
+
+    // Tirée vers le haut sur une page sans contenu déplié : retour en compact.
+    if (size > minSize + 0.005 && !_canExpand(_currentIndex)) {
+      _settling = true;
+      ctrl
+          .animateTo(
+            minSize,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+          )
+          .whenComplete(() => _settling = false);
+      return;
+    }
+
     if (size >= minSize - 0.005) return;
 
     final velocity = details?.primaryVelocity ?? 0; // > 0 : vers le bas
@@ -414,17 +441,9 @@ class _PagedSheetState extends State<PagedSheet> {
                                           child: child,
                                         ),
                                       ),
-                                  // Hauteur max selon la page : une page sans
-                                  // contenu déplié ne monte pas.
-                                  child: ValueListenableBuilder<int>(
-                                    valueListenable: _page,
-                                    builder: (context, index, _) => _buildSheet(
-                                      minSize,
-                                      _canExpand(index)
-                                          ? widget.maxChildSize
-                                          : minSize,
-                                    ),
-                                  ),
+                                  // Pas de reconstruction par page : la sheet
+                                  // et le pager survivent aux changements.
+                                  child: _buildSheet(minSize),
                                 ),
                               );
                             },
@@ -440,18 +459,16 @@ class _PagedSheetState extends State<PagedSheet> {
     );
   }
 
-  /// Changer de [maxSize] (page avec / sans contenu déplié) recrée la sheet,
-  /// qui repart à sa taille compacte.
-  Widget _buildSheet(double minSize, double maxSize) {
+  Widget _buildSheet(double minSize) {
     return DraggableScrollableSheet(
-      key: ValueKey('$minSize/$maxSize'),
-      controller: _controllerFor(minSize, maxSize),
+      key: ValueKey('$minSize/${widget.maxChildSize}'),
+      controller: _controllerFor(minSize),
       initialChildSize: minSize,
       // Masquable : la sheet peut descendre sous sa taille compacte, et
       // `_settleBelowCompact` décide au relâchement (masquer ou revenir).
       // La taille compacte reste la référence pour tout le reste.
       minChildSize: _canHide ? 0 : minSize,
-      maxChildSize: maxSize,
+      maxChildSize: widget.maxChildSize,
       expand: false,
       builder: (context, scrollController) {
         return Material(
