@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.d
 
 SheetCompact waypointCreateCompact(TripId tripId) {
   return SheetCompact(
-    height: 100,
+    height: 40,
     child: Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,

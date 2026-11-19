@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +13,8 @@ import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/paged_sheet_
 import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.dart';
 
 class PagedSheet extends StatefulWidget {
+  /// Chaque page définit sa hauteur compacte (`SheetPage.compact.height`).
   final List<SheetPage> pages;
-
-  /// Hauteur fixe de la zone de pages au repos.
-  ///
-  /// Un PageView a besoin d'une hauteur bornée, on ne peut donc pas laisser
-  /// le contenu compact se dimensionner tout seul. Chaque page compacte doit
-  /// tenir dans cette hauteur.
-  final double compactPageHeight;
 
   /// Affiché au-dessus du contenu (hauteur nulle au repos).
   final Widget? header;
@@ -41,7 +36,6 @@ class PagedSheet extends StatefulWidget {
   const PagedSheet({
     super.key,
     required this.pages,
-    this.compactPageHeight = 120,
     this.header,
     this.maxChildSize = 0.90,
     this.hideable = true,
@@ -63,7 +57,9 @@ class _PagedSheetState extends State<PagedSheet> {
   /// Mode "invisible" : la sheet glisse sous la barre.
   final _hidden = ValueNotifier<bool>(false);
 
-  double? _compactHeight;
+  /// Hauteur du chrome de la sheet au repos (poignée, marges, éventuelle
+  /// SafeArea), mesurée. La hauteur des pages, elle, est connue d'avance.
+  double? _chromeHeight;
 
   /// Contrôleur de la sheet, pour la déplier/replier par un tap.
   ///
@@ -308,10 +304,18 @@ class _PagedSheetState extends State<PagedSheet> {
     ),
   );
 
-  /// [pager] est remplacé par un widget vide pour la mesure : seule sa
-  /// hauteur (fixe) compte.
+  /// Hauteur de la zone compacte : celle de la page compacte la plus haute.
+  ///
+  /// Une seule hauteur pour toutes les pages : le pager doit garder une
+  /// hauteur fixe pendant qu'on glisse d'une page à l'autre, et une taille
+  /// compacte qui changerait avec la page recréerait la sheet (et le pager)
+  /// au milieu du geste. Les pages plus basses sont calées en haut.
+  double get _compactZoneHeight => widget.pages.isEmpty
+      ? SheetCompact.defaultHeight
+      : widget.pages.map((p) => p.compact.height).reduce(max);
+
   Widget _compactBody(Widget pager) =>
-      SizedBox(height: widget.compactPageHeight, child: pager);
+      SizedBox(height: _compactZoneHeight, child: pager);
 
   Widget _expandedBody() => ValueListenableBuilder<int>(
     valueListenable: _page,
@@ -328,6 +332,9 @@ class _PagedSheetState extends State<PagedSheet> {
     },
   );
 
+  /// Mesure le chrome (poignée, marges, SafeArea). Il ne change que si la
+  /// barre apparaît ou disparaît : la hauteur des pages s'ajoute par calcul,
+  /// sans attendre une frame de mesure.
   void _scheduleMeasure() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -335,8 +342,8 @@ class _PagedSheetState extends State<PagedSheet> {
       if (box == null || !box.hasSize) return;
 
       final height = box.size.height;
-      if (_compactHeight == null || (height - _compactHeight!).abs() > 0.5) {
-        setState(() => _compactHeight = height);
+      if (_chromeHeight == null || (height - _chromeHeight!).abs() > 0.5) {
+        setState(() => _chromeHeight = height);
       }
     });
   }
@@ -344,14 +351,17 @@ class _PagedSheetState extends State<PagedSheet> {
   @override
   Widget build(BuildContext context) {
     _scheduleMeasure();
-    final compactHeight = _compactHeight;
+    final chromeHeight = _chromeHeight;
+    final compactHeight = chromeHeight == null
+        ? null
+        : chromeHeight + _compactZoneHeight;
 
     return PagedSheetScope(
       toggle: _toggleSheet,
       isAtMin: _isAtMin,
       child: Stack(
         children: [
-          // Mesure invisible : poignée + zone de pages (la barre est à part).
+          // Mesure invisible : le chrome seul, zone de pages vide.
           Offstage(
             child: Align(
               alignment: Alignment.topCenter,
@@ -361,7 +371,7 @@ class _PagedSheetState extends State<PagedSheet> {
                   key: _measureKey,
                   child: Material(
                     type: MaterialType.transparency,
-                    child: _withChrome(_compactBody(const SizedBox.shrink())),
+                    child: _withChrome(const SizedBox.shrink()),
                   ),
                 ),
               ),
