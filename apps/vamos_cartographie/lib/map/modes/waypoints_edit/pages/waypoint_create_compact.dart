@@ -1,21 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/modes/shared/menus/ui/menu_button.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-SheetCompact waypointCreateCompact(TripId tripId) {
-  return SheetCompact(
-    height: 40,
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        MenuButton(
-          icon: Icons.add_location_alt_outlined,
-          label: 'Validate',
-          onPressed: () {},
-        ),
-      ],
-    ),
-  );
+import 'package:map_engine/map_engine.dart';
+
+/// UI partagée par [WaypointsEditMode] (aucun onglet ouvert) et ses
+/// sous-modes, un par onglet. Tous l'affichent : la sheet est conservée.
+class WaypointCreateCompact extends ConsumerWidget {
+  const WaypointCreateCompact({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        "Poser un nouveau point sur la carte",
+        style: TextStyle(color: CupertinoColors.systemGrey),
+      ),
+    );
+  }
 }

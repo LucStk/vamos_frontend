@@ -31,11 +31,11 @@ class WaypointsEditUi extends ConsumerWidget {
             label: 'Créer',
             icon: Icons.add_location_alt_outlined,
             selectedIcon: Icons.add_location_alt,
-            compact: waypointCreateCompact(tripId),
+            compact: SheetCompact(height: 40, child: WaypointCreateCompact()),
           ),
         ),
         // ModeTab(
-        //   open: () => DrawWaypointMode(tripId),
+        //   open: () => SketchEdition(tripId),
         //   page: SheetPage(
         //     label: 'Dessiner',
         //     icon: Icons.draw_outlined,
