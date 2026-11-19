@@ -14,14 +14,18 @@ List<SheetPage> tripSheetPages(Trip trip, {bool editable = false}) {
       label: 'Aperçu',
       icon: Icons.photo_library_outlined,
       selectedIcon: Icons.photo_library,
-      compact: TripOverviewCompact(trip: trip, editable: editable),
+      compact: SheetCompact(
+        child: TripOverviewCompact(trip: trip, editable: editable),
+      ),
       expanded: TripOverviewViewer(trip: trip, editable: editable),
     ),
     SheetPage(
       label: 'Statistiques',
       icon: Icons.bar_chart_outlined,
       selectedIcon: Icons.bar_chart,
-      compact: StatsCompact(title: 'Statistiques', stats: stats),
+      compact: SheetCompact(
+        child: StatsCompact(title: 'Statistiques', stats: stats),
+      ),
       expanded: StatsList(stats: stats),
     ),
   ];

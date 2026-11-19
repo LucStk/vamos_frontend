@@ -3,9 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/common/overview/entity_overview_compact.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.dart';
+
+SheetCompact tripOverviewCompact(Trip trip, {bool editable = false}) {
+  return SheetCompact(
+    child: TripOverviewCompact(trip: trip, editable: editable),
+  );
+}
 
 class TripOverviewCompact extends ConsumerWidget {
-  const TripOverviewCompact({super.key, required this.trip, this.editable = false});
+  const TripOverviewCompact({
+    super.key,
+    required this.trip,
+    this.editable = false,
+  });
 
   final Trip trip;
   final bool editable;

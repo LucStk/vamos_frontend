@@ -1,4 +1,5 @@
 export "deferred_notifier.dart";
-export "draggable_bottom_sheet/draggable_bottom_sheet.dart";
-export "draggable_bottom_sheet/sheet_page.dart";
+export "paged_sheet/sheet_page.dart";
+export "paged_sheet/paged_sheet.dart";
+export "paged_sheet/sheet_expand_button.dart";
 export "sheet_metrics.dart";

@@ -1,3 +1,4 @@
+import 'package:map_engine/map_engine.dart';
 import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
@@ -14,7 +15,9 @@ final class WaypointsEditMode extends TripMode {
     }
     return Transition.stay();
   }
-  // Test
+
+  @override
+  Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
 
   @override
   Transition onDragging(DragUpdateGesture g) => switch ((

@@ -4,61 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/ui/chrome/back/back_scope.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/drag_hint_header.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/compact_pager.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/page_bar.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/compact_pager.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/page_bar.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/paged_sheet_scope.dart';
 
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/sheet_page.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.dart';
 
-/// Donne aux pages l'accès au dépliage de la sheet, pour qu'elles placent
-/// elles-mêmes leur bouton (voir [SheetExpandButton]).
-class SheetScope extends InheritedWidget {
-  const SheetScope({
-    super.key,
-    required this.toggle,
-    required this.isAtMin,
-    required super.child,
-  });
-
-  final VoidCallback toggle;
-  final ValueListenable<bool> isAtMin;
-
-  static SheetScope? maybeOf(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<SheetScope>();
-
-  @override
-  bool updateShouldNotify(SheetScope old) =>
-      toggle != old.toggle || isAtMin != old.isAtMin;
-}
-
-/// Petit chevron à placer dans une page : déplie la sheet au repos, la replie
-/// une fois dépliée. Invisible hors d'une [DraggableBottomSheetShell].
-class SheetExpandButton extends StatelessWidget {
-  const SheetExpandButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final scope = SheetScope.maybeOf(context);
-    if (scope == null) return const SizedBox.shrink();
-    final color = Theme.of(context).colorScheme.onSurfaceVariant;
-
-    return ValueListenableBuilder<bool>(
-      valueListenable: scope.isAtMin,
-      builder: (context, atMin, _) => IconButton(
-        visualDensity: VisualDensity.compact,
-        tooltip: atMin ? 'Afficher les détails' : 'Réduire',
-        onPressed: scope.toggle,
-        icon: AnimatedRotation(
-          turns: atMin ? 0 : 0.5,
-          duration: const Duration(milliseconds: 200),
-          child: Icon(Icons.expand_less, size: 20, color: color),
-        ),
-      ),
-    );
-  }
-}
-
-class DraggableBottomSheetShell extends StatefulWidget {
+class PagedSheet extends StatefulWidget {
   final List<SheetPage> pages;
 
   /// Hauteur fixe de la zone de pages au repos.
@@ -85,7 +38,7 @@ class DraggableBottomSheetShell extends StatefulWidget {
   /// Placé à gauche de la barre (ex. `BackTab`).
   final Widget? barLeading;
 
-  const DraggableBottomSheetShell({
+  const PagedSheet({
     super.key,
     required this.pages,
     this.compactPageHeight = 120,
@@ -97,11 +50,10 @@ class DraggableBottomSheetShell extends StatefulWidget {
   });
 
   @override
-  State<DraggableBottomSheetShell> createState() =>
-      _DraggableBottomSheetShellState();
+  State<PagedSheet> createState() => _PagedSheetState();
 }
 
-class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
+class _PagedSheetState extends State<PagedSheet> {
   final _measureKey = GlobalKey();
   final _isAtMin = DeferredNotifier<bool>(true);
 
@@ -115,12 +67,13 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
 
   /// Contrôleur de la sheet, pour la déplier/replier par un tap.
   ///
-  /// La sheet est recréée (ValueKey) quand `minSize` change, et un contrôleur
-  /// ne peut être attaché qu'à une seule sheet à la fois : on en crée donc un
-  /// nouveau pour chaque `minSize`, et l'ancien est libéré après le frame,
-  /// une fois l'ancienne sheet détruite.
+  /// La sheet est recréée (ValueKey) quand `minSize` ou `maxSize` change, et
+  /// un contrôleur ne peut être attaché qu'à une seule sheet à la fois : on en
+  /// crée donc un nouveau pour chaque couple, et l'ancien est libéré après le
+  /// frame, une fois l'ancienne sheet détruite.
   DraggableScrollableController? _sheetCtrl;
   double? _sheetCtrlMinSize;
+  double? _sheetCtrlMaxSize;
 
   /// Vrai pendant l'animation de "rangement" après un drag sous la taille
   /// compacte (masquage ou retour), pour ne pas la relancer en boucle.
@@ -171,11 +124,14 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
   void _syncBack() =>
       _interceptors?.set(this, _isAtMin.value ? null : _toggleSheet);
 
-  DraggableScrollableController _controllerFor(double minSize) {
-    if (_sheetCtrl == null || _sheetCtrlMinSize != minSize) {
+  DraggableScrollableController _controllerFor(double minSize, double maxSize) {
+    if (_sheetCtrl == null ||
+        _sheetCtrlMinSize != minSize ||
+        _sheetCtrlMaxSize != maxSize) {
       final old = _sheetCtrl;
       _sheetCtrl = DraggableScrollableController();
       _sheetCtrlMinSize = minSize;
+      _sheetCtrlMaxSize = maxSize;
       if (old != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) => old.dispose());
       }
@@ -183,22 +139,57 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
     return _sheetCtrl!;
   }
 
+  int get _currentIndex => _page.value.clamp(0, widget.pages.length - 1);
+
+  /// La page [index] a-t-elle un contenu déplié ?
+  bool _canExpand(int index) =>
+      widget.pages.isNotEmpty &&
+      widget.pages[index.clamp(0, widget.pages.length - 1)].expanded != null;
+
+  /// Déplie / replie. Sans contenu déplié, ne fait rien (la sheet ne peut de
+  /// toute façon pas monter au-dessus de sa taille compacte).
   void _toggleSheet() {
     final ctrl = _sheetCtrl;
     final minSize = _sheetCtrlMinSize;
-    if (ctrl == null || minSize == null || !ctrl.isAttached) return;
+    final maxSize = _sheetCtrlMaxSize;
+    if (ctrl == null || minSize == null || maxSize == null) return;
+    if (!ctrl.isAttached || maxSize <= minSize + 0.001) return;
 
     ctrl.animateTo(
-      _isAtMin.value ? widget.maxChildSize : minSize,
+      _isAtMin.value ? maxSize : minSize,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutCubic,
     );
+  }
+
+  /// Ferme la sheet : elle descend sous la barre, puis [_setHidden] prévient
+  /// la page (`onClose`). Même fin qu'un glissement vers le bas.
+  void _closeSheet() {
+    final ctrl = _sheetCtrl;
+    if (ctrl == null || !ctrl.isAttached || _hidden.value || _settling) return;
+
+    _settling = true;
+    ctrl
+        .animateTo(
+          0,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeIn,
+        )
+        .whenComplete(() {
+          _settling = false;
+          if (mounted) _setHidden(true);
+        });
   }
 
   void _setHidden(bool hidden) {
     if (_hidden.value == hidden) return;
     _hidden.value = hidden;
     widget.onHiddenChanged?.call(hidden);
+
+    // Fermée (bouton ou glissement) : la page peut abandonner sa tâche.
+    if (hidden && widget.pages.isNotEmpty) {
+      widget.pages[_currentIndex].onClose?.call();
+    }
 
     // Cachée par un glissement, la sheet est à une taille ~0 : on la remonte
     // à sa taille compacte en la ré-affichant.
@@ -255,14 +246,20 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
   }
 
   /// Masquée : n'importe quel onglet ré-affiche la sheet sur sa page.
-  /// Autre onglet : change de page. Onglet actif : déplie / replie
-  /// (raccourci discret, le bouton principal est dans la page).
+  /// Autre onglet : change de page.
+  /// Onglet actif : cycle compact → déplié → fermé. Une page sans contenu
+  /// déplié passe directement de compact à fermé. Sheet non masquable : on
+  /// se contente de déplier / replier.
   void _onTabTap(int index) {
     if (_hidden.value) {
       _page.value = index;
       _setHidden(false);
     } else if (index != _page.value) {
       _page.value = index;
+    } else if (_isAtMin.value && _canExpand(index)) {
+      _toggleSheet();
+    } else if (_canHide) {
+      _closeSheet();
     } else {
       _toggleSheet();
     }
@@ -324,7 +321,8 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
         duration: const Duration(milliseconds: 200),
         child: KeyedSubtree(
           key: ValueKey('expanded-$index'),
-          child: widget.pages[index].expanded,
+          // Jamais affiché sans contenu déplié : la sheet ne monte pas.
+          child: widget.pages[index].expanded ?? const SizedBox.shrink(),
         ),
       );
     },
@@ -348,7 +346,7 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
     _scheduleMeasure();
     final compactHeight = _compactHeight;
 
-    return SheetScope(
+    return PagedSheetScope(
       toggle: _toggleSheet,
       isAtMin: _isAtMin,
       child: Stack(
@@ -406,7 +404,17 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
                                           child: child,
                                         ),
                                       ),
-                                  child: _buildSheet(minSize),
+                                  // Hauteur max selon la page : une page sans
+                                  // contenu déplié ne monte pas.
+                                  child: ValueListenableBuilder<int>(
+                                    valueListenable: _page,
+                                    builder: (context, index, _) => _buildSheet(
+                                      minSize,
+                                      _canExpand(index)
+                                          ? widget.maxChildSize
+                                          : minSize,
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -422,16 +430,18 @@ class _DraggableBottomSheetShellState extends State<DraggableBottomSheetShell> {
     );
   }
 
-  Widget _buildSheet(double minSize) {
+  /// Changer de [maxSize] (page avec / sans contenu déplié) recrée la sheet,
+  /// qui repart à sa taille compacte.
+  Widget _buildSheet(double minSize, double maxSize) {
     return DraggableScrollableSheet(
-      key: ValueKey('$minSize/${widget.maxChildSize}'),
-      controller: _controllerFor(minSize),
+      key: ValueKey('$minSize/$maxSize'),
+      controller: _controllerFor(minSize, maxSize),
       initialChildSize: minSize,
       // Masquable : la sheet peut descendre sous sa taille compacte, et
       // `_settleBelowCompact` décide au relâchement (masquer ou revenir).
       // La taille compacte reste la référence pour tout le reste.
       minChildSize: _canHide ? 0 : minSize,
-      maxChildSize: widget.maxChildSize,
+      maxChildSize: maxSize,
       expand: false,
       builder: (context, scrollController) {
         return Material(

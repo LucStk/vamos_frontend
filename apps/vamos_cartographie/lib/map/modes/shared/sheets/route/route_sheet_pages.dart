@@ -18,14 +18,18 @@ List<SheetPage> routeSheetPages(
       label: 'Aperçu',
       icon: Icons.photo_library_outlined,
       selectedIcon: Icons.photo_library,
-      compact: RouteOverviewCompact(route: route, editable: editable),
+      compact: SheetCompact(
+        child: RouteOverviewCompact(route: route, editable: editable),
+      ),
       expanded: RouteOverviewViewer(route: route, editable: editable),
     ),
     SheetPage(
       label: 'Statistiques',
       icon: Icons.bar_chart_outlined,
       selectedIcon: Icons.bar_chart,
-      compact: StatsCompact(title: 'Statistiques', stats: stats),
+      compact: SheetCompact(
+        child: StatsCompact(title: 'Statistiques', stats: stats),
+      ),
       expanded: RouteSectionsList(stats: stats, spans: spans),
     ),
   ];

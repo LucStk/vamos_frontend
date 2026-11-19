@@ -2,9 +2,10 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/modes/shared/sheets/common/photos/owner_photo_strip.dart';
 import 'package:vamos_cartographie/map/modes/trip_ready/ui/widgets/header/trip_header.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_expand_button.dart';
+
 // TODO: déplacer TripHeader ici (common/overview/editable_title.dart) : il
 // n'a rien de spécifique au trip, et common ne doit pas dépendre de trip_edit.
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 /// Page compacte "Aperçu" commune : [leading] facultatif, titre éditable,
 /// chevron de dépliage, puis les photos du propriétaire.

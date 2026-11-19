@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/bar_tab.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/sheet_page.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/bar_tab.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.dart';
 
 /// Barre d'icônes en bas de l'écran, à la manière d'un bottomNavigationBar :
 /// un éventuel [leading] (retour), puis une icône par page.

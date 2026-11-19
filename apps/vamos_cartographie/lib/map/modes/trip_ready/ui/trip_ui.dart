@@ -40,7 +40,7 @@ class TripReadyUi extends ConsumerWidget {
               ),
             ),
           ),
-        DraggableBottomSheetShell(
+        PagedSheet(
           barLeading: BackTab(
             onTap: () => ref.applyTransition(ref.read(mapModeProvider).back),
           ),

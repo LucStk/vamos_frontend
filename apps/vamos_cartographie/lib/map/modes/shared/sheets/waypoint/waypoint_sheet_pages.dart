@@ -19,10 +19,12 @@ List<SheetPage> waypointSheetPages(
       label: 'Aperçu',
       icon: Icons.photo_library_outlined,
       selectedIcon: Icons.photo_library,
-      compact: WaypointOverviewCompact(
-        tripId: tripId,
-        waypoint: waypoint,
-        editable: editable,
+      compact: SheetCompact(
+        child: WaypointOverviewCompact(
+          tripId: tripId,
+          waypoint: waypoint,
+          editable: editable,
+        ),
       ),
       expanded: WaypointOverviewViewer(
         tripId: tripId,
@@ -34,7 +36,9 @@ List<SheetPage> waypointSheetPages(
       label: 'Détails',
       icon: Icons.info_outline,
       selectedIcon: Icons.info,
-      compact: StatsCompact(title: 'Détails', stats: stats),
+      compact: SheetCompact(
+        child: StatsCompact(title: 'Détails', stats: stats),
+      ),
       expanded: StatsList(stats: stats),
     ),
   ];

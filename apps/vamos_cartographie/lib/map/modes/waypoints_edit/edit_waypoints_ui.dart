@@ -4,8 +4,10 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/shared/chrome/edit_bottom_sheet.dart';
-import 'package:vamos_cartographie/map/modes/trip_ready/ui/widgets/buttons/edit_bottom_button.dart';
+import 'package:vamos_cartographie/map/modes/waypoints_edit/pages/waypoint_create_compact.dart';
+import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/paged_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class WaypointsEditUi extends ConsumerWidget {
@@ -15,20 +17,22 @@ class WaypointsEditUi extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return EditBottomSheet(
-      // Retour : quitte le mode sans valider (ancien « Cancel creation »).
-      onBack: () => ref
-          .read(appModeMachineProvider.notifier)
-          .apply(TripMode.open(mode.tripId)),
-
-      onClearRoute: null,
-      contextualSheet: EditBottomButton(
-        icon: Icons.add_location_alt,
-        tooltipText: "Add Waypoint",
-        onPressed: () => ref
-            .read(appModeMachineProvider.notifier)
-            .apply(Transition.to(CreateWaypointMode(mode.tripId))),
-      ),
+    return PagedSheet(
+      barLeading: BackTab(onTap: () => ref.applyTransition(mode.back)),
+      pages: [
+        SheetPage(
+          label: "Create",
+          icon: Icons.add_location_alt_outlined,
+          selectedIcon: Icons.add_location_alt,
+          compact: waypointCreateCompact(mode.tripId),
+        ),
+        SheetPage(
+          label: "Draw",
+          icon: Icons.draw_outlined,
+          selectedIcon: Icons.draw,
+          compact: waypointCreateCompact(mode.tripId),
+        ),
+      ],
     );
   }
 }

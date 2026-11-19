@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_bottom_sheet/sheet_page.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.dart';
 
 /// PageView horizontal des contenus compacts.
 ///
 /// Stateful car il possède son propre contrôleur : quand la sheet se déplie
 /// puis revient au repos, le PageView est recréé et repart de la bonne page.
+///
+/// Le PageView a la hauteur de la page compacte la plus haute (fixée par la
+/// sheet) ; chaque page est calée en haut, à sa propre hauteur.
 class CompactPager extends StatefulWidget {
   const CompactPager({
     super.key,
@@ -66,10 +69,15 @@ class _CompactPagerState extends State<CompactPager> {
       },
       children: [
         for (final p in widget.pages)
+          // Le GestureDetector couvre toute la zone, y compris le vide sous
+          // une page plus basse que les autres : un tap n'importe où déplie.
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: widget.onTap,
-            child: p.compact,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(height: p.compact.height, child: p.compact.child),
+            ),
           ),
       ],
     );
