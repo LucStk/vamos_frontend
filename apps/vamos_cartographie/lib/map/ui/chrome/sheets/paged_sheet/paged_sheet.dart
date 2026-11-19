@@ -171,23 +171,27 @@ class _PagedSheetState extends State<PagedSheet> {
     );
   }
 
-  /// Ferme la sheet : elle descend sous la barre, puis [_setHidden] prévient
-  /// la page (`onClose`). Même fin qu'un glissement vers le bas.
+  /// Ferme la sheet : elle glisse d'un bloc sous la barre, quelle que soit sa
+  /// hauteur (compacte ou dépliée), et [_setHidden] prévient la page
+  /// (`onClose`).
+  ///
+  /// Pas d'`animateTo(0)` ici : réduire une sheet dépliée frame par frame la
+  /// remet en page à chaque frame et bascule son contenu en plein vol. Le
+  /// glissement ne fait que déplacer son image ; elle est remise en compact
+  /// une fois invisible (voir [_onSlideEnd]).
   void _closeSheet() {
-    final ctrl = _sheetCtrl;
-    if (ctrl == null || !ctrl.isAttached || _hidden.value || _settling) return;
+    if (_hidden.value || _settling) return;
+    _setHidden(true);
+  }
 
-    _settling = true;
-    ctrl
-        .animateTo(
-          0,
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeIn,
-        )
-        .whenComplete(() {
-          _settling = false;
-          if (mounted) _setHidden(true);
-        });
+  /// Fin du glissement. Masquée : on remet la sheet à sa taille compacte
+  /// pendant qu'elle est invisible, pour qu'elle réapparaisse compacte.
+  void _onSlideEnd() {
+    if (!mounted || !_hidden.value) return;
+    final ctrl = _sheetCtrl;
+    final minSize = _sheetCtrlMinSize;
+    if (ctrl == null || minSize == null || !ctrl.isAttached) return;
+    if ((ctrl.size - minSize).abs() > 0.001) ctrl.jumpTo(minSize);
   }
 
   void _setHidden(bool hidden) {
@@ -438,12 +442,17 @@ class _PagedSheetState extends State<PagedSheet> {
                                             milliseconds: 280,
                                           ),
                                           curve: Curves.easeInOutCubic,
+                                          onEnd: _onSlideEnd,
                                           child: child,
                                         ),
                                       ),
                                   // Pas de reconstruction par page : la sheet
                                   // et le pager survivent aux changements.
-                                  child: _buildSheet(minSize),
+                                  // RepaintBoundary : le glissement déplace
+                                  // l'image de la sheet sans la redessiner.
+                                  child: RepaintBoundary(
+                                    child: _buildSheet(minSize),
+                                  ),
                                 ),
                               );
                             },
