@@ -11,7 +11,6 @@ import 'package:vamos_cartographie/map/engine/map_gesture_handler.dart';
 
 import 'package:vamos_cartographie/map/scene/map_scene.dart';
 import 'package:vamos_cartographie/map/ui/chrome/right_control_panel.dart';
-import 'package:vamos_cartographie/map/modes/mode_ui.dart';
 
 @Dependencies([mapScene, MapGestureHandlerNotifier, mapCamera, cameraDirector])
 class MapScreen extends ConsumerStatefulWidget {

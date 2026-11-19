@@ -13,7 +13,7 @@ import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/sheet_page.d
 class WaypointsEditUi extends ConsumerWidget {
   const WaypointsEditUi(this.mode, {super.key});
 
-  final WaypointsEditMode mode;
+  final TripMode mode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

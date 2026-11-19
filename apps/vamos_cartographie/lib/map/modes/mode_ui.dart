@@ -6,14 +6,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/modes/explore/ui/explore_ui.dart';
-import 'package:vamos_cartographie/map/modes/place_origin/ui/place_origin_ui.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_ui.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_ui.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/sketch/sketch_ui.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/ui/route_edit_ui.dart';
-import 'package:vamos_cartographie/map/modes/trip_ready/ui/trip_ui.dart';
-import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoints_edit.dart';
+import 'package:vamos_cartographie/map/modes/mode_view.dart';
 
 @Dependencies([ModeMachine])
 class ModeUi extends ConsumerWidget {
@@ -23,17 +16,6 @@ class ModeUi extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(mapModeProvider);
 
-    return switch (mode) {
-      ExploreMode t => ExploreUi(t),
-      CreateWaypointMode t => CreateWaypointUi(t),
-      WaypointsEditMode t => WaypointsEditUi(t),
-      SelectRouteMode t => SelectRouteUi(t),
-      SketchEdition t => SketchUi(t),
-      EditSpanMode t => EditSpanUi(t),
-      RouteEditMode t => RouteEditUi(t),
-      TripReadyMode t => TripReadyUi(t),
-      PlaceOriginMode t => PlaceOriginUi(t),
-      _ => SizedBox.shrink(),
-    };
+    return viewFor(mode).ui();
   }
 }

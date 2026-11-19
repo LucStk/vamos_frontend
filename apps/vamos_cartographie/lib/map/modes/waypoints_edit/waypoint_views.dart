@@ -22,7 +22,7 @@ SceneSpec createWaypointScene(TripId tripId) => SceneSpec(
 
 ModeView createWaypointView(CreateWaypointMode m) => ModeView(
   scene: createWaypointScene(m.tripId),
-  ui: () => CreateWaypointUi(m),
+  ui: () => WaypointsEditUi(m),
 );
 
 ModeView editWaypointsView(WaypointsEditMode m) => ModeView(
