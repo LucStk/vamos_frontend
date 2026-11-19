@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/modes/explore/explore_view.dart';
 import 'package:vamos_cartographie/map/modes/place_origin/place_origin_view.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/edit_span/edit_span_view.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/select_route/select_route_view.dart';
-import 'package:vamos_cartographie/map/modes/route_edit/sketch/sketch_view.dart';
-import 'package:vamos_cartographie/map/modes/trip_ready/trip_view.dart';
-import 'package:vamos_cartographie/map/modes/waypoints_edit/waypoint_views.dart';
+import 'package:vamos_cartographie/map/modes/trip/trip_view.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/edit_span/edit_span_view.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/select_route/select_route_view.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_view.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/waypoint_views.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 
 final class ModeView {
