@@ -33,6 +33,18 @@ class PagedSheet extends StatefulWidget {
   /// Placé à gauche de la barre (ex. `BackTab`).
   final Widget? barLeading;
 
+  /// Mode piloté : page ouverte, ou null si la sheet est fermée (seule la
+  /// barre reste visible). Ignoré si [onActivePageChanged] est null.
+  ///
+  /// Piloté, la sheet ne change jamais de page ni ne se ferme d'elle-même :
+  /// elle DEMANDE via [onActivePageChanged], et suit [activePage] quand le
+  /// parent le change. Déplier / replier reste interne (purement visuel).
+  final int? activePage;
+
+  /// Demande d'ouvrir une page (index) ou de fermer la sheet (null). Non
+  /// null : la sheet est pilotée par [activePage].
+  final ValueChanged<int?>? onActivePageChanged;
+
   const PagedSheet({
     super.key,
     required this.pages,
@@ -41,7 +53,11 @@ class PagedSheet extends StatefulWidget {
     this.hideable = true,
     this.onHiddenChanged,
     this.barLeading,
+    this.activePage,
+    this.onActivePageChanged,
   });
+
+  bool get isControlled => onActivePageChanged != null;
 
   @override
   State<PagedSheet> createState() => _PagedSheetState();
@@ -90,8 +106,51 @@ class _PagedSheetState extends State<PagedSheet> {
   @override
   void initState() {
     super.initState();
+    if (widget.isControlled) {
+      final active = widget.activePage;
+      _page.value = active ?? 0;
+      _hidden.value = active == null;
+    }
     _isAtMin.addListener(_syncBack);
     _page.addListener(_collapseIfNotExpandable);
+    _page.addListener(_reportSwipe);
+  }
+
+  /// Piloté : un glissement du pager change `_page` sans passer par
+  /// [_request]. On le remonte au parent, qui confirmera par `activePage`.
+  void _reportSwipe() {
+    if (!widget.isControlled || _hidden.value) return;
+    if (_page.value != widget.activePage) {
+      widget.onActivePageChanged!(_page.value);
+    }
+  }
+
+  /// Piloté : le parent a changé de page (ou fermé / rouvert la sheet).
+  @override
+  void didUpdateWidget(PagedSheet old) {
+    super.didUpdateWidget(old);
+    if (!widget.isControlled || widget.activePage == old.activePage) return;
+
+    final active = widget.activePage;
+    if (active == null) {
+      _setHidden(true);
+    } else {
+      _page.value = active.clamp(0, widget.pages.length - 1);
+      _setHidden(false);
+    }
+  }
+
+  /// Ouvre la page [index] (null : ferme). Pilotée : on demande au parent,
+  /// qui répondra par [didUpdateWidget]. Sinon : on applique tout de suite.
+  void _request(int? index) {
+    if (widget.isControlled) {
+      widget.onActivePageChanged!(index);
+    } else if (index == null) {
+      _setHidden(true);
+    } else {
+      _page.value = index;
+      _setHidden(false);
+    }
   }
 
   /// Arrivée dépliée sur une page sans contenu déplié : on revient en compact.
@@ -122,6 +181,7 @@ class _PagedSheetState extends State<PagedSheet> {
   void dispose() {
     _isAtMin.removeListener(_syncBack);
     _page.removeListener(_collapseIfNotExpandable);
+    _page.removeListener(_reportSwipe);
     _interceptors?.set(this, null);
     _isAtMin.dispose();
     _page.dispose();
@@ -181,7 +241,7 @@ class _PagedSheetState extends State<PagedSheet> {
   /// une fois invisible (voir [_onSlideEnd]).
   void _closeSheet() {
     if (_hidden.value || _settling) return;
-    _setHidden(true);
+    _request(null);
   }
 
   /// Fin du glissement. Masquée : on remet la sheet à sa taille compacte
@@ -200,7 +260,8 @@ class _PagedSheetState extends State<PagedSheet> {
     widget.onHiddenChanged?.call(hidden);
 
     // Fermée (bouton ou glissement) : la page peut abandonner sa tâche.
-    if (hidden && widget.pages.isNotEmpty) {
+    // Pilotée, c'est le parent qui a décidé de fermer : il le sait déjà.
+    if (hidden && !widget.isControlled && widget.pages.isNotEmpty) {
       widget.pages[_currentIndex].onClose?.call();
     }
 
@@ -267,7 +328,7 @@ class _PagedSheetState extends State<PagedSheet> {
         .whenComplete(() {
           _settling = false;
           if (hide && mounted && ctrl.isAttached && ctrl.size < 0.02) {
-            _setHidden(true);
+            _request(null);
           }
         });
   }
@@ -278,11 +339,8 @@ class _PagedSheetState extends State<PagedSheet> {
   /// déplié passe directement de compact à fermé. Sheet non masquable : on
   /// se contente de déplier / replier.
   void _onTabTap(int index) {
-    if (_hidden.value) {
-      _page.value = index;
-      _setHidden(false);
-    } else if (index != _page.value) {
-      _page.value = index;
+    if (_hidden.value || index != _page.value) {
+      _request(index);
     } else if (_isAtMin.value && _canExpand(index)) {
       _toggleSheet();
     } else if (_canHide) {

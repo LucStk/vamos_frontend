@@ -1,7 +1,6 @@
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/modes/mode_view.dart';
-import 'package:vamos_cartographie/map/modes/waypoints_edit/create_waypoint_ui.dart';
 import 'package:vamos_cartographie/map/modes/waypoints_edit/edit_waypoints_ui.dart';
 import 'package:vamos_cartographie/map/modes/waypoints_edit/providers/anchor_waypoint_item_provider.dart';
 import 'package:vamos_cartographie/map/modes/waypoints_edit/providers/pending_waypoint_item_provider.dart';
