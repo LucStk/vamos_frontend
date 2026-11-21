@@ -8,8 +8,9 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_sheet_pages.dart';
 import 'package:vamos_cartographie/map/entities/waypoint/sheet_pages/waypoint_sheet_pages.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
-import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_actions.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_menus.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/widgets/buttons/edit_bottom_actions.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/widgets/buttons/edit_bottom_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
@@ -28,16 +29,18 @@ class TripReadyUi extends ConsumerWidget {
         SearchTopSheet(),
         if (!mode.readOnly)
           SafeArea(
-            child: TripEditActions(
-              editRoute: () => ref.applyTransition(
-                Transition.to(RouteEditMode(mode.tripId)),
-              ),
-              editWaypoint: () => ref.applyTransition(
-                Transition.to(WaypointsEditMode(mode.tripId)),
-              ),
-              activateDrawMode: () => ref.applyTransition(
-                Transition.to(SketchEdition(mode.tripId)),
-              ),
+            child: EditBottomActions(
+              bottomOffset: 650, // ← ta marge Y par rapport au bas
+              spacing: 8, // ← espacement entre les boutons
+              direction: Axis.horizontal, // ← ou Axis.horizontal
+              children: [
+                EditBottomButton(
+                  tooltipText: "Edit route",
+                  onPressed: () => ref.applyTransition(
+                    Transition.to(TripEditMode(mode.tripId)),
+                  ),
+                ),
+              ],
             ),
           ),
         PagedSheet(
