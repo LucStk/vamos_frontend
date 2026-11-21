@@ -1,10 +1,8 @@
 export 'app_mode.dart';
 export 'explore/explore_mode.dart';
-export 'trip_ready/trip_ready_mode.dart';
 export 'place_origin/place_origin_mode.dart';
 export 'shared/trip_mode.dart';
-export 'edit_route/edit_route.dart';
-export 'edit_waypoints/edit_waypoints.dart';
+export 'trip_edit/trip_edit.dart';
 
 export 'place_origin/slots/trip_origin_slot.dart';
 export 'shared/slots/selection_slot.dart';

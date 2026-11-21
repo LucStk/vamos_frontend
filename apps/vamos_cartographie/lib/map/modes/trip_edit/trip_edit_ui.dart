@@ -3,14 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
+import 'package:vamos_cartographie/map/modes/shared/mode_toolbox.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/providers/sketch_mobility_type_provider.dart';
-import 'package:vamos_cartographie/map/ui/chrome/edit_bottom_sheet.dart';
 
 @Dependencies([modeSelection, ModeMachine])
-class RouteEditUi extends ConsumerWidget {
-  const RouteEditUi(this.mode, {super.key});
+class TripEditUi extends ConsumerWidget {
+  const TripEditUi(this.mode, {super.key});
 
   final RouteEditMode mode;
 
@@ -19,26 +18,6 @@ class RouteEditUi extends ConsumerWidget {
     final mobilityType = ref.watch(sketchMobilityTypeProvider);
     final sketch = ref.watch(modeSlotProvider(sketchTraceSlot));
 
-    return EditBottomSheet(
-      // Retour : quitte le mode sans valider (ancien « Cancel creation »).
-      onBack: () => ref
-          .read(appModeMachineProvider.notifier)
-          .apply(TripMode.open(mode.tripId)),
-
-      onClearRoute: null,
-      contextualSheet: (sketch != null)
-          ? SheetSketch(
-              mobilityType: mobilityType,
-              eraseSketch: () {},
-              goBack: () {},
-              onMobilityTypeChanged: (MobilityType type) =>
-                  ref.read(sketchMobilityTypeProvider.notifier).select(type),
-              validateSketch: () {},
-              routingSketch: () {},
-              routingFailed: false,
-              isSketchRouted: false,
-            )
-          : null,
-    );
+    return ModeToolbox(tools: [],)
   }
 }

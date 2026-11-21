@@ -1,5 +1,3 @@
-import 'package:map_engine/src/modes/edit_route/slots/route_selection_slot.dart';
-
 import 'package:map_engine/src/domain/objects/route/handle/route_handle.dart';
 import 'package:trip_application/trip_application.dart';
 

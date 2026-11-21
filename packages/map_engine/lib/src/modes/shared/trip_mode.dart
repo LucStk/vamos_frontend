@@ -3,7 +3,7 @@ import 'package:map_engine/src/modes/app_mode.dart';
 import 'package:map_engine/src/modes/place_origin/place_origin_mode.dart';
 import 'package:map_engine/src/modes/shared/commands/trip_entry.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
-import 'package:map_engine/src/modes/trip_ready/trip_ready_mode.dart';
+import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 abstract class TripMode extends AppMode {

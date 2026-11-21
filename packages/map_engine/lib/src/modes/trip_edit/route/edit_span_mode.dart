@@ -1,7 +1,7 @@
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
-import 'package:map_engine/src/modes/edit_route/slots/span_bounds_slot.dart';
-import 'package:map_engine/src/modes/shared/trip_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/route/route_tool_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/route/slots/span_bounds_slot.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:map_engine/src/domain/domain.dart';
@@ -13,7 +13,7 @@ import 'package:map_engine/src/domain/domain.dart';
 /// d'origine et la nature des bornes (extrémité de la route ou jonction)
 /// sont lues dans les providers par le canvas et par la validation, qui en
 /// déduisent notamment s'il faut proposer de raccourcir la route.
-class EditSpanMode extends TripMode {
+class EditSpanMode extends RouteToolMode {
   EditSpanMode(super.tripId, {required this.mobilitySpanId});
 
   final MobilitySpanId mobilitySpanId;

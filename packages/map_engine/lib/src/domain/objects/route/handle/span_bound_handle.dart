@@ -1,7 +1,7 @@
 // SelectionHandle : ajoute `implements PolylineHandle`.
 
 import 'package:map_engine/src/domain/objects/objects.dart';
-import 'package:map_engine/src/modes/edit_route/slots/span_bounds_slot.dart';
+import 'package:map_engine/src/modes/trip_edit/trip_edit.dart';
 import 'package:trip_application/trip_application.dart';
 
 final class SpanBoundHandle extends RouteHandle {

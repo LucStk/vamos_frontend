@@ -3,12 +3,11 @@
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:map_engine/src/domain/objects/route/handle/route_handle.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 part 'route_selection_slot.freezed.dart';
 
 const routeSelectionSlot = Slot<RouteSelection>('routeSelection');
-
-enum HandleId { a, b }
 
 @freezed
 abstract class RouteSelection with _$RouteSelection {

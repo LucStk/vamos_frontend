@@ -1,10 +1,11 @@
 import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
-import 'package:map_engine/src/modes/edit_route/edit_route.dart';
-import 'package:map_engine/src/modes/shared/trip_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/route/edit_span_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/route/route_tool_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/route/slots/route_selection_slot.dart';
 
-class SelectRouteMode extends TripMode {
+class SelectRouteMode extends RouteToolMode {
   SelectRouteMode(super.tripId, {required this.initialPosition});
   final double initialPosition;
 

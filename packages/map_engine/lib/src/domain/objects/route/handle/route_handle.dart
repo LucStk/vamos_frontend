@@ -10,3 +10,5 @@ abstract class RouteHandle extends MapObject {
   @override
   bool get isDraggable => true;
 }
+
+enum HandleId { a, b }

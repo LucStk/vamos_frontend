@@ -2,21 +2,16 @@ import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 
 import 'package:map_engine/src/domain/domain.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
-import 'package:map_engine/src/modes/edit_route/slots/sketch_trace.dart';
+import 'package:map_engine/src/modes/trip_edit/route/commands/route_command.dart';
+import 'package:map_engine/src/modes/trip_edit/sketch/slots/sketch_trace.dart';
 import 'package:trip_application/trip_application.dart';
 
-extension ListWorldOffsetToListLatLng on List<WorldOffset> {
-  List<LatLng> toLatLngList(MapCameraReader camera) =>
-      map(camera.worldOffsetToLatLng).toList();
+sealed class SketchCommand<R extends Object> extends Command<R> {
+  const SketchCommand();
 }
 
-sealed class RouteCommand<R extends Object> extends Command<R> {
-  const RouteCommand();
-}
-
-final class EditRoute extends RouteCommand<Either<Failure, EditRoutePayload>> {
+final class EditRoute extends SketchCommand<Either<Failure, EditRoutePayload>> {
   const EditRoute({
     required this.tripId,
     required this.mobilityType,

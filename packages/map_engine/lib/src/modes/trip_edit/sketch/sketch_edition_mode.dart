@@ -3,13 +3,14 @@ import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/modes/edit_route/commands/route_command.dart';
-import 'package:map_engine/src/modes/edit_route/sketch_generating_mode.dart';
-import 'package:map_engine/src/modes/edit_route/slots/sketch_trace.dart';
-import 'package:map_engine/src/modes/trip_ready/trip_ready_mode.dart';
+import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/sketch/commands/sketch_command.dart';
+import 'package:map_engine/src/modes/trip_edit/sketch/sketch_generating_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/sketch/sketch_tool_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/sketch/slots/sketch_trace.dart';
 import 'package:trip_application/trip_application.dart';
 
-class SketchEdition extends TripMode {
+class SketchEdition extends SketchToolMode {
   const SketchEdition(super.tripId);
 
   @override
