@@ -40,7 +40,7 @@ class TripEditUi extends ConsumerWidget {
             label: 'Étape',
           ),
           open: () => CreateWaypointMode(tripId),
-          panel: (m) => CreateWaypointPanel(m),
+          panel: (m) => CreateWaypointPanel(),
         ),
         // <SketchToolMode> : l'onglet reste allumé pendant le calcul
         // (SketchGenerating), et le panneau suit le sous-mode.
