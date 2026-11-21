@@ -1,8 +1,4 @@
-import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/modes/mode_view.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/providers/anchor_waypoint_item_provider.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/providers/pending_waypoint_item_provider.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/waypoints_edit.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/providers/waypoint_item_provider.dart';
@@ -17,14 +13,4 @@ SceneSpec createWaypointScene(TripId tripId) => SceneSpec(
     (ref, cam) => ref.watch(pendingWaypointProvider(tripId, cam)),
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
   ],
-);
-
-ModeView createWaypointView(CreateWaypointMode m) => ModeView(
-  scene: createWaypointScene(m.tripId),
-  ui: () => WaypointsEditUi(m),
-);
-
-ModeView editWaypointsView(WaypointsEditMode m) => ModeView(
-  scene: createWaypointScene(m.tripId),
-  ui: () => WaypointsEditUi(m),
 );

@@ -2,8 +2,7 @@
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/modes/mode_view.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/edit_span/edit_span_ui.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/edit_span/providers/span_bound_handle_provider.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/route/providers/span_bound_handle_provider.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/providers/segment_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
 

@@ -4,8 +4,6 @@ import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/modes/explore/explore_view.dart';
 import 'package:vamos_cartographie/map/modes/place_origin/place_origin_view.dart';
 import 'package:vamos_cartographie/map/modes/trip/trip_view.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/edit_span/edit_span_view.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/select_route/select_route_view.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_view.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/waypoint_views.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';

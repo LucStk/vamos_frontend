@@ -52,11 +52,15 @@ class ToolAction {
 class ToolPanel extends StatelessWidget {
   const ToolPanel({
     super.key,
+    this.hint,
     this.settings = const [],
     this.trailing = const [],
     this.secondary,
     this.primary,
   });
+
+  /// Consigne affichée en haut (ex. « Touchez la carte pour… »). Null : rien.
+  final String? hint;
 
   final List<Widget> settings;
   final List<ToolAction> trailing;
@@ -68,12 +72,25 @@ class ToolPanel extends StatelessWidget {
     final hasTools = settings.isNotEmpty || trailing.isNotEmpty;
     final secondary = this.secondary;
     final primary = this.primary;
+
     final hasMain = secondary != null || primary != null;
+    final hint = this.hint;
+    final theme = Theme.of(context);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (hint != null)
+          Padding(
+            padding: EdgeInsets.only(bottom: hasTools || hasMain ? 8 : 0),
+            child: Text(
+              hint,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
         if (hasTools)
           Row(
             children: [

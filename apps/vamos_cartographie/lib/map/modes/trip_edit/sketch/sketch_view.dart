@@ -1,9 +1,5 @@
 // scene_composition.dart
-import 'package:flutter/cupertino.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/map/modes/mode_view.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_ui.dart';
 import 'package:vamos_cartographie/map/objects/pencil/providers/pencil_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
@@ -26,11 +22,4 @@ SceneSpec sketchGeneratingScene(TripId tripId) => SceneSpec(
     (ref, cam) => [?ref.watch(sketchTraceItemProvider(true, cam))],
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
   ],
-);
-ModeView sketchEditionView(SketchEdition m) =>
-    ModeView(scene: sketchScene(m.tripId), ui: () => SketchUi(m));
-
-ModeView sketchGeneratingView(SketchGenerating m) => ModeView(
-  scene: sketchGeneratingScene(m.tripId),
-  ui: () => SizedBox.shrink(),
 );

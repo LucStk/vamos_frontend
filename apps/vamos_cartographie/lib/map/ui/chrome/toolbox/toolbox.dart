@@ -19,11 +19,14 @@ class ToolboxItem {
 /// panneau d'actions de l'outil actif.
 ///
 /// Ne connaît ni les modes ni Riverpod : le parent dit quel outil est actif
-/// ([activeIndex]) et fournit son [panel] ; un tap sur un outil est remonté
-/// par [onSelect] (null : fermer l'outil actif).
+/// ([activeIndex]) et fournit le [panel] à afficher ; un tap sur un outil est
+/// remonté par [onSelect] (null : fermer l'outil actif).
+///
+/// Le panneau peut exister sans outil actif (panneau contextuel, ouvert par
+/// un geste sur la carte par exemple) : aucun onglet n'est alors allumé.
 ///
 /// Contrairement à `PagedSheet`, rien ne se glisse ni ne se déplie : les
-/// actions restent visibles tant que l'outil est actif.
+/// actions restent visibles tant que le panneau est là.
 class Toolbox extends StatelessWidget {
   const Toolbox({
     super.key,
@@ -31,6 +34,7 @@ class Toolbox extends StatelessWidget {
     required this.activeIndex,
     required this.onSelect,
     this.panel,
+    this.panelKey,
     this.leading,
   });
 
@@ -42,8 +46,12 @@ class Toolbox extends StatelessWidget {
   /// Outil choisi ; null quand on retouche l'outil actif (pour le fermer).
   final ValueChanged<int?> onSelect;
 
-  /// Actions de l'outil actif. Ignoré si aucun outil n'est actif.
+  /// Panneau affiché au-dessus de la barre, ou null pour aucun.
   final Widget? panel;
+
+  /// Identité du panneau : la changer remplace le panneau en fondu, la
+  /// garder le met simplement à jour. Par défaut, l'outil actif.
+  final Object? panelKey;
 
   /// À gauche de la barre (ex. `BackTab`).
   final Widget? leading;
@@ -54,7 +62,7 @@ class Toolbox extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final active = activeIndex;
-    final panel = active == null ? null : this.panel;
+    final panel = this.panel;
     final leading = this.leading;
 
     return Align(
@@ -85,7 +93,7 @@ class Toolbox extends StatelessWidget {
                             width: double.infinity,
                           )
                         : KeyedSubtree(
-                            key: ValueKey('tool-$active'),
+                            key: ValueKey(panelKey ?? ('tool', active)),
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
                               child: panel,
