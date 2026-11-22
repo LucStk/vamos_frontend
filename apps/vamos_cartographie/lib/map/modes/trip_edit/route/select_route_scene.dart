@@ -1,4 +1,5 @@
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/route/providers/selection_handle_provider.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/waypoints_edit.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/providers/waypoint_item_provider.dart';
@@ -10,6 +11,7 @@ SceneSpec selectRouteScene(TripId tripId) => SceneSpec(
     (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],
     (ref, cam) => ref.watch(allWaypointItemProvider(tripId, cam)),
     (ref, cam) => ref.watch(allWaypointAnchorItemProvider(tripId, cam)),
+    (ref, cam) => ref.watch(selectionHandleItemsProvider(tripId, cam)),
     (ref, cam) => ref.watch(pendingWaypointProvider(tripId, cam)),
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
   ],
