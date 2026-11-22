@@ -33,17 +33,8 @@ final class SegmentItem extends LineItem {
   @override
   ScreenLength get hitRadius => 14.px;
 
-  // @override
-  // HitDetail? hitDetail(WorldOffset p) {
-  //   final d = RouteHitDetail(
-  //     polyline.project(
-  //       p,
-  //       min: object.start.toDouble(),
-  //       max: object.end.toDouble(),
-  //     ),
-  //   );
-  //   return d;
-  // }
+  @override
+  HitDetail? hitDetail(WorldOffset p) => RouteHitDetail(polyline.project(p));
 
   @override
   DragDetail? dragDetail(WorldOffset p) => RouteDragDetail(polyline.project(p));
