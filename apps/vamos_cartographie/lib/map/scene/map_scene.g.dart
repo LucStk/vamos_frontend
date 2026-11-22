@@ -67,7 +67,7 @@ final class SceneItemsProvider
   }
 }
 
-String _$sceneItemsHash() => r'df28e2faa111819a1ff6f7f1b831fa52460a851e';
+String _$sceneItemsHash() => r'f96bdc72346f7610e9151d1b494024faf30eaa88';
 
 final class SceneItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<SceneItem>, MapCameraController> {
@@ -163,7 +163,7 @@ final class SceneTraitsProvider
   }
 }
 
-String _$sceneTraitsHash() => r'3891ac64bdaa7de4a134373b4cdb37605a7a220e';
+String _$sceneTraitsHash() => r'a111cc0730f4879e0144a1747119d470604c0a11';
 
 /// Traits de la scène : sélection globale du mode, plus la mise en avant
 /// déclarée par la scène courante. Séparé de [sceneItems] pour qu'un

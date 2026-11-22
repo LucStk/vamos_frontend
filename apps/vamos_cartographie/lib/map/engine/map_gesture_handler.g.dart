@@ -27,13 +27,9 @@ final class MapGestureHandlerNotifierProvider
         retry: null,
         name: r'mapGestureHandlerProvider',
         isAutoDispose: false,
-        dependencies: <ProviderOrFamily>[hitTesterProvider],
-        $allTransitiveDependencies: <ProviderOrFamily>[
-          MapGestureHandlerNotifierProvider.$allTransitiveDependencies0,
-        ],
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
-
-  static final $allTransitiveDependencies0 = hitTesterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$mapGestureHandlerNotifierHash();
@@ -52,7 +48,7 @@ final class MapGestureHandlerNotifierProvider
 }
 
 String _$mapGestureHandlerNotifierHash() =>
-    r'a793f4cc2c29a8dca9bd554ad243af4e98fb39d0';
+    r'9c7edaae815b0b8a30d4b3c7fa274e204667d774';
 
 /// State : `true` tant que la carte peut être pannée
 /// (`false` pendant le drag d'un objet).

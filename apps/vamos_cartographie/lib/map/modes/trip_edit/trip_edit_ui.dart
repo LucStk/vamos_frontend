@@ -31,7 +31,11 @@ class TripEditUi extends ConsumerWidget {
     return ModeToolbox(
       mode: mode,
       closed: () => TripEditMode(tripId),
-      leading: BackTab(onTap: () => ref.applyTransition(mode.back)),
+      leading: BackTab(
+        onTap: () => ref.applyTransition(
+          Transition.to(TripReadyMode(tripId, readOnly: false)),
+        ),
+      ),
       tools: [
         ModeTool<CreateWaypointMode>(
           item: const ToolboxItem(
@@ -40,7 +44,7 @@ class TripEditUi extends ConsumerWidget {
             label: 'Étape',
           ),
           open: () => CreateWaypointMode(tripId),
-          panel: (m) => CreateWaypointPanel(),
+          panel: (m) => CreateWaypointPanel(m),
         ),
         // <SketchToolMode> : l'onglet reste allumé pendant le calcul
         // (SketchGenerating), et le panneau suit le sous-mode.
