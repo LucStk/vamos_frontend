@@ -5,7 +5,6 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/geometry/rounded_polyline.dart';
-import 'package:vamos_cartographie/map/objects/route/segment/style/segment_look.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/style/segment_style.dart';
 
 // + vos imports habituels : route_store, route_polyline_provider,
@@ -28,12 +27,19 @@ final class DaySegmentItem extends LineItem {
     required this.object,
     required this.runs,
     required this.polyline,
-    this.dimmed = false,
+    this.aura = false,
+    this.auraSpanId,
     this.context = const MapPaintContext(),
   });
 
-  /// Un autre jour est sélectionné : celui-ci s'efface (éclairci, sans halo).
-  final bool dimmed;
+  /// Ce jour est le jour sélectionné : il porte une aura grise, à la place du
+  /// look « sélectionné » ordinaire. Quand un autre jour est sélectionné,
+  /// celui-ci s'efface par le trait `dimmed`, donné par la scène.
+  final bool aura;
+
+  /// Morceau (span) sélectionné dans ce jour : lui seul porte l'aura. Null :
+  /// aucun morceau choisi, tout le jour l'a.
+  final SpanId? auraSpanId;
 
   final List<DayRunGeometry> runs;
   final RoutePolyline polyline;
@@ -73,8 +79,9 @@ final class DaySegmentItem extends LineItem {
 
   static const _cornerRadius = 12.0; // même valeur que SegmentItem
 
-  /// Éclaircissement (vers le blanc) d'un jour écarté par la sélection.
-  static const _dimLift = 0.6;
+  /// Aura de sélection : grise, plus large que le liseré.
+  static const _auraColor = Color(0x66757575);
+  static const _auraExtra = 14.0;
 
   late final List<Path> _paths = [
     for (final r in runs)
@@ -85,15 +92,32 @@ final class DaySegmentItem extends LineItem {
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
   }) {
-    final resolved = SegmentStyle.resolver.resolve(context);
-    final look = dimmed
-        ? SegmentLook(
-            widthScale: resolved.widthScale,
-            casing: resolved.casing,
-            halo: 0,
-            lift: _dimLift,
-          )
-        : resolved;
+    // L'aura remplace l'effet « sélectionné » (plus épais, halo coloré).
+    final look = SegmentStyle.resolver.resolve(
+      aura
+          ? MapPaintContext(
+              weights: context.weights.without(VisualTrait.selected),
+              time: context.time,
+            )
+          : context,
+    );
+    final auraWidth =
+        visualRadius.value * 2 * look.widthScale +
+        look.casing * 2 +
+        _auraExtra;
+    final auras = [
+      for (var i = 0; i < runs.length; i++)
+        if (aura && (auraSpanId == null || runs[i].spanId == auraSpanId))
+          DrawPath(
+            path: _paths[i],
+            style: Stroke(
+              _auraColor,
+              width: auraWidth.px,
+              cap: StrokeCap.round,
+              join: StrokeJoin.round,
+            ),
+          ),
+    ];
     final layers = [
       for (var i = 0; i < runs.length; i++)
         SegmentStyle.layers(
@@ -108,6 +132,7 @@ final class DaySegmentItem extends LineItem {
     // les traits. Aucun liseré ne vient donc couper le trait d'un tronçon
     // voisin, et la jonction entre deux couleurs reste nette.
     return DrawGroup([
+      ...auras,
       for (final l in layers)
         if (l.halo != null) l.halo!,
       for (final l in layers) l.casing,

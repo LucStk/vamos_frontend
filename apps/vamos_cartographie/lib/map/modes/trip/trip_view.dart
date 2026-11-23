@@ -5,6 +5,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/day/providers/day_providers.dart';
 import 'package:vamos_cartographie/map/modes/mode_view.dart';
+import 'package:vamos_cartographie/map/modes/trip/dim_outside_day.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ui.dart';
 import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 import 'package:vamos_cartographie/map/objects/route/day_segment/providers/day_segment_item_provider.dart';
@@ -20,6 +21,8 @@ ModeView tripReadyView(TripReadyMode m) => ModeView(
       (ref, cam) => ref.watch(allWaypointItemProvider(m.tripId, cam)),
       (ref, cam) => _routeItems(ref, m.tripId, cam),
     ],
+    // Un jour sélectionné : le reste de la route s'efface.
+    traits: [(ref, cam) => dimOutsideSelectedDay(ref, m.tripId, cam)],
   ),
   ui: () => TripReadyUi(m),
 );

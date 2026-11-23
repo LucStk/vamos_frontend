@@ -11,7 +11,6 @@ import 'package:vamos_cartographie/map/modes/trip_edit/route/edit_span_panel.dar
 import 'package:vamos_cartographie/map/modes/trip_edit/route/portion_preview_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/select_route_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_panel.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/create_waypoint_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/toolbox.dart';
 
@@ -40,18 +39,10 @@ class TripEditUi extends ConsumerWidget {
           mode: mode,
           closed: () => TripEditMode(tripId),
           leading: BackTab(onTap: () => ref.applyTransition(mode.back)),
-          // Croix de chaque panneau : même sortie que la flèche retour.
-          onClose: () => ref.applyTransition(mode.exit),
+          // Croix de chaque panneau : retour à l'édition du trip (ici, elle
+          // retire le curseur), la flèche retour sortant vers la lecture.
+          onClose: () => ref.applyTransition(mode.closeTool),
           tools: [
-            ModeTool<CreateWaypointMode>(
-              item: const ToolboxItem(
-                icon: Icons.add_location_alt_outlined,
-                selectedIcon: Icons.add_location_alt,
-                label: 'Étape',
-              ),
-              open: () => CreateWaypointMode(tripId),
-              panel: (m) => CreateWaypointPanel(m),
-            ),
             // <SketchToolMode> : l'onglet reste allumé pendant le calcul
             // (SketchGenerating), et le panneau suit le sous-mode.
             ModeTool<SketchToolMode>(
@@ -68,13 +59,17 @@ class TripEditUi extends ConsumerWidget {
             ModePanel<SelectRouteMode>((m) => SelectRoutePanel(m)),
             ModePanel<PortionPreviewMode>((m) => PortionPreviewPanel(m)),
             ModePanel<EditSpanMode>((m) => EditSpanPanel(m)),
-            // Sans outil actif, un curseur propose d'y créer une étape.
+            // Sans outil actif, toucher la carte y pose le curseur : on propose
+            // d'y créer une étape ou d'y tracer la suite de la route.
             if (cursor != null)
               ModePanel<TripEditMode>(
                 (m) => CursorPanel(
                   tripId: tripId,
                   cursor: cursor,
+                  canTrace: true,
                   canCreateWaypoint: true,
+                  sketchTrace: true,
+                  showClear: false, // la croix du panneau s'en charge
                 ),
               ),
           ],

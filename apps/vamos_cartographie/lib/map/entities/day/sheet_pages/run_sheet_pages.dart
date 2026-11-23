@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/domain_features/day/providers/day_providers.d
 import 'package:vamos_cartographie/domain_features/trip/presentation/mobility_type_display.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/paged_sheet_scope.dart';
 
 /// Fiche d'un morceau de journée : la partie du jour [endsAt] parcourue dans
 /// le span [spanId]. Ses chiffres (distance, mobilité), puis son titre et ses
@@ -24,7 +25,9 @@ List<SheetPage> runSheetPages(
       label: 'Morceau',
       icon: Icons.route_outlined,
       selectedIcon: Icons.route,
-      compact: SheetCompact(child: _RunCompact(runKey: key)),
+      compact: SheetCompact(
+        child: _RunCompact(runKey: key, editable: editable),
+      ),
       expanded: _RunForm(
         key: ValueKey(key),
         runKey: key,
@@ -35,9 +38,12 @@ List<SheetPage> runSheetPages(
 }
 
 class _RunCompact extends ConsumerWidget {
-  const _RunCompact({required this.runKey});
+  const _RunCompact({required this.runKey, required this.editable});
 
   final RunKey runKey;
+
+  /// Propriétaire du trip : il peut ajouter une note.
+  final bool editable;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -83,14 +89,25 @@ class _RunCompact extends ConsumerWidget {
         ),
         const SizedBox(height: 4),
         Expanded(
-          child: Text(
-            notes.isEmpty ? 'Aucune note' : notes,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
+          child: notes.isEmpty && editable
+              // Le propriétaire n'a rien écrit : on l'invite à le faire, la
+              // fiche se déplie sur le formulaire.
+              ? Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: PagedSheetScope.maybeOf(context)?.toggle,
+                    icon: const Icon(Icons.add),
+                    label: const Text('Ajouter une note'),
+                  ),
+                )
+              : Text(
+                  notes.isEmpty ? 'Aucune note' : notes,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
         ),
       ],
     );

@@ -23,6 +23,10 @@ final class SketchGenerating extends SketchToolMode {
   Transition get exit =>
       super.exit.running(DiscardSketchPreview(tripId: tripId));
 
+  @override
+  Transition get closeTool =>
+      super.closeTool.running(DiscardSketchPreview(tripId: tripId));
+
   // Gestes inertes. Surcharge `onTap` si `TripMode` sort vers Explore,
   // comme tu l'as fait dans `TripValidatingMode`.
   @override
@@ -34,7 +38,7 @@ final class SketchGenerating extends SketchToolMode {
   /// prévisualisation, avec d'autres options).
   static Transition preview(TripId tripId, MobilityType mobilityType) =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
-        if (trace.points.length < 2) return Transition.stay();
+        if (!trace.hasSegment) return Transition.stay();
         return previewTrace(tripId, trace, mobilityType);
       });
 

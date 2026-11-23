@@ -46,16 +46,8 @@ class TripReadyUi extends ConsumerWidget {
             ),
           ),
         PagedSheet(
-          barLeading: BackTab(
-            onTap: () => ref.applyTransition(switch (selected) {
-              // Un morceau ouvert : retour à son jour.
-              MapDayRun(:final tripId, :final endsAt) => Transition.set<MapObject>(
-                selectionSlot,
-                MapDaySegment(tripId: tripId, endsAt: endsAt),
-              ),
-              _ => ref.read(mapModeProvider).back,
-            }),
-          ),
+          // Un niveau de moins à chaque appui : morceau, jour, trip, explorateur.
+          barLeading: BackTab(onTap: () => ref.applyTransition(mode.back)),
           pages: switch (selected) {
             MapWaypoint(:final id, :final tripId) => waypointSheetPages(
               tripId,

@@ -17,7 +17,12 @@ import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 ///
 /// - [canTrace] : relier la fin de la route (ou l'origine d'un voyage sans
 ///   route) au curseur, par un itinéraire ou en ligne droite ;
-/// - [canCreateWaypoint] : créer une étape sur le curseur.
+/// - [canCreateWaypoint] : créer une étape sur le curseur ;
+/// - [sketchTrace] : le tracé passe par l'outil « Tracer » (ligne droite
+///   depuis la fin de la route, à valider ou à faire router depuis son
+///   panneau) au lieu d'un calcul ou d'une écriture immédiats ;
+/// - [showClear] : action « Retirer le curseur » (inutile quand la croix du
+///   panneau fait déjà cela).
 @Dependencies([modeSelection, ModeMachine])
 class CursorPanel extends ConsumerWidget {
   const CursorPanel({
@@ -26,6 +31,8 @@ class CursorPanel extends ConsumerWidget {
     required this.cursor,
     this.canTrace = false,
     this.canCreateWaypoint = false,
+    this.sketchTrace = false,
+    this.showClear = true,
     this.error,
   });
 
@@ -33,6 +40,8 @@ class CursorPanel extends ConsumerWidget {
   final SearchResultMarker cursor;
   final bool canTrace;
   final bool canCreateWaypoint;
+  final bool sketchTrace;
+  final bool showClear;
   final String? error;
 
   /// D'où part le tracé : l'arrivée de la route, ou l'origine tant qu'elle n'a
@@ -88,26 +97,35 @@ class CursorPanel extends ConsumerWidget {
           ),
       ],
       trailing: [
-        if (canTrace && canCreateWaypoint) waypoint,
-        ToolAction(
-          icon: Icons.close,
-          label: 'Retirer le curseur',
-          onPressed: () => ref.applyTransition(CursorActions.clear()),
-        ),
+        if (canTrace && canCreateWaypoint && !sketchTrace) waypoint,
+        if (showClear)
+          ToolAction(
+            icon: Icons.close,
+            label: 'Retirer le curseur',
+            onPressed: () => ref.applyTransition(CursorActions.clear()),
+          ),
       ],
       secondary: canTrace
-          ? ToolAction(
-              icon: Icons.timeline,
-              label: 'Ligne droite',
-              onPressed: () => trace(SketchEdition.straightToCursor),
-            )
+          ? sketchTrace
+                ? waypoint
+                : ToolAction(
+                    icon: Icons.timeline,
+                    label: 'Ligne droite',
+                    onPressed: () => trace(SketchEdition.straightToCursor),
+                  )
           : null,
       primary: canTrace
-          ? ToolAction(
-              icon: Icons.alt_route,
-              label: 'Calculer la route',
-              onPressed: () => trace(SketchEdition.routeToCursor),
-            )
+          ? sketchTrace
+                ? ToolAction(
+                    icon: Icons.draw,
+                    label: 'Tracer jusqu’ici',
+                    onPressed: () => trace(SketchEdition.sketchToCursor),
+                  )
+                : ToolAction(
+                    icon: Icons.alt_route,
+                    label: 'Calculer la route',
+                    onPressed: () => trace(SketchEdition.routeToCursor),
+                  )
           : canCreateWaypoint
           ? waypoint
           : null,

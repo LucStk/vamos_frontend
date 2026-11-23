@@ -54,8 +54,8 @@ class _EditionPanel extends ConsumerWidget {
       );
     }
 
-    // `validate` ignore un tracé de moins de deux points : on désactive.
-    final canValidate = sketch != null && sketch.points.length >= 2;
+    // `validate` ignore un tracé sans segment : on désactive.
+    final canValidate = sketch != null && sketch.hasSegment;
 
     return ToolPanel(
       error: mode.failure?.message,

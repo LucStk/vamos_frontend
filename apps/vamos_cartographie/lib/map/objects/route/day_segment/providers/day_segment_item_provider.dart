@@ -28,16 +28,18 @@ DaySegmentItem? daySegmentItem(
   );
   final polyline = ref.watch(routePolylineProvider(tripId, cameraReader));
 
-  // Jour sélectionné de ce trip (record : comparé par valeur, et distinct de
-  // « aucun jour » même quand `endsAt` est null, la dernière journée).
-  final selectedDay = ref.watch(
+  // Ce jour est-il le jour sélectionné (en entier, ou par l'un de ses
+  // morceaux) ? Seul ce jour se reconstruit quand la sélection change. Record
+  // comparé par valeur ; null : un autre jour, ou aucun.
+  final selection = ref.watch(
     modeSelectionProvider.select(
       (s) => switch (s) {
-        // Un morceau ouvert garde son jour en avant.
-        MapDaySegment(tripId: final t, endsAt: final day) ||
-        MapDayRun(tripId: final t, endsAt: final day) when t == tripId => (
-          endsAt: day,
-        ),
+        MapDaySegment(tripId: final t, endsAt: final day)
+            when t == tripId && day == endsAt =>
+          (spanId: null as SpanId?),
+        MapDayRun(tripId: final t, endsAt: final day, :final spanId)
+            when t == tripId && day == endsAt =>
+          (spanId: spanId as SpanId?),
         _ => null,
       },
     ),
@@ -74,6 +76,7 @@ DaySegmentItem? daySegmentItem(
     object: MapDaySegment(tripId: tripId, endsAt: endsAt),
     runs: runs,
     polyline: polyline,
-    dimmed: selectedDay != null && selectedDay.endsAt != endsAt,
+    aura: selection != null,
+    auraSpanId: selection?.spanId,
   );
 }

@@ -3,6 +3,7 @@ import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
+import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/trip_edit/waypoint/commands/waypoint_command.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -27,10 +28,14 @@ abstract final class CursorActions {
     _ => null,
   };
 
-  /// Crée une étape sur le curseur, qui disparaît ensuite.
+  /// Crée une étape sur le curseur, qui disparaît ensuite. La nouvelle étape
+  /// est sélectionnée : halo et ancre apparaissent, prêtes à être ajustées.
   static Transition createWaypoint(TripId tripId, WorldOffset cursor) =>
       Transition.run(
         CreateWaypoint(tripId: tripId, position: cursor),
-        then: (_, _) => clear(),
+        then: (_, id) => clear().and<MapObject>(
+          selectionSlot,
+          MapWaypoint(id: id, tripId: tripId),
+        ),
       );
 }

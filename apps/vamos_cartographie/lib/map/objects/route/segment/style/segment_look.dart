@@ -9,6 +9,7 @@ final class SegmentLook implements Lerpable<SegmentLook> {
     required this.casing,
     required this.halo,
     required this.lift,
+    this.opacity = 1.0,
   });
 
   /// Multiplicateur de la largeur de base (`visualRadius * 2`).
@@ -23,11 +24,15 @@ final class SegmentLook implements Lerpable<SegmentLook> {
   /// 0..1 : éclaircissement vers le blanc.
   final double lift;
 
+  /// 0..1 : transparence de tout le trait (objet écarté de la scène).
+  final double opacity;
+
   @override
   SegmentLook lerp(SegmentLook o, double t) => SegmentLook(
     widthScale: lerpDouble(widthScale, o.widthScale, t)!,
     casing: lerpDouble(casing, o.casing, t)!,
     halo: lerpDouble(halo, o.halo, t)!,
     lift: lerpDouble(lift, o.lift, t)!,
+    opacity: lerpDouble(opacity, o.opacity, t)!,
   );
 }

@@ -22,6 +22,13 @@ abstract final class BadgeStyle {
   static const resolver = StyleResolver<BadgeLook>(
     base: BadgeLook(scale: 1.0, casing: 1.5, halo: 0, lift: 0),
     traits: {
+      VisualTrait.dimmed: BadgeLook(
+        scale: 1.0,
+        casing: 1.5,
+        halo: 0,
+        lift: 0,
+        opacity: _dimmedOpacity,
+      ),
       VisualTrait.hovered: BadgeLook(
         scale: 1.12,
         casing: 1.5,
@@ -38,8 +45,14 @@ abstract final class BadgeStyle {
     },
   );
 
+  /// Opacité d'une pastille écartée de la scène.
+  static const _dimmedOpacity = 0.25;
+
   static const _casingColor = Color(0xD9FFFFFF); // blanc ~85 %
   static const _white = Color(0xFFFFFFFF);
+
+  static Color _fade(Color c, double opacity) =>
+      opacity >= 1 ? c : c.withValues(alpha: c.a * opacity);
 
   /// Rayon par défaut de la pastille au repos (px).
   ///
@@ -60,7 +73,8 @@ abstract final class BadgeStyle {
     double radius = defaultRadius,
   }) {
     final r = radius * look.scale;
-    final fill = Color.lerp(color, _white, look.lift)!;
+    final fill = _fade(Color.lerp(color, _white, look.lift)!, look.opacity);
+    final o = look.opacity;
 
     // Arrondi : sans lui, chaque frame d'animation crée une entrée de cache
     // distincte dans GlyphPaths et le chemin est reparsé à 60 Hz.
@@ -71,9 +85,13 @@ abstract final class BadgeStyle {
         DrawCircle(
           center: anchor,
           radius: (r + look.halo / 2).px,
-          style: Fill(color.withValues(alpha: 0.30)),
+          style: Fill(_fade(color.withValues(alpha: 0.30), o)),
         ),
-      DrawCircle(center: anchor, radius: r.px, style: Fill(_casingColor)),
+      DrawCircle(
+        center: anchor,
+        radius: r.px,
+        style: Fill(_fade(_casingColor, o)),
+      ),
       DrawCircle(
         center: anchor,
         radius: (r - look.casing).px,
@@ -82,7 +100,7 @@ abstract final class BadgeStyle {
       DrawAnchoredPath(
         anchor: anchor,
         path: GlyphPaths.anchored(glyph, sizePx: glyphPx),
-        style: glyphStyle(glyph, _white, sizePx: glyphPx),
+        style: glyphStyle(glyph, _fade(_white, o), sizePx: glyphPx),
       ),
     ]);
   }

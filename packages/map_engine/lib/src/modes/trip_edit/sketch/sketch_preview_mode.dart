@@ -36,6 +36,10 @@ final class SketchPreviewing extends SketchToolMode {
   Transition get exit =>
       super.exit.running(DiscardSketchPreview(tripId: tripId));
 
+  @override
+  Transition get closeTool =>
+      super.closeTool.running(DiscardSketchPreview(tripId: tripId));
+
   // Gestes inertes : rien à toucher sur la carte pendant la prévisualisation.
   @override
   Transition onTap(TapGesture g) => Transition.stay();

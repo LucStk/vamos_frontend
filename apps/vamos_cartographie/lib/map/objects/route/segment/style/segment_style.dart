@@ -23,6 +23,13 @@ abstract final class SegmentStyle {
   static const resolver = StyleResolver<SegmentLook>(
     base: SegmentLook(widthScale: 0.7, casing: 1.5, halo: 0, lift: 0),
     traits: {
+      VisualTrait.dimmed: SegmentLook(
+        widthScale: 0.7,
+        casing: 1.5,
+        halo: 0,
+        lift: 0,
+        opacity: dimmedOpacity,
+      ),
       VisualTrait.hovered: SegmentLook(
         widthScale: 5 / _base,
         casing: 1.5,
@@ -44,8 +51,14 @@ abstract final class SegmentStyle {
     },
   );
 
+  /// Opacité d'un trait écarté de la scène.
+  static const dimmedOpacity = 0.25;
+
   static const _casingColor = Color(0xD9FFFFFF); // blanc ~85 %
   static const _white = Color(0xFFFFFFFF);
+
+  static Color _fade(Color c, double opacity) =>
+      opacity >= 1 ? c : c.withValues(alpha: c.a * opacity);
 
   /// Halo, liseré et trait principal d'un tronçon, séparément.
   static SegmentLayers layers(
@@ -61,7 +74,8 @@ abstract final class SegmentStyle {
     Stroke stroke(Color c, double w, {List<Length>? dash}) =>
         Stroke(c, width: w.px, dash: dash, cap: cap, join: StrokeJoin.round);
 
-    final mainColor = Color.lerp(a.color, _white, look.lift)!;
+    final o = look.opacity;
+    final mainColor = _fade(Color.lerp(a.color, _white, look.lift)!, o);
     final width = radius.value * 2 * look.widthScale;
     final outer = width + look.casing * 2;
 
@@ -70,13 +84,16 @@ abstract final class SegmentStyle {
       halo: look.halo > 0.1
           ? DrawPath(
               path: path,
-              style: stroke(a.color.withValues(alpha: 0.30), outer + look.halo),
+              style: stroke(
+                _fade(a.color.withValues(alpha: 0.30), o),
+                outer + look.halo,
+              ),
             )
           : null,
       // Liseré : pointillé aussi, sinon il comblerait les vides.
       casing: DrawPath(
         path: path,
-        style: stroke(_casingColor, outer, dash: dash),
+        style: stroke(_fade(_casingColor, o), outer, dash: dash),
       ),
       main: DrawPath(
         path: path,

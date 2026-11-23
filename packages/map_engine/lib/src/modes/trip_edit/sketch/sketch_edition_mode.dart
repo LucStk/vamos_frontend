@@ -94,7 +94,7 @@ class SketchEdition extends SketchToolMode {
   /// Le tracé est effacé et on reste ici pour en enchaîner un autre.
   Transition validateFreehand(MobilityType mobilityType) =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
-        if (trace.points.length < 2) return Transition.stay();
+        if (!trace.hasSegment) return Transition.stay();
         return _freehand(this, trace, mobilityType);
       });
 
@@ -172,6 +172,18 @@ class SketchEdition extends SketchToolMode {
     mobilityType,
     consumesCursor: true,
   );
+
+  /// Ouvre l'outil de tracé avec une ligne droite de [from] jusqu'au curseur,
+  /// à valider telle quelle ou à faire router depuis le panneau. Le curseur est
+  /// consommé : le tracé le remplace.
+  static Transition sketchToCursor(
+    TripId tripId,
+    HitObject<RouteElements> from,
+    WorldOffset cursor,
+    MobilityType mobilityType,
+  ) => Transition.to(SketchEdition(tripId))
+      .and(sketchTraceSlot, _traceToCursor(from, cursor))
+      .clearSlot(searchResultMarkerSlot);
 
   /// Demande l'itinéraire du tracé, sans l'ajouter à la route.
   Transition preview(MobilityType mobilityType) =>

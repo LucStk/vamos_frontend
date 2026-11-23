@@ -10,8 +10,24 @@ final class TripReadyMode extends TripMode {
   const TripReadyMode(super.tripId, {this.readOnly = true});
   final bool readOnly;
 
+  /// Remonte d'un niveau : morceau → jour → trip → explorateur. Chaque appui
+  /// retire un cran de sélection ; sans sélection, on quitte le trip.
   @override
-  Transition get back => Transition.to(ExploreMode());
+  Transition get back => Transition.withState((st) {
+    final selected = st.slots.get(selectionSlot);
+    return switch (selected) {
+      MapDayRun(:final tripId, :final endsAt) => Transition.set<MapObject>(
+        selectionSlot,
+        MapDaySegment(tripId: tripId, endsAt: endsAt),
+      ),
+      MapDaySegment() ||
+      MapWaypoint() ||
+      MapMobilitySpan() => Transition.set<MapObject>(selectionSlot, null),
+      _ => Transition.to(
+        ExploreMode(),
+      ).and<MapObject>(selectionSlot, tripSelectionOnly(selected)),
+    };
+  });
 
   @override
   Transition onTap(TapGesture g) {
