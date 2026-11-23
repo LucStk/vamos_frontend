@@ -8,30 +8,40 @@ part of 'trips_layer.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Voyages choisis pour la vue courante (découverte), dessinés avec leur
+/// aperçu simplifié à l'échelle de la vue. Les autres voyages chargés restent
+/// en mémoire mais ne sont pas dessinés.
 
-@ProviderFor(allTripItem)
-final allTripItemProvider = AllTripItemFamily._();
+@ProviderFor(discoveredTripItems)
+final discoveredTripItemsProvider = DiscoveredTripItemsFamily._();
 
-final class AllTripItemProvider
+/// Voyages choisis pour la vue courante (découverte), dessinés avec leur
+/// aperçu simplifié à l'échelle de la vue. Les autres voyages chargés restent
+/// en mémoire mais ne sont pas dessinés.
+
+final class DiscoveredTripItemsProvider
     extends $FunctionalProvider<List<TripItem>, List<TripItem>, List<TripItem>>
     with $Provider<List<TripItem>> {
-  AllTripItemProvider._({
-    required AllTripItemFamily super.from,
+  /// Voyages choisis pour la vue courante (découverte), dessinés avec leur
+  /// aperçu simplifié à l'échelle de la vue. Les autres voyages chargés restent
+  /// en mémoire mais ne sont pas dessinés.
+  DiscoveredTripItemsProvider._({
+    required DiscoveredTripItemsFamily super.from,
     required MapCameraReader super.argument,
   }) : super(
          retry: null,
-         name: r'allTripItemProvider',
+         name: r'discoveredTripItemsProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$allTripItemHash();
+  String debugGetCreateSourceHash() => _$discoveredTripItemsHash();
 
   @override
   String toString() {
-    return r'allTripItemProvider'
+    return r'discoveredTripItemsProvider'
         ''
         '($argument)';
   }
@@ -44,7 +54,7 @@ final class AllTripItemProvider
   @override
   List<TripItem> create(Ref ref) {
     final argument = this.argument as MapCameraReader;
-    return allTripItem(ref, argument);
+    return discoveredTripItems(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -57,7 +67,7 @@ final class AllTripItemProvider
 
   @override
   bool operator ==(Object other) {
-    return other is AllTripItemProvider && other.argument == argument;
+    return other is DiscoveredTripItemsProvider && other.argument == argument;
   }
 
   @override
@@ -66,22 +76,31 @@ final class AllTripItemProvider
   }
 }
 
-String _$allTripItemHash() => r'9784cfafbad713376be0ff781425d9941b0a4b67';
+String _$discoveredTripItemsHash() =>
+    r'7fcc44f786ff718644734e690f33901d8b96d65c';
 
-final class AllTripItemFamily extends $Family
+/// Voyages choisis pour la vue courante (découverte), dessinés avec leur
+/// aperçu simplifié à l'échelle de la vue. Les autres voyages chargés restent
+/// en mémoire mais ne sont pas dessinés.
+
+final class DiscoveredTripItemsFamily extends $Family
     with $FunctionalFamilyOverride<List<TripItem>, MapCameraReader> {
-  AllTripItemFamily._()
+  DiscoveredTripItemsFamily._()
     : super(
         retry: null,
-        name: r'allTripItemProvider',
+        name: r'discoveredTripItemsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
 
-  AllTripItemProvider call(MapCameraReader camera) =>
-      AllTripItemProvider._(argument: camera, from: this);
+  /// Voyages choisis pour la vue courante (découverte), dessinés avec leur
+  /// aperçu simplifié à l'échelle de la vue. Les autres voyages chargés restent
+  /// en mémoire mais ne sont pas dessinés.
+
+  DiscoveredTripItemsProvider call(MapCameraReader camera) =>
+      DiscoveredTripItemsProvider._(argument: camera, from: this);
 
   @override
-  String toString() => r'allTripItemProvider';
+  String toString() => r'discoveredTripItemsProvider';
 }

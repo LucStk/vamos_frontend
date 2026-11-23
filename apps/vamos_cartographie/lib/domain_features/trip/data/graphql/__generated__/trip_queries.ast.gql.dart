@@ -5,13 +5,13 @@
 
 import 'package:gql/ast.dart' as _i1;
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
-    as _i4;
+    as _i2;
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.ast.gql.dart'
-    as _i3;
+    as _i4;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i6;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
-    as _i2;
+    as _i3;
 import 'package:vamos_cartographie/domain_features/user_profile/data/graphql/__generated__/user_profile_fields.ast.gql.dart'
     as _i7;
 import 'package:vamos_cartographie/domain_features/waypoint/data/graphql/__generated__/waypoint_fields.ast.gql.dart'
@@ -315,6 +315,161 @@ const GetUserSavedTrips = _i1.OperationDefinitionNode(
     ),
   ]),
 );
+const DiscoverTrips = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'DiscoverTrips'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'tiles')),
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'TileInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'filters')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'TripDiscoveryFilters'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'perTile')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'discoverTrips'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'tiles'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'tiles')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'filters'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'filters')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'perTile'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'perTile')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'z'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'x'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'y'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'trips'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'score'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'preview'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: _i1.SelectionSetNode(selections: [
+                _i1.FragmentSpreadNode(
+                  name: _i1.NameNode(value: 'LatLng'),
+                  directives: [],
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ]),
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'trip'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: _i1.SelectionSetNode(selections: [
+                _i1.FragmentSpreadNode(
+                  name: _i1.NameNode(value: 'TripSummary'),
+                  directives: [],
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ]),
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    _i1.FieldNode(
+      name: _i1.NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
+);
 const document = _i1.DocumentNode(definitions: [
   GetAllTripBundles,
   GetTripBundle,
@@ -323,18 +478,19 @@ const document = _i1.DocumentNode(definitions: [
   GetUserTripsSummary,
   GetMeSavedTrips,
   GetUserSavedTrips,
-  _i2.TripSummary,
-  _i2.TripFull,
-  _i3.MobilitySpan,
-  _i3.EditSpan,
-  _i3.PreviewMobilitySpan,
-  _i3.PreviewEditSpan,
-  _i3.TripRoute,
-  _i3.TripRouteEditing,
-  _i3.EditRouteResult,
-  _i3.RoutePreviewResult,
-  _i4.LatLng,
-  _i4.Bounds,
+  DiscoverTrips,
+  _i2.LatLng,
+  _i2.Bounds,
+  _i3.TripSummary,
+  _i3.TripFull,
+  _i4.MobilitySpan,
+  _i4.EditSpan,
+  _i4.PreviewMobilitySpan,
+  _i4.PreviewEditSpan,
+  _i4.TripRoute,
+  _i4.TripRouteEditing,
+  _i4.EditRouteResult,
+  _i4.RoutePreviewResult,
   _i5.DayNoteDetails,
   _i5.StayDetails,
   _i5.WaypointDetails,

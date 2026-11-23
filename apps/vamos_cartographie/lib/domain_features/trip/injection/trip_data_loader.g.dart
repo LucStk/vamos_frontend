@@ -9,40 +9,6 @@ part of 'trip_data_loader.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(loadTrips)
-final loadTripsProvider = LoadTripsProvider._();
-
-final class LoadTripsProvider
-    extends
-        $FunctionalProvider<AsyncValue<Failure?>, Failure?, FutureOr<Failure?>>
-    with $FutureModifier<Failure?>, $FutureProvider<Failure?> {
-  LoadTripsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'loadTripsProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$loadTripsHash();
-
-  @$internal
-  @override
-  $FutureProviderElement<Failure?> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<Failure?> create(Ref ref) {
-    return loadTrips(ref);
-  }
-}
-
-String _$loadTripsHash() => r'd863e9c9c335b8900e541d1edd6967539d7987d1';
-
 @ProviderFor(ensureTripLoaded)
 final ensureTripLoadedProvider = EnsureTripLoadedFamily._();
 

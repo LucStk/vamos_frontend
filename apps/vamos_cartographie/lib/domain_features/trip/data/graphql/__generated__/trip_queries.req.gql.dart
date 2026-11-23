@@ -7,15 +7,15 @@ import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql/ast.dart' as _i4;
 import 'package:gql_exec/gql_exec.dart' as _i3;
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.ast.gql.dart'
-    as _i8;
+    as _i6;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.ast.gql.dart'
-    as _i7;
+    as _i8;
 import 'package:vamos_cartographie/domain_features/stored_file/data/graphql/__generated__/file_storage_fields.ast.gql.dart'
     as _i10;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.ast.gql.dart'
-    as _i6;
+    as _i7;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_queries.ast.gql.dart'
     as _i5;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_queries.data.gql.dart'
@@ -66,14 +66,14 @@ class GGetAllTripBundlesReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetAllTripBundles,
-    _i6.TripSummary,
-    _i6.TripFull,
-    _i7.MobilitySpan,
-    _i7.EditSpan,
-    _i7.TripRoute,
-    _i7.TripRouteEditing,
-    _i8.LatLng,
-    _i8.Bounds,
+    _i6.LatLng,
+    _i6.Bounds,
+    _i7.TripSummary,
+    _i7.TripFull,
+    _i8.MobilitySpan,
+    _i8.EditSpan,
+    _i8.TripRoute,
+    _i8.TripRouteEditing,
     _i9.DayNoteDetails,
     _i9.StayDetails,
     _i9.WaypointDetails,
@@ -243,14 +243,14 @@ class GGetTripBundleReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetTripBundle,
-    _i6.TripSummary,
-    _i6.TripFull,
-    _i7.MobilitySpan,
-    _i7.EditSpan,
-    _i7.TripRoute,
-    _i7.TripRouteEditing,
-    _i8.LatLng,
-    _i8.Bounds,
+    _i6.LatLng,
+    _i6.Bounds,
+    _i7.TripSummary,
+    _i7.TripFull,
+    _i8.MobilitySpan,
+    _i8.EditSpan,
+    _i8.TripRoute,
+    _i8.TripRouteEditing,
     _i9.DayNoteDetails,
     _i9.StayDetails,
     _i9.WaypointDetails,
@@ -423,7 +423,7 @@ class GGetTripSummaryReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetTripSummary,
-    _i6.TripSummary,
+    _i7.TripSummary,
     _i10.StoredFile,
     _i10.FileAttachment,
     _i11.UserProfileDetails,
@@ -591,7 +591,7 @@ class GGetMeTripsSummaryReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetMeTripsSummary,
-    _i6.TripSummary,
+    _i7.TripSummary,
     _i10.StoredFile,
     _i10.FileAttachment,
     _i11.UserProfileDetails,
@@ -759,7 +759,7 @@ class GGetUserTripsSummaryReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetUserTripsSummary,
-    _i6.TripSummary,
+    _i7.TripSummary,
     _i10.StoredFile,
     _i10.FileAttachment,
     _i11.UserProfileDetails,
@@ -928,7 +928,7 @@ class GGetMeSavedTripsReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetMeSavedTrips,
-    _i6.TripSummary,
+    _i7.TripSummary,
     _i10.StoredFile,
     _i10.FileAttachment,
     _i11.UserProfileDetails,
@@ -1096,7 +1096,7 @@ class GGetUserSavedTripsReq
 
   static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
     _i5.GetUserSavedTrips,
-    _i6.TripSummary,
+    _i7.TripSummary,
     _i10.StoredFile,
     _i10.FileAttachment,
     _i11.UserProfileDetails,
@@ -1222,5 +1222,175 @@ class GGetUserSavedTripsReq
   @override
   String toString() {
     return 'GGetUserSavedTripsReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}
+
+class GDiscoverTripsReq
+    implements
+        _i1.OperationRequest<_i2.GDiscoverTripsData, _i12.GDiscoverTripsVars> {
+  GDiscoverTripsReq({
+    required this.vars,
+    _i3.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i12.GDiscoverTripsVars vars;
+
+  final _i3.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GDiscoverTripsData? Function(
+    _i2.GDiscoverTripsData?,
+    _i2.GDiscoverTripsData?,
+  )? updateResult;
+
+  final _i2.GDiscoverTripsData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i3.Context? context;
+
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.DiscoverTrips,
+    _i6.LatLng,
+    _i7.TripSummary,
+    _i10.StoredFile,
+    _i10.FileAttachment,
+    _i11.UserProfileDetails,
+  ]);
+
+  static const _i3.Operation _operation = _i3.Operation(
+    document: _document,
+    operationName: 'DiscoverTrips',
+  );
+
+  _i3.Request get execRequest => _i3.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
+
+  _i2.GDiscoverTripsData? parseData(Map<String, dynamic> json) =>
+      _i2.GDiscoverTripsData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GDiscoverTripsData data) => data.toJson();
+
+  _i1.OperationRequest<_i2.GDiscoverTripsData, _i12.GDiscoverTripsVars>
+      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
+    return GDiscoverTripsReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GDiscoverTripsReq copyWith({
+    _i12.GDiscoverTripsVars? vars,
+    _i3.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GDiscoverTripsData? Function(
+      _i2.GDiscoverTripsData?,
+      _i2.GDiscoverTripsData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GDiscoverTripsData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i3.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GDiscoverTripsReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDiscoverTripsReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GDiscoverTripsReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
   }
 }

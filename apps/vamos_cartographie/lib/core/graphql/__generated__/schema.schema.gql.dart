@@ -1397,6 +1397,186 @@ class GWaypointUpdateInput {
   }
 }
 
+class GTileInput {
+  const GTileInput({
+    required this.z,
+    required this.x,
+    required this.y,
+  });
+
+  factory GTileInput.fromJson(Map<String, dynamic> json) {
+    return GTileInput(
+      z: (json['z'] as int),
+      x: (json['x'] as int),
+      y: (json['y'] as int),
+    );
+  }
+
+  final int z;
+
+  final int x;
+
+  final int y;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$zValue = this.z;
+    _$result['z'] = _$zValue;
+    final _$xValue = this.x;
+    _$result['x'] = _$xValue;
+    final _$yValue = this.y;
+    _$result['y'] = _$yValue;
+    return _$result;
+  }
+
+  GTileInput copyWith({
+    int? z,
+    int? x,
+    int? y,
+  }) {
+    return GTileInput(
+      z: z ?? this.z,
+      x: x ?? this.x,
+      y: y ?? this.y,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTileInput && _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GTileInput(z: $z, x: $x, y: $y)';
+  }
+}
+
+class GTripDiscoveryFilters {
+  const GTripDiscoveryFilters({
+    this.minDays = const Value.absent(),
+    this.maxDays = const Value.absent(),
+    this.mobilities = const Value.absent(),
+    this.minLengthKm = const Value.absent(),
+    this.maxLengthKm = const Value.absent(),
+  });
+
+  factory GTripDiscoveryFilters.fromJson(Map<String, dynamic> json) {
+    return GTripDiscoveryFilters(
+      minDays: json.containsKey('minDays')
+          ? Value.present(
+              json['minDays'] == null ? null : (json['minDays'] as int))
+          : Value.absent(),
+      maxDays: json.containsKey('maxDays')
+          ? Value.present(
+              json['maxDays'] == null ? null : (json['maxDays'] as int))
+          : Value.absent(),
+      mobilities: json.containsKey('mobilities')
+          ? Value.present(json['mobilities'] == null
+              ? null
+              : (json['mobilities'] as List<dynamic>)
+                  .map((_$e) => GMobilityType.fromJson((_$e as String)))
+                  .toList())
+          : Value.absent(),
+      minLengthKm: json.containsKey('minLengthKm')
+          ? Value.present(json['minLengthKm'] == null
+              ? null
+              : (json['minLengthKm'] as num).toDouble())
+          : Value.absent(),
+      maxLengthKm: json.containsKey('maxLengthKm')
+          ? Value.present(json['maxLengthKm'] == null
+              ? null
+              : (json['maxLengthKm'] as num).toDouble())
+          : Value.absent(),
+    );
+  }
+
+  final Value<int> minDays;
+
+  final Value<int> maxDays;
+
+  final Value<List<GMobilityType>> mobilities;
+
+  final Value<double> minLengthKm;
+
+  final Value<double> maxLengthKm;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$minDaysValue = this.minDays;
+    if (_$minDaysValue.isPresent) {
+      final _$minDaysRequired = _$minDaysValue.requireValue;
+      _$result['minDays'] =
+          _$minDaysRequired == null ? null : _$minDaysRequired;
+    }
+    final _$maxDaysValue = this.maxDays;
+    if (_$maxDaysValue.isPresent) {
+      final _$maxDaysRequired = _$maxDaysValue.requireValue;
+      _$result['maxDays'] =
+          _$maxDaysRequired == null ? null : _$maxDaysRequired;
+    }
+    final _$mobilitiesValue = this.mobilities;
+    if (_$mobilitiesValue.isPresent) {
+      final _$mobilitiesRequired = _$mobilitiesValue.requireValue;
+      _$result['mobilities'] = _$mobilitiesRequired == null
+          ? null
+          : _$mobilitiesRequired.map((_$e) => _$e.toJson()).toList();
+    }
+    final _$minLengthKmValue = this.minLengthKm;
+    if (_$minLengthKmValue.isPresent) {
+      final _$minLengthKmRequired = _$minLengthKmValue.requireValue;
+      _$result['minLengthKm'] =
+          _$minLengthKmRequired == null ? null : _$minLengthKmRequired;
+    }
+    final _$maxLengthKmValue = this.maxLengthKm;
+    if (_$maxLengthKmValue.isPresent) {
+      final _$maxLengthKmRequired = _$maxLengthKmValue.requireValue;
+      _$result['maxLengthKm'] =
+          _$maxLengthKmRequired == null ? null : _$maxLengthKmRequired;
+    }
+    return _$result;
+  }
+
+  GTripDiscoveryFilters copyWith({
+    Value<int>? minDays,
+    Value<int>? maxDays,
+    Value<List<GMobilityType>>? mobilities,
+    Value<double>? minLengthKm,
+    Value<double>? maxLengthKm,
+  }) {
+    return GTripDiscoveryFilters(
+      minDays: minDays ?? this.minDays,
+      maxDays: maxDays ?? this.maxDays,
+      mobilities: mobilities ?? this.mobilities,
+      minLengthKm: minLengthKm ?? this.minLengthKm,
+      maxLengthKm: maxLengthKm ?? this.maxLengthKm,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTripDiscoveryFilters &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GTripDiscoveryFilters(minDays: $minDays, maxDays: $maxDays, mobilities: $mobilities, minLengthKm: $minLengthKm, maxLengthKm: $maxLengthKm)';
+  }
+}
+
 const Map<String, Set<String>> possibleTypesMap = {
   'CreateProfileResult': {
     'CreateProfileSuccess',

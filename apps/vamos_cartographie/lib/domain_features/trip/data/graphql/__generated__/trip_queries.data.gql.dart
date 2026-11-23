@@ -3,6 +3,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i2;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/__generated__/trip_fields.data.gql.dart'
@@ -396,5 +398,224 @@ class GGetUserSavedTripsData {
   @override
   String toString() {
     return 'GGetUserSavedTripsData(userSavedTrips: $userSavedTrips, G__typename: $G__typename)';
+  }
+}
+
+class GDiscoverTripsData {
+  const GDiscoverTripsData({
+    required this.discoverTrips,
+    this.G__typename = 'Query',
+  });
+
+  factory GDiscoverTripsData.fromJson(Map<String, dynamic> json) {
+    return GDiscoverTripsData(
+      discoverTrips: (json['discoverTrips'] as List<dynamic>)
+          .map((_$e) => GDiscoverTripsData_discoverTrips.fromJson(
+              (_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<GDiscoverTripsData_discoverTrips> discoverTrips;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['discoverTrips'] =
+        this.discoverTrips.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDiscoverTripsData copyWith({
+    List<GDiscoverTripsData_discoverTrips>? discoverTrips,
+    String? G__typename,
+  }) {
+    return GDiscoverTripsData(
+      discoverTrips: discoverTrips ?? this.discoverTrips,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDiscoverTripsData &&
+            _gqlUtils.listEquals(discoverTrips, other.discoverTrips) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType, _gqlUtils.listHash(discoverTrips), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDiscoverTripsData(discoverTrips: $discoverTrips, G__typename: $G__typename)';
+  }
+}
+
+class GDiscoverTripsData_discoverTrips {
+  const GDiscoverTripsData_discoverTrips({
+    required this.z,
+    required this.x,
+    required this.y,
+    required this.trips,
+    this.G__typename = 'DiscoveryTileType',
+  });
+
+  factory GDiscoverTripsData_discoverTrips.fromJson(Map<String, dynamic> json) {
+    return GDiscoverTripsData_discoverTrips(
+      z: (json['z'] as int),
+      x: (json['x'] as int),
+      y: (json['y'] as int),
+      trips: (json['trips'] as List<dynamic>)
+          .map((_$e) => GDiscoverTripsData_discoverTrips_trips.fromJson(
+              (_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final int z;
+
+  final int x;
+
+  final int y;
+
+  final List<GDiscoverTripsData_discoverTrips_trips> trips;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['z'] = this.z;
+    _$result['x'] = this.x;
+    _$result['y'] = this.y;
+    _$result['trips'] = this.trips.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDiscoverTripsData_discoverTrips copyWith({
+    int? z,
+    int? x,
+    int? y,
+    List<GDiscoverTripsData_discoverTrips_trips>? trips,
+    String? G__typename,
+  }) {
+    return GDiscoverTripsData_discoverTrips(
+      z: z ?? this.z,
+      x: x ?? this.x,
+      y: y ?? this.y,
+      trips: trips ?? this.trips,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDiscoverTripsData_discoverTrips &&
+            z == other.z &&
+            x == other.x &&
+            y == other.y &&
+            _gqlUtils.listEquals(trips, other.trips) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType, z, x, y, _gqlUtils.listHash(trips), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDiscoverTripsData_discoverTrips(z: $z, x: $x, y: $y, trips: $trips, G__typename: $G__typename)';
+  }
+}
+
+class GDiscoverTripsData_discoverTrips_trips {
+  const GDiscoverTripsData_discoverTrips_trips({
+    required this.score,
+    required this.preview,
+    required this.trip,
+    this.G__typename = 'DiscoveredTripType',
+  });
+
+  factory GDiscoverTripsData_discoverTrips_trips.fromJson(
+      Map<String, dynamic> json) {
+    return GDiscoverTripsData_discoverTrips_trips(
+      score: (json['score'] as num).toDouble(),
+      preview: (json['preview'] as List<dynamic>)
+          .map((_$e) => (_$e as List<dynamic>)
+              .map((_$e) =>
+                  _i2.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
+              .toList())
+          .toList(),
+      trip:
+          _i1.GTripSummaryData.fromJson((json['trip'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final double score;
+
+  final List<List<_i2.GLatLngData>> preview;
+
+  final _i1.GTripSummaryData trip;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['score'] = this.score;
+    _$result['preview'] = this
+        .preview
+        .map((_$e) => _$e.map((_$e) => _$e.toJson()).toList())
+        .toList();
+    _$result['trip'] = this.trip.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GDiscoverTripsData_discoverTrips_trips copyWith({
+    double? score,
+    List<List<_i2.GLatLngData>>? preview,
+    _i1.GTripSummaryData? trip,
+    String? G__typename,
+  }) {
+    return GDiscoverTripsData_discoverTrips_trips(
+      score: score ?? this.score,
+      preview: preview ?? this.preview,
+      trip: trip ?? this.trip,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GDiscoverTripsData_discoverTrips_trips &&
+            score == other.score &&
+            _gqlUtils.listEqualsDeep(preview, other.preview) &&
+            trip == other.trip &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType, score, _gqlUtils.listHashDeep(preview), trip, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GDiscoverTripsData_discoverTrips_trips(score: $score, preview: $preview, trip: $trip, G__typename: $G__typename)';
   }
 }
