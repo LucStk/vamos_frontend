@@ -69,6 +69,81 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
     );
   }
 
+  /// Re-route la portion entre les positions [from] et [to] (repère de
+  /// `RouteHitDetail.position`) avec [mobilityType], sans toucher à la route.
+  /// La proposition se valide avec [commitRouteEdit].
+  ///
+  /// Les bornes sont résolues au moment où l'édition passe dans la file du
+  /// trip, sur la route alors à jour.
+  Future<Either<Failure, PreviewRoutePayload>> previewPortion({
+    required double from,
+    required double to,
+    required MobilityType mobilityType,
+  }) {
+    return run<PreviewRoutePayload, TripId>(
+      entityKey: tripId, // sérialise toutes les éditions de ce trip
+      onApply: (_) => null, // la route n'est pas modifiée
+      remote: (_) {
+        final portion = _portionOf(from, to);
+        if (portion == null) {
+          return Future.value(Left<Failure, PreviewRoutePayload>(_noPortion));
+        }
+        return routeRepo.previewRouteEdit(
+          tripId: tripId,
+          mobilityType: mobilityType,
+          geometry: const [], // pas de point de passage : le routeur choisit
+          startAnchor: portion.start,
+          endAnchor: portion.end,
+        );
+      },
+    );
+  }
+
+  /// Donne [mobilityType] à la portion entre [from] et [to] en gardant son
+  /// tracé tel quel (aucun recalcul).
+  Future<Either<Failure, EditRoutePayload>> setPortionMobility({
+    required double from,
+    required double to,
+    required MobilityType mobilityType,
+  }) {
+    return run<EditRoutePayload, TripId>(
+      entityKey: tripId, // sérialise toutes les éditions de ce trip
+      onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
+      remote: (_) {
+        final portion = _portionOf(from, to);
+        if (portion == null) {
+          return Future.value(Left<Failure, EditRoutePayload>(_noPortion));
+        }
+        return routeRepo.setRangeMobility(
+          tripId: tripId,
+          start: portion.start,
+          end: portion.end,
+          mobilityType: mobilityType,
+        );
+      },
+      onSuccess: (gs, payload) => gs.replacedByServer(
+        remoteRoute: payload.route,
+        remoteMobilitySpans: payload.mobilitySpans,
+        remoteEditSpans: payload.editSpans,
+      ),
+      onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
+    );
+  }
+
+  RoutePortion? _portionOf(double from, double to) {
+    final route = state.route?.current;
+    if (route == null) return null;
+    return portionAnchors(
+      geometry: route.geometry,
+      mobilitySpans: [...state.mobilitySpans.store.values.map((n) => n.current)]
+        ..sort((a, b) => a.startIndex.compareTo(b.startIndex)),
+      from: from,
+      to: to,
+    );
+  }
+
+  static final _noPortion = NotFoundFailure(resourceType: 'route');
+
   /// Intègre à la route la proposition renvoyée par [previewRouteEdit].
   Future<Either<Failure, EditRoutePayload>> commitRouteEdit({
     required Id proposalId,

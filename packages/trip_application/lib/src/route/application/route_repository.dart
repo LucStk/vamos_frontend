@@ -29,6 +29,15 @@ abstract class RouteRepository {
     required SpanId sectionId,
     required MobilityType mobilityType,
   });
+  /// Donne [mobilityType] à la portion entre [start] et [end], sans toucher
+  /// à la géométrie. Le serveur fusionne avec les spans voisins de même
+  /// modalité.
+  Future<Either<Failure, EditRoutePayload>> setRangeMobility({
+    required TripId tripId,
+    required SectionAnchor start,
+    required SectionAnchor end,
+    required MobilityType mobilityType,
+  });
   Future<Either<Failure, EditRoutePayload>> deleteRoute(TripId tripId);
 
   /// Retire [lengthM] mètres de la route, depuis son départ ou son arrivée.

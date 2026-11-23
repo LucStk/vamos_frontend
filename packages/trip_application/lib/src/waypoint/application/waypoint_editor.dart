@@ -50,7 +50,7 @@ mixin WaypointEditor on OptimisticRunner<WaypointStore> {
   );
   Future<Either<Failure, WaypointRemoteModel>> updateKind(
     WaypointFields current,
-    WaypointKind kind,
+    WaypointKind? kind,
   ) => updateWaypoint(
     WaypointPatchModel.fromFields(current).copyWith(kind: kind),
   );

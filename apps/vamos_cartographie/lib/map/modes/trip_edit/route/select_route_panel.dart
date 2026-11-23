@@ -3,35 +3,91 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/span_queries.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
+import 'package:vamos_cartographie/map/modes/shared/mobility_type_menu.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 
 /// Panneau contextuel de [SelectRouteMode] (ouvert par un glissement sur la
-/// route, sans onglet).
-///
-/// Le mode ne propose encore aucune action sur la sélection : seul « Fermer »
-/// est branché. Ajoutez les actions ici quand le mode les exposera.
+/// route, sans onglet) : re-router la portion sélectionnée, avec ou sans
+/// changement de mobilité.
 @Dependencies([modeSelection, ModeMachine])
-class SelectRoutePanel extends ConsumerWidget {
+class SelectRoutePanel extends ConsumerStatefulWidget {
   const SelectRoutePanel(this.mode, {super.key});
 
   final SelectRouteMode mode;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SelectRoutePanel> createState() => _SelectRoutePanelState();
+}
+
+class _SelectRoutePanelState extends ConsumerState<SelectRoutePanel> {
+  /// Choix de l'utilisateur ; null tant qu'il n'a pas touché au menu : on
+  /// propose alors la mobilité de la portion.
+  MobilityType? _chosen;
+
+  @override
+  Widget build(BuildContext context) {
+    final mode = widget.mode;
+    final selection = ref.watch(modeSlotProvider(routeSelectionSlot));
+    final hasPortion = selection != null && !selection.isCollapsed;
+
+    final spans = ref.watch(mobilitySpansProvider(mode.tripId));
+    final vertexCount = ref.watch(
+      routeStoreProvider(
+        mode.tripId,
+      ).select((s) => s.route?.current.geometry.length ?? 0),
+    );
+    // Modalités sous la sélection (ou sous le point, si elle est fermée).
+    final underSelection = selection == null
+        ? const <MobilityType>[]
+        : portionMobilities(
+            vertexCount: vertexCount,
+            mobilitySpans: spans,
+            from: selection.start,
+            to: selection.end,
+          );
+    final mobility =
+        _chosen ??
+        (underSelection.isEmpty ? MobilityType.bike : underSelection.first);
+    // Même mobilité partout sous la sélection : rien à changer, et le serveur
+    // n'a pas à y couper un span de plus.
+    final changesMobility = underSelection.any((m) => m != mobility);
+
     return ToolPanel(
-      hint: 'Ajustez les poignées pour choisir la portion de route.',
+      error: mode.failure?.message,
+      hint: hasPortion
+          ? null
+          : 'Ajustez les poignées pour choisir la portion de route.',
+      settings: [
+        MobilityTypeMenu(
+          selected: mobility,
+          onChanged: (type) => setState(() => _chosen = type),
+        ),
+      ],
+      trailing: [
+        ToolAction(
+          icon: Icons.close,
+          label: 'Fermer',
+          onPressed: () => ref.applyTransition(mode.back),
+        ),
+      ],
       secondary: ToolAction(
-        icon: Icons.close,
-        label: 'Fermer',
-        onPressed: () =>
-            ref.applyTransition(Transition.to(TripEditMode(mode.tripId))),
+        icon: Icons.gesture,
+        label: 'Garder le tracé',
+        onPressed: hasPortion && changesMobility
+            ? () => ref.applyTransition(mode.keepTrace(mobility))
+            : null,
       ),
-      // primary: ToolAction(
-      //   icon: Icons.check,
-      //   label: '…',
-      //   onPressed: () => ref.applyTransition(mode.<action>()),
-      // ),
+      primary: ToolAction(
+        icon: Icons.alt_route,
+        label: 'Re-router',
+        onPressed: hasPortion
+            ? () => ref.applyTransition(mode.preview(mobility))
+            : null,
+      ),
     );
   }
 }

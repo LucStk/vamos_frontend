@@ -9,6 +9,7 @@ class WaypointChanges {
     this.kind,
     this.position,
     this.anchorPosition,
+    this.kindCleared = false,
   });
 
   final String? title;
@@ -17,6 +18,10 @@ class WaypointChanges {
   final LatLng? position;
   final double? anchorPosition;
 
+  /// La catégorie a été retirée : `kind` est null dans ce cas, comme pour
+  /// « inchangée ».
+  final bool kindCleared;
+
   // Les anciens flags restent disponibles : le code existant ne change pas.
   bool get moved => position != null;
   bool get anchorEdited => anchorPosition != null;
@@ -24,6 +29,7 @@ class WaypointChanges {
       title == null &&
       description == null &&
       kind == null &&
+      !kindCleared &&
       position == null &&
       anchorPosition == null;
 
@@ -42,6 +48,7 @@ class WaypointChanges {
       title: diff(server.title, next.title),
       description: diff(server.description, next.description),
       kind: diff(server.kind, next.kind),
+      kindCleared: server.kind != null && next.kind == null,
       position: diff(server.position, next.position),
       anchorPosition: diff(server.anchorPosition, next.anchorPosition),
     );

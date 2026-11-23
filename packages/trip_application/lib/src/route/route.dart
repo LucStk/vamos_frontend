@@ -10,3 +10,4 @@ export "application/route_store.dart";
 export "application/route_repository.dart";
 export "application/route_payloads.dart";
 export "services/compute_span_ranges.dart";
+export "services/portion_anchors.dart";

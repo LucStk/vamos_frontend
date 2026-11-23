@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/mode_toolbox.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/edit_span_panel.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/route/portion_preview_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/select_route_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/trim_route_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_panel.dart';
@@ -58,6 +59,7 @@ class TripEditUi extends ConsumerWidget {
       contextual: [
         ModePanel<TrimRouteMode>((m) => TrimRoutePanel(m)),
         ModePanel<SelectRouteMode>((m) => SelectRoutePanel(m)),
+        ModePanel<PortionPreviewMode>((m) => PortionPreviewPanel(m)),
         ModePanel<EditSpanMode>((m) => EditSpanPanel(m)),
       ],
     );

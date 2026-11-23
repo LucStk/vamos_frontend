@@ -79,6 +79,24 @@ class RouteRepositoryImpl extends RouteRepository {
   }
 
   @override
+  Future<Either<Failure, EditRoutePayload>> setRangeMobility({
+    required TripId tripId,
+    required SectionAnchor start,
+    required SectionAnchor end,
+    required MobilityType mobilityType,
+  }) async {
+    final res = await guardRouteEdit(
+      () => remote.setRangeMobility(
+        tripId: tripId,
+        start: start,
+        end: end,
+        mobilityType: mobilityType,
+      ),
+    );
+    return res.flatMap((m) => m.toDomain());
+  }
+
+  @override
   Future<Either<Failure, EditRoutePayload>> deleteRoute(TripId tripId) async {
     final res = await guardRouteEdit(() => remote.deleteRoute(tripId: tripId));
     return res.flatMap((m) => m.toDomain());

@@ -42,3 +42,69 @@ final class TrimRoute
     );
   }
 }
+
+/// Re-route la portion entre les positions [from] et [to] de la sélection
+/// avec [mobilityType], sans toucher à la route.
+final class PreviewPortion
+    extends RouteCommand<Either<Failure, PreviewRoutePayload>> {
+  const PreviewPortion({
+    required this.tripId,
+    required this.from,
+    required this.to,
+    required this.mobilityType,
+  });
+  final TripId tripId;
+  final double from;
+  final double to;
+  final MobilityType mobilityType;
+
+  @override
+  Future<Either<Failure, PreviewRoutePayload>> handle(AppCommandScope h) =>
+      h
+          .forTrip(tripId)
+          .routeEditor
+          .previewPortion(from: from, to: to, mobilityType: mobilityType);
+}
+
+/// Donne [mobilityType] à la portion entre [from] et [to], tracé inchangé.
+final class SetPortionMobility
+    extends RouteCommand<Either<Failure, EditRoutePayload>> {
+  const SetPortionMobility({
+    required this.tripId,
+    required this.from,
+    required this.to,
+    required this.mobilityType,
+  });
+  final TripId tripId;
+  final double from;
+  final double to;
+  final MobilityType mobilityType;
+
+  @override
+  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) => h
+      .forTrip(tripId)
+      .routeEditor
+      .setPortionMobility(from: from, to: to, mobilityType: mobilityType);
+}
+
+/// Intègre à la route la proposition affichée.
+final class CommitPortionPreview
+    extends RouteCommand<Either<Failure, EditRoutePayload>> {
+  const CommitPortionPreview({required this.tripId, required this.proposalId});
+  final TripId tripId;
+  final Id proposalId;
+
+  @override
+  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) =>
+      h.forTrip(tripId).routeEditor.commitRouteEdit(proposalId: proposalId);
+}
+
+/// Abandonne la proposition affichée (retour à la sélection).
+final class DiscardPortionPreview extends RouteCommand<Done> {
+  const DiscardPortionPreview({required this.tripId});
+  final TripId tripId;
+
+  @override
+  Future<Done?> handle(AppCommandScope h) =>
+      done(() => h.forTrip(tripId).routeEditor.discardRouteProposal());
+}

@@ -10,6 +10,13 @@ extension EndpointAnchorMapper on EndpointAnchor {
   };
 }
 
+extension SectionAnchorMapper on SectionAnchor {
+  GSectionPointInput toGQLPoint() => GSectionPointInput(
+    sectionId: sectionId.value,
+    point: position.toGQLInput(),
+  );
+}
+
 extension RouteAnchorMapper on RouteAnchor {
   GRouteAnchorInput toGQL() => switch (this) {
     SectionAnchor anchor => GRouteAnchorInput(
