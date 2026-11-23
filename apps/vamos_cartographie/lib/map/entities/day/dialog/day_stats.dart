@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/day/injection/run_note_providers.dart';
 import 'package:vamos_cartographie/domain_features/day/providers/day_providers.dart';
 import 'package:vamos_cartographie/domain_features/trip/presentation/mobility_type_display.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart';

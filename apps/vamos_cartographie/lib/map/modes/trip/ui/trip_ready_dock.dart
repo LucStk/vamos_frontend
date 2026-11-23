@@ -5,7 +5,8 @@ import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 
 /// Les trois boutons de la lecture d'un trip, en bas de l'écran : retour à
 /// gauche, fiche du voyage au milieu, édition à droite (propriétaire
-/// seulement). Dans une journée, celui de droite passe au jour suivant.
+/// seulement). Dans une journée, ceux des côtés mènent au jour précédent et
+/// au jour suivant.
 ///
 /// Ils ne sont là que si aucune fiche n'est ouverte. Seul le dialog du voyage
 /// les laisse : son bouton devient alors la croix qui le ferme.
@@ -18,6 +19,7 @@ class TripReadyDock extends StatelessWidget {
     required this.onEdit,
     this.infoOpen = false,
     this.dayMode = false,
+    this.onPreviousDay,
     this.onNextDay,
   });
 
@@ -27,11 +29,15 @@ class TripReadyDock extends StatelessWidget {
   /// La fiche du voyage est ouverte : le bouton du milieu la ferme.
   final bool infoOpen;
 
-  /// Une journée (ou l'un de ses morceaux / waypoints) est ouverte : le
-  /// bouton de droite passe au jour suivant au lieu de modifier le voyage.
+  /// Une journée (ou l'un de ses morceaux) est ouverte : le bouton de gauche
+  /// mène au jour précédent (au lieu de quitter) et celui de droite au jour
+  /// suivant (au lieu de modifier le voyage).
   final bool dayMode;
 
-  /// Va au jour suivant ; null : pas de jour suivant, le bouton est inactif.
+  /// Va au jour précédent ; null : il n'y en a pas, le bouton est absent.
+  final VoidCallback? onPreviousDay;
+
+  /// Va au jour suivant ; null : il n'y en a pas, le bouton est absent.
   final VoidCallback? onNextDay;
 
   final TripReadyMode mode;
@@ -51,14 +57,24 @@ class TripReadyDock extends StatelessWidget {
             height: DockButton.size,
             child: Stack(
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: DockButton(
-                    icon: Icons.adaptive.arrow_back,
-                    tooltip: 'Retour',
-                    onPressed: onBack,
+                if (!dayMode)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: DockButton(
+                      icon: Icons.adaptive.arrow_back,
+                      tooltip: 'Retour',
+                      onPressed: onBack,
+                    ),
+                  )
+                else if (onPreviousDay != null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: DockButton(
+                      icon: Icons.adaptive.arrow_back,
+                      tooltip: 'Jour précédent',
+                      onPressed: onPreviousDay,
+                    ),
                   ),
-                ),
                 Align(
                   child: DockButton(
                     icon: infoOpen ? Icons.close : Icons.info_outline,
@@ -66,16 +82,17 @@ class TripReadyDock extends StatelessWidget {
                     onPressed: onInfo,
                   ),
                 ),
-                if (dayMode)
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: DockButton(
-                      icon: Icons.adaptive.arrow_forward,
-                      tooltip: 'Jour suivant',
-                      onPressed: onNextDay,
+                if (dayMode) ...[
+                  if (onNextDay != null)
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: DockButton(
+                        icon: Icons.adaptive.arrow_forward,
+                        tooltip: 'Jour suivant',
+                        onPressed: onNextDay,
+                      ),
                     ),
-                  )
-                else if (!mode.readOnly)
+                ] else if (!mode.readOnly)
                   Align(
                     alignment: Alignment.centerRight,
                     child: DockButton(
