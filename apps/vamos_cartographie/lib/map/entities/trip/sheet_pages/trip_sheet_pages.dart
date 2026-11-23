@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stats_compact.dart';
-import 'package:vamos_cartographie/map/entities/common/stats/stats_list.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/overview/trip_overview_compact.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/overview/trip_overview_viewer.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/stats/trip_stats.dart';
+import 'package:vamos_cartographie/map/entities/trip/sheet_pages/stats/trip_stats_view.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 List<SheetPage> tripSheetPages(Trip trip, {bool editable = false}) {
@@ -26,7 +26,7 @@ List<SheetPage> tripSheetPages(Trip trip, {bool editable = false}) {
       compact: SheetCompact(
         child: StatsCompact(title: 'Statistiques', stats: stats),
       ),
-      expanded: StatsList(stats: stats),
+      expanded: TripStatsView(trip: trip),
     ),
   ];
 }
