@@ -13,6 +13,7 @@ import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_menus.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_info_dialog.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_selection_camera.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/trip_title_banner.dart';
 
 class TripReadyUi extends ConsumerWidget {
   const TripReadyUi(this.mode, {super.key});
@@ -116,6 +117,12 @@ class TripReadyUi extends ConsumerWidget {
           ),
         ),
         KeyedSubtree(key: const ValueKey('menus'), child: TripEditMenus(mode)),
+        // À l'entrée dans le trip : son titre, qui s'efface de lui-même. Par
+        // trip, pour rejouer l'animation si on en ouvre un autre.
+        TripTitleBanner(
+          key: ValueKey('title_${mode.tripId}'),
+          tripId: mode.tripId,
+        ),
       ],
     );
   }

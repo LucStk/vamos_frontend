@@ -34,3 +34,18 @@ List<PointItem> allWaypointItem(
       ref.watch(waypointItemProvider(tripId, id, camera)),
   ];
 }
+
+/// Les waypoints au second plan : sous la route, presque transparents. Pour
+/// les scènes où ils ne servent que de repère.
+///
+/// Fonction simple (pas de génération) : sans `build_runner`.
+List<PointItem> backgroundWaypointItems(
+  Ref ref,
+  TripId tripId,
+  MapCameraReader camera,
+) {
+  return [
+    for (final id in ref.watch(allWaypointIdsProvider(tripId)))
+      ref.watch(waypointItemProvider(tripId, id, camera)).asBackground(),
+  ];
+}

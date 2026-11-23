@@ -11,7 +11,9 @@ SceneSpec selectRouteScene(TripId tripId) => SceneSpec(
   layers: [
     (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],
     (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],
-    (ref, cam) => ref.watch(allWaypointItemProvider(tripId, cam)),
+    // Choisir une portion de route : les waypoints ne sont qu'un repère, au
+    // second plan et presque transparents.
+    (ref, cam) => backgroundWaypointItems(ref, tripId, cam),
     (ref, cam) => visibleWaypointAnchors(ref, tripId, cam),
     (ref, cam) => ref.watch(selectionHandleItemsProvider(tripId, cam)),
     (ref, cam) => ref.watch(pendingWaypointProvider(tripId, cam)),
