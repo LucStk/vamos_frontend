@@ -37,3 +37,8 @@ mutation DeleteRoute($tripId: UUID!) {
         ...EditRouteResult
     }
 }
+mutation TrimRoute($tripId: UUID!, $input: TrimRouteInput!) {
+    trimRoute(tripId: $tripId, input: $input) {
+        ...EditRouteResult
+    }
+}

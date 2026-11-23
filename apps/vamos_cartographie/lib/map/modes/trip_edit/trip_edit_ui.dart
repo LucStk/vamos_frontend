@@ -7,6 +7,7 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/mode_toolbox.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/edit_span_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/select_route_panel.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/route/trim_route_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/create_waypoint_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
@@ -31,11 +32,7 @@ class TripEditUi extends ConsumerWidget {
     return ModeToolbox(
       mode: mode,
       closed: () => TripEditMode(tripId),
-      leading: BackTab(
-        onTap: () => ref.applyTransition(
-          Transition.to(TripReadyMode(tripId, readOnly: false)),
-        ),
-      ),
+      leading: BackTab(onTap: () => ref.applyTransition(mode.back)),
       tools: [
         ModeTool<CreateWaypointMode>(
           item: const ToolboxItem(
@@ -59,6 +56,7 @@ class TripEditUi extends ConsumerWidget {
         ),
       ],
       contextual: [
+        ModePanel<TrimRouteMode>((m) => TrimRoutePanel(m)),
         ModePanel<SelectRouteMode>((m) => SelectRoutePanel(m)),
         ModePanel<EditSpanMode>((m) => EditSpanPanel(m)),
       ],

@@ -328,3 +328,57 @@ class GDeleteRouteData {
     return 'GDeleteRouteData(deleteRoute: $deleteRoute, G__typename: $G__typename)';
   }
 }
+
+class GTrimRouteData {
+  const GTrimRouteData({
+    required this.trimRoute,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GTrimRouteData.fromJson(Map<String, dynamic> json) {
+    return GTrimRouteData(
+      trimRoute: _i1.GEditRouteResultData.fromJson(
+          (json['trimRoute'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GEditRouteResultData trimRoute;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['trimRoute'] = this.trimRoute.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GTrimRouteData copyWith({
+    _i1.GEditRouteResultData? trimRoute,
+    String? G__typename,
+  }) {
+    return GTrimRouteData(
+      trimRoute: trimRoute ?? this.trimRoute,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTrimRouteData &&
+            trimRoute == other.trimRoute &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, trimRoute, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GTrimRouteData(trimRoute: $trimRoute, G__typename: $G__typename)';
+  }
+}

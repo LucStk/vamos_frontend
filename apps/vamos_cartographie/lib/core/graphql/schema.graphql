@@ -173,6 +173,7 @@ type Mutation {
   editRoute(tripId: UUID!, input: EditRouteInput!): EditRoutePayload!
   refineSection(tripId: UUID!, sectionId: UUID!, basedOn: DateTime = null): EditRoutePayload!
   setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!, basedOn: DateTime = null): EditRoutePayload!
+  trimRoute(tripId: UUID!, input: TrimRouteInput!): EditRoutePayload!
   deleteRoute(tripId: UUID!): EditRoutePayload!
   detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
@@ -320,6 +321,18 @@ type StoredFileType {
   filename: String!
   status: String!
   url: String!
+}
+
+"""
+Raccourcit la route depuis l'une de ses extrémités, sans rien recalculer.
+- `end` : l'extrémité d'où l'on retire (`ROUTE_START` ou `ROUTE_END`) ;
+- `lengthM` : longueur retirée, en mètres, > 0 et strictement inférieure à la
+longueur de la route (pour tout effacer : `deleteRoute`).
+"""
+input TrimRouteInput {
+  end: RouteEndpoint!
+  lengthM: Float!
+  basedOn: DateTime = null
 }
 
 type TripType {

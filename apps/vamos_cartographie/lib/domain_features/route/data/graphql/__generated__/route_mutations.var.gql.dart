@@ -302,3 +302,58 @@ class GDeleteRouteVars {
     return 'GDeleteRouteVars(tripId: $tripId)';
   }
 }
+
+class GTrimRouteVars {
+  const GTrimRouteVars({
+    required this.tripId,
+    required this.input,
+  });
+
+  factory GTrimRouteVars.fromJson(Map<String, dynamic> json) {
+    return GTrimRouteVars(
+      tripId: (json['tripId'] as String),
+      input:
+          _i1.GTrimRouteInput.fromJson((json['input'] as Map<String, dynamic>)),
+    );
+  }
+
+  final String tripId;
+
+  final _i1.GTrimRouteInput input;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$tripIdValue = this.tripId;
+    _$result['tripId'] = _$tripIdValue;
+    final _$inputValue = this.input;
+    _$result['input'] = _$inputValue.toJson();
+    return _$result;
+  }
+
+  GTrimRouteVars copyWith({
+    String? tripId,
+    _i1.GTrimRouteInput? input,
+  }) {
+    return GTrimRouteVars(
+      tripId: tripId ?? this.tripId,
+      input: input ?? this.input,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTrimRouteVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GTrimRouteVars(tripId: $tripId, input: $input)';
+  }
+}

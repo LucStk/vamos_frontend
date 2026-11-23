@@ -924,6 +924,75 @@ class GSectionPointInput {
   }
 }
 
+class GTrimRouteInput {
+  const GTrimRouteInput({
+    required this.end,
+    required this.lengthM,
+    this.basedOn = const Value.absent(),
+  });
+
+  factory GTrimRouteInput.fromJson(Map<String, dynamic> json) {
+    return GTrimRouteInput(
+      end: GRouteEndpoint.fromJson((json['end'] as String)),
+      lengthM: (json['lengthM'] as num).toDouble(),
+      basedOn: json.containsKey('basedOn')
+          ? Value.present(
+              json['basedOn'] == null ? null : (json['basedOn'] as String))
+          : Value.absent(),
+    );
+  }
+
+  final GRouteEndpoint end;
+
+  final double lengthM;
+
+  final Value<String> basedOn;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$endValue = this.end;
+    _$result['end'] = _$endValue.toJson();
+    final _$lengthMValue = this.lengthM;
+    _$result['lengthM'] = _$lengthMValue;
+    final _$basedOnValue = this.basedOn;
+    if (_$basedOnValue.isPresent) {
+      final _$basedOnRequired = _$basedOnValue.requireValue;
+      _$result['basedOn'] =
+          _$basedOnRequired == null ? null : _$basedOnRequired;
+    }
+    return _$result;
+  }
+
+  GTrimRouteInput copyWith({
+    GRouteEndpoint? end,
+    double? lengthM,
+    Value<String>? basedOn,
+  }) {
+    return GTrimRouteInput(
+      end: end ?? this.end,
+      lengthM: lengthM ?? this.lengthM,
+      basedOn: basedOn ?? this.basedOn,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GTrimRouteInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GTrimRouteInput(end: $end, lengthM: $lengthM, basedOn: $basedOn)';
+  }
+}
+
 class GTripUpdateInput {
   const GTripUpdateInput({
     this.title = const Value.absent(),

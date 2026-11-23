@@ -1204,6 +1204,34 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'trimRoute'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'TrimRouteInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'EditRoutePayload'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'deleteRoute'),
       directives: [],
       args: [
@@ -2294,6 +2322,39 @@ const StoredFileType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const TrimRouteInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'TrimRouteInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'end'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RouteEndpoint'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'lengthM'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'basedOn'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: false,
+      ),
+      defaultValue: _i1.NullValueNode(),
+    ),
+  ],
+);
 const TripType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'TripType'),
   directives: [],
@@ -2863,6 +2924,7 @@ const document = _i1.DocumentNode(definitions: [
   SectionPointInput,
   StayType,
   StoredFileType,
+  TrimRouteInput,
   TripType,
   TripUpdateInput,
   UpdateUserProfileInput,
