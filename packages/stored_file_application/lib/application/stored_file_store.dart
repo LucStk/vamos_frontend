@@ -40,6 +40,15 @@ extension StoredFileStoreActions on StoredFileStore {
     );
   }
 
+  /// Nouvel ordre des fichiers de [ownerId] (copie fraîche de l'index).
+  StoredFileStore reorderOwned(
+    Id<dynamic> ownerId,
+    Iterable<StoredFileId> ordered,
+  ) {
+    final index = ownerIndex.copy()..reorder(ownerId, ordered);
+    return copyWith(ownerIndex: index);
+  }
+
   StoredFileStore clear() => StoredFileStore.initial();
 
   // --- Actions qui ne touchent pas l'index : on le réutilise tel quel (pas de copie) ---

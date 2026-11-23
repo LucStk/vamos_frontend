@@ -14,3 +14,9 @@ mutation AttachFile($input: AttachFileInput!) {
         ...FileAttachment
     }
 }
+
+mutation ReorderFiles($input: ReorderFilesInput!) {
+    reorderFiles(input: $input) {
+        ...FileAttachment
+    }
+}

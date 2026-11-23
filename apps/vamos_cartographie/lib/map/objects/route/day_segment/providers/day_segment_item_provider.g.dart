@@ -67,7 +67,7 @@ final class DaySegmentItemProvider
   }
 }
 
-String _$daySegmentItemHash() => r'72b036d79fb1fdf4992e8bc051c62166e39cb9a5';
+String _$daySegmentItemHash() => r'4f1a8e99ef54d2e3c623c3a877f9f8cf7cdf8183';
 
 final class DaySegmentItemFamily extends $Family
     with

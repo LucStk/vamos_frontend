@@ -31,6 +31,20 @@ class OwnerIndex<V, E> {
     _ownerIndex.putIfAbsent(owner, () => {}).add(owned);
   }
 
+  /// Range les éléments de [owner] dans l'ordre de [ordered]. Ceux qui n'y
+  /// figurent pas gardent leur ordre relatif, à la suite ; les identifiants
+  /// qui n'appartiennent pas à [owner] sont ignorés.
+  void reorder(V owner, Iterable<E> ordered) {
+    final current = _ownerIndex[owner];
+    if (current == null) return;
+    final next = <E>{
+      for (final e in ordered)
+        if (current.contains(e)) e,
+      ...current,
+    };
+    _ownerIndex[owner] = next;
+  }
+
   void removeOwner(V owner) {
     final elements = _ownerIndex.remove(owner);
     if (elements != null) {

@@ -47,6 +47,12 @@ extension StoredFileStoreBulk on StoredFileStore {
         ownerIndex.removeOwned(staleId);
         nodes = nodes.remove(staleId);
       }
+
+      // L'ordre du serveur fait foi (couverture, ordre choisi par le
+      // propriétaire), y compris pour les fichiers déjà connus.
+      ownerIndex.reorder(summary.trip.id, [
+        for (final file in summary.storedFiles) file.id,
+      ]);
     }
     return copyWith(storedFileStore: nodes);
   }

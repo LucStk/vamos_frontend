@@ -613,6 +613,70 @@ enum GRefinementFailure {
   }
 }
 
+class GReorderFilesInput {
+  const GReorderFilesInput({
+    required this.targetType,
+    required this.targetId,
+    required this.fileIds,
+  });
+
+  factory GReorderFilesInput.fromJson(Map<String, dynamic> json) {
+    return GReorderFilesInput(
+      targetType: GFileTargetTypeEnum.fromJson((json['targetType'] as String)),
+      targetId: (json['targetId'] as String),
+      fileIds: (json['fileIds'] as List<dynamic>)
+          .map((_$e) => (_$e as String))
+          .toList(),
+    );
+  }
+
+  final GFileTargetTypeEnum targetType;
+
+  final String targetId;
+
+  final List<String> fileIds;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$targetTypeValue = this.targetType;
+    _$result['targetType'] = _$targetTypeValue.toJson();
+    final _$targetIdValue = this.targetId;
+    _$result['targetId'] = _$targetIdValue;
+    final _$fileIdsValue = this.fileIds;
+    _$result['fileIds'] = _$fileIdsValue.map((_$e) => _$e).toList();
+    return _$result;
+  }
+
+  GReorderFilesInput copyWith({
+    GFileTargetTypeEnum? targetType,
+    String? targetId,
+    List<String>? fileIds,
+  }) {
+    return GReorderFilesInput(
+      targetType: targetType ?? this.targetType,
+      targetId: targetId ?? this.targetId,
+      fileIds: fileIds ?? this.fileIds,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GReorderFilesInput &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GReorderFilesInput(targetType: $targetType, targetId: $targetId, fileIds: $fileIds)';
+  }
+}
+
 enum GResultMode {
   PLACE,
   CATEGORY,

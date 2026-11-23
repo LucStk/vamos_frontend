@@ -32,11 +32,11 @@ abstract class TripMode extends AppMode {
   @override
   Transition get back => closeTool;
 
-  /// Ouvre le trip, sans jour, morceau ni étape sélectionné : une sélection
-  /// restée de la dernière visite ne doit pas revenir.
+  /// Ouvre le trip, sans rien de sélectionné : une sélection restée de la
+  /// dernière visite ne doit pas revenir.
   static Transition open(TripId id) => Transition.run<TripEntry>(
     ResolveTripEntry(id),
-    then: (current, entry) {
+    then: (_, entry) {
       final next = switch (entry) {
         TripReady(:final readOnly) => Transition.to(
           TripReadyMode(id, readOnly: readOnly),
@@ -44,10 +44,9 @@ abstract class TripMode extends AppMode {
         TripNeedsOrigin() => Transition.to(PlaceExistingTripOrigin(id)),
         TripUnavailable _ => throw Exception,
       };
-      return next.and<MapObject>(
-        selectionSlot,
-        tripSelectionOnly(current.slots.get(selectionSlot)),
-      );
+      // Aucune fiche d'ouverte en arrivant : ni jour, ni morceau, ni étape, ni
+      // le trip lui-même (sa sélection ouvre sa fiche).
+      return next.and<MapObject>(selectionSlot, null);
     },
   );
 }

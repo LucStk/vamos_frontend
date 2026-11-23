@@ -17,6 +17,12 @@ abstract class StoredFileRepository {
     int size,
   );
   Future<Either<Failure, void>> detachFile(StoredFileId id);
+  /// Fixe l'ordre des fichiers de [ownerId] (le premier sert de couverture).
+  Future<Either<Failure, void>> reorderFiles(
+    Id ownerId,
+    TargetType ownerType,
+    List<StoredFileId> fileIds,
+  );
   Future<Either<Failure, StoredFileRemoteModel>> attachFile(
     Id ownerId,
     TargetType ownerType,

@@ -33,6 +33,11 @@ class PagedSheet extends StatefulWidget {
   /// Placé à gauche de la barre (ex. `BackTab`).
   final Widget? barLeading;
 
+  /// Croix de fermeture, en haut à droite de la sheet. Non null : elle
+  /// s'affiche, et ce qu'elle fait (fermer la sheet, effacer la sélection...)
+  /// est l'affaire du parent.
+  final VoidCallback? onClose;
+
   /// Mode piloté : page ouverte, ou null si la sheet est fermée (seule la
   /// barre reste visible). Ignoré si [onActivePageChanged] est null.
   ///
@@ -53,6 +58,7 @@ class PagedSheet extends StatefulWidget {
     this.hideable = true,
     this.onHiddenChanged,
     this.barLeading,
+    this.onClose,
     this.activePage,
     this.onActivePageChanged,
   });
@@ -350,16 +356,50 @@ class _PagedSheetState extends State<PagedSheet> {
     }
   }
 
+  static const _closeSize = 32.0;
+
   /// Poignée + espacement + contenu (identique pour la mesure et la vraie sheet).
   ///
   /// Avec une barre, c'est elle qui porte la marge de la barre de gestes.
   /// Sans barre, c'est le contenu qui la porte.
   Widget _withChrome(Widget content) {
+    final close = widget.onClose;
     final inner = Padding(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [const DragHintHeader(), const SizedBox(height: 12), content],
+        children: [
+          if (close == null)
+            const DragHintHeader()
+          else
+            // La poignée reste en haut, la croix à droite sur la même rangée.
+            SizedBox(
+              height: _closeSize,
+              child: Stack(
+                children: [
+                  const Align(
+                    alignment: Alignment.topCenter,
+                    child: DragHintHeader(),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox.square(
+                      dimension: _closeSize,
+                      child: IconButton.filledTonal(
+                        tooltip: 'Fermer',
+                        iconSize: 18,
+                        padding: EdgeInsets.zero,
+                        onPressed: close,
+                        icon: const Icon(Icons.close),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          SizedBox(height: close == null ? 12 : 4),
+          content,
+        ],
       ),
     );
     if (_hasBar) return inner;

@@ -34,6 +34,24 @@ class StoredFileRemoteDatasource {
     return data;
   }
 
+  Future<GReorderFilesData> reorderFiles(
+    Id ownerId,
+    TargetType ownerType,
+    List<StoredFileId> fileIds,
+  ) async {
+    return ferryClient.execute(
+      GReorderFilesReq(
+        vars: GReorderFilesVars(
+          input: GReorderFilesInput(
+            targetId: ownerId.value,
+            targetType: ownerType.toGql(),
+            fileIds: [for (final id in fileIds) id.value],
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<GUploadConfigFields> getSignedURL(
     String filename,
     String mimeType,

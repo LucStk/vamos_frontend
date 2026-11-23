@@ -19,6 +19,35 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     );
   }
 
+  /// Place les images de [targetId] dans l'ordre [orderedIds], tout de suite à
+  /// l'écran puis côté serveur. En cas d'échec, l'ancien ordre revient.
+  ///
+  /// Les images encore en cours d'envoi restent à la suite : le serveur ne les
+  /// connaît pas.
+  Future<Failure?> reorderFiles({
+    required Id targetId,
+    required TargetType targetType,
+    required List<StoredFileId> orderedIds,
+  }) async {
+    final before = state.getFromOwner(targetId);
+    state = state.reorderOwned(targetId, orderedIds);
+
+    final remoteIds = [
+      for (final id in orderedIds)
+        if (state.get(id)?.isPendingCreation == false) id,
+    ];
+    final res = await storedFileRepo.reorderFiles(
+      targetId,
+      targetType,
+      remoteIds,
+    );
+    return res.fold((Failure f) {
+      errorLogger?.logError(f, StackTrace.current);
+      state = state.reorderOwned(targetId, before);
+      return f;
+    }, (_) => null);
+  }
+
   Future<Failure?> attachFile({
     required Id targetId,
     required TargetType targetType,

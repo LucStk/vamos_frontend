@@ -5,13 +5,25 @@ import 'package:map_engine/src/modes/explore/explore_mode.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
+import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
 
 final class TripReadyMode extends TripMode {
   const TripReadyMode(super.tripId, {this.readOnly = true});
   final bool readOnly;
 
-  /// Remonte d'un niveau : morceau → jour → trip → explorateur. Chaque appui
-  /// retire un cran de sélection ; sans sélection, on quitte le trip.
+  /// Ouvre la fiche du voyage (la sélection porte alors le trip lui-même).
+  Transition get showInfo =>
+      Transition.set<MapObject>(selectionSlot, MapTrip(tripId));
+
+  /// Ferme la fiche ouverte, quelle qu'elle soit : plus rien n'est sélectionné.
+  Transition get closeSheet => Transition.set<MapObject>(selectionSlot, null);
+
+  /// Passe à l'édition du trip (réservé au propriétaire : l'interface ne
+  /// propose le bouton qu'hors lecture seule).
+  Transition get edit => Transition.to(TripEditMode(tripId));
+
+  /// Remonte d'un niveau : morceau → jour, puis fiche fermée ; sans fiche
+  /// ouverte, on quitte le trip pour l'explorateur.
   @override
   Transition get back => Transition.withState((st) {
     final selected = st.slots.get(selectionSlot);
@@ -20,6 +32,7 @@ final class TripReadyMode extends TripMode {
         selectionSlot,
         MapDaySegment(tripId: tripId, endsAt: endsAt),
       ),
+      MapTrip() ||
       MapDaySegment() ||
       MapWaypoint() ||
       MapMobilitySpan() => Transition.set<MapObject>(selectionSlot, null),

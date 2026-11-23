@@ -72,7 +72,7 @@ final class SearchResultItemProvider
   }
 }
 
-String _$searchResultItemHash() => r'36287bd7c982c12dba64265d6dcc43b1fa21f75a';
+String _$searchResultItemHash() => r'410f0073b10ee253208d9e235196462dccec4396';
 
 final class SearchResultItemFamily extends $Family
     with $FunctionalFamilyOverride<SearchResultItem?, MapCameraReader> {

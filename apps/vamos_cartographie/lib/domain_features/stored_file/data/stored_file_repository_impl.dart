@@ -35,6 +35,17 @@ class StoredFileRepositoryImpl extends StoredFileRepository {
   }
 
   @override
+  Future<Either<Failure, void>> reorderFiles(
+    Id ownerId,
+    TargetType ownerType,
+    List<StoredFileId> fileIds,
+  ) {
+    return guard(() async {
+      await remote.reorderFiles(ownerId, ownerType, fileIds);
+    });
+  }
+
+  @override
   Future<Either<Failure, void>> detachFile(StoredFileId id) async {
     return guard(() async {
       await remote.deleteFile(id: id);
