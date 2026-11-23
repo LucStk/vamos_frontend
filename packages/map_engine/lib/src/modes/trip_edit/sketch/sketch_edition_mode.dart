@@ -10,6 +10,7 @@ import 'package:map_engine/src/modes/trip_edit/sketch/commands/sketch_command.da
 import 'package:map_engine/src/modes/trip_edit/sketch/sketch_generating_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/sketch_tool_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/slots/sketch_trace.dart';
+import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 class SketchEdition extends SketchToolMode {
@@ -41,9 +42,16 @@ class SketchEdition extends SketchToolMode {
     _ => Transition.stay(),
   };
 
-  /// Toucher la position de l'utilisateur y pose le curseur.
+  /// Toucher la position de l'utilisateur y pose le curseur. Sans tracé en
+  /// cours, toucher une étape ou la carte passe à l'édition.
   @override
-  Transition onTap(TapGesture g) => CursorActions.onTap(g) ?? super.onTap(g);
+  Transition onTap(TapGesture g) =>
+      CursorActions.onTap(g) ??
+      Transition.withState(
+        (st) => st.slots.get(sketchTraceSlot) == null
+            ? TripEditMode.leavingToTap(tripId, g)
+            : null,
+      );
 
   /// Drag depuis un élément de route : le tracé naît ici, au point saisi.
   /// Drag depuis le Pencil : le tracé existe déjà, on ne touche à rien.

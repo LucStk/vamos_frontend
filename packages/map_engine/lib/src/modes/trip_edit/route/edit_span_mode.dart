@@ -2,6 +2,7 @@ import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/trip_edit/route/route_tool_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/slots/span_bounds_slot.dart';
+import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:map_engine/src/domain/domain.dart';
@@ -30,7 +31,8 @@ class EditSpanMode extends RouteToolMode {
   Transition onTap(TapGesture g) => switch (g.hit) {
     HitObject(object: MapMobilitySpan(:final id)) when id != mobilitySpanId =>
       Transition.to(EditSpanMode(tripId, mobilitySpanId: id)),
-    _ => Transition.stay(),
+    // Une étape ou la carte : on passe à l'édition.
+    _ => TripEditMode.leavingToTap(tripId, g) ?? Transition.stay(),
   };
 
   // La borne attrapée suit le doigt, sans contrainte. L'ancienne valeur du

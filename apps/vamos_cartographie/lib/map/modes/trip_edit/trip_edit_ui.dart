@@ -18,8 +18,8 @@ import 'package:vamos_cartographie/map/ui/chrome/dock/edit_dock.dart';
 ///
 /// Il n'y a plus de barre d'outils : on atteint les outils par la carte (le
 /// curseur, la route, une étape). Reste un seul contrôle, [EditDock] : une
-/// flèche retour en bas à droite, qui s'étend en panneau (et devient une
-/// croix) dès qu'un outil ou une action est ouvert.
+/// flèche retour en bas à gauche, dont le panneau est tiré vers la droite
+/// (avec sa croix en haut) dès qu'un outil ou une action est ouvert.
 ///
 /// Ne lit que ce qui décide du panneau : chaque panneau lit ses propres
 /// données, pour que le dock ne se reconstruise pas à chaque changement de
@@ -74,13 +74,21 @@ class TripEditUi extends ConsumerWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        const SearchTopSheet(),
-        // Même action que le retour système : fermer le panneau d'abord,
-        // quitter l'édition ensuite.
+        // Un résultat de recherche pose le curseur et abandonne l'étape
+        // sélectionnée.
+        SearchTopSheet(
+          onPicked: switch (mode) {
+            final TripEditMode m => m.placeCursorAt,
+            _ => null,
+          },
+        ),
         EditDock(
           panel: panel,
           panelKey: panelKey,
-          onPressed: () => ref.applyTransition(mode.back),
+          // Comme le retour système : fermer le panneau d'abord, quitter
+          // l'édition ensuite.
+          onBack: () => ref.applyTransition(mode.back),
+          onClose: () => ref.applyTransition(mode.closeTool),
         ),
       ],
     );

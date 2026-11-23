@@ -80,13 +80,11 @@ class SelectRouteMode extends RouteToolMode {
         );
       });
 
-  // @override
-  // Transition onTap(TapGesture g) => switch (g.hit) {
-  //   HitObject(object: MapMobilitySpan(:final id)) => Transition.to(
-  //     EditSpanMode(tripId, mobilitySpanId: id),
-  //   ),
-  //   _ => Transition.stay(),
-  // };
+  /// Toucher une étape ou la carte passe à l'édition (étape sélectionnée,
+  /// ou curseur posé) ; le reste ne fait rien.
+  @override
+  Transition onTap(TapGesture g) =>
+      TripEditMode.leavingToTap(tripId, g) ?? Transition.stay();
 
   // Nouveau drag depuis la route : on repart d'une sélection fermée.
   @override

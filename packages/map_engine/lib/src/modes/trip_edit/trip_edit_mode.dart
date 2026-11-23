@@ -68,6 +68,32 @@ final class TripEditMode extends TripMode {
     ),
   );
 
+  /// Pose le curseur sur [point] (résultat de recherche, par exemple) : toute
+  /// autre sélection est abandonnée.
+  Transition placeCursorAt(WorldOffset point) => _placeCursor(point);
+
+  /// Depuis un outil : toucher une étape ou la carte quitte l'outil pour
+  /// l'édition, avec cette étape sélectionnée ou le curseur posé à cet
+  /// endroit. Null pour tout autre toucher, que l'outil traite lui-même.
+  static Transition? leavingToTap(TripId tripId, TapGesture g) {
+    final edit = Transition.to(TripEditMode(tripId));
+    return switch (g.element) {
+      final MapWaypoint waypoint => edit.and<MapObject>(
+        selectionSlot,
+        waypoint,
+      ),
+      MapLocalization(:final position) => edit.and(
+        searchResultMarkerSlot,
+        SearchResultMarker(point: position),
+      ),
+      null => edit.and(
+        searchResultMarkerSlot,
+        SearchResultMarker(point: g.world),
+      ),
+      _ => null,
+    };
+  }
+
   /// Supprime l'étape, puis la désélectionne.
   Transition removeWaypoint(WaypointId id) => Transition.run(
     RemoveWaypoint(tripId: tripId, waypointId: id),
@@ -90,8 +116,9 @@ final class TripEditMode extends TripMode {
   @override
   Transition onTap(TapGesture g) {
     // La position de l'utilisateur : le curseur s'y pose.
-    final onUser = CursorActions.onTap(g);
-    if (onUser != null) return onUser;
+    if (g.element case MapLocalization(:final position)) {
+      return _placeCursor(position);
+    }
 
     // Route, départ ou arrivée : le curseur s'y accroche.
     final onRoute = g.hit?.narrow<RouteElements>();
