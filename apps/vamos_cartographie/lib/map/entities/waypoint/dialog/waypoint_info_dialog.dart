@@ -6,7 +6,6 @@ import 'package:vamos_cartographie/domain_features/route/injection/route_store.d
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
-import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stats_list.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart'
     show lengthBetween;

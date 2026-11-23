@@ -679,3 +679,170 @@ class GGetFollowingReq
     return 'GGetFollowingReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
   }
 }
+
+class GSearchUsersReq
+    implements
+        _i1.OperationRequest<_i2.GSearchUsersData, _i8.GSearchUsersVars> {
+  GSearchUsersReq({
+    required this.vars,
+    _i3.Operation? operation,
+    this.requestId,
+    this.updateResult,
+    this.optimisticResponse,
+    this.updateCacheHandlerKey,
+    this.updateCacheHandlerContext,
+    this.fetchPolicy,
+    this.executeOnListen = true,
+    this.context,
+  }) : operation = operation ?? _operation;
+
+  final _i8.GSearchUsersVars vars;
+
+  final _i3.Operation operation;
+
+  final String? requestId;
+
+  final _i2.GSearchUsersData? Function(
+    _i2.GSearchUsersData?,
+    _i2.GSearchUsersData?,
+  )? updateResult;
+
+  final _i2.GSearchUsersData? optimisticResponse;
+
+  final String? updateCacheHandlerKey;
+
+  final Map<String, dynamic>? updateCacheHandlerContext;
+
+  final _i1.FetchPolicy? fetchPolicy;
+
+  final bool executeOnListen;
+
+  final _i3.Context? context;
+
+  static const _i4.DocumentNode _document = _i4.DocumentNode(definitions: [
+    _i5.SearchUsers,
+    _i6.UserProfileDetails,
+    _i7.StoredFile,
+  ]);
+
+  static const _i3.Operation _operation = _i3.Operation(
+    document: _document,
+    operationName: 'SearchUsers',
+  );
+
+  _i3.Request get execRequest => _i3.Request(
+        operation: operation,
+        variables: varsToJson(),
+        context: context ?? const _i3.Context(),
+      );
+
+  _i2.GSearchUsersData? parseData(Map<String, dynamic> json) =>
+      _i2.GSearchUsersData.fromJson(json);
+
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  Map<String, dynamic> dataToJson(_i2.GSearchUsersData data) => data.toJson();
+
+  _i1.OperationRequest<_i2.GSearchUsersData, _i8.GSearchUsersVars>
+      transformOperation(_i3.Operation Function(_i3.Operation) transform) {
+    return GSearchUsersReq(
+      vars: vars,
+      operation: transform(operation),
+      requestId: requestId,
+      updateResult: updateResult,
+      optimisticResponse: optimisticResponse,
+      updateCacheHandlerKey: updateCacheHandlerKey,
+      updateCacheHandlerContext: updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy,
+      executeOnListen: executeOnListen,
+      context: context,
+    );
+  }
+
+  GSearchUsersReq copyWith({
+    _i8.GSearchUsersVars? vars,
+    _i3.Operation? operation,
+    String? requestId,
+    bool requestIdIsSet = false,
+    _i2.GSearchUsersData? Function(
+      _i2.GSearchUsersData?,
+      _i2.GSearchUsersData?,
+    )? updateResult,
+    bool updateResultIsSet = false,
+    _i2.GSearchUsersData? optimisticResponse,
+    bool optimisticResponseIsSet = false,
+    String? updateCacheHandlerKey,
+    bool updateCacheHandlerKeyIsSet = false,
+    Map<String, dynamic>? updateCacheHandlerContext,
+    bool updateCacheHandlerContextIsSet = false,
+    _i1.FetchPolicy? fetchPolicy,
+    bool fetchPolicyIsSet = false,
+    bool? executeOnListen,
+    _i3.Context? context,
+    bool contextIsSet = false,
+  }) {
+    return GSearchUsersReq(
+      vars: vars ?? this.vars,
+      operation: operation ?? this.operation,
+      requestId:
+          requestId != null || requestIdIsSet ? requestId : this.requestId,
+      updateResult: updateResult != null || updateResultIsSet
+          ? updateResult
+          : this.updateResult,
+      optimisticResponse: optimisticResponse != null || optimisticResponseIsSet
+          ? optimisticResponse
+          : this.optimisticResponse,
+      updateCacheHandlerKey:
+          updateCacheHandlerKey != null || updateCacheHandlerKeyIsSet
+              ? updateCacheHandlerKey
+              : this.updateCacheHandlerKey,
+      updateCacheHandlerContext:
+          updateCacheHandlerContext != null || updateCacheHandlerContextIsSet
+              ? updateCacheHandlerContext
+              : this.updateCacheHandlerContext,
+      fetchPolicy: fetchPolicy != null || fetchPolicyIsSet
+          ? fetchPolicy
+          : this.fetchPolicy,
+      executeOnListen: executeOnListen ?? this.executeOnListen,
+      context: context != null || contextIsSet ? context : this.context,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSearchUsersReq &&
+            _gqlUtils.deepEquals(varsToJson(), other.varsToJson()) &&
+            operation == other.operation &&
+            requestId == other.requestId &&
+            updateResult == other.updateResult &&
+            optimisticResponse == other.optimisticResponse &&
+            updateCacheHandlerKey == other.updateCacheHandlerKey &&
+            _gqlUtils.deepEquals(
+                updateCacheHandlerContext, other.updateCacheHandlerContext) &&
+            fetchPolicy == other.fetchPolicy &&
+            executeOnListen == other.executeOnListen &&
+            context == other.context);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        _gqlUtils.deepHash(varsToJson()),
+        operation,
+        requestId,
+        updateResult,
+        optimisticResponse,
+        updateCacheHandlerKey,
+        _gqlUtils.deepHash(updateCacheHandlerContext),
+        fetchPolicy,
+        executeOnListen,
+        context);
+  }
+
+  @override
+  String toString() {
+    return 'GSearchUsersReq(vars: $vars, operation: $operation, requestId: $requestId, updateResult: $updateResult, optimisticResponse: $optimisticResponse, updateCacheHandlerKey: $updateCacheHandlerKey, updateCacheHandlerContext: $updateCacheHandlerContext, fetchPolicy: $fetchPolicy, executeOnListen: $executeOnListen, context: $context)';
+  }
+}

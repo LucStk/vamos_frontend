@@ -119,3 +119,65 @@ class GGetFollowingVars {
     return 'GGetFollowingVars(userId: $userId)';
   }
 }
+
+class GSearchUsersVars {
+  const GSearchUsersVars({
+    required this.prefix,
+    required this.offset,
+    required this.limit,
+  });
+
+  factory GSearchUsersVars.fromJson(Map<String, dynamic> json) {
+    return GSearchUsersVars(
+      prefix: (json['prefix'] as String),
+      offset: (json['offset'] as int),
+      limit: (json['limit'] as int),
+    );
+  }
+
+  final String prefix;
+
+  final int offset;
+
+  final int limit;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$prefixValue = this.prefix;
+    _$result['prefix'] = _$prefixValue;
+    final _$offsetValue = this.offset;
+    _$result['offset'] = _$offsetValue;
+    final _$limitValue = this.limit;
+    _$result['limit'] = _$limitValue;
+    return _$result;
+  }
+
+  GSearchUsersVars copyWith({
+    String? prefix,
+    int? offset,
+    int? limit,
+  }) {
+    return GSearchUsersVars(
+      prefix: prefix ?? this.prefix,
+      offset: offset ?? this.offset,
+      limit: limit ?? this.limit,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSearchUsersVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSearchUsersVars(prefix: $prefix, offset: $offset, limit: $limit)';
+  }
+}

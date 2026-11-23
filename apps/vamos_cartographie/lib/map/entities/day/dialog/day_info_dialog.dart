@@ -8,7 +8,6 @@ import 'package:vamos_cartographie/domain_features/day/providers/day_providers.d
 import 'package:vamos_cartographie/domain_features/trip/presentation/mobility_type_display.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
-import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/dialog/day_stats.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/day_runs_list.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart';

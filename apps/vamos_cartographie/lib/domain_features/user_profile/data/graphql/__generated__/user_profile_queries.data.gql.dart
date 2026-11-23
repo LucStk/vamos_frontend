@@ -293,3 +293,61 @@ class GGetFollowingData {
     return 'GGetFollowingData(following: $following, G__typename: $G__typename)';
   }
 }
+
+class GSearchUsersData {
+  const GSearchUsersData({
+    required this.searchUsers,
+    this.G__typename = 'Query',
+  });
+
+  factory GSearchUsersData.fromJson(Map<String, dynamic> json) {
+    return GSearchUsersData(
+      searchUsers: (json['searchUsers'] as List<dynamic>)
+          .map((_$e) => _i1.GUserProfileDetailsData.fromJson(
+              (_$e as Map<String, dynamic>)))
+          .toList(),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final List<_i1.GUserProfileDetailsData> searchUsers;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['searchUsers'] =
+        this.searchUsers.map((_$e) => _$e.toJson()).toList();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GSearchUsersData copyWith({
+    List<_i1.GUserProfileDetailsData>? searchUsers,
+    String? G__typename,
+  }) {
+    return GSearchUsersData(
+      searchUsers: searchUsers ?? this.searchUsers,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSearchUsersData &&
+            _gqlUtils.listEquals(searchUsers, other.searchUsers) &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(
+        runtimeType, _gqlUtils.listHash(searchUsers), G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GSearchUsersData(searchUsers: $searchUsers, G__typename: $G__typename)';
+  }
+}
