@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
+import 'package:vamos_cartographie/map/entities/day/dialog/day_of_waypoint.dart';
 import 'package:vamos_cartographie/domain_features/day/providers/day_providers.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/dialog/day_info_dialog.dart';
@@ -94,34 +96,81 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
     final infoOpen = dialog != null;
     final hideChrome = ref.watch(tripDialogHidesChromeProvider);
 
-    // Dans un jour (ou l'un de ses morceaux), les boutons des côtés mènent au
-    // jour précédent et au jour suivant (absents s'il n'y en a pas).
-    final dayMode = selected is MapDaySegment || selected is MapDayRun;
-    VoidCallback? onPreviousDay;
-    VoidCallback? onNextDay;
-    if (dayMode) {
-      final endsAt = switch (selected) {
-        MapDaySegment(:final endsAt) => endsAt,
-        MapDayRun(:final endsAt) => endsAt,
-        _ => null,
-      };
-      final days = ref.watch(routeDaysProvider(mode.tripId));
-      final index = days.indexWhere((d) => d.endsAt == endsAt);
-      final previous = index < 0
-          ? null
-          : days.take(index).where((d) => d.hasGeometry).lastOrNull;
-      final next = index < 0
-          ? null
-          : days.skip(index + 1).where((d) => d.hasGeometry).firstOrNull;
-      VoidCallback goTo(RouteDay day) =>
-          () => ref.applyTransition(
-            Transition.set<MapObject>(
-              selectionSlot,
-              MapDaySegment(tripId: mode.tripId, endsAt: day.endsAt),
-            ),
+    // Les boutons des côtés du dock suivent ce qui est ouvert :
+    // - rien : retour à la carte principale ;
+    // - le voyage : retour (referme sa fiche) ;
+    // - un jour : jour précédent et jour suivant (absents s'il n'y en a pas) ;
+    // - un morceau : retour au jour ;
+    // - une étape : retour à son jour, et (propriétaire) déplacement.
+    final days = ref.watch(routeDaysProvider(mode.tripId));
+    DockAction goToDay(
+      RouteDay day, {
+      required IconData icon,
+      required String tooltip,
+    }) => (
+      icon: icon,
+      tooltip: tooltip,
+      onPressed: () => ref.applyTransition(
+        Transition.set<MapObject>(
+          selectionSlot,
+          MapDaySegment(tripId: mode.tripId, endsAt: day.endsAt),
+        ),
+      ),
+    );
+    DockAction back(IconData icon, String tooltip) => (
+      icon: icon,
+      tooltip: tooltip,
+      onPressed: () => ref.applyTransition(mode.back),
+    );
+
+    DockAction? left;
+    DockAction? right;
+    switch (selected) {
+      case MapDaySegment(:final endsAt):
+        final index = days.indexWhere((d) => d.endsAt == endsAt);
+        final previous = index < 0
+            ? null
+            : days.take(index).where((d) => d.hasGeometry).lastOrNull;
+        final next = index < 0
+            ? null
+            : days.skip(index + 1).where((d) => d.hasGeometry).firstOrNull;
+        if (previous != null) {
+          left = goToDay(
+            previous,
+            icon: Icons.adaptive.arrow_back,
+            tooltip: 'Jour précédent',
           );
-      if (previous != null) onPreviousDay = goTo(previous);
-      if (next != null) onNextDay = goTo(next);
+        }
+        if (next != null) {
+          right = goToDay(
+            next,
+            icon: Icons.adaptive.arrow_forward,
+            tooltip: 'Jour suivant',
+          );
+        }
+      case MapDayRun():
+        left = back(Icons.u_turn_left, 'Retour à la journée');
+      case MapWaypoint(:final id):
+        final waypoint = ref.watch(waypointProvider(mode.tripId, id));
+        final day = dayOfWaypoint(waypoint, days);
+        left = day == null
+            ? back(Icons.u_turn_left, 'Retour')
+            : goToDay(
+                day,
+                icon: Icons.u_turn_left,
+                tooltip: 'Retour à la journée',
+              );
+        if (!mode.readOnly) {
+          right = (
+            icon: Icons.edit,
+            tooltip: 'Déplacer l’étape',
+            onPressed: () => ref.applyTransition(mode.editWaypoint(id)),
+          );
+        }
+      case MapTrip():
+        left = back(Icons.u_turn_left, 'Retour');
+      default:
+        left = back(Icons.map_outlined, 'Retour à la carte');
     }
 
     // Chaque enfant a sa clé : en retirer un (recherche) ou en ajouter un
@@ -164,24 +213,11 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
                   onClose: () => ref.applyTransition(CursorActions.clear()),
                 )
               : TripReadyDock(
-                  mode: mode,
                   infoOpen: infoOpen,
-                  dayMode: dayMode,
-                  onPreviousDay: onPreviousDay,
-                  onNextDay: onNextDay,
-                  onBack: () => ref.applyTransition(mode.back),
+                  left: left,
+                  right: right,
                   onInfo: () => ref.applyTransition(
                     infoOpen ? mode.closeSheet : mode.showInfo,
-                  ),
-                  // Sur une étape, le crayon la déplace ; sinon on modifie le voyage.
-                  editIcon: selected is MapWaypoint ? Icons.edit : Icons.route,
-                  editTooltip: selected is MapWaypoint
-                      ? 'Déplacer l’étape'
-                      : 'Modifier le voyage',
-                  onEdit: () => ref.applyTransition(
-                    selected is MapWaypoint
-                        ? mode.editWaypoint(selected.id)
-                        : mode.edit,
                   ),
                 ),
         ),

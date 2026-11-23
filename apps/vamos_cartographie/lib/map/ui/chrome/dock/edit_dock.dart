@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/map/ui/chrome/dock/dock_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 
-/// Le seul contrôle de l'édition du trip, en bas à gauche.
+/// Le dock d'un outil, en bas de l'écran, comme celui de la lecture du trip.
 ///
-/// - Sans panneau : un bouton retour dans son propre conteneur, rien d'autre.
-/// - Avec un panneau : il est « tiré » de gauche à droite et prend la place
-///   du bouton retour, qui disparaît : on ferme le panneau (croix) avant de
-///   pouvoir revenir en arrière.
-///   Sa croix, en haut à droite, a son propre conteneur en relief, un peu
-///   au-dessus du panneau : ce n'est pas une action du panneau, qui garde
-///   donc toute sa largeur pour ses réglages et ses actions.
+/// - Sans panneau : un bouton retour en bas à gauche, rien d'autre.
+/// - Avec un panneau : il se déploie au-dessus du dock, et le retour laisse la
+///   place à une croix en bas au centre, qui le ferme. On ferme le panneau
+///   avant de pouvoir revenir en arrière.
 ///
 /// Ne connaît ni les modes ni Riverpod : le parent donne le [panel] (ou null)
 /// et les deux actions. [panelKey] identifie le panneau : le changer l'échange
@@ -39,14 +37,11 @@ class EditDock extends StatefulWidget {
 class _EditDockState extends State<EditDock>
     with SingleTickerProviderStateMixin {
   static const _duration = Duration(milliseconds: 240);
-  static const _buttonSize = 48.0;
   static const _margin = 12.0;
   static const _radius = 20.0;
 
-  /// La croix dépasse du panneau : place réservée au-dessus de lui.
-  static const _crossSize = 36.0;
-  static const _crossOverlap = 8.0; // part de la croix qui mord sur le panneau
-  static const _headroom = _crossSize - _crossOverlap;
+  /// Espace entre le panneau et les boutons.
+  static const _gap = 12.0;
 
   late final AnimationController _open = AnimationController(
     vsync: this,
@@ -104,51 +99,16 @@ class _EditDockState extends State<EditDock>
     child: child,
   );
 
-  /// Le retour s'efface quand le panneau prend sa place. Au repos, aucun
-  /// découpage : son ombre reste entière.
-  Widget _backButton(double t) {
-    final button = _surface(
-      child: SizedBox.square(
-        dimension: _buttonSize,
-        child: IconButton(
-          tooltip: 'Retour',
-          onPressed: widget.onBack,
-          icon: Icon(Icons.adaptive.arrow_back),
-        ),
-      ),
-    );
-    if (t == 0) return button;
-
-    return ClipRect(
-      clipper: const _RevealClipper(),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        widthFactor: 1 - t,
-        heightFactor: 1,
-        child: IgnorePointer(
-          child: Opacity(opacity: 1 - t, child: button),
-        ),
-      ),
-    );
-  }
-
-  Widget _cross(double t) => Opacity(
-    opacity: t,
-    child: Transform.scale(
-      scale: 0.6 + 0.4 * t,
-      child: Material(
-        elevation: 6,
-        shape: const CircleBorder(),
-        color: Theme.of(context).colorScheme.surface,
-        child: SizedBox.square(
-          dimension: _crossSize,
-          child: IconButton(
-            tooltip: 'Fermer',
-            iconSize: 20,
-            padding: EdgeInsets.zero,
-            onPressed: widget.onClose,
-            icon: const Icon(Icons.close),
-          ),
+  Widget _panel() => _surface(
+    child: Padding(
+      padding: const EdgeInsets.all(12),
+      child: AnimatedSize(
+        duration: _duration,
+        curve: Curves.easeOutCubic,
+        alignment: Alignment.bottomCenter,
+        child: AnimatedSwitcher(
+          duration: _duration,
+          child: KeyedSubtree(key: ValueKey(_generation), child: _shown!),
         ),
       ),
     ),
@@ -156,82 +116,82 @@ class _EditDockState extends State<EditDock>
 
   @override
   Widget build(BuildContext context) {
-    final curve = _curve;
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(_margin),
         child: Align(
-          alignment: Alignment.bottomLeft,
-          child: LayoutBuilder(
-            builder: (context, box) {
-              final total = box.maxWidth < kSheetMaxWidth
-                  ? box.maxWidth
-                  : kSheetMaxWidth;
-              return AnimatedBuilder(
-                animation: curve,
-                builder: (context, panel) {
-                  final t = curve.value;
-                  return Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      // Le retour s'efface quand le panneau prend sa place :
-                      // fermer le panneau d'abord, quitter l'édition ensuite.
-                      if (t < 1) _backButton(t),
-                      // Le panneau est tiré vers la droite. Fermé, il n'existe
-                      // plus du tout (ni ombre ni liseré).
-                      if (t > 0)
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: _headroom),
-                              // Ouvert en grand : plus rien à découper, l'ombre
-                              // du bord droit reste entière.
-                              child: t >= 1
-                                  ? panel
-                                  : ClipRect(
-                                      clipper: const _RevealClipper(),
-                                      child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        widthFactor: t,
-                                        // Sans quoi il prendrait toute la hauteur.
-                                        heightFactor: 1,
-                                        child: panel,
-                                      ),
-                                    ),
-                            ),
-                            Positioned(top: 0, right: 12, child: _cross(t)),
-                          ],
-                        ),
-                    ],
-                  );
-                },
-                child: SizedBox(
-                  width: total,
-                  child: _shown == null
-                      ? null
-                      : _surface(
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: AnimatedSize(
-                              duration: _duration,
-                              curve: Curves.easeOutCubic,
-                              alignment: Alignment.bottomCenter,
-                              child: AnimatedSwitcher(
-                                duration: _duration,
-                                child: KeyedSubtree(
-                                  key: ValueKey(_generation),
-                                  child: _shown!,
+          alignment: Alignment.bottomCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: kSheetMaxWidth),
+            child: AnimatedBuilder(
+              animation: _curve,
+              builder: (context, _) {
+                final t = _curve.value;
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Le panneau se déploie vers le haut. Fermé, il n'existe
+                    // plus du tout (ni ombre ni liseré).
+                    if (t > 0 && _shown != null)
+                      Padding(
+                        padding: EdgeInsets.only(bottom: _gap * t),
+                        // Ouvert en grand : plus rien à découper, l'ombre du
+                        // bord haut reste entière.
+                        child: t >= 1
+                            ? _panel()
+                            : ClipRect(
+                                clipper: const _RevealClipper(),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  heightFactor: t,
+                                  child: Opacity(opacity: t, child: _panel()),
+                                ),
+                              ),
+                      ),
+                    SizedBox(
+                      height: DockButton.size,
+                      child: Stack(
+                        children: [
+                          // Le retour s'efface quand le panneau s'ouvre.
+                          if (t < 1)
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: IgnorePointer(
+                                ignoring: t > 0,
+                                child: Opacity(
+                                  opacity: 1 - t,
+                                  child: DockButton(
+                                    icon: Icons.adaptive.arrow_back,
+                                    tooltip: 'Retour',
+                                    onPressed: widget.onBack,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                ),
-              );
-            },
+                          // La croix du panneau, au centre comme celle des
+                          // fiches de la lecture du trip.
+                          if (t > 0)
+                            Align(
+                              child: Opacity(
+                                opacity: t,
+                                child: Transform.scale(
+                                  scale: 0.6 + 0.4 * t,
+                                  child: DockButton(
+                                    icon: Icons.close,
+                                    tooltip: 'Fermer',
+                                    onPressed: widget.onClose,
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -239,8 +199,8 @@ class _EditDockState extends State<EditDock>
   }
 }
 
-/// Ne coupe que le bord droit du panneau en cours de dévoilement : l'ombre
-/// des autres côtés reste visible.
+/// Ne coupe que le bord haut du panneau en cours de dévoilement : l'ombre des
+/// autres côtés reste visible.
 class _RevealClipper extends CustomClipper<Rect> {
   const _RevealClipper();
 
@@ -248,7 +208,7 @@ class _RevealClipper extends CustomClipper<Rect> {
 
   @override
   Rect getClip(Size size) =>
-      Rect.fromLTRB(-_shadow, -_shadow, size.width, size.height + _shadow);
+      Rect.fromLTRB(-_shadow, 0, size.width + _shadow, size.height + _shadow);
 
   @override
   bool shouldReclip(_RevealClipper oldClipper) => false;

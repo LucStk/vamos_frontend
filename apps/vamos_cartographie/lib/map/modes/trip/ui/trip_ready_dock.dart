@@ -1,56 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dock/dock_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 
-/// Les trois boutons de la lecture d'un trip, en bas de l'écran : retour à
-/// gauche, fiche du voyage au milieu, édition à droite (propriétaire
-/// seulement). Dans une journée, ceux des côtés mènent au jour précédent et
-/// au jour suivant.
+/// Un bouton du dock : son icône, son libellé et ce qu'il fait.
+typedef DockAction = ({IconData icon, String tooltip, VoidCallback onPressed});
+
+/// Les boutons de la lecture d'un trip, en bas de l'écran : à gauche, un
+/// retour (à la carte, ou d'un niveau : morceau → jour, étape → jour) ou le
+/// jour précédent ; au milieu, la fiche du voyage (la croix qui la ferme quand
+/// elle est ouverte) ; à droite, le jour suivant ou le déplacement d'une étape.
 ///
-/// Ils ne sont là que si aucune fiche n'est ouverte. Seul le dialog du voyage
-/// les laisse : son bouton devient alors la croix qui le ferme.
+/// Chaque côté est absent quand son action est nulle. Ne connaît ni les modes
+/// ni les sélections : le parent décide de ce que chaque bouton fait.
 class TripReadyDock extends StatelessWidget {
   const TripReadyDock({
     super.key,
-    required this.mode,
-    required this.onBack,
     required this.onInfo,
-    required this.onEdit,
     this.infoOpen = false,
-    this.dayMode = false,
-    this.editIcon = Icons.route,
-    this.editTooltip = 'Modifier le voyage',
-    this.onPreviousDay,
-    this.onNextDay,
+    this.left,
+    this.right,
   });
 
   /// Hauteur à laisser libre au-dessus du dock (bouton, marges, un peu d'air).
   static const clearance = DockButton.size + 12 + 8;
 
-  /// La fiche du voyage est ouverte : le bouton du milieu la ferme.
+  /// Fiche du voyage : son icône au repos.
+  static const infoIcon = Icons.auto_stories_rounded;
+
+  /// Une fiche est ouverte : le bouton du milieu la ferme.
   final bool infoOpen;
-
-  /// Une journée (ou l'un de ses morceaux) est ouverte : le bouton de gauche
-  /// mène au jour précédent (au lieu de quitter) et celui de droite au jour
-  /// suivant (au lieu de modifier le voyage).
-  final bool dayMode;
-
-  /// Va au jour précédent ; null : il n'y en a pas, le bouton est absent.
-  final VoidCallback? onPreviousDay;
-
-  /// Va au jour suivant ; null : il n'y en a pas, le bouton est absent.
-  final VoidCallback? onNextDay;
-
-  final TripReadyMode mode;
-  final VoidCallback onBack;
   final VoidCallback onInfo;
-  final VoidCallback onEdit;
 
-  /// Icône et libellé du bouton de droite (hors jour) : modifier le voyage, ou
-  /// l'étape ouverte.
-  final IconData editIcon;
-  final String editTooltip;
+  final DockAction? left;
+  final DockAction? right;
+
+  Widget _button(DockAction a) =>
+      DockButton(icon: a.icon, tooltip: a.tooltip, onPressed: a.onPressed);
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -64,50 +49,17 @@ class TripReadyDock extends StatelessWidget {
             height: DockButton.size,
             child: Stack(
               children: [
-                if (!dayMode)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: DockButton(
-                      icon: Icons.adaptive.arrow_back,
-                      tooltip: 'Retour',
-                      onPressed: onBack,
-                    ),
-                  )
-                else if (onPreviousDay != null)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: DockButton(
-                      icon: Icons.adaptive.arrow_back,
-                      tooltip: 'Jour précédent',
-                      onPressed: onPreviousDay,
-                    ),
-                  ),
+                if (left case final a?)
+                  Align(alignment: Alignment.centerLeft, child: _button(a)),
                 Align(
                   child: DockButton(
-                    icon: infoOpen ? Icons.close : Icons.info_outline,
+                    icon: infoOpen ? Icons.close : infoIcon,
                     tooltip: infoOpen ? 'Fermer' : 'Informations du voyage',
                     onPressed: onInfo,
                   ),
                 ),
-                if (dayMode) ...[
-                  if (onNextDay != null)
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: DockButton(
-                        icon: Icons.adaptive.arrow_forward,
-                        tooltip: 'Jour suivant',
-                        onPressed: onNextDay,
-                      ),
-                    ),
-                ] else if (!mode.readOnly)
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: DockButton(
-                      icon: editIcon,
-                      tooltip: editTooltip,
-                      onPressed: onEdit,
-                    ),
-                  ),
+                if (right case final a?)
+                  Align(alignment: Alignment.centerRight, child: _button(a)),
               ],
             ),
           ),

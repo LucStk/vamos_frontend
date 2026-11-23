@@ -204,9 +204,7 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
       heightFactor: kPartialDialogHeightFactor,
       contentKey: (widget.endsAt, spanId),
       header: InfoDialogHeader(
-        // Retour au jour (la même chose que le bouton retour du dock).
-        onBack: () => ref.applyTransition(widget.mode.back),
-        backTooltip: 'Retour à la journée',
+        // Le retour au jour est le bouton en bas à gauche du dock.
         leading: style == null
             ? null
             : Icon(style.icon, color: style.color, size: 20),

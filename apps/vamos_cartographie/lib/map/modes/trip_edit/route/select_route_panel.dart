@@ -60,9 +60,9 @@ class _SelectRoutePanelState extends ConsumerState<SelectRoutePanel> {
 
     return ToolPanel(
       error: mode.failure?.message,
-      hint: hasPortion
-          ? null
-          : 'Ajustez les poignées pour choisir la portion de route.',
+      // Toujours une ligne de texte, courte : le panneau garde sa hauteur
+      // quand la portion apparaît (sinon il s'ouvre grand puis rétrécit).
+      hint: hasPortion ? 'Portion sélectionnée.' : 'Ajustez les poignées.',
       settings: [
         MobilityTypeMenu(
           selected: mobility,

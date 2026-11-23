@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/day/providers/day_providers.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/entities/day/dialog/day_of_waypoint.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stats_list.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart'
     show lengthBetween;
@@ -46,8 +44,6 @@ class WaypointInfoDialog extends ConsumerWidget {
         ? null
         : lengthBetween(geometry, 0, waypoint.anchorPosition);
 
-    final day = dayOfWaypoint(waypoint, ref.watch(routeDaysProvider(tripId)));
-
     final subtitle = [
       if (waypoint.stay != null) 'Halte',
       if (waypoint.kind != null) waypoint.kind.display.label,
@@ -59,16 +55,6 @@ class WaypointInfoDialog extends ConsumerWidget {
       heightFactor: kPartialDialogHeightFactor,
       contentKey: id,
       header: InfoDialogHeader(
-        // Remonte à la journée du waypoint, comme le fait un morceau.
-        onBack: day == null
-            ? null
-            : () => ref.applyTransition(
-                Transition.set<MapObject>(
-                  selectionSlot,
-                  MapDaySegment(tripId: tripId, endsAt: day.endsAt),
-                ),
-              ),
-        backTooltip: 'Retour à la journée',
         // Le propriétaire change la catégorie d'ici ; les autres la voient.
         leading: editable
             ? WaypointKindMenu(
