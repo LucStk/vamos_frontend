@@ -76,9 +76,57 @@ class WaypointOverviewViewer extends ConsumerWidget {
         else
           _EmptyHint('Aucune description', theme: theme),
 
+        if (editable) ...[
+          const SizedBox(height: 20),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: const Text("Fin d'étape"),
+            subtitle: const Text(
+              'Halte de nuit : la route est découpée en jours',
+            ),
+            value: waypoint.stay != null,
+            onChanged: (on) => _setStay(context, ref, on),
+          ),
+        ],
+
         const SizedBox(height: 8),
       ],
     );
+  }
+
+  Future<void> _setStay(BuildContext context, WidgetRef ref, bool on) async {
+    final editor = ref.read(waypointStoreProvider(tripId).notifier);
+    if (on) {
+      editor.setStay(waypoint.id, 1);
+      return;
+    }
+    // Les notes des jours de la halte disparaissent avec elle.
+    final hasNotes = waypoint.stay?.dayNotes.isNotEmpty ?? false;
+    if (hasNotes && !await _confirmClearStay(context)) return;
+    editor.clearStay(waypoint.id);
+  }
+
+  Future<bool> _confirmClearStay(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text("Retirer la fin d'étape ?"),
+        content: const Text(
+          'Les notes des journées de cette halte seront supprimées.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('Annuler'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('Retirer'),
+          ),
+        ],
+      ),
+    );
+    return confirmed == true;
   }
 }
 
