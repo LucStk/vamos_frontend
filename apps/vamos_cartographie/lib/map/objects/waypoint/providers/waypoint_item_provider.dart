@@ -2,6 +2,7 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/waypoint_item.dart';
@@ -16,10 +17,16 @@ WaypointItem waypointItem(
   MapCameraReader cameraReader,
 ) {
   final d = ref.watch(waypointProvider(tripId, id));
+  // L'épingle penche à l'écart de la route, d'après sa tangente à l'ancre du
+  // waypoint.
+  final polyline = ref.watch(routePolylineProvider(tripId, cameraReader));
   return WaypointItem(
     worldPosition: cameraReader.latLngToWorldOffset(d.position),
     object: MapWaypoint(tripId: tripId, id: id),
     kindStyle: d.display,
+    direction: polyline == null
+        ? WaypointItem.upright
+        : WaypointItem.pinDirection(polyline.angleAt(d.anchorPosition)),
   );
 }
 

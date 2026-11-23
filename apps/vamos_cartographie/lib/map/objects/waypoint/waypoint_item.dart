@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:domain_core/domain_core.dart';
 
@@ -8,13 +9,41 @@ import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoin
 import 'package:vamos_cartographie/map/objects/shared/badge/badge_look.dart';
 import 'package:vamos_cartographie/map/objects/shared/badge/badge_style.dart';
 
+/// Un waypoint : une épingle dont la pointe est sur sa position géographique
+/// (elle la désigne au lieu de la recouvrir), la tête portant le glyphe.
+///
+/// L'épingle penche à l'écart de la route : [direction] est celle de la pointe
+/// vers la tête, calculée par [pinDirection] d'après la route voisine.
 final class WaypointItem extends PointItem {
   WaypointItem({
     required this.object,
     required this.worldPosition,
     required this.kindStyle,
     this.background = false,
+    this.direction = upright,
   }) : zIndex = background ? ZIndex.content - 1 : ZIndex.marker;
+
+  /// Direction de la pointe vers la tête : droit vers le haut de l'écran.
+  static const upright = -pi / 2;
+
+  /// Inclinaison maximale par rapport à la verticale (radians) : une épingle
+  /// ne se couche pas, même sur une route verticale.
+  static const _maxTilt = pi / 3;
+
+  /// Direction de l'épingle pour une route de tangente [tangent] (angle de la
+  /// route à l'écran, 0 = vers la droite) : perpendiculaire à la route, du
+  /// côté du haut de l'écran, donc à l'écart d'elle ; au plus [_maxTilt] de
+  /// la verticale.
+  static double pinDirection(double tangent) {
+    var normal = tangent - pi / 2;
+    // Du côté du haut de l'écran (y vers le bas : sinus négatif).
+    if (sin(normal) > 0) normal += pi;
+    final fromUpright = atan2(sin(normal - upright), cos(normal - upright));
+    return upright + fromUpright.clamp(-_maxTilt, _maxTilt);
+  }
+
+  /// Direction de la pointe vers la tête (radians, repère de l'écran).
+  final double direction;
 
   /// Au second plan : sous la route, presque transparent. Pour les scènes où
   /// les waypoints ne sont que du repère (sélection d'une portion de route).
@@ -26,6 +55,7 @@ final class WaypointItem extends PointItem {
     worldPosition: worldPosition,
     kindStyle: kindStyle,
     background: true,
+    direction: direction,
   );
 
   /// Opacité d'un waypoint au second plan.
@@ -47,9 +77,17 @@ final class WaypointItem extends PointItem {
   /// Couleur et glyphe : même source que les widgets (catégorie ou halte).
   final WaypointKindStyle kindStyle;
 
-  /// Rayon de la pastille au repos. Doit rester égal au `radius` passé à
-  /// [BadgeStyle.build].
+  /// Rayon de la tête au repos.
   static const _radius = 13.0;
+
+  /// Distance de la pointe au centre de la tête, en rayons.
+  static const _tipRatio = 1.9;
+
+  /// Proportion du glyphe, comme [BadgeStyle].
+  static const _glyphToRadius = 13.0 / 11.0;
+
+  static const _casingColor = Color(0xD9FFFFFF);
+  static const _white = Color(0xFFFFFFFF);
 
   @override
   ScreenLength get visualRadius => _radius.px;
@@ -57,25 +95,107 @@ final class WaypointItem extends PointItem {
   @override
   ScreenLength get hitRadius => 16.px;
 
+  /// Centre de la tête par rapport à la pointe, en px écran, au repos.
+  Offset get _headOffset =>
+      Offset(cos(direction), sin(direction)) * (_radius * _tipRatio);
+
+  /// On touche l'épingle sur toute sa longueur : de la pointe à la tête.
+  @override
+  bool isHitAt(WorldOffset p, double zoomScale) {
+    final tip = worldPosition.value;
+    final head = tip + _headOffset / zoomScale;
+    final ab = head - tip;
+    final len2 = ab.dx * ab.dx + ab.dy * ab.dy;
+    final ap = p.value - tip;
+    final t = len2 == 0
+        ? 0.0
+        : ((ap.dx * ab.dx + ap.dy * ab.dy) / len2).clamp(0.0, 1.0);
+    final nearest = tip + ab * t;
+    return (p.value - nearest).distance <= hitRadius.toWorld(zoomScale);
+  }
+
+  static Color _fade(Color c, double opacity) =>
+      opacity >= 1 ? c : c.withValues(alpha: c.a * opacity);
+
+  /// L'épingle : un disque de rayon [r] centré en [head], prolongé par une
+  /// pointe en [tip] (coordonnées px, y vers le bas).
+  static Path _pin(Offset tip, Offset head, double r) {
+    final toHead = head - tip;
+    final d = toHead.distance;
+    final phi = atan2(toHead.dy, toHead.dx);
+    // Les points de tangence sont vus du centre à ±gamma de la direction de
+    // la pointe.
+    final gamma = acos((r / d).clamp(0.0, 1.0));
+    final fromHeadToTip = phi + pi;
+    Offset onCircle(double a) => head + Offset(cos(a), sin(a)) * r;
+
+    return Path()
+      ..moveTo(tip.dx, tip.dy)
+      ..lineTo(
+        onCircle(fromHeadToTip + gamma).dx,
+        onCircle(fromHeadToTip + gamma).dy,
+      )
+      ..arcTo(
+        Rect.fromCircle(center: head, radius: r),
+        fromHeadToTip + gamma,
+        2 * pi - 2 * gamma,
+        false,
+      )
+      ..close();
+  }
+
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
   }) {
-    final look = BadgeStyle.resolver.resolve(context);
-    return BadgeStyle.build(
-      anchor: worldPosition,
-      color: kindStyle.color,
-      glyph: IconGlyph(kindStyle.svgPath),
-      look: background
-          ? BadgeLook(
-              scale: look.scale,
-              casing: look.casing,
-              halo: look.halo,
-              lift: look.lift,
-              opacity: min(look.opacity, _backgroundOpacity),
-            )
-          : look,
-      radius: _radius,
-    );
+    final resolved = BadgeStyle.resolver.resolve(context);
+    final look = background
+        ? BadgeLook(
+            scale: resolved.scale,
+            casing: resolved.casing,
+            halo: resolved.halo,
+            lift: resolved.lift,
+            opacity: min(resolved.opacity, _backgroundOpacity),
+          )
+        : resolved;
+
+    final r = _radius * look.scale;
+    final head = Offset(cos(direction), sin(direction)) * (r * _tipRatio);
+    final o = look.opacity;
+    final color = kindStyle.color;
+    final fill = _fade(Color.lerp(color, _white, look.lift)!, o);
+    final glyphPx = (_radius * _glyphToRadius * look.scale).roundToDouble();
+
+    return DrawGroup([
+      if (look.halo > 0.1)
+        DrawAnchoredPath(
+          anchor: worldPosition,
+          path: Path()
+            ..addOval(Rect.fromCircle(center: head, radius: r + look.halo / 2)),
+          style: Fill(_fade(color.withValues(alpha: 0.30), o)),
+        ),
+      DrawAnchoredPath(
+        anchor: worldPosition,
+        path: _pin(Offset.zero, head, r),
+        style: Fill(_fade(_casingColor, o)),
+      ),
+      DrawAnchoredPath(
+        anchor: worldPosition,
+        path: _pin(Offset.zero, head, r - look.casing),
+        style: Fill(fill),
+      ),
+      DrawAnchoredPath(
+        anchor: worldPosition,
+        path: GlyphPaths.anchored(
+          IconGlyph(kindStyle.svgPath),
+          sizePx: glyphPx,
+        ).shift(head),
+        style: glyphStyle(
+          IconGlyph(kindStyle.svgPath),
+          _fade(_white, o),
+          sizePx: glyphPx,
+        ),
+      ),
+    ]);
   }
 }
