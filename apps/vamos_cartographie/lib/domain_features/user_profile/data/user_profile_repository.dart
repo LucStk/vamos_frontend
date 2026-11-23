@@ -82,6 +82,22 @@ class UserProfileRepository {
     });
   }
 
+  /// Utilisateurs dont le nom commence par [prefix]. Un préfixe vide ne fait
+  /// pas d'appel réseau.
+  Future<Either<Failure, List<UserProfile>>> searchUsers(
+    String prefix, {
+    int offset = 0,
+    int limit = 20,
+  }) async {
+    final trimmed = prefix.trim();
+    if (trimmed.isEmpty) return Right([]);
+
+    return await guard(() async {
+      final d = await remote.searchUsers(trimmed, offset: offset, limit: limit);
+      return d.map((m) => m.toUserProfileModel()).toList();
+    });
+  }
+
   Future<Either<Failure, UserProfile>> followUser(UserId userId) async {
     return await guard(() async {
       final d = await remote.followUser(userId);

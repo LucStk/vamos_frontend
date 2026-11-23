@@ -239,6 +239,7 @@ type Query {
   userSavedTrips(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [TripType!]!
   me: GetMePayload!
   user(userId: UUID!): UserProfileType!
+  searchUsers(prefix: String!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
   followers(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
   following(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
 

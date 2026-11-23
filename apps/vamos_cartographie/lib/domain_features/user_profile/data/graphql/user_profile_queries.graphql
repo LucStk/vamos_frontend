@@ -24,3 +24,9 @@ query GetFollowing($userId: UUID!) {
         ...UserProfileDetails
     }
 }
+
+query SearchUsers($prefix: String!, $offset: Int!, $limit: Int!) {
+    searchUsers(prefix: $prefix, offset: $offset, limit: $limit) {
+        ...UserProfileDetails
+    }
+}

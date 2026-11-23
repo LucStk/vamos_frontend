@@ -38,6 +38,22 @@ class UserProfileDatasource {
     return data.following;
   }
 
+  /// Profils dont le nom commence par [prefix] (insensible à la casse).
+  /// Toujours réseau : les résultats évoluent avec les inscriptions.
+  Future<List<GUserProfileDetailsData>> searchUsers(
+    String prefix, {
+    int offset = 0,
+    int limit = 20,
+  }) async {
+    final data = await ferryClient.execute(
+      GSearchUsersReq(
+        fetchPolicy: FetchPolicy.NetworkOnly,
+        vars: GSearchUsersVars(prefix: prefix, offset: offset, limit: limit),
+      ),
+    );
+    return data.searchUsers;
+  }
+
   Future<GCreateProfileResult> createProfile(String profileName) async {
     final response = await ferryClient.execute(
       GCreateProfileReq(vars: GCreateProfileVars(profileName: profileName)),
