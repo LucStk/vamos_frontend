@@ -2,6 +2,7 @@
 import 'package:domain_core/domain_core.dart';
 
 import 'package:map_engine/src/domain/objects/map_objects.dart';
+import 'package:trip_application/trip_application.dart';
 
 /// Résultat d'un hit-test : l'objet touché ET l'endroit précis sur lui.
 ///
@@ -40,6 +41,16 @@ sealed class HitDetail {
 final class RouteHitDetail extends HitDetail {
   const RouteHitDetail(this.position);
   final double position;
+}
+
+/// Touche sur un jour de la route : où, et dans quel morceau (span de
+/// mobilité) du jour.
+final class DayRunHitDetail extends HitDetail {
+  const DayRunHitDetail(this.position, this.spanId);
+
+  /// Même repère que [RouteHitDetail.position].
+  final double position;
+  final SpanId spanId;
 }
 
 final class HitObject<T extends MapObject> extends MapHit {

@@ -32,9 +32,14 @@ DaySegmentItem? daySegmentItem(
   // « aucun jour » même quand `endsAt` est null, la dernière journée).
   final selectedDay = ref.watch(
     modeSelectionProvider.select(
-      (s) => s is MapDaySegment && s.tripId == tripId
-          ? (endsAt: s.endsAt)
-          : null,
+      (s) => switch (s) {
+        // Un morceau ouvert garde son jour en avant.
+        MapDaySegment(tripId: final t, endsAt: final day) ||
+        MapDayRun(tripId: final t, endsAt: final day) when t == tripId => (
+          endsAt: day,
+        ),
+        _ => null,
+      },
     ),
   );
   if (dayRuns == null || geometry == null || polyline == null) return null;
@@ -59,6 +64,8 @@ DaySegmentItem? daySegmentItem(
     runs.add((
       appearance: MobilityAppearances.of(mobilityType),
       worldSegments: projectLine(slice, cameraReader.latLngToWorldOffset),
+      spanId: run.mobilityId,
+      range: run.range,
     ));
   }
   if (runs.isEmpty) return null;

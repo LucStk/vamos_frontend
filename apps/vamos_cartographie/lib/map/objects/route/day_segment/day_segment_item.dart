@@ -2,6 +2,7 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/geometry/rounded_polyline.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/style/segment_look.dart';
@@ -10,10 +11,13 @@ import 'package:vamos_cartographie/map/objects/route/segment/style/segment_style
 // + vos imports habituels : route_store, route_polyline_provider,
 //   mobilitySpanProvider, MobilityAppearances, sliceBetween, projectLine...
 
-/// Un tronçon de modalité à l'intérieur d'un jour : sa couleur et sa géométrie.
+/// Un tronçon de modalité à l'intérieur d'un jour : sa couleur et sa géométrie,
+/// avec son span et sa place sur la route (pour savoir lequel on touche).
 typedef DayRunGeometry = ({
   SegmentAppearance appearance,
   List<WorldSegment> worldSegments,
+  SpanId spanId,
+  ({double from, double to}) range,
 });
 
 /// Un jour de la route, éventuellement multicolore (une couleur par modalité
@@ -51,8 +55,18 @@ final class DaySegmentItem extends LineItem {
   @override
   ScreenLength get hitRadius => 14.px;
 
+  /// Position sur la route et morceau touché : le premier dont la fin dépasse
+  /// la position, à défaut le dernier (la projection peut déborder un peu).
   @override
-  HitDetail? hitDetail(WorldOffset p) => RouteHitDetail(polyline.project(p));
+  HitDetail? hitDetail(WorldOffset p) {
+    final position = polyline.project(p);
+    if (runs.isEmpty) return RouteHitDetail(position);
+    final run = runs.firstWhere(
+      (r) => position <= r.range.to,
+      orElse: () => runs.last,
+    );
+    return DayRunHitDetail(position, run.spanId);
+  }
 
   @override
   DragDetail? dragDetail(WorldOffset p) => RouteDragDetail(polyline.project(p));

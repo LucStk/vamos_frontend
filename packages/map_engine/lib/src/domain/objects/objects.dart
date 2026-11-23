@@ -9,6 +9,7 @@ export 'route/trip_end.dart';
 export 'route/trip_start.dart';
 export 'route/route_elements.dart';
 export 'route/day_segment.dart';
+export 'route/day_run.dart';
 export 'route/handle/selection_handle.dart';
 export 'route/handle/route_handle.dart';
 export 'route/handle/span_bound_handle.dart';

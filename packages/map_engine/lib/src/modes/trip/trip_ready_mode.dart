@@ -17,6 +17,30 @@ final class TripReadyMode extends TripMode {
   Transition onTap(TapGesture g) {
     final e = g.element;
 
+    // Un jour est sélectionné : en toucher un morceau l'ouvre ; toucher le
+    // morceau ouvert revient au jour.
+    if (g.hit case HitObject(
+      object: MapDaySegment(:final endsAt),
+      detail: DayRunHitDetail(:final spanId),
+    )) {
+      return Transition.withState((st) {
+        final current = st.slots.get(selectionSlot);
+        final sameDay = switch (current) {
+          MapDaySegment(endsAt: final a) || MapDayRun(endsAt: final a) =>
+            a == endsAt,
+          _ => false,
+        };
+        // Autre jour, ou rien : sélection d'un jour, comme d'habitude.
+        if (!sameDay) return Transition.set<MapObject>(selectionSlot, e);
+
+        final run = MapDayRun(tripId: tripId, endsAt: endsAt, spanId: spanId);
+        return Transition.set<MapObject>(
+          selectionSlot,
+          current == run ? MapDaySegment(tripId: tripId, endsAt: endsAt) : run,
+        );
+      });
+    }
+
     if (e is MapObject &&
         (e is MapWaypoint || e is MapMobilitySpan || e is MapDaySegment)) {
       return Transition.withState((st) {

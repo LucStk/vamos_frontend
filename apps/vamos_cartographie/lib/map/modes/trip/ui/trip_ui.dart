@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/day_sheet_pages.dart';
+import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_sheet_pages.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_sheet_pages.dart';
 import 'package:vamos_cartographie/map/entities/waypoint/sheet_pages/waypoint_sheet_pages.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
@@ -46,7 +47,14 @@ class TripReadyUi extends ConsumerWidget {
           ),
         PagedSheet(
           barLeading: BackTab(
-            onTap: () => ref.applyTransition(ref.read(mapModeProvider).back),
+            onTap: () => ref.applyTransition(switch (selected) {
+              // Un morceau ouvert : retour à son jour.
+              MapDayRun(:final tripId, :final endsAt) => Transition.set<MapObject>(
+                selectionSlot,
+                MapDaySegment(tripId: tripId, endsAt: endsAt),
+              ),
+              _ => ref.read(mapModeProvider).back,
+            }),
           ),
           pages: switch (selected) {
             MapWaypoint(:final id, :final tripId) => waypointSheetPages(
@@ -54,6 +62,13 @@ class TripReadyUi extends ConsumerWidget {
               ref.watch(waypointProvider(tripId, id)),
               editable: !mode.readOnly,
             ),
+            MapDayRun(:final tripId, :final endsAt, :final spanId) =>
+              runSheetPages(
+                tripId,
+                endsAt,
+                spanId,
+                editable: !mode.readOnly,
+              ),
             MapDaySegment(:final tripId, :final endsAt) => daySheetPages(
               tripId,
               endsAt,

@@ -4,6 +4,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/day/providers/day_providers.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
+import 'package:vamos_cartographie/map/entities/day/sheet_pages/day_runs_list.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 /// Page d'une journée de la route : titre et notes.
@@ -202,6 +203,8 @@ class _DayNotesFormState extends ConsumerState<_DayNotesForm> {
             ),
           ),
         ],
+        // Les morceaux se consultent aussi en lecture seule.
+        DayRunsList(tripId: widget.tripId, endsAt: widget.endsAt),
       ],
     );
   }

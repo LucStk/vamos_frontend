@@ -1,0 +1,33 @@
+# domain_features/day/data/graphql/run_note.graphql
+
+fragment RunNoteDetails on RunNoteType {
+    id
+    stayId
+    spanId
+    title
+    notes
+}
+
+query RunNotes($tripId: UUID!) {
+    runNotes(tripId: $tripId) {
+        ...RunNoteDetails
+    }
+}
+
+mutation SetRunNote(
+    $tripId: UUID!
+    $spanId: UUID!
+    $stayId: UUID
+    $title: String!
+    $notes: String!
+) {
+    setRunNote(
+        tripId: $tripId
+        spanId: $spanId
+        stayId: $stayId
+        title: $title
+        notes: $notes
+    ) {
+        ...RunNoteDetails
+    }
+}
