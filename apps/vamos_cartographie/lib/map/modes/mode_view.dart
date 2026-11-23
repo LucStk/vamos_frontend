@@ -46,7 +46,6 @@ ModeView viewFor(AppMode mode) => switch (mode) {
   SketchPreviewing m => tripEditView(m, sketchPreviewScene(m)),
   // Actions contextuelles (gestes sur la route).
   SelectRouteMode m => tripEditView(m, selectRouteScene(m.tripId)),
-  TrimRouteMode m => tripEditView(m, selectRouteScene(m.tripId)),
   PortionPreviewMode m => tripEditView(m, portionPreviewScene(m)),
   EditSpanMode m => tripEditView(m, editSpanScene(m)),
 

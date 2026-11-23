@@ -14,8 +14,11 @@ import 'package:trip_application/trip_application.dart';
 /// depuis [TripEditMode]. Le glissement qui l'a ouverte continue ici : la
 /// poignée `b` suit le doigt.
 ///
-/// Sur la portion sélectionnée : la re-router ([preview]), ou lui donner une
-/// mobilité en gardant son tracé ([keepTrace]).
+/// Elle peut aussi s'ouvrir en saisissant le départ ou l'arrivée de la route.
+///
+/// Sur la portion sélectionnée : la re-router ([preview]), lui donner une
+/// mobilité en gardant son tracé ([keepTrace]), ou, si un curseur est sur une
+/// extrémité de la route, la supprimer ([trim]).
 class SelectRouteMode extends RouteToolMode {
   SelectRouteMode(super.tripId, {required this.initialPosition})
     : restoredSelection = null,
@@ -94,7 +97,7 @@ class SelectRouteMode extends RouteToolMode {
   @override
   Transition onDragStart(DragStartGesture g) => switch (g.source) {
     HitObject(
-      object: MapMobilitySpan(),
+      object: MapMobilitySpan() || MapTripStart() || MapTripEnd(),
       detail: RouteHitDetail(:final position),
     ) =>
       Transition.set(routeSelectionSlot, RouteSelection.collapsedAt(position)),
@@ -105,8 +108,11 @@ class SelectRouteMode extends RouteToolMode {
   Transition onDragging(DragUpdateGesture g) {
     return switch ((g.source.object, g.detail)) {
       // Le drag qui a créé la sélection (y compris celui commencé dans
-      // TripEditMode) : `b` suit le doigt.
-      (MapMobilitySpan(), RouteDragDetail(:final position)) =>
+      // TripEditMode, ou depuis une extrémité de la route) : `b` suit le doigt.
+      (
+        MapMobilitySpan() || MapTripStart() || MapTripEnd(),
+        RouteDragDetail(:final position),
+      ) =>
         Transition.update(
           routeSelectionSlot,
           (s) => s.withHandleAt(HandleId.b, position),
@@ -119,4 +125,31 @@ class SelectRouteMode extends RouteToolMode {
       _ => Transition.stay(),
     };
   }
+
+  /// Supprime la portion sélectionnée, de l'extrémité [end] qu'elle atteint au
+  /// curseur le plus proche, puis revient à l'édition.
+  Transition trim(RouteEnd end) =>
+      Transition.withSlot<RouteSelection>(routeSelectionSlot, (s) {
+        if (s.isCollapsed) return Transition.stay();
+        return Transition.run(
+          TrimRoute(
+            tripId: tripId,
+            end: end,
+            at: switch (end) {
+              RouteEnd.start => s.end,
+              RouteEnd.end => s.start,
+            },
+          ),
+          then: (current, result) {
+            // Quitté entre-temps : on ignore cette réponse.
+            if (current.mode is! SelectRouteMode) return null;
+            return result.fold(
+              (failure) => Transition.to(
+                SelectRouteMode.restoring(tripId, s, failure: failure),
+              ),
+              (_) => Transition.to(TripEditMode(tripId)),
+            );
+          },
+        );
+      });
 }

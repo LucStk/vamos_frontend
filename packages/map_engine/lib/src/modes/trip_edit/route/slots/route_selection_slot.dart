@@ -29,3 +29,19 @@ abstract class RouteSelection with _$RouteSelection {
     HandleId.b => copyWith(b: pos),
   };
 }
+
+/// Extrémité de la route.
+enum RouteEnd { start, end }
+
+extension RouteSelectionEnds on RouteSelection {
+  /// Extrémité de la route atteinte par la sélection (un curseur posé dessus,
+  /// ou au-delà). Null si aucune, ou si les deux : la route entière n'est pas
+  /// à raccourcir.
+  RouteEnd? reachedEnd(int vertexCount) {
+    const tolerance = 1e-3;
+    final atStart = start <= tolerance;
+    final atEnd = end >= vertexCount - 1 - tolerance;
+    if (isCollapsed || atStart == atEnd) return null;
+    return atStart ? RouteEnd.start : RouteEnd.end;
+  }
+}

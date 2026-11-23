@@ -12,7 +12,7 @@ import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 
 /// Panneau contextuel de [SelectRouteMode] (ouvert par un glissement sur la
 /// route, sans onglet) : re-router la portion sélectionnée, avec ou sans
-/// changement de mobilité.
+/// changement de mobilité, ou la supprimer quand elle part d'une extrémité.
 @Dependencies([modeSelection, ModeMachine])
 class SelectRoutePanel extends ConsumerStatefulWidget {
   const SelectRoutePanel(this.mode, {super.key});
@@ -55,6 +55,8 @@ class _SelectRoutePanelState extends ConsumerState<SelectRoutePanel> {
     // Même mobilité partout sous la sélection : rien à changer, et le serveur
     // n'a pas à y couper un span de plus.
     final changesMobility = underSelection.any((m) => m != mobility);
+    // Un curseur sur le départ ou l'arrivée : la portion peut être retirée.
+    final trimEnd = selection?.reachedEnd(vertexCount);
 
     return ToolPanel(
       error: mode.failure?.message,
@@ -68,6 +70,24 @@ class _SelectRoutePanelState extends ConsumerState<SelectRoutePanel> {
         ),
       ],
       trailing: [
+        if (trimEnd != null)
+          ToolAction(
+            icon: Icons.content_cut,
+            label: switch (trimEnd) {
+              RouteEnd.start => 'Supprimer le début',
+              RouteEnd.end => 'Supprimer la fin',
+            },
+            destructive: true,
+            confirmation: ToolConfirmation(
+              title: switch (trimEnd) {
+                RouteEnd.start => 'Supprimer le début de la route ?',
+                RouteEnd.end => 'Supprimer la fin de la route ?',
+              },
+              message: 'La portion surlignée sera retirée de l’itinéraire.',
+              confirmLabel: 'Supprimer',
+            ),
+            onPressed: () => ref.applyTransition(mode.trim(trimEnd)),
+          ),
         ToolAction(
           icon: Icons.close,
           label: 'Fermer',

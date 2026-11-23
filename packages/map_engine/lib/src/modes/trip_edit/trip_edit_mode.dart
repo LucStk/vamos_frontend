@@ -9,7 +9,6 @@ import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
 import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/edit_span_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/select_route_mode.dart';
-import 'package:map_engine/src/modes/trip_edit/route/trim_route_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/waypoint/commands/waypoint_command.dart';
 
 /// Édition du trip, aucun outil actif : les gestes agissent sur les objets
@@ -39,11 +38,9 @@ final class TripEditMode extends TripMode {
     _ => Transition.stay(),
   };
 
-  /// Glisser le départ ou l'arrivée de la route : sélection entre cette
-  /// extrémité et un curseur ([TrimRouteMode]), pour raccourcir la route.
-  ///
-  /// Glisser depuis la route : la sélection d'une portion commence au point
-  /// saisi. Le reste du geste est reçu par [SelectRouteMode], dont
+  /// Glisser depuis la route, y compris son départ ou son arrivée : la
+  /// sélection d'une portion commence au point saisi. Le reste du geste est
+  /// reçu par [SelectRouteMode], dont
   /// `onDragging` fait suivre le doigt à la poignée `b`.
   ///
   /// Glisser une étape ou son ancre : rien à préparer, [onDragging] s'en
@@ -51,16 +48,7 @@ final class TripEditMode extends TripMode {
   @override
   Transition onDragStart(DragStartGesture g) => switch (g.source) {
     HitObject(
-      object: MapTripStart(),
-      detail: RouteHitDetail(:final position),
-    ) =>
-      Transition.to(
-        TrimRouteMode(tripId, end: RouteEnd.start, anchor: position),
-      ),
-    HitObject(object: MapTripEnd(), detail: RouteHitDetail(:final position)) =>
-      Transition.to(TrimRouteMode(tripId, end: RouteEnd.end, anchor: position)),
-    HitObject(
-      object: MapMobilitySpan(),
+      object: MapMobilitySpan() || MapTripStart() || MapTripEnd(),
       detail: RouteHitDetail(:final position),
     ) =>
       Transition.to(SelectRouteMode(tripId, initialPosition: position)),
