@@ -125,3 +125,43 @@ class GAttachFileVars {
     return 'GAttachFileVars(input: $input)';
   }
 }
+
+class GReorderFilesVars {
+  const GReorderFilesVars({required this.input});
+
+  factory GReorderFilesVars.fromJson(Map<String, dynamic> json) {
+    return GReorderFilesVars(
+        input: _i1.GReorderFilesInput.fromJson(
+            (json['input'] as Map<String, dynamic>)));
+  }
+
+  final _i1.GReorderFilesInput input;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$inputValue = this.input;
+    _$result['input'] = _$inputValue.toJson();
+    return _$result;
+  }
+
+  GReorderFilesVars copyWith({_i1.GReorderFilesInput? input}) {
+    return GReorderFilesVars(input: input ?? this.input);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GReorderFilesVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GReorderFilesVars(input: $input)';
+  }
+}

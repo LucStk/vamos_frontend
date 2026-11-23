@@ -613,6 +613,34 @@ enum GRefinementFailure {
   }
 }
 
+enum GResultMode {
+  PLACE,
+  CATEGORY,
+  gUnknownEnumValue;
+
+  static GResultMode fromJson(String value) {
+    switch (value) {
+      case r'PLACE':
+        return GResultMode.PLACE;
+      case r'CATEGORY':
+        return GResultMode.CATEGORY;
+      default:
+        return GResultMode.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GResultMode.PLACE:
+        return r'PLACE';
+      case GResultMode.CATEGORY:
+        return r'CATEGORY';
+      case GResultMode.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
+  }
+}
+
 class GReorderFilesInput {
   const GReorderFilesInput({
     required this.targetType,
@@ -674,34 +702,6 @@ class GReorderFilesInput {
   @override
   String toString() {
     return 'GReorderFilesInput(targetType: $targetType, targetId: $targetId, fileIds: $fileIds)';
-  }
-}
-
-enum GResultMode {
-  PLACE,
-  CATEGORY,
-  gUnknownEnumValue;
-
-  static GResultMode fromJson(String value) {
-    switch (value) {
-      case r'PLACE':
-        return GResultMode.PLACE;
-      case r'CATEGORY':
-        return GResultMode.CATEGORY;
-      default:
-        return GResultMode.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GResultMode.PLACE:
-        return r'PLACE';
-      case GResultMode.CATEGORY:
-        return r'CATEGORY';
-      case GResultMode.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
   }
 }
 

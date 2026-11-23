@@ -15,6 +15,7 @@ class InlineEditableText extends StatefulWidget {
     this.multiline = false,
     this.maxLines = 2,
     this.minFontSize = 11,
+    this.expand = false,
   });
 
   final String text;
@@ -32,6 +33,10 @@ class InlineEditableText extends StatefulWidget {
 
   /// Taille plancher : en dessous, le texte est tronqué plutôt que réduit.
   final double minFontSize;
+
+  /// Pas de limite d'affichage : le texte garde sa taille et toutes ses
+  /// lignes (c'est au parent de défiler), au lieu d'être réduit puis tronqué.
+  final bool expand;
 
   /// Renvoie un [Failure] (ou lève) en cas d'échec : le widget reste alors
   /// en édition et le texte saisi n'est pas perdu.
@@ -148,14 +153,19 @@ class _InlineEditableTextState extends State<InlineEditableText> {
   Widget build(BuildContext context) {
     if (!_editing) {
       return Row(
+        crossAxisAlignment: widget.expand
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: _ShrinkToFitText(
-              text: widget.text,
-              style: _baseStyle,
-              maxLines: widget.maxLines,
-              minFontSize: widget.minFontSize,
-            ),
+            child: widget.expand
+                ? Text(widget.text, style: _baseStyle)
+                : _ShrinkToFitText(
+                    text: widget.text,
+                    style: _baseStyle,
+                    maxLines: widget.maxLines,
+                    minFontSize: widget.minFontSize,
+                  ),
           ),
           if (widget.canEdit)
             IconButton(
@@ -177,7 +187,9 @@ class _InlineEditableTextState extends State<InlineEditableText> {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 // Même taille qu'en lecture : pas de saut visuel à l'ouverture.
-                final style = _fittedStyle(
+                final style = widget.expand
+                    ? _baseStyle
+                    : _fittedStyle(
                   text: _controller.text.isEmpty
                       ? widget.text
                       : _controller.text,
@@ -186,7 +198,7 @@ class _InlineEditableTextState extends State<InlineEditableText> {
                   maxLines: widget.multiline ? 4 : widget.maxLines,
                   minFontSize: widget.minFontSize,
                   textScaler: MediaQuery.textScalerOf(context),
-                );
+                      );
 
                 return TextField(
                   controller: _controller,
@@ -195,7 +207,7 @@ class _InlineEditableTextState extends State<InlineEditableText> {
                   enabled: !_saving,
                   style: style,
                   maxLength: widget.maxLength,
-                  maxLines: widget.multiline ? null : widget.maxLines,
+                  maxLines: widget.multiline || widget.expand ? null : widget.maxLines,
                   minLines: 1,
                   textInputAction: widget.multiline
                       ? TextInputAction.newline

@@ -2051,6 +2051,20 @@ const RefinementFailure = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
+const ResultMode = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ResultMode'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PLACE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'CATEGORY'),
+      directives: [],
+    ),
+  ],
+);
 const ReorderFilesInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'ReorderFilesInput'),
   directives: [],
@@ -2084,20 +2098,6 @@ const ReorderFilesInput = _i1.InputObjectTypeDefinitionNode(
         isNonNull: true,
       ),
       defaultValue: null,
-    ),
-  ],
-);
-const ResultMode = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'ResultMode'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'PLACE'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'CATEGORY'),
-      directives: [],
     ),
   ],
 );
@@ -3098,8 +3098,8 @@ const document = _i1.DocumentNode(definitions: [
   Query,
   RangeMobilityInput,
   RefinementFailure,
-  ReorderFilesInput,
   ResultMode,
+  ReorderFilesInput,
   RouteAnchorInput,
   RouteEditErrorCode,
   RouteEndpoint,

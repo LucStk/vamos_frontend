@@ -24,9 +24,10 @@ class TripOverviewViewer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final hasPhotos = ref.watch(
-      storedFileStoreProvider.select((s) => s.getFromOwner(trip.id).isNotEmpty),
+    final photoCount = ref.watch(
+      storedFileStoreProvider.select((s) => s.getFromOwner(trip.id).length),
     );
+    final hasPhotos = photoCount > 0;
     final description = trip.description.trim();
 
     return Column(
@@ -46,6 +47,16 @@ class TripOverviewViewer extends ConsumerWidget {
         else
           _EmptyHint('Aucune photo', theme: theme),
 
+        // On ne devine pas qu'un appui long déplace : on le dit.
+        if (editable && photoCount > 1) ...[
+          const SizedBox(height: 8),
+          _EmptyHint(
+            'Maintenez une photo puis déposez-la avant une autre pour les '
+            'réordonner. La première sert de couverture.',
+            theme: theme,
+          ),
+        ],
+
         const SizedBox(height: 20),
         _SectionTitle('Description', theme: theme),
         const SizedBox(height: 8),
@@ -56,7 +67,7 @@ class TripOverviewViewer extends ConsumerWidget {
             canEdit: true,
             multiline: true,
             maxLength: 1000,
-            maxLines: 6,
+            expand: true,
             placeholder: 'Ajoutez une description…',
             style: const TextStyle(fontSize: 14, height: 1.5),
             onSave: (value) async {
