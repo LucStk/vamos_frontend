@@ -38,6 +38,7 @@ class InfoDialog extends StatefulWidget {
     required this.bottomInset,
     this.heightFactor = 1,
     this.contentKey,
+    this.footer,
   }) : assert(pages.length > 0);
 
   /// Le titre, en haut (typiquement un champ modifiable en place).
@@ -55,6 +56,10 @@ class InfoDialog extends StatefulWidget {
   /// Identité de ce que montre le dialog (un autre jour, un autre morceau) :
   /// quand elle change, on revient au premier onglet.
   final Object? contentKey;
+
+  /// Fixé en bas du dialog, sous le contenu qui défile : visible quel que
+  /// soit l'onglet.
+  final Widget? footer;
 
   @override
   State<InfoDialog> createState() => _InfoDialogState();
@@ -178,6 +183,20 @@ class _InfoDialogState extends State<InfoDialog> {
                             ),
                           ),
                         ),
+                        if (widget.footer != null)
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(
+                                  color: Theme.of(context).dividerColor,
+                                ),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: widget.footer,
+                            ),
+                          ),
                       ],
                     ),
                   ),

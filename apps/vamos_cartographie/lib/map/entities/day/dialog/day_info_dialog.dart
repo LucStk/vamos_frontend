@@ -14,6 +14,7 @@ import 'package:vamos_cartographie/map/entities/day/sheet_pages/day_runs_list.da
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
+import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog_header.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart';
 
 /// La fiche d'un jour, en dialog, ou celle d'un de ses morceaux quand
@@ -109,12 +110,20 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
     final note = _watchNote();
     final title = note?.title.trim() ?? '';
     final notes = note?.notes.trim() ?? '';
+    final hasRuns =
+        ref.watch(dayRunsProvider(_tripId, widget.endsAt))?.runs.isNotEmpty ??
+        false;
     final theme = Theme.of(context);
 
     return InfoDialog(
       bottomInset: TripReadyDock.clearance,
       heightFactor: kPartialDialogHeightFactor,
       contentKey: (widget.endsAt, null),
+      // Le parcours du jour (morceaux et waypoints), toujours sous les yeux ;
+      // il se consulte aussi en lecture seule.
+      footer: hasRuns
+          ? DayRunsList(tripId: _tripId, endsAt: widget.endsAt)
+          : null,
       header: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -151,8 +160,6 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
                 placeholder: 'Ajoutez des notes sur cette journée…',
                 onSave: (value) => _saveDayNote(notes: value),
               ),
-              // Les morceaux se consultent aussi en lecture seule.
-              DayRunsList(tripId: _tripId, endsAt: widget.endsAt),
             ],
           ),
         ),
@@ -194,47 +201,35 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
       bottomInset: TripReadyDock.clearance,
       heightFactor: kPartialDialogHeightFactor,
       contentKey: (widget.endsAt, spanId),
-      header: Row(
-        children: [
-          // Retour au jour (la même chose que le bouton retour du dock).
-          IconButton(
-            icon: Icon(Icons.adaptive.arrow_back),
-            tooltip: 'Retour à la journée',
-            visualDensity: VisualDensity.compact,
-            onPressed: () => ref.applyTransition(widget.mode.back),
-          ),
-          if (style != null) ...[
-            Icon(style.icon, color: style.color, size: 20),
-            const SizedBox(width: 8),
-          ],
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InlineEditableText(
-                  text: title,
-                  placeholder: style?.label ?? 'Morceau',
-                  canEdit: _editable && stats != null,
-                  onSave: (value) => save(newTitle: value),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  [
-                    if (number != null) 'Jour $number',
-                    if (title.isNotEmpty && style != null) style.label,
-                    if (stats != null) formatDistance(stats.distanceM),
-                  ].join(' · '),
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
+      header: InfoDialogHeader(
+        // Retour au jour (la même chose que le bouton retour du dock).
+        onBack: () => ref.applyTransition(widget.mode.back),
+        backTooltip: 'Retour à la journée',
+        leading: style == null
+            ? null
+            : Icon(style.icon, color: style.color, size: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InlineEditableText(
+              text: title,
+              placeholder: style?.label ?? 'Morceau',
+              canEdit: _editable && stats != null,
+              onSave: (value) => save(newTitle: value),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-          ),
-        ],
+            Text(
+              [
+                if (number != null) 'Jour $number',
+                if (title.isNotEmpty && style != null) style.label,
+                if (stats != null) formatDistance(stats.distanceM),
+              ].join(' · '),
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
       ),
       pages: [
         InfoDialogPage(

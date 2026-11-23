@@ -13,7 +13,8 @@ import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoin
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart';
 
-/// Le parcours d'un jour en une ligne horizontale.
+/// Le parcours d'un jour en une ligne horizontale, fine, faite pour être
+/// fixée en bas du dialog du jour.
 ///
 /// Un segment par morceau (un par span de mobilité traversé), dans la couleur
 /// de sa mobilité, avec son symbole dedans et sa distance dessous ; sa
@@ -62,105 +63,97 @@ class DayRunsList extends ConsumerWidget {
 
     final total = segments.fold(0.0, (sum, s) => sum + s.stats.distanceM);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const Divider(height: 24),
-        Text('Morceaux', style: Theme.of(context).textTheme.titleSmall),
-        const SizedBox(height: 12),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            // Largeur proportionnelle, avec un plancher ; si la somme déborde
-            // (beaucoup de petits morceaux), la ligne défile.
-            final available = constraints.maxWidth - 2 * _sidePadding;
-            final widths = <double>[
-              for (final s in segments)
-                max(
-                  _minSegmentWidth,
-                  total > 0
-                      ? available * s.stats.distanceM / total
-                      : available / segments.length,
-                ),
-            ];
-            final stripWidth = widths.fold(0.0, (a, b) => a + b);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Largeur proportionnelle, avec un plancher ; si la somme déborde
+        // (beaucoup de petits morceaux), la ligne défile.
+        final available = constraints.maxWidth - 2 * _sidePadding;
+        final widths = <double>[
+          for (final s in segments)
+            max(
+              _minSegmentWidth,
+              total > 0
+                  ? available * s.stats.distanceM / total
+                  : available / segments.length,
+            ),
+        ];
+        final stripWidth = widths.fold(0.0, (a, b) => a + b);
 
-            // Abscisse de chaque waypoint : dans son morceau, au prorata de
-            // la distance parcourue depuis le début de celui-ci.
-            final markers = <_Marker>[];
-            if (geometry != null) {
-              var left = 0.0;
-              for (final (i, s) in segments.indexed) {
-                final range = s.range;
-                final length = lengthBetween(geometry, range.from, range.to);
-                for (final w in waypoints) {
-                  final a = w.anchorPosition;
-                  if (!_inRange(a, range.from, range.to)) continue;
-                  // Posé à la frontière de deux morceaux : le premier le garde.
-                  if (markers.any((m) => m.waypoint.id == w.id)) continue;
-                  final fraction = length > 0
-                      ? lengthBetween(geometry, range.from, a) / length
-                      : 0.0;
-                  markers.add(
-                    _Marker(w, left + fraction.clamp(0.0, 1.0) * widths[i]),
-                  );
-                }
-                left += widths[i];
-              }
+        // Abscisse de chaque waypoint : dans son morceau, au prorata de
+        // la distance parcourue depuis le début de celui-ci.
+        final markers = <_Marker>[];
+        if (geometry != null) {
+          var left = 0.0;
+          for (final (i, s) in segments.indexed) {
+            final range = s.range;
+            final length = lengthBetween(geometry, range.from, range.to);
+            for (final w in waypoints) {
+              final a = w.anchorPosition;
+              if (!_inRange(a, range.from, range.to)) continue;
+              // Posé à la frontière de deux morceaux : le premier le garde.
+              if (markers.any((m) => m.waypoint.id == w.id)) continue;
+              final fraction = length > 0
+                  ? lengthBetween(geometry, range.from, a) / length
+                  : 0.0;
+              markers.add(
+                _Marker(w, left + fraction.clamp(0.0, 1.0) * widths[i]),
+              );
             }
+            left += widths[i];
+          }
+        }
 
-            final content = SizedBox(
-              width: stripWidth + 2 * _sidePadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (markers.isNotEmpty)
-                    SizedBox(
-                      height: _WaypointMarker.height,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          for (final m in markers)
-                            Positioned(
-                              left:
-                                  _sidePadding +
-                                  m.x -
-                                  _WaypointMarker.diameter / 2,
-                              top: 0,
-                              child: _WaypointMarker(
-                                waypoint: m.waypoint,
-                                tripId: tripId,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: _sidePadding,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (final (i, s) in segments.indexed)
-                          SizedBox(
-                            width: widths[i],
-                            child: _SegmentView(segment: s),
+        final content = SizedBox(
+          width: stripWidth + 2 * _sidePadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (markers.isNotEmpty)
+                SizedBox(
+                  height: _WaypointMarker.height,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      for (final m in markers)
+                        Positioned(
+                          left:
+                              _sidePadding +
+                              m.x -
+                              _WaypointMarker.diameter / 2,
+                          top: 0,
+                          child: _WaypointMarker(
+                            waypoint: m.waypoint,
+                            tripId: tripId,
                           ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
-                ],
+                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _sidePadding,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (final (i, s) in segments.indexed)
+                      SizedBox(
+                        width: widths[i],
+                        child: _SegmentView(segment: s),
+                      ),
+                  ],
+                ),
               ),
-            );
-            return stripWidth > available
-                ? SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: content,
-                  )
-                : content;
-          },
-        ),
-      ],
+            ],
+          ),
+        );
+        return stripWidth > available
+            ? SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: content,
+              )
+            : content;
+      },
     );
   }
 
@@ -195,7 +188,7 @@ class _Marker {
 class _WaypointMarker extends ConsumerWidget {
   const _WaypointMarker({required this.waypoint, required this.tripId});
 
-  static const diameter = 30.0;
+  static const diameter = 28.0;
   static const _tick = 5.0;
   static const height = diameter + _tick;
 
@@ -233,7 +226,7 @@ class _WaypointMarker extends ConsumerWidget {
                     width: 2,
                   ),
                 ),
-                child: Icon(style.icon, color: Colors.white, size: 16),
+                child: Icon(style.icon, color: Colors.white, size: 15),
               ),
               Container(width: 2, height: _tick, color: style.color),
             ],
@@ -276,13 +269,13 @@ class _SegmentView extends ConsumerWidget {
             children: [
               // La ligne : la couleur de la mobilité, son symbole dedans.
               Container(
-                height: 28,
+                height: 20,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: style.color,
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                child: Icon(style.icon, color: Colors.white, size: 18),
+                child: Icon(style.icon, color: Colors.white, size: 14),
               ),
               const SizedBox(height: 4),
               FittedBox(
