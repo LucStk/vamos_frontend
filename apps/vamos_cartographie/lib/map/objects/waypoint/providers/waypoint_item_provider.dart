@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:domain_core/domain_core.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,6 +13,31 @@ import 'package:vamos_cartographie/map/objects/waypoint/waypoint_item.dart';
 
 part 'waypoint_item_provider.g.dart';
 
+/// En deçà, le waypoint est sur la route : pas de côté d'où elle serait.
+const _onRouteMeters = 3.0;
+
+/// Direction de la pointe vers la tête : la pointe regarde le point de la route
+/// le plus proche de [position] (sa tangente, comme l'ancre du waypoint, n'y
+/// sont pour rien), la tête s'en écarte. Droit vers le haut sans route, ou
+/// quand le waypoint est sur elle.
+double _pinDirection(
+  RoutePolyline? polyline,
+  WorldOffset position,
+  MapCameraReader camera,
+) {
+  if (polyline == null) return WaypointItem.upright;
+  final nearest = polyline.pointAt(polyline.project(position));
+  final away = position.value - nearest.value;
+  final meters = const Distance()(
+    camera.worldOffsetToLatLng(position),
+    camera.worldOffsetToLatLng(nearest),
+  );
+  if (meters < _onRouteMeters || away.distance == 0) {
+    return WaypointItem.upright;
+  }
+  return atan2(away.dy, away.dx);
+}
+
 @Riverpod(keepAlive: true)
 WaypointItem waypointItem(
   Ref ref,
@@ -17,16 +46,13 @@ WaypointItem waypointItem(
   MapCameraReader cameraReader,
 ) {
   final d = ref.watch(waypointProvider(tripId, id));
-  // L'épingle penche à l'écart de la route, d'après sa tangente à l'ancre du
-  // waypoint.
+  final position = cameraReader.latLngToWorldOffset(d.position);
   final polyline = ref.watch(routePolylineProvider(tripId, cameraReader));
   return WaypointItem(
-    worldPosition: cameraReader.latLngToWorldOffset(d.position),
+    worldPosition: position,
     object: MapWaypoint(tripId: tripId, id: id),
     kindStyle: d.display,
-    direction: polyline == null
-        ? WaypointItem.upright
-        : WaypointItem.pinDirection(polyline.angleAt(d.anchorPosition)),
+    direction: _pinDirection(polyline, position, cameraReader),
   );
 }
 

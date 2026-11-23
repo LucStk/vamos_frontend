@@ -12,8 +12,8 @@ import 'package:vamos_cartographie/map/objects/shared/badge/badge_style.dart';
 /// Un waypoint : une épingle dont la pointe est sur sa position géographique
 /// (elle la désigne au lieu de la recouvrir), la tête portant le glyphe.
 ///
-/// L'épingle penche à l'écart de la route : [direction] est celle de la pointe
-/// vers la tête, calculée par [pinDirection] d'après la route voisine.
+/// L'épingle pointe vers la route : [direction] est celle de la pointe vers la
+/// tête, donc à l'opposé du point de la route le plus proche.
 final class WaypointItem extends PointItem {
   WaypointItem({
     required this.object,
@@ -25,22 +25,6 @@ final class WaypointItem extends PointItem {
 
   /// Direction de la pointe vers la tête : droit vers le haut de l'écran.
   static const upright = -pi / 2;
-
-  /// Inclinaison maximale par rapport à la verticale (radians) : une épingle
-  /// ne se couche pas, même sur une route verticale.
-  static const _maxTilt = pi / 3;
-
-  /// Direction de l'épingle pour une route de tangente [tangent] (angle de la
-  /// route à l'écran, 0 = vers la droite) : perpendiculaire à la route, du
-  /// côté du haut de l'écran, donc à l'écart d'elle ; au plus [_maxTilt] de
-  /// la verticale.
-  static double pinDirection(double tangent) {
-    var normal = tangent - pi / 2;
-    // Du côté du haut de l'écran (y vers le bas : sinus négatif).
-    if (sin(normal) > 0) normal += pi;
-    final fromUpright = atan2(sin(normal - upright), cos(normal - upright));
-    return upright + fromUpright.clamp(-_maxTilt, _maxTilt);
-  }
 
   /// Direction de la pointe vers la tête (radians, repère de l'écran).
   final double direction;
