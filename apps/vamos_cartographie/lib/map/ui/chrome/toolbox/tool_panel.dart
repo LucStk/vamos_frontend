@@ -43,13 +43,16 @@ class ToolAction {
 /// Action « fermer » partagée avec les `ToolPanel` en dessous : `Toolbox` la
 /// fournit, chaque panneau affiche alors une croix sans la connaître.
 class ToolPanelScope extends InheritedWidget {
-  const ToolPanelScope({super.key, required this.onClose, required super.child});
+  const ToolPanelScope({
+    super.key,
+    required this.onClose,
+    required super.child,
+  });
 
   final VoidCallback onClose;
 
-  static VoidCallback? closeOf(BuildContext context) => context
-      .dependOnInheritedWidgetOfExactType<ToolPanelScope>()
-      ?.onClose;
+  static VoidCallback? closeOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<ToolPanelScope>()?.onClose;
 
   @override
   bool updateShouldNotify(ToolPanelScope oldWidget) =>
@@ -127,9 +130,7 @@ class ToolPanel extends StatelessWidget {
       children: [
         if (error != null)
           Padding(
-            padding: EdgeInsets.only(
-              bottom: hint != null ? 8 : 0,
-            ),
+            padding: EdgeInsets.only(bottom: hint != null ? 8 : 0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -172,7 +173,10 @@ class ToolPanel extends StatelessWidget {
             child: closeInText
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Expanded(child: text()), closeButton!],
+                    children: [
+                      Expanded(child: text()),
+                      closeButton,
+                    ],
                   )
                 : text(),
           ),
@@ -182,7 +186,7 @@ class ToolPanel extends StatelessWidget {
               ...settings,
               const Spacer(),
               for (final a in trailing) _IconAction(a),
-              if (closeInTools) closeButton!,
+              if (closeInTools) closeButton,
             ],
           ),
         if (hasTools && hasMain) const SizedBox(height: 8),

@@ -11,10 +11,13 @@ import 'package:trip_application/trip_application.dart';
 /// touchant la position de l'utilisateur ([searchResultMarkerSlot]). Le panneau
 /// du mode propose alors des actions sur ce point.
 abstract final class CursorActions {
-  /// Pose le curseur en [point].
-  static Transition place(WorldOffset point) => Transition.set(
+  /// Pose le curseur en [point], sur [anchor] s'il repose sur la route.
+  static Transition place(
+    WorldOffset point, {
+    HitObject<RouteElements>? anchor,
+  }) => Transition.set(
     searchResultMarkerSlot,
-    SearchResultMarker(point: point),
+    SearchResultMarker(point: point, anchor: anchor),
   );
 
   /// Retire le curseur.

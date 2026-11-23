@@ -4,7 +4,7 @@ final class MapSearchResult extends MapObject {
   const MapSearchResult();
 
   @override
-  bool get isDraggable => false;
+  bool get isDraggable => true; // le curseur se déplace au doigt
 
   @override
   bool operator ==(Object other) => other is MapSearchResult;

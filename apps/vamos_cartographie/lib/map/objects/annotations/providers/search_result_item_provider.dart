@@ -13,6 +13,7 @@ SearchResultItem? searchResultItem(Ref ref, MapCameraReader camera) {
     return SearchResultItem(
       object: MapSearchResult(),
       worldPosition: searchResult.point,
+      onRoute: searchResult.anchor != null,
     );
   }
   return null;

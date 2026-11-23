@@ -15,21 +15,22 @@ abstract class TripMode extends AppMode {
   @override
   Set<Slot> get retainedSlots => const {selectionSlot, searchResultMarkerSlot};
 
-  /// Sortie de l'édition vers la lecture du trip (modifiable). C'est la
-  /// destination de la flèche retour, de la croix des panneaux et du retour
-  /// système, pour tous les modes de la boîte à outils.
+  /// Sortie de l'édition vers la lecture du trip (modifiable). Dernière étape
+  /// du retour : on n'y arrive que depuis [TripEditMode], sans outil ni
+  /// panneau ouvert.
+  Transition get exit => Transition.to(TripReadyMode(tripId, readOnly: false));
+
+  /// Sortie d'un outil, d'une action contextuelle ou d'un panneau : on
+  /// retrouve l'édition du trip sans rien d'ouvert. C'est la destination de la
+  /// croix du panneau, et un cran seulement du retour : quitter l'édition
+  /// demande ensuite un second retour ([TripEditMode.back]).
   ///
   /// Un mode qui tient une proposition non validée (aperçu, calcul en cours)
   /// la surcharge pour l'abandonner en partant.
-  Transition get exit => Transition.to(TripReadyMode(tripId, readOnly: false));
+  Transition get closeTool => Transition.to(TripEditMode(tripId));
 
   @override
-  Transition get back => exit;
-
-  /// Sortie d'un outil ou d'une action contextuelle (croix du panneau) : on
-  /// retrouve l'édition du trip, sans outil actif. Les modes qui tiennent une
-  /// proposition non validée la surchargent pour l'abandonner en partant.
-  Transition get closeTool => Transition.to(TripEditMode(tripId));
+  Transition get back => closeTool;
 
   /// Ouvre le trip, sans jour, morceau ni étape sélectionné : une sélection
   /// restée de la dernière visite ne doit pas revenir.

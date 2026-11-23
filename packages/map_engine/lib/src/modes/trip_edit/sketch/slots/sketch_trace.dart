@@ -40,11 +40,14 @@ abstract class SketchTrace with _$SketchTrace {
   /// ou position initiale si le tracé est libre.
   WorldOffset get tip => last ?? startAnchor.point;
 
-  /// Le tracé contient au moins un segment à envoyer. Si le départ est
-  /// l'origine d'un voyage sans route, elle figure elle-même dans [points] :
-  /// il en faut alors un de plus.
-  bool get hasSegment =>
-      points.length >= (startAnchor.object is MapTripStart ? 2 : 1);
+  /// Le tracé contient au moins un segment à envoyer. Partir de l'origine
+  /// d'un voyage sans route met l'origine elle-même dans [points] : seule,
+  /// elle ne fait pas un segment.
+  bool get hasSegment => switch (points.length) {
+    0 => false,
+    1 => points.first.value != startAnchor.point.value,
+    _ => true,
+  };
 
   bool get isCut => points.isEmpty && (endAnchor != null);
 

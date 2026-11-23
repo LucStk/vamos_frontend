@@ -5,74 +5,82 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
-import 'package:vamos_cartographie/map/modes/shared/mode_toolbox.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/edit_span_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/portion_preview_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/select_route_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_panel.dart';
-import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
-import 'package:vamos_cartographie/map/ui/chrome/toolbox/toolbox.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/create_waypoint_panel.dart';
+import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/selected_waypoint_panel.dart';
+import 'package:vamos_cartographie/map/ui/chrome/dock/edit_dock.dart';
 
-/// UI de toute la famille « édition du trip » :
-/// - outils (onglets) : créer quelque chose de nouveau ;
-/// - actions contextuelles (gestes sur un objet de la carte, sans onglet).
+/// UI de toute la famille « édition du trip ».
 ///
-/// Ne lit aucun provider de contenu : chaque panneau lit les siens, pour que
-/// la boîte à outils ne se reconstruise pas à chaque changement de tracé.
+/// Il n'y a plus de barre d'outils : on atteint les outils par la carte (le
+/// curseur, la route, une étape). Reste un seul contrôle, [EditDock] : une
+/// flèche retour en bas à droite, qui s'étend en panneau (et devient une
+/// croix) dès qu'un outil ou une action est ouvert.
+///
+/// Ne lit que ce qui décide du panneau : chaque panneau lit ses propres
+/// données, pour que le dock ne se reconstruise pas à chaque changement de
+/// tracé.
 @Dependencies([modeSelection, ModeMachine])
 class TripEditUi extends ConsumerWidget {
   const TripEditUi(this.mode, {super.key});
 
   final TripMode mode;
 
+  /// Le panneau du mode courant, avec une clé qui change quand il faut
+  /// l'échanger en fondu plutôt que le mettre à jour.
+  (Widget?, Object?) _panel(
+    MapObject? selection,
+    SearchResultMarker? cursor,
+  ) {
+    final tripId = mode.tripId;
+    return switch (mode) {
+      // Outil de tracé : l'un des trois états partage un seul panneau.
+      final SketchToolMode m => (SketchPanel(m), 'sketch'),
+      final SelectRouteMode m => (SelectRoutePanel(m), 'select-route'),
+      final PortionPreviewMode m => (PortionPreviewPanel(m), 'portion'),
+      final EditSpanMode m => (EditSpanPanel(m), 'span'),
+      final CreateWaypointMode m => (CreateWaypointPanel(m), 'create-waypoint'),
+      // Sans outil : le curseur, ou l'étape sélectionnée.
+      TripEditMode() when cursor != null => (
+        CursorPanel(
+          tripId: tripId,
+          cursor: cursor,
+          canTrace: true,
+          canCreateWaypoint: true,
+          sketchTrace: true,
+          showClear: false, // la croix du dock s'en charge
+        ),
+        // Libre ou accroché à la route : deux panneaux différents.
+        ('cursor', cursor.anchor == null ? 'free' : 'route'),
+      ),
+      final TripEditMode m when selection is MapWaypoint => (
+        SelectedWaypointPanel(mode: m, waypoint: selection),
+        ('waypoint', selection.id),
+      ),
+      _ => (null, null),
+    };
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripId = mode.tripId;
     final cursor = ref.watch(modeSlotProvider(searchResultMarkerSlot));
+    final selection = ref.watch(modeSelectionProvider);
+    final (panel, panelKey) = _panel(selection, cursor);
 
     return Stack(
       fit: StackFit.expand,
       children: [
         const SearchTopSheet(),
-        ModeToolbox(
-          mode: mode,
-          closed: () => TripEditMode(tripId),
-          leading: BackTab(onTap: () => ref.applyTransition(mode.back)),
-          // Croix de chaque panneau : retour à l'édition du trip (ici, elle
-          // retire le curseur), la flèche retour sortant vers la lecture.
-          onClose: () => ref.applyTransition(mode.closeTool),
-          tools: [
-            // <SketchToolMode> : l'onglet reste allumé pendant le calcul
-            // (SketchGenerating), et le panneau suit le sous-mode.
-            ModeTool<SketchToolMode>(
-              item: const ToolboxItem(
-                icon: Icons.draw_outlined,
-                selectedIcon: Icons.draw,
-                label: 'Tracer',
-              ),
-              open: () => SketchEdition(tripId),
-              panel: (m) => SketchPanel(m),
-            ),
-          ],
-          contextual: [
-            ModePanel<SelectRouteMode>((m) => SelectRoutePanel(m)),
-            ModePanel<PortionPreviewMode>((m) => PortionPreviewPanel(m)),
-            ModePanel<EditSpanMode>((m) => EditSpanPanel(m)),
-            // Sans outil actif, toucher la carte y pose le curseur : on propose
-            // d'y créer une étape ou d'y tracer la suite de la route.
-            if (cursor != null)
-              ModePanel<TripEditMode>(
-                (m) => CursorPanel(
-                  tripId: tripId,
-                  cursor: cursor,
-                  canTrace: true,
-                  canCreateWaypoint: true,
-                  sketchTrace: true,
-                  showClear: false, // la croix du panneau s'en charge
-                ),
-              ),
-          ],
+        // Même action que le retour système : fermer le panneau d'abord,
+        // quitter l'édition ensuite.
+        EditDock(
+          panel: panel,
+          panelKey: panelKey,
+          onPressed: () => ref.applyTransition(mode.back),
         ),
       ],
     );

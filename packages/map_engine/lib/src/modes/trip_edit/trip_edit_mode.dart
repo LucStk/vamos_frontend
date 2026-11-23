@@ -4,35 +4,51 @@ import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/objects.dart';
 import 'package:map_engine/src/gesture_engine/gesture_engine.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
+import 'package:map_engine/src/mode_engine/mode_state.dart';
 import 'package:map_engine/src/modes/shared/cursor_actions.dart';
 import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
-import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/select_route_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/waypoint/commands/waypoint_command.dart';
+import 'package:trip_application/trip_application.dart';
 
 /// Édition du trip, aucun outil actif : les gestes agissent sur les objets
 /// existants de la carte.
 ///
-/// - Carte : toucher un endroit libre y pose le curseur, dont le panneau
-///   propose d'y créer une étape ou d'y tracer une route.
+/// - Carte : toucher un endroit libre y pose le curseur (qui se glisse). Sur
+///   la route, ou sur son départ / son arrivée, il s'y accroche : le panneau
+///   propose de tracer à partir de là. Ailleurs : créer une étape, ou tracer
+///   jusque-là.
 /// - Étape : la toucher ou la glisser la sélectionne (halo et ancre
 ///   apparaissent) ; la glisser la déplace (ou glisse son ancre le long de la
-///   route), relâcher enregistre.
+///   route), relâcher enregistre. Tout autre geste sur la carte la désélectionne.
 /// - Route : glisser dessus sélectionne une portion ([SelectRouteMode]).
 ///
 /// Remplace `WaypointsEditMode`.
 final class TripEditMode extends TripMode {
   const TripEditMode(super.tripId);
 
-  @override
-  Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
+  /// Un panneau est ouvert (curseur ou étape sélectionnée) ?
+  static bool _hasPanel(ModeState st) =>
+      st.slots.get(searchResultMarkerSlot) != null ||
+      st.slots.get(selectionSlot) is MapWaypoint;
 
-  /// La croix d'un panneau d'outil ramène ici : ici, elle retire le curseur.
+  /// Retour : d'abord refermer le panneau ouvert, ensuite seulement quitter
+  /// l'édition pour la lecture.
   @override
-  Transition get closeTool => CursorActions.clear();
+  Transition get back =>
+      Transition.withState((st) => _hasPanel(st) ? closeTool : exit);
+
+  /// Ici, « fermer » retire le curseur et désélectionne l'étape.
+  @override
+  Transition get closeTool => Transition.withState(
+    (st) => CursorActions.clear().and<MapObject>(
+      selectionSlot,
+      tripSelectionOnly(st.slots.get(selectionSlot)),
+    ),
+  );
 
   /// Sélectionne une étape ; le curseur, s'il y en avait un, s'efface.
   Transition _select(MapWaypoint waypoint) => Transition.set<MapObject>(
@@ -42,12 +58,34 @@ final class TripEditMode extends TripMode {
 
   /// Pose le curseur en [point] et abandonne la sélection (sauf celle du trip
   /// lui-même).
-  Transition _placeCursor(WorldOffset point) => Transition.withState(
-    (st) => CursorActions.place(point).and<MapObject>(
+  Transition _placeCursor(
+    WorldOffset point, {
+    HitObject<RouteElements>? anchor,
+  }) => Transition.withState(
+    (st) => CursorActions.place(point, anchor: anchor).and<MapObject>(
       selectionSlot,
       tripSelectionOnly(st.slots.get(selectionSlot)),
     ),
   );
+
+  /// Supprime l'étape, puis la désélectionne.
+  Transition removeWaypoint(WaypointId id) => Transition.run(
+    RemoveWaypoint(tripId: tripId, waypointId: id),
+    then: (_, _) => Transition.set<MapObject>(selectionSlot, null),
+  );
+
+  /// Toucher autre chose qu'une étape (ou son ancre) l'abandonne : on
+  /// désélectionne dès le contact, avant même de savoir si c'est un tap, un
+  /// glissé de carte ou un début de tracé.
+  @override
+  Transition onPointerDown(PressGesture g) => switch (g.element) {
+    MapWaypoint() || MapWaypointAnchor() => Transition.stay(),
+    _ => Transition.withState(
+      (st) => st.slots.get(selectionSlot) is MapWaypoint
+          ? Transition.set<MapObject>(selectionSlot, null)
+          : null,
+    ),
+  };
 
   @override
   Transition onTap(TapGesture g) {
@@ -55,10 +93,14 @@ final class TripEditMode extends TripMode {
     final onUser = CursorActions.onTap(g);
     if (onUser != null) return onUser;
 
+    // Route, départ ou arrivée : le curseur s'y accroche.
+    final onRoute = g.hit?.narrow<RouteElements>();
+    if (onRoute != null) return _placeCursor(onRoute.point, anchor: onRoute);
+
     return switch (g.element) {
       final MapWaypoint waypoint => _select(waypoint),
-      // L'ancre d'une étape se manipule en la glissant : un tap n'y change rien.
-      MapWaypointAnchor() => Transition.stay(),
+      // L'ancre d'une étape et le curseur se manipulent en les glissant.
+      MapWaypointAnchor() || MapSearchResult() => Transition.stay(),
       _ => _placeCursor(g.hit?.point ?? g.world),
     };
   }
@@ -84,11 +126,21 @@ final class TripEditMode extends TripMode {
     _ => Transition.stay(),
   };
 
+  /// Le curseur suit le doigt, et s'accroche à la route qu'il survole.
+  Transition _dragCursor(DragUpdateGesture g) {
+    final onRoute = g.target?.narrow<RouteElements>();
+    return CursorActions.place(
+      onRoute?.point ?? g.position.world,
+      anchor: onRoute,
+    );
+  }
+
   @override
   Transition onDragging(DragUpdateGesture g) => switch ((
     g.source.object,
     g.detail,
   )) {
+    (MapSearchResult(), _) => _dragCursor(g),
     // Étape déplacée librement, ou accrochée à l'objet survolé.
     (MapWaypoint(:final id), _) => Transition.run(
       PatchWaypointPosition(

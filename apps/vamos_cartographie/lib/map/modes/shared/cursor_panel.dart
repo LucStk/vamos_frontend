@@ -87,6 +87,37 @@ class CursorPanel extends ConsumerWidget {
       ),
     );
 
+    // Le curseur repose sur la route : le tracé peut partir d'ici, crayon posé
+    // sur le curseur.
+    final anchor = cursor.anchor;
+    if (anchor != null && sketchTrace) {
+      final originOnly =
+          ref.read(routeStoreProvider(tripId)).route?.current.geometry.isEmpty ??
+          false;
+      return ToolPanel(
+        error: error,
+        hint: switch (anchor.object) {
+          MapTripStart() => 'Départ de la route.',
+          MapTripEnd() => 'Arrivée de la route.',
+          _ => 'Sur la route.',
+        },
+        secondary: canCreateWaypoint ? waypoint : null,
+        primary: ToolAction(
+          icon: Icons.draw,
+          label: cursor.onExtremity
+              ? 'Continuer depuis cette extrémité'
+              : 'Tracer depuis ici',
+          onPressed: () => ref.applyTransition(
+            SketchEdition.startFromCursor(
+              tripId,
+              anchor,
+              originOnly: originOnly,
+            ),
+          ),
+        ),
+      );
+    }
+
     return ToolPanel(
       error: error,
       settings: [

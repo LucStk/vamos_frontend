@@ -30,12 +30,8 @@ final class SketchPreviewing extends SketchToolMode {
   @override
   Set<Slot> get retainedSlots => {sketchTraceSlot, searchResultMarkerSlot}; // pour y revenir
 
-  /// Retour, croix et retour système quittent l'édition (comme partout) ;
+  /// Retour, croix et retour système ferment l'outil (retour à l'édition) ;
   /// la proposition est abandonnée. Pour revenir au tracé : [backToSketch].
-  @override
-  Transition get exit =>
-      super.exit.running(DiscardSketchPreview(tripId: tripId));
-
   @override
   Transition get closeTool =>
       super.closeTool.running(DiscardSketchPreview(tripId: tripId));

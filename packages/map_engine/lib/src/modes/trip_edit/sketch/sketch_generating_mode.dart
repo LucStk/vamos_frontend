@@ -20,10 +20,6 @@ final class SketchGenerating extends SketchToolMode {
   /// Quitter pendant le calcul : sa réponse sera ignorée, la proposition qu'il
   /// crée est abandonnée (l'abandon passe après lui dans la file du trip).
   @override
-  Transition get exit =>
-      super.exit.running(DiscardSketchPreview(tripId: tripId));
-
-  @override
   Transition get closeTool =>
       super.closeTool.running(DiscardSketchPreview(tripId: tripId));
 

@@ -185,6 +185,25 @@ class SketchEdition extends SketchToolMode {
       .and(sketchTraceSlot, _traceToCursor(from, cursor))
       .clearSlot(searchResultMarkerSlot);
 
+  /// Ouvre l'outil de tracé, le crayon posé sur [from] (le curseur). Si la
+  /// route n'a pas encore de point ([originOnly]), l'origine ouvre le tracé,
+  /// comme dans [startFromOrigin].
+  static Transition startFromCursor(
+    TripId tripId,
+    HitObject<RouteElements> from, {
+    bool originOnly = false,
+  }) => Transition.to(SketchEdition(tripId))
+      .and(
+        sketchTraceSlot,
+        SketchTrace(
+          startAnchor: from,
+          points: originOnly && from.object is MapTripStart
+              ? [from.point]
+              : const [],
+        ),
+      )
+      .clearSlot(searchResultMarkerSlot);
+
   /// Demande l'itinéraire du tracé, sans l'ajouter à la route.
   Transition preview(MobilityType mobilityType) =>
       SketchGenerating.preview(tripId, mobilityType);
