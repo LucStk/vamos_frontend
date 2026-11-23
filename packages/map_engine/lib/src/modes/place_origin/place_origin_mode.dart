@@ -5,8 +5,8 @@ import 'package:map_engine/src/modes/app_mode.dart';
 import 'package:map_engine/src/modes/explore/explore_mode.dart';
 import 'package:map_engine/src/modes/place_origin/commands/place_origin_command.dart';
 import 'package:map_engine/src/modes/place_origin/slots/trip_origin_slot.dart';
-import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/sketch/sketch_edition_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:map_engine/src/domain/domain.dart';
@@ -16,14 +16,6 @@ sealed class PlaceOriginMode extends AppMode {
 
   @override
   Set<Slot> get retainedSlots => {tripOriginSlot};
-
-  Transition onTapElsewhere(TapGesture g) => Transition.stay();
-
-  @override
-  Transition onTap(TapGesture g) => switch (g.element) {
-    MapTripStart _ || MapTmpOrigin _ => Transition.overlay(g.tapMenu),
-    _ => onTapElsewhere(g),
-  };
 }
 
 final class PlaceNewTripOrigin extends PlaceOriginMode {
@@ -39,6 +31,10 @@ final class PlaceNewTripOrigin extends PlaceOriginMode {
 
   @override
   Transition onDragging(DragUpdateGesture g) => placeAt(g.world);
+
+  // Plus de menu contextuel : le panneau valide.
+  @override
+  Transition onDragEnd(DragEndGesture g) => Transition.stay();
 
   /// Pose (ou déplace) l'origine : tap, glisser, ou résultat de recherche.
   Transition placeAt(WorldOffset origin) =>
@@ -61,22 +57,26 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   final TripId tripId;
 
   @override
-  Transition onTap(TapGesture g) {
-    return switch (g.element) {
-      MapTripStart _ => Transition.overlay(g.tapMenu),
-      _ => onTapElsewhere(g),
-    };
-  }
+  Transition get back => Transition.to(ExploreMode());
 
-  /// Le déplacement est enregistré à la fin du drag, puis le menu s'ouvre.
+  // Plus de menu contextuel : le panneau propose la suite.
   @override
-  Transition onDragEnd(DragEndGesture g) => Transition.run(
-    SetTripOrigin(position: g.world, tripId: tripId),
-    then: (_, _) => Transition.overlay(g.dragEndMenu),
-  );
+  Transition onTap(TapGesture g) => Transition.stay();
+
+  /// Le déplacement est enregistré à la fin du drag.
+  @override
+  Transition onDragEnd(DragEndGesture g) =>
+      Transition.run(SetTripOrigin(position: g.world, tripId: tripId));
+
   @override
   Transition onDragging(DragUpdateGesture g) =>
       Transition.run(PatchTripOrigin(position: g.world, tripId: tripId));
+
+  /// Passe au tracé, le crayon déjà posé sur l'origine [origin] : inutile de
+  /// la toucher d'abord.
+  Transition startRoute(WorldOffset origin) => SketchEdition.startFromOrigin(
+    HitObject(object: MapTripStart(tripId), point: origin),
+  );
 
   @override
   bool operator ==(Object other) =>
