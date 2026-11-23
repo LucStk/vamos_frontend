@@ -4,6 +4,7 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/segment_appearance.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/geometry/rounded_polyline.dart';
+import 'package:vamos_cartographie/map/objects/route/segment/style/segment_look.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/style/segment_style.dart';
 
 // + vos imports habituels : route_store, route_polyline_provider,
@@ -23,8 +24,12 @@ final class DaySegmentItem extends LineItem {
     required this.object,
     required this.runs,
     required this.polyline,
+    this.dimmed = false,
     this.context = const MapPaintContext(),
   });
+
+  /// Un autre jour est sélectionné : celui-ci s'efface (éclairci, sans halo).
+  final bool dimmed;
 
   final List<DayRunGeometry> runs;
   final RoutePolyline polyline;
@@ -47,9 +52,15 @@ final class DaySegmentItem extends LineItem {
   ScreenLength get hitRadius => 14.px;
 
   @override
+  HitDetail? hitDetail(WorldOffset p) => RouteHitDetail(polyline.project(p));
+
+  @override
   DragDetail? dragDetail(WorldOffset p) => RouteDragDetail(polyline.project(p));
 
   static const _cornerRadius = 12.0; // même valeur que SegmentItem
+
+  /// Éclaircissement (vers le blanc) d'un jour écarté par la sélection.
+  static const _dimLift = 0.6;
 
   late final List<Path> _paths = [
     for (final r in runs)
@@ -60,7 +71,15 @@ final class DaySegmentItem extends LineItem {
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
   }) {
-    final look = SegmentStyle.resolver.resolve(context);
+    final resolved = SegmentStyle.resolver.resolve(context);
+    final look = dimmed
+        ? SegmentLook(
+            widthScale: resolved.widthScale,
+            casing: resolved.casing,
+            halo: 0,
+            lift: _dimLift,
+          )
+        : resolved;
     final layers = [
       for (var i = 0; i < runs.length; i++)
         SegmentStyle.layers(

@@ -17,7 +17,8 @@ final class TripReadyMode extends TripMode {
   Transition onTap(TapGesture g) {
     final e = g.element;
 
-    if (e is MapObject && (e is MapWaypoint || e is MapMobilitySpan)) {
+    if (e is MapObject &&
+        (e is MapWaypoint || e is MapMobilitySpan || e is MapDaySegment)) {
       return Transition.withState((st) {
         final current = st.slots.get(selectionSlot);
         // même élément => on désélectionne, sinon on sélectionne le nouveau

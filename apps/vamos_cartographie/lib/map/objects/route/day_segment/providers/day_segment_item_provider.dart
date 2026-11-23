@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/domain_features/day/providers/day_providers.d
 import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/span_queries.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/helpers/section_slice.dart';
 import 'package:vamos_cartographie/map/objects/route/day_segment/day_segment_item.dart';
 import 'package:vamos_cartographie/map/objects/route/segment/appearance/mobility_appearance.dart';
@@ -26,6 +27,16 @@ DaySegmentItem? daySegmentItem(
     routeStoreProvider(tripId).select((s) => s.route?.current.geometry),
   );
   final polyline = ref.watch(routePolylineProvider(tripId, cameraReader));
+
+  // Jour sélectionné de ce trip (record : comparé par valeur, et distinct de
+  // « aucun jour » même quand `endsAt` est null, la dernière journée).
+  final selectedDay = ref.watch(
+    modeSelectionProvider.select(
+      (s) => s is MapDaySegment && s.tripId == tripId
+          ? (endsAt: s.endsAt)
+          : null,
+    ),
+  );
   if (dayRuns == null || geometry == null || polyline == null) return null;
 
   final runs = <DayRunGeometry>[];
@@ -56,5 +67,6 @@ DaySegmentItem? daySegmentItem(
     object: MapDaySegment(tripId: tripId, endsAt: endsAt),
     runs: runs,
     polyline: polyline,
+    dimmed: selectedDay != null && selectedDay.endsAt != endsAt,
   );
 }

@@ -5,6 +5,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
+import 'package:vamos_cartographie/map/entities/day/sheet_pages/day_sheet_pages.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_sheet_pages.dart';
 import 'package:vamos_cartographie/map/entities/waypoint/sheet_pages/waypoint_sheet_pages.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
@@ -51,6 +52,11 @@ class TripReadyUi extends ConsumerWidget {
             MapWaypoint(:final id, :final tripId) => waypointSheetPages(
               tripId,
               ref.watch(waypointProvider(tripId, id)),
+              editable: !mode.readOnly,
+            ),
+            MapDaySegment(:final tripId, :final endsAt) => daySheetPages(
+              tripId,
+              endsAt,
               editable: !mode.readOnly,
             ),
             // MapMobilitySpan(:final id, :final tripId) => routeSheetPages(

@@ -2,24 +2,30 @@ import 'package:domain_core/domain_core.dart';
 
 import 'package:map_engine/map_engine.dart';
 import 'package:map_canvas/map_canvas.dart';
-import 'package:vamos_cartographie/map/objects/waypoint/style/waypoint_style.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
+import 'package:vamos_cartographie/map/objects/shared/badge/badge_style.dart';
 
 final class WaypointItem extends PointItem {
   WaypointItem({
     required this.object,
     required this.worldPosition,
-    this.visualKind = WaypointVisualKind.normal,
+    required this.kindStyle,
   });
 
   @override
   final MapWaypoint object;
   @override
   final WorldOffset worldPosition;
-  final WaypointVisualKind visualKind;
 
-  /// Rayon du disque affiché (avant `look.scale`).
+  /// Couleur et glyphe : même source que les widgets (catégorie ou halte).
+  final WaypointKindStyle kindStyle;
+
+  /// Rayon de la pastille au repos. Doit rester égal au `radius` passé à
+  /// [BadgeStyle.build].
+  static const _radius = 8.0;
+
   @override
-  final ScreenLength visualRadius = 9.px;
+  ScreenLength get visualRadius => _radius.px;
 
   @override
   ScreenLength get hitRadius => 14.px;
@@ -27,9 +33,11 @@ final class WaypointItem extends PointItem {
   @override
   DrawCommand toDrawCommand({
     MapPaintContext context = const MapPaintContext(),
-  }) => WaypointStyle.build(
-    worldPosition,
-    WaypointStyle.of(visualKind).resolve(context),
-    radius: visualRadius,
+  }) => BadgeStyle.build(
+    anchor: worldPosition,
+    color: kindStyle.color,
+    glyph: IconGlyph(kindStyle.svgPath),
+    look: BadgeStyle.resolver.resolve(context),
+    radius: _radius,
   );
 }
