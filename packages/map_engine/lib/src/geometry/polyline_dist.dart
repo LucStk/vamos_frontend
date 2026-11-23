@@ -1,4 +1,26 @@
+import 'dart:math';
+
 import 'package:latlong2/latlong.dart';
+
+/// Longueur en mètres de [polyline] entre les positions continues [a] et [b],
+/// dans n'importe quel ordre. Une position suit le repère de
+/// `RouteHitDetail.position` : partie entière = index du point, partie
+/// décimale = avancement vers le suivant (interpolation linéaire, comme côté
+/// serveur).
+double lengthBetweenPositionsM(List<LatLng> polyline, double a, double b) {
+  const distance = Distance(roundResult: false);
+  final lo = min(a, b);
+  final hi = max(a, b);
+  var total = 0.0;
+  for (var i = 0; i < polyline.length - 1; i++) {
+    final from = max(lo, i.toDouble());
+    final to = min(hi, i + 1.0);
+    if (to > from) {
+      total += (to - from) * distance.distance(polyline[i], polyline[i + 1]);
+    }
+  }
+  return total;
+}
 
 class ClosestPointResult {
   const ClosestPointResult({

@@ -61,4 +61,22 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
       onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
     );
   }
+
+  Future<Either<Failure, EditRoutePayload>> trimRoute({
+    required EndpointAnchor end,
+    required double lengthM,
+  }) {
+    return run<EditRoutePayload, TripId>(
+      entityKey: tripId, // sérialise toutes les éditions de ce trip
+      onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
+      remote: (_) =>
+          routeRepo.trimRoute(tripId: tripId, end: end, lengthM: lengthM),
+      onSuccess: (gs, payload) => gs.replacedByServer(
+        remoteRoute: payload.route,
+        remoteMobilitySpans: payload.mobilitySpans,
+        remoteEditSpans: payload.editSpans,
+      ),
+      onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
+    );
+  }
 }

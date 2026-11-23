@@ -83,6 +83,18 @@ class RouteRepositoryImpl extends RouteRepository {
   }
 
   @override
+  Future<Either<Failure, EditRoutePayload>> trimRoute({
+    required TripId tripId,
+    required EndpointAnchor end,
+    required double lengthM,
+  }) async {
+    final res = await guardRouteEdit(
+      () => remote.trimRoute(tripId: tripId, end: end, lengthM: lengthM),
+    );
+    return res.flatMap((m) => m.toDomain());
+  }
+
+  @override
   Future<Either<Failure, PreviewRoutePayload>> previewRouteEdit({
     required Id<Trip> tripId,
     required List<LatLng> geometry,

@@ -27,6 +27,13 @@ abstract class RouteRepository {
     required MobilityType mobilityType,
   });
   Future<Either<Failure, EditRoutePayload>> deleteRoute(TripId tripId);
+
+  /// Retire [lengthM] mètres de la route, depuis son départ ou son arrivée.
+  Future<Either<Failure, EditRoutePayload>> trimRoute({
+    required TripId tripId,
+    required EndpointAnchor end,
+    required double lengthM,
+  });
   Future<Either<Failure, PreviewRoutePayload>> previewRouteEdit({
     required Id<Trip> tripId,
     required List<LatLng> geometry,

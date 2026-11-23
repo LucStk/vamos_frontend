@@ -1,0 +1,196 @@
+diff --git a/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_anchor_mappers.dart b/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_anchor_mappers.dart
+index cf6bfea..8c75825 100644
+--- a/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_anchor_mappers.dart
++++ b/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_anchor_mappers.dart
+@@ -3,6 +3,13 @@ import 'package:trip_application/trip_application.dart';
+ import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
+ import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
+ 
++extension EndpointAnchorMapper on EndpointAnchor {
++  GRouteEndpoint toGQLEndpoint() => switch (this) {
++    StartRouteAnchor() => GRouteEndpoint.ROUTE_START,
++    EndRouteAnchor() => GRouteEndpoint.ROUTE_END,
++  };
++}
++
+ extension RouteAnchorMapper on RouteAnchor {
+   GRouteAnchorInput toGQL() => switch (this) {
+     SectionAnchor anchor => GRouteAnchorInput(
+diff --git a/apps/vamos_cartographie/lib/domain_features/route/data/route_remote_datasource.dart b/apps/vamos_cartographie/lib/domain_features/route/data/route_remote_datasource.dart
+index 2361e7e..18d3ed2 100644
+--- a/apps/vamos_cartographie/lib/domain_features/route/data/route_remote_datasource.dart
++++ b/apps/vamos_cartographie/lib/domain_features/route/data/route_remote_datasource.dart
+@@ -97,6 +97,22 @@ class RouteRemoteDatasource {
+     return data.deleteRoute;
+   }
+ 
++  Future<GEditRouteResult> trimRoute({
++    required Id<Trip> tripId,
++    required EndpointAnchor end,
++    required double lengthM,
++  }) async {
++    final data = await ferryClient.execute(
++      GTrimRouteReq(
++        vars: GTrimRouteVars(
++          tripId: tripId.value,
++          input: GTrimRouteInput(end: end.toGQLEndpoint(), lengthM: lengthM),
++        ),
++      ),
++    );
++    return data.trimRoute;
++  }
++
+   Future<GRoutePreviewResult> previewRouteEdit({
+     required Id<Trip> tripId,
+     required List<LatLng> geometry,
+diff --git a/apps/vamos_cartographie/lib/domain_features/route/data/route_repository_impl.dart b/apps/vamos_cartographie/lib/domain_features/route/data/route_repository_impl.dart
+index 9dc2216..78f76fc 100644
+--- a/apps/vamos_cartographie/lib/domain_features/route/data/route_repository_impl.dart
++++ b/apps/vamos_cartographie/lib/domain_features/route/data/route_repository_impl.dart
+@@ -82,6 +82,18 @@ class RouteRepositoryImpl extends RouteRepository {
+     return res.flatMap((m) => m.toDomain());
+   }
+ 
++  @override
++  Future<Either<Failure, EditRoutePayload>> trimRoute({
++    required TripId tripId,
++    required EndpointAnchor end,
++    required double lengthM,
++  }) async {
++    final res = await guardRouteEdit(
++      () => remote.trimRoute(tripId: tripId, end: end, lengthM: lengthM),
++    );
++    return res.flatMap((m) => m.toDomain());
++  }
++
+   @override
+   Future<Either<Failure, PreviewRoutePayload>> previewRouteEdit({
+     required Id<Trip> tripId,
+diff --git a/packages/map_engine/lib/src/geometry/polyline_dist.dart b/packages/map_engine/lib/src/geometry/polyline_dist.dart
+index 8828a4d..9a15275 100644
+--- a/packages/map_engine/lib/src/geometry/polyline_dist.dart
++++ b/packages/map_engine/lib/src/geometry/polyline_dist.dart
+@@ -1,5 +1,27 @@
++import 'dart:math';
++
+ import 'package:latlong2/latlong.dart';
+ 
++/// Longueur en mètres de [polyline] entre les positions continues [a] et [b],
++/// dans n'importe quel ordre. Une position suit le repère de
++/// `RouteHitDetail.position` : partie entière = index du point, partie
++/// décimale = avancement vers le suivant (interpolation linéaire, comme côté
++/// serveur).
++double lengthBetweenPositionsM(List<LatLng> polyline, double a, double b) {
++  const distance = Distance(roundResult: false);
++  final lo = min(a, b);
++  final hi = max(a, b);
++  var total = 0.0;
++  for (var i = 0; i < polyline.length - 1; i++) {
++    final from = max(lo, i.toDouble());
++    final to = min(hi, i + 1.0);
++    if (to > from) {
++      total += (to - from) * distance.distance(polyline[i], polyline[i + 1]);
++    }
++  }
++  return total;
++}
++
+ class ClosestPointResult {
+   const ClosestPointResult({
+     required this.point,
+diff --git a/packages/map_engine/lib/src/modes/trip_edit/route/commands/route_command.dart b/packages/map_engine/lib/src/modes/trip_edit/route/commands/route_command.dart
+index 8e3d0fa..1cf75a7 100644
+--- a/packages/map_engine/lib/src/modes/trip_edit/route/commands/route_command.dart
++++ b/packages/map_engine/lib/src/modes/trip_edit/route/commands/route_command.dart
+@@ -1,7 +1,9 @@
++import 'package:dartz/dartz.dart';
+ import 'package:domain_core/domain_core.dart';
+ 
+ import 'package:map_engine/src/domain/domain.dart';
+ import 'package:latlong2/latlong.dart';
++import 'package:map_engine/src/geometry/polyline_dist.dart';
+ import 'package:map_engine/src/mode_engine/mode_engine.dart';
+ import 'package:map_engine/src/modes/trip_edit/route/trim_route_mode.dart';
+ import 'package:trip_application/trip_application.dart';
+@@ -15,20 +17,28 @@ sealed class RouteCommand<R extends Object> extends Command<R> {
+   const RouteCommand();
+ }
+ 
+-final class TrimRoute extends RouteCommand {
++/// Raccourcit la route depuis l'extrémité [end] jusqu'à la position [at]
++/// (repère de `RouteHitDetail.position`). Le serveur attend une longueur en
++/// mètres : elle est calculée ici, sur la géométrie que le client affiche.
++final class TrimRoute
++    extends RouteCommand<Either<Failure, EditRoutePayload>> {
+   const TrimRoute({required this.tripId, required this.end, required this.at});
+   final TripId tripId;
+   final RouteEnd end;
+   final double at;
+ 
+   @override
+-  Future<WaypointId?> handle(AppCommandScope h) {
+-    return valueOrNull(
+-      h
+-          .forTrip(tripId)
+-          .routeEditor
+-          .createBlankWaypoint(latLng)
+-          .then((r) => r.map((v) => v.id)), // Either<Failure, WaypointId>
++  Future<Either<Failure, EditRoutePayload>> handle(AppCommandScope h) {
++    final trip = h.forTrip(tripId);
++    // TrimRouteMode ne s'ouvre qu'en saisissant une extrémité de la route.
++    final geometry = trip.route!.geometry;
++    final (anchor, endPosition) = switch (end) {
++      RouteEnd.start => (const StartRouteAnchor(), 0.0),
++      RouteEnd.end => (const EndRouteAnchor(), geometry.length - 1.0),
++    };
++    return trip.routeEditor.trimRoute(
++      end: anchor,
++      lengthM: lengthBetweenPositionsM(geometry, endPosition, at),
+     );
+   }
+ }
+diff --git a/packages/trip_application/lib/src/route/application/route_editor.dart b/packages/trip_application/lib/src/route/application/route_editor.dart
+index 02f5e54..dcaa282 100644
+--- a/packages/trip_application/lib/src/route/application/route_editor.dart
++++ b/packages/trip_application/lib/src/route/application/route_editor.dart
+@@ -61,4 +61,22 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
+       onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
+     );
+   }
++
++  Future<Either<Failure, EditRoutePayload>> trimRoute({
++    required EndpointAnchor end,
++    required double lengthM,
++  }) {
++    return run<EditRoutePayload, TripId>(
++      entityKey: tripId, // sérialise toutes les éditions de ce trip
++      onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
++      remote: (_) =>
++          routeRepo.trimRoute(tripId: tripId, end: end, lengthM: lengthM),
++      onSuccess: (gs, payload) => gs.replacedByServer(
++        remoteRoute: payload.route,
++        remoteMobilitySpans: payload.mobilitySpans,
++        remoteEditSpans: payload.editSpans,
++      ),
++      onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
++    );
++  }
+ }
+diff --git a/packages/trip_application/lib/src/route/application/route_repository.dart b/packages/trip_application/lib/src/route/application/route_repository.dart
+index 2ae5b28..e66ac43 100644
+--- a/packages/trip_application/lib/src/route/application/route_repository.dart
++++ b/packages/trip_application/lib/src/route/application/route_repository.dart
+@@ -27,6 +27,13 @@ abstract class RouteRepository {
+     required MobilityType mobilityType,
+   });
+   Future<Either<Failure, EditRoutePayload>> deleteRoute(TripId tripId);
++
++  /// Retire [lengthM] mètres de la route, depuis son départ ou son arrivée.
++  Future<Either<Failure, EditRoutePayload>> trimRoute({
++    required TripId tripId,
++    required EndpointAnchor end,
++    required double lengthM,
++  });
+   Future<Either<Failure, PreviewRoutePayload>> previewRouteEdit({
+     required Id<Trip> tripId,
+     required List<LatLng> geometry,

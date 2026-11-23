@@ -97,6 +97,22 @@ class RouteRemoteDatasource {
     return data.deleteRoute;
   }
 
+  Future<GEditRouteResult> trimRoute({
+    required Id<Trip> tripId,
+    required EndpointAnchor end,
+    required double lengthM,
+  }) async {
+    final data = await ferryClient.execute(
+      GTrimRouteReq(
+        vars: GTrimRouteVars(
+          tripId: tripId.value,
+          input: GTrimRouteInput(end: end.toGQLEndpoint(), lengthM: lengthM),
+        ),
+      ),
+    );
+    return data.trimRoute;
+  }
+
   Future<GRoutePreviewResult> previewRouteEdit({
     required Id<Trip> tripId,
     required List<LatLng> geometry,
