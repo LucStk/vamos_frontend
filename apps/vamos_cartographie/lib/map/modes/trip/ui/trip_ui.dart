@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/day/providers/day_providers.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/dialog/day_info_dialog.dart';
@@ -113,7 +114,16 @@ class TripReadyUi extends ConsumerWidget {
             onBack: () => ref.applyTransition(mode.back),
             onInfo: () =>
                 ref.applyTransition(infoOpen ? mode.closeSheet : mode.showInfo),
-            onEdit: () => ref.applyTransition(mode.edit),
+            // Sur une étape, le crayon la déplace ; sinon on modifie le voyage.
+            editIcon: selected is MapWaypoint ? Icons.edit : Icons.route,
+            editTooltip: selected is MapWaypoint
+                ? 'Déplacer l’étape'
+                : 'Modifier le voyage',
+            onEdit: () => ref.applyTransition(
+              selected is MapWaypoint
+                  ? mode.editWaypoint(selected.id)
+                  : mode.edit,
+            ),
           ),
         ),
         KeyedSubtree(key: const ValueKey('menus'), child: TripEditMenus(mode)),

@@ -19,6 +19,8 @@ class TripReadyDock extends StatelessWidget {
     required this.onEdit,
     this.infoOpen = false,
     this.dayMode = false,
+    this.editIcon = Icons.route,
+    this.editTooltip = 'Modifier le voyage',
     this.onPreviousDay,
     this.onNextDay,
   });
@@ -44,6 +46,11 @@ class TripReadyDock extends StatelessWidget {
   final VoidCallback onBack;
   final VoidCallback onInfo;
   final VoidCallback onEdit;
+
+  /// Icône et libellé du bouton de droite (hors jour) : modifier le voyage, ou
+  /// l'étape ouverte.
+  final IconData editIcon;
+  final String editTooltip;
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -96,8 +103,8 @@ class TripReadyDock extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: DockButton(
-                      icon: Icons.route,
-                      tooltip: 'Modifier le voyage',
+                      icon: editIcon,
+                      tooltip: editTooltip,
                       onPressed: onEdit,
                     ),
                   ),

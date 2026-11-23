@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/map/modes/explore/explore_view.dart';
 import 'package:vamos_cartographie/map/modes/place_origin/place_origin_view.dart';
+import 'package:vamos_cartographie/map/modes/trip/move_waypoint_scene.dart';
 import 'package:vamos_cartographie/map/modes/trip/trip_view.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/move_waypoint_ui.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/edit_span_scene.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/select_route_scene.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_scene.dart';
@@ -35,6 +37,11 @@ ModeView viewFor(AppMode mode) => switch (mode) {
   PlaceExistingTripOrigin m => placeExistingTripOriginView(m),
 
   TripReadyMode m => tripReadyView(m),
+  // Déplacer une étape depuis sa fiche : sa propre scène et sa propre UI.
+  MoveWaypointMode m => ModeView(
+    scene: moveWaypointScene(m),
+    ui: () => MoveWaypointUi(m),
+  ),
 
   // --- Édition du trip -----------------------------------------------------
   // Aucun outil actif : on voit la route et les étapes, on peut les toucher.

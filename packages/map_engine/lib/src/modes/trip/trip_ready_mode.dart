@@ -5,7 +5,9 @@ import 'package:map_engine/src/modes/explore/explore_mode.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
+import 'package:map_engine/src/modes/trip/move_waypoint_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
+import 'package:trip_application/trip_application.dart';
 
 final class TripReadyMode extends TripMode {
   const TripReadyMode(super.tripId, {this.readOnly = true});
@@ -21,6 +23,10 @@ final class TripReadyMode extends TripMode {
   /// Passe à l'édition du trip (réservé au propriétaire : l'interface ne
   /// propose le bouton qu'hors lecture seule).
   Transition get edit => Transition.to(TripEditMode(tripId));
+
+  /// Déplacer l'étape [id] (réservé au propriétaire) : bascule vers
+  /// [MoveWaypointMode], l'étape et son ancre manipulables.
+  Transition editWaypoint(WaypointId id) => MoveWaypointMode.start(tripId, id);
 
   /// Remonte d'un niveau : morceau → jour, puis fiche fermée ; sans fiche
   /// ouverte, on quitte le trip pour l'explorateur.

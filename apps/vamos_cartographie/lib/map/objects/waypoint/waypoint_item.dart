@@ -34,6 +34,11 @@ final class WaypointItem extends PointItem {
   @override
   int zIndex;
 
+  /// Un waypoint au second plan n'est qu'un repère : on ne le touche pas, les
+  /// gestes passent à ce qu'il y a dessous.
+  @override
+  bool get isHitTestable => !background && super.isHitTestable;
+
   @override
   final MapWaypoint object;
   @override

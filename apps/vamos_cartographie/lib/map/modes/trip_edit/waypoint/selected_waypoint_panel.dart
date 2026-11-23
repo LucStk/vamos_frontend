@@ -9,12 +9,12 @@ import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 class SelectedWaypointPanel extends ConsumerWidget {
   const SelectedWaypointPanel({
     super.key,
-    required this.mode,
-    required this.waypoint,
+    required this.remove,
   });
 
-  final TripEditMode mode;
-  final MapWaypoint waypoint;
+  /// Ce que fait la suppression de l'étape (propre au mode qui affiche le
+  /// panneau).
+  final Transition remove;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => ToolPanel(
@@ -28,8 +28,7 @@ class SelectedWaypointPanel extends ConsumerWidget {
         message: 'Elle disparaît du voyage, ainsi que sa halte éventuelle.',
         confirmLabel: 'Supprimer',
       ),
-      onPressed: () =>
-          ref.applyTransition(mode.removeWaypoint(waypoint.id)),
+      onPressed: () => ref.applyTransition(remove),
     ),
   );
 }

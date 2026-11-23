@@ -58,7 +58,7 @@ class TripEditUi extends ConsumerWidget {
         ('cursor', cursor.anchor == null ? 'free' : 'route'),
       ),
       final TripEditMode m when selection is MapWaypoint => (
-        SelectedWaypointPanel(mode: m, waypoint: selection),
+        SelectedWaypointPanel(remove: m.removeWaypoint(selection.id)),
         ('waypoint', selection.id),
       ),
       _ => (null, null),
