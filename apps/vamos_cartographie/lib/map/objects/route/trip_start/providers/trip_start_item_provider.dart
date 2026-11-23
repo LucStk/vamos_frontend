@@ -2,6 +2,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/map/objects/route/trip_start/trip_start_item.dart';
 
@@ -19,5 +20,6 @@ TripStartItem? tripOriginItem(Ref ref, TripId tripId, MapCameraReader camera) {
   return TripStartItem<MapTripStart>(
     object: MapTripStart(tripId),
     worldPosition: worldPosition,
+    polyline: ref.watch(routePolylineProvider(tripId, camera)),
   );
 }

@@ -2,6 +2,7 @@ import 'package:map_engine/map_engine.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/map/objects/route/trip_end/trip_end_item.dart';
 
@@ -14,5 +15,9 @@ TripEndItem? tripEndItem(Ref ref, TripId tripId, MapCameraReader camera) {
   );
   if (geometry == null || geometry.isEmpty) return null;
   final wOffset = camera.latLngToWorldOffset(geometry.last);
-  return TripEndItem(object: MapTripEnd(tripId), worldPosition: wOffset);
+  return TripEndItem(
+    object: MapTripEnd(tripId),
+    worldPosition: wOffset,
+    polyline: ref.watch(routePolylineProvider(tripId, camera)),
+  );
 }

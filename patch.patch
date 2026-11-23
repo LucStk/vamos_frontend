@@ -1,0 +1,126 @@
+diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart
+index 42f64de..f05c007 100644
+--- a/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart
++++ b/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart
+@@ -2,6 +2,7 @@ import 'package:map_engine/map_engine.dart';
+ import 'package:riverpod/riverpod.dart';
+ import 'package:riverpod_annotation/riverpod_annotation.dart';
+ import 'package:trip_application/trip_application.dart';
++import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
+ import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
+ import 'package:vamos_cartographie/map/objects/route/trip_end/trip_end_item.dart';
+ 
+@@ -14,5 +15,9 @@ TripEndItem? tripEndItem(Ref ref, TripId tripId, MapCameraReader camera) {
+   );
+   if (geometry == null || geometry.isEmpty) return null;
+   final wOffset = camera.latLngToWorldOffset(geometry.last);
+-  return TripEndItem(object: MapTripEnd(tripId), worldPosition: wOffset);
++  return TripEndItem(
++    object: MapTripEnd(tripId),
++    worldPosition: wOffset,
++    polyline: ref.watch(routePolylineProvider(tripId, camera)),
++  );
+ }
+diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart
+index 32d5e1a..bef2d55 100644
+--- a/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart
++++ b/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart
+@@ -5,9 +5,16 @@ import 'package:vamos_cartographie/map/objects/route/endpoint_appearance.dart';
+ import 'package:vamos_cartographie/map/objects/route/endpoint_style.dart';
+ 
+ final class TripEndItem extends PointItem {
+-  TripEndItem({required this.object, required this.worldPosition});
++  TripEndItem({
++    required this.object,
++    required this.worldPosition,
++    required this.polyline,
++  });
+   @override
+   final MapTripEnd object;
++
++  /// Route du trip, ou null si elle n'a pas encore deux points.
++  final RoutePolyline? polyline;
+   @override
+   final WorldOffset worldPosition;
+ 
+@@ -16,6 +23,19 @@ final class TripEndItem extends PointItem {
+   @override
+   ScreenLength get hitRadius => 16.px;
+ 
++  /// L'arrivée est la dernière position de la route.
++  @override
++  HitDetail? hitDetail(WorldOffset p) {
++    final polyline = this.polyline;
++    return polyline == null ? null : RouteHitDetail(polyline.maxPosition);
++  }
++
++  @override
++  DragDetail? dragDetail(WorldOffset p) {
++    final polyline = this.polyline;
++    return polyline == null ? null : RouteDragDetail(polyline.project(p));
++  }
++
+   @override
+   DrawCommand toDrawCommand({
+     MapPaintContext context = const MapPaintContext(),
+diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart
+index ab08448..09978f2 100644
+--- a/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart
++++ b/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart
+@@ -2,6 +2,7 @@ import 'package:map_engine/map_engine.dart';
+ import 'package:riverpod/riverpod.dart';
+ import 'package:riverpod_annotation/riverpod_annotation.dart';
+ import 'package:trip_application/trip_application.dart';
++import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
+ import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
+ import 'package:vamos_cartographie/map/objects/route/trip_start/trip_start_item.dart';
+ 
+@@ -19,5 +20,6 @@ TripStartItem? tripOriginItem(Ref ref, TripId tripId, MapCameraReader camera) {
+   return TripStartItem<MapTripStart>(
+     object: MapTripStart(tripId),
+     worldPosition: worldPosition,
++    polyline: ref.watch(routePolylineProvider(tripId, camera)),
+   );
+ }
+diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart
+index b359750..394f48c 100644
+--- a/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart
++++ b/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart
+@@ -5,11 +5,18 @@ import 'package:vamos_cartographie/map/objects/route/endpoint_appearance.dart';
+ import 'package:vamos_cartographie/map/objects/route/endpoint_style.dart';
+ 
+ final class TripStartItem<T extends MapRouteOrigin> extends PointItem {
+-  TripStartItem({required this.object, required this.worldPosition});
++  TripStartItem({
++    required this.object,
++    required this.worldPosition,
++    this.polyline,
++  });
+ 
+   @override
+   final T object;
+ 
++  /// Route du trip. Absente pour une origine sans route (`MapTmpOrigin`).
++  final RoutePolyline? polyline;
++
+   @override
+   final WorldOffset worldPosition;
+ 
+@@ -18,6 +25,17 @@ final class TripStartItem<T extends MapRouteOrigin> extends PointItem {
+   @override
+   ScreenLength get hitRadius => 16.px;
+ 
++  /// Le départ est la position 0 de la route.
++  @override
++  HitDetail? hitDetail(WorldOffset p) =>
++      polyline == null ? null : const RouteHitDetail(0);
++
++  @override
++  DragDetail? dragDetail(WorldOffset p) {
++    final polyline = this.polyline;
++    return polyline == null ? null : RouteDragDetail(polyline.project(p));
++  }
++
+   @override
+   DrawCommand toDrawCommand({
+     MapPaintContext context = const MapPaintContext(),
