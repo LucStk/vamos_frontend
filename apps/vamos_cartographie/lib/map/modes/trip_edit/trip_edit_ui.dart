@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/trip_chrome_visibility.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/edit_span_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/portion_preview_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/select_route_panel.dart';
@@ -32,10 +33,7 @@ class TripEditUi extends ConsumerWidget {
 
   /// Le panneau du mode courant, avec une clé qui change quand il faut
   /// l'échanger en fondu plutôt que le mettre à jour.
-  (Widget?, Object?) _panel(
-    MapObject? selection,
-    SearchResultMarker? cursor,
-  ) {
+  (Widget?, Object?) _panel(MapObject? selection, SearchResultMarker? cursor) {
     final tripId = mode.tripId;
     return switch (mode) {
       // Outil de tracé : l'un des trois états partage un seul panneau.
@@ -70,25 +68,34 @@ class TripEditUi extends ConsumerWidget {
     final cursor = ref.watch(modeSlotProvider(searchResultMarkerSlot));
     final selection = ref.watch(modeSelectionProvider);
     final (panel, panelKey) = _panel(selection, cursor);
+    final hideChrome = ref.watch(tripDialogHidesChromeProvider);
 
     return Stack(
       fit: StackFit.expand,
       children: [
         // Un résultat de recherche pose le curseur et abandonne l'étape
         // sélectionnée.
-        SearchTopSheet(
-          onPicked: switch (mode) {
-            final TripEditMode m => m.placeCursorAt,
-            _ => null,
-          },
-        ),
-        EditDock(
-          panel: panel,
-          panelKey: panelKey,
-          // Comme le retour système : fermer le panneau d'abord, quitter
-          // l'édition ensuite.
-          onBack: () => ref.applyTransition(mode.back),
-          onClose: () => ref.applyTransition(mode.closeTool),
+        // Choisir une portion de route : la carte reste dégagée.
+        if (!hideChrome)
+          KeyedSubtree(
+            key: const ValueKey('search'),
+            child: SearchTopSheet(
+              onPicked: switch (mode) {
+                final TripEditMode m => m.placeCursorAt,
+                _ => null,
+              },
+            ),
+          ),
+        KeyedSubtree(
+          key: const ValueKey('dock'),
+          child: EditDock(
+            panel: panel,
+            panelKey: panelKey,
+            // Comme le retour système : fermer le panneau d'abord, quitter
+            // l'édition ensuite.
+            onBack: () => ref.applyTransition(mode.back),
+            onClose: () => ref.applyTransition(mode.closeTool),
+          ),
         ),
       ],
     );

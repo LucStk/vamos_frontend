@@ -97,8 +97,8 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
     final hideChrome = ref.watch(tripDialogHidesChromeProvider);
 
     // Les boutons des côtés du dock suivent ce qui est ouvert :
-    // - rien : retour à la carte principale ;
-    // - le voyage : retour (referme sa fiche) ;
+    // - rien : retour à la carte principale, fiche du voyage à droite ;
+    // - le voyage : seule la croix du milieu ;
     // - un jour : jour précédent et jour suivant (absents s'il n'y en a pas) ;
     // - un morceau : retour au jour ;
     // - une étape : retour à son jour, et (propriétaire) déplacement.
@@ -168,9 +168,16 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
           );
         }
       case MapTrip():
-        left = back(Icons.u_turn_left, 'Retour');
+        // Sa croix, au milieu, suffit : aucun autre bouton.
+        break;
       default:
         left = back(Icons.map_outlined, 'Retour à la carte');
+        // Rien d'ouvert : la fiche du voyage, à droite.
+        right = (
+          icon: TripReadyDock.infoIcon,
+          tooltip: 'Informations du voyage',
+          onPressed: () => ref.applyTransition(mode.showInfo),
+        );
     }
 
     // Chaque enfant a sa clé : en retirer un (recherche) ou en ajouter un
@@ -187,8 +194,8 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
               onPicked: mode.readOnly ? null : mode.placeCursorAt,
             ),
           ),
-        // Une fiche ouverte (avec sa croix) ou, à défaut, les trois boutons :
-        // retour, fiche du voyage, édition.
+        // Une fiche ouverte (avec sa croix au milieu du dock) ou, à défaut,
+        // retour à la carte et fiche du voyage.
         ?dialog,
         KeyedSubtree(
           key: const ValueKey('dock'),
@@ -213,12 +220,11 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
                   onClose: () => ref.applyTransition(CursorActions.clear()),
                 )
               : TripReadyDock(
-                  infoOpen: infoOpen,
                   left: left,
                   right: right,
-                  onInfo: () => ref.applyTransition(
-                    infoOpen ? mode.closeSheet : mode.showInfo,
-                  ),
+                  onClose: infoOpen
+                      ? () => ref.applyTransition(mode.closeSheet)
+                      : null,
                 ),
         ),
         KeyedSubtree(key: const ValueKey('menus'), child: TripEditMenus(mode)),
