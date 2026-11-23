@@ -186,6 +186,16 @@ class _InlineEditableTextState extends State<InlineEditableText> {
   Widget build(BuildContext context) {
     if (!_editing) {
       _syncPinned(null);
+      // Texte vide : le placeholder tient lieu de valeur, en retrait.
+      final showPlaceholder = widget.text.isEmpty && widget.placeholder != null;
+      final shown = showPlaceholder ? widget.placeholder! : widget.text;
+      final shownStyle = showPlaceholder
+          ? _baseStyle.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.normal,
+            )
+          : _baseStyle;
       return Row(
         crossAxisAlignment: widget.expand
             ? CrossAxisAlignment.start
@@ -193,10 +203,10 @@ class _InlineEditableTextState extends State<InlineEditableText> {
         children: [
           Expanded(
             child: widget.expand
-                ? Text(widget.text, style: _baseStyle)
+                ? Text(shown, style: shownStyle)
                 : _ShrinkToFitText(
-                    text: widget.text,
-                    style: _baseStyle,
+                    text: shown,
+                    style: shownStyle,
                     maxLines: widget.maxLines,
                     minFontSize: widget.minFontSize,
                   ),

@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/entities/day/sheet_pages/day_sheet_pages.dart';
-import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_sheet_pages.dart';
+import 'package:vamos_cartographie/map/entities/day/dialog/day_info_dialog.dart';
 import 'package:vamos_cartographie/map/entities/waypoint/sheet_pages/waypoint_sheet_pages.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_menus.dart';
@@ -22,28 +21,36 @@ class TripReadyUi extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(modeSelectionProvider);
 
+    // Seule la fiche d'un waypoint reste une sheet qu'on déplie.
     final pages = switch (selected) {
       MapWaypoint(:final id, :final tripId) => waypointSheetPages(
         tripId,
         ref.watch(waypointProvider(tripId, id)),
         editable: !mode.readOnly,
       ),
-      MapDayRun(:final tripId, :final endsAt, :final spanId) => runSheetPages(
-        tripId,
-        endsAt,
-        spanId,
-        editable: !mode.readOnly,
-      ),
-      MapDaySegment(:final tripId, :final endsAt) => daySheetPages(
-        tripId,
-        endsAt,
-        editable: !mode.readOnly,
-      ),
       _ => null,
     };
 
-    // La fiche du voyage est un dialog au-dessus du dock, pas une sheet.
-    final infoOpen = selected is MapTrip;
+    // Le voyage, un jour et un de ses morceaux sont des dialogs au-dessus du
+    // dock : son bouton du milieu y devient la croix.
+    final dialog = switch (selected) {
+      MapTrip() => TripInfoDialog(mode: mode),
+      // Un seul widget pour le jour et ses morceaux : passer de l'un à
+      // l'autre ne referme pas le dialog.
+      MapDaySegment(:final endsAt) => DayInfoDialog(
+        key: const ValueKey('day_dialog'),
+        mode: mode,
+        endsAt: endsAt,
+      ),
+      MapDayRun(:final endsAt, :final spanId) => DayInfoDialog(
+        key: const ValueKey('day_dialog'),
+        mode: mode,
+        endsAt: endsAt,
+        spanId: spanId,
+      ),
+      _ => null,
+    };
+    final infoOpen = dialog != null;
 
     return Stack(
       fit: StackFit.expand,
@@ -52,7 +59,7 @@ class TripReadyUi extends ConsumerWidget {
         // Une fiche ouverte (avec sa croix) ou, à défaut, les trois boutons :
         // retour, fiche du voyage, édition.
         if (pages == null) ...[
-          if (infoOpen) TripInfoDialog(mode: mode),
+          ?dialog,
           TripReadyDock(
             mode: mode,
             infoOpen: infoOpen,
