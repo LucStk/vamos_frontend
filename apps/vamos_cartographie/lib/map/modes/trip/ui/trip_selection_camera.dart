@@ -10,6 +10,7 @@ import 'package:vamos_cartographie/domain_features/day/providers/day_providers.d
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
+import 'package:vamos_cartographie/map/entities/day/dialog/day_of_waypoint.dart';
 import 'package:vamos_cartographie/map/modes/shared/helpers/section_slice.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
@@ -43,7 +44,8 @@ MapEdgeInsets selectionFramePadding(BuildContext context) {
 }
 
 /// Cadre la caméra sur [selected] : la portion de route d'un jour ou d'un
-/// morceau, ou les alentours d'un waypoint. Sans effet pour le reste.
+/// morceau ; pour un waypoint, celle de son jour (le point reste situé dans
+/// son contexte). Sans effet pour le reste.
 void frameSelection(
   WidgetRef ref,
   TripId tripId,
@@ -58,9 +60,7 @@ void frameSelection(
       endsAt,
       spanId,
     ),
-    MapWaypoint(:final id) => _around(
-      ref.read(waypointProvider(tripId, id)).position,
-    ),
+    MapWaypoint(:final id) => _waypointBounds(ref, tripId, id),
     _ => null,
   };
   if (bounds == null) return;
@@ -80,11 +80,35 @@ void frameSelection(
 List<LatLng>? _geometry(WidgetRef ref, TripId tripId) =>
     ref.read(routeStoreProvider(tripId)).route?.current.geometry;
 
-MapLatLngBounds? _dayBounds(WidgetRef ref, TripId tripId, WaypointId? endsAt) {
+MapLatLngBounds? _dayBounds(
+  WidgetRef ref,
+  TripId tripId,
+  WaypointId? endsAt, {
+  LatLng? include,
+}) {
   final day = ref.read(routeDayProvider(tripId, endsAt));
   final geometry = _geometry(ref, tripId);
   if (day == null || geometry == null) return null;
-  return _boundsOf(sliceBetweenPositions(geometry, day.from, day.to));
+  final points = sliceBetweenPositions(geometry, day.from, day.to);
+  if (points == null) return null;
+  return _boundsOf([...points, ?include]);
+}
+
+/// La boîte du jour du waypoint, qui contient le waypoint lui-même ; à défaut
+/// de jour (pas de route), ses seuls alentours.
+MapLatLngBounds? _waypointBounds(WidgetRef ref, TripId tripId, WaypointId id) {
+  final waypoint = ref.read(waypointProvider(tripId, id));
+  final day = dayOfWaypoint(waypoint, ref.read(routeDaysProvider(tripId)));
+  if (day != null) {
+    final bounds = _dayBounds(
+      ref,
+      tripId,
+      day.endsAt,
+      include: waypoint.position,
+    );
+    if (bounds != null) return bounds;
+  }
+  return _around(waypoint.position);
 }
 
 MapLatLngBounds? _runBounds(

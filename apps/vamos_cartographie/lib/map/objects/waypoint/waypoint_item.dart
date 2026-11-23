@@ -13,6 +13,9 @@ final class WaypointItem extends PointItem {
   });
 
   @override
+  int zIndex = ZIndex.marker;
+
+  @override
   final MapWaypoint object;
   @override
   final WorldOffset worldPosition;
@@ -22,13 +25,13 @@ final class WaypointItem extends PointItem {
 
   /// Rayon de la pastille au repos. Doit rester égal au `radius` passé à
   /// [BadgeStyle.build].
-  static const _radius = 8.0;
+  static const _radius = 13.0;
 
   @override
   ScreenLength get visualRadius => _radius.px;
 
   @override
-  ScreenLength get hitRadius => 14.px;
+  ScreenLength get hitRadius => 16.px;
 
   @override
   DrawCommand toDrawCommand({

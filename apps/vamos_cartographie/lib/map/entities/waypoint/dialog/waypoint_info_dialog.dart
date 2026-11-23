@@ -8,6 +8,7 @@ import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_q
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_store.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
+import 'package:vamos_cartographie/map/entities/day/dialog/day_of_waypoint.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stats_list.dart';
 import 'package:vamos_cartographie/map/entities/day/sheet_pages/run_stats.dart'
     show lengthBetween;
@@ -45,7 +46,7 @@ class WaypointInfoDialog extends ConsumerWidget {
         ? null
         : lengthBetween(geometry, 0, waypoint.anchorPosition);
 
-    final day = _dayOf(waypoint, ref.watch(routeDaysProvider(tripId)));
+    final day = dayOfWaypoint(waypoint, ref.watch(routeDaysProvider(tripId)));
 
     final subtitle = [
       if (waypoint.stay != null) 'Halte',
@@ -132,18 +133,4 @@ class WaypointInfoDialog extends ConsumerWidget {
       ],
     );
   }
-}
-
-/// La journée d'un waypoint : celle que sa halte termine, sinon la première
-/// qui le contient. Null si la route n'a pas (encore) de journée pour lui.
-RouteDay? _dayOf(WaypointFields waypoint, List<RouteDay> days) {
-  if (waypoint.stay != null) {
-    final ending = days.where((d) => d.endsAt == waypoint.id).firstOrNull;
-    if (ending != null) return ending;
-  }
-  const eps = 1e-6;
-  final a = waypoint.anchorPosition;
-  return days
-      .where((d) => d.hasGeometry && a >= d.from - eps && a <= d.to + eps)
-      .firstOrNull;
 }

@@ -13,6 +13,8 @@ final class MobilityBadgeItem extends PointItem {
     required this.appearance,
     required this.glyph,
   });
+  @override
+  int zIndex = ZIndex.content + 2;
 
   @override
   final MobilityBadge object;
@@ -29,7 +31,7 @@ final class MobilityBadgeItem extends PointItem {
   /// Rayon de la pastille au repos. Doit rester égal à
   /// `MobilityBadgeStyle._radius`.
   @override
-  ScreenLength get visualRadius => 11.px;
+  ScreenLength get visualRadius => 10.px;
 
   /// Plus large que le visuel : une cible de 22 px de diamètre est en
   /// dessous du minimum tactile confortable.
