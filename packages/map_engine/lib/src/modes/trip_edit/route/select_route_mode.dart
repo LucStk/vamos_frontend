@@ -85,13 +85,13 @@ class SelectRouteMode extends RouteToolMode {
         );
       });
 
-  @override
-  Transition onTap(TapGesture g) => switch (g.hit) {
-    HitObject(object: MapMobilitySpan(:final id)) => Transition.to(
-      EditSpanMode(tripId, mobilitySpanId: id),
-    ),
-    _ => Transition.stay(),
-  };
+  // @override
+  // Transition onTap(TapGesture g) => switch (g.hit) {
+  //   HitObject(object: MapMobilitySpan(:final id)) => Transition.to(
+  //     EditSpanMode(tripId, mobilitySpanId: id),
+  //   ),
+  //   _ => Transition.stay(),
+  // };
 
   // Nouveau drag depuis la route : on repart d'une sélection fermée.
   @override

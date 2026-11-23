@@ -26,17 +26,17 @@ final class TripEditMode extends TripMode {
   @override
   Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
 
-  @override
-  Transition onTap(TapGesture g) => switch (g.hit) {
-    HitObject(object: MapWaypoint()) => Transition.set(
-      selectionSlot,
-      g.element,
-    ),
-    HitObject(object: MapMobilitySpan(:final id)) => Transition.to(
-      EditSpanMode(tripId, mobilitySpanId: id),
-    ),
-    _ => Transition.stay(),
-  };
+  // @override
+  // Transition onTap(TapGesture g) => switch (g.hit) {
+  //   HitObject(object: MapWaypoint()) => Transition.set(
+  //     selectionSlot,
+  //     g.element,
+  //   ),
+  //   HitObject(object: MapMobilitySpan(:final id)) => Transition.to(
+  //     EditSpanMode(tripId, mobilitySpanId: id),
+  //   ),
+  //   _ => Transition.stay(),
+  // };
 
   /// Glisser depuis la route, y compris son départ ou son arrivée : la
   /// sélection d'une portion commence au point saisi. Le reste du geste est
