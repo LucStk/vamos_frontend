@@ -29,18 +29,24 @@ sealed class PlaceOriginMode extends AppMode {
 final class PlaceNewTripOrigin extends PlaceOriginMode {
   const PlaceNewTripOrigin();
 
-  /// Un tap sur la carte pose l'origine et ouvre le menu.
+  /// Un tap sur la carte pose l'origine ; le panneau la valide. Toucher
+  /// l'origine déjà posée ne la déplace pas.
   @override
-  Transition onTapElsewhere(TapGesture g) => Transition.overlay(
-    TapMenu(HitGeo(g.world)),
-  ).and(tripOriginSlot, TripOrigin(g.world));
+  Transition onTap(TapGesture g) => switch (g.element) {
+    MapTmpOrigin _ => Transition.stay(),
+    _ => placeAt(g.world),
+  };
 
   @override
-  Transition onDragging(DragUpdateGesture g) =>
-      Transition.set(tripOriginSlot, TripOrigin(g.world));
+  Transition onDragging(DragUpdateGesture g) => placeAt(g.world);
 
-  Transition validate(WorldOffset origin) => Transition.run(
-    CreateTrip(origin),
+  /// Pose (ou déplace) l'origine : tap, glisser, ou résultat de recherche.
+  Transition placeAt(WorldOffset origin) =>
+      Transition.set(tripOriginSlot, TripOrigin(origin));
+
+  /// Crée le trip à [origin], avec [title] s'il n'est pas vide.
+  Transition validate(WorldOffset origin, {String title = ''}) => Transition.run(
+    CreateTrip(origin, title: title),
     then: (_, data) => data.fold(
       (Failure f) => Transition.stay(),
       (trip) => TripMode.open(trip.id),

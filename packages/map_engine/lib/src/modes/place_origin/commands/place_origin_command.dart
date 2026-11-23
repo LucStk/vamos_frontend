@@ -54,11 +54,19 @@ final class PatchTripOrigin extends PlaceOriginCommand<Failure> {
 }
 
 final class CreateTrip extends PlaceOriginCommand<Either<Failure, Trip>> {
-  const CreateTrip(this.position);
+  const CreateTrip(this.position, {this.title = ''});
   final WorldOffset position;
+  final String title;
+
   @override
   Future<Either<Failure, Trip>> handle(AppCommandScope n) async {
     final LatLng latLng = n.camera.worldOffsetToLatLng(position);
-    return await n.tripEditor.createBlankTrip(latLng);
+    final created = await n.tripEditor.createBlankTrip(latLng);
+    final trip = created.fold<Trip?>((_) => null, (t) => t);
+    if (trip == null || title.isEmpty) return created;
+    // Le trip existe déjà : si le titre échoue, on garde le trip sans titre
+    // plutôt que de perdre la création.
+    final titled = await n.tripEditor.updateTrip(trip.copyWith(title: title));
+    return titled.isRight() ? titled : created;
   }
 }

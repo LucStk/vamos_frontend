@@ -1,3 +1,4 @@
+import 'package:domain_core/domain_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
@@ -9,7 +10,11 @@ import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
 import 'package:flutter/material.dart';
 
 class SearchTopSheet extends ConsumerWidget {
-  const SearchTopSheet({super.key});
+  const SearchTopSheet({super.key, this.onPicked});
+
+  /// Ce que fait le choix d'un résultat à la position donnée. Par défaut : le
+  /// curseur de recherche est posé dessus.
+  final Transition Function(WorldOffset point)? onPicked;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,21 +34,28 @@ class SearchTopSheet extends ConsumerWidget {
                   child: PlaceSearchBar(
                     origin: () => ref.read(mapCameraProvider).center,
                     onSelected: (r) {
+                      final point = ref
+                          .read(mapCameraProvider)
+                          .latLngToWorldOffset(r.position);
                       ref.applyTransition(
-                        Transition.set(
-                          searchResultMarkerSlot,
-                          SearchResultMarker(
-                            point: ref
-                                .read(mapCameraProvider)
-                                .latLngToWorldOffset(r.position),
-                          ),
-                        ),
+                        onPicked?.call(point) ??
+                            Transition.set(
+                              searchResultMarkerSlot,
+                              SearchResultMarker(point: point),
+                            ),
                       );
-                      if (r.bbox != null) {
-                        ref
-                            .read(cameraDirectorProvider)
-                            .submit(CameraRequest(FitBounds(r.bbox!)));
-                      }
+                      // Un lieu sans emprise (adresse, commerce) : on centre
+                      // sur lui, sans dézoomer.
+                      final bounds = r.bbox;
+                      ref
+                          .read(cameraDirectorProvider)
+                          .submit(
+                            CameraRequest(
+                              bounds != null
+                                  ? FitBounds(bounds)
+                                  : FocusPoint(r.position, minZoom: 14),
+                            ),
+                          );
                     },
                   ),
                 ),
