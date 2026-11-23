@@ -10,7 +10,7 @@ import 'package:vamos_cartographie/domain_features/day/providers/day_providers.d
 import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
-import 'package:vamos_cartographie/map/entities/day/dialog/day_of_waypoint.dart';
+import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/modes/shared/helpers/section_slice.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
@@ -19,7 +19,7 @@ import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
 const _margin = 24.0;
 
 /// Étendue minimale d'un cadrage, en degrés (environ 400 m) : un jour presque
-/// droit ou un waypoint seul ne zoome pas à l'infini.
+/// droit ne zoome pas à l'infini.
 const _minSpan = 0.004;
 
 /// Les marges de cadrage quand un dialog à hauteur partielle est ouvert : la
@@ -44,71 +44,72 @@ MapEdgeInsets selectionFramePadding(BuildContext context) {
 }
 
 /// Cadre la caméra sur [selected] : la portion de route d'un jour ou d'un
-/// morceau ; pour un waypoint, celle de son jour (le point reste situé dans
-/// son contexte). Sans effet pour le reste.
+/// morceau ; pour un waypoint, elle le centre sans changer le zoom. Sans effet
+/// pour le reste.
 void frameSelection(
   WidgetRef ref,
   TripId tripId,
   MapObject? selected, {
   required MapEdgeInsets padding,
 }) {
-  final bounds = switch (selected) {
-    MapDaySegment(:final endsAt) => _dayBounds(ref, tripId, endsAt),
-    MapDayRun(:final endsAt, :final spanId) => _runBounds(
-      ref,
-      tripId,
-      endsAt,
-      spanId,
+  final target = switch (selected) {
+    MapDaySegment(:final endsAt) => _fit(
+      _dayBounds(ref, tripId, endsAt),
+      padding,
     ),
-    MapWaypoint(:final id) => _waypointBounds(ref, tripId, id),
+    MapDayRun(:final endsAt, :final spanId) => _fit(
+      _runBounds(ref, tripId, endsAt, spanId),
+      padding,
+    ),
+    MapWaypoint(:final id) => _center(ref, tripId, id, padding),
     _ => null,
   };
-  if (bounds == null) return;
+  if (target == null) return;
 
   ref
       .read(cameraDirectorProvider)
-      .submit(
-        CameraRequest(
-          FitBounds(bounds, padding: padding),
-          // Un choix de l'utilisateur : passe même après qu'il a bougé la
-          // carte.
-          priority: CameraPriority.explicit,
-        ),
-      );
+      // Un choix de l'utilisateur : passe même après qu'il a bougé la carte.
+      .submit(CameraRequest(target, priority: CameraPriority.explicit));
+}
+
+CameraTarget? _fit(MapLatLngBounds? bounds, MapEdgeInsets padding) =>
+    bounds == null ? null : FitBounds(bounds, padding: padding);
+
+/// Centre le waypoint au milieu de la partie de la carte que le dialog laisse
+/// libre (et non au milieu de l'écran, qu'il recouvre à moitié), sans toucher
+/// au zoom.
+CameraTarget _center(
+  WidgetRef ref,
+  TripId tripId,
+  WaypointId id,
+  MapEdgeInsets padding,
+) {
+  final position = ref.read(waypointProvider(tripId, id)).position;
+  final camera = ref.read(mapCameraProvider);
+
+  // Le waypoint doit finir à `dy` pixels au-dessus du centre de l'écran. Ce
+  // décalage, vu depuis la carte (rotation comprise), est le vecteur monde
+  // entre le centre de l'écran et le point `dy` plus bas ; on l'ajoute au
+  // waypoint pour obtenir le centre à viser.
+  final dy = (padding.bottom - padding.top) / 2;
+  final center = camera.screenCenter;
+  final shift =
+      camera.screenToWorld(ScreenOffset(center.value + Offset(0, dy))) -
+      camera.screenToWorld(center);
+  final target = camera.worldOffsetToLatLng(
+    camera.latLngToWorldOffset(position) + shift,
+  );
+  return PanTo(target);
 }
 
 List<LatLng>? _geometry(WidgetRef ref, TripId tripId) =>
     ref.read(routeStoreProvider(tripId)).route?.current.geometry;
 
-MapLatLngBounds? _dayBounds(
-  WidgetRef ref,
-  TripId tripId,
-  WaypointId? endsAt, {
-  LatLng? include,
-}) {
+MapLatLngBounds? _dayBounds(WidgetRef ref, TripId tripId, WaypointId? endsAt) {
   final day = ref.read(routeDayProvider(tripId, endsAt));
   final geometry = _geometry(ref, tripId);
   if (day == null || geometry == null) return null;
-  final points = sliceBetweenPositions(geometry, day.from, day.to);
-  if (points == null) return null;
-  return _boundsOf([...points, ?include]);
-}
-
-/// La boîte du jour du waypoint, qui contient le waypoint lui-même ; à défaut
-/// de jour (pas de route), ses seuls alentours.
-MapLatLngBounds? _waypointBounds(WidgetRef ref, TripId tripId, WaypointId id) {
-  final waypoint = ref.read(waypointProvider(tripId, id));
-  final day = dayOfWaypoint(waypoint, ref.read(routeDaysProvider(tripId)));
-  if (day != null) {
-    final bounds = _dayBounds(
-      ref,
-      tripId,
-      day.endsAt,
-      include: waypoint.position,
-    );
-    if (bounds != null) return bounds;
-  }
-  return _around(waypoint.position);
+  return _boundsOf(sliceBetweenPositions(geometry, day.from, day.to));
 }
 
 MapLatLngBounds? _runBounds(
@@ -143,5 +144,3 @@ MapLatLngBounds? _boundsOf(List<LatLng>? points) {
     west: center.longitude - lng / 2,
   );
 }
-
-MapLatLngBounds _around(LatLng point) => _boundsOf([point])!;

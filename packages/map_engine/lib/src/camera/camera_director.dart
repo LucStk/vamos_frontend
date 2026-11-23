@@ -103,6 +103,8 @@ final class CameraDirector {
           point,
           deltaZoom: max(zoom ?? _camera.zoomScale, minZoom),
         );
+      case PanTo(:final point):
+        _camera.panTo(point);
       case FitBounds(:final bounds, :final padding):
         _camera.fitBounds(bounds, padding: padding ?? _defaultFitPadding);
       case ZoomAt(:final point):

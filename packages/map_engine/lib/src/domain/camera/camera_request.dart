@@ -15,6 +15,12 @@ final class FocusPoint extends CameraTarget {
   final double minZoom; // évite de dézoomer
 }
 
+/// Centre la caméra sur [point] en gardant le zoom courant.
+final class PanTo extends CameraTarget {
+  const PanTo(this.point);
+  final LatLng point;
+}
+
 final class FitBounds extends CameraTarget {
   const FitBounds(this.bounds, {this.padding});
   final MapLatLngBounds bounds;
