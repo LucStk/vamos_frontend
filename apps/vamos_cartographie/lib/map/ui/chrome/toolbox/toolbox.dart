@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/bar_tab.dart';
+import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 
 /// Un outil de la barre : son icône et son libellé.
 class ToolboxItem {
@@ -36,6 +37,7 @@ class Toolbox extends StatelessWidget {
     this.panel,
     this.panelKey,
     this.leading,
+    this.onClose,
   });
 
   final List<ToolboxItem> items;
@@ -56,6 +58,10 @@ class Toolbox extends StatelessWidget {
   /// À gauche de la barre (ex. `BackTab`).
   final Widget? leading;
 
+  /// Sortie du mode : chaque `ToolPanel` du panneau en fait une croix à
+  /// droite. Null : pas de croix.
+  final VoidCallback? onClose;
+
   static const _panelDuration = Duration(milliseconds: 200);
 
   @override
@@ -64,6 +70,7 @@ class Toolbox extends StatelessWidget {
     final active = activeIndex;
     final panel = this.panel;
     final leading = this.leading;
+    final onClose = this.onClose;
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -96,7 +103,12 @@ class Toolbox extends StatelessWidget {
                             key: ValueKey(panelKey ?? ('tool', active)),
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
-                              child: panel,
+                              child: onClose == null
+                                  ? panel
+                                  : ToolPanelScope(
+                                      onClose: onClose,
+                                      child: panel,
+                                    ),
                             ),
                           ),
                   ),

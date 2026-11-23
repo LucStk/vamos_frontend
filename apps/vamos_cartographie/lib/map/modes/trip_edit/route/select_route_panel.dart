@@ -88,11 +88,6 @@ class _SelectRoutePanelState extends ConsumerState<SelectRoutePanel> {
             ),
             onPressed: () => ref.applyTransition(mode.trim(trimEnd)),
           ),
-        ToolAction(
-          icon: Icons.close,
-          label: 'Fermer',
-          onPressed: () => ref.applyTransition(mode.back),
-        ),
       ],
       secondary: ToolAction(
         icon: Icons.gesture,

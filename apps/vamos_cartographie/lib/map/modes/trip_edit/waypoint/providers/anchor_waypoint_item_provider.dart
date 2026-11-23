@@ -1,9 +1,11 @@
 import 'package:map_canvas/map_canvas.dart';
 import 'package:map_engine/map_engine.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/injection.dart';
+import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/anchor_waypoint_item.dart';
 import 'package:vamos_cartographie/map/objects/waypoint/chain_waypoint_item.dart';
 
@@ -44,5 +46,28 @@ List<SceneItem> allWaypointAnchorItem(
   return [
     for (final id in ref.watch(allWaypointIdsProvider(tripId)))
       ...ref.watch(anchorWaypointItemProvider(tripId, id, camera)),
+  ];
+}
+
+/// Couche des ancres en édition : on ne voit que celles des étapes (haltes de
+/// nuit) et celle du waypoint sélectionné, pour ne pas surcharger la carte.
+///
+/// Fonction simple et non provider : elle suit la sélection et les haltes
+/// elle-même, et réutilise les items de [anchorWaypointItemProvider].
+List<SceneItem> visibleWaypointAnchors(
+  Ref ref,
+  TripId tripId,
+  MapCameraReader camera,
+) {
+  final selected = ref.watch(modeSelectionProvider);
+  final selectedId = selected is MapWaypoint && selected.tripId == tripId
+      ? selected.id
+      : null;
+
+  return [
+    for (final id in ref.watch(allWaypointIdsProvider(tripId)))
+      if (id == selectedId ||
+          ref.watch(waypointProvider(tripId, id).select((w) => w.stay != null)))
+        ...ref.watch(anchorWaypointItemProvider(tripId, id, camera)),
   ];
 }

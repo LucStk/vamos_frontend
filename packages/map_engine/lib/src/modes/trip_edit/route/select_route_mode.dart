@@ -3,7 +3,6 @@ import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/trip_edit/route/commands/route_command.dart';
-import 'package:map_engine/src/modes/trip_edit/route/edit_span_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/portion_preview_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/route_tool_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/slots/route_selection_slot.dart';
@@ -38,10 +37,6 @@ class SelectRouteMode extends RouteToolMode {
 
   /// Échec de la dernière demande, à afficher dans le panneau.
   final Failure? failure;
-
-  /// Fermer, annuler, retour système : on revient à l'édition sans outil.
-  @override
-  Transition get back => Transition.to(TripEditMode(tripId));
 
   @override
   Iterable<SlotChange> get initialSlots => [

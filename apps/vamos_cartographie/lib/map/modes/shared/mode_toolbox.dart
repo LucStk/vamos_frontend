@@ -62,6 +62,7 @@ class ModeToolbox extends ConsumerWidget {
     required this.closed,
     this.contextual = const [],
     this.leading,
+    this.onClose,
   });
 
   /// Mode courant.
@@ -76,6 +77,9 @@ class ModeToolbox extends ConsumerWidget {
   final AppMode Function() closed;
 
   final Widget? leading;
+
+  /// Sortie du mode, en croix sur chaque panneau (voir `Toolbox.onClose`).
+  final VoidCallback? onClose;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,6 +100,7 @@ class ModeToolbox extends ConsumerWidget {
       panel: panel,
       panelKey: panelKey,
       leading: leading,
+      onClose: onClose,
       onSelect: (index) {
         final t = tools.transitionTo(index, mode, closed);
         if (t != null) ref.applyTransition(t);

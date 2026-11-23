@@ -47,6 +47,7 @@ class _NewTripUi extends ConsumerWidget {
           activeIndex: null,
           onSelect: (_) {},
           leading: BackTab(onTap: () => ref.applyTransition(mode.cancel())),
+          onClose: () => ref.applyTransition(mode.cancel()),
           panel: ToolPanel(
             hint: origin == null
                 ? 'Touchez la carte ou cherchez un lieu pour poser le départ.'
@@ -139,6 +140,7 @@ class _ExistingTripUiState extends ConsumerState<_ExistingTripUi> {
             leading: BackTab(
               onTap: () => ref.applyTransition(widget.mode.back),
             ),
+            onClose: () => ref.applyTransition(widget.mode.back),
             panelKey: cursor == null ? 'hint' : 'cursor',
             panel: cursor == null
                 ? const ToolPanel(

@@ -40,7 +40,26 @@ class ToolAction {
   final ToolConfirmation? confirmation;
 }
 
+/// Action « fermer » partagée avec les `ToolPanel` en dessous : `Toolbox` la
+/// fournit, chaque panneau affiche alors une croix sans la connaître.
+class ToolPanelScope extends InheritedWidget {
+  const ToolPanelScope({super.key, required this.onClose, required super.child});
+
+  final VoidCallback onClose;
+
+  static VoidCallback? closeOf(BuildContext context) => context
+      .dependOnInheritedWidgetOfExactType<ToolPanelScope>()
+      ?.onClose;
+
+  @override
+  bool updateShouldNotify(ToolPanelScope oldWidget) =>
+      onClose != oldWidget.onClose;
+}
+
 /// Panneau d'actions d'un outil de la boîte à outils.
+///
+/// Une croix ferme l'outil, à l'extrême droite de la première ligne : elle
+/// vient de [onClose], à défaut de la `Toolbox` qui contient le panneau.
 ///
 /// Ligne 1 : réglages de l'outil à gauche ([settings], ex. menu de mobilité),
 /// actions secondaires en icônes à droite ([trailing], ex. effacer).
@@ -58,7 +77,12 @@ class ToolPanel extends StatelessWidget {
     this.trailing = const [],
     this.secondary,
     this.primary,
+    this.onClose,
   });
+
+  /// Fermeture de l'outil ; null : celle de la `Toolbox` (aucune croix si
+  /// elle n'en a pas).
+  final VoidCallback? onClose;
 
   /// Consigne affichée en haut (ex. « Touchez la carte pour… »). Null : rien.
   final String? hint;
@@ -83,14 +107,28 @@ class ToolPanel extends StatelessWidget {
     final error = this.error;
     final theme = Theme.of(context);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    final close = onClose ?? ToolPanelScope.closeOf(context);
+    final closeButton = close == null
+        ? null
+        : IconButton(
+            tooltip: 'Fermer',
+            onPressed: close,
+            icon: const Icon(Icons.close),
+          );
+    // La croix partage la première ligne : celle des outils, à défaut celle du
+    // texte, à défaut une ligne à elle.
+    final hasText = error != null || hint != null;
+    final closeInTools = closeButton != null && hasTools;
+    final closeInText = closeButton != null && !hasTools && hasText;
+    final closeAlone = closeButton != null && !hasTools && !hasText;
+
+    Widget text() => Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (error != null)
           Padding(
             padding: EdgeInsets.only(
-              bottom: hint != null || hasTools || hasMain ? 8 : 0,
+              bottom: hint != null ? 8 : 0,
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,14 +151,30 @@ class ToolPanel extends StatelessWidget {
             ),
           ),
         if (hint != null)
+          Text(
+            hint,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+      ],
+    );
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (closeAlone)
+          Align(alignment: Alignment.centerRight, child: closeButton),
+        if (hasText)
           Padding(
             padding: EdgeInsets.only(bottom: hasTools || hasMain ? 8 : 0),
-            child: Text(
-              hint,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-            ),
+            child: closeInText
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Expanded(child: text()), closeButton!],
+                  )
+                : text(),
           ),
         if (hasTools)
           Row(
@@ -128,6 +182,7 @@ class ToolPanel extends StatelessWidget {
               ...settings,
               const Spacer(),
               for (final a in trailing) _IconAction(a),
+              if (closeInTools) closeButton!,
             ],
           ),
         if (hasTools && hasMain) const SizedBox(height: 8),

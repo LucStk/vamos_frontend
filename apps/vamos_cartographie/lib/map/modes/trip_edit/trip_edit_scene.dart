@@ -9,7 +9,7 @@ SceneSpec tripEditScene(TripId tripId) => SceneSpec(
     (ref, cam) => [?ref.watch(tripEndItemProvider(tripId, cam))],
     (ref, cam) => [?ref.watch(tripOriginItemProvider(tripId, cam))],
     (ref, cam) => ref.watch(allWaypointItemProvider(tripId, cam)),
-    (ref, cam) => ref.watch(allWaypointAnchorItemProvider(tripId, cam)),
+    (ref, cam) => visibleWaypointAnchors(ref, tripId, cam),
     (ref, cam) => ref.watch(pendingWaypointProvider(tripId, cam)),
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
   ],

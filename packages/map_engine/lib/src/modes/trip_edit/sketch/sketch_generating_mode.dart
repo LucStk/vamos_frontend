@@ -17,6 +17,12 @@ final class SketchGenerating extends SketchToolMode {
   @override
   Set<Slot> get retainedSlots => {sketchTraceSlot, searchResultMarkerSlot}; // la trace reste affichée
 
+  /// Quitter pendant le calcul : sa réponse sera ignorée, la proposition qu'il
+  /// crée est abandonnée (l'abandon passe après lui dans la file du trip).
+  @override
+  Transition get exit =>
+      super.exit.running(DiscardSketchPreview(tripId: tripId));
+
   // Gestes inertes. Surcharge `onTap` si `TripMode` sort vers Explore,
   // comme tu l'as fait dans `TripValidatingMode`.
   @override

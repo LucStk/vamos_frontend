@@ -30,9 +30,11 @@ final class SketchPreviewing extends SketchToolMode {
   @override
   Set<Slot> get retainedSlots => {sketchTraceSlot, searchResultMarkerSlot}; // pour y revenir
 
-  /// Le retour système et la flèche de la boîte à outils reviennent au tracé.
+  /// Retour, croix et retour système quittent l'édition (comme partout) ;
+  /// la proposition est abandonnée. Pour revenir au tracé : [backToSketch].
   @override
-  Transition get back => backToSketch();
+  Transition get exit =>
+      super.exit.running(DiscardSketchPreview(tripId: tripId));
 
   // Gestes inertes : rien à toucher sur la carte pendant la prévisualisation.
   @override

@@ -40,6 +40,8 @@ class TripEditUi extends ConsumerWidget {
           mode: mode,
           closed: () => TripEditMode(tripId),
           leading: BackTab(onTap: () => ref.applyTransition(mode.back)),
+          // Croix de chaque panneau : même sortie que la flèche retour.
+          onClose: () => ref.applyTransition(mode.exit),
           tools: [
             ModeTool<CreateWaypointMode>(
               item: const ToolboxItem(

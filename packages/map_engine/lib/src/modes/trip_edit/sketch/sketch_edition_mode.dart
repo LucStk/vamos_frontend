@@ -6,7 +6,6 @@ import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart
 import 'package:map_engine/src/modes/shared/cursor_actions.dart';
 import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/commands/sketch_command.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/sketch_generating_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/sketch_tool_mode.dart';
@@ -28,9 +27,6 @@ class SketchEdition extends SketchToolMode {
   /// Efface le tracé.
   Transition clearTrace() =>
       _editingTrace(Transition.set(sketchTraceSlot, null));
-
-  @override
-  Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
 
   @override
   Set<Slot> get retainedSlots => {sketchTraceSlot, searchResultMarkerSlot};

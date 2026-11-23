@@ -39,10 +39,11 @@ final class PortionPreviewMode extends RouteToolMode {
   /// routeur (la prévisualisation reprend alors une ligne droite).
   Failure? get error => failure ?? preview?.routingFailure;
 
-  /// Le retour système et la flèche de la boîte à outils reviennent à la
-  /// sélection.
+  /// Retour, croix et retour système quittent l'édition (comme partout) ;
+  /// la proposition est abandonnée. Pour revenir à la sélection : [backToSelection].
   @override
-  Transition get back => backToSelection();
+  Transition get exit =>
+      super.exit.running(DiscardPortionPreview(tripId: tripId));
 
   // Gestes inertes : rien à toucher sur la carte pendant la prévisualisation.
   @override
