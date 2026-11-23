@@ -5,7 +5,6 @@ import 'package:map_engine/src/modes/trip_edit/route/commands/route_command.dart
 import 'package:map_engine/src/modes/trip_edit/route/route_tool_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/select_route_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/slots/route_selection_slot.dart';
-import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 /// Re-routage de la portion sélectionnée, affiché sans avoir été écrit dans la
@@ -39,11 +38,11 @@ final class PortionPreviewMode extends RouteToolMode {
   /// routeur (la prévisualisation reprend alors une ligne droite).
   Failure? get error => failure ?? preview?.routingFailure;
 
-  /// Retour, croix et retour système ferment l'outil (retour à l'édition) ;
+  /// Retour, croix et retour système ferment l'outil (retour à la lecture) ;
   /// la proposition est abandonnée. Pour revenir à la sélection : [backToSelection].
   @override
   Transition get closeTool =>
-      super.closeTool.running(DiscardPortionPreview(tripId: tripId));
+      exit.running(DiscardPortionPreview(tripId: tripId));
 
   // Gestes inertes : rien à toucher sur la carte pendant la prévisualisation.
   @override
@@ -100,7 +99,7 @@ final class PortionPreviewMode extends RouteToolMode {
   Transition recalculate(MobilityType mobilityType) =>
       start(tripId, selection, mobilityType);
 
-  /// Intègre l'aperçu à la route, puis revient à l'édition sans outil.
+  /// Intègre l'aperçu à la route, puis revient à la lecture.
   Transition commit() {
     final proposal = preview;
     if (proposal == null) return Transition.stay();
@@ -120,7 +119,7 @@ final class PortionPreviewMode extends RouteToolMode {
               failure: failure,
             ),
           ),
-          (_) => Transition.to(TripEditMode(tripId)),
+          (_) => exit,
         );
       },
     );

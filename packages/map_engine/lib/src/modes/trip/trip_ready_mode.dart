@@ -6,6 +6,7 @@ import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
 import 'package:map_engine/src/modes/trip/move_waypoint_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/route/select_route_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -90,6 +91,26 @@ final class TripReadyMode extends TripMode {
 
     // tap dans le vide ou sur un élément non sélectionnable => désélection
     return Transition.set<MapObject>(selectionSlot, null);
+  }
+
+  /// Glisser sur la route (propriétaire) : la sélection d'une portion commence
+  /// au point saisi. Le reste du geste est reçu par [SelectRouteMode]. En
+  /// lecture seule, rien : la carte se déplace comme d'habitude.
+  @override
+  Transition onDragStart(DragStartGesture g) {
+    if (readOnly) return Transition.stay();
+    return switch (g.source) {
+      HitObject(
+        object:
+            MapMobilitySpan() ||
+            MapDaySegment() ||
+            MapTripStart() ||
+            MapTripEnd(),
+        detail: RouteHitDetail(:final position) ||
+            DayRunHitDetail(:final position),
+      ) => SelectRouteMode.start(tripId, position),
+      _ => Transition.stay(),
+    };
   }
 
   Transition deleteTripRoute() => Transition.run(

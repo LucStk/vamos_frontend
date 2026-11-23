@@ -10,7 +10,6 @@ import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
-import 'package:map_engine/src/modes/trip_edit/route/select_route_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/waypoint/commands/waypoint_command.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -24,7 +23,6 @@ import 'package:trip_application/trip_application.dart';
 /// - Étape : la toucher ou la glisser la sélectionne (halo et ancre
 ///   apparaissent) ; la glisser la déplace (ou glisse son ancre le long de la
 ///   route), relâcher enregistre. Tout autre geste sur la carte la désélectionne.
-/// - Route : glisser dessus sélectionne une portion ([SelectRouteMode]).
 ///
 /// Remplace `WaypointsEditMode`.
 final class TripEditMode extends TripMode {
@@ -132,20 +130,11 @@ final class TripEditMode extends TripMode {
     };
   }
 
-  /// Glisser depuis la route, y compris son départ ou son arrivée : la
-  /// sélection d'une portion commence au point saisi. Le reste du geste est
-  /// reçu par [SelectRouteMode], dont
-  /// `onDragging` fait suivre le doigt à la poignée `b`.
-  ///
   /// Glisser une étape ou son ancre la sélectionne (halo, ancre visible) ;
-  /// [onDragging] s'occupe du déplacement.
+  /// [onDragging] s'occupe du déplacement. La route, elle, ne se sélectionne
+  /// plus ici : voir `TripReadyMode.onDragStart`.
   @override
   Transition onDragStart(DragStartGesture g) => switch (g.source) {
-    HitObject(
-      object: MapMobilitySpan() || MapTripStart() || MapTripEnd(),
-      detail: RouteHitDetail(:final position),
-    ) =>
-      Transition.to(SelectRouteMode(tripId, initialPosition: position)),
     HitObject(object: final MapWaypoint waypoint) => _select(waypoint),
     HitObject(object: MapWaypointAnchor(:final waypointId)) => _select(
       MapWaypoint(id: waypointId, tripId: tripId),

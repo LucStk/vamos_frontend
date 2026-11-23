@@ -4,14 +4,14 @@ import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/trip_edit/route/commands/route_command.dart';
 import 'package:map_engine/src/modes/trip_edit/route/portion_preview_mode.dart';
+import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/trip_edit/route/route_tool_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/slots/route_selection_slot.dart';
-import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 /// Sélection d'une portion de route, ouverte par un glissement sur la route
-/// depuis [TripEditMode]. Le glissement qui l'a ouverte continue ici : la
-/// poignée `b` suit le doigt.
+/// depuis la lecture du trip (propriétaire) : [TripReadyMode.onDragStart]. Le
+/// glissement qui l'a ouverte continue ici : la poignée `b` suit le doigt.
 ///
 /// Elle peut aussi s'ouvrir en saisissant le départ ou l'arrivée de la route.
 ///
@@ -31,6 +31,12 @@ class SelectRouteMode extends RouteToolMode {
     this.failure,
   }) : initialPosition = selection.a,
        restoredSelection = selection;
+
+  /// Ouvre la sélection au point [position] de la route, aucune fiche ouverte.
+  static Transition start(TripId tripId, double position) =>
+      Transition.to(
+        SelectRouteMode(tripId, initialPosition: position),
+      ).and<MapObject>(selectionSlot, null);
 
   final double initialPosition;
   final RouteSelection? restoredSelection;
@@ -74,24 +80,42 @@ class SelectRouteMode extends RouteToolMode {
               (failure) => Transition.to(
                 SelectRouteMode.restoring(tripId, s, failure: failure),
               ),
-              (_) => Transition.to(TripEditMode(tripId)),
+              (_) => exit,
             );
           },
         );
       });
 
-  /// Toucher une étape ou la carte passe à l'édition (étape sélectionnée,
-  /// ou curseur posé) ; le reste ne fait rien.
+  /// Retour à la lecture, rien d'ouvert.
   @override
-  Transition onTap(TapGesture g) =>
-      TripEditMode.leavingToTap(tripId, g) ?? Transition.stay();
+  Transition get closeTool => exit.and<MapObject>(selectionSlot, null);
+
+  @override
+  Transition get back => closeTool;
+
+  /// Toucher une étape la rouvre en lecture ; toucher la carte (ou la position
+  /// de l'utilisateur) revient à la lecture. Le reste ne fait rien.
+  @override
+  Transition onTap(TapGesture g) => switch (g.element) {
+    final MapWaypoint waypoint => exit.and<MapObject>(
+      selectionSlot,
+      waypoint,
+    ),
+    MapLocalization() || null => closeTool,
+    _ => Transition.stay(),
+  };
 
   // Nouveau drag depuis la route : on repart d'une sélection fermée.
   @override
   Transition onDragStart(DragStartGesture g) => switch (g.source) {
     HitObject(
-      object: MapMobilitySpan() || MapTripStart() || MapTripEnd(),
-      detail: RouteHitDetail(:final position),
+      object:
+          MapMobilitySpan() ||
+          MapDaySegment() ||
+          MapTripStart() ||
+          MapTripEnd(),
+      detail: RouteHitDetail(:final position) ||
+          DayRunHitDetail(:final position),
     ) =>
       Transition.set(routeSelectionSlot, RouteSelection.collapsedAt(position)),
     _ => Transition.stay(),
@@ -100,10 +124,13 @@ class SelectRouteMode extends RouteToolMode {
   @override
   Transition onDragging(DragUpdateGesture g) {
     return switch ((g.source.object, g.detail)) {
-      // Le drag qui a créé la sélection (y compris celui commencé dans
-      // TripEditMode, ou depuis une extrémité de la route) : `b` suit le doigt.
+      // Le drag qui a créé la sélection (y compris celui commencé en
+      // lecture, ou depuis une extrémité de la route) : `b` suit le doigt.
       (
-        MapMobilitySpan() || MapTripStart() || MapTripEnd(),
+        MapMobilitySpan() ||
+            MapDaySegment() ||
+            MapTripStart() ||
+            MapTripEnd(),
         RouteDragDetail(:final position),
       ) =>
         Transition.update(
@@ -140,7 +167,7 @@ class SelectRouteMode extends RouteToolMode {
               (failure) => Transition.to(
                 SelectRouteMode.restoring(tripId, s, failure: failure),
               ),
-              (_) => Transition.to(TripEditMode(tripId)),
+              (_) => exit,
             );
           },
         );

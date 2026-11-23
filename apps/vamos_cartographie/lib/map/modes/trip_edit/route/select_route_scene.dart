@@ -1,5 +1,6 @@
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/modes/trip/trip_route_items.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/providers/selection_handle_provider.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/waypoints_edit.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
@@ -17,7 +18,9 @@ SceneSpec selectRouteScene(TripId tripId) => SceneSpec(
     (ref, cam) => visibleWaypointAnchors(ref, tripId, cam),
     (ref, cam) => ref.watch(selectionHandleItemsProvider(tripId, cam)),
     (ref, cam) => ref.watch(pendingWaypointProvider(tripId, cam)),
-    (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
+    // Même route que la lecture : le glissement qui a ouvert la sélection part
+    // d'un segment de jour, qui doit rester dans la scène.
+    (ref, cam) => tripRouteItems(ref, tripId, cam),
   ],
 );
 

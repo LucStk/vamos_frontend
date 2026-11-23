@@ -16,13 +16,39 @@ import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_selection_camera.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_title_banner.dart';
 
-class TripReadyUi extends ConsumerWidget {
+class TripReadyUi extends ConsumerStatefulWidget {
   const TripReadyUi(this.mode, {super.key});
 
   final TripReadyMode mode;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<TripReadyUi> createState() => _TripReadyUiState();
+}
+
+class _TripReadyUiState extends ConsumerState<TripReadyUi> {
+  TripReadyMode get mode => widget.mode;
+
+  @override
+  void initState() {
+    super.initState();
+    // On revient d'un autre mode (déplacement d'une étape, sélection d'une
+    // portion, édition) avec une fiche déjà ouverte : la sélection n'a pas
+    // changé, rien ne la cadre. On le fait ici, une fois la fiche en place.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final selected = ref.read(modeSelectionProvider);
+      if (selected == null) return;
+      frameSelection(
+        ref,
+        mode.tripId,
+        selected,
+        padding: selectionFramePadding(context),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selected = ref.watch(modeSelectionProvider);
 
     // Un jour, un morceau ou un waypoint choisi : la caméra le cadre, dans la

@@ -15,9 +15,9 @@ abstract class TripMode extends AppMode {
   @override
   Set<Slot> get retainedSlots => const {selectionSlot, searchResultMarkerSlot};
 
-  /// Sortie de l'édition vers la lecture du trip (modifiable). Dernière étape
-  /// du retour : on n'y arrive que depuis [TripEditMode], sans outil ni
-  /// panneau ouvert.
+  /// Retour à la lecture du trip (modifiable), sans outil ni panneau ouvert :
+  /// sortie de l'édition ([TripEditMode]) ou d'une sélection de portion de
+  /// route (`SelectRouteMode`, `PortionPreviewMode`), ouverte depuis la lecture.
   Transition get exit => Transition.to(TripReadyMode(tripId, readOnly: false));
 
   /// Sortie d'un outil, d'une action contextuelle ou d'un panneau : on
