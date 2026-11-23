@@ -53,6 +53,7 @@ class WaypointInfoDialog extends ConsumerWidget {
     ].join(' · ');
 
     return InfoDialog(
+      key: kSelectionDialogKey,
       bottomInset: TripReadyDock.clearance,
       heightFactor: kPartialDialogHeightFactor,
       contentKey: id,

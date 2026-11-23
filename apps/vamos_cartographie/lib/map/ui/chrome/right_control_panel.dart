@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:riverpod_annotation/experimental/scope.dart';
 // import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/trip_chrome_visibility.dart';
 import 'package:vamos_cartographie/map/ui/shared/camera/camera_buttons_control.dart';
 import 'package:vamos_cartographie/map/ui/shared/location/user_location_button.dart';
 
@@ -15,6 +16,10 @@ class MapControls extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final activeOverlays = ref.watch(activeNetworkOverlaysProvider);
+
+    // La fiche d'un jour, d'un morceau ou d'un waypoint garde la carte
+    // dégagée.
+    if (ref.watch(tripDialogHidesChromeProvider)) return const SizedBox.shrink();
 
     return Positioned(
       right: 12,

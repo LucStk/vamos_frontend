@@ -12,7 +12,8 @@ class DockButton extends StatelessWidget {
 
   final IconData icon;
   final String tooltip;
-  final VoidCallback onPressed;
+  /// Null : bouton désactivé.
+  final VoidCallback? onPressed;
 
   static const size = 48.0;
 

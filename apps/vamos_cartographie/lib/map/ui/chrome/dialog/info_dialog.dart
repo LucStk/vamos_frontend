@@ -6,6 +6,12 @@ import 'package:vamos_cartographie/ui_kit/inputs/pinned_actions.dart';
 /// (jour, morceau, waypoint) ; la fiche du voyage prend tout.
 const kPartialDialogHeightFactor = 0.55;
 
+/// Clé commune des dialogs qui laissent la carte visible (jour, morceau,
+/// waypoint) : passer de l'un à l'autre garde le même [InfoDialog] (même
+/// cadre, pas de réapparition), seuls son contenu et ses onglets changent.
+/// Un seul de ces dialogs existe à la fois.
+final kSelectionDialogKey = GlobalKey(debugLabel: 'selection_dialog');
+
 /// Un onglet d'un [InfoDialog].
 class InfoDialogPage {
   const InfoDialogPage({

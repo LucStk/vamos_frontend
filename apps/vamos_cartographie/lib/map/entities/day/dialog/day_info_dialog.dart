@@ -116,6 +116,7 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
     final theme = Theme.of(context);
 
     return InfoDialog(
+      key: kSelectionDialogKey,
       bottomInset: TripReadyDock.clearance,
       heightFactor: kPartialDialogHeightFactor,
       contentKey: (widget.endsAt, null),
@@ -198,6 +199,7 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
     }
 
     return InfoDialog(
+      key: kSelectionDialogKey,
       bottomInset: TripReadyDock.clearance,
       heightFactor: kPartialDialogHeightFactor,
       contentKey: (widget.endsAt, spanId),

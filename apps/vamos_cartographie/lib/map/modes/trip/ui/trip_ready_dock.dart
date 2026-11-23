@@ -5,7 +5,7 @@ import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 
 /// Les trois boutons de la lecture d'un trip, en bas de l'écran : retour à
 /// gauche, fiche du voyage au milieu, édition à droite (propriétaire
-/// seulement).
+/// seulement). Dans une journée, celui de droite passe au jour suivant.
 ///
 /// Ils ne sont là que si aucune fiche n'est ouverte. Seul le dialog du voyage
 /// les laisse : son bouton devient alors la croix qui le ferme.
@@ -17,6 +17,8 @@ class TripReadyDock extends StatelessWidget {
     required this.onInfo,
     required this.onEdit,
     this.infoOpen = false,
+    this.dayMode = false,
+    this.onNextDay,
   });
 
   /// Hauteur à laisser libre au-dessus du dock (bouton, marges, un peu d'air).
@@ -24,6 +26,13 @@ class TripReadyDock extends StatelessWidget {
 
   /// La fiche du voyage est ouverte : le bouton du milieu la ferme.
   final bool infoOpen;
+
+  /// Une journée (ou l'un de ses morceaux / waypoints) est ouverte : le
+  /// bouton de droite passe au jour suivant au lieu de modifier le voyage.
+  final bool dayMode;
+
+  /// Va au jour suivant ; null : pas de jour suivant, le bouton est inactif.
+  final VoidCallback? onNextDay;
 
   final TripReadyMode mode;
   final VoidCallback onBack;
@@ -57,7 +66,16 @@ class TripReadyDock extends StatelessWidget {
                     onPressed: onInfo,
                   ),
                 ),
-                if (!mode.readOnly)
+                if (dayMode)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: DockButton(
+                      icon: Icons.adaptive.arrow_forward,
+                      tooltip: 'Jour suivant',
+                      onPressed: onNextDay,
+                    ),
+                  )
+                else if (!mode.readOnly)
                   Align(
                     alignment: Alignment.centerRight,
                     child: DockButton(
