@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
@@ -16,26 +17,82 @@ part 'waypoint_item_provider.g.dart';
 /// En deçà, le waypoint est sur la route : pas de côté d'où elle serait.
 const _onRouteMeters = 3.0;
 
-/// Direction de la pointe vers la tête : la pointe regarde le point de la route
-/// le plus proche de [position] (sa tangente, comme l'ancre du waypoint, n'y
-/// sont pour rien), la tête s'en écarte. Droit vers le haut sans route, ou
+/// Longueur de route prise de chaque côté de l'ancre pour en lisser la
+/// direction : les à-coups d'un tracé ne font pas tourner l'épingle.
+const _windowMeters = 150.0;
+
+const _distance = Distance(roundResult: false);
+
+double _meters(MapCameraReader camera, WorldOffset a, WorldOffset b) =>
+    _distance(camera.worldOffsetToLatLng(a), camera.worldOffsetToLatLng(b));
+
+/// Le point de la route à [meters] de [from] (position continue sur la
+/// polyligne), en avant ([forward]) ou en arrière ; l'extrémité si la route
+/// est plus courte.
+WorldOffset _alongRoute(
+  RoutePolyline line,
+  MapCameraReader camera,
+  double from,
+  double meters, {
+  required bool forward,
+}) {
+  var position = from;
+  var previous = line.pointAt(from);
+  var walked = 0.0;
+  while (true) {
+    final next = forward ? position.floor() + 1 : position.ceil() - 1;
+    if (next < 0 || next > line.maxPosition) return previous;
+    final vertex = line.points[next];
+    final length = _meters(camera, previous, vertex);
+    if (walked + length >= meters && length > 0) {
+      final t = (meters - walked) / length;
+      return WorldOffset(Offset.lerp(previous.value, vertex.value, t)!);
+    }
+    walked += length;
+    previous = vertex;
+    position = next.toDouble();
+  }
+}
+
+/// Direction de la pointe vers la tête : perpendiculaire à la route moyenne
+/// autour de l'ancre du waypoint (le segment qui relie la route [_windowMeters]
+/// avant et après elle), du côté où le waypoint se trouve. La pointe regarde
+/// donc la route et la tête s'en écarte. Droit vers le haut sans route, ou
 /// quand le waypoint est sur elle.
 double _pinDirection(
   RoutePolyline? polyline,
   WorldOffset position,
+  double anchorPosition,
   MapCameraReader camera,
 ) {
   if (polyline == null) return WaypointItem.upright;
-  final nearest = polyline.pointAt(polyline.project(position));
-  final away = position.value - nearest.value;
-  final meters = const Distance()(
-    camera.worldOffsetToLatLng(position),
-    camera.worldOffsetToLatLng(nearest),
+  final before = _alongRoute(
+    polyline,
+    camera,
+    anchorPosition,
+    _windowMeters,
+    forward: false,
   );
-  if (meters < _onRouteMeters || away.distance == 0) {
-    return WaypointItem.upright;
-  }
-  return atan2(away.dy, away.dx);
+  final after = _alongRoute(
+    polyline,
+    camera,
+    anchorPosition,
+    _windowMeters,
+    forward: true,
+  );
+  final chord = after.value - before.value;
+  if (chord.distance == 0) return WaypointItem.upright;
+
+  // Les deux perpendiculaires à la route ; on garde celle du côté du waypoint.
+  var normal = Offset(-chord.dy, chord.dx);
+  final onRoute = polyline.pointAt(anchorPosition);
+  final side = position.value - onRoute.value;
+  final dot = normal.dx * side.dx + normal.dy * side.dy;
+  final isOnRoute = _meters(camera, position, onRoute) < _onRouteMeters;
+  // Sur la route : du côté du haut de l'écran (y vers le bas).
+  final flip = isOnRoute ? normal.dy > 0 : dot < 0;
+  if (flip) normal = -normal;
+  return atan2(normal.dy, normal.dx);
 }
 
 @Riverpod(keepAlive: true)
@@ -52,7 +109,12 @@ WaypointItem waypointItem(
     worldPosition: position,
     object: MapWaypoint(tripId: tripId, id: id),
     kindStyle: d.display,
-    direction: _pinDirection(polyline, position, cameraReader),
+    direction: _pinDirection(
+      polyline,
+      position,
+      d.anchorPosition,
+      cameraReader,
+    ),
   );
 }
 
