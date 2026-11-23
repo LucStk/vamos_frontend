@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:trip_application/src/discovery/domain/discovered_trip.dart';
+import 'package:trip_application/src/discovery/domain/discovery_filters.dart';
+import 'package:trip_application/src/discovery/domain/discovery_tile.dart';
 import 'package:trip_application/src/trip/domain/trip.dart';
 import 'package:trip_application/src/trip_bundle.dart';
 import 'package:user_profile_application/domain/domain.dart';
@@ -8,6 +11,13 @@ import 'package:user_profile_application/domain/domain.dart';
 abstract class TripRepository {
   Future<Either<Failure, List<TripBundle>>> getAllTripBundles();
   Future<Either<Failure, TripBundle>> getTripBundle(TripId tripId);
+
+  /// Voyages les plus pertinents de chaque tuile, à l'échelle de la tuile.
+  Future<Either<Failure, List<DiscoveryTileResult>>> discoverTrips(
+    Iterable<DiscoveryTile> tiles,
+    TripDiscoveryFilters filters, {
+    int perTile = 12,
+  });
   Future<Either<Failure, List<TripSummary>>> getUserTripsSummary(UserId id);
   Future<Either<Failure, List<TripSummary>>> getMeTripsSummary();
   Future<Either<Failure, Trip>> updateTrip(Trip trip);

@@ -6,9 +6,11 @@ import 'package:vamos_cartographie/core/mappers/geometry_mappers/bounds_mapper.d
 import 'package:vamos_cartographie/core/mappers/geometry_mappers/position_mapper.dart';
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
+import 'package:vamos_cartographie/domain_features/route/data/mappers/mobility_type_mapper.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/route_mappers.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/data/mappers/stored_file_mappers.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/data/user_profile_mappers.dart';
 
 /// ---------------------------------------------------------------------------
 /// GraphQL -> Domain
@@ -54,9 +56,38 @@ extension GTripWithRouteFieldsMapper on GTripFull {
   );
 }
 
+extension GDiscoveryTileMapper on GDiscoverTripsData_discoverTrips {
+  DiscoveryTileResult toDomain() => DiscoveryTileResult(
+    tile: DiscoveryTile(z, x, y),
+    trips: [
+      for (final t in trips)
+        DiscoveredTrip(
+          summary: t.trip.toTripSummary(),
+          owner: t.trip.owner.toUserProfileModel(),
+          score: t.score,
+          preview: [
+            for (final part in t.preview) [for (final p in part) p.toLatLng()],
+          ],
+        ),
+    ],
+  );
+}
+
 /// ---------------------------------------------------------------------------
 /// Domain -> GraphQL
 /// ---------------------------------------------------------------------------
+
+extension TripDiscoveryFiltersToGQL on TripDiscoveryFilters {
+  GTripDiscoveryFilters toGQL() => GTripDiscoveryFilters(
+    minDays: Value.present(minDays),
+    maxDays: Value.present(maxDays),
+    mobilities: Value.present(
+      mobilities.isEmpty ? null : [for (final m in mobilities) m.toGQL()],
+    ),
+    minLengthKm: Value.present(minLengthKm),
+    maxLengthKm: Value.present(maxLengthKm),
+  );
+}
 
 extension TripToGQLMapper on Trip {
   GTripUpdateInput toGQLUpdateInput() => GTripUpdateInput(

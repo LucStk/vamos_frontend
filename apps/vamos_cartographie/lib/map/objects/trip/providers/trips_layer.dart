@@ -1,19 +1,26 @@
-import 'package:domain_core/domain_core.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:riverpod/riverpod.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/map/objects/trip/providers/trip_item_provider.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_discovery_provider.dart';
 import 'package:vamos_cartographie/map/objects/trip/trip_item.dart';
 part 'trips_layer.g.dart';
 
+/// Voyages choisis pour la vue courante (découverte), dessinés avec leur
+/// aperçu simplifié à l'échelle de la vue. Les autres voyages chargés restent
+/// en mémoire mais ne sont pas dessinés.
 @Riverpod(keepAlive: true)
-List<TripItem> allTripItem(Ref ref, MapCameraReader camera) {
-  final tripsIds = ref.watch(
-    tripStoreProvider.select((t) => t.tripStore.getIds()),
-  );
+List<TripItem> discoveredTripItems(Ref ref, MapCameraReader camera) {
+  final trips = ref.watch(tripDiscoveryProvider.select((s) => s.trips));
   return [
-    for (final tripId in tripsIds) ?ref.watch(tripItemProvider(tripId, camera)),
+    for (final trip in trips)
+      TripItem(
+        object: MapTrip(trip.id),
+        worldSegments: [
+          for (final part in trip.preview)
+            ...projectLine<LatLng>(part, camera.latLngToWorldOffset),
+        ],
+      ),
   ];
 }

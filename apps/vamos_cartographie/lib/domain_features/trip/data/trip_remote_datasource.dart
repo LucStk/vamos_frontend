@@ -10,6 +10,7 @@ import 'package:vamos_cartographie/core/graphql/graphql.dart';
 import 'package:vamos_cartographie/core/network/ferry_client_x.dart';
 import 'package:vamos_cartographie/domain_features/route/data/graphql/__generated__/route_fields.data.gql.dart';
 import 'package:vamos_cartographie/domain_features/trip/data/graphql/graphql.dart';
+import 'package:vamos_cartographie/domain_features/trip/data/trip_mappers.dart';
 
 /// Datasource distant pour les opérations sur les trips.
 /// Communique directement avec le backend via le ferryClient Ferry (GraphQL).
@@ -39,6 +40,28 @@ class TripRemoteDatasource {
       GGetMeTripsSummaryReq(fetchPolicy: FetchPolicy.NetworkOnly),
     );
     return data;
+  }
+
+  /// Voyages les plus pertinents de chaque tuile. Toujours réseau : le cache
+  /// de découverte (par tuile et par filtres) est géré au-dessus.
+  Future<List<GDiscoverTripsData_discoverTrips>> discoverTrips({
+    required Iterable<DiscoveryTile> tiles,
+    required TripDiscoveryFilters filters,
+    required int perTile,
+  }) async {
+    final data = await ferryClient.execute(
+      GDiscoverTripsReq(
+        fetchPolicy: FetchPolicy.NetworkOnly,
+        vars: GDiscoverTripsVars(
+          tiles: [
+            for (final t in tiles) GTileInput(z: t.z, x: t.x, y: t.y),
+          ],
+          filters: Value.present(filters.toGQL()),
+          perTile: perTile,
+        ),
+      ),
+    );
+    return data.discoverTrips;
   }
 
   Future<List<GTripSummaryData>> getUserTrips(UserId id) async {

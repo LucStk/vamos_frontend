@@ -1,5 +1,4 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/rendering.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -75,20 +74,6 @@ void ingestTrips(Ref ref, Iterable<TripBundle> bundles) {
             .upsertRemoteFiles(state.files)
             .upsertWaypointImages(state.waypoints),
       );
-}
-
-@Riverpod(keepAlive: true)
-Future<Failure?> loadTrips(Ref ref) async {
-  final res = await ref.read(tripRepositoryProvider).getAllTripBundles();
-  return res.fold((f) => f, (data) {
-    try {
-      ingestTrips(ref, data);
-    } catch (e, st) {
-      debugPrint('ingestTrips a échoué : $e\n$st');
-      rethrow;
-    }
-    return null;
-  });
 }
 
 @Riverpod(keepAlive: true)

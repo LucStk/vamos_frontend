@@ -10,7 +10,7 @@ import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 ModeView exploreView(ExploreMode m) => ModeView(
   scene: SceneSpec(
     layers: [
-      (ref, cam) => ref.watch(allTripItemProvider(cam)),
+      (ref, cam) => ref.watch(discoveredTripItemsProvider(cam)),
       (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
       (ref, cam) => [?ref.watch(searchResultItemProvider(cam))],
     ],

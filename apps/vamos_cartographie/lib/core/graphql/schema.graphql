@@ -239,6 +239,7 @@ type Query {
   userSavedTrips(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [TripType!]!
   me: GetMePayload!
   user(userId: UUID!): UserProfileType!
+  discoverTrips(tiles: [TileInput!]!, filters: TripDiscoveryFilters = null, perTile: Int! = 12): [DiscoveryTileType!]!
   searchUsers(prefix: String!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
   followers(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
   following(userId: UUID!, offset: Int! = 0, limit: Int! = 20): [UserProfileType!]!
@@ -466,3 +467,29 @@ type WayShareType {
   lengthM: Float!
 }
 
+input TileInput {
+  z: Int!
+  x: Int!
+  y: Int!
+}
+
+input TripDiscoveryFilters {
+  minDays: Int = null
+  maxDays: Int = null
+  mobilities: [MobilityType!] = null
+  minLengthKm: Float = null
+  maxLengthKm: Float = null
+}
+
+type DiscoveredTripType {
+  trip: TripType!
+  score: Float!
+  preview: [[LatLngType!]!]!
+}
+
+type DiscoveryTileType {
+  z: Int!
+  x: Int!
+  y: Int!
+  trips: [DiscoveredTripType!]!
+}

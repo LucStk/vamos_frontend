@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/trip_data_loader.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/trip_discovery_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_lifecycle.dart';
 import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
@@ -25,7 +25,9 @@ class _MapScreenState extends ConsumerState<MapScreen>
     with TickerProviderStateMixin, MapCameraLifecycle {
   @override
   Widget build(BuildContext context) {
-    final loader = ref.watch(loadTripsProvider);
+    final discovering = ref.watch(
+      tripDiscoveryProvider.select((s) => s.loading),
+    );
     // Adaptez à votre façon d'accéder au CameraDirector
     // (il est peut-être déjà exposé par le mixin MapCameraLifecycle).
     final director = ref.read(cameraDirectorProvider);
@@ -42,7 +44,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
               const MapControls(),
               const ModeUi(),
 
-              if (loader.isLoading)
+              if (discovering)
                 const Positioned(
                   top: 0,
                   left: 0,

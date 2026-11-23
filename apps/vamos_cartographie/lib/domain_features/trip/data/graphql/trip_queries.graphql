@@ -1,3 +1,4 @@
+#import "/core/graphql/geo_fields.graphql"
 #import "/domain_features/waypoint/data/graphql/waypoint_fields.graphql"
 #import "trip_fields.graphql"
 
@@ -36,5 +37,22 @@ query GetMeSavedTrips() {
 query GetUserSavedTrips($userId : UUID!) {
     userSavedTrips(userId : $userId) {
         ...TripSummary
+    }
+}
+
+query DiscoverTrips($tiles: [TileInput!]!, $filters: TripDiscoveryFilters, $perTile: Int!) {
+    discoverTrips(tiles: $tiles, filters: $filters, perTile: $perTile) {
+        z
+        x
+        y
+        trips {
+            score
+            preview {
+                ...LatLng
+            }
+            trip {
+                ...TripSummary
+            }
+        }
     }
 }

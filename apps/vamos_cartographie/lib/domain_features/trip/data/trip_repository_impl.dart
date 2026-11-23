@@ -62,6 +62,22 @@ class TripRepositoryImpl extends TripRepository {
   }
 
   @override
+  Future<Either<Failure, List<DiscoveryTileResult>>> discoverTrips(
+    Iterable<DiscoveryTile> tiles,
+    TripDiscoveryFilters filters, {
+    int perTile = 12,
+  }) {
+    return guard(() async {
+      final data = await remote.discoverTrips(
+        tiles: tiles,
+        filters: filters,
+        perTile: perTile,
+      );
+      return data.map((tile) => tile.toDomain()).toList();
+    });
+  }
+
+  @override
   Future<Either<Failure, List<TripSummary>>> getMeTripsSummary() {
     return guard(() async {
       final response = await remote.getMeTrips();
