@@ -74,7 +74,7 @@ final class TripOriginItemProvider
   }
 }
 
-String _$tripOriginItemHash() => r'29dccf82c599d6f86f2a6651394ad0680a2f561e';
+String _$tripOriginItemHash() => r'115a12e2ca0687e562c2329d97713afb99264af2';
 
 final class TripOriginItemFamily extends $Family
     with

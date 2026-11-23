@@ -66,7 +66,7 @@ final class TripEndItemProvider
   }
 }
 
-String _$tripEndItemHash() => r'39cb8b16df46d1612d3f0fdb15135d8c256c01ea';
+String _$tripEndItemHash() => r'8ca5bca7f7dde1dd1191add46b090bd96ace23a3';
 
 final class TripEndItemFamily extends $Family
     with $FunctionalFamilyOverride<TripEndItem?, (TripId, MapCameraReader)> {
