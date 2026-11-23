@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stat_item.dart';
 
-List<StatItem> waypointStatsOf(WaypointFields waypoint) {
+/// Les détails d'un waypoint. [distanceFromStartM] : sa distance le long de
+/// la route depuis le départ, si on la connaît.
+List<StatItem> waypointStatsOf(
+  WaypointFields waypoint, {
+  double? distanceFromStartM,
+}) {
   final p = waypoint.position;
   return [
     if (waypoint.kind != null)
       StatItem(
         icon: Icons.category_outlined,
         label: 'Catégorie',
-        value: waypoint.kind!.name,
+        value: waypoint.kind.display.label,
       ),
-    StatItem(
-      icon: Icons.route_outlined,
-      label: 'Sur l\'itinéraire',
-      // TODO: anchorPosition est-il en mètres ou en fraction (0–1) ?
-      value: formatDistance(waypoint.anchorPosition),
-    ),
+    if (waypoint.stay != null)
+      const StatItem(
+        icon: Icons.hotel_outlined,
+        label: 'Halte',
+        value: 'Fin d’étape',
+      ),
+    if (distanceFromStartM != null)
+      StatItem(
+        icon: Icons.route_outlined,
+        label: 'Depuis le départ',
+        value: formatDistance(distanceFromStartM),
+      ),
     StatItem(
       icon: Icons.my_location,
       label: 'Coordonnées',

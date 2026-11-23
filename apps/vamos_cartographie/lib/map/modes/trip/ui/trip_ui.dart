@@ -5,12 +5,11 @@ import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/dialog/day_info_dialog.dart';
-import 'package:vamos_cartographie/map/entities/waypoint/sheet_pages/waypoint_sheet_pages.dart';
+import 'package:vamos_cartographie/map/entities/waypoint/dialog/waypoint_info_dialog.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_menus.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_info_dialog.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
 
 class TripReadyUi extends ConsumerWidget {
   const TripReadyUi(this.mode, {super.key});
@@ -21,20 +20,15 @@ class TripReadyUi extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(modeSelectionProvider);
 
-    // Seule la fiche d'un waypoint reste une sheet qu'on déplie.
-    final pages = switch (selected) {
-      MapWaypoint(:final id, :final tripId) => waypointSheetPages(
-        tripId,
-        ref.watch(waypointProvider(tripId, id)),
-        editable: !mode.readOnly,
-      ),
-      _ => null,
-    };
-
-    // Le voyage, un jour et un de ses morceaux sont des dialogs au-dessus du
-    // dock : son bouton du milieu y devient la croix.
+    // Le voyage, un jour, un de ses morceaux et un waypoint sont des dialogs
+    // au-dessus du dock : son bouton du milieu y devient la croix.
     final dialog = switch (selected) {
       MapTrip() => TripInfoDialog(mode: mode),
+      MapWaypoint(:final id) => WaypointInfoDialog(
+        key: const ValueKey('waypoint_dialog'),
+        mode: mode,
+        id: id,
+      ),
       // Un seul widget pour le jour et ses morceaux : passer de l'un à
       // l'autre ne referme pas le dialog.
       MapDaySegment(:final endsAt) => DayInfoDialog(
@@ -58,25 +52,15 @@ class TripReadyUi extends ConsumerWidget {
         SearchTopSheet(),
         // Une fiche ouverte (avec sa croix) ou, à défaut, les trois boutons :
         // retour, fiche du voyage, édition.
-        if (pages == null) ...[
-          ?dialog,
-          TripReadyDock(
-            mode: mode,
-            infoOpen: infoOpen,
-            onBack: () => ref.applyTransition(mode.back),
-            onInfo: () => ref.applyTransition(
-              infoOpen ? mode.closeSheet : mode.showInfo,
-            ),
-            onEdit: () => ref.applyTransition(mode.edit),
-          ),
-        ] else
-          PagedSheet(
-            pages: pages,
-            // Fermée par la croix, jamais par un glissement : seule la croix
-            // retire la fiche.
-            hideable: false,
-            onClose: () => ref.applyTransition(mode.closeSheet),
-          ),
+        ?dialog,
+        TripReadyDock(
+          mode: mode,
+          infoOpen: infoOpen,
+          onBack: () => ref.applyTransition(mode.back),
+          onInfo: () =>
+              ref.applyTransition(infoOpen ? mode.closeSheet : mode.showInfo),
+          onEdit: () => ref.applyTransition(mode.edit),
+        ),
         TripEditMenus(mode),
       ],
     );

@@ -35,6 +35,13 @@ RunStats? watchRunStats(WidgetRef ref, RunKey key) {
   return (distanceM: slice == null ? 0 : _lengthM(slice), mobility: mobility);
 }
 
+/// Longueur en mètres de la route entre deux positions (indices de sommets,
+/// fractions comprises) ; 0 si la section est dégénérée.
+double lengthBetween(List<LatLng> geometry, double from, double to) {
+  final slice = sliceBetweenPositions(geometry, from, to);
+  return slice == null ? 0 : _lengthM(slice);
+}
+
 double _lengthM(List<LatLng> points) {
   const distance = Distance(roundResult: false);
   var total = 0.0;

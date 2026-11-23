@@ -61,7 +61,7 @@ class WaypointOverviewViewer extends ConsumerWidget {
             canEdit: true,
             multiline: true,
             maxLength: 1000,
-            maxLines: 6,
+            expand: true,
             placeholder: 'Ajoutez une description…',
             style: const TextStyle(fontSize: 14, height: 1.5),
             onSave: (value) async {

@@ -16,10 +16,6 @@ import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart';
 
-/// Part de la hauteur disponible prise par le dialog d'un jour : le reste
-/// laisse voir la carte (le jour y est mis en évidence).
-const kDayDialogHeightFactor = 0.55;
-
 /// La fiche d'un jour, en dialog, ou celle d'un de ses morceaux quand
 /// [spanId] est donné. Même cadre que la fiche du voyage ([InfoDialog]) ; un
 /// seul widget pour les deux, afin que passer du jour à son morceau ne
@@ -117,7 +113,7 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
 
     return InfoDialog(
       bottomInset: TripReadyDock.clearance,
-      heightFactor: kDayDialogHeightFactor,
+      heightFactor: kPartialDialogHeightFactor,
       contentKey: (widget.endsAt, null),
       header: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,7 +192,7 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
 
     return InfoDialog(
       bottomInset: TripReadyDock.clearance,
-      heightFactor: kDayDialogHeightFactor,
+      heightFactor: kPartialDialogHeightFactor,
       contentKey: (widget.endsAt, spanId),
       header: Row(
         children: [

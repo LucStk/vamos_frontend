@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/pinned_actions.dart';
 
+/// Part de la hauteur disponible prise par un dialog qui laisse voir la carte
+/// (jour, morceau, waypoint) ; la fiche du voyage prend tout.
+const kPartialDialogHeightFactor = 0.55;
+
 /// Un onglet d'un [InfoDialog].
 class InfoDialogPage {
   const InfoDialogPage({
