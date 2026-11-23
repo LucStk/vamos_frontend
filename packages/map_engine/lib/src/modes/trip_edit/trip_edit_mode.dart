@@ -3,6 +3,7 @@ import 'package:map_engine/src/domain/map_hit.dart';
 import 'package:map_engine/src/domain/objects/objects.dart';
 import 'package:map_engine/src/gesture_engine/gesture_engine.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
+import 'package:map_engine/src/modes/shared/cursor_actions.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
@@ -37,6 +38,11 @@ final class TripEditMode extends TripMode {
   //   ),
   //   _ => Transition.stay(),
   // };
+
+  /// Toucher la position de l'utilisateur y pose le curseur ; tout autre tap
+  /// garde le comportement par défaut du mode.
+  @override
+  Transition onTap(TapGesture g) => CursorActions.onTap(g) ?? super.onTap(g);
 
   /// Glisser depuis la route, y compris son départ ou son arrivée : la
   /// sélection d'une portion commence au point saisi. Le reste du geste est

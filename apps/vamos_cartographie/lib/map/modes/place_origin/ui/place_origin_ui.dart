@@ -10,6 +10,7 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_sheet_pages.dart';
 
 import 'package:vamos_cartographie/map/modes/place_origin/ui/trip_title_dialog.dart';
+import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
 import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
@@ -104,6 +105,8 @@ class _ExistingTripUiState extends ConsumerState<_ExistingTripUi> {
 
   @override
   Widget build(BuildContext context) {
+    final cursor = ref.watch(modeSlotProvider(searchResultMarkerSlot));
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -136,11 +139,18 @@ class _ExistingTripUiState extends ConsumerState<_ExistingTripUi> {
             leading: BackTab(
               onTap: () => ref.applyTransition(widget.mode.back),
             ),
-            panel: const ToolPanel(
-              hint:
-                  'Déplacez le départ si besoin, puis tracez la route ou '
-                  'complétez les infos du voyage.',
-            ),
+            panelKey: cursor == null ? 'hint' : 'cursor',
+            panel: cursor == null
+                ? const ToolPanel(
+                    hint:
+                        'Déplacez le départ si besoin, puis tracez la route '
+                        'ou complétez les infos du voyage.',
+                  )
+                : CursorPanel(
+                    tripId: widget.tripId,
+                    cursor: cursor,
+                    canTrace: true,
+                  ),
           ),
       ],
     );

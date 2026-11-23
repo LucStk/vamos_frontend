@@ -1,6 +1,8 @@
 // scene_composition.dart
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
+import 'package:vamos_cartographie/map/objects/annotations/providers/localization_item_provider.dart';
+import 'package:vamos_cartographie/map/objects/annotations/providers/search_result_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/pencil/providers/pencil_item_provider.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_trace.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
@@ -8,6 +10,8 @@ import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 
 SceneSpec sketchScene(TripId tripId) => SceneSpec(
   layers: [
+    (ref, cam) => [?ref.watch(searchResultItemProvider(cam))],
+    (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
     (ref, cam) => [?ref.watch(sketchOriginItemProvider(tripId, cam))],
     (ref, cam) => [?ref.watch(sketchEndItemProvider(tripId, cam))],
     (ref, cam) => [?ref.watch(pencilItemProvider(cam))],

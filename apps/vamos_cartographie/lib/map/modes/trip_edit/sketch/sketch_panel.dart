@@ -4,6 +4,7 @@ import 'package:map_engine/map_engine.dart';
 
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
+import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
 import 'package:vamos_cartographie/map/modes/shared/mobility_type_menu.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/providers/sketch_mobility_type_provider.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
@@ -39,6 +40,19 @@ class _EditionPanel extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sketch = ref.watch(modeSlotProvider(sketchTraceSlot));
     final mobilityType = ref.watch(sketchMobilityTypeProvider);
+    final cursor = ref.watch(modeSlotProvider(searchResultMarkerSlot));
+
+    // Un curseur et rien de tracé : on propose d'y aller, ou d'y créer une
+    // étape. Dès qu'un tracé existe, c'est lui le sujet.
+    if (cursor != null && sketch == null) {
+      return CursorPanel(
+        tripId: mode.tripId,
+        cursor: cursor,
+        canTrace: true,
+        canCreateWaypoint: true,
+        error: mode.failure?.message,
+      );
+    }
 
     // `validate` ignore un tracé de moins de deux points : on désactive.
     final canValidate = sketch != null && sketch.points.length >= 2;

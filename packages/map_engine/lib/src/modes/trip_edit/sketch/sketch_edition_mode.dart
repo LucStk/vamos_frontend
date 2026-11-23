@@ -2,6 +2,8 @@ import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
+import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
+import 'package:map_engine/src/modes/shared/cursor_actions.dart';
 import 'package:map_engine/src/modes/shared/overlays/context_menu.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
@@ -31,7 +33,7 @@ class SketchEdition extends SketchToolMode {
   Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
 
   @override
-  Set<Slot> get retainedSlots => {sketchTraceSlot};
+  Set<Slot> get retainedSlots => {sketchTraceSlot, searchResultMarkerSlot};
 
   /// On saisit le segment : le tracé démarre à ce point.
   /// On saisit le crayon : on retient où, par rapport à sa pointe.
@@ -42,6 +44,10 @@ class SketchEdition extends SketchToolMode {
     ),
     _ => Transition.stay(),
   };
+
+  /// Toucher la position de l'utilisateur y pose le curseur.
+  @override
+  Transition onTap(TapGesture g) => CursorActions.onTap(g) ?? super.onTap(g);
 
   /// Drag depuis un élément de route : le tracé naît ici, au point saisi.
   /// Drag depuis le Pencil : le tracé existe déjà, on ne touche à rien.
@@ -93,31 +99,83 @@ class SketchEdition extends SketchToolMode {
   Transition validateFreehand(MobilityType mobilityType) =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
         if (trace.points.length < 2) return Transition.stay();
+        return _freehand(this, trace, mobilityType);
+      });
 
-        final generating = SketchGenerating(tripId, this);
+  /// Écrit [trace] dans la route sans routeur, puis revient à [editing] avec
+  /// un tracé vide (et, pour [consumesCursor], sans curseur).
+  static Transition _freehand(
+    SketchEdition editing,
+    SketchTrace trace,
+    MobilityType mobilityType, {
+    bool consumesCursor = false,
+  }) {
+    final tripId = editing.tripId;
+    final generating = SketchGenerating(tripId, editing);
 
-        return Transition.to(generating).running(
-          EditRoute(
-            mobilityType: mobilityType,
-            tripId: tripId,
-            sketch: trace,
-            autoRoute: false,
-          ),
-          then: (current, result) {
-            final m = current.mode;
-            // Annulé ou remplacé entre-temps : on ignore cette réponse.
-            if (m is! SketchGenerating || m.token != generating.token) {
-              return null;
-            }
-            return result.fold(
-              (failure) => Transition.to(
-                SketchEdition(tripId, failure: failure),
-              ), // retour au tracé
-              (_) => Transition.to(this).clearSlot(sketchTraceSlot),
-            );
+    return Transition.to(generating).running(
+      EditRoute(
+        mobilityType: mobilityType,
+        tripId: tripId,
+        sketch: trace,
+        autoRoute: false,
+      ),
+      then: (current, result) {
+        final m = current.mode;
+        // Annulé ou remplacé entre-temps : on ignore cette réponse.
+        if (m is! SketchGenerating || m.token != generating.token) {
+          return null;
+        }
+        return result.fold(
+          (failure) => Transition.to(
+            SketchEdition(tripId, failure: failure),
+          ), // retour au tracé
+          (_) {
+            final done = Transition.to(editing).clearSlot(sketchTraceSlot);
+            return consumesCursor
+                ? done.clearSlot(searchResultMarkerSlot)
+                : done;
           },
         );
-      });
+      },
+    );
+  }
+
+  /// Tracé de [from] jusqu'au curseur. [from] est l'arrivée de la route, ou
+  /// l'origine d'un voyage sans route : alors l'origine fait partie du tracé,
+  /// comme dans [startFromOrigin].
+  static SketchTrace _traceToCursor(
+    HitObject<RouteElements> from,
+    WorldOffset cursor,
+  ) => SketchTrace(
+    startAnchor: from,
+    points: from.object is MapTripStart ? [from.point, cursor] : [cursor],
+  );
+
+  /// Itinéraire calculé de [from] jusqu'au curseur, en aperçu à valider.
+  static Transition routeToCursor(
+    TripId tripId,
+    HitObject<RouteElements> from,
+    WorldOffset cursor,
+    MobilityType mobilityType,
+  ) => SketchGenerating.previewTrace(
+    tripId,
+    _traceToCursor(from, cursor),
+    mobilityType,
+  ).clearSlot(searchResultMarkerSlot);
+
+  /// Ligne droite de [from] jusqu'au curseur, écrite directement.
+  static Transition straightToCursor(
+    TripId tripId,
+    HitObject<RouteElements> from,
+    WorldOffset cursor,
+    MobilityType mobilityType,
+  ) => _freehand(
+    SketchEdition(tripId),
+    _traceToCursor(from, cursor),
+    mobilityType,
+    consumesCursor: true,
+  );
 
   /// Demande l'itinéraire du tracé, sans l'ajouter à la route.
   Transition preview(MobilityType mobilityType) =>

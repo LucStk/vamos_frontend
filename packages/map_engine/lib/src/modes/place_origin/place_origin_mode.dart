@@ -5,6 +5,8 @@ import 'package:map_engine/src/modes/app_mode.dart';
 import 'package:map_engine/src/modes/explore/explore_mode.dart';
 import 'package:map_engine/src/modes/place_origin/commands/place_origin_command.dart';
 import 'package:map_engine/src/modes/place_origin/slots/trip_origin_slot.dart';
+import 'package:map_engine/src/modes/shared/cursor_actions.dart';
+import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/sketch_edition_mode.dart';
 import 'package:trip_application/trip_application.dart';
@@ -59,9 +61,14 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   @override
   Transition get back => Transition.to(ExploreMode());
 
-  // Plus de menu contextuel : le panneau propose la suite.
+  // Le curseur suit : le tracé démarre depuis l'origine avec lui.
   @override
-  Transition onTap(TapGesture g) => Transition.stay();
+  Set<Slot> get retainedSlots => {...super.retainedSlots, searchResultMarkerSlot};
+
+  // Plus de menu contextuel : le panneau propose la suite. Toucher la position
+  // de l'utilisateur y pose le curseur.
+  @override
+  Transition onTap(TapGesture g) => CursorActions.onTap(g) ?? Transition.stay();
 
   /// Le déplacement est enregistré à la fin du drag.
   @override

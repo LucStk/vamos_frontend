@@ -1,0 +1,36 @@
+import 'package:domain_core/domain_core.dart';
+import 'package:map_engine/src/domain/domain.dart';
+import 'package:map_engine/src/gesture_engine/map_gesture.dart';
+import 'package:map_engine/src/mode_engine/mode_engine.dart';
+import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
+import 'package:map_engine/src/modes/trip_edit/waypoint/commands/waypoint_command.dart';
+import 'package:trip_application/trip_application.dart';
+
+/// Le curseur : un point posé sur la carte par un résultat de recherche ou en
+/// touchant la position de l'utilisateur ([searchResultMarkerSlot]). Le panneau
+/// du mode propose alors des actions sur ce point.
+abstract final class CursorActions {
+  /// Pose le curseur en [point].
+  static Transition place(WorldOffset point) => Transition.set(
+    searchResultMarkerSlot,
+    SearchResultMarker(point: point),
+  );
+
+  /// Retire le curseur.
+  static Transition clear() =>
+      Transition.set<SearchResultMarker>(searchResultMarkerSlot, null);
+
+  /// Toucher la position de l'utilisateur y pose le curseur ; null pour tout
+  /// autre tap, à traiter par le mode.
+  static Transition? onTap(TapGesture g) => switch (g.element) {
+    MapLocalization(:final position) => place(position),
+    _ => null,
+  };
+
+  /// Crée une étape sur le curseur, qui disparaît ensuite.
+  static Transition createWaypoint(TripId tripId, WorldOffset cursor) =>
+      Transition.run(
+        CreateWaypoint(tripId: tripId, position: cursor),
+        then: (_, _) => clear(),
+      );
+}

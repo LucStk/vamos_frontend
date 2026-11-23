@@ -11,12 +11,14 @@ LocalizationItem? localizationItem(Ref ref, MapCameraReader camera) {
   final location = ref.watch(userLocationProvider);
 
   if (location case final UserPositionActive activeLocation) {
+    final world = camera.latLngToWorldOffset(activeLocation.position);
     return LocalizationItem(
       object: MapLocalization(
         accuracy: activeLocation.accuracy,
         heading: activeLocation.heading,
+        position: world,
       ),
-      worldPosition: camera.latLngToWorldOffset(activeLocation.position),
+      worldPosition: world,
     );
   }
   return null;

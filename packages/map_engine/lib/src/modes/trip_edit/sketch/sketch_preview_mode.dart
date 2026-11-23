@@ -1,6 +1,7 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
+import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/commands/sketch_command.dart';
 import 'package:map_engine/src/modes/trip_edit/sketch/sketch_edition_mode.dart';
@@ -27,7 +28,7 @@ final class SketchPreviewing extends SketchToolMode {
   Failure? get error => failure ?? preview.routingFailure;
 
   @override
-  Set<Slot> get retainedSlots => {sketchTraceSlot}; // pour y revenir
+  Set<Slot> get retainedSlots => {sketchTraceSlot, searchResultMarkerSlot}; // pour y revenir
 
   /// Le retour système et la flèche de la boîte à outils reviennent au tracé.
   @override
