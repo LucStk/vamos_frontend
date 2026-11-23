@@ -19,6 +19,26 @@ class RouteRemoteDatasource {
   final Client ferryClient;
 
   RouteRemoteDatasource(this.ferryClient);
+  /// Null : jamais calculées.
+  Future<GRouteInsightsFields?> fetchRouteInsights(TripId tripId) async {
+    final data = await ferryClient.execute(
+      GFetchRouteInsightsReq(
+        vars: GFetchRouteInsightsVars(tripId: tripId.value),
+      ),
+    );
+    return data.routeInsights;
+  }
+
+  /// Null : le trip n'a pas de route.
+  Future<GRouteInsightsFields?> recomputeRouteInsights(TripId tripId) async {
+    final data = await ferryClient.execute(
+      GRecomputeRouteInsightsReq(
+        vars: GRecomputeRouteInsightsVars(tripId: tripId.value),
+      ),
+    );
+    return data.recomputeRouteInsights;
+  }
+
   Future<GEditRouteResult> setTripOrigin({
     required Id<Trip> tripId,
     required LatLng position,

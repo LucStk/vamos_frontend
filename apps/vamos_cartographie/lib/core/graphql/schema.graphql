@@ -93,6 +93,11 @@ type EditSpanType {
   lengthM: Float
 }
 
+type ElevationPointType {
+  distanceM: Float!
+  elevationM: Float!
+}
+
 type FileAttachmentType {
   order: Int!
   isCover: Boolean!
@@ -130,6 +135,20 @@ type LatLngType {
   lng: Float!
 }
 
+type MobilityInsightsType {
+  mobilityType: MobilityType!
+  ascentM: Float
+  descentM: Float
+  minElevationM: Float
+  maxElevationM: Float
+  elevationProfile: [ElevationPointType!]!
+  totalM: Float
+  analyzedM: Float
+  roadKinds: [WayShareType!]!
+  surfaces: [WayShareType!]!
+  cycleInfrastructure: [WayShareType!]!
+}
+
 type MobilitySpanType {
   id: UUID!
   startIndex: Int!
@@ -143,6 +162,7 @@ enum MobilityType {
   BOAT
   WALK
   TRAIN
+  BUS
 }
 
 input MoveMobilityBoundaryInput {
@@ -175,10 +195,9 @@ type Mutation {
   setSectionMobility(tripId: UUID!, sectionId: UUID!, mobilityType: MobilityType!, basedOn: DateTime = null): EditRoutePayload!
   trimRoute(tripId: UUID!, input: TrimRouteInput!): EditRoutePayload!
   deleteRoute(tripId: UUID!): EditRoutePayload!
+  recomputeRouteInsights(tripId: UUID!): RouteInsightsType
   detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
-
-  """Réordonne les images d'un trip ou d'une étape (propriétaire seul)."""
   reorderFiles(input: ReorderFilesInput!): [FileAttachmentType!]!
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
   setStay(waypointId: UUID!, nights: Int! = 1): WaypointType!
@@ -230,6 +249,7 @@ type Query {
   searchPlaces(q: String!, origin: LatLngInput = null, limit: Int! = 8, radiusKm: Float = null, mode: SearchMode! = AUTO): SearchResponse!
   finalDayNote(tripId: UUID!): DayNoteType
   runNotes(tripId: UUID!): [RunNoteType!]!
+  routeInsights(tripId: UUID!): RouteInsightsType
 }
 
 input RangeMobilityInput {
@@ -245,6 +265,12 @@ enum RefinementFailure {
   EMPTY_ROUTE
 }
 
+input ReorderFilesInput {
+  targetType: FileTargetTypeEnum!
+  targetId: ID!
+  fileIds: [ID!]!
+}
+
 enum ResultMode {
   PLACE
   CATEGORY
@@ -255,12 +281,6 @@ Une ancre sur la route existante : EXACTEMENT UNE des deux formes.
 - `endpoint` : le départ ou l'arrivée exacts de la route (poignées), sans section ni point ;
 - `section` : un endroit quelconque de la route.
 """
-input ReorderFilesInput {
-  targetType: FileTargetTypeEnum!
-  targetId: ID!
-  fileIds: [ID!]!
-}
-
 input RouteAnchorInput {
   section: SectionAnchorInput
   endpoint: RouteEndpoint
@@ -277,6 +297,14 @@ enum RouteEditErrorCode {
 enum RouteEndpoint {
   ROUTE_START
   ROUTE_END
+}
+
+type RouteInsightsType {
+  computedAt: DateTime!
+  isStale: Boolean!
+  elevationError: String
+  waysError: String
+  mobilities: [MobilityInsightsType!]!
 }
 
 union RoutePreviewPayload = RoutePreviewSuccess | EditRouteError
@@ -430,5 +458,10 @@ input WaypointUpdateInput {
   kind: WaypointKind
   vertexId: Int
   description: String
+}
+
+type WayShareType {
+  key: String!
+  lengthM: Float!
 }
 

@@ -1,0 +1,47 @@
+# Ce qu'on sait de la route une fois tracée : élévation, nature des voies.
+# Calculé après l'édition par le serveur ; peut manquer ou être périmé.
+fragment RouteInsightsFields on RouteInsightsType {
+    computedAt
+    isStale
+    elevationError
+    waysError
+    mobilities {
+        mobilityType
+        ascentM
+        descentM
+        minElevationM
+        maxElevationM
+        elevationProfile {
+            distanceM
+            elevationM
+        }
+        totalM
+        analyzedM
+        roadKinds {
+            key
+            lengthM
+        }
+        surfaces {
+            key
+            lengthM
+        }
+        cycleInfrastructure {
+            key
+            lengthM
+        }
+    }
+}
+
+# Null : jamais calculé.
+query FetchRouteInsights($tripId: UUID!) {
+    routeInsights(tripId: $tripId) {
+        ...RouteInsightsFields
+    }
+}
+
+# Relance le calcul (propriétaire seul). Null : le trip n'a pas de route.
+mutation RecomputeRouteInsights($tripId: UUID!) {
+    recomputeRouteInsights(tripId: $tripId) {
+        ...RouteInsightsFields
+    }
+}

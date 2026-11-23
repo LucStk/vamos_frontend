@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:domain_core/domain_core.dart';
+import 'package:vamos_cartographie/ui_kit/inputs/pinned_actions.dart';
 
 class InlineEditableText extends StatefulWidget {
   const InlineEditableText({
@@ -53,6 +54,10 @@ class _InlineEditableTextState extends State<InlineEditableText> {
   bool _saving = false;
   String? _error;
 
+  /// Où poser les boutons d'un champ multiligne, si le parent en offre un.
+  PinnedActionsHost? _host;
+  bool _published = false;
+
   @override
   void initState() {
     super.initState();
@@ -67,7 +72,35 @@ class _InlineEditableTextState extends State<InlineEditableText> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _host = PinnedActionsScope.maybeOf(context);
+  }
+
+  /// Publie (ou retire) les boutons après le frame : le parent se reconstruit,
+  /// ce qu'on ne peut pas faire pendant notre propre build.
+  void _syncPinned(Widget? actions) {
+    final host = _host;
+    if (host == null) return;
+    if (actions == null && !_published) return;
+    _published = actions != null;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (actions != null) {
+        host.show(this, actions);
+      } else {
+        host.hide(this);
+      }
+    });
+  }
+
+  @override
   void dispose() {
+    if (_published) {
+      final host = _host;
+      if (host != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => host.hide(this));
+      }
+    }
     _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
     _controller.dispose();
@@ -152,6 +185,7 @@ class _InlineEditableTextState extends State<InlineEditableText> {
   @override
   Widget build(BuildContext context) {
     if (!_editing) {
+      _syncPinned(null);
       return Row(
         crossAxisAlignment: widget.expand
             ? CrossAxisAlignment.start
@@ -178,83 +212,110 @@ class _InlineEditableTextState extends State<InlineEditableText> {
       );
     }
 
-    return CallbackShortcuts(
-      bindings: {const SingleActivator(LogicalKeyboardKey.escape): _cancel},
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                // Même taille qu'en lecture : pas de saut visuel à l'ouverture.
-                final style = widget.expand
-                    ? _baseStyle
-                    : _fittedStyle(
-                  text: _controller.text.isEmpty
-                      ? widget.text
-                      : _controller.text,
-                  style: _baseStyle,
-                  maxWidth: constraints.maxWidth,
-                  maxLines: widget.multiline ? 4 : widget.maxLines,
-                  minFontSize: widget.minFontSize,
-                  textScaler: MediaQuery.textScalerOf(context),
-                      );
+    final actions = _buildActions();
+    final field = LayoutBuilder(
+      builder: (context, constraints) {
+        // Même taille qu'en lecture : pas de saut visuel à l'ouverture.
+        final style = widget.expand
+            ? _baseStyle
+            : _fittedStyle(
+                text: _controller.text.isEmpty ? widget.text : _controller.text,
+                style: _baseStyle,
+                maxWidth: constraints.maxWidth,
+                maxLines: widget.multiline ? 4 : widget.maxLines,
+                minFontSize: widget.minFontSize,
+                textScaler: MediaQuery.textScalerOf(context),
+              );
 
-                return TextField(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  autofocus: true,
-                  enabled: !_saving,
-                  style: style,
-                  maxLength: widget.maxLength,
-                  maxLines: widget.multiline || widget.expand ? null : widget.maxLines,
-                  minLines: 1,
-                  textInputAction: widget.multiline
-                      ? TextInputAction.newline
-                      : TextInputAction.done,
-                  onChanged: (_) => setState(() {}), // réajuste la police
-                  onSubmitted: widget.multiline ? null : (_) => _submit(),
-                  decoration: InputDecoration(
-                    isDense: true,
-                    counterText: '',
-                    errorText: _error,
-                    hintText: widget.placeholder,
-                    hintStyle: style.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                );
-              },
+        return TextField(
+          controller: _controller,
+          focusNode: _focusNode,
+          autofocus: true,
+          enabled: !_saving,
+          style: style,
+          maxLength: widget.maxLength,
+          maxLines: widget.multiline || widget.expand ? null : widget.maxLines,
+          minLines: 1,
+          textInputAction: widget.multiline
+              ? TextInputAction.newline
+              : TextInputAction.done,
+          onChanged: (_) => setState(() {}), // réajuste la police
+          onSubmitted: widget.multiline ? null : (_) => _submit(),
+          decoration: InputDecoration(
+            isDense: true,
+            counterText: '',
+            errorText: _error,
+            hintText: widget.placeholder,
+            hintStyle: style.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.normal,
             ),
           ),
-          if (_saving)
-            const Padding(
-              padding: EdgeInsets.all(12),
-              child: SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            )
-          else ...[
-            if (widget.multiline)
-              IconButton(
-                icon: const Icon(Icons.check),
-                tooltip: 'Enregistrer',
-                visualDensity: VisualDensity.compact,
-                onPressed: _submit,
-              ),
-            IconButton(
-              icon: const Icon(Icons.close),
-              tooltip: 'Annuler',
-              visualDensity: VisualDensity.compact,
-              onPressed: _cancel,
+        );
+      },
+    );
+
+    return CallbackShortcuts(
+      bindings: {const SingleActivator(LogicalKeyboardKey.escape): _cancel},
+      child: widget.multiline
+          // Un texte long : les boutons passent SOUS le champ. Si le parent
+          // offre un emplacement fixe (dialog qui défile), ils y sont épinglés
+          // en bas ; sinon ils suivent le champ.
+          ? _multilineEditor(field, actions)
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: field),
+                actions,
+              ],
             ),
-          ],
-        ],
-      ),
+    );
+  }
+
+  Widget _multilineEditor(Widget field, Widget actions) {
+    if (_host != null) {
+      _syncPinned(actions);
+      return field;
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        field,
+        Align(alignment: Alignment.centerRight, child: actions),
+      ],
+    );
+  }
+
+  /// Valider / annuler, ou l'indicateur d'envoi.
+  Widget _buildActions() {
+    if (_saving) {
+      return const Padding(
+        padding: EdgeInsets.all(12),
+        child: SizedBox(
+          width: 16,
+          height: 16,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+      );
+    }
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (widget.multiline)
+          IconButton(
+            icon: const Icon(Icons.check),
+            tooltip: 'Enregistrer',
+            visualDensity: VisualDensity.compact,
+            onPressed: _submit,
+          ),
+        IconButton(
+          icon: const Icon(Icons.close),
+          tooltip: 'Annuler',
+          visualDensity: VisualDensity.compact,
+          onPressed: _cancel,
+        ),
+      ],
     );
   }
 }

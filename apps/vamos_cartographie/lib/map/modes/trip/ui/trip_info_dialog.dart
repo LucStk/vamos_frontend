@@ -6,6 +6,7 @@ import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_sheet_page
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/widgets/header/trip_header.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
+import 'package:vamos_cartographie/ui_kit/inputs/pinned_actions.dart';
 
 /// La fiche du voyage, en dialog : posée juste au-dessus du dock, dont le
 /// bouton « informations » est devenu la croix qui la ferme.
@@ -23,6 +24,17 @@ class TripInfoDialog extends ConsumerStatefulWidget {
 
 class _TripInfoDialogState extends ConsumerState<TripInfoDialog> {
   int _tab = 0;
+
+  /// Les boutons valider / annuler d'un champ multiligne en édition (la
+  /// description) : épinglés sous le contenu, donc toujours visibles même
+  /// quand le texte fait défiler le dialog.
+  final _pinned = PinnedActionsHost();
+
+  @override
+  void dispose() {
+    _pinned.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,20 +108,41 @@ class _TripInfoDialogState extends ConsumerState<TripInfoDialog> {
                               setState(() => _tab = s.first),
                         ),
                       ),
+                      // Le contenu défile ; la barre des boutons d'édition vient
+                      // juste dessous (collée au texte s'il tient, au bas du
+                      // dialog s'il défile).
                       Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.all(16),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 200),
-                            layoutBuilder: (current, previous) => Stack(
-                              alignment: Alignment.topCenter,
-                              children: [...previous, ?current],
-                            ),
-                            child: KeyedSubtree(
-                              key: ValueKey(tab),
-                              child:
-                                  pages[tab].expanded ??
-                                  pages[tab].compact.child,
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: PinnedActionsScope(
+                            host: _pinned,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Flexible(
+                                  child: SingleChildScrollView(
+                                    padding: const EdgeInsets.all(16),
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(
+                                        milliseconds: 200,
+                                      ),
+                                      layoutBuilder: (current, previous) =>
+                                          Stack(
+                                            alignment: Alignment.topCenter,
+                                            children: [...previous, ?current],
+                                          ),
+                                      child: KeyedSubtree(
+                                        key: ValueKey(tab),
+                                        child:
+                                            pages[tab].expanded ??
+                                            pages[tab].compact.child,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                PinnedActionsBar(host: _pinned),
+                              ],
                             ),
                           ),
                         ),

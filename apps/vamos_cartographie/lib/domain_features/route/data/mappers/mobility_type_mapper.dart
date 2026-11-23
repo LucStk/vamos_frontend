@@ -9,6 +9,7 @@ extension MobilityTypeMapper on MobilityType {
     MobilityType.boat => GMobilityType.BOAT,
     MobilityType.walk => GMobilityType.WALK,
     MobilityType.train => GMobilityType.TRAIN,
+    MobilityType.bus => GMobilityType.BUS,
   };
 }
 
@@ -20,6 +21,7 @@ extension GMobilityTypeMapper on GMobilityType {
     GMobilityType.BOAT => MobilityType.boat,
     GMobilityType.WALK => MobilityType.walk,
     GMobilityType.TRAIN => MobilityType.train,
+    GMobilityType.BUS => MobilityType.bus,
     _ =>
       MobilityType.bike, // Valeur de fallback par défaut en cas de type inconnu
   };

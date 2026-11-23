@@ -4,6 +4,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:domain_core/domain_core.dart';
 import 'package:vamos_cartographie/core/erreur_handler.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/route_edit_exceptions_mappers.dart';
+import 'package:vamos_cartographie/domain_features/route/data/mappers/route_insights_mapper.dart';
 import 'package:vamos_cartographie/domain_features/route/data/mappers/route_mappers.dart';
 import 'package:vamos_cartographie/domain_features/route/data/route_remote_datasource.dart';
 
@@ -14,6 +15,17 @@ class RouteRepositoryImpl extends RouteRepository {
   final RouteRemoteDatasource remote;
 
   RouteRepositoryImpl(this.remote);
+
+  @override
+  Future<Either<Failure, RouteInsights?>> fetchRouteInsights(TripId tripId) =>
+      guard(() async => (await remote.fetchRouteInsights(tripId))?.toDomain());
+
+  @override
+  Future<Either<Failure, RouteInsights?>> recomputeRouteInsights(
+    TripId tripId,
+  ) => guard(
+    () async => (await remote.recomputeRouteInsights(tripId))?.toDomain(),
+  );
 
   @override
   Future<Either<Failure, EditRoutePayload>> setTripOrigin({

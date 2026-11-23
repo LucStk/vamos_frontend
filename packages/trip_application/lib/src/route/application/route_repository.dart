@@ -5,6 +5,12 @@ import 'package:trip_application/src/route/route.dart';
 import 'package:trip_application/src/trip/trip.dart';
 
 abstract class RouteRepository {
+  /// Élévation et nature des voies de la route ; null si jamais calculées.
+  Future<Either<Failure, RouteInsights?>> fetchRouteInsights(TripId tripId);
+
+  /// Relance leur calcul (propriétaire seul) ; null si le trip n'a pas de route.
+  Future<Either<Failure, RouteInsights?>> recomputeRouteInsights(TripId tripId);
+
   Future<Either<Failure, EditRoutePayload>> setTripOrigin({
     required TripId tripId,
     required LatLng position,

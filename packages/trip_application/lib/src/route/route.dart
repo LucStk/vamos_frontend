@@ -1,5 +1,6 @@
 export 'domain/mobility_types.dart';
 export "domain/route.dart";
+export 'domain/route_insights.dart';
 export "domain/spans/spans.dart";
 export 'domain/route_anchor.dart';
 export 'domain/routing_failure.dart';

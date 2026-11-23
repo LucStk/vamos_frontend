@@ -396,6 +396,7 @@ enum GMobilityType {
   BOAT,
   WALK,
   TRAIN,
+  BUS,
   gUnknownEnumValue;
 
   static GMobilityType fromJson(String value) {
@@ -410,6 +411,8 @@ enum GMobilityType {
         return GMobilityType.WALK;
       case r'TRAIN':
         return GMobilityType.TRAIN;
+      case r'BUS':
+        return GMobilityType.BUS;
       default:
         return GMobilityType.gUnknownEnumValue;
     }
@@ -427,6 +430,8 @@ enum GMobilityType {
         return r'WALK';
       case GMobilityType.TRAIN:
         return r'TRAIN';
+      case GMobilityType.BUS:
+        return r'BUS';
       case GMobilityType.gUnknownEnumValue:
         return r'gUnknownEnumValue';
     }
@@ -613,34 +618,6 @@ enum GRefinementFailure {
   }
 }
 
-enum GResultMode {
-  PLACE,
-  CATEGORY,
-  gUnknownEnumValue;
-
-  static GResultMode fromJson(String value) {
-    switch (value) {
-      case r'PLACE':
-        return GResultMode.PLACE;
-      case r'CATEGORY':
-        return GResultMode.CATEGORY;
-      default:
-        return GResultMode.gUnknownEnumValue;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case GResultMode.PLACE:
-        return r'PLACE';
-      case GResultMode.CATEGORY:
-        return r'CATEGORY';
-      case GResultMode.gUnknownEnumValue:
-        return r'gUnknownEnumValue';
-    }
-  }
-}
-
 class GReorderFilesInput {
   const GReorderFilesInput({
     required this.targetType,
@@ -702,6 +679,34 @@ class GReorderFilesInput {
   @override
   String toString() {
     return 'GReorderFilesInput(targetType: $targetType, targetId: $targetId, fileIds: $fileIds)';
+  }
+}
+
+enum GResultMode {
+  PLACE,
+  CATEGORY,
+  gUnknownEnumValue;
+
+  static GResultMode fromJson(String value) {
+    switch (value) {
+      case r'PLACE':
+        return GResultMode.PLACE;
+      case r'CATEGORY':
+        return GResultMode.CATEGORY;
+      default:
+        return GResultMode.gUnknownEnumValue;
+    }
+  }
+
+  String toJson() {
+    switch (this) {
+      case GResultMode.PLACE:
+        return r'PLACE';
+      case GResultMode.CATEGORY:
+        return r'CATEGORY';
+      case GResultMode.gUnknownEnumValue:
+        return r'gUnknownEnumValue';
+    }
   }
 }
 

@@ -6,14 +6,18 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_travel_stats_provider.dart';
 import 'package:vamos_cartographie/domain_features/trip/presentation/mobility_type_display.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stat_item.dart';
+import 'package:vamos_cartographie/map/entities/trip/sheet_pages/stats/mobility_insights_panel.dart';
 
 /// Page dépliée « Statistiques » d'un trip : distance, durée, et la
 /// répartition des modalités en camembert. Toucher une part en détaille la
 /// modalité dessous.
 class TripStatsView extends ConsumerStatefulWidget {
-  const TripStatsView({super.key, required this.trip});
+  const TripStatsView({super.key, required this.trip, this.editable = false});
 
   final Trip trip;
+
+  /// Le propriétaire peut relancer le calcul des informations de parcours.
+  final bool editable;
 
   @override
   ConsumerState<TripStatsView> createState() => _TripStatsViewState();
@@ -139,6 +143,8 @@ class _TripStatsViewState extends ConsumerState<TripStatsView> {
                     key: ValueKey(selected.mobility),
                     share: selected,
                     dayRatio: selected.days / summary.sharesTotalDays,
+                    tripId: widget.trip.id,
+                    editable: widget.editable,
                   ),
                 ),
         ),
@@ -367,10 +373,14 @@ class _MobilityDetail extends StatelessWidget {
     super.key,
     required this.share,
     required this.dayRatio,
+    required this.tripId,
+    required this.editable,
   });
 
   final MobilityShare share;
   final double dayRatio;
+  final TripId tripId;
+  final bool editable;
 
   @override
   Widget build(BuildContext context) {
@@ -453,6 +463,12 @@ class _MobilityDetail extends StatelessWidget {
             hint: 'dessiné à la main, approximatif',
             ratio: drawnRatio,
             distance: share.drawnM,
+          ),
+          // Dénivelé et nature des voies : à pied et à vélo.
+          MobilityInsightsPanel(
+            tripId: tripId,
+            mobility: share.mobility,
+            editable: editable,
           ),
         ],
       ),

@@ -26,7 +26,7 @@ List<SheetPage> tripSheetPages(Trip trip, {bool editable = false}) {
       compact: SheetCompact(
         child: StatsCompact(title: 'Statistiques', stats: stats),
       ),
-      expanded: TripStatsView(trip: trip),
+      expanded: TripStatsView(trip: trip, editable: editable),
     ),
   ];
 }

@@ -402,6 +402,31 @@ const EditSpanType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const ElevationPointType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ElevationPointType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'distanceM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'elevationM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const FileAttachmentType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'FileAttachmentType'),
   directives: [],
@@ -571,6 +596,124 @@ const LatLngType = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const MobilityInsightsType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'MobilityInsightsType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'mobilityType'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'MobilityType'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'ascentM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'descentM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'minElevationM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'maxElevationM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'elevationProfile'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'ElevationPointType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'totalM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'analyzedM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'roadKinds'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'WayShareType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'surfaces'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'WayShareType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'cycleInfrastructure'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'WayShareType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const MobilitySpanType = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'MobilitySpanType'),
   directives: [],
@@ -636,6 +779,10 @@ const MobilityType = _i1.EnumTypeDefinitionNode(
     ),
     _i1.EnumValueDefinitionNode(
       name: _i1.NameNode(value: 'TRAIN'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'BUS'),
       directives: [],
     ),
   ],
@@ -1248,6 +1395,25 @@ const Mutation = _i1.ObjectTypeDefinitionNode(
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'EditRoutePayload'),
         isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'recomputeRouteInsights'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RouteInsightsType'),
+        isNonNull: false,
       ),
     ),
     _i1.FieldDefinitionNode(
@@ -1989,6 +2155,25 @@ const Query = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'routeInsights'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'tripId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UUID'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'RouteInsightsType'),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const RangeMobilityInput = _i1.InputObjectTypeDefinitionNode(
@@ -2051,20 +2236,6 @@ const RefinementFailure = _i1.EnumTypeDefinitionNode(
     ),
   ],
 );
-const ResultMode = _i1.EnumTypeDefinitionNode(
-  name: _i1.NameNode(value: 'ResultMode'),
-  directives: [],
-  values: [
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'PLACE'),
-      directives: [],
-    ),
-    _i1.EnumValueDefinitionNode(
-      name: _i1.NameNode(value: 'CATEGORY'),
-      directives: [],
-    ),
-  ],
-);
 const ReorderFilesInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'ReorderFilesInput'),
   directives: [],
@@ -2098,6 +2269,20 @@ const ReorderFilesInput = _i1.InputObjectTypeDefinitionNode(
         isNonNull: true,
       ),
       defaultValue: null,
+    ),
+  ],
+);
+const ResultMode = _i1.EnumTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ResultMode'),
+  directives: [],
+  values: [
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'PLACE'),
+      directives: [],
+    ),
+    _i1.EnumValueDefinitionNode(
+      name: _i1.NameNode(value: 'CATEGORY'),
+      directives: [],
     ),
   ],
 );
@@ -2162,6 +2347,61 @@ const RouteEndpoint = _i1.EnumTypeDefinitionNode(
     _i1.EnumValueDefinitionNode(
       name: _i1.NameNode(value: 'ROUTE_END'),
       directives: [],
+    ),
+  ],
+);
+const RouteInsightsType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'RouteInsightsType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'computedAt'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DateTime'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isStale'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'elevationError'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'waysError'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'mobilities'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'MobilityInsightsType'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
     ),
   ],
 );
@@ -3064,6 +3304,31 @@ const WaypointUpdateInput = _i1.InputObjectTypeDefinitionNode(
     ),
   ],
 );
+const WayShareType = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'WayShareType'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'key'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'lengthM'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Float'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const document = _i1.DocumentNode(definitions: [
   specifiedBy,
   oneOf,
@@ -3081,6 +3346,7 @@ const document = _i1.DocumentNode(definitions: [
   EditRoutePayload,
   EditRouteSuccess,
   EditSpanType,
+  ElevationPointType,
   FileAttachmentType,
   FileTargetTypeEnum,
   GeometrySource,
@@ -3088,6 +3354,7 @@ const document = _i1.DocumentNode(definitions: [
   ImageUploadRequest,
   LatLngInput,
   LatLngType,
+  MobilityInsightsType,
   MobilitySpanType,
   MobilityType,
   MoveMobilityBoundaryInput,
@@ -3098,11 +3365,12 @@ const document = _i1.DocumentNode(definitions: [
   Query,
   RangeMobilityInput,
   RefinementFailure,
-  ResultMode,
   ReorderFilesInput,
+  ResultMode,
   RouteAnchorInput,
   RouteEditErrorCode,
   RouteEndpoint,
+  RouteInsightsType,
   RoutePreviewPayload,
   RoutePreviewSuccess,
   RunNoteType,
@@ -3123,4 +3391,5 @@ const document = _i1.DocumentNode(definitions: [
   WaypointKind,
   WaypointType,
   WaypointUpdateInput,
+  WayShareType,
 ]);
