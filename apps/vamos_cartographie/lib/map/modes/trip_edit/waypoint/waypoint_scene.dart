@@ -11,7 +11,7 @@ import 'package:vamos_cartographie/map/scene/scene_spec.dart';
 
 /// Le curseur posé sur le départ ou l'arrivée de la route prend sa place :
 /// l'extrémité est masquée tant qu'il la recouvre.
-bool _cursorCovers<T extends MapObject>(Ref ref) => ref.watch(
+bool cursorCovers<T extends MapObject>(Ref ref) => ref.watch(
   modeSlotProvider(
     searchResultMarkerSlot,
   ).select((c) => c?.anchor?.object is T),
@@ -22,11 +22,11 @@ SceneSpec createWaypointScene(TripId tripId) => SceneSpec(
     (ref, cam) => [?ref.watch(searchResultItemProvider(cam))],
     (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
     (ref, cam) => [
-      if (!_cursorCovers<MapTripEnd>(ref))
+      if (!cursorCovers<MapTripEnd>(ref))
         ?ref.watch(tripEndItemProvider(tripId, cam)),
     ],
     (ref, cam) => [
-      if (!_cursorCovers<MapTripStart>(ref))
+      if (!cursorCovers<MapTripStart>(ref))
         ?ref.watch(tripOriginItemProvider(tripId, cam)),
     ],
     (ref, cam) => ref.watch(allWaypointItemProvider(tripId, cam)),

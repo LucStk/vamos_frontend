@@ -10,6 +10,7 @@ import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
+import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/waypoint/commands/waypoint_command.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -70,11 +71,11 @@ final class TripEditMode extends TripMode {
   /// autre sélection est abandonnée.
   Transition placeCursorAt(WorldOffset point) => _placeCursor(point);
 
-  /// Depuis un outil : toucher une étape ou la carte quitte l'outil pour
-  /// l'édition, avec cette étape sélectionnée ou le curseur posé à cet
+  /// Depuis un outil : toucher une étape ou la carte quitte l'outil pour la
+  /// lecture du trip, avec cette étape sélectionnée ou le curseur posé à cet
   /// endroit. Null pour tout autre toucher, que l'outil traite lui-même.
   static Transition? leavingToTap(TripId tripId, TapGesture g) {
-    final edit = Transition.to(TripEditMode(tripId));
+    final edit = Transition.to(TripReadyMode(tripId, readOnly: false));
     return switch (g.element) {
       final MapWaypoint waypoint => edit.and<MapObject>(
         selectionSlot,

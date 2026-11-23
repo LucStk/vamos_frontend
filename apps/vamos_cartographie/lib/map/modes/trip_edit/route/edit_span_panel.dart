@@ -44,7 +44,7 @@ class EditSpanPanel extends ConsumerWidget {
         icon: Icons.close,
         label: draft == null ? 'Fermer' : 'Annuler',
         onPressed: () =>
-            ref.applyTransition(Transition.to(TripEditMode(mode.tripId))),
+            ref.applyTransition(mode.closeTool),
       ),
       primary: const ToolAction(
         icon: Icons.check,

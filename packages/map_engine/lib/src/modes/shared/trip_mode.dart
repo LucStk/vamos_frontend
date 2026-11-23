@@ -21,13 +21,12 @@ abstract class TripMode extends AppMode {
   Transition get exit => Transition.to(TripReadyMode(tripId, readOnly: false));
 
   /// Sortie d'un outil, d'une action contextuelle ou d'un panneau : on
-  /// retrouve l'édition du trip sans rien d'ouvert. C'est la destination de la
-  /// croix du panneau, et un cran seulement du retour : quitter l'édition
-  /// demande ensuite un second retour ([TripEditMode.back]).
+  /// retrouve la lecture du trip sans rien d'ouvert. C'est la destination de
+  /// la croix du panneau et du retour.
   ///
   /// Un mode qui tient une proposition non validée (aperçu, calcul en cours)
   /// la surcharge pour l'abandonner en partant.
-  Transition get closeTool => Transition.to(TripEditMode(tripId));
+  Transition get closeTool => exit;
 
   @override
   Transition get back => closeTool;

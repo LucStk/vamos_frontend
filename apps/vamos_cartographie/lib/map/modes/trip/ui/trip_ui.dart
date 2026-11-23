@@ -8,6 +8,7 @@ import 'package:vamos_cartographie/domain_features/day/providers/day_providers.d
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/dialog/day_info_dialog.dart';
 import 'package:vamos_cartographie/map/entities/waypoint/dialog/waypoint_info_dialog.dart';
+import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_chrome_visibility.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_menus.dart';
@@ -15,6 +16,7 @@ import 'package:vamos_cartographie/map/modes/trip/ui/trip_info_dialog.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_selection_camera.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_title_banner.dart';
+import 'package:vamos_cartographie/map/ui/chrome/dock/edit_dock.dart';
 
 class TripReadyUi extends ConsumerStatefulWidget {
   const TripReadyUi(this.mode, {super.key});
@@ -50,6 +52,10 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
   @override
   Widget build(BuildContext context) {
     final selected = ref.watch(modeSelectionProvider);
+    // Un curseur posé (propriétaire) : son panneau remplace le dock.
+    final cursor = mode.readOnly
+        ? null
+        : ref.watch(modeSlotProvider(searchResultMarkerSlot));
 
     // Un jour, un morceau ou un waypoint choisi : la caméra le cadre, dans la
     // partie de la carte que son dialog laisse libre.
@@ -125,32 +131,59 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
       children: [
         // Jour, morceau, waypoint : la carte reste dégagée.
         if (!hideChrome)
-          const KeyedSubtree(key: ValueKey('search'), child: SearchTopSheet()),
+          KeyedSubtree(
+            key: const ValueKey('search'),
+            // Un résultat de recherche pose le curseur et referme la fiche.
+            child: SearchTopSheet(
+              onPicked: mode.readOnly ? null : mode.placeCursorAt,
+            ),
+          ),
         // Une fiche ouverte (avec sa croix) ou, à défaut, les trois boutons :
         // retour, fiche du voyage, édition.
         ?dialog,
         KeyedSubtree(
           key: const ValueKey('dock'),
-          child: TripReadyDock(
-            mode: mode,
-            infoOpen: infoOpen,
-            dayMode: dayMode,
-            onPreviousDay: onPreviousDay,
-            onNextDay: onNextDay,
-            onBack: () => ref.applyTransition(mode.back),
-            onInfo: () =>
-                ref.applyTransition(infoOpen ? mode.closeSheet : mode.showInfo),
-            // Sur une étape, le crayon la déplace ; sinon on modifie le voyage.
-            editIcon: selected is MapWaypoint ? Icons.edit : Icons.route,
-            editTooltip: selected is MapWaypoint
-                ? 'Déplacer l’étape'
-                : 'Modifier le voyage',
-            onEdit: () => ref.applyTransition(
-              selected is MapWaypoint
-                  ? mode.editWaypoint(selected.id)
-                  : mode.edit,
-            ),
-          ),
+          child: cursor != null
+              // Mêmes propositions qu'en édition : tracer jusqu'ici, créer une
+              // étape. La croix retire le curseur, comme le retour.
+              ? EditDock(
+                  panel: CursorPanel(
+                    tripId: mode.tripId,
+                    cursor: cursor,
+                    canTrace: true,
+                    canCreateWaypoint: true,
+                    sketchTrace: true,
+                    showClear: false,
+                  ),
+                  // Libre ou accroché à la route : deux panneaux différents.
+                  panelKey: (
+                    'cursor',
+                    cursor.anchor == null ? 'free' : 'route',
+                  ),
+                  onBack: () => ref.applyTransition(mode.back),
+                  onClose: () => ref.applyTransition(CursorActions.clear()),
+                )
+              : TripReadyDock(
+                  mode: mode,
+                  infoOpen: infoOpen,
+                  dayMode: dayMode,
+                  onPreviousDay: onPreviousDay,
+                  onNextDay: onNextDay,
+                  onBack: () => ref.applyTransition(mode.back),
+                  onInfo: () => ref.applyTransition(
+                    infoOpen ? mode.closeSheet : mode.showInfo,
+                  ),
+                  // Sur une étape, le crayon la déplace ; sinon on modifie le voyage.
+                  editIcon: selected is MapWaypoint ? Icons.edit : Icons.route,
+                  editTooltip: selected is MapWaypoint
+                      ? 'Déplacer l’étape'
+                      : 'Modifier le voyage',
+                  onEdit: () => ref.applyTransition(
+                    selected is MapWaypoint
+                        ? mode.editWaypoint(selected.id)
+                        : mode.edit,
+                  ),
+                ),
         ),
         KeyedSubtree(key: const ValueKey('menus'), child: TripEditMenus(mode)),
         // À l'entrée dans le trip : son titre, qui s'efface de lui-même. Par
