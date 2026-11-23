@@ -1,126 +1,285 @@
-diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart
-index 42f64de..f05c007 100644
---- a/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart
-+++ b/apps/vamos_cartographie/lib/map/objects/route/trip_end/providers/trip_end_item_provider.dart
-@@ -2,6 +2,7 @@ import 'package:map_engine/map_engine.dart';
- import 'package:riverpod/riverpod.dart';
- import 'package:riverpod_annotation/riverpod_annotation.dart';
- import 'package:trip_application/trip_application.dart';
-+import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
- import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
- import 'package:vamos_cartographie/map/objects/route/trip_end/trip_end_item.dart';
- 
-@@ -14,5 +15,9 @@ TripEndItem? tripEndItem(Ref ref, TripId tripId, MapCameraReader camera) {
-   );
-   if (geometry == null || geometry.isEmpty) return null;
-   final wOffset = camera.latLngToWorldOffset(geometry.last);
--  return TripEndItem(object: MapTripEnd(tripId), worldPosition: wOffset);
-+  return TripEndItem(
-+    object: MapTripEnd(tripId),
-+    worldPosition: wOffset,
-+    polyline: ref.watch(routePolylineProvider(tripId, camera)),
-+  );
+diff --git a/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_mappers.dart b/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_mappers.dart
+index 758fb27..000a2c3 100644
+--- a/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_mappers.dart
++++ b/apps/vamos_cartographie/lib/domain_features/route/data/mappers/route_mappers.dart
+@@ -80,6 +80,7 @@ extension GRoutePreviewResultMapper on GRoutePreviewResult {
+         proposalId: Id(e.proposalId),
+         editSpans: e.editSpans.map((m) => m.toDomain()),
+         mobilitySpans: e.mobilitySpans.map((m) => m.toDomain()),
++        routingFailure: e.refinementError?.toRoutingFailure(),
+       ),
+     ),
+     GRoutePreviewResultData__asEditRouteError e => Left(
+@@ -89,6 +90,16 @@ extension GRoutePreviewResultMapper on GRoutePreviewResult {
+   };
  }
-diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart
-index 32d5e1a..bef2d55 100644
---- a/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart
-+++ b/apps/vamos_cartographie/lib/map/objects/route/trip_end/trip_end_item.dart
-@@ -5,9 +5,16 @@ import 'package:vamos_cartographie/map/objects/route/endpoint_appearance.dart';
- import 'package:vamos_cartographie/map/objects/route/endpoint_style.dart';
  
- final class TripEndItem extends PointItem {
--  TripEndItem({required this.object, required this.worldPosition});
-+  TripEndItem({
-+    required this.object,
-+    required this.worldPosition,
-+    required this.polyline,
++extension GRefinementFailureMapper on GRefinementFailure {
++  RoutingFailure toRoutingFailure() => RoutingFailure(switch (this) {
++    GRefinementFailure.ROUTER_UNAVAILABLE =>
++      RoutingFailureReason.routerUnavailable,
++    GRefinementFailure.NO_ROUTE_FOUND => RoutingFailureReason.noRouteFound,
++    GRefinementFailure.EMPTY_ROUTE => RoutingFailureReason.emptyRoute,
++    _ => RoutingFailureReason.unknown,
 +  });
-   @override
-   final MapTripEnd object;
++}
 +
-+  /// Route du trip, ou null si elle n'a pas encore deux points.
-+  final RoutePolyline? polyline;
+ @visibleForTesting
+ RouteEditFailure routeEditFailureFor(
+   GRouteEditErrorCode code,
+diff --git a/apps/vamos_cartographie/lib/domain_features/route/data/route_failures.dart b/apps/vamos_cartographie/lib/domain_features/route/data/route_failures.dart
+index ceb912d..ce6ca7c 100644
+--- a/apps/vamos_cartographie/lib/domain_features/route/data/route_failures.dart
++++ b/apps/vamos_cartographie/lib/domain_features/route/data/route_failures.dart
+@@ -41,16 +41,3 @@ class UnknownRouteEditFailure extends RouteEditFailure {
    @override
-   final WorldOffset worldPosition;
- 
-@@ -16,6 +23,19 @@ final class TripEndItem extends PointItem {
-   @override
-   ScreenLength get hitRadius => 16.px;
- 
-+  /// L'arrivée est la dernière position de la route.
-+  @override
-+  HitDetail? hitDetail(WorldOffset p) {
-+    final polyline = this.polyline;
-+    return polyline == null ? null : RouteHitDetail(polyline.maxPosition);
-+  }
-+
-+  @override
-+  DragDetail? dragDetail(WorldOffset p) {
-+    final polyline = this.polyline;
-+    return polyline == null ? null : RouteDragDetail(polyline.project(p));
-+  }
-+
-   @override
-   DrawCommand toDrawCommand({
-     MapPaintContext context = const MapPaintContext(),
-diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart
-index ab08448..09978f2 100644
---- a/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart
-+++ b/apps/vamos_cartographie/lib/map/objects/route/trip_start/providers/trip_start_item_provider.dart
-@@ -2,6 +2,7 @@ import 'package:map_engine/map_engine.dart';
- import 'package:riverpod/riverpod.dart';
- import 'package:riverpod_annotation/riverpod_annotation.dart';
- import 'package:trip_application/trip_application.dart';
-+import 'package:vamos_cartographie/domain_features/route/injection/route_polyline_provider.dart';
- import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
- import 'package:vamos_cartographie/map/objects/route/trip_start/trip_start_item.dart';
- 
-@@ -19,5 +20,6 @@ TripStartItem? tripOriginItem(Ref ref, TripId tripId, MapCameraReader camera) {
-   return TripStartItem<MapTripStart>(
-     object: MapTripStart(tripId),
-     worldPosition: worldPosition,
-+    polyline: ref.watch(routePolylineProvider(tripId, camera)),
-   );
+   List<Object?> get props => [...super.props, code];
  }
-diff --git a/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart b/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart
-index b359750..394f48c 100644
---- a/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart
-+++ b/apps/vamos_cartographie/lib/map/objects/route/trip_start/trip_start_item.dart
-@@ -5,11 +5,18 @@ import 'package:vamos_cartographie/map/objects/route/endpoint_appearance.dart';
- import 'package:vamos_cartographie/map/objects/route/endpoint_style.dart';
+-
+-class RoutingFailure extends Failure {
+-  RoutingFailure({this.reason})
+-    : super(
+-        "L'itinéraire n'a pas pu être calculé : votre tracé à main levée a été conservé",
+-      );
+-
+-  /// Valeur de `refinementError` renvoyée par le serveur. Logs uniquement.
+-  final String? reason;
+-
+-  @override
+-  List<Object?> get props => [...super.props, reason];
+-}
+diff --git a/apps/vamos_cartographie/lib/map/modes/trip_edit/sketch/sketch_panel.dart b/apps/vamos_cartographie/lib/map/modes/trip_edit/sketch/sketch_panel.dart
+index 0e6c9a1..461e19e 100644
+--- a/apps/vamos_cartographie/lib/map/modes/trip_edit/sketch/sketch_panel.dart
++++ b/apps/vamos_cartographie/lib/map/modes/trip_edit/sketch/sketch_panel.dart
+@@ -44,6 +44,7 @@ class _EditionPanel extends ConsumerWidget {
+     final canValidate = sketch != null && sketch.points.length >= 2;
  
- final class TripStartItem<T extends MapRouteOrigin> extends PointItem {
--  TripStartItem({required this.object, required this.worldPosition});
-+  TripStartItem({
-+    required this.object,
-+    required this.worldPosition,
-+    this.polyline,
-+  });
+     return ToolPanel(
++      error: mode.failure?.message,
+       hint: sketch == null
+           ? 'Faites glisser depuis la route pour tracer la suite.'
+           : null,
+@@ -95,6 +96,7 @@ class _PreviewPanel extends ConsumerWidget {
+     final mobilityType = ref.watch(sketchMobilityTypeProvider);
+ 
+     return ToolPanel(
++      error: mode.error?.message,
+       settings: [
+         MobilityTypeMenu(
+           selected: mobilityType,
+diff --git a/apps/vamos_cartographie/lib/map/ui/chrome/toolbox/tool_panel.dart b/apps/vamos_cartographie/lib/map/ui/chrome/toolbox/tool_panel.dart
+index cc1e338..cbf19d2 100644
+--- a/apps/vamos_cartographie/lib/map/ui/chrome/toolbox/tool_panel.dart
++++ b/apps/vamos_cartographie/lib/map/ui/chrome/toolbox/tool_panel.dart
+@@ -53,6 +53,7 @@ class ToolPanel extends StatelessWidget {
+   const ToolPanel({
+     super.key,
+     this.hint,
++    this.error,
+     this.settings = const [],
+     this.trailing = const [],
+     this.secondary,
+@@ -62,6 +63,10 @@ class ToolPanel extends StatelessWidget {
+   /// Consigne affichée en haut (ex. « Touchez la carte pour… »). Null : rien.
+   final String? hint;
+ 
++  /// Message d'erreur affiché en haut, en couleur d'erreur (ex. routeur
++  /// indisponible). Null : rien.
++  final String? error;
++
+   final List<Widget> settings;
+   final List<ToolAction> trailing;
+   final ToolAction? secondary;
+@@ -75,12 +80,38 @@ class ToolPanel extends StatelessWidget {
+ 
+     final hasMain = secondary != null || primary != null;
+     final hint = this.hint;
++    final error = this.error;
+     final theme = Theme.of(context);
+ 
+     return Column(
+       mainAxisSize: MainAxisSize.min,
+       crossAxisAlignment: CrossAxisAlignment.stretch,
+       children: [
++        if (error != null)
++          Padding(
++            padding: EdgeInsets.only(
++              bottom: hint != null || hasTools || hasMain ? 8 : 0,
++            ),
++            child: Row(
++              crossAxisAlignment: CrossAxisAlignment.start,
++              children: [
++                Icon(
++                  Icons.error_outline,
++                  size: 18,
++                  color: theme.colorScheme.error,
++                ),
++                const SizedBox(width: 8),
++                Expanded(
++                  child: Text(
++                    error,
++                    style: theme.textTheme.bodyMedium?.copyWith(
++                      color: theme.colorScheme.error,
++                    ),
++                  ),
++                ),
++              ],
++            ),
++          ),
+         if (hint != null)
+           Padding(
+             padding: EdgeInsets.only(bottom: hasTools || hasMain ? 8 : 0),
+diff --git a/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_edition_mode.dart b/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_edition_mode.dart
+index 576b900..ca8d2bf 100644
+--- a/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_edition_mode.dart
++++ b/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_edition_mode.dart
+@@ -1,3 +1,4 @@
++import 'package:domain_core/domain_core.dart';
+ import 'package:map_engine/src/domain/domain.dart';
+ import 'package:map_engine/src/gesture_engine/map_gesture.dart';
+ import 'package:map_engine/src/mode_engine/mode_engine.dart';
+@@ -11,7 +12,11 @@ import 'package:map_engine/src/modes/trip_edit/sketch/slots/sketch_trace.dart';
+ import 'package:trip_application/trip_application.dart';
+ 
+ class SketchEdition extends SketchToolMode {
+-  const SketchEdition(super.tripId);
++  const SketchEdition(super.tripId, {this.failure});
++
++  /// Échec de la dernière demande (validation, prévisualisation), à afficher
++  /// dans le panneau. Disparaît dès qu'une nouvelle demande est lancée.
++  final Failure? failure;
  
    @override
-   final T object;
+   Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
+@@ -93,7 +98,9 @@ class SketchEdition extends SketchToolMode {
+               return null;
+             }
+             return result.fold(
+-              (failure) => Transition.to(this), // retour au tracé
++              (failure) => Transition.to(
++                SketchEdition(tripId, failure: failure),
++              ), // retour au tracé
+               (_) => Transition.to(this).clearSlot(sketchTraceSlot),
+             );
+           },
+diff --git a/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_generating_mode.dart b/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_generating_mode.dart
+index 2b9502e..04f7706 100644
+--- a/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_generating_mode.dart
++++ b/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_generating_mode.dart
+@@ -44,7 +44,9 @@ final class SketchGenerating extends SketchToolMode {
+               return null;
+             }
+             return result.fold(
+-              (failure) => Transition.to(SketchEdition(tripId)), // le tracé
++              (failure) => Transition.to(
++                SketchEdition(tripId, failure: failure),
++              ), // retour au tracé
+               (preview) =>
+                   Transition.to(SketchPreviewing(tripId, preview: preview)),
+             );
+diff --git a/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_preview_mode.dart b/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_preview_mode.dart
+index 7ebff8f..a2eb5d4 100644
+--- a/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_preview_mode.dart
++++ b/packages/map_engine/lib/src/modes/trip_edit/sketch/sketch_preview_mode.dart
+@@ -1,3 +1,4 @@
++import 'package:domain_core/domain_core.dart';
+ import 'package:map_engine/src/gesture_engine/map_gesture.dart';
+ import 'package:map_engine/src/mode_engine/mode_engine.dart';
+ import 'package:map_engine/src/modes/shared/trip_mode.dart';
+@@ -14,10 +15,17 @@ import 'package:trip_application/trip_application.dart';
+ /// prévisualisation ([recalculate]), ou intégrer celle-ci à la route et
+ /// quitter le tracé ([commit]).
+ final class SketchPreviewing extends SketchToolMode {
+-  const SketchPreviewing(super.tripId, {required this.preview});
++  const SketchPreviewing(super.tripId, {required this.preview, this.failure});
  
-+  /// Route du trip. Absente pour une origine sans route (`MapTmpOrigin`).
-+  final RoutePolyline? polyline;
+   final PreviewRoutePayload preview;
+ 
++  /// Échec de la dernière validation : la proposition reste affichée.
++  final Failure? failure;
++
++  /// À afficher dans le panneau : l'échec de la validation, sinon celui du
++  /// routeur (la prévisualisation reprend alors le tracé à main levée).
++  Failure? get error => failure ?? preview.routingFailure;
 +
    @override
-   final WorldOffset worldPosition;
+   Set<Slot> get retainedSlots => {sketchTraceSlot}; // pour y revenir
  
-@@ -18,6 +25,17 @@ final class TripStartItem<T extends MapRouteOrigin> extends PointItem {
-   @override
-   ScreenLength get hitRadius => 16.px;
+@@ -47,7 +55,10 @@ final class SketchPreviewing extends SketchToolMode {
+       // Quitté entre-temps (retour, nouvelle prévisualisation) : on ignore.
+       if (!identical(current.mode, this)) return null;
+       return result.fold(
+-        (failure) => Transition.stay(), // la proposition reste affichée
++        // La proposition reste affichée, avec la raison de l'échec.
++        (failure) => Transition.to(
++          SketchPreviewing(tripId, preview: preview, failure: failure),
++        ),
+         (_) => TripMode.open(tripId),
+       );
+     },
+diff --git a/packages/trip_application/lib/src/route/application/route_payloads.dart b/packages/trip_application/lib/src/route/application/route_payloads.dart
+index b98bbab..9370aa5 100644
+--- a/packages/trip_application/lib/src/route/application/route_payloads.dart
++++ b/packages/trip_application/lib/src/route/application/route_payloads.dart
+@@ -56,9 +56,13 @@ class PreviewRoutePayload {
+     required this.mobilitySpans,
+     required this.editSpans,
+     required this.coordinates,
++    this.routingFailure,
+   });
+   final Id proposalId;
+   final List<LatLng> coordinates;
+   final Iterable<PreviewMobilitySpan> mobilitySpans;
+   final Iterable<PreviewEditSpan> editSpans;
++
++  /// Le routeur a échoué : la prévisualisation reprend le tracé à main levée.
++  final RoutingFailure? routingFailure;
+ }
+diff --git a/packages/trip_application/lib/src/route/domain/routing_failure.dart b/packages/trip_application/lib/src/route/domain/routing_failure.dart
+index 68b3871..95d79b7 100644
+--- a/packages/trip_application/lib/src/route/domain/routing_failure.dart
++++ b/packages/trip_application/lib/src/route/domain/routing_failure.dart
+@@ -1,13 +1,24 @@
+ import 'package:domain_core/domain_core.dart';
  
-+  /// Le départ est la position 0 de la route.
-+  @override
-+  HitDetail? hitDetail(WorldOffset p) =>
-+      polyline == null ? null : const RouteHitDetail(0);
++enum RoutingFailureReason { routerUnavailable, noRouteFound, emptyRoute, unknown }
 +
-+  @override
-+  DragDetail? dragDetail(WorldOffset p) {
-+    final polyline = this.polyline;
-+    return polyline == null ? null : RouteDragDetail(polyline.project(p));
-+  }
++/// Le routeur n'a pas pu affiner le tracé : la géométrie à main levée est
++/// conservée telle quelle (sections DRAWN).
+ class RoutingFailure extends Failure {
+-  RoutingFailure({this.reason})
+-    : super(
+-        "L'itinéraire n'a pas pu être calculé : votre tracé à main levée a été conservé",
+-      );
++  RoutingFailure(this.reason) : super(_messageFor(reason));
 +
++  final RoutingFailureReason reason;
+ 
+-  /// Valeur de `refinementError` renvoyée par le serveur. Logs uniquement.
+-  final String? reason;
++  static String _messageFor(RoutingFailureReason reason) => switch (reason) {
++    RoutingFailureReason.routerUnavailable =>
++      "Le service d'itinéraire est indisponible : votre tracé à main levée a été conservé",
++    RoutingFailureReason.noRouteFound =>
++      "Aucun itinéraire trouvé pour ce tracé avec cette mobilité : votre tracé à main levée a été conservé",
++    RoutingFailureReason.emptyRoute =>
++      "Le calcul n'a renvoyé aucun itinéraire : votre tracé à main levée a été conservé",
++    RoutingFailureReason.unknown =>
++      "L'itinéraire n'a pas pu être calculé : votre tracé à main levée a été conservé",
++  };
+ 
    @override
-   DrawCommand toDrawCommand({
-     MapPaintContext context = const MapPaintContext(),
+   List<Object?> get props => [...super.props, reason];
+diff --git a/packages/trip_application/lib/src/route/route.dart b/packages/trip_application/lib/src/route/route.dart
+index c1575a0..e312ce0 100644
+--- a/packages/trip_application/lib/src/route/route.dart
++++ b/packages/trip_application/lib/src/route/route.dart
+@@ -2,6 +2,7 @@ export 'domain/mobility_types.dart';
+ export "domain/route.dart";
+ export "domain/spans/spans.dart";
+ export 'domain/route_anchor.dart';
++export 'domain/routing_failure.dart';
+ 
+ export "application/route_editor.dart";
+ export "application/route_store.dart";

@@ -43,6 +43,7 @@ ModeView viewFor(AppMode mode) => switch (mode) {
   CreateWaypointMode m => tripEditView(m, createWaypointScene(m.tripId)),
   SketchEdition m => tripEditView(m, sketchScene(m.tripId)),
   SketchGenerating m => tripEditView(m, sketchGeneratingScene(m.tripId)),
+  SketchPreviewing m => tripEditView(m, sketchPreviewScene(m)),
   // Actions contextuelles (gestes sur la route).
   SelectRouteMode m => tripEditView(m, selectRouteScene(m.tripId)),
   TrimRouteMode m => tripEditView(m, selectRouteScene(m.tripId)),

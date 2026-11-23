@@ -40,13 +40,14 @@ class RouteRemoteDatasource {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+    bool autoRoute = true,
   }) async {
     final data = await ferryClient.execute(
       GEditRouteReq(
         vars: GEditRouteVars(
           tripId: tripId.value,
           input: GEditRouteInput(
-            autoRoute: true,
+            autoRoute: autoRoute,
             mobilityType: toFerryValue(mobilityType?.toGQL()),
             points: geometry.toGQLInput(),
             start: toFerryValue(startAnchor?.toGQL()),

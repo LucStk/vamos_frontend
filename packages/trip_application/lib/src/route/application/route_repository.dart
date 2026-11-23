@@ -16,6 +16,9 @@ abstract class RouteRepository {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+
+    /// `false` : le tracé à main levée est gardé tel quel (sections DRAWN).
+    bool autoRoute = true,
   });
   Future<Either<Failure, EditRoutePayload>> refineSection({
     required TripId tripId,

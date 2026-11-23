@@ -1,3 +1,4 @@
+import 'package:domain_core/domain_core.dart';
 import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
@@ -11,7 +12,20 @@ import 'package:map_engine/src/modes/trip_edit/sketch/slots/sketch_trace.dart';
 import 'package:trip_application/trip_application.dart';
 
 class SketchEdition extends SketchToolMode {
-  const SketchEdition(super.tripId);
+  const SketchEdition(super.tripId, {this.failure});
+
+  /// Échec de la dernière demande (validation, prévisualisation), à afficher
+  /// dans le panneau. Disparaît dès que le tracé est modifié (redessiné,
+  /// effacé) ou qu'une nouvelle demande est lancée.
+  final Failure? failure;
+
+  /// Toute modification du tracé fait disparaître l'échec affiché.
+  Transition _editingTrace(Transition t) =>
+      failure == null ? t : t.switchingTo(SketchEdition(tripId));
+
+  /// Efface le tracé.
+  Transition clearTrace() =>
+      _editingTrace(Transition.set(sketchTraceSlot, null));
 
   @override
   Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
@@ -23,9 +37,8 @@ class SketchEdition extends SketchToolMode {
   /// On saisit le crayon : on retient où, par rapport à sa pointe.
   @override
   Transition onPointerDown(PressGesture g) => switch (g.element) {
-    MapSketchPencil() => Transition.update(
-      sketchTraceSlot,
-      (t) => t.grabbedAt(g.position.world),
+    MapSketchPencil() => _editingTrace(
+      Transition.update(sketchTraceSlot, (t) => t.grabbedAt(g.position.world)),
     ),
     _ => Transition.stay(),
   };
@@ -35,7 +48,9 @@ class SketchEdition extends SketchToolMode {
   @override
   Transition onDragStart(DragStartGesture g) {
     if (g.source.narrow<RouteElements>() case final hit?) {
-      return Transition.set(sketchTraceSlot, SketchTrace(startAnchor: hit));
+      return _editingTrace(
+        Transition.set(sketchTraceSlot, SketchTrace(startAnchor: hit)),
+      );
     }
     return Transition.stay();
   }
@@ -52,9 +67,11 @@ class SketchEdition extends SketchToolMode {
         ? null
         : g.target?.narrow<RouteElements>();
 
-    return Transition.update(
-      sketchTraceSlot,
-      (t) => t.add(g.position.world).endingAt(end),
+    return _editingTrace(
+      Transition.update(
+        sketchTraceSlot,
+        (t) => t.add(g.position.world).endingAt(end),
+      ),
     );
   }
 
@@ -68,17 +85,24 @@ class SketchEdition extends SketchToolMode {
   @override
   Transition onDragCancel(DragCancelGesture g) =>
       g.source.narrow<RouteElements>() != null
-      ? Transition.set(sketchTraceSlot, null)
+      ? _editingTrace(Transition.set(sketchTraceSlot, null))
       : Transition.stay();
 
-  Transition validate(MobilityType mobilityType) =>
+  /// Valide le tracé tel qu'il a été dessiné, sans routeur (sections DRAWN).
+  /// Le tracé est effacé et on reste ici pour en enchaîner un autre.
+  Transition validateFreehand(MobilityType mobilityType) =>
       Transition.withSlot<SketchTrace>(sketchTraceSlot, (trace) {
         if (trace.points.length < 2) return Transition.stay();
 
         final generating = SketchGenerating(tripId, this);
 
         return Transition.to(generating).running(
-          EditRoute(mobilityType: mobilityType, tripId: tripId, sketch: trace),
+          EditRoute(
+            mobilityType: mobilityType,
+            tripId: tripId,
+            sketch: trace,
+            autoRoute: false,
+          ),
           then: (current, result) {
             final m = current.mode;
             // Annulé ou remplacé entre-temps : on ignore cette réponse.
@@ -86,12 +110,18 @@ class SketchEdition extends SketchToolMode {
               return null;
             }
             return result.fold(
-              (failure) => Transition.to(this), // retour au tracé
+              (failure) => Transition.to(
+                SketchEdition(tripId, failure: failure),
+              ), // retour au tracé
               (_) => Transition.to(this).clearSlot(sketchTraceSlot),
             );
           },
         );
       });
+
+  /// Demande l'itinéraire du tracé, sans l'ajouter à la route.
+  Transition preview(MobilityType mobilityType) =>
+      SketchGenerating.preview(tripId, mobilityType);
 
   static Transition stop() =>
       Transition.withMode<SketchEdition>((s) => TripMode.open((s.tripId)));
@@ -107,6 +137,4 @@ class SketchEdition extends SketchToolMode {
   /// Les deux seules origines qui pilotent le tracé.
   static bool _drivesTrace(MapObject o) =>
       o is RouteElements || o is MapSketchPencil;
-
-  // validate(), stop(), startFromOrigin() : inchangés
 }

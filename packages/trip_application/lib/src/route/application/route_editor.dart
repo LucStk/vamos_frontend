@@ -26,6 +26,7 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+    bool autoRoute = true,
   }) {
     return run<EditRoutePayload, TripId>(
       entityKey: tripId, // sérialise toutes les éditions de ce trip
@@ -36,6 +37,7 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
         geometry: geometry,
         startAnchor: startAnchor,
         endAnchor: endAnchor,
+        autoRoute: autoRoute,
       ),
       onSuccess: (gs, payload) => RouteStore.fromRemote(
         route: payload.route,
@@ -43,6 +45,58 @@ mixin RouteEditor on OptimisticRunner<RouteStore> {
         editSpans: payload.editSpans,
       ),
       onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
+    );
+  }
+
+  /// Calcule l'itinéraire du tracé sans toucher à la route : la proposition
+  /// reste côté serveur jusqu'à [commitRouteEdit] ou [discardRouteProposal].
+  Future<Either<Failure, PreviewRoutePayload>> previewRouteEdit({
+    required List<LatLng> geometry,
+    MobilityType? mobilityType,
+    RouteAnchor? startAnchor,
+    RouteAnchor? endAnchor,
+  }) {
+    return run<PreviewRoutePayload, TripId>(
+      entityKey: tripId, // sérialise toutes les éditions de ce trip
+      onApply: (_) => null, // la route n'est pas modifiée
+      remote: (_) => routeRepo.previewRouteEdit(
+        tripId: tripId,
+        mobilityType: mobilityType,
+        geometry: geometry,
+        startAnchor: startAnchor,
+        endAnchor: endAnchor,
+      ),
+    );
+  }
+
+  /// Intègre à la route la proposition renvoyée par [previewRouteEdit].
+  Future<Either<Failure, EditRoutePayload>> commitRouteEdit({
+    required Id proposalId,
+  }) {
+    return run<EditRoutePayload, TripId>(
+      entityKey: tripId, // sérialise toutes les éditions de ce trip
+      onApply: (_) => null, // pas d'état optimiste : null = ne rien changer
+      remote: (_) =>
+          routeRepo.commitRouteEdit(tripId: tripId, proposalId: proposalId),
+      onSuccess: (gs, payload) => RouteStore.fromRemote(
+        route: payload.route,
+        mobilitySpans: payload.mobilitySpans,
+        editSpans: payload.editSpans,
+      ),
+      onError: (_, failure) => null, // le logger de run() a déjà tracé l'erreur
+    );
+  }
+
+  /// Abandonne la proposition en cours. Passe par la file du trip : elle ne
+  /// peut pas doubler une prévisualisation demandée juste après.
+  Future<Either<Failure, Unit>> discardRouteProposal() {
+    return run<Unit, TripId>(
+      entityKey: tripId,
+      onApply: (_) => null,
+      remote: (_) async {
+        final failure = await routeRepo.discardRouteProposal(tripId: tripId);
+        return failure == null ? const Right(unit) : Left(failure);
+      },
     );
   }
 

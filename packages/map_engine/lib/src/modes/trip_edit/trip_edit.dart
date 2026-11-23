@@ -1,6 +1,7 @@
 export "route/edit_span_mode.dart";
 export 'sketch/sketch_edition_mode.dart';
 export 'sketch/sketch_generating_mode.dart';
+export 'sketch/sketch_preview_mode.dart';
 export 'sketch/sketch_tool_mode.dart';
 
 export 'trip_edit_mode.dart';

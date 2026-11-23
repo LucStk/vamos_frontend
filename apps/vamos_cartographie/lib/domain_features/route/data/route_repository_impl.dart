@@ -34,6 +34,7 @@ class RouteRepositoryImpl extends RouteRepository {
     MobilityType? mobilityType,
     RouteAnchor? startAnchor,
     RouteAnchor? endAnchor,
+    bool autoRoute = true,
   }) async {
     final res = await guardRouteEdit(
       () => remote.editRoute(
@@ -42,6 +43,7 @@ class RouteRepositoryImpl extends RouteRepository {
         tripId: tripId,
         startAnchor: startAnchor,
         endAnchor: endAnchor,
+        autoRoute: autoRoute,
       ),
     );
     return res.flatMap((m) => m.toDomain());

@@ -9,7 +9,8 @@ import 'package:vamos_cartographie/map/modes/trip_edit/sketch/providers/sketch_m
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 
 /// Panneau de l'outil « Tracer » ([SketchToolMode]) : le tracé
-/// ([SketchEdition]) et le calcul de l'itinéraire ([SketchGenerating]).
+/// ([SketchEdition]), le calcul de l'itinéraire ([SketchGenerating]) et sa
+/// prévisualisation ([SketchPreviewing]).
 @Dependencies([modeSelection, ModeMachine])
 class SketchPanel extends ConsumerWidget {
   const SketchPanel(this.mode, {super.key});
@@ -19,6 +20,7 @@ class SketchPanel extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => switch (mode) {
     final SketchEdition m => _EditionPanel(m),
+    final SketchPreviewing m => _PreviewPanel(m),
     // Annuler : la réponse du calcul sera ignorée (le jeton ne correspondra
     // plus), et SketchEdition retrouve le tracé (slot conservé).
     _ => _GeneratingPanel(
@@ -42,6 +44,7 @@ class _EditionPanel extends ConsumerWidget {
     final canValidate = sketch != null && sketch.points.length >= 2;
 
     return ToolPanel(
+      error: mode.failure?.message,
       hint: sketch == null
           ? 'Faites glisser depuis la route pour tracer la suite.'
           : null,
@@ -59,16 +62,64 @@ class _EditionPanel extends ConsumerWidget {
           destructive: true,
           onPressed: sketch == null
               ? null
-              : () =>
-                    ref.applyTransition(Transition.set(sketchTraceSlot, null)),
+              : () => ref.applyTransition(mode.clearTrace()),
         ),
       ],
-      primary: ToolAction(
+      secondary: ToolAction(
         icon: Icons.alt_route,
-        label: 'Calculer l’itinéraire',
+        label: 'Prévisualiser l’itinéraire',
         onPressed: canValidate
-            ? () => ref.applyTransition(mode.validate(mobilityType))
+            ? () => ref.applyTransition(mode.preview(mobilityType))
             : null,
+      ),
+      primary: ToolAction(
+        icon: Icons.check,
+        label: 'Valider à main levée',
+        onPressed: canValidate
+            ? () => ref.applyTransition(mode.validateFreehand(mobilityType))
+            : null,
+      ),
+    );
+  }
+}
+
+/// Itinéraire prévisualisé : le valider, revenir au tracé, ou en demander un
+/// autre avec une autre mobilité.
+class _PreviewPanel extends ConsumerWidget {
+  const _PreviewPanel(this.mode);
+
+  final SketchPreviewing mode;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mobilityType = ref.watch(sketchMobilityTypeProvider);
+
+    return ToolPanel(
+      error: mode.error?.message,
+      settings: [
+        MobilityTypeMenu(
+          selected: mobilityType,
+          onChanged: (type) =>
+              ref.read(sketchMobilityTypeProvider.notifier).select(type),
+        ),
+      ],
+      trailing: [
+        ToolAction(
+          icon: Icons.refresh,
+          label: 'Recalculer',
+          onPressed: () =>
+              ref.applyTransition(mode.recalculate(mobilityType)),
+        ),
+      ],
+      secondary: ToolAction(
+        icon: Icons.edit_outlined,
+        label: 'Modifier le tracé',
+        onPressed: () => ref.applyTransition(mode.backToSketch()),
+      ),
+      primary: ToolAction(
+        icon: Icons.check,
+        label: 'Valider',
+        onPressed: () => ref.applyTransition(mode.commit()),
       ),
     );
   }

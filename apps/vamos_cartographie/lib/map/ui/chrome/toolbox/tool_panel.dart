@@ -53,6 +53,7 @@ class ToolPanel extends StatelessWidget {
   const ToolPanel({
     super.key,
     this.hint,
+    this.error,
     this.settings = const [],
     this.trailing = const [],
     this.secondary,
@@ -61,6 +62,10 @@ class ToolPanel extends StatelessWidget {
 
   /// Consigne affichée en haut (ex. « Touchez la carte pour… »). Null : rien.
   final String? hint;
+
+  /// Message d'erreur affiché en haut, en couleur d'erreur (ex. routeur
+  /// indisponible). Null : rien.
+  final String? error;
 
   final List<Widget> settings;
   final List<ToolAction> trailing;
@@ -75,12 +80,38 @@ class ToolPanel extends StatelessWidget {
 
     final hasMain = secondary != null || primary != null;
     final hint = this.hint;
+    final error = this.error;
     final theme = Theme.of(context);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (error != null)
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: hint != null || hasTools || hasMain ? 8 : 0,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 18,
+                  color: theme.colorScheme.error,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    error,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.error,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         if (hint != null)
           Padding(
             padding: EdgeInsets.only(bottom: hasTools || hasMain ? 8 : 0),

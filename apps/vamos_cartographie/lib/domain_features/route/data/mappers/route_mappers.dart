@@ -80,6 +80,7 @@ extension GRoutePreviewResultMapper on GRoutePreviewResult {
         proposalId: Id(e.proposalId),
         editSpans: e.editSpans.map((m) => m.toDomain()),
         mobilitySpans: e.mobilitySpans.map((m) => m.toDomain()),
+        routingFailure: e.refinementError?.toRoutingFailure(),
       ),
     ),
     GRoutePreviewResultData__asEditRouteError e => Left(
@@ -87,6 +88,16 @@ extension GRoutePreviewResultMapper on GRoutePreviewResult {
     ),
     _ => Left(UnknownRouteEditFailure(code: G__typename)),
   };
+}
+
+extension GRefinementFailureMapper on GRefinementFailure {
+  RoutingFailure toRoutingFailure() => RoutingFailure(switch (this) {
+    GRefinementFailure.ROUTER_UNAVAILABLE =>
+      RoutingFailureReason.routerUnavailable,
+    GRefinementFailure.NO_ROUTE_FOUND => RoutingFailureReason.noRouteFound,
+    GRefinementFailure.EMPTY_ROUTE => RoutingFailureReason.emptyRoute,
+    _ => RoutingFailureReason.unknown,
+  });
 }
 
 @visibleForTesting

@@ -56,9 +56,13 @@ class PreviewRoutePayload {
     required this.mobilitySpans,
     required this.editSpans,
     required this.coordinates,
+    this.routingFailure,
   });
   final Id proposalId;
   final List<LatLng> coordinates;
   final Iterable<PreviewMobilitySpan> mobilitySpans;
   final Iterable<PreviewEditSpan> editSpans;
+
+  /// Le routeur a échoué : la prévisualisation reprend le tracé à main levée.
+  final RoutingFailure? routingFailure;
 }
