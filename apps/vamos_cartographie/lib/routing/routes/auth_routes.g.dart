@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
   $loginRoute,
   $userProfileRoute,
   $profileRoute,
+  $userSearchRoute,
 ];
 
 RouteBase get $loginRoute => GoRouteData.$route(
@@ -79,6 +80,33 @@ mixin $ProfileRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/profile');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $userSearchRoute => GoRouteData.$route(
+  path: '/users',
+  hasOverriddenOnExit: false,
+  factory: $UserSearchRoute._fromState,
+);
+
+mixin $UserSearchRoute on GoRouteData {
+  static UserSearchRoute _fromState(GoRouterState state) =>
+      const UserSearchRoute();
+
+  @override
+  String get location => GoRouteData.$location('/users');
 
   @override
   void go(BuildContext context) => context.go(location);

@@ -38,6 +38,11 @@ class ExploreBottomBar extends StatelessWidget {
             selectedIcon: Icon(Icons.bookmark),
             label: 'Favoris',
           ),
+          NavigationDestination(
+            icon: Icon(Icons.people_outline),
+            selectedIcon: Icon(Icons.people),
+            label: 'Personnes',
+          ),
         ],
       ),
     );

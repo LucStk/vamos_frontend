@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
 import 'package:vamos_cartographie/map/ui/chrome/explore_bottom_bar.dart';
+import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 
 @Dependencies([modeSelection, ModeMachine])
 class ExploreUi extends ConsumerWidget {
@@ -31,7 +32,9 @@ class ExploreUi extends ConsumerWidget {
                 child: ExploreBottomBar(
                   selectedIndex: 0, // TODO : à relier à un provider
                   onSelected: (i) {
-                    // TODO : changer de mode / de page
+                    // 0 = Carte (déjà là). Index 3 = Personnes.
+                    if (i == 3) const UserSearchRoute().push(context);
+                    // TODO : Recherche et Favoris
                   },
                 ),
               ),

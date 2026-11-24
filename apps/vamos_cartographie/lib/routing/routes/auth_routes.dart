@@ -7,6 +7,7 @@ import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/auth/presentation/login_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/editor_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/viewer_profile_page.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/search/user_search_page.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 
 part 'auth_routes.g.dart';
@@ -40,7 +41,8 @@ class UserProfileRoute extends GoRouteData with $UserProfileRoute {
             apply(TripMode.open(id));
             _backToMap(context);
           },
-          onOpenUser: (UserId userId) => UserProfileRoute(userId.value),
+          onOpenUser: (UserId userId) =>
+              UserProfileRoute(userId.value).push(context),
         );
       },
     );
@@ -67,9 +69,24 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
             apply(TripMode.open(id));
             _backToMap(context);
           },
-          onOpenUser: (UserId userId) => UserProfileRoute(userId.value),
+          onOpenUser: (UserId userId) =>
+              UserProfileRoute(userId.value).push(context),
         );
       },
+    );
+  }
+}
+
+/// Recherche d'un autre utilisateur par début de nom.
+@TypedGoRoute<UserSearchRoute>(path: '/users')
+class UserSearchRoute extends GoRouteData with $UserSearchRoute {
+  const UserSearchRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return UserSearchPage(
+      onOpenUser: (UserId userId) =>
+          UserProfileRoute(userId.value).push(context),
     );
   }
 }

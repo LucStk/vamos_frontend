@@ -18,7 +18,7 @@ class ExploreRoute extends GoRouteData with $ExploreRoute {
 }
 
 /// Routes qui nécessitent d'être connecté.
-const _protectedPrefixes = ["/profile"];
+const _protectedPrefixes = ["/profile", "/users"];
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
