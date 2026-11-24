@@ -42,6 +42,28 @@
           includeEmulator = false;
         };
 
+        # Ports du PC que l'app atteint depuis le téléphone (via adb reverse) :
+        # 8000 = Django, 8333 = stockage S3 (images, uploads présignés).
+        reversePorts = [ "8000" "8333" ];
+
+        # `run-phone [args flutter run]` : redirige les ports vers chaque
+        # téléphone branché en USB, puis lance l'app dessus.
+        runPhone = pkgs.writeShellScriptBin "run-phone" ''
+          set -euo pipefail
+          adb="${androidSdk.androidsdk}/libexec/android-sdk/platform-tools/adb"
+
+          "$adb" wait-for-device
+          for serial in $("$adb" devices | ${pkgs.gawk}/bin/awk 'NR>1 && $2=="device" {print $1}'); do
+            for port in ${pkgs.lib.concatStringsSep " " reversePorts}; do
+              "$adb" -s "$serial" reverse "tcp:$port" "tcp:$port" >/dev/null
+            done
+            echo "adb reverse ${pkgs.lib.concatStringsSep ", " reversePorts} -> $serial"
+          done
+
+          cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel)/apps/vamos_cartographie"
+          exec flutter run "$@"
+        '';
+
         runtimeLibs = with pkgs; [
           gtk3 glib libunwind orc libepoxy gsettings-desktop-schemas
           at-spi2-atk pango cairo harfbuzz fontconfig libGL
@@ -68,6 +90,7 @@
 
             # Android development
             jdk17
+            runPhone
             androidSdk.androidsdk
           ];
 
