@@ -15,6 +15,7 @@ import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog_header.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart';
+import 'package:vamos_cartographie/ui_kit/theme/theme.dart';
 
 /// La fiche d'un jour, en dialog, ou celle d'un de ses morceaux quand
 /// [spanId] est donné. Même cadre que la fiche du voyage ([InfoDialog]) ; un
@@ -132,7 +133,7 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
             placeholder: dayLabel,
             canEdit: _editable,
             onSave: (value) => _saveDayNote(title: value),
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: theme.textTheme.heading,
           ),
           if (title.isNotEmpty)
             Text(
@@ -215,7 +216,7 @@ class _DayInfoDialogState extends ConsumerState<DayInfoDialog> {
               placeholder: style?.label ?? 'Morceau',
               canEdit: _editable && stats != null,
               onSave: (value) => save(newTitle: value),
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: theme.textTheme.heading,
             ),
             Text(
               [
@@ -279,7 +280,8 @@ class _NotesField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const style = TextStyle(fontSize: 14, height: 1.5);
+    final theme = Theme.of(context);
+    final style = theme.textTheme.prose;
     if (editable) {
       return InlineEditableText(
         text: text,
@@ -293,7 +295,6 @@ class _NotesField extends StatelessWidget {
       );
     }
     if (text.isNotEmpty) return Text(text, style: style);
-    final theme = Theme.of(context);
     return Text(
       emptyHint,
       style: theme.textTheme.bodySmall?.copyWith(

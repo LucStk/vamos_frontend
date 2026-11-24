@@ -8,6 +8,7 @@ import 'package:vamos_cartographie/domain_features/stored_file/presentation/caro
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_view.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/waypoint.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart';
+import 'package:vamos_cartographie/ui_kit/theme/theme.dart';
 
 /// Page dépliée "Aperçu". TODO: y déplacer le contenu de ton
 /// waypoint_viewer_content.dart actuel (description + galerie complète).
@@ -63,7 +64,7 @@ class WaypointOverviewViewer extends ConsumerWidget {
             maxLength: 1000,
             expand: true,
             placeholder: 'Ajoutez une description…',
-            style: const TextStyle(fontSize: 14, height: 1.5),
+            style: theme.textTheme.prose,
             onSave: (value) async {
               ref
                   .read(waypointStoreProvider(tripId).notifier)
@@ -72,7 +73,7 @@ class WaypointOverviewViewer extends ConsumerWidget {
             },
           )
         else if (description.isNotEmpty)
-          Text(description, style: const TextStyle(fontSize: 14, height: 1.5))
+          Text(description, style: theme.textTheme.prose)
         else
           _EmptyHint('Aucune description', theme: theme),
 

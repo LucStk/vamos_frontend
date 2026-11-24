@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/core/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/notification_provider.dart';
 import 'notification_card.dart';
+import 'package:vamos_cartographie/ui_kit/theme/theme.dart';
 
 class NotificationListenerWidget extends StatelessWidget {
   const NotificationListenerWidget({super.key, required this.child});
@@ -45,17 +46,19 @@ class NotificationOverlay extends ConsumerWidget {
 
     final isSuccess = notification.type == NotificationType.success;
     if (isSuccess) {
+      final colors = AppColors.of(context);
       return NotificationCard(
-        backgroundColor: const Color(0xFFE8F5E9),
+        backgroundColor: colors.successContainer,
         icon: Icons.check_circle_rounded,
-        iconColor: const Color(0xFF2E7D32),
+        iconColor: colors.success,
         message: notification.message,
       );
     }
+    final scheme = Theme.of(context).colorScheme;
     return NotificationCard(
-      backgroundColor: const Color(0xFFFFEBEE),
+      backgroundColor: scheme.errorContainer,
       icon: Icons.error_rounded,
-      iconColor: const Color(0xFFC62828),
+      iconColor: scheme.error,
       message: notification.message,
     );
   }

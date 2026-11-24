@@ -1,6 +1,7 @@
 import "package:domain_core/domain_core.dart";
 import "package:flutter/material.dart";
 import "package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart";
+import "package:vamos_cartographie/ui_kit/theme/theme.dart";
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class TripHeader extends StatelessWidget {
@@ -25,7 +26,7 @@ class TripHeader extends StatelessWidget {
           (_) async {
             return;
           },
-      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      style: Theme.of(context).textTheme.heading,
     );
   }
 }

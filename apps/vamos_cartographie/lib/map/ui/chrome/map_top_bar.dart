@@ -13,7 +13,7 @@ class MapTopBar extends StatelessWidget {
 
     final boxShadow = [
       BoxShadow(
-        color: Colors.black.withOpacity(0.15),
+        color: theme.colorScheme.shadow.withValues(alpha: 0.15),
         blurRadius: 8,
         offset: const Offset(0, 3),
       ),
@@ -35,7 +35,7 @@ class MapTopBar extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: theme.colorScheme.surface,
                       shape: BoxShape.circle,
                       boxShadow: boxShadow,
                     ),
@@ -57,7 +57,7 @@ class MapTopBar extends StatelessWidget {
                   ),
                   constraints: const BoxConstraints(maxWidth: 1020),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.95),
+                    color: theme.colorScheme.surface.withValues(alpha: 0.95),
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: boxShadow,
                   ),

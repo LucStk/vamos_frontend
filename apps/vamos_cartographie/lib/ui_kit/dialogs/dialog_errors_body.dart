@@ -22,7 +22,6 @@ class DialogErrorBody extends StatelessWidget {
           Text(
             errorMessage,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 14),
           ),
           if (onClose != null) ...[
             const SizedBox(height: 16),

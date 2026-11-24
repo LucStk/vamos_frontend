@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:map_engine/map_engine.dart';
@@ -10,11 +10,14 @@ class WaypointCreateCompact extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     return Align(
       alignment: Alignment.center,
       child: Text(
         "Poser un nouveau point sur la carte",
-        style: TextStyle(color: CupertinoColors.systemGrey),
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
       ),
     );
   }

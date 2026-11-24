@@ -7,30 +7,32 @@ class ThumbnailError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return Material(
-      color: Colors.redAccent.withValues(alpha: 0.6),
+      color: scheme.error.withValues(alpha: 0.6),
       child: InkWell(
-        splashColor: Colors.white24,
-        highlightColor: Colors.white10,
+        splashColor: scheme.onError.withValues(alpha: 0.24),
+        highlightColor: scheme.onError.withValues(alpha: 0.1),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Error',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: scheme.onError,
                   fontSize: 9,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               if (isRetryable) ...[
                 const SizedBox(height: 2),
-                const Icon(Icons.refresh, color: Colors.white, size: 22),
+                Icon(Icons.refresh, color: scheme.onError, size: 22),
                 const SizedBox(height: 2),
-                const Text(
+                Text(
                   'Réessayer',
-                  style: TextStyle(color: Colors.white, fontSize: 9),
+                  style: TextStyle(color: scheme.onError, fontSize: 9),
                 ),
               ],
             ],

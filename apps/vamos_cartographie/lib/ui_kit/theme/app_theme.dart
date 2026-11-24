@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'app_colors.dart';
-import 'app_tokens.dart';
+import 'package:vamos_cartographie/ui_kit/theme/app_colors.dart';
+import 'package:vamos_cartographie/ui_kit/theme/app_tokens.dart';
 
 const _borderM = BorderRadius.all(Radius.circular(AppTokens.radiusM));
 const _borderL = BorderRadius.all(Radius.circular(AppTokens.radiusL));

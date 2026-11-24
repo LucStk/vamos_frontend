@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/app_services/notification/presentation/notification_view.dart';
 import 'package:vamos_cartographie/routing/app_router.dart';
-import 'package:vamos_cartographie/theme/app_theme.dart';
+import 'package:vamos_cartographie/ui_kit/theme/theme.dart';
 
 class CartographieApp extends ConsumerWidget {
   const CartographieApp({super.key});

@@ -15,7 +15,7 @@ class UserLocationButton extends ConsumerWidget {
 
     return MapControlButton(
       tooltip: "geolocalisation",
-      icon: userLocation.iconWidget,
+      icon: userLocation.iconWidget(context),
       onPressed: () => switch (userLocation) {
         UserPositionInactive _ => notifier.start(),
         _ => notifier.stop(),

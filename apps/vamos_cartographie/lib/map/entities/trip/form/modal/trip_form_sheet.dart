@@ -105,7 +105,7 @@ class _TripFormSheetState extends ConsumerState<TripFormSheet> {
                 hintText: 'Ex : Tour de Bretagne 2025',
                 prefixIcon: Icon(Icons.title),
               ),
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 20),
             const TripSectionLabel(label: 'DATE', icon: Icons.calendar_today),

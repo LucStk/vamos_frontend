@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart";
+import "package:vamos_cartographie/ui_kit/theme/theme.dart";
 
 /// En-tête commune (icône colorée, label du type, numéro d'étape).
 class WaypointHeader extends StatelessWidget {
@@ -26,9 +27,7 @@ class WaypointHeader extends StatelessWidget {
           children: [
             Text(
               kind.label,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+              style: Theme.of(context).textTheme.heading?.copyWith(
                 color: Color(kind.colorValue),
               ),
             ),

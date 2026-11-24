@@ -12,7 +12,8 @@ class CancelBottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final error = Theme.of(context).colorScheme.error;
+    final scheme = Theme.of(context).colorScheme;
+    final error = scheme.error;
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -23,7 +24,7 @@ class CancelBottomButton extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.22),
+                color: scheme.shadow.withValues(alpha: 0.22),
                 blurRadius: 12,
                 offset: const Offset(0, 5),
               ),
@@ -38,10 +39,10 @@ class CancelBottomButton extends StatelessWidget {
             onPressed: onPressed,
             style: IconButton.styleFrom(
               backgroundColor: error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
+              foregroundColor: scheme.onError,
               fixedSize: const Size(62, 62),
               side: BorderSide(
-                color: Colors.white.withValues(alpha: 0.25),
+                color: scheme.onError.withValues(alpha: 0.25),
                 width: 1.5,
               ),
             ),

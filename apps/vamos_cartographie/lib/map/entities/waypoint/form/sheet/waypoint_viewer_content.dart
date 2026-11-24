@@ -5,6 +5,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/presentation/carousel_view.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/map/entities/waypoint/form/dialog/waypoint_sheet.dart';
+import 'package:vamos_cartographie/ui_kit/theme/theme.dart';
 
 class WaypointViewerContent extends StatelessWidget {
   final WaypointFields waypoint;
@@ -26,7 +27,7 @@ class WaypointViewerContent extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             waypoint.description,
-            style: const TextStyle(fontSize: 14, height: 1.5),
+            style: Theme.of(context).textTheme.prose,
           ),
         ],
       ],

@@ -11,6 +11,8 @@ class ThumbnailButtonAdd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       width: size,
       height: size,
@@ -18,16 +20,16 @@ class ThumbnailButtonAdd extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: Colors.grey.shade400,
+            color: scheme.outline,
             width: 1.5,
             style: BorderStyle.solid,
           ),
-          color: Colors.grey.shade50,
+          color: scheme.surfaceContainerLow,
         ),
         child: Icon(
           Icons.add_photo_alternate_outlined,
           size: size * 0.4,
-          color: Colors.grey.shade500,
+          color: scheme.onSurfaceVariant,
         ),
       ),
     );

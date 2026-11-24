@@ -16,6 +16,7 @@ import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog_header.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart';
+import 'package:vamos_cartographie/ui_kit/theme/theme.dart';
 
 /// La fiche d'un waypoint, en dialog : même cadre que celles du voyage et du
 /// jour ([InfoDialog]), à hauteur partielle pour garder la carte visible.
@@ -81,7 +82,7 @@ class WaypointInfoDialog extends ConsumerWidget {
                     .updateTitle(waypoint, title);
                 return null;
               },
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: theme.textTheme.heading,
             ),
             if (subtitle.isNotEmpty)
               Text(

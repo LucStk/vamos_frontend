@@ -6,11 +6,12 @@ class DeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return IconButton.outlined(
       onPressed: onPressed,
-      style: FilledButton.styleFrom(backgroundColor: Colors.red),
+      style: FilledButton.styleFrom(backgroundColor: scheme.error),
       icon: const Icon(Icons.delete_outline, size: 16),
-      color: Colors.white,
+      color: scheme.onError,
     );
   }
 }

@@ -17,8 +17,7 @@ class TripSectionLabel extends StatelessWidget {
         ],
         Text(
           label,
-          style: TextStyle(
-            fontSize: 12,
+          style: theme.textTheme.labelMedium?.copyWith(
             fontWeight: FontWeight.w700,
             color: theme.colorScheme.primary,
             letterSpacing: 0.6,
