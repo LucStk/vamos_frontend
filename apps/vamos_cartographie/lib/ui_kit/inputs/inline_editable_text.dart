@@ -253,6 +253,7 @@ class _InlineEditableTextState extends State<InlineEditableText> {
           onSubmitted: widget.multiline ? null : (_) => _submit(),
           decoration: InputDecoration(
             isDense: true,
+            border: const UnderlineInputBorder(),
             counterText: '',
             errorText: _error,
             hintText: widget.placeholder,

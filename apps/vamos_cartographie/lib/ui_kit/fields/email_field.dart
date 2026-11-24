@@ -17,7 +17,6 @@ class EmailField extends StatelessWidget {
       decoration: const InputDecoration(
         labelText: 'Adresse e-mail',
         prefixIcon: Icon(Icons.email_outlined),
-        border: OutlineInputBorder(),
       ),
       validator: (value) {
         final email = value?.trim() ?? '';

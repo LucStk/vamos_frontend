@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/app_services/notification/presentation/notification_view.dart';
 import 'package:vamos_cartographie/routing/app_router.dart';
+import 'package:vamos_cartographie/theme/app_theme.dart';
 
 class CartographieApp extends ConsumerWidget {
   const CartographieApp({super.key});
@@ -16,7 +17,7 @@ class CartographieApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: router,
       title: 'Vamos Cartographie',
-      theme: ThemeData(colorSchemeSeed: Colors.green),
+      theme: AppTheme.light(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

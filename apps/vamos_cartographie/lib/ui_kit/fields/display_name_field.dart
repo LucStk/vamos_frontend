@@ -28,7 +28,6 @@ class DisplayNameField extends StatelessWidget {
         labelText: 'Nom d’affichage',
         hintText: 'Votre nom',
         prefixIcon: Icon(Icons.person_outline),
-        border: OutlineInputBorder(),
       ),
       validator: (value) {
         final name = value?.trim() ?? '';

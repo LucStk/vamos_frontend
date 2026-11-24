@@ -60,7 +60,6 @@ class _TripFormDialogState extends ConsumerState<TripFormDialog> {
               labelText: 'Titre du voyage',
               hintText: 'Ex : Tour de Bretagne 2025',
               prefixIcon: Icon(Icons.title),
-              border: OutlineInputBorder(),
             ),
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),

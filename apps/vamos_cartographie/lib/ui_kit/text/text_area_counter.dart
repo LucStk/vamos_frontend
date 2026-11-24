@@ -34,6 +34,7 @@ class _TextAreaWithCounterState extends State<TextAreaWithCounter> {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return TextField(
       controller: _controller,
       readOnly: widget.readOnly,
@@ -43,9 +44,8 @@ class _TextAreaWithCounterState extends State<TextAreaWithCounter> {
         labelText: 'Description',
         hintText: widget.readOnly ? null : 'Décrivez ce point de passage...',
         alignLabelWithHint: true,
-        border: const OutlineInputBorder(),
         filled: widget.readOnly,
-        fillColor: Colors.grey.shade50,
+        fillColor: scheme.surfaceContainerLow,
         counter: widget.readOnly
             ? const SizedBox.shrink()
             : ValueListenableBuilder(
@@ -55,8 +55,8 @@ class _TextAreaWithCounterState extends State<TextAreaWithCounter> {
                     '${value.text.length} / $_maxLength caractères',
                     style: TextStyle(
                       color: value.text.length >= _maxLength
-                          ? Colors.red
-                          : Colors.grey,
+                          ? scheme.error
+                          : scheme.onSurfaceVariant,
                     ),
                   );
                 },

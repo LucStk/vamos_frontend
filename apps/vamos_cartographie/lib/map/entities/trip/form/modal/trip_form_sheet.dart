@@ -25,9 +25,6 @@ Future<bool> showTripFormSheet(
     isDismissible: false, // pas de fermeture par tap sur le fond
     enableDrag: false, // évite de perdre la saisie par un swipe
     clipBehavior: Clip.antiAlias,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
     constraints: const BoxConstraints(maxWidth: 640),
     builder: (_) => TripFormSheet(initialTrip: trip, title: title),
   );
@@ -107,7 +104,6 @@ class _TripFormSheetState extends ConsumerState<TripFormSheet> {
                 labelText: 'Titre du voyage',
                 hintText: 'Ex : Tour de Bretagne 2025',
                 prefixIcon: Icon(Icons.title),
-                border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),

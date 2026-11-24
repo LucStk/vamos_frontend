@@ -24,6 +24,7 @@ class TypeSelector<T extends MapItemStyle> extends StatelessWidget {
         children: values.map((type) {
           final isSelected = selectedType == type;
           final typeColor = Color(type.colorValue);
+          final scheme = Theme.of(context).colorScheme;
 
           return Padding(
             padding: const EdgeInsets.only(right: 8),
@@ -55,7 +56,7 @@ class TypeSelector<T extends MapItemStyle> extends StatelessWidget {
                     children: [
                       Icon(
                         type.icon,
-                        color: isSelected ? typeColor : Colors.grey.shade600,
+                        color: isSelected ? typeColor : scheme.onSurfaceVariant,
                         size: 20,
                       ),
                       const SizedBox(width: 6),
@@ -63,7 +64,7 @@ class TypeSelector<T extends MapItemStyle> extends StatelessWidget {
                         type.label,
                         style: TextStyle(
                           fontSize: 12,
-                          color: isSelected ? typeColor : Colors.grey.shade800,
+                          color: isSelected ? typeColor : scheme.onSurface,
                           fontWeight: isSelected
                               ? FontWeight.w600
                               : FontWeight.normal,
