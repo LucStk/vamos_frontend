@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:user_profile_application/domain/domain.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/providers/profile_store.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
 
 part 'user_search_providers.g.dart';
@@ -100,13 +101,27 @@ class UserSearch extends _$UserSearch {
         query: query,
         errorMessage: failure.message,
       ),
-      (users) => UserSearchState(
-        status: UserSearchStatus.data,
-        query: query,
-        users: users,
-        hasMore: users.length == _pageSize,
-      ),
+      (users) {
+        _remember(users);
+        return UserSearchState(
+          status: UserSearchStatus.data,
+          query: query,
+          users: users,
+          hasMore: users.length == _pageSize,
+        );
+      },
     );
+  }
+
+  /// Les résultats contiennent déjà le profil complet : on les met dans le
+  /// store pour que l'ouverture du profil soit immédiate, sans second appel
+  /// ni écran de chargement.
+  void _remember(List<UserProfile> users) {
+    var store = ref.read(profileStoreProvider);
+    for (final user in users) {
+      store = store.insertProfile(user);
+    }
+    ref.read(profileStoreProvider.notifier).emit(store);
   }
 
   /// Page suivante du même préfixe.
@@ -133,11 +148,14 @@ class UserSearch extends _$UserSearch {
     state = result.fold(
       // Échec : on garde la liste, le bouton « Afficher plus » permet de réessayer.
       (_) => current.copyWith(isLoadingMore: false),
-      (page) => current.copyWith(
-        users: [...current.users, ...page],
-        hasMore: page.length == _pageSize,
-        isLoadingMore: false,
-      ),
+      (page) {
+        _remember(page);
+        return current.copyWith(
+          users: [...current.users, ...page],
+          hasMore: page.length == _pageSize,
+          isLoadingMore: false,
+        );
+      },
     );
   }
 

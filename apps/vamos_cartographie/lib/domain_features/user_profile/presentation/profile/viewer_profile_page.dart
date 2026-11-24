@@ -5,6 +5,7 @@ import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/domain.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/user_profile.dart';
+import 'package:vamos_cartographie/routing/presentation/app_page_scaffold.dart';
 
 /// Profil public d'un autre utilisateur : lecture seule.
 class ViewerProfilePage extends ConsumerWidget {
@@ -25,7 +26,7 @@ class ViewerProfilePage extends ConsumerWidget {
     final profileState = ref.watch(userProfileAsyncProvider(userId));
 
     return switch (profileState) {
-      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+      AsyncLoading() => const _ProfileLoading(),
       AsyncError() => const _ProfileError(),
       AsyncData(value: null) => const _ProfileError(),
       AsyncData(value: final profile) => ProfileContent.viewer(
@@ -37,14 +38,24 @@ class ViewerProfilePage extends ConsumerWidget {
   }
 }
 
+/// Chargement : une vraie page (fond opaque, bouton retour). Sans elle, la
+/// carte, qui vit derrière les pages, apparaîtrait le temps du chargement.
+class _ProfileLoading extends StatelessWidget {
+  const _ProfileLoading();
+
+  @override
+  Widget build(BuildContext context) => const AppPageScaffold(
+    title: 'Profil',
+    child: CircularProgressIndicator(),
+  );
+}
+
 class _ProfileError extends StatelessWidget {
   const _ProfileError();
 
   @override
-  Widget build(BuildContext context) => const Center(
-    child: Padding(
-      padding: EdgeInsets.all(24),
-      child: Text('Ce profil est introuvable.', textAlign: TextAlign.center),
-    ),
+  Widget build(BuildContext context) => const AppPageScaffold(
+    title: 'Profil',
+    child: Text('Ce profil est introuvable.', textAlign: TextAlign.center),
   );
 }

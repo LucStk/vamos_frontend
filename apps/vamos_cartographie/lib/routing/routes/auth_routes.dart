@@ -91,5 +91,7 @@ class UserSearchRoute extends GoRouteData with $UserSearchRoute {
   }
 }
 
-void _backToMap(BuildContext context) =>
-    context.canPop() ? context.pop() : context.go('/');
+/// Revient à la carte, quelle que soit la pile de pages au-dessus (profil,
+/// profil atteint depuis la recherche d'utilisateurs…). Un simple `pop()`
+/// ne ferait reculer que d'une page, vers la recherche par exemple.
+void _backToMap(BuildContext context) => context.go('/');
