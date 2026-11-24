@@ -16,11 +16,6 @@ final class TripReady extends TripEntry {
   final bool readOnly;
 }
 
-final class TripNeedsOrigin extends TripEntry {
-  const TripNeedsOrigin(this.from);
-  final WorldOffset from;
-}
-
 final class ResolveTripEntry extends Command<TripEntry> {
   const ResolveTripEntry(this.tripId);
   final TripId tripId;
@@ -38,19 +33,15 @@ final class ResolveTripEntry extends Command<TripEntry> {
       return const TripReady(readOnly: true);
     }
 
-    final route = n.forTrip(tripId).route;
-    if (route != null && route.geometry.isNotEmpty) {
-      return const TripReady(readOnly: false);
-    }
-    final origin = route?.startPoint;
-
-    if (origin == null) {
+    // Un voyage qui n'a encore que son départ s'ouvre comme les autres : on y
+    // trace depuis l'origine et on la déplace, l'interface s'en charge.
+    if (n.forTrip(tripId).route == null) {
       throw NotFoundFailure(
         resourceId: "startPoint",
         resourceType: "route startPoint",
       );
     }
 
-    return TripNeedsOrigin(n.camera.latLngToWorldOffset(origin));
+    return const TripReady(readOnly: false);
   }
 }

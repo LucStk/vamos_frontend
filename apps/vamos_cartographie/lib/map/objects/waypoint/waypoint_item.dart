@@ -8,6 +8,7 @@ import 'package:map_canvas/map_canvas.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/map/objects/shared/badge/badge_look.dart';
 import 'package:vamos_cartographie/map/objects/shared/badge/badge_style.dart';
+import 'package:vamos_cartographie/map/objects/shared/pin/pin_shape.dart';
 
 /// Un waypoint : une épingle dont la pointe est sur sa position géographique
 /// (elle la désigne au lieu de la recouvrir), la tête portant le glyphe.
@@ -24,7 +25,7 @@ final class WaypointItem extends PointItem {
   }) : zIndex = background ? ZIndex.content - 1 : ZIndex.marker;
 
   /// Direction de la pointe vers la tête : droit vers le haut de l'écran.
-  static const upright = -pi / 2;
+  static const upright = PinShape.upright;
 
   /// Direction de la pointe vers la tête (radians, repère de l'écran).
   final double direction;
@@ -64,9 +65,6 @@ final class WaypointItem extends PointItem {
   /// Rayon de la tête au repos.
   static const _radius = 13.0;
 
-  /// Distance de la pointe au centre de la tête, en rayons.
-  static const _tipRatio = 1.9;
-
   /// Proportion du glyphe, comme [BadgeStyle].
   static const _glyphToRadius = 13.0 / 11.0;
 
@@ -80,53 +78,20 @@ final class WaypointItem extends PointItem {
   ScreenLength get hitRadius => 16.px;
 
   /// Centre de la tête par rapport à la pointe, en px écran, au repos.
-  Offset get _headOffset =>
-      Offset(cos(direction), sin(direction)) * (_radius * _tipRatio);
+  Offset get _headOffset => PinShape.head(_radius, direction: direction);
 
   /// On touche l'épingle sur toute sa longueur : de la pointe à la tête.
   @override
-  bool isHitAt(WorldOffset p, double zoomScale) {
-    final tip = worldPosition.value;
-    final head = tip + _headOffset / zoomScale;
-    final ab = head - tip;
-    final len2 = ab.dx * ab.dx + ab.dy * ab.dy;
-    final ap = p.value - tip;
-    final t = len2 == 0
-        ? 0.0
-        : ((ap.dx * ab.dx + ap.dy * ab.dy) / len2).clamp(0.0, 1.0);
-    final nearest = tip + ab * t;
-    return (p.value - nearest).distance <= hitRadius.toWorld(zoomScale);
-  }
+  bool isHitAt(WorldOffset p, double zoomScale) => PinShape.isHitAt(
+    p,
+    tip: worldPosition.value,
+    headOffset: _headOffset,
+    zoomScale: zoomScale,
+    hitRadius: hitRadius.toWorld(zoomScale),
+  );
 
   static Color _fade(Color c, double opacity) =>
       opacity >= 1 ? c : c.withValues(alpha: c.a * opacity);
-
-  /// L'épingle : un disque de rayon [r] centré en [head], prolongé par une
-  /// pointe en [tip] (coordonnées px, y vers le bas).
-  static Path _pin(Offset tip, Offset head, double r) {
-    final toHead = head - tip;
-    final d = toHead.distance;
-    final phi = atan2(toHead.dy, toHead.dx);
-    // Les points de tangence sont vus du centre à ±gamma de la direction de
-    // la pointe.
-    final gamma = acos((r / d).clamp(0.0, 1.0));
-    final fromHeadToTip = phi + pi;
-    Offset onCircle(double a) => head + Offset(cos(a), sin(a)) * r;
-
-    return Path()
-      ..moveTo(tip.dx, tip.dy)
-      ..lineTo(
-        onCircle(fromHeadToTip + gamma).dx,
-        onCircle(fromHeadToTip + gamma).dy,
-      )
-      ..arcTo(
-        Rect.fromCircle(center: head, radius: r),
-        fromHeadToTip + gamma,
-        2 * pi - 2 * gamma,
-        false,
-      )
-      ..close();
-  }
 
   @override
   DrawCommand toDrawCommand({
@@ -144,7 +109,7 @@ final class WaypointItem extends PointItem {
         : resolved;
 
     final r = _radius * look.scale;
-    final head = Offset(cos(direction), sin(direction)) * (r * _tipRatio);
+    final head = PinShape.head(r, direction: direction);
     final o = look.opacity;
     final color = kindStyle.color;
     final fill = _fade(Color.lerp(color, _white, look.lift)!, o);
@@ -160,12 +125,12 @@ final class WaypointItem extends PointItem {
         ),
       DrawAnchoredPath(
         anchor: worldPosition,
-        path: _pin(Offset.zero, head, r),
+        path: PinShape.path(Offset.zero, head, r),
         style: Fill(_fade(_casingColor, o)),
       ),
       DrawAnchoredPath(
         anchor: worldPosition,
-        path: _pin(Offset.zero, head, r - look.casing),
+        path: PinShape.path(Offset.zero, head, r - look.casing),
         style: Fill(fill),
       ),
       DrawAnchoredPath(

@@ -5,10 +5,8 @@ import 'package:map_engine/src/modes/app_mode.dart';
 import 'package:map_engine/src/modes/explore/explore_mode.dart';
 import 'package:map_engine/src/modes/place_origin/commands/place_origin_command.dart';
 import 'package:map_engine/src/modes/place_origin/slots/trip_origin_slot.dart';
-import 'package:map_engine/src/modes/shared/cursor_actions.dart';
-import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
-import 'package:map_engine/src/modes/trip_edit/sketch/sketch_edition_mode.dart';
+import 'package:map_engine/src/modes/trip/trip_ready_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
 import 'package:map_engine/src/domain/domain.dart';
@@ -54,21 +52,25 @@ final class PlaceNewTripOrigin extends PlaceOriginMode {
   Transition cancel() => Transition.to(ExploreMode());
 }
 
+/// Déplacer le départ d'un voyage : le point suit le doigt, où qu'on glisse.
+///
+/// Un passage, pas un séjour : on y entre depuis la lecture du voyage
+/// ([TripReadyMode.moveOrigin]) et on y revient en sortant.
 final class PlaceExistingTripOrigin extends PlaceOriginMode {
   const PlaceExistingTripOrigin(this.tripId);
   final TripId tripId;
 
   @override
-  Transition get back => Transition.to(ExploreMode());
+  Transition get back => Transition.to(TripReadyMode(tripId, readOnly: false));
 
-  // Le curseur suit : le tracé démarre depuis l'origine avec lui.
-  @override
-  Set<Slot> get retainedSlots => {...super.retainedSlots, searchResultMarkerSlot};
+  /// Pose le départ sur [origin] : un résultat de recherche, là où le
+  /// glissement ne suffit pas (la carte ne se déplace pas dans ce mode).
+  Transition placeAt(WorldOffset origin) =>
+      Transition.run(SetTripOrigin(position: origin, tripId: tripId));
 
-  // Plus de menu contextuel : le panneau propose la suite. Toucher la position
-  // de l'utilisateur y pose le curseur.
+  /// Rien à toucher ici : seul le glissement compte.
   @override
-  Transition onTap(TapGesture g) => CursorActions.onTap(g) ?? Transition.stay();
+  Transition onTap(TapGesture g) => Transition.stay();
 
   /// Le déplacement est enregistré à la fin du drag.
   @override
@@ -78,12 +80,6 @@ final class PlaceExistingTripOrigin extends PlaceOriginMode {
   @override
   Transition onDragging(DragUpdateGesture g) =>
       Transition.run(PatchTripOrigin(position: g.world, tripId: tripId));
-
-  /// Passe au tracé, le crayon déjà posé sur l'origine [origin] : inutile de
-  /// la toucher d'abord.
-  Transition startRoute(WorldOffset origin) => SketchEdition.startFromOrigin(
-    HitObject(object: MapTripStart(tripId), point: origin),
-  );
 
   @override
   bool operator ==(Object other) =>

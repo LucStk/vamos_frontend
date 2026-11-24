@@ -1,20 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:map_canvas/src/domain/draw_command/draw_command.dart';
-import 'package:map_canvas/src/render/paint_path.dart';
 import 'package:map_canvas/src/render/paint_pass.dart';
 
+/// Le chemin est déjà en pixels, (0, 0) sur l'ancre : il se dessine tel quel
+/// dans l'espace écran. Le ramener en unités monde le quantifierait, voir
+/// [PaintPass.inScreenSpace].
 void paintAnchoredPath(PaintPass p, DrawAnchoredPath c) {
-  final s = 1.0 / p.zoomScale!;
-  final a = c.anchor.value;
-
-  // Échelle 1/zoom + translation vers l'ancre (matrice 4x4 colonne-major).
-  final m = Float64List.fromList([
-    s, 0, 0, 0, //
-    0, s, 0, 0,
-    0, 0, 1, 0,
-    a.dx, a.dy, 0, 1,
-  ]);
-
-  paintPath(p, DrawPath(path: c.path.transform(m), style: c.style));
+  p.inScreenSpace(
+    c.anchor.value,
+    () => p.canvas.drawPath(c.path, p.pxPaintFor(c.style)),
+  );
 }

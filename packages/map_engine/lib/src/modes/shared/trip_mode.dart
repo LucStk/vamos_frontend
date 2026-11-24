@@ -1,7 +1,6 @@
 import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/app_mode.dart';
-import 'package:map_engine/src/modes/place_origin/place_origin_mode.dart';
 import 'package:map_engine/src/modes/shared/commands/camera_command.dart';
 import 'package:map_engine/src/modes/shared/commands/trip_entry.dart';
 import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
@@ -48,7 +47,6 @@ abstract class TripMode extends AppMode {
             TripReady(:final readOnly) => Transition.to(
               TripReadyMode(id, readOnly: readOnly),
             ),
-            TripNeedsOrigin() => Transition.to(PlaceExistingTripOrigin(id)),
             TripUnavailable _ => throw Exception,
           };
           // Aucune fiche d'ouverte en arrivant : ni jour, ni morceau, ni

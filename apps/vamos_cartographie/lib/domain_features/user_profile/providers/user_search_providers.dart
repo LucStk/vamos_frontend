@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:user_profile_application/domain/domain.dart';
+import 'package:vamos_cartographie/domain_features/auth/providers/providers.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/profile_store.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
 
@@ -106,11 +107,21 @@ class UserSearch extends _$UserSearch {
         return UserSearchState(
           status: UserSearchStatus.data,
           query: query,
-          users: users,
+          users: _withoutMe(users),
+          // Sur la page brute : retirer mon profil ne veut pas dire que
+          // le serveur n'a plus rien à donner.
           hasMore: users.length == _pageSize,
         );
       },
     );
+  }
+
+  /// Se chercher soi-même n'a pas d'intérêt : on ouvre son profil par le
+  /// bouton du compte. Le serveur, lui, répond à tout le monde pareil.
+  List<UserProfile> _withoutMe(List<UserProfile> users) {
+    final me = ref.read(currentUserIdProvider);
+    if (me == null) return users;
+    return users.where((user) => user.id != me).toList();
   }
 
   /// Les résultats contiennent déjà le profil complet : on les met dans le
@@ -151,7 +162,7 @@ class UserSearch extends _$UserSearch {
       (page) {
         _remember(page);
         return current.copyWith(
-          users: [...current.users, ...page],
+          users: [...current.users, ..._withoutMe(page)],
           hasMore: page.length == _pageSize,
           isLoadingMore: false,
         );

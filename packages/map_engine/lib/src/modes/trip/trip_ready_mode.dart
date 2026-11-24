@@ -3,6 +3,7 @@ import 'package:map_engine/src/domain/domain.dart';
 import 'package:map_engine/src/gesture_engine/map_gesture.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/explore/explore_mode.dart';
+import 'package:map_engine/src/modes/place_origin/place_origin_mode.dart';
 import 'package:map_engine/src/modes/shared/cursor_actions.dart';
 import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
@@ -10,6 +11,7 @@ import 'package:map_engine/src/modes/shared/trip_mode.dart';
 import 'package:map_engine/src/modes/trip/commands/edit_trip_command.dart';
 import 'package:map_engine/src/modes/trip/move_waypoint_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/route/select_route_mode.dart';
+import 'package:map_engine/src/modes/trip_edit/sketch/sketch_edition_mode.dart';
 import 'package:map_engine/src/modes/trip_edit/trip_edit_mode.dart';
 import 'package:trip_application/trip_application.dart';
 
@@ -29,6 +31,17 @@ final class TripReadyMode extends TripMode {
   /// Passe à l'édition du trip (réservé au propriétaire : l'interface ne
   /// propose le bouton qu'hors lecture seule).
   Transition get edit => Transition.to(TripEditMode(tripId));
+
+  /// Déplacer le départ (voyage qui n'a encore que son origine) : un mode
+  /// dédié, où le point suit le doigt, puis retour ici.
+  Transition get moveOrigin => Transition.to(PlaceExistingTripOrigin(tripId));
+
+  /// Tracer depuis le départ, le crayon déjà posé dessus : inutile de toucher
+  /// l'origine d'abord.
+  Transition sketchFromOrigin(WorldOffset origin) =>
+      SketchEdition.startFromOrigin(
+        HitObject(object: MapTripStart(tripId), point: origin),
+      );
 
   /// Déplacer l'étape [id] (réservé au propriétaire) : bascule vers
   /// [MoveWaypointMode], l'étape et son ancre manipulables.

@@ -2,18 +2,12 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
-import 'package:trip_application/trip_application.dart';
-import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
-import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
-import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_sheet_pages.dart';
 
 import 'package:vamos_cartographie/map/modes/place_origin/ui/trip_title_dialog.dart';
-import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
 import 'package:vamos_cartographie/map/ui/chrome/back/back_tab.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
+import 'package:vamos_cartographie/map/ui/chrome/dock/edit_dock.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/toolbox.dart';
 
@@ -24,7 +18,7 @@ class PlaceOriginUi extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => switch (mode) {
     PlaceNewTripOrigin m => _NewTripUi(m),
-    PlaceExistingTripOrigin m => _ExistingTripUi(m, m.tripId),
+    PlaceExistingTripOrigin m => _ExistingTripUi(m),
   };
 }
 
@@ -78,82 +72,34 @@ class _NewTripUi extends ConsumerWidget {
   }
 }
 
-/// Voyage qui n'a qu'un point de départ : tracer la route (le crayon apparaît
-/// sur l'origine) ou consulter et compléter les infos du voyage.
-class _ExistingTripUi extends ConsumerStatefulWidget {
-  const _ExistingTripUi(this.mode, this.tripId);
+/// Déplacer le départ d'un voyage : le point suit le doigt, et un résultat de
+/// recherche l'envoie à l'adresse choisie. On en sort par « Terminer », qui
+/// ramène à la lecture du voyage.
+class _ExistingTripUi extends ConsumerWidget {
+  const _ExistingTripUi(this.mode);
   final PlaceExistingTripOrigin mode;
-  final TripId tripId;
 
   @override
-  ConsumerState<_ExistingTripUi> createState() => _ExistingTripUiState();
-}
-
-class _ExistingTripUiState extends ConsumerState<_ExistingTripUi> {
-  /// Les infos du voyage remplacent le panneau, sans changer de mode.
-  bool _showInfo = false;
-
-  void _startRoute() {
-    final origin = ref
-        .read(routeStoreProvider(widget.tripId))
-        .route
-        ?.current
-        .startPoint;
-    if (origin == null) return;
-    final point = ref.read(mapCameraProvider).latLngToWorldOffset(origin);
-    ref.applyTransition(widget.mode.startRoute(point));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final cursor = ref.watch(modeSlotProvider(searchResultMarkerSlot));
+  Widget build(BuildContext context, WidgetRef ref) {
+    void done() => ref.applyTransition(mode.back);
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        const SearchTopSheet(),
-        if (_showInfo)
-          PagedSheet(
-            barLeading: BackTab(onTap: () => setState(() => _showInfo = false)),
-            pages: tripSheetPages(
-              ref.watch(tripRequiredProvider(widget.tripId)),
-              editable: true,
+        SearchTopSheet(onPicked: mode.placeAt),
+        EditDock(
+          panelKey: 'move-origin',
+          panel: ToolPanel(
+            hint: 'Glissez sur la carte pour déplacer le départ.',
+            primary: ToolAction(
+              icon: Icons.check,
+              label: 'Terminer',
+              onPressed: done,
             ),
-          )
-        else
-          Toolbox(
-            items: const [
-              ToolboxItem(
-                icon: Icons.draw_outlined,
-                selectedIcon: Icons.draw,
-                label: 'Tracer',
-              ),
-              ToolboxItem(
-                icon: Icons.photo_library_outlined,
-                selectedIcon: Icons.photo_library,
-                label: 'Infos',
-              ),
-            ],
-            activeIndex: null,
-            onSelect: (i) =>
-                i == 0 ? _startRoute() : setState(() => _showInfo = true),
-            leading: BackTab(
-              onTap: () => ref.applyTransition(widget.mode.back),
-            ),
-            onClose: () => ref.applyTransition(widget.mode.back),
-            panelKey: cursor == null ? 'hint' : 'cursor',
-            panel: cursor == null
-                ? const ToolPanel(
-                    hint:
-                        'Déplacez le départ si besoin, puis tracez la route '
-                        'ou complétez les infos du voyage.',
-                  )
-                : CursorPanel(
-                    tripId: widget.tripId,
-                    cursor: cursor,
-                    canTrace: true,
-                  ),
           ),
+          onBack: done,
+          onClose: done,
+        ),
       ],
     );
   }

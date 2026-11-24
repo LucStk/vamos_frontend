@@ -7,6 +7,7 @@ import 'package:vamos_cartographie/domain_features/domain_features.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/injection/waypoint_queries.dart';
 import 'package:vamos_cartographie/map/entities/day/dialog/day_of_waypoint.dart';
 import 'package:vamos_cartographie/domain_features/day/providers/day_providers.dart';
+import 'package:vamos_cartographie/domain_features/route/injection/route_store.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/entities/day/dialog/day_info_dialog.dart';
 import 'package:vamos_cartographie/map/entities/waypoint/dialog/waypoint_info_dialog.dart';
@@ -16,6 +17,7 @@ import 'package:vamos_cartographie/map/modes/trip/ui/trip_author_bar.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_chrome_visibility.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_menus.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_info_dialog.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/trip_origin_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_selection_camera.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_title_banner.dart';
@@ -96,6 +98,14 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
     };
     final infoOpen = dialog != null;
     final hideChrome = ref.watch(tripDialogHidesChromeProvider);
+    // Un voyage qui n'a que son départ : on y trace, on déplace l'origine,
+    // mais on n'y pose pas d'étape — il n'y a pas encore de route où
+    // l'accrocher.
+    final hasRoute = ref.watch(
+      routeStoreProvider(
+        mode.tripId,
+      ).select((s) => s.route?.current.geometry.isNotEmpty ?? false),
+    );
 
     // Les boutons des côtés du dock suivent ce qui est ouvert :
     // - rien : retour à la carte principale, fiche du voyage à droite ;
@@ -215,8 +225,10 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
                     tripId: mode.tripId,
                     cursor: cursor,
                     canTrace: true,
-                    canCreateWaypoint: true,
-                    sketchTrace: true,
+                    // Sans route, le curseur ne sert qu'à demander une
+                    // génération jusqu'au point touché.
+                    canCreateWaypoint: hasRoute,
+                    sketchTrace: hasRoute,
                     showClear: false,
                   ),
                   // Libre ou accroché à la route : deux panneaux différents.
@@ -235,6 +247,13 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
                       : null,
                 ),
         ),
+        // Rien d'ouvert sur un voyage réduit à son départ : de quoi le
+        // déplacer ou tracer depuis lui, au-dessus du dock.
+        if (!hasRoute && !mode.readOnly && cursor == null && !infoOpen)
+          KeyedSubtree(
+            key: const ValueKey('origin'),
+            child: TripOriginPanel(mode: mode),
+          ),
         KeyedSubtree(key: const ValueKey('menus'), child: TripEditMenus(mode)),
         // À l'entrée dans le trip : son titre, qui s'efface de lui-même. Par
         // trip, pour rejouer l'animation si on en ouvre un autre.
