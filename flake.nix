@@ -35,6 +35,10 @@
           includeNDK = true;
           ndkVersion = "28.2.13676358";
 
+          # Le plugin jni exige cette version (Gradle ne peut pas l'installer
+          # dans /nix/store, en lecture seule).
+          cmakeVersions = [ "3.22.1" ];
+
           includeEmulator = false;
         };
 
