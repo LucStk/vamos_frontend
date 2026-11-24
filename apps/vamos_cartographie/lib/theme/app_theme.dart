@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import 'app_tokens.dart';
 
+const _borderM = BorderRadius.all(Radius.circular(AppTokens.radiusM));
+const _borderL = BorderRadius.all(Radius.circular(AppTokens.radiusL));
+const _borderSheet = BorderRadius.vertical(
+  top: Radius.circular(AppTokens.radiusSheet),
+);
+
 /// Thème global de Vamos : couleurs, police et style par défaut des widgets
 /// Material (champs, cartes, dialogues, feuilles, barre de navigation…).
 ///
@@ -72,8 +78,6 @@ abstract final class AppTheme {
     );
     final text = base.textTheme;
 
-    BorderRadius radius(double r) => BorderRadius.circular(r);
-
     return base.copyWith(
       extensions: [
         brightness == Brightness.dark ? AppColors.dark : AppColors.light,
@@ -91,30 +95,26 @@ abstract final class AppTheme {
       // Tous les TextField / TextFormField : contour arrondi, couleurs
       // (repos, focus, erreur) fournies par le schéma. Un `border:` écrit
       // dans un widget remplace celui-ci : le retirer pour hériter du thème.
-      inputDecorationTheme: InputDecorationThemeData(
-        border: OutlineInputBorder(borderRadius: radius(AppTokens.radiusM)),
+      inputDecorationTheme: const InputDecorationThemeData(
+        border: OutlineInputBorder(borderRadius: _borderM),
       ),
 
       cardTheme: CardThemeData(
         elevation: 0,
         color: scheme.surfaceContainerLow,
         shape: RoundedRectangleBorder(
-          borderRadius: radius(AppTokens.radiusL),
+          borderRadius: _borderL,
           side: BorderSide(color: scheme.outlineVariant),
         ),
       ),
 
-      dialogTheme: DialogThemeData(
-        shape: RoundedRectangleBorder(borderRadius: radius(AppTokens.radiusL)),
+      dialogTheme: const DialogThemeData(
+        shape: RoundedRectangleBorder(borderRadius: _borderL),
       ),
 
-      bottomSheetTheme: BottomSheetThemeData(
+      bottomSheetTheme: const BottomSheetThemeData(
         clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(AppTokens.radiusSheet),
-          ),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: _borderSheet),
       ),
 
       navigationBarTheme: NavigationBarThemeData(
@@ -135,9 +135,9 @@ abstract final class AppTheme {
         }),
       ),
 
-      snackBarTheme: SnackBarThemeData(
+      snackBarTheme: const SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: radius(AppTokens.radiusM)),
+        shape: RoundedRectangleBorder(borderRadius: _borderM),
       ),
     );
   }
