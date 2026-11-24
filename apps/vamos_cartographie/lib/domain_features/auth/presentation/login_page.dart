@@ -2,7 +2,6 @@ import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../routing/routes/auth_routes.dart';
-import 'register_page.dart';
 import '/domain_features/auth/providers/auth_controller.dart';
 import '/ui_kit/ui_kit.dart';
 import 'widgets/auth_layout.dart';
@@ -93,9 +92,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           onPressed: isLoading
               ? null
               : () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => const RegisterPage()),
-                  );
+                  const RegisterRoute().go(context);
                 },
           child: const Text('Créer un compte'),
         ),

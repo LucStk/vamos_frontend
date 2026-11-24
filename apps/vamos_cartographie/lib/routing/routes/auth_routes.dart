@@ -5,6 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/auth/presentation/login_page.dart';
+import 'package:vamos_cartographie/domain_features/auth/presentation/register_page.dart';
+import 'package:vamos_cartographie/domain_features/auth/presentation/register_success_page.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/edit_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/editor_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/viewer_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/search/user_search_page.dart';
@@ -20,6 +23,33 @@ class LoginRoute extends GoRouteData with $LoginRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const LoginPage();
+  }
+}
+
+/// Création de compte. Comme la connexion, c'est une route : une page posée
+/// par `Navigator.push` par-dessus serait invisible du routeur, et le shell
+/// de la carte la rendrait inerte dès que l'adresse revient à « / ».
+@TypedGoRoute<RegisterRoute>(path: '/register')
+class RegisterRoute extends GoRouteData with $RegisterRoute {
+  const RegisterRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const RegisterPage();
+  }
+}
+
+/// Compte créé : l'adresse à confirmer est dans le chemin, pour que la page
+/// se reconstruise seule au besoin.
+@TypedGoRoute<RegisterSuccessRoute>(path: '/register/success/:email')
+class RegisterSuccessRoute extends GoRouteData with $RegisterSuccessRoute {
+  const RegisterSuccessRoute(this.email);
+
+  final String email;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return RegisterSuccessPage(email: email);
   }
 }
 
@@ -59,6 +89,17 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
             UserProfileRoute(userId.value).push(context),
       ),
     );
+  }
+}
+
+/// Modifier son profil : sous `/profile`, donc protégée comme elle.
+@TypedGoRoute<EditProfileRoute>(path: '/profile/edit')
+class EditProfileRoute extends GoRouteData with $EditProfileRoute {
+  const EditProfileRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const EditProfilePage();
   }
 }
 

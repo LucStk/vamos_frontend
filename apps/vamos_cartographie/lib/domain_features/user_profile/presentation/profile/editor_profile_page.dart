@@ -5,9 +5,9 @@ import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/on_boarding/create_profile_page.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/edit_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_content.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
+import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 
 class EditorProfilePage extends ConsumerWidget {
@@ -41,11 +41,7 @@ class EditorProfilePage extends ConsumerWidget {
       AsyncData(value: final me) => ProfileContent.editor(
         profile: me!.profile!,
         onCreateTrip: onCreateTrip,
-        onEditProfile: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(builder: (_) => const EditProfilePage()),
-          );
-        },
+        onEditProfile: () => const EditProfileRoute().push(context),
         onOpenUser: onOpenUser,
         onDeleteTrip: (tripId) =>
             ref.read(tripStoreProvider.notifier).deleteTrip(tripId),

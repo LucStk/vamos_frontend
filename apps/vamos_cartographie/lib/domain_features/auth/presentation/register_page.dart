@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import '../../../ui_kit/ui_kit.dart';
 import '../auth.dart';
 
@@ -22,12 +23,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     super.initState();
     ref.listenManual(authControllerProvider, (previous, next) {
       if (next.hasValue && previous?.isLoading == true) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (_) =>
-                RegisterSuccessPage(email: _emailController.text.trim()),
-          ),
-        );
+        RegisterSuccessRoute(_emailController.text.trim()).go(context);
       }
 
       next.whenOrNull(
@@ -116,9 +112,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           onPressed: isLoading
               ? null
               : () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => const LoginPage()),
-                  );
+                  const LoginRoute().go(context);
                 },
           child: const Text('J’ai déjà un compte'),
         ),

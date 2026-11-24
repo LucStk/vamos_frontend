@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import '/ui_kit/ui_kit.dart';
 
 // Imports des widgets partagés
@@ -41,7 +42,7 @@ class RegisterSuccessPage extends StatelessWidget {
         PrimaryButton(
           label: 'Retour à la connexion',
           onPressed: () {
-            Navigator.of(context).popUntil((route) => route.isFirst);
+            const LoginRoute().go(context);
           },
         ),
         const SizedBox(height: 8),

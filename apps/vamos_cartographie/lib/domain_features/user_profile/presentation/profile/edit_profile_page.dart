@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/app_services/app_services.dart';
 import 'package:vamos_cartographie/domain_features/domain_features.dart';
@@ -129,7 +130,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
       return;
     }
 
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   @override
