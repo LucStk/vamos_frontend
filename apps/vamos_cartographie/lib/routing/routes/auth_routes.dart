@@ -9,6 +9,7 @@ import 'package:vamos_cartographie/domain_features/user_profile/presentation/pro
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/viewer_profile_page.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/search/user_search_page.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
+import 'package:vamos_cartographie/routing/trip_navigation.dart';
 
 part 'auth_routes.g.dart';
 
@@ -31,20 +32,12 @@ class UserProfileRoute extends GoRouteData with $UserProfileRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return Consumer(
-      builder: (context, ref, _) {
-        void apply(Transition t) =>
-            ref.read(appModeMachineProvider.notifier).apply(t);
-
-        return ViewerProfilePage(
-          userId: UserId(userId),
-          onOpenTrip: (id) {
-            apply(TripMode.open(id));
-            _backToMap(context);
-          },
-          onOpenUser: (UserId userId) =>
-              UserProfileRoute(userId.value).push(context),
-        );
-      },
+      builder: (context, ref, _) => ViewerProfilePage(
+        userId: UserId(userId),
+        onOpenTrip: (id) => openTripOnMap(context, ref, id),
+        onOpenUser: (UserId userId) =>
+            UserProfileRoute(userId.value).push(context),
+      ),
     );
   }
 }
@@ -56,23 +49,15 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return Consumer(
-      builder: (context, ref, _) {
-        void apply(Transition t) =>
-            ref.read(appModeMachineProvider.notifier).apply(t);
-
-        return EditorProfilePage(
-          onCreateTrip: () {
-            apply(Transition.to(PlaceNewTripOrigin()));
-            _backToMap(context);
-          },
-          onOpenTrip: (id) {
-            apply(TripMode.open(id));
-            _backToMap(context);
-          },
-          onOpenUser: (UserId userId) =>
-              UserProfileRoute(userId.value).push(context),
-        );
-      },
+      builder: (context, ref, _) => EditorProfilePage(
+        onCreateTrip: () {
+          ref.applyTransition(Transition.to(PlaceNewTripOrigin()));
+          backToMap(context);
+        },
+        onOpenTrip: (id) => openTripOnMap(context, ref, id),
+        onOpenUser: (UserId userId) =>
+            UserProfileRoute(userId.value).push(context),
+      ),
     );
   }
 }
@@ -90,8 +75,3 @@ class UserSearchRoute extends GoRouteData with $UserSearchRoute {
     );
   }
 }
-
-/// Revient à la carte, quelle que soit la pile de pages au-dessus (profil,
-/// profil atteint depuis la recherche d'utilisateurs…). Un simple `pop()`
-/// ne ferait reculer que d'une page, vers la recherche par exemple.
-void _backToMap(BuildContext context) => context.go('/');

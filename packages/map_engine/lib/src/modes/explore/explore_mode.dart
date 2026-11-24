@@ -3,7 +3,6 @@ import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/app_mode.dart';
 
 import 'package:map_engine/src/domain/domain.dart';
-import 'package:map_engine/src/modes/explore/commands/explore_command.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
 import 'package:map_engine/src/modes/shared/trip_mode.dart';
 
@@ -15,10 +14,8 @@ class ExploreMode extends AppMode {
 
   @override
   Transition onTap(TapGesture g) => switch (g.element) {
-    MapTrip e => Transition.run<Done>(
-      FocusTrip(e.id),
-      then: (_, _) => TripMode.open(e.id),
-    ),
+    // Le cadrage fait partie de l'ouverture : voir [TripMode.open].
+    MapTrip e => TripMode.open(e.id, focus: true),
     _ => Transition.stay(),
   };
 

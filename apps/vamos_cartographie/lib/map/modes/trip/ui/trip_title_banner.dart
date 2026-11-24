@@ -8,9 +8,17 @@ import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dar
 ///
 /// Il ne capte aucun geste : la carte reste utilisable dessous.
 class TripTitleBanner extends ConsumerStatefulWidget {
-  const TripTitleBanner({super.key, required this.tripId});
+  const TripTitleBanner({
+    super.key,
+    required this.tripId,
+    this.topOffset = 0,
+  });
 
   final TripId tripId;
+
+  /// Hauteur à sauter en plus, quand quelque chose occupe déjà le haut de
+  /// l'écran (la barre d'auteur d'un voyage qui n'est pas le nôtre).
+  final double topOffset;
 
   /// Sous la rangée du compte et de la recherche (qui reste utilisable).
   static const _top = 76.0;
@@ -67,9 +75,9 @@ class _TripTitleBannerState extends ConsumerState<TripTitleBanner>
         child: Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(
+            padding: EdgeInsets.fromLTRB(
               16,
-              TripTitleBanner._top,
+              TripTitleBanner._top + widget.topOffset,
               16,
               0,
             ),

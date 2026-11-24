@@ -2,6 +2,7 @@ import 'package:map_engine/src/domain/objects/map_objects.dart';
 import 'package:map_engine/src/mode_engine/mode_engine.dart';
 import 'package:map_engine/src/modes/app_mode.dart';
 import 'package:map_engine/src/modes/place_origin/place_origin_mode.dart';
+import 'package:map_engine/src/modes/shared/commands/camera_command.dart';
 import 'package:map_engine/src/modes/shared/commands/trip_entry.dart';
 import 'package:map_engine/src/modes/shared/slots/search_result_marker_slot.dart';
 import 'package:map_engine/src/modes/shared/slots/selection_slot.dart';
@@ -33,19 +34,27 @@ abstract class TripMode extends AppMode {
 
   /// Ouvre le trip, sans rien de sélectionné : une sélection restée de la
   /// dernière visite ne doit pas revenir.
-  static Transition open(TripId id) => Transition.run<TripEntry>(
-    ResolveTripEntry(id),
-    then: (_, entry) {
-      final next = switch (entry) {
-        TripReady(:final readOnly) => Transition.to(
-          TripReadyMode(id, readOnly: readOnly),
-        ),
-        TripNeedsOrigin() => Transition.to(PlaceExistingTripOrigin(id)),
-        TripUnavailable _ => throw Exception,
-      };
-      // Aucune fiche d'ouverte en arrivant : ni jour, ni morceau, ni étape, ni
-      // le trip lui-même (sa sélection ouvre sa fiche).
-      return next.and<MapObject>(selectionSlot, null);
-    },
-  );
+  ///
+  /// [focus] cadre la caméra sur le voyage une fois chargé ([FocusTrip]) :
+  /// c'est le cas quand on arrive d'ailleurs (clic sur la carte, voyage
+  /// choisi dans un profil), là où la carte ne montre pas encore le voyage.
+  /// On le laisse à `false` pour un simple retour à la lecture (sortie
+  /// d'édition, d'un outil), qui ne doit pas rebouger la vue.
+  static Transition open(TripId id, {bool focus = false}) =>
+      Transition.run<TripEntry>(
+        ResolveTripEntry(id),
+        then: (_, entry) {
+          final next = switch (entry) {
+            TripReady(:final readOnly) => Transition.to(
+              TripReadyMode(id, readOnly: readOnly),
+            ),
+            TripNeedsOrigin() => Transition.to(PlaceExistingTripOrigin(id)),
+            TripUnavailable _ => throw Exception,
+          };
+          // Aucune fiche d'ouverte en arrivant : ni jour, ni morceau, ni
+          // étape, ni le trip lui-même (sa sélection ouvre sa fiche).
+          final opened = next.and<MapObject>(selectionSlot, null);
+          return focus ? opened.running(FocusTrip(id)) : opened;
+        },
+      );
 }

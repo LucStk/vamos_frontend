@@ -12,6 +12,7 @@ import 'package:vamos_cartographie/map/entities/day/dialog/day_info_dialog.dart'
 import 'package:vamos_cartographie/map/entities/waypoint/dialog/waypoint_info_dialog.dart';
 import 'package:vamos_cartographie/map/modes/shared/cursor_panel.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_top_sheet.dart';
+import 'package:vamos_cartographie/map/modes/trip/ui/trip_author_bar.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_chrome_visibility.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_edit_menus.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_info_dialog.dart';
@@ -194,6 +195,13 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
               onPicked: mode.readOnly ? null : mode.placeCursorAt,
             ),
           ),
+        // Le voyage de quelqu'un d'autre : qui l'a créé, le suivre, mettre le
+        // voyage en favori. Rien pour le sien.
+        if (!hideChrome && mode.readOnly)
+          KeyedSubtree(
+            key: const ValueKey('author'),
+            child: TripAuthorBar(tripId: mode.tripId),
+          ),
         // Une fiche ouverte (avec sa croix au milieu du dock) ou, à défaut,
         // retour à la carte et fiche du voyage.
         ?dialog,
@@ -233,6 +241,10 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
         TripTitleBanner(
           key: ValueKey('title_${mode.tripId}'),
           tripId: mode.tripId,
+          // Passe sous la barre d'auteur quand il y en a une.
+          topOffset: hideChrome || !mode.readOnly
+              ? 0
+              : TripAuthorBar.clearance,
         ),
       ],
     );

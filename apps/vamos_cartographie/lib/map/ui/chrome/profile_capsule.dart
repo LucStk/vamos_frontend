@@ -46,11 +46,15 @@ class _CapsuleData extends StatelessWidget {
             child: imageUrl == null ? const Icon(Icons.person) : null,
           ),
           const SizedBox(width: 6),
-          Text(
-            profil.profileName,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onPrimaryContainer,
-              fontWeight: FontWeight.w700,
+          Flexible(
+            child: Text(
+              profil.profileName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ],
