@@ -4,7 +4,8 @@ import 'package:vamos_cartographie/domain_features/user_profile/presentation/tri
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/trip_card.dart';
 
 class TripLibrary extends StatelessWidget {
-  /// Lecture seule : on peut uniquement ouvrir un voyage.
+  /// Lecture seule : ouvrir un voyage, et le retirer des favoris si
+  /// [onRemoveFavorite] est fourni (bibliothèque de favoris).
   const TripLibrary.viewer({
     super.key,
     required this.trips,
@@ -12,6 +13,7 @@ class TripLibrary extends StatelessWidget {
     this.isLoading = false,
     this.hasError = false,
     this.onRetry,
+    this.onRemoveFavorite,
   }) : onCreateTrip = null,
        onDeleteTrip = null;
 
@@ -25,7 +27,7 @@ class TripLibrary extends StatelessWidget {
     this.isLoading = false,
     this.hasError = false,
     this.onRetry,
-  });
+  }) : onRemoveFavorite = null;
 
   final List<TripSummary> trips;
   final bool isLoading;
@@ -34,6 +36,7 @@ class TripLibrary extends StatelessWidget {
   final ValueChanged<Trip> onOpenTrip;
   final VoidCallback? onCreateTrip;
   final ValueChanged<TripId>? onDeleteTrip;
+  final ValueChanged<TripId>? onRemoveFavorite;
 
   bool get _canEdit => onCreateTrip != null || onDeleteTrip != null;
 
@@ -63,6 +66,7 @@ class TripLibrary extends StatelessWidget {
             onOpenTrip: onOpenTrip,
             onCreateTrip: onCreateTrip,
             onDeleteTrip: onDeleteTrip,
+            onRemoveFavorite: onRemoveFavorite,
           ),
       ],
     );
@@ -121,12 +125,14 @@ class _TripGrid extends StatelessWidget {
     required this.onOpenTrip,
     this.onCreateTrip,
     this.onDeleteTrip,
+    this.onRemoveFavorite,
   });
 
   final List<TripSummary> trips;
   final ValueChanged<Trip> onOpenTrip;
   final VoidCallback? onCreateTrip;
   final ValueChanged<TripId>? onDeleteTrip;
+  final ValueChanged<TripId>? onRemoveFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +171,9 @@ class _TripGrid extends StatelessWidget {
                   onDelete: onDeleteTrip == null
                       ? null
                       : () => onDeleteTrip!(summary.trip.id),
+                  onRemoveFavorite: onRemoveFavorite == null
+                      ? null
+                      : () => onRemoveFavorite!(summary.trip.id),
                 ),
               ),
           ],

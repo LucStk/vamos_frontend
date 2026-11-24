@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_header_view.dart';
+import 'package:vamos_cartographie/core/domain/domain.dart';
+import 'package:vamos_cartographie/core/injection/notification_provider.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/follow_button.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/trip_library.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/user_tile.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/favorite_trips_providers.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/follow_providers.dart';
 
-/// Onglet « Favoris » : mêmes cartes que les voyages, en lecture seule.
+/// Onglet « Favoris » : mêmes cartes que les voyages, qu'on peut ouvrir ou
+/// retirer des favoris. L'onglet n'existe que sur son propre profil (les
+/// favoris sont privés), donc retirer y est toujours permis.
 class UserFavoriteTrips extends ConsumerWidget {
   const UserFavoriteTrips({
     super.key,
@@ -17,6 +22,20 @@ class UserFavoriteTrips extends ConsumerWidget {
 
   final UserId userId;
   final ValueChanged<Trip> onOpenTrip;
+
+  Future<void> _remove(WidgetRef ref, TripId tripId) async {
+    final notifier = ref.read(favoriteTripsProvider(userId).notifier);
+    // Lu avant l'appel réseau : la carte disparaît de la liste entre-temps.
+    final notifications = ref.read(notificationQueueProvider.notifier);
+    try {
+      await notifier.remove(tripId);
+    } catch (_) {
+      notifications.show(
+        message: 'Impossible de retirer ce voyage des favoris.',
+        type: NotificationType.error,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,6 +48,7 @@ class UserFavoriteTrips extends ConsumerWidget {
       hasError: load.hasError,
       onRetry: () => ref.invalidate(loadFavoriteTripsProvider(userId)),
       onOpenTrip: onOpenTrip,
+      onRemoveFavorite: (tripId) => _remove(ref, tripId),
     );
   }
 }
@@ -51,6 +71,9 @@ class UserFollowingList extends ConsumerWidget {
       onRetry: () => ref.invalidate(userFollowingProvider(userId)),
       onOpenUser: onOpenUser,
       emptyMessage: 'Aucun abonnement pour l\'instant.',
+      // Sur mon profil : « Suivi », donc un clic ne suit plus (après
+      // confirmation). Sur celui d'un autre : mon propre lien avec ces gens.
+      trailingBuilder: (user) => FollowButton(profile: user),
     );
   }
 }
@@ -85,12 +108,16 @@ class AsyncUserList extends StatelessWidget {
     required this.onRetry,
     required this.onOpenUser,
     required this.emptyMessage,
+    this.trailingBuilder,
   });
 
   final AsyncValue<List<UserProfile>> users;
   final VoidCallback onRetry;
   final ValueChanged<UserId> onOpenUser;
   final String emptyMessage;
+
+  /// Ce qu'on met au bout de chaque ligne. null : rien.
+  final Widget Function(UserProfile user)? trailingBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -109,23 +136,27 @@ class AsyncUserList extends StatelessWidget {
         users: list,
         onOpenUser: onOpenUser,
         emptyMessage: emptyMessage,
+        trailingBuilder: trailingBuilder,
       ),
     );
   }
 }
 
-/// Liste purement visuelle d'utilisateurs (aucune dépendance à Riverpod).
+/// Liste purement visuelle d'utilisateurs, une ligne par personne (aucune
+/// dépendance à Riverpod : ce que [trailingBuilder] renvoie peut en avoir).
 class UserList extends StatelessWidget {
   const UserList({
     super.key,
     required this.users,
     required this.onOpenUser,
     required this.emptyMessage,
+    this.trailingBuilder,
   });
 
   final List<UserProfile> users;
   final ValueChanged<UserId> onOpenUser;
   final String emptyMessage;
+  final Widget Function(UserProfile user)? trailingBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -140,12 +171,10 @@ class UserList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (final user in users)
-          InkWell(
+          UserTile(
+            user: user,
             onTap: () => onOpenUser(user.id),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: ProfileHeader(profile: user),
-            ),
+            trailing: trailingBuilder?.call(user),
           ),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/follow_button.dart';
 
 import '../account/profile_actions_section.dart';
 import 'profile_header_view.dart';
@@ -59,13 +60,15 @@ class ProfileCard extends StatelessWidget {
                         fontSize: 13,
                       ),
                     ),
-                    if (_isEditable) ...[
-                      const SizedBox(height: 16),
-                      const Align(
-                        alignment: Alignment.center,
-                        child: ProfileActionsSection(),
-                      ),
-                    ],
+                    const SizedBox(height: 16),
+                    // Mon profil : les actions du compte. Celui d'un autre :
+                    // le suivre (le bouton s'efface pour un visiteur).
+                    Align(
+                      alignment: Alignment.center,
+                      child: _isEditable
+                          ? const ProfileActionsSection()
+                          : FollowButton(profile: profile),
+                    ),
                   ],
                 ),
               ),

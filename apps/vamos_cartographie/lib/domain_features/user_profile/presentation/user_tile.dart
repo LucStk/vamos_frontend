@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 
-/// Une ligne de résultat : avatar, nom et début de la biographie.
-class UserSearchTile extends StatelessWidget {
-  const UserSearchTile({super.key, required this.user, required this.onTap});
+/// Une ligne d'utilisateur : photo, nom et début de la biographie, et ce que
+/// [trailing] met au bout (un chevron dans la recherche, le bouton « suivre »
+/// dans les abonnements).
+///
+/// Partagée par la recherche d'utilisateurs et les listes du profil, pour
+/// qu'un utilisateur se présente partout pareil.
+class UserTile extends StatelessWidget {
+  const UserTile({
+    super.key,
+    required this.user,
+    required this.onTap,
+    this.trailing,
+  });
 
   final UserProfile user;
   final VoidCallback onTap;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +36,7 @@ class UserSearchTile extends StatelessWidget {
       subtitle: user.bio.isEmpty
           ? null
           : Text(user.bio, maxLines: 1, overflow: TextOverflow.ellipsis),
-      trailing: const Icon(Icons.chevron_right),
+      trailing: trailing,
       onTap: onTap,
     );
   }

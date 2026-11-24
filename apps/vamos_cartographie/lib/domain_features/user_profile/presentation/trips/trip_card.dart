@@ -8,13 +8,18 @@ class TripCard extends StatelessWidget {
     required this.tripSummary,
     required this.onTap,
     this.onDelete,
+    this.onRemoveFavorite,
   });
 
   final TripSummary tripSummary;
   final VoidCallback onTap;
 
-  /// null → pas de menu (ex. voyage d'un autre utilisateur).
+  /// Supprimer le voyage (propriétaire). null → l'entrée n'est pas proposée.
   final VoidCallback? onDelete;
+
+  /// Retirer le voyage des favoris (bibliothèque de favoris). null → l'entrée
+  /// n'est pas proposée. Sans aucune des deux, la carte n'a pas de menu.
+  final VoidCallback? onRemoveFavorite;
 
   /// Première image sans erreur, remote ou patch. null → placeholder.
   StoredFileFields? get _cover =>
@@ -105,11 +110,16 @@ class TripCard extends StatelessWidget {
             ),
           ),
 
-          if (onDelete != null)
+          if (onDelete != null || onRemoveFavorite != null)
             Positioned(
               top: 4,
               right: 4,
-              child: _TripCardMenu(onDelete: () => _confirmDelete(context)),
+              child: _TripCardMenu(
+                onDelete: onDelete == null
+                    ? null
+                    : () => _confirmDelete(context),
+                onRemoveFavorite: onRemoveFavorite,
+              ),
             ),
         ],
       ),
@@ -120,9 +130,10 @@ class TripCard extends StatelessWidget {
 /// Menu « ... » posé sur la couverture : fond sombre translucide pour rester
 /// lisible quelle que soit la photo.
 class _TripCardMenu extends StatelessWidget {
-  const _TripCardMenu({required this.onDelete});
+  const _TripCardMenu({this.onDelete, this.onRemoveFavorite});
 
-  final VoidCallback onDelete;
+  final VoidCallback? onDelete;
+  final VoidCallback? onRemoveFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -138,15 +149,26 @@ class _TripCardMenu extends StatelessWidget {
         padding: EdgeInsets.zero,
         iconSize: 20,
         itemBuilder: (context) => [
-          PopupMenuItem<void>(
-            onTap: onDelete,
-            child: ListTile(
-              dense: true,
-              contentPadding: EdgeInsets.zero,
-              leading: Icon(Icons.delete_outline, color: error),
-              title: Text('Supprimer', style: TextStyle(color: error)),
+          if (onRemoveFavorite case final remove?)
+            PopupMenuItem<void>(
+              onTap: remove,
+              child: const ListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(Icons.bookmark_remove_outlined),
+                title: Text('Retirer des favoris'),
+              ),
             ),
-          ),
+          if (onDelete case final delete?)
+            PopupMenuItem<void>(
+              onTap: delete,
+              child: ListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(Icons.delete_outline, color: error),
+                title: Text('Supprimer', style: TextStyle(color: error)),
+              ),
+            ),
         ],
       ),
     );

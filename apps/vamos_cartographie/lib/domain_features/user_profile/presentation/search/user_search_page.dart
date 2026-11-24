@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/search/user_search_tile.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/presentation/user_tile.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_search_providers.dart';
 import 'package:vamos_cartographie/routing/presentation/app_back_button.dart';
 
@@ -144,7 +144,11 @@ class _Results extends ConsumerWidget {
           );
         }
         final user = state.users[index];
-        return UserSearchTile(user: user, onTap: () => onOpenUser(user.id));
+        return UserTile(
+          user: user,
+          onTap: () => onOpenUser(user.id),
+          trailing: const Icon(Icons.chevron_right),
+        );
       },
     );
   }
