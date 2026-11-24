@@ -69,7 +69,6 @@
             tree
 
             # Android development
-            android-tools
             jdk17
             androidSdk.androidsdk
           ];
