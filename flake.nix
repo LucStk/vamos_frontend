@@ -1,3 +1,5 @@
+
+
 {
   description = "Environnement de développement Flutter pour Vamos Cartographie";
 
@@ -29,6 +31,7 @@
           libXdamage libXfixes libXtst libxcb
           gdal geos proj libspatialite zlib
         ];
+
       in {
         devShells.default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
           name = "flutter-env";
@@ -42,6 +45,9 @@
             flutterFixed
             melos
             tree
+
+            # Android debugging
+            android-tools
           ];
 
           buildInputs = runtimeLibs;

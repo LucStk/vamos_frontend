@@ -8,12 +8,24 @@ part of 'user_search_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Recherche d'utilisateurs par début de nom (autocomplétion).
+///
+/// Le debounce évite une requête par frappe ; [_requestId] invalide les
+/// réponses périmées (une requête plus récente est partie entre-temps).
 
 @ProviderFor(UserSearch)
 final userSearchProvider = UserSearchProvider._();
 
+/// Recherche d'utilisateurs par début de nom (autocomplétion).
+///
+/// Le debounce évite une requête par frappe ; [_requestId] invalide les
+/// réponses périmées (une requête plus récente est partie entre-temps).
 final class UserSearchProvider
     extends $NotifierProvider<UserSearch, UserSearchState> {
+  /// Recherche d'utilisateurs par début de nom (autocomplétion).
+  ///
+  /// Le debounce évite une requête par frappe ; [_requestId] invalide les
+  /// réponses périmées (une requête plus récente est partie entre-temps).
   UserSearchProvider._()
     : super(
         from: null,
@@ -41,7 +53,12 @@ final class UserSearchProvider
   }
 }
 
-String _$userSearchHash() => r'6f3a9c2e7b1d4058a1c9e0d2b47f83a5c6e1d907';
+String _$userSearchHash() => r'8a0038e9db171eee1f228ab38bd1fa528a609ddf';
+
+/// Recherche d'utilisateurs par début de nom (autocomplétion).
+///
+/// Le debounce évite une requête par frappe ; [_requestId] invalide les
+/// réponses périmées (une requête plus récente est partie entre-temps).
 
 abstract class _$UserSearch extends $Notifier<UserSearchState> {
   UserSearchState build();
