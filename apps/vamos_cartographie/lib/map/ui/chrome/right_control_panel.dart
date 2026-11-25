@@ -19,14 +19,16 @@ class MapControls extends ConsumerWidget {
 
     // La fiche d'un jour, d'un morceau ou d'un waypoint garde la carte
     // dégagée.
-    if (ref.watch(tripDialogHidesChromeProvider)) return const SizedBox.shrink();
+    if (ref.watch(tripDialogHidesChromeProvider)) {
+      return const SizedBox.shrink();
+    }
 
     return Positioned(
       right: 12,
       top: 200,
       child: Column(
         children: [
-          CameraButtonsControl(),
+          // CameraButtonsControl(),
           UserLocationButton(),
           // _OverlayToggle(
           //   type: NetworkOverlayType.cycling,
