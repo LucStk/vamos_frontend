@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/bar_tab.dart';
+import 'package:vamos_cartographie/map/ui/chrome/bar_tab.dart';
 
 /// Onglet « Retour » pour la barre de la sheet (`barLeading`).
 class BackTab extends StatelessWidget {

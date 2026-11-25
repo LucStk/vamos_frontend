@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
-import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_sheet_pages.dart';
+import 'package:vamos_cartographie/map/entities/trip/sheet_pages/trip_info_pages.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_ready_dock.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/widgets/header/trip_header.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dialog/info_dialog.dart';
@@ -20,7 +20,6 @@ class TripInfoDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trip = ref.watch(tripRequiredProvider(mode.tripId));
-    final pages = tripSheetPages(trip, editable: !mode.readOnly);
 
     return InfoDialog(
       bottomInset: TripReadyDock.clearance,
@@ -35,15 +34,7 @@ class TripInfoDialog extends ConsumerWidget {
           return null;
         },
       ),
-      pages: [
-        for (final page in pages)
-          InfoDialogPage(
-            label: page.label,
-            icon: page.icon,
-            selectedIcon: page.selectedIcon,
-            child: page.expanded ?? page.compact.child,
-          ),
-      ],
+      pages: tripInfoPages(trip, editable: !mode.readOnly),
     );
   }
 }

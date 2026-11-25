@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/draggable_sheet.dart';
-import 'package:vamos_cartographie/map/ui/chrome/sheets/paged_sheet/bar_tab.dart';
+import 'package:vamos_cartographie/map/ui/chrome/bar_tab.dart';
+import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 
 /// Un outil de la barre : son icône et son libellé.
@@ -26,7 +26,7 @@ class ToolboxItem {
 /// Le panneau peut exister sans outil actif (panneau contextuel, ouvert par
 /// un geste sur la carte par exemple) : aucun onglet n'est alors allumé.
 ///
-/// Contrairement à `PagedSheet`, rien ne se glisse ni ne se déplie : les
+/// Rien ne se glisse ni ne se déplie ici : les
 /// actions restent visibles tant que le panneau est là.
 class Toolbox extends StatelessWidget {
   const Toolbox({
