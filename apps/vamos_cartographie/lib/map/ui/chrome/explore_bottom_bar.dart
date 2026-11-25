@@ -32,12 +32,12 @@ class ExploreBottomBar extends StatelessWidget {
             selectedIcon: Icon(Icons.map),
             label: 'Carte',
           ),
-          NavigationDestination(icon: Icon(Icons.search), label: 'Recherche'),
-          NavigationDestination(
-            icon: Icon(Icons.bookmark_border),
-            selectedIcon: Icon(Icons.bookmark),
-            label: 'Favoris',
-          ),
+          // NavigationDestination(icon: Icon(Icons.search), label: 'Recherche'),
+          // NavigationDestination(
+          //   icon: Icon(Icons.bookmark_border),
+          //   selectedIcon: Icon(Icons.bookmark),
+          //   label: 'Favoris',
+          // ),
           NavigationDestination(
             icon: Icon(Icons.people_outline),
             selectedIcon: Icon(Icons.people),
