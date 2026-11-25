@@ -38,9 +38,12 @@ class _MapCanvasState extends ConsumerState<MapCanvas> {
         initialZoom: 7,
         interactionOptions: InteractionOptions(
           flags: panAllowed
-              ? InteractiveFlag.all & ~InteractiveFlag.doubleTapZoom
+              ? InteractiveFlag.all &
+                    ~InteractiveFlag.doubleTapZoom &
+                    ~InteractiveFlag.rotate
               : InteractiveFlag.all &
                     ~InteractiveFlag.doubleTapZoom &
+                    ~InteractiveFlag.rotate &
                     ~InteractiveFlag.drag,
         ),
       );
