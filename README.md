@@ -1,194 +1,167 @@
 # vamos_frontend
 
-Monorepo Flutter du projet **Vamos** — application de planification et visualisation de voyages itinérants.
+Monorepo Flutter du projet **Vamos** — application de planification et de
+visualisation de voyages itinérants, construite autour d'une carte
+interactive.
 
 ---
 
-## Structure du monorepo
+## Structure
+
+C'est un **workspace Dart** (`workspace:` dans le `pubspec.yaml` racine) : un
+seul `pub get` à la racine résout tous les paquets, et un seul
+`.dart_tool/package_config.json` les sert tous.
 
 ```
 vamos_frontend/
-├── api_client/           # Package Dart — client GraphQL généré (Ferry)
-├── vamos_cartographie/   # Package Flutter — module carte interactive
-└── vamos_ui/             # Application Flutter principale (point d'entrée)
+├── apps/
+│   └── vamos_cartographie/   # l'application (seul exécutable)
+├── packages/
+│   ├── domain_core/          # identifiants, Failure, géométrie, primitives
+│   ├── user_profile_application/
+│   ├── stored_file_application/
+│   ├── trip_application/     # modèles et cas d'usage du voyage
+│   ├── map_engine/           # modes, gestes, caméra, objets de carte
+│   └── map_canvas/           # rendu : scène, items, peinture
+└── third_party/
+    └── device_preview/       # copie patchée, voir pubspec.yaml racine
 ```
 
-### Dépendances entre packages
+### Dépendances entre paquets
 
 ```
-vamos_ui
-    └── vamos_cartographie  (path: ../vamos_cartographie)
-            └── api_client  (path: ../api_client)
+vamos_cartographie
+├── map_canvas ──────────→ map_engine, trip_application, domain_core
+├── map_engine ──────────→ trip_application, user_profile_application, domain_core
+├── trip_application ────→ stored_file_application, user_profile_application, domain_core
+├── stored_file_application → domain_core
+├── user_profile_application → domain_core
+└── domain_core                (aucune dépendance locale)
 ```
 
-`vamos_ui` est l'application finale. Elle s'appuie sur `vamos_cartographie` pour tout ce qui concerne la carte, qui s'appuie lui-même sur `api_client` pour communiquer avec le backend GraphQL.
+Les paquets `*_application` ne dépendent ni de Flutter ni du réseau : ils
+portent les modèles et les cas d'usage. `map_engine` porte la machine à modes
+(ce que fait un geste selon le contexte) et reste lui aussi sans Flutter.
+`map_canvas` dessine. L'application assemble, branche GraphQL et Supabase, et
+fournit toute l'UI.
+
+### À l'intérieur de l'application
+
+```
+apps/vamos_cartographie/lib/
+├── main.dart              # téléphone
+├── main_preview.dart      # PC, avec aperçu smartphone (device_preview)
+├── bootstrap.dart         # dotenv, Supabase, ProviderContainer, ErrorHandler
+├── app.dart               # MaterialApp.router
+├── core/                  # réseau (Ferry), erreurs, config, injection
+├── domain_features/       # par domaine : data/, providers/, presentation/
+├── map/
+│   ├── engine/            # machine à modes, gestes, hit-test (côté app)
+│   ├── modes/             # une vue et une UI par mode
+│   ├── objects/           # items de scène, par entité
+│   ├── entities/          # fiches (voyage, étape, jour, route)
+│   ├── camera/ rendering/ scene/ layers/
+│   └── ui/                # dock, panneaux, dialogs, contrôles
+├── routing/               # go_router + MapShell
+├── ui_kit/                # thème, boutons, champs, dialogs génériques
+└── app_services/          # notifications, localisation, image picker
+```
 
 ---
 
 ## Prérequis
 
-| Outil | Version minimale |
-|---|---|
-| Flutter | 3.x (SDK Dart ^3.11.4) |
-| Dart | ^3.11.4 |
+Le dépôt fournit un **flake Nix** avec Flutter, le SDK Android, le NDK et
+melos. Avec [direnv](https://direnv.net) :
+
+```sh
+direnv allow     # lit .envrc, qui fait « use flake »
+```
+
+Sans direnv : `nix develop`.
+
+Sans Nix, il faut Flutter ≥ 3.50 (SDK Dart ^3.9) et un SDK Android 35/36, et
+installer melos soi-même (`dart pub global activate melos`).
 
 ---
 
 ## Installation
 
-Un seul clone suffit pour tout récupérer :
-
 ```sh
-git clone <url-du-repo> vamos_frontend
-cd vamos_frontend
+flutter pub get          # à la racine : résout tout le workspace
 ```
 
-Puis installer les dépendances de chaque package dans l'ordre :
+---
 
-```sh
-# 1. Le package de base (pas de dépendances locales)
-cd api_client && dart pub get && cd ..
+## Configuration
 
-# 2. Le module cartographie
-cd vamos_cartographie && flutter pub get && cd ..
+L'application lit un fichier `.env` **dans `apps/vamos_cartographie/`** (il
+est déclaré dans les `assets` de son `pubspec.yaml`, donc embarqué dans le
+binaire). Quatre clés, toutes requises :
 
-# 3. L'application principale
-cd vamos_ui && flutter pub get && cd ..
 ```
+BACKEND_URL=http://10.0.2.2:8000/graphql/
+SUPABASE_URL=...
+SUPABASE_PUBLISHABLE_KEY=...
+MAPTILER_KEY=...
+```
+
+`BACKEND_URL` pointe le endpoint GraphQL du backend (`vamos_backend`).
+Depuis un émulateur Android, `localhost` désigne l'émulateur : utiliser
+`10.0.2.2`. Depuis un téléphone physique, l'IP de la machine sur le réseau
+local.
+
+Il n'y a **pas** de mode mock : l'application a besoin du backend, de
+Supabase pour l'authentification et de MapTiler pour les tuiles.
 
 ---
 
 ## Lancement
 
-L'application se lance depuis `vamos_ui` :
+```sh
+cd apps/vamos_cartographie
+
+flutter run                                   # téléphone ou émulateur
+flutter run -d linux -t lib/main_preview.dart  # PC, aperçu smartphone (F2)
+```
+
+---
+
+## Scripts melos
+
+Définis dans le `pubspec.yaml` racine (il n'y a pas de `melos.yaml`), à lancer
+depuis la racine :
 
 ```sh
-cd vamos_ui
-flutter run
+melos run analyze        # dart analyze sur tous les paquets
+melos run test           # dart test là où un test/ existe
+melos run generate:all   # build_runner sur tous les paquets éligibles
+melos run generate       # build_runner sur un paquet, choisi dans une liste
+melos run clean:build    # build_runner clean
 ```
 
-### Mode mock (sans backend)
+### Code généré
 
-Par défaut, `vamos_cartographie` utilise des données fictives en mémoire — **aucun serveur requis**.
+Trois générateurs tournent ensemble : **ferry_generator2** (GraphQL),
+**riverpod_generator** (providers), **freezed** + **json_serializable**
+(modèles), **go_router_builder** (routes). Tout ce qui est en `__generated__/`,
+`*.g.dart` ou `*.freezed.dart` est produit par eux et ne se modifie pas à la
+main : après un changement de requête GraphQL, de provider annoté ou de modèle
+freezed, relancer `melos run generate:all`.
 
-Le flag est dans `vamos_cartographie/lib/core/config.dart` :
-
-```dart
-const bool kUseMock = true;  // ← données fictives
-```
-
-### Mode production (avec le backend GraphQL)
-
-1. Lance le backend sur `http://localhost:8000/graphql/`
-2. Change le flag dans `vamos_cartographie/lib/core/config.dart` :
-
-```dart
-const bool kUseMock = false;  // ← vrai backend
-```
-
----
-
-## Packages
-
-### `api_client`
-
-Package Dart pur — contient le client Ferry et tout le code GraphQL généré automatiquement. Il ne doit jamais être modifié à la main dans `__generated__/`.
-
-```
-api_client/lib/src/graphql/
-├── schema.graphql              # Schéma GraphQL du backend
-├── fragments/trip.graphql      # Fragments réutilisables
-├── queries/trip.graphql        # Queries : GetAllTrips, GetTrip
-├── mutations/trip.graphql      # Mutations : CreateTrip, UpdateTrip, DeleteTrip
-└── __generated__/              # ⚠️ Code généré — ne pas modifier
-```
-
-**Régénérer le code après un changement de schéma :**
+Pour rafraîchir le schéma GraphQL depuis un backend qui tourne en local :
 
 ```sh
-cd api_client
-dart run build_runner build --delete-conflicting-outputs
-```
-
-> Le générateur utilisé est `ferry_generator2`. La configuration est dans `build.yaml`.
-
----
-
-### `vamos_cartographie`
-
-Module Flutter de cartographie — carte interactive, création et édition de voyages.
-
-```
-vamos_cartographie/lib/
-├── core/
-│   ├── config.dart          # Flag kUseMock (mock vs production)
-│   ├── failure.dart         # Types d'erreurs métier
-│   └── injection.dart       # Injection de dépendances (GetIt)
-├── repository/
-│   ├── trip_repository.dart       # Interface abstraite
-│   ├── real_trip_repository.dart  # Implémentation Ferry/GraphQL
-│   └── mock_trip_repository.dart  # Implémentation en mémoire
-├── pages/
-│   ├── explorer_page.dart   # Liste des voyages
-│   └── map_page.dart        # Carte interactive
-├── map/                     # Widgets et logique cartographique
-├── widgets/                 # Bottom sheets, formulaires
-└── models.dart              # Modèles métier : Trip, Waypoint, Segment
-```
-
-**Flux de données :**
-
-```
-ExplorerPage / MapPage
-    └── TripRepository (interface)
-            ├── MockTripRepository   (kUseMock = true)
-            └── RealTripRepository   (kUseMock = false)
-                    └── Ferry Client → GraphQL API
+melos run get-graphql-schema
 ```
 
 ---
 
-### `vamos_ui`
+## Conventions
 
-Application Flutter principale — point d'entrée utilisateur, intègre `vamos_cartographie` comme module.
-
----
-
-## Dépendances principales
-
-| Package | Utilisé dans | Rôle |
-|---|---|---|
-| `flutter_map` | `vamos_cartographie` | Carte interactive (tuiles OSM) |
-| `latlong2` | `vamos_cartographie` | Coordonnées GPS |
-| `ferry` | `api_client` | Client GraphQL avec cache normalisé |
-| `get_it` | `vamos_cartographie`, `vamos_ui` | Injection de dépendances |
-| `dartz` | `vamos_cartographie` | Types fonctionnels (`Either<Failure, T>`) |
-| `hive_flutter` | `vamos_ui` | Cache persistant local |
-| `gql_tristate_value` | `api_client` | Valeurs optionnelles dans les mutations |
-
----
-
-## Commits
-
-Les packages étant dans le même repo, tu peux faire des commits granulaires par package :
-
-```sh
-# Commit isolé sur api_client
-git add api_client/
-git commit -m "feat(api_client): add DeleteTrip mutation"
-
-# Commit isolé sur vamos_cartographie
-git add vamos_cartographie/
-git commit -m "feat(cartographie): add ExplorerPage"
-
-# Commit transversal (changement de schéma + adaptation UI)
-git add api_client/ vamos_cartographie/
-git commit -m "feat: add trip deletion end-to-end"
-```
-
-Filtrer le log par package :
-
-```sh
-git log --oneline -- api_client/
-git log --oneline -- vamos_cartographie/
-```
+- `always_use_package_imports` : les imports entre fichiers de la même
+  bibliothèque passent par `package:` (voir `analysis_options.yaml`).
+- `riverpod_lint` est actif comme plugin de l'analyzer.
+- Commentaires et libellés en français, identifiants en anglais.
+- Un commit par paquet quand c'est possible ; `git log --oneline -- packages/map_engine/`
+  reste alors lisible.
