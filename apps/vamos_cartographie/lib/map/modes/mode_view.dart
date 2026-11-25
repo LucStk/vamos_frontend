@@ -45,12 +45,8 @@ ModeView viewFor(AppMode mode) => switch (mode) {
 
   // --- Édition du trip -----------------------------------------------------
   // Aucun outil actif : on voit la route et les étapes, on peut les toucher.
-  TripEditMode m => tripEditView(m, createWaypointScene(m.tripId)),
-  // Ancien mode d'édition des étapes : même vue, pour ne jamais laisser
-  // l'écran sans UI.
-  WaypointsEditMode m => tripEditView(m, createWaypointScene(m.tripId)),
-  // Outils (onglets).
-  CreateWaypointMode m => tripEditView(m, createWaypointScene(m.tripId)),
+  TripEditMode m => tripEditView(m, tripEditScene(m.tripId)),
+  // Outils.
   SketchEdition m => tripEditView(m, sketchScene(m.tripId)),
   SketchGenerating m => tripEditView(m, sketchGeneratingScene(m.tripId)),
   SketchPreviewing m => tripEditView(m, sketchPreviewScene(m)),

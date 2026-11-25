@@ -16,20 +16,6 @@ final class MapWaypoint extends MapObject {
   int get hashCode => id.hashCode;
 }
 
-final class MapPendingWaypoint extends MapObject {
-  final TripId tripId;
-  const MapPendingWaypoint({required this.tripId});
-
-  @override
-  bool get isDraggable => true;
-
-  @override
-  bool operator ==(Object other) => other is MapPendingWaypoint;
-
-  @override
-  int get hashCode => (MapPendingWaypoint).hashCode;
-}
-
 final class MapWaypointAnchor extends MapObject {
   final TripId tripId;
   final WaypointId waypointId;

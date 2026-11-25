@@ -17,7 +17,6 @@ SceneSpec selectRouteScene(TripId tripId) => SceneSpec(
     // second plan et presque transparents.
     (ref, cam) => backgroundWaypointItems(ref, tripId, cam),
     (ref, cam) => ref.watch(selectionHandleItemsProvider(tripId, cam)),
-    (ref, cam) => ref.watch(pendingWaypointProvider(tripId, cam)),
     // La route par sections de mobilité, sans la séparation en jours.
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
     // Le glissement qui a ouvert la sélection part d'un jour de la route : il

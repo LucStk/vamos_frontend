@@ -24,8 +24,6 @@ import 'package:trip_application/trip_application.dart';
 /// - Étape : la toucher ou la glisser la sélectionne (halo et ancre
 ///   apparaissent) ; la glisser la déplace (ou glisse son ancre le long de la
 ///   route), relâcher enregistre. Tout autre geste sur la carte la désélectionne.
-///
-/// Remplace `WaypointsEditMode`.
 final class TripEditMode extends TripMode {
   const TripEditMode(super.tripId);
 

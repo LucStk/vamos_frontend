@@ -11,7 +11,6 @@ import 'package:vamos_cartographie/map/modes/trip_edit/route/edit_span_panel.dar
 import 'package:vamos_cartographie/map/modes/trip_edit/route/portion_preview_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/select_route_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/sketch/sketch_panel.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/create_waypoint_panel.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/selected_waypoint_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/dock/edit_dock.dart';
 
@@ -41,7 +40,6 @@ class TripEditUi extends ConsumerWidget {
       final SelectRouteMode m => (SelectRoutePanel(m), 'select-route'),
       final PortionPreviewMode m => (PortionPreviewPanel(m), 'portion'),
       final EditSpanMode m => (EditSpanPanel(m), 'span'),
-      final CreateWaypointMode m => (CreateWaypointPanel(m), 'create-waypoint'),
       // Sans outil : le curseur, ou l'étape sélectionnée.
       TripEditMode() when cursor != null => (
         CursorPanel(

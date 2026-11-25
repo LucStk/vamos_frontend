@@ -17,7 +17,10 @@ bool cursorCovers<T extends MapObject>(Ref ref) => ref.watch(
   ).select((c) => c?.anchor?.object is T),
 );
 
-SceneSpec createWaypointScene(TripId tripId) => SceneSpec(
+/// La scène de l'édition du trip sans outil actif ([TripEditMode]) : la
+/// route, ses étapes et leurs ancres, le curseur et la position de
+/// l'utilisateur.
+SceneSpec tripEditScene(TripId tripId) => SceneSpec(
   layers: [
     (ref, cam) => [?ref.watch(searchResultItemProvider(cam))],
     (ref, cam) => [?ref.watch(localizationItemProvider(cam))],
@@ -31,7 +34,6 @@ SceneSpec createWaypointScene(TripId tripId) => SceneSpec(
     ],
     (ref, cam) => ref.watch(allWaypointItemProvider(tripId, cam)),
     (ref, cam) => visibleWaypointAnchors(ref, tripId, cam),
-    (ref, cam) => ref.watch(pendingWaypointProvider(tripId, cam)),
     (ref, cam) => ref.watch(allSegmentItemProvider(tripId, cam)),
   ],
 );
