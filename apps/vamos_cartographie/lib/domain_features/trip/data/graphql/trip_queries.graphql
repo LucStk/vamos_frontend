@@ -47,6 +47,9 @@ query DiscoverTrips($tiles: [TileInput!]!, $filters: TripDiscoveryFilters, $perT
         y
         trips {
             score
+            daysCount
+            lengthM
+            mainMobility
             preview {
                 ...LatLng
             }

@@ -16,6 +16,11 @@ DiscoveredTrip _trip(String id, double score, List<LatLng> line) =>
       owner: _owner,
       score: score,
       preview: [line],
+      // Les chiffres de la carte résumé ne jouent aucun rôle ici : ces tests
+      // portent sur les tuiles, le cache et la sélection.
+      daysCount: 1,
+      lengthM: 0,
+      mainMobility: null,
     );
 
 DiscoveryTileResult _result(DiscoveryTile tile, List<DiscoveredTrip> trips) =>

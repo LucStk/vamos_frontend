@@ -14,9 +14,17 @@ class ExploreMode extends AppMode {
 
   @override
   Transition onTap(TapGesture g) => switch (g.element) {
-    // Le cadrage fait partie de l'ouverture : voir [TripMode.open].
-    MapTrip e => TripMode.open(e.id, focus: true),
-    _ => Transition.stay(),
+    // Premier appui : le voyage passe en avant, sa carte résumé s'affiche en
+    // bas. Appui sur le voyage déjà en avant : on entre dedans (le cadrage
+    // fait partie de l'ouverture, voir [TripMode.open]).
+    MapTrip e => Transition.withState((st) {
+      final front = st.slots.get(selectionSlot);
+      return front is MapTrip && front.id == e.id
+          ? TripMode.open(e.id, focus: true)
+          : selectTrip(e);
+    }),
+    // À côté des tracés : plus rien en avant, les cartes se retirent.
+    _ => Transition.set<MapObject>(selectionSlot, null),
   };
 
   static Transition selectTrip(MapTrip trip) =>

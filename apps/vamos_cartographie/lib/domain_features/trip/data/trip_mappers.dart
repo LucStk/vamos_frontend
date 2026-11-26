@@ -65,6 +65,9 @@ extension GDiscoveryTileMapper on GDiscoverTripsData_discoverTrips {
           summary: t.trip.toTripSummary(),
           owner: t.trip.owner.toUserProfileModel(),
           score: t.score,
+          daysCount: t.daysCount,
+          lengthM: t.lengthM,
+          mainMobility: t.mainMobility?.toMobilityDomain(),
           preview: [
             for (final part in t.preview) [for (final p in part) p.toLatLng()],
           ],

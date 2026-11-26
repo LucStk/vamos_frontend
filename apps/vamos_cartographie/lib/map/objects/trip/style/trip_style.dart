@@ -65,13 +65,21 @@ abstract final class TripStyle {
   static const _haloAlphas = [0.10, 0.20, 0.30];
   static const _haloStep = 4.0;
 
+  /// [color] remplace le cœur et le halo du look : en découverte, chaque
+  /// voyage a la sienne (voir `tripColor`). [opacity] efface le tracé sans
+  /// le retirer : les voyages autres que celui mis en avant.
   static DrawCommand build(
     Path path,
     TripLook look, {
     required ScreenLength radius,
+    Color? color,
+    double opacity = 1,
   }) {
+    Color fade(Color c) =>
+        opacity >= 1 ? c : c.withValues(alpha: c.a * opacity);
+
     Stroke stroke(Color c, double w) => Stroke(
-      c,
+      fade(c),
       width: max(0.0, w).px,
       cap: StrokeCap.round,
       join: StrokeJoin.round,
@@ -81,18 +89,21 @@ abstract final class TripStyle {
     final coreWidth = borderWidth * _coreRatio;
     final outer = borderWidth + look.haloSpread;
 
+    final halo = color ?? _haloColor;
+    final core = color ?? look.coreColor;
+
     return DrawGroup([
       if (look.haloOpacity > 0.01)
         for (var i = 0; i < _haloAlphas.length; i++)
           DrawPath(
             path: path,
             style: stroke(
-              _haloColor.withValues(alpha: _haloAlphas[i] * look.haloOpacity),
+              halo.withValues(alpha: _haloAlphas[i] * look.haloOpacity),
               outer - i * _haloStep,
             ),
           ),
       DrawPath(path: path, style: stroke(look.borderColor, borderWidth)),
-      DrawPath(path: path, style: stroke(look.coreColor, coreWidth)),
+      DrawPath(path: path, style: stroke(core, coreWidth)),
     ]);
   }
 }

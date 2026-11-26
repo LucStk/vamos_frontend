@@ -485,6 +485,9 @@ type DiscoveredTripType {
   trip: TripType!
   score: Float!
   preview: [[LatLngType!]!]!
+  daysCount: Int!
+  lengthM: Float!
+  mainMobility: MobilityType
 }
 
 type DiscoveryTileType {

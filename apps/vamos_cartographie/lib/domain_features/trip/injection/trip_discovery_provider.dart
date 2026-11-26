@@ -23,19 +23,28 @@ class TripDiscoveryFiltersNotifier extends _$TripDiscoveryFiltersNotifier {
 
 /// Voyages à dessiner pour la vue courante.
 final class TripDiscoveryState {
-  const TripDiscoveryState({this.trips = const [], this.loading = false});
+  const TripDiscoveryState({
+    this.trips = const [],
+    this.loading = false,
+    this.canShowMore = true,
+  });
 
   final List<VisibleTrip> trips;
   final bool loading;
+
+  /// Reste-t-il un palier de densité à demander ? Faux au dernier palier :
+  /// la dernière carte du carrousel ne propose plus rien.
+  final bool canShowMore;
 
   @override
   bool operator ==(Object other) =>
       other is TripDiscoveryState &&
       other.loading == loading &&
+      other.canShowMore == canShowMore &&
       listEquals(other.trips, trips);
 
   @override
-  int get hashCode => Object.hash(loading, Object.hashAll(trips));
+  int get hashCode => Object.hash(loading, canShowMore, Object.hashAll(trips));
 }
 
 /// Suit la caméra : à chaque arrêt du geste, calcule les tuiles de la vue,
@@ -47,12 +56,25 @@ final class TripDiscoveryState {
 @Riverpod(keepAlive: true)
 class TripDiscovery extends _$TripDiscovery {
   static const _debounce = Duration(milliseconds: 250);
-  static const _perTile = 12;
+
+  /// Paliers de densité. `perTile` est ce qu'on demande au serveur (30 est son
+  /// plafond), `maxTrips` ce que la vue garde après dédoublonnage des tuiles.
+  /// Le bouton « plus de voyages » de la dernière carte monte d'un palier.
+  static const _steps = [
+    (perTile: 12, maxTrips: 40),
+    (perTile: 21, maxTrips: 80),
+    (perTile: 30, maxTrips: 120),
+  ];
 
   final _cache = TripDiscoveryCache();
   final _inFlight = <(TripDiscoveryFilters, DiscoveryTile)>{};
   Timer? _timer;
   int? _level;
+  int _step = 0;
+
+  /// Incrémenté à chaque changement de palier : les réponses demandées sous
+  /// l'ancien palier sont périmées et ne doivent pas rejoindre le cache.
+  int _generation = 0;
 
   @override
   TripDiscoveryState build() {
@@ -96,11 +118,12 @@ class TripDiscovery extends _$TripDiscovery {
 
     final keys = [for (final t in missing) (filters, t)];
     _inFlight.addAll(keys);
+    final generation = _generation;
     final result = await ref
         .read(tripRepositoryProvider)
-        .discoverTrips(missing, filters, perTile: _perTile);
+        .discoverTrips(missing, filters, perTile: _steps[_step].perTile);
     _inFlight.removeAll(keys);
-    if (!ref.mounted) return;
+    if (!ref.mounted || generation != _generation) return;
 
     result.fold((failure) => debugPrint('discoverTrips : $failure'), (tiles) {
       _ingest(tiles);
@@ -128,8 +151,27 @@ class TripDiscovery extends _$TripDiscovery {
         filters: filters,
         tiles: DiscoveryTile.covering(viewport, level),
         viewport: viewport,
+        maxTrips: _steps[_step].maxTrips,
       ),
       loading: loading ?? _inFlight.isNotEmpty,
+      canShowMore: _step < _steps.length - 1,
+    );
+  }
+
+  /// Monte d'un palier de densité et redemande la vue : le bouton « plus de
+  /// voyages » de la dernière carte du carrousel.
+  void showMore() {
+    if (_step >= _steps.length - 1) return;
+    _step++;
+    _generation++;
+    // La clé du cache ne tient pas compte du palier : ses tuiles ne
+    // contiennent que l'ancienne densité, il faut les redemander.
+    _cache.clear();
+
+    final camera = ref.read(readyCameraProvider);
+    if (camera == null) return;
+    Future.microtask(
+      () => _refresh(camera, ref.read(tripDiscoveryFiltersProvider)),
     );
   }
 

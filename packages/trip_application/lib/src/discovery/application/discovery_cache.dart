@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:trip_application/src/discovery/domain/discovered_trip.dart';
 import 'package:trip_application/src/discovery/domain/discovery_filters.dart';
 import 'package:trip_application/src/discovery/domain/discovery_tile.dart';
+import 'package:trip_application/src/route/domain/mobility_types.dart';
 import 'package:trip_application/src/trip/domain/trip.dart';
 
 /// Un voyage à dessiner : son tracé à l'échelle de la tuile qui l'a choisi.
@@ -13,11 +14,20 @@ final class VisibleTrip {
     required this.id,
     required this.score,
     required this.preview,
+    required this.daysCount,
+    required this.lengthM,
+    required this.mainMobility,
   });
 
   final TripId id;
   final double score;
   final List<List<LatLng>> preview;
+
+  /// Les trois chiffres de la carte résumé, repris de la découverte : le titre,
+  /// l'auteur et les photos, eux, sont dans les stores.
+  final int daysCount;
+  final double lengthM;
+  final MobilityType? mainMobility;
 
   @override
   bool operator ==(Object other) =>
@@ -61,7 +71,14 @@ class TripDiscoveryCache {
         for (final t in result.trips)
           if (t.preview.any((part) => part.length >= 2))
             (
-              trip: VisibleTrip(id: t.id, score: t.score, preview: t.preview),
+              trip: VisibleTrip(
+                id: t.id,
+                score: t.score,
+                preview: t.preview,
+                daysCount: t.daysCount,
+                lengthM: t.lengthM,
+                mainMobility: t.mainMobility,
+              ),
               bounds: MapLatLngBounds.fromPoints(t.preview.expand((p) => p)),
             ),
       ],
@@ -70,6 +87,11 @@ class TripDiscoveryCache {
       _entries.remove(_entries.keys.first);
     }
   }
+
+  /// Oublie tout. À appeler quand ce que le serveur renverrait pour une tuile
+  /// a changé sans que les filtres bougent : la clé ne distingue pas, par
+  /// exemple, le nombre de voyages demandés par tuile.
+  void clear() => _entries.clear();
 
   /// Tuiles de [tiles] absentes du cache, ou périmées.
   List<DiscoveryTile> missing(
