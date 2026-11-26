@@ -77,7 +77,7 @@ final class DiscoveredTripItemsProvider
 }
 
 String _$discoveredTripItemsHash() =>
-    r'7fcc44f786ff718644734e690f33901d8b96d65c';
+    r'fb4a06c69b51e73d46d9b01953063a9fddded8bb';
 
 /// Voyages choisis pour la vue courante (découverte), dessinés avec leur
 /// aperçu simplifié à l'échelle de la vue. Les autres voyages chargés restent

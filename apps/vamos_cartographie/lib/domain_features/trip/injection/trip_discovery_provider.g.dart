@@ -120,7 +120,7 @@ final class TripDiscoveryProvider
   }
 }
 
-String _$tripDiscoveryHash() => r'f4ec477d68994af2860e9cdc96a1014e40e30678';
+String _$tripDiscoveryHash() => r'5776413bc933ef087ba372f6d185af0e40d35b6e';
 
 /// Suit la caméra : à chaque arrêt du geste, calcule les tuiles de la vue,
 /// affiche aussitôt ce que le cache en sait, et demande au serveur les tuiles

@@ -9,14 +9,35 @@ part of 'recent_trips_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Les derniers voyages ouverts, du plus récent au plus ancien, sans doublon.
+///
+/// Gardé **sur l'appareil** (`shared_preferences`) et non au serveur : c'est
+/// une commodité locale, qui marche donc aussi sans compte. En contrepartie,
+/// l'historique ne suit pas l'utilisateur d'un appareil à l'autre.
+///
+/// La liste n'est pas vidée à la déconnexion : elle appartient à l'appareil,
+/// et ne contient que des voyages publics déjà consultés.
 
 @ProviderFor(RecentTrips)
 final recentTripsProvider = RecentTripsProvider._();
 
 /// Les derniers voyages ouverts, du plus récent au plus ancien, sans doublon.
+///
+/// Gardé **sur l'appareil** (`shared_preferences`) et non au serveur : c'est
+/// une commodité locale, qui marche donc aussi sans compte. En contrepartie,
+/// l'historique ne suit pas l'utilisateur d'un appareil à l'autre.
+///
+/// La liste n'est pas vidée à la déconnexion : elle appartient à l'appareil,
+/// et ne contient que des voyages publics déjà consultés.
 final class RecentTripsProvider
     extends $NotifierProvider<RecentTrips, List<RecentTrip>> {
   /// Les derniers voyages ouverts, du plus récent au plus ancien, sans doublon.
+  ///
+  /// Gardé **sur l'appareil** (`shared_preferences`) et non au serveur : c'est
+  /// une commodité locale, qui marche donc aussi sans compte. En contrepartie,
+  /// l'historique ne suit pas l'utilisateur d'un appareil à l'autre.
+  ///
+  /// La liste n'est pas vidée à la déconnexion : elle appartient à l'appareil,
+  /// et ne contient que des voyages publics déjà consultés.
   RecentTripsProvider._()
     : super(
         from: null,
@@ -44,9 +65,16 @@ final class RecentTripsProvider
   }
 }
 
-String _$recentTripsHash() => r'0000000000000000000000000000000000000000';
+String _$recentTripsHash() => r'23bf3c478b053a0a99867cc39a58cd3e9f5b9cb6';
 
 /// Les derniers voyages ouverts, du plus récent au plus ancien, sans doublon.
+///
+/// Gardé **sur l'appareil** (`shared_preferences`) et non au serveur : c'est
+/// une commodité locale, qui marche donc aussi sans compte. En contrepartie,
+/// l'historique ne suit pas l'utilisateur d'un appareil à l'autre.
+///
+/// La liste n'est pas vidée à la déconnexion : elle appartient à l'appareil,
+/// et ne contient que des voyages publics déjà consultés.
 
 abstract class _$RecentTrips extends $Notifier<List<RecentTrip>> {
   List<RecentTrip> build();

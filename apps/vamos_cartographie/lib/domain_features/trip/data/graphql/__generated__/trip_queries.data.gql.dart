@@ -4,6 +4,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:vamos_cartographie/core/graphql/__generated__/geo_fields.data.gql.dart'
+    as _i3;
+import 'package:vamos_cartographie/core/graphql/__generated__/schema.schema.gql.dart'
     as _i2;
 import 'package:vamos_cartographie/core/graphql/__generated__/schema.utils.gql.dart'
     as _gqlUtils;
@@ -543,6 +545,9 @@ class GDiscoverTripsData_discoverTrips {
 class GDiscoverTripsData_discoverTrips_trips {
   const GDiscoverTripsData_discoverTrips_trips({
     required this.score,
+    required this.daysCount,
+    required this.lengthM,
+    this.mainMobility,
     required this.preview,
     required this.trip,
     this.G__typename = 'DiscoveredTripType',
@@ -552,10 +557,15 @@ class GDiscoverTripsData_discoverTrips_trips {
       Map<String, dynamic> json) {
     return GDiscoverTripsData_discoverTrips_trips(
       score: (json['score'] as num).toDouble(),
+      daysCount: (json['daysCount'] as int),
+      lengthM: (json['lengthM'] as num).toDouble(),
+      mainMobility: json['mainMobility'] == null
+          ? null
+          : _i2.GMobilityType.fromJson((json['mainMobility'] as String)),
       preview: (json['preview'] as List<dynamic>)
           .map((_$e) => (_$e as List<dynamic>)
               .map((_$e) =>
-                  _i2.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
+                  _i3.GLatLngData.fromJson((_$e as Map<String, dynamic>)))
               .toList())
           .toList(),
       trip:
@@ -566,7 +576,13 @@ class GDiscoverTripsData_discoverTrips_trips {
 
   final double score;
 
-  final List<List<_i2.GLatLngData>> preview;
+  final int daysCount;
+
+  final double lengthM;
+
+  final _i2.GMobilityType? mainMobility;
+
+  final List<List<_i3.GLatLngData>> preview;
 
   final _i1.GTripSummaryData trip;
 
@@ -575,6 +591,11 @@ class GDiscoverTripsData_discoverTrips_trips {
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     _$result['score'] = this.score;
+    _$result['daysCount'] = this.daysCount;
+    _$result['lengthM'] = this.lengthM;
+    final _$mainMobilityValue = this.mainMobility;
+    _$result['mainMobility'] =
+        _$mainMobilityValue == null ? null : _$mainMobilityValue.toJson();
     _$result['preview'] = this
         .preview
         .map((_$e) => _$e.map((_$e) => _$e.toJson()).toList())
@@ -586,12 +607,21 @@ class GDiscoverTripsData_discoverTrips_trips {
 
   GDiscoverTripsData_discoverTrips_trips copyWith({
     double? score,
-    List<List<_i2.GLatLngData>>? preview,
+    int? daysCount,
+    double? lengthM,
+    _i2.GMobilityType? mainMobility,
+    bool mainMobilityIsSet = false,
+    List<List<_i3.GLatLngData>>? preview,
     _i1.GTripSummaryData? trip,
     String? G__typename,
   }) {
     return GDiscoverTripsData_discoverTrips_trips(
       score: score ?? this.score,
+      daysCount: daysCount ?? this.daysCount,
+      lengthM: lengthM ?? this.lengthM,
+      mainMobility: mainMobility != null || mainMobilityIsSet
+          ? mainMobility
+          : this.mainMobility,
       preview: preview ?? this.preview,
       trip: trip ?? this.trip,
       G__typename: G__typename ?? this.G__typename,
@@ -603,6 +633,9 @@ class GDiscoverTripsData_discoverTrips_trips {
     return identical(this, other) ||
         (other is GDiscoverTripsData_discoverTrips_trips &&
             score == other.score &&
+            daysCount == other.daysCount &&
+            lengthM == other.lengthM &&
+            mainMobility == other.mainMobility &&
             _gqlUtils.listEqualsDeep(preview, other.preview) &&
             trip == other.trip &&
             G__typename == other.G__typename);
@@ -610,12 +643,12 @@ class GDiscoverTripsData_discoverTrips_trips {
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, score, _gqlUtils.listHashDeep(preview), trip, G__typename);
+    return Object.hash(runtimeType, score, daysCount, lengthM, mainMobility,
+        _gqlUtils.listHashDeep(preview), trip, G__typename);
   }
 
   @override
   String toString() {
-    return 'GDiscoverTripsData_discoverTrips_trips(score: $score, preview: $preview, trip: $trip, G__typename: $G__typename)';
+    return 'GDiscoverTripsData_discoverTrips_trips(score: $score, daysCount: $daysCount, lengthM: $lengthM, mainMobility: $mainMobility, preview: $preview, trip: $trip, G__typename: $G__typename)';
   }
 }
