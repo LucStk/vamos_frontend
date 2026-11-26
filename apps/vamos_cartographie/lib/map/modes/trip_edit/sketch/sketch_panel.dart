@@ -72,7 +72,7 @@ class _EditionPanel extends ConsumerWidget {
       trailing: [
         ToolAction(
           icon: Icons.backspace_outlined,
-          label: 'Effacer le tracé',
+          label: 'Effacer',
           destructive: true,
           onPressed: sketch == null
               ? null
@@ -81,14 +81,14 @@ class _EditionPanel extends ConsumerWidget {
       ],
       secondary: ToolAction(
         icon: Icons.alt_route,
-        label: 'Prévisualiser l’itinéraire',
+        label: 'Calculer',
         onPressed: canValidate
             ? () => ref.applyTransition(mode.preview(mobilityType))
             : null,
       ),
       primary: ToolAction(
         icon: Icons.check,
-        label: 'Valider à main levée',
+        label: 'Ajouter',
         onPressed: canValidate
             ? () => ref.applyTransition(mode.validateFreehand(mobilityType))
             : null,
@@ -121,8 +121,7 @@ class _PreviewPanel extends ConsumerWidget {
         ToolAction(
           icon: Icons.refresh,
           label: 'Recalculer',
-          onPressed: () =>
-              ref.applyTransition(mode.recalculate(mobilityType)),
+          onPressed: () => ref.applyTransition(mode.recalculate(mobilityType)),
         ),
       ],
       secondary: ToolAction(
@@ -132,7 +131,7 @@ class _PreviewPanel extends ConsumerWidget {
       ),
       primary: ToolAction(
         icon: Icons.check,
-        label: 'Valider',
+        label: 'Ajouter',
         onPressed: () => ref.applyTransition(mode.commit()),
       ),
     );

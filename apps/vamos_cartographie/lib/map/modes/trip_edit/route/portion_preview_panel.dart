@@ -60,7 +60,7 @@ class _PortionPreviewPanelState extends ConsumerState<PortionPreviewPanel> {
       ),
       primary: ToolAction(
         icon: Icons.check,
-        label: 'Valider',
+        label: 'Ajouter',
         onPressed: () => ref.applyTransition(mode.commit()),
       ),
     );

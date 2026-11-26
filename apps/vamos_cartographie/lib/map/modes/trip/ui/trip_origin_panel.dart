@@ -64,7 +64,7 @@ class TripOriginPanel extends ConsumerWidget {
                   ),
                   primary: ToolAction(
                     icon: Icons.draw,
-                    label: 'Tracer depuis le départ',
+                    label: 'Tracer depuis',
                     onPressed: () => _sketch(ref),
                   ),
                 ),

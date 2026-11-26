@@ -81,7 +81,7 @@ class CursorPanel extends ConsumerWidget {
 
     final waypoint = ToolAction(
       icon: Icons.add_location_alt_outlined,
-      label: 'Créer une étape ici',
+      label: 'Créer ici',
       onPressed: () => ref.applyTransition(
         CursorActions.createWaypoint(tripId, cursor.point),
       ),
@@ -92,7 +92,12 @@ class CursorPanel extends ConsumerWidget {
     final anchor = cursor.anchor;
     if (anchor != null && sketchTrace) {
       final originOnly =
-          ref.read(routeStoreProvider(tripId)).route?.current.geometry.isEmpty ??
+          ref
+              .read(routeStoreProvider(tripId))
+              .route
+              ?.current
+              .geometry
+              .isEmpty ??
           false;
       return ToolPanel(
         error: error,
@@ -103,10 +108,8 @@ class CursorPanel extends ConsumerWidget {
         },
         secondary: canCreateWaypoint ? waypoint : null,
         primary: ToolAction(
-          icon: Icons.draw,
-          label: cursor.onExtremity
-              ? 'Continuer depuis cette extrémité'
-              : 'Tracer depuis ici',
+          icon: Icons.edit_outlined,
+          label: cursor.onExtremity ? 'Dessiner depuis' : 'Tracer depuis',
           onPressed: () => ref.applyTransition(
             SketchEdition.startFromCursor(
               tripId,
@@ -149,12 +152,12 @@ class CursorPanel extends ConsumerWidget {
           ? sketchTrace
                 ? ToolAction(
                     icon: Icons.draw,
-                    label: 'Tracer jusqu’ici',
+                    label: 'Tracer jusqu’à',
                     onPressed: () => trace(SketchEdition.sketchToCursor),
                   )
                 : ToolAction(
                     icon: Icons.alt_route,
-                    label: 'Calculer la route',
+                    label: 'Calculer',
                     onPressed: () => trace(SketchEdition.routeToCursor),
                   )
           : canCreateWaypoint
