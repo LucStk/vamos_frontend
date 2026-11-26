@@ -64,6 +64,16 @@
           exec flutter run "$@"
         '';
 
+        # `run-preview [args flutter run]` : app Linux avec aperçu smartphone.
+        # Forcée en X11 (XWayland) : sous Wayland, Flutter 3.50 n'affiche pas
+        # la fenêtre de main_preview.dart (« Timed out waiting for subsurface
+        # frame »).
+        runPreview = pkgs.writeShellScriptBin "run-preview" ''
+          set -euo pipefail
+          cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel)/apps/vamos_cartographie"
+          GDK_BACKEND=x11 exec flutter run -d linux -t lib/main_preview.dart "$@"
+        '';
+
         runtimeLibs = with pkgs; [
           gtk3 glib libunwind orc libepoxy gsettings-desktop-schemas
           at-spi2-atk pango cairo harfbuzz fontconfig libGL
@@ -91,6 +101,7 @@
             # Android development
             jdk17
             runPhone
+            runPreview
             androidSdk.androidsdk
           ];
 
