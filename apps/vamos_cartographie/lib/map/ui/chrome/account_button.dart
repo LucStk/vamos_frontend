@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:vamos_cartographie/domain_features/auth/providers/providers.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';
-import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 
 class AccountButton extends ConsumerWidget {
-  const AccountButton({super.key});
+  const AccountButton({super.key, required this.onTap});
+
+  /// Ce que fait le bouton : ouvrir le panneau de compte (`AccountPanel`).
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +25,7 @@ class AccountButton extends ConsumerWidget {
         child: InkResponse(
           containedInkWell: true,
           highlightShape: BoxShape.circle,
-          onTap: () => const ProfileRoute().push(context),
+          onTap: onTap,
           child: authState.when(
             loading: () => const AccountButtonPlaceholder(),
             error: (_, _) => const LoggedOutAccountContent(),

@@ -8,8 +8,12 @@ import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
+import 'package:vamos_cartographie/map/ui/chrome/account_panel.dart';
 import 'package:flutter/material.dart';
 
+/// Les deux boutons du haut de la carte, collés en haut à gauche : le compte
+/// (qui déplie `AccountPanel` depuis le bord gauche) et la loupe (qui ouvre
+/// `SearchPanel` au milieu de l'écran).
 class SearchTopSheet extends ConsumerStatefulWidget {
   const SearchTopSheet({super.key, this.onPicked});
 
@@ -22,10 +26,11 @@ class SearchTopSheet extends ConsumerStatefulWidget {
 }
 
 class _SearchTopSheetState extends ConsumerState<SearchTopSheet> {
-  final _overlay = OverlayPortalController();
+  final _search = OverlayPortalController();
+  final _account = OverlayPortalController();
 
   void _onPlaceSelected(PlaceResult r) {
-    _overlay.hide();
+    _search.hide();
     final point = ref.read(mapCameraProvider).latLngToWorldOffset(r.position);
     ref.applyTransition(
       widget.onPicked?.call(point) ??
@@ -52,30 +57,32 @@ class _SearchTopSheetState extends ConsumerState<SearchTopSheet> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Align(
-        alignment: Alignment.topRight,
+        alignment: Alignment.topLeft,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 500),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const AccountButton(),
-                const Spacer(),
-                // La recherche s'ouvre dans la surcouche de l'écran, par-dessus
-                // le reste de l'interface, tout en restant dans cet arbre de
-                // widgets (les providers du mode restent accessibles).
-                OverlayPortal(
-                  controller: _overlay,
-                  overlayChildBuilder: (_) => SearchPanel(
-                    origin: () => ref.read(mapCameraProvider).center,
-                    onPlaceSelected: _onPlaceSelected,
-                    onClose: _overlay.hide,
-                  ),
-                  child: _SearchButton(onTap: _overlay.show),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Les deux panneaux s'ouvrent dans la surcouche de l'écran, donc
+              // par-dessus le reste de l'interface, tout en restant dans cet
+              // arbre de widgets (les providers du mode restent accessibles).
+              OverlayPortal(
+                controller: _account,
+                overlayChildBuilder: (_) =>
+                    AccountPanel(onClosed: _account.hide),
+                child: AccountButton(onTap: _account.show),
+              ),
+              const SizedBox(width: 12),
+              OverlayPortal(
+                controller: _search,
+                overlayChildBuilder: (_) => SearchPanel(
+                  origin: () => ref.read(mapCameraProvider).center,
+                  onPlaceSelected: _onPlaceSelected,
+                  onClose: _search.hide,
                 ),
-              ],
-            ),
+                child: _SearchButton(onTap: _search.show),
+              ),
+            ],
           ),
         ),
       ),

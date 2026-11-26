@@ -13,8 +13,9 @@ import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 
 enum _SearchKind { places, people }
 
-/// Recherche en surcouche : un champ, deux boutons (lieux / personnes) et les
-/// résultats du type choisi. Largeur : 300 au plus.
+/// Recherche en surcouche, au milieu de l'écran : un champ, deux boutons
+/// (lieux / personnes) et les résultats du type choisi. Sur téléphone, elle
+/// prend presque toute la largeur ; une marge reste de chaque côté.
 ///
 /// À afficher dans un `OverlayPortal`. [onPlaceSelected] est appelé quand on
 /// choisit un lieu (c'est là que la carte doit être recadrée) ; [onClose]
@@ -38,7 +39,9 @@ class SearchPanel extends ConsumerStatefulWidget {
 }
 
 class _SearchPanelState extends ConsumerState<SearchPanel> {
-  static const _maxWidth = 300.0;
+  /// Plafond pour les grands écrans : sur téléphone, c'est la largeur
+  /// disponible (écran moins les marges) qui gagne.
+  static const _maxWidth = 480.0;
 
   final _text = TextEditingController();
   _SearchKind _kind = _SearchKind.places;
@@ -47,12 +50,14 @@ class _SearchPanelState extends ConsumerState<SearchPanel> {
   @override
   void initState() {
     super.initState();
-    final back = _back = BackScope.interceptorsOf(context);
     final onClose = widget.onClose;
-    // `set` notifie le BackScope : pas pendant la construction.
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => back?.set(this, onClose),
-    );
+    // Après le frame : `set` notifie le `BackScope`, et le registre se cherche
+    // dans un arbre déjà monté.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final back = _back = BackScope.interceptorsOf(context);
+      back?.set(this, onClose);
+    });
   }
 
   @override
@@ -114,8 +119,7 @@ class _SearchPanelState extends ConsumerState<SearchPanel> {
                 16,
                 MediaQuery.viewInsetsOf(context).bottom,
               ),
-              child: Align(
-                alignment: Alignment.topRight,
+              child: Center(
                 child: LayoutBuilder(
                   builder: (context, constraints) => SizedBox(
                     width: math.min(_maxWidth, constraints.maxWidth),
@@ -130,7 +134,7 @@ class _SearchPanelState extends ConsumerState<SearchPanel> {
     );
   }
 
-  /// Se déplie depuis le coin où se trouvait la loupe.
+  /// Apparition : le panneau grandit légèrement depuis le centre.
   Widget _unfold(Widget child) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
@@ -138,11 +142,7 @@ class _SearchPanelState extends ConsumerState<SearchPanel> {
       curve: Curves.easeOut,
       builder: (context, t, child) => Opacity(
         opacity: t,
-        child: Transform.scale(
-          scale: 0.9 + 0.1 * t,
-          alignment: Alignment.topRight,
-          child: child,
-        ),
+        child: Transform.scale(scale: 0.95 + 0.05 * t, child: child),
       ),
       child: child,
     );
