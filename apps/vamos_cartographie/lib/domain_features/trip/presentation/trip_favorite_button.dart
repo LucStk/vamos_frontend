@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/core/domain/domain.dart';
 import 'package:vamos_cartographie/core/injection/notification_provider.dart';
+import 'package:vamos_cartographie/domain_features/auth/presentation/sign_in_required_dialog.dart';
 import 'package:vamos_cartographie/domain_features/auth/providers/providers.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/favorite_state.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
@@ -10,14 +11,23 @@ import 'package:vamos_cartographie/domain_features/user_profile/providers/favori
 
 /// Met le voyage en favori, ou l'en retire.
 ///
-/// Absent pour un visiteur (les favoris demandent un compte) et pour le
-/// propriétaire du voyage, qui le retrouve déjà dans ses voyages. L'affichage
-/// suit [isFavoriteTripProvider] : la liste des favoris est mise à jour de
-/// façon optimiste, l'icône change donc tout de suite.
+/// Absent pour le propriétaire du voyage, qui le retrouve déjà dans ses
+/// voyages, et pour un visiteur sauf si [askVisitorToSignIn]. L'affichage suit
+/// [isFavoriteTripProvider] : la liste des favoris est mise à jour de façon
+/// optimiste, l'icône change donc tout de suite.
 class TripFavoriteButton extends ConsumerWidget {
-  const TripFavoriteButton({super.key, required this.tripId});
+  const TripFavoriteButton({
+    super.key,
+    required this.tripId,
+    this.askVisitorToSignIn = false,
+  });
 
   final TripId tripId;
+
+  /// Pour un visiteur : le bouton s'affiche quand même, et l'appui propose de
+  /// se connecter. Le panneau des voyages s'en sert, là où un bouton absent
+  /// passerait pour un oubli.
+  final bool askVisitorToSignIn;
 
   Future<void> _toggle(WidgetRef ref, bool isFavorite) async {
     final me = ref.read(currentUserIdProvider);
@@ -43,7 +53,18 @@ class TripFavoriteButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final me = ref.watch(currentUserIdProvider);
-    if (me == null || ref.watch(isTripOwnedProvider(tripId))) {
+    if (me == null) {
+      if (!askVisitorToSignIn) return const SizedBox.shrink();
+      return IconButton.filledTonal(
+        tooltip: 'Ajouter aux favoris',
+        icon: const Icon(Icons.bookmark_border),
+        onPressed: () => showSignInRequiredDialog(
+          context,
+          action: 'mettre un voyage en favori',
+        ),
+      );
+    }
+    if (ref.watch(isTripOwnedProvider(tripId))) {
       return const SizedBox.shrink();
     }
 

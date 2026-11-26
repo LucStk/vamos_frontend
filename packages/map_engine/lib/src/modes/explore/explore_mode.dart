@@ -19,7 +19,11 @@ class ExploreMode extends AppMode {
     // fait partie de l'ouverture, voir [TripMode.open]).
     MapTrip e => Transition.withState((st) {
       final front = st.slots.get(selectionSlot);
-      return front is MapTrip && front.id == e.id
+      // Rien en avant (le panneau des cartes est réduit à son bouton) :
+      // l'appui entre dans le voyage, comme avant les cartes. Avec le panneau
+      // ouvert, l'appui déplace la mise en avant, et seul le voyage déjà en
+      // avant s'ouvre.
+      return front is! MapTrip || front.id == e.id
           ? TripMode.open(e.id, focus: true)
           : selectTrip(e);
     }),
