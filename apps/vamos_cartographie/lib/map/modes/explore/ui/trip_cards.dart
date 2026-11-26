@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -235,17 +237,6 @@ class _PanelState extends ConsumerState<_Panel> {
   void _enter(TripId id) =>
       ref.applyTransition(TripMode.open(id, focus: true));
 
-  /// Une carte choisie dans la liste : son voyage passe en avant et on revient
-  /// au carrousel, sur elle.
-  void _pick(int index, TripId id) {
-    _page = index;
-    setState(() {
-      _expanded = false;
-      _resetPages();
-    });
-    ref.applyTransition(ExploreMode.selectTrip(MapTrip(id)));
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -278,10 +269,6 @@ class _PanelState extends ConsumerState<_Panel> {
               height: _barHeight,
               onDragUpdate: (d) => _onDragUpdate(d, listHeight),
               onDragEnd: (d) => _onDragEnd(d, listHeight),
-              trailing: TripFavoriteButton(
-                tripId: widget.frontId,
-                askVisitorToSignIn: true,
-              ),
             ),
             TweenAnimationBuilder<double>(
               tween: Tween(end: height),
@@ -339,12 +326,12 @@ class _PanelState extends ConsumerState<_Panel> {
     rowHeight: _rowHeight,
     initialIndex: _page,
     count: discovery.trips.length + 1,
-    cardBuilder: (row) => _card(discovery, row, inList: true),
+    cardBuilder: (row) => _card(discovery, row),
   );
 
   /// La carte de la page (ou de la ligne) [at] : un voyage, ou la dernière,
   /// qui en demande plus.
-  Widget _card(TripDiscoveryState discovery, int at, {bool inList = false}) {
+  Widget _card(TripDiscoveryState discovery, int at) {
     final trips = discovery.trips;
     if (at >= trips.length) {
       return _MoreCard(
@@ -355,31 +342,24 @@ class _PanelState extends ConsumerState<_Panel> {
     }
 
     final trip = trips[at];
-    return _TripCard(
-      trip: trip,
-      onEnter: () => _enter(trip.id),
-      // Dans la liste, appuyer sur une carte met son voyage en avant et
-      // referme la liste ; dans le carrousel, la carte affichée est déjà
-      // celle du voyage en avant.
-      onTap: inList ? () => _pick(at, trip.id) : null,
-    );
+    // L'appui sur la carte entre dans le voyage, d'où qu'elle vienne : il n'y
+    // a plus de bouton « Entrer ».
+    return _TripCard(trip: trip, onTap: () => _enter(trip.id));
   }
 }
 
 /// La barre de développement : ce qu'on tire pour ouvrir ou refermer le
-/// panneau, et où se trouve le bouton favori du voyage en avant.
+/// panneau.
 class _DragBar extends StatelessWidget {
   const _DragBar({
     required this.height,
     required this.onDragUpdate,
     required this.onDragEnd,
-    required this.trailing,
   });
 
   final double height;
   final void Function(DragUpdateDetails) onDragUpdate;
   final void Function(DragEndDetails) onDragEnd;
-  final Widget trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -391,24 +371,15 @@ class _DragBar extends StatelessWidget {
       onVerticalDragEnd: onDragEnd,
       child: SizedBox(
         height: height,
-        child: Row(
-          children: [
-            // Symétrie avec le bouton de droite : la poignée reste centrée.
-            const SizedBox(width: 48),
-            Expanded(
-              child: Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.outline,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
+        child: Center(
+          child: Container(
+            width: 36,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
+              borderRadius: BorderRadius.circular(2),
             ),
-            SizedBox(width: 48, child: Center(child: trailing)),
-          ],
+          ),
         ),
       ),
     );
@@ -478,14 +449,12 @@ class _CardListState extends State<_CardList> {
 }
 
 class _TripCard extends ConsumerWidget {
-  const _TripCard({required this.trip, required this.onEnter, this.onTap});
+  const _TripCard({required this.trip, required this.onTap});
 
   final VisibleTrip trip;
-  final VoidCallback onEnter;
 
-  /// Appui sur la carte elle-même. `null` : la carte n'est pas cliquable (dans
-  /// le carrousel, elle montre déjà le voyage en avant).
-  final VoidCallback? onTap;
+  /// Appui sur la carte : on entre dans le voyage.
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -541,16 +510,165 @@ class _TripCard extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  FilledButton(onPressed: onEnter, child: const Text('Entrer')),
+                  TripFavoriteButton(
+                    tripId: trip.id,
+                    askVisitorToSignIn: true,
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
-              Expanded(child: _Images(images: images)),
-              const SizedBox(height: 10),
-              _Numbers(trip: trip),
+              // La pile de photos à gauche, les chiffres à sa droite : la
+              // carte est étroite, les trois tiennent mieux en colonne.
+              Expanded(
+                child: Row(
+                  children: [
+                    _PhotoStack(images: images),
+                    const SizedBox(width: 12),
+                    Expanded(child: _Numbers(trip: trip)),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Une seule photo présente le voyage, posée sur une pile dont les feuilles
+/// dépassent derrière : l'appui ouvre toutes les photos en grand.
+class _PhotoStack extends StatelessWidget {
+  const _PhotoStack({required this.images});
+
+  final List<StoredFileFields> images;
+
+  /// Décalage d'une feuille à la suivante.
+  static const _offset = 5.0;
+
+  /// Au-delà, la pile ne dit rien de plus et mange la photo.
+  static const _maxBehind = 2;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final shown = [
+      for (final image in images)
+        if (!image.hasError) image.id,
+    ];
+
+    // Carré : la hauteur disponible donne le côté.
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final side = constraints.maxHeight;
+        if (shown.isEmpty) {
+          return _Sheet(
+            side: side,
+            child: Icon(
+              Icons.photo_outlined,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          );
+        }
+
+        final behind = math.min(shown.length - 1, _maxBehind);
+        final photo = side - behind * _offset;
+
+        return SizedBox(
+          width: side,
+          height: side,
+          child: GestureDetector(
+            onTap: () =>
+                showImageGallery(context, images: shown, initialIndex: 0),
+            child: Stack(
+              children: [
+                // Les feuilles du dessous, de la plus lointaine à la plus
+                // proche, puis la photo par-dessus.
+                for (var i = behind; i >= 1; i--)
+                  Positioned(
+                    left: i * _offset,
+                    top: i * _offset,
+                    child: _Sheet(side: photo),
+                  ),
+                ThumbnailView(fileId: shown.first, size: photo),
+                if (shown.length > 1)
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    width: photo,
+                    height: photo,
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: _PhotoCount(count: shown.length),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// Une feuille de la pile : le dos d'une photo.
+class _Sheet extends StatelessWidget {
+  const _Sheet({required this.side, this.child});
+
+  final double side;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      width: side,
+      height: side,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
+      ),
+      child: child,
+    );
+  }
+}
+
+/// Le nombre de photos, posé sur la pile : ce qui dit qu'il y a à voir.
+class _PhotoCount extends StatelessWidget {
+  const _PhotoCount({required this.count});
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(4),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: Colors.black54,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.photo_library_outlined,
+            size: 12,
+            color: Colors.white,
+          ),
+          const SizedBox(width: 3),
+          Text(
+            '$count',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -601,116 +719,8 @@ class _Author extends StatelessWidget {
   }
 }
 
-/// Aperçu des photos du voyage, en vignettes. Un appui les ouvre en grand,
-/// défilables. Sans photo, la place sert à le dire.
-class _Images extends StatelessWidget {
-  const _Images({required this.images});
-
-  final List<StoredFileFields> images;
-
-  static const _spacing = 6.0;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final shown = [
-      for (final image in images)
-        if (!image.hasError) image.id,
-    ];
-
-    if (shown.isEmpty) {
-      return Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'Aucune photo',
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
-        ),
-      );
-    }
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final size = constraints.maxHeight;
-        // Le glissement horizontal appartient au carrousel, donc la bande ne
-        // défile pas : on n'affiche que ce qui tient, et la dernière vignette
-        // compte celles qui restent. Toutes sont dans la visionneuse.
-        final fits = ((constraints.maxWidth + _spacing) / (size + _spacing))
-            .floor()
-            .clamp(1, shown.length);
-        final hidden = shown.length - fits;
-
-        return Row(
-          children: [
-            for (var i = 0; i < fits; i++) ...[
-              if (i > 0) const SizedBox(width: _spacing),
-              _Thumbnail(
-                fileId: shown[i],
-                size: size,
-                // Le compte sur la dernière vignette visible.
-                hidden: i == fits - 1 ? hidden : 0,
-                onTap: () =>
-                    showImageGallery(context, images: shown, initialIndex: i),
-              ),
-            ],
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _Thumbnail extends StatelessWidget {
-  const _Thumbnail({
-    required this.fileId,
-    required this.size,
-    required this.hidden,
-    required this.onTap,
-  });
-
-  final StoredFileId fileId;
-  final double size;
-
-  /// Photos non affichées, annoncées par-dessus celle-ci. 0 : rien à dire.
-  final int hidden;
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final thumbnail = ThumbnailView(fileId: fileId, size: size, onTap: onTap);
-    if (hidden <= 0) return thumbnail;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        children: [
-          thumbnail,
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: ColoredBox(
-                color: Colors.black54,
-                child: Center(
-                  child: Text(
-                    '+$hidden',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Les trois chiffres : jours, mobilité principale, kilomètres.
+/// Les trois chiffres : jours, mobilité principale, kilomètres. En colonne,
+/// à côté de la photo.
 class _Numbers extends StatelessWidget {
   const _Numbers({required this.trip});
 
@@ -720,7 +730,9 @@ class _Numbers extends StatelessWidget {
   Widget build(BuildContext context) {
     final mobility = trip.mainMobility?.display;
 
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _Number(
           icon: Icons.event_outlined,
@@ -753,12 +765,19 @@ class _Number extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.only(right: 14),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           Icon(icon, size: 16, color: theme.colorScheme.onSurfaceVariant),
-          const SizedBox(width: 4),
-          Text(label, style: theme.textTheme.labelMedium),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.labelMedium,
+            ),
+          ),
         ],
       ),
     );

@@ -13,7 +13,7 @@ import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 
 enum _SearchKind { places, people }
 
-/// Recherche en surcouche, au milieu de l'écran : un champ, deux boutons
+/// Recherche en surcouche, en haut de l'écran : un champ, deux boutons
 /// (lieux / personnes) et les résultats du type choisi. Sur téléphone, elle
 /// prend presque toute la largeur ; une marge reste de chaque côté.
 ///
@@ -115,11 +115,14 @@ class _SearchPanelState extends ConsumerState<SearchPanel> {
               // Le clavier ne doit pas cacher la liste.
               padding: EdgeInsets.fromLTRB(
                 16,
-                0,
+                8,
                 16,
                 MediaQuery.viewInsetsOf(context).bottom,
               ),
-              child: Center(
+              child: Align(
+                // En haut, centrée : le champ est près de la loupe qui l'a
+                // ouvert, et la liste des résultats descend sous lui.
+                alignment: Alignment.topCenter,
                 child: LayoutBuilder(
                   builder: (context, constraints) => SizedBox(
                     width: math.min(_maxWidth, constraints.maxWidth),
@@ -134,7 +137,7 @@ class _SearchPanelState extends ConsumerState<SearchPanel> {
     );
   }
 
-  /// Apparition : le panneau grandit légèrement depuis le centre.
+  /// Apparition : le panneau grandit légèrement depuis le haut.
   Widget _unfold(Widget child) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
@@ -142,7 +145,11 @@ class _SearchPanelState extends ConsumerState<SearchPanel> {
       curve: Curves.easeOut,
       builder: (context, t, child) => Opacity(
         opacity: t,
-        child: Transform.scale(scale: 0.95 + 0.05 * t, child: child),
+        child: Transform.scale(
+          scale: 0.95 + 0.05 * t,
+          alignment: Alignment.topCenter,
+          child: child,
+        ),
       ),
       child: child,
     );

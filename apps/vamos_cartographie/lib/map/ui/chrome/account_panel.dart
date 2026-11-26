@@ -5,11 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
 import 'package:vamos_cartographie/domain_features/auth/auth.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/recent_trips_provider.dart';
-import 'package:vamos_cartographie/domain_features/user_profile/presentation/user_tile.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/favorite_trips_providers.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/follow_providers.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/back/back_scope.dart';
+import 'package:vamos_cartographie/map/ui/chrome/panel_sections_provider.dart';
 import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import 'package:vamos_cartographie/routing/trip_navigation.dart';
 
@@ -137,15 +137,27 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
                   height: double.infinity,
                   child: Material(
                     elevation: 8,
-                    child: SafeArea(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          _AccountBox(onClose: _close, onSignOut: _signOut),
-                          const Divider(height: 1),
-                          Expanded(child: _Sections(onClose: _close)),
-                        ],
-                      ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SafeArea(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                _AccountBox(
+                                  onClose: _close,
+                                  onSignOut: _signOut,
+                                ),
+                                Expanded(child: _Sections(onClose: _close)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // La poignée du bord droit : ce qu'on tire pour
+                        // refermer. Dans sa propre colonne, pour qu'aucune
+                        // ligne ne passe dessous.
+                        const _SideHandle(),
+                      ],
                     ),
                   ),
                 ),
@@ -179,55 +191,82 @@ class _AccountBox extends ConsumerWidget {
     // Un visiteur n'a rien à voir ici que « se connecter ».
     final isLoggedIn = ref.watch(currentUserIdProvider) != null;
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: isLoggedIn
-                ? const LoggedInAccountContent()
-                : const CircleAvatar(
-                    radius: 18,
-                    child: Icon(Icons.person_outline),
-                  ),
+    return ColoredBox(
+      // Une autre couleur que le reste du panneau : l'en-tête se distingue
+      // des onglets.
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Center(
+              child: isLoggedIn
+                  ? const LoggedInAccountContent()
+                  : const CircleAvatar(
+                      radius: 18,
+                      child: Icon(Icons.person_outline),
+                    ),
+            ),
+            const SizedBox(height: 12),
+            if (isLoggedIn) ...[
+              FilledButton.tonalIcon(
+                onPressed: () {
+                  const ProfileRoute().push(context);
+                  onClose();
+                },
+                style: FilledButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                ),
+                icon: const Icon(Icons.account_circle_outlined, size: 18),
+                label: const Text('Mon profil'),
+              ),
+              const SizedBox(height: 4),
+              TextButton.icon(
+                onPressed: onSignOut,
+                style: TextButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                ),
+                icon: const Icon(Icons.logout, size: 18),
+                label: const Text('Se déconnecter'),
+              ),
+            ] else
+              FilledButton.tonalIcon(
+                onPressed: () {
+                  const LoginRoute().push(context);
+                  onClose();
+                },
+                style: FilledButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                ),
+                icon: const Icon(Icons.login, size: 18),
+                label: const Text('Connexion'),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// La poignée du bord droit : ce qu'on tire pour refermer le panneau. Le
+/// glissement, lui, est capté par tout le panneau.
+class _SideHandle extends StatelessWidget {
+  const _SideHandle();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 14,
+      child: Center(
+        child: Container(
+          width: 4,
+          height: 36,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.outline,
+            borderRadius: BorderRadius.circular(2),
           ),
-          const SizedBox(height: 12),
-          if (isLoggedIn) ...[
-            FilledButton.tonalIcon(
-              onPressed: () {
-                const ProfileRoute().push(context);
-                onClose();
-              },
-              style: FilledButton.styleFrom(
-                visualDensity: VisualDensity.compact,
-              ),
-              icon: const Icon(Icons.account_circle_outlined, size: 18),
-              label: const Text('Mon profil'),
-            ),
-            const SizedBox(height: 4),
-            TextButton.icon(
-              onPressed: onSignOut,
-              style: TextButton.styleFrom(
-                visualDensity: VisualDensity.compact,
-              ),
-              icon: const Icon(Icons.logout, size: 18),
-              label: const Text('Se déconnecter'),
-            ),
-          ] else
-            FilledButton.tonalIcon(
-              onPressed: () {
-                const LoginRoute().push(context);
-                onClose();
-              },
-              style: FilledButton.styleFrom(
-                visualDensity: VisualDensity.compact,
-              ),
-              icon: const Icon(Icons.login, size: 18),
-              label: const Text('Connexion'),
-            ),
-        ],
+        ),
       ),
     );
   }
@@ -266,6 +305,7 @@ class _RecentSection extends ConsumerWidget {
     final trips = ref.watch(recentTripsProvider);
 
     return _Section(
+      id: 'recent',
       icon: Icons.history,
       title: 'Récent',
       children: [
@@ -292,13 +332,18 @@ class _FavoritesSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final id = userId;
     if (id == null) {
-      return const _Section(icon: Icons.bookmark_border, title: 'Favoris');
+      return const _Section(
+        id: 'favorites',
+        icon: Icons.bookmark_border,
+        title: 'Favoris',
+      );
     }
 
     final load = ref.watch(loadFavoriteTripsProvider(id));
     final trips = ref.watch(favoriteTripSummariesProvider(id));
 
     return _Section(
+      id: 'favorites',
       icon: Icons.bookmark_border,
       title: 'Favoris',
       trailing: trips.isEmpty
@@ -332,7 +377,11 @@ class _FollowingSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final id = userId;
     if (id == null) {
-      return const _Section(icon: Icons.people_outline, title: 'Abonnements');
+      return const _Section(
+        id: 'following',
+        icon: Icons.people_outline,
+        title: 'Abonnements',
+      );
     }
 
     final following = ref.watch(userFollowingProvider(id));
@@ -340,6 +389,7 @@ class _FollowingSection extends ConsumerWidget {
     final users = following.value ?? const <UserProfile>[];
 
     return _Section(
+      id: 'following',
       icon: Icons.people_outline,
       title: 'Abonnements',
       trailing: users.isEmpty
@@ -351,7 +401,7 @@ class _FollowingSection extends ConsumerWidget {
           : null,
       children: [
         for (final user in users)
-          UserTile(
+          _UserRow(
             user: user,
             onTap: () {
               UserProfileRoute(user.id.value).push(context);
@@ -367,15 +417,26 @@ class _FollowingSection extends ConsumerWidget {
 /// a rien à déplier, et déplier pour lire « aucun élément » n'apprend rien de
 /// plus que la ligne elle-même, en gris.
 ///
+/// Son contenu vit dans un conteneur un peu plus foncé, décalé vers la droite :
+/// on voit d'un coup d'œil ce qui appartient à l'onglet. Ses lignes sont plus
+/// petites que le titre, icône comprise.
+///
+/// Ouvert ou fermé, l'état est retenu d'une fois sur l'autre
+/// ([panelSectionsProvider]), et un onglet jamais refermé s'ouvre.
+///
 /// [trailing] dit au bout de la ligne ce qui empêche de déplier autre chose
 /// qu'un vide : un chargement en cours, un échec.
-class _Section extends StatelessWidget {
+class _Section extends ConsumerWidget {
   const _Section({
+    required this.id,
     required this.icon,
     required this.title,
     this.trailing,
     this.children = const [],
   });
+
+  /// Sous quel nom l'ouverture est retenue.
+  final String id;
 
   final IconData icon;
   final String title;
@@ -389,9 +450,10 @@ class _Section extends StatelessWidget {
   static const _minHeight = 40.0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final style = theme.textTheme.labelLarge;
+    final sections = ref.watch(panelSectionsProvider);
 
     if (children.isEmpty) {
       return ListTile(
@@ -411,26 +473,45 @@ class _Section extends StatelessWidget {
       );
     }
 
-    return ExpansionTile(
-      dense: true,
-      visualDensity: VisualDensity.compact,
-      minTileHeight: _minHeight,
-      // Sans ça, un onglet ouvert se borde de deux liserés.
-      shape: const Border(),
-      collapsedShape: const Border(),
-      childrenPadding: EdgeInsets.zero,
-      leading: Icon(icon, size: 20),
-      title: Text(title, style: style),
-      children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: _maxHeight),
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            children: children,
+    return KeyedSubtree(
+      // `initiallyExpanded` ne joue qu'à la première construction, or l'état
+      // retenu arrive du disque un instant plus tard. Cette clé change à ce
+      // moment-là, et à ce moment-là seulement : le tuyau se reconstruit donc
+      // une fois, dans le bon état, et les ouvertures suivantes gardent leur
+      // animation.
+      key: ValueKey(sections != null),
+      child: ExpansionTile(
+        dense: true,
+        visualDensity: VisualDensity.compact,
+        minTileHeight: _minHeight,
+        // Sans ça, un onglet ouvert se borde de deux liserés.
+        shape: const Border(),
+        collapsedShape: const Border(),
+        initiallyExpanded: sections?[id] ?? true,
+        onExpansionChanged: (open) => ref
+            .read(panelSectionsProvider.notifier)
+            .setOpen(id, open: open),
+        // Le décalage du conteneur par rapport au titre.
+        childrenPadding: const EdgeInsets.only(left: 16, right: 8, bottom: 8),
+        leading: Icon(icon, size: 20),
+        title: Text(title, style: style),
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surfaceContainerHigh,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: _maxHeight),
+              child: ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                children: children,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -460,6 +541,9 @@ Widget? _statusIcon(
   return null;
 }
 
+/// Un voyage dans un onglet. Icône de 16 et texte en `bodySmall` : plus petit
+/// que le titre de l'onglet (20 et `labelLarge`), pour que la hiérarchie se
+/// voie.
 class _TripRow extends StatelessWidget {
   const _TripRow({required this.title, required this.onTap});
 
@@ -468,13 +552,62 @@ class _TripRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return ListTile(
       dense: true,
-      leading: const Icon(Icons.route_outlined),
+      visualDensity: VisualDensity.compact,
+      minTileHeight: 34,
+      horizontalTitleGap: 8,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+      leading: Icon(
+        Icons.route_outlined,
+        size: 16,
+        color: theme.colorScheme.onSurfaceVariant,
+      ),
       title: Text(
         title.isEmpty ? 'Voyage sans titre' : title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
+        style: theme.textTheme.bodySmall,
+      ),
+      onTap: onTap,
+    );
+  }
+}
+
+/// Un abonnement dans un onglet : même gabarit qu'un voyage, avec la photo du
+/// profil en guise d'icône. `UserTile` est fait pour une page, pas pour la
+/// largeur d'un panneau.
+class _UserRow extends StatelessWidget {
+  const _UserRow({required this.user, required this.onTap});
+
+  final UserProfile user;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final imageUrl = user.profilePictureUrl;
+
+    return ListTile(
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      minTileHeight: 34,
+      horizontalTitleGap: 8,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+      leading: CircleAvatar(
+        radius: 10,
+        backgroundImage: imageUrl == null ? null : NetworkImage(imageUrl),
+        child: imageUrl == null
+            ? const Icon(Icons.person_outline, size: 12)
+            : null,
+      ),
+      title: Text(
+        user.profileName,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: theme.textTheme.bodySmall,
       ),
       onTap: onTap,
     );
