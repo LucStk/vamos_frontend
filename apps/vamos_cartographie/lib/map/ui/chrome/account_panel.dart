@@ -14,9 +14,13 @@ import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import 'package:vamos_cartographie/routing/trip_navigation.dart';
 
 /// Panneau de compte : se déplie depuis le bord gauche, prend toute la hauteur
-/// et la moitié de la largeur sur téléphone. En haut, le compte (profil,
-/// déconnexion, ou connexion pour un visiteur) ; dessous, trois onglets
-/// dépliants : les voyages vus récemment, les favoris, les abonnements.
+/// et la moitié de la largeur sur téléphone. En haut, le compte (avatar, puis
+/// profil et déconnexion, ou connexion pour un visiteur) ; dessous, trois
+/// onglets dépliants : les voyages vus récemment, les favoris, les
+/// abonnements.
+///
+/// Se referme en le glissant vers la gauche, par le voile, par le retour
+/// Android ou par Échap.
 ///
 /// À afficher dans un `OverlayPortal`. [onClosed] est appelé **après** le
 /// repli : c'est là qu'on retire la surcouche.
@@ -35,15 +39,14 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
   /// pas un panneau démesuré.
   static const _maxWidth = 360.0;
 
+  static const _duration = Duration(milliseconds: 220);
+
+  /// 0 : replié hors de l'écran, 1 : ouvert. Pris tel quel par le glissement,
+  /// pour que le panneau suive le doigt ; les courbes sont demandées à
+  /// l'animation, pas au `SlideTransition`.
   late final AnimationController _anim = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 220),
-  );
-
-  late final Animation<double> _curve = CurvedAnimation(
-    parent: _anim,
-    curve: Curves.easeOutCubic,
-    reverseCurve: Curves.easeInCubic,
+    duration: _duration,
   );
 
   BackInterceptors? _back;
@@ -51,7 +54,7 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
   @override
   void initState() {
     super.initState();
-    _anim.forward();
+    _anim.animateTo(1, curve: Curves.easeOutCubic);
 
     // Après le frame : `set` notifie le `BackScope`, et le registre se cherche
     // dans un arbre déjà monté.
@@ -71,30 +74,50 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
     super.dispose();
   }
 
+  double _panelWidth() =>
+      math.min(_maxWidth, MediaQuery.sizeOf(context).width / 2);
+
   /// Replie le panneau vers le bord gauche, puis le retire.
   Future<void> _close() async {
-    await _anim.reverse();
+    await _anim.animateBack(0, curve: Curves.easeInCubic);
     if (mounted) widget.onClosed();
   }
 
-  Future<void> _signOut() async {
-    // Lu avant le repli : après, ce `ref` n'existe plus.
-    final container = ProviderScope.containerOf(context);
-    await _close();
-    await container.read(authControllerProvider.notifier).signOut();
+  void _onDragUpdate(DragUpdateDetails details) {
+    final width = _panelWidth();
+    if (width == 0) return;
+    // Le setter borne à [0, 1] : tirer vers la droite n'écarte pas le panneau
+    // du bord.
+    _anim.value += (details.primaryDelta ?? 0) / width;
+  }
+
+  void _onDragEnd(DragEndDetails details) {
+    final velocity = details.primaryVelocity ?? 0;
+
+    // Geste franc : la direction décide, où que le panneau soit rendu.
+    if (velocity < -300) return _close().ignore();
+    if (velocity > 300) {
+      _anim.animateTo(1, curve: Curves.easeOut);
+      return;
+    }
+
+    // Geste mou : le panneau rejoint le bord le plus proche.
+    if (_anim.value >= 0.5) {
+      _anim.animateTo(1, curve: Curves.easeOut);
+    } else {
+      _close().ignore();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final width = math.min(_maxWidth, MediaQuery.sizeOf(context).width / 2);
-
     return Material(
       type: MaterialType.transparency,
       child: Stack(
         fit: StackFit.expand,
         children: [
           FadeTransition(
-            opacity: _curve,
+            opacity: _anim,
             child: ModalBarrier(color: Colors.black26, onDismiss: _close),
           ),
           Align(
@@ -103,20 +126,26 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
               position: Tween(
                 begin: const Offset(-1, 0),
                 end: Offset.zero,
-              ).animate(_curve),
-              child: SizedBox(
-                width: width,
-                height: double.infinity,
-                child: Material(
-                  elevation: 8,
-                  child: SafeArea(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        _AccountBox(onClose: _close, onSignOut: _signOut),
-                        const Divider(height: 1),
-                        Expanded(child: _Sections(onClose: _close)),
-                      ],
+              ).animate(_anim),
+              child: GestureDetector(
+                // Glisser le panneau vers la gauche le referme. Seul
+                // l'horizontal est capté : les listes défilent toujours.
+                onHorizontalDragUpdate: _onDragUpdate,
+                onHorizontalDragEnd: _onDragEnd,
+                child: SizedBox(
+                  width: _panelWidth(),
+                  height: double.infinity,
+                  child: Material(
+                    elevation: 8,
+                    child: SafeArea(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _AccountBox(onClose: _close, onSignOut: _signOut),
+                          const Divider(height: 1),
+                          Expanded(child: _Sections(onClose: _close)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -127,9 +156,18 @@ class _AccountPanelState extends ConsumerState<AccountPanel>
       ),
     );
   }
+
+  Future<void> _signOut() async {
+    // Lu avant le repli : après, ce `ref` n'existe plus.
+    final container = ProviderScope.containerOf(context);
+    await _close();
+    await container.read(authControllerProvider.notifier).signOut();
+  }
 }
 
-/// Le haut du panneau : l'utilisateur et ce qu'il peut faire de son compte.
+/// Le haut du panneau : l'avatar, puis ce que l'utilisateur peut faire de son
+/// compte. En colonne, car à la moitié d'un écran de téléphone l'avatar et des
+/// boutons libellés ne tiennent pas sur une ligne.
 class _AccountBox extends ConsumerWidget {
   const _AccountBox({required this.onClose, required this.onSignOut});
 
@@ -142,35 +180,52 @@ class _AccountBox extends ConsumerWidget {
     final isLoggedIn = ref.watch(currentUserIdProvider) != null;
 
     return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Row(
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (isLoggedIn)
-            const LoggedInAccountContent()
-          else
-            const CircleAvatar(radius: 18, child: Icon(Icons.person_outline)),
-          const Spacer(),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: isLoggedIn
+                ? const LoggedInAccountContent()
+                : const CircleAvatar(
+                    radius: 18,
+                    child: Icon(Icons.person_outline),
+                  ),
+          ),
+          const SizedBox(height: 12),
           if (isLoggedIn) ...[
-            IconButton(
-              tooltip: 'Mon profil',
-              icon: const Icon(Icons.account_circle_outlined),
+            FilledButton.tonalIcon(
               onPressed: () {
                 const ProfileRoute().push(context);
                 onClose();
               },
+              style: FilledButton.styleFrom(
+                visualDensity: VisualDensity.compact,
+              ),
+              icon: const Icon(Icons.account_circle_outlined, size: 18),
+              label: const Text('Mon profil'),
             ),
-            IconButton(
-              tooltip: 'Se déconnecter',
-              icon: const Icon(Icons.logout),
+            const SizedBox(height: 4),
+            TextButton.icon(
               onPressed: onSignOut,
+              style: TextButton.styleFrom(
+                visualDensity: VisualDensity.compact,
+              ),
+              icon: const Icon(Icons.logout, size: 18),
+              label: const Text('Se déconnecter'),
             ),
           ] else
-            FilledButton.tonal(
+            FilledButton.tonalIcon(
               onPressed: () {
                 const LoginRoute().push(context);
                 onClose();
               },
-              child: const Text('Connexion'),
+              style: FilledButton.styleFrom(
+                visualDensity: VisualDensity.compact,
+              ),
+              icon: const Icon(Icons.login, size: 18),
+              label: const Text('Connexion'),
             ),
         ],
       ),
@@ -186,73 +241,33 @@ class _Sections extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Null : visiteur. Favoris et abonnements demandent un compte, donc ils
+    // n'ont rien à déplier.
     final me = ref.watch(currentUserIdProvider);
 
     return ListView(
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.symmetric(vertical: 4),
       children: [
-        _Section(title: 'Récent', child: _RecentTripsList(onClose: onClose)),
-        _Section(
-          title: 'Favoris',
-          child: me == null
-              ? const _Message('Connectez-vous pour avoir des favoris.')
-              : _FavoriteTripsList(userId: me, onClose: onClose),
-        ),
-        _Section(
-          title: 'Abonnements',
-          child: me == null
-              ? const _Message('Connectez-vous pour suivre des voyageurs.')
-              : _FollowingList(userId: me, onClose: onClose),
-        ),
+        _RecentSection(onClose: onClose),
+        _FavoritesSection(userId: me, onClose: onClose),
+        _FollowingSection(userId: me, onClose: onClose),
       ],
     );
   }
 }
 
-/// Un onglet dépliant, dont le contenu est borné en hauteur : au-delà, il
-/// défile sur place plutôt que d'allonger le panneau.
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.child});
-
-  final String title;
-  final Widget child;
-
-  static const _maxHeight = 240.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(title),
-      // Sans ça, un onglet ouvert se borde de deux liserés.
-      shape: const Border(),
-      collapsedShape: const Border(),
-      childrenPadding: EdgeInsets.zero,
-      children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: _maxHeight),
-          child: child,
-        ),
-      ],
-    );
-  }
-}
-
-/// Les voyages vus récemment, gardés sur l'appareil.
-class _RecentTripsList extends ConsumerWidget {
-  const _RecentTripsList({required this.onClose});
+class _RecentSection extends ConsumerWidget {
+  const _RecentSection({required this.onClose});
 
   final VoidCallback onClose;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trips = ref.watch(recentTripsProvider);
-    if (trips.isEmpty) {
-      return const _Message('Aucun voyage vu récemment.');
-    }
 
-    return ListView(
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
+    return _Section(
+      icon: Icons.history,
+      title: 'Récent',
       children: [
         for (final trip in trips)
           _TripRow(
@@ -267,29 +282,32 @@ class _RecentTripsList extends ConsumerWidget {
   }
 }
 
-/// Les favoris, qui demandent un compte.
-class _FavoriteTripsList extends ConsumerWidget {
-  const _FavoriteTripsList({required this.userId, required this.onClose});
+class _FavoritesSection extends ConsumerWidget {
+  const _FavoritesSection({required this.userId, required this.onClose});
 
-  final UserId userId;
+  final UserId? userId;
   final VoidCallback onClose;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final load = ref.watch(loadFavoriteTripsProvider(userId));
-    final trips = ref.watch(favoriteTripSummariesProvider(userId));
-
-    // Un rechargement garde la liste affichée : seul le premier chargement
-    // montre la roue.
-    if (trips.isEmpty) {
-      if (load.isLoading) return const _Loading();
-      if (load.hasError) return const _Message('Favoris indisponibles.');
-      return const _Message('Aucun favori.');
+    final id = userId;
+    if (id == null) {
+      return const _Section(icon: Icons.bookmark_border, title: 'Favoris');
     }
 
-    return ListView(
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
+    final load = ref.watch(loadFavoriteTripsProvider(id));
+    final trips = ref.watch(favoriteTripSummariesProvider(id));
+
+    return _Section(
+      icon: Icons.bookmark_border,
+      title: 'Favoris',
+      trailing: trips.isEmpty
+          ? _statusIcon(
+              context,
+              isLoading: load.isLoading,
+              hasError: load.hasError,
+            )
+          : null,
       children: [
         for (final summary in trips)
           _TripRow(
@@ -304,37 +322,142 @@ class _FavoriteTripsList extends ConsumerWidget {
   }
 }
 
-/// Les voyageurs que l'utilisateur suit.
-class _FollowingList extends ConsumerWidget {
-  const _FollowingList({required this.userId, required this.onClose});
+class _FollowingSection extends ConsumerWidget {
+  const _FollowingSection({required this.userId, required this.onClose});
 
-  final UserId userId;
+  final UserId? userId;
   final VoidCallback onClose;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return switch (ref.watch(userFollowingProvider(userId))) {
-      AsyncError() => const _Message('Abonnements indisponibles.'),
-      AsyncData(value: final users) when users.isEmpty => const _Message(
-        'Vous ne suivez personne.',
-      ),
-      AsyncData(value: final users) => ListView(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        children: [
-          for (final user in users)
-            UserTile(
-              user: user,
-              onTap: () {
-                UserProfileRoute(user.id.value).push(context);
-                onClose();
-              },
-            ),
-        ],
-      ),
-      _ => const _Loading(),
-    };
+    final id = userId;
+    if (id == null) {
+      return const _Section(icon: Icons.people_outline, title: 'Abonnements');
+    }
+
+    final following = ref.watch(userFollowingProvider(id));
+    // Un rechargement garde la liste dépliée : `value` survit au `loading`.
+    final users = following.value ?? const <UserProfile>[];
+
+    return _Section(
+      icon: Icons.people_outline,
+      title: 'Abonnements',
+      trailing: users.isEmpty
+          ? _statusIcon(
+              context,
+              isLoading: following.isLoading,
+              hasError: following.hasError,
+            )
+          : null,
+      children: [
+        for (final user in users)
+          UserTile(
+            user: user,
+            onTap: () {
+              UserProfileRoute(user.id.value).push(context);
+              onClose();
+            },
+          ),
+      ],
+    );
   }
+}
+
+/// Un onglet. **Sans élément, il n'a pas de flèche et ne s'ouvre pas** : il n'y
+/// a rien à déplier, et déplier pour lire « aucun élément » n'apprend rien de
+/// plus que la ligne elle-même, en gris.
+///
+/// [trailing] dit au bout de la ligne ce qui empêche de déplier autre chose
+/// qu'un vide : un chargement en cours, un échec.
+class _Section extends StatelessWidget {
+  const _Section({
+    required this.icon,
+    required this.title,
+    this.trailing,
+    this.children = const [],
+  });
+
+  final IconData icon;
+  final String title;
+  final Widget? trailing;
+  final List<Widget> children;
+
+  /// Au-delà, le contenu de l'onglet défile sur place.
+  static const _maxHeight = 240.0;
+
+  /// Lignes serrées : trois onglets doivent tenir sans repousser le reste.
+  static const _minHeight = 40.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.labelLarge;
+
+    if (children.isEmpty) {
+      return ListTile(
+        dense: true,
+        visualDensity: VisualDensity.compact,
+        minTileHeight: _minHeight,
+        leading: Icon(
+          icon,
+          size: 20,
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+        title: Text(
+          title,
+          style: style?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+        ),
+        trailing: trailing,
+      );
+    }
+
+    return ExpansionTile(
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      minTileHeight: _minHeight,
+      // Sans ça, un onglet ouvert se borde de deux liserés.
+      shape: const Border(),
+      collapsedShape: const Border(),
+      childrenPadding: EdgeInsets.zero,
+      leading: Icon(icon, size: 20),
+      title: Text(title, style: style),
+      children: [
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: _maxHeight),
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            children: children,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+Widget? _statusIcon(
+  BuildContext context, {
+  required bool isLoading,
+  required bool hasError,
+}) {
+  if (isLoading) {
+    return const SizedBox(
+      width: 16,
+      height: 16,
+      child: CircularProgressIndicator(strokeWidth: 2),
+    );
+  }
+  if (hasError) {
+    return Tooltip(
+      message: 'Indisponible',
+      child: Icon(
+        Icons.error_outline,
+        size: 18,
+        color: Theme.of(context).colorScheme.error,
+      ),
+    );
+  }
+  return null;
 }
 
 class _TripRow extends StatelessWidget {
@@ -354,45 +477,6 @@ class _TripRow extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       onTap: onTap,
-    );
-  }
-}
-
-class _Message extends StatelessWidget {
-  const _Message(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 12),
-      child: Text(
-        text,
-        style: theme.textTheme.bodySmall?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
-      ),
-    );
-  }
-}
-
-class _Loading extends StatelessWidget {
-  const _Loading();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16),
-      child: Center(
-        child: SizedBox(
-          width: 20,
-          height: 20,
-          child: CircularProgressIndicator(strokeWidth: 2),
-        ),
-      ),
     );
   }
 }
