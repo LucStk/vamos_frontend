@@ -66,7 +66,6 @@ dependencies:
   stack_trace: ^1.12.2
   flutter_map_vector_tiles: ^2.11.0
   flutter_map_animations: ^0.11.0
-  device_preview: ^3.0.0
 
 dev_dependencies:
   test: ^1.30.0

@@ -73,50 +73,51 @@ class BackendOfflineBadge extends StatelessWidget {
         final checking = health == BackendHealth.checking;
         final label = checking ? 'Reconnexion…' : 'Hors connexion';
 
+        // Pas de Tooltip ici : ce badge vit dans le `builder` de MaterialApp,
+        // donc au-dessus du Navigator, et Tooltip exige un Overlay ancêtre
+        // (« No Overlay widget found »). Le libellé est de toute façon écrit
+        // en clair à côté de l'icône, et Semantics porte la version longue.
         return Semantics(
           button: !checking,
           label: checking
               ? 'Reconnexion au serveur en cours'
               : 'Serveur injoignable. Appuyer pour réessayer.',
-          child: Tooltip(
-            message: checking ? label : 'Appuyer pour réessayer',
-            child: Material(
-              elevation: 2,
+          child: Material(
+            elevation: 2,
+            borderRadius: BorderRadius.circular(13),
+            color: scheme.errorContainer,
+            child: InkWell(
               borderRadius: BorderRadius.circular(13),
-              color: scheme.errorContainer,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(13),
-                onTap: checking ? null : () => unawaited(monitor.recheck()),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox.square(
-                        dimension: 18,
-                        child: checking
-                            ? CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: scheme.onErrorContainer,
-                              )
-                            : Icon(
-                                Icons.cloud_off_rounded,
-                                size: 18,
-                                color: scheme.onErrorContainer,
-                              ),
+              onTap: checking ? null : () => unawaited(monitor.recheck()),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox.square(
+                      dimension: 18,
+                      child: checking
+                          ? CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: scheme.onErrorContainer,
+                            )
+                          : Icon(
+                              Icons.cloud_off_rounded,
+                              size: 18,
+                              color: scheme.onErrorContainer,
+                            ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      label,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: scheme.onErrorContainer,
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        label,
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: scheme.onErrorContainer,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

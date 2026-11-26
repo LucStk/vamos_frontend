@@ -17,13 +17,6 @@ dev_dependencies:
   melos: ^8.6.0
   riverpod_lint: ^3.1.9
 
-# device_preview 3.0.0 cible Flutter 3.47 et ne compile pas sur 3.50
-# (PlatformDispatcher.resetInternalState manquant). Copie locale patchée.
-# À retirer quand une version corrigée sera publiée sur pub.dev.
-dependency_overrides:
-  device_preview:
-    path: third_party/device_preview
-
 
 melos:
   scripts:

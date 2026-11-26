@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:riverpod_annotation/experimental/scope.dart';
 // import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/modes/trip/ui/trip_chrome_visibility.dart';
-import 'package:vamos_cartographie/map/ui/shared/camera/camera_buttons_control.dart';
 import 'package:vamos_cartographie/map/ui/shared/location/user_location_button.dart';
 
 /// Boutons de contrôle de la carte : zoom +/- et remise au nord.

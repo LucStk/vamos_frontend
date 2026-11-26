@@ -11,16 +11,12 @@ import 'package:vamos_cartographie/core/erreur_handler.dart';
 
 // import 'package:vamos_cartographie/core/log/log_observer.dart';
 
-/// Démarre l'app. Partagé par [main] (téléphone, sans device_preview) et par
-/// `main_preview.dart` (PC, avec aperçu smartphone).
-///
-/// [preInit] s'exécute avant l'initialisation du binding Flutter (nécessaire
-/// pour `DevicePreview.enable()`), [wrap] enveloppe l'app racine.
-void runVamos({void Function()? preInit, Widget Function(Widget app)? wrap}) {
+/// Démarre l'app. Partagé par [main] (téléphone) et par `main_preview.dart`
+/// (PC, avec aperçu smartphone). [wrap] enveloppe l'app racine.
+void runVamos({Widget Function(Widget app)? wrap}) {
   // debugRepaintRainbowEnabled = true;
   runZonedGuarded(
     () async {
-      preInit?.call();
       WidgetsFlutterBinding.ensureInitialized();
 
       await dotenv.load(fileName: ".env");

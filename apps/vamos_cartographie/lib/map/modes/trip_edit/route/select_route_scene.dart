@@ -2,7 +2,6 @@ import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/modes/trip/trip_route_items.dart';
 import 'package:vamos_cartographie/map/modes/trip_edit/route/providers/selection_handle_provider.dart';
-import 'package:vamos_cartographie/map/modes/trip_edit/waypoint/waypoints_edit.dart';
 import 'package:vamos_cartographie/map/objects/route/day_segment/drag_proxy_item.dart';
 import 'package:vamos_cartographie/map/objects/route/route.dart';
 import 'package:vamos_cartographie/map/objects/sketch_trace/sketch_preview_item.dart';
