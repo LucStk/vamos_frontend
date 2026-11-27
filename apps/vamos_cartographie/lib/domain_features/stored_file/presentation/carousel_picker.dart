@@ -2,7 +2,6 @@ import 'package:domain_core/domain_core.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:reorderable_grid/reorderable_grid.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import '/domain_features/stored_file/injection/injection.dart';
 import 'package:vamos_cartographie/app_services/app_services.dart';
@@ -15,10 +14,23 @@ import "thumbnail_picker.dart";
 /// long ; les autres s'écartent pour lui faire place. La première sert de
 /// couverture. Toucher une image l'ouvre en grand, pour la retoucher ou la
 /// légender.
+///
+/// Les vignettes forment une rangée qui défile latéralement. Le « + » la
+/// termine en `footer` : il reste donc en dernier sans participer au
+/// réordonnancement, et aucune image ne peut se déposer derrière lui.
+///
+/// `ReorderableListView`, `ReorderableDragStartListener` et toute la mécanique
+/// de glisser-déposer viennent du framework (`package:flutter/widgets.dart`,
+/// réexporté par material_ui) : aucun paquet tiers, et rien qui réclame le
+/// `MaterialLocalizations` de l'ancien `package:flutter/material.dart`.
 class ImageCarouselPicker<T> extends ConsumerWidget {
   final Id<T> id;
   final TargetType ownerType;
   final double thumbSize = 80;
+
+  /// L'écart entre deux vignettes.
+  static const double _gap = 8;
+
   const ImageCarouselPicker({
     super.key,
     required this.id,
@@ -32,16 +44,16 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
     final filesId = store.getFromOwner(id);
 
     // Une image en cours d'envoi n'existe pas encore côté serveur : on ne la
-    // déplace pas.
+    // déplace pas. Elle n'a pas de poignée, donc rien ne la saisit.
     bool uploaded(StoredFileId fileId) =>
         store.get(fileId)?.isPendingCreation == false;
 
+    // `onReorderItem` corrige déjà l'index d'arrivée du retrait de l'élément
+    // déplacé, et ne nous appelle pas quand la position ne change pas : on
+    // retire puis on insère à l'index reçu.
     void reorder(int from, int to) {
-      // Le « + » reste en dernier : on ne peut pas passer derrière.
-      final target = to > filesId.length - 1 ? filesId.length - 1 : to;
-      if (from == target) return;
       final next = [...filesId];
-      next.insert(target, next.removeAt(from));
+      next.insert(to, next.removeAt(from));
       notifier.reorderFiles(
         targetId: id,
         targetType: ownerType,
@@ -61,53 +73,50 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ReorderableGridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: thumbSize,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-          ),
-          itemCount: filesId.length + 1,
-          // Seule la poignée saisit : le reste de la vignette garde le
-          // défilement de la fiche et le toucher.
-          buildDefaultDragHandles: false,
-          itemDragEnable: (i) => i < filesId.length && uploaded(filesId[i]),
-          onReorderStart: (_) => HapticFeedback.selectionClick(),
-          onReorder: reorder,
-          proxyDecorator: _lifted,
-          itemBuilder: (context, i) {
-            if (i == filesId.length) {
-              return GestureDetector(
-                key: const ValueKey('add_image'),
-                onTap: add,
-                child: ThumbnailButtonAdd(size: thumbSize),
+        SizedBox(
+          height: thumbSize,
+          child: ReorderableListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.zero,
+            // Seule la poignée saisit : le reste de la vignette garde le
+            // défilement de la fiche et le toucher.
+            buildDefaultDragHandles: false,
+            itemCount: filesId.length,
+            footer: GestureDetector(
+              onTap: add,
+              child: ThumbnailButtonAdd(size: thumbSize),
+            ),
+            onReorderStart: (_) => HapticFeedback.selectionClick(),
+            onReorderItem: reorder,
+            proxyDecorator: _lifted,
+            itemBuilder: (context, i) {
+              final fileId = filesId[i];
+              return Padding(
+                // La clé identifie l'élément déplacé : elle va sur le widget
+                // que rend `itemBuilder`, donc sur le Padding.
+                key: ValueKey(fileId),
+                padding: const EdgeInsets.only(right: _gap),
+                child: ThumbnailPicker(
+                  fileId: fileId,
+                  size: thumbSize,
+                  isCover: i == 0,
+                  onTap: () => showImageGallery(
+                    context,
+                    images: filesId,
+                    initialIndex: i,
+                    ownerId: id,
+                    ownerType: ownerType,
+                  ),
+                  dragHandle: filesId.length > 1 && uploaded(fileId)
+                      ? ReorderableDragStartListener(
+                          index: i,
+                          child: const _DragHandle(),
+                        )
+                      : null,
+                ),
               );
-            }
-
-            final fileId = filesId[i];
-            return ThumbnailPicker(
-              key: ValueKey(fileId),
-              fileId: fileId,
-              size: thumbSize,
-              isCover: i == 0,
-              onTap: () => showImageGallery(
-                context,
-                images: filesId,
-                initialIndex: i,
-                ownerId: id,
-                ownerType: ownerType,
-              ),
-              dragHandle: filesId.length > 1 && uploaded(fileId)
-                  ? ReorderableGridDragStartListener(
-                      index: i,
-                      child: const _DragHandle(),
-                    )
-                  : null,
-            );
-          },
+            },
+          ),
         ),
         if (filesId.isNotEmpty) ...[
           const SizedBox(height: 8),

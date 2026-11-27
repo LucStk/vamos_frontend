@@ -14,8 +14,6 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   stored_file_application:
     path: ../../packages/stored_file_application
   map_canvas:
@@ -39,7 +37,6 @@ dependencies:
   flutter_map_line_editor: ^8.0.0
   image_picker: ^1.2.2
   pro_image_editor: ^14.29.1
-  reorderable_grid: ^1.0.13
   file_selector: ^1.1.0
   dartz: ^0.10.1
   equatable: ^3.0.0
