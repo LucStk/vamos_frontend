@@ -490,8 +490,8 @@ class _Section extends ConsumerStatefulWidget {
   final IconData icon;
   final String title;
 
-  /// Le panneau a fini de se déplier. Tant que c'est faux, un onglet dont
-  /// l'état retenu n'était pas connu au montage reste fermé.
+  /// Le panneau a fini de se déplier. Tant que c'est faux, l'onglet garde la
+  /// forme qu'il avait au montage : ni ouverture, ni lignes qui arrivent.
   final bool opened;
 
   final Widget? trailing;
@@ -515,20 +515,36 @@ class _SectionState extends ConsumerState<_Section> {
   /// tuyau : `initiallyExpanded` ne joue qu'à la première construction.
   final _tile = ExpansibleController();
 
-  /// L'état retenu tel qu'il était au montage. Normalement déjà lu, car
-  /// `SearchTopSheet` le demande au disque bien avant le premier tap : le tuyau
-  /// se monte alors directement dans le bon état, sans animation. S'il manque
-  /// encore, l'onglet se monte fermé et [_openLate] l'ouvrira.
+  /// L'état retenu tel qu'il était au montage. Normalement déjà lu, car la
+  /// carte le garde chaud (`_AccountPanelWarmup`) : le tuyau se monte alors
+  /// directement dans le bon état, sans animation. S'il manque encore,
+  /// l'onglet se monte fermé et [_openLate] l'ouvrira.
   Map<String, bool>? _initial;
 
   /// Pour que [_openLate] n'agisse qu'une fois : après, c'est l'utilisateur qui
   /// commande.
   bool _late = false;
 
+  /// Les lignes effectivement rendues. Elles restent celles du montage tant
+  /// que le panneau se déplie : un chargement qui aboutit à ce moment-là
+  /// ferait passer l'onglet d'une ligne grise à un onglet ouvert, en pleine
+  /// animation. C'est ce qu'on ne veut pas voir. Normalement les listes sont
+  /// déjà là au montage, car la carte les tient chaudes
+  /// (`_AccountPanelWarmup`) ; ce gel ne joue qu'au premier lancement, ou si le
+  /// réseau traîne.
+  late List<Widget> _shown = widget.children;
+
   @override
   void initState() {
     super.initState();
     _initial = ref.read(panelSectionsProvider);
+  }
+
+  @override
+  void didUpdateWidget(_Section oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Le panneau est déplié : les lignes reprennent leur cours.
+    if (widget.opened) _shown = widget.children;
   }
 
   @override
@@ -562,11 +578,10 @@ class _SectionState extends ConsumerState<_Section> {
     final theme = Theme.of(context);
     final style = theme.textTheme.labelLarge;
     // Dans le cas normal l'état retenu est déjà là au montage, et ce `watch`
-    // ne déclenche aucune reconstruction : `SearchTopSheet` l'a demandé au
-    // disque bien avant le premier tap.
+    // ne déclenche aucune reconstruction : la carte le garde chaud.
     final sections = ref.watch(panelSectionsProvider);
 
-    if (widget.children.isEmpty) {
+    if (_shown.isEmpty) {
       return ListTile(
         dense: true,
         visualDensity: VisualDensity.compact,
@@ -619,13 +634,13 @@ class _SectionState extends ConsumerState<_Section> {
             // une mise en page de toute la liste.
             height: math.min(
               _Section._maxHeight,
-              widget.children.length * _Section._rowHeight + 8,
+              _shown.length * _Section._rowHeight + 8,
             ),
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(vertical: 4),
               itemExtent: _Section._rowHeight,
-              itemCount: widget.children.length,
-              itemBuilder: (_, i) => widget.children[i],
+              itemCount: _shown.length,
+              itemBuilder: (_, i) => _shown[i],
             ),
           ),
         ),

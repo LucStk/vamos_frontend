@@ -6,6 +6,10 @@ import 'package:vamos_cartographie/map/camera/camera_director_provider.dart';
 import 'package:vamos_cartographie/map/camera/map_camera_provider.dart';
 import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_panel.dart';
+import 'package:vamos_cartographie/domain_features/auth/auth.dart';
+import 'package:vamos_cartographie/domain_features/trip/injection/recent_trips_provider.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/providers/favorite_trips_providers.dart';
+import 'package:vamos_cartographie/domain_features/user_profile/providers/follow_providers.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/panel_sections_provider.dart';
@@ -28,17 +32,6 @@ class SearchTopSheet extends ConsumerStatefulWidget {
 class _SearchTopSheetState extends ConsumerState<SearchTopSheet> {
   final _search = OverlayPortalController();
   final _account = OverlayPortalController();
-
-  @override
-  void initState() {
-    super.initState();
-    // L'état des onglets du panneau de compte vient du disque. On le demande
-    // dès maintenant, pendant que la carte est au repos : s'il arrivait
-    // pendant que le panneau se déplie, les onglets changeraient d'état en
-    // pleine animation. Le provider est `keepAlive`, une lecture suffit pour
-    // toute la session.
-    ref.read(panelSectionsProvider);
-  }
 
   void _onPlaceSelected(PlaceResult r) {
     _search.hide();
@@ -74,6 +67,7 @@ class _SearchTopSheetState extends ConsumerState<SearchTopSheet> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+              const _AccountPanelWarmup(),
               // Les deux panneaux s'ouvrent dans la surcouche de l'écran, donc
               // par-dessus le reste de l'interface, tout en restant dans cet
               // arbre de widgets (les providers du mode restent accessibles).
@@ -128,5 +122,35 @@ class _SearchButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// Ne peint rien : son seul rôle est de garder abonnées les listes du panneau
+/// de compte tant que la carte est à l'écran.
+///
+/// Le panneau se monte et se démonte à chaque ouverture, et ses providers de
+/// favoris et d'abonnements sont `autoDispose` : sans cet abonnement, chaque
+/// ouverture relancerait les appels réseau, et les onglets se rempliraient —
+/// donc s'ouvriraient — sous les yeux de l'utilisateur. Les deux listes
+/// locales (onglets ouverts, voyages récents) viennent du disque, qui répond
+/// lui aussi trop tard pour l'animation.
+///
+/// Les reconstructions qu'entraînent ces chargements s'arrêtent ici : ni les
+/// boutons ni le panneau n'en voient passer une.
+class _AccountPanelWarmup extends ConsumerWidget {
+  const _AccountPanelWarmup();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(panelSectionsProvider);
+    ref.watch(recentTripsProvider);
+
+    final me = ref.watch(currentUserIdProvider);
+    if (me != null) {
+      ref.watch(favoriteTripsProvider(me));
+      ref.watch(userFollowingProvider(me));
+    }
+
+    return const SizedBox.shrink();
   }
 }
