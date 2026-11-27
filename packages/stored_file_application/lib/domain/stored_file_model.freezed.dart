@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$StoredFileRemoteModel {
 
- StoredFileId get id; String get filename; String get url;
+ StoredFileId get id; String get filename; String get url; String get caption;
 /// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $StoredFileRemoteModelCopyWith<StoredFileRemoteModel> get copyWith => _$StoredFi
 @override
 bool operator ==(Object other) {
   final _this = this as StoredFileRemoteModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFileRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.filename, _this.filename) || other.filename == _this.filename)&&(identical(other.url, _this.url) || other.url == _this.url));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoredFileRemoteModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.filename, _this.filename) || other.filename == _this.filename)&&(identical(other.url, _this.url) || other.url == _this.url)&&(identical(other.caption, _this.caption) || other.caption == _this.caption));
 }
 
 
 @override
 int get hashCode {
   final _this = this as StoredFileRemoteModel;
-  return Object.hash(runtimeType,_this.id,_this.filename,_this.url);
+  return Object.hash(runtimeType,_this.id,_this.filename,_this.url,_this.caption);
 }
 
 @override
 String toString() {
   final _this = this as StoredFileRemoteModel;
-  return 'StoredFileRemoteModel(id: ${_this.id}, filename: ${_this.filename}, url: ${_this.url})';
+  return 'StoredFileRemoteModel(id: ${_this.id}, filename: ${_this.filename}, url: ${_this.url}, caption: ${_this.caption})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $StoredFileRemoteModelCopyWith<$Res>  {
   factory $StoredFileRemoteModelCopyWith(StoredFileRemoteModel value, $Res Function(StoredFileRemoteModel) _then) = _$StoredFileRemoteModelCopyWithImpl;
 @useResult
 $Res call({
- StoredFileId id, String filename, String url
+ StoredFileId id, String filename, String url, String caption
 });
 
 
@@ -68,11 +68,12 @@ class _$StoredFileRemoteModelCopyWithImpl<$Res>
 
 /// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? filename = null,Object? url = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? filename = null,Object? url = null,Object? caption = null,}) {
   return _then(StoredFileRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as StoredFileId,filename: null == filename ? _self.filename : filename // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as String,caption: null == caption ? _self.caption : caption // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StoredFileId id,  String filename,  String url)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StoredFileId id,  String filename,  String url,  String caption)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoredFileRemoteModel() when $default != null:
-return $default(_that.id,_that.filename,_that.url);case _:
+return $default(_that.id,_that.filename,_that.url,_that.caption);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.filename,_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StoredFileId id,  String filename,  String url)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StoredFileId id,  String filename,  String url,  String caption)  $default,) {final _that = this;
 switch (_that) {
 case _StoredFileRemoteModel():
-return $default(_that.id,_that.filename,_that.url);case _:
+return $default(_that.id,_that.filename,_that.url,_that.caption);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.filename,_that.url);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StoredFileId id,  String filename,  String url)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StoredFileId id,  String filename,  String url,  String caption)?  $default,) {final _that = this;
 switch (_that) {
 case _StoredFileRemoteModel() when $default != null:
-return $default(_that.id,_that.filename,_that.url);case _:
+return $default(_that.id,_that.filename,_that.url,_that.caption);case _:
   return null;
 
 }
@@ -214,12 +215,13 @@ return $default(_that.id,_that.filename,_that.url);case _:
 
 
 class _StoredFileRemoteModel extends StoredFileRemoteModel {
-  const _StoredFileRemoteModel({required this.id, required this.filename, required this.url}): super._();
+  const _StoredFileRemoteModel({required this.id, required this.filename, required this.url, this.caption = ''}): super._();
   
 
 @override final  StoredFileId id;
 @override final  String filename;
 @override final  String url;
+@override@JsonKey() final  String caption;
 
 /// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
@@ -231,18 +233,18 @@ _$StoredFileRemoteModelCopyWith<_StoredFileRemoteModel> get copyWith => __$Store
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFileRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoredFileRemoteModel&&(identical(other.id, id) || other.id == id)&&(identical(other.filename, filename) || other.filename == filename)&&(identical(other.url, url) || other.url == url)&&(identical(other.caption, caption) || other.caption == caption));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,filename,url);
+    return Object.hash(runtimeType,id,filename,url,caption);
 }
 
 @override
 String toString() {
-    return 'StoredFileRemoteModel(id: $id, filename: $filename, url: $url)';
+    return 'StoredFileRemoteModel(id: $id, filename: $filename, url: $url, caption: $caption)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$StoredFileRemoteModelCopyWith<$Res> implements $StoredFil
   factory _$StoredFileRemoteModelCopyWith(_StoredFileRemoteModel value, $Res Function(_StoredFileRemoteModel) _then) = __$StoredFileRemoteModelCopyWithImpl;
 @override @useResult
 $Res call({
- StoredFileId id, String filename, String url
+ StoredFileId id, String filename, String url, String caption
 });
 
 
@@ -270,11 +272,12 @@ class __$StoredFileRemoteModelCopyWithImpl<$Res>
 
 /// Create a copy of StoredFileRemoteModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? filename = null,Object? url = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? filename = null,Object? url = null,Object? caption = null,}) {
   return _then(_StoredFileRemoteModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as StoredFileId,filename: null == filename ? _self.filename : filename // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as String,caption: null == caption ? _self.caption : caption // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

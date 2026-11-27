@@ -48,16 +48,6 @@ class TripOverviewViewer extends ConsumerWidget {
         else
           _EmptyHint('Aucune photo', theme: theme),
 
-        // On ne devine pas qu'un appui long déplace : on le dit.
-        if (editable && photoCount > 1) ...[
-          const SizedBox(height: 8),
-          _EmptyHint(
-            'Maintenez une photo puis déposez-la avant une autre pour les '
-            'réordonner. La première sert de couverture.',
-            theme: theme,
-          ),
-        ],
-
         const SizedBox(height: 20),
         _SectionTitle('Description', theme: theme),
         const SizedBox(height: 8),

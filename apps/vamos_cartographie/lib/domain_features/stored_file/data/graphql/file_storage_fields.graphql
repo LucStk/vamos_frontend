@@ -8,6 +8,7 @@ fragment StoredFile on StoredFileType {
 fragment FileAttachment on FileAttachmentType {
     order
     isCover
+    caption
     file {
         ...StoredFile
     }

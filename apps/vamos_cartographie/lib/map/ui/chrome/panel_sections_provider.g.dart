@@ -8,15 +8,33 @@ part of 'panel_sections_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil.
+/// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil
+/// (`shared_preferences`), comme les voyages récents : c'est une commodité
+/// locale, qui n'a rien à faire au serveur.
+///
+/// L'état vaut `null` tant que le disque n'a pas répondu. Les onglets sont
+/// alors ouverts, comme par défaut, et c'est le passage de `null` à une valeur
+/// qui remonte les `ExpansionTile` dans l'état retenu.
 
 @ProviderFor(PanelSections)
 final panelSectionsProvider = PanelSectionsProvider._();
 
-/// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil.
+/// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil
+/// (`shared_preferences`), comme les voyages récents : c'est une commodité
+/// locale, qui n'a rien à faire au serveur.
+///
+/// L'état vaut `null` tant que le disque n'a pas répondu. Les onglets sont
+/// alors ouverts, comme par défaut, et c'est le passage de `null` à une valeur
+/// qui remonte les `ExpansionTile` dans l'état retenu.
 final class PanelSectionsProvider
     extends $NotifierProvider<PanelSections, Map<String, bool>?> {
-  /// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil.
+  /// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil
+  /// (`shared_preferences`), comme les voyages récents : c'est une commodité
+  /// locale, qui n'a rien à faire au serveur.
+  ///
+  /// L'état vaut `null` tant que le disque n'a pas répondu. Les onglets sont
+  /// alors ouverts, comme par défaut, et c'est le passage de `null` à une valeur
+  /// qui remonte les `ExpansionTile` dans l'état retenu.
   PanelSectionsProvider._()
     : super(
         from: null,
@@ -44,9 +62,15 @@ final class PanelSectionsProvider
   }
 }
 
-String _$panelSectionsHash() => r'0000000000000000000000000000000000000000';
+String _$panelSectionsHash() => r'd4133a1ade88d8261da41d4cb5ee0a2293627b1a';
 
-/// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil.
+/// Quels onglets du panneau de compte sont ouverts, gardé sur l'appareil
+/// (`shared_preferences`), comme les voyages récents : c'est une commodité
+/// locale, qui n'a rien à faire au serveur.
+///
+/// L'état vaut `null` tant que le disque n'a pas répondu. Les onglets sont
+/// alors ouverts, comme par défaut, et c'est le passage de `null` à une valeur
+/// qui remonte les `ExpansionTile` dans l'état retenu.
 
 abstract class _$PanelSections extends $Notifier<Map<String, bool>?> {
   Map<String, bool>? build();

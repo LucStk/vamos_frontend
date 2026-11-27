@@ -26,11 +26,27 @@ class StoredFileRepositoryImpl extends StoredFileRepository {
   Future<Either<Failure, StoredFileRemoteModel>> attachFile(
     Id ownerId,
     TargetType ownerType,
+    StoredFileId fileId, {
+    String caption = '',
+  }) {
+    return guard(() async {
+      final res = await remote.attachFile(
+        ownerId,
+        ownerType,
+        fileId,
+        caption,
+      );
+      return res.attachFile.toDomain();
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> setCaption(
     StoredFileId fileId,
+    String caption,
   ) {
     return guard(() async {
-      final res = await remote.attachFile(ownerId, ownerType, fileId);
-      return res.attachFile.toDomain();
+      await remote.setFileCaption(fileId, caption);
     });
   }
 

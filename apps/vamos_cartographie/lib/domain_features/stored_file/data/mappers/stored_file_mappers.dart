@@ -16,7 +16,7 @@ extension GStoredFileX on GStoredFile {
 
 extension GFileAttachmentX on GFileAttachment {
   StoredFileRemoteModel toDomain() {
-    return file.toDomain();
+    return file.toDomain().copyWith(caption: caption);
   }
 }
 

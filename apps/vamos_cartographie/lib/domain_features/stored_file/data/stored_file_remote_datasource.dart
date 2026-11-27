@@ -19,6 +19,7 @@ class StoredFileRemoteDatasource {
     Id ownerId,
     TargetType ownerType,
     StoredFileId fileId,
+    String caption,
   ) async {
     final data = await ferryClient.execute(
       GAttachFileReq(
@@ -27,11 +28,23 @@ class StoredFileRemoteDatasource {
             targetId: ownerId.value,
             targetType: ownerType.toGql(),
             fileId: fileId.value,
+            caption: caption,
           ),
         ),
       ),
     );
     return data;
+  }
+
+  Future<GSetFileCaptionData> setFileCaption(
+    StoredFileId fileId,
+    String caption,
+  ) async {
+    return ferryClient.execute(
+      GSetFileCaptionReq(
+        vars: GSetFileCaptionVars(fileId: fileId.value, caption: caption),
+      ),
+    );
   }
 
   Future<GReorderFilesData> reorderFiles(

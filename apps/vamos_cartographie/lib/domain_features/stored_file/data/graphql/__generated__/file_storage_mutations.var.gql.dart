@@ -165,3 +165,57 @@ class GReorderFilesVars {
     return 'GReorderFilesVars(input: $input)';
   }
 }
+
+class GSetFileCaptionVars {
+  const GSetFileCaptionVars({
+    required this.fileId,
+    required this.caption,
+  });
+
+  factory GSetFileCaptionVars.fromJson(Map<String, dynamic> json) {
+    return GSetFileCaptionVars(
+      fileId: (json['fileId'] as String),
+      caption: (json['caption'] as String),
+    );
+  }
+
+  final String fileId;
+
+  final String caption;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    final _$fileIdValue = this.fileId;
+    _$result['fileId'] = _$fileIdValue;
+    final _$captionValue = this.caption;
+    _$result['caption'] = _$captionValue;
+    return _$result;
+  }
+
+  GSetFileCaptionVars copyWith({
+    String? fileId,
+    String? caption,
+  }) {
+    return GSetFileCaptionVars(
+      fileId: fileId ?? this.fileId,
+      caption: caption ?? this.caption,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSetFileCaptionVars &&
+            _gqlUtils.deepEquals(toJson(), other.toJson()));
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, _gqlUtils.deepHash(toJson()));
+  }
+
+  @override
+  String toString() {
+    return 'GSetFileCaptionVars(fileId: $fileId, caption: $caption)';
+  }
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/application/stored_file_store.dart';
 import '/domain_features/stored_file/injection/injection.dart';
+import "image_gallery.dart";
 import "thumbnail_view.dart";
 
 class ImageCarouselView<T> extends ConsumerWidget {
@@ -20,8 +21,14 @@ class ImageCarouselView<T> extends ConsumerWidget {
       spacing: 8,
       runSpacing: 8,
       children: [
-        for (final fId in filesId)
-          ThumbnailView(key: ValueKey(fId), fileId: fId, size: thumbSize),
+        for (final (i, fId) in filesId.indexed)
+          ThumbnailView(
+            key: ValueKey(fId),
+            fileId: fId,
+            size: thumbSize,
+            onTap: () =>
+                showImageGallery(context, images: filesId, initialIndex: i),
+          ),
       ],
     );
   }

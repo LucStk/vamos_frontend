@@ -13,6 +13,7 @@ input AttachFileInput {
   targetType: FileTargetTypeEnum!
   targetId: ID!
   fileId: ID!
+  caption: String! = ""
 }
 
 type BoundsType {
@@ -101,6 +102,7 @@ type ElevationPointType {
 type FileAttachmentType {
   order: Int!
   isCover: Boolean!
+  caption: String!
   file: StoredFileType!
 }
 
@@ -198,6 +200,7 @@ type Mutation {
   recomputeRouteInsights(tripId: UUID!): RouteInsightsType
   detachFile(id: UUID!): Boolean!
   attachFile(input: AttachFileInput!): FileAttachmentType!
+  setFileCaption(fileId: UUID!, caption: String!): FileAttachmentType!
   reorderFiles(input: ReorderFilesInput!): [FileAttachmentType!]!
   generateImageUploadUrl(input: ImageUploadRequest!): UploadConfigType!
   setStay(waypointId: UUID!, nights: Int! = 1): WaypointType!

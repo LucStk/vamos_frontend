@@ -227,3 +227,57 @@ class GReorderFilesData {
     return 'GReorderFilesData(reorderFiles: $reorderFiles, G__typename: $G__typename)';
   }
 }
+
+class GSetFileCaptionData {
+  const GSetFileCaptionData({
+    required this.setFileCaption,
+    this.G__typename = 'Mutation',
+  });
+
+  factory GSetFileCaptionData.fromJson(Map<String, dynamic> json) {
+    return GSetFileCaptionData(
+      setFileCaption: _i1.GFileAttachmentData.fromJson(
+          (json['setFileCaption'] as Map<String, dynamic>)),
+      G__typename: (json['__typename'] as String),
+    );
+  }
+
+  final _i1.GFileAttachmentData setFileCaption;
+
+  final String G__typename;
+
+  Map<String, dynamic> toJson() {
+    final _$result = <String, dynamic>{};
+    _$result['setFileCaption'] = this.setFileCaption.toJson();
+    _$result['__typename'] = this.G__typename;
+    return _$result;
+  }
+
+  GSetFileCaptionData copyWith({
+    _i1.GFileAttachmentData? setFileCaption,
+    String? G__typename,
+  }) {
+    return GSetFileCaptionData(
+      setFileCaption: setFileCaption ?? this.setFileCaption,
+      G__typename: G__typename ?? this.G__typename,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is GSetFileCaptionData &&
+            setFileCaption == other.setFileCaption &&
+            G__typename == other.G__typename);
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, setFileCaption, G__typename);
+  }
+
+  @override
+  String toString() {
+    return 'GSetFileCaptionData(setFileCaption: $setFileCaption, G__typename: $G__typename)';
+  }
+}

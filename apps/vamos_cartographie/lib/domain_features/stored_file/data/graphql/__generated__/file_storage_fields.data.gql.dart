@@ -89,6 +89,7 @@ class GStoredFileData implements GStoredFile {
 abstract class GFileAttachment {
   int get order;
   bool get isCover;
+  String get caption;
   GStoredFile get file;
   String get G__typename;
 }
@@ -97,6 +98,7 @@ class GFileAttachmentData implements GFileAttachment {
   const GFileAttachmentData({
     required this.order,
     required this.isCover,
+    required this.caption,
     required this.file,
     this.G__typename = 'FileAttachmentType',
   });
@@ -105,6 +107,7 @@ class GFileAttachmentData implements GFileAttachment {
     return GFileAttachmentData(
       order: (json['order'] as int),
       isCover: (json['isCover'] as bool),
+      caption: (json['caption'] as String),
       file: GStoredFileData.fromJson((json['file'] as Map<String, dynamic>)),
       G__typename: (json['__typename'] as String),
     );
@@ -114,6 +117,8 @@ class GFileAttachmentData implements GFileAttachment {
 
   final bool isCover;
 
+  final String caption;
+
   final GStoredFileData file;
 
   final String G__typename;
@@ -122,6 +127,7 @@ class GFileAttachmentData implements GFileAttachment {
     final _$result = <String, dynamic>{};
     _$result['order'] = this.order;
     _$result['isCover'] = this.isCover;
+    _$result['caption'] = this.caption;
     _$result['file'] = this.file.toJson();
     _$result['__typename'] = this.G__typename;
     return _$result;
@@ -130,12 +136,14 @@ class GFileAttachmentData implements GFileAttachment {
   GFileAttachmentData copyWith({
     int? order,
     bool? isCover,
+    String? caption,
     GStoredFileData? file,
     String? G__typename,
   }) {
     return GFileAttachmentData(
       order: order ?? this.order,
       isCover: isCover ?? this.isCover,
+      caption: caption ?? this.caption,
       file: file ?? this.file,
       G__typename: G__typename ?? this.G__typename,
     );
@@ -147,18 +155,19 @@ class GFileAttachmentData implements GFileAttachment {
         (other is GFileAttachmentData &&
             order == other.order &&
             isCover == other.isCover &&
+            caption == other.caption &&
             file == other.file &&
             G__typename == other.G__typename);
   }
 
   @override
   int get hashCode {
-    return Object.hash(runtimeType, order, isCover, file, G__typename);
+    return Object.hash(runtimeType, order, isCover, caption, file, G__typename);
   }
 
   @override
   String toString() {
-    return 'GFileAttachmentData(order: $order, isCover: $isCover, file: $file, G__typename: $G__typename)';
+    return 'GFileAttachmentData(order: $order, isCover: $isCover, caption: $caption, file: $file, G__typename: $G__typename)';
   }
 }
 

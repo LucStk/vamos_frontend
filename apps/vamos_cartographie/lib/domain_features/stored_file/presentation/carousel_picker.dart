@@ -1,15 +1,20 @@
 import 'package:domain_core/domain_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:reorderable_grid/reorderable_grid.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import '/domain_features/stored_file/injection/injection.dart';
 import 'package:vamos_cartographie/app_services/app_services.dart';
+import 'image_gallery.dart';
 import 'widgets/widgets.dart';
 import "thumbnail_picker.dart";
 
-/// Les images d'un propriétaire, à ajouter, supprimer et **ordonner** : un
-/// appui long sur une image la détache, qu'on dépose avant une autre (ou après
-/// la dernière, sur le bouton d'ajout). La première sert de couverture.
+/// Les images d'un propriétaire, à ajouter, supprimer et **ordonner** : on
+/// saisit la poignée d'une image et on la glisse tout de suite, sans appui
+/// long ; les autres s'écartent pour lui faire place. La première sert de
+/// couverture. Toucher une image l'ouvre en grand, pour la retoucher ou la
+/// légender.
 class ImageCarouselPicker<T> extends ConsumerWidget {
   final Id<T> id;
   final TargetType ownerType;
@@ -20,28 +25,23 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
     required this.ownerType,
   });
 
-  /// [ids] où [dragged] est replacé juste avant [before] (à la fin si null).
-  static List<StoredFileId> moved(
-    List<StoredFileId> ids,
-    StoredFileId dragged,
-    StoredFileId? before,
-  ) {
-    final list = [...ids]..remove(dragged);
-    final at = before == null ? list.length : list.indexOf(before);
-    list.insert(at < 0 ? list.length : at, dragged);
-    return list;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final store = ref.watch(storedFileStoreProvider);
     final notifier = ref.watch(storedFileStoreProvider.notifier);
     final filesId = store.getFromOwner(id);
 
-    void drop(StoredFileId dragged, StoredFileId? before) {
-      if (dragged == before) return;
-      final next = moved(filesId, dragged, before);
-      if (next.indexed.every((e) => e.$2 == filesId[e.$1])) return;
+    // Une image en cours d'envoi n'existe pas encore côté serveur : on ne la
+    // déplace pas.
+    bool uploaded(StoredFileId fileId) =>
+        store.get(fileId)?.isPendingCreation == false;
+
+    void reorder(int from, int to) {
+      // Le « + » reste en dernier : on ne peut pas passer derrière.
+      final target = to > filesId.length - 1 ? filesId.length - 1 : to;
+      if (from == target) return;
+      final next = [...filesId];
+      next.insert(target, next.removeAt(from));
       notifier.reorderFiles(
         targetId: id,
         targetType: ownerType,
@@ -49,96 +49,131 @@ class ImageCarouselPicker<T> extends ConsumerWidget {
       );
     }
 
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        for (final fId in filesId)
-          _DraggableThumb(
-            fileId: fId,
-            size: thumbSize,
-            onDrop: (dragged) => drop(dragged, fId),
-          ),
+    Future<void> add() async {
+      final listFile = await pickImages();
+      for (final file in listFile) {
+        notifier.uploadFile(file: file, targetId: id, targetType: ownerType);
+      }
+    }
 
-        // Déposer ici : en dernier.
-        DragTarget<StoredFileId>(
-          onWillAcceptWithDetails: (_) => true,
-          onAcceptWithDetails: (d) => drop(d.data, null),
-          builder: (context, candidates, _) => GestureDetector(
-            onTap: () async {
-              final listFile = await pickImages();
-              for (final file in listFile) {
-                notifier.uploadFile(
-                  file: file,
-                  targetId: id,
-                  targetType: ownerType,
-                );
-              }
-            },
-            child: ThumbnailButtonAdd(size: thumbSize),
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ReorderableGridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: thumbSize,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
           ),
+          itemCount: filesId.length + 1,
+          // Seule la poignée saisit : le reste de la vignette garde le
+          // défilement de la fiche et le toucher.
+          buildDefaultDragHandles: false,
+          itemDragEnable: (i) => i < filesId.length && uploaded(filesId[i]),
+          onReorderStart: (_) => HapticFeedback.selectionClick(),
+          onReorder: reorder,
+          proxyDecorator: _lifted,
+          itemBuilder: (context, i) {
+            if (i == filesId.length) {
+              return GestureDetector(
+                key: const ValueKey('add_image'),
+                onTap: add,
+                child: ThumbnailButtonAdd(size: thumbSize),
+              );
+            }
+
+            final fileId = filesId[i];
+            return ThumbnailPicker(
+              key: ValueKey(fileId),
+              fileId: fileId,
+              size: thumbSize,
+              isCover: i == 0,
+              onTap: () => showImageGallery(
+                context,
+                images: filesId,
+                initialIndex: i,
+                ownerId: id,
+                ownerType: ownerType,
+              ),
+              dragHandle: filesId.length > 1 && uploaded(fileId)
+                  ? ReorderableGridDragStartListener(
+                      index: i,
+                      child: const _DragHandle(),
+                    )
+                  : null,
+            );
+          },
         ),
+        if (filesId.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Text(
+            filesId.length > 1
+                ? 'Glissez la poignée d\'une photo pour la déplacer ; la '
+                      'première sert de couverture. Touchez une photo pour la '
+                      'retoucher ou la légender.'
+                : 'Touchez la photo pour la retoucher ou la légender.',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
       ],
+    );
+  }
+
+  /// L'image saisie se soulève : plus grande, avec une ombre.
+  static Widget _lifted(Widget child, int index, Animation<double> animation) {
+    return AnimatedBuilder(
+      animation: animation,
+      child: child,
+      builder: (context, child) {
+        final t = Curves.easeOut.transform(animation.value);
+        return Transform.scale(
+          scale: 1 + 0.1 * t,
+          child: Material(
+            elevation: 8 * t,
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+            child: child,
+          ),
+        );
+      },
     );
   }
 }
 
-/// Une image qu'on peut saisir (appui long) et sur laquelle on peut en
-/// déposer une autre : elle passe alors devant.
-class _DraggableThumb extends ConsumerWidget {
-  const _DraggableThumb({
-    required this.fileId,
-    required this.size,
-    required this.onDrop,
-  });
-
-  final StoredFileId fileId;
-  final double size;
-  final ValueChanged<StoredFileId> onDrop;
+/// La prise de l'image : une zone de 40 px, plus facile à saisir que l'icône.
+class _DragHandle extends StatelessWidget {
+  const _DragHandle();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Une image en cours d'envoi n'existe pas encore côté serveur.
-    final uploaded = !ref.watch(
-      storedFileNodeProvider(fileId).select((n) => n.isPendingCreation),
-    );
-    final thumb = ThumbnailPicker(fileId: fileId, size: size);
-    final scheme = Theme.of(context).colorScheme;
-
-    return DragTarget<StoredFileId>(
-      onWillAcceptWithDetails: (d) => d.data != fileId,
-      onAcceptWithDetails: (d) => onDrop(d.data),
-      builder: (context, candidates, _) => Stack(
-        clipBehavior: Clip.none,
-        children: [
-          LongPressDraggable<StoredFileId>(
-            data: fileId,
-            maxSimultaneousDrags: uploaded ? 1 : 0,
-            delay: const Duration(milliseconds: 180),
-            feedback: Material(
-              elevation: 6,
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(8),
-              child: Opacity(opacity: 0.9, child: thumb),
-            ),
-            childWhenDragging: Opacity(opacity: 0.3, child: thumb),
-            child: thumb,
-          ),
-          // Repère d'insertion : la place que prendra l'image déposée.
-          if (candidates.isNotEmpty)
-            Positioned(
-              left: -6,
-              top: 0,
-              bottom: 0,
-              child: Container(
-                width: 3,
-                decoration: BoxDecoration(
-                  color: scheme.primary,
-                  borderRadius: BorderRadius.circular(2),
-                ),
+  Widget build(BuildContext context) {
+    return const MouseRegion(
+      cursor: SystemMouseCursors.grab,
+      child: SizedBox(
+        width: 40,
+        height: 40,
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: EdgeInsets.all(4),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.all(Radius.circular(6)),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(3),
+                child: Icon(Icons.drag_indicator, color: Colors.white, size: 16),
               ),
             ),
-        ],
+          ),
+        ),
       ),
     );
   }

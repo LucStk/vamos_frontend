@@ -26,6 +26,10 @@ abstract class StoredFileRepository {
   Future<Either<Failure, StoredFileRemoteModel>> attachFile(
     Id ownerId,
     TargetType ownerType,
-    StoredFileId fileId,
-  );
+    StoredFileId fileId, {
+    String caption = '',
+  });
+
+  /// Légende de [fileId] ; vide pour l'effacer.
+  Future<Either<Failure, void>> setCaption(StoredFileId fileId, String caption);
 }

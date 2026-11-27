@@ -10,6 +10,9 @@ sealed class StoredFileFields implements HasId {
   @override
   Id<StoredFileFields> get id;
   bool get hasError;
+
+  /// Légende affichée en plein écran ; vide si aucune.
+  String get caption;
 }
 
 typedef StoredFileId = Id<StoredFileFields>;
@@ -22,6 +25,7 @@ abstract class StoredFileRemoteModel
     required StoredFileId id,
     required String filename,
     required String url,
+    @Default('') String caption,
   }) = _StoredFileRemoteModel;
 
   const StoredFileRemoteModel._();
@@ -49,6 +53,10 @@ abstract class StoredFilePatchModel
 
   @override
   bool get hasError => status == UploadStatus.failure;
+
+  /// Une image qui part n'est pas encore attachée : elle n'a pas de légende.
+  @override
+  String get caption => '';
 
   factory StoredFilePatchModel({
     StoredFileId? id,

@@ -48,12 +48,39 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     }, (_) => null);
   }
 
+  /// Légende de [id], tout de suite à l'écran puis côté serveur. En cas
+  /// d'échec, l'ancienne revient. Sans effet sur une image encore en envoi.
+  Future<Failure?> setCaption({
+    required StoredFileId id,
+    required String caption,
+  }) async {
+    final before = state.get(id)?.current;
+    if (before is! StoredFileRemoteModel) return null;
+
+    final text = caption.trim();
+    if (text == before.caption) return null;
+
+    state = state.setNode(before.copyWith(caption: text));
+    final res = await storedFileRepo.setCaption(id, text);
+    return res.fold((Failure f) {
+      errorLogger?.logError(f, StackTrace.current);
+      state = state.setNode(before);
+      return f;
+    }, (_) => null);
+  }
+
   Future<Failure?> attachFile({
     required Id targetId,
     required TargetType targetType,
     required StoredFileId fileId,
+    String caption = '',
   }) async {
-    final res = await storedFileRepo.attachFile(targetId, targetType, fileId);
+    final res = await storedFileRepo.attachFile(
+      targetId,
+      targetType,
+      fileId,
+      caption: caption,
+    );
     return res.fold(
       (Failure f) {
         errorLogger?.logError(f, StackTrace.current);
@@ -72,11 +99,20 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
     );
   }
 
+  /// Envoie [file] et l'attache à [targetId].
+  ///
+  /// Avec [replacing] (image retouchée), la nouvelle prend la place et la
+  /// légende de l'ancienne, qui est ensuite supprimée. Si l'envoi échoue,
+  /// l'ancienne reste telle quelle.
   Future<Failure?> uploadFile<T>({
     required Id targetId,
     required TargetType targetType,
     required File file,
+    StoredFileId? replacing,
   }) async {
+    final caption = replacing == null
+        ? ''
+        : state.get(replacing)?.current.caption ?? '';
     final uploadConf = await uploadService.requestSignedUrl(file);
 
     return uploadConf.fold(
@@ -103,11 +139,30 @@ mixin StoredFileEditor on OptimisticRunner<StoredFileStore> {
           return putRes;
         }
 
-        return await attachFile(
+        final attached = await attachFile(
           targetId: targetId,
           targetType: targetType,
           fileId: config.file.id,
+          caption: caption,
         );
+        if (attached != null || replacing == null) return attached;
+
+        // Le serveur place l'image attachée en dernier : elle prend la place
+        // de l'ancienne avant que celle-ci ne parte.
+        final newId = config.file.id;
+        final swapped = [
+          for (final id in state.getFromOwner(targetId))
+            if (id == replacing) newId else if (id != newId) id,
+        ];
+        final reordered = await reorderFiles(
+          targetId: targetId,
+          targetType: targetType,
+          orderedIds: swapped,
+        );
+        if (reordered != null) return reordered;
+
+        final deleted = await deleteFile(id: replacing);
+        return deleted.fold((Failure f) => f, (_) => null);
       },
     );
   }

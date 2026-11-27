@@ -20,3 +20,9 @@ mutation ReorderFiles($input: ReorderFilesInput!) {
         ...FileAttachment
     }
 }
+
+mutation SetFileCaption($fileId: UUID!, $caption: String!) {
+    setFileCaption(fileId: $fileId, caption: $caption) {
+        ...FileAttachment
+    }
+}

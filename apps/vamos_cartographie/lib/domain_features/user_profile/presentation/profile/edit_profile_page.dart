@@ -58,8 +58,15 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
       return;
     }
 
+    // Recadrer, tourner : quitter l'éditeur garde la photo choisie telle quelle.
+    final edited = await editImage(context, file: file);
+
+    if (!mounted) {
+      return;
+    }
+
     setState(() {
-      _selectedProfilePicture = file;
+      _selectedProfilePicture = edited ?? file;
       _errorMessage = null;
     });
   }

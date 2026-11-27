@@ -12,6 +12,7 @@ class GAttachFileInput {
     required this.targetType,
     required this.targetId,
     required this.fileId,
+    required this.caption,
   });
 
   factory GAttachFileInput.fromJson(Map<String, dynamic> json) {
@@ -19,6 +20,7 @@ class GAttachFileInput {
       targetType: GFileTargetTypeEnum.fromJson((json['targetType'] as String)),
       targetId: (json['targetId'] as String),
       fileId: (json['fileId'] as String),
+      caption: (json['caption'] as String),
     );
   }
 
@@ -28,6 +30,8 @@ class GAttachFileInput {
 
   final String fileId;
 
+  final String caption;
+
   Map<String, dynamic> toJson() {
     final _$result = <String, dynamic>{};
     final _$targetTypeValue = this.targetType;
@@ -36,6 +40,8 @@ class GAttachFileInput {
     _$result['targetId'] = _$targetIdValue;
     final _$fileIdValue = this.fileId;
     _$result['fileId'] = _$fileIdValue;
+    final _$captionValue = this.caption;
+    _$result['caption'] = _$captionValue;
     return _$result;
   }
 
@@ -43,11 +49,13 @@ class GAttachFileInput {
     GFileTargetTypeEnum? targetType,
     String? targetId,
     String? fileId,
+    String? caption,
   }) {
     return GAttachFileInput(
       targetType: targetType ?? this.targetType,
       targetId: targetId ?? this.targetId,
       fileId: fileId ?? this.fileId,
+      caption: caption ?? this.caption,
     );
   }
 
@@ -65,7 +73,7 @@ class GAttachFileInput {
 
   @override
   String toString() {
-    return 'GAttachFileInput(targetType: $targetType, targetId: $targetId, fileId: $fileId)';
+    return 'GAttachFileInput(targetType: $targetType, targetId: $targetId, fileId: $fileId, caption: $caption)';
   }
 }
 
