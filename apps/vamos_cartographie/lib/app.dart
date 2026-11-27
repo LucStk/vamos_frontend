@@ -1,7 +1,10 @@
 import 'dart:ui';
 
-import 'package:flutter_localizations/flutter_localizations.dart'
-    hide GlobalMaterialLocalizations;
+// material_ui expose aussi un GlobalMaterialLocalizations, qui ne connaît pas
+// fr_FR : masqué comme ici, il ne fournissait AUCUN MaterialLocalizations à
+// l'app en français, et les widgets Material (ReorderableGridView…) levaient
+// « No MaterialLocalizations found ». On préfixe pour prendre ceux de Flutter.
+import 'package:flutter_localizations/flutter_localizations.dart' as l10n;
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/app_services/connectivity/presentation/backend_health_banner.dart';
@@ -21,9 +24,9 @@ class CartographieApp extends ConsumerWidget {
       title: 'Vamos Cartographie',
       theme: AppTheme.light(),
       localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        l10n.GlobalMaterialLocalizations.delegate,
+        l10n.GlobalWidgetsLocalizations.delegate,
+        l10n.GlobalCupertinoLocalizations.delegate,
       ],
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
