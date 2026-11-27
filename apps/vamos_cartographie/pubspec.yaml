@@ -38,7 +38,7 @@ dependencies:
   flutter_map_dragmarker: ^8.0.3
   flutter_map_line_editor: ^8.0.0
   image_picker: ^1.2.2
-  pro_image_editor: ^13.2.3
+  pro_image_editor: ^14.29.1
   reorderable_grid: ^1.0.13
   file_selector: ^1.1.0
   dartz: ^0.10.1
@@ -69,6 +69,7 @@ dependencies:
   stack_trace: ^1.12.2
   flutter_map_vector_tiles: ^2.11.0
   flutter_map_animations: ^0.11.0
+  material_ui: ^1.11.1
 
 dev_dependencies:
   test: ^1.30.0
