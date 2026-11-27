@@ -1,5 +1,5 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'package:map_engine/map_engine.dart';
 import 'package:map_canvas/map_canvas.dart';

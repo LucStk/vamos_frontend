@@ -1,5 +1,5 @@
 // ui_kit/layouts/app_page_scaffold.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'app_back_button.dart';
 
 class AppPageScaffold extends StatelessWidget {

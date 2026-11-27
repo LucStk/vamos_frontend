@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// En-tête d'un [InfoDialog] qui n'est pas au sommet de la hiérarchie : une
 /// flèche pour remonter d'un niveau (morceau → jour, waypoint → jour), un

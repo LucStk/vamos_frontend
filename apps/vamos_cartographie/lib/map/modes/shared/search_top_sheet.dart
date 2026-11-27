@@ -9,7 +9,7 @@ import 'package:vamos_cartographie/map/engine/mode_machine.dart';
 import 'package:vamos_cartographie/map/modes/shared/search_panel.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_button.dart';
 import 'package:vamos_cartographie/map/ui/chrome/account_panel.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Les deux boutons du haut de la carte, collés en haut à gauche : le compte
 /// (qui déplie `AccountPanel` depuis le bord gauche) et la loupe (qui ouvre

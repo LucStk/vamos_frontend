@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/profile/profile_card.dart';

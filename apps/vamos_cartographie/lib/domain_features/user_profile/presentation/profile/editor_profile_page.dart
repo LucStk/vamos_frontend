@@ -1,5 +1,5 @@
 // domain_features/user_profile/presentation/profile/profile_page.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';

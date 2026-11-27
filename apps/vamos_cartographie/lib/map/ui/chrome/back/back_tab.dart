@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vamos_cartographie/map/ui/chrome/bar_tab.dart';
 
 /// Onglet « Retour » pour la barre de la sheet (`barLeading`).

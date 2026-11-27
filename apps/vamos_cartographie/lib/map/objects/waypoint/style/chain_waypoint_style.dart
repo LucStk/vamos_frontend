@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; // réexporte déjà flutter/painting.dart
+import 'package:material_ui/material_ui.dart'; // réexporte déjà flutter/painting.dart
 import 'package:map_canvas/map_canvas.dart';
 
 abstract final class ChainWaypointStyle {

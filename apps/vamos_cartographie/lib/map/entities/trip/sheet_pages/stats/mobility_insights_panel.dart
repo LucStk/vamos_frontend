@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/route_insights_provider.dart';
@@ -70,8 +70,7 @@ class _MobilityInsightsPanelState extends ConsumerState<MobilityInsightsPanel> {
         action: _RecomputeButton(
           label: 'Réessayer',
           busy: false,
-          onPressed: () =>
-              ref.invalidate(routeInsightsProvider(widget.tripId)),
+          onPressed: () => ref.invalidate(routeInsightsProvider(widget.tripId)),
         ),
       ),
       data: (insights) {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vamos_cartographie/map/ui/chrome/bar_tab.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';

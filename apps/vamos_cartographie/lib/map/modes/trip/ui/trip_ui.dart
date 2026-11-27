@@ -1,5 +1,5 @@
 // On passe en StatefulConsumerWidget pour pouvoir stocker l'état "isAtMin"
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
@@ -261,9 +261,7 @@ class _TripReadyUiState extends ConsumerState<TripReadyUi> {
           key: ValueKey('title_${mode.tripId}'),
           tripId: mode.tripId,
           // Passe sous la barre d'auteur quand il y en a une.
-          topOffset: hideChrome || !mode.readOnly
-              ? 0
-              : TripAuthorBar.clearance,
+          topOffset: hideChrome || !mode.readOnly ? 0 : TripAuthorBar.clearance,
         ),
       ],
     );

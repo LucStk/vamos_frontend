@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 export "dialog_errors_body.dart";
 export "dialog_loading_body.dart";
 

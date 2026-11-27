@@ -1,7 +1,7 @@
 // app_services/connectivity/presentation/backend_health_banner.dart
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vamos_cartographie/core/network/backend_health.dart';
 
 /// Pose [BackendOfflineBadge] par-dessus [child], sans rien intercepter :

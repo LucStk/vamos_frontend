@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stat_item.dart';
 
@@ -104,7 +104,10 @@ class _ElevationPainter extends CustomPainter {
         ..shader = LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [color.withValues(alpha: 0.45), color.withValues(alpha: 0.05)],
+          colors: [
+            color.withValues(alpha: 0.45),
+            color.withValues(alpha: 0.05),
+          ],
         ).createShader(plot),
     );
     canvas.drawPath(

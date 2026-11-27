@@ -1,5 +1,5 @@
 // features/map/presentation/screens/map_page.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_discovery_provider.dart';

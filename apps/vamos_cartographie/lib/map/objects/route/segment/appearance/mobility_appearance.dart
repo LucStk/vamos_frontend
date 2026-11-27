@@ -1,6 +1,6 @@
 // lib/map/objects/route/segment/appearance/mobility_appearance.dart
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:map_canvas/map_canvas.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/presentation/mobility_type_display.dart';

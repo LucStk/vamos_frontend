@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Une statistique affichable : tuile dans la page compacte, ligne dans la
 /// page dépliée. Chaque entité n'a qu'à fournir sa liste de [StatItem].

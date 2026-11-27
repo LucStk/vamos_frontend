@@ -1,5 +1,5 @@
 // ui_kit/navigation/app_back_button.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 class AppBackButton extends StatelessWidget {

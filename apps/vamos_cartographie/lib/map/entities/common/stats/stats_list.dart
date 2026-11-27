@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vamos_cartographie/map/entities/common/stats/stat_item.dart';
 
 /// Page dépliée générique : toutes les stats, une par ligne.

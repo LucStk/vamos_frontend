@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Couleurs sémantiques que `ColorScheme` ne fournit pas (succès, alerte).
 ///

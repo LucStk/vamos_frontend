@@ -1,5 +1,5 @@
 import "package:domain_core/domain_core.dart";
-import "package:flutter/material.dart";
+import 'package:material_ui/material_ui.dart';
 import "package:vamos_cartographie/ui_kit/inputs/inline_editable_text.dart";
 import "package:vamos_cartographie/ui_kit/theme/theme.dart";
 

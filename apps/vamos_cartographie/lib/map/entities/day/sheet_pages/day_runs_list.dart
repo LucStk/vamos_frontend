@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:trip_application/trip_application.dart';
@@ -117,9 +117,7 @@ class DayRunsList extends ConsumerWidget {
                       for (final m in markers)
                         Positioned(
                           left:
-                              _sidePadding +
-                              m.x -
-                              _WaypointMarker.diameter / 2,
+                              _sidePadding + m.x - _WaypointMarker.diameter / 2,
                           top: 0,
                           child: _WaypointMarker(
                             waypoint: m.waypoint,
@@ -130,9 +128,7 @@ class DayRunsList extends ConsumerWidget {
                   ),
                 ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: _sidePadding,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/create_trip_card.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/presentation/trips/trip_card.dart';

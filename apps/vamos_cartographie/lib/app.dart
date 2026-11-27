@@ -1,7 +1,8 @@
 import 'dart:ui';
 
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'
+    hide GlobalMaterialLocalizations;
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/app_services/connectivity/presentation/backend_health_banner.dart';
 import 'package:vamos_cartographie/app_services/notification/presentation/notification_view.dart';

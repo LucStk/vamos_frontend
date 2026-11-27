@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stored_file_application/stored_file_application.dart';
 import 'package:vamos_cartographie/domain_features/stored_file/injection/injection.dart';

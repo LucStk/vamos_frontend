@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dart';
@@ -8,11 +8,7 @@ import 'package:vamos_cartographie/domain_features/trip/injection/trip_store.dar
 ///
 /// Il ne capte aucun geste : la carte reste utilisable dessous.
 class TripTitleBanner extends ConsumerStatefulWidget {
-  const TripTitleBanner({
-    super.key,
-    required this.tripId,
-    this.topOffset = 0,
-  });
+  const TripTitleBanner({super.key, required this.tripId, this.topOffset = 0});
 
   final TripId tripId;
 
@@ -41,12 +37,18 @@ class _TripTitleBannerState extends ConsumerState<TripTitleBanner>
   /// 0 → 1 à l'apparition, 1 pendant la pause, 1 → 0 à la sortie.
   late final Animation<double> _visibility = TweenSequence<double>([
     TweenSequenceItem(
-      tween: Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.easeOut)),
+      tween: Tween(
+        begin: 0.0,
+        end: 1.0,
+      ).chain(CurveTween(curve: Curves.easeOut)),
       weight: _fadeIn.toDouble(),
     ),
     TweenSequenceItem(tween: ConstantTween(1.0), weight: _hold.toDouble()),
     TweenSequenceItem(
-      tween: Tween(begin: 1.0, end: 0.0).chain(CurveTween(curve: Curves.easeIn)),
+      tween: Tween(
+        begin: 1.0,
+        end: 0.0,
+      ).chain(CurveTween(curve: Curves.easeIn)),
       weight: _fadeOut.toDouble(),
     ),
   ]).animate(_controller);

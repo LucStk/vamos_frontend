@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/overview/trip_overview_viewer.dart';
 import 'package:vamos_cartographie/map/entities/trip/sheet_pages/stats/trip_stats_view.dart';

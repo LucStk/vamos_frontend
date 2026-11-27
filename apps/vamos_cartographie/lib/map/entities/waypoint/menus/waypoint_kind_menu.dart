@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/waypoint/presentation/waypoint_kind_display.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/icon_choice_menu.dart';

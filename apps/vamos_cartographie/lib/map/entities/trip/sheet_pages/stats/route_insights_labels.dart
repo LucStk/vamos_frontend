@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Libellés et couleurs des catégories renvoyées par le serveur. Une clé
 /// inconnue s'affiche telle quelle : un nouveau type côté serveur ne casse rien.

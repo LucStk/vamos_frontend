@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Un emplacement, hors d'une zone qui défile, où un champ en cours d'édition
 /// peut poser ses boutons (valider / annuler) pour qu'ils restent visibles.

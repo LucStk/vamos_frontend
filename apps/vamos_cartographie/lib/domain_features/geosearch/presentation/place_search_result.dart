@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/domain/place_result.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/injection/place_search_notifier.dart';
 

@@ -1,5 +1,5 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reorderable_grid/reorderable_grid.dart';
@@ -169,7 +169,11 @@ class _DragHandle extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.all(3),
-                child: Icon(Icons.drag_indicator, color: Colors.white, size: 16),
+                child: Icon(
+                  Icons.drag_indicator,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
             ),
           ),

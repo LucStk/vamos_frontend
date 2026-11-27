@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '/routing/presentation/app_page_scaffold.dart';
 
 class AuthLayout extends StatelessWidget {

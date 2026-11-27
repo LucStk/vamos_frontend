@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
@@ -43,8 +43,7 @@ class EditSpanPanel extends ConsumerWidget {
       secondary: ToolAction(
         icon: Icons.close,
         label: draft == null ? 'Fermer' : 'Annuler',
-        onPressed: () =>
-            ref.applyTransition(mode.closeTool),
+        onPressed: () => ref.applyTransition(mode.closeTool),
       ),
       primary: const ToolAction(
         icon: Icons.check,

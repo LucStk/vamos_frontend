@@ -1,5 +1,5 @@
 // apps/vamos_cartographie/lib/domain_features/trip/presentation/mobility_type_display.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/ui_kit/ui_kit.dart';
 

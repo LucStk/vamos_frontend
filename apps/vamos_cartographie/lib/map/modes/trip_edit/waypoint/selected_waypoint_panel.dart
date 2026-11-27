@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 
@@ -7,10 +7,7 @@ import 'package:vamos_cartographie/map/ui/chrome/toolbox/tool_panel.dart';
 
 /// Panneau de l'étape sélectionnée en édition : pour l'instant, la supprimer.
 class SelectedWaypointPanel extends ConsumerWidget {
-  const SelectedWaypointPanel({
-    super.key,
-    required this.remove,
-  });
+  const SelectedWaypointPanel({super.key, required this.remove});
 
   /// Ce que fait la suppression de l'étape (propre au mode qui affiche le
   /// panneau).

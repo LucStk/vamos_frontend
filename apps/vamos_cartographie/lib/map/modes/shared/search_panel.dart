@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
 import 'package:vamos_cartographie/domain_features/geosearch/domain/place_result.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vamos_cartographie/map/ui/chrome/sheets/sheet_metrics.dart';
 import 'package:vamos_cartographie/ui_kit/inputs/pinned_actions.dart';
 
@@ -177,7 +177,10 @@ class _InfoDialogState extends State<InfoDialog> {
                                               children: [...previous, ?current],
                                             ),
                                         child: KeyedSubtree(
-                                          key: ValueKey((widget.contentKey, tab)),
+                                          key: ValueKey((
+                                            widget.contentKey,
+                                            tab,
+                                          )),
                                           child: pages[tab].child,
                                         ),
                                       ),

@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:material_ui/material_ui.dart';
 import "map_item_style.dart";
 
 class TypeSelector<T extends MapItemStyle> extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:path/path.dart' as p;
 import 'package:pro_image_editor/pro_image_editor.dart';
 
@@ -11,11 +11,7 @@ import 'package:pro_image_editor/pro_image_editor.dart';
 /// Une seule des deux sources : [file] pour une image sur l'appareil, [url]
 /// pour une image déjà envoyée. Partagé par les photos du profil, du voyage et
 /// des étapes.
-Future<File?> editImage(
-  BuildContext context, {
-  File? file,
-  String? url,
-}) async {
+Future<File?> editImage(BuildContext context, {File? file, String? url}) async {
   assert((file == null) != (url == null), 'file ou url, pas les deux');
 
   final bytes = await Navigator.of(context).push<Uint8List>(

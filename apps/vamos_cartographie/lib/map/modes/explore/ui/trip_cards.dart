@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:map_engine/map_engine.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
@@ -155,8 +155,7 @@ class _PanelState extends ConsumerState<_Panel> {
   double _listHeight(BuildContext context) =>
       MediaQuery.sizeOf(context).height * _listFraction - _barHeight;
 
-  double _committed(double listHeight) =>
-      _expanded ? listHeight : _cardsHeight;
+  double _committed(double listHeight) => _expanded ? listHeight : _cardsHeight;
 
   void _onDragUpdate(DragUpdateDetails d, double listHeight) {
     // Un geste qui reprend pendant le repli repart d'où le panneau en est.
@@ -234,8 +233,7 @@ class _PanelState extends ConsumerState<_Panel> {
     });
   }
 
-  void _enter(TripId id) =>
-      ref.applyTransition(TripMode.open(id, focus: true));
+  void _enter(TripId id) => ref.applyTransition(TripMode.open(id, focus: true));
 
   @override
   Widget build(BuildContext context) {
@@ -510,10 +508,7 @@ class _TripCard extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  TripFavoriteButton(
-                    tripId: trip.id,
-                    askVisitorToSignIn: true,
-                  ),
+                  TripFavoriteButton(tripId: trip.id, askVisitorToSignIn: true),
                 ],
               ),
               const SizedBox(height: 10),

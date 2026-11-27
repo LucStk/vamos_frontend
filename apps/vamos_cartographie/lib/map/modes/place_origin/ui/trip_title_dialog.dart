@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Demande le titre du voyage qu'on s'apprête à créer.
 ///
 /// Retourne le titre saisi, une chaîne vide si l'utilisateur passe cette
 /// étape, ou null s'il referme le dialog (la création n'a pas lieu).
-Future<String?> showTripTitleDialog(BuildContext context) =>
-    showDialog<String>(
-      context: context,
-      builder: (_) => const _TripTitleDialog(),
-    );
+Future<String?> showTripTitleDialog(BuildContext context) => showDialog<String>(
+  context: context,
+  builder: (_) => const _TripTitleDialog(),
+);
 
 class _TripTitleDialog extends StatefulWidget {
   const _TripTitleDialog();

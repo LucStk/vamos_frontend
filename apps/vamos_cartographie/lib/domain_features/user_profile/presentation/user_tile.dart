@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:user_profile_application/domain/user_profile_model.dart';
 
 /// Une ligne d'utilisateur : photo, nom et début de la biographie, et ce que

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/domain_features/auth/presentation/widgets/widgets.dart';
 import 'package:vamos_cartographie/domain_features/user_profile/providers/user_session_providers.dart';

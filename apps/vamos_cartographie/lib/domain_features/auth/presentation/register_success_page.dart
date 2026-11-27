@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vamos_cartographie/routing/routes/auth_routes.dart';
 import '/ui_kit/ui_kit.dart';
 

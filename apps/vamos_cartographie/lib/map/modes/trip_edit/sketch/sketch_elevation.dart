@@ -1,5 +1,5 @@
 import 'package:domain_core/domain_core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trip_application/trip_application.dart';
 import 'package:vamos_cartographie/domain_features/route/injection/proposal_elevation_provider.dart';

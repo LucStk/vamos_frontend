@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamos_cartographie/app_services/app_services.dart';
 import 'package:vamos_cartographie/map/ui/shared/controls/map_control_button_shell.dart';

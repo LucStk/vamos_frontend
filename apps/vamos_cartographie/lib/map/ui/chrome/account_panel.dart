@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_profile_application/domain/domain.dart';
 import 'package:vamos_cartographie/domain_features/auth/auth.dart';
@@ -488,9 +488,8 @@ class _Section extends ConsumerWidget {
         shape: const Border(),
         collapsedShape: const Border(),
         initiallyExpanded: sections?[id] ?? true,
-        onExpansionChanged: (open) => ref
-            .read(panelSectionsProvider.notifier)
-            .setOpen(id, open: open),
+        onExpansionChanged: (open) =>
+            ref.read(panelSectionsProvider.notifier).setOpen(id, open: open),
         // Le décalage du conteneur par rapport au titre.
         childrenPadding: const EdgeInsets.only(left: 16, right: 8, bottom: 8),
         leading: Icon(icon, size: 20),

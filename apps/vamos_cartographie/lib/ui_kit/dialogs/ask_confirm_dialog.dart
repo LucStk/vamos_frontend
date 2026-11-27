@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Boîte de dialogue de confirmation pour la suppression d'un voyage.
 /// Retourne `true` si l'utilisateur confirme, sinon `false` (ou `null`).

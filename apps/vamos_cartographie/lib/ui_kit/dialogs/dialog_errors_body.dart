@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class DialogErrorBody extends StatelessWidget {
   final String errorMessage;
@@ -19,10 +19,7 @@ class DialogErrorBody extends StatelessWidget {
             color: Theme.of(context).colorScheme.error,
           ),
           const SizedBox(height: 12),
-          Text(
-            errorMessage,
-            textAlign: TextAlign.center,
-          ),
+          Text(errorMessage, textAlign: TextAlign.center),
           if (onClose != null) ...[
             const SizedBox(height: 16),
             TextButton(onPressed: onClose, child: const Text('Fermer')),
