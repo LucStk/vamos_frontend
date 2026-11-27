@@ -495,11 +495,13 @@ class _Section extends ConsumerWidget {
         leading: Icon(icon, size: 20),
         title: Text(title, style: style),
         children: [
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHigh,
-              borderRadius: BorderRadius.circular(12),
-            ),
+          // Material, et non un simple fond coloré : les ListTile de la liste
+          // peignent leur fond et leurs ondes sur le Material le plus proche,
+          // qu'un DecoratedBox intercalé masquerait.
+          Material(
+            color: theme.colorScheme.surfaceContainerHigh,
+            borderRadius: BorderRadius.circular(12),
+            clipBehavior: Clip.antiAlias,
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: _maxHeight),
               child: ListView(
